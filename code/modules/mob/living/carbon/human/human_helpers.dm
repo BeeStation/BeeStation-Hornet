@@ -7,6 +7,8 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job", hand_first = TRUE)
 	var/obj/item/card/id/id = get_idcard(hand_first)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	if(id)
 		. = id.assignment
 	else
@@ -22,6 +24,8 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
 	var/obj/item/card/id/id = get_idcard(FALSE)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_id
 	if(id)
 		return id.registered_name
 	var/obj/item/modular_computer/pda = wear_id
@@ -31,10 +35,17 @@
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name()
-	var/face_name = get_face_name("")
-	var/id_name = get_id_name("")
-	if(name_override)
-		return name_override
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
+	var/list/identity = list(null, null, null)
+	SEND_SIGNAL(src, COMSIG_HUMAN_GET_VISIBLE_NAME, identity)
+	var/signal_face = LAZYACCESS(identity, VISIBLE_NAME_FACE)
+	var/signal_id = LAZYACCESS(identity, VISIBLE_NAME_ID)
+	var/force_set = LAZYACCESS(identity, VISIBLE_NAME_FORCED)
+	if(force_set) // our name is overriden by something
+		return signal_face // no need to null-check, because force_set will always set a signal_face
+	var/face_name = !isnull(signal_face) ? signal_face : get_face_name("")
+	var/id_name = !isnull(signal_id) ? signal_id : get_id_name("")
 	if(face_name)
 		if(id_name && (id_name != face_name))
 			return "[face_name] (as [id_name])"
@@ -45,6 +56,8 @@
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return if_no_face //We're Unknown, no face information for you
 	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
 		return if_no_face
 	if( head && (head.flags_inv&HIDEFACE) )
@@ -60,6 +73,13 @@
 	var/obj/item/storage/wallet/wallet = wear_id
 	var/obj/item/modular_computer/tablet/tablet = wear_id
 	var/obj/item/card/id/id = wear_id
+	var/list/identity = list(null, null, null)
+	SEND_SIGNAL(src, COMSIG_HUMAN_GET_FORCED_NAME, identity)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		. = if_no_id //You get NOTHING, no id name, good day sir
+		if(identity[VISIBLE_NAME_FORCED])
+			. = identity[VISIBLE_NAME_FACE] // to return forced names when unknown, instead of ID
+			return
 	if(istype(wallet))
 		id = wallet.front_id
 	if(istype(id))
@@ -193,41 +213,20 @@
 	else
 		return null
 
-/mob/living/carbon/human/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED))
-		return FALSE
-	return TRUE//Humans can use guns and such
-
-/mob/living/carbon/human/reagent_check(datum/reagent/R)
-	return dna.species.handle_chemicals(R,src)
+/mob/living/carbon/human/reagent_check(datum/reagent/R, delta_time, times_fired)
+	return dna.species.handle_chemicals(R, src, delta_time, times_fired)
 	// if it returns 0, it will run the usual on_mob_life for that reagent. otherwise, it will stop after running handle_chemicals for the species.
-
-
-/mob/living/carbon/human/can_track(mob/living/user)
-	if(wear_id && istype(wear_id.GetID(), /obj/item/card/id/syndicate))
-		return FALSE
-	if(istype(head, /obj/item/clothing/head))
-		var/obj/item/clothing/head/hat = head
-		if(hat.blockTracking)
-			return FALSE
-
-	return ..()
 
 /mob/living/carbon/human/can_use_guns(obj/item/G)
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(src.dna.check_mutation(HULK))
+		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return FALSE
 		if(HAS_TRAIT(src, TRAIT_NOGUNS))
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
+			to_chat(src, "<span class='warning'>You can't bring yourself to use a ranged weapon!</span>")
 			return FALSE
-	if(mind)
-		if(mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-			to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
-			return FALSE
-
 	return .
 
 /mob/living/carbon/human/proc/get_bank_account()
@@ -241,27 +240,14 @@
 
 	return FALSE
 
-/mob/living/carbon/human/can_see_reagents()
-	. = ..()
-	if(.) //No need to run through all of this if it's already true.
+/mob/living/carbon/human/proc/get_job_id() //Used in secHUD icon generation (the new one)
+	var/obj/item/card/id/I = wear_id.GetID()
+	if(!I)
 		return
-	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_REAGENTS))
-		return TRUE
-	if(isclothing(head) && (head.clothing_flags & SCAN_REAGENTS))
-		return TRUE
-	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_REAGENTS))
-		return TRUE
-
-/mob/living/carbon/human/can_see_boozepower()
-	. = ..()
-	if(.)
-		return
-	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_BOOZEPOWER))
-		return TRUE
-	if(isclothing(head) && (head.clothing_flags & SCAN_BOOZEPOWER))
-		return TRUE
-	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_BOOZEPOWER))
-		return TRUE
+	var/I_hud = I.hud_state
+	if(I_hud)
+		return I_hud
+	return "unknown"
 
 ///copies over clothing preferences like underwear to another human
 /mob/living/carbon/human/proc/copy_clothing_prefs(mob/living/carbon/human/destination)

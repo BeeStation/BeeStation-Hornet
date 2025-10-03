@@ -36,12 +36,12 @@
 		return
 	if(layer == initial(layer))
 		layer = ABOVE_MOB_LAYER
-		to_chat(user, "<span class='notice'>You cover yourself with [src].</span>")
+		to_chat(user, span_notice("You cover yourself with [src]."))
 		pixel_x = 0
 		pixel_y = 0
 	else
 		layer = initial(layer)
-		to_chat(user, "<span class='notice'>You smooth [src] out beneath you.</span>")
+		to_chat(user, span_notice("You smooth [src] out beneath you."))
 	add_fingerprint(user)
 	return
 
@@ -55,7 +55,7 @@
 			transfer_fingerprints_to(C)
 			C.add_fingerprint(user)
 		qdel(src)
-		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		to_chat(user, span_notice("You tear [src] up."))
 	else
 		return ..()
 
@@ -300,7 +300,7 @@
 	icon_state = "double_sheetwhite"
 	dying_key = DYE_REGISTRY_DOUBLE_BEDSHEET
 
-/obj/item/bedsheet/double/Initialize()
+/obj/item/bedsheet/double/Initialize(mapload)
 	. = ..()
 	desc += " This one is double."
 
@@ -498,7 +498,7 @@
 	desc = "If you're reading this description ingame, something has gone wrong twice! Honk!"
 	item_flags = ABSTRACT
 
-/obj/item/bedsheet/double/random/Initialize()
+/obj/item/bedsheet/double/random/Initialize(mapload)
 	..()
 	var/type = pick(typesof(/obj/item/bedsheet/double) - /obj/item/bedsheet/double/random)
 	new type(loc)
@@ -510,7 +510,7 @@
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
 	item_flags = ABSTRACT
 
-/obj/item/bedsheet/double/dorms/Initialize()
+/obj/item/bedsheet/double/dorms/Initialize(mapload)
 	..()
 	var/type = pick_weight(list("Colors" = 80, "Special" = 20))
 	switch(type)

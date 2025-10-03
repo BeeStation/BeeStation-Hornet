@@ -13,7 +13,7 @@
 		return ELEMENT_INCOMPATIBLE
 	SEND_SIGNAL(target, COMSIG_ELEMENT_ATTACH, src)
 	if(element_flags & ELEMENT_DETACH)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(Detach), override = TRUE)
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(Detach), override = TRUE)
 		/*
 		The override = TRUE here is to suppress runtimes happening because of the blood decal element
 		being applied multiple times to a same thing every time there is some bloody attacks,
@@ -22,17 +22,13 @@
 		way to determine whether a datum has this particular element before adding it...
 		*/
 
-/datum/element/proc/OnTargetDelete(datum/source, force)
-	SIGNAL_HANDLER
-	Detach(source)
-
 /// Deactivates the functionality defines by the element on the given datum
 /datum/element/proc/Detach(datum/source, ...)
 	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
 
 	SEND_SIGNAL(source, COMSIG_ELEMENT_DETACH, src)
-	SHOULD_CALL_PARENT(TRUE)
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /datum/element/Destroy(force)
 	if(!force)

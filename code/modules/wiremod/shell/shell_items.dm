@@ -11,11 +11,11 @@
 	var/screw_delay = 3 SECONDS
 
 /obj/item/shell/screwdriver_act(mob/living/user, obj/item/tool)
-	user.visible_message("<span class='notice'>[user] begins finishing [src].</span>", "<span class='notice'>You begin finishing [src].</span>")
+	user.visible_message(span_notice("[user] begins finishing [src]."), span_notice("You begin finishing [src]."))
 	tool.play_tool_sound(src)
 	if(!do_after(user, screw_delay, target = src))
 		return
-	user.visible_message("<span class='notice'>[user] finishes [src].</span>", "<span class='notice'>You finish [src].</span>")
+	user.visible_message(span_notice("[user] finishes [src]."), span_notice("You finish [src]."))
 
 	var/turf/drop_loc = drop_location()
 
@@ -50,7 +50,7 @@
 	screw_delay = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/shell/server/ComponentInitialize()
+/obj/item/shell/server/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 
@@ -62,7 +62,7 @@
 	screw_delay = 10 SECONDS
 	w_class = WEIGHT_CLASS_GIGANTIC
 
-/obj/item/shell/airlock/ComponentInitialize()
+/obj/item/shell/airlock/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE) // that you even are allowed to carry around an airlock frame is weird.
 

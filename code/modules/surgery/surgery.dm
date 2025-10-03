@@ -3,7 +3,7 @@
 	var/desc = "surgery description"
 	var/status = 1
 	var/list/steps = list()											//Steps in a surgery
-	var/step_in_progress = FALSE									//Actively performing a Surgery
+	var/step_in_progress = FALSE //Actively performing a Surgery
 	var/can_cancel = TRUE											//Can cancel this surgery after step 1 with cautery
 	var/list/target_mobtypes = list(/mob/living/carbon/human)		//Acceptable Species
 	var/location = BODY_ZONE_CHEST									//Surgery location
@@ -20,20 +20,22 @@
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
-	var/abductor_surgery_blacklist = FALSE
 	//Blacklisted surgeries aren't innately known by Abductor Scientists
 	//However, they can still be used by them if they meet the normal requirements to access the surgery
+	var/abductor_surgery_blacklist = FALSE
 
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
-	if(surgery_target)
-		target = surgery_target
-		target.surgeries += src
-		if(surgery_location)
-			location = surgery_location
-		if(surgery_bodypart)
-			operated_bodypart = surgery_bodypart
+	if(!surgery_target)
+		return
+	target = surgery_target
+	target.surgeries += src
+	if(surgery_location)
+		location = surgery_location
+	if(!surgery_bodypart)
+		return
+	operated_bodypart = surgery_bodypart
 
 /datum/surgery/Destroy()
 	if(target)
@@ -43,19 +45,19 @@
 	return ..()
 
 
-/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target, target_zone) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/patient) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+	if(HAS_MIND_TRAIT(user, TRAIT_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else
 			return TRUE
 	//Grants the user innate access to all surgeries
 
-	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SURGEON))
 		if(replaced_by)
 			return FALSE
 		else if(!abductor_surgery_blacklist)
@@ -68,30 +70,26 @@
 	if(requires_tech)
 		. = FALSE
 
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!isnull(SP))
-			if(replaced_by in SP.advanced_surgeries)
-				return FALSE
-			if(type in SP.advanced_surgeries)
-				return TRUE
+	var/surgery_signal = SEND_SIGNAL(user, COMSIG_SURGERY_STARTING, src, target)
+	if(surgery_signal & COMPONENT_FORCE_SURGERY)
+		return TRUE
+	if(surgery_signal & COMPONENT_CANCEL_SURGERY)
+		return FALSE
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.get_organ_slot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT)
 		if(!isnull(IMP))
 			if(replaced_by in IMP.advanced_surgeries)
 				return FALSE
 			if(type in IMP.advanced_surgeries)
 				return TRUE
 
-	var/turf/T = get_turf(target)
+	var/turf/T = get_turf(patient) //patient, not target. Weird as shit, but the other one breaks.
+
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
 	if(table)
-		if(!table.computer)
-			return .
-		if(table.computer.machine_stat & (NOPOWER|BROKEN))
+		if(!table.computer || (table.computer.machine_stat & (NOPOWER|BROKEN)))
 			return .
 		if(replaced_by in table.computer.advanced_surgeries)
 			return FALSE
@@ -107,22 +105,27 @@
 		if(type in the_stasis_bed.op_computer.advanced_surgeries)
 			return TRUE
 
-
-/datum/surgery/proc/next_step(mob/user, intent)
+/datum/surgery/proc/next_step(mob/living/user, modifiers)
 	failed_step = FALSE
+	if(user.combat_mode)
+		return FALSE
 	if(step_in_progress)
 		return TRUE
 
 	var/try_to_fail = FALSE
-	if(intent == INTENT_DISARM)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		try_to_fail = TRUE
 
-	var/datum/surgery_step/S = get_surgery_step()
-	if(S)
-		if(S.try_op(user, target, user.get_active_held_item(), src, try_to_fail))
-			return TRUE
-		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
-			return TRUE
+	var/datum/surgery_step/step = get_surgery_step()
+	if(isnull(step))
+		failed_step = TRUE
+		return FALSE
+	var/obj/item/tool = user.get_active_held_item()
+	if(step.try_op(user, target, location, tool, src, try_to_fail))
+		return TRUE
+	if(tool && tool.item_flags & SURGICAL_TOOL)
+		to_chat(user, span_warning("This step requires a different tool!"))
+		return TRUE
 	failed_step = TRUE
 	return FALSE
 
@@ -145,41 +148,6 @@
 	name = "advanced surgery"
 	requires_tech = TRUE
 
-/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target, target_zone)
-	if(!..())
-		return FALSE
-	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
-		return TRUE
-
-	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
-		if(!abductor_surgery_blacklist)
-			return TRUE
-	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
-
-	if(iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!isnull(SP))
-			if(type in SP.advanced_surgeries)
-				return TRUE
-
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
-		if(!isnull(IMP))
-			if(type in IMP.advanced_surgeries)
-				return TRUE
-
-	var/turf/T = get_turf(target)
-	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
-	if(!table || !table.computer)
-		return FALSE
-	if(table.computer.machine_stat & (NOPOWER|BROKEN))
-		return FALSE
-	if(type in table.computer.advanced_surgeries)
-		return TRUE
-
 /obj/item/disk/surgery
 	name = "Surgery Procedure Disk"
 	desc = "A disk that contains advanced surgery procedures, must be loaded into an Operating Console."
@@ -197,8 +165,7 @@
 	. = ..()
 	surgeries = list()
 	var/list/req_tech_surgeries = subtypesof(/datum/surgery)
-	for(var/i in req_tech_surgeries)
-		var/datum/surgery/beep = i
+	for(var/datum/surgery/beep as anything in req_tech_surgeries)
 		if(initial(beep.requires_tech))
 			surgeries += beep
 

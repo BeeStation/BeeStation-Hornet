@@ -4,10 +4,16 @@
 	icon_state = "foilhat"
 	item_state = null
 	clothing_flags = EFFECT_HAT | SNUG_FIT
-	armor = list(MELEE = 0,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = -5, FIRE = 0, ACID = 0, STAMINA = 50)
+	armor_type = /datum/armor/costume_foilhat
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
 	var/mutable_appearance/psychic_overlay
+
+
+/datum/armor/costume_foilhat
+	laser = -5
+	rad = -5
+	stamina = 50
 
 /obj/item/clothing/head/costume/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -19,7 +25,7 @@
 		DISABLE_BITFIELD(paranoia.trauma_flags, TRAUMA_CLONEABLE)
 
 		user.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
-		to_chat(user, "<span class='warning'>As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. </span>")
+		to_chat(user, span_warning("As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. "))
 
 		psychic_overlay = mutable_appearance()
 		psychic_overlay.appearance = user.appearance
@@ -31,7 +37,7 @@
 	if(usr)
 		var/mob/living/carbon/C = usr
 		if(src == C.head)
-			to_chat(C, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
+			to_chat(C, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
 			return
 	return ..()
 
@@ -44,11 +50,11 @@
 		L.sec_hud_set_implants()
 	user.cut_overlay(psychic_overlay)
 
-/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user)
+/obj/item/clothing/head/costume/foilhat/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)
-			to_chat(user, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
+			to_chat(user, span_userdanger("Why would you want to take this off? Do you want them to get into your mind?!"))
 			return
 	return ..()
 
@@ -61,7 +67,7 @@
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
 	clothing_flags = STOPSPRESSUREDAMAGE | EFFECT_HAT | SNUG_FIT | HEADINTERNALS
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 50)
+	armor_type = /datum/armor/foilhat_plasmaman
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	light_system = MOVABLE_LIGHT
 	light_range = 4
@@ -70,7 +76,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	bang_protect = 1 //make this consistent with other plasmaman helmets
 	resistance_flags = NONE
@@ -78,11 +84,18 @@
 	///Is the light on?
 	var/on = FALSE
 
+
+/datum/armor/foilhat_plasmaman
+	bio = 100
+	fire = 50
+	acid = 50
+	stamina = 50
+
 /obj/item/clothing/head/costume/foilhat/plasmaman/attack_self(mob/user)
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
-	user.update_inv_head() //So the mob overlay updates
+	user.update_worn_head() //So the mob overlay updates
 
 	if(on)
 		set_light(TRUE)
@@ -91,4 +104,4 @@
 
 	for(var/X in actions)
 		var/datum/action/A=X
-		A.UpdateButtonIcon()
+		A.update_buttons()

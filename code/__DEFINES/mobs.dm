@@ -2,16 +2,16 @@
 
 //Misc mob defines
 
-//Ready states at roundstart for mob/dead/new_player
+//Ready states at roundstart for /mob/dead/new_player/authenticated
 #define PLAYER_NOT_READY 0
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2
 
-//Game mode list indexes
-#define CURRENT_LIVING_PLAYERS	"living_players_list"
-#define CURRENT_LIVING_ANTAGS	"living_antags_list"
-#define CURRENT_DEAD_PLAYERS	"dead_players_list"
-#define CURRENT_OBSERVERS		"current_observers_list"
+/// Dynamic list indexes
+#define CURRENT_LIVING_PLAYERS "living_players_list"
+#define CURRENT_LIVING_ANTAGS "living_antags_list"
+#define CURRENT_DEAD_PLAYERS "dead_players_list"
+#define CURRENT_OBSERVERS "current_observers_list"
 
 //movement intent defines for the m_intent var
 #define MOVE_INTENT_WALK "walk"
@@ -45,6 +45,9 @@
 
 #define AMOUNT_TO_BLEED_INTENSITY(x) ((x) ** 0.3333)
 
+/// How efficiently humans regenerate blood.
+#define BLOOD_REGEN_FACTOR 0.25
+
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
 #define MOB_SIZE_SMALL 1
@@ -73,29 +76,37 @@
 #define MOB_SPIRIT		"spirit"
 
 //Organ defines for carbon mobs
-#define ORGAN_ORGANIC   1
-#define ORGAN_ROBOTIC   2
+#define ORGAN_ORGANIC 1
+#define ORGAN_ROBOTIC 2
 
-
-//Bodytype defines for how things can be worn.
-#define BODYTYPE_ORGANIC		(1<<0)
-#define BODYTYPE_ROBOTIC		(1<<1)
-#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
-#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
-#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
-#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
-
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
+#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/species/human/bodyparts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
 #define MONKEY_BODYPART "monkey"
 #define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
-#define DEVIL_BODYPART "devil"
 
 //Bodypart change blocking flags
 #define BP_BLOCK_CHANGE_SPECIES	(1<<0)
+
+//Bodytype defines for how things can be worn, surgery, and other misc things.
+///The limb is organic.
+#define BODYTYPE_ORGANIC (1<<0)
+///The limb is robotic.
+#define BODYTYPE_ROBOTIC (1<<1)
+///The limb fits the human mold. This is not meant to be literal, if the sprite "fits" on a human, it is "humanoid", regardless of origin.
+#define BODYTYPE_HUMANOID (1<<2)
+///The limb is digitigrade.
+#define BODYTYPE_DIGITIGRADE (1<<3)
+///The limb fits the monkey mold.
+#define BODYTYPE_MONKEY (1<<4)
+///The limb is snouted.
+//#define BODYTYPE_SNOUTED (1<<5)
+///A placeholder bodytype for xeno larva, so their limbs cannot be attached to anything.
+#define BODYTYPE_LARVA_PLACEHOLDER (1<<6)
+///The limb is from a xenomorph.
+#define BODYTYPE_ALIEN (1<<7)
 
 //Species gib types
 #define GIB_TYPE_HUMAN "human"
@@ -128,18 +139,18 @@
 
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
-#define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
+#define HUMAN_CRIT_MAX_OXYLOSS (SSMOBS_DT/3)
 
 #define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
 #define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
-#define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //! Amount of damage applied when your body temperature passes the 460K point and you are on fire
+#define HEAT_DAMAGE_LEVEL_1 1 //Amount of damage applied when your body temperature just passes the 360.15k safety point
+#define HEAT_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_3 4 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
 
-#define COLD_DAMAGE_LEVEL_1 0.5 //! Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //! Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //! Amount of damage applied when your body temperature passes the 120K point
+#define COLD_DAMAGE_LEVEL_1 0.25 //Amount of damage applied when your body temperature just passes the 260.15k safety point
+#define COLD_DAMAGE_LEVEL_2 0.75 //Amount of damage applied when your body temperature passes the 200K point
+#define COLD_DAMAGE_LEVEL_3 1.5 //Amount of damage applied when your body temperature passes the 120K point
 
 //Note that gas heat damage is only applied once every FOUR ticks.
 #define HEAT_GAS_DAMAGE_LEVEL_1 2 //! Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
@@ -392,13 +403,23 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
-#define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define HUNGER_FACTOR 0.05 //factor at which mob nutrition decreases
+#define REAGENTS_METABOLISM 0.2 //How many units of reagent are consumed per second, by default.
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+
+// Eye protection
+// THese values are additive to determine your overall flash protection.
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+#define FLASH_PROTECTION_WELDER_SENSITIVE 3
+#define FLASH_PROTECTION_WELDER_HYPER_SENSITIVE 4
 
 // Roundstart trait system
 
-#define MAX_QUIRKS 6 //! The maximum amount of quirks one character can have at roundstart
+//The maximum amount of positive quirks one character can have at roundstart, and I hope whoever originally named this simply MAX_QUIRKS stubs their toe
+#define MAX_POSITIVE_QUIRKS 3
 
 // AI Toggles
 #define AI_CAMERA_LUMINOSITY	5
@@ -416,11 +437,21 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
 
-#define PULL_PRONE_SLOWDOWN 1.5
+#define PULL_PRONE_SLOWDOWN 4
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
-#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
+
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+#define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
+#define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
+#define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
@@ -451,6 +482,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SQUASHED_SHOULD_BE_DOWN (1<<0)
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
 
 /*
  * Defines for "AI emotions", allowing the AI to expression emotions
@@ -519,7 +551,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SHOES_LAYER 18
 /// Ears layer (Spessmen have ears? Wow)
 #define EARS_LAYER 17
-/// Suit layer (armor, hardsuits, etc.)
+/// Suit layer (armor, coats, etc.)
 #define SUIT_LAYER 16
 /// Glasses layer
 #define GLASSES_LAYER 15
@@ -566,7 +598,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// The layer above mutant body parts
 #define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
 
-
 //used by canUseTopic()
 /// If silicons need to be next to the atom to use this
 #define BE_CLOSE TRUE
@@ -603,3 +634,60 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define STANDING_UP 0
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
+
+// Flags for fully_heal().
+
+/// Special flag that means this heal is an admin heal and goes above and beyond
+/// Note, this includes things like removing suicide status and handcuffs / legcuffs, use with slight caution.
+#define HEAL_ADMIN (1<<0)
+/// Heals all brute damage.
+#define HEAL_BRUTE (1<<1)
+/// Heals all burn damage.
+#define HEAL_BURN (1<<2)
+/// Heals all toxin damage, slime people included.
+#define HEAL_TOX (1<<3)
+/// Heals all oxyloss.
+#define HEAL_OXY (1<<4)
+/// Heals all cellular damage.
+#define HEAL_CLONE (1<<5)
+/// Heals all stamina damage.
+#define HEAL_STAM (1<<6)
+/// Restore all limbs to their initial state.
+#define HEAL_LIMBS (1<<7)
+/// Heals all organs from failing. If done as a part of an admin heal, will instead restore all organs to their initial state.
+#define HEAL_ORGANS (1<<8)
+/// A "super" heal organs, this refreshes all organs entirely, deleting old and replacing them with new.
+#define HEAL_REFRESH_ORGANS (1<<9)
+/// Removes all brain traumas, not including permanent ones.
+#define HEAL_TRAUMAS (1<<10)
+/// Removes all reagents present.
+#define HEAL_ALL_REAGENTS (1<<11)
+/// Removes all non-positive diseases.
+#define HEAL_NEGATIVE_DISEASES (1<<12)
+/// Restores body temperature back to nominal.
+#define HEAL_TEMP (1<<13)
+/// Restores blood levels to normal.
+#define HEAL_BLOOD (1<<14)
+/// Removes all non-positive mutations (neutral included).
+#define HEAL_NEGATIVE_MUTATIONS (1<<15)
+/// Removes status effects with this flag set that also have remove_on_fullheal = TRUE.
+#define HEAL_STATUS (1<<16)
+/// Same as above, removes all CC related status effects with this flag set that also have remove_on_fullheal = TRUE.
+#define HEAL_CC_STATUS (1<<17)
+/// Deletes any restraints on the mob (handcuffs / legcuffs)
+#define HEAL_RESTRAINTS (1<<18)
+
+/// Combination flag to only heal the main damage types.
+#define HEAL_DAMAGE (HEAL_BRUTE|HEAL_BURN|HEAL_TOX|HEAL_OXY|HEAL_CLONE|HEAL_STAM)
+/// Combination flag to only heal things messed up things about the mob's body itself.
+#define HEAL_BODY (HEAL_LIMBS|HEAL_ORGANS|HEAL_REFRESH_ORGANS|HEAL_TRAUMAS|HEAL_BLOOD|HEAL_TEMP)
+/// Combination flag to heal negative things affecting the mob.
+#define HEAL_AFFLICTIONS (HEAL_NEGATIVE_DISEASES|HEAL_NEGATIVE_MUTATIONS|HEAL_ALL_REAGENTS|HEAL_STATUS|HEAL_CC_STATUS)
+
+/// Full heal that isn't admin forced
+#define HEAL_ALL ~(HEAL_ADMIN|HEAL_RESTRAINTS)
+/// Heals everything and is as strong as / is an admin heal
+#define ADMIN_HEAL_ALL ALL
+
+// Species related bitflags go here.
+#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.

@@ -1,5 +1,5 @@
 /datum/hud/minebot
-	ui_style = 'icons/mob/screen_cyborg.dmi'
+	ui_style = 'icons/hud/screen_cyborg.dmi'
 
 /datum/hud/minebot/New(mob/living/simple_animal/hostile/mining_drone)
 	..()

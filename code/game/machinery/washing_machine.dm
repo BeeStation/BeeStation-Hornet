@@ -81,6 +81,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
 		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
+	DYE_REGISTRY_BANDANA = list(
+		DYE_RED = /obj/item/clothing/mask/bandana/red,
+		DYE_ORANGE = /obj/item/clothing/mask/bandana/orange,
+		DYE_YELLOW = /obj/item/clothing/mask/bandana/gold,
+		DYE_GREEN = /obj/item/clothing/mask/bandana/green,
+		DYE_BLUE = /obj/item/clothing/mask/bandana/blue,
+		DYE_PURPLE = /obj/item/clothing/mask/bandana/purple,
+		DYE_BLACK = /obj/item/clothing/mask/bandana/black,
+		DYE_WHITE = /obj/item/clothing/mask/bandana/white
+	),
 	DYE_REGISTRY_SNEAKERS = list(
 		DYE_RED = /obj/item/clothing/shoes/sneakers/red,
 		DYE_ORANGE = /obj/item/clothing/shoes/sneakers/orange,
@@ -126,17 +136,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 	DYE_REGISTRY_BERET = list(
-		DYE_WHITE = /obj/item/clothing/head/beret/color,
 		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret/mime,
 		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
-		DYE_QM = /obj/item/clothing/head/beret/supply,
+		DYE_QM = /obj/item/clothing/head/beret/cargo,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
-		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
+		DYE_CAPTAIN = /obj/item/clothing/head/caphat/beret,
 		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
-		DYE_RD = /obj/item/clothing/head/beret/sci,
-		DYE_CMO = /obj/item/clothing/head/beret/cmo,
+		DYE_RD = /obj/item/clothing/head/beret/science,
+		DYE_CMO = /obj/item/clothing/head/beret/medical/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
 	DYE_REGISTRY_FANNYPACK = list(
@@ -197,7 +206,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/max_wash_capacity = 5
 	var/datum/looping_sound/washing_machine/soundloop
 
-/obj/machinery/washing_machine/Initialize()
+/obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
 	soundloop = new(src,  FALSE)
 
@@ -208,24 +217,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(!busy)
-		. += "<span class='notice'><b>Alt-click</b> it to start a wash cycle.</span>"
+		. += "<span class='notice'><b>Right-click</b> with an empty hand to start a wash cycle.</span>"
 	if(bloody_mess)
-		. += "<span class='notice'>[src] is dirty!</span>"
-
-/obj/machinery/washing_machine/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || busy)
-		return
-	if(state_open)
-		state_open = FALSE //close the door
-		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-		update_icon()
-
-	busy = TRUE
-	update_icon()
-	bloody_mess = FALSE
-	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 200)
-	soundloop.start()
-	START_PROCESSING(SSfastprocess, src)
+		. += span_notice("[src] is dirty!")
 
 /obj/machinery/washing_machine/process(delta_time)
 	if(!busy)
@@ -275,7 +269,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	desc = "[initial(target_type.desc)] The colors look a little dodgy."
 	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
-/obj/item/proc/appearance_change(var/obj/item/target_type)
+/obj/item/proc/appearance_change(obj/item/target_type)
 	if(initial(target_type.greyscale_config) && initial(target_type.greyscale_colors))
 		set_greyscale(
 			colors=initial(target_type.greyscale_colors),
@@ -316,13 +310,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
 	gib()
 
+/mob/living/basic/pet/machine_wash(obj/machinery/washing_machine/washer)
+	washer.bloody_mess = TRUE
+	gib()
+
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
-	else
-		appearance_change(src)
-		src.desc = initial(src)
+		return
+	appearance_change(src)
+	desc = initial(desc)
 
 /obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
 	. = ..()
@@ -387,7 +385,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(panel_open)
 		add_overlay("wm_panel")
 
-/obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
+/obj/machinery/washing_machine/attackby(obj/item/W, mob/living/user, params)
 	if(panel_open && !busy && default_unfasten_wrench(user, W))
 		return
 
@@ -395,10 +393,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		update_icon()
 		return
 
-	else if(user.a_intent != INTENT_HARM)
+	else if(!user.combat_mode)
 
 		if (!state_open)
-			to_chat(user, "<span class='warning'>Open the door first!</span>")
+			to_chat(user, span_warning("Open the door first!"))
 			return TRUE
 		else if(bloody_mess)
 			if(istype(W, /obj/item/reagent_containers/spray))
@@ -406,35 +404,35 @@ GLOBAL_LIST_INIT(dye_registry, list(
 				if(clean_spray.reagents.has_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this))
 					clean_spray.reagents.remove_reagent(/datum/reagent/space_cleaner, clean_spray.amount_per_transfer_from_this,1)
 					playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0
 					update_icon()
 				else
-					to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
+					to_chat(user, span_warning("You need more space cleaner!"))
 				return TRUE
 
-			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/glass/rag))
+			else if(istype(W, /obj/item/soap) || istype(W, /obj/item/reagent_containers/cup/rag))
 				var/cleanspeed = 50
 				if(istype(W, /obj/item/soap))
 					var/obj/item/soap/used_soap = W
 					cleanspeed = used_soap.cleanspeed
-				user.visible_message("[user] starts to clean \the [src].", "<span class='notice'>You start to clean \the [src]...</span>")
+				user.visible_message("[user] starts to clean \the [src].", span_notice("You start to clean \the [src]..."))
 				if(do_after(user, cleanspeed, target = src))
-					user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
+					user.visible_message("[user] has cleaned \the [src].", span_notice("You clean \the [src]."))
 					bloody_mess = 0
 					update_icon()
 				return TRUE
 
 		if(bloody_mess)
-			to_chat(user, "<span class='warning'>[src] must be cleaned up first.</span>")
+			to_chat(user, span_warning("[src] must be cleaned up first."))
 			return TRUE
 
 		if(contents.len >= max_wash_capacity)
-			to_chat(user, "<span class='warning'>The washing machine is full!</span>")
+			to_chat(user, span_warning("The washing machine is full!"))
 			return TRUE
 
 		if(!user.transferItemToLoc(W, src))
-			to_chat(user, "<span class='warning'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
+			to_chat(user, span_warning("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
 			return TRUE
 
 		if(W.dye_color)
@@ -444,22 +442,22 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else
 		return ..()
 
-/obj/machinery/washing_machine/attack_hand(mob/user)
+/obj/machinery/washing_machine/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is busy.</span>")
+		to_chat(user, span_warning("[src] is busy."))
 		return
 
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(L.buckled || L.has_buckled_mobs())
 			return
 		if(state_open)
-			if(istype(L, /mob/living/simple_animal/pet))
+			if(istype(L, /mob/living/simple_animal/pet) || istype(L, /mob/living/basic/pet))
 				L.forceMove(src)
-				update_icon()
+				update_appearance()
 		return
 
 	if(!state_open)
@@ -468,7 +466,35 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	else
 		state_open = FALSE //close the door
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-		update_icon()
+		update_appearance()
+
+/obj/machinery/washing_machine/attack_hand_secondary(mob/user, modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(busy)
+		to_chat(user, "<span class='warning'>[src] is busy!</span>")
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(state_open)
+		to_chat(user, "<span class='warning'>Close the door first!</span>")
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	if(bloody_mess)
+		to_chat(user, "<span class='warning'>[src] must be cleaned up first!</span>")
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+	//state_open = FALSE //close the door
+	busy = TRUE
+	update_appearance()
+	bloody_mess = FALSE
+	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 20 SECONDS)
+	soundloop.start()
+	START_PROCESSING(SSfastprocess, src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/washing_machine/attack_ai_secondary(mob/user, modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	if (!(flags_1 & NODECONSTRUCT_1))

@@ -21,10 +21,10 @@
 
 /datum/component/toggle_icon/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_alt_click))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/toggle_icon/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_ATOM_EXAMINE))
 
 /*
  * Signal proc for COMSIG_CLICK_ALT.
@@ -56,7 +56,7 @@
 	do_icon_toggle(source, living_user)
 
 /*
- * Signal proc for COMSIG_PARENT_EXAMINE.
+ * Signal proc for COMSIG_ATOM_EXAMINE.
  * Lets the user know they can toggle the parent open or closed.
  *
  * source - the atom being examined (parent)
@@ -66,7 +66,7 @@
 /datum/component/toggle_icon/proc/on_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += "<span class='notice'>Alt-click on [source] to toggle the [toggle_noun].</span>"
+	examine_list += span_notice("Alt-click on [source] to toggle the [toggle_noun].")
 
 /*
  * Actually do the toggle of the icon.

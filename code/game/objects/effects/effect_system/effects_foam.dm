@@ -25,6 +25,7 @@
 	/turf/open/lava))
 	var/slippery_foam = TRUE
 
+
 /obj/effect/particle_effect/foam/firefighting
 	name = "firefighting foam"
 	lifetime = 20 //doesn't last as long as normal foam
@@ -32,20 +33,24 @@
 	slippery_foam = FALSE
 	var/absorbed_plasma = 0
 
+/obj/effect/particle_effect/foam/firefighting/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/atmos_sensitive)
+
 /obj/effect/particle_effect/foam/firefighting/process()
 	..()
 
 	var/turf/open/T = get_turf(src)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && istype(T) && T.air)
+	if(hotspot && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,G.get_moles(GAS_PLASMA)) //Absorb some plasma
-		G.adjust_moles(GAS_PLASMA, -plas_amt)
+		var/plas_amt = min(30,GET_MOLES(/datum/gas/plasma, G)) //Absorb some plasma
+		REMOVE_MOLES(/datum/gas/plasma, G, plas_amt)
 		absorbed_plasma += plas_amt
-		if(G.return_temperature() > T20C)
-			G.set_temperature(max(G.return_temperature()/2,T20C))
-		T.air_update_turf()
+		if(G.temperature > T20C)
+			G.temperature = max(G.return_temperature()/2,T20C)
+		T.air_update_turf(FALSE, FALSE)
 
 /obj/effect/particle_effect/foam/firefighting/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -65,9 +70,6 @@
 	L.adjust_fire_stacks(-2)
 	L.ExtinguishMob()
 
-/obj/effect/particle_effect/foam/firefighting/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return
-
 /obj/effect/particle_effect/foam/metal
 	name = "aluminium foam"
 	metal = ALUMINUM_FOAM
@@ -85,7 +87,7 @@
 	name = "resin foam"
 	metal = RESIN_FOAM
 
-/obj/effect/particle_effect/foam/metal/chainreact_resin
+/obj/effect/particle_effect/foam/metal/resin/chainreact
 	name = "self-destruct resin foam"
 	metal = RESIN_FOAM_CHAINREACT
 	lifetime = 20
@@ -99,6 +101,7 @@
 	slippery_foam = FALSE
 
 /obj/effect/particle_effect/foam/dissipating/Initialize(mapload)
+	. = ..()
 	flick("atmos_resin_chainreact_dissolving", src)
 	QDEL_IN(src, 6)
 
@@ -107,12 +110,11 @@
 
 /obj/effect/particle_effect/foam/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/atmos_sensitive)
 	create_reagents(1000) //limited by the size of the reagent holder anyway.
 	START_PROCESSING(SSfastprocess, src)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
 
-/obj/effect/particle_effect/foam/ComponentInitialize()
-	. = ..()
 	if(slippery_foam)
 		AddComponent(/datum/component/slippery, 100)
 
@@ -164,7 +166,7 @@
 			if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 				continue
 		if(lifetime % reagent_divisor)
-			reagents.reaction(O, VAPOR, fraction)
+			reagents.expose(O, VAPOR, fraction)
 	var/hit = 0
 	for(var/mob/living/L in get_turf(src))
 		hit += foam_mob(L)
@@ -172,7 +174,7 @@
 		lifetime++ //this is so the decrease from mobs hit and the natural decrease don't cumulate.
 	var/T = get_turf(src)
 	if(lifetime % reagent_divisor)
-		reagents.reaction(T, VAPOR, fraction)
+		reagents.expose(T, VAPOR, fraction)
 
 	if(--amount < 0)
 		return
@@ -185,13 +187,13 @@
 		return 0
 	var/fraction = 1/initial(reagent_divisor)
 	if(lifetime % reagent_divisor)
-		reagents.reaction(L, VAPOR, fraction)
+		reagents.expose(L, VAPOR, fraction)
 	lifetime--
 	return 1
 
 /obj/effect/particle_effect/foam/proc/spread_foam()
 	var/turf/t_loc = get_turf(src)
-	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs())
+	for(var/turf/T in t_loc.get_atmos_adjacent_turfs())
 		var/obj/effect/particle_effect/foam/foundfoam = locate() in T //Don't spread foam where there's already foam!
 		if(foundfoam)
 			continue
@@ -207,15 +209,16 @@
 		F.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 		F.metal = metal
 
+/obj/effect/particle_effect/foam/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return exposed_temperature > 475
 
-/obj/effect/particle_effect/foam/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(prob(max(0, exposed_temperature - 475))) //foam dissolves when heated
+/obj/effect/particle_effect/foam/metal/resin/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return FALSE
+
+
+/obj/effect/particle_effect/foam/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
 		kill_foam()
-
-
-/obj/effect/particle_effect/foam/metal/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	return
-
 
 ///////////////////////////////////////////////
 //FOAM EFFECT DATUM
@@ -286,11 +289,15 @@
 	desc = "A lightweight foamed metal wall."
 	gender = PLURAL
 	max_integrity = 20
-	CanAtmosPass = ATMOS_PASS_DENSITY
+	can_atmos_pass = ATMOS_PASS_DENSITY
 
 /obj/structure/foamedmetal/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
+
+/obj/structure/foamedmetal/Destroy()
+	air_update_turf(TRUE, FALSE)
+	. = ..()
 
 /obj/structure/foamedmetal/Move()
 	var/turf/T = loc
@@ -303,13 +310,13 @@
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/attack_hand(mob/user)
+/obj/structure/foamedmetal/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	to_chat(user, "<span class='warning'>You hit [src] but bounce off it!</span>")
+	to_chat(user, span_warning("You hit [src] but bounce off it!"))
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/iron
@@ -333,19 +340,19 @@
 		O.ClearWet()
 		if(O.air)
 			var/datum/gas_mixture/G = O.air
-			G.set_temperature(293.15)
+			G.temperature = T20C
 			for(var/obj/effect/hotspot/H in O)
 				qdel(H)
-			for(var/I in G.get_gases())
-				if(I == GAS_O2 || I == GAS_N2)
+			for(var/I in G.gases)
+				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
 					continue
-				G.set_moles(I, 0)
-			O.air_update_turf()
+				SET_MOLES(I , G, 0)
+
 		for(var/obj/machinery/atmospherics/components/unary/U in O)
 			if(!U.welded)
 				U.welded = TRUE
 				U.update_icon()
-				U.visible_message("<span class='danger'>[U] sealed shut!</span>")
+				U.visible_message(span_danger("[U] sealed shut!"))
 		for(var/mob/living/L in O)
 			L.ExtinguishMob()
 		for(var/obj/item/Item in O)
@@ -360,9 +367,9 @@
 
 /obj/structure/foamedmetal/resin/chainreact/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.</span>"
+	. += span_notice("It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.")
 
-/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
+/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
 	if(istype(R))
 		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.2 SECONDS)

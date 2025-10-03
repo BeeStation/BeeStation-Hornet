@@ -23,13 +23,13 @@
 	///How many shit fits on the griddle?
 	var/max_items = 8
 
-/obj/machinery/griddle/Initialize()
+/obj/machinery/griddle/Initialize(mapload)
 	. = ..()
 	grill_loop = new(src, FALSE)
 	if(isnum(variant))
 		variant = rand(1,3)
-	// Add expose_reagent to add pancakes. I tried already.  https://github.com/BeeStation/BeeStation-Hornet/pull/8479
-	//RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT,  PROC_REF(on_expose_reagent))
+	RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT, PROC_REF(on_expose_reagent))
+	RegisterSignal(src, COMSIG_STORAGE_DUMP_CONTENT, PROC_REF(on_storage_dump))
 
 /obj/machinery/griddle/Destroy()
 	QDEL_NULL(grill_loop)
@@ -43,7 +43,6 @@
 		return
 	variant = rand(1,3)
 
-/* See https://github.com/BeeStation/BeeStation-Hornet/pull/8479
 /obj/machinery/griddle/proc/on_expose_reagent(atom/parent_atom, datum/reagent/exposing_reagent, reac_volume)
 	SIGNAL_HANDLER
 
@@ -57,9 +56,8 @@
 		AddToGrill(new_pancake)
 		if(griddled_objects.len >= max_items)
 			break
-	visible_message("<span class='notice'>[exposing_reagent] begins to cook on [src].</span>")
+	visible_message(span_notice("[exposing_reagent] begins to cook on [src]."))
 	return NONE
-*/
 
 /obj/machinery/griddle/crowbar_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -67,7 +65,7 @@
 
 /obj/machinery/griddle/attackby(obj/item/I, mob/user, params)
 	if(griddled_objects.len >= max_items)
-		to_chat(user, "<span class='notice'>[src] can't fit more items!</span>")
+		to_chat(user, span_notice("[src] can't fit more items!"))
 		return
 	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
@@ -77,13 +75,12 @@
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
 		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
-		to_chat(user, "<span class='notice'>You place [I] on [src].</span>")
+		to_chat(user, span_notice("You place [I] on [src]."))
 		AddToGrill(I, user)
-		update_appearance()
 	else
 		return ..()
 
-/obj/machinery/griddle/attack_hand(mob/user)
+/obj/machinery/griddle/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	on = !on
 	if(on)
@@ -98,17 +95,19 @@
 	vis_contents += item_to_grill
 	griddled_objects += item_to_grill
 	item_to_grill.flags_1 |= IS_ONTOP_1
+	SEND_SIGNAL(item_to_grill, COMSIG_ITEM_GRILL_PLACED, user)
 	RegisterSignal(item_to_grill, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
 	RegisterSignal(item_to_grill, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
-	RegisterSignal(item_to_grill, COMSIG_PARENT_QDELETING, PROC_REF(ItemRemovedFromGrill))
+	RegisterSignal(item_to_grill, COMSIG_QDELETING, PROC_REF(ItemRemovedFromGrill))
 	update_grill_audio()
+	update_appearance()
 
 /obj/machinery/griddle/proc/ItemRemovedFromGrill(obj/item/I)
 	SIGNAL_HANDLER
 	I.flags_1 &= ~IS_ONTOP_1
 	griddled_objects -= I
 	vis_contents -= I
-	UnregisterSignal(I, list(COMSIG_GRILL_COMPLETED, COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(I, list(COMSIG_GRILL_COMPLETED, COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 	update_grill_audio()
 
 /obj/machinery/griddle/proc/ItemMoved(obj/item/I, atom/OldLoc, Dir, Forced)
@@ -130,9 +129,24 @@
 	default_unfasten_wrench(user, I, 2 SECONDS)
 	return TRUE
 
-///Override to prevent storage dumping onto the griddle until I figure out how to navigate the mess that is storage code to allow me to nicely move the dumped objects onto the griddle.
-/obj/machinery/griddle/get_dumping_location(obj/item/storage/source, mob/user)
-	return
+/obj/machinery/griddle/proc/on_storage_dump(datum/source, obj/item/storage_source, mob/user)
+	SIGNAL_HANDLER
+
+	for(var/obj/item/to_dump in storage_source)
+		if(to_dump.loc != storage_source)
+			continue
+		if(griddled_objects.len >= max_items)
+			break
+
+		if(!storage_source.atom_storage.attempt_remove(to_dump, src, silent = TRUE))
+			continue
+
+		to_dump.pixel_x = to_dump.base_pixel_x + rand(-5, 5)
+		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)
+		AddToGrill(to_dump, user)
+
+	to_chat(user, "<span class='notice'>You dump out [storage_source] onto [src].</span>")
+	return STORAGE_DUMP_HANDLED
 
 /obj/machinery/griddle/process(delta_time)
 	..()
@@ -142,7 +156,7 @@
 			continue
 		griddled_item.fire_act(1000) //Hot hot hot!
 		if(prob(10))
-			visible_message("<span class='danger'>[griddled_item] doesn't seem to be doing too great on the [src]!</span>")
+			visible_message(span_danger("[griddled_item] doesn't seem to be doing too great on the [src]!"))
 
 /obj/machinery/griddle/update_icon_state()
 	icon_state = "griddle[variant]_[on ? "on" : "off"]"

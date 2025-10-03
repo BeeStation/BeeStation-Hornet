@@ -4,17 +4,19 @@
 	filename = "secureye"
 	filedesc = "SecurEye"
 	category = PROGRAM_CATEGORY_MISC
-	program_icon_state = "generic"
+	program_icon_state = "camera"
 	extended_desc = "This program allows access to standard security camera networks."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_SECURITY)
-	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
-	size = 5
+	size = 8
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"
+	hardware_requirement = MC_CAMERA // Doesn't make sense to use a camera a lot, but this will get security off their ass
+	power_consumption = 200 WATT
 
-	var/list/network = list("ss13")
-	var/obj/machinery/camera/active_camera
+	var/list/network = list(CAMERA_NETWORK_STATION)
+	/// Weakref to the active camera
+	var/datum/weakref/camera_ref
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
 	var/list/concurrent_users = list()
@@ -34,7 +36,7 @@
 	// Convert networks to lowercase
 	for(var/i in network)
 		network -= i
-		network += lowertext(i)
+		network += LOWER_TEXT(i)
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.name = "screen"
@@ -68,17 +70,19 @@
 
 /datum/computer_file/program/secureye/ui_data()
 	var/list/data = list()
-	data["network"] = network
 	data["activeCamera"] = null
+	var/obj/machinery/camera/active_camera = camera_ref?.resolve()
 	if(active_camera)
 		data["activeCamera"] = list(
 			name = active_camera.c_tag,
+			ref = REF(active_camera),
 			status = active_camera.status,
 		)
 	return data
 
 /datum/computer_file/program/secureye/ui_static_data()
 	var/list/data = list()
+	data["network"] = network
 	data["mapRef"] = map_name
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
@@ -86,6 +90,7 @@
 		var/obj/machinery/camera/C = cameras[i]
 		data["cameras"] += list(list(
 			name = C.c_tag,
+			ref = REF(C),
 		))
 
 	return data
@@ -94,21 +99,22 @@
 	. = ..()
 	if(.)
 		return
+	switch(action)
+		if("switch_camera")
+			var/obj/machinery/camera/selected_camera = locate(params["camera"]) in GLOB.cameranet.cameras
+			if(selected_camera)
+				camera_ref = WEAKREF(selected_camera)
+			else
+				camera_ref = null
+			ui_update()
+			playsound(src, get_sfx("terminal_type"), 5, FALSE)
 
-	if(action == "switch_camera")
-		var/c_tag = params["name"]
-		var/list/cameras = get_available_cameras()
-		var/obj/machinery/camera/selected_camera = cameras[c_tag]
-		active_camera = selected_camera
-		ui_update()
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+			if(isnull(camera_ref))
+				return TRUE
 
-		if(!selected_camera)
+			update_active_camera_screen()
+
 			return TRUE
-
-		update_active_camera_screen()
-
-		return TRUE
 
 /datum/computer_file/program/secureye/on_ui_close(mob/user, datum/tgui/tgui)
 	on_exit(user)
@@ -130,10 +136,11 @@
 	remote_view.leave(user.client)
 	// Turn off the console
 	if(length(concurrent_users) == 0 && is_living)
-		active_camera = null
-		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
+		camera_ref = null
+		playsound(computer, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /datum/computer_file/program/secureye/proc/update_active_camera_screen()
+	var/obj/machinery/camera/active_camera = camera_ref?.resolve()
 	// Show static if can't use the camera
 	if(!active_camera?.can_use())
 		show_camera_static()
@@ -185,3 +192,5 @@
 			continue
 		camlist["[cam.c_tag]"] = cam
 	return camlist
+
+#undef DEFAULT_MAP_SIZE

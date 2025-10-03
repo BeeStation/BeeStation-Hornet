@@ -10,6 +10,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	density = FALSE
+	obj_flags = BLOCKS_CONSTRUCTION
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
 	clicksound = 'sound/machines/pda_button1.ogg'
@@ -36,8 +37,7 @@
 	/// If true doesn't consume chems
 	var/synthesizing = FALSE
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
-	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
+	var/enter_message = span_notice("<b>You feel cool air surround you. You go numb as your senses turn inward.</b>")
 	fair_market_price = 5
 
 /obj/machinery/sleeper/Initialize(mapload)
@@ -100,15 +100,15 @@
 	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
-	if ((istype(I, /obj/item/reagent_containers/glass) \
+	if ((istype(I, /obj/item/reagent_containers/cup) \
 		|| istype(I, /obj/item/reagent_containers/chem_bag)) \
-		&& user.a_intent != INTENT_HARM)
+		&& !user.combat_mode)
 		if (length(inserted_vials) >= max_vials)
-			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
+			to_chat(user, span_warning("[src] cannot hold any more!"))
 			return
 		if(!user.transferItemToLoc(I, null))
 			return
-		user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src]</span>", "<span class='notice'>You insert \the [I] into \the [src]</span>")
+		user.visible_message(span_notice("[user] inserts \the [I] into \the [src]"), span_notice("You insert \the [I] into \the [src]"))
 		inserted_vials += I
 		ui_update()
 		return
@@ -120,8 +120,8 @@
 	return ..()
 
 /obj/machinery/sleeper/container_resist(mob/living/user)
-	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
-		"<span class='notice'>You climb out of [src]!</span>")
+	visible_message(span_notice("[occupant] emerges from [src]!"),
+		span_notice("You climb out of [src]!"))
 	open_machine()
 
 /obj/machinery/sleeper/Exited(atom/movable/gone, direction)
@@ -158,7 +158,7 @@
 
 
 /obj/machinery/sleeper/MouseDrop_T(mob/target, mob/user)
-	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+	if(HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user))
 		return
 
 	close_machine(target)
@@ -169,10 +169,10 @@
 	if(..())
 		return
 	if(occupant)
-		to_chat(user, "<span class='warning'>[src] is currently occupied!</span>")
+		to_chat(user, span_warning("[src] is currently occupied!"))
 		return
 	if(state_open)
-		to_chat(user, "<span class='warning'>[src] must be closed to [panel_open ? "close" : "open"] its maintenance hatch!</span>")
+		to_chat(user, span_warning("[src] must be closed to [panel_open ? "close" : "open"] its maintenance hatch!"))
 		return
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		return
@@ -192,7 +192,7 @@
 	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
 	if(.)
 		I.play_tool_sound(src, 50)
-		visible_message("<span class='notice'>[usr] pries open [src].</span>", "<span class='notice'>You pry open [src].</span>")
+		visible_message(span_notice("[usr] pries open [src]."), span_notice("You pry open [src]."))
 		open_machine()
 
 
@@ -223,7 +223,7 @@
 
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click [src] to [state_open ? "close" : "open"] it.</span>"
+	. += span_notice("Alt-click [src] to [state_open ? "close" : "open"] it.")
 
 /obj/machinery/sleeper/process()
 	..()
@@ -299,7 +299,7 @@
 			var/atom/movable/removed_vial = inserted_vials[chem]
 			removed_vial.forceMove(loc)
 			inserted_vials -= removed_vial
-			to_chat(usr, "<span class='notice'>You eject the [removed_vial] from [src].</span>")
+			to_chat(usr, span_notice("You eject the [removed_vial] from [src]."))
 			. = TRUE
 		if("inject")
 			check_nap_violations()
@@ -311,7 +311,7 @@
 			if(inject_chem(chem, usr))
 				. = TRUE
 				if(scrambled_chems && prob(5))
-					to_chat(usr, "<span class='warning'>Chemical system re-route detected, results may not be as expected!</span>")
+					to_chat(usr, span_warning("Chemical system re-route detected, results may not be as expected!"))
 
 /obj/machinery/sleeper/should_emag(mob/user)
 	return TRUE
@@ -319,7 +319,7 @@
 /obj/machinery/sleeper/on_emag(mob/user)
 	..()
 	scrambled_chems = TRUE
-	to_chat(user, "<span class='warning'>You scramble the sleeper's internal dispensing systems!</span>")
+	to_chat(user, span_warning("You scramble the sleeper's internal dispensing systems!"))
 
 /obj/machinery/sleeper/proc/inject_chem(chem, mob/user)
 	if(chem_allowed(chem))
@@ -366,7 +366,7 @@
 	name = "soothing sleeper"
 	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
 	icon_state = "sleeper_clockwork"
-	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
+	enter_message = span_boldinathneqsmall("You hear the gentle hum and click of machinery, and are lulled into a sense of peace.")
 	roundstart_vials = list()
 	roundstart_chems = list(
 		/datum/reagent/medicine/epinephrine = 200,

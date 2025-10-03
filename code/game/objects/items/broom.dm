@@ -10,16 +10,14 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_LARGE
-	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
+	attack_verb_continuous = list("sweeps", "brushes off", "bludgeons", "whacks")
+	attack_verb_simple = list("sweep", "brush off", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE
 
 /obj/item/pushbroom/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
-
-/obj/item/pushbroom/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12, icon_wielded="broom1")
 
 /obj/item/pushbroom/update_icon_state()
@@ -30,7 +28,7 @@
 /obj/item/pushbroom/proc/on_wield(obj/item/source, mob/user)
 	SIGNAL_HANDLER
 
-	to_chat(user, "<span class='notice'>You brace the [src] against the ground in a firm sweeping stance.</span>")
+	to_chat(user, span_notice("You brace the [src] against the ground in a firm sweeping stance."))
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
 /// triggered on unwield of two handed item
@@ -46,7 +44,7 @@
 	if(ISWIELDED(src))
 		sweep(user, A, FALSE)
 	else
-		to_chat(user, "<span class='warning'>You need to wield \the [src] in both hands to sweep!</span>")
+		to_chat(user, span_warning("You need to wield \the [src] in both hands to sweep!"))
 
 /obj/item/pushbroom/proc/sweep(mob/user, atom/A, moving = TRUE)
 	SIGNAL_HANDLER
@@ -76,7 +74,7 @@
 	if(i > 0)
 		if (target_bin)
 			target_bin.update_icon()
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
+			to_chat(user, span_notice("You sweep the pile of garbage into [target_bin]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
 
 /obj/item/pushbroom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J) //bless you whoever fixes this copypasta

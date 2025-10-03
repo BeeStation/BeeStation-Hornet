@@ -1,10 +1,45 @@
-import { Window } from '../layouts';
-import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Section, Slider, Stack, Input, ProgressBar, ColorBox, Dimmer, Icon, Box, Tabs, Tooltip, Flex, BufferedTextArea, Collapsible, Autofocus } from '../components';
-import { ColorSelector } from './ColorPickerModal';
+import {
+  contrast,
+  hexToHsva,
+  hexToRgba,
+  HsvaColor,
+  hsvaToHex,
+  RgbColor,
+} from 'common/color';
 import { BooleanLike } from 'common/react';
-import { AbilityThreshold, Ability, AvailableAbilities, StatThreshold, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
-import { hexToHsva, HsvaColor, hsvaToHex, hexToRgba, RgbColor, contrast } from 'common/color';
+
+import { useBackend, useLocalState } from '../backend';
+import {
+  Autofocus,
+  Box,
+  BufferedTextArea,
+  Button,
+  Collapsible,
+  ColorBox,
+  Dimmer,
+  Flex,
+  Icon,
+  Input,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Slider,
+  Stack,
+  Tabs,
+  Tooltip,
+} from '../components';
+import { Window } from '../layouts';
+import { ColorSelector } from './ColorPickerModal';
+import {
+  Ability,
+  AbilityThreshold,
+  AvailableAbilities,
+  is_actually_a_threshold,
+  sort_abilities,
+  sort_thresholds,
+  StatThreshold,
+  threshold_title,
+} from './common/Holoparasite';
 
 /**
  * The validity of an input field.
@@ -157,7 +192,10 @@ type Info = {
   max_lengths: MaxLengths;
 };
 
-const is_threshold_met = (thresholds: StatThreshold[], skills: Skill[]): boolean => {
+const is_threshold_met = (
+  thresholds: StatThreshold[],
+  skills: Skill[],
+): boolean => {
   for (const threshold of thresholds) {
     if (threshold.minimum === undefined) {
       continue;
@@ -182,10 +220,10 @@ const chat_background_colors = {
  */
 const minimum_recommended_contrast = 0.14285;
 
-const InputValidity = (props: { field: string; validity: Validity }, context) => {
+const InputValidity = (props: { field: string; validity: Validity }) => {
   const {
     data: { themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   const is_are = props.field.endsWith('s') ? 'are' : 'is';
   switch (props.validity) {
     case Validity.Valid: {
@@ -193,9 +231,11 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>valid</b>, and can be used for your {themed_name}.
+              The chosen {props.field} {is_are} <b>valid</b>, and can be used
+              for your {themed_name}.
             </>
-          }>
+          }
+        >
           <Icon name="smile" color="green" />
         </Tooltip>
       );
@@ -205,10 +245,11 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>blank</b>, and you will not be able to summon your {themed_name} with this
-              value!
+              The chosen {props.field} {is_are} <b>blank</b>, and you will not
+              be able to summon your {themed_name} with this value!
             </>
-          }>
+          }
+        >
           <Icon name="exclamation-triangle" color="yellow" />
         </Tooltip>
       );
@@ -218,10 +259,11 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>too long</b>, and you will not be able to summon your {themed_name} with this
-              value!
+              The chosen {props.field} {is_are} <b>too long</b>, and you will
+              not be able to summon your {themed_name} with this value!
             </>
-          }>
+          }
+        >
           <Icon name="exclamation-triangle" color="yellow" />
         </Tooltip>
       );
@@ -231,10 +273,11 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} {is_are} <b>invalid</b>, and you will not be able to summon your {themed_name} with this
-              value!
+              The chosen {props.field} {is_are} <b>invalid</b>, and you will not
+              be able to summon your {themed_name} with this value!
             </>
-          }>
+          }
+        >
           <Icon name="exclamation-triangle" color="red" />
         </Tooltip>
       );
@@ -244,10 +287,11 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
         <Tooltip
           content={
             <>
-              The chosen {props.field} contains <b>filtered phrases</b>, and you will not be able to summon your {themed_name}{' '}
-              with this value!
+              The chosen {props.field} contains <b>filtered phrases</b>, and you
+              will not be able to summon your {themed_name} with this value!
             </>
-          }>
+          }
+        >
           <Icon name="exclamation-triangle" color="red" />
         </Tooltip>
       );
@@ -260,24 +304,25 @@ const InputValidity = (props: { field: string; validity: Validity }, context) =>
       );
     }
     default: {
-      break;
+      return null;
     }
   }
 };
 
-const BasicNameInput = (_props, context) => {
+const BasicNameInput = (_props) => {
   const {
     act,
     data: { custom_name, max_lengths, themed_name, validation },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   const set_name = (_, name: string) => {
-    act('set:name', { 'name': name });
+    act('set:name', { name: name });
   };
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
-      }}>
+        verticalAlign: 'middle',
+      }}
+    >
       <Stack.Item grow>
         <Input
           value={custom_name}
@@ -295,36 +340,53 @@ const BasicNameInput = (_props, context) => {
   );
 };
 
-const BasicColorInput = (_props, context) => {
+const BasicColorInput = (_props) => {
   const {
     data: { accent_color, validation },
-  } = useBackend<Info>(context);
-  const [_color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
+  } = useBackend<Info>();
+  const [_color_select, set_color_select] = useLocalState<HsvaColor | null>(
+    'color_select',
+    null,
+  );
   const accent_color_rgb = hexToRgba(accent_color);
   // these are reversed and I'm too lazy to figure out why
-  const light_mode_contrast = contrast(chat_background_colors.light, accent_color_rgb);
-  const dark_mode_contrast = contrast(chat_background_colors.dark, accent_color_rgb);
+  const light_mode_contrast = contrast(
+    chat_background_colors.light,
+    accent_color_rgb,
+  );
+  const dark_mode_contrast = contrast(
+    chat_background_colors.dark,
+    accent_color_rgb,
+  );
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
-      }}>
+        verticalAlign: 'middle',
+      }}
+    >
       <Stack.Item grow>
-        <ColorBox color={accent_color} onClick={() => set_color_select(hexToHsva(accent_color))} />
+        <ColorBox
+          color={accent_color}
+          onClick={() => set_color_select(hexToHsva(accent_color))}
+        />
       </Stack.Item>
       <Stack.Item>
         <InputValidity field="accent color" validity={validation.color} />
       </Stack.Item>
       {dark_mode_contrast < minimum_recommended_contrast && (
         <Stack.Item>
-          <Tooltip content={`This color may be difficult to read with light mode chat!`}>
+          <Tooltip
+            content={`This color may be difficult to read with light mode chat!`}
+          >
             <Icon name="eye-slash" color="white" />
           </Tooltip>
         </Stack.Item>
       )}
       {light_mode_contrast < minimum_recommended_contrast && (
         <Stack.Item>
-          <Tooltip content={`This color may be difficult to read with dark mode chat!`}>
+          <Tooltip
+            content={`This color may be difficult to read with dark mode chat!`}
+          >
             <Icon name="eye-slash" color="grey" />
           </Tooltip>
         </Stack.Item>
@@ -333,18 +395,25 @@ const BasicColorInput = (_props, context) => {
   );
 };
 
-const BasicColorSelector = (_props, context) => {
+const BasicColorSelector = (_props) => {
   const {
     act,
     data: { accent_color },
-  } = useBackend<Info>(context);
-  const [color_select, set_color_select] = useLocalState<HsvaColor | null>(context, 'color_select', hexToHsva(accent_color));
+  } = useBackend<Info>();
+  const [color_select, set_color_select] = useLocalState<HsvaColor | null>(
+    'color_select',
+    hexToHsva(accent_color),
+  );
   return (
     <Section fill title="Accent Color Selection">
       <Stack fill vertical>
         <Stack.Item grow>
           <Autofocus />
-          <ColorSelector color={color_select!} setColor={set_color_select} defaultColor={accent_color} />
+          <ColorSelector
+            color={color_select!}
+            setColor={set_color_select}
+            defaultColor={accent_color}
+          />
         </Stack.Item>
         <Stack.Item>
           <Flex align="center" direction="row" fill justify="space-around">
@@ -363,7 +432,8 @@ const BasicColorSelector = (_props, context) => {
                 pt={0.33}
                 disabled={color_select!.v < 50}
                 tooltip={color_select!.v < 50 && 'Selected color too dark!'}
-                textAlign="center">
+                textAlign="center"
+              >
                 Submit
               </Button>
             </Flex.Item>
@@ -377,7 +447,8 @@ const BasicColorSelector = (_props, context) => {
                 pl={2}
                 pr={2}
                 pt={0.33}
-                textAlign="center">
+                textAlign="center"
+              >
                 Cancel
               </Button>
             </Flex.Item>
@@ -388,15 +459,16 @@ const BasicColorSelector = (_props, context) => {
   );
 };
 
-const BasicPointsInfo = (_props, context) => {
+const BasicPointsInfo = (_props) => {
   const {
     data: { points, max_points, themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Stack
       style={{
-        'vertical-align': 'middle',
-      }}>
+        verticalAlign: 'middle',
+      }}
+    >
       <Stack.Item grow>
         <ProgressBar
           value={points}
@@ -407,7 +479,8 @@ const BasicPointsInfo = (_props, context) => {
             yellow: [1, max_points / 2],
             orange: [max_points / 2, max_points - 1],
             red: [max_points, Infinity],
-          }}>
+          }}
+        >
           {points.toLocaleString()} / {max_points.toLocaleString()} points
         </ProgressBar>
       </Stack.Item>
@@ -416,9 +489,11 @@ const BasicPointsInfo = (_props, context) => {
           <Tooltip
             content={
               <>
-                You will not be able to summon your {themed_name} with <b>negative points</b>!
+                You will not be able to summon your {themed_name} with{' '}
+                <b>negative points</b>!
               </>
-            }>
+            }
+          >
             <Icon name="exclamation-triangle" color="orange" />
           </Tooltip>
         </Stack.Item>
@@ -428,9 +503,11 @@ const BasicPointsInfo = (_props, context) => {
           <Tooltip
             content={
               <>
-                You have not used all your points yet, you have <b>{points.toLocaleString()} points</b> left to spend!
+                You have not used all your points yet, you have{' '}
+                <b>{points.toLocaleString()} points</b> left to spend!
               </>
-            }>
+            }
+          >
             <Icon name="exclamation-triangle" color="yellow" />
           </Tooltip>
         </Stack.Item>
@@ -439,13 +516,17 @@ const BasicPointsInfo = (_props, context) => {
   );
 };
 
-const BasicSection = (_props, context) => {
+const BasicSection = (_props) => {
   const {
     act,
     data: { themed_name, points, max_points, validation },
-  } = useBackend<Info>(context);
-  const [_unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
-  const manifest_disabled = points < 0 || validation.name !== Validity.Valid || validation.notes !== Validity.Valid;
+  } = useBackend<Info>();
+  const [_unused_points_dialog, set_unused_points_dialog] =
+    useLocalState<boolean>('unused_points_dialog', false);
+  const manifest_disabled =
+    points < 0 ||
+    validation.name !== Validity.Valid ||
+    validation.notes !== Validity.Valid;
   return (
     <Section fill title="Basic Info">
       <Stack fill vertical p={0.5}>
@@ -471,7 +552,10 @@ const BasicSection = (_props, context) => {
               <Button
                 content={`Manifest ${themed_name}`}
                 disabled={manifest_disabled}
-                tooltip={manifest_disabled && `Some of the fields for your ${themed_name} are invalid!`}
+                tooltip={
+                  manifest_disabled &&
+                  `Some of the fields for your ${themed_name} are invalid!`
+                }
                 onClick={() => {
                   if (points > 0 && max_points < 99) {
                     set_unused_points_dialog(true);
@@ -488,27 +572,30 @@ const BasicSection = (_props, context) => {
   );
 };
 
-const NotesSection = (_props, context) => {
+const NotesSection = (_props) => {
   const {
     act,
     data: { themed_name, notes, max_lengths, validation },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill title="Notes">
       <Stack fill vertical p={0.5}>
         <Stack.Item>
           <Stack
             style={{
-              'vertical-align': 'middle',
-            }}>
+              verticalAlign: 'middle',
+            }}
+          >
             <Stack.Item>
               <InputValidity field="notes" validity={validation.notes} />
             </Stack.Item>
             <Stack.Item>
               <Box textAlign="justify" textColor="label">
-                Notes will be displayed to your {themed_name}, and can be anything from alerting them to any tasks you wish to
-                accomplish, the identities of any allies or enemies you may have, or explaining a gimmick you are attempting to
-                roleplay, and can be IC, OOC, or a mixture of both.
+                Notes will be displayed to your {themed_name}, and can be
+                anything from alerting them to any tasks you wish to accomplish,
+                the identities of any allies or enemies you may have, or
+                explaining a gimmick you are attempting to roleplay, and can be
+                IC, OOC, or a mixture of both.
               </Box>
             </Stack.Item>
           </Stack>
@@ -523,7 +610,7 @@ const NotesSection = (_props, context) => {
             height="100%"
             value={notes}
             updateValue={(value: string) => {
-              act('set:notes', { 'notes': value });
+              act('set:notes', { notes: value });
             }}
           />
         </Stack.Item>
@@ -532,77 +619,95 @@ const NotesSection = (_props, context) => {
   );
 };
 
-const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }, context) => {
+const AbilityThresholds = (props: {
+  title: string;
+  thresholds: AbilityThreshold[];
+}) => {
   const {
     data: { rated_skills, themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Collapsible title={props.title}>
       <Stack vertical>
-        {sort_thresholds(props.thresholds || []).map((threshold: AbilityThreshold, index: number) => {
-          return (
-            <Stack.Item key={index}>
-              <Section
-                title={threshold_title(threshold.stats)}
-                buttons={
-                  is_actually_a_threshold(threshold) &&
-                  (is_threshold_met(threshold.stats, rated_skills) ? (
-                    <Tooltip
-                      content={
-                        <>
-                          This threshold is{' '}
-                          <Box inline bold color="good">
-                            met
-                          </Box>{' '}
-                          by your current stats!
-                        </>
-                      }>
-                      <Icon name="smile" color="green" />
-                    </Tooltip>
-                  ) : (
-                    <Tooltip
-                      content={
-                        <>
-                          This threshold is{' '}
-                          <Box inline bold color="bad">
-                            not met
-                          </Box>{' '}
-                          by your current stats!
-                        </>
-                      }>
-                      <Icon name="exclamation-triangle" color="orange" />
-                    </Tooltip>
-                  ))
-                }>
-                <Box textAlign="justify" textColor="label">
-                  {threshold.desc.replace('$theme', themed_name.toLocaleLowerCase())}
-                </Box>
-              </Section>
-            </Stack.Item>
-          );
-        })}
+        {sort_thresholds(props.thresholds || []).map(
+          (threshold: AbilityThreshold, index: number) => {
+            return (
+              <Stack.Item key={index}>
+                <Section
+                  title={threshold_title(threshold.stats)}
+                  buttons={
+                    is_actually_a_threshold(threshold) &&
+                    (is_threshold_met(threshold.stats, rated_skills) ? (
+                      <Tooltip
+                        content={
+                          <>
+                            This threshold is{' '}
+                            <Box inline bold color="good">
+                              met
+                            </Box>{' '}
+                            by your current stats!
+                          </>
+                        }
+                      >
+                        <Icon name="smile" color="green" />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        content={
+                          <>
+                            This threshold is{' '}
+                            <Box inline bold color="bad">
+                              not met
+                            </Box>{' '}
+                            by your current stats!
+                          </>
+                        }
+                      >
+                        <Icon name="exclamation-triangle" color="orange" />
+                      </Tooltip>
+                    ))
+                  }
+                >
+                  <Box textAlign="justify" textColor="label">
+                    {threshold.desc.replace(
+                      '$theme',
+                      themed_name.toLocaleLowerCase(),
+                    )}
+                  </Box>
+                </Section>
+              </Stack.Item>
+            );
+          },
+        )}
       </Stack>
     </Collapsible>
   );
 };
 
-const Abilities = (
-  props: { abilities: Ability[]; on_click: (ability: Ability, selected: boolean) => void; only_path?: string },
-  context
-) => {
+const Abilities = (props: {
+  abilities: Ability[];
+  on_click: (ability: Ability, selected: boolean) => void;
+  only_path?: string;
+}) => {
   const {
     data: { selected_abilities, themed_name },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   const abilities = props.only_path
-    ? (props.abilities || []).filter((ability: Ability) => ability.path === props.only_path)
-    : (props.abilities || []).filter((ability: Ability) => !ability.hidden || selected_abilities.includes(ability.path));
+    ? (props.abilities || []).filter(
+        (ability: Ability) => ability.path === props.only_path,
+      )
+    : (props.abilities || []).filter(
+        (ability: Ability) =>
+          !ability.hidden || selected_abilities.includes(ability.path),
+      );
   return (
     <Stack vertical>
       {sort_abilities(abilities).map((ability: Ability, _index: number) => {
         const selected = selected_abilities.includes(ability.path);
         const [stat_thresholds, stat_info] = ability.thresholds.reduce(
-          ([p, f], e) => (is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]]),
-          [[], []]
+          ([p, f], e) =>
+            is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]],
+          [[], []],
         ); // from https://stackoverflow.com/a/47225591
         return (
           <Stack.Item key={ability.path} px={1}>
@@ -618,26 +723,40 @@ const Abilities = (
               buttons={
                 !props.only_path && (
                   <Button
-                    content={ability.cost > 0 ? `${ability.cost.toLocaleString()} points` : 'Free'}
+                    content={
+                      ability.cost > 0
+                        ? `${ability.cost.toLocaleString()} points`
+                        : 'Free'
+                    }
                     selected={selected}
                     onClick={() => props.on_click(ability, selected)}
                   />
                 )
-              }>
+              }
+            >
               <Stack vertical>
                 <Stack.Item>
                   <Box textAlign="justify" textColor="label">
-                    {ability.desc.replace('$theme', themed_name.toLocaleLowerCase())}
+                    {ability.desc.replace(
+                      '$theme',
+                      themed_name.toLocaleLowerCase(),
+                    )}
                   </Box>
                 </Stack.Item>
                 {stat_info.length > 0 && (
                   <Stack.Item>
-                    <AbilityThresholds title="Stat Interactions" thresholds={stat_info} />
+                    <AbilityThresholds
+                      title="Stat Interactions"
+                      thresholds={stat_info}
+                    />
                   </Stack.Item>
                 )}
                 {stat_thresholds.length > 0 && (
                   <Stack.Item>
-                    <AbilityThresholds title="Stat Thresholds" thresholds={stat_thresholds} />
+                    <AbilityThresholds
+                      title="Stat Thresholds"
+                      thresholds={stat_thresholds}
+                    />
                   </Stack.Item>
                 )}
               </Stack>
@@ -649,21 +768,21 @@ const Abilities = (
   );
 };
 
-const MajorAbilitiesTab = (_props, context) => {
+const MajorAbilitiesTab = (_props) => {
   const {
     act,
     data: {
       themed_name,
       abilities: { major },
     },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill scrollable>
       <Stack vertical>
         <Stack.Item>
           <Box textColor="label">
-            Abilities allow your {themed_name} to assist you in unique, powerful ways. You may only have a single ability (or
-            none), however.
+            Abilities allow your {themed_name} to assist you in unique, powerful
+            ways. You may only have a single ability (or none), however.
           </Box>
         </Stack.Item>
         <Stack.Item>
@@ -683,27 +802,31 @@ const MajorAbilitiesTab = (_props, context) => {
   );
 };
 
-const LesserAbilitiesTab = (_props, context) => {
+const LesserAbilitiesTab = (_props) => {
   const {
     act,
     data: {
       abilities: { lesser },
     },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill scrollable>
       <Stack vertical>
         <Stack.Item>
           <Box textColor="label">
-            Lesser abilities are abilities that, while less powerful than major abilities, are typically cheaper. You can have
-            multiple lesser abilities, in addition to being able to use them alongside a full ability.
+            Lesser abilities are abilities that, while less powerful than major
+            abilities, are typically cheaper. You can have multiple lesser
+            abilities, in addition to being able to use them alongside a full
+            ability.
           </Box>
         </Stack.Item>
         <Stack.Item>
           <Abilities
             abilities={lesser}
             on_click={(ability: Ability, selected: boolean) =>
-              act(`ability:lesser:${selected ? 'take' : 'add'}`, { path: ability.path })
+              act(`ability:lesser:${selected ? 'take' : 'add'}`, {
+                path: ability.path,
+              })
             }
           />
         </Stack.Item>
@@ -712,7 +835,7 @@ const LesserAbilitiesTab = (_props, context) => {
   );
 };
 
-const WeaponsTab = (_props, context) => {
+const WeaponsTab = (_props) => {
   const {
     act,
     data: {
@@ -720,20 +843,23 @@ const WeaponsTab = (_props, context) => {
       forced_weapon,
       themed_name,
     },
-  } = useBackend<Info>(context);
+  } = useBackend<Info>();
   return (
     <Section fill scrollable>
       <Stack vertical>
         <Stack.Item>
           <Box textColor="label">
-            Weapons are abilities determine through what method your {themed_name} will attack people. You may only have a
-            single weapon at any given time.
+            Weapons are abilities determine through what method your{' '}
+            {themed_name} will attack people. You may only have a single weapon
+            at any given time.
           </Box>
         </Stack.Item>
         <Stack.Item>
           <Abilities
             abilities={weapons}
-            on_click={(ability: Ability, _selected: boolean) => act('ability:weapon:set', { path: ability.path })}
+            on_click={(ability: Ability, _selected: boolean) =>
+              act('ability:weapon:set', { path: ability.path })
+            }
             only_path={forced_weapon}
           />
         </Stack.Item>
@@ -742,8 +868,8 @@ const WeaponsTab = (_props, context) => {
   );
 };
 
-const StatsSection = (_props, context) => {
-  const { act, data } = useBackend<Info>(context);
+const StatsSection = (_props) => {
+  const { act, data } = useBackend<Info>();
   return (
     <Section fill title="Stats">
       <Stack fill vertical>
@@ -759,11 +885,18 @@ const StatsSection = (_props, context) => {
               <Flex inline width="300px" key={skill.name} mx={0.25} px={1}>
                 <Flex.Item>
                   <Box>
-                    <Section width="300px" title={skill.name} className="candystripe">
+                    <Section
+                      width="300px"
+                      title={skill.name}
+                      className="candystripe"
+                    >
                       <Stack fill vertical>
                         <Stack.Item>
                           <Box textAlign="justify" textColor="label">
-                            {skill.desc.replace('$theme', data.themed_name.toLocaleLowerCase())}
+                            {skill.desc.replace(
+                              '$theme',
+                              data.themed_name.toLocaleLowerCase(),
+                            )}
                           </Box>
                         </Stack.Item>
                         <Stack.Item textAlign="center">
@@ -796,18 +929,30 @@ const StatsSection = (_props, context) => {
   );
 };
 
-const AbilitiesTabs = (_props, context) => {
-  const [tab, set_tab] = useLocalState<AbilityTab>(context, 'tab', AbilityTab.Major);
+const AbilitiesTabs = (_props) => {
+  const [tab, set_tab] = useLocalState<AbilityTab>('tab', AbilityTab.Major);
   return (
     <Section fill pb={6}>
       <Tabs>
-        <Tabs.Tab icon="magic" selected={tab === AbilityTab.Major} onClick={() => set_tab(AbilityTab.Major)}>
+        <Tabs.Tab
+          icon="magic"
+          selected={tab === AbilityTab.Major}
+          onClick={() => set_tab(AbilityTab.Major)}
+        >
           Abilities
         </Tabs.Tab>
-        <Tabs.Tab icon="cog" selected={tab === AbilityTab.Lesser} onClick={() => set_tab(AbilityTab.Lesser)}>
+        <Tabs.Tab
+          icon="cog"
+          selected={tab === AbilityTab.Lesser}
+          onClick={() => set_tab(AbilityTab.Lesser)}
+        >
           Lesser Abilities
         </Tabs.Tab>
-        <Tabs.Tab icon="bolt" selected={tab === AbilityTab.Weapons} onClick={() => set_tab(AbilityTab.Weapons)}>
+        <Tabs.Tab
+          icon="bolt"
+          selected={tab === AbilityTab.Weapons}
+          onClick={() => set_tab(AbilityTab.Weapons)}
+        >
           Weapons
         </Tabs.Tab>
       </Tabs>
@@ -818,12 +963,18 @@ const AbilitiesTabs = (_props, context) => {
   );
 };
 
-const ResetButton = (_props, context) => {
+const ResetButton = (_props) => {
   const {
     data: { used, waiting, themed_name },
-  } = useBackend<Info>(context);
-  const [unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
-  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
+  } = useBackend<Info>();
+  const [unused_points_dialog] = useLocalState<boolean>(
+    'unused_points_dialog',
+    false,
+  );
+  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(
+    'reset_dialog',
+    false,
+  );
   return (
     <Button
       icon="undo"
@@ -836,146 +987,144 @@ const ResetButton = (_props, context) => {
   );
 };
 
-const WaitingDialog = (_props, context) => {
+const WaitingDialog = (_props) => {
   const {
     data: { themed_name, waiting },
-  } = useBackend<Info>(context);
-  return (
-    !!waiting && (
-      <Dimmer fontSize="32px">
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon name="cog" spin />
-          </Stack.Item>
-          <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  } = useBackend<Info>();
+  return waiting ? (
+    <Dimmer fontSize="32px">
+      <Stack align="center" fill justify="center" vertical>
+        <Stack.Item>
+          <Icon name="cog" spin />
+        </Stack.Item>
+        <Stack.Item>{`Attempting to manifest your ${themed_name}. Please wait...`}</Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-const UsedDialog = (_props, context) => {
+const UsedDialog = (_props) => {
   const {
     data: { used, themed_name },
-  } = useBackend<Info>(context);
-  return (
-    !!used && (
-      <Dimmer fontSize="32px">
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon name="exclamation-triangle" color="orange" />
-          </Stack.Item>
-          <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  } = useBackend<Info>();
+  return used ? (
+    <Dimmer fontSize="32px">
+      <Stack align="center" fill justify="center" vertical>
+        <Stack.Item>
+          <Icon name="exclamation-triangle" color="orange" />
+        </Stack.Item>
+        <Stack.Item>{`This ${themed_name} manifestation apparatus has already been used.`}</Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-const ResetDialog = (_props, context) => {
-  const { act } = useBackend<Info>(context);
-  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(context, 'reset_dialog', false);
-  return (
-    !!reset_dialog && (
-      <Dimmer>
-        <Stack align="baseline" vertical>
-          <Stack.Item>
-            <Stack ml={-2}>
-              <Stack.Item>
-                <Icon color="red" name="trash" size={10} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item fontSize="18px" textAlign="center">
-            Are you sure you want to reset <b>all of your chosen stats and abilities</b>?
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Button
-                  color="good"
-                  content="Keep"
-                  onClick={() => {
-                    set_reset_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="bad"
-                  content="Reset"
-                  onClick={() => {
-                    act('reset');
-                    set_reset_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
+const ResetDialog = (_props) => {
+  const { act } = useBackend<Info>();
+  const [reset_dialog, set_reset_dialog] = useLocalState<boolean>(
+    'reset_dialog',
+    false,
   );
+  return reset_dialog ? (
+    <Dimmer>
+      <Stack align="baseline" vertical>
+        <Stack.Item>
+          <Stack ml={-2}>
+            <Stack.Item>
+              <Icon color="red" name="trash" size={10} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item fontSize="18px" textAlign="center">
+          Are you sure you want to reset{' '}
+          <b>all of your chosen stats and abilities</b>?
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button
+                color="good"
+                content="Keep"
+                onClick={() => {
+                  set_reset_dialog(false);
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="bad"
+                content="Reset"
+                onClick={() => {
+                  act('reset');
+                  set_reset_dialog(false);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-const UnusedPointsDialog = (_props, context) => {
+const UnusedPointsDialog = (_props) => {
   const {
     act,
     data: { points, themed_name },
-  } = useBackend<Info>(context);
-  const [unused_points_dialog, set_unused_points_dialog] = useLocalState<boolean>(context, 'unused_points_dialog', false);
-  return (
-    !!unused_points_dialog && (
-      <Dimmer>
-        <Stack align="baseline" vertical>
-          <Stack.Item>
-            <Stack ml={-2}>
-              <Stack.Item>
-                <Icon color="yellow" name="exclamation-triangle" size={10} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item fontSize="18px">
-            <Stack vertical textAlign="center">
-              <Stack.Item>
-                You have <b>{points.toLocaleString()} unused points</b>!
-              </Stack.Item>
-              <Stack.Item>
-                Are you <i>sure</i> you would like to summon your {themed_name} without having allocated all of your points?
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Button
-                  color="good"
-                  content="Go Back"
-                  onClick={() => {
-                    set_unused_points_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  color="bad"
-                  content="Continue Anyways"
-                  onClick={() => {
-                    act('spawn');
-                    set_unused_points_dialog(false);
-                  }}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Dimmer>
-    )
-  );
+  } = useBackend<Info>();
+  const [unused_points_dialog, set_unused_points_dialog] =
+    useLocalState<boolean>('unused_points_dialog', false);
+  return unused_points_dialog ? (
+    <Dimmer>
+      <Stack align="baseline" vertical>
+        <Stack.Item>
+          <Stack ml={-2}>
+            <Stack.Item>
+              <Icon color="yellow" name="exclamation-triangle" size={10} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item fontSize="18px">
+          <Stack vertical textAlign="center">
+            <Stack.Item>
+              You have <b>{points.toLocaleString()} unused points</b>!
+            </Stack.Item>
+            <Stack.Item>
+              Are you <i>sure</i> you would like to summon your {themed_name}{' '}
+              without having allocated all of your points?
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button
+                color="good"
+                content="Go Back"
+                onClick={() => {
+                  set_unused_points_dialog(false);
+                }}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                color="bad"
+                content="Continue Anyways"
+                onClick={() => {
+                  act('spawn');
+                  set_unused_points_dialog(false);
+                }}
+              />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Dimmer>
+  ) : null;
 };
 
-export const HoloparasiteBuilder = (_props, context) => {
-  const [color_select] = useLocalState<HsvaColor | null>(context, 'color_select', null);
+export const HoloparasiteBuilder = (_props) => {
+  const [color_select] = useLocalState<HsvaColor | null>('color_select', null);
   return (
     <Window theme="generic" width={1000} height={960} buttons={<ResetButton />}>
       <Window.Content>

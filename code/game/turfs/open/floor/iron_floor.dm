@@ -7,7 +7,7 @@
 
 /turf/open/floor/iron/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
+	. += span_notice("There's a <b>small crack</b> on the edge of it.")
 
 
 /turf/open/floor/iron/rust_heretic_act()
@@ -34,20 +34,32 @@
 	base_icon_state = "floor_edge"
 	floor_tile = /obj/item/stack/tile/iron/edge
 
+/turf/open/floor/iron/edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/half
 	icon_state = "floor_half"
 	base_icon_state = "floor_half"
 	floor_tile = /obj/item/stack/tile/iron/half
+
+/turf/open/floor/iron/half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/corner
 	icon_state = "floor_corner"
 	base_icon_state = "floor_corner"
 	floor_tile = /obj/item/stack/tile/iron/corner
 
+/turf/open/floor/iron/corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/large
 	icon_state = "floor_large"
 	base_icon_state = "floor_large"
 	floor_tile = /obj/item/stack/tile/iron/large
+
+/turf/open/floor/iron/large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/textured
 	icon_state = "textured"
@@ -59,20 +71,32 @@
 	base_icon_state = "textured_edge"
 	floor_tile = /obj/item/stack/tile/iron/textured_edge
 
+/turf/open/floor/iron/textured_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/textured_half
 	icon_state = "textured_half"
 	base_icon_state = "textured_half"
 	floor_tile = /obj/item/stack/tile/iron/textured_half
+
+/turf/open/floor/iron/textured_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/textured_corner
 	icon_state = "textured_corner"
 	base_icon_state = "textured_corner"
 	floor_tile = /obj/item/stack/tile/iron/textured_corner
 
+/turf/open/floor/iron/textured_corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/textured_large
 	icon_state = "textured_large"
 	base_icon_state = "textured_large"
 	floor_tile = /obj/item/stack/tile/iron/textured_large
+
+/turf/open/floor/iron/textured_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark
 	icon_state = "darkfull"
@@ -84,39 +108,57 @@
 	base_icon_state = "dark_edge"
 	floor_tile = /obj/item/stack/tile/iron/dark/smooth_edge
 
+/turf/open/floor/iron/dark/smooth_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/dark/smooth_half
 	icon_state = "dark_half"
 	base_icon_state = "dark_half"
 	floor_tile = /obj/item/stack/tile/iron/dark/smooth_half
+
+/turf/open/floor/iron/dark/smooth_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark/smooth_corner
 	icon_state = "dark_corner"
 	base_icon_state = "dark_corner"
 	floor_tile = /obj/item/stack/tile/iron/dark/smooth_corner
 
+/turf/open/floor/iron/dark/smooth_corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/dark/smooth_large
 	icon_state = "dark_large"
 	base_icon_state = "dark_large"
 	floor_tile = /obj/item/stack/tile/iron/dark/smooth_large
+
+/turf/open/floor/iron/dark/smooth_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark/side
 	icon_state = "darkside"
 	base_icon_state = "darkside"
 	floor_tile = /obj/item/stack/tile/iron/dark_side
 
+/turf/open/floor/iron/dark/side/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/dark/corner
 	icon_state = "darkcorner"
 	base_icon_state = "darkcorner"
 	floor_tile = /obj/item/stack/tile/iron/dark_corner
 
+/turf/open/floor/iron/dark/corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/checker
-	icon_state = "blackwhite"
-	base_icon_state = "blackwhite"
+	icon_state = "checker"
+	base_icon_state = "checker"
 	floor_tile = /obj/item/stack/tile/iron/checker
 
 /turf/open/floor/iron/checker/other
-	icon_state = "checker"
-	base_icon_state = "checker"
+	icon_state = "checker_alternate"
+	base_icon_state = "checker_alternate"
 	floor_tile = /obj/item/stack/tile/iron/checker
 
 /turf/open/floor/iron/dark/textured
@@ -129,15 +171,24 @@
 	base_icon_state = "textured_dark_edge"
 	floor_tile = /obj/item/stack/tile/iron/dark/textured_edge
 
+/turf/open/floor/iron/dark/textured_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/dark/textured_half
 	icon_state = "textured_dark_half"
 	base_icon_state = "textured_dark_half"
 	floor_tile = /obj/item/stack/tile/iron/dark/textured_half
 
+/turf/open/floor/iron/dark/textured_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/dark/textured_corner
 	icon_state = "textured_dark_corner"
 	base_icon_state = "textured_dark_corner"
 	floor_tile = /obj/item/stack/tile/iron/dark/textured_corner
+
+/turf/open/floor/iron/dark/textured_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/dark/textured_large
 	icon_state = "textured_dark_large"
@@ -169,30 +220,48 @@
 	base_icon_state = "white_edge"
 	floor_tile = /obj/item/stack/tile/iron/white/smooth_edge
 
+/turf/open/floor/iron/white/smooth_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/smooth_half
 	icon_state = "white_half"
 	base_icon_state = "white_half"
 	floor_tile = /obj/item/stack/tile/iron/white/smooth_half
+
+/turf/open/floor/iron/white/smooth_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/white/smooth_corner
 	icon_state = "white_corner"
 	base_icon_state = "white_corner"
 	floor_tile = /obj/item/stack/tile/iron/white/smooth_corner
 
+/turf/open/floor/iron/white/smooth_corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/smooth_large
 	icon_state = "white_large"
 	base_icon_state = "white_large"
 	floor_tile = /obj/item/stack/tile/iron/white/smooth_large
+
+/turf/open/floor/iron/white/smooth_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/white/side
 	icon_state = "whitehall"
 	base_icon_state = "whitehall"
 	floor_tile = /obj/item/stack/tile/iron/white_side
 
+/turf/open/floor/iron/white/side/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/corner
 	icon_state = "whitecorner"
 	base_icon_state = "whitecorner"
 	floor_tile = /obj/item/stack/tile/iron/white_corner
+
+/turf/open/floor/iron/white/corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/cafeteria
 	icon_state = "cafeteria"
@@ -209,20 +278,32 @@
 	base_icon_state = "textured_white_edge"
 	floor_tile = /obj/item/stack/tile/iron/white/textured_edge
 
+/turf/open/floor/iron/white/textured_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/textured_half
 	icon_state = "textured_white_half"
 	base_icon_state = "textured_white_half"
 	floor_tile = /obj/item/stack/tile/iron/white/textured_half
+
+/turf/open/floor/iron/white/textured_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/white/textured_corner
 	icon_state = "textured_white_corner"
 	base_icon_state = "textured_white_corner"
 	floor_tile = /obj/item/stack/tile/iron/white/textured_corner
 
+/turf/open/floor/iron/white/textured_corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/white/textured_large
 	icon_state = "textured_white_large"
 	base_icon_state = "textured_white_large"
 	floor_tile = /obj/item/stack/tile/iron/white/textured_large
+
+/turf/open/floor/iron/white/textured_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -259,20 +340,32 @@
 	base_icon_state = "smooth_edge"
 	floor_tile = /obj/item/stack/tile/iron/smooth_edge
 
+/turf/open/floor/iron/smooth_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/smooth_half
 	icon_state = "smooth_half"
 	base_icon_state = "smooth_half"
 	floor_tile = /obj/item/stack/tile/iron/smooth_half
+
+/turf/open/floor/iron/smooth_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/smooth_corner
 	icon_state = "smooth_corner"
 	base_icon_state = "smooth_corner"
 	floor_tile = /obj/item/stack/tile/iron/smooth_corner
 
+/turf/open/floor/iron/smooth_corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/smooth_large
 	icon_state = "smooth_large"
 	base_icon_state = "smooth_large"
 	floor_tile = /obj/item/stack/tile/iron/smooth_large
+
+/turf/open/floor/iron/smooth_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
 
 /turf/open/floor/iron/chapel
 	icon_state = "chapel"
@@ -295,6 +388,8 @@
 /turf/open/floor/iron/solarpanel/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/iron/solarpanel/cold
+	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
 
 /turf/open/floor/iron/freezer
 	icon_state = "freezerfloor"

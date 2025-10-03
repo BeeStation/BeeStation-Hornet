@@ -14,7 +14,7 @@
 	max_integrity = 200
 
 
-	var/faction = list("ashwalker")
+	var/faction = list(FACTION_ASHWALKER)
 	var/meat_counter = 6
 	var/datum/team/ashwalkers/ashies
 	var/datum/linked_objective
@@ -49,7 +49,7 @@
 /obj/structure/lavaland/ash_walker/proc/consume()
 	for(var/mob/living/H in hearers(1, src)) //Only for corpse right next to/on same tile
 		if(H.stat)
-			visible_message("<span class='warning'>Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs.</span>")
+			visible_message(span_warning("Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs."))
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
 			for(var/obj/item/W in H)
 				if(!H.dropItemToGround(W))
@@ -60,7 +60,7 @@
 				meat_counter++
 			H.investigate_log("has been gibbed by the necropolis tendril.", INVESTIGATE_DEATHS)
 			H.gib()
-			obj_integrity = min(obj_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
+			atom_integrity = min(atom_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
 			for(var/mob/living/L in viewers(5, src))
 				if(L.mind?.has_antag_datum(/datum/antagonist/ashwalker))
 					SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "oogabooga", /datum/mood_event/sacrifice_good)
@@ -70,5 +70,7 @@
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
 		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)), ashies)
-		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
+		visible_message(span_danger("One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!"))
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
+
+#undef ASH_WALKER_SPAWN_THRESHOLD

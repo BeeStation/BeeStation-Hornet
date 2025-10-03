@@ -20,7 +20,7 @@
 	clockwork_desc = "A prism that will heal nearby servants of toxin damage."
 	default_icon_state = "prolonging_prism"
 	anchored = TRUE
-	break_message = "<span class='warning'>The prism falls apart, toxic liquid leaking out into the air.</span>"
+	break_message = span_warning("The prism falls apart, toxic liquid leaking out into the air.")
 	max_integrity = 150
 	minimum_power = 4
 	var/powered = FALSE
@@ -66,7 +66,7 @@
 		powered = TRUE
 		update_icon_state()
 	for(var/mob/living/L in range(4, src))
-		if(!is_servant_of_ratvar(L))
+		if(!IS_SERVANT_OF_RATVAR(L))
 			continue
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
@@ -81,13 +81,13 @@
 					L.reagents.remove_reagent(R.type, 50*delta_time)
 					holder.add_reagent(R.type, 50*delta_time)
 
-/obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user)
-	if(is_servant_of_ratvar(user))
+/obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user, list/modifiers)
+	if(IS_SERVANT_OF_RATVAR(user))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
 			return
 		toggled_on = !toggled_on
-		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [toggled_on?"on":"off"]!</span>")
+		to_chat(user, span_brass("You flick the switch on [src], turning it [toggled_on?"on":"off"]!"))
 	else
 		. = ..()
 

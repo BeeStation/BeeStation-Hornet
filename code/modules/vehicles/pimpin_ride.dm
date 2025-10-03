@@ -3,20 +3,20 @@
 	name = "janicart (pimpin' ride)"
 	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
 	icon_state = "pussywagon"
-	key_type = /obj/item/key/janitor
 	var/obj/item/storage/bag/trash/mybag = null
 	var/floorbuffer = FALSE
 	var/datum/action/cleaning_toggle/autoclean_toggle
+	key_type = /obj/item/key/janitor
 
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_icon()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
-	D.empable = TRUE
 	GLOB.janitor_devices += src
 	if(floorbuffer)
 		AddElement(/datum/element/cleaning)
+
+/obj/vehicle/ridden/janicart/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
 /obj/vehicle/ridden/janicart/Destroy()
 	GLOB.janitor_devices -= src
@@ -39,20 +39,20 @@
 /obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(mybag)
-			to_chat(user, "<span class='warning'>[src] already has a trashbag hooked!</span>")
+			to_chat(user, span_warning("[src] already has a trashbag hooked!"))
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
-		to_chat(user, "<span class='notice'>You hook the trashbag onto [src].</span>")
+		to_chat(user, span_notice("You hook the trashbag onto [src]."))
 		mybag = I
 		update_icon()
 	else if(istype(I, /obj/item/janiupgrade))
 		if(floorbuffer)
-			to_chat(user, "<span class='warning'>[src] already has a floor buffer!</span>")
+			to_chat(user, span_warning("[src] already has a floor buffer!"))
 			return
 		floorbuffer = TRUE
 		qdel(I)
-		to_chat(user, "<span class='notice'>You upgrade [src] with the floor buffer.</span>")
+		to_chat(user, span_notice("You upgrade [src] with the floor buffer."))
 		AddElement(/datum/element/cleaning)
 		update_icon()
 	else
@@ -65,7 +65,7 @@
 	if(floorbuffer)
 		add_overlay("cart_buffer")
 
-/obj/vehicle/ridden/janicart/attack_hand(mob/user)
+/obj/vehicle/ridden/janicart/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -97,6 +97,6 @@
 /obj/vehicle/ridden/janicart/upgraded
 	floorbuffer = TRUE
 
-/obj/vehicle/ridden/janicart/upgraded/keyless
-	floorbuffer = TRUE
-	key_type = null
+/obj/vehicle/ridden/janicart/upgraded/keyless/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart/keyless)
+

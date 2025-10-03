@@ -17,7 +17,7 @@
 	hl3_release_date = _half_life
 	can_contaminate = _can_contaminate
 	if(istype(parent, /atom))
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(rad_examine))
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(rad_examine))
 		RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(rad_clean))
 		if(istype(parent, /obj/item))
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(rad_attack))
@@ -85,7 +85,7 @@
 	if(!LAZYLEN(out))
 		return
 	out += "."
-	to_chat(user, "<span class ='warning'>[out.Join()]</span>")
+	to_chat(user, span_warning("[out.Join()]"))
 
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER

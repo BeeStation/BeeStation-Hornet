@@ -27,7 +27,17 @@
 //Variables declared to change how items in the launch bay are picked and launched. (Almost) all of these are changed in the ui_act proc
 //Some effect groups are choices, while other are booleans. This is because some effects can stack, while others dont (ex: you can stack explosion and quiet, but you cant stack ordered launch and random launch)
 /datum/centcom_podlauncher
-	var/static/list/ignored_atoms = typecacheof(list(null, /mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object, /obj/effect/particle_effect/sparks, /obj/effect/pod_landingzone, /obj/effect/hallucination/simple/supplypod_selector,  /obj/effect/hallucination/simple/dropoff_location))
+	/// Static typecache of atoms we won't lift up, or pod or whatever.
+	var/static/list/ignored_atoms = typecacheof(list(
+		null, // I don't know why null is the first element of this typepache but it was there when I found it
+		/mob/dead,
+		/obj/effect/landmark,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+		/obj/effect/particle_effect/sparks,
+		/obj/effect/pod_landingzone,
+		/obj/effect/client_image_holder,
+	))
 	var/turf/oldTurf //Keeps track of where the user was at if they use the "teleport to centcom" button, so they can go back
 	var/client/owner_client //client of whoever is using this datum
 	var/area/centcom/supplypod/loading/bay //What bay we're using to launch shit from.
@@ -48,8 +58,12 @@
 	var/list/orderedArea = list() //Contains an ordered list of turfs in an area (filled in the createOrderedArea() proc), read top-left to bottom-right. Used for the "ordered" launch mode (launchChoice = 1)
 	var/list/turf/acceptableTurfs = list() //Contians a list of turfs (in the "bay" area on centcom) that have items that can be launched. Taken from orderedArea
 	var/list/launchList = list() //Contains whatever is going to be put in the supplypod and fired. Taken from acceptableTurfs
-	var/obj/effect/hallucination/simple/supplypod_selector/selector //An effect used for keeping track of what item is going to be launched when in "ordered" mode (launchChoice = 1)
-	var/obj/effect/hallucination/simple/dropoff_location/indicator
+
+	/// An effect used for showing where a reverse pod will land
+	var/obj/effect/client_image_holder/dropoff_location/indicator
+	/// An effect used for keeping track of what item is going to be launched next when in "ordered" mode (launchChoice = 1)
+	var/obj/effect/client_image_holder/supplypod_selector/selector
+
 	var/obj/structure/closet/supplypod/centcompod/temp_pod //The temporary pod that is modified by this datum, then cloned. The buildObject() clone of this pod is what is launched
 	// Stuff needed to render the map
 	var/map_name
@@ -540,7 +554,7 @@
 	var/turf/drop = locate(coords_list[1], coords_list[2], coords_list[3])
 	setupView(RANGE_TURFS(3, drop))
 
-/datum/centcom_podlauncher/proc/setupView(var/list/visible_turfs)
+/datum/centcom_podlauncher/proc/setupView(list/visible_turfs)
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
@@ -549,26 +563,32 @@
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
-/datum/centcom_podlauncher/proc/updateCursor(var/forceClear = FALSE) //Update the mouse of the user
+/datum/centcom_podlauncher/proc/updateCursor(forceClear = FALSE) //Update the mouse of the user
 	if (!owner_client) //Can't update the mouse icon if the client doesnt exist!
 		return
 	if (!forceClear && (launcherActivated || picking_dropoff_turf)) //If the launching param is true, we give the user new mouse icons.
 		if(launcherActivated)
-			owner_client.mouse_up_icon = 'icons/effects/supplypod_target.dmi' //Icon for when mouse is released
-			owner_client.mouse_down_icon = 'icons/effects/supplypod_down_target.dmi' //Icon for when mouse is pressed
+			owner_client.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_target.dmi' //Icon for when mouse is released
+			owner_client.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_down_target.dmi' //Icon for when mouse is pressed
 		else if(picking_dropoff_turf)
-			owner_client.mouse_up_icon = 'icons/effects/supplypod_pickturf.dmi' //Icon for when mouse is released
-			owner_client.mouse_down_icon = 'icons/effects/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
-		owner_client.mouse_pointer_icon = owner_client.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+			owner_client.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi' //Icon for when mouse is released
+			owner_client.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
+		owner_client.mouse_override_icon = owner_client.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+		owner_client.mouse_pointer_icon = owner_client.mouse_override_icon
 		owner_client.click_intercept = src //Create a click_intercept so we know where the user is clicking
 	else
 		var/mob/owner_client_mob = owner_client.mob
 		owner_client.mouse_up_icon = null
 		owner_client.mouse_down_icon = null
+		owner_client.mouse_override_icon = null
 		owner_client.click_intercept = null
 		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_mouse_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
-/datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+/datum/centcom_podlauncher/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+	_intercept_click_on(user, params, target)
+
+/datum/centcom_podlauncher/proc/_intercept_click_on(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+	set waitfor = FALSE
 	var/list/modifiers = params2list(params)
 
 	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
@@ -590,7 +610,7 @@
 			else
 				return //if target is null and we don't have a specific target, cancel
 			if (effectAnnounce)
-				deadchat_broadcast("<span class='deadsay'>A special package is being launched at the station!</span>", turf_target = target_turf)
+				deadchat_broadcast(span_deadsay("A special package is being launched at the station!"), turf_target = target_turf)
 
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target_turf)
@@ -615,7 +635,7 @@
 			var/turf/target_turf = get_turf(target)
 			setDropoff(target_turf)
 			customDropoff = TRUE
-			to_chat(user, "<span class = 'notice'> You've selected [target_turf] at [COORD(target_turf)] as your dropoff location.</span>")
+			to_chat(user, span_notice(" You've selected [target_turf] at [COORD(target_turf)] as your dropoff location."))
 			ui_update()
 
 /datum/centcom_podlauncher/proc/refreshView()
@@ -767,9 +787,6 @@
 
 /datum/centcom_podlauncher/proc/clearBay() //Clear all objs and mobs from the selected bay
 	for (var/obj/O in bay.GetAllContents())
-		if(istype(O, /obj/effect/hallucination/simple/supplypod_selector) \
-			|| istype(O, /obj/effect/hallucination/simple/dropoff_location))
-			continue // Don't clear indicators, especially since they don't recreate automatically
 		qdel(O)
 	for (var/mob/M in bay.GetAllContents())
 		qdel(M)
@@ -782,7 +799,7 @@
 	QDEL_NULL(temp_pod) //Delete the temp_pod
 	QDEL_NULL(selector) //Delete the selector effect
 	QDEL_NULL(indicator)
-	. = ..()
+	return ..()
 
 /datum/centcom_podlauncher/proc/supplypod_punish_log(turf/target_turf, list/nearby_mobs, list/targeted_mobs, list/pod_contents)
 	var/podString = effectBurst ? "5 pods" : "a pod"
@@ -815,7 +832,7 @@
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")
 			M.log_message(log_msg, LOG_ADMIN, log_globally = FALSE)
 
-/datum/centcom_podlauncher/proc/loadData(var/list/dataToLoad)
+/datum/centcom_podlauncher/proc/loadData(list/dataToLoad)
 	bayNumber = dataToLoad["bayNumber"]
 	customDropoff = dataToLoad["customDropoff"]
 	renderLighting = dataToLoad["renderLighting"]
@@ -881,16 +898,26 @@ GLOBAL_DATUM_INIT(podlauncher, /datum/centcom_podlauncher, new)
 	temp_pod.reverse_dropoff_coords = list(target_turf.x, target_turf.y, target_turf.z)
 	indicator.forceMove(target_turf)
 
-/obj/effect/hallucination/simple/supplypod_selector
+/obj/effect/client_image_holder/supplypod_selector // Shows which item will be taken next
 	name = "Supply Selector (Only you can see this)"
 	image_icon = 'icons/obj/supplypods_32x32.dmi'
 	image_state = "selector"
 	image_layer = FLY_LAYER
+	layer = FLY_LAYER
+	plane = ABOVE_GAME_PLANE
 	alpha = 150
 
-/obj/effect/hallucination/simple/dropoff_location
+/obj/effect/client_image_holder/dropoff_location // Shows where revese pods lands
 	name = "Dropoff Location (Only you can see this)"
 	image_icon = 'icons/obj/supplypods_32x32.dmi'
 	image_state = "dropoff_indicator"
 	image_layer = FLY_LAYER
+	layer = FLY_LAYER
+	plane = ABOVE_GAME_PLANE
 	alpha = 0
+
+#undef TAB_POD
+#undef TAB_BAY
+#undef LAUNCH_ALL
+#undef LAUNCH_ORDERED
+#undef LAUNCH_RANDOM

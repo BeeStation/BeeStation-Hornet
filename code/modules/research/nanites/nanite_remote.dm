@@ -23,23 +23,23 @@
 /obj/item/nanite_remote/examine(mob/user)
 	. = ..()
 	if(locked)
-		. += "<span class='notice'>Alt-click to unlock.</span>"
+		. += span_notice("Alt-click to unlock.")
 
 /obj/item/nanite_remote/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(locked)
 		if(allowed(user))
-			to_chat(user, "<span class='notice'>You unlock [src].</span>")
+			to_chat(user, span_notice("You unlock [src]."))
 			locked = FALSE
 			update_icon()
 			ui_update()
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 /obj/item/nanite_remote/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='warning'>You override [src]'s ID lock.</span>")
+	to_chat(user, span_warning("You override [src]'s ID lock."))
 	if(locked)
 		locked = FALSE
 		update_icon()
@@ -58,18 +58,18 @@
 		if(REMOTE_MODE_OFF)
 			return
 		if(REMOTE_MODE_SELF)
-			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites in your bloodstream.</span>")
+			to_chat(user, span_notice("You activate [src], signaling the nanites in your bloodstream."))
 			signal_mob(user, code, key_name(user))
 		if(REMOTE_MODE_TARGET)
 			if(isliving(target) && (get_dist(target, get_turf(src)) <= 7))
-				to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside [target].</span>")
+				to_chat(user, span_notice("You activate [src], signaling the nanites inside [target]."))
 				signal_mob(target, code, key_name(user))
 		if(REMOTE_MODE_AOE)
-			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside every host around you.</span>")
+			to_chat(user, span_notice("You activate [src], signaling the nanites inside every host around you."))
 			for(var/mob/living/L in hearers(7, user))
 				signal_mob(L, code, key_name(user))
 		if(REMOTE_MODE_RELAY)
-			to_chat(user, "<span class='notice'>You activate [src], signaling all connected relay nanites.</span>")
+			to_chat(user, span_notice("You activate [src], signaling all connected relay nanites."))
 			signal_relay(code, relay_code, key_name(user))
 
 /obj/item/nanite_remote/proc/signal_mob(mob/living/M, code, source)
@@ -180,18 +180,18 @@
 		if(REMOTE_MODE_OFF)
 			return
 		if(REMOTE_MODE_SELF)
-			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites in your bloodstream.</span>")
+			to_chat(user, span_notice("You activate [src], signaling the nanites in your bloodstream."))
 			signal_mob(user, code, comm_message)
 		if(REMOTE_MODE_TARGET)
 			if(isliving(target) && (get_dist(target, get_turf(src)) <= 7))
-				to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside [target].</span>")
+				to_chat(user, span_notice("You activate [src], signaling the nanites inside [target]."))
 				signal_mob(target, code, comm_message, key_name(user))
 		if(REMOTE_MODE_AOE)
-			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside every host around you.</span>")
+			to_chat(user, span_notice("You activate [src], signaling the nanites inside every host around you."))
 			for(var/mob/living/L in hearers(7, user))
 				signal_mob(L, code, comm_message, key_name(user))
 		if(REMOTE_MODE_RELAY)
-			to_chat(user, "<span class='notice'>You activate [src], signaling all connected relay nanites.</span>")
+			to_chat(user, span_notice("You activate [src], signaling all connected relay nanites."))
 			signal_relay(code, relay_code, comm_message, key_name(user))
 
 /obj/item/nanite_remote/comm/signal_mob(mob/living/M, code, source)
@@ -216,7 +216,8 @@
 	return data
 
 /obj/item/nanite_remote/comm/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("set_message")
@@ -226,7 +227,7 @@
 			if(!new_message)
 				return
 			if(CHAT_FILTER_CHECK(new_message))
-				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				to_chat(usr, span_warning("Your message contains forbidden words."))
 				var/logmsg = "attempted to set a forbidden nanite cloud message with contents: \"[new_message]\". The message was filtered and blocked."
 				log_admin_private("[key_name(usr)] [logmsg]")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] [logmsg]")

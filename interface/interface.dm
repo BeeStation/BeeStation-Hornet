@@ -1,5 +1,5 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
-/client/verb/wiki(query as text)
+AUTH_CLIENT_VERB(wiki, query as text)
 	set name = "wiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser. Type nothing to go to the main page."
 	set hidden = 1
@@ -11,10 +11,10 @@
 		else if (query != null)
 			src << link(wikiurl)
 	else
-		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
 	return
 
-/client/verb/forum()
+AUTH_CLIENT_VERB(forum)
 	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
@@ -24,10 +24,10 @@
 			return
 		src << link(forumurl)
 	else
-		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
 	return
 
-/client/verb/rules()
+AUTH_CLIENT_VERB(rules)
 	set name = "rules"
 	set desc = "Show Server Rules."
 	set hidden = 1
@@ -37,10 +37,10 @@
 			return
 		src << link(rulesurl)
 	else
-		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The rules URL is not set in the server configuration."))
 	return
 
-/client/verb/github()
+AUTH_CLIENT_VERB(github)
 	set name = "github"
 	set desc = "Visit Github"
 	set hidden = 1
@@ -50,10 +50,10 @@
 			return
 		src << link(githuburl)
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
-/client/verb/reportissue()
+AUTH_CLIENT_VERB(reportissue)
 	set name = "report-issue"
 	set desc = "Report an issue"
 	set hidden = 1
@@ -75,10 +75,10 @@
 		var/issue_label = CONFIG_GET(string/issue_label)
 		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[rustg_url_encode(url_params)][issue_label ? "&labels=[rustg_url_encode(issue_label)]" : ""]"))
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
-/client/verb/hotkeys_help()
+AUTH_CLIENT_VERB(hotkeys_help)
 	set name = "hotkeys-help"
 	set category = "OOC"
 
@@ -98,13 +98,14 @@ Admin:
 	if(holder)
 		to_chat(src, adminhotkeys)
 
-/client/verb/changelog()
+AUTH_CLIENT_VERB(changelog)
 	set name = "Changelog"
 	set category = "OOC"
-	var/datum/asset/simple/namespaced/changelog = get_asset_datum(/datum/asset/simple/namespaced/changelog)
-	changelog.send(src)
-	src << browse(changelog.get_htmlloader("changelog.html"), "window=changes;size=675x650")
-	if(prefs.lastchangelog != GLOB.changelog_hash)
+	if(!GLOB.changelog_tgui)
+		GLOB.changelog_tgui = new /datum/changelog()
+
+	GLOB.changelog_tgui.ui_interact(mob)
+	if(prefs && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.mark_undatumized_dirty_player()
 		winset(src, "infowindow.changelog", "font-style=;")
@@ -229,7 +230,7 @@ Any-Mode: (hotkey doesn't need to be on)
 
 
 
-/client/verb/donate()
+AUTH_CLIENT_VERB(donate)
 	set name = "donate"
 	set desc = "Donate to the server"
 	set hidden = 1
@@ -239,10 +240,10 @@ Any-Mode: (hotkey doesn't need to be on)
 			return
 		src << link(donateurl)
 	else
-		to_chat(src, "<span class='danger'>The Donation URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Donation URL is not set in the server configuration."))
 	return
 
-/client/verb/discord()
+AUTH_CLIENT_VERB(discord)
 	set name = "discord"
 	set desc = "Join the Discord"
 	set hidden = 1
@@ -252,18 +253,18 @@ Any-Mode: (hotkey doesn't need to be on)
 			return
 		src << link(discordurl)
 	else
-		to_chat(src, "<span class='danger'>The Discord invite is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Discord invite is not set in the server configuration."))
 	return
 
-/client/verb/map()
+AUTH_CLIENT_VERB(map)
 	set name = "View Webmap"
 	set desc = "View the current map in the webviewer"
 	set category = "OOC"
-	if(SSmapping.config.map_link == "None")
-		to_chat(src,"<span class='danger'>The current map does not have a webmap. </span>")
-	else if(SSmapping.config.map_link)
-		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
+	if(SSmapping.current_map.map_link == "None")
+		to_chat(src,span_danger("The current map does not have a webmap. "))
+	else if(SSmapping.current_map.map_link)
+		if(tgui_alert(src, "This will open the current map in your browser. Are you sure?", "", list("Yes","No"))!="Yes")
 			return
-		src << link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.config.map_link]")
+		src << link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.current_map.map_link]")
 	else
-		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable. Open an issue on the github. </span>")
+		to_chat(src, span_danger("The current map is either invalid or unavailable. Open an issue on the github. "))

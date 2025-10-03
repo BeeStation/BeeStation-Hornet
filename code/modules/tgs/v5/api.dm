@@ -31,9 +31,12 @@
 
 	var/detached = FALSE
 
-/datum/tgs_api/v5/New()
+	var/datum/tgs_http_handler/http_handler
+
+/datum/tgs_api/v5/New(datum/tgs_event_handler/event_handler, datum/tgs_version/version, datum/tgs_http_handler/http_handler)
 	. = ..()
 	interop_version = version
+	src.http_handler = http_handler
 	TGS_DEBUG_LOG("V5 API created: [json_encode(args)]")
 
 /datum/tgs_api/v5/ApiVersion()
@@ -94,7 +97,7 @@
 			if(revInfo)
 				tm.commit = revisionData[DMAPI5_REVISION_INFORMATION_COMMIT_SHA]
 				tm.origin_commit = revisionData[DMAPI5_REVISION_INFORMATION_ORIGIN_COMMIT_SHA]
-				tm.timestamp = entry[DMAPI5_REVISION_INFORMATION_TIMESTAMP]
+				tm.timestamp = revisionData[DMAPI5_REVISION_INFORMATION_TIMESTAMP]
 			else
 				TGS_WARNING_LOG("Failed to decode [DMAPI5_TEST_MERGE_REVISION] from test merge #[tm.number]!")
 

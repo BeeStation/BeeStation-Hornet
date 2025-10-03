@@ -9,6 +9,7 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
+					/obj/item/storage/fancy/cigarettes/dromedaryco = 3,
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/greyscale = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
@@ -21,7 +22,6 @@
 	refill_canister = /obj/item/vending_refill/cigarette
 	default_price = 5
 	extra_price = 40
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "cigs-light-mask"
 
 /obj/machinery/vending/cigarette/syndicate

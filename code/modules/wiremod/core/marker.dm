@@ -13,7 +13,7 @@
 
 /obj/item/multitool/circuit/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [marked_atom? "a" : "no"] marked entity registered.</span>"
+	. += span_notice("It has [marked_atom? "a" : "no"] marked entity registered.")
 
 /obj/item/multitool/circuit/attack_self(mob/user, modifiers)
 	. = ..()
@@ -27,12 +27,14 @@
 	return TRUE
 
 /obj/item/multitool/circuit/melee_attack_chain(mob/user, atom/target, params)
-	if(marked_atom || !user.Adjacent(target))
+	var/is_right_clicking = LAZYACCESS(params2list(params), RIGHT_CLICK)
+
+	if(marked_atom || !user.Adjacent(target) || is_right_clicking)
 		return ..()
 
 	say("Marked [target].")
 	marked_atom = target
-	RegisterSignal(marked_atom, COMSIG_PARENT_QDELETING, PROC_REF(cleanup_marked_atom))
+	RegisterSignal(marked_atom, COMSIG_QDELETING, PROC_REF(cleanup_marked_atom))
 	update_icon()
 	flick("multitool_circuit_flick", src)
 	playsound(src.loc, 'sound/misc/compiler-stage2.ogg', 30, TRUE)
@@ -48,7 +50,7 @@
 /obj/item/multitool/circuit/proc/clear_marked_atom()
 	if(!marked_atom)
 		return
-	UnregisterSignal(marked_atom, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(marked_atom, COMSIG_QDELETING)
 	marked_atom = null
 	update_icon()
 

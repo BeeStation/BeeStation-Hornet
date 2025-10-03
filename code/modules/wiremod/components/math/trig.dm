@@ -5,10 +5,11 @@
  * Does trig stuff
  */
 
- //Generic class for other trig components
+//Generic class for other trig components
 /obj/item/circuit_component/trig
 	display_name = "Generic Trigonometry"
 	desc = "A useless component that all trigonometric based components are built off of."
+	category = "Math"
 
 	/// The input port
 	var/datum/port/input/input
@@ -79,7 +80,7 @@
 //Performs Secant, Cosecant, and Cotangent
 /obj/item/circuit_component/trig/adv_trig
 	display_name = "Advanced Trigonometry"
-	desc = "Following outstanding advancements in the field of Mathematics, NanoTrasen scientist have discovered how to take the reciprical of trignometric functions"
+	desc = "Following outstanding advancements in the field of Mathematics, Nanotrasen scientist have discovered how to take the reciprical of trignometric functions"
 
 
 /obj/item/circuit_component/trig/adv_trig/populate_options()

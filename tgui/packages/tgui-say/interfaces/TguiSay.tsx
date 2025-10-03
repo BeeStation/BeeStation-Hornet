@@ -1,11 +1,12 @@
+import { isEscape } from 'common/keys';
+import { Component, createRef } from 'react';
 import { TextArea } from 'tgui/components';
-import { WINDOW_SIZES } from '../constants';
 import { dragStartHandler } from 'tgui/drag';
+
+import { WINDOW_SIZES } from '../constants';
 import { eventHandlerMap } from '../handlers';
 import { getCss, getTheme, timers } from '../helpers';
-import { Component, createRef } from 'inferno';
 import { Modal, State } from '../types';
-import { KEY_ESCAPE } from 'common/keycodes';
 
 /** Primary class for the TGUI say modal. */
 export class TguiSay extends Component<{}, State> {
@@ -15,6 +16,7 @@ export class TguiSay extends Component<{}, State> {
     innerRef: createRef(),
     lightMode: false,
     showRadioPrefix: false,
+    dpi: 1,
     maxLength: 1024,
     radioPrefix: '',
     tempHistory: '',
@@ -39,7 +41,8 @@ export class TguiSay extends Component<{}, State> {
   }
 
   render() {
-    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } = this.events;
+    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } =
+      this.events;
     const { innerRef, lightMode, maxLength, radioPrefix, value } = this.fields;
     const { buttonContent, channel, edited, size } = this.state;
     const theme = getTheme(lightMode, radioPrefix, channel);
@@ -47,25 +50,26 @@ export class TguiSay extends Component<{}, State> {
     return (
       <div
         className={getCss('modal', theme, size)}
-        onmousedown={dragStartHandler}
+        onMouseDown={dragStartHandler}
         onKeyDown={(event) => {
-          if (event.keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             onEscape();
           }
         }}
-        $HasKeyedChildren>
+      >
         <div className="top-border" />
         <div className="left-border" />
-        <div className="modal__content" $HasKeyedChildren>
+        <div className="modal__content">
           {!!theme && (
             <button
               className={getCss('button', theme)}
-              onclick={onClick}
-              oncontextmenu={(e) => {
+              onClick={onClick}
+              onContextMenu={(e) => {
                 e.preventDefault();
                 onContextMenu();
               }}
-              type="submit">
+              type="submit"
+            >
               {buttonContent}
             </button>
           )}

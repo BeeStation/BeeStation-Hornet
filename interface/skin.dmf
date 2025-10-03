@@ -1,4 +1,10 @@
 macro "default"
+	elem "Shift"
+		name = "SHIFT"
+		command = ".winset :map.right-click=false"
+	elem "ShiftUp"
+		name = "SHIFT+UP"
+		command = ".winset :map.right-click=true"
 
 macro "input_box_macro"
 
@@ -75,6 +81,7 @@ window "mainwindow"
 		size = 640x440
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		icon = 'icons\\ss13_64.png'
@@ -82,12 +89,15 @@ window "mainwindow"
 		menu = "menu"
 		statusbar = false
 		on-status = ".winset \"status_bar_wide.text = [[*]]\""
+		outer-size = 656x518
+		inner-size = 640x459
 	elem "split"
 		type = CHILD
 		pos = 0,0
 		size = 640x424
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "splitter"
 		left = "mapwindow"
 		right = "infowindow"
@@ -119,16 +129,28 @@ window "mainwindow"
 		anchor2 = none
 		is-visible = false
 		saved-params = ""
+	elem "commandbar_spy"
+		type = BROWSER
+		is-default = false
+		pos = 0,0
+		size = 200x200
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-visible = false
+		saved-params = ""
 
 window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		outer-size = 656x538
+		inner-size = 640x499
 	elem "map"
 		type = MAP
 		pos = 0,0
@@ -137,10 +159,10 @@ window "mapwindow"
 		anchor2 = 100,100
 		font-family = "Arial"
 		font-size = 7
-		text-color = none
 		is-default = true
+		right-click = true
 		saved-params = "zoom;letterbox;zoom-mode"
-		style=".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .greentext { color: #00FF00; font-size: 7px; } .redtext { color: #FF0000; font-size: 7px; } .clowntext { color: #FF69Bf !important; font-size: 9px;  font-weight: bold; } .megaphone { font-size: 9px; } .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-size: 6px; } .emote { font-size: 6px; }"
+		style="img.icon { width: auto; height: auto } .center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 9px; } .extremelybig { font-size: 10px; } .greentext { color: #00FF00; font-size: 7px; } .redtext { color: #FF0000; font-size: 7px; } .clowntext { color: #FF69Bf !important; font-size: 9px;  font-weight: bold; } .megaphone { font-size: 9px; } .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-size: 6px; } .emote { font-size: 6px; }"
 	elem "status_bar"
 		type = LABEL
 		pos = 0,464
@@ -160,14 +182,18 @@ window "infowindow"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		outer-size = 656x538
+		inner-size = 640x499
 	elem "discord"
 		type = BUTTON
 		pos = 607,5
 		size = 20x20
 		anchor1 = 94,0
 		anchor2 = 97,0
+		background-color = none
 		saved-params = "is-checked"
 		text = ""
 		image = 'icons\\discord.png'
@@ -178,6 +204,7 @@ window "infowindow"
 		size = 20x20
 		anchor1 = 90,0
 		anchor2 = 94,0
+		background-color = none
 		saved-params = "is-checked"
 		text = ""
 		image = 'icons\\patreon.png'
@@ -188,6 +215,7 @@ window "infowindow"
 		size = 640x445
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "splitter"
 		right = "outputwindow"
 		is-vert = false
@@ -197,6 +225,7 @@ window "infowindow"
 		size = 88x20
 		anchor1 = 3,0
 		anchor2 = 19,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "changelog"
@@ -215,6 +244,7 @@ window "infowindow"
 		size = 88x20
 		anchor1 = 34,0
 		anchor2 = 50,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Wiki"
 		command = "wiki"
@@ -224,6 +254,7 @@ window "infowindow"
 		size = 88x20
 		anchor1 = 50,0
 		anchor2 = 66,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Forum"
 		command = "forum"
@@ -233,6 +264,7 @@ window "infowindow"
 		size = 88x20
 		anchor1 = 66,0
 		anchor2 = 81,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Github"
 		command = "github"
@@ -242,6 +274,7 @@ window "infowindow"
 		size = 78x20
 		anchor1 = 81,0
 		anchor2 = 97,0
+		background-color = none
 		saved-params = "is-checked"
 		text = "Report Issue"
 		command = "report-issue"
@@ -301,16 +334,26 @@ window "outputwindow"
 		text = "Me"
 		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
 		button-type = pushbox
-	elem "browseroutput"
-		type = BROWSER
+	elem "legacy_output_selector"
+		type = CHILD
 		pos = 0,0
 		size = 640x940
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #ffffff
-		is-visible = false
-		is-disabled = true
-		saved-params = ""
+		saved-params = "splitter"
+		left = "output_legacy"
+		is-vert = false
+
+window "output_legacy"
+	elem "output_legacy"
+		type = MAIN
+		pos = 0,0
+		size = 640x940
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		background-color = none
+		saved-params = "pos;size;is-minimized;is-maximized"
+		is-pane = true
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
@@ -318,6 +361,25 @@ window "outputwindow"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
+		saved-params = ""
+
+window "output_browser"
+	elem "output_browser"
+		type = MAIN
+		pos = 0,0
+		size = 640x940
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		background-color = none
+		saved-params = "pos;size;is-minimized;is-maximized"
+		is-pane = true
+	elem "browseroutput"
+		type = BROWSER
+		pos = 0,0
+		size = 0x940
+		anchor1 = 0,0
+		anchor2 = 100,100
+		background-color = none
 		saved-params = ""
 
 window "popupwindow"

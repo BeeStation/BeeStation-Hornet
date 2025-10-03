@@ -1,5 +1,5 @@
 /atom/movable/screen/alien
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 
 /atom/movable/screen/alien/leap
 	name = "toggle leap"
@@ -11,21 +11,21 @@
 		AH.toggle_leap()
 
 /atom/movable/screen/alien/plasma_display
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/hud/screen_gen.dmi'
 	icon_state = "power_display2"
 	name = "plasma stored"
 	screen_loc = ui_alienplasmadisplay
 
 
 /atom/movable/screen/alien/alien_queen_finder
-	icon = 'icons/mob/screen_alien.dmi'
+	icon = 'icons/hud/screen_alien.dmi'
 	icon_state = "queen_finder"
 	name = "queen sense"
 	desc = "Allows you to sense the general direction of your Queen."
 	screen_loc = ui_alien_queen_finder
 
 /datum/hud/alien
-	ui_style = 'icons/mob/screen_alien.dmi'
+	ui_style = 'icons/hud/screen_alien.dmi'
 
 /datum/hud/alien/New(mob/living/carbon/alien/humanoid/owner)
 	..()
@@ -53,11 +53,11 @@
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/act_intent/alien()
-	using.icon_state = mymob.a_intent
-	using.hud = src
-	static_inventory += using
-	action_intent = using
+	action_intent = new /atom/movable/screen/combattoggle/flashy()
+	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
+	static_inventory += action_intent
 
 	if(isalienhunter(mymob))
 		var/mob/living/carbon/alien/humanoid/hunter/H = mymob
@@ -67,6 +67,11 @@
 
 	using = new/atom/movable/screen/language_menu
 	using.screen_loc = ui_alien_language_menu
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_alien_navigate_menu
 	using.hud = src
 	static_inventory += using
 

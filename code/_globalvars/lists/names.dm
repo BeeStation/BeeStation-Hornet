@@ -29,6 +29,7 @@ GLOBAL_LIST_INIT(oozeling_first_names, world.file2list("strings/names/ooze_first
 GLOBAL_LIST_INIT(oozeling_last_names, world.file2list("strings/names/ooze_last.txt"))
 GLOBAL_LIST_INIT(psyphoza_first_names, world.file2list("strings/names/psyphoza_first.txt"))
 GLOBAL_LIST_INIT(psyphoza_last_names, world.file2list("strings/names/psyphoza_last.txt"))
+GLOBAL_LIST_INIT(diona_names, world.file2list("strings/names/diona.txt"))
 
 GLOBAL_LIST_INIT(verbs, world.file2list("strings/names/verbs.txt"))
 GLOBAL_LIST_INIT(ing_verbs, world.file2list("strings/names/ing_verbs.txt"))

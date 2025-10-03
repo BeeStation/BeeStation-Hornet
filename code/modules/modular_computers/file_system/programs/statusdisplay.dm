@@ -5,13 +5,10 @@
 	program_icon_state = "generic"
 	requires_ntnet = TRUE
 	size = 4
-
 	extended_desc = "An app used to change the message on the station status displays."
 	tgui_id = "NtosStatus"
-
-	usage_flags = PROGRAM_ALL
-	available_on_ntnet = FALSE
-
+	transfer_access = list(ACCESS_HEADS)
+	power_consumption = 60 WATT
 	var/upper_text = ""
 	var/lower_text = ""
 
@@ -59,7 +56,18 @@
 	if(picture in GLOB.status_display_state_pictures)
 		post_status(picture)
 	else
-		post_status("alert", picture)
+		if(picture == "currentalert") // You cannot set Code Blue display during Code Red and similiar
+			switch(SSsecurity_level.get_current_level_as_number())
+				if(SEC_LEVEL_DELTA)
+					post_status("alert", "deltaalert")
+				if(SEC_LEVEL_RED)
+					post_status("alert", "redalert")
+				if(SEC_LEVEL_BLUE)
+					post_status("alert", "bluealert")
+				if(SEC_LEVEL_GREEN)
+					post_status("alert", "greenalert")
+		else
+			post_status("alert", picture)
 
 /datum/computer_file/program/status/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()

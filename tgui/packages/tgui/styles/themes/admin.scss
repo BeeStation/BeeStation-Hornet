@@ -1,13 +1,13 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$generic: #4c4958;
+$generic: hsl(252, 9.3%, 31.6%);
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
-  $primary: #ffbf00,
-  $yellow: #ffbf00
+  $primary: hsl(44.9, 100%, 50%),
+  $yellow: hsl(44.9, 100%, 50%)
 );
 @use '../base.scss' with (
   $color-bg: color.scale($generic, $lightness: -45%),
@@ -19,11 +19,17 @@ $generic: #4c4958;
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': color.scale($generic, $lightness: -30%), 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': color.scale($generic, $lightness: -30%),
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-default-fill': $generic, 'background-color': rgba(0, 0, 0, 0.5))
+    $with: (
+      'color-default-fill': $generic,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
   );
   @include meta.load-css('../components/Section.scss');
 
@@ -34,13 +40,16 @@ $generic: #4c4958;
     '../layouts/TitleBar.scss',
     $with: (
       'background-color': color.scale($generic, $lightness: -50%),
-      'shadow-color': #ffff0021,
-      'shadow-color-core': #ffbf00,
+      'shadow-color': hsl(60, 100%, 50%) 21,
+      'shadow-color-core': hsl(44.9, 100%, 50%),
       'shadow-core-height': 3px
     )
   );
 
   .Layout__content {
     background-image: url('../../assets/bg-beestation.svg');
+    background-size: 70% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

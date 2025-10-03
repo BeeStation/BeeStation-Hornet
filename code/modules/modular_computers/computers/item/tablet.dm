@@ -2,31 +2,25 @@
 	name = "tablet computer"
 	icon = 'icons/obj/modular_tablet.dmi'
 	icon_state = "tablet-red"
-	worn_icon_state = "pda"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_TABLET
-	max_hardware_size = 1
+	worn_icon_state = "pda"
+	max_hardware_size = WEIGHT_CLASS_SMALL
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = PAYCHECK_MEDIUM * 2
 	max_bays = 3
 	steel_sheet_cost = 1
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
-	comp_light_luminosity = 2.3 //Same as the PDA
+	comp_light_luminosity = 3 //not the same as the PDA
 	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
 	can_save_id = TRUE
 	saved_auto_imprint = TRUE
-
-	var/has_variants = TRUE
-	var/finish_color = null
-
 	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
+	//This is the typepath to load "into" the pda
 	var/obj/item/insert_type = /obj/item/pen
+	//This is the currently inserted item
 	var/obj/item/inserted_item
-
-	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
-	var/detonatable = TRUE
+	can_store_pai = TRUE
 
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
@@ -42,14 +36,20 @@
 	data["show_imprint"] = TRUE
 	return data
 
-/obj/item/modular_computer/tablet/update_icon()
-	..()
-	if (has_variants && !bypass_state)
-		if(!finish_color)
-			finish_color = pick("red","blue","brown","green","black")
-		icon_state = "tablet-[finish_color]"
-		icon_state_unpowered = "tablet-[finish_color]"
-		icon_state_powered = "tablet-[finish_color]"
+/obj/item/modular_computer/tablet/update_overlays()
+	. = ..()
+	var/init_icon = initial(icon)
+	if(!init_icon)
+		return
+	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
+	if(card)
+		if(card.stored_card)
+			. += mutable_appearance(init_icon, "id_overlay")
+	if(inserted_item)
+		. += mutable_appearance(init_icon, "insert_overlay")
+	if(light_on)
+		. += mutable_appearance(init_icon, "light_overlay")
+
 
 /obj/item/modular_computer/tablet/emp_act(severity)
 	. = ..()
@@ -63,14 +63,14 @@
 	if(!istype(target, /obj/item/paper))
 		return FALSE
 	var/obj/item/paper/paper = target
-	if (!paper.default_raw_text)
-		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
+	if (!LAZYLEN(paper.raw_text_inputs))
+		to_chat(user, span_warning("Unable to scan! Paper is blank."))
 	else
 		// clean up after ourselves
 		if(stored_paper)
 			qdel(stored_paper)
-		stored_paper = paper.copy(src)
-		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
+		stored_paper = paper.copy(/obj/item/paper, src)
+		to_chat(user, span_notice("Paper scanned. Saved to PDA's notekeeper."))
 		ui_update()
 	return TRUE
 
@@ -81,16 +81,14 @@
 		if(attacking_item.w_class >= WEIGHT_CLASS_SMALL) // Prevent putting spray cans, pipes, etc (subtypes of pens/crayons)
 			return
 		if(inserted_item)
-			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
+			to_chat(user, span_warning("There is already \a [inserted_item] in \the [src]!"))
 		else
 			if(!user.transferItemToLoc(attacking_item, src))
 				return
-			to_chat(user, "<span class='notice'>You insert \the [attacking_item] into \the [src].</span>")
+			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-			update_icon()
-	if(!try_scan_paper(attacking_item, user))
-		return
+			update_appearance()
 
 /obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
 	if(try_scan_paper(target, user))
@@ -108,19 +106,23 @@
 			return
 	..()
 
-/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
+/obj/item/modular_computer/tablet/attack_atom(obj/target, mob/living/user)
 	// Send to programs for processing - this should go LAST
 	// Used to implement the gas scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
-		if(thread.use_attack_obj && !thread.attack_obj(target, user))
+		if(thread.use_attack_obj && !thread.attack_atom(target, user))
 			return
 	..()
 
-// Eject the pen if the ID was not ejected
+// Eject the PAI then pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
 	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-	remove_pen(user)
+	if(!inserted_item && stored_pai_card)
+		usr.put_in_hands(stored_pai_card)
+		remove_pai()
+	else
+		remove_pen(user)
 
 // Always eject pen with Ctrl+Click
 /obj/item/modular_computer/tablet/CtrlClick(mob/user)
@@ -156,77 +158,48 @@
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
 		return
 	if(inserted_item)
-		to_chat(user, "<span class='notice'>You remove [inserted_item] from [src].</span>")
+		to_chat(user, span_notice("You remove [inserted_item] from [src]."))
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-		update_icon()
+		update_appearance()
 	else
-		to_chat(user, "<span class='warning'>This tablet does not have a pen in it!</span>")
-
-// Tablet 'splosion..
-
-/obj/item/modular_computer/tablet/proc/explode(mob/target, mob/bomber)
-	var/turf/current_turf = get_turf(src)
-
-	log_bomber(bomber, "tablet-bombed", target, "[bomber && !is_special_character(bomber) ? "(SENT BY NON-ANTAG)" : ""]")
-
-	if (ismob(loc))
-		var/mob/victim = loc
-		victim.show_message("<span class='userdanger'>Your [src] explodes!</span>", MSG_VISUAL, "<span class='warning'>You hear a loud *pop*!</span>", MSG_AUDIBLE)
-	else
-		visible_message("<span class='danger'>[src] explodes!</span>", "<span class='warning'>You hear a loud *pop*!</span>")
-
-	if(current_turf)
-		current_turf.hotspot_expose(700,125)
-		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/syndicate))
-			explosion(current_turf, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4)
-		else
-			explosion(current_turf, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
-	qdel(src)
+		to_chat(user, span_warning("This tablet does not have a pen in it!"))
 
 // SUBTYPES
-
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
 	icon = 'icons/obj/contractor_tablet.dmi'
 	icon_state = "tablet"
-	icon_state_unpowered = "tablet"
-	icon_state_powered = "tablet"
 	icon_state_menu = "assign"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"
-	icon_state_powered = "tablet-syndicate"
-	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
-	has_variants = FALSE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	light_color = COLOR_RED
 
 /obj/item/modular_computer/tablet/nukeops/should_emag(mob/user)
 	if(..())
-		to_chat(user, "<span class='notice'>You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\".</span>")
+		to_chat(user, span_notice("You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\"."))
 	return FALSE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/modular_computer/tablet/integrated)
 
 /// Borg Built-in tablet interface
 /obj/item/modular_computer/tablet/integrated
 	name = "modular interface"
 	icon_state = "tablet-silicon"
-	icon_state_unpowered = "tablet-silicon"
-	icon_state_powered = "tablet-silicon"
 	icon_state_menu = "menu"
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
-	has_variants = FALSE
 	///Ref to the silicon we're installed in. Set by the borg during our creation.
 	var/mob/living/silicon/borgo
 	///Ref to the Cyborg Self-Monitoring app. Important enough to borgs to deserve a ref.
@@ -245,6 +218,10 @@
 
 /obj/item/modular_computer/tablet/integrated/Destroy()
 	borgo = null
+	for(var/port in all_components)
+		var/obj/item/computer_hardware/component = all_components[port]	//This hopefully stops borgs from just shitting out their parts when they die
+		qdel(component)
+		forget_component(component)
 	return ..()
 
 /obj/item/modular_computer/tablet/integrated/turn_on(mob/user, open_ui = FALSE)
@@ -274,7 +251,7 @@
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)
 				self_monitoring = null
-				CRASH("Cyborg [borgo]'s tablet hard drive rejected recieving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
+				CRASH("Cyborg [borgo]'s tablet hard drive rejected receiving a new copy of the self-management app. To fix, check the hard drive's space remaining. Please make a bug report about this.")
 	return self_monitoring
 
 //Makes the light settings reflect the borg's headlamp settings
@@ -303,31 +280,31 @@
 	robo.toggle_headlamp(FALSE, TRUE)
 	return TRUE
 
-/obj/item/modular_computer/tablet/integrated/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
-	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
+/obj/item/modular_computer/tablet/integrated/alert_call(datum/computer_file/program/alerting_program, alerttext, sound = 'sound/machines/twobeep_high.ogg')
+	if(!alerting_program || !alerting_program.alert_able || alerting_program.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
 		return
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
 		sound = pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg')
 	borgo.playsound_local(src, sound, 50, TRUE)
-	to_chat(borgo, "<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+	to_chat(borgo, span_notice("The [src] displays a [alerting_program.filedesc] notification: [alerttext]"))
 
 /obj/item/modular_computer/tablet/integrated/ui_state(mob/user)
 	return GLOB.reverse_contained_state
 
 /obj/item/modular_computer/tablet/integrated/syndicate
 	icon_state = "tablet-silicon-syndicate"
-	icon_state_unpowered = "tablet-silicon-syndicate"
-	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
 
-/obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
+/obj/item/modular_computer/tablet/integrated/syndicate/Initialize(mapload)
 	. = ..()
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
+
+GLOBAL_LIST_EMPTY(PDAs)
 
 // Round start tablets
 
@@ -337,9 +314,8 @@
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-
-	bypass_state = TRUE
-	can_store_pai = TRUE
+	comp_light_luminosity = 2.3
+	max_hardware_size = WEIGHT_CLASS_TINY
 
 	var/default_disk = 0
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.
@@ -369,40 +345,23 @@
 		device_theme = allowed_themes[pref_theme]
 	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
-/obj/item/modular_computer/tablet/pda/update_icon()
-	..()
-	var/init_icon = initial(icon)
-	if(!init_icon)
-		return
-	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
-	if(card)
-		if(card.stored_card)
-			add_overlay(mutable_appearance(init_icon, "id_overlay"))
-	if(inserted_item)
-		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
-	if(light_on)
-		add_overlay(mutable_appearance(init_icon, "light_overlay"))
-
-
-/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
-	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
+/obj/item/modular_computer/tablet/pda/attack_silicon(mob/user)
+	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
 	return // we don't want ais or cyborgs using a private role tablet
 
-/obj/item/modular_computer/tablet/pda/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/hard_drive/small/pda)
-	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
-	install_component(new /obj/item/computer_hardware/network_card)
-	install_component(new /obj/item/computer_hardware/card_slot)
-	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
+/// Return a list of types you want to pregenerate and use later
+/// Do not pass in things that care about their init location, or expect extra input
+/// Also as a courtesy to me, don't pass in any bombs
+/obj/item/modular_computer/tablet/pda/proc/get_types_to_preload()
+	var/list/preload = list()
+	//preload += default_cartridge
+	preload += insert_type
+	return preload
 
-	if(default_disk)
-		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
-		install_component(disk)
+/// Callbacks for preloading pdas
+/obj/item/modular_computer/tablet/pda/proc/display_pda()
+	GLOB.PDAs += src
 
-	if(insert_type)
-		inserted_item = new insert_type(src)
-		// show the inserted item
-		update_icon()
+/// See above, we don't want jerry from accounting to try and message nullspace his new bike
+/obj/item/modular_computer/tablet/pda/proc/cloak_pda()
+	GLOB.PDAs -= src

@@ -21,6 +21,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets
 	var/obj/item/stack/sheet_type
+	///What type of shard the material will shatter to
+	var/obj/item/shard_type
 	///This is a modifier for force, and resembles the strength of the material
 	var/strength_modifier = 1
 	///This is a modifier for integrity, and resembles the strength of the material
@@ -41,7 +43,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/texture_layer_icon_state
 	///a cached icon for the texture filter
 	var/cached_texture_filter_icon
-	
+
 
 /datum/material/New()
 	. = ..()
@@ -94,16 +96,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		o.throwforce *= strength_modifier
 
 		/*
-		var/list/temp_armor_list = list() //Time to add armor modifiers!
-
-		if(!istype(o.armor))
-			return
-
-		var/list/current_armor = o.armor?.getList()
-
-		for(var/i in current_armor)
-			temp_armor_list[i] = current_armor[i] * armor_modifiers[i]
-		o.armor = getArmor(arglist(temp_armor_list))
+		o.set_armor(o.get_armor().generate_new_with_multipliers(armor_modifiers))
 		*/
 
 	if(!isitem(o))
@@ -129,7 +122,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	item.pickup_sound = item_sound_override
 	item.drop_sound = item_sound_override
 
-/datum/material/proc/on_applied_turf(var/turf/T, amount, material_flags)
+/datum/material/proc/on_applied_turf(turf/T, amount, material_flags)
 	if(isopenturf(T))
 		if(!turf_sound_override)
 			return
@@ -173,7 +166,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(istype(source, /obj)) //objs
 		on_removed_obj(source, amount, material_flags)
 
-	if(istype(source, /turf)) //turfs
+	else if(istype(source, /turf)) //turfs
 		on_removed_turf(source, amount, material_flags)
 
 ///This proc is called when the material is removed from an object specifically.

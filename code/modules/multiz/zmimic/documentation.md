@@ -57,7 +57,7 @@ Adding ambient occlusion to game objects is current done through a client plane 
 -   Z-Stack
     -   A set of z-connected turfs with the same x/y coordinates.
 -   Z-Depth
-    -   How many Z-levels this atom is _from the top of a Z-Stack_ (absolute layering), regardless of z-turf presence
+    -   The depth of this object. The deepest turf at a point is assigned to the bottom and it builds up from there.
 -   Shadower / Multiplier
     -   An abstract object used to darken lower levels, copy lighting, and host Z-AO overlays.
 -   Mimic / Openspace Object
@@ -171,10 +171,6 @@ Z-Mimic makes some assumptions. While it may continue to work if these are viola
 -   Atoms will layer correctly if copied to the same plane as other arbitrary in-world atoms.
 -   Atoms without ZMM_MANGLE_PLANES do not have any overlays that have explicit plane sets.
     -   If violated: Atoms on the below floor may be partially visible on the current floor.
--   Z-Stacks are 1:1 across the entire x/y plane.
-    -   If violated: Z-turfs may form nonsensical connections.
--   Z-Stacks are contiguous and linear -- get_step(UP) corresponds to moving up a z-level (within a z-stack) in all cases.
-    -   If violated: layering becomes nonsensical.
 -   Z-Stacks will not be changed (note: adding new Z-stacks is OK) after an openturf has been initialized on that z-stack.
     -   If violated: Z-Turfs may act as if they are still connected even though they are not.
 -   /turf/space is never above another turf type in the Z-Stack.
@@ -187,13 +183,14 @@ Z-Mimic makes some assumptions. While it may continue to work if these are viola
 -   Lighting will mimic correctly without being associated with a plane.
     -   If violated: depending on implementation, lighting may be inverted, or not render at all.
     -   This can usually be addressed by changing /atom/movable/openspace/multiplier/proc/copy_lighting().
+- Z-Stack should start at the max depth and build upwards. The deepest layer is the furthest one down at that point
+	- This means that z-level does not correspond to depth or plane!
 
 ### Known Limitations
 
 -   Multiturf movable atoms are not rendered if they are not centered on a z-turf, but overlap one.
 -   vis_contents is ignored -- mimics will not copy it.
 -   No overlay lighting will render between Zs.
--   Zstacks must be linear in Zs, virtual Zs are unsupported.
 -   Performance tradeoff for anything with custom overlay planes (emissives or emissive blockers).
 -   Ghost eyes won't allow you to see between totally dark Zs.
 
@@ -204,3 +201,13 @@ There are two verbs added to the Debug table, when mapping verbs are enabled (`D
 "Analyze Openturf" is added to the right click menu of all turfs, and will show the planes and layering of all zmimic objects for that turf. It is very useful for determining any layering or object visibility issues. It will also tell you the traits of the openturf itself and show all objects rendering in the stack.
 
 "Update all openturfs" forces z-mimic to perform an update for every single mimic. This should help debug if Z-mimic is simply not picking up on an object's existence, or if it's layering incorrectly.
+
+## Virtual Z Support
+
+As of https://github.com/BeeStation/BeeStation-Hornet/pull/12265, virtual-zs are fully supported in ZMimic.
+
+GET_TURF_ABOVE will automatically calculate the above turf and cache it, which by default will do nothing unless the map is set to have a z-level above it.
+You can linkup areas by using the `link_region` proc.
+Z-Level no longer necessarilly corresponds to depth. This means that you can have sub-basements in parts of the map without it extending across the entire z-level.
+
+Once you have linked up an area, you do not need to do anything more.

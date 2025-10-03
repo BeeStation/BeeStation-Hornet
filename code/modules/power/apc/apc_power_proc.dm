@@ -65,16 +65,26 @@
 /obj/machinery/power/apc/proc/autoset(val, on)
 	switch(on)
 		if(AUTOSET_FORCE_OFF)
-			if(val == APC_CHANNEL_ON) // if on, return off
-				return APC_CHANNEL_OFF
-			else if(val == APC_CHANNEL_AUTO_ON) // if auto-on, return auto-off
+			// Force OFF overrides everything, but manual-ON should become AUTO OFF so it can resume
+			if(val == APC_CHANNEL_ON || val == APC_CHANNEL_AUTO_ON)
+				playsound(src, "sound/machines/apc/PowerSwitch_Place.ogg", 20, TRUE)
+				do_sparks(2, cardinal_only = FALSE, source = src)
 				return APC_CHANNEL_AUTO_OFF
-		if(AUTOSET_ON)
-			if(val == APC_CHANNEL_AUTO_OFF) // if auto-off, return auto-on
+			// Manual OFF or AUTO OFF - stay the same
+			return val
+
+		if(AUTOSET_ON)	// APC turning the channel on automatically
+			if(val == APC_CHANNEL_AUTO_OFF)
+				playsound(src, "sound/machines/apc/PowerUp_001.ogg", 20, TRUE)
 				return APC_CHANNEL_AUTO_ON
-		if(AUTOSET_OFF)
-			if(val == APC_CHANNEL_AUTO_ON) // if auto-on, return auto-off
+			return val
+
+		if(AUTOSET_OFF)	// APC turning the channel off automatically
+			if(val == APC_CHANNEL_AUTO_ON)
+				playsound(src, "sound/machines/apc/PowerSwitch_Place.ogg", 20, TRUE)
+				do_sparks(2, cardinal_only = FALSE, source = src)
 				return APC_CHANNEL_AUTO_OFF
+			return val
 	return val
 
 /**
@@ -140,26 +150,26 @@
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The interface is broken!</span>")
+		to_chat(user, span_warning("The interface is broken!"))
 	else if(opened)
-		to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
+		to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
 	else if(panel_open)
-		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		to_chat(user, span_warning("You must close the panel!"))
 	else if(machine_stat & (BROKEN|MAINT))
-		to_chat(user, "<span class='warning'>Nothing happens!</span>")
+		to_chat(user, span_warning("Nothing happens!"))
 	else
 		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
 			wires.ui_update()
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
+			to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the APC interface."))
 			update_appearance()
 			updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, span_warning("Access denied."))
 
 /obj/machinery/power/apc/proc/toggle_nightshift_lights(mob/living/user)
 	if(last_nightshift_switch > world.time - 100) //~10 seconds between each toggle to prevent spamming
-		to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
+		to_chat(usr, span_warning("[src]'s night lighting circuit breaker is still cycling!"))
 		return
 	last_nightshift_switch = world.time
 	set_nightshift(!nightshift_lights)
@@ -184,7 +194,7 @@
 		area.power_environ = FALSE
 	area.power_change()
 
-/obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == MELEE && damage_amount < 10 && (!(machine_stat & BROKEN) || malfai))
-		return 0
+/obj/machinery/power/apc/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(machine_stat & BROKEN)
+		return damage_amount
 	. = ..()

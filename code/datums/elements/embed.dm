@@ -38,7 +38,7 @@
 	if(isitem(target))
 		RegisterSignal(target, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(checkEmbed))
 		RegisterSignal(target, COMSIG_ELEMENT_ATTACH, PROC_REF(severancePackage))
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(examined))
+		RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(examined))
 		RegisterSignal(target, COMSIG_EMBED_TRY_FORCE, PROC_REF(tryForceEmbed))
 		RegisterSignal(target, COMSIG_ITEM_DISABLE_EMBED, PROC_REF(detachFromWeapon))
 		if(!initialized)
@@ -64,7 +64,7 @@
 /datum/element/embed/Detach(obj/target)
 	. = ..()
 	if(isitem(target))
-		UnregisterSignal(target, list(COMSIG_MOVABLE_IMPACT_ZONE, COMSIG_ELEMENT_ATTACH, COMSIG_MOVABLE_IMPACT, COMSIG_PARENT_EXAMINE, COMSIG_EMBED_TRY_FORCE, COMSIG_ITEM_DISABLE_EMBED))
+		UnregisterSignal(target, list(COMSIG_MOVABLE_IMPACT_ZONE, COMSIG_ELEMENT_ATTACH, COMSIG_MOVABLE_IMPACT, COMSIG_ATOM_EXAMINE, COMSIG_EMBED_TRY_FORCE, COMSIG_ITEM_DISABLE_EMBED))
 	else
 		UnregisterSignal(target, list(COMSIG_PROJECTILE_SELF_ON_HIT))
 
@@ -93,7 +93,7 @@
 
 		//Target has enough armour to block the embed.
 		if(target_armour >= armour_block)
-			victim.visible_message("<span class='danger'>[weapon] bounces off [victim]'s armor!</span>", "<span class='notice'>[weapon] bounces off your armor!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
+			victim.visible_message(span_danger("[weapon] bounces off [victim]'s armor!"), span_notice("[weapon] bounces off your armor!"), vision_distance = COMBAT_MESSAGE_RANGE)
 			return
 
 	var/percentage_unblocked = 1 - (target_armour / armour_block)

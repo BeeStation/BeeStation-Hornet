@@ -1,4 +1,5 @@
 import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Button, Table } from '../components';
 import { Window } from '../layouts';
@@ -12,11 +13,11 @@ type CircuitAdminPanelData = {
   }[];
 };
 
-export const CircuitAdminPanel = (props, context) => {
-  const { act, data } = useBackend<CircuitAdminPanelData>(context);
+export const CircuitAdminPanel = (props) => {
+  const { act, data } = useBackend<CircuitAdminPanelData>();
 
   return (
-    <Window title="Circuit Admin Panel" width={1200} height={500} resizable>
+    <Window title="Circuit Admin Panel" width={1200} height={500}>
       <Window.Content>
         <Table>
           <Table.Row header>
@@ -47,9 +48,15 @@ export const CircuitAdminPanel = (props, context) => {
 
                   <Button onClick={createAct('save_circuit')}>Save</Button>
 
-                  <Button onClick={createAct('duplicate_circuit')}>Duplicate</Button>
+                  <Button onClick={createAct('duplicate_circuit')}>
+                    Duplicate
+                  </Button>
 
-                  {!!circuit.has_inserter && <Button onClick={createAct('open_player_panel')}>Player Panel</Button>}
+                  {!!circuit.has_inserter && (
+                    <Button onClick={createAct('open_player_panel')}>
+                      Player Panel
+                    </Button>
+                  )}
                 </Table.Cell>
               </Table.Row>
             );

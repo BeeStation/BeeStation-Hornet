@@ -26,14 +26,14 @@
 	if(iscarbon(parent))
 		var/mob/living/carbon/C = parent
 		ears = locate(/obj/item/organ/ears) in C.internal_organs
-		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
+		RegisterSignal(ears, COMSIG_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/Destroy(force, silent)
 	owner_client = null
 	ears = null
 	return ..()
 
-/datum/component/blind_sense/RemoveComponent()
+/datum/component/blind_sense/ClearFromParent()
 	UnregisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED)
 	return ..()
@@ -63,7 +63,7 @@
 	if(!owner_client || isdead(parent) || !owner?.client)
 		owner_client = owner?.client
 		return
-	
+
 	//setup icon
 	var/icon/I = icon('icons/mob/blind.dmi', masked_texture)
 

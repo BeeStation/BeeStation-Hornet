@@ -13,9 +13,13 @@ Slimecrossing Armor
 	body_parts_covered = NONE
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0
-	permeability_coefficient = 0.5
+	armor_type = /datum/armor/mask_nobreath
 	flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
+
+
+/datum/armor/mask_nobreath
+	bio = 50
 
 /obj/item/clothing/mask/nobreath/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -54,14 +58,16 @@ Slimecrossing Armor
 	anchored = TRUE
 	max_integrity = 10
 
-/obj/structure/light_prism/Initialize(mapload, var/newcolor)
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
+
+/obj/structure/light_prism/Initialize(mapload, newcolor)
 	. = ..()
 	color = newcolor
 	light_color = newcolor
 	set_light(5)
 
-/obj/structure/light_prism/attack_hand(mob/user)
-	to_chat(user, "<span class='notice'>You dispel [src].</span>")
+/obj/structure/light_prism/attack_hand(mob/user, list/modifiers)
+	to_chat(user, span_notice("You dispel [src]."))
 	qdel(src)
 
 /datum/action/item_action/change_prism_colour
@@ -69,9 +75,7 @@ Slimecrossing Armor
 	icon_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "prismcolor"
 
-/datum/action/item_action/change_prism_colour/Trigger()
-	if(!IsAvailable())
-		return
+/datum/action/item_action/change_prism_colour/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	var/new_color = tgui_color_picker(owner, "Choose the lens color:", "Color change",glasses.glasses_color)
 	if(!new_color)
@@ -83,18 +87,16 @@ Slimecrossing Armor
 	icon_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "lightprism"
 
-/datum/action/item_action/place_light_prism/Trigger()
-	if(!IsAvailable())
-		return
+/datum/action/item_action/place_light_prism/on_activate(mob/user, atom/target)
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
 	if(locate(/obj/structure/light_prism) in get_turf(owner))
-		to_chat(owner, "<span class='warning'>There isn't enough ambient energy to fabricate another light prism here.</span>")
+		to_chat(owner, span_warning("There isn't enough ambient energy to fabricate another light prism here."))
 		return
 	if(istype(glasses))
 		if(!glasses.glasses_color)
-			to_chat(owner, "<span class='warning'>The lens is oddly opaque...</span>")
+			to_chat(owner, span_warning("The lens is oddly opaque..."))
 			return
-		to_chat(owner, "<span class='notice'>You channel nearby light into a glowing, ethereal prism.</span>")
+		to_chat(owner, span_notice("You channel nearby light into a glowing, ethereal prism."))
 		new /obj/structure/light_prism(get_turf(owner), glasses.glasses_color)
 
 /obj/item/clothing/head/peaceflower
@@ -126,11 +128,11 @@ Slimecrossing Armor
 	else
 		REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[REF(src)]")
 
-/obj/item/clothing/head/peaceflower/attack_hand(mob/user)
+/obj/item/clothing/head/peaceflower/attack_hand(mob/user, list/modifiers)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(src == C.head)
-			to_chat(user, "<span class='warning'>You feel at peace. <b style='color:pink'>Why would you want anything else?</b></span>")
+			to_chat(user, span_warning("You feel at peace. <b style='color:pink'>Why would you want anything else?</b>"))
 			return
 	return ..()
 
@@ -141,6 +143,7 @@ Slimecrossing Armor
 	item_state = "adamsuit"
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
+	clothing_flags = THICKMATERIAL
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)
@@ -152,7 +155,7 @@ Slimecrossing Armor
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/admantine_armor)
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)
-	if(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) && prob(hit_reflect_chance))
+	if((def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)) && prob(hit_reflect_chance))
 		return TRUE
 	else
 		return FALSE

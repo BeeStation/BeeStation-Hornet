@@ -6,11 +6,20 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 0.5
-	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/sign_barsign
 	buildable_sign = 0
 
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
+
+
+/datum/armor/sign_barsign
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 100
+	fire = 50
+	acid = 50
 
 /obj/structure/sign/barsign/Initialize(mapload)
 	. = ..()
@@ -42,7 +51,7 @@
 			var/new_sign = new D
 			return set_sign(new_sign)
 
-/obj/structure/sign/barsign/obj_break(damage_flag)
+/obj/structure/sign/barsign/atom_break(damage_flag)
 	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE
@@ -59,29 +68,29 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
-/obj/structure/sign/barsign/attack_ai(mob/user)
+/obj/structure/sign/barsign/attack_silicon(mob/user)
 	return attack_hand(user)
 
-/obj/structure/sign/barsign/attack_hand(mob/user)
+/obj/structure/sign/barsign/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
 	if(!allowed(user))
-		to_chat(user, "<span class='info'>Access denied.</span>")
+		to_chat(user, span_info("Access denied."))
 		return
 	if(broken)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
+		to_chat(user, span_danger("The controls seem unresponsive."))
 		return
 	pick_sign(user)
 
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			to_chat(user, span_notice("You open the maintenance panel."))
 			set_sign(new /datum/barsign/hiddensigns/signoff)
 			panel_open = TRUE
 		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			to_chat(user, span_notice("You close the maintenance panel."))
 			if(!broken)
 				if(!chosen_sign)
 					set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -94,14 +103,14 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(!broken)
-			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
+			to_chat(user, span_warning("This sign is functioning properly!"))
 			return
 
 		if(C.use(2))
-			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
+			to_chat(user, span_notice("You replace the burnt wiring."))
 			broken = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+			to_chat(user, span_warning("You need at least two lengths of cable!"))
 	else
 		return ..()
 
@@ -118,7 +127,7 @@
 
 /obj/structure/sign/barsign/on_emag(mob/user)
 	..()
-	to_chat(user, "<span class='notice'>You load an illegal barsign into the memory buffer...</span>")
+	to_chat(user, span_notice("You load an illegal barsign into the memory buffer..."))
 	addtimer(CALLBACK(src, PROC_REF(after_emag)), 10 SECONDS)
 
 /obj/structure/sign/barsign/proc/after_emag()
@@ -291,6 +300,56 @@
 	name = "The Loose Goose"
 	icon = "goose"
 	desc = "Drink till you puke and/or break the laws of reality!"
+
+/datum/barsign/bluenote
+	name = "The Blue Note"
+	icon = "bluenote"
+	desc = "Misery loves company, but sometimes a stiff drink will have to suffice."
+
+/datum/barsign/orangejuice
+	name = "Oranges' Juicery"
+	icon = "orangejuice"
+	desc = "For those who wish to be optimally tactful to the non-alcoholic population."
+
+/datum/barsign/rock_bottom
+	name = "Rock Bottom"
+	icon = "rock-bottom"
+	desc = "When it feels like you're stuck in a pit, might as well have a drink."
+
+/datum/barsign/le_cafe_silencieux
+	name = "Le Café Silencieux"
+	icon = "le_cafe_silencieux"
+	desc = "..."
+
+/datum/barsign/assembly_line
+	name = "The Assembly Line"
+	icon = "the-assembly-line"
+	desc = "Where every drink is masterfully crafted with industrial efficiency!"
+
+/datum/barsign/cult_cove
+	name = "Cult Cove"
+	icon = "cult-cove"
+	desc = "Nar'Sie's favourite retreat"
+
+/datum/barsign/neon_flamingo
+	name = "Neon Flamingo"
+	icon = "neon-flamingo"
+	desc = "A bus for all but the flamboyantly challenged."
+
+/datum/barsign/slowdive
+	name = "Slowdive"
+	icon = "slowdive"
+	desc = "First stop out of hell, last stop before heaven."
+
+/datum/barsign/the_red_mons
+	name = "The Red Mons"
+	icon = "the-red-mons"
+	desc = "Drinks from the Red Planet."
+
+/datum/barsign/the_rune
+	name = "The Rune"
+	icon = "therune"
+	desc = "Reality Shifting drinks."
 
 /datum/barsign/hiddensigns
 	hidden = TRUE

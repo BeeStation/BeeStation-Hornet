@@ -10,7 +10,7 @@
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/iron
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
+	armor_type = /datum/armor/tile_iron
 	resistance_flags = FIRE_PROOF
 	matter_amount = 1
 	cost = 125
@@ -67,16 +67,21 @@
 		/obj/item/stack/tile/iron/sepia,
 	)
 
+
+/datum/armor/tile_iron
+	fire = 100
+	acid = 70
+
 /obj/item/stack/tile/iron/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
-			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+			to_chat(user, span_warning("You need at least four tiles to do this!"))
 			return
 		if(W.use_tool(src, user, 0, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(user.loc)
-			user.visible_message("<span class='notice'>[user] shaped [src] into [new_item] with [W].</span>", \
-				"<span class='notice'>You shaped [src] into [new_item] with [W].</span>", \
-				"<span class='hear'>You hear welding.</span>")
+			user.visible_message(span_notice("[user] shaped [src] into [new_item] with [W]."), \
+				span_notice("You shaped [src] into [new_item] with [W]."), \
+				span_hear("You hear welding."))
 			var/holding = user.is_holding(src)
 			use(4)
 			if(holding && QDELETED(src))
@@ -225,7 +230,7 @@
 /obj/item/stack/tile/iron/checker/other
 	name = "alternate checker tile"
 	singular_name = "alternate checker floor tile"
-	icon_state = "tile_checker"
+	icon_state = "tile_checker_alternate"
 	turf_type = /turf/open/floor/iron/checker/other
 	merge_type = /obj/item/stack/tile/iron/checker/other
 

@@ -1,8 +1,8 @@
-import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack } from '../components';
-import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+import { BlockQuote, Box, Section, Stack } from '../components';
+import { Window } from '../layouts';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 type Info = {
   members: string[];
@@ -10,8 +10,8 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const IntroSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { mothership } = data;
   return (
     <Stack>
@@ -21,11 +21,14 @@ const IntroSection = (_props, context) => {
           as="img"
           src={resolveAsset('ayylmao.png')}
           width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+          style={{
+            msInterpolationMode: 'nearest-neighbor',
+            imageRendering: 'pixelated',
+          }}
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '-2%' }}>
+        <h1 style={{ position: 'relative', top: '25%', left: '-2%' }}>
           You are the{' '}
           <Box inline textColor="purple">
             Abductor
@@ -44,7 +47,7 @@ const IntroSection = (_props, context) => {
   );
 };
 
-const BasicLoreSection = (_props, _context) => {
+const BasicLoreSection = (_props) => {
   return (
     <Section>
       <BlockQuote>
@@ -54,19 +57,21 @@ const BasicLoreSection = (_props, _context) => {
         </Box>{' '}
         of this abductor team!
         <br />
-        You&apos;re the <b>brawn</b> of the abductors, it is your job to work with your{' '}
+        You&apos;re the <b>brawn</b> of the abductors, it is your job to work
+        with your{' '}
         <Box inline textColor="blue">
           scientist
         </Box>{' '}
         to capture test subjects and bring them back to your ship!
         <br />
-        As an abductor, you have a telepathic link with your partner, and have no method of verbal communication.
+        As an abductor, you have a telepathic link with your partner, and have
+        no method of verbal communication.
       </BlockQuote>
     </Section>
   );
 };
 
-const EquipmentSection = (_props, _context) => {
+const EquipmentSection = (_props) => {
   return (
     <Section title="Equipment">
       <Stack vertical>
@@ -78,13 +83,17 @@ const EquipmentSection = (_props, _context) => {
                 as="img"
                 src={resolveAsset('abaton.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                style={{
+                  msInterpolationMode: 'nearest-neighbor',
+                  imageRendering: 'pixelated',
+                }}
               />
               Your{' '}
               <Box inline textColor="purple">
                 advanced baton
               </Box>{' '}
-              is a multi-purpose baton that does just about everything you need to subdue someone. It has four modes:
+              is a multi-purpose baton that does just about everything you need
+              to subdue someone. It has four modes:
               <br />
               <Box inline textColor="yellow">
                 Stun
@@ -94,7 +103,8 @@ const EquipmentSection = (_props, _context) => {
               <Box inline textColor="blue">
                 Sleep
               </Box>
-              : Knocks someone out, as long as they&apos;re stunned. Only one person can be asleep at a time, however!
+              : Knocks someone out, as long as they&apos;re stunned. Only one
+              person can be asleep at a time, however!
               <br />
               <Box inline textColor="red">
                 Cuff
@@ -104,7 +114,8 @@ const EquipmentSection = (_props, _context) => {
               <Box inline textColor="purple">
                 Probe
               </Box>
-              : Probes whether an organism is suitable for experimentation or not.
+              : Probes whether an organism is suitable for experimentation or
+              not.
               <br />
               People wearing{' '}
               <Box inline textColor="label">
@@ -119,13 +130,17 @@ const EquipmentSection = (_props, _context) => {
                 as="img"
                 src={resolveAsset('atool.png')}
                 width="32px"
-                style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+                style={{
+                  msInterpolationMode: 'nearest-neighbor',
+                  imageRendering: 'pixelated',
+                }}
               />
               You have{' '}
               <Box inline textColor="purple">
                 alien tools
               </Box>{' '}
-              , which are capable of working extremely fast, faster than any tool available to lesser lifeforms.
+              , which are capable of working extremely fast, faster than any
+              tool available to lesser lifeforms.
               <br />
               You can use these to{' '}
               <Box inline textColor="yellow">
@@ -147,13 +162,17 @@ const EquipmentSection = (_props, _context) => {
               as="img"
               src={resolveAsset('apistol.png')}
               width="32px"
-              style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+              style={{
+                msInterpolationMode: 'nearest-neighbor',
+                imageRendering: 'pixelated',
+              }}
             />
             Your{' '}
             <Box inline textColor="purple">
               alien pistol
             </Box>{' '}
-            is an effective self-defense weapon, with three different fire modes:
+            is an effective self-defense weapon, with three different fire
+            modes:
             <br />
             <Box inline textColor="green">
               Declone
@@ -176,8 +195,8 @@ const EquipmentSection = (_props, _context) => {
   );
 };
 
-export const AntagInfoAbductorAgent = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoAbductorAgent = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={620} height={650} theme="abductor">

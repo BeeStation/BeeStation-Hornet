@@ -16,10 +16,7 @@
 		for(var/verb in effect.effect_act_descs)
 			. += "[src] likely does something when [verb]."
 
-/obj/item/alienartifact/ComponentInitialize()
-	AddComponent(/datum/component/discoverable, 10000, TRUE)
-
-/obj/item/alienartifact/objective/ComponentInitialize()
+/obj/item/alienartifact/objective/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
@@ -48,6 +45,8 @@
 			effect.Initialize(src)
 			effects += effect
 
+	AddComponent(/datum/component/discoverable, 10000, TRUE)
+
 /obj/item/alienartifact/Destroy()
 	. = ..()
 	QDEL_LIST(effects)
@@ -58,7 +57,7 @@
 	clockwork_warp_allowed = FALSE
 	requires_power = FALSE
 	mood_bonus = -999
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -66,7 +65,7 @@
 
 /area/tear_in_reality/Initialize(mapload)
 	. = ..()
-	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
+	mood_message = span_warning("[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!")
 
 /area/tear_in_reality/get_virtual_z(turf/T)
 	return REALITY_TEAR_VIRTUAL_Z
@@ -135,11 +134,11 @@
 //===================
 
 /datum/artifact_effect/inducespasm
-	signal_types = list(COMSIG_PARENT_EXAMINE)
+	signal_types = list(COMSIG_ATOM_EXAMINE)
 	effect_act_descs = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
-	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(do_effect))
+	RegisterSignal(source, COMSIG_ATOM_EXAMINE, PROC_REF(do_effect))
 
 /datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
 	if(ishuman(observer))
@@ -154,7 +153,10 @@
 	var/datum/proximity_monitor/monitor
 	var/datum/callback/callback
 
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/proximity_monitor_holder)
+
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
+	SHOULD_CALL_PARENT(FALSE)
 	monitor = _monitor
 	callback = _callback
 	monitor?.hasprox_receiver = src
@@ -185,7 +187,7 @@
 /datum/artifact_effect/projreflect/proc/HasProximity(atom/movable/AM)
 	if(istype(AM, /obj/projectile))
 		var/obj/projectile/P = AM
-		P.setAngle(rand(0, 360))
+		P.set_angle(rand(0, 360))
 		P.ignore_source_check = TRUE //Allow the projectile to hit the shooter after it gets reflected
 
 //===================
@@ -198,7 +200,7 @@
 
 /datum/artifact_effect/airfreeze/Initialize(atom/source)
 	. = ..()
-	source.CanAtmosPass = ATMOS_PASS_NO
+	source.can_atmos_pass = ATMOS_PASS_NO
 
 /datum/artifact_effect/airfreeze/register_signals(source)
 	RegisterSignal(source, COMSIG_MOVABLE_MOVED, PROC_REF(updateAir))
@@ -206,10 +208,10 @@
 /datum/artifact_effect/airfreeze/proc/updateAir(atom/source, atom/oldLoc)
 	if(isturf(oldLoc))
 		var/turf/oldTurf = oldLoc
-		oldTurf.air_update_turf(TRUE)
+		oldTurf.air_update_turf(TRUE, TRUE)
 	if(isturf(source.loc))
 		var/turf/newTurf = source.loc
-		newTurf.air_update_turf(TRUE)
+		newTurf.air_update_turf(TRUE, TRUE)
 
 //===================
 // Atmos Stabilizer
@@ -221,8 +223,8 @@
 
 /datum/artifact_effect/atmosfix/process(delta_time)
 	var/turf/T = get_turf(source_object)
-	var/datum/gas_mixture/air = T.return_air()
-	air.parse_gas_string(T.initial_gas_mix)
+	var/datum/gas_mixture/base_mix = SSair.parse_gas_string(OPENTURF_DEFAULT_ATMOS)
+	T.assume_air(base_mix)
 
 //===================
 // Gravity Well
@@ -400,7 +402,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
-		/datum/gas/nitryl = 1
+		/datum/gas/nitrium = 1
 	)
 	var/datum/gas/input
 	var/datum/gas/output
@@ -416,10 +418,10 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas_mixture/air = T.return_air()
 	var/input_id = initial(input.id)
 	var/output_id = initial(output.id)
-	var/moles = min(air.get_moles(input_id), 5)
+	var/moles = min(GET_MOLES(input_id, air), 5)
 	if(moles)
-		air.adjust_moles(input_id, -moles)
-		air.adjust_moles(output_id, moles)
+		air.gases[input_id][MOLES] += -moles
+		air.gases[output_id][MOLES] += moles
 
 //===================
 // Recharger
@@ -436,7 +438,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	for(var/atom/movable/thing in view(3, T))
 		var/obj/item/stock_parts/cell/C = thing.get_cell()
 		if(C)
-			C.give(250 * delta_time)
+			C.give(25 * delta_time)
 			thing.update_icon()
 
 //===================
@@ -489,7 +491,6 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	message_admins("[ADMIN_LOOKUPFLW(pulser)] activated an insanity pulse [first_time ? " (Effects were unknown)" : " (Artifact had been activated before)"].")
 	if(first_time)
 		var/research_reward = rand(5000, 20000)
-		priority_announce("Spacetime anomaly detected at [T.loc]. Data analysis completed, [research_reward] research points rewarded.", "Nanotrasen Research Division", ANNOUNCER_SPANOMALIES)
 		SSresearch.science_tech.add_points_all(research_reward)
 	first_time = FALSE
 
@@ -498,7 +499,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		center_turf_mob.adjust_blindness(300)
 		center_turf_mob.Stun(100)
 		center_turf_mob.emote("scream")
-		center_turf_mob.hallucination = 500
+		center_turf_mob.set_hallucinations(10 MINUTES)
 
 	// non-center will not be that strong
 	sends_insanity_pulse(T, pulse_power, 1)

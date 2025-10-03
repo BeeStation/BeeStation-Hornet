@@ -1,12 +1,22 @@
+// Remove these once we have Byond implementation.
+#define ISNAN(a) (a!=a)
+#define ISINF(a) (!ISNAN(a) && ISNAN(a-a))
+#define IS_INF_OR_NAN(a) (ISNAN(a-a))
+
+#define IS_FINITE__UNSAFE(a) (a-a==a-a)
+#define IS_FINITE(a) (isnum(a) && IS_FINITE__UNSAFE(a))
+
+// Aight dont remove the rest
+
 // Credits to Nickr5 for the useful procs I've taken from his library resource.
 // This file is quadruple wrapped for your pleasure
 // (
 
 #define NUM_E 2.718282
 
-#define PI						3.1416
-#define INFINITY				1e31	//closer then enough
-#define SYSTEM_TYPE_INFINITY					1.#INF //only for isinf check
+#define PI 3.1416
+#define INFINITY 1e31	//closer then enough
+#define SYSTEM_TYPE_INFINITY 1.#INF //only for isinf check
 
 #define SHORT_REAL_LIMIT 16777216
 
@@ -99,7 +109,7 @@
 	. = list()
 	var/d		= b*b - 4 * a * c
 	var/bottom  = 2 * a
-	if(d < 0)
+	if(d < 0 || IS_INF_OR_NAN(d) || IS_INF_OR_NAN(bottom))
 		return
 	var/root = sqrt(d)
 	. += (-b + root) / bottom
@@ -118,6 +128,9 @@
 // Will filter out extra rotations and negative rotations
 // E.g: 540 becomes 180. -180 becomes 180.
 #define SIMPLIFY_DEGREES(degrees) (MODULUS((degrees), 360))
+
+// 180s an angle
+#define REVERSE_ANGLE(degrees) (SIMPLIFY_DEGREES(degrees + 180))
 
 #define GET_ANGLE_OF_INCIDENCE(face, input) (MODULUS((face) - (input), 360))
 

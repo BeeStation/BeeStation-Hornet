@@ -11,6 +11,7 @@
 /obj/item/circuit_component/object_overlay/bar
 	display_name = "Bar Overlay"
 	desc = "Requires a BCI shell. A component that shows a bar overlay ontop of an object from a range of 0 to 100."
+	category = "BCI"
 
 	var/datum/port/input/option/bar_overlay_options
 	var/datum/port/input/bar_number
@@ -43,7 +44,7 @@
 		number_clear = round(number_clear / 6.25) * 6.25
 	else if(current_option == COMP_BAR_OVERLAY_VERTICAL)
 		number_clear = round(number_clear / 10) * 10
-	var/image/cool_overlay = image(icon = 'icons/mob/screen_bci.dmi', loc = target_atom, icon_state = "[options_map[current_option]][number_clear]", layer = RIPPLE_LAYER)
+	var/image/cool_overlay = image(icon = 'icons/hud/screen_bci.dmi', loc = target_atom, icon_state = "[options_map[current_option]][number_clear]", layer = RIPPLE_LAYER)
 
 	if(image_pixel_x.value)
 		cool_overlay.pixel_x = image_pixel_x.value

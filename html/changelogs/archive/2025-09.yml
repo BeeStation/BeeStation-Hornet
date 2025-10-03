@@ -1,0 +1,420 @@
+2025-09-01:
+  Tsar-Salat:
+  - bugfix: fix last resort gestation(pergnante) timer
+  - bugfix: fixes carbon handling on Last Resort, making it not randomly RR the changeling
+      when used
+2025-09-02:
+  mrmanlikesbt:
+  - bugfix: fixed the "Show Server Revision" verb
+2025-09-04:
+  Liver-1:
+  - bugfix: Fixes the lethals ammo box to use @Bieyes beautiful new art and not the
+      plain box art.
+  TsunamiAnt:
+  - rscadd: 'Added a new station role: Prisoners! An RP heavy role intended to just
+      chill and maybe mug a new guy.'
+2025-09-05:
+  TsunamiAnt:
+  - bugfix: fixed the power monitor graph
+2025-09-06:
+  Powerfulbacon (sprites), Rukofamicom:
+  - rscdel: Removed block levels from all items. Items that can block will block the
+      tiles directly and diagonally in front of you. Attacks from the sides or rear
+      diagonals will bypass blocking attempts. Walk/Run no longer has any impact on
+      your ability to block.
+  - balance: Blocking with a weapon now has a two second cooldown unless you were
+      blocking projectiles, and it also triggers your melee attack cooldown slowing
+      your next attack. Blocking with a weapon will also fail if you have more than
+      45 stamina damage.
+  - balance: Blocking with shields now results in faster stamina damage buildup, and
+      the shield will be sent flying from your hand at more than 45 stamina damage
+  - balance: Blocking an incoming melee attack has entirely new calculations that
+      follow the same spirit as the old ones but with less extreme outcomes. Sharp
+      and non-brute weapons are easier to block than blunt ones.
+  - tweak: blocking stamina is no longer limb based
+  - tweak: 'Added or changed blocking capabilities and/or damage stats of the following
+      weapons. Examine them in-game for more details: Many nullrod options, Rod of
+      Asclepius (activated), energy swords, scythes, spears, proto-kinetic accelerator,
+      mime traitor baguette, mops, teleprods, ghost sword.'
+  - rscadd: three new blocking flags that will be revealed on examining weapons. The
+      flags are BLOCKING_COUNTERATTACK which does what it sounds like, BLOCKING_UNBALANCE
+      for long weapons which trips your opponent and delays their next attack, and
+      BLOCKING_UNBLOCKABLE which can only be blocked by itself and is reserved for
+      magical or energy weapons and energy shields.
+  - rscadd: Adds the Carbon Fiber Saber to security lockers scattered across the station.
+      This item is nearly identical to the captain's saber, but has much less armor
+      penetration and normal sharpness.
+  - bugfix: Fixes energy shield in-hand sprites so that they are now visible in player
+      hands again
+  - bugfix: Fixes energy shields functionality as well - they would never recharge,
+      but this may have gone unnoticed because they also weren't required to charge
+      before being deployed again.
+  - tweak: Energy shields are now much cheaper (5 TC) and available in regular uplinks
+      instead of only nuclear operative uplinks. This extends to the bananium shield
+      being cheaper for clowns as well.
+  Rukofamicom:
+  - bugfix: Goliath lava boats now work again by properly accepting the oar they need
+      to function
+  lord scrubling:
+  - bugfix: Anomaly cores are no longer all blue
+  - bugfix: Cores from diffused anomalies fit in anomaly modsuit modules
+  - bugfix: The threadripper modsuit module is no longer visible even when not selected
+  mrmanlikesbt, lizardqueenlexi:
+  - bugfix: fixed cursed hearts
+  r1ks-iwnl:
+  - bugfix: Changeling's Last Resort no longer traps you as a monkey forever(The human
+      form button is visible again)
+  - bugfix: Changeling's Lesser Form no longer traps you as a monkey forever(The human
+      form button is visible again)
+  - bugfix: Changeling's chem HUD disappearing forever after you turn into a monkey
+  rkz, Timberpoes:
+  - admin: Re-added the button to the player playtime panel that lets admins toggle
+      a player's job playtime exemption status.
+  - refactor: Rewrite the way we handle which roles get assigned with playtime tracking.
+  - bugfix: Players who get MMI'd and put into borgs or AIs mid-shift now gain job
+      playtime tracking towards Silicon roles instead.
+2025-09-07:
+  PowerfulBacon:
+  - tweak: Only conscious people can hear LOOC.
+  Solene Ft. Bacon, Ruko, Ark and engineering nerds on discord:
+  - rscdel: Removed Joules
+  - tweak: Power now always only shows up to 1 decimal to simplify reading.
+  - code_imp: Reworks Power measures
+  - tweak: Reworks Power Cell charges and other calculations
+  - tweak: Inducers and Cell Chargers now depend on cell recharge rates for their
+      calculation
+  - bugfix: Fixed Inducer / Cell charge power duplication exploit
+  - rscadd: Energy weapons now display remaining shots to depletion on their examine.
+  - bugfix: Modular Computers will now drain the proper power depending on if they
+      are shut down or enabled.
+  - bugfix: Modular Computers now display power drain accurately
+  - refactor: Refactored Cell Charger code to be more accurate and avoid dupes.
+  - refactor: Refactored power usage updates on some machinery solving duplicated
+      power draws
+  - balance: Rebalanced some power usage costs for machinery
+  - tweak: SMES's now take matter bins instead of cells and display TOTAL POWER
+  - refactor: Changed how SMES's calculate total power and other boring things
+  - tweak: APCs now display total power
+  - refactor: Refactored APC code regarding power. APCs are fasted, more accurate
+      in their calculations and don't freeze randomly. Also they now display sound,
+      text and overlays that were intended but were poorly coded so never seen.
+  - refactor: Refactored Recharger code.
+  - bugfix: Fixed lights drawing power twice
+  - balance: Rebalances costs for power consumption of most machinery to ensure lights
+      aren't the only things drawing any noticeable power.
+  - code_imp: Fixed some instances where machines weren't using the right proc to
+      discern if they're in IDLE or ACTIVE power consumption modes.
+  - refactor: Refactored emitter code so they have less of a mind of their own and
+      actually fire if there is enough power.
+  - rscadd: Added a special power draw mechanic to the gravity generator (Since it
+      had no power cost to begin with). If it's either powering up or powering down
+      it's power use will be 10 times higher than when it is stable.
+  lord scrubling:
+  - bugfix: plasmamen receive a helmet and internals after being captured
+2025-09-10:
+  Nakalon:
+  - bugfix: Cell Chargers work on Infinite Power areas again
+  - bugfix: Rechargers now properly update to idle power mode when nothing is charging
+  - balance: Increased Cell Charger Idle cost from 5 to 100 Watts
+  - refactor: Refactor Cell Charger power code (again sorry)
+  - bugfix: Inducer crates are no longer empty
+  - code_imp: Created a subtype of science inducer that starts with a standard cell
+  - code_imp: Deleted yet another cell type that was, this time, hidden away in crate
+      code
+  PowerfulBacon:
+  - tweak: 'Includes players who joined, players who joined roundstart, and total
+      client connections in the #ooc information of a round'
+2025-09-12:
+  PowerfulBacon:
+  - balance: Energy katana is now deleted when the ninja is killed.
+  - balance: Energy katana dash no longer has changes, but has a 1.4 second cooldown
+      on usage instead. This cooldown blocks all user actions and is telegraphed.
+  - balance: Energy katana dash no longer can go through people, but instead will
+      attack and push back the person that you hit.
+  - balance: Energy katana can no longer delimb, this has been replaced with delimbing
+      strike. An ability that allows the ninja to attack the 3 tiles in front of it,
+      deilmbing anyone who gets caught in the attack.
+  - balance: Energy katana damage decreased to 22, down from 30.
+  - balance: Reduces their armour, particularly against melee attacks.
+  - balance: Stealth now grants 100% invisibility and runs through a standardised
+      status effect.
+  - balance: Fixes the dash action having an action button.
+  - balance: Stealth releases a smoke cloud on activation.
+  - bugfix: Fixes mouse cooldown cursor being broken
+  - bugfix: Fixes some preference options not displaying
+2025-09-13:
+  ClownMoff:
+  - rscadd: Added the Medical Emergencies Escape Shuttle
+  Therealdoooc, Comxy, Jacquerel, Melbert:
+  - rscadd: Garden gnomes, a new basic mob that can be purchased from an emagged supply
+      console for 4k credits.
+  - code_imp: Advanced retaliate component.
+  - code_imp: Ground sinking component.
+  - code_imp: Attack obstacle in path AI subtree/behaviour.
+  - code_imp: Caltrop component now supports custom paralyze time.
+  ? mrmanlikesbt, MMMiracles, iwishforducks, dragomagol, unit0016, Son-of-Space, JohnFulpWillard,
+    san7890, Maurukas, Helg2, MTandi
+  : - rscadd: Added some airalarm, airlock, airlock access, and apc mapping helpers.
+2025-09-14:
+  Solene:
+  - rscadd: Added hotswap to every computer component.
+  - balance: Doubled battery size (lets see if it sticks this time)
+  - tweak: Reworked Power cell controlers. Now they're simply batteries and you don't
+      need 2 battery type components.
+  - tweak: Changed names of computer batteries to be more descriptive of their size.
+  - bugfix: Fixed a message error in primary card slot hacking
+  - bugfix: Fixed a runtime happening during Detomatix virus injection on targets
+      without battery
+  - bugfix: Standard batteries no longer fit laptops, sorry guys
+  SunShine214, Nakalon:
+  - rscadd: The Advanced Gas Rig, capable of mining gases from the planet the station
+      is orbiting.
+  - rscadd: Gas Rig Monitor program, which uses NTnet to remotely control the gas
+      rig
+  - rscadd: Adds a Gas Rig Shielding power value to each gas
+  - tweak: Adjusted maps to fit the new gas rig.
+  - tweak: Waste now is vented, rather then filtered out. The filter line is for the
+      gas rig now.
+  - rscdel: Removed gas miners from all maps except for echo, as the gas rig being
+      there makes no sense
+  lord scrubling:
+  - rscadd: resin mister upgrades can now be applied to the modsuit module
+  - bugfix: the resin mister module now deploys
+  - refactor: watertank backpacks are more flexible
+  ? mrmanlikesbt, MrMelbert, san7890, SuperNovaa41, Watermelon914, lessthnthree, ZephyrTFA,
+    Jacquerel, AnywayFarus, imedial, SmArtKar
+  : - rscadd: Added the "Vote" verb the OOC tab, here you can check the status of
+        current voting or call them if you are able.
+    - tweak: Map votes now use a tally system instead of weighted RNG. What this means
+        is that votes for the maps that did not win will carry over to the next map
+        vote, and when that map eventually wins its tallies will be reset.
+    - refactor: refactored the voting subsystem
+    - tweak: Slightly altered the Emergency Shuttle undocking announcement
+2025-09-15:
+  PowerfulBacon:
+  - bugfix: Fixes guns slowing down while worn on the belt.
+  - bugfix: Fixes guns not being able to shoot if you click on a tile adjacent to
+      you.
+  TsunamiAnt:
+  - tweak: Makes abductee objectives not be complete ass.
+  - tweak: Abductee objectives are now tied to the gland itself and can be cured by
+      just removing it.
+  mrmanlikesbt:
+  - bugfix: Fixed the item overlay on smartfridges displaying even when there are
+      no items inside.
+  - bugfix: Fixes the feed ability breaking if the person you are feeding off of is
+      deleted
+  - bugfix: Fixed Ventrue made vampires getting duplicate spells when turned into
+      a vampire
+  - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
+      their objectives
+  - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
+      into vassals
+  - code_imp: Cleaned up some vampire code
+  - tweak: The vampire department vassalization objective can no longer ask you to
+      vassalize more people than possible
+  - tweak: Adjusted the roundend report vampire section
+  - tweak: Stakes now have a medium weight size meaning people other than the staked
+      person can remove them
+  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
+      a vampire. Be careful Ventrue clan members!
+  r1ks-iwnl:
+  - bugfix: Bubblegum no longer ends his dashes earlier than he should
+  rkz, tralezab, TheBonded, ma44, Ryll/Shaps, Vishenka0704, Vladoricious, Jacquerel, Fikou, Sealed101, San7890:
+  - tweak: Renames the Wardens dog
+  - refactor: tamable component + egg layer component, animal variety element
+  - bugfix: dogs will no longer forget to unbuckle themselves when fetching items
+      thrown nearby
+  - code_imp: fixed bad rabbit subtyping
+  - refactor: Basic AI movement has been refactored to clean it up a bit
+  - bugfix: Dog AI's should no longer lock up and become unresponsive after failed
+      fetch attempts
+  - soundadd: Dogs in harass mode that are guarding against someone will now make
+      growling sounds
+  - bugfix: Dead dogs can no longer befriend you or lick you.
+  - bugfix: Consciousness Transference potions now tame the target creature, just
+      like Sentience potions.
+  - bugfix: A revived basic mob will stand up again rather than inching around as
+      a living corpse.
+  - rscadd: Ian has learned some new tricks, tell him what a good boy he is!
+  - rscadd: Ian will come on a walk with you, if you are his friend.
+  - refactor: Ian's tricks work the same way as some other mobs' tricks and should
+      be extendable to future mobs.
+  - bugfix: Dogs no longer run at the maximum possible speed for a mob at all times.
+  - rscadd: When Ian gets old, he also slows down. Poor little guy.
+  - rscadd: Dogs will no longer dislike the presence of Felinids who have taken the
+      time to befriend them.
+  - rscadd: 'Dogs will now occasionally bark at their two mortal enemies: felinids
+      and mailmen'
+  - bugfix: Dogs set to attack will now only close within 3 tiles of their target,
+      and must be approached further by their target (or pushed next to their target)
+      to actually attack
+  - balance: While Ian still enjoys being petted, his heart will now most closely
+      belong to anyone who gives him an expensive luxury dog bone.
+  - code_imp: Using an item which can deal damage on a mob tracking hostile actions
+      (such as a dog) won't automatically be considered to be a hostile action if
+      you aren't actually hitting it with the item.
+  - bugfix: Dead basic mobs are no longer "dense" objects and can be stepped on.
+  - rscadd: Nars-Ian now can revive from the dead if he consumes a pet
+  - bugfix: fixes dog fashion items with no speech modifiers set making dressed up
+      corgis unable to perform their speech or emote behaviors
+  - bugfix: fixes old Ian losing his mobility ride when shaved with a razor
+  - bugfix: fixes pets not dropping their collar when gibbed
+  - bugfix: butter don't go on Lisa and corgi puppies (Lisa won't wear hats and corgi
+      puppies can't wear hats and back slot items)
+2025-09-16:
+  Nakalon:
+  - code_imp: Withdraw Funds now uses TGUI
+  - balance: Removed Department freebies from vendors. Everything will cost money
+      for everyone.
+  - balance: Cargo gets a cut of all items sold by vendors
+  - tweak: You can now buy items with departmental cards, embezzlement is no longer
+      stopped by code :)
+  - bugfix: Fixed Assistants seeing items as free, even though they aren't
+  THEREALDOOOC213:
+  - rscadd: fat people now break tables when slammed onto them
+  lord scrubling:
+  - bugfix: advanced atmos resin is no longer killed early when spreading in hot air
+  - rscadd: atmos hardsuits, winter coats, and modsuits can carry extinguishers in
+      their exo slot
+  - bugfix: firefighting foam now works
+  ? mrmanlikesbt, MrPerson, cacogen, MMMiracles, Tastyfish, XyzzyThePretender, LemonInTheDark,
+    MTandi, Lufferly, BobDABuilder9001, Sealed101
+  : - rscadd: Added new solar panel sprites. These dynamically track the sun instead
+        of being fixed to incremental angles
+    - rscadd: 'Solar panels can now be upgraded based on what glass they are made
+        of, the higher tier the glass is, the higher the multiplier is. The tiers
+        are as follows: normal glass - 1x, titanium glass - 2x, plasma glass - 3x,
+        plastitanium glass - x4'
+    - rscdel: Removed the goonstation folder
+    - refactor: Refactored SSsun and solar panel code.
+  mrmanlikesbt, san7890, the wonderful mappers at /tg/station:
+  - rscadd: Remapped MetaStation Service and Atmos
+  - bugfix: Fixed airlock pumps
+2025-09-17:
+  Bieyes:
+  - tweak: heavily slowed down all lawnmowers.
+  - balance: lawnmowers no longer gib.
+  - bugfix: mosins (and any other bolt actions) can be reloaded again.
+  ClownMoff:
+  - rscdel: Removed a stray decal on BoxStation
+  rkz, arcanemusic, cacogen, tastyfish:
+  - rscadd: adds ability to split profits on sold items with the sales tagger
+  - rscadd: cleaned up delivery crate appearance code, crates will show notes scrawled
+      on them and destination tags better
+  - refactor: cleaned up some crate export code
+2025-09-18:
+  PowerfulBacon:
+  - bugfix: Guns can now be recharged again.
+  - tweak: Players on lowpop no longer spawn with security access if no security are
+      present.
+  - rscadd: Added a new machine on lowpop which dispenses security deputy kits for
+      credits.
+  - tweak: Replace police baton with tonfa in deputy belt
+  - rscadd: The deputy duffel bag now comes with a deputy access upgrade card.
+  lord scrubling:
+  - bugfix: ethereal colors
+  mrmanlikesbt:
+  - bugfix: fixed vampires being able to level up an infinite amount of times
+2025-09-19:
+  ACanOpener:
+  - tweak: renamed cybernetic stomachs
+2025-09-20:
+  Programs-The-Station:
+  - bugfix: Central Command has repaired your station's Auxiliary Base Construction
+      Computer.
+  - rscadd: Auxiliary Base Construction Computer can now construct machine frames
+      and computer frames.
+  Rukofamicom:
+  - rscdel: Cameras no longer send alerts to AI except for motion cameras detecting
+      motion. This means cameras can now be disabled, destroyed or hit with an EMP
+      without the AI being immediately notified that cameras have been disabled in
+      a specific location.
+2025-09-21:
+  ACanOpener, Anonmare:
+  - balance: Reduced damage of the possessed chainsword to 18, down from 30.
+  PowerfulBacon:
+  - balance: Reduces the PDA's inactive power consumption, power consumption is now
+      higher when you have programs open. PDAs never use power while turned off.
+  - balance: Flashlight PDA now consumes and requires power, flickering when low on
+      power.
+  - balance: PDA batteries charge slightly faster.
+  mrmanlikesbt:
+  - code_imp: Renamed the applyOrganDamage() proc to apply_organ_damage()
+  - bugfix: Fixed canister connectors always having a pipe overlay on the south
+  - bugfix: fixed some small mistakes on MetaStation
+  mrmanlikesbt, ZephyrTFA, Jacquerel, jlsnow301:
+  - rscadd: Unary vents can be overclocked now to bypass their normal pressure restrictions
+      (5066kPa). While a vent is overclocked it will slowly lose integrity which you
+      can see via air alarm or examining it, you can repair a vent by using a screwdriver
+      on it. As the vent's integrity decreases, the amount of gas it is able to move
+      while under normal operation will decrease as well. When the vent reaches 0
+      integrity it will break and unwrench itself.
+  - refactor: Refactored the air alarm UI backend
+  - bugfix: Fixed the air alarm UI having overlapping buttons on 516 clients
+  - bugfix: Fixed not being able to set an air alarm's target air conditioning temperature
+  - code_imp: 'Removes an unused var: [/obj/machinery/var/interacts_with_air]'
+2025-09-22:
+  mrmanlikesbt, ninjanomnom:
+  - code_imp: Split up the atoms.dm file. If you see anything strange please report
+      it!
+  - code_imp: Removed an unused var and proc [/atom/var/max_hit_damage] [/atom/proc/clear_filters]
+  - code_imp: Re-implemented the previously commented signal [COMSIG_ATOM_UPDATE_INHAND_ICON]
+  pixelpoepleman:
+  - rscadd: New intercom in Box brig hall
+  - tweak: Fixed Card QM request console to be the 'Cargo' version instead of generic
+      'West'
+  - bugfix: Ferry Home docking port now fits the ferry on Box "Port Bay 2"
+2025-09-23:
+  ACanOpener:
+  - tweak: Renamed the "advanced cybernetic stomach" to "upgraded cybernetic stomach"
+      to be more consistent with other cybernetic organs.
+  Nakalon:
+  - balance: 10x'd the amount of power RTG's produce
+  - balance: 10x'd the amount of power Etherials drain from APCs
+  mrmanlikesbt:
+  - rscadd: Changelings can speak most languages now
+2025-09-24:
+  lord scrubling:
+  - balance: bioscrambler anomalies no longer instantly fire after spawning
+  - balance: the chance to have a limb replaced by a bioscrambler anomaly linearly
+      scales from guaranteed at 30 average bio armor to full protection at 90 bio
+      armor
+  - bugfix: bio protection properly protects against bioscrambler anomalies
+2025-09-26:
+  SunShine214:
+  - balance: Adjusted gas shielding powers. Plasma is now bad at shielding, nitrium
+      and tritium are much better then before.
+  - bugfix: Added access restrictions to the AGR monitor program. Assistants no longer
+      can ruin atmos techs days.
+  lord scrubling:
+  - rscadd: Rapid cable layers have a protolathe design under the advanced engineering
+      technode
+  - balance: Makeshift rcls have the same basic functions as the normal version
+  - bugfix: magboots not updating their slowdown when toggled
+  mrmanlikesbt, JohnFulpWillard:
+  - code_imp: Nuked ComponentInitialize(). Report anything strange!
+  rkz, Mothblocks:
+  - refactor: refactor GetFlatIcon to be clearer
+2025-09-27:
+  Rukofamicom:
+  - bugfix: Clown cars may now only be controlled by clowns
+2025-09-28:
+  Nakalon:
+  - tweak: You can now rename foods with pens again.
+  Tsunamiant, Powerfulbacon:
+  - rscadd: NPS-10 law-enforcement ballistic firearm, replacing the disabler.
+  - rscadd: APS-Arc ballistic taser, replacing the disabler in terms of non-lethal
+      usage.
+  - tweak: Removed disablers from almost every roundstart location.
+  - tweak: You can now declare a crimescene with the security holobarrier projector.
+2025-09-30:
+  BeeLover66:
+  - rscadd: Added unique descriptions for some MOD modules
+  - bugfix: The MOD bluespace storage module now uses its own sprite
+  - bugfix: The prototype MODsuit now has the prototype kinesis module
+  - bugfix: The MOD bike horn module now has the correct name
+  - spellcheck: Items with names beginning with "MOD" are now treated as improper
+      nouns
+  - spellcheck: MOD boots and gauntlets are now plural
+  - spellcheck: Fixed typos in the descriptions of MOD modules

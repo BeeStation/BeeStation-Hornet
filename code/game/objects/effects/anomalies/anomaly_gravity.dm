@@ -1,6 +1,6 @@
 /atom/movable/warp_effect
 	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/288x288.dmi'
 	icon_state = "gravitational_anti_lens"
 	pixel_x = -126
@@ -8,11 +8,14 @@
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
-	icon_state = "shield3-rewind"
+	icon_state = "gravity"
 	density = FALSE
+	anomaly_core = /obj/item/assembly/signaler/anomaly/grav
 	var/boing = 0
 	///Warp effect holder for displacement filter to "pulse" the anomaly
 	var/atom/movable/warp_effect/warp
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav)
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, drops_core)
 	. = ..()
@@ -74,14 +77,16 @@
 		boing = 0
 
 /obj/effect/anomaly/grav/high
-	var/grav_field
+	var/datum/proximity_monitor/advanced/gravity/grav_field
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly/grav/high)
 
 /obj/effect/anomaly/grav/high/Initialize(mapload, new_lifespan)
 	. = ..()
 	setup_grav_field()
 
 /obj/effect/anomaly/grav/high/proc/setup_grav_field()
-	grav_field = make_field(/datum/proximity_monitor/advanced/gravity, list("current_range" = 7, "host" = src, "gravity_value" = rand(0,3)))
+	grav_field = new(src, 7, TRUE, rand(0, 3))
 
 /obj/effect/anomaly/grav/high/Destroy()
 	QDEL_NULL(grav_field)

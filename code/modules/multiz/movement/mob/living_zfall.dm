@@ -24,11 +24,14 @@
 
 /// Called when a successful zimpact (landing) occurs
 /mob/living/proc/ZImpactDamage(turf/T, levels)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_Z_IMPACT, levels, T) & NO_Z_IMPACT_DAMAGE)
+		return
 	apply_general_zimpact_damage(T, levels)
 
 /// Generic proc for most living things taking fall damage. Will attempt splitting between legs, if the mob has any.
 /mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
-	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
+	visible_message(span_danger("[src] falls [levels] level\s into [T] with a sickening noise!"), \
+					span_userdanger("You fall [levels] level\s, hitting [T] with a sickening noise!"))
 	var/amount_total = get_distributed_zimpact_damage(levels)
 	var/total_damage_percent_left = 1
 	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)

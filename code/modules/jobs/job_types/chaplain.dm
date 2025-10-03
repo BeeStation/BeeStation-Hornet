@@ -1,14 +1,14 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
 	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
-	department_for_prefs = DEPT_BITFLAG_CIV
+	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#dddddd"
-
+	exp_requirements = 60
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chaplain
 
 	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
@@ -56,7 +56,7 @@
 
 	B.deity_name = new_deity
 
-	switch(lowertext(new_religion))
+	switch(LOWER_TEXT(new_religion))
 		if("christianity") // DEFAULT_RELIGION
 			B.name = pick("The Holy Bible","The Dead Sea Scrolls")
 		if("buddhism")
@@ -118,7 +118,7 @@
 	jobtype = /datum/job/chaplain
 
 	id = /obj/item/card/id/job/chaplain
-	belt = /obj/item/modular_computer/tablet/pda/chaplain
+	belt = /obj/item/modular_computer/tablet/pda/preset/chaplain
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(

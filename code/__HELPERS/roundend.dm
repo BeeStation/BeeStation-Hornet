@@ -1,3 +1,6 @@
+GLOBAL_VAR(common_report) //! Contains common part of roundend report
+GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend report (part of personal report)
+
 #define POPCOUNT_SURVIVORS "survivors"					//Not dead at roundend
 #define POPCOUNT_ESCAPEES "escapees"					//Not dead and on centcom/shuttles marked as escaped
 #define POPCOUNT_SHUTTLE_ESCAPEES "shuttle_escapees" 	//Emergency shuttle only.
@@ -55,7 +58,7 @@
 						mob_data["module"] = "pAI"
 					else if(iscyborg(L))
 						var/mob/living/silicon/robot/R = L
-						mob_data["module"] = R.module.name
+						mob_data["module"] = R.model.name
 				else
 					category = "others"
 					mob_data["typepath"] = M.type
@@ -225,7 +228,7 @@
 							CO.declared_complete = TRUE
 							break
 
-	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	to_chat(world, "<BR><BR><BR>[span_bigbold("The round has ended.")]")
 	log_game("The round has ended.")
 	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
 	if(LAZYLEN(GLOB.round_end_notifiees))
@@ -247,7 +250,7 @@
 	CHECK_TICK
 
 	//Set news report and mode result
-	mode.set_round_result()
+	SSdynamic.set_round_result()
 
 	send2tgs("Server", "Round just ended.")
 
@@ -256,7 +259,7 @@
 
 	CHECK_TICK
 
-	set_observer_default_invisibility(0, "<span class='warning'>The round is over! You are now visible to the living.</span>")
+	set_observer_default_invisibility(0, span_warning("The round is over! You are now visible to the living."))
 	//These need update to actually reflect the real antagonists
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
@@ -292,16 +295,16 @@
 
 	CHECK_TICK
 	SSdbcore.SetRoundEnd()
+
 	//Collects persistence features
-	if(mode.allow_persistence_save)
-		SSpersistence.CollectData()
+	SSpersistence.collect_data()
+	SSpersistent_paintings.save_paintings()
 
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
 
 	if(CONFIG_GET(flag/automapvote))
-		if((world.time - SSticker.round_start_time) >= (CONFIG_GET(number/automapvote_threshold) MINUTES))
-			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+		INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/map_vote, "Map Rotation", null, TRUE)
 
 	sleep(50)
 	ready_for_reboot = TRUE
@@ -309,7 +312,7 @@
 
 /datum/controller/subsystem/ticker/proc/standard_reboot()
 	if(ready_for_reboot)
-		if(mode.station_was_nuked)
+		if(GLOB.station_was_nuked)
 			Reboot("Station destroyed by Nuclear Device.", "nuke")
 		else
 			Reboot("Round ended.", "proper completion")
@@ -319,9 +322,6 @@
 //Common part of the report
 /datum/controller/subsystem/ticker/proc/build_roundend_report()
 	var/list/parts = list()
-
-	//Gamemode specific things. Should be empty most of the time.
-	parts += mode.special_report()
 
 	CHECK_TICK
 
@@ -351,10 +351,10 @@
 
 	if(GLOB.round_id)
 		var/statspage = CONFIG_GET(string/roundstatsurl)
-		var/info = statspage ? "<a href='?action=openLink&link=[rustg_url_encode(statspage)][GLOB.round_id]'>[GLOB.round_id]</a>" : GLOB.round_id
+		var/info = statspage ? "<a href='byond://?action=openLink&link=[rustg_url_encode(statspage)][GLOB.round_id]'>[GLOB.round_id]</a>" : GLOB.round_id
 		parts += "[GLOB.TAB]Round ID: <b>[info]</b>"
 	parts += "[GLOB.TAB]Shift Duration: <B>[DisplayTimeText(world.time - SSticker.round_start_time)]</B>"
-	parts += "[GLOB.TAB]Station Integrity: <B>[mode.station_was_nuked ? "<span class='redtext'>Destroyed</span>" : "[popcount["station_integrity"]]%"]</B>"
+	parts += "[GLOB.TAB]Station Integrity: <B>[GLOB.station_was_nuked ? span_redtext("Destroyed") : "[popcount["station_integrity"]]%"]</B>"
 	parts += "[GLOB.TAB]Station Traits: <B>[english_list(SSstation.station_traits, nothing_text="none")]</B>"
 	var/total_players = GLOB.joined_player_list.len
 	if(total_players)
@@ -370,20 +370,46 @@
 			//ignore this comment, it fixes the broken sytax parsing caused by the " above
 			else
 				parts += "[GLOB.TAB]<i>Nobody died this shift!</i>"
-	if(istype(SSticker.mode, /datum/game_mode/dynamic))
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		parts += "[FOURSPACES]Threat level: [mode.threat_level]"
-		parts += "[FOURSPACES]Threat left: [mode.mid_round_budget]"
-		if(mode.roundend_threat_log.len)
-			parts += "[FOURSPACES]Threat edits:"
-			for(var/entry as anything in mode.roundend_threat_log)
-				parts += "[FOURSPACES][FOURSPACES][entry]<BR>"
-		parts += "[FOURSPACES]Executed rules:"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			if (rule.lategame_spawned)
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -0 threat (Lategame, threat cost ignored)"
-			else
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
+
+	// Roundstart
+	var/list/roundstart_rule_counts = list()
+	for(var/datum/dynamic_ruleset/rule in SSdynamic.roundstart_executed_rulesets)
+		if(roundstart_rule_counts[rule])
+			roundstart_rule_counts[rule]++
+		else
+			roundstart_rule_counts[rule] = 1
+
+	if(length(roundstart_rule_counts))
+		parts += "[FOURSPACES]Executed roundstart rulesets:"
+		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
+			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "")
+
+	// Midround
+	var/list/midround_rule_counts = list()
+	for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
+		if(midround_rule_counts[rule])
+			midround_rule_counts[rule]++
+		else
+			midround_rule_counts[rule] = 1
+
+	if(length(midround_rule_counts))
+		parts += "[FOURSPACES]Executed midround rulesets:"
+		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
+			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "")
+
+	// Latejoin
+	var/list/latejoin_rule_counts = list()
+	for(var/datum/dynamic_ruleset/rule in SSdynamic.latejoin_executed_rulesets)
+		if(latejoin_rule_counts[rule])
+			latejoin_rule_counts[rule]++
+		else
+			latejoin_rule_counts[rule] = 1
+
+	if(length(latejoin_rule_counts))
+		parts += "[FOURSPACES]Executed latejoin rulesets:"
+		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
+			parts += "<b>[FOURSPACES][FOURSPACES][rule.name]</b>" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "")
+
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
@@ -419,25 +445,25 @@
 			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 				if(!M.onCentCom() && !M.onSyndieBase())
 					parts += "<div class='panel stationborder'>"
-					parts += "<span class='marooned'>You managed to survive, but were marooned on [station_name()]...</span>"
+					parts += span_marooned("You managed to survive, but were marooned on [station_name()]...")
 				else
 					parts += "<div class='panel greenborder'>"
-					parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
+					parts += span_greentext("You managed to survive the events on [station_name()] as [M.real_name].")
 			else
 				parts += "<div class='panel greenborder'>"
-				parts += "<span class='greentext'>You managed to survive the events on [station_name()] as [M.real_name].</span>"
+				parts += span_greentext("You managed to survive the events on [station_name()] as [M.real_name].")
 
 		else
 			parts += "<div class='panel redborder'>"
-			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
+			parts += span_redtext("You did not survive the events on [station_name()]...")
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
 					if(CO.declared_complete)
-						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] [span_greentext("<B>Success!</B>")]<br>"
 					else
-						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
+						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] [span_redtext("<B>Failed.</B>")]<br>"
 
 	else
 		parts += "<div class='panel stationborder'>"
@@ -459,10 +485,9 @@
 	var/list/parts = list()
 	var/borg_spacer = FALSE //inserts an extra linebreak to separate AIs from independent borgs, and then multiple independent borgs.
 	//Silicon laws report
-	for (var/i in GLOB.ai_list)
-		var/mob/living/silicon/ai/aiPlayer = i
+	for (var/mob/living/silicon/ai/aiPlayer as anything in GLOB.ai_list)
 		if(aiPlayer.mind)
-			parts += "<b>[aiPlayer.name]</b> (Played by: <b>[aiPlayer.mind.key]</b>)'s laws [aiPlayer.stat != DEAD ? "at the end of the round" : "when it was <span class='redtext'>deactivated</span>"] were:"
+			parts += "<b>[aiPlayer.name]</b>'s laws [aiPlayer.stat != DEAD ? "at the end of the round" : "when it was [span_redtext("deactivated")]"] were:"
 			parts += aiPlayer.laws.get_law_list(include_zeroth=TRUE)
 
 		parts += "<b>Total law changes: [aiPlayer.law_change_counter]</b>"
@@ -478,13 +503,13 @@
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				borg_num--
 				if(robo.mind)
-					parts += "<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>)[robo.stat == DEAD ? " <span class='redtext'>(Deactivated)</span>" : ""][borg_num ?", ":""]"
+					parts += "<b>[robo.name]</b> [robo.stat == DEAD ? " [span_redtext("(Deactivated)")]" : ""][borg_num ?", ":""]"
 		if(!borg_spacer)
 			borg_spacer = TRUE
 
-	for (var/mob/living/silicon/robot/robo in GLOB.silicon_mobs)
+	for (var/mob/living/silicon/robot/robo as anything in GLOB.cyborg_list)
 		if (!robo.connected_ai && robo.mind)
-			parts += "[borg_spacer?"<br>":""]<b>[robo.name]</b> (Played by: <b>[robo.mind.key]</b>) [(robo.stat != DEAD)? "<span class='greentext'>survived</span> as an AI-less borg!" : "was <span class='redtext'>unable to survive</span> the rigors of being a cyborg without an AI."] Its laws were:"
+			parts += "[borg_spacer?"<br>":""]<b>[robo.name]</b> [(robo.stat != DEAD)? "[span_greentext("survived")] as an AI-less borg!" : "was [span_redtext("unable to survive")] the rigors of being a cyborg without an AI."] Its laws were:"
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				parts += robo.laws.get_law_list(include_zeroth=TRUE)
@@ -498,12 +523,14 @@
 		return ""
 
 /datum/controller/subsystem/ticker/proc/goal_report()
+	var/list/goals = SSstation.get_station_goals()
+	if(!length(goals))
+		return null
+
 	var/list/parts = list()
-	if(mode.station_goals.len)
-		for(var/V in mode.station_goals)
-			var/datum/station_goal/G = V
-			parts += G.get_result()
-		return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
+	for(var/datum/station_goal/goal as anything in SSstation.get_station_goals())
+		parts += goal.get_result()
+	return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
 
 ///Generate a report for how much money is on station, as well as the richest crewmember on the station.
 /datum/controller/subsystem/ticker/proc/market_report()
@@ -522,9 +549,9 @@
 		station_vault += current_acc.account_balance
 		if(!mr_moneybags || mr_moneybags.account_balance < current_acc.account_balance)
 			mr_moneybags = current_acc
-	parts += "<div class='panel stationborder'><span class='header'>Station Economic Summary:</span><br>"
+	parts += "<div class='panel stationborder'>[span_header("Station Economic Summary:")]<br>"
 	/* Tourist Bots
-	parts += "<span class='service'>Service Statistics:</span><br>"
+	parts += "[span_service("Service Statistics:")]<br>"
 	for(var/venue_path in SSrestaurant.all_venues)
 		var/datum/venue/venue = SSrestaurant.all_venues[venue_path]
 		tourist_income += venue.total_income
@@ -541,7 +568,7 @@
 			parts += "[span_greentext("Centcom is satisfied with service's job today.")]<br>"
 			award_service(/datum/award/achievement/jobs/service_okay)
 		else
-			parts += "<span class='reallybig greentext'>Centcom is incredibly impressed with service today! What a team!</span><br>"
+			parts += "[span_reallybiggreentext("Centcom is incredibly impressed with service today! What a team!")]<br>"
 			award_service(/datum/award/achievement/jobs/service_good)
 
 	parts += "<b>General Statistics:</b><br>"
@@ -559,7 +586,7 @@
 /datum/controller/subsystem/ticker/proc/medal_report()
 	if(GLOB.commendations.len)
 		var/list/parts = list()
-		parts += "<span class='header'>Medal Commendations:</span>"
+		parts += span_header("Medal Commendations:")
 		for (var/com in GLOB.commendations)
 			parts += com
 		return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
@@ -623,24 +650,24 @@
 	var/datum/action/report/R = new
 	C.player_details.player_actions += R
 	R.Grant(C.mob)
-	to_chat(C,"<a href='?src=[REF(R)];report=1'>Show roundend report again</a>")
+	to_chat(C,"<a href='byond://?src=[REF(R)];report=1'>Show roundend report again</a>")
 
 /datum/action/report
 	name = "Show roundend report"
 	button_icon_state = "round_end"
 
-/datum/action/report/Trigger()
+/datum/action/report/on_activate()
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
 		SSticker.show_roundend_report(owner.client, FALSE)
 
-/datum/action/report/IsAvailable()
+/datum/action/report/is_available()
 	return 1
 
 /datum/action/report/Topic(href,href_list)
 	if(usr != owner)
 		return
 	if(href_list["report"])
-		Trigger()
+		trigger()
 		return
 
 ///Returns a custom title for the roundend credit/report
@@ -656,9 +683,9 @@
 		if(custom_title == mind.assigned_role) // non-custom title, lame
 			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
-		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
+		var/datum/record/crew/R = find_record(mind.name, GLOB.manifest.general)
 		if(R)
-			custom_title = R.fields["rank"] // get a custom title from datacore
+			custom_title = R.rank // get a custom title from manifest
 		if(custom_title == mind.assigned_role) // lame...
 			return
 
@@ -676,22 +703,22 @@
 			jobtext = " the <b>[jobtext]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
+	var/text = "<b>[ply.name]</b>[jobtext][jobtext_custom] and [ply.current?.p_they() || "they"]"
 	if(ply.cryoed)
-		text += " <span class='bluetext'>entered cryosleep</span>"
+		text += " [span_bluetext("entered cryosleep")]"
 	else if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += " [span_redtext("died")]"
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += " [span_greentext("survived")]"
 		if(fleecheck)
 			var/turf/T = get_turf(ply.current)
 			if(!T || !is_station_level(T.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while [span_redtext("fleeing the station")]"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"
 	else
-		text += " <span class='redtext'>had their body destroyed</span>"
+		text += " [span_redtext("had their body destroyed")]"
 	return text
 
 /proc/printplayerlist(list/players,fleecheck)
@@ -715,7 +742,7 @@
 
 /datum/controller/subsystem/ticker/proc/save_admin_data()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='admin prefix'>Admin rank DB Sync blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_adminprefix("Admin rank DB Sync blocked: Advanced ProcCall detected."))
 		return
 	if(CONFIG_GET(flag/admin_legacy_system)) //we're already using legacy system so there's nothing to save
 		return
@@ -781,27 +808,57 @@
 		qdel(query_check_everything_ranks)
 
 
-/datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
+/datum/controller/subsystem/ticker/proc/sendtodiscord(survivors, escapees, integrity)
 	var/discordmsg = ""
 	discordmsg += "--------------ROUND END--------------\n"
 	discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
 	discordmsg += "Round Number: [GLOB.round_id]\n"
 	discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
-	discordmsg += "Players: [GLOB.player_list.len]\n"
+	discordmsg += "Players: [GLOB.player_list.len] (Total: [GLOB.unique_connected_keys.len])\n"
 	discordmsg += "Survivors: [survivors]\n"
 	discordmsg += "Escapees: [escapees]\n"
+	discordmsg += "Total Crew: [GLOB.joined_player_list.len] (Roundstart: [SSjob.initial_players_to_assign])\n"
 	discordmsg += "Integrity: [integrity]\n"
-	discordmsg += "Gamemode: [SSticker.mode.name]\n"
-	if(istype(SSticker.mode, /datum/game_mode/dynamic))
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		discordmsg += "Threat level: [mode.threat_level]\n"
-		discordmsg += "Threat left: [mode.mid_round_budget]\n"
-		discordmsg += "Executed rules:\n"
-		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
-			if (rule.lategame_spawned)
-				discordmsg += "[rule.ruletype] - [rule.name]: -0 threat (Lategame, threat cost ignored)\n"
-			else
-				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
+
+	// Roundstart
+	var/list/roundstart_rule_counts = list()
+	for(var/datum/dynamic_ruleset/rule in SSdynamic.roundstart_executed_rulesets)
+		if(roundstart_rule_counts[rule])
+			roundstart_rule_counts[rule]++
+		else
+			roundstart_rule_counts[rule] = 1
+
+	if(length(roundstart_rule_counts))
+		discordmsg += "Executed roundstart rulesets:\n"
+		for(var/datum/dynamic_ruleset/rule in roundstart_rule_counts)
+			discordmsg += "[rule.name]" + (roundstart_rule_counts[rule] > 1 ? " - [roundstart_rule_counts[rule]]x" : "") + "\n"
+
+	// Midround
+	var/list/midround_rule_counts = list()
+	for(var/datum/dynamic_ruleset/rule in SSdynamic.midround_executed_rulesets)
+		if(midround_rule_counts[rule])
+			midround_rule_counts[rule]++
+		else
+			midround_rule_counts[rule] = 1
+
+	if(length(midround_rule_counts))
+		discordmsg += "Executed midround rulesets:\n"
+		for(var/datum/dynamic_ruleset/rule in midround_rule_counts)
+			discordmsg += "[rule.name]" + (midround_rule_counts[rule] > 1 ? " - [midround_rule_counts[rule]]x" : "") + "\n"
+
+	// Latejoin
+	var/list/latejoin_rule_counts = list()
+	for(var/datum/dynamic_ruleset/rule in SSdynamic.latejoin_executed_rulesets)
+		if(latejoin_rule_counts[rule])
+			latejoin_rule_counts[rule]++
+		else
+			latejoin_rule_counts[rule] = 1
+
+	if(length(latejoin_rule_counts))
+		discordmsg += "Executed latejoin rulesets:\n"
+		for(var/datum/dynamic_ruleset/rule in latejoin_rule_counts)
+			discordmsg += "[rule.name]" + (latejoin_rule_counts[rule] > 1 ? " - [latejoin_rule_counts[rule]]x" : "") + "\n"
+
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"

@@ -11,7 +11,7 @@
 
 
 	var/active = FALSE
-	var/power_gen = 5000
+	var/power_gen = 5 KILOWATT
 	var/power_output = 1
 	var/consumption = 0
 	var/base_icon = "portgen0"
@@ -105,23 +105,23 @@
 /obj/machinery/power/port_gen/pacman/RefreshParts()
 	var/temp_rating = 0
 	var/consumption_coeff = 0
-	for(var/obj/item/stock_parts/SP in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin))
-			max_sheets = SP.rating * SP.rating * 50
-		else if(istype(SP, /obj/item/stock_parts/capacitor))
-			temp_rating += SP.rating
+	for(var/obj/item/stock_parts/part in component_parts)
+		if(istype(part, /obj/item/stock_parts/matter_bin))
+			max_sheets = part.rating * part.rating * 50
+		else if(istype(part, /obj/item/stock_parts/capacitor))
+			temp_rating += part.rating
 		else
-			consumption_coeff += SP.rating
-	power_gen = round(initial(power_gen) * temp_rating * 2)
+			consumption_coeff += part.rating
+	power_gen = round(initial(power_gen) * temp_rating)
 	consumption = consumption_coeff
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The generator has [sheets] units of [sheet_name] fuel left, producing [display_power(power_gen)] per cycle.</span>"
+	. += span_notice("The generator has [sheets] units of [sheet_name] fuel left, producing [display_power(power_gen)] per cycle.")
 	if(anchored)
-		. += "<span class='notice'>It is anchored to the ground.</span>"
+		. += span_notice("It is anchored to the ground.")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Fuel efficiency increased by <b>[(consumption*100)-100]%</b>.</span>"
+		. += span_notice("The status display reads: Fuel efficiency increased by <b>[(consumption*100)-100]%</b>.")
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	if(sheets >= 1 / (time_per_sheet / power_output) - sheet_left)
@@ -185,9 +185,9 @@
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			to_chat(user, "<span class='notice'>The [src.name] is full!</span>")
+			to_chat(user, span_notice("The [src.name] is full!"))
 			return
-		to_chat(user, "<span class='notice'>You add [amount] sheets to the [src.name].</span>")
+		to_chat(user, span_notice("You add [amount] sheets to the [src.name]."))
 		sheets += amount
 		addstack.use(amount)
 		return
@@ -195,10 +195,10 @@
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
 				set_anchored(TRUE)
-				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+				to_chat(user, span_notice("You secure the generator to the floor."))
 			else if(anchored)
 				set_anchored(FALSE)
-				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+				to_chat(user, span_notice("You unsecure the generator from the floor."))
 
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 			return
@@ -206,9 +206,9 @@
 			panel_open = !panel_open
 			O.play_tool_sound(src)
 			if(panel_open)
-				to_chat(user, "<span class='notice'>You open the access panel.</span>")
+				to_chat(user, span_notice("You open the access panel."))
 			else
-				to_chat(user, "<span class='notice'>You close the access panel.</span>")
+				to_chat(user, span_notice("You close the access panel."))
 			return
 		else if(default_deconstruction_crowbar(O))
 			return
@@ -218,7 +218,7 @@
 	..()
 	emp_act(EMP_HEAVY)
 
-/obj/machinery/power/port_gen/pacman/attack_ai(mob/user)
+/obj/machinery/power/port_gen/pacman/attack_silicon(mob/user)
 	interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_paw(mob/user)
@@ -246,9 +246,9 @@
 	data["anchored"] = anchored
 	data["connected"] = (powernet == null ? 0 : 1)
 	data["ready_to_boot"] = anchored && HasFuel()
-	data["power_generated"] = display_power(power_gen)
-	data["power_output"] = display_power(power_gen * power_output)
-	data["power_available"] = (powernet == null ? 0 : display_power(avail()))
+	data["power_generated"] = display_power_persec(power_gen)
+	data["power_output"] = display_power_persec(power_gen * power_output)
+	data["power_available"] = (powernet == null ? 0 : display_power_persec(avail()))
 	data["current_heat"] = current_heat
 	. =  data
 
@@ -281,7 +281,7 @@
 	base_icon = "portgen1"
 	circuit = /obj/item/circuitboard/machine/pacman/super
 	sheet_path = /obj/item/stack/sheet/mineral/uranium
-	power_gen = 15000
+	power_gen = 15 KILOWATT
 	time_per_sheet = 85
 
 /obj/machinery/power/port_gen/pacman/super/overheat()
@@ -293,7 +293,7 @@
 	icon_state = "portgen2_0"
 	circuit = /obj/item/circuitboard/machine/pacman/mrs
 	sheet_path = /obj/item/stack/sheet/mineral/diamond
-	power_gen = 40000
+	power_gen = 40 KILOWATT
 	time_per_sheet = 80
 
 /obj/machinery/power/port_gen/pacman/mrs/overheat()

@@ -7,8 +7,8 @@
 	program_icon_state = "crew"
 	tgui_id = "NtosRecords"
 	size = 4
-	usage_flags = PROGRAM_TABLET | PROGRAM_LAPTOP
 	available_on_ntnet = FALSE
+	power_consumption = 60 WATT
 
 	var/mode
 
@@ -21,6 +21,7 @@
 	transfer_access = list(ACCESS_MEDICAL, ACCESS_HEADS)
 	available_on_ntnet = TRUE
 	mode = "medical"
+	power_consumption = 60 WATT
 
 /datum/computer_file/program/records/security
 	filedesc = "Security Records"
@@ -30,6 +31,7 @@
 	transfer_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	available_on_ntnet = TRUE
 	mode = "security"
+	power_consumption = 60 WATT
 
 /datum/computer_file/program/records/proc/GetRecordsReadable()
 	var/list/all_records = list()
@@ -37,42 +39,34 @@
 
 	switch(mode)
 		if("security")
-			for(var/datum/data/record/person in GLOB.data_core.general)
-				var/datum/data/record/security_person = find_record("id", person.fields["id"], GLOB.data_core.security)
+			for(var/datum/record/crew/person in GLOB.manifest.general)
 				var/list/current_record = list()
 
-				if(security_person)
-					current_record["wanted"] = security_person.fields["criminal"]
-
-				current_record["id"] = person.fields["id"]
-				current_record["name"] = person.fields["name"]
-				current_record["rank"] = person.fields["rank"]
-				current_record["gender"] = person.fields["gender"]
-				current_record["age"] = person.fields["age"]
-				current_record["species"] = person.fields["species"]
-				current_record["fingerprint"] = person.fields["fingerprint"]
+				current_record["age"] = person.age
+				current_record["fingerprint"] = person.fingerprint
+				current_record["gender"] = person.gender
+				current_record["name"] = person.name
+				current_record["rank"] = person.rank
+				current_record["species"] = person.species
+				current_record["wanted"] = person.wanted_status
 
 				all_records += list(current_record)
 		if("medical")
-			for(var/datum/data/record/person in GLOB.data_core.general)
+			for(var/datum/record/crew/person in GLOB.manifest.general)
 				var/list/current_record = list()
 
-				current_record["id"] = person.fields["id"]
-				current_record["name"] = person.fields["name"]
-				current_record["rank"] = person.fields["rank"]
-				current_record["gender"] = person.fields["gender"]
-				current_record["age"] = person.fields["age"]
-				current_record["species"] = person.fields["species"]
-
-				var/datum/data/record/medical_person = find_record("id", person.fields["id"], GLOB.data_core.medical)
-
-				if(medical_person)
-					current_record["b_dna"] = medical_person.fields["b_dna"]
-					current_record["bloodtype"] = medical_person.fields["blood_type"]
-					current_record["mi_dis"] = medical_person.fields["mi_dis"]
-					current_record["ma_dis"] = medical_person.fields["ma_dis"]
-					current_record["notes"] = medical_person.fields["notes"]
-					current_record["cnotes"] = medical_person.fields["notes_d"]
+				current_record["name"] = person.name
+				current_record["rank"] = person.rank
+				current_record["species"] = person.species
+				current_record["gender"] = person.gender
+				current_record["age"] = person.age
+				current_record["b_dna"] = person.dna_string
+				current_record["bloodtype"] = person.blood_type
+				current_record["ma_dis"] = person.major_disabilities_desc
+				current_record["mi_dis"] = person.minor_disabilities_desc
+				current_record["physical_status"] = person.physical_status
+				current_record["mental_status"] = person.mental_status
+				current_record["notes"] = person.medical_notes
 
 				all_records += list(current_record)
 

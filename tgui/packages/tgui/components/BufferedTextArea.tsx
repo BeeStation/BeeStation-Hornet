@@ -1,7 +1,8 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
+
 import { TextArea } from './TextArea';
 
-const DEFAULT_UPDATE_INTERVAL = 4000;
+const DEFAULT_UPDATE_INTERVAL = 2000;
 
 interface BufferedTextAreaState {
   bufferedText: string;
@@ -15,25 +16,33 @@ interface BufferedTextAreaPropsUnique {
 }
 
 // If anyone ever refactors TextArea to use TypeScript, remove the & Record<string, unknown> part
-type BufferedTextAreaProps = BufferedTextAreaPropsUnique & Record<string, unknown>;
+type BufferedTextAreaProps = BufferedTextAreaPropsUnique &
+  Record<string, unknown>;
 
-export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedTextAreaState> {
-  bufferTimer: NodeJS.Timer;
+export class BufferedTextArea extends Component<
+  BufferedTextAreaProps,
+  BufferedTextAreaState
+> {
+  bufferTimer: NodeJS.Timeout;
+
   state = {
     bufferedText: this.props.value || '',
     textChanged: false,
   };
 
   componentDidMount() {
-    this.bufferTimer = setInterval(this.pushBuffer.bind(this), this.props.updateInterval || DEFAULT_UPDATE_INTERVAL);
+    this.bufferTimer = setInterval(
+      this.handlePush.bind(this),
+      this.props.updateInterval || DEFAULT_UPDATE_INTERVAL,
+    );
   }
 
   componentWillUnmount() {
-    this.pushBuffer();
+    this.handlePush();
     clearInterval(this.bufferTimer);
   }
 
-  pushBuffer = () => {
+  handlePush = () => {
     if (this.state.textChanged) {
       this.props.updateValue(this.state.bufferedText);
       this.setState({ textChanged: false });
@@ -44,8 +53,10 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
     const { updateValue, value, updateInterval, ...rest } = this.props;
     return (
       <TextArea
-        onInput={(_, value) => this.setState({ bufferedText: value, textChanged: true })}
-        onChange={this.pushBuffer.bind(this)}
+        onInput={(_, value) =>
+          this.setState({ bufferedText: value, textChanged: true })
+        }
+        onBlur={this.handlePush}
         value={this.state.bufferedText}
         {...rest}
       />

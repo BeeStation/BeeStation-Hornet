@@ -1,15 +1,16 @@
 /datum/job/chemist
 	title = JOB_NAME_CHEMIST
 	description = "Create healing medicines and fullfill other requests when medicine isn't needed. Label everything you produce correctly to prevent confusion."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
-	exp_requirements = 120
-	exp_type = EXP_TYPE_CREW
+	// Requires some understanding of medical, but is a relatively
+	// easy role to learn.
+	exp_requirements = 60
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/chemist
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
@@ -45,7 +46,7 @@
 
 	id = /obj/item/card/id/job/chemist
 	glasses = /obj/item/clothing/glasses/science
-	belt = /obj/item/modular_computer/tablet/pda/chemist
+	belt = /obj/item/modular_computer/tablet/pda/preset/chemist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/chemist
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -54,5 +55,6 @@
 	satchel = /obj/item/storage/backpack/satchel/chem
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe
 

@@ -13,11 +13,11 @@
 
 	stash_item.forceMove(parent)
 
-	RegisterSignal(stash_item, COMSIG_PARENT_QDELETING, PROC_REF(stash_destroyed))
-	RegisterSignal(stash_owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
+	RegisterSignal(stash_item, COMSIG_QDELETING, PROC_REF(stash_destroyed))
+	RegisterSignal(stash_owner, COMSIG_QDELETING, PROC_REF(owner_deleted))
 	RegisterSignal(stash_owner, COMSIG_MIND_TRANSFER_TO, PROC_REF(transfer_mind))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(access_stash))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 	create_owner_icon(parent)
 
@@ -25,9 +25,9 @@
 	if(stash_item)
 		//Drop the stash to the ground
 		stash_item.forceMove(get_turf(stash_item))
-		UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(stash_item, COMSIG_QDELETING)
 	if(stash_owner)
-		UnregisterSignal(stash_owner, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(stash_owner, COMSIG_QDELETING)
 	UnregisterSignal(parent, COMSIG_CLICK_ALT)
 	// Clear the alt appearance
 	var/atom/owner = parent
@@ -52,7 +52,7 @@
 /datum/component/stash/proc/on_examine(datum/source, mob/viewer, list/examine_text)
 	SIGNAL_HANDLER
 	if (viewer?.mind == stash_owner)
-		examine_text += "<span class='notice'>You have a stash hidden here! Use <b>Alt-Click</b> to access it.</span>"
+		examine_text += span_notice("You have a stash hidden here! Use <b>Alt-Click</b> to access it.")
 
 /datum/component/stash/proc/access_stash(datum/source, mob/user)
 	SIGNAL_HANDLER
@@ -63,15 +63,15 @@
 	//Not the owner of this stash
 	if (user.mind != stash_owner)
 		return
-	to_chat(user, "<span class='warning'>You begin removing your stash from [parent]...</span>")
+	to_chat(user, span_warning("You begin removing your stash from [parent]..."))
 	if(!do_after(user, 5 SECONDS, parent))
 		return
-	to_chat(user, "<span class='notice'>You remove your stash from [parent].</span>")
+	to_chat(user, span_notice("You remove your stash from [parent]."))
 	//Put in hand
 	stash_item.forceMove(get_turf(user))
 	user.put_in_hands(stash_item)
 	//Remove the stash thing
-	UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stash_item, COMSIG_QDELETING)
 	stash_item = null
 	//Stash is now used up
 	qdel(src)
@@ -87,4 +87,4 @@
 	stash_item = null
 	if (stash_owner)
 		stash_owner.antag_stash = null
-	UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(stash_item, COMSIG_QDELETING)

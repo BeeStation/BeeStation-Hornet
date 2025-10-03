@@ -6,12 +6,19 @@
 	worn_icon = 'icons/mob/clothing/head/bio.dmi'
 	icon_state = "bio"
 	item_state = "bio_hood"
-	permeability_coefficient = 0.01
-	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 0, BLEED = 5)
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
+	armor_type = /datum/armor/head_bio_hood
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+
+/datum/armor/head_bio_hood
+	bio = 100
+	rad = 80
+	fire = 30
+	acid = 100
+	bleed = 5
 
 /obj/item/clothing/suit/bio_suit
 	name = "bio suit"
@@ -22,18 +29,24 @@
 	item_state = "bio_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-	clothing_flags = THICKMATERIAL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	slowdown = 1
 	allowed = list(/obj/item/tank/internals, /obj/item/pen, /obj/item/flashlight/pen, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 0, BLEED = 5)
+	armor_type = /datum/armor/suit_bio_suit
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
 
-/obj/item/clothing/suit/bio_suit/ComponentInitialize()
+
+/datum/armor/suit_bio_suit
+	bio = 100
+	rad = 80
+	fire = 30
+	acid = 100
+	bleed = 5
+
+/obj/item/clothing/suit/bio_suit/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 75)
 
@@ -53,15 +66,43 @@
 
 //Security biosuit, grey with red stripe across the chest
 /obj/item/clothing/head/bio_hood/security
-	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 20, BLEED = 10)
+	armor_type = /datum/armor/bio_hood_security
 	icon_state = "bio_security"
 
+
+/datum/armor/bio_hood_security
+	melee = 25
+	bullet = 15
+	laser = 25
+	energy = 10
+	bomb = 25
+	bio = 100
+	rad = 80
+	fire = 30
+	acid = 100
+	stamina = 20
+	bleed = 10
+
 /obj/item/clothing/suit/bio_suit/security
-	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 20, BLEED = 10)
+	armor_type = /datum/armor/bio_suit_security
 	icon_state = "bio_security"
 
 
 //Janitor's biosuit, grey with purple arms
+
+/datum/armor/bio_suit_security
+	melee = 25
+	bullet = 15
+	laser = 25
+	energy = 10
+	bomb = 25
+	bio = 100
+	rad = 80
+	fire = 30
+	acid = 100
+	stamina = 20
+	bleed = 10
+
 /obj/item/clothing/head/bio_hood/janitor
 	icon_state = "bio_janitor"
 

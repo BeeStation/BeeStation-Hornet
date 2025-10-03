@@ -5,7 +5,7 @@
 	desc = "Patient has a subtype of delusional disorder, becoming irrationally attached to someone."
 	scan_desc = "monophobia"
 	gain_text = "If you see this message, make a github issue report. The trauma initialized wrong."
-	lose_text = "<span class='warning'>The voices in your head fall silent.</span>"
+	lose_text = span_warning("The voices in your head fall silent.")
 	can_gain = TRUE
 	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
 	resilience = TRAUMA_RESILIENCE_LOBOTOMY
@@ -34,14 +34,14 @@
 			qdel(src)
 			return
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
-	gain_text = "<span class='warning'>You hear a sickening, raspy voice in your head. It wants one small task of you...</span>"
+	gain_text = span_warning("You hear a sickening, raspy voice in your head. It wants one small task of you...")
 	antagonist = owner.mind.add_antag_datum(new /datum/antagonist/obsessed(src))
 	..()
 	//antag stuff//
 	antagonist.forge_objectives(obsession)
 	antagonist.greet()
 
-/datum/brain_trauma/special/obsessed/on_life()
+/datum/brain_trauma/special/obsessed/on_life(delta_time, times_fired)
 	var/mob/living/obsession_body = obsession.current
 	if(!istype(obsession_body) || obsession_body.stat == DEAD)
 		viewing = FALSE
@@ -53,12 +53,12 @@
 	viewing = (owner in oviewers(7, obsession_body))
 	if(viewing)
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/creeping, obsession.name)
-		total_time_creeping += 2 SECONDS
+		total_time_creeping += delta_time SECONDS
 		if(!revealed && (total_time_creeping >= OBSESSION_REVEAL_TIME))
 			reveal()
 		time_spent_away = 0
 		if(attachedobsessedobj)//if an objective needs to tick down, we can do that since traumas coexist with the antagonist datum
-			attachedobsessedobj.timer -= 2 SECONDS //mob subsystem ticks every 2 seconds(?), remove 20 deciseconds from the timer. sure, that makes sense.
+			attachedobsessedobj.timer -= delta_time SECONDS //mob subsystem ticks every 2 seconds(?), remove 20 deciseconds from the timer. sure, that makes sense.
 	else
 		out_of_view()
 
@@ -71,7 +71,8 @@
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()
-	UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
+	if(obsession)
+		UnregisterSignal(obsession, COMSIG_MIND_CRYOED)
 	antagonist?.trauma = null
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 
@@ -82,7 +83,7 @@
 /datum/brain_trauma/special/obsessed/proc/reveal()
 	revealed = TRUE
 	scan_desc = true_scan_desc
-	to_chat(owner, "<span class='hypnophrase'>The deep, overwhelming concern for <span class='name'>[obsession.name]</span> within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious...</span>")
+	to_chat(owner, span_hypnophrase("The deep, overwhelming concern for [span_name("[obsession.name]")] within you continues to blossom, making you suddenly feel as if your obsessive behavior is somewhat more obvious..."))
 
 /datum/brain_trauma/special/obsessed/proc/on_obsession_cryoed()
 	SIGNAL_HANDLER
@@ -91,14 +92,14 @@
 	var/message = "You get the feeling [obsession] is no longer within reach."
 	obsession = find_obsession()
 	if(!obsession)//we didn't find one
-		lose_text = "<span class='warning'>[message] The voices in your head fall silent.</span>"
+		lose_text = span_warning("[message] The voices in your head fall silent.")
 		qdel(src)
 		return
 	RegisterSignal(obsession, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
-	to_chat(owner, "<span class='warning'>[message] The voices have a new task for you...</span>")
+	to_chat(owner, span_warning("[message] The voices have a new task for you..."))
 	antagonist.objectives = list()
 	antagonist.forge_objectives(obsession)
-	to_chat(owner, "<span class='bold'>You don't know their connection, but The Voices compel you to stalk [obsession.name], forcing them into a state of constant paranoia.</span>")
+	to_chat(owner, span_bold("You don't know their connection, but The Voices compel you to stalk [obsession.name], forcing them into a state of constant paranoia."))
 	owner.mind.announce_objectives()
 
 /datum/brain_trauma/special/obsessed/proc/find_obsession()

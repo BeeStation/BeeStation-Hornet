@@ -36,14 +36,12 @@
 "j" = (
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo1";
-	layer = 3.9;
 	name = "photon torpedo button";
 	pixel_x = -5;
 	pixel_y = -5
 	},
 /obj/machinery/button/massdriver/indestructible{
 	id = "trektorpedo2";
-	layer = 3.9;
 	name = "photon torpedo button";
 	pixel_x = 5;
 	pixel_y = -5
@@ -68,9 +66,7 @@
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "n" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -100,8 +96,7 @@
 /obj/item/clothing/under/trek/engsec,
 /obj/item/clothing/under/trek/engsec,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
@@ -239,8 +234,7 @@
 /area/template_noop)
 "X" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)

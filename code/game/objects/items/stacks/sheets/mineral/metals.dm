@@ -33,6 +33,10 @@ Metals Sheets
 	cost = 500
 	source = /datum/robot_energy_storage/metal
 
+/obj/item/stack/sheet/iron/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can build a wall girder (unanchored) by right clicking on an empty floor.</span>"
+
 /obj/item/stack/sheet/iron/ratvar_act()
 	new /obj/item/stack/sheet/brass(loc, amount)
 	qdel(src)
@@ -45,8 +49,34 @@ Metals Sheets
 	return GLOB.metal_recipes
 
 /obj/item/stack/sheet/iron/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
+
+/obj/item/stack/sheet/iron/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
+	if(istype(target, /turf/open))
+		var/turf/open/build_on = target
+		if(!user.Adjacent(build_on))
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(isgroundlessturf(build_on))
+			user.balloon_alert(user, "can't place it here!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(build_on.is_blocked_turf())
+			user.balloon_alert(user, "something is blocking the tile!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(get_amount() < 2)
+			user.balloon_alert(user, "not enough material!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(!do_after(user, 4 SECONDS, build_on))
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(build_on.is_blocked_turf())
+			user.balloon_alert(user, "something is blocking the tile!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(!use(2))
+			user.balloon_alert(user, "not enough material!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		new/obj/structure/girder/displaced(build_on)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 /* Plasteel */
 
@@ -60,7 +90,7 @@ Metals Sheets
 	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/sheet_plasteel
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
@@ -69,39 +99,13 @@ Metals Sheets
 	matter_amount = 12
 	material_flags = NONE
 
+
+/datum/armor/sheet_plasteel
+	fire = 100
+	acid = 80
+
 /obj/item/stack/sheet/plasteel/get_recipes()
 	return GLOB.plasteel_recipes
-
-/* Runed Metal */
-
-/obj/item/stack/sheet/runed_metal
-	name = "runed metal"
-	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal sheet"
-	icon_state = "sheet-runed"
-	item_state = "sheet-runed"
-	//icon = 'icons/obj/stacks/mineral.dmi'
-	sheettype = "runed"
-	merge_type = /obj/item/stack/sheet/runed_metal
-	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/blood = 15)
-
-/obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/sheet/brass(loc, amount)
-	qdel(src)
-
-/obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
-	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
-		return
-	var/turf/T = get_turf(user) //we may have moved. adjust as needed...
-	var/area/A = get_area(user)
-	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !(A.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))))
-		to_chat(user, "<span class='warning'>The veil is not weak enough here.</span>")
-		return FALSE
-	return ..()
-
-/obj/item/stack/sheet/runed_metal/get_recipes()
-	return GLOB.runed_metal_recipes
 
 /* Brass - the cult one */
 
@@ -125,13 +129,15 @@ Metals Sheets
 	qdel(src)
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
-	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='danger'>[src] seems far too brittle to build with.</span>") //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
+	if(!IS_SERVANT_OF_RATVAR(user))
+		to_chat(user, span_danger("[src] seems far too brittle to build with.")) //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
 	else
 		return ..()
 
 /obj/item/stack/sheet/brass/get_recipes()
 	return GLOB.brass_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -141,7 +147,7 @@ Metals Sheets
 /* Bronze - the non cult one */
 
 /obj/item/stack/sheet/bronze
-	name = "brass"
+	name = "bronze"
 	desc = "On closer inspection, what appears to be wholly-unsuitable-for-building brass is actually more structurally stable bronze."
 	singular_name = "bronze sheet"
 	icon_state = "sheet-brass"
@@ -155,17 +161,34 @@ Metals Sheets
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/copper = 3) //we have no "tin" reagent so this is the closest thing
 	merge_type = /obj/item/stack/sheet/bronze
 	tableVariant = /obj/structure/table/bronze
+	walltype = /turf/closed/wall/mineral/bronze
+	has_unique_girder = TRUE
 
 /obj/item/stack/sheet/bronze/attack_self(mob/living/user)
-	if(is_servant_of_ratvar(user))
-		to_chat(user, "<span class='danger'>Wha... what is this cheap imitation crap? This isn't brass at all!</span>")
+	if(IS_SERVANT_OF_RATVAR(user))
+		to_chat(user, span_danger("Wha... what is this cheap imitation crap? This isn't brass at all!"))
 	else
 		return ..()
 
 /obj/item/stack/sheet/bronze/get_recipes()
 	return GLOB.bronze_recipes
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
+
 /obj/item/stack/sheet/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
+
+/* Fleshy iron */
+
+/obj/item/stack/sheet/fleshymass
+	name = "fleshy mass"
+	singular_name = "fleshy mass"
+	desc = "You swear it looks at you..."
+	icon_state = "sheet-fleshymass"
+	item_state = "sheet-fleshymass"
+	merge_type = /obj/item/stack/sheet/fleshymass
+
+/obj/item/stack/sheet/fleshymass/get_recipes()
+	return GLOB.fleshymass_recipes

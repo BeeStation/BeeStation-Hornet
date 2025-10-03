@@ -2,7 +2,7 @@
 	holder_type = /obj/machinery/door/airlock/shell
 	proper_name = "Circuit Airlock"
 
-/datum/wires/airlock/shell/on_cut(wire, mend)
+/datum/wires/airlock/shell/on_cut(wire, mob/user, mend)
 	// Don't allow them to re-enable autoclose.
 	if(wire == WIRE_TIMING)
 		return
@@ -18,7 +18,7 @@
 		/datum/component/shell, \
 		unremovable_circuit_components = list(new /obj/item/circuit_component/airlock, new /obj/item/circuit_component/airlock_access_event), \
 		capacity = SHELL_CAPACITY_LARGE, \
-		shell_flags = SHELL_FLAG_ALLOW_FAILURE_ACTION \
+		shell_flags = SHELL_FLAG_ALLOW_FAILURE_ACTION|SHELL_FLAG_REQUIRE_ANCHOR \
 	)
 
 /obj/machinery/door/airlock/shell/check_access(obj/item/I)
@@ -184,7 +184,7 @@
 	var/list/result = SScircuit_component.execute_instant_run()
 
 	if(!result)
-		attached_airlock.visible_message("<span class='warning'>[attached_airlock]'s circuitry overheats!</span>")
+		attached_airlock.visible_message(span_warning("[attached_airlock]'s circuitry overheats!"))
 		return
 
 	if(result["should_open"])

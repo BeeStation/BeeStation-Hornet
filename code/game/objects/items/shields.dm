@@ -1,87 +1,81 @@
 /obj/item/shield
 	name = "shield"
 	icon = 'icons/obj/shields.dmi'
-	block_level = 1
-	block_upgrade_walk = 1
+	canblock = TRUE
+	slot_flags = ITEM_SLOT_BACK
 	block_flags = BLOCKING_PROJECTILE
-	block_power = 50
-	max_integrity =  75
+	w_class = WEIGHT_CLASS_NORMAL
+
+	//Shields have no blocking cooldown so they can block until integrity gives out or 50 stamina damage is reached,
+	//be very careful if you increase this
+	block_power = 25
+	max_integrity =  120
 	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
-	var/durability = TRUE //the shield uses durability instead of stamina
+	var/shield_break_sound = 'sound/effects/glassbr3.ogg'
+	///Energy shields do not get disarmed and instead falter
+	var/is_energy_shield = FALSE
 
-/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSTRANSPARENT))
 		return FALSE
 	return ..()
 
+/obj/item/shield/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	if(damage_amount >= atom_integrity)
+		shatter()
+		return
+	..()
 
 /obj/item/shield/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
-	if(durability)
-		var/attackforce = 0
-		if(isprojectile(hitby))
-			var/obj/projectile/P = hitby
-			if(P.damage_type != STAMINA)// disablers dont do shit to shields
-				attackforce = (P.damage / 2)
-		else if(isitem(hitby))
-			var/obj/item/I = hitby
-			attackforce = damage
-			if(!I.damtype == BRUTE)
-				attackforce = (attackforce / 2)
-			attackforce = (attackforce * I.attack_weight)
-			if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
-				attackforce = 0
-		else if(isliving(hitby)) //not putting an anti stamina clause in here. only stamina damage simplemobs i know of are swarmers, and them eating shields makes sense
-			var/mob/living/L = hitby
-			if(block_flags & BLOCKING_HUNTER)
-				attackforce = (damage) //some shields are better at blocking simple mobs
-			else
-				attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-			if(block_flags & BLOCKING_NASTY)
-				L.attackby(src, owner)
-				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
-		if(attackforce)
-			owner.changeNext_move(CLICK_CD_MELEE)
-		if (obj_integrity <= attackforce)
-			var/turf/T = get_turf(owner)
-			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")
-			obj_integrity = 1
+	. = ..()
+	if(QDELETED(src))
+		return FALSE
+	if(owner.getStaminaLoss() >= 45 && !is_energy_shield)
+		//If we are too tired to keep blocking, but can't drop the shield, shatter it because something cheesy is going on
+		if(HAS_TRAIT(src, TRAIT_NODROP))
 			shatter(owner)
 			return FALSE
-		take_damage(attackforce * ((100-(block_power))/100))
-		return TRUE
-	else
-		return ..()
+
+		//Otherwise, send the shield flying out of our hand
+		else
+			var/turf/this_turf = get_turf(src)
+			var/list/turf/nearby_turfs = RANGE_TURFS(2, this_turf) - this_turf
+			forceMove(this_turf)
+			throw_at(pick(nearby_turfs), 2, 1)
+			owner.visible_message(span_danger("[owner]'s [src] is sent flying from thier hands!"))
+			return FALSE
 
 /obj/item/shield/attackby(obj/item/weldingtool/W, mob/living/user, params)
 	if(istype(W))
-		if(obj_integrity < max_integrity)
+		if(atom_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is welding the [src].", \
-									"<span class='notice'>You begin repairing the [src]]...</span>")
+									span_notice("You begin repairing the [src]]..."))
 			if(W.use_tool(src, user, 40, volume=50))
-				obj_integrity += 10
+				atom_integrity += 20
 				user.visible_message("[user.name] has repaired some dents on [src].", \
-									"<span class='notice'>You finish repairing some of the dents on [src].</span>")
+									span_notice("You finish repairing some of the dents on [src]."))
 			else
-				to_chat(user, "<span class='notice'>The [src] doesn't need repairing.</span>")
+				to_chat(user, span_notice("The [src] doesn't need repairing."))
 	return ..()
 
 /obj/item/shield/examine(mob/user)
 	. = ..()
-	var/healthpercent = round((obj_integrity/max_integrity) * 100, 1)
+	var/healthpercent = round((atom_integrity/max_integrity) * 100, 1)
 	switch(healthpercent)
 		if(50 to 99)
-			. += "<span class='info'>It looks slightly damaged.</span>"
+			. += span_info("It looks slightly damaged.")
 		if(25 to 50)
-			. += "<span class='info'>It appears heavily damaged.</span>"
+			. += span_info("It appears heavily damaged.")
 		if(0 to 25)
-			. += "<span class='warning'>It's falling apart!</span>"
+			. += span_warning("It's falling apart!")
 
-/obj/item/shield/proc/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
-	new /obj/item/shard((get_turf(src)))
+/obj/item/shield/proc/shatter()
+	var/turf/T = get_turf(src)
+	T.visible_message(span_warning("[src] is destroyed!"))
+	playsound(src, shield_break_sound, 100)
 	qdel(src)
 
 /obj/item/shield/riot
@@ -90,32 +84,31 @@
 	icon_state = "riot"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
-	slot_flags = ITEM_SLOT_BACK
-	block_level = 1
-	force = 10
+	item_flags = SLOWS_WHILE_IN_HAND | ISWEAPON
+	slowdown = 2
+	canblock = TRUE
+	block_power = 50
+	max_integrity = 300
+	force = 5
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/glass=7500, /datum/material/iron=1000)
-	attack_verb = list("shoved", "bashed")
+	attack_verb_continuous = list("shoves", "bashes")
+	attack_verb_simple = list("shove", "bash")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee/baton))
-		if(cooldown < world.time - 25)
-			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
-			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
-			cooldown = world.time
-	else if(istype(W, /obj/item/stack/sheet/mineral/titanium))
-		if (obj_integrity >= max_integrity)
-			to_chat(user, "<span class='notice'>[src] is already in perfect condition.</span>")
+	if(istype(W, /obj/item/stack/sheet/mineral/titanium))
+		if (atom_integrity >= max_integrity)
+			to_chat(user, span_notice("[src] is already in perfect condition."))
 		else
 			var/obj/item/stack/sheet/mineral/titanium/T = W
 			T.use(1)
-			obj_integrity = max_integrity
-			to_chat(user, "<span class='notice'>You repair [src] with [T].</span>")
+			atom_integrity = max_integrity
+			to_chat(user, span_notice("You repair [src] with [T]."))
 	else
 		return ..()
 
@@ -128,59 +121,43 @@
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	transparent = FALSE
 	custom_materials = list(/datum/material/iron=8500)
-	max_integrity = 65
+	max_integrity = 250
+	shield_break_sound = 'sound/effects/grillehit.ogg'
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	block_upgrade_walk = 1
+	item_flags = ISWEAPON
+	slowdown = null
 	block_power = 0
-	max_integrity = 30
+	max_integrity = 80
 
-/obj/item/shield/riot/roman/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/grillehit.ogg', 100)
-	new /obj/item/stack/sheet/iron(get_turf(src))
-	qdel(src)
-
-/obj/item/shield/riot/buckler
+/obj/item/shield/buckler
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
 	item_state = "buckler"
-	block_level = 1
-	block_upgrade_walk = 1
+	canblock = TRUE
+
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 10)
 	resistance_flags = FLAMMABLE
-	transparent = FALSE
-	max_integrity = 55
 	w_class = WEIGHT_CLASS_NORMAL
+	shield_break_sound = 'sound/effects/bang.ogg'
 
-/obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/wood(get_turf(src))
-	qdel(src)
-
-/obj/item/shield/riot/goliath
+/obj/item/shield/goliath
 	name = "Goliath shield"
 	desc = "A shield made from interwoven plates of goliath hide."
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
-	block_level = 1
-	block_upgrade_walk = 1
+	canblock = TRUE
+	block_power = 50
+	max_integrity = 200
+
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	custom_materials = null
-	transparent = FALSE
-	block_power = 25
-	max_integrity = 70
-	block_flags = BLOCKING_HUNTER | BLOCKING_PROJECTILE
-	w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/shield/riot/goliath/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/animalhide/goliath_hide(get_turf(src))
-	qdel(src)
+	shield_break_sound = 'sound/effects/bang.ogg'
 
 /obj/item/shield/riot/flash
 	name = "strobe shield"
@@ -192,9 +169,6 @@
 /obj/item/shield/riot/flash/Initialize(mapload)
 	. = ..()
 	embedded_flash = new(src)
-
-/obj/item/shield/riot/flash/ComponentInitialize()
-	. = .. ()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/shield/riot/flash/attack(mob/living/M, mob/user)
@@ -205,10 +179,10 @@
 	. = embedded_flash.attack_self(user)
 	update_icon()
 
-/obj/item/shield/riot/flash/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/riot/flash/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
 	if (. && !embedded_flash.burnt_out)
-		embedded_flash.activate()
+		INVOKE_ASYNC(embedded_flash, TYPE_PROC_REF(/obj/item/assembly/flash/handheld, activate))
 		update_icon()
 
 
@@ -248,87 +222,95 @@
 /obj/item/shield/riot/flash/examine(mob/user)
 	. = ..()
 	if (embedded_flash?.burnt_out)
-		. += "<span class='info'>The mounted bulb has burnt out. You can try replacing it with a new one.</span>"
+		. += span_info("The mounted bulb has burnt out. You can try replacing it with a new one.")
 
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "An advanced hard-light shield. It can be retracted, expanded, and stored anywhere, but can't take much punishment before needing a reset"
+	icon_state = "eshield"
+	item_state = "eshield"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	attack_verb = list("shoved", "bashed")
+	attack_verb_continuous = list("shoves", "bashes")
+	attack_verb_simple = list("shove", "bash")
 	throw_range = 5
 	force = 3
 	throwforce = 3
 	throw_speed = 3
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_PROJECTILE
-	base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
-	var/on_force = 10
-	var/on_throwforce = 8
-	var/on_throw_speed = 2
-	var/active = 0
-	var/clumsy_check = TRUE
-	var/cooldown_duration = 100
-	var/cooldown_timer
+	block_flags = BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
+	block_power = 100 //Easily broken, but absorb the full impact of the blow.
+	is_energy_shield = TRUE //Prevents the shield from being disarmed in the event the holder takes stamina damage somehow
+	/// Force of the shield when active.
+	var/active_force = 10
+	/// Throwforce of the shield when active.
+	var/active_throwforce = 8
+	/// Throwspeed of ethe shield when active.
+	var/active_throw_speed = 2
+	/// Whether clumsy people can transform this without side effects.
+	var/can_clumsy_use = FALSE
 
-/obj/item/shield/energy/shatter(mob/living/carbon/human/owner)
-	playsound(owner, 'sound/effects/turbolift/turbolift-close.ogg', 200, 1)
-	src.attack_self(owner)
-	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
-	cooldown_timer = world.time + cooldown_duration
-	addtimer(CALLBACK(src, PROC_REF(recharged), owner), cooldown_duration)
+	var/recharging = FALSE
+	var/cooldown_duration = 10 SECONDS
 
-/obj/item/shield/energy/proc/recharged(mob/living/carbon/human/owner)//ree. i hate addtimer. ree.
-	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)
-	to_chat(owner, "<span class='warning'>The [src] is ready to use!.</span>")
+	shield_break_sound = 'sound/effects/turbolift/turbolift-close.ogg'
+
+/obj/item/shield/energy/shatter()
+	if(!recharging) //This should never be possible but just in case
+		attack_self()
+		recharging = TRUE
+		playsound(src, shield_break_sound, 200, 1)
+		addtimer(CALLBACK(src, PROC_REF(recharged)), cooldown_duration)
+
+/obj/item/shield/energy/proc/recharged()
+	recharging = FALSE
+	atom_integrity = max_integrity
+	playsound(src, 'sound/machines/ping.ogg', 85, 1)
+
+/obj/item/shield/energy/attack_self(mob/user, modifiers)
+	if(recharging == TRUE)
+		playsound(src, shield_break_sound, 200, 1)
+		return
+	. = ..()
 
 /obj/item/shield/energy/Initialize(mapload)
 	. = ..()
-	icon_state = "[base_icon_state]0"
+	AddComponent(/datum/component/transforming, \
+		force_on = active_force, \
+		throwforce_on = active_throwforce, \
+		throw_speed_on = active_throw_speed, \
+		hitsound_on = hitsound, \
+		clumsy_check = !can_clumsy_use)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
 
-/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		if(isprojectile(hitby))
 			var/obj/projectile/P = hitby
 			if(P.reflectable)
 				P.firer = src
-				P.setAngle(get_dir(owner, hitby))
+				P.set_angle(get_dir(owner, hitby))
 				return 1
 		return ..()
-	return 0
+	return FALSE
 
-/obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if(cooldown_timer >= world.time)
-		return
-	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
-		user.take_bodypart_damage(5)
-	active = !active
-	icon_state = "[base_icon_state][active]"
-	if(active)
-		force = on_force
-		throwforce = on_throwforce
-		throw_speed = on_throw_speed
-		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] is now active and back at full power.</span>")
-		if(obj_integrity <= 1)
-			obj_integrity = max_integrity
-	else
-		force = initial(force)
-		throwforce = initial(throwforce)
-		throw_speed = initial(throw_speed)
-		w_class = WEIGHT_CLASS_TINY
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	add_fingerprint(user)
+/*
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ */
+/obj/item/shield/energy/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+	if(user)
+		balloon_alert(user, active ? "activated" : "deactivated")
+	playsound(src, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, TRUE)
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
-	icon_state = "teleriot0"
+	icon_state = "teleriot"
+	worn_icon_state = "teleriot"
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	slot_flags = null
@@ -337,30 +319,38 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	var/active = 0
+	block_power = 25
+	max_integrity =  120
+	slowdown = 0
+	item_flags = ISWEAPON
 
-/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+/obj/item/shield/riot/tele/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/transforming, \
+		force_on = 5, \
+		throwforce_on = 5, \
+		throw_speed_on = 2, \
+		hitsound_on = hitsound, \
+		w_class_on = WEIGHT_CLASS_BULKY, \
+		attack_verb_continuous_on = list("smacks", "strikes", "cracks", "beats"), \
+		attack_verb_simple_on = list("smack", "strike", "crack", "beat"))
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+
+/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		return ..()
-	return 0
+	return FALSE
 
-/obj/item/shield/riot/tele/attack_self(mob/living/user)
-	active = !active
-	icon_state = "teleriot[active]"
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+/**
+ * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
+ *
+ * Allows it to be placed on back slot when active.
+ */
+/obj/item/shield/riot/tele/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
 
-	if(active)
-		force = 8
-		throwforce = 5
-		throw_speed = 2
-		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
-	else
-		force = 3
-		throwforce = 3
-		throw_speed = 3
-		w_class = WEIGHT_CLASS_NORMAL
-		slot_flags = null
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	add_fingerprint(user)
+	slot_flags = active ? ITEM_SLOT_BACK : null
+	if(user)
+		balloon_alert(user, active ? "extended" : "collapsed")
+	playsound(src, 'sound/weapons/batonextend.ogg', 50, TRUE)
+	return COMPONENT_NO_DEFAULT_MESSAGE

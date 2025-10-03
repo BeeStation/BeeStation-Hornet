@@ -18,12 +18,12 @@
 /datum/syndicate_contract/proc/generate(blacklist)
 	contract.find_target(null, blacklist)
 
-	var/datum/data/record/record
+	var/datum/record/crew/record
 	if (contract.target)
-		record = find_record("name", contract.target.name, GLOB.data_core.general)
+		record = find_record(contract.target.name, GLOB.manifest.general)
 
 	if (record)
-		target_rank = record.fields["rank"]
+		target_rank = record.rank
 	else
 		target_rank = "Unknown"
 
@@ -45,7 +45,7 @@
 	var/location = pick_list_weighted(WANTED_FILE, "location")
 	wanted_message = "[base] [verb_string] [noun] [location]."
 
-/datum/syndicate_contract/proc/handle_extraction(var/mob/living/user)
+/datum/syndicate_contract/proc/handle_extraction(mob/living/user)
 	if (contract.target && contract.dropoff_check(user, contract.target.current))
 
 		var/turf/free_location = find_obstruction_free_location(3, user, contract.dropoff)
@@ -158,7 +158,7 @@
 			[C.registered_account.account_balance] cr.", TRUE)
 
 // They're off to holding - handle the return timer and give some text about what's going on.
-/datum/syndicate_contract/proc/handleVictimExperience(var/mob/living/M)
+/datum/syndicate_contract/proc/handleVictimExperience(mob/living/M)
 	// Ship 'em back - dead or alive, 4 minutes wait.
 	// Even if they weren't the target, we're still treating them the same.
 	addtimer(CALLBACK(src, PROC_REF(returnVictim), M), (60 * 10) * 4)
@@ -169,29 +169,29 @@
 		M.flash_act()
 		M.confused += 10
 		M.blur_eyes(5)
-		to_chat(M, "<span class='warning'>You feel strange...</span>")
+		to_chat(M, span_warning("You feel strange..."))
 		sleep(60)
-		to_chat(M, "<span class='warning'>That pod did something to you...</span>")
+		to_chat(M, span_warning("That pod did something to you..."))
 		M.Dizzy(35)
 		sleep(65)
-		to_chat(M, "<span class='warning'>Your head pounds... It feels like it's going to burst out your skull!</span>")
+		to_chat(M, span_warning("Your head pounds... It feels like it's going to burst out your skull!"))
 		M.flash_act()
 		M.confused += 20
 		M.blur_eyes(3)
 		sleep(30)
-		to_chat(M, "<span class='warning'>Your head pounds...</span>")
+		to_chat(M, span_warning("Your head pounds..."))
 		sleep(100)
 		M.flash_act()
 		M.Unconscious(200)
-		to_chat(M, "<span class='reallybig hypnophrase'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
+		to_chat(M, span_reallybighypnophrase("A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
-					so it's only a matter of time before we ship you back...\"</i></span>")
+					so it's only a matter of time before we ship you back...\"</i>"))
 		M.blur_eyes(10)
 		M.Dizzy(15)
 		M.confused += 20
 
 // We're returning the victim
-/datum/syndicate_contract/proc/returnVictim(var/mob/living/M)
+/datum/syndicate_contract/proc/returnVictim(mob/living/M)
 	var/list/possible_drop_loc = list()
 
 	for (var/turf/possible_drop in contract.dropoff.contents)
@@ -208,7 +208,7 @@
 		return_pod.style = STYLE_SYNDICATE
 
 		do_sparks(8, FALSE, M)
-		M.visible_message("<span class='notice'>[M] vanishes...</span>")
+		M.visible_message(span_notice("[M] vanishes..."))
 
 		for(var/obj/item/W in M)
 			if (ishuman(M))
@@ -231,8 +231,8 @@
 
 		new /obj/effect/pod_landingzone(possible_drop_loc[pod_rand_loc], return_pod)
 	else
-		to_chat(M, "<span class='reallybig hypnophrase'>A million voices echo in your head... <i>\"Seems where you got sent here from won't \
-					be able to handle our pod... You will die here instead.\"</i></span>")
+		to_chat(M, span_reallybighypnophrase("A million voices echo in your head... <i>\"Seems where you got sent here from won't \
+					be able to handle our pod... You will die here instead.\"</i>"))
 		if (iscarbon(M))
 			var/mob/living/carbon/C = M
 			if (C.can_heartattack())

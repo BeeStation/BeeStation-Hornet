@@ -1,20 +1,20 @@
 
 /*
- Mecha Pilots!
- by Remie Richards
+	Mecha Pilots!
+	by Remie Richards
 
- Mecha pilot mobs are able to pilot Mecha to a rudimentary level
- This allows for certain mobs to be more of a threat (Because they're in a MECH)
+	Mecha pilot mobs are able to pilot Mecha to a rudimentary level
+	This allows for certain mobs to be more of a threat (Because they're in a MECH)
 
- Mecha Pilots can either spawn with one, or steal one!
+	Mecha Pilots can either spawn with one, or steal one!
 
- (Inherits from syndicate just to avoid copy-paste)
+	(Inherits from syndicate just to avoid copy-paste)
 
- Featuring:
- * Mecha piloting skills
- * Uses Mecha equipment
- * Uses Mecha special abilities in specific situations
- * Pure Evil Incarnate
+	Featuring:
+	* Mecha piloting skills
+	* Uses Mecha equipment
+	* Uses Mecha special abilities in specific situations
+	* Pure Evil Incarnate
 
 */
 
@@ -49,7 +49,7 @@
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
-	faction = list("nanotrasen")
+	faction = list(FACTION_NANOTRASEN_PRIVATE)
 	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/marauder/loaded
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/nanotrasen
@@ -57,7 +57,7 @@
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
-	faction = list("nanotrasen")
+	faction = list(FACTION_NANOTRASEN_PRIVATE)
 
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Initialize(mapload)
@@ -91,7 +91,7 @@
 	search_objects = 0
 	if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_defense_mode) && !mecha.defense_mode)
 		var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
-		action.Trigger(TRUE)
+		action.trigger()
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/exit_mecha(obj/vehicle/sealed/mecha/M)
 	if(!M)
@@ -225,23 +225,23 @@
 		if(threat_count >= threat_use_mecha_smoke && prob(smoke_chance))
 			if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_smoke) && !mecha.smoke_charges)
 				var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_smoke]
-				action.Trigger()
+				action.trigger()
 
 		//Heavy damage - Defense Power or Retreat
 		if(mecha.get_integrity() < mecha.max_integrity*0.25)
 			if(prob(defense_mode_chance))
 				if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_defense_mode) && !mecha.defense_mode)
 					var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
-					action.Trigger(TRUE)
-					addtimer(CALLBACK(action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_defense_mode, Trigger), FALSE), 100) //10 seconds of defense, then toggle off
+					action.trigger()
+					addtimer(CALLBACK(action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_defense_mode, trigger), FALSE), 100) //10 seconds of defense, then toggle off
 
 			else if(prob(retreat_chance))
 				//Speed boost if possible
 				if(LAZYACCESSASSOC(mecha.occupant_actions, src, /datum/action/vehicle/sealed/mecha/mech_overload_mode) && !mecha.leg_overload_mode)
-					var/datum/action/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_overload_mode]
+					var/datum/action/vehicle/sealed/mecha/mech_overload_mode/action = mecha.occupant_actions[src][/datum/action/vehicle/sealed/mecha/mech_overload_mode]
 					mecha.leg_overload_mode = FALSE
-					action.Trigger(TRUE)
-					addtimer(CALLBACK(action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_overload_mode, Trigger), FALSE), 100) //10 seconds of speeeeed, then toggle off
+					action.trigger()
+					addtimer(CALLBACK(action, TYPE_PROC_REF(/datum/action/vehicle/sealed/mecha/mech_overload_mode, trigger), FALSE), 100) //10 seconds of speeeeed, then toggle off
 
 				retreat_distance = 50
 				addtimer(VARSET_CALLBACK(src, retreat_distance, 0), 10 SECONDS)
@@ -292,6 +292,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Goto(target, delay, minimum_distance)
 	if(mecha)
-		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay * mecha.step_multiplier)
+		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.movedelay)
 	else
 		..()

@@ -14,12 +14,12 @@
  */
 /obj/structure/closet/emcloset
 	name = "emergency closet"
-	desc = "It's a storage unit for emergency breath masks and O2 tanks."
+	desc = "It's a storage unit for emergency vacuum exposure."
 	icon_state = "emergency"
 
 /obj/structure/closet/emcloset/empty
 	name = "emergency closet"
-	desc = "It's a storage unit for emergency breath masks and O2 tanks."
+	desc = "It's a storage unit for emergency vacuum exposure."
 	icon_state = "emergency"
 
 /obj/structure/closet/emcloset/empty/PopulateContents()
@@ -35,36 +35,35 @@
 
 /obj/structure/closet/emcloset/PopulateContents()
 	..()
+	// Guaranteed, 2 Suits:
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
 
-	if (prob(40))
-		new /obj/item/storage/toolbox/emergency(src)
+	// Guaranteed but number varies
+	switch(rand(30))
+		if(0 to 10) //  1
+			new /obj/item/flashlight/oxycandle(src)
+		if(11 to 20) // 2
+			new /obj/item/flashlight/oxycandle(src)
+			new /obj/item/flashlight/oxycandle(src)
+		if(21 to 30) // 3
+			new /obj/item/flashlight/oxycandle(src)
+			new /obj/item/flashlight/oxycandle(src)
+			new /obj/item/flashlight/oxycandle(src)
 
-	switch (pick_weight(list("small" = 40, "aid" = 25, "tank" = 20, "both" = 10, "nothing" = 4)))
-		if ("small")
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/clothing/mask/breath(src)
-			for(var/i in 1 to rand(1,3))
-				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-
-		if ("aid")
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/storage/firstaid/o2(src)
-			new /obj/item/clothing/mask/breath(src)
-			for(var/i in 1 to rand(1,3))
-				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-
-		if ("tank")
-			new /obj/item/tank/internals/air(src)
-			new /obj/item/clothing/mask/breath(src)
-			for(var/i in 1 to rand(1,3))
-				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
-
-		if ("both")
-			new /obj/item/tank/internals/emergency_oxygen(src)
-			new /obj/item/clothing/mask/breath(src)
-			new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
+	// Roll for 2 supplementary items
+	for(var/i in 1 to 2)
+		switch(rand(30))
+			if(0 to 10) //  1
+				new /obj/item/storage/toolbox/emergency(src)
+			if(11 to 20) // 2
+				new /obj/item/grenade/chem_grenade/smart_metal_foam(src)
+			if(21 to 30) // 3
+				new /obj/item/reagent_containers/hypospray/medipen/vactreat(src)
 
 /*
  * Fire Closet
@@ -84,20 +83,33 @@
 
 /obj/structure/closet/firecloset/PopulateContents()
 	..()
-
+	//Guaranteed, 1 Suit
 	new /obj/item/clothing/suit/utility/fire/firefighter(src)
+	new /obj/item/clothing/head/utility/hardhat/red(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/utility/hardhat/red(src)
 
-/obj/structure/closet/firecloset/full/PopulateContents()
-	new /obj/item/clothing/suit/utility/fire/firefighter(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/flashlight(src)
-	new /obj/item/tank/internals/oxygen/red(src)
-	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/utility/hardhat/red(src)
+	// Number varies
+	switch(rand(100))
+		if(0 to 50) // Boohoo you lost the lottery
+			new /obj/item/reagent_containers/hypospray/medipen(src)
+		if(51 to 90) // 2
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+		if(91 to 100) // 3
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+			new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+
+
+	// Roll for 2 supplementary items
+	for(var/i in 1 to 2)
+		switch(rand(30))
+			if(0 to 10) //  1
+				new /obj/item/storage/toolbox/emergency(src)
+			if(11 to 20) // 2
+				new /obj/item/extinguisher(src)
+			if(21 to 30) // 3
+				new /obj/item/reagent_containers/hypospray/medipen(src)
 
 /*
  * Tool Closet
@@ -178,6 +190,14 @@
 		new /obj/item/storage/firstaid/radbgone(src)
 	else
 		new /obj/item/storage/pill_bottle/antirad(src)
+
+/*
+ *Gun-Lockers except they are actually lockers
+ */
+/obj/structure/closet/gun_locker
+	name = "\improper weapon closet"
+	desc = "It's a storage unit for weapons and similar objects."
+	icon_state = "shotguncase"
 
 /*
  * Bombsuit closet

@@ -110,7 +110,7 @@ Notes:
 		if(user.client && user.client.tooltips)
 			var/ui_style = user.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style)
 			if(!theme && ui_style)
-				theme = lowertext(ui_style)
+				theme = LOWER_TEXT(ui_style)
 			if(!theme)
 				theme = "default"
 			user.client.tooltips.show(tip_src, params,title,content,theme)

@@ -33,17 +33,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/blackbox/objective/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
-	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
-
 /obj/item/blackbox/objective/proc/setup_recover(linked_mission)
 	AddComponent(/datum/component/recoverable, linked_mission)
 
 /obj/item/blackbox/objective/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in hand on the <b>bridge</b> of the station to send it to Nanotrasen and complete the objective.</span>"
+	. += span_notice("Use in hand on the <b>bridge</b> of the station to send it to Nanotrasen and complete the objective.")
 
 /datum/component/recoverable
 	var/recovered = FALSE
@@ -54,6 +49,8 @@
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
+	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
 
 /datum/component/recoverable/proc/attack_self(mob/user)
 	var/atom/movable/pA = parent

@@ -43,10 +43,10 @@
           &--off {
             .antagonist-icon-parent-per-character {
               .antagonist-icon {
-                border-color: darken(colors.$red, 10%);
+                border-color: color.adjust(colors.$red, $lightness: -10%);
                 &:hover {
                   transition: border-color 0.1s ease-out;
-                  border-color: darken(colors.$red, 5%);
+                  border-color: color.adjust(colors.$red, $lightness: -5%);
                 }
               }
             }
@@ -54,10 +54,10 @@
           &--on {
             .antagonist-icon-parent-per-character {
               .antagonist-icon {
-                border-color: darken(colors.$grey, 10%);
+                border-color: color.adjust(colors.$grey, $lightness: -10%);
                 &:hover {
                   transition: border-color 0.1s ease-out;
-                  border-color: darken(colors.$grey, 5%);
+                  border-color: color.adjust(colors.$grey, $lightness: -5%);
                 }
               }
             }
@@ -109,6 +109,7 @@
           .antagonist-icon {
             border-radius: 50%;
             -ms-interpolation-mode: nearest-neighbor;
+            image-rendering: pixelated;
             overflow: hidden;
             transition: transform 0.1s ease-in;
           }
@@ -263,8 +264,11 @@
         border-radius: 0 !important;
         text-shadow: 0 0 1px black;
         &--off {
-          background-color: lighten(colors.$grey, 10%) !important;
-          border-color: lighten(colors.$grey, 20%);
+          background-color: color.adjust(
+            colors.$grey,
+            $lightness: 10%
+          ) !important;
+          border-color: color.adjust(colors.$grey, $lightness: 20%);
           border-left: none;
         }
         &--low {
@@ -278,7 +282,10 @@
           text-shadow: none;
         }
         &--high {
-          background-color: lighten(colors.$green, 10%) !important;
+          background-color: color.adjust(
+            colors.$green,
+            $lightness: 10%
+          ) !important;
           color: black !important;
           text-shadow: none;
         }

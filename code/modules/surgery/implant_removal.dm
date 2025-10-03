@@ -12,28 +12,28 @@
 	var/obj/item/implant/I = null
 	success_sound = 'sound/surgery/hemostat1.ogg'
 
-/datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/O in target.implants)
 		I = O
 		break
 	if(I)
-		display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [surgery.location]...</span>",
-			"[user] begins to extract [I] from [target]'s [surgery.location].",
-			"[user] begins to extract something from [target]'s [surgery.location].")
+		display_results(user, target, span_notice("You begin to extract [I] from [target]'s [target_zone]..."),
+			"[user] begins to extract [I] from [target]'s [target_zone].",
+			"[user] begins to extract something from [target]'s [target_zone].")
 		//Incase they are interupted mid-extraction, log it
 		log_combat(user, target, "tried to extract [I.name] from")
 	else
-		display_results(user, target, "<span class='notice'>You look for an implant in [target]'s [surgery.location]...</span>",
-			"[user] looks for an implant in [target]'s [surgery.location].",
-			"[user] looks for something in [target]'s [surgery.location].")
+		display_results(user, target, span_notice("You look for an implant in [target]'s [target_zone]..."),
+			"[user] looks for an implant in [target]'s [target_zone].",
+			"[user] looks for something in [target]'s [target_zone].")
 		//Doesn't matter if they finish or not, defaults to this if there are no implants
 		log_combat(user, target, "implant checked")
 
-/datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_implant/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	if(I)
-		display_results(user, target, "<span class='notice'>You successfully remove [I] from [target]'s [surgery.location].</span>",
-			"[user] successfully removes [I] from [target]'s [surgery.location]!",
-			"[user] successfully removes something from [target]'s [surgery.location]!")
+		display_results(user, target, span_notice("You successfully remove [I] from [target]'s [target_zone]."),
+			"[user] successfully removes [I] from [target]'s [target_zone]!",
+			"[user] successfully removes something from [target]'s [target_zone]!")
 		I.removed(target)
 
 		//Logs removal of implants, similar to removal of organs during organ manipulation
@@ -49,15 +49,15 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_icon()
-			display_results(user, target, "<span class='notice'>You place [I] into [case].</span>",
+			display_results(user, target, span_notice("You place [I] into [case]."),
 				"[user] places [I] into [case]!",
 				"[user] places it into [case]!")
 		else
 			qdel(I)
 
 	else
-		to_chat(user, "<span class='warning'>You can't find anything in [target]'s [surgery.location]!</span>")
-	return 1
+		to_chat(user, span_warning("You can't find anything in [target]'s [target_zone]!"))
+	return ..()
 
 /datum/surgery/implant_removal/mechanic
 	name = "implant removal"

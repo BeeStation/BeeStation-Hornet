@@ -1,3 +1,5 @@
+#define PRINTER_TIMEOUT 10
+
 /datum/computer_file/program/bounty
 	filename = "bounty"
 	filedesc = "Nanotrasen Bounty Hunter"
@@ -7,9 +9,11 @@
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_CARGO)
 	network_destination = "cargo claims interface"
-	size = 10
+	size = 4
 	tgui_id = "NtosBountyConsole"
 	program_icon = "tags"
+	hardware_requirement = MC_PRINT
+	power_consumption = 60 WATT
 
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)
@@ -64,7 +68,7 @@
 			return TRUE
 		if("Print")
 			if(!COOLDOWN_FINISHED(src, printer_ready))
-				to_chat(usr, "<span class='warning'>The printer is not ready to print yet!</span>")
+				to_chat(usr, span_warning("The printer is not ready to print yet!"))
 				return
 			var/obj/item/computer_hardware/printer/printer
 			if(computer)
@@ -72,8 +76,10 @@
 
 			if(printer)
 				if(!printer.print_type(/obj/item/paper/bounty_printout))
-					to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
+					to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 					return
 				else
 					COOLDOWN_START(src, printer_ready, PRINTER_TIMEOUT)
-					computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
+					computer.visible_message(span_notice("\The [computer] prints out a paper."))
+
+#undef PRINTER_TIMEOUT

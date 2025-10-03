@@ -6,7 +6,7 @@
 
 /datum/holoparasite_ability/lesser/babelfish/apply()
 	..()
-	owner.grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_HOLOPARA)
+	owner.grant_all_languages(source = LANGUAGE_HOLOPARA)
 
 /datum/holoparasite_ability/lesser/babelfish/remove()
 	..()

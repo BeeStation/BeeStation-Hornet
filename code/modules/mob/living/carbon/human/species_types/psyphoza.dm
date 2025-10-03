@@ -10,24 +10,25 @@
 	species_language_holder = /datum/language_holder/psyphoza
 	exotic_blood = /datum/reagent/drug/mushroomhallucinogen
 	allow_numbers_in_name = TRUE
-	inert_mutation = SPORES
+	inert_mutation = /datum/mutation/spores
 
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,-2), OFFSET_EARS = list(0,-3), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-2), OFFSET_HEAD = list(0,-2), OFFSET_FACE = list(0,-2), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 
-	mutant_brain = /obj/item/organ/brain/psyphoza
+	mutantbrain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	mutant_bodyparts = list("psyphoza_cap")
-	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
+	mutant_bodyparts = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
 
-	species_chest = /obj/item/bodypart/chest/psyphoza
-	species_head = /obj/item/bodypart/head/psyphoza
-	species_l_arm = /obj/item/bodypart/l_arm/psyphoza
-	species_r_arm = /obj/item/bodypart/r_arm/psyphoza
-	species_l_leg = /obj/item/bodypart/l_leg/psyphoza
-	species_r_leg = /obj/item/bodypart/r_leg/psyphoza
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/psyphoza,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/psyphoza,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/psyphoza,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/psyphoza,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/psyphoza,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/psyphoza
+	)
 
 	//Fire bad!
 	burnmod = 1.25
@@ -65,7 +66,7 @@
 
 /datum/species/psyphoza/primary_species_action()
 	. = ..()
-	PH?.Trigger()
+	PH?.trigger()
 
 /datum/species/psyphoza/get_species_description()
 	return "Psyphoza are a species of extra-sensory lesser-sensory \
@@ -135,7 +136,7 @@
 /datum/action/item_action/organ_action/psychic_highlight
 	name = "Psychic Sense"
 	desc = "Sense your surroundings psychically."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
@@ -194,14 +195,8 @@
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
-/datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
-	if(has_cooldown_timer)
-		return FALSE
-	return ..()
-
-/datum/action/item_action/organ_action/psychic_highlight/Trigger()
-	. = ..()
-	if(has_cooldown_timer || !owner || !check_head())
+/datum/action/item_action/organ_action/psychic_highlight/on_activate(mob/user, atom/target)
+	if(!owner || !check_head())
 		return
 	//Reveal larger area of sense
 	dim_overlay()
@@ -210,14 +205,8 @@
 	if(BS)
 		for(var/mob/living/L in urange(9, owner, 1))
 			BS.highlight_object(L, "mob", L.dir)
-	has_cooldown_timer = TRUE
-	UpdateButtonIcon()
-	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
-
-/datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
-	. = ..()
-	if(!IsAvailable())
-		button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0) //Overwrite this line from the original to support my fucked up use
+	update_buttons()
+	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time) //Overwrite this line from the original to support my fucked up use
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/remove()
 	owner?.clear_fullscreen("psychic_highlight")
@@ -234,12 +223,11 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger()
+		trigger()
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
-	has_cooldown_timer = FALSE
-	UpdateButtonIcon()
+	update_buttons()
 
 //Allows user to see images through walls - mostly for if this action is added to something without xray
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_fowards()
@@ -251,7 +239,7 @@
 		sight_flags = eyes?.sight_flags
 		//Register signal for losing our eyes
 		if(eyes)
-			RegisterSignal(eyes, COMSIG_PARENT_QDELETING, PROC_REF(handle_eyes))
+			RegisterSignal(eyes, COMSIG_QDELETING, PROC_REF(handle_eyes))
 
 	//handle eyes - make them xray so we can see all the things
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -291,7 +279,7 @@
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/check_head()
 	if(istype(owner?.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/helmet))
-		to_chat(owner, "<span class='warning'>You can't use your senses while wearing helmets!</span>")
+		to_chat(owner, span_warning("You can't use your senses while wearing helmets!"))
 		return FALSE
 	return TRUE
 
@@ -304,7 +292,7 @@
 //keep this type-
 /atom/movable/screen/fullscreen/blind/psychic
 	icon_state = "trip"
-	icon = 'icons/mob/psychic.dmi'
+	icon = 'icons/hud/fullscreen/psychic.dmi'
 	///The color we return to after going black & back.
 	var/origin_color = "#111"
 	///Index for texture setting - Useful if we add more presets
@@ -352,7 +340,7 @@
 //And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
 	icon_state = "trip"
-	icon = 'icons/mob/psychic.dmi'
+	icon = 'icons/hud/fullscreen/psychic.dmi'
 	render_target = ""
 	plane = FULLSCREEN_PLANE
 	layer = 4.1
@@ -415,14 +403,14 @@
 /datum/action/change_psychic_visual
 	name = "Change Psychic Sense"
 	desc = "Change the visual style of your psychic sense."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_color"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
 
 /datum/action/change_psychic_visual/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
 	psychic_overlay = null
@@ -433,8 +421,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_visual/Trigger()
-	. = ..()
+/datum/action/change_psychic_visual/on_activate(mob/user, atom/target)
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
 	psychic_overlay?.cycle_visuals()
@@ -443,7 +430,7 @@
 /datum/action/change_psychic_auto
 	name = "Auto Psychic Sense"
 	desc = "Change your psychic sense to auto."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_generic"
 	///Ref to the action
 	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action
@@ -451,7 +438,8 @@
 /datum/action/change_psychic_auto/New(Target)
 	. = ..()
 	psychic_action = Target
-	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	//Bad, but not my job to fix your runtimes
+	RegisterSignal(psychic_action, COMSIG_QDELETING, PROC_REF(parent_destroy), override = TRUE)
 
 /datum/action/change_psychic_auto/Destroy()
 	psychic_action = null
@@ -462,12 +450,11 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_auto/Trigger()
-	. = ..()
+/datum/action/change_psychic_auto/on_activate(mob/user, atom/target)
 	psychic_action?.auto_sense = !psychic_action?.auto_sense
-	UpdateButtonIcon()
+	update_buttons()
 
-/datum/action/change_psychic_auto/IsAvailable()
+/datum/action/change_psychic_auto/is_available()
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
@@ -476,7 +463,7 @@
 /datum/action/change_psychic_texture
 	name = "Change Psychic Texture"
 	desc = "Change your psychic texture."
-	icon_icon = 'icons/mob/actions.dmi'
+	icon_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change_texture"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
@@ -484,8 +471,8 @@
 
 /datum/action/change_psychic_texture/New(Target)
 	. = ..()
-	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
-	RegisterSignal(blind_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(blind_overlay, COMSIG_QDELETING, PROC_REF(parent_destroy))
 
 
 /datum/action/change_psychic_texture/Destroy()
@@ -498,8 +485,7 @@
 
 	qdel(src)
 
-/datum/action/change_psychic_texture/Trigger()
-	. = ..()
+/datum/action/change_psychic_texture/on_activate(mob/user, atom/target)
 	psychic_overlay = psychic_overlay || owner?.screens["psychic_highlight"]
 	psychic_overlay?.cycle_textures()
 	blind_overlay = blind_overlay || owner?.screens["blind"]

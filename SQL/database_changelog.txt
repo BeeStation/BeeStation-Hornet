@@ -1,15 +1,75 @@
 Any time you make a change to the schema files, remember to increment the database schema version. Generally increment the minor number, major should be reserved for significant changes to the schema. Both values go up to 255.
 
-The latest database version is 7.2; The query to update the schema revision table is:
+The latest database version is 7.6; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (7, 2);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (7, 6);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 2);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 6);
 
 In any query remember to add a prefix to the table names if you use one.
 
+-----------------------------------------------------
+Version 7.6, 29 June 2025, by Pinksuzuki
+Adds Quirk Accent options
+
+ALTER TABLE `SS13_characters`
+	ADD COLUMN IF NOT EXISTS `quirk_accent` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `quirk_alcohol_type`
 
 -----------------------------------------------------
+
+-----------------------------------------------------
+Version 7.5, 29 June 2025, by itsmeow
+Adds External Session Creation Nonces
+
+CREATE TABLE IF NOT EXISTS `SS13_session_creation_nonce` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip` varchar(32) NOT NULL,
+  `seeker_port` SMALLINT UNSIGNED DEFAULT NULL,
+  `session_nonce` varchar(64) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `ip_nonce` (`ip`, `session_nonce`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+Version 7.4, 23 June 2025, by itsmeow
+External Discord ID authentication
+
+IMPORTANT: Before running external auth on production, it is highly recommended to import any known `discord_uid` value to the production SS13_player table.
+This allows users the opportunity to use their existing player data.
+
+ALTER TABLE `SS13_player`
+	ADD COLUMN IF NOT EXISTS `discord_uid` varchar(32) DEFAULT NULL AFTER `byond_key`;
+
+CREATE TABLE IF NOT EXISTS `SS13_session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` int(10) unsigned NOT NULL,
+  `session_token` varchar(64) NOT NULL UNIQUE,
+  `external_method` varchar(16) NOT NULL,
+  `external_uid` varchar(32) NOT NULL,
+  `external_display_name` varchar(32) NOT NULL,
+  `valid_until` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `ip_token` (`ip`, `session_token`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+Version 7.3, 30 April 2024, by XeonMations
+Dionae - Species Addition
+
+ALTER TABLE `SS13_characters`
+	ADD COLUMN IF NOT EXISTS `feature_diona_leaves` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_psyphoza_cap`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_thorns` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_leaves`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_flowers` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_thorns`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_moss` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_flowers`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_mushroom` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_moss`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_antennae` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_mushroom`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_eyes` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_antennae`,
+	ADD COLUMN IF NOT EXISTS `feature_diona_pbody` VARCHAR(64) COLLATE 'utf8mb4_general_ci' AFTER `feature_diona_eyes`;
 
 -----------------------------------------------------
 

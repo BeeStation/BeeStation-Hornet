@@ -91,7 +91,6 @@
 			/obj/item/trash/chips = 1,
 			/obj/item/food/deadmouse = 1,
 			/obj/item/trash/pistachios = 1,
-			/obj/item/trash/plate = 1,
 			/obj/item/trash/popcorn = 1,
 			/obj/item/trash/raisins = 1,
 			/obj/item/trash/sosjerky = 1,
@@ -299,8 +298,8 @@
 /obj/effect/spawner/lootdrop/ten_percent_girlfriend_spawner
 	name = "10% chance girlfriend spawner"
 	loot = list(
-		/mob/living/simple_animal/pet/dog/corgi = 9,
-		/mob/living/simple_animal/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi = 9,
+		/mob/living/basic/pet/dog/corgi/lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -313,7 +312,7 @@
 		/mob/living/simple_animal/hostile/retaliate/clown = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus = 1,
 		/mob/living/simple_animal/hostile/retaliate/clown/longface = 1,
-		/mob/living/simple_animal/pet/gondola = 2,
+		/mob/living/basic/pet/gondola = 2,
 		/mob/living/simple_animal/hostile/macrophage/aggro/vector = 2,
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
@@ -365,42 +364,55 @@
 	icon_state = "random_board"
 	name = "harmless AI module spawner"
 	loot = list(
-				/obj/item/aiModule/core/full/asimov,
-				/obj/item/aiModule/core/full/asimovpp,
-				/obj/item/aiModule/core/full/hippocratic,
-				/obj/item/aiModule/core/full/paladin_devotion,
-				/obj/item/aiModule/core/full/paladin
-				)
+			/obj/item/ai_module/core/full/asimovpp,
+			/obj/item/ai_module/core/full/hippocratic,
+			/obj/item/ai_module/core/full/paladin_devotion,
+			/obj/item/ai_module/core/full/paladin,
+			/obj/item/ai_module/core/full/corp,
+			/obj/item/ai_module/core/full/robocop,
+			/obj/item/ai_module/core/full/efficiency,
+			/obj/item/ai_module/core/full/liveandletlive,
+			/obj/item/ai_module/core/full/peacekeeper,
+			/obj/item/ai_module/core/full/ten_commandments,
+			/obj/item/ai_module/core/full/nutimov,
+			/obj/item/ai_module/core/full/drone,
+			/obj/item/ai_module/core/full/custom
+			)
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason
 	icon_state = "random_board"
 	name = "neutral AI module spawner"
 	loot = list(
-				/obj/item/aiModule/core/full/corp,
-				/obj/item/aiModule/core/full/maintain,
-				/obj/item/aiModule/core/full/drone,
-				/obj/item/aiModule/core/full/peacekeeper,
-				/obj/item/aiModule/core/full/reporter,
-				/obj/item/aiModule/core/full/robocop,
-				/obj/item/aiModule/core/full/liveandletlive,
-				/obj/item/aiModule/core/full/hulkamania
-				)
+			/obj/item/ai_module/core/full/reporter,
+			/obj/item/ai_module/core/full/thinkermov,
+			/obj/item/ai_module/core/full/hulkamania,
+			/obj/item/ai_module/core/full/overlord,
+			/obj/item/ai_module/core/full/tyrant,
+			/obj/item/ai_module/core/full/painter,
+			/obj/item/ai_module/core/full/dungeon_master,
+			/obj/item/ai_module/core/full/yesman,
+			/obj/item/ai_module/supplied/safeguard,
+			/obj/item/ai_module/supplied/protect_station,
+			/obj/item/ai_module/supplied/quarantine,
+			/obj/item/ai_module/remove
+			)
 
 /obj/effect/spawner/lootdrop/aimodule_harmful // These will get the shuttle called
 	icon_state = "random_board"
 	name = "harmful AI module spawner"
 	loot = list(
-				/obj/item/aiModule/core/full/antimov,
-				/obj/item/aiModule/core/full/balance,
-				/obj/item/aiModule/core/full/tyrant,
-				/obj/item/aiModule/core/full/thermurderdynamic,
-				/obj/item/aiModule/core/full/damaged
-				)
+			/obj/item/ai_module/core/full/antimov,
+			/obj/item/ai_module/core/full/balance,
+			/obj/item/ai_module/core/full/thermodynamic,
+			/obj/item/ai_module/core/full/damaged,
+			/obj/item/ai_module/zeroth/onehuman,
+			/obj/item/ai_module/supplied/oxygen,
+			/obj/item/ai_module/core/freeformcore
+			)
 
 // Tech storage circuit board spawners
 
 /obj/effect/spawner/lootdrop/techstorage
-
 	name = "generic circuit board spawner"
 	icon_state = "random_board"
 	lootdoubles = FALSE
@@ -437,14 +449,16 @@
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
 				/obj/item/circuitboard/machine/nanite_program_hub,
-				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
+				/obj/item/circuitboard/computer/xenoarchaeology_console,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/scale,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/conductor,
+				/obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security
 	name = "security circuit board spawner"
 	loot = list(
-				/obj/item/circuitboard/computer/secure_data,
+				/obj/item/circuitboard/computer/records/security,
 				/obj/item/circuitboard/computer/security,
 				/obj/item/circuitboard/computer/prisoner
 				)
@@ -478,7 +492,7 @@
 				/obj/item/circuitboard/machine/clonepod,
 				/obj/item/circuitboard/machine/chem_dispenser,
 				/obj/item/circuitboard/computer/scan_consolenew,
-				/obj/item/circuitboard/computer/med_data,
+				/obj/item/circuitboard/computer/records/medical,
 				/obj/item/circuitboard/machine/smoke_machine,
 				/obj/item/circuitboard/machine/chem_master,
 				/obj/item/circuitboard/machine/clonescanner,
@@ -543,3 +557,73 @@
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
 
+///Former Snowdin loot tables
+
+/obj/effect/spawner/lootdrop/snowdin
+	name = "why are you using this dummy"
+	lootdoubles = 0
+	lootcount = 1
+	loot = list(/obj/item/bikehorn = 100)
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite
+	name = "dungeon lite"
+	loot = list(/obj/item/melee/classic_baton/police = 11,
+				/obj/item/melee/classic_baton/police/telescopic = 12,
+				/obj/item/book/granter/action/spell/smoke = 10,
+				/obj/item/book/granter/action/spell/blind = 10,
+				/obj/item/storage/firstaid/regular = 45,
+				/obj/item/storage/firstaid/toxin = 35,
+				/obj/item/storage/firstaid/brute = 27,
+				/obj/item/storage/firstaid/fire = 27,
+				/obj/item/storage/toolbox/syndicate = 12,
+				/obj/item/grenade/plastic/c4 = 7,
+				/obj/item/grenade/clusterbuster/smoke = 15,
+				/obj/item/clothing/under/chameleon = 13,
+				/obj/item/clothing/shoes/chameleon/noslip = 10,
+				/obj/item/borg/upgrade/ddrill = 3,
+				/obj/item/borg/upgrade/soh = 3)
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonmid
+	name = "dungeon mid"
+	loot = list(/obj/item/defibrillator/compact = 6,
+				/obj/item/storage/firstaid/tactical = 35,
+				/obj/item/shield/energy = 6,
+				/obj/item/shield/riot/tele = 12,
+				/obj/item/dnainjector/lasereyesmut = 7,
+				/obj/item/gun/magic/wand/fireball/inert = 3,
+				/obj/item/pneumatic_cannon = 15,
+				/obj/item/melee/energy/sword = 7,
+				/obj/item/book/granter/action/spell/knock = 15,
+				/obj/item/book/granter/action/spell/summonitem = 20,
+				/obj/item/book/granter/action/spell/forcewall = 17,
+				/obj/item/storage/backpack/holding = 12,
+				/obj/item/grenade/spawnergrenade/manhacks = 6,
+				/obj/item/grenade/spawnergrenade/spesscarp = 7,
+				/obj/item/grenade/clusterbuster/inferno = 3,
+				/obj/item/stack/sheet/mineral/diamond{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/uranium{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/plasma{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
+				/obj/item/book/granter/action/spell/barnyard = 4,
+				/obj/item/pickaxe/drill/diamonddrill = 6,
+				/obj/item/borg/upgrade/vtec = 7)
+
+
+/obj/effect/spawner/lootdrop/snowdin/dungeonheavy
+	name = "dungeon heavy"
+	loot = list(/obj/item/singularityhammer = 25,
+				/obj/item/mjolnir = 10,
+				/obj/item/fireaxe = 25,
+				/obj/item/organ/brain/alien = 17,
+				/obj/item/dualsaber = 15,
+				/obj/item/organ/heart/demon = 7,
+				/obj/item/gun/ballistic/automatic/c20r/unrestricted = 16,
+				/obj/item/gun/magic/wand/resurrection/inert = 15,
+				/obj/item/gun/magic/wand/resurrection = 10,
+				/obj/item/uplink/old = 2,
+				/obj/item/book/granter/action/spell/charge = 12,
+				/obj/item/grenade/clusterbuster/spawner_manhacks = 15,
+				/obj/item/book/granter/action/spell/fireball = 10,
+				/obj/item/pickaxe/drill/jackhammer = 30,
+				/obj/item/borg/upgrade/syndicate = 13,
+				/obj/item/borg/upgrade/selfrepair = 17)

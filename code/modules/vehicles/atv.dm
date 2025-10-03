@@ -4,21 +4,22 @@
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-Earth technologies that are still relevant on most planet-bound outposts."
 	icon_state = "atv"
 	max_integrity = 150
-	armor = list(MELEE = 50,  BULLET = 25, LASER = 20, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0, BLEED = 0)
-	key_type = /obj/item/key
+	armor_type = /datum/armor/ridden_atv
+	key_type = /obj/item/key/atv
 	integrity_failure = 0.5
 	var/static/mutable_appearance/atvcover
 
-/obj/vehicle/ridden/atv/Initialize(mapload)
-	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-	D.vehicle_move_delay = 1.5
-	D.empable = TRUE
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
-	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+
+/datum/armor/ridden_atv
+	melee = 50
+	bullet = 25
+	laser = 20
+	bomb = 50
+	fire = 60
+	acid = 60
+
+/obj/vehicle/ridden/atv/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/atv)
 
 /obj/vehicle/ridden/atv/post_buckle_mob(mob/living/M)
 	add_overlay(atvcover)
@@ -65,23 +66,23 @@
 				turret.pixel_y = base_pixel_y + 4
 				turret.layer = OBJ_LAYER
 
-/obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(obj_integrity < max_integrity)
+/obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/living/user as mob, params)
+	if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
+		if(atom_integrity < max_integrity)
 			if(W.use_tool(src, user, 0, volume=50, amount=1))
-				user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to \the [src].</span>")
-				obj_integrity += min(10, max_integrity-obj_integrity)
-				if(obj_integrity == max_integrity)
-					to_chat(user, "<span class='notice'>It looks to be fully repaired now.</span>")
+				user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to \the [src]."))
+				atom_integrity += min(10, max_integrity-atom_integrity)
+				if(atom_integrity == max_integrity)
+					to_chat(user, span_notice("It looks to be fully repaired now."))
 		return TRUE
 	return ..()
 
-/obj/vehicle/ridden/secway/obj_break()
+/obj/vehicle/ridden/secway/atom_break()
 	START_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/vehicle/ridden/atv/process(delta_time)
-	if(obj_integrity >= integrity_failure * max_integrity)
+	if(atom_integrity >= integrity_failure * max_integrity)
 		return PROCESS_KILL
 	if(DT_PROB(10, delta_time))
 		return
@@ -96,7 +97,7 @@
 		return TRUE
 	return ..()
 
-/obj/vehicle/ridden/atv/obj_destruction()
+/obj/vehicle/ridden/atv/atom_destruction()
 	explosion(src, -1, 0, 2, 4, flame_range = 3)
 	return ..()
 

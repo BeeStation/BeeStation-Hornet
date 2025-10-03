@@ -11,6 +11,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/candy_corn/prison
 	name = "desiccated candy corn"
@@ -33,6 +34,7 @@
 	tastes = list("apple" = 2, "caramel" = 3)
 	foodtypes = JUNKFOOD | FRUIT | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/mint
 	name = "mint"
@@ -41,6 +43,21 @@
 	bite_consumption = 1
 	food_reagents = list(/datum/reagent/toxin/minttoxin = 2)
 	foodtypes = TOXIC | SUGAR
+	food_flags = FOOD_FINGER_FOOD
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/food/ant_candy
+	name = "ant candy"
+	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
+	icon_state = "ant_pop"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/consumable/sugar = 5,
+		/datum/reagent/ants = 3,
+	)
+	tastes = list("candy" = 1, "insects" = 1)
+	foodtypes = JUNKFOOD | SUGAR | BUGS
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 
@@ -58,6 +75,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/chococoin
 	name = "chocolate coin"
@@ -72,6 +90,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/fudgedice
 	name = "fudge dice"
@@ -87,6 +106,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/chocoorange
 	name = "chocolate orange"
@@ -100,6 +120,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/bonbon
 	name = "bon bon"
@@ -127,9 +148,8 @@
 	worn_icon_state = "bubblegum"
 	food_reagents = list(
 		/datum/reagent/consumable/sugar = 5,
-		/datum/reagent/medicine/bicaridine = 2,
-		/datum/reagent/medicine/kelotane = 2
-	)	//Kek
+		/datum/reagent/medicine/omnizine = 1
+	)
 	tastes = list("candy")
 	foodtypes = JUNKFOOD
 	food_flags = FOOD_FINGER_FOOD
@@ -154,6 +174,48 @@
 /obj/item/food/gumball/cyborg/proc/spamcheck()
 	if(spamchecking)
 		qdel(src)
+
+//Syndieballs
+/obj/item/food/gumball/syndicate
+	foodtypes = GROSS | TOXIC
+	food_flags = FOOD_FINGER_FOOD
+	food_reagents = list(
+		/datum/reagent/consumable/sugar = 3,
+		/datum/reagent/medicine/stabilizing_nanites = 1,
+		/datum/reagent/medicine/mine_salve = 5,
+		/datum/reagent/toxin/zombiepowder = 15
+	)
+	tastes = list("gummy death")
+
+/obj/item/food/gumball/syndicate/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, 0.5 SECONDS, NO_SLIP_WHEN_WALKING)
+
+/obj/item/food/gumball/syndicate/grind(datum/reagents/target_holder, mob/user)
+	reagents.remove_all(50)
+	. = ..()
+
+//Engieballs
+/obj/item/food/gumball/engineering
+	name = "engieball"
+	desc = "A yellow-orange, sugary gumball. Sure to help with whatever electrical burns or radiation hazard may be about."
+	foodtypes = GROSS
+	food_flags = FOOD_FINGER_FOOD
+	food_reagents = list(
+		/datum/reagent/consumable/sugar = 3,
+		/datum/reagent/medicine/potass_iodide = 18,
+		/datum/reagent/medicine/oxandrolone = 1,
+		/datum/reagent/medicine/synaptizine = 1
+	)
+	tastes = list("concentrated ozone")
+
+/obj/item/food/gumball/engineering/Initialize(mapload)
+	. = ..()
+	color = rgb(rand(230, 255), rand(95,180), 0)
+
+/obj/item/food/gumball/engineering/grind(datum/reagents/target_holder, mob/user)
+	reagents.remove_all(50)
+	. = ..()
 
 // Lollipop
 /obj/item/food/lollipop
@@ -241,7 +303,7 @@
 		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
 
 /obj/item/food/lollipop/long/proc/on_trip(mob/living/carbon/user)
-	visible_message("<span class='danger'>[user] is impaled by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
+	visible_message(span_danger("[user] is impaled by the [src]!"), span_danger("You are impaled by the [src]!"))
 	user.adjustBruteLoss(50)
 	user.adjustOxyLoss(50)
 
@@ -273,9 +335,10 @@
 		/datum/reagent/medicine/omnizine = 2,
 	) //lollipop, but vitamins = toxins
 	tastes = list("cobwebs" = 1, "sugar" = 2)
-	foodtypes = JUNKFOOD | SUGAR //| BUGS
+	foodtypes = JUNKFOOD | SUGAR | BUGS
 	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
+	crafting_complexity = FOOD_COMPLEXITY_1
 
 /obj/item/food/swirl_lollipop
 	name = "Swirl lollipop"
@@ -290,3 +353,19 @@
 	tastes = list("whimsical joy" = 1, "sugar" = 2)
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_1
+
+/obj/item/food/rock_candy
+	name = "Rock candy"
+	desc = "A bunch of sweet crystals on a stick. Good for your blood!\n Warning for California residents: This product may contain lead, which is known to the State of California to cause cancer, birth defects, or other reproductive harm."
+	icon_state = "rock_candy"
+	food_reagents = list(
+		/datum/reagent/iron = 10,
+		/datum/reagent/mercury/lead_acetate = 5, //One couldn't hurt, am I right?
+		/datum/reagent/consumable/sugar = 5,
+		/datum/reagent/medicine/omnizine = 2
+	)
+	tastes = list("dreams of California beaches" = 1, "adamantine" = 2)
+	foodtypes = JUNKFOOD | SUGAR
+	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_1

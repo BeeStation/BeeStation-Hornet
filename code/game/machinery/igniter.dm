@@ -10,10 +10,20 @@
 	active_power_usage = 4
 	max_integrity = 300
 	circuit = /obj/item/circuitboard/machine/igniter
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_igniter
 	resistance_flags = FIRE_PROOF
 	var/id = null
 	var/on = FALSE
+
+
+/datum/armor/machinery_igniter
+	melee = 50
+	bullet = 30
+	laser = 70
+	energy = 50
+	bomb = 20
+	fire = 100
+	acid = 70
 
 /obj/machinery/igniter/incinerator_toxmix
 	id = INCINERATOR_TOXMIX_IGNITER
@@ -28,7 +38,7 @@
 	on = TRUE
 	icon_state = "igniter1"
 
-/obj/machinery/igniter/attack_hand(mob/user)
+/obj/machinery/igniter/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(. || panel_open)
 		return
@@ -62,6 +72,11 @@
 /obj/machinery/igniter/update_icon_state()
 	icon_state = "[base_icon_state][(machine_stat & NOPOWER) ? 0 : on]"
 	return ..()
+
+/obj/machinery/igniter/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_generic_deconstruction_actions(src)
+	if (!panel_open)
+		context.add_attack_hand_action("Turn [on ? "Off" : "On"]")
 
 // Wall mounted remote-control igniter.
 
@@ -110,17 +125,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, 26)
 	tool.play_tool_sound(src, 50)
 	disable = !disable
 	if (disable)
-		user.visible_message("[user] has disabled \the [src]!", "<span class='notice'>You disable the connection to \the [src].</span>")
+		user.visible_message("[user] has disabled \the [src]!", span_notice("You disable the connection to \the [src]."))
 	if (!disable)
-		user.visible_message("[user] has reconnected \the [src]!", "<span class='notice'>You fix the connection to \the [src].</span>")
+		user.visible_message("[user] has reconnected \the [src]!", span_notice("You fix the connection to \the [src]."))
 	update_appearance()
 	return TRUE
 
-/obj/machinery/sparker/attack_ai()
+/obj/machinery/sparker/attack_silicon()
 	if (anchored)
 		return ignite()
-	else
-		return
 
 /obj/machinery/sparker/proc/ignite()
 	if (!(powered()))

@@ -58,7 +58,7 @@ BONUS
 					H.dna.features["mcolor"] = "EEE" //pure white.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='notice'>[H] looks a bit pale.</span>", "<span class='notice'>Your skin suddenly appears lighter.</span>")
+				H.visible_message(span_notice("[H] looks a bit pale."), span_notice("Your skin suddenly appears lighter."))
 
 /datum/symptom/vitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -130,7 +130,7 @@ BONUS
 					H.dna.features["mcolor"] = "000" //pure black.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='notice'>[H] looks a bit dark.</span>", "<span class='notice'>Your skin suddenly appears darker.</span>")
+				H.visible_message(span_notice("[H] looks a bit dark."), span_notice("Your skin suddenly appears darker."))
 
 /datum/symptom/revitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -186,7 +186,7 @@ BONUS
 				M.reagents.add_reagent(color, 5)
 		else
 			if (prob(50)) // spam
-				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")
+				M.visible_message(span_notice("[M] looks rather vibrant."), span_notice("The colors, man, the colors."))
 
 
 /*
@@ -198,8 +198,8 @@ Spiked Skin
 	No transmission bonus
 
 Thresholds
-  transmission 6 Can give minor armour
-  resistance 6 Does more damage
+	transmission 6 Can give minor armour
+	resistance 6 Does more damage
 
 //////////////////////////////////////
 */
@@ -220,7 +220,7 @@ Thresholds
 	var/armor = 0
 	var/done = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Spikes deal more damage.<br>\
-					  <b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
+						<b>Resistance 6:</b> Hard spines give the host armor, scaling with resistance."
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()
@@ -235,37 +235,37 @@ Thresholds
 	if(A.transmission >= 6) //higher damage
 		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
-/datum/symptom/spiked/Activate(var/datum/disease/advance/A)
+/datum/symptom/spiked/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/H = A.affected_mob
 	switch(A.stage)
 		if(1)
 			if(prob(base_message_chance) && H.stat != DEAD)
-				to_chat(H, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
+				to_chat(H, span_warning("You feel goosebumps pop up on your skin."))
 		if(2)
 			if(prob(base_message_chance) && H.stat != DEAD)
-				to_chat(H, "<span class='warning'>Small spines spread to cover your entire body.</span>")
+				to_chat(H, span_warning("Small spines spread to cover your entire body."))
 		if(3)
 			if(prob(base_message_chance) && H.stat != DEAD)
-				to_chat(H, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
+				to_chat(H, span_warning(" Your spines pierce your jumpsuit."))
 		if(4, 5)
 			if(!done)
 				H.AddComponent(/datum/component/spikes, 5*power, armor, A.GetDiseaseID()) //removal is handled by the component
 				if(H.stat != DEAD)
-					to_chat(H, "<span class='warning'> Your spines harden, growing sharp and lethal.</span>")
+					to_chat(H, span_warning(" Your spines harden, growing sharp and lethal."))
 				done = TRUE
 			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 				var/mob/living/carbon/C = H.pulling
 				var/def_check = C.getarmor(type = MELEE)
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
-				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+				C.visible_message(span_warning("[C.name] is pricked on [H.name]'s spikes."))
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
 					var/def_check = C.getarmor(type = MELEE)
 					C.apply_damage(3*power, BRUTE, blocked = def_check)
-					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+					C.visible_message(span_warning("[C.name] is pricked on [H.name]'s spikes."))
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 
 
@@ -314,14 +314,14 @@ Thresholds
 			M.adjustToxLoss(buboes)
 			pustules = min(pustules + buboes, 10)
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
+				to_chat(M, span_warning("painful sores open on your skin!"))
 		if(4, 5)
 			var/buboes = (rand(3, 6) * power)
 			M.adjustBruteLoss(buboes / 2)
 			M.adjustToxLoss(buboes)
 			pustules = min(pustules + buboes, 20)
 			if(M.stat != DEAD)
-				to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
+				to_chat(M, span_warning("painful sores open on your skin!"))
 			if((prob(pustules * 5) || pustules >= 20) && (shoot || CONFIG_GET(flag/unconditional_virus_spreading) || A.event))
 				var/popped = rand(1, pustules)
 				var/pusdir = pick(GLOB.alldirs)
@@ -332,9 +332,9 @@ Thresholds
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
-				pustule.fire_casing(T, M, (get_turf(M)))
+				pustule.fire_casing(T, M, fired_from = M)
 				pustules -= popped
-				M.visible_message("<span class='warning'>[popped] pustules on [M]'s body burst open!</span>")
+				M.visible_message(span_warning("[popped] pustules on [M]'s body burst open!"))
 
 
 /datum/symptom/pustule/proc/pop_pustules(datum/source, AM, attack_text, damage)
@@ -351,7 +351,7 @@ Thresholds
 				pustule.diseases += A
 		pustule.pellets = popped
 		pustule.fire_casing(AM, C, fired_from = T)
-		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
+		C.visible_message(span_warning("[attack_text] bursts [popped] pustules on [source]'s body!"))
 		pustules -= popped
 
 

@@ -6,7 +6,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/window/northleft{
-	name = "cage door"
+	name = "Cage Door"
 	},
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -115,7 +115,7 @@
 	},
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/window/southleft{
-	name = "cage door"
+	name = "Cage Door"
 	},
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -556,7 +556,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken5"
+	broken = 1
 	},
 /area/template_noop)
 "QX" = (

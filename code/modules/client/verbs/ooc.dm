@@ -2,12 +2,12 @@
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
-/client/verb/ooc(msg as text)
+AUTH_CLIENT_VERB(ooc, msg as text)
 	set name = "OOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
 	set category = "OOC"
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
-		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
+		to_chat(usr, span_danger("Speech is currently admin-disabled."))
 		return
 
 	if(!mob)
@@ -15,16 +15,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	if(!holder)
 		if(!GLOB.ooc_allowed)
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, span_danger("OOC is globally muted."))
 			return
 		if(SSticker.current_state < GAME_STATE_PLAYING && !istype(mob, /mob/dead/new_player))
-			to_chat(src, "<span class='danger'>Observers cannot use OOC pre-game.</span>")
+			to_chat(src, span_danger("Observers cannot use OOC pre-game."))
 			return
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
-			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
+			to_chat(usr, span_danger("OOC for dead mobs has been turned off."))
 			return
 		if(prefs && (prefs.muted & MUTE_OOC))
-			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
+			to_chat(src, span_danger("You cannot use OOC (muted)."))
 			return
 	else
 		if(SSticker.current_state == GAME_STATE_PLAYING && holder.ooc_confirmation_enabled)
@@ -35,7 +35,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				if("Always yes for this round")
 					holder.ooc_confirmation_enabled = FALSE
 	if(is_banned_from(ckey, BAN_OOC))
-		to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
+		to_chat(src, span_danger("You have been banned from OOC."))
 		return
 	if(QDELETED(src))
 		return
@@ -67,15 +67,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			return
 
 	if(prefs && !prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
-		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
+		to_chat(src, span_danger("You have OOC muted."))
 		return
 	if(OOC_FILTER_CHECK(raw_msg))
-		to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span></span>")
+		to_chat(src, span_warning("That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\""))
 		return
 
 	mob.log_talk(raw_msg, LOG_OOC)
 
-	var/keyname = key
+	var/display_name = display_name()
+	var/keyname = display_name
 	var/ooccolor = prefs?.read_player_preference(/datum/preference/color/ooc_color) || DEFAULT_BONUS_OOC_COLOR
 	if(prefs.unlock_content && prefs.read_player_preference(/datum/preference/toggle/member_public))
 		keyname = "<font color='[ooccolor ? ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
@@ -87,22 +88,22 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))
-						to_chat(C, "[badge_data]<span class='adminooc'>[CONFIG_GET(flag/allow_admin_ooccolor) && ooccolor ? "<font color=[ooccolor]>" :"" ]<span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message linkify'>[msg]</span></span></font>", allow_linkify = TRUE)
+						to_chat(C, "[badge_data][span_adminooc("[CONFIG_GET(flag/allow_admin_ooccolor) && ooccolor ? "<font color=[ooccolor]>" : ""][span_prefix("OOC:")] <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> [span_messagelinkify(msg)]</font>")]", allow_linkify = TRUE)
 					else
-						to_chat(C, "[badge_data]<span class='adminobserverooc'><span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message linkify'>[msg]</span></span>")
+						to_chat(C, "[badge_data][span_adminobserverooc("[span_prefix("OOC:")] <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> [span_messagelinkify(msg)]")]")
 				else
 					if(GLOB.OOC_COLOR)
-						to_chat(C, "[badge_data]<font color='[GLOB.OOC_COLOR]'><b><span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : key]:</EM> <span class='message linkify'>[msg]</span></b></font>")
+						to_chat(C, "[badge_data]<font color='[GLOB.OOC_COLOR]'><b>[span_prefix("OOC:")] <EM>[holder.fakekey ? holder.fakekey : key]:</EM> [span_messagelinkify(msg)]</b></font>")
 					else
-						to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : key]:</EM> <span class='message linkify'>[msg]</span></span>")
+						to_chat(C, "[badge_data][span_ooc("[span_prefix("OOC:")] <EM>[holder.fakekey ? holder.fakekey : key]:</EM> [span_messagelinkify(msg)]")]")
 
 			else if(!C.prefs || !(key in C.prefs.ignoring))
 				if(GLOB.OOC_COLOR)
-					to_chat(C, "[badge_data]<font color='[GLOB.OOC_COLOR]'><b><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></b></font>")
+					to_chat(C, "[badge_data]<font color='[GLOB.OOC_COLOR]'><b>[span_prefix("OOC:")] <EM>[keyname]:</EM> [span_messagelinkify(msg)]</b></font>")
 				else
-					to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></span>")
+					to_chat(C, "[badge_data][span_ooc("[span_prefix("OOC:")] <EM>[keyname]:</EM> [span_messagelinkify(msg)]")]")
 	// beestation, send to discord
-	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || key, raw_msg)
+	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || display_name, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/discord_ooc_tag = CONFIG_GET(string/discord_ooc_tag) // check server config file. check `config.txt` file for the usage.
@@ -150,17 +151,17 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	GLOB.OOC_COLOR = null
 
 //Checks admin notice
-/client/verb/admin_notice()
+AUTH_CLIENT_VERB(admin_notice)
 	set name = "Adminnotice"
 	set category = "Admin"
 	set desc ="Check the admin notice if it has been set"
 
 	if(GLOB.admin_notice)
-		to_chat(src, "<span class='boldnotice'>Admin Notice:</span>\n \t [GLOB.admin_notice]")
+		to_chat(src, "[span_boldnotice("Admin Notice:")]\n \t [GLOB.admin_notice]")
 	else
-		to_chat(src, "<span class='notice'>There are no admin notices at the moment.</span>")
+		to_chat(src, span_notice("There are no admin notices at the moment."))
 
-/client/verb/motd()
+AUTH_CLIENT_VERB(motd)
 	set name = "MOTD"
 	set category = "OOC"
 	set desc ="Check the Message of the Day"
@@ -169,7 +170,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(motd)
 		to_chat(src, "<div class=\"motd\">[motd]</div>", handle_whitespace=FALSE, allow_linkify = TRUE)
 	else
-		to_chat(src, "<span class='notice'>The Message of the Day has not been set.</span>")
+		to_chat(src, span_notice("The Message of the Day has not been set."))
 
 /client/proc/self_notes()
 	set name = "View Admin Remarks"
@@ -177,7 +178,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set desc = "View the notes that admins have written about you"
 
 	if(!CONFIG_GET(flag/see_own_notes))
-		to_chat(usr, "<span class='notice'>Sorry, that function is not enabled on this server.</span>")
+		to_chat(usr, span_notice("Sorry, that function is not enabled on this server."))
 		return
 
 	browse_messages(null, usr.ckey, null, TRUE)
@@ -188,12 +189,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set desc = "View the amount of playtime for roles the server has tracked."
 
 	if(!CONFIG_GET(flag/use_exp_tracking))
-		to_chat(usr, "<span class='notice'>Sorry, tracking is currently disabled.</span>")
+		to_chat(usr, span_notice("Sorry, tracking is currently disabled."))
 		return
 
 	new /datum/job_report_menu(src, usr)
 
 /client/proc/ignore_key(client, displayed_key)
+	if(!prefs)
+		return
 	var/client/C = client
 	if(C.key in prefs.ignoring)
 		prefs.ignoring -= C.key
@@ -202,12 +205,13 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	to_chat(src, "You are [(C.key in prefs.ignoring) ? "now" : "no longer"] ignoring [displayed_key] on the OOC channel.")
 	prefs.mark_undatumized_dirty_player()
 
-/client/verb/select_ignore()
+AUTH_CLIENT_VERB(select_ignore)
 	set name = "Ignore"
 	set category = "OOC"
 	set desc ="Ignore a player's messages on the OOC channel"
 
-
+	if(!prefs)
+		return
 	var/see_ghost_names = isobserver(mob)
 	var/list/choices = list()
 	var/displayed_choicename = ""
@@ -238,7 +242,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	SSticker.show_roundend_report(src, TRUE)
 
-/client/verb/fit_viewport()
+AUTH_CLIENT_VERB(fit_viewport)
 	set name = "Fit Viewport"
 	set category = "OOC"
 	set desc = "Fit the width of the map window to match the viewport"
@@ -308,33 +312,56 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /// Attempt to automatically fit the viewport, assuming the user wants it
 /client/proc/attempt_auto_fit_viewport()
-	if (!prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	if(fully_created)
-		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
+		INVOKE_ASYNC(src, PROC_REF(fit_viewport))
 	else //Delayed to avoid wingets from Login calls.
-		addtimer(CALLBACK(src, VERB_REF(fit_viewport), 1 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
-/client/verb/view_runtimes_minimal()
+AUTH_CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"
 	set category = "OOC"
 	set desc = "Open the runtime error viewer, with reduced information"
 
 	if(!isobserver(mob) && SSticker.current_state != GAME_STATE_FINISHED)
-		to_chat(src, "<span class='warning'>You cannot currently do that at this time, please wait until the round end or while you are observing.</span>")
+		to_chat(src, span_warning("You cannot currently do that at this time, please wait until the round end or while you are observing."))
 		return
 
 	GLOB.error_cache.show_to_minimal(src)
 
-/client/verb/speech_format_help()
+AUTH_CLIENT_VERB(speech_format_help)
 	set name = "Speech Format Help"
 	set category = "OOC"
 	set desc = "Chat formatting help"
 
-	var/message = "<span class='big'>You can add emphasis to your text by surrounding words or sentences in certain characters.</span>\n \
+	var/message = "[span_big("You can add emphasis to your text by surrounding words or sentences in certain characters.")]\n \
 		**bold**, and _italics_ are supported.\n\n \
-		<span class='big'>You can made custom saymods by doing <i>say 'screams| HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.</span>\n \
+		[span_big("You can made custom saymods by doing <i>say 'screams| HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.")]\n \
 		Example: say ';laughs maniacally!|' >> \[Common] Joe Schmoe laughs maniacally!"
 
 
-	to_chat(usr, "<span class='notice'>[message]</span>")
+	to_chat(usr, span_notice("[message]"))
+
+AUTH_CLIENT_VERB(vote_to_leave)
+	set name = "Vote to leave"
+	set category = "OOC"
+	set desc = "Votes to end the round"
+
+	if(isnewplayer(mob))
+		to_chat(src, "<font color='purple'>You cannot vote from the lobby.</font>")
+	else if(player_details.voted_to_leave)
+		player_details.voted_to_leave = FALSE
+		SSautotransfer.connected_votes_to_leave--
+		to_chat(src, "<font color='purple'>You are no longer voting for the current round to end.</font>")
+	else
+		player_details.voted_to_leave = TRUE
+		SSautotransfer.connected_votes_to_leave++
+		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
+
+AUTH_CLIENT_VERB(show_map_vote_tallies)
+	set name = "Show Map Vote Tallies"
+	set category = "OOC"
+	set desc = "View the current map vote tally counts."
+
+	to_chat(src, SSmap_vote.tally_printout)

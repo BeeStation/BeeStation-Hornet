@@ -36,10 +36,18 @@
 		/datum/material/bluespace
 	)
 	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, MATCONTAINER_NO_INSERT|BREAKDOWN_FLAGS_RECYCLER)
-	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
+	AddComponent(/datum/component/butchering/recycler, 1, amount_produced,amount_produced/5)
 	. = ..()
-	update_icon()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/recycler/LateInitialize()
+	. = ..()
+	update_appearance(UPDATE_ICON)
 	req_one_access = get_all_accesses() + get_all_centcom_access()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -52,13 +60,13 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = mat_mod
 	amount_produced = min(50, amt_made) + 50
-	var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
+	var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering/recycler)
 	butchering.effectiveness = amount_produced
 	butchering.bonus_modifier = amount_produced/5
 
 /obj/machinery/recycler/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Reclaiming <b>[amount_produced]%</b> of materials salvaged.</span>"
+	. += span_notice("Reclaiming <b>[amount_produced]%</b> of materials salvaged.")
 	. += "The power light is [(machine_stat & NOPOWER) ? "off" : "on"].\n"+\
 	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
 	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
@@ -84,7 +92,7 @@
 		safety_mode = FALSE
 		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
-	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+	to_chat(user, span_notice("You use the cryptographic sequencer on [src]."))
 	if(user)
 		emagged_by = key_name(user) // key_name is collected here instead of when it's logged so that it gets their current mob name, not whatever future mob they may have
 
@@ -95,25 +103,35 @@
 		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
-/obj/machinery/recycler/Bumped(atom/movable/AM)
-
-	if(machine_stat & (BROKEN|NOPOWER))
-		return
+/obj/machinery/recycler/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(!anchored)
+		return
+	if(border_dir == eat_dir)
+		return TRUE
+
+/obj/machinery/recycler/proc/on_entered(datum/source, atom/movable/enterer, old_loc)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(eat), enterer)
+
+/obj/machinery/recycler/proc/eat(atom/movable/morsel, sound=TRUE)
+	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(safety_mode)
 		return
+	if(iseffect(morsel))
+		return
+	if(!isturf(morsel.loc))
+		return
+	if(morsel.resistance_flags & INDESTRUCTIBLE)
+		return
 
-	var/move_dir = get_dir(loc, AM.loc)
-	if(move_dir == eat_dir)
-		eat(AM)
-
-/obj/machinery/recycler/proc/eat(atom/AM0, sound=TRUE)
 	var/list/to_eat
-	if(istype(AM0, /obj/item))
-		to_eat = AM0.GetAllContents()
+	if(istype(morsel, /obj/item))
+		to_eat = morsel.GetAllContents()
 	else
-		to_eat = list(AM0)
+		to_eat = list(morsel)
 
 	var/items_recycled = 0
 
@@ -121,7 +139,7 @@
 		var/atom/movable/AM = i
 		var/obj/item/bodypart/head/as_head = AM
 		var/obj/item/mmi/as_mmi = AM
-		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || istype(AM, /mob/living/brain)
+		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || isbrain(AM)
 		if(brain_holder)
 			emergency_stop(AM)
 		else if(isliving(AM))
@@ -202,9 +220,6 @@
 	L.Unconscious(100)
 	L.adjustBruteLoss(crush_damage)
 	L.log_message("has been crushed by a recycler that was emagged by [(emagged_by || "nobody")]", LOG_ATTACK, color="red")
-	if(L.stat == DEAD && (L.butcher_results || L.guaranteed_butcher_results))
-		var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
-		butchering.Butcher(src,L)
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"

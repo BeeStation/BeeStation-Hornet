@@ -6,6 +6,7 @@
 	antagpanel_category = "Nightmare"
 	ui_name = "AntagInfoNightmare"
 	show_name_in_check_antagonists = TRUE
+	required_living_playtime = 4
 
 /datum/antagonist/nightmare/on_gain()
 	forge_objectives()
@@ -13,8 +14,7 @@
 
 /datum/antagonist/nightmare/greet()
 	owner.announce_objectives()
-	to_chat(owner, "<span class='boldannounce'>Your primary goal is keeping the station dark, do not go out of your way to randomly kill people. \
-	You may attack them to snuff out their light or retaliate after they start attacking.</span>")
+	to_chat(owner, span_boldannounce("Your primary goal is keeping the station dark, do not kill people in such a way that is likely to completely remove them from the round."))
 
 /datum/antagonist/nightmare/apply_innate_effects(mob/living/mob_override)
 	. = ..()

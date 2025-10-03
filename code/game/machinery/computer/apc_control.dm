@@ -30,9 +30,9 @@
 			active_apc.remote_control = null
 			active_apc = null
 
-/obj/machinery/computer/apc_control/attack_ai(mob/user)
+/obj/machinery/computer/apc_control/attack_silicon(mob/user)
 	if(!IsAdminGhost(user))
-		to_chat(user,"<span class='warning'>[src] does not support AI control.</span>") //You already have APC access, cheater!
+		to_chat(user,span_warning("[src] does not support AI control.")) //You already have APC access, cheater!
 		return
 	..(user)
 
@@ -46,9 +46,9 @@
 		if(!checking_logs)
 			dat += "Logged in as [auth_id].<br><br>"
 			dat += "<i>Filters</i><br>"
-			dat += "<b>Name:</b> <a href='?src=[REF(src)];name_filter=1'>[result_filters["Name"] ? result_filters["Name"] : "None set"]</a><br>"
-			dat += "<b>Charge:</b> <a href='?src=[REF(src)];above_filter=1'>\>[result_filters["Charge Above"] ? result_filters["Charge Above"] : "NaN"]%</a> and <a href='?src=[REF(src)];below_filter=1'>\<[result_filters["Charge Below"] ? result_filters["Charge Below"] : "NaN"]%</a><br>"
-			dat += "<b>Accessible:</b> <a href='?src=[REF(src)];access_filter=1'>[result_filters["Responsive"] ? "Non-Responsive Only" : "All"]</a><br><br>"
+			dat += "<b>Name:</b> <a href='byond://?src=[REF(src)];name_filter=1'>[result_filters["Name"] ? result_filters["Name"] : "None set"]</a><br>"
+			dat += "<b>Charge:</b> <a href='byond://?src=[REF(src)];above_filter=1'>\>[result_filters["Charge Above"] ? result_filters["Charge Above"] : "NaN"]%</a> and <a href='byond://?src=[REF(src)];below_filter=1'>\<[result_filters["Charge Below"] ? result_filters["Charge Below"] : "NaN"]%</a><br>"
+			dat += "<b>Accessible:</b> <a href='byond://?src=[REF(src)];access_filter=1'>[result_filters["Responsive"] ? "Non-Responsive Only" : "All"]</a><br><br>"
 			for(var/A in GLOB.apcs_list)
 				if(check_apc(A))
 					var/obj/machinery/power/apc/APC = A
@@ -60,15 +60,15 @@
 						continue
 					if(result_filters["Responsive"] && !APC.aidisabled)
 						continue
-					dat += "<a href='?src=[REF(src)];access_apc=[REF(APC)]'>[A]</a><br>\
-					<b>Charge:</b> [APC.cell ? "[display_energy(APC.cell.charge)] / [display_energy(APC.cell.maxcharge)] ([round((APC.cell.charge / APC.cell.maxcharge) * 100)]%)" : "No power cell installed."]<br>\
+					dat += "<a href='byond://?src=[REF(src)];access_apc=[REF(APC)]'>[A]</a><br>\
+					<b>Charge:</b> [APC.cell ? "[display_power(APC.cell.charge)] / [display_power(APC.cell.maxcharge)] ([round((APC.cell.charge / APC.cell.maxcharge) * 100)]%)" : "No power cell installed."]<br>\
 					<b>Area:</b> [APC.area]<br>\
 					[APC.aidisabled || APC.panel_open ? "<font color='#FF0000'>APC does not respond to interface query.</font>" : "<font color='#00FF00'>APC responds to interface query.</font>"]<br><br>"
-			dat += "<a href='?src=[REF(src)];check_logs=1'>Check Logs</a><br>"
-			dat += "<a href='?src=[REF(src)];log_out=1'>Log Out</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];check_logs=1'>Check Logs</a><br>"
+			dat += "<a href='byond://?src=[REF(src)];log_out=1'>Log Out</a><br>"
 			if(obj_flags & EMAGGED)
 				dat += "<font color='#FF0000'>WARNING: Logging functionality partially disabled from outside source.</font><br>"
-				dat += "<a href='?src=[REF(src)];restore_logging=1'>Restore logging functionality?</a><br>"
+				dat += "<a href='byond://?src=[REF(src)];restore_logging=1'>Restore logging functionality?</a><br>"
 		else
 			if(logs.len)
 				for(var/entry in logs)
@@ -76,11 +76,11 @@
 			else
 				dat += "<i>No activity has been recorded at this time.</i><br>"
 			if(obj_flags & EMAGGED)
-				dat += "<a href='?src=[REF(src)];clear_logs=1'><font color='#FF0000'>@#%! CLEAR LOGS</a>"
-			dat += "<a href='?src=[REF(src)];check_apcs=1'>Return</a>"
+				dat += "<a href='byond://?src=[REF(src)];clear_logs=1'><font color='#FF0000'>@#%! CLEAR LOGS</a>"
+			dat += "<a href='byond://?src=[REF(src)];check_apcs=1'>Return</a>"
 		operator = user
 	else
-		dat = "<a href='?src=[REF(src)];authenticate=1'>Please swipe a valid ID to log in...</a>"
+		dat = "<a href='byond://?src=[REF(src)];authenticate=1'>Please swipe a valid ID to log in...</a>"
 	var/datum/browser/popup = new(user, "apc_control", name, 600, 400)
 	popup.set_content(dat)
 	popup.open()
@@ -104,17 +104,17 @@
 		authenticated = FALSE
 		auth_id = "\[NULL\]"
 	if(href_list["restore_logging"])
-		to_chat(usr, "<span class='robot notice'>[icon2html(src, usr)] Logging functionality restored from backup data.</span>")
+		to_chat(usr, span_robotnotice("[icon2html(src, usr)] Logging functionality restored from backup data."))
 		obj_flags &= ~EMAGGED
 		LAZYADD(logs, "<b>-=- Logging restored to full functionality at this point -=-</b>")
 	if(href_list["access_apc"])
 		playsound(src, "terminal_type", 50, 0)
 		var/obj/machinery/power/apc/APC = locate(href_list["access_apc"]) in GLOB.apcs_list
 		if(!APC || APC.aidisabled || APC.panel_open || QDELETED(APC))
-			to_chat(usr, "<span class='robot danger'>[icon2html(src, usr)] APC does not return interface request. Remote access may be disabled.</span>")
+			to_chat(usr, span_robotdanger("[icon2html(src, usr)] APC does not return interface request. Remote access may be disabled."))
 			return
 		if(active_apc)
-			to_chat(usr, "<span class='robot danger'>[icon2html(src, usr)] Disconnected from [active_apc].</span>")
+			to_chat(usr, span_robotdanger("[icon2html(src, usr)] Disconnected from [active_apc]."))
 			active_apc.say("Remote access canceled. Interface locked.")
 			playsound(active_apc, 'sound/machines/boltsdown.ogg', 25, 0)
 			playsound(active_apc, 'sound/machines/terminal_alert.ogg', 50, 0)
@@ -122,7 +122,7 @@
 			active_apc.update_icon()
 			active_apc.remote_control = null
 			active_apc = null
-		to_chat(usr, "<span class='robot notice'>[icon2html(src, usr)] Connected to APC in [get_area_name(APC.area, TRUE)]. Interface request sent.</span>")
+		to_chat(usr, span_robotnotice("[icon2html(src, usr)] Connected to APC in [get_area_name(APC.area, TRUE)]. Interface request sent."))
 		log_activity("remotely accessed APC in [get_area_name(APC.area, TRUE)]")
 		APC.remote_control = src
 		APC.ui_interact(usr)
@@ -187,11 +187,11 @@
 
 /obj/machinery/computer/apc_control/on_emag(mob/user)
 	if(!authenticated)
-		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements using your emag.</span>")
+		to_chat(user, span_warning("You bypass [src]'s access requirements using your emag."))
 		authenticated = TRUE
 		log_activity("logged in")
 	else
-		user.visible_message("<span class='warning'>[user] emags \the [src], disabling precise logging!</span>", "<span class='warning'>You emag [src], disabling precise logging and allowing you to clear logs.</span>")
+		user.visible_message(span_warning("[user] emags \the [src], disabling precise logging!"), span_warning("You emag [src], disabling precise logging and allowing you to clear logs."))
 		log_game("[key_name(user)] emagged [src] at [AREACOORD(src)], disabling operator tracking.")
 		..()
 	playsound(src, "sparks", 50, 1)

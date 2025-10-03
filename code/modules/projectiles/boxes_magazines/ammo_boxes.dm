@@ -55,11 +55,6 @@
 	desc = "Designed to quickly reload revolvers. Blister rounds can be injected with up to 10 units of chemicals."
 	ammo_type = /obj/item/ammo_casing/c38/dart
 
-/obj/item/ammo_box/c38/emp
-	name = "speed loader (.38 BLK_OUT)"
-	desc = "Designed to quickly reload revolvers. 'BLK_OUT' rounds unleash a small EMP on impact."
-	ammo_type = /obj/item/ammo_casing/c38/emp
-
 /obj/item/ammo_box/c38/mime
 	name = "speed loader (.38 finger)"
 	max_ammo = 6
@@ -81,6 +76,27 @@
 	icon_state = "9mmbox"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
+
+/obj/item/ammo_box/x200law
+	name = "ammo box (x200 LAW NPS)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/x200law
+	max_ammo = 30
+
+/obj/item/ammo_box/pouch/x200law
+	name = "ammo pouch (x200 LAW)"
+	desc = "8 x200 LAW NPS bullets in a disposable paper package."
+	icon_state = "bagobullets_alt_10mm"
+	ammo_type = /obj/item/ammo_casing/x200law
+	max_ammo = 8
+	custom_price = 100
+	custom_premium_price = 100
+
+/obj/item/ammo_box/taser
+	name = "ammo box (Taser Loads)"
+	icon_state = "tasebox"
+	ammo_type = /obj/item/ammo_casing/taser
+	max_ammo = 10
 
 /obj/item/ammo_box/pouch/c9mm
 	name = "ammo pouch (9mm)"
@@ -115,7 +131,7 @@
 /obj/item/ammo_box/c38/box
 	name = "ammo box (.38)"
 	desc = "A small pack of .38 cartridges"
-	icon_state = "357OLD-0"
+	icon_state = "357OLD"
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 7
 	multiple_sprites = 1

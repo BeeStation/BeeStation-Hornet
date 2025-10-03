@@ -26,8 +26,16 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		/obj/item/hilbertshotel,
 		/obj/item/swapper,
 		/obj/item/mail,
-		/obj/docking_port
+		/obj/docking_port,
+		/obj/effect/warped_rune, // no teleporting to cc for you
+		/obj/structure/slime_crystal/bluespace // Dang it, you still teleported to CC!
 	)))
+
+GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
+		/obj/effect/mob_spawn/sentient_artifact,
+		/mob/living/simple_animal/shade/sentience
+	)))
+
 
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
@@ -61,7 +69,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		for(var/trf in shuttle_area)
 			var/turf/T = trf
 			for(var/a in T.GetAllContents())
-				if(is_type_in_typecache(a, GLOB.blacklisted_cargo_types) && !istype(a, /obj/docking_port))
+				if(is_type_in_typecache(a, GLOB.blacklisted_cargo_types) && !istype(a, /obj/docking_port) && !is_type_in_typecache(a, GLOB.whitelisted_cargo_types))
 					return FALSE
 	return TRUE
 
@@ -189,7 +197,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				continue
 			if(bounty_ship_item_and_contents(AM, dry_run = FALSE))
 				matched_bounty = TRUE
-			if(!AM.anchored || istype(AM, /obj/vehicle/sealed/mecha))
+			if(!AM.anchored)
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 			else if(!ismachinery(AM))
 				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
@@ -219,7 +227,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/proc/create_mail()
 	//Early return if there's no mail waiting to prevent taking up a slot.
-	if(!SSeconomy.mail_waiting)
+	if(SSeconomy.mail_waiting < MAIL_REQUIRED_BEFORE_SPAWN)
 		return
 	//spawn crate
 	var/list/empty_turfs = list()

@@ -2,8 +2,8 @@
 @use './colors.scss';
 
 .textarea {
-  background-color: #0f0f0f;
-  border: 1px solid #252525;
+  background-color: hsl(0, 0%, 5.9%);
+  border: 1px solid hsl(0, 0%, 14.5%);
   border-radius: 2px;
   color: white;
   flex-grow: 1;
@@ -11,15 +11,18 @@
   font-size: 1.1rem;
   margin-left: 5px;
   padding: 7px;
+  textarea {
+    resize: none;
+  }
   // This doesn't work in IE11. Oh well.
   &:focus-within {
-    border-color: #303030;
+    border-color: hsl(0, 0%, 18.8%);
   }
 }
 
 .textarea-lightMode {
   @extend .textarea;
-  background-color: #cecece;
+  background-color: hsl(0, 0%, 80.8%);
   color: black;
   border-color: colors.$lightBorder;
 }

@@ -1,18 +1,16 @@
 /datum/job/warden
 	title = JOB_NAME_WARDEN
 	description = "Oversee prisoners in the brig and guard the armory. Hand out equipment when necessary and ensure it is returned after threats have been contained."
-	department_for_prefs = DEPT_BITFLAG_SEC
+	department_for_prefs = DEPT_NAME_SECURITY
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SECURITY
-	exp_type_department = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/warden
 
@@ -23,7 +21,7 @@
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN
 	rpg_title = "Jailor"
@@ -51,12 +49,17 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/vest/warden/alt
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/hats/warden
+	head = /obj/item/clothing/head/hats/warden/red
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	r_pocket = /obj/item/modular_computer/tablet/pda/warden
-	suit_store = /obj/item/gun/energy/disabler
+	l_pocket = /obj/item/clothing/accessory/badge/officer
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/warden
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
 
 	backpack = /obj/item/storage/backpack/security
+	backpack_contents = list(
+		/obj/item/dog_bone = 1,
+		/obj/item/ammo_box/magazine/x200law = 1,
+	)
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security

@@ -16,8 +16,8 @@
 	var/replacebody = FALSE
 	var/robustbits = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+						<b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
@@ -32,8 +32,8 @@
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
 	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
 		threshold_desc = "<b>Always:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+						<b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
@@ -53,7 +53,7 @@
 	switch(A.stage)
 		if(3, 4)
 			if(replaceorgans && H.stat <= DEAD)
-				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
+				to_chat(H, span_warning("<b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]"))
 		if(5)
 			if(replaceorgans || replacebody)
 				Replace(H)
@@ -68,7 +68,7 @@
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
 				if(ORGAN_SLOT_BRAIN)
 					O.name = "enigmatic gearbox"
-					O.desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+					O.desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 					O.icon_state = "brain-clock"
 					O.status = ORGAN_ROBOTIC
 					O.organ_flags = ORGAN_SYNTHETIC
@@ -83,7 +83,7 @@
 						var/obj/item/organ/stomach/clockwork/organ = new()
 						organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat != DEAD)
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_EARS)
@@ -92,23 +92,23 @@
 						organ.damage_multiplier = 0.5
 					organ.Insert(H, TRUE, FALSE)
 					if(H.stat != DEAD)
-						to_chat(H, "<span class='warning'>Your ears pop.</span>")
+						to_chat(H, span_warning("Your ears pop."))
 					return TRUE
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
 					if(robustbits)
-						organ.flash_protect = 1
+						organ.flash_protect = FLASH_PROTECTION_FLASH
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat != DEAD)
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LUNGS)
 					var/obj/item/organ/lungs/clockwork/organ = new()
 					if(robustbits)
 						organ.gas_max = list(
-							GAS_PLASMA = 15,
-							GAS_CO2 = 15,
+							/datum/gas/plasma = 15,
+							/datum/gas/carbon_dioxide = 15,
 						)
 						organ.SA_para_min = 15
 						organ.SA_sleep_min = 15
@@ -116,14 +116,14 @@
 						organ.gas_stimulation_min = 15
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat != DEAD)
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_HEART)
 					var/obj/item/organ/heart/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
 					if(H.stat != DEAD)
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LIVER)
@@ -132,7 +132,7 @@
 						organ.toxTolerance = 7
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40) && H.stat <= DEAD)
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_TONGUE)
@@ -154,7 +154,7 @@
 						organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
 					if(H.stat <= DEAD)
-						to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
+						to_chat(H, span_warning("Your wings feel stiff."))
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
@@ -170,7 +170,7 @@
 						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s head shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your head feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s head shifts, and becomes metal before your very eyes"), span_userdanger("Your head feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_CHEST)
@@ -179,43 +179,43 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
-					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
+					var/obj/item/bodypart/arm/left/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
-					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
+					var/obj/item/bodypart/arm/right/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
-					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
+					var/obj/item/bodypart/leg/left/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
-					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
+					var/obj/item/bodypart/leg/right/robot/clockwork/B = new()
 					if(robustbits)
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 	return FALSE
@@ -227,7 +227,7 @@
 	REMOVE_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	if(A.stage >= 5 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
 		if(H.stat != DEAD)
-			to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
+			to_chat(H, span_userdanger("You feel lighter and springier as your innards lose their clockwork facade."))
 		H.dna.species.regenerate_organs(H, replace_current = TRUE)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(!IS_ORGANIC_LIMB(O))
@@ -288,7 +288,7 @@
 
 /obj/item/organ/brain/clockwork
 	name = "enigmatic gearbox"
-	desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+	desc ="An engineer would call this inconceivable wonder of gears and metal a 'black box'"
 	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
@@ -301,7 +301,7 @@
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
 
-/obj/item/organ/brain/clockwork/on_life()
+/obj/item/organ/brain/clockwork/on_life(delta_time, times_fired)
 	. = ..()
 	if(prob(5) && !robust)
 		SEND_SOUND(owner, pick_weight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
@@ -342,64 +342,58 @@
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 
-/obj/item/organ/tail/clockwork/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		if(!("tail_human" in H.dna.species.mutant_bodyparts))
-			H.dna.features["tail_human"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_human"
-		H.update_body()
+/obj/item/organ/tail/clockwork/on_insert(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		if(!(tail_owner.dna.species.mutant_bodyparts["tail_human"]))
+			tail_owner.dna.features["tail_human"] = tail_type
+			tail_owner.dna.species.mutant_bodyparts["tail_human"] = tail_type
+		tail_owner.update_body()
 
-/obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_human"
-		H.update_body()
+/obj/item/organ/tail/clockwork/on_remove(mob/living/carbon/human/tail_owner)
+	. = ..()
+	if(istype(tail_owner) && tail_owner.dna)
+		tail_owner.dna.species.mutant_bodyparts -= "tail_human"
+		tail_owner.update_body()
 
-/obj/item/bodypart/l_arm/robot/clockwork
+/obj/item/bodypart/arm/left/robot/clockwork
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/r_arm/robot/clockwork
+/obj/item/bodypart/arm/right/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/l_leg/robot/clockwork
+/obj/item/bodypart/leg/left/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
-/obj/item/bodypart/r_leg/robot/clockwork
+/obj/item/bodypart/leg/right/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
-	static_icon = 'icons/mob/augmentation/augments_clockwork.dmi'
+	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
 	brute_reduction = 0
 	burn_reduction = 0

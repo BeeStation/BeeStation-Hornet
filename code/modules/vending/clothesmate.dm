@@ -28,6 +28,9 @@
 				/obj/item/clothing/head/beanie/rasta = 3,
 				/obj/item/clothing/head/beret = 3,
 				/obj/item/clothing/head/beret/black = 3,
+				/obj/item/clothing/mask/bandana = 3,
+				/obj/item/clothing/mask/bandana/striped = 3,
+				/obj/item/clothing/mask/bandana/skull = 3,
 				/obj/item/clothing/neck/scarf/pink = 3,
 				/obj/item/clothing/neck/scarf/red = 3,
 				/obj/item/clothing/neck/scarf/green = 3,
@@ -47,6 +50,7 @@
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
 				/obj/item/clothing/neck/tie/horrible = 3,
+				/obj/item/clothing/head/beret/black = 3,
 				/obj/item/clothing/head/chaplain/kippah = 3,
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
@@ -160,6 +164,7 @@
 				/obj/item/clothing/shoes/laceup = 2,
 				/obj/item/clothing/shoes/winterboots = 3,
 				/obj/item/clothing/shoes/jackboots_replica = 3,
+				/obj/item/clothing/shoes/jackboots_replica/white = 3,
 			),
 		),
 
@@ -199,7 +204,6 @@
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_MEDIUM
 	extra_price = PAYCHECK_HARD
-	dept_req_for_free = NO_FREEBIES
 	light_mask = "wardrobe-light-mask"
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 

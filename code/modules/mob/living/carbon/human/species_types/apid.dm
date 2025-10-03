@@ -3,12 +3,10 @@
 	name = "\improper Apid"
 	id = SPECIES_APID
 	bodyflag = FLAG_APID
-	default_color = "FFE800"
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
-	mutant_bodyparts = list("apid_stripes","apid_antenna","apid_headstripes")
-	default_features = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
+	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -18,20 +16,22 @@
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
-	burnmod = 1.5
-	toxmod = 1.5
-	staminamod = 1.25
+	mutant_organs = list(/obj/item/organ/apid_stinger)
+	brutemod = 0.8
+	toxmod = 0.5
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
-	inert_mutation = WAXSALIVA
+	inert_mutation = /datum/mutation/wax_saliva
 	var/cold_cycle = 0
 
-	species_chest = /obj/item/bodypart/chest/apid
-	species_head = /obj/item/bodypart/head/apid
-	species_l_arm = /obj/item/bodypart/l_arm/apid
-	species_r_arm = /obj/item/bodypart/r_arm/apid
-	species_l_leg = /obj/item/bodypart/l_leg/apid
-	species_r_leg = /obj/item/bodypart/r_leg/apid
+	bodypart_overrides = list(
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/apid,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/apid,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/apid,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/apid,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/apid,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/apid
+	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
@@ -40,7 +40,7 @@
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
-			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")
+			to_chat(H, span_warning("The cold is making you feel tired..."))
 		switch(cold_cycle)
 			if(5 to 10)
 				H.drowsyness++
@@ -117,6 +117,12 @@
 			SPECIES_PERK_ICON = "wind",
 			SPECIES_PERK_NAME = "Dashing!",
 			SPECIES_PERK_DESC = "Apids can use their wings to quickly dash forward in a flurry of buzzing!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "skull-crossbones",
+			SPECIES_PERK_NAME = "Stinger",
+			SPECIES_PERK_DESC = "Apids have stingers loaded with anti-coagulant venom, don't kick the hive!",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,

@@ -3,13 +3,14 @@
 	filename = "robocontrol"
 	filedesc = "Bot Remote Controller"
 	category = PROGRAM_CATEGORY_ROBO
-	program_icon_state = "robot"
+	program_icon_state = "generic"
 	extended_desc = "A remote controller used for giving basic commands to non-sentient robots."
 	requires_ntnet = TRUE
 	network_destination = "robotics control network"
-	size = 12
+	size = 10
 	tgui_id = "NtosRoboControl"
 	program_icon = "robot"
+	power_consumption = 80 WATT
 	///Number of simple robots on-station.
 	var/botcount = 0
 	///Used to find the location of the user for the purposes of summoning robots.
@@ -92,7 +93,7 @@
 			if(!computer || !card_slot)
 				return
 			if(id_card)
-				GLOB.data_core.manifest_modify(id_card.registered_name, id_card.assignment, id_card.hud_state)
+				GLOB.manifest.modify(id_card.registered_name, id_card.assignment, id_card.hud_state)
 				card_slot.try_eject(current_user)
 			else
 				playsound(get_turf(computer.ui_host()) , 'sound/machines/buzz-sigh.ogg', 25, FALSE)

@@ -1,0 +1,30 @@
+# This is a separate workflow so that it can access secrets, which are necessary
+# because we need to be able to upload the images and post a comment.
+# In the event this workflow fails, the screenshot test results are still
+# available as an artifact of the screenshot test comparison workflow itself.
+# This simply provides necessary quality of life.
+name: Show Screenshot Test Results
+on:
+  workflow_run:
+    workflows: [CI Suite]
+    types:
+      - completed
+jobs:
+  show_screenshot_test_results:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') && github.event.workflow_run.run_attempt == 1 )
+    name: Show Screenshot Test Results
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Prepare module
+        run: |
+          # This is needed because node-fetch needs import and doesn't work with require :/
+          echo "{\"type\": \"module\"}" > package.json
+          npm install node-fetch
+      - name: Show screenshot test results
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { showScreenshotTestResults } = await import('${{ github.workspace }}/tools/ci/show_screenshot_test_results.js')
+            await showScreenshotTestResults({ github, context, exec })

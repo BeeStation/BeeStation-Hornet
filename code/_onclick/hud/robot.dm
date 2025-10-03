@@ -1,5 +1,5 @@
 /atom/movable/screen/robot
-	icon = 'icons/mob/screen_cyborg.dmi'
+	icon = 'icons/hud/screen_cyborg.dmi'
 
 /atom/movable/screen/robot/module
 	name = "cyborg module"
@@ -13,10 +13,10 @@
 	if(..())
 		return
 	var/mob/living/silicon/robot/R = usr
-	if(R.module.type != /obj/item/robot_module)
+	if(R.model.type != /obj/item/robot_model)
 		R.hud_used.toggle_show_robot_modules()
-		return 1
-	R.pick_module()
+		return TRUE
+	R.pick_model()
 
 /atom/movable/screen/robot/module1
 	name = "module1"
@@ -69,18 +69,21 @@
 	R.uneq_active()
 
 /datum/hud/robot
-	ui_style = 'icons/mob/screen_cyborg.dmi'
+	ui_style = 'icons/hud/screen_cyborg.dmi'
 
 /datum/hud/robot/New(mob/owner)
 	..()
 	var/mob/living/silicon/robot/mymobR = mymob
 
-	mymobR.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
-
 	var/atom/movable/screen/using
 
 	using = new/atom/movable/screen/language_menu
 	using.screen_loc = ui_borg_language_menu
+	static_inventory += using
+
+// Navigation
+	using = new /atom/movable/screen/navigate
+	using.screen_loc = ui_borg_navigate_menu
 	static_inventory += using
 
 //Radio
@@ -147,10 +150,11 @@
 	using.hud = src
 	static_inventory += using
 
-//Intent
-	action_intent = new /atom/movable/screen/act_intent/robot()
-	action_intent.icon_state = mymob.a_intent
+	//Combat Mode
+	action_intent = new /atom/movable/screen/combattoggle/robot()
 	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
 //Health
@@ -170,7 +174,7 @@
 	module_store_icon.hud = src
 
 	pull_icon = new /atom/movable/screen/pull()
-	pull_icon.icon = 'icons/mob/screen_cyborg.dmi'
+	pull_icon.icon = 'icons/hud/screen_cyborg.dmi'
 	pull_icon.screen_loc = ui_borg_pull
 	pull_icon.hud = src
 	pull_icon.update_icon()
@@ -200,7 +204,7 @@
 
 	var/mob/screenmob = viewer || R
 
-	if(!R.module)
+	if(!R.model)
 		return
 
 	if(!R.client)
@@ -210,21 +214,21 @@
 		//Modules display is shown
 		screenmob.client.screen += module_store_icon	//"store" icon
 
-		if(!R.module.modules)
-			to_chat(usr, "<span class='danger'>Selected module has no modules to select.</span>")
+		if(!R.model.modules)
+			to_chat(usr, span_danger("Selected module has no modules to select."))
 			return
 
 		if(!R.robot_modules_background)
 			return
 
-		var/display_rows = CEILING(length(R.module.get_inactive_modules()) / 8, 1)
+		var/display_rows = CEILING(length(R.model.get_inactive_modules()) / 8, 1)
 		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
 		screenmob.client.screen += R.robot_modules_background
 
 		var/x = -4	//Start at CENTER-4,SOUTH+1
 		var/y = 1
 
-		for(var/atom/movable/A in R.module.get_inactive_modules())
+		for(var/atom/movable/A in R.model.get_inactive_modules())
 			//Module is not currently active
 			screenmob.client.screen += A
 			if(x < 0)
@@ -242,7 +246,7 @@
 		//Modules display is hidden
 		screenmob.client.screen -= module_store_icon	//"store" icon
 
-		for(var/atom/A in R.module.get_inactive_modules())
+		for(var/atom/A in R.model.get_inactive_modules())
 			//Module is not currently active
 			screenmob.client.screen -= A
 		R.shown_robot_modules = 0
@@ -305,7 +309,7 @@
 
 /atom/movable/screen/robot/alerts
 	name = "Alert Panel"
-	icon = 'icons/mob/screen_ai.dmi'
+	icon = 'icons/hud/screen_ai.dmi'
 	icon_state = "alerts"
 
 /atom/movable/screen/robot/alerts/Click()
@@ -317,7 +321,7 @@
 
 /atom/movable/screen/robot/crew_manifest
 	name = "Crew Manifest"
-	icon = 'icons/mob/screen_ai.dmi'
+	icon = 'icons/hud/screen_ai.dmi'
 	icon_state = "manifest"
 
 /atom/movable/screen/robot/crew_manifest/Click()

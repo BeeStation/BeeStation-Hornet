@@ -75,7 +75,7 @@
 			qdel(query_add_ip_intel)
 
 
-/proc/ip_intel_query(ip, var/retryed=0)
+/proc/ip_intel_query(ip, retryed=0)
 	. = -1 //default
 	if (!ip)
 		return
@@ -93,7 +93,7 @@
 			sleep(25)
 			return .(ip, 1)
 	else if(results.status_code == 200)
-		var/response = json_decode(results["body"])
+		var/response = json_decode(results.body)
 		if (response)
 			if (response["status"] == "success")
 				var/intelnum = text2num(response["result"])

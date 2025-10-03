@@ -1,16 +1,14 @@
 /datum/job/virologist
 	title = JOB_NAME_VIROLOGIST
 	description = "Collect virus samples from dormant viruses, old blood, and crusty vomit from around the station, isolate the symptoms and use them to create useful healing viruses for the crew."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
 	selection_color = "#d4ebf2"
 	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
-	exp_type_department = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
 	base_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
@@ -46,14 +44,13 @@
 	jobtype = /datum/job/virologist
 
 	id = /obj/item/card/id/job/virologist
-	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
 	suit_store =  /obj/item/flashlight/pen
-	r_pocket = /obj/item/modular_computer/tablet/pda/virologist
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/virologist
 
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir

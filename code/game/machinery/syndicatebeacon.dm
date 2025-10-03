@@ -1,131 +1,135 @@
-////////////////////////////////////////
-//Singularity beacon
-////////////////////////////////////////
 /obj/machinery/power/singularity_beacon
 	name = "ominous beacon"
 	desc = "This looks suspicious..."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "beacon0"
-
 	anchored = FALSE
 	density = TRUE
-	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
+	layer = BELOW_MOB_LAYER
 	verb_say = "states"
-	var/cooldown = 0
 
-	var/active = 0
+	/// Whether or not the beacon is enabled
+	var/active = FALSE
+	/// How much power the beacon draws from the grid
+	var/power_draw = 1500
+	/// The icon_state of the beacon. 1 is added to the end of the icon_state if it is active, and 0 is added if it is not.
 	var/icontype = "beacon"
+	/// Cooldown time inbetween notifying the user of the singularity's distance
+	var/cooldown = 10 SECONDS
 
-
-/obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
-	if(surplus() < 1500)
-		if(user)
-			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
-		return
-	for(var/datum/component/singularity/singulo as() in GLOB.singularities)
-		var/atom/singulo_atom = singulo.parent
-		if(singulo_atom.get_virtual_z_level() == get_virtual_z_level())
-			singulo.target = src
-	icon_state = "[icontype]1"
-	active = 1
-	if(user)
-		to_chat(user, "<span class='notice'>You activate the beacon.</span>")
-
-
-/obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
-	for(var/datum/component/singularity/singulo as() in GLOB.singularities)
-		if(singulo.target == src)
-			singulo.target = null
-	icon_state = "[icontype]0"
-	active = 0
-	if(user)
-		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
-
-
-/obj/machinery/power/singularity_beacon/attack_ai(mob/user)
-	return
-
-
-/obj/machinery/power/singularity_beacon/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
-	if(anchored)
-		return active ? Deactivate(user) : Activate(user)
-	else
-		to_chat(user, "<span class='warning'>You need to screw \the [src] to the floor first!</span>")
-
-/obj/machinery/power/singularity_beacon/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(active)
-			to_chat(user, "<span class='warning'>You need to deactivate \the [src] first!</span>")
-			return
-
-		if(anchored)
-			set_anchored(FALSE)
-			to_chat(user, "<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>")
-			disconnect_from_network()
-			return
-		else
-			if(!connect_to_network())
-				to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
-				return
-			set_anchored(TRUE)
-			to_chat(user, "<span class='notice'>You bolt \the [src] to the floor and attach it to the cable.</span>")
-			return
-	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		user.visible_message( \
-			"[user] messes with \the [src] for a bit.", \
-			"<span class='notice'>You can't fit the screwdriver into \the [src]'s bolts! Try using a wrench.</span>")
-	else
-		return ..()
+	COOLDOWN_DECLARE(notify_cooldown)
 
 /obj/machinery/power/singularity_beacon/Destroy()
-	if(active)
-		Deactivate()
-	return ..()
+	STOP_PROCESSING(SSmachines, src)
 
-//stealth direct power usage
+	if(active)
+		deactivate()
+	. = ..()
+
+/obj/machinery/power/singularity_beacon/attack_silicon(mob/user)
+	return
+
+/obj/machinery/power/singularity_beacon/attack_hand(mob/user, list/modifiers)
+	if(!anchored)
+		balloon_alert(user, "not anchored!")
+		return
+
+	if(active)
+		deactivate(user)
+	else
+		activate(user)
+
+/obj/machinery/power/singularity_beacon/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item.tool_behaviour != TOOL_WRENCH)
+		return ..()
+
+	if(!anchored)
+		if(!connect_to_network())
+			balloon_alert(user, "not connected to cable!")
+			return
+
+		set_anchored(TRUE)
+
+		attacking_item.play_tool_sound(src)
+		balloon_alert(user, "anchored!")
+	else
+		set_anchored(FALSE)
+		disconnect_from_network()
+
+		attacking_item.play_tool_sound(src)
+		balloon_alert(user, "unanchored!")
+
+// We start processing on Init
 /obj/machinery/power/singularity_beacon/process()
 	if(!active)
 		return
 
-	if(surplus() >= 1500)
-		add_load(1500)
-		if(cooldown <= world.time)
-			cooldown = world.time + 80
-			for(var/datum/component/singularity/singulo_component as() in GLOB.singularities)
-				var/atom/singulo = singulo_component.parent
-				if(singulo.get_virtual_z_level() == get_virtual_z_level())
-					say("[singulo] is now [get_dist(src,singulo)] standard lengths away to the [dir2text(get_dir(src,singulo))]")
-	else
-		Deactivate()
-		say("Insufficient charge detected - powering down")
+	if(surplus() >= power_draw)
+		add_load(power_draw)
 
+		if(!COOLDOWN_FINISHED(src, notify_cooldown))
+			return
+
+		for(var/datum/component/singularity/singulo_component in GLOB.singularities)
+			var/atom/singulo = singulo_component.parent
+			if(singulo.get_virtual_z_level() == get_virtual_z_level())
+				say("[singulo] is now [get_dist(src, singulo)] standard lengths away to the [dir2text(get_dir(src, singulo))]")
+
+		COOLDOWN_START(src, notify_cooldown, cooldown)
+	else
+		deactivate()
+		say("Insufficient power, shutting down")
+
+/obj/machinery/power/singularity_beacon/proc/activate(mob/user)
+	if(surplus() < power_draw)
+		balloon_alert(user, "not enough power!")
+		return
+
+	// Set all singularities on our zlevel to target this beacon
+	for(var/datum/component/singularity/singulo in GLOB.singularities)
+		var/atom/singulo_atom = singulo.parent
+		if(singulo_atom.get_virtual_z_level() == get_virtual_z_level())
+			singulo.target = src
+
+	icon_state = "[icontype]1"
+
+	active = TRUE
+	balloon_alert(user, "enabled!")
+
+/obj/machinery/power/singularity_beacon/proc/deactivate(mob/user)
+	// Unlink singularities that are targetting this beacon
+	for(var/datum/component/singularity/singulo in GLOB.singularities)
+		if(singulo.target == src)
+			singulo.target = null
+
+	icon_state = "[icontype]0"
+
+	active = FALSE
+	balloon_alert(user, "disabled!")
 
 /obj/machinery/power/singularity_beacon/syndicate
-	icontype = "beaconsynd"
 	icon_state = "beaconsynd0"
+	icontype = "beaconsynd"
 
 // SINGULO BEACON SPAWNER
 /obj/item/sbeacondrop
 	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Warning: Activating this device will send a singularity beacon to your location</i>."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "beacon"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	desc = "A label on it reads: <i>Warning: Activating this device will send a special beacon to your location</i>."
 	w_class = WEIGHT_CLASS_SMALL
-	var/droptype = /obj/machinery/power/singularity_beacon/syndicate
 
+	/// The item to spawn
+	var/droptype = /obj/machinery/power/singularity_beacon/syndicate
 
 /obj/item/sbeacondrop/attack_self(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In.</span>")
-		new droptype( user.loc )
+		to_chat(user, span_notice("Locked In."))
+		new droptype(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
-	return
 
 /obj/item/sbeacondrop/bomb
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."

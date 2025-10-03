@@ -17,7 +17,7 @@
 	leap_icon.icon_state = "leap_[leap_on_click ? "on" : "off"]"
 	update_icons()
 	if(message)
-		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at" : "slash at"] enemies!</span>")
+		to_chat(src, span_noticealien("You will now [leap_on_click ? "leap at" : "slash at"] enemies!"))
 
 /mob/living/carbon/alien/humanoid/hunter/ClickOn(atom/A, params)
 	face_atom(A)
@@ -33,11 +33,11 @@
 		return
 
 	if(!(COOLDOWN_FINISHED(src, pounce_cooldown)))
-		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
+		to_chat(src, span_alertalien("You are too fatigued to pounce right now!"))
 		return
 
 	if(!has_gravity() || !A.has_gravity())
-		to_chat(src, "<span class='alertalien'>It is unsafe to leap without gravity!</span>")
+		to_chat(src, span_alertalien("It is unsafe to leap without gravity!"))
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
 
@@ -72,8 +72,10 @@
 				if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
 					blocked = TRUE
 			if(!blocked)
-				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
-				L.Paralyze(100)
+				L.visible_message(span_danger("[src] pounces on [L]!"), span_userdanger("[src] pounces on you!"))
+				var/obj/item/bodypart/chest = L.get_bodypart(BODY_ZONE_CHEST)
+				var/armor_block = L.run_armor_check(chest, MELEE, "", "")
+				L.apply_damage(110, STAMINA, chest, armor_block)
 				sleep(0.2 SECONDS)//Runtime prevention (infinite bump() calls on hulks)
 				step_towards(src, L)
 			else
@@ -81,14 +83,9 @@
 
 			toggle_leap(FALSE)
 		else if(hit_atom.density && !hit_atom.CanPass(src, get_dir(hit_atom, src)))
-			visible_message("<span class ='danger'>[src] smashes into [hit_atom]!</span>", "<span class ='alertalien'>[src] smashes into [hit_atom]!</span>")
+			visible_message(span_danger("[src] smashes into [hit_atom]!"), span_alertalien("[src] smashes into [hit_atom]!"))
 			Paralyze(40, ignore_canstun = TRUE)
 
 		if(leaping) //check that toggles out of leaping mode if the alien gets hit or otherwise interrupted
 			leaping = FALSE
 			update_icons()
-
-/mob/living/carbon/alien/humanoid/float(on)
-	if(leaping)
-		return
-	return ..()

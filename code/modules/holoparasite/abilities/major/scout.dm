@@ -98,15 +98,15 @@
 		return
 	if(scouting && isobj(target) && owner.Adjacent(target))
 		if(target.ui_interact(owner) != FALSE) // unimplemented ui_interact returns FALSE, while implemented typically just returns... nothing.
-			to_chat(owner, "<span class='notice'>You take a closer look at [costly_icon2html(target, owner)] [target]...</span>")
+			to_chat(owner, span_notice("You take a closer look at [costly_icon2html(target, owner)] [target]..."))
 			return COMSIG_MOB_CANCEL_CLICKON
 	if(!cloaking || !isliving(target))
 		return
 	if(owner.has_matching_summoner(target))
-		to_chat(owner, "<span class='warning'>There's no need to stalk <span class='name'>[target]</span>...</span>")
+		to_chat(owner, span_warning("There's no need to stalk [span_name("[target]")]..."))
 		return
 	if(!isturf(target.loc) || target.get_virtual_z_level() != owner.get_virtual_z_level() || !in_view_range(owner, target))
-		to_chat(owner, "<span class='warning'><span class='name'>[target]</span> is too far away to begin stalking!</span>")
+		to_chat(owner, span_warning("[span_name("[target]")] is too far away to begin stalking!"))
 		return
 	begin_stalking(target)
 	return COMSIG_MOB_CANCEL_CLICKON
@@ -215,10 +215,10 @@
 	// Bit of a nasty hardcoded hack, but eh, it works!
 	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
 	if(summoner_traitor?.has_codewords)
-		scrambled_message = GLOB.syndicate_code_phrase_regex.Replace(scrambled_message, "<span class='blue'>$1</span>")
-		scrambled_message = GLOB.syndicate_code_response_regex.Replace(scrambled_message, "<span class='red'>$1</span>")
+		scrambled_message = GLOB.syndicate_code_phrase_regex.Replace(scrambled_message, span_blue("$1"))
+		scrambled_message = GLOB.syndicate_code_response_regex.Replace(scrambled_message, span_red("$1"))
 	// Assemble the message prefix
-	var/message_prefix = "<span class='holoparasite italics robot'>\[[owner.color_name] Sensory Link\] [speaker.GetVoice()]"
+	var/message_prefix = span_holoparasiteitalicsrobot("\[[owner.color_name] Sensory Link\] [speaker.GetVoice()]")
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
@@ -226,7 +226,7 @@
 	else
 		var/atom/movable/source = speaker.GetSource() || speaker
 		message_part = source.say_quote(scrambled_message, spans, message_mods)
-	message_part = "<span class='message'>[summoner.say_emphasis(message_part)]</span></span>"
+	message_part = span_message(summoner.say_emphasis(message_part))
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
 	to_chat(owner.list_summoner_and_or_holoparasites(include_self = FALSE), final_message)
@@ -237,7 +237,7 @@
  */
 /datum/holoparasite_ability/major/scout/proc/enter_scout()
 	if(owner.is_manifested())
-		to_chat(owner, "<span class='warning'>You can only toggle scouting while recalled!</span>")
+		to_chat(owner, span_warning("You can only toggle scouting while recalled!"))
 		return
 	owner.stats.weapon.remove()
 	owner.ranged = FALSE
@@ -253,14 +253,14 @@
 	owner.med_hud_set_status()
 	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, HOLOPARASITE_SCOUT_TRAIT)
 	owner.balloon_alert(owner, "entered scout mode", show_in_chat = FALSE)
-	to_chat(owner, "<span class='notice bold'>You enter scout mode, you may no longer attack or use most abilities, however you can freely move around the station through obstacles at great speeds.</span>")
+	to_chat(owner, span_noticebold("You enter scout mode, you may no longer attack or use most abilities, however you can freely move around the station through obstacles at great speeds."))
 
 /**
  * Exits scout mode, restoring the holoparasite's stats to normal.
  */
 /datum/holoparasite_ability/major/scout/proc/exit_scout(forced = FALSE)
 	if(!forced && owner.is_manifested())
-		to_chat(owner, "<span class='warning'>You can only toggle scouting while recalled!</span>")
+		to_chat(owner, span_warning("You can only toggle scouting while recalled!"))
 		return
 	owner.ranged = initial(owner.ranged)
 	owner.melee_damage = initial(owner.melee_damage)
@@ -278,7 +278,7 @@
 	owner.update_sight()
 	if(!forced)
 		owner.balloon_alert(owner, "exited scout mode", show_in_chat = FALSE)
-		to_chat(owner, "<span class='notice bold'>You exit scout mode, you may attack and use abilities normally again.</span>")
+		to_chat(owner, span_noticebold("You exit scout mode, you may attack and use abilities normally again."))
 
 /**
  * Causes the holoparasite to 'cloak', where the holoparasite becomes invisible to all but itself and its summoner.
@@ -293,10 +293,10 @@
 	if(cloaking)
 		return
 	if(owner.is_manifested())
-		to_chat(owner, "<span class='warning'>You can only toggle cloaking while recalled!</span>")
+		to_chat(owner, span_warning("You can only toggle cloaking while recalled!"))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, cloak_cooldown))
-		to_chat(owner, "<span class='warning'>You must wait [COOLDOWN_TIMELEFT_TEXT(src, cloak_cooldown)] before you can cloak again.</span>")
+		to_chat(owner, span_warning("You must wait [COOLDOWN_TIMELEFT_TEXT(src, cloak_cooldown)] before you can cloak again."))
 		return FALSE
 	manifested_with_cloak = FALSE
 	owner.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -308,7 +308,7 @@
 	owner.med_hud_set_status()
 	ADD_TRAIT(owner, TRAIT_MUTE, HOLOPARASITE_CLOAK_TRAIT)
 	ADD_TRAIT(owner, TRAIT_EMOTEMUTE, HOLOPARASITE_CLOAK_TRAIT)
-	to_chat(owner, "<span class='notice bold'>You begin to cloak, you are now completely invisible to almost everyone, however you can no longer speak nor emote.</span>")
+	to_chat(owner, span_noticebold("You begin to cloak, you are now completely invisible to almost everyone, however you can no longer speak nor emote."))
 	owner.balloon_alert(owner, "started cloaking", show_in_chat = FALSE)
 
 /**
@@ -321,7 +321,7 @@
 	if(!cloaking)
 		return
 	if(!forced && owner.is_manifested())
-		to_chat(owner, "<span class='warning'>You can only toggle cloaking while recalled!</span>")
+		to_chat(owner, span_warning("You can only toggle cloaking while recalled!"))
 		return FALSE
 	owner.mouse_opacity = initial(owner.mouse_opacity)
 	owner.remove_alt_appearance("scout_cloaking")
@@ -330,7 +330,7 @@
 	stop_stalking(forced)
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
-	to_chat(owner, "<span class='notice bold'>You stop cloaking, you are mostly visible once again, and can freely speak or emote once more.</span>")
+	to_chat(owner, span_noticebold("You stop cloaking, you are mostly visible once again, and can freely speak or emote once more."))
 	if(!forced)
 		if(manifested_with_cloak)
 			COOLDOWN_START(src, cloak_cooldown, HOLOPARA_SCOUT_CLOAK_COOLDOWN)
@@ -344,20 +344,20 @@
 	if(!cloaking || !owner.is_manifested() || !istype(target) || target == stalking)
 		return
 	if(!COOLDOWN_FINISHED(src, stalk_cooldown))
-		to_chat(owner, "<span class='warning'>You must wait [COOLDOWN_TIMELEFT_TEXT(src, stalk_cooldown)] before you can stalk someone else!</span>")
+		to_chat(owner, span_warning("You must wait [COOLDOWN_TIMELEFT_TEXT(src, stalk_cooldown)] before you can stalk someone else!"))
 		return
 	if(stalking)
 		stop_stalking(silent = TRUE)
 	owner.incorporeal_move = FALSE
 	stalking = target
-	to_chat(owner, "<span class='notice'>You begin to stalk <span class='name'>[target]</span>, following [target.p_their()] every move from behind your cloak.</span>")
+	to_chat(owner, span_notice("You begin to stalk [span_name("[target]")], following [target.p_their()] every move from behind your cloak."))
 	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
-	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
+	RegisterSignal(target, COMSIG_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
 	on_stalked_moved(target)
-	deadchat_broadcast("<span class='ghostalert'><span class='name'>[owner.real_name]</span> has begun to stalk <span class='name'>[target.real_name]</span>!</span>", follow_target = owner, turf_target = get_turf(owner))
+	deadchat_broadcast(span_ghostalert("[span_name("[owner.real_name]")] has begun to stalk [span_name("[target.real_name]")]!"), follow_target = owner, turf_target = get_turf(owner))
 	COOLDOWN_START(src, stalk_cooldown, 15 SECONDS)
 	if(target.has_holoparasites() && prob(80))
-		to_chat(target, "<span class='holoparasite italics'>You feel a strange yet familiar feeling, as if [COLOR_TEXT(owner.accent_color, "something")] was watching you...</span>")
+		to_chat(target, span_holoparasiteitalics("You feel a strange yet familiar feeling, as if [COLOR_TEXT(owner.accent_color, "something")] was watching you..."))
 		stalkee_was_notified = TRUE
 
 /**
@@ -367,13 +367,13 @@
 	if(!stalking)
 		return
 	if(!silent)
-		to_chat(owner, "<span class='notice'>You stop stalking <span class='name'>[stalking]</span>.</span>")
+		to_chat(owner, span_notice("You stop stalking [span_name("[stalking]")]."))
 	if(stalkee_was_notified)
-		to_chat(stalking, "<span class='holoparasite italics'>You feel relief as the strange feeling of being watched fades away...</span>")
+		to_chat(stalking, span_holoparasiteitalics("You feel relief as the strange feeling of being watched fades away..."))
 	var/out_and_about = scouting && owner.is_manifested()
 	owner.incorporeal_move = out_and_about ? INCORPOREAL_MOVE_BASIC : FALSE
 	owner.set_anchored(out_and_about)
-	UnregisterSignal(stalking, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_PARENT_PREQDELETED))
+	UnregisterSignal(stalking, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_PREQDELETED))
 	stalking = null
 	stalkee_was_notified = FALSE
 	owner.pixel_x = initial(owner.pixel_x)
@@ -433,7 +433,7 @@
  */
 /obj/effect/abstract/scout_monitor_holder
 	name = "holoparasite team monitor holder"
-	desc = "<span class='danger'>You <b>REALLY</b> shouldn't be seeing this! Go tell <b>@absolucy</b> how you even managed to accomplish that!</span>"
+	desc = span_danger("You <b>REALLY</b> shouldn't be seeing this! Go tell <b>@absolucy</b> how you even managed to accomplish that!")
 
 /atom/movable/screen/holoparasite/toggle_scout
 	name = "Enter Scout"
@@ -447,7 +447,9 @@
 	var/static/exit_icon = "cancel"
 	var/datum/holoparasite_ability/major/scout/ability
 
-/atom/movable/screen/holoparasite/toggle_scout/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/scout/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/toggle_scout)
+
+/atom/movable/screen/holoparasite/toggle_scout/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/scout/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make scout holoparasite HUD without proper reference to scout ability")
@@ -467,7 +469,7 @@
 
 /atom/movable/screen/holoparasite/toggle_scout/use()
 	if(owner.is_manifested())
-		to_chat(owner, "<span class='warning'>You can only toggle scouting or cloaking while recalled!</span>")
+		to_chat(owner, span_warning("You can only toggle scouting or cloaking while recalled!"))
 		return
 	if(ability.scouting)
 		if(HUD_CLOAK_ELIGIBLE)

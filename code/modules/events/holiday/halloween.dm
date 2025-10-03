@@ -13,7 +13,7 @@
 		if(b)
 			new /obj/item/storage/spooky(b)
 
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_living_list)
+	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
 		Ian.place_on_head(new /obj/item/bedsheet(Ian))
 	for(var/mob/living/simple_animal/parrot/Poly/Poly in GLOB.mob_living_list)
 		new /mob/living/simple_animal/parrot/Poly/ghost(Poly.loc)
@@ -28,12 +28,14 @@
 	desc = "Spooky! It's got delicious calcium flavouring!"
 	icon = 'icons/obj/halloween_items.dmi'
 	icon_state = "skeletoncookie"
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/cookie/sugar/spookycoffin
 	name = "coffin cookie"
 	desc = "Spooky! It's got delicious coffee flavouring!"
 	icon = 'icons/obj/halloween_items.dmi'
 	icon_state = "coffincookie"
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 //spooky items
 

@@ -7,7 +7,7 @@
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pand0"
-	use_power = TRUE
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	resistance_flags = ACID_PROOF
 	circuit = /obj/item/circuitboard/computer/pandemic
@@ -38,11 +38,22 @@
 			is_close = TRUE
 		else
 			. += "It has a beaker inside it."
-		. += "<span class='info'>Alt-click to eject [is_close ? beaker : "the beaker"].</span>"
+		. += span_info("Alt-click to eject [is_close ? beaker : "the beaker"].")
 
-/obj/machinery/computer/pandemic/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE))
-		eject_beaker()
+/obj/machinery/computer/pandemic/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+	if(!can_interact(user) || !user.canUseTopic(src, !issilicon(user), FALSE, NO_TK))
+		return
+	eject_beaker()
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/machinery/computer/pandemic/attack_robot_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
+
+/obj/machinery/computer/pandemic/attack_ai_secondary(mob/user, list/modifiers)
+	return attack_hand_secondary(user, modifiers)
 
 /obj/machinery/computer/pandemic/handle_atom_del(atom/thingy)
 	if(thingy == beaker)
@@ -210,19 +221,19 @@
 				return
 			var/datum/disease/advance/inserted_disease = get_virus_by_index(text2num(params["index"]))
 			if(!istype(inserted_disease))
-				to_chat(usr, "<span class='warning'>ERROR: Virus not found.</span>")
+				to_chat(usr, span_warning("ERROR: Virus not found."))
 				return
 			var/id = inserted_disease.GetDiseaseID()
 			var/datum/disease/advance/archived_disease = SSdisease.archive_diseases[id]
 			if(!istype(archived_disease) || !archived_disease.mutable)
-				to_chat(usr, "<span class='warning'>ERROR: Cannot replicate virus strain.</span>")
+				to_chat(usr, span_warning("ERROR: Cannot replicate virus strain."))
 				return
 			var/datum/disease/advance/new_disease = inserted_disease.Copy()
 			new_disease.carrier = FALSE
 			new_disease.dormant = FALSE
 			new_disease.Refresh()
 			var/list/data = list("viruses" = list(new_disease))
-			var/obj/item/reagent_containers/glass/bottle/culture_bottle = new(drop_location())
+			var/obj/item/reagent_containers/cup/bottle/culture_bottle = new(drop_location())
 			culture_bottle.name = "[new_disease.name] culture bottle"
 			culture_bottle.desc = "A small bottle. Contains [new_disease.agent] culture in synthblood medium."
 			culture_bottle.reagents.add_reagent(/datum/reagent/blood, 20, data)
@@ -237,7 +248,7 @@
 				return
 			var/id = params["index"]
 			var/datum/disease/disease = SSdisease.archive_diseases[id]
-			var/obj/item/reagent_containers/glass/bottle/vaccine_bottle = new(drop_location())
+			var/obj/item/reagent_containers/cup/bottle/vaccine_bottle = new(drop_location())
 			vaccine_bottle.name = "[disease.name] vaccine bottle"
 			vaccine_bottle.reagents.add_reagent(/datum/reagent/vaccine, 15, list(id))
 			var/turf/source_turf = get_turf(src)
@@ -253,12 +264,12 @@
 		if(CHECK_BITFIELD(machine_stat, (NOPOWER|BROKEN)))
 			return
 		if(!QDELETED(beaker))
-			to_chat(user, "<span class='warning'>A container is already loaded into [src]!</span>")
+			to_chat(user, span_warning("A container is already loaded into [src]!"))
 			return
 		if(!user.transferItemToLoc(item, src))
 			return
 		beaker = item
-		to_chat(user, "<span class='notice'>You insert [item] into [src].</span>")
+		to_chat(user, span_notice("You insert [item] into [src]."))
 		update_icon()
 		ui_update()
 	else
@@ -267,3 +278,6 @@
 /obj/machinery/computer/pandemic/on_deconstruction()
 	eject_beaker()
 	. = ..()
+
+#undef MAIN_SCREEN
+#undef SYMPTOM_DETAILS

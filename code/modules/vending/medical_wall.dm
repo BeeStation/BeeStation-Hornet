@@ -8,21 +8,28 @@
 					/obj/item/stack/medical/gauze = 4,
 					/obj/item/reagent_containers/hypospray/medipen = 3,
 					/obj/item/reagent_containers/hypospray/medipen/dexalin = 3,
-					/obj/item/reagent_containers/glass/bottle/epinephrine = 2,
-					/obj/item/reagent_containers/glass/bottle/charcoal = 2,
+					/obj/item/reagent_containers/cup/bottle/epinephrine = 2,
+					/obj/item/reagent_containers/cup/bottle/charcoal = 2,
 					/obj/item/reagent_containers/medspray/sterilizine = 3)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/toxin = 1,
-	                  /obj/item/reagent_containers/glass/bottle/morphine = 1)
-	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0, BLEED = 0)
+	contraband = list(/obj/item/reagent_containers/cup/bottle/toxin = 1,
+						/obj/item/reagent_containers/cup/bottle/morphine = 1)
+	armor_type = /datum/armor/vending_wallmed
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 	default_price = 25
 	extra_price = 100
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
 	light_mask = "wallmed-light-mask"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
+
+/datum/armor/vending_wallmed
+	melee = 100
+	bullet = 100
+	laser = 100
+	energy = 100
+	fire = 100
+	acid = 50
 
 /obj/item/vending_refill/wallmed
 	machine_name = "NanoMed"

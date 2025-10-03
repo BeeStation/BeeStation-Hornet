@@ -19,18 +19,21 @@
 	categories = list(
 		"Cyborg",
 		"Ripley",
-		"Firefighter",
 		"Odysseus",
+		"Clarke",
 		"Gygax",
 		"Durand",
 		"H.O.N.K",
 		"Phazon",
 		"Exosuit Equipment",
+		"Exosuit Ammunition",
 		"Cyborg Upgrade Modules",
 		"IPC Components",
 		"Cybernetics",
 		"Implants",
 		"Control Interfaces",
+		"MOD Construction",
+		"MOD Modules",
 		"Misc"
 	)
 
@@ -40,7 +43,7 @@
 	if(..())
 		return TRUE
 	if(being_built)
-		to_chat(user, "<span class='warning'>\The [src] is currently processing! Please wait until completion.</span>")
+		to_chat(user, span_warning("\The [src] is currently processing! Please wait until completion."))
 		return FALSE
 	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", I)
 
@@ -48,7 +51,7 @@
 	if(..())
 		return TRUE
 	if(being_built)
-		to_chat(user, "<span class='warning'>\The [src] is currently processing! Please wait until completion.</span>")
+		to_chat(user, span_warning("\The [src] is currently processing! Please wait until completion."))
 		return FALSE
 	return default_deconstruction_crowbar(I)
 

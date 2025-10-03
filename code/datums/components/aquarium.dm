@@ -27,7 +27,7 @@
 		CRASH("Invalid property type provided for aquarium content component")
 	properties.parent = src
 
-	ADD_TRAIT(parent, TRAIT_FISH_CASE_COMPATIBILE, src)
+	ADD_TRAIT(parent, TRAIT_FISH_CASE_COMPATIBILE, REF(src))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(enter_aquarium))
 	//If component is added to something already in aquarium at the time initialize it properly.
 	var/atom/movable/movable_parent = parent
@@ -37,7 +37,7 @@
 
 /datum/component/aquarium_content/PreTransfer()
 	. = ..()
-	REMOVE_TRAIT(parent, TRAIT_FISH_CASE_COMPATIBILE, src)
+	REMOVE_TRAIT(parent, TRAIT_FISH_CASE_COMPATIBILE, REF(src))
 
 /datum/component/aquarium_content/Destroy(force, silent)
 	if(current_aquarium)
@@ -71,7 +71,7 @@
 	RegisterSignal(current_aquarium, COMSIG_ATOM_EXITED, PROC_REF(on_removed))
 	RegisterSignal(current_aquarium, COMSIG_AQUARIUM_SURFACE_CHANGED, PROC_REF(on_surface_changed))
 	RegisterSignal(current_aquarium, COMSIG_AQUARIUM_FLUID_CHANGED,PROC_REF(on_fluid_changed))
-	RegisterSignal(current_aquarium, COMSIG_PARENT_ATTACKBY, PROC_REF(attack_reaction))
+	RegisterSignal(current_aquarium, COMSIG_ATOM_ATTACKBY, PROC_REF(attack_reaction))
 	properties.on_inserted()
 
 	//If we don't have vc object yet build it
@@ -256,7 +256,7 @@
 
 /datum/component/aquarium_content/proc/remove_from_aquarium()
 	properties.before_removal()
-	UnregisterSignal(current_aquarium, list(COMSIG_AQUARIUM_SURFACE_CHANGED, COMSIG_AQUARIUM_FLUID_CHANGED, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXITED))
+	UnregisterSignal(current_aquarium, list(COMSIG_AQUARIUM_SURFACE_CHANGED, COMSIG_AQUARIUM_FLUID_CHANGED, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_EXITED))
 	remove_visual_from_aquarium()
 	current_aquarium = null
 	//We do not stop processing properties here. We want fish to die outside of aquariums after first insert. We only stop processing in properties.death or destroy

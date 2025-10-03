@@ -1,6 +1,13 @@
 import { BooleanLike } from '../../common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 type PaiCardData = {
@@ -26,8 +33,8 @@ type Pai = {
   receive: BooleanLike;
 };
 
-export const PaiCard = (_, context) => {
-  const { data } = useBackend<PaiCardData>(context);
+export const PaiCard = (_) => {
+  const { data } = useBackend<PaiCardData>();
   const { pai } = data;
 
   return (
@@ -38,10 +45,10 @@ export const PaiCard = (_, context) => {
 };
 
 /** Gives a list of candidates as cards */
-const PaiDownload = (_, context) => {
-  const { act, data } = useBackend<PaiCardData>(context);
+const PaiDownload = (_) => {
+  const { act, data } = useBackend<PaiCardData>();
   const { candidates = [] } = data;
-  const [tabInChar, setTabInChar] = useLocalState(context, 'tab', true);
+  const [tabInChar, setTabInChar] = useLocalState('tab', true);
   const onClick = () => {
     setTabInChar(!tabInChar);
   };
@@ -51,18 +58,27 @@ const PaiDownload = (_, context) => {
       buttons={
         <>
           {!!candidates.length && (
-            <Button icon="info" onClick={onClick} tooltip="Toggles between IC and OOC information.">
+            <Button
+              icon="info"
+              onClick={onClick}
+              tooltip="Toggles between IC and OOC information."
+            >
               {tabInChar ? 'IC' : 'OOC'}
             </Button>
           )}
-          <Button icon="bell" onClick={() => act('request')} tooltip="Request candidates.">
+          <Button
+            icon="bell"
+            onClick={() => act('request')}
+            tooltip="Request candidates."
+          >
             Request
           </Button>
         </>
       }
       fill
       scrollable
-      title="pAI Candidates">
+      title="pAI Candidates"
+    >
       {!candidates.length ? (
         <NoticeBox>None found!</NoticeBox>
       ) : (
@@ -70,7 +86,11 @@ const PaiDownload = (_, context) => {
           {candidates.map((candidate, index) => {
             return (
               <Stack.Item key={index}>
-                <CandidateDisplay candidate={candidate} index={index + 1} tabInChar={tabInChar} />
+                <CandidateDisplay
+                  candidate={candidate}
+                  index={index + 1}
+                  tabInChar={tabInChar}
+                />
               </Stack.Item>
             );
           })}
@@ -84,41 +104,49 @@ const PaiDownload = (_, context) => {
  * had to make the comments and descriptions a separate tab.
  * In longer entries, it is much more readable.
  */
-const CandidateDisplay = (props, context) => {
-  const { act } = useBackend<PaiCardData>(context);
+const CandidateDisplay = (props) => {
+  const { act } = useBackend<PaiCardData>();
   const { candidate, index, tabInChar } = props;
   const { comments, description, ckey, name } = candidate;
 
   return (
     <Box
       style={{
-        'background': '#111111',
-        'border': '1px solid #4972a1',
-        'border-radius': '5px',
-        'padding': '1rem',
-      }}>
+        background: '#111111',
+        border: '1px solid #4972a1',
+        borderRadius: '5px',
+        padding: '1rem',
+      }}
+    >
       <Section
         buttons={
-          <Button icon="download" onClick={() => act('download', { ckey })} tooltip="Accepts this pAI candidate.">
+          <Button
+            icon="download"
+            onClick={() => act('download', { ckey })}
+            tooltip="Accepts this pAI candidate."
+          >
             Download
           </Button>
         }
         fill
         height={12}
         scrollable
-        title={'Candidate ' + index}>
+        title={'Candidate ' + index}
+      >
         <Box color="green" fontSize="16px">
           Name: {name || 'Randomized Name'}
         </Box>
-        {tabInChar ? `Description: ${description || 'None'}` : `OOC Comments: ${comments || 'None'}`}
+        {tabInChar
+          ? `Description: ${description || 'None'}`
+          : `OOC Comments: ${comments || 'None'}`}
       </Section>
     </Box>
   );
 };
 
 /** Once a pAI has been loaded, you can alter its settings here */
-const PaiOptions = (_, context) => {
-  const { act, data } = useBackend<PaiCardData>(context);
+const PaiOptions = (_) => {
+  const { act, data } = useBackend<PaiCardData>();
   const { pai } = data;
   const { can_holo, dna, emagged, laws, master, name, transmit, receive } = pai;
 
@@ -135,7 +163,11 @@ const PaiOptions = (_, context) => {
         {!!master && <LabeledList.Item label="DNA">{dna}</LabeledList.Item>}
         <LabeledList.Item label="Laws">{laws}</LabeledList.Item>
         <LabeledList.Item label="Holoform">
-          <Button icon={can_holo ? 'toggle-on' : 'toggle-off'} onClick={() => act('toggle_holo')} selected={can_holo}>
+          <Button
+            icon={can_holo ? 'toggle-on' : 'toggle-off'}
+            onClick={() => act('toggle_holo')}
+            selected={can_holo}
+          >
             Toggle
           </Button>
         </LabeledList.Item>
@@ -143,7 +175,8 @@ const PaiOptions = (_, context) => {
           <Button
             icon={transmit ? 'toggle-on' : 'toggle-off'}
             onClick={() => act('toggle_radio', { option: 'transmit' })}
-            selected={transmit}>
+            selected={transmit}
+          >
             Toggle
           </Button>
         </LabeledList.Item>
@@ -151,7 +184,8 @@ const PaiOptions = (_, context) => {
           <Button
             icon={receive ? 'toggle-on' : 'toggle-off'}
             onClick={() => act('toggle_radio', { option: 'receive' })}
-            selected={receive}>
+            selected={receive}
+          >
             Toggle
           </Button>
         </LabeledList.Item>

@@ -6,18 +6,22 @@
 	damtype = STAMINA
 	w_class = WEIGHT_CLASS_BULKY
 	block_sound = 'sound/weapons/tap.ogg'
-	attack_verb = list("wacked")
+	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
+	attack_verb_simple = list("smash", "slam", "whack", "thwack")
 
 
 /obj/item/pool/Initialize(mapload)
 	. = ..()
 	//Pick a random color
 	add_atom_colour(pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA), FIXED_COLOUR_PRIORITY)
-
-/obj/item/pool/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=0, force_wielded=5, \
-				wieldsound='sound/weapons/tap.ogg', unwieldsound='sound/weapons/tap.ogg', block_power_wielded=20)
+	AddComponent(/datum/component/two_handed, \
+		require_twohands = TRUE, \
+		force_unwielded = 0, \
+		force_wielded = 5, \
+		wieldsound = 'sound/weapons/tap.ogg', \
+		unwieldsound = 'sound/weapons/tap.ogg', \
+		block_power_wielded = 20,\
+	)
 
 /obj/item/pool/rubber_ring
 	name = "inflateable ring"
@@ -36,7 +40,7 @@
 			return
 		//Try shove it in their inventory
 		if(H.put_in_active_hand(src))
-			visible_message("<span class='notice'>The [src] lands over [H]'s head!</span>")
+			visible_message(span_notice("The [src] lands over [H]'s head!"))
 
 /obj/item/pool/pool_noodle
 	icon_state = "pool_noodle"
@@ -58,7 +62,7 @@
 	if(suiciding)
 		return SHAME
 	suiciding = TRUE
-	user.visible_message("<span class='notice'>[user] begins kicking their legs to stay afloat!</span>")
+	user.visible_message(span_notice("[user] begins kicking their legs to stay afloat!"))
 	var/mob/living/L = user
 	if(istype(L))
 		L.Immobilize(63)
@@ -66,14 +70,14 @@
 	sleep(20)
 	animate(user, time=10, pixel_y=12)
 	sleep(10)
-	user.visible_message("<span class='notice'>[user] keeps swimming higher and higher!</span>")
+	user.visible_message(span_notice("[user] keeps swimming higher and higher!"))
 	animate(user, time=10, pixel_y=22)
 	sleep(10)
 	animate(user, time=10, pixel_y=16)
 	sleep(10)
 	animate(user, time=15, pixel_y=32)
 	sleep(15)
-	user.visible_message("<span class='suicide'>[user] suddenly realised they aren't in the water and cannot float.</span>")
+	user.visible_message(span_suicide("[user] suddenly realised they aren't in the water and cannot float."))
 	animate(user, time=1, pixel_y=0)
 	sleep(1)
 	user.ghostize()

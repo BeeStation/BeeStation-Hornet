@@ -13,6 +13,7 @@
 	allow_objects = TRUE
 	allow_dense = TRUE
 	dense_when_open = TRUE
+	mouse_drag_pointer = TRUE
 	delivery_icon = "deliverycrate"
 	door_anim_time = 3
 	door_anim_angle = 120 // how fast the angle should go?
@@ -23,6 +24,9 @@
 	close_sound_volume = 50
 	drag_slowdown = 0
 	imacrate = TRUE
+	breakout_time = 20 SECONDS
+	var/mob/living/resident //The vampire owner of this crate (or coffin)
+	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
 	var/radius_2 = 1.35
@@ -50,7 +54,7 @@
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
 
-/obj/structure/closet/crate/animate_door(var/closing = FALSE)
+/obj/structure/closet/crate/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -99,12 +103,28 @@
 		new_animation_math_sublist[num_steps_1 + I] = cos(azimuth_angle) * sin(polar_angle) * radius_cr
 	animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"] = new_animation_math_sublist
 
-/obj/structure/closet/crate/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
+/obj/structure/closet/crate/attack_hand(mob/user, list/modifiers)
+	if(istype(src.loc, /obj/structure/crate_shelf))
+		return FALSE // No opening crates in shelves!!
 	if(manifest)
 		tear_manifest(user)
+	return ..()
+
+/obj/structure/closet/crate/MouseDrop(atom/drop_atom, src_location, over_location)
+	. = ..()
+	var/mob/living/user = usr
+	if(!isliving(user))
+		return // Ghosts busted.
+	if(!isturf(user.loc) || user.incapacitated() || !(user.mobility_flags & MOBILITY_STAND))
+		return // If the user is in a weird state, don't bother trying.
+	if(get_dist(user, src) != 1 || get_dist(drop_atom, user) != 1)
+		return // Check whether the user is next to the shelf and if the crate is next to the user.
+	if(istype(drop_atom, /turf/open) && istype(loc, /obj/structure/crate_shelf) && user.Adjacent(drop_atom))
+		var/obj/structure/crate_shelf/shelf = loc
+		return shelf.unload(src, user, drop_atom) // If we're being dropped onto a turf, and we're inside of a crate shelf, unload.
+	if(istype(drop_atom, /obj/structure/crate_shelf) && isturf(loc) && user.Adjacent(src))
+		var/obj/structure/crate_shelf/shelf = drop_atom
+		return shelf.try_load(src, user) // If we're being dropped onto a crate shelf, and we're in a turf, load.
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
@@ -120,14 +140,14 @@
 /obj/structure/closet/crate/open(mob/living/user)
 	. = ..()
 	if(. && manifest)
-		to_chat(user, "<span class='notice'>The manifest is torn off [src].</span>")
+		to_chat(user, span_notice("The manifest is torn off [src]."))
 		playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(get_turf(src))
 		manifest = null
 		update_appearance()
 
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
-	to_chat(user, "<span class='notice'>You tear the manifest off of [src].</span>")
+	to_chat(user, span_notice("You tear the manifest off of [src]."))
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
 
 	manifest.forceMove(loc)
@@ -135,23 +155,6 @@
 		user.put_in_hands(manifest)
 	manifest = null
 	update_icon()
-
-/obj/structure/closet/crate/coffin
-	name = "coffin"
-	desc = "It's a burial receptacle for the dearly departed."
-	icon_state = "coffin"
-	resistance_flags = FLAMMABLE
-	max_integrity = 70
-	material_drop = /obj/item/stack/sheet/wood
-	material_drop_amount = 5
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
-	open_sound_volume = 25
-	close_sound_volume = 50
-	door_anim_angle = 140
-	azimuth_angle_2 = 180
-	door_anim_time = 5
-	door_hinge = 5
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
@@ -218,14 +221,14 @@
 
 /obj/structure/closet/crate/freezer/surplus_limbs/PopulateContents()
 	. = ..()
-	new /obj/item/bodypart/l_arm/robot/surplus(src)
-	new /obj/item/bodypart/l_arm/robot/surplus(src)
-	new /obj/item/bodypart/r_arm/robot/surplus(src)
-	new /obj/item/bodypart/r_arm/robot/surplus(src)
-	new /obj/item/bodypart/l_leg/robot/surplus(src)
-	new /obj/item/bodypart/l_leg/robot/surplus(src)
-	new /obj/item/bodypart/r_leg/robot/surplus(src)
-	new /obj/item/bodypart/r_leg/robot/surplus(src)
+	new /obj/item/bodypart/arm/left/robot/surplus(src)
+	new /obj/item/bodypart/arm/left/robot/surplus(src)
+	new /obj/item/bodypart/arm/right/robot/surplus(src)
+	new /obj/item/bodypart/arm/right/robot/surplus(src)
+	new /obj/item/bodypart/leg/left/robot/surplus(src)
+	new /obj/item/bodypart/leg/left/robot/surplus(src)
+	new /obj/item/bodypart/leg/right/robot/surplus(src)
+	new /obj/item/bodypart/leg/right/robot/surplus(src)
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
@@ -260,6 +263,22 @@
 	name = "science crate"
 	desc = "A science crate."
 	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/science/debug
+	name = "science crate"
+	desc = "debug cyborg modules."
+	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug/PopulateContents()
+	..()
+	new /obj/item/robot_model/standard(src)
+	new /obj/item/robot_model/peacekeeper(src)
+	new /obj/item/robot_model/miner(src)
+	new /obj/item/robot_model/medical(src)
+	new /obj/item/robot_model/janitor(src)
+	new /obj/item/robot_model/engineering(src)
+	new /obj/item/robot_model/clown(src)
+	new /obj/item/robot_model/service(src)
 
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"
@@ -329,7 +348,7 @@
 		return ..()
 
 /obj/structure/closet/crate/capsule/proc/compress()
-	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
+	visible_message(span_notice("[src] compresses back into a small capsule!."))
 	var/obj/item/bluespace_capsule/C = new(loc)
 	for(var/atom/movable/A in contents)
 		A.forceMove(C)

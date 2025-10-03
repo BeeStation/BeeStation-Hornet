@@ -22,3 +22,8 @@ deaglelock and deagleslidedrop are the parts of the sound by snapsound from free
 leveractionrack and leveractionshot are the parts of the sound by lensflare8642 cut out and used https://freesound.org/people/snapssound/sounds/528112/
 
 heavyminigunstart (cut and prolonged), heavyminigunshoot (cut) and heavyminigunstop (cut) are the parts of the sound by Hybrid_V under CC BY-NC 3.0 license. https://freesound.org/people/Hybrid_V/sounds/320742/
+
+throw.ogg, throwhard.ogg and throwsoft.ogg (Royalty-Free and Copyright-Free) are adapted from Jam FX, SmartSound FX and Epic Stock Media in :
+https://uppbeat.io/sfx/whoosh-swift-cut/7727/23617
+https://uppbeat.io/sfx/whoosh-air-punch/114/1168
+https://uppbeat.io/sfx/throwing-item-swing/9430/25267

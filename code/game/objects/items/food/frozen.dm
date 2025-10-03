@@ -11,6 +11,7 @@
 	tastes = list("ice cream" = 1)
 	foodtypes = GRAIN | DAIRY | SUGAR
 	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/strawberryicecreamsandwich
 	name = "strawberry ice cream sandwich"
@@ -25,6 +26,7 @@
 	tastes = list("ice cream" = 2, "berry" = 2)
 	foodtypes = FRUIT | DAIRY | SUGAR
 	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 
 /obj/item/food/spacefreezy
@@ -40,6 +42,7 @@
 	)
 	tastes = list("blue cherries" = 2, "ice cream" = 2)
 	foodtypes = FRUIT | DAIRY | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/sundae
 	name = "sundae"
@@ -54,6 +57,7 @@
 	)
 	tastes = list("ice cream" = 1, "banana" = 1)
 	foodtypes = FRUIT | DAIRY | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/honkdae
 	name = "honkdae"
@@ -68,6 +72,7 @@
 	)
 	tastes = list("ice cream" = 1, "banana" = 1, "a bad joke" = 1)
 	foodtypes = FRUIT | DAIRY | SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_4
 
 /////////////
 //SNOWCONES//
@@ -79,13 +84,14 @@
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "flavorless_sc"
 	w_class = WEIGHT_CLASS_SMALL
-	trash_type = /obj/item/reagent_containers/food/drinks/sillycup //We dont eat paper cups
+	trash_type = /obj/item/reagent_containers/cup/glass/sillycup //We dont eat paper cups
 	food_reagents = list(
 		/datum/reagent/water = 11 // We dont get food for water/juices
 	)
 	tastes = list("ice" = 1, "water" = 1)
 	foodtypes = SUGAR //We use SUGAR as a base line to act in as junkfood, other wise we use fruit
 	food_flags = FOOD_FINGER_FOOD
+	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/snowcones/lime
 	name = "lime snowcone"
@@ -280,6 +286,7 @@
 	)
 	tastes = list("ice" = 1, "water" = 1, "flowers" = 5, "sweetness" = 5, "wax" = 1)
 	foodtypes = SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_3
 
 /obj/item/food/snowcones/rainbow
 	name = "rainbow snowcone"
@@ -292,3 +299,4 @@
 	)
 	tastes = list("ice" = 1, "water" = 1, "sunlight" = 5, "light" = 5, "slime" = 5, "paint" = 3, "clouds" = 3)
 	foodtypes = SUGAR
+	crafting_complexity = FOOD_COMPLEXITY_3

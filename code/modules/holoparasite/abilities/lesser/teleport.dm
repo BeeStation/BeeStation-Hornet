@@ -55,11 +55,11 @@
 	..()
 	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
 	RegisterSignal(owner, COMSIG_HOLOPARA_STAT, PROC_REF(on_stat))
-	RegisterSignal(owner, COMSIG_HOSTILE_ATTACKINGTARGET, PROC_REF(on_attack))
+	RegisterSignal(owner, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(on_attack))
 
 /datum/holoparasite_ability/lesser/teleport/unregister_signals()
 	..()
-	UnregisterSignal(owner, list(COMSIG_HOLOPARA_SETUP_HUD, COMSIG_HOLOPARA_STAT, COMSIG_HOSTILE_ATTACKINGTARGET))
+	UnregisterSignal(owner, list(COMSIG_HOLOPARA_SETUP_HUD, COMSIG_HOLOPARA_STAT, COMSIG_HOSTILE_PRE_ATTACKINGTARGET))
 
 /datum/holoparasite_ability/lesser/teleport/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
@@ -88,22 +88,22 @@
 	if(!warp_mode || !istype(target))
 		return
 	if(!owner.is_manifested())
-		to_chat(owner, "<span class='danger bold'>You must be manifested to warp a target!</span>")
+		to_chat(owner, span_dangerbold("You must be manifested to warp a target!"))
 		return
 	if(warping)
-		to_chat(owner, "<span class='danger bold'>You are already in the process of warping something!</span>")
+		to_chat(owner, span_dangerbold("You are already in the process of warping something!"))
 		return
 	if(!COOLDOWN_FINISHED(src, warp_cooldown))
-		to_chat(owner, "<span class='danger bold'>You must wait [COOLDOWN_TIMELEFT_TEXT(src, warp_cooldown)] before you can warp something else!</span>")
+		to_chat(owner, span_dangerbold("You must wait [COOLDOWN_TIMELEFT_TEXT(src, warp_cooldown)] before you can warp something else!"))
 		return
 	if(!istype(beacon))
-		to_chat(owner, "<span class='danger bold'>You need a beacon placed to warp things!</span>")
+		to_chat(owner, span_dangerbold("You need a beacon placed to warp things!"))
 		return
 	if(!owner.Adjacent(target))
-		to_chat(owner, "<span class='danger bold'>You must be adjacent to the thing you wish to warp!</span>")
+		to_chat(owner, span_dangerbold("You must be adjacent to the thing you wish to warp!"))
 		return
 	if(target.anchored)
-		to_chat(owner, "<span class='danger bold'>You cannot warp something that is anchored to the ground!</span>")
+		to_chat(owner, span_dangerbold("You cannot warp something that is anchored to the ground!"))
 		return
 	// We invoke async here so we don't call do_after in a signal handler
 	try_warp(target, beacon)
@@ -129,17 +129,17 @@
 	var/turf/beacon_turf = get_turf(beacon)
 	// If our range isn't maxed out, then ensure that the beacon is on the same virtual Z-level as the target.
 	if(!cross_z_warping && beacon_turf.get_virtual_z_level() != target_turf.get_virtual_z_level())
-		to_chat(owner, "<span class='danger bold'>The beacon is too far away to warp to!</span>")
+		to_chat(owner, span_dangerbold("The beacon is too far away to warp to!"))
 		return
 
-	to_chat(owner, "<span class='danger bold'>You begin to warp [target]...</span>")
-	target.visible_message("<span class='danger'>[target] starts to [COLOR_TEXT(owner.accent_color, "glow faintly")]!</span>", \
-		"<span class='userdanger'>You start to [COLOR_TEXT(owner.accent_color, "faintly glow")], and you feel strangely weightless!</span>")
+	to_chat(owner, span_dangerbold("You begin to warp [target]..."))
+	target.visible_message(span_danger("[target] starts to [COLOR_TEXT(owner.accent_color, "glow faintly")]!"), \
+		span_userdanger("You start to [COLOR_TEXT(owner.accent_color, "faintly glow")], and you feel strangely weightless!"))
 
 	owner.do_attack_animation(target)
 	owner.balloon_alert(owner, "attempting to warp", show_in_chat = FALSE)
 	if(!do_after(owner, 6 SECONDS, target, extra_checks = CALLBACK(src, PROC_REF(extra_do_after_checks), beacon)))
-		to_chat(owner, "<span class='danger bold'>The warping process was interrupted, both you and your target must stay still!</span>")
+		to_chat(owner, span_dangerbold("The warping process was interrupted, both you and your target must stay still!"))
 		return
 	owner.balloon_alert(owner, "warped successfully", show_in_chat = FALSE)
 	SSblackbox.record_feedback("tally", "holoparasite_warped", 1, "[target.type]")
@@ -189,27 +189,27 @@
 /datum/holoparasite_ability/lesser/teleport/proc/place_beacon()
 	. = TRUE
 	if(!COOLDOWN_FINISHED(src, deploy_cooldown))
-		to_chat(owner, "<span class='warning'>You must wait <b>[COOLDOWN_TIMELEFT_TEXT(src, deploy_cooldown)]</b> before you can place another beacon!</span>")
+		to_chat(owner, span_warning("You must wait <b>[COOLDOWN_TIMELEFT_TEXT(src, deploy_cooldown)]</b> before you can place another beacon!"))
 		return FALSE
 	if(!owner.is_manifested())
-		to_chat(owner, "<span class='warning'>You must be manifested to place a beacon!</span>")
+		to_chat(owner, span_warning("You must be manifested to place a beacon!"))
 		return FALSE
 	var/turf/target_turf = get_turf(owner)
 	var/area/target_area = get_area(owner)
 	if(!target_turf || !target_area || !isanyfloor(target_turf))
-		to_chat(owner, "<span class='warning'>You cannot place a beacon here!</span>")
+		to_chat(owner, span_warning("You cannot place a beacon here!"))
 		owner.balloon_alert(owner, "cannot place beacon", show_in_chat = FALSE)
 		return FALSE
 	if(istype(target_area, /area/shuttle/supply) || is_centcom_level(target_turf.z) || is_away_level(target_turf.z) || target_area.teleport_restriction != TELEPORT_ALLOW_ALL)
-		to_chat(owner, "<span class='warning'>Something is interfering with your ability to place a beacon here! Try placing one somewhere else!</span>")
+		to_chat(owner, span_warning("Something is interfering with your ability to place a beacon here! Try placing one somewhere else!"))
 		owner.balloon_alert(owner, "cannot place beacon", show_in_chat = FALSE)
 		return FALSE
-	owner.visible_message("<span class='holoparasite'>[owner.color_name] begins to deploy a glowing beacon...</span>", "<span class='holoparasite'>You begin to deploy a bluespace beacon below you...</span>")
+	owner.visible_message(span_holoparasite("[owner.color_name] begins to deploy a glowing beacon..."), span_holoparasite("You begin to deploy a bluespace beacon below you..."))
 	if(!do_after(owner, 5 SECONDS, target_turf))
-		to_chat(owner, "<span class='warning'>You must stay still in order to place a beacon!</span>")
+		to_chat(owner, span_warning("You must stay still in order to place a beacon!"))
 		owner.balloon_alert(owner, "failed to place beacon", show_in_chat = FALSE)
 		return FALSE
-	owner.visible_message("<span class='holoparasite'>[owner.color_name] deploys a glowing beacon below [owner.p_them()]self!</span>", "<span class='holoparasite'>You successfully deploy a bluespace beacon!</span>")
+	owner.visible_message(span_holoparasite("[owner.color_name] deploys a glowing beacon below [owner.p_them()]self!"), span_holoparasite("You successfully deploy a bluespace beacon!"))
 	if(!QDELETED(beacon))
 		QDEL_NULL(beacon)
 	beacon = new(target_turf, src)
@@ -219,7 +219,7 @@
 	deploy_hud.begin_timer(HOLOPARA_TELEPORT_DEPLOY_COOLDOWN)
 	var/datum/space_level/target_z_level = SSmapping.get_level(target_turf.z)
 	SSblackbox.record_feedback("associative", "holoparasite_beacons", 1, list(
-		"map" = SSmapping.config.map_name,
+		"map" = SSmapping.current_map.map_name,
 		"area" = "[target_area.name]",
 		"x" = target_turf.x,
 		"y" = target_turf.y,
@@ -230,7 +230,9 @@
 /atom/movable/screen/holoparasite/teleport
 	var/datum/holoparasite_ability/lesser/teleport/ability
 
-/atom/movable/screen/holoparasite/teleport/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/teleport/_ability)
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/holoparasite/teleport)
+
+/atom/movable/screen/holoparasite/teleport/Initialize(mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/lesser/teleport/_ability)
 	. = ..()
 	if(!istype(_ability))
 		CRASH("Tried to make telepad holoparasite HUD without proper reference to telepad ability")
@@ -267,7 +269,7 @@
 	if(ability.warping)
 		return
 	ability.warp_mode = !ability.warp_mode
-	to_chat(owner, "<span class='notice holoparasite'>You [ability.warp_mode ? "enable" : "disable"] warping.</span>")
+	to_chat(owner, span_noticeholoparasite("You [ability.warp_mode ? "enable" : "disable"] warping."))
 	update_appearance()
 
 /atom/movable/screen/holoparasite/teleport/warp/in_use()
@@ -305,6 +307,8 @@
 	/// The holoparasite ability that created this beacon.
 	var/datum/holoparasite_ability/lesser/teleport/ability
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/receiving_pad)
+
 /obj/structure/receiving_pad/Initialize(mapload, datum/holoparasite_ability/lesser/teleport/_ability)
 	. = ..()
 	if(!istype(_ability))
@@ -323,7 +327,7 @@
 	return ..()
 
 /obj/structure/receiving_pad/proc/disappear()
-	visible_message("<span class='warning'>[src] vanishes!</span>")
+	visible_message(span_warning("[src] vanishes!"))
 	qdel(src)
 
 /obj/effect/holopara_bluespace_tear
@@ -332,6 +336,8 @@
 	alpha = 0
 	var/turf/destination
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/holopara_bluespace_tear)
+
 /obj/effect/holopara_bluespace_tear/Initialize(mapload, turf/_destination)
 	. = ..()
 	if(istype(_destination))
@@ -339,18 +345,18 @@
 
 /obj/effect/holopara_bluespace_tear/attack_hand(mob/living/carbon/user)
 	if(!istype(user) || !user.has_trauma_type(/datum/brain_trauma/special/bluespace_prophet))
-		to_chat(user, "<span class='warning'>You peer into the \the [src], quickly realizing that you have absolutely no clue whatsoever how to navigate through it...</span>")
+		to_chat(user, span_warning("You peer into the \the [src], quickly realizing that you have absolutely no clue whatsoever how to navigate through it..."))
 		return
 	if(!istype(destination) || QDELETED(destination))
-		to_chat(user, "<span class='warning'>There doesn't seem to be anything on the other side of \the [src]...</span>")
+		to_chat(user, span_warning("There doesn't seem to be anything on the other side of \the [src]..."))
 		return
-	user.visible_message("<span class='notice'><span class='name'>[user]</span> begins to effortlessly climb into \the [src], navigating through the tear with unnatural familarity!</span>", \
-		"<span class='notice'>You begin to crawl into \the [src], fully understanding the complex path through bluespace, despite it being incomprehensible to most...</span>")
+	user.visible_message(span_notice("[span_name("[user]")] begins to effortlessly climb into \the [src], navigating through the tear with unnatural familarity!"), \
+		span_notice("You begin to crawl into \the [src], fully understanding the complex path through bluespace, despite it being incomprehensible to most..."))
 	if(!do_after(user, 1.5 SECONDS, src, extra_checks = CALLBACK(src, PROC_REF(_bluespace_tear_crawl_check), user)))
-		user.visible_message("<span class='warning'><span class='name'>[user]</span> backs out of \the [src]!</span>", "<span class='warning'>You were interrupted while trying to navigate \the [src]!</span>")
+		user.visible_message(span_warning("[span_name("[user]")] backs out of \the [src]!"), span_warning("You were interrupted while trying to navigate \the [src]!"))
 		return
-	user.visible_message("<span class='warning'><span class='name'>[user]</span> fully crawls into \the [src], disappearing from view!</span>", \
-		"<span class='notice'>You crawl into \the [src], effortlessly navigating through the bluespace tunnels, and come out on the other side...</span>")
+	user.visible_message(span_warning("[span_name("[user]")] fully crawls into \the [src], disappearing from view!"), \
+		span_notice("You crawl into \the [src], effortlessly navigating through the bluespace tunnels, and come out on the other side..."))
 	playsound(user, 'sound/magic/wand_teleport.ogg', vol = 75, vary = TRUE)
 	do_teleport(user, destination, precision = 0, channel = TELEPORT_CHANNEL_QUANTUM)
 

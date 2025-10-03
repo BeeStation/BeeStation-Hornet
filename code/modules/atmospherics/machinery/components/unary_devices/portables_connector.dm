@@ -13,15 +13,22 @@
 
 	pipe_flags = PIPING_ONE_PER_TURF
 	pipe_state = "connector"
+	custom_reconcilation = TRUE
 
+	///Reference to the connected device
 	var/obj/machinery/portable_atmospherics/connected_device
 
-	var/obj/machinery/atmospherics/components/unary/portables_connector/connect_to
-
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
-	..()
+	. = ..()
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.set_volume(0)
+	air_contents.volume = 0
+	if(connected_device)
+		var/datum/pipenet/parent = parents[1]
+		if(parent)
+			airs[1] = connected_device.air_contents
+			parent.reconcile_air()
+		else
+			CRASH("Portable canister without parent pipenet at [COORD(src)]")
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)
@@ -29,9 +36,10 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/portables_connector/update_icon_nopipes()
+	cut_overlays()
 	icon_state = "connector"
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "connector_cap", initialize_directions)
+		var/image/cap = get_pipe_image(icon, "connector_cap", initialize_directions, pipe_color)
 		add_overlay(cap)
 
 /obj/machinery/atmospherics/components/unary/portables_connector/process_atmos()
@@ -39,25 +47,17 @@
 		return
 	update_parents()
 
+/obj/machinery/atmospherics/components/unary/portables_connector/return_airs_for_reconcilation(datum/pipenet/requester)
+	. = ..()
+	if(!connected_device)
+		return
+	. += connected_device.return_air()
+
 /obj/machinery/atmospherics/components/unary/portables_connector/can_unwrench(mob/user)
 	. = ..()
 	if(. && connected_device)
-		to_chat(user, "<span class='warning'>You cannot unwrench [src], detach [connected_device] first!</span>")
+		to_chat(user, span_warning("You cannot unwrench [src], detach [connected_device] first!"))
 		return FALSE
-
-/obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
-	return connected_device.portableConnectorReturnAir()
-
-/obj/machinery/atmospherics/components/unary/portables_connector/build_network()
-	. = ..()
-	if(connect_to)
-		var/obj/machinery/portable_atmospherics/PA = connect_to
-		if(PA)
-			PA.connect(src)
-
-/obj/proc/portableConnectorReturnAir()
-	return
-
 
 /obj/machinery/atmospherics/components/unary/portables_connector/layer2
 	piping_layer = 2

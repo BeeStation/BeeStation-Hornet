@@ -2,13 +2,14 @@
 /obj/item/organ/cyberimp
 	name = "cybernetic implant"
 	desc = "A state-of-the-art implant that improves a baseline's functionality."
+	visual = FALSE
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
 	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
-/obj/item/organ/cyberimp/New(var/mob/M = null)
+/obj/item/organ/cyberimp/New(mob/M = null)
 	if(iscarbon(M))
 		src.Insert(M)
 	if(implant_overlay)
@@ -33,9 +34,11 @@
 	. = ..()
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
-	var/stun_amount = 200/severity
-	owner.Stun(stun_amount)
-	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	if(prob(30/severity))
+		owner.drop_all_held_items()
+		owner.Knockdown((6 SECONDS)/severity)
+		owner.Jitter((4 SECONDS)/severity)
+		to_chat(owner, span_warning("Your body seizes up!"))
 
 
 /obj/item/organ/cyberimp/brain/anti_drop
@@ -55,32 +58,22 @@
 
 		var/list/hold_list = owner.get_empty_held_indexes()
 		if(LAZYLEN(hold_list) == owner.held_items.len)
-			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
-			active = 0
+			to_chat(owner, span_notice("You are not holding any items, your hands relax..."))
+			active = FALSE
 			stored_items = list()
 		else
 			for(var/obj/item/I in stored_items)
-				to_chat(owner, "<span class='notice'>Your [owner.get_held_index_name(owner.get_held_index_of_item(I))]'s grip tightens.</span>")
+				to_chat(owner, span_notice("Your [owner.get_held_index_name(owner.get_held_index_of_item(I))]'s grip tightens."))
 				ADD_TRAIT(I, TRAIT_NODROP, ANTI_DROP_IMPLANT_TRAIT)
 	else
 		release_items()
-		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
+		to_chat(owner, span_notice("Your hands relax..."))
 
 
 /obj/item/organ/cyberimp/brain/anti_drop/emp_act(severity)
-	. = ..()
-	if(!owner || . & EMP_PROTECT_SELF)
-		return
-	var/range = severity ? 10 : 5
-	var/atom/A
 	if(active)
 		release_items()
-	for(var/obj/item/I in stored_items)
-		A = pick(oview(range))
-		I.throw_at(A, range, 2)
-		to_chat(owner, "<span class='warning'>Your [owner.get_held_index_name(owner.get_held_index_of_item(I))] spasms and throws the [I.name]!</span>")
-	stored_items = list()
-
+	..()
 
 /obj/item/organ/cyberimp/brain/anti_drop/proc/release_items()
 	for(var/obj/item/I in stored_items)
@@ -88,7 +81,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(active)
 		ui_action_click()
 	..()
@@ -108,13 +101,13 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_stun/on_remove(mob/living/carbon/implant_owner)
 	. = ..()
-	UnregisterSignal(M, signalCache)
+	UnregisterSignal(implant_owner, signalCache)
 
-/obj/item/organ/cyberimp/brain/anti_stun/Insert()
+/obj/item/organ/cyberimp/brain/anti_stun/on_insert(mob/living/carbon/receiver)
 	. = ..()
-	RegisterSignals(owner, signalCache, PROC_REF(on_signal))
+	RegisterSignals(receiver, signalCache, PROC_REF(on_signal))
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
 	SIGNAL_HANDLER
@@ -129,16 +122,6 @@
 		owner.SetImmobilized(0)
 		owner.SetParalyzed(0)
 
-/obj/item/organ/cyberimp/brain/anti_stun/emp_act(severity)
-	. = ..()
-	if((organ_flags & ORGAN_FAILING) || . & EMP_PROTECT_SELF)
-		return
-	organ_flags |= ORGAN_FAILING
-	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
-
-/obj/item/organ/cyberimp/brain/anti_stun/proc/reboot()
-	organ_flags &= ~ORGAN_FAILING
-
 /obj/item/organ/cyberimp/brain/anti_stun/syndicate
 	syndicate_implant = TRUE
 
@@ -151,7 +134,7 @@
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
+/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize(mapload)
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech
@@ -184,33 +167,33 @@
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/nuclear))
 			// funny joke message
-			to_chat(owner, "<span class='warning'>Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!</span>")
+			to_chat(owner, span_warning("Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!"))
 			continue
 		else
 			continue
 		var/hand_name = owner.get_held_index_name(owner.get_held_index_of_item(held_item))
 		if(!new_surgeries)
-			to_chat(owner, "<span class='notice'>No new surgical programs detected on \the [held_item] in your [hand_name].</span>")
+			to_chat(owner, span_notice("No new surgical programs detected on \the [held_item] in your [hand_name]."))
 			continue
-		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded...</span>")
+		to_chat(owner, span_notice("<b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded..."))
 		if(!do_after(owner, 5 SECONDS, held_item))
-			to_chat(owner, "<span class='warning'>Surgical program transfer interrupted!</span>")
+			to_chat(owner, span_warning("Surgical program transfer interrupted!"))
 			return
-		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s were transferred from \the [held_item] in your [hand_name] to \the [src]!</span>")
+		to_chat(owner, span_notice("<b>[new_surgeries]</b> new surgical program\s were transferred from \the [held_item] in your [hand_name] to \the [src]!"))
 		advanced_surgeries |= surgeries_to_add
 
 /datum/action/item_action/update_linkedsurgery
 	name = "Update Surgical Implant"
 
-/datum/action/item_action/update_linkedsurgery/Trigger()
+/datum/action/item_action/update_linkedsurgery/on_activate(mob/user, atom/target)
 	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
 		var/old_surgeries_amount = length(I.advanced_surgeries)
 		I.update_surgery()
 		if(length(I.advanced_surgeries) > old_surgeries_amount)
-			to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
+			to_chat(usr, span_notice("Surgical Implant updated."))
 		else
-			to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
+			to_chat(usr, span_notice("None of new surgical programs detected."))
 	return ..()
 
 //[[[[MOUTH]]]]
@@ -229,7 +212,7 @@
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
 	if(prob(60/severity))
-		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
+		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
 		owner.losebreath += 2
 
 //BOX O' IMPLANTS

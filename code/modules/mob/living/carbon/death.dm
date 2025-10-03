@@ -14,14 +14,11 @@
 		var/datum/brain_trauma/BT = T
 		BT.on_death()
 
-	if(SSticker.mode)
-		SSticker.mode.check_win() //Calls the rounds wincheck, mainly for wizard, malf, and changeling now
-
 /mob/living/carbon/gib(no_brain, no_organs, no_bodyparts)
 	var/atom/Tsec = drop_location()
 	for(var/mob/M in src)
 		M.forceMove(Tsec)
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		visible_message(span_danger("[M] bursts out of [src]!"))
 	..()
 
 /mob/living/carbon/spill_organs(no_brain, no_organs, no_bodyparts)

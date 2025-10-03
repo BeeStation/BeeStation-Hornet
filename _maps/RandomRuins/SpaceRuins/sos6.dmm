@@ -14,7 +14,7 @@
 	dir = 4
 	},
 /obj/effect/mob_spawn/human/corpse/russian,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "e" = (
@@ -65,7 +65,7 @@
 /area/ruin/unpowered)
 "m" = (
 /obj/machinery/door/airlock/vault{
-	name = "secured door";
+	name = "secured Door";
 	req_access = 207
 	},
 /obj/structure/fans/tiny,

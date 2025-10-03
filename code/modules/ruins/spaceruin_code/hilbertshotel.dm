@@ -34,10 +34,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/hilbertshotel/attack(mob/living/M, mob/living/user)
 	if(M.mind)
-		to_chat(user, "<span class='notice'>You invite [M] to the hotel.</span>")
+		to_chat(user, span_notice("You invite [M] to the hotel."))
 		promptAndCheckIn(M)
 	else
-		to_chat(user, "<span class='warning'>[M] is not intelligent enough to understand how to use this device!</span>")
+		to_chat(user, span_warning("[M] is not intelligent enough to understand how to use this device!"))
 
 /obj/item/hilbertshotel/attack_self(mob/user)
 	. = ..()
@@ -48,10 +48,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(!chosenRoomNumber)
 		return
 	if(chosenRoomNumber > SHORT_REAL_LIMIT)
-		to_chat(user, "<span class='warning'>You have to check out the first [SHORT_REAL_LIMIT] rooms before you can go to a higher numbered one!</span>")
+		to_chat(user, span_warning("You have to check out the first [SHORT_REAL_LIMIT] rooms before you can go to a higher numbered one!"))
 		return
 	if((chosenRoomNumber < 1) || (chosenRoomNumber != round(chosenRoomNumber)))
-		to_chat(user, "<span class='warning'>That is not a valid room number!</span>")
+		to_chat(user, span_warning("That is not a valid room number!"))
 		return
 	if(ismob(loc))
 		if(user == loc) //Not always the same as user
@@ -71,7 +71,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	sendToNewRoom(chosenRoomNumber, user)
 
 
-/obj/item/hilbertshotel/proc/tryActiveRoom(var/roomNumber, var/mob/user)
+/obj/item/hilbertshotel/proc/tryActiveRoom(roomNumber, mob/user)
 	if(activeRooms["[roomNumber]"])
 		var/datum/turf_reservation/roomReservation = activeRooms["[roomNumber]"]
 		do_sparks(3, FALSE, get_turf(user))
@@ -80,7 +80,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	else
 		return FALSE
 
-/obj/item/hilbertshotel/proc/tryStoredRoom(var/roomNumber, var/mob/user)
+/obj/item/hilbertshotel/proc/tryStoredRoom(roomNumber, mob/user)
 	if(storedRooms["[roomNumber]"])
 		var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
 		hotelRoomTempEmpty.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
@@ -103,23 +103,23 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	else
 		return FALSE
 
-/obj/item/hilbertshotel/proc/sendToNewRoom(var/roomNumber, var/mob/user)
-    var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
-    var/datum/async_map_generator/placer
-    if(ruinSpawned)
-        mysteryRoom = GLOB.hhmysteryRoomNumber
-        if(roomNumber == mysteryRoom)
-            placer = hotelRoomTempLore.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-        else
-            placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-    else
-        placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-    activeRooms["[roomNumber]"] = roomReservation
-    placer.on_completion(CALLBACK(src, PROC_REF(linkTurfs), roomReservation, roomNumber))
-    do_sparks(3, FALSE, get_turf(user))
-    user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
+/obj/item/hilbertshotel/proc/sendToNewRoom(roomNumber, mob/user)
+	var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+	var/datum/async_map_generator/placer
+	if(ruinSpawned)
+		mysteryRoom = GLOB.hhmysteryRoomNumber
+		if(roomNumber == mysteryRoom)
+			placer = hotelRoomTempLore.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+		else
+			placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+	else
+		placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+	activeRooms["[roomNumber]"] = roomReservation
+	placer.on_completion(CALLBACK(src, PROC_REF(linkTurfs), roomReservation, roomNumber))
+	do_sparks(3, FALSE, get_turf(user))
+	user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
-/obj/item/hilbertshotel/proc/linkTurfs(var/datum/turf_reservation/currentReservation, var/currentRoomnumber)
+/obj/item/hilbertshotel/proc/linkTurfs(datum/turf_reservation/currentReservation, currentRoomnumber)
 	var/area/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
 	currentArea.name = "Hilbert's Hotel Room [currentRoomnumber]"
 	currentArea.parentSphere = src
@@ -129,7 +129,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	currentArea.virtual_z_value = get_new_virtual_z()
 	for(var/turf/closed/indestructible/hoteldoor/door in currentArea)
 		door.parentSphere = src
-		door.desc = "The door to this hotel room. The placard reads 'Room [currentRoomnumber]'. Strange, this door doesnt even seem openable. The doorknob, however, seems to buzz with unusual energy...<br /><span class='info'>Alt-Click to look through the peephole.</span>"
+		door.desc = "The door to this hotel room. The placard reads 'Room [currentRoomnumber]'. Strange, this door doesnt even seem openable. The doorknob, however, seems to buzz with unusual energy...<br />[span_info("Alt-Click to look through the peephole.")]"
 	for(var/turf/open/space/bluespace/BSturf in currentArea)
 		BSturf.parentSphere = src
 
@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 						if(ismob(A))
 							var/mob/M = A
 							if(M.mind)
-								to_chat(M, "<span class='warning'>As the sphere breaks apart, you're suddenly ejected into the depths of space!")
+								to_chat(M, span_warning("As the sphere breaks apart, you're suddenly ejected into the depths of space!"))
 						var/max = world.maxx-TRANSITIONEDGE
 						var/min = 1+TRANSITIONEDGE
 						var/list/possible_transitions = list()
@@ -244,11 +244,11 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(!parentSphere)
 		switch(tugged_on)
 			if(0 to 3)
-				to_chat(user, "<span class='warning'>As you tug on the doorknob you hear a tiny squeak and it becomes more loose!</span>")
+				to_chat(user, span_warning("As you tug on the doorknob you hear a tiny squeak and it becomes more loose!"))
 				tugged_on ++
 				return
 			if(4)
-				to_chat(user, "<span class='warning'>You pull at the doornkob with all your might and you hear a loud creak! It's barely hanging on now!</span>")
+				to_chat(user, span_warning("You pull at the doornkob with all your might and you hear a loud creak! It's barely hanging on now!"))
 				tugged_on ++
 				return
 			if(5 to INFINITY) //Just in case someone decides to keep clicking
@@ -274,7 +274,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		max_i--
 		if(max_i<=0)
 			return
-	to_chat(user, "<span class='warning'>As you tear off the knob off the door it suddenly burts open and you are pulled in with great force!</span>")
+	to_chat(user, span_warning("As you tear off the knob off the door it suddenly burts open and you are pulled in with great force!"))
 	user.forceMove(get_turf(pickedstart))
 	user.throw_at(pickedgoal, 7, 3)
 
@@ -287,7 +287,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /turf/closed/indestructible/hoteldoor/attack_tk(mob/user)
 	return //need to be close.
 
-/turf/closed/indestructible/hoteldoor/attack_hand(mob/user)
+/turf/closed/indestructible/hoteldoor/attack_hand(mob/user, list/modifiers)
 	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_animal(mob/user)
@@ -299,10 +299,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /turf/closed/indestructible/hoteldoor/attack_hulk(mob/living/carbon/human/user, does_attack_animation)
 	promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/attack_larva(mob/user)
+/turf/closed/indestructible/hoteldoor/attack_larva(mob/user, list/modifiers)
 	promptExit(user)
 
-/turf/closed/indestructible/hoteldoor/attack_slime(mob/user)
+/turf/closed/indestructible/hoteldoor/attack_slime(mob/user, list/modifiers)
 	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_robot(mob/user)
@@ -312,7 +312,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /turf/closed/indestructible/hoteldoor/AltClick(mob/user)
 	. = ..()
 	if(get_dist(get_turf(src), get_turf(user)) <= 1)
-		to_chat(user, "<span class='notice'>You peak through the door's bluespace peephole...</span>")
+		to_chat(user, span_notice("You peak through the door's bluespace peephole..."))
 		user.reset_perspective(parentSphere)
 		user.set_machine(src)
 		var/datum/action/peepholeCancel/PHC = new
@@ -323,16 +323,15 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	if(get_dist(get_turf(src), get_turf(user)) >= 2)
 		user.unset_machine()
 		for(var/datum/action/peepholeCancel/PHC in user.actions)
-			PHC.Trigger()
+			PHC.trigger()
 
 /datum/action/peepholeCancel
 	name = "Cancel View"
 	desc = "Stop looking through the bluespace peephole."
 	button_icon_state = "cancel_peephole"
 
-/datum/action/peepholeCancel/Trigger()
-	. = ..()
-	to_chat(owner, "<span class='warning'>You move away from the peephole.</span>")
+/datum/action/peepholeCancel/on_activate(mob/user, atom/target)
+	to_chat(owner, span_warning("You move away from the peephole."))
 	owner.reset_perspective()
 	owner.clear_fullscreen("remote_view", 0)
 	qdel(src)
@@ -341,7 +340,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "Hilbert's Hotel Room"
 	icon_state = "hilbertshotel"
 	requires_power = FALSE
-	has_gravity = TRUE
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = HIDDEN_AREA
 	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
@@ -382,7 +381,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	log_game("[H] entered itself. Moving it to [loc_name(targetturf)].")
 	message_admins("[H] entered itself. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
 	for(var/mob/M in A)
-		to_chat(M, "<span class='danger'>[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!</span>")
+		to_chat(M, span_danger("[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!"))
 	H.forceMove(targetturf)
 
 /area/hilbertshotel/Exited(atom/movable/gone, direction)
@@ -426,7 +425,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	icon_state = "hilbertshotel"
 	requires_power = FALSE
 	area_flags = HIDDEN_AREA | UNIQUE_AREA
-	has_gravity = TRUE
+	default_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /obj/item/abstracthotelstorage
@@ -463,7 +462,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	. = ..()
 	if(istype(target, /obj/item/hilbertshotel))
 		if(!proximity)
-			to_chat(user, "<span class='warning'>It's to far away to scan!</span>")
+			to_chat(user, span_warning("It's to far away to scan!"))
 			return
 		var/obj/item/hilbertshotel/sphere = target
 		if(sphere.activeRooms.len)

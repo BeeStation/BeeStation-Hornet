@@ -1,14 +1,17 @@
 /mob/living/simple_animal/pet/hamster
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "bites"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bite"
 	speak = list("Squeak", "SQUEAK!")
 	speak_emote = list("squeak", "hisses", "squeals")
 	speak_language = /datum/language/metalanguage
 	emote_hear = list("squeaks.", "hisses.", "squeals.")
 	emote_see = list("skitters", "examines it's claws", "rolls around")
-	faction = list("hamster")
+	faction = list(FACTION_NEUTRAL)
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 3
@@ -56,11 +59,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-/mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., extrapolator_diseases)
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., vector_disease)
 
 /mob/living/simple_animal/pet/hamster/vector/proc/on_entered(datum/source, M as mob)
 	SIGNAL_HANDLER

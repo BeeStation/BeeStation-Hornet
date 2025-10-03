@@ -49,8 +49,8 @@
 /obj/item/food/meat/slab/human/mutant/lizard{
 	name = "lizard meat"
 	},
-/obj/item/food/meat/slab/human/mutant/plant{
-	name = "podperson meat"
+/obj/item/food/meat/slab/human/mutant/diona{
+	name = "dionae meat"
 	},
 /obj/item/food/meat/slab/human/mutant/shadow{
 	name = "shadowling meat"

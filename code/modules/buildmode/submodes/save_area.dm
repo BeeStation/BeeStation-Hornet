@@ -26,7 +26,7 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 	//If someone somehow gets build mode, stop them from using this.
 	if(!check_rights(R_ADMIN))
 		message_admins("[ckey(usr)] tried to run the map save generator but was rejected due to insufficient perms.")
-		to_chat(usr, "<span class='warning'>You must have R_ADMIN privellages to use this.</span>")
+		to_chat(usr, span_warning("You must have R_ADMIN privellages to use this."))
 		return
 	//Emergency check
 	if(L.map.len > 1600)
@@ -35,10 +35,10 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 			return
 
 	if(GLOB.save_area_executing)
-		to_chat(usr, "<span class='warning'>Someone is already running the generator! Try again in a bit.</span>")
+		to_chat(usr, span_warning("Someone is already running the generator! Try again in a bit."))
 		return
 
-	to_chat(usr, "<span class='warning'>Saving, please wait...</span>")
+	to_chat(usr, span_warning("Saving, please wait..."))
 	GLOB.save_area_executing = TRUE
 
 	//Log just in case something happens

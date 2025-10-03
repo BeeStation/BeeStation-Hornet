@@ -13,13 +13,17 @@
 	maxHealth = 15
 	health = 15
 	melee_damage = 5
-	attacktext = "bites"
-	response_help  = "pets"
-	response_disarm = "pokes"
-	response_harm   = "splats"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "pokes"
+	response_disarm_simple = "poke"
+	response_harm_continuous = "splats"
+	response_harm_simple = "splat"
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	faction = list("hostile")
+	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/effects/reee.ogg'
 	butcher_results = list(/obj/item/food/nugget = 1)
 	pass_flags = PASSTABLE | PASSMOB

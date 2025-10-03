@@ -7,19 +7,39 @@
 /obj/structure/flora/tree
 	name = "tree"
 	desc = "A large tree."
-	density = TRUE
+	density = FALSE
 	pixel_x = -16
 	layer = FLY_LAYER
 	var/log_amount = 10
+
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/connect_loc, list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered)))
+
+/obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/L = AM
+
+	// Movespeed logic
+	if (isliving(L) && !L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+		to_chat(L, span_warning("You push your way through the thick foliage."))
+		addtimer(CALLBACK(L, /mob/proc/remove_movespeed_modifier, /datum/movespeed_modifier/tree_slowdown), 5) // 10 deciseconds = 1 second
+
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
 		if(W.is_sharp() && W.force > 0)
 			if(W.hitsound)
 				playsound(get_turf(src), W.hitsound, 100, 0, 0)
-			user.visible_message("<span class='notice'>[user] begins to cut down [src] with [W].</span>","<span class='notice'>You begin to cut down [src] with [W].</span>", "You hear the sound of sawing.")
+			user.visible_message(span_notice("[user] begins to cut down [src] with [W]."),span_notice("You begin to cut down [src] with [W]."), "You hear the sound of sawing.")
 			if(do_after(user, 1000/W.force, target = src)) //5 seconds with 20 force, 8 seconds with a hatchet, 20 seconds with a shard.
-				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>You fell [src] with the [W].</span>", "You hear the sound of a tree falling.")
+				user.visible_message(span_notice("[user] fells [src] with the [W]."),span_notice("You fell [src] with the [W]."), "You hear the sound of a tree falling.")
 				playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100 , 0, 0)
 				for(var/i=1 to log_amount)
 					new /obj/item/grown/log/tree(get_turf(src))
@@ -80,9 +100,9 @@
 		return
 
 	if(took_presents[user.ckey] && !unlimited)
-		to_chat(user, "<span class='warning'>There are no presents with your name on.</span>")
+		to_chat(user, span_warning("There are no presents with your name on."))
 		return
-	to_chat(user, "<span class='warning'>After a bit of rummaging, you locate a gift with your name on it!</span>")
+	to_chat(user, span_warning("After a bit of rummaging, you locate a gift with your name on it!"))
 
 	if(!unlimited)
 		took_presents[user.ckey] = TRUE
@@ -116,6 +136,7 @@
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "festivus_pole"
 	desc = "During last year's Feats of Strength the Research Director was able to suplex this passing immobile rod into a planter."
+	layer = ABOVE_MOB_LAYER // so it doesn't get obscured by objects, windows and mobs on the tile north of it
 	zmm_flags = ZMM_LOOKAHEAD
 
 /obj/structure/festivus/anchored
@@ -186,6 +207,20 @@
 
 /obj/structure/flora/bush/Initialize(mapload)
 	icon_state = "snowbush[rand(1, 6)]"
+	. = ..()
+
+//bushes but in a pot
+/obj/structure/flora/bigplant
+	name = "potted plant"
+	desc = "A large potted plant."
+	icon = 'icons/obj/flora/bigplant.dmi'
+	icon_state = "bigplant1"
+	anchored = FALSE
+	layer = ABOVE_MOB_LAYER+0.1 //because railings
+	pixel_x = -17
+
+/obj/structure/flora/bigplant/Initialize(mapload)
+	icon_state = "bigplant[rand(1, 2)]"
 	. = ..()
 
 //newbushes
@@ -320,28 +355,16 @@
 	throw_range = 4
 	item_flags = NO_PIXEL_RANDOM_DROP
 
-/obj/item/kirbyplants/ComponentInitialize()
+/obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
+	create_storage(storage_type = /datum/storage/implant)
+	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
-	AddComponent(/datum/component/storage/concrete/kirbyplants)
 
-/datum/component/storage/concrete/kirbyplants
-	max_items = 1
-	max_w_class = WEIGHT_CLASS_NORMAL
-	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
+/datum/storage/kirbyplants
+	max_slots = 1
+	max_specific_storage = WEIGHT_CLASS_NORMAL
 	animated = FALSE
-
-/obj/item/kirbyplants/equipped(mob/living/user)
-	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
-	I.copy_overlays(src)
-	I.override = 1
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
-	I.layer = ABOVE_MOB_LAYER
-	..()
-
-/obj/item/kirbyplants/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/kirbyplants/random
 	icon = 'icons/obj/flora/_flora.dmi'
@@ -358,15 +381,13 @@
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
-	for(var/i in 1 to 34)
+	for(var/i in 1 to 35)
 		var/number
 		if(i < 10)
 			number = "0[i]"
 		else
 			number = "[i]"
 		states += "plant-[number]"
-	states += "applebush"
-
 
 /obj/item/kirbyplants/dead
 	name = "RD's potted plant"
@@ -383,6 +404,7 @@
 
 //a rock is flora according to where the icon file is
 //and now these defines
+//ah yes, a rock is in fact a plant, sure coders...
 
 /obj/structure/flora/rock
 	icon_state = "basalt"
@@ -466,3 +488,11 @@
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
+
+/obj/structure/flora/rock/icy
+	name = "icy rock"
+	color = rgb(204,233,235)
+
+/obj/structure/flora/rock/pile/icy
+	name = "icey rocks"
+	color = rgb(204,233,235)

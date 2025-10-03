@@ -76,10 +76,19 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/anon_tips_receiver = FALSE // Can you relay information to this console?
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
-	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/machinery_requests_console
 
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
+
+
+/datum/armor/machinery_requests_console
+	melee = 70
+	bullet = 30
+	laser = 30
+	energy = 30
+	fire = 90
+	acid = 90
 
 /obj/machinery/requests_console/update_appearance(updates=ALL)
 	. = ..()
@@ -160,7 +169,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	GLOB.req_console_ckey_departments[ckey(department)] = department // and then we set ourselves a listed name
 
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 
 /obj/machinery/requests_console/Destroy()
 	QDEL_NULL(Radio)
@@ -180,25 +189,25 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 					dat += "<div class='notice'>There are new <b>PRIORITY</b> messages</div><BR>"
 				else if (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY)
 					dat += "<div class='notice'>There are new <b>EXTREME PRIORITY</b> messages</div><BR>"
-				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_VIEW_MSGS]'>View Messages</A><BR><BR>"
+				dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_VIEW_MSGS]'>View Messages</A><BR><BR>"
 
-				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_REQ_ASSISTANCE]'>Request Assistance</A><BR>"
-				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_REQ_SUPPLIES]'>Request Supplies</A><BR>"
-				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_RELAY]'>Relay Anonymous Information</A><BR><BR>"
+				dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_REQ_ASSISTANCE]'>Request Assistance</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_REQ_SUPPLIES]'>Request Supplies</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_RELAY]'>Relay Anonymous Information</A><BR><BR>"
 
 				if(!emergency)
-					dat += "<A href='?src=[REF(src)];emergency=[REQ_EMERGENCY_SECURITY]'>Emergency: Security</A><BR>"
-					dat += "<A href='?src=[REF(src)];emergency=[REQ_EMERGENCY_ENGINEERING]'>Emergency: Engineering</A><BR>"
-					dat += "<A href='?src=[REF(src)];emergency=[REQ_EMERGENCY_MEDICAL]'>Emergency: Medical</A><BR><BR>"
+					dat += "<A href='byond://?src=[REF(src)];emergency=[REQ_EMERGENCY_SECURITY]'>Emergency: Security</A><BR>"
+					dat += "<A href='byond://?src=[REF(src)];emergency=[REQ_EMERGENCY_ENGINEERING]'>Emergency: Engineering</A><BR>"
+					dat += "<A href='byond://?src=[REF(src)];emergency=[REQ_EMERGENCY_MEDICAL]'>Emergency: Medical</A><BR><BR>"
 				else
 					dat += "<B><font color='red'>[emergency] has been dispatched to this location.</font></B><BR><BR>"
 
 				if(announcementConsole)
-					dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_ANNOUNCE]'>Send Station-wide Announcement</A><BR><BR>"
+					dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_ANNOUNCE]'>Send Station-wide Announcement</A><BR><BR>"
 				if (silent)
-					dat += "Speaker <A href='?src=[REF(src)];setSilent=0'>OFF</A>"
+					dat += "Speaker <A href='byond://?src=[REF(src)];setSilent=0'>OFF</A>"
 				else
-					dat += "Speaker <A href='?src=[REF(src)];setSilent=1'>ON</A>"
+					dat += "Speaker <A href='byond://?src=[REF(src)];setSilent=1'>ON</A>"
 			if(REQ_SCREEN_REQ_ASSISTANCE)
 				dat += "Which department do you need assistance from?<BR><BR>"
 				dat += departments_table(GLOB.req_console_assistance)
@@ -212,12 +221,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				dat += departments_table(GLOB.req_console_information)
 
 			if(REQ_SCREEN_SENT)
-				dat += "<span class='good'>Message sent.</span><BR><BR>"
-				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
+				dat += "[span_good("Message sent.")]<BR><BR>"
+				dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 			if(REQ_SCREEN_ERR)
-				dat += "<span class='bad'>An error occurred.</span><BR><BR>"
-				dat += "<A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
+				dat += "[span_bad("An error occurred.")]<BR><BR>"
+				dat += "<A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 			if(REQ_SCREEN_VIEW_MSGS)
 				for (var/obj/machinery/requests_console/Console in GLOB.allConsoles)
@@ -231,7 +240,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				for(var/msg in messages) // This puts more recent messages at the *top*, where they belong.
 					messageComposite = "<div class='block'>[msg]</div>" + messageComposite
 				dat += messageComposite
-				dat += "<BR><A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back to Main Menu</A><BR>"
+				dat += "<BR><A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back to Main Menu</A><BR>"
 
 			if(REQ_SCREEN_AUTHENTICATE)
 				dat += "<B>Message Authentication</B><BR><BR>"
@@ -239,8 +248,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				dat += "<div class='notice'>You may authenticate your message now by scanning your ID or your stamp</div><BR>"
 				dat += "<b>Validated by:</b> [msgVerified ? msgVerified : "<i>Not Validated</i>"]<br>"
 				dat += "<b>Stamped by:</b> [msgStamped ? msgStamped : "<i>Not Stamped</i>"]<br><br>"
-				dat += "<A href='?src=[REF(src)];send=[TRUE]'>Send Message</A><BR>"
-				dat += "<BR><A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Discard Message</A><BR>"
+				dat += "<A href='byond://?src=[REF(src)];send=[TRUE]'>Send Message</A><BR>"
+				dat += "<BR><A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Discard Message</A><BR>"
 
 			if(REQ_SCREEN_ANNOUNCE)
 				dat += "<h3>Station-wide Announcement</h3>"
@@ -249,12 +258,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				else
 					dat += "<div class='notice'>Swipe your card to authenticate yourself</div><BR>"
 				dat += "<b>Message: </b>[message ? message : "<i>No Message</i>"]<BR>"
-				dat += "<A href='?src=[REF(src)];writeAnnouncement=1'>[message ? "Edit" : "Write"] Message</A><BR><BR>"
+				dat += "<A href='byond://?src=[REF(src)];writeAnnouncement=1'>[message ? "Edit" : "Write"] Message</A><BR><BR>"
 				if ((announceAuth || IsAdminGhost(user)) && message)
-					dat += "<A href='?src=[REF(src)];sendAnnouncement=1'>Announce Message</A><BR>"
+					dat += "<A href='byond://?src=[REF(src)];sendAnnouncement=1'>Announce Message</A><BR>"
 				else
-					dat += "<span class='linkOff'>Announce Message</span><BR>"
-				dat += "<BR><A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
+					dat += "[span_linkoff("Announce Message")]<BR>"
+				dat += "<BR><A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 
 		if(!dat)
 			CRASH("No UI for src. Screen var is: [screen]")
@@ -270,13 +279,13 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if (req_dpt != department)
 			dat += "<tr>"
 			dat += "<td width='55%'>[req_dpt]</td>"
-			dat += "<td width='45%'><A href='?src=[REF(src)];write=[ckey(req_dpt)];priority=[REQ_NORMAL_MESSAGE_PRIORITY]'>Normal</A> <A href='?src=[REF(src)];write=[ckey(req_dpt)];priority=[REQ_HIGH_MESSAGE_PRIORITY]'>High</A>"
+			dat += "<td width='45%'><A href='byond://?src=[REF(src)];write=[ckey(req_dpt)];priority=[REQ_NORMAL_MESSAGE_PRIORITY]'>Normal</A> <A href='byond://?src=[REF(src)];write=[ckey(req_dpt)];priority=[REQ_HIGH_MESSAGE_PRIORITY]'>High</A>"
 			if(hackState)
-				dat += "<A href='?src=[REF(src)];write=[ckey(req_dpt)];priority=[REQ_EXTREME_MESSAGE_PRIORITY]'>EXTREME</A>"
+				dat += "<A href='byond://?src=[REF(src)];write=[ckey(req_dpt)];priority=[REQ_EXTREME_MESSAGE_PRIORITY]'>EXTREME</A>"
 			dat += "</td>"
 			dat += "</tr>"
 	dat += "</table>"
-	dat += "<BR><A href='?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
+	dat += "<BR><A href='byond://?src=[REF(src)];setScreen=[REQ_SCREEN_MAIN]'><< Back</A><BR>"
 	return dat
 
 /obj/machinery/requests_console/Topic(href, href_list)
@@ -288,33 +297,39 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	if(href_list["write"])
 		to_department = ckey(reject_bad_text(href_list["write"])) //write contains the string of the receiving department's name
 
-		var/new_message = (to_department in GLOB.req_console_ckey_departments) && stripped_input(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN)
-		if(new_message)
-			to_department = GLOB.req_console_ckey_departments[to_department]
-			message = new_message
-			screen = REQ_SCREEN_AUTHENTICATE
-			priority = clamp(text2num(href_list["priority"]), REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
+		var/new_message = (to_department in GLOB.req_console_ckey_departments) && tgui_input_text(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN)
+		if(!new_message) //no input so we return
+			to_chat(usr, span_warning("You need to enter something!"))
+			return
+		if(CHAT_FILTER_CHECK(new_message)) // check for forbidden words
+			to_chat(usr, span_warning("Your message contains forbidden words."))
+			return
+		to_department = GLOB.req_console_ckey_departments[to_department]
+		message = new_message
+		screen = REQ_SCREEN_AUTHENTICATE
+		priority = clamp(text2num(href_list["priority"]), REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = reject_bad_text(stripped_input(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN))
-		if(new_message)
-			message = new_message
-			priority = clamp(text2num(href_list["priority"]) || REQ_NORMAL_MESSAGE_PRIORITY, REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
-		else
-			message = ""
-			announceAuth = FALSE
-			screen = REQ_SCREEN_MAIN
+		var/new_message = reject_bad_text(tgui_input_text(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN))
+		if(!new_message) //no input so we return
+			to_chat(usr, span_warning("You need to enter something!"))
+			return
+		if(CHAT_FILTER_CHECK(new_message)) // check for forbidden words
+			to_chat(usr, span_warning("Your message contains forbidden words."))
+			return
+		message = new_message
+		priority = clamp(text2num(href_list["priority"]) || REQ_NORMAL_MESSAGE_PRIORITY, REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)
 			return
 		if(CHAT_FILTER_CHECK(message))
-			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			to_chat(usr, span_warning("Your message contains forbidden words."))
 			return
 		if(isliving(usr))
 			var/mob/living/L = usr
 			message = L.treat_message(message)
-		minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
+		minor_announce(message, "[department] Announcement:", html_encode = FALSE, sound_override = 'sound/misc/announce_dig.ogg')
 		GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
@@ -413,7 +428,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	if(msgStamped)
 		sending = "[sending][msgStamped]<br>"
 
-	linkedsender = source_department ? "<a href='?src=[REF(src)];write=[ckey(source_department)]'>[source_department]</a>" : (source || "unknown")
+	linkedsender = source_department ? "<a href='byond://?src=[REF(src)];write=[ckey(source_department)]'>[source_department]</a>" : (source || "unknown")
 
 	var/authentic = (msgVerified || msgStamped) && " (Authenticated)"
 	var/alert = "Message from [source][authentic]"
@@ -427,14 +442,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				update_icon()
 
 		if(REQ_HIGH_MESSAGE_PRIORITY)
-			header = "<span class='bad'>High Priority</span><BR>[header]"
+			header = "[span_bad("High Priority")]<BR>[header]"
 			alert = "PRIORITY Alert from [source][authentic]"
 			if(newmessagepriority < REQ_HIGH_MESSAGE_PRIORITY)
 				newmessagepriority = REQ_HIGH_MESSAGE_PRIORITY
 				update_icon()
 
 		if(REQ_EXTREME_MESSAGE_PRIORITY)
-			header = "<span class='bad'>!!!Extreme Priority!!!</span><BR>[header]"
+			header = "[span_bad("!!!Extreme Priority!!!")]<BR>[header]"
 			alert = "EXTREME PRIORITY Alert from [source][authentic]"
 			silenced = FALSE
 			if(newmessagepriority < REQ_EXTREME_MESSAGE_PRIORITY)
@@ -454,10 +469,10 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 /obj/machinery/requests_console/attackby(obj/item/O, mob/user, params)
 	if(O.tool_behaviour == TOOL_CROWBAR)
 		if(open)
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			to_chat(user, span_notice("You close the maintenance panel."))
 			open = FALSE
 		else
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			to_chat(user, span_notice("You open the maintenance panel."))
 			open = TRUE
 		update_icon()
 		return
@@ -465,12 +480,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(open)
 			hackState = !hackState
 			if(hackState)
-				to_chat(user, "<span class='notice'>You modify the wiring.</span>")
+				to_chat(user, span_notice("You modify the wiring."))
 			else
-				to_chat(user, "<span class='notice'>You reset the wiring.</span>")
+				to_chat(user, span_notice("You reset the wiring."))
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You must open the maintenance panel first!</span>")
+			to_chat(user, span_warning("You must open the maintenance panel first!"))
 		return
 
 	var/obj/item/card/id/ID = O.GetID()
@@ -486,13 +501,13 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements!</span>")
+				to_chat(user, span_warning("You are not authorized to send announcements!"))
 			updateUsrDialog()
 		return
 	if (istype(O, /obj/item/stamp))
 		if(screen == REQ_SCREEN_AUTHENTICATE)
 			var/obj/item/stamp/T = O
-			msgStamped = "<span class='boldnotice'>Stamped with the [T.name]</span>"
+			msgStamped = span_boldnotice("Stamped with the [T.name]")
 			updateUsrDialog()
 		return
 	return ..()

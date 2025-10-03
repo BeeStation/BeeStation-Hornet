@@ -36,7 +36,6 @@
 	pixel_y = 6
 	},
 /obj/structure/sink{
-	layer = 4;
 	pixel_y = 25
 	},
 /obj/structure/mirror{
@@ -157,9 +156,7 @@
 	name = "Bathroom"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
+/obj/structure/barricade/wooden/crude,
 /turf/open/floor/iron/white,
 /area/template_noop)
 

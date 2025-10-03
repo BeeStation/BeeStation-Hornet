@@ -51,11 +51,11 @@
 		if(G.transfer_blood > 1 && G.blood_DNA_length() > old_blood) //bloodied gloves transfer blood to touched objects
 			if(add_blood_DNA(G.return_blood_DNA()))
 				G.transfer_blood--
-				H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] gloves all over \the [src]!</span>","<span class='danger'>You smear blood from your gloves all over \the [src]!")
+				H.visible_message(span_danger("[H] smears blood from [H.p_their()] gloves all over \the [src]!"), span_danger("You smear blood from your gloves all over \the [src]!"))
 	else if(H.blood_in_hands > 1)
 		if(add_blood_DNA(H.return_blood_DNA()) && H.blood_DNA_length() > old_blood) //if the onject you're touching is already drenched in blood, the blood from your hands won't get used up again
 			H.blood_in_hands-- //we don't update icon after so you still have to wash your hands off, I don't think you'd be able to completely wipe your hands off just on the floor
-			H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] hands all over \the [src]!</span>","<span class='danger'>You smear blood from your hands all over \the [src]!")
+			H.visible_message(span_danger("[H] smears blood from [H.p_their()] hands all over \the [src]!"), span_danger("You smear blood from your hands all over \the [src]!"))
 
 /atom/proc/add_fiber_list(list/fibertext)				//ASSOC LIST FIBERTEXT = FIBERTEXT
 	if(length(fibertext))
@@ -104,17 +104,17 @@
 /mob/living/carbon/human/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
 	if(wear_suit)
 		wear_suit.add_blood_DNA(blood_dna)
-		update_inv_wear_suit()
+		update_worn_oversuit()
 	else if(w_uniform)
 		w_uniform.add_blood_DNA(blood_dna)
-		update_inv_w_uniform()
+		update_worn_undersuit()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood_DNA(blood_dna)
 	else if(length(blood_dna))
 		AddComponent(/datum/component/forensics, null, null, blood_dna)
 		blood_in_hands = rand(2, 4)
-	update_inv_gloves()	//handles bloody hands overlays and updating
+	update_worn_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
 /obj/effect/decal/cleanable/blood/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)

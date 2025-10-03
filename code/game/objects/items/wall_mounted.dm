@@ -19,13 +19,13 @@
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(T)
 	if(!isfloorturf(T))
-		to_chat(user, "<span class='warning'>You cannot place [src] on this spot!</span>")
+		to_chat(user, span_warning("You cannot place [src] on this spot!"))
 		return
 	if(A.always_unpowered)
-		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
+		to_chat(user, span_warning("You cannot place [src] in this area!"))
 		return
 	if(check_wall_item(T, floor_to_wall, wall_external))
-		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
+		to_chat(user, span_warning("There's already an item on this wall!"))
 		return
 
 	return TRUE
@@ -34,8 +34,8 @@
 	if(result_path)
 		playsound(src.loc, 'sound/machines/click.ogg', 75, TRUE)
 		user.visible_message("[user.name] attaches [src] to the wall.",
-			"<span class='notice'>You attach [src] to the wall.</span>",
-			"<span class='italics'>You hear clicking.</span>")
+			span_notice("You attach [src] to the wall."),
+			span_italics("You hear clicking."))
 		var/floor_to_wall = get_dir(user, on_wall)
 
 		var/obj/O = new result_path(get_turf(user), floor_to_wall, TRUE)
@@ -55,7 +55,7 @@
 
 	qdel(src)
 
-/obj/item/wallframe/proc/after_attach(var/obj/O)
+/obj/item/wallframe/proc/after_attach(obj/O)
 	transfer_fingerprints_to(O)
 
 /obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)
@@ -71,7 +71,7 @@
 
 	if(!iron_amt && !glass_amt)
 		return FALSE
-	to_chat(user, "<span class='notice'>You dismantle [src].</span>")
+	to_chat(user, span_notice("You dismantle [src]."))
 	if(iron_amt)
 		new /obj/item/stack/sheet/iron(get_turf(src), iron_amt)
 	if(glass_amt)

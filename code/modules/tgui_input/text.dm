@@ -25,7 +25,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -67,7 +67,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
+	if(user.client.prefs && !user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -173,7 +173,7 @@
 				if(length(params["entry"]) > max_length)
 					CRASH("[usr] typed a text string longer than the max length")
 				if(encode && (length(html_encode(params["entry"])) > max_length))
-					to_chat(usr, "<span class='notice'>Input uses special characters, thus reducing the maximum length.</span>")
+					to_chat(usr, span_notice("Input uses special characters, thus reducing the maximum length."))
 			set_entry(params["entry"])
 			closed = TRUE
 			SStgui.close_uis(src)

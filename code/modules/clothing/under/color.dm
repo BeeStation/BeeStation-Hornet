@@ -1,5 +1,7 @@
 /obj/item/clothing/under/color
+	name = "jumpsuit"
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	dying_key = DYE_REGISTRY_UNDER
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
@@ -11,15 +13,14 @@
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
+	flags_1 = IS_PLAYER_COLORABLE_1
 
 /obj/item/clothing/under/color/jumpskirt
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-	icon_state = "jumpskirt"
-	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_JUMPSKIRT
+	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
+	icon_state = "jumpskirt"
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -36,7 +37,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/clothing/under/color/jumpskirt/random
-	icon_state = "random_jumpsuit"		//Skirt variant needed
+	icon_state = "random_jumpsuit" //Skirt variant needed
 
 /obj/item/clothing/under/color/jumpskirt/random/Initialize(mapload)
 	..()
@@ -84,7 +85,7 @@
 	greyscale_config_worn = null
 	can_adjust = FALSE
 
-/obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.force_say(hitby)
 	return 0
 
@@ -222,13 +223,37 @@
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/color_durathread
+
+
+/datum/armor/color_durathread
+	melee = 10
+	bullet = 15
+	laser = 10
+	fire = 40
+	acid = 10
+	bomb = 5
+	energy = 20
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/under/color/jumpskirt/durathread
 	name = "durathread jumpskirt"
 	desc = "A jumpskirt made from durathread, its resilient fibres provide some protection to the wearer."
 	greyscale_colors = "#8291a1"
-	armor = list(MELEE = 10, BULLET = 15, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, ENERGY = 20, STAMINA = 20, BLEED = 30)
+	armor_type = /datum/armor/jumpskirt_durathread
+
+
+/datum/armor/jumpskirt_durathread
+	melee = 10
+	bullet = 15
+	laser = 10
+	fire = 40
+	acid = 10
+	bomb = 5
+	energy = 20
+	stamina = 20
+	bleed = 30
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
@@ -240,6 +265,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	can_adjust = FALSE
+	flags_1 = NONE
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
@@ -251,6 +277,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	can_adjust = FALSE
+	flags_1 = NONE
 
 /obj/item/clothing/under/color/rainbow/denied
 	name = "ERROR jumpsuit"

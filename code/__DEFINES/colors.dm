@@ -25,7 +25,7 @@
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
 #define COLOR_WHITE "#FFFFFF"
-#define COLOR_OFF_WHITE "#FFF5ED"
+#define COLOR_OFF_WHITE "#fff5ed"
 #define COLOR_VERY_LIGHT_GRAY "#EEEEEE"
 #define COLOR_SILVER "#C0C0C0"
 #define COLOR_GRAY "#808080"
@@ -46,6 +46,7 @@
 #define COLOR_MAROON "#800000"
 #define COLOR_SECURITY_RED "#CB0000"
 #define COLOR_VIVID_RED "#FF3232"
+#define COLOR_SOFT_RED "#FA8282"
 /// Color used for default blood
 #define COLOR_BLOOD "#CC0000"
 
@@ -54,9 +55,11 @@
 
 #define COLOR_OLIVE            "#808000"
 #define COLOR_VIBRANT_LIME     "#00FF00"
+#define COLOR_PALE_GREEN "#20e28e"
 #define COLOR_LIME "#32CD32"
 #define COLOR_GREEN "#008000"
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
+#define COLOR_VERY_DARK_LIME_GREEN "#003300"
 
 #define COLOR_CYAN             "#00FFFF"
 #define COLOR_DARK_CYAN	  	   "#00A2FF"
@@ -69,6 +72,7 @@
 #define COLOR_BLUE_GRAY        "#75A2BB"
 
 #define COLOR_PINK             "#FFC0CB"
+#define COLOR_LIGHT_PINK "#FF3CC8"
 #define COLOR_MOSTLY_PURE_PINK "#E4005B"
 #define COLOR_BLUSH_PINK 		"#DE5D83"
 #define COLOR_FADED_PINK 	   "#ff80d5"
@@ -76,14 +80,20 @@
 #define COLOR_STRONG_MAGENTA "#B800B8"
 #define COLOR_PURPLE           "#800080"
 #define COLOR_VIOLET           "#B900F7"
+#define COLOR_VOID_PURPLE "#53277E"
+#define COLOR_AMETHYST		 "#822BFF"
 #define COLOR_STRONG_VIOLET    "#6927C5"
 #define COLOR_DARK_PURPLE 	   "#551A8B"
 
+
 #define COLOR_ORANGE "#FF9900"
 #define COLOR_LIGHT_ORANGE "#ffc44d"
+#define COLOR_ENGINEERING_ORANGE "#FFA62B"
 #define COLOR_DARK_ORANGE "#C3630C"
 #define COLOR_BEIGE "#CEB689"
 #define COLOR_DARK_MODERATE_ORANGE "#8B633B"
+#define COLOR_TAN_ORANGE "#FF7B00"
+
 
 #define COLOR_BROWN "#BA9F6D"
 #define COLOR_DARK_BROWN "#997C4F"
@@ -119,6 +129,21 @@
 #define COLOR_ASSEMBLY_LBLUE   "#5D99BE"
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
+
+
+///Pipe colors
+#define COLOR_PIPE_AMETHYST "#822BFF"
+#define COLOR_PIPE_BLUE "#0000FF"
+#define COLOR_PIPE_BROWN "#B26438"
+#define COLOR_PIPE_CYAN "#00FFF9"
+#define COLOR_PIPE_DARK "#454545"
+#define COLOR_PIPE_GREEN "#1EFF00"
+#define COLOR_PIPE_GREY "#FFFFFF"
+#define COLOR_PIPE_ORANGE "#FF8119"
+#define COLOR_PIPE_PURPLE "#8000B6"
+#define COLOR_PIPE_RED "#FF0000"
+#define COLOR_PIPE_VIOLET "#400080"
+#define COLOR_PIPE_YELLOW "#FFC600"
 
 /**
  * Some defines to generalise colours used in lighting.
@@ -235,3 +260,19 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define CL_MATRIX_CB 19
 #define CL_MATRIX_CA 20
 
+#define COLOR_GNOME_RED_ONE "#f10b0b"
+#define COLOR_GNOME_RED_TWO "#bc5347"
+#define COLOR_GNOME_RED_THREE "#b40f1a"
+#define COLOR_GNOME_BLUE_ONE "#2e8ff7"
+#define COLOR_GNOME_BLUE_TWO "#312bd6"
+#define COLOR_GNOME_BLUE_THREE "#4e409a"
+#define COLOR_GNOME_GREEN_ONE "#28da1c"
+#define COLOR_GNOME_GREEN_TWO "#50a954"
+#define COLOR_GNOME_YELLOW "#f6da3c"
+#define COLOR_GNOME_ORANGE "#d56f2f"
+#define COLOR_GNOME_BROWN_ONE "#874e2a"
+#define COLOR_GNOME_BROWN_TWO "#543d2e"
+#define COLOR_GNOME_PURPLE "#ac1dd7"
+#define COLOR_GNOME_WHITE "#e8e8e8"
+#define COLOR_GNOME_GREY "#a9a9a9"
+#define COLOR_GNOME_BLACK "#303030"

@@ -83,3 +83,6 @@ SUBSYSTEM_DEF(profiler)
 #endif
 	write_cost = MC_AVERAGE(write_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 #endif
+
+#undef PROFILER_FILENAME
+#undef SENDMAPS_FILENAME

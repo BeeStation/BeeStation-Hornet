@@ -27,7 +27,7 @@
 /area/survivalpod)
 "ah" = (
 /obj/item/gps/computer,
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/turf/open/floor/pod/dark,
 /area/survivalpod)
 "ai" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
@@ -56,16 +56,15 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "ao" = (
-/obj/structure/closet/crate,
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/structure/fans,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ap" = (
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aq" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/smartfridge/survival_pod/preloaded,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ar" = (
@@ -90,9 +89,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aw" = (
-/obj/structure/closet/crate,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/stack/sheet/iron/ten,
+/obj/machinery/stasis/survival_pod,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ax" = (
@@ -115,7 +112,7 @@
 "aB" = (
 /obj/structure/rack,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/light/small,
 /obj/item/paper/fluff/itemnotice,
 /turf/open/floor/pod/dark,
@@ -183,7 +180,8 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "aO" = (
-/obj/structure/fans,
+/obj/structure/closet/crate,
+/obj/item/mecha_parts/mecha_equipment/drill,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aP" = (
@@ -204,7 +202,7 @@
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/gloves/fingerless,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -231,7 +229,7 @@
 /obj/structure/closet,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/gloves/fingerless,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/item/reagent_containers/cup/glass/bottle/beer,
 /obj/item/pickaxe/mini,
 /obj/item/clothing/under/rank/cargo/miner/lavaland,
 /turf/open/floor/pod/light,
@@ -316,12 +314,19 @@
 /area/survivalpod)
 "bo" = (
 /obj/item/rollerbed,
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/iron/ten,
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "bp" = (
 /obj/structure/chair{
 	dir = 1
 	},
+/turf/open/floor/pod/light,
+/area/survivalpod)
+"QN" = (
+/obj/machinery/gear_requisition/mining,
 /turf/open/floor/pod/light,
 /area/survivalpod)
 
@@ -409,7 +414,7 @@ ab
 ag
 aP
 aU
-aU
+QN
 bb
 bg
 aZ
@@ -507,8 +512,8 @@ ab
 "}
 (11,1,1) = {"
 aa
+ai
 ah
-ap
 ap
 aA
 aE

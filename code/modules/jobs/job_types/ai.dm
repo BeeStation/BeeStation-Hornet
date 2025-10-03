@@ -1,19 +1,17 @@
 /datum/job/ai
 	title = JOB_NAME_AI
 	description = "Follow your laws above all else, be the invisible eye that watches all."
-	department_for_prefs = DEPT_BITFLAG_SILICON
+	department_for_prefs = DEPT_NAME_SILICON
 	department_head_for_prefs = JOB_NAME_AI
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
 	req_admin_notify = TRUE
 	minimal_player_age = 30
 	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SILICON
+	exp_type = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
 	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
@@ -50,7 +48,7 @@
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+		for(var/mob/living/silicon/robot/R as anything in GLOB.cyborg_list)
 			if(!R.connected_ai)
 				R.TryConnectToAI()
 

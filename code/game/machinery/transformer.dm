@@ -7,17 +7,24 @@
 	icon_state = "separator-AO1"
 	layer = ABOVE_ALL_MOB_LAYER // Overhead
 	density = FALSE
-	var/transform_dead = 0
-	var/transform_standing = 0
-	var/cooldown_duration = 600 // 1 minute
-	var/cooldown = 0
+	/// Whether this machine transforms dead mobs into cyborgs
+	var/transform_dead = FALSE
+	/// Whether this machine transforms standing mobs into cyborgs
+	var/transform_standing = FALSE
+	/// How long we have to wait between processing mobs
+	var/cooldown_duration = 60 SECONDS
+	/// Whether we're on cooldown
+	var/cooldown = FALSE
+	/// How long until the next mob can be processed
 	var/cooldown_timer
+	/// The created cyborg's cell chage
 	var/robot_cell_charge = 5000
+	/// The visual countdown effect
 	var/obj/effect/countdown/transformer/countdown
-	var/mob/living/silicon/ai/masterAI
+	/// Who the master AI is that created this factory
+	var/mob/living/silicon/ai/master_ai
 
 /obj/machinery/transformer/Initialize(mapload)
-	// On us
 	. = ..()
 	new /obj/machinery/conveyor/auto(locate(x - 1, y, z), WEST)
 	new /obj/machinery/conveyor/auto(loc, WEST)
@@ -34,31 +41,29 @@
 	QDEL_NULL(countdown)
 	. = ..()
 
-/obj/machinery/transformer/update_icon()
-	..()
+/obj/machinery/transformer/update_icon_state()
 	if(machine_stat & (BROKEN|NOPOWER) || cooldown == 1)
 		icon_state = "separator-AO0"
 	else
 		icon_state = initial(icon_state)
+	return ..()
 
-/obj/machinery/transformer/Bumped(atom/movable/AM)
-	if(cooldown == 1)
+/obj/machinery/transformer/Bumped(atom/movable/entering_thing)
+	if(cooldown)
 		return
 
 	// Crossed didn't like people lying down.
-	if(ishuman(AM))
+	if(ishuman(entering_thing))
 		// Only humans can enter from the west side, while lying down.
-		var/move_dir = get_dir(loc, AM.loc)
-		var/mob/living/carbon/human/H = AM
-		if((transform_standing || H.body_position == LYING_DOWN) && move_dir == EAST)// || move_dir == WEST)
-			AM.forceMove(drop_location())
-			do_transform(AM)
-
+		var/move_dir = get_dir(loc, entering_thing.loc)
+		var/mob/living/carbon/human/victim = entering_thing
+		if((transform_standing || victim.body_position == LYING_DOWN) && move_dir == EAST)
+			entering_thing.forceMove(drop_location())
+			do_transform(entering_thing)
 
 /obj/machinery/transformer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	// Allows items to go through,
-	// to stop them from blocking the conveyor belt.
+	// Allows items to go through to stop them from blocking the conveyor belt.
 	if(!ishuman(mover))
 		if(get_dir(src, mover) == EAST)
 			return
@@ -67,45 +72,46 @@
 /obj/machinery/transformer/process()
 	if(cooldown && (cooldown_timer <= world.time))
 		cooldown = FALSE
-		update_icon()
+		update_appearance()
 
-/obj/machinery/transformer/proc/do_transform(mob/living/carbon/human/H)
+/obj/machinery/transformer/proc/do_transform(mob/living/carbon/human/victim)
 	if(machine_stat & (BROKEN|NOPOWER))
 		return
-	if(cooldown == 1)
+
+	if(cooldown)
 		return
 
-	if(!transform_dead && H.stat == DEAD)
-		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+	if(!transform_dead && victim.stat == DEAD)
+		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		return
 
 	// Activate the cooldown
-	cooldown = 1
+	cooldown = TRUE
 	cooldown_timer = world.time + cooldown_duration
-	update_icon()
+	update_appearance()
 
-	playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
-	H.emote("scream") // It is painful
-	H.adjustBruteLoss(max(0, 80 - H.getBruteLoss())) // Hurt the human, don't try to kill them though.
+	playsound(src.loc, 'sound/items/welder.ogg', 50, TRUE)
+	victim.emote("scream") // It is painful
+	victim.adjustBruteLoss(max(0, 80 - victim.getBruteLoss())) // Hurt the human, don't try to kill them though.
 
 	// Sleep for a couple of ticks to allow the human to see the pain
-	sleep(5)
+	sleep(0.5 SECONDS)
 
-	use_power(5000) // Use a lot of power.
-	var/mob/living/silicon/robot/R = H.Robotize()
-	R.cell = new /obj/item/stock_parts/cell/upgraded/plus(R, robot_cell_charge)
+	use_power(robot_cell_charge) // Use a lot of power.
+	var/mob/living/silicon/robot/new_borg = victim.Robotize()
+	new_borg.cell = new /obj/item/stock_parts/cell/upgraded/plus(new_borg, robot_cell_charge)
 
- 	// So he can't jump out the gate right away.
-	R.SetLockdown()
-	if(masterAI)
-		R.connected_ai = masterAI
-		R.lawsync()
-		R.lawupdate = TRUE
-	addtimer(CALLBACK(src, PROC_REF(unlock_new_robot), R), 50)
+	// So he can't jump out the gate right away.
+	new_borg.SetLockdown()
+	if(master_ai && new_borg.connected_ai != master_ai)
+		new_borg.connected_ai = master_ai
+		new_borg.lawsync()
+		new_borg.lawupdate = TRUE
+	addtimer(CALLBACK(src, PROC_REF(unlock_new_robot), new_borg), 5 SECONDS)
 
-/obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/robot/R)
-	playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-	sleep(30)
-	if(R)
-		R.SetLockdown(FALSE)
-		R.notify_ai(NEW_BORG)
+/obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/robot/new_borg)
+	playsound(src.loc, 'sound/machines/ping.ogg', 50, FALSE)
+	sleep(3 SECONDS)
+	if(new_borg)
+		new_borg.SetLockdown(FALSE)
+		new_borg.notify_ai(NEW_BORG)

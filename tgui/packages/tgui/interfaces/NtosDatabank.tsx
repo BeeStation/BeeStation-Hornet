@@ -1,13 +1,13 @@
-import { NtosWindow } from '../layouts';
 import { useBackend } from '../backend';
-import { Stack, Section } from '../components';
+import { Section, Stack } from '../components';
+import { NtosWindow } from '../layouts';
 
 type Data = {
   src?: string;
 };
 
-export const NtosDatabank = (props, context) => {
-  const { data } = useBackend<Data>(context);
+export const NtosDatabank = (props) => {
+  const { data } = useBackend<Data>();
   const { src } = data;
 
   return (

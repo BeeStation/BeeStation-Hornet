@@ -1,12 +1,14 @@
 /datum/surgery/healing
-	steps = list(/datum/surgery_step/incise,
-				/datum/surgery_step/retract_skin,
-				/datum/surgery_step/incise,
-				/datum/surgery_step/clamp_bleeders,
-				/datum/surgery_step/heal,
-				/datum/surgery_step/close)
+	steps = list(
+		/datum/surgery_step/incise,
+		/datum/surgery_step/retract_skin,
+		/datum/surgery_step/incise,
+		/datum/surgery_step/clamp_bleeders,
+		/datum/surgery_step/heal,
+		/datum/surgery_step/close
+	)
 
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	target_mobtypes = list(/mob/living/carbon)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = FALSE
 	replaced_by = /datum/surgery
@@ -33,7 +35,7 @@
 /datum/surgery_step/heal/proc/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
 	return
 
-/datum/surgery_step/heal/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/heal/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/woundtype
 	if(brutehealing && burnhealing)
 		woundtype = "wounds"
@@ -44,18 +46,18 @@
 	if(istype(surgery,/datum/surgery/healing))
 		var/datum/surgery/healing/the_surgery = surgery
 		if(!the_surgery.antispam)
-			display_results(user, target, "<span class='notice'>You attempt to patch some of [target]'s [woundtype].</span>",
+			display_results(user, target, span_notice("You attempt to patch some of [target]'s [woundtype]."),
 		"[user] attempts to patch some of [target]'s [woundtype].",
 		"[user] attempts to patch some of [target]'s [woundtype].")
 
 
-/datum/surgery_step/heal/initiate(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+/datum/surgery_step/heal/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
 		while((brutehealing && target.getBruteLoss()) || (burnhealing && target.getFireLoss()))
 			if(!..())
 				break
 
-/datum/surgery_step/heal/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/heal/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/umsg = "You succeed in fixing some of [target]'s wounds" //no period, add initial space to "addons"
 	var/tmsg = "[user] fixes some of [target]'s wounds" //see above
 	var/urhealedamt_brute = brutehealing
@@ -67,7 +69,7 @@
 		else //less healing bonus for the dead since they're expected to have lots of damage to begin with (to make TW into defib not TOO simple)
 			urhealedamt_brute += round((target.getBruteLoss()/ (missinghpbonus*5)),0.1)
 			urhealedamt_burn += round((target.getFireLoss()/ (missinghpbonus*5)),0.1)
-	if(!get_location_accessible(target, surgery.location))
+	if(!get_location_accessible(target, target_zone))
 		urhealedamt_brute *= 0.55
 		urhealedamt_burn *= 0.55
 		umsg += " as best as you can while [target.p_they()] [target.p_have()] clothing on"
@@ -75,7 +77,7 @@
 	target.heal_bodypart_damage(urhealedamt_brute,urhealedamt_burn)
 	umsg += get_progress(user, target, urhealedamt_brute, urhealedamt_burn)
 
-	display_results(user, target, "<span class='notice'>[umsg].</span>",
+	display_results(user, target, span_notice("[umsg]."),
 		"[tmsg].",
 		"[tmsg].")
 	if(istype(surgery, /datum/surgery/healing))
@@ -83,10 +85,10 @@
 		the_surgery.antispam = TRUE
 	return TRUE
 
-/datum/surgery_step/heal/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='warning'>You screwed up!</span>",
-		"<span class='warning'>[user] screws up!</span>",
-		"<span class='notice'>[user] fixes some of [target]'s wounds.</span>", TRUE)
+/datum/surgery_step/heal/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, span_warning("You screwed up!"),
+		span_warning("[user] screws up!"),
+		span_notice("[user] fixes some of [target]'s wounds."), TRUE)
 	var/urdamageamt_burn = brutehealing * 0.8
 	var/urdamageamt_brute = burnhealing * 0.8
 	if(missinghpbonus)
@@ -127,6 +129,7 @@
 
 	var/estimated_remaining_steps = target.getBruteLoss() / brute_healed
 	var/progress_text
+
 	if(locate(/obj/item/healthanalyzer) in user.held_items)
 		progress_text = ". Remaining brute: <font color='#ff3333'>[target.getBruteLoss()]</font>"
 	else
@@ -325,8 +328,8 @@
 	success_sound = 'sound/surgery/retractor2.ogg'
 	failure_sound = 'sound/surgery/organ1.ogg'
 
-/datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='warning'>You screwed up!</span>",
-		"<span class='warning'>[user] screws up!</span>",
-		"<span class='notice'>[user] fixes some of [target]'s wounds.</span>", TRUE)
+/datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	display_results(user, target, span_warning("You screwed up!"),
+		span_warning("[user] screws up!"),
+		span_notice("[user] fixes some of [target]'s wounds."), TRUE)
 	target.take_bodypart_damage(5,5)

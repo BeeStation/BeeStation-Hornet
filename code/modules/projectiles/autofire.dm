@@ -9,10 +9,6 @@ Everything else should be handled for you. Good luck soldier.
 
 #define COMSIG_AUTOFIRE_END "stop_autofiring"
 
-/obj/item/gun
-	var/full_auto = FALSE //Set this if your gun uses full auto. ONLY guns that go brr should use this. Not pistols!
-	var/datum/component/full_auto/autofire_component = null //Repeated calls to getComponent aren't really ideal. So we'll take the memory hit instead.
-
 /obj/item/gun/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)
@@ -26,7 +22,7 @@ Everything else should be handled for you. Good luck soldier.
 					return
 			else //They're trying to disable the full auto of a gun. Remove the relevent component
 				if(autofire_component)
-					autofire_component.RemoveComponent()
+					autofire_component.ClearFromParent()
 					qdel(autofire_component)
 					return ..()
 		if(NAMEOF(src, fire_rate))
@@ -62,7 +58,7 @@ Everything else should be handled for you. Good luck soldier.
 	if((!isturf(target) && !isturf(target.loc)) || get_turf(G) == target)
 		return
 	if(!istype(G)) //This should never happen. But let's just be safe.
-		RemoveComponent()
+		ClearFromParent()
 		return FALSE
 	var/mob/living/L = G.loc
 	if(!istype(L))
@@ -85,7 +81,7 @@ Everything else should be handled for you. Good luck soldier.
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.
 	var/obj/item/gun/G = parent
 	if(!istype(G)) //This should never happen. But let's just be safe.
-		RemoveComponent()
+		ClearFromParent()
 		return PROCESS_KILL
 	var/mob/living/L = G.loc
 	if(!istype(L))
@@ -96,15 +92,15 @@ Everything else should be handled for you. Good luck soldier.
 	if(L.Adjacent(autofire_target)) //Melee attack? Or ranged attack?
 		if(isobj(autofire_target))
 			next_process = world.time + CLICK_CD_MELEE
-			G.attack_obj(autofire_target, L)
+			G.attack_atom(autofire_target, L)
 			return
-		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
+		else if(isliving(autofire_target) && L.combat_mode) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)
 			next_process = world.time + CLICK_CD_MELEE
 			return
-	G.afterattack(autofire_target,L)
+	G.pull_trigger(autofire_target,L)
 
-/datum/component/full_auto/RemoveComponent()
+/datum/component/full_auto/ClearFromParent()
 	. = ..()
 	STOP_PROCESSING(SSfastprocess, src) //Just in case.
 
@@ -124,3 +120,5 @@ Everything else should be handled for you. Good luck soldier.
 	. = ..()
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(over_object)
+
+#undef COMSIG_AUTOFIRE_END

@@ -14,7 +14,6 @@
 	new /obj/item/clothing/suit/hazardvest(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/radio/headset/heads/chief_engineer(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
@@ -38,7 +37,8 @@
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/storage/box/suitbox/ce_tools(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/gun/ballistic/automatic/pistol/service/ce(src)
+	new /obj/item/ammo_box/magazine/recharge/service(src)
 
 /obj/item/storage/box/suitbox/ce_tools
 	name = "compression box of chief engineer tools"
@@ -102,7 +102,7 @@
 
 /obj/structure/closet/secure_closet/engineering_personal/PopulateContents()
 	..()
-	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/head/beret/engi(src)
 	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
@@ -110,7 +110,7 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/storage/box/emptysandbags(src)
-	new /obj/item/clothing/gloves/color/yellow
+	new /obj/item/clothing/gloves/color/yellow(src)
 
 /obj/structure/closet/secure_closet/atmospherics
 	name = "\proper atmospheric technician's locker"

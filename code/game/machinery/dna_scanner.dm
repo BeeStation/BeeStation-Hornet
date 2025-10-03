@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "scanner"
 	density = TRUE
+	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
@@ -17,7 +18,7 @@
 	var/breakout_time = 1200
 	var/ignore_id = FALSE
 
-/obj/machinery/dna_scannernew/Initialize()
+/obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/dna_scanner(src)
 
@@ -42,9 +43,9 @@
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Radiation pulse accuracy increased by factor <b>[precision_coeff**2]</b>.<br>Radiation pulse damage decreased by factor <b>[damage_coeff**2]</b>.</span>"
+		. += span_notice("The status display reads: Radiation pulse accuracy increased by factor <b>[precision_coeff**2]</b>.<br>Radiation pulse damage decreased by factor <b>[damage_coeff**2]</b>.")
 		if(scan_level >= 3)
-			. += "<span class='notice'>Scanner has been upgraded to support autoprocessing.</span>"
+			. += span_notice("Scanner has been upgraded to support autoprocessing.")
 
 /obj/machinery/dna_scannernew/update_icon()
 	cut_overlays()
@@ -69,7 +70,7 @@
 
 /obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
 	if(locked)
-		to_chat(user, "<span class='notice'>The bolts are locked down, securing the door [state_open ? "open" : "shut"].</span>")
+		to_chat(user, span_notice("The bolts are locked down, securing the door [state_open ? "open" : "shut"]."))
 		return
 
 	if(state_open)
@@ -84,15 +85,15 @@
 		return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
-	user.visible_message("<span class='notice'>You see [user] kicking against the door of [src]!</span>", \
-		"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
-		"<span class='italics'>You hear a metallic creaking from [src].</span>")
+	user.visible_message(span_notice("You see [user] kicking against the door of [src]!"), \
+		span_notice("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_italics("You hear a metallic creaking from [src]."))
 	if(do_after(user,(breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || state_open || !locked)
 			return
 		locked = FALSE
-		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
-			"<span class='notice'>You successfully break out of [src]!</span>")
+		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
+			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
 /obj/machinery/dna_scannernew/proc/locate_computer(type_)
@@ -122,7 +123,7 @@
 	if(user.stat || (locked && !state_open))
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
-			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
+			to_chat(user, span_warning("[src]'s door won't budge!"))
 		return
 	open_machine()
 
@@ -148,14 +149,14 @@
 	toggle_open(user)
 
 /obj/machinery/dna_scannernew/MouseDrop_T(mob/target, mob/user)
-	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser() || locked)
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user) || locked)
 		return
 	close_machine(target)
 
 /obj/machinery/dna_scannernew/proc/irradiate(mob/living/carbon/target)
 	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
 		return
-	to_chat(target, "<span class='danger'>You feel warm.</span>")
+	to_chat(target, span_danger("You feel warm."))
 	target.rad_act(250/(damage_coeff ** 2))
 
 	if(!target.has_dna() || HAS_TRAIT(target, TRAIT_BADDNA))
@@ -163,12 +164,12 @@
 
 	var/resist = target.getarmor(null, RAD)
 	if(prob(max(0,100-resist)))
-		target.randmuti()
+		target.random_mutate_unique_identity()
 		if(prob(20))
 			if(prob(90))
-				target.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+				target.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 			else
-				target.easy_randmut(POSITIVE)
+				target.easy_random_mutate(POSITIVE)
 			target.domutcheck()
 
 /obj/machinery/dna_scannernew/proc/shock(mob/user, prb)

@@ -13,10 +13,11 @@
 	program_icon_state = "id"
 	extended_desc = "Program for programming employee ID cards to access parts of the station."
 	transfer_access = list(ACCESS_HEADS)
-	requires_ntnet = 0
 	size = 8
 	tgui_id = "NtosCard"
 	program_icon = "id-card"
+	hardware_requirement = MC_CARD2
+	power_consumption = 80 WATT
 
 
 
@@ -145,17 +146,17 @@
 					contents += "  [get_access_desc(A)]"
 
 			if(!printer.print_text(contents,"access report"))
-				to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
+				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 				return
 			else
 				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
-				computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
+				computer.visible_message(span_notice("\The [computer] prints out a paper."))
 			return TRUE
 		if("PRG_eject")
 			if(!card_slot2)
 				return
 			if(target_id_card)
-				GLOB.data_core.manifest_modify(target_id_card.registered_name, target_id_card.assignment, target_id_card.hud_state)
+				GLOB.manifest.modify(target_id_card.registered_name, target_id_card.assignment, target_id_card.hud_state)
 				return card_slot2.try_eject(user)
 			else
 				var/obj/item/I = user.get_active_held_item()
@@ -186,7 +187,7 @@
 			new_name = reject_bad_name(new_name, allow_numbers = TRUE)
 
 			if(!new_name)
-				to_chat(usr, "<span class='notice'>Software error: The ID card rejected the new name as it contains prohibited characters.</span>")
+				to_chat(usr, span_notice("Software error: The ID card rejected the new name as it contains prohibited characters."))
 				return
 			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			target_id_card.registered_name = new_name
@@ -206,7 +207,7 @@
 				// However, we are going to assignments containing bad text overall.
 				custom_name = reject_bad_text(custom_name)
 				if(!custom_name)
-					to_chat(usr, "<span class='notice'>Software error: The ID card rejected the new custom assignment as it contains prohibited characters.</span>")
+					to_chat(usr, span_notice("Software error: The ID card rejected the new custom assignment as it contains prohibited characters."))
 				else
 					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 					target_id_card.assignment = custom_name
@@ -218,7 +219,7 @@
 				if(!is_centcom) // station level
 					jobdatum = SSjob.GetJob(target)
 					if(!jobdatum)
-						to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
+						to_chat(usr, span_warning("No log exists for this job."))
 						stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
 						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 						return
@@ -300,12 +301,12 @@
 	else if(isnull(departments))
 		departments = list(
 			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
-			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
-			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
-			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
-			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
-			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
+			CARDCON_DEPARTMENT_ENGINEERING = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ENGINEERING),
+			CARDCON_DEPARTMENT_MEDICAL = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_MEDICAL),
+			CARDCON_DEPARTMENT_SCIENCE = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SCIENCE),
+			CARDCON_DEPARTMENT_SECURITY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY),
+			CARDCON_DEPARTMENT_SUPPLY = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CARGO),
+			CARDCON_DEPARTMENT_CIVILIAN = SSdepartment.get_jobs_by_dept_id(DEPT_NAME_CIVILIAN)
 		)
 	data["jobs"] = list()
 	for(var/department in departments)

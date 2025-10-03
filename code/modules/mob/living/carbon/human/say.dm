@@ -1,5 +1,5 @@
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
-	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(T)
 		verb_say = pick(T.say_mod)
 		verb_ask = pick(T.ask_mod)
@@ -18,9 +18,13 @@
 		. = ..()
 
 /mob/living/carbon/human/GetVoice()
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return ("Unknown")
+
 	var/current_name = real_name
 	if(GetSpecialVoice())
 		current_name = GetSpecialVoice()
+		
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )
@@ -32,10 +36,10 @@
 
 /mob/living/carbon/human/IsVocal()
 	// how do species that don't breathe talk? magic, that's what.
-	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !getorganslot(ORGAN_SLOT_LUNGS))
+	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !get_organ_slot(ORGAN_SLOT_LUNGS))
 		return FALSE
 	if(dna?.species && !dna?.species.speak_no_tongue)
-		if(!getorganslot(ORGAN_SLOT_TONGUE))
+		if(!get_organ_slot(ORGAN_SLOT_TONGUE))
 			return FALSE
 	if(mind)
 		return !mind.miming

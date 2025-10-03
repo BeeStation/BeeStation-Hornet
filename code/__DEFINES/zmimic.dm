@@ -1,6 +1,6 @@
 #define TURF_IS_MIMICKING(T) (isturf(T) && (T:z_flags & Z_MIMIC_BELOW))
 
-#define CHECK_OO_EXISTENCE(OO) if (OO && !MOVABLE_IS_ON_ZTURF(OO) && !OO:destruction_timer) { OO:destruction_timer = QDEL_IN(OO, 10 SECONDS); }
+#define CHECK_OO_EXISTENCE(OO) if (OO && !MOVABLE_IS_ON_ZTURF(OO) && !OO:destruction_timer) { OO:destruction_timer = QDEL_IN_STOPPABLE(OO, 10 SECONDS); }
 #define UPDATE_OO_IF_PRESENT CHECK_OO_EXISTENCE(src:bound_overlay); if (src:bound_overlay) { update_above(); }
 
 // These aren't intended to be used anywhere else, they just can't be undef'd because DM is dum.
@@ -62,3 +62,5 @@ GLOBAL_LIST_INIT(z_defines, list(
 On ZMM_AUTOMANGLE:
 	It's separate from ZMM_MANGLE_PLANES so SSoverlays doesn't disable mangling on a manually flagged atom.
 */
+
+#define GET_TURF_DEPTH(turf) (!isnull((turf).z_depth) ? (turf).z_depth : (turf).calculate_zdepth())

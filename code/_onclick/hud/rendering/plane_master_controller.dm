@@ -8,6 +8,8 @@
 INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 
 ///Ensures that all the planes are correctly in the controlled_planes list.
+CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/plane_master_controller)
+
 /atom/movable/plane_master_controller/Initialize(mapload, datum/hud/hud)
 	. = ..()
 	if(!istype(hud))

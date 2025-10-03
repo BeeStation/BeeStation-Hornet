@@ -1,4 +1,5 @@
 import { multiline } from 'common/string';
+
 import { CheckboxInput, FeatureToggle } from '../base';
 
 export const darkened_flash: FeatureToggle = {
@@ -9,4 +10,5 @@ export const darkened_flash: FeatureToggle = {
     bright one.
   `,
   component: CheckboxInput,
+  important: true,
 };

@@ -18,41 +18,41 @@
 		if(prob(10))
 			AttemptGrow(0)
 
-/obj/item/organ/body_egg/alien_embryo/on_life()
+/obj/item/organ/body_egg/alien_embryo/on_life(delta_time, times_fired)
 	. = ..()
 	if(!owner)
 		return
 	switch(stage)
-		if(2, 3)
-			if(prob(2))
+		if(3, 4)
+			if(DT_PROB(1, delta_time))
 				owner.emote("sneeze")
-			if(prob(2))
+			if(DT_PROB(1, delta_time))
 				owner.emote("cough")
-			if(prob(2))
-				to_chat(owner, "<span class='danger'>Your throat feels sore.</span>")
-			if(prob(2))
-				to_chat(owner, "<span class='danger'>Mucous runs down the back of your throat.</span>")
-		if(4)
-			if(prob(2))
+			if(DT_PROB(1, delta_time))
+				to_chat(owner, span_danger("Your throat feels sore."))
+			if(DT_PROB(1, delta_time))
+				to_chat(owner, span_danger("Mucous runs down the back of your throat."))
+		if(5)
+			if(DT_PROB(1, delta_time))
 				owner.emote("sneeze")
-			if(prob(2))
+			if(DT_PROB(1, delta_time))
 				owner.emote("cough")
-			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your muscles ache.</span>")
+			if(DT_PROB(2, delta_time))
+				to_chat(owner, span_danger("Your muscles ache."))
 				if(prob(20))
 					owner.take_bodypart_damage(1)
-			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your stomach hurts.</span>")
+			if(DT_PROB(2, delta_time))
+				to_chat(owner, span_danger("Your stomach hurts."))
 				if(prob(20))
 					owner.adjustToxLoss(1)
-		if(5)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach.</span>")
-			owner.adjustToxLoss(10)
+		if(6)
+			to_chat(owner, span_danger("You feel something tearing its way out of your stomach."))
+			owner.adjustToxLoss(5 * delta_time) // Why is this [TOX]?
 
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
 	if(!owner) // If we're out of the body, kill us and stop processing
-		applyOrganDamage(maxHealth)
+		apply_organ_damage(maxHealth)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
@@ -83,24 +83,30 @@
 
 	bursting = TRUE
 
-	var/list/candidates = poll_ghost_candidates("Do you want to play as an alien larva that will burst out of [owner]?", ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 10 SECONDS, POLL_IGNORE_ALIEN_LARVA) // separate poll from xeno event spawns
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = "Do you want to play as an alien larva that will burst out of [owner]?",
+		check_jobban = ROLE_ALIEN,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_ALIEN_LARVA,
+		jump_target = owner,
+		role_name_text = "alien larva",
+		alert_pic = /mob/living/carbon/alien/larva,
+	)
 
 	if(QDELETED(src) || QDELETED(owner))
 		return
 
-	if(!candidates.len || !owner)
+	if(!candidate || !owner)
 		bursting = FALSE
 		stage = 4
 		return
-
-	var/mob/dead/observer/ghost = pick(candidates)
 
 	var/mutable_appearance/overlay = mutable_appearance('icons/mob/alien.dmi', "burst_lie")
 	owner.add_overlay(overlay)
 
 	var/atom/xeno_loc = get_turf(owner)
 	var/mob/living/carbon/alien/larva/new_xeno = new(xeno_loc)
-	new_xeno.key = ghost.key
+	new_xeno.key = candidate.key
 	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))	//To get the player's attention
 	ADD_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type) //so we don't move during the bursting animation
 	ADD_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
@@ -121,7 +127,7 @@
 
 	var/mob/living/carbon/host = owner
 	if(kill_on_success)
-		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+		new_xeno.visible_message(span_danger("[new_xeno] bursts out of [owner] in a shower of gore!"), span_userdanger("You exit [owner], your previous host."), span_italics("You hear organic matter ripping and tearing!"))
 		owner.investigate_log("has been killed by an alien larva chestburst.", INVESTIGATE_DEATHS)
 		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
 		if(BP)
@@ -130,7 +136,7 @@
 		else
 			owner.apply_damage(200)
 	else
-		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
+		new_xeno.visible_message(span_danger("[new_xeno] wriggles out of [owner]!"), span_userdanger("You exit [owner], your previous host."))
 		owner.adjustBruteLoss(40)
 	host.cut_overlay(overlay)
 	qdel(src)

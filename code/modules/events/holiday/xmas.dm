@@ -7,7 +7,7 @@
 
 /obj/item/toy/xmas_cracker/attack(mob/target, mob/user)
 	if( !cracked && ishuman(target) && (target.stat == CONSCIOUS) && !target.get_active_held_item() )
-		target.visible_message("[user] and [target] pop \an [src]! *pop*", "<span class='notice'>You pull \an [src] with [target]! *pop*</span>", "<span class='italics'>You hear a pop.</span>")
+		target.visible_message("[user] and [target] pop \an [src]! *pop*", span_notice("You pull \an [src] with [target]! *pop*"), span_italics("You hear a pop."))
 		var/obj/item/paper/joke_paper = new /obj/item/paper(user.loc)
 		joke_paper.name = "[pick("awful","terrible","unfunny")] joke"
 		joke_paper.add_raw_text(pick("What did one snowman say to the other?\n\n<i>'Is it me or can you smell carrots?'</i>",
@@ -38,15 +38,36 @@
 	icon_state = "xmashat"
 	desc = "A crappy paper hat that you are REQUIRED to wear."
 	flags_inv = 0
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/none
 
 /obj/item/clothing/head/costume/festive/Initialize(mapload)
 	//Merry christmas
 	if(CHRISTMAS in SSevents.holidays)
-		armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 30, RAD = 30, FIRE = 30, ACID = 30, STAMINA = 30, BLEED = 30)
+		armor_type = /datum/armor/festivehat_christmas
 	else if(FESTIVE_SEASON in SSevents.holidays)
-		armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 20, ACID = 20, STAMINA = 20, BLEED = 20)
+		armor_type = /datum/armor/festivehat_december
 	return ..()
+
+/datum/armor/festivehat_christmas
+	melee = 30
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 30
+	rad = 30
+	fire = 30
+	acid = 30
+
+/datum/armor/festivehat_december
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 20
+	rad = 20
+	fire = 20
+	acid = 20
+
 
 /obj/effect/spawner/xmastree
 	name = "christmas tree spawner"
@@ -84,11 +105,14 @@
 	priority_announce("Santa is coming to town!", "Unknown Transmission", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/santa/start()
-	var/list/candidates = poll_ghost_candidates("Santa is coming to town! Do you want to be Santa?", poll_time = 15 SECONDS)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		santa = new /mob/living/carbon/human(pick(GLOB.blobstart))
-		santa.key = C.key
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = "Santa is coming to town! Do you want to be Santa?",
+		poll_time = 15 SECONDS,
+		role_name_text = "santa",
+		alert_pic = /obj/item/clothing/head/costume/santa,
+	)
 
-		var/datum/antagonist/santa/A = new
-		santa.mind.add_antag_datum(A)
+	if(candidate)
+		santa = new(pick(GLOB.blobstart))
+		santa.key = candidate.key
+		santa.mind.add_antag_datum(/datum/antagonist/santa)

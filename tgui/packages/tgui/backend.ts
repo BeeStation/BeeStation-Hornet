@@ -13,6 +13,7 @@
 
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
+
 import { cleanupByondUIs } from './components/ByondUi';
 import { setupDrag } from './drag';
 import { focusMap } from './focus';
@@ -20,6 +21,12 @@ import { createLogger } from './logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
 
 const logger = createLogger('backend');
+
+export let globalStore;
+
+export const setGlobalStore = (store) => {
+  globalStore = store;
+};
 
 export const backendUpdate = createAction('backend/update');
 export const backendSetSharedState = createAction('backend/setSharedState');
@@ -155,7 +162,7 @@ export const backendMiddleware = (store) => {
         'is-visible': false,
       });
       cleanupByondUIs();
-      setImmediate(() => focusMap());
+      setTimeout(() => focusMap());
     }
 
     if (type === 'backend/update') {
@@ -185,7 +192,7 @@ export const backendMiddleware = (store) => {
       setupDrag();
       // We schedule this for the next tick here because resizing and unhiding
       // during the same tick will flash with a white background.
-      setImmediate(() => {
+      setTimeout(() => {
         perf.mark('resume/start');
         // Doublecheck if we are not re-suspended.
         const { suspended } = selectBackend(store.getState());
@@ -197,7 +204,10 @@ export const backendMiddleware = (store) => {
         });
         perf.mark('resume/finish');
         if (process.env.NODE_ENV !== 'production') {
-          logger.log('visible in', perf.measure('render/finish', 'resume/finish'));
+          logger.log(
+            'visible in',
+            perf.measure('render/finish', 'resume/finish'),
+          );
         }
       });
     }
@@ -212,7 +222,8 @@ export const backendMiddleware = (store) => {
  */
 export const sendAct = (action: string, payload: object = {}) => {
   // Validate that payload is an object
-  const isObject = typeof payload === 'object' && payload !== null && !Array.isArray(payload);
+  const isObject =
+    typeof payload === 'object' && payload !== null && !Array.isArray(payload);
   if (!isObject) {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
@@ -224,7 +235,10 @@ type BackendState<TData> = {
   config: {
     title: string;
     status: number;
-    interface: string;
+    interface: {
+      name: string;
+      layout: string;
+    };
     refreshing: boolean;
     window: {
       key: string;
@@ -251,7 +265,8 @@ type BackendState<TData> = {
 /**
  * Selects a backend-related slice of Redux state
  */
-export const selectBackend = <TData>(state: any): BackendState<TData> => state.backend || {};
+export const selectBackend = <TData>(state: any): BackendState<TData> =>
+  state.backend || {};
 
 /**
  * A React hook (sort of) for getting tgui state and related functions.
@@ -261,9 +276,9 @@ export const selectBackend = <TData>(state: any): BackendState<TData> => state.b
  *
  * You can make
  */
-export const useBackend = <TData>(context: any) => {
-  const { store } = context;
-  const state = selectBackend<TData>(store.getState());
+export const useBackend = <TData>() => {
+  const state: BackendState<TData> = globalStore?.getState()?.backend;
+
   return {
     ...state,
     act: sendAct,
@@ -284,23 +299,27 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  *
  * It is a lot more performant than `setSharedState`.
  *
- * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
-export const useLocalState = <T>(context: any, key: string, initialState: T): StateWithSetter<T> => {
-  const { store } = context;
-  const state = selectBackend(store.getState());
-  const sharedStates = state.shared ?? {};
+export const useLocalState = <T>(
+  key: string,
+  initialState: T,
+): StateWithSetter<T> => {
+  const state = selectBackend(globalStore?.getState());
+  const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
     (nextState) => {
-      store.dispatch(
+      globalStore.dispatch(
         backendSetSharedState({
           key,
-          nextState: typeof nextState === 'function' ? nextState(sharedState) : nextState,
-        })
+          nextState:
+            typeof nextState === 'function'
+              ? nextState(sharedState)
+              : nextState,
+        }),
       );
     },
   ];
@@ -316,14 +335,15 @@ export const useLocalState = <T>(context: any, key: string, initialState: T): St
  *
  * This makes creation of observable s
  *
- * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
-export const useSharedState = <T>(context: any, key: string, initialState: T): StateWithSetter<T> => {
-  const { store } = context;
-  const state = selectBackend(store.getState());
-  const sharedStates = state.shared ?? {};
+export const useSharedState = <T>(
+  key: string,
+  initialState: T,
+): StateWithSetter<T> => {
+  const state = globalStore?.getState()?.backend;
+  const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
@@ -331,8 +351,21 @@ export const useSharedState = <T>(context: any, key: string, initialState: T): S
       Byond.sendMessage({
         type: 'setSharedState',
         key,
-        value: JSON.stringify(typeof nextState === 'function' ? nextState(sharedState) : nextState) || '',
+        value:
+          JSON.stringify(
+            typeof nextState === 'function'
+              ? nextState(sharedState)
+              : nextState,
+          ) || '',
       });
     },
   ];
+};
+
+export const useDispatch = () => {
+  return globalStore.dispatch;
+};
+
+export const useSelector = (selector: (state: any) => any) => {
+  return selector(globalStore?.getState());
 };

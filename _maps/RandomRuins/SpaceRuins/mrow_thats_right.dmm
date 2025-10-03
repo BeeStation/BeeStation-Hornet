@@ -15,7 +15,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "af" = (
-/obj/machinery/space_heater,
+/obj/machinery/portable_thermomachine,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ag" = (
@@ -28,7 +28,7 @@
 "ai" = (
 /obj/structure/janitorialcart,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -42,7 +42,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "al" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -51,27 +51,27 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "am" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "an" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ao" = (
-/obj/machinery/atmospherics/pipe/manifold/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/green/hidden{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ap" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -92,11 +92,11 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "as" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/cat_man)
 "at" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "au" = (
@@ -156,7 +156,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "aE" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -170,17 +170,17 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "aK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/cup/bowl,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "aL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/cup/bowl,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "aM" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -196,7 +196,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -204,10 +204,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -278,10 +278,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window/westleft{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -303,19 +303,19 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "bm" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/cat_man)
 "bn" = (
-/obj/machinery/atmospherics/pipe/manifold/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/green/hidden{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -426,7 +426,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -439,10 +439,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen{
 	id = "meow";
-	name = "kitty protection door"
+	name = "kitty Protection Door"
 	},
 /obj/machinery/door/window/northleft{
-	name = "kitty door";
+	name = "kitty Door";
 	req_access_txt = "200"
 	},
 /turf/open/floor/plating,
@@ -459,14 +459,14 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "bR" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "bS" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -474,7 +474,7 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -505,24 +505,24 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "bZ" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 5
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ca" = (
-/obj/machinery/atmospherics/pipe/manifold/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/green/hidden{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "cb" = (
-/obj/machinery/atmospherics/pipe/manifold/green/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/green/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "cc" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -538,7 +538,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "ce" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -564,13 +564,13 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "ci" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/dark/hidden{
+/obj/machinery/atmospherics/pipe/smart/manifold/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "cj" = (
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 5
 	},
 /obj/structure/table,
@@ -580,13 +580,13 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "ck" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
 "cl" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored{
 	dir = 8;
 	id_tag = "n2o_out_cat";
 	name = "n2o out"
@@ -601,7 +601,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/cat_man)
 "co" = (
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/cat_man)
 "cp" = (
@@ -620,7 +620,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/cat_man)
 "cs" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/monitored{
 	dir = 1;
 	id_tag = "o2_out_cat";
 	name = "freezer vent"
@@ -691,7 +691,7 @@
 "hz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/cup/bowl,
 /obj/item/food/meat/slab/synthmeat{
 	desc = "A slab of cat meat. Tastes like furball.";
 	name = "cat meat"
@@ -856,7 +856,7 @@
 	desc = "A slab of cat meat. Tastes like furball.";
 	name = "cat meat"
 	},
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
+/obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 6
 	},
 /turf/open/floor/plating,

@@ -15,7 +15,6 @@
 								"Weapons",
 								"Ammo",
 								"Firing Pins",
-								"Computer Parts",
 								"Circuitry"
 								)
 	production_animation = "protolathe_n"

@@ -63,9 +63,6 @@
 	if(require_twohands)
 		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
 
-// Inherit the new values passed to the component
-#define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
-
 /datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
 		force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded, \
 		unwield_on_swap, auto_wield, ignore_attack_self)
@@ -163,22 +160,22 @@
 		return
 	var/atom/attached_atom = parent
 	if(attached_atom.loc != user)
-		to_chat(user, "<span class='warning'>You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle...</span>")
+		to_chat(user, span_warning("You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle..."))
 		return
 	if(ismonkey(user))
-		to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
+		to_chat(user, span_warning("It's too heavy for you to wield fully."))
 		return
 	if(swap_hands ? user.get_active_held_item() : user.get_inactive_held_item())
 		if(require_twohands)
-			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
+			to_chat(user, span_notice("[parent] is too cumbersome to carry in one hand!"))
 			user.dropItemToGround(parent, force=TRUE)
 		else
-			to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
+			to_chat(user, span_warning("You need your other hand to be empty!"))
 		return
 	if(user.usable_hands < 2)
 		if(require_twohands)
 			user.dropItemToGround(parent, force=TRUE)
-		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
+		to_chat(user, span_warning("You don't have enough intact hands."))
 		return
 
 	// wield update status
@@ -191,8 +188,8 @@
 
 	wielder = user
 	wielded = TRUE
-
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(unreference_wielder))
+	ADD_TRAIT(parent, TRAIT_WIELDED, REF(src))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(unreference_wielder))
 
 	if(!auto_wield)
 		RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, PROC_REF(on_swap_hands))
@@ -211,9 +208,9 @@
 	parent_item.update_icon()
 
 	if(iscyborg(user))
-		to_chat(user, "<span class='notice'>You dedicate your module to [parent].</span>")
+		to_chat(user, span_notice("You dedicate your module to [parent]."))
 	else
-		to_chat(user, "<span class='notice'>You grab [parent] with both hands.</span>")
+		to_chat(user, span_notice("You grab [parent] with both hands."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -231,7 +228,7 @@
 
 /datum/component/two_handed/proc/unreference_wielder()
 	SIGNAL_HANDLER
-	UnregisterSignal(wielder, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(wielder, COMSIG_QDELETING)
 	wielder = null
 
 /**
@@ -250,6 +247,7 @@
 	if(!auto_wield)
 		UnregisterSignal(wielder, COMSIG_MOB_SWAP_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, wielder)
+	REMOVE_TRAIT(parent, TRAIT_WIELDED, REF(src))
 
 	// update item stats
 	var/obj/item/parent_item = parent
@@ -272,9 +270,9 @@
 	// Update icons
 	parent_item.update_icon()
 	if(wielder.get_item_by_slot(ITEM_SLOT_BACK) == parent)
-		wielder.update_inv_back()
+		wielder.update_worn_back()
 	else
-		wielder.update_inv_hands()
+		wielder.update_held_items()
 
 	// if the item requires two handed drop the item on unwield
 	if(require_twohands)
@@ -283,11 +281,11 @@
 	// Show message if requested
 	if(show_message)
 		if(iscyborg(wielder))
-			to_chat(wielder, "<span class='notice'>You free up your module.</span>")
+			to_chat(wielder, span_notice("You free up your module."))
 		else if(require_twohands)
-			to_chat(wielder, "<span class='notice'>You drop [parent].</span>")
+			to_chat(wielder, span_notice("You drop [parent]."))
 		else
-			to_chat(wielder, "<span class='notice'>You are now carrying [parent] with one hand.</span>")
+			to_chat(wielder, span_notice("You are now carrying [parent] with one hand."))
 
 	// Play sound if set
 	if(unwieldsound)
@@ -399,3 +397,6 @@
 	. = ..()
 	if(wielded && !user.is_holding(src))
 		qdel(src)
+
+/obj/item/offhand/attack(mob/living/target, mob/living/user)
+	return

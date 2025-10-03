@@ -14,6 +14,12 @@
 	damage = 10
 	fire_stacks = 1
 
+/obj/projectile/bullet/c9mm_hp
+	name = "9mm hollow-point bullet"
+	damage = 25
+	armour_penetration = 30
+
+
 // 10mm (Stechkin)
 
 /obj/projectile/bullet/c10mm
@@ -38,3 +44,11 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+// x200law (Secoff, NT proprietary)
+
+/obj/projectile/bullet/x200law
+	name = "x200 LAW bullet"
+	damage = 22
+	armour_penetration = 0
+	bleed_force = BLEED_CUT

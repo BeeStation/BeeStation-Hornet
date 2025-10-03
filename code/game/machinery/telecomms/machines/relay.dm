@@ -10,9 +10,9 @@
 	name = "telecommunication relay"
 	icon_state = "relay"
 	desc = "A mighty piece of hardware used to send massive amounts of data far away."
+	telecomms_type = /obj/machinery/telecomms/relay
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
+	use_power = NO_POWER_USE // made only so they don't overheat in whatever places they usually are in (exploration shuttle, small rooms in multi-z maps etc.)
 	netspeed = 5
 	long_range_link = 1
 	circuit = /obj/item/circuitboard/machine/telecomms/relay

@@ -23,17 +23,17 @@
 	///Type of ingredients to accept, [CUSTOM_INGREDIENT_TYPE_EDIBLE] for example.
 	var/ingredient_type
 
-
 /datum/component/customizable_reagent_holder/Initialize(
 		atom/replacement,
 		fill_type,
 		ingredient_type = CUSTOM_INGREDIENT_TYPE_EDIBLE,
-		max_ingredients = INFINITY,
-		list/obj/item/initial_ingredients = null)
+		max_ingredients = MAX_ATOM_OVERLAYS - 2,
+		list/obj/item/initial_ingredients = null
+	)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/atom/atom_parent = parent
-	if (!atom_parent.reagents)
+	if (!atom_parent.reagents && !replacement)
 		return COMPONENT_INCOMPATIBLE
 
 	src.replacement = replacement
@@ -50,25 +50,28 @@
 
 /datum/component/customizable_reagent_holder/Destroy(force, silent)
 	QDEL_NULL(top_overlay)
+	LAZYCLEARLIST(ingredients)
 	return ..()
 
 
 /datum/component/customizable_reagent_holder/RegisterWithParent()
 	. = ..()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(customizable_attack))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE,  PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(customizable_attack))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE,  PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(food_exited))
 	RegisterSignal(parent, COMSIG_ATOM_PROCESSED,  PROC_REF(on_processed))
-	ADD_TRAIT(parent, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER, src)
+	ADD_TRAIT(parent, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER, REF(src))
 
 
 /datum/component/customizable_reagent_holder/UnregisterFromParent()
 	. = ..()
 	UnregisterSignal(parent, list(
-		COMSIG_PARENT_ATTACKBY,
-		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_ATTACKBY,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_ATOM_EXITED,
 		COMSIG_ATOM_PROCESSED,
 	))
-	REMOVE_TRAIT(parent, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER, src)
+	REMOVE_TRAIT(parent, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER, REF(src))
 
 /datum/component/customizable_reagent_holder/PostTransfer()
 	if(!isatom(parent))
@@ -82,49 +85,45 @@
 	SIGNAL_HANDLER
 
 	var/atom/atom_parent = parent
-	var/ingredients_listed = ""
-	if (LAZYLEN(ingredients))
-		for (var/i in 1 to ingredients.len)
-			var/obj/item/ingredient = ingredients[i]
-			var/ending = ", "
-			switch(length(ingredients))
-				if (2)
-					if (i == 1)
-						ending = " and "
-				if (3 to INFINITY)
-					if (i == ingredients.len - 1)
-						ending = ", and "
-			ingredients_listed += "\a [ingredient.name][ending]"
-	examine_list += "It contains [LAZYLEN(ingredients) ? "[ingredients_listed]" : " no ingredients, "]making a [custom_adjective()]-sized [initial(atom_parent.name)]."
+	var/list/ingredients_listed = list()
+	for(var/obj/item/ingredient as anything in ingredients)
+		ingredients_listed += "\a [ingredient.name]"
 
+	examine_list += "It [LAZYLEN(ingredients) \
+	? "contains [english_list(ingredients_listed)] making a [custom_adjective()]-sized [initial(atom_parent.name)]" \
+	: "does not contain any ingredients"]."
+
+//// Proc that checks if an ingredient is valid or not, returning false if it isnt and true if it is.
+/datum/component/customizable_reagent_holder/proc/valid_ingredient(obj/ingredient)
+	if (HAS_TRAIT(ingredient, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER))
+		return FALSE
+	switch (ingredient_type)
+		if (CUSTOM_INGREDIENT_TYPE_EDIBLE)
+			return IS_EDIBLE(ingredient)
+	return TRUE
 
 ///Handles when the customizable food is attacked by something.
 /datum/component/customizable_reagent_holder/proc/customizable_attack(datum/source, obj/ingredient, mob/attacker, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
 
-	var/valid_ingredient = TRUE
-
-	switch (ingredient_type)
-		if (CUSTOM_INGREDIENT_TYPE_EDIBLE)
-			valid_ingredient = IS_EDIBLE(ingredient)
-
-	// only accept valid ingredients
-	if (!valid_ingredient || HAS_TRAIT(ingredient, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER))
-		to_chat(attacker, "<span class='warning'>[ingredient] doesn't belong on [parent]!</span>")
+	if (!valid_ingredient(ingredient))
+		if (ingredient.is_drainable()) // For stuff like adding flour from a flour sack into a bowl, we handle the transfer of the reagent elsewhere, but we shouldn't regard it beyond some user feedback.
+			attacker.balloon_alert(attacker, "transferring...")
+			return
+		attacker.balloon_alert(attacker, "doesn't go on that!")
 		return
 
 	if (LAZYLEN(ingredients) >= max_ingredients)
-		to_chat(attacker, "<span class='warning'>[parent] is too full for any more ingredients!</span>")
+		attacker.balloon_alert(attacker, "too full!")
 		return COMPONENT_NO_AFTERATTACK
 
 	var/atom/atom_parent = parent
 	if(!attacker.transferItemToLoc(ingredient, atom_parent))
 		return
 	if (replacement)
-		var/atom/replacement_parent = new replacement(atom_parent.loc)
+		var/atom/replacement_parent = new replacement(atom_parent.drop_location())
 		ingredient.forceMove(replacement_parent)
 		replacement = null
-		RemoveComponent()
 		replacement_parent.TakeComponent(src)
 		handle_reagents(atom_parent)
 		qdel(atom_parent)
@@ -245,3 +244,8 @@
 	for (var/r in results)
 		var/atom/result = r
 		result.AddComponent(/datum/component/customizable_reagent_holder, null, fill_type, ingredient_type = ingredient_type, max_ingredients = max_ingredients, initial_ingredients = ingredients)
+
+/// Clear refs if our food "goes away" somehow
+/datum/component/customizable_reagent_holder/proc/food_exited(datum/source, atom/movable/gone)
+	SIGNAL_HANDLER
+	LAZYREMOVE(ingredients, gone)

@@ -10,15 +10,15 @@
 	allowed = list(
 		/obj/item/analyzer,
 		/obj/item/stack/medical,
-		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/firstaid,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/healthanalyzer,
 		/obj/item/flashlight/pen,
-		/obj/item/reagent_containers/glass/bottle,
-		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/paper,
@@ -28,8 +28,15 @@
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/plasmaman
 		)
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0, BLEED = 5)
+	armor_type = /datum/armor/toggle_labcoat
 	species_exception = list(/datum/species/golem)
+
+
+/datum/armor/toggle_labcoat
+	bio = 50
+	fire = 50
+	acid = 50
+	bleed = 5
 
 /obj/item/clothing/suit/toggle/labcoat/cmo
 	name = "chief medical officer's labcoat"
@@ -47,7 +54,16 @@
 	name = "security medic's labcoat"
 	icon_state = "labcoat_sec"
 	item_state = "labcoat_sec"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 50, acid = 50, stamina = 30, BLEED = 10)
+	armor_type = /datum/armor/labcoat_brig_physician
+
+
+/datum/armor/labcoat_brig_physician
+	melee = 10
+	bio = 10
+	fire = 50
+	acid = 50
+	stamina = 30
+	bleed = 10
 
 /obj/item/clothing/suit/toggle/labcoat/mad
 	name = "\proper The Mad's labcoat"
@@ -77,6 +93,6 @@
 
 /obj/item/clothing/suit/toggle/labcoat/research_director
 	name = "research director's labcoat"
-	desc = "Popped collar, ancient science fair medal from middle school.. worn out buttons that barely keep the coat closed? Oh yeah, its plasma research time. Has a legacy purple U stripe along the back."
+	desc = "Popped collar, ancient science fair medal, worn out buttons that barely keep the coat closed? Oh yeah, it's research time. Has expensive plasma-imbued fabric, making it resistant to spills."
 	icon_state = "labcoat_rd"
 	item_state = "labcoat_tox"

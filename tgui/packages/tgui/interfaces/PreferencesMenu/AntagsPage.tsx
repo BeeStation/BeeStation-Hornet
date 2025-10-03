@@ -1,20 +1,28 @@
 import { round } from 'common/math';
 import { classes } from 'common/react';
-import { useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, Section, Stack, Tooltip, Divider, Input, Icon } from '../../components';
-import { PreferencesMenuData } from './data';
-import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
-import { AntagonistData } from './data';
 import { createSearch } from 'common/string';
 
-const AntagSelection = (
-  props: {
-    antagonists: AntagonistData[];
-    name: string;
-  },
-  context
-) => {
-  const { act, data } = useBackend<PreferencesMenuData>(context);
+import { useBackend, useLocalState } from '../../backend';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Icon,
+  Input,
+  Section,
+  Stack,
+  Tooltip,
+} from '../../components';
+import { PreferencesMenuData } from './data';
+import { AntagonistData } from './data';
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+
+const AntagSelection = (props: {
+  antagonists: AntagonistData[];
+  name: string;
+}) => {
+  const { act, data } = useBackend<PreferencesMenuData>();
   const className = 'PreferencesMenu__Antags__antagSelection';
 
   const enableAntagsGlobal = (antags: string[]) => {
@@ -95,10 +103,14 @@ const AntagSelection = (
             onClick={() => disableAntagsCharacter(antagonistKeys)}
           />
         </>
-      }>
+      }
+    >
       <Flex className={className} align="flex-end" wrap>
         {props.antagonists.map((antagonist) => {
-          const isBanned = antagonist.ban_key && data.antag_bans && data.antag_bans.indexOf(antagonist.ban_key) !== -1;
+          const isBanned =
+            antagonist.ban_key &&
+            data.antag_bans &&
+            data.antag_bans.indexOf(antagonist.ban_key) !== -1;
           const hoursLeft =
             (antagonist.path &&
               data.antag_living_playtime_hours_left &&
@@ -107,12 +119,14 @@ const AntagSelection = (
 
           let displayHours = round(hoursLeft, 2);
           let full_description = `${
-            isBanned ? `You are banned from ${antagonist.name}.${antagonist.description || hoursLeft > 0 ? '\n' : ''}` : ''
+            isBanned
+              ? `You are banned from ${antagonist.name}.${antagonist.description || hoursLeft > 0 ? '\n' : ''}`
+              : ''
           }${
             hoursLeft > 0
               ? `You require ${displayHours} more hour${
-                displayHours !== 1 ? 's' : ''
-              } of living playtime in order to play this role.${antagonist.description ? '\n' : ''}`
+                  displayHours !== 1 ? 's' : ''
+                } of living playtime in order to play this role.${antagonist.description ? '\n' : ''}`
               : ''
           }${antagonist.description}`;
           if (!full_description.length) {
@@ -131,15 +145,17 @@ const AntagSelection = (
                   isBanned || hoursLeft > 0 ? '--banned' : ''
                 }`,
               ])}
-              key={antagonist.path}>
+              key={antagonist.path}
+            >
               <Stack align="center" vertical>
                 <Stack.Item
                   style={{
-                    'font-weight': 'bold',
-                    'margin-top': 'auto',
-                    'max-width': '100px',
-                    'text-align': 'center',
-                  }}>
+                    fontWeight: 'bold',
+                    marginTop: 'auto',
+                    maxWidth: '100px',
+                    textAlign: 'center',
+                  }}
+                >
                   {antagonist.name}
                 </Stack.Item>
 
@@ -149,7 +165,8 @@ const AntagSelection = (
                       className={classes([
                         `${className}__antagonist__per_character`,
                         `${className}__antagonist__per_character--${isSelectedCharacter(antagonist.path) ? 'on' : 'off'}`,
-                      ])}>
+                      ])}
+                    >
                       <Box
                         className="antagonist-icon-parent-per-character"
                         onClick={() => {
@@ -158,29 +175,35 @@ const AntagSelection = (
                           } else {
                             enableAntagsCharacter([antagonist.path]);
                           }
-                        }}>
+                        }}
+                      >
                         <Tooltip
                           content={
                             <div>
                               Per-Character Toggle
                               <Divider />
-                              This can only be disabled per-character. You cannot force a globally disabled antagonist
+                              This can only be disabled per-character. You
+                              cannot force a globally disabled antagonist
                               &apos;on&apos; for a specific character.
                             </div>
-                          }>
+                          }
+                        >
                           <Box className="antagonist-icon">C</Box>
                         </Tooltip>
                       </Box>
                     </Box>
                   ) : null}
                   <Tooltip
-                    content={(full_description || 'No description found.').split('\n').map((text, index, values) => (
-                      <div key={antagonist.path + '_desc_' + index}>
-                        {text}
-                        {index !== values.length - 1 && <Divider />}
-                      </div>
-                    ))}
-                    position="bottom">
+                    content={(full_description || 'No description found.')
+                      .split('\n')
+                      .map((text, index, values) => (
+                        <div key={antagonist.path + '_desc_' + index}>
+                          {text}
+                          {index !== values.length - 1 && <Divider />}
+                        </div>
+                      ))}
+                    position="bottom"
+                  >
                     <Box
                       className="antagonist-icon-parent"
                       onClick={() => {
@@ -189,13 +212,22 @@ const AntagSelection = (
                         } else {
                           enableAntagsGlobal([antagonist.path]);
                         }
-                      }}>
-                      <Box className={classes(['antagonists96x96', antagonist.icon_path, 'antagonist-icon'])} />
+                      }}
+                    >
+                      <Box
+                        className={classes([
+                          'antagonists96x96',
+                          antagonist.icon_path,
+                          'antagonist-icon',
+                        ])}
+                      />
 
                       {isBanned && (
                         <>
                           <Box className="antagonist-overlay-text">
-                            <span className="antagonist-overlay-text-hours">Banned</span>
+                            <span className="antagonist-overlay-text-hours">
+                              Banned
+                            </span>
                           </Box>
                           <Box className="antagonist-banned-slash" />
                         </>
@@ -203,7 +235,9 @@ const AntagSelection = (
 
                       {hoursLeft > 0 && (
                         <Box className="antagonist-overlay-text">
-                          <span className="antagonist-overlay-text-hours">{Math.ceil(hoursLeft)}</span>
+                          <span className="antagonist-overlay-text-hours">
+                            {Math.ceil(hoursLeft)}
+                          </span>
                           <br />
                           hours left
                         </Box>
@@ -220,8 +254,8 @@ const AntagSelection = (
   );
 };
 
-export const AntagsPage = (_, context) => {
-  let [searchText, setSearchText] = useLocalState(context, 'antag_search', '');
+export const AntagsPage = (_) => {
+  let [searchText, setSearchText] = useLocalState('antag_search', '');
   let search = createSearch(searchText, (antagonist: AntagonistData) => {
     return antagonist.name;
   });
@@ -240,13 +274,18 @@ export const AntagsPage = (_, context) => {
               allAntags={antagonists.map((antag) => antag.path)}
             />
             {searchText !== '' ? (
-              <AntagSelection name="Search Result" antagonists={antagonists.filter(search)} />
+              <AntagSelection
+                name="Search Result"
+                antagonists={antagonists.filter(search)}
+              />
             ) : (
               categories.map((category) => (
                 <AntagSelection
                   name={category}
                   key={category}
-                  antagonists={antagonists.filter((a) => a.category === category)!}
+                  antagonists={
+                    antagonists.filter((a) => a.category === category)!
+                  }
                 />
               ))
             )}
@@ -257,8 +296,8 @@ export const AntagsPage = (_, context) => {
   );
 };
 
-const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
-  const { act } = useBackend<PreferencesMenuData>(context);
+const SearchBar = ({ searchText, setSearchText, allAntags }) => {
+  const { act } = useBackend<PreferencesMenuData>();
   const enableAntags = (character: boolean) => {
     act('set_antags', {
       antags: allAntags,
@@ -279,7 +318,12 @@ const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
       <Stack>
         <Stack.Item>
           <Icon mr={1} name="search" />
-          <Input width="500px" placeholder="Search roles" value={searchText} onInput={(_, value) => setSearchText(value)} />
+          <Input
+            width="500px"
+            placeholder="Search roles"
+            value={searchText}
+            onInput={(_, value) => setSearchText(value)}
+          />
         </Stack.Item>
         <Stack.Item grow />
         <Stack.Item>
@@ -288,7 +332,8 @@ const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
             tooltipPosition="bottom"
             icon="globe"
             color="good"
-            onClick={() => enableAntags(false)}>
+            onClick={() => enableAntags(false)}
+          >
             Enable
           </Button>
           <Button
@@ -296,7 +341,8 @@ const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
             tooltipPosition="bottom"
             icon="ban"
             color="bad"
-            onClick={() => disableAntags(false)}>
+            onClick={() => disableAntags(false)}
+          >
             Disable
           </Button>
         </Stack.Item>
@@ -306,7 +352,8 @@ const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
             tooltipPosition="bottom"
             icon="user"
             color="good"
-            onClick={() => enableAntags(true)}>
+            onClick={() => enableAntags(true)}
+          >
             Enable
           </Button>
           <Button
@@ -314,7 +361,8 @@ const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
             tooltipPosition="bottom"
             icon="user-slash"
             color="bad"
-            onClick={() => disableAntags(true)}>
+            onClick={() => disableAntags(true)}
+          >
             Disable
           </Button>
         </Stack.Item>

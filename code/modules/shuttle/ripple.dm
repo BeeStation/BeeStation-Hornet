@@ -11,6 +11,8 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	alpha = 0
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/abstract/ripple)
+
 /obj/effect/abstract/ripple/Initialize(mapload, time_left)
 	. = ..()
 	animate(src, alpha=255, time=time_left)

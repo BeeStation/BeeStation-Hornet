@@ -35,7 +35,7 @@
 /datum/plant_gene/core/proc/apply_stat(obj/item/seeds/S)
 	return
 
-/datum/plant_gene/core/New(var/i = null)
+/datum/plant_gene/core/New(i = null)
 	..()
 	if(!isnull(i))
 		value = i
@@ -215,7 +215,7 @@
 	// Also splashes everything in target turf with reagents and applies other trait effects (teleporting, etc) to the target by on_squash.
 	// For code, see grown.dm
 	name = "Liquid Contents"
-	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
+	examine_line = span_info("It has a lot of liquid contents inside.")
 
 /datum/plant_gene/trait/squash/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	// Squash the plant on slip.
@@ -226,7 +226,7 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	rate = 1.6
-	examine_line = "<span class='info'>It has a very slippery skin.</span>"
+	examine_line = span_info("It has a very slippery skin.")
 
 /datum/plant_gene/trait/slip/on_new(obj/item/food/grown/G, newloc)
 	..()
@@ -284,7 +284,7 @@
 				C.update_icon()
 				batteries_recharged = 1
 		if(batteries_recharged)
-			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
+			to_chat(target, span_notice("Your batteries are recharged!"))
 
 
 
@@ -293,12 +293,12 @@
 	// Adds 1 + potency*rate light range and potency*(rate + 0.01) light_power to products.
 	name = "Bioluminescence"
 	rate = 0.03
-	examine_line = "<span class='info'>It emits a soft glow.</span>"
+	examine_line = span_info("It emits a soft glow.")
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
 /datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
-	return 1.4 + S.potency*rate
+	return round(1.4 + S.potency*rate) //lights with non-integer ranges aren't centered properly
 
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*(rate + 0.01), 0.1)
@@ -378,7 +378,7 @@
 /datum/plant_gene/trait/teleport/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
-	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+	to_chat(C, span_warning("You slip through spacetime!"))
 	do_teleport(C, T, teleport_radius, channel = TELEPORT_CHANNEL_BLUESPACE)
 	if(C.ckey != G.fingerprintslast)			//what's the point of logging someone attacking himself
 		C.investigate_log("has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(C)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
@@ -405,7 +405,7 @@
 /datum/plant_gene/trait/repeated_harvest/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE
-	if(istype(S, /obj/item/seeds/replicapod))
+	if(istype(S, /obj/item/seeds/dionapod))
 		return FALSE
 	return TRUE
 
@@ -416,7 +416,7 @@
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
-			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
+			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
 			pocell.maxcharge = G.seed.potency * 20
@@ -427,14 +427,14 @@
 				pocell.maxcharge *= CG.rate*100
 			pocell.charge = pocell.maxcharge
 			pocell.name = "[G.name] battery"
-			pocell.desc = "A rechargeable plant-based power cell. This one has a rating of [display_energy(pocell.maxcharge)], and you should not swallow it."
+			pocell.desc = "A rechargeable plant-based power cell. This one can store up to [display_power(pocell.maxcharge)], and you should not swallow it."
 
 			if(G.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
 				pocell.rigged = TRUE
 
 			qdel(G)
 		else
-			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
 
 
 /datum/plant_gene/trait/stinging
@@ -466,9 +466,9 @@
 
 	var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-	G.reagents.reaction(L, INJECT, fraction)
+	G.reagents.expose(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
-	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
+	to_chat(L, span_danger("You are pricked by [G]!"))
 	return TRUE
 
 /datum/plant_gene/trait/smoke
@@ -520,7 +520,7 @@
 			HY.weedlevel = 0 // Reset
 			HY.pestlevel = 0 // Reset
 			HY.update_icon()
-			HY.visible_message("<span class='warning'>The [H.myseed.plantname] spreads!</span>")
+			HY.visible_message(span_warning("The [H.myseed.plantname] spreads!"))
 
 // It boosts chemical output of a plant by rate
 /datum/plant_gene/trait/richer_juice

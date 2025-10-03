@@ -3,9 +3,9 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	banning_key = ROLE_OBSESSED
+	required_living_playtime = 4
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
-	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
 
@@ -19,7 +19,7 @@
 	if(!istype(current))
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to at least be a carbon!")
 		return
-	if(!current.getorgan(/obj/item/organ/brain)) // If only I had a brain
+	if(!current.get_organ_by_type(/obj/item/organ/brain)) // If only I had a brain
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to HAVE A BRAIN.")
 		return
 	var/datum/mind/forced_target
@@ -44,11 +44,11 @@
 	if(!trauma?.obsession)
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
-	to_chat(owner, "<span class='bold'>Realization floods over you and everything that's happened this shift makes sense.</span>")
-	to_chat(owner, "<span class='bold'>[trauma.obsession.name] has no idea how much danger they're in and you're the only person that can be there for them.</span>")
-	to_chat(owner, "<span class='bold'>Nobody else can be trusted, they are all liars and will use deceit to stab you and [trauma.obsession.name] in the back as soon as they can.</span>")
-	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
+	to_chat(owner, span_userdanger("You are the Obsessed!"))
+	to_chat(owner, span_bold("Realization floods over you and everything that's happened this shift makes sense."))
+	to_chat(owner, span_bold("[trauma.obsession.name] has no idea how much danger they're in and you're the only person that can be there for them."))
+	to_chat(owner, span_bold("Nobody else can be trusted, they are all liars and will use deceit to stab you and [trauma.obsession.name] in the back as soon as they can."))
+	to_chat(owner, span_boldannounce("This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules."))//ironic if you know the history of the antag
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
 		"Viciously crush anyone or anything that might stand between you and your obsession. Only YOU can be trusted with them, nobody else can be trusted!")
@@ -122,7 +122,7 @@
 		objective.update_explanation_text()
 
 /datum/antagonist/obsessed/roundend_report_header()
-	return 	"<span class='header'>Someone became obsessed!</span><br>"
+	return 	"[span_header("Someone became obsessed!")]<br>"
 
 /datum/antagonist/obsessed/roundend_report()
 	var/list/report = list()
@@ -141,25 +141,25 @@
 				break
 	if(trauma)
 		if(trauma.total_time_creeping > 0)
-			report += "<span class='greentext'>The [name] spent a total of [DisplayTimeText(trauma.total_time_creeping)] being near [trauma.obsession]!</span>"
+			report += span_greentext("The [name] spent a total of [DisplayTimeText(trauma.total_time_creeping)] being near [trauma.obsession]!")
 		else
-			report += "<span class='redtext'>The [name] did not go near their obsession the entire round! That's extremely impressive, but you are a shit [name]!</span>"
+			report += span_redtext("The [name] did not go near their obsession the entire round! That's extremely impressive, but you are a shit [name]!")
 	else
-		report += "<span class='redtext'>The [name] had no trauma attached to their antagonist ways! Either it bugged out or an admin incorrectly gave this good samaritan antag and it broke! You might as well show yourself!!</span>"
+		report += span_redtext("The [name] had no trauma attached to their antagonist ways! Either it bugged out or an admin incorrectly gave this good samaritan antag and it broke! You might as well show yourself!!")
 
 	if(!length(objectives) || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += span_greentextbig("The [name] was successful!")
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += span_redtextbig("The [name] has failed!")
 
 	return report.Join("<br>")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_added(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_added(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.join_hud(obsessed)
 	set_antag_hud(obsessed, "obsessed")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_removed(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_removed(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.leave_hud(obsessed)
 	set_antag_hud(obsessed, null)

@@ -90,9 +90,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/open/floor/engine,
 /area/template_noop)
 "at" = (

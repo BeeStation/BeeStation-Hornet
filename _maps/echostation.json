@@ -8,7 +8,7 @@
 	"planet_radius": "100",
 	"shuttles": {
 		"cargo": "cargo_tiny",
-		"ferry": "ferry_fancy",
+		"ferry": "ferry_standard",
 		"whiteship": "whiteship_box",
 		"emergency": "emergency_tiny"
 	},

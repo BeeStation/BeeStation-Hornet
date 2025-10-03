@@ -13,7 +13,6 @@
 	icon_state = "miner"
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
-	interacts_with_air = TRUE
 	var/spawn_id = null
 	var/spawn_temp = T20C
 	/// Moles of gas to spawn per second
@@ -45,25 +44,25 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(!isopenturf(T))
-		broken_message = "<span class='boldnotice'>VENT BLOCKED</span>"
+		broken_message = span_boldnotice("VENT BLOCKED")
 		set_broken(TRUE)
 		return FALSE
 	var/turf/open/OT = T
 	if(OT.planetary_atmos)
-		broken_message = "<span class='boldwarning'>DEVICE NOT ENCLOSED IN A PRESSURIZED ENVIRONMENT</span>"
+		broken_message = span_boldwarning("DEVICE NOT ENCLOSED IN A PRESSURIZED ENVIRONMENT")
 		set_broken(TRUE)
 		return FALSE
 	if(isspaceturf(T))
-		broken_message = "<span class='boldnotice'>AIR VENTING TO SPACE</span>"
+		broken_message = span_boldnotice("AIR VENTING TO SPACE")
 		set_broken(TRUE)
 		return FALSE
 	var/datum/gas_mixture/G = OT.return_air()
 	if(G.return_pressure() > (max_ext_kpa - ((spawn_mol*spawn_temp*R_IDEAL_GAS_EQUATION)/(CELL_VOLUME))))
-		broken_message = "<span class='boldwarning'>EXTERNAL PRESSURE OVER THRESHOLD</span>"
+		broken_message = span_boldwarning("EXTERNAL PRESSURE OVER THRESHOLD")
 		set_broken(TRUE)
 		return FALSE
 	if(G.total_moles() > max_ext_mol)
-		broken_message = "<span class='boldwarning'>EXTERNAL AIR CONCENTRATION OVER THRESHOLD</span>"
+		broken_message = span_boldwarning("EXTERNAL AIR CONCENTRATION OVER THRESHOLD")
 		set_broken(TRUE)
 		return FALSE
 	if(broken)
@@ -89,15 +88,15 @@
 	var/P = G.return_pressure()
 	switch(power_draw)
 		if(GASMINER_POWER_NONE)
-			active_power_usage = 0
+			update_use_power(ACTIVE_POWER_USE, 0)
 		if(GASMINER_POWER_STATIC)
-			active_power_usage = power_draw_static
+			update_use_power(ACTIVE_POWER_USE, power_draw_static)
 		if(GASMINER_POWER_MOLES)
-			active_power_usage = spawn_mol * power_draw_dynamic_mol_coeff
+			update_use_power(ACTIVE_POWER_USE, spawn_mol * power_draw_dynamic_mol_coeff)
 		if(GASMINER_POWER_KPA)
-			active_power_usage = P * power_draw_dynamic_kpa_coeff
+			update_use_power(ACTIVE_POWER_USE, P * power_draw_dynamic_kpa_coeff)
 		if(GASMINER_POWER_FULLSCALE)
-			active_power_usage = (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff) + power_draw_static
+			update_use_power(ACTIVE_POWER_USE, (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff))
 
 /obj/machinery/atmospherics/miner/proc/do_use_power(amount)
 	var/turf/T = get_turf(src)
@@ -120,25 +119,26 @@
 		on_overlay.color = overlay_color
 		add_overlay(on_overlay)
 
-/obj/machinery/atmospherics/miner/process_atmos() //TODO figure out delta_time for this
+/obj/machinery/atmospherics/miner/process(delta_time)
 	update_power()
 	check_operation()
 	if(active && !broken)
 		if(isnull(spawn_id))
 			return FALSE
 		if(do_use_power(active_power_usage))
-			mine_gas()
+			mine_gas(delta_time)
 
 /obj/machinery/atmospherics/miner/proc/mine_gas(delta_time = 2)
 	var/turf/open/O = get_turf(src)
 	if(!isopenturf(O))
 		return FALSE
 	var/datum/gas_mixture/merger = new
-	merger.set_moles(spawn_id, spawn_mol * delta_time)
-	merger.set_temperature(spawn_temp)
+	merger.assert_gas(spawn_id)
+	merger.gases[spawn_id][MOLES] = spawn_mol * delta_time
+	merger.temperature = spawn_temp
 	O.assume_air(merger)
 
-/obj/machinery/atmospherics/miner/attack_ai(mob/living/silicon/user)
+/obj/machinery/atmospherics/miner/attack_silicon(mob/living/silicon/user)
 	if(broken)
 		to_chat(user, "[src] seems to be broken. Its debug interface outputs: [broken_message]")
 	..()
@@ -146,62 +146,57 @@
 /obj/machinery/atmospherics/miner/n2o
 	name = "\improper N2O Gas Miner"
 	overlay_color = "#FFCCCC"
-	spawn_id = GAS_NITROUS
+	spawn_id = /datum/gas/nitrous_oxide
 
 /obj/machinery/atmospherics/miner/nitrogen
 	name = "\improper N2 Gas Miner"
 	overlay_color = "#CCFFCC"
-	spawn_id = GAS_N2
+	spawn_id = /datum/gas/nitrogen
 
 /obj/machinery/atmospherics/miner/oxygen
 	name = "\improper O2 Gas Miner"
 	overlay_color = "#007FFF"
-	spawn_id = GAS_O2
+	spawn_id = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/miner/plasma
 	name = "\improper Plasma Gas Miner"
 	overlay_color = "#FF0000"
-	spawn_id = GAS_PLASMA
+	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/carbon_dioxide
 	name = "\improper CO2 Gas Miner"
 	overlay_color = "#CDCDCD"
-	spawn_id = GAS_CO2
+	spawn_id = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/miner/bz
 	name = "\improper BZ Gas Miner"
 	overlay_color = "#FAFF00"
-	spawn_id = GAS_BZ
+	spawn_id = /datum/gas/bz
 
 /obj/machinery/atmospherics/miner/water_vapor
 	name = "\improper Water Vapor Gas Miner"
 	overlay_color = "#99928E"
-	spawn_id = GAS_H2O
+	spawn_id = /datum/gas/water_vapor
 
 /obj/machinery/atmospherics/miner/tritium
 	name = "\improper Tritium Gas Miner"
 	overlay_color = "#1ae000"
-	spawn_id = GAS_TRITIUM
+	spawn_id = /datum/gas/tritium
 
 /obj/machinery/atmospherics/miner/hypernoblium
 	name = "\improper Hypernoblium Gas Miner"
 	overlay_color = "#00a6e7"
-	spawn_id = GAS_HYPERNOB
+	spawn_id = /datum/gas/hypernoblium
 
-/obj/machinery/atmospherics/miner/nitryl
-	name = "\improper Nitryl Gas Miner"
-	overlay_color = "#5e4000"
-	spawn_id = GAS_NITRYL
-
-/obj/machinery/atmospherics/miner/stimulum
-	name = "\improper Stimulum Gas Miner"
-	overlay_color = "#c9c9c9"
-	spawn_id = GAS_STIMULUM
+/obj/machinery/atmospherics/miner/nitrium
+	name = "\improper Nitrium Gas Miner"
+	overlay_color = "#752b00"
+	spawn_id = /datum/gas/nitrium
 
 /obj/machinery/atmospherics/miner/pluoxium
 	name = "\improper Pluoxium Gas Miner"
 	overlay_color = "#c5c9b1"
-	spawn_id = GAS_PLUOXIUM
+	spawn_id = /datum/gas/pluoxium
 
 /obj/machinery/atmospherics/miner/station
 	power_draw = GASMINER_POWER_FULLSCALE
@@ -211,37 +206,37 @@
 /obj/machinery/atmospherics/miner/station/n2o
 	name = "\improper N2O Gas Miner"
 	overlay_color = "#FFCCCC"
-	spawn_id = GAS_NITROUS
+	spawn_id = /datum/gas/nitrous_oxide
 
 /obj/machinery/atmospherics/miner/station/nitrogen
 	name = "\improper N2 Gas Miner"
 	overlay_color = "#CCFFCC"
-	spawn_id = GAS_N2
+	spawn_id = /datum/gas/nitrogen
 
 /obj/machinery/atmospherics/miner/station/oxygen
 	name = "\improper O2 Gas Miner"
 	overlay_color = "#007FFF"
-	spawn_id = GAS_O2
+	spawn_id = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/miner/station/plasma
 	name = "\improper Plasma Gas Miner"
 	overlay_color = "#FF0000"
-	spawn_id = GAS_PLASMA
+	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/station/carbon_dioxide
 	name = "\improper CO2 Gas Miner"
 	overlay_color = "#CDCDCD"
-	spawn_id = GAS_CO2
+	spawn_id = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/miner/station/bz
 	name = "\improper BZ Gas Miner"
 	overlay_color = "#FAFF00"
-	spawn_id = GAS_BZ
+	spawn_id = /datum/gas/bz
 
 /obj/machinery/atmospherics/miner/station/water_vapor
 	name = "\improper Water Vapor Gas Miner"
 	overlay_color = "#99928E"
-	spawn_id = GAS_H2O
+	spawn_id = /datum/gas/water_vapor
 
 
 #undef GASMINER_POWER_NONE

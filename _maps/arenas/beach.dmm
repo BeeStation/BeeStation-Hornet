@@ -11,7 +11,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "c" = (
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
 	},
 /turf/open/floor/plating/beach/sand,
@@ -35,7 +35,7 @@
 /turf/open/floor/wood,
 /area/tdome/arena)
 "h" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy,
+/obj/item/reagent_containers/cup/soda_cans/monkey_energy,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "i" = (
@@ -65,17 +65,17 @@
 /area/tdome/arena)
 "n" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "o" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "p" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "q" = (
@@ -115,14 +115,6 @@
 /obj/item/clothing/head/collectable/paper,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"A" = (
-/turf/open/floor/plating/beach/coastline_t,
-/area/tdome/arena)
-"B" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner{
-	dir = 8
-	},
-/area/tdome/arena)
 "D" = (
 /obj/structure/chair/fancy/shuttle,
 /mob/living/simple_animal/crab,
@@ -132,47 +124,9 @@
 /obj/item/toy/beach_ball,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"F" = (
-/turf/open/floor/plating/beach/coastline_t/sandwater_inner,
-/area/tdome/arena)
-"G" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 5
-	},
-/area/tdome/arena)
-"H" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 10
-	},
-/area/tdome/arena)
-"I" = (
-/turf/open/floor/plating/beach/coastline_t{
-	dir = 6
-	},
-/area/tdome/arena)
-"J" = (
-/turf/open/floor/plating/beach/coastline_b{
-	dir = 9
-	},
-/area/tdome/arena)
-"K" = (
-/turf/open/floor/plating/beach/water{
-	desc = "What's the difference?";
-	name = "coastline water"
-	},
-/area/tdome/arena)
-"L" = (
-/turf/open/floor/holofloor/beach/coast_b,
-/area/tdome/arena)
 "M" = (
-/obj/structure/flora/rock{
-	desc = "A volcanic rock.";
-	name = "coastal rock"
-	},
-/obj/structure/flora/ausbushes/stalkybush{
-	desc = "It can't be smoked.";
-	name = "sea weed"
-	},
+/obj/structure/flora/rock,
+/obj/structure/flora/ausbushes/stalkybush,
 /turf/open/floor/plating/beach/water,
 /area/tdome/arena)
 "N" = (
@@ -184,9 +138,9 @@ a
 k
 d
 d
-A
-G
-K
+N
+N
+N
 M
 "}
 (2,1,1) = {"
@@ -194,9 +148,9 @@ b
 l
 d
 d
-B
-H
-L
+N
+N
+N
 N
 "}
 (3,1,1) = {"
@@ -205,8 +159,8 @@ d
 r
 d
 d
-A
-L
+N
+N
 N
 "}
 (4,1,1) = {"
@@ -215,8 +169,8 @@ d
 s
 d
 d
-A
-L
+N
+N
 N
 "}
 (5,1,1) = {"
@@ -225,8 +179,8 @@ d
 d
 d
 D
-A
-L
+N
+N
 N
 "}
 (6,1,1) = {"
@@ -235,8 +189,8 @@ m
 d
 d
 E
-A
-L
+N
+N
 N
 "}
 (7,1,1) = {"
@@ -245,8 +199,8 @@ n
 t
 v
 d
-A
-L
+N
+N
 N
 "}
 (8,1,1) = {"
@@ -255,8 +209,8 @@ o
 t
 w
 d
-A
-L
+N
+N
 N
 "}
 (9,1,1) = {"
@@ -265,8 +219,8 @@ p
 t
 x
 d
-A
-L
+N
+N
 N
 "}
 (10,1,1) = {"
@@ -275,8 +229,8 @@ m
 d
 d
 d
-A
-L
+N
+N
 N
 "}
 (11,1,1) = {"
@@ -285,8 +239,8 @@ d
 d
 d
 d
-A
-L
+N
+N
 N
 "}
 (12,1,1) = {"
@@ -295,8 +249,8 @@ d
 d
 y
 d
-A
-L
+N
+N
 N
 "}
 (13,1,1) = {"
@@ -305,8 +259,8 @@ d
 u
 d
 d
-A
-L
+N
+N
 N
 "}
 (14,1,1) = {"
@@ -314,9 +268,9 @@ i
 q
 d
 d
-F
-I
-L
+N
+N
+N
 N
 "}
 (15,1,1) = {"
@@ -324,8 +278,8 @@ j
 k
 d
 d
-A
-J
-K
+N
+N
+N
 M
 "}

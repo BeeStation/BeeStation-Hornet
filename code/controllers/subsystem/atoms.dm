@@ -1,8 +1,3 @@
-#define BAD_INIT_QDEL_BEFORE 1
-#define BAD_INIT_DIDNT_INIT 2
-#define BAD_INIT_SLEPT 4
-#define BAD_INIT_NO_HINT 8
-
 #define SUBSYSTEM_INIT_SOURCE "subsystem init"
 SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
@@ -33,26 +28,18 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/Initialize()
 	//Wait until map loading is completed
 	if (length(SSasync_map_generator.executing_generators) > 0)
-		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSasync_map_generator.executing_generators)] map generators...</bold>")
+		to_chat(world, span_boldannounce("Waiting for [length(SSasync_map_generator.executing_generators)] map generators..."))
 		do
 			SSasync_map_generator.fire()
 			sleep(0.5)
 		while (length(SSasync_map_generator.executing_generators) > 0)
-		to_chat(world, "<span class='boldannounce'>Map generators completed, initializing atoms.</bold>")
+		to_chat(world, span_boldannounce("Map generators completed, initializing atoms.</bold>"))
 
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
 	return SS_INIT_SUCCESS
-
-#ifdef PROFILE_MAPLOAD_INIT_ATOM
-#define PROFILE_INIT_ATOM_BEGIN(...) var/__profile_stat_time = TICK_USAGE
-#define PROFILE_INIT_ATOM_END(atom) mapload_init_times += list(list(##atom.type, TICK_USAGE_TO_MS(__profile_stat_time)))
-#else
-#define PROFILE_INIT_ATOM_BEGIN(...)
-#define PROFILE_INIT_ATOM_END(...)
-#endif
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, list/atoms_to_return)
 	if(initialized == INITIALIZATION_INSSATOMS)
@@ -135,52 +122,6 @@ SUBSYSTEM_DEF(atoms)
 				CHECK_TICK
 
 	testing("Initialized [count] atoms")
-
-/// Init this specific atom
-/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, list/arguments)
-	var/the_type = A.type
-	if(QDELING(A))
-		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
-		return TRUE
-
-	// This is handled and battle tested by dreamchecker. Limit to UNIT_TESTS just in case that ever fails.
-	#ifdef UNIT_TESTS
-	var/start_tick = world.time
-	#endif
-
-	var/result = A.Initialize(arglist(arguments))
-
-	#ifdef UNIT_TESTS
-	if(start_tick != world.time)
-		BadInitializeCalls[the_type] |= BAD_INIT_SLEPT
-	#endif
-
-	var/qdeleted = FALSE
-
-	switch(result)
-		if (INITIALIZE_HINT_NORMAL)
-			// pass
-		if(INITIALIZE_HINT_LATELOAD)
-			if(arguments[1]) //mapload
-				late_loaders += A
-			else
-				A.LateInitialize()
-		if(INITIALIZE_HINT_QDEL)
-			qdel(A)
-			return TRUE //Don't need to check anything else since we know it's deleted already
-		else
-			BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
-
-	if(!A)	//possible harddel
-		qdeleted = TRUE
-	else if(!(A.flags_1 & INITIALIZED_1))
-		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
-	else
-		SEND_SIGNAL(A,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
-		if(created_atoms && from_template && ispath(the_type, /atom/movable))//we only want to populate the list with movables
-			created_atoms += A.GetAllContents()
-
-	return qdeleted || QDELING(A)
 
 /datum/controller/subsystem/atoms/proc/map_loader_begin(source)
 	set_tracked_initalized(INITIALIZATION_INSSATOMS, source)
@@ -271,3 +212,4 @@ SUBSYSTEM_DEF(atoms)
 		rustg_file_append(initlog, "[GLOB.log_directory]/initialize.log")
 
 #undef SUBSYSTEM_INIT_SOURCE
+

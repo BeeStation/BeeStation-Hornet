@@ -52,16 +52,22 @@
 	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
-	var/question = "Would you like to be [group_name]?"
-	var/list/candidates = poll_candidates_for_mobs(question, ROLE_SENTIENCE, null, 10 SECONDS, bodies)
+	var/list/candidates = SSpolling.poll_ghosts_for_targets(
+		question = "Would you like to be [span_notice(group_name)]?",
+		check_jobban = ROLE_SENTIENCE,
+		poll_time = 10 SECONDS,
+		checked_targets = bodies,
+		role_name_text = "sentience fun balloon",
+		alert_pic = src,
+	)
 	while(LAZYLEN(candidates) && LAZYLEN(bodies))
-		var/mob/dead/observer/C = pick_n_take(candidates)
+		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		var/mob/living/body = pick_n_take(bodies)
 
 		to_chat(body, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(body)])")
+		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(body)])")
 		body.ghostize(FALSE)
-		body.key = C.key
+		body.key = candidate.key
 		new /obj/effect/temp_visual/gravpush(get_turf(body))
 
 /obj/effect/fun_balloon/sentience/emergency_shuttle
@@ -69,9 +75,10 @@
 	var/trigger_time = 60
 
 /obj/effect/fun_balloon/sentience/emergency_shuttle/check()
-	. = FALSE
 	if(SSshuttle.emergency && (SSshuttle.emergency.timeLeft() <= trigger_time) && (SSshuttle.emergency.mode == SHUTTLE_CALL))
-		. = TRUE
+		return TRUE
+
+	return FALSE
 
 /obj/effect/fun_balloon/scatter
 	name = "scatter fun balloon"
@@ -83,7 +90,7 @@
 		var/turf/T = find_safe_turf()
 		new /obj/effect/temp_visual/gravpush(get_turf(M))
 		M.forceMove(T)
-		to_chat(M, "<span class='notice'>Pop!</span>")
+		to_chat(M, span_notice("Pop!"))
 
 /obj/effect/station_crash
 	name = "station crash"
@@ -107,7 +114,7 @@
 
 /obj/effect/forcefield/arena_shuttle
 	name = "portal"
-	timeleft = 0
+	initial_duration = 0
 	var/list/warp_points = list()
 
 /obj/effect/forcefield/arena_shuttle/Initialize(mapload)
@@ -125,8 +132,8 @@
 		qdel(L.pulling)
 		var/turf/LA = get_turf(pick(warp_points))
 		L.forceMove(LA)
-		L.hallucination = 0
-		to_chat(L, "<span class='reallybig redtext'>The battle is won. Your bloodlust subsides.</span>")
+		L.remove_status_effect(/datum/status_effect/hallucination)
+		to_chat(L, span_reallybigredtext("The battle is won. Your bloodlust subsides."))
 		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)
 	else
@@ -143,7 +150,7 @@
 
 /obj/effect/forcefield/arena_shuttle_entrance
 	name = "portal"
-	timeleft = 0
+	initial_duration = 0
 	var/list/warp_points = list()
 
 /obj/effect/forcefield/arena_shuttle_entrance/Bumped(atom/movable/AM)
@@ -157,7 +164,7 @@
 	var/obj/effect/landmark/LA = pick(warp_points)
 	var/mob/living/M = AM
 	M.forceMove(get_turf(LA))
-	to_chat(M, "<span class='reallybig redtext'>You're trapped in a deadly arena! To escape, you'll need to drag a severed head to the escape portals.</span>")
+	to_chat(M, span_reallybigredtext("You're trapped in a deadly arena! To escape, you'll need to drag a severed head to the escape portals."))
 	spawn()
 		var/obj/effect/mine/pickup/bloodbath/B = new (M)
 		B.mineEffect(M)
@@ -165,5 +172,5 @@
 
 /area/shuttle_arena
 	name = "arena"
-	has_gravity = STANDARD_GRAVITY
+	default_gravity = STANDARD_GRAVITY
 	requires_power = FALSE

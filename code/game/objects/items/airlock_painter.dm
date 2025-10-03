@@ -6,7 +6,8 @@
 
 /obj/item/airlock_painter
 	name = "airlock painter"
-	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob. Alt-Click to remove the ink cartridge."
+	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
 	item_state = "paint_sprayer"
@@ -81,19 +82,19 @@
 //because you're expecting user input.
 /obj/item/airlock_painter/proc/can_use(mob/user)
 	if(!ink)
-		to_chat(user, "<span class='notice'>There is no toner cartridge installed in [src]!</span>")
+		to_chat(user, span_notice("There is no toner cartridge installed in [src]!"))
 		return FALSE
 	else if(ink.charges < 1)
-		to_chat(user, "<span class='notice'>[src] is out of ink!</span>")
+		to_chat(user, span_notice("[src] is out of ink!"))
 		return FALSE
 	else
 		return TRUE
 
 /obj/item/airlock_painter/suicide_act(mob/living/user)
-	var/obj/item/organ/lungs/L = user.getorganslot(ORGAN_SLOT_LUNGS)
+	var/obj/item/organ/lungs/L = user.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(can_use(user) && L)
-		user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		use(user)
 
 		// Once you've inhaled the toner, you throw up your lungs
@@ -115,31 +116,31 @@
 		// make some colorful reagent, and apply it to the lungs
 		L.create_reagents(10)
 		L.reagents.add_reagent(/datum/reagent/colorful_reagent, 10)
-		L.reagents.reaction(L, TOUCH, 1)
+		L.reagents.expose(L, TOUCH, 1)
 
 		// TODO maybe add some colorful vomit?
 
-		user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [L]!</span>")
+		user.visible_message(span_suicide("[user] vomits out [user.p_their()] [L]!"))
 		playsound(user.loc, 'sound/effects/splat.ogg', 50, 1)
 
 		L.forceMove(T)
 
 		return (TOXLOSS|OXYLOSS)
 	else if(can_use(user) && !L)
-		user.visible_message("<span class='suicide'>[user] is spraying toner on [user.p_them()]self from [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message(span_suicide("[user] is spraying toner on [user.p_them()]self from [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 		user.reagents.add_reagent(/datum/reagent/colorful_reagent, 1)
-		user.reagents.reaction(user, TOUCH, 1)
+		user.reagents.expose(user, TOUCH, 1)
 		return TOXLOSS
 
 	else
-		user.visible_message("<span class='suicide'>[user] is trying to inhale toner from [src]! It might be a suicide attempt if [src] had any toner.</span>")
+		user.visible_message(span_suicide("[user] is trying to inhale toner from [src]! It might be a suicide attempt if [src] had any toner."))
 		return SHAME
 
 
 /obj/item/airlock_painter/examine(mob/user)
 	. = ..()
 	if(!ink)
-		. += "<span class='notice'>The ink compartment hangs open.</span>"
+		. += span_notice("The ink compartment hangs open.")
 		return
 	var/ink_level = "high"
 	switch(ink.charges/ink.max_charges)
@@ -154,17 +155,17 @@
 	if(ink.charges <= 0)
 		ink_level = "empty"
 
-	. += "<span class='notice'>Its ink levels look [ink_level].</span>"
+	. += span_notice("Its ink levels look [ink_level].")
 
 
 /obj/item/airlock_painter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toner))
 		if(ink)
-			to_chat(user, "<span class='notice'>[src] already contains \a [ink].</span>")
+			to_chat(user, span_notice("[src] already contains \a [ink]."))
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
-		to_chat(user, "<span class='notice'>You install [W] into [src].</span>")
+		to_chat(user, span_notice("You install [W] into [src]."))
 		ink = W
 		update_icon()
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
@@ -179,13 +180,14 @@
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		ink.forceMove(user.drop_location())
 		user.put_in_hands(ink)
-		to_chat(user, "<span class='notice'>You remove [ink] from [src].</span>")
+		to_chat(user, span_notice("You remove [ink] from [src]."))
 		ink = null
 		update_icon()
 
 /obj/item/airlock_painter/decal
 	name = "decal painter"
-	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed. Alt-Click to remove the ink cartridge."
+	desc = "An airlock painter, reprogramed to use a different style of paint in order to apply decals for floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "decal_sprayer"
 	item_state = "decal_sprayer"
@@ -246,7 +248,7 @@
 /obj/item/airlock_painter/decal/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
-		to_chat(user, "<span class='notice'>You need to get closer!</span>")
+		to_chat(user, span_notice("You need to get closer!"))
 		return
 
 	if(isfloorturf(target) && use_paint(user))
@@ -395,7 +397,8 @@
 
 /obj/item/airlock_painter/decal/tile
 	name = "tile sprayer"
-	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed. Alt-Click to change design."
+	desc = "An airlock painter, reprogramed to use a different style of paint in order to spray colors on floor tiles as well, in addition to repainting doors. Decals break when the floor tiles are removed."
+	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon_state = "tile_sprayer"
 	stored_dir = 2
 	stored_color = "#D4D4D432"
@@ -486,3 +489,7 @@
 	var/datum/universal_icon/floor = uni_icon(preview_floor_icon, preview_floor_state)
 	floor.blend_icon(colored_icon, ICON_OVERLAY)
 	insert_icon("[decal]_[dir]_[replacetext(color, "#", "")]", floor)
+
+#undef PAINTER_MOST
+#undef PAINTER_MID
+#undef PAINTER_LOW

@@ -24,7 +24,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
 
-/datum/objective/New(var/text)
+/datum/objective/New(text)
 	if(text)
 		explanation_text = text
 
@@ -77,7 +77,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		return FALSE
 	if(M.force_escaped)
 		return TRUE
-	if(SSticker.force_ending || SSticker.mode.station_was_nuked) // Just let them win.
+	if(SSticker.force_ending || GLOB.station_was_nuked) // Just let them win.
 		return TRUE
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
@@ -90,7 +90,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return completed
 
 /datum/objective/proc/get_completion_message()
-	return check_completion() ? "[explanation_text] <span class='greentext'>Success!</span>" : "[explanation_text] <span class='redtext'>Fail.</span>"
+	return check_completion() ? "[explanation_text] [span_greentext("Success!")]" : "[explanation_text] [span_redtext("Fail.")]"
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
@@ -126,10 +126,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
-	for(var/datum/data/record/R as() in GLOB.data_core.locked)
-		var/datum/mind/M = R.fields["mindref"]
-		if(M)
-			. += M
+	for(var/datum/record/locked/target in GLOB.manifest.locked)
+		var/datum/mind/mind = target.weakref_mind.resolve()
+		if(mind)
+			. += mind
 
 //dupe_search_range is a list of antag datums / minds / teams
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
@@ -200,26 +200,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		return FALSE
 	return TRUE
 
-/datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
-	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target as() in get_crewmember_minds())
-		if(is_valid_target(possible_target))
-			var/is_role = FALSE
-			if(role_type)
-				if(possible_target.special_role == role)
-					is_role = TRUE
-			else
-				if(possible_target.assigned_role == role)
-					is_role = TRUE
-			if(is_role && !invert || !is_role && invert)
-				possible_targets += possible_target
-	if(length(possible_targets))
-		set_target(pick(possible_targets))
-	else
-		set_target(null)
-	update_explanation_text()
-	return target
-
 /datum/objective/proc/update_explanation_text()
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
 		explanation_text = team_explanation_text
@@ -261,7 +241,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			receiver.antag_stash = null
 		//Update the mind
 		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
-		to_chat(receiver?.current, "<span class='notice bold'>You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)</span>")
+		to_chat(receiver?.current, span_noticebold("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
 		new eq_path(secret_bag)
@@ -278,11 +258,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				A.objectives -= src
 			own.crew_objectives -= src
 
-			to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 			own.announce_objectives()
 		qdel(src)
 	else
 		update_explanation_text()
 		for(var/datum/mind/own as() in get_owners())
-			to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()

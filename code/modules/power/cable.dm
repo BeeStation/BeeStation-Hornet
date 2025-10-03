@@ -22,11 +22,11 @@ GLOBAL_LIST_INIT(cable_colors, list(
 /* Cable directions (d1 and d2)
 
 
-  9   1   5
+	9   1   5
 	\ | /
-  8 - 0 - 4
+	8 - 0 - 4
 	/ | \
-  10  2   6
+	10  2   6
 
 If d1 = 0 and d2 = 0, there's no cable
 If d1 = 0 and d2 = dir, it's a O-X cable, getting from the center of the tile to dir (knot cable)
@@ -42,6 +42,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	flags_1 = STAT_UNIQUE_1
 	var/d1 = 0   // cable direction 1 (see above)
 	var/d2 = 1   // cable direction 2 (see above)
 	var/datum/powernet/powernet
@@ -84,6 +85,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = "#ffffff"
 
 // the power cable object
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
+
 /obj/structure/cable/Initialize(mapload, param_color)
 	. = ..()
 
@@ -117,7 +120,7 @@ By design, d1 is the smallest direction and d2 is the highest
 				R = locate(/obj/item/stack/cable_coil) in T
 			if(R)
 				transfer_fingerprints_to(R)
-		var/turf/T_below = T.below()
+		var/turf/T_below = GET_TURF_BELOW(T)
 		if((d1 == DOWN || d2 == DOWN) && T_below)
 			for(var/obj/structure/cable/C in T_below)
 				if(C.d1 == UP || C.d2 == UP)
@@ -139,11 +142,11 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(d1 == UP || d2 == UP)
-			to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
+			to_chat(user, span_warning("You must cut this cable from above."))
 			return
 		if (shock(user, 50))
 			return
-		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+		user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
 		investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", INVESTIGATE_WIRES)
 		deconstruct()
 		return
@@ -151,7 +154,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
 		if (coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>Not enough cable!</span>")
+			to_chat(user, span_warning("Not enough cable!"))
 			return
 		coil.cable_join(src, user)
 
@@ -197,9 +200,9 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/get_power_info()
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		return "<span class='danger'>Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]</span>"
+		return span_danger("Total power: [display_power_persec(powernet.avail)]\nLoad: [display_power_persec(powernet.load)]\nExcess power: [display_power_persec(surplus())]")
 	else
-		return "<span class='danger'>The cable is not powered.</span>"
+		return span_danger("The cable is not powered.")
 
 ////////////////////////////////////////////
 // Power related
@@ -471,7 +474,10 @@ By design, d1 is the smallest direction and d2 is the highest
 // Definitions
 ////////////////////////////////
 
-GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15), new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, one_per_turf = 1, on_floor = 1)))
+GLOBAL_LIST_INIT(cable_coil_recipes, list (
+	new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15, category = CAT_EQUIPMENT),
+	new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND),
+))
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
@@ -494,7 +500,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	mats_per_unit = list(/datum/material/iron=10, /datum/material/glass=5)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
+	attack_verb_continuous = list("whips", "lashes", "disciplines", "flogs")
+	attack_verb_simple = list("whip", "lash", "discipline", "flog")
 	singular_name = "cable piece"
 	full_w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/copper = 2) //2 copper per cable in the coil
@@ -513,13 +520,15 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/suicide_act(mob/living/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
-		user.visible_message("<span class='suicide'>[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/stack/cable_coil/get_recipes()
 	return GLOB.cable_coil_recipes
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
@@ -543,7 +552,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	color = null
 	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
 
-/obj/item/stack/cable_coil/attack_hand(mob/user)
+/obj/item/stack/cable_coil/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -576,15 +585,15 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return
 
 	if(!isturf(T) || T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
-		to_chat(user, "<span class='warning'>You can only lay cables on top of exterior catwalks and plating!</span>")
+		to_chat(user, span_warning("You can only lay cables on top of exterior catwalks and plating!"))
 		return
 
 	if(get_amount() < 1) // Out of cable
-		to_chat(user, "<span class='warning'>There is no cable left!</span>")
+		to_chat(user, span_warning("There is no cable left!"))
 		return
 
 	if(get_dist(T,user) > 1) // Too far
-		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
+		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
 		return
 
 	var/d2
@@ -599,14 +608,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/d1 = 0
 	if(istype(T, /turf/open/openspace))
 		if(!(get_amount() >= 2))
-			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
+			to_chat(user, span_warning("You need at least 2 pieces of cable to wire between decks!"))
 			return
 		d1 = d2 //bigger number goes last for sprite reasons
 		d2 = DOWN
 
 	for(var/obj/structure/cable/LC in T)
 		if(LC.d2 == d2 && LC.d1 == d1)
-			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+			to_chat(user, span_warning("There's already a cable at that position!"))
 			return
 
 	var/obj/structure/cable/C = place_cable(T, user, d1, d2)
@@ -615,8 +624,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
 			C.deconstruct()
 	else if(d2 == DOWN)
-		place_cable(T.below(), user, 0, UP)
-		to_chat(user, "<span class='notice'>You slide the cable downward.</span>")
+		place_cable(GET_TURF_BELOW(T), user, 0, UP)
+		to_chat(user, span_notice("You slide the cable downward."))
 
 	return C
 
@@ -651,7 +660,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 // called when cable_coil is click on an installed obj/cable
 // or click on a turf that already contains a "node" cable
-/obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user, var/showerror = TRUE, forceddir)
+/obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user, showerror = TRUE, forceddir)
 	var/turf/U = user.loc
 	if(!isturf(U))
 		return
@@ -662,7 +671,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
-		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
+		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
 		return
 
 
@@ -671,7 +680,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return
 
 	var/dirn = get_dir(C, user)
-	if(T.allow_z_travel && T.below() && !locate(/obj/structure/lattice/catwalk, T))
+	if(T.allow_z_travel && GET_TURF_BELOW(T) && !locate(/obj/structure/lattice/catwalk, T))
 		dirn = DOWN
 	if(forceddir)
 		dirn = forceddir
@@ -680,10 +689,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if((C.d1 == dirn || C.d2 == dirn) && !forceddir)
 		if(!U.can_have_cabling()) //checking if it's a plating or catwalk
 			if (showerror)
-				to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
+				to_chat(user, span_warning("You can only lay cables on catwalks and plating!"))
 			return
 		if(U.underfloor_accessibility < UNDERFLOOR_INTERACTABLE) //can't place a cable if it's a plating with a tile on it
-			to_chat(user, "<span class='warning'>You can't lay cable there unless the floor tiles are removed!</span>")
+			to_chat(user, span_warning("You can't lay cable there unless the floor tiles are removed!"))
 			return
 		else
 			// cable is pointing at us, we're standing on an open tile
@@ -694,7 +703,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			for(var/obj/structure/cable/LC in U) // check to make sure there's not a cable there already
 				if(LC.d1 == fdirn || LC.d2 == fdirn)
 					if (showerror)
-						to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+						to_chat(user, span_warning("There's already a cable at that position!"))
 					return
 
 			var/obj/structure/cable/NC = get_new_cable (U)
@@ -739,7 +748,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) )	// make sure no cable matches either direction
 				if (showerror)
-					to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
+					to_chat(user, span_warning("There's already a cable at that position!"))
 
 				return
 

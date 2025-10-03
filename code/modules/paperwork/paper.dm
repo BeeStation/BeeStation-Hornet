@@ -69,8 +69,9 @@
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	if (!mapload)
+		pixel_y = rand(-8, 8)
+		pixel_x = rand(-9, 9)
 
 	if(default_raw_text)
 		add_raw_text(default_raw_text)
@@ -291,12 +292,12 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !IsAdminGhost(usr)))
+	if(!usr.can_read(src) || usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(25))
-			to_chat(H, "<span class='warning'>You cut yourself on the paper! Ahhhh! Ahhhhh!</span>")
+			to_chat(H, span_warning("You cut yourself on the paper! Ahhhh! Ahhhhh!"))
 			H.damageoverlaytemp = 9001
 			H.update_damage_hud()
 			return
@@ -307,18 +308,18 @@
 	update_static_data()
 
 /obj/item/paper/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
+	user.visible_message(span_suicide("[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku..."))
 	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src) && !isobserver(user))
-		. += "<span class='warning'>You're too far away to read it!</span>"
+		. += span_warning("You're too far away to read it!")
 		return
 	if(user.can_read(src))
 		ui_interact(user)
 		return
-	. += "<span class='warning'>You cannot read it!</span>"
+	. += span_warning("You cannot read it!")
 
 /obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
 		// Are we on fire?  Hard ot read if so
@@ -326,15 +327,15 @@
 		return UI_CLOSE
 	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
-	if(!in_range(user,src))
+	if(!in_range(user, src))
 		return UI_CLOSE
-	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note))
 		return UI_INTERACTIVE
 	return ..()
 
@@ -356,8 +357,8 @@
 		return
 	. = TRUE
 	if(!bypass_clumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10) && Adjacent(user))
-		user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-							"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
+		user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
+							span_userdanger("You miss [src] and accidentally light yourself on fire!"))
 		if(user.is_holding(I)) //checking if they're holding it in case TK is involved
 			user.dropItemToGround(I)
 		user.adjust_fire_stacks(1)
@@ -389,7 +390,7 @@
 
 	if(writing_stats["interaction_mode"] == MODE_WRITING)
 		if(get_total_length() >= MAX_PAPER_LENGTH)
-			to_chat(user, "<span class='warning'>This sheet of paper is full!</span>")
+			to_chat(user, span_warning("This sheet of paper is full!"))
 			return
 
 		ui_interact(user)
@@ -397,7 +398,7 @@
 
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
-		to_chat(user, "<span class='notice'>You ready your stamp over the paper! </span>")
+		to_chat(user, span_notice("You ready your stamp over the paper! "))
 		ui_interact(user)
 		return
 
@@ -505,7 +506,7 @@
 			var/obj/item/holding = user.get_active_held_item()
 			var/stamp_info = holding?.get_writing_implement_details()
 			if(!stamp_info || (stamp_info["interaction_mode"] != MODE_STAMPING))
-				to_chat(src, "<span class='warning'>You can't stamp with the [holding]!</span>")
+				to_chat(src, span_warning("You can't stamp with the [holding]!"))
 				return TRUE
 
 			var/stamp_class = stamp_info["stamp_class"];
@@ -530,7 +531,7 @@
 				return TRUE
 
 			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state)
-			user.visible_message("<span class='notice'>[user] stamps [src] with \the [holding.name]!</span>", "<span class='notice'>You stamp [src] with \the [holding.name]!</span>")
+			user.visible_message(span_notice("[user] stamps [src] with \the [holding.name]!"), span_notice("You stamp [src] with \the [holding.name]!"))
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()
 			update_static_data_for_all_viewers()
@@ -766,3 +767,97 @@
 /obj/item/paper/troll
 	name = "very special note"
 	default_raw_text = "<span style=color:'black';font-family:'Verdana';><p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p> </span>"
+
+/obj/item/paper/tablet_guide
+	color = COLOR_OFF_WHITE
+	name = "Assembly Instructions"
+	desc = "Instructions for the assembly of a Tablet computer."
+
+/obj/item/paper/tablet_guide/Initialize(mapload)
+	default_raw_text = {"Congratulations on acquiring your very own 'Tablets for Dummies' kit. You now have everything you need to build your own Tablet!
+
+	Within this kit you will find the following:
+
+		- A Tablet (void of any components).
+		- A Power Cell Controler.
+		- A small Battery.
+		- A Processor Unit.
+		- A micro Solid State Drive.
+		- A Network Card.
+		- A Primary Card Slot.
+		- An Identifier.
+		- And a Screwdriver.
+
+		To begin, please insert the provided Power Cell Controler onto the PDA. Doing so will allow you to now attach a Battery to it. Insert, now, the Battery.
+
+		Without a Battery (and a Power Cell Controler to attach it to), a CPU and a Drive the Tablet will be unable to start. Please ensure these three items are inserted well into the machines' body.
+
+		Congratulations, your Tablet may start now, but we have provided you with 3 bonus components you may find useful.
+
+		A Network Card will allow you to download programs from the web, and may even allow you to chat with other users "online".
+
+		A Primary Card Slot will allow you to insert your ID into your newly constructed tablet.
+
+		The Identifier will allow you to imprint your inserted ID into the machine, serving as your form of identification "online".
+
+		We now believe that you are ready and able to build your own tablet without aid in the future. If you'd like to retrieve the components, simply use the screwdriver provided to you to dislodge them from the body of your Tablet.
+
+		We wish you good luck and happy tinkering!"}
+
+	return ..()
+
+/obj/item/paper/manualhacking_guide
+	color = COLOR_OFF_WHITE
+	name = "Hacking GUIDE"
+	desc = "Instructions on how to be a very cool hacker."
+
+/obj/item/paper/manualhacking_guide/Initialize(mapload)
+	default_raw_text = {"Greetings initiate. I am xX_Benita_Xx of the Hellraiser team and I will be guiding you on the art of manual hacking.
+
+	Firstly, a warning.
+	Hacking is quite fickle. Expect processes to change and evolve as NT attempts to combat our combined efforts.
+	In this kit you will find:
+
+		1 - A Screwdriver.
+
+		Screwdrivers are essential for opening the components up for manipulation.
+		They are also able to alter the power consumption of components, should that ever be of use.
+
+		2 - A Multitool.
+
+		The Multitool is the second part of your essential tool couple, so to speak.
+		The Multitool is able to preform a disgnostical reading of different components.
+		This will reveal relevant information. It is also used to bypass
+		internal component security, this is what we call "manual hacking".
+
+		3 - A collection of portable disks.
+
+		We have trough some effort hidden special programing inside the portable disks
+		issued to your station. Such programs can be accessed trough the manual hacking of the disks.
+
+
+		To begin, select a portable disk and open it with the screwdriver.
+		Next, utilize the multitool to bypass security.
+		After some time, the disk is now hacked.
+		Insert the disk inside a computer to acess its progamms.
+		A readme.txt file is included inside each disk with instructions regarding use.
+
+
+		However. Do not expect all parts to operate like this.
+		For example:
+
+		An hacked power cell controler has the ability to detonate its battery, under the right conditions.
+		On movement, an hacked CPU creates tears in bluespace fabric.
+		Hacked job disks not only allow the copying of their stored programs
+		but they also unlock advertisement restrictions on your hard drive.
+		An hacked primary ID port may now accept the... "less than eletronic" cards.
+
+
+		There are more parts with interesting behaviour changes that we have discovered.
+		However, we understand that there is fun in experimenting them all for yourself.
+
+		Enjoy yourself. And make sure NT pays an hefty price for their hubris.
+
+		xX_Benita_Xx out."}
+
+	return ..()

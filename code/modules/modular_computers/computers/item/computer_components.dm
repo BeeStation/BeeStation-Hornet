@@ -3,19 +3,19 @@
 		return FALSE
 
 	if(try_install.w_class > max_hardware_size)
-		to_chat(user, "<span class='warning'>This component is too large for \the [src]!</span>")
+		to_chat(user, span_warning("This component is too large for \the [src]!"))
 		return FALSE
 
 	if(try_install.expansion_hw)
 		if(LAZYLEN(expansion_bays) >= max_bays)
-			to_chat(user, "<span class='warning'>All of the computer's expansion bays are filled.</span>")
+			to_chat(user, span_warning("All of the computer's expansion bays are filled."))
 			return FALSE
 		if(LAZYACCESS(expansion_bays, try_install.device_type))
-			to_chat(user, "<span class='warning'>The computer immediately ejects /the [try_install] and flashes an error: \"Hardware Address Conflict\".</span>")
+			to_chat(user, span_warning("The computer immediately ejects /the [try_install] and flashes an error: \"Hardware Address Conflict\"."))
 			return FALSE
 	var/obj/item/computer_hardware/existing = all_components[try_install.device_type]
 	if(existing && (!istype(existing) || !existing.hotswap))
-		to_chat(user, "<span class='warning'>This computer's hardware slot is already occupied by \the [existing].</span>")
+		to_chat(user, span_warning("This computer's hardware slot is already occupied by \the [existing]."))
 		return FALSE
 	return TRUE
 
@@ -39,7 +39,7 @@
 		LAZYSET(expansion_bays, install.device_type, install)
 	all_components[install.device_type] = install
 
-	to_chat(user, "<span class='notice'>You install \the [install] into \the [src].</span>")
+	to_chat(user, span_notice("You install \the [install] into \the [src]."))
 	install.holder = src
 	install.forceMove(src)
 	install.on_install(src, user)
@@ -50,7 +50,7 @@
 	if(yeet.holder != src) // Not our component at all.
 		return FALSE
 
-	to_chat(user, "<span class='notice'>You remove \the [yeet] from \the [src].</span>")
+	to_chat(user, span_notice("You remove \the [yeet] from \the [src]."))
 
 	if(put_in_hands)
 		user.put_in_hands(yeet)
@@ -61,6 +61,7 @@
 	if(enabled && !use_power())
 		shutdown_computer()
 	update_icon()
+	ui_update()
 	return TRUE
 
 /// This isn't the "uninstall fully" proc, it just makes the computer lose all its references to the component
@@ -77,5 +78,13 @@
 	for(var/i in all_components)
 		var/obj/component = all_components[i]
 		if(component.name == name)
+			return component
+	return null
+
+/// Checks all hardware pieces to determine if name type, if yes, returns the hardware piece, otherwise returns null
+/obj/item/modular_computer/proc/find_hardware_by_type(device_type)
+	for(var/i in all_components)
+		var/obj/item/computer_hardware/component = all_components[i]
+		if(component.device_type == device_type)
 			return component
 	return null

@@ -17,9 +17,9 @@
 	item_state = "welding"
 	clothing_flags = SNUG_FIT
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
-	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60, STAMINA = 5)
+	armor_type = /datum/armor/utility_welding
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
@@ -27,18 +27,25 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
 
+
+/datum/armor/utility_welding
+	melee = 10
+	fire = 100
+	acid = 60
+	stamina = 5
+
 /obj/item/clothing/head/utility/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/head/wig
 	name = "wig"
 	desc = "A bunch of hair without a head attached."
-	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
+	icon = 'icons/mob/species/human/human_face.dmi'	  // default icon for all hairs
 	icon_state = "hair_vlong"
 	item_state = "pwig"
 	flags_inv = HIDEHAIR	//Instead of being handled as a clothing item, it overrides the hair values in /datum/species/proc/handle_hair
 	slot_flags = ITEM_SLOT_HEAD
-	worn_icon = 'icons/mob/human_face.dmi'
+	worn_icon = 'icons/mob/species/human/human_face.dmi'
 	worn_icon_state = "bald"
 	var/hair_style = "Very Long Hair"
 	var/hair_color = "#000"
@@ -62,7 +69,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.head == src)
-			H.update_inv_head()
+			H.update_worn_head()
 
 /obj/item/clothing/head/wig/update_icon()
 	cut_overlays()
@@ -81,7 +88,7 @@
 		return
 	if(new_style && new_style != hair_style)
 		hair_style = new_style
-		user.visible_message("<span class='notice'>[user] changes \the [src]'s hairstyle to [new_style].</span>", "<span class='notice'>You change \the [src]'s hairstyle to [new_style].</span>")
+		user.visible_message(span_notice("[user] changes \the [src]'s hairstyle to [new_style]."), span_notice("You change \the [src]'s hairstyle to [new_style]."))
 	if(adjustablecolor)
 		hair_color = tgui_color_picker(usr,"","Choose Color",hair_color)
 		var/picked_gradient_style
@@ -119,28 +126,38 @@
 	hair_style = pick(GLOB.hair_styles_list - "Bald")
 	. = ..()
 
-/obj/item/clothing/head/wig/natural/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/head/wig/natural/equipped(mob/user, slot)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		var/mob/living/carbon/human/human_mob = user
+		hair_color = "#[human_mob.hair_color]"
+		update_icon()
+	. = ..()
+
+/obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(ishuman(user) && (slot == ITEM_SLOT_HEAD || slot == ITEM_SLOT_NECK))
-		hair_color = "#[user.hair_color]"
-		gradient_style = user.gradient_style
-		gradient_color = "#[user.gradient_color]"
-		update_icon()
+		update_icon(ALL, user)
+		user.update_worn_head() //Color might have been changed by update_appearance.
+	..()
+
+/obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)
+	. = ..()
+	if(ishuman(user))
+		add_atom_colour(user.hair_color, FIXED_COLOUR_PRIORITY)
 
 /obj/item/clothing/head/costume/speedwagon
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "speedwagon"
 	item_state = "speedwagon"
-	worn_x_dimension = 64
-	worn_y_dimension = 64
+	worn_y_offset = 4
 
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
-	icon_state = "speedwagon_cursed"
-	item_state = "speedwagon_cursed"
+	icon_state = "speedwagon"
+	item_state = "speedwagon"
+	worn_y_offset = 6
 
 /obj/item/clothing/head/franks_hat
 	name = "Frank's Hat"

@@ -38,8 +38,8 @@ Bonus
 	var/vomit_blood = FALSE
 	var/proj_vomit = 0
 	threshold_desc = "<b>Stage Speed 5:</b> Host will vomit blood, causing internal damage.<br>\
-					  <b>Transmission 6:</b> Host will projectile vomit, increasing vomiting range.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+						<b>Transmission 6:</b> Host will projectile vomit, increasing vomiting range.<br>\
+						<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/vomit/Start(datum/disease/advance/A)
 	if(!..())
@@ -60,7 +60,7 @@ Bonus
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(base_message_chance) && !suppress_warning)
-				to_chat(M, "<span class='warning'>[pick("You feel nauseated.", "You feel like you're going to throw up!")]</span>")
+				to_chat(M, span_warning("[pick("You feel nauseated.", "You feel like you're going to throw up!")]"))
 		else
 			vomit(M)
 

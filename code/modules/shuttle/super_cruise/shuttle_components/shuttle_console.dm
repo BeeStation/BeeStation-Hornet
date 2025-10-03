@@ -34,6 +34,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
+
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
@@ -78,9 +80,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				say("Shuttle has arrived at destination.")
 				QDEL_NULL(shuttleObject)
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				to_chat(usr, span_warning("Invalid shuttle requested."))
 			else
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				to_chat(usr, span_notice("Unable to comply."))
 
 /obj/machinery/computer/shuttle_flight/ui_state(mob/user)
 	return GLOB.default_state
@@ -91,7 +93,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return
 	//Ash walkers cannot use the console because they are unga bungas
 	if(user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
-		to_chat(user, "<span class='warning'>This computer has been designed to keep the natives like you from meddling with it, you have no hope of using it.</span>")
+		to_chat(user, span_warning("This computer has been designed to keep the natives like you from meddling with it, you have no hope of using it."))
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -269,7 +271,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				say("Shuttle not in flight.")
 				return
 			if(shuttleObject.autopilot)
-				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
+				to_chat(usr, span_warning("Shuttle is controlled by autopilot."))
 				return
 			shuttleObject.thrust = clamp(params["thrust"], 0, 100)
 		if("setAngle")
@@ -277,7 +279,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				say("Shuttle not in flight.")
 				return
 			if(shuttleObject.autopilot)
-				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
+				to_chat(usr, span_warning("Shuttle is controlled by autopilot."))
 				return
 			shuttleObject.angle = params["angle"]
 		if("nautopilot")
@@ -303,6 +305,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				return
 			var/x = text2num(params["x"])
 			var/y = text2num(params["y"])
+			var/altKey = params["altKey"]
+			if (altKey == 1)	// If the user alt+clicked, clear their target position and thrust
+				shuttleObject.thrust = 0
+				shuttleObject.shuttleTargetPos = null
+				return
 			if(!shuttleObject.shuttleTargetPos)
 				shuttleObject.shuttleTargetPos = new(x, y)
 			else
@@ -380,7 +387,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 						say("Shuttle docking computer jammed.")
 						return
 					if(current_user)
-						to_chat(usr, "<span class='warning'>Somebody is already docking the shuttle.</span>")
+						to_chat(usr, span_warning("Somebody is already docking the shuttle."))
 						return
 					view_range = max(mobile_port.width, mobile_port.height, mobile_port.dwidth, mobile_port.dheight) * 0.5 - 4
 					give_eye_control(usr)
@@ -417,9 +424,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					say("Waiting for hyperspace lane...")
 					INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), mobile_port, SSmapping.get_level(target_port.z))
 				if(1)
-					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+					to_chat(usr, span_warning("Invalid shuttle requested."))
 				else
-					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+					to_chat(usr, span_notice("Unable to comply."))
 
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
 	if(SSorbits.interdicted_shuttles.Find(shuttleId))
@@ -529,7 +536,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 /obj/machinery/computer/shuttle_flight/on_emag(mob/user)
 	..()
 	req_access = list()
-	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+	to_chat(user, span_notice("You fried the consoles ID checking system."))
 
 /obj/machinery/computer/shuttle_flight/allowed(mob/M)
 	var/obj/item/circuitboard/computer/shuttle/circuit_board = circuit

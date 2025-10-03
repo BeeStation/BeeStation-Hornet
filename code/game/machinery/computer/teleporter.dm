@@ -60,6 +60,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Teleporter")
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
@@ -101,6 +102,7 @@
 			power_station.teleporter_hub.update_icon()
 			power_station.teleporter_hub.calibrated = FALSE
 			reset_regime()
+			balloon_alert_to_viewers("Regime reset")
 			. = TRUE
 		if("settarget")
 			power_station.engaged = FALSE
@@ -225,7 +227,10 @@
 				if(is_eligible(I))
 					L[avoid_assoc_duplicate_keys("[M.real_name] ([get_area(M)])", areaindex)] = I
 
-		var/desc = input("Please select a location to lock in.", "Locking Computer") as null|anything in sort_list(L)
+
+		var/desc = tgui_input_list(usr, "Select a location to lock in", "Locking Computer", sort_list(L))
+		if(isnull(desc)|| !user.canUseTopic(src, be_close = !issilicon(user)))
+			return
 		target_ref = WEAKREF(L[desc])
 		var/turf/T = get_turf(L[desc])
 		log_game("[key_name(user)] has set the teleporter target to [L[desc]] at [AREACOORD(T)]")
@@ -237,9 +242,13 @@
 				var/area/A = get_area(R)
 				L[avoid_assoc_duplicate_keys(A.name, areaindex)] = R
 		if(!L.len)
-			to_chat(user, "<span class='alert'>No active connected stations located.</span>")
+			to_chat(user, span_alert("No active connected stations located."))
 			return
-		var/desc = input("Please select a station to lock in.", "Locking Computer") as null|anything in sort_list(L)
+
+		var/desc = tgui_input_list(usr, "Select a station to lock in", "Locking Computer", sort_list(L))
+		if(isnull(desc)|| !user.canUseTopic(src, be_close = !issilicon(user)))
+			return
+
 		var/obj/machinery/teleport/station/target_station = L[desc]
 		if(!target_station || !target_station.teleporter_hub)
 			return

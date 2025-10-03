@@ -14,11 +14,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
+	override_notes = TRUE
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
 	var/multiple_sprites = 0
-	var/caliber
+	var/list/caliber = list()
 	var/multiload = FALSE //Only specific magazines have multi-load enabled. This includes all internal mags/cylinders
 	var/start_empty = FALSE
 	var/list/bullet_cost
@@ -35,9 +36,54 @@
 			material_amount /= max_ammo
 			LAZYSET(bullet_cost, material, material_amount)
 	if(!start_empty)
-		for(var/i in 1 to max_ammo)
-			stored_ammo += new ammo_type(src)
+		top_off(starting=TRUE)
 	update_icon()
+
+/obj/item/ammo_box/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_box))
+
+/obj/item/ammo_box/proc/add_notes_box()
+	var/list/readout = list()
+
+	if(length(caliber) && max_ammo)
+		var/caliber_list = jointext(caliber, ", ")
+		readout += "Up to [span_warning("[max_ammo] rounds of: [caliber_list]")] can be found within this magazine. \
+		\nAccidentally discharging any of these projectiles may void your insurance contract."
+
+	var/obj/item/ammo_casing/mag_ammo = get_round(TRUE)
+
+	if(istype(mag_ammo))
+		readout += "\n[mag_ammo.add_notes_ammo()]"
+
+	return readout.Join("\n")
+
+
+/**
+  * top_off is used to refill the magazine to max, in case you want to increase the size of a magazine with VV then refill it at once
+  *
+  * Arguments:
+  * * load_type - if you want to specify a specific ammo casing type to load, enter the path here, otherwise it'll use the basic [/obj/item/ammo_box/var/ammo_type]. Must be a compatible round
+  * * starting - Relevant for revolver cylinders, if FALSE then we mind the nulls that represent the empty cylinders (since those nulls don't exist yet if we haven't initialized when this is TRUE)
+  */
+/obj/item/ammo_box/proc/top_off(load_type, starting=FALSE)
+	if(!load_type)
+		load_type = ammo_type
+
+	var/obj/item/ammo_casing/round_check = load_type
+	// Check if this ammo type's caliber is allowed
+	if(!starting)
+		if(length(caliber))
+			if(!(initial(round_check.caliber) in caliber))
+				stack_trace("Tried loading unsupported ammocasing type [load_type] into ammo box [type].")
+				return
+		else if(load_type != ammo_type)
+			stack_trace("Tried loading unsupported ammocasing type [load_type] into ammo box [type].")
+			return
+
+	for(var/i in max(1, stored_ammo.len + 1) to max_ammo)
+		stored_ammo += new round_check(src)
+	update_icon()
+
 
 /obj/item/ammo_box/proc/get_round(keep = FALSE)
 	if (!stored_ammo.len)
@@ -50,15 +96,21 @@
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R)
-	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
-	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
+	if(!R)
 		return FALSE
 
-	if (stored_ammo.len < max_ammo)
+	if(length(caliber))
+		if(!(R.caliber in caliber))
+			return FALSE
+	else if(R.type != ammo_type)
+		return FALSE
+
+	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.forceMove(src)
 		return TRUE
 	return FALSE
+
 
 /obj/item/ammo_box/proc/can_load(mob/user)
 	return TRUE
@@ -95,7 +147,7 @@
 
 	if(num_loaded)
 		if(!silent)
-			to_chat(user, "<span class='notice'>You loaded [num_loaded] shell\s into \the [src]!</span>")
+			to_chat(user, span_notice("You loaded [num_loaded] shell\s into \the [src]!"))
 			if(istype(A, /obj/item/ammo_casing))
 				playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
 		A.update_icon()
@@ -109,7 +161,7 @@
 		if(!user.is_holding(src) || !user.put_in_hands(A))	//incase they're using TK
 			A.bounce_away(FALSE, NONE)
 		playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
-		to_chat(user, "<span class='notice'>You remove a round from [src]!</span>")
+		to_chat(user, span_notice("You remove a round from [src]!"))
 		update_icon()
 
 /obj/item/ammo_box/update_icon()
@@ -161,7 +213,7 @@
 /obj/item/ammo_box/pouch/attack_self(mob/user)
 	//If it's out of ammo, use it in hand to return the sheet of paper and 'destroy' the ammo box
 	if(!stored_ammo.len)
-		to_chat(user, "<span class='notice'>You flatten the empty [src]!</span>")
+		to_chat(user, span_notice("You flatten the empty [src]!"))
 		var/obj/item/paper/unfolded = new /obj/item/paper
 		unfolded.forceMove(loc)
 		qdel(src)

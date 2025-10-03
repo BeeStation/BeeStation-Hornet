@@ -4,8 +4,10 @@
  */
 
 @use 'sass:color';
-@use '../base.scss';
-@use '../functions.scss' as *;
+@use '../base';
+@use '../functions' as *;
+
+$title-bar-height: 32px !default;
 
 .Window {
   position: fixed;
@@ -15,7 +17,11 @@
   right: 0;
   color: base.$color-fg;
   background-color: base.$color-bg;
-  background-image: linear-gradient(to bottom, base.$color-bg-start 0%, base.$color-bg-end 100%);
+  background-image: linear-gradient(
+    to bottom,
+    base.$color-bg-start 0%,
+    base.$color-bg-end 100%
+  );
 }
 
 .Window__titleBar {
@@ -24,15 +30,15 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 32px;
-  height: base.rem(32px);
+  height: $title-bar-height;
+  height: base.rem($title-bar-height);
 }
 
 // Everything after the title bar
 .Window__rest {
   position: fixed;
-  top: 32px;
-  top: base.rem(32px);
+  top: $title-bar-height;
+  top: base.rem($title-bar-height);
   bottom: 0;
   left: 0;
   right: 0;

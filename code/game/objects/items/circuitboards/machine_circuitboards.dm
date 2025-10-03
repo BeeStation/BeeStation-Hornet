@@ -170,7 +170,7 @@
 		name = initial(new_type.name)
 		build_path = initial(new_type.build_path)
 		I.play_tool_sound(src)
-		to_chat(user, "<span class='notice'>You change the circuitboard setting to \"[new_setting]\".</span>")
+		to_chat(user, span_notice("You change the circuitboard setting to \"[new_setting]\"."))
 	else
 		return ..()
 
@@ -202,11 +202,35 @@
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
+	desc = "You can change its laser configuration with a screwdriver"
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/drill
+	name = "emitter - driling mode (Machine Board)"
+	icon_state = "engineering"
+	desc = "It seems like you can change it's modulator with a scredriver"
+	build_path = /obj/machinery/power/emitter/drill
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(build_path == /obj/machinery/power/emitter)
+			name = "emitter - driling mode (Machine Board)"
+			build_path = /obj/machinery/power/emitter/drill
+			to_chat(user, span_notice("You change the Emitter's laser configuration to: [span_italics("DRILL")]"))
+		else
+			name = "emitter (Machine Board)"
+			build_path = /obj/machinery/power/emitter
+			to_chat(user, span_notice("You change the Emitter's laser configuration to:  [span_italics("NORMAL")]"))
+	else
+		return ..()
 
 /obj/item/circuitboard/machine/generator
 	name = "thermo-electric generator (Machine Board)"
@@ -349,9 +373,8 @@
 	build_path = /obj/machinery/power/smes
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/cell = 5,
+		/obj/item/stock_parts/matter_bin = 5,
 		/obj/item/stock_parts/capacitor = 1)
-	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high/empty)
 
 /obj/item/circuitboard/machine/techfab/department/engineering
 	name = "departmental techfab - engineering (Machine Board)"
@@ -380,7 +403,7 @@
 /obj/item/circuitboard/machine/thermomachine
 	name = "thermomachine (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/thermomachine/freezer
+	build_path = /obj/machinery/atmospherics/components/unary/thermomachine
 	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -392,11 +415,11 @@
 	. = ..()
 	if(istype(I))
 		pipe_layer = (pipe_layer >= PIPING_LAYER_MAX) ? PIPING_LAYER_MIN : (pipe_layer + 1)
-		to_chat(user, "<span class='notice'>You change the circuitboard to layer [pipe_layer].</span>")
+		to_chat(user, span_notice("You change the circuitboard to layer [pipe_layer]."))
 
 /obj/item/circuitboard/machine/thermomachine/examine()
 	. = ..()
-	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
+	. += span_notice("It is set to layer [pipe_layer].")
 
 /obj/item/circuitboard/machine/suit_storage_unit
 	name = "Suit Storage Unit (Machine Board)"
@@ -405,6 +428,33 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/micro_laser = 1)
+
+/obj/item/circuitboard/machine/shieldwallgen
+	name = "Shieldwall Generator (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/shieldwallgen
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/sheet/plasmaglass = 1,
+		/obj/item/stack/cable_coil = 5
+		)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/shieldwallgen/atmos
+	name = "Atmospheric Holofield Generator (Machine Board)"
+	build_path = /obj/machinery/power/shieldwallgen/atmos
+
+/obj/item/circuitboard/machine/shieldwallgen/atmos/strong
+	name = "High Power Atmospheric Holofield Generator (Machine Board)"
+	build_path = /obj/machinery/power/shieldwallgen/atmos/strong
+	req_components = list(
+		/obj/item/stock_parts/manipulator/nano = 2,
+		/obj/item/stock_parts/micro_laser/high = 2,
+		/obj/item/stock_parts/capacitor/adv = 2,
+		/obj/item/stack/sheet/plasmaglass = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
 
 //Generic
 
@@ -416,7 +466,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/circuit_imprinter/department
 	name = "departmental circuit imprinter (Machine Board)"
@@ -451,7 +501,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/protolathe/department
 	name = "departmental protolathe (Machine Board)"
@@ -470,7 +520,8 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/smartfridge
 	req_components = list(/obj/item/stock_parts/matter_bin = 1)
-	var/static/list/fridges_name_paths = list(/obj/machinery/smartfridge = "plant produce",
+	var/static/list/fridges_name_paths = list(
+		/obj/machinery/smartfridge = "plant produce",
 		/obj/machinery/smartfridge/food = "food",
 		/obj/machinery/smartfridge/drinks = "drinks",
 		/obj/machinery/smartfridge/extract = "slimes",
@@ -479,30 +530,42 @@
 		/obj/machinery/smartfridge/chemistry/virology = "viruses",
 		/obj/machinery/smartfridge/disks = "disks")
 	needs_anchored = FALSE
+	var/is_special_type = FALSE
 
-/obj/item/circuitboard/machine/smartfridge/Initialize(mapload, new_type)
-	if(new_type)
-		build_path = new_type
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
+
+/obj/item/circuitboard/machine/smartfridge/apply_default_parts(obj/machinery/smartfridge/M)
+	build_path = M.base_build_path
+	if(!fridges_name_paths.Find(build_path))
+		name = "[initial(M.name)] (Machine Board)" //if it's a unique type, give it a unique name.
+		is_special_type = TRUE
 	return ..()
 
-/obj/item/circuitboard/machine/smartfridge/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		var/position = fridges_name_paths.Find(build_path, fridges_name_paths)
-		position = (position == fridges_name_paths.len) ? 1 : (position + 1)
-		build_path = fridges_name_paths[position]
-		to_chat(user, "<span class='notice'>You set the board to [fridges_name_paths[build_path]].</span>")
-	else
-		return ..()
+/obj/item/circuitboard/machine/smartfridge/screwdriver_act(mob/living/user, obj/item/tool)
+	if (is_special_type)
+		return FALSE
+	var/position = fridges_name_paths.Find(build_path, fridges_name_paths)
+	position = (position == length(fridges_name_paths)) ? 1 : (position + 1)
+	build_path = fridges_name_paths[position]
+	to_chat(user, span_notice("You set the board to [fridges_name_paths[build_path]]."))
+	return TRUE
 
 /obj/item/circuitboard/machine/smartfridge/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.</span>"
+	if(is_special_type)
+		return
+	. += span_info("[src] is set to [fridges_name_paths[build_path]]. You can use a screwdriver to reconfigure it.")
 
+/obj/item/circuitboard/machine/dehydrator
+	name = "Dehydrator"
+	build_path = /obj/machinery/smartfridge/drying
+	req_components = list(/obj/item/stock_parts/matter_bin = 1)
+	needs_anchored = FALSE
 
-/obj/item/circuitboard/machine/space_heater
-	name = "space heater (Machine Board)"
+/obj/item/circuitboard/machine/portable_thermomachine
+	name = "portable thermomachine (Machine Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/space_heater
+	build_path = /obj/machinery/portable_thermomachine
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/capacitor = 1,
@@ -517,7 +580,7 @@
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 2,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/techfab/department
 	name = "departmental techfab (Machine Board)"
@@ -702,11 +765,11 @@
 	build_path = /obj/machinery/chem_master
 	desc = "You can turn the \"mode selection\" dial using a screwdriver."
 	req_components = list(
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
 	def_components = list(
-		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
+		/obj/item/reagent_containers/cup/beaker = /obj/item/reagent_containers/cup/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
@@ -720,7 +783,7 @@
 
 		build_path = new_path
 		name = "[new_name] 3000 (Machine Board)"
-		to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+		to_chat(user, span_notice("You change the circuit board setting to \"[new_name]\"."))
 	else
 		return ..()
 
@@ -733,7 +796,7 @@
 		/obj/item/stock_parts/scanning_module = 2,
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/reagent_containers/cup/beaker = 2)
 
 /obj/item/circuitboard/machine/clonepod/experimental
 	name = "experimental clone pod (Machine Board)"
@@ -753,7 +816,7 @@
 /obj/item/circuitboard/machine/cryo_tube
 	name = "cryotube (Machine Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/atmospherics/components/unary/cryo_cell
+	build_path = /obj/machinery/cryo_cell
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 1,
 		/obj/item/stack/cable_coil = 1,
@@ -780,7 +843,7 @@
 	build_path = /obj/machinery/limbgrower
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/reagent_containers/cup/beaker = 2,
 		/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/machine/protolathe/department/medical
@@ -997,6 +1060,19 @@
 
 //Service
 
+/obj/item/circuitboard/machine/photobooth
+	name = "Photobooth"
+	icon_state = "service"
+	build_path = /obj/machinery/photobooth
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
+
+/obj/item/circuitboard/machine/photobooth/security
+	name = "Security Photobooth"
+	icon_state = "security"
+	build_path = /obj/machinery/photobooth/security
 
 /obj/item/circuitboard/machine/biogenerator
 	name = "biogenerator (Machine Board)"
@@ -1057,6 +1133,13 @@
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/oven
+	name = "circuit board (Oven)"
+	icon_state = "service"
+	build_path = /obj/machinery/oven
+	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	needs_anchored = FALSE
+
 /obj/item/circuitboard/machine/dish_drive
 	name = "dish drive (Machine Board)"
 	icon_state = "service"
@@ -1071,18 +1154,18 @@
 
 /obj/item/circuitboard/machine/dish_drive/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>\n"+\
-	"<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
+	. += "[span_notice("Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.")]\n"+\
+	span_notice("Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.")
 
 /obj/item/circuitboard/machine/dish_drive/attack_self(mob/living/user)
 	suction = !suction
-	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
+	to_chat(user, span_notice("You [suction ? "enable" : "disable"] the board's suction function."))
 
 /obj/item/circuitboard/machine/dish_drive/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	transmit = !transmit
-	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
+	to_chat(user, span_notice("You [transmit ? "enable" : "disable"] the board's automatic disposal transmission."))
 
 
 /obj/item/circuitboard/machine/gibber
@@ -1147,11 +1230,11 @@
 		if(build_path == /obj/machinery/processor)
 			name = "Slime Processor (Machine Board)"
 			build_path = /obj/machinery/processor/slime
-			to_chat(user, "<span class='notice'>Name protocols successfully updated.</span>")
+			to_chat(user, span_notice("Name protocols successfully updated."))
 		else
 			name = "Food Processor (Machine Board)"
 			build_path = /obj/machinery/processor
-			to_chat(user, "<span class='notice'>Defaulting name protocols.</span>")
+			to_chat(user, span_notice("Defaulting name protocols."))
 	else
 		return ..()
 
@@ -1195,7 +1278,7 @@
 /obj/item/circuitboard/machine/mining_equipment_vendor
 	name = "mining equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/mining
+	build_path = /obj/machinery/gear_requisition/mining
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1203,7 +1286,7 @@
 /obj/item/circuitboard/machine/exploration_equipment_vendor
 	name = "exploration equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/exploration
+	build_path = /obj/machinery/gear_requisition/exploration
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1211,7 +1294,7 @@
 
 /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 	name = "golem ship equipment vendor (Machine Board)"
-	build_path = /obj/machinery/vendor/mining/golem
+	build_path = /obj/machinery/gear_requisition/mining/golem
 
 /obj/item/circuitboard/machine/pump
 	name = "portable liquid pump (Machine Board)"

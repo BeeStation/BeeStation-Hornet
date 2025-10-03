@@ -19,6 +19,8 @@
 		return
 	density = anchorvalue ? initial(pipe_type.density) : FALSE
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalconstruct)
+
 /obj/structure/disposalconstruct/Initialize(mapload, _pipe_type, _dir = SOUTH, flip = FALSE, obj/make_from)
 	. = ..()
 	if(make_from)
@@ -35,16 +37,15 @@
 
 	pipename = initial(pipe_type.name)
 
-	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+	AddComponent(/datum/component/simple_rotation, AfterRotation = CALLBACK(src, PROC_REF(AfterRotation)))
+	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidden under floor tiles
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 	if(flip)
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
-		rotcomp.BaseRot(null,ROTATION_FLIP)
+		rotcomp.Rotate(usr, ROTATION_FLIP) // this only gets used by pipes created by RPDs or pipe dispensers
 
 	update_appearance(UPDATE_ICON)
-
-	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
-		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
@@ -91,24 +92,17 @@
 			dpdir |= turn(dir, 180)
 	return dpdir
 
-/obj/structure/disposalconstruct/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
-
-/obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
-	if(rotation_type == ROTATION_FLIP)
+/obj/structure/disposalconstruct/proc/AfterRotation(mob/user, degrees)
+	if(degrees == ROTATION_FLIP)
 		var/obj/structure/disposalpipe/temp = pipe_type
 		if(initial(temp.flip_type))
-			if(dir in GLOB.diagonals)	// Fix RPD-induced diagonal turning
+			if(ISDIAGONALDIR(dir)) // Fix RPD-induced diagonal turning
 				setDir(turn(dir, 45))
 			pipe_type = initial(temp.flip_type)
-	update_icon()
+	update_appearance()
 
-/obj/structure/disposalconstruct/proc/can_be_rotated(mob/user,rotation_type)
-	if(anchored)
-		to_chat(user, "<span class='warning'>You must unfasten the pipe before rotating it!</span>")
-		return FALSE
-	return TRUE
+/obj/structure/disposalconstruct/AltClick(mob/user)
+	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 // construction/deconstruction
 // wrench: (un)anchor
@@ -116,7 +110,7 @@
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
 	if(anchored)
 		set_anchored(FALSE)
-		to_chat(user, "<span class='notice'>You detach the [pipename] from the underfloor.</span>")
+		to_chat(user, span_notice("You detach the [pipename] from the underfloor."))
 	else
 		var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 
@@ -124,11 +118,11 @@
 		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && isfloorturf(T))
 			var/obj/item/crowbar/held_crowbar = user.is_holding_item_of_type(/obj/item/crowbar)
 			if(!held_crowbar || !T.crowbar_act(user, held_crowbar))
-				to_chat(user, "<span class='warning'>You can only attach the [pipename] if the floor plating is removed!</span>")
+				to_chat(user, span_warning("You can only attach the [pipename] if the floor plating is removed!"))
 				return TRUE
 
 		if(!ispipe && iswallturf(T))
-			to_chat(user, "<span class='warning'>You can't build [pipename]s on walls, only disposal pipes!</span>")
+			to_chat(user, span_warning("You can't build [pipename]s on walls, only disposal pipes!"))
 			return TRUE
 
 		if(ispipe)
@@ -141,7 +135,7 @@
 					if(istype(CP, /obj/structure/disposalpipe/broken))
 						qdel(CP)
 					else
-						to_chat(user, "<span class='warning'>There is already a disposal pipe at that location!</span>")
+						to_chat(user, span_warning("There is already a disposal pipe at that location!"))
 						return TRUE
 
 		else	// Disposal or outlet
@@ -152,11 +146,11 @@
 					break
 
 			if(!found_trunk)
-				to_chat(user, "<span class='warning'>The [pipename] requires a trunk underneath it in order to work!</span>")
+				to_chat(user, span_warning("The [pipename] requires a trunk underneath it in order to work!"))
 				return TRUE
 
 		set_anchored(TRUE)
-		to_chat(user, "<span class='notice'>You attach the [pipename] to the underfloor.</span>")
+		to_chat(user, span_notice("You attach the [pipename] to the underfloor."))
 	I.play_tool_sound(src, 100)
 	update_appearance()
 	return TRUE
@@ -168,14 +162,14 @@
 			return TRUE
 
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You start welding the [pipename] in place...</span>")
+		to_chat(user, span_notice("You start welding the [pipename] in place..."))
 		if(I.use_tool(src, user, 8, volume=50))
-			to_chat(user, "<span class='notice'>The [pipename] has been welded in place.</span>")
+			to_chat(user, span_notice("The [pipename] has been welded in place."))
 			var/obj/O = new pipe_type(loc, src)
 			transfer_fingerprints_to(O)
 			qdel(src)
 	else
-		to_chat(user, "<span class='warning'>You need to attach it to the plating first!</span>")
+		to_chat(user, span_warning("You need to attach it to the plating first!"))
 	return TRUE
 
 /obj/structure/disposalconstruct/proc/is_pipe()

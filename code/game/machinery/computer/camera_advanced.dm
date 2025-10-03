@@ -35,7 +35,7 @@
 	. = ..()
 	for(var/i in networks)
 		networks -= i
-		networks += lowertext(i)
+		networks += LOWER_TEXT(i)
 	if(lock_override)
 		if(lock_override & CAMERA_LOCK_STATION)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_STATION)
@@ -90,22 +90,18 @@
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
-		off_action.target = user
 		off_action.Grant(user)
 		actions += off_action
 
 	if(jump_action)
-		jump_action.target = user
 		jump_action.Grant(user)
 		actions += jump_action
 
 	if(move_up_action)
-		move_up_action.target = user
 		move_up_action.Grant(user)
 		actions += move_up_action
 
 	if(move_down_action)
-		move_down_action.target = user
 		move_down_action.Grant(user)
 		actions += move_down_action
 
@@ -165,7 +161,9 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/computer/camera_advanced/attack_hand(mob/user)
+SCREENTIP_ATTACK_HAND(/obj/machinery/computer/camera_advanced, "Use")
+
+/obj/machinery/computer/camera_advanced/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -270,7 +268,7 @@
 	ai_detector_visible = FALSE
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
+	var/acceleration = 0
 	var/mob/living/eye_user = null
 	var/obj/machinery/origin
 	var/eye_initialized = 0
@@ -336,27 +334,25 @@
 
 /datum/action/innate/camera_off
 	name = "End Camera View"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_off"
 
-/datum/action/innate/camera_off/Activate()
-	if(!target || !isliving(target))
+/datum/action/innate/camera_off/on_activate()
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/C = target
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
 	var/obj/machinery/computer/camera_advanced/console = remote_eye.origin
-	console.remove_eye_control(target)
+	console.remove_eye_control(owner)
 
 /datum/action/innate/camera_jump
 	name = "Jump To Camera"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "camera_jump"
 
-/datum/action/innate/camera_jump/Activate()
-	if(!target || !isliving(target))
+/datum/action/innate/camera_jump/on_activate()
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/C = target
-	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
 	var/obj/machinery/computer/camera_advanced/origin = remote_eye.origin
 
 	var/list/L = list()
@@ -372,47 +368,52 @@
 
 	for (var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network & origin.networks
-		if (tempnetwork.len)
+		if (length(tempnetwork))
+			if(!netcam.c_tag)
+				continue
 			T["[netcam.c_tag][netcam.can_use() ? null : " (Deactivated)"]"] = netcam
 
-	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/camera = input("Choose which camera you want to view", "Cameras") as null|anything in T
+	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
+	var/camera = tgui_input_list(usr, "Camera to view", "Cameras", T)
+	if(isnull(camera))
+		return
+	if(isnull(T[camera]))
+		return
 	var/obj/machinery/camera/final = T[camera]
 	playsound(src, "terminal_type", 25, 0)
 	if(final)
-		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
 		remote_eye.setLoc(get_turf(final))
-		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
-		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
+		owner.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+		owner.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
 		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
 
 /datum/action/innate/camera_multiz_up
 	name = "Move up a floor"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_up"
 
-/datum/action/innate/camera_multiz_up/Activate()
-	if(!target || !isliving(target))
+/datum/action/innate/camera_multiz_up/on_activate()
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/user_mob = target
-	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
+
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
 	if(remote_eye.zMove(UP, FALSE))
-		to_chat(user_mob, "<span class='notice'>You move upwards.</span>")
+		to_chat(owner, span_notice("You move upwards."))
 	else
-		to_chat(user_mob, "<span class='notice'>You couldn't move upwards!</span>")
+		to_chat(owner, span_notice("You couldn't move upwards!"))
 
 /datum/action/innate/camera_multiz_down
 	name = "Move down a floor"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "move_down"
 
-/datum/action/innate/camera_multiz_down/Activate()
-	if(!target || !isliving(target))
+/datum/action/innate/camera_multiz_down/on_activate()
+	if(!owner || !isliving(owner))
 		return
-	var/mob/living/user_mob = target
-	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
-	if(remote_eye.zMove(DOWN, FALSE))
-		to_chat(user_mob, "<span class='notice'>You move downwards.</span>")
+	var/mob/camera/ai_eye/remote/remote_eye = owner.remote_control
+	if(remote_eye.zMove(DOWN))
+		to_chat(owner, span_notice("You move downwards."))
 	else
-		to_chat(user_mob, "<span class='notice'>You couldn't move downwards!</span>")
+		to_chat(owner, span_notice("You couldn't move downwards!"))

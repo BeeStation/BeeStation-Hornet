@@ -5,38 +5,43 @@
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	worn_icon_state = "baguette"
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
-	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_upgrade_walk = 1
+	canblock = TRUE	//God blocking is actual aids to deal with, I am sorry for putting this here
+
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/gold=2750)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
-	sharpness = IS_SHARP_ACCURATE
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
+	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	max_integrity = 200
 	var/clockwork_hint = ""
-	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
+	var/datum/action/spell/summon_spear/SS
+
+/obj/item/clockwork/weapon/Destroy()
+	if(SS)
+		SS.Remove(SS.owner)
+	. = ..()
+
 
 /obj/item/clockwork/weapon/pickup(mob/user)
 	..()
 	if(!user.mind)
 		return
-	user.mind.RemoveSpell(SS)
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user) && !SS)
 		SS = new
 		SS.marked_item = src
-		user.mind.AddSpell(SS)
+		SS.Grant(user)
 
 /obj/item/clockwork/weapon/examine(mob/user)
 	. = ..()
-	if(is_servant_of_ratvar(user) && clockwork_hint)
+	if(IS_SERVANT_OF_RATVAR(user) && clockwork_hint)
 		. += clockwork_hint
 
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
@@ -62,7 +67,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(magic=FALSE,holy=TRUE,major=FALSE))
+	if(!QDELETED(target) && target.stat != DEAD && !IS_SERVANT_OF_RATVAR(target) && !target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -72,7 +77,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
-			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
+			if(!target.can_block_magic(MAGIC_RESISTANCE_HOLY) && !IS_SERVANT_OF_RATVAR(target))
 				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
@@ -98,11 +103,12 @@
 	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	armour_penetration = 6
-	sharpness = IS_BLUNT
-	attack_verb = list("bashed", "smitted", "hammered", "attacked")
+	sharpness = BLUNT
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
-/obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
+/obj/item/clockwork/weapon/brass_battlehammer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
 
@@ -122,7 +128,8 @@
 	force = 26
 	throwforce = 20
 	armour_penetration = 12
-	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
+	attack_verb_continuous = list("attacks", "pokes", "jabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "poke", "jab", "tear", "lacerate", "gore")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
 	COOLDOWN_DECLARE(emp_cooldown)
 
@@ -134,10 +141,10 @@
 	target.emp_act(EMP_LIGHT)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 30 SECONDS)
-	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
+	to_chat(user, span_brass("You strike [target] with an electromagnetic pulse!"))
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
+/obj/item/clockwork/weapon/brass_sword/attack_atom(obj/O, mob/living/user)
 	..()
 	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return
@@ -149,11 +156,11 @@
 	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)
-	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
+	to_chat(user, span_brass("You strike [target] with an electromagnetic pulse!"))
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
-	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
+	to_chat(target, span_brass("[src] glows, indicating the next attack will disrupt electronics of the target."))
 
 //Clockbow, different pathing
 
@@ -165,18 +172,18 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15
 
-/obj/item/gun/ballistic/bow/clockwork/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+/obj/item/gun/ballistic/bow/clockwork/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(recharge_bolt)), recharge_time)
 
 /obj/item/gun/ballistic/bow/clockwork/attack_self(mob/living/user)
 	if (chambered)
 		chambered = null
-		to_chat(user, "<span class='notice'>You dispell the arrow.</span>")
+		to_chat(user, span_notice("You dispell the arrow."))
 	else if (get_ammo())
 		var/obj/item/I = user.get_active_held_item()
 		if (do_after(user, 0.5 SECONDS, I))
-			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
+			to_chat(user, span_notice("You draw back the bowstring."))
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
 	update_icon()

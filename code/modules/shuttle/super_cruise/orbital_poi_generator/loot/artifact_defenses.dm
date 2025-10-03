@@ -5,7 +5,8 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
 
-/obj/structure/alien_artifact/ComponentInitialize()
+/obj/structure/alien_artifact/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/discoverable, 20000)
 
 //Watcher
@@ -16,6 +17,8 @@
 	icon_state = "watcher"
 	var/cooldown = 0
 	var/range //Trigger range
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/structure/alien_artifact/watcher/Initialize(mapload)
 	. = ..()
@@ -73,7 +76,7 @@
 
 /datum/protector_effect/hierophant_chasers/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	playsound(source_location,'sound/machines/airlockopen.ogg', 200, 1)
-	source.visible_message("<span class='hierophant'>\"Mx gerrsx lmhi.\"</span>")
+	source.visible_message(span_hierophant("\"Mx gerrsx lmhi.\""))
 	var/obj/effect/temp_visual/hierophant/chaser/C = new(source_location, source, target, 3, FALSE)
 	C.moving = 3
 	C.moving_dir = pick(GLOB.cardinals)
@@ -81,17 +84,17 @@
 
 /datum/protector_effect/hierophant_burst/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	playsound(source_location,'sound/machines/airlockopen.ogg', 200, 1)
-	source.visible_message("<span class='hierophant'>\"Irkekmrk hijirwmzi tvsxsgspw.\"</span>")
+	source.visible_message(span_hierophant("\"Irkekmrk hijirwmzi tvsxsgspw.\""))
 	INVOKE_ASYNC(src, PROC_REF(protector_burst), null, get_turf(target), 1)
 
 /datum/protector_effect/hierophant_burst_self/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	playsound(source_location,'sound/machines/airlockopen.ogg', 200, 1)
-	source.visible_message("<span class='hierophant'>\"Yrorsar irxmxc hixigxih.\"</span>")
+	source.visible_message(span_hierophant("\"Yrorsar irxmxc hixigxih.\""))
 	INVOKE_ASYNC(src, PROC_REF(protector_burst), null, source_location, 2)
 
 /datum/protector_effect/emp_attack/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	playsound(source_location,'sound/machines/airlockopen.ogg', 200, 1)
-	source_location.visible_message("<span class='hierophant'>\"Svhivw vigmizih.\"</span>")
+	source_location.visible_message(span_hierophant("\"Svhivw vigmizih.\""))
 	new /obj/effect/temp_visual/hierophant/blast/defenders/emp(target_location, src, FALSE)
 
 //expanding square designed for the artifact defenders
@@ -114,6 +117,8 @@
 
 /obj/effect/temp_visual/hierophant/blast/defenders/emp
 	duration = 1 SECONDS
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/hierophant/blast/defenders/emp)
 
 /obj/effect/temp_visual/hierophant/blast/defenders/emp/Initialize(mapload, new_caster, friendly_fire)
 	. = ..()

@@ -6,6 +6,7 @@
 	pressure_resistance = 10
 	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
 
+	hud_type = /datum/hud/living
 
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
@@ -43,14 +44,12 @@
 
 	var/confused = 0	//Makes the mob move in random directions.
 
-	var/hallucination = 0 //Directly affects how long a mob will hallucinate for
-
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/timeofdeath = 0
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = FALSE //FALSE is off, INCORPOREAL_MOVE_BASIC is normal, INCORPOREAL_MOVE_SHADOW is for ninjas
-								 //and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
+								//and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
@@ -91,6 +90,8 @@
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
 
 	var/bubble_icon = "default" //what icon the mob uses for speechbubbles
+	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
+	var/health_doll_icon
 
 	var/last_bumped = 0
 	var/unique_name = 0 //if a mob's name should be appended with an id when created e.g. Mob (666)
@@ -107,7 +108,6 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
 	var/blood_volume = 0 //how much blood the mob has
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
 	var/see_override = 0 //0 for no override, sets see_invisible = see_override in silicon & carbon life process via update_sight()
 
@@ -123,13 +123,9 @@
 
 	var/list/implants = null
 
-	var/datum/riding/riding_datum
-
 	var/datum/language/selected_default_language
 
 	var/last_words	//used for database logging
-
-	var/list/obj/effect/proc_holder/abilities = list()
 
 	var/can_be_held = FALSE	//whether this can be picked up and held.
 	var/worn_slot_flags = NONE //if it can be held, can it be equipped to any slots? (think pAI's on head)
@@ -157,6 +153,12 @@
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
 
+	///If combat mode is on or not
+	var/combat_mode = FALSE
+
+	/// Is this mob allowed to be buckled/unbuckled to/from things?
+	var/can_buckle_to = TRUE
+
 	//is mob player controllable
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
@@ -166,3 +168,8 @@
 	///The x amount a mob's sprite should be offset due to the current position they're in
 	var/body_position_pixel_y_offset = 0
 
+	/// What our current gravity state is. Used to avoid duplicate animates and such
+	var/gravity_state = null
+
+	//If we are currently leaning on something, and what that object is
+	var/atom/leaned_object

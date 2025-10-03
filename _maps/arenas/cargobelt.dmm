@@ -1,7 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "d" = (
 /obj/machinery/conveyor/auto,
-/obj/machinery/conveyor/auto,
 /turf/open/indestructible,
 /area/tdome/arena)
 "e" = (
@@ -78,10 +77,6 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/indestructible,
 /area/tdome/arena)
-"R" = (
-/obj/machinery/conveyor/auto,
-/turf/open/indestructible,
-/area/tdome/arena)
 "V" = (
 /obj/machinery/conveyor/auto{
 	dir = 1
@@ -121,12 +116,12 @@ e
 "}
 (4,1,1) = {"
 d
-R
+d
 t
 t
 t
 t
-R
+d
 j
 "}
 (5,1,1) = {"

@@ -9,7 +9,7 @@
 	rogue_types = list(/datum/nanite_program/brain_misfire, /datum/nanite_program/brain_decay)
 
 /datum/nanite_program/sleepy/on_trigger(comm_message)
-	to_chat(host_mob, "<span class='warning'>You start to feel very sleepy...</span>")
+	to_chat(host_mob, span_warning("You start to feel very sleepy..."))
 	host_mob.drowsyness += 20
 	addtimer(CALLBACK(host_mob, TYPE_PROC_REF(/mob/living, Sleeping), 200), rand(60,200))
 
@@ -24,11 +24,11 @@
 
 /datum/nanite_program/paralyzing/enable_passive_effect()
 	. = ..()
-	to_chat(host_mob, "<span class='warning'>Your muscles seize! You can't move!</span>")
+	to_chat(host_mob, span_warning("Your muscles seize! You can't move!"))
 
 /datum/nanite_program/paralyzing/disable_passive_effect()
 	. = ..()
-	to_chat(host_mob, "<span class='notice'>Your muscles relax, and you can move again.</span>")
+	to_chat(host_mob, span_notice("Your muscles relax, and you can move again."))
 
 /datum/nanite_program/shocking
 	name = "Electric Shock"
@@ -123,9 +123,9 @@
 	var/datum/nanite_extra_setting/comm_code = extra_settings[NES_COMM_CODE]
 	if(!activated || !comm_code)
 		return
-	if(signal_comm_code == comm_code)
+	if(signal_comm_code == comm_code.get_value())
 		host_mob.investigate_log("'s [name] nanite program was messaged by [comm_source] with comm code [signal_comm_code] and message '[comm_message]'.", INVESTIGATE_NANITES)
-		trigger(comm_message)
+		trigger(comm_message=comm_message)
 
 /datum/nanite_program/comm/speech
 	name = "Forced Speech"
@@ -151,7 +151,7 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/sentence = extra_settings[NES_SENTENCE]
 		sent_message = sentence.get_value()
-	to_chat(host_mob, "<span class='warning'>You feel compelled to speak...</span>")
+	to_chat(host_mob, span_warning("You feel compelled to speak..."))
 	host_mob.say(sent_message, forced = "nanite speech")
 
 /datum/nanite_program/comm/voice
@@ -181,7 +181,7 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/message_setting = extra_settings[NES_MESSAGE]
 		sent_message = message_setting.get_value()
-	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"<span class='robot'>[html_encode(sent_message)]</span>\"")
+	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 	// send message to ghosts
 	if(!COOLDOWN_FINISHED(src, ghost_notification_time))
@@ -234,19 +234,19 @@
 	if(hal_details == "random")
 		hal_details = null
 	if(hal_type == "Random")
-		C.hallucination += 15
+		C.adjust_hallucinations(30 SECONDS)
 	else
 		switch(hal_type)
 			if("Message")
-				new /datum/hallucination/chat(C, TRUE, null, sent_message)
+				C.cause_hallucination(/datum/hallucination/chat, "nanites", forced = TRUE, source = null, custom_msg = sent_message)
 			if("Battle")
-				new /datum/hallucination/battle(C, TRUE, hal_details)
+				C.cause_hallucination(/datum/hallucination/battle, "nanites", forced = TRUE, weapon_type = hal_details)
 			if("Sound")
-				new /datum/hallucination/sounds(C, TRUE, hal_details)
+				C.cause_hallucination(/datum/hallucination/fake_sound/normal, "nanites", forced = TRUE, sound_type = hal_details)
 			if("Weird Sound")
-				new /datum/hallucination/weird_sounds(C, TRUE, hal_details)
+				C.cause_hallucination(/datum/hallucination/fake_sound/weird, "nanites", forced = TRUE, sound_type = hal_details)
 			if("Station Message")
-				new /datum/hallucination/stationmessage(C, TRUE, hal_details)
+				C.cause_hallucination(/datum/hallucination/station_message, "nanites", forced = TRUE, announcement_type = hal_details)
 			if("Health")
 				switch(hal_details)
 					if("critical")
@@ -255,15 +255,15 @@
 						hal_details = SCREWYHUD_DEAD
 					if("healthy")
 						hal_details = SCREWYHUD_HEALTHY
-				new /datum/hallucination/hudscrew(C, TRUE, hal_details)
+				C.cause_hallucination(/datum/hallucination/screwy_hud, "nanites", forced = TRUE, hud_type = hal_details)
 			if("Alert")
-				new /datum/hallucination/fake_alert(C, TRUE, hal_details)
+				C.cause_hallucination(/datum/hallucination/fake_alert, "nanites", forced = TRUE, alert_type = hal_details)
 			if("Fire")
-				new /datum/hallucination/fire(C, TRUE)
+				C.cause_hallucination(/datum/hallucination/fire, "nanites", forced = TRUE)
 			if("Shock")
-				new /datum/hallucination/shock(C, TRUE)
+				C.cause_hallucination(/datum/hallucination/shock, "nanites", forced = TRUE)
 			if("Plasma Flood")
-				new /datum/hallucination/fake_flood(C, TRUE)
+				C.cause_hallucination(/datum/hallucination/fake_flood, "nanites", forced = TRUE)
 
 /datum/nanite_program/comm/hallucination/set_extra_setting(setting, value)
 	. = ..()

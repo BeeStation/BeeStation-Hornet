@@ -1,7 +1,7 @@
 #define ANTAG_TOKENS_MAXIMUM 255
 #define ANTAG_TOKENS_MINIMUM 0
 
-/client/proc/cmd_admin_mod_antag_tokens(client/C in GLOB.clients, var/operation)
+/client/proc/cmd_admin_mod_antag_tokens(client/C in GLOB.clients, operation)
 	set category = "Adminbus"
 	set name = "Modify Antagonist Tokens"
 
@@ -40,5 +40,8 @@
 
 
 	log_admin("[key_name(usr)]: Modified [key_name(C)]'s antagonist tokens [log_text]")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)]: Modified [key_name(C)]'s antagonist tokens ([log_text])</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)]: Modified [key_name(C)]'s antagonist tokens ([log_text])"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Modify Antagonist Tokens") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+#undef ANTAG_TOKENS_MAXIMUM
+#undef ANTAG_TOKENS_MINIMUM

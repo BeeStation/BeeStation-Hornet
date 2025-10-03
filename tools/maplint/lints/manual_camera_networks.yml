@@ -1,0 +1,9 @@
+help: "Manual camera networks have been deprecated, please create a subtype or rely on /area assigned networks instead."
+/obj/machinery/camera:
+  banned_variables:
+  - network
+
+help: "Manual camera networks have been deprecated, please create or use a subtype instead."
+/obj/machinery/computer/security:
+  banned_variables:
+  - network

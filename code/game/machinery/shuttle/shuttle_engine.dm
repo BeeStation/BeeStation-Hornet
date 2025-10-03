@@ -55,7 +55,7 @@
 	. = ..()
 	check_setup()
 
-/obj/machinery/shuttle/engine/on_construction()
+/obj/machinery/shuttle/engine/on_construction(mob/user)
 	. = ..()
 	check_setup()
 
@@ -110,7 +110,7 @@
 		thruster_active = FALSE
 		icon_state = icon_state_off
 
-//Thanks to spaceheater.dm for inspiration :)
+//Thanks to portable_thermomachine.dm for inspiration :)
 /obj/machinery/shuttle/engine/proc/fireEngine()
 	var/turf/heatTurf = loc
 	if(!heatTurf)
@@ -122,8 +122,8 @@
 	var/deltaTemperature = req_power / heat_cap
 	if(deltaTemperature < 0)
 		return
-	env.set_temperature(env.return_temperature() + deltaTemperature)
-	air_update_turf()
+	env.temperature = env.return_temperature() + deltaTemperature
+	air_update_turf(FALSE, FALSE)
 
 /obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
 	check_setup()
@@ -137,3 +137,6 @@
 	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
+
+#undef ENGINE_HEAT_TARGET
+#undef ENGINE_HEATING_POWER

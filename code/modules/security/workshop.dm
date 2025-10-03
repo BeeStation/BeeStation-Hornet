@@ -6,9 +6,8 @@
 	desc = "a computer used to control the workshop in the prison"
 
 	mapped_start_area = /area/holodeck/prison
-	linked = /area/holodeck/prison //linked area
 	program_type = /datum/map_template/holodeck/prison //load workshop programs
-	req_access = list(ACCESS_SECURITY)
+	req_access = list()
 	var/startup
 	var/offline = FALSE
 
@@ -45,7 +44,7 @@
 
 /obj/machinery/computer/holodeck/prison/ui_act(action, params)
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	if(..())
 		return
@@ -83,24 +82,6 @@
 		addtimer(CALLBACK(src, PROC_REF(load_program), offline_program), 1200)
 	else
 		say("Workshop shutdown underway! Standby for reboot...")
-
-/obj/machinery/computer/holodeck/prison/nerf(nerf_this, is_loading) //We want items to behave as normal and to do damage
-	return
-
-/obj/machinery/computer/holodeck/prison/derez(atom/movable/holo_atom, silent = TRUE, forced = FALSE)
-	spawned -= holo_atom
-	if(!holo_atom)
-		return
-	if(!(get_turf(holo_atom) in linked)) //Don't derez items that have been hidden or taken away by prisoners
-		return
-	UnregisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED)
-	var/turf/target_turf = get_turf(holo_atom)
-	for(var/atom/movable/atom_contents as anything in holo_atom) //make sure that things inside of a holoitem are moved outside before destroying it
-		atom_contents.forceMove(target_turf)
-	if(!silent)
-		visible_message("<span class='notice'>[holo_atom] fades away!</span>")
-
-	qdel(holo_atom)
 
 /obj/machinery/computer/holodeck/prison/load_program()
 	. = ..()

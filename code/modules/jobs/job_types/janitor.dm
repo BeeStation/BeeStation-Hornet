@@ -1,17 +1,21 @@
 /datum/job/janitor
 	title = JOB_NAME_JANITOR
 	description = "Clean up vomit, trash, and other messes around the station. Put down signs to warn people of slipping hazards, and eradicate rodents when you find them. Keep the station clean and tidy."
-	department_for_prefs = DEPT_BITFLAG_SRV
+	department_for_prefs = DEPT_NAME_SERVICE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 1
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/janitor
 
-	base_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	base_access = list(
+		ACCESS_JANITOR,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
@@ -33,7 +37,7 @@
 	jobtype = /datum/job/janitor
 
 	id = /obj/item/card/id/job/janitor
-	belt = /obj/item/modular_computer/tablet/pda/janitor
+	belt = /obj/item/modular_computer/tablet/pda/preset/janitor
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 
@@ -42,3 +46,9 @@
 	if(GARBAGEDAY in SSevents.holidays)
 		l_pocket = /obj/item/gun/ballistic/revolver
 		r_pocket = /obj/item/ammo_box/a357
+
+/datum/outfit/job/janitor/get_types_to_preload()
+	. = ..()
+	if(GARBAGEDAY in SSevents.holidays)
+		. += /obj/item/gun/ballistic/revolver
+		. += /obj/item/ammo_box/a357

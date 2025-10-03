@@ -1,8 +1,8 @@
+import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 const absorbstyle = {
   color: 'red',
@@ -26,26 +26,28 @@ const storestyle = {
 
 type Info = {
   true_name: string;
-  // TODO: changeling refactor from tg
+  // hive_name: string;
+  // TODO: changeling refactor from tg //Nah pluh we need the memory system
   // stolen_antag_info: string;
   // memories: Memory[];
   objectives: Objective[];
 };
 
-export const AntagInfoChangeling = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+export const AntagInfoChangeling = (_props) => {
+  const { data } = useBackend<Info>();
   const { objectives } = data;
   return (
     <Window width={720} height={500} theme="neutral">
       <Window.Content
         style={{
-          'backgroundImage': 'none',
-        }}>
+          backgroundImage: 'none',
+        }}
+      >
         <Stack vertical fill>
           <Stack.Item>
             <IntroductionSection />
           </Stack.Item>
-          <Stack.Item>
+          <Stack.Item grow={3}>
             <ObjectivesSection objectives={objectives} />
           </Stack.Item>
           <Stack.Item grow={4}>
@@ -58,7 +60,7 @@ export const AntagInfoChangeling = (_props, context) => {
 };
 
 /*
-TODO: changeling refactor from tg
+TODO: changeling refactor from tg // MEMORY system, for yaknow "MEMORIESSECTION"??
 <Stack.Item grow={3}>
   <Stack fill>
     <Stack.Item grow basis={0}>
@@ -71,8 +73,8 @@ TODO: changeling refactor from tg
 </Stack.Item>
 */
 
-const IntroductionSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const IntroductionSection = (_props) => {
+  const { data } = useBackend<Info>();
   const { true_name } = data;
   return (
     <Section fill>
@@ -83,11 +85,14 @@ const IntroductionSection = (_props, context) => {
             as="img"
             src={resolveAsset('changeling.gif')}
             width="64px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+            style={{
+              msInterpolationMode: 'nearest-neighbor',
+              imageRendering: 'pixelated',
+            }}
           />
         </Stack.Item>
         <Stack.Item grow>
-          <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+          <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
             You are{' '}
             <Box inline textColor="bad">
               {true_name}
@@ -100,7 +105,7 @@ const IntroductionSection = (_props, context) => {
   );
 };
 
-const AbilitiesSection = (_props, _context) => {
+const AbilitiesSection = (_props) => {
   return (
     <Section title="Abilities">
       <Stack>
@@ -108,17 +113,19 @@ const AbilitiesSection = (_props, _context) => {
           <Stack vertical>
             <Stack.Item textColor="label">
               Your
-              <span style={absorbstyle}>&ensp;Absorb DNA</span> ability allows you to steal the DNA and memories of a victim.
-              Your
-              <span style={absorbstyle}>&ensp;Extract DNA Sting</span> ability also steals the DNA of a victim, and is
-              undetectable, but does not grant you their memories or speech patterns.
+              <span style={absorbstyle}>&ensp;Absorb DNA</span> ability allows
+              you to steal the DNA and memories of a victim. Your
+              <span style={absorbstyle}>&ensp;Extract DNA Sting</span> ability
+              also steals the DNA of a victim, and is undetectable, but does not
+              grant you their memories or speech patterns.
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item textColor="label">
               Your
-              <span style={revivestyle}>&ensp;Reviving Stasis</span> ability allows you to revive. It means nothing short of a
-              complete body destruction can stop you! Obviously, this is loud and so should not be done in front of people you
-              are not planning on silencing.
+              <span style={revivestyle}>&ensp;Reviving Stasis</span> ability
+              allows you to revive. It means nothing short of a complete body
+              destruction can stop you! Obviously, this is loud and so should
+              not be done in front of people you are not planning on silencing.
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -127,16 +134,18 @@ const AbilitiesSection = (_props, _context) => {
           <Stack vertical>
             <Stack.Item textColor="label">
               Your
-              <span style={transformstyle}>&ensp;Transform</span> ability allows you to change into the form of those you have
-              collected DNA from, lethally and nonlethally. It will also mimic (NOT REAL CLOTHING) the clothing they were
-              wearing for every slot you have open.
+              <span style={transformstyle}>&ensp;Transform</span> ability allows
+              you to change into the form of those you have collected DNA from,
+              lethally and nonlethally. It will also mimic (NOT REAL CLOTHING)
+              the clothing they were wearing for every slot you have open.
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item textColor="label">
               The
-              <span style={storestyle}>&ensp;Cellular Emporium</span> is where you purchase more abilities beyond your starting
-              kit. You have 10 genetic points to spend on abilities and you are able to readapt after absorbing a body,
-              refunding your points for different kits.
+              <span style={storestyle}>&ensp;Cellular Emporium</span> is where
+              you purchase more abilities beyond your starting kit. You have 10
+              genetic points to spend on abilities and you are able to readapt
+              after absorbing a body, refunding your points for different kits.
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -147,10 +156,10 @@ const AbilitiesSection = (_props, _context) => {
 
 /*
 TODO: changeling refactor from tg
-const MemoriesSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const MemoriesSection = (props) => {
+  const { data } = useBackend<Info>();
   const { memories } = data;
-  const [selectedMemory, setSelectedMemory] = useSharedState(context, 'memory', (!!memories && memories[0]) || null);
+  const [selectedMemory, setSelectedMemory] = useSharedState('memory', (!!memories && memories[0]) || null);
   const memoryMap = {};
   for (const index in memories) {
     const memory = memories[index];
@@ -192,8 +201,8 @@ const MemoriesSection = (props, context) => {
 };
 
 
-const VictimPatternsSection = (props, context) => {
-  const { data } = useBackend<Info>(context);
+const VictimPatternsSection = (props) => {
+  const { data } = useBackend<Info>();
   const { stolen_antag_info } = data;
   return (
     <Section fill scrollable={!!stolen_antag_info} title="Additional Stolen Information">

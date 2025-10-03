@@ -32,9 +32,9 @@
 		return
 	var/mob/living/M = AM
 	if(istype(M))
-		if(is_servant_of_ratvar(M))
+		if(IS_SERVANT_OF_RATVAR(M))
 			return
-		if(M.incorporeal_move || M.is_flying())
+		if(M.incorporeal_move || M.movement_type & (FLOATING|FLYING))
 			return
 	else
 		return

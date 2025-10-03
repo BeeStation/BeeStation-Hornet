@@ -1,19 +1,12 @@
-import { useDispatch, useSelector } from 'common/redux';
-import { Button, Flex, Box, Section } from 'tgui/components';
+import { useDispatch, useSelector } from 'tgui/backend';
+import { Box, Button, Flex } from 'tgui/components';
+
 import { selectStatPanel } from './selectors';
 import { StatText } from './StatText';
 
-export const StatStatus = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
-  let statPanelData = [];
-  if (stat.infomationUpdate) {
-    for (const [key, value] of Object.entries(stat.infomationUpdate)) {
-      if (key === stat.selectedTab) {
-        statPanelData = value;
-      }
-    }
-  }
+export const StatStatus = (props) => {
+  const stat = useSelector(selectStatPanel);
+  const dispatch = useDispatch();
   return (
     <Flex direction="column">
       {stat.dead_popup ? (
@@ -36,7 +29,8 @@ export const StatStatus = (props, context) => {
               </Flex.Item>
               <Flex.Item mt={2}>
                 <Box className="deadsay">
-                  Don&#39;t worry, you can still get back into the game if your body is revived or through ghost roles.
+                  Don&#39;t worry, you can still get back into the game if your
+                  body is revived or through ghost roles.
                 </Box>
               </Flex.Item>
             </div>
@@ -111,7 +105,11 @@ export const StatStatus = (props, context) => {
                   <Button
                     content="Start"
                     color="transparent"
-                    onClick={(e) => Byond.sendMessage('stat/pressed', { action_id: 'start_br' })}
+                    onClick={(e) =>
+                      Byond.sendMessage('stat/pressed', {
+                        action_id: 'start_br',
+                      })
+                    }
                   />
                   <Box inline>
                     <Button
@@ -132,127 +130,5 @@ export const StatStatus = (props, context) => {
       ) : null}
       <StatText />
     </Flex>
-  );
-};
-
-// =======================
-// Non-Flex Support
-// =======================
-
-export const HoboStatStatus = (props, context) => {
-  const stat = useSelector(context, selectStatPanel);
-  const dispatch = useDispatch(context);
-  let statPanelData = [];
-  if (stat.infomationUpdate) {
-    for (const [key, value] of Object.entries(stat.infomationUpdate)) {
-      if (key === stat.selectedTab) {
-        statPanelData = value;
-      }
-    }
-  }
-  return (
-    <Box>
-      {stat.dead_popup ? (
-        <div className="StatBorder_observer">
-          <Box>
-            <Section className="deadsay">
-              <Button
-                color="transparent"
-                icon="times"
-                onClick={() =>
-                  dispatch({
-                    type: 'stat/clearDeadPopup',
-                  })
-                }
-              />
-              You are <b>dead</b>!
-            </Section>
-          </Box>
-          <Box>
-            <Section className="deadsay">
-              Don&#39;t worry, you can still get back into the game if your body is revived or through ghost roles.
-            </Section>
-          </Box>
-        </div>
-      ) : null}
-      {stat.alert_popup ? (
-        <div className="StatBorder_infomation">
-          <Section>
-            <Box className="stat_infomation">
-              <Button
-                color="transparent"
-                icon="times"
-                onClick={() =>
-                  dispatch({
-                    type: 'stat/clearAlertPopup',
-                  })
-                }
-              />
-              <Box inline>{stat.alert_popup.title}</Box>
-              <Box>{stat.alert_popup.text}</Box>
-            </Box>
-          </Section>
-        </div>
-      ) : null}
-      {stat.antagonist_popup ? (
-        <div className="StatBorder_antagonist">
-          <Section>
-            <Box className="stat_antagonist">
-              <Button
-                color="transparent"
-                icon="times"
-                onClick={() =>
-                  dispatch({
-                    type: 'stat/clearAntagPopup',
-                  })
-                }
-              />
-              <Box inline bold>
-                {stat.antagonist_popup.title}
-              </Box>
-              <Box>{stat.antagonist_popup.text}</Box>
-            </Box>
-          </Section>
-        </div>
-      ) : null}
-      {stat.alert_br ? (
-        <div className="StatBorder_br">
-          <Section>
-            <Box className="stat_br">
-              <Button
-                color="transparent"
-                icon="times"
-                onClick={() =>
-                  dispatch({
-                    type: 'stat/clearAlertBr',
-                  })
-                }
-              />
-              <Box inline>{stat.alert_br.title}</Box>
-              <Box>{stat.alert_br.text}</Box>
-              <Box>
-                <Button
-                  content="Start"
-                  color="transparent"
-                  onClick={(e) => Byond.sendMessage('stat/pressed', { action_id: 'start_br' })}
-                />
-                <Box inline>
-                  <Button
-                    content="Dismiss"
-                    color="transparent"
-                    onClick={() =>
-                      dispatch({
-                        type: 'stat/clearAlertBr',
-                      })
-                    }
-                  />
-                </Box>
-              </Box>
-            </Box>
-          </Section>
-        </div>
-      ) : null}
-      <StatText />
-    </Box>
   );
 };

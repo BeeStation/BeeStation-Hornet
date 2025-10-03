@@ -33,12 +33,55 @@
 	. = ..()
 	if(.)
 		return
-	var/mob/living/L = user.mob
-	L.toggle_resting()
+	var/mob/living/living_mob = user.mob
+	living_mob.toggle_resting()
 	return TRUE
 
+/datum/keybinding/living/toggle_combat_mode
+	keys = list("F")
+	name = "toggle_combat_mode"
+	full_name = "Toggle Combat Mode"
+	description = "Toggles combat mode. Like Help/Harm but cooler."
+	keybind_signal = COMSIG_KB_LIVING_TOGGLE_COMBAT_DOWN
+
+
+/datum/keybinding/living/toggle_combat_mode/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/user_mob = user.mob
+	user_mob.set_combat_mode(!user_mob.combat_mode, FALSE)
+
+/datum/keybinding/living/enable_combat_mode
+	keys = list("4")
+	name = "enable_combat_mode"
+	full_name = "Enable Combat Mode"
+	description = "Enable combat mode."
+	keybind_signal = COMSIG_KB_LIVING_ENABLE_COMBAT_DOWN
+
+/datum/keybinding/living/enable_combat_mode/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/user_mob = user.mob
+	user_mob.set_combat_mode(TRUE, silent = FALSE)
+
+/datum/keybinding/living/disable_combat_mode
+	keys = list("1")
+	name = "disable_combat_mode"
+	full_name = "Disable Combat Mode"
+	description = "Disable combat mode."
+	keybind_signal = COMSIG_KB_LIVING_DISABLE_COMBAT_DOWN
+
+/datum/keybinding/living/disable_combat_mode/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/user_mob = user.mob
+	user_mob.set_combat_mode(FALSE, silent = FALSE)
+
 /datum/keybinding/living/look_up
-	keys = list("L")
+	keys = list()
 	name = "look up"
 	full_name = "Look Up"
 	description = "Look up at the next z-level. Only works if below any nearby open space within a 3x3 square."
@@ -61,7 +104,7 @@
 	return TRUE
 
 /datum/keybinding/living/look_down
-	keys = list(";")
+	keys = list()
 	name = "look down"
 	full_name = "Look Down"
 	description = "Look down at the previous z-level. Only works if above any nearby open space within a 3x3 square."
@@ -99,56 +142,3 @@
 	L.dna.species.primary_species_action()
 	return TRUE
 
-/datum/keybinding/living/select_intent
-	/// The intent this keybinding will switch to.
-	var/intent
-
-/datum/keybinding/living/select_intent/can_use(client/user)
-	. = ..()
-	var/mob/living/user_mob = user.mob
-	if(!. || !istype(user_mob))
-		return
-	return !iscyborg(user_mob) && (intent in user_mob.possible_a_intents) && (locate(/atom/movable/screen/act_intent) in user_mob.hud_used?.static_inventory) // The cyborg check is because cyborgs have their own swap intent hotkey, and we don't want to mess that up.
-
-/datum/keybinding/living/select_intent/down(client/user)
-	. = ..()
-	if(.)
-		return
-	user.mob?.a_intent_change(intent)
-	return TRUE
-
-
-/datum/keybinding/living/select_intent/help
-	keys = list("1")
-	name = "select_help_intent"
-	full_name = "Select help intent"
-	description = ""
-	keybind_signal = COMSIG_KB_LIVING_SELECTHELPINTENT_DOWN
-	intent = INTENT_HELP
-
-
-/datum/keybinding/living/select_intent/disarm
-	keys = list("2")
-	name = "select_disarm_intent"
-	full_name = "Select disarm intent"
-	description = ""
-	keybind_signal = COMSIG_KB_LIVING_SELECTDISARMINTENT_DOWN
-	intent = INTENT_DISARM
-
-
-/datum/keybinding/living/select_intent/grab
-	keys = list("3")
-	name = "select_grab_intent"
-	full_name = "Select grab intent"
-	description = ""
-	keybind_signal = COMSIG_KB_LIVING_SELECTGRABINTENT_DOWN
-	intent = INTENT_GRAB
-
-
-/datum/keybinding/living/select_intent/harm
-	keys = list("4")
-	name = "select_harm_intent"
-	full_name = "Select harm intent"
-	description = ""
-	keybind_signal = COMSIG_KB_LIVING_SELECTHARMINTENT_DOWN
-	intent = INTENT_HARM

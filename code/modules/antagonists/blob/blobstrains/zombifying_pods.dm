@@ -13,7 +13,7 @@
 
 /datum/blobstrain/reagent/zombifying_pods/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if((damage_flag == MELEE || damage_flag == BULLET || damage_flag == LASER) && damage <= 20 && B.get_integrity() - damage <= 0 && prob(30)) //if the cause isn't fire or a bomb, the damage is less than 21, we're going to die from that damage, 20% chance of a shitty spore.
-		B.visible_message("<span class='warning'><b>A spore floats free of the blob!</b></span>")
+		B.visible_message(span_warning("<b>A spore floats free of the blob!</b>"))
 		var/mob/living/simple_animal/hostile/blob/blobspore/weak/BS = new/mob/living/simple_animal/hostile/blob/blobspore/weak(B.loc)
 		BS.overmind = B.overmind
 		BS.update_icons()
@@ -30,9 +30,9 @@
 /datum/reagent/blob/zombifying_pods
 	name = "Zombifying Pods"
 	color = "#E88D5D"
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	chemical_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
-/datum/reagent/blob/zombifying_pods/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/zombifying_pods/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
 	M.apply_damage(0.6*reac_volume, TOX)
 	if(O && ishuman(M) && (M.stat == UNCONSCIOUS || M.stat == HARD_CRIT))
@@ -45,4 +45,4 @@
 		O.blob_mobs.Add(BS)
 		BS.Zombify(M)
 		O.add_points(points)
-		to_chat(O, "<span class='notice'>Gained [points] resources from the zombification of [M].</span>")
+		to_chat(O, span_notice("Gained [points] resources from the zombification of [M]."))

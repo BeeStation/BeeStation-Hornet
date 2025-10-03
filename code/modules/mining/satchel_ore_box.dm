@@ -14,27 +14,24 @@
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/stack/ore)
+	AddComponent(/datum/component/rad_insulation, 0.01) //please datum mats no more cancer
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
 		ui_update()
-	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
-		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src)
-		to_chat(user, "<span class='notice'>You empty the ore in [W] into \the [src].</span>")
+	else if(W.atom_storage)
+		W.atom_storage.remove_type(/obj/item/stack/ore, src, INFINITY, TRUE, FALSE, user, null)
+		to_chat(user, span_notice("You empty the ore in [W] into \the [src]."))
 		ui_update()
 	else
 		return ..()
 
-/obj/structure/ore_box/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.01) //please datum mats no more cancer
-
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	if(I.use_tool(src, user, 50, volume=50))
 		user.visible_message("[user] pries \the [src] apart.",
-			"<span class='notice'>You pry apart \the [src].</span>",
-			"<span class='italics'>You hear splitting wood.</span>")
+			span_notice("You pry apart \the [src]."),
+			span_italics("You hear splitting wood."))
 		deconstruct(TRUE, user)
 	return TRUE
 
@@ -43,7 +40,7 @@
 		ui_interact(user)
 	. = ..()
 
-/obj/structure/ore_box/attack_hand(mob/user)
+/obj/structure/ore_box/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -97,7 +94,7 @@
 	switch(action)
 		if("removeall")
 			dump_box_contents()
-			to_chat(usr, "<span class='notice'>You open the release hatch on the box..</span>")
+			to_chat(usr, span_notice("You open the release hatch on the box.."))
 			. = TRUE
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)

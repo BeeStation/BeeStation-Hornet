@@ -7,14 +7,14 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	hide = TRUE
 
-	interacts_with_air = TRUE
+	has_gas_visuals = FALSE
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/Initialize(mapload)
 	. = ..()
 
 	add_atom_colour("#404040", FIXED_COLOUR_PRIORITY)
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/isConnectable(obj/machinery/atmospherics/pipe/heat_exchanging/target, given_layer, HE_type_check = TRUE)
+/obj/machinery/atmospherics/pipe/heat_exchanging/is_connectable(obj/machinery/atmospherics/pipe/heat_exchanging/target, given_layer, HE_type_check = TRUE)
 	if(istype(target, /obj/machinery/atmospherics/pipe/heat_exchanging) != HE_type_check)
 		return FALSE
 	. = ..()
@@ -23,19 +23,19 @@
 	var/environment_temperature = 0
 	var/datum/gas_mixture/pipe_air = return_air()
 
-	var/turf/T = loc
-	if(istype(T))
-		if(isclosedturf(T))
-			environment_temperature = T.return_temperature()
+	var/turf/local_turf = loc
+	if(istype(local_turf))
+		if(islava(local_turf))
+			environment_temperature = 5000 //Yuck
+		else if(local_turf.blocks_air)
+			environment_temperature = local_turf.temperature
 		else
-			var/turf/open/OT = T
-			environment_temperature = OT.GetTemperature()
-	else if(T != null)
-		environment_temperature = T.return_temperature()
-
-	if(pipe_air != null)
-		if(abs(environment_temperature-pipe_air.return_temperature()) > minimum_temperature_difference)
-			parent.temperature_interact(T, volume, thermal_conductivity)
+			var/turf/open/open_local = local_turf
+			environment_temperature = open_local.get_temperature()
+	else
+		environment_temperature = local_turf.temperature
+	if(abs(environment_temperature-pipe_air.temperature) > minimum_temperature_difference)
+		parent.temperature_interact(local_turf, volume, thermal_conductivity)
 
 
 	//heatup/cooldown any mobs buckled to ourselves based on our temperature
@@ -43,11 +43,10 @@
 		var/hc = pipe_air.heat_capacity()
 		var/mob/living/heat_source = buckled_mobs[1]
 		//Best guess-estimate of the total bodytemperature of all the mobs, since they share the same environment it's ~ok~ to guess like this
-		var/avg_temp = (pipe_air.return_temperature() * hc + (heat_source.bodytemperature * buckled_mobs.len) * 3500) / (hc + (buckled_mobs ? buckled_mobs.len * 3500 : 0))
-		for(var/m in buckled_mobs)
-			var/mob/living/L = m
-			L.bodytemperature = avg_temp
-		pipe_air.set_temperature(avg_temp)
+		var/avg_temp = (pipe_air.temperature * hc + (heat_source.bodytemperature * buckled_mobs.len) * 3500) / (hc + (buckled_mobs ? buckled_mobs.len * 3500 : 0))
+		for(var/mob/living/buckled_mob as anything in buckled_mobs)
+			buckled_mob.bodytemperature = avg_temp
+		pipe_air.temperature = avg_temp
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/process(delta_time)
 	if(!parent)
@@ -79,3 +78,6 @@
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
 				buckled_mob.apply_damage(delta_time * 2 * log(pipe_air.return_temperature() - heat_limit), BURN, BODY_ZONE_CHEST)
+
+/obj/machinery/atmospherics/pipe/heat_exchanging/update_pipe_icon()
+	return

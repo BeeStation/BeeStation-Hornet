@@ -21,30 +21,71 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
+	worn_icon = 'icons/mob/clothing/neck.dmi'
+	worn_icon_state = "bluetie"
 	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_NECK
 	custom_price = 15
+
+/obj/item/clothing/neck/tie/examine(mob/user)
+	. = ..()
+	if (slot_flags & ITEM_SLOT_NECK)
+		. += span_notice("Alt-click the tie to loosen it, to fit around your head.")
+	else
+		. += span_notice("Alt-click the tie to tighten it, to fit around your neck.")
+
+/obj/item/clothing/neck/tie/AltClick(mob/user)
+	. = ..()
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/matrix/widen = matrix()
+		if(!user.is_holding(src))
+			if(C.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+				to_chat(user, span_warning("You must be holding [src] in order to loosen it!"))
+			if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
+				to_chat(user, span_warning("You must be holding [src] in order to tighten it!"))
+			return
+		if((C.get_item_by_slot(ITEM_SLOT_HEAD) == src) || (C.get_item_by_slot(ITEM_SLOT_NECK) == src))
+			to_chat(user, span_warning("You can't adjust [src] while wearing it!"))
+			return
+		if(slot_flags & ITEM_SLOT_NECK)
+			slot_flags = ITEM_SLOT_HEAD
+			worn_icon_state += "_head"
+			widen.Scale(1.25, 1)
+			transform = widen
+			user.visible_message(span_notice("[user] loosens [src]'s knot."), span_notice("You loosen [src]'s knot to fit around your head."))
+		else
+			slot_flags = initial(slot_flags)
+			worn_icon_state = initial(worn_icon_state)
+			transform = initial(transform)
+			user.visible_message(span_notice("[user] tightnens [src]'s knot."), span_notice("You tighten [src]'s knot to fit around your neck."))
 
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
 	icon_state = "bluetie"
+	worn_icon_state = "bluetie"
 
 /obj/item/clothing/neck/tie/red
 	name = "red tie"
 	icon_state = "redtie"
+	worn_icon_state = "redtie"
 
 /obj/item/clothing/neck/tie/black
 	name = "black tie"
 	icon_state = "blacktie"
+	worn_icon_state = "blacktie"
 
 /obj/item/clothing/neck/tie/horrible
 	name = "horrible tie"
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
+	worn_icon_state = "horribletie"
 
 /obj/item/clothing/neck/tie/detective
 	name = "loose tie"
 	desc = "A loosely tied necktie, a perfect accessory for the over-worked detective."
 	icon_state = "detective"
+	worn_icon_state = "detective"
 
 /obj/item/clothing/neck/maid
 	name = "maid neck cover"
@@ -57,34 +98,34 @@
 	icon_state = "stethoscope"
 
 /obj/item/clothing/neck/stethoscope/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] puts \the [src] to [user.p_their()] chest! It looks like [user.p_they()] wont hear much!</span>")
+	user.visible_message(span_suicide("[user] puts \the [src] to [user.p_their()] chest! It looks like [user.p_they()] wont hear much!"))
 	return OXYLOSS
 
 /obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
-		if(user.a_intent == INTENT_HELP)
-			var/heart_strength = "<span class='danger'>no</span>"
-			var/lung_strength = "<span class='danger'>no</span>"
+		if(!user.combat_mode)
+			var/heart_strength = span_danger("no")
+			var/lung_strength = span_danger("no")
 
-			var/obj/item/organ/heart/heart = M.getorganslot(ORGAN_SLOT_HEART)
-			var/obj/item/organ/lungs/lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			var/obj/item/organ/heart/heart = M.get_organ_slot(ORGAN_SLOT_HEART)
+			var/obj/item/organ/lungs/lungs = M.get_organ_slot(ORGAN_SLOT_LUNGS)
 
 			if(!(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH))))
 				if(heart && istype(heart))
-					heart_strength = "<span class='danger'>an unstable</span>"
+					heart_strength = span_danger("an unstable")
 					if(heart.beating)
 						heart_strength = "a healthy"
 				if(lungs && istype(lungs))
-					lung_strength = "<span class='danger'>strained</span>"
+					lung_strength = span_danger("strained")
 					if(!(M.failed_last_breath || M.losebreath))
 						lung_strength = "healthy"
 
 			if(M.stat == DEAD && heart && world.time - M.timeofdeath < DEFIB_TIME_LIMIT * 10)
-				heart_strength = "<span class='boldannounce'>a faint, fluttery</span>"
+				heart_strength = span_boldannounce("a faint, fluttery")
 
 			var/diagnosis = (user.is_zone_selected(BODY_ZONE_CHEST) ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
 			var/bodypart = parse_zone(user.is_zone_selected(BODY_ZONE_CHEST) ? BODY_ZONE_CHEST : user.get_combat_bodyzone(M))
-			user.visible_message("[user] places [src] against [M]'s [bodypart] and listens attentively.", "<span class='notice'>You place [src] against [M]'s [bodypart]. [diagnosis]</span>")
+			user.visible_message("[user] places [src] against [M]'s [bodypart] and listens attentively.", span_notice("You place [src] against [M]'s [bodypart]. [diagnosis]"))
 			return
 	return ..(M,user)
 
@@ -95,6 +136,8 @@
 /obj/item/clothing/neck/scarf //Default white color, same functionality as beanies.
 	name = "white scarf"
 	icon_state = "scarf"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "scarf_cloth"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
 	custom_price = 10
@@ -197,34 +240,6 @@
 	name = "gold cross necklace"
 	desc = "In nomine Patris, et Filii, et Spiritus Sancti."
 	icon_state = "cross"
-
-/obj/item/clothing/neck/neckerchief
-	icon = 'icons/obj/clothing/masks.dmi' //In order to reuse the bandana sprite
-	w_class = WEIGHT_CLASS_TINY
-	var/sourceBandanaType
-
-/obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = ..()
-	if(!isinhands)
-		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/clothing/mask.dmi', icon_state, item_layer)
-		realOverlay.pixel_y = -3
-		. += realOverlay
-
-/obj/item/clothing/neck/neckerchief/AltClick(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
-			to_chat(user, "<span class='warning'>You can't untie [src] while wearing it!</span>")
-			return
-		if(user.is_holding(src))
-			var/obj/item/clothing/mask/bandana/newBand = new sourceBandanaType(user)
-			var/currentHandIndex = user.get_held_index_of_item(src)
-			var/oldName = src.name
-			qdel(src)
-			user.put_in_hand(newBand, currentHandIndex)
-			user.visible_message("[user] unties [oldName] back into a [newBand.name]", "You untie [oldName] back into a [newBand.name]")
-		else
-			to_chat(user, "<span class='warning'>You must be holding [src] in order to untie it!")
 
 /////////////////
 //DONATOR ITEMS//

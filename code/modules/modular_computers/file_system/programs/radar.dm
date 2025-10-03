@@ -8,9 +8,8 @@
 	program_icon_state = "radarntos"
 	requires_ntnet = TRUE
 	available_on_ntnet = FALSE
-	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	network_destination = "tracking program"
-	size = 5
+	size = 4
 	tgui_id = "NtosRadar"
 	///List of trackable entities. Updated by the scan() proc.
 	var/list/objects
@@ -252,6 +251,7 @@
 	transfer_access = list(ACCESS_MEDICAL)
 	available_on_ntnet = TRUE
 	program_icon = "heartbeat"
+	power_consumption = 200 WATT
 
 /datum/computer_file/program/radar/lifeline/find_atom()
 	return locate(selected) in GLOB.suit_sensors_list
@@ -293,6 +293,7 @@
 	available_on_ntnet = TRUE
 	program_icon = "broom"
 	size = 2
+	power_consumption = 140 WATT
 
 /datum/computer_file/program/radar/custodial_locator/find_atom()
 	return locate(selected) in GLOB.janitor_devices
@@ -345,6 +346,7 @@
 	arrowstyle = "ntosradarpointerS.png"
 	pointercolor = "red"
 	tracks_grand_z = TRUE
+	power_consumption = 0 WATT
 
 /datum/computer_file/program/radar/fission360/find_atom()
 	return locate(selected) in GLOB.poi_list
@@ -368,3 +370,5 @@
 		name = "Nuke Auth. Disk",
 		)
 	objects += list(nukeinfo)
+
+#undef SCAN_COOLDOWN

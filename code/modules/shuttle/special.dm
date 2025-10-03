@@ -33,13 +33,11 @@
 	. = ..()
 	if(active_tables.len >= tables_required)
 		if(!active)
-			visible_message("<span class='revenboldnotice'>\
-				[src] opens its eyes.</span>")
+			visible_message(span_revenboldnotice("[src] opens its eyes."))
 		active = TRUE
 	else
 		if(active)
-			visible_message("<span class='revenboldnotice'>\
-				[src] closes its eyes.</span>")
+			visible_message(span_revenboldnotice("[src] closes its eyes."))
 		active = FALSE
 	update_icon()
 
@@ -90,8 +88,8 @@
 	for(var/i in found - sleepers)
 		var/mob/living/L = i
 		L.add_atom_colour("#800080", TEMPORARY_COLOUR_PRIORITY)
-		L.visible_message("<span class='revennotice'>A strange purple glow wraps itself around [L] as [L.p_they()] suddenly fall[L.p_s()] unconscious.</span>",
-			"<span class='revendanger'>[desc]</span>")
+		L.visible_message(span_revennotice("A strange purple glow wraps itself around [L] as [L.p_they()] suddenly fall[L.p_s()] unconscious."),
+			span_revendanger("[desc]"))
 		// Don't let them sit suround unconscious forever
 		addtimer(CALLBACK(src, PROC_REF(sleeper_dreams), L), 100)
 
@@ -104,8 +102,7 @@
 	for(var/i in sleepers - found)
 		var/mob/living/L = i
 		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#800080")
-		L.visible_message("<span class='revennotice'>The glow from [L] fades \
-			away.</span>")
+		L.visible_message(span_revennotice("The glow from [L] fades away."))
 		L.grab_ghost()
 
 	sleepers = found
@@ -120,7 +117,7 @@
 
 /obj/structure/table/abductor/wabbajack/proc/sleeper_dreams(mob/living/sleeper)
 	if(sleeper in sleepers)
-		to_chat(sleeper, "<span class='revennotice'>While you slumber, you have the strangest dream, like you can see yourself from the outside.</span>")
+		to_chat(sleeper, span_revennotice("While you slumber, you have the strangest dream, like you can see yourself from the outside."))
 		sleeper.ghostize(TRUE)
 
 /obj/structure/table/abductor/wabbajack/left
@@ -139,23 +136,21 @@
 	laws = "1. Serve drinks.\n\
 		2. Talk to patrons.\n\
 		3. Don't get messed up in their affairs."
-	status_flags = GODMODE // Please don't punch the barkeeper
+	status_flags = NONE
 	unique_name = FALSE // disables the (123) number suffix
 	initial_language_holder = /datum/language_holder/universal
 
 /mob/living/simple_animal/drone/snowflake/bardrone/Initialize(mapload)
 	. = ..()
 	access_card.access |= ACCESS_CENT_BAR
-	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
-
+	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT) // Please don't punch the barkeeper
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid
 	gold_core_spawnable = NO_SPAWN
 	name = "Barmaid"
 	desc = "A barmaid, a maiden found in a bar."
 	pass_flags = PASSTABLE
-	status_flags = GODMODE
+	status_flags = NONE
 	unique_name = FALSE
 	AIStatus = AI_OFF
 	stop_automated_movement = TRUE
@@ -167,8 +162,7 @@
 	access_card.access = get_all_accesses()
 	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
+	add_traits(list(TRAIT_BARMASTER, TRAIT_SOMMELIER, TRAIT_GODMODE), ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Destroy()
 	qdel(access_card)
@@ -183,6 +177,8 @@
 	flags_1 = NODECONSTRUCT_1
 	max_integrity = 1000
 	var/boot_dir = 1
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table/wood/bar)
 
 /obj/structure/table/wood/bar/Initialize(mapload, _buildstack)
 	. = ..()
@@ -200,7 +196,7 @@
 		var/throwtarget = get_edge_target_turf(src, boot_dir)
 		M.Paralyze(40)
 		M.throw_at(throwtarget, 5, 1)
-		to_chat(M, "<span class='notice'>No climbing on the bar please.</span>")
+		to_chat(M, span_notice("No climbing on the bar please."))
 
 /obj/structure/table/wood/bar/proc/is_barstaff(mob/living/user)
 	. = FALSE
@@ -218,7 +214,7 @@
 /obj/effect/forcefield/luxury_shuttle
 	name = "Luxury shuttle ticket booth"
 	desc = "A forceful money collector."
-	timeleft = 0
+	initial_duration = 0
 	var/threshold = 500
 	var/static/list/approved_passengers = list()
 	var/static/list/check_times = list()
@@ -287,7 +283,7 @@
 		for(var/obj/I in counted_money)
 			qdel(I)
 		payees[AM] -= threshold
-		say("<span class='robot'>Welcome aboard, [AM]!</span>")
+		say(span_robot("Welcome aboard, [AM]!"))
 		approved_passengers += AM
 
 		if(payees[AM] > 0 && ishuman(AM))
@@ -303,7 +299,7 @@
 		for(var/obj/I in counted_money)
 			qdel(I)
 		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message
-			say("<span class='robot'>$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more.</span>")
+			say(span_robot("$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more."))
 			check_times[AM] = world.time + LUXURY_MESSAGE_COOLDOWN
 		return ..()
 	else
@@ -317,7 +313,7 @@
 
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize(mapload)
 	. = ..()
-	var/multiplier = max(round(length(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
+	var/multiplier = max(round(length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
 	maxHealth *= multiplier
 	health *= multiplier
 	melee_damage *= multiplier
@@ -335,3 +331,5 @@
 	setDir(angle2dir(rotation+dir2angle(dir))) // No parentcall, rest of the rotate code breaks the pixel offset.
 
 #undef BASE_BEAR_DIVISOR
+
+#undef LUXURY_MESSAGE_COOLDOWN

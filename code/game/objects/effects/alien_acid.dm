@@ -11,6 +11,8 @@
 	var/turf/target
 
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/acid)
+
 /obj/effect/acid/Initialize(mapload, acid_pwr, acid_amt)
 	. = ..()
 
@@ -64,14 +66,14 @@
 
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(L.movement_type & FLYING)
+		if(L.movement_type & (FLOATING|FLYING))
 			return
 		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
 			var/acid_used = min(acid_level*0.05, 20)
 			if(L.acid_act(10, acid_used, "feet"))
 				acid_level = max(0, acid_level - acid_used*10)
 				playsound(L, 'sound/weapons/sear.ogg', 50, 1)
-				to_chat(L, "<span class='userdanger'>[src] burns you!</span>")
+				to_chat(L, span_userdanger("[src] burns you!"))
 
 //xenomorph corrosive acid
 /obj/effect/acid/alien
@@ -85,17 +87,17 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, 1)
 		target_strength--
 		if(target_strength <= 0)
-			target.visible_message("<span class='warning'>[target] collapses under its own weight into a puddle of goop and undigested debris!</span>")
+			target.visible_message(span_warning("[target] collapses under its own weight into a puddle of goop and undigested debris!"))
 			target.acid_melt()
 			qdel(src)
 		else
 
 			switch(target_strength)
 				if(24)
-					visible_message("<span class='warning'>[target] is holding up against the acid!</span>")
+					visible_message(span_warning("[target] is holding up against the acid!"))
 				if(16)
-					visible_message("<span class='warning'>[target] is being melted by the acid!</span>")
+					visible_message(span_warning("[target] is being melted by the acid!"))
 				if(8)
-					visible_message("<span class='warning'>[target] is struggling to withstand the acid!</span>")
+					visible_message(span_warning("[target] is struggling to withstand the acid!"))
 				if(4)
-					visible_message("<span class='warning'>[target] begins to crumble under the acid!</span>")
+					visible_message(span_warning("[target] begins to crumble under the acid!"))

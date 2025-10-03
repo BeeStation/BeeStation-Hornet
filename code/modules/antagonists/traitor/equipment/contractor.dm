@@ -23,7 +23,7 @@
 	..()
 
 /datum/antagonist/contractor_support/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the Contractor Support Unit.</span>")
+	to_chat(owner.current, span_alertsyndie("You are the Contractor Support Unit."))
 	owner.announce_objectives()
 	if(owner.current)
 		if(owner.current.client)
@@ -74,8 +74,8 @@
 	)
 
 	//What the fuck
-	if(length(to_generate) > length(GLOB.data_core.locked))
-		to_generate.Cut(1, length(GLOB.data_core.locked))
+	if(length(to_generate) > length(GLOB.manifest.locked))
+		to_generate.Cut(1, length(GLOB.manifest.locked))
 
 	// We don't want the sum of all the payouts to be under this amount
 	var/lowest_TC_threshold = 30
@@ -128,7 +128,7 @@
 	limited = 2
 	cost = 0
 
-/datum/contractor_item/contract_reroll/handle_purchase(var/datum/contractor_hub/hub)
+/datum/contractor_item/contract_reroll/handle_purchase(datum/contractor_hub/hub)
 	. = ..()
 
 	if (.)
@@ -175,19 +175,24 @@
 	cost = 2
 	var/datum/mind/partner_mind = null
 
-/datum/contractor_item/contractor_partner/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/contractor_partner/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 	. = ..()
 
 	if (.)
-		to_chat(user, "<span class='notice'>The uplink vibrates quietly, connecting to nearby agents...</span>")
+		to_chat(user, span_notice("The uplink vibrates quietly, connecting to nearby agents..."))
 
-		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_CONTRACTOR_SUPPORT_UNIT, null, 10 SECONDS)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT,
+			poll_time = 10 SECONDS,
+			jump_target = user,
+			role_name_text = "contractor support unit for [user.real_name]",
+			alert_pic = user,
+		)
 
-		if(LAZYLEN(candidates))
-			var/mob/dead/observer/C = pick(candidates)
-			spawn_contractor_partner(user, C.key)
+		if(candidate)
+			spawn_contractor_partner(user, candidate.key)
 		else
-			to_chat(user, "<span class='notice'>No available agents at this time, please try again later.</span>")
+			to_chat(user, span_notice("No available agents at this time, please try again later."))
 
 			// refund and add the limit back.
 			limited += 1
@@ -200,7 +205,7 @@
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
 	back = /obj/item/storage/backpack
-	belt = /obj/item/modular_computer/tablet/pda/chameleon
+	belt = /obj/item/modular_computer/tablet/pda/preset/chameleon
 	mask = /obj/item/clothing/mask/cigarette/syndicate
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	ears = /obj/item/radio/headset/chameleon
@@ -240,10 +245,10 @@
 
 	/// We give a reference to the mind that'll be the support unit
 	partner_mind = partner.mind
-	partner_mind.make_Contractor_Support()
+	partner_mind.add_antag_datum(/datum/antagonist/contractor_support)
 
-	to_chat(partner_mind.current, "\n<span class='alertwarning'>[user.real_name] is your superior. Follow any, and all orders given by them. You're here to support their mission only.</span>")
-	to_chat(partner_mind.current, "<span class='alertwarning'>Should they perish, or be otherwise unavailable, you're to assist other active agents in this mission area to the best of your ability.</span>\n\n")
+	to_chat(partner_mind.current, "\n[span_alertwarning("[user.real_name] is your superior. Follow any, and all orders given by them. You're here to support their mission only.")]")
+	to_chat(partner_mind.current, "[span_alertwarning("Should they perish, or be otherwise unavailable, you're to assist other active agents in this mission area to the best of your ability.")]\n\n")
 
 	new /obj/effect/pod_landingzone(free_location, arrival_pod)
 
@@ -254,7 +259,7 @@
 	limited = 2
 	cost = 3
 
-/datum/contractor_item/blackout/handle_purchase(var/datum/contractor_hub/hub)
+/datum/contractor_item/blackout/handle_purchase(datum/contractor_hub/hub)
 	. = ..()
 
 	if (.)
@@ -262,7 +267,7 @@
 		priority_announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", ANNOUNCER_POWEROFF)
 
 // Subtract cost, and spawn if it's an item.
-/datum/contractor_item/proc/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/proc/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 
 	if (hub.contract_rep >= cost)
 		hub.contract_rep -= cost
@@ -282,9 +287,9 @@
 		var/atom/item_to_create = new item(get_turf(user))
 
 		if(user.put_in_hands(item_to_create))
-			to_chat(user, "<span class='notice'>Your purchase materializes into your hands!</span>")
+			to_chat(user, span_notice("Your purchase materializes into your hands!"))
 		else
-			to_chat(user, "<span class='notice'>Your purchase materializes onto the floor.</span>")
+			to_chat(user, span_notice("Your purchase materializes onto the floor."))
 		log_uplink_purchase(user, item_to_create, "\improper contractor tablet")
 		return item_to_create
 	return TRUE

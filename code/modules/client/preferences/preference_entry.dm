@@ -1,36 +1,3 @@
-// Priorities must be in order!
-/// The default priority level
-#define PREFERENCE_PRIORITY_DEFAULT 1
-
-/// The priority at which species runs, needed for external organs to apply properly.
-#define PREFERENCE_PRIORITY_SPECIES 2
-
-/// The priority at which gender is determined, needed for proper randomization.
-#define PREFERENCE_PRIORITY_GENDER 3
-
-/// The priority at which body model is decided, applied after gender so we can
-/// make sure they're non-binary.
-#define PREFERENCE_PRIORITY_BODY_MODEL 4
-
-/// The priority at which eye color is applied, needed so IPCs get the right screen color.
-#define PREFERENCE_PRIORITY_EYE_COLOR 5
-
-/// The priority at which hair color is applied, needed so IPCs get the right antenna color.
-#define PREFERENCE_PRIORITY_HAIR_COLOR 6
-
-/// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 7
-
-/// The maximum preference priority, keep this updated, but don't use it for `priority`.
-#define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
-
-/// For choiced preferences, this key will be used to set display names in constant data.
-#define CHOICED_PREFERENCE_DISPLAY_NAMES "display_names"
-
-/// For main feature preferences, this key refers to a feature considered supplemental.
-/// For instance, hair color being supplemental to hair.
-#define SUPPLEMENTAL_FEATURE_KEY "supplemental_feature"
-
 /// An assoc list list of types to instantiated `/datum/preference` instances
 GLOBAL_LIST_INIT(preference_entries, init_preference_entries())
 
@@ -108,7 +75,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// will show the feature as selectable.
 	var/relevant_species_trait = null
 
-	/// If this requires create_informed_default_value
+	/// Indicates that create_informed_default_value is used.
 	var/informed = FALSE
 
 	/// Disables database writes. This can be useful for a testmerged preference
@@ -454,6 +421,25 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/color/is_valid(value)
 	return findtext(value, GLOB.is_color)
+
+/proc/pick_default_accessory(list/sprite_accessories, datum/sprite_accessory/default = null, default_probability = 0, required_gender = null)
+	if (default && prob(default_probability))
+		return default
+	var/list/allowed = list()
+	for (var/datum/sprite_accessory/accessory as() in sprite_accessories)
+		// Source list is an assoc list
+		if (!istype(accessory))
+			accessory = sprite_accessories[accessory]
+		if (!accessory.use_default)
+			continue
+		if (required_gender && accessory.use_default_gender != NEUTER && accessory.use_default_gender != required_gender)
+			continue
+		allowed += accessory
+	if (length(allowed) == 0)
+		if (default)
+			return default
+		return pick(sprite_accessories)
+	return pick(allowed)
 
 /// Takes an assoc list of names to /datum/sprite_accessory and returns a value
 /// fit for `/datum/preference/init_possible_values()`

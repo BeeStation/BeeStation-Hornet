@@ -14,9 +14,10 @@ plugins:
   - sonarjs
   - react
   - unused-imports
+  - simple-import-sort
 settings:
   react:
-    version: '16.10'
+    version: '18.2'
 rules:
   ## Possible Errors
   ## ----------------------------------------
@@ -337,7 +338,7 @@ rules:
   ## Require or disallow named function expressions
   # func-names: error
   ## Enforce the consistent use of either function declarations or expressions
-  func-style: [error, expression]
+  # func-style: [error, expression]
   ## Enforce line breaks between arguments of a function call
   # function-call-argument-newline: error
   ## Enforce consistent line breaks inside function parentheses
@@ -373,7 +374,7 @@ rules:
   # max-depth: error
   ## Enforce a maximum line length
   # max-len: [error, {
-  #   code: 128,
+  #   code: 80,
   #   ## Ignore imports
   #   ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
   #   ignoreUrls: true,
@@ -643,7 +644,7 @@ rules:
   ## Prevent usage of unsafe lifecycle methods
   react/no-unsafe: error
   ## Prevent definitions of unused prop types
-  # react/no-unused-prop-types: error
+  react/no-unused-prop-types: error
   ## Prevent definitions of unused state properties
   react/no-unused-state: error
   ## Prevent usage of setState in componentWillUpdate
@@ -651,7 +652,7 @@ rules:
   ## Enforce ES5 or ES6 class for React Components
   react/prefer-es6-class: error
   ## Enforce that props are read-only
-  react/prefer-read-only-props: error
+  react/prefer-read-only-props: off
   ## Enforce stateless React Components to be written as a pure function
   react/prefer-stateless-function: error
   ## Prevent missing props validation in a React component definition
@@ -689,14 +690,11 @@ rules:
   ## expressions.
   # react/jsx-child-element-spacing: error
   ## Validate closing bracket location in JSX (fixable)
-  react/jsx-closing-bracket-location: [
-      error,
-      {
-        ## NOTE: Not really sure about enforcing this one
-        selfClosing: false,
-        nonEmpty: after-props,
-      },
-    ]
+  # react/jsx-closing-bracket-location: [error, {
+  #   ## NOTE: Not really sure about enforcing this one
+  #   selfClosing: false,
+  #   nonEmpty: after-props,
+  # }]
   ## Validate closing tag location in JSX (fixable)
   react/jsx-closing-tag-location: error
   ## Enforce or disallow newlines inside of curly braces in JSX attributes and
@@ -766,4 +764,7 @@ rules:
   react/jsx-wrap-multilines: error
   ## Prevents the use of unused imports.
   ## This could be done by enabling no-unused-vars, but we're doing this for now
-  #unused-imports/no-unused-imports: error
+  unused-imports/no-unused-imports: error
+  ## https://github.com/lydell/eslint-plugin-simple-import-sort/
+  simple-import-sort/imports: error
+  simple-import-sort/exports: error

@@ -2,6 +2,8 @@
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
 
+CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
+
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
@@ -39,7 +41,7 @@
 	if(!loc || !ghost_usable)
 		return
 	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
 	if(!SSticker.HasRoundStarted())
 		return
@@ -99,11 +101,11 @@
 	if(ckey)
 		M.ckey = ckey
 		if(show_flavour)
-			var/output_message = "<span class='big bold'>[short_desc]</span>"
+			var/output_message = span_bigbold("[short_desc]")
 			if(flavour_text != "")
-				output_message += "\n<span class='bold'>[flavour_text]</span>"
+				output_message += "\n[span_bold("[flavour_text]")]"
 			if(important_info != "")
-				output_message += "\n<span class='userdanger'>[important_info]</span>"
+				output_message += "\n[span_userdanger("[important_info]")]"
 			to_chat(M, output_message)
 		var/datum/mind/MM = M.mind
 		var/datum/antagonist/A
@@ -288,7 +290,7 @@
 
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type = 	/mob/living/basic/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -349,8 +351,8 @@
 	name = "Engineer"
 	outfit = /datum/outfit/job/engineer/gloved
 
-/obj/effect/mob_spawn/human/engineer/rig
-	outfit = /datum/outfit/job/engineer/gloved/rig
+/obj/effect/mob_spawn/human/engineer/mod
+	outfit = /datum/outfit/job/engineer/mod
 
 /obj/effect/mob_spawn/human/clown
 	name = JOB_NAME_CLOWN
@@ -364,8 +366,8 @@
 	name = JOB_NAME_SHAFTMINER
 	outfit = /datum/outfit/job/miner
 
-/obj/effect/mob_spawn/human/miner/rig
-	outfit = /datum/outfit/job/miner/equipped/hardsuit
+/obj/effect/mob_spawn/human/miner/mod
+	outfit = /datum/outfit/job/miner/equipped/mod
 
 /obj/effect/mob_spawn/human/miner/explorer
 	outfit = /datum/outfit/job/miner/equipped
@@ -403,7 +405,7 @@
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(STONER)
+	H.dna.add_mutation(/datum/mutation/stoner)
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -459,7 +461,7 @@
 	..()
 	if(visualsOnly)
 		return
-	H.dna.add_mutation(STONER)
+	H.dna.add_mutation(/datum/mutation/stoner)
 
 /////////////////Officers+Nanotrasen Security//////////////////////
 
@@ -493,7 +495,7 @@
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/hats/centhat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	shoes = /obj/item/clothing/shoes/combat/swat
 	r_pocket = /obj/item/lighter
 	id = /obj/item/card/id/job/head_of_security
@@ -510,7 +512,7 @@
 	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security

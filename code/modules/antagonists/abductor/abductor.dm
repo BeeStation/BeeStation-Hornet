@@ -1,5 +1,3 @@
-#define ABDUCTOR_MAX_TEAMS 4
-
 /datum/antagonist/abductor
 	name = "Abductor"
 	roundend_category = "abductors"
@@ -7,6 +5,7 @@
 	banning_key = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
+	required_living_playtime = 4
 	var/datum/team/abductor_team/team
 	var/sub_role
 	var/outfit
@@ -31,13 +30,9 @@
 	show_in_antagpanel = TRUE
 	ui_name = "AntagInfoAbductorScientist"
 
-/datum/antagonist/abductor/scientist/onemanteam
-	name = "Abductor Solo"
-	outfit = /datum/outfit/abductor/scientist/onemanteam
-
-/datum/antagonist/abductor/scientist/onemanteam
-	name = "Abductor Solo"
-	outfit = /datum/outfit/abductor/scientist/onemanteam
+/datum/antagonist/abductor/scientist/solo
+	name = "Lone Abductor"
+	outfit = /datum/outfit/abductor/scientist/solo
 
 /datum/antagonist/abductor/create_team(datum/team/abductor_team/new_team)
 	if(!new_team)
@@ -50,8 +45,8 @@
 	return team
 
 /datum/antagonist/abductor/on_gain()
-	owner.special_role = "[name]"
-	owner.assigned_role = "[name]"
+	owner.special_role = ROLE_ABDUCTOR
+	owner.assigned_role = ROLE_ABDUCTOR
 	objectives += team.objectives
 	for(var/datum/objective/O in objectives)
 		log_objective(owner.current, O.explanation_text)
@@ -61,17 +56,17 @@
 
 /datum/antagonist/abductor/on_removal()
 	if(owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer the [owner.special_role]!</span>")
+		to_chat(owner.current,span_userdanger("You are no longer the [owner.special_role]!"))
 	owner.special_role = null
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_TRAINING, ABDUCTOR_ANTAGONIST)
 	return ..()
 
 /datum/antagonist/abductor/greet()
-	to_chat(owner.current, "<span class='notice'>You are the [owner.special_role]!</span>")
-	to_chat(owner.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
-	to_chat(owner.current, "<span class='notice'>There are two of you! One can monitor cameras while the other infiltrates the station.</span>")
-	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
-	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
+	to_chat(owner.current, span_notice("You are the [owner.special_role]!"))
+	to_chat(owner.current, span_notice("With the help of your teammate, kidnap and experiment on station crew members!"))
+	to_chat(owner.current, span_notice("There are two of you! One can monitor cameras while the other infiltrates the station."))
+	to_chat(owner.current, span_notice("Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight."))
+	to_chat(owner.current, span_notice("[greet_text]"))
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
 		"Capture and experiment on members of the crew, without being spotted.")
@@ -84,7 +79,7 @@
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
 	H.set_species(/datum/species/abductor)
-	var/obj/item/organ/tongue/abductor/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/abductor/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 	T.mothership = "[team.name]"
 
 	H.real_name = "[team.name] [sub_role]"
@@ -129,7 +124,7 @@
 
 /datum/antagonist/abductor/proc/admin_equip(mob/admin)
 	if(!ishuman(owner.current))
-		to_chat(admin, "<span class='warning'>This only works on humans!</span>")
+		to_chat(admin, span_warning("This only works on humans!"))
 		return
 	var/mob/living/carbon/human/H = owner.current
 	var/gear = alert(admin,"Agent or Scientist Gear","Gear","Agent","Scientist")
@@ -173,11 +168,11 @@
 		if(!O.check_completion())
 			won = FALSE
 	if(won)
-		result += "<span class='greentext big'>[name] team fulfilled its mission!</span>"
+		result += span_greentextbig("[name] team fulfilled its mission!")
 	else
-		result += "<span class='redtext big'>[name] team failed its mission.</span>"
+		result += span_redtextbig("[name] team failed its mission.")
 
-	result += "<span class='header'>The abductors of [name] were:</span>"
+	result += span_header("The abductors of [name] were:")
 	for(var/datum/mind/abductor_mind in members)
 		result += printplayer(abductor_mind)
 	result += printobjectives(objectives)
@@ -196,27 +191,39 @@
 
 /datum/antagonist/abductee/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/abductee.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-	to_chat(owner, "<span class='warning'><b>Your mind snaps!</b></span>")
-	to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
+	to_chat(owner, span_warning("<b>Your mind snaps!</b>"))
+	to_chat(owner, "<big>[span_warning("<b>You can't remember how you got here...</b>")]</big>")
 	owner.announce_objectives()
-	var/datum/objective/first_objective = objectives[1]
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductee",
-		"Something isn't right with your brain, you feel like there is something you have to do no matter what...\n\
-		[LAZYLEN(objectives)?"<B>Objective</B>: [first_objective.explanation_text]": "Nevermind..."]")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductee", "Something isn't right with your brain, you feel like there is something you have to do no matter what...")
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
-	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
-	var/datum/objective/abductee/O = new objtype()
-	objectives += O
-	log_objective(H, O.explanation_text)
+
+	// Give the base objective
+	var/datum/objective/abductee/base_objective = new()
+	base_objective.owner = owner
+	objectives += base_objective
+
+
+	//pick flavor objective
+	var/datum/objective/abductee/extra_objective
+	switch(rand(1,10))
+		if(6 to 10)
+			extra_objective = new /datum/objective/abductee/fearful()
+		if(3 to 5)
+			extra_objective = new /datum/objective/abductee/violent()
+		if(1 to 2)
+			extra_objective = new /datum/objective/abductee/paranoid()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
+	log_objective(H, extra_objective.explanation_text)
 
 /datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
 	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")
 
 /datum/antagonist/abductee/remove_innate_effects(mob/living/mob_override)
 	update_abductor_icons_removed(mob_override ? mob_override.mind : owner)
-
 
 // LANDMARKS
 /obj/effect/landmark/abductor

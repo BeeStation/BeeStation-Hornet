@@ -2,6 +2,7 @@
 #define INVESTIGATE_ATMOS "atmos"
 #define INVESTIGATE_BOTANY "botany"
 #define INVESTIGATE_CARGO "cargo"
+#define INVESTIGATE_CRAFTING "crafting"
 #define INVESTIGATE_DEATHS "deaths"
 #define INVESTIGATE_ENGINES "engines"
 #define INVESTIGATE_EXONET "exonet"
@@ -17,10 +18,14 @@
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_TELESCI "telesci"
 #define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_TOOLS "wires"
 
 #define INVESTIGATE_VERB_PICKEDUP	"picked up"
 #define INVESTIGATE_VERB_DROPPED	"dropped"
 #define INVESTIGATE_VERB_EQUIPPED   "equipped"
+
+// The maximum number of entries allowed in the signaler investigate log, keep this relatively small to prevent performance issues when an admin tries to query it
+#define INVESTIGATE_SIGNALER_LOG_MAX_LENGTH 500
 
 // Logging types for log_message()
 #define LOG_ATTACK (1 << 0)

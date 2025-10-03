@@ -136,8 +136,14 @@ SUBSYSTEM_DEF(dbcore)
 		return
 	query.job_id = rustg_sql_query_async(connection, query.sql, json_encode(query.arguments))
 
-/datum/controller/subsystem/dbcore/proc/queue_query(datum/db_query/query)
+/datum/controller/subsystem/dbcore/proc/run_or_queue_query(datum/db_query/query)
 	if(IsAdminAdvancedProcCall())
+		return
+	// If we can immediately run the query, then do it
+	// We need no standby queries, since we should not be jumping the queue if there
+	// are others waiting.
+	if (length(queries_active) < max_concurrent_queries && length(queries_standby) == 0)
+		create_active_query(query)
 		return
 	queries_standby_num++
 	queries_standby |= query
@@ -352,7 +358,7 @@ You are expected to do your own escaping of the data, and expected to provide yo
 The duplicate_key arg can be true to automatically generate this part of the query
 	or set to a string that is appended to the end of the query
 Ignore_errors instructes mysql to continue inserting rows if some of them have errors.
-	 the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
+	the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
 Delayed insert mode was removed in mysql 7 and only works with MyISAM type tables,
 	It was included because it is still supported in mariadb.
 	It does not work with duplicate_key and the mysql server ignores it in those cases
@@ -472,7 +478,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 /datum/db_query/proc/warn_execute(async = TRUE)
 	. = Execute(async)
 	if(!.)
-		to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, check the server logs.</span>")
+		to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs."))
 
 /datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
@@ -492,7 +498,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		if(!MC_RUNNING(SSdbcore.init_stage))
 			SSdbcore.run_query_sync(src)
 		else
-			SSdbcore.queue_query(src)
+			SSdbcore.run_or_queue_query(src)
 		sync()
 	else
 		var/job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
@@ -512,12 +518,11 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 /// Sleeps until execution of the query has finished.
 /datum/db_query/proc/sync()
-	while(status < DB_QUERY_FINISHED)
-		stoplag()
+	UNTIL(process())
 
 /datum/db_query/process(delta_time)
 	if(status >= DB_QUERY_FINISHED)
-		return
+		return TRUE
 
 	status = DB_QUERY_STARTED
 	var/job_result = rustg_sql_check_query(job_id)
@@ -545,7 +550,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			return
 
 /datum/db_query/proc/slow_query_check()
-	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
+	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
 
 /datum/db_query/proc/NextRow(async = TRUE)
 	Activity("NextRow")

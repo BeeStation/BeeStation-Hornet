@@ -7,22 +7,22 @@
 @use 'sass:meta';
 
 @use '~tgui/styles/colors.scss' with (
-  $primary: #ffffff,
+  $primary: hsl(0, 0%, 100%),
   $bg-lightness: -25%,
   $fg-lightness: -10%,
-  $label: #3b3b3b,
+  $label: hsl(0, 0%, 23.1%),
   // Makes button look actually grey due to weird maths.
-  $grey: #ffffff,
+  $grey: hsl(0, 0%, 100%),
   // Commenting out color maps will adjust all colors based on the lightness
   // settings above, but will add extra 10KB to the theme.
   // $fg-map-keys: (),
-  // $bg-map-keys: (),
+   // $bg-map-keys: (),
 );
 @use '~tgui/styles/base.scss' with (
-  $color-fg: #000000,
-  $color-bg: #eeeeee,
-  $color-bg-section: #ffffff,
-  $color-bg-grad-spread: 0%,
+  $color-fg: hsl(0, 0%, 0%),
+  $color-bg: hsl(0, 0%, 93.3%),
+  $color-bg-section: hsl(0, 0%, 100%),
+  $color-bg-grad-spread: 0%
 );
 
 // A fat warning to anyone who wants to use this: this only half works.
@@ -34,23 +34,30 @@
   // Components
   @include meta.load-css(
     '~tgui/styles/components/Tabs.scss',
-    $with: ('text-color': rgba(0, 0, 0, 0.7), 'text-color-selected': rgb(0, 0, 0), 'color-default': rgb(0, 0, 0))
+    $with: (
+      'text-color': rgba(0, 0, 0, 0.7),
+      'text-color-selected': rgb(0, 0, 0),
+      'color-default': rgb(0, 0, 0)
+    )
   );
   @include meta.load-css('~tgui/styles/components/Section.scss');
   @include meta.load-css(
     '~tgui/styles/components/Button.scss',
     $with: (
-      'color-default': #bbbbbb,
-      'color-disabled': #363636,
-      'color-selected': #0668b8,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00,
+      'color-default': hsl(0, 0%, 73.3%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(207, 93.7%, 37.3%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%),
       'color-transparent-text': rgba(0, 0, 0, 0.8)
     )
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
-    $with: ('border-color': colors.fg(colors.$label), 'background-color': #ffffff)
+    $with: (
+      'border-color': colors.fg(colors.$label),
+      'background-color': hsl(0, 0%, 100%)
+    )
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
@@ -59,22 +66,35 @@
   @include meta.load-css('~tgui/styles/components/ProgressBar.scss');
 
   // Components specific to tgui-panel
-  @include meta.load-css('../components/Chat.scss', $with: ('text-color': #000000));
+  @include meta.load-css(
+    '../components/Chat.scss',
+    $with: ('text-color': hsl(0, 0%, 0%))
+  );
 
   // Layouts
-  @include meta.load-css('~tgui/styles/layouts/Layout.scss', $with: ('scrollbar-color-multiplier': -1));
+  @include meta.load-css(
+    '~tgui/styles/layouts/Layout.scss',
+    $with: ('scrollbar-color-multiplier': -1)
+  );
   @include meta.load-css('~tgui/styles/layouts/Window.scss');
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',
-    $with: ('text-color': rgba(0, 0, 0, 0.75), 'background-color': base.$color-bg, 'shadow-color-core': rgba(0, 0, 0, 0.25))
+    $with: (
+      'text-color': rgba(0, 0, 0, 0.75),
+      'background-color': base.$color-bg,
+      'shadow-color-core': rgba(0, 0, 0, 0.25)
+    )
   );
 
-  // Goonchat styles
-  @include meta.load-css('../goon/chat-light.scss');
+  // tgchat styles
+  @include meta.load-css('../tgchat/chat-light.scss');
 
   // Chat formats (color, size, font, etc)
   @include meta.load-css('../chat-format/chat-light-theme.scss');
 
   //Stat styles
-  @include meta.load-css('../components/Stat.scss', $with: ('border-color': #000000));
+  @include meta.load-css(
+    '../components/Stat.scss',
+    $with: ('border-color': hsl(0, 0%, 0%))
+  );
 }

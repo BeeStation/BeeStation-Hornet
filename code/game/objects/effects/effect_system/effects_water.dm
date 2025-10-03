@@ -21,7 +21,7 @@
 
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
-		reagents.reaction(A)
+		reagents.expose(A)
 	return ..()
 
 ///Extinguisher snowflake
@@ -31,9 +31,9 @@
 	. = ..()
 	if(!reagents)
 		return
-	reagents.reaction(get_turf(src))
+	reagents.expose(get_turf(src))
 	for(var/atom/thing as anything in get_turf(src))
-		reagents.reaction(thing)
+		reagents.expose(thing)
 
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
@@ -44,10 +44,10 @@
 // will always spawn at the items location, even if it's moved.
 
 /* Example:
- var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread() -- creates new system
-steam.set_up(5, 0, mob.loc) -- sets up variables
-OPTIONAL: steam.attach(mob)
-steam.start() -- spawns the effect
+ * var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread() -- creates new system
+ * steam.set_up(5, 0, mob.loc) -- sets up variables
+ * OPTIONAL: steam.attach(mob)
+ * steam.start() -- spawns the effect
 */
 /////////////////////////////////////////////
 /obj/effect/particle_effect/steam

@@ -33,8 +33,8 @@ Bonus
 	bodies = list("Mutant")
 	var/no_reset = FALSE
 	threshold_desc = "<b>Resistance 8:</b> Causes two harmful mutations at once.<br>\
-					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\
-					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
+						<b>Stage Speed 10:</b> Increases mutation frequency.<br>\
+						<b>Stealth 5:</b> The mutations persist even if the virus is cured."
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
@@ -49,10 +49,10 @@ Bonus
 		return
 	switch(A.stage)
 		if(4, 5)
-			to_chat(C, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
+			to_chat(C, span_warning("[pick("Your skin feels itchy.", "You feel light headed.")]"))
 			C.dna.remove_mutation_group(possible_mutations)
 			for(var/i in 1 to power)
-				C.randmut(possible_mutations)
+				C.random_mutate(possible_mutations)
 
 // Archive their DNA before they were infected.
 /datum/symptom/genetic_mutation/Start(datum/disease/advance/A)
@@ -65,7 +65,7 @@ Bonus
 		symptom_delay_max = 60
 	if(A.resistance >= 8) //mutate twice
 		power = 2
-	possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
+	possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[/datum/mutation/race]
 	var/mob/living/carbon/M = A.affected_mob
 	if(M)
 		if(!M.has_dna())

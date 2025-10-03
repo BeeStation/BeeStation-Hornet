@@ -19,9 +19,9 @@
 /area/template_noop)
 "e" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/cup/bowl,
+/obj/item/reagent_containers/cup/bowl,
+/obj/item/reagent_containers/condiment/rice,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -52,10 +52,10 @@
 /obj/item/shovel/spade,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/seeds/wheat/rice,
-/obj/item/seeds/replicapod,
+/obj/item/seeds/dionapod,
 /obj/item/seeds/carrot,
 /obj/item/seeds/tomato,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (

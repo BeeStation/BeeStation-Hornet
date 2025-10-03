@@ -58,7 +58,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "fZ" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/structure/girder,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/mapping_helpers/tile_breaker,
@@ -108,9 +108,9 @@
 /obj/item/food/rationpack,
 /obj/item/food/rationpack,
 /obj/item/food/rationpack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "jP" = (
@@ -137,7 +137,7 @@
 /turf/open/floor/iron/techmaint,
 /area/shuttle/hunter)
 "ly" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 6
 	},
 /obj/machinery/portable_atmospherics/scrubber,
@@ -157,7 +157,7 @@
 /area/shuttle/hunter)
 "my" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/storage/bag/trash{
 	pixel_x = 6
 	},
@@ -185,7 +185,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "nu" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/oil{
@@ -226,7 +226,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "pn" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -413,8 +413,7 @@
 "wj" = (
 /obj/machinery/vending/sovietsoda,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -458,8 +457,7 @@
 "yi" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -548,7 +546,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "AX" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
@@ -571,8 +569,7 @@
 "Ca" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
-	dir = 8;
-	layer = 4.1
+	dir = 8
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -585,8 +582,7 @@
 /area/shuttle/hunter)
 "Ck" = (
 /obj/structure/railing{
-	dir = 2;
-	layer = 3.1
+	dir = 2
 	},
 /obj/structure/closet{
 	name = "mastercraft traditional russian clothes"
@@ -652,10 +648,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "FR" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
-/obj/machinery/pipedispenser,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "Hk" = (
@@ -663,8 +658,7 @@
 	dir = 5
 	},
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /mob/living/simple_animal/bot/medbot{
 	name = "\improper Doctor Nikolay"
@@ -674,12 +668,10 @@
 /area/shuttle/hunter)
 "Hl" = (
 /obj/structure/railing{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /obj/structure/railing{
-	dir = 4;
-	layer = 3.1
+	dir = 4
 	},
 /turf/open/floor/iron/stairs,
 /area/shuttle/hunter)
@@ -696,7 +688,7 @@
 /area/shuttle/hunter)
 "Jx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = 8;
 	pixel_y = 6
 	},
@@ -718,7 +710,7 @@
 /turf/open/floor/wood,
 /area/shuttle/hunter)
 "Kh" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible,
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/belt/utility/full/engi,
 /obj/item/multitool{
@@ -733,7 +725,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "KA" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -797,7 +789,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "MC" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
 /obj/structure/rack,
@@ -845,10 +837,9 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Pz" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /obj/structure/railing{
-	dir = 1;
-	layer = 3.1
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
@@ -899,8 +890,7 @@
 "QV" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/machinery/airalarm/directional/south{
 	req_access = null;
@@ -952,8 +942,7 @@
 	pixel_x = -3
 	},
 /obj/structure/railing{
-	dir = 4;
-	layer = 4.1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
@@ -998,7 +987,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "Ul" = (
-/obj/item/reagent_containers/food/drinks/flask/gold{
+/obj/item/reagent_containers/cup/glass/flask/gold{
 	list_reagents = list(/datum/reagent/consumable/ethanol/sbiten=30);
 	pixel_y = 8;
 	pixel_x = 4
@@ -1023,8 +1012,7 @@
 /area/shuttle/hunter)
 "Uo" = (
 /obj/structure/railing{
-	dir = 2;
-	layer = 3.1
+	dir = 2
 	},
 /obj/structure/dresser,
 /turf/open/floor/mineral/plastitanium,
@@ -1041,7 +1029,7 @@
 	pixel_y = 8;
 	pixel_x = 2
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = -8;
 	pixel_y = 11
 	},

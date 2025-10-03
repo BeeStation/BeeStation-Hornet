@@ -98,7 +98,7 @@
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()
 
-/obj/machinery/rnd/production/proc/alert_research(datum/source, var/node_id)
+/obj/machinery/rnd/production/proc/alert_research(datum/source, node_id)
 	SIGNAL_HANDLER
 
 	var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
@@ -202,7 +202,7 @@
 		L += list(build_design(design))
 	return L
 
-/obj/machinery/rnd/production/proc/build_design(var/datum/design/design)
+/obj/machinery/rnd/production/proc/build_design(datum/design/design)
 	return list(
 			name = design.name,
 			description = design.desc,
@@ -214,7 +214,7 @@
 			reagents = build_recipe_reagents(design.reagents_list),
 		)
 
-/obj/machinery/rnd/production/proc/build_recipe_reagents(var/list/reagents)
+/obj/machinery/rnd/production/proc/build_recipe_reagents(list/reagents)
 	var/list/L = list()
 
 	for(var/id in reagents)
@@ -275,7 +275,7 @@
 	efficiency_coeff = 1
 	if(reagents)		//If reagents/materials aren't initialized, don't bother, we'll be doing this again after reagents init anyways.
 		reagents.maximum_volume = 0
-		for(var/obj/item/reagent_containers/glass/G in component_parts)
+		for(var/obj/item/reagent_containers/cup/G in component_parts)
 			reagents.maximum_volume += G.volume
 			G.reagents.trans_to(src, G.reagents.total_volume)
 	if(materials)
@@ -285,7 +285,8 @@
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		total_rating = clamp(total_rating - (M.rating * 0.1), 0, 1)
+		total_rating = (total_rating - (M.rating * 0.1))
+	total_rating = clamp(total_rating, 0, 1.2)
 	if(total_rating == 0)
 		efficiency_coeff = INFINITY
 	else
@@ -293,7 +294,7 @@
 
 //we eject the materials upon deconstruction.
 /obj/machinery/rnd/production/on_deconstruction()
-	for(var/obj/item/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/cup/G in component_parts)
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	return ..()
 
@@ -305,7 +306,7 @@
 		new path(get_turf(src))
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 
-/obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, var/mat)	// now returns how many times the item can be built with the material
+/obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, mat)	// now returns how many times the item can be built with the material
 	if (!materials.mat_container)  // no connected silo
 		return 0
 	var/list/all_materials = being_built.reagents_list + being_built.materials

@@ -33,7 +33,7 @@ All ShuttleMove procs go here
 				if(M.pulledby)
 					M.pulledby.stop_pulling()
 				M.stop_pulling()
-				M.visible_message("<span class='warning'>[shuttle] slams into [M]!</span>")
+				M.visible_message(span_warning("[shuttle] slams into [M]!"))
 				SSblackbox.record_feedback("tally", "shuttle_gib", 1, M.type)
 				M.gib()
 
@@ -71,15 +71,13 @@ All ShuttleMove procs go here
 			sanity.Insert(inject_index, /turf/baseturf_skipover/shuttle)
 			newT.baseturfs = baseturfs_string_list(sanity, newT)
 
-	if(isopenturf(src))
-		var/turf/open/after_src_terf = src
-		update_air_ref(isspaceturf(src) ? 0 : (after_src_terf.planetary_atmos ? 1 : 2))
-	else
-		update_air_ref(-1)
-
-	//Air stuff
-	newT.air_update_turf(TRUE)
-	air_update_turf(TRUE)
+	newT.blocks_air = TRUE
+	newT.air_update_turf(TRUE, FALSE)
+	blocks_air = TRUE
+	air_update_turf(TRUE, TRUE)
+	if(isopenturf(newT))
+		var/turf/open/new_open = newT
+		new_open.copy_air_with_tile(src)
 
 	return TRUE
 
@@ -119,8 +117,10 @@ All ShuttleMove procs go here
 	return TRUE
 
 /turf/proc/lateShuttleMove(turf/oldT)
-	air_update_turf(TRUE)
-	oldT.air_update_turf(TRUE)
+	blocks_air = initial(blocks_air)
+	air_update_turf(TRUE, blocks_air)
+	oldT.blocks_air = initial(oldT.blocks_air)
+	oldT.air_update_turf(TRUE, oldT.blocks_air)
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -149,8 +149,6 @@ All ShuttleMove procs go here
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
-	if(proximity_monitor)
-		proximity_monitor.HandleMove()
 
 	return TRUE
 
@@ -212,14 +210,39 @@ All ShuttleMove procs go here
 
 /obj/machinery/door/airlock/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
-	update_aac_docked(oldT)
-	update_aac_docked()
 	var/current_area = get_area(src)
-	for(var/obj/machinery/door/airlock/A in orange(1, src))  // does not include src
-		if(get_area(A) != current_area)  // does not include double-wide airlocks unless actually docked
+	var/turf/local_turf
+	var/tile_air_pressure
+	for(var/obj/machinery/door/airlock/other_airlock in orange(2, src))  // does not include src, extended because some escape pods have 1 plating turf exposed to space
+		if(get_area(other_airlock) != current_area)  // does not include double-wide airlocks unless actually docked
 			// Cycle linking is only disabled if we are actually adjacent to another airlock
 			shuttledocked = TRUE
-			A.shuttledocked = TRUE
+			other_airlock.shuttledocked = TRUE
+			if (other_airlock.cycle_pump)
+				local_turf = get_step(src, REVERSE_DIR(other_airlock.cycle_pump.dir))
+				tile_air_pressure = 0
+				if (local_turf)
+					tile_air_pressure = max(0, local_turf.return_air().return_pressure())
+				INVOKE_ASYNC(other_airlock.cycle_pump, TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/airlock_pump, on_dock_request), tile_air_pressure)
+			// Save external airlocks turf in case our own docking purpouses
+			local_turf = get_turf(other_airlock)
+
+	if (cycle_pump)
+		tile_air_pressure = 0
+		if (local_turf)
+			local_turf = get_step(local_turf, REVERSE_DIR(cycle_pump.dir))
+			if (local_turf)
+				tile_air_pressure = max(0, local_turf.return_air().return_pressure())
+			INVOKE_ASYNC(cycle_pump, TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/airlock_pump, on_dock_request), tile_air_pressure)
+		else
+			// In case, somebody decides to build an airlock on evac shuttle, we count CentComs blastdoors as valid docking airlock
+			local_turf = get_step(src, REVERSE_DIR(cycle_pump.dir))
+			if (local_turf)
+				for(var/obj/machinery/door/poddoor/shuttledock/centcom_airlock in local_turf)
+					// For some reason on docking moment those tiles are vacuum, and pump denies safe_dock attempt
+					// To fix this we're lying, that external pressure is nominal
+					INVOKE_ASYNC(cycle_pump, TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/airlock_pump, on_dock_request), ONE_ATMOSPHERE)
+					break
 
 /obj/machinery/camera/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
@@ -235,29 +258,15 @@ All ShuttleMove procs go here
 	. = ..()
 	recharging_turf = get_step(loc, dir)
 
-/obj/machinery/atmospherics/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
-	. = ..()
-	if(pipe_vision_img)
-		pipe_vision_img.loc = loc
-
 /obj/machinery/computer/auxillary_base/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	if(is_mining_level(z)) //Avoids double logging and landing on other Z-levels due to badminnery
 		SSblackbox.record_feedback("associative", "colonies_dropped", 1, list("x" = x, "y" = y, "z" = z))
 
-/obj/machinery/gravity_generator/main/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
-	. = ..()
-	on = FALSE
-	update_list()
-
-/obj/machinery/gravity_generator/main/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
-	. = ..()
-	if(charge_count != 0 && charging_state != POWER_UP)
-		on = TRUE
-	update_list()
-
 /obj/machinery/atmospherics/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
+	if(pipe_vision_img)
+		pipe_vision_img.loc = loc
 	var/missing_nodes = FALSE
 	for(var/i in 1 to device_type)
 		if(nodes[i])
@@ -269,20 +278,20 @@ All ShuttleMove procs go here
 					break
 
 			if(!connected)
-				nullifyNode(i)
+				nullify_node(i)
 
 		if(!nodes[i])
 			missing_nodes = TRUE
 
 	if(missing_nodes)
-		atmosinit()
-		for(var/obj/machinery/atmospherics/A in pipeline_expansion())
-			A.atmosinit()
-			if(A.returnPipenet())
-				A.addMember(src)
+		atmos_init()
+		for(var/obj/machinery/atmospherics/A in pipenet_expansion())
+			A.atmos_init()
+			if(A.return_pipenet())
+				A.add_member(src)
 		SSair.add_to_rebuild_queue(src)
 	else
-		// atmosinit() calls update_icon(), so we don't need to call it
+		// atmos_init() calls update_icon(), so we don't need to call it
 		update_icon()
 
 /obj/machinery/navbeacon/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
@@ -412,7 +421,3 @@ All ShuttleMove procs go here
 	id = "mining_public" //It will not move with the base, but will become enabled as a docking point.
 	return FALSE
 
-/obj/effect/abstract/proximity_checker/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
-	//timer so it only happens once
-	addtimer(CALLBACK(monitor, TYPE_PROC_REF(/datum/proximity_monitor, SetRange), monitor.current_range, TRUE), 0, TIMER_UNIQUE)
-	return FALSE

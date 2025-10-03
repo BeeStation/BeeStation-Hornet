@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SELF(/obj)
+
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -6,23 +8,17 @@
 	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
 	var/set_obj_flags
 
+	/// Extra examine line to describe controls, such as right-clicking, left-clicking, etc.
+	var/desc_controls
+
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
+
 	var/damtype = BRUTE
 	var/force = 0
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
 	var/bleed_force = 0
-
-	var/datum/armor/armor
-	/// The integrity the object starts at. Defaults to max_integrity.
-	VAR_PRIVATE/obj_integrity //defaults to max_integrity
-	/// The maximum integrity the object can have.
-	var/max_integrity = 500
-	/// The object will break once obj_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
-	var/integrity_failure = 0
-	///Damage under this value will be completely ignored
-	var/damage_deflection = 0
-
-	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
-	var/resistance_flags = NONE
 
 	/// How much acid is on that obj
 	var/acid_level = 0
@@ -54,6 +50,8 @@
 	/// broadcasted to as long as the other guys network is on the same branch or above.
 	var/network_id = null
 
+	uses_integrity = TRUE
+
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
 	/// If the emag behavior should be toggleable
@@ -66,13 +64,6 @@
 	return ..()
 
 /obj/Initialize(mapload)
-	if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!armor)
-		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	obj_integrity = max_integrity
 
 	. = ..() //Do this after, else mat datums is mad.
 
@@ -102,10 +93,20 @@
 		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
 		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
 
+// A list of all /obj by their id_tag
+GLOBAL_LIST_EMPTY(objects_by_id_tag)
+
+/obj/Initialize(mapload)
+	. = ..()
+
+	if (id_tag)
+		GLOB.objects_by_id_tag[id_tag] = src
+
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	SStgui.close_uis(src)
+	GLOB.objects_by_id_tag -= id_tag
 	. = ..()
 
 
@@ -115,39 +116,9 @@
 	else
 		return null
 
-/obj/assume_air_moles(datum/gas_mixture/giver, moles)
-	if(loc)
-		return loc.assume_air_moles(giver, moles)
-	else
-		return null
-
-/obj/assume_air_ratio(datum/gas_mixture/giver, ratio)
-	if(loc)
-		return loc.assume_air_ratio(giver, ratio)
-	else
-		return null
-
-/obj/transfer_air(datum/gas_mixture/taker, moles)
-	if(loc)
-		return loc.transfer_air(taker, moles)
-	else
-		return null
-
-/obj/transfer_air_ratio(datum/gas_mixture/taker, ratio)
-	if(loc)
-		return loc.transfer_air_ratio(taker, ratio)
-	else
-		return null
-
 /obj/remove_air(amount)
 	if(loc)
 		return loc.remove_air(amount)
-	else
-		return null
-
-/obj/remove_air_ratio(ratio)
-	if(loc)
-		return loc.remove_air_ratio(ratio)
 	else
 		return null
 
@@ -165,7 +136,8 @@
 
 	if(breath_request>0)
 		var/datum/gas_mixture/environment = return_air()
-		return remove_air_ratio(BREATH_VOLUME / environment.return_volume())
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -189,7 +161,7 @@
 			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
-					if(C.dna.check_mutation(TK))
+					if(C.dna.check_mutation(/datum/mutation/telekinesis))
 						is_in_use = TRUE
 						ui_interact(usr)
 		if (is_in_use)
@@ -226,7 +198,7 @@
 
 	if(!machine)
 		return
-	UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(machine, COMSIG_QDELETING)
 	machine.on_unset_machine(src)
 	machine = null
 
@@ -238,7 +210,7 @@
 	if(machine)
 		unset_machine()
 	machine = O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
+	RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
@@ -252,7 +224,7 @@
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src,S)
 
-/obj/get_dumping_location(datum/component/storage/source,mob/user)
+/obj/get_dumping_location(datum/storage/source, mob/user)
 	return get_turf(src)
 
 /**
@@ -264,10 +236,10 @@
  * Arguments:
  * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
  * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
+ * * pathfinding_atom- The movable we're checking pass flags for, if we're making any such checks
  **/
-/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
-	if(istype(caller) && (caller.pass_flags & pass_flags_self))
+/obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+	if(istype(passing_atom) && (passing_atom.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density
 
@@ -279,7 +251,6 @@
 	VV_DROPDOWN_OPTION("", "---")
 	VV_DROPDOWN_OPTION(VV_HK_MASS_DEL_TYPE, "Delete all of type")
 	VV_DROPDOWN_OPTION(VV_HK_OSAY, "Object Say")
-	VV_DROPDOWN_OPTION(VV_HK_ARMOR_MOD, "Modify armor values")
 
 /obj/vv_do_topic(list/href_list)
 	if(!(. = ..()))
@@ -287,29 +258,7 @@
 	if(href_list[VV_HK_OSAY])
 		if(check_rights(R_FUN, FALSE))
 			usr.client.object_say(src)
-	if(href_list[VV_HK_ARMOR_MOD])
-		var/list/pickerlist = list()
-		var/list/armorlist = armor.getList()
 
-		for (var/i in armorlist)
-			pickerlist += list(list("value" = armorlist[i], "name" = i))
-
-		var/list/result = presentpicker(usr, "Modify armor", "Modify armor: [src]", Button1="Save", Button2 = "Cancel", Timeout=FALSE, inputtype = "text", values = pickerlist)
-
-		if (islist(result))
-			if (result["button"] != 2) // If the user pressed the cancel button
-				// text2num conveniently returns a null on invalid values
-				armor = armor.setRating(melee = text2num(result["values"][MELEE]),\
-			                  bullet = text2num(result["values"][BULLET]),\
-			                  laser = text2num(result["values"][LASER]),\
-			                  energy = text2num(result["values"][ENERGY]),\
-			                  bomb = text2num(result["values"][BOMB]),\
-			                  bio = text2num(result["values"][BIO]),\
-			                  rad = text2num(result["values"][RAD]),\
-			                  fire = text2num(result["values"][FIRE]),\
-			                  acid = text2num(result["values"][ACID]))
-				log_admin("[key_name(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]")
-				message_admins("<span class='notice'>[key_name_admin(usr)] modified the armor on [src] ([type]) to melee: [armor.melee], bullet: [armor.bullet], laser: [armor.laser], energy: [armor.energy], bomb: [armor.bomb], bio: [armor.bio], rad: [armor.rad], fire: [armor.fire], acid: [armor.acid]</span>")
 	if(href_list[VV_HK_MASS_DEL_TYPE])
 		if(check_rights(R_DEBUG|R_SERVER))
 			var/action_type = alert("Strict type ([type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")
@@ -335,7 +284,7 @@
 						to_chat(usr, "No objects of this type exist")
 						return
 					log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
-					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) </span>")
+					message_admins(span_notice("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) "))
 				if("Type and subtypes")
 					var/i = 0
 					for(var/obj/Obj in world)
@@ -347,14 +296,19 @@
 						to_chat(usr, "No objects of this type exist")
 						return
 					log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
-					message_admins("<span class='notice'>[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) </span>")
+					message_admins(span_notice("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) "))
 
 /obj/examine(mob/user)
 	. = ..()
-	if(obj_flags & UNIQUE_RENAME)
-		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
+	if(desc_controls)
+		. += span_notice(desc_controls)
 	if(unique_reskin_icon && !current_skin)
-		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+		. += span_notice("Alt-click it to reskin it.")
+
+/obj/examine_tags(mob/user)
+	. = ..()
+	if(obj_flags & UNIQUE_RENAME)
+		.["renameable"] = "Use a pen on it to rename it or change its description."
 
 /obj/AltClick(mob/user)
 	. = ..()
@@ -373,7 +327,7 @@
 	return
 
 /obj/analyzer_act(mob/living/user, obj/item/I)
-	if(atmosanalyzer_scan(user, src))
+	if(atmos_scan(user=user, target=src, silent=FALSE))
 		return TRUE
 	return ..()
 
@@ -413,7 +367,7 @@
 //Where thing is the additional thing you want to same (For example ores inside an ORM)
 //Just add ,\n between each thing
 //generate_tgm_metadata(thing) handles everything inside the {} for you
-/obj/proc/on_object_saved(var/depth = 0)
+/obj/proc/on_object_saved(depth = 0)
 	return ""
 
 // Should move all contained objects to it's location.
@@ -431,6 +385,15 @@
 		. += GLOB.acid_overlay
 	if(resistance_flags & ON_FIRE)
 		. += GLOB.fire_overlay
+
+/// Handles exposing an object to reagents.
+/obj/expose_reagents(list/reagents, datum/reagents/source, method=TOUCH, volume_modifier=1, show_message=TRUE)
+	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
+		return
+
+	for(var/reagent in reagents)
+		var/datum/reagent/R = reagent
+		. |= R.expose_obj(src, reagents[R])
 
 ///attempt to freeze this obj if possible. returns TRUE if it succeeded, FALSE otherwise.
 /obj/proc/freeze()
@@ -454,7 +417,7 @@
 				hacker.use_charge()
 				on_emag(user)
 			else
-				to_chat(user, "<span class='warning'>[hacker] is out of charges and needs some time to restore them!</span>")
+				to_chat(user, span_warning("[hacker] is out of charges and needs some time to restore them!"))
 				user.balloon_alert(user, "out of charges!")
 		else
 			SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)

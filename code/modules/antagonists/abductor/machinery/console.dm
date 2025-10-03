@@ -46,17 +46,17 @@
 		filtered_modules[AG.category][AG] = AG
 	return filtered_modules
 
-/obj/machinery/abductor/console/attack_hand(mob/user)
+/obj/machinery/abductor/console/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
-	if(!HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) && !HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
-		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
+	if(!HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
+		to_chat(user, span_warning("You start mashing alien buttons at random!"))
 		if(do_after(user,100, target = src))
 			TeleporterSend()
 
 /obj/machinery/abductor/console/ui_status(mob/user)
-	if((!HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) && !HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING)) && !isobserver(user))
+	if(!HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) && !isobserver(user))
 		return UI_CLOSE
 	return ..()
 
@@ -175,12 +175,12 @@
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/open/location,user)
 	if(!istype(location))
-		to_chat(user, "<span class='warning'>That place is not safe for the specimen.</span>")
+		to_chat(user, span_warning("That place is not safe for the specimen."))
 		return
 
 	if(pad)
 		pad.teleport_target = location
-		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
+		to_chat(user, span_notice("Location marked as test subject release point."))
 
 /obj/machinery/abductor/console/Initialize(mapload)
 	..()
@@ -245,9 +245,9 @@
 
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
-		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
+		to_chat(user, span_notice("You link the tool to the console."))
 	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
-		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
+		to_chat(user, span_notice("You link the vest to the console."))
 	else
 		return ..()
 

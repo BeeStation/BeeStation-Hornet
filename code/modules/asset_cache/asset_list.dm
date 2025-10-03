@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	/// Whether or not this asset can be cached across rounds of the same commit under the `CACHE_ASSETS` config.
 	/// This is not a *guarantee* the asset will be cached. Not all asset subtypes respect this field, and the
 	/// config can, of course, be disabled.
+	/// Disable this if your asset can change between rounds on the same exact version of the code.
 	var/cross_round_cachable = FALSE
 
 	/// Whether or not this asset should be loaded in the "early assets" SS
@@ -146,6 +147,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/spritesheet
 	_abstract = /datum/asset/spritesheet
+	cross_round_cachable = TRUE
 	var/name
 	/// List of arguments to pass into queuedInsert
 	/// Exists so we can queue icon insertion, mostly for stuff like preferences
@@ -158,6 +160,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	/// If this asset should be fully loaded on new
 	/// Defaults to false so we can process this stuff nicely
 	var/load_immediately = FALSE
+	VAR_PRIVATE
+		// Kept in state so that the result is the same, even when the files are created, for this run
+		should_refresh = null
 
 /datum/asset/spritesheet/proc/should_load_immediately()
 #ifdef DO_NOT_DEFER_ASSETS
@@ -170,12 +175,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if (..())
 		return TRUE
 
-	// Static so that the result is the same, even when the files are created, for this run
-	var/static/should_refresh = null
-
 	if (isnull(should_refresh))
 		// `fexists` seems to always fail on static-time
-		should_refresh = !fexists("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+		should_refresh = !fexists(css_cache_filename()) || !fexists(data_cache_filename())
 
 	return should_refresh
 
@@ -311,7 +313,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for (var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/icon/tiny = size[SPRSZ_ICON]
-		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background:url('[get_background_url("[name]_[size_id].png")]') no-repeat;}"
+		out += ".[name][size_id]{display:inline-block;width:[tiny.Width()]px;height:[tiny.Height()]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat: no-repeat;}"
 
 	for (var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
@@ -329,10 +331,19 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	return out.Join("\n")
 
-/datum/asset/spritesheet/proc/read_from_cache()
-	var/replaced_css = rustg_file_read("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+/datum/asset/spritesheet/proc/css_cache_filename()
+	return "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css"
 
-	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
+/datum/asset/spritesheet/proc/data_cache_filename()
+	return "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].json"
+
+/datum/asset/spritesheet/proc/read_from_cache()
+	return read_css_from_cache() && read_data_from_cache()
+
+/datum/asset/spritesheet/proc/read_css_from_cache()
+	var/replaced_css = file2text(css_cache_filename())
+
+	var/regex/find_background_urls = regex(@"background-image:url\('%(.+?)%'\)", "g")
 	while (find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
@@ -340,7 +351,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		var/hash = rustg_hash_file("md5", file_path)
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, file_path, file_hash=hash)
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
-		replaced_css = replacetext(replaced_css, find_background_urls.match, "background:url('[asset_url]')")
+		replaced_css = replacetext(replaced_css, find_background_urls.match, "background-image:url('[asset_url]')")
 		LAZYADD(cached_spritesheets_needed, asset_id)
 
 	var/replaced_css_filename = "data/spritesheets/spritesheet_[name].css"
@@ -349,6 +360,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	SSassets.transport.register_asset("spritesheet_[name].css", replaced_css_filename, file_hash=css_hash)
 
 	fdel(replaced_css_filename)
+
+	return TRUE
+
+/datum/asset/spritesheet/proc/read_data_from_cache()
+	var/json = json_decode(file2text(data_cache_filename()))
+
+	if (islist(json["sprites"]))
+		sprites = json["sprites"]
 
 	return TRUE
 
@@ -367,6 +386,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		return SSassets.transport.get_asset_url(asset)
 
 /datum/asset/spritesheet/proc/write_to_cache()
+	write_css_to_cache()
+	write_data_to_cache()
+
+/datum/asset/spritesheet/proc/write_css_to_cache()
 	for (var/size_id in sizes)
 		var/datum/asset_cache_item/temp = SSassets.cache["[name]_[size_id].png"]
 		fcopy(temp.resource, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name]_[size_id].png")
@@ -375,7 +398,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/mock_css = generate_css()
 	generating_cache = FALSE
 
-	rustg_file_write(mock_css, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+	rustg_file_write(mock_css, css_cache_filename())
+
+/datum/asset/spritesheet/proc/write_data_to_cache()
+	rustg_file_write(json_encode(list(
+		"sprites" = sprites,
+	)), data_cache_filename())
 
 /datum/asset/spritesheet/proc/get_cached_url_mappings()
 	var/list/mappings = list()
@@ -476,6 +504,23 @@ GLOBAL_LIST_EMPTY(asset_datums)
 #undef SPRSZ_ICON
 #undef SPRSZ_STRIPPED
 
+/datum/asset/changelog_item
+	_abstract = /datum/asset/changelog_item
+	var/item_filename
+
+/datum/asset/changelog_item/New(date)
+	item_filename = SANITIZE_FILENAME("[date].yml")
+	SSassets.transport.register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
+
+/datum/asset/changelog_item/send(client)
+	if (!item_filename)
+		return
+	. = SSassets.transport.send_assets(client, item_filename)
+
+/datum/asset/changelog_item/get_url_mappings()
+	if (!item_filename)
+		return
+	. = list("[item_filename]" = SSassets.transport.get_asset_url(item_filename))
 
 /datum/asset/spritesheet/simple
 	_abstract = /datum/asset/spritesheet/simple

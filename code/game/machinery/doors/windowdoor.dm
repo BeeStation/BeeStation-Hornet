@@ -6,15 +6,16 @@
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
 	resistance_flags = ACID_PROOF
+	obj_flags = CAN_BE_HIT | BLOCKS_CONSTRUCTION_DIR
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/door_window
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
 	pass_flags_self = PASSTRANSPARENT
-	CanAtmosPass = ATMOS_PASS_PROC
+	can_atmos_pass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
 	z_flags = NONE // reset zblock
@@ -24,6 +25,19 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
+
+
+/datum/armor/door_window
+	melee = 20
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 10
+	rad = 100
+	fire = 70
+	acid = 100
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
@@ -50,19 +64,20 @@
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
-	AddElement(/datum/element/connect_loc, loc_connections)
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
-/obj/machinery/door/window/ComponentInitialize()
-	. = ..()
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/atmos_sensitive)
 	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	air_update_turf(1)
-	if(obj_integrity == 0)
+	if(atom_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
+	var/turf/floor = get_turf(src)
+	floor.air_update_turf(TRUE, FALSE)
 	return ..()
 
 /obj/machinery/door/window/update_icon()
@@ -123,14 +138,14 @@
 
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/moved_window = mover
-		return valid_window_location(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
+		return valid_build_direction(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
 
 	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
-		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
+		return valid_build_direction(loc, mover.dir, is_fulltile = FALSE)
 
 	return TRUE
 
-/obj/machinery/door/window/CanAtmosPass(turf/T)
+/obj/machinery/door/window/can_atmos_pass(turf/T, vertical = FALSE)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
@@ -176,7 +191,7 @@
 	icon_state ="[base_state]open"
 	sleep(operationdelay)
 	set_density(FALSE)
-	air_update_turf(1)
+	air_update_turf(TRUE, FALSE)
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
@@ -199,7 +214,7 @@
 	icon_state = base_state
 
 	set_density(TRUE)
-	air_update_turf(1)
+	air_update_turf(TRUE, TRUE)
 	update_freelook_sight()
 	sleep(operationdelay)
 
@@ -242,10 +257,11 @@
 	C.name = name
 	qdel(src)
 
-/obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
-		take_damage(round(exposed_volume / 200), BURN, 0, 0)
-	..()
+/obj/machinery/door/window/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > T0C + (reinf ? 1600 : 800))
+
+/obj/machinery/door/window/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	take_damage(round(exposed_temperature / 200), BURN, 0, 0)
 
 /obj/machinery/door/window/should_emag(mob/user)
 	// Don't allow emag if the door is currently open or moving
@@ -262,7 +278,7 @@
 	if(QDELETED(src))
 		return
 	operating = FALSE
-	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
+	desc += "<BR>[span_warning("Its access panel is smoking slightly.")]"
 	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
@@ -274,17 +290,17 @@
 	if(!(flags_1&NODECONSTRUCT_1))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			if(density || operating)
-				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
+				to_chat(user, span_warning("You need to open the door to access the maintenance panel!"))
 				return
 			I.play_tool_sound(src)
 			panel_open = !panel_open
-			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
+			to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [name]."))
 			return
 
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] removes the electronics from the [name].", \
-									 "<span class='notice'>You start to remove electronics from the [name]...</span>")
+									span_notice("You start to remove electronics from the [name]..."))
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -306,11 +322,11 @@
 						WA.created_name = name
 
 						if(obj_flags & EMAGGED)
-							to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
+							to_chat(user, span_warning("You discard the damaged electronics."))
 							qdel(src)
 							return
 
-						to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+						to_chat(user, span_notice("You remove the airlock electronics."))
 
 						var/obj/item/electronics/airlock/ae
 						if(!electronics)
@@ -339,14 +355,14 @@
 /obj/machinery/door/window/try_to_crowbar(obj/item/crowbar, mob/user)
 	if(density)
 		if(!HAS_TRAIT(crowbar, TRAIT_DOOR_PRYER) && hasPower())
-			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
+			to_chat(user, span_warning("The windoor's motors resist your efforts to force it!"))
 			return
 		else if(!hasPower())
-			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
+			to_chat(user, span_warning("You begin forcing open \the [src], the motors don't resist..."))
 			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		else
-			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
+			to_chat(user, span_warning("You begin forcing open \the [src]..."))
 			if(!crowbar.use_tool(src, user, 5 SECONDS))
 				return
 		open(2)
@@ -380,8 +396,8 @@
 		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = LOWER_TEXT(data.data["data"])
+	var/command_value = LOWER_TEXT(data.data["data_secondary"])
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -406,7 +422,7 @@
 /obj/machinery/door/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the windoor.</span>")
+			to_chat(user, span_notice("You deconstruct the windoor."))
 			qdel(src)
 			return TRUE
 	return FALSE
@@ -437,10 +453,18 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/window_clockwork
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE
+
+
+/datum/armor/window_clockwork
+	bomb = 10
+	bio = 100
+	rad = 100
+	fire = 70
+	acid = 100
 
 /obj/machinery/door/window/clockwork/deconstruct(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
@@ -465,7 +489,7 @@
 	return TRUE //yup that's power all right
 
 /obj/machinery/door/window/clockwork/allowed(mob/M)
-	if(is_servant_of_ratvar(M))
+	if(IS_SERVANT_OF_RATVAR(M))
 		return TRUE
 	return FALSE
 
@@ -490,13 +514,13 @@
 		if(I.tool_behaviour == TOOL_SCREWDRIVER)
 			I.play_tool_sound(src)
 			panel_open = !panel_open
-			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
+			to_chat(user, span_notice("You [panel_open ? "open":"close"] the maintenance panel of the [name]."))
 			return
 
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			if(panel_open && !density && !operating)
 				user.visible_message("[user] begins to deconstruct [name].", \
-									 "<span class='notice'>You start to deconstruct from the [name]...</span>")
+									span_notice("You start to deconstruct from the [name]..."))
 				if(I.use_tool(src, user, 40, volume=50))
 					if(panel_open && !density && !operating && loc)
 						qdel(src)

@@ -8,9 +8,9 @@
 
 GLOBAL_LIST_EMPTY(ckey_redirects)
 
-/world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE)
+/world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE, from_auth=FALSE)
 	debug_world_log("isbanned(): SRC:'[src]', USR:'[usr]' ARGS:'[args.Join("', '")]'")
-	if (!key || (!real_bans_only && (!address || !computer_id)))
+	if (!key || (!real_bans_only && ((!address && !from_auth) || !computer_id))) // allow null IP from auth system (for localhost)
 		if(real_bans_only)
 			return FALSE
 		log_access("Failed Login (invalid data): [key] [address]-[computer_id]")
@@ -21,10 +21,18 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 
 	var/admin = FALSE
 	var/ckey = ckey(key)
-
 	var/client/C = GLOB.directory[ckey]
-	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
-		return //don't recheck connected clients.
+#ifdef DISABLE_BYOND_AUTH
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		return list("reason"="misconfigured", "desc"="The server is not currently authenticating BYOND connections and does not have any authentication methods enabled. \
+		This is insecure, nobody may connect.")
+	if (C && ckey == C.ckey && CONFIG_GET(flag/enable_guest_external_auth) && !real_bans_only && !from_auth)
+		// Note that it's probably possible to scrape connected CKEYs with this check, but whatever it's public anyway
+		// We have no way of verifying their connection CKEY is who they say they are, and no way to change their CKEY before login
+		return list("reason"="already connected", "desc"="A player is currently connected with your connection CKEY. Connect with a different CKEY or as a guest.")
+#endif
+	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address && !from_auth)
+		return //don't recheck connected clients unless it's from the auth system
 
 	//IsBanned can get re-called on a user in certain situations, this prevents that leading to repeated messages to admins.
 	var/static/list/checkedckeys = list()
@@ -34,35 +42,40 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 	if(GLOB.admin_datums[ckey] || GLOB.deadmins[ckey])
 		admin = TRUE
 
+	var/is_connecting = !C || from_auth
 
 	//Whitelist
-	if(!real_bans_only && !C && CONFIG_GET(flag/usewhitelist))
+	if(!real_bans_only && is_connecting && CONFIG_GET(flag/usewhitelist))
 		if(!check_whitelist(ckey))
 			if (admin)
 				log_admin("The admin [key] has been allowed to bypass the whitelist")
 				if (message)
-					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass the whitelist</span>")
-					addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass the whitelist</span>")
+					message_admins(span_adminnotice("The admin [key] has been allowed to bypass the whitelist"))
+					addclientmessage(ckey,span_adminnotice("You have been allowed to bypass the whitelist"))
 			else
 				log_access("Failed Login: [key] - Not on whitelist")
 				return list("reason"="whitelist", "desc" = "\nReason: You are not on the white list for this server")
 
 	//Guest Checking
-	if(!real_bans_only && !C && IS_GUEST_KEY(key))
-		if (CONFIG_GET(flag/guest_ban))
+	if(!real_bans_only && is_connecting && IS_GUEST_KEY(key))
+		if (CONFIG_GET(flag/guest_ban) && !CONFIG_GET(flag/enable_guest_external_auth))
 			log_access("Failed Login: [key] - Guests not allowed")
 			return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
-		if (CONFIG_GET(flag/panic_bunker) && SSdbcore.Connect())
+#ifndef DISABLE_BYOND_AUTH
+		if (CONFIG_GET(flag/panic_bunker) && SSdbcore.Connect() && !(CONFIG_GET(flag/enable_guest_external_auth) && CONFIG_GET(flag/panic_bunker_interview)))
 			log_access("Failed Login: [key] - Guests not allowed during panic bunker")
 			return list("reason"="guest", "desc"="\nReason: Sorry but the server is currently not accepting connections from never before seen players or guests. If you have played on this server with a byond account before, please log in to the byond account you have played from.")
+#endif
+	if(!real_bans_only && is_connecting && is_external_auth_key(key) && !from_auth)
+		return list("reason"="token key", "desc"="\nReason: Connected directly with a token CKEY (BYOND accounts with keys following the token CKEY format are not allowed).")
 	if(CONFIG_GET(flag/panic_bunker) && CONFIG_GET(flag/panic_bunker_interview) && !CONFIG_GET(flag/panic_bunker_interview_retries) && GLOB.interviews.denied_ckeys.Find(ckey))
 		log_access("Failed Login: [key] - Interview denied")
 		return list("reason"="interview", "desc"="\nReason: You failed an interview while the panic bunker is enabled. Try again during the next round or after the panic bunker is disabled.")
 
 	//Population Cap Checking
 	var/extreme_popcap = CONFIG_GET(number/extreme_popcap)
-	if(!real_bans_only && !C && extreme_popcap && !admin)
-		var/popcap_value = GLOB.clients.len
+	if(!real_bans_only && is_connecting && extreme_popcap && !admin)
+		var/popcap_value = GLOB.clients_unsafe.len
 		if(popcap_value >= extreme_popcap && !GLOB.joined_player_list.Find(ckey))
 			if((!CONFIG_GET(flag/byond_member_bypass_popcap) || !world.IsSubscribed(ckey, "BYOND")) && !IS_PATRON(ckey))
 				var/redirect_address = CONFIG_GET(string/redirect_address)
@@ -93,7 +106,7 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 						log_admin(msg)
 						if (message)
 							message_admins(msg)
-							addclientmessage(ckey,"<span class='adminnotice'>Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]].</span>")
+							addclientmessage(ckey,span_adminnotice("Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]]."))
 						continue
 				var/expires = "This is a permanent ban."
 				var/global_ban = "This is a global ban from all of our servers."
@@ -214,8 +227,8 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 		if (admin)
 			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]")
 			if (message)
-				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]</span>")
-				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban on [bannedckey]</span>")
+				message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]"))
+				addclientmessage(ckey,span_adminnotice("You have been allowed to bypass a matching host/sticky ban on [bannedckey]"))
 			return null
 
 		if (C) //user is already connected!.

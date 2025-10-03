@@ -21,7 +21,7 @@
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.getorgan(/obj/item/organ/alien/plasmavessel))
+			if(user.get_organ_by_type(/obj/item/organ/alien/plasmavessel))
 				unbuckle_mob(M)
 				add_fingerprint(user)
 				return
@@ -29,23 +29,23 @@
 			if(M != user)
 				M.visible_message(\
 					"[user.name] pulls [M.name] free from the sticky nest!",\
-					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
-					"<span class='italics'>You hear squelching...</span>")
+					span_notice("[user.name] pulls you free from the gelatinous resin."),\
+					span_italics("You hear squelching..."))
 			else
 				M.visible_message(\
-					"<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
-					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
-					"<span class='italics'>You hear squelching...</span>")
-				if(!do_after(M, 1200, target = src, timed_action_flags = IGNORE_RESTRAINED))
+					span_warning("[M.name] struggles to break free from the gelatinous resin!"),\
+					span_notice("You struggle to break free from the gelatinous resin... (Stay still for two minutes.)"),\
+					span_italics("You hear squelching..."))
+				if(!do_after(M, 1200, target = src, hidden = TRUE))
 					if(M?.buckled)
-						to_chat(M, "<span class='warning'>You fail to unbuckle yourself!</span>")
+						to_chat(M, span_warning("You fail to unbuckle yourself!"))
 					return
 				if(!M.buckled)
 					return
 				M.visible_message(\
-					"<span class='warning'>[M.name] breaks free from the gelatinous resin!</span>",\
-					"<span class='notice'>You break free from the gelatinous resin!</span>",\
-					"<span class='italics'>You hear squelching...</span>")
+					span_warning("[M.name] breaks free from the gelatinous resin!"),\
+					span_notice("You break free from the gelatinous resin!"),\
+					span_italics("You hear squelching..."))
 
 			unbuckle_mob(M)
 			add_fingerprint(user)
@@ -54,9 +54,9 @@
 	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated() || M.buckled)
 		return
 
-	if(M.getorgan(/obj/item/organ/alien/plasmavessel))
+	if(M.get_organ_by_type(/obj/item/organ/alien/plasmavessel))
 		return
-	if(!user.getorgan(/obj/item/organ/alien/plasmavessel))
+	if(!user.get_organ_by_type(/obj/item/organ/alien/plasmavessel))
 		return
 
 	if(has_buckled_mobs())
@@ -65,8 +65,8 @@
 	if(buckle_mob(M))
 		M.visible_message(\
 			"[user.name] secretes a thick vile goo, securing [M.name] into [src]!",\
-			"<span class='danger'>[user.name] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
-			"<span class='italics'>You hear squelching...</span>")
+			span_danger("[user.name] drenches you in a foul-smelling resin, trapping you in [src]!"),\
+			span_italics("You hear squelching..."))
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
 	M.pixel_y = M.base_pixel_y
@@ -88,7 +88,7 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/bed/nest/attack_alien(mob/living/carbon/alien/user)
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		return attack_hand(user)
 	else
 		return ..()

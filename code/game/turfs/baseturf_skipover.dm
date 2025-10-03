@@ -1,3 +1,5 @@
+CREATION_TEST_IGNORE_SUBTYPES(/turf/baseturf_skipover)
+
 // This is a typepath to just sit in baseturfs and act as a marker for other things.
 /turf/baseturf_skipover
 	name = "Baseturf skipover placeholder"
@@ -12,6 +14,8 @@
 /turf/baseturf_skipover/shuttle
 	name = "Shuttle baseturf skipover"
 	desc = "Acts as the bottom of the shuttle, if this isn't here the shuttle floor is broken through."
+
+CREATION_TEST_IGNORE_SUBTYPES(/turf/baseturf_bottom)
 
 /turf/baseturf_bottom
 	name = "Z-level baseturf placeholder"

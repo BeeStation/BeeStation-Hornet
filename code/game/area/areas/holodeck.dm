@@ -3,8 +3,9 @@
 	icon_state = "holodeck"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	flags_1 = NONE
-	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
+	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA | REMOTE_APC
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
+	camera_networks = list(CAMERA_NETWORK_STATION)
 
 	var/obj/machinery/computer/holodeck/linked
 	var/restricted = FALSE // if true, program goes on emag list
@@ -15,7 +16,7 @@
 	Asserts are to avoid the inevitable infinite loops
 */
 
-/area/holodeck/powered(var/chan)
+/area/holodeck/powered(chan)
 	if(!requires_power)
 		return TRUE
 	if(always_unpowered)
@@ -33,7 +34,7 @@
 	ASSERT(!istype(A, /area/holodeck))
 	return ..()
 
-/area/holodeck/use_power(var/amount, var/chan)
+/area/holodeck/use_power(amount, chan)
 	if(!linked)
 		return 0
 	var/area/A = get_area(linked)
@@ -57,3 +58,8 @@
 
 /area/holodeck/small //7x7
 	name = "\improper Small Recreational Holodeck"
+
+// DEBUG only
+/area/holodeck/debug // 12x12
+	requires_power = FALSE
+	name = "\improper Debug Holodeck"

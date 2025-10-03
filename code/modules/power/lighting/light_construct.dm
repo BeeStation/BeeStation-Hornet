@@ -6,7 +6,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 200
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/structure_light_construct
 
 	var/stage = 1
 	var/fixture_type = "tube"
@@ -15,6 +15,16 @@
 	var/obj/item/stock_parts/cell/cell
 
 	var/cell_connectors = TRUE
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_construct)
+
+
+/datum/armor/structure_light_construct
+	melee = 50
+	bullet = 10
+	laser = 10
+	fire = 80
+	acid = 50
 
 /obj/structure/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
@@ -43,11 +53,11 @@
 		else
 			. += "The casing has no power cell for backup power."
 	else
-		. += "<span class='danger'>This casing doesn't support power cells for backup power.</span>"
+		. += span_danger("This casing doesn't support power cells for backup power.")
 
-/obj/structure/light_construct/attack_hand(mob/user)
+/obj/structure/light_construct/attack_hand(mob/user, list/modifiers)
 	if(cell)
-		user.visible_message("[user] removes [cell] from [src]!","<span class='notice'>You remove [cell].</span>")
+		user.visible_message("[user] removes [cell] from [src]!",span_notice("You remove [cell]."))
 		user.put_in_hands(cell)
 		cell.update_icon()
 		remove_cell()
@@ -56,7 +66,7 @@
 /obj/structure/light_construct/attack_tk(mob/user)
 	if(!cell)
 		return
-	to_chat(user, "<span class='notice'>You telekinetically remove [cell].</span>")
+	to_chat(user, span_notice("You telekinetically remove [cell]."))
 	var/obj/item/stock_parts/cell/cell_reference = cell
 	cell = null
 	cell_reference.forceMove(drop_location())
@@ -67,16 +77,16 @@
 	add_fingerprint(user)
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell_connectors)
-			to_chat(user, "<span class='warning'>This [name] can't support a power cell!</span>")
+			to_chat(user, span_warning("This [name] can't support a power cell!"))
 			return
 		if(HAS_TRAIT(W, TRAIT_NODROP))
-			to_chat(user, "<span class='warning'>[W] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[W] is stuck to your hand!"))
 			return
 		if(cell)
-			to_chat(user, "<span class='warning'>There is a power cell already installed!</span>")
+			to_chat(user, span_warning("There is a power cell already installed!"))
 		else if(user.temporarilyRemoveItemFromInventory(W))
-			user.visible_message("<span class='notice'>[user] hooks up [W] to [src].</span>", \
-			"<span class='notice'>You add [W] to [src].</span>")
+			user.visible_message(span_notice("[user] hooks up [W] to [src]."), \
+			span_notice("You add [W] to [src]."))
 			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 			W.forceMove(src)
 			store_cell(W)
@@ -86,14 +96,14 @@
 		if(1)
 			if(W.tool_behaviour == TOOL_WRENCH)
 				if(cell)
-					to_chat(user, "<span class='warning'>You have to remove the cell first!</span>")
+					to_chat(user, span_warning("You have to remove the cell first!"))
 					return
 				else
-					to_chat(user, "<span class='notice'>You begin deconstructing [src]...</span>")
+					to_chat(user, span_notice("You begin deconstructing [src]..."))
 					if (W.use_tool(src, user, 30, volume=50))
 						new /obj/item/stack/sheet/iron(drop_location(), sheets_refunded)
 						user.visible_message("[user.name] deconstructs [src].", \
-							"<span class='notice'>You deconstruct [src].</span>", "<span class='italics'>You hear a ratchet.</span>")
+							span_notice("You deconstruct [src]."), span_italics("You hear a ratchet."))
 						playsound(src, 'sound/items/deconstruct.ogg', 75, 1)
 						qdel(src)
 					return
@@ -104,13 +114,13 @@
 					icon_state = "[fixture_type]-construct-stage2"
 					stage = 2
 					user.visible_message("[user.name] adds wires to [src].", \
-						"<span class='notice'>You add wires to [src].</span>")
+						span_notice("You add wires to [src]."))
 				else
-					to_chat(user, "<span class='warning'>You need one length of cable to wire [src]!</span>")
+					to_chat(user, span_warning("You need one length of cable to wire [src]!"))
 				return
 		if(2)
 			if(W.tool_behaviour == TOOL_WRENCH)
-				to_chat(usr, "<span class='warning'>You have to remove the wires first!</span>")
+				to_chat(usr, span_warning("You have to remove the wires first!"))
 				return
 
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
@@ -118,13 +128,13 @@
 				icon_state = "[fixture_type]-construct-stage1"
 				new /obj/item/stack/cable_coil(drop_location(), 1, "red")
 				user.visible_message("[user.name] removes the wiring from [src].", \
-					"<span class='notice'>You remove the wiring from [src].</span>", "<span class='italics'>You hear clicking.</span>")
+					span_notice("You remove the wiring from [src]."), span_italics("You hear clicking."))
 				W.play_tool_sound(src, 100)
 				return
 
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				user.visible_message("[user.name] closes [src]'s casing.", \
-					"<span class='notice'>You close [src]'s casing.</span>", "<span class='italics'>You hear screwing.</span>")
+					span_notice("You close [src]'s casing."), span_italics("You hear screwing."))
 				W.play_tool_sound(src, 75)
 				switch(fixture_type)
 					if("tube")
@@ -153,15 +163,15 @@
 
 /obj/structure/light_construct/proc/store_cell(new_cell)
 	if(cell)
-		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(cell, COMSIG_QDELETING)
 	cell = new_cell
 	if(cell)
-		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
+		RegisterSignal(cell, COMSIG_QDELETING, PROC_REF(remove_cell))
 
 /obj/structure/light_construct/proc/remove_cell()
 	SIGNAL_HANDLER
 	if(cell)
-		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(cell, COMSIG_QDELETING)
 		cell = null
 
 /obj/structure/light_construct/small

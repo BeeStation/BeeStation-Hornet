@@ -1,5 +1,3 @@
-#define CLOCKDRONE	"drone_clock"
-
 GLOBAL_LIST_INIT(cogscarabs, list())
 
 //====Cogscarab====
@@ -12,16 +10,15 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	icon_dead = "drone_clock_dead"
 	health = 30
 	maxHealth = 30
-	faction = list("neutral", "silicon", "turret", "ratvar")
+	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET, FACTION_RATVAR)
 	default_storage = /obj/item/storage/belt/utility/servant/drone
 	visualAppearance = CLOCKDRONE
 	bubble_icon = "clock"
 	picked = TRUE
-	flavortext = "<span class=brass>You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\
+	flavortext = span_brass("You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\
 		After a long and destructive conflict, Reebe has been left mostly empty; you and the other cogscarabs like you were bought into existence to construct Reebe into the image of Rat'var.<br>\
-		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.</span>"
-	laws = "You are have been granted the gift of sentience from Rat'var.<br>\
-		You are not bound by any laws, do whatever you must to serve Rat'var!"
+		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.")
+	laws = "You are have been granted the gift of sentience from Rat'var.<br> You are not bound by any laws, do whatever you must to serve Rat'var!"
 	chat_color = LIGHT_COLOR_CLOCKWORK
 	mobchatspan = "brassmobsay"
 	initial_language_holder = /datum/language_holder/clockmob
@@ -45,8 +42,10 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	. = ..()
 
 /mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
-	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
-		return FALSE
+	if(isliving(projectile.fired_from))
+		var/mob/living/living_firer = projectile.fired_from
+		if(IS_SERVANT_OF_RATVAR(living_firer))
+			return FALSE
 	return TRUE
 
 //====Shell====
@@ -65,7 +64,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
-	if(!SSticker.mode)
+	if(!SSticker.HasRoundStarted())
 		to_chat(user, "Can't become a cogscarab before the game has started.")
 		return
 	var/be_drone = alert("Become a cogscarab? (Warning, You can no longer be cloned!)",,"Yes","No")

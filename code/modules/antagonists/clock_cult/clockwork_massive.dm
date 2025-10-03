@@ -1,5 +1,14 @@
 GLOBAL_LIST_INIT(clockwork_portals, list())
 
+/proc/flee_reebe()
+	for(var/mob/living/M in GLOB.mob_list)
+		if(!is_reebe(M.z))
+			continue
+		var/safe_place = find_safe_turf()
+		M.forceMove(safe_place)
+		if(!IS_SERVANT_OF_RATVAR(M))
+			M.SetSleeping(50)
+
 /obj/structure/destructible/clockwork/massive/celestial_gateway
 	name = "\improper Ark of the Clockwork Justiciar"
 	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
@@ -36,13 +45,13 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue
-		if(is_servant_of_ratvar(M))
-			to_chat(M, "<span class='reallybig hypnophrase'>Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i></span>")
+		if(IS_SERVANT_OF_RATVAR(M))
+			to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams. <i>YOU HAVE FAILED TO PROTECT MY ARK. YOU WILL BE TRAPPED HERE WITH ME TO SUFFER FOREVER...</i>"))
 			continue
 		var/safe_place = find_safe_turf()
 		M.SetSleeping(50)
-		to_chat(M, "<span class='reallybig hypnophrase'>Your mind is distorted by the distant sound of a thousand screams before suddenly everything falls silent.</span>")
-		to_chat(M, "<span class='hypnophrase'>The only thing you remember is suddenly feeling warm and safe.</span>")
+		to_chat(M, span_reallybighypnophrase("Your mind is distorted by the distant sound of a thousand screams before suddenly everything falls silent."))
+		to_chat(M, span_hypnophrase("The only thing you remember is suddenly feeling warm and safe."))
 		M.forceMove(safe_place)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
@@ -74,11 +83,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	if(disassembled)
 		return
 	resistance_flags |= INDESTRUCTIBLE
-	visible_message("<span class='userdanger'>[src] begins to pulse uncontrollably... you might want to run!</span>")
+	visible_message(span_userdanger("[src] begins to pulse uncontrollably... you might want to run!"))
 	sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
 	for(var/mob/M in GLOB.player_list)
 		var/turf/T = get_turf(M)
-		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || is_servant_of_ratvar(M))
+		if((T && T.get_virtual_z_level() == get_virtual_z_level()) || IS_SERVANT_OF_RATVAR(M))
 			M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(last_call)), 27)
 
@@ -88,11 +97,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
 		qdel(CC)
 	SSshuttle.clearHostileEnvironment(src)
-	set_security_level(SEC_LEVEL_RED)
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 	addtimer(CALLBACK(src, PROC_REF(clockies_win)), 300)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/clockies_win()
-	SSticker.force_ending = TRUE
+	SSticker.force_ending = FORCE_END_ROUND
 	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
@@ -113,7 +122,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	icon_state = "clockwork_gateway_charging"
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
 		SEND_SOUND(M.current, s)
-		to_chat(M, "<span class='big_brass'>The Ark has been activated, you will be transported soon!</span>")
+		to_chat(M, "[span_bigbrass("The Ark has been activated, you will be transported soon!")]")
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hierophant_message), "Invoke 'Clockwork Armaments' using your Clockwork Slab to get powerful armour and weapons.", "Nezbere", "nezbere", FALSE, FALSE), 10)
 	addtimer(CALLBACK(src, PROC_REF(announce_gateway)), 300)
 	addtimer(CALLBACK(src, PROC_REF(recall_sound)), 270)
@@ -132,9 +141,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		SEND_SOUND(servant, 'sound/machines/clockcult/ark_recall.ogg')
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
-	set_dynamic_high_impact_event("clockwork ark has opened")
 	activated = TRUE
-	set_security_level(SEC_LEVEL_DELTA)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
 	addtimer(CALLBACK(src, PROC_REF(begin_assault)), grace_time)
@@ -156,7 +164,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		if(!LAZYLEN(spawns))	//Just in case :^)
 			spawns = GLOB.servant_spawns.Copy()
 		if(ishuman(servant) && add_overlay)
-			var/datum/antagonist/servant_of_ratvar/servant_antag = is_servant_of_ratvar(servant)
+			var/datum/antagonist/servant_of_ratvar/servant_antag = IS_SERVANT_OF_RATVAR(servant)
 			if(servant_antag)
 				servant_antag.forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
 				servant.add_overlay(servant_antag.forbearance)
@@ -181,10 +189,10 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	addtimer(CALLBACK(src, PROC_REF(begin_ratvar_arrival)), 2400)
 	START_PROCESSING(SSobj, src)
 	phase_messages = list(
-		"<span class='warning'>You hear other-worldly sounds from the north.</span>",
-		"<span class='warning'>You feel the fabric of reality twist and bend.</span>",
-		"<span class='warning'>Your mind buzzes with fear.</span>",
-		"<span class='warning'>You hear otherworldly screams from all around you.</span>"
+		span_warning("You hear other-worldly sounds from the north."),
+		span_warning("You feel the fabric of reality twist and bend."),
+		span_warning("Your mind buzzes with fear."),
+		span_warning("You hear otherworldly screams from all around you.")
 	)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/begin_ratvar_arrival()
@@ -192,10 +200,10 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	icon_state = "clockwork_gateway_closing"
 	addtimer(CALLBACK(src, PROC_REF(ratvar_approaches)), 1200)
 	phase_messages = list(
-		"<span class='warning'>You hear otherworldly sounds from the north.</span>",
-		"<span class='brass'>The Celestial Gateway is feeding into the bluespace rift!</span>",
-		"<span class='warning'>You feel reality shudder for a moment...</span>",
-		"<span class='brass'>You feel time and space distorting around you...</span>"
+		span_warning("You hear otherworldly sounds from the north."),
+		span_brass("The Celestial Gateway is feeding into the bluespace rift!"),
+		span_warning("You feel reality shudder for a moment..."),
+		span_brass("You feel time and space distorting around you...")
 	)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/ratvar_approaches()
@@ -205,7 +213,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	hierophant_message("Ratvar approaches, you shall be eternally rewarded for your servitude!", null, "<span class='large_brass'>")
 	resistance_flags |= INDESTRUCTIBLE
 	for(var/mob/living/M in GLOB.all_servants_of_ratvar)
-		M.status_flags |= GODMODE
+		ADD_TRAIT(M, TRAIT_GODMODE, TRAIT_GENERIC)
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE
 	var/original_matrix = matrix()
@@ -240,6 +248,8 @@ GLOBAL_VAR(cult_ratvar)
 	var/ratvar_target
 	var/next_attack_tick
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
+
 /obj/eldritch/ratvar/Initialize(mapload, starting_energy = 50)
 	singularity = WEAKREF(AddComponent(
 		/datum/component/singularity, \
@@ -255,8 +265,8 @@ GLOBAL_VAR(cult_ratvar)
 	GLOB.cult_ratvar = src
 	. = ..()
 	desc = "[text2ratvar("That's Ratvar, the Clockwork Justicar. The great one has risen.")]"
-	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
-	to_chat(world, "<span class='ratvar'>The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!</span>")
+	sound_to_playing_players('sound/effects/ratvar_reveal.ogg')
+	send_to_playing_players(span_ratvar("The bluespace veil gives way to Ratvar, his light shall shine upon all mortals!"))
 	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(trigger_clockcult_victory), src)
 	check_gods_battle()
@@ -269,7 +279,7 @@ GLOBAL_VAR(cult_ratvar)
 		if(get_dist(src, ratvar_target) < 5)
 			if(next_attack_tick < world.time)
 				next_attack_tick = world.time + rand(50, 100)
-				to_chat(world, "<span class='danger'>[pick("Reality shudders around you.","You hear the tearing of flesh.","The sound of bones cracking fills the air.")]</span>")
+				to_chat(world, span_danger("[pick("Reality shudders around you.","You hear the tearing of flesh.","The sound of bones cracking fills the air.")]"))
 				SEND_SOUND(world, 'sound/magic/clockwork/ratvar_attack.ogg')
 				SpinAnimation(4, 0)
 				for(var/mob/living/M in GLOB.player_list)
@@ -277,11 +287,11 @@ GLOBAL_VAR(cult_ratvar)
 					M.Knockdown(5 * delta_time)
 				if(prob(max(GLOB.servants_of_ratvar.len/2, 15)))
 					SEND_SOUND(world, 'sound/magic/demon_dies.ogg')
-					to_chat(world, "<span class='ratvar'>You were a fool for underestimating me...</span>")
+					to_chat(world, span_ratvar("You were a fool for underestimating me..."))
 					qdel(ratvar_target)
-					for(var/datum/mind/M as() in SSticker.mode?.cult)
-						to_chat(M, "<span class='userdanger'>You feel a stabbing pain in your chest... This can't be happening!</span>")
-						M.current?.dust()
+					for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+						to_chat(cultist.owner, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
+						cultist.owner.current?.dust()
 				return
 
 /obj/eldritch/ratvar/consume(atom/A)

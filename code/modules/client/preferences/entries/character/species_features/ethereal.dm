@@ -8,12 +8,12 @@
 /datum/preference/choiced/ethereal_color/init_possible_values()
 	var/list/values = list()
 
-	var/datum/universal_icon/ethereal_base = uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_head_m")
-	ethereal_base.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_chest_m"), ICON_OVERLAY)
-	ethereal_base.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_l_arm"), ICON_OVERLAY)
-	ethereal_base.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_r_arm"), ICON_OVERLAY)
+	var/datum/universal_icon/ethereal_base = uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_head")
+	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_chest"), ICON_OVERLAY)
+	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_l_arm"), ICON_OVERLAY)
+	ethereal_base.blend_icon(uni_icon('icons/mob/species/ethereal/bodyparts.dmi', "ethereal_r_arm"), ICON_OVERLAY)
 
-	var/datum/universal_icon/eyes = uni_icon('icons/mob/human_face.dmi', "eyes")
+	var/datum/universal_icon/eyes = uni_icon('icons/mob/species/human/human_face.dmi', "eyes")
 	eyes.blend_color(COLOR_BLACK, ICON_MULTIPLY)
 	ethereal_base.blend_icon(eyes, ICON_OVERLAY)
 
@@ -31,7 +31,7 @@
 
 /datum/preference/choiced/ethereal_color/deserialize(input, datum/preferences/preferences)
 	if(findtext(input, GLOB.is_color_nocrunch)) // Migrate old data
-		var/valid = assoc_key_for_value(GLOB.color_list_ethereal, lowertext(input))
+		var/valid = assoc_key_for_value(GLOB.color_list_ethereal, LOWER_TEXT(input))
 		if(!isnull(valid))
 			return valid
 	return ..()

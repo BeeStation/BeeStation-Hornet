@@ -32,9 +32,13 @@
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/leather/wetleather)
+
 /obj/item/stack/sheet/leather/wetleather/Initialize(mapload, new_amount, merge)
 	. = ..()
 	AddElement(/datum/element/dryable, /obj/item/stack/sheet/leather)
+	AddElement(/datum/element/atmos_sensitive)
+	AddComponent(/datum/component/bakeable, /obj/item/stack/sheet/leather, rand(15 SECONDS, 20 SECONDS), TRUE, TRUE)
 
 //Step two to make leather - washing
 
@@ -44,14 +48,15 @@
 
 //Step three to make leather - drying, either naturally or... in a more induced way.
 
-/obj/item/stack/sheet/leather/wetleather/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	..()
-	if(exposed_temperature >= drying_threshold_temperature)
-		wetness--
-		if(wetness == 0)
-			new /obj/item/stack/sheet/leather(drop_location(), 1)
-			wetness = initial(wetness)
-			use(1)
+/obj/item/stack/sheet/leather/wetleather/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
+	return (exposed_temperature > drying_threshold_temperature)
+
+/obj/item/stack/sheet/leather/wetleather/atmos_expose(datum/gas_mixture/air, exposed_temperature)
+	wetness--
+	if(wetness == 0)
+		new /obj/item/stack/sheet/leather(drop_location(), 1)
+		wetness = initial(wetness)
+		use(1)
 
 /obj/item/stack/sheet/leather/wetleather/microwave_act(obj/machinery/microwave/MW)
 	..()

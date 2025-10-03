@@ -1,20 +1,27 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
 	description = "Retrieve the gravely injured and dead people from around the station, deliver medicine for minor wounds, and keep a close eye on the Crew Monitor in your free time."
-	department_for_prefs = DEPT_BITFLAG_MED
+	department_for_prefs = DEPT_NAME_MEDICAL
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 1
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
 
-	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
-						ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
-	extra_access = list(ACCESS_SURGERY, ACCESS_MINERAL_STOREROOM)
+	base_access = list(
+		ACCESS_MEDICAL,
+		ACCESS_MORGUE,
+		ACCESS_CLONING,
+		ACCESS_MECH_MEDICAL,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_EVA,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_AUX_BASE
+	)
+	extra_access = list(ACCESS_SURGERY, ACCESS_MINERAL_STOREROOM, ACCESS_VIROLOGY)
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
@@ -41,8 +48,9 @@
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic
-	belt = /obj/item/modular_computer/tablet/pda/paramedic
+	belt = /obj/item/modular_computer/tablet/pda/preset/paramedic
 	ears = /obj/item/radio/headset/headset_med
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -50,10 +58,11 @@
 	suit =  /obj/item/clothing/suit/toggle/labcoat/paramedic
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/sensor_device
-	suit_store = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical/paramedic
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
 
+	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = /obj/item/gun/syringe

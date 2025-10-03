@@ -24,7 +24,7 @@
 	var/bolts = TRUE
 
 // dir check for buckle_lying state
-/obj/structure/bed/Initialize()
+/obj/structure/bed/Initialize(mapload)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	dir_changed(new_dir = dir)
 	. = ..()
@@ -36,7 +36,7 @@
 /obj/structure/bed/examine(mob/user)
 	. = ..()
 	if(bolts)
-		. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+		. += span_notice("It's held together by a couple of <b>bolts</b>.")
 
 /obj/structure/bed/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -47,12 +47,13 @@
 /obj/structure/bed/attack_paw(mob/user)
 	return attack_hand(user)
 
-/obj/structure/bed/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
-		W.play_tool_sound(src)
-		deconstruct(TRUE)
-	else
-		return ..()
+/obj/structure/bed/wrench_act_secondary(mob/living/user, obj/item/weapon)
+	if(flags_1&NODECONSTRUCT_1)
+		return TRUE
+	..()
+	weapon.play_tool_sound(src)
+	deconstruct(disassembled = TRUE)
+	return TRUE
 
 /obj/structure/bed/proc/dir_changed(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
@@ -81,7 +82,7 @@
 			return 0
 		if(has_buckled_mobs())
 			return 0
-		usr.visible_message("[usr] collapses \the [src.name].", "<span class='notice'>You collapse \the [src.name].</span>")
+		usr.visible_message("[usr] collapses \the [src.name].", span_notice("You collapse \the [src.name]."))
 		var/obj/structure/bed/roller/B = new foldabletype(get_turf(src))
 		usr.put_in_hands(B)
 		qdel(src)
@@ -140,9 +141,9 @@
 	name = "Vector's bed"
 	anchored = TRUE
 
-/obj/structure/bed/dogbed/walter
-	desc = "Walter's bed! It reeks of testosterone and motor oil."
-	name = "Walter's bed"
+/obj/structure/bed/dogbed/tyson
+	desc = "Tyson's bed! It reeks of testosterone and motor oil."
+	name = "Tyson's bed"
 	anchored = TRUE
 
 ///Used to set the owner of a dogbed, returns FALSE if called on an owned bed or an invalid one, TRUE if the possesion succeeds
@@ -166,7 +167,7 @@
 /obj/structure/bed/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>Fairly sure we absolutely stole that technology.</span>"
+		. += span_abductor("Fairly sure we absolutely stole that technology.")
 
 //unfortunateley no sickness mechanics on them... yet
 /obj/structure/bed/maint
@@ -189,18 +190,18 @@
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = M.base_pixel_y + 6
 		goldilocks = M
-		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, PROC_REF(goldilocks_deleted))
+		RegisterSignal(goldilocks, COMSIG_QDELETING, PROC_REF(goldilocks_deleted))
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = base_pixel_y + M.body_position_pixel_y_offset
 	if(M == goldilocks)
-		UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(goldilocks, COMSIG_QDELETING)
 		goldilocks = null
 
 //Called when the signal is raised, removes the reference
 //preventing the hard delete.
 /obj/structure/bed/double/proc/goldilocks_deleted(datum/source, force)
-	UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(goldilocks, COMSIG_QDELETING)
 	goldilocks = null
 
 /obj/structure/bed/double/maint
@@ -216,4 +217,4 @@
 /obj/structure/bed/double/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>Fairly sure we absolutely stole that technology... Why did we steal this again?</span>"
+		. += span_abductor("Fairly sure we absolutely stole that technology... Why did we steal this again?")

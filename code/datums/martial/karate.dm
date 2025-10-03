@@ -7,23 +7,29 @@
 	name = "Karate"
 	id = MARTIALART_KARATE
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/karate_help
+	display_combos = TRUE
+
+	Move1 = "Calf Kick: Harm Grab Disarm. Paralyses one of your opponent's legs."
+	Move2 = "Jumping Knee: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly."
+	Move3 = "<b>Karate Chop: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision."
+	Move4 = "<b>Floor Stomp: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up."
+
 
 /datum/martial_art/karate/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,JUMPING_KNEE_COMBO))
-		streak = ""
+		reset_streak()
 		jumpingKnee(A,D)
 		return 1
 	if(findtext(streak,KARATE_CHOP_COMBO))
-		streak = ""
+		reset_streak()
 		karateChop(A,D)
 		return 1
 	if(findtext(streak,FLOOR_KICK_COMBO))
-		streak = ""
+		reset_streak()
 		floorKick(A,D)
 		return 1
 	if(findtext(streak,CALF_KICK_COMBO))
-		streak = ""
+		reset_streak()
 		calfKick(A,D)
 		return 1
 	return 0
@@ -35,14 +41,14 @@
 		return FALSE
 	if(D.body_position == LYING_DOWN)
 		log_combat(A, D, "floor stomped (Karate)", name)
-		D.visible_message("<span class='warning'>[A] stomped [D] in the head!</span>", \
-							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)
+		D.visible_message(span_warning("[A] stomped [D] in the head!"), \
+							span_userdanger("[A] stomped you in the head!"), null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(20, A.dna.species.attack_type, BODY_ZONE_HEAD, def_check)
 		D.apply_damage(10, STAMINA, BODY_ZONE_HEAD, def_check)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 //Calf Kick - paralyse one leg with stamina damage
 /datum/martial_art/karate/proc/calfKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -51,13 +57,13 @@
 		return FALSE
 	if(!D.stat)
 		log_combat(A, D, "calf kicked (Karate)", name)
-		D.visible_message("<span class='warning'>[A] roundhouse kicked [D] in the calf!</span>", \
-							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
+		D.visible_message(span_warning("[A] roundhouse kicked [D] in the calf!"), \
+							span_userdanger("[A] roundhouse kicked you in the calf!"), null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(50, STAMINA, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), def_check)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 //Jumping Knee - brief knockdown and decent stamina damage
 /datum/martial_art/karate/proc/jumpingKnee(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -66,15 +72,15 @@
 		return FALSE
 	if(!D.stat)
 		log_combat(A, D, "jumped kneed (Karate)", name)
-		D.visible_message("<span class='warning'>[A] jumping kneed [D] in the stomach!</span>", \
-							"<span class='userdanger'>[A] jumping kneed you in the stomach!</span>", null, COMBAT_MESSAGE_RANGE)
+		D.visible_message(span_warning("[A] jumping kneed [D] in the stomach!"), \
+							span_userdanger("[A] jumping kneed you in the stomach!"), null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		D.emote("gasp")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.apply_damage(30, STAMINA, BODY_ZONE_CHEST, def_check)
 		D.Knockdown(10)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 // Karate Chop - short confusion and blurred eyes
 /datum/martial_art/karate/proc/karateChop(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -82,15 +88,15 @@
 		return FALSE
 	if(!D.stat)
 		log_combat(A, D, "karate chopped (Karate)", name)
-		D.visible_message("<span class='warning'>[A] karate chopped [D] in the neck!</span>", \
-							"<span class='userdanger'>[A] karate chopped you in the neck!</span>", null, COMBAT_MESSAGE_RANGE)
+		D.visible_message(span_warning("[A] karate chopped [D] in the neck!"), \
+							span_userdanger("[A] karate chopped you in the neck!"), null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.blur_eyes(10)
 		D.confused += 2
 		D.Jitter(20)
 		return 1
-	return basic_hit(A,D)
+	return FALSE
 
 /datum/martial_art/karate/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("H",D)
@@ -110,14 +116,7 @@
 		return 1
 	return ..()
 
-/mob/living/carbon/human/proc/karate_help()
-	set name = "Recall Teachings"
-	set desc = "Remember the martial techniques of Karate."
-	set category = "Karate"
-
-	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate...</i></b>")
-
-	to_chat(usr, "<span class='notice'>Calf Kick</span>: Harm Grab Disarm. Paralyses one of your opponent's legs.")
-	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
-	to_chat(usr, "<span class='notice'>Karate Chop</span>: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
-	to_chat(usr, "<span class='notice'>Floor Stomp</span>: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
+#undef CALF_KICK_COMBO
+#undef FLOOR_KICK_COMBO
+#undef JUMPING_KNEE_COMBO
+#undef KARATE_CHOP_COMBO

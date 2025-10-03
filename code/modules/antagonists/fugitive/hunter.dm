@@ -6,7 +6,7 @@
 	antagpanel_category = "Fugitive Hunters"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
-	count_against_dynamic_roll_chance = FALSE
+	required_living_playtime = 4
 	var/datum/team/fugitive_hunters/hunter_team
 	var/datum/fugitive_type/hunter/backstory
 
@@ -26,7 +26,7 @@
 
 /datum/antagonist/fugitive_hunter/greet()
 	to_chat(owner, backstory.greet_message)
-	to_chat(owner, "<span class='boldannounce'>You should not be killing anyone you please, but you can do anything to ensure the capture of the fugitives, even if that means going through the station.</span>")
+	to_chat(owner, span_boldannounce("You should not be killing anyone you please, but you can do anything to ensure the capture of the fugitives, even if that means going through the station."))
 	owner.announce_objectives()
 
 /datum/antagonist/fugitive_hunter/create_team(datum/team/fugitive_hunters/new_team)
@@ -147,64 +147,64 @@
 
 	var/list/result = list()
 	result += "<div class='panel redborder'>...And <b>[members.len]</b> [backstory.multiple_name] tried to hunt them down!<br />"
-	result += "<span class='header'>[backstory.multiple_name] ([name]):</span>"
+	result += span_header("[backstory.multiple_name] ([name]):")
 	result += "The [member_name]s were:"
 	result += printplayerlist(members)
 
 	if(objectives.len)
-		result += "<span class='header'>Team had following objectives:</span>"
+		result += span_header("Team had following objectives:")
 		var/objective_count = 1
 		for(var/datum/objective/objective in objectives)
 			if(objective.check_completion())
-				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_greentext("Success!")]"
 			else
-				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+				result += "<B>Objective #[objective_count]</B>: [objective.explanation_text] [span_redtext("Fail.")]"
 			objective_count++
 
 	result += "<br />"
 
 	switch(get_result())
 		if(FUGITIVE_RESULT_BADASS_HUNTER)//use defines
-			result += "<span class='greentext big'>Badass [backstory.name] Victory!</span>"
+			result += span_greentextbig("Badass [backstory.name] Victory!")
 			result += "<b>The [backstory.multiple_name] managed to capture every fugitive, alive!</b>"
 		if(FUGITIVE_RESULT_POSTMORTEM_HUNTER)
-			result += "<span class='greentext big'>Postmortem [backstory.name] Victory!</span>"
+			result += span_greentextbig("Postmortem [backstory.name] Victory!")
 			result += "<b>The [backstory.multiple_name] managed to capture every fugitive, but all of them died! Spooky!</b>"
 		if(FUGITIVE_RESULT_MAJOR_HUNTER)
-			result += "<span class='greentext big'>Major [backstory.name] Victory</span>"
+			result += span_greentextbig("Major [backstory.name] Victory")
 			result += "<b>The [backstory.multiple_name] managed to capture every fugitive, dead or alive.</b>"
 		if(FUGITIVE_RESULT_HUNTER_VICTORY)
-			result += "<span class='greentext big'>[backstory.name] Victory</span>"
+			result += span_greentextbig("[backstory.name] Victory")
 			result += "<b>The [backstory.multiple_name] managed to capture a fugitive, dead or alive.</b>"
 		if(FUGITIVE_RESULT_MINOR_HUNTER)
-			result += "<span class='greentext big'>Minor [backstory.name] Victory</span>"
+			result += span_greentextbig("Minor [backstory.name] Victory")
 			result += "<b>All the [backstory.multiple_name] died, but managed to capture a fugitive, dead or alive.</b>"
 		if(FUGITIVE_RESULT_STALEMATE)
-			result += "<span class='neutraltext big'>Bloody Stalemate</span>"
+			result += span_neutraltextbig("Bloody Stalemate")
 			result += "<b>Everyone died, and no fugitives were recovered!</b>"
 		if(FUGITIVE_RESULT_MINOR_FUGITIVE)
-			result += "<span class='redtext big'>Minor Fugitive Victory</span>"
+			result += span_redtextbig("Minor Fugitive Victory")
 			result += "<b>All the fugitives died, but none were recovered!</b>"
 		if(FUGITIVE_RESULT_FUGITIVE_VICTORY)
-			result += "<span class='redtext big'>Fugitive Victory</span>"
+			result += span_redtextbig("Fugitive Victory")
 			result += "<b>A fugitive survived, and no bodies were recovered by the [backstory.multiple_name].</b>"
 		if(FUGITIVE_RESULT_MAJOR_FUGITIVE)
-			result += "<span class='redtext big'>Major Fugitive Victory</span>"
+			result += span_redtextbig("Major Fugitive Victory")
 			result += "<b>All of the fugitives survived and avoided capture!</b>"
 		else //get_result returned null- either bugged or no fugitives showed
-			result += "<span class='neutraltext big'>Prank Call!</span>"
+			result += span_neutraltextbig("Prank Call!")
 			result += "<b>[backstory.multiple_name] were called, yet there were no fugitives...?</b>"
 
 	result += "</div>"
 
 	return result.Join("<br>")
 
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_added(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.join_hud(fugitive)
 	set_antag_hud(fugitive, "fugitive_hunter")
 
-/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(var/mob/living/carbon/human/fugitive)
+/datum/antagonist/fugitive_hunter/proc/update_fugitive_icons_removed(mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]
 	fughud.leave_hud(fugitive)
 	set_antag_hud(fugitive, null)

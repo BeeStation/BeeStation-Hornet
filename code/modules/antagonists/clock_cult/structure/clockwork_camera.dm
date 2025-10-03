@@ -9,16 +9,16 @@
 	button_icon_state = "warp_down"
 	var/warping = FALSE
 
-/datum/action/innate/clockcult/warp/IsAvailable()
-	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
+/datum/action/innate/clockcult/warp/is_available()
+	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
-/datum/action/innate/clockcult/warp/Activate()
+/datum/action/innate/clockcult/warp/on_activate()
 	if(!isliving(owner))
 		return
 	if(GLOB.gateway_opening)
-		to_chat(owner, "<span class='sevtug_small'>You cannot warp while the gateway is opening!</span>")
+		to_chat(owner, "[span_sevtugsmall("You cannot warp while the gateway is opening!")]")
 		return
 	if(warping)
 		button_icon_state = "warp_down"
@@ -30,10 +30,10 @@
 	var/target_loc = get_turf(cam)
 	var/area/AR = get_area(target_loc)
 	if(isclosedturf(target_loc))
-		to_chat(owner, "<span class='sevtug_small'>You cannot warp into dense objects.</span>")
+		to_chat(owner, "[span_sevtugsmall("You cannot warp into dense objects.")]")
 		return
 	if(!AR.clockwork_warp_allowed)
-		to_chat(owner, "<span class='sevtug_small'>[AR.clockwork_warp_fail]</span>")
+		to_chat(owner, "[span_sevtugsmall("[AR.clockwork_warp_fail]")]")
 		return
 	do_sparks(5, TRUE, get_turf(cam))
 	warping = TRUE
@@ -72,7 +72,7 @@
 /obj/machinery/computer/camera_advanced/ratvar/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	warp_action = new
+	warp_action = new(src)
 
 /obj/machinery/computer/camera_advanced/ratvar/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -86,13 +86,12 @@
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
 	. = ..()
-	if(!is_servant_of_ratvar(user) || iscogscarab(user))
+	if(!IS_SERVANT_OF_RATVAR(user) || iscogscarab(user))
 		return FALSE
 
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)
 	. = ..()
 	if(warp_action)
-		warp_action.target = src
 		warp_action.Grant(user)
 		actions += warp_action
 

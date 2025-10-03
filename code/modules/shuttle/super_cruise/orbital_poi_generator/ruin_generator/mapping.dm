@@ -4,6 +4,7 @@
 	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/doorway_marker
@@ -12,6 +13,7 @@
 	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	return INITIALIZE_HINT_QDEL
 
 //Basic loot, utility and maybe some weapons
@@ -52,14 +54,14 @@
 		/obj/item/reagent_containers/medspray/sterilizine = 1,
 		/obj/item/reagent_containers/medspray/silver_sulf = 1,
 		/obj/item/reagent_containers/medspray/styptic = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/synthflesh = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/synthflesh = 1,
 		/obj/item/clothing/glasses/hud/health/sunglasses = 1,
 		/obj/item/surgical_drapes = 1,
 		/obj/item/stack/medical/bruise_pack = 1,
 		/obj/item/stack/medical/ointment = 1,
 		/obj/item/stack/medical/gauze = 1,
-		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
-		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
+		/obj/item/reagent_containers/cup/bottle/epinephrine = 1,
+		/obj/item/reagent_containers/cup/bottle/charcoal = 1,
 		/obj/item/storage/pill_bottle/floorpill/full = 1,
 		/obj/item/storage/pill_bottle/antirad = 1,
 		/obj/item/clothing/neck/stethoscope = 1,
@@ -77,11 +79,11 @@
 		/obj/item/storage/toolbox/mechanical = 2,
 		/obj/item/paicard = 5,
 		/obj/item/nanite_remote = 3,
-		/obj/item/nanite_injector = 1,
 		/obj/item/nanite_scanner = 3,
 		/obj/item/disk/tech_disk = 5,
 		/obj/item/assembly/prox_sensor = 6,
-		/obj/item/bodypart/r_arm/robot = 4,
+		/obj/item/bodypart/arm/right/robot = 4,
+		/obj/item/gun/energy/wormhole_projector = 1,
 		/obj/item/assembly/flash/handheld/weak = 2,
 		/obj/item/stock_parts/cell/high = 1,
 		/obj/item/stock_parts/manipulator/nano = 1,
@@ -104,11 +106,10 @@
 		/obj/item/flamethrower = 2,
 		/obj/item/tank/internals/plasma/full = 2,
 		/obj/item/gps/science = 3,
-		/obj/item/hand_tele = 1,
 		/obj/item/inducer/sci = 3,
 		/obj/item/megaphone = 1,
-		/obj/item/modular_computer/tablet/pda/roboticist = 3,
-		/obj/item/modular_computer/tablet/pda/science = 3,
+		/obj/item/modular_computer/tablet/pda/preset/roboticist = 3,
+		/obj/item/modular_computer/tablet/pda/preset/science = 3,
 		/obj/item/pinpointer/crew = 4,
 		/obj/item/reactive_armour_shell = 1,
 		/obj/item/anomaly_neutralizer = 1,
@@ -139,8 +140,8 @@
 		/obj/item/clothing/suit/armor/vest = 2,
 		/obj/item/clothing/suit/armor/bulletproof = 1,
 		/obj/item/storage/secure/briefcase = 1,
-		/obj/item/reagent_containers/glass/rag = 1,
-		/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
+		/obj/item/reagent_containers/cup/rag = 1,
+		/obj/item/reagent_containers/cup/bottle/chloralhydrate = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,
 		/obj/item/reagent_containers/peppercloud_deployer = 1,
@@ -186,7 +187,7 @@
 	loot = list(
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
-		/obj/item/xenoartifact = 6,
+		/obj/item/xenoartifact/pre_labeled = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)

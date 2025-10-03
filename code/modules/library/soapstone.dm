@@ -27,18 +27,18 @@
 	var/obj/structure/chisel_message/existing_message = locate() in T
 
 	if(!remaining_uses && !existing_message)
-		to_chat(user, "<span class='warning'>[src] is too worn out to use.</span>")
+		to_chat(user, span_warning("[src] is too worn out to use."))
 		return
 
 	if(!good_chisel_message_location(T))
-		to_chat(user, "<span class='warning'>It's not appropriate to engrave on [T].</span>")
+		to_chat(user, span_warning("It's not appropriate to engrave on [T]."))
 		return
 
 	if(existing_message)
-		user.visible_message("<span class='notice'>[user] starts erasing [existing_message].</span>", "<span class='notice'>You start erasing [existing_message].</span>", "<span class='italics'>You hear a chipping sound.</span>")
+		user.visible_message(span_notice("[user] starts erasing [existing_message]."), span_notice("You start erasing [existing_message]."), span_italics("You hear a chipping sound."))
 		playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
 		if(do_after(user, tool_speed, target = existing_message))
-			user.visible_message("<span class='notice'>[user] erases [existing_message].</span>", "<span class='notice'>You erase [existing_message][existing_message.creator_key == user.ckey ? ", refunding a use" : ""].</span>")
+			user.visible_message(span_notice("[user] erases [existing_message]."), span_notice("You erase [existing_message][existing_message.creator_key == user.ckey ? ", refunding a use" : ""]."))
 			existing_message.persists = FALSE
 			qdel(existing_message)
 			playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
@@ -48,20 +48,20 @@
 
 	var/message = stripped_input(user, "What would you like to engrave?", "Leave a message")
 	if(!message)
-		to_chat(user, "<span class='notice'>You decide not to engrave anything.</span>")
+		to_chat(user, span_notice("You decide not to engrave anything."))
 		return
 
 	if(!target.Adjacent(user) && locate(/obj/structure/chisel_message) in T)
-		to_chat(user, "<span class='warning'>Someone wrote here before you chose! Find another spot.</span>")
+		to_chat(user, span_warning("Someone wrote here before you chose! Find another spot."))
 		return
 	if(CHAT_FILTER_CHECK(message))
-		to_chat(user, "<span class='warning'>That message contains prohibited word(s)! Try again.</span>")
+		to_chat(user, span_warning("That message contains prohibited word(s)! Try again."))
 		return
 	playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
-	user.visible_message("<span class='notice'>[user] starts engraving a message into [T]...</span>", "<span class='notice'>You start engraving a message into [T]...</span>", "<span class='italics'>You hear a chipping sound.</span>")
+	user.visible_message(span_notice("[user] starts engraving a message into [T]..."), span_notice("You start engraving a message into [T]..."), span_italics("You hear a chipping sound."))
 	if(can_use() && do_after(user, tool_speed, target = T) && can_use()) //This looks messy but it's actually really clever!
 		if(!locate(/obj/structure/chisel_message) in T)
-			user.visible_message("<span class='notice'>[user] leaves a message for future spacemen!</span>", "<span class='notice'>You engrave a message into [T]!</span>", "<span class='italics'>You hear a chipping sound.</span>")
+			user.visible_message(span_notice("[user] leaves a message for future spacemen!"), span_notice("You engrave a message into [T]!"), span_italics("You hear a chipping sound."))
 			playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
 			var/obj/structure/chisel_message/M = new(T)
 			M.register(user, message)
@@ -90,10 +90,10 @@
 		name = "dull [initial(name)]"
 
 /* Persistent engraved messages, etched onto the station turfs to serve
-   as instructions and/or memes for the next generation of spessmen.
+	as instructions and/or memes for the next generation of spessmen.
 
-   Limited in location to station_z only. Can be smashed out or exploded,
-   but only permamently removed with the curator's soapstone.
+	Limited in location to station_z only. Can be smashed out or exploded,
+	but only permamently removed with the curator's soapstone.
 */
 
 /obj/item/soapstone/infinite
@@ -147,7 +147,7 @@
 	creator_name = user.real_name
 	creator_key = user.ckey
 	realdate = world.realtime
-	map = SSmapping.config.map_name
+	map = SSmapping.current_map.map_name
 	update_icon()
 
 /obj/structure/chisel_message/update_icon()
@@ -162,7 +162,7 @@
 	data["creator_name"] = creator_name
 	data["creator_key"] = creator_key
 	data["realdate"] = realdate
-	data["map"] = SSmapping.config.map_name
+	data["map"] = SSmapping.current_map.map_name
 	data["x"] = original_turf.x
 	data["y"] = original_turf.y
 	data["z"] = original_turf.z
@@ -199,7 +199,7 @@
 
 /obj/structure/chisel_message/Destroy()
 	if(persists)
-		SSpersistence.SaveChiselMessage(src)
+		SSpersistence.save_chisel_message(src)
 	SSpersistence.chisel_messages -= src
 	. = ..()
 

@@ -10,10 +10,10 @@
 
 /obj/item/clockwork/component/pickup(mob/living/user)
 	..()
-	if(iscultist(user) || (user.mind?.holy_role))
+	if(IS_CULTIST(user) || (user.mind?.holy_role))
 		to_chat(user, "<span class='[message_span]'>[cultist_message]</span>")
 		if(user.mind?.holy_role)
-			to_chat(user, "<span class='boldannounce'>The power of your faith melts away [src]!</span>")
+			to_chat(user, span_boldannounce("The power of your faith melts away [src]!"))
 			var/obj/item/stack/ore/slag/wrath = new /obj/item/stack/ore/slag
 			qdel(src)
 			user.put_in_active_hand(wrath)

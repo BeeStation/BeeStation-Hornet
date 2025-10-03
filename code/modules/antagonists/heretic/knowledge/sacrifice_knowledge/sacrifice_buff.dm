@@ -37,18 +37,18 @@
 	// In softcrit you're, strong enough to stay up.
 	if(owner.health <= owner.crit_threshold && owner.health >= HEALTH_THRESHOLD_FULLCRIT)
 		if(prob(5))
-			to_chat(owner, "<span class='hypnophrase'>Your body feels like giving up, but you fight on!</span>")
+			to_chat(owner, span_hypnophrase("Your body feels like giving up, but you fight on!"))
 		healing_amount *= 2
 	// ...But reach hardcrit and you're done. You now die faster.
 	if (owner.health < HEALTH_THRESHOLD_FULLCRIT)
 		if(prob(5))
-			to_chat(owner, "<span class='big'><span class='hypnophrase'>You can't hold on for much longer...</span></span>")
+			to_chat(owner, span_big("[span_hypnophrase("You can't hold on for much longer...")]"))
 		healing_amount *= -0.5
 
 	if(owner.health > owner.crit_threshold && prob(4))
 		owner.Jitter(10)
 		owner.Dizzy(5)
-		owner.hallucination = min(owner.hallucination + 3, 24)
+		owner.adjust_hallucinations_up_to(6 SECONDS, 48 SECONDS)
 
 	if(prob(2))
 		playsound(owner, pick(GLOB.creepy_ambience), 50, TRUE)

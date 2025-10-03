@@ -25,13 +25,13 @@
 	update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/clothing/glasses/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
 	if(glass_colour_type && ishuman(user))
-		. += "<span class='notice'>Alt-click to toggle its colors.</span>"
+		. += span_notice("Alt-click to toggle [p_their()] colors.")
 
 /obj/item/clothing/glasses/update_overlays()
 	. = ..()
@@ -64,14 +64,14 @@
 /obj/item/clothing/glasses/proc/thermal_overload()
 	if(ishuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
-		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/eyes/eyes = H.get_organ_slot(ORGAN_SLOT_EYES)
 		if(!H.is_blind())
 			if(H.glasses == src)
-				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
+				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_act(visual = 1)
 				H.adjust_blindness(3)
 				H.blur_eyes(5)
-				eyes.applyOrganDamage(5)
+				eyes.apply_organ_damage(5)
 
 /obj/item/clothing/glasses/meson
 	name = "optical meson scanner"
@@ -79,27 +79,14 @@
 	icon_state = "meson"
 	item_state = "meson"
 	emissive_state = "meson_emissive"
+	clothing_traits = list(TRAIT_MADNESS_IMMUNE)
 	darkness_view = 2
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
 
-/obj/item/clothing/glasses/meson/equipped(mob/user, slot)
-	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
-
-/obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
-	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.glasses != src)
-			return
-		else
-			REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
-
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/clothing/glasses/meson/night
@@ -120,9 +107,10 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 
 /obj/item/clothing/glasses/meson/prescription
@@ -139,11 +127,16 @@
 	icon_state = "purple"
 	item_state = "glasses"
 	emissive_state = "meson_emissive"
-	clothing_flags = SCAN_REAGENTS
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/glasses_science
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
+
+
+/datum/armor/glasses_science
+	fire = 80
+	acid = 100
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -155,8 +148,13 @@
 	icon_state = "prescscihud"
 	emissive_state = "prehud_emissive"
 	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 0, BLEED = 0)
+	armor_type = /datum/armor/science_prescription
 	vision_correction = 1
+
+
+/datum/armor/science_prescription
+	fire = 20
+	acid = 40
 
 /obj/item/clothing/glasses/science/sciencesun
 	name = "science sunglasses"
@@ -164,12 +162,21 @@
 	icon_state = "sunhudscience"
 	item_state = "sunhudscience"
 	emissive_state = "sun_emissive"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/science/sciencesun/degraded
 	name = "degraded science sunglasses"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
+
+/obj/item/clothing/glasses/science/night
+	name = "night vision science goggles"
+	desc = "A pair of snazzy goggles to protect against chemical spills, AND your fear of the dark! Fitted with an analyzer for scanning items and reagents."
+	icon_state = "purplenight"
+	item_state = "purplenight"
+	emissive_state = "nvgmeson_emissive"
+	darkness_view = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -182,7 +189,7 @@
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/clothing/glasses/eyepatch
@@ -221,9 +228,10 @@
 	force = 10
 	throwforce = 20
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
 
@@ -276,12 +284,13 @@
 /obj/item/clothing/glasses/sunglasses/advanced/
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	custom_price = 15
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
-	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
+	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
 	. = ..()
@@ -305,9 +314,10 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb/supergarb
@@ -326,9 +336,10 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb_continuous = list("slices")
+	attack_verb_simple = list("slice")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = IS_SHARP
+	sharpness = SHARP
 	bleed_force = BLEED_SURFACE
 	glass_colour_type = /datum/client_colour/glass_colour/orange
 
@@ -348,7 +359,7 @@
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
 	custom_materials = list(/datum/material/iron = 250)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
@@ -362,13 +373,13 @@
 	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also has enhanced shielding which blocks flashes."
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	glass_colour_type = /datum/client_colour/glass_colour/green
 	force_glass_colour = TRUE
 	var/next_use_time = 0
 
-/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
+/obj/item/clothing/glasses/welding/ghostbuster/Initialize(mapload)
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
 	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
@@ -404,7 +415,7 @@
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
@@ -416,13 +427,13 @@
 	item_state = "blindfoldwhite"
 	var/colored_before = FALSE
 
-/obj/item/clothing/glasses/blindfold/white/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/glasses/blindfold/white/visual_equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
-		update_icon(user)
-		user.update_inv_glasses() //Color might have been changed by update_icon.
+		update_icon(user=user)
+		user.update_worn_glasses() //Color might have been changed by update_icon.
 	..()
 
-/obj/item/clothing/glasses/blindfold/white/update_icon(mob/living/carbon/human/user)
+/obj/item/clothing/glasses/blindfold/white/update_icon(updates=ALL, mob/living/carbon/human/user)
 	if(ishuman(user) && !colored_before)
 		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
@@ -464,7 +475,7 @@
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "chameleon thermals"
 	desc = "A pair of thermal optic goggles with an onboard chameleon generator."
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -475,6 +486,7 @@
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	add_item_action(chameleon_action)
 
 /obj/item/clothing/glasses/thermal/syndi/emp_act(severity)
 	. = ..()
@@ -535,14 +547,39 @@
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
-	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
+	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	vision_correction = 1  // why should the eye of a god have bad vision? 
+	vision_correction = 1  // why should the eye of a god have bad vision?
+	//var/datum/action/scan/scan_ability
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	//scan_ability = new(src)
+
+/obj/item/clothing/glasses/godeye/Destroy()
+	//QDEL_NULL(scan_ability)
+	return ..()
+
+
+/obj/item/clothing/glasses/godeye/equipped(mob/living/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+		pain(user)
+		//scan_ability.Grant(user)
+
+/obj/item/clothing/glasses/godeye/dropped(mob/living/user)
+	. = ..()
+	// Behead someone, their "glasses" drop on the floor
+	// and thus, the god eye should no longer be sticky
+	REMOVE_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
+	//scan_ability.Remove(user)
+
+/obj/item/clothing/glasses/godeye/proc/pain(mob/living/victim)
+	to_chat(victim, ("<span class='userdanger'>You experience blinding pain, as [src] burrows into your skull.</span>"))
+	victim.emote("scream")
+	victim.flash_act()
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
@@ -552,12 +589,51 @@
 			W.desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.update_inv_wear_mask()
+				C.update_worn_mask()
 		else
-			to_chat(user, "<span class='notice'>The eye winks at you and vanishes into the abyss, you feel really unlucky.</span>")
+			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		qdel(src)
 	..()
+/*
+/datum/action/scan Given that the eye did nuffin previously I am leaving this bit of code in in case someone wants to change that
+	name = "Scan"
+	desc = "Scan an enemy, to get their location and stagger them, increasing their time between attacks."
+	background_icon_state = "bg_clock"
+	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon_state = "scan"
 
+	requires_target = TRUE
+	cooldown_time = 45 SECONDS
+	ranged_mousepointer = 'icons/effects/mouse_pointers/scan_target.dmi'
+
+/datum/action/scan/is_available()
+	return ..() && isliving(owner)
+
+/datum/action/scan/on_activate(atom/scanned)
+	start_cooldown(15 SECONDS)
+
+	if(owner.stat != CONSCIOUS)
+		return FALSE
+	if(!isliving(scanned) || scanned == owner)
+		owner.balloon_alert(owner, "invalid scanned!")
+		return FALSE
+
+	var/mob/living/living_owner = owner
+	var/mob/living/living_scanned = scanned
+	living_scanned.apply_status_effect(/datum/status_effect/stagger)
+	var/datum/status_effect/agent_pinpointer/scan_pinpointer = living_owner.apply_status_effect(/datum/status_effect/agent_pinpointer/scan)
+	living_scanned.Jitter(100 SECONDS)
+	to_chat(living_scanned, span_warning("You've been staggered!"))
+	living_scanned.add_filter("scan", 2, list("type" = "outline", "color" = COLOR_YELLOW, "size" = 1))
+	addtimer(CALLBACK(living_scanned, TYPE_PROC_REF(/atom, remove_filter), "scan"), 30 SECONDS)
+
+	owner.playsound_local(get_turf(owner), 'sound/magic/smoke.ogg', 50, TRUE)
+	owner.balloon_alert(owner, "[living_scanned] scanned")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, balloon_alert), owner, "scan recharged"), cooldown_time)
+
+	start_cooldown()
+	return TRUE
+*/
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return

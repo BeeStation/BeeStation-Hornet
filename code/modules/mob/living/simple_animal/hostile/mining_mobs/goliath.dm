@@ -13,7 +13,8 @@
 	move_to_delay = 2 SECONDS
 	ranged = 1
 	ranged_cooldown_time = 80
-	friendly = "wails at"
+	friendly_verb_continuous = "wails at"
+	friendly_verb_simple = "wail at"
 	speak_emote = list("bellows")
 	vision_range = 4
 	speed = 3
@@ -21,7 +22,8 @@
 	health = 150
 	obj_damage = 100
 	melee_damage = 25
-	attacktext = "pulverizes"
+	attack_verb_continuous = "pulverizes"
+	attack_verb_simple = "pulverize"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
@@ -29,6 +31,7 @@
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
+	gender = MALE//lavaland elite goliath says that i'''' 't s female and i ''t s stronger because of sexual dimorphism, so normal goliaths should be male
 	var/pre_attack = 0
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
@@ -36,7 +39,7 @@
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	discovery_points = 2000
 
-/mob/living/simple_animal/hostile/asteroid/goliath/Life()
+/mob/living/simple_animal/hostile/asteroid/goliath/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	handle_preattack()
 
@@ -47,23 +50,27 @@
 		return
 	icon_state = pre_attack_icon
 
-/mob/living/simple_animal/hostile/asteroid/goliath/revive(full_heal = 0, admin_revive = 0)
-	if(..())
-		set_anchored(TRUE)
-		. = 1
+/mob/living/simple_animal/hostile/asteroid/goliath/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)//who the fuck anchors mobs
+	. = ..()
+	if(!.)
+		return
+
+	move_force = initial(move_force)
+	move_resist = initial(move_resist)
+	pull_force = initial(pull_force)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/death(gibbed)
 	move_force = MOVE_FORCE_DEFAULT
 	move_resist = MOVE_RESIST_DEFAULT
 	pull_force = PULL_FORCE_DEFAULT
-	..(gibbed)
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
-		visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
+		visible_message(span_warning("[src] digs its tentacles under [target]!"))
 		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 		ranged_cooldown = world.time + ranged_cooldown_time
 		icon_state = icon_aggro
@@ -98,6 +105,35 @@
 	stat_attack = HARD_CRIT
 	robust_searching = 1
 
+	var/can_saddle = FALSE
+	var/saddled = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/grown/ash_flora), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, PROC_REF(tamed)))
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/attackby(obj/item/O, mob/user, params)
+	if(!istype(O, /obj/item/goliath_saddle))
+		return ..()
+	if (saddled)
+		balloon_alert(user, "already saddled!")
+		return ..()
+
+	if(can_saddle && do_after(user,55,target=src))
+		user.visible_message("<span class='notice'>You manage to put [O] on [src], you can now ride [p_them()].</span>")
+		qdel(O)
+		saddled = TRUE
+		can_buckle = TRUE
+		buckle_lying = 0
+		add_overlay("goliath_saddled")
+		AddElement(/datum/element/ridable, /datum/component/riding/creature/goliath)
+	else
+		user.visible_message(span_warning("[src] is rocking around! You can't put the saddle on!"))
+	..()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/proc/tamed(mob/living/tamer)
+	can_saddle = TRUE
+
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
 	. = ..()
 	if(prob(1))
@@ -125,7 +161,7 @@
 	var/turf/last_location
 	var/tentacle_recheck_cooldown = 100
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(!.) // dead
 		return
@@ -154,6 +190,8 @@
 	layer = BELOW_MOB_LAYER
 	var/mob/living/spawner
 
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle)
+
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)
 	. = ..()
 	for(var/obj/effect/temp_visual/goliath_tentacle/T in loc)
@@ -166,6 +204,8 @@
 		M.gets_drilled()
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, PROC_REF(tripanim)), 7, TIMER_STOPPABLE)
+
+CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/goliath_tentacle/original)
 
 /obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
 	. = ..()
@@ -186,7 +226,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		visible_message(span_danger("[src] grabs hold of [L]!"))
 		L.Stun(1 SECONDS)
 		L.Knockdown(6 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
@@ -200,4 +240,10 @@
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
-	timerid = QDEL_IN(src, 7)
+	timerid = QDEL_IN_STOPPABLE(src, 7)
+
+/obj/item/goliath_saddle
+	name = "goliath saddle"
+	desc = "This rough saddle will give you a serviceable seat upon a goliath! Provided you can get one to stand still."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "goliath_saddle"
