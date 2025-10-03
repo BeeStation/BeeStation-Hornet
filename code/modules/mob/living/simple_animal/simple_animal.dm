@@ -151,9 +151,6 @@
 
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
-
-/mob/living/simple_animal/ComponentInitialize()
-	. = ..()
 	if(no_flying_animation)
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
@@ -243,7 +240,7 @@
 						turns_since_move = 0
 			return 1
 
-/mob/living/simple_animal/proc/handle_automated_speech(var/override)
+/mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
 	if(speak_chance)
 		if(prob(speak_chance) || override)
@@ -610,9 +607,9 @@
 
 /mob/living/simple_animal/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE)
 	. = ..(I, del_on_fail, merge_stacks)
-	update_inv_hands()
+	update_held_items()
 
-/mob/living/simple_animal/update_inv_hands()
+/mob/living/simple_animal/update_held_items()
 	if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 		var/obj/item/l_hand = get_item_for_held_index(1)
 		var/obj/item/r_hand = get_item_for_held_index(2)

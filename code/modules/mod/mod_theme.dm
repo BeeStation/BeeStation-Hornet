@@ -1584,7 +1584,7 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_deployed = 0.75
 	ui_theme = "hackerman"
-	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis)
+	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prototype)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/t_scanner,

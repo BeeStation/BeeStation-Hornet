@@ -13,7 +13,7 @@
 		return FALSE
 	. = ..()
 	if(.)
-		update_inv_hands()
+		update_held_items()
 		var/datum/holoparasite_ability/weapon/dextrous/dexterity = stats.weapon
 		if(!istype(dexterity))
 			return FALSE
@@ -58,7 +58,7 @@
 		if(hand_slot)
 			held_items[hand_slot] = null
 		dexterity.internal_storage = item
-		update_inv_hands()
+		update_held_items()
 		update_inv_internal_storage()
 	else
 		to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
@@ -81,7 +81,7 @@
 	if(istype(dexterity))
 		return ITEM_SLOT_DEX_STORAGE
 
-/mob/living/simple_animal/hostile/holoparasite/update_inv_hands()
+/mob/living/simple_animal/hostile/holoparasite/update_held_items()
 	if(LAZYLEN(hand_overlays))
 		cut_overlay(hand_overlays)
 		QDEL_LAZYLIST(hand_overlays)
@@ -124,5 +124,5 @@
 
 /mob/living/simple_animal/hostile/holoparasite/regenerate_icons()
 	. = ..()
-	update_inv_hands()
+	update_held_items()
 	update_inv_internal_storage()

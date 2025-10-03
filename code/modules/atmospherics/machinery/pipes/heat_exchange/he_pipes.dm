@@ -7,8 +7,6 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	hide = TRUE
 
-	interacts_with_air = TRUE
-
 	has_gas_visuals = FALSE
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/Initialize(mapload)

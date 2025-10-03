@@ -6,7 +6,7 @@
 	SIGNAL_HANDLER
 	if(ishuman(H) && slot == ITEM_SLOT_HEAD)
 		update_color(I, H)
-		H.update_inv_head() //Color might have been changed
+		H.update_worn_head() //Color might have been changed
 
 /datum/component/haircolor_clothing/proc/update_color(obj/item/I, mob/living/carbon/human/H)
 	SIGNAL_HANDLER

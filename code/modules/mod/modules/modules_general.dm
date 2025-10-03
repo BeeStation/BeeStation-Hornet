@@ -2,9 +2,9 @@
 
 ///Storage - Adds a storage component to the suit.
 /obj/item/mod/module/storage
-	name = "MOD storage module"
+	name = "\improper MOD storage module"
 	desc = "What amounts to a series of integrated storage compartments and specialized pockets installed across \
-		the surface of the suit, useful for storing various bits, and or bobs."
+		the surface of the suit, useful for storing various bits and/or bobs."
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
@@ -54,7 +54,7 @@
 	mod.wearer.temporarilyRemoveItemFromInventory(mod.wearer.s_store)
 
 /obj/item/mod/module/storage/large_capacity
-	name = "MOD expanded storage module"
+	name = "\improper MOD expanded storage module"
 	desc = "Reverse engineered by Nakamura Engineering from Donk Corporation designs, this system of hidden compartments \
 		is entirely within the suit, distributing items and weight evenly to ensure a comfortable experience for the user; \
 		whether smuggling, or simply hauling."
@@ -64,7 +64,7 @@
 	max_w_class = WEIGHT_CLASS_LARGE
 
 /obj/item/mod/module/storage/syndicate
-	name = "MOD syndicate storage module"
+	name = "\improper MOD syndicate storage module"
 	desc = "A storage system using nanotechnology developed by Cybersun Industries, these compartments use \
 		esoteric technology to compress the physical matter of items put inside of them, \
 		essentially shrinking items for much easier and more portable storage."
@@ -74,7 +74,7 @@
 	max_w_class = WEIGHT_CLASS_LARGE
 
 /obj/item/mod/module/storage/belt
-	name = "MOD case storage module"
+	name = "\improper MOD case storage module"
 	desc = "Some concessions had to be made when creating a compressed modular suit core. \
 	As a result, Roseus Galactic equipped their suit with a slimline storage case.  \
 	If you find this equipped to a standard modular suit, then someone has almost certainly shortchanged you on a proper storage module."
@@ -87,10 +87,10 @@
 	required_slots = list(ITEM_SLOT_BELT)
 
 /obj/item/mod/module/storage/bluespace
-	name = "MOD bluespace storage module"
+	name = "\improper MOD bluespace storage module"
 	desc = "A storage system developed by Nanotrasen, these compartments employ \
 		miniaturized bluespace pockets for the ultimate in storage technology; regardless of the weight of objects put inside."
-	icon_state = "storage_large"
+	icon_state = "storage_bluespace"
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 60
 	max_items = 21
@@ -98,7 +98,7 @@
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
-	name = "MOD ion jetpack module"
+	name = "\improper MOD ion jetpack module"
 	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
 		Rather than using gasses for combustion thrust, these jets are capable of accelerating ions using \
 		charge from the suit's charge. Some say this isn't Nakamura Engineering's first foray into jet-enabled suits."
@@ -187,7 +187,7 @@
 	return TRUE
 
 /obj/item/mod/module/jetpack/advanced
-	name = "MOD advanced ion jetpack module"
+	name = "\improper MOD advanced ion jetpack module"
 	desc = "An improvement on the previous model of electric thrusters. This one achieves higher speeds through \
 		mounting of more jets and a red paint applied on it."
 	icon_state = "jetpack_advanced"
@@ -197,7 +197,7 @@
 
 ///Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
 /obj/item/mod/module/status_readout
-	name = "MOD status readout module"
+	name = "\improper MOD status readout module"
 	desc = "A once-common module, this technology unfortunately went out of fashion in the safer regions of space; \
 		and found new life in the research networks of the Periphery. This particular unit hooks into the suit's spine, \
 		capable of capturing and displaying all possible biometric data of the wearer; sleep, nutrition, fitness, fingerprints, \
@@ -278,7 +278,7 @@
 
 ///Eating Apparatus - Lets the user eat/drink with the suit on.
 /obj/item/mod/module/mouthhole
-	name = "MOD eating apparatus module"
+	name = "\improper MOD eating apparatus module"
 	desc = "A favorite by Miners, this modification to the helmet utilizes a nanotechnology barrier infront of the mouth \
 		to allow eating and drinking while retaining protection and atmosphere. However, it won't free you from masks, \
 		lets pepper spray pass through and it will do nothing to improve the taste of a goliath steak."
@@ -323,7 +323,7 @@
 
 ///EMP Shield - Protects the suit from EMPs.
 /obj/item/mod/module/emp_shield
-	name = "MOD EMP shield module"
+	name = "\improper MOD EMP shield module"
 	desc = "A field inhibitor installed into the suit, protecting it against feedback such as \
 		electromagnetic pulses that would otherwise damage the electronic systems of the suit or it's modules. \
 		However, it will take from the suit's power to do so."
@@ -340,7 +340,7 @@
 	mod.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_WIRES|EMP_PROTECT_CONTENTS)
 
 /obj/item/mod/module/emp_shield/advanced
-	name = "MOD advanced EMP shield module"
+	name = "\improper MOD advanced EMP shield module"
 	desc = "An advanced field inhibitor installed into the suit, protecting it against feedback such as \
 		electromagnetic pulses that would otherwise damage the electronic systems of the suit or electronic devices on the wearer, \
 		including augmentations. However, it will take from the suit's power to do so."
@@ -354,7 +354,7 @@
 
 ///Flashlight - Gives the suit a customizable flashlight.
 /obj/item/mod/module/flashlight
-	name = "MOD flashlight module"
+	name = "\improper MOD flashlight module"
 	desc = "A simple pair of configurable flashlights installed on the left and right sides of the helmet, \
 		useful for providing light in a variety of ranges and colors. \
 		Some survivalists prefer the color green for their illumination, for reasons unknown."
@@ -420,7 +420,7 @@
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
-	name = "MOD burger dispenser module"
+	name = "\improper MOD burger dispenser module"
 	desc = "A rare piece of technology reverse-engineered from a prototype found in a Donk Corporation vessel. \
 		This can draw incredible amounts of power from the suit's cell to create edible organic matter in the \
 		palm of the wearer's glove; however, research seemed to have entirely stopped at burgers. \
@@ -450,7 +450,7 @@
 
 ///Longfall - Nullifies fall damage, removing charge instead.
 /obj/item/mod/module/longfall
-	name = "MOD longfall module"
+	name = "\improper MOD longfall module"
 	desc = "Useful for protecting both the suit and the wearer, \
 		utilizing commonplace systems to convert the possible damage from a fall into kinetic charge, \
 		as well as internal gyroscopes to ensure the user's safe falling. \
@@ -480,10 +480,10 @@
 
 ///Thermal Regulator - Regulates the wearer's core temperature.
 /obj/item/mod/module/thermal_regulator
-	name = "MOD thermal regulator module"
+	name = "\improper MOD thermal regulator module"
 	desc = "Advanced climate control, using an inner body glove interwoven with thousands of tiny, \
 		flexible cooling lines. This circulates coolant at various user-controlled temperatures, \
-		ensuring they're comfortable; even if they're some that like it hot."
+		ensuring they're comfortable; even if there are some that like it hot."
 	icon_state = "regulator"
 	module_type = MODULE_TOGGLE
 	complexity = 2
@@ -511,10 +511,10 @@
 
 ///DNA Lock - Prevents people without the set DNA from activating the suit.
 /obj/item/mod/module/dna_lock
-	name = "MOD DNA lock module"
+	name = "\improper MOD DNA lock module"
 	desc = "A module which engages with the various locks and seals tied to the suit's systems, \
 		enabling it to only be worn by someone corresponding with the user's exact DNA profile; \
-		however, this incredibly sensitive module is shorted out by EMPs. Luckily, cloning has been outlawed."
+		however, this incredibly sensitive module is shorted out by EMPs."
 	icon_state = "dnalock"
 	module_type = MODULE_USABLE
 	complexity = 2
@@ -580,8 +580,8 @@
 
 ///Plasma Stabilizer - Prevents plasmamen from igniting in the suit
 /obj/item/mod/module/plasma_stabilizer
-	name = "MOD plasma stabilizer module"
-	desc = "This system essentially forms an atmosphere of its' own inside the suit, \
+	name = "\improper MOD plasma stabilizer module"
+	desc = "This system essentially forms an atmosphere of its own inside the suit, \
 		safely ejecting oxygen from the inside and allowing the wearer, a plasmaman, \
 		to have their internal plasma circulate around them somewhat like a sauna. \
 		This prevents them from self-igniting, and leads to greater comfort overall. \
@@ -609,7 +609,7 @@
 //Finally, https://pipe.miroware.io/5b52ba1d94357d5d623f74aa/mspfa/Nuke%20Ops/Panels/0648.gif can be real:
 ///Hat Stabilizer - Allows displaying a hat over the MOD-helmet, à la plasmamen helmets.
 /obj/item/mod/module/hat_stabilizer
-	name = "MOD hat stabilizer module"
+	name = "\improper MOD hat stabilizer module"
 	desc = "A simple set of deployable stands, directly atop one's head; \
 		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
 		You still need to take the hat off your head while the helmet deploys, though. \
@@ -697,7 +697,7 @@
 	mod.wearer.update_clothing(mod.slot_flags)
 
 /obj/item/mod/module/hat_stabilizer/syndicate
-	name = "MOD elite hat stabilizer module"
+	name = "\improper MOD elite hat stabilizer module"
 	desc = "A simple set of deployable stands, directly atop one's head; \
 		these will deploy under a hat to keep it from falling off, allowing them to be worn atop the sealed helmet. \
 		You still need to take the hat off your head while the helmet deploys, though. This is a must-have for \

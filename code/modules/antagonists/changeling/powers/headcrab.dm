@@ -33,7 +33,7 @@
 			to_chat(H, span_userdanger("You are blinded by a shower of blood!"))
 			H.Stun(20)
 			H.blur_eyes(20)
-			eyes?.applyOrganDamage(5)
+			eyes?.apply_organ_damage(5)
 			H.confused += 10
 
 		else if(issilicon(A))
