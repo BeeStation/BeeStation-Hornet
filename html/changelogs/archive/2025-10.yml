@@ -74,3 +74,5 @@
   - bugfix: Energy swords and daggers have the appropriate sharpness again. Energy
       swords can dismember easily, and energy daggers can dismember as soon as the
       limb is disabled.
+  mrmanlikesbt:
+  - bugfix: fixed alt-clicking weight machines crashing your game
