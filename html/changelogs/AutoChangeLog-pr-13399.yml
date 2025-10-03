@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: fixed the ChemMaster reagent analysis- you can press the question mark
+      by a chemical in the ChemMaster to see details about it.
