@@ -483,6 +483,7 @@
 	l_hand = /obj/item/gun/energy/pulse/loyalpin
 
 /datum/outfit/centcom/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
 	if(visualsOnly)
 		return
 
