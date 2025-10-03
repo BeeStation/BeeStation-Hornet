@@ -166,7 +166,7 @@
 // Security
 /obj/item/gun/ballistic/automatic/pistol/security
 	name = "NPS-10"
-	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses x200 LAW ammo cartridges."
+	desc = "Standard APS smart-firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses x200 LAW ammo cartridges."
 	icon_state = "sec"
 	w_class = WEIGHT_CLASS_LARGE
 	mag_type = /obj/item/ammo_box/magazine/x200law
@@ -180,6 +180,47 @@
 	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
 	recoil = 0.1
 
+	pin = /obj/item/firing_pin/dna
+	var/special_ammo_mag_max = 4 // Max amount we can carry
+	var/special_ammo_reserve = 4 // How many special shots we have left
+	var/special_authorized = FALSE
+
+/obj/item/gun/ballistic/automatic/pistol/security/Initialize()
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_SECURITY_LEVEL_CHANGED, .proc/security_level)
+
+/obj/item/gun/ballistic/automatic/pistol/security/proc/security_level()
+	SIGNAL_HANDLER
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED && !special_authorized)
+		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		special_authorized = TRUE
+		// TODO, PUT THE ACTION ENABLEMENT STUFF HERE
+	else if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_RED && special_authorized)
+		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		special_authorized = FALSE
+		// TODO, PUT THE ACTION DISABLEMENT STUFF HERE
+
+/obj/item/gun/ballistic/automatic/pistol/security/proc/get_dna()
+	var/obj/item/firing_pin/dna/D = pin
+	return D.unique_enzymes ? D.unique_enzymes : null
+
+/obj/item/gun/ballistic/automatic/pistol/security/attackby(obj/item/O, mob/user, params)
+	if(get_dna() && (ACCESS_ARMORY in O.GetAccess()))
+		to_chat(user, "<span class='notice'>You reset the DNA lock.</span>")
+		var/obj/item/firing_pin/dna/D = pin
+		D.unique_enzymes = null
+		if(D.obj_flags & EMAGGED)
+			D.obj_flags &= ~EMAGGED
+		investigate_log("dna lock reset by [key_name(user)]", INVESTIGATE_RECORDS)
+	..()
+
+/obj/item/gun/ballistic/automatic/pistol/security/emp_act(severity)
+	audible_message("<span class='italics'>You hear erratic beeping from \the [name].</span>", null,  1)
+	var/obj/item/firing_pin/dna/D = pin
+	D.unique_enzymes = null
+	investigate_log("dna lock reset by EMP", INVESTIGATE_RECORDS)
+	..()
+
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
@@ -189,6 +230,19 @@
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
 	. = ..()
+
+	. += span_notice("<i>Features a Warden-resettable DNA lock, as well as a Red-Alert locked smart ammunition mode.</i>")
+	. += span_notice("<b>There are [special_ammo_reserve] special rounds left!</b>")
+
+	var/dna = get_dna()
+	if(pin.obj_flags & EMAGGED)
+		. += "<span class='warning'>The DNA lock flashes erratically! Use an ID with armory access to reset.</span>"
+	else if(dna)
+		. += "<span class='notice'>It is currently registered to: [dna]. Use an ID with armory access to reset.</span>"
+	else
+		. += "<span class='notice'>It is unregistered.</span>"
+
+	. += span_warning("Smart-Ammo is <b>[special_authorized ? "authorized" : "disabled"]</b>.")
 	. += span_notice("<i>You could examine it more thoroughly...</i>")
 
 /obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
