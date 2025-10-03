@@ -178,7 +178,7 @@
 /area/shuttle/caravan/syndicate3)
 "rU" = (
 /obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/structure/window/reinforced/plasma/plastitanium,
 /obj/machinery/door/poddoor{
 	id = "caravansyndicate3_bridge"
 	},

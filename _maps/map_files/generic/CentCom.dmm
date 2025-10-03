@@ -5146,7 +5146,7 @@
 	},
 /area/syndicate_mothership/control)
 "amL" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/reinforced/plasma/plastitanium,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
@@ -10156,7 +10156,7 @@
 /area/ctf)
 "azW" = (
 /obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "azX" = (
@@ -12422,7 +12422,7 @@
 /turf/open/floor/iron/corner,
 /area/tdome/tdomeobserve)
 "aFH" = (
-/obj/structure/window/plastitanium,
+/obj/structure/window/reinforced/plasma/plastitanium,
 /obj/structure/grille,
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating,
@@ -14728,7 +14728,7 @@
 "aLm" = (
 /obj/structure/grille,
 /obj/structure/barricade/wooden/crude,
-/obj/structure/window/plastitanium,
+/obj/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "aLn" = (
