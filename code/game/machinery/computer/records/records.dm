@@ -12,7 +12,7 @@
 /obj/machinery/computer/records/ui_data(mob/user)
 	var/list/data = list()
 
-	data["authenticated"] = authenticated && isliving(user)
+	data["authenticated"] = authenticated && (isliving(user) || IsAdminGhost(user))
 	data["is_silicon"] = issilicon(user)
 
 	return data
