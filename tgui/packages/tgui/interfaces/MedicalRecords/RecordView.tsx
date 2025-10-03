@@ -29,7 +29,12 @@ export const MedicalRecordView = (props) => {
   if (!foundRecord) return <NoticeBox>No record selected.</NoticeBox>;
 
   const { act, data } = useBackend<MedicalRecordData>();
-  const { character_preview_view, physical_statuses, mental_statuses } = data;
+  const {
+    character_preview_view,
+    physical_statuses,
+    mental_statuses,
+    is_silicon,
+  } = data;
 
   const { min_age, max_age } = data;
 
@@ -69,6 +74,7 @@ export const MedicalRecordView = (props) => {
         <Section
           buttons={
             <Button.Confirm
+              disabled={is_silicon}
               content="Anonymize"
               icon="mask"
               onClick={() =>
@@ -83,60 +89,77 @@ export const MedicalRecordView = (props) => {
           wrap
         >
           <LabeledList>
-            <LabeledList.Item label="Name">
-              <Box>{name}</Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Job">
-              <Box>{rank}</Box>
-            </LabeledList.Item>
+            <LabeledList.Item label="Name">{name}</LabeledList.Item>
+            <LabeledList.Item label="Job">{rank}</LabeledList.Item>
             <LabeledList.Item label="Age">
-              <RestrictedInput
-                minValue={min_age}
-                maxValue={max_age}
-                onEnter={(event, value) =>
-                  act('edit_field', {
-                    field: 'age',
-                    ref: record_ref,
-                    value: value,
-                  })
-                }
-                value={age}
-              />
+              {is_silicon ? (
+                age
+              ) : (
+                <RestrictedInput
+                  minValue={min_age}
+                  maxValue={max_age}
+                  onChange={(_, value) =>
+                    act('edit_field', {
+                      field: 'age',
+                      ref: record_ref,
+                      value: value,
+                    })
+                  }
+                  value={age}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText
-                field="species"
-                target_ref={record_ref}
-                text={species}
-              />
+              {is_silicon ? (
+                species
+              ) : (
+                <EditableText
+                  field="species"
+                  target_ref={record_ref}
+                  text={species}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText
-                field="gender"
-                target_ref={record_ref}
-                text={gender}
-              />
+              {is_silicon ? (
+                gender
+              ) : (
+                <EditableText
+                  field="gender"
+                  target_ref={record_ref}
+                  text={gender}
+                />
+              )}
             </LabeledList.Item>
-            <LabeledList.Item label="DNA">
-              <EditableText
-                color="good"
-                field="dna"
-                target_ref={record_ref}
-                text={dna}
-              />
+            <LabeledList.Item color="good" label="DNA">
+              {is_silicon ? (
+                dna
+              ) : (
+                <EditableText
+                  color="good"
+                  field="dna_string"
+                  target_ref={record_ref}
+                  text={dna}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item color="bad" label="Blood Type">
-              <EditableText
-                field="blood_type"
-                target_ref={record_ref}
-                text={blood_type}
-              />
+              {is_silicon ? (
+                blood_type
+              ) : (
+                <EditableText
+                  field="blood_type"
+                  target_ref={record_ref}
+                  text={blood_type}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item
               buttons={physical_statuses.map((button, index) => {
                 const isSelected = button === physical_status;
                 return (
                   <Button
+                    disabled={is_silicon}
                     color={isSelected ? PHYSICALSTATUS2COLOR[button] : 'grey'}
                     height={'1.75rem'}
                     icon={PHYSICALSTATUS2ICON[button]}
@@ -167,6 +190,7 @@ export const MedicalRecordView = (props) => {
                 const isSelected = button === mental_status;
                 return (
                   <Button
+                    disabled={is_silicon}
                     color={isSelected ? MENTALSTATUS2COLOR[button] : 'grey'}
                     height={'1.75rem'}
                     icon={MENTALSTATUS2ICON[button]}
