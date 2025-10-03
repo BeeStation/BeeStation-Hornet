@@ -36,8 +36,6 @@
 	/// If we added a leaning component to ourselves
 	var/added_leaning = FALSE
 
-
-
 /datum/armor/structure_window
 	fire = 80
 	acid = 100
@@ -46,8 +44,7 @@
 	icon_state = "window_corner"
 	density = FALSE
 
-/obj/structure/window/corner/unanchored
-	anchored = FALSE
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/corner/spawner, 0)
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -445,8 +442,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/unanchored/spawner,
 	icon_state = "rwindow_corner"
 	density = FALSE
 
-/obj/structure/window/reinforced/corner/unanchored
-	anchored = FALSE
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/corner/spawner, 0)
 
 /obj/structure/window/plasma
 	name = "plasma window"
@@ -480,17 +476,18 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/unanchored/spawner,
 	if (fulltile)
 		. += new /obj/item/shard/plasma(location)
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/spawner, 0)
+
 /obj/structure/window/plasma/unanchored
 	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/unanchored/spawner, 0)
 
 /obj/structure/window/plasma/corner
 	icon_state = "plasmawindow_corner"
 	density = FALSE
 
-/obj/structure/window/plasma/corner/unanchored
-	anchored = FALSE
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/spawner, 0)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/corner/spawner, 0)
 
 /obj/structure/window/reinforced/plasma
 	name = "reinforced plasma window"
@@ -516,12 +513,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/spawner, 0)
 /obj/structure/window/reinforced/plasma/unanchored
 	anchored = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/unanchored/spawner, 0)
+
 /obj/structure/window/reinforced/plasma/corner
 	icon_state = "plasmarwindow_corner"
 	density = FALSE
 
-/obj/structure/window/reinforced/plasma/corner/unanchored
-	anchored = FALSE
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/corner/spawner, 0)
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -533,6 +531,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/spawner, 0)
 /obj/structure/window/reinforced/tinted/corner
 	icon_state = "twindow_corner"
 	density = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/corner/spawner, 0)
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
@@ -565,12 +565,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/spawner, 0)
 /obj/structure/window/depleteduranium/unanchored
 	anchored = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/unanchored/spawner, 0)
+
 /obj/structure/window/depleteduranium/corner
 	icon_state = "duwindow_corner"
 	density = FALSE
 
-/obj/structure/window/depleteduranium/corner/unanchored
-	anchored = FALSE
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/spawner, 0)
 
 /* Full Tile Windows (more atom_integrity) */
 
@@ -870,5 +871,4 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/bronze/spawner, 0)
 	icon_state = "clockwork_window_single_corner"
 	density = FALSE
 
-/obj/structure/window/bronze/corner/unanchored
-	anchored = FALSE
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/bronze/corner/spawner, 0)
