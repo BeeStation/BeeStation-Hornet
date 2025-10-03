@@ -791,6 +791,10 @@
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/abandoned)
+"KH" = (
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
 "Ld" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable{
@@ -1018,7 +1022,7 @@ aw
 aS
 te
 bb
-av
+KH
 aa
 "}
 (9,1,1) = {"
@@ -1036,7 +1040,7 @@ aT
 aU
 aO
 QF
-av
+KH
 aa
 "}
 (10,1,1) = {"
@@ -1054,7 +1058,7 @@ sb
 DA
 aX
 af
-av
+KH
 aa
 "}
 (11,1,1) = {"
@@ -1071,7 +1075,7 @@ aN
 iQ
 as
 ab
-av
+KH
 aN
 aa
 "}
@@ -1101,8 +1105,8 @@ aa
 ad
 aj
 ab
-av
-av
+KH
+KH
 aN
 aa
 aa

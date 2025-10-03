@@ -5146,8 +5146,7 @@
 	},
 /area/syndicate_mothership/control)
 "amL" = (
-/obj/structure/window/reinforced/plasma/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "amM" = (
@@ -10154,11 +10153,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"azW" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced/plasma/plastitanium,
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
 "azX" = (
 /obj/machinery/light{
 	dir = 1
@@ -12422,9 +12416,8 @@
 /turf/open/floor/iron/corner,
 /area/tdome/tdomeobserve)
 "aFH" = (
-/obj/structure/window/reinforced/plasma/plastitanium,
-/obj/structure/grille,
 /obj/structure/barricade/wooden/snowed,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "aFI" = (
@@ -14726,9 +14719,8 @@
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "aLm" = (
-/obj/structure/grille,
 /obj/structure/barricade/wooden/crude,
-/obj/structure/window/reinforced/plasma/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "aLn" = (
@@ -36232,11 +36224,11 @@ aDr
 aWW
 aht
 anm
-azW
+amL
 aDU
 amP
 aKJ
-azW
+amL
 ach
 azU
 aoN
@@ -37007,7 +36999,7 @@ aLq
 aLO
 aVl
 amH
-azW
+amL
 aup
 azf
 aqk
@@ -37265,8 +37257,8 @@ aDf
 aFw
 aEF
 aku
-azW
-azW
+amL
+amL
 aku
 aku
 aku
@@ -38028,9 +38020,9 @@ aku
 aku
 aku
 aku
-azW
-azW
-azW
+amL
+amL
+amL
 aku
 aKJ
 aII
@@ -39052,15 +39044,15 @@ llK
 fAt
 fAt
 mLj
-azW
-azW
+amL
+amL
 aku
 aku
 aLe
 aku
 aku
 ahM
-azW
+amL
 alb
 aku
 apa
@@ -39308,8 +39300,8 @@ lpK
 rWG
 osc
 qWW
-azW
-azW
+amL
+amL
 sVt
 khH
 aGq
@@ -39319,7 +39311,7 @@ aku
 aNe
 aPn
 aer
-azW
+amL
 awD
 anV
 aee
@@ -39565,7 +39557,7 @@ tGH
 aLu
 uAV
 bdM
-azW
+amL
 ylz
 iDU
 tdL
@@ -39576,7 +39568,7 @@ aku
 aaO
 aPn
 apv
-azW
+amL
 agk
 aKY
 aKY
@@ -39833,7 +39825,7 @@ aku
 aig
 aLG
 abR
-azW
+amL
 agk
 agk
 aKY
@@ -40604,7 +40596,7 @@ aku
 aGG
 aPn
 aer
-azW
+amL
 aBD
 aKY
 aKY
@@ -40861,7 +40853,7 @@ aIf
 apd
 aPn
 awG
-azW
+amL
 apa
 aBD
 aRp
@@ -41118,7 +41110,7 @@ aXs
 anI
 aPn
 apE
-azW
+amL
 apa
 aMB
 aKY
@@ -41889,7 +41881,7 @@ asK
 aNe
 aPn
 apE
-azW
+amL
 atx
 aKY
 aKY
@@ -42146,7 +42138,7 @@ aSP
 anw
 aPn
 awG
-azW
+amL
 apf
 ahK
 aee
@@ -42403,7 +42395,7 @@ asB
 aig
 aPn
 apE
-azW
+amL
 aee
 aKY
 afs
@@ -43943,7 +43935,7 @@ aku
 aku
 aQa
 aeZ
-azW
+amL
 aHv
 aku
 aaE
