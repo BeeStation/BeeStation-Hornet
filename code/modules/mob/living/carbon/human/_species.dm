@@ -49,11 +49,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/mutant_organs = list()
 	///The bodyparts this species uses. assoc of bodypart string - bodypart type. Make sure all the fucking entries are in or I'll skin you alive.
 	var/list/bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest,
 	)
 
@@ -427,8 +427,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Note for future: Potentially add a new C.dna.species() to build a template species for more accurate limb replacement
 
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && target.dna.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
-		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/r_leg/digitigrade
-		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/l_leg/digitigrade
+		new_species.bodypart_overrides[BODY_ZONE_R_LEG] = /obj/item/bodypart/leg/right/digitigrade
+		new_species.bodypart_overrides[BODY_ZONE_L_LEG] = /obj/item/bodypart/leg/left/digitigrade
 
 	for(var/obj/item/bodypart/old_part as anything in target.bodyparts)
 		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
@@ -805,10 +805,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//organic body markings
 	if(HAS_MARKINGS in species_traits)
 		var/obj/item/bodypart/chest/chest = H.get_bodypart(BODY_ZONE_CHEST)
-		var/obj/item/bodypart/r_arm/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
-		var/obj/item/bodypart/l_arm/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
-		var/obj/item/bodypart/r_leg/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
-		var/obj/item/bodypart/l_leg/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
+		var/obj/item/bodypart/arm/right/right_arm = H.get_bodypart(BODY_ZONE_R_ARM)
+		var/obj/item/bodypart/arm/left/left_arm = H.get_bodypart(BODY_ZONE_L_ARM)
+		var/obj/item/bodypart/leg/right/right_leg = H.get_bodypart(BODY_ZONE_R_LEG)
+		var/obj/item/bodypart/leg/left/left_leg = H.get_bodypart(BODY_ZONE_L_LEG)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[H.dna.features["moth_markings"]]
 		var/markings_icon_state = markings.icon_state
 		if(ismoth(H) && HAS_TRAIT(H, TRAIT_MOTH_BURNT))
@@ -1486,16 +1486,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
 			REMOVE_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_inv_w_uniform()
-			H.update_inv_wear_suit()
+			H.update_worn_undersuit()
+			H.update_worn_oversuit()
 	else
 		if(H.overeatduration >= (200 SECONDS))
 			to_chat(H, "<span class='danger'>You suddenly feel blubbery!</span>")
 			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
 			ADD_TRAIT(H, TRAIT_OFF_BALANCE_TACKLER, OBESITY)
 			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
-			H.update_inv_w_uniform()
-			H.update_inv_wear_suit()
+			H.update_worn_undersuit()
+			H.update_worn_oversuit()
 
 	// nutrition decrease and satiety
 	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
@@ -1619,7 +1619,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(radiation > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
 		source.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
+	if(radiation > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
 		to_chat(source, "<span class='danger'>You mutate!</span>")
 		source.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
 		source.emote("gasp")
@@ -1847,21 +1847,21 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(BODY_ZONE_HEAD)
 					if(H.wear_mask)
 						H.wear_mask.add_mob_blood(H)
-						H.update_inv_wear_mask()
+						H.update_worn_mask()
 					if(H.head)
 						H.head.add_mob_blood(H)
-						H.update_inv_head()
+						H.update_worn_head()
 					if(H.glasses && prob(33))
 						H.glasses.add_mob_blood(H)
-						H.update_inv_glasses()
+						H.update_worn_glasses()
 
 				if(BODY_ZONE_CHEST)
 					if(H.wear_suit)
 						H.wear_suit.add_mob_blood(H)
-						H.update_inv_wear_suit()
+						H.update_worn_oversuit()
 					if(H.w_uniform)
 						H.w_uniform.add_mob_blood(H)
-						H.update_inv_w_uniform()
+						H.update_worn_undersuit()
 
 	H.send_item_attack_message(I, user, hit_area)
 
@@ -1870,13 +1870,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/dismember_limb = FALSE
 	var/weapon_sharpness = I.is_sharp()
+	var/mob_dismember_weakness = HAS_TRAIT(H, TRAIT_EASYDISMEMBER)
 
-	if(((HAS_TRAIT(H, TRAIT_EASYDISMEMBER) && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
+	if(((mob_dismember_weakness && limb_damage) || (weapon_sharpness == SHARP_DISMEMBER_EASY)) && prob(I.force))
 		dismember_limb = TRUE
 		//Easy dismemberment on the mob allows even blunt weapons to potentially delimb, but only if the limb is already damaged
 		//Certain weapons are so sharp/strong they have a chance to cleave right through a limb without following the normal restrictions
 
-	else if(weapon_sharpness > SHARP || (weapon_sharpness == SHARP && H.stat == DEAD))
+	else if(weapon_sharpness > SHARP || mob_dismember_weakness || (weapon_sharpness == SHARP && H.stat == DEAD))
 		//Delimbing cannot normally occur with blunt weapons
 		//You also aren't cutting someone's arm off with a scalpel unless they're already dead
 
@@ -1884,7 +1885,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			dismember_limb = TRUE
 			//You can only cut a limb off if it is already damaged enough to be fully disabled
 
-	if(dismember_limb && ((affecting.body_zone != BODY_ZONE_HEAD && affecting.body_zone != BODY_ZONE_CHEST) || H.stat != CONSCIOUS) && affecting.dismember(I.damtype))
+	if(dismember_limb && affecting.dismember(I.damtype))
 		I.add_mob_blood(H)
 		playsound(get_turf(H), I.get_dismember_sound(), 80, 1)
 
@@ -2272,6 +2273,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			// We have low pressure resit trait, clear alerts
 			if(HAS_TRAIT(H, TRAIT_RESISTLOWPRESSURE))
 				H.clear_alert("pressure")
+			else if(HAS_TRAIT(H, TRAIT_LOWPRESSURELEAKING))
+				H.add_bleeding(BLEED_CUT, FALSE)
+				H.throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 			else
 				H.adjustBruteLoss(LOW_PRESSURE_DAMAGE * H.physiology.pressure_mod * delta_time)
 				H.throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
@@ -2475,10 +2479,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.refresh_gravity()
 
 ///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
-/datum/species/proc/get_custom_icons(var/part)
+/datum/species/proc/get_custom_icons(part)
 	return
 /*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
-/datum/species/teshari/get_custom_icons(var/part)
+/datum/species/teshari/get_custom_icons(part)
 	switch(part)
 		if("uniform")
 			return 'icons/mob/species/teshari/tesh_uniforms.dmi'
