@@ -216,7 +216,9 @@
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 	var/armor_block = target.run_armor_check(affecting, STAMINA)
-	// L.adjustStaminaLoss(stun_time)
+	if(isipc(target))
+		target.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
+		target.apply_damage(stun_time/4, BURN, affecting, armor_block) //20 damage
 	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
