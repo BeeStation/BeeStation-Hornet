@@ -76,3 +76,9 @@
       limb is disabled.
   mrmanlikesbt:
   - bugfix: fixed alt-clicking weight machines crashing your game
+  - bugfix: fixed the ChemMaster reagent analysis- you can press the question mark
+      by a chemical in the ChemMaster to see details about it.
+  - bugfix: fixed the portable thermomachine open panel icon
+  - bugfix: brig physicians now have medical records access as intended
+  - bugfix: fixed dynamic considering people who enter cryo sleep as dead
+  - bugfix: Fixed the chem dispenser UI not properly updating when inserting a beaker
