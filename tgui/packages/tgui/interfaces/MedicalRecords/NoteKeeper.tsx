@@ -86,6 +86,9 @@ const NoteTabs = (props) => {
   if (!foundRecord) return <> </>;
   const { medical_notes } = foundRecord;
 
+  const { data } = useBackend<MedicalRecordData>();
+  const { is_silicon } = data;
+
   const [selectedNote, setSelectedNote] = useLocalState<
     MedicalNote | undefined
   >('selectedNote', undefined);
@@ -120,14 +123,16 @@ const NoteTabs = (props) => {
             </Tabs.Tab>
           ))
         : null}
-      <Tooltip
-        content={multiline`Add a new note. Press enter or escape to exit view.`}
-        position="bottom"
-      >
-        <Tabs.Tab onClick={composeNew} selected={writing}>
-          <Icon name="plus" /> New
-        </Tabs.Tab>
-      </Tooltip>
+      {!is_silicon && (
+        <Tooltip
+          content={multiline`Add a new note. Press enter or escape to exit view.`}
+          position="bottom"
+        >
+          <Tabs.Tab onClick={composeNew} selected={writing}>
+            <Icon name="plus" /> New
+          </Tabs.Tab>
+        </Tooltip>
+      )}
     </Tabs>
   );
 };
