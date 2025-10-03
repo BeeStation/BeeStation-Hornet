@@ -81,13 +81,6 @@
 /obj/structure/window/depleteduranium/spawner/east : /obj/structure/window/depleteduranium/spawner/directional/east{@OLD;dir=@SKIP}
 /obj/structure/window/depleteduranium/spawner/west : /obj/structure/window/depleteduranium/spawner/directional/west{@OLD;dir=@SKIP}
 
-# Survival Pod
-
-/obj/structure/window/reinforced/survival_pod/spawner/north : /obj/structure/window/reinforced/survival_pod/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/south : /obj/structure/window/reinforced/survival_pod/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/east : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/west : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
-
 # Tinted
 
 /obj/structure/window/reinforced/tinted{dir = 1} : /obj/structure/window/reinforced/tinted/spawner/directional/north{@OLD;dir=@SKIP}
@@ -192,24 +185,6 @@
 /obj/structure/window/plasma/reinforced/spawner/west{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
 /obj/structure/window/plasma/reinforced/spawner/west{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
 
-# Survival Pod
-
-/obj/structure/window/reinforced/survival_pod/spawner/north{dir = 2} : /obj/structure/window/reinforced/survival_pod/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/north{dir = 4} : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/north{dir = 8} : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
-
-/obj/structure/window/reinforced/survival_pod/spawner{dir = 1} : /obj/structure/window/reinforced/survival_pod/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner{dir = 4} : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner{dir = 8} : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
-
-/obj/structure/window/reinforced/survival_pod/spawner/east{dir = 1} : /obj/structure/window/reinforced/survival_pod/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/east{dir = 2} : /obj/structure/window/reinforced/survival_pod/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/east{dir = 8} : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
-
-/obj/structure/window/reinforced/survival_pod/spawner/west{dir = 1} : /obj/structure/window/reinforced/survival_pod/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/west{dir = 2} : /obj/structure/window/reinforced/survival_pod/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner/west{dir = 4} : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
-
 ## Weird edge cases where people used /spawner
 
 # Regular
@@ -239,13 +214,6 @@
 /obj/structure/window/plasma/reinforced/spawner{dir = @UNSET} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
 /obj/structure/window/plasma/reinforced/spawner{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
 /obj/structure/window/plasma/reinforced/spawner{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
-
-# Survival Pod
-
-/obj/structure/window/reinforced/survival_pod/spawner{dir = 1} : /obj/structure/window/reinforced/survival_pod/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner{dir = @UNSET} : /obj/structure/window/reinforced/survival_pod/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner{dir = 4} : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/survival_pod/spawner{dir = 8} : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
 
 # Window Effect Spawner Things
 
@@ -337,11 +305,6 @@
 /obj/structure/window/plasma/reinforced/corner/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/south{@OLD;dir=@SKIP}
 /obj/structure/window/plasma/reinforced/corner/unanchored{dir = 4} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/east{@OLD;dir=@SKIP}
 /obj/structure/window/plasma/reinforced/corner/unanchored{dir = 8} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/west{@OLD;dir=@SKIP}
-
-/obj/structure/window/reinforced/plasma/corner/unanchored{dir = 1} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/corner/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/corner/unanchored{dir = 4} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/corner/unanchored{dir = 8} : /obj/structure/window/reinforced/plasma/corner/unanchored/directional/west{@OLD;dir=@SKIP}
 
 # Tinted Corners
 
