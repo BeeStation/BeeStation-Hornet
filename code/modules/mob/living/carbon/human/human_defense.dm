@@ -121,7 +121,7 @@
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
 	SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, AM, attack_text, damage, attack_type, armour_penetration)
 	for(var/obj/item/I in held_items)
 		if(!isclothing(I))
@@ -486,10 +486,10 @@
 		if(head_clothes)
 			if(!(head_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				head_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_glasses()
-				update_inv_wear_mask()
-				update_inv_neck()
-				update_inv_head()
+				update_worn_glasses()
+				update_worn_mask()
+				update_worn_neck()
+				update_worn_head()
 			else
 				to_chat(src, span_notice("Your [head_clothes.name] protects your head and face from the acid!"))
 		else
@@ -509,8 +509,8 @@
 		if(chest_clothes)
 			if(!(chest_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				chest_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("Your [chest_clothes.name] protects your body from the acid!"))
 		else
@@ -540,9 +540,9 @@
 		if(arm_clothes)
 			if(!(arm_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				arm_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_gloves()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_gloves()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("Your [arm_clothes.name] protects your arms and hands from the acid!"))
 		else
@@ -566,9 +566,9 @@
 		if(leg_clothes)
 			if(!(leg_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				leg_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_shoes()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_shoes()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("Your [leg_clothes.name] protects your legs and feet from the acid!"))
 		else
@@ -820,3 +820,21 @@
 	if(M.melee_damage != 0 && !HAS_TRAIT(M, TRAIT_PACIFISM) && check_shields(M, M.melee_damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
 		return FALSE
 	return ..()
+
+/mob/living/carbon/human/proc/breakout_breaking_arms()
+	visible_message(span_warning("[src] is fighting [handcuffed] with every ounce of their strength!"))
+	if(!do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
+		return
+
+	playsound(src, 'sound/weapons/pierce_slow.ogg', 50, TRUE)
+
+	var/obj/item/bodypart/random_arm = pick(get_bodypart(BODY_ZONE_L_ARM), get_bodypart(BODY_ZONE_R_ARM))
+	log_combat(src, src, "has forcibly broken their arm to escape [handcuffed]", important = FALSE)
+
+	if(HAS_TRAIT(src, TRAIT_EASYDISMEMBER) && !HAS_TRAIT(src, TRAIT_NODISMEMBER))
+		random_arm.dismember()
+		random_arm.receive_damage(20)
+		uncuff()
+	else
+		random_arm.receive_damage(50)
+		uncuff()

@@ -357,7 +357,7 @@
 		invokers += L
 	return invokers
 
-/obj/effect/rune/cluwne/invoke(var/list/invokers)
+/obj/effect/rune/cluwne/invoke(list/invokers)
 	..()
 	rune_in_use = TRUE
 	for(var/mob/living/simple_animal/hostile/floor_cluwne/FC in range(5, src)) //we unleash the floor cluwne

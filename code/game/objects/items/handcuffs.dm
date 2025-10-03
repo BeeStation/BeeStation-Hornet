@@ -29,6 +29,7 @@
 	armor_type = /datum/armor/restraints_handcuffs
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
+	var/overlay_state = "handcuff1"
 
 /obj/item/restraints/handcuffs/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "handcuffs")
@@ -69,7 +70,7 @@
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = 0)
 	if(target.handcuffed)
 		return FALSE
 
@@ -360,7 +361,7 @@
 		C.legcuffed = src
 		forceMove(C)
 		C.update_equipment_speed_mods()
-		C.update_inv_legcuffed()
+		C.update_worn_legcuffs()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, span_userdanger("\The [src] ensnares you!"))
 		if(knockdown)

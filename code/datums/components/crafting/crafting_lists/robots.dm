@@ -10,8 +10,8 @@
 		/obj/item/robot_suit = 1,
 		/obj/item/clothing/head/helmet = 1,
 		/obj/item/clothing/suit/armor/vest = 1,
-		/obj/item/bodypart/l_leg/robot = 1,
-		/obj/item/bodypart/r_leg/robot = 1,
+		/obj/item/bodypart/leg/left/robot = 1,
+		/obj/item/bodypart/leg/right/robot = 1,
 		/obj/item/stack/sheet/iron = 1,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/gun/energy/disabler = 1,
@@ -30,7 +30,7 @@
 		/obj/item/clothing/head/helmet/sec = 1,
 		/obj/item/melee/baton = 1,
 		/obj/item/assembly/prox_sensor = 1,
-		/obj/item/bodypart/r_arm/robot = 1
+		/obj/item/bodypart/arm/right/robot = 1
 		)
 	category = CAT_ROBOT
 
@@ -41,7 +41,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/cup/bucket = 1,
 		/obj/item/assembly/prox_sensor = 1,
-		/obj/item/bodypart/r_arm/robot = 1
+		/obj/item/bodypart/arm/right/robot = 1
 		)
 	category = CAT_ROBOT
 
@@ -51,7 +51,7 @@
 	reqs = list(
 		/obj/item/larryframe = 1,
 		/obj/item/assembly/prox_sensor = 1,
-		/obj/item/bodypart/r_arm/robot = 1
+		/obj/item/bodypart/arm/right/robot = 1
 	)
 	category = CAT_ROBOT
 
@@ -63,7 +63,7 @@
 		/obj/item/storage/toolbox = 1,
 		/obj/item/stack/tile/iron = 10,
 		/obj/item/assembly/prox_sensor = 1,
-		/obj/item/bodypart/r_arm/robot = 1
+		/obj/item/bodypart/arm/right/robot = 1
 	)
 	category = CAT_ROBOT
 
@@ -75,7 +75,7 @@
 		/obj/item/healthanalyzer = 1,
 		/obj/item/storage/firstaid = 1,
 		/obj/item/assembly/prox_sensor = 1,
-		/obj/item/bodypart/r_arm/robot = 1
+		/obj/item/bodypart/arm/right/robot = 1
 		)
 	category = CAT_ROBOT
 
@@ -85,7 +85,7 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/storage/box/clown = 1,
-		/obj/item/bodypart/r_arm/robot = 1,
+		/obj/item/bodypart/arm/right/robot = 1,
 		/obj/item/assembly/prox_sensor = 1,
 		/obj/item/bikehorn/ = 1
 	)
@@ -97,7 +97,7 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/extinguisher = 1,
-		/obj/item/bodypart/r_arm/robot = 1,
+		/obj/item/bodypart/arm/right/robot = 1,
 		/obj/item/assembly/prox_sensor = 1,
 		/obj/item/clothing/head/utility/hardhat/red = 1
 	)
@@ -109,7 +109,7 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/analyzer = 1,
-		/obj/item/bodypart/r_arm/robot = 1,
+		/obj/item/bodypart/arm/right/robot = 1,
 		/obj/item/assembly/prox_sensor = 1,
 		/obj/item/tank/internals = 1
 	)

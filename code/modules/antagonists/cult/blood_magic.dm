@@ -321,7 +321,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
-/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
 		return INITIALIZE_HINT_QDEL
