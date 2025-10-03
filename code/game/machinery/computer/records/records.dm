@@ -12,8 +12,7 @@
 /obj/machinery/computer/records/ui_data(mob/user)
 	var/list/data = list()
 
-	var/has_access = (authenticated && isliving(user)) || IsAdminGhost(user)
-	data["authenticated"] = has_access
+	data["authenticated"] = authenticated && isliving(user)
 	data["is_silicon"] = issilicon(user)
 
 	return data
