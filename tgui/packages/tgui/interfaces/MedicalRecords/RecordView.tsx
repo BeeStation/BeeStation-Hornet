@@ -137,7 +137,7 @@ export const MedicalRecordView = (props) => {
               ) : (
                 <EditableText
                   color="good"
-                  field="dna"
+                  field="dna_string"
                   target_ref={record_ref}
                   text={dna}
                 />

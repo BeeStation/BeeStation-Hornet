@@ -95,7 +95,7 @@
 			return TRUE
 		if ("gender")
 			return TRUE
-		if ("dna")
+		if ("dna_string")
 			return TRUE
 		if ("blood_type")
 			return TRUE
