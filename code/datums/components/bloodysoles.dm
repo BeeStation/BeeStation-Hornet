@@ -43,7 +43,7 @@
   * Returns true if the parent item is obscured by something else that the wielder is wearing
   */
 /datum/component/bloodysoles/proc/is_obscured()
-	return equipped_slot in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & equipped_slot
 
 /**
   * Run to update the icon of the parent
@@ -70,7 +70,7 @@
 	if(HAS_TRAIT(parent_atom, TRAIT_LIGHT_STEP)) //the character is agile enough to don't mess their clothing and hands just from one blood splatter at floor
 		return TRUE
 
-	parent_atom.add_blood_DNA(pool.return_blood_DNA())
+	parent_atom.add_blood_DNA(GET_ATOM_BLOOD_DNA(pool))
 	update_icon()
 
 /**
@@ -155,7 +155,7 @@
 				oldLocFP.exited_dirs |= wielder.dir
 				add_parent_to_footprint(oldLocFP)
 				oldLocFP.bloodiness = half_our_blood
-				oldLocFP.add_blood_DNA(parent_atom.return_blood_DNA())
+				oldLocFP.add_blood_DNA(GET_ATOM_BLOOD_DNA(parent_atom))
 				oldLocFP.update_appearance()
 
 			half_our_blood = bloody_shoes[last_blood_state] / 2
@@ -175,7 +175,7 @@
 			FP.entered_dirs |= wielder.dir
 			add_parent_to_footprint(FP)
 			FP.bloodiness = half_our_blood
-			FP.add_blood_DNA(parent_atom.return_blood_DNA())
+			FP.add_blood_DNA(GET_ATOM_BLOOD_DNA(parent_atom))
 			FP.update_appearance()
 
 
@@ -240,14 +240,14 @@
 	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER,  PROC_REF(equip_shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
-	if(ishuman(wielder))
-		// Monkeys get no bloody feet :(
-		if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
-			wielder.remove_overlay(SHOES_LAYER)
-			wielder.overlays_standing[SHOES_LAYER] = bloody_feet
-			wielder.apply_overlay(SHOES_LAYER)
-		else
-			wielder.update_worn_shoes()
+	if(!ishuman(wielder) || HAS_TRAIT(wielder, TRAIT_NO_BLOOD_OVERLAY))
+		return
+	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
+		wielder.remove_overlay(SHOES_LAYER)
+		wielder.overlays_standing[SHOES_LAYER] = bloody_feet
+		wielder.apply_overlay(SHOES_LAYER)
+	else
+		wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
 	if(ismonkey(wielder))
@@ -270,7 +270,7 @@
 /datum/component/bloodysoles/feet/is_obscured()
 	if(wielder.shoes)
 		return TRUE
-	return ITEM_SLOT_FEET in wielder.check_obscured_slots(TRUE)
+	return wielder.check_obscured_slots(TRUE) & ITEM_SLOT_FEET
 
 /datum/component/bloodysoles/feet/on_moved(datum/source, OldLoc, Dir, Forced)
 	if(wielder.num_legs < 2)

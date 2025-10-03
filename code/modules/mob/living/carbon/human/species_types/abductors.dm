@@ -2,16 +2,13 @@
 	name = "\improper Abductor"
 	id = SPECIES_ABDUCTOR
 	sexes = FALSE
-	species_traits = list(
-		NOEYESPRITES,
-		NOMOUTH
-	)
 	inherent_traits = list(
-		TRAIT_VIRUSIMMUNE,
-		TRAIT_CHUNKYFINGERS,
-		TRAIT_NOHUNGER,
+		TRAIT_NO_UNDERWEAR,
 		TRAIT_NOBREATH,
+		TRAIT_NOHUNGER,
+		TRAIT_VIRUSIMMUNE,
 		TRAIT_NOBLOOD,
+		TRAIT_NOMOUTH
 	)
 	mutanttongue = /obj/item/organ/tongue/abductor
 	mutantstomach = null
@@ -28,7 +25,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/abductor,
 	)
 
-/datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load, regenerate_icons)
 	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.add_hud_to(C)

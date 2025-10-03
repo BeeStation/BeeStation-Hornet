@@ -15068,12 +15068,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
-"daU" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "dbd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -19417,14 +19411,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
-"eob" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/vending/deputy,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "eos" = (
@@ -24422,6 +24408,33 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"fUM" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 4
+	},
+/obj/item/bodypart/leg/right/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/leg/left/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/head/robot,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/storage/tech)
 "fVc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office{
@@ -34339,6 +34352,13 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"jeu" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "jeD" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -70913,6 +70933,11 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/mixing)
+"uXs" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/science/robotics/lab)
 "uXC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/xeno_spawn,
@@ -71418,33 +71443,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"vfX" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/bodypart/chest/robot{
-	pixel_y = 4
-	},
-/obj/item/bodypart/leg/right/robot{
-	pixel_x = 6
-	},
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/bodypart/leg/left/robot{
-	pixel_x = -6
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bodypart/head/robot,
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/storage/tech)
 "vgc" = (
 /obj/structure/table/reinforced,
 /obj/machinery/microwave{
@@ -106281,7 +106279,7 @@ qdW
 rGz
 dIQ
 hTB
-eob
+jeu
 gNQ
 oDK
 fmO
@@ -111162,7 +111160,7 @@ nJw
 hpP
 bYG
 bYG
-vfX
+fUM
 bDI
 hqq
 xus
@@ -118568,7 +118566,7 @@ aZS
 uJl
 qhG
 dZj
-daU
+uXs
 fHL
 vSX
 aZS

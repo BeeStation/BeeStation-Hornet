@@ -301,9 +301,15 @@
 //for when you want the item to end up on the ground
 //will force move the item to the ground and call the turf's Entered
 /mob/proc/dropItemToGround(obj/item/I, force = FALSE, silent = FALSE)
+	if (isnull(I))
+		return TRUE
+
+	SEND_SIGNAL(src, COMSIG_MOB_DROPPING_ITEM)
 	. = doUnEquip(I, force, drop_location(), FALSE, silent = silent)
+
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
+
 	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP))
 		I.pixel_x = rand(-6, 6)
 		I.pixel_y = rand(-6, 6)
@@ -415,10 +421,10 @@
 	var/obscured = NONE
 	var/hidden_slots = NONE
 
-	for(var/obj/item/I in get_all_worn_items())
-		hidden_slots |= I.flags_inv
+	for(var/obj/item/equipped_item in get_equipped_items())
+		hidden_slots |= equipped_item.flags_inv
 		if(transparent_protection)
-			hidden_slots |= I.transparent_protection
+			hidden_slots |= equipped_item.transparent_protection
 
 	if(hidden_slots & HIDENECK)
 		obscured |= ITEM_SLOT_NECK

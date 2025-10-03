@@ -4,25 +4,44 @@
 	product_ads = "Escape to a fantasy world!;Fuel your gambling addiction!;Ruin your friendships!;Roll for initiative!;Elves and dwarves!;Paranoid computers!;Totally not satanic!;Fun times forever!"
 	icon_state = "games"
 	light_color = LIGHT_COLOR_ORANGE
-	products = list(
-		/obj/item/storage/crayons = 2,
-		/obj/item/toy/cards/deck = 5,
-		/obj/item/chess_board = 1,
-		/obj/item/chess_board/checkers = 1,
-		/obj/item/storage/pill_bottle/dice = 10,
-		/obj/item/storage/box/yatzy = 3,
-		/obj/item/toy/cards/deck/cas = 3,
-		/obj/item/toy/cards/deck/cas/black = 3,
-		/obj/item/toy/cards/deck/unum = 3,
-		/obj/item/toy/cards/deck/tarot = 3,
-		/obj/item/hourglass = 2,
-		/obj/item/camera = 3,
-		/obj/item/camera_film = 5,
-		/obj/item/razor=3,
-		/obj/item/canvas/nineteen_nineteen = 5,
-		/obj/item/canvas/twentythree_nineteen = 5,
-		/obj/item/canvas/twentythree_twentythree = 5,
-		/obj/item/paint_palette = 3
+	product_categories = list(
+		list(
+			"name" = "Cards",
+			"icon" = "diamond",
+			"products" = list(
+				/obj/item/toy/cards/deck = 5,
+				/obj/item/toy/cards/deck/cas = 3,
+				/obj/item/toy/cards/deck/cas/black = 3,
+				/obj/item/toy/cards/deck/unum = 3,
+				/obj/item/toy/cards/deck/tarot = 3,
+			),
+		),
+		list(
+			"name" = "Art",
+			"icon" = "palette",
+			"products" = list(
+				/obj/item/storage/crayons = 2,
+				/obj/item/paint_palette = 3,
+				/obj/item/canvas/nineteen_nineteen = 5,
+				/obj/item/canvas/twentythree_nineteen = 5,
+				/obj/item/canvas/twentythree_twentythree = 5,
+			),
+		),
+		list(
+			"name" = "Other",
+			"icon" = "star",
+			"products" = list(
+				/obj/item/camera = 3,
+				/obj/item/camera_film = 5,
+				/obj/item/dyespray = 3,
+				/obj/item/hourglass = 2,
+				/obj/item/razor = 3,
+				/obj/item/storage/pill_bottle/dice = 10,
+				/obj/item/storage/box/yatzy = 3,
+				/obj/item/chess_board = 1,
+				/obj/item/chess_board/checkers = 1,
+			),
+		),
 	)
 	contraband = list(
 		/obj/item/dice/fudge = 9,

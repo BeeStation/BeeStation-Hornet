@@ -121,7 +121,11 @@
 		var/mob/living/living_target = target_atom
 
 		// Strength of the attack
-		var/hit_strength = carbon_owner.dna.species.punchdamage * damage_coefficient + 2
+		var/base_arm_damage = 0
+		for(var/obj/item/bodypart/arm in carbon_owner.bodyparts)
+			if(arm.body_zone == BODY_ZONE_L_ARM || arm.body_zone == BODY_ZONE_R_ARM)
+				base_arm_damage += initial(arm.unarmed_damage)
+		var/hit_strength = base_arm_damage * damage_coefficient + 2
 		var/powerlevel = min(5, 1 + level_current)
 
 		if(rand(5 + powerlevel) >= 5)

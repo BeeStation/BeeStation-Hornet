@@ -497,22 +497,6 @@
 	},
 /turf/open/space/basic,
 /area/space)
-"afc" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/loot_jobscale/armoury/pistol_ammo,
-/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
-/obj/effect/loot_jobscale/armoury/pistols,
-/obj/structure/closet/gun_locker{
-	anchored = 1
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "afe" = (
 /obj/structure/grille,
 /obj/structure/window{
@@ -631,16 +615,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"agG" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/sign/departments/minsky/security/security{
-	pixel_y = 32
-	},
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "agL" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -12953,6 +12927,18 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/sorting)
+"cum" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "cun" = (
 /obj/structure/showcase/cyborg/old{
 	dir = 4;
@@ -23273,17 +23259,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
-"fTN" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 14;
-	id = "ferry_home";
-	name = "port bay 2";
-	width = 5
-	},
-/turf/open/space/basic,
-/area/space)
 "fTO" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
@@ -30035,18 +30010,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"itQ" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	pixel_y = -29
-	},
-/turf/open/floor/iron,
-/area/security/brig)
 "iue" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -31144,10 +31107,6 @@
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"iRW" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron/dark,
-/area/science/robotics/lab)
 "iRX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -32550,6 +32509,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
+"jvg" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 13;
+	id = "ferry_home";
+	name = "port bay 2";
+	width = 5
+	},
+/turf/open/space/basic,
+/area/space)
 "jvp" = (
 /obj/item/radio/intercom{
 	pixel_y = -29
@@ -41524,18 +41494,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/security/main)
-"mYr" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/loot_jobscale/armoury/taser_ammo_box,
-/obj/effect/loot_jobscale/armoury/tasers,
-/obj/structure/closet/gun_locker{
-	anchored = 1
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "mYB" = (
 /obj/machinery/computer/teleporter{
 	dir = 1
@@ -41958,6 +41916,15 @@
 /obj/machinery/teleport/hub,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
+"nfw" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/sign/departments/minsky/security/security{
+	pixel_y = 32
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/fore)
 "nfV" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/tile/brown{
@@ -50202,6 +50169,15 @@
 "qva" = (
 /turf/open/floor/iron/techmaint,
 /area/maintenance/starboard/fore)
+"qvc" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/security/brig)
 "qvN" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -56853,6 +56829,22 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/storage/eva)
+"sTv" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "sTA" = (
 /obj/structure/table/reinforced,
 /obj/item/food/pie/cream,
@@ -82164,7 +82156,7 @@ aUL
 rQX
 aaa
 aaa
-fTN
+jvg
 aaa
 aaa
 rQX
@@ -99089,7 +99081,7 @@ tkf
 grI
 agn
 agn
-agG
+nfw
 ips
 aoz
 ajo
@@ -100109,7 +100101,7 @@ cVL
 adR
 sCt
 vLp
-itQ
+qvc
 aiX
 aiX
 aiX
@@ -102409,7 +102401,7 @@ aaa
 aaZ
 kAi
 ted
-mYr
+cum
 fRu
 csg
 eJm
@@ -102666,7 +102658,7 @@ cyR
 aaZ
 pst
 ack
-afc
+sTv
 hJq
 jZE
 aaZ
@@ -113788,7 +113780,7 @@ bhM
 dmo
 lnP
 bfT
-iRW
+bsQ
 bsQ
 bsQ
 box

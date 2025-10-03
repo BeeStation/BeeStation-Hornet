@@ -13,6 +13,7 @@
 /mob/living/carbon/proc/del_and_replace_bodypart(obj/item/bodypart/new_limb, special)
 	var/obj/item/bodypart/old_limb = get_bodypart(new_limb.body_zone)
 	if(old_limb)
+		old_limb.drop_limb(special = TRUE)
 		qdel(old_limb)
 	new_limb.try_attach_limb(src, special = special)
 
@@ -153,39 +154,56 @@
 		if(BODY_ZONE_CHEST)
 			new_bodypart = new /obj/item/bodypart/chest/alien()
 	if(new_bodypart)
-		new_bodypart.update_limb(src)
+		new_bodypart.update_limb(is_creating = TRUE)
 
+/// Makes sure that the owner's bodytype flags match the flags of all of it's parts and organs
+/mob/living/carbon/proc/synchronize_bodytypes()
+	var/all_limb_flags = NONE
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		for(var/obj/item/organ/organ in limb)
+			all_limb_flags |= organ.external_bodytypes
+		all_limb_flags |= limb.bodytype
 
-/proc/skintone2hex(skin_tone, include_tag = TRUE)
+	bodytype = all_limb_flags
+
+/// Makes sure that the owner's bodyshape flags match the flags of all of it's parts and organs
+/mob/living/carbon/proc/synchronize_bodyshapes()
+	var/all_limb_flags = NONE
+	for(var/obj/item/bodypart/limb as anything in bodyparts)
+		for(var/obj/item/organ/organ in limb)
+			all_limb_flags |= organ.external_bodyshapes
+		all_limb_flags |= limb.bodyshape
+
+	bodyshape = all_limb_flags
+
+/proc/skintone2hex(skin_tone)
 	. = 0
 	switch(skin_tone)
 		if("caucasian1")
-			. = "ffe0d1"
+			. = "#ffe0d1"
 		if("caucasian2")
-			. = "fcccb3"
+			. = "#fcccb3"
 		if("caucasian3")
-			. = "e8b59b"
+			. = "#e8b59b"
 		if("latino")
-			. = "d9ae96"
+			. = "#d9ae96"
 		if("mediterranean")
-			. = "c79b8b"
+			. = "#c79b8b"
 		if("asian1")
-			. = "ffdeb3"
+			. = "#ffdeb3"
 		if("asian2")
-			. = "e3ba84"
+			. = "#e3ba84"
 		if("arab")
-			. = "c4915e"
+			. = "#c4915e"
 		if("indian")
-			. = "b87840"
+			. = "#b87840"
 		if("african1")
-			. = "754523"
+			. = "#754523"
 		if("african2")
-			. = "471c18"
+			. = "#471c18"
 		if("albino")
-			. = "fff4e6"
+			. = "#fff4e6"
 		if("orange")
-			. = "ffc905"
+			. = "#ffc905"
 		if("pink")
-			. = "D7377D"
-	if(include_tag && .)
-		return "#" + .
+			. = "#D7377D"

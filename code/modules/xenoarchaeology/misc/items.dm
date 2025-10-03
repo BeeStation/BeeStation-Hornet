@@ -12,8 +12,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/xenoartifact)
 	throw_range = 3
 	///What type of artifact
 	var/datum/xenoartifact_material/artifact_material
-	///Cover some special interactions we fuck up
-	var/transfer_prints = TRUE
 
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()

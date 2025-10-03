@@ -8,6 +8,7 @@
 	spreading_modifier = 0.5
 	desc = "If left untreated, the subject will contract the flu."
 	danger = DISEASE_NONTHREAT
+	required_organ = ORGAN_SLOT_LUNGS
 
 /datum/disease/cold/stage_act(delta_time, times_fired)
 	. = ..()

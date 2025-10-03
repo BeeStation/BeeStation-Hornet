@@ -20,24 +20,20 @@
 	greyscale_colors = "#2e2e2e"
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
+	adjust_visor(user)
+
+/obj/item/clothing/mask/bandana/adjust_visor(mob/living/user)
 	if(slot_flags & ITEM_SLOT_NECK)
 		to_chat(user, span_warning("You must undo [src] in order to push it into a hat!"))
-		return
-	adjustmask(user)
-	if(greyscale_config == initial(greyscale_config) && greyscale_config_worn == initial(greyscale_config_worn))
-		worn_icon_state += "_up"
+		return FALSE
+	return ..()
+
+/obj/item/clothing/mask/bandana/visor_toggling()
+	. = ..()
+	if(up)
 		undyeable = TRUE
-		set_greyscale(
-			new_config = greyscale_config_up,
-			new_worn_config = greyscale_config_worn_up
-		)
 	else
-		worn_icon_state = initial(worn_icon_state)
 		undyeable = initial(undyeable)
-		set_greyscale(
-			new_config = initial(greyscale_config),
-			new_worn_config = initial(greyscale_config_worn)
-		)
 
 /obj/item/clothing/mask/bandana/AltClick(mob/user)
 	. = ..()

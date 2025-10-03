@@ -9912,6 +9912,24 @@
 	broken = 1
 	},
 /area/maintenance/starboard/fore)
+"cCe" = (
+/obj/structure/table,
+/obj/effect/turf_decal/bot,
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 3
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -3
+	},
+/obj/item/stack/cable_coil/white,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/turf/open/floor/iron/grid/steel,
+/area/science/robotics/lab)
 "cCn" = (
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
@@ -31863,15 +31881,6 @@
 /obj/structure/chair/stool/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
-"ifc" = (
-/obj/effect/turf_decal/guideline/guideline_mid/purple,
-/obj/effect/turf_decal/guideline/guideline_out/yellow,
-/obj/effect/turf_decal/guideline/guideline_in/blue,
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron/dark/corner{
-	dir = 4
-	},
-/area/hallway/primary/central)
 "ifd" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -35447,19 +35456,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/open/floor/plating,
 /area/tcommsat/server)
-"jab" = (
-/obj/structure/table/reinforced,
-/obj/item/bodypart/chest/robot,
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 6
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -6
-	},
-/obj/item/bodypart/leg/right/robot,
-/obj/item/bodypart/leg/right/robot,
-/turf/open/floor/iron/tech/grid,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "jad" = (
 /obj/effect/turf_decal/guideline/guideline_in_arrow_con/red{
 	dir = 8
@@ -38075,6 +38071,19 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"jLX" = (
+/obj/structure/table/reinforced,
+/obj/item/bodypart/chest/robot,
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/leg/right/robot,
+/obj/item/bodypart/leg/right/robot,
+/turf/open/floor/iron/tech/grid,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "jMj" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/grassybush,
@@ -39642,6 +39651,10 @@
 	dir = 1
 	},
 /area/engine/atmos)
+"kew" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/science/robotics/lab)
 "keB" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -45032,11 +45045,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
-"lqQ" = (
-/obj/machinery/aug_manipulator,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "lrd" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 4
@@ -60467,24 +60475,6 @@
 "pyK" = (
 /turf/open/floor/carpet,
 /area/medical/exam_room)
-"pyQ" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 3
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -3
-	},
-/obj/item/stack/cable_coil/white,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/turf/open/floor/iron/grid/steel,
-/area/science/robotics/lab)
 "pyX" = (
 /obj/effect/turf_decal/trimline/blue/warning{
 	dir = 1
@@ -70138,30 +70128,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/auxiliary)
-"rVY" = (
-/obj/structure/table/wood,
-/obj/item/bodypart/chest/robot{
-	pixel_y = 2
-	},
-/obj/item/bodypart/head/robot{
-	pixel_y = 10
-	},
-/obj/item/bodypart/arm/left/robot{
-	pixel_x = -5
-	},
-/obj/item/bodypart/arm/right/robot{
-	pixel_x = 4
-	},
-/obj/item/bodypart/leg/right/robot{
-	pixel_x = 5;
-	pixel_y = -7
-	},
-/obj/item/bodypart/leg/left/robot{
-	pixel_x = -4;
-	pixel_y = -7
-	},
-/turf/open/floor/wood,
-/area/bridge/showroom/corporate)
 "rWj" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -89104,6 +89070,30 @@
 "wBt" = (
 /turf/closed/wall,
 /area/security/main)
+"wBw" = (
+/obj/structure/table/wood,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 2
+	},
+/obj/item/bodypart/head/robot{
+	pixel_y = 10
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -5
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 4
+	},
+/obj/item/bodypart/leg/right/robot{
+	pixel_x = 5;
+	pixel_y = -7
+	},
+/obj/item/bodypart/leg/left/robot{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/turf/open/floor/wood,
+/area/bridge/showroom/corporate)
 "wBx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -129264,7 +129254,7 @@ bQm
 sIS
 bZm
 gAI
-ifc
+rOy
 rfa
 fXI
 cnM
@@ -130058,7 +130048,7 @@ dsX
 xph
 fIf
 xJr
-lqQ
+kew
 uwE
 noj
 gDL
@@ -132112,7 +132102,7 @@ vBG
 yfq
 rVu
 pgr
-pyQ
+cCe
 trH
 kYH
 wAn
@@ -134411,7 +134401,7 @@ tfT
 hRk
 jyA
 tUb
-rVY
+wBw
 tfT
 qZR
 jKi
@@ -151064,7 +151054,7 @@ miR
 kOu
 aYu
 vNw
-jab
+jLX
 jyr
 kiU
 vNw

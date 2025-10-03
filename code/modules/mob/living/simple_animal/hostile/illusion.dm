@@ -6,7 +6,7 @@
 	icon_living = "static"
 	icon_dead = "null"
 	gender = NEUTER
-	mob_biotypes = list()
+	mob_biotypes = NONE
 	melee_damage = 5
 	combat_mode = TRUE
 	attack_verb_continuous = "gores"
