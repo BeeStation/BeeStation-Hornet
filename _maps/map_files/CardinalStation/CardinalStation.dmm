@@ -7379,7 +7379,7 @@
 	id = "Prisongate";
 	name = "Prison Blast Door"
 	},
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "bwA" = (
@@ -59361,6 +59361,11 @@
 	req_one_access_txt = "2";
 	dir = 8
 	},
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "mbA" = (
@@ -80392,6 +80397,12 @@
 	},
 /obj/machinery/door/poddoor/shutters{
 	id = "visitationlock"
+	},
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1;
+	pixel_y = 5
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
