@@ -228,7 +228,7 @@
 	if(!iscarbon(host_mob)) //nonstandard biology
 		return FALSE
 	var/mob/living/carbon/C = host_mob
-	if(C.suiciding || C.ishellbound() || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
+	if(C.suiciding || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
 		return FALSE
 	if((world.time - C.timeofdeath) > 1800) //too late
 		return FALSE

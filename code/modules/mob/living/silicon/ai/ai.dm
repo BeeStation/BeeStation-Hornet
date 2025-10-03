@@ -1021,7 +1021,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return
 
 	else if(mind)
-		soullink(/datum/soullink/sharedbody, src, target)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
 		deployed_shell = target
 		transfer_observers_to(deployed_shell) // ai core to borg shell
 		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg
