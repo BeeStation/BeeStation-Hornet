@@ -485,9 +485,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "aeN" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/pointybush{
@@ -8004,9 +8002,8 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "bFc" = (
-/obj/structure/window/reinforced/tinted{
-	color = "#9b1d70";
-	dir = 1
+/obj/structure/window/reinforced/tinted/spawner/directional/north{
+	color = "#9b1d70"
 	},
 /turf/open/floor/carpet/black,
 /area/maintenance/club)
@@ -8595,9 +8592,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "bKU" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/palebush{
@@ -8824,9 +8819,7 @@
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "bNP" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -13153,8 +13146,7 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
+/obj/structure/window/reinforced/tinted/spawner/directional/west{
 	color = "#9b1d70"
 	},
 /turf/open/floor/iron/dark,
@@ -14999,9 +14991,7 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "cVD" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/sparsegrass{
@@ -15065,7 +15055,7 @@
 /area/engine/engine_smes)
 "cWx" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/no_border,
@@ -20739,9 +20729,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "ehZ" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/palebush{
@@ -22886,8 +22874,7 @@
 /area/hallway/primary/port)
 "eHt" = (
 /obj/structure/fluff/hedge/opaque,
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
+/obj/structure/window/reinforced/tinted/spawner/directional/west{
 	color = "#9b1d70";
 	pixel_x = -7
 	},
@@ -23775,9 +23762,7 @@
 	pixel_y = -13
 	},
 /obj/machinery/light/small/directional/north,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
@@ -26174,9 +26159,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "fsZ" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -26588,9 +26571,7 @@
 "fxi" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
@@ -27237,9 +27218,8 @@
 /obj/item/stack/spacecash/c20{
 	pixel_x = 6
 	},
-/obj/structure/window/reinforced/tinted{
-	color = "#9b1d70";
-	dir = 1
+/obj/structure/window/reinforced/tinted/spawner/directional/north{
+	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -32748,7 +32728,7 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/structure/window/reinforced/tinted{
+/obj/structure/window/reinforced/tinted/spawner/directional/south{
 	color = "#9b1d70"
 	},
 /obj/structure/platform/black/corner{
@@ -35033,9 +35013,7 @@
 /area/maintenance/club)
 "hdU" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
@@ -35583,9 +35561,7 @@
 /area/science/robotics/mechbay)
 "hiA" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/machinery/door/window/westleft{
 	req_one_access_txt = "26;32"
@@ -37000,9 +36976,7 @@
 "hyZ" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "hzf" = (
@@ -37611,7 +37585,7 @@
 /area/medical/sleeper)
 "hFg" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
@@ -38048,7 +38022,7 @@
 /area/security/brig)
 "hJa" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
@@ -39195,9 +39169,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "hXe" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -42425,7 +42397,7 @@
 /area/bridge/meeting_room)
 "iEm" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush{
 	pixel_x = -12
@@ -43425,9 +43397,7 @@
 "iNo" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -44540,9 +44510,7 @@
 /obj/structure/flora/ausbushes/pointybush{
 	pixel_y = -10
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -45183,7 +45151,7 @@
 /area/teleporter)
 "jia" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
@@ -47524,8 +47492,7 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
+/obj/structure/window/reinforced/tinted/spawner/directional/west{
 	color = "#9b1d70"
 	},
 /obj/structure/cable/yellow{
@@ -48806,8 +48773,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
+/obj/structure/window/reinforced/tinted/spawner/directional/north{
 	pixel_y = 7
 	},
 /obj/structure/showcase/machinery/tv{
@@ -53357,7 +53323,7 @@
 	pixel_x = -2;
 	pixel_y = 26
 	},
-/obj/structure/window/reinforced/tinted{
+/obj/structure/window/reinforced/tinted/spawner/directional/south{
 	color = "#9b1d70"
 	},
 /obj/structure/cable/yellow{
@@ -56202,7 +56168,7 @@
 /area/maintenance/department/medical)
 "lta" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -56246,7 +56212,7 @@
 /area/maintenance/starboard/central)
 "lto" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/pointybush{
@@ -57677,9 +57643,7 @@
 /area/space/nearstation)
 "lJK" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/machinery/door/window/westright{
 	req_one_access_txt = "26;32"
 	},
@@ -60141,9 +60105,7 @@
 "mkG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
@@ -61687,9 +61649,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "mBj" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
@@ -63212,9 +63172,7 @@
 /turf/open/floor/wood/big,
 /area/vacant_room/commissary/commissaryRandom)
 "mQf" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/flora/ausbushes/ppflowers{
@@ -67490,9 +67448,7 @@
 /area/quartermaster/qm_bedroom)
 "nIh" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
@@ -67534,9 +67490,7 @@
 /turf/open/floor/iron/textured_half,
 /area/quartermaster/storage)
 "nIM" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
@@ -70942,8 +70896,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
+/obj/structure/window/reinforced/tinted/spawner/directional/west{
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/purple{
@@ -73338,9 +73291,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "oTa" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass/no_border,
@@ -73390,9 +73341,7 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "oTu" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass/no_border,
@@ -74156,9 +74105,7 @@
 /turf/open/space/basic,
 /area/solar/starboard/aft)
 "pbD" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/flora/ausbushes/ppflowers{
@@ -81580,9 +81527,7 @@
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "qBb" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
@@ -84832,9 +84777,7 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
 "rie" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/fernybush{
@@ -85417,8 +85360,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
+/obj/structure/window/reinforced/tinted/spawner/directional/east{
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/purple{
@@ -86554,9 +86496,7 @@
 /turf/open/floor/iron/smooth,
 /area/construction/mining/aux_base)
 "rze" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -91651,9 +91591,7 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "sFz" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
@@ -92074,9 +92012,7 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "sKi" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/grass/no_border,
@@ -93250,9 +93186,7 @@
 /obj/machinery/door/window/eastright{
 	req_one_access_txt = "26;32"
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "sWz" = (
@@ -93696,9 +93630,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "tcl" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -100040,7 +99972,7 @@
 /area/crew_quarters/dorms)
 "upc" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
@@ -101501,9 +101433,7 @@
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
 "uDL" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
@@ -101595,9 +101525,7 @@
 /area/crew_quarters/locker)
 "uFg" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_y = -6
@@ -105492,7 +105420,7 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/structure/window/reinforced/tinted{
+/obj/structure/window/reinforced/tinted/spawner/directional/south{
 	color = "#9b1d70"
 	},
 /obj/structure/platform/black/corner{
@@ -106796,8 +106724,7 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 8
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
+/obj/structure/window/reinforced/tinted/spawner/directional/east{
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/siding/purple{
@@ -108919,9 +108846,7 @@
 	id = "corporate_privacy";
 	name = "Showroom Shutters"
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/grass/no_border,
 /area/bridge/meeting_room)
 "wbY" = (
@@ -118135,8 +118060,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
+/obj/structure/window/reinforced/tinted/spawner/directional/north{
 	pixel_y = 7
 	},
 /turf/open/floor/wood,
@@ -118617,9 +118541,7 @@
 /obj/machinery/door/window/eastright{
 	req_one_access_txt = "26;32"
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "ydX" = (
@@ -119241,9 +119163,7 @@
 /obj/structure/flora/ausbushes,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/light/small/directional/north,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "ylq" = (

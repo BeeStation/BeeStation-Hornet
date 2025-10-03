@@ -86,6 +86,34 @@
 /obj/structure/window/reinforced/survival_pod/spawner/east : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
 /obj/structure/window/reinforced/survival_pod/spawner/west : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
 
+# Tinted
+
+/obj/structure/window/reinforced/tinted{dir = 1} : /obj/structure/window/reinforced/tinted/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted{dir = @UNSET} : /obj/structure/window/reinforced/tinted/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted{dir = 4} : /obj/structure/window/reinforced/tinted/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted{dir = 8} : /obj/structure/window/reinforced/tinted/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Tinted frosted
+
+/obj/structure/window/reinforced/tinted/frosted{dir = 1} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/frosted{dir = @UNSET} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/frosted{dir = 4} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/frosted{dir = 8} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Unanchored
+
+/obj/structure/window/unanchored{dir = 1} : /obj/structure/window/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/unanchored{dir = @UNSET} : /obj/structure/window/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/unanchored{dir = 4} : /obj/structure/window/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/unanchored{dir = 8} : /obj/structure/window/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced unanchored
+
+/obj/structure/window/reinforced/unanchored{dir = 1} : /obj/structure/window/reinforced/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/unanchored{dir = 4} : /obj/structure/window/reinforced/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/unanchored{dir = 8} : /obj/structure/window/reinforced/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
 # Very weird cases that may or may not exist
 # Basically, var edited directional spawners
 # If you did this I hope you eat a brick

@@ -19745,9 +19745,7 @@
 "fgp" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/north,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -51816,9 +51814,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/machinery/light/small,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/iron/dark,
@@ -56230,9 +56226,7 @@
 /area/bridge)
 "osZ" = (
 /obj/structure/bookcase,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/north,
 /turf/open/floor/wood,
 /area/medical/exam_room)
 "otd" = (
@@ -67137,9 +67131,7 @@
 /area/maintenance/department/security/brig)
 "rop" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/machinery/computer/operating{
 	name = "Forensics Operating Computer"
 	},

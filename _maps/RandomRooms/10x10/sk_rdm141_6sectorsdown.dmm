@@ -57,7 +57,7 @@
 /area/template_noop)
 "iC" = (
 /obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
@@ -200,10 +200,8 @@
 "GN" = (
 /obj/structure/closet,
 /obj/item/storage/pill_bottle/floorpill,
-/obj/structure/window/reinforced/tinted/frosted,
-/obj/structure/window/reinforced/tinted/frosted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/east,
 /obj/item/clothing/under/costume/jabroni,
 /obj/item/stack/spacecash/c20,
 /turf/open/floor/monotile/steel,
@@ -259,7 +257,7 @@
 /area/template_noop)
 "Qx" = (
 /obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
 /obj/item/reagent_containers/cup/glass/bottle/tequila{
 	pixel_x = -6;
 	pixel_y = 4
@@ -272,7 +270,7 @@
 /area/template_noop)
 "TC" = (
 /obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/south,
 /obj/item/storage/box,
 /turf/open/floor/monotile/steel,
 /area/template_noop)

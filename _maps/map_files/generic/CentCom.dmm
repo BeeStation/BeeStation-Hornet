@@ -16351,9 +16351,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "aPl" = (
@@ -17740,9 +17738,7 @@
 /area/syndicate_mothership/control)
 "aSB" = (
 /obj/structure/curtain,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/machinery/shower{
 	pixel_y = 12
 	},
@@ -20887,9 +20883,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "bKF" = (

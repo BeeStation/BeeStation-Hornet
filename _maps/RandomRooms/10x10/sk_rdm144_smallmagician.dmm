@@ -229,9 +229,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
-/obj/structure/window/reinforced/tinted/frosted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/east,
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/carpet,
@@ -249,9 +247,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "X" = (
-/obj/structure/window/reinforced/tinted/frosted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/east,
 /obj/effect/landmark/start/randommaint/magician,
 /obj/structure/chair/stool/bar,
 /obj/machinery/light/small{

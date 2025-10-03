@@ -18853,9 +18853,7 @@
 /turf/open/floor/iron,
 /area/science/shuttle)
 "fYI" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
@@ -23726,9 +23724,7 @@
 /area/medical/genetics)
 "hDC" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 4;
 	color = "#742925"
@@ -45822,9 +45818,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
 "oKr" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/chair/fancy/sofa/old/left{
 	dir = 4;
 	color = "#742925"
@@ -50319,9 +50313,7 @@
 /area/engine/atmos)
 "qqs" = (
 /obj/effect/landmark/start/assistant,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	color = "#742925";
