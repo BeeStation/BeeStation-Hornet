@@ -1,0 +1,31 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: IPCs have had their racial traits adjusted to make them stand out as
+      a unique race a bit more
+  - tweak: IPCs are now immune to pressure damage, but instead spring an oil leak,
+      which gives them a greater resistance to space exposure without protection but
+      they will still suffer in the long-term if not prepared.
+  - tweak: IPCs are no longer immune to radiation and will suffer burns instead of
+      toxin damage from prolonged radiation exposure. System Cleaner now purges radiation
+      from IPCs in addition to its other effects though.
+  - tweak: IPCs now take 1.5x damage from brute damage.
+  - tweak: IPCs now take 1.5x damage from fires and burn damage, down from 3x and
+      2x respectively.
+  - tweak: IPCs remain functional in soft crit, but still take low steady damage over
+      time when they reach this state.
+  - tweak: IPCs are now immune to stamina damage, and stun batons electrocute them
+      for 15 burn damage. Disablers have no effect on IPCs,
+  - tweak: IPCs now have the easy limb disable trait, meaning they take 40% less damage
+      to disable a limb
+  - tweak: Dismembering a chest is only possible on dead mobs now, no more early organ
+      spilling.
+  - bugfix: Fixed the frail quirk, as well as other instances of easy limb disable.
+      They were non-functional in the code for an unknown amount of time.
+  - bugfix: Mobs that have the easy limb dismemberment trait will now find that they
+      lose their limbs to blunt damage after having them disabled as was originally
+      intended. Previously only the RNG chance was being rolled without the guaranteed
+      dismemberment. This notably affects Skeletons, Zombies, Oozelings and IPCs.
+  - bugfix: Energy swords and daggers have the appropriate sharpness again. Energy
+      swords can dismember easily, and energy daggers can dismember as soon as the
+      limb is disabled.
