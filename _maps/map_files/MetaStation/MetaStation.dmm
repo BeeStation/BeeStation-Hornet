@@ -18575,6 +18575,12 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_y = 32;
+	pixel_x = -27
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "deG" = (
@@ -19072,6 +19078,17 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hallway/primary/aft)
+"djd" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32;
+	pixel_y = 32
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "djj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -45371,6 +45388,13 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
+"mob" = (
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate"
+	},
+/turf/closed/wall,
+/area/security/prison)
 "moe" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -53980,6 +54004,16 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/maintenance/department/science/xenobiology)
+"pgb" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "pgj" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -55845,6 +55879,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"pNa" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 8
+	},
+/area/security/brig)
 "pNg" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
@@ -102698,13 +102745,13 @@ jiS
 jiS
 hIK
 aax
-abe
+mob
 abe
 abe
 abe
 abe
 mXb
-abe
+mob
 pMF
 fzm
 aax
@@ -104768,7 +104815,7 @@ iKA
 iKA
 hLM
 vSJ
-kUt
+pgb
 kUt
 xMq
 kVG
@@ -105538,7 +105585,7 @@ fov
 grq
 pZF
 dAL
-kUt
+djd
 mAd
 kUt
 wKL
@@ -106049,7 +106096,7 @@ dPv
 oaG
 uFw
 ryP
-ybU
+pNa
 gcT
 aax
 xZm

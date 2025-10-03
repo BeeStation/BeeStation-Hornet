@@ -325,3 +325,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
 	else
 		context.add_attack_hand_action("Push")
 	context.add_left_click_item_action("Hack", /obj/item/card/emag)
+
+/obj/machinery/button/door/prison_lockdown
+	name = "Prison Lockdown"
+	desc = "A remote control switch. This one's 'High Security', if the eggheads are to be believed."
+	icon = 'icons/obj/stationobjs.dmi'
+	skin = "prisonlock"
