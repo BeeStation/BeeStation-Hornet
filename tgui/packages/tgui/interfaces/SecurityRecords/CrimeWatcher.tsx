@@ -300,6 +300,7 @@ const CrimeAuthor = (props) => {
       <Stack.Item color="label">
         Fine (leave blank to arrest)
         <RestrictedInput
+          value={crimeFine}
           onChange={(_, value) => setCrimeFine(value)}
           fluid
           maxValue={1000}
