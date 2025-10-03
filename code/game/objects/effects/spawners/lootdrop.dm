@@ -643,6 +643,7 @@
 				/obj/item/pen/screwdriver = 1,
 				/obj/item/book/manual/wiki/engineering_hacking = 1,
 				/obj/item/grenade/smokebomb = 1,
+				/obj/item/lighter/greyscale = 3,
 				// Clothing
 				/obj/item/clothing/glasses/meson = 1,
 				/obj/item/clothing/glasses/sunglasses/advanced = 1,
