@@ -8,7 +8,7 @@
 	},
 /area/template_noop)
 "c" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/sink/puddle,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -53,7 +53,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass,
 /area/template_noop)
 "t" = (
@@ -97,7 +97,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/door/window/eastright,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -113,7 +113,7 @@
 	},
 /area/template_noop)
 "F" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/grass,
 /area/template_noop)

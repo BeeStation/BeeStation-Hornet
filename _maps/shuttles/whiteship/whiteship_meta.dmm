@@ -166,9 +166,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned/engine)
 "ay" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},

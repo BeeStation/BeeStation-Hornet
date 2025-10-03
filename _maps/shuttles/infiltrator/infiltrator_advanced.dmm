@@ -867,9 +867,7 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/suit/apron/surgical,
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/medical)
 "bX" = (
@@ -879,9 +877,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 5
 	},
@@ -1465,9 +1461,7 @@
 	},
 /obj/item/healthanalyzer,
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1553,9 +1547,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/firstaid/brute,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
@@ -1671,9 +1663,7 @@
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)
 "dO" = (
@@ -1786,9 +1776,7 @@
 "dZ" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -1803,9 +1791,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/light/small,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/armory)
@@ -1970,9 +1956,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 9
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},

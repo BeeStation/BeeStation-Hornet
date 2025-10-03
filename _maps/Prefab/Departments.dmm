@@ -959,9 +959,7 @@
 /area/quartermaster/storage)
 "wc" = (
 /obj/item/radio/intercom,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/camera{
 	dir = 10
 	},

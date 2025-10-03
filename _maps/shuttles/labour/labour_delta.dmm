@@ -73,13 +73,11 @@
 	req_access_txt = "1";
 	pixel_x = -25
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "l" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/door/window/southleft{
 	name = "Gulag";
 	req_one_access_txt = "63;42;38"
@@ -252,9 +250,7 @@
 /area/shuttle/labor)
 "x" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)

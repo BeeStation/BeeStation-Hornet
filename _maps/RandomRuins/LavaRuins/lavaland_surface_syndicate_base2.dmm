@@ -94,9 +94,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "aV" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/cup/beaker/large{
 	pixel_x = -3
@@ -1132,9 +1130,7 @@
 	dir = 1
 	},
 /obj/machinery/dna_scannernew,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "lr" = (
@@ -1416,7 +1412,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "mS" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
 	pixel_x = 5;
@@ -1916,9 +1912,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "rS" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bridge)
 "rV" = (
@@ -2181,9 +2175,7 @@
 /area/ruin/unpowered/syndicate_lava_base/starboard)
 "vd" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/item/stamp/syndicate,
@@ -2674,7 +2666,7 @@
 	pixel_x = 10;
 	pixel_y = 2
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "AE" = (
@@ -2795,7 +2787,7 @@
 "BE" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/duffelbag/med/implant,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "BG" = (
@@ -3021,7 +3013,7 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Ei" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/storage/box/syringes,
 /obj/item/restraints/handcuffs,
 /obj/item/gun/syringe/syndicate,
@@ -3184,9 +3176,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "FM" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
@@ -4024,10 +4014,8 @@
 /area/ruin/unpowered/syndicate_lava_base/port)
 "MV" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "Ne" = (
@@ -4248,9 +4236,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered/syndicate_lava_base/starboard)
 "Pf" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -5152,9 +5138,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Yy" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -5246,9 +5230,7 @@
 /obj/structure/table/reinforced,
 /obj/item/suppressor,
 /obj/item/clothing/ears/earmuffs,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},

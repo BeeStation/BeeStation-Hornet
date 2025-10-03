@@ -135,9 +135,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "ay" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "az" = (
@@ -227,9 +225,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "aS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
 /area/shuttle/escape)
@@ -257,10 +253,8 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "aY" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "aZ" = (
@@ -271,27 +265,23 @@
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "ba" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "bb" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "bc" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bd" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
@@ -303,18 +293,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bg" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
@@ -473,9 +459,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bK" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)

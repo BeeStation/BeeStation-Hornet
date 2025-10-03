@@ -131,7 +131,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "r" = (
-/obj/structure/window/spawner/west,
+/obj/structure/window/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
@@ -153,7 +153,7 @@
 /turf/open/floor/monotile,
 /area/template_noop)
 "v" = (
-/obj/structure/window/spawner/west,
+/obj/structure/window/spawner/directional/west,
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
 	icon_state = "plant-18";
