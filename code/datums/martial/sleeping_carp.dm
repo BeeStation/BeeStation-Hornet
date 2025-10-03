@@ -135,6 +135,7 @@
 		D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
 						"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
 		to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+		return TRUE
 	return FALSE
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
