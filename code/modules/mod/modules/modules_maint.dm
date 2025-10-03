@@ -68,10 +68,6 @@
 	var/datum/client_colour/rave_screen
 	/// The current element in the rainbow_order list we are on.
 	var/rave_number = 1
-	/// The track we selected to play.
-	var/datum/track/selection
-	/// A list of all the songs we can play.
-	var/list/songs = list()
 	/// A list of the colors the module can take.
 	var/static/list/rainbow_order = list(
 		list(1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0),
@@ -81,47 +77,46 @@
 		list(0,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0),
 		list(1,0,0,0, 0,0,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0),
 	)
+	/// What actually plays music to us
+	var/datum/jukebox/single_mob/music_player
 
 /obj/item/mod/module/visor/rave/Initialize(mapload)
 	. = ..()
-	var/list/tracks = flist("[global.config.directory]/jukebox_music/sounds/")
-	for(var/sound in tracks)
-		var/datum/track/track = new()
-		track.song_path = file("[global.config.directory]/jukebox_music/sounds/[sound]")
-		var/list/sound_params = splittext(sound,"+")
-		if(length(sound_params) != 3)
-			continue
-		track.song_name = sound_params[1]
-		track.song_length = text2num(sound_params[2])
-		track.song_beat = text2num(sound_params[3])
-		songs[track.song_name] = track
-	if(length(songs))
-		var/song_name = pick(songs)
-		selection = songs[song_name]
+	music_player = new(src)
+	music_player.sound_loops = TRUE
 
-/obj/item/mod/module/visor/rave/on_activation()
-	rave_screen = mod.wearer.add_client_colour(/datum/client_colour/rave)
-	rave_screen.update_colour(rainbow_order[rave_number])
-	if(selection)
-		SEND_SOUND(mod.wearer, sound(selection.song_path, volume = 50, channel = CHANNEL_JUKEBOX))
-
-/obj/item/mod/module/visor/rave/on_deactivation(display_message = TRUE, deleting = FALSE)
+/obj/item/mod/module/visor/rave/Destroy()
+	QDEL_NULL(music_player)
 	QDEL_NULL(rave_screen)
-	if(selection)
-		mod.wearer.stop_sound_channel(CHANNEL_JUKEBOX)
-		if(deleting)
-			return
-		SEND_SOUND(mod.wearer, sound('sound/machines/terminal_off.ogg', volume = 50, channel = CHANNEL_JUKEBOX))
+	return ..()
 
-/obj/item/mod/module/visor/rave/generate_worn_overlay(mutable_appearance/standing)
-	if (!active)
-		return list()
+/obj/item/mod/module/visor/rave/on_activation(mob/activator)
+	rave_screen = mod.wearer.add_client_colour(/datum/client_colour/rave, REF(src))
+	rave_screen.update_colour(rainbow_order[rave_number])
+	music_player.start_music(mod.wearer)
+
+/obj/item/mod/module/visor/rave/on_deactivation(mob/activator, display_message = TRUE, deleting = FALSE)
+	QDEL_NULL(rave_screen)
+	if(isnull(music_player.active_song_sound))
+		return
+
+	music_player.unlisten_all()
+	if(deleting)
+		return
+	SEND_SOUND(mod.wearer, sound('sound/machines/terminal_off.ogg', volume = 50, channel = CHANNEL_JUKEBOX))
+
+/obj/item/mod/module/visor/rave/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
+	. = ..()
+	if (!.)
+		return
+
 	var/mutable_appearance/visor_overlay = mod.get_visor_overlay(standing)
 	visor_overlay.appearance_flags |= RESET_COLOR
-	visor_overlay.color = active ? rainbow_order[rave_number] : null
-	return list(visor_overlay)
+	if (!isnull(music_player.active_song_sound))
+		visor_overlay.color = rainbow_order[rave_number]
+	. += visor_overlay
 
-/obj/item/mod/module/visor/rave/on_active_process(delta_time)
+/obj/item/mod/module/visor/rave/on_active_process(seconds_per_tick)
 	rave_number++
 	if(rave_number > length(rainbow_order))
 		rave_number = 1
@@ -130,20 +125,20 @@
 
 /obj/item/mod/module/visor/rave/get_configuration()
 	. = ..()
-	if(length(songs))
-		.["selection"] = add_ui_configuration("Song", "list", selection.song_name, clean_songs())
+	if(length(music_player.songs))
+		.["selection"] = add_ui_configuration("Song", "list", music_player.selection.song_name, music_player.songs)
 
 /obj/item/mod/module/visor/rave/configure_edit(key, value)
 	switch(key)
 		if("selection")
-			if(active)
+			if(!isnull(music_player.active_song_sound))
 				return
-			selection = songs[value]
 
-/obj/item/mod/module/visor/rave/proc/clean_songs()
-	. = list()
-	for(var/track in songs)
-		. += track
+			var/datum/track/new_song = music_player.songs[value]
+			if(QDELETED(src) || !istype(new_song, /datum/track))
+				return
+
+			music_player.selection = new_song
 
 ///Tanner - Tans you with spraytan.
 /obj/item/mod/module/tanner
