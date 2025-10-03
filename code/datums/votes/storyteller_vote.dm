@@ -48,6 +48,12 @@
 	display_statistics = TRUE
 	message_admins(span_infoplain(span_purple("[..()]")))
 	display_statistics = FALSE
+
+	var/list/vote_results = list()
+	for(var/option in choices)
+		vote_results += "[option]: [choices[option]]"
+	log_dynamic("STORYTELLER VOTE RESULTS: [vote_results.Join(", ")]")
+
 	return null
 
 /datum/vote/storyteller_vote/finalize_vote(winning_option)
