@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
 	wait = 1 MINUTES
+	init_order = INIT_ORDER_DYNAMIC
 
 	/**
 	 * Roundstart variables
@@ -11,13 +12,13 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_points = 0
 	/// Only here for logging purposes
 	var/roundstart_point_divergence = 1
-	/// List of all roundstart rulesets that have been executed
-	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
-	/// List of players ready on roundstart.
-	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
 	/// The amount of people ready at roundstart
 	var/roundstart_ready_amount = 0
-	/// A list if roundstart rulesets configured from 'dynamic.json'
+	/// List of players ready on roundstart. Set to null after players are chosen to prevent hard dels.
+	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
+	/// List of all roundstart rulesets that have been executed
+	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
+	/// A list of configured roundstart rulesets
 	var/list/datum/dynamic_ruleset/roundstart/roundstart_configured_rulesets
 
 	/// Dynamic Panel variables
@@ -41,7 +42,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/midround/midround_executed_rulesets = list()
 	/// The midround that we are currently saving points up for.
 	var/datum/dynamic_ruleset/midround/midround_chosen_ruleset
-	/// A list if midround rulesets configured from 'dynamic.json'
+	/// A list of configured midround rulesets
 	var/list/datum/dynamic_ruleset/midround/midround_configured_rulesets
 
 	/// The chances for each type of midround ruleset to be picked
@@ -81,7 +82,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/latejoin/latejoin_executed_rulesets = list()
 	/// The latejoin ruleset to force. Only for admin interaction
 	var/datum/dynamic_ruleset/latejoin/latejoin_forced_ruleset
-	/// A list if latejoin rulesets configured from 'dynamic.json'
+	/// A list of configured latejoin rulesets
 	var/list/datum/dynamic_ruleset/latejoin/latejoin_configured_rulesets
 
 	/**
@@ -90,8 +91,11 @@ SUBSYSTEM_DEF(dynamic)
 
 	/// Can dynamic actually do stuff? Execute midrounds, latejoins, etc.
 	var/forced_extended = FALSE
-	/// The dynamic configuration file. Used for setting ruleset and dynamic variables
-	var/list/dynamic_configuration
+	/// The loaded dynamic configuration file (as a decoded .json file)
+	var/list/current_storyteller
+	/// An associative list of all of the dynamic storytellers
+	/// - "Name" : decoded_json
+	var/list/list/dynamic_storyteller_jsons
 	/// Some rulesets (like revolution) need to process
 	var/list/datum/dynamic_ruleset/rulesets_to_process = list()
 	/// Associative list of current players
@@ -118,7 +122,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_divergence_percent_lower = 1
 	var/roundstart_divergence_percent_upper = 1
 	/// How many roundstart points should be granted per player based off ready status
-	var/roundstart_points_per_ready = 1
+	var/roundstart_points_per_ready = 1.8
 	var/roundstart_points_per_unready = 0.5
 	var/roundstart_points_per_observer = 0
 
@@ -151,7 +155,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_medium_starting_chance = 0
 	var/midround_heavy_starting_chance = 0
 	/// At this time the Light/Medium Ruleset Chance will reach 0%
-	/// When configuring these in `dynamic.json` be sure to have them set in deciseconds (minutes * 600)
+	/// When configuring these be sure to have them set in deciseconds (minutes * 600)
 	var/midround_light_end_time = 1 HOURS
 	var/midround_medium_end_time = 2 HOURS
 	/// The ratio of the Light Ruleset Chance decrease rate that is given to the Medium Ruleset Chance
@@ -162,11 +166,11 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_grace_period = 20 MINUTES
 	/// The amount of midround points given per minute for every type of player
 	/// The total midround points delta cannot be lower than 0, it always increases or stays the same
-	var/midround_living_delta = 0.05
+	var/midround_living_delta = 0.04
 	var/midround_observer_delta = 0
-	var/midround_dead_delta = -0.4
+	var/midround_dead_delta = -0.3
 	var/midround_dead_security_delta = -0.6
-	var/midround_linear_delta = 0.9
+	var/midround_linear_delta = 0.7
 	/// This delta is applied no matter what
 	var/midround_linear_delta_forced = 0.25
 
@@ -194,6 +198,11 @@ SUBSYSTEM_DEF(dynamic)
 		"/datum/antagonist/heretic" = -0.2,
 		"/datum/antagonist/brother" = -0.1,
 		"/datum/antagonist/changeling" = -0.2,
+		"/datum/antagonist/abductor" = -0.3,
+		"/datum/antagonist/abductor/agent" = -0.3,
+		"/datum/antagonist/abductor/scientist" = -0.3,
+		"/datum/antagonist/abductor/scientist/solo" = -0.3,
+		"/datum/antagonist/nightmare" = -0.4
 	)
 
 	/**
@@ -207,52 +216,140 @@ SUBSYSTEM_DEF(dynamic)
 
 /datum/controller/subsystem/dynamic/Initialize()
 	configure_variables()
-
-	midround_light_chance = midround_light_starting_chance
-	midround_medium_chance = midround_medium_starting_chance
-	midround_heavy_chance = midround_heavy_starting_chance
+	load_storytellers()
 	return SS_INIT_SUCCESS
 
 /**
- * Configure dynamic variables from `dynamic.json`
+ * Load all of the files from the storytellers directory
+ * Only a proc for debugging purposes and in the event a new storyteller is added midround
+**/
+/datum/controller/subsystem/dynamic/proc/load_storytellers()
+	dynamic_storyteller_jsons = list()
+	for (var/file_path in flist(DYNAMIC_STORYTELLERS_DIRECTORY))
+		var/list/split = splittext(file_path, ".")
+		if (length(split) && split[length(split)] == "json")
+			// Check the json is valid
+			var/json_file = file("[DYNAMIC_STORYTELLERS_DIRECTORY][file_path]")
+			var/list/loaded_json
+			try
+				loaded_json = json_decode(file2text(json_file))
+			catch (var/exception/error)
+				stack_trace("Error while loading: \"[file_path]\" = [error]")
+				continue
+
+			var/json_name = loaded_json["Name"]
+			if (!json_name)
+				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a name.")
+				continue
+			if (!loaded_json["Description"])
+				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
+				continue
+
+			dynamic_storyteller_jsons[json_name] = loaded_json
+
+/datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
+	revert_storyteller_config()
+
+	if (isnull(new_storyteller))
+		current_storyteller = null
+	else
+		ASSERT(dynamic_storyteller_jsons[new_storyteller], "set_storyteller() called with an invalid storyteller")
+		current_storyteller = dynamic_storyteller_jsons[new_storyteller]
+
+	configure_variables()
+
+/**
+ * Reverts the changed variables of a specific ruleset.
+ * This is the least awful way I could think of reliably setting config values back to default when changing storytellers
+**/
+/datum/controller/subsystem/dynamic/proc/revert_storyteller_config()
+	if (!current_storyteller)
+		return
+
+	for (var/variable in current_storyteller["Dynamic"])
+		if (isnull(vars[variable]))
+			stack_trace("Invalid dynamic storyteller variable: [variable]")
+			continue
+		vars[variable] = initial(vars[variable])
+
+	for (var/datum/dynamic_ruleset/ruleset in roundstart_configured_rulesets)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
+	for (var/datum/dynamic_ruleset/ruleset in midround_configured_rulesets)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
+	for (var/datum/dynamic_ruleset/ruleset in latejoin_configured_rulesets)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
+
+/**
+ * Configure the dynamic variables from the loaded storyteller
 **/
 /datum/controller/subsystem/dynamic/proc/configure_variables()
-	if(CONFIG_GET(flag/dynamic_config_enabled))
-		var/json_file = file("config/dynamic.json")
-		if(fexists(json_file))
-			try
-				dynamic_configuration = json_decode(file2text(json_file))
-			catch(var/exception/error)
-				stack_trace("Error while loading dynamic config: [error]")
+	if (current_storyteller)
+		for (var/variable in current_storyteller["Dynamic"])
+			if (isnull(vars[variable]))
+				stack_trace("Invalid dynamic storyteller variable: [variable]")
+				continue
+			vars[variable] = current_storyteller["Dynamic"][variable]
 
-			if(dynamic_configuration?["Dynamic"])
-				for(var/variable in dynamic_configuration["Dynamic"])
-					if(isnull(vars[variable]))
-						stack_trace("Invalid dynamic configuration variable: [variable]")
-						continue
-					vars[variable] = dynamic_configuration["Dynamic"][variable]
-
-	// Configure Roundstart
-	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart)
-	if(!length(roundstart_configured_rulesets))
-		stack_trace("DYNAMIC: ROUNDSTART: roundstart_configured_rulesets is empty. It is impossible to roll roundstart rulesets")
-		log_dynamic("ROUNDSTART: roundstart_configured_rulesets is empty. It is impossible to roll roundstart rulesets")
-
-	// Configure Midround
-
-	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround)
-	if(!length(midround_configured_rulesets))
-		stack_trace("DYNAMIC: MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
-		log_dynamic("MIDROUND: midround_configured_rulesets is empty. It is impossible to roll midrounds")
-
-	// Configure Latejoin
-	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin)
-	if(!length(latejoin_configured_rulesets))
-		stack_trace("DYNAMIC: LATEJOIN: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
-		log_dynamic("LATEJOIN: latejoin_configured_rulesets is empty. It is impossible to roll latejoins")
+	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart, roundstart_configured_rulesets)
+	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
+	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin, latejoin_configured_rulesets)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA)
+
+/**
+ * Returns a list of all the configured rulesets of a specific ruleset typepath
+ * If `preconfigured_rulesets` is passed through, we iterate through all of those instances instead of replacing the pre-existing ones.
+**/
+/datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype, list/datum/dynamic_ruleset/preconfigured_rulesets)
+	ASSERT(ispath(ruleset_subtype), "init_rulesets() called without `ruleset_subtype` being a typepath!")
+
+	var/list/datum/dynamic_ruleset/rulesets
+
+	if (length(preconfigured_rulesets))
+		rulesets = preconfigured_rulesets
+		for (var/datum/dynamic_ruleset/ruleset in rulesets)
+			configure_ruleset(ruleset)
+	else
+		rulesets = list()
+		for (var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
+			if (!initial(ruleset_type.name))
+				continue
+			if (!initial(ruleset_type.weight))
+				continue
+			if (!initial(ruleset_type.points_cost))
+				continue
+
+			rulesets += configure_ruleset(new ruleset_type())
+
+	return rulesets
+
+/**
+ * Sets the variables of a ruleset to those in the loaded configuration file
+**/
+/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset, revert_storyteller_config = FALSE)
+	// Set variables
+	if (current_storyteller)
+		var/rule_config = LAZYACCESSASSOC(current_storyteller, ruleset.rule_category, ruleset.name)
+		for (var/variable in rule_config)
+			if (isnull(ruleset.vars[variable]))
+				stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
+				continue
+
+			if (revert_storyteller_config)
+				ruleset.vars[variable] = initial(ruleset.vars[variable])
+			else
+				ruleset.vars[variable] = rule_config[variable]
+
+	// Check config for additional restricted_roles
+	if (CONFIG_GET(flag/protect_roles_from_antagonist))
+		ruleset.restricted_roles |= ruleset.protected_roles
+	if (CONFIG_GET(flag/protect_assistant_from_antagonist))
+		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
+	if (CONFIG_GET(flag/protect_heads_from_antagonist))
+		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
+
+	return ruleset
 
 /**
  * Called at roundstart, set roundstart points and choose rulesets
@@ -268,7 +365,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Save us from hard dels
 	roundstart_ready_amount = length(roundstart_candidates)
-	roundstart_candidates = list()
+	roundstart_candidates = null
 	return TRUE
 
 /**
@@ -305,6 +402,8 @@ SUBSYSTEM_DEF(dynamic)
 		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
 		return
 
+	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
+
 	// Check for forced rulesets
 	if(!roundstart_blacklist_forced_rulesets)
 		for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in roundstart_forced_rulesets)
@@ -318,7 +417,7 @@ SUBSYSTEM_DEF(dynamic)
 				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
 				continue
 
-			roundstart_executed_rulesets[forced_ruleset] += 1
+			roundstart_executed_rulesets += forced_ruleset
 			forced_ruleset.choose_candidates()
 
 			log_dynamic("ROUNDSTART: Successfully forced [forced_ruleset]")
@@ -345,10 +444,7 @@ SUBSYSTEM_DEF(dynamic)
 	// Pick rulesets
 	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
-	while(roundstart_points_left > 0)
-		if(!length(possible_rulesets))
-			break
-
+	while(roundstart_points_left > 0 && length(possible_rulesets))
 		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight(possible_rulesets)
 
 		// Ran out of rulesets
@@ -376,7 +472,7 @@ SUBSYSTEM_DEF(dynamic)
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
 
-		roundstart_executed_rulesets[ruleset] += 1
+		roundstart_executed_rulesets += ruleset
 		ruleset.choose_candidates()
 
 		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
@@ -394,11 +490,12 @@ SUBSYSTEM_DEF(dynamic)
 				continue
 
 			// Undraft our previously drafted players
-			for(var/mob/chosen_candidate in ruleset.chosen_candidates)
-				GLOB.pre_setup_antags -= chosen_candidate.mind
+			for(var/datum/mind/chosen_candidate in ruleset.chosen_candidates)
+				GLOB.pre_setup_antags -= chosen_candidate
 
-				chosen_candidate.mind.special_role = null
-				chosen_candidate.mind.restricted_roles = list()
+				chosen_candidate.special_role = null
+				chosen_candidate.restricted_roles = list()
+			ruleset.chosen_candidates = list()
 
 			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			roundstart_executed_rulesets -= ruleset
@@ -409,10 +506,10 @@ SUBSYSTEM_DEF(dynamic)
 **/
 /datum/controller/subsystem/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, list/datum/dynamic_ruleset/applied_rulesets)
 	// Check for blocked rulesets
-	for(var/datum/dynamic_ruleset/blocked_ruleset in ruleset.blocking_rulesets)
+	for(var/datum/dynamic_ruleset/blocked_ruleset_path as anything in ruleset.blocking_rulesets)
 		for(var/datum/dynamic_ruleset/executed_ruleset in applied_rulesets)
-			if(blocked_ruleset.type == executed_ruleset.type)
-				log_dynamic("NOT ALLOWED: [ruleset] was blocked by [blocked_ruleset]")
+			if(executed_ruleset.type == blocked_ruleset_path)
+				log_dynamic("NOT ALLOWED: [ruleset] was blocked by [initial(blocked_ruleset_path.name)]")
 				return TRUE
 
 	// Check for bitflags
@@ -438,7 +535,7 @@ SUBSYSTEM_DEF(dynamic)
 
 		log_dynamic("ROUNDSTART: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
-			roundstart_executed_rulesets[ruleset] -= 1
+			roundstart_executed_rulesets -= ruleset
 
 /**
  * Some rulesets need to process each tick. Lets give them the opportunity to do so.
@@ -452,7 +549,7 @@ SUBSYSTEM_DEF(dynamic)
  * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
 **/
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
-	if(!ruleset)
+	if(!istype(ruleset))
 		return DYNAMIC_EXECUTE_FAILURE
 
 	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
@@ -547,25 +644,25 @@ SUBSYSTEM_DEF(dynamic)
  * Additionally, the Medium Ruleset Chance will start to decrease and the Heavy Ruleset Chance will increase
 **/
 /datum/controller/subsystem/dynamic/proc/update_midround_chances()
-	// How much should we decrease per minute to reach 0% by the configured time?
-	var/light_decrease_rate = midround_light_starting_chance / (midround_light_end_time / (1 MINUTES))
+	var/time_elapsed = world.time - SSticker.round_start_time
 
-	// Decrease light chance
-	midround_light_chance = max(midround_light_chance - light_decrease_rate, 0)
+	// Light decreases linearly until midround_light_end_time
+	if (time_elapsed < midround_light_end_time)
+		var/light_progress = clamp(time_elapsed / midround_light_end_time, 0, 1)
+		midround_light_chance = max(midround_light_starting_chance * (1 - light_progress), 0)
 
-	if(world.time > midround_light_end_time)
-		// Light is 0%, lets start to lower Medium
-		var/medium_decrease_rate = 100 * midround_medium_increase_ratio / ((midround_medium_end_time - midround_light_end_time) / (1 MINUTES))
+		var/heavy_ratio = 1 - midround_medium_increase_ratio
 
-		midround_medium_chance = max(midround_medium_chance - medium_decrease_rate, 0)
-		midround_heavy_chance = min(midround_heavy_chance + medium_decrease_rate, 100)
+		midround_medium_chance = light_progress * midround_light_starting_chance * midround_medium_increase_ratio
+		midround_heavy_chance = light_progress * midround_light_starting_chance * heavy_ratio
 	else
-		// Increase Medium and Heavy chances
-		var/medium_ratio = midround_medium_increase_ratio
-		var/heavy_ratio = 1 - medium_ratio
+		// After light reaches 0, shift Medium into Heavy until midround_medium_end_time
+		var/medium_duration = midround_medium_end_time - midround_light_end_time
+		var/medium_progress = clamp((time_elapsed - midround_light_end_time) / medium_duration, 0, 1)
 
-		midround_medium_chance += light_decrease_rate * medium_ratio
-		midround_heavy_chance += light_decrease_rate * heavy_ratio
+		midround_light_chance = 0
+		midround_medium_chance = max(100 * (1 - medium_progress) * midround_medium_increase_ratio, 0)
+		midround_heavy_chance = min(100 - midround_medium_chance, 100)
 
 	// Do our best to ensure the total chance is 100%, it honestly probably never will be because of floating point imprecision
 	var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
@@ -588,7 +685,6 @@ SUBSYSTEM_DEF(dynamic)
 **/
 /datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
-
 	if(isnull(forced_severity))
 		var/random_value = rand(1, 100)
 		if(random_value <= midround_light_chance)
@@ -646,7 +742,7 @@ SUBSYSTEM_DEF(dynamic)
  * There is a 10% chance for someone to be picked
 **/
 /datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
-	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED)
+	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
 	if(!length(latejoin_configured_rulesets))
@@ -663,9 +759,6 @@ SUBSYSTEM_DEF(dynamic)
 		var/list/possible_rulesets = list()
 		for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
 			possible_rulesets[ruleset] = ruleset.weight
-
-		if(!length(possible_rulesets))
-			return
 
 		latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
@@ -691,47 +784,6 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.round_result()
 			if(SSticker.news_report)
 				return
-
-
-/**
- * Returns a list of all the configured rulesets of a specific typepath (/datum/dynamic_ruleset/roundstart, etc...)
-**/
-/datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype)
-	var/list/datum/dynamic_ruleset/rulesets = list()
-
-	for(var/datum/dynamic_ruleset/ruleset_type as anything in subtypesof(ruleset_subtype))
-		if(!ruleset_type.name)
-			continue
-		if(!ruleset_type.weight)
-			continue
-		if(!ruleset_type.points_cost)
-			continue
-
-		rulesets += configure_ruleset(new ruleset_type(src))
-	return rulesets
-
-/**
- * Sets the variables of a ruleset to those in the dynamic configuration file
-**/
-/datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset)
-	var/rule_conf = LAZYACCESSASSOC(dynamic_configuration, ruleset.rule_category, ruleset.name)
-
-	// Set variables
-	for(var/variable in rule_conf)
-		if(!(variable in ruleset.vars))
-			stack_trace("Invalid dynamic configuration variable [variable] in [ruleset.rule_category] [ruleset.name].")
-			continue
-		ruleset.vars[variable] = rule_conf[variable]
-
-	// Check config for additional restricted_roles
-	if(CONFIG_GET(flag/protect_roles_from_antagonist))
-		ruleset.restricted_roles |= ruleset.protected_roles
-	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
-	if(CONFIG_GET(flag/protect_heads_from_antagonist))
-		ruleset.restricted_roles |= SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)
-
-	return ruleset
 
 /**
  * This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to

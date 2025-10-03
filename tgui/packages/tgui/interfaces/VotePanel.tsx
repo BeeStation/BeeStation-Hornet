@@ -29,6 +29,7 @@ type Vote = {
 
 type Option = {
   name: string;
+  description: string;
   votes: number;
 };
 
@@ -252,6 +253,7 @@ const ChoicesPanel = (props) => {
               <Box key={choice.name}>
                 <LabeledList.Item
                   label={choice.name.replace(/^\w/, (c) => c.toUpperCase())}
+                  tooltip={choice.description ?? undefined}
                   textAlign="right"
                   buttons={
                     <Button
@@ -298,6 +300,7 @@ const ChoicesPanel = (props) => {
               <Box key={choice.name}>
                 <LabeledList.Item
                   label={choice.name.replace(/^\w/, (c) => c.toUpperCase())}
+                  tooltip={choice.description ?? undefined}
                   textAlign="right"
                   buttons={
                     <Button

@@ -1,8 +1,11 @@
+/// Disables playtime requirements when being drafted for rulesets
 //#define TESTING_DYNAMIC
 
 #if defined(TESTING_DYNAMIC) && defined(CIBUILDING)
 	#error TESTING_DYNAMIC is enabled, disable this!
 #endif
+
+#define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
 #define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
 #define DYNAMIC_CATEGORY_MIDROUND "Midround"
@@ -16,15 +19,15 @@
 #define DYNAMIC_MIDROUND_HEAVY (1 << 2)
 
 /// Only one ruleset with this flag will be picked
-#define HIGH_IMPACT_RULESET (1<<0)
+#define HIGH_IMPACT_RULESET (1 << 0)
 /// This ruleset can only be picked once
-#define CANNOT_REPEAT (1<<1)
+#define CANNOT_REPEAT (1 << 1)
 /// Dynamic will call rule_process each tick if this is set
-#define SHOULD_PROCESS_RULESET (1<<2)
+#define SHOULD_PROCESS_RULESET (1 << 2)
 /// Should the chosen candidate(s) be picked based off of their antagonist reputation
-#define SHOULD_USE_ANTAG_REP (1<<3)
+#define SHOULD_USE_ANTAG_REP (1 << 3)
 /// If this flag is enabled no other rulesets can be executed
-#define NO_OTHER_RULESETS (1<<4)
+#define NO_OTHER_RULESETS (1 << 4)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
