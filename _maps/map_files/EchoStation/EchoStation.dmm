@@ -2052,7 +2052,7 @@
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/paradise)
 "aTG" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/atmospherics/pipe/layer_manifold/orange/visible{
 	dir = 4
 	},
@@ -9259,7 +9259,7 @@
 /area/medical/apothecary)
 "eNy" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "eNz" = (
@@ -9926,7 +9926,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2/layer4{
 	dir = 8
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "fdK" = (
@@ -10989,7 +10989,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/co2/layer4{
 	dir = 8
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /turf/open/floor/iron/dark/smooth_edge,
 /area/engine/atmos)
 "fGQ" = (
@@ -12565,7 +12565,7 @@
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "CO2 to Pure"
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 8
 	},
@@ -16030,7 +16030,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4{
 	dir = 1
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer5{
 	dir = 5
 	},
@@ -17648,7 +17648,7 @@
 "jgr" = (
 /obj/effect/turf_decal/tile/neutral/half,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2o/layer4,
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
 	},
@@ -23493,7 +23493,7 @@
 	dir = 4;
 	name = "Plasma to Pure"
 	},
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
@@ -24822,7 +24822,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "mZG" = (
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/layer_manifold/purple/visible,
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
@@ -30437,7 +30437,7 @@
 "qbZ" = (
 /obj/effect/turf_decal/tile/neutral/half,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma/layer4,
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
 	},
@@ -31805,7 +31805,7 @@
 /turf/open/floor/iron,
 /area/medical/genetics/cloning)
 "qUU" = (
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "qUZ" = (
@@ -33145,7 +33145,7 @@
 /obj/effect/turf_decal/tile/neutral/half{
 	dir = 8
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/o2/layer4{
 	dir = 8
 	},
@@ -34628,7 +34628,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 4
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/color_adapter/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /turf/open/floor/iron/dark/smooth_edge,
@@ -35459,7 +35459,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 8
 	},
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/camera/directional/north,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
@@ -38379,7 +38379,7 @@
 /obj/effect/turf_decal/tile/neutral/half{
 	dir = 8
 	},
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/color_adapter/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 8
@@ -38542,7 +38542,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
 "uqO" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/atmospherics/pipe/layer_manifold/orange/visible{
 	dir = 4
 	},
@@ -41058,7 +41058,7 @@
 	dir = 4;
 	name = "N2O to Pure"
 	},
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4,
 /turf/open/floor/iron/dark/smooth_edge{
 	dir = 4
@@ -43718,7 +43718,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 8
 	},
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "xbL" = (
@@ -44758,7 +44758,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
-/obj/structure/window/plasma/reinforced/spawner/north,
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
 /obj/machinery/meter/monitored/layer2{
 	name = "Mixed Air flow meter";
 	pixel_x = -6

@@ -28973,7 +28973,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -44118,7 +44118,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "iUT" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/structure/railing/perspective/black{
 	dir = 6
 	},
@@ -75910,7 +75910,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ptv" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -76465,7 +76465,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "pya" = (
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -83332,7 +83332,7 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "qTw" = (
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -85473,7 +85473,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -88076,7 +88076,7 @@
 	dir = 6
 	},
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "rSp" = (
@@ -102584,7 +102584,7 @@
 	dir = 10
 	},
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "uQz" = (
@@ -108044,7 +108044,7 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "vSY" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -118856,7 +118856,7 @@
 /turf/open/floor/engine,
 /area/science/mixing)
 "yio" = (
-/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/structure/railing/perspective/black{
 	dir = 10
 	},

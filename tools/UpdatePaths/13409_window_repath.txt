@@ -67,10 +67,10 @@
 
 # Reinforced Plasma
 
-/obj/structure/window/reinforced/plasma/spawner/north : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/east : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/west : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/north : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
 
 # Depleted Uranium
 
@@ -174,21 +174,21 @@
 
 # Reinforced Plasma
 
-/obj/structure/window/reinforced/plasma/spawner/north{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/north{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/north{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/north{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/north{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/north{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
 
-/obj/structure/window/reinforced/plasma/spawner{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
 
-/obj/structure/window/reinforced/plasma/spawner/east{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/east{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/east{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
 
-/obj/structure/window/reinforced/plasma/spawner/west{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/west{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
-/obj/structure/window/reinforced/plasma/spawner/west{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
 
 # Survival Pod
 
