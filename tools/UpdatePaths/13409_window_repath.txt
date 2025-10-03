@@ -35,12 +35,14 @@
 /obj/structure/window/reinforced/survival_pod{dir = 4} : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
 /obj/structure/window/reinforced/survival_pod{dir = 8} : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
 
-# Shuttle Survival Pod
-
 /obj/structure/window/shuttle/survival_pod/spawner/north : /obj/structure/window/reinforced/survival_pod/spawner/directional/north
 /obj/structure/window/shuttle/survival_pod/spawner/south : /obj/structure/window/reinforced/survival_pod/spawner/directional/south
 /obj/structure/window/shuttle/survival_pod/spawner/east : /obj/structure/window/reinforced/survival_pod/spawner/directional/east
 /obj/structure/window/shuttle/survival_pod/spawner/west : /obj/structure/window/reinforced/survival_pod/spawner/directional/west
+
+# Shuttle Windows
+
+/obj/effect/spawner/structure/window/shuttle : /obj/effect/spawner/structure/window/reinforced/shuttle
 
 # Spawners to directionals
 

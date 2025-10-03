@@ -685,7 +685,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/spawner, 0)
 	max_integrity = 150
 	glass_amount = 2
 
-/obj/structure/window/shuttle
+/obj/structure/window/reinforced/shuttle
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
 	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
