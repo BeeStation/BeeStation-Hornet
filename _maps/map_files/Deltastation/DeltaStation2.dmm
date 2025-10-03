@@ -10023,7 +10023,6 @@
 "bpg" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "bpx" = (
@@ -22050,9 +22049,6 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "cOp" = (
@@ -30217,7 +30213,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "ecd" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "ech" = (
@@ -35322,9 +35317,6 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "fyz" = (
@@ -43213,8 +43205,6 @@
 /obj/structure/closet/secure_closet/freezer{
 	name = "freezer"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab,
@@ -53504,7 +53494,6 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
@@ -54721,7 +54710,6 @@
 /area/quartermaster/office)
 "lIV" = (
 /obj/structure/closet/crate/bin,
-/obj/item/food/donut/chaos,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -54729,7 +54717,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "lIX" = (
@@ -61597,9 +61584,6 @@
 	},
 /obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "nMg" = (
@@ -61719,8 +61703,6 @@
 /area/quartermaster/miningoffice)
 "nOk" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "nOm" = (
@@ -64490,8 +64472,6 @@
 /obj/item/paint_palette,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "oJW" = (
@@ -92647,9 +92627,6 @@
 	},
 /obj/effect/landmark/prisonspawn,
 /obj/effect/landmark/start/prisoner,
-/obj/structure/wall_closet/generic/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "xBU" = (
