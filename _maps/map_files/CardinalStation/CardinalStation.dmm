@@ -3170,6 +3170,13 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/blood/splatter,
+/obj/structure/wall_closet/emergency/directional/north,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
 /turf/open/floor/prison,
 /area/security/prison)
 "aIL" = (
@@ -10958,6 +10965,20 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
+"chG" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/siding/thinplating_new/terracotta{
+	dir = 8
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "chQ" = (
 /obj/structure/cable/pink{
 	icon_state = "1-2"
@@ -13360,7 +13381,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood/big,
 /area/security/prison)
 "cFY" = (
@@ -16793,6 +16813,7 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "dpg" = (
@@ -16900,9 +16921,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
 	},
 /obj/machinery/vending/snack/green,
 /turf/open/floor/prison/dark,
@@ -19781,7 +19799,7 @@
 /area/maintenance/department/science/central)
 "dYj" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/wood,
 /area/security/prison)
 "dYm" = (
@@ -21643,7 +21661,11 @@
 	dir = 6
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32
+	},
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "esO" = (
@@ -29176,6 +29198,16 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"fYk" = (
+/obj/effect/turf_decal/siding/dark,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/turf/open/floor/iron/smooth_half,
+/area/security/prison)
 "fYl" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -34011,7 +34043,8 @@
 /obj/structure/fluff/fans{
 	pixel_x = 24
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/tech/grid,
 /area/security/prison/shielded)
 "gRP" = (
@@ -35007,6 +35040,13 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/wall_closet/emergency/directional/north,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
 /turf/open/floor/prison,
 /area/security/prison)
 "hdp" = (
@@ -41152,7 +41192,12 @@
 /obj/item/paint_palette,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "ipZ" = (
@@ -41770,7 +41815,11 @@
 	dir = 4
 	},
 /obj/machinery/light/small/directional/west,
-/obj/structure/sign/poster/official/random/directional/west,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "ixy" = (
@@ -44865,8 +44914,10 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "jcT" = (
@@ -48940,20 +48991,6 @@
 "jUl" = (
 /turf/closed/wall/r_wall,
 /area/medical/medbay/central)
-"jUL" = (
-/obj/structure/bed{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/brown{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
-/obj/effect/landmark/start/prisoner,
-/turf/open/floor/prison,
-/area/security/prison)
 "jUN" = (
 /obj/item/radio,
 /obj/item/radio,
@@ -50092,7 +50129,6 @@
 	dir = 9
 	},
 /obj/machinery/airalarm/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "kgQ" = (
@@ -51227,6 +51263,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32;
+	desc = "A large piece of space-resistant printed paper. A corner seems to be peeling off..."
+	},
 /turf/open/floor/wood/big,
 /area/security/prison)
 "kpO" = (
@@ -51766,6 +51806,12 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32;
+	pixel_y = -32
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "kwv" = (
@@ -56211,7 +56257,6 @@
 /area/engine/supermatter)
 "lsp" = (
 /obj/structure/table,
-/obj/effect/spawner/mail/rdonut,
 /turf/open/floor/wood,
 /area/security/prison)
 "lsv" = (
@@ -56417,10 +56462,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32;
-	desc = "A large piece of space-resistant printed paper. A corner seems to be peeling off..."
-	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "lvr" = (
@@ -61581,6 +61622,11 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "myW" = (
@@ -64900,7 +64946,7 @@
 /obj/effect/turf_decal/siding/brown,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "nhM" = (
@@ -66597,7 +66643,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "nyG" = (
@@ -67948,8 +67994,6 @@
 /obj/effect/turf_decal/tile/steelgrid,
 /obj/machinery/light/small/directional/west,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "nML" = (
@@ -73408,7 +73452,6 @@
 	pixel_x = 9;
 	pixel_y = 5
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/grass,
 /area/security/prison)
 "oSx" = (
@@ -75996,8 +76039,10 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "psG" = (
@@ -86281,7 +86326,8 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "rvw" = (
@@ -87571,6 +87617,7 @@
 	pixel_y = 4;
 	pixel_x = 2
 	},
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/wood,
 /area/security/prison)
 "rMB" = (
@@ -90978,7 +91025,8 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "svN" = (
@@ -97238,8 +97286,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/toy/figure/prisoner,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "tKp" = (
@@ -103370,6 +103419,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "uWr" = (
@@ -111719,6 +111769,11 @@
 /obj/effect/turf_decal/bot_white,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32
 	},
 /turf/open/floor/wood/big,
 /area/security/prison)
@@ -159425,7 +159480,7 @@ mLC
 rPN
 tki
 dPz
-eZx
+fYk
 aUI
 juX
 eep
@@ -160456,7 +160511,7 @@ bhC
 hlW
 byM
 hlW
-lSi
+chG
 neS
 mYb
 bQV
@@ -163029,7 +163084,7 @@ gaJ
 dqf
 aex
 hdm
-jUL
+bvU
 aex
 aII
 bvU
