@@ -98,9 +98,9 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_PAPERFRAME S_OBJ(20)				///obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe
 #define SMOOTH_GROUP_CATWALK  S_OBJ(22) 				///obj/structure/lattice/catwalk
 
-#define SMOOTH_GROUP_WINDOW_FULLTILE S_OBJ(21)			///turf/closed/indestructible/fakeglass, /obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile
+#define SMOOTH_GROUP_WINDOW_FULLTILE S_OBJ(21)			///turf/closed/indestructible/fakeglass, /obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/reinforced/plasma/fulltile
 #define SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE S_OBJ(22)	///obj/structure/window/bronze/fulltile
-#define SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM S_OBJ(23)	///turf/closed/indestructible/opsglass, /obj/structure/window/plasma/reinforced/plastitanium
+#define SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM S_OBJ(23)	///turf/closed/indestructible/opsglass, /obj/structure/window/reinforced/plasma/plastitanium
 #define SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE S_OBJ(24)	///obj/structure/window/shuttle
 
 #define SMOOTH_GROUP_LATTICE S_OBJ(30)					///obj/structure/lattice
@@ -124,7 +124,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_SECURITY_BARRICADE S_OBJ(63)		///obj/structure/barricade/security
 #define SMOOTH_GROUP_SANDBAGS S_OBJ(64)					///obj/structure/barricade/sandbags
 #define SMOOTH_GROUP_HEDGE_FLUFF S_OBJ(65)				///obj/structure/fluff/hedge
-#define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/closed/indestructible/opsglass, /obj/structure/shuttle
+#define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/reinforced/plasma/plastitanium, /turf/closed/indestructible/opsglass, /obj/structure/shuttle
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
 #define SMOOTH_GROUP_COMPUTERS S_OBJ(68)				///obj/machinery/computer
 
