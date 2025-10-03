@@ -7,7 +7,7 @@ when processed, it lets you choose between coconut flesh or the coconut cup*/
 	species = "coconut"
 	plantname = "Coconut Tree"
 	product = /obj/item/grown/coconut
-	lifespan = 55
+	lifespan = 220
 	endurance = 35
 	production = 7
 	yield = 3

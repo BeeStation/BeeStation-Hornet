@@ -6,7 +6,7 @@
 	species = "apple"
 	plantname = "Apple Tree"
 	product = /obj/item/food/grown/apple
-	lifespan = 55
+	lifespan = 220
 	endurance = 35
 	yield = 5
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'

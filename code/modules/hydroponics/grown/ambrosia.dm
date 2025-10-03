@@ -29,7 +29,7 @@
 	species = "ambrosiavulgaris"
 	plantname = "Ambrosia Vulgaris"
 	product = /obj/item/food/grown/ambrosia/vulgaris
-	lifespan = 60
+	lifespan = 240
 	endurance = 25
 	yield = 6
 	potency = 5
@@ -77,7 +77,7 @@
 	rarity = 30 //These are some pretty good plants right here
 	genes = list()
 	weed_rate = 4
-	weed_chance = 100
+	weed_chance = 15
 
 /obj/item/food/grown/ambrosia/gaia
 	name = "ambrosia gaia branch"

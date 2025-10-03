@@ -6,7 +6,7 @@
 	species = "grass"
 	plantname = "Grass"
 	product = /obj/item/food/grown/grass
-	lifespan = 40
+	lifespan = 160
 	endurance = 40
 	maturation = 2
 	production = 5

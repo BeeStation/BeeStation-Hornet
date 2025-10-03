@@ -6,7 +6,7 @@
 	species = "chili"
 	plantname = "Chili Plants"
 	product = /obj/item/food/grown/chili
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 4
@@ -35,7 +35,7 @@
 	species = "chiliice"
 	plantname = "Ice Pepper Plants"
 	product = /obj/item/food/grown/icepepper
-	lifespan = 25
+	lifespan = 100
 	maturation = 4
 	production = 4
 	rarity = 20

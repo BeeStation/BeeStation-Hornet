@@ -6,7 +6,7 @@
 	species = "teaaspera"
 	plantname = "Tea Aspera Plant"
 	product = /obj/item/food/grown/tea
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 5
@@ -55,7 +55,7 @@
 	species = "coffeea"
 	plantname = "Coffee Arabica Bush"
 	product = /obj/item/food/grown/coffee
-	lifespan = 30
+	lifespan = 120
 	endurance = 20
 	maturation = 5
 	production = 5

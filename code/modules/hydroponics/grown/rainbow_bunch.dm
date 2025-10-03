@@ -6,7 +6,7 @@
 	plantname = "Rainbow Bunch"
 	icon_harvest = "rainbowbunch-harvest"
 	product = /obj/item/food/grown/flower/rainbow
-	lifespan = 25
+	lifespan = 100
 	endurance = 10
 	maturation = 6
 	production = 3
