@@ -42,3 +42,6 @@
   - tweak: holofans will automatically open a firelock if placed on it
   - code_imp: Code cleanup for holosigns
   - admin: Holofans now have hidden fingerprints on them for who placed it.
+2025-10-03:
+  ClownMoff:
+  - rscadd: Clowns can now PDA everyone with a one and a half minute cooldown
