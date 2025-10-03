@@ -46,6 +46,11 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/corner/spawner, 0)
 
+/obj/structure/window/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/corner/unanchored/spawner, 0)
+
 /obj/structure/window/examine(mob/user)
 	. = ..()
 	if(reinf)
@@ -444,6 +449,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/unanchored/spawner,
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/corner/spawner, 0)
 
+/obj/structure/window/reinforced/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/corner/unanchored/spawner, 0)
+
 /obj/structure/window/plasma
 	name = "plasma window"
 	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
@@ -489,6 +499,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/unanchored/spawner, 0)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/corner/spawner, 0)
 
+/obj/structure/window/plasma/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/corner/unanchored/spawner, 0)
+
 /obj/structure/window/reinforced/plasma
 	name = "reinforced plasma window"
 	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
@@ -521,6 +536,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/unanchored/s
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/corner/spawner, 0)
 
+/obj/structure/window/reinforced/plasma/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/plasma/corner/unanchored/spawner, 0)
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow" //what what, hon hon
@@ -533,6 +553,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/spawner, 0)
 	density = FALSE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/corner/spawner, 0)
+
+/obj/structure/window/reinforced/tinted/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/corner/unanchored/spawner, 0)
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
@@ -572,6 +597,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/unanchored/spa
 	density = FALSE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/spawner, 0)
+
+/obj/structure/window/depleteduranium/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unanchored/spawner, 0)
 
 /* Full Tile Windows (more atom_integrity) */
 
@@ -872,3 +902,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/bronze/spawner, 0)
 	density = FALSE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/bronze/corner/spawner, 0)
+
+/obj/structure/window/bronze/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/bronze/corner/unanchored/spawner, 0)
