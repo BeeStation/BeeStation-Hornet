@@ -188,7 +188,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /obj/structure/table/wood,
 /obj/item/paper/pamphlet/ruin/spacehotel,
 /turf/open/floor/wood,
@@ -229,7 +229,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/template_noop)
 

@@ -31,8 +31,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "h" = (
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
 /turf/open/floor/iron/freezer,
@@ -149,8 +148,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
 /obj/structure/bed/roller,

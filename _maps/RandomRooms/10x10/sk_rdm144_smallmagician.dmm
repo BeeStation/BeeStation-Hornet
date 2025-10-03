@@ -12,7 +12,7 @@
 /area/template_noop)
 "d" = (
 /obj/machinery/vending/boozeomat,
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -109,7 +109,7 @@
 /area/template_noop)
 "v" = (
 /obj/structure/closet/crate/trashcart,
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -199,7 +199,7 @@
 /area/template_noop)
 "M" = (
 /obj/structure/table/wood,
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/spawner/lootdrop/gambling,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)

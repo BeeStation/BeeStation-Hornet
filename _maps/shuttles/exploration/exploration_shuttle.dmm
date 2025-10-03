@@ -310,9 +310,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "L" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},

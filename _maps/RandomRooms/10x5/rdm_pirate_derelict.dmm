@@ -203,10 +203,8 @@
 	name = "pirate shuttle console";
 	desc = "A shuttle control computer. It appears to be non-functional."
 	},
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/light/small{
 	dir = 1
 	},

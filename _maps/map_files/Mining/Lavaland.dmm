@@ -188,8 +188,8 @@
 /turf/open/floor/plating,
 /area/mine/production)
 "aU" = (
-/obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped{
 	dir = 1
 	},
@@ -2005,7 +2005,7 @@
 /turf/open/floor/plating/asteroid,
 /area/mine/atmospostengine)
 "kM" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -2174,7 +2174,7 @@
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "lO" = (
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -2339,16 +2339,10 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "mL" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/flora/ausbushes/grassybush,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/light/small,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid,
@@ -2611,7 +2605,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ok" = (
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/rack,
 /obj/item/wrench,
@@ -2693,9 +2687,7 @@
 /obj/machinery/door/window/southright{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/noslip/white,
 /area/mine/living_quarters)
 "oO" = (
@@ -3125,8 +3117,8 @@
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
 "rm" = (
-/obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
 	dir = 8
 	},
@@ -4363,7 +4355,7 @@
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
 "ym" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 8
 	},
@@ -4401,7 +4393,7 @@
 /turf/closed/mineral/random/labormineral/volcanic,
 /area/lavaland/surface/outdoors/explored)
 "yy" = (
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -4412,7 +4404,7 @@
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
 "yz" = (
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
@@ -5336,8 +5328,8 @@
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
 "DE" = (
-/obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped{
 	dir = 1
 	},
@@ -5413,7 +5405,7 @@
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "DT" = (
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron/dark,
@@ -5843,7 +5835,7 @@
 	pixel_y = -4;
 	pixel_x = -4
 	},
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "Gc" = (
@@ -6019,7 +6011,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "GZ" = (
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/iron/dark,
@@ -7110,7 +7102,7 @@
 /turf/open/floor/iron,
 /area/mine/living_quarters)
 "Nh" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer2{
 	dir = 4
 	},
@@ -7277,8 +7269,8 @@
 /turf/open/floor/iron,
 /area/mine/atmospost)
 "NW" = (
-/obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/structure/frame/computer{
 	anchored = 1;
@@ -8383,8 +8375,8 @@
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "UD" = (
-/obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/frame/computer{
 	anchored = 1;
 	dir = 8
@@ -8843,7 +8835,7 @@
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "WF" = (
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/radio/intercom/directional/south,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/rack_parts,
@@ -9212,7 +9204,7 @@
 /turf/open/floor/iron,
 /area/mine/production)
 "Yr" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
 	dir = 8
 	},

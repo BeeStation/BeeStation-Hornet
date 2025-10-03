@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "af" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
 	},
@@ -71,10 +71,8 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "cI" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "dh" = (
@@ -117,9 +115,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/awaymission/BMPship/Midship)
 "eN" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
 "eR" = (
@@ -143,9 +139,7 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Aft)
 "fn" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -354,7 +348,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "kD" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -370,9 +364,7 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Aft)
 "ld" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -585,9 +577,7 @@
 /turf/open/floor/plating/airless,
 /area/awaymission/BMPship/Midship)
 "qb" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron{
 	burnt = 1
 	},
@@ -608,10 +598,8 @@
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "ql" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "qq" = (
@@ -726,7 +714,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "sZ" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
 	},
@@ -882,12 +870,8 @@
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
 "wN" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "wT" = (
@@ -997,7 +981,7 @@
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "zO" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "zQ" = (
@@ -1039,9 +1023,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine/airless,
 /area/awaymission/BMPship/Aft)
 "AV" = (
@@ -1187,18 +1169,14 @@
 /turf/open/floor/iron/white,
 /area/awaymission/BMPship/Aft)
 "Dp" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
 	dir = 6
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
 "Dz" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "DT" = (
@@ -1217,9 +1195,7 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "Ey" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "EV" = (
@@ -1285,9 +1261,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -1374,9 +1348,7 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "HI" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/knife/kitchen,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
@@ -1726,12 +1698,8 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "Pu" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "Px" = (
@@ -1799,7 +1767,7 @@
 /turf/open/floor/carpet,
 /area/awaymission/BMPship/Fore)
 "RN" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -1913,9 +1881,7 @@
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "TG" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "TI" = (
@@ -2096,10 +2062,8 @@
 /turf/open/floor/iron,
 /area/awaymission/BMPship/Midship)
 "XJ" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},

@@ -157,8 +157,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west{
 	icon_state = "pwindow"
 	},
 /turf/open/floor/plating,

@@ -56,7 +56,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "k" = (
@@ -76,9 +76,7 @@
 	name = "Gulag";
 	req_one_access_txt = "63;42;38"
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "u" = (
