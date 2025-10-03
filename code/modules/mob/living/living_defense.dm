@@ -450,16 +450,6 @@
 		used_item = get_active_held_item()
 	..()
 
-/mob/living/proc/sethellbound()
-	if(mind)
-		mind.hellbound = TRUE
-		med_hud_set_status()
-		return TRUE
-	return FALSE
-
-/mob/living/proc/ishellbound()
-	return mind?.hellbound
-
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE
 

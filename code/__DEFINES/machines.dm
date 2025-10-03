@@ -187,7 +187,6 @@
 #define ERROR_COMMITED_SUICIDE 205
 #define ERROR_SOUL_DEPARTED 206
 #define ERROR_SUICIDED_BODY 207
-#define ERROR_SOUL_DAMNED 666
 #define ERROR_UNCLONABLE 901
 
 //these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.

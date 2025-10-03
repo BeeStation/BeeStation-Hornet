@@ -23,7 +23,7 @@
 	// We call this here so we can get feedback if they try to cast it when they shouldn't.
 	if(!is_valid_spell(owner, owner))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You don't have a soul to bind!</span>"))
+			to_chat(owner, span_warning("You don't have a soul to bind!"))
 		return FALSE
 
 	return TRUE
@@ -36,29 +36,29 @@
 	if(!marked_item || marked_item.item_flags & ABSTRACT)
 		return
 	if(HAS_TRAIT(marked_item, TRAIT_NODROP))
-		to_chat(user, ("<span class='warning'>[marked_item] is stuck to your hand - it wouldn't be a wise idea to place your soul into it.</span>"))
+		to_chat(user, span_warning("[marked_item] is stuck to your hand - it wouldn't be a wise idea to place your soul into it."))
 		return
 	// I ensouled the nuke disk once.
 	// But it's a really mean tactic, so we probably should disallow it.
 	if(SEND_SIGNAL(marked_item, COMSIG_ITEM_IMBUE_SOUL, src, user) & COMPONENT_BLOCK_IMBUE)
-		to_chat(user, ("<span class='warning'>[marked_item] is not suitable for emplacement of your fragile soul.</span>"))
+		to_chat(user, span_warning("[marked_item] is not suitable for emplacement of your fragile soul."))
 		return
 
 	. = ..()
 	playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
-	to_chat(user, ("<span class='green'>You begin to focus your very being into [marked_item]...</span>"))
+	to_chat(user, ("<span class='green'>You begin to focus your very being into [marked_item]..."))
 	if(!do_after(user, 5 SECONDS, target = marked_item, timed_action_flags = IGNORE_HELD_ITEM))
-		to_chat(user, ("<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>"))
+		to_chat(user, span_warning("Your soul snaps back to your body as you stop ensouling [marked_item]!"))
 		return
 
 	marked_item.AddComponent(/datum/component/phylactery, user.mind)
 
 	user.set_species(/datum/species/skeleton)
-	to_chat(user, ("<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination \
+	to_chat(user, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination \
 		as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! \
 		As your organs crumble to dust in your fleshless chest you come to terms with your choice. \
-		You're a lich!</span>"))
+		You're a lich!"))
 
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_cast_on = user

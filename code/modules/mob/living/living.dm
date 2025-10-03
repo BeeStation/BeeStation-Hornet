@@ -67,9 +67,9 @@
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 20 SECONDS)
 		else
-			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 5 SECONDS)
 
 
 	if(ismob(A))
@@ -1232,11 +1232,6 @@
 /mob/living/carbon/alien/update_stamina()
 	return
 
-/mob/living/proc/owns_soul()
-	if(mind)
-		return mind.soulOwner == mind
-	return TRUE
-
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
@@ -2122,7 +2117,7 @@
 /// Proc called when targetted by a lazarus injector
 /mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
 	if(mind)
-		if(suiciding || ishellbound())
+		if(suiciding)
 			reviver.visible_message(span_notice("[reviver] injects [src], but nothing happened."))
 			return
 		process_revival(src)
