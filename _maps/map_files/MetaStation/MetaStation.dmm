@@ -59250,6 +59250,11 @@
 /obj/effect/turf_decal/tile/dark_red/half{
 	dir = 4
 	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_y = 32
+	},
 /turf/open/floor/iron/smooth_half,
 /area/security/prison)
 "qWb" = (
