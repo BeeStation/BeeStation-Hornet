@@ -7,7 +7,9 @@
 	name = "Gulag";
 	req_one_access_txt = "63;42;38"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
@@ -33,7 +35,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "u" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -32

@@ -289,8 +289,12 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bA" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/item/bikehorn/airhorn,
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
@@ -298,8 +302,12 @@
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "bB" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/chair/stool,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
@@ -312,13 +320,17 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "bG" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
 /obj/item/megaphone,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "bH" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/mob_spawn/human/beach/alive/lifeguard,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)

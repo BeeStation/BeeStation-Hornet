@@ -29,7 +29,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "aI" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -95,7 +97,9 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "cK" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -139,7 +143,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "dN" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /turf/open/floor/mineral/titanium,
@@ -180,7 +184,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -240,7 +246,9 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "go" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -301,7 +309,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 6
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/iron/tiled,
 /area/shuttle/escape)
 "iu" = (
@@ -449,7 +457,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -461,7 +471,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/machinery/light/small/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
@@ -482,8 +494,12 @@
 	},
 /area/shuttle/escape)
 "qv" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/tank/plasma{
 	dir = 1
 	},
@@ -568,7 +584,9 @@
 /obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -664,7 +682,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -722,7 +742,9 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "vB" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/tank/plasma{
 	dir = 1
 	},
@@ -810,12 +832,14 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "xE" = (
@@ -838,12 +862,14 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "yv" = (
@@ -888,7 +914,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /turf/open/floor/mineral/plastitanium,
@@ -981,7 +1007,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Cg" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/structure/shuttle/engine/router,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -1002,7 +1030,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/alphabet/letter_l/quarter,
@@ -1012,7 +1042,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
@@ -1099,7 +1131,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -1271,7 +1303,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -1483,7 +1515,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/table/reinforced,
 /obj/item/defibrillator/loaded,
 /obj/structure/extinguisher_cabinet/directional/north,

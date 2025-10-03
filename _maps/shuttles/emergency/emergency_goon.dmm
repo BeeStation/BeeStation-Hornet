@@ -12,7 +12,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "d" = (
@@ -55,7 +57,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "q" = (
@@ -91,7 +95,9 @@
 "y" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "A" = (
@@ -101,8 +107,12 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "B" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/table/reinforced,
 /obj/item/radio,
 /turf/open/floor/mineral/titanium/yellow,
@@ -133,7 +143,9 @@
 /obj/machinery/computer/emergency_shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "H" = (
@@ -144,8 +156,10 @@
 /area/shuttle/escape)
 "I" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
@@ -155,7 +169,7 @@
 "L" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "M" = (
@@ -209,21 +223,23 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "X" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Y" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 

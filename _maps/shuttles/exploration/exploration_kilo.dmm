@@ -128,7 +128,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "uU" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},

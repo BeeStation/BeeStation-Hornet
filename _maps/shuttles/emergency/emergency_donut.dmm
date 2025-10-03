@@ -241,12 +241,14 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aY" = (
@@ -422,7 +424,9 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "bs" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)

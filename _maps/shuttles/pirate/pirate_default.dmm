@@ -1537,7 +1537,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/door/poddoor{
 	id = "pirate_engines_shutters"
 	},

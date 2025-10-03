@@ -135,7 +135,9 @@
 	},
 /area/shuttle/mining)
 "H" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
@@ -179,7 +181,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden,
 /turf/open/floor/catwalk_floor,
 /area/shuttle/mining)

@@ -486,7 +486,9 @@
 /area/shuttle/syndicate/medical)
 "cr" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/hallway)
@@ -502,7 +504,9 @@
 /area/shuttle/syndicate/armory)
 "cu" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/medical)
@@ -523,7 +527,9 @@
 /area/shuttle/syndicate/hallway)
 "cy" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
@@ -630,7 +636,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "mt" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 3;
 	pixel_y = 3
@@ -704,7 +712,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "wJ" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/table/reinforced,
 /obj/item/aicard,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -724,7 +734,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/medical)
 "yk" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -776,7 +788,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/hallway)
 "El" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/item/bodypart/arm/right/robot,
 /obj/item/bodypart/arm/left/robot,
 /obj/structure/table/reinforced,
@@ -865,7 +879,9 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/syndicate/eva)
 "Ok" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -880,7 +896,9 @@
 	pixel_x = -1
 	},
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/item/grenade/plastic/c4,
 /obj/item/grenade/plastic/c4,
 /obj/item/grenade/plastic/c4,

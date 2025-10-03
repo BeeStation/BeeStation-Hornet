@@ -188,7 +188,9 @@
 	dir = 6
 	},
 /obj/structure/table,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/item/clothing/glasses/science,
 /obj/effect/spawner/lootdrop/ruinloot/science,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
@@ -278,7 +280,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/item/circuitboard/computer/nanite_chamber_control,
 /obj/item/circuitboard/computer/nanite_cloud_controller,
 /obj/item/circuitboard/machine/nanite_chamber,

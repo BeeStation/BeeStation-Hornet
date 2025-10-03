@@ -277,7 +277,9 @@
 /area/shuttle/caravan/pirate)
 "oG" = (
 /obj/structure/table,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/machinery/door/window/southleft{
 	name = "Weapon Storage"
 	},
@@ -659,7 +661,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/pirate)
 "HO" = (

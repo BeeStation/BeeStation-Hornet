@@ -169,7 +169,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
@@ -199,7 +199,9 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "AP" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24

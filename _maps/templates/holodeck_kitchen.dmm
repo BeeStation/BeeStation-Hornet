@@ -20,7 +20,9 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/item/reagent_containers/condiment/saltshaker{
 	list_reagents = list()
 	},
@@ -28,7 +30,7 @@
 /area/template_noop)
 "g" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "h" = (
@@ -42,7 +44,9 @@
 /area/template_noop)
 "i" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/machinery/microwave,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
@@ -65,7 +69,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "n" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/structure/closet/crate/freezer,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
@@ -90,7 +94,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "M" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/structure/rack,
 /obj/item/clothing/head/utility/chefhat,
 /obj/item/clothing/head/utility/chefhat,

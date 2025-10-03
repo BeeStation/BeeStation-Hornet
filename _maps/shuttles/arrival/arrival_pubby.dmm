@@ -59,7 +59,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "l" = (

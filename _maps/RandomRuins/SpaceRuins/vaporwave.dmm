@@ -29,7 +29,9 @@
 /area/ruin/space/has_grav/powered/aesthetic)
 "i" = (
 /obj/structure/musician/piano,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window{
+	dir = 8
+	},
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "j" = (
@@ -62,7 +64,9 @@
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "o" = (
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window{
+	dir = 4
+	},
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "p" = (
@@ -73,7 +77,9 @@
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
 "r" = (
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window{
+	dir = 8
+	},
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "s" = (

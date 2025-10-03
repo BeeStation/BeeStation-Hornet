@@ -11,7 +11,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "r" = (
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/item/toy/beach_ball/holoball/dodgeball,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/holofloor,
@@ -39,7 +41,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "z" = (
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/item/toy/beach_ball/holoball/dodgeball,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
@@ -47,7 +51,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "A" = (
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/item/toy/beach_ball/holoball/dodgeball,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -55,7 +61,7 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "E" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/item/toy/beach_ball/holoball/dodgeball,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -74,7 +80,7 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "N" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/item/toy/beach_ball/holoball/dodgeball,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
@@ -106,7 +112,7 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "U" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/item/toy/beach_ball/holoball/dodgeball,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1

@@ -173,8 +173,12 @@
 /turf/open/indestructible/hoteltile,
 /area/hilbertshotel)
 "F" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/tinted/spawner/directional/north,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
 /turf/open/indestructible/hoteltile,
 /area/hilbertshotel)
 "G" = (
@@ -242,17 +246,25 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/indestructible/hoteltile,
 /area/hilbertshotel)
 "S" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/indestructible/hoteltile,
 /area/hilbertshotel)
 "T" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/tinted,
 /turf/open/indestructible/hoteltile,
 /area/hilbertshotel)
 "U" = (

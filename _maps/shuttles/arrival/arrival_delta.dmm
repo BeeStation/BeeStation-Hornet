@@ -25,7 +25,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/arrival)
 "ae" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},

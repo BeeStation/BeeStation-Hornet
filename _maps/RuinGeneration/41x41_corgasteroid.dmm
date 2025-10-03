@@ -49,7 +49,9 @@
 /turf/template_noop,
 /area/template_noop)
 "cP" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -89,7 +91,9 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "fN" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
 /obj/structure/transit_tube/curved{
 	dir = 1
 	},
@@ -190,7 +194,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "kS" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "lc" = (
@@ -219,7 +225,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "mE" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/template_noop,
 /area/template_noop)
 "nz" = (
@@ -229,7 +235,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "oI" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden{
 	dir = 10
 	},
@@ -242,13 +248,25 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "oT" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/structure/transit_tube/station/reverse{
 	dir = 4
 	},
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered)
+"pa" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "po" = (
@@ -276,7 +294,9 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "qq" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "qs" = (
@@ -336,7 +356,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vc" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
 /obj/structure/transit_tube/curved,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
@@ -443,7 +465,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "xY" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
@@ -539,7 +561,9 @@
 /area/ruin/unpowered)
 "Co" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "Cr" = (
@@ -564,7 +588,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "CX" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -588,7 +614,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Dx" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/transit_tube/diagonal,
 /turf/template_noop,
 /area/template_noop)
@@ -665,7 +691,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Hf" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
@@ -706,8 +734,12 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "IX" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
@@ -833,7 +865,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "PY" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
@@ -868,7 +902,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Rf" = (
@@ -899,7 +933,9 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "RT" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -970,7 +1006,9 @@
 /turf/template_noop,
 /area/template_noop)
 "Vn" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/transit_tube/station/reverse/flipped{
 	dir = 1
 	},
@@ -1028,7 +1066,9 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "YM" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/smart/simple/dark/hidden,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -1244,7 +1284,7 @@ vZ
 vZ
 Pk
 Dx
-IX
+pa
 CX
 Fw
 "}

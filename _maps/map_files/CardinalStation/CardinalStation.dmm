@@ -485,8 +485,12 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/atmos)
 "aeN" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/pointybush{
 	pixel_y = -15
@@ -1374,8 +1378,8 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "anI" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/dark,
 /obj/item/trash/can{
 	pixel_y = 17;
@@ -2132,7 +2136,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "axF" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -4
@@ -2414,7 +2418,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/quartermaster/storage)
 "aBn" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "artsh"
 	},
@@ -2480,8 +2484,8 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "aBN" = (
-/obj/structure/window/spawner/directional/east,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/east,
+/obj/structure/window/spawner/west,
 /obj/structure/fluff/hedge/opaque,
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/exit/departure_lounge)
@@ -2597,7 +2601,7 @@
 /area/medical/surgery)
 "aCU" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/item/paper_bin{
 	pixel_x = -9
 	},
@@ -2608,7 +2612,7 @@
 /obj/item/pen{
 	pixel_x = -8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "sci_desk";
 	name = "Science Desk Shutters"
@@ -3002,7 +3006,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/item/cigbutt{
 	pixel_x = 4;
 	pixel_y = -3
@@ -3947,7 +3951,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/mapping_helpers/make_non_slip,
 /turf/open/floor/iron/ameridiner,
 /area/science/robotics/lab)
@@ -4017,7 +4021,7 @@
 	pixel_x = -72
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "aQS" = (
@@ -5104,7 +5108,7 @@
 /turf/open/floor/iron/ridged/steel,
 /area/quartermaster/exploration_prep)
 "bbU" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/lattice,
 /obj/structure/transit_tube,
 /turf/open/space/basic,
@@ -5144,12 +5148,12 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "bcc" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "bcg" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
 	name = "Core Modules";
@@ -5655,8 +5659,10 @@
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
 "bfM" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -5679,7 +5685,9 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "bgf" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/trimline/white/warning{
 	dir = 8
 	},
@@ -5976,7 +5984,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "bie" = (
@@ -6442,7 +6450,7 @@
 /obj/machinery/computer/upload/ai{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "bmP" = (
@@ -6551,7 +6559,7 @@
 /obj/machinery/shower{
 	pixel_y = 16
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/curtain,
 /turf/open/floor/noslip/white,
 /area/crew_quarters/toilet/restrooms)
@@ -6897,7 +6905,7 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "bqS" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -7346,7 +7354,7 @@
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
 "bwi" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 4
@@ -7435,7 +7443,9 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "bxy" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/white/full,
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
@@ -7443,7 +7453,7 @@
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bxI" = (
@@ -7833,7 +7843,7 @@
 /area/science/server)
 "bCK" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
 /obj/item/reagent_containers/cup/glass/bottle/champagne{
 	pixel_x = -6;
@@ -7985,7 +7995,9 @@
 /turf/open/floor/iron/half,
 /area/hallway/primary/central)
 "bET" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -8002,8 +8014,9 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "bFc" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/north{
-	color = "#9b1d70"
+/obj/structure/window/reinforced/tinted{
+	color = "#9b1d70";
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/maintenance/club)
@@ -8550,7 +8563,7 @@
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "bKz" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -8592,8 +8605,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "bKU" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/palebush{
 	pixel_y = -13
@@ -8819,7 +8834,9 @@
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "bNP" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -10029,7 +10046,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "bZe" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/edges/borderfloor/corner1{
 	dir = 4
 	},
@@ -10108,8 +10125,8 @@
 /obj/machinery/conveyor{
 	id = "garbage"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "bZQ" = (
@@ -10388,13 +10405,15 @@
 	},
 /area/science/xenobiology)
 "cbL" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/vending/autodrobe,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
 "cbU" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -10897,7 +10916,7 @@
 /area/medical/storage)
 "cho" = (
 /obj/structure/closet/wardrobe/pjs,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
 "chp" = (
@@ -11006,7 +11025,7 @@
 	pixel_y = 3;
 	pixel_x = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/button/massdriver{
 	id = "toxinsdriver";
 	pixel_x = -19;
@@ -11262,8 +11281,10 @@
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/chief)
 "ckz" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/white/full,
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
@@ -11288,11 +11309,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ckU" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Shutters"
@@ -11339,8 +11360,8 @@
 /area/hallway/secondary/entry)
 "clh" = (
 /obj/structure/chair,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/tech,
 /area/maintenance/department/engine/atmos)
 "clj" = (
@@ -11359,7 +11380,9 @@
 /turf/open/floor/iron/edge,
 /area/hallway/primary/starboard)
 "clk" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -11453,7 +11476,7 @@
 	dir = 10
 	},
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "cmo" = (
@@ -11814,8 +11837,8 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/lobby)
 "cpS" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/closet/wardrobe/pink,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
@@ -12352,7 +12375,7 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "cvs" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/window/plasma/reinforced,
 /obj/effect/turf_decal/trimline/white/warning,
 /obj/effect/turf_decal/trimline/white/warning,
 /obj/effect/turf_decal/trimline/yellow/warning,
@@ -13146,7 +13169,8 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west{
+/obj/structure/window/reinforced/tinted{
+	dir = 8;
 	color = "#9b1d70"
 	},
 /turf/open/floor/iron/dark,
@@ -13325,7 +13349,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "cFQ" = (
@@ -14080,9 +14104,9 @@
 /turf/open/space,
 /area/solar/starboard/fore)
 "cNJ" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/chair,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/iron/tech,
 /area/maintenance/department/engine/atmos)
 "cNQ" = (
@@ -14321,7 +14345,7 @@
 /turf/open/floor/noslip/white,
 /area/crew_quarters/toilet/restrooms)
 "cPG" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "telelab"
 	},
@@ -14991,8 +15015,12 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "cVD" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_y = -15
@@ -15003,15 +15031,17 @@
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
 "cVL" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/bed/roller,
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
 "cVQ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/spawner/directional/south,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "psycho";
 	name = "Privacy Shutters"
@@ -15054,8 +15084,8 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_smes)
 "cWx" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass/no_border,
@@ -15325,7 +15355,7 @@
 /turf/open/floor/iron/techmaint,
 /area/storage/primary)
 "cYJ" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/machinery/modular_computer/console/preset/curator,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -15728,8 +15758,10 @@
 /turf/open/floor/wood/big,
 /area/library/lounge)
 "ddk" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/stripes/white/full,
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
@@ -15952,7 +15984,7 @@
 /area/hydroponics)
 "dfT" = (
 /obj/effect/turf_decal/edges/borderfloor/black,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/window/plasma/reinforced,
 /obj/structure/railing,
 /obj/effect/turf_decal/siding/purple,
 /turf/open/floor/iron/smooth_edge{
@@ -16386,7 +16418,7 @@
 	id = "xenbio"
 	},
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/door/firedoor,
 /obj/item/reagent_containers/cup/bottle/vial{
 	pixel_y = 10;
@@ -16407,7 +16439,7 @@
 /turf/open/floor/iron/white/textured_large,
 /area/crew_quarters/kitchen)
 "dkC" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
 	},
@@ -16606,7 +16638,7 @@
 /obj/structure/transit_tube{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/iron/tech/grid,
 /area/maintenance/department/engine/atmos)
 "dnc" = (
@@ -17238,14 +17270,16 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "dut" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/open/floor/grass/no_border,
 /area/ai_monitored/storage/eva)
 "duy" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/white/full,
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
@@ -17253,7 +17287,7 @@
 /obj/effect/turf_decal/trimline/white/line{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "duz" = (
@@ -17773,7 +17807,7 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "dzk" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -17882,7 +17916,7 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "dAa" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /obj/structure/table,
 /obj/item/reagent_containers/cup/beaker/cryoxadone{
@@ -17961,7 +17995,9 @@
 /turf/open/space,
 /area/space/nearstation)
 "dBj" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
@@ -18926,8 +18962,8 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dNi" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
@@ -19118,7 +19154,7 @@
 	},
 /area/hallway/secondary/entry)
 "dPL" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/item/extinguisher/advanced,
@@ -19156,7 +19192,7 @@
 	req_access_txt = "25";
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
@@ -19196,7 +19232,7 @@
 /turf/open/floor/iron/dark/textured_half,
 /area/quartermaster/sorting)
 "dQr" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/bed/roller,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
@@ -19223,7 +19259,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/camera/directional/south,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -19499,7 +19535,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "dUu" = (
@@ -19527,8 +19563,8 @@
 /turf/open/floor/vault/rock,
 /area/science/mixing)
 "dUZ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -19573,9 +19609,9 @@
 /turf/open/floor/iron/white/textured_half,
 /area/science/lobby)
 "dVA" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/white/filled,
 /obj/effect/turf_decal/trimline/purple/filled,
 /obj/machinery/disposal/bin,
@@ -19730,7 +19766,7 @@
 /area/security/prison)
 "dXR" = (
 /obj/effect/landmark/secequipment,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/tech,
@@ -20204,7 +20240,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "ecW" = (
@@ -20514,7 +20550,9 @@
 	pixel_x = -3;
 	pixel_y = -1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/circuit,
 /area/storage/tech)
@@ -20729,8 +20767,10 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "ehZ" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/palebush{
 	pixel_y = -13
@@ -20946,7 +20986,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "ekk" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
 	pixel_y = 7;
@@ -21434,7 +21474,9 @@
 "erl" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/door/window/southright{
 	name = "Balistic Weapons Storage";
 	req_one_access_txt = "3"
@@ -22135,7 +22177,9 @@
 /turf/open/floor/iron/tiled,
 /area/medical/booth)
 "exV" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -22874,7 +22918,8 @@
 /area/hallway/primary/port)
 "eHt" = (
 /obj/structure/fluff/hedge/opaque,
-/obj/structure/window/reinforced/tinted/spawner/directional/west{
+/obj/structure/window/reinforced/tinted{
+	dir = 8;
 	color = "#9b1d70";
 	pixel_x = -7
 	},
@@ -22888,7 +22933,7 @@
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno5";
 	name = "Creature Cell #5"
@@ -23251,7 +23296,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "eLk" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 8
 	},
@@ -23578,8 +23623,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "ePs" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/science/lobby)
@@ -23762,8 +23807,10 @@
 	pixel_y = -13
 	},
 /obj/machinery/light/small/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "eRe" = (
@@ -23986,7 +24033,7 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
 "eUb" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/closet/secure_closet/atmospherics,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/monotile/steel,
@@ -24765,7 +24812,9 @@
 /turf/open/floor/iron/ameridiner,
 /area/science/robotics/mechbay)
 "fdn" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/filingcabinet{
 	pixel_x = -10
 	},
@@ -24822,8 +24871,10 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "fdy" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/trimline/white/warning{
 	dir = 6
 	},
@@ -25098,7 +25149,7 @@
 /area/hydroponics/garden)
 "fgE" = (
 /obj/structure/filingcabinet/chestdrawer/wheeled,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -25174,8 +25225,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "fgZ" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
@@ -25336,7 +25387,7 @@
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/maintenance/solars/port/aft)
 "fiC" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -26144,7 +26195,9 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -26158,8 +26211,12 @@
 /turf/open/floor/concrete/slab,
 /area/ai_monitored/turret_protected/ai_upload)
 "fsZ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -26555,7 +26612,7 @@
 	},
 /area/hallway/primary/port)
 "fwY" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/machinery/libraryscanner,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -26571,7 +26628,9 @@
 "fxi" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes,
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /obj/machinery/light/small/directional/north,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
@@ -26581,7 +26640,7 @@
 	pixel_x = -1;
 	pixel_y = -10
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/bridge/meeting_room)
 "fxl" = (
@@ -26732,8 +26791,8 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "fze" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /obj/item/paper_bin{
 	pixel_x = 1;
 	pixel_y = 2
@@ -26782,7 +26841,7 @@
 /turf/open/floor/iron/dark,
 /area/teleporter)
 "fzV" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -27218,8 +27277,9 @@
 /obj/item/stack/spacecash/c20{
 	pixel_x = 6
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/north{
-	color = "#9b1d70"
+/obj/structure/window/reinforced/tinted{
+	color = "#9b1d70";
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -27464,7 +27524,9 @@
 /turf/open/space/basic,
 /area/solar/port/fore)
 "fGr" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
@@ -27958,7 +28020,7 @@
 /turf/open/floor/iron/smooth,
 /area/maintenance/department/engine/atmos)
 "fLd" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/closet/crate/trashcart,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -28973,7 +29035,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -29408,7 +29470,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "gaT" = (
@@ -30246,7 +30308,7 @@
 	},
 /area/security/brig)
 "giq" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -30556,7 +30618,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "glX" = (
@@ -31049,9 +31111,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "gpG" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/white/filled,
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
@@ -32728,7 +32790,7 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/south{
+/obj/structure/window/reinforced/tinted{
 	color = "#9b1d70"
 	},
 /obj/structure/platform/black/corner{
@@ -32786,8 +32848,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "gGh" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -32899,7 +32961,9 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 8
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -32945,7 +33009,7 @@
 	name = "Air to Distro";
 	target_pressure = 500
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	dir = 4
@@ -33136,7 +33200,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "gKb" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
@@ -33253,7 +33317,9 @@
 	id = "xeno4";
 	name = "Creature Cell #4"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -33626,8 +33692,8 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 5
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -33781,8 +33847,8 @@
 /turf/open/floor/iron/showroomfloor,
 /area/medical/break_room)
 "gQw" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
@@ -34048,7 +34114,7 @@
 /area/quartermaster/exploration_prep)
 "gTl" = (
 /obj/machinery/suit_storage_unit/standard_unit,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -34194,7 +34260,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 6
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /mob/living/simple_animal/butterfly,
 /turf/open/floor/grass/no_border,
 /area/science/research)
@@ -34569,8 +34635,12 @@
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/heads/captain)
 "gYS" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/trimline/white/warning{
 	dir = 5
 	},
@@ -34641,8 +34711,12 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "gZq" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sopcommand,
 /obj/item/book/manual/wiki/sopscience{
@@ -35013,8 +35087,10 @@
 /area/maintenance/club)
 "hdU" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "hdV" = (
@@ -35048,7 +35124,7 @@
 /obj/machinery/shower{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/curtain,
 /turf/open/floor/noslip/white,
 /area/crew_quarters/toilet/restrooms)
@@ -35192,7 +35268,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "hfk" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/closet/wardrobe/white,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
@@ -35450,7 +35526,7 @@
 	dir = 5
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "hhN" = (
@@ -35561,7 +35637,9 @@
 /area/science/robotics/mechbay)
 "hiA" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/fernybush,
 /obj/machinery/door/window/westleft{
 	req_one_access_txt = "26;32"
@@ -35603,7 +35681,7 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/pointybush,
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "hjr" = (
@@ -36315,7 +36393,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "hsw" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/item/aicard,
 /obj/structure/table/reinforced,
 /obj/item/circuitboard/aicore,
@@ -36669,7 +36749,7 @@
 	},
 /area/teleporter)
 "hwu" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/space/basic,
 /area/space/nearstation)
 "hwy" = (
@@ -36975,8 +37055,10 @@
 /area/space/nearstation)
 "hyZ" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "hzf" = (
@@ -36984,7 +37066,9 @@
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno2";
 	name = "Creature Cell #2"
@@ -37055,8 +37139,8 @@
 	},
 /area/storage/tools)
 "hAi" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/trimline/yellow/warning_offset{
 	dir = 4
 	},
@@ -37109,7 +37193,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -37341,7 +37425,7 @@
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "hCZ" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
 	dir = 4
 	},
@@ -37444,7 +37528,7 @@
 	dir = 4
 	},
 /obj/structure/platform/gray,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/smooth_half,
 /area/engine/engineering)
 "hEj" = (
@@ -37506,7 +37590,7 @@
 /turf/open/floor/iron/edge,
 /area/hallway/primary/port)
 "hEu" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -37584,8 +37668,8 @@
 /turf/open/floor/iron/tiled,
 /area/medical/sleeper)
 "hFg" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
@@ -38021,8 +38105,8 @@
 /turf/open/floor/iron/smooth,
 /area/security/brig)
 "hJa" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
@@ -38046,7 +38130,7 @@
 /area/security/main)
 "hJI" = (
 /obj/effect/turf_decal/guideline/guideline_in/blue,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -38062,9 +38146,11 @@
 /area/storage/emergency/port)
 "hKd" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/spawner/lootdrop/techstorage/tcomms,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
 /turf/open/floor/circuit,
 /area/storage/tech)
 "hKf" = (
@@ -38458,7 +38544,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/edges/techfloor,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "hNz" = (
@@ -38720,10 +38806,10 @@
 /turf/open/floor/iron/white,
 /area/medical/booth)
 "hRN" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/entry)
@@ -38814,8 +38900,8 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
 "hSx" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush{
 	pixel_x = -8
@@ -38845,7 +38931,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/pointybush,
 /obj/effect/turf_decal/siding/thinplating_new,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /mob/living/basic/cow,
 /turf/open/floor/grass/no_border,
 /area/science/research)
@@ -39056,7 +39142,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
 "hVw" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/transit_tube/station/reverse{
 	dir = 4
 	},
@@ -39169,7 +39255,9 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "hXe" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -39478,8 +39566,8 @@
 /turf/open/floor/iron/smooth,
 /area/maintenance/solars/port/aft)
 "hZW" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 9
 	},
@@ -40607,8 +40695,10 @@
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
 "ikN" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass/no_border,
@@ -40726,7 +40816,7 @@
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "smrad"
 	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "imf" = (
@@ -40759,7 +40849,9 @@
 	pixel_x = 5
 	},
 /obj/item/stamp/chief_engineer,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "CEdesk"
@@ -40793,7 +40885,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 10
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/grass/no_border,
 /area/science/research)
 "ina" = (
@@ -40916,8 +41008,10 @@
 /turf/closed/wall/r_wall,
 /area/engine/transit_tube)
 "ipd" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
@@ -41098,7 +41192,7 @@
 /area/security/main)
 "iqy" = (
 /obj/effect/landmark/secequipment,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/tech,
@@ -41688,7 +41782,7 @@
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "ixA" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
 	},
@@ -41770,7 +41864,7 @@
 	pixel_x = -36
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /obj/machinery/light/floor{
 	pixel_y = 16;
 	pixel_x = 16
@@ -42274,8 +42368,8 @@
 /turf/open/floor/iron/techmaint,
 /area/medical/morgue)
 "iDu" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/sunnybush{
 	pixel_x = 12
@@ -42287,7 +42381,7 @@
 /obj/machinery/door/firedoor,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/plating,
 /area/medical/medbay/lobby)
 "iDG" = (
@@ -42396,8 +42490,8 @@
 /turf/open/floor/iron/smooth,
 /area/bridge/meeting_room)
 "iEm" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush{
 	pixel_x = -12
@@ -42465,11 +42559,11 @@
 /turf/open/floor/iron/textured,
 /area/engine/gravity_generator)
 "iEV" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/table/glass,
 /obj/item/healthanalyzer,
 /obj/item/clothing/gloves/color/latex,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 5
 	},
@@ -43255,7 +43349,9 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "iLy" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/trimline/white/warning{
 	dir = 4
 	},
@@ -43395,9 +43491,13 @@
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat_interior)
 "iNo" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -44118,7 +44218,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "iUT" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced/spawner/east,
 /obj/structure/railing/perspective/black{
 	dir = 6
 	},
@@ -44333,7 +44433,9 @@
 	id = "xeno1";
 	name = "Creature Cell #1"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -44506,11 +44608,15 @@
 	},
 /area/science/xenobiology)
 "iZw" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/pointybush{
 	pixel_y = -10
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -44614,7 +44720,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/security/interrogation_room)
 "jbk" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
@@ -45150,8 +45256,8 @@
 /turf/open/floor/prison/dark,
 /area/teleporter)
 "jia" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/library/lounge)
@@ -45564,7 +45670,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -1;
 	pixel_y = 6
@@ -45964,7 +46070,9 @@
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
 "jqC" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -46316,7 +46424,7 @@
 /turf/closed/wall/r_wall,
 /area/security/prison)
 "juZ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
 	},
@@ -46595,7 +46703,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engineering/hallway)
 "jyd" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -47356,12 +47464,12 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "jGX" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/window/northleft{
 	req_access_txt = "61"
 	},
@@ -47492,7 +47600,8 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west{
+/obj/structure/window/reinforced/tinted{
+	dir = 8;
 	color = "#9b1d70"
 	},
 /obj/structure/cable/yellow{
@@ -47870,7 +47979,7 @@
 	dir = 10
 	},
 /obj/structure/closet/secure_closet/security/sec,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/item/clothing/mask/balaclava,
 /turf/open/floor/iron/tech,
 /area/security/main)
@@ -48773,7 +48882,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/north{
+/obj/structure/window/reinforced/tinted{
+	dir = 1;
 	pixel_y = 7
 	},
 /obj/structure/showcase/machinery/tv{
@@ -49664,7 +49774,9 @@
 	id = "xeno6";
 	name = "Creature Cell #6"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -49729,7 +49841,7 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "ked" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "kee" = (
@@ -50038,7 +50150,7 @@
 /area/maintenance/central/secondary)
 "khk" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/space/basic,
 /area/space/nearstation)
 "khl" = (
@@ -50060,7 +50172,7 @@
 /turf/open/floor/iron/white/textured,
 /area/security/brig/medbay)
 "khr" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	dir = 1;
@@ -50528,7 +50640,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/tcommsat/computer)
 "kkY" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 6
 	},
@@ -50588,7 +50700,7 @@
 /turf/open/floor/plating,
 /area/storage/tech)
 "klI" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/machinery/computer/cargo/request{
 	dir = 8
 	},
@@ -50798,7 +50910,7 @@
 /turf/open/floor/wood/broken,
 /area/vacant_room/office)
 "knz" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "knC" = (
@@ -51045,7 +51157,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "kpf" = (
@@ -51747,7 +51859,7 @@
 /obj/effect/spawner/lootdrop/aimodule_harmful{
 	pixel_y = 2
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
@@ -51905,7 +52017,7 @@
 /area/maintenance/department/medical)
 "kAa" = (
 /obj/effect/turf_decal/guideline/guideline_in/blue,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -52027,8 +52139,10 @@
 	},
 /area/quartermaster/sorting)
 "kAZ" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/vending/clothing,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
@@ -52500,7 +52614,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "kHD" = (
@@ -52875,11 +52989,11 @@
 /turf/closed/wall/mineral,
 /area/quartermaster/storage)
 "kLz" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/entry)
 "kLC" = (
@@ -53153,7 +53267,7 @@
 /area/maintenance/department/chapel)
 "kND" = (
 /obj/effect/turf_decal/edges/borderfloor,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/closet/emcloset,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -53178,7 +53292,7 @@
 	location = "Robotics";
 	name = "navigation beacon (Robotics)"
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/door/window/eastleft{
 	name = "Robotics Deliveries";
 	req_access_txt = "29"
@@ -53323,7 +53437,7 @@
 	pixel_x = -2;
 	pixel_y = 26
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/south{
+/obj/structure/window/reinforced/tinted{
 	color = "#9b1d70"
 	},
 /obj/structure/cable/yellow{
@@ -53336,7 +53450,7 @@
 /area/maintenance/club)
 "kPE" = (
 /obj/structure/closet/wardrobe/black,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
 "kPS" = (
@@ -53504,7 +53618,7 @@
 	dir = 4
 	},
 /obj/structure/platform/gray,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/smooth_half,
 /area/engine/engineering)
 "kSa" = (
@@ -53515,9 +53629,11 @@
 /turf/closed/wall/r_wall,
 /area/security/nuke_storage)
 "kSh" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/door/window/northleft,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/light/small/directional/south,
@@ -55596,7 +55712,7 @@
 /turf/open/floor/iron/checker/other,
 /area/crew_quarters/bar)
 "lnr" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/trimline/blue/filled/warning{
 	dir = 9
 	},
@@ -55632,7 +55748,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "lnL" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -56167,8 +56283,8 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/department/medical)
 "lta" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/bar)
@@ -56211,8 +56327,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "lto" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/pointybush{
@@ -56228,7 +56344,7 @@
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_y = -11
 	},
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "ltH" = (
@@ -56918,7 +57034,7 @@
 /area/medical/storage)
 "lBt" = (
 /obj/structure/closet/wardrobe/grey,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
 "lBP" = (
@@ -57169,7 +57285,7 @@
 	dir = 8
 	},
 /obj/structure/platform/gray,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/smooth_half,
 /area/engine/engineering)
 "lEl" = (
@@ -57239,7 +57355,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "lEY" = (
@@ -57341,7 +57457,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
 "lFU" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -57546,7 +57662,9 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 4
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -57643,7 +57761,9 @@
 /area/space/nearstation)
 "lJK" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /obj/machinery/door/window/westright{
 	req_one_access_txt = "26;32"
 	},
@@ -57865,7 +57985,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "lLw" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "smrad"
 	},
@@ -58220,8 +58340,8 @@
 /turf/open/floor/vault/rock,
 /area/quartermaster/miningoffice)
 "lPg" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/leafybush,
@@ -58702,7 +58822,7 @@
 /turf/open/floor/iron/smooth,
 /area/maintenance/department/engine/atmos)
 "lUf" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 4
 	},
@@ -59466,7 +59586,7 @@
 /turf/open/floor/plating,
 /area/science/server)
 "meu" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/reagent_containers/dropper,
@@ -60105,8 +60225,10 @@
 "mkG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "mkN" = (
@@ -60132,7 +60254,7 @@
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
 "mkT" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/closet/wardrobe/mixed,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
@@ -60143,8 +60265,8 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
 "mkX" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/window/southright{
@@ -60508,8 +60630,8 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/fore)
 "mol" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass/no_border,
@@ -60619,8 +60741,12 @@
 /turf/open/floor/iron,
 /area/hallway/upper/primary/starboard)
 "mpq" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/trimline/white/warning{
 	dir = 9
 	},
@@ -60638,7 +60764,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "mpC" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/open/space/basic,
@@ -60674,8 +60800,8 @@
 /turf/open/floor/iron/white/textured,
 /area/science/xenobiology)
 "mqt" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/transit_tube/curved{
 	dir = 4
 	},
@@ -60783,7 +60909,9 @@
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno3";
 	name = "Creature Cell #3"
@@ -61649,8 +61777,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "mBj" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/kitchen)
@@ -61677,8 +61807,10 @@
 /obj/structure/flora/ausbushes/ywflowers{
 	pixel_x = 14
 	},
-/obj/structure/window/spawner/directional/south,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "psycho";
 	name = "Privacy Shutters"
@@ -61705,7 +61837,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -61816,7 +61948,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/machinery/door/window/eastleft,
 /obj/structure/sink{
 	pixel_y = 22
@@ -62480,7 +62612,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -63049,11 +63181,11 @@
 /turf/open/floor/iron/dark/textured,
 /area/security/brig)
 "mPg" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/secondary/exit/departure_lounge)
 "mPm" = (
@@ -63172,8 +63304,10 @@
 /turf/open/floor/wood/big,
 /area/vacant_room/commissary/commissaryRandom)
 "mQf" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_y = -11
@@ -63276,7 +63410,7 @@
 	},
 /area/hallway/secondary/entry)
 "mRt" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/window/plasma/reinforced,
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -63364,7 +63498,7 @@
 /area/hydroponics)
 "mRR" = (
 /obj/structure/closet/wardrobe/mixed,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
 "mSb" = (
@@ -63835,7 +63969,7 @@
 	},
 /area/medical/break_room)
 "mVQ" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "smrad"
 	},
@@ -64479,7 +64613,7 @@
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "smrad"
 	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold/general/visible,
 /turf/open/floor/plating,
 /area/engine/engine_room)
@@ -64567,7 +64701,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/nanite)
 "ngm" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/window/plasma/reinforced,
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/purple,
@@ -64766,7 +64900,7 @@
 /area/security/prison)
 "nhM" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/item/clothing/head/cone{
 	pixel_y = 7;
 	pixel_x = 9
@@ -65127,7 +65261,7 @@
 /obj/effect/turf_decal/siding/white/corner{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/cmo)
 "nlU" = (
@@ -65161,10 +65295,10 @@
 /area/hallway/primary/port)
 "nmn" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass/no_border,
 /area/medical/virology)
@@ -65728,7 +65862,7 @@
 /area/security/main)
 "nrU" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/space/basic,
 /area/space/nearstation)
 "nrX" = (
@@ -65772,7 +65906,7 @@
 /turf/open/floor/iron/white,
 /area/hallway/primary/central)
 "nsr" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/closet/wardrobe/pjs,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
@@ -66440,7 +66574,7 @@
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "nyy" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/reagent_containers/condiment/flour{
@@ -66934,7 +67068,7 @@
 /area/hallway/primary/port)
 "nDF" = (
 /obj/effect/turf_decal/siding/thinplating_new,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /obj/machinery/light/floor{
 	pixel_y = 16;
 	pixel_x = 16
@@ -66970,7 +67104,7 @@
 	},
 /area/maintenance/central)
 "nDW" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -67448,8 +67582,10 @@
 /area/quartermaster/qm_bedroom)
 "nIh" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "nIr" = (
@@ -67490,7 +67626,9 @@
 /turf/open/floor/iron/textured_half,
 /area/quartermaster/storage)
 "nIM" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
@@ -68210,8 +68348,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "nRi" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_x = 11
@@ -68382,7 +68520,9 @@
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "nSJ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/space/nearstation)
@@ -68789,12 +68929,14 @@
 /obj/machinery/disposal/deliveryChute{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "nWZ" = (
@@ -69534,7 +69676,7 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "oef" = (
@@ -69665,7 +69807,7 @@
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "smrad"
 	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "ofL" = (
@@ -70037,7 +70179,7 @@
 	dir = 6
 	},
 /obj/machinery/meter,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	dir = 4
@@ -70382,8 +70524,8 @@
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "onj" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "onr" = (
@@ -70415,8 +70557,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "onG" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/pointybush{
@@ -70835,7 +70977,7 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "osE" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -70864,7 +71006,7 @@
 	dir = 6;
 	id = "garbage"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small/broken/directional/north,
 /turf/open/floor/plating,
@@ -70896,7 +71038,8 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west{
+/obj/structure/window/reinforced/tinted{
+	dir = 8;
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/purple{
@@ -71578,7 +71721,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /obj/structure/flora/tree/jungle/small{
 	pixel_x = -15;
 	pixel_y = 28
@@ -71864,8 +72007,8 @@
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "oFE" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -71977,7 +72120,7 @@
 /area/maintenance/department/chapel)
 "oGY" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science/prescription{
@@ -72059,8 +72202,8 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "oHS" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/door/window/southright{
 	name = "Armor Storage";
 	req_one_access_txt = "3"
@@ -72550,7 +72693,7 @@
 /turf/open/floor/carpet/purple,
 /area/chapel/main)
 "oLv" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 4
 	},
@@ -72676,13 +72819,13 @@
 	location = "Hydroponics";
 	name = "navigation beacon (Hydroponics)"
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/door/window/eastright{
 	dir = 8;
 	name = "Hydroponics Delivery";
 	req_access_txt = "35"
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/pod/dark,
 /area/hydroponics)
 "oMJ" = (
@@ -73291,8 +73434,12 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "oTa" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
@@ -73341,8 +73488,10 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "oTu" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
@@ -73450,7 +73599,7 @@
 /turf/open/floor/engine/light,
 /area/engine/supermatter)
 "oUT" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/iron/dark/smooth_large,
@@ -74063,7 +74212,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /obj/machinery/light/floor{
 	pixel_y = 16;
 	pixel_x = 16
@@ -74105,8 +74254,10 @@
 /turf/open/space/basic,
 /area/solar/starboard/aft)
 "pbD" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_y = -2
@@ -74258,8 +74409,8 @@
 /turf/open/floor/iron/checker/other,
 /area/hallway/secondary/entry)
 "pcD" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass/no_border,
@@ -74511,7 +74662,7 @@
 /turf/open/floor/iron/smooth,
 /area/maintenance/department/engine/atmos)
 "per" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -74553,7 +74704,7 @@
 	name = "Atmospherics Delivery Access";
 	req_one_access_txt = "24;10"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/pod/dark,
 /area/engine/atmos)
 "pfh" = (
@@ -74725,7 +74876,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "pgP" = (
@@ -74872,8 +75023,8 @@
 	},
 /area/bridge)
 "phT" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/pointybush,
@@ -74882,7 +75033,7 @@
 "pia" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp/green,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark/side{
 	dir = 10
@@ -75029,7 +75180,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/motion/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "pkY" = (
@@ -75103,7 +75254,7 @@
 "plM" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
@@ -75215,7 +75366,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "pnl" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/chair,
 /obj/effect/turf_decal/siding/dark,
 /obj/item/cigbutt{
@@ -75248,8 +75399,10 @@
 /area/hallway/primary/starboard)
 "pny" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/spawner/directional/south,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "psycho";
 	name = "Privacy Shutters"
@@ -75561,7 +75714,7 @@
 /turf/open/floor/iron/checker,
 /area/vacant_room/commissary/commissaryFood)
 "pqs" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/exploration_prep)
@@ -75655,7 +75808,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
@@ -75768,7 +75923,7 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/pointybush,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "pse" = (
@@ -75910,7 +76065,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "ptv" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced/spawner/east,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -76465,7 +76620,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "pya" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced/spawner/west,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -76621,7 +76776,7 @@
 /area/crew_quarters/heads/captain)
 "pAA" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 8
 	},
@@ -76801,7 +76956,7 @@
 /area/engine/atmos)
 "pCb" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/space/basic,
 /area/space/nearstation)
 "pCO" = (
@@ -76828,7 +76983,7 @@
 	},
 /area/maintenance/club)
 "pCT" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/transit_tube/station/reverse/flipped{
 	dir = 8
 	},
@@ -76863,7 +77018,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "pDw" = (
@@ -76938,7 +77093,7 @@
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "pEa" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
 	},
@@ -77529,8 +77684,8 @@
 /obj/machinery/clonepod/prefilled{
 	pixel_y = 2
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/camera/directional/west,
 /turf/open/floor/iron/grid/steel,
@@ -77698,8 +77853,8 @@
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
 "pLe" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass/no_border,
@@ -78370,7 +78525,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -78521,7 +78678,7 @@
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_y = 5
 	},
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "pUO" = (
@@ -79199,7 +79356,9 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/science/research)
 "qcg" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/southright{
 	name = "Weapons Storage";
@@ -79386,7 +79545,7 @@
 /turf/closed/wall,
 /area/storage/tools)
 "qeL" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/table/reinforced,
 /obj/item/storage/bag/bio{
 	pixel_x = 3
@@ -79737,7 +79896,7 @@
 /area/engine/storage_shared)
 "qhA" = (
 /obj/machinery/computer/security/labor,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -79977,7 +80136,7 @@
 /obj/machinery/shower{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/curtain,
 /turf/open/floor/noslip/white,
 /area/crew_quarters/toilet/restrooms)
@@ -80123,7 +80282,7 @@
 	},
 /area/engine/engineering)
 "qmb" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/chair,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/tech,
@@ -80632,7 +80791,7 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/department/medical)
 "qrs" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 9
 	},
@@ -80782,8 +80941,8 @@
 	},
 /area/teleporter)
 "qsV" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
@@ -80863,7 +81022,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hor)
 "qut" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/transit_tube/junction,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -81087,8 +81246,12 @@
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "qwQ" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -81153,7 +81316,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/table,
 /obj/item/hemostat,
 /obj/item/circular_saw,
@@ -81527,8 +81690,10 @@
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "qBb" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
 /turf/open/floor/grass/no_border,
@@ -81577,7 +81742,9 @@
 	},
 /area/engine/engineering)
 "qCp" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/machinery/computer/card/minor/rd,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -81641,7 +81808,7 @@
 /turf/open/floor/iron/dark/textured_edge,
 /area/science/robotics/mechbay)
 "qCH" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/structure/cable/cyan{
 	icon_state = "1-4"
@@ -82219,7 +82386,7 @@
 "qIa" = (
 /mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/oil,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/platform/black{
 	dir = 10
@@ -82289,7 +82456,9 @@
 /turf/open/floor/iron/techmaint,
 /area/science/research)
 "qIN" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -82492,7 +82661,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/window/plasma/reinforced/spawner,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "qKB" = (
@@ -82581,8 +82750,8 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "qLt" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "qLJ" = (
@@ -82612,8 +82781,8 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 9
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83332,7 +83501,7 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "qTw" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced/spawner/west,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -83343,8 +83512,8 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/supermatter)
 "qTH" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -83414,14 +83583,16 @@
 	id = "xenbio"
 	},
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/item/flashlight/lamp,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/hallway/primary/aft)
 "qUt" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/trimline/white/warning{
 	dir = 10
 	},
@@ -83722,7 +83893,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/purple{
@@ -83992,7 +84165,7 @@
 	dir = 8
 	},
 /obj/structure/platform/gray,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/smooth_half,
 /area/engine/engineering)
 "rac" = (
@@ -84100,7 +84273,7 @@
 	},
 /area/science/mixing)
 "rat" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/vending/wardrobe/atmos_wardrobe,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 10
@@ -84777,8 +84950,10 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
 "rie" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/fernybush{
 	pixel_y = -17
@@ -85236,7 +85411,7 @@
 /turf/open/floor/plating,
 /area/engine/storage_shared)
 "rnu" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 6
 	},
@@ -85360,7 +85535,8 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/east{
+/obj/structure/window/reinforced/tinted{
+	dir = 4;
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/purple{
@@ -85473,7 +85649,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -86343,7 +86519,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "rxN" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
@@ -86496,8 +86672,10 @@
 /turf/open/floor/iron/smooth,
 /area/construction/mining/aux_base)
 "rze" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/grass/no_border,
@@ -87292,12 +87470,12 @@
 /turf/open/floor/iron/dark,
 /area/security/interrogation_room)
 "rLn" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Shutters"
@@ -87557,7 +87735,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "rNZ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -87604,11 +87782,11 @@
 /area/storage/art)
 "rOF" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/trimline/green/filled/corner{
 	dir = 8
 	},
@@ -87861,7 +88039,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/window/plasma/reinforced/spawner,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "rQY" = (
@@ -88075,8 +88253,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 6
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced/spawner,
+/obj/structure/window/plasma/reinforced/spawner/east,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "rSp" = (
@@ -89213,7 +89391,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 9
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	dir = 4
@@ -89402,7 +89580,7 @@
 	id = "xeno2";
 	name = "Creature Cell #2"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -89787,7 +89965,7 @@
 /obj/machinery/shower{
 	pixel_y = 16
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/item/soap/nanotrasen,
 /obj/structure/curtain,
 /turf/open/floor/noslip/white,
@@ -89803,8 +89981,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "skQ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/genericbush,
 /turf/open/floor/grass/no_border,
@@ -89853,8 +90031,8 @@
 	},
 /area/quartermaster/sorting)
 "slo" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/grass/no_border,
@@ -90079,8 +90257,8 @@
 	},
 /area/science/xenobiology)
 "soo" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/table,
 /obj/item/clothing/glasses/meson{
 	pixel_y = -1
@@ -90911,7 +91089,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/engine/storage)
 "sxy" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/chair{
 	dir = 1
 	},
@@ -91187,7 +91365,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "sAN" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron/dark/smooth_large,
 /area/maintenance/disposal/incinerator)
@@ -91335,7 +91513,7 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
@@ -91555,6 +91733,11 @@
 	dir = 1
 	},
 /area/hallway/primary/port)
+"sER" = (
+/obj/structure/window/reinforced/spawner,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "sEW" = (
 /obj/effect/turf_decal/siding/thinplating_new/terracotta{
 	dir = 10
@@ -91591,8 +91774,12 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "sFz" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
@@ -91716,7 +91903,9 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "sGt" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
@@ -92000,7 +92189,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
@@ -92012,8 +92203,10 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "sKi" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/grass/no_border,
 /area/crew_quarters/locker)
@@ -92178,7 +92371,9 @@
 "sLg" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/techstorage/service,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/machinery/light/small/directional/west,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -92356,8 +92551,8 @@
 /turf/open/floor/wood/big,
 /area/vacant_room/commissary/commissaryRandom)
 "sOk" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
@@ -92878,7 +93073,7 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "sTz" = (
@@ -92979,8 +93174,8 @@
 /turf/open/floor/monotile/steel,
 /area/quartermaster/storage)
 "sUr" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -93186,7 +93381,9 @@
 /obj/machinery/door/window/eastright{
 	req_one_access_txt = "26;32"
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "sWz" = (
@@ -93467,7 +93664,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/port/central)
 "sZs" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/bed/roller,
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/iron/showroomfloor,
@@ -93630,8 +93827,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "tcl" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/grass/no_border,
@@ -93728,8 +93927,10 @@
 	pixel_x = -1
 	},
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/door/window/southright{
 	req_access_txt = "56";
 	dir = 4
@@ -93798,7 +93999,7 @@
 	dir = 9
 	},
 /obj/structure/closet/secure_closet/security/sec,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/item/clothing/mask/balaclava,
 /turf/open/floor/iron/tech,
 /area/security/main)
@@ -93849,7 +94050,7 @@
 /area/solar/starboard/aft)
 "tdS" = (
 /obj/effect/turf_decal/delivery/white,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/window/eastright{
 	dir = 1;
 	name = "Kitchen Delivery";
@@ -94487,7 +94688,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/security/prison)
 "tky" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/edges/techfloor,
 /turf/open/floor/iron/tech/grid,
 /area/maintenance/department/engine/atmos)
@@ -94532,8 +94733,8 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine/atmos)
 "tlk" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -94764,7 +94965,7 @@
 	id = "xeno1";
 	name = "Creature Cell #1"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -94808,8 +95009,8 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	dir = 4
@@ -95179,7 +95380,7 @@
 /area/bridge)
 "trm" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/fluff/fans{
 	pixel_x = -24
 	},
@@ -95332,7 +95533,7 @@
 /area/crew_quarters/bar)
 "tst" = (
 /obj/effect/turf_decal/guideline/guideline_in/blue,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -95869,8 +96070,12 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "tyH" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -96064,7 +96269,7 @@
 /turf/open/floor/wood,
 /area/security/courtroom)
 "tAB" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 8
 	},
@@ -96118,7 +96323,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "tAV" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/chair,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/siding/dark,
@@ -96334,7 +96539,7 @@
 /turf/open/floor/iron/smooth,
 /area/crew_quarters/heads/captain)
 "tDU" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold/yellow/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -96450,8 +96655,8 @@
 /turf/open/floor/wood,
 /area/security/courtroom)
 "tEV" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 10
 	},
@@ -96515,7 +96720,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/effect/landmark/start/depsec/medical,
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -97004,8 +97211,10 @@
 /turf/open/floor/wood,
 /area/security/courtroom)
 "tKe" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass/no_border,
@@ -97017,7 +97226,7 @@
 /turf/open/floor/engine/light,
 /area/science/mixing)
 "tKn" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/structure/closet/crate/bin,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -97081,7 +97290,9 @@
 /turf/open/floor/vault/rock,
 /area/science/mixing)
 "tKA" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -97093,7 +97304,7 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
 "tKE" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/science/mixing/chamber)
 "tKR" = (
@@ -98013,7 +98224,7 @@
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/starboard)
 "tUi" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -98290,11 +98501,11 @@
 	},
 /area/hallway/primary/aft)
 "tWG" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 10
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "tWP" = (
@@ -98510,7 +98721,7 @@
 	pixel_y = 7
 	},
 /obj/item/stack/sheet/mineral/plasma,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 6
 	},
@@ -98599,7 +98810,7 @@
 "ubf" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/window/southright{
 	base_state = "left";
 	icon_state = "left";
@@ -98669,7 +98880,7 @@
 /area/security/main)
 "ubZ" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/closet/crate/freezer/surplus_limbs,
 /obj/effect/mapping_helpers/make_non_slip,
 /turf/open/floor/iron/ameridiner,
@@ -98883,7 +99094,9 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "uek" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -99418,7 +99631,7 @@
 /area/hydroponics)
 "uiE" = (
 /obj/structure/disposaloutlet,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -99682,9 +99895,11 @@
 "ulC" = (
 /obj/effect/turf_decal/trimline/white/filled,
 /obj/machinery/disposal/bin,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -99971,8 +100186,8 @@
 	},
 /area/crew_quarters/dorms)
 "upc" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/tinted,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/grass/no_border,
@@ -100124,7 +100339,7 @@
 	name = "Research Division Deliveries";
 	req_access_txt = "47"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	dir = 1;
@@ -100183,7 +100398,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
@@ -100562,7 +100779,7 @@
 	},
 /area/science/xenobiology)
 "uuB" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/machinery/chem_master,
 /obj/machinery/door/firedoor,
 /turf/open/floor/noslip/dark,
@@ -100641,7 +100858,7 @@
 /obj/effect/turf_decal/siding/white/corner{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/cmo)
 "uvt" = (
@@ -100695,7 +100912,7 @@
 /turf/open/floor/iron/corner,
 /area/hallway/primary/central)
 "uvJ" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/transit_tube/station,
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/engine/atmos)
@@ -100883,7 +101100,7 @@
 	pixel_y = 3
 	},
 /obj/effect/turf_decal/siding/thinplating_new,
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "uwZ" = (
@@ -101433,7 +101650,9 @@
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
 "uDL" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
@@ -101524,8 +101743,12 @@
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
 "uFg" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sparsegrass{
 	pixel_y = -6
@@ -101539,7 +101762,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -102125,8 +102348,10 @@
 /area/storage/emergency/port)
 "uLx" = (
 /obj/structure/closet/wardrobe/mixed,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
 "uLH" = (
@@ -102206,7 +102431,7 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
 "uMe" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/machinery/photocopier{
 	pixel_y = -4
 	},
@@ -102583,8 +102808,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 10
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced/spawner,
+/obj/structure/window/plasma/reinforced/spawner/west,
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "uQz" = (
@@ -102604,7 +102829,7 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "uQD" = (
@@ -102621,7 +102846,9 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/engine_room)
 "uQK" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -103796,7 +104023,7 @@
 "vcM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/food/flour,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/item/trash/chips{
 	pixel_x = -10;
 	pixel_y = 11
@@ -103945,9 +104172,11 @@
 /obj/effect/turf_decal/trimline/white/filled,
 /obj/effect/turf_decal/trimline/purple/filled,
 /obj/machinery/disposal/bin,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -104673,7 +104902,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 9
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "vlu" = (
@@ -104688,8 +104917,8 @@
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "vlL" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/transit_tube,
 /obj/effect/turf_decal/trimline/yellow/warning_offset{
 	dir = 4
@@ -104968,7 +105197,7 @@
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "smrad"
 	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -105362,7 +105591,9 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -105397,10 +105628,12 @@
 /area/security/prison)
 "vtj" = (
 /obj/machinery/door/window/southleft,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/machinery/light/small/directional/north,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -105420,7 +105653,7 @@
 	bulb_colour = "#9b1d70";
 	bulb_power = 0.4
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/south{
+/obj/structure/window/reinforced/tinted{
 	color = "#9b1d70"
 	},
 /obj/structure/platform/black/corner{
@@ -105518,7 +105751,7 @@
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/storage/eva)
 "vuj" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
 	},
@@ -105639,7 +105872,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "vvR" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/table,
 /obj/item/book/manual/wiki/atmospherics{
 	pixel_x = 6;
@@ -106074,7 +106307,7 @@
 "vzK" = (
 /obj/structure/closet/crate/medical,
 /obj/item/circuitboard/machine/chem_heater,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 1
 	},
@@ -106497,7 +106730,7 @@
 	pixel_y = 5;
 	pixel_x = -5
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
@@ -106685,7 +106918,7 @@
 	pixel_y = 4;
 	pixel_x = -16
 	},
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window/spawner/east,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "vEJ" = (
@@ -106724,7 +106957,8 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 8
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/east{
+/obj/structure/window/reinforced/tinted{
+	dir = 4;
 	color = "#9b1d70"
 	},
 /obj/effect/turf_decal/siding/purple{
@@ -106779,7 +107013,9 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -107049,7 +107285,7 @@
 	input_dir = 1;
 	stack_amt = 10
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "vIv" = (
@@ -107587,7 +107823,9 @@
 	req_access_txt = "10";
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	freq = 1400;
@@ -107848,7 +108086,9 @@
 /turf/open/floor/monotile/steel,
 /area/quartermaster/storage)
 "vQX" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
@@ -107921,7 +108161,7 @@
 	id = "xeno3";
 	name = "Creature Cell #3"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -108044,7 +108284,7 @@
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "vSY" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced/spawner/east,
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -108333,7 +108573,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window/spawner/west,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "vWj" = (
@@ -108841,16 +109081,18 @@
 "wbW" = (
 /obj/machinery/light/small/directional/south,
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "corporate_privacy";
 	name = "Showroom Shutters"
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
 /turf/open/floor/grass/no_border,
 /area/bridge/meeting_room)
 "wbY" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/effect/mapping_helpers/atmos_auto_connect,
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/atmospherics/components/unary/portables_connector{
@@ -108899,8 +109141,8 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "wcm" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/dark,
 /obj/item/trash/semki{
 	pixel_x = -4
@@ -109019,7 +109261,9 @@
 /turf/open/floor/iron/tech,
 /area/quartermaster/office)
 "wdE" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
@@ -109740,7 +109984,9 @@
 /obj/effect/turf_decal/edges/borderfloor/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -109872,7 +110118,7 @@
 /area/space/nearstation)
 "wmk" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /turf/open/space/basic,
 /area/space/nearstation)
 "wml" = (
@@ -109947,7 +110193,7 @@
 /turf/open/floor/iron/techmaint,
 /area/storage/primary)
 "wno" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/bed/roller,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
@@ -110169,7 +110415,7 @@
 /turf/open/floor/wood,
 /area/medical/break_room)
 "wpz" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/space/basic,
 /area/space/nearstation)
 "wpI" = (
@@ -110284,7 +110530,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
 "wqK" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/north,
 /obj/vehicle/ridden/secway,
 /obj/effect/turf_decal/stripes/line,
 /obj/item/key/security,
@@ -110855,7 +111101,7 @@
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "wxg" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -111082,11 +111328,13 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "wAh" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/flora/ausbushes/pointybush{
 	pixel_y = -15
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Hydroponics Privacy Shutters";
@@ -112760,7 +113008,7 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 5
 	},
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/north,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
 "wSX" = (
@@ -113036,7 +113284,7 @@
 /obj/machinery/conveyor{
 	id = "garbage"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/door/window{
 	dir = 8
 	},
@@ -113244,7 +113492,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 10
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/filingcabinet/chestdrawer/wheeled,
 /obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/showroomfloor,
@@ -113423,7 +113671,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "xaS" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/table/reinforced,
 /obj/item/glove_box{
 	pixel_x = 8;
@@ -113616,7 +113864,7 @@
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno4";
 	name = "Creature Cell #4"
@@ -113994,7 +114242,7 @@
 "xgk" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/structure/desk_bell/wired/medical,
 /turf/open/floor/plating,
 /area/medical/medbay/lobby)
@@ -114592,7 +114840,7 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window/spawner/east,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/central)
@@ -115382,8 +115630,8 @@
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
 "xwZ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 5
 	},
@@ -115865,8 +116113,10 @@
 /turf/open/floor/iron/smooth,
 /area/hallway/secondary/command)
 "xBJ" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/west,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Hydroponics Privacy Shutters";
@@ -116143,7 +116393,9 @@
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/port)
 "xEY" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -116268,8 +116520,10 @@
 	pixel_y = 3;
 	pixel_x = -5
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /turf/open/floor/circuit,
 /area/storage/tech)
 "xFY" = (
@@ -117049,9 +117303,11 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "xOi" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner/north,
 /obj/effect/turf_decal/trimline/white/filled,
 /obj/effect/turf_decal/trimline/purple/filled,
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
@@ -117078,7 +117334,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/quartermaster/sorting)
 "xOq" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/closet/wardrobe/green,
 /turf/open/floor/monotile/steel,
 /area/crew_quarters/locker)
@@ -117351,8 +117607,10 @@
 /turf/open/floor/iron/techmaint,
 /area/maintenance/department/bridge)
 "xQY" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -117650,8 +117908,8 @@
 /turf/open/floor/mineral/silver,
 /area/medical/apothecary)
 "xUd" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
@@ -117999,7 +118257,7 @@
 /turf/closed/wall/r_wall,
 /area/medical/chemistry)
 "xXp" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -118060,7 +118318,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/north{
+/obj/structure/window/reinforced/tinted{
+	dir = 1;
 	pixel_y = 7
 	},
 /turf/open/floor/wood,
@@ -118227,7 +118486,7 @@
 	name = "landing marker";
 	picked_color = "Burgundy"
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -118407,7 +118666,7 @@
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/west,
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno6";
 	name = "Creature Cell #6"
@@ -118541,7 +118800,9 @@
 /obj/machinery/door/window/eastright{
 	req_one_access_txt = "26;32"
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "ydX" = (
@@ -118661,7 +118922,9 @@
 	id = "xeno5";
 	name = "Creature Cell #5"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -118856,7 +119119,7 @@
 /turf/open/floor/engine,
 /area/science/mixing)
 "yio" = (
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/structure/window/plasma/reinforced/spawner/west,
 /obj/structure/railing/perspective/black{
 	dir = 10
 	},
@@ -119161,9 +119424,11 @@
 "ylp" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/east,
 /obj/machinery/light/small/directional/north,
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/floor/grass/no_border,
 /area/maintenance/department/bridge)
 "ylq" = (
@@ -131718,7 +131983,7 @@ mwp
 hyT
 guj
 mfJ
-jqC
+sER
 qLt
 liX
 ixL
@@ -132232,7 +132497,7 @@ ePv
 uLJ
 nzj
 gGn
-jqC
+sER
 onj
 hZZ
 qKX
@@ -135554,7 +135819,7 @@ gVO
 syk
 saC
 qNN
-jqC
+sER
 hAi
 hVw
 vlL

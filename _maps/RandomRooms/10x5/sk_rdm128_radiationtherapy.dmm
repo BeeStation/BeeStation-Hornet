@@ -8,7 +8,9 @@
 /area/template_noop)
 "b" = (
 /obj/structure/closet/radiation,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -22,7 +24,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "d" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -38,7 +42,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -46,7 +50,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "h" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -62,7 +66,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "i" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -72,7 +76,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -90,7 +96,9 @@
 /turf/open/floor/mineral/uranium,
 /area/template_noop)
 "o" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -113,8 +121,10 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -157,7 +167,9 @@
 	},
 /area/template_noop)
 "y" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/hemostat,
 /turf/open/floor/iron,
@@ -170,13 +182,19 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -211,12 +229,16 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "G" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "H" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/broken,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -224,7 +246,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "I" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cautery,
@@ -238,7 +262,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "K" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap/reusable,
 /turf/open/floor/plating,

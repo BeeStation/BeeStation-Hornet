@@ -5,7 +5,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "bd" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
 /obj/machinery/atmospherics/components/tank/nitrogen{
 	dir = 4
 	},
@@ -43,13 +45,17 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "gt" = (
-/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod,
 /obj/machinery/atmospherics/components/tank/nitrogen{
 	dir = 4
 	},
@@ -109,7 +115,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -152,7 +158,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
@@ -261,7 +267,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
 /turf/open/floor/mineral/plastitanium,
@@ -390,7 +396,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -405,7 +411,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
+/obj/structure/window/reinforced/survival_pod,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,

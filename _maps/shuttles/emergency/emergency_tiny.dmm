@@ -42,7 +42,7 @@
 /area/shuttle/escape)
 "cB" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/bikehorn/rubberducky{
 	pixel_y = 10;
@@ -81,7 +81,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "gy" = (
@@ -114,7 +116,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
@@ -195,7 +197,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "rZ" = (
@@ -370,7 +374,9 @@
 	dir = 1
 	},
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Au" = (
@@ -518,7 +524,9 @@
 	dir = 5
 	},
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ns" = (
@@ -547,7 +555,9 @@
 	pixel_y = 4
 	},
 /obj/machinery/recharger,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)

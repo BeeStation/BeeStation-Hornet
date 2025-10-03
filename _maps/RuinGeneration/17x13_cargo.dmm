@@ -16,7 +16,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "f" = (

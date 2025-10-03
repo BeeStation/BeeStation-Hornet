@@ -267,7 +267,9 @@
 /area/shuttle/escape)
 "bo" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bp" = (

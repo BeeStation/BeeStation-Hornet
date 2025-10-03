@@ -133,7 +133,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aK" = (
@@ -192,7 +194,8 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/window/reinforced/spawner/directional/north{
+/obj/structure/window/reinforced{
+	dir = 1;
 	resistance_flags = 33
 	},
 /turf/open/lava/smooth/airless,
@@ -356,7 +359,9 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "EC" = (

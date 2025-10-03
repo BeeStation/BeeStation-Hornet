@@ -6,13 +6,15 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "ex" = (
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
@@ -64,7 +66,9 @@
 /area/template_noop)
 "ku" = (
 /obj/effect/turf_decal/tile/blue,
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -88,7 +92,7 @@
 	},
 /area/template_noop)
 "qS" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
@@ -100,7 +104,9 @@
 	},
 /area/template_noop)
 "rK" = (
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window{
+	dir = 8
+	},
 /obj/machinery/computer/crew{
 	dir = 4
 	},
@@ -118,7 +124,9 @@
 /area/template_noop)
 "ug" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
@@ -130,7 +138,9 @@
 	},
 /area/template_noop)
 "uI" = (
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
@@ -140,7 +150,9 @@
 /area/template_noop)
 "wr" = (
 /obj/effect/turf_decal/tile/blue,
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
@@ -151,7 +163,9 @@
 /area/template_noop)
 "xO" = (
 /obj/structure/table,
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -179,13 +193,15 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/box/masks,
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "Ap" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -212,7 +228,7 @@
 	},
 /area/template_noop)
 "Ch" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/machinery/shower{
 	dir = 1;
 	pixel_y = 6
@@ -415,7 +431,7 @@
 	},
 /area/template_noop)
 "Xt" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /obj/item/kirbyplants{
 	icon_state = "plant-10"

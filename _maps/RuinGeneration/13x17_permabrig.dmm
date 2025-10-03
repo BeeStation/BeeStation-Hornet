@@ -63,7 +63,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "jj" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
@@ -71,7 +71,9 @@
 /area/ruin/unpowered)
 "jn" = (
 /obj/machinery/washing_machine,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -116,7 +118,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "mW" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -196,7 +198,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "su" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/machinery/hydroponics/soil,
 /obj/item/cultivator,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -221,11 +223,11 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "vY" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "xe" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/potato,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
@@ -237,7 +239,7 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "xP" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/grass,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -260,7 +262,9 @@
 /area/ruin/unpowered)
 "zd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "zp" = (
@@ -332,7 +336,9 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "Gr" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -415,7 +421,7 @@
 /area/ruin/unpowered)
 "Ra" = (
 /obj/machinery/washing_machine,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},

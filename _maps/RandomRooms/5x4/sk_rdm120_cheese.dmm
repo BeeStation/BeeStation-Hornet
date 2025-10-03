@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/template_noop)
 "d" = (
@@ -11,7 +13,9 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "f" = (
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/template_noop)
 "g" = (
@@ -29,7 +33,9 @@
 /turf/open/floor/iron/white,
 /area/template_noop)
 "k" = (
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/template_noop)
 "l" = (
@@ -42,7 +48,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/window/spawner/directional/east,
+/obj/structure/window{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
 	},
@@ -57,19 +65,23 @@
 	icon_state = "tube-broken";
 	dir = 4
 	},
-/obj/structure/window/spawner/directional/west,
+/obj/structure/window{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,
 /area/template_noop)
 "F" = (
-/obj/structure/window/spawner/directional/south,
+/obj/structure/window,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/template_noop)
 "G" = (
-/obj/structure/window/spawner/directional/north,
+/obj/structure/window{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},

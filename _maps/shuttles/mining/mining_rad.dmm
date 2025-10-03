@@ -33,9 +33,13 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "s" = (
@@ -70,7 +74,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/camera/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
@@ -140,7 +146,9 @@
 	pixel_x = 31;
 	pixel_y = -1
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)

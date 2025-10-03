@@ -51,7 +51,7 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "j" = (
-/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced,
 /obj/machinery/button/flasher{
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
@@ -116,7 +116,9 @@
 /area/shuttle/labor)
 "r" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "s" = (
@@ -128,7 +130,9 @@
 	name = "Gulag";
 	req_one_access_txt = "63;42;38"
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "Q" = (

@@ -20,8 +20,10 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "g" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/structure/table,
 /obj/machinery/recharger{
 	pixel_y = 4

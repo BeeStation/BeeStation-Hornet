@@ -6,7 +6,9 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "c" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -18,8 +20,12 @@
 	autolink = 1
 	},
 /obj/item/paper/guides/jobs/security/range,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -44,7 +50,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "m" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/holofloor,
 /area/template_noop)
@@ -58,8 +66,12 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "r" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -74,8 +86,12 @@
 "w" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -92,14 +108,18 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "B" = (
-/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118,7 +138,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "O" = (
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -134,8 +156,12 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "V" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
