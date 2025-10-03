@@ -56,7 +56,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/arrival)
 "gK" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
@@ -549,7 +549,7 @@
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "TQ" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "Ud" = (

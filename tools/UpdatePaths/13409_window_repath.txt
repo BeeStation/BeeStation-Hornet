@@ -327,3 +327,5 @@
 /obj/effect/spawner/structure/window/plastitanium : /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium{@OLD}
 /obj/structure/window/plastitanium : /obj/structure/window/reinforced/plasma/plastitanium{@OLD}
 /obj/structure/window/plastitanium/unanchored : /obj/structure/window/reinforced/plasma/plastitanium/unanchored{@OLD}
+
+/obj/structure/window/shuttle : /obj/structure/window/reinforced/shuttle{@OLD}

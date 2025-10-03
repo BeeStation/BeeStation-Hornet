@@ -14853,8 +14853,7 @@
 /turf/open/floor/wood,
 /area/centcom/control)
 "aLC" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/centcom/evac)
 "aLD" = (

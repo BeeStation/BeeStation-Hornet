@@ -162,11 +162,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned)
-"av" = (
-/obj/structure/window/reinforced/plasma/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
 "aw" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 9
@@ -976,7 +971,7 @@ aN
 al
 Nd
 aq
-av
+KH
 aB
 Ao
 aA
@@ -1012,7 +1007,7 @@ aN
 zL
 aV
 me
-av
+KH
 au
 aG
 aG

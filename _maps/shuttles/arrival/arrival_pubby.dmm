@@ -70,7 +70,7 @@
 /area/shuttle/arrival)
 "m" = (
 /obj/structure/grille,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "arrivy";
 	name = "ship Shutters"

@@ -73,30 +73,6 @@
 /obj/item/paicard,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/arrival)
-"ag" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"ah" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
 "ai" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -134,17 +110,6 @@
 "am" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
-"an" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
 "ao" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/open/floor/mineral/titanium/yellow,
@@ -160,20 +125,6 @@
 	dir = 5
 	},
 /turf/open/floor/plating/airless,
-/area/shuttle/arrival)
-"ar" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "as" = (
 /obj/effect/turf_decal/stripes/line{
@@ -228,17 +179,6 @@
 	pixel_y = 3
 	},
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/arrival)
-"ax" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "ay" = (
 /obj/structure/chair/fancy/shuttle,
@@ -312,19 +252,6 @@
 /obj/item/storage/firstaid,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
-"aG" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
 "aH" = (
 /obj/docking_port/mobile/arrivals{
 	dir = 2;
@@ -335,14 +262,6 @@
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/arrival)
-"aI" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
 "aJ" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -352,39 +271,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
-"aK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
 "aL" = (
 /obj/structure/table/reinforced,
 /obj/item/gps,
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"aM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/machinery/door/airlock/shuttle{
-	name = "Arrival Shuttle Airlock"
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "aN" = (
 /obj/machinery/computer{
@@ -396,38 +287,11 @@
 "aO" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival)
-"aP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
 "aQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aR" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "aS" = (
@@ -454,7 +318,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "aV" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "aW" = (
@@ -473,19 +337,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aY" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "aZ" = (
