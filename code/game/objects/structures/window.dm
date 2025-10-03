@@ -784,7 +784,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 	fire = 80
 	acid = 100
 
-/obj/structure/window/plastitanium/unanchored
+/obj/structure/window/reinforced/plasma/plastitanium/unanchored
 	anchored = FALSE
 
 /obj/structure/window/paperframe
