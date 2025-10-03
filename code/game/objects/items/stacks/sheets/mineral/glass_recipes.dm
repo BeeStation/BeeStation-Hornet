@@ -54,7 +54,7 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/titaniumglass)
 /* Plastitanium glass */
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plastitanium/unanchored, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS) \
+	new/datum/stack_recipe("plastitanium window", /obj/structure/window/reinforced/plasma/plastitanium/unanchored, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS) \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/plastitaniumglass)

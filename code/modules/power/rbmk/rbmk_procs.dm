@@ -568,7 +568,7 @@ Arguments:
 		/obj/structure/window/fulltile,
 		/obj/structure/window/plasma/fulltile,
 		/obj/structure/window/reinforced/plasma/fulltile,
-		/obj/structure/window/plastitanium,
+		/obj/structure/window/reinforced/plasma/plastitanium,
 		/obj/structure/window/reinforced/fulltile,
 		/obj/structure/window/reinforced/clockwork/fulltile,
 		/obj/structure/window/reinforced/tinted/fulltile,
