@@ -49,58 +49,6 @@
 	if(prob(50))
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
-/datum/outfit/bounty
-	name = "Bounty Hunter"
-
-	uniform = /obj/item/clothing/under/rank/prisoner
-	id = /obj/item/card/id/silver/bounty
-	back = /obj/item/storage/backpack/ert
-	r_pocket = /obj/item/restraints/handcuffs/cable
-	ears = /obj/item/radio/headset
-	shoes = /obj/item/clothing/shoes/jackboots
-	box = /obj/item/storage/box/survival
-
-/datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/obj/item/card/id/W = H.wear_id
-	W.registered_name = H.real_name
-	W.update_label()
-
-/datum/outfit/bounty/armor
-	name = "Bounty Hunter - Armored"
-	gloves = /obj/item/clothing/gloves/tackler/combat
-	mask = /obj/item/clothing/mask/gas
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced/garb
-
-/datum/outfit/bounty/hook
-	name = "Bounty Hunter - Hook"
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	gloves = /obj/item/clothing/gloves/tackler/combat
-	uniform = /obj/item/clothing/under/color/black
-	r_hand = /obj/item/implanter/stealth
-	head = /obj/item/clothing/head/beanie/black
-	belt = /obj/item/storage/belt/military
-
-/datum/outfit/bounty/synth
-	name = "Bounty Hunter - Synth"
-	uniform = /obj/item/clothing/under/color/white
-	suit = /obj/item/clothing/suit/armor/riot
-	glasses = /obj/item/clothing/glasses/eyepatch
-	r_hand = /obj/item/autosurgeon/hydraulic_blade
-	l_hand = /obj/item/bountytrap
-	backpack_contents = list(
-		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/pinpointer/shuttle = 1,
-		/obj/item/bountytrap = 2
-		)
-
-/datum/outfit/bounty/synth/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/obj/item/organ/eyes/robotic/glow/eyes = new()
-	eyes.Insert(H, drop_if_replaced = FALSE)
-
 /datum/outfit/russian_hunter
 	name = "Russian Hunter"
 
@@ -147,24 +95,88 @@
 	else if(prob(30))
 		gloves = /obj/item/clothing/gloves/fingerless
 
+// Stuff they all have
+/datum/outfit/bounty
+	name = "Bounty Hunter"
 
-//ids and ert code
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
+	ears = /obj/item/radio/headset
+	uniform = /obj/item/clothing/under/syndicate/combat
+	id = /obj/item/card/id/silver/bounty
 
-/obj/item/card/id/advanced/bountyhunter
-	assignment = "Bounty Hunter"
-	//icon_state = "card_flames" //oh SHIT
-	//trim = /datum/id_trim/bounty_hunter
+/datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
 
-/datum/outfit/bounty/armor/ert
-	id = /obj/item/card/id/silver/bounty/ert
+	if(visualsOnly)
+		return
 
-/datum/outfit/bounty/hook/ert
-	id = /obj/item/card/id/silver/bounty/ert
+// OPERATIVE. STEALTHY, SOLID-SNAKE TYPE GUY. INTENDED LEADER.
+/datum/outfit/bounty/operative
+	name = "Bounty Hunter - Solid Serpent"
 
-/datum/outfit/bounty/synth/ert
-	id = /obj/item/card/id/silver/bounty/ert
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
+	head = /obj/item/clothing/head/beanie/black
+	uniform = /obj/item/clothing/under/syndicate/combat
+	belt = /obj/item/storage/belt/military
+	l_hand = /obj/item/implanter/stealth
+	suit = /obj/item/clothing/suit/armor/vest
+	suit_store = /obj/item/gun/ballistic/automatic/mini_uzi
+	back = /obj/item/storage/backpack
+	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 
-/*
-/obj/item/card/id/advanced/bountyhunter/ert
-	trim = /datum/id_trim/centcom/bounty_hunter
-*/
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
+		/obj/item/ammo_box/magazine/uzim9mm=2,
+		/obj/item/ammo_box/c9mm=1,
+		/obj/item/storage/firstaid/tactical = 1,
+		/obj/item/pinpointer/shuttle = 1,
+	)
+
+// GUNNER. THIS GUY DEALS DAMAGE. HE'S A CIGAR-SMOKING SYNTH THAT TAKES NAMES AND CHEWS BUBBLEGUM, OR SOMETHING.
+/datum/outfit/bounty/gunner
+	name = "Bounty Hunter - Heavy Weapons Synth"
+
+	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	uniform = /obj/item/clothing/under/color/white
+	belt = /obj/item/storage/belt/military
+	suit = /obj/item/clothing/suit/armor/riot
+	glasses = /obj/item/clothing/glasses/eyepatch
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/m1911
+	back = /obj/item/minigunpack
+	r_hand = /obj/item/autosurgeon/hydraulic_blade
+
+	l_pocket = /obj/item/ammo_box/magazine/m45
+	r_pocket = /obj/item/ammo_box/magazine/m45
+
+/datum/outfit/bounty/gunner/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+	var/obj/item/organ/eyes/robotic/glow/eyes = new()
+	eyes.Insert(H, drop_if_replaced = FALSE)
+
+// TECHNICIAN. MISTER GNEEP GNARP HERE LIKES TECH AND GOT A VOICEBOX IMPLANT SO HE CAN TALK. WANTED IN ALL ALIEN STATES.
+/datum/outfit/bounty/technician
+	name = "Bounty Hunter - Techwizz"
+
+	uniform = /obj/item/clothing/under/abductor
+	ears = /obj/item/radio/headset/abductor
+	belt = /obj/item/storage/belt/military/abductor/full
+	r_pocket = /obj/item/gun/energy/alien
+	back = /obj/item/storage/backpack
+	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
+
+	backpack_contents = list(
+		/obj/item/storage/box/survival/engineer=1,
+		/obj/item/storage/firstaid/tactical = 1,
+		/obj/item/bountytrap = 4,
+	)
+
+/datum/outfit/bounty/technician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	H.set_species(/datum/species/abductor, icon_update=0)
+
+	var/obj/item/organ/tongue/robot/tongue = new()
+	tongue.Insert(H, drop_if_replaced = FALSE)

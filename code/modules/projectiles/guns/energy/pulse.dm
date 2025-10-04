@@ -87,6 +87,9 @@
 	gun_charge = 500 GIGAWATT
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
+/obj/item/gun/energy/pulse/destroyer/loyalpin
+	pin = /obj/item/firing_pin/implant/mindshield
+
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
 	to_chat(user, span_danger("[src.name] has three settings, and they are all DESTROY."))
 

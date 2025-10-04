@@ -810,6 +810,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	canRturf = TRUE
 	item_flags = ISWEAPON
 
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	item_state = "ircd"
+	max_matter = 450
+	matter = 450
+
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."

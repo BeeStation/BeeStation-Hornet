@@ -17,16 +17,6 @@
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// The pathfinding implant.
 	var/obj/item/implant/mod/implant
-	/// Whether your modsuit will cheat on you instead of returning.
-	var/faithful_return = FALSE
-
-/obj/item/mod/module/pathfinder/plus
-	name = "\improper MOD pathfinder+ module"
-	desc = "This modified pathfinder module, based on Nakamura Engineering's design, \
-		has been altered by DonkCo with an anti-personnel shock field that guarantees \
-		would-be thieves a nasty surprise, and a swift return of the suit to the owner."
-
-	faithful_return = TRUE
 
 /obj/item/mod/module/pathfinder/Initialize(mapload)
 	. = ..()
@@ -106,6 +96,7 @@
 	var/obj/item/mod/module/pathfinder/module
 	/// The jet icon we apply to the MOD.
 	var/image/jet_icon
+	var/failed_retries = 0
 
 /obj/item/implant/mod/Initialize(mapload)
 	. = ..()
@@ -127,7 +118,7 @@
 				<b>Implant Details:</b> Allows for the recall of a Modular Outerwear Device by the implant owner at any time.<BR>"}
 	return dat
 
-/obj/item/implant/mod/proc/recall()
+/obj/item/implant/mod/proc/recall(retry = FALSE)
 	if(!module?.mod)
 		balloon_alert(imp_in, "no connected unit!")
 		return FALSE
@@ -142,12 +133,11 @@
 		if(carrying_mob == imp_in)
 			balloon_alert(imp_in, "already on user!")
 			return FALSE
-		if(!module.faithful_return)
-			balloon_alert(imp_in, "already on someone!")
-			return FALSE //Someone is in the suit, but our suit doesn't love us
-		check_recall_mob() //The suit is stolen, and is faithful to us
+		//Someone's gone and nicked it. Can we rip it off?
+		if(!module.mod.active)
+			check_recall_mob()
+		balloon_alert(imp_in, "already on someone!")
 		return FALSE
-	//balloon_alert(imp_in, "check returned TRUE!")
 	if(module.z != z || get_dist(imp_in, module.mod) > MOD_AI_RANGE)
 		balloon_alert(imp_in, "too far!")
 		return FALSE
@@ -162,21 +152,19 @@
 	animate(module.mod, 0.2 SECONDS, pixel_x = base_pixel_y, pixel_y = base_pixel_y)
 	module.mod.add_overlay(jet_icon)
 	RegisterSignal(module.mod, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	balloon_alert(imp_in, "suit recalled")
+	if(!retry)
+		balloon_alert(imp_in, "suit recalled")
 	return TRUE
 
 /obj/item/implant/mod/proc/check_recall_mob()
-	balloon_alert(imp_in, "deploying countermeasures in 3 seconds.")
+	balloon_alert(imp_in, "Suit in use. Disengaging...")
 	var/mob/living/carbon/carrying_mob = get_atom_on_turf(module.mod)
-	balloon_alert(carrying_mob, "deploying countermeasures!")
-	playsound(carrying_mob, 'sound/creatures/guarddeath2.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(recall_zap_thief), carrying_mob), 3 SECONDS)
-	//return FALSE //We zapped them, but its still not valid until the modsuit is actually dropped
+	balloon_alert(carrying_mob, "Recall active, Disengaging!")
+	addtimer(CALLBACK(src, PROC_REF(recall_leave_thief), carrying_mob), 3 SECONDS)
 
-/obj/item/implant/mod/proc/recall_zap_thief(mob/living/carrying_mob)
+/obj/item/implant/mod/proc/recall_leave_thief(mob/living/carrying_mob)
 	if(!ismob(get_atom_on_turf(module.mod)))
 		return FALSE //They dropped it
-	carrying_mob.Paralyze(5 SECONDS)
 	carrying_mob?.dropItemToGround(module.mod)
 	recall()
 
@@ -191,9 +179,28 @@
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
 	if(!successful)
-		balloon_alert(imp_in, "suit lost connection!")
+		retry()
 	else
 		balloon_alert(imp_in, "I missed you!")
+		failed_retries = 0
+
+//You get 5 tries.
+/obj/item/implant/mod/proc/retry()
+	switch(failed_retries)
+		if(0 to 1)
+			addtimer(CALLBACK(src, PROC_REF(recall), TRUE), 0.5 SECONDS)
+			failed_retries += 1
+		if(2)
+			balloon_alert(imp_in, "recall interrupted, retrying...")
+			addtimer(CALLBACK(src, PROC_REF(recall), TRUE), 1 SECONDS)
+			failed_retries += 1
+		if(3)
+			balloon_alert(imp_in, "recall interrupted, attempting fallback...")
+			addtimer(CALLBACK(src, PROC_REF(recall), TRUE), 3 SECONDS)
+			failed_retries += 1
+		if(4 to INFINITY)
+			balloon_alert(imp_in, "fallback failed, suit connection closed.")
+			failed_retries = 0
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER

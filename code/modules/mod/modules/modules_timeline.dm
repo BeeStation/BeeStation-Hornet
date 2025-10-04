@@ -373,6 +373,10 @@
 		qdel(src)
 	else if(timetokill <= 0)
 		to_chat(captured, span_notice("As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy..."))
+
+		for(var/mob/M in GLOB.player_list)
+			to_chat(M, span_notice("As the last vestiges of their being are erased from time, all memories of [captured.real_name] that you might have had fade from your mind!"))
+
 		var/mob/dead/observer/ghost = captured.ghostize(can_reenter_corpse = TRUE)
 		if(captured.mind)
 			if(ghost)
