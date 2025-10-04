@@ -36,8 +36,8 @@
 		return //no holidays, no hats; we'll keep the empty list so we never call this proc again
 	for(var/V in SSevents.holidays)
 		var/datum/holiday/holiday = SSevents.holidays[V]
-		if(holiday.drone_hat)
-			possible_seasonal_hats += holiday.drone_hat
+		if(holiday.holiday_hat)
+			possible_seasonal_hats += holiday.holiday_hat
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/drone/attack_ghost(mob/user)

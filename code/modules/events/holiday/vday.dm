@@ -10,6 +10,9 @@ GLOBAL_LIST(valentine_mobs)
 
 /datum/round_event_control/valentines
 	name = "Valentines!"
+	description = "Puts people on dates! They must protect each other. \
+		Some dates will have third wheels, and any odd ones out will be given the role of 'heartbreaker'."
+	category = EVENT_CATEGORY_HOLIDAY
 	holidayID = VALENTINES
 	typepath = /datum/round_event/valentines
 	weight = -1							//forces it to be called, regardless of weight
@@ -17,7 +20,7 @@ GLOBAL_LIST(valentine_mobs)
 	earliest_start = 0 MINUTES
 
 /datum/round_event/valentines
-	endWhen = 300 // 5 minutes
+	end_when = 300 // 5 minutes
 
 /datum/round_event/valentines/start()
 	GLOB.valentine_mobs = list()

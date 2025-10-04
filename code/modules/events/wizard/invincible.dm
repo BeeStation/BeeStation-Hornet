@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/invincible //Boolet Proof
 	name = "Invincibility"
+	description = "Everyone is invincible for a short time ticks."
 	weight = 3
 	typepath = /datum/round_event/wizard/invincible
 	max_occurrences = 5

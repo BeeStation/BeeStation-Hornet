@@ -9,6 +9,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /datum/round_event_control/immovable_rod
 	name = "Immovable Rod"
+	description = "The station passes through an immovable rod."
+	category = EVENT_CATEGORY_SPACE
 	typepath = /datum/round_event/immovable_rod
 	min_players = 15
 	max_occurrences = 5
@@ -25,7 +27,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		special_target = get_turf(usr)
 
 /datum/round_event/immovable_rod
-	announceWhen = 5
+	announce_when = 5
 
 /datum/round_event/immovable_rod/announce(fake)
 	priority_announce("What the fuck was that?!", "General Alert", SSstation.announcer.get_rand_alert_sound())

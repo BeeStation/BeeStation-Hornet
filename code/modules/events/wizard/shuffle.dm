@@ -3,6 +3,7 @@
 
 /datum/round_event_control/wizard/shuffleloc //Somewhere an AI is crying
 	name = "Change Places!"
+	description = "Shuffles everyone around on the station."
 	weight = 2
 	typepath = /datum/round_event/wizard/shuffleloc
 	max_occurrences = 5
@@ -39,6 +40,7 @@
 
 /datum/round_event_control/wizard/shufflenames //Face/off joke
 	name = "Change Faces!"
+	description = "Shuffles the names of everyone around the station."
 	weight = 4
 	typepath = /datum/round_event/wizard/shufflenames
 	max_occurrences = 5
@@ -73,6 +75,7 @@
 
 /datum/round_event_control/wizard/shuffleminds //Basically Mass Ranged Mindswap
 	name = "Change Minds!"
+	description = "Shuffles the minds of everyone around the station, except for the wizard."
 	weight = 1
 	typepath = /datum/round_event/wizard/shuffleminds
 	max_occurrences = 0

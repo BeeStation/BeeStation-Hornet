@@ -1,5 +1,7 @@
 /datum/round_event_control/heart_attack
 	name = "Random Heart Attack"
+	description = "A random crewmember's heart gives out."
+	category = EVENT_CATEGORY_HEALTH
 	typepath = /datum/round_event/heart_attack
 	weight = 20
 	max_occurrences = 2

@@ -1,5 +1,7 @@
 /datum/round_event_control/anomaly
 	name = "Anomaly: Energetic Flux"
+	description = "This anomaly shocks and explodes. This is the base type."
+	category = EVENT_CATEGORY_ANOMALIES
 	typepath = /datum/round_event/anomaly
 
 	min_players = 1
@@ -9,7 +11,7 @@
 /datum/round_event/anomaly
 	var/area/impact_area
 	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
-	announceWhen	= 1
+	announce_when	= 1
 
 
 /datum/round_event/anomaly/proc/findEventArea()

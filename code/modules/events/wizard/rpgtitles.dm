@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/rpgtitles //its time to adventure on boys
 	name = "RPG Titles"
+	description = "Everyone gains an RPG title hovering below them."
 	weight = 3
 	typepath = /datum/round_event/wizard/rpgtitles
 	max_occurrences = 1

@@ -1,5 +1,7 @@
 /datum/round_event_control/mice_migration
 	name = "Mice Migration"
+	description = "A horde of mice arrives, and perhaps even the Rat King themselves."
+	category = EVENT_CATEGORY_ENTITIES
 	typepath = /datum/round_event/mice_migration
 	weight = 10
 

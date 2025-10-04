@@ -1,13 +1,14 @@
 /datum/round_event_control/anomaly/blood
 	name = "Anomaly: Blood"
+	description = "This anomaly teleports to people and shoots projectiles at them."
 	typepath = /datum/round_event/anomaly/blood
 
 	min_players = 15
 	max_occurrences = 2
 
 /datum/round_event/anomaly/blood
-	startWhen = 3
-	announceWhen = 10
+	start_when = 3
+	announce_when = 10
 	anomaly_path = /obj/effect/anomaly/blood
 
 /datum/round_event/anomaly/blood/announce(fake)

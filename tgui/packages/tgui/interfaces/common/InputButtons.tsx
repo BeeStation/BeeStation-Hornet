@@ -7,7 +7,7 @@ type InputButtonsData = {
 };
 
 type InputButtonsProps = {
-  input: string | number;
+  input: string | number | string[];
   message?: string;
 };
 

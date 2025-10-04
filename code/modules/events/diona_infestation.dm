@@ -1,5 +1,7 @@
 /datum/round_event_control/diona_infestation
 	name = "Nymph Swarm"
+	description = "A swarm of diona nymphs spawn throughout the station."
+	category = EVENT_CATEGORY_ENTITIES
 	typepath = /datum/round_event/diona_infestation
 	weight = 5
 	min_players = 5

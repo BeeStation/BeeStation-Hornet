@@ -1,5 +1,7 @@
 /datum/round_event_control/high_priority_bounty
 	name = "High Priority Bounty"
+	description = "A high-priority bounty is sent to cargo."
+	category = EVENT_CATEGORY_BUREAUCRATIC
 	typepath = /datum/round_event/high_priority_bounty
 	max_occurrences = 3
 	weight = 20

@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/greentext //Gotta have it!
 	name = "Greentext"
+	description = "The Green Text appears on the station, tempting people to try and pick it up."
 	weight = 4
 	typepath = /datum/round_event/wizard/greentext
 	max_occurrences = 1

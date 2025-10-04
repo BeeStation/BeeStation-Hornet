@@ -1,5 +1,7 @@
 /datum/round_event_control/spooky
 	name = "2 SPOOKY! (Halloween)"
+	description = "Gives everyone treats, and turns Ian and Poly into their festive versions."
+	category = EVENT_CATEGORY_HOLIDAY
 	holidayID = HALLOWEEN
 	typepath = /datum/round_event/spooky
 	weight = -1							//forces it to be called, regardless of weight

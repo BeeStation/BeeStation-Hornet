@@ -170,7 +170,7 @@
 		effect.start()
 
 // Safe location finder
-/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE, dense_atoms = TRUE)
+/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE, dense_atoms = FALSE)
 	if(!zlevels)
 		if (zlevel)
 			zlevels = list(zlevel)
@@ -184,27 +184,54 @@
 		var/z = pick(zlevels)
 		var/random_location = locate(x,y,z)
 
-		if(!isfloorturf(random_location))
-			continue
-		var/turf/open/floor/F = random_location
-		if(!is_turf_safe(F))
-			continue
-		if(extended_safety_checks)
-			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
-				var/turf/open/lava/L = F
-				if(!L.is_safe())
-					continue
-		// Check that we're not warping onto a table or window
-		if(!dense_atoms)
-			var/density_found = FALSE
-			for(var/atom/movable/found_movable in F)
-				if(found_movable.density)
-					density_found = TRUE
-					break
-			if(density_found)
-				continue
-		// DING! You have passed the gauntlet, and are "probably" safe.
-		return F
+		if(is_safe_turf(random_location, extended_safety_checks, dense_atoms, cycle < 300))//if the area is mostly NOTELEPORT (centcom) we gotta give up on this fantasy at some point.
+			return random_location
+
+/// Checks if a given turf is a "safe" location
+/proc/is_safe_turf(turf/random_location, extended_safety_checks = FALSE, dense_atoms = FALSE, no_teleport = FALSE)
+	. = FALSE
+	if(!isfloorturf(random_location))
+		return
+	var/turf/open/floor/floor_turf = random_location
+
+	var/datum/gas_mixture/floor_gas_mixture = floor_turf.air
+	if(!floor_gas_mixture)
+		return
+
+	var/list/floor_gases = floor_gas_mixture.gases
+	var/static/list/gases_to_check = list(
+		/datum/gas/oxygen = list(16, 100),
+		/datum/gas/nitrogen,
+		/datum/gas/carbon_dioxide = list(0, 10)
+	)
+	if(!check_gases(floor_gases, gases_to_check))
+		return FALSE
+
+	// Aim for goldilocks temperatures and pressure
+	if((floor_gas_mixture.temperature <= 270) || (floor_gas_mixture.temperature >= 360))
+		return
+	var/pressure = floor_gas_mixture.return_pressure()
+	if((pressure <= 20) || (pressure >= 550))
+		return
+
+	if(extended_safety_checks)
+		if(islava(floor_turf)) //chasms aren't /floor, and so are pre-filtered
+			var/turf/open/lava/lava_turf = floor_turf // Cyberboss: okay, this makes no sense and I don't understand the above comment, but I'm too lazy to check history to see what it's supposed to do right now
+			if(!lava_turf.is_safe())
+				return
+
+	// Check that we're not warping onto a table or window
+	if(!dense_atoms)
+		var/density_found = FALSE
+		for(var/atom/movable/found_movable in floor_turf)
+			if(found_movable.density)
+				density_found = TRUE
+				break
+		if(density_found)
+			return
+
+	// DING! You have passed the gauntlet, and are "probably" safe.
+	return TRUE
 
 /proc/get_teleport_turfs(turf/center, precision = 0)
 	if(!precision)

@@ -1,5 +1,7 @@
 /datum/round_event_control/disease_outbreak
 	name = "Disease Outbreak"
+	description = "A 'classic' virus will infect some members of the crew."
+	category = EVENT_CATEGORY_HEALTH
 	typepath = /datum/round_event/disease_outbreak
 	max_occurrences = 1
 	min_players = 10
@@ -7,7 +9,7 @@
 	earliest_start = 10 MINUTES
 
 /datum/round_event/disease_outbreak
-	announceWhen	= 15
+	announce_when	= 15
 
 	var/virus_type
 
@@ -18,7 +20,7 @@
 	priority_announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", ANNOUNCER_OUTBREAK7)
 
 /datum/round_event/disease_outbreak/setup()
-	announceWhen = rand(15, 30)
+	announce_when = rand(15, 30)
 
 
 /datum/round_event/disease_outbreak/start()

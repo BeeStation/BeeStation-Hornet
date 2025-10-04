@@ -318,7 +318,7 @@
 		return 0
 
 	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Praetorian","Hunter","Sentinel","Drone","Larva")
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : null
+	var/obj/effect/landmark/spawn_here = GLOB.generic_maintenance_landmarks.len ? pick(GLOB.generic_maintenance_landmarks) : null
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
 		if("Queen")
@@ -375,8 +375,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(G_found.mind.assigned_role == ROLE_ALIEN)
 			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
 				var/turf/T
-				if(GLOB.xeno_spawn.len)
-					T = pick(GLOB.xeno_spawn)
+				if(GLOB.generic_maintenance_landmarks.len)
+					T = pick(GLOB.generic_maintenance_landmarks)
 
 				var/mob/living/carbon/alien/new_xeno
 				switch(G_found.mind.special_role)//If they have a mind, we can determine which caste they were.
@@ -532,7 +532,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/announce_ion_laws = (show_log == "Yes" ? 100 : 0)
 
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
-	ion.announceChance = announce_ion_laws
+	ion.announce_chance = announce_ion_laws
 	ion.ion_message = input
 	ion.law_source = "Admin fuckery by [key_name(usr)]"
 

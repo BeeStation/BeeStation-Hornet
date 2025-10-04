@@ -1,5 +1,6 @@
 /datum/round_event_control/wizard/rpgloot //its time to minmax your shit
 	name = "RPG Loot"
+	description = "Every item in the world will have fantastical names."
 	weight = 3
 	typepath = /datum/round_event/wizard/rpgloot
 	max_occurrences = 1

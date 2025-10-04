@@ -1,5 +1,7 @@
 /datum/round_event_control/electrical_storm
 	name = "Electrical Storm"
+	description = "Destroys all lights in a large area."
+	category = EVENT_CATEGORY_ENGINEERING
 	typepath = /datum/round_event/electrical_storm
 	earliest_start = 10 MINUTES
 	min_players = 5
@@ -9,7 +11,7 @@
 /datum/round_event/electrical_storm
 	var/lightsoutAmount	= 1
 	var/lightsoutRange	= 25
-	announceWhen	= 1
+	announce_when	= 1
 
 /datum/round_event/electrical_storm/announce(fake)
 	priority_announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert", SSstation.announcer.get_rand_alert_sound())
