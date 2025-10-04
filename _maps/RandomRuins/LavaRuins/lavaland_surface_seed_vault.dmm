@@ -53,7 +53,7 @@
 /obj/machinery/door/poddoor{
 	id = "lifebring4"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "cp" = (
@@ -548,7 +548,7 @@
 /obj/machinery/door/poddoor{
 	id = "lifebring1"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "yE" = (
@@ -745,7 +745,7 @@
 /obj/machinery/door/poddoor{
 	id = "lifebring2"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "FY" = (
@@ -776,7 +776,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "Gz" = (
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "GA" = (
@@ -864,7 +864,7 @@
 /obj/machinery/door/poddoor{
 	id = "lifebring5"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "KA" = (
@@ -1199,7 +1199,7 @@
 /obj/machinery/door/poddoor{
 	id = "lifebring3"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "Rt" = (

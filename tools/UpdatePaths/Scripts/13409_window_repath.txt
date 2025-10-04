@@ -40,6 +40,11 @@
 /obj/structure/window/shuttle/survival_pod/spawner/east : /obj/structure/window/reinforced/survival_pod/spawner/directional/east
 /obj/structure/window/shuttle/survival_pod/spawner/west : /obj/structure/window/reinforced/survival_pod/spawner/directional/west
 
+/obj/structure/window/reinforced/survival_pod/corner{dir = 1} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod/corner{dir = @UNSET} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod/corner{dir = 4} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod/corner{dir = 8} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
 # Shuttle Windows
 
 /obj/effect/spawner/structure/window/shuttle : /obj/effect/spawner/structure/window/reinforced/shuttle
@@ -327,5 +332,7 @@
 /obj/effect/spawner/structure/window/plastitanium : /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium{@OLD}
 /obj/structure/window/plastitanium : /obj/structure/window/reinforced/plasma/plastitanium{@OLD}
 /obj/structure/window/plastitanium/unanchored : /obj/structure/window/reinforced/plasma/plastitanium/unanchored{@OLD}
+
+/obj/structure/window/shuttle/survival_pod : /obj/structure/window/reinforced/shuttle/survival_pod{@OLD}
 
 /obj/structure/window/shuttle : /obj/structure/window/reinforced/shuttle{@OLD}
