@@ -47,7 +47,6 @@
 	if(istype(data))
 		SetViruses(src, data)
 		var/datum/blood_type/blood_type = data["blood_type"]
-		to_chat(world, "Blood reagent created with blood type: [blood_type?.name] ([blood_type?.type])")
 		if(blood_type)
 			color = blood_type.blood_color
 
