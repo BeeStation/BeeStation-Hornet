@@ -2,6 +2,12 @@
 "a" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/mining)
+"b" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
 "c" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
@@ -252,8 +258,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
+"J" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
 "Q" = (
-/obj/effect/spawner/structure/window/survival_pod,
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "S" = (
@@ -286,7 +300,7 @@ q
 S
 "}
 (3,1,1) = {"
-Q
+b
 d
 T
 I
@@ -306,9 +320,9 @@ S
 (5,1,1) = {"
 a
 S
-Q
+J
 m
-Q
+J
 S
 a
 "}
