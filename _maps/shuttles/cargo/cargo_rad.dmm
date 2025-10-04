@@ -31,7 +31,7 @@
 /area/shuttle/supply)
 "d" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "e" = (
@@ -216,7 +216,7 @@
 /area/shuttle/supply)
 "B" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "C" = (
@@ -379,7 +379,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "S" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "T" = (

@@ -96,9 +96,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aw" = (
@@ -145,14 +143,11 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "aF" = (
@@ -839,12 +834,9 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
 /turf/open/floor/grass/no_border,
@@ -1039,7 +1031,7 @@
 	},
 /area/shuttle/escape)
 "Li" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ls" = (
@@ -1070,13 +1062,9 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Ns" = (
@@ -1125,9 +1113,8 @@
 "Ro" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
 /turf/open/floor/grass/no_border,
@@ -1213,14 +1200,11 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 1
 	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Yp" = (

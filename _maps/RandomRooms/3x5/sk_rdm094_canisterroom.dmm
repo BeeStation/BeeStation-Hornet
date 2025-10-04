@@ -15,7 +15,7 @@
 /area/template_noop)
 "d" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -26,7 +26,7 @@
 /area/template_noop)
 "f" = (
 /obj/machinery/portable_atmospherics/canister,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/box,
 /turf/open/floor/iron,
 /area/template_noop)

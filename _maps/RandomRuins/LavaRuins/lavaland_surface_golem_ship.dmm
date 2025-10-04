@@ -6,8 +6,7 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/ruin/powered/golem_ship)
 "ac" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "ad" = (
@@ -157,8 +156,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west{
 	icon_state = "pwindow"
 	},
 /turf/open/floor/plating,

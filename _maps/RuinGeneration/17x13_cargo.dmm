@@ -16,9 +16,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "f" = (
@@ -76,7 +74,7 @@
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (

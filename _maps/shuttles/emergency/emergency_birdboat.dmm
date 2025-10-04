@@ -150,15 +150,13 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
 "aP" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
@@ -414,7 +412,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/machinery/newscaster/directional/east,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
@@ -434,9 +432,7 @@
 /area/shuttle/escape)
 "rE" = (
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/light/small{
 	dir = 4
@@ -539,7 +535,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "xV" = (
@@ -766,7 +762,7 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/escape)
 "MN" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Nj" = (

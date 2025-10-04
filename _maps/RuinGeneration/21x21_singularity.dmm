@@ -74,7 +74,7 @@
 /turf/open/floor/iron,
 /area/ruin)
 "R" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/ruin)
 "S" = (

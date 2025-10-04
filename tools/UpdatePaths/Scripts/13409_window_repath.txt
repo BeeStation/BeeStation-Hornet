@@ -1,0 +1,338 @@
+## Converts the "panes" or half windows to directional subtypes
+
+# Regular
+
+/obj/structure/window{dir = 1} : /obj/structure/window/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window{dir = @UNSET} : /obj/structure/window/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window{dir = 4} : /obj/structure/window/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window{dir = 8} : /obj/structure/window/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced
+
+/obj/structure/window/reinforced{dir = 1} : /obj/structure/window/reinforced/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced{dir = @UNSET} : /obj/structure/window/reinforced/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced{dir = 4} : /obj/structure/window/reinforced/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced{dir = 8} : /obj/structure/window/reinforced/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Regular Plasma
+
+/obj/structure/window/plasma{dir = 1} : /obj/structure/window/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma{dir = @UNSET} : /obj/structure/window/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma{dir = 4} : /obj/structure/window/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma{dir = 8} : /obj/structure/window/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced Plasma
+
+/obj/structure/window/plasma/reinforced{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced{dir = @UNSET} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Survival Pod
+
+/obj/structure/window/reinforced/survival_pod{dir = 1} : /obj/structure/window/reinforced/survival_pod/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod{dir = @UNSET} : /obj/structure/window/reinforced/survival_pod/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod{dir = 4} : /obj/structure/window/reinforced/survival_pod/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod{dir = 8} : /obj/structure/window/reinforced/survival_pod/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/shuttle/survival_pod/spawner/north : /obj/structure/window/reinforced/survival_pod/spawner/directional/north
+/obj/structure/window/shuttle/survival_pod/spawner/south : /obj/structure/window/reinforced/survival_pod/spawner/directional/south
+/obj/structure/window/shuttle/survival_pod/spawner/east : /obj/structure/window/reinforced/survival_pod/spawner/directional/east
+/obj/structure/window/shuttle/survival_pod/spawner/west : /obj/structure/window/reinforced/survival_pod/spawner/directional/west
+
+/obj/structure/window/reinforced/survival_pod/corner{dir = 1} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod/corner{dir = @UNSET} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod/corner{dir = 4} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/survival_pod/corner{dir = 8} : /obj/structure/window/reinforced/survival_pod/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Shuttle Windows
+
+/obj/effect/spawner/structure/window/shuttle : /obj/effect/spawner/structure/window/reinforced/shuttle
+
+## Spawners to directionals
+
+# Regular
+
+/obj/structure/window/spawner/north : /obj/structure/window/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/south : /obj/structure/window/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/east : /obj/structure/window/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/west : /obj/structure/window/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced
+
+/obj/structure/window/reinforced/spawner/north : /obj/structure/window/reinforced/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/south : /obj/structure/window/reinforced/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/east : /obj/structure/window/reinforced/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/west : /obj/structure/window/reinforced/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Regular Plasma
+
+/obj/structure/window/plasma/spawner/north : /obj/structure/window/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/south : /obj/structure/window/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/east : /obj/structure/window/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/west : /obj/structure/window/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced Plasma
+
+/obj/structure/window/plasma/reinforced/spawner/north : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/south : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Depleted Uranium
+
+/obj/structure/window/depleteduranium/spawner/north : /obj/structure/window/depleteduranium/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/spawner/south : /obj/structure/window/depleteduranium/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/spawner/east : /obj/structure/window/depleteduranium/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/spawner/west : /obj/structure/window/depleteduranium/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Tinted
+
+/obj/structure/window/reinforced/tinted{dir = 1} : /obj/structure/window/reinforced/tinted/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted{dir = @UNSET} : /obj/structure/window/reinforced/tinted/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted{dir = 4} : /obj/structure/window/reinforced/tinted/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted{dir = 8} : /obj/structure/window/reinforced/tinted/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Tinted frosted
+
+/obj/structure/window/reinforced/tinted/frosted{dir = 1} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/frosted{dir = @UNSET} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/frosted{dir = 4} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/frosted{dir = 8} : /obj/structure/window/reinforced/tinted/frosted/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Unanchored
+
+/obj/structure/window/unanchored{dir = 1} : /obj/structure/window/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/unanchored{dir = @UNSET} : /obj/structure/window/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/unanchored{dir = 4} : /obj/structure/window/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/unanchored{dir = 8} : /obj/structure/window/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced unanchored
+
+/obj/structure/window/reinforced/unanchored{dir = 1} : /obj/structure/window/reinforced/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/unanchored{dir = 4} : /obj/structure/window/reinforced/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/unanchored{dir = 8} : /obj/structure/window/reinforced/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+## Very weird cases that may or may not exist
+## Basically, var edited directional spawners
+## If you did this I hope you eat a brick
+
+# Regular
+
+/obj/structure/window/spawner/north{dir = 2} : /obj/structure/window/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/north{dir = 4} : /obj/structure/window/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/north{dir = 8} : /obj/structure/window/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/spawner{dir = 1} : /obj/structure/window/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/spawner{dir = 4} : /obj/structure/window/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/spawner{dir = 8} : /obj/structure/window/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/spawner/east{dir = 1} : /obj/structure/window/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/east{dir = 2} : /obj/structure/window/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/east{dir = 8} : /obj/structure/window/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/spawner/west{dir = 1} : /obj/structure/window/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/west{dir = 2} : /obj/structure/window/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/spawner/west{dir = 4} : /obj/structure/window/spawner/directional/east{@OLD;dir=@SKIP}
+
+# Reinforced
+
+/obj/structure/window/reinforced/spawner/north{dir = 2} : /obj/structure/window/reinforced/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/north{dir = 4} : /obj/structure/window/reinforced/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/north{dir = 8} : /obj/structure/window/reinforced/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/reinforced/spawner{dir = 1} : /obj/structure/window/reinforced/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner{dir = 4} : /obj/structure/window/reinforced/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner{dir = 8} : /obj/structure/window/reinforced/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/reinforced/spawner/east{dir = 1} : /obj/structure/window/reinforced/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/east{dir = 2} : /obj/structure/window/reinforced/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/east{dir = 8} : /obj/structure/window/reinforced/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/reinforced/spawner/west{dir = 1} : /obj/structure/window/reinforced/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/west{dir = 2} : /obj/structure/window/reinforced/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner/west{dir = 4} : /obj/structure/window/reinforced/spawner/directional/east{@OLD;dir=@SKIP}
+
+# Regular Plasma
+
+/obj/structure/window/plasma/spawner/north{dir = 2} : /obj/structure/window/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/north{dir = 4} : /obj/structure/window/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/north{dir = 8} : /obj/structure/window/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/plasma/spawner{dir = 1} : /obj/structure/window/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner{dir = 4} : /obj/structure/window/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner{dir = 8} : /obj/structure/window/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/plasma/spawner/east{dir = 1} : /obj/structure/window/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/east{dir = 2} : /obj/structure/window/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/east{dir = 8} : /obj/structure/window/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/plasma/spawner/west{dir = 1} : /obj/structure/window/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/west{dir = 2} : /obj/structure/window/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner/west{dir = 4} : /obj/structure/window/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+
+# Reinforced Plasma
+
+/obj/structure/window/plasma/reinforced/spawner/north{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/north{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/north{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/plasma/reinforced/spawner{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/plasma/reinforced/spawner/east{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/east{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+/obj/structure/window/plasma/reinforced/spawner/west{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west{dir = 2} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner/west{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+
+## Weird edge cases where people used /spawner
+
+# Regular
+
+/obj/structure/window/spawner{dir = 1} : /obj/structure/window/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/spawner{dir = @UNSET} : /obj/structure/window/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/spawner{dir = 4} : /obj/structure/window/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/spawner{dir = 8} : /obj/structure/window/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced
+
+/obj/structure/window/reinforced/spawner{dir = 1} : /obj/structure/window/reinforced/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner{dir = @UNSET} : /obj/structure/window/reinforced/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner{dir = 4} : /obj/structure/window/reinforced/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/spawner{dir = 8} : /obj/structure/window/reinforced/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Regular Plasma
+
+/obj/structure/window/plasma/spawner{dir = 1} : /obj/structure/window/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner{dir = @UNSET} : /obj/structure/window/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner{dir = 4} : /obj/structure/window/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/spawner{dir = 8} : /obj/structure/window/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced Plasma
+
+/obj/structure/window/plasma/reinforced/spawner{dir = 1} : /obj/structure/window/reinforced/plasma/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = @UNSET} : /obj/structure/window/reinforced/plasma/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 4} : /obj/structure/window/reinforced/plasma/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/spawner{dir = 8} : /obj/structure/window/reinforced/plasma/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Window Effect Spawner Things
+
+/obj/effect/spawner/structure/window/plasma/reinforced : /obj/effect/spawner/structure/window/reinforced/plasma
+/obj/effect/spawner/structure/window/hollow/plasma/reinforced : /obj/effect/spawner/structure/window/hollow/reinforced/plasma
+
+## Corners, Stupid Corners
+
+# Normal Corners
+
+/obj/structure/window/corner{dir = 1} : /obj/structure/window/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/corner{dir = @UNSET} : /obj/structure/window/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/corner{dir = 4} : /obj/structure/window/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/corner{dir = 8} : /obj/structure/window/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced Corners
+
+/obj/structure/window/reinforced/corner{dir = 1} : /obj/structure/window/reinforced/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/corner{dir = @UNSET} : /obj/structure/window/reinforced/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/corner{dir = 4} : /obj/structure/window/reinforced/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/corner{dir = 8} : /obj/structure/window/reinforced/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Plasma Corners
+
+/obj/structure/window/plasma/corner{dir = 1} : /obj/structure/window/plasma/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/corner{dir = @UNSET} : /obj/structure/window/plasma/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/corner{dir = 4} : /obj/structure/window/plasma/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/corner{dir = 8} : /obj/structure/window/plasma/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Plasma Reinforced Corners
+
+/obj/structure/window/plasma/reinforced/corner{dir = 1} : /obj/structure/window/reinforced/plasma/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/corner{dir = @UNSET} : /obj/structure/window/reinforced/plasma/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/corner{dir = 4} : /obj/structure/window/reinforced/plasma/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/corner{dir = 8} : /obj/structure/window/reinforced/plasma/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Tinted Corners
+
+/obj/structure/window/reinforced/tinted/corner{dir = 1} : /obj/structure/window/reinforced/tinted/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/corner{dir = @UNSET} : /obj/structure/window/reinforced/tinted/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/corner{dir = 4} : /obj/structure/window/reinforced/tinted/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/corner{dir = 8} : /obj/structure/window/reinforced/tinted/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Depleted Uranium Corners
+
+/obj/structure/window/depleteduranium/corner{dir = 1} : /obj/structure/window/depleteduranium/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/corner{dir = @UNSET} : /obj/structure/window/depleteduranium/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/corner{dir = 4} : /obj/structure/window/depleteduranium/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/corner{dir = 8} : /obj/structure/window/depleteduranium/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Bronze Corners
+
+/obj/structure/window/bronze/corner{dir = 1} : /obj/structure/window/bronze/corner/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/bronze/corner{dir = @UNSET} : /obj/structure/window/bronze/corner/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/bronze/corner{dir = 4} : /obj/structure/window/bronze/corner/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/bronze/corner{dir = 8} : /obj/structure/window/bronze/corner/spawner/directional/west{@OLD;dir=@SKIP}
+
+## Unanchored Corners, Even Stupider Corners
+
+# Normal Corners
+
+/obj/structure/window/corner/unanchored{dir = 1} : /obj/structure/window/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/corner/unanchored{dir = @UNSET} : /obj/structure/window/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/corner/unanchored{dir = 4} : /obj/structure/window/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/corner/unanchored{dir = 8} : /obj/structure/window/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Reinforced Corners
+
+/obj/structure/window/reinforced/corner/unanchored{dir = 1} : /obj/structure/window/reinforced/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/corner/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/corner/unanchored{dir = 4} : /obj/structure/window/reinforced/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/corner/unanchored{dir = 8} : /obj/structure/window/reinforced/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Plasma Corners
+
+/obj/structure/window/plasma/corner/unanchored{dir = 1} : /obj/structure/window/plasma/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/corner/unanchored{dir = @UNSET} : /obj/structure/window/plasma/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/corner/unanchored{dir = 4} : /obj/structure/window/plasma/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/corner/unanchored{dir = 8} : /obj/structure/window/plasma/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Plasma Reinforced Corners
+
+/obj/structure/window/plasma/reinforced/corner/unanchored{dir = 1} : /obj/structure/window/reinforced/plasma/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/corner/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/plasma/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/corner/unanchored{dir = 4} : /obj/structure/window/reinforced/plasma/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/plasma/reinforced/corner/unanchored{dir = 8} : /obj/structure/window/reinforced/plasma/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Tinted Corners
+
+/obj/structure/window/reinforced/tinted/corner/unanchored{dir = 1} : /obj/structure/window/reinforced/tinted/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/corner/unanchored{dir = @UNSET} : /obj/structure/window/reinforced/tinted/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/corner/unanchored{dir = 4} : /obj/structure/window/reinforced/tinted/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/reinforced/tinted/corner/unanchored{dir = 8} : /obj/structure/window/reinforced/tinted/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Depleted Uranium Corners
+
+/obj/structure/window/depleteduranium/corner/unanchored{dir = 1} : /obj/structure/window/depleteduranium/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/corner/unanchored{dir = @UNSET} : /obj/structure/window/depleteduranium/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/corner/unanchored{dir = 4} : /obj/structure/window/depleteduranium/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/depleteduranium/corner/unanchored{dir = 8} : /obj/structure/window/depleteduranium/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+# Bronze Corners
+
+/obj/structure/window/bronze/corner/unanchored{dir = 1} : /obj/structure/window/bronze/corner/unanchored/spawner/directional/north{@OLD;dir=@SKIP}
+/obj/structure/window/bronze/corner/unanchored{dir = @UNSET} : /obj/structure/window/bronze/corner/unanchored/spawner/directional/south{@OLD;dir=@SKIP}
+/obj/structure/window/bronze/corner/unanchored{dir = 4} : /obj/structure/window/bronze/corner/unanchored/spawner/directional/east{@OLD;dir=@SKIP}
+/obj/structure/window/bronze/corner/unanchored{dir = 8} : /obj/structure/window/bronze/corner/unanchored/spawner/directional/west{@OLD;dir=@SKIP}
+
+## Other
+
+/obj/effect/spawner/structure/window/plastitanium : /obj/effect/spawner/structure/window/reinforced/plasma/plastitanium{@OLD}
+/obj/structure/window/plastitanium : /obj/structure/window/reinforced/plasma/plastitanium{@OLD}
+/obj/structure/window/plastitanium/unanchored : /obj/structure/window/reinforced/plasma/plastitanium/unanchored{@OLD}
+
+/obj/structure/window/shuttle/survival_pod : /obj/structure/window/reinforced/shuttle/survival_pod{@OLD}
+
+/obj/structure/window/shuttle : /obj/structure/window/reinforced/shuttle{@OLD}

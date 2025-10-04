@@ -35,9 +35,9 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/plasmaglass)
 /* Reinforced plasma glass */
 
 GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/plasma/reinforced/unanchored, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
-	new/datum/stack_recipe("directional reinforced window corner", /obj/structure/window/plasma/reinforced/corner/unanchored, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/reinforced/plasma/unanchored, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("directional reinforced window corner", /obj/structure/window/reinforced/plasma/corner/unanchored, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_CHECK_DIRECTION, category = CAT_WINDOWS), \
+	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/reinforced/plasma/fulltile/unanchored, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS), \
 	new/datum/stack_recipe("reinforced plasma glass tile", /obj/item/stack/tile/rglass/plasma, 1, 4, 20, category = CAT_TILES) \
 ))
 
@@ -54,7 +54,7 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/titaniumglass)
 /* Plastitanium glass */
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new/datum/stack_recipe("plastitanium window", /obj/structure/window/plastitanium/unanchored, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS) \
+	new/datum/stack_recipe("plastitanium window", /obj/structure/window/reinforced/plasma/plastitanium/unanchored, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ON_SOLID_GROUND | CRAFT_IS_FULLTILE, category = CAT_WINDOWS) \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/plastitaniumglass)

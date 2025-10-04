@@ -50,7 +50,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "as" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "at" = (
@@ -133,9 +133,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aK" = (
@@ -194,8 +192,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/window/reinforced{
-	dir = 1;
+/obj/structure/window/reinforced/spawner/directional/north{
 	resistance_flags = 33
 	},
 /turf/open/lava/smooth/airless,
@@ -359,9 +356,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "EC" = (

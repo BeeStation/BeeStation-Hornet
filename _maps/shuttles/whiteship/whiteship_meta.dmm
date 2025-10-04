@@ -35,7 +35,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/crew)
 "aj" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -58,7 +58,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "am" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -166,9 +166,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned/engine)
 "ay" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
@@ -557,7 +555,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/bridge)
 "bR" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_bridge"
 	},
@@ -579,7 +577,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/engine)
 "bU" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
@@ -602,7 +600,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "bY" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/bar)
@@ -1294,7 +1292,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "eb" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -2282,7 +2280,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/crew)
 "Jb" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},

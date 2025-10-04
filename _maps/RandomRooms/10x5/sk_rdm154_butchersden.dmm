@@ -16,7 +16,7 @@
 "k" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/table,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/item/gun/syringe,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -42,7 +42,7 @@
 /area/template_noop)
 "x" = (
 /obj/machinery/gibber,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -55,7 +55,7 @@
 "z" = (
 /obj/structure/table,
 /obj/machinery/microwave,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (

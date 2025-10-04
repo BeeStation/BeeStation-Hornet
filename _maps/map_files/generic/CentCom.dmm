@@ -83,9 +83,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -1278,9 +1276,7 @@
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/grass/no_border,
 /area/centcom/evac)
 "acQ" = (
@@ -1779,9 +1775,7 @@
 "adY" = (
 /obj/structure/table/reinforced,
 /obj/item/defibrillator/loaded,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/white/textured,
 /area/centcom/control)
 "adZ" = (
@@ -2753,9 +2747,7 @@
 /turf/open/floor/circuit/red,
 /area/ctf)
 "agr" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /turf/open/floor/plating,
 /area/centcom/evac)
 "ags" = (
@@ -2912,9 +2904,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/dark/smooth_corner,
 /area/centcom/ferry)
@@ -3741,9 +3731,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/suit_storage_unit/engine,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/smooth_large,
@@ -5158,8 +5146,7 @@
 	},
 /area/syndicate_mothership/control)
 "amL" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "amM" = (
@@ -5331,9 +5318,7 @@
 /turf/open/floor/iron/showroomfloor,
 /area/centcom/ferry)
 "ank" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/shower{
 	pixel_y = 16
 	},
@@ -5363,7 +5348,7 @@
 /area/syndicate_mothership/control)
 "ann" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/space/basic,
 /area/space/nearstation)
 "ano" = (
@@ -6425,9 +6410,7 @@
 /area/centcom/supply)
 "apQ" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/paper_bin,
 /obj/item/pen/red,
 /obj/effect/turf_decal/bot,
@@ -6485,7 +6468,7 @@
 /turf/open/floor/iron,
 /area/centcom/evac)
 "aqb" = (
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/bodycontainer/morgue{
 	dir = 8
 	},
@@ -6903,8 +6886,8 @@
 /turf/open/floor/iron,
 /area/centcom/ferry)
 "aro" = (
-/obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7190,7 +7173,7 @@
 "arT" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass/no_border,
 /area/centcom/evac)
 "arU" = (
@@ -7199,13 +7182,13 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass/no_border,
 /area/centcom/evac)
 "arV" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass/no_border,
 /area/centcom/evac)
 "arW" = (
@@ -8275,7 +8258,7 @@
 "auM" = (
 /obj/machinery/computer/operating,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/white,
 /area/centcom/evac)
 "auN" = (
@@ -9608,9 +9591,7 @@
 /area/centcom/control)
 "ayz" = (
 /obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/item/stamp/law,
@@ -9864,9 +9845,7 @@
 /obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/item/gun/ballistic/shotgun/automatic/breaching,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 10
 	},
@@ -9883,9 +9862,7 @@
 	},
 /obj/item/gun/energy/e_gun,
 /obj/item/gun/energy/e_gun,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 10
 	},
@@ -10176,11 +10153,6 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/white/textured,
 /area/ctf)
-"azW" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
-/turf/open/floor/plating,
-/area/syndicate_mothership/control)
 "azX" = (
 /obj/machinery/light{
 	dir = 1
@@ -10474,7 +10446,7 @@
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -10959,9 +10931,7 @@
 /area/centcom/evac)
 "aBO" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor,
 /obj/item/paper_bin,
@@ -11300,9 +11270,7 @@
 /obj/structure/sign/departments/medbay/alt{
 	pixel_y = -32
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 5
 	},
@@ -11318,9 +11286,7 @@
 /obj/item/reagent_containers/cup/bottle/chloralhydrate,
 /obj/item/reagent_containers/cup/bottle/chloralhydrate,
 /obj/item/reagent_containers/cup/bottle/chloralhydrate,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/tile/steelgrid{
 	dir = 5
 	},
@@ -11759,9 +11725,7 @@
 /area/syndicate_mothership/control)
 "aDG" = (
 /obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/paper_bin,
 /obj/item/pen/fourcolor,
 /turf/open/floor/wood/big,
@@ -11772,9 +11736,7 @@
 /obj/item/pen/red,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron,
 /area/centcom/control)
 "aDI" = (
@@ -11783,9 +11745,7 @@
 /obj/item/pen/blue,
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/centcom/control)
 "aDJ" = (
@@ -12456,9 +12416,8 @@
 /turf/open/floor/iron/corner,
 /area/tdome/tdomeobserve)
 "aFH" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
 /obj/structure/barricade/wooden/snowed,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "aFI" = (
@@ -12575,12 +12534,8 @@
 /turf/open/floor/iron/cafeteria,
 /area/tdome/tdomeobserve)
 "aFW" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "aFX" = (
@@ -12696,9 +12651,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 6
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "aGp" = (
@@ -12721,9 +12674,8 @@
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
 "aGr" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/spawner/directional/north{
 	color = "#008000";
-	dir = 1;
 	resistance_flags = 3
 	},
 /turf/open/lava,
@@ -12771,9 +12723,8 @@
 /obj/structure/shuttle/engine/heater{
 	resistance_flags = 3
 	},
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/spawner/directional/north{
 	color = "#008000";
-	dir = 1;
 	resistance_flags = 3
 	},
 /turf/open/lava/airless,
@@ -13256,12 +13207,10 @@
 /area/tdome/tdomeadmin)
 "aHD" = (
 /obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/wood/big,
 /area/centcom/control)
 "aHE" = (
@@ -14485,7 +14434,7 @@
 /area/syndicate_mothership/control)
 "aKz" = (
 /obj/structure/lattice,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/space/basic,
 /area/space/nearstation)
 "aKA" = (
@@ -14627,9 +14576,7 @@
 	},
 /area/centcom/control)
 "aKT" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "aKU" = (
@@ -14772,9 +14719,8 @@
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "aLm" = (
-/obj/structure/grille,
 /obj/structure/barricade/wooden/crude,
-/obj/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "aLn" = (
@@ -14907,8 +14853,7 @@
 /turf/open/floor/wood,
 /area/centcom/control)
 "aLC" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/centcom/evac)
 "aLD" = (
@@ -15189,11 +15134,9 @@
 /area/centcom/holding)
 "aMt" = (
 /obj/structure/table/wood,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/megaphone,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/wood/big,
 /area/centcom/control)
 "aMu" = (
@@ -15207,12 +15150,8 @@
 	},
 /area/syndicate_mothership/control)
 "aMw" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aMx" = (
@@ -15278,9 +15217,7 @@
 	},
 /area/centcom/control)
 "aMG" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/door/window/eastright{
 	dir = 8;
 	name = "Animal Pen"
@@ -15332,7 +15269,7 @@
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
 "aMM" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aMN" = (
@@ -15821,7 +15758,7 @@
 /obj/machinery/computer/operating{
 	dir = 4
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/white/textured,
 /area/centcom/control)
 "aNT" = (
@@ -16092,7 +16029,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/closet/secure_closet/ertEngi,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -16405,16 +16342,12 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "aPl" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aPm" = (
@@ -16425,9 +16358,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/syndicate_mothership/control)
 "aPo" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aPq" = (
@@ -16543,9 +16474,7 @@
 /turf/open/floor/iron,
 /area/centcom/supplypod)
 "aPA" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aPB" = (
@@ -16949,7 +16878,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood/big,
 /area/centcom/evac)
 "aQw" = (
@@ -16960,7 +16889,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -17083,9 +17012,7 @@
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/grass/no_border,
 /area/centcom/control)
 "aQP" = (
@@ -17208,9 +17135,7 @@
 /turf/open/floor/carpet/green,
 /area/centcom/ferry)
 "aRh" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/grass,
 /area/centcom/holding)
 "aRi" = (
@@ -17452,12 +17377,8 @@
 /turf/open/floor/iron/dark,
 /area/centcom/ferry)
 "aRM" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aRN" = (
@@ -17808,9 +17729,7 @@
 /area/syndicate_mothership/control)
 "aSB" = (
 /obj/structure/curtain,
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/machinery/shower{
 	pixel_y = 12
 	},
@@ -18860,7 +18779,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/large,
 /area/centcom/control)
 "aVa" = (
@@ -19033,7 +18952,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/beret/centcom_formal,
 /obj/effect/turf_decal/tile/dark_blue{
@@ -19198,7 +19117,7 @@
 /area/centcom/supplypod/podStorage)
 "aVP" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/item/storage/firstaid/fire{
 	pixel_x = -6;
 	pixel_y = 6
@@ -19240,7 +19159,7 @@
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -19302,7 +19221,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -19396,9 +19315,7 @@
 	},
 /area/centcom/control)
 "aWm" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aWn" = (
@@ -19682,7 +19599,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/genericbush,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass/no_border,
 /area/centcom/control)
 "aWV" = (
@@ -20414,9 +20331,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
 "aYN" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /mob/living/simple_animal/chicken,
 /turf/open/floor/grass,
 /area/centcom/holding)
@@ -20839,10 +20754,8 @@
 /turf/open/floor/grass,
 /area/centcom/holding)
 "aZU" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/carpet/black,
 /area/centcom/holding)
 "aZV" = (
@@ -20961,9 +20874,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/window/reinforced/tinted{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "bKF" = (
@@ -36312,11 +36223,11 @@ aDr
 aWW
 aht
 anm
-azW
+amL
 aDU
 amP
 aKJ
-azW
+amL
 ach
 azU
 aoN
@@ -37087,7 +36998,7 @@ aLq
 aLO
 aVl
 amH
-azW
+amL
 aup
 azf
 aqk
@@ -37345,8 +37256,8 @@ aDf
 aFw
 aEF
 aku
-azW
-azW
+amL
+amL
 aku
 aku
 aku
@@ -38108,9 +38019,9 @@ aku
 aku
 aku
 aku
-azW
-azW
-azW
+amL
+amL
+amL
 aku
 aKJ
 aII
@@ -39132,15 +39043,15 @@ llK
 fAt
 fAt
 mLj
-azW
-azW
+amL
+amL
 aku
 aku
 aLe
 aku
 aku
 ahM
-azW
+amL
 alb
 aku
 apa
@@ -39388,8 +39299,8 @@ lpK
 rWG
 osc
 qWW
-azW
-azW
+amL
+amL
 sVt
 khH
 aGq
@@ -39399,7 +39310,7 @@ aku
 aNe
 aPn
 aer
-azW
+amL
 awD
 anV
 aee
@@ -39645,7 +39556,7 @@ tGH
 aLu
 uAV
 bdM
-azW
+amL
 ylz
 iDU
 tdL
@@ -39656,7 +39567,7 @@ aku
 aaO
 aPn
 apv
-azW
+amL
 agk
 aKY
 aKY
@@ -39913,7 +39824,7 @@ aku
 aig
 aLG
 abR
-azW
+amL
 agk
 agk
 aKY
@@ -40684,7 +40595,7 @@ aku
 aGG
 aPn
 aer
-azW
+amL
 aBD
 aKY
 aKY
@@ -40941,7 +40852,7 @@ aIf
 apd
 aPn
 awG
-azW
+amL
 apa
 aBD
 aRp
@@ -41198,7 +41109,7 @@ aXs
 anI
 aPn
 apE
-azW
+amL
 apa
 aMB
 aKY
@@ -41969,7 +41880,7 @@ asK
 aNe
 aPn
 apE
-azW
+amL
 atx
 aKY
 aKY
@@ -42226,7 +42137,7 @@ aSP
 anw
 aPn
 awG
-azW
+amL
 apf
 ahK
 aee
@@ -42483,7 +42394,7 @@ asB
 aig
 aPn
 apE
-azW
+amL
 aee
 aKY
 afs
@@ -44023,7 +43934,7 @@ aku
 aku
 aQa
 aeZ
-azW
+amL
 aHv
 aku
 aaE

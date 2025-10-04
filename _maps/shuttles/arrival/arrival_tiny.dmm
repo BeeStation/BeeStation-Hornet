@@ -28,7 +28,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "y" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating,
@@ -85,7 +85,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "M" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/arrival)

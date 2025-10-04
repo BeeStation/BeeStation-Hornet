@@ -25,9 +25,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/table/wood/bar,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 4
 	},
@@ -56,9 +54,7 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -66,9 +62,7 @@
 /area/template_noop)
 "l" = (
 /obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

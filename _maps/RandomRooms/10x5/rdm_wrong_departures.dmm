@@ -1,14 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -101,15 +95,9 @@
 	},
 /area/template_noop)
 "v" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/item/kirbyplants/dead,
 /turf/open/floor/grass,
@@ -164,9 +152,7 @@
 	},
 /area/template_noop)
 "E" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -181,13 +167,9 @@
 	},
 /area/template_noop)
 "I" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -245,11 +227,9 @@
 	},
 /area/template_noop)
 "R" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/flora/grass/jungle/b,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass,
 /area/template_noop)
 "S" = (
@@ -261,11 +241,9 @@
 /turf/open/floor/iron/dark/corner,
 /area/template_noop)
 "U" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/grass,
 /area/template_noop)
 "V" = (
@@ -275,29 +253,21 @@
 	},
 /area/template_noop)
 "W" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/item/kirbyplants/random,
 /turf/open/floor/grass,
 /area/template_noop)
 "X" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/template_noop)
 "Y" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)

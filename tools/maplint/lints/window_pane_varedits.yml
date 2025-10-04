@@ -1,4 +1,3 @@
-disabled: true
 help: "Use the directional variants when possible."
 /obj/structure/window:
   banned_variables:

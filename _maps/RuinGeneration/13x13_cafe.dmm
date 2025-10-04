@@ -64,7 +64,7 @@
 "q" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "r" = (
@@ -160,7 +160,7 @@
 /area/ruin/unpowered)
 "H" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "I" = (
@@ -217,7 +217,7 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/structure/flora/junglebush/b,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/grass,
 /area/ruin/unpowered)
 "W" = (

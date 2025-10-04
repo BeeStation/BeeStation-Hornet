@@ -24,12 +24,8 @@
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
 /obj/effect/temp_visual/ratvar/window/single,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/techmaint,
 /area/space)
 "l" = (
@@ -77,10 +73,8 @@
 /obj/item/ai_module/core/full/asimovpp,
 /obj/item/ai_module/core/full/custom,
 /obj/item/ai_module/reset/purge,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/space)
 "C" = (
@@ -108,12 +102,8 @@
 /obj/item/ai_module/core/full/damaged,
 /obj/item/ai_module/core/full/overthrow,
 /obj/item/ai_module/core/full/peacekeeper,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/space)
 "T" = (
@@ -126,10 +116,8 @@
 /obj/item/ai_module/core/full/balance,
 /obj/item/ai_module/reset,
 /obj/item/ai_module/supplied/protect_station,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/techmaint,
 /area/space)
 "X" = (

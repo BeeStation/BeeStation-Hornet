@@ -61,7 +61,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "ak" = (
@@ -161,11 +161,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/shuttle/abandoned)
-"av" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
 /area/shuttle/abandoned)
 "aw" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -791,6 +786,10 @@
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/abandoned)
+"KH" = (
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
 "Ld" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/cable{
@@ -972,7 +971,7 @@ aN
 al
 Nd
 aq
-av
+KH
 aB
 Ao
 aA
@@ -1008,7 +1007,7 @@ aN
 zL
 aV
 me
-av
+KH
 au
 aG
 aG
@@ -1018,7 +1017,7 @@ aw
 aS
 te
 bb
-av
+KH
 aa
 "}
 (9,1,1) = {"
@@ -1036,7 +1035,7 @@ aT
 aU
 aO
 QF
-av
+KH
 aa
 "}
 (10,1,1) = {"
@@ -1054,7 +1053,7 @@ sb
 DA
 aX
 af
-av
+KH
 aa
 "}
 (11,1,1) = {"
@@ -1071,7 +1070,7 @@ aN
 iQ
 as
 ab
-av
+KH
 aN
 aa
 "}
@@ -1101,8 +1100,8 @@ aa
 ad
 aj
 ab
-av
-av
+KH
+KH
 aN
 aa
 aa

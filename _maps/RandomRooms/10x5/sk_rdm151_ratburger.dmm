@@ -7,12 +7,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/deepfryer,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "g" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /mob/living/simple_animal/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -31,7 +31,7 @@
 /area/template_noop)
 "l" = (
 /obj/machinery/microwave,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
@@ -42,7 +42,7 @@
 	pixel_y = 6
 	},
 /obj/item/food/burger/rat,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "o" = (
@@ -63,8 +63,8 @@
 	},
 /area/template_noop)
 "r" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/east,
 /mob/living/simple_animal/mouse/brown,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -78,7 +78,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/reagent_dispensers/nutriment/fat/oil,
 /turf/open/floor/iron/cafeteria,
 /area/template_noop)
@@ -87,14 +87,14 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /mob/living/simple_animal/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "D" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/bottle/beer{
 	pixel_x = -7;
@@ -182,7 +182,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/rack,
 /obj/item/storage/box/ingredients/carnivore,
 /obj/item/food/bun,
@@ -195,7 +195,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "V" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner/directional/north,
 /mob/living/simple_animal/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)

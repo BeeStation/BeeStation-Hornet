@@ -72,7 +72,7 @@
 /area/template_noop)
 "bd" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron,
 /area/template_noop)
 "bj" = (
@@ -432,9 +432,7 @@
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
 "gs" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/structure/frame,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
@@ -949,7 +947,7 @@
 	},
 /area/template_noop)
 "mM" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/template_noop)
 "mR" = (
@@ -996,9 +994,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
@@ -2990,8 +2986,8 @@
 "Ra" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/newscaster/directional/west,
-/obj/structure/window/reinforced/spawner/west,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 "Rh" = (
@@ -3314,7 +3310,7 @@
 	},
 /area/template_noop)
 "UV" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron,
 /area/template_noop)
 "UX" = (
@@ -3382,7 +3378,7 @@
 	name = "Engi Desk";
 	req_one_access_txt = "32;19"
 	},
-/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3501,7 +3497,7 @@
 	pixel_x = -31;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron,
 /area/template_noop)
 "Xx" = (

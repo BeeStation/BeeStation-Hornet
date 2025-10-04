@@ -143,9 +143,7 @@
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "dN" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/closet/secure_closet{
 	icon_state = "sec";
 	name = "equipment locker";
@@ -520,7 +518,7 @@
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "nB" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor/preopen{
 	id = "hunter_police_bridge";
 	name = "Bridge View Blast Door"
@@ -649,8 +647,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 9
 	},
-/obj/structure/window/reinforced{
-	dir = 8;
+/obj/structure/window/reinforced/spawner/directional/west{
 	pixel_x = -2
 	},
 /turf/open/floor/iron/tech/grid,
@@ -706,9 +703,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/hunter)
 "uu" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 4
 	},
@@ -825,7 +820,7 @@
 /turf/open/floor/iron/yellowsiding,
 /area/shuttle/hunter)
 "Be" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor/preopen{
 	id = "hunter_police_windows"
 	},

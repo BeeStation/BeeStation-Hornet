@@ -17,9 +17,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -29,7 +27,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -38,9 +36,7 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -53,16 +49,14 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -104,12 +98,8 @@
 	id = "forestarboard";
 	name = "Starboard Bow Solar Control"
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -147,7 +137,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "G" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -166,9 +156,7 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/space)
 "M" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating{
 	broken = 1

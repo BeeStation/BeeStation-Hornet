@@ -6,12 +6,6 @@
 	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining)
-"d" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
 "e" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
@@ -23,23 +17,13 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/tech,
 /area/shuttle/mining)
-"h" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
 "q" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "s" = (
@@ -74,9 +58,7 @@
 	pixel_y = 2
 	},
 /obj/machinery/camera/directional/west,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
@@ -129,9 +111,7 @@
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "U" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "Y" = (
@@ -146,9 +126,7 @@
 	pixel_x = 31;
 	pixel_y = -1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
@@ -156,9 +134,9 @@
 (1,1,1) = {"
 K
 s
-h
-h
-h
+U
+U
+U
 b
 K
 "}
@@ -193,8 +171,8 @@ s
 K
 s
 S
-d
-d
+U
+U
 s
 K
 "}

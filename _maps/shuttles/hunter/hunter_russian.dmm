@@ -166,9 +166,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "mH" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 4
 	},

@@ -10,29 +10,21 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "ac" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "ad" = (
-/obj/structure/window{
-	dir = 1
-	},
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/directional/west,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "ae" = (
-/obj/structure/window,
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/south,
+/obj/structure/window/spawner/directional/west,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "af" = (
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "ag" = (
@@ -52,12 +44,8 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "am" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -73,7 +61,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "av" = (
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
@@ -94,9 +82,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "aC" = (
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/west,
 /obj/structure/toilet,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
@@ -108,9 +94,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "aF" = (
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/west,
 /obj/structure/toilet{
 	dir = 1
 	},
@@ -132,12 +116,8 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "aK" = (
-/obj/structure/window{
-	dir = 1
-	},
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/north,
+/obj/structure/window/spawner/directional/west,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
@@ -154,10 +134,8 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "aN" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
@@ -173,12 +151,8 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "aS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/door/window/brigdoor,
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood/footprints,
@@ -218,9 +192,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "eI" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -248,35 +220,27 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "ul" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "wV" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "zS" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "Cp" = (
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /obj/structure/curtain,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
@@ -284,9 +248,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "FT" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -294,7 +256,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "ID" = (
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /obj/structure/table/optable,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -308,9 +270,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "Pd" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/structure/table,
 /obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/assembly/flash,
@@ -320,7 +280,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "Ps" = (
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /obj/machinery/computer/operating{
 	dir = 8
 	},
@@ -334,9 +294,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "Wv" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/structure/curtain,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
@@ -344,9 +302,7 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "YF" = (
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/structure/table,
 /obj/item/bedsheet,
 /obj/item/screwdriver,

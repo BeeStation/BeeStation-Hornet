@@ -878,7 +878,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "hunters_windows"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -902,9 +902,7 @@
 /turf/open/floor/iron/tech,
 /area/shuttle/hunter)
 "Pl" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 4
 	},
@@ -997,7 +995,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "hunters_bridge"
 	},
-/obj/structure/window/shuttle/survival_pod,
+/obj/structure/window/reinforced/shuttle/survival_pod,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
