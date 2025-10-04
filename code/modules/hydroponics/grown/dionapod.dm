@@ -14,6 +14,7 @@
 	yield = 1
 	potency = 30
 	growthstages = 3
+	mutatelist = (/obj/item/seeds/cabbage)
 	var/volume = 5
 	var/list/result = list()
 

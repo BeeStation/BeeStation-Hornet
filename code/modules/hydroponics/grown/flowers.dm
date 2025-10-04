@@ -90,7 +90,7 @@
 	weed_chance = 10
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/flower/poppy, /obj/item/seeds/flower/lily)
 	genes = list(/datum/plant_gene/reagent/polypyr)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 	rarity = 30
@@ -143,7 +143,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	potency = 25
 	icon_grow = "forget_me_not-grow"
 	icon_dead = "forget_me_not-dead"
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/flower/geranium, /obj/item/seeds/flower/poppy)
 	reagents_add = list(/datum/reagent/medicine/kelotane = 0.2, /datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/food/grown/flower/forgetmenot
@@ -241,7 +241,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	icon_dead = "sunflower-dead"
 	product = /obj/item/food/grown/flower/moonflower
 	genes = list(/datum/plant_gene/trait/glow/purple)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/sunflower, /obj/item/seeds/sunflower/novaflower)
 	reagents_add = list(/datum/reagent/acetone = 0.08, /datum/reagent/consumable/ethanol/moonshine = 0.2, /datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 20
 
@@ -264,7 +264,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	icon_grow = "novaflower-grow"
 	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower)
 	reagents_add = list(/datum/reagent/consumable/condensedcapsaicin = 0.25, /datum/reagent/consumable/capsaicin = 0.3, /datum/reagent/consumable/nutriment = 0)
 	rarity = 15
 

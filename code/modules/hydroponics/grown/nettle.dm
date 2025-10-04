@@ -24,7 +24,7 @@
 	maturation = 8
 	yield = 2
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/nettle)
 	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.12)
 	rarity = 20
 

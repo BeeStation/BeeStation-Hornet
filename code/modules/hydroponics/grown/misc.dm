@@ -45,7 +45,7 @@
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/invasive)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/starthistle)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05, /datum/reagent/medicine/silibinin = 0.1)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)

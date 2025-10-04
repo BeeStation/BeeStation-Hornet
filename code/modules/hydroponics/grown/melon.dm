@@ -47,7 +47,7 @@
 	plantname = "Holy Melon Vines"
 	product = /obj/item/food/grown/holymelon
 	genes = list(/datum/plant_gene/trait/glow/yellow)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/watermelon, /obj/item/seeds/watermelon/ballolon)
 	reagents_add = list(/datum/reagent/water/holywater = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 	rarity = 20
 
@@ -122,7 +122,7 @@
 	plantname = "Ballolon Vines"
 	product = /obj/item/food/grown/ballolon
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/smoke)
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/watermelon/holy, /obj/item/seeds/watermelon)
 	reagents_add = list(/datum/reagent/oxygen = 0.2, /datum/reagent/hydrogen = 0.2)
 	rarity = 15
 

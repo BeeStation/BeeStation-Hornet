@@ -48,6 +48,7 @@
 	plantname = "Fairygrass"
 	product = /obj/item/food/grown/grass/fairy
 	icon_grow = "fairygrass-grow"
+	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass, /obj/item/seeds/grass/shamrock)
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/blue)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05, /datum/reagent/drug/space_drugs = 0.15)
 
@@ -99,7 +100,7 @@
 	species = "carpet"
 	plantname = "Carpet"
 	product = /obj/item/food/grown/grass/carpet
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/grass, /obj/item/seeds/grass/fairy, /obj/item/seeds/grass/shamrock)
 	rarity = 10
 
 /obj/item/food/grown/grass/carpet
@@ -118,7 +119,7 @@
 	species = "shamrock"
 	plantname = "Shamrock Plants"
 	product = /obj/item/food/grown/grass/shamrock
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass/fairy, /obj/item/seeds/grass)
 	rarity = 10
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/nitrogen = 0.1, /datum/reagent/consumable/nutriment = 0.02)

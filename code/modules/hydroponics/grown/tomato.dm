@@ -33,7 +33,7 @@
 	species = "bloodtomato"
 	plantname = "Blood-Tomato Plants"
 	product = /obj/item/food/grown/tomato/blood
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/tomato/blue, /obj/item/seeds/tomato, /obj/item/seeds/tomato/killer)
 	reagents_add = list(/datum/reagent/blood = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 	rarity = 20
 
@@ -88,7 +88,7 @@
 	plantname = "Bluespace Tomato Plants"
 	product = /obj/item/food/grown/tomato/blue/bluespace
 	yield = 2
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/tomato/blue, /obj/item/seeds/tomato)
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/lube = 0.2, /datum/reagent/bluespace = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 	rarity = 50
@@ -117,7 +117,7 @@
 	icon_grow = "killertomato-grow"
 	icon_harvest = "killertomato-harvest"
 	icon_dead = "killertomato-dead"
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/tomato/blue, /obj/item/seeds/tomato/blood, /obj/item/seeds/tomato)
 	rarity = 30
 
 /obj/item/food/grown/tomato/killer

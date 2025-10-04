@@ -25,7 +25,7 @@
 	species = "steelcap"
 	plantname = "Steel Caps"
 	product = /obj/item/grown/log/steel
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/tower)
 	reagents_add = list(/datum/reagent/iron = 0.2)
 	rarity = 20
 
@@ -115,6 +115,7 @@
 	potency = 50
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	mutatelist = list(/obj/item/seeds/sugarcane)
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/grown/log/bamboo
