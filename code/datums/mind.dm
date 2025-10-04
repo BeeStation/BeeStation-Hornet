@@ -261,7 +261,7 @@
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
-	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
+	var/obj/item/modular_computer/PDA = locate() in all_contents	//Changing this so we don't have problems in the future if we decide to give people the choice to spawn with tablet or PDA
 	var/obj/item/radio/R = locate() in all_contents
 	var/obj/item/pen/P
 
@@ -305,8 +305,6 @@
 					uplink_loc = P
 		if(UPLINK_PEN)
 			uplink_loc = P
-		if(UPLINK_PEN)
-			uplink_loc = P
 		if(UPLINK_IMPLANT)
 			implant = TRUE
 
@@ -323,7 +321,7 @@
 			if(uplink_loc == R)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
 			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink in your PDA's network card. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
 				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
 			to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
