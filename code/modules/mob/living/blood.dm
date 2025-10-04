@@ -400,7 +400,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 						C.ForceContractDisease(D)
 
 				var/datum/blood_type/blood_type = blood_data["blood_type"]
+				to_chat(world, "Transfusion attempt: [blood_type?.name || "NULL"] ([blood_type?.type]) -> [C.dna.blood_type?.name] ([C.dna.blood_type?.type])")
+				to_chat(world, "Compatible types: [json_encode(C.dna.blood_type?.compatible_types)]")
+				to_chat(world, "Is compatible: [!blood_type || (blood_type.type in C.dna.blood_type.compatible_types)]")
+
 				if(!blood_type || !(blood_type.type in C.dna.blood_type.compatible_types))
+					to_chat(world, "POISONING TRANSFUSION!")
 					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return TRUE
 
@@ -443,6 +448,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		if(!suiciding)
 			blood_data["cloneable"] = 1
 		blood_data["blood_type"] = dna.blood_type
+		to_chat(world, "Creating blood data with blood type: [dna.blood_type?.name] ([dna.blood_type?.type])")
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
 		blood_data["features"] = dna.features
