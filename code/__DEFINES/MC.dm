@@ -1,7 +1,5 @@
 #define MC_TICK_CHECK ( ( TICK_USAGE > Master.current_ticklimit || src.state != SS_RUNNING ) ? pause() : 0 )
 
-#define MC_TICK_REMAINING_MS ((Master.current_ticklimit - TICK_USAGE) * world.tick_lag)
-
 #define MC_SPLIT_TICK_INIT(phase_count) var/original_tick_limit = Master.current_ticklimit; var/split_tick_phases = ##phase_count
 #define MC_SPLIT_TICK \
 	if(split_tick_phases > 1){\
@@ -78,9 +76,11 @@
 #define SS_PAUSING 5 /// in the middle of pausing
 
 // Subsystem init stages
-#define INITSTAGE_EARLY 1 //! Early init stuff that doesn't need to wait for mapload
-#define INITSTAGE_MAIN 2 //! Main init stage
-#define INITSTAGE_MAX 2 //! Highest initstage.
+#define INITSTAGE_FIRST 1
+#define INITSTAGE_EARLY 2 //! Early init stuff that doesn't need to wait for mapload
+#define INITSTAGE_MAIN 3 //! Main init stage
+#define INITSTAGE_LAST 4
+#define INITSTAGE_MAX 4 //! Highest initstage.
 
 #define SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/##X);\
 /datum/controller/subsystem/##X/New(){\

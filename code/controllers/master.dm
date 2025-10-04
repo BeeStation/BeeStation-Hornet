@@ -115,7 +115,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			//Code used for first master on game boot or if existing master got deleted
 			Master = src
 			var/list/subsystem_types = subtypesof(/datum/controller/subsystem)
-			sortTim(subsystem_types, GLOBAL_PROC_REF(cmp_subsystem_init))
+			sortTim(subsystem_types, GLOBAL_PROC_REF(cmp_subsystem_init_stage))
 			//Find any abandoned subsystem from the previous master (if there was any)
 			var/list/existing_subsystems = list()
 			for(var/global_var in global.vars)
@@ -232,9 +232,90 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for (var/i in 1 to INITSTAGE_MAX)
 		stage_sorted_subsystems[i] = list()
 
-	// Sort subsystems by init_order, so they initialize in the correct order.
-	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_init))
-	for (var/datum/controller/subsystem/subsystem as anything in subsystems)
+	var/list/type_to_subsystem = list()
+	for(var/datum/controller/subsystem/subsystem as anything in subsystems)
+		type_to_subsystem[subsystem.type] = subsystem
+
+	// Allows subsystems to declare other subsystems that must initialize after them.
+	for(var/datum/controller/subsystem/subsystem as anything in subsystems)
+		for(var/dependent_type as anything in subsystem.dependents)
+			if(!ispath(dependent_type, /datum/controller/subsystem))
+				stack_trace("ERROR: MC: subsystem `[subsystem.type]` has an invalid dependent: `[dependent_type]`. Skipping")
+				continue
+			var/datum/controller/subsystem/dependent = type_to_subsystem[dependent_type]
+			dependent.dependencies |= subsystem.type
+		subsystem.dependents = list()
+
+	// Constructs a reverse-dependency graph.
+	for(var/datum/controller/subsystem/subsystem as anything in subsystems)
+		for(var/dependency_type as anything in subsystem.dependencies)
+			if(!ispath(dependency_type, /datum/controller/subsystem))
+				stack_trace("ERROR: MC: subsystem `[subsystem.type]` has an invalid dependency: `[dependency_type]`. Skipping")
+				continue
+			var/datum/controller/subsystem/dependency = type_to_subsystem[dependency_type]
+			// Not a foolproof failsafe, likely to only prevent any immediate issues if this is only triggered once.
+			if(subsystem.init_stage < dependency.init_stage)
+				stack_trace("ERROR: MC: subsystem `[subsystem.type]` has an init_stage before one of its dependencies (Dependency: `[dependency.type]`, [subsystem.init_stage] < [dependency.init_stage])! Setting init_stage to [dependency.init_stage]")
+				subsystem.init_stage = dependency.init_stage
+			dependency.dependents += subsystem
+
+	// Topological sorting algorithm
+	var/list/counts = new(subsystems.len)
+	var/list/unsorted_subsystems = list()
+	var/index = 1
+	for(var/datum/controller/subsystem/subsystem as anything in subsystems)
+		counts[index] = length(subsystem.dependencies)
+		subsystem.ordering_id = index
+		if(counts[index] == 0)
+			unsorted_subsystems += subsystem
+		index += 1
+
+	var/list/sorted_subsystems = list()
+	while(length(unsorted_subsystems) > 0)
+		var/datum/controller/subsystem/sub = unsorted_subsystems[unsorted_subsystems.len]
+		unsorted_subsystems.len--
+		sorted_subsystems += sub
+		for(var/datum/controller/subsystem/dependent as anything in sub.dependents)
+			counts[dependent.ordering_id] -= 1
+			if(counts[dependent.ordering_id] == 0)
+				unsorted_subsystems += dependent
+	// Topological sorting algorithm end
+
+	if(length(subsystems) != length(sorted_subsystems))
+		var/list/circular_dependency = subsystems.Copy() - sorted_subsystems
+		var/list/debug_msg = list()
+		var/list/usr_msg = list()
+		for(var/datum/controller/subsystem/subsystem as anything in circular_dependency)
+			usr_msg += "[subsystem.name]"
+
+		var/list/datum/controller/subsystem/nodes = list(circular_dependency[1])
+		var/list/loop = list()
+		while(length(nodes) > 0)
+			var/datum/controller/subsystem/node = nodes[nodes.len]
+			nodes.len--
+			if(node in loop)
+				loop += node
+				break
+			loop += node
+			for(var/datum/controller/subsystem/connected as anything in node.dependencies)
+				nodes += type_to_subsystem[connected]
+
+		var/loop_position = 0
+		for(var/datum/controller/subsystem/node in loop)
+			if(node == loop[loop.len])
+				break
+			loop_position++
+		if(loop_position != 0)
+			loop.Cut(1, loop_position + 1)
+
+		for(var/datum/controller/subsystem/subsystem as anything in loop)
+			debug_msg += "[subsystem.name]"
+
+		// Can't initialize them if they have circular dependencies, there's no real failsafe here.
+		stack_trace("ERROR: CRITICAL: MC: The following subsystems have circular dependencies: [jointext(debug_msg, " -> ")]")
+		to_chat(world, span_bolddanger("CRITICAL: Failed to initialize [jointext(usr_msg, ", ")]"), MESSAGE_TYPE_DEBUG)
+
+	for (var/datum/controller/subsystem/subsystem as anything in sorted_subsystems)
 		var/subsystem_init_stage = subsystem.init_stage
 		if (!isnum(subsystem_init_stage) || subsystem_init_stage < 1 || subsystem_init_stage > INITSTAGE_MAX || round(subsystem_init_stage) != subsystem_init_stage)
 			stack_trace("ERROR: MC: subsystem `[subsystem.type]` has invalid init_stage: `[subsystem_init_stage]`. Setting to `[INITSTAGE_MAX]`")
@@ -242,12 +323,15 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		stage_sorted_subsystems[subsystem_init_stage] += subsystem
 
 	// Sort subsystems by display setting for easy access.
-	sortTim(subsystems, /proc/cmp_subsystem_display)
+	var/evaluated_order = 1
+	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_display))
 	var/start_timeofday = REALTIMEOFDAY
 	for (var/current_init_stage in 1 to INITSTAGE_MAX)
 
 		// Initialize subsystems.
 		for (var/datum/controller/subsystem/subsystem in stage_sorted_subsystems[current_init_stage])
+			subsystem.init_order = evaluated_order
+			evaluated_order++
 			init_subsystem(subsystem)
 
 			CHECK_TICK
@@ -263,7 +347,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
 
-	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
+	var/msg = "Initializations complete within [round(time, 0.01)] second[time == 1 ? "" : "s"]!"
 	to_chat(world, span_boldannounce("[msg]"))
 	log_world(msg)
 

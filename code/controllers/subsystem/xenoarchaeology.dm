@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(xenoarchaeology)
 	name = "Xenoarchaeology"
 	flags = SS_NO_FIRE
-	init_order = INIT_ORDER_XENOARCHAEOLOGY
 
 	///Which console is the main character
 	var/obj/machinery/computer/xenoarchaeology_console/main_console
@@ -94,8 +93,7 @@ SUBSYSTEM_DEF(xenoarchaeology)
 		//Populate datum fields
 		material.compile_artifact_whitelist(material_index)
 
-/datum/controller/subsystem/xenoarchaeology/Shutdown()
-	. = ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/xenoarchaeology/Recover()
 	. = ..()
