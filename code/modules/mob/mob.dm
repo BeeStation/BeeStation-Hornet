@@ -727,30 +727,40 @@
   *
   * This sends you back to the lobby creating a new dead mob
   *
-  * Only works if flag/norespawn is allowed in config
+  * Only works if flag/allow_respawn is allowed in config
   */
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
 	if(isnewplayer(src))
 		return
-	var/alert_yes
 
-	if (CONFIG_GET(flag/norespawn))
-		if(!check_rights_for(client, R_ADMIN))
-			to_chat(usr, span_boldnotice("Respawning is disabled."))
-			return
-		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
-		if(alert_yes != "Yes")
-			return
+	switch(CONFIG_GET(flag/allow_respawn))
+		if(RESPAWN_FLAG_NEW_CHARACTER)
+			if(!check_respawn_delay())
+				if(tgui_alert_async(usr, "Note, respawning is only allowed as another character. You have been dead for [DisplayTimeText(usr.get_respawn_time(), 1)] out of a required [DisplayTimeText(CONFIG_GET(number/respawn_delay), 1)].", "Respawn Unavailable", list("Okay"), timeout = 80) != "Respawn")
+					return
 
+		if(RESPAWN_FLAG_FREE)
+			pass() // Normal respawn
+
+		if(RESPAWN_FLAG_DISABLED)
+			if (!check_rights_for(usr.client, R_ADMIN))
+				to_chat(usr, span_boldnotice("Respawning is not enabled!"))
+				return
+
+	var/mob/M = usr
 	if ((stat != DEAD || !( SSticker )))
-		to_chat(usr, span_boldnotice("You must be dead to use this!"))
+		to_chat(usr, span_boldnotice("You must be a ghost to use this!"))
 		return
 
-	log_game("[key_name(usr)] used abandon mob.")
+	if(!check_respawn_delay())
+		return
 
 	to_chat(usr, span_boldnotice("Please roleplay correctly!"))
+
+	log_game("[key_name(usr)] has used the respawn button to return to the lobby.")
+	message_admins("[key_name(usr)] has used the respawn button to return to the lobby.")
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
@@ -761,19 +771,33 @@
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		return
 
-	var/mob/dead/new_player/M = new /mob/dead/new_player()
+	var/mob/dead/new_player/authenticated/NP = new()
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
-	if(alert_yes)
-		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
-		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 
-	M.key = key
-//	M.Login()	//wat
+	NP.ckey = usr.ckey
+	qdel(M)
 	return
 
+/// Checks if the mob can respawn yet according to the respawn delay
+/mob/proc/check_respawn_delay()
+	if(!CONFIG_GET(number/respawn_delay))
+		return TRUE
+
+	var/death_delta = world.time - client.player_details.time_of_death
+
+	var/required_delay = CONFIG_GET(number/respawn_delay)
+
+	if(death_delta < required_delay)
+		return FALSE
+	return TRUE
+
+/// Returns how long they've been dead
+/mob/proc/get_respawn_time()
+	var/death_time = world.time - client.player_details.time_of_death
+	return death_time
 
 /**
   * Sometimes helps if the user is stuck in another perspective or camera
