@@ -77,13 +77,13 @@
 		/obj/item/door_remote/omni,
 		)
 	r_hand = /obj/item/gun/energy/e_gun/stun
-	l_pocket = /obj/item/melee/energy/sword/saber/blue
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
 //Subtype of amber so we can avoid duplicating like 50% of our code
 /datum/outfit/centcom/ert/commander/amber/red
 	name = "ERT Commander - Class Red"
 
+	l_pocket = /obj/item/melee/energy/sword/saber/blue
 	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
 
 /datum/outfit/centcom/ert/commander/inquisitor
