@@ -162,7 +162,7 @@
 	balloon_alert(carrying_mob, "Recall active, Disengaging!")
 	addtimer(CALLBACK(src, PROC_REF(recall_leave_thief), carrying_mob), 3 SECONDS)
 
-/obj/item/implant/mod/proc/recall_leave_thief(var/mob/living/carrying_mob)
+/obj/item/implant/mod/proc/recall_leave_thief(mob/living/carrying_mob)
 	if(!ismob(get_atom_on_turf(module.mod)))
 		return FALSE //They dropped it
 	carrying_mob?.dropItemToGround(module.mod)
