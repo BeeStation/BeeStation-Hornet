@@ -2,12 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
 "ak" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/shuttle/mining/large)
@@ -260,12 +254,6 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
-"aN" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
 "aO" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -281,12 +269,6 @@
 	dir = 8
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
-"aQ" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 5
-	},
-/turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aR" = (
 /obj/structure/chair/fancy/shuttle{
@@ -321,9 +303,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
 "aU" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 8
-	},
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aV" = (
@@ -348,12 +328,6 @@
 	dir = 4
 	},
 /turf/open/floor/pod/light,
-/area/shuttle/mining/large)
-"aY" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
-/turf/open/floor/plating,
 /area/shuttle/mining/large)
 "aZ" = (
 /obj/machinery/door/airlock/survival_pod/glass,
@@ -413,8 +387,8 @@ aF
 aa
 "}
 (2,1,1) = {"
-ab
-aY
+aU
+aU
 aX
 aT
 ak
@@ -425,7 +399,7 @@ aG
 aI
 "}
 (3,1,1) = {"
-aY
+aU
 xM
 aS
 aP
@@ -437,7 +411,7 @@ ak
 ak
 "}
 (4,1,1) = {"
-aY
+aU
 Jq
 aL
 aO
@@ -449,7 +423,7 @@ aH
 aJ
 "}
 (5,1,1) = {"
-aY
+aU
 Po
 aR
 aK
@@ -461,8 +435,8 @@ ak
 ak
 "}
 (6,1,1) = {"
-aQ
-aY
+aU
+aU
 tQ
 aM
 ak
@@ -474,12 +448,12 @@ aI
 "}
 (7,1,1) = {"
 aa
-aQ
-aN
+aU
+aU
 ak
 ak
 ak
-aN
+aU
 ak
 aF
 aa
