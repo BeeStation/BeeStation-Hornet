@@ -60,6 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	var/poster_item_name = "hypothetical poster"
 	var/poster_item_desc = "This hypothetical poster item should not exist, let's be honest here."
 	var/poster_item_icon_state = "rolled_poster"
+	var/poster_item_type = /obj/item/poster
 
 /obj/structure/sign/poster/Initialize(mapload)
 	. = ..()
@@ -105,6 +106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 		return
 	if(ruined)
 		return
+
 	visible_message("[user] rips [src] in a single, decisive motion!" )
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
 
@@ -117,7 +119,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 /obj/structure/sign/poster/proc/roll_and_drop(loc)
 	pixel_x = 0
 	pixel_y = 0
-	var/obj/item/poster/P = new(loc, src)
+	var/obj/item/poster/P = new poster_item_type(loc, src)
 	forceMove(P)
 	return P
 
@@ -438,6 +440,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	icon_state = "random_official"
 	never_random = TRUE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
+
 /obj/structure/sign/poster/official/here_for_your_safety
 	name = "Here For Your Safety"
 	desc = "A poster glorifying the station's security force."
@@ -672,6 +676,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	name = "Suit Sensors"
 	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
+
+/obj/structure/sign/poster/official/xenoarchaeology
+	name = "Xenoarchaeology"
+	desc = "A poster with featuring several diagrams of artifacts.\
+	\n\
+	Artifacts can be labeled and sold through cargo to obtain research & discovery points.\n\
+	Poorly labeled artifacts will yield fewer rewards than accurately labeled ones."
+	icon_state = "poster52"
+
+/obj/structure/sign/poster/official/xenoarchaeology_pearl
+	name = "???"
+	desc = "A poster featuring an artifact you don't recognize.\
+	\n\
+	Legends say, artifacts can be made by striking objects with nuclear particles while submerged in tritium. They also \
+	say once stabilized, artifacts behave strangely when aligned to certain grids, related to \
+	the characteristics of their traits."
+	icon_state = "poster52"
 
 /obj/structure/sign/poster/contraband/syndicate
 	name = "Syndicate Emblem"

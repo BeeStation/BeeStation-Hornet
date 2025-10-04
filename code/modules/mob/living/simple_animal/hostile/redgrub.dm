@@ -39,7 +39,7 @@
 	var/hibernationcounter = 0
 	var/list/grub_diseases = list()
 
-/mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
+/mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(mob/living/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M)) // i hate this
 		return TRUE
@@ -96,10 +96,6 @@
 		togglehibernation()
 	else
 		hibernationcounter ++
-
-/mob/living/simple_animal/hostile/redgrub/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., grub_diseases)
 
 /mob/living/simple_animal/hostile/redgrub/proc/togglehibernation()
 	if(hibernating)

@@ -38,7 +38,7 @@
 		return FALSE
 
 	var/mob/living/carbon/alien/humanoid/royal/evolver = owner
-	var/obj/item/organ/alien/hivenode/node = evolver.getorgan(/obj/item/organ/alien/hivenode)
+	var/obj/item/organ/alien/hivenode/node = evolver.get_organ_by_type(/obj/item/organ/alien/hivenode)
 	if(!node || node.recent_queen_death)
 		return FALSE
 

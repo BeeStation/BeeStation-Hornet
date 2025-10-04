@@ -38,8 +38,14 @@
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	c.chem_charges -= chemical_cost				//I'm taking your chemicals hostage!
 	var/turf/A = get_turf(user)
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as a living teratoma?", ROLE_TERATOMA, null, 7.5 SECONDS) //players must answer rapidly
-	if(!LAZYLEN(candidates)) //if we got at least one candidate, they're teratoma now
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		check_jobban = ROLE_TERATOMA,
+		poll_time = 10 SECONDS,
+		jump_target = owner,
+		role_name_text = "living teratoma",
+		alert_pic = /mob/living/carbon/monkey/tumor,
+	)
+	if(!candidate) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, span_warning("You fail at creating a tumor. Perhaps you should try again later?"))
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
 		return FALSE
@@ -61,8 +67,7 @@
 	// Copies the DNA, so that you can find who caused it while causing some chaos
 	T.dna.copy_dna(user.dna)
 	T.creator_key = user.key
-	var/mob/dead/observer/C = pick(candidates)
-	T.key = C.key
+	T.key = candidate.key
 	var/datum/antagonist/teratoma/D = new
 	T.mind.add_antag_datum(D)
 	to_chat(T, span_notice("You burst out from [user]'s chest!"))

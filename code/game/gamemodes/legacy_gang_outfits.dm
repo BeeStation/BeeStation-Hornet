@@ -57,7 +57,7 @@
 
 /datum/outfit/blasto
 	name = "Blasto"
-	head = /obj/item/clothing/head/beret/navy
+	head = /obj/item/clothing/head/beret
 	uniform = /obj/item/clothing/under/suit/navy
 	suit = /obj/item/clothing/suit/jacket/miljacket
 

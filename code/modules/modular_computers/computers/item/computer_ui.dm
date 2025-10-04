@@ -137,6 +137,8 @@
 	var/obj/item/computer_hardware/card_slot/secondarycardholder = all_components[MC_CARD2]
 	if(secondarycardholder?.stored_card)
 		data["removable_media"] += "secondary RFID card"
+	if(secondarycardholder?.fake_card)
+		data["removable_media"] += "ERROR DETECTED: Phantom credentials present in port 2."
 
 	data["programs"] = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -287,7 +289,6 @@
 				usr.put_in_hands(stored_pai_card)
 				remove_pai()
 				to_chat(usr, span_notice("You remove the pAI from [src]."))
-				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 			return TRUE
 	if(active_program)
 		return active_program.ui_act(action, params, ui, state)

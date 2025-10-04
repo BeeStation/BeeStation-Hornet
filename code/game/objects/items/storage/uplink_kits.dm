@@ -33,7 +33,7 @@
 
 		if("stealth")
 			new /obj/item/gun/energy/recharge/ebow(src)
-			new /obj/item/pen/sleepy(src)
+			new /obj/item/pen/paralytic(src)
 			new /obj/item/healthanalyzer/rad_laser(src)
 			new /obj/item/chameleon(src)
 			new /obj/item/soap/syndie(src)
@@ -77,10 +77,10 @@
 			new /obj/item/implanter/storage(src)
 
 		if("hacker")
-			new /obj/item/aiModule/syndicate(src)
+			new /obj/item/ai_module/syndicate(src)
 			new /obj/item/card/emag(src)
 			new /obj/item/encryptionkey/binary(src)
-			new /obj/item/aiModule/toyAI(src)
+			new /obj/item/ai_module/toy_ai(src)
 			new /obj/item/multitool/ai_detect(src)
 			new /obj/item/storage/toolbox/syndicate(src)
 			new /obj/item/camera_bug(src)
@@ -99,8 +99,8 @@
 		if("sabotage")
 			new /obj/item/grenade/plastic/c4 (src)
 			new /obj/item/grenade/plastic/c4 (src)
-			new /obj/item/doorCharge(src)
-			new /obj/item/doorCharge(src)
+			new /obj/item/grenade/plastic/c4 (src)
+			new /obj/item/grenade/plastic/c4 (src)
 			new /obj/item/camera_bug(src)
 			new /obj/item/sbeacondrop/powersink(src)
 			new /obj/item/computer_hardware/hard_drive/role/virus/syndicate(src)
@@ -117,7 +117,7 @@
 			new /obj/item/clothing/under/suit/black_really(src)
 
 		if("metaops")
-			new /obj/item/clothing/suit/space/hardsuit/syndi(src) // 8 tc
+			new /obj/item/mod/control/pre_equipped/nuclear/unrestricted(src) // 8 tc
 			new /obj/item/gun/ballistic/shotgun/automatic/bulldog/unrestricted(src) // 8 tc
 			new /obj/item/implanter/explosive(src) // 2 tc
 			new /obj/item/ammo_box/magazine/m12g(src) // 2 tc
@@ -279,7 +279,7 @@
 	var/list/item_list = list(
 		/obj/item/storage/backpack/duffelbag/syndie/x4,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/pen/sleepy,
+		/obj/item/pen/paralytic,
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/firstaid/tactical,
@@ -462,7 +462,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/modular_computer/tablet/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/preset/chameleon(src)
 	new /obj/item/razor(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/clothing/head/wig(src)
@@ -482,7 +482,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/modular_computer/tablet/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/preset/chameleon(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)
@@ -522,7 +522,7 @@
 	new /obj/item/radio/headset/headset_cent/empty(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/modular_computer/tablet/pda/heads(src)
+	new /obj/item/modular_computer/tablet/pda/preset/heads(src)
 	new /obj/item/clipboard(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/broken/PopulateContents()
@@ -536,7 +536,7 @@
 	new /obj/item/storage/backpack/chameleon/broken(src)
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
-	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
+	new /obj/item/modular_computer/tablet/pda/preset/chameleon/broken(src)
 	new /obj/item/card/id/syndicate/broken(src)
 	// No chameleon laser, they can't randomise for //REASONS//
 
@@ -547,6 +547,12 @@
 /obj/item/storage/box/syndie_kit/bee_grenades/PopulateContents()
 	for(var/i in 1 to 3)
 		new /obj/item/grenade/spawnergrenade/buzzkill(src)
+
+/obj/item/storage/box/syndie_kit/sleepytime/PopulateContents()
+	new /obj/item/clothing/under/syndicate/bloodred/sleepytime(src)
+	new /obj/item/reagent_containers/cup/glass/mug/cocoa(src)
+	new /obj/item/toy/plush/carpplushie(src)
+	new /obj/item/bedsheet/syndie(src)
 
 /obj/item/storage/box/syndie_kit/cultconstructkit
 	name = "cult construct kit"

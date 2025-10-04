@@ -82,7 +82,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 		. += "There are [orbiting_balls.len] mini-balls orbiting it."
 
 
-/obj/anomaly/energy_ball/proc/move_the_basket_ball(var/move_amount)
+/obj/anomaly/energy_ball/proc/move_the_basket_ball(move_amount)
 	//we face the last thing we zapped, so this lets us favor that direction a bit
 	var/move_bias = pick(GLOB.alldirs)
 	for(var/i in 0 to move_amount)
@@ -164,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/energy_ball)
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
-		if(L.incorporeal_move || L.status_flags & GODMODE)
+		if(L.incorporeal_move || HAS_TRAIT(L, TRAIT_GODMODE))
 			return
 	if(!iscarbon(A))
 		return

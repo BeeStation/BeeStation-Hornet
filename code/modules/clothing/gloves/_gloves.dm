@@ -5,7 +5,6 @@
 	icon = 'icons/obj/clothing/gloves.dmi'
 	icon_state = "white"
 	item_state = "wgloves"
-	worn_icon_state = "wgloves"
 	siemens_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
@@ -42,7 +41,7 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_gloves()
+		M.update_worn_gloves()
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)

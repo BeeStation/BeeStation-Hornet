@@ -1,39 +1,31 @@
-/// This is the only ruleset that should be picked this round, used by admins and should not be on rulesets in code.
-#define ONLY_RULESET (1 << 0)
+//#define TESTING_DYNAMIC
 
-/// Only one ruleset with this flag will be picked.
-#define HIGH_IMPACT_RULESET (1 << 1)
+#if defined(TESTING_DYNAMIC) && defined(CIBUILDING)
+	#error TESTING_DYNAMIC is enabled, disable this!
+#endif
 
-/// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
-#define LONE_RULESET (1 << 2)
+#define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
+#define DYNAMIC_CATEGORY_MIDROUND "Midround"
+#define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
 
-/// This ruleset can't execute alongside ANY other roundstart ruleset.
-#define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
+/// For relatively small antagonists (Sleeper Agent, Obsessed, Fugitives, etc.)
+#define DYNAMIC_MIDROUND_LIGHT (1 << 0)
+/// For round disruptive antagonists (Abductors, Malf AI, Slaughter Demon, etc.)
+#define DYNAMIC_MIDROUND_MEDIUM (1 << 1)
+/// For round ending antagonists (Wizard, Lone Operative, Blob, etc.)
+#define DYNAMIC_MIDROUND_HEAVY (1 << 2)
 
-/// This ruleset should only be rolled if the station is mostly intact, i.e the crew is not mostly dead and the station isn't full of holes.
-/// Only used for midround/latejoin rolling.
-#define INTACT_STATION_RULESET (1 << 4)
+/// Only one ruleset with this flag will be picked
+#define HIGH_IMPACT_RULESET (1<<0)
+/// This ruleset can only be picked once
+#define CANNOT_REPEAT (1<<1)
+/// Dynamic will call rule_process each tick if this is set
+#define SHOULD_PROCESS_RULESET (1<<2)
+/// Should the chosen candidate(s) be picked based off of their antagonist reputation
+#define SHOULD_USE_ANTAG_REP (1<<3)
+/// If this flag is enabled no other rulesets can be executed
+#define NO_OTHER_RULESETS (1<<4)
 
-/// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
-#define PERSISTENT_RULESET (1 << 5)
-
-/// This is a "heavy" midround ruleset, and should be run later into the round
-#define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
-
-/// This is a "light" midround ruleset, and should be run early into the round
-#define MIDROUND_RULESET_STYLE_LIGHT "Light"
-
-/// No round event was hijacked this cycle
-#define HIJACKED_NOTHING "HIJACKED_NOTHING"
-
-/// This cycle, a round event was hijacked when the last midround event was too recent.
-#define HIJACKED_TOO_RECENT "HIJACKED_TOO_RECENT"
-
-/// Requirements when something needs a lot of threat to run, but still possible at low-pop
-#define REQUIREMENTS_VERY_HIGH_THREAT_NEEDED list(90,90,90,80,60,50,40,40,40,40)
-
-#define DYNAMIC_EXECUTE_SUCCESS 1
-#define DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS 2
 #define DYNAMIC_EXECUTE_FAILURE 0
-
+#define DYNAMIC_EXECUTE_SUCCESS 1
 #define RULESET_STOP_PROCESSING 1

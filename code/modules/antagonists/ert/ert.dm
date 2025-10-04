@@ -21,7 +21,6 @@
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = ROLE_ERT
 	required_living_playtime = 2
 

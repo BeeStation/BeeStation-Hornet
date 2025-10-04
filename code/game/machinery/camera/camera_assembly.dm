@@ -164,7 +164,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 		droppable_parts += proxy_module
 	if(!droppable_parts.len)
 		return
-	var/obj/item/choice = input(user, "Select a part to remove:", src) as null|obj in sort_names(droppable_parts)
+	var/obj/item/choice = tgui_input_list(user, "Select a part to remove:", src, sort_names(droppable_parts))
 	if(!choice || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	to_chat(user, span_notice("You remove [choice] from [src]."))
@@ -180,13 +180,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/camera_assembly)
 		return FALSE
 
 	tool.play_tool_sound(src)
-	var/input = stripped_input(user, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13")
-	if(!input)
-		to_chat(user, span_warning("No input found, please hang up and try your call again!"))
+	var/input = tgui_input_text(user, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13")
+	if(!input) //no input so we return
+		to_chat(user, span_warning("No input found, please try again!"))
+		return
+	if(OOC_FILTER_CHECK(input)) //check for forbidden words (OOC filter)
+		to_chat(user, span_warning("Your input contains forbidden words, try again."))
 		return
 	var/list/tempnetwork = splittext(input, ",")
 	if(tempnetwork.len < 1)
-		to_chat(user, span_warning("No network found, please hang up and try your call again!"))
+		to_chat(user, span_warning("No network found, please try again!"))
 		return
 	for(var/i in tempnetwork)
 		tempnetwork -= i

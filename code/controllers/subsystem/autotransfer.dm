@@ -30,17 +30,24 @@ SUBSYSTEM_DEF(autotransfer)
 	active_playercount = 0
 
 	for(var/client/c in GLOB.clients)
+		//Clients that are still in the lobby cannot vote and are also not counted as active
 		if(isnewplayer(c.mob))
-			continue //We don't count them or their votes
+			continue
+
+		//Only non-antagonist players count as "active" for the sake of determining how many votes are necessary to leave
+		if(isliving(c.mob) && !c.mob?.mind?.special_role)
+			active_playercount ++
+
+		//All players not in the lobby can vote to leave, living and dead
 		if (c.player_details.voted_to_leave)
 			connected_votes_to_leave ++
-		active_playercount ++
 
 	if(REALTIMEOFDAY > checkvotes_time)
 		if(decay_start)
 			decay_count++
 
-		required_votes_to_leave = max(active_playercount * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count), 1)
+		//After a certain point votes are ignored and the shuttle is called unless config is set to this doesn't happen. Indefinite rounds are not possible.
+		required_votes_to_leave = active_playercount * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
 
 		if(connected_votes_to_leave >= required_votes_to_leave)
 			if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE

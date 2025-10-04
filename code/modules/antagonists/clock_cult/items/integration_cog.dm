@@ -6,7 +6,7 @@
 	item_flags = ISWEAPON
 
 /obj/item/clockwork/integration_cog/attack_atom(obj/O, mob/living/user)
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return ..()
 	if(!istype(O, /obj/machinery/power/apc))
 		return ..()

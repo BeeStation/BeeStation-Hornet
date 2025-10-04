@@ -7,6 +7,8 @@
 	products = list(
 		/obj/item/storage/crayons = 2,
 		/obj/item/toy/cards/deck = 5,
+		/obj/item/chess_board = 1,
+		/obj/item/chess_board/checkers = 1,
 		/obj/item/storage/pill_bottle/dice = 10,
 		/obj/item/storage/box/yatzy = 3,
 		/obj/item/toy/cards/deck/cas = 3,
@@ -28,6 +30,7 @@
 		)
 	premium = list(
 		/obj/item/melee/skateboard/pro = 3,
+		/obj/item/clothing/shoes/wheelys= 3,
 		/obj/item/canvas/twentyfour_twentyfour = 5,
 		/obj/item/airlock_painter = 1,
 		/obj/item/melee/skateboard/hoverboard = 1
@@ -35,7 +38,6 @@
 	refill_canister = /obj/item/vending_refill/games
 	default_price = 10
 	extra_price = 25
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "games-light-mask"
 
 /obj/item/vending_refill/games

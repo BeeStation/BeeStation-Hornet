@@ -152,7 +152,7 @@
 			var/mob/living/L = l
 			if(L.stat != DEAD && L.mind)
 				L.mind.transfer_to(soulowner)
-				soulowner.revive(TRUE, TRUE)
+				soulowner.revive(HEAL_ALL)
 				L.death(FALSE)
 
 //Lose your claim to the throne!

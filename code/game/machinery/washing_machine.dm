@@ -136,17 +136,16 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 	DYE_REGISTRY_BERET = list(
-		DYE_WHITE = /obj/item/clothing/head/beret/color,
 		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret/mime,
 		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
-		DYE_QM = /obj/item/clothing/head/beret/supply,
+		DYE_QM = /obj/item/clothing/head/beret/cargo,
 		DYE_LAW = /obj/item/clothing/head/beret/black,
-		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
+		DYE_CAPTAIN = /obj/item/clothing/head/caphat/beret,
 		DYE_HOS = /obj/item/clothing/head/hats/hos/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
-		DYE_RD = /obj/item/clothing/head/beret/sci,
-		DYE_CMO = /obj/item/clothing/head/beret/cmo,
+		DYE_RD = /obj/item/clothing/head/beret/science,
+		DYE_CMO = /obj/item/clothing/head/beret/medical/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
 	DYE_REGISTRY_FANNYPACK = list(
@@ -270,7 +269,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	desc = "[initial(target_type.desc)] The colors look a little dodgy."
 	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
-/obj/item/proc/appearance_change(var/obj/item/target_type)
+/obj/item/proc/appearance_change(obj/item/target_type)
 	if(initial(target_type.greyscale_config) && initial(target_type.greyscale_colors))
 		set_greyscale(
 			colors=initial(target_type.greyscale_colors),

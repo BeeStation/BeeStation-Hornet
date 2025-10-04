@@ -88,13 +88,13 @@
 	if(!summoner.current || !(summoner.current.IsUnconscious() || HAS_TRAIT(summoner.current, TRAIT_CRITICAL_CONDITION)))
 		return
 	// No brain? Ah whatever, just deal clone damage.
-	var/obj/item/organ/brain/brain = summoner.current.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/brain = summoner.current.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!brain || brain.decoy_override)
 		to_chat(summoner.current, span_dangerbold("You feel your body strain as [color_name] takes damage!"))
 		summoner.current.adjustCloneLoss(amount)
 		return
 	to_chat(summoner.current, span_dangerbold("You feel your mind strain as [color_name] takes damage!"))
-	brain.applyOrganDamage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
+	brain.apply_organ_damage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
 
 /**
  * A holoparasite does not sense through traditional methods, therefore it is immune to being flashed.

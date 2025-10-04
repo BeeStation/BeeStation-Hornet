@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(networks)
 			return TRUE
 	return FALSE
 
-/datum/controller/subsystem/networks/proc/log_data_transfer( datum/netdata/data)
+/datum/controller/subsystem/networks/proc/log_data_transfer(datum/netdata/data)
 	logs += "[station_time_timestamp()] - [data.generate_netlog()]"
 	if(logs.len > setting_maxlogcount)
 		logs = logs.Copy(logs.len - setting_maxlogcount, 0)
@@ -215,30 +215,42 @@ SUBSYSTEM_DEF(networks)
  * * log_string - message to log
  * * network - optional, It can be a ntnet or just the text equivalent
  * * hardware_id = optional, text, will look it up and return with the parent.name as well
+ * * log_id = log will not include identification_sting,  hardware_id or network. (For cases where we want to do it manually)
+ * * card = network card, will extract identification string and hardware ID from it. (Requires Log_Id TRUE)
  */
-/datum/controller/subsystem/networks/proc/add_log(log_string, network = null , hardware_id = null)
+/datum/controller/subsystem/networks/proc/add_log(log_string, network, hardware_id, log_id = TRUE, obj/item/computer_hardware/network_card/card)
 	set waitfor = FALSE // so process keeps running
 	var/list/log_text = list()
 	log_text += "\[[station_time_timestamp()]\]"
-	if(network)
-		var/datum/ntnet/net = network
-		if(!net)
-			net = networks[network]
-		if(net) // bad network?
-			log_text += "{[net.network_id]}"
-		else // bad network?
-			log_text += "{[network] *BAD*}"
-
-	if(hardware_id)
-		var/datum/component/ntnet_interface/conn = interfaces_by_hardware_id[hardware_id]
-		if(conn)
-			log_text += " ([hardware_id])[conn.parent]"
-		else
-			log_text += " ([hardware_id])*BAD ID*"
+	if(!log_id)
+		log_text += " - "
+		log_text += log_string
+		log_string = log_text.Join()
+		logs.Add(log_string)
+		if(length(logs) > setting_maxlogcount)
+			logs = logs.Copy(logs.len-setting_maxlogcount,0)
+		return
 	else
-		log_text += "*SYSTEM*"
+		if(network)
+			var/datum/ntnet/net = network
+			if(!net)
+				net = networks[network]
+			if(net) // bad network?
+				log_text += "{[net.network_id]}"
+			else // bad network?
+				log_text += "{[network] *BAD*}"
+		if(hardware_id && !card)	// We only want this if we don't have the more complete version
+			var/datum/component/ntnet_interface/conn = interfaces_by_hardware_id[hardware_id]
+			if(conn)
+				log_text += " ([hardware_id])[conn.parent]"
+			else
+				log_text += " ([hardware_id])*BAD ID*"
+		else if(!card)
+			log_text += " *SYSTEM*"
 	log_text += " - "
 	log_text += log_string
+	if(card)
+		log_text += " [card.identification_string] (NID [card.hardware_id])"
 	log_string = log_text.Join()
 
 	logs.Add(log_string)
@@ -254,7 +266,6 @@ SUBSYSTEM_DEF(networks)
  */
 /datum/controller/subsystem/networks/proc/purge_logs()
 	logs = list()
-	add_log("-!- LOGS DELETED BY SYSTEM OPERATOR -!-")
 
 
 

@@ -6,7 +6,6 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#d7b088"
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SUPPLY
@@ -39,7 +38,7 @@
 	jobtype = /datum/job/quartermaster
 
 	id = /obj/item/card/id/job/quartermaster
-	belt = /obj/item/modular_computer/tablet/pda/quartermaster
+	belt = /obj/item/modular_computer/tablet/pda/preset/quartermaster
 	ears = /obj/item/radio/headset/headset_quartermaster
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/sneakers/brown

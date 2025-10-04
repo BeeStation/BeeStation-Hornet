@@ -51,7 +51,8 @@
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
 #define ROLE_PRISONER			"Prisoner"
-#define ROLE_WIZARD_APPRENTICE "apprentice"
+#define ROLE_WIZARD_APPRENTICE 	"Apprentice"
+#define ROLE_VAMPIRE			"Vampire"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -88,6 +89,7 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_FUGITIVE_HUNTER,
 	ROLE_SLAUGHTER_DEMON,
 	ROLE_CONTRACTOR_SUPPORT_UNIT,
+	ROLE_VAMPIRE,
 ))
 
 #define BAN_ROLE_FORCED_ANTAGONISTS			"Forced Antagonists"
@@ -231,20 +233,18 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	return TRUE
 
 //Job defines for what happens when you fail to qualify for any job during job selection
-#define BEOVERFLOW 	1
-#define BERANDOMJOB 	2
-#define RETURNTOLOBBY 	3
+#define BEOVERFLOW 1
+#define BERANDOMJOB 2
+#define RETURNTOLOBBY 3
 
-#define ROLE_PREFERENCE_CATEGORY_ANAGONIST "Antagonists"
-#define ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING "Midrounds (Living)"
-#define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost)"
-#define ROLE_PREFERENCE_CATEGORY_LEGACY "Legacy Roles (Out of Rotation)"
+#define ROLE_PREFERENCE_CATEGORY_ROUNDSTART "Roundstart Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_MIDROUND "Midround Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_LATEJOIN "Latejoin Antagonists"
 
 GLOBAL_LIST_INIT(role_preference_categories, list(
-	ROLE_PREFERENCE_CATEGORY_ANAGONIST,
-	ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST,
-	ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING,
-	ROLE_PREFERENCE_CATEGORY_LEGACY,
+	ROLE_PREFERENCE_CATEGORY_ROUNDSTART,
+	ROLE_PREFERENCE_CATEGORY_MIDROUND,
+	ROLE_PREFERENCE_CATEGORY_LATEJOIN,
 ))
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())

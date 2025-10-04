@@ -42,7 +42,7 @@
 		C.use(1)
 		has_sensor = HAS_SENSORS
 		update_sensors(NO_SENSORS)
-		to_chat(user,span_notice("You repair the suit sensors on [src] with [C]."))
+		to_chat(user, span_notice("You repair the suit sensors on [src] with [C]."))
 		return 1
 	if(!attach_accessory(I, user))
 		return ..()
@@ -59,12 +59,30 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_w_uniform()
+		M.update_worn_undersuit()
 	if(damaged_state == CLOTHING_SHREDDED && has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
 	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
 		has_sensor = HAS_SENSORS
 	update_sensors(NO_SENSORS)
+
+/obj/item/clothing/under/add_context_self(datum/screentip_context/context, mob/user)
+	if(isnull(context.held_item) && has_sensor == HAS_SENSORS)
+		context.add_right_click_action("Toggle suit sensors")
+
+	if(istype(context.held_item, /obj/item/clothing/accessory) && !attached_accessory)
+		var/obj/item/clothing/accessory/accessory = context.held_item
+		if(accessory.can_attach_accessory(src, user))
+			context.add_left_click_action("Attach accessory")
+
+	if(has_sensor == BROKEN_SENSORS)
+		context.add_left_click_item_action("Repair suit sensors", /obj/item/stack/cable_coil)
+
+	if(attached_accessory)
+		context.add_alt_click_item_action("Remove accessory", null)
+	else if(can_adjust)
+		context.add_alt_click_action(adjusted == ALT_STYLE ? "Wear normally" : "Wear casually")
+
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
@@ -99,7 +117,7 @@
 
 	if(ishuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_w_uniform()
+		H.update_worn_undersuit()
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
@@ -107,7 +125,7 @@
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
-			H.update_inv_wear_suit()
+			H.update_worn_oversuit()
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -121,7 +139,7 @@
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
 		if(ishuman(H) && attached_accessory.above_suit)
-			H.update_inv_wear_suit()
+			H.update_worn_oversuit()
 
 	if(ishuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
@@ -159,11 +177,11 @@
 
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
-				H.update_inv_w_uniform()
-				H.update_inv_wear_suit()
+				H.update_worn_undersuit()
+				H.update_worn_oversuit()
 			if(ismonkey(loc))
 				var/mob/living/carbon/monkey/H = loc
-				H.update_inv_w_uniform()
+				H.update_worn_undersuit()
 
 			return TRUE
 
@@ -183,11 +201,11 @@
 
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
-			H.update_inv_wear_suit()
+			H.update_worn_undersuit()
+			H.update_worn_oversuit()
 		if(ismonkey(loc))
 			var/mob/living/carbon/monkey/H = loc
-			H.update_inv_w_uniform()
+			H.update_worn_undersuit()
 
 //Adds or removes mob from suit sensor global list
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
@@ -271,7 +289,7 @@
 		to_chat(usr, span_notice("You adjust the suit back to normal."))
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		H.update_inv_w_uniform()
+		H.update_worn_undersuit()
 		H.update_body()
 
 /obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
@@ -295,8 +313,7 @@
 				return adjusted
 			for(var/zone in list(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // ugly check to make sure we don't reenable protection on a disabled part
 				if(damage_by_parts[zone] > limb_integrity)
-					for(var/part in body_zone2cover_flags(zone))
-						body_parts_covered &= part
+					body_parts_covered &= body_zone2cover_flags(zone)
 	return adjusted
 
 /obj/item/clothing/under/rank
@@ -369,3 +386,19 @@
 	//Finished!
 	monkey_icon = base
 	GLOB.monkey_icon_cache[identity] = icon(monkey_icon) //Don't create a reference to monkey icon
+
+/obj/item/clothing/under/on_start_stripping(mob/source, mob/user, item_slot)
+	if(!iscarbon(user))
+		return FALSE
+
+	var/mob/living/carbon/source_pocket = source
+	var/obj/item/pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_LPOCKET)
+
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
+
+	pocket_item = source_pocket.get_item_by_slot(ITEM_SLOT_RPOCKET)
+	if(pocket_item && pocket_item.on_start_stripping(source, user, ITEM_SLOT_ICLOTHING))
+		return TRUE
+
+	return FALSE

@@ -12,6 +12,7 @@
 	flags_1 = CONDUCT_1
 	pass_flags_self = PASSGRILLE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
+	obj_flags = CAN_BE_HIT | IGNORE_DENSITY
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	armor_type = /datum/armor/structure_grille
@@ -25,10 +26,9 @@
 		pipe_astar_cost = 1\
 	)
 
-/obj/structure/grille/ComponentInitialize()
+/obj/structure/grille/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
-
 
 /datum/armor/structure_grille
 	melee = 50
@@ -100,7 +100,7 @@
 			if(!ispath(the_rcd.window_type, /obj/structure/window))
 				CRASH("Invalid window path type in RCD: [the_rcd.window_type]")
 			var/obj/structure/window/window_path = the_rcd.window_type
-			if(!valid_window_location(local_turf, user.dir, is_fulltile = initial(window_path.fulltile)))
+			if(!valid_build_direction(local_turf, user.dir, is_fulltile = initial(window_path.fulltile)))
 				to_chat(user, span_notice("Already a window in this direction!."))
 				return FALSE
 			to_chat(user, span_notice("You construct the window."))

@@ -48,10 +48,10 @@
 /datum/port/proc/set_value(value, force = FALSE)
 	if(src.value != value || force)
 		if(isatom(value))
-			UnregisterSignal(value, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(value, COMSIG_QDELETING)
 		src.value = datatype_handler.convert_value(src, value)
 		if(isatom(value))
-			RegisterSignal(value, COMSIG_PARENT_QDELETING, PROC_REF(null_value))
+			RegisterSignal(value, COMSIG_QDELETING, PROC_REF(null_value))
 	SEND_SIGNAL(src, COMSIG_PORT_SET_VALUE, value)
 
 /**
@@ -143,7 +143,7 @@
 	if(value == source)
 		value = null
 	else
-		stack_trace("Impossible? [src] should only receive COMSIG_PARENT_QDELETING from an atom currently in the port, not [source].")
+		stack_trace("Impossible? [src] should only receive COMSIG_QDELETING from an atom currently in the port, not [source].")
 
 /**
  * # Input Port

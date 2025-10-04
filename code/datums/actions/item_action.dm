@@ -6,7 +6,7 @@
 	// If you want to override the normal icon being the item
 	// then change this to an icon state
 
-/datum/action/item_action/on_activate(mob/user, atom/target)
+/datum/action/item_action/on_activate(mob/user, atom/target, trigger_flags)
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, src)

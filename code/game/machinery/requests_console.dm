@@ -297,22 +297,28 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	if(href_list["write"])
 		to_department = ckey(reject_bad_text(href_list["write"])) //write contains the string of the receiving department's name
 
-		var/new_message = (to_department in GLOB.req_console_ckey_departments) && stripped_input(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN)
-		if(new_message)
-			to_department = GLOB.req_console_ckey_departments[to_department]
-			message = new_message
-			screen = REQ_SCREEN_AUTHENTICATE
-			priority = clamp(text2num(href_list["priority"]), REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
+		var/new_message = (to_department in GLOB.req_console_ckey_departments) && tgui_input_text(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN)
+		if(!new_message) //no input so we return
+			to_chat(usr, span_warning("You need to enter something!"))
+			return
+		if(CHAT_FILTER_CHECK(new_message)) // check for forbidden words
+			to_chat(usr, span_warning("Your message contains forbidden words."))
+			return
+		to_department = GLOB.req_console_ckey_departments[to_department]
+		message = new_message
+		screen = REQ_SCREEN_AUTHENTICATE
+		priority = clamp(text2num(href_list["priority"]), REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = reject_bad_text(stripped_input(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN))
-		if(new_message)
-			message = new_message
-			priority = clamp(text2num(href_list["priority"]) || REQ_NORMAL_MESSAGE_PRIORITY, REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
-		else
-			message = ""
-			announceAuth = FALSE
-			screen = REQ_SCREEN_MAIN
+		var/new_message = reject_bad_text(tgui_input_text(usr, "Write your message:", "Awaiting Input", "", MAX_MESSAGE_LEN))
+		if(!new_message) //no input so we return
+			to_chat(usr, span_warning("You need to enter something!"))
+			return
+		if(CHAT_FILTER_CHECK(new_message)) // check for forbidden words
+			to_chat(usr, span_warning("Your message contains forbidden words."))
+			return
+		message = new_message
+		priority = clamp(text2num(href_list["priority"]) || REQ_NORMAL_MESSAGE_PRIORITY, REQ_NORMAL_MESSAGE_PRIORITY, REQ_EXTREME_MESSAGE_PRIORITY)
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)

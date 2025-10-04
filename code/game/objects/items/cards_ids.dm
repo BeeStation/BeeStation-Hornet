@@ -345,10 +345,10 @@
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
 		return
 
-	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdraw? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
+	//var/current_balance = registered_account.account_balance
+	var/amount_to_remove = round(tgui_input_number(user, "How much do you want to withdraw? Current: [registered_account.account_balance] cr", "Withdraw Funds", 0, registered_account.account_balance, 0))
 
-	if(!amount_to_remove || amount_to_remove < 0)
-		to_chat(user, span_warning("You're pretty sure that's not how money works."))
+	if(isnull(amount_to_remove) || amount_to_remove <= 0)
 		return
 	if(!alt_click_can_use_id(user))
 		return
@@ -872,16 +872,17 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
-
 /datum/armor/id_paper
 	acid = 50
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
+		var/target_name = tgui_input_text(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
-		assignment = "Unknown"
 		to_chat(user, span_notice("You scribble the name [target_name] onto the slip."))
+		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
+		assignment = target_job || assignment
+		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
 		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
@@ -892,26 +893,6 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
-
-/obj/item/card/id/paper/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
-		return
-
-	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
-
-/obj/item/card/id/paper/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	if(slot == ITEM_SLOT_ID)
-		RegisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME, PROC_REF(return_visible_name))
-
-/obj/item/card/id/paper/dropped(mob/user, silent = FALSE)
-	. = ..()
-	UnregisterSignal(user, COMSIG_HUMAN_GET_VISIBLE_NAME)
-
-/obj/item/card/id/paper/proc/return_visible_name(mob/living/carbon/human/source, list/identity)
-	SIGNAL_HANDLER
-	identity[VISIBLE_NAME_ID] = registered_name
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
@@ -1325,6 +1306,13 @@ update_label("John Doe", "Clowny")
 	icon_state = "id"
 	hud_state = JOB_HUD_UNKNOWN
 
+/obj/item/card/id/job/prisoner
+	name = "Prisoner Identification Card"
+	desc = "A rugged plastized ID card designed for use by prisoners. Purely to facilitate the convenience of digitalised currency."
+	icon_state = "orange"
+	assignment = JOB_NAME_PRISONER
+	hud_state = JOB_HUD_PRISONER
+
 /obj/item/card/id/gold/vip
 	name = "important gold identification card"
 	assignment = JOB_NAME_VIP
@@ -1334,7 +1322,6 @@ update_label("John Doe", "Clowny")
 	name = "their majesty's gold identification card"
 	assignment = JOB_NAME_KING
 	hud_state = JOB_HUD_KING
-
 
 /obj/item/card/id/pass
 	name = "promotion pass"
@@ -1359,6 +1346,10 @@ update_label("John Doe", "Clowny")
 			idcard.assignment = assignment
 		if(name!=initial(name))
 			idcard.name = name
-		to_chat(user, "You upgrade your [idcard] with the [name].")
-		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+
+		on_applied(target, user, idcard)
+
+/obj/item/card/id/pass/proc/on_applied(atom/target, mob/user, obj/item/card/id/idcard)
+	to_chat(user, "You upgrade your [idcard] with the [name].")
+	log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+	qdel(src)

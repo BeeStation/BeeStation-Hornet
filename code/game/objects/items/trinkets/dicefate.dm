@@ -35,7 +35,7 @@
 		return
 
 	if(!used)
-		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		if(!ishuman(user) || !user.mind)
 			to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans!"))
 			return
 
@@ -48,12 +48,12 @@
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	. = ..()
-	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+	if(!ishuman(user) || !user.mind)
 		to_chat(user, span_warning("You feel the magic of the dice is restricted to ordinary humans! You should leave it alone."))
 		user.dropItemToGround(src)
 
 
-/obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user,roll)
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user,roll)
 	var/turf/T = get_turf(src)
 
 	switch(roll)
@@ -115,7 +115,7 @@
 		if(12)
 			//Healing
 			T.visible_message(span_userdanger("[user] looks very healthy!"))
-			user.revive(full_heal = 1, admin_revive = 1)
+			user.revive(ADMIN_HEAL_ALL)
 		if(13)
 			//Mad Dosh
 			T.visible_message(span_userdanger("Mad dosh shoots out of [src]!"))
@@ -151,11 +151,16 @@
 			A.setup_master(user)
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [user.real_name] Servant?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 10 SECONDS, H)
-			if(LAZYLEN(candidates))
-				var/mob/dead/observer/C = pick(candidates)
-				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
-				H.key = C.key
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+				role = ROLE_WIZARD,
+				poll_time = 15 SECONDS,
+				jump_target = H,
+				role_name_text = "[user.real_name] magical servant?",
+				alert_pic = H,
+			)
+			if(candidate)
+				H.key = candidate.key
+				message_admins("[ADMIN_LOOKUPFLW(candidate)] was spawned as Dice Servant")
 
 			var/datum/action/spell/summonmob/S = new
 			S.target_mob = H
@@ -180,7 +185,7 @@
 		if(20)
 			//Free wizard!
 			T.visible_message(span_userdanger("Magic flows out of [src] and into [user]!"))
-			user.mind.make_Wizard()
+			user.mind.add_antag_datum(/datum/antagonist/wizard)
 	//roll is completed, allow others players to roll the dice
 	roll_in_progress = FALSE
 

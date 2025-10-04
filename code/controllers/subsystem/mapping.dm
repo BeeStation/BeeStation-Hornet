@@ -6,11 +6,11 @@ SUBSYSTEM_DEF(mapping)
 	var/list/nuke_tiles = list()
 	var/list/nuke_threats = list()
 
-	var/datum/map_config/config
-	var/datum/map_config/next_map_config
-	var/datum/map_adjustment/map_adjustment
+	/// The current map config the server loaded at round start.
+	var/datum/map_config/current_map
 
-	var/map_voted = FALSE
+	/// The map adjustment for this current map, if any.
+	var/datum/map_adjustment/map_adjustment
 
 	var/list/map_templates = list()
 
@@ -59,34 +59,40 @@ SUBSYSTEM_DEF(mapping)
 	///List in the form: list(z level num = max generator gravity in that z level OR the gravity level trait)
 	var/list/gravity_by_z_level = list()
 
+	//Echo surface level templates
+	var/list/echo_surface_templates = list()
+
 /datum/controller/subsystem/mapping/PreInit()
 	..()
 #ifdef FORCE_MAP
-	config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
+	current_map = load_map_config(FORCE_MAP, MAP_DIRECTORY)
 #else
-	config = load_map_config(error_if_missing = FALSE)
+	current_map = load_map_config(error_if_missing = FALSE)
 #endif
-	// After assigning a config datum to var/config, we check which map ajudstment fits the current config
+	// After assigning a current_map datum to var/current_map, we check which map ajudstment fits the current current_map
 	for(var/datum/map_adjustment/each_adjust as anything in subtypesof(/datum/map_adjustment))
-		if(initial(each_adjust.map_file_name) != config.map_file)
+		if(initial(each_adjust.map_file_name) != current_map.map_file)
 			continue
 		map_adjustment = new each_adjust() // map_adjustment has multiple procs that'll be called from needed places (i.e. job_change)
-		log_world("Loaded '[config.map_file]' map adjustment.")
+		log_world("Loaded '[current_map.map_file]' map adjustment.")
 		break
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
 		return SS_INIT_SUCCESS
-	if(config.defaulted)
-		var/old_config = config
-		config = global.config.defaultmap
-		if(!config || config.defaulted)
-			to_chat(world, span_boldannounce("Unable to load next or default map config, defaulting to Box Station"))
-			config = old_config
+	if(current_map.defaulted)
+		var/old_config = current_map
+		current_map = global.config.defaultmap
+		if(!current_map || current_map.defaulted)
+			to_chat(world, span_boldannounce("Unable to load next or default map current_map, defaulting to Box Station"))
+			current_map = old_config
 
 	if(map_adjustment)
 		map_adjustment.on_mapping_init()
 		log_world("Applied '[map_adjustment.map_file_name]' map adjustment: on_mapping_init()")
+
+	if(current_map.map_file == "EchoStation.dmm")
+		echo_surface_templates() //Echo seasonal surface stuff
 
 	initialize_biomes()
 	loadWorld()
@@ -96,11 +102,11 @@ SUBSYSTEM_DEF(mapping)
 
 #ifndef LOWMEMORYMODE
 	// Create space ruin levels
-	while (space_levels_so_far < config.space_ruin_levels)
+	while (space_levels_so_far < current_map.space_ruin_levels)
 		++space_levels_so_far
 		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
 	// and one level with no ruins
-	for (var/i in 1 to config.space_empty_levels)
+	for (var/i in 1 to current_map.space_empty_levels)
 		++space_levels_so_far
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
 	// Pick a random away mission.
@@ -167,7 +173,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/get_metrics()
 	. = ..()
 	var/list/custom = list()
-	custom["map"] = config.map_name
+	custom["map"] = current_map.map_name
 	.["custom"] = custom
 
 /datum/controller/subsystem/mapping/proc/wipe_reservations(wipe_safety_delay = 100)
@@ -236,8 +242,7 @@ SUBSYSTEM_DEF(mapping)
 	transit = SSmapping.transit
 	areas_in_z = SSmapping.areas_in_z
 
-	config = SSmapping.config
-	next_map_config = SSmapping.next_map_config
+	current_map = SSmapping.current_map
 
 	clearing_reserved_turfs = SSmapping.clearing_reserved_turfs
 
@@ -332,8 +337,8 @@ SUBSYSTEM_DEF(mapping)
 
 	// load the station
 	station_start = world.maxz + 1
-	INIT_ANNOUNCE("Loading [config.map_name]...")
-	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
+	INIT_ANNOUNCE("Loading [current_map.map_name]...")
+	LoadGroup(FailedZs, "Station", current_map.map_path, current_map.map_file, current_map.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
 
 	LoadStationRoomTemplates()
 	LoadStationRooms()
@@ -341,21 +346,21 @@ SUBSYSTEM_DEF(mapping)
 	if(SSdbcore.Connect())
 		var/datum/db_query/query_round_map_name = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("round")] SET map_name = :map_name WHERE id = :round_id
-		"}, list("map_name" = config.map_name, "round_id" = GLOB.round_id))
+		"}, list("map_name" = current_map.map_name, "round_id" = GLOB.round_id))
 		query_round_map_name.Execute()
 		qdel(query_round_map_name)
 
 #ifndef LOWMEMORYMODE
 	// TODO: remove this when the DB is prepared for the z-levels getting reordered
-	while (world.maxz < (5 - 1) && space_levels_so_far < config.space_ruin_levels)
+	while (world.maxz < (5 - 1) && space_levels_so_far < current_map.space_ruin_levels)
 		++space_levels_so_far
 		LAZYADD(SSzclear.free_levels, add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = null))
 
 	// load mining
-	if(config.minetype == "lavaland")
+	if(current_map.minetype == "lavaland")
 		LoadGroup(FailedZs, "Lavaland", "map_files/Mining", "Lavaland.dmm", default_traits = ZTRAITS_LAVALAND, orbital_body_type = /datum/orbital_object/z_linked/lavaland)
-	else if (!isnull(config.minetype))
-		INIT_ANNOUNCE("WARNING: An unknown minetype '[config.minetype]' was set! This is being ignored! Update the maploader code!")
+	else if (!isnull(current_map.minetype))
+		INIT_ANNOUNCE("WARNING: An unknown minetype '[current_map.minetype]' was set! This is being ignored! Update the maploader code!")
 #endif
 
 	if(LAZYLEN(FailedZs))	//but seriously, unless the server's filesystem is messed up this will never happen
@@ -387,72 +392,6 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/area/A as anything in GLOB.areas)
 		A.RunGeneration()
 
-/datum/controller/subsystem/mapping/proc/maprotate()
-	if(map_voted)
-		map_voted = FALSE
-		return
-
-	var/players = GLOB.clients.len
-	var/list/mapvotes = list()
-	//count votes
-	var/pmv = CONFIG_GET(flag/preference_map_voting)
-	if(pmv)
-		for (var/client/c in GLOB.clients)
-			var/vote = c.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
-			if (!vote || vote == "Default")
-				if (global.config.defaultmap)
-					mapvotes[global.config.defaultmap.map_name] += 1
-				continue
-			mapvotes[vote] += 1
-	else
-		for(var/M in global.config.maplist)
-			mapvotes[M] = 1
-
-	//filter votes
-	for (var/map in mapvotes)
-		if (!map)
-			mapvotes.Remove(map)
-		if (!(map in global.config.maplist))
-			mapvotes.Remove(map)
-			continue
-		var/datum/map_config/VM = global.config.maplist[map]
-		if (!VM)
-			mapvotes.Remove(map)
-			continue
-		if (VM.voteweight <= 0)
-			mapvotes.Remove(map)
-			continue
-		if (VM.config_min_users > 0 && players < VM.config_min_users)
-			mapvotes.Remove(map)
-			continue
-		if (VM.config_max_users > 0 && players > VM.config_max_users)
-			mapvotes.Remove(map)
-			continue
-
-		if(pmv)
-			mapvotes[map] = mapvotes[map]*VM.voteweight
-		else if(VM.map_file == config.map_file)
-			// Don't force them to play the same map when MAPROTATION actually rolls to change the map
-			mapvotes.Remove(map)
-
-	var/pickedmap = pick_weight(mapvotes)
-	if (!pickedmap)
-		return
-	var/datum/map_config/VM = global.config.maplist[pickedmap]
-	message_admins("Randomly rotating map to [VM.map_name]")
-	. = changemap(VM)
-	if (. && VM.map_name != config.map_name)
-		to_chat(world, span_boldannounce("Map rotation has chosen [VM.map_name] for next round!"))
-
-/datum/controller/subsystem/mapping/proc/changemap(datum/map_config/VM)
-	if(!VM.MakeNextMap())
-		next_map_config = load_map_config(default_to_box = TRUE)
-		message_admins("Failed to set new map with next_map.json for [VM.map_name]! Using default as backup!")
-		return
-
-	next_map_config = VM
-	return TRUE
-
 /datum/controller/subsystem/mapping/proc/preloadTemplates() //see master controller setup
 	if(IsAdminAdvancedProcCall())
 		return
@@ -469,13 +408,22 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
-		var/datum/map_template/random_room/room_type = item
-		if(!(initial(room_type.mappath)))
-			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
+		var/datum/map_template/random_room/R = new item()
+		if(!R.mappath || R.mappath == null)
+			world.log << "Skipping template type: [item] (no mappath)"
+			qdel(R)
 			continue
-		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R
 		map_templates[R.room_id] = R
+
+/datum/map_template/random_room
+	var/room_id //The SSmapping random_room_template list is ordered by this var
+	var/spawned //Whether this template (on the random_room template list) has been spawned
+	var/centerspawner = TRUE
+	var/template_height = 0
+	var/template_width = 0
+	var/weight = 10 //weight a room has to appear
+	var/stock = 1 //how many times this room can appear in a round
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -678,3 +626,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	max_gravity = max_gravity || level_trait(z_level_number, ZTRAIT_GRAVITY) || 0 //just to make sure no nulls
 	gravity_by_z_level[z_level_number] = max_gravity
 	return max_gravity
+
+// echo surface templates found in random_rooms.dm
+/datum/controller/subsystem/mapping/proc/echo_surface_templates()
+	for (var/path in typesof(/datum/map_template/random_room/echo))
+		if (ECHO_TEMPLATE_PATH(path))
+			var/datum/map_template/random_room/echo/template = new path()
+			echo_surface_templates += template

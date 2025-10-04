@@ -122,7 +122,7 @@
 	relevant_job = /datum/job/ai
 
 /datum/preference/name/ai/create_default_value()
-	return pick(GLOB.ai_names)
+	return random_ai_name()
 
 /datum/preference/name/religion
 	db_key = "religion_name"

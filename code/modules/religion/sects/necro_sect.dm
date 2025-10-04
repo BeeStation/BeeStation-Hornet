@@ -116,15 +116,22 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
-	var/list/candidates = poll_ghost_candidates("Do you wish to be resurrected as a Holy Summoned Undead?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYUNDEAD)
-	if(!length(candidates))
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+		question = "Do you wish to be resurrected as a Holy Summoned Undead?",
+		check_jobban = ROLE_HOLY_SUMMONED,
+		poll_time = 10 SECONDS,
+		ignore_category = POLL_IGNORE_HOLYUNDEAD,
+		jump_target = religious_tool,
+		role_name_text = "holy summoned undead",
+		alert_pic = /mob/living/carbon/human/species/skeleton,
+	)
+	if(!candidate)
 		to_chat(user, span_warning("The soul pool is empty..."))
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
 		user.visible_message(span_warning("The soul pool was not strong enough to bring forth the undead."))
 		GLOB.religious_sect?.adjust_favor(favor_cost, user) //refund if nobody takes the role
 		return NOT_ENOUGH_PLAYERS
-	var/mob/dead/observer/selected = pick_n_take(candidates)
-	var/datum/mind/Mind = new /datum/mind(selected.key)
+	var/datum/mind/Mind = new /datum/mind(candidate.key)
 	var/undead_species = pick(/mob/living/carbon/human/species/zombie, /mob/living/carbon/human/species/skeleton)
 	var/mob/living/carbon/human/species/undead = new undead_species(altar_turf)
 	undead.real_name = "Holy Undead ([rand(1,999)])"
@@ -206,7 +213,7 @@
 		raise_target = null
 		return FALSE
 	raise_target.grab_ghost() // Shove them back in their body.
-	raise_target.revive(full_heal = 1, admin_revive = 1)
+	raise_target.revive(HEAL_ALL)
 	playsound(altar_turf, 'sound/magic/staff_healing.ogg', 50, TRUE)
 	raise_target = null
 	return ..()
@@ -270,7 +277,7 @@
 	chosen_sacrifice = null
 	return ..()
 
-/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+/datum/religion_rites/living_sacrifice/proc/cuff(mob/living/carbon/C)
 	if(C.handcuffed)
 		return
 	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)

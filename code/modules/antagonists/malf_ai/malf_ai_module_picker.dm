@@ -67,7 +67,7 @@
 	for(var/category in possible_modules)
 		var/list/cat = list(
 			"name" = category,
-			"items" = (category == selected_cat ? list() : null))
+			"items" = list())
 		for(var/module in possible_modules[category])
 			var/datum/ai_module/AM = possible_modules[category][module]
 			cat["items"] += list(list(
@@ -92,9 +92,9 @@
 			for(var/category in possible_modules)
 				buyable_items += possible_modules[category]
 			for(var/key in buyable_items)
-				var/datum/ai_module/AM = buyable_items[key]
-				if(AM.name == item_name)
-					purchase_module(usr, AM)
+				var/datum/ai_module/module = buyable_items[key]
+				if(module.name == item_name)
+					purchase_module(usr, module)
 					return TRUE
 		if("select")
 			selected_cat = params["category"]

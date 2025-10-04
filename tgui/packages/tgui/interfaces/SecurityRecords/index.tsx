@@ -1,9 +1,10 @@
 import { useBackend } from 'tgui/backend';
 import { Box, Button, Icon, NoticeBox, Stack } from 'tgui/components';
 import { Window } from 'tgui/layouts';
-import { SecurityRecordsData } from './types';
-import { SecurityRecordView } from './RecordView';
+
 import { SecurityRecordTabs } from './RecordTabs';
+import { SecurityRecordView } from './RecordView';
+import { SecurityRecordsData } from './types';
 
 export const SecurityRecords = (props) => {
   const { data } = useBackend<SecurityRecordsData>();
@@ -64,7 +65,13 @@ const AuthView = (props) => {
           <Stack.Item>
             <NoticeBox align="right" info>
               Secure Your Workspace.
-              <Button align="right" icon="lock" color="good" ml={2} onClick={() => act('logout')}>
+              <Button
+                align="right"
+                icon="lock"
+                color="good"
+                ml={2}
+                onClick={() => act('logout')}
+              >
                 Log Out
               </Button>
             </NoticeBox>

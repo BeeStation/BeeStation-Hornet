@@ -25,6 +25,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_botanic_leather
+	clothing_flags = THICKMATERIAL
 
 
 /datum/armor/gloves_botanic_leather
@@ -46,7 +47,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
-
+	clothing_flags = THICKMATERIAL
 
 /datum/armor/gloves_combat
 	bio = 90
@@ -160,12 +161,26 @@
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
 
+/obj/item/clothing/gloves/artifact_pinchers/Initialize(mapload)
+	. = ..()
+	var/datum/component/anti_artifact/A = AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100, ITEM_SLOT_GLOVES)
+	A?.override = !safety
+
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
+	button_icon = null
 
 /datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
+	. = ..()
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
-		button_icon_state = (pinchy.safety ? "template_active" : "template")
+		var/datum/component/anti_artifact/A = pinchy.GetComponent(/datum/component/anti_artifact)
+		A?.override = !pinchy.safety
 		update_buttons()
+
+/datum/action/item_action/artifact_pincher_mode/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	if(..()) //button available
+		var/obj/item/clothing/gloves/artifact_pinchers/pinchy = master
+		if(istype(pinchy))
+			button.color = (pinchy.safety ? "#0f0" : "#fff")

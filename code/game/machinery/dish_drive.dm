@@ -40,6 +40,8 @@
 	if(user.Adjacent(src))
 		. += span_notice("Alt-click it to beam its contents to any nearby disposal bins.")
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/dish_drive, "Empty")
+
 /obj/machinery/dish_drive/attack_hand(mob/living/user)
 	if(!LAZYLEN(dish_drive_contents))
 		to_chat(user, span_warning("There's nothing in [src]!"))

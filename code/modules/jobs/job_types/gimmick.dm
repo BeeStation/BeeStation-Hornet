@@ -5,7 +5,6 @@
 	show_in_prefs = TRUE
 	faction = "Station"
 	total_positions = 0
-	spawn_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
 
@@ -52,7 +51,7 @@
 	name = JOB_NAME_BARBER
 	jobtype = /datum/job/gimmick/barber
 	id = /obj/item/card/id/job/barber
-	belt = /obj/item/modular_computer/tablet/pda/unlicensed
+	belt = /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/suit/sl
 	shoes = /obj/item/clothing/shoes/laceup
@@ -88,7 +87,7 @@
 	name = JOB_NAME_STAGEMAGICIAN
 	jobtype = /datum/job/gimmick/stage_magician
 	id = /obj/item/card/id/job/stage_magician
-	belt = /obj/item/modular_computer/tablet/pda/unlicensed
+	belt = /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	head = /obj/item/clothing/head/hats/tophat
 	ears = /obj/item/radio/headset
 	neck = /obj/item/bedsheet/magician
@@ -123,7 +122,7 @@
 	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/psychiatrist
 	id = /obj/item/card/id/job/psychiatrist
-	belt = /obj/item/modular_computer/tablet/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/preset/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
@@ -154,7 +153,7 @@
 	name = JOB_NAME_VIP
 	jobtype = /datum/job/gimmick/vip
 	id = /obj/item/card/id/gold/vip
-	belt = /obj/item/modular_computer/tablet/pda/vip
+	belt = /obj/item/modular_computer/tablet/pda/preset/vip
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really

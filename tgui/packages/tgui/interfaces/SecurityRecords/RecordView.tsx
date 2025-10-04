@@ -1,11 +1,21 @@
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Box, Button, LabeledList, NoticeBox, RestrictedInput, Section, Stack, Table } from 'tgui/components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  RestrictedInput,
+  Section,
+  Stack,
+  Table,
+} from 'tgui/components';
+
 import { CharacterPreview } from '../common/CharacterPreview';
 import { EditableText } from '../common/EditableText';
-import { CrimeWatcher } from './CrimeWatcher';
-import { RecordPrint } from './RecordPrint';
 import { CRIMESTATUS2COLOR, CRIMESTATUS2DESC } from './constants';
+import { CrimeWatcher } from './CrimeWatcher';
 import { getSecurityRecord } from './helpers';
+import { RecordPrint } from './RecordPrint';
 import { SecurityRecordsData } from './types';
 
 /** Views a selected record. */
@@ -41,7 +51,18 @@ const RecordInfo = (props) => {
   const { available_statuses } = data;
   const [open, setOpen] = useLocalState<boolean>('printOpen', false);
 
-  const { age, record_ref, crimes, fingerprint, gender, name, security_note, rank, species, wanted_status } = foundRecord;
+  const {
+    age,
+    record_ref,
+    crimes,
+    fingerprint,
+    gender,
+    name,
+    security_note,
+    rank,
+    species,
+    wanted_status,
+  } = foundRecord;
 
   const { min_age, max_age } = data;
 
@@ -54,7 +75,12 @@ const RecordInfo = (props) => {
           buttons={
             <Stack>
               <Stack.Item>
-                <Button height="1.7rem" icon="print" onClick={() => setOpen(true)} tooltip="Print a rapsheet or poster.">
+                <Button
+                  height="1.7rem"
+                  icon="print"
+                  onClick={() => setOpen(true)}
+                  tooltip="Print a rapsheet or poster."
+                >
                   Print
                 </Button>
               </Stack.Item>
@@ -62,15 +88,22 @@ const RecordInfo = (props) => {
                 <Button.Confirm
                   content="Delete"
                   icon="trash"
-                  onClick={() => act('delete_record', { record_ref: record_ref })}
+                  onClick={() =>
+                    act('delete_record', { record_ref: record_ref })
+                  }
                   tooltip="Delete record data."
                 />
               </Stack.Item>
             </Stack>
           }
           fill
-          title={<Table.Cell color={CRIMESTATUS2COLOR[wanted_status]}>{name}</Table.Cell>}
-          wrap>
+          title={
+            <Table.Cell color={CRIMESTATUS2COLOR[wanted_status]}>
+              {name}
+            </Table.Cell>
+          }
+          wrap
+        >
           <LabeledList>
             <LabeledList.Item
               buttons={available_statuses.map((button, index) => {
@@ -89,13 +122,17 @@ const RecordInfo = (props) => {
                     }
                     pl={!isSelected ? '1.8rem' : 1}
                     tooltip={CRIMESTATUS2DESC[button] || ''}
-                    tooltipPosition="bottom-start">
+                    tooltipPosition="bottom-start"
+                  >
                     {button[0]}
                   </Button>
                 );
               })}
-              label="Status">
-              <Box color={CRIMESTATUS2COLOR[wanted_status]}>{wanted_status}</Box>
+              label="Status"
+            >
+              <Box color={CRIMESTATUS2COLOR[wanted_status]}>
+                {wanted_status}
+              </Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -124,16 +161,33 @@ const RecordInfo = (props) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText field="species" target_ref={record_ref} text={species} />
+              <EditableText
+                field="species"
+                target_ref={record_ref}
+                text={species}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText field="gender" target_ref={record_ref} text={gender} />
+              <EditableText
+                field="gender"
+                target_ref={record_ref}
+                text={gender}
+              />
             </LabeledList.Item>
             <LabeledList.Item color="good" label="Fingerprint">
-              <EditableText color="good" field="fingerprint" target_ref={record_ref} text={fingerprint} />
+              <EditableText
+                color="good"
+                field="fingerprint"
+                target_ref={record_ref}
+                text={fingerprint}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Note">
-              <EditableText field="security_note" target_ref={record_ref} text={security_note} />
+              <EditableText
+                field="security_note"
+                target_ref={record_ref}
+                text={security_note}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>

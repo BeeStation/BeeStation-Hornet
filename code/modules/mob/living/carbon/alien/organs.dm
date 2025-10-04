@@ -51,6 +51,7 @@
 	actions_types = list(/datum/action/alien/transfer)
 
 /obj/item/organ/alien/plasmavessel/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	//If there are alien weeds on the ground then heal if needed or give some plasma
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
 		if(owner.health >= owner.maxHealth)
@@ -67,18 +68,18 @@
 	else
 		owner.adjustPlasma(0.1 * plasma_rate * delta_time)
 
-/obj/item/organ/alien/plasmavessel/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/alien/plasmavessel/on_insert(mob/living/carbon/organ_owner)
 	. = ..()
-	if(!isalien(M))
+	if(!isalien(organ_owner))
 		return
-	var/mob/living/carbon/alien/A = M
+	var/mob/living/carbon/alien/A = organ_owner
 	A.updatePlasmaDisplay()
 
-/obj/item/organ/alien/plasmavessel/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/alien/plasmavessel/on_remove(mob/living/carbon/organ_owner)
 	. = ..()
-	if(!isalien(M))
+	if(!isalien(organ_owner))
 		return
-	var/mob/living/carbon/alien/A = M
+	var/mob/living/carbon/alien/A = organ_owner
 	A.updatePlasmaDisplay()
 
 #define QUEEN_DEATH_DEBUFF_DURATION 2400
@@ -92,9 +93,9 @@
 	actions_types = list(/datum/action/alien/whisper)
 	var/recent_queen_death = 0 //Indicates if the queen died recently, aliens are heavily weakened while this is active.
 
-/obj/item/organ/alien/hivenode/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	M.faction |= FACTION_ALIEN
-	ADD_TRAIT(M, TRAIT_XENO_IMMUNE, "xeno immune")
+/obj/item/organ/alien/hivenode/on_insert(mob/living/carbon/organ_owner)
+	organ_owner.faction |= FACTION_ALIEN
+	ADD_TRAIT(organ_owner, TRAIT_XENO_IMMUNE, "xeno immune")
 	return ..()
 
 /obj/item/organ/alien/hivenode/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)

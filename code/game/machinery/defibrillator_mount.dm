@@ -53,8 +53,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
-		use_power(200)
-		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
+		var/power_to_use = 200 WATT
+		use_power(power_to_use)
+		defib.cell.give(power_to_use * POWER_TRANSFER_LOSS)
 		update_icon()
 
 /obj/machinery/defibrillator_mount/update_icon()
@@ -72,6 +73,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 28)
 /obj/machinery/defibrillator_mount/get_cell()
 	if(defib)
 		return defib.get_cell()
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/defibrillator_mount, "Use")
 
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/user)

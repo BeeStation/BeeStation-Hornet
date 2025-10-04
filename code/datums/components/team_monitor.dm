@@ -196,7 +196,20 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
 	rotationMatrix.Turn(get_angle(target_turf, parent_turf))
-	animate(screen, transform = rotationMatrix, time = 2)
+	var/new_alpha = 240
+	if(share_z)
+		switch(get_dist(target_turf, parent_turf))
+			if(0)
+				new_alpha = 0
+			if(1)
+				new_alpha = 60
+			if(2)
+				new_alpha = 100
+			if(3)
+				new_alpha = 150
+			else
+				new_alpha = 240
+	animate(screen, alpha = new_alpha, transform = rotationMatrix, time = 0.2 SECONDS)
 
 //===========
 // Handles hiding / showing the hud when equipped

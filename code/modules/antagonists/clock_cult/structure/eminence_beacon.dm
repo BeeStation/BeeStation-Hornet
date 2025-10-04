@@ -9,7 +9,7 @@
 
 /obj/structure/destructible/clockwork/eminence_beacon/attack_hand(mob/user, list/modifiers)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	if(vote_active)
 		deltimer(vote_timer)
@@ -35,9 +35,17 @@
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS)
-		if(LAZYLEN(candidates))
-			eminence = pick(candidates)
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
+			role = /datum/role_preference/roundstart/clock_cultist,
+			check_jobban = ROLE_SERVANT_OF_RATVAR,
+			poll_time = 10 SECONDS,
+			jump_target = src,
+			role_name_text = "eminence",
+			alert_pic = /mob/living/simple_animal/eminence,
+		)
+
+		if(candidate)
+			eminence = candidate
 	else
 		eminence.dust()
 	if(!(eminence?.client))

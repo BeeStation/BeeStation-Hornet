@@ -3,7 +3,7 @@
 		if("human")
 			return random_unique_name()
 		if("ai")
-			return pick(GLOB.ai_names)
+			return random_ai_name()
 		if("cyborg")
 			return DEFAULT_CYBORG_NAME
 		if("clown")

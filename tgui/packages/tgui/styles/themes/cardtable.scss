@@ -6,15 +6,15 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-@use '../colors.scss' with (
-  $primary: #000000,
+@use '../colors' with (
+  $primary: hsl(0, 0%, 0%),
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
-@use '../base.scss' with (
-  $color-bg: #117039,
+@use '../base' with (
+  $color-bg: hsl(145.3, 73.6%, 25.3%),
   $color-bg-grad-spread: 0%,
-  $border-radius: 0,
+  $border-radius: 0
 );
 
 //Made for the roulette table, probably requires a bunch of manual hacks to work for anything else
@@ -26,21 +26,30 @@
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #117039,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-default': hsl(145.3, 73.6%, 25.3%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #fff));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #fff)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #381608));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(17.5, 75%, 12.5%))
+  );
 
   .Button {
     border: base.em(2px) solid #fff;

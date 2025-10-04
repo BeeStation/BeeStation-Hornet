@@ -161,6 +161,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`quirk_smoker_cigarettes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`quirk_junkie_drug` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`quirk_alcohol_type` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`quirk_accent` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`randomize` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
@@ -352,6 +353,7 @@ DROP TABLE IF EXISTS `SS13_player`;
 CREATE TABLE IF NOT EXISTS `SS13_player` (
   `ckey` varchar(32) NOT NULL,
   `byond_key` varchar(32) NOT NULL DEFAULT 'Player',
+  `discord_uid` varchar(32) DEFAULT NULL,
   `firstseen` datetime NOT NULL,
   `firstseen_round_id` int(11) unsigned NOT NULL,
   `lastseen` datetime NOT NULL,
@@ -505,7 +507,36 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 3);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (7, 6);
+
+
+
+-- Dumping structure for table ss13tgdb.SS13_session
+DROP TABLE IF EXISTS `SS13_session`;
+CREATE TABLE IF NOT EXISTS `SS13_session` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` int(10) unsigned NOT NULL,
+  `session_token` varchar(64) NOT NULL UNIQUE,
+  `external_method` varchar(16) NOT NULL,
+  `external_uid` varchar(32) NOT NULL,
+  `external_display_name` varchar(32) NOT NULL,
+  `valid_until` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `ip_token` (`ip`, `session_token`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- Dumping structure for table ss13tgdb.SS13_session_creation_nonce
+DROP TABLE IF EXISTS `SS13_session_creation_nonce`;
+CREATE TABLE IF NOT EXISTS `SS13_session_creation_nonce` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip` varchar(32) NOT NULL,
+  `seeker_port` SMALLINT UNSIGNED DEFAULT NULL,
+  `session_nonce` varchar(64) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `ip_nonce` (`ip`, `session_nonce`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 

@@ -84,7 +84,6 @@
 #define CANKNOCKDOWN (1<<1)
 #define CANUNCONSCIOUS (1<<2)
 #define CANPUSH (1<<3)
-#define GODMODE (1<<4)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -102,15 +101,16 @@
 #define CLICK_CD_RAPID 2
 #define CLICK_CD_HYPER_RAPID 1
 #define CLICK_CD_CLICK_ABILITY 6
-#define CLICK_CD_BREAKOUT 100
+#define CLICK_CD_BREAKOUT 20
 #define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_RESIST 20
 #define CLICK_CD_GRABBING 10
 #define CLICK_CD_LOOK_DIRECTION 5
 
+#define BLOCK_CD 2 SECONDS
+
 //Cuff resist speeds
 #define FAST_CUFFBREAK 1
-#define INSTANT_CUFFBREAK 2
 
 //Grab levels
 #define GRAB_PASSIVE 0
@@ -231,7 +231,9 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_ACTIVE				(1<<0) //does the item need to be in hand to block
 #define BLOCKING_PROJECTILE			(1<<1) //does the item block projectiles
 #define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
-#define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
+#define BLOCKING_COUNTERATTACK		(1<<3) //if it parries a bare hand or a weapon, has a chance to return a hit
+#define BLOCKING_UNBALANCE			(1<<4) //has a chance to knock the opponent off-balance (knockdown + longer attack delay)
+#define BLOCKING_UNBLOCKABLE		(1<<5) //attacks with this item can only be blocked by another unblockable item
 
 // Object/Item sharpness
 #define BLUNT					0	//Can only remove limbs if they're easy to remove
@@ -261,12 +263,12 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BODY_GROUP_LEGS "legs"
 #define BODY_GROUP_ARMS "arms"
 
-#define BODY_ZONE_HEAD		"head"
-#define BODY_ZONE_CHEST		"chest"
-#define BODY_ZONE_L_ARM		"l_arm"
-#define BODY_ZONE_R_ARM		"r_arm"
-#define BODY_ZONE_L_LEG		"l_leg"
-#define BODY_ZONE_R_LEG		"r_leg"
+#define BODY_ZONE_HEAD "head"
+#define BODY_ZONE_CHEST "chest"
+#define BODY_ZONE_L_ARM "l_arm"
+#define BODY_ZONE_R_ARM "r_arm"
+#define BODY_ZONE_L_LEG "l_leg"
+#define BODY_ZONE_R_LEG "r_leg"
 
 #define BODY_ZONE_PRECISE_EYES		"eyes"
 #define BODY_ZONE_PRECISE_MOUTH		"mouth"

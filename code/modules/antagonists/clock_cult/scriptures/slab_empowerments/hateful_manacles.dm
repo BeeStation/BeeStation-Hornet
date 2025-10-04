@@ -25,7 +25,7 @@
 
 	if(iscarbon(clicked_on) && clicked_on.Adjacent(clicker))
 		var/mob/living/carbon/L = clicked_on
-		if(is_servant_of_ratvar(L))
+		if(IS_SERVANT_OF_RATVAR(L))
 			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] a servant.\"</span>"))
 			return FALSE
 		else if(L.stat)

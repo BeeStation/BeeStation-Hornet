@@ -1,4 +1,5 @@
 import { multiline } from 'common/string';
+
 import { useBackend } from '../backend';
 import { Box, Button, Grid, Section, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
@@ -11,7 +12,15 @@ export const ComputerFabricator = (props) => {
         <Section italic fontSize="20px">
           Your perfect device, only three steps away...
         </Section>
-        {data.state !== 0 && <Button fluid mb={1} icon="circle" content="Clear Order" onClick={() => act('clean_order')} />}
+        {data.state !== 0 && (
+          <Button
+            fluid
+            mb={1}
+            icon="circle"
+            content="Clear Order"
+            onClick={() => act('clean_order')}
+          />
+        )}
         {data.state === 0 && <CfStep1 />}
         {data.state === 1 && <CfStep2 />}
         {data.state === 2 && <CfStep3 />}
@@ -78,7 +87,8 @@ const CfStep2 = (props) => {
         <Box bold color="good">
           {data.totalprice} cr
         </Box>
-      }>
+      }
+    >
       <Table>
         <Table.Row>
           <Table.Cell bold position="relative">
@@ -87,7 +97,8 @@ const CfStep2 = (props) => {
                 Allows your device to operate without external utility power
                 source. Advanced batteries increase battery life.
               `}
-              position="right">
+              position="right"
+            >
               Battery:
             </Tooltip>
           </Table.Cell>
@@ -132,7 +143,8 @@ const CfStep2 = (props) => {
                 Stores file on your device. Advanced drives can store more
                 files, but use more power, shortening battery life.
               `}
-              position="right">
+              position="right"
+            >
               Hard Drive:
             </Tooltip>
           </Table.Cell>
@@ -179,7 +191,8 @@ const CfStep2 = (props) => {
                 advanced cards can operate anywhere near the station, which
                 includes asteroid outposts
               `}
-              position="right">
+              position="right"
+            >
               Network Card:
             </Tooltip>
           </Table.Cell>
@@ -226,7 +239,8 @@ const CfStep2 = (props) => {
                 This device was certified EcoFriendlyPlus and is capable of
                 recycling existing paper for printing purposes.
               `}
-              position="right">
+              position="right"
+            >
               Nano Printer:
             </Tooltip>
           </Table.Cell>
@@ -301,7 +315,8 @@ const CfStep2 = (props) => {
                     Advanced CPUs use more power, but allow you to run
                     more programs on background at once.
                   `}
-                  position="right">
+                  position="right"
+                >
                   Processor Unit:
                 </Tooltip>
               </Table.Cell>
@@ -337,7 +352,8 @@ const CfStep2 = (props) => {
                     alternative power source. This component is currently
                     unavailable on tablet computers due to size restrictions.
                   `}
-                  position="right">
+                  position="right"
+                >
                   Tesla Relay:
                 </Tooltip>
               </Table.Cell>
@@ -397,7 +413,13 @@ const CfStep3 = (props) => {
       <Box bold mt={1} textAlign="center" fontSize="18px">
         Current:
       </Box>
-      <Box bold mt={0.5} textAlign="center" fontSize="18px" color={data.credits >= data.totalprice ? 'good' : 'bad'}>
+      <Box
+        bold
+        mt={0.5}
+        textAlign="center"
+        fontSize="18px"
+        color={data.credits >= data.totalprice ? 'good' : 'bad'}
+      >
         {data.credits} cr
       </Box>
       <Button
@@ -422,7 +444,8 @@ const CfStep4 = (props) => {
         Thank you for your purchase!
       </Box>
       <Box italic mt={1} textAlign="center">
-        If you experience any difficulties with your new device, please contact your local network administrator.
+        If you experience any difficulties with your new device, please contact
+        your local network administrator.
       </Box>
     </Section>
   );

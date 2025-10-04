@@ -381,8 +381,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/teleportation_wake)
  */
 /proc/do_dash(atom/movable/AM, turf/current_turf, turf/target_turf, obj_damage=0, phase=TRUE, teleport_channel=TELEPORT_CHANNEL_BLINK, datum/callback/on_turf_cross=null)
 	// current loc
-	if(!istype(current_turf) || is_away_level(current_turf.z) || is_centcom_level(current_turf.z))
+	if(!istype(current_turf) || is_away_level(current_turf.z))
 		return
+
+	// Centcom dashes dont work, unless you are dashing BOTH from and to the shuttle
+	if(is_centcom_level(current_turf.z))
+		var/area/current_area = current_turf.loc
+		var/area/target_area = target_turf.loc
+		if(!istype(current_area, /area/shuttle/escape) || !istype(target_area, /area/shuttle/escape))
+			return
 
 	// getline path
 	var/turf/landing_turf = current_turf

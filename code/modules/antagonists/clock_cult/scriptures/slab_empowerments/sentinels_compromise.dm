@@ -21,7 +21,7 @@
 
 	if(isliving(clicked_on) && (clicked_on in view(7, get_turf(clicker))))
 		var/mob/living/L = clicked_on
-		if(!is_servant_of_ratvar(L))
+		if(!IS_SERVANT_OF_RATVAR(L))
 			to_chat(clicker, ("<span class='inathneq'>\"[L] does not yet serve Ratvar.\"</span>"))
 			return TRUE
 		if(L.stat == DEAD)

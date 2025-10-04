@@ -58,7 +58,7 @@
 			created_human.flavor_text = "You are a Syndicate operative employed by Cybersun Industries, currently scavenging for valuable resources in the wrecks of Nanotrasen Derelicts. \
 			However, upon being dropped off for your shift, the shuttle that flew you onboard was shot down by Nanotrasen's forces. You know it's only a matter of time before they find you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/vip_operative)
-			suit_type = /obj/item/clothing/suit/space/hardsuit/cybersun //On par with the explorer suit, nothing too wacky.
+			//suit_type = /obj/item/clothing/suit/space/hardsuit/cybersun //On par with the explorer suit, nothing too wacky.
 			mask_type = /obj/item/clothing/mask/gas/syndicate
 		if("funnyman")
 			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
@@ -143,7 +143,7 @@
 	glasses = /obj/item/clothing/glasses/chameleon
 	belt = /obj/item/storage/belt/chameleon
 	l_pocket = /obj/item/stamp/chameleon
-	r_pocket = /obj/item/modular_computer/tablet/pda/chameleon
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/chameleon
 	id = /obj/item/card/id/syndicate/anyone
 	neck = /obj/item/clothing/neck/chameleon
 	head = /obj/item/clothing/head/chameleon

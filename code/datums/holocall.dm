@@ -326,7 +326,7 @@
 	DELAY 20"}
 
 /datum/preset_holoimage/engineer
-	outfit_type = /datum/outfit/job/engineer/gloved/rig
+	outfit_type = /datum/outfit/job/engineer/mod
 
 /datum/preset_holoimage/researcher
 	outfit_type = /datum/outfit/job/scientist

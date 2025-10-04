@@ -3,6 +3,7 @@
 	icon = 'icons/hud/actions/actions_blob.dmi'
 
 /atom/movable/screen/blob/MouseEntered(location,control,params)
+	..()
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")
 
 /atom/movable/screen/blob/MouseExited()

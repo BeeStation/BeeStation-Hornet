@@ -1,13 +1,24 @@
 import { map } from 'common/collections';
 import { classes } from 'common/react';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, LabeledList, NumberInput, Section } from '../components';
+import {
+  Box,
+  Button,
+  Input,
+  LabeledList,
+  NumberInput,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const ChemReactionChamber = (props) => {
   const { act, data } = useBackend();
   const [reagentName, setReagentName] = useLocalState('reagentName', '');
-  const [reagentQuantity, setReagentQuantity] = useLocalState('reagentQuantity', 1);
+  const [reagentQuantity, setReagentQuantity] = useLocalState(
+    'reagentQuantity',
+    1,
+  );
   const emptying = data.emptying;
   const reagents = data.reagents || [];
   return (
@@ -19,13 +30,24 @@ export const ChemReactionChamber = (props) => {
             <Box inline bold color={emptying ? 'bad' : 'good'}>
               {emptying ? 'Emptying' : 'Filling'}
             </Box>
-          }>
+          }
+        >
           <LabeledList>
             <tr className="LabledList__row">
               <td colSpan="2" className="LabeledList__cell">
-                <Input fluid value="" placeholder="Reagent Name" onInput={(e, value) => setReagentName(value)} />
+                <Input
+                  fluid
+                  value=""
+                  placeholder="Reagent Name"
+                  onInput={(e, value) => setReagentName(value)}
+                />
               </td>
-              <td className={classes(['LabeledList__buttons', 'LabeledList__cell'])}>
+              <td
+                className={classes([
+                  'LabeledList__buttons',
+                  'LabeledList__cell',
+                ])}
+              >
                 <NumberInput
                   value={reagentQuantity}
                   minValue={1}
@@ -61,7 +83,8 @@ export const ChemReactionChamber = (props) => {
                       })
                     }
                   />
-                }>
+                }
+              >
                 {amount}
               </LabeledList.Item>
             ))(reagents)}

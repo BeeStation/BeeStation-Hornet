@@ -6,8 +6,8 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarmp"
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 8
+	idle_power_usage = 0.2 KILOWATT
+	active_power_usage = 0.5 KILOWATT
 	power_channel = AREA_USAGE_ENVIRON
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE)
 	max_integrity = 250
@@ -61,6 +61,8 @@
 
 	/// Used for air alarm helper called tlv_cold_room to adjust alarm thresholds for cold room.
 	var/tlv_cold_room = FALSE
+	/// Used for air alarm helper called tlv_kitchen to adjust temperature thresholds for kitchen.
+	var/tlv_kitchen = FALSE
 	/// Used for air alarm helper called tlv_no_ckecks to remove alarm thresholds.
 	var/tlv_no_checks = FALSE
 
@@ -131,6 +133,16 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	GLOB.air_alarms += src
 	check_enviroment()
 
+/obj/machinery/airalarm/add_context_self(datum/screentip_context/context, mob/user)
+	if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
+		context.add_left_click_tool_action("Pry out Electronics", TOOL_CROWBAR)
+	if(buildstage == AIR_ALARM_BUILD_COMPLETE)
+		context.add_left_click_tool_action("[panel_open ? "Expose wires" : "Unexpose wires"]", TOOL_SCREWDRIVER)
+	if (panel_open)
+		context.add_left_click_tool_action("Manipulate wires", TOOL_WIRECUTTER)
+	if(buildstage == AIR_ALARM_BUILD_NO_CIRCUIT)
+		context.add_left_click_tool_action("Detatch Alarm", TOOL_WRENCH)
+
 /obj/machinery/airalarm/process()
 	if(!COOLDOWN_FINISHED(src, warning_cooldown) || (machine_stat & (NOPOWER|BROKEN)) || shorted || (buildstage != AIR_ALARM_BUILD_COMPLETE))
 		return
@@ -142,7 +154,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	if(my_area)
 		my_area = null
 	if(connected_sensor)
-		UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(connected_sensor, COMSIG_QDELETING)
 		UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)
 		connected_sensor.connected_airalarm = null
 		connected_sensor = null
@@ -312,6 +324,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 				"refID" = REF(vent),
 				"long_name" = sanitize(vent.name),
 				"power" = vent.on,
+				"overclock" = vent.fan_overclocked,
+				"integrity" = vent.get_integrity_percentage(),
 				"checks" = vent.pressure_checks,
 				"excheck" = vent.pressure_checks & ATMOS_EXTERNAL_BOUND,
 				"incheck" = vent.pressure_checks & ATMOS_INTERNAL_BOUND,
@@ -381,6 +395,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			powering.on = !!params["val"]
 			powering.atmos_conditions_changed()
 			powering.update_icon()
+
+		if ("overclock")
+			if(isnull(vent))
+				return TRUE
+			vent.toggle_overclock(source = key_name(user))
+			vent.update_appearance(UPDATE_ICON)
+			return TRUE
 
 		if ("direction")
 			if (isnull(vent))
@@ -505,10 +526,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			. = TRUE
 
 		if("set_ac_target")
-			if(!isnum(params["target"]))
+			if(!isnum(params["value"]))
 				return
-			set_ac_target(params["target"])
-			investigate_log("has had its air conditioning target set to [params["target"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
+			set_ac_target(params["value"])
+			investigate_log("has had its air conditioning target set to [params["value"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 
 		if("default_ac_target")
@@ -612,6 +633,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 		var/is_low_pressure = tlv_collection["pressure"].hazard_min != TLV_VALUE_IGNORE && pressure <= tlv_collection["pressure"].hazard_min
 		var/is_low_temp = tlv_collection["temperature"].hazard_min != TLV_VALUE_IGNORE && temp <= tlv_collection["temperature"].hazard_min
 
+		update_use_power(ACTIVE_POWER_USE)
+
 		if(is_low_pressure && is_low_temp)
 			warning_message = "Danger! Low pressure and temperature detected."
 			return
@@ -637,6 +660,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			warning_message = "Danger! High temperature detected."
 			return
 		else
+			update_use_power(IDLE_POWER_USE)
 			warning_message = null
 
 	else if(!(my_area.fault_status & AREA_FAULT_MANUAL)) //Only clear ourselves automatically if it was not a manual trigger.
@@ -709,6 +733,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 	tlv_collection["temperature"] = new /datum/tlv/cold_room_temperature
 	tlv_collection["pressure"] = new /datum/tlv/cold_room_pressure
 
+///Used for air alarm kitchen tlv helper, which ensures that kitchen air alarm doesn't trigger from cold room air
+/obj/machinery/airalarm/proc/set_tlv_kitchen()
+	tlv_collection["temperature"] = new /datum/tlv/kitchen_temperature
+
 ///Used for air alarm no tlv helper, which removes alarm thresholds
 /obj/machinery/airalarm/proc/set_tlv_no_checks()
 	tlv_collection["temperature"] = new /datum/tlv/no_checks
@@ -733,7 +761,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 	sensor.connected_airalarm = src
 	connected_sensor = sensor
 
-	RegisterSignal(connected_sensor, COMSIG_PARENT_QDELETING, PROC_REF(disconnect_sensor))
+	RegisterSignal(connected_sensor, COMSIG_QDELETING, PROC_REF(disconnect_sensor))
 
 	// Transfer signal from air alarm to sensor
 	UnregisterSignal(loc, COMSIG_TURF_EXPOSE)
@@ -748,7 +776,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 
 ///Used to reset the air alarm to default configuration after disconnecting from air sensor
 /obj/machinery/airalarm/proc/disconnect_sensor()
-	UnregisterSignal(connected_sensor, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(connected_sensor, COMSIG_QDELETING)
 
 	// Transfer signal from sensor to air alarm
 	UnregisterSignal(connected_sensor.loc, COMSIG_TURF_EXPOSE)

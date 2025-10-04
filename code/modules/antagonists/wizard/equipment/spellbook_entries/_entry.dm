@@ -156,14 +156,13 @@
  * Return -1 on failure, or return the point value of the refund on success
  */
 /datum/spellbook_entry/proc/refund_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	var/area/wizard_station/wizard_home = GLOB.areas_by_type[/area/wizard_station]
-	if(get_area(user) != wizard_home)
-		to_chat(user, ("<span class='warning'>You can only refund spells at the wizard lair!</span>"))
-		return -1
-
 	for(var/datum/action/spell/to_refund in user.actions)
 		if(initial(spell_type.name) != initial(to_refund.name))
 			continue
+
+		if(!to_refund.is_available())
+			to_chat(user, span_warning("You can only refund spells that are available to cast!"))
+			return -1
 
 		var/amount_to_refund = to_refund.spell_level * cost
 		if(amount_to_refund <= 0)

@@ -46,3 +46,6 @@ In TGS3 it will always be sent to all connected designated game chats.
 
 	if(channels_to_use.len)
 		world.TgsChatBroadcast(message, channels_to_use)
+
+/// Handles text formatting for item use hints in examine text
+#define EXAMINE_HINT(text) ("<b>" + text + "</b>")

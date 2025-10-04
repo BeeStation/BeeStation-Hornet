@@ -10,7 +10,7 @@
 	var/warping = FALSE
 
 /datum/action/innate/clockcult/warp/is_available()
-	if(!is_servant_of_ratvar(owner) || owner.incapacitated())
+	if(!IS_SERVANT_OF_RATVAR(owner) || owner.incapacitated())
 		return FALSE
 	return ..()
 
@@ -86,7 +86,7 @@
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
 	. = ..()
-	if(!is_servant_of_ratvar(user) || iscogscarab(user))
+	if(!IS_SERVANT_OF_RATVAR(user) || iscogscarab(user))
 		return FALSE
 
 /obj/machinery/computer/camera_advanced/ratvar/GrantActions(mob/living/user)

@@ -310,14 +310,13 @@
 /area/ruin/unpowered)
 "Pw" = (
 /obj/structure/table/glass,
-/obj/item/aiModule/core/full/damaged{
+/obj/item/ai_module/core/full/damaged{
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/item/aicard{
 	pixel_x = -10
 	},
-/obj/item/borg/upgrade/transform/borgi,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Qa" = (

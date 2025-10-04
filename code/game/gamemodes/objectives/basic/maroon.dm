@@ -2,11 +2,6 @@
 	name = "maroon"
 	var/target_role_type=FALSE
 
-/datum/objective/maroon/find_target_by_role(role, role_type=FALSE,invert=FALSE)
-	if(!invert)
-		target_role_type = role_type
-	..()
-
 /datum/objective/maroon/check_completion()
 	return ..() || !target || !considered_alive(target) || (!target.current.onCentCom() && !target.current.onSyndieBase())
 

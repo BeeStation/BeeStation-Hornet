@@ -29,7 +29,6 @@
 	var/obj/vehicle/trailer
 	var/are_legs_exposed = FALSE
 
-
 /datum/armor/obj_vehicle
 	melee = 30
 	bullet = 30
@@ -52,6 +51,21 @@
 	autogrant_actions_controller = list()
 	occupant_actions = list()
 	generate_actions()
+	add_riding_element()
+
+///Vehicles should only ever have one riding element, so this proc should never call parent types.
+/obj/vehicle/proc/add_riding_element()
+	return
+
+/obj/vehicle/Destroy(force)
+	QDEL_NULL(trailer)
+	inserted_key = null
+	return ..()
+
+/obj/vehicle/Exited(atom/movable/gone, direction)
+	if(gone == inserted_key)
+		inserted_key = null
+	return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()

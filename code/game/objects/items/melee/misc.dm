@@ -63,10 +63,10 @@
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 15
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_power = 50
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
@@ -81,11 +81,6 @@
 /obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
-
-/obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/melee/sabre/on_exit_storage(datum/storage/container)
 	var/obj/item/storage/belt/sabre/sabre = container.real_location?.resolve()
@@ -140,17 +135,25 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
+/obj/item/melee/sabre/carbon_fiber
+	name = "carbon fiber sabre"
+	desc = "A sabre made of a sleek carbon fiber polymer with a reinforced blade."
+	icon_state = "sabre_fiber"
+	item_state = "sabre_fiber"
+	force = 15
+	armour_penetration = 25
+	sharpness = SHARP //No dismembering for security sabre without direct intent
+
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
-	force = 18
+	force = 25
 	icon_state = "rapier"
 	item_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
-	block_power = 60
+	block_power = 75
 	armor_type = /datum/armor/sabre_mime
-
 
 /datum/armor/sabre_mime
 	fire = 100
@@ -351,6 +354,7 @@
 	cooldown = 10
 	stamina_damage = 20
 	stun_animation = TRUE
+	custom_price = 120
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -377,14 +381,14 @@
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(on)
 		return ..()
 	return 0
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
+	var/obj/item/organ/brain/B = H.get_organ_by_type(/obj/item/organ/brain)
 
 	user.visible_message(span_suicide("[user] stuffs [src] up [user.p_their()] nose and presses the 'extend' button! It looks like [user.p_theyre()] trying to clear [user.p_their()] mind."))
 	if(!on)
@@ -625,8 +629,8 @@
 	armour_penetration = 1000
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	force_string = "INFINITE"
 
@@ -825,7 +829,7 @@
  */
 /obj/item/melee/roastingstick/proc/on_transform(obj/item/source, mob/user, active)
 	SIGNAL_HANDLER
-
+	icon_state = active ? "roastingstick_1" : "roastingstick_0"
 	item_state = active ? "nullrod" : null
 	if(user)
 		balloon_alert(user, "[active ? "extended" : "collapsed"] [src]")
@@ -834,17 +838,23 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/food/sausage))
-		if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
-			to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
-			return
-		if (held_sausage)
-			to_chat(user, span_warning("[held_sausage] is already attached to [src]!"))
-			return
-		if (user.transferItemToLoc(target, src))
-			held_sausage = target
+	if (istype(target, /obj/item/food/meat) || istype(target, /obj/item/food/sausage))
+		var/obj/item/food/target_sausage = target
+		if ( !( target_sausage.foodtypes & RAW ) &&  !( target_sausage.foodtypes & FRIED ) ) // ONLY COOKED MEATS, NO RAW, NO FRIED.
+			if (!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+				to_chat(user, span_warning("You must extend [src] to attach anything to it!"))
+				return
+			if (held_sausage)
+				to_chat(user, span_warning("[held_sausage] is already attached to [src]!"))
+				return
+			if (user.transferItemToLoc(target, src))
+				held_sausage = target
+			else
+				to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
 		else
-			to_chat(user, span_warning("[target] doesn't seem to want to get on [src]!"))
+			to_chat(user, span_warning("[target] can't be roasted using [src]! Pre-cook the meat!"))
+	else
+		to_chat(user, span_warning("[target] can't be roasted using [src]!"))
 	update_appearance()
 
 /obj/item/melee/roastingstick/attack_hand(mob/user, list/modifiers)
@@ -1017,3 +1027,113 @@
 			target.apply_damage(stamina_force, STAMINA, target_zone, armour_level)
 
 	return ..()
+
+/obj/item/stake
+	name = "wooden stake"
+	desc = "A simple wooden stake carved to a sharp point."
+	icon = 'icons/vampires/stakes.dmi'
+	icon_state = "wood"
+	item_state = "wood"
+	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
+	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
+	slot_flags = ITEM_SLOT_POCKETS
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb_continuous = list("staked", "stabbed", "tore into")
+	attack_verb_simple = list("staked", "stabbed", "tore into")
+	sharpness = SHARP
+	force = 6
+	throwforce = 10
+	max_integrity = 30
+	embedding = list(
+		"embed_chance" = 100,
+		"fall_chance" = 0,
+		"rip_time" = 5 SECONDS, // this is actually 10 seconds because it gets multiplied by the w_class
+	)
+
+	///Time it takes to embed the stake into someone's chest.
+	var/staketime = 12 SECONDS
+
+/obj/item/stake/attack(mob/living/target, mob/living/user, params)
+	. = ..()
+	if(.)
+		return
+
+	// Cannot target yourself, must be in combat mode and targeting the chest
+	if(target == user)
+		return
+	if(!user.combat_mode)
+		return
+	if(check_zone(user.get_combat_bodyzone()) != BODY_ZONE_CHEST)
+		return
+
+	if(HAS_TRAIT(target, TRAIT_BEINGSTAKED))
+		to_chat(user, span_notice("[target] is already having a stake driven into [target.p_their()] chest!"))
+		return
+
+	// lol, cry about it
+	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+		to_chat(user, span_notice("[target]'s chest is too thick! [src] won't go in!"))
+		return
+
+	// Cannot have something in your chest
+	var/obj/item/bodypart/chest = target.get_bodypart(BODY_ZONE_CHEST)
+	if(!chest)
+		return
+	for(var/obj/item/embedded_object in chest.embedded_objects)
+		to_chat(user, span_boldannounce("[target]'s chest already has [embedded_object] inside of it!"))
+		return
+
+	playsound(target, 'sound/magic/Demon_consume.ogg', 50, 1)
+	to_chat(target, span_userdanger("[user] is driving a stake into your chest!"))
+	to_chat(user, span_notice("You put all your weight into embedding [src] into [target]'s chest..."))
+
+	ADD_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+	if(!do_after(user, staketime, target))
+		REMOVE_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+		return
+
+	REMOVE_TRAIT(target, TRAIT_BEINGSTAKED, TRAIT_VAMPIRE)
+
+	// Actually embed the stake and apply damage
+	if(!tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE))
+		return
+
+	target.apply_damage(force * 5, BRUTE, BODY_ZONE_CHEST)
+
+	playsound(target, 'sound/effects/splat.ogg', 40, 1)
+	user.visible_message(
+		span_danger("[user] drives the [src] into [target]'s chest!"),
+		span_danger("You drive the [src] into [target]'s chest!"),
+	)
+
+	if(IS_VAMPIRE(target))
+		to_chat(target, span_userdanger("You have been staked! Your powers are useless while it's in your chest!"))
+		target.balloon_alert(target, "you have been staked!")
+
+///Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
+/obj/item/stake/proc/can_be_staked(mob/living/carbon/target)
+	if(!istype(target))
+		return FALSE
+	if(!CHECK_BITFIELD(target.mobility_flags, MOBILITY_MOVE))
+		return TRUE
+	return FALSE
+
+/// Created by welding and acid-treating a simple stake.
+/obj/item/stake/hardened
+	name = "hardened stake"
+	desc = "A wooden stake carved to a sharp point and hardened by fire."
+	icon_state = "hardened"
+	force = 8
+	throwforce = 12
+	armour_penetration = 10
+	staketime = 8 SECONDS
+
+/obj/item/stake/hardened/silver
+	name = "silver stake"
+	desc = "Polished and sharp at the end. For when some mofo is always trying to iceskate uphill."
+	icon_state = "silver"
+	item_state = "silver"
+	siemens_coefficient = 1
+	force = 9
+	armour_penetration = 25
+	staketime = 6 SECONDS

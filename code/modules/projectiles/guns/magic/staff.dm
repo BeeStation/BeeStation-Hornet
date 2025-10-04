@@ -7,8 +7,11 @@
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
-	block_power = 20 //staffs can block shit if you're walking
-	block_upgrade_walk = TRUE
+
+	canblock = TRUE
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
+
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -17,6 +20,11 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
+	//school = SCHOOL_TRANSMUTATION
+	/// If set, all wabbajacks this staff produces will be of this type, instead of random
+	var/preset_wabbajack_type
+	/// If set, all wabbajacks this staff produces will be of this changeflag, instead of only WABBAJACK
+	var/preset_wabbajack_changeflag
 
 /obj/item/gun/magic/staff/animate
 	name = "staff of animation"
@@ -47,31 +55,32 @@
 	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
-	var/allowed_projectile_types = list(
-		/obj/projectile/magic/change,
+	/// Static list of all projectiles we can fire from our staff.
+	/// Doesn't contain all subtypes of magic projectiles, unlike what it looks like
+	var/static/list/allowed_projectile_types = list(
 		/obj/projectile/magic/animate,
-		/obj/projectile/magic/resurrection,
-		/obj/projectile/magic/death,
-		/obj/projectile/magic/teleport,
-		/obj/projectile/magic/door,
-		/obj/projectile/magic/fireball,
-		/obj/projectile/magic/spellblade,
-		/obj/projectile/magic/arcane_barrage,
-		/obj/projectile/magic/locker,
-		/obj/projectile/magic/flying,
-		/obj/projectile/magic/bounty,
 		/obj/projectile/magic/antimagic,
+		/obj/projectile/magic/arcane_barrage,
+		/obj/projectile/magic/bounty,
+		/obj/projectile/magic/change,
+		/obj/projectile/magic/death,
+		/obj/projectile/magic/door,
 		/obj/projectile/magic/fetch,
-		/obj/projectile/magic/sapping,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/flying,
+		/obj/projectile/magic/locker,
 		/obj/projectile/magic/necropotence,
-		/obj/projectile/magic,
+		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/sapping,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/teleport,
+		/obj/projectile/magic/wipe,
 		/obj/projectile/temp/chill,
-		/obj/projectile/magic/wipe
 	)
 
 /obj/item/gun/magic/staff/chaos/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	chambered.projectile_type = pick(allowed_projectile_types)
-	. = ..()
+	return ..()
 
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
@@ -114,11 +123,6 @@
 /obj/item/gun/magic/staff/spellblade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 15, 125, 0, hitsound)
-
-/obj/item/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
 
 /obj/item/gun/magic/staff/locker
 	name = "staff of the locker"

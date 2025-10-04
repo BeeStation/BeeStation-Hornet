@@ -27,6 +27,7 @@
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
 /atom/movable/screen/plane_master/proc/backdrop(mob/mymob)
 	SHOULD_CALL_PARENT(TRUE)
+	filters = null
 	if(!isnull(render_relay_plane))
 		relay_render_to_plane(mymob, render_relay_plane)
 
@@ -39,7 +40,9 @@
 
 /atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
 	. = ..()
-	remove_filter("openspace_shadow")
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		return
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("openspace_shadow", 2, drop_shadow_filter(color = "#04080FAA", size = 10))
 
@@ -53,10 +56,9 @@
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
-	remove_filter("AO")
-	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion) && !low_graphics_quality)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
-	remove_filter("eye_blur")
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
@@ -111,10 +113,9 @@
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 	if (isliving(mymob))
 		mymob.overlay_fullscreen("lighting_backdrop_seenear", /atom/movable/screen/fullscreen/see_through_darkness)
-
-/atom/movable/screen/plane_master/lighting/Initialize(mapload)
-	. = ..()
-	add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (!low_graphics_quality)
+		add_filter("emissives", 1, layering_filter(render_source = EMISSIVE_RENDER_TARGET, blend_mode = BLEND_ADD))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 
 /atom/movable/screen/plane_master/additive_lighting
@@ -122,6 +123,15 @@
 	plane = LIGHTING_PLANE_ADDITIVE
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/atom/movable/screen/plane_master/additive_lighting/backdrop(mob/mymob)
+	. = ..()
+	// Disable this as a plane master when using low graphics quality, the stuff does not render at all
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		appearance_flags &= ~PLANE_MASTER
+	else
+		appearance_flags |= PLANE_MASTER
 
 /**
  * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
@@ -135,13 +145,17 @@
 	blend_mode_override = BLEND_OVERLAY
 	color = "#bcdaf7"
 
-/atom/movable/screen/plane_master/starlight/Initialize(mapload)
+/atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
 	. = ..()
-	add_filter("guassian_blur", 1, gauss_blur_filter(6))
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		add_filter("guassian_blur", 1, gauss_blur_filter(1))
+	else
+		add_filter("guassian_blur", 1, gauss_blur_filter(6))
 	// Default the colour to whatever the parallax is currently
 	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
 	// Transition the colour to whatever the global tells us to go to
-	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour))
+	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour), override = TRUE)
 
 /atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS)
 	SIGNAL_HANDLER
@@ -205,7 +219,9 @@
 
 /atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
 	. = ..()
-	remove_filter("AO")
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		return
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
 
@@ -248,6 +264,9 @@
 
 /atom/movable/screen/plane_master/psychic/backdrop(mob/mymob)
 	. = ..()
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		return
 	add_filter("psychic_bloom", 1, list(type = "bloom", size = 2, threshold = rgb(85,85,85)))
 	add_filter("psychic_alpha_mask", 1, alpha_mask_filter(render_source = "psychic_mask"))
 	add_filter("psychic_radial_blur", 1, radial_blur_filter(size = 0.0125))
@@ -263,6 +282,9 @@
 
 /atom/movable/screen/plane_master/anti_psychic/backdrop(mob/mymob)
 	. = ..()
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		return
 	//fixes issue with bloom outlines
 	add_filter("hide_outline", 1, outline_filter(5, "#fff"))
 
@@ -275,6 +297,9 @@
 
 /atom/movable/screen/plane_master/blind_feature/backdrop(mob/mymob)
 	. = ..()
+	var/low_graphics_quality = mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/low_graphics_quality)
+	if (low_graphics_quality)
+		return
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
 

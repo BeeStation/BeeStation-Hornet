@@ -8,12 +8,12 @@
 	head_announce = list("Science")
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffddff"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SCIENCE
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/research_director
 
@@ -55,7 +55,7 @@
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director
-	belt = /obj/item/modular_computer/tablet/pda/heads/research_director
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/research_director
 	ears = /obj/item/radio/headset/heads/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
 	shoes = /obj/item/clothing/shoes/sneakers/brown
@@ -70,11 +70,12 @@
 
 	chameleon_extras = /obj/item/stamp/research_director
 
-/datum/outfit/job/research_director/rig
-	name = "Research Director (Hardsuit)"
+/datum/outfit/job/research_director/mod
+	name = "Research Director (MODsuit)"
 
-	l_hand = null
-	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/research_director
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/research
+	suit = null
+	head = null
+	mask = /obj/item/clothing/mask/breath
 	internals_slot = ITEM_SLOT_SUITSTORE

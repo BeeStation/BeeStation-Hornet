@@ -19,7 +19,6 @@
 	return team
 
 /datum/antagonist/brother/on_gain()
-	SSticker.mode.brothers += owner
 	objectives += team.objectives
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
@@ -28,7 +27,6 @@
 	return ..()
 
 /datum/antagonist/brother/on_removal()
-	SSticker.mode.brothers -= owner
 	if(owner.current)
 		to_chat(owner.current,span_userdanger("You are no longer the Blood Brother!"))
 	owner.special_role = null
@@ -82,7 +80,7 @@
 	for(var/datum/mind/M in team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
-	SSticker.mode.update_brother_icons_added(owner)
+	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)

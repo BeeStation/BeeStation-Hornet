@@ -10,7 +10,7 @@
 	icon_state = "barrier0"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/security_barricade/ComponentInitialize()
+/obj/item/security_barricade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/structure/barricade/security, time_to_deploy = 3 SECONDS)
 
@@ -126,6 +126,7 @@
 	bar_material = WOOD
 	pickup_delay = 15 SECONDS
 	drop_amount = 5
+	layer = SHUTTER_LAYER
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))

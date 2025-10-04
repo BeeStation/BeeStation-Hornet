@@ -30,7 +30,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_warning("You try to put your hand into [src], but almost burn yourself!"))
 		return
 	if(!anchored)
@@ -48,7 +48,7 @@
 			pickedtype += /obj/item/clothing/suit/clockwork/cloak
 		if("Wraith Spectacles")
 			pickedtype += /obj/item/clothing/glasses/clockwork/wraith_spectacles
-	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && is_servant_of_ratvar(user) && cooldowntime <= world.time)
+	if(src && !QDELETED(src) && anchored && pickedtype && Adjacent(user) && !user.incapacitated() && IS_SERVANT_OF_RATVAR(user) && cooldowntime <= world.time)
 		cooldowntime = world.time + 2400
 		for(var/N in pickedtype)
 			new N(get_turf(src))

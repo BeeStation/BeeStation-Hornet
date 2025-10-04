@@ -177,6 +177,23 @@
 	to_preload += /obj/item/multitool
 	to_preload += /obj/item/stack/cable_coil
 	return to_preload
+/obj/item/storage/belt/utility/full/powertools/PopulateContents()
+	new /obj/item/powertool/hand_drill(src)
+	new /obj/item/powertool/jaws_of_life(src)
+	new /obj/item/weldingtool/experimental(src)
+	new /obj/item/multitool(src)
+	new /obj/item/holosign_creator/atmos(src)
+	new /obj/item/extinguisher/mini(src)
+	new /obj/item/stack/cable_coil(src)
+
+/obj/item/storage/belt/utility/full/powertools/rcd/PopulateContents()
+	new /obj/item/powertool/hand_drill(src)
+	new /obj/item/powertool/jaws_of_life(src)
+	new /obj/item/weldingtool/experimental(src)
+	new /obj/item/multitool(src)
+	new /obj/item/construction/rcd/loaded(src)
+	new /obj/item/extinguisher/mini(src)
+	new /obj/item/stack/cable_coil(src)
 
 /obj/item/storage/belt/utility/atmostech/PopulateContents()
 	SSwardrobe.provide_type(/obj/item/screwdriver, src)
@@ -311,8 +328,7 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/holosign_creator/medical,
 		/obj/item/construction/plumbing,
-		/obj/item/plunger,
-		/obj/item/extrapolator
+		/obj/item/plunger
 		))
 
 /obj/item/storage/belt/medical/ert
@@ -339,6 +355,7 @@
 	item_state = "security"//Could likely use a better one.
 	worn_icon_state = "security"
 	content_overlays = TRUE
+	custom_price = 80
 
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
@@ -361,7 +378,9 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
-		/obj/item/shield/riot/tele
+		/obj/item/shield/riot/tele,
+		/obj/item/gun/ballistic/taser,
+		/obj/item/ammo_casing/taser
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -370,17 +389,20 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
 
 /obj/item/storage/belt/security/deputy/PopulateContents()
-	new /obj/item/melee/classic_baton/police/deputy(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/melee/tonfa(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/webbing
@@ -451,7 +473,8 @@
 		/obj/item/gun/energy/plasmacutter,
 		/obj/item/grenade/exploration,
 		/obj/item/exploration_detonator,
-		/obj/item/research_disk_pinpointer
+		/obj/item/research_disk_pinpointer,
+		/obj/item/key,
 		))
 
 
@@ -719,13 +742,13 @@
 		/obj/item/pushbroom
 		))
 
-/obj/item/storage/belt/janitor/full/PopulateContents()
+/obj/item/storage/belt/janitor/ertfull/PopulateContents()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap/nanotrasen(src)
 	new /obj/item/holosign_creator/janibarrier(src)
 	new /obj/item/melee/flyswatter(src)
-	new /obj/item/reagent_containers/cup/bucket(src)
+	new /obj/item/melee/baton/loaded(src)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
@@ -791,12 +814,16 @@
 	atom_storage.max_slots = 5
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 
-/obj/item/storage/belt/fannypack/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
+/obj/item/storage/belt/fannypack/worn
 	name = "Worn belt"
-	desc = "A weathered belt that is used for storing various gadgets"
+	desc = "A weathered belt"
 	icon_state = "utilitybelt" //Placeholder for now.
 	item_state = "utility"
 	worn_icon_state = "utility"
+
+/obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
+	name = "Worn belt"
+	desc = "A weathered belt that is used for storing various gadgets"
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -862,6 +889,12 @@
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
 
+	//Sheathes made to hold swords can block too
+	force = 8
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+	block_power = 25
+
 /obj/item/storage/belt/sabre/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
@@ -894,13 +927,33 @@
 	item_state = initial(item_state)
 	worn_icon_state = initial(worn_icon_state)
 	if(contents.len)
-		icon_state += "-sabre"
-		item_state += "-sabre"
-		worn_icon_state += "-sabre"
+		icon_state += "_sabre"
+		item_state += "_sabre"
+		worn_icon_state += "_sabre"
 	return ..()
 
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
+	update_appearance()
+
+//While it might be useful in a pinch, this is the real reason I want the sheathes to be able to block
+/obj/item/storage/belt/sabre/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	if(!length(contents) && istype(hitby, /obj/item/melee/sabre))
+		owner.visible_message(span_danger("[owner] smoothly catches [hitby] with the [src]!"))
+		playsound(src, 'sound/items/sheath.ogg', 50, TRUE)
+		hitby.forceMove(src)
+		return TRUE
+	. = ..()
+
+/obj/item/storage/belt/sabre/carbon_fiber
+	name = "carbon fiber sabre sheath"
+	desc = "A military grade sabre sheath."
+	icon_state = "sheath_fiber"
+	item_state = "sheath_fiber"
+	worn_icon_state = "sheath_fiber"
+
+/obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
+	new /obj/item/melee/sabre/carbon_fiber(src)
 	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
@@ -928,4 +981,4 @@
 
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)
-	update_icon()
+	update_appearance()

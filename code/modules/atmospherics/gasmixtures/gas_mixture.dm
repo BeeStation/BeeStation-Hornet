@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
 	var/last_share = 0
 	/// Tells us what reactions have happened in our gasmix. Assoc list of reaction - moles reacted pair.
 	var/list/reaction_results
-	/// Used for analyzer feedback - not initialized until its used
+	/// Used for analyzer feedback - not initialized until its used (USED FOR FUSION ONLY AT THE MOMENT)
 	var/list/analyzer_results
 	/// Whether to call garbage_collect() on the sharer during shares, used for immutable mixtures
 	var/gc_share = FALSE

@@ -319,6 +319,12 @@
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
+/datum/map_template/shuttle/emergency/medbay
+	suffix = "medbay"
+	name = "Medical Emergencies Escape Shuttle"
+	description = "The M.E.E.S. is a shuttle built for medical care, featuring a large, well-equipped medical center to tend to many crew members during the trip to Central Command."
+	credit_cost = 10000
+
 /datum/map_template/shuttle/emergency/funnypod
 	suffix = "funnypod"
 	name = "Comically Large Escape Pod"
@@ -378,6 +384,12 @@
 	name = "Box Station Emergency Shuttle"
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
+
+/datum/map_template/shuttle/emergency/card
+	suffix = "card"
+	name = "Card Station Emergency Shuttle"
+	credit_cost = 4000
+	description = "A standard pattern exfiltration shuttle, equipped with a medbay, brig and an aft engineering section. It's upgraded engines ensure the smoothest and quickest ride."
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -710,6 +722,10 @@
 	name = "exploration shuttle"
 	can_be_bought = FALSE
 
+/datum/map_template/shuttle/exploration/card
+	suffix = "card"
+	name = "card exploration shuttle"
+
 /datum/map_template/shuttle/exploration/corg
 	suffix = "corg"
 	name = "corg exploration shuttle"
@@ -741,6 +757,22 @@
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
 	name = "arrival shuttle (Delta)"
+
+/datum/map_template/shuttle/arrival/card
+	suffix = "card"
+	name = "arrival shuttle (Card)"
+
+/datum/map_template/shuttle/cargo/card
+	suffix = "card"
+	name = "cargo ferry (Card)"
+
+/datum/map_template/shuttle/mining/card
+	suffix = "card"
+	name = "mining shuttle (Card)"
+
+/datum/map_template/shuttle/labour/card
+	suffix = "card"
+	name = "labour shuttle (Card)"
 
 /datum/map_template/shuttle/arrival/kilo
 	suffix = "kilo"

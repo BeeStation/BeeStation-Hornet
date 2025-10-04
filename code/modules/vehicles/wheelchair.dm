@@ -23,8 +23,10 @@
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
-	make_ridable()
 	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT) //the wheelchair doesnt immobilize us like a bed would
+
+/obj/vehicle/ridden/wheelchair/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/hand)
 
 /obj/vehicle/ridden/wheelchair/atom_destruction(damage_flag)
 	new /obj/item/stack/rods(drop_location(), 1)
@@ -94,7 +96,3 @@
 	if(isobserver(user) && CONFIG_GET(flag/ghost_interaction))
 		return TRUE
 	return FALSE
-
-/// I assign the ridable element in this so i don't have to fuss with hand wheelchairs and motor wheelchairs having different subtypes
-/obj/vehicle/ridden/wheelchair/proc/make_ridable()
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/wheelchair/hand)

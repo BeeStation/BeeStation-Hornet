@@ -384,7 +384,7 @@
 			if(player.stat != DEAD)
 				if(issilicon(player)) //Borgs are technically dead anyways
 					continue
-				if(isanimal(player)) //animals don't count
+				if(isanimal_or_basicmob(player)) //animals don't count
 					continue
 				if(isbrain(player)) //also technically dead
 					continue
@@ -475,7 +475,6 @@
 
 		if(SHUTTLE_IGNITING)
 			var/success = TRUE
-			//Check if the gamemode is clockcult and the clockies are utter failures
 			if(GLOB.celestial_gateway && !GLOB.gateway_opening)
 				SSshuttle.registerHostileEnvironment(GLOB.celestial_gateway)
 				var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
@@ -514,7 +513,12 @@
 				mode = SHUTTLE_ESCAPE
 				launch_status = ENDGAME_LAUNCHED
 				setTimer(SSshuttle.emergencyEscapeTime * engine_coeff)
-				priority_announce("The Emergency Shuttle has left the station. Estimate: [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, ANNOUNCEMENT_TYPE_PRIORITY)
+				priority_announce(
+					text = "The emergency shuttle has left the station. Estimate [timeLeft(60 SECONDS)] minutes until the shuttle docks at [command_name()].",
+					title = "Emergency Shuttle Departure",
+					sender_override = "Emergency Shuttle Uplink Alert",
+					color_override = "orange",
+				)
 
 		if(SHUTTLE_STRANDED)
 			SSshuttle.checkHostileEnvironment()
@@ -677,7 +681,7 @@
 	name = "emergency space helmet"
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/suit/space/orange
 	name = "emergency space suit"

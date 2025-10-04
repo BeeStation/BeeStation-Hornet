@@ -160,6 +160,8 @@ SUBSYSTEM_DEF(research)
 		for(var/i in node.design_ids)
 			var/datum/design/D = techweb_designs[i]
 			node.design_ids[i] = TRUE
+			if(isnull(D))
+				CRASH("[D] is null! You probably added to a design id list without associating the entry with a design.")
 			D.unlocked_by += node.id
 		if(node.hidden)
 			techweb_nodes_hidden[node.id] = TRUE

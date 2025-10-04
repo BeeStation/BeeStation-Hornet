@@ -3,14 +3,14 @@
 #define SPECIES_ANDROID "android"
 #define SPECIES_APID "apid"
 #define SPECIES_DEBUG "debug"
-#define SPECIES_DULLAHAN "dullahan"
 #define SPECIES_ETHEREAL "ethereal"
 #define SPECIES_FELINID "felinid"
 #define SPECIES_FLY "fly"
 #define SPECIES_HUMAN "human"
 #define SPECIES_IPC "ipc"
 #define SPECIES_LIZARD "lizard"
-#define SPECIES_ASHWALKER "ashlizard"
+#define SPECIES_LIZARD_ASH "ashwalker"
+#define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MOTH "moth"
 #define SPECIES_OOZELING "oozeling"
@@ -24,10 +24,19 @@
 #define SPECIES_SKELETON "skeleton"
 #define SPECIES_SNAILPERSON "snail"
 #define SPECIES_SUPERSOLDIER "supersoldier"
-#define SPECIES_VAMPIRE "vampire"
 #define SPECIES_PSYPHOZA "psyphoza"
+#define SPECIES_ZOMBIE "zombie"
+#define SPECIES_ZOMBIE_INFECTIOUS "memezombie"
+#define SPECIES_ZOMBIE_KROKODIL "krokodil_zombie"
+
+// Like species IDs, but not specifically attached a species.
+#define BODYPART_ID_ALIEN "alien"
+#define BODYPART_ID_ROBOTIC "robotic"
+#define BODYPART_ID_DIGITIGRADE "digitigrade"
+#define BODYPART_ID_LARVA "larva"
 
 //Defines for Golem Species IDs
+#define SPECIES_GOLEM "golem"
 #define SPECIES_GOLEM_ADAMANTINE "adamantine_golem"
 #define SPECIES_GOLEM_ALLOY "alloy_golem"
 #define SPECIES_GOLEM_BANANIUM "bananium_golem"
@@ -44,7 +53,6 @@
 #define SPECIES_GOLEM_DURATHREAD "durathread_golem"
 #define SPECIES_GOLEM_GLASS "glass_golem"
 #define SPECIES_GOLEM_GOLD "gold_golem"
-#define SPECIES_GOLEM_IRON "iron_golem"
 #define SPECIES_GOLEM_LEATHER "leather_golem"
 #define SPECIES_GOLEM_PLASMA "plasma_golem"
 #define SPECIES_GOLEM_PLASTEEL "plasteel_golem"
@@ -108,6 +116,16 @@
 #define SLIME_EXTRACT (1<<5)
 /// Wabbacjack staff projectiles
 #define WABBAJACK     (1<<6)
+
+// Randomization keys for calling wabbajack with.
+// Note the contents of these keys are important, as they're displayed to the player
+// Ex: (You turn into a "monkey", You turn into a "xenomorph")
+#define WABBAJACK_MONKEY "monkey"
+#define WABBAJACK_ROBOT "robot"
+#define WABBAJACK_SLIME "slime"
+#define WABBAJACK_XENO "xenomorph"
+#define WABBAJACK_HUMAN "humanoid"
+#define WABBAJACK_ANIMAL "animal"
 
 // Sounds used by species for "nasal/lungs" emotes - the DEFAULT being used mainly by humans, lizards, and ethereals becase biology idk
 

@@ -33,7 +33,7 @@
 	wine_power = 40
 
 /obj/item/food/grown/watermelon/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/watermelonslice, 5, 20)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/watermelonslice, 5, 20, screentip_verb = "Slice")
 
 /obj/item/food/grown/watermelon/make_dryable()
 	return //No drying

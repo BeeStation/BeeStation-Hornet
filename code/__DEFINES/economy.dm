@@ -53,7 +53,6 @@
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
-#define NO_FREEBIES 0 // used for a vendor selling nothing for free
 #define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vendor items (i.e. HoP cartridge vendor)
 #define ACCOUNT_CIV_BITFLAG (1<<1)
 #define ACCOUNT_SRV_BITFLAG (1<<2)
@@ -66,7 +65,7 @@
 // this should use the same bitflag values in `\_DEFINES\jobs.dm` to match.
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 
-/// How much mail the Economy SS will create per minute, regardless of firing time.
+/// How much mail the Economy SS can create per minute, regardless of firing time.
 #define MAX_MAIL_PER_MINUTE 1
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70

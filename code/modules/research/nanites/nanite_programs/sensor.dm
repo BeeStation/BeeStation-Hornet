@@ -398,7 +398,7 @@
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
-		if(NOBLOOD in host_human.dna?.species?.species_traits)
+		if(HAS_TRAIT(host_human, TRAIT_NOBLOOD))
 			return FALSE
 
 /datum/nanite_program/sensor/blood/check_event()

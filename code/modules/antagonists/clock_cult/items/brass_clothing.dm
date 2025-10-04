@@ -35,7 +35,7 @@
 	if((istype(user, /mob/living/carbon/human/consistent) && !user.client) || (istype(user, /mob/living/carbon/human/dummy) && !user.client))
 		//Fake people need not apply (it fucks up my unit tests)
 		return
-	if(is_servant_of_ratvar(user) || allow_any)
+	if(IS_SERVANT_OF_RATVAR(user) || allow_any)
 		return
 	to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 	user.dropItemToGround(src, TRUE)
@@ -125,7 +125,7 @@
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_userdanger("You feel a shock of energy surge through your body!"))
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
@@ -145,7 +145,7 @@
 	icon_state = "wraith_specs"
 	invis_view = SEE_INVISIBLE_SPIRIT
 	invis_override = null
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/yellow
@@ -177,7 +177,7 @@
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
 	..()
-	if(wearer && is_servant_of_ratvar(wearer))
+	if(wearer && IS_SERVANT_OF_RATVAR(wearer))
 		to_chat(user, span_nezbere("You feel your eyes slowly recovering."))
 		addtimer(CALLBACK(wearer, TYPE_PROC_REF(/mob/living, adjustOrganLoss), ORGAN_SLOT_EYES, -applied_eye_damage), 600)
 		wearer = null
@@ -192,7 +192,7 @@
 	armor_type = /datum/armor/helmet_clockcult
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	bang_protect = 3
 
 

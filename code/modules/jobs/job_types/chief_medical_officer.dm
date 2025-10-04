@@ -10,12 +10,12 @@
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#c1e1ec"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/chief_medical_officer
 
@@ -54,7 +54,7 @@
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer
-	belt = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
+	belt = /obj/item/modular_computer/tablet/pda/preset/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/flashlight/pen
 	ears = /obj/item/radio/headset/heads/cmo
@@ -71,10 +71,14 @@
 	box = /obj/item/storage/box/survival/medical
 	chameleon_extras = list(/obj/item/gun/syringe, /obj/item/stamp/cmo)
 
-/datum/outfit/job/chief_medical_officer/hardsuit
-	name = "Chief Medical Officer (Hardsuit)"
+/datum/outfit/job/chief_medical_officer/mod
+	name = "Chief Medical Officer (MOD)"
 
-	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/rescue
+	suit = null
+	head = null
+	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
+	mask = /obj/item/clothing/mask/breath
 	r_pocket = /obj/item/flashlight/pen
+	internals_slot = ITEM_SLOT_SUITSTORE

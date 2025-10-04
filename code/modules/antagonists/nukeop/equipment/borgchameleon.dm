@@ -16,7 +16,7 @@
 	var/disguise = "engineer"
 	var/mob/listeningTo
 	var/static/list/signalCache = list( // list here all signals that should break the camouflage
-			COMSIG_PARENT_ATTACKBY,
+			COMSIG_ATOM_ATTACKBY,
 			COMSIG_ATOM_ATTACK_HAND,
 			COMSIG_MOVABLE_IMPACT_ZONE,
 			COMSIG_ATOM_BULLET_ACT,
@@ -29,7 +29,7 @@
 
 /obj/item/borg_chameleon/Initialize(mapload)
 	. = ..()
-	friendlyName = pick(GLOB.ai_names)
+	friendlyName = capitalize(pick(GLOB.ai_names))
 
 /obj/item/borg_chameleon/Destroy()
 	listeningTo = null
@@ -87,7 +87,7 @@
 	src.user = user
 	savedName = user.name
 	user.name = friendlyName
-	user.module.cyborg_base_icon = disguise
+	user.model.cyborg_base_icon = disguise
 	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
@@ -106,7 +106,7 @@
 		listeningTo = null
 	do_sparks(5, FALSE, user)
 	user.name = savedName
-	user.module.cyborg_base_icon = initial(user.module.cyborg_base_icon)
+	user.model.cyborg_base_icon = initial(user.model.cyborg_base_icon)
 	user.bubble_icon = "syndibot"
 	active = FALSE
 	user.update_icons()

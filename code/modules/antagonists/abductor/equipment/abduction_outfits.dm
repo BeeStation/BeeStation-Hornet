@@ -58,7 +58,7 @@
 		var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(H)
 		beamplant.implant(H)
 
-/datum/outfit/abductor/scientist/onemanteam
+/datum/outfit/abductor/scientist/solo
 	name = "Abductor Scientist (w/ agent gear)"
 	head = /obj/item/clothing/head/helmet/abductor
 	suit = /obj/item/clothing/suit/armor/abductor/vest

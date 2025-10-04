@@ -59,7 +59,7 @@ Slimecrossing Potions
 		to_chat(user, span_notice("You feed [M] [src]!"))
 	else
 		to_chat(user, span_warning("You drink [src]!"))
-	if(isanimal(M))
+	if(isanimal_or_basicmob(M))
 		ADD_TRAIT(M, TRAIT_PACIFISM, MAGIC_TRAIT)
 	else if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -192,7 +192,7 @@ Slimecrossing Potions
 		return
 	if(M.maxHealth <= 0)
 		to_chat(user, span_warning("The slime is too unstable to return!"))
-	M.revive(full_heal = 1)
+	M.revive(HEAL_ALL)
 	M.set_stat(CONSCIOUS)
 	M.visible_message(span_notice("[M] is filled with renewed vigor and blinks awake!"))
 	M.maxHealth -= 10 //Revival isn't healthy.

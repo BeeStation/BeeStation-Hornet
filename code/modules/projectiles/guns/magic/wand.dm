@@ -30,7 +30,7 @@
 		return
 	..()
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/pull_trigger(atom/target, mob/living/user, params, aimed)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -94,14 +94,10 @@
 	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
-	user.revive(full_heal = 1)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.regenerate_limbs()
-		C.regenerate_organs()
-	to_chat(user, span_notice("You feel great!"))
-	charges--
 	..()
+	charges--
+	user.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE) // This heals suicides
+	to_chat(user, span_notice("You feel great!"))
 
 /obj/item/gun/magic/wand/resurrection/debug //for testing
 	desc = "Is it possible for something to be even more powerful than regular magic? This wand is."
@@ -128,8 +124,8 @@
 	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
-	..() //because the user mob ceases to exists by the time wabbajack fully resolves
-	wabbajack(user)
+	. = ..() //because the user mob ceases to exists by the time wabbajack fully resolves
+	user.wabbajack()
 	charges--
 
 /////////////////////////////////////

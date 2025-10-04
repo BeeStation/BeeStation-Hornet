@@ -67,6 +67,7 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 /obj/effect/debugging/marker
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "yellow"
+	plane = ABOVE_LIGHTING_PLANE
 
 /obj/effect/debugging/marker/Move()
 	return 0
@@ -81,10 +82,16 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 			on = TRUE
 		T.maptext = null
 
+	for(var/obj/effect/debugging/marker/M in world)
+		qdel(M)
+
 	if(!on)
 		var/list/seen = list()
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			for(var/turf/T in C.can_see())
+				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
+				if (!(T in C.can_see()))
+					qdel(F)
 				seen[T]++
 		for(var/turf/T in seen)
 			T.maptext = MAPTEXT("[seen[T]]")
@@ -325,7 +332,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 
 	var/list/z_list = SSmapping.z_list
 	var/list/messages = list()
-	messages += "<b>World</b>: [world.maxx] x [world.maxy] x [world.maxz]<br>"
+	messages += "<b>World</b>: [world.maxx] x [world.maxy] x [world.maxz]<br><br>"
 
 	var/list/linked_levels = list()
 	var/min_x = INFINITY
@@ -369,7 +376,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 	for(var/datum/space_level/S in linked_levels)
 		grid[S.xi - min_x + 1][S.yi - min_y + 1] = S.z_value
 
-	messages += "<table border='1'>"
+	messages += "<br><table border='1'>"
 	for(var/y in max_y to min_y step -1)
 		var/list/part = list()
 		for(var/x in min_x to max_x)
@@ -377,7 +384,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 		messages += "<tr><td>[part.Join("</td><td>")]</td></tr>"
 	messages += "</table>"
 
-	to_chat(src, messages.Join(""))
+	to_chat(src, examine_block(messages.Join("")))
 
 /client/proc/test_tgui_inputs()
 	set name = "Test TGUI Inputs"

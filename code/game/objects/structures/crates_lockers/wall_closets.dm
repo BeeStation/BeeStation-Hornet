@@ -153,6 +153,7 @@
 
 /obj/structure/wall_closet/Destroy()
 	dump_contents()
+	closet_contents = null
 	return ..()
 
 /obj/structure/wall_closet/dump_contents()

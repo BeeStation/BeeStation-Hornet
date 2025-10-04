@@ -23,7 +23,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	var/geiger_counter = TRUE
 	var/current_tick_amount = 0
 	var/radiation_count = 0
@@ -69,7 +69,7 @@
 	else
 		on = !on
 	icon_state = "[basestate][on]-[hardsuit_type]"
-	user?.update_inv_head()	//so our mob-overlays update
+	user?.update_worn_head()	//so our mob-overlays update
 
 	set_light_on(on)
 
@@ -109,7 +109,7 @@
 	else
 		to_chat(user, span_warning("You disable the heads up display of your suit."))
 
-/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
+/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b>[span_robot("[msg]")]</b>", MSG_VISUAL)
@@ -322,8 +322,8 @@
 /datum/armor/hardsuit_engine
 	melee = 30
 	bullet = 5
-	laser = 10
-	energy = 12
+	laser = 20
+	energy = 20
 	bomb = 10
 	bio = 100
 	rad = 75
@@ -389,6 +389,8 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner,
+		/obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/extinguisher)
 
 
 	//Chief Engineer's hardsuit
@@ -420,7 +422,7 @@
 /datum/armor/engine_elite
 	melee = 40
 	bullet = 5
-	laser = 10
+	laser = 20
 	energy = 15
 	bomb = 50
 	bio = 100
@@ -440,7 +442,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/upgraded/plus
 
 	//Mining hardsuit
 
@@ -573,57 +575,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
-//Cybersun Hardsuit
-//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
-
-/datum/armor/hardsuit_exploration
-	melee = 35
-	bullet = 15
-	laser = 20
-	energy = 10
-	bomb = 50
-	bio = 100
-	rad = 50
-	fire = 50
-	acid = 75
-	stamina = 20
-	bleed = 70
-
-/obj/item/clothing/head/helmet/space/hardsuit/cybersun
-	name = "Cybersun hardsuit helmet"
-	desc = "A bulbous red helmet designed for scavenging in hazardous, low pressure environments. Has dual floodlights, and a 360 Degree view."
-	icon_state = "hardsuit0-cybersun"
-	item_state = "death_commando_mask"
-	hardsuit_type = "cybersun"
-	armor_type = /datum/armor/hardsuit_cybersun
-	strip_delay = 600
-
-
-/datum/armor/hardsuit_cybersun
-	melee = 30
-	bullet = 35
-	laser = 15
-	energy = 15
-	bomb = 60
-	bio = 100
-	rad = 55
-	fire = 30
-	acid = 60
-	stamina = 15
-	bleed = 70
-
-/obj/item/clothing/suit/space/hardsuit/cybersun
-	icon_state = "cybersun"
-	name = "Cybersun hardsuit"
-	desc = "A bulky, protective suit designed to protect against the perils facing Cybersun Employed Engineers, Researchers, and more as they head from the safety of \
-		more stable employment to the dangers of Nanotrasen Controlled Deep Space. Designed to get the job done despite on-site hazards in derelicts, laser armor was \
-		sacrificed in favor of more effective blunt armor plates and radiation shielding."
-	armor_type = /datum/armor/hardsuit_cybersun
-	hardsuit_type = "cybersun"
-	item_state = "death_commando_mask"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
-	jetpack = /obj/item/tank/jetpack/suit
-
 	//Syndicate hardsuit
 
 /datum/armor/hardsuit_cybersun
@@ -655,7 +606,7 @@
 	)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
 	visor_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS
-
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 /datum/armor/hardsuit_syndi
 	melee = 40
@@ -707,7 +658,7 @@
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
-	user.update_inv_head()
+	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
@@ -756,7 +707,7 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/hyper
+	cell = /obj/item/stock_parts/cell/super
 	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
 	slowdown = 0.5
 	actions_types = list(
@@ -765,8 +716,9 @@
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
-/obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -796,8 +748,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
 	name = "[initial(name)] (combat)"
@@ -808,8 +760,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_inv_wear_suit()
-		H.update_inv_w_uniform()
+		H.update_worn_oversuit()
+		H.update_worn_undersuit()
 
 //Stupid snowflake type so we dont freak out the spritesheets. Its not actually used ingame
 /obj/item/clothing/suit/space/hardsuit/syndipreview
@@ -831,7 +783,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 /datum/armor/syndi_elite
 	melee = 60
@@ -858,6 +810,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	cell = /obj/item/stock_parts/cell/bluespace
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 //The Owl Hardsuit
 
@@ -905,22 +858,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor_type = /datum/armor/hardsuit_wizard
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
-	clothing_flags = CASTING_CLOTHES
+	clothing_flags = CASTING_CLOTHES | NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
-
-/datum/armor/hardsuit_wizard
-	melee = 40
-	bullet = 40
-	laser = 40
-	energy = 50
-	bomb = 35
-	bio = 100
-	rad = 50
-	fire = 100
-	acid = 100
-	stamina = 70
-	bleed = 70
 
 /obj/item/clothing/suit/space/hardsuit/wizard
 	icon_state = "hardsuit-wiz"
@@ -929,7 +868,7 @@
 	item_state = "wiz_hardsuit"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	clothing_flags = CASTING_CLOTHES
+	clothing_flags = CASTING_CLOTHES | NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 	armor_type = /datum/armor/hardsuit_wizard
 	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
@@ -953,7 +892,7 @@
 	stamina = 70
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, MAGIC_RESISTANCE)
@@ -973,9 +912,10 @@
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
 	hardsuit_type = "medical"
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	armor_type = /datum/armor/hardsuit_medical
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 
 
 /datum/armor/hardsuit_medical
@@ -997,7 +937,13 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	item_state = "medical_hardsuit"
 	supports_variations = DIGITIGRADE_VARIATION
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals,
+		/obj/item/storage/firstaid,
+		/obj/item/healthanalyzer,
+		/obj/item/stack/medical,
+	)
 	armor_type = /datum/armor/hardsuit_medical
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
 	slowdown = 0.5
@@ -1019,7 +965,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort and protects the eyes from intense light."
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 
 /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	name = "chief medical officer's hardsuit"
@@ -1034,7 +980,8 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor_type = /datum/armor/hardsuit_rd
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
 		/datum/action/item_action/toggle_research_scanner
@@ -1082,7 +1029,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector, /obj/item/hand_tele, /obj/item/aicard)
 	armor_type = /datum/armor/hardsuit_research_director
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/upgraded/plus
 
 /datum/armor/hardsuit_research_director
 	melee = 30
@@ -1097,7 +1044,7 @@
 	stamina = 30
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/research_director/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/research_director/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -1109,21 +1056,6 @@
 	item_state = "sec_helm"
 	hardsuit_type = "sec"
 	armor_type = /datum/armor/hardsuit_security
-
-
-
-/datum/armor/hardsuit_security
-	melee = 35
-	bullet = 35
-	laser = 30
-	energy = 50
-	bomb = 40
-	bio = 100
-	rad = 50
-	fire = 75
-	acid = 75
-	stamina = 50
-	bleed = 70
 
 /obj/item/clothing/suit/space/hardsuit/security
 	icon_state = "hardsuit-sec"
@@ -1183,7 +1115,7 @@
 	armor_type = /datum/armor/security_head_of_security
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/upgraded/plus
 
 	//SWAT MKII
 
@@ -1211,7 +1143,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
-
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 /datum/armor/hardsuit_swat
 	melee = 40
@@ -1237,9 +1169,10 @@
 	armor_type = /datum/armor/hardsuit_swat
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	blocks_shove_knockdown = TRUE
+	clothing_flags = BLOCKS_SHOVE_KNOCKDOWN
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT //this needed to be added a long fucking time ago
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 
 // SWAT and Captain get EMP Protection
 
@@ -1273,7 +1206,7 @@
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
-	cell = /obj/item/stock_parts/cell/super
+	cell = /obj/item/stock_parts/cell/upgraded/plus
 
 	//Clown
 /obj/item/clothing/head/helmet/space/hardsuit/clown
@@ -1393,6 +1326,7 @@
 	supports_variations = DIGITIGRADE_VARIATION
 	armor_type = /datum/armor/hardsuit_shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 	/// How many charges total the shielding has
 	var/shield_integrity = 60
 	/// How long after we've been shot before we can start recharging.
@@ -1419,6 +1353,13 @@
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = shield_integrity, \
+		recharge_start_delay = recharge_delay, \
+		charge_increment_delay = recharge_rate, \
+		shield_icon = shield_icon \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -1439,12 +1380,25 @@
 	greyscale_config = /datum/greyscale_config/ctf_standard
 	greyscale_config_worn = /datum/greyscale_config/ctf_standard_worn
 	greyscale_colors = "#ffffff"
+	clothing_flags = THICKMATERIAL
 
 	///Icon state to be fed into the shielded component
 	var/team_shield_icon = "shield-old"
+	var/shield_integrity = 150
+	var/charge_recovery = 30
+	var/recharge_start_delay = 20 SECONDS
+	var/charge_increment_delay = 1 SECONDS
 
-/obj/item/clothing/suit/armor/vest/ctf/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 150, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
+/obj/item/clothing/suit/armor/vest/ctf/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = shield_integrity, \
+		charge_recovery = charge_recovery, \
+		recharge_start_delay = recharge_start_delay, \
+		charge_increment_delay = charge_increment_delay, \
+		shield_icon = team_shield_icon \
+	)
 
 // LIGHT SHIELDED VEST
 
@@ -1455,9 +1409,7 @@
 	greyscale_config = /datum/greyscale_config/ctf_light
 	greyscale_config_worn = /datum/greyscale_config/ctf_light_worn
 	slowdown = -0.25
-
-/obj/item/clothing/suit/armor/vest/ctf/light/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 50, charge_recovery = 30, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = team_shield_icon)
+	shield_integrity = 50
 
 // RED TEAM SUITS
 
@@ -1513,7 +1465,6 @@
 	)
 	jetpack = /obj/item/tank/jetpack/suit
 
-
 /datum/armor/shielded_syndi
 	melee = 40
 	bullet = 50
@@ -1527,11 +1478,16 @@
 	stamina = 60
 	bleed = 70
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 60, charge_recovery = 20, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-red")
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize(mapload)
 	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 60, \
+		charge_recovery = 20, \
+		recharge_start_delay = 20 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-red" \
+	)
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 
@@ -1605,8 +1561,16 @@
 	stamina = 100
 	bleed = 100
 
-/obj/item/clothing/suit/space/hardsuit/shielded/swat/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 80, charge_recovery = 20, recharge_start_delay = 1.5 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+/obj/item/clothing/suit/space/hardsuit/shielded/swat/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 80, \
+		charge_recovery = 20, \
+		recharge_start_delay = 1.5 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-old" \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat
 	name = "death commando helmet"
@@ -1678,8 +1642,16 @@
 	stamina = 100
 	bleed = 100
 
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/setup_shielding()
-	AddComponent(/datum/component/shielded, max_integrity = 20, charge_recovery = 20, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS, shield_icon = "shield-old")
+/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/Initialize(mapload)
+	. = ..()
+	AddComponent(
+		/datum/component/shielded, \
+		max_integrity = 20, \
+		charge_recovery = 20, \
+		recharge_start_delay = 1 SECONDS, \
+		charge_increment_delay = 1 SECONDS, \
+		shield_icon = "shield-old" \
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
 	name = "juggernaut helmet"

@@ -149,7 +149,7 @@
 	update_both_huds()
 	var/datum/space_level/snare_z_level = SSmapping.get_level(snare_turf.z)
 	SSblackbox.record_feedback("associative", "holoparasite_snares", 1, list(
-		"map" = SSmapping.config.map_name,
+		"map" = SSmapping.current_map.map_name,
 		"area" = "[snare_area]",
 		"x" = snare_turf.x,
 		"y" = snare_turf.y,

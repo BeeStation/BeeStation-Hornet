@@ -31,11 +31,11 @@
 	icon_state = "rsecurity"
 	item_state = "r_suit"
 	armor_type = /datum/armor/security_officer
-	alt_covers_chest = TRUE
+	alt_covers_chest = FALSE
 
 
 /datum/armor/security_officer
-	melee = 10
+	melee = 5
 	fire = 30
 	acid = 30
 	stamina = 10
@@ -76,6 +76,7 @@
 	icon_state = "blueshift"
 	item_state = null
 	can_adjust = FALSE
+	custom_price = 110
 
 /obj/item/clothing/under/rank/security/officer/formal
 	name = "security officer's formal uniform"
@@ -308,6 +309,8 @@
 	name = "prison jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "jumpsuit"
+	icon_preview = 'icons/obj/previews.dmi'
+	icon_state_preview = "prisonsuit"
 	item_state = "jumpsuit"
 	greyscale_colors = "#ff8300"
 	greyscale_config = /datum/greyscale_config/jumpsuit_prison
@@ -317,3 +320,8 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+
+/obj/item/clothing/under/rank/prisoner/lowsec
+	name = "low-security prison jumpsuit"
+	desc = "It's standardised Nanotrasen low-security prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
+	greyscale_colors = "#517a9b"

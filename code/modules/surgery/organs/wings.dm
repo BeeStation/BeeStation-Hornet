@@ -19,7 +19,7 @@
 		Refresh(H)
 
 /obj/item/organ/wings/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
-	..()
+	. = ..()
 	if(istype(H))
 		Refresh(H)
 
@@ -132,7 +132,7 @@
 	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
 	flight_level = WINGS_FLYING
 
-/obj/item/organ/wings/moth/on_life()
+/obj/item/organ/wings/moth/on_life(delta_time, times_fired)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner

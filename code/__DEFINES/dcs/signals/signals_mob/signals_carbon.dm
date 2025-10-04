@@ -24,19 +24,33 @@
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"
 
 
+///from base of /obj/item/bodypart/proc/can_attach_limb(): (new_limb, special) allows you to fail limb attachment
+#define COMSIG_ATTEMPT_CARBON_ATTACH_LIMB "attempt_carbon_attach_limb"
+	#define COMPONENT_NO_ATTACH (1<<0)
 ///from base of /obj/item/bodypart/proc/try_attach_limb(): (new_limb, special)
 #define COMSIG_CARBON_ATTACH_LIMB "carbon_attach_limb"
-	#define COMPONENT_NO_ATTACH (1<<0)
 /// Called from bodypart being attached /obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_owner, special)
 #define COMSIG_BODYPART_ATTACHED "bodypart_attached"
 ///from base of /obj/item/bodypart/proc/try_attach_limb(): (new_limb, special)
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
 /// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
-#define COMSIG_CARBON_REMOVE_LIMB "carbon_remove_limb"
-/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
 #define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
+
+/// Called from update_health_hud, whenever a bodypart is being updated on the health doll
+#define COMSIG_BODYPART_UPDATING_HEALTH_HUD "bodypart_updating_health_hud"
+	/// Return to override that bodypart's health hud with your own icon
+	#define COMPONENT_OVERRIDE_BODYPART_HEALTH_HUD (1<<0)
+
+/// Called from /obj/item/bodypart/check_for_injuries (mob/living/carbon/examiner, list/check_list)
+#define COMSIG_BODYPART_CHECKED_FOR_INJURY "bodypart_injury_checked"
+/// Called from /obj/item/bodypart/check_for_injuries (obj/item/bodypart/examined, list/check_list)
+#define COMSIG_CARBON_CHECKING_BODYPART "carbon_checking_injury"
+
+/// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
+#define COMSIG_CARBON_REMOVE_LIMB "carbon_remove_limb"
 /// Called from bodypart being removed /obj/item/bodypart/proc/drop_limb(mob/living/carbon/old_owner, dismembered)
 #define COMSIG_BODYPART_REMOVED "bodypart_removed"
+
 #define COMSIG_CARBON_TRANSFORMED	"carbon_transformed"			//! Called whenever a carbon is transformed into another carbon, i.e monkeyize/humanize (mob/living/carbon/new_body)
 
 ///from /mob/living/carbon/human/get_visible_name(), not sent if the mob has TRAIT_UNKNOWN: (identity)
@@ -49,3 +63,8 @@
 	#define VISIBLE_NAME_FORCED 3
 ///from /mob/living/carbon/human/get_id_name; only returns if the mob has TRAIT_UNKNOWN and it's being overriden: (identity)
 #define COMSIG_HUMAN_GET_FORCED_NAME "human_get_forced_name"
+
+///Called when a carbon's health hud is updated. (source = carbon, shown_health_amount)
+#define COMSIG_CARBON_UPDATING_HEALTH_HUD "carbon_health_hud_update"
+	/// Return if you override the carbon's health hud with something else
+	#define COMPONENT_OVERRIDE_HEALTH_HUD (1<<0)

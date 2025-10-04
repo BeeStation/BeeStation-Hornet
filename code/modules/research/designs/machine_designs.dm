@@ -678,19 +678,11 @@
 	category = list("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/xeno_listing_console
+/datum/design/board/xenoa_listing_console
 	name = "Computer Design (Research and Development Listing Console)"
 	desc = "The circuit board for a research listing console."
 	id = "xenoa_list_console"
-	build_path = /obj/item/circuitboard/computer/xenoartifact_console
-	category = list ("Research Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
-/datum/design/board/xenia_listing_inbox
-	name = "Machine Design (Bluespace Straythread Pad)"
-	desc = "The circuit board for a bluespace straythread pad."
-	id = "xenoa_list_pad"
-	build_path = /obj/item/circuitboard/machine/xenoartifact_inbox
+	build_path = /obj/item/circuitboard/computer/xenoarchaeology_console
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
@@ -733,6 +725,30 @@
 	build_path = /obj/item/electronics/genpop_interface
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 	category = list("Misc. Machinery")
+
+/datum/design/board/xenoa_scale
+	name = "Machine Design (Industrial Scale)"
+	desc = "The circuit board for an industrial scale."
+	id = "xenoa_scale"
+	build_path = /obj/item/circuitboard/machine/xenoarchaeology_machine/scale
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xenoa_conductor
+	name = "Machine Design (Conducting Plate)"
+	desc = "The circuit board for a conducting plate."
+	id = "xenoa_conductor"
+	build_path = /obj/item/circuitboard/machine/xenoarchaeology_machine/conductor
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xenoa_calibrator
+	name = "Machine Design (Anomalous Material Calibrator)"
+	desc = "The circuit board for an anomalous material calibrator."
+	id = "xenoa_calibrator"
+	build_path = /obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/sheetifier
 	name = "Sheetifier"

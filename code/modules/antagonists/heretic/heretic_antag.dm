@@ -191,6 +191,7 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	our_mob.faction |= FACTION_HERETIC
+
 	RegisterSignals(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
@@ -200,7 +201,13 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	handle_clown_mutation(our_mob, removing = FALSE)
 	our_mob.faction -= FACTION_HERETIC
-	UnregisterSignal(our_mob, list(COMSIG_MOB_PRE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED, COMSIG_MOB_ITEM_AFTERATTACK, COMSIG_MOB_LOGIN))
+
+	UnregisterSignal(our_mob, list(
+		COMSIG_MOB_PRE_SPELL_CAST,
+		COMSIG_MOB_SPELL_ACTIVATED,
+		COMSIG_MOB_ITEM_AFTERATTACK,
+		COMSIG_MOB_LOGIN
+	))
 	update_heretic_icons_removed()
 
 /datum/antagonist/heretic/proc/update_heretic_icons_added()
@@ -345,7 +352,7 @@
 	log_objective(owner, research_objective.explanation_text)
 
 	var/num_heads = 0
-	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for(var/mob/player in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(player.client && (player.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 			num_heads++
 	// Give normal sacrifice objective
@@ -393,7 +400,7 @@
  */
 /datum/antagonist/heretic/proc/possible_sacrifice_targets(include_current_targets = TRUE)
 	. = list()
-	for(var/mob/living/carbon/human/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+	for(var/mob/living/carbon/human/player in SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
 		if(!player.mind || !player.client || player.client.is_afk())
 			continue
 		var/datum/mind/possible_target = player.mind
@@ -669,7 +676,7 @@
  * and returns HERETIC_HAS_LIVING_HEART if they have a living heart
  */
 /datum/antagonist/heretic/proc/has_living_heart()
-	var/obj/item/organ/our_living_heart = owner.current?.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(ORGAN_SLOT_HEART)
 	if(!our_living_heart)
 		return HERETIC_NO_HEART_ORGAN
 
@@ -756,7 +763,7 @@
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
 	icon_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 
 /datum/action/antag_info/heretic/New(Target)
 	. = ..()

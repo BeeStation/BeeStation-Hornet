@@ -28,9 +28,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/item/grenade/plastic/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/plastic/Destroy()
@@ -113,7 +110,7 @@
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
 	. = ..()
 	aim_dir = get_dir(user,AM)
-	if(!flag)
+	if(!flag || !user.is_holding(src))
 		return
 	if(ismob(AM) && !can_attach_mob)
 		return

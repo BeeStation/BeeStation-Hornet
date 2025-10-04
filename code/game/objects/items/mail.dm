@@ -164,7 +164,7 @@
 		// If the recipient's mind has gone, then anyone can open their mail
 		// whether a mind can actually be qdel'd is an exercise for the reader
 		if(recipient && recipient != user?.mind)
-			if(!is_changeling(user) && !(user?.mind?.has_antag_datum(/datum/antagonist/obsessed)))
+			if(!IS_CHANGELING(user) && !(user?.mind?.has_antag_datum(/datum/antagonist/obsessed)))
 				to_chat(user, span_notice("You can't open somebody else's mail! That's <em>immoral</em>!"))
 				return
 			var/can_open = FALSE

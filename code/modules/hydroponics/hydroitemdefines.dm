@@ -105,7 +105,9 @@
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	name = "scythe"
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
-	force = 13
+	force = 18
+	sharpness = SHARP_DISMEMBER
+	bleed_force = BLEED_CUT
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 3
@@ -118,6 +120,9 @@
 	attack_verb_simple = list("chop", "slice", "cut", "reap")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/swiping = FALSE
+	canblock = TRUE
+	block_power = 50
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_COUNTERATTACK
 
 /obj/item/scythe/Initialize(mapload)
 	. = ..()

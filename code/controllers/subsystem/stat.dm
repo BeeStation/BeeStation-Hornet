@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(stat)
 
 /datum/controller/subsystem/stat/fire(resumed = 0)
 	if (!resumed)
-		src.currentrun = GLOB.clients.Copy()
+		src.currentrun = GLOB.clients_unsafe.Copy()
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -143,12 +143,12 @@ SUBSYSTEM_DEF(stat)
 	return null
 
 /datum/controller/subsystem/stat/proc/send_global_alert(title, message)
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(C?.tgui_panel)
 			C.tgui_panel.give_alert_popup(title, message)
 
 /datum/controller/subsystem/stat/proc/clear_global_alert()
-	for(var/client/C in GLOB.clients)
+	for(var/client/C in GLOB.clients_unsafe)
 		if(C?.tgui_panel)
 			C.tgui_panel.clear_alert_popup()
 

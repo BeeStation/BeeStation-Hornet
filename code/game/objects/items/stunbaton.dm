@@ -1,6 +1,7 @@
 /obj/item/melee/baton
 	name = "stun baton"
-	desc = "A stun baton for incapacitating people with. Left click to stun, right click to baton shove."
+	desc = "A stun baton for incapacitating people with."
+	desc_controls = "Left click to stun, right click to baton shove."
 
 	icon_state = "stunbaton"
 	item_state = "baton"
@@ -22,7 +23,7 @@
 
 	var/obj/item/stock_parts/cell/cell
 	var/preload_cell_type //if not empty the baton starts with this type of cell
-	var/cell_hit_cost = 1000
+	var/cell_hit_cost = 1 KILOWATT
 	var/can_remove_cell = TRUE
 
 	var/turned_on = FALSE
@@ -196,9 +197,9 @@
 			M.visible_message(span_warning("[user] has prodded [M] with [src]. Luckily it was off."), \
 							span_warning("[user] has prodded you with [src]. Luckily it was off"))
 	else
+		. = ..()
 		if(turned_on)
 			baton_effect(M, user, params)
-		return ..()
 
 /obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, params)
 	if(obj_flags & OBJ_EMPED)
@@ -215,7 +216,9 @@
 
 	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 	var/armor_block = target.run_armor_check(affecting, STAMINA)
-	// L.adjustStaminaLoss(stun_time)
+	if(isipc(target))
+		target.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
+		target.apply_damage(stun_time/4, BURN, affecting, armor_block) //20 damage
 	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stun_time)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
@@ -287,7 +290,7 @@
 	force = 3
 	throwforce = 5
 	stun_time = 4 SECONDS
-	cell_hit_cost = 2000
+	cell_hit_cost = 2 KILOWATT
 	throw_stun_chance = 10
 	slot_flags = ITEM_SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler = 0

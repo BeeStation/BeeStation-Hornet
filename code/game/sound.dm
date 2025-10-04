@@ -61,7 +61,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	channel = channel || SSsounds.random_available_channel()
 
 	// Looping through the player list has the added bonus of working for mobs inside containers
-	var/sound/S = sound(get_sfx(soundin))
+	var/sound/S = istype(soundin, /sound) ? soundin : sound(get_sfx(soundin))
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	/// Everyone that actually heard the sound
 	var/list/hearers = list()
@@ -200,7 +200,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
-/proc/play_soundtrack_music(var/datum/soundtrack_song/song, list/hearers = null, ignore_prefs = FALSE, play_to_lobby = FALSE, allow_deaf = TRUE, only_station = SOUNDTRACK_PLAY_RESPECT, is_global = TRUE)
+/proc/play_soundtrack_music(datum/soundtrack_song/song, list/hearers = null, ignore_prefs = FALSE, play_to_lobby = FALSE, allow_deaf = TRUE, only_station = SOUNDTRACK_PLAY_RESPECT, is_global = TRUE)
 	var/sound/S = sound(initial(song.file), volume=initial(song.volume), wait=0, channel=CHANNEL_SOUNDTRACK)
 	. = S
 

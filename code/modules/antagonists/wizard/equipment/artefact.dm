@@ -44,7 +44,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
-/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc, spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -170,7 +170,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		if(ismob(A))
 			to_chat(A, span_warning("There is no way out of this place..."))
 		return
-	var/atom/return_thing = pick(GLOB.destabliization_exits)
+	var/atom/return_thing = pick(GLOB.destabliization_exits) || pick(get_safe_random_station_turfs())
 	var/turf/T = get_turf(return_thing)
 	if(!T)
 		return
@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		return
 
 	M.set_species(/datum/species/skeleton, icon_update=0)
-	M.revive(full_heal = 1, admin_revive = 1)
+	M.revive(ADMIN_HEAL_ALL)
 	spooky_scaries |= M
 	to_chat(M, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
 	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!"))
@@ -383,8 +383,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(target && cooldown < world.time)
 		switch(zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
-				var/wgw =  stripped_input(user, "What would you like the victim to say", "Voodoo")
-				target.say(wgw, forced = "voodoo doll")
+				var/wgw =  tgui_input_text(user, "What would you like your victim to say?", "Voodoo")
+				if(!wgw) // no input so we return
+					to_chat(user, span_warning("You need to enter something!"))
+					return
+				if(CHAT_FILTER_CHECK(wgw)) // check for forbidden words
+					to_chat(user, span_warning("Your message contains forbidden words."))
+					log_game("[key_name(user)] tried to make [key_name(target)] say [wgw] with a voodoo doll but didn't pass the filter.")
+					return
+				target.say(wgw, sanitize = FALSE, forced = "voodoo doll") // Note: tgui_input_text sanitizes for us, so we pass sanitize = FALSE (atleast that's what the holoparasite comments tell me)
 				log_game("[key_name(user)] made [key_name(target)] say [wgw] with a voodoo doll.")
 			if(BODY_ZONE_PRECISE_EYES)
 				user.set_machine(src)
@@ -414,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
+		if(prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)])
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
@@ -439,7 +446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 //Provides a decent heal, need to pump every 6 seconds
 /obj/item/organ/heart/cursed/wizard
-	pump_delay = 60
+	pump_delay = 6 SECONDS
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
@@ -462,8 +469,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
-	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
+	user.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED), WARPWHISTLE_TRAIT)
 
 /obj/item/warpwhistle/attack_self(mob/living/carbon/user)
 	if(!istype(user) || on_cooldown)
@@ -479,7 +485,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 		return
 	user.invisibility = INVISIBILITY_MAXIMUM
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, WARPWHISTLE_TRAIT)
 	sleep(20)
 	if(interrupted(user))
 		end_effect(user)

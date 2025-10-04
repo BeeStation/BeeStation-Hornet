@@ -288,7 +288,7 @@
 					return "Error: Ticket #[fail] not found"
 				if(AH.initiator_ckey != target)
 					return "Error: Ticket #[fail] belongs to [AH.initiator_ckey]"
-				AH.Reopen()
+				AH.Reopen(tgs_tagged)
 				return "Ticket #[ticket.id] successfully reopened"
 			if("list")
 				var/list/tickets = GLOB.ahelp_tickets.TicketsByCKey(target)

@@ -65,6 +65,12 @@
 /proc/cmp_ruincost_priority(datum/map_template/ruin/A, datum/map_template/ruin/B)
 	return initial(A.cost) - initial(B.cost)
 
+/proc/cmp_list_size_asc(list/A, list/B)
+	return length(A) - length(B)
+
+/proc/cmp_list_size_dsc(list/A, list/B)
+	return length(B) - length(A)
+
 /proc/cmp_qdel_item_time(datum/qdel_item/A, datum/qdel_item/B)
 	. = B.hard_delete_time - A.hard_delete_time
 	if (!.)
@@ -150,7 +156,7 @@
   * This prevents any reagent_containers from being consumed before the reagents they contain, which can
   * lead to runtimes and item duplication when it happens.
   */
-/proc/cmp_crafting_req_priority(var/A, var/B)
+/proc/cmp_crafting_req_priority(A, B)
 	var/lhs
 	var/rhs
 

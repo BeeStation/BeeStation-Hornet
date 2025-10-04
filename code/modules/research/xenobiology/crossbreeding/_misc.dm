@@ -12,7 +12,6 @@ Slimecrossing Items
 	pictures_max = 1
 	can_customise = FALSE
 	default_picture_name = "A nostalgic picture"
-	var/used = FALSE
 
 /datum/saved_bodypart
 	var/obj/item/bodypart/old_part
@@ -57,16 +56,14 @@ Slimecrossing Items
 /obj/item/camera/rewind/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || !isturf(target.loc))
 		return
-	if(!used)//selfie time
-		if(user == target)
-			to_chat(user, span_notice("You take a selfie!"))
-		else
-			to_chat(user, span_notice("You take a photo with [target]!"))
-			to_chat(target, span_notice("[user] takes a photo with you!"))
-		to_chat(target, span_notice("You'll remember this moment forever!"))
+	if(user == target)
+		to_chat(user, span_notice("You take a selfie!"))
+	else
+		to_chat(user, span_notice("You take a photo with [target]!"))
+		to_chat(target, span_notice("[user] takes a photo with you!"))
+	to_chat(target, span_notice("You'll remember this moment forever!"))
 
-		used = TRUE
-		target.AddComponent(/datum/component/dejavu, 2)
+	target.AddComponent(/datum/component/dejavu, 2)
 	.=..()
 
 
@@ -94,8 +91,7 @@ Slimecrossing Items
 	name = "hypercharged slime core"
 	desc = "A charged yellow slime extract, infused with even more plasma. It almost hurts to touch."
 	rating = 7 //Roughly 1.5 times the original.
-	maxcharge = 10000 //5 times the normal one.
-	chargerate = 300 //3 times the normal one.
+	maxcharge = 100 KILOWATT //5 times the normal one.
 
 //Barrier cube - Chilling Grey
 /obj/item/barriercube
@@ -181,16 +177,14 @@ Slimecrossing Items
 	if(length(contents))
 		to_chat(user, span_warning("The device already has something inside."))
 		return
-	if(!isanimal(M))
+	if(!isanimal_or_basicmob(M))
 		to_chat(user, span_warning("The capture device only works on simple creatures."))
 		return
 	if(M.mind)
 		INVOKE_ASYNC(src, PROC_REF(offer_entry), M, user)
+	else if(!(FACTION_NEUTRAL in M.faction))
+		to_chat(user, span_warning("This creature is too aggressive to capture."))
 		return
-	else
-		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))
-			to_chat(user, span_warning("This creature is too aggressive to capture."))
-			return
 	to_chat(user, span_notice("You store [M] in the capture device."))
 	store(M)
 
@@ -215,7 +209,7 @@ Slimecrossing Items
 	else
 		to_chat(user, span_warning("The device is empty..."))
 
-/obj/item/capturedevice/proc/store(var/mob/living/M)
+/obj/item/capturedevice/proc/store(mob/living/M)
 	M.forceMove(src)
 
 /obj/item/capturedevice/proc/release()

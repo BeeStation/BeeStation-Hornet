@@ -624,30 +624,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	switch(action)
 		if("prisoner_name")
 			// Encode the name and ensure it is saniticed for IC input
-			var/prisoner_name = stripped_input(usr, "Input prisoner's name...", "Crimes", desired_name)
-			prisoner_name = sanitize_name(prisoner_name)
+			var/prisoner_name = tgui_input_text(usr, "Input prisoner's name...", "Prisoner Name", desired_name, MAX_NAME_LEN)
+			if(CHAT_FILTER_CHECK(prisoner_name)) // check for forbidden words
+				to_chat(usr, span_warning("Your message contains forbidden words."))
+				return FALSE
 			if(!prisoner_name || (!Adjacent(usr) && !IsAdminGhost(usr)))
 				return FALSE
 			desired_name = prisoner_name
-			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
-			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
-				return TRUE
-			desired_details = prisoner_details
-			// Ask them for the details of the crime
 		if("edit_details")
-			var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
-			if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+			var/prisoner_details = tgui_input_text(usr, "Input details of the offense...", "Crime Details", desired_details)
+			if (CHAT_FILTER_CHECK(prisoner_details)) // check for forbidden words
+				to_chat(usr, span_warning("Your message contains forbidden words."))
+				return FALSE
+			if (!prisoner_details || (!Adjacent(usr) && !IsAdminGhost(usr)))
 				return FALSE
 			desired_details = prisoner_details
-			// Ask them for the details of the crime
 		if("print")
 			if (!desired_name)
 				return
 			if (!desired_details)
-				var/prisoner_details = stripped_input(usr, "Input details of the offense...", "Crimes", desired_details)
-				if (!prisoner_details || CHAT_FILTER_CHECK(prisoner_details) || (!Adjacent(usr) && !IsAdminGhost(usr)))
+				var/prisoner_details = tgui_input_text(usr, "Input details of the offense...", "Crime Details", desired_details)
+				if (CHAT_FILTER_CHECK(prisoner_details)) // check for forbidden words
+					to_chat(usr, span_warning("Your message contains forbidden words."))
+					return FALSE
+				if (!prisoner_details || (!Adjacent(usr) && !IsAdminGhost(usr)))
 					say("Please provide a correct description of the incident that led to their charge.")
-					return
+					return FALSE
 				desired_details = prisoner_details
 			var/desired_sentence = text2num(params["desired_sentence"])
 			if (!desired_sentence)

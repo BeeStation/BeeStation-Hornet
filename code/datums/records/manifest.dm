@@ -8,8 +8,8 @@
 
 /// Builds the list of crew records for all crew members.
 /datum/manifest/proc/build()
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/readied_player = i
+	for(var/i in GLOB.auth_new_player_list)
+		var/mob/dead/new_player/authenticated/readied_player = i
 		if(readied_player.new_character)
 			log_manifest(readied_player.ckey,readied_player.new_character.mind,readied_player.new_character)
 		if(ishuman(readied_player.new_character))
@@ -105,7 +105,7 @@
 		blood_type = record_dna.blood_type,
 		character_appearance = character_appearance,
 		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.uni_identity),
+		fingerprint = md5(record_dna.unique_identity),
 		gender = gender_string,
 		initial_rank = assignment,
 		name = person.real_name,
@@ -122,7 +122,7 @@
 		blood_type = record_dna.blood_type,
 		character_appearance = character_appearance,
 		dna_string = record_dna.unique_enzymes,
-		fingerprint = md5(record_dna.uni_identity),
+		fingerprint = md5(record_dna.unique_identity),
 		gender = gender_string,
 		initial_rank = assignment,
 		name = person.real_name,

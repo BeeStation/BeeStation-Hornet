@@ -94,7 +94,7 @@
 	tackle_range = 10
 	min_distance = 7
 	tackle_speed = 6
-	skill_mod = 7
+	skill_mod = 0 //where's the "high risk" in having a +7 modifier here?!
 
 /obj/item/clothing/gloves/tackler/offbrand
 	name = "improvised gripper gloves"
@@ -104,4 +104,4 @@
 	tackle_stam_cost = 30
 	base_knockdown = 1.75 SECONDS
 	min_distance = 2
-	skill_mod = -1
+	skill_mod = 1

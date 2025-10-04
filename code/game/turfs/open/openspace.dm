@@ -27,6 +27,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
 
+/turf/open/openspace/planetary
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+	planetary_atmos = TRUE
+
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 

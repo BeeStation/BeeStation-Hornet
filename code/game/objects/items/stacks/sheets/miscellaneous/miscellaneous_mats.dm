@@ -36,7 +36,7 @@ Miscellaneous material sheets
 	merge_type = /obj/item/stack/sheet/sandbags
 
 GLOBAL_LIST_INIT(sandbag_recipes, list ( \
-	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, one_per_turf = TRUE, on_floor = TRUE, time = 2.5 SECONDS), \
+	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 2.5 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, category = CAT_STRUCTURE), \
 	))
 
 /obj/item/stack/sheet/sandbags/get_recipes()

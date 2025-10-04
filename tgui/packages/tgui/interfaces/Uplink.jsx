@@ -1,6 +1,17 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Tooltip } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  NoticeBox,
+  Section,
+  Table,
+  Tabs,
+  Tooltip,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -23,7 +34,10 @@ export const GenericUplink = (props) => {
   const { act, data } = useBackend();
   const { compactMode, lockable, categories = [] } = data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0]?.name);
+  const [selectedCategory, setSelectedCategory] = useLocalState(
+    'category',
+    categories[0]?.name,
+  );
   const testSearch = createSearch(searchText, (item) => {
     return item.name + item.desc;
   });
@@ -48,15 +62,23 @@ export const GenericUplink = (props) => {
       buttons={
         <>
           Search
-          <Input value={searchText} autoFocus onInput={(e, value) => setSearchText(value)} mx={1} />
+          <Input
+            value={searchText}
+            autoFocus
+            onInput={(e, value) => setSearchText(value)}
+            mx={1}
+          />
           <Button
             icon={compactMode ? 'list' : 'info'}
             content={compactMode ? 'Compact' : 'Detailed'}
             onClick={() => act('compact_toggle')}
           />
-          {!!lockable && <Button icon="lock" content="Lock" onClick={() => act('lock')} />}
+          {!!lockable && (
+            <Button icon="lock" content="Lock" onClick={() => act('lock')} />
+          )}
         </>
-      }>
+      }
+    >
       <Flex>
         {searchText.length === 0 && (
           <Flex.Item>
@@ -65,7 +87,8 @@ export const GenericUplink = (props) => {
                 <Tabs.Tab
                   key={category.name}
                   selected={category.name === selectedCategory}
-                  onClick={() => setSelectedCategory(category.name)}>
+                  onClick={() => setSelectedCategory(category.name)}
+                >
                   {category.name} ({category.items?.length || 0})
                 </Tabs.Tab>
               ))}
@@ -74,7 +97,11 @@ export const GenericUplink = (props) => {
         )}
         <Flex.Item grow mx={2.5} basis={0}>
           {items.length === 0 && (
-            <NoticeBox>{searchText.length === 0 ? 'No items in this category.' : 'No results found.'}</NoticeBox>
+            <NoticeBox>
+              {searchText.length === 0
+                ? 'No items in this category.'
+                : 'No results found.'}
+            </NoticeBox>
           )}
           <ItemList
             compactMode={searchText.length > 0 || compactMode}
@@ -161,7 +188,11 @@ const ItemList = (props) => {
   return items.map((item) => (
     <Section
       key={item.name}
-      title={GetTooltipMessage(item.name, item.is_illegal, item.are_contents_illegal)}
+      title={GetTooltipMessage(
+        item.name,
+        item.is_illegal,
+        item.are_contents_illegal,
+      )}
       level={2}
       buttons={
         <Button
@@ -175,7 +206,8 @@ const ItemList = (props) => {
             })
           }
         />
-      }>
+      }
+    >
       {decodeHtmlEntities(item.desc)}
     </Section>
   ));

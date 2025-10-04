@@ -58,7 +58,7 @@
 		var/obj/item/stock_parts/cell/C = M.cell
 		if(!C)
 			return
-		if(O && is_servant_of_ratvar(O))
+		if(O && IS_SERVANT_OF_RATVAR(O))
 			if(C.charge < C.maxcharge && GLOB.clockcult_power > 40)
 				M.give_power(C.chargerate)
 				GLOB.clockcult_power -= 40
@@ -71,7 +71,7 @@
 		var/obj/item/stock_parts/cell/C = R.get_cell()
 		if(!C)
 			return
-		if(is_servant_of_ratvar(R))
+		if(IS_SERVANT_OF_RATVAR(R))
 			if(GLOB.clockcult_power >= 40)
 				if(C.charge < C.maxcharge)
 					C.give(C.chargerate)
@@ -87,7 +87,7 @@
 		for(var/obj/item in L)
 			var/obj/item/stock_parts/cell/C = item.get_cell()
 			if(C)
-				if(is_servant_of_ratvar(H))
+				if(IS_SERVANT_OF_RATVAR(H))
 					if(GLOB.clockcult_power >= 40)
 						if(C.charge < C.maxcharge)
 							C.give(C.chargerate)

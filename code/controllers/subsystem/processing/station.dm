@@ -1,6 +1,3 @@
-#define REPORT_WAIT_TIME_MINIMUM 600
-#define REPORT_WAIT_TIME_MAXIMUM 1500
-
 PROCESSING_SUBSYSTEM_DEF(station)
 	name = "Station"
 	init_order = INIT_ORDER_STATION
@@ -8,12 +5,14 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	runlevels = RUNLEVEL_GAME
 	wait = 5 SECONDS
 
-	///A list of currently active station traits
+	/// A list of currently active station traits
 	var/list/station_traits
-	///Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
+	/// Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
 	var/list/selectable_traits_by_types
-	///Currently active announcer. Starts as a type but gets initialized after traits are selected
+	/// Currently active announcer. Starts as a type but gets initialized after traits are selected
 	var/datum/centcom_announcer/announcer = /datum/centcom_announcer/default
+	/// Assosciative list of station goal type -> goal instance
+	var/list/datum/station_goal/goals_by_type = list()
 
 /datum/controller/subsystem/processing/station/Initialize()
 
@@ -22,15 +21,41 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 	//If doing unit tests we don't do none of that trait shit ya know?
 	// Autowiki also wants consistent outputs, for example making sure the vending machine page always reports the normal products
-	#if !defined(UNIT_TESTS) && !defined(AUTOWIKI)
+#if !defined(UNIT_TESTS) && !defined(AUTOWIKI)
 	if(CONFIG_GET(flag/station_traits))
 		setup_traits()
-		prepare_report()
-	#endif
+#endif
 
 	announcer = new announcer() //Initialize the station's announcer datum
 
 	return SS_INIT_SUCCESS
+
+/// This gets called by SSdynamic during initial gamemode setup.
+/// This is done because for a greenshift we want all goals to be generated
+/datum/controller/subsystem/processing/station/proc/generate_station_goals(goal_budget)
+	var/list/possible_goals = subtypesof(/datum/station_goal)
+
+	var/goal_weights = 0
+	var/chosen_goals = list()
+	while(length(possible_goals) && goal_weights < goal_budget)
+		var/datum/station_goal/picked = pick_n_take(possible_goals)
+
+		goal_weights += initial(picked.weight)
+		chosen_goals += picked
+
+	for(var/chosen in chosen_goals)
+		new chosen()
+
+/// Returns all station goals that are currently active
+/datum/controller/subsystem/processing/station/proc/get_station_goals()
+	var/list/goals = list()
+	for(var/goal_type in goals_by_type)
+		goals += goals_by_type[goal_type]
+	return goals
+
+/// Returns a specific station goal by type
+/datum/controller/subsystem/processing/station/proc/get_station_goal(goal_type)
+	return goals_by_type[goal_type]
 
 ///Rolls for the amount of traits and adds them to the traits list
 /datum/controller/subsystem/processing/station/proc/setup_traits()
@@ -86,21 +111,3 @@ PROCESSING_SUBSYSTEM_DEF(station)
 		for(var/i in each_trait.blacklist)
 			var/datum/station_trait/trait_to_remove = i
 			selectable_traits_by_types[initial(trait_to_remove.trait_type)] -= trait_to_remove
-
-/datum/controller/subsystem/processing/station/proc/prepare_report()
-	if(!station_traits.len)		//no active traits why bother
-		return
-
-	var/report = "<b><i>Central Command Divergency Report</i></b><hr>"
-
-	for(var/datum/station_trait/trait as() in station_traits)
-		if(trait.trait_flags & STATION_TRAIT_ABSTRACT)
-			continue
-		if(!trait.report_message || !trait.show_in_report)
-			continue
-		report += "[trait.get_report()]<BR><hr>"
-
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(print_command_report), report, "Central Command Divergency Report", FALSE), rand(REPORT_WAIT_TIME_MINIMUM, REPORT_WAIT_TIME_MAXIMUM))
-
-#undef REPORT_WAIT_TIME_MINIMUM
-#undef REPORT_WAIT_TIME_MAXIMUM

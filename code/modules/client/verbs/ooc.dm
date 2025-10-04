@@ -2,7 +2,7 @@
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
-/client/verb/ooc(msg as text)
+AUTH_CLIENT_VERB(ooc, msg as text)
 	set name = "OOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
 	set category = "OOC"
 
@@ -75,7 +75,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	mob.log_talk(raw_msg, LOG_OOC)
 
-	var/keyname = key
+	var/display_name = display_name()
+	var/keyname = display_name
 	var/ooccolor = prefs?.read_player_preference(/datum/preference/color/ooc_color) || DEFAULT_BONUS_OOC_COLOR
 	if(prefs.unlock_content && prefs.read_player_preference(/datum/preference/toggle/member_public))
 		keyname = "<font color='[ooccolor ? ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
@@ -104,7 +105,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				else
 					to_chat(C, "[badge_data][span_ooc("[span_prefix("OOC:")] <EM>[keyname]:</EM> [span_messagelinkify(msg)]")]")
 	// beestation, send to discord
-	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || key, raw_msg)
+	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || display_name, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/discord_ooc_tag = CONFIG_GET(string/discord_ooc_tag) // check server config file. check `config.txt` file for the usage.
@@ -152,7 +153,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	GLOB.OOC_COLOR = null
 
 //Checks admin notice
-/client/verb/admin_notice()
+AUTH_CLIENT_VERB(admin_notice)
 	set name = "Adminnotice"
 	set category = "Admin"
 	set desc ="Check the admin notice if it has been set"
@@ -162,7 +163,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	else
 		to_chat(src, span_notice("There are no admin notices at the moment."))
 
-/client/verb/motd()
+AUTH_CLIENT_VERB(motd)
 	set name = "MOTD"
 	set category = "OOC"
 	set desc ="Check the Message of the Day"
@@ -196,11 +197,13 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	new /datum/job_report_menu(src, usr)
 
 // Ignore verb
-/client/verb/select_ignore()
+AUTH_CLIENT_VERB(select_ignore)
 	set name = "Ignore"
 	set category = "OOC"
 	set desc ="Ignore a player's messages on the OOC channel"
 
+	if(!prefs)
+		return
 	// Make a list to choose players from
 	var/list/players = list()
 
@@ -322,7 +325,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	SSticker.show_roundend_report(src, TRUE)
 
-/client/verb/fit_viewport()
+AUTH_CLIENT_VERB(fit_viewport)
 	set name = "Fit Viewport"
 	set category = "OOC"
 	set desc = "Fit the width of the map window to match the viewport"
@@ -392,14 +395,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /// Attempt to automatically fit the viewport, assuming the user wants it
 /client/proc/attempt_auto_fit_viewport()
-	if (!prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	if(fully_created)
-		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
+		INVOKE_ASYNC(src, PROC_REF(fit_viewport))
 	else //Delayed to avoid wingets from Login calls.
-		addtimer(CALLBACK(src, VERB_REF(fit_viewport), 1 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
-/client/verb/view_runtimes_minimal()
+AUTH_CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"
 	set category = "OOC"
 	set desc = "Open the runtime error viewer, with reduced information"
@@ -410,7 +413,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	GLOB.error_cache.show_to_minimal(src)
 
-/client/verb/speech_format_help()
+AUTH_CLIENT_VERB(speech_format_help)
 	set name = "Speech Format Help"
 	set category = "OOC"
 	set desc = "Chat formatting help"
@@ -423,7 +426,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	to_chat(usr, span_notice("[message]"))
 
-/client/verb/vote_to_leave()
+AUTH_CLIENT_VERB(vote_to_leave)
 	set name = "Vote to leave"
 	set category = "OOC"
 	set desc = "Votes to end the round"
@@ -438,3 +441,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		player_details.voted_to_leave = TRUE
 		SSautotransfer.connected_votes_to_leave++
 		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
+
+AUTH_CLIENT_VERB(show_map_vote_tallies)
+	set name = "Show Map Vote Tallies"
+	set category = "OOC"
+	set desc = "View the current map vote tally counts."
+
+	to_chat(src, SSmap_vote.tally_printout)
