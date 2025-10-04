@@ -7,7 +7,7 @@
 	var/smoke_amt = 20 //How much smoke after teleporting
 	actions_types = list(/datum/action/spell/teleport/area_teleport/wizard/scroll)
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	throw_speed = 3
 	throw_range = 7
 	resistance_flags = FLAMMABLE
@@ -18,7 +18,7 @@
 	var/datum/action/spell/teleport/area_teleport/wizard/scroll/teleport = locate() in actions
 	if(teleport)
 		teleport.name = name
-		teleport.icon_icon = icon
+		teleport.button_icon = icon
 		teleport.button_icon_state = icon_state
 
 /obj/item/teleportation_scroll/item_action_slot_check(slot, mob/user)

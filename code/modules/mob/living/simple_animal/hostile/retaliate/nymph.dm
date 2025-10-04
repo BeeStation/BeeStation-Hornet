@@ -260,7 +260,7 @@
 	name = "Evolve"
 	desc = "Evolve into your adult form with the help of another nymph."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
@@ -285,7 +285,7 @@
 	name = "Return"
 	desc = "Return back into your adult form."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
 /datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)

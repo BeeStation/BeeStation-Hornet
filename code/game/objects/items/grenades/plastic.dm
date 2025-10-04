@@ -2,7 +2,7 @@
 	name = "plastic explosive"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
-	item_state = "plastic-explosive"
+	inhand_icon_state = "plastic-explosive"
 	lefthand_file = 'icons/mob/inhands/weapons/bombs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
 	item_flags = NOBLUDGEON
@@ -23,7 +23,7 @@
 
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
-	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	plastic_overlay = mutable_appearance(icon, "[inhand_icon_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -176,9 +176,9 @@
 
 /obj/item/grenade/plastic/update_icon()
 	if(nadeassembly)
-		icon_state = "[item_state]1"
+		icon_state = "[inhand_icon_state]1"
 	else
-		icon_state = "[item_state]0"
+		icon_state = "[inhand_icon_state]0"
 
 //////////////////////////
 ///// The Explosives /////
@@ -253,7 +253,7 @@
 	name = "X4"
 	desc = "A shaped high-explosive breaching charge. Designed to ensure user safety and wall nonsafety."
 	icon_state = "plasticx40"
-	item_state = "plasticx4"
+	inhand_icon_state = "plasticx4"
 	gender = PLURAL
 	directional = TRUE
 	boom_sizes = list(0, 2, 5)

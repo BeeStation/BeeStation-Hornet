@@ -43,7 +43,7 @@
 
 /datum/action/item_action/toggle_spacesuit
 	name = "Toggle Suit Thermal Regulator"
-	icon_icon = 'icons/hud/actions/actions_spacesuit.dmi'
+	button_icon = 'icons/hud/actions/actions_spacesuit.dmi'
 	button_icon_state = "thermal_off"
 
 /datum/action/item_action/toggle_spacesuit/update_button(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
@@ -86,19 +86,19 @@
 /datum/action/item_action/wheelys
 	name = "Toggle Wheels"
 	desc = "Pops out or in your shoes' wheels."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "wheelys"
 
 /datum/action/item_action/kindle_kicks
 	name = "Activate Kindle Kicks"
 	desc = "Kick you feet together, activating the lights in your Kindle Kicks."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "kindleKicks"
 
 /datum/action/item_action/storage_gather_mode
 	name = "Switch gathering mode"
 	desc = "Switches the gathering mode of a storage object."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "storage_gather_switch"
 
 /datum/action/item_action/storage_gather_mode/apply_icon(atom/movable/screen/movable/action_button/current_button)

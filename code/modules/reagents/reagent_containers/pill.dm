@@ -3,7 +3,7 @@
 	desc = "A tablet or capsule."
 	icon = 'icons/obj/medicine_containers.dmi'
 	icon_state = "pill_shape_capsule_purple_pink"
-	item_state = "pill_shape_capsule_purple_pink"
+	inhand_icon_state = "pill_shape_capsule_purple_pink"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	has_variable_transfer_amount = FALSE

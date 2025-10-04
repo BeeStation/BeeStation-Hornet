@@ -7,7 +7,7 @@
 //Chef
 /obj/item/clothing/head/utility/chefhat
 	name = "chef's hat"
-	item_state = "chefhat"
+	inhand_icon_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
@@ -30,7 +30,7 @@
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain"
-	item_state = "that"
+	inhand_icon_state = "that"
 	flags_inv = 0
 	armor_type = /datum/armor/hats_caphat
 	strip_delay = 60
@@ -108,7 +108,7 @@
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
 	armor_type = /datum/armor/fedora_det_hat
 	icon_state = "detective"
-	item_state = "det_hat"
+	inhand_icon_state = "det_hat"
 	var/candy_cooldown = 0
 	var/adjusted = FALSE
 	var/adjustable = TRUE
@@ -291,7 +291,7 @@
 	name = "warden's campaign hat"
 	desc = "A special armored campaign hat with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "wardendrill"
-	item_state = null
+	inhand_icon_state = null
 	dog_fashion = null
 	var/mode = DRILL_DEFAULT
 
