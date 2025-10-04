@@ -18,7 +18,7 @@ has_git="$(command -v git)"
 has_cargo="$(command -v ~/.cargo/bin/cargo)"
 has_sudo="$(command -v sudo)"
 has_grep="$(command -v grep)"
-has_youtubedl="$(command -v youtube-dl)"
+has_ytdlp="$(command -v yt-dlp)"
 has_pip3="$(command -v pip3)"
 set -e
 
@@ -72,19 +72,19 @@ apt-get install -y cmake build-essential gcc-multilib g++-multilib cmake wget
 
 cd ../../..
 
-# install or update youtube-dl when not present, or if it is present with pip3,
+# install or update yt-dlp when not present, or if it is present with pip3,
 # which we assume was used to install it
-if ! [ -x "$has_youtubedl" ]; then
-	echo "Installing youtube-dl with pip3..."
+if ! [ -x "$has_ytdlp" ]; then
+	echo "Installing yt-dlp with pip3..."
 	if ! [ -x "$has_sudo" ]; then
 		apt-get install -y python3 python3-pip
 	else
 		sudo apt-get install -y python3 python3-pip
 	fi
-	pip3 install youtube-dl
+	pip3 install yt-dlp
 elif [ -x "$has_pip3" ]; then
-	echo "Ensuring youtube-dl is up-to-date with pip3..."
-	pip3 install youtube-dl -U
+	echo "Ensuring yt-dlp is up-to-date with pip3..."
+	pip3 install yt-dlp -U
 fi
 
 # compile tgui
