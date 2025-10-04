@@ -156,7 +156,13 @@
 	if(!check_rights(R_SOUND))
 		return
 
-	SSticker.SetRoundEndSound(S)
+	var/duration = tgui_input_number(src, "What is the duration of the sound(Seconds)? A duration shorter than that of the sound itself will likely cause it to cut off.")
+	if(!duration)
+		return
+
+	duration = duration SECONDS
+
+	SSticker.SetRoundEndSound(S, duration)
 
 	log_admin("[key_name(src)] set the round end sound to [S]")
 	message_admins("[key_name_admin(src)] set the round end sound to [S]")
