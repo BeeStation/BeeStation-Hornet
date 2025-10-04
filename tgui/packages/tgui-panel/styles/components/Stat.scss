@@ -5,7 +5,10 @@
 @use '~tgui/styles/functions.scss';
 
 $background-color: base.$color-bg-section !default;
-$border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default;
+$border-color: color.scale(
+  colors.fg(colors.$primary),
+  $lightness: 75%
+) !default;
 
 .StatBorder {
   border-left: math.div(1em, 6) solid $border-color;
@@ -18,7 +21,11 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(hsl(272.2, 100%, 70%), 0.08) 0%, rgba(hsl(272.2, 100%, 70%), 0) 40%);
+  background-image: linear-gradient(
+    to right,
+    rgba(hsl(272.2, 100%, 70%), 0.08) 0%,
+    rgba(hsl(272.2, 100%, 70%), 0) 40%
+  );
 }
 
 .StatBorder_antagonist {
@@ -26,7 +33,11 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(hsl(0, 71.2%, 53.7%), 0.08) 0%, rgba(hsl(0, 71.2%, 53.7%), 0) 40%);
+  background-image: linear-gradient(
+    to right,
+    rgba(hsl(0, 71.2%, 53.7%), 0.08) 0%,
+    rgba(hsl(0, 71.2%, 53.7%), 0) 40%
+  );
 }
 
 .StatBorder_infomation {
@@ -34,7 +45,11 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(hsl(35.7, 76%, 59.2%), 0.08) 0%, rgba(hsl(35.7, 76%, 59.2%), 0) 40%);
+  background-image: linear-gradient(
+    to right,
+    rgba(hsl(35.7, 76%, 59.2%), 0.08) 0%,
+    rgba(hsl(35.7, 76%, 59.2%), 0) 40%
+  );
 }
 
 .StatBorder_br {
@@ -42,7 +57,11 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(to right, rgba(hsl(135, 66.1%, 48.6%), 0.08) 0%, rgba(hsl(135, 66.1%, 48.6%), 0) 40%);
+  background-image: linear-gradient(
+    to right,
+    rgba(hsl(135, 66.1%, 48.6%), 0.08) 0%,
+    rgba(hsl(135, 66.1%, 48.6%), 0) 40%
+  );
 }
 
 .StatBackground {

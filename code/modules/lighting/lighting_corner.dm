@@ -43,7 +43,7 @@
 	var/below_g = 0
 	var/below_b = 0
 
-/datum/lighting_corner/New(var/turf/new_turf, var/diagonal)
+/datum/lighting_corner/New(turf/new_turf, diagonal)
 	. = ..()
 	save_master(new_turf, turn(diagonal, 180))
 

@@ -1,12 +1,28 @@
 import { round, toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
 export const ChemHeater = (props) => {
   const { act, data } = useBackend();
-  const { targetTemp, isActive, isBeakerLoaded, currentTemp, beakerCurrentVolume, beakerMaxVolume, beakerContents = [] } = data;
+  const {
+    targetTemp,
+    isActive,
+    isBeakerLoaded,
+    currentTemp,
+    beakerCurrentVolume,
+    beakerMaxVolume,
+    beakerContents = [],
+  } = data;
   return (
     <Window width={275} height={320}>
       <Window.Content scrollable>
@@ -19,7 +35,8 @@ export const ChemHeater = (props) => {
               content={isActive ? 'On' : 'Off'}
               onClick={() => act('power')}
             />
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Target">
               <NumberInput
@@ -39,7 +56,13 @@ export const ChemHeater = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Reading">
               <Box width="60px" textAlign="right">
-                {(isBeakerLoaded && <AnimatedNumber value={currentTemp} format={(value) => toFixed(value) + ' K'} />) || '—'}
+                {(isBeakerLoaded && (
+                  <AnimatedNumber
+                    value={currentTemp}
+                    format={(value) => toFixed(value) + ' K'}
+                  />
+                )) ||
+                  '—'}
               </Box>
             </LabeledList.Item>
           </LabeledList>
@@ -52,11 +75,19 @@ export const ChemHeater = (props) => {
                 <Box inline color="label" mr={2}>
                   {beakerCurrentVolume} / {beakerMaxVolume} units
                 </Box>
-                <Button icon="eject" content="Eject" onClick={() => act('eject')} />
+                <Button
+                  icon="eject"
+                  content="Eject"
+                  onClick={() => act('eject')}
+                />
               </>
             )
-          }>
-          <BeakerContents beakerLoaded={isBeakerLoaded} beakerContents={beakerContents} />
+          }
+        >
+          <BeakerContents
+            beakerLoaded={isBeakerLoaded}
+            beakerContents={beakerContents}
+          />
         </Section>
       </Window.Content>
     </Window>

@@ -202,11 +202,35 @@
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
+	desc = "You can change its laser configuration with a screwdriver"
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/drill
+	name = "emitter - driling mode (Machine Board)"
+	icon_state = "engineering"
+	desc = "It seems like you can change it's modulator with a scredriver"
+	build_path = /obj/machinery/power/emitter/drill
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(build_path == /obj/machinery/power/emitter)
+			name = "emitter - driling mode (Machine Board)"
+			build_path = /obj/machinery/power/emitter/drill
+			to_chat(user, span_notice("You change the Emitter's laser configuration to: [span_italics("DRILL")]"))
+		else
+			name = "emitter (Machine Board)"
+			build_path = /obj/machinery/power/emitter
+			to_chat(user, span_notice("You change the Emitter's laser configuration to:  [span_italics("NORMAL")]"))
+	else
+		return ..()
 
 /obj/item/circuitboard/machine/generator
 	name = "thermo-electric generator (Machine Board)"
@@ -349,9 +373,8 @@
 	build_path = /obj/machinery/power/smes
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/cell = 5,
+		/obj/item/stock_parts/matter_bin = 5,
 		/obj/item/stock_parts/capacitor = 1)
-	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high/empty)
 
 /obj/item/circuitboard/machine/techfab/department/engineering
 	name = "departmental techfab - engineering (Machine Board)"
@@ -1255,7 +1278,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/mining_equipment_vendor
 	name = "mining equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/mining
+	build_path = /obj/machinery/gear_requisition/mining
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1263,7 +1286,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 /obj/item/circuitboard/machine/exploration_equipment_vendor
 	name = "exploration equipment vendor (Machine Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/vendor/exploration
+	build_path = /obj/machinery/gear_requisition/exploration
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
@@ -1271,7 +1294,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/circuitboard/machine/smartfridge)
 
 /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 	name = "golem ship equipment vendor (Machine Board)"
-	build_path = /obj/machinery/vendor/mining/golem
+	build_path = /obj/machinery/gear_requisition/mining/golem
 
 /obj/item/circuitboard/machine/pump
 	name = "portable liquid pump (Machine Board)"

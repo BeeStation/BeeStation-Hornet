@@ -29,6 +29,7 @@
 	armor_type = /datum/armor/restraints_handcuffs
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
+	var/overlay_state = "handcuff1"
 
 /obj/item/restraints/handcuffs/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "handcuffs")
@@ -69,7 +70,7 @@
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = 0)
 	if(target.handcuffed)
 		return FALSE
 
@@ -101,6 +102,7 @@
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	custom_price = 15
 
 /obj/item/restraints/handcuffs/cable/red
 	color = "#ff0000"
@@ -337,7 +339,7 @@
 	gender = NEUTER
 	var/knockdown = 0
 
-/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(!..())
 		return
 	playsound(loc,'sound/weapons/bolathrow.ogg', 75, 1)
@@ -359,7 +361,7 @@
 		C.legcuffed = src
 		forceMove(C)
 		C.update_equipment_speed_mods()
-		C.update_inv_legcuffed()
+		C.update_worn_legcuffs()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, span_userdanger("\The [src] ensnares you!"))
 		if(knockdown)

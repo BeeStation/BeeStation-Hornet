@@ -49,7 +49,6 @@
 /obj/machinery/power/rad_collector/process(delta_time)
 	if(!loaded_tank)
 		return
-	var/datum/gas_mixture/loaded_tank_air = loaded_tank.return_air()
 	if(!bitcoinmining)
 		if(GET_MOLES(/datum/gas/plasma, loaded_tank.air_contents) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
@@ -69,10 +68,10 @@
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
-			var/gasdrained = bitcoinproduction_drain*drainratio*delta_time
-			loaded_tank_air.gases[/datum/gas/tritium][MOLES] += -gasdrained
-			loaded_tank_air.gases[/datum/gas/oxygen][MOLES] += -gasdrained
-			loaded_tank_air.gases[/datum/gas/carbon_dioxide][MOLES] += gasdrained*2
+			var/gasdrained = min(bitcoinproduction_drain*drainratio*delta_time,GET_MOLES(/datum/gas/tritium, loaded_tank.air_contents),GET_MOLES(/datum/gas/oxygen, loaded_tank.air_contents))
+			REMOVE_MOLES(/datum/gas/tritium, loaded_tank.air_contents, gasdrained)
+			REMOVE_MOLES(/datum/gas/oxygen, loaded_tank.air_contents, gasdrained)
+			ADD_MOLES(/datum/gas/carbon_dioxide, loaded_tank.air_contents, gasdrained*2)
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_ENG_ID)
 			if(D)
@@ -189,11 +188,7 @@
 	. = ..()
 	if(active)
 		if(!bitcoinmining)
-			// stored_energy is converted directly to watts every SSmachines.wait * 0.1 seconds.
-			// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
-			// So joules = stored_energy * SSmachines.wait * 0.1
-			var/joules = stored_energy * SSmachines.wait * 0.1
-			. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
+			. += span_notice("[src]'s display states that it has stored <b>[display_power(stored_energy)]</b>, and is processing <b>[display_power_persec(RAD_COLLECTOR_OUTPUT)]</b>.")
 		else
 			. += span_notice("[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.")
 	else

@@ -251,7 +251,6 @@
 	icon_state = "coatviro"
 	item_state = "coatviro"
 	allowed = list(
-		/obj/item/extrapolator,
 		/obj/item/analyzer,
 		/obj/item/flashlight/pen,
 		/obj/item/healthanalyzer,
@@ -417,6 +416,7 @@
 	icon_state = "coatatmos"
 	item_state = "coatatmos"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/extinguisher)
 
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos
 	icon_state = "winterhood_atmos"

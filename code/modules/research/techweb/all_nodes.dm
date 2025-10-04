@@ -23,6 +23,7 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"epaperread",
 		"fax",
 		"glasses_prescription",
 		"handlabel",
@@ -44,11 +45,13 @@
 		"rdserver",
 		"rdservercontrol",
 		"rglass",
+		"salestagger",
 		"sec_38",
 		"sec_38b",
 		"sec_beanbag_slug",
 		"sec_Brslug",
 		"sec_bshot",
+		"sec_bapshot",
 		"sec_dart",
 		"sec_Islug",
 		"sec_rshot",
@@ -58,7 +61,6 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -161,7 +163,6 @@
 		"analyzer",
 		"blood_filter",
 		"cable_coil",
-		"cable_coil",
 		"cautery",
 		"circular_saw",
 		"crowbar",
@@ -238,7 +239,6 @@
 		"comp_self",
 		"comp_soundemitter",
 		"comp_species",
-		"comp_speech",
 		"comp_speech",
 		"comp_split",
 		"comp_string_contains",
@@ -378,7 +378,6 @@
 		"surgery_pacify",
 		"surgery_revival",
 		"surgery_vein_thread",
-		"surgery_viral_bond",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -479,6 +478,7 @@
 		"magboots",
 		"ranged_analyzer",
 		"rcd_loaded",
+		"rcl",
 		"rpd_loaded",
 		"weldingmask",
 		"sheetifier"
@@ -982,27 +982,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 1000
 
-/datum/techweb_node/cyborg_upg_security
-	id = "cyborg_upg_security"
-	tech_tier = 4
-	display_name = "Cyborg Upgrades: Security"
-	description = "Militia grade upgrades for cyborgs."
-	prereq_ids = list(
-		"adv_engi",
-		"adv_robotics",
-		"weaponry",
-	)
-	design_ids = list(
-		"borg_transform_security",
-		"borg_upgrade_disablercooler",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
-/datum/techweb_node/cyborg_upg_security/New() //Techweb nodes don't have an init,
-	. = ..()
-	hidden = CONFIG_GET(flag/disable_secborg)
-
 /datum/techweb_node/ai
 	id = "ai"
 	tech_tier = 3
@@ -1138,6 +1117,7 @@
 		"mech_honker",
 		"mech_mousetrap_mortar",
 		"mech_punching_face",
+		"shotgunslughonk",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1176,7 +1156,6 @@
 	export_price = 2000
 	design_ids = list(
 		"antivirus",
-		"bat_control",
 		"bat_nano",
 		"bat_micro",
 		"cardslot",
@@ -1448,7 +1427,7 @@
 		"med_scanner",
 		"posibrain",
 	)
-	design_ids = list("healthanalyzer_advanced", "extrapolator")
+	design_ids = list("healthanalyzer_advanced")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -1796,7 +1775,9 @@
 	)
 	design_ids = list(
 		"pin_loyalty",
-		"shieldbelt"
+		"shieldbelt",
+		"c38_hotshot",
+		"c38_iceblox",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -1918,21 +1899,18 @@
 /datum/techweb_node/exotic_ammo
 	id = "exotic_ammo"
 	tech_tier = 4
-	display_name = "Exotic Ammunition"
+	display_name = "Exotic Shotgun Ammunition"
 	description = "They won't know what hit em."
-	prereq_ids = list(
-		"adv_weaponry",
-		"medical_weapons",
-	)
+	prereq_ids = list("adv_weaponry")
 	design_ids = list(
 		"techshotshell",
-		"c38_hotshot",
-		"c38_iceblox",
 		"shotgundartcryostasis",
+		"stunshell",
+		"shotgunsluggold",
+		"shotgunslugbronze",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
-	hidden = TRUE
 
 /datum/techweb_node/gravity_gun
 	id = "gravity_gun"

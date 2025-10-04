@@ -299,7 +299,7 @@
 	name = "10% chance girlfriend spawner"
 	loot = list(
 		/mob/living/basic/pet/dog/corgi = 9,
-		/mob/living/basic/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi/lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -606,8 +606,7 @@
 				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
 				/obj/item/book/granter/action/spell/barnyard = 4,
 				/obj/item/pickaxe/drill/diamonddrill = 6,
-				/obj/item/borg/upgrade/vtec = 7,
-				/obj/item/borg/upgrade/disablercooler = 7)
+				/obj/item/borg/upgrade/vtec = 7)
 
 
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy

@@ -78,12 +78,16 @@
 	scan_desc = "extra-sensory paranoia"
 	gain_text = span_warning("You feel like something wants to kill you...")
 	lose_text = span_notice("You no longer feel eyes on your back.")
-	var/obj/effect/hallucination/simple/stalker_phantom/stalker
+	var/obj/effect/client_image_holder/stalker_phantom/stalker
 	var/close_stalker = FALSE //For heartbeat
+
+/datum/brain_trauma/magic/stalker/Destroy()
+	QDEL_NULL(stalker)
+	return ..()
 
 /datum/brain_trauma/magic/stalker/on_gain()
 	create_stalker()
-	..()
+	return ..()
 
 /datum/brain_trauma/magic/stalker/proc/create_stalker()
 	var/turf/stalker_source = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.z) //random corner
@@ -91,7 +95,7 @@
 
 /datum/brain_trauma/magic/stalker/on_lose()
 	QDEL_NULL(stalker)
-	..()
+	return ..()
 
 /datum/brain_trauma/magic/stalker/on_life(delta_time, times_fired)
 	// Dead and unconscious people are not interesting to the psychic stalker.
@@ -120,7 +124,7 @@
 			close_stalker = FALSE
 	..()
 
-/obj/effect/hallucination/simple/stalker_phantom
+/obj/effect/client_image_holder/stalker_phantom
 	name = "???"
 	desc = "It's coming closer..."
 	image_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'

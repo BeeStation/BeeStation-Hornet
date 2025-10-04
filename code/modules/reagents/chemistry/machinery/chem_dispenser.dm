@@ -18,8 +18,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
 	base_icon_state = "dispenser"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_usage = 100
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
@@ -28,8 +27,6 @@
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
-	var/recharge_amount = 10
-	var/recharge_counter = 0
 	var/mutable_appearance/beaker_overlay
 	var/working_state = "dispenser_working"
 	var/nopower_state = "dispenser_nopower"
@@ -106,20 +103,28 @@
 		. += span_notice("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads:\n"+\
-		"Recharging <b>[recharge_amount]</b> power units per interval.\n"+\
+		"Recharging <b>[display_power(cell.chargerate)]</b> per interval.\n"+\
 		"Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.</span>"
 	. += "<span class='notice'>Use <b>RMB</b> to eject a stored beaker.</span>"
 
+/* Regarding Cells
+	Ideally this machine would be able to operate without a cell, taking power directly from the grid.
+	The cell could function as an "upgrade" as a backup battery.
+	However, there isn't a good enough method to do so right now (take power from the grid)
+	and creating it would be a bit out of scope right now.a
+	Leaving this here for future reference!
+*/
+
 /obj/machinery/chem_dispenser/process(delta_time)
-	if (recharge_counter >= 8)
-		if(!is_operational)
-			return
-		var/usedpower = cell.give(recharge_amount)
-		if(usedpower)
-			use_power(250*recharge_amount)
-		recharge_counter = 0
+	if(!is_operational)
 		return
-	recharge_counter += delta_time
+	if(cell.percent() < 100)
+		var/to_recharge = min(cell.chargerate, (cell.maxcharge - cell.charge))
+		active_power_usage = (to_recharge / POWER_TRANSFER_LOSS)
+		cell.give(to_recharge)
+		update_use_power(ACTIVE_POWER_USE)
+	else
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
@@ -178,11 +183,15 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemDispenser")
-		if(user.hallucinating())
+
+		var/is_hallucinating = FALSE
+		if(isliving(user))
+			var/mob/living/living_user = user
+			is_hallucinating = !!living_user.has_status_effect(/datum/status_effect/hallucination)
+
+		if(is_hallucinating)
 			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
-			//Seems like a pretty bad way to do it, but I think a better one would deserve a wider refactor including at least sleeper
-		else
-			ui.set_autoupdate(TRUE) // Cell charge
+
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -212,8 +221,10 @@
 
 	var/chemicals[0]
 	var/is_hallucinating = FALSE
-	if(user.hallucinating())
-		is_hallucinating = TRUE
+	if(isliving(user))
+		var/mob/living/living_user = user
+		is_hallucinating = !!living_user.has_status_effect(/datum/status_effect/hallucination)
+
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
@@ -311,8 +322,10 @@
 				if(beaker && dispensable_reagents.Find(reagent))
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
-					var/actual = min(amount * multiplier, (cell.charge * powerefficiency)*10, free)
-					if(!cell.use(actual / powerefficiency))
+					// Balancing var, used to easier balance power requirement of chem dispensing (per unit of chem)
+					var/charge_per_unit = 25 WATT
+					var/actual = min(amount * multiplier, (cell.charge * powerefficiency), free)
+					if(!cell.use((actual * charge_per_unit) / powerefficiency))
 						say("Not enough energy to complete operation!")
 						return
 					R.add_reagent(reagent, actual)
@@ -379,14 +392,14 @@
 	visible_message(span_danger("[src] malfunctions, spraying chemicals everywhere!"))
 
 /obj/machinery/chem_dispenser/RefreshParts()
-	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
 	for(var/obj/item/stock_parts/cell/P in component_parts)
 		cell = P
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		newpowereff += 0.0166666666*M.rating
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_amount *= C.rating
+		// Sorry capacitor upgrade no longer does nothing after I made rechargerate use cell.chargerate
+		// Leaving this here so it isn't forgotten later (and something useful can be put here, but out of scope RN)
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if (M.rating > 3)
 			dispensable_reagents |= upgrade_reagents

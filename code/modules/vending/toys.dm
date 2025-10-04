@@ -32,7 +32,6 @@
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /datum/armor/vending_donksofttoyvendor
 	melee = 100

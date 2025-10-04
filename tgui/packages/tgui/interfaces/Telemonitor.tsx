@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Input, Section, Stack, ProgressBar, Button, Flex } from '../components';
+import {
+  Button,
+  Flex,
+  Input,
+  ProgressBar,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 type Tdata = {
   network_id: string;
@@ -53,11 +60,19 @@ export const Telemonitor = (props) => {
                   title={`${server.name} (${server.sender_id})`}
                   buttons={
                     <Button
-                      color={isOnline(server) && !server.overheated ? 'good' : 'bad'}
-                      tooltip={`${Math.floor((data.current_time - server.last_update) / 10)}s since last update`}>
-                      {isOnline(server) ? (server.overheated ? 'OVERHEATED' : 'ONLINE') : 'OFFLINE'}
+                      color={
+                        isOnline(server) && !server.overheated ? 'good' : 'bad'
+                      }
+                      tooltip={`${Math.floor((data.current_time - server.last_update) / 10)}s since last update`}
+                    >
+                      {isOnline(server)
+                        ? server.overheated
+                          ? 'OVERHEATED'
+                          : 'ONLINE'
+                        : 'OFFLINE'}
                     </Button>
-                  }>
+                  }
+                >
                   Efficiency:{' '}
                   <ProgressBar
                     ranges={{

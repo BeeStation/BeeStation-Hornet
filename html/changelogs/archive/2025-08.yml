@@ -184,6 +184,275 @@
   Aramix:
   - bugfix: mail now spawns at the intended rate (max 1/minute at 5+ pop, with crate
       still being limited to 6-12 mails)
+  Nakalon:
+  - rscdel: Retired the Pipe Dispenser Machine.
+  - rscadd: Added Engivend Vendors to Atmos. (And moved some things around to accomodate)
+  Solene and Rukofamicom:
+  - tweak: Loadout items now will be equipped on your character on spawn, replacing
+      standard job equipment (which will spawn in a box instead).
+  - bugfix: Fixed duplication of loadout items on spawn.
+  - bugfix: Loadout's will now display properly on the character panel
   TsunamiAnt:
   - rscadd: Engineering now has oxycandles in the engie-vend
   - tweak: Hellfire candles are now cheaper.
+2025-08-11:
+  Isaac:
+  - bugfix: Medical modsuits can now fit first aid kits
+  - bugfix: You can now fit large items in extended capacity/syndicate storage modules
+  Rukofamicom:
+  - tweak: Toxic gas damage has been capped to 2.5 damage per second per gas, down
+      from 10 damage per second per gas. Players breathing toxic gasses will have
+      about the same time to respond as those that are breathing nothing at all now.
+  Schoolboy215:
+  - bugfix: Add previously missing hair dye receipe
+  SunShine214:
+  - bugfix: Radiation Collector Research Mode works again
+  Tsar-Salat:
+  - code_imp: game compiles with no linter errors
+2025-08-12:
+  Rukofamicom:
+  - bugfix: Tequila sunrise no longer makes shadowpeople and nightmares permanently
+      glow
+  - bugfix: Nightmares are now given a more accurate blurb with regard to the server
+      rules.
+  pixelpoepleman:
+  - rscadd: Added syringes embedding in pickpockets unless protected by thick clothes
+      (seen via examine)
+2025-08-13:
+  Tsar-Salat:
+  - bugfix: fix radial crafting
+  TsunamiAnt:
+  - config: AI laws are now weighted, with asimov being vastly more likely than anything
+      else.
+  - config: Removes crewsimov from roundstart lawsets
+  TsunamiAnt, Rukofamicom:
+  - rscadd: Security cyborgs are available again, but they have a fresh coat of paint
+      and a new name (Guardian) to hopefully distance them from trying to enforce
+      space law. They do not require research to unlock, but are also substantially
+      weaker than they used to be. They have swapped their stun batons for pepper
+      clouds, and their gun now has a limited capacity that recharges from the cyborg
+      cell over time. Guardian cyborgs also have additional armor plating to help
+      protect them, especially from explosives that kicks in after firing their gun.
+  - rscadd: Guardian cyborg guns now have two additional firing modes, taken from
+      the exploration gun. These modes allow them to demolish terrain and obstacles
+      as well as deal high damage to non-humanoid creatures. Both of these projectiles
+      will cause only 5 damage to humanoids.
+  - rscadd: Guardian cyborgs come equipped with an ore satchel and GPS in addition
+      to their fancy gun in order to provide better off-station support.
+  - rscadd: Guardian cyborgs have been given a hugging module and lollipop dispenser
+      to help put crew at ease, appropriate for their new appearance.
+  - rscadd: Standard cyborgs have gained a GPS and ore satchel as well
+  - tweak: Cyborgs are no longer completely stonewalled by holosigns and may pass
+      through them.
+  - bugfix: Explorer gun energy overlays are now displaying, and a new overlay has
+      been created for the "demolish" mode intended to destroy terrain and objects
+      which is purple in color.
+  - rscdel: Removes the now unused cyborg disabler upgrade from
+  - rscdel: Sort of removed the borgi from the game, since the new guardian borg has
+      hijacked their appearance. The sprite has also been modified by two pixels so
+      that it has a more neutral expression.
+  rkz, Rukofamicom:
+  - bugfix: Vehicles coded to require hands now actually require functional and empty
+      hands to operate. Most vehicles require hands, but skateboards, motorized wheelchairs
+      and Wheely Heelies do not.
+  - bugfix: Vehicles no longer have multiple riding elements applied to them, which
+      would cause very haywire things to happen.
+  - tweak: Motorized wheelchairs actually did require hands, this requirement has
+      been removed because they are propelled by a motor rather than by hand.
+2025-08-14:
+  Rukofamicom:
+  - rscdel: All reagents used exclusively for manpulating viruses and all reactions
+      related to the manipulation of viruses have been removed except for spaceacillin
+      interaction that stops a virus or host holding a virus from spreading it to
+      others.
+  - rscdel: Necropolis seed symptom and bowl of blood that was supposed to be its
+      source removed from the game
+  - rscdel: Virus extrapolators have been removed from all maps
+  - code_imp: Virus extrapolator code has been significantly trimmed. The only code
+      that remains is what is necessary for medical scanners to function, to be further
+      trimmed at some point in the future probably. maybe.
+  - bugfix: Fixed nooartrium working in mobs it wasn't supposed to
+  - tweak: Nooartrium now causes the affected mob to make a loud zombie wail when
+      initially taking the drug, zombie growl periodically while the drug is active,
+      and wail again (different, weaker one) when the drug's effects end.
+  - tweak: Nooartrium now causes at least 25 heart damage when metabolization ends
+      to give it a flavorful downside as a purely medical revival drug.
+  - tweak: Nooartrium now only requires heating to 470K, just under teslium's activation
+      point at 474.
+  - code_imp: Cleaned up a lot of nooartrium code while trying to preserve all of
+      the original balance aside from the above points regarding revival and sounds.
+2025-08-15:
+  Rukofamicom:
+  - bugfix: Janicart now accepts keys again
+  Tsar-Salat:
+  - bugfix: fixes some bugs with weapon dashing (ninja, etc.)
+  - bugfix: Ninja c4 works and ties in with an objective like its supposed to
+  - bugfix: readded ninja net dojo behavior
+  - bugfix: fixes energy katana worn sprite
+  - balance: Ninja adrenaline module now takes rarer uranium rather than roundstart
+      radium, and in exchange gives 5u dosage of epi, salbu, and tricord instead.
+  - rscadd: adds category support to mining vendors, refactors their UI to be functionally
+      the same as vending machines
+  - bugfix: fixes mining vendors
+  - tweak: renames mining vendors
+  TsunamiAnt:
+  - rscadd: Added calligraphy brush
+  - bugfix: fixed paperbundles
+  mrmanlikesbt, vinylspiders, absolucy:
+  - code_imp: code cleanup for reagents
+2025-08-16:
+  Aramix:
+  - bugfix: fancychat now auto-resizes to occupy the remaining space properly, especially
+      after reconnects
+2025-08-17:
+  Nakalon:
+  - bugfix: Fixes plasmaman loadout replacement causing their death.
+  - tweak: Backpacks will always spawn first in a players loadout now to ensure everything
+      works how it's supposed to and that their old bag does get, in fact, replaced.
+  PowerfulBacon:
+  - tweak: Adds in unit testing for emissive overlays, IPC screen emissives and clothes
+      providing emissive blockers.
+  - tweak: Screenshot tests are no longer reported with the image in the comments,
+      while we don't have access to file.house
+  Rukofamicom:
+  - rscdel: Removed dullahans
+  Solene, Ratwood/Roguetown:
+  - rscadd: Adds accents as a trait
+  - rscadd: Added British and Scottish accent (Scottish is a port from Ratwood/RogueTown).
+  - tweak: Reworked swedish.
+  - tweak: Added and fixed some things in accent jsons, including appendages for french
+      accent
+  - refactor: Refactors accent code
+  - code_imp: Cleaned up accent jsons a bit and renamed them for organization
+  mrmanlikesbt, TheSwain, JohnFulpWillard, absolucy:
+  - rscadd: added a new antagonist, the vampire (bloodsuckers)
+  - rscdel: deleted the vampire Halloween race
+  - tweak: you can now drink from blood bags
+2025-08-18:
+  Rukofamicom:
+  - bugfix: fixed holoparasites and contractor agents still showing player keys on
+      round-end reports
+  - tweak: Antagonist ckey is no longer reported to deadchat.
+2025-08-19:
+  Aramix:
+  - bugfix: fixes first column to use tech node tier 0 (researched) instead of 1 by
+      default
+  - bugfix: changes the key for designs details to use design id rather than tech
+      node id
+  - bugfix: fixes last design in a node being offset downwards
+  - bugfix: properly resizes techweb in window
+  - bugfix: removes duplicate design entries in window
+  - bugfix: removes an edge case pertaining design disk in techweb view
+  - tweak: tweaked margin of designs to be integer pixels
+2025-08-20:
+  Rukofamicom:
+  - balance: Breaching slugs no longer work on turfs (walls)
+  rkz, MrMelbert:
+  - rscadd: Added a few new hallucinations. Find them all, but don't lose your head!
+  - refactor: Refactored most existing hallucinations. Let me know if any of them
+      are acting funky.
+  - refactor: RDS quirk is now a brain trauma. The hallucinations brain trauma can
+      now be paused with Mindbreaker, like RDS.
+  - refactor: Refactored hallucination into a status effect. This means cyborgs and
+      simplemobs can (hypothetically) hallucinate now. In most cases they shouldn't
+      though.
+  - refactor: Refactored fake hud into a status effect.
+  - bugfix: Fixes some hallucinations acting improperly. There were multiple cases
+      of hallucinations using incorrect icon states which made them completely un-noticable.
+  - admin: You can now force specific mass hallucinations.
+  - admin: You can now force specific outcomes of some hallucinations, such as delusions,
+      fake alerts, fake sounds, and more. Check the VV dropdown.
+2025-08-21:
+  Bieyes:
+  - rscadd: Three new shotgun slugs!
+  - rscadd: Added the ability to load .50 cals into a shotgun.
+  - rscdel: Removed meteorslug and fragslug.
+  - tweak: Resprited every slug and cartridge boxes.
+  - tweak: Gold is required to print most slugs.
+  - tweak: Improvised shotgun no longer explodes!
+  - balance: Rebalanced most shotgun slugs.
+  TsunamiAnt:
+  - tweak: removed spellbook randomizer/challenges
+  - balance: wizards can now refund everywhere
+  mrmanlikesbt:
+  - tweak: team roundstart rulesets now set their team size according to people connected
+      instead of people ready at roundstart
+  - tweak: tweaked some dynamic midround weights. you should see less space pirates
+      and more sleeper agents and whatnot now.
+  - tweak: increased the heretic and vampire roundstart minpop
+  - tweak: the spider infestation ruleset requires 2 candidates now instead of 3
+  - bugfix: fixed dynamic having a 2 minute window to execute midrounds while the
+      shuttle is docked to the station
+  - bugfix: fixed dynamic suddenly transforming IPCs into human heretics
+  - code_imp: small code sanity for dynamic
+2025-08-22:
+  Bieyes:
+  - tweak: Shotgun slugs are more cheaper to produce.
+  - tweak: Dart slugs cost silver now.
+  - tweak: Shotgun slugs are now their respective prices in Autolathes.
+  TsunamiAnt:
+  - tweak: Dynamic now pays attention to security and slows down spawning if officers
+      start dying.
+  rkz, jlsnow301:
+  - refactor: Refactored dropdowns and popper TGUI components to be more performant
+      and stable(This means the preference menu). They should no longer be hidden
+      by other UI elements or window size.
+2025-08-24:
+  Nakalon:
+  - bugfix: Finally actually fixes loadouts and loadout replacements
+  Rukofamicom:
+  - tweak: Xenomorph hunter leap attack now does 110 stamina damage instead of being
+      hardcoded as a 10 second stun. This means armor will potentially mitigate this
+      to less than an immediate takedown
+  - tweak: All xenomorphs now do slightly more stamina damage with right click attack
+  - bugfix: Xenomorph acid no longer instantly annihilates mobs, but has had its cost
+      reduced to 50. This ability was not previously intended to work on mobs at all,
+      so consider this turning a bug into a feature officially.
+  - bugfix: Removed an armor check from acid_processing() proc which was both unnecessary
+      and causing runtimes due to bad args
+  r1ks-iwnl:
+  - bugfix: Gas analyzer's barometer function works again (Alt-Click the gas analyzer
+      on lavaland to use the barometer function)
+2025-08-25:
+  rkz, jlsnow:
+  - code_imp: updated lints for TGUI
+2025-08-26:
+  mrmanlikesbt, Ghommie:
+  - code_imp: replaced the GODMODE bitflag with a trait
+  rkz, Melbert:
+  - refactor: Fully heal can be passed a series of flags. As a result, some things
+      which previously did a full heal might heal slightly less, or some things which
+      did partial full heals might do slightly more.
+  - bugfix: Adminordrazine will no longer completely break every facet of a person
+  - admin: Ahealing a changeling will refill all of their chems.
+2025-08-27:
+  Mc-oofert, Bieyes:
+  - rscadd: Added the ability to bind buttons to keys.
+  r1ks-iwnl:
+  - bugfix: Fixes many interactions for thrown items
+  - bugfix: Fixes items not doing thrown damage to objects and turfs
+  - bugfix: Fixes items not burning in lava when thrown
+  - bugfix: Fixes items not entering disposals when thrown
+2025-08-29:
+  PowerfulBacon:
+  - bugfix: Fixes the chem dispenser filters not being usable.
+  - bugfix: Fixes log button on the NTOS notepad not working.
+  - bugfix: Fixes the filter button on the admin requests panel not working.
+  - bugfix: Fixes the behaviour of manually racking guns.
+  wikimody:
+  - rscadd: Added new drill emiter, made by using screwdriver on emiter circuit board
+  - balance: Emitters now have higher damage with higher tier micro laser parts (guns
+      inside them get the damage increase to)
+  - balance: Under Ruko orders both emitters deal 75% reduced damage against blob
+  - rscdel: Removed proto emitter do to being unused
+  - tweak: Non hitscan emitter projectiles are now removed, this in practice only
+      changes anomalius crystal one interaction
+2025-08-30:
+  NanoTrasen-Inc, JackieOTheWisp:
+  - rscadd: Added 2 new options on the synthesizer's fun tab! The Meowsyth and Spaceman!
+2025-08-31:
+  Aramix:
+  - bugfix: fixed Transcendent Olfaction mutation ability not activating at all
+  - bugfix: fixed missing background sprite for mutation abilities action button
+  mrmanlikesbt, timothymtorres:
+  - code_imp: split up the persistence subsystem into multiple files

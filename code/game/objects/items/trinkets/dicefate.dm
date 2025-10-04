@@ -53,7 +53,7 @@
 		user.dropItemToGround(src)
 
 
-/obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user,roll)
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user,roll)
 	var/turf/T = get_turf(src)
 
 	switch(roll)
@@ -115,7 +115,7 @@
 		if(12)
 			//Healing
 			T.visible_message(span_userdanger("[user] looks very healthy!"))
-			user.revive(full_heal = 1, admin_revive = 1)
+			user.revive(ADMIN_HEAL_ALL)
 		if(13)
 			//Mad Dosh
 			T.visible_message(span_userdanger("Mad dosh shoots out of [src]!"))

@@ -145,7 +145,12 @@ const createHighlightNode = (text) => {
  * @param {(text: string) => Node} createNode Highlight node creator
  * @returns {number} Number of matches
  */
-export const highlightNode = (node, regex, words, createNode = createHighlightNode) => {
+export const highlightNode = (
+  node,
+  regex,
+  words,
+  createNode = createHighlightNode,
+) => {
   if (!createNode) {
     createNode = createHighlightNode;
   }
@@ -166,7 +171,8 @@ export const highlightNode = (node, regex, words, createNode = createHighlightNo
 // Linkify
 // --------------------------------------------------------
 
-const URL_REGEX = /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;(){}]+/gi;
+const URL_REGEX =
+  /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;(){}]+/gi;
 
 /**
  * Highlights the text in the node based on the provided regular expression.

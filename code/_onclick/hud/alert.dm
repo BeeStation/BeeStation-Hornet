@@ -147,12 +147,12 @@
 	desc = "There's too much carbon dioxide in the air, and you're breathing it in! Find some good air before you pass out!"
 	icon_state = "too_much_co2"
 
-/atom/movable/screen/alert/not_enough_tox
+/atom/movable/screen/alert/not_enough_plas
 	name = "Choking (No Plasma)"
 	desc = "You're not getting enough plasma. Find some good air before you pass out!"
 	icon_state = "not_enough_tox"
 
-/atom/movable/screen/alert/too_much_tox
+/atom/movable/screen/alert/too_much_plas
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"
@@ -812,18 +812,26 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/restrained/handcuffed
 	name = "Handcuffed"
-	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Click the alert to free yourself."
+	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Left-click the alert to free yourself over time. Right-click the alert if you're willing to severely injure yourself to break out immediately."
 
 /atom/movable/screen/alert/restrained/legcuffed
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
-/atom/movable/screen/alert/restrained/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist() || L != owner)
+/atom/movable/screen/alert/restrained/Click(location, control, params)
+	var/mob/living/living_mob = usr
+	if(!istype(living_mob) || !living_mob.can_resist() || living_mob != owner)
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	return L.resist_restraints()
+
+	living_mob.changeNext_move(CLICK_CD_RESIST)
+
+	var/list/parameters = params2list(params)
+	if(LAZYACCESS(parameters, RIGHT_CLICK))
+		var/mob/living/carbon/human/human_mob = living_mob
+		if(ishuman(human_mob) && human_mob.handcuffed)
+			return human_mob.breakout_breaking_arms()
+
+	return living_mob.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
 	var/mob/living/L = usr

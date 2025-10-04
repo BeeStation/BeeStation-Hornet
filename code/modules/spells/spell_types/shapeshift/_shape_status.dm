@@ -205,7 +205,7 @@
 	if(QDELETED(source_spell) || !source_spell.convert_damage)
 		return
 
-	caster_mob.fully_heal(TRUE) // Remove all of our damage before setting our health to a proportion of the former transformed mob's health
+	caster_mob.fully_heal(HEAL_DAMAGE) // Remove all of our damage before setting our health to a proportion of the former transformed mob's health
 	var/damage_to_apply = caster_mob.maxHealth * (owner.get_total_damage() / owner.maxHealth)
 	caster_mob.apply_damage(damage_to_apply, source_spell.convert_damage_type, forced = TRUE, spread_damage = TRUE)
 	// Only transfer blood if both mobs are supposed to have a blood volume

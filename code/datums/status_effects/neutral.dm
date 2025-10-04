@@ -284,3 +284,24 @@
 	id = "morph_cooldown"
 	duration = 20 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/morph_cooldown
+
+/atom/movable/screen/alert/status_effect/cyborg_sentry
+	name = "Sentry-mode Active"
+	desc = "Your armor is active but slowing you down!"
+	icon_state = "sentry"
+
+/datum/status_effect/cyborg_sentry
+	id = "cyborg_sentry"
+	duration = -1
+	alert_type = /atom/movable/screen/alert/status_effect/cyborg_sentry
+
+/datum/status_effect/cyborg_sentry/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
+	owner.set_armor(/datum/armor/cyborg)
+
+/datum/status_effect/cyborg_sentry/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/cyborg_sentry)
+	owner.set_armor(/datum/armor/none)
+

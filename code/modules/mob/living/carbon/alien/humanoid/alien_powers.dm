@@ -190,7 +190,7 @@ Doesn't work on other aliens/AI.*/
 	name = "Corrosive Acid"
 	desc = "Drench an object in acid, destroying it over time."
 	button_icon_state = "alien_acid"
-	plasma_cost = 200
+	plasma_cost = 50
 
 /datum/action/alien/acid/corrosion/set_click_ability(mob/on_who)
 	. = ..()
@@ -216,7 +216,11 @@ Doesn't work on other aliens/AI.*/
 	return ..()
 
 /datum/action/alien/acid/corrosion/on_activate(mob/user, atom/target)
-	if(!target.acid_act(200, 1000))
+	if(iscarbon(target))
+		//This is blocked by virtually any clothing which is destroyed if possible, but will still do 60 damage without any.
+		target.acid_act(50, 50)
+
+	else if(!target.acid_act(200, 1000))
 		to_chat(owner, ("<span class='noticealien'>You cannot dissolve this object.</span>"))
 		return FALSE
 

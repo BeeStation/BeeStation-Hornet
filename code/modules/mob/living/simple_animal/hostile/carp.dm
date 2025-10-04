@@ -76,6 +76,10 @@
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)
 	. = ..()
+	make_tameable()
+
+/mob/living/simple_animal/hostile/carp/proc/make_tameable()
+	AddComponent(/datum/component/tameable, food_types = list(/obj/item/food/meat), tame_chance = 10, bonus_tame_chance = 5, after_tame = CALLBACK(src, PROC_REF(tamed)))
 
 /**
  * Randomly assigns a color to a carp from either a common or rare color variant lists
@@ -92,11 +96,13 @@
 		our_color = pick(carp_colors)
 		set_greyscale(colors=list(carp_colors[our_color]))
 
-/mob/living/simple_animal/hostile/carp/revive(full_heal = FALSE, admin_revive = FALSE)
+/mob/living/simple_animal/hostile/carp/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.)
-		update_greyscale()
-		update_icon()
+	if(!.)
+		return
+
+	update_greyscale()
+	update_icon()
 
 /mob/living/simple_animal/hostile/carp/proc/tamed(mob/living/tamer)
 	can_buckle = TRUE
@@ -110,6 +116,9 @@
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	random_color = FALSE
+
+/mob/living/simple_animal/hostile/carp/holocarp/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/broadMobs.dmi'
@@ -138,6 +147,9 @@
 	melee_damage += rand(10,20) //this is on initialize so even with rng the damage will be consistent
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
+
+/mob/living/simple_animal/hostile/carp/megacarp/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
@@ -178,6 +190,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_DISK_VERIFIER, INNATE_TRAIT) //carp can verify disky
 	ADD_TRAIT(src, TRAIT_CAN_USE_NUKE, INNATE_TRAIT)  //carp SMART
+	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, INNATE_TRAIT) //carp SMART
+
+/mob/living/simple_animal/hostile/carp/cayenne/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/cayenne/death(gibbed)
 	if(disky)
@@ -253,6 +269,12 @@
 	maxHealth = 200
 	random_color = FALSE
 
+/mob/living/simple_animal/hostile/carp/lia/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "bloops happily!")
+
+/mob/living/simple_animal/hostile/carp/lia/make_tameable()
+	return
 
 /mob/living/simple_animal/hostile/carp/advanced
 	name = "advanced space carp"

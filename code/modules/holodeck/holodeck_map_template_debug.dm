@@ -43,3 +43,8 @@
 	name = "Holodeck - Syndicates"
 	template_id = "debug-syndicates"
 	mappath = "_maps/holodeck/debug/syndicates.dmm"
+
+/datum/map_template/holodeck/debug/guns
+	name = "Holodeck - Guns"
+	template_id = "debug-guns"
+	mappath = "_maps/holodeck/debug/guns.dmm"

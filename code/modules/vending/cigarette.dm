@@ -22,7 +22,6 @@
 	refill_canister = /obj/item/vending_refill/cigarette
 	default_price = 5
 	extra_price = 40
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "cigs-light-mask"
 
 /obj/machinery/vending/cigarette/syndicate

@@ -143,139 +143,145 @@ export const RADIO_CHANNELS = [
 
 const GASES = [
   {
-    'id': 'o2',
-    'name': 'Oxygen',
-    'label': 'O₂',
-    'color': 'blue',
+    id: 'o2',
+    name: 'Oxygen',
+    label: 'O₂',
+    color: 'blue',
   },
   {
-    'id': 'n2',
-    'name': 'Nitrogen',
-    'label': 'N₂',
-    'color': 'yellow',
+    id: 'n2',
+    name: 'Nitrogen',
+    label: 'N₂',
+    color: 'yellow',
   },
   {
-    'id': 'co2',
-    'name': 'Carbon Dioxide',
-    'label': 'CO₂',
-    'color': 'grey',
+    id: 'co2',
+    name: 'Carbon Dioxide',
+    label: 'CO₂',
+    color: 'grey',
   },
   {
-    'id': 'plasma',
-    'name': 'Plasma',
-    'label': 'Plasma',
-    'color': 'pink',
+    id: 'plasma',
+    name: 'Plasma',
+    label: 'Plasma',
+    color: 'pink',
   },
   {
-    'id': 'water_vapor',
-    'name': 'Water Vapor',
-    'label': 'H₂O',
-    'color': 'lightsteelblue',
+    id: 'water_vapor',
+    name: 'Water Vapor',
+    label: 'H₂O',
+    color: 'lightsteelblue',
   },
   {
-    'id': 'nob',
-    'name': 'Hyper-noblium',
-    'label': 'Hyper-nob',
-    'color': 'teal',
+    id: 'nob',
+    name: 'Hyper-noblium',
+    label: 'Hyper-nob',
+    color: 'teal',
   },
   {
-    'id': 'n2o',
-    'name': 'Nitrous Oxide',
-    'label': 'N₂O',
-    'color': 'bisque',
+    id: 'n2o',
+    name: 'Nitrous Oxide',
+    label: 'N₂O',
+    color: 'bisque',
   },
   {
-    'id': 'no2',
-    'name': 'Nitrium',
-    'label': 'Nitrium',
-    'color': 'brown',
+    id: 'no2',
+    name: 'Nitrium',
+    label: 'Nitrium',
+    color: 'brown',
   },
   {
-    'id': 'tritium',
-    'name': 'Tritium',
-    'label': 'Tritium',
-    'color': 'limegreen',
+    id: 'tritium',
+    name: 'Tritium',
+    label: 'Tritium',
+    color: 'limegreen',
   },
   {
-    'id': 'bz',
-    'name': 'BZ',
-    'label': 'BZ',
-    'color': 'mediumpurple',
+    id: 'bz',
+    name: 'BZ',
+    label: 'BZ',
+    color: 'mediumpurple',
   },
   {
-    'id': 'pluox',
-    'name': 'Pluoxium',
-    'label': 'Pluoxium',
-    'color': 'mediumslateblue',
+    id: 'pluox',
+    name: 'Pluoxium',
+    label: 'Pluoxium',
+    color: 'mediumslateblue',
   },
   {
-    'id': 'miasma',
-    'name': 'Miasma',
-    'label': 'Miasma',
-    'color': 'olive',
+    id: 'miasma',
+    name: 'Miasma',
+    label: 'Miasma',
+    color: 'olive',
   },
   {
-    'id': 'Freon',
-    'name': 'Freon',
-    'label': 'Freon',
-    'color': 'paleturquoise',
+    id: 'Freon',
+    name: 'Freon',
+    label: 'Freon',
+    color: 'paleturquoise',
   },
   {
-    'id': 'hydrogen',
-    'name': 'Hydrogen',
-    'label': 'H₂',
-    'color': 'white',
+    id: 'hydrogen',
+    name: 'Hydrogen',
+    label: 'H₂',
+    color: 'white',
   },
   // Bee doesn't have most of these \/ - but having them for future proofing is useful. Nothing iterates this list.
   {
-    'id': 'healium',
-    'name': 'Healium',
-    'label': 'Healium',
-    'color': 'salmon',
+    id: 'healium',
+    name: 'Healium',
+    label: 'Healium',
+    color: 'salmon',
   },
   {
-    'id': 'proto_nitrate',
-    'name': 'Proto Nitrate',
-    'label': 'Proto-Nitrate',
-    'color': 'greenyellow',
+    id: 'proto_nitrate',
+    name: 'Proto Nitrate',
+    label: 'Proto-Nitrate',
+    color: 'greenyellow',
   },
   {
-    'id': 'zauker',
-    'name': 'Zauker',
-    'label': 'Zauker',
-    'color': 'darkgreen',
+    id: 'zauker',
+    name: 'Zauker',
+    label: 'Zauker',
+    color: 'darkgreen',
   },
   {
-    'id': 'halon',
-    'name': 'Halon',
-    'label': 'Halon',
-    'color': 'purple',
+    id: 'halon',
+    name: 'Halon',
+    label: 'Halon',
+    color: 'purple',
   },
   {
-    'id': 'helium',
-    'name': 'Helium',
-    'label': 'He',
-    'color': 'aliceblue',
+    id: 'helium',
+    name: 'Helium',
+    label: 'He',
+    color: 'aliceblue',
   },
   {
-    'id': 'antinoblium',
-    'name': 'Antinoblium',
-    'label': 'Anti-Noblium',
-    'color': 'maroon',
+    id: 'antinoblium',
+    name: 'Antinoblium',
+    label: 'Anti-Noblium',
+    color: 'maroon',
   },
 ] as const;
 
 // Returns gas label based on gasId
 export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString,
+  );
   return gas?.label || fallbackValue || gasId;
 };
 
 // Returns gas color based on gasId
 export const getGasColor = (gasId: string) => {
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find((gas) => gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString);
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString,
+  );
   return gas?.color;
 };
 

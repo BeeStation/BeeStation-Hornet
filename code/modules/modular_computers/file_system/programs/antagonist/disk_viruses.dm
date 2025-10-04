@@ -7,6 +7,7 @@
 	available_on_ntnet = FALSE
 	tgui_id = "antivirus_readme"
 	program_icon = "file-lines"
+	power_consumption = 80 WATT
 
 /datum/computer_file/program/readme/coil_readme
 	filename = "Coilvrs-README.txt"

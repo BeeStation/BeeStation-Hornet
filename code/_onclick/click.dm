@@ -130,11 +130,11 @@
 	if(W == A)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			W.attack_self_secondary(src, modifiers)
-			update_inv_hands()
+			update_held_items()
 			return
 		else
 			W.attack_self(src, modifiers)
-			update_inv_hands()
+			update_held_items()
 			return
 
 	//These are always reachable.
@@ -170,12 +170,21 @@
 	else
 		if(W)
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				// Try the ranged attack first
+				var/ranged_attack_result = W.ranged_attack_secondary(A, src, params)
+
+				// Defer to normal ranged attack
+				if (ranged_attack_result == SECONDARY_ATTACK_CALL_NORMAL)
+					if (W.ranged_attack(A, src, params))
+						return
+
 				var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
 
 				if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
 					W.afterattack(A, src, FALSE, params)
 			else
-				W.afterattack(A,src,0,params)
+				if (!W.ranged_attack(A, src, params))
+					W.afterattack(A,src,0,params)
 		else
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				ranged_secondary_attack(A, modifiers)

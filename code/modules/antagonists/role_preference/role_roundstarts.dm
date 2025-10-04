@@ -18,7 +18,7 @@
 /datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
-	H.update_inv_hands()
+	H.update_held_items()
 	H.hair_style = "Messy"
 	H.hair_color = "431"
 	H.update_hair()
@@ -92,6 +92,22 @@
 	qdel(brother2)
 
 	return finish_preview_icon(final_icon)
+
+/datum/role_preference/roundstart/vampire
+	name = "Vampire"
+	description = "After your death, you awaken to see yourself as an undead monster. \n\
+		Scrape by Space Station 13, or take it over, vassalizing your way!"
+	antag_datum = /datum/antagonist/vampire
+
+/datum/role_preference/roundstart/vampire/get_preview_icon()
+	var/icon/icon = render_preview_outfit(/datum/outfit/vampire)
+	icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+
+	return finish_preview_icon(icon)
+
+/datum/outfit/vampire
+	name = "Vampire outfit (Preview only)"
+	suit = /obj/item/clothing/suit/costume/dracula
 
 /datum/role_preference/roundstart/blood_cultist
 	name = "Blood Cultist"
@@ -262,7 +278,7 @@
 /datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
 	booster.active = TRUE
-	H.update_inv_back()
+	H.update_worn_back()
 
 /datum/outfit/nuclear_operative_elite
 	name = "Nuclear Operative (Elite, Preview only)"
@@ -274,10 +290,10 @@
 /datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visualsOnly)
 	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
 	booster.active = TRUE
-	H.update_inv_back()
+	H.update_worn_back()
 	var/obj/item/shield/energy/shield = locate() in H.held_items
 	shield.icon_state = "[shield.base_icon_state]1"
-	H.update_inv_hands()
+	H.update_held_items()
 
 /datum/role_preference/roundstart/wizard
 	name = "Wizard"

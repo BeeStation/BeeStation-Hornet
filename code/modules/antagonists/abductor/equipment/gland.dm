@@ -41,6 +41,9 @@
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1
+
+	owner?.mind?.add_antag_datum(/datum/antagonist/abductee)
+
 	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/heart/gland/proc/update_gland_hud()
@@ -83,6 +86,7 @@
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
+	gland_owner?.mind?.remove_antag_datum(/datum/antagonist/abductee)
 	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
 
@@ -186,7 +190,7 @@
 				H.confused += 15
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			if(3)
-				H.hallucination += 60
+				H.adjust_hallucinations(120 SECONDS)
 
 /obj/item/organ/heart/gland/pop
 	true_name = "anthropmorphic translocator"

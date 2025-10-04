@@ -213,7 +213,7 @@
 		raise_target = null
 		return FALSE
 	raise_target.grab_ghost() // Shove them back in their body.
-	raise_target.revive(full_heal = 1, admin_revive = 1)
+	raise_target.revive(HEAL_ALL)
 	playsound(altar_turf, 'sound/magic/staff_healing.ogg', 50, TRUE)
 	raise_target = null
 	return ..()
@@ -277,7 +277,7 @@
 	chosen_sacrifice = null
 	return ..()
 
-/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+/datum/religion_rites/living_sacrifice/proc/cuff(mob/living/carbon/C)
 	if(C.handcuffed)
 		return
 	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)

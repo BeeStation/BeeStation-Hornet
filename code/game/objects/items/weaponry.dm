@@ -46,9 +46,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 2
+	force = 4.13
 	throwforce = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+
 	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -61,12 +63,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return SHAME
 
 /obj/item/sord/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	if(isitem(hitby))
-		var/obj/item/I = hitby
-		owner.attackby(src)
-		owner.attackby(src, owner)
-		owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with both the [I] and the[src] while trying to parry the [I]!"))
-	return ..()
+	. = ..()
+	owner.attackby(src, owner)
+	owner.visible_message(span_danger("[owner] can't get a grip, and stabs himself with the [src] while trying to parry the [hitby]!"))
 
 /obj/item/claymore
 	name = "claymore"
@@ -85,9 +84,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_weight = 1
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_power = 40
-	block_upgrade_walk = TRUE
-	block_level = 1
+	block_power = 50
+
+	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
@@ -250,8 +249,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_level = 0
-	block_power = 30
 	armor_type = /datum/armor/claymore_bone
 
 
@@ -276,9 +273,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_power = 20
-	block_level = 1
-	block_upgrade_walk = TRUE
+	block_power = 25
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
@@ -491,7 +488,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = TRUE
+
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -506,8 +503,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	block_upgrade_walk = TRUE
-	force = 3
+	hitsound = 'sound/effects/woodhit.ogg'
+	force = 12
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
@@ -517,8 +514,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines")
 	attack_verb_simple = list("bludgeon", "whack", "discipline")
 	resistance_flags = FLAMMABLE
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
+	block_power = 50
 
 /obj/item/staff/broom
+	force = 5
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon = 'icons/obj/wizard.dmi'
@@ -533,7 +534,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 3
+	force = 5
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
@@ -566,8 +567,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
-	block_upgrade_walk = 2
-	block_power = 20
+	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 24
 	attack_weight = 2
@@ -683,7 +683,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a strong weapon."
 	icon_state = "skateboard"
 	item_state = "skateboard"
-	block_upgrade_walk = TRUE
+
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_LARGE
@@ -720,6 +720,41 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "hoverboard_nt"
 	board_item_type = /obj/vehicle/ridden/scooter/skateboard/hoverboard/admin
 
+/obj/item/staff/bostaff
+	name = "bo staff"
+	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts."
+	force = 10
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	throwforce = 20
+	throw_speed = 2
+	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
+	attack_verb_simple = list("smash", "slam", "whack", "thwack")
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "bostaff0"
+	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	armour_penetration = 0
+
+	canblock = TRUE
+	block_power = 75
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_UNBALANCE
+
+
+
+/obj/item/staff/bostaff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
+
+/obj/item/staff/bostaff/update_icon_state()
+	icon_state = "bostaff0"
+	..()
+
+/obj/item/staff/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE
+
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
@@ -728,7 +763,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "baseball_bat"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	block_upgrade_walk = TRUE
+
 	attack_weight = 2
 	force = 13
 	throwforce = 6
@@ -782,7 +817,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "baseball_bat_metal"
 	item_state = "baseball_bat_metal"
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	block_level = 1
+	canblock = TRUE
 	force = 12
 	throwforce = 15
 
@@ -1036,7 +1071,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 20
-	block_upgrade_walk = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
@@ -1052,8 +1087,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	name = "vibro sword"
 	desc = "A potent weapon capable of cutting through nearly anything. Wielding it in two hands will allow you to deflect gunfire."
 	armour_penetration = 100
-	block_level = 1
-	block_upgrade_walk = 2
+	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	block_sound = 'sound/weapons/genhit.ogg'
 	force = 20
@@ -1068,7 +1102,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/vibro_weapon/ComponentInitialize()
+/obj/item/vibro_weapon/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 20, 105)
 	AddComponent(/datum/component/two_handed, force_multiplier=2, block_power_wielded=40, icon_wielded="hfrequency1")

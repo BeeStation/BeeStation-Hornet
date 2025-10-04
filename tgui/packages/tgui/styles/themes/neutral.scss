@@ -24,18 +24,27 @@ $accent: hsl(263, 100%, 38.4%);
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': $accent, 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': $accent,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-default-fill': $accent, 'background-color': rgba(0, 0, 0, 0.5))
+    $with: (
+      'color-default-fill': $accent,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
   );
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': color.scale($neutral, $lightness: -25%)));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': color.scale($neutral, $lightness: -25%))
+  );
 
   .Layout__content {
     background-image: url('../../assets/bg-neutral.svg');

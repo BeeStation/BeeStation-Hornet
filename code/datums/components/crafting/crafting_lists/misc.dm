@@ -130,6 +130,14 @@
 	tool_paths = list(/obj/item/hatchet)
 	category = CAT_MISC
 
+/datum/crafting_recipe/brush
+	name = "Calligraphy Brush"
+	time = 30 SECONDS
+	reqs = list(/obj/item/stack/sheet/wood = 1, /obj/item/stack/sheet/cotton/cloth = 1)
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	result = /obj/item/pen/brush
+	category = CAT_MISC
+
 /datum/crafting_recipe/toysword
 	name = "Toy Sword"
 	result = /obj/item/toy/sword
@@ -157,7 +165,7 @@
 	result = /obj/item/extendohand
 	time = 1 SECONDS
 	reqs = list(
-		/obj/item/bodypart/r_arm/robot = 1,
+		/obj/item/bodypart/arm/right/robot = 1,
 		/obj/item/clothing/gloves/boxing = 1
 	)
 	category = CAT_MISC

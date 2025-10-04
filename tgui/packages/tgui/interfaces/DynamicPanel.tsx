@@ -1,8 +1,19 @@
-import { Box, Button, Divider, Dropdown, Tabs, Chart, Section, Flex, LabeledList, NumberInput } from '../components';
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
+import { Dropdown } from 'tgui-core/components';
 
 import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Chart,
+  Divider,
+  Flex,
+  LabeledList,
+  NumberInput,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -39,12 +50,14 @@ type MidroundData = {
   midround_failure_stallout: number;
   living_delta: number;
   dead_delta: number;
+  dead_security_delta: number;
   observer_delta: number;
   linear_delta: number;
   linear_delta_forced: number;
   logged_points: number[][];
   logged_points_living: number[][];
   logged_points_dead: number[][];
+  logged_points_dead_security: number[][];
   logged_points_observer: number[][];
   logged_points_antag: number[][];
   logged_points_linear: number[][];
@@ -75,7 +88,10 @@ export const DynamicPanel = () => {
   const { data, act } = useBackend<Data>();
   const { forced_extended } = data;
 
-  const [currentTab, setCurrentTab] = useLocalState('dynamic_tab', Tab.Roundstart);
+  const [currentTab, setCurrentTab] = useLocalState(
+    'dynamic_tab',
+    Tab.Roundstart,
+  );
   let currentPage;
 
   switch (currentTab) {
@@ -96,29 +112,45 @@ export const DynamicPanel = () => {
     <Window title="Dynamic Panel" theme="admin" height={500} width={700}>
       <Window.Content scrollable>
         <Section>
-          <Button tooltip="Opens the Dynamic VV panel." onClick={() => act('vv')}>
+          <Button
+            tooltip="Opens the Dynamic VV panel."
+            onClick={() => act('vv')}
+          >
             VV
           </Button>{' '}
-          <Button tooltip="Reloads the `dynamic.json` file" onClick={() => act('reload_config')}>
+          <Button
+            tooltip="Reloads the `dynamic.json` file"
+            onClick={() => act('reload_config')}
+          >
             Reload Configuration
           </Button>{' '}
           <Button
             tooltip="Blocks rulesets from running"
             color={forced_extended ? 'green' : 'red'}
             icon={forced_extended ? 'check' : 'times'}
-            onClick={() => act('toggle_forced_extended')}>
+            onClick={() => act('toggle_forced_extended')}
+          >
             Forced Extended
           </Button>
         </Section>
         <Divider />
         <Tabs>
-          <Tabs.Tab selected={currentTab === Tab.Roundstart} onClick={() => setCurrentTab(Tab.Roundstart)}>
+          <Tabs.Tab
+            selected={currentTab === Tab.Roundstart}
+            onClick={() => setCurrentTab(Tab.Roundstart)}
+          >
             Roundstart
           </Tabs.Tab>
-          <Tabs.Tab selected={currentTab === Tab.Midround} onClick={() => setCurrentTab(Tab.Midround)}>
+          <Tabs.Tab
+            selected={currentTab === Tab.Midround}
+            onClick={() => setCurrentTab(Tab.Midround)}
+          >
             Midround
           </Tabs.Tab>
-          <Tabs.Tab selected={currentTab === Tab.Latejoin} onClick={() => setCurrentTab(Tab.Latejoin)}>
+          <Tabs.Tab
+            selected={currentTab === Tab.Latejoin}
+            onClick={() => setCurrentTab(Tab.Latejoin)}
+          >
             Latejoin
           </Tabs.Tab>
         </Tabs>
@@ -148,12 +180,15 @@ const RoundstartPage = () => {
     executed_roundstart_rulesets,
   } = data;
 
-  const [forced_roundstart_points, set_forced_points] = useLocalState('forced_roundstart_points', 0);
+  const [forced_roundstart_points, set_forced_points] = useLocalState(
+    'forced_roundstart_points',
+    0,
+  );
 
   const roundstart_rulesets_by_name = Object.fromEntries(
     valid_roundstart_rulesets.map((ruleset) => {
       return [ruleset.name, ruleset.path];
-    })
+    }),
   );
 
   const roundstart_ruleset_names = Object.keys(roundstart_rulesets_by_name);
@@ -166,7 +201,10 @@ const RoundstartPage = () => {
         <Flex direction="row">
           <Flex.Item grow>
             <Section fill title="Variables">
-              <LabeledList.Item label="Upper Divergence Range" verticalAlign="middle">
+              <LabeledList.Item
+                label="Upper Divergence Range"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={roundstart_divergence_upper ?? 0}
                   disabled={has_round_started}
@@ -174,11 +212,18 @@ const RoundstartPage = () => {
                   minValue={0}
                   maxValue={10}
                   step={0.2}
-                  onChange={(value) => act('set_roundstart_divergence_upper', { new_divergence_upper: value })}
+                  onChange={(value) =>
+                    act('set_roundstart_divergence_upper', {
+                      new_divergence_upper: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Lower Divergence Range" verticalAlign="middle">
+              <LabeledList.Item
+                label="Lower Divergence Range"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={roundstart_divergence_lower ?? 0}
                   disabled={has_round_started}
@@ -186,7 +231,11 @@ const RoundstartPage = () => {
                   minValue={0}
                   maxValue={10}
                   step={0.2}
-                  onChange={(value) => act('set_roundstart_divergence_lower', { new_divergence_lower: value })}
+                  onChange={(value) =>
+                    act('set_roundstart_divergence_lower', {
+                      new_divergence_lower: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
@@ -198,11 +247,18 @@ const RoundstartPage = () => {
                   minValue={0}
                   maxValue={100}
                   step={1}
-                  onChange={(value) => act('set_roundstart_points_per_ready', { new_points_per_ready: value })}
+                  onChange={(value) =>
+                    act('set_roundstart_points_per_ready', {
+                      new_points_per_ready: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Points per Unready" verticalAlign="middle">
+              <LabeledList.Item
+                label="Points per Unready"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={roundstart_points_per_unready ?? 0}
                   disabled={has_round_started}
@@ -210,11 +266,18 @@ const RoundstartPage = () => {
                   minValue={0}
                   maxValue={100}
                   step={1}
-                  onChange={(value) => act('set_roundstart_points_per_unready', { new_points_per_unready: value })}
+                  onChange={(value) =>
+                    act('set_roundstart_points_per_unready', {
+                      new_points_per_unready: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Points per Observer" verticalAlign="middle">
+              <LabeledList.Item
+                label="Points per Observer"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={roundstart_points_per_observer ?? 0}
                   disabled={has_round_started}
@@ -222,7 +285,11 @@ const RoundstartPage = () => {
                   minValue={0}
                   maxValue={100}
                   step={1}
-                  onChange={(value) => act('set_roundstart_points_per_observer', { new_points_per_observer: value })}
+                  onChange={(value) =>
+                    act('set_roundstart_points_per_observer', {
+                      new_points_per_observer: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
@@ -240,12 +307,19 @@ const RoundstartPage = () => {
                   icon={roundstart_points_override ? 'check' : 'times'}
                   tooltip="Use the values below on roundstart regardless"
                   onClick={() =>
-                    act('toggle_roundstart_points_override', { forced_roundstart_points: forced_roundstart_points })
-                  }>
+                    act('toggle_roundstart_points_override', {
+                      forced_roundstart_points: forced_roundstart_points,
+                    })
+                  }
+                >
                   Override Points
                 </Button>
-              }>
-              <LabeledList.Item label="Roundstart Points" verticalAlign="middle">
+              }
+            >
+              <LabeledList.Item
+                label="Roundstart Points"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={forced_roundstart_points ?? 0}
                   disabled={has_round_started}
@@ -274,7 +348,8 @@ const RoundstartPage = () => {
               color={roundstart_only_use_forced_rulesets ? 'green' : 'red'}
               icon={roundstart_only_use_forced_rulesets ? 'check' : 'times'}
               tooltip="Prevent rulesets other than the ones below from being drafted"
-              onClick={() => act('toggle_roundstart_rulesets_override')}>
+              onClick={() => act('toggle_roundstart_rulesets_override')}
+            >
               Blacklist Others
             </Button>
             <Button
@@ -282,26 +357,35 @@ const RoundstartPage = () => {
               color={roundstart_blacklist_forced_rulesets ? 'green' : 'red'}
               icon={roundstart_blacklist_forced_rulesets ? 'check' : 'times'}
               tooltip="Prevent the rulesets below from being drafted"
-              onClick={() => act('toggle_roundstart_blacklist_forced_rulesets')}>
+              onClick={() => act('toggle_roundstart_blacklist_forced_rulesets')}
+            >
               Blacklist These
             </Button>
           </>
-        }>
+        }
+      >
         {roundstart_ruleset_names.length === 0 ? (
           <Box italic>There are no valid roundstart rulesets (uh oh)</Box>
         ) : (
           roundstart_ruleset_names.map((ruleset, idx) => (
             <Button.Checkbox
               disabled={has_round_started}
-              checked={forced_roundstart_rulesets.find((forced_ruleset) => forced_ruleset.name === ruleset)}
+              checked={forced_roundstart_rulesets.find(
+                (forced_ruleset) => forced_ruleset.name === ruleset,
+              )}
               key={ruleset + idx}
               onClick={() => {
-                const selectedRuleset = valid_roundstart_rulesets.find((valid_ruleset) => valid_ruleset.name === ruleset);
+                const selectedRuleset = valid_roundstart_rulesets.find(
+                  (valid_ruleset) => valid_ruleset.name === ruleset,
+                );
                 act('force_roundstart_ruleset', {
-                  forced_roundstart_ruleset: selectedRuleset ? selectedRuleset.path : ruleset,
+                  forced_roundstart_ruleset: selectedRuleset
+                    ? selectedRuleset.path
+                    : ruleset,
                 });
               }}
-              verticalAlign="middle">
+              verticalAlign="middle"
+            >
               {ruleset}
             </Button.Checkbox>
           ))
@@ -319,8 +403,13 @@ const RoundstartPage = () => {
             <LabeledList.Item label="Roundstart Points" verticalAlign="middle">
               {roundstart_points ?? 0}
             </LabeledList.Item>
-            <LabeledList.Item label="Roundstart Divergence" verticalAlign="middle">
-              {roundstart_divergence ? `${Math.round((roundstart_divergence - 1) * 100)}%` : '0%'}
+            <LabeledList.Item
+              label="Roundstart Divergence"
+              verticalAlign="middle"
+            >
+              {roundstart_divergence
+                ? `${Math.round((roundstart_divergence - 1) * 100)}%`
+                : '0%'}
             </LabeledList.Item>
           </>
         ) : (
@@ -335,9 +424,16 @@ const RoundstartPage = () => {
           <Box italic>No executed roundstart rulesets.</Box>
         ) : (
           executed_roundstart_rulesets.map((executed_ruleset, idx) => (
-            <LabeledList.Item key={executed_ruleset.path + idx} label={executed_ruleset.name} verticalAlign="middle">
+            <LabeledList.Item
+              key={executed_ruleset.path + idx}
+              label={executed_ruleset.name}
+              verticalAlign="middle"
+            >
               <Box>
-                {forced_roundstart_rulesets.find((forced_ruleset) => forced_ruleset.name === executed_ruleset.name)
+                {forced_roundstart_rulesets.find(
+                  (forced_ruleset) =>
+                    forced_ruleset.name === executed_ruleset.name,
+                )
                   ? 'Forced'
                   : `Cost: ${executed_ruleset.cost}`}
               </Box>
@@ -358,6 +454,7 @@ const MidroundPage = () => {
     logged_points,
     logged_points_living,
     logged_points_dead,
+    logged_points_dead_security,
     logged_points_observer,
     logged_points_antag,
     logged_points_linear,
@@ -370,28 +467,63 @@ const MidroundPage = () => {
     midround_failure_stallout,
     living_delta,
     dead_delta,
+    dead_security_delta,
     observer_delta,
     linear_delta,
     linear_delta_forced,
   } = data;
 
   // Convert our logged data into a useable format
-  const light_data = logged_light_chance.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const medium_data = logged_medium_chance.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const heavy_data = logged_heavy_chance.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const light_data = logged_light_chance.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const medium_data = logged_medium_chance.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const heavy_data = logged_heavy_chance.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
 
-  const points_data = logged_points.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const living_data = logged_points_living.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const dead_data = logged_points_dead.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const observer_data = logged_points_observer.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const antag_data = logged_points_antag.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const linear_data = logged_points_linear.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
-  const linear_forced_data = logged_points_linear_forced.map((value, i) => [i, Array.isArray(value) ? value[0] : value]);
+  const points_data = logged_points.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const living_data = logged_points_living.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const dead_data = logged_points_dead.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const dead_security_data = logged_points_dead_security.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const observer_data = logged_points_observer.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const antag_data = logged_points_antag.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const linear_data = logged_points_linear.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
+  const linear_forced_data = logged_points_linear_forced.map((value, i) => [
+    i,
+    Array.isArray(value) ? value[0] : value,
+  ]);
 
   const midround_rulesets_by_name = Object.fromEntries(
     valid_midround_rulesets.map((ruleset) => {
       return [ruleset.name, ruleset.path];
-    })
+    }),
   );
 
   const midround_ruleset_names = Object.keys(midround_rulesets_by_name);
@@ -401,12 +533,34 @@ const MidroundPage = () => {
   const [show_medium, toggle_medium_graph] = useLocalState('show_medium', true);
   const [show_heavy, toggle_heavy_graph] = useLocalState('show_heavy', true);
 
-  const [show_living_delta, toggle_living_graph] = useLocalState('show_living_delta', true);
-  const [show_dead_delta, toggle_dead_graph] = useLocalState('show_dead_delta', true);
-  const [show_observer_delta, toggle_observer_graph] = useLocalState('show_observer_delta', true);
-  const [show_antag_delta, toggle_antag_graph] = useLocalState('show_antag_delta', true);
-  const [show_linear_delta, toggle_linear_graph] = useLocalState('show_linear_delta', true);
-  const [show_linear_delta_forced, toggle_linear_graph_forced] = useLocalState('show_linear_delta_forced', true);
+  const [show_living_delta, toggle_living_graph] = useLocalState(
+    'show_living_delta',
+    true,
+  );
+  const [show_dead_delta, toggle_dead_graph] = useLocalState(
+    'show_dead_delta',
+    true,
+  );
+  const [show_dead_security_delta, toggle_dead_security_graph] = useLocalState(
+    'show_dead_security_delta',
+    true,
+  );
+  const [show_observer_delta, toggle_observer_graph] = useLocalState(
+    'show_observer_delta',
+    true,
+  );
+  const [show_antag_delta, toggle_antag_graph] = useLocalState(
+    'show_antag_delta',
+    true,
+  );
+  const [show_linear_delta, toggle_linear_graph] = useLocalState(
+    'show_linear_delta',
+    true,
+  );
+  const [show_linear_delta_forced, toggle_linear_graph_forced] = useLocalState(
+    'show_linear_delta_forced',
+    true,
+  );
 
   return (
     <Flex direction="column">
@@ -421,19 +575,25 @@ const MidroundPage = () => {
                 <Button
                   disabled={!current_midround_ruleset}
                   tooltip="Does not affect midround points"
-                  onClick={() => act('execute_midround_ruleset')}>
+                  onClick={() => act('execute_midround_ruleset')}
+                >
                   Execute Chosen Ruleset
                 </Button>
-              }>
+              }
+            >
               <LabeledList.Item label="Midround Ruleset" verticalAlign="middle">
                 <Dropdown
                   options={midround_ruleset_names}
                   selected={current_midround_ruleset?.name ?? 'None'}
                   width="100%"
                   onSelected={(value) => {
-                    const selectedRuleset = valid_midround_rulesets.find((ruleset) => ruleset.name === value);
+                    const selectedRuleset = valid_midround_rulesets.find(
+                      (ruleset) => ruleset.name === value,
+                    );
                     act('set_midround_ruleset', {
-                      new_midround_ruleset: selectedRuleset ? selectedRuleset.path : value,
+                      new_midround_ruleset: selectedRuleset
+                        ? selectedRuleset.path
+                        : value,
                     });
                   }}
                 />
@@ -445,7 +605,9 @@ const MidroundPage = () => {
                   minValue={0}
                   maxValue={1000}
                   step={1}
-                  onChange={(value) => act('set_midround_points', { new_points: value })}
+                  onChange={(value) =>
+                    act('set_midround_points', { new_points: value })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
@@ -456,18 +618,29 @@ const MidroundPage = () => {
                   minValue={0}
                   maxValue={120}
                   step={5}
-                  onChange={(value) => act('set_midround_grace_period', { new_grace_period: value })}
+                  onChange={(value) =>
+                    act('set_midround_grace_period', {
+                      new_grace_period: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Midround Failure Stallout" verticalAlign="middle">
+              <LabeledList.Item
+                label="Midround Failure Stallout"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={midround_failure_stallout ?? 0}
                   animated
                   minValue={0}
                   maxValue={60}
                   step={1}
-                  onChange={(value) => act('set_midround_failure_stallout', { new_midround_stallout: value })}
+                  onChange={(value) =>
+                    act('set_midround_failure_stallout', {
+                      new_midround_stallout: value,
+                    })
+                  }
                   width="50%"
                 />
               </LabeledList.Item>
@@ -483,7 +656,11 @@ const MidroundPage = () => {
                   minValue={-10}
                   maxValue={10}
                   step={0.5}
-                  onChange={(value) => act('set_midround_living_delta', { new_living_delta: value })}
+                  onChange={(value) =>
+                    act('set_midround_living_delta', {
+                      new_living_delta: value,
+                    })
+                  }
                   width="25%"
                 />
               </LabeledList.Item>
@@ -494,7 +671,24 @@ const MidroundPage = () => {
                   minValue={-10}
                   maxValue={10}
                   step={0.5}
-                  onChange={(value) => act('set_midround_dead_delta', { new_dead_delta: value })}
+                  onChange={(value) =>
+                    act('set_midround_dead_delta', { new_dead_delta: value })
+                  }
+                  width="25%"
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Dead Sec Delta" verticalAlign="middle">
+                <NumberInput
+                  value={dead_security_delta ?? 0}
+                  animated
+                  minValue={-10}
+                  maxValue={10}
+                  step={0.5}
+                  onChange={(value) =>
+                    act('set_midround_dead_security_delta', {
+                      new_dead_security_delta: value,
+                    })
+                  }
                   width="25%"
                 />
               </LabeledList.Item>
@@ -505,7 +699,11 @@ const MidroundPage = () => {
                   minValue={-10}
                   maxValue={10}
                   step={0.5}
-                  onChange={(value) => act('set_midround_observer_delta', { new_observer_delta: value })}
+                  onChange={(value) =>
+                    act('set_midround_observer_delta', {
+                      new_observer_delta: value,
+                    })
+                  }
                   width="25%"
                 />
               </LabeledList.Item>
@@ -516,18 +714,29 @@ const MidroundPage = () => {
                   minValue={-10}
                   maxValue={10}
                   step={0.5}
-                  onChange={(value) => act('set_midround_linear_delta', { new_linear_delta: value })}
+                  onChange={(value) =>
+                    act('set_midround_linear_delta', {
+                      new_linear_delta: value,
+                    })
+                  }
                   width="25%"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Forced Linear Delta" verticalAlign="middle">
+              <LabeledList.Item
+                label="Forced Linear Delta"
+                verticalAlign="middle"
+              >
                 <NumberInput
                   value={linear_delta_forced ?? 0}
                   animated
                   minValue={-10}
                   maxValue={10}
                   step={0.5}
-                  onChange={(value) => act('set_midround_linear_delta_forced', { new_linear_delta_forced: value })}
+                  onChange={(value) =>
+                    act('set_midround_linear_delta_forced', {
+                      new_linear_delta_forced: value,
+                    })
+                  }
                   width="25%"
                 />
               </LabeledList.Item>
@@ -543,7 +752,11 @@ const MidroundPage = () => {
           <Box italic>No executed midround rulesets.</Box>
         ) : (
           executed_midround_rulesets.map((ruleset, idx) => (
-            <LabeledList.Item key={ruleset.path + idx} label={ruleset.name} verticalAlign="middle">
+            <LabeledList.Item
+              key={ruleset.path + idx}
+              label={ruleset.name}
+              verticalAlign="middle"
+            >
               <Box>Cost: {ruleset.cost}</Box>
             </LabeledList.Item>
           ))
@@ -554,26 +767,61 @@ const MidroundPage = () => {
       {/* Ruleset Chances */}
       <Flex direction="row">
         <Flex.Item>
-          <Section fill title="—" style={{ height: '245px', width: '40px', position: 'relative' }}>
-            <Box position="absolute" top={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
+          <Section
+            fill
+            title="—"
+            style={{ height: '245px', width: '40px', position: 'relative' }}
+          >
+            <Box
+              position="absolute"
+              top={0}
+              left="50%"
+              style={{ transform: 'translate(-50%, 0)' }}
+            >
               100%
             </Box>
-            <Box position="absolute" top="25%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="25%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               75%
             </Box>
-            <Box position="absolute" top="50%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="50%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               50%
             </Box>
-            <Box position="absolute" top="75%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="75%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               25%
             </Box>
-            <Box position="absolute" bottom={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
+            <Box
+              position="absolute"
+              bottom={0}
+              left="50%"
+              style={{ transform: 'translate(-50%, 0)' }}
+            >
               0%
             </Box>
           </Section>
         </Flex.Item>
         <Flex.Item grow>
-          <Section fill title="Ruleset Chances:" height="245px" width="633px" style={{ position: 'relative' }}>
+          <Section
+            fill
+            title="Ruleset Chances:"
+            height="245px"
+            width="633px"
+            style={{ position: 'relative' }}
+          >
             <Box
               style={{
                 position: 'absolute',
@@ -583,7 +831,8 @@ const MidroundPage = () => {
                 height: '100%',
                 pointerEvents: 'none',
                 zIndex: 1,
-              }}>
+              }}
+            >
               {[0, 0.25, 0.5, 0.75, 1].map((v, i) => (
                 <Box
                   key={`hgrid-${i}`}
@@ -630,17 +879,26 @@ const MidroundPage = () => {
         </Flex.Item>
       </Flex>
       <Flex.Item align="center" p={0.5}>
-        <Button icon={show_light ? 'check-square-o' : 'square-o'} onClick={() => toggle_light_graph(!show_light)}>
+        <Button
+          icon={show_light ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_light_graph(!show_light)}
+        >
           <Box inline textColor="green">
             Light
           </Box>
         </Button>
-        <Button icon={show_medium ? 'check-square-o' : 'square-o'} onClick={() => toggle_medium_graph(!show_medium)}>
+        <Button
+          icon={show_medium ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_medium_graph(!show_medium)}
+        >
           <Box inline textColor="blue">
             Medium
           </Box>
         </Button>
-        <Button icon={show_heavy ? 'check-square-o' : 'square-o'} onClick={() => toggle_heavy_graph(!show_heavy)}>
+        <Button
+          icon={show_heavy ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_heavy_graph(!show_heavy)}
+        >
           <Box inline textColor="red">
             Heavy
           </Box>
@@ -651,26 +909,61 @@ const MidroundPage = () => {
       {/* Point Deltas */}
       <Flex direction="row">
         <Flex.Item>
-          <Section fill title="—" style={{ height: '245px', width: '40px', position: 'relative' }}>
-            <Box position="absolute" top={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
+          <Section
+            fill
+            title="—"
+            style={{ height: '245px', width: '40px', position: 'relative' }}
+          >
+            <Box
+              position="absolute"
+              top={0}
+              left="50%"
+              style={{ transform: 'translate(-50%, 0)' }}
+            >
               5
             </Box>
-            <Box position="absolute" top="25%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="25%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               2.5
             </Box>
-            <Box position="absolute" top="50%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="50%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               0
             </Box>
-            <Box position="absolute" top="75%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="75%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               -2.5
             </Box>
-            <Box position="absolute" bottom={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
+            <Box
+              position="absolute"
+              bottom={0}
+              left="50%"
+              style={{ transform: 'translate(-50%, 0)' }}
+            >
               -5
             </Box>
           </Section>
         </Flex.Item>
         <Flex.Item grow>
-          <Section fill title="Point Deltas:" height="245px" width="633px" style={{ position: 'relative' }}>
+          <Section
+            fill
+            title="Point Deltas:"
+            height="245px"
+            width="633px"
+            style={{ position: 'relative' }}
+          >
             {/* Grid overlay */}
             <Box
               style={{
@@ -681,7 +974,8 @@ const MidroundPage = () => {
                 height: '100%',
                 pointerEvents: 'none',
                 zIndex: 1,
-              }}>
+              }}
+            >
               {/* Horizontal grid lines */}
               {[0, 0.25, 0.5, 0.75, 1].map((v, i) => (
                 <Box
@@ -716,6 +1010,15 @@ const MidroundPage = () => {
                 rangeX={[0, dead_data.length - 1]}
                 rangeY={[-5, 5]}
                 strokeColor="rgb(46, 147, 222)"
+              />
+            )}
+            {show_dead_security_delta && (
+              <Chart.Line
+                fillPositionedParent
+                data={dead_security_data}
+                rangeX={[0, dead_security_data.length - 1]}
+                rangeY={[-5, 5]}
+                strokeColor="rgba(255, 0, 93, 1)"
               />
             )}
             {show_observer_delta && (
@@ -760,38 +1063,56 @@ const MidroundPage = () => {
       <Flex.Item align="center" p={0.5}>
         <Button
           icon={show_living_delta ? 'check-square-o' : 'square-o'}
-          onClick={() => toggle_living_graph(!show_living_delta)}>
+          onClick={() => toggle_living_graph(!show_living_delta)}
+        >
           <Box inline textColor="green">
             Living
           </Box>
         </Button>
-        <Button icon={show_dead_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_dead_graph(!show_dead_delta)}>
+        <Button
+          icon={show_dead_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_dead_graph(!show_dead_delta)}
+        >
           <Box inline textColor="blue">
             Dead
           </Box>
         </Button>
         <Button
+          icon={show_dead_security_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_dead_security_graph(!show_dead_security_delta)}
+        >
+          <Box inline textColor="deeppink">
+            Dead Security
+          </Box>
+        </Button>
+        <Button
           icon={show_observer_delta ? 'check-square-o' : 'square-o'}
-          onClick={() => toggle_observer_graph(!show_observer_delta)}>
+          onClick={() => toggle_observer_graph(!show_observer_delta)}
+        >
           <Box inline textColor="grey">
             Observer
           </Box>
         </Button>
-        <Button icon={show_antag_delta ? 'check-square-o' : 'square-o'} onClick={() => toggle_antag_graph(!show_antag_delta)}>
+        <Button
+          icon={show_antag_delta ? 'check-square-o' : 'square-o'}
+          onClick={() => toggle_antag_graph(!show_antag_delta)}
+        >
           <Box inline textColor="red">
             Antag
           </Box>
         </Button>
         <Button
           icon={show_linear_delta ? 'check-square-o' : 'square-o'}
-          onClick={() => toggle_linear_graph(!show_linear_delta)}>
+          onClick={() => toggle_linear_graph(!show_linear_delta)}
+        >
           <Box inline textColor="white">
             Linear
           </Box>
         </Button>
         <Button
           icon={show_linear_delta_forced ? 'check-square-o' : 'square-o'}
-          onClick={() => toggle_linear_graph_forced(!show_linear_delta_forced)}>
+          onClick={() => toggle_linear_graph_forced(!show_linear_delta_forced)}
+        >
           <Box inline textColor="yellow">
             Forced Linear
           </Box>
@@ -802,26 +1123,61 @@ const MidroundPage = () => {
       {/* Point Graph */}
       <Flex direction="row">
         <Flex.Item>
-          <Section fill title="—" style={{ height: '245px', width: '40px', position: 'relative' }}>
-            <Box position="absolute" top={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
+          <Section
+            fill
+            title="—"
+            style={{ height: '245px', width: '40px', position: 'relative' }}
+          >
+            <Box
+              position="absolute"
+              top={0}
+              left="50%"
+              style={{ transform: 'translate(-50%, 0)' }}
+            >
               100
             </Box>
-            <Box position="absolute" top="25%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="25%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               75
             </Box>
-            <Box position="absolute" top="50%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="50%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               50
             </Box>
-            <Box position="absolute" top="75%" left="50%" style={{ transform: 'translate(-50%, -50%)' }}>
+            <Box
+              position="absolute"
+              top="75%"
+              left="50%"
+              style={{ transform: 'translate(-50%, -50%)' }}
+            >
               25
             </Box>
-            <Box position="absolute" bottom={0} left="50%" style={{ transform: 'translate(-50%, 0)' }}>
+            <Box
+              position="absolute"
+              bottom={0}
+              left="50%"
+              style={{ transform: 'translate(-50%, 0)' }}
+            >
               0
             </Box>
           </Section>
         </Flex.Item>
         <Flex.Item grow>
-          <Section fill title="Points:" height="245px" width="633px" style={{ position: 'relative' }}>
+          <Section
+            fill
+            title="Points:"
+            height="245px"
+            width="633px"
+            style={{ position: 'relative' }}
+          >
             <Box
               style={{
                 position: 'absolute',
@@ -831,7 +1187,8 @@ const MidroundPage = () => {
                 height: '100%',
                 pointerEvents: 'none',
                 zIndex: 1,
-              }}>
+              }}
+            >
               {[0, 0.25, 0.5, 0.75, 1].map((v, i) => (
                 <Box
                   key={`hgrid-${i}`}
@@ -863,13 +1220,18 @@ const MidroundPage = () => {
 
 const LatejoinPage = () => {
   const { act, data } = useBackend<LatejoinData>();
-  const { executed_latejoin_rulesets, valid_latejoin_rulesets, current_latejoin_ruleset, latejoin_probability, latejoin_max } =
-    data;
+  const {
+    executed_latejoin_rulesets,
+    valid_latejoin_rulesets,
+    current_latejoin_ruleset,
+    latejoin_probability,
+    latejoin_max,
+  } = data;
 
   const latejoin_rulesets_by_name = Object.fromEntries(
     valid_latejoin_rulesets.map((ruleset) => {
       return [ruleset.name, ruleset.path];
-    })
+    }),
   );
 
   const latejoin_ruleset_names = Object.keys(latejoin_rulesets_by_name);
@@ -885,21 +1247,30 @@ const LatejoinPage = () => {
             selected={current_latejoin_ruleset?.name ?? 'None'}
             width="50%"
             onSelected={(value) => {
-              const selectedRuleset = valid_latejoin_rulesets.find((ruleset) => ruleset.name === value);
+              const selectedRuleset = valid_latejoin_rulesets.find(
+                (ruleset) => ruleset.name === value,
+              );
               act('set_latejoin_ruleset', {
-                new_latejoin_ruleset: selectedRuleset ? selectedRuleset.path : value,
+                new_latejoin_ruleset: selectedRuleset
+                  ? selectedRuleset.path
+                  : value,
               });
             }}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Set Latejoin Probability" verticalAlign="middle">
+        <LabeledList.Item
+          label="Set Latejoin Probability"
+          verticalAlign="middle"
+        >
           <NumberInput
             value={latejoin_probability ?? 0}
             animated
             minValue={0}
             maxValue={100}
             step={10}
-            onChange={(value) => act('set_latejoin_probability', { new_probability: value })}
+            onChange={(value) =>
+              act('set_latejoin_probability', { new_probability: value })
+            }
             width="25%"
           />
         </LabeledList.Item>
@@ -923,7 +1294,11 @@ const LatejoinPage = () => {
           <Box italic>No executed latejoin rulesets.</Box>
         ) : (
           executed_latejoin_rulesets.map((ruleset, idx) => (
-            <LabeledList.Item key={ruleset.path + idx} label={ruleset.name} verticalAlign="middle">
+            <LabeledList.Item
+              key={ruleset.path + idx}
+              label={ruleset.name}
+              verticalAlign="middle"
+            >
               <Box>Cost: {ruleset.cost}</Box>
             </LabeledList.Item>
           ))

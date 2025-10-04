@@ -45,7 +45,7 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_suit()
+		M.update_worn_oversuit()
 
 /obj/item/clothing/suit/proc/on_mob_move()
 	SIGNAL_HANDLER

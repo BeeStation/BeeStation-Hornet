@@ -1,3 +1,5 @@
+#define FILL_ICON_THRESHOLDS list(1, 20, 30, 40, 50, 60, 70, 80, 90)
+
 //Hydroponics tank and base code
 /obj/item/watertank
 	name = "backpack water tank"
@@ -15,11 +17,11 @@
 	armor_type = /datum/armor/item_watertank
 	resistance_flags = FIRE_PROOF
 
-	var/obj/item/noz
+	var/obj/item/noz = /obj/item/reagent_containers/spray/mister
 	var/volume = 500
 
-	var/list/fill_icon_thresholds = list(1, 20, 30, 40, 50, 60, 70, 80, 90)
-	var/list/worn_fill_icon_thresholds = list(1, 20, 40, 65, 75, 90)
+	var/static/list/fill_icon_thresholds = FILL_ICON_THRESHOLDS
+	var/static/list/worn_fill_icon_thresholds = list(1, 20, 40, 65, 75, 90)
 
 
 /datum/armor/item_watertank
@@ -30,7 +32,6 @@
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
-	RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	update_icon()
 
 /obj/item/watertank/ui_action_click(mob/user)
@@ -43,11 +44,11 @@
 /obj/item/watertank/on_reagent_change(changetype)
 	. = ..()
 	update_icon()
-	if(noz)
+	if (!QDELETED(noz))
 		noz.update_icon()
 	if(istype(loc, /mob/living/carbon))//Someone's wearing it
 		var/mob/living/carbon/wearer = loc
-		wearer.update_inv_back()
+		wearer.update_worn_back()
 
 /obj/item/watertank/update_overlays()
 	. = ..()
@@ -97,7 +98,6 @@
 
 	if(QDELETED(noz))
 		noz = make_noz()
-		RegisterSignal(noz, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
 	if(noz in src)
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
@@ -114,8 +114,10 @@
 	toggle_mister(usr)
 
 /obj/item/watertank/proc/make_noz()
-	update_icon()
-	return new /obj/item/reagent_containers/spray/mister(src)
+	var/noz_type = initial(noz)
+	var/N = new noz_type(src)
+	RegisterSignal(N, COMSIG_MOVABLE_MOVED, PROC_REF(noz_move))
+	return N
 
 /obj/item/watertank/proc/noz_move(atom/movable/mover, atom/oldloc, direction)
 	if(mover.loc == src || mover.loc == loc)
@@ -206,6 +208,7 @@
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
 	custom_price = 100
+	noz = /obj/item/reagent_containers/spray/mister/janitor
 
 /obj/item/watertank/janitor/Initialize(mapload)
 	. = ..()
@@ -222,9 +225,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10)
-
-/obj/item/watertank/janitor/make_noz()
-	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
 /obj/item/reagent_containers/spray/mister/janitor/mode_change_message(mob/user)
 	to_chat(user, span_notice("You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray."))
@@ -246,31 +246,21 @@
 	worn_icon_state = "waterbackpackatmos"
 	volume = 200
 	slowdown = 0
-	var/nozzle_cooldown = 8 SECONDS //Delay between the uses of launcher and foamer mode, all of these are used for the nozzle
-	var/resin_cost = 100 //How many reagents are used per resin launch
-	var/upgrade_flags = FALSE
-	var/max_foam = 5//Controls the amout of foam the nozzle can output at once
+	noz = /obj/item/extinguisher/mini/nozzle
 
 /obj/item/watertank/atmos/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/water, 200)
 	update_icon()
 
-/obj/item/watertank/atmos/make_noz()
-	update_icon()
-	return new /obj/item/extinguisher/mini/nozzle(src)
-
-/obj/item/watertank/atmos/dropped(mob/user)
-	..()
-	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
-		var/obj/item/extinguisher/mini/nozzle/N = noz
-		N.update_nozzle_stats()
-		N.nozzle_mode = EXTINGUISHER
-	update_icon()
-
 /obj/item/watertank/atmos/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/atmostank_upgrade))
-		install_upgrade(W, user)
+		if (QDELETED(noz))
+			noz = make_noz()
+		var/obj/item/extinguisher/mini/nozzle/N = noz
+		if (N.install_upgrade(W, user))
+			icon_state = "waterbackpackatmos_upgraded"
+		update_icon()
 		return TRUE
 	return ..()
 
@@ -285,7 +275,7 @@
 		if(istype(loc, /mob/living/carbon))
 			var/mob/living/carbon/wearer = loc
 			if(wearer.back == src)
-				wearer.update_inv_back()
+				wearer.update_worn_back()
 
 /obj/item/watertank/atmos/update_overlays()
 	. = ..()
@@ -300,31 +290,6 @@
 			return "#F46402"
 	return "#0066FF"
 
-
-/obj/item/watertank/atmos/proc/install_upgrade(obj/item/atmostank_upgrade/upgrade, mob/user)
-	if(noz && !locate(noz) in src)
-		balloon_alert(user, "Retract nozzle!")
-		return
-	if(upgrade.upgrade_flags & src.upgrade_flags)
-		balloon_alert(user, "Already installed")
-		return
-	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		volume = 400
-		reagents.maximum_volume = 400
-		max_foam = 10
-		nozzle_cooldown = 4 SECONDS
-		resin_cost = 50
-		icon_state = "waterbackpackatmos_upgraded"
-	upgrade_flags |= upgrade.upgrade_flags
-	var/obj/item/extinguisher/mini/nozzle/N = noz
-	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-		N.toggled = TRUE
-	N.update_nozzle_stats()
-	balloon_alert(user, "Upgrade installed")
-	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
-	qdel(upgrade)
-	update_icon()
-
 /obj/item/watertank/atmos/toggle_mister(mob/living/user)
 	if(!istype(user))
 		return
@@ -338,8 +303,6 @@
 		noz = make_noz()
 	if(noz in src)
 		//Detach the nozzle into the user's hands
-		var/obj/item/extinguisher/mini/nozzle/N = noz
-		N.update_nozzle_stats()
 		if(!user.put_in_hands(noz))
 			to_chat(user, span_warning("You need a free hand to hold the mister!"))
 			return
@@ -350,10 +313,10 @@
 
 /obj/item/watertank/atmos/examine(mob/user)
 	. = ..()
-	if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		. += span_notice("Its maximum tank volume was increased.")
-	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-		. += span_notice("It's capable of producing advanced ATMOS resin.")
+	if (QDELETED(noz))
+		return
+	. += span_notice("It contains:")
+	. += noz.examine(user)
 
 /obj/item/atmostank_upgrade
 	name = "Backpack Firefighter Tank upgrade disk"
@@ -382,20 +345,23 @@
 	lefthand_file = 'icons/mob/inhands/equipment/mister_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mister_righthand.dmi'
 	safety = 0
-	max_water = 200
 	power = 8
 	force = 10
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | ISWEAPON  // don't put in storage
-	var/obj/item/watertank/atmos/tank
-	var/nozzle_mode = 0
+	// destroyed only when the backpack is
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	var/atom/tank
+	var/nozzle_mode = EXTINGUISHER
+	var/upgrade_flags = NONE
 	var/resin_synthesis_cooldown = 0
-	var/nozzle_cooldown //Delay between the uses of launcher and foamer mode
-	var/resin_cost //How many reagents are used per resin launch
-	var/max_foam //Controls the amout of foam the nozzle can output at once
+	var/nozzle_cooldown = 8 SECONDS //Delay between the uses of launcher and foamer mode
+	var/resin_cost = 100 //How many reagents are used per resin launch
+	var/max_foam = 5 //Controls the amout of foam the nozzle can output at once
 	var/toggled = FALSE //Used for the advanced resin
+	var/static/list/fill_icon_thresholds = FILL_ICON_THRESHOLDS
 	COOLDOWN_DECLARE(resin_cooldown)
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
@@ -403,23 +369,21 @@
 	tank = loc
 	if (!istype(tank))
 		return INITIALIZE_HINT_QDEL
-	update_nozzle_stats()
-	update_icon()
-
-/obj/item/extinguisher/mini/nozzle/on_reagent_change(changetype)
-	. = ..()
-	update_icon()
-	if(tank)
-		tank.update_icon()
+	reagents = loc.reagents
+	max_water = reagents.maximum_volume
 
 /obj/item/extinguisher/mini/nozzle/examine(mob/user)
 	. = ..()
+	if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+		. += span_notice("Its maximum tank volume and efficiency is increased.")
+	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		. += span_notice("It's capable of producing advanced ATMOS resin.")
 	if(nozzle_mode == RESIN_LAUNCHER)
 		. += span_notice("Uses [resin_cost] units of water per resin launch.")
-	if(nozzle_mode == RESIN_FOAM || nozzle_mode == RESIN_LAUNCHER)
-		. += span_notice("Is dispensing [toggled ? "advanced" : ""] ATMOS resin.")
-		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-			. += span_notice("Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.")
+	if((nozzle_mode == RESIN_FOAM || nozzle_mode == RESIN_LAUNCHER) \
+			&& upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		. += span_notice("It is dispensing [toggled ? "advanced " : ""]ATMOS resin.")
+		. += span_notice("Alt-click to switch to [toggled ? "normal" : "advanced"] ATMOS resin.")
 
 /obj/item/extinguisher/mini/nozzle/update_icon(updates)
 	. = ..()
@@ -430,50 +394,40 @@
 	if(istype(loc, /mob/living/carbon))
 		var/mob/living/carbon/wearer = loc
 		if(wearer.get_active_held_item() == src)//Someone's holding it
-			wearer.update_inv_hands()
+			wearer.update_held_items()
 
 /obj/item/extinguisher/mini/nozzle/update_overlays()
 	. = ..()
 	var/fill_icon = "nozzle_overlay"
-	if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM && toggled)
+	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM && toggled)
 		fill_icon = "nozzle_overlay_on"
 	if(tank)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/atmospherics/equipment.dmi', "[fill_icon][tank.fill_icon_thresholds[1]]")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/atmospherics/equipment.dmi', "[fill_icon][fill_icon_thresholds[1]]")
 
-		var/percent = round(((tank.reagents.total_volume / tank.volume) * 100), 1)
-		for(var/i in 1 to length(tank.fill_icon_thresholds))
-			var/threshold = tank.fill_icon_thresholds[i]
-			var/threshold_end = (i == length(tank.fill_icon_thresholds)) ? INFINITY : tank.fill_icon_thresholds[i+1]
+		var/percent = round(((tank.reagents.total_volume / tank.reagents.maximum_volume) * 100), 1)
+		for(var/i in 1 to length(fill_icon_thresholds))
+			var/threshold = fill_icon_thresholds[i]
+			var/threshold_end = (i == length(fill_icon_thresholds)) ? INFINITY : fill_icon_thresholds[i+1]
 			if(threshold <= percent && percent < threshold_end)
-				filling.icon_state = "[fill_icon][tank.fill_icon_thresholds[i]]"
+				filling.icon_state = "[fill_icon][fill_icon_thresholds[i]]"
 		. += filling
 
-	if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+	if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
 		. += "upgraded_handle_overlay[toggled]"
 	else
 		. += "handle_overlay"
 
 
 /obj/item/extinguisher/mini/nozzle/AltClick(mob/user)
-	if((tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM) && user.canUseTopic(src, BE_CLOSE))
+	if((upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM) && user.canUseTopic(src, BE_CLOSE))
 		toggled = !toggled
 		balloon_alert(user, "[toggled ? "Advanced" : "Normal"] foam mode")
 		playsound(src, 'sound/machines/click.ogg', 50)
 		update_icon()
-		tank.update_icon()
-		var/mob/living/carbon/wearer = tank.loc
-		wearer.update_inv_back()
-
-/obj/item/extinguisher/mini/nozzle/proc/update_nozzle_stats()
-	max_water = tank.volume
-	reagents.maximum_volume = tank.reagents.maximum_volume
-	reagents = tank.reagents
-	nozzle_cooldown = tank.nozzle_cooldown
-	resin_cost = tank.resin_cost
-	max_foam = tank.max_foam
-	if(tank.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-		icon_state = "atmos_nozzle_upgraded"
-	update_icon()
+		if (istype(tank.loc, /mob/living/carbon))
+			tank.update_icon()
+			var/mob/living/carbon/wearer = tank.loc
+			wearer.update_worn_back()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	reagents = null
@@ -503,67 +457,87 @@
 			return
 	return
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
-	if(nozzle_mode == EXTINGUISHER)
-		..()
+/obj/item/extinguisher/mini/nozzle/proc/install_upgrade(obj/item/atmostank_upgrade/upgrade, mob/user)
+	if(upgrade.upgrade_flags & src.upgrade_flags)
+		balloon_alert(user, "Already installed")
 		return
-	var/Adj = user.Adjacent(target)
-	if(Adj)
-		AttemptRefill(target, user)
-	if(nozzle_mode == RESIN_LAUNCHER)
-		if(Adj || istype(target, /obj/structure/foamedmetal/resin))
-			return //Safety check so you don't blast yourself trying to refill your tank
-		var/datum/reagents/R = reagents
-		if(R.total_volume < resin_cost)
-			to_chat(user, span_warning("You need at least [resin_cost] units of water to use the resin launcher!"))
-			balloon_alert(user, "Not enough water")
-			return
-		if(!COOLDOWN_FINISHED(src, resin_cooldown))
-			balloon_alert(user, "Recharging")
-			return
-		COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
-		R.remove_any(resin_cost)
-		var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
-		if(toggled)
-			QDEL_NULL(resin_projectile)
-			resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
-		var/delay = 2
-		var/timeout = 10
-		if(tank?.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
-			delay = 1.5
-			timeout = 15
-			var/obj/effect/resin_container/resin = resin_projectile
-			resin.smoke_amount = 6
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
-		var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
-		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
-		RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(resin_landed))
-		if(tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
-			RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
+	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+		max_water = tank.reagents.maximum_volume = 400
+		max_foam = 10
+		nozzle_cooldown = 4 SECONDS
+		resin_cost = 50
+		icon_state = "atmos_nozzle_upgraded"
+		. = TRUE // to tell the backpack to update its icon
+	if(upgrade.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+		toggled = TRUE
+	upgrade_flags |= upgrade.upgrade_flags
+	balloon_alert(user, "Upgrade installed")
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	qdel(upgrade)
+	update_icon()
 
-		log_game("[key_name(user)] used \the [tank?.upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM ? "Advanced" : ""] Resin Launcher at [AREACOORD(user)].")
-		return
-
-	if(nozzle_mode == RESIN_FOAM)
-		if(!Adj|| !isturf(target))
-			balloon_alert(user, "too far!")
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity_flag)
+	if (proximity_flag == 1)
+		if (istype(target, /obj/structure/foamedmetal/resin))
 			return
-		for(var/S in target)
-			if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
-				balloon_alert(user, "already has resin!")
+		if (AttemptRefill(target, user))
+			return
+
+	switch (nozzle_mode)
+		if (EXTINGUISHER)
+			..()
+			return
+		if (RESIN_LAUNCHER)
+			var/datum/reagents/R = reagents
+			if(R.total_volume < resin_cost)
+				to_chat(user, span_warning("You need at least [resin_cost] units of water to use the resin launcher!"))
+				balloon_alert(user, "Not enough water")
 				return
-		if(resin_synthesis_cooldown < max_foam)
+			if(!COOLDOWN_FINISHED(src, resin_cooldown))
+				balloon_alert(user, "Recharging")
+				return
+			COOLDOWN_START(src, resin_cooldown, nozzle_cooldown)
+			R.remove_any(resin_cost)
+			var/resin_projectile = new /obj/effect/resin_container(get_turf(src))
 			if(toggled)
-				var/obj/effect/particle_effect/foam/metal/chainreact_resin/foam = new (get_turf(target))
-				foam.amount = 0
-			else
-				var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
-				foam.amount = 0
-			resin_synthesis_cooldown++
-			addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
-		else
-			balloon_alert(user, "Recharging")
+				QDEL_NULL(resin_projectile)
+				resin_projectile = new /obj/effect/resin_container/chainreact(get_turf(src))
+			var/delay = 2
+			var/timeout = 10
+			if(upgrade_flags & FIREPACK_UPGRADE_EFFICIENCY)
+				delay = 1.5
+				timeout = 15
+				var/obj/effect/resin_container/resin = resin_projectile
+				resin.smoke_amount = 6
+			playsound(src,'sound/items/syringeproj.ogg',40,1)
+			var/datum/move_loop/loop = SSmove_manager.move_towards(resin_projectile, target, delay, timeout = timeout, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, extra_info = target)
+			RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(resin_stop_check))
+			RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(resin_landed))
+			if(upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM)
+				RegisterSignal(loop, COMSIG_MOVELOOP_REACHED_TARGET, PROC_REF(resin_landed))
+
+			log_game("[key_name(user)] used \the [upgrade_flags & FIREPACK_UPGRADE_SMARTFOAM ? "Advanced" : ""] Resin Launcher at [AREACOORD(user)].")
 			return
+
+		if (RESIN_FOAM)
+			if(!(proximity_flag == 1) || !isturf(target))
+				return
+			for(var/S in target)
+				if(istype(S, /obj/effect/particle_effect/foam/metal/resin) || istype(S, /obj/structure/foamedmetal/resin))
+					balloon_alert(user, "already has resin!")
+					return
+			if(resin_synthesis_cooldown < max_foam)
+				if(toggled)
+					var/obj/effect/particle_effect/foam/metal/resin/chainreact/foam = new (get_turf(target))
+					foam.amount = 0
+				else
+					var/obj/effect/particle_effect/foam/metal/resin/foam = new (get_turf(target))
+					foam.amount = 0
+				resin_synthesis_cooldown++
+				addtimer(CALLBACK(src, PROC_REF(reduce_metal_synth_cooldown)), 10 SECONDS)
+			else
+				balloon_alert(user, "Recharging")
+				return
 
 /obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
 	SIGNAL_HANDLER
@@ -611,10 +585,10 @@
 	anchored = TRUE
 
 /obj/effect/resin_container/chainreact/Smoke()
-	if(locate(/obj/effect/particle_effect/foam/metal/chainreact_resin) in get_turf(src) || locate(/obj/effect/particle_effect/foam/metal/resin) in get_turf(src))
+	if(locate(/obj/effect/particle_effect/foam/metal/resin) in get_turf(src))
 		qdel(src)
 		return
-	var/obj/effect/particle_effect/foam/metal/chainreact_resin/S = new /obj/effect/particle_effect/foam/metal/chainreact_resin(get_turf(loc))
+	var/obj/effect/particle_effect/foam/metal/resin/chainreact/S = new(get_turf(loc))
 	S.amount = smoke_amount
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
@@ -716,7 +690,9 @@
 	reagents.expose(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
-	user.update_inv_back() //for overlays update
+	user.update_worn_back() //for overlays update
 
 /datum/action/item_action/activate_injector
 	name = "Activate Injector"
+
+#undef FILL_ICON_THRESHOLDS

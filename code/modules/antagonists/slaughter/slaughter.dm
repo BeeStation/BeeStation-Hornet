@@ -83,7 +83,7 @@
 
 		if(!revive_eject)
 			continue
-		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
+		if(!stored_mob.revive(HEAL_ALL))
 			continue
 		stored_mob.grab_ghost(force = TRUE)
 		to_chat(stored_mob, span_clowntext("You leave [src]'s warm embrace, and feel ready to take on the world."))

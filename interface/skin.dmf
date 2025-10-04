@@ -376,7 +376,7 @@ window "output_browser"
 	elem "browseroutput"
 		type = BROWSER
 		pos = 0,0
-		size = 640x940
+		size = 0x940
 		anchor1 = 0,0
 		anchor2 = 100,100
 		background-color = none

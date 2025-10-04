@@ -2,7 +2,9 @@
   font-family: monospace;
   white-space: pre;
   line-height: 1.2;
-  animation: bobbing 1.8s ease-in-out infinite, colorCycle 6s linear infinite;
+  animation:
+    bobbing 1.8s ease-in-out infinite,
+    colorCycle 6s linear infinite;
   display: block;
 }
 
@@ -11,7 +13,9 @@
   font-size: 1.5rem;
   letter-spacing: 0.3rem;
   display: inline-block;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 
   &.decoding {
     color: #00ffcc;

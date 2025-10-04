@@ -1,304 +1,102 @@
-/* Hazard Hallucinations
- *
- * Contains:
- * Lava
- * Chasm
- * Anomaly
- */
+/// Hallucinations that create a hazard somewhere nearby that actually has a danger associated.
+/datum/hallucination/hazard
+	abstract_hallucination_parent = /datum/hallucination/hazard
+	random_hallucination_weight = 5
 
-/datum/hallucination/dangerflash
+	/// The type of effect we create
+	var/hazard_type = /obj/effect/client_image_holder/hallucination/danger
 
-/datum/hallucination/dangerflash/New(mob/living/carbon/C, forced = TRUE, danger_type)
-	set waitfor = FALSE
-	..()
-	//Flashes of danger
-
+/datum/hallucination/hazard/start()
 	var/list/possible_points = list()
-	for(var/turf/open/floor/F in view(world.view, target))
-		possible_points += F
-	if(possible_points.len)
-		var/turf/open/floor/danger_point = pick(possible_points)
-		if(!danger_type)
-			danger_type = pick("lava","chasm","anomaly")
-		switch(danger_type)
-			if("lava")
-				new /obj/effect/hallucination/danger/lava(danger_point, target)
-			if("chasm")
-				new /obj/effect/hallucination/danger/chasm(danger_point, target)
-			if("anomaly")
-				new /obj/effect/hallucination/danger/anomaly(danger_point, target)
+	for(var/turf/open/floor/floor_in_view in view(hallucinator))
+		possible_points += floor_in_view
 
-	qdel(src)
+	if(!length(possible_points))
+		return FALSE
 
+	new hazard_type(pick(possible_points), hallucinator, src)
+	QDEL_IN(src, rand(20 SECONDS, 45 SECONDS))
+	return TRUE
 
+/datum/hallucination/hazard/lava
+	hazard_type = /obj/effect/client_image_holder/hallucination/danger/lava
 
-/obj/effect/hallucination/danger
-	var/image/image
+/datum/hallucination/hazard/chasm
+	hazard_type = /obj/effect/client_image_holder/hallucination/danger/chasm
 
-/obj/effect/hallucination/danger/proc/show_icon()
+/datum/hallucination/hazard/anomaly
+	hazard_type = /obj/effect/client_image_holder/hallucination/danger/anomaly
+
+/// These hallucination effects cause side effects when the hallucinator walks into them.
+/obj/effect/client_image_holder/hallucination/danger
+	image_layer = TURF_LAYER
+
+/obj/effect/client_image_holder/hallucination/danger/Initialize(mapload, list/mobs_which_see_us, datum/hallucination/parent)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(atom_touched_holder),
+		COMSIG_ATOM_EXITED = PROC_REF(atom_touched_holder),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/client_image_holder/hallucination/danger/proc/atom_touched_holder(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER
+
+	if(!(entered in who_sees_us))
+		return
+
+	on_hallucinator_entered(entered)
+
+/// Applies effects whenever the hallucinator enters the turf with our hallucination present.
+/obj/effect/client_image_holder/hallucination/danger/proc/on_hallucinator_entered(mob/living/afflicted)
 	return
 
-/obj/effect/hallucination/danger/proc/clear_icon()
-	if(image && target.client)
-		target.client.images -= image
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger)
-
-/obj/effect/hallucination/danger/Initialize(mapload, _target)
-	. = ..()
-	target = _target
-	show_icon()
-	QDEL_IN(src, rand(200, 450))
-
-/obj/effect/hallucination/danger/Destroy()
-	clear_icon()
-	. = ..()
-
-/obj/effect/hallucination/danger/lava
+/obj/effect/client_image_holder/hallucination/danger/lava
 	name = "lava"
+	image_icon = 'icons/turf/floors/lava.dmi'
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/lava)
-
-/obj/effect/hallucination/danger/lava/Initialize(mapload, _target)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/effect/hallucination/danger/lava/show_icon()
+/obj/effect/client_image_holder/hallucination/danger/lava/generate_image()
 	var/turf/danger_turf = get_turf(src)
-	image = image('icons/turf/floors/lava.dmi', src, "lava-[danger_turf.smoothing_junction || 0]", TURF_LAYER)
-	if(target.client)
-		target.client.images += image
+	image_state = "lava-[danger_turf.smoothing_junction || 0]"
+	return ..()
 
-/obj/effect/hallucination/danger/lava/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
-	if(AM == target)
-		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob/living/carbon, adjustStaminaLoss), 20)
-		new /datum/hallucination/fire(target)
+/obj/effect/client_image_holder/hallucination/danger/lava/on_hallucinator_entered(mob/living/afflicted)
+	afflicted.adjustStaminaLoss(20)
+	afflicted.cause_hallucination(/datum/hallucination/fire, "fake lava hallucination")
 
-/obj/effect/hallucination/danger/chasm
+/obj/effect/client_image_holder/hallucination/danger/chasm
 	name = "chasm"
+	image_icon = 'icons/turf/floors/chasms.dmi'
 
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/danger/chasm)
-
-/obj/effect/hallucination/danger/chasm/Initialize(mapload, _target)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/effect/hallucination/danger/chasm/show_icon()
+/obj/effect/client_image_holder/hallucination/danger/chasm/generate_image()
 	var/turf/danger_turf = get_turf(src)
-	image = image('icons/turf/floors/chasms.dmi', src, "chasms-[danger_turf.smoothing_junction || 0]", TURF_LAYER)
-	if(target.client)
-		target.client.images += image
+	image_state = "chasms-[danger_turf.smoothing_junction || 0]"
+	return ..()
 
-/obj/effect/hallucination/danger/chasm/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
-	if(AM == target)
-		if(istype(target, /obj/effect/dummy/phased_mob))
-			return
-		to_chat(target, span_userdanger("You fall into the chasm!"))
-		target.Paralyze(40)
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), target, span_notice("It's surprisingly shallow.")), 15)
-		QDEL_IN(src, 30)
+/obj/effect/client_image_holder/hallucination/danger/chasm/on_hallucinator_entered(mob/living/afflicted)
+	to_chat(afflicted, span_userdanger("You fall into the chasm!"))
+	afflicted.visible_message(span_warning("[afflicted] falls to the ground suddenly!"), ignored_mobs = afflicted)
+	afflicted.Paralyze(4 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), afflicted, span_notice("...It's surprisingly shallow.")), 1.5 SECONDS)
+	QDEL_IN(src, 3 SECONDS)
 
-/obj/effect/hallucination/danger/anomaly
+/obj/effect/client_image_holder/hallucination/danger/anomaly
 	name = "flux wave anomaly"
+	image_icon = 'icons/effects/anomalies.dmi'
+	image_state = "flux"
+	image_layer = OBJ_LAYER + 0.01
 
-/obj/effect/hallucination/danger/anomaly/Initialize(mapload)
+/obj/effect/client_image_holder/hallucination/danger/anomaly/Initialize(mapload, list/mobs_which_see_us, datum/hallucination/parent)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/hallucination/danger/anomaly/process(delta_time)
-	if(DT_PROB(45, delta_time))
-		step(src,pick(GLOB.alldirs))
-
-/obj/effect/hallucination/danger/anomaly/Destroy()
+/obj/effect/client_image_holder/hallucination/danger/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/hallucination/danger/anomaly/show_icon()
-	image = image('icons/effects/effects.dmi',src,"electricity2",OBJ_LAYER+0.01)
-	if(target.client)
-		target.client.images += image
+/obj/effect/client_image_holder/hallucination/danger/anomaly/process(delta_time)
+	if(DT_PROB(ANOMALY_MOVECHANCE, delta_time))
+		step(src, pick(GLOB.alldirs))
 
-/obj/effect/hallucination/danger/anomaly/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
-	if(AM == target)
-		new /datum/hallucination/shock(target)
-
-
-
-/obj/effect/hallucination/simple/xeno
-	image_icon = 'icons/mob/alien.dmi'
-	image_state = "alienh_pounce"
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/xeno)
-
-/obj/effect/hallucination/simple/xeno/Initialize(mapload, mob/living/carbon/T)
-	. = ..()
-	name = "alien hunter ([rand(1, 1000)])"
-
-/obj/effect/hallucination/simple/xeno/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	update_icon(ALL, "alienh_pounce")
-	if(hit_atom == target && target.stat!=DEAD)
-		target.Paralyze(100)
-		target.visible_message(span_danger("[target] flails around wildly."),span_userdanger("[name] pounces on you!"))
-
-// The numbers of seconds it takes to get to each stage of the xeno attack choreography
-#define XENO_ATTACK_STAGE_LEAP_AT_TARGET 1
-#define XENO_ATTACK_STAGE_LEAP_AT_PUMP 2
-#define XENO_ATTACK_STAGE_CLIMB 3
-#define XENO_ATTACK_STAGE_FINISH 6
-
-/// Xeno crawls from nearby vent,jumps at you, and goes back in
-/datum/hallucination/xeno_attack
-	var/turf/pump_location = null
-	var/obj/effect/hallucination/simple/xeno/xeno = null
-	var/time_processing = 0
-	var/stage = XENO_ATTACK_STAGE_LEAP_AT_TARGET
-
-/datum/hallucination/xeno_attack/New(mob/living/carbon/C, forced = TRUE)
-	..()
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/U in orange(7,target))
-		if(!U.welded)
-			pump_location = get_turf(U)
-			break
-
-	if(pump_location)
-		feedback_details += "Vent Coords: [pump_location.x],[pump_location.y],[pump_location.z]"
-		xeno = new(pump_location, target)
-		START_PROCESSING(SSfastprocess, src)
-	else
-		qdel(src)
-
-/datum/hallucination/xeno_attack/process(delta_time)
-	time_processing += delta_time
-
-	if (time_processing >= stage)
-		switch (time_processing)
-			if (XENO_ATTACK_STAGE_FINISH to INFINITY)
-				to_chat(target, span_notice("[xeno.name] scrambles into the ventilation ducts!"))
-				qdel(src)
-			if (XENO_ATTACK_STAGE_CLIMB to XENO_ATTACK_STAGE_FINISH)
-				to_chat(target, span_notice("[xeno.name] begins climbing into the ventilation system..."))
-				stage = XENO_ATTACK_STAGE_FINISH
-			if (XENO_ATTACK_STAGE_LEAP_AT_PUMP to XENO_ATTACK_STAGE_CLIMB)
-				xeno.update_icon(ALL, "alienh_leap", 'icons/mob/alienleap.dmi', -32, -32)
-				xeno.throw_at(pump_location, 7, 1, spin = FALSE, diagonals_first = TRUE)
-				stage = XENO_ATTACK_STAGE_CLIMB
-			if (XENO_ATTACK_STAGE_LEAP_AT_TARGET to XENO_ATTACK_STAGE_LEAP_AT_PUMP)
-				xeno.update_icon(ALL, "alienh_leap", 'icons/mob/alienleap.dmi', -32, -32)
-				xeno.throw_at(target, 7, 1, spin = FALSE, diagonals_first = TRUE)
-				stage = XENO_ATTACK_STAGE_LEAP_AT_PUMP
-
-/datum/hallucination/xeno_attack/Destroy()
-	. = ..()
-
-	STOP_PROCESSING(SSfastprocess, src)
-	QDEL_NULL(xeno)
-	pump_location = null
-
-#undef XENO_ATTACK_STAGE_LEAP_AT_TARGET
-#undef XENO_ATTACK_STAGE_LEAP_AT_PUMP
-#undef XENO_ATTACK_STAGE_CLIMB
-#undef XENO_ATTACK_STAGE_FINISH
-
-/obj/effect/hallucination/simple/clown
-	image_icon = 'icons/mob/animal.dmi'
-	image_state = "clown"
-
-CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/hallucination/simple/clown)
-
-/obj/effect/hallucination/simple/clown/Initialize(mapload, mob/living/carbon/T, duration)
-	..(loc, T)
-	name = pick(GLOB.clown_names)
-	QDEL_IN(src,duration)
-
-/obj/effect/hallucination/simple/clown/scary
-	image_state = "scary_clown"
-
-/obj/effect/hallucination/simple/bubblegum
-	name = "Bubblegum"
-	image_icon = 'icons/mob/lavaland/96x96megafauna.dmi'
-	image_state = "bubblegum"
-	px = -32
-
-/datum/hallucination/oh_yeah
-	var/obj/effect/hallucination/simple/bubblegum/bubblegum
-	var/image/fakebroken
-	var/image/fakerune
-	var/turf/landing
-	var/charged
-	var/next_action = 0
-
-/datum/hallucination/oh_yeah/New(mob/living/carbon/C, forced = TRUE)
-	set waitfor = FALSE
-	. = ..()
-	var/turf/closed/wall/wall = locate() in spiral_range_turfs(7, target)
-	if(!wall)
-		return INITIALIZE_HINT_QDEL
-	feedback_details += "Source: [wall.x],[wall.y],[wall.z]"
-
-	fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
-	landing = get_turf(target)
-	var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
-	fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
-	fakebroken.override = TRUE
-	if(target.client)
-		target.client.images |= fakebroken
-		target.client.images |= fakerune
-	target.playsound_local(wall,'sound/effects/meteorimpact.ogg', 150, 1)
-	bubblegum = new(wall, target)
-	addtimer(CALLBACK(src, PROC_REF(start_processing), 10))
-
-/datum/hallucination/oh_yeah/proc/start_processing()
-	if (isnull(target))
-		qdel(src)
-		return
-	START_PROCESSING(SSfastprocess, src)
-
-/datum/hallucination/oh_yeah/process(delta_time)
-	next_action -= delta_time
-
-	if (next_action > 0)
-		return
-
-	if (get_turf(bubblegum) != landing && target?.stat != DEAD)
-		if(!landing || (get_turf(bubblegum)).loc.z != landing.loc.z)
-			qdel(src)
-			return
-		bubblegum.forceMove(get_step_towards(bubblegum, landing))
-		bubblegum.setDir(get_dir(bubblegum, landing))
-		target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, 1)
-		shake_camera(target, 2, 1)
-		if(bubblegum.Adjacent(target) && !charged)
-			charged = TRUE
-			target.Paralyze(80)
-			target.adjustStaminaLoss(40)
-			if(isturf(target.loc))
-				step_away(target, bubblegum)
-			shake_camera(target, 4, 3)
-			target.visible_message(span_warning("[target] jumps backwards, falling on the ground!"),span_userdanger("[bubblegum] slams into you!"))
-		next_action = 0.2
-	else
-		STOP_PROCESSING(SSfastprocess, src)
-		QDEL_IN(src, 3 SECONDS)
-
-/datum/hallucination/oh_yeah/Destroy()
-	if(target?.client)
-		target.client.images.Remove(fakebroken)
-		target.client.images.Remove(fakerune)
-	QDEL_NULL(fakebroken)
-	QDEL_NULL(fakerune)
-	QDEL_NULL(bubblegum)
-	STOP_PROCESSING(SSfastprocess, src)
-	return ..()
+/obj/effect/client_image_holder/hallucination/danger/anomaly/on_hallucinator_entered(mob/living/afflicted)
+	afflicted.cause_hallucination(/datum/hallucination/shock, "fake anomaly hallucination")

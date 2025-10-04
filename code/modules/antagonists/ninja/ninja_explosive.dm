@@ -31,6 +31,22 @@
 	else
 		. += span_notice("This device will only function in [detonation_area].")
 
+/**
+ * set_detonation_area
+ *
+ * Proc used to set the allowed location for charge detonation
+ *
+ * Arguments
+ * * datum/antagonist/ninja/ninja_antag - The antag datum for the owner of the c4
+ */
+/obj/item/grenade/plastic/ninja/proc/set_detonation_area(datum/antagonist/ninja/ninja_antag)
+	if (!ninja_antag)
+		return
+	var/datum/objective/plant_explosive/objective = locate() in ninja_antag.objectives
+	if (!objective)
+		return
+	detonation_area = objective.detonation_location
+
 /obj/item/grenade/plastic/ninja/afterattack(atom/movable/target, mob/ninja, flag)
 	if(!IS_SPACE_NINJA(ninja))
 		say("Access denied.")

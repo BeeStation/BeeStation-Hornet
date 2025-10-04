@@ -221,7 +221,7 @@
 /datum/action/innate/cult/blood_spell/horror/on_activate(mob/user, mob/living/target)
 	if (!istype(target))
 		return FALSE
-	target.hallucination = max(target.hallucination, 120)
+	target.set_hallucinations_if_lower(240 SECONDS)
 	SEND_SOUND(user, sound('sound/effects/ghost.ogg', FALSE, TRUE, 50))
 
 	var/image/sparkle_image = image('icons/effects/cult_effects.dmi', target, "bloodsparkles", ABOVE_MOB_LAYER)
@@ -321,7 +321,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 
-/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
 		return INITIALIZE_HINT_QDEL

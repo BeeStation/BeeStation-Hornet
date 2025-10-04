@@ -24,6 +24,8 @@
 	var/cyborg_base_icon = "robot"
 	/// If we want specific lights, use this instead of copying lights in the dmi
 	var/special_light_key
+	/// If we want specific covers, use this instead of copying covers in the dmi. Default of "ov"
+	var/special_cover_key = "ov"
 
 // ------------------------------------------ Modules (tools)
 	/// Holds all the usable modules (tools)

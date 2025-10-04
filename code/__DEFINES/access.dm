@@ -66,6 +66,7 @@
 #define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
 #define ACCESS_SEC_RECORDS 69 //! Update security records
 #define ACCESS_RD_SERVER 70 //! Access to the R&D server room
+#define ACCESS_SERVICE 71
 
 /// Room and launching.
 #define ACCESS_AUX_BASE 72

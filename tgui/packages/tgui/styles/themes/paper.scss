@@ -7,18 +7,18 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: hsl(0.0, 0.0%, 100.0%),
+  $primary: hsl(0, 0%, 100%),
   $bg-lightness: 25%,
   $fg-lightness: -10%,
   // Commenting out color maps will adjust all colors based on the lightness
   // settings above, but will add extra 10KB to the theme.
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-fg: hsl(0.0, 0.0%, 0.0%),
-  $color-bg: hsl(0.0, 0.0%, 87.5%),
-  $color-bg-grad-spread: 0%,
+  $color-fg: hsl(0, 0%, 0%),
+  $color-bg: hsl(0, 0%, 87.5%),
+  $color-bg-grad-spread: 0%
 );
 
 $font-size: 24px;
@@ -31,7 +31,10 @@ $font-size: 24px;
 
   // Components
   @include meta.load-css('../components/Tabs.scss');
-  @include meta.load-css('../components/Section.scss', $with: ('background-color': rgba(0, 0, 0, 0.1)));
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.1))
+  );
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
@@ -45,11 +48,18 @@ $font-size: 24px;
   );
 
   // Layouts
-  @include meta.load-css('../layouts/Layout.scss', $with: ('scrollbar-color-multiplier': -1));
+  @include meta.load-css(
+    '../layouts/Layout.scss',
+    $with: ('scrollbar-color-multiplier': -1)
+  );
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('text-color': rgba(0, 0, 0, 0.75), 'background-color': base.$color-bg, 'shadow-color-core': rgba(0, 0, 0, 0.25))
+    $with: (
+      'text-color': rgba(0, 0, 0, 0.75),
+      'background-color': base.$color-bg,
+      'shadow-color-core': rgba(0, 0, 0, 0.25)
+    )
   );
 
   .PaperInput {

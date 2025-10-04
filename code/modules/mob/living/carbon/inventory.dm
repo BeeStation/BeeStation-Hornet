@@ -87,7 +87,7 @@
 	switch(slot)
 		if(ITEM_SLOT_BACK)
 			back = I
-			update_inv_back()
+			update_worn_back()
 		if(ITEM_SLOT_MASK)
 			wear_mask = I
 			wear_mask_update(I, toggle_off = 0)
@@ -96,16 +96,16 @@
 			head_update(I)
 		if(ITEM_SLOT_NECK)
 			wear_neck = I
-			update_inv_neck(I)
+			update_worn_neck(I)
 		if(ITEM_SLOT_HANDCUFFED)
 			set_handcuffed(I)
 			update_handcuffed()
 		if(ITEM_SLOT_LEGCUFFED)
 			legcuffed = I
-			update_inv_legcuffed()
+			update_worn_legcuffs()
 		if(ITEM_SLOT_HANDS)
 			put_in_hands(I)
-			update_inv_hands()
+			update_held_items()
 		if(ITEM_SLOT_BACKPACK)
 			if(!back || !back.atom_storage?.attempt_insert(I, src, override = TRUE))
 				not_handled = TRUE
@@ -133,7 +133,7 @@
 	else if(I == back)
 		back = null
 		if(!QDELETED(src))
-			update_inv_back()
+			update_worn_back()
 	else if(I == wear_mask)
 		wear_mask = null
 		if(!QDELETED(src))
@@ -141,7 +141,7 @@
 	if(I == wear_neck)
 		wear_neck = null
 		if(!QDELETED(src))
-			update_inv_neck(I)
+			update_worn_neck(I)
 	else if(I == handcuffed)
 		set_handcuffed(null)
 		if(buckled && buckled.buckle_requires_restraints)
@@ -151,7 +151,7 @@
 	else if(I == legcuffed)
 		legcuffed = null
 		if(!QDELETED(src))
-			update_inv_legcuffed()
+			update_worn_legcuffs()
 	else
 		not_handled = TRUE
 
@@ -318,13 +318,13 @@
 
 //handle stuff to update when a mob equips/unequips a mask.
 /mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)
-	update_inv_wear_mask()
+	update_worn_mask()
 
 /mob/living/carbon/wear_mask_update(obj/item/I, toggle_off = 1)
 	var/obj/item/clothing/C = I
 	if(istype(C) && (C.tint || initial(C.tint)))
 		update_tint()
-	update_inv_wear_mask()
+	update_worn_mask()
 
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
@@ -334,8 +334,8 @@
 			update_tint()
 		update_sight()
 	if(I.flags_inv & HIDEMASK || forced)
-		update_inv_wear_mask()
-	update_inv_head()
+		update_worn_mask()
+	update_worn_head()
 
 /mob/living/carbon/proc/get_holding_bodypart_of_item(obj/item/I)
 	var/index = get_held_index_of_item(I)
@@ -363,15 +363,15 @@
 
 	if(offered)
 		if(IS_DEAD_OR_INCAP(offered))
-			to_chat(src, "<span class='warning'>They're unable to take anything in their current state!</span>")
+			to_chat(src, span_warning("They're unable to take anything in their current state!"))
 			return
 
 		if(!CanReach(offered))
-			to_chat(src, "<span class='warning'>You have to be adjacent to offer things!</span>")
+			to_chat(src, span_warning("You have to be adjacent to offer things!"))
 			return
 	else
 		if(!(locate(/mob/living/carbon) in orange(1, src)))
-			to_chat(src, "<span class='warning'>There's nobody adjacent to offer it to!</span>")
+			to_chat(src, span_warning("There's nobody adjacent to offer it to!"))
 			return
 
 	if(offered_item.on_offered(src)) // see if the item interrupts with its own behavior
@@ -397,7 +397,7 @@
 /mob/living/carbon/proc/take(mob/living/carbon/offerer, obj/item/I)
 	clear_alert("[offerer]")
 	if(IS_DEAD_OR_INCAP(src))
-		to_chat(src,  "<span class='warning'>You're unable to take anything in your current state!</span>")
+		to_chat(src,  span_warning("You're unable to take anything in your current state!"))
 		return
 	if(get_dist(src, offerer) > 1)
 		to_chat(src, span_warning("[offerer] is out of range!"))

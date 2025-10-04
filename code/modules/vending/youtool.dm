@@ -27,7 +27,6 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 10
 	extra_price = 80
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 
 /datum/armor/vending_tool
 	melee = 100

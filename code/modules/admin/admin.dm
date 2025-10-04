@@ -309,7 +309,7 @@
 	var/confirm = alert("End the round and  restart the game world?", "End Round", "Yes", "Cancel")
 	if(confirm != "Yes")
 		return
-	SSticker.force_ending = 1
+	SSticker.force_ending = ADMIN_FORCE_END_ROUND
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/announce()
@@ -369,6 +369,13 @@
 	log_admin("[key_name(usr)] toggled OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dead OOC", "[GLOB.dooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/toggle_vote_dead()
+	set category = "Server"
+	set desc="Toggle the vote for dead players on or off."
+	set name="Toggle Dead Vote"
+
+	SSvote.toggle_dead_voting(usr)
 
 /datum/admins/proc/startnow()
 	set category = "Round"
@@ -739,7 +746,7 @@
 			message_admins("[string]")
 
 ///Plays a sound to all admins who have that preference on, with the var being the sound filepath
-/proc/play_sound_to_all_admins(var/sound = null)
+/proc/play_sound_to_all_admins(sound = null)
 	if(isnull(sound))
 		return
 	for(var/client/C as anything in GLOB.admins)

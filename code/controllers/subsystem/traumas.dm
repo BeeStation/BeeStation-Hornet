@@ -92,17 +92,22 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/rod_of_asclepius
 			)),
 
-		"spiders"   = typecacheof(list(
+		"spiders" = typecacheof(list(
 			/obj/structure/spider
 			)),
 
-		"security"  = typecacheof(list(
+		"security" = typecacheof(list(
 			/obj/item/clothing/under/rank/security/officer,
 			/obj/item/clothing/under/rank/security/warden,
-			/obj/item/clothing/under/rank/security/head_of_security, /obj/item/clothing/under/rank/security/detective,
-			/obj/item/melee/baton, /obj/item/gun/energy/taser, /obj/item/restraints/handcuffs,
+			/obj/item/clothing/under/rank/security/head_of_security,
+			/obj/item/clothing/under/rank/security/detective,
+			/obj/item/melee/baton,
+			/obj/item/gun/energy/taser,
+			/obj/item/restraints/handcuffs,
 			/obj/item/melee/tonfa,
-			/obj/machinery/door/airlock/security, /obj/effect/hallucination/simple/securitron)),
+			/obj/machinery/door/airlock/security,
+			/obj/effect/client_image_holder/securitron,
+		)),
 
 		"clowns"    = typecacheof(list(
 			/obj/item/clothing/under/rank/civilian/clown, /obj/item/clothing/shoes/clown_shoes,
@@ -118,9 +123,13 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/cup/glass/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
-			/obj/item/organ/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
+			/obj/item/organ/tongue/bone,
+			/obj/item/clothing/suit/armor/bone,
+			/obj/item/dog_bone,
+			/obj/item/stack/sheet/bone,
 			/obj/item/food/meat/slab/human/mutant/skeleton,
-			/obj/effect/decal/remains/human)),
+			/obj/effect/decal/remains/human
+		)),
 
 		"conspiracies" = typecacheof(list(
 			/obj/item/clothing/under/rank/captain, /obj/item/clothing/under/rank/security/head_of_security,

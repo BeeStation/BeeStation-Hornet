@@ -25,6 +25,7 @@
 	. = ..()
 	//AddElement(/datum/element/venomous, /datum/reagent/pax, 5)
 	AddElement(/datum/element/movement_turf_changer, /turf/open/floor/grass/fairy)
+	AddComponent(/datum/component/aggro_emote, emote_list = string_list(list("whinnies")), emote_chance = 20)
 
 /mob/living/basic/cow/moonicorn/udder_component()
 	AddComponent(/datum/component/udder, /obj/item/udder, null, null, /datum/reagent/drug/mushroomhallucinogen)
@@ -34,14 +35,12 @@
 	if(!food_types)
 		food_types = src.food_types.Copy()
 	AddElement(/datum/element/basic_eating, 10, food_types)
-	//AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 25, bonus_tame_chance = 15)
+	AddComponent(/datum/component/tameable, food_types = food_types, tame_chance = 25, bonus_tame_chance = 15)
 
-/*
 /mob/living/basic/cow/moonicorn/tamed(mob/living/tamer)
 	. = ..()
 	///stop killing my FRIENDS
 	faction |= tamer.faction
-*/
 
 /datum/ai_controller/basic_controller/cow/moonicorn
 	blackboard = list(

@@ -82,26 +82,27 @@ const setupApp = () => {
     left: 'output_browser',
   });
 
-  based_winset();
-
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
 
     module.hot.accept(
-      ['./audio', './chat', './game', './Notifications', './Panel', './ping', './settings', './stat', './telemetry'],
+      [
+        './audio',
+        './chat',
+        './game',
+        './Notifications',
+        './Panel',
+        './ping',
+        './settings',
+        './stat',
+        './telemetry',
+      ],
       () => {
         renderApp();
-      }
+      },
     );
   }
-};
-
-const based_winset = async (based_on_what = 'output') => {
-  const winget_output = await Byond.winget(based_on_what);
-  Byond.winset('browseroutput', {
-    'size': winget_output['size'],
-  });
 };
 
 setupApp();

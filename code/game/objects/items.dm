@@ -173,9 +173,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/toolspeed = 1
 
 	/// The chance that holding this item will block attacks.
-	var/block_level = 0
-	//does the item block better if walking?
-	var/block_upgrade_walk = FALSE
+	var/canblock = FALSE
 	//blocking flags
 	var/block_flags = BLOCKING_ACTIVE
 	//reduces stamina damage taken whilst blocking. block power of 0 means it takes the full force of the attacking weapon
@@ -278,8 +276,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	add_weapon_description()
 
-	if(LAZYLEN(embedding))
-		updateEmbedding()
+	// this code is stupid, i know, i don't care, this is what it was equivalent to before i touched it
+	if(!LAZYLEN(embedding))
+		if(GLOB.embedpocalypse)
+			embedding = EMBED_POINTY
+			name = "pointy [name]"
+		else if(GLOB.stickpocalypse)
+			embedding = EMBED_HARMLESS
+			name = "sticky [name]"
+	updateEmbedding()
+
+	if(sharpness) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 /obj/item/Destroy()
 	master = null
@@ -341,31 +349,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_weapon_description()
 	AddElement(/datum/element/weapon_description)
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
-		return 0
-	else
-		return 1
+/**
+ * Checks if an item is allowed to be used on an atom/target
+ * Returns TRUE if allowed.
+ *
+ * Args:
+ * target_self - Whether we will check if we (src) are in target, preventing people from using items on themselves.
+ * not_inside - Whether target (or target's loc) has to be a turf.
+ */
+/obj/item/proc/check_allowed_items(atom/target, not_inside = FALSE, target_self = FALSE)
+	if(!target_self && (src in target))
+		return FALSE
+	if(not_inside && !isturf(target.loc) && !isturf(target))
+		return FALSE
+	return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
 		atom_destruction(MELEE)
-
-/obj/item/ComponentInitialize()
-	. = ..()
-
-	// this proc says it's for initializing components, but we're initializing elements too because it's you and me against the world >:)
-	if(!LAZYLEN(embedding))
-		if(GLOB.embedpocalypse)
-			embedding = EMBED_POINTY
-			name = "pointy [name]"
-		else if(GLOB.stickpocalypse)
-			embedding = EMBED_HARMLESS
-			name = "sticky [name]"
-	updateEmbedding()
-
-	if(sharpness) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -623,118 +624,140 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	SHOULD_NOT_SLEEP(TRUE)
 
+	//First and foremost, check for unblockable flags
+	if(isitem(hitby))
+		var/obj/item/item_hitby = hitby
+		if((item_hitby.block_flags & BLOCKING_UNBLOCKABLE) && !(block_flags & BLOCKING_UNBLOCKABLE))
+			return FALSE
+
 	if(SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
 		return TRUE
 	var/relative_dir = (dir2angle(get_dir(hitby, owner)) - dir2angle(owner.dir)) //shamelessly stolen from mech code
-	var/final_block_level = block_level
 	var/obj/item/bodypart/blockhand = null
 	if(owner.stat) //can't block if you're dead
-		return 0
-	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && !istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
-		return 0
+		return FALSE
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK))
+		to_chat(owner, span_danger("You fumble when trying to block the attack, you're too jittery!")) //No blocking while under the influence of certain drugs
+		return FALSE
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 	else
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 	if(!blockhand)
-		return 0
+		return FALSE
 	if(blockhand?.bodypart_disabled)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
-		return 0
-	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
+		return FALSE
+	else if(owner.getStaminaLoss() >= 45)
 		to_chat(owner, span_danger("You're too exausted to block the attack!"))
-		return 0
-	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
-		return 0
+		return FALSE
+	if((block_flags & BLOCKING_ACTIVE) && owner.get_active_held_item() != src) //you can still parry with the offhand
+		return FALSE
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
 			if(P.movement_type & PHASING) //you can't block piercing rounds!
-				return 0
+				return FALSE
 			// Recalculate the relative_dir based on the projectile angle
 			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
-			return 0
-	if(owner.m_intent == MOVE_INTENT_WALK)
-		final_block_level += block_upgrade_walk
+			return FALSE
+	else
+		//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it. This OR is intentional
+		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
+			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
+		else
+			return FALSE
 	switch(relative_dir)
-		if(180, -180)
-			if(final_block_level >= 1)
+		if(180, -180) //Check for head on attack
+			if(canblock)
 				playsound(src, block_sound, 50, 1)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				return 1
-		if(135, 225, -135, -225)
-			if(final_block_level >= 2)
+				return TRUE
+		if(135, 225, -135, -225) //Check for forward diagonals
+			if(canblock)
 				playsound(src, block_sound, 50, 1)
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				return 1
-		if(90, 270, -90, -270)
-			if(final_block_level >= 3)
-				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				playsound(src, block_sound, 50, 1)
-				return 1
-		if(45, 315, -45, -315)
-			if(final_block_level >= 4)
-				playsound(src, block_sound, 50, 1)
-				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-				return 1
-	return 0
+				return TRUE
+	return FALSE
 
 /obj/item/proc/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	var/blockhand = 0
-	var/attackforce = 0
-	if(owner.get_active_held_item() == src) //this feels so hacky...
-		if(owner.active_hand_index == 1)
-			blockhand = BODY_ZONE_L_ARM
-		else
-			blockhand = BODY_ZONE_R_ARM
-	else
-		if(owner.active_hand_index == 1)
-			blockhand = BODY_ZONE_R_ARM
-		else
-			blockhand = BODY_ZONE_L_ARM
-	if(isprojectile(hitby))
+	var/attackforce = damage
+	var/mob/living/attacking_mob
+	var/mob/living/unarmed_mob
+
+	if(isliving(hitby))
+		attacking_mob = hitby
+		unarmed_mob = TRUE
+
+	if(isliving(hitby.loc))
+		attacking_mob = hitby.loc
+
+	if(isprojectile(hitby) && (block_flags & BLOCKING_PROJECTILE))
 		var/obj/projectile/P = hitby
-		if(P.damage_type != STAMINA)// disablers dont do shit to shields
-			attackforce = (P.damage)
+		if(P.damage_type == STAMINA)
+			attackforce = 0 //Blocking disablers and tasers is free, but other projectiles do their standard damage
+		else
+			attackforce *= 0.5
+
+	//Alright, it isn't a projectile, are we being hit with a weapon?
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
-		attackforce = damage
-		if(I.is_sharp())
-			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
-		if(!I.damtype == BRUTE)
-			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
-		attackforce = (attackforce * I.attack_weight)
-		if(I.damtype == STAMINA)//pure stamina damage wont affect blocks
+
+		//If we block a stamina weapon, it does nothing unless it electrocutes us separately
+		if(I.damtype == STAMINA)
 			attackforce = 0
-	else if(attack_type == UNARMED_ATTACK && isliving(hitby))
-		var/mob/living/L = hitby
-		if(block_flags & BLOCKING_NASTY && !HAS_TRAIT(L, TRAIT_PIERCEIMMUNE))
-			INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
-			owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-	else if(isliving(hitby))
-		var/mob/living/L = hitby
-		attackforce = (damage * 2)//simplemobs have an advantage here because of how much these blocking mechanics put them at a disadvantage
-		if(block_flags & BLOCKING_NASTY)
-			if(istype(L, /mob/living/simple_animal))
-				var/mob/living/simple_animal/S = L
-				if(!S.hardattacks)
-					INVOKE_ASYNC(S, TYPE_PROC_REF(/atom, attackby), src, owner)
-					owner.visible_message(span_danger("[S] injures themselves on [owner]'s [src]!"))
-			else
-				INVOKE_ASYNC(L, TYPE_PROC_REF(/atom, attackby), src, owner)
-				owner.visible_message(span_danger("[L] injures themselves on [owner]'s [src]!"))
-	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
-	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
-		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living/carbon/human, blockbreak))
-	if(attackforce)
-		owner.changeNext_move(CLICK_CD_MELEE)
+
+		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
+		else if(!I.damtype == BRUTE)
+			attackforce = (attackforce * 0.8)
+
+		//When blocking a sharp weapon, the force conveyed is determined purely by its weight rather than its damage
+		else if(I.is_sharp())
+			attackforce = I.w_class * 2
+
+		//And if it's a blunt weapon, blocking takes the worst outcome between weight and damage bonuses
+		else
+			attackforce = max(I.w_class * 2, attackforce * 1.5)
+
+		//Is it a weapon especially adept at counterattacks? If so we roll for one
+		if((owner.combat_mode && block_flags & BLOCKING_COUNTERATTACK) && prob(50))
+			//is the item we blocked held by a mob, or was it thrown at us? We can't counter attack a thrown item.
+			if(isliving(hitby.loc))
+				var/mob/living/living_enemy = hitby.loc
+				INVOKE_ASYNC(living_enemy, TYPE_PROC_REF(/atom, attackby), src, owner)
+				owner.visible_message(span_danger("[owner] deftly counter-attacks while deflecting [hitby]!"))
+
+	//if it's not a weapon and it's not a projectile, we need to check for counterattacks and blocking_nasty
+	else if(owner.combat_mode && attack_type == UNARMED_ATTACK && unarmed_mob && (block_flags & (BLOCKING_NASTY|BLOCKING_COUNTERATTACK)))
+		INVOKE_ASYNC(attacking_mob, TYPE_PROC_REF(/atom, attackby), src, owner)
+		owner.visible_message(span_danger("[attacking_mob] injures themselves on [owner]'s [src]!"))
+
+	//If this weapon is prone to knocking the opponent off balance, we want to delay their next attack and knock them down
+	if((block_flags & BLOCKING_UNBALANCE) && prob(20) && attacking_mob)
+		owner.visible_message(span_warning("[owner] knocks [attacking_mob] off balance!"))
+		attacking_mob.Knockdown(1 SECONDS)
+		attacking_mob.changeNext_move(CLICK_CD_MELEE * 2)
+
+	//If the attacker is a simple_animal we need to check if they are designed to be especially good against blocking
+	if(istype(hitby, /mob/living/simple_animal))
+		var/mob/living/simple_animal/simplemob = hitby
+		if(simplemob.hardattacks)
+			attackforce = attackforce * 5 //You can probably only block them once or twice at most because of stamina and/or shield damage
+
+	//We are ready to deal stamina damage to our owner
+	owner.apply_damage(min(attackforce, 35), STAMINA, blocked = block_power)
+	owner.changeNext_move(CLICK_CD_MELEE)
+
+	//This is done here so we don't have to pass attackforce up somehow
+	if(istype(src, /obj/item/shield))
+		take_damage(attackforce)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
@@ -836,7 +859,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	return TRUE
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
+//the mob M is attempting to equip this item into the slot passed through as 'slot'. return TRUE if it can do this and FALSE if it can't.
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
@@ -871,8 +894,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	attack_self(user)
 
-/obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
-	return 0
+/obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
+	return FALSE
 
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
 
@@ -925,7 +948,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)
-	eyes.applyOrganDamage(3)
+	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
 		M.adjust_blurriness(15)
 		if(M.stat != DEAD)
@@ -972,31 +995,31 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				playsound(hit_atom, 'sound/weapons/genhit.ogg',volume, TRUE, -1)
 		else
 			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
-		var/obj/item/modular_computer/comp
-		var/obj/item/computer_hardware/processor_unit/cpu
-		for(var/obj/item/modular_computer/M in contents)
-			cpu = M.all_components[MC_CPU]
-			if(cpu?.hacked)
-				comp = M
-			break
-		if(comp)
-			if(!cpu)
-				return
-			var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
-			var/turf/start = get_turf(src)
-			if(!comp.enabled)
-				new /obj/effect/particle_effect/sparks(start)
-				playsound(start, "sparks", 50, 1)
-				return
-			if(!target)
-				return
-			// The better the CPU the farther it goes, and the more battery it needs
-			playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+	var/obj/item/modular_computer/comp
+	var/obj/item/computer_hardware/processor_unit/cpu
+	for(var/obj/item/modular_computer/M in contents)
+		cpu = M.all_components[MC_CPU]
+		if(cpu?.hacked)
+			comp = M
+		break
+	if(comp)
+		if(!cpu)
+			return
+		var/turf/target = comp.get_blink_destination(get_turf(src), dir, (cpu.max_idle_programs * 2))
+		var/turf/start = get_turf(src)
+		if(!comp.enabled)
+			new /obj/effect/particle_effect/sparks(start)
 			playsound(start, "sparks", 50, 1)
-			playsound(target, "sparks", 50, 1)
-			do_dash(src, start, target, 0, TRUE)
-			comp.use_power((250 * cpu.max_idle_programs) / GLOB.CELLRATE)
-		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+			return
+		if(!target)
+			return
+		// The better the CPU the farther it goes, and the more battery it needs
+		playsound(target, 'sound/effects/phasein.ogg', 25, 1)
+		playsound(start, "sparks", 50, 1)
+		playsound(target, "sparks", 50, 1)
+		do_dash(src, start, target, 0, TRUE)
+		comp.use_power((250 * cpu.max_idle_programs))
+	return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_WEAK, quickstart = TRUE)
@@ -1043,29 +1066,29 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/mob/owner = loc
 	var/flags = slot_flags
 	if(flags & ITEM_SLOT_OCLOTHING)
-		owner.update_inv_wear_suit()
+		owner.update_worn_oversuit()
 	if(flags & ITEM_SLOT_ICLOTHING)
-		owner.update_inv_w_uniform()
+		owner.update_worn_undersuit()
 	if(flags & ITEM_SLOT_GLOVES)
-		owner.update_inv_gloves()
+		owner.update_worn_gloves()
 	if(flags & ITEM_SLOT_EYES)
-		owner.update_inv_glasses()
+		owner.update_worn_glasses()
 	if(flags & ITEM_SLOT_EARS)
-		owner.update_inv_ears()
+		owner.update_worn_ears()
 	if(flags & ITEM_SLOT_MASK)
-		owner.update_inv_wear_mask()
+		owner.update_worn_mask()
 	if(flags & ITEM_SLOT_HEAD)
-		owner.update_inv_head()
+		owner.update_worn_head()
 	if(flags & ITEM_SLOT_FEET)
-		owner.update_inv_shoes()
+		owner.update_worn_shoes()
 	if(flags & ITEM_SLOT_ID)
-		owner.update_inv_wear_id()
+		owner.update_worn_id()
 	if(flags & ITEM_SLOT_BELT)
-		owner.update_inv_belt()
+		owner.update_worn_belt()
 	if(flags & ITEM_SLOT_BACK)
-		owner.update_inv_back()
+		owner.update_worn_back()
 	if(flags & ITEM_SLOT_NECK)
-		owner.update_inv_neck()
+		owner.update_worn_neck()
 
 /obj/item/proc/is_hot()
 	return heat
@@ -1101,12 +1124,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /obj/item/attack_hulk(mob/living/carbon/human/user)
-	return 0
+	return FALSE
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
 	if (obj_flags & CAN_BE_HIT)
 		return ..()
-	return 0
+	return FALSE
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -1313,7 +1336,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
-	return 0
+	return FALSE
 
 /obj/item/doMove(atom/destination)
 	if (ismob(loc))
@@ -1321,7 +1344,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/hand_index = M.get_held_index_of_item(src)
 		if(hand_index)
 			M.held_items[hand_index] = null
-			M.update_inv_hands()
+			M.update_held_items()
 			if(M.client)
 				M.client.screen -= src
 			layer = initial(layer)
@@ -1629,3 +1652,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_strip_actions(datum/strip_context/context)
 
 /obj/item/proc/perform_strip_actions(action_key, mob/actor)
+
+// For item specific checks on strip start. Return true to interrupt stripping, return false to continue stripping.
+/obj/item/proc/on_start_stripping(mob/source, mob/user, item_slot)
+	return FALSE

@@ -25,13 +25,11 @@
 /datum/brain_trauma/severe/split_personality/proc/make_backseats()
 	stranger_backseat = new(owner, src)
 	var/datum/action/spell/personality_commune/stranger_spell = new(src)
-	//stranger_backseat.AddSpell(stranger_spell)
 	stranger_spell.Grant(stranger_backseat)
 
 	owner_backseat = new(owner, src)
 	var/datum/action/spell/personality_commune/owner_spell = new(src)
 	owner_spell.Grant(owner_backseat)
-	//owner_backseat.AddSpell(owner_spell)
 
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
@@ -176,7 +174,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	to_chat(src, span_notice("As a split personality, you cannot do anything but observe. However, you will eventually gain control of your body, switching places with the current personality."))
 	to_chat(src, span_warning("<b>Do not commit suicide or put the body in a deadly position. Behave like you care about it as much as the owner.</b>"))
 
-/mob/living/split_personality/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/split_personality/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	to_chat(src, span_warning("You cannot speak, your other self is controlling your body!"))
 	return FALSE
 

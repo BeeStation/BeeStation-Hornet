@@ -43,7 +43,8 @@ SUBSYSTEM_DEF(job)
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
 		JOB_NAME_DEPUTY,
-		JOB_NAME_GIMMICK)
+		JOB_NAME_GIMMICK,
+		JOB_NAME_PRISONER)
 
 	/// If TRUE, some player has been assigned Captaincy or Acting Captaincy at some point during the shift and has been given the spare ID safe code.
 	var/assigned_captain = FALSE
@@ -851,7 +852,7 @@ SUBSYSTEM_DEF(job)
 	name = "Emergency Spare ID Safe Code Requisition"
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
-/datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/authenticated/new_captain, acting_captain = FALSE)
+/datum/controller/subsystem/job/proc/promote_to_captain(mob/dead/new_player/authenticated/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character
 	if(!new_captain)
 		CRASH("Cannot promote [new_captain.ckey], there is no new_character attached to him.")

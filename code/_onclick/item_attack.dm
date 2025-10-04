@@ -74,6 +74,21 @@
 		return TRUE
 
 /**
+ * Called before an attack is performed when the user is clicking on an object
+ * at range. After attack is called with the proximity flag set to false if
+ * this does not abort the attack chain.
+ *
+ * Arguments:
+ * * atom/target - The atom about to be hit
+ * * mob/living/user - The mob doing the htting
+ * * params - click params such as alt/shift etc
+ */
+/obj/item/proc/ranged_attack(atom/target, mob/living/user, params)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_RANGED_ATTACK, target, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	return FALSE //return TRUE to avoid calling attackby after this proc does stuff
+
+/**
   * Called on the item before it hits something
   *
   * Arguments:
@@ -87,6 +102,26 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	return FALSE //return TRUE to avoid calling attackby after this proc does stuff
+
+/**
+ * Called before an attack is performed when the user is clicking on an object
+ * at range.
+ *
+ * Arguments:
+ * * atom/target - The atom about to be hit
+ * * mob/living/user - The mob doing the htting
+ * * params - click params such as alt/shift etc
+ */
+/obj/item/proc/ranged_attack_secondary(atom/target, mob/living/user, params)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_RANGED_ATTACK_SECONDARY, target, user, params)
+
+	if(signal_result & COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	if(signal_result & COMPONENT_SECONDARY_CONTINUE_ATTACK_CHAIN)
+		return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+	return SECONDARY_ATTACK_CALL_NORMAL
 
 /**
  * Called on the item before it hits something, when right clicking.
@@ -302,6 +337,7 @@
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, proximity_flag, click_parameters)
 
 /**
  * Called at the end of the attack chain if the user right-clicked.
@@ -377,7 +413,7 @@
 /mob/living/proc/check_for_accidental_attack()
 	addtimer(CALLBACK(src, PROC_REF(record_accidental_attack), time_of_last_attack_dealt), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-/mob/living/proc/record_accidental_attack(var/time)
+/mob/living/proc/record_accidental_attack(time)
 	if(time_of_last_attack_dealt == 0) // We haven't attacked at all
 		return
 	if(time_of_last_attack_dealt > time) //We attacked again after the proc got called

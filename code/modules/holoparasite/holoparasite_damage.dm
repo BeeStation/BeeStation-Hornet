@@ -94,7 +94,7 @@
 		summoner.current.adjustCloneLoss(amount)
 		return
 	to_chat(summoner.current, span_dangerbold("You feel your mind strain as [color_name] takes damage!"))
-	brain.applyOrganDamage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
+	brain.apply_organ_damage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
 
 /**
  * A holoparasite does not sense through traditional methods, therefore it is immune to being flashed.

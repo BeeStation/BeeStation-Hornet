@@ -194,3 +194,26 @@
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
 	else
 		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
+
+/datum/quirk/accent	//base accent is medieval
+	name = "Accent"
+	desc = "You have a distinct way of speaking! (Select one in character creation)"
+	icon = "comment-dots"
+	mob_trait = TRAIT_ACCENT
+	gain_text = span_notice("You are aflicted with an accent.")
+	lose_text = span_danger("You are no longer aflicted with an accent.")
+	medical_record_text = "Patient has a distinct accent."
+
+/datum/quirk/accent/add()
+	var/chosen = read_choice_preference(/datum/preference/choiced/quirk/accent)
+	accent_to_use = GLOB.accents[chosen]
+	var/mob/living/carbon/human/H = quirk_target
+	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+
+/datum/quirk/accent/remove()
+	var/mob/living/carbon/human/H = quirk_target
+	UnregisterSignal(H, COMSIG_MOB_SAY)
+
+/datum/quirk/accent/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+	handle_accented_speech(speech_args, accent_to_use)

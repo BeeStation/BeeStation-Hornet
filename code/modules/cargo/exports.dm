@@ -37,16 +37,15 @@ then the player gets the profit from selling his own wasted time.
 	if(!report) //If we don't have any longer transaction going on
 		report = new
 
-	// We go backwards, so it'll be innermost objects sold first
-	for(var/i in reverse_range(contents))
-		var/atom/movable/thing = i
+	// We go backwards, so it'll be innermost objects sold first. We also make sure nothing is accidentally delete before everything is sold.
+	var/list/to_delete = list()
+	for(var/atom/movable/thing as anything in reverse_range(contents))
 		var/sold = FALSE
-
-		for(var/datum/export/E in GLOB.exports_list)
-			if(!E)
-				continue
-			if(E.applies_to(thing, allowed_categories, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
+		for(var/datum/export/export as anything in GLOB.exports_list)
+			if(export.applies_to(thing, allowed_categories, apply_elastic))
+				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
+					break
+				sold = export.sell_object(thing, report, dry_run, allowed_categories, apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
 
@@ -55,6 +54,10 @@ then the player gets the profit from selling his own wasted time.
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
+			to_delete += thing
+
+	for(var/atom/movable/thing as anything in to_delete)
+		if(!QDELETED(thing))
 			qdel(thing)
 
 	return report
@@ -73,6 +76,8 @@ then the player gets the profit from selling his own wasted time.
 	for(var/i in reverse_range(contents))
 		var/atom/movable/thing = i
 		var/sold = FALSE
+		if(QDELETED(thing))
+			continue
 		for(var/datum/export/E in GLOB.exports_list)
 			if(!E)
 				continue
@@ -91,13 +96,20 @@ then the player gets the profit from selling his own wasted time.
 	return report
 
 /datum/export
-	var/unit_name = ""				// Unit name. Only used in "Received [total_amount] [name]s [message]." message
+	/// Unit name. Only used in "Received [total_amount] [name]s [message]." message
+	var/unit_name = ""
 	var/message = ""
 	var/cost = 100					// Cost of item, in cargo credits. Must not alow for infinite price dupes, see above.
-	var/k_elasticity = 1/30			//coefficient used in marginal price calculation that roughly corresponds to the inverse of price elasticity, or "quantity elasticity"
-	var/list/export_types = list()	// Type of the exported object. If none, the export datum is considered base type.
-	var/include_subtypes = TRUE		// Set to FALSE to make the datum apply only to a strict type.
-	var/list/exclude_types = list()	// Types excluded from export
+	/// coefficient used in marginal price calculation that roughly corresponds to the inverse of price elasticity, or "quantity elasticity"
+	var/k_elasticity = 1/30
+	/// The multiplier of the amount sold shown on the report. Useful for exports, such as material, which costs are not strictly per single units sold.
+	var/amount_report_multiplier = 1
+	/// Type of the exported object. If none, the export datum is considered base type.
+	var/list/export_types = list()
+	/// Set to FALSE to make the datum apply only to a strict type.
+	var/include_subtypes = TRUE
+	/// Types excluded from export
+	var/list/exclude_types = list()
 
 	//cost includes elasticity, this does not.
 	var/init_cost
@@ -117,9 +129,7 @@ then the player gets the profit from selling his own wasted time.
 	return ..()
 
 /datum/export/process()
-	. = ..()
-	if(!k_elasticity)
-		return PROCESS_KILL
+	..()
 	cost *= NUM_E**(k_elasticity * (1/30))
 	if(cost > init_cost)
 		cost = init_cost
@@ -129,9 +139,9 @@ then the player gets the profit from selling his own wasted time.
 	var/amount = get_amount(O)
 	if(apply_elastic)
 		if(k_elasticity!=0)
-			return round((cost/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount)))	//anti-derivative of the marginal cost function
+			return round((cost/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * amount))) //anti-derivative of the marginal cost function
 		else
-			return round(cost * amount)	//alternative form derived from L'Hopital to avoid division by 0
+			return round(cost * amount) //alternative form derived from L'Hopital to avoid division by 0
 	else
 		return round(init_cost * amount)
 
@@ -162,26 +172,29 @@ then the player gets the profit from selling his own wasted time.
   * get_cost, get_amount and applies_to do not neccesary mean a successful sale.
   *
   */
-/datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+/datum/export/proc/sell_object(obj/sold_item, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
 	///This is the value of the object, as derived from export datums.
-	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
+	var/export_value = get_cost(sold_item, allowed_categories , apply_elastic)
 	///Quantity of the object in question.
-	var/amount = get_amount(O)
+	var/export_amount = get_amount(sold_item)
 
-	if(amount <=0 || the_cost <=0)
+	if(export_amount <= 0 || export_value <= 0)
 		return FALSE
 
-	report.total_value[src] += the_cost
+	// If we're not doing a dry run, send COMSIG_ITEM_EXPORTED to the sold item
+	var/export_result
+	if(!dry_run)
+		export_result = SEND_SIGNAL(sold_item, COMSIG_ITEM_EXPORTED, src, report, export_value)
 
-	if(istype(O, /datum/export/material))
-		report.total_amount[src] += amount*MINERAL_MATERIAL_AMOUNT
-	else
-		report.total_amount[src] += amount
+	// If the signal handled adding it to the report, don't do it now
+	if(!(export_result & COMPONENT_STOP_EXPORT_REPORT))
+		report.total_value[src] += export_value
+		report.total_amount[src] += export_amount * amount_report_multiplier
 
 	if(!dry_run)
 		if(apply_elastic)
-			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
-		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
+			cost *= NUM_E**(-1 * k_elasticity * export_amount) //marginal cost modifier
+		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[sold_item.type]", "[export_value]"))
 	return TRUE
 
 // Total printout for the cargo console.

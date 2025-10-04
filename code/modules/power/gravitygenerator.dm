@@ -111,8 +111,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 /obj/machinery/gravity_generator/main
 	icon_state = "on_8"
-	idle_power_usage = 0
-	active_power_usage = 3000
+	idle_power_usage = 5 KILOWATT
+	active_power_usage = 50 KILOWATT
 	power_channel = AREA_USAGE_ENVIRON
 	sprite_number = 8
 	use_power = IDLE_POWER_USE
@@ -311,7 +311,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/enable()
 	charging_state = POWER_IDLE
 	on = TRUE
-	use_power = ACTIVE_POWER_USE
 
 	var/old_gravity = gravity_in_level()
 	complete_state_update()
@@ -326,7 +325,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/disable()
 	charging_state = POWER_IDLE
 	on = FALSE
-	use_power = IDLE_POWER_USE
 
 	QDEL_NULL(gravity_field)
 	var/old_gravity = gravity_in_level()
@@ -348,15 +346,19 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/process()
 	if(machine_stat & BROKEN)
 		return
-	if(charging_state != POWER_IDLE)
+	if(charging_state == POWER_IDLE)
+		update_use_power(IDLE_POWER_USE)	// When fully charged goes back to Idle power use.
+	else if(charging_state != POWER_IDLE)
 		if(charging_state == POWER_UP && charge_count >= 100)
 			enable()
 		else if(charging_state == POWER_DOWN && charge_count <= 0)
 			disable()
 		else
 			if(charging_state == POWER_UP)
+				update_use_power(ACTIVE_POWER_USE)	//Active powr use kicks in while charging
 				charge_count += 2
 			else if(charging_state == POWER_DOWN)
+				update_use_power(ACTIVE_POWER_USE)
 				charge_count -= 2
 
 			if(charge_count % 4 == 0 && prob(75)) // Let them know it is charging/discharging.

@@ -104,9 +104,11 @@
 
 /datum/config_entry/flag/allow_admin_asaycolor //Allows admins with relevant permissions to have a personalized asay color
 
-/datum/config_entry/flag/allow_vote_restart	// allow votes to restart
+/// Allow players to vote to restart the server
+/datum/config_entry/flag/allow_vote_restart
 
-/datum/config_entry/flag/allow_vote_map	// allow votes to change map
+/// Allow players to vote to change the map mid-round
+/datum/config_entry/flag/allow_vote_map
 
 /datum/config_entry/number/vote_delay	// minimum time between voting sessions (deciseconds, 10 minute default)
 	config_entry_value = 6000
@@ -118,13 +120,15 @@
 	integer = FALSE
 	min_val = 0
 
-/datum/config_entry/flag/default_no_vote	// vote does not default to nochange/norestart
+/// If disabled, no-voters will automatically have their votes added to certain vote options
+/// (For example: restart votes will default to "no restart", map votes will default to their preferred map / default map)
+/datum/config_entry/flag/default_no_vote
 
-/datum/config_entry/flag/no_dead_vote	// dead people can't vote
+/// Prevents dead people from voting.
+/datum/config_entry/flag/no_dead_vote
 
-/datum/config_entry/flag/allow_metadata	// Metadata is supported.
-
-/datum/config_entry/flag/popup_admin_pm	// adminPMs to non-admins show in a pop-up 'reply' window when set
+/// Admin PMs to non-admins show in a pop-up 'reply' window when set
+/datum/config_entry/flag/popup_admin_pm
 
 /datum/config_entry/number/fps
 	config_entry_value = 20
@@ -333,20 +337,6 @@
 
 /datum/config_entry/flag/manual_note_expiry //Notes can only have expiration times added after creation, not during. Will also prevent automatic notes from expiring.
 
-/datum/config_entry/flag/maprotation
-
-/datum/config_entry/flag/automapvote
-
-/datum/config_entry/number/automapvote_threshold
-	config_entry_value = null
-	min_val = 0
-
-/datum/config_entry/number/maprotatechancedelta
-	config_entry_value = 0.75
-	min_val = 0
-	max_val = 1
-	integer = FALSE
-
 /datum/config_entry/number/soft_popcap
 	config_entry_value = null
 	min_val = 0
@@ -437,6 +427,33 @@
 	return value
 
 /datum/config_entry/flag/preference_map_voting
+
+/// Automatically start a map vote at the end of each round
+/datum/config_entry/flag/automapvote
+
+/// The minimum number of tallies a map vote entry can have.
+/datum/config_entry/number/map_vote_minimum_tallies
+	config_entry_value = 1
+	min_val = 0
+	max_val = 50
+
+/// The flat amount all maps get by default
+/datum/config_entry/number/map_vote_flat_bonus
+	config_entry_value = 0
+	min_val = 0
+	max_val = INFINITY
+
+/// The maximum number of tallies a map vote entry can have.
+/datum/config_entry/number/map_vote_maximum_tallies
+	config_entry_value = 200
+	min_val = 0
+	max_val = INFINITY
+
+/// The number of tallies that are carried over between rounds.
+/datum/config_entry/number/map_vote_tally_carryover_percentage
+	config_entry_value = 100
+	min_val = 0
+	max_val = 100
 
 /datum/config_entry/number/client_warn_version
 	config_entry_value = null

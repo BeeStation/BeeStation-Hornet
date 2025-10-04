@@ -396,6 +396,13 @@
 		target_items |= vendor.contraband
 		qdel(vendor)
 
+	// Add mining vendor items
+	for(var/obj/machinery/gear_requisition/mining_vendor as anything in subtypesof(/obj/machinery/gear_requisition))
+		mining_vendor = new mining_vendor()
+		for(var/datum/data/requisition_equipment/prize in mining_vendor.prize_list)
+			target_items |= prize.equipment_path
+		qdel(mining_vendor)
+
 	// building icons for each item
 	for (var/atom/item as anything in target_items)
 		if (!ispath(item, /atom))
@@ -513,14 +520,15 @@
 		"atool.png" = 'html/img/atool.png',
 		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
-		"alienorgan.png"= 'html/img/alienorgan.png',
-		"abaton.png"= 'html/img/abaton.png',
-		"spiderguard.png"= 'html/img/spiderguard.png',
-		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
-		"spidernurse.png"= 'html/img/spidernurse.png',
-		"spiderhunter.png"= 'html/img/spiderhunter.png',
-		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png',
+		"alienorgan.png" = 'html/img/alienorgan.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"spiderguard.png" = 'html/img/spiderguard.png',
+		"spiderbroodmother.png" = 'html/img/spiderbroodmother.png',
+		"spidernurse.png" = 'html/img/spidernurse.png',
+		"spiderhunter.png" = 'html/img/spiderhunter.png',
+		"spiderviper.png" = 'html/img/spiderviper.png',
+		"spidertarantula.png" = 'html/img/spidertarantula.png',
+		"vampire.png" = 'html/img/vampire.png',
 	)
 
 /datum/asset/simple/orbit

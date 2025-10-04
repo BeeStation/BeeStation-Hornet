@@ -68,8 +68,7 @@
 	sentience.name = pick(SSxenoarchaeology.xenoa_artifact_names)
 	sentience.real_name = "[sentience.name] - [component_parent?.parent]"
 	sentience.key = ckey
-	sentience.status_flags |= GODMODE
-	ADD_TRAIT(sentience, TRAIT_ARTIFACT_IGNORE, TRAIT_GENERIC)
+	sentience.add_traits(list(TRAIT_GODMODE, TRAIT_ARTIFACT_IGNORE), TRAIT_GENERIC)
 	//Stop them from wriggling away
 	var/atom/movable/movable = component_parent.parent
 	movable.buckle_mob(movable, TRUE)
@@ -77,11 +76,11 @@
 	var/datum/action/spell/pointed/artifact_senitent_action/P = new /datum/action/spell/pointed/artifact_senitent_action(component_parent?.parent, component_parent)
 	P.Grant(sentience)
 	//Display traits to sentience
-	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
+	to_chat(sentience, span_notice("Your traits are: \n"))
 	var/trait_dialogue = ""
 	for(var/index in component_parent.traits_catagories)
 		for(var/datum/xenoartifact_trait/T as() in component_parent.traits_catagories[index])
-			to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
+			to_chat(sentience, span_notice("[T.label_name]\n"))
 			var/trait_name = T.label_name
 			trait_name = replacetext(trait_name, "Δ", "delta")
 			trait_name = replacetext(trait_name, "Σ", "sigma")
