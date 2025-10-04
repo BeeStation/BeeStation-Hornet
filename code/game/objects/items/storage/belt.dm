@@ -399,7 +399,7 @@
 	new /obj/item/club(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
-	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/gun/ballistic/taser(src)
 	new /obj/item/holosign_creator/security(src)
 	update_appearance()
 

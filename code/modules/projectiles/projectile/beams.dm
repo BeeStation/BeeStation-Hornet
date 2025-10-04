@@ -44,11 +44,6 @@
 	stamina = 22
 	icon_state = "minilaser"
 
-/obj/projectile/beam/laser/lesslethal/ert
-	damage = 15
-	stamina = 30
-	icon_state = "minilaser"
-
 /obj/projectile/beam/weak
 	damage = 12
 

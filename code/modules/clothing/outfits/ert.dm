@@ -47,10 +47,10 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/zipties/compact=1,
-		/obj/item/ammo_box/magazine/recharge/service/ert=1,
+		/obj/item/ammo_box/magazine/x200law=1,
 		/obj/item/ai_module/core/full/ert=1
 		)
-	r_hand = /obj/item/gun/ballistic/automatic/pistol/service/ert
+	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	belt = /obj/item/storage/belt/security/ert/full
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	l_pocket = /obj/item/door_remote/omni
@@ -76,7 +76,7 @@
 		/obj/item/ai_module/core/full/ert=1,
 		/obj/item/door_remote/omni,
 		)
-	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
+	r_hand = /obj/item/gun/energy/e_gun/stun
 	l_pocket = /obj/item/melee/energy/sword/saber/blue
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
@@ -84,7 +84,7 @@
 /datum/outfit/centcom/ert/commander/amber/red
 	name = "ERT Commander - Class Red"
 
-	r_hand = /obj/item/gun/energy/pulse/carbine/loyalpin
+	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
 
 /datum/outfit/centcom/ert/commander/inquisitor
 	name = "ERT Commander - Inquisition"
@@ -111,8 +111,9 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/handcuffs/compact=1,
+		/obj/item/ammo_box/magazine/x200law=1,
 	)
-	r_hand = /obj/item/gun/energy/e_gun/stun
+	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	belt = /obj/item/storage/belt/security/ert/full
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
@@ -130,13 +131,13 @@
 /datum/outfit/centcom/ert/security/amber
 	name = "ERT Security - Class Amber"
 
-	r_hand = /obj/item/gun/energy/pulse/carbine/loyalpin
+	r_hand = /obj/item/gun/energy/e_gun/stun
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
 /datum/outfit/centcom/ert/security/amber/red
 	name = "ERT Security - Class Red"
 
-	r_hand = /obj/item/gun/energy/pulse/loyalpin
+	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
 
 /datum/outfit/centcom/ert/security/inquisitor
 	name = "ERT Security - Inquisition"
@@ -164,10 +165,10 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/firstaid/compact,
-		/obj/item/ammo_box/magazine/recharge/service/ert=1,
+		/obj/item/ammo_box/magazine/x200law=1,
 	)
 	l_hand = /obj/item/reagent_containers/hypospray/combat
-	r_hand = /obj/item/gun/ballistic/automatic/pistol/service/ert
+	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	belt = /obj/item/storage/belt/medical/ert
 	glasses = /obj/item/clothing/glasses/hud/health
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
@@ -191,12 +192,12 @@
 		/obj/item/storage/firstaid/advanced/compact,
 	)
 	l_hand = /obj/item/reagent_containers/hypospray/combat/nanites
-	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
+	r_hand = /obj/item/gun/energy/e_gun/stun
 
 /datum/outfit/centcom/ert/medic/amber/red
 	name = "ERT Medic - Class Red"
 
-	r_hand = /obj/item/gun/energy/pulse/carbine/loyalpin
+	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
 
 /datum/outfit/centcom/ert/medic/inquisitor
 	name = "ERT Medic - Inquisition"
@@ -223,13 +224,13 @@
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	backpack_contents = list(
 		/obj/item/storage/box/survival/engineer=1,
-		/obj/item/ammo_box/magazine/recharge/service/ert=1,
+		/obj/item/ammo_box/magazine/x200law=1,
 		/obj/item/bluespace_anchor=1,
 		/obj/item/rcd_ammo/large=2,
 	)
 	belt = /obj/item/storage/belt/utility/full/powertools/rcd
 	glasses =  /obj/item/clothing/glasses/meson/engine
-	r_hand = /obj/item/gun/ballistic/automatic/pistol/service/ert
+	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	l_pocket = /obj/item/holosign_creator/atmos/ert
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
@@ -252,12 +253,12 @@
 		/obj/item/bluespace_anchor=1,
 		/obj/item/rcd_ammo/large=2,
 	)
-	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
+	r_hand = /obj/item/gun/energy/e_gun/stun
 
 /datum/outfit/centcom/ert/engineer/amber/red
 	name = "ERT Engineer - Class Red"
 
-	r_hand = /obj/item/gun/energy/pulse/carbine/loyalpin
+	r_hand = /obj/item/gun/energy/pulse/pistol/loyalpin
 
 /datum/outfit/centcom/ert/engineer/inquisitor
 	name = "ERT Engineer - Inquisition"
@@ -287,12 +288,12 @@
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/grenade/clusterbuster/cleaner=1,
 		/obj/item/mop/advanced=1,
-		/obj/item/ammo_box/magazine/recharge/service/ert=1,
+		/obj/item/ammo_box/magazine/x200law=1,
 		/obj/item/choice_beacon/janicart=1,
 		)
 	belt = /obj/item/storage/belt/janitor/ertfull
 	glasses = /obj/item/clothing/glasses/night
-	r_hand = /obj/item/gun/ballistic/automatic/pistol/service/ert
+	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
 /datum/outfit/centcom/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -321,7 +322,7 @@
 		/obj/item/storage/box/survival/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/choice_beacon/pet/goat=1,
-		/obj/item/ammo_box/magazine/recharge/service/ert=1,
+		/obj/item/ammo_box/magazine/x200law=1,
 		/obj/item/grenade/clusterbuster/antiweed=2,
 	)
 

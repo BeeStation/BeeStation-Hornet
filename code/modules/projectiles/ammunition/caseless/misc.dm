@@ -17,6 +17,3 @@
 
 /obj/item/ammo_casing/caseless/laser/lesslethal
 	projectile_type = /obj/projectile/beam/laser/lesslethal
-
-/obj/item/ammo_casing/caseless/laser/lesslethal/ert
-	projectile_type = /obj/projectile/beam/laser/lesslethal/ert

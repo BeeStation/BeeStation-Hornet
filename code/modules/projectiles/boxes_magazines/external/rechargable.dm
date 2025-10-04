@@ -42,14 +42,6 @@
 	multiple_sprites = 1
 	ammo_type = /obj/item/ammo_casing/caseless/laser/lesslethal
 
-/obj/item/ammo_box/magazine/recharge/service/ert
-	name = "tuned energy pistol magazine"
-	desc = "A rechargeable energy pack used by service pistols. This one has been hand-tuned to perfection."
-	icon_state = "officer-12"
-	max_ammo = 12
-	multiple_sprites = 1
-	ammo_type = /obj/item/ammo_casing/caseless/laser/lesslethal/ert
-
 /obj/item/ammo_box/magazine/recharge/service/update_icon()
 	..()
 	icon_state = "officer-[CEILING(ammo_count(),3)]"

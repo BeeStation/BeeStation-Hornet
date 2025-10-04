@@ -163,12 +163,6 @@
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
 	stripe_state = "officer_med"
 
-/obj/item/gun/ballistic/automatic/pistol/service/ert
-	stripe_state = "officer_ert"
-	name = "ERT service pistol"
-	mag_type = /obj/item/ammo_box/magazine/recharge/service/ert
-	fire_rate = 5
-
 // Security
 /obj/item/gun/ballistic/automatic/pistol/security
 	name = "NPS-10"
