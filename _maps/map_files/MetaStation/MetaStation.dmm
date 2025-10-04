@@ -77912,22 +77912,15 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "wUd" = (
-/obj/effect/decal/cleanable/food/tomato_smudge,
-/obj/machinery/computer/security/wooden_tv{
-	name = "Broken Televison";
-	pixel_x = 1;
-	pixel_y = 6;
-	desc = "An old TV with Nano-Trasen approved channels!";
-	network = list("thunder", "court", "theathre")
-	},
-/obj/item/trash/can{
-	pixel_y = -14;
-	icon_state = "popcorn";
-	pixel_x = 17
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30;
 	pixel_x = 6
+	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/mouse/white,
+/obj/item/food/cheese/wedge{
+	pixel_x = 9;
+	pixel_y = 11
 	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 1
