@@ -529,30 +529,58 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 /client/proc/stealth()
 	set category = "Admin"
 	set name = "Stealth Mode"
-	if(holder)
-		if(holder.fakekey)
-			holder.fakekey = null
-			reset_badges()
-			if(isobserver(mob))
-				mob.invisibility = initial(mob.invisibility)
-				mob.alpha = initial(mob.alpha)
-				mob.name = initial(mob.name)
-				mob.mouse_opacity = initial(mob.mouse_opacity)
-		else
-			var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
-			if(!new_key)
-				return
-			holder.fakekey = new_key
-			reset_badges()
-			createStealthKey()
-			if(isobserver(mob))
-				mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE
-				mob.alpha = 0 //JUUUUST IN CASE
-				mob.name = " "
-				mob.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+	if(!holder)
+		return
+
+	if(holder.fakekey)
+		reset_badges()
+		disable_stealth_mode()
+	else
+		enable_stealth_mode()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+
+#define STEALTH_MODE_TRAIT "stealth_mode"
+
+/client/proc/enable_stealth_mode()
+	var/new_key = ckeyEx(stripped_input(usr, "Enter your desired display name.", "Fake Key", key, max_length=26))
+	if(!new_key)
+		return
+	holder.fakekey = new_key
+	reset_badges()
+	createStealthKey()
+	if(isobserver(mob))
+		mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE
+		mob.alpha = 0 //JUUUUST IN CASE
+		mob.name = " "
+		mob.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	ADD_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+	QDEL_NULL(mob.orbit_datum)
+
+	log_admin("[key_name(usr)] has turned stealth mode ON")
+	message_admins("[key_name_admin(usr)] has turned stealth mode ON")
+
+/client/proc/disable_stealth_mode()
+	holder.fakekey = null
+	reset_badges()
+	if(isobserver(mob))
+		mob.invisibility = initial(mob.invisibility)
+		mob.alpha = initial(mob.alpha)
+		if(mob.mind)
+			if(mob.mind.ghostname)
+				mob.name = mob.mind.ghostname
+			else
+				mob.name = mob.mind.name
+		else
+			mob.name = mob.real_name
+		mob.mouse_opacity = initial(mob.mouse_opacity)
+
+	REMOVE_TRAIT(mob, TRAIT_ORBITING_FORBIDDEN, STEALTH_MODE_TRAIT)
+	log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+	message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+
+#undef STEALTH_MODE_TRAIT
 
 /client/proc/drop_bomb()
 	set category = "Fun"
@@ -560,12 +588,12 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set desc = "Cause an explosion of varying strength at your location."
 
 	var/list/choices = list("Small Bomb (1, 2, 3, 3)", "Medium Bomb (2, 3, 4, 4)", "Big Bomb (3, 5, 7, 5)", "Maxcap", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce? NOTE: You can do all this rapidly and in an IC manner (using cruise missiles!) with the Config/Launch Supplypod verb. WARNING: These ignore the maxcap") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce? NOTE: You can do all this rapidly and in an IC manner (using cruise missiles!) with the Config/Launch Supplypod verb. WARNING: These ignore the maxcap", "Drop Bomb", choices)
+	if(isnull(choice))
+		return
 	var/turf/epicenter = mob.loc
 
 	switch(choice)
-		if(null)
-			return 0
 		if("Small Bomb (1, 2, 3, 3)")
 			explosion(epicenter, 1, 2, 3, 3, TRUE, TRUE)
 		if("Medium Bomb (2, 3, 4, 4)")
@@ -588,7 +616,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			if(flash_range == null)
 				return
 			if(devastation_range > GLOB.MAX_EX_DEVESTATION_RANGE || heavy_impact_range > GLOB.MAX_EX_HEAVY_RANGE || light_impact_range > GLOB.MAX_EX_LIGHT_RANGE || flash_range > GLOB.MAX_EX_FLASH_RANGE)
-				if(alert("Bomb is bigger than the maxcap. Continue?",,"Yes","No") != "Yes")
+				if(tgui_alert(usr, "Bomb is bigger than the maxcap. Continue?",,list("Yes","No")) != "Yes")
 					return
 			epicenter = mob.loc //We need to reupdate as they may have moved again
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, TRUE, TRUE)
