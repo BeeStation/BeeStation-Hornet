@@ -4525,9 +4525,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/dark,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
@@ -77922,6 +77919,9 @@
 	pixel_x = 9;
 	pixel_y = 11
 	},
+/obj/machinery/camera/directional/north{
+	c_tag = "Locker Room Starboard"
+	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 1
 	},
@@ -79298,9 +79298,6 @@
 "xqI" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/camera/directional/north{
-	c_tag = "Locker Room Starboard"
-	},
 /obj/structure/sign/warning/pods{
 	pixel_y = 30
 	},
@@ -79312,6 +79309,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 5
