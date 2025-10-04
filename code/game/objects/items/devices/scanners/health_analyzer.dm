@@ -354,7 +354,15 @@
 			if(blood_id != /datum/reagent/blood) // special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				blood_type = R ? R.name : blood_id
-			var/blood_info = "[blood_type] (Compatible: [jointext(get_blood_type(blood_type), ", ")])"
+
+			// Get compatible blood type names
+			var/list/compatible_names = list()
+			for(var/compatible_type in carbontarget.dna.blood_type.compatible_types)
+				var/datum/blood_type/compatible_datum = new compatible_type()
+				compatible_names += compatible_datum.name
+				qdel(compatible_datum)
+			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
+
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
 				render_list += "<span class='alert ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
