@@ -77,6 +77,9 @@
 				/obj/item/storage/belt/fannypack = 3,
 				/obj/item/storage/belt/fannypack/blue = 3,
 				/obj/item/storage/belt/fannypack/red = 3,
+				/obj/item/storage/backpack = 5,
+				/obj/item/storage/backpack/satchel = 5,
+				/obj/item/storage/backpack/duffelbag = 5,
 			),
 		),
 
