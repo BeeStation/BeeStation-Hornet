@@ -163,7 +163,15 @@
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
 	stripe_state = "officer_med"
 
-// Security
+
+#define NPS10_INCENDIARY "Incendiary"
+#define NPS10_SHOTGUN "Area Denial"
+#define NPS10_BREACH "High Explosive"
+#define NPS10_SHOCK "Shock"
+#define NPS10_IMPACT "Impact"
+#define NPS10_PRECISION "Precision"
+
+// Security // Christ this might deserve it's own file
 /obj/item/gun/ballistic/automatic/pistol/security
 	name = "NPS-10"
 	desc = "Standard APS smart-firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses x200 LAW ammo cartridges."
@@ -185,8 +193,26 @@
 	var/special_ammo_reserve = 6 // How many special shots we have left
 	var/special_authorized = FALSE
 	var/selected_special
+	var/cooldown_length = 10 SECONDS
 	spawnwithmagazine = FALSE
 	actions_types = list(/datum/action/item_action/nps_special)
+
+
+	// Callout lists
+	var/list/incendiary_callouts = list("Incendiary." = 3, "Hotshot" = 2, "Burner" = 1)
+	var/list/shotgun_callouts = list("Area." = 3, "Multishot" = 2, "Spreader" = 1)
+	var/list/breach_callouts = list("High-Ex." = 3, "Breacher" = 2, "Explosive" = 1)
+	var/list/shock_callouts = list("Stun." = 3, "Shock" = 2, "Incap" = 1)
+	var/list/impact_callouts = list("Impact." = 3, "Bruiser" = 2, "Bully" = 1)
+	var/list/precision_callouts = list("Precision." = 3, "Sniper" = 2, "Ranger" = 1)
+
+	COOLDOWN_DECLARE(special_round_chambering)
+
+// Explain to me why we have to do this shit
+/obj/item/gun/ballistic/automatic/pistol/security/say()
+	chat_color = "#61a1c1"
+	chat_color_name ="NPS-10"
+	. = ..()
 
 /obj/item/gun/ballistic/automatic/pistol/security/Initialize()
 	. = ..()
@@ -196,33 +222,69 @@
 /obj/item/gun/ballistic/automatic/pistol/security/proc/security_level()
 	SIGNAL_HANDLER
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED && !special_authorized)
-		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
-		say("Red Alert signal detected: Authorising special ammo.")
-		playsound(loc, 'sound/weapons/nps10/NPS-specialon.ogg')
-		special_authorized = TRUE
+
+		addtimer(CALLBACK(src, PROC_REF(special_action), TRUE), rand(25, 50) DECISECONDS)
 
 	else if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_RED && special_authorized)
+
+		addtimer(CALLBACK(src, PROC_REF(special_deauth), TRUE), rand(25, 50) DECISECONDS)
+
+/obj/item/gun/ballistic/automatic/pistol/security/proc/special_action()
 		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		say("Red Alert signal detected: Authorising special ammo.")
+		playsound(src, 'sound/weapons/nps10/NPS-specialon.ogg', 30)
+		special_authorized = TRUE
+
+/obj/item/gun/ballistic/automatic/pistol/security/proc/special_deauth()
 		say("Red Alert signal lost: Special ammo modules disengaged.")
-		playsound(loc, 'sound/weapons/nps10/NPS-specialoff.ogg')
+		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		playsound(src, 'sound/weapons/nps10/NPS-specialoff.ogg', 30)
 		special_authorized = FALSE
 
 /// Signal proc for [COMSIG_ITEM_UI_ACTION_CLICK] if our action button is clicked.
 /obj/item/gun/ballistic/automatic/pistol/security/proc/on_action_click(obj/item/source, mob/user, datum/action)
 	SIGNAL_HANDLER
 
-	if(special_authorized)
-		say("Good boy")
-		playsound(loc, 'sound/weapons/nps10/NPS-specialon.ogg')
+	if(!COOLDOWN_FINISHED(src, special_round_chambering))
+		say("Function on cooldown.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 
-		chambered.projectile_type = /obj/projectile/magic/fireball
-		chambered.BB = new/obj/projectile/magic/fireball(chambered)
+
+	if(special_authorized)
+
+		// Do we already have one selected? If yes, just unchamber it.
+		if(selected_special)
+			unchamber_special()
+		else
+			var/selection = NPS10_INCENDIARY
+			var/callout = "Call a coder, you fucked up."
+
+			switch(selection)
+				if(NPS10_INCENDIARY)
+					callout = pick_weight(incendiary_callouts)
+				if(NPS10_SHOTGUN)
+					callout = pick_weight(shotgun_callouts)
+				if(NPS10_BREACH)
+					callout = pick_weight(breach_callouts)
+				if(NPS10_SHOCK)
+					callout = pick_weight(shock_callouts)
+				if(NPS10_IMPACT)
+					callout = pick_weight(impact_callouts)
+				if(NPS10_PRECISION)
+					callout = pick_weight(precision_callouts)
+
+			user.say(callout)
+			addtimer(CALLBACK(src, PROC_REF(chamber_special), selection), 1 SECONDS)
 
 	else
 		say("Not Authorized.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 
 	return COMPONENT_ACTION_HANDLED
+
+/obj/item/gun/ballistic/automatic/pistol/security/on_chamber_fired()
+	if(..() && selected_special)
+		selected_special = null
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/get_dna()
 	var/obj/item/firing_pin/dna/D = pin
@@ -277,13 +339,82 @@
 	UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
 	. = ..()
 
+/obj/item/gun/ballistic/automatic/pistol/security/proc/chamber_special(special)
+	// Is a special already selected?
+	if(selected_special)
+		message_admins("What the fuck just happened, a gun just tried to chamber a special with a special already selected.")
+		return
+
+	if(special_ammo_reserve < 1)
+		say("Ammo depleted.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
+		return
+
+	// Is a bullet chambered
+	if(chambered)
+		// Add a new round to the magazine (to simulate moving it out of the chamber)
+		magazine.give_round(chambered)
+
+	// Creating the round
+	// Switch out the projectile of our new dummy round to the one we want
+	switch(special)
+		if(NPS10_INCENDIARY)
+			chambered = new/obj/item/ammo_casing/x200special/incendiary(src)
+		if(NPS10_SHOTGUN)
+			chambered = new/obj/item/ammo_casing/x200special/shotgun(src)
+		if(NPS10_BREACH)
+			chambered = new/obj/item/ammo_casing/x200special/breach(src)
+		if(NPS10_SHOCK)
+			chambered = new/obj/item/ammo_casing/x200special/shock(src)
+		if(NPS10_IMPACT)
+			chambered = new/obj/item/ammo_casing/x200special/impact(src)
+		if(NPS10_PRECISION)
+			chambered = new/obj/item/ammo_casing/x200special/precision(src)
+
+	say("[special] selected.")
+
+	COOLDOWN_START(src, special_round_chambering, cooldown_length)
+	special_ammo_reserve--
+	selected_special = special
+	playsound(src, 'sound/weapons/nps10/NPS-specialon.ogg', 30)
+
+/obj/item/gun/ballistic/automatic/pistol/security/proc/unchamber_special()
+	if(selected_special)
+		say("Selection reset")
+		qdel(chambered)
+		special_ammo_reserve++
+		selected_special = null
+		rack()
+
 // Special Bullets!
-/obj/item/ammo_casing/x200law/special
-	name = "x200 SPECIAL smart-bullet casing"
-	desc = "A x200 SPECIAL smart-bullet casing."
+/obj/item/ammo_casing/x200special
+	name = "x200 SPECIAL bullet casing"
+	desc = "A x200 SPECIAL bullet casing."
 	caliber = "x200 LAW"
 	icon_state = "s-casing_steel"
 	projectile_type = /obj/projectile/bullet/x200law
 
-/obj/item/ammo_casing/x200law/special/incendiary
+/obj/item/ammo_casing/x200special/incendiary
 	projectile_type = /obj/projectile/magic/fireball
+
+/obj/item/ammo_casing/x200special/shotgun
+	projectile_type = /obj/projectile/magic/fireball
+
+/obj/item/ammo_casing/x200special/breach
+	projectile_type = /obj/projectile/magic/fireball
+
+/obj/item/ammo_casing/x200special/shock
+	projectile_type = /obj/projectile/magic/fireball
+
+/obj/item/ammo_casing/x200special/impact
+	projectile_type = /obj/projectile/magic/fireball
+
+/obj/item/ammo_casing/x200special/precision
+	projectile_type = /obj/projectile/magic/fireball
+
+#undef NPS10_INCENDIARY
+#undef NPS10_SHOTGUN
+#undef NPS10_BREACH
+#undef NPS10_SHOCK
+#undef NPS10_IMPACT
+#undef NPS10_PRECISION
