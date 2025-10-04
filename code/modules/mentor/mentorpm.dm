@@ -2,7 +2,7 @@
 /// - whom: a CKEY, a Stealth Key, or a client
 /// - msg: the message to send
 /client/proc/cmd_mentor_pm(whom, msg, html_encoded = FALSE)
-	if(prefs.muted & MUTE_MHELP)
+	if(player_details.muted & MUTE_MHELP)
 		to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 		return
 
@@ -37,7 +37,7 @@
 		// we need to not HTML encode again or you get &#39;s instead of 's
 		html_encoded = TRUE
 
-		if(prefs.muted & MUTE_MHELP)
+		if(player_details.muted & MUTE_MHELP)
 			to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 			return
 
@@ -96,7 +96,7 @@
 
 /// Used when Reply is clicked for a ticket in chat - informs other mentors when you start typing.
 /client/proc/cmd_mhelp_reply(whom)
-	if(prefs.muted & MUTE_MHELP)
+	if(player_details.muted & MUTE_MHELP)
 		to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 		return
 	var/client/C
@@ -124,7 +124,7 @@
 
 /// Use when PMing from a ticket
 /client/proc/cmd_mhelp_reply_instant(whom, msg)
-	if(prefs.muted & MUTE_MHELP)
+	if(player_details.muted & MUTE_MHELP)
 		to_chat(src, span_danger("Error: Mentor-PM: You are unable to use mentor PM-s (muted)."), type = MESSAGE_TYPE_MENTORPM)
 		return
 	var/client/C

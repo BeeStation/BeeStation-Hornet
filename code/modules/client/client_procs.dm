@@ -126,6 +126,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		cmd_mentor_pm(href_list["mentor_msg"], null)
 		return TRUE
 
+	// LOOC commendation
+	
+
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
 
