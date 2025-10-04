@@ -1368,6 +1368,15 @@
 	construction_time = 100
 	category = list("IPC Components")
 
+/datum/design/robotic_heart
+	name = "Coolant Pump"
+	id = "robotic_heart"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/heart/cybernetic/ipc
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/silver = 500)
+	construction_time = 100
+	category = list("IPC Components")
+
 /datum/design/robotic_stomach
 	name = "Micro-cell"
 	id = "robotic_stomach"

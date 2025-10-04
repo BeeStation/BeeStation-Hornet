@@ -585,7 +585,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
-	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind?.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type.name, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind?.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
 
 	if(dna.species)
 		// We store the instance rather than the path, because some

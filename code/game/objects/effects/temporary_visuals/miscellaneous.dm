@@ -4,16 +4,19 @@
 	duration = 5
 	randomdir = FALSE
 	layer = BELOW_MOB_LAYER
+	color = COLOR_BLOOD
 	var/splatter_type = "splatter"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir)
-	if(set_dir in GLOB.diagonals)
+/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, set_color)
+	if(ISDIAGONALDIR(set_dir))
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else
 		icon_state = "[splatter_type][pick(3, 4, 5)]"
 	. = ..()
+	if(set_color)
+		color = set_color
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(set_dir)
@@ -44,6 +47,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
 	splatter_type = "xsplatter"
+	color = null
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"

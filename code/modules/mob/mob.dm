@@ -446,7 +446,7 @@
 		)
 
 	for(var/slot in slot_priority)
-		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, FALSE, FALSE)) //qdel_on_fail = 0; disable_warning = 1; redraw_mob = 1
+		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, TRUE, FALSE, FALSE)) //qdel_on_fail = FALSE; disable_warning = TRUE; redraw_mob = TRUE;
 			return TRUE
 
 	if(qdel_on_fail)

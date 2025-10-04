@@ -925,13 +925,13 @@
 /mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
 	return
 
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction, spec_color)
+/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
 	if(!has_gravity() || (movement_type & THROWN))
 		return
-	var/blood_exists = FALSE
+	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
+	var/mob/living/carbon/human/humanoid = src
+	var/glowyblood = humanoid.dna.blood_type.glowy
 
-	for(var/obj/effect/decal/cleanable/trail_holder/C in start) //checks for blood splatter already on the floor
-		blood_exists = TRUE
 	if(isturf(start))
 		var/trail_type = getTrail()
 		if(trail_type)
@@ -948,21 +948,22 @@
 				if((newdir in GLOB.cardinals) && (prob(50)))
 					newdir = turn(get_dir(target_turf, start), 180)
 				if(!blood_exists)
-					new /obj/effect/decal/cleanable/trail_holder(start, get_static_viruses())
+					//Snowflake to make blood glow
+					if(glowyblood)
+						new /obj/effect/decal/cleanable/blood/trail_holder/glowy(start, get_static_viruses())
+					else
+						new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
 
-				for(var/obj/effect/decal/cleanable/trail_holder/TH in start)
+
+				for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in start)
 					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
 
-						if(spec_color)
-							TH.color = spec_color
-
-/mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
+/mob/living/carbon/human/makeTrail(turf/T)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
-	spec_color = dna.species.blood_color
 	..()
 
 /mob/living/proc/getTrail()

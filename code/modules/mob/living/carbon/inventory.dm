@@ -57,7 +57,7 @@
 	return null
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
-/mob/living/carbon/equip_to_slot(obj/item/I, slot)
+/mob/living/carbon/equip_to_slot(obj/item/I, slot, initial = FALSE, redraw_mob = FALSE)
 	if(!slot)
 		return
 	if(!istype(I))

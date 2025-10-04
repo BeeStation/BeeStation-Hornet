@@ -7,27 +7,44 @@ GLOBAL_LIST_EMPTY(accepatable_no_hard_check_races)
 GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species
-	var/id	// if the game needs to manually check your race to do something not included in a proc here, it will use this
-	var/name	// this is the fluff name. these will be left generic (such as 'Lizardperson' for the lizard race) so servers can change them to whatever
+	///If the game needs to manually check your race to do something not included in a proc here, it will use this.
+	var/id
+	///This is the fluff name. They are displayed on health analyzers and in the character setup menu. Leave them generic for other servers to customize.
+	var/name
 	/// The formatting of the name of the species in plural context. Defaults to "[name]\s" if unset.
 	/// Ex "[Plasmamen] are weak", "[Mothmen] are strong", "[Lizardpeople] don't like", "[Golems] hate"
 	var/plural_form
-	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
+	//Species flags currently used for species restriction on items
+	var/bodyflag = FLAG_HUMAN
 	var/bodytype = BODYTYPE_HUMANOID
-	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
+	///Whether or not the race has sexual characteristics (biological genders). At the moment this is only FALSE for skeletons and shadows
+	var/sexes = TRUE
 
 	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
-	var/max_bodypart_count = 6 //The maximum number of bodyparts this species can have.
-	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
-	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
-	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
 
-	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
-	var/use_skintones = FALSE	// does it use skintones or not? (spoiler alert this is only used by humans)
+	//The maximum number of bodyparts this species can have.
+	var/max_bodypart_count = 6
+
+	///This allows races to have specific hair colors. If null, it uses the H's hair/facial hair colors. If "mutcolor", it uses the H's mutant_color. If "fixedmutcolor", it uses fixedmutcolor
+	var/hair_color
+	///The alpha used by the hair. 255 is completely solid, 0 is invisible.
+	var/hair_alpha = 255
+
+	///This is used for children, it will determine their default limb ID for use of examine. See examine.dm.
+	var/examine_limb_id
+	///Never, Optional, or Forced digi legs?
+	var/digitigrade_customization = DIGITIGRADE_NEVER
+
+	/// The color used for blush overlay
+	var/blush_color = COLOR_BLUSH_PINK
+	///Does the species use skintones or not? As of now only used by humans.
+	var/use_skintones = FALSE
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
 	var/datum/reagent/exotic_blood
-	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)
-	var/meat = /obj/item/food/meat/slab/human //What the species drops on gibbing
+	///If your race uses a non standard bloodtype (A+, O-, AB-, etc). For example, lizards have L type blood.
+	var/exotic_bloodtype = ""
+	///What the species drops when gibbed by a gibber machine.
+	var/meat = /obj/item/food/meat/slab/human
 	var/skinned_type
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
@@ -78,7 +95,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/deathsound //used to set the mobs deathsound on species change
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
-	var/blood_color //Blood color for decals
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
 	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
 	var/allow_numbers_in_name // Can this species use numbers in its name?
@@ -93,6 +109,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/bodytemp_heat_damage_limit = BODYTEMP_HEAT_DAMAGE_LIMIT
 	/// The body temperature limit the body can take before it starts taking damage from cold.
 	var/bodytemp_cold_damage_limit = BODYTEMP_COLD_DAMAGE_LIMIT
+
+	///Does our species have colors for its' damage overlays?
+	var/use_damage_color = TRUE
 
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
@@ -462,7 +481,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
-		C.dna.blood_type = exotic_bloodtype
+		C.dna.blood_type = get_blood_type(exotic_bloodtype)
 
 	if(old_species?.mutanthands)
 		for(var/obj/item/I in C.held_items)
@@ -785,7 +804,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// blush
 		if (HAS_TRAIT(H, TRAIT_BLUSHING)) // Caused by either the *blush emote or the "drunk" mood event
 			var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER)) //should appear behind the eyes
-			blush_overlay.color = COLOR_BLUSH_PINK
+			if(H.dna && H.dna.species && H.dna.species.blush_color)
+				blush_overlay.color = H.dna.species.blush_color
 
 			if(OFFSET_FACE in H.dna.species.offset_features)
 				blush_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]

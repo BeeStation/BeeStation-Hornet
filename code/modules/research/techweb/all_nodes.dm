@@ -1459,6 +1459,7 @@
 		"power_cord",
 		"robotic_ears",
 		"robotic_eyes",
+		"robotic_heart",
 		"robotic_liver",
 		"robotic_stomach",
 		"robotic_tongue",

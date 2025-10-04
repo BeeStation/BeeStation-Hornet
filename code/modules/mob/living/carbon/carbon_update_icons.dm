@@ -99,10 +99,15 @@
 	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER))
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
 
-	for(var/obj/item/bodypart/BP as() in bodyparts)
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		if(BP.dmg_overlay_type && !BP.is_husked)
 			if(BP.brutestate)
-				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
+				var/image/brute_overlay = image('icons/mob/dam_mob.dmi', "[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")
+				if(BP.use_damage_color && !HAS_TRAIT(src, TRAIT_NOBLOOD))
+					//Set damage_color to species blood color
+					BP.damage_color = src.dna.blood_type.blood_color
+					brute_overlay.color = BP.damage_color
+				damage_overlay.add_overlay(brute_overlay)
 			if(BP.burnstate)
 				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
 

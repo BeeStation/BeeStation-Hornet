@@ -117,6 +117,11 @@
 	update_worn_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
+/obj/effect/decal/cleanable/blood/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
+	. = ..()
+	if(blood_dna)
+		color = get_blood_dna_color(blood_dna)
+
 /atom/proc/transfer_fingerprints_to(atom/A)
 	A.add_fingerprint_list(return_fingerprints())
 	A.add_hiddenprint_list(return_hiddenprints())

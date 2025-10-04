@@ -210,7 +210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 		var/amount = (1 + round(potency * reagents_add[rid], 1)) * output_multiply
 
 		var/list/data = null
-		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O-
+		if(rid == "blood") // Hack to make blood in plants always O-
 			data = list("blood_type" = "O-")
 		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin)
 			// apple tastes of apple.
