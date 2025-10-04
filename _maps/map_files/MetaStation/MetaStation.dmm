@@ -4344,7 +4344,17 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/obj/machinery/chem_dispenser/mutagensaltpetersmall,
+/obj/structure/closet/crate/hydroponics,
+/obj/item/food/grown/soybeans,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/cocoapod,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/wheat,
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "aKv" = (
@@ -58727,16 +58737,12 @@
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/watermelon,
-/obj/item/food/grown/citrus/orange,
-/obj/item/food/grown/cocoapod,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/apple,
-/obj/item/food/grown/cherries,
-/obj/item/food/grown/citrus/lime,
-/obj/item/food/grown/chili,
-/obj/item/food/grown/soybeans,
+/obj/item/toy/figure/botanist{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/cup/mortar,
+/obj/item/pestle,
 /turf/open/floor/wood/big,
 /area/hydroponics/garden)
 "qwR" = (
