@@ -23,10 +23,10 @@
 	pixel_x = -26;
 	unlocked = 1
 	},
-/obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
+/obj/machinery/camera/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)
 "n" = (
