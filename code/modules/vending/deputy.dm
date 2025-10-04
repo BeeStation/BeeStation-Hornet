@@ -1,3 +1,6 @@
+/// If there are more than [SECURITY_MAX_POP] security officers on station, the vending machine will refuse to vend anything.
+#define SECURITY_MAX_POP 1
+
 /obj/machinery/vending/deputy
 	name = "\improper DepVend"
 	desc = "A machine that dispenses the equipment required to join security voluntarily. Helpfully provided by Auri private security, it's used on stations with skeleton crews to make sure someone is always available to maintain the peace."
@@ -58,10 +61,23 @@
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()
-
-	radio = new/obj/item/radio(src)
+	radio = new /obj/item/radio(src)
 	radio.set_listening(FALSE)
 	radio.set_frequency(FREQ_COMMON)
+
+/obj/machinery/vending/deputy/can_vend()
+	. = ..()
+	if (!.)
+		return FALSE
+
+	var/sec_amount = SSjob.GetJob(JOB_NAME_SECURITYOFFICER).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_HEADOFSECURITY).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_WARDEN).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_DETECTIVE).current_positions
+	sec_amount += SSjob.GetJob(JOB_NAME_CAPTAIN).current_positions
+	if(sec_amount >= SECURITY_MAX_POP && !allowed(usr))
+		to_chat(usr, span_warning("There are security personal on station, ask for their help!"))
+		return FALSE
 
 /obj/machinery/vending/deputy/vend(list/params, list/greyscale_colors)
 
@@ -126,3 +142,4 @@
 	machine_name = "DepVend"
 	icon_state = "refill_sec"
 
+#undef SECURITY_MAX_POP
