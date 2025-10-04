@@ -181,24 +181,48 @@
 	recoil = 0.1
 
 	pin = /obj/item/firing_pin/dna
-	var/special_ammo_mag_max = 4 // Max amount we can carry
-	var/special_ammo_reserve = 4 // How many special shots we have left
+	var/special_ammo_mag_max = 6 // Max amount we can carry
+	var/special_ammo_reserve = 6 // How many special shots we have left
 	var/special_authorized = FALSE
+	var/selected_special
+	spawnwithmagazine = FALSE
+	actions_types = list(/datum/action/item_action/nps_special)
 
 /obj/item/gun/ballistic/automatic/pistol/security/Initialize()
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_SECURITY_LEVEL_CHANGED, .proc/security_level)
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(security_level))
+	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/security_level()
 	SIGNAL_HANDLER
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED && !special_authorized)
 		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		say("Red Alert signal detected: Authorising special ammo.")
+		playsound(loc, 'sound/weapons/nps10/NPS-specialon.ogg')
 		special_authorized = TRUE
-		// TODO, PUT THE ACTION ENABLEMENT STUFF HERE
+
 	else if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_RED && special_authorized)
 		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		say("Red Alert signal lost: Special ammo modules disengaged.")
+		playsound(loc, 'sound/weapons/nps10/NPS-specialoff.ogg')
 		special_authorized = FALSE
-		// TODO, PUT THE ACTION DISABLEMENT STUFF HERE
+
+/// Signal proc for [COMSIG_ITEM_UI_ACTION_CLICK] if our action button is clicked.
+/obj/item/gun/ballistic/automatic/pistol/security/proc/on_action_click(obj/item/source, mob/user, datum/action)
+	SIGNAL_HANDLER
+
+	if(special_authorized)
+		say("Good boy")
+		playsound(loc, 'sound/weapons/nps10/NPS-specialon.ogg')
+
+		chambered.projectile_type = /obj/projectile/magic/fireball
+		chambered.BB = new/obj/projectile/magic/fireball(chambered)
+
+	else
+		say("Not Authorized.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
+
+	return COMPONENT_ACTION_HANDLED
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/get_dna()
 	var/obj/item/firing_pin/dna/D = pin
@@ -243,12 +267,23 @@
 		. += "<span class='notice'>It is unregistered.</span>"
 
 	. += span_warning("Smart-Ammo is <b>[special_authorized ? "authorized" : "disabled"]</b>.")
-	. += span_notice("<i>You could examine it more thoroughly...</i>")
 
-/obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
+/datum/action/item_action/nps_special
+	name = "Special Ammo"
+	desc = "Select a special projectile mode from a list of options."
+
+/obj/item/gun/ballistic/automatic/pistol/security/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK)
+	UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
 	. = ..()
-	. += "<i>The corporate-issue NPS-10 is a slim, nondescript sidearm built for reliability on a budget. \
-			Its brushed-gray slide and ergonomic polymer grip keep it unflashy, while the semi-auto action with \
-			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
-			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \
-			private security operators.</i>"
+
+// Special Bullets!
+/obj/item/ammo_casing/x200law/special
+	name = "x200 SPECIAL smart-bullet casing"
+	desc = "A x200 SPECIAL smart-bullet casing."
+	caliber = "x200 LAW"
+	icon_state = "s-casing_steel"
+	projectile_type = /obj/projectile/bullet/x200law
+
+/obj/item/ammo_casing/x200law/special/incendiary
+	projectile_type = /obj/projectile/magic/fireball

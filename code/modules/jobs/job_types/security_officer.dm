@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	box = /obj/item/storage/box/survival/security
 
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/x200law = 1,
+		/obj/item/ammo_box/magazine/x200law = 2,
 		/obj/item/ammo_casing/taser = 1,
 		)
 
