@@ -208,11 +208,6 @@
 
 	COOLDOWN_DECLARE(special_round_chambering)
 
-// Explain to me why we have to do this shit, It doesn't even work. RAAAHHHHHH
-/obj/item/gun/ballistic/automatic/pistol/security/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	chat_color = "#61a1c1"
-	. = ..()
-
 /obj/item/gun/ballistic/automatic/pistol/security/Initialize()
 	. = ..()
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(security_level))
@@ -237,14 +232,14 @@
 		addtimer(CALLBACK(src, PROC_REF(special_deauth), TRUE), rand(25, 50) DECISECONDS)
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/special_action()
-		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
-		say("Red Alert signal detected: Authorising special ammo.")
+		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null, 1)
+		balloon_alert_to_viewers("Red Alert signal detected: Authorising special ammo.")
 		playsound(src, 'sound/weapons/nps10/NPS-specialon.ogg', 30)
 		special_authorized = TRUE
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/special_deauth()
-		say("Red Alert signal lost: Special ammo modules disengaged.")
-		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
+		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null, 1)
+		balloon_alert_to_viewers("Red Alert signal lost: Special ammo modules disengaged.")
 		playsound(src, 'sound/weapons/nps10/NPS-specialoff.ogg', 30)
 		special_authorized = FALSE
 		unchamber_special()
@@ -254,7 +249,7 @@
 	SIGNAL_HANDLER
 
 	if(!COOLDOWN_FINISHED(src, special_round_chambering))
-		say("Function on cooldown.")
+		balloon_alert_to_viewers("Function on cooldown.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 		return COMPONENT_ACTION_HANDLED
 
@@ -264,10 +259,10 @@
 			unchamber_special()
 		else
 			var/result = radial_special_picker(user)
-			addtimer(CALLBACK(src, PROC_REF(chamber_special), result), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(chamber_special), result), 1.5 SECONDS)
 
 	else
-		say("Not Authorized.")
+		balloon_alert_to_viewers("Not Authorized.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 
 	return COMPONENT_ACTION_HANDLED
@@ -362,11 +357,10 @@
 /obj/item/gun/ballistic/automatic/pistol/security/proc/chamber_special(special)
 	// Is a special already selected?
 	if(selected_special)
-		message_admins("What the fuck just happened, a gun just tried to chamber a special with a special already selected.")
 		return
 
 	if(special_ammo_reserve < 1)
-		say("Ammo depleted.")
+		balloon_alert_to_viewers("Ammo depleted.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 		return
 
@@ -391,9 +385,9 @@
 		if(NPS10_ION)
 			chambered = new/obj/item/ammo_casing/x200special/ion(src)
 		else
-			say("Something went horribly wrong, please call a coder.")
+			return
 
-	say("[special] selected.")
+	balloon_alert_to_viewers("[special] selected.")
 
 	COOLDOWN_START(src, special_round_chambering, cooldown_length)
 	special_ammo_reserve--
@@ -402,7 +396,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/unchamber_special()
 	if(selected_special)
-		say("Selection reset")
+		balloon_alert_to_viewers("Selection reset")
 		qdel(chambered)
 		special_ammo_reserve++
 		selected_special = null
@@ -475,7 +469,7 @@
 
 	..()
 
-// Visual shock effect but no actual shock stun. You take 10 damage, get a bit jittery, take 30 stamina damage, and are stunned for 0.5 seconds.
+// Visual shock effect but no actual shock stun. You take 10 damage, get a bit jittery, take 20 stamina damage, and are stunned for a fraction of a second second.
 /obj/item/ammo_casing/x200special/shock
 	special_name = NPS10_SHOCK
 	explanation = "High speed electrical discharge device, designed for the delivery of an instantaneus shock to a target."
@@ -490,7 +484,7 @@
 	damage_type = BURN
 	bleed_force = 0
 	stun = 5
-	stamina = 30
+	stamina = 20
 
 /obj/projectile/bullet/nps10_shock_special/on_hit(atom/target)
 	if(isliving(target))
