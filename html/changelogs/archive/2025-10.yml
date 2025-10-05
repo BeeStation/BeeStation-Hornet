@@ -82,3 +82,9 @@
   - bugfix: brig physicians now have medical records access as intended
   - bugfix: fixed dynamic considering people who enter cryo sleep as dead
   - bugfix: Fixed the chem dispenser UI not properly updating when inserting a beaker
+2025-10-05:
+  mrmanlikesbt:
+  - bugfix: Fixed Sleeping Carp users not being able to do instant aggressive grabs-
+      it is a good traitor item once more
+  mrmanlikesbt, TiviPlus:
+  - rscdel: Deleted the final remnants of the devil
