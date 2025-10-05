@@ -1,0 +1,6 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: You will always attack borgs with your held item while in combat mode
+      instead of attempting whatever relevant item interaction (fixes nightmares not
+      being able to attack borgs)
