@@ -193,7 +193,7 @@
 	var/special_ammo_reserve = 6 // How many special shots we have left
 	var/special_authorized = FALSE
 	var/selected_special
-	var/cooldown_length = 0 SECONDS
+	var/cooldown_length = 5 SECONDS
 	var/list/special_types = list()
 	spawnwithmagazine = FALSE
 	actions_types = list(/datum/action/item_action/nps_special)
@@ -271,12 +271,9 @@
 
 	generate_radial()
 
-	var/callout = "Call a coder, you fucked up."
+	var/callout
 
 	var/selection = show_radial_menu(user, src, special_types, radius = 40, require_near = TRUE, tooltips = TRUE)
-
-	if(!selection)
-		return
 
 	switch(selection)
 		if(NPS10_INCENDIARY)
@@ -291,6 +288,8 @@
 			callout = pick_weight(impact_callouts)
 		if(NPS10_ION)
 			callout = pick_weight(ion_callouts)
+		else
+			return
 
 	user.say(callout)
 
@@ -402,7 +401,31 @@
 		selected_special = null
 		rack()
 
+/obj/item/gun/ballistic/automatic/pistol/security/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/x200special_charge))
+		if(special_ammo_reserve >= special_ammo_mag_max)
+			to_chat(user, span_notice("It's already full!"))
+			return
+
+		to_chat(user, span_notice("You carefully insert the charge..."))
+		if(!do_after(user, delay = 0.5 SECONDS, target = src))
+			return
+
+		to_chat(user, span_notice("You insert the charge into the access port."))
+		playsound(src, 'sound/weapons/nps10/NPS-load.ogg', 30)
+		special_ammo_reserve++
+		qdel(A)
+
 // Special Bullets!
+
+/obj/item/x200special_charge
+	icon = 'icons/obj/ammo.dmi'
+	icon_state = "x200special_charge"
+	name = "x200 SPECIAL Smart-Ammo cartridge"
+	desc = "This nifty little thing neatly slots into the bottom of any x200 compatible firearm. Capable of somehow adjusting to fit many different functions, the inner workings of this little device are a mystery to anyone outside Nanotrasen's specialist research and manufacturing blacksites."
+	resistance_flags = FLAMMABLE
+
 /obj/item/ammo_casing/x200special
 	name = "x200 SPECIAL bullet casing"
 	desc = "A x200 SPECIAL bullet casing."
@@ -425,6 +448,10 @@
 	nodamage = TRUE
 	damage = 0
 	fire_stacks = 2
+	projectile_piercing = PASSMOB | PASSMACHINE
+	projectile_phasing = PASSBLOB | PASSANOMALY
+	suppressed = SUPPRESSED_VERY
+	hitsound = null
 
 	range = 8
 	speed = 0.8
@@ -494,7 +521,7 @@
 		playsound(src, 'sound/weapons/zapbang.ogg', 80)
 	..()
 
-// HIRR baton slugs from cm13. Fun. While i did look at how they did it, that was fucking WACK complicated. I did my own shizzazz using dirs and not angles. Less accurate, but who gives a shit.
+// HIRR baton slugs from cm13. Fun. While I did look at how they did it, that was fucking WACK complicated. I did my own shizzazz using dirs and not angles. Less accurate, but who gives a shit.
 /obj/item/ammo_casing/x200special/impact
 	special_name = NPS10_IMPACT
 	explanation = "Rubberized baton-slug with metal core. Useful for breaking people's ribs into their lungs."
