@@ -1,6 +1,0 @@
-author: 'mrmanlikesbt, hry-gh, jlsnow-301, absolucy, JJRcop, SomeRandomOwl, Fikou,
-  lessthnthree, Watermelon914, '
-delete-after: true
-changes:
-  - bugfix: Fixed admin sounds (I am so sorry)
-  - server: Replaces youtube-dl with yt-dlp

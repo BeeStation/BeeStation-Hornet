@@ -101,6 +101,9 @@
       Report anything strange on github
   mrmanlikesbt, TiviPlus:
   - rscdel: Deleted the final remnants of the devil
+  'mrmanlikesbt, hry-gh, jlsnow-301, absolucy, JJRcop, SomeRandomOwl, Fikou, lessthnthree, Watermelon914, ':
+  - bugfix: Fixed admin sounds (I am so sorry)
+  - server: Replaces youtube-dl with yt-dlp
   rkz, mothblocks, skoglol, Primordial:
   - admin: Going stealth mode now drops your orbiters and blocks you from being orbited.
   - admin: Stealth mode should reset ghost name correctly.
