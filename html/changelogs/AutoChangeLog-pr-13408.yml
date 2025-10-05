@@ -1,0 +1,6 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed various security/medical records bugs
+  - rscadd: Made it more obvious that silicons aren't intended to be able to edit
+      security/medical records
