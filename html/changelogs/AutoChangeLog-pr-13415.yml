@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: Mining MOD suit gives actual meaningful power now when recharged with
+      plasma ore/sheets
