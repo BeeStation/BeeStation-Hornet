@@ -259,16 +259,12 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bc" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/portable_thermomachine,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/djstation)
 "bd" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/rack,
 /obj/item/clothing/under/costume/soviet,
 /obj/item/clothing/head/costume/ushanka,
