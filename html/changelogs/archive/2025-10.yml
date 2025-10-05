@@ -83,6 +83,9 @@
   - bugfix: fixed dynamic considering people who enter cryo sleep as dead
   - bugfix: Fixed the chem dispenser UI not properly updating when inserting a beaker
 2025-10-05:
+  Sarchutar:
+  - bugfix: Mining MOD suit gives actual meaningful power now when recharged with
+      plasma ore/sheets
   mrmanlikesbt:
   - bugfix: Fixed Sleeping Carp users not being able to do instant aggressive grabs-
       it is a good traitor item once more
@@ -90,6 +93,9 @@
       instead of attempting whatever relevant item interaction (fixes nightmares not
       being able to attack borgs)
   - bugfix: Fixed deathsquads not spawning in with mindshield implants
+  mrmanlikesbt, Mooshimi, Jolly:
+  - refactor: You shouldn't notice anything, but something has changed about windows.
+      Report anything strange on github
   mrmanlikesbt, TiviPlus:
   - rscdel: Deleted the final remnants of the devil
   rkz, thgvr, fikou:
