@@ -1,8 +1,0 @@
-author: rkz, thgvr, fikou
-delete-after: true
-changes:
-  - rscadd: Greyscales all blood decals.
-  - rscadd: Species now all have different blood colors, which will show in the footprints,
-      blood trails, and damage overlays when they get hurt
-  - rscadd: Gave some species their own bloodtype
-  - rscadd: new footstep sprites

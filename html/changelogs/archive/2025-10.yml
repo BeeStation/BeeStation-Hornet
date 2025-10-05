@@ -86,5 +86,15 @@
   mrmanlikesbt:
   - bugfix: Fixed Sleeping Carp users not being able to do instant aggressive grabs-
       it is a good traitor item once more
+  - bugfix: You will always attack borgs with your held item while in combat mode
+      instead of attempting whatever relevant item interaction (fixes nightmares not
+      being able to attack borgs)
+  - bugfix: Fixed deathsquads not spawning in with mindshield implants
   mrmanlikesbt, TiviPlus:
   - rscdel: Deleted the final remnants of the devil
+  rkz, thgvr, fikou:
+  - rscadd: Greyscales all blood decals.
+  - rscadd: Species now all have different blood colors, which will show in the footprints,
+      blood trails, and damage overlays when they get hurt
+  - rscadd: Gave some species their own bloodtype
+  - rscadd: new footstep sprites
