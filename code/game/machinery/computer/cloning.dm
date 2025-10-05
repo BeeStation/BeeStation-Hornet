@@ -331,8 +331,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 				if(ERROR_SUICIDED_BODY)
 					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [clone_record.name]'s mind from a suicided body."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(ERROR_SOUL_DAMNED)
-					temp = "Err#^ [ERROR_SOUL_DAMNED]: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
 				if(ERROR_UNCLONABLE)
 					temp = "Error [ERROR_UNCLONABLE]: [clone_record.name] is not clonable."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -550,7 +548,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(!experimental)
-		if(!body_only && (mob_occupant.suiciding || mob_occupant.ishellbound()))
+		if(!body_only && mob_occupant.suiciding)
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE

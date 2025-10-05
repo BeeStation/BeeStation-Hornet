@@ -93,7 +93,7 @@
 
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
-		user.Unconscious(100)
+		user.Unconscious(10 SECONDS)
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(spent)
@@ -101,14 +101,14 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
-	if(M.mind && !M.mind.hasSoul)
-		to_chat(user, span_warning("That person has no soul!"))
-		return
 	if(IS_CULTIST(M) && IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"Come now, do not capture your brethren's soul.\""))
 		return
 	if(theme == THEME_HOLY && IS_CULTIST(user))
 		hot_potato(user)
+		return
+	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
+		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
 	log_combat(user, M, "captured [M.name]'s soul", src)
 	transfer_soul("VICTIM", M, user)
