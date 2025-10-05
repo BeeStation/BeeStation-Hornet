@@ -93,11 +93,21 @@
       instead of attempting whatever relevant item interaction (fixes nightmares not
       being able to attack borgs)
   - bugfix: Fixed deathsquads not spawning in with mindshield implants
+  - bugfix: Fixed various security/medical records bugs
+  - rscadd: Made it more obvious that silicons aren't intended to be able to edit
+      security/medical records
   mrmanlikesbt, Mooshimi, Jolly:
   - refactor: You shouldn't notice anything, but something has changed about windows.
       Report anything strange on github
   mrmanlikesbt, TiviPlus:
   - rscdel: Deleted the final remnants of the devil
+  rkz, mothblocks, skoglol, Primordial:
+  - admin: Going stealth mode now drops your orbiters and blocks you from being orbited.
+  - admin: Stealth mode should reset ghost name correctly.
+  - admin: Ignore and Unignore should not interfere with Stealth Mode
+  - tweak: Split the Ignore verb into two verbs (Ignore and Unignore)
+  - rscadd: Unignore allows you to view your ignore list
+  - rscadd: Unignore allows you to unignore players who are offline
   rkz, thgvr, fikou:
   - rscadd: Greyscales all blood decals.
   - rscadd: Species now all have different blood colors, which will show in the footprints,
