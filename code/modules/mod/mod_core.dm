@@ -362,7 +362,11 @@
 	return NONE
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
-	var/charge_given = is_type_in_list(plasma, charger_list)
+	var/charge_given = 0
+	for(var/charger in charger_list)
+		if(istype(plasma, charger))
+			charge_given = charger_list[charger]
+			break
 	if(!charge_given)
 		return FALSE
 	var/uses_needed = min(plasma.amount, ROUND_UP((max_charge_amount() - charge_amount()) / charge_given))
