@@ -194,6 +194,7 @@
 	var/special_authorized = FALSE
 	var/selected_special
 	var/cooldown_length = 10 SECONDS
+	var/list/special_types = list()
 	spawnwithmagazine = FALSE
 	actions_types = list(/datum/action/item_action/nps_special)
 
@@ -208,16 +209,19 @@
 
 	COOLDOWN_DECLARE(special_round_chambering)
 
-// Explain to me why we have to do this shit
+// Explain to me why we have to do this shit, It doesn't even work. UHHHHHH
 /obj/item/gun/ballistic/automatic/pistol/security/say()
 	chat_color = "#61a1c1"
-	chat_color_name ="NPS-10"
 	. = ..()
 
 /obj/item/gun/ballistic/automatic/pistol/security/Initialize()
 	. = ..()
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(security_level))
 	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
+
+	// Assemble the list for the radial. Why don't we hardcode it? For the vibes.
+	for (var/possible_special in subtypesof(/obj/item/ammo_casing/x200special))
+		special_types += possible_special
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/security_level()
 	SIGNAL_HANDLER
@@ -240,6 +244,7 @@
 		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
 		playsound(src, 'sound/weapons/nps10/NPS-specialoff.ogg', 30)
 		special_authorized = FALSE
+		unchamber_special()
 
 /// Signal proc for [COMSIG_ITEM_UI_ACTION_CLICK] if our action button is clicked.
 /obj/item/gun/ballistic/automatic/pistol/security/proc/on_action_click(obj/item/source, mob/user, datum/action)
@@ -248,16 +253,19 @@
 	if(!COOLDOWN_FINISHED(src, special_round_chambering))
 		say("Function on cooldown.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
-
+		return COMPONENT_ACTION_HANDLED
 
 	if(special_authorized)
-
-		// Do we already have one selected? If yes, just unchamber it.
+		// Do we already have one selected? If yes, unchamber it.
 		if(selected_special)
 			unchamber_special()
 		else
-			var/selection = NPS10_INCENDIARY
 			var/callout = "Call a coder, you fucked up."
+
+			var/selection = show_radial_menu(user, src, special_types, radius = 100, require_near = TRUE)
+
+			if(!selection)
+				return COMPONENT_ACTION_HANDLED
 
 			switch(selection)
 				if(NPS10_INCENDIARY)
