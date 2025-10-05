@@ -363,7 +363,7 @@
 	)
 
 /datum/outfit/centcom/ert/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
+	. = ..()
 
 	if(visualsOnly)
 		return
