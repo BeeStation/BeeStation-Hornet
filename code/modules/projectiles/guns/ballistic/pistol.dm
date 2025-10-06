@@ -460,7 +460,7 @@
 	radial_sprite = "gnshell-live"
 	projectile_type = /obj/projectile/bullet/pellet/nps10_shotgun_special
 	pellets = 10
-	variance = 30
+	variance = 45
 	even_distribution = TRUE
 
 /obj/projectile/bullet/pellet/nps10_shotgun_special
