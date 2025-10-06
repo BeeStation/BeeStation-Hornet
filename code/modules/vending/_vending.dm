@@ -82,6 +82,7 @@
 	var/num_shards = 7
 	var/list/pinned_mobs = list()
 	COOLDOWN_DECLARE(purchase_message_cooldown)
+	COOLDOWN_DECLARE(vendor_first_hit_lenience)
 
 	/**
 	  * List of products this machine sells
@@ -601,6 +602,14 @@
 	else
 		. = ..()
 		if(tiltable && !tilted && I.force)
+
+			// We never do anything on the first hit. After the first hit, a 10 second cooldown on the lenience hit is started. During these 10 seconds, we process hits as normal.
+			if(COOLDOWN_FINISHED(src, vendor_first_hit_lenience))
+				pass()
+				return
+
+			COOLDOWN_START(src, vendor_first_hit_lenience, 10 SECONDS)
+
 			switch(rand(1, 100))
 				if(1 to 5)
 					freebie(3)
@@ -644,6 +653,7 @@
 /obj/machinery/vending/proc/tilt(mob/fatty, crit=FALSE)
 	if(QDELETED(src))
 		return
+
 	visible_message(span_danger("[src] tips over!"))
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
