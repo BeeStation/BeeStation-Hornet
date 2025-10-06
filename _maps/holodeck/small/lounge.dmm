@@ -31,7 +31,7 @@
 	},
 /area/template_noop)
 "g" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},

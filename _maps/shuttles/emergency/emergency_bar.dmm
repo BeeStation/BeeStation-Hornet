@@ -748,7 +748,7 @@
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "Tc" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},

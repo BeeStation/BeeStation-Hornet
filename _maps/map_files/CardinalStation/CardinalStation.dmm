@@ -103320,10 +103320,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/effect/turf_decal/siding/dark,
-/obj/effect/spawner/structure/random_piano{
-	icon_state = "piano";
-	dir = 4
-	},
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/theatre/backstage)
 "uYq" = (

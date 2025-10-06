@@ -3800,19 +3800,8 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/custodial)
 "CA" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/musician/piano,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
 "Dv" = (

@@ -258,7 +258,7 @@
 	},
 /area/template_noop)
 "Q" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "S" = (

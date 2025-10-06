@@ -41006,7 +41006,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "hoG" = (
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
