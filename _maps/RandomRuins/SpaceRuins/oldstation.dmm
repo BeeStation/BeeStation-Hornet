@@ -573,34 +573,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/betanorth)
-"cg" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/betanorth)
 "ch" = (
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/template_noop,
 /area/template_noop)
-"ci" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation)
 "cj" = (
 /obj/structure/transit_tube/station/reverse/flipped,
 /obj/effect/decal/cleanable/dirt,
@@ -694,18 +670,6 @@
 /obj/structure/transit_tube,
 /turf/template_noop,
 /area/template_noop)
-"cv" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "cw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/station/reverse/flipped,
@@ -3272,12 +3236,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
-"kn" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/engine/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "ko" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 1
@@ -3335,15 +3293,6 @@
 /obj/item/paper/fluff/ruins/oldstation/protosuit,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"ku" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/poddoor{
-	id = "proto"
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/ancientstation/proto)
 "kv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -3362,15 +3311,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"ky" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/poddoor{
-	id = "proto"
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/ancientstation/proto)
 "kz" = (
 /obj/machinery/light{
 	dir = 4
@@ -3379,10 +3319,6 @@
 /obj/item/paper/fluff/ruins/oldstation/protosing,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"kA" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/engine/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "kB" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -3464,6 +3400,13 @@
 "kK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/plating/airless,
+/area/ruin/space/has_grav/ancientstation/atmo)
+"kL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "kM" = (
 /obj/structure/sign/poster/official/work_for_a_future,
@@ -3562,20 +3505,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
-"kX" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon{
-	dir = 8;
-	id_tag = "oldstation_air_out";
-	name = "air output"
-	},
-/turf/open/floor/engine/air,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "kY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -3622,13 +3551,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
-"le" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/engine/air,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "lf" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end,
@@ -3784,11 +3706,6 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/rnd)
-"oe" = (
-/obj/structure/table/reinforced,
-/obj/machinery/the_singularitygen/tesla,
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/ancientstation/proto)
 "ot" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bottle/fluorine{
@@ -3832,6 +3749,10 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"po" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/engine/airless,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "pp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/directional/south{
@@ -3870,6 +3791,14 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
+"rs" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/transit_tube{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation)
 "rv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3939,6 +3868,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/particle_accelerator/end_cap,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/deltacorridor)
+"uh" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/transit_tube{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "uE" = (
@@ -4196,13 +4133,6 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/rnd)
-"DW" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "En" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bottle/iodine{
@@ -4266,6 +4196,11 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"EU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/energy_accumulator/grounding_rod,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "Fh" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen,
@@ -4458,6 +4393,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
+"KH" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/engine/air,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "KR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/tank/internals/plasma/full,
@@ -4596,6 +4536,13 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/rnd)
+"Nx" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/machinery/door/poddoor{
+	id = "proto"
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/proto)
 "NF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -4692,6 +4639,11 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)
+"Pm" = (
+/obj/structure/table/reinforced,
+/obj/machinery/the_singularitygen/tesla,
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/proto)
 "Pn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer{
@@ -4738,6 +4690,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/rnd)
+"QQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/energy_accumulator/tesla_coil,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "QS" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/bottle/sugar{
@@ -4794,6 +4751,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation)
+"Te" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon{
+	dir = 8;
+	id_tag = "oldstation_air_out";
+	name = "air output"
+	},
+/turf/open/floor/engine/air,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "Th" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -4900,6 +4867,21 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/comm)
+"WH" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/door/poddoor{
+	id = "proto"
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/proto)
+"WM" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/transit_tube{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/betanorth)
 "XJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
@@ -4945,11 +4927,6 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/engi)
-"YC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/energy_accumulator/tesla_coil,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "YL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -4975,11 +4952,10 @@
 /obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"Zu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/energy_accumulator/grounding_rod,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
+"Zc" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/engine/airless,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "ZE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -5121,11 +5097,11 @@ jO
 km
 mH
 mH
-kn
-kA
-DW
-kX
-le
+po
+Zc
+kL
+Te
+KH
 mH
 mH
 aa
@@ -5437,7 +5413,7 @@ aa
 aa
 bJ
 bK
-cg
+WM
 bK
 bJ
 dF
@@ -6205,7 +6181,7 @@ aa
 aa
 aG
 bL
-ci
+rs
 bL
 dl
 Fh
@@ -7261,7 +7237,7 @@ aa
 aa
 aG
 bL
-ci
+rs
 bL
 dv
 vc
@@ -7277,7 +7253,7 @@ ik
 TV
 dv
 bL
-ci
+rs
 bL
 aG
 aa
@@ -7645,7 +7621,7 @@ aa
 aa
 bD
 bY
-cv
+uh
 bY
 bD
 aa
@@ -7661,7 +7637,7 @@ aa
 aa
 bD
 bY
-cv
+uh
 bY
 bD
 aa
@@ -8049,9 +8025,9 @@ ju
 jL
 jV
 ke
-ku
+Nx
 jV
-ku
+Nx
 ke
 jV
 aa
@@ -8385,9 +8361,9 @@ dc
 ca
 jV
 ke
-ky
+WH
 jV
-ky
+WH
 ke
 jV
 aa
@@ -8432,7 +8408,7 @@ dy
 jt
 ed
 jV
-oe
+Pm
 kz
 jV
 kU
@@ -8663,8 +8639,8 @@ eZ
 eZ
 dh
 dh
-YC
-YC
+QQ
+QQ
 td
 tT
 bD
@@ -8709,9 +8685,9 @@ bD
 eZ
 fz
 fz
-YC
-YC
-YC
+QQ
+QQ
+QQ
 Ku
 Ll
 Sf
@@ -8758,8 +8734,8 @@ bD
 fz
 fz
 fz
-Zu
-Zu
+EU
+EU
 BH
 wC
 bD

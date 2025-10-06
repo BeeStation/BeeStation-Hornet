@@ -743,21 +743,21 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
-/obj/item/card/id/ert/chaplain
-	registered_name = JOB_ERT_CHAPLAIN
-	assignment = JOB_ERT_CHAPLAIN
-	icon_state = "ert"
-
-/obj/item/card/id/ert/chaplain/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
-	. = ..()
-
 /obj/item/card/id/ert/Janitor
 	registered_name = JOB_ERT_JANITOR
 	assignment = JOB_ERT_JANITOR
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/clown
+	registered_name = JOB_ERT_CLOWN
+	assignment = JOB_ERT_CLOWN
+	icon_state = "ert"
+
+/obj/item/card/id/ert/clown/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -776,12 +776,12 @@ update_label("John Doe", "Clowny")
 	icon_state = "centcom"
 
 /// Trim for Bounty Hunters hired by centcom.
-/obj/item/card/id/silver/bounty/ert
+/obj/item/card/id/ert/bounty
 	registered_name = "Bounty Hunter"
 	assignment = "Bounty Hunter"
 	icon_state = "ert"
 
-/obj/item/card/id/silver/bounty/ert/Initialize(mapload)
+/obj/item/card/id/ert/bounty/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL)
 

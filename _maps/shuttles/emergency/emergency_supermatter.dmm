@@ -93,10 +93,6 @@
 "aw" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"aB" = (
-/obj/machinery/power/supermatter_crystal/hugbox,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "aD" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/toxin,
@@ -279,10 +275,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/shuttle/escape)
-"lT" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "my" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock"
@@ -319,6 +311,14 @@
 	pixel_x = -32
 	},
 /turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/escape)
+"BD" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"Fl" = (
+/obj/machinery/power/supermatter_crystal/hugbox,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Jo" = (
 /obj/machinery/door/airlock/external{
@@ -362,10 +362,10 @@ aa
 (2,1,1) = {"
 aw
 ae
-lT
+BD
 ac
 ae
-lT
+BD
 aw
 ai
 aD
@@ -394,7 +394,7 @@ ag
 ai
 ai
 ai
-lT
+BD
 aa
 aa
 aM
@@ -408,7 +408,7 @@ bc
 be
 "}
 (4,1,1) = {"
-lT
+BD
 ah
 ai
 al
@@ -432,7 +432,7 @@ aa
 aa
 "}
 (5,1,1) = {"
-lT
+BD
 ag
 aj
 am
@@ -443,7 +443,7 @@ bg
 as
 as
 bk
-lT
+BD
 aM
 aO
 aa
@@ -456,14 +456,14 @@ aU
 aX
 "}
 (6,1,1) = {"
-lT
+BD
 ag
 aj
 an
 at
 at
 bf
-aB
+Fl
 bf
 at
 at
@@ -480,7 +480,7 @@ bd
 aY
 "}
 (7,1,1) = {"
-lT
+BD
 ag
 aj
 ao
@@ -491,7 +491,7 @@ bh
 au
 au
 bl
-lT
+BD
 aM
 aP
 aa
@@ -504,7 +504,7 @@ aW
 aZ
 "}
 (8,1,1) = {"
-lT
+BD
 ah
 ai
 ap
@@ -538,7 +538,7 @@ ag
 ai
 ai
 ai
-lT
+BD
 aa
 aa
 aM
@@ -554,10 +554,10 @@ be
 (10,1,1) = {"
 aw
 ae
-lT
+BD
 ac
 ae
-lT
+BD
 aw
 ai
 aE

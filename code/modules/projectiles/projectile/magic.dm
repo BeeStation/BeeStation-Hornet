@@ -45,8 +45,6 @@
 	. = ..()
 	if(!isliving(target))
 		return
-	if(target.ishellbound())
-		return BULLET_ACT_BLOCK
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.regenerate_limbs()
