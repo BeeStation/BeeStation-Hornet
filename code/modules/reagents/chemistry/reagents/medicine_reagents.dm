@@ -482,7 +482,10 @@
 		affected_mob.reagents.remove_reagent(reagent.type, 1 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
-	affected_mob.radiation *= 0.9 //10% purged every cycle
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		irradiated_component.intensity *= 0.9
+
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/liquid_solder
