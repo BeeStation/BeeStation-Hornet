@@ -354,7 +354,6 @@
 	. = ..()
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/chamber_special(special)
-	// Is a special already selected?
 	if(selected_special)
 		return
 
@@ -369,7 +368,6 @@
 		magazine.give_round(chambered)
 
 	// Creating the round
-	// Switch out the projectile of our new dummy round to the one we want
 	switch(special)
 		if(NPS10_INCENDIARY)
 			chambered = new/obj/item/ammo_casing/x200special/incendiary(src)
@@ -418,7 +416,6 @@
 		qdel(A)
 
 // Special Bullets!
-
 /obj/item/x200special_charge
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "x200special_charge"
