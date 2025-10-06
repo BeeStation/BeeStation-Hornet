@@ -117,3 +117,9 @@
       blood trails, and damage overlays when they get hurt
   - rscadd: Gave some species their own bloodtype
   - rscadd: new footstep sprites
+2025-10-06:
+  TsunamiAnt:
+  - refactor: refactored just, all the ERT stuff. Everything. Including some modsuit
+      stuff with things like chrono agent.
+  - tweak: pathfinder modules have been made more loving, but also more rare.
+  - admin: inquisition ERTs are now fixed!
