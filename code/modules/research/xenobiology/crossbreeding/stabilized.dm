@@ -55,10 +55,6 @@ Stabilized extracts:
 			continue
 		effectpath = effect
 
-	if(!effectpath)
-		//shouldn't happen in normal gameplay, but let's prevent admin shenanigans causing runtimes.
-		return PROCESS_KILL
-
 	var/datum/status_effect/stabilized/current_effect = holder.has_status_effect(effectpath)
 	if(!current_effect)
 		// No effect exists, apply it
