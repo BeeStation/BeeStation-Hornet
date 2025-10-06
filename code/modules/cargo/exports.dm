@@ -21,15 +21,15 @@ then the player gets the profit from selling his own wasted time.
 
 // Simple holder datum to pass export results around
 /datum/export_report
-	var/list/exported_atoms = list()	//names of atoms sold/deleted by export
-	var/list/total_amount = list()		//export instance => total count of sold objects of its type, only exists if any were sold
-	var/list/total_value = list()		//export instance => total value of sold objects
+	/// Associative list of [export instance => list of exported atoms]
+	var/list/list/exported_atoms = list()
+	/// Associative list of [export instance => total count of sold items]
+	var/list/total_amount = list()
+	/// Associative list of [export instance => total value of sold items]
+	var/list/total_value = list()
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
 /proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = FALSE, dry_run=FALSE, datum/export_report/external_report)
-	if(!GLOB.exports_list.len)
-		setup_exports()
-
 	var/list/contents = AM.GetAllContents()
 
 	var/datum/export_report/report = external_report
@@ -42,14 +42,46 @@ then the player gets the profit from selling his own wasted time.
 	for(var/atom/movable/thing as anything in reverse_range(contents))
 		var/sold = FALSE
 
+		var/should_catchall = TRUE
 		for(var/datum/export/export as anything in GLOB.exports_list)
+			if(export.catchall)
+				continue
 			if(export.applies_to(thing, allowed_categories))
+				should_catchall = FALSE
+
 				if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
 					break
+
 				sold = export.sell_object(thing, report, dry_run, allowed_categories)
 				if(!(thing.trade_flags & (TRADE_DELETE_UNSOLD | TRADE_NOT_SELLABLE)))
-					report.exported_atoms += thing // append the atom itself
+					// append the atom itself
+					if(!islist(report.exported_atoms[export]))
+						report.exported_atoms[export] = list(thing)
+					else
+						report.exported_atoms[export] += thing
+
 				break
+
+		// Snowflake code my beloved
+		if(should_catchall)
+			for(var/datum/export/export as anything in GLOB.exports_list)
+				if(!export.catchall)
+					continue
+				if(export.applies_to(thing, allowed_categories))
+					should_catchall = FALSE
+
+					if(!dry_run && (SEND_SIGNAL(thing, COMSIG_ITEM_PRE_EXPORT) & COMPONENT_STOP_EXPORT))
+						break
+
+					sold = export.sell_object(thing, report, dry_run, allowed_categories)
+					if(!(thing.trade_flags & (TRADE_DELETE_UNSOLD | TRADE_NOT_SELLABLE)))
+						// append the atom itself
+						if(!islist(report.exported_atoms[export]))
+							report.exported_atoms[export] = list(thing)
+						else
+							report.exported_atoms[export] += thing
+
+					break
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
 
@@ -81,6 +113,8 @@ then the player gets the profit from selling his own wasted time.
 	var/include_subtypes = TRUE
 	/// Types excluded from export
 	var/list/exclude_types = list()
+	/// Are we a "catch-all" export type? This means we prioritize all non-catchall exports first, then fall back to these.
+	var/catchall = FALSE
 
 	//All these need to be present in export call parameter for this to apply.
 	var/export_category = EXPORT_CARGO
@@ -123,25 +157,25 @@ then the player gets the profit from selling his own wasted time.
 
 // Checks the amount of exportable in object. Credits in the bill, sheets in the stack, etc.
 // Usually acts as a multiplier for a cost, so item that has 0 amount will be skipped in export.
-/datum/export/proc/get_amount(obj/O)
+/datum/export/proc/get_amount(obj/thing)
 	return 1
 
 // Checks if the item is fit for export datum.
-/datum/export/proc/applies_to(obj/O, allowed_categories = NONE)
+/datum/export/proc/applies_to(obj/thing, allowed_categories = NONE)
 
 	var/category_to_use = export_category
 
-	if(O.trade_flags & TRADE_CONTRABAND)
+	if(thing.trade_flags & TRADE_CONTRABAND)
 		category_to_use = EXPORT_CONTRABAND
 	if((allowed_categories & category_to_use) != category_to_use)
 		return FALSE
-	if(!is_type_in_typecache(O, export_types))
+	if(!is_type_in_typecache(thing, export_types))
 		return FALSE
-	if(include_subtypes && is_type_in_typecache(O, exclude_types))
+	if(include_subtypes && is_type_in_typecache(thing, exclude_types))
 		return FALSE
-	if(!get_cost(O, allowed_categories))
+	if(!get_cost(thing, allowed_categories))
 		return FALSE
-	if(O.flags_1 & HOLOGRAM_1)
+	if(thing.flags_1 & HOLOGRAM_1)
 		return FALSE
 	return TRUE
 
@@ -183,66 +217,55 @@ then the player gets the profit from selling his own wasted time.
 // Total printout for the cargo console.
 // Called before the end of current export cycle.
 // It must always return something if the datum adds or removes any credts.
-/datum/export/proc/total_printout(datum/export_report/ex, notes = TRUE)
-	if(!ex.total_amount[src] || !ex.total_value[src])
+/datum/export/proc/total_printout(datum/export_report/report, notes = TRUE)
+	if(!report.total_amount[src] || !report.total_value[src])
 		return ""
 
-	var/total_value = ex.total_value[src]
+	var/total_value = report.total_value[src]
 
-	var/msg = "[total_value] credits: Received "
+	var/msg = "+[total_value] credits: Received "
 
-	if(total_value > 0)
-		msg = "+" + msg
+	// Create an associative list of item names to their counts
+	var/list/items_list = list()
+	for(var/atom/movable/thing in report.exported_atoms[src])
+		if(!thing.name)
+			continue
 
-	// Count occurrences using parallel lists
-	var/list/names_list = list()
-	var/list/counts_list = list()
+		if(!applies_to(thing, allowed_categories = ALL))
+			continue
 
-	for(var/atom/thing in ex.exported_atoms)
-		if(thing.name)
-			var/found = FALSE
-			for(var/j = 1; j <= names_list.len; j++)
-				if(names_list[j] == thing.name)
-					counts_list[j] += 1
-					found = TRUE
-					break
-			if(!found)
-				names_list += thing.name
-				counts_list += 1
+		items_list[thing.name] += 1
 
-	// Build item strings
+	// Turn our list into a nice string
 	var/list/item_strings = list()
-	for(var/export_name in names_list)
-		var/count = counts_list[export_name]
-		if(count > 1)
-			item_strings += "[count] [export_name]s"
+	for(var/name in items_list)
+		if(items_list[name] == 1)
+			item_strings += name
 		else
-			item_strings += export_name
+			item_strings += "[items_list[name]] [name]s"
+
+	if(!length(item_strings))
+		return
 
 	item_strings[length(item_strings)] = "and [item_strings[length(item_strings)]]"
 	msg += item_strings.Join(", ")
 
+	// If our export has a custom message, add it to the end.
 	if(message)
-		msg += " " + message
+		msg += " [message]"
 
 	msg += "."
 	return msg
 
-GLOBAL_LIST_EMPTY(exports_list)
+GLOBAL_LIST_INIT(exports_list, setup_exports())
 
 /proc/setup_exports()
-	var/list/catchalls = list()
-
-	for(var/subtype in subtypesof(/datum/export))
+	var/list/datum/export/exports = list()
+	for(var/datum/export/subtype as anything in subtypesof(/datum/export))
 		var/datum/export/current_export = new subtype
 		if(!length(current_export.export_types))
 			continue
 
-		// Detect catch-all
-		if(istype(current_export, /datum/export/item_price))
-			catchalls += current_export
-		else
-			GLOB.exports_list += current_export
+		exports += current_export
 
-	// Now append catch-alls so they run last
-	GLOB.exports_list += catchalls
+	return exports

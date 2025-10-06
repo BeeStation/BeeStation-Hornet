@@ -205,8 +205,6 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		say("Located: [AM.name] at [get_area_name(AM)]")
 
 /obj/machinery/loot_locator/proc/find_random_loot()
-	if(!GLOB.exports_list.len)
-		setup_exports()
 	var/list/possible_loot = list()
 	for(var/datum/export/E in GLOB.exports_list)
 		possible_loot += E
@@ -365,8 +363,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	if(!total_report)
 		total_report = ex
 	else
-		total_report.exported_atoms += ex.exported_atoms
 		for(var/datum/export/E in ex.total_amount)
+			total_report.exported_atoms[E] = ex.exported_atoms
 			total_report.total_amount[E] += ex.total_amount[E]
 			total_report.total_value[E] += ex.total_value[E]
 
