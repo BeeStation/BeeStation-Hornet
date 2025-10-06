@@ -63,8 +63,6 @@
 	var/can_be_disabled = FALSE //Defaults to FALSE, as only human limbs can be disabled, and only the appendages.
 	///Controls if the limb is disabled. TRUE means it is disabled (similar to being removed, but still present for the sake of targeted interactions).
 	var/bodypart_disabled = FALSE
-	///Multiplied by max_damage it returns the threshold which defines a limb being disabled or not. From 0 to 1.
-	var/disable_threshold = 1
 
 	// Damage variables
 	///A mutiplication of the burn and brute damage that the limb's stored damage contributes to its attached mob's overall wellbeing.
@@ -547,8 +545,15 @@
 		return
 
 	var/total_damage = max(brute_dam + burn_dam, stamina_dam)
+	var/disable_threshold = 1
 
-	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
+	if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
+		disable_threshold = 0.6 //Easy limb disable disables the limb at 40% health instead of 0%
+
+	else
+		disable_threshold = 1
+
+	if(total_damage >= max_damage * disable_threshold)
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
@@ -718,26 +723,6 @@
 	SIGNAL_HANDLER
 
 	set_can_be_disabled(initial(can_be_disabled))
-
-
-///Called when TRAIT_EASYLIMBWOUND is added to the owner.
-/obj/item/bodypart/proc/on_owner_easylimbwound_trait_gain(mob/living/carbon/source)
-	PROTECTED_PROC(TRUE)
-	SIGNAL_HANDLER
-
-	disable_threshold = 0.6
-	if(can_be_disabled)
-		update_disabled()
-
-
-///Called when TRAIT_EASYLIMBWOUND is removed from the owner.
-/obj/item/bodypart/proc/on_owner_easylimbwound_trait_loss(mob/living/carbon/source)
-	PROTECTED_PROC(TRUE)
-	SIGNAL_HANDLER
-
-	disable_threshold = initial(disable_threshold)
-	if(can_be_disabled)
-		update_disabled()
 
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.

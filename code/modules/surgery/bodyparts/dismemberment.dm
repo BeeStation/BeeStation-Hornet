@@ -47,10 +47,20 @@
 
 	return TRUE
 
+/obj/item/bodypart/head/dismember()
+	if(!owner)
+		return FALSE
+	var/mob/living/carbon/C = owner
+	if(C.stat == CONSCIOUS) //Beheading can only happen to someone who has at least fallen into crit for balance reasons
+		return FALSE
+	. = ..()
+
 /obj/item/bodypart/chest/dismember(dam_type = BRUTE, silent = FALSE)
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/chest_owner = owner
+	if(chest_owner.stat != DEAD) //organs cannot spill from chest whilst living for balance reasons
+		return FALSE
 	if(bodypart_flags & BODYPART_UNREMOVABLE)
 		return FALSE
 	if(HAS_TRAIT(chest_owner, TRAIT_NODISMEMBER))

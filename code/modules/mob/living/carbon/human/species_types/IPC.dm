@@ -6,21 +6,23 @@
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
+		TRAIT_LOWPRESSURELEAKING,
 		TRAIT_NOBREATH,
-		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_EASYLIMBDISABLE,
 		TRAIT_POWERHUNGRY,
 		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE,
+		TRAIT_NOSOFTCRIT,
 		TRAIT_NO_ZOMBIFY,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_MUTANT_COLORS,
 		TRAIT_NOHUSK,
 		TRAIT_NOMOUTH,
 		TRAIT_REVIVESBYHEALING,
-		TRAIT_NO_DEBRAIN_OVERLAY
+		TRAIT_NO_DEBRAIN_OVERLAY,
 	)
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
@@ -42,7 +44,6 @@
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
-	heatmod = 1.5
 	clonemod = 0
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC

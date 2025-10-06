@@ -27,5 +27,58 @@
   mrmanlikesbt:
   - config: adjusted the nuclear operative and blood cult team size formula
 2025-10-02:
+  Isaacnml:
+  - bugfix: Lavaland syndicate base distro and waste is separated once again
+  - bugfix: Smaller issues related to lavaland syndicate base
   Tsar-Salat:
   - bugfix: fixes outwear overlay
+  mrmanlikesbt, Ghilker, GuillaumePrata, OrionTheFox, coiax, lessthnthree, 13spacemen, DrDiasyl, Hatterhat, Xander3359:
+  - rscadd: Holosigns are now transparent
+  - rscadd: You can now right-click an ATMOS holofan projector to enable "clearview"
+      mode, this makes all linked holofans nearly invisible and able to be clicked
+      through until it is disabled or it times out in 40 seconds.
+  - rscadd: Holosigns can now be placed on doors, holofans can be placed on windows
+      too.
+  - tweak: holofans will automatically open a firelock if placed on it
+  - code_imp: Code cleanup for holosigns
+  - admin: Holofans now have hidden fingerprints on them for who placed it.
+2025-10-03:
+  ClownMoff:
+  - rscadd: Clowns can now PDA everyone with a one and a half minute cooldown
+  Rukofamicom:
+  - balance: IPCs have had their racial traits adjusted to make them stand out as
+      a unique race a bit more
+  - tweak: IPCs are now immune to pressure damage, but instead spring an oil leak,
+      which gives them a greater resistance to space exposure without protection but
+      they will still suffer in the long-term if not prepared.
+  - tweak: IPCs are no longer immune to radiation and will suffer burns instead of
+      toxin damage from prolonged radiation exposure. System Cleaner now purges radiation
+      from IPCs in addition to its other effects though.
+  - tweak: IPCs now take 1.5x damage from brute damage.
+  - tweak: IPCs now take 1.5x damage from fires and burn damage, down from 3x and
+      2x respectively.
+  - tweak: IPCs remain functional in soft crit, but still take low steady damage over
+      time when they reach this state.
+  - tweak: IPCs are now immune to stamina damage, and stun batons electrocute them
+      for 15 burn damage. Disablers have no effect on IPCs,
+  - tweak: IPCs now have the easy limb disable trait, meaning they take 40% less damage
+      to disable a limb
+  - tweak: Dismembering a chest is only possible on dead mobs now, no more early organ
+      spilling.
+  - bugfix: Fixed the frail quirk, as well as other instances of easy limb disable.
+      They were non-functional in the code for an unknown amount of time.
+  - bugfix: Mobs that have the easy limb dismemberment trait will now find that they
+      lose their limbs to blunt damage after having them disabled as was originally
+      intended. Previously only the RNG chance was being rolled without the guaranteed
+      dismemberment. This notably affects Skeletons, Zombies, Oozelings and IPCs.
+  - bugfix: Energy swords and daggers have the appropriate sharpness again. Energy
+      swords can dismember easily, and energy daggers can dismember as soon as the
+      limb is disabled.
+  mrmanlikesbt:
+  - bugfix: fixed alt-clicking weight machines crashing your game
+  - bugfix: fixed the ChemMaster reagent analysis- you can press the question mark
+      by a chemical in the ChemMaster to see details about it.
+  - bugfix: fixed the portable thermomachine open panel icon
+  - bugfix: brig physicians now have medical records access as intended
+  - bugfix: fixed dynamic considering people who enter cryo sleep as dead
+  - bugfix: Fixed the chem dispenser UI not properly updating when inserting a beaker
