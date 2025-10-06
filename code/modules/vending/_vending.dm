@@ -81,8 +81,9 @@
 	var/forcecrit = 0
 	var/num_shards = 7
 	var/list/pinned_mobs = list()
+	// If this is set, it will not tilt
+	var/lenience = TRUE
 	COOLDOWN_DECLARE(purchase_message_cooldown)
-	COOLDOWN_DECLARE(vendor_first_hit_lenience)
 
 	/**
 	  * List of products this machine sells
@@ -603,12 +604,12 @@
 		. = ..()
 		if(tiltable && !tilted && I.force)
 
-			// We never do anything on the first hit. After the first hit, a 10 second cooldown on the lenience hit is started. During these 10 seconds, we process hits as normal.
-			if(COOLDOWN_FINISHED(src, vendor_first_hit_lenience))
+			// We never do anything on the first hit. After the first hit, lenience is revoked, and a 10 second timer is started to reset it. During these 10 seconds, we process hits as normal.
+			if(lenience)
+				lenience = FALSE
+				addtimer(CALLBACK(src, PROC_REF(set_lenience), TRUE), 10 SECONDS)
 				pass()
 				return
-
-			COOLDOWN_START(src, vendor_first_hit_lenience, 10 SECONDS)
 
 			switch(rand(1, 100))
 				if(1 to 5)
@@ -623,6 +624,10 @@
 					tilt(user, crit=TRUE)
 				if(51 to 100)
 					pass()
+
+/obj/machinery/vending/proc/set_lenience(setty)
+	lenience = setty
+	return lenience
 
 /**
  * Dispenses free items from the standard stock.
