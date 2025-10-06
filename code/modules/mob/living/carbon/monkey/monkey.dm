@@ -17,10 +17,10 @@
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
-		/obj/item/bodypart/l_arm/monkey,
-		/obj/item/bodypart/r_arm/monkey,
-		/obj/item/bodypart/r_leg/monkey,
-		/obj/item/bodypart/l_leg/monkey
+		/obj/item/bodypart/arm/left/monkey,
+		/obj/item/bodypart/arm/right/monkey,
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
 	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
@@ -226,8 +226,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	icon_state = null
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
+					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
 	var/creator_key = null
 
@@ -270,10 +270,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/monkey/teratoma,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/monkey/teratoma,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/monkey/teratoma,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey/teratoma
 	)
 
 /obj/item/organ/brain/tumor

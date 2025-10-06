@@ -24,6 +24,9 @@ export const CrimeWatcher = (props) => {
   const foundRecord = getSecurityRecord();
   if (!foundRecord) return <> </>;
 
+  const { data } = useBackend<SecurityRecordsData>();
+  const { is_silicon } = data;
+
   const { crimes, citations } = foundRecord;
   const [selectedTab, setSelectedTab] = useLocalState<SECURETAB>(
     'selectedTab',
@@ -47,12 +50,14 @@ export const CrimeWatcher = (props) => {
             Citations: {citations.length}
           </Tabs.Tab>
           <Tooltip content="Add a new crime or citation" position="bottom">
-            <Tabs.Tab
-              onClick={() => setSelectedTab(SECURETAB.Add)}
-              selected={selectedTab === SECURETAB.Add}
-            >
-              <Icon name="plus" />
-            </Tabs.Tab>
+            {!is_silicon && (
+              <Tabs.Tab
+                onClick={() => setSelectedTab(SECURETAB.Add)}
+                selected={selectedTab === SECURETAB.Add}
+              >
+                <Icon name="plus" />
+              </Tabs.Tab>
+            )}
           </Tooltip>
         </Tabs>
       </Stack.Item>
@@ -100,7 +105,7 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
 
   const { record_ref } = foundRecord;
   const { act, data } = useBackend<SecurityRecordsData>();
-  const { current_user, higher_access } = data;
+  const { current_user, higher_access, is_silicon } = data;
   const { author, crime_ref, details, fine, name, paid, time, valid, voider } =
     item;
   const showFine = !!fine && fine > 0 ? `: ${fine} cr` : ': PAID OFF';
@@ -155,7 +160,11 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
         {!editing ? (
           <Box mt={2}>
             <Button
-              disabled={!valid || (!higher_access && author !== current_user)}
+              disabled={
+                !valid ||
+                (!higher_access && author !== current_user) ||
+                is_silicon
+              }
               icon="pen"
               onClick={() => setEditing(true)}
             >
@@ -163,7 +172,11 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
             </Button>
             <Button.Confirm
               content="Invalidate"
-              disabled={!valid || (!higher_access && author !== current_user)}
+              disabled={
+                !valid ||
+                (!higher_access && author !== current_user) ||
+                is_silicon
+              }
               icon="ban"
               onClick={() =>
                 act('invalidate_crime', {
@@ -174,7 +187,9 @@ const CrimeDisplay = ({ item }: { item: Crime }) => {
             />
             <Button.Confirm
               content="Delete"
-              disabled={!higher_access && author !== current_user}
+              disabled={
+                (!higher_access && author !== current_user) || is_silicon
+              }
               icon="trash"
               onClick={() =>
                 act('delete_crime', {
@@ -285,6 +300,7 @@ const CrimeAuthor = (props) => {
       <Stack.Item color="label">
         Fine (leave blank to arrest)
         <RestrictedInput
+          value={crimeFine}
           onChange={(_, value) => setCrimeFine(value)}
           fluid
           maxValue={1000}

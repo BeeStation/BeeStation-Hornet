@@ -482,6 +482,7 @@ export const OrbitalMapDisplay = (props) => {
           let proportionalY =
             ((e.clientY - rect.top) / radar.offsetHeight) * 500;
           act('setTargetCoords', {
+            altKey: e.altKey,
             x:
               (proportionalX - 250) / zoomScale +
               (isTracking ? dynamicXOffset : xOffset),
