@@ -93,13 +93,6 @@
 
 		INVOKE_ASYNC(client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/ghosts, client.mob)
 
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerDies(gibbed)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerDies(gibbed)
-
 	if(mind?.current)
 		client?.tgui_panel?.give_dead_popup()
 
