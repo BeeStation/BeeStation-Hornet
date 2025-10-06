@@ -118,30 +118,6 @@
 /obj/structure/table,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
-"ax" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/ruin/space/has_grav/derelictoutpost/dockedship)
-"ay" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/shuttle/engine/heater{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/ruin/space/has_grav/derelictoutpost/dockedship)
 "az" = (
 /obj/structure/table,
 /obj/item/clothing/head/soft/cargo,
@@ -682,10 +658,6 @@
 /obj/structure/closet/wardrobe/cargotech,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
-"cc" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/derelictoutpost/dockedship)
 "cd" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -2044,10 +2016,50 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
+"hp" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/derelictoutpost)
+"kP" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/ruin/space/has_grav/derelictoutpost/dockedship)
 "lq" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/table,
 /obj/machinery/recharger,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/derelictoutpost)
+"ou" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/ruin/space/has_grav/derelictoutpost/dockedship)
+"qw" = (
+/obj/item/shard,
+/obj/item/stack/cable_coil{
+	amount = 2;
+	icon_state = "coil_red2";
+	inhand_icon_state = "coil_red"
+	},
+/obj/structure/alien/weeds{
+	color = "#4BAE56";
+	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
+	name = "gelatinous floor"
+	},
+/obj/structure/table_frame,
+/obj/item/stack/sheet/iron,
+/obj/item/stack/sheet/plasteel,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
@@ -2063,24 +2075,6 @@
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
 	name = "gelatinous floor"
 	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/derelictoutpost)
-"up" = (
-/obj/item/shard,
-/obj/item/stack/cable_coil{
-	amount = 2;
-	icon_state = "coil_red2";
-	inhand_icon_state = "coil_red"
-	},
-/obj/structure/alien/weeds{
-	color = "#4BAE56";
-	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
-	},
-/obj/structure/table_frame,
-/obj/item/stack/sheet/iron,
-/obj/item/stack/sheet/plasteel,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
@@ -2114,6 +2108,10 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
+"HL" = (
+/obj/effect/spawner/structure/window/reinforced/shuttle,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/derelictoutpost/dockedship)
 "Jd" = (
 /obj/structure/filingcabinet,
 /obj/machinery/light{
@@ -2128,14 +2126,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/ruin/space/has_grav/derelictoutpost)
-"US" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/derelictoutpost)
 "Yr" = (
 /obj/structure/alien/weeds{
@@ -2550,7 +2540,7 @@ ag
 ae
 am
 ar
-ax
+kP
 aE
 aO
 aO
@@ -2586,14 +2576,14 @@ ag
 ae
 am
 as
-ay
+ou
 aF
 aP
 aP
 bf
 be
 bL
-cc
+HL
 ae
 cx
 aX
@@ -2629,7 +2619,7 @@ aU
 be
 bv
 bM
-cc
+HL
 ae
 cx
 cW
@@ -2658,7 +2648,7 @@ ag
 ae
 am
 ar
-ax
+kP
 aH
 aH
 aV
@@ -2694,7 +2684,7 @@ ag
 ae
 am
 as
-ay
+ou
 aI
 aI
 aW
@@ -2989,7 +2979,7 @@ aY
 aK
 yb
 fF
-US
+hp
 cz
 cP
 aK
@@ -3025,7 +3015,7 @@ aY
 aK
 Yr
 wc
-up
+qw
 cA
 bl
 cY

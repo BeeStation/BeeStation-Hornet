@@ -258,6 +258,11 @@
 		clearview = FALSE
 		deltimer(clearview_timer)
 
+/obj/item/holosign_creator/atmos/ert
+	name = "\improper ERT holofan projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions. This one was upgraded by centcom field-energy specialists"
+	max_signs = 6
+
 /obj/item/holosign_creator/medical
 	name = "\improper PENLITE barrier projector"
 	desc = "A holographic projector that creates PENLITE holobarriers. Useful during quarantines since they halt those with malicious diseases."

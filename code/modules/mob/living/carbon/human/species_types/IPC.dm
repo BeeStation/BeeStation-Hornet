@@ -16,17 +16,20 @@
 	inherent_traits = list(
 		TRAIT_BLOOD_COOLANT,
 		TRAIT_RESISTCOLD,
+		TRAIT_LOWPRESSURELEAKING,
 		TRAIT_NOBREATH,
-		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_EASYDISMEMBER,
+		TRAIT_EASYLIMBDISABLE,
 		TRAIT_POWERHUNGRY,
 		TRAIT_XENO_IMMUNE,
 		TRAIT_TOXIMMUNE,
+		TRAIT_NOSOFTCRIT,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NO_TRANSFORMATION_STING
 	)
+
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -42,11 +45,11 @@
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 
-	burnmod = 2
-	heatmod = 1.5
-	brutemod = 1
+	//IPCs are extremely fragile, but do not go into softcrit and can be repaired with relative ease
+	burnmod = 1.5
+	brutemod = 1.5
 	clonemod = 0
-	staminamod = 0.8
+	staminamod = 0 //IPCs don't get tired
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
 	species_gibs = GIB_TYPE_ROBOTIC
@@ -67,8 +70,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc
 	)
 
-	exotic_blood = /datum/reagent/oil
-	blood_color = "#000000"
+	exotic_bloodtype = "Coolant"
 	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die
