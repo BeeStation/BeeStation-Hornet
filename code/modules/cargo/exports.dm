@@ -221,34 +221,39 @@ then the player gets the profit from selling his own wasted time.
 	if(!report.total_amount[src] || !report.total_value[src])
 		return ""
 
-	var/total_value = report.total_value[src]
+	var/total_value = ex.total_value[src]
+	var/msg = "[total_value] credits: Received "
+	if(total_value > 0)
+		msg = "+" + msg
 
-	var/msg = "+[total_value] credits: Received "
-
-	// Create an associative list of item names to their counts
-	var/list/items_list = list()
-	for(var/atom/movable/thing in report.exported_atoms[src])
-		if(!thing.name)
-			continue
-
-		if(!applies_to(thing, allowed_categories = ALL))
-			continue
-
-		items_list[thing.name] += 1
+	// Count occurrences using associative list
+	var/list/counts = list()
+	for(var/atom/thing in ex.exported_atoms)
+		if(thing.name)
+			counts[thing.name] = (counts[thing.name] || 0) + 1
 
 	// Turn our list into a nice string
 	var/list/item_strings = list()
-	for(var/name in items_list)
-		if(items_list[name] == 1)
-			item_strings += name
+	for(var/name in counts)
+		var/count = counts[name]
+		if(count > 1)
+			item_strings += "[count] [name]s"
 		else
-			item_strings += "[items_list[name]] [name]s"
+			item_strings += name
 
-	if(!length(item_strings))
-		return
+	// Join with commas, last item with "and"
+	var/item_msg = ""
+	var/counter = 0
+	for(var/item in item_strings)
+		counter += 1
+		if(counter == 1)
+			item_msg = item
+		else if(counter == item_strings.len)
+			item_msg = item_msg + " and " + item
+		else
+			item_msg = item_msg + ", " + item
 
-	item_strings[length(item_strings)] = "and [item_strings[length(item_strings)]]"
-	msg += item_strings.Join(", ")
+	msg += item_msg
 
 	// If our export has a custom message, add it to the end.
 	if(message)

@@ -38,6 +38,7 @@
 
 		var/obj/projectile/projectile_obj = new projectile(get_turf(src))
 		projectile_obj.firer = chassis
+		projectile_obj.fired_from = src
 		projectile_obj.preparePixelProjectile(target, source, modifiers, spread)
 
 		projectile_obj.fire()

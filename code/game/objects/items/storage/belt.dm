@@ -380,7 +380,9 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
-		/obj/item/shield/riot/tele
+		/obj/item/shield/riot/tele,
+		/obj/item/gun/ballistic/taser,
+		/obj/item/ammo_casing/taser
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -389,6 +391,7 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/deputy
@@ -401,6 +404,7 @@
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/webbing

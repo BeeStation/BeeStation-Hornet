@@ -1,0 +1,8 @@
+author: Tsunamiant, Powerfulbacon
+delete-after: true
+changes:
+  - rscadd: NPS-10 law-enforcement ballistic firearm, replacing the disabler.
+  - rscadd: APS-Arc ballistic taser, replacing the disabler in terms of non-lethal
+      usage.
+  - tweak: Removed disablers from almost every roundstart location.
+  - tweak: You can now declare a crimescene with the security holobarrier projector.

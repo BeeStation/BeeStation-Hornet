@@ -15,9 +15,6 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
-
-/obj/item/binoculars/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/two_handed)
 
 /obj/item/binoculars/Destroy()

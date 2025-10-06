@@ -202,8 +202,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
 
-	ComponentInitialize()
-
 	if(uses_integrity)
 		atom_integrity = max_integrity
 

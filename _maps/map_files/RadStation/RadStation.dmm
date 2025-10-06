@@ -2334,6 +2334,19 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
+"aKd" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/loot_jobscale/armoury/pistol_ammo,
+/obj/effect/loot_jobscale/armoury/pistol_ammo_box,
+/obj/effect/loot_jobscale/armoury/pistols,
+/obj/structure/closet/gun_locker{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "aKg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -8354,16 +8367,39 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "cIf" = (
-/obj/item/gun/energy/e_gun/dragnet{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/beacon/nettingportal,
 /obj/machinery/firealarm/directional/west,
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
@@ -11762,34 +11798,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "dMH" = (
-/obj/structure/rack,
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -11798,6 +11806,11 @@
 	bulb_colour = "#DE3A3A";
 	dir = 8;
 	nightshift_light_color = "#DE3A3A"
+	},
+/obj/effect/loot_jobscale/armoury/tasers,
+/obj/effect/loot_jobscale/armoury/taser_ammo_box,
+/obj/structure/closet/gun_locker{
+	anchored = 1
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
@@ -16033,26 +16046,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"fez" = (
-/obj/structure/table/reinforced,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/gun/energy/e_gun{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/brigdoor/westleft{
-	name = "energy Guns";
-	req_access_txt = "3"
-	},
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "feL" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Foyer";
@@ -27076,6 +27069,23 @@
 	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
+"iRQ" = (
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "energy Guns";
+	req_access_txt = "3"
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/beacon/nettingportal,
+/obj/item/gun/energy/e_gun/dragnet{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "iRV" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/chem_dispenser,
@@ -47554,22 +47564,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"pHx" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/gun/energy/disabler{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 5;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ai_monitored/security/armory)
 "pHE" = (
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
@@ -58291,29 +58285,6 @@
 "tla" = (
 /turf/open/floor/iron/dark,
 /area/storage/primary)
-"tlu" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red,
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 10
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/machinery/vending/deputy,
-/turf/open/floor/iron,
-/area/security/main)
 "tlA" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -62968,6 +62939,29 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
+"uIg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/vending/deputy,
+/turf/open/floor/iron,
+/area/security/main)
 "uIs" = (
 /turf/closed/wall,
 /area/hallway/primary/fore)
@@ -72902,17 +72896,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
-"xWC" = (
-/obj/machinery/jukebox{
-	req_access = "0"
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/status_display/evac{
-	pixel_x = -31;
-	pixel_y = -1
-	},
-/turf/open/floor/holofloor/wood,
-/area/security/main)
 "xWJ" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -72988,6 +72971,17 @@
 	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
+"xYq" = (
+/obj/machinery/jukebox{
+	req_access = "0"
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/status_display/evac{
+	pixel_x = -31;
+	pixel_y = -1
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/main)
 "xYt" = (
 /obj/structure/sink{
 	dir = 8;
@@ -100294,7 +100288,7 @@ uYx
 tqK
 cIf
 dMH
-pHx
+aKd
 oMO
 fIN
 pVN
@@ -101620,7 +101614,7 @@ voS
 cxh
 nEn
 eQz
-xWC
+xYq
 voS
 nWv
 fpn
@@ -102093,7 +102087,7 @@ uYx
 pIG
 goC
 eNe
-fez
+iRQ
 nYl
 fIN
 tVv
@@ -102627,7 +102621,7 @@ fHK
 fHK
 fHK
 fHK
-tlu
+uIg
 mOL
 tQM
 voS

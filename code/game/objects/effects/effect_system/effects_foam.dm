@@ -33,8 +33,8 @@
 	slippery_foam = FALSE
 	var/absorbed_plasma = 0
 
-/obj/effect/particle_effect/foam/firefighting/ComponentInitialize()
-	..()
+/obj/effect/particle_effect/foam/firefighting/Initialize(mapload)
+	. = ..()
 	RemoveElement(/datum/element/atmos_sensitive)
 
 /obj/effect/particle_effect/foam/firefighting/process()
@@ -115,8 +115,6 @@
 	START_PROCESSING(SSfastprocess, src)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
 
-/obj/effect/particle_effect/foam/ComponentInitialize()
-	. = ..()
 	if(slippery_foam)
 		AddComponent(/datum/component/slippery, 100)
 

@@ -379,7 +379,7 @@
 	force_glass_colour = TRUE
 	var/next_use_time = 0
 
-/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
+/obj/item/clothing/glasses/welding/ghostbuster/Initialize(mapload)
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
 	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)

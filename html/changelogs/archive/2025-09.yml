@@ -360,3 +360,42 @@
       it!
   - code_imp: Removed an unused var and proc [/atom/var/max_hit_damage] [/atom/proc/clear_filters]
   - code_imp: Re-implemented the previously commented signal [COMSIG_ATOM_UPDATE_INHAND_ICON]
+  pixelpoepleman:
+  - rscadd: New intercom in Box brig hall
+  - tweak: Fixed Card QM request console to be the 'Cargo' version instead of generic
+      'West'
+  - bugfix: Ferry Home docking port now fits the ferry on Box "Port Bay 2"
+2025-09-23:
+  ACanOpener:
+  - tweak: Renamed the "advanced cybernetic stomach" to "upgraded cybernetic stomach"
+      to be more consistent with other cybernetic organs.
+  Nakalon:
+  - balance: 10x'd the amount of power RTG's produce
+  - balance: 10x'd the amount of power Etherials drain from APCs
+  mrmanlikesbt:
+  - rscadd: Changelings can speak most languages now
+2025-09-24:
+  lord scrubling:
+  - balance: bioscrambler anomalies no longer instantly fire after spawning
+  - balance: the chance to have a limb replaced by a bioscrambler anomaly linearly
+      scales from guaranteed at 30 average bio armor to full protection at 90 bio
+      armor
+  - bugfix: bio protection properly protects against bioscrambler anomalies
+2025-09-26:
+  SunShine214:
+  - balance: Adjusted gas shielding powers. Plasma is now bad at shielding, nitrium
+      and tritium are much better then before.
+  - bugfix: Added access restrictions to the AGR monitor program. Assistants no longer
+      can ruin atmos techs days.
+  lord scrubling:
+  - rscadd: Rapid cable layers have a protolathe design under the advanced engineering
+      technode
+  - balance: Makeshift rcls have the same basic functions as the normal version
+  - bugfix: magboots not updating their slowdown when toggled
+  mrmanlikesbt, JohnFulpWillard:
+  - code_imp: Nuked ComponentInitialize(). Report anything strange!
+  rkz, Mothblocks:
+  - refactor: refactor GetFlatIcon to be clearer
+2025-09-27:
+  Rukofamicom:
+  - bugfix: Clown cars may now only be controlled by clowns

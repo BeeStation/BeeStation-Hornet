@@ -276,8 +276,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	add_weapon_description()
 
-	if(LAZYLEN(embedding))
-		updateEmbedding()
+	// this code is stupid, i know, i don't care, this is what it was equivalent to before i touched it
+	if(!LAZYLEN(embedding))
+		if(GLOB.embedpocalypse)
+			embedding = EMBED_POINTY
+			name = "pointy [name]"
+		else if(GLOB.stickpocalypse)
+			embedding = EMBED_HARMLESS
+			name = "sticky [name]"
+	updateEmbedding()
+
+	if(sharpness) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 /obj/item/Destroy()
 	master = null
@@ -348,22 +358,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
 		atom_destruction(MELEE)
-
-/obj/item/ComponentInitialize()
-	. = ..()
-
-	// this proc says it's for initializing components, but we're initializing elements too because it's you and me against the world >:)
-	if(!LAZYLEN(embedding))
-		if(GLOB.embedpocalypse)
-			embedding = EMBED_POINTY
-			name = "pointy [name]"
-		else if(GLOB.stickpocalypse)
-			embedding = EMBED_HARMLESS
-			name = "sticky [name]"
-	updateEmbedding()
-
-	if(sharpness) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user

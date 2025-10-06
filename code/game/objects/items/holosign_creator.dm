@@ -98,10 +98,82 @@
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
 	holosign_type = /obj/structure/holosign/barrier
+	actions_types = list(/datum/action/item_action/toggle_crimesigns)
 	sign_name = "holobarrier"
 	creation_time = 30
 	max_signs = 6
 	custom_price = 50
+	var/active_crimesign = FALSE
+	var/list/active_barriers = list()
+	var/crimesign_range = 4 //in tiles
+	var/cooldown_length = 5 MINUTES
+	var/obj/item/radio/radio
+	COOLDOWN_DECLARE(crimesign_projector_cooldown)
+
+/obj/item/holosign_creator/security/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
+
+	radio = new/obj/item/radio(src)
+	radio.set_listening(FALSE)
+	radio.set_frequency(FREQ_SECURITY)
+
+/obj/item/holosign_creator/security/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK)
+	QDEL_NULL(radio)
+	delete_barriers(FALSE)
+	. = ..()
+
+/// Signal proc for [COMSIG_ITEM_UI_ACTION_CLICK] that toggles crimesign on and off if our action button is clicked.
+/obj/item/holosign_creator/security/proc/on_action_click(obj/item/source, mob/user, datum/action)
+	SIGNAL_HANDLER
+
+	if(!active_crimesign)
+		if(COOLDOWN_FINISHED(src, crimesign_projector_cooldown))
+			spawn_barriers(user)
+		else
+			say("Error. Function on cooldown.")
+	else
+		delete_barriers(FALSE)
+
+	return COMPONENT_ACTION_HANDLED
+
+/obj/item/holosign_creator/security/proc/spawn_barriers(mob/user)
+	// Create a square that is 7 tiles radius(A), then one that is 6 in radius(B).
+	var/list/regionA = RANGE_TURFS(crimesign_range, user.loc)
+	var/list/regionB = RANGE_TURFS(crimesign_range - 1, user.loc)
+
+	// Remove all tiles of B from A to get the bounds.
+	var/list/regionC = regionA - regionB
+
+	// Go over each open turf in our bounds list, check for blacklisted objects, then spawn a barrier.
+	for(var/turf/open/floor/turf_candidate in regionC)
+		if(!turf_candidate.is_blocked_turf(TRUE))
+			var/obj/effect/crimesign/barrier = new /obj/effect/crimesign(turf_candidate, get_turf(src), crimesign_range)
+			active_barriers += barrier
+
+	playsound(user, 'sound/effects/crimesignalarm.ogg', 10, 0, 4)
+
+	radio.talk_into(src, "Attention: A secure area was declared by [user].")
+	say("BYSTANDERS ARE TO VACATE THE AREA.")
+	active_crimesign = TRUE
+	COOLDOWN_START(src, crimesign_projector_cooldown, cooldown_length)
+	addtimer(CALLBACK(src, PROC_REF(delete_barriers), TRUE), cooldown_length / 1.2)
+	return
+
+/obj/item/holosign_creator/security/proc/delete_barriers(fizzled)
+
+	if(!active_crimesign)
+		return
+
+	for(var/anything as anything in active_barriers)
+		active_barriers -= anything
+		qdel(anything)
+
+	if(fizzled)
+		say("Error. Charge depleted.")
+	active_crimesign = FALSE
+	return
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"

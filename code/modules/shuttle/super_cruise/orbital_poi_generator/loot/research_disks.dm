@@ -10,8 +10,6 @@
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
 		name = "research disk ([node.display_name])"
 
-/obj/item/disk/tech_disk/research/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#e7a3e4", TRUE, TRUE)
 	//After 15 minutes the tracking beacon turns off
 	addtimer(CALLBACK(src, PROC_REF(signal_decay)), 15 MINUTES)
