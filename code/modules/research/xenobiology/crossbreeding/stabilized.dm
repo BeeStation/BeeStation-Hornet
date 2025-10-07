@@ -65,6 +65,9 @@ Stabilized extracts:
 		holder.apply_status_effect(effectpath, src)
 		return PROCESS_KILL
 
+	// Effect exists and is permanent, do nothing or the extract will break because it relies on the status effect to start processing again.
+	// Users will not carry two of the same extract for long, so do not kill processing here.
+
 //Colors and subtypes:
 /obj/item/slimecross/stabilized/grey
 	colour = SLIME_TYPE_GREY
