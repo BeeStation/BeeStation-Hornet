@@ -1170,6 +1170,7 @@
 #include "code\datums\votes\custom_vote.dm"
 #include "code\datums\votes\map_vote.dm"
 #include "code\datums\votes\restart_vote.dm"
+#include "code\datums\votes\storyteller_vote.dm"
 #include "code\datums\weather\weather.dm"
 #include "code\datums\weather\weather_types\acid_rain.dm"
 #include "code\datums\weather\weather_types\ash_storm.dm"
