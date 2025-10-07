@@ -11,7 +11,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 	layer = LOW_OBJ_LAYER
 	density = TRUE
-	max_integrity = 100
 	can_be_unanchored = FALSE
 	var/mineral = /obj/item/stack/sheet/iron
 	var/mineral_amount = 2
@@ -26,6 +25,11 @@
 	place_real_wall()
 	desc = realwall.desc
 	name = realwall.name
+	max_integrity = realwall.max_integrity
+
+/obj/structure/falsewall/Destroy()
+	if(!QDELETED(realwall))
+		qdel(realwall)
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
@@ -231,7 +235,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
 	mineral = /obj/item/stack/sheet/mineral/diamond
 	walltype = /turf/closed/wall/mineral/diamond
-	max_integrity = 800
 
 /obj/structure/falsewall/plasma
 	icon = 'icons/turf/walls/plasma_wall.dmi'
