@@ -794,6 +794,7 @@
 #include "code\datums\components\itembound.dm"
 #include "code\datums\components\jam_receiver.dm"
 #include "code\datums\components\jousting.dm"
+#include "code\datums\components\jukebox.dm"
 #include "code\datums\components\knockoff.dm"
 #include "code\datums\components\larryknife.dm"
 #include "code\datums\components\leanable.dm"
