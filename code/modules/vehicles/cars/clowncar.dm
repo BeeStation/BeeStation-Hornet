@@ -1,4 +1,4 @@
-/obj/vehicle/sealed/car/clowncar
+/obj/vehicle/sealed/car/clowncar/
 	name = "clown car"
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
@@ -16,7 +16,6 @@
 	var/cannonmode = FALSE
 	var/cannonbusy = FALSE
 
-
 /datum/armor/car_clowncar
 	melee = 70
 	bullet = 40
@@ -30,11 +29,16 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/horn/clowncar, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Thank, VEHICLE_CONTROL_KIDNAPPED)
 
-/obj/vehicle/sealed/car/clowncar/relaymove(mob/living/user, direction)
+/obj/vehicle/sealed/car/clowncar/syndicate/generate_actions()
+	. = ..()
+	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
+
+/obj/vehicle/sealed/car/clowncar/syndicate/relaymove(mob/living/user, direction)
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/rider = user
-	if(rider.mind?.assigned_role != JOB_NAME_CLOWN) //Only clowns can drive the car.
+	if(rider.mind?.assigned_role != JOB_NAME_CLOWN) //Only clowns can drive the syndicate version of the clown car.
 		return FALSE
 	return ..()
 
@@ -126,10 +130,9 @@
 
 /obj/vehicle/sealed/car/clowncar/on_emag(mob/user)
 	..()
-	to_chat(user, span_danger("You scramble the clowncar child safety lock and a panel with 6 colorful buttons appears!"))
-	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
+	to_chat(user, span_danger("You scramble the clowncar safety lock and enable high-octane waddling!"))
 	AddComponent(/datum/component/waddling)
+	movedelay = 0.5
 
 /obj/vehicle/sealed/car/clowncar/Destroy()
 	playsound(src, 'sound/vehicles/clowncar_fart.ogg', 100)

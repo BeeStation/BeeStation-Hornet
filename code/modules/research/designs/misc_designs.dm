@@ -97,6 +97,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL			//HONK!
 
+/datum/design/clown_car
+	name = "Clown Car"
+	desc = "A small car that the clown can use to take people around the station in style!"
+	id = "clown_car"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/bananium = 5000, /datum/material/plastic = 2000)
+	build_path = /obj/vehicle/sealed/car/clowncar
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/mesons
 	name = "Optical Meson Scanners"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
