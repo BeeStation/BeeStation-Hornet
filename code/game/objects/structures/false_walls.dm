@@ -29,7 +29,7 @@
 
 /obj/structure/falsewall/Destroy()
 	if(!QDELETED(realwall))
-		qdel(realwall)
+		realwall.ScrapeAway()
 	return ..()
 
 /obj/structure/falsewall/ratvar_act()
