@@ -126,3 +126,8 @@
 2025-10-07:
   mrmanlikesbt:
   - rscadd: Added dynamic storytellers
+  mrmanlikesbt, tralezab, Cornelius Bogfrollup Fitzgerald, Mooshimi, MrMelbert, TealSeer, JohnFulpWillard:
+  - bugfix: Fixed jukeboxes
+  - refactor: Refactored jukebox code
+  - imageadd: Gave jukeboxes a new sprite
+  - rscdel: Deleted some ancient unused sprites
