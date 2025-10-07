@@ -2,8 +2,6 @@
  * False Walls
  */
 /obj/structure/falsewall
-	name = "wall"
-	desc = "A huge chunk of metal used to separate rooms."
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
@@ -13,22 +11,21 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 	layer = LOW_OBJ_LAYER
 	density = TRUE
-	opacity = TRUE
 	max_integrity = 100
 	can_be_unanchored = FALSE
-	can_atmos_pass = ATMOS_PASS_DENSITY
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
-	rad_insulation = RAD_MEDIUM_INSULATION
 	var/mineral = /obj/item/stack/sheet/iron
 	var/mineral_amount = 2
 	var/walltype = /turf/closed/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
-
+	var/turf/realwall
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE, TRUE)
+	place_real_wall()
+	desc = realwall.desc
+	name = realwall.name
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
@@ -48,16 +45,22 @@
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = FALSE
 			return
+	else
+		realwall.ScrapeAway() //Remove the real wall when we start to open
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)), 5)
 
 /obj/structure/falsewall/proc/toggle_open()
 	if(!QDELETED(src))
 		set_density(!density)
-		set_opacity(density)
-		z_flags &= density ? (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP) : ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		opening = FALSE
 		update_icon()
-		air_update_turf(TRUE, !density)
+		if(density)
+			place_real_wall()
+
+/obj/structure/falsewall/proc/place_real_wall()
+	realwall = get_turf(src) //Get the turf the false wall is on and temporarily store it
+	realwall.PlaceOnTop(walltype) //Place the real wall where the false wall is
+	realwall = get_turf(src) //Store the real wall for deleting the next time the turf is opened
 
 /obj/structure/falsewall/update_icon()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	if(opening)
@@ -77,13 +80,6 @@
 		else
 			icon_state = "fwall_open"
 
-/obj/structure/falsewall/proc/ChangeToWall(delete = 1)
-	var/turf/T = get_turf(src)
-	T.PlaceOnTop(walltype)
-	if(delete)
-		qdel(src)
-	return T
-
 /obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, span_warning("You must wait until the door has stopped moving!"))
@@ -99,7 +95,7 @@
 				to_chat(user, span_warning("[src] bolts must be tightened on the floor!"))
 				return
 			user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_notice("You tighten the bolts on the wall."))
-			ChangeToWall()
+			qdel(src) //There is a real wall here all along now.
 		else
 			to_chat(user, span_warning("You can't reach, close it first!"))
 
@@ -141,8 +137,6 @@
  */
 
 /obj/structure/falsewall/reinforced
-	name = "reinforced wall"
-	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
@@ -164,8 +158,6 @@
  */
 
 /obj/structure/falsewall/uranium
-	name = "uranium wall"
-	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
@@ -201,8 +193,6 @@
  */
 
 /obj/structure/falsewall/gold
-	name = "gold wall"
-	desc = "A wall with gold plating. Swag!"
 	icon = 'icons/turf/walls/gold_wall.dmi'
 	icon_state = "gold_wall-0"
 	base_icon_state = "gold_wall"
@@ -213,8 +203,6 @@
 	walltype = /turf/closed/wall/mineral/gold
 
 /obj/structure/falsewall/silver
-	name = "silver wall"
-	desc = "A wall with silver plating. Shiny."
 	icon = 'icons/turf/walls/silver_wall.dmi'
 	icon_state = "silver_wall-0"
 	base_icon_state = "silver_wall"
@@ -225,8 +213,6 @@
 	walltype = /turf/closed/wall/mineral/silver
 
 /obj/structure/falsewall/copper
-	name = "copper wall"
-	desc = "A wall with copper plating. Shiny!"
 	icon = 'icons/turf/walls/copper_wall.dmi'
 	icon_state = "copper_wall-0"
 	base_icon_state = "copper_wall"
@@ -237,8 +223,6 @@
 	walltype = /turf/closed/wall/mineral/copper
 
 /obj/structure/falsewall/diamond
-	name = "diamond wall"
-	desc = "A wall with diamond plating. You monster."
 	icon = 'icons/turf/walls/diamond_wall.dmi'
 	icon_state = "diamond_wall-0"
 	base_icon_state = "diamond_wall"
@@ -250,8 +234,6 @@
 	max_integrity = 800
 
 /obj/structure/falsewall/plasma
-	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definitely a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
 	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
@@ -287,8 +269,6 @@
 	. = ..()
 
 /obj/structure/falsewall/bananium
-	name = "bananium wall"
-	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
 	icon_state = "bananium_wall-0"
 	base_icon_state = "bananium_wall"
@@ -299,8 +279,6 @@
 	walltype = /turf/closed/wall/mineral/bananium
 
 /obj/structure/falsewall/sandstone
-	name = "sandstone wall"
-	desc = "A wall with sandstone plating. Rough."
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
@@ -312,8 +290,6 @@
 	canSmoothWith = list() //Sandstone walls
 
 /obj/structure/falsewall/wood
-	name = "wooden wall"
-	desc = "A wall with wooden plating. Stiff."
 	icon = 'icons/turf/walls/wood_wall.dmi'
 	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
@@ -324,8 +300,6 @@
 	walltype = /turf/closed/wall/mineral/wood
 
 /obj/structure/falsewall/bamboo
-	name = "bamboo wall"
-	desc = "A wall with bamboo finish. Zen."
 	icon = 'icons/turf/walls/bamboo_wall.dmi'
 	icon_state = "bamboo-0"
 	base_icon_state = "bamboo"
@@ -336,8 +310,6 @@
 	walltype = /turf/closed/wall/mineral/bamboo
 
 /obj/structure/falsewall/iron
-	name = "rough iron wall"
-	desc = "A wall with rough iron plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
 	icon_state = "iron_wall-0"
 	base_icon_state = "iron_wall"
@@ -349,8 +321,6 @@
 	walltype = /turf/closed/wall/mineral/iron
 
 /obj/structure/falsewall/abductor
-	name = "alien wall"
-	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
@@ -361,8 +331,6 @@
 	walltype = /turf/closed/wall/mineral/abductor
 
 /obj/structure/falsewall/titanium
-	name = "wall"
-	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
 	icon_state = "shuttle_wall-0"
 	base_icon_state = "shuttle_wall"
@@ -373,8 +341,6 @@
 	walltype = /turf/closed/wall/mineral/titanium
 
 /obj/structure/falsewall/plastitanium
-	name = "wall"
-	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
@@ -385,8 +351,6 @@
 	walltype = /turf/closed/wall/mineral/plastitanium
 
 /obj/structure/falsewall/brass
-	name = "clockwork wall"
-	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
