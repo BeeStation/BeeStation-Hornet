@@ -1,4 +1,4 @@
-/obj/vehicle/sealed/car/clowncar/
+/obj/vehicle/sealed/car/clowncar
 	name = "clown car"
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
