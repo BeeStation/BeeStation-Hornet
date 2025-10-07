@@ -371,6 +371,3 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
-
-/obj/structure/falsewall/brass/Destroy()
-	return ..()
