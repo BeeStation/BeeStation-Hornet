@@ -43,6 +43,7 @@
 #define SPLASH_DESC_FILE "splash.json"
 #define HERETIC_INFLUENCE_FILE "heretic_influences.json"
 #define MALFUNCTION_FLAVOR_FILE "malfunction_flavor.json"
+#define APPROVED_CIRCUITS_FILE "approved_circuits.json"
 /// File location for hallucination lines
 #define HALLUCINATION_FILE "hallucination.json"
 

@@ -256,6 +256,17 @@
 		"usb_cable",
 	)
 
+//Circuit Templates
+/datum/techweb_node/circuit_templates
+	id = "circuit_templates"
+	tech_tier = 0
+	starting_node = TRUE
+	display_name = "Professor's Circuits"
+	description = "I need some help with circuits. Can you lend a hand?"
+	design_ids = list(
+		"template_hello_world",
+	)
+
 /////////////////////////Biotech/////////////////////////
 /datum/techweb_node/biotech
 	id = "biotech"
