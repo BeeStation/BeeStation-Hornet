@@ -32,6 +32,9 @@
 /obj/structure/falsewall/Destroy()
 	if(!QDELETED(realwall) && !bolting_back_down)
 		realwall.ScrapeAway()
+		var/turf/underneath = get_turf(src)
+		if(!isfloorturf(underneath)) //These can only be built on floors anyway, but the linter screams at me because space is left behind when they are forcibly deleted under some arcane conditions I can't replicate.
+			underneath.PlaceOnTop(/turf/open/floor/plating)
 	return ..()
 
 /obj/structure/falsewall/ratvar_act()
@@ -94,13 +97,6 @@
 
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(density)
-			var/turf/T = get_turf(src)
-			if(T.density)
-				to_chat(user, span_warning("[src] is blocked!"))
-				return
-			if(!isfloorturf(T))
-				to_chat(user, span_warning("[src] bolts must be tightened on the floor!"))
-				return
 			user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_notice("You tighten the bolts on the wall."))
 			bolting_back_down = TRUE
 			qdel(src)
