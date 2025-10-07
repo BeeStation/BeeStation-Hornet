@@ -89,6 +89,21 @@
 	if(opening)
 		to_chat(user, span_warning("You must wait until the door has stopped moving!"))
 		return
+
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(density)
+			var/turf/T = get_turf(src)
+			if(T.density)
+				to_chat(user, span_warning("[src] is blocked!"))
+				return
+			if(!isfloorturf(T))
+				to_chat(user, span_warning("[src] bolts must be tightened on the floor!"))
+				return
+			user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_notice("You tighten the bolts on the wall."))
+			qdel(src) //There is a real wall here all along now.
+		else
+			to_chat(user, span_warning("You can't reach, close it first!"))
+
 	else if(W.tool_behaviour == TOOL_WELDER)
 		if(W.use_tool(src, user, 0, volume=50))
 			dismantle(user, TRUE)
