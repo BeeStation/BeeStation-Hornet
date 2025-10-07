@@ -30,6 +30,7 @@
 /obj/structure/falsewall/Destroy()
 	if(!QDELETED(realwall))
 		qdel(realwall)
+	return ..()
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
