@@ -1,0 +1,8 @@
+author: mrmanlikesbt, tralezab, Cornelius Bogfrollup Fitzgerald, Mooshimi, MrMelbert,
+  TealSeer, JohnFulpWillard
+delete-after: true
+changes:
+  - bugfix: Fixed jukeboxes
+  - refactor: Refactored jukebox code
+  - imageadd: Gave jukeboxes a new sprite
+  - rscdel: Deleted some ancient unused sprites
