@@ -12,6 +12,8 @@
 	layer = LOW_OBJ_LAYER
 	density = TRUE
 	can_be_unanchored = FALSE
+	///This variable is used to preserve realwall if the false wall is deleted via being bolted down instead of actually destroyed.
+	var/bolting_back_down = FALSE
 	var/mineral = /obj/item/stack/sheet/iron
 	var/mineral_amount = 2
 	var/walltype = /turf/closed/wall
@@ -28,7 +30,7 @@
 	max_integrity = realwall.max_integrity
 
 /obj/structure/falsewall/Destroy()
-	if(!QDELETED(realwall))
+	if(!QDELETED(realwall) && !bolting_back_down)
 		realwall.ScrapeAway()
 	return ..()
 
@@ -90,7 +92,7 @@
 		to_chat(user, span_warning("You must wait until the door has stopped moving!"))
 		return
 
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+	if(W.tool_behaviour == TOOL_WRENCH)
 		if(density)
 			var/turf/T = get_turf(src)
 			if(T.density)
@@ -100,7 +102,8 @@
 				to_chat(user, span_warning("[src] bolts must be tightened on the floor!"))
 				return
 			user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_notice("You tighten the bolts on the wall."))
-			qdel(src) //There is a real wall here all along now.
+			bolting_back_down = TRUE
+			qdel(src)
 		else
 			to_chat(user, span_warning("You can't reach, close it first!"))
 
