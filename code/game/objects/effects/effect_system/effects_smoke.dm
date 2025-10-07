@@ -36,13 +36,11 @@
 	. = ..()
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 	// Smoke out any mobs on initialise
 	for (var/mob/living/target in loc)
 		target.apply_status_effect(/datum/status_effect/smoke)
 
-/obj/effect/particle_effect/smoke/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)

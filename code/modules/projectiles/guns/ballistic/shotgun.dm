@@ -366,8 +366,12 @@
 	. = ..()
 	. += "<span class='notice'>Right-click to shoot the hook.</span>"
 
-/obj/item/gun/ballistic/shotgun/hook/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
-	hook.afterattack(target, user, proximity_flag, click_parameters)
+/obj/item/gun/ballistic/shotgun/hook/ranged_attack_secondary(atom/target, mob/living/user, params)
+	hook.pull_trigger(target, user, params)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/gun/ballistic/shotgun/hook/pre_attack_secondary(atom/target, mob/living/user, params)
+	hook.pull_trigger(target, user, params)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Lever action shotgun, formerly on thefactory.dm

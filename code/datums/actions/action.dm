@@ -37,6 +37,8 @@
 	// =====================================
 	// Action Appearance
 	// =====================================
+	/// Do we come with a button?
+	var/has_button = TRUE
 	/// The style the button's tooltips appear to be
 	var/buttontooltipstyle = ""
 	/// Whether the button becomes transparent when it can't be used or just reddened
@@ -418,6 +420,9 @@
 
 /// Adds our action button to the screen of the passed viewer.
 /datum/action/proc/show_to(mob/viewer)
+	if (!has_button)
+		return
+
 	var/datum/hud/our_hud = viewer.hud_used
 	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
 		return

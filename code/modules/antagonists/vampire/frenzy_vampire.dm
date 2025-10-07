@@ -1,26 +1,9 @@
 /**
- * # FrenzyGrab
- *
- * The martial art given to Vampires so they can instantly aggressively grab people.
- */
-/datum/martial_art/frenzygrab
-	name = "Frenzy Grab"
-	id = MARTIALART_FRENZYGRAB
-
-/datum/martial_art/frenzygrab/grab_act(mob/living/user, mob/living/target)
-	if(user != target)
-		target.grabbedby(user)
-		target.grippedby(user, instant = TRUE)
-		return TRUE
-	return ..()
-
-/**
  * # Status effect
  *
  * This is the status effect given to Vampires in a Frenzy
  * This deals with everything entering/exiting Frenzy is meant to deal with.
  */
-
 /atom/movable/screen/alert/status_effect/frenzy
 	name = "Frenzy"
 	desc = "You are in a Frenzy! You are entirely Feral and, depending on your Clan, fighting for your life!"
@@ -37,17 +20,19 @@
 
 	/// Boolean on whether they were an AdvancedToolUser, to give the trait back upon exiting.
 	var/was_tooluser = FALSE
-	/// The stored Vampire antag datum
+	/// We give stamina resistance when we have the frenzy status effect. Let's keep track of it
+	var/previous_stamina_mod
+	/// The stored vampire antag datum
 	var/datum/antagonist/vampire/vampiredatum
 
 	var/static/frenzy_traits = list(
 		TRAIT_MUTE,
 		TRAIT_DEAF,
-		TRAIT_STUNIMMUNE
+		TRAIT_STUNIMMUNE,
 	)
 
 /datum/status_effect/frenzy/get_examine_text()
-	return span_notice("They seem... inhumane, and feral!")
+	return span_danger("They seem... inhumane, and feral!")
 
 /atom/movable/screen/alert/status_effect/masquerade/MouseEntered(location,control,params)
 	desc = initial(desc)
@@ -55,53 +40,89 @@
 
 /datum/status_effect/frenzy/on_apply()
 	. = ..()
-	var/mob/living/carbon/human/user = owner
-	vampiredatum = IS_VAMPIRE(user)
+	var/mob/living/carbon/carbon_owner = owner
+	vampiredatum = IS_VAMPIRE(carbon_owner)
 
-	// Disable ALL Powers and notify their entry
-	vampiredatum.DisableAllPowers(forced = TRUE)
-	to_chat(owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
-	to_chat(owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
-	owner.balloon_alert(owner, "you enter a frenzy!")
-	SEND_SIGNAL(vampiredatum, VAMPIRE_ENTERS_FRENZY)
+	ASSERT(isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
+
+	// Basic stuff
+	carbon_owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
+	carbon_owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
+	carbon_owner.uncuff()
+	vampiredatum.frenzygrab.teach(carbon_owner, TRUE)
+	vampiredatum.frenzied = TRUE
+
+	// Alert them
+	vampiredatum.disable_all_powers(forced = TRUE)
+	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
+	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
+	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")
+
+	// Stamina modifier
+	if (ishuman(carbon_owner))
+		var/mob/living/carbon/human/human_owner = carbon_owner
+		previous_stamina_mod = human_owner.physiology.stamina_mod
+		human_owner.physiology.stamina_mod *= 0.4
 
 	// Traits
-	owner.add_traits(frenzy_traits, TRAIT_VAMPIRE)
-	if(!HAS_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER))
+	carbon_owner.add_traits(frenzy_traits, TRAIT_VAMPIRE)
+	if(!HAS_TRAIT(carbon_owner, TRAIT_ADVANCEDTOOLUSER))
 		was_tooluser = TRUE
-		ADD_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
-
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
-	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
-	vampiredatum.frenzygrab.teach(user, TRUE)
-	user.uncuff()
-	vampiredatum.frenzied = TRUE
+		ADD_TRAIT(carbon_owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
 
 /datum/status_effect/frenzy/on_remove()
 	. = ..()
-	var/mob/living/carbon/human/user = owner
-	owner.balloon_alert(owner, "you come back to your senses.")
+	var/mob/living/carbon/carbon_owner = owner
 
-	// Traits
-	owner.remove_traits(frenzy_traits, TRAIT_VAMPIRE)
-	if(was_tooluser)
-		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
-		was_tooluser = FALSE
-
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
-	vampiredatum.frenzygrab.remove(user)
-	owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
-
-	SEND_SIGNAL(vampiredatum, VAMPIRE_EXITS_FRENZY)
+	// Basic stuff
+	carbon_owner.remove_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
+	carbon_owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
+	vampiredatum.frenzygrab.remove(carbon_owner)
 	vampiredatum.frenzied = FALSE
 
+	// Alert them
+	carbon_owner.balloon_alert(carbon_owner, "you come back to your senses.")
+
+	// Stamina modifier
+	if (ishuman(carbon_owner))
+		var/mob/living/carbon/human/human_owner = carbon_owner
+		human_owner.physiology.stamina_mod = previous_stamina_mod
+
+	// Traits
+	carbon_owner.remove_traits(frenzy_traits, TRAIT_VAMPIRE)
+	if(was_tooluser)
+		REMOVE_TRAIT(carbon_owner, TRAIT_ADVANCEDTOOLUSER, TRAIT_FRENZY)
+		was_tooluser = FALSE
+
+
 /datum/status_effect/frenzy/tick()
-	var/mob/living/carbon/human/user = owner
+	var/mob/living/carbon/carbon_owner = owner
 	if(!vampiredatum?.frenzied)
 		return
-	user.adjustFireLoss(0.75)
-	user.Jitter(5)
+	carbon_owner.adjustFireLoss(0.75)
+	carbon_owner.Jitter(5)
 
 /datum/movespeed_modifier/frenzy_speed
-	blacklisted_movetypes = (FLYING|FLOATING)
+	blacklisted_movetypes = FLYING | FLOATING
 	multiplicative_slowdown = -0.5
+
+/**
+ * # FrenzyGrab
+ *
+ * The martial art given to Vampires so they can instantly aggressively grab people.
+ */
+#define MARTIALART_FRENZYGRAB "frenzy grabbing"
+
+/datum/martial_art/frenzygrab
+	name = "Frenzy Grab"
+	id = MARTIALART_FRENZYGRAB
+
+/datum/martial_art/frenzygrab/grab_act(mob/living/user, mob/living/target)
+	if(user == target)
+		return ..()
+
+	target.grabbedby(user)
+	target.grippedby(user, instant = TRUE)
+	return TRUE
+
+#undef MARTIALART_FRENZYGRAB

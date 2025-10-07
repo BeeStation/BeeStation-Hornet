@@ -54,7 +54,7 @@
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
 
-/obj/structure/closet/crate/animate_door(var/closing = FALSE)
+/obj/structure/closet/crate/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -209,6 +209,7 @@
 	new /obj/item/reagent_containers/blood/OMinus(src)
 	new /obj/item/reagent_containers/blood/OPlus(src)
 	new /obj/item/reagent_containers/blood/lizard(src)
+	new /obj/item/reagent_containers/blood/synthetic(src)
 	new /obj/item/reagent_containers/blood/ethereal(src)
 	new /obj/item/reagent_containers/blood/oozeling(src)
 	for(var/i in 1 to 3)
@@ -220,14 +221,14 @@
 
 /obj/structure/closet/crate/freezer/surplus_limbs/PopulateContents()
 	. = ..()
-	new /obj/item/bodypart/l_arm/robot/surplus(src)
-	new /obj/item/bodypart/l_arm/robot/surplus(src)
-	new /obj/item/bodypart/r_arm/robot/surplus(src)
-	new /obj/item/bodypart/r_arm/robot/surplus(src)
-	new /obj/item/bodypart/l_leg/robot/surplus(src)
-	new /obj/item/bodypart/l_leg/robot/surplus(src)
-	new /obj/item/bodypart/r_leg/robot/surplus(src)
-	new /obj/item/bodypart/r_leg/robot/surplus(src)
+	new /obj/item/bodypart/arm/left/robot/surplus(src)
+	new /obj/item/bodypart/arm/left/robot/surplus(src)
+	new /obj/item/bodypart/arm/right/robot/surplus(src)
+	new /obj/item/bodypart/arm/right/robot/surplus(src)
+	new /obj/item/bodypart/leg/left/robot/surplus(src)
+	new /obj/item/bodypart/leg/left/robot/surplus(src)
+	new /obj/item/bodypart/leg/right/robot/surplus(src)
+	new /obj/item/bodypart/leg/right/robot/surplus(src)
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."

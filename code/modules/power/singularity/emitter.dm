@@ -12,15 +12,13 @@
 	circuit = /obj/item/circuitboard/machine/emitter
 
 	use_power = NO_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 600
+	idle_power_usage = 500 WATT
+	active_power_usage = 5 KILOWATT
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"
 	///Is the machine active?
 	var/active = FALSE
-	///Does the machine have power?
-	var/powered = FALSE
 	///Seconds before the next shot
 	var/fire_delay = 10 SECONDS
 	///Max delay before firing
@@ -115,11 +113,11 @@
 
 	if(!active)
 		. += span_notice("Its status display is currently turned off.")
-	else if(!powered)
+	else if(!powered())
 		. += span_notice("Its status display is glowing faintly.")
 	else
 		. += span_notice("Its status display reads: Emitting one beam every <b>[DisplayTimeText(fire_delay)]</b>.")
-		. += span_notice("Power consumption at <b>[display_power(active_power_usage)]</b>.")
+		. += span_notice("Power consumption at <b>[display_power_persec(active_power_usage)]</b>.")
 
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
@@ -180,20 +178,16 @@
 		update_appearance()
 		return
 	if(!active)
+		update_use_power(IDLE_POWER_USE)
 		return
-	if(active_power_usage && surplus() < active_power_usage)
-		if(powered)
-			powered = FALSE
-			update_appearance()
-			investigate_log("lost power and turned <font color='red'>OFF</font> at [AREACOORD(src)]", INVESTIGATE_ENGINES)
-			log_game("Emitter lost power in [AREACOORD(src)]")
-		return
-
-	add_load(active_power_usage)
-	if(!powered)
-		powered = TRUE
+	update_use_power(ACTIVE_POWER_USE)
+	if(!powered())
 		update_appearance()
 		investigate_log("regained power and turned <font color='green'>ON</font> at [AREACOORD(src)]", INVESTIGATE_ENGINES)
+	else
+		update_appearance()
+		investigate_log("lost power and turned <font color='red'>OFF</font> at [AREACOORD(src)]", INVESTIGATE_ENGINES)
+		log_game("Emitter lost power in [AREACOORD(src)]")
 	if(charge <= 80)
 		charge += 2.5 * delta_time
 	if(!check_delay() || manual == TRUE)

@@ -295,9 +295,9 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(istype(parent, /obj/item/gun)) // If we have a gun, shoot it at the target
 		var/obj/item/gun/G = parent
 		if(holding_at_gunpoint)
-			G.afterattack(target, user, null, null, GUN_AIMED_POINTBLANK)
+			G.pull_trigger(target, user, null, GUN_AIMED_POINTBLANK)
 		else
-			G.afterattack(target, user, null, null, GUN_AIMED)
+			G.pull_trigger(target, user, null, GUN_AIMED)
 		stop_aiming()
 		return TRUE
 	if(isitem(parent)) // Otherwise, just wave it at them
@@ -349,7 +349,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	layer = ABOVE_MOB_LAYER
 
 // Initializes aiming component in bananas
-/obj/item/food/grown/banana/ComponentInitialize()
+/obj/item/food/grown/banana/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/aiming)
 

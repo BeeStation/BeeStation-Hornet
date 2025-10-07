@@ -461,7 +461,7 @@
 		to_chat(src, span_warning("[target] is incompatible with our internal matter recycler."))
 	return FALSE
 
-/mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
+/mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(gains)
 	var/datum/antagonist/swarmer/S = mind?.has_antag_datum(/datum/antagonist/swarmer)
 	if(S)
 		S.swarm.total_resources_eaten += gains

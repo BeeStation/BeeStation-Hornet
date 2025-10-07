@@ -18,7 +18,7 @@
 	button_icon_state = "power_dominate"
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
 		This will completely immobilize them for the next 10 seconds."
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS|BP_CANT_USE_DURING_SOL
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS | BP_CANT_USE_DURING_SOL
 	bloodcost = 15
 	constant_bloodcost = 2
 	cooldown_time = 50 SECONDS
@@ -45,28 +45,14 @@
 	bloodcost = 30
 	cooldown_time = 35 SECONDS
 
-/datum/action/vampire/targeted/tremere/dominate/check_valid_target(atom/target_atom)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	// Has to be alive
-	if(!isliving(target_atom))
-		return FALSE
-	// Has to have a mind
-	var/mob/living/selected_target = target_atom
-	if(!selected_target.mind)
-		owner.balloon_alert(owner, "[selected_target] is mindless.")
-		return FALSE
-
 /datum/action/vampire/targeted/tremere/dominate/advanced
 	name = "Level 4: Possession"
 	upgraded_power = /datum/action/vampire/targeted/tremere/dominate/advanced/two
 	level_current = 4
 	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
-		This will completely immobilize, mute, and blind them for the next 14 seconds.\n\
-		However, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute Vassal.\n\
+		This will completely immobilize, mute, and blind them for the next 15 seconds.\n\
+		Additionally, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute vassal.\n\
 		After 5 minutes, they will die.\n\
 		If you use this on a dead Vassal, you will revive them."
 	background_icon_state = "tremere_power_gold_off"
@@ -81,109 +67,134 @@
 	level_current = 5
 	upgraded_power = null
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
-		This will completely immobilize, mute, and blind them for the next 14 seconds.\n\
-		However, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute Vassal.\n\
+		This will completely immobilize, mute, and blind them for the next 17 seconds.\n\
+		Additionally, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute vassal.\n\
 		After 8 minutes, they will die.\n\
 		If you use this on a dead Vassal, you will revive them."
 	bloodcost = 100
 	cooldown_time = 2 MINUTES
 
-// The advanced version
+/datum/action/vampire/targeted/tremere/dominate/check_valid_target(atom/target_atom)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	// Must be a carbon or silicon
+	if(!iscarbon(target_atom) && !issilicon(target_atom))
+		return FALSE
+	var/mob/living/living_target = target_atom
+
+	// Has to have a mind
+	if(!living_target.mind)
+		living_target.balloon_alert(owner, "[living_target] is mindless.")
+		return FALSE
+
 /datum/action/vampire/targeted/tremere/dominate/advanced/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
 		return FALSE
 
 	// Check range
-	var/mob/living/selected_target = target_atom
-	if((IS_VASSAL(selected_target) || selected_target.stat >= SOFT_CRIT) && !owner.Adjacent(selected_target))
-		owner.balloon_alert(owner, "out of range.")
+	var/mob/living/living_target = target_atom
+	if(living_target.stat >= SOFT_CRIT && !owner.Adjacent(living_target))
+		living_target.balloon_alert(owner, "out of range.")
 		return FALSE
-	return TRUE
 
 /datum/action/vampire/targeted/tremere/dominate/FireTargetedPower(atom/target_atom)
 	. = ..()
-	var/mob/living/target = target_atom
-	var/mob/living/user = owner
-	if(target.stat >= SOFT_CRIT && user.Adjacent(target) && level_current >= 4)
-		attempt_vassalize(target, user)
-		return
-	else if(IS_VASSAL(target))
-		owner.balloon_alert(owner, "vassal cant be revived")
-		return
-	attempt_mesmerize(target, user)
+	var/mob/living/living_target = target_atom
 
-/datum/action/vampire/targeted/tremere/dominate/proc/attempt_mesmerize(mob/living/target, mob/living/user)
+	if(living_target.stat >= SOFT_CRIT && owner.Adjacent(living_target) && level_current >= 4)
+		attempt_vassalize(living_target)
+	else if(living_target.stat == CONSCIOUS)
+		attempt_mesmerize(living_target)
+
+/datum/action/vampire/targeted/tremere/dominate/proc/attempt_mesmerize(mob/living/living_target)
 	owner.balloon_alert(owner, "attempting to mesmerize.")
-	if(!do_after(user, 3 SECONDS, target, NONE, TRUE, hidden = TRUE))
+	if(!do_after(owner, 4 SECONDS, living_target, hidden = TRUE))
 		return
 
 	power_activated_sucessfully()
-	var/power_time = 90 + level_current * 15
-	if(IS_CURATOR(target))
-		to_chat(target, span_notice("You feel you something crawling under your skin, but it passes."))
+	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS
+	if(IS_CURATOR(living_target))
+		to_chat(living_target, span_notice("You feel you something crawling under your skin, but it passes."))
 		return
-	if(HAS_TRAIT_FROM(target, TRAIT_MUTE, TRAIT_VAMPIRE))
-		owner.balloon_alert(owner, "[target] is already in some form of hypnotic gaze.")
+	if(HAS_TRAIT_FROM(living_target, TRAIT_MUTE, TRAIT_MESMERIZED))
+		owner.balloon_alert(owner, "[living_target] is already in some form of hypnotic gaze.")
 		return
-	if(iscarbon(target))
-		var/mob/living/carbon/mesmerized = target
-		owner.balloon_alert(owner, "successfully mesmerized [mesmerized].")
+
+	if(iscarbon(living_target))
+		var/mob/living/carbon/carbon_target = living_target
+		owner.balloon_alert(owner, "successfully mesmerized [carbon_target].")
 		if(level_current >= 2)
-			ADD_TRAIT(target, TRAIT_MUTE, TRAIT_VAMPIRE)
+			ADD_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
 		if(level_current >= 3)
-			target.become_blind(TRAIT_VAMPIRE)
-		mesmerized.Immobilize(power_time)
-		mesmerized.next_move = world.time + power_time
-		mesmerized.notransform = TRUE
-		addtimer(CALLBACK(src, PROC_REF(end_mesmerize), user, target), power_time)
-	if(issilicon(target))
-		var/mob/living/silicon/mesmerized = target
-		mesmerized.emp_act(EMP_HEAVY)
-		owner.balloon_alert(owner, "temporarily shut [mesmerized] down.")
+			living_target.become_blind(TRAIT_MESMERIZED)
 
-/datum/action/vampire/targeted/tremere/proc/end_mesmerize(mob/living/user, mob/living/target)
-	target.notransform = FALSE
-	target.cure_blind(TRAIT_VAMPIRE)
-	REMOVE_TRAIT(target, TRAIT_MUTE, TRAIT_VAMPIRE)
-	if(istype(user) && target.stat == CONSCIOUS && (target in view(6, get_turf(user))))
-		owner.balloon_alert(owner, "[target] snapped out of their trance.")
+		carbon_target.Immobilize(power_time)
+		carbon_target.next_move = world.time + power_time
+		carbon_target.notransform = TRUE
+		addtimer(CALLBACK(src, PROC_REF(end_mesmerize), living_target, owner), power_time)
 
-/datum/action/vampire/targeted/tremere/dominate/proc/attempt_vassalize(mob/living/target, mob/living/user)
-	owner.balloon_alert(owner, "attempting to vassalize.")
-	if(!do_after(user, 6 SECONDS, target, NONE, TRUE))
+	if(issilicon(living_target))
+		var/mob/living/silicon/silicon_target = living_target
+		silicon_target.emp_act(EMP_HEAVY)
+		owner.balloon_alert(owner, "temporarily shut [silicon_target] down.")
+
+/datum/action/vampire/targeted/tremere/proc/end_mesmerize(mob/living/living_target)
+	living_target.notransform = FALSE
+	living_target.cure_blind(TRAIT_MESMERIZED)
+	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
+
+	if(living_target in view(6, get_turf(owner)))
+		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")
+
+/datum/action/vampire/targeted/tremere/dominate/proc/attempt_vassalize(mob/living/living_target)
+	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(living_target)
+
+	living_target.balloon_alert(owner, "attempting to revive.")
+	if(!do_after(owner, 6 SECONDS, living_target))
 		return
 
-	if(IS_VASSAL(target))
+	if(vassaldatum)
 		power_activated_sucessfully()
-		to_chat(user, span_warning("We revive [target]!"))
-		target.mind.grab_ghost()
-		target.revive(HEAL_ALL)
+		living_target.balloon_alert(owner, "revived [living_target]!")
+		living_target.mind.grab_ghost()
+		living_target.revive(HEAL_ALL)
 		return
-	if(IS_CURATOR(target))
-		to_chat(target, "Their body refuses to react...")
-		return
-	if(!vampiredatum_power.can_make_vassal(target))
-		return
-	vampiredatum_power.make_vassal(target)
-	power_activated_sucessfully()
-	to_chat(user, span_warning("We revive [target]!"))
-	target.mind.grab_ghost()
-	target.revive(HEAL_ALL)
-	var/datum/antagonist/vassal/vassaldatum = target.mind.has_antag_datum(/datum/antagonist/vassal)
-	vassaldatum.special_type = TREMERE_VASSAL //don't turn them into a favorite please
-	var/living_time
-	if(level_current == 4)
-		living_time = 5 MINUTES
-		ADD_TRAIT(target, TRAIT_MUTE, TRAIT_VAMPIRE)
-		ADD_TRAIT(owner, TRAIT_DEAF, TRAIT_VAMPIRE)
-	else if(level_current == 5)
-		living_time = 8 MINUTES
-	addtimer(CALLBACK(src, PROC_REF(end_possession), target), living_time)
 
-/datum/action/vampire/targeted/tremere/proc/end_possession(mob/living/user)
-	REMOVE_TRAIT(user, TRAIT_MUTE, TRAIT_VAMPIRE)
-	REMOVE_TRAIT(user, TRAIT_DEAF, TRAIT_VAMPIRE)
-	user.mind.remove_antag_datum(/datum/antagonist/vassal)
-	to_chat(user, span_warning("You feel the Blood of your Master run out!"))
-	user.death()
+	if(IS_CURATOR(living_target))
+		living_target.balloon_alert(owner, "[living_target.p_their()] body refuses to rise.")
+		return
+
+	if(!vampiredatum_power.can_make_vassal(living_target, ignore_concious_check = TRUE))
+		return
+
+	vampiredatum_power.make_vassal(living_target)
+	power_activated_sucessfully()
+
+	living_target.mind.grab_ghost()
+	living_target.revive(HEAL_ALL)
+
+	vassaldatum = IS_VASSAL(living_target)
+	vassaldatum.special_type = TREMERE_VASSAL //don't turn them into a favorite please
+
+	// You will die in 5 or 8 minutes
+	var/time_to_live
+	if(level_current == 4)
+		time_to_live = 5 MINUTES
+		living_target.add_traits(list(TRAIT_MUTE, TRAIT_DEAF), TRAIT_MESMERIZED)
+	else if(level_current >= 5)
+		time_to_live = 8 MINUTES
+
+	addtimer(CALLBACK(src, PROC_REF(end_possession), living_target), time_to_live)
+
+	// Give alerts
+	to_chat(living_target, span_userdanger("You have been revived as a temporary vassal! You will perish in [DisplayTimeText(time_to_live)]"))
+	living_target.balloon_alert(owner, "revived [living_target]!")
+
+/datum/action/vampire/targeted/tremere/proc/end_possession(mob/living/target)
+	target.remove_traits(list(TRAIT_MUTE, TRAIT_DEAF), TRAIT_MESMERIZED)
+	target.mind.remove_antag_datum(/datum/antagonist/vassal)
+	to_chat(target, span_userdanger("You feel the Blood of your Master run out!"))
+	target.death()

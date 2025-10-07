@@ -299,7 +299,7 @@
 	name = "10% chance girlfriend spawner"
 	loot = list(
 		/mob/living/basic/pet/dog/corgi = 9,
-		/mob/living/basic/pet/dog/corgi/Lisa = 1)
+		/mob/living/basic/pet/dog/corgi/lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"

@@ -188,11 +188,7 @@
 	. = ..()
 	if(active)
 		if(!bitcoinmining)
-			// stored_energy is converted directly to watts every SSmachines.wait * 0.1 seconds.
-			// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
-			// So joules = stored_energy * SSmachines.wait * 0.1
-			var/joules = stored_energy * SSmachines.wait * 0.1
-			. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
+			. += span_notice("[src]'s display states that it has stored <b>[display_power(stored_energy)]</b>, and is processing <b>[display_power_persec(RAD_COLLECTOR_OUTPUT)]</b>.")
 		else
 			. += span_notice("[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.")
 	else

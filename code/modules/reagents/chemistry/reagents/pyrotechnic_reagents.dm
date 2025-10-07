@@ -322,7 +322,7 @@
 	if(reac_volume >= 1)
 		var/obj/effect/particle_effect/foam/firefighting/foam = locate(/obj/effect/particle_effect/foam) in exposed_turf
 		if(!foam)
-			foam = new(foam)
+			foam = new(exposed_turf)
 		else if(istype(foam))
 			foam.lifetime = initial(foam.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
 

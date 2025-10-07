@@ -13,7 +13,7 @@
 	hijack_speed = 0.5
 	/// Whether to give this changeling objectives or not
 	give_objectives = TRUE
-	/// Weather we assign objectives which compete with other lings
+	/// Whether we assign objectives which compete with other lings
 	var/competitive_objectives = FALSE
 
 	// Changeling Stuff.
@@ -66,7 +66,7 @@
 	/// Static list of possible ids. Initialized into the greek alphabet the first time it is used
 	var/static/list/possible_changeling_IDs
 
-	/// Satic list of what each slot associated with (in regard to changeling flesh items).
+	/// Static list of what each slot associated with (in regard to changeling flesh items).
 	var/static/list/slot2type = list(
 		"head" = /obj/item/clothing/head/changeling,
 		"wear_mask" = /obj/item/clothing/mask/changeling,
@@ -85,6 +85,23 @@
 
 	///	Keeps track of the currently selected profile.
 	var/datum/changeling_profile/current_profile
+
+	/// A list of languages granted to changelings
+	var/static/list/granted_languages = list(
+		/datum/language/apidite,
+		/datum/language/buzzwords,
+		/datum/language/calcic,
+		/datum/language/common,
+		/datum/language/uncommon,
+		/datum/language/draconic,
+		/datum/language/moffic,
+		/datum/language/monkey,
+		/datum/language/slime,
+		/datum/language/sonus,
+		/datum/language/sylvan,
+		/datum/language/terrum,
+		/datum/language/voltaic,
+	)
 
 /datum/antagonist/changeling/New()
 	. = ..()
@@ -110,6 +127,9 @@
 	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 	owner.current.get_language_holder().omnitongue = TRUE
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+
+	for(var/datum/language/language as anything in granted_languages)
+		owner.current.grant_language(language, source = LANGUAGE_CHANGELING)
 	return ..()
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
@@ -122,8 +142,12 @@
 	RegisterSignal(living_mob, COMSIG_MOB_LOGIN, PROC_REF(on_login))
 	RegisterSignal(living_mob, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(living_mob, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(on_fullhealed))
-	living_mob.hud_used?.lingchemdisplay.invisibility = 0
-	living_mob.hud_used?.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
+
+	if(living_mob.hud_used)
+		living_mob.hud_used.lingchemdisplay.invisibility = 0
+		living_mob.hud_used.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
+	else
+		RegisterSignal(living_mob, COMSIG_MOB_HUD_CREATED, PROC_REF(on_hud_created))
 
 	if(!iscarbon(mob_to_tweak))
 		return
@@ -136,6 +160,13 @@
 	if(our_ling_brain)
 		our_ling_brain.organ_flags &= ~ORGAN_VITAL
 		our_ling_brain.decoy_override = TRUE
+
+/datum/antagonist/changeling/proc/on_hud_created(datum/source)
+	SIGNAL_HANDLER
+	var/mob/living/M = source
+	if(M.hud_used)
+		M.hud_used.lingchemdisplay.invisibility = 0
+		M.hud_used.lingchemdisplay.maptext = FORMAT_CHEM_CHARGES_TEXT(chem_charges)
 
 /datum/antagonist/changeling/proc/generate_name()
 	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
@@ -154,11 +185,12 @@
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
 	handle_clown_mutation(living_mob, removing = FALSE)
-	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON))
-	living_mob.hud_used?.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT
+	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON, COMSIG_MOB_HUD_CREATED))
+	living_mob?.hud_used?.lingchemdisplay?.invisibility = INVISIBILITY_ABSTRACT
 
 /datum/antagonist/changeling/on_removal()
 	remove_changeling_powers(include_innate = TRUE)
+	owner.current.remove_all_languages(LANGUAGE_CHANGELING, TRUE)
 	if(!iscarbon(owner.current))
 		return
 	var/mob/living/carbon/carbon_owner = owner.current

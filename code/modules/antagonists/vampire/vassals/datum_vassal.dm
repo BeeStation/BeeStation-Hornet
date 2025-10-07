@@ -14,7 +14,7 @@
 	/// List of all Purchased Powers, like Vampires.
 	var/list/datum/action/powers = list()
 	/// Whether this vassal is already a special type of Vassal.
-	var/special_type = FALSE
+	var/special_type
 	/// Description of what this Vassal does.
 	var/vassal_description
 	/// A link to our team monitor, used to track our master.
@@ -62,36 +62,36 @@
 	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
 /datum/antagonist/vassal/on_gain()
+	. = ..()
 	if(!master)
 		owner.remove_antag_datum(src)
-		CRASH("[src] was vassilized without a master!")
+		CRASH("[owner.current] was vassilized without a master!")
 
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
 	// Enslave them to their Master
-	if(special_type)
-		if(!master.special_vassals[special_type])
-			master.special_vassals[special_type] = list()
-		master.special_vassals[special_type] |= src
 	master.vassals |= src
 	owner.enslave_mind_to_creator(master.owner)
 	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
 
+	// Handle special vassalss
+	if(special_type)
+		master.special_vassals[special_type] += 1
+
 	// Give powers
-	BuyPower(new /datum/action/vampire/recuperate)
-	BuyPower(new /datum/action/vampire/distress)
+	grant_power(new /datum/action/vampire/recuperate)
+	grant_power(new /datum/action/vampire/distress)
 
 	// Give objectives
 	forge_objectives()
-	. = ..()
 
 /datum/antagonist/vassal/on_removal()
 	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 
 	// Free them from their Master
-	if(master?.owner)
-		if(special_type && master.special_vassals[special_type])
-			master.special_vassals[special_type] -= src
+	if(master)
+		if(special_type)
+			master.special_vassals[special_type] -= 1
 		master.vassals -= src
 		owner.enslaved_to = null
 
@@ -99,7 +99,8 @@
 	for(var/datum/action/vampire/power in powers)
 		powers -= power
 		power.Remove(owner.current)
-	. = ..()
+
+	return ..()
 
 /datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
@@ -112,20 +113,21 @@
 	if(silent)
 		return
 
+	var/mob/living/living_vassal = owner.current
+	var/mob/living/living_master = master.owner.current
+
 	// Alert vassal
 	var/list/msg = list()
+	msg += span_cultlarge("You are now the mortal servant of [living_master], a Vampire!")
+	msg += span_cult("You are not required to obey any other Vampire, for only [living_master] is your master. The laws of Nanotrasen do not apply to you now; only your Master's word must be obeyed.")
+	to_chat(living_vassal, examine_block(msg.Join("\n")))
 
-	msg += span_cultlarge("You are now the mortal servant of [master.owner.current], a Vampire!")
-	msg += span_cult("You are not required to obey any other Vampire, for only [master.owner.current] is your master. The laws of Nanotrasen do not apply to you now; only your Master's word must be obeyed.")
-
-	to_chat(owner.current, examine_block(msg.Join("\n")))
-
-	owner.current.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "You are the mortal servant of <b>[master.owner.current]</b>, a vampire!<br>"
+	living_vassal.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
+	antag_memory += "You are the mortal servant of <b>[living_master]</b>, a vampire!<br>"
 
 	// Alert master
-	to_chat(master.owner, span_userdanger("[owner.current] has become addicted to your immortal blood. [owner.current.p_they(TRUE)] [owner.current.p_are()] now your undying servant"))
-	master.owner.current.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
+	to_chat(living_master, span_userdanger("[living_vassal] has become addicted to your immortal blood. [living_vassal.p_they(TRUE)] [living_vassal.p_are()] now your undying servant"))
+	living_master.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
 
 /datum/antagonist/vassal/farewell()
 	if(silent)
@@ -146,12 +148,12 @@
 	var/list/datum/mind/possible_vampires = list()
 
 	// Get possible vampires
-	for(var/datum/antagonist/vampire/possible_vampire in GLOB.antagonists)
-		var/datum/mind/vamp = possible_vampire.owner
-		if(!vamp || !vamp?.current || vamp?.current?.stat == DEAD)
+	for(var/datum/antagonist/vampire/vampire in GLOB.antagonists)
+		var/datum/mind/vampire_mind = vampire.owner
+		if(QDELETED(vampire_mind?.current) || vampire_mind.current.stat == DEAD)
 			continue
 
-		possible_vampires += vamp
+		possible_vampires += vampire_mind
 
 	if(!length(possible_vampires))
 		return

@@ -8,7 +8,6 @@
 	refill_canister = /obj/item/vending_refill/sticker
 	default_price = 35
 	extra_price = 50
-	dept_req_for_free = ACCOUNT_VIP_BITFLAG
 
 /obj/machinery/vending/sticker/Initialize(mapload)
 	. = ..()

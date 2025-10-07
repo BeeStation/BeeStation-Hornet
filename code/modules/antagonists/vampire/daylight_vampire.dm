@@ -1,38 +1,48 @@
-/// Start Sol, called when someone is assigned Vampire
+/**
+ * Resumes Sol, called when someone is assigned Vampire
+**/
 /datum/antagonist/vampire/proc/check_start_sunlight()
 	var/list/existing_suckers = get_antag_minds(/datum/antagonist/vampire) - owner
 	if(!length(existing_suckers))
-		message_admins("New Sol has been created due to Vampire assignment.")
 		SSsunlight.can_fire = TRUE
 
-/// End Sol if you're the last Vampire
+/**
+ * Pauses Sol, called when someone is unassigned Vampire
+**/
 /datum/antagonist/vampire/proc/check_cancel_sunlight()
 	var/list/existing_suckers = get_antag_minds(/datum/antagonist/vampire) - owner
 	if(!length(existing_suckers))
-		message_admins("Sol has been deleted due to the lack of Vampires")
 		SSsunlight.can_fire = FALSE
 
-/// Ranks the Vampire up, called by Sol.
-/datum/antagonist/vampire/proc/sol_rank_up(atom/source)
-	SIGNAL_HANDLER
-
-	if(!istype(my_clan, /datum/vampire_clan/tremere))
-		INVOKE_ASYNC(src, PROC_REF(RankUp))
-
-/// Called when Sol is near starting.
+/**
+ * Gives the Vampire the gohome power, called 1.5 minutes before Sol starts
+**/
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
 	SIGNAL_HANDLER
 	if(vampire_lair_area && !(locate(/datum/action/vampire/gohome) in powers))
-		BuyPower(new /datum/action/vampire/gohome)
+		grant_power(new /datum/action/vampire/gohome)
 
-/// Called when Sol first ends.
+/**
+ * Removes the gohome power, called at the end of Sol
+**/
 /datum/antagonist/vampire/proc/on_sol_end(atom/source)
 	SIGNAL_HANDLER
 	check_end_torpor()
 	for(var/datum/action/vampire/gohome/power in powers)
-		RemovePower(power)
+		remove_power(power)
 
-/// Cycle through all vampires and check if they're inside a closet.
+/**
+ * Called near the end of Sol. Give our vampire a level to spend if we aren't Tremere.
+**/
+/datum/antagonist/vampire/proc/sol_near_end(atom/source)
+	SIGNAL_HANDLER
+
+	if(!istype(my_clan, /datum/vampire_clan/tremere))
+		INVOKE_ASYNC(src, PROC_REF(rank_up))
+
+/**
+ * Handles the Sol status effect, called while Sol is risen
+**/
 /datum/antagonist/vampire/proc/handle_sol()
 	SIGNAL_HANDLER
 	if(!owner?.current)
@@ -148,13 +158,13 @@
 	if(QDELETED(living_owner))
 		return
 
-	// Handle traits - Torpor doesn't work with TRAIT_SLEEPIMMUNE or TRAIT_NOBREATH
-	living_owner.remove_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_NOBREATH), TRAIT_VAMPIRE)
+	// Handle traits
+	REMOVE_TRAIT(living_owner, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
 	living_owner.add_traits(torpor_traits, TRAIT_TORPOR)
 
 	living_owner.jitteriness = 0
 
-	DisableAllPowers()
+	disable_all_powers()
 
 	to_chat(living_owner, span_notice("You enter the horrible slumber of deathless Torpor. You will heal until you are renewed."))
 
@@ -164,15 +174,16 @@
 	living_owner.remove_status_effect(/datum/status_effect/vampire_sol)
 	living_owner.grab_ghost()
 
-	// Handle traits - Torpor doesn't work with TRAIT_SLEEPIMMUNE or TRAIT_NOBREATH
+	// Handle traits
 	if(!HAS_TRAIT(living_owner, TRAIT_MASQUERADE))
-		living_owner.add_traits(list(TRAIT_SLEEPIMMUNE, TRAIT_NOBREATH), TRAIT_VAMPIRE)
+		ADD_TRAIT(living_owner, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
 	living_owner.remove_traits(torpor_traits, TRAIT_TORPOR)
 
 	heal_vampire_organs()
 
 	to_chat(living_owner, span_notice("You have recovered from Torpor."))
-	SEND_SIGNAL(src, VAMPIRE_EXIT_TORPOR)
+	my_clan?.on_exit_torpor()
+
 
 /datum/status_effect/vampire_sol
 	id = "vampire_sol"

@@ -44,7 +44,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
-/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc, spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -446,7 +446,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 //Provides a decent heal, need to pump every 6 seconds
 /obj/item/organ/heart/cursed/wizard
-	pump_delay = 60
+	pump_delay = 6 SECONDS
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25

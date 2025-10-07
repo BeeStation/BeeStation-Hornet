@@ -16,3 +16,6 @@ female_cough_5.ogg: https://freesound.org/people/thatkellytrna/sounds/425777/ , 
 female_cough_6.ogg: https://freesound.org/people/DarkNightPrincess/sounds/625322/ , license: CC0 1.0 DEED
 female_cough_7.ogg: https://freesound.org/people/drotzruhn/sounds/405206/ , license: CC BY 4.0 DEED
 whistle1.ogg: https://freesound.org/people/taure/sounds/411638/ , license: CC0 1.0 DEED
+
+crimescenealarm.ogg uses:
+alarm2.wav by bumpelsnake -- https://freesound.org/s/456566/ -- License: Attribution 4.0

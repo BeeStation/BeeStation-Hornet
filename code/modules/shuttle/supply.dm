@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 				continue
 			if(bounty_ship_item_and_contents(AM, dry_run = FALSE))
 				matched_bounty = TRUE
-			if(!AM.anchored || istype(AM, /obj/vehicle/sealed/mecha))
+			if(!AM.anchored)
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 			else if(!ismachinery(AM))
 				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold

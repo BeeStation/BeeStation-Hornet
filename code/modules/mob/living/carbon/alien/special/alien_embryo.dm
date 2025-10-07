@@ -52,7 +52,7 @@
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
 	if(!owner) // If we're out of the body, kill us and stop processing
-		applyOrganDamage(maxHealth)
+		apply_organ_damage(maxHealth)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()

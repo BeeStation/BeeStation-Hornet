@@ -43,6 +43,8 @@ type Gas = {
   name: string;
   description: string;
   specific_heat: number;
+  gasrig_shielding_power: number;
+  gasrig_shielding_modifier: number;
   reactions: { [key: string]: string } | [];
 };
 
@@ -107,6 +109,14 @@ const GasHandbook = (props) => {
           <Box mb="0.5em">{relevantGas.description}</Box>
           <Box mb="0.5em">
             {'Specific heat: ' + relevantGas.specific_heat + ' Joule/KelvinMol'}
+          </Box>
+          <Box mb="0.5em">
+            {'Gas shielding power: ' +
+              relevantGas.gasrig_shielding_power +
+              '/mol'}
+          </Box>
+          <Box mb="0.5em">
+            {'Gas shielding modifier: ' + relevantGas.gasrig_shielding_modifier}
           </Box>
           <Box mb="0.5em">{'Relevant Reactions:'}</Box>
           {Object.entries(relevantGas.reactions).map(

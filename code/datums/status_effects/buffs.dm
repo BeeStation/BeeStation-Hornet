@@ -688,3 +688,60 @@
 	name = "Blessing of Dusk and Dawn"
 	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
 	icon_state = "duskndawn"
+
+/datum/status_effect/cloaked
+	id = "invisibility"
+	alert_type = /atom/movable/screen/alert/status_effect/cloaked
+	tick_interval = 2
+	duration = -1
+	show_duration = TRUE
+	var/can_see_self = FALSE
+
+/datum/status_effect/cloaked/tick()
+	if(owner.on_fire)
+		terminate_effect()
+		return
+	owner.alpha = max(owner.alpha - 10, 0)
+	if (owner.alpha <= 100 && !can_see_self)
+		// Make it so the user can always see themselves while cloaked
+		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
+		self_appearance.alpha = 100
+		self_appearance.override = TRUE
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), owner)
+		can_see_self = TRUE
+	if (owner.alpha > 100 && can_see_self)
+		owner.remove_alt_appearance(REF(src))
+
+/datum/status_effect/cloaked/on_apply()
+	if(!..())
+		return FALSE
+	// Effects that disrupt the cloak
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(bump_alpha))
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
+	// Effects that terminate the cloak
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_MOB_THROW, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACK_HAND, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_HITBY, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_HULK_ATTACK, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACK_PAW, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(terminate_effect))
+	return TRUE
+
+/datum/status_effect/cloaked/on_remove()
+	owner.remove_alt_appearance(REF(src))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	animate(owner, time = 0.5 SECONDS, alpha = 255)
+
+/datum/status_effect/cloaked/proc/bump_alpha()
+	owner.alpha = min(owner.alpha + 40, 255)
+
+/datum/status_effect/cloaked/proc/terminate_effect()
+	qdel(src)
+
+/atom/movable/screen/alert/status_effect/cloaked
+	name = "Cloaked"
+	desc = "We are inside of an active cloaking field, which will be disrupted when we attack."
+	icon_state = "cloak"

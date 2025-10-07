@@ -60,8 +60,8 @@
 			C.faction |= user.faction
 			C.transform = transform.Turn(0)
 			C.toggle_ai(AI_ON)
-			var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
-			T.add_ally(user)
+			//var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
+			//T.add_ally(user)
 			to_chat(user, span_notice("[C] nuzzles you."))
 			UnregisterSignal(mob_target, COMSIG_QDELETING)
 			mob_target = null

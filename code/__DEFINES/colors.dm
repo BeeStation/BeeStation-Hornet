@@ -25,7 +25,7 @@
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
 #define COLOR_WHITE "#FFFFFF"
-#define COLOR_OFF_WHITE "#FFF5ED"
+#define COLOR_OFF_WHITE "#fff5ed"
 #define COLOR_VERY_LIGHT_GRAY "#EEEEEE"
 #define COLOR_SILVER "#C0C0C0"
 #define COLOR_GRAY "#808080"
@@ -47,12 +47,15 @@
 #define COLOR_SECURITY_RED "#CB0000"
 #define COLOR_VIVID_RED "#FF3232"
 #define COLOR_SOFT_RED "#FA8282"
+/// Color used for default blood
+#define COLOR_BLOOD "#CC0000"
 
 #define COLOR_YELLOW "#FFFF00"
 #define COLOR_VIVID_YELLOW "#FBFF23"
 
 #define COLOR_OLIVE            "#808000"
 #define COLOR_VIBRANT_LIME     "#00FF00"
+#define COLOR_PALE_GREEN "#20e28e"
 #define COLOR_LIME "#32CD32"
 #define COLOR_GREEN "#008000"
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
@@ -61,6 +64,7 @@
 #define COLOR_CYAN             "#00FFFF"
 #define COLOR_DARK_CYAN	  	   "#00A2FF"
 #define COLOR_TEAL             "#008080"
+#define COLOR_BLUSH_TEAL "#009696"
 #define COLOR_BLUE             "#0000FF"
 #define COLOR_MODERATE_BLUE "#555CC2"
 #define COLOR_BLUE_LIGHT       "#33CCFF"
@@ -255,3 +259,20 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define CL_MATRIX_CG 18
 #define CL_MATRIX_CB 19
 #define CL_MATRIX_CA 20
+
+#define COLOR_GNOME_RED_ONE "#f10b0b"
+#define COLOR_GNOME_RED_TWO "#bc5347"
+#define COLOR_GNOME_RED_THREE "#b40f1a"
+#define COLOR_GNOME_BLUE_ONE "#2e8ff7"
+#define COLOR_GNOME_BLUE_TWO "#312bd6"
+#define COLOR_GNOME_BLUE_THREE "#4e409a"
+#define COLOR_GNOME_GREEN_ONE "#28da1c"
+#define COLOR_GNOME_GREEN_TWO "#50a954"
+#define COLOR_GNOME_YELLOW "#f6da3c"
+#define COLOR_GNOME_ORANGE "#d56f2f"
+#define COLOR_GNOME_BROWN_ONE "#874e2a"
+#define COLOR_GNOME_BROWN_TWO "#543d2e"
+#define COLOR_GNOME_PURPLE "#ac1dd7"
+#define COLOR_GNOME_WHITE "#e8e8e8"
+#define COLOR_GNOME_GREY "#a9a9a9"
+#define COLOR_GNOME_BLACK "#303030"

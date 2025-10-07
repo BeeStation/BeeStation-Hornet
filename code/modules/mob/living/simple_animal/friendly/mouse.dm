@@ -38,13 +38,8 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg'=1), 100)
-	if(!body_color)
-		body_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[body_color]"
-	icon_living = "mouse_[body_color]"
-	icon_dead = "mouse_[body_color]_dead"
-	held_state = "mouse_[body_color]"
+	AddElement(/datum/element/animal_variety, "mouse", pick("brown","gray","white"), FALSE)
+	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 	if(prob(75))
 		var/datum/disease/advance/dormant_disease = new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src) // Dormant desiese
 		dormant_disease.dormant = TRUE

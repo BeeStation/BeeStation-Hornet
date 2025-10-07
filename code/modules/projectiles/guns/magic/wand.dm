@@ -30,7 +30,7 @@
 		return
 	..()
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/pull_trigger(atom/target, mob/living/user, params, aimed)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return

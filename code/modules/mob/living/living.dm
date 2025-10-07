@@ -25,9 +25,6 @@
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 	gravity_setup()
-
-/mob/living/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/movetype_handler)
 
 /mob/living/prepare_huds()
@@ -70,9 +67,9 @@
 			visible_message(span_warning("[src] [pick("ran", "slammed")] into \the [A]!"))
 			apply_damage(5, BRUTE)
 			Paralyze(40)
-			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 200)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 20 SECONDS)
 		else
-			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 50)
+			addtimer(CALLBACK(src, PROC_REF(can_bumpslam)), 5 SECONDS)
 
 
 	if(ismob(A))
@@ -928,13 +925,13 @@
 /mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
 	return
 
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction, spec_color)
+/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
 	if(!has_gravity() || (movement_type & THROWN))
 		return
-	var/blood_exists = FALSE
+	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
+	var/mob/living/carbon/human/humanoid = src
+	var/glowyblood = humanoid.dna.blood_type.glowy
 
-	for(var/obj/effect/decal/cleanable/trail_holder/C in start) //checks for blood splatter already on the floor
-		blood_exists = TRUE
 	if(isturf(start))
 		var/trail_type = getTrail()
 		if(trail_type)
@@ -951,21 +948,22 @@
 				if((newdir in GLOB.cardinals) && (prob(50)))
 					newdir = turn(get_dir(target_turf, start), 180)
 				if(!blood_exists)
-					new /obj/effect/decal/cleanable/trail_holder(start, get_static_viruses())
+					//Snowflake to make blood glow
+					if(glowyblood)
+						new /obj/effect/decal/cleanable/blood/trail_holder/glowy(start, get_static_viruses())
+					else
+						new /obj/effect/decal/cleanable/blood/trail_holder(start, get_static_viruses())
 
-				for(var/obj/effect/decal/cleanable/trail_holder/TH in start)
+
+				for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in start)
 					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
 
-						if(spec_color)
-							TH.color = spec_color
-
-/mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
+/mob/living/carbon/human/makeTrail(turf/T)
 	if(HAS_TRAIT(src, TRAIT_NOBLOOD) || !is_bleeding())
 		return
-	spec_color = dna.species.blood_color
 	..()
 
 /mob/living/proc/getTrail()
@@ -1234,11 +1232,6 @@
 
 /mob/living/carbon/alien/update_stamina()
 	return
-
-/mob/living/proc/owns_soul()
-	if(mind)
-		return mind.soulOwner == mind
-	return TRUE
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, gentle = FALSE, quickstart = TRUE)
 	stop_pulling()
@@ -1530,7 +1523,7 @@
 //Mobs on Fire end
 
 // used by secbot and monkeys Crossed
-/mob/living/proc/knockOver(var/mob/living/carbon/C)
+/mob/living/proc/knockOver(mob/living/carbon/C)
 	if(C.key) //save us from monkey hordes
 		C.visible_message(span_warning(pick("[C] dives out of [src]'s way!", "[C] stumbles over [src]!", "[C] jumps out of [src]'s path!", "[C] trips over [src] and falls!", "[C] topples over [src]!", "[C] leaps out of [src]'s way!")))
 	C.Paralyze(40)
@@ -1988,8 +1981,8 @@
 
 		REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 		remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
-		update_inv_w_uniform()
-		update_inv_wear_suit()
+		update_worn_undersuit()
+		update_worn_oversuit()
 
 	// Reset overeat duration.
 	overeatduration = 0
@@ -2062,6 +2055,23 @@
 		return style.harm_act(src, target)
 	return style.help_act(src, target)
 
+/**
+ * Returns an assoc list of assignments and minutes for updating a client's exp time in the databse.
+ *
+ * Arguments:
+ * * minutes - The number of minutes to allocate to each valid role.
+ */
+/mob/living/proc/get_exp_list(minutes)
+	var/list/exp_list = list()
+
+	if(mind && mind.special_role && !(mind.datum_flags & DF_VAR_EDITED))
+		exp_list[mind.special_role] = minutes
+
+	if(mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
+		exp_list[mind.assigned_role] = minutes
+
+	return exp_list
+
 /// Actually does the shapeshift
 /mob/living/proc/do_shapeshift(shapeshift_type = /mob/living/basic/pet/dog/corgi)
 	// Spawn the new mob
@@ -2108,7 +2118,7 @@
 /// Proc called when targetted by a lazarus injector
 /mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
 	if(mind)
-		if(suiciding || ishellbound())
+		if(suiciding)
 			reviver.visible_message(span_notice("[reviver] injects [src], but nothing happened."))
 			return
 		process_revival(src)
@@ -2182,3 +2192,26 @@
 	log_admin("[key_name(admin)] gave [src] a delusion hallucination. (Type: [delusion_args[1]])")
 	// Not using the wrapper here because we already have a list / arglist
 	_cause_hallucination(delusion_args)
+/// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	var/friend_ref = REF(new_friend)
+	if (faction.Find(friend_ref))
+		return FALSE
+	faction |= friend_ref
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE
+
+/// Proc for removing a friend you added with the proc 'befriend'. Returns true if you removed a friend.
+/mob/living/proc/unfriend(mob/living/old_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	var/friend_ref = REF(old_friend)
+	if (!faction.Find(friend_ref))
+		return FALSE
+	faction -= friend_ref
+	ai_controller?.remove_thing_from_blackboard_key(BB_FRIENDS_LIST, old_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_UNFRIENDED, old_friend)
+	return TRUE

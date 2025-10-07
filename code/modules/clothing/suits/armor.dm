@@ -12,8 +12,6 @@
 	max_integrity = 250
 	resistance_flags = NONE
 	armor_type = /datum/armor/suit_armor
-	slowdown = 0.08
-
 
 /datum/armor/suit_armor
 	melee = 30

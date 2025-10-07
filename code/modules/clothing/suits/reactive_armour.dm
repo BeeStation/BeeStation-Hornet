@@ -358,7 +358,7 @@
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/hallucinating/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/hallucinating/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], sending out mental pulses!"))
 	visible_hallucination_pulse(
 		center = get_turf(owner),
@@ -368,7 +368,7 @@
 	)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!"))
 	owner.adjust_hallucinations_up_to(50 SECONDS, 300 SECONDS)
 	return TRUE
@@ -388,12 +388,12 @@
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/bioscrambling/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], biohazard body scramble released!"))
 	bioscrambler_pulse(owner, range, FALSE, TRUE)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/bioscrambling/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!"))
 	bioscrambler_pulse(owner, range, TRUE, TRUE)
 	return TRUE
@@ -414,13 +414,13 @@
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/bleed/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bleed/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], the blood anomaly from within releasing a massive cloud of razors!"))
 	owner.AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=3)
 	playsound(src, 'sound/weapons/shrapnel.ogg', 70, TRUE)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/bleed/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bleed/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!"))
 	owner.AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=5)
 	owner.add_bleeding(BLEED_CRITICAL)

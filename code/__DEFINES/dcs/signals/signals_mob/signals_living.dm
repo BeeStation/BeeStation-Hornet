@@ -120,3 +120,7 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"

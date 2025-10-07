@@ -92,7 +92,7 @@
 			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				var/datum/action/changeling/humanform/hf = new
-				changeling.purchased_powers += hf
+				changeling.purchased_powers[hf.type] = hf
 				changeling.regain_powers()
 
 		for(var/X in internal_organs)
@@ -127,7 +127,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers += hf
+			changeling.purchased_powers[hf.type] = hf
 			changeling.regain_powers()
 
 
@@ -241,7 +241,7 @@
 			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				var/datum/action/changeling/humanform/hf = new
-				changeling.purchased_powers += hf
+				changeling.purchased_powers[hf.type] = hf
 				changeling.regain_powers()
 
 		for(var/X in internal_organs)
@@ -276,7 +276,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			var/datum/action/changeling/humanform/hf = new
-			changeling.purchased_powers += hf
+			changeling.purchased_powers[hf.type] = hf
 			changeling.regain_powers()
 
 
@@ -298,7 +298,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, var/datum/species/original_species, species = /datum/species/human)
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, datum/species/original_species, species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
 
@@ -387,7 +387,7 @@
 			var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 			if(changeling)
 				for(var/datum/action/changeling/humanform/HF in changeling.purchased_powers)
-					changeling.purchased_powers -= HF
+					changeling.purchased_powers -= HF.type
 					changeling.regain_powers()
 
 		for(var/X in internal_organs)
@@ -422,7 +422,7 @@
 		var/datum/antagonist/changeling/changeling = O.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			for(var/datum/action/changeling/humanform/HF in changeling.purchased_powers)
-				changeling.purchased_powers -= HF
+				changeling.purchased_powers -= HF.type
 				changeling.regain_powers()
 
 	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either

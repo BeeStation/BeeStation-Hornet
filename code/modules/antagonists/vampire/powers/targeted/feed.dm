@@ -15,9 +15,9 @@
 		This is very obvious and the radius in which you can be detected is much larger!\n\
 		Mice can be fed off if you are in desperate need of blood.\n\
 		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding."
-	power_flags = BP_AM_TOGGLE|BP_AM_STATIC_COOLDOWN
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
-	purchase_flags = VAMPIRE_CAN_BUY|VAMPIRE_DEFAULT_POWER
+	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	purchase_flags = VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER
 	cooldown_time = 15 SECONDS
 	target_range = 1
 	prefire_message = "Select a target."
@@ -45,7 +45,7 @@
 		owner.balloon_alert(owner, "mouth covered!")
 		return FALSE
 
-/datum/action/vampire/targeted/feed/ContinueActive()
+/datum/action/vampire/targeted/feed/continue_active()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -160,16 +160,15 @@
 /datum/action/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
 
-	if(!target_ref)
+	var/mob/living/feed_target = target_ref?.resolve()
+	if(!feed_target)
 		power_activated_sucessfully()
 		return
-
-	var/mob/living/feed_target = target_ref.resolve()
 
 	if(!silent_feed)
 		feed_target.SetUnconscious(10 SECONDS)
 
-	if(!ContinueActive())
+	if(!continue_active())
 		if(!silent_feed)
 			user.visible_message(
 				span_warning("[user] is ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),
@@ -244,8 +243,8 @@
 	. = ..()
 	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
-	if(target_ref)
-		var/mob/living/feed_target = target_ref.resolve()
+	var/mob/living/feed_target = target_ref?.resolve()
+	if(feed_target)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
 
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")

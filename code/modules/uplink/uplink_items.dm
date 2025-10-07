@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 		by bouncing them back at the ones who fired them. It can also be thrown to bounce off of people, slipping them, \
 		and returning to you even if you miss. WARNING: DO NOT ATTEMPT TO STAND ON SHIELD WHILE DEPLOYED, EVEN IF WEARING ANTI-SLIP SHOES."
 	item = /obj/item/shield/energy/bananium
-	cost = 16
+	cost = 5
 	surplus = 0
 	purchasable_from = UPLINK_CLOWN_OPS
 
@@ -542,9 +542,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles and defending \
 			against other attacks. Pair with an Energy Sword for a killer combination."
 	item = /obj/item/shield/energy
-	cost = 16
+	cost = 5
 	surplus = 20
-	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/dangerous/syndicate_teleporter
 	name = "Experimental Syndicate Jaunter"
@@ -2243,7 +2242,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 		by bouncing them back at the ones who fired them. It can also be thrown to bounce off of people, slipping them, \
 		and returning to you even if you miss. WARNING: DO NOT ATTEMPT TO STAND ON SHIELD WHILE DEPLOYED, EVEN IF WEARING ANTI-SLIP SHOES."
 	item = /obj/item/shield/energy/bananium
-	cost = 15
+	cost = 5
 	surplus = 0
 	restricted_roles = list(JOB_NAME_CLOWN)
 
@@ -2613,6 +2612,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Organism Shredder"
 	desc = "An armoured and modified lawn mower that can mow down any organic in its path. It is a fast and armoured to melee and ranged weaponry, but it's extremely vunerable to: bombs, fire, and form of acid"
 	item = /obj/vehicle/ridden/lawnmower/nukie
-	cost = 30
+	cost = 15
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS

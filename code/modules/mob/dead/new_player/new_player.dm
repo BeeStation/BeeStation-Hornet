@@ -24,8 +24,6 @@
 	else
 		forceMove(locate(1,1,1))
 
-	ComponentInitialize()
-
 	. = ..()
 
 /mob/dead/new_player/authenticated/Initialize(mapload)
@@ -546,7 +544,7 @@
 					+ "\n[span_danger("To prevent abuse, players with no/low playtime are required to complete an interview to gain access.\nThis is only required once and only for the duration that the panic bunker is active.")] \
 					\n[span_boldwarning("If the interview interface is not open, use the Open Interview verb in the top right.")]")
 
-/mob/dead/new_player/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/dead/new_player/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	return
 
 #undef LINKIFY_READY

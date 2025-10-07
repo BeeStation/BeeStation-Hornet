@@ -395,10 +395,10 @@ const SuitStatusSection = (props) => {
                 ? 'Power Cell Missing'
                 : cell_charge_current === 1e31
                   ? 'Infinite'
-                  : `${formatSiUnit(cell_charge_current * 1000, 0, 'J')} of ${formatSiUnit(
-                      cell_charge_max * 1000,
+                  : `${formatSiUnit(cell_charge_current, 0, 'W')} of ${formatSiUnit(
+                      cell_charge_max,
                       0,
-                      'J',
+                      'W',
                     )} (${charge_percent}%)`}
           </ProgressBar>
         </LabeledList.Item>

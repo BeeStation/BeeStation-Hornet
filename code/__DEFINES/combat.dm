@@ -107,6 +107,8 @@
 #define CLICK_CD_GRABBING 10
 #define CLICK_CD_LOOK_DIRECTION 5
 
+#define BLOCK_CD 2 SECONDS
+
 //Cuff resist speeds
 #define FAST_CUFFBREAK 1
 
@@ -229,7 +231,9 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_ACTIVE				(1<<0) //does the item need to be in hand to block
 #define BLOCKING_PROJECTILE			(1<<1) //does the item block projectiles
 #define BLOCKING_NASTY				(1<<2) //if it parries a bare hand, will the attacker be hurt?
-#define BLOCKING_HUNTER				(1<<3) //is the item more suited to fighting fauna?
+#define BLOCKING_COUNTERATTACK		(1<<3) //if it parries a bare hand or a weapon, has a chance to return a hit
+#define BLOCKING_UNBALANCE			(1<<4) //has a chance to knock the opponent off-balance (knockdown + longer attack delay)
+#define BLOCKING_UNBLOCKABLE		(1<<5) //attacks with this item can only be blocked by another unblockable item
 
 // Object/Item sharpness
 #define BLUNT					0	//Can only remove limbs if they're easy to remove

@@ -74,7 +74,6 @@
 "fS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/machinery/airalarm/directional/east,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -277,9 +276,7 @@
 /area/shuttle/caravan/pirate)
 "oG" = (
 /obj/structure/table,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/door/window/southleft{
 	name = "Weapon Storage"
 	},
@@ -537,11 +534,10 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "Bi" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
 /obj/machinery/door/poddoor{
 	id = "caravanpirate_bridge"
 	},
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "BI" = (
@@ -661,9 +657,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/pirate)
 "HO" = (
@@ -712,7 +706,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/airalarm/directional/north,
 /obj/effect/mapping_helpers/airalarm/all_access,
 /turf/open/floor/iron/white,
 /area/shuttle/caravan/pirate)

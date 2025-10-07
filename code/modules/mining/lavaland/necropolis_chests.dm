@@ -74,10 +74,12 @@
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon_state = "asclepius_dormant"
 	item_state = "asclepius_dormant"
-	block_upgrade_walk = TRUE
-	block_level = 1
-	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
-	block_flags = null //not active, so it's null
+
+	//Switches to true when taking the oath which also gives pacifism
+	canblock = FALSE
+	block_power = 100
+	block_flags = BLOCKING_UNBALANCE | BLOCKING_PROJECTILE
+
 	var/activated = FALSE
 	var/usedHand
 
@@ -132,6 +134,7 @@
 	icon_state = "asclepius_active"
 	item_state = "asclepius_active"
 	activated = TRUE
+	canblock = TRUE
 
 //Memento Mori
 /obj/item/clothing/neck/necklace/memento_mori
@@ -897,10 +900,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
-	block_upgrade_walk = TRUE
-	block_level = 1
-	block_power = 20
+
+	canblock = TRUE
+	//This increases with the number of ghosts
+	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
@@ -974,10 +979,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	user.visible_message(span_danger("[user] strikes with the force of [ghost_counter] vengeful spirits!"))
 	..()
 
-/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/ghost_counter = ghost_check()
-	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message(span_danger("[owner] is protected by a ring of [ghost_counter] ghosts!"))
+	if(ghost_counter)
+		block_power = min((ghost_counter * 20), 100)
+		owner.visible_message(span_danger("[owner] is protected by a ring of [ghost_counter] ghosts!"))
 	return ..()
 
 //Blood
@@ -1291,8 +1297,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	item_state = icon_state
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_hands()
-		M.update_inv_back()
+		M.update_held_items()
+		M.update_worn_back()
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon()

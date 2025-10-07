@@ -447,3 +447,12 @@
   - rscdel: Removed proto emitter do to being unused
   - tweak: Non hitscan emitter projectiles are now removed, this in practice only
       changes anomalius crystal one interaction
+2025-08-30:
+  NanoTrasen-Inc, JackieOTheWisp:
+  - rscadd: Added 2 new options on the synthesizer's fun tab! The Meowsyth and Spaceman!
+2025-08-31:
+  Aramix:
+  - bugfix: fixed Transcendent Olfaction mutation ability not activating at all
+  - bugfix: fixed missing background sprite for mutation abilities action button
+  mrmanlikesbt, timothymtorres:
+  - code_imp: split up the persistence subsystem into multiple files

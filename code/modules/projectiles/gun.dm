@@ -10,14 +10,13 @@
 	worn_icon_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN
+	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN | NEEDS_PERMIT
 	custom_materials = list(/datum/material/iron=2000)
 	w_class = WEIGHT_CLASS_LARGE
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	force = 5
-	item_flags = NEEDS_PERMIT || ISWEAPON
 	attack_verb_continuous = list("strikes", "hits", "bashes")
 	attack_verb_simple = list("strike", "hit", "bash")
 	max_integrity = 500
@@ -128,8 +127,6 @@
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
 
-/obj/item/gun/ComponentInitialize()
-	. = ..()
 	//Smaller weapons are better when used in a single hand.
 	if(requires_wielding)
 		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
@@ -293,50 +290,79 @@
 				continue
 			O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
+/obj/item/gun/attack_atom(obj/O, mob/living/user, params)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/attack_turf(turf/T, mob/living/user)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/attack(mob/M, mob/living/user)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	return pull_trigger(target, user, flag, params, aimed)
+	// Cancel the attack chain if we fire
+	return . || pull_trigger(target, user, click_parameters, GUN_NOT_AIMED)
+
+/obj/item/gun/ranged_attack(atom/target, mob/living/user, params)
+	. = ..()
+	// Cancel the attack chain if we fire
+	return . || pull_trigger(target, user, params, GUN_NOT_AIMED)
 
 /// Represents the user pulling the trigger while aiming at the target
-/obj/item/gun/proc/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
+/obj/item/gun/proc/pull_trigger(atom/target, mob/living/user, params = null, aimed = GUN_NOT_AIMED)
 	if(QDELETED(target))
-		return
+		return TRUE
 	if(firing_burst)
-		return
+		return TRUE
+	if(target in user.contents) //can't shoot stuff inside us.
+		return FALSE
+	var/flag = user.Adjacent(target, TRUE)
 	if(flag) //It's adjacent, is the user, or is on the user's person
-		if(target in user.contents) //can't shoot stuff inside us.
-			return
-		if(!ismob(target) || user.combat_mode) //melee attack
-			return
+		if (!isturf(target) && (user.combat_mode || (item_flags & ISWEAPON)))
+			return FALSE
 		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
-			return
+			return FALSE
 	add_fingerprint(user)
+
+	// Return true, but act as intercepted so we don't start hitting things
+	if (SEND_SIGNAL(src, COMSIG_MOB_PULL_TRIGGER, target, user, params, aimed) & CANCEL_TRIGGER_PULL)
+		return TRUE
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
 		var/mob/living/L = user
 		if(!can_trigger_gun(L))
-			return
+			return FALSE
 
 	if(flag)
 		var/mob/living/living_target = target
 		if (!user.client || user.client.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_INTENT)
 			if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 				handle_suicide(user, target, params)
-				return
+				return TRUE
 		// On simplified mode, contextually determine if we want to suicide them
 		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
 		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || HAS_TRAIT(living_target, TRAIT_HANDS_BLOCKED) || living_target.buckled || living_target.IsUnconscious()))
 			handle_suicide(user, target, params)
-			return
+			return TRUE
 
 	// Play the clicking sound if we can't shoot
 	if(!can_shoot())
 		shoot_with_empty_chamber(user)
-		return
+		return FALSE
 
 	// Not ready to fire
 	if (ranged_cooldown>world.time)
-		return
+		return FALSE
 
 	//Exclude lasertag guns from the TRAIT_CLUMSY check.
 	if(clumsy_check)
@@ -355,17 +381,18 @@
 					var/shot_leg = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 					process_fire(user, user, FALSE, params, shot_leg)
 					user.dropItemToGround(src, TRUE)
-				return
+				return TRUE
 
 	if(weapon_weight == WEAPON_HEAVY && !is_wielded)
 		balloon_alert(user, "You need both hands free to fire [src]!")
-		return
+		return FALSE
 
 	var/zone_override = null
 	if(aimed == GUN_AIMED_POINTBLANK)
 		zone_override = BODY_ZONE_HEAD //Shooting while pressed against someone's temple
 
 	process_fire(target, user, TRUE, params, zone_override, aimed)
+	return TRUE
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -436,7 +463,7 @@
 		fire_shot_at(user, target, message, params, zone_override, aimed)
 
 	if(user)
-		user.update_inv_hands()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
 
@@ -520,6 +547,8 @@
 		balloon_alert(user, "You attach [K] to [src].")
 		bayonet = K
 		update_appearance()
+		// Become a weapon when we gain a bayonet
+		item_flags |= ISWEAPON
 	else
 		return ..()
 

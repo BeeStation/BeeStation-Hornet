@@ -23,6 +23,7 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"epaperread",
 		"fax",
 		"glasses_prescription",
 		"handlabel",
@@ -44,6 +45,7 @@
 		"rdserver",
 		"rdservercontrol",
 		"rglass",
+		"salestagger",
 		"sec_38",
 		"sec_38b",
 		"sec_beanbag_slug",
@@ -59,7 +61,6 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -477,6 +478,7 @@
 		"magboots",
 		"ranged_analyzer",
 		"rcd_loaded",
+		"rcl",
 		"rpd_loaded",
 		"weldingmask",
 		"sheetifier"
@@ -1154,7 +1156,6 @@
 	export_price = 2000
 	design_ids = list(
 		"antivirus",
-		"bat_control",
 		"bat_nano",
 		"bat_micro",
 		"cardslot",
@@ -1458,6 +1459,7 @@
 		"power_cord",
 		"robotic_ears",
 		"robotic_eyes",
+		"robotic_heart",
 		"robotic_liver",
 		"robotic_stomach",
 		"robotic_tongue",
@@ -2018,7 +2020,6 @@
 		"mod_visor_sechud",
 		"mod_stealth",
 		"mod_mag_harness",
-		"mod_pathfinder",
 		"mod_holster",
 		"mod_sonar",
 		"mod_projectile_dampener",

@@ -102,6 +102,22 @@
 //from base of client/MouseUp(): (/client, object, location, control, params)
 #define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 
+/// Called when a mob pulls the trigger of a gun. From /obj/item/gun/proc/pull_trigger(): (atom/target, mob/living/user, params = null, aimed = GUN_NOT_AIMED)
+#define COMSIG_MOB_PULL_TRIGGER "pull_trigger"
+	/// Cancel the trigger pull
+	#define CANCEL_TRIGGER_PULL (1 << 0)
+
 /// Called before a mob fires a gun (mob/source, obj/item/gun, atom/target, aimed)
 #define COMSIG_MOB_BEFORE_FIRE_GUN "before_fire_gun"
 	#define GUN_HIT_SELF (1 << 0)
+
+/// Sent from /mob/living/basic/proc/look_dead() : ()
+#define COMSIG_BASICMOB_LOOK_DEAD "basicmob_look_dead"
+/// Sent from /mob/living/basic/proc/look_alive() : ()
+#define COMSIG_BASICMOB_LOOK_ALIVE "basicmob_look_alive"
+
+/// Signal sent when a blackboard key is set to a new value
+#define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"
+
+/// Signal sent when a blackboard key is cleared
+#define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"
