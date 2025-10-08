@@ -84,12 +84,12 @@
 /obj/item/clipboard/preloaded/circuit_templates
 	name="\improper Professor's Notes"
 	papers_to_add = list(/obj/item/paper/guides/circuits/greeting,
-						 /obj/item/paper/guides/circuits/hello_world,
-						 /obj/item/paper/guides/circuits/greeter,
-						 /obj/item/paper/guides/circuits/ticker,
-						 /obj/item/paper/guides/circuits/simple_math,
-						 /obj/item/paper/guides/circuits/times_table,
-						 )
+						/obj/item/paper/guides/circuits/hello_world,
+						/obj/item/paper/guides/circuits/greeter,
+						/obj/item/paper/guides/circuits/ticker,
+						/obj/item/paper/guides/circuits/simple_math,
+						/obj/item/paper/guides/circuits/times_table,
+						)
 
 /datum/design/integrated_circuit_template/times_table //Printable at circuit fabs for ease of finding. Yes, it's not really realistic, but this is a tutorial.
 	name = "0. The Professor's Notes"

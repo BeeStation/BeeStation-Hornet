@@ -4,7 +4,7 @@
  * Sets the output to 1 on a set, and clears it to 0 on reset.
  */
 /obj/item/circuit_component/gate/set_reset
-	display_name = "Set/Reset Component (RS Latch)"
+	display_name = "Set/Reset Component (SR Latch)"
 	desc = "Sets the output to 1 on a set, and clears it to 0 on reset."
 	category = "Gates"
 
