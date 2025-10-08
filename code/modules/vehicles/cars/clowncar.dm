@@ -112,6 +112,8 @@
 	try_pickup_target(H)
 
 /obj/vehicle/sealed/car/clowncar/proc/try_pickup_target(mob/living/L)
+	if(!isliving(L))
+		return
 	var/picking_up = (!L.combat_mode || upgraded) //Upgraded can always pick up, normal needs target to be outside of combat mode
 
 	if(picking_up)
