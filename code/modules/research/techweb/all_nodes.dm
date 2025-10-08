@@ -254,6 +254,8 @@
 		"integrated_circuit",
 		"module_duplicator",
 		"usb_cable",
+		"comp_gate_toggle",
+		"comp_gate_set_reset",
 	)
 
 //Circuit Templates
@@ -265,6 +267,10 @@
 	description = "I need some help with circuits. Can you lend a hand?"
 	design_ids = list(
 		"template_hello_world",
+		"template_greeter",
+		"template_ticker",
+		"template_simple_math",
+		"template_times_table"
 	)
 
 /////////////////////////Biotech/////////////////////////

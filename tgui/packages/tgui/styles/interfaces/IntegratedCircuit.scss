@@ -89,6 +89,10 @@ $category-colors: (
     bg: rgb(131, 26, 201),
     contrast: white,
   ),
+  'Gates': (
+    bg: hsl(138, 69%, 33%),
+    contrast: white,
+  ),
 );
 
 @each $category-name, $values in $category-colors {
