@@ -42,6 +42,7 @@
 		var/turf/underneath = get_turf(src)
 		if(!isfloorturf(underneath)) //These can only be built on floors anyway, but the linter screams at me because space is left behind when they are forcibly deleted under some arcane conditions I can't replicate.
 			underneath.PlaceOnTop(/turf/open/floor/plating)
+	real_wall = null
 	return ..()
 
 /obj/structure/falsewall/ratvar_act()
