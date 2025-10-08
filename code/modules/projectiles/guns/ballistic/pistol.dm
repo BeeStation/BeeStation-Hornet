@@ -188,14 +188,12 @@
 	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
 	recoil = 0.1
 
-	pin = /obj/item/firing_pin/dna
 	var/special_ammo_mag_max = 6 // Max amount we can carry
 	var/special_ammo_reserve = 6 // How many special shots we have left
 	var/special_authorized = FALSE
 	var/selected_special
 	var/cooldown_length = 5 SECONDS
 	var/list/special_types = list()
-	spawnwithmagazine = FALSE
 	actions_types = list(/datum/action/item_action/nps_special)
 
 	// Callout lists
@@ -258,9 +256,7 @@
 		if(selected_special)
 			unchamber_special()
 		else
-			var/result = radial_special_picker(user)
-			addtimer(CALLBACK(src, PROC_REF(chamber_special), result), 1.5 SECONDS)
-
+			INVOKE_ASYNC(src, PROC_REF(radial_special_picker), user)
 	else
 		balloon_alert_to_viewers("Not Authorized.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
@@ -293,7 +289,8 @@
 
 	user.say(callout)
 
-	return selection
+	addtimer(CALLBACK(src, PROC_REF(chamber_special), selection), 1.5 SECONDS)
+	return
 
 /obj/item/gun/ballistic/automatic/pistol/security/on_chamber_fired()
 	. = ..()
