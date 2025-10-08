@@ -84,6 +84,10 @@
 	var/should_draw_greyscale = TRUE
 	///An "override" color that can be applied to ANY limb, greyscale or not.
 	var/variable_color = ""
+	/// The colour of damage done to this bodypart
+	var/damage_color = ""
+	/// Should we even use a color?
+	var/use_damage_color = FALSE
 
 	///whether it can be dismembered with a weapon.
 	var/dismemberable = TRUE
@@ -614,6 +618,7 @@
 	else
 		skin_tone = ""
 
+	use_damage_color = owner_species.use_damage_color
 	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
@@ -655,7 +660,10 @@
 		image_dir = SOUTH
 		if(dmg_overlay_type)
 			if(brutestate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
+				var/image/bruteoverlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
+				if(use_damage_color)
+					bruteoverlay.color = damage_color
+				. += bruteoverlay
 			if(burnstate)
 				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 

@@ -63,6 +63,16 @@
 	max_items = 14
 	max_w_class = WEIGHT_CLASS_LARGE
 
+/obj/item/mod/module/storage/ert
+	name = "MOD responsory storage module"
+	desc = "A storage system using nanotechnology developed by Nanotrasen, these compartments use \
+		esoteric technology to compress the physical matter of items put inside of them, \
+		essentially shrinking items for much easier and more portable storage."
+	icon_state = "storage_large"
+	max_combined_w_class = 30
+	max_items = 21
+	max_w_class = WEIGHT_CLASS_LARGE
+
 /obj/item/mod/module/storage/syndicate
 	name = "\improper MOD syndicate storage module"
 	desc = "A storage system using nanotechnology developed by Cybersun Industries, these compartments use \

@@ -574,12 +574,8 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/betanorth)
 "cg" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/transit_tube{
 	dir = 4
 	},
@@ -590,12 +586,8 @@
 /turf/template_noop,
 /area/template_noop)
 "ci" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/transit_tube{
 	dir = 4
 	},
@@ -695,12 +687,8 @@
 /turf/template_noop,
 /area/template_noop)
 "cv" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/transit_tube{
 	dir = 4
 	},
@@ -3283,9 +3271,7 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "kn" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/engine/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "ko" = (
@@ -3346,9 +3332,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
 "ku" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/door/poddoor{
 	id = "proto"
 	},
@@ -3373,9 +3357,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
 "ky" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/door/poddoor{
 	id = "proto"
 	},
@@ -3390,7 +3372,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
 "kA" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/engine/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "kB" = (
@@ -3580,12 +3562,8 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "kX" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon{
 	dir = 8;
 	id_tag = "oldstation_air_out";
@@ -3641,9 +3619,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "le" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/engine/air,
 /area/ruin/space/has_grav/ancientstation/atmo)
