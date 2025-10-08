@@ -20,7 +20,7 @@ GLOBAL_PROTECT(mentor_verbs)
 	if(!CONFIG_GET(flag/enable_mrat))
 		return
 
-	if(prefs.muted & MUTE_MHELP)
+	if(player_details.muted & MUTE_MHELP)
 		to_chat(src, span_danger("Error: You cannot send mentorhelps (Muted)."))
 		return
 
