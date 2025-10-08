@@ -7,7 +7,7 @@
 /datum/design/integrated_circuit_template
 	name = "Hello, World!"
 	desc = "A simple \"Hello, World\" circuit."
-	id = "template_hello_world"
+	id = "template_circuit"
 	build_path = /obj/item/integrated_circuit/template/hello_world
 	category = list(WIREMOD_TEMPLATES)
 	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000, /datum/material/copper = 500) //Todo: Set Materials properly.
