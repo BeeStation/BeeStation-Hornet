@@ -30,6 +30,14 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/horn/clowncar, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Thank, VEHICLE_CONTROL_KIDNAPPED)
 
+/obj/vehicle/sealed/car/clowncar/relaymove(mob/living/user, direction)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/rider = user
+	if(rider.mind?.assigned_role != JOB_NAME_CLOWN) //Only clowns can drive the car.
+		return FALSE
+	return ..()
+
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M

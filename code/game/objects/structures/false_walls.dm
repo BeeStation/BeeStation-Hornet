@@ -261,7 +261,7 @@
 	mineral = /obj/item/stack/sheet/mineral/plasma
 	walltype = /turf/closed/wall/mineral/plasma
 
-/obj/structure/falsewall/plasma/ComponentInitialize()
+/obj/structure/falsewall/plasma/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 

@@ -8,7 +8,7 @@
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
-	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
+	exotic_bloodtype = "E"
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
@@ -33,11 +33,11 @@
 	inert_mutation = /datum/mutation/overload
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ethereal,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ethereal,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/ethereal,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/ethereal,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/ethereal,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ethereal,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ethereal,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/ethereal,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ethereal,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
 	)
 

@@ -73,5 +73,5 @@
 
 	calculate_output(index, list_input)
 
-/obj/item/circuit_component/indexer/proc/calculate_output(var/index, var/list/list_input)
+/obj/item/circuit_component/indexer/proc/calculate_output(index, list/list_input)
 	return

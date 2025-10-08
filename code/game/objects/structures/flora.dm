@@ -358,9 +358,6 @@
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
 	create_storage(storage_type = /datum/storage/implant)
-
-/obj/item/kirbyplants/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
 

@@ -217,7 +217,7 @@
 		return
 	EmptyExtinguisher(user)
 
-/obj/item/extinguisher/proc/EmptyExtinguisher(var/mob/user)
+/obj/item/extinguisher/proc/EmptyExtinguisher(mob/user)
 	if(loc == user && reagents.total_volume)
 		reagents.clear_reagents()
 
@@ -230,7 +230,7 @@
 
 //firebot assembly
 /obj/item/extinguisher/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
+	if(istype(O, /obj/item/bodypart/arm/left/robot) || istype(O, /obj/item/bodypart/arm/right/robot))
 		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		qdel(src)

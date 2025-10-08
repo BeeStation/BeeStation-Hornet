@@ -236,7 +236,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		T.MakeSlippery(TURF_WET_PERMAFROST, 1 MINUTES)
 	. = ..()
 
-/obj/effect/warped_rune/cyanspace/ComponentInitialize()
+/obj/effect/warped_rune/cyanspace/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 30)
 

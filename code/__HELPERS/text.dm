@@ -1055,7 +1055,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
 ///Returns a string based on the weight class define used as argument
-/proc/weight_class_to_text(var/w_class)
+/proc/weight_class_to_text(w_class)
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
 			. = "tiny"

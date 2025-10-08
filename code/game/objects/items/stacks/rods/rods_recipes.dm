@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 /obj/item/stack/rods/cyborg
 	merge_type = /obj/item/stack/rods
 
-/obj/item/stack/rods/cyborg/ComponentInitialize()
+/obj/item/stack/rods/cyborg/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 

@@ -478,6 +478,7 @@
 		"magboots",
 		"ranged_analyzer",
 		"rcd_loaded",
+		"rcl",
 		"rpd_loaded",
 		"weldingmask",
 		"sheetifier"
@@ -1458,6 +1459,7 @@
 		"power_cord",
 		"robotic_ears",
 		"robotic_eyes",
+		"robotic_heart",
 		"robotic_liver",
 		"robotic_stomach",
 		"robotic_tongue",
@@ -2018,7 +2020,6 @@
 		"mod_visor_sechud",
 		"mod_stealth",
 		"mod_mag_harness",
-		"mod_pathfinder",
 		"mod_holster",
 		"mod_sonar",
 		"mod_projectile_dampener",
