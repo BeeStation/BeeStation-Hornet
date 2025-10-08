@@ -32,8 +32,8 @@
 	icon_state = real_wall.icon_state
 	base_icon_state = real_wall.base_icon_state
 	smoothing_flags = real_wall.smoothing_flags
-	smoothing_groups = real_wall.smoothing_groups
-	canSmoothWith = real_wall.canSmoothWith
+	smoothing_groups = real_wall.smoothing_groups.Copy()
+	canSmoothWith = real_wall.canSmoothWith.Copy()
 	resistance_flags = real_wall.resistance_flags
 
 /obj/structure/falsewall/Destroy()
