@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: picking up two of the same stabilized extract no longer renders one of
+      them permanently inert
+  - tweak: picking up two DIFFERENT stabilized extracts now destroys the second one.
+      Pick between automatic healing and no equipment slowdown, you don't get both.
