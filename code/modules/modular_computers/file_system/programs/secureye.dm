@@ -12,6 +12,7 @@
 	tgui_id = "NtosSecurEye"
 	program_icon = "eye"
 	hardware_requirement = MC_CAMERA // Doesn't make sense to use a camera a lot, but this will get security off their ass
+	power_consumption = 200 WATT
 
 	var/list/network = list(CAMERA_NETWORK_STATION)
 	/// Weakref to the active camera

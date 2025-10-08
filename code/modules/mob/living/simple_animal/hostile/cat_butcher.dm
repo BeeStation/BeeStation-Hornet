@@ -74,7 +74,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/hostile/cat_butcherer/proc/healvictim(var/mob/living/carbon/human/L)
+/mob/living/simple_animal/hostile/cat_butcherer/proc/healvictim(mob/living/carbon/human/L)
 	visible_message("[src] injects [L] with an unknown medicine!", span_notice("You inject [L] with medicine."))
 	L.SetSleeping(0, FALSE)
 	L.SetUnconscious(0, FALSE)
@@ -89,7 +89,7 @@
 		L.suppress_bloodloss(BLEED_DEEP_WOUND)//bandage their ass
 	FindTarget()
 
-/mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(var/mob/living/carbon/human/L)
+/mob/living/simple_animal/hostile/cat_butcherer/proc/newvictim(mob/living/carbon/human/L)
 	if(victims.Find(L))
 		adjustHealth(-(maxHealth))
 		return FALSE

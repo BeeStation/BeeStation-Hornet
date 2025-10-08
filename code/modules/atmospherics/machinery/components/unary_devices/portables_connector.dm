@@ -36,6 +36,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/portables_connector/update_icon_nopipes()
+	cut_overlays()
 	icon_state = "connector"
 	if(showpipe)
 		var/image/cap = get_pipe_image(icon, "connector_cap", initialize_directions, pipe_color)

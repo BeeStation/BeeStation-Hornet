@@ -127,8 +127,6 @@
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
 
-/obj/item/gun/ComponentInitialize()
-	. = ..()
 	//Smaller weapons are better when used in a single hand.
 	if(requires_wielding)
 		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
@@ -292,10 +290,28 @@
 				continue
 			O.emp_act(severity)
 
-/obj/item/gun/pre_attack(atom/A, mob/living/user, params)
+/obj/item/gun/attack_atom(obj/O, mob/living/user, params)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/attack_turf(turf/T, mob/living/user)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/attack(mob/M, mob/living/user)
+	if (user.combat_mode || (flags_1 & ISWEAPON))
+		..()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	// Cancel the attack chain if we fire
-	return . || pull_trigger(A, user, params, GUN_NOT_AIMED)
+	return . || pull_trigger(target, user, click_parameters, GUN_NOT_AIMED)
 
 /obj/item/gun/ranged_attack(atom/target, mob/living/user, params)
 	. = ..()
@@ -317,6 +333,10 @@
 		if(target == user && !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return FALSE
 	add_fingerprint(user)
+
+	// Return true, but act as intercepted so we don't start hitting things
+	if (SEND_SIGNAL(src, COMSIG_MOB_PULL_TRIGGER, target, user, params, aimed) & CANCEL_TRIGGER_PULL)
+		return TRUE
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
 		var/mob/living/L = user
@@ -443,7 +463,7 @@
 		fire_shot_at(user, target, message, params, zone_override, aimed)
 
 	if(user)
-		user.update_inv_hands()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
 

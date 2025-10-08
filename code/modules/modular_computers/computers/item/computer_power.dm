@@ -1,3 +1,19 @@
+/obj/item/modular_computer/proc/get_power()
+	if(check_power_override())
+		return INFINITY
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGER]
+
+	if(recharger && recharger.check_functionality())
+		if(recharger.use_power())
+			return INFINITY
+
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+
+	if(battery_module && battery_module.battery && battery_module.battery.charge)
+		var/obj/item/stock_parts/cell/cell = battery_module.battery
+		return cell.charge
+	return 0
+
 // Tries to draw power from charger or, if no operational charger is present, from power cell.
 /obj/item/modular_computer/proc/use_power(amount = 0)
 	if(check_power_override())
@@ -44,6 +60,11 @@
 			var/datum/computer_file/program/PRG = I
 			PRG.event_powerfailure(1)
 		shutdown_computer(0)
+	// Disable the flashlight
+	if (light_on)
+		set_light_on(FALSE)
+		update_appearance()
+		update_action_buttons(force = TRUE)
 
 /obj/item/modular_computer/proc/battery_explosion()
 	var/obj/item/computer_hardware/battery/controler = all_components[MC_CELL]
@@ -78,7 +99,7 @@
 	if(recharger)
 		recharger.process(delta_time)
 
-	var/power_usage = calculate_power()
+	var/power_usage = calculate_power() * delta_time
 	if(use_power(power_usage))
 		last_power_usage = power_usage
 		return TRUE
@@ -95,14 +116,21 @@
 *
 */
 /obj/item/modular_computer/proc/calculate_power()
-	var/power_usage = enabled ? base_active_power_usage : base_idle_power_usage
+	// No power usage while disabled
+	if (!enabled)
+		return 0
 
-	if(enabled)
-		for(var/h in all_components)
-			var/obj/item/computer_hardware/H = all_components[h]
-			if(H.enabled)
-				power_usage += H.power_usage
-	return power_usage
+	var/power_usage = using_flashlight ? flashlight_power_usage : base_power_usage
+
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		if(H.enabled)
+			power_usage += H.power_usage
+
+	if (active_program)
+		power_usage += active_program.power_consumption
+
+	return power_usage * power_usage_multiplier
 
 // Used by child types if they have other power source than battery or recharger
 /obj/item/modular_computer/proc/check_power_override()

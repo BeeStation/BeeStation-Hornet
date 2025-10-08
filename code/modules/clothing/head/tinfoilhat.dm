@@ -95,7 +95,7 @@
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
-	user.update_inv_head() //So the mob overlay updates
+	user.update_worn_head() //So the mob overlay updates
 
 	if(on)
 		set_light(TRUE)

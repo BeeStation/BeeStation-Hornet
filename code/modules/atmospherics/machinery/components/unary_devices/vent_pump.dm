@@ -13,8 +13,8 @@
 	hide = TRUE
 	shift_underlay_only = FALSE
 	pipe_state = "uvent"
-
-	interacts_with_air = TRUE
+	// vents are more complex machinery and so are less resistant to damage
+	max_integrity = 100
 
 	///Direction of pumping the gas (ATMOS_DIRECTION_RELEASING or ATMOS_DIRECTION_SIPHONING)
 	var/pump_direction = ATMOS_DIRECTION_RELEASING
@@ -34,15 +34,83 @@
 	///area this vent is assigned to
 	var/area/assigned_area
 
+	/// Is this vent currently overclocked, removing pressure limits but damaging the fan?
+	var/fan_overclocked = FALSE
+
+	/// Rate of damage per atmos process to the fan when overclocked. Set to 0 to disable damage.
+	var/fan_damage_rate = 0.5
+
+	/// The cached string we show for examine that lets you know how fucked up the fan is.
+	var/examine_condition
+
+	/// Datum for managing the overclock sound loop
+	var/datum/looping_sound/vent_pump_overclock/sound_loop
+
 /obj/machinery/atmospherics/components/unary/vent_pump/Initialize(mapload)
 	if(!id_tag)
 		id_tag = assign_random_name()
 	. = ..()
 
+	sound_loop = new(src)
 	assign_to_area()
+
+/obj/machinery/atmospherics/components/unary/vent_pump/add_context_self(datum/screentip_context/context, mob/user)
+	. = ..()
+	context.add_left_click_tool_action("Repair", TOOL_SCREWDRIVER)
+
+/obj/machinery/atmospherics/components/unary/vent_pump/on_update_integrity(old_value, new_value)
+	. = ..()
+	var/condition_string
+	switch(get_integrity_percentage())
+		if(1)
+			condition_string = "perfect"
+		if(0.75 to 0.99)
+			condition_string = "good"
+		if(0.50 to 0.74)
+			condition_string = "okay"
+		if(0.25 to 0.49)
+			condition_string = "bad"
+		else
+			condition_string = "terrible"
+	examine_condition = "The fan is in [condition_string] condition."
+
+/obj/machinery/atmospherics/components/unary/vent_pump/examine(mob/user)
+	. = ..()
+	if(fan_overclocked)
+		. += span_warning("It is currently overclocked causing it to take damage over time.")
+
+	if(get_integrity() > 0)
+		. += span_notice(examine_condition)
+	else
+		. += span_warning("The fan is broken.")
+
+/obj/machinery/atmospherics/components/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/tool)
+	var/time_to_repair = 10 SECONDS * (1 - get_integrity_percentage())
+	if(!time_to_repair)
+		return FALSE
+
+	balloon_alert(user, "repairing vent...")
+	if(do_after(user, time_to_repair, src))
+		balloon_alert(user, "vent repaired")
+		repair_damage(max_integrity)
+
+	else
+		balloon_alert(user, "interrupted!")
+	return TRUE
+
+/obj/machinery/atmospherics/components/unary/vent_pump/atom_fix()
+	set_is_operational(TRUE)
+	update_appearance(UPDATE_ICON)
+	return ..()
+
+/obj/machinery/atmospherics/components/unary/vent_pump/atom_break(damage_flag)
+	set_is_operational(FALSE)
+	update_appearance()
+	return ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
 	disconnect_from_area()
+	QDEL_NULL(sound_loop)
 
 	var/area/vent_area = get_area(src)
 	if (vent_area)
@@ -85,6 +153,17 @@
 	. = ..()
 	disconnect_from_area(area_to_unregister)
 
+/obj/machinery/atmospherics/components/unary/vent_pump/update_overlays()
+	. = ..()
+	if(!powered())
+		return
+
+	if(get_integrity() <= 0)
+		. += mutable_appearance(icon, "broken")
+
+	else if(fan_overclocked)
+		. += mutable_appearance(icon, "overclocked")
+
 /obj/machinery/atmospherics/components/unary/vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
@@ -122,6 +201,22 @@
 	else // pump_direction == SIPHONING
 		icon_state = "vent_in"
 
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/toggle_overclock(source, from_break = FALSE)
+	fan_overclocked = !fan_overclocked
+
+	if(from_break)
+		playsound(src, 'sound/machines/fan/fan_break.ogg', 100)
+		fan_overclocked = FALSE
+
+	if(fan_overclocked)
+		sound_loop.start()
+	else
+		sound_loop.stop()
+
+	investigate_log("had its overlock setting [fan_overclocked ? "enabled" : "disabled"] by [source]", INVESTIGATE_ATMOS)
+
+	update_appearance(UPDATE_ICON)
+
 REGISTER_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 
 DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
@@ -141,7 +236,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 	if(!is_operational || !isopenturf(loc))
 		return
 	if(!nodes[1])
-		on = FALSE
+		set_on(FALSE)
 	if(!on || welded)
 		return
 
@@ -149,6 +244,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 	if(!istype(us))
 		return
 
+	if(fan_overclocked)
+		take_damage(fan_damage_rate, sound_effect = FALSE)
+		if(get_integrity() == 0)
+			investigate_log("was destroyed as a result of overclocking", INVESTIGATE_ATMOS)
+			return
+
+	var/percent_integrity = get_integrity_percentage()
 	var/datum/gas_mixture/air_contents = airs[1]
 	var/datum/gas_mixture/environment = us.return_air()
 	var/environment_pressure = environment.return_pressure()
@@ -163,10 +265,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 
 		if(pressure_delta > 0)
 			if(air_contents.temperature > 0)
-				if((environment_pressure >= 50 * ONE_ATMOSPHERE))
+				if(!fan_overclocked && (environment_pressure >= 50 * ONE_ATMOSPHERE))
 					return FALSE
 
 				var/transfer_moles = (pressure_delta * environment.volume) / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+				if(!fan_overclocked && (percent_integrity < 1))
+					transfer_moles *= percent_integrity
 
 				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
@@ -184,10 +288,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/atmospherics/components/unary/vent_pump)
 			pressure_delta = min(pressure_delta, (internal_pressure_bound - air_contents.return_pressure()))
 
 		if(pressure_delta > 0 && environment.temperature > 0)
-			if((air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE))
+			if(!fan_overclocked && (air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE))
 				return FALSE
 
 			var/transfer_moles = (pressure_delta * air_contents.volume) / (environment.temperature * R_IDEAL_GAS_EQUATION)
+			if(!fan_overclocked && (percent_integrity < 1))
+				transfer_moles *= percent_integrity
 
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 

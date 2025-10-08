@@ -52,7 +52,7 @@
 	if(length(movable_reltool.buckled_mobs))
 		for(var/creature in movable_reltool.buckled_mobs)
 			lich_to_be = creature
-		if(!lich_to_be.mind.hasSoul)
+		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
@@ -68,7 +68,7 @@
 			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
 		lich_to_be = user
-		if(!lich_to_be.mind.hasSoul)
+		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
@@ -277,7 +277,7 @@
 	chosen_sacrifice = null
 	return ..()
 
-/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+/datum/religion_rites/living_sacrifice/proc/cuff(mob/living/carbon/C)
 	if(C.handcuffed)
 		return
 	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)

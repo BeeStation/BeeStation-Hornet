@@ -177,7 +177,7 @@
 	update_appearance()
 
 // connect the machine to a powernet if a node cable is present on the turf
-/obj/machinery/power/proc/connect_to_network(var/turf/turf = loc)
+/obj/machinery/power/proc/connect_to_network(turf/turf = loc)
 	var/turf/T = turf
 	if(!T || !istype(T))
 		return FALSE

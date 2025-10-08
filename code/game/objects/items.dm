@@ -276,8 +276,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	add_weapon_description()
 
-	if(LAZYLEN(embedding))
-		updateEmbedding()
+	// this code is stupid, i know, i don't care, this is what it was equivalent to before i touched it
+	if(!LAZYLEN(embedding))
+		if(GLOB.embedpocalypse)
+			embedding = EMBED_POINTY
+			name = "pointy [name]"
+		else if(GLOB.stickpocalypse)
+			embedding = EMBED_HARMLESS
+			name = "sticky [name]"
+	updateEmbedding()
+
+	if(sharpness) //give sharp objects butchering functionality, for consistency
+		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 /obj/item/Destroy()
 	master = null
@@ -339,31 +349,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/add_weapon_description()
 	AddElement(/datum/element/weapon_description)
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
+/**
+ * Checks if an item is allowed to be used on an atom/target
+ * Returns TRUE if allowed.
+ *
+ * Args:
+ * target_self - Whether we will check if we (src) are in target, preventing people from using items on themselves.
+ * not_inside - Whether target (or target's loc) has to be a turf.
+ */
+/obj/item/proc/check_allowed_items(atom/target, not_inside = FALSE, target_self = FALSE)
+	if(!target_self && (src in target))
 		return FALSE
-	else
-		return TRUE
+	if(not_inside && !isturf(target.loc) && !isturf(target))
+		return FALSE
+	return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
 		atom_destruction(MELEE)
-
-/obj/item/ComponentInitialize()
-	. = ..()
-
-	// this proc says it's for initializing components, but we're initializing elements too because it's you and me against the world >:)
-	if(!LAZYLEN(embedding))
-		if(GLOB.embedpocalypse)
-			embedding = EMBED_POINTY
-			name = "pointy [name]"
-		else if(GLOB.stickpocalypse)
-			embedding = EMBED_HARMLESS
-			name = "sticky [name]"
-	updateEmbedding()
-
-	if(sharpness) //give sharp objects butchering functionality, for consistency
-		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -638,14 +641,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return FALSE
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 	else
 		if(owner.active_hand_index == 1)
-			blockhand = (locate(/obj/item/bodypart/r_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/right) in owner.bodyparts)
 		else
-			blockhand = (locate(/obj/item/bodypart/l_arm) in owner.bodyparts)
+			blockhand = (locate(/obj/item/bodypart/arm/left) in owner.bodyparts)
 	if(!blockhand)
 		return FALSE
 	if(blockhand?.bodypart_disabled)
@@ -891,7 +894,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	attack_self(user)
 
-/obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
+/obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
 
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
@@ -945,7 +948,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (!eyes)
 		return
 	M.adjust_blurriness(3)
-	eyes.applyOrganDamage(3)
+	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
 		M.adjust_blurriness(15)
 		if(M.stat != DEAD)
@@ -1063,29 +1066,29 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/mob/owner = loc
 	var/flags = slot_flags
 	if(flags & ITEM_SLOT_OCLOTHING)
-		owner.update_inv_wear_suit()
+		owner.update_worn_oversuit()
 	if(flags & ITEM_SLOT_ICLOTHING)
-		owner.update_inv_w_uniform()
+		owner.update_worn_undersuit()
 	if(flags & ITEM_SLOT_GLOVES)
-		owner.update_inv_gloves()
+		owner.update_worn_gloves()
 	if(flags & ITEM_SLOT_EYES)
-		owner.update_inv_glasses()
+		owner.update_worn_glasses()
 	if(flags & ITEM_SLOT_EARS)
-		owner.update_inv_ears()
+		owner.update_worn_ears()
 	if(flags & ITEM_SLOT_MASK)
-		owner.update_inv_wear_mask()
+		owner.update_worn_mask()
 	if(flags & ITEM_SLOT_HEAD)
-		owner.update_inv_head()
+		owner.update_worn_head()
 	if(flags & ITEM_SLOT_FEET)
-		owner.update_inv_shoes()
+		owner.update_worn_shoes()
 	if(flags & ITEM_SLOT_ID)
-		owner.update_inv_wear_id()
+		owner.update_worn_id()
 	if(flags & ITEM_SLOT_BELT)
-		owner.update_inv_belt()
+		owner.update_worn_belt()
 	if(flags & ITEM_SLOT_BACK)
-		owner.update_inv_back()
+		owner.update_worn_back()
 	if(flags & ITEM_SLOT_NECK)
-		owner.update_inv_neck()
+		owner.update_worn_neck()
 
 /obj/item/proc/is_hot()
 	return heat
@@ -1341,7 +1344,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/hand_index = M.get_held_index_of_item(src)
 		if(hand_index)
 			M.held_items[hand_index] = null
-			M.update_inv_hands()
+			M.update_held_items()
 			if(M.client)
 				M.client.screen -= src
 			layer = initial(layer)

@@ -324,6 +324,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 				"refID" = REF(vent),
 				"long_name" = sanitize(vent.name),
 				"power" = vent.on,
+				"overclock" = vent.fan_overclocked,
+				"integrity" = vent.get_integrity_percentage(),
 				"checks" = vent.pressure_checks,
 				"excheck" = vent.pressure_checks & ATMOS_EXTERNAL_BOUND,
 				"incheck" = vent.pressure_checks & ATMOS_INTERNAL_BOUND,
@@ -393,6 +395,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			powering.on = !!params["val"]
 			powering.atmos_conditions_changed()
 			powering.update_icon()
+
+		if ("overclock")
+			if(isnull(vent))
+				return TRUE
+			vent.toggle_overclock(source = key_name(user))
+			vent.update_appearance(UPDATE_ICON)
+			return TRUE
 
 		if ("direction")
 			if (isnull(vent))
@@ -517,10 +526,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			. = TRUE
 
 		if("set_ac_target")
-			if(!isnum(params["target"]))
+			if(!isnum(params["value"]))
 				return
-			set_ac_target(params["target"])
-			investigate_log("has had its air conditioning target set to [params["target"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
+			set_ac_target(params["value"])
+			investigate_log("has had its air conditioning target set to [params["value"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 
 		if("default_ac_target")

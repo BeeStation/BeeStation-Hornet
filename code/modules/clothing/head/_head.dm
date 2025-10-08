@@ -19,7 +19,7 @@
 	. = ..()
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		var/mob/living/carbon/human/H = user
-		H.update_inv_head()
+		H.update_worn_head()
 	attached_wig?.equipped(user, slot)
 
 /obj/item/clothing/head/dropped(mob/user)
@@ -27,7 +27,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.head == src)
-			H.update_inv_head()
+			H.update_worn_head()
 	attached_wig?.dropped(user)
 
 /obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
@@ -73,7 +73,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.head == src)
-			H.update_inv_head()
+			H.update_worn_head()
 
 /obj/item/clothing/head/Destroy()
 	if (attached_wig)
@@ -141,13 +141,15 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
+			var/mutable_appearance/bloody_helmet = mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
+			bloody_helmet.color = get_blood_dna_color(return_blood_DNA())
+			. += bloody_helmet
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_head()
+		M.update_worn_head()
 
 /obj/item/clothing/head/compile_monkey_icon()
 	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing

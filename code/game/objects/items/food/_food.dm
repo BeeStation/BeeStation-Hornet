@@ -118,3 +118,16 @@
 		if(resistance_flags & ON_FIRE)
 			SSfire_burning.processing -= src
 		qdel(src)
+
+/obj/item/food/attackby(obj/item/attacking_item, mob/living/user)
+	. = ..()
+	if(istype(attacking_item, /obj/item/pen))
+		var/target_name = tgui_input_text(user, "What would you like to name your masterpiece?", "Name:", name || "Food", MAX_MESSAGE_LEN)
+		if(!target_name || !length(target_name))
+			return
+		if(CHAT_FILTER_CHECK(target_name))
+			to_chat(user, span_warning("The given name contains prohibited word(s)."))
+			return
+		to_chat(user, span_notice("You rename the '<span class='cfc_bluesky'>[name]</span>' to '<span class='cfc_orange'>[target_name]</span>'."))
+		name = target_name
+		update_appearance()

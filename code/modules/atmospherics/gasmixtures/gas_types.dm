@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	name = "Plasma"
 	gas_overlay = "plasma"
 	moles_visible = MOLES_GAS_VISIBLE
-	gasrig_shielding_power = 6
+	gasrig_shielding_power = 2
 	gasrig_shielding_modifier = 0.4
 	dangerous = TRUE
 	rarity = 800
@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	specific_heat = 10
 	name = "Nitrium"
 	fusion_power = 7
-	gasrig_shielding_power = 20
+	gasrig_shielding_power = 80
 	gas_overlay = "nitrium"
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
@@ -184,8 +184,8 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	moles_visible = MOLES_GAS_VISIBLE
 	dangerous = TRUE
 	fusion_power = 5
-	gasrig_shielding_power = 6
-	gasrig_shielding_modifier = 4
+	gasrig_shielding_power = 2
+	gasrig_shielding_modifier = 6
 	rarity = 300
 	base_value = 2.5
 	desc = "A highly flammable and radioactive gas."
@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	name = "BZ"
 	dangerous = TRUE
 	fusion_power = 8
-	gasrig_shielding_power = 3
+	gasrig_shielding_power = 20
 	gasrig_shielding_modifier = 1.5
 	rarity = 400
 	purchaseable = TRUE

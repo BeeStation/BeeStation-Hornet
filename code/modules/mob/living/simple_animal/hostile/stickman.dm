@@ -50,7 +50,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/stickman)
 
-/mob/living/simple_animal/hostile/stickman/Initialize(mapload, var/wizard_summoned)
+/mob/living/simple_animal/hostile/stickman/Initialize(mapload, wizard_summoned)
 	. = ..()
 	new /obj/effect/temp_visual/paper_scatter(src)
 	summoned_by_wizard = wizard_summoned

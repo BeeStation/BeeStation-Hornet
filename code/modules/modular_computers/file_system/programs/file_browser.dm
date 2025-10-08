@@ -9,6 +9,7 @@
 	undeletable = TRUE
 	tgui_id = "NtosFileManager"
 	program_icon = "folder"
+	power_consumption = 20 WATT
 
 	var/open_file
 	var/error

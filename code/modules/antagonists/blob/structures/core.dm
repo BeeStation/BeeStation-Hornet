@@ -4,7 +4,6 @@
 	icon_state = "blank_blob"
 	desc = "A huge, pulsating yellow mass."
 	max_integrity = BLOB_CORE_MAX_HP
-	max_hit_damage = BLOB_CORE_MAX_HP / 10
 	armor_type = /datum/armor/blob_core
 	explosion_block = 6
 	point_return = -1
@@ -34,6 +33,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/special/core)
 	if(overmind)
 		overmind.blobstrain.on_gain()
 		update_icon()
+	AddComponent(/datum/component/stationloving, FALSE, TRUE)
 	. = ..()
 
 /obj/structure/blob/special/core/scannerreport()
@@ -78,10 +78,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/blob/special/core)
 	reinforce_area(delta_time)
 	produce_spores()
 	..()
-
-/obj/structure/blob/special/core/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/stationloving, FALSE, TRUE)
 
 /obj/structure/blob/special/core/onTransitZ(old_z, new_z)
 	if(overmind && is_station_level(new_z))

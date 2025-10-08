@@ -2,7 +2,7 @@
 
 ///Springlock Mechanism - allows your modsuit to activate faster, but reagents are very dangerous.
 /obj/item/mod/module/springlock
-	name = "MOD springlock module"
+	name = "\improper MOD springlock module"
 	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
 		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
 		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
@@ -59,7 +59,7 @@
 
 ///Rave Visor - Gives you a rainbow visor and plays jukebox music to you.
 /obj/item/mod/module/visor/rave
-	name = "MOD rave visor module"
+	name = "\improper MOD rave visor module"
 	desc = "A Super Cool Awesome Visor (SCAV), intended for modular suits."
 	icon_state = "rave_visor"
 	complexity = 1
@@ -68,10 +68,6 @@
 	var/datum/client_colour/rave_screen
 	/// The current element in the rainbow_order list we are on.
 	var/rave_number = 1
-	/// The track we selected to play.
-	var/datum/track/selection
-	/// A list of all the songs we can play.
-	var/list/songs = list()
 	/// A list of the colors the module can take.
 	var/static/list/rainbow_order = list(
 		list(1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0),
@@ -81,47 +77,46 @@
 		list(0,0,0,0, 0,0.5,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0),
 		list(1,0,0,0, 0,0,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0),
 	)
+	/// What actually plays music to us
+	var/datum/jukebox/single_mob/music_player
 
 /obj/item/mod/module/visor/rave/Initialize(mapload)
 	. = ..()
-	var/list/tracks = flist("[global.config.directory]/jukebox_music/sounds/")
-	for(var/sound in tracks)
-		var/datum/track/track = new()
-		track.song_path = file("[global.config.directory]/jukebox_music/sounds/[sound]")
-		var/list/sound_params = splittext(sound,"+")
-		if(length(sound_params) != 3)
-			continue
-		track.song_name = sound_params[1]
-		track.song_length = text2num(sound_params[2])
-		track.song_beat = text2num(sound_params[3])
-		songs[track.song_name] = track
-	if(length(songs))
-		var/song_name = pick(songs)
-		selection = songs[song_name]
+	music_player = new(src)
+	music_player.sound_loops = TRUE
 
-/obj/item/mod/module/visor/rave/on_activation()
-	rave_screen = mod.wearer.add_client_colour(/datum/client_colour/rave)
-	rave_screen.update_colour(rainbow_order[rave_number])
-	if(selection)
-		SEND_SOUND(mod.wearer, sound(selection.song_path, volume = 50, channel = CHANNEL_JUKEBOX))
-
-/obj/item/mod/module/visor/rave/on_deactivation(display_message = TRUE, deleting = FALSE)
+/obj/item/mod/module/visor/rave/Destroy()
+	QDEL_NULL(music_player)
 	QDEL_NULL(rave_screen)
-	if(selection)
-		mod.wearer.stop_sound_channel(CHANNEL_JUKEBOX)
-		if(deleting)
-			return
-		SEND_SOUND(mod.wearer, sound('sound/machines/terminal_off.ogg', volume = 50, channel = CHANNEL_JUKEBOX))
+	return ..()
 
-/obj/item/mod/module/visor/rave/generate_worn_overlay(mutable_appearance/standing)
-	if (!active)
-		return list()
+/obj/item/mod/module/visor/rave/on_activation(mob/activator)
+	rave_screen = mod.wearer.add_client_colour(/datum/client_colour/rave, REF(src))
+	rave_screen.update_colour(rainbow_order[rave_number])
+	music_player.start_music(mod.wearer)
+
+/obj/item/mod/module/visor/rave/on_deactivation(mob/activator, display_message = TRUE, deleting = FALSE)
+	QDEL_NULL(rave_screen)
+	if(isnull(music_player.active_song_sound))
+		return
+
+	music_player.unlisten_all()
+	if(deleting)
+		return
+	SEND_SOUND(mod.wearer, sound('sound/machines/terminal_off.ogg', volume = 50, channel = CHANNEL_JUKEBOX))
+
+/obj/item/mod/module/visor/rave/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
+	. = ..()
+	if (!.)
+		return
+
 	var/mutable_appearance/visor_overlay = mod.get_visor_overlay(standing)
 	visor_overlay.appearance_flags |= RESET_COLOR
-	visor_overlay.color = active ? rainbow_order[rave_number] : null
-	return list(visor_overlay)
+	if (!isnull(music_player.active_song_sound))
+		visor_overlay.color = rainbow_order[rave_number]
+	. += visor_overlay
 
-/obj/item/mod/module/visor/rave/on_active_process(delta_time)
+/obj/item/mod/module/visor/rave/on_active_process(seconds_per_tick)
 	rave_number++
 	if(rave_number > length(rainbow_order))
 		rave_number = 1
@@ -130,24 +125,24 @@
 
 /obj/item/mod/module/visor/rave/get_configuration()
 	. = ..()
-	if(length(songs))
-		.["selection"] = add_ui_configuration("Song", "list", selection.song_name, clean_songs())
+	if(length(music_player.songs))
+		.["selection"] = add_ui_configuration("Song", "list", music_player.selection.song_name, music_player.songs)
 
 /obj/item/mod/module/visor/rave/configure_edit(key, value)
 	switch(key)
 		if("selection")
-			if(active)
+			if(!isnull(music_player.active_song_sound))
 				return
-			selection = songs[value]
 
-/obj/item/mod/module/visor/rave/proc/clean_songs()
-	. = list()
-	for(var/track in songs)
-		. += track
+			var/datum/track/new_song = music_player.songs[value]
+			if(QDELETED(src) || !istype(new_song, /datum/track))
+				return
+
+			music_player.selection = new_song
 
 ///Tanner - Tans you with spraytan.
 /obj/item/mod/module/tanner
-	name = "MOD tanning module"
+	name = "\improper MOD tanning module"
 	desc = "A tanning module for modular suits. Skin cancer functionality hasn't ever been proven, \
 		although who knows with the rumors..."
 	icon_state = "tanning"
@@ -169,7 +164,7 @@
 
 ///Balloon Blower - Blows a balloon.
 /obj/item/mod/module/balloon
-	name = "MOD balloon blower module"
+	name = "\improper MOD balloon blower module"
 	desc = "A strange module invented years ago by some ingenious mimes. It blows balloons."
 	icon_state = "bloon"
 	module_type = MODULE_USABLE
@@ -193,7 +188,7 @@
 
 /// Paper Dispenser - Dispenses (sometimes burning) paper sheets.
 /obj/item/mod/module/paper_dispenser
-	name = "MOD paper dispenser module"
+	name = "\improper MOD paper dispenser module"
 	desc = "A simple module designed by the bureaucrats of Torch Bay. \
 		It dispenses 'warm, clean, and crisp sheets of paper' onto a nearby table. Usually."
 	icon_state = "paper_maker"
@@ -235,7 +230,7 @@
 
 ///Stamper - Extends a stamp that can switch between accept/deny modes.
 /obj/item/mod/module/stamp
-	name = "MOD stamper module"
+	name = "\improper MOD stamper module"
 	desc = "A module installed into the wrist of the suit, this functions as a high-power stamp, \
 		able to switch between accept and deny modes."
 	icon_state = "stamp"
@@ -248,7 +243,7 @@
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/stamp/mod
-	name = "MOD electronic stamp"
+	name = "\improper MOD electronic stamp"
 	desc = "A high-power stamp, able to switch between accept and deny mode when used."
 
 /obj/item/stamp/mod/attack_self(mob/user, modifiers)
@@ -261,7 +256,7 @@
 
 ///Atrocinator - Flips your gravity.
 /obj/item/mod/module/atrocinator
-	name = "MOD atrocinator module"
+	name = "\improper MOD atrocinator module"
 	desc = "A mysterious orb that has mysterious effects when inserted in a MODsuit."
 	icon_state = "atrocinator"
 	module_type = MODULE_TOGGLE

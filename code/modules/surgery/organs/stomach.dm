@@ -193,14 +193,14 @@
 	to_chat(owner, span_notice("You absorb some of the shock into your body!"))
 
 /obj/item/organ/stomach/cybernetic
-	name = "basic cybernetic stomach"
+	name = "cybernetic stomach"
 	icon_state = "stomach-c"
 	desc = "A basic device designed to mimic the functions of a human stomach"
 	organ_flags = ORGAN_SYNTHETIC
 	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
 
 /obj/item/organ/stomach/cybernetic/upgraded
-	name = "cybernetic stomach"
+	name = "upgraded cybernetic stomach"
 	icon_state = "stomach-c-u"
 	desc = "An electronic device designed to mimic the functions of a human stomach. Handles disgusting food a bit better."
 	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD

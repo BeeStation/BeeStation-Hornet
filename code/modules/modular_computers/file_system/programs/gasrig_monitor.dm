@@ -4,10 +4,13 @@
 	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "crew"
 	extended_desc = "Program for controlling the stations Advanced Gas Rig"
+	category = PROGRAM_CATEGORY_ENGI
+	transfer_access = list(ACCESS_CONSTRUCTION)
 	size = 4
 	tgui_id = "NtosAtmosGasRig"
 	program_icon = "clipboard-list"
 	requires_ntnet = TRUE
+	power_consumption = 60 WATT
 	var/obj/machinery/atmospherics/gasrig/core/gasrig
 
 
