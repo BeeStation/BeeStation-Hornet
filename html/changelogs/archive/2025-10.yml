@@ -93,14 +93,48 @@
       instead of attempting whatever relevant item interaction (fixes nightmares not
       being able to attack borgs)
   - bugfix: Fixed deathsquads not spawning in with mindshield implants
+  - bugfix: Fixed various security/medical records bugs
+  - rscadd: Made it more obvious that silicons aren't intended to be able to edit
+      security/medical records
   mrmanlikesbt, Mooshimi, Jolly:
   - refactor: You shouldn't notice anything, but something has changed about windows.
       Report anything strange on github
   mrmanlikesbt, TiviPlus:
   - rscdel: Deleted the final remnants of the devil
+  'mrmanlikesbt, hry-gh, jlsnow-301, absolucy, JJRcop, SomeRandomOwl, Fikou, lessthnthree, Watermelon914, ':
+  - bugfix: Fixed admin sounds (I am so sorry)
+  - server: Replaces youtube-dl with yt-dlp
+  rkz, mothblocks, skoglol, Primordial:
+  - admin: Going stealth mode now drops your orbiters and blocks you from being orbited.
+  - admin: Stealth mode should reset ghost name correctly.
+  - admin: Ignore and Unignore should not interfere with Stealth Mode
+  - tweak: Split the Ignore verb into two verbs (Ignore and Unignore)
+  - rscadd: Unignore allows you to view your ignore list
+  - rscadd: Unignore allows you to unignore players who are offline
   rkz, thgvr, fikou:
   - rscadd: Greyscales all blood decals.
   - rscadd: Species now all have different blood colors, which will show in the footprints,
       blood trails, and damage overlays when they get hurt
   - rscadd: Gave some species their own bloodtype
   - rscadd: new footstep sprites
+2025-10-06:
+  TsunamiAnt:
+  - refactor: refactored just, all the ERT stuff. Everything. Including some modsuit
+      stuff with things like chrono agent.
+  - tweak: pathfinder modules have been made more loving, but also more rare.
+  - admin: inquisition ERTs are now fixed!
+2025-10-07:
+  mrmanlikesbt:
+  - rscadd: Added dynamic storytellers
+  mrmanlikesbt, tralezab, Cornelius Bogfrollup Fitzgerald, Mooshimi, MrMelbert, TealSeer, JohnFulpWillard:
+  - bugfix: Fixed jukeboxes
+  - refactor: Refactored jukebox code
+  - imageadd: Gave jukeboxes a new sprite
+  - rscdel: Deleted some ancient unused sprites
+2025-10-08:
+  PowerfulBacon:
+  - tweak: Adds a commendation buttons to LOOC chats, which rewards 1 beecoin to both
+      players.
+  - tweak: Adds a criticize button to LOOC chat, which can only be used once per round
+      and will cause a player to be muted after 2-5 minutes if they do not have enough
+      commendations.

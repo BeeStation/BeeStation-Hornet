@@ -23,7 +23,7 @@ AUTH_CLIENT_VERB(ooc, msg as text)
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
 			to_chat(usr, span_danger("OOC for dead mobs has been turned off."))
 			return
-		if(prefs && (prefs.muted & MUTE_OOC))
+		if(prefs && (player_details.muted & MUTE_OOC))
 			to_chat(src, span_danger("You cannot use OOC (muted)."))
 			return
 	else
@@ -85,6 +85,8 @@ AUTH_CLIENT_VERB(ooc, msg as text)
 	//The linkify span classes and linkify=TRUE below make ooc text get clickable chat href links if you pass in something resembling a url
 	for(var/client/C in GLOB.clients)
 		if(!C.prefs || C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
+			if(holder?.fakekey in C.prefs.ignoring)
+				continue
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))
@@ -194,17 +196,7 @@ AUTH_CLIENT_VERB(motd)
 
 	new /datum/job_report_menu(src, usr)
 
-/client/proc/ignore_key(client, displayed_key)
-	if(!prefs)
-		return
-	var/client/C = client
-	if(C.key in prefs.ignoring)
-		prefs.ignoring -= C.key
-	else
-		prefs.ignoring |= C.key
-	to_chat(src, "You are [(C.key in prefs.ignoring) ? "now" : "no longer"] ignoring [displayed_key] on the OOC channel.")
-	prefs.mark_undatumized_dirty_player()
-
+// Ignore verb
 AUTH_CLIENT_VERB(select_ignore)
 	set name = "Ignore"
 	set category = "OOC"
@@ -212,28 +204,119 @@ AUTH_CLIENT_VERB(select_ignore)
 
 	if(!prefs)
 		return
-	var/see_ghost_names = isobserver(mob)
-	var/list/choices = list()
-	var/displayed_choicename = ""
+	// Make a list to choose players from
+	var/list/players = list()
+
+	// Use keys and fakekeys for the same purpose
+	var/displayed_key = ""
+
+	// Try to add every player who's online to the list
 	for(var/client/C in GLOB.clients)
+		// Don't add ourself
+		if(C == src)
+			continue
+
+		// Don't add players we've already ignored if they're not using a fakekey
+		if((C.key in prefs.ignoring) && !C.holder?.fakekey)
+			continue
+
+		// Don't add players using a fakekey we've already ignored
+		if(C.holder?.fakekey in prefs.ignoring)
+			continue
+
+		// Use the player's fakekey if they're using one
 		if(C.holder?.fakekey)
-			displayed_choicename = C.holder.fakekey
+			displayed_key = C.holder.fakekey
+
+		// Use the player's key if they're not using a fakekey
 		else
-			displayed_choicename = C.key
-		if(isobserver(C.mob) && see_ghost_names)
-			choices["[C.mob]([displayed_choicename])"] = C
+			displayed_key = C.key
+
+		// Check if both we and the player are ghosts and they're not using a fakekey
+		if(isobserver(mob) && isobserver(C.mob) && !C.holder?.fakekey)
+			// Show us the player's mob name in the list in front of their displayed key
+			// Add the player's displayed key to the list
+			players["[C.mob]([displayed_key])"] = displayed_key
+
+		// Add the player's displayed key to the list if we or the player aren't a ghost or they're using a fakekey
 		else
-			choices[displayed_choicename] = C
-	choices = sort_list(choices)
-	var/selection = input("Please, select a player!", "Ignore", null, null) as null|anything in choices
-	if(!selection || !(selection in choices))
+			players[displayed_key] = displayed_key
+
+	// Check if the list is empty
+	if(!length(players))
+		// Express that there are no players we can ignore in chat
+		to_chat(src, "There are no other players you can ignore!")
+
+		// Stop running
 		return
-	displayed_choicename = selection // ckey string
-	selection = choices[selection] // client
-	if(selection == src)
-		to_chat(src, "You can't ignore yourself.")
+
+	// Sort the list
+	players = sort_list(players)
+
+	// Request the player to ignore
+	var/selection = tgui_input_list(src, "Select a player", "Ignore", players)
+
+	// Stop running if we didn't receieve a valid selection
+	if(isnull(selection) || !(selection in players))
 		return
-	ignore_key(selection, displayed_choicename)
+
+	// Store the selected player
+	selection = players[selection]
+
+	// Check if the selected player is on our ignore list
+	if(selection in prefs.ignoring)
+		// Express that the selected player is already on our ignore list in chat
+		to_chat(src, "You are already ignoring [selection]!")
+
+		// Stop running
+		return
+
+	// Add the selected player to our ignore list
+	prefs.ignoring.Add(selection)
+
+	// Save our preferences
+	prefs.mark_undatumized_dirty_player()
+
+	// Express that we've ignored the selected player in chat
+	to_chat(src, "You are now ignoring [selection] on the OOC channel.")
+
+// Unignore verb
+/client/verb/select_unignore()
+	set name = "Unignore"
+	set category = "OOC"
+	set desc = "Stop ignoring a player's messages on the OOC channel"
+
+	// Check if we've ignored any players
+	if(!length(prefs.ignoring))
+		// Express that we haven't ignored any players in chat
+		to_chat(src, "You haven't ignored any players!")
+
+		// Stop running
+		return
+
+	// Request the player to unignore
+	var/selection = tgui_input_list(src, "Select a player", "Unignore", prefs.ignoring)
+
+	// Stop running if we didn't receive a selection
+	if(isnull(selection))
+		return
+
+	// Check if the selected player is not on our ignore list
+	if(!(selection in prefs.ignoring))
+		// Express that the selected player is not on our ignore list in chat
+		to_chat(src, "You are not ignoring [selection]!")
+
+		// Stop running
+		return
+
+	// Remove the selected player from our ignore list
+	prefs.ignoring.Remove(selection)
+
+	// Save our preferences
+	prefs.mark_undatumized_dirty_player()
+
+	// Express that we've unignored the selected player in chat
+	to_chat(src, "You are no longer ignoring [selection] on the OOC channel.")
 
 /client/proc/show_previous_roundend_report()
 	set name = "Your Last Round"
