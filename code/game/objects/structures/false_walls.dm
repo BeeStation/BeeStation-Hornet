@@ -68,9 +68,8 @@
 			place_real_wall()
 
 /obj/structure/falsewall/proc/place_real_wall()
-	realwall = get_turf(src) //Get the turf the false wall is on and temporarily store it
-	realwall.PlaceOnTop(walltype) //Place the real wall where the false wall is
-	realwall = get_turf(src) //Store the real wall for deleting the next time the turf is opened
+	var/turf/our_turf = get_turf(src) //Get the turf the false wall is on and temporarily store it
+	realwall = our_turf.PlaceOnTop(walltype) //Place the real wall where the false wall is
 
 /obj/structure/falsewall/update_icon()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	if(opening)
