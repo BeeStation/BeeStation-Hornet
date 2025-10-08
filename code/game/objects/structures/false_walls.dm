@@ -12,26 +12,26 @@
 	layer = LOW_OBJ_LAYER
 	density = TRUE
 	can_be_unanchored = FALSE
-	///This variable is used to preserve realwall if the false wall is deleted via being bolted down instead of actually destroyed.
+	///This variable is used to preserve real_wall if the false wall is deleted via being bolted down instead of actually destroyed.
 	var/bolting_back_down = FALSE
 	var/mineral = /obj/item/stack/sheet/iron
 	var/mineral_amount = 2
 	var/walltype = /turf/closed/wall
 	var/girder_type = /obj/structure/girder/displaced
 	var/opening = FALSE
-	var/turf/realwall
+	var/turf/real_wall
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE, TRUE)
 	place_real_wall()
-	desc = realwall.desc
-	name = realwall.name
-	max_integrity = realwall.max_integrity
+	desc = real_wall.desc
+	name = real_wall.name
+	max_integrity = real_wall.max_integrity
 
 /obj/structure/falsewall/Destroy()
-	if(!QDELETED(realwall) && !bolting_back_down)
-		realwall.ScrapeAway()
+	if(!QDELETED(real_wall) && !bolting_back_down)
+		real_wall.ScrapeAway()
 		var/turf/underneath = get_turf(src)
 		if(!isfloorturf(underneath)) //These can only be built on floors anyway, but the linter screams at me because space is left behind when they are forcibly deleted under some arcane conditions I can't replicate.
 			underneath.PlaceOnTop(/turf/open/floor/plating)
@@ -56,7 +56,7 @@
 			opening = FALSE
 			return
 	else
-		realwall.ScrapeAway() //Remove the real wall when we start to open
+		real_wall.ScrapeAway() //Remove the real wall when we start to open
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)), 5)
 
 /obj/structure/falsewall/proc/toggle_open()
@@ -69,7 +69,7 @@
 
 /obj/structure/falsewall/proc/place_real_wall()
 	var/turf/our_turf = get_turf(src) //Get the turf the false wall is on and temporarily store it
-	realwall = our_turf.PlaceOnTop(walltype) //Place the real wall where the false wall is
+	real_wall = our_turf.PlaceOnTop(walltype) //Place the real wall where the false wall is
 
 /obj/structure/falsewall/update_icon()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
 	if(opening)
