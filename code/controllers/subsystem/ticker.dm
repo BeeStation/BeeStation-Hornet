@@ -26,16 +26,16 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound
 	/// If all clients have loaded it
 	var/round_end_sound_sent = TRUE
-	/// How early before reboot to start playing sound
+	/// How early before reboot can we start playing the sound
 	var/round_end_sound_duration
-	/// Timer for roundend sound duration
+	/// Timer for syncing up the end of the sound with the server reboot
 	var/round_end_sound_timer
 	/// The characters in the game. Used for objective tracking.
 	var/list/datum/mind/minds = list()
 
 	/// Time when reboot has started
 	var/start_wait
-	/// Time before world reboot
+	/// Time before world reboot happens
 	var/reboot_delay
 	/// If set TRUE, the round will not restart on it's own
 	var/delay_end = FALSE
