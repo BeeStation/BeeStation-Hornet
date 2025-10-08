@@ -266,6 +266,7 @@
 	display_name = "Professor's Circuits"
 	description = "I need some help with circuits. Can you lend a hand?"
 	design_ids = list(
+		"template_notes",
 		"template_hello_world",
 		"template_greeter",
 		"template_ticker",
