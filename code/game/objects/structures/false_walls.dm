@@ -91,18 +91,6 @@
 			icon_state = "fwall_open"
 
 /obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
-	if(opening)
-		to_chat(user, span_warning("You must wait until the door has stopped moving!"))
-		return
-
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(density)
-			user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_notice("You tighten the bolts on the wall."))
-			bolting_back_down = TRUE
-			qdel(src)
-		else
-			to_chat(user, span_warning("You can't reach, close it first!"))
-
 	else if(W.tool_behaviour == TOOL_WELDER)
 		if(W.use_tool(src, user, 0, volume=50))
 			dismantle(user, TRUE)
@@ -111,6 +99,18 @@
 		dismantle(user, TRUE)
 	else
 		return ..()
+
+/obj/structure/falsewall/wrench_act(mob/living/user, obj/item/tool)
+	if(opening)
+		to_chat(user, span_warning("You must wait until the door has stopped moving!"))
+	else if(!density)
+		to_chat(user, span_warning("You can't reach, close it first!"))
+	else if(density)
+		user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_notice("You tighten the bolts on the wall."))
+		bolting_back_down = TRUE
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled=TRUE, obj/item/tool = null)
 	user.visible_message("[user] dismantles the false wall.", span_notice("You dismantle the false wall."))
