@@ -91,7 +91,7 @@
 			to_chat(X, "<B>[span_mentorto("Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> [span_mentorhelp(msg)]")]", type = MESSAGE_TYPE_MENTORPM) //inform X
 
 /// Basically the same thing as key_name_admin but with the mentorPM key instead
-/proc/key_name_mentor(var/whom, var/include_link = null)
+/proc/key_name_mentor(whom, include_link = null)
 	return key_name(whom, include_link = include_link, include_name = FALSE, href="_src_=mentor;mentor_msg", include_external_name = TRUE)
 
 /// Used when Reply is clicked for a ticket in chat - informs other mentors when you start typing.

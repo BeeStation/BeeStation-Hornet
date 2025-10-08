@@ -44,6 +44,7 @@
 				/obj/item/restraints/handcuffs/cable/zipties = 16,
 				/obj/item/reagent_containers/peppercloud_deployer = 4,
 				/obj/item/flashlight/seclite = 4,
+				/obj/item/ammo_casing/taser = 12,
 			),
 		),
 	)

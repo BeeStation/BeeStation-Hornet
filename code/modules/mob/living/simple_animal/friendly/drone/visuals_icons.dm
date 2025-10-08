@@ -19,7 +19,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/drone/update_inv_hands()
+/mob/living/simple_animal/drone/update_held_items()
 	remove_overlay(DRONE_HANDS_LAYER)
 	var/list/hands_overlays = list()
 
@@ -74,7 +74,7 @@
 		client.screen += internal_storage
 
 
-/mob/living/simple_animal/drone/update_inv_head(update_obscured)
+/mob/living/simple_animal/drone/update_worn_head(update_obscured)
 	remove_overlay(DRONE_HEAD_LAYER)
 
 	if(head)
@@ -91,14 +91,14 @@
 
 	apply_overlay(DRONE_HEAD_LAYER)
 
-/mob/living/simple_animal/drone/update_inv_wear_mask(update_obscured)
-	update_inv_head()
+/mob/living/simple_animal/drone/update_worn_mask(update_obscured)
+	update_worn_head()
 
 /mob/living/simple_animal/drone/regenerate_icons()
 	// Drones only have 4 slots, which in this specific instance
 	// is a small blessing.
-	update_inv_hands()
-	update_inv_head()
+	update_held_items()
+	update_worn_head()
 	update_inv_internal_storage()
 
 

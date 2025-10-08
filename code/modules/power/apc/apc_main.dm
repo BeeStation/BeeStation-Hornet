@@ -154,7 +154,7 @@
 	fire = 90
 	acid = 50
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building=0)
 	..()
 	GLOB.apcs_list += src
 

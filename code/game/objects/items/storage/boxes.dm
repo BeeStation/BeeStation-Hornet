@@ -707,8 +707,31 @@
 	icon_state = "secbox"
 	illustration = "handcuff"
 
+/obj/item/storage/box/handcuffs/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 14
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+
 /obj/item/storage/box/handcuffs/PopulateContents()
 	for(var/i in 1 to 7)
+		new /obj/item/restraints/handcuffs(src)
+
+/obj/item/storage/box/handcuffs/compact
+	name = "compact box of handcuffs"
+	desc = "A compact box full of handcuffs."
+	icon_state = "secbox"
+	illustration = "handcuff"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/handcuffs/compact/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 4
+	atom_storage.max_total_storage = 8
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/box/handcuffs/compact/PopulateContents()
+	for(var/i in 1 to 4)
 		new /obj/item/restraints/handcuffs(src)
 
 /obj/item/storage/box/zipties
@@ -717,9 +740,32 @@
 	icon_state = "secbox"
 	illustration = "handcuff"
 
+/obj/item/storage/box/zipties/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 14
+	atom_storage.max_total_storage = 28
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+
 /obj/item/storage/box/zipties/PopulateContents()
+	for(var/i in 1 to 14)
+		new /obj/item/restraints/handcuffs/cable/zipties(src)
+
+/obj/item/storage/box/zipties/compact
+	name = "compact box of zipties"
+	desc = "A compact box full of zipties."
+	icon_state = "secbox"
+	illustration = "handcuff"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/zipties/compact/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/restraints/handcuffs/cable/zipties(src)
+
+/obj/item/storage/box/zipties/compact/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 14
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
@@ -890,7 +936,7 @@
 	illustration = "clown"
 
 /obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
-	if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
+	if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, span_warning("You need to empty [src] out first!"))
 			return

@@ -596,6 +596,7 @@
 	new /obj/item/storage/belt/security/deputy(src)
 	new /obj/item/clothing/accessory/armband/deputy(src)
 	new /obj/item/card/id/pass/deputy(src)
+	new /obj/item/ammo_casing/taser(src)
 
 /obj/item/storage/backpack/duffelbag/engineering
 	name = "industrial duffel bag"

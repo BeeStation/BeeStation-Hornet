@@ -1297,8 +1297,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	item_state = icon_state
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_hands()
-		M.update_inv_back()
+		M.update_held_items()
+		M.update_worn_back()
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon()
