@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Adds a commendation buttons to LOOC chats, which rewards 1 beecoin to both
+      players.
+  - tweak: Adds a criticize button to LOOC chat, which can only be used once per round
+      and will cause a player to be muted after 2-5 minutes if they do not have enough
+      commendations.
