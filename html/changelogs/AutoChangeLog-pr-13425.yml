@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: Mesons no longer detect false walls that are closed. Open false walls will
-      still appear as an opening though.
-  - tweak: The bolts on false walls are now tightened with wrenches instead of screwdrivers.
