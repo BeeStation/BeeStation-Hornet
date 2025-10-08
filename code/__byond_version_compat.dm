@@ -9,6 +9,11 @@
 #error You need version 516.1648 or higher
 #endif
 
+// 516.1660 broke (x in vars), which breaks a lot of things.
+#if (DM_VERSION == 516 && DM_BUILD == 1660)
+#error This version of BYOND (516.1660) has a bug which prevents this codebase from loading properly. If possible, update your BYOND version. Otherwise, visit www.byond.com/download/build to download an older release.
+#endif
+
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 516
 #define MAX_COMPILER_BUILD 1700
