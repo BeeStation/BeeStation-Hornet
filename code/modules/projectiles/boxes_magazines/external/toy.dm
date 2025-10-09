@@ -1,7 +1,7 @@
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
-	caliber = list("foam_force")
+	caliber = list("foam_dart")
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"

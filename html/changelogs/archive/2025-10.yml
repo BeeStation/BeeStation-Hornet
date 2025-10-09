@@ -138,3 +138,19 @@
   - tweak: Adds a criticize button to LOOC chat, which can only be used once per round
       and will cause a player to be muted after 2-5 minutes if they do not have enough
       commendations.
+  Rukofamicom:
+  - tweak: Mesons no longer detect false walls that are closed. Open false walls will
+      still appear as an opening though.
+  - tweak: The bolts on false walls are now tightened with wrenches instead of screwdrivers.
+  - bugfix: picking up two of the same stabilized extract no longer renders one of
+      them permanently inert
+  - tweak: picking up two DIFFERENT stabilized extracts now destroys the second one.
+      Pick between automatic healing and no equipment slowdown, you don't get both.
+2025-10-09:
+  TsunamiAnt:
+  - rscadd: Victims of a vampire's mesmerize / feed are now told what the hell is
+      going on.
+  mrmanlikesbt:
+  - bugfix: fixed not having gravity when traveling on a shuttle
+  r1ks-iwnl:
+  - bugfix: Fixed being unable to load foam force guns
