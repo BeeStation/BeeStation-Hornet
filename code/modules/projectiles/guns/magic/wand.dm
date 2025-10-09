@@ -60,7 +60,7 @@
 
 /obj/item/gun/magic/wand/death
 	name = "wand of death"
-	desc = "This deadly wand overwhelms the victim's body with pure energy, slaying them without fail."
+	desc = "This deadly wand overwhelms the victim's body with pure energy, attacking their very life essence directly."
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/death
 	icon_state = "deathwand"

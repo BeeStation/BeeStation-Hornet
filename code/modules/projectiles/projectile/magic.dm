@@ -30,8 +30,12 @@
 	. = ..()
 	if(!isliving(target))
 		return
-
-	target.death()
+	if(target.adjustCloneLoss(45))
+		target.adjustStaminaLoss(75) //this doesn't need to succeed
+		to_chat(target, span_danger("You feel your very will to live draining away!"))
+	else
+		//For edge cases such as cyborgs which are immune to clone damage. Most simplemobs will suffer the first effect.
+		target.death()
 
 /obj/projectile/magic/healing
 	name = "bolt of healing"
