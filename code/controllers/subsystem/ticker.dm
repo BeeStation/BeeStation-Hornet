@@ -739,12 +739,12 @@ SUBSYSTEM_DEF(ticker)
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
 	round_end_sound_duration = duration
-	if(round_end_sound_timer)//replace any existing timer with a new one
+	if(round_end_sound_timer)// Replace any existing timer with a new one
 		var/time_left = reboot_delay - (world.time - start_wait)
 		if(time_left > round_end_sound_duration)
 			deltimer(round_end_sound_timer)
 			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), time_left - round_end_sound_duration, TIMER_STOPPABLE)
-		else //not enough time, play it anyway
+		else // Not enough time, play it anyway
 			deltimer(round_end_sound_timer)
 			round_end_sound_timer = null
 			PlayRoundEndSound()
@@ -789,10 +789,10 @@ SUBSYSTEM_DEF(ticker)
 
 			if(delay > round_end_sound_duration) // If there's time, play the round-end sound before rebooting
 				round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
-	else //admin added sound
+	else // Admin added sound
 		if(delay > round_end_sound_duration)
 			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
-		else //not enough time, play it anyway
+		else // Not enough time, play it anyway
 			PlayRoundEndSound()
 
 	sleep(delay - (world.time - start_wait))
