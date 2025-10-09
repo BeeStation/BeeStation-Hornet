@@ -44,6 +44,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
+	var/amount_healed = 25
 
 /obj/projectile/magic/healing/on_hit(mob/living/target)
 	. = ..()
@@ -59,12 +60,24 @@
 		return
 
 	else
-		target.adjustOxyLoss(-25)
-		target.adjustBruteLoss(-25)
-		target.adjustFireLoss(-25)
-		target.adjustToxLoss(-25)
-		target.adjustCloneLoss(-25)
+		target.adjustOxyLoss(-amount_healed)
+		target.adjustBruteLoss(-amount_healed)
+		target.adjustFireLoss(-amount_healed)
+		target.adjustToxLoss(-amount_healed)
+		target.adjustCloneLoss(-amount_healed)
+		target.adjustStaminaLoss(-amount_healed*2)
+		target.restore_blood()
 		target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
+
+/obj/protjectile/magic/healing/greater
+	amount_healed = 35
+
+/obj/projectile/magic/healing/greater/on_hit(mob/living/target)
+	if(!iscarbon(target))
+		return ..()
+	var/mob/living/carbon/humanoid_mob = target
+	humanoid_mob.regenerate_limbs()
+	humanoid_mob.regenerate_organs()
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"

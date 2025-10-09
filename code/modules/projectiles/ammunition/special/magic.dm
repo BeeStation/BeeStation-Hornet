@@ -16,6 +16,9 @@
 	projectile_type = /obj/projectile/magic/healing
 	harmful = FALSE
 
+/obj/item/ammo_casing/magic/heal/greater
+	projectile_type = /obj/projectile/magic/healing/greater
+
 /obj/item/ammo_casing/magic/death
 	projectile_type = /obj/projectile/magic/death
 

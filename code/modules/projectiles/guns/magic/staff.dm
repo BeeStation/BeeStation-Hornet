@@ -33,7 +33,7 @@
 	name = "staff of healing"
 	desc = "An artefact that spits bolts of restoring magic which can remove ailments of all kinds and even raise the dead."
 	fire_sound = 'sound/magic/staff_healing.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/heal
+	ammo_type = /obj/item/ammo_casing/magic/heal/greater
 	icon_state = "staffofhealing"
 	item_state = "staffofhealing"
 
