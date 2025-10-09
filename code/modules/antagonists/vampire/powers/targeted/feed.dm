@@ -26,8 +26,8 @@
 	var/warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	/// Reference to the target we are feeding off of
 	var/datum/weakref/target_ref
-	/// Have we recieved a masquerade infraction for this current feed?
-	var/has_recieved_infraction = FALSE
+	/// Have we received a masquerade infraction for this current feed?
+	var/has_received_infraction = FALSE
 
 /datum/action/vampire/targeted/feed/can_use()
 	. = ..()
@@ -133,7 +133,7 @@
 	)
 
 	// Check if we were seen while feeding
-	has_recieved_infraction = FALSE
+	has_received_infraction = FALSE
 	check_masquerade_infraction()
 
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
@@ -268,7 +268,7 @@
 	blood_taken += blood_to_take
 
 /datum/action/vampire/targeted/feed/proc/check_masquerade_infraction()
-	if (has_recieved_infraction)
+	if (has_received_infraction)
 		return
 
 	var/mob/living/feed_target = target_ref?.resolve()
@@ -286,7 +286,7 @@
 
 		owner.balloon_alert(owner, "feed noticed!")
 		vampiredatum_power.give_masquerade_infraction()
-		has_recieved_infraction = TRUE
+		has_received_infraction = TRUE
 		break
 
 #undef FEED_NOTICE_RANGE
