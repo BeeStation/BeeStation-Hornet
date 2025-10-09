@@ -82,7 +82,7 @@ $thickness: base.em(2px) !default;
   }
 
   .item_row:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.01);
+    background-color: hsla(0, 0%, 100%, 0.01);
   }
 
   .item_property_container {
@@ -90,7 +90,7 @@ $thickness: base.em(2px) !default;
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+    border-bottom: 1px hsla(0, 0%, 100%, 0.1) solid;
     padding-top: 5px;
     padding-bottom: 5px;
   }

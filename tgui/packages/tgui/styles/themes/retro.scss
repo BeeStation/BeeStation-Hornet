@@ -25,7 +25,7 @@
     color: hsl(0, 0%, 20.8%) !important;
   }
   .Tab {
-    color: rgba(0, 0, 0, 0.39) !important;
+    color: hsla(0, 0%, 0%, 0.39) !important;
   }
   .Tab--selected {
     color: black !important;
@@ -43,7 +43,7 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
+    $with: ('background-color': hsla(0, 0%, 0%, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
 

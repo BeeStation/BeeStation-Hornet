@@ -18,19 +18,19 @@
     text-shadow 0.2s ease;
 
   &.decoding {
-    color: #00ffcc;
-    text-shadow: 0 0 6px #00ffcc;
+    color: hsl(168, 100%, 50%);
+    text-shadow: 0 0 6px hsl(168, 100%, 50%);
   }
 
   &.decoded {
-    color: #66ff66;
-    text-shadow: 0 0 6px #66ff66;
+    color: hsl(120, 100%, 70%);
+    text-shadow: 0 0 6px hsl(120, 100%, 70%);
   }
 }
 
 .virus-key-activated {
   font-family: monospace;
-  color: #ff0000;
+  color: hsl(0, 100%, 50%);
   margin-bottom: 0.5rem;
 }
 
@@ -57,22 +57,22 @@
 
 @keyframes colorCycle {
   0% {
-    color: rgb(0, 255, 255);
+    color: hsl(180, 100%, 50%);
   }
   20% {
-    color: rgb(0, 255, 0);
+    color: hsl(120, 100%, 50%);
   }
   40% {
-    color: rgb(255, 255, 0);
+    color: hsl(60, 100%, 50%);
   }
   60% {
-    color: rgb(255, 102, 0);
+    color: hsl(24, 100%, 50%);
   }
   80% {
-    color: rgb(255, 0, 255);
+    color: hsl(300, 100%, 50%);
   }
   100% {
-    color: rgb(0, 255, 255);
+    color: hsl(180, 100%, 50%);
   }
 }
 

@@ -61,8 +61,8 @@ $font-size: 12px !default;
   &::placeholder,
   &:-ms-input-placeholder {
     font-style: italic;
-    color: #777;
-    color: rgba(255, 255, 255, 0.45);
+    color: hsl(0, 0%, 46.7%);
+    color: hsla(0, 0%, 100%, 0.45);
   }
 }
 

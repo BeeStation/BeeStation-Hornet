@@ -13,14 +13,14 @@ $color-disabled: hsl(0, 0%, 60%) !default;
 $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
-$color-transparent-text: rgba(255, 255, 255, 0.5) !default;
+$color-transparent-text: hsla(0, 0%, 100%, 0.5) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
 @mixin button-color($color) {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.4, hsl(0, 0%, 0%), hsl(0, 0%, 100%));
 
   transition:
     color 50ms,
