@@ -780,10 +780,15 @@ SUBSYSTEM_DEF(ticker)
 	UNTIL(round_end_sound_sent || (world.time - start_wait) > (delay * 2))	//don't wait forever
 
 	if(!round_end_sound)
-		round_end_sound = pick(GLOB.round_end_sounds)
-		round_end_sound_duration = GLOB.round_end_sounds[round_end_sound]
-		if(delay > round_end_sound_duration) // If there's time, play the round-end sound before rebooting
-			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
+		var/list/tracks = flist("sound/roundend/")
+		if(tracks.len)
+			var/selected_sound_name = pick(tracks)
+			round_end_sound = "sound/roundend/[selected_sound_name]"
+			// Extract sound duration from file name
+			round_end_sound_duration = text2num(splittext(selected_sound_name, "+")[2]) * 1 SECONDS
+
+			if(delay > round_end_sound_duration) // If there's time, play the round-end sound before rebooting
+				round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
 	else //admin added sound
 		if(delay > round_end_sound_duration)
 			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)

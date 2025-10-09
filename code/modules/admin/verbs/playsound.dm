@@ -190,7 +190,7 @@ GLOBAL_VAR_INIT(web_sound_cooldown, 0)
 	if(!duration)
 		return
 
-	duration = duration SECONDS
+	duration = duration * 1 SECONDS
 
 	SSticker.SetRoundEndSound(S, duration)
 
