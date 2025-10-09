@@ -33,26 +33,34 @@
 
 	target.death()
 
-/obj/projectile/magic/resurrection
-	name = "bolt of resurrection"
+/obj/projectile/magic/healing
+	name = "bolt of healing"
 	icon_state = "ion"
 	damage = 0
 	damage_type = OXY
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
 
-/obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/healing/on_hit(mob/living/target)
 	. = ..()
 	if(!isliving(target))
 		return
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		C.regenerate_limbs()
-		C.regenerate_organs()
-	if(target.revive(ADMIN_HEAL_ALL & ~HEAL_REFRESH_ORGANS, force_grab_ghost = TRUE)) // This heals suicides
-		to_chat(target, span_notice("You rise with a start, you're alive!!!"))
-	else if(target.stat != DEAD)
-		to_chat(target, span_notice("You feel great!"))
+
+	if(target.suiciding || !target.can_be_revived())
+		target.visible_message(span_warning("[target]'s body twitches a bit, but it seems the wand's magic is not powerful enough!"))
+		return
+
+	if(target.revive()) //This fails if the target is already alive, or if they have too much damage to be revived. Both cases we instead heal some damage.
+		target.visible_message(span_notice("[target]'s body twitches and comes back to life!"))
+		return
+
+	else
+		target.adjustOxyLoss(-25)
+		target.adjustBruteLoss(-25)
+		target.adjustFireLoss(-25)
+		target.adjustToxLoss(-25)
+		target.adjustCloneLoss(-25)
+		target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"

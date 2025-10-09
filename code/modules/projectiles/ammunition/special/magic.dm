@@ -26,7 +26,7 @@
 	projectile_type = /obj/projectile/magic/animate
 
 /obj/item/ammo_casing/magic/heal
-	projectile_type = /obj/projectile/magic/resurrection
+	projectile_type = /obj/projectile/magic/healing
 	harmful = FALSE
 
 /obj/item/ammo_casing/magic/death

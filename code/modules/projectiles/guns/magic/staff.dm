@@ -70,7 +70,7 @@
 		/obj/projectile/magic/flying,
 		/obj/projectile/magic/locker,
 		/obj/projectile/magic/necropotence,
-		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/healing,
 		/obj/projectile/magic/sapping,
 		/obj/projectile/magic/spellblade,
 		/obj/projectile/magic/teleport,

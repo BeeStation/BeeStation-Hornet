@@ -145,7 +145,7 @@
 /area/template_noop)
 "E" = (
 /obj/structure/table,
-/obj/item/gun/magic/wand/resurrection/debug,
+/obj/item/gun/magic/wand/healing/debug,
 /turf/open/indestructible,
 /area/template_noop)
 "J" = (

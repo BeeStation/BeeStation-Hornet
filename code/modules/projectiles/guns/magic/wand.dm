@@ -85,31 +85,29 @@
 //WAND OF HEALING
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/resurrection
+/obj/item/gun/magic/wand/healing
 	name = "wand of healing"
-	desc = "This wand uses healing magics to heal and revive. They are rarely utilized within the Wizard Federation for some reason."
+	desc = "This wand uses healing magics to heal some wounds. They are rarely utilized within the Wizard Federation for some reason."
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "revivewand"
 	max_charges = 10 //10, 5, 5, 4
 
-/obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
+/obj/item/gun/magic/wand/healing/zap_self(mob/living/user)
 	..()
 	charges--
-	user.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE) // This heals suicides
-	to_chat(user, span_notice("You feel great!"))
 
-/obj/item/gun/magic/wand/resurrection/debug //for testing
+/obj/item/gun/magic/wand/healing/debug //for testing
 	desc = "Is it possible for something to be even more powerful than regular magic? This wand is."
 	max_charges = 500
 	variable_charges = FALSE
 	can_charge = TRUE
 	recharge_rate = 1
 
-/obj/item/gun/magic/wand/resurrection/inert
+/obj/item/gun/magic/wand/healing/inert
 	name = "weakened wand of healing"
 	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
-	max_charges = 5
+	max_charges = 1
 
 /////////////////////////////////////
 //WAND OF POLYMORPH
