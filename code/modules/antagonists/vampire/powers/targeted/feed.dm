@@ -9,7 +9,7 @@
 	button_icon_state = "power_feed"
 	power_explanation = "Activate Feed and select a target to start draining their blood.\n\
 		The time needed before you start feeding decreases the higher level you are.\n\
-		You <b>must</b> be aggressively grabbing your target to feed of of them.\n\
+		You <b>must</b> be aggressively grabbing your target to feed off of them.\n\
 		Mice can be fed off if you are in desperate need of blood.\n\
 		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
