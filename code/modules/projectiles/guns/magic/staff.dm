@@ -20,11 +20,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
-	//school = SCHOOL_TRANSMUTATION
-	/// If set, all wabbajacks this staff produces will be of this type, instead of random
-	var/preset_wabbajack_type
-	/// If set, all wabbajacks this staff produces will be of this changeflag, instead of only WABBAJACK
-	var/preset_wabbajack_changeflag
 
 /obj/item/gun/magic/staff/animate
 	name = "staff of animation"
