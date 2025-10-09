@@ -115,7 +115,7 @@
 	living_target.notransform = TRUE // <--- Fuck it. We tried using next_move, but they could STILL resist. We're just doing a hard freeze.
 	addtimer(CALLBACK(src, PROC_REF(end_mesmerize), living_target), power_time)
 
-	to_chat(living_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully... You're mesmerized!"))
+	to_chat(living_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully... You're mesmerized!"), type = MESSAGE_TYPE_WARNING)
 
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
