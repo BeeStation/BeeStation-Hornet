@@ -14878,7 +14878,6 @@
 /turf/open/floor/iron/dark,
 /area/security/courtroom)
 "cYb" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
@@ -14891,6 +14890,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -23413,7 +23413,6 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "fFV" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
@@ -23426,6 +23425,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -23990,7 +23990,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "fNY" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
@@ -24003,6 +24002,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -39630,7 +39630,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/port)
 "kSk" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
@@ -39643,6 +39642,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -39847,6 +39847,24 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
+"kXg" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "kXz" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -45042,6 +45060,24 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/prison,
 /area/security/prison)
+"mEp" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "mEN" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -117095,7 +117131,7 @@ iBn
 axT
 aLH
 aLu
-fNY
+mEp
 fNY
 fFV
 axU
@@ -118123,7 +118159,7 @@ sfl
 axU
 aLI
 aLx
-kSk
+kXg
 kSk
 cYb
 axU

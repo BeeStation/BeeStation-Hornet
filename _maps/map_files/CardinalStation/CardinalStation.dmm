@@ -13671,6 +13671,17 @@
 	},
 /turf/open/floor/noslip/dark,
 /area/security/nuke_storage)
+"cIZ" = (
+/obj/structure/window/plasma/reinforced/spawner/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/iron/techmaint,
+/area/engine/supermatter)
 "cJe" = (
 /obj/structure/bookcase/manuals/research_and_development,
 /turf/open/floor/wood,
@@ -27657,7 +27668,7 @@
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "fHQ" = (
-/obj/machinery/power/grounding_rod,
+/obj/machinery/power/energy_accumulator/grounding_rod,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -56200,10 +56211,6 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/item/tank/internals/plasma{
-	pixel_y = 7;
-	pixel_x = 10
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -56951,6 +56958,17 @@
 	},
 /turf/open/floor/grass/no_border,
 /area/hydroponics/garden)
+"lzN" = (
+/obj/structure/window/plasma/reinforced/spawner/east,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/iron/techmaint,
+/area/engine/supermatter)
 "lzQ" = (
 /obj/machinery/vending/wardrobe/det_wardrobe,
 /obj/effect/turf_decal/siding/wood{
@@ -71545,7 +71563,7 @@
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
 "oAV" = (
-/obj/machinery/power/grounding_rod,
+/obj/machinery/power/energy_accumulator/grounding_rod,
 /turf/open/floor/plating/airless,
 /area/engine/engine_room/external)
 "oBb" = (
@@ -73561,7 +73579,7 @@
 /turf/open/floor/iron/sepia,
 /area/maintenance/starboard/fore)
 "oUu" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -76066,7 +76084,6 @@
 /area/hallway/primary/aft)
 "ptv" = (
 /obj/structure/window/plasma/reinforced/spawner/east,
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -76074,6 +76091,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/iron/techmaint,
 /area/engine/supermatter)
 "ptB" = (
@@ -76621,13 +76639,13 @@
 /area/maintenance/department/medical)
 "pya" = (
 /obj/structure/window/plasma/reinforced/spawner/west,
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/iron/techmaint,
 /area/engine/supermatter)
 "pyG" = (
@@ -80063,10 +80081,6 @@
 /area/science/mixing)
 "qiY" = (
 /obj/structure/closet/crate/engineering/electrical,
-/obj/item/circuitboard/machine/rad_collector,
-/obj/item/circuitboard/machine/rad_collector,
-/obj/item/circuitboard/machine/rad_collector,
-/obj/item/circuitboard/machine/rad_collector,
 /obj/item/stack/sheet/iron/twenty,
 /obj/item/stack/cable_coil/orange,
 /obj/item/stack/cable_coil/yellow{
@@ -83502,13 +83516,13 @@
 /area/engine/atmos)
 "qTw" = (
 /obj/structure/window/plasma/reinforced/spawner/west,
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/iron/techmaint,
 /area/engine/supermatter)
 "qTH" = (
@@ -108280,13 +108294,13 @@
 /area/hallway/primary/central)
 "vSY" = (
 /obj/structure/window/plasma/reinforced/spawner/east,
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/iron/techmaint,
 /area/engine/supermatter)
 "vSZ" = (
@@ -151576,7 +151590,7 @@ cfg
 dGN
 bgt
 ukm
-vSY
+lzN
 vSY
 ptv
 bgt
@@ -152604,7 +152618,7 @@ mkg
 bgt
 lPz
 mXl
-qTw
+cIZ
 qTw
 pya
 bgt

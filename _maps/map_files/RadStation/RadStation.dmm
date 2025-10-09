@@ -5051,10 +5051,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "bDQ" = (
@@ -25493,7 +25493,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/iron/tech,
 /area/engine/supermatter)
 "iqg" = (
@@ -33052,7 +33052,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/disposal)
 "kRu" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
 "kRI" = (
@@ -56971,7 +56971,6 @@
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central)
 "sQB" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
@@ -56981,6 +56980,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "sQJ" = (
@@ -62824,7 +62824,6 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "uFI" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
@@ -62834,6 +62833,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "uFU" = (
@@ -69200,7 +69200,6 @@
 /turf/open/floor/iron,
 /area/maintenance/department/security)
 "wMj" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 8
 	},
@@ -69210,6 +69209,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "wMo" = (
@@ -70447,7 +70447,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "xhl" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
@@ -70457,6 +70456,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "xhG" = (

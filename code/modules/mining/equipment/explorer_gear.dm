@@ -33,7 +33,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 50
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -62,7 +61,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 50
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -134,7 +132,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 40
@@ -184,7 +181,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 40

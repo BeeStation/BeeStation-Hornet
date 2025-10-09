@@ -3551,7 +3551,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "axx" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 6
 	},
@@ -3561,6 +3560,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axy" = (
@@ -3579,7 +3579,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "axB" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
 	},
@@ -3589,6 +3588,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "axD" = (
@@ -3852,13 +3852,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "ayK" = (
@@ -3869,13 +3869,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "ayM" = (
@@ -4118,7 +4118,6 @@
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "azT" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 8
 	},
@@ -4128,10 +4127,10 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azU" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
@@ -4141,6 +4140,7 @@
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "azV" = (
@@ -16073,21 +16073,6 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
-"chu" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
-/area/engine/engineering)
-"chv" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engpa";
-	name = "Engineering Chamber Shutters"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "chw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -16328,29 +16313,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cje" = (
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
-"cjf" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engpa";
-	name = "Engineering Chamber Shutters"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cjg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -16527,47 +16489,18 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ckz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"ckA" = (
-/obj/effect/decal/cleanable/oil,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engpa";
-	name = "Engineering Chamber Shutters"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
-"ckB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/engineering)
 "ckF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -16755,19 +16688,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"clV" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engpa";
-	name = "Engineering Chamber Shutters"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "clW" = (
 /obj/structure/rack,
 /obj/item/crowbar,
@@ -16777,9 +16697,6 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "clX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -17068,9 +16985,6 @@
 	id = "engpa";
 	name = "Engineering Chamber Shutters"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -17251,9 +17165,6 @@
 "cpc" = (
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -17807,7 +17718,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "crJ" = (
@@ -18191,7 +18102,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "ctB" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -18355,9 +18266,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -18416,7 +18324,7 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "cvb" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/south{
 	c_tag = "Engineering - Secure Storage";
@@ -19227,12 +19135,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint)
-"czo" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "czp" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -19245,35 +19147,18 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "czr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"czs" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engpa";
-	name = "Engineering Chamber Shutters"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "czu" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -19579,17 +19464,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cAK" = (
-/obj/machinery/power/rad_collector/anchored,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cAL" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -19914,15 +19788,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"cCr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cCs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/siding/wood{
@@ -38777,13 +38642,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
-"gxR" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/engine/engineering)
 "gxS" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -44412,13 +44270,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/iron,
-/area/engine/engineering)
-"iiS" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "iji" = (
@@ -78496,7 +78347,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "tde" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -78511,6 +78361,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/item/pipe_dispenser,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmospherics_engine)
 "tdz" = (
@@ -81849,12 +81700,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/miningoffice)
-"ukr" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "ukx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -115241,7 +115086,7 @@ cdC
 ctn
 aad
 cja
-czo
+cqo
 clR
 cnB
 clR
@@ -115251,7 +115096,7 @@ clR
 clR
 cnB
 clR
-ukr
+ctm
 cja
 aad
 ckw
@@ -118323,10 +118168,10 @@ bHV
 car
 cdH
 car
-car
-hcT
-hcT
-hcT
+aaa
+qYo
+aaa
+aaa
 hcT
 coZ
 cqq
@@ -118334,10 +118179,10 @@ crN
 cqq
 cuP
 hcT
-hcT
-hcT
-hcT
-car
+aaa
+aaa
+qYo
+aaa
 car
 cFM
 car
@@ -118580,10 +118425,10 @@ bHV
 cbU
 gZT
 cfC
-chu
-cje
-cje
-cje
+aaa
+qYo
+aaa
+aaa
 hcT
 cpa
 cqr
@@ -118591,10 +118436,10 @@ cqr
 ctp
 cuQ
 hcT
-cje
-cje
-cAK
-cCr
+aaa
+aaa
+qYo
+aaa
 cfC
 eLp
 cHh
@@ -118837,10 +118682,10 @@ bHV
 cbV
 jAf
 car
-chv
-cjf
-ckA
-clV
+car
+hcT
+hcT
+hcT
 cnC
 sJw
 cqs
@@ -118848,10 +118693,10 @@ cqr
 ctq
 cuR
 cnC
-cjf
-czs
-clV
-chv
+hcT
+hcT
+hcT
+car
 car
 xfy
 cbV
@@ -119096,7 +118941,7 @@ dji
 cfD
 chw
 cjg
-ckB
+chw
 clW
 cnD
 cpb
@@ -119106,7 +118951,7 @@ ctr
 wuo
 cnD
 cxD
-ckB
+chw
 chw
 chw
 cDW
@@ -119353,7 +119198,7 @@ tMd
 cfF
 xrS
 tPh
-gxR
+okT
 clX
 cnE
 cpc
@@ -119363,7 +119208,7 @@ cts
 cuT
 cnE
 clX
-iiS
+okT
 okT
 ehv
 cDY

@@ -13962,13 +13962,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cEw" = (
@@ -13987,13 +13987,13 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
 	dir = 4
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cEz" = (
@@ -14058,21 +14058,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cEM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/tank/internals/plasma,
-/obj/machinery/door/poddoor/shutters/radiation/preopen{
-	id = "engsm";
-	name = "Radiation Chamber Shutters"
-	},
-/turf/open/floor/plating,
-/area/engine/supermatter)
 "cET" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
@@ -14129,26 +14114,26 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 5
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cFh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/structure/window/plasma/reinforced{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cFj" = (
@@ -19986,6 +19971,19 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
+"eCW" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "eDb" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -62051,6 +62049,19 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/bar/atrium)
+"uRo" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "uRq" = (
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
@@ -98679,7 +98690,7 @@ cDC
 cqU
 cEf
 cEt
-cEM
+cEt
 csA
 cEg
 cFK
@@ -99192,7 +99203,7 @@ cqf
 cqD
 cMD
 crs
-cEv
+uRo
 cEv
 cFe
 cMD
@@ -100220,7 +100231,7 @@ hqm
 cMD
 cAP
 crv
-cEy
+eCW
 cEy
 cFh
 cMD

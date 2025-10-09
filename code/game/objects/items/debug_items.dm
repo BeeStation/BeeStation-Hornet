@@ -205,7 +205,6 @@
 	energy = 300
 	bomb = 300
 	bio = 300
-	rad = 300
 	fire = 300
 	acid = 300
 	stamina = 300
@@ -249,13 +248,11 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
 /obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.allow_big_nesting = TRUE
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000

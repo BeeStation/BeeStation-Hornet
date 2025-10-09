@@ -1040,11 +1040,21 @@
 	process_flags = ORGANIC | SYNTHETIC
 	default_container = /obj/effect/decal/cleanable/greenglow
 
-	var/irradiation_level = 0.5 * REM
+	/// How much tox damage to deal per tick
+	var/tox_damage = 0.5
+	/// How radioactive is this reagent
+	var/rad_power = 1
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.apply_effect(irradiation_level * delta_time / affected_mob.metabolism_efficiency, EFFECT_IRRADIATE)
+	if(SSradiation.can_irradiate_basic(affected_mob))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		if(!irradiated_component)
+			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(rad_power * REM * delta_time)
+
+	affected_mob.adjustToxLoss(tox_damage * delta_time * REM, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/uranium/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -1065,7 +1075,8 @@
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "the colour blue and regret"
 	process_flags = ORGANIC | SYNTHETIC
-	irradiation_level = 1 * REM
+	rad_power = 2
+	tox_damage = 1
 
 /datum/reagent/bluespace
 	name = "Bluespace Dust"

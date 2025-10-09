@@ -635,14 +635,16 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, tesla_flags)
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
-		//Fire can cause a lot of lag, just do a mini explosion.
-		explosion(src,0,0,1, adminlog = 0)
-		for(var/mob/living/L in range(3, src))
-			L.fire_stacks = max(L.fire_stacks, 3)
-			L.IgniteMob()
-			L.electrocute_act(0, "Tesla Light Zap", flags = SHOCK_TESLA)
+/obj/machinery/light/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
+		// Fire can cause a lot of lag, just do a mini explosion.
+		explosion(src, 0, 0, 1, adminlog = FALSE)
+
+		for(var/mob/living/person in range(3, src))
+			person.fire_stacks = max(person.fire_stacks, 3)
+			person.IgniteMob()
+			person.electrocute_act(0, "[src]", flags = SHOCK_TESLA)
+
 		qdel(src)
 	else
 		return ..()

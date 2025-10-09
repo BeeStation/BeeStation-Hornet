@@ -27672,10 +27672,10 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "gev" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "gew" = (
@@ -45456,6 +45456,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"mqY" = (
+/obj/structure/cable,
+/obj/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "mqZ" = (
 /obj/structure/sign/map/left{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
@@ -53482,6 +53489,17 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
+"oYk" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "oYx" = (
 /obj/structure/table,
 /obj/item/food/grown/wheat,
@@ -67376,7 +67394,6 @@
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "tNp" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -67384,6 +67401,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "tNz" = (
@@ -124419,11 +124437,11 @@ aEr
 aRM
 djt
 daY
-gev
+mqY
 dbb
 dfa
 aNv
-tNp
+oYk
 daY
 xwz
 mJE

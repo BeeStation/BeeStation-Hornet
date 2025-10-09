@@ -629,7 +629,7 @@
 	required_reagents = list(/datum/reagent/teslium = 1, /datum/reagent/water = 1)
 	mix_message = span_boldannounce("The teslium starts to spark as electricity arcs away from it!")
 	mix_sound = 'sound/machines/defib_zap.ogg'
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN
+	var/tesla_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a high-energy lightning bolt on creation",
 	)

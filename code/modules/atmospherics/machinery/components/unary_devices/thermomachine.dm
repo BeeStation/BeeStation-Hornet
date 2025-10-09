@@ -36,7 +36,6 @@
 
 /datum/armor/unary_thermomachine
 	energy = 100
-	rad = 100
 	fire = 80
 	acid = 30
 

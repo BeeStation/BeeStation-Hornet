@@ -2801,10 +2801,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 9
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "blE" = (
@@ -4118,13 +4118,13 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "bVa" = (
@@ -4445,7 +4445,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "cdr" = (
@@ -7955,7 +7955,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
 	dir = 4
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "ebn" = (
@@ -16623,10 +16623,6 @@
 	pixel_x = -4;
 	pixel_y = 10
 	},
-/obj/item/tank/internals/plasma{
-	pixel_x = 7;
-	pixel_y = 7
-	},
 /obj/item/analyzer{
 	pixel_x = 1
 	},
@@ -22613,7 +22609,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "lNM" = (
@@ -25988,10 +25984,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
 	dir = 8
 	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "nFR" = (
@@ -26213,10 +26209,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
 	dir = 4
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "nKJ" = (
@@ -39294,7 +39290,7 @@
 "uIN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "uIU" = (

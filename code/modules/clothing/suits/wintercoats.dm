@@ -373,7 +373,6 @@
 
 /datum/armor/wintercoat_geneticist
 	bio = 20
-	rad = 30
 	acid = 45
 
 /obj/item/clothing/head/hooded/winterhood/geneticist
@@ -404,7 +403,6 @@
 
 
 /datum/armor/wintercoat_engineering
-	rad = 20
 	fire = 30
 	acid = 45
 
@@ -494,7 +492,6 @@
 	energy = 20
 	bomb = 50
 	bio = 10
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -519,7 +516,6 @@
 	energy = 20
 	bomb = 50
 	bio = 10
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -620,7 +616,6 @@
 	energy = 50
 	bomb = 35
 	bio = 10
-	rad = 10
 	fire = 10
 	acid = 60
 
@@ -640,6 +635,5 @@
 	energy = 50
 	bomb = 35
 	bio = 10
-	rad = 10
 	fire = 10
 	acid = 60

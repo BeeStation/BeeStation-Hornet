@@ -146,7 +146,6 @@
 	QDEL_NULL(line)
 	return ..()
 
-/*
 ///Radiation Protection - Protects the user from radiation, gives them a geiger counter and rad info in the panel.
 /obj/item/mod/module/rad_protection
 	name = "MOD radiation protection module"
@@ -188,7 +187,6 @@
 
 	perceived_threat_level = get_perceived_radiation_danger(pulse_information, insulation_to_target)
 	addtimer(VARSET_CALLBACK(src, perceived_threat_level, null), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
-*/
 
 ///Constructor - Lets you build quicker and create RCD holograms.
 /obj/item/mod/module/constructor

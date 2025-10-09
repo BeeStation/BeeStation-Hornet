@@ -23,11 +23,12 @@
 	. = ..()
 	connect_to_network()
 
+	if(irradiate)
+		AddElement(/datum/element/radioactive, range = 5)
+
 /obj/machinery/power/rtg/process()
-	..()
+	. = ..()
 	add_avail(power_gen)
-	if(panel_open && irradiate)
-		radiation_pulse(src, 60)
 
 /obj/machinery/power/rtg/RefreshParts()
 	var/part_level = 0
@@ -96,6 +97,6 @@
 /obj/machinery/power/rtg/abductor/fire_act(exposed_temperature, exposed_volume)
 	overload()
 
-/obj/machinery/power/rtg/abductor/tesla_act()
-	..() //extend the zap
+/obj/machinery/power/rtg/abductor/zap_act(power, zap_flags)
+	. = ..()
 	overload()

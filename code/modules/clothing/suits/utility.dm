@@ -50,7 +50,6 @@
 	energy = 10
 	bomb = 20
 	bio = 50
-	rad = 20
 	fire = 100
 	acid = 50
 	stamina = 10
@@ -172,12 +171,9 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	rad_flags = RAD_PROTECT_CONTENTS
-
 
 /datum/armor/utility_radiation
 	bio = 60
-	rad = 100
 	fire = 30
 	acid = 30
 	stamina = 10
@@ -197,12 +193,9 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
-	rad_flags = RAD_PROTECT_CONTENTS
-
 
 /datum/armor/utility_radiation
 	bio = 60
-	rad = 100
 	fire = 30
 	acid = 30
 	stamina = 10
