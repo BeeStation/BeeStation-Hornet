@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react';
 import { Button } from 'tgui/components';
-import { createRenderer } from 'tgui/renderer';
-
-const render = createRenderer();
+import { render } from 'tgui/renderer';
 
 export const SingleButton = () => {
   const node = <Button>Hello world!</Button>;
