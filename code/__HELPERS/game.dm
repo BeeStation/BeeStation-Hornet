@@ -219,7 +219,7 @@
 			viewing += M.client
 	flick_overlay(I, viewing, duration)
 
-/proc/get_active_player_count(var/alive_check = 0, var/afk_check = 0, var/human_check = 0)
+/proc/get_active_player_count(alive_check = 0, afk_check = 0, human_check = 0)
 	// Get active players who are playing in the round
 	var/active_players = 0
 	for(var/i = 1; i <= GLOB.player_list.len; i++)
@@ -281,7 +281,7 @@
 
 	return A.loc
 
-/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
+/proc/AnnounceArrival(mob/living/carbon/human/character, rank)
 	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
 	var/area/A = get_area(character)
@@ -315,7 +315,7 @@
 	return (is_type_in_list(item, pire_wire))
 
 // Find a obstruction free turf that's within the range of the center. Can also condition on if it is of a certain area type.
-/proc/find_obstruction_free_location(var/range, var/atom/center, var/area/specific_area)
+/proc/find_obstruction_free_location(range, atom/center, area/specific_area)
 	var/list/possible_loc = list()
 
 	for(var/turf/found_turf as() in RANGE_TURFS(range, center))

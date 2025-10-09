@@ -463,7 +463,7 @@
 		fire_shot_at(user, target, message, params, zone_override, aimed)
 
 	if(user)
-		user.update_inv_hands()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
 

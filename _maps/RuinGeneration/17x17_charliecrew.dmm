@@ -11,13 +11,13 @@
 "bb" = (
 /obj/structure/showcase/machinery/tv,
 /obj/structure/table/wood,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "bs" = (
 /obj/structure/showcase/machinery/microwave,
 /obj/structure/table/wood,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "cr" = (
@@ -281,7 +281,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
-/obj/structure/window/spawner/north,
+/obj/structure/window/spawner/directional/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "wX" = (
@@ -305,7 +305,7 @@
 "zy" = (
 /obj/item/clothing/gloves/color/fyellow/old,
 /obj/structure/rack,
-/obj/structure/window/spawner/north,
+/obj/structure/window/spawner/directional/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "BO" = (
@@ -341,7 +341,7 @@
 "Ff" = (
 /obj/structure/rack,
 /obj/item/gun/energy/e_gun/old,
-/obj/structure/window/spawner/north,
+/obj/structure/window/spawner/directional/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Fq" = (
@@ -442,7 +442,7 @@
 /area/ruin/unpowered)
 "KT" = (
 /obj/structure/showcase/mecha/marauder,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Lb" = (
@@ -555,7 +555,7 @@
 /area/ruin/unpowered)
 "VC" = (
 /obj/structure/showcase/mecha/ripley,
-/obj/structure/window/spawner,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Wc" = (
@@ -564,7 +564,7 @@
 	name = "prototype health analyzer"
 	},
 /obj/structure/rack,
-/obj/structure/window/spawner/north,
+/obj/structure/window/spawner/directional/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Wt" = (

@@ -166,9 +166,7 @@
 //Families
 #define ui_wanted_lvl "NORTH,11"
 
-
-#define ui_devilsouldisplay "WEST:6,CENTER-1:15" //Feel free to delete this later, devils aren't real
-	//borgs
+//borgs
 #define ui_borg_crew_manifest "CENTER+5:21,SOUTH:5"	//borgs
 
 #define ui_monkey_body "CENTER-6:12,SOUTH:5"	//monkey

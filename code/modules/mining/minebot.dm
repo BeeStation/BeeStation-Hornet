@@ -390,7 +390,7 @@
 	. = ..()
 
 /// Effectively the same as standard target listing
-/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(var/_Z)
+/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(_Z)
 	if(mode == MODE_MINING)
 		return ListTargets()
 	. = ..()

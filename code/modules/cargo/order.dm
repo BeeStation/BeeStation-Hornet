@@ -70,7 +70,7 @@
 	requisition_paper.update_appearance()
 	return requisition_paper
 
-/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, var/owner, var/packname) //generates-the-manifests.
+/datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, owner, packname) //generates-the-manifests.
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest_paper = new(C, id, 0)
 
 	var/station_name = (manifest_paper.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
@@ -126,7 +126,7 @@
 	generateManifest(C, account_holder, pack)
 	return C
 
-/datum/supply_order/proc/generateCombo(var/miscbox, var/misc_own, var/misc_contents)
+/datum/supply_order/proc/generateCombo(miscbox, misc_own, misc_contents)
 	for (var/I in misc_contents)
 		new I(miscbox)
 	generateManifest(miscbox, misc_own, "")

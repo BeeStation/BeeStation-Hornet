@@ -128,7 +128,7 @@
 	limited = 2
 	cost = 0
 
-/datum/contractor_item/contract_reroll/handle_purchase(var/datum/contractor_hub/hub)
+/datum/contractor_item/contract_reroll/handle_purchase(datum/contractor_hub/hub)
 	. = ..()
 
 	if (.)
@@ -175,7 +175,7 @@
 	cost = 2
 	var/datum/mind/partner_mind = null
 
-/datum/contractor_item/contractor_partner/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/contractor_partner/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 	. = ..()
 
 	if (.)
@@ -259,7 +259,7 @@
 	limited = 2
 	cost = 3
 
-/datum/contractor_item/blackout/handle_purchase(var/datum/contractor_hub/hub)
+/datum/contractor_item/blackout/handle_purchase(datum/contractor_hub/hub)
 	. = ..()
 
 	if (.)
@@ -267,7 +267,7 @@
 		priority_announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", ANNOUNCER_POWEROFF)
 
 // Subtract cost, and spawn if it's an item.
-/datum/contractor_item/proc/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/proc/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 
 	if (hub.contract_rep >= cost)
 		hub.contract_rep -= cost
