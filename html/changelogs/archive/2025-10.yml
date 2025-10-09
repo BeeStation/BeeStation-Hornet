@@ -147,5 +147,8 @@
   - tweak: picking up two DIFFERENT stabilized extracts now destroys the second one.
       Pick between automatic healing and no equipment slowdown, you don't get both.
 2025-10-09:
+  TsunamiAnt:
+  - rscadd: Victims of a vampire's mesmerize / feed are now told what the hell is
+      going on.
   mrmanlikesbt:
   - bugfix: fixed not having gravity when traveling on a shuttle
