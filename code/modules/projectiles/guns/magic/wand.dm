@@ -6,7 +6,7 @@
 	item_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
-	can_charge = FALSE
+	can_charge = TRUE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = TRUE
 
@@ -101,13 +101,14 @@
 	desc = "Is it possible for something to be even more powerful than regular magic? This wand is."
 	max_charges = 500
 	variable_charges = FALSE
-	can_charge = TRUE
+
 	recharge_rate = 1
 
 /obj/item/gun/magic/wand/healing/inert
 	name = "weakened wand of healing"
 	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
 	max_charges = 1
+	can_charge = FALSE
 
 /////////////////////////////////////
 //WAND OF POLYMORPH
@@ -213,5 +214,6 @@
 /obj/item/gun/magic/wand/fireball/inert
 	name = "weakened wand of fireball"
 	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
-	max_charges = 4
+	max_charges = 1
+	can_charge = FALSE
 
