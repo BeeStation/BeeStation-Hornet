@@ -86,6 +86,7 @@
 	charges++
 	if(charges == 1)
 		recharge_newshot()
+		update_icon()
 	return 1
 
 /obj/item/gun/magic/update_icon()
