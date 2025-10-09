@@ -439,13 +439,14 @@
 
 /obj/projectile/bullet/incendiary/nps10_incendiary_special
 	name = "incendiary blast"
-	nodamage = TRUE
-	damage = 0
+	damage = 10
+	damage_type = BURN
 	fire_stacks = 2
 	projectile_piercing = PASSMOB | PASSMACHINE
 	projectile_phasing = PASSBLOB | PASSANOMALY
 	suppressed = SUPPRESSED_VERY
 	hitsound = null
+	bleed_force = 0
 
 	range = 8
 	speed = 0.8
@@ -464,6 +465,10 @@
 	name = "buckshot pellet"
 	damage = 6
 	tile_dropoff = 0.25
+	ricochets_max = 1
+	ricochet_chance = 80
+	ricochet_incidence_leeway = 40
+	ricochet_decay_chance = 0.75
 	armour_penetration = 0
 
 // Pretty big nerf on regular breaching rounds in exchange for a mediocre explosive effect.
