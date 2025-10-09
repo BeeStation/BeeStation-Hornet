@@ -5,12 +5,12 @@
 	unit_name = "approved manifest"
 	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
 
-/datum/export/manifest_correct/applies_to(obj/O)
+/datum/export/manifest_correct/applies_to(obj/thing, allowed_categories = NONE)
 	if(!..())
 		return FALSE
 
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	if(M.is_approved() && !M.errors)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	if(manifest.is_approved() && !manifest.errors)
 		return TRUE
 	return FALSE
 
@@ -21,18 +21,18 @@
 	unit_name = "correctly denied manifest"
 	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
 
-/datum/export/manifest_error_denied/applies_to(obj/O)
+/datum/export/manifest_error_denied/applies_to(obj/thing, allowed_categories = NONE)
 	if(!..())
 		return FALSE
 
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	if(M.is_denied() && M.errors)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	if(manifest.is_denied() && manifest.errors)
 		return TRUE
 	return FALSE
 
-/datum/export/manifest_error_denied/get_cost(obj/O)
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	return ..() + M.order_cost
+/datum/export/manifest_error_denied/get_cost(obj/thing)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	return ..() + manifest.order_cost
 
 
 // Erroneously approved manifest.
@@ -42,18 +42,18 @@
 	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
 	allow_negative_cost = TRUE
 
-/datum/export/manifest_error/applies_to(obj/O)
+/datum/export/manifest_error/applies_to(obj/thing, allowed_categories = NONE)
 	if(!..())
 		return FALSE
 
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	if(M.is_approved() && M.errors)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	if(manifest.is_approved() && manifest.errors)
 		return TRUE
 	return FALSE
 
-/datum/export/manifest_error/get_cost(obj/O)
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	return -M.order_cost
+/datum/export/manifest_error/get_cost(obj/thing)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	return -manifest.order_cost
 
 
 // Erroneously denied manifest.
@@ -64,15 +64,15 @@
 	export_types = list(/obj/item/paper/fluff/jobs/cargo/manifest)
 	allow_negative_cost = TRUE
 
-/datum/export/manifest_correct_denied/applies_to(obj/O)
+/datum/export/manifest_correct_denied/applies_to(obj/thing, allowed_categories = NONE)
 	if(!..())
 		return FALSE
 
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	if(M.is_denied() && !M.errors)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	if(manifest.is_denied() && !manifest.errors)
 		return TRUE
 	return FALSE
 
-/datum/export/manifest_correct_denied/get_cost(obj/O)
-	var/obj/item/paper/fluff/jobs/cargo/manifest/M = O
-	return ..() - M.order_cost
+/datum/export/manifest_correct_denied/get_cost(obj/thing)
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest = thing
+	return ..() - manifest.order_cost

@@ -184,13 +184,10 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/presale_points = D.account_balance
 
-	if(!GLOB.exports_list.len) // No exports list? Generate it!
-		setup_exports()
-
 	var/msg = ""
 	var/matched_bounty = FALSE
 
-	var/datum/export_report/ex = new
+	var/datum/export_report/report = new
 
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
@@ -200,21 +197,21 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 			if(bounty_ship_item_and_contents(AM, dry_run = FALSE))
 				matched_bounty = TRUE
 			if(!AM.anchored)
-				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
+				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = report)
 
 	if(matched_bounty)
 		msg += "Bounty items received. An update has been sent to all bounty consoles. "
 
-	for(var/datum/export/E in ex.total_amount)
-		var/export_text = E.total_printout(ex)
+	for(var/datum/export/export in report.exported_atoms)
+		var/export_text = export.total_printout(report)
 		if(!export_text)
 			continue
 
 		msg += export_text + "\n"
-		D.adjust_money(ex.total_value[E])
+		D.adjust_money(report.total_value[export])
 
 	SSshuttle.centcom_message = msg
-	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
+	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Exported: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
 
 
 //	Generates a box of mail depending on our exports and imports.
