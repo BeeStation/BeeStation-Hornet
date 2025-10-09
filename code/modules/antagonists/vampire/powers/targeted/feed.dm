@@ -128,7 +128,7 @@
 	feed_target.Jitter(5 + level_current)
 
 	owner.visible_message(
-		span_boldwarning("[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!"),
+		span_userdanger("[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!"),
 		span_boldwarning("You sink your fangs into [feed_target]'s neck.")
 	)
 
