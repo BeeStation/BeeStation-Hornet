@@ -221,14 +221,14 @@ then the player gets the profit from selling his own wasted time.
 	if(!report.total_amount[src] || !report.total_value[src])
 		return ""
 
-	var/total_value = ex.total_value[src]
+	var/total_value = report.total_value[src]
 	var/msg = "[total_value] credits: Received "
 	if(total_value > 0)
 		msg = "+" + msg
 
 	// Count occurrences using associative list
 	var/list/counts = list()
-	for(var/atom/thing in ex.exported_atoms)
+	for(var/atom/thing in report.exported_atoms)
 		if(thing.name)
 			counts[thing.name] = (counts[thing.name] || 0) + 1
 
