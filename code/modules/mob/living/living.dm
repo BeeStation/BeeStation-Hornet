@@ -1281,31 +1281,25 @@
 	var/mob/living/new_mob
 
 	var/static/list/possible_results = list(
-		WABBAJACK_MONKEY,
-		WABBAJACK_ROBOT,
-		WABBAJACK_SLIME,
-		WABBAJACK_XENO,
-		WABBAJACK_HUMAN,
-		WABBAJACK_ANIMAL,
+		WABBAJACK_ROBOT = 5,
+		WABBAJACK_HUMAN = 5,
+		WABBAJACK_ANIMAL = 20,
 	)
 
 	// If we weren't passed one, pick a default one
-	what_to_randomize ||= pick(possible_results)
+	what_to_randomize ||= pick_weight(possible_results)
 
 	switch(what_to_randomize)
-		if(WABBAJACK_MONKEY)
-			new_mob = new /mob/living/carbon/monkey(loc)
-
 		if(WABBAJACK_ROBOT)
 			var/static/list/robot_options = list(
-				/mob/living/silicon/robot = 200,
-				/mob/living/simple_animal/drone/polymorphed = 200,
+				/mob/living/silicon/robot = 20,
+				/mob/living/simple_animal/drone/polymorphed = 10,
 				/mob/living/silicon/robot/model/syndicate = 1,
 				/mob/living/silicon/robot/model/syndicate/medical = 1,
 				/mob/living/silicon/robot/model/syndicate/saboteur = 1,
 			)
 
-			var/picked_robot = pick(robot_options)
+			var/picked_robot = pick_weight(robot_options)
 			new_mob = new picked_robot(loc)
 			if(issilicon(new_mob))
 				var/mob/living/silicon/robot/created_robot = new_mob
@@ -1317,24 +1311,6 @@
 				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
 				created_robot.clear_inherent_laws(announce = FALSE)
 				created_robot.clear_zeroth_law(announce = FALSE)
-
-		if(WABBAJACK_SLIME)
-			new_mob = new /mob/living/simple_animal/slime/random(loc)
-
-		if(WABBAJACK_XENO)
-			var/picked_xeno_type
-
-			if(ckey)
-				picked_xeno_type = pick(
-					/mob/living/carbon/alien/humanoid/hunter,
-					/mob/living/carbon/alien/humanoid/sentinel,
-				)
-			else
-				picked_xeno_type = pick(
-					/mob/living/carbon/alien/humanoid/hunter,
-					/mob/living/simple_animal/hostile/alien/sentinel,
-				)
-			new_mob = new picked_xeno_type(loc)
 
 		if(WABBAJACK_ANIMAL)
 			var/picked_animal = pick(
@@ -1371,6 +1347,11 @@
 				/mob/living/simple_animal/butterfly,
 				/mob/living/simple_animal/pet/cat/cak,
 				/mob/living/simple_animal/chick,
+				/mob/living/simple_animal/slime/random,
+				/mob/living/carbon/monkey,
+				/mob/living/carbon/alien/humanoid/hunter,
+				/mob/living/carbon/alien/humanoid/sentinel,
+				/mob/living/simple_animal/hostile/alien/maid,
 				)
 			new_mob = new picked_animal(loc)
 
