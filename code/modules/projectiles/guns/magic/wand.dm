@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
 	max_charges = 100
+	recharge_rate = 15 //seconds to recharge one charge
 
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()
@@ -79,6 +80,7 @@
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "revivewand"
 	max_charges = 5 // Heals 25 of every type of damage per charge and can revive dead targets. When fully charged this is always enough to fully heal the wizard using it, but the charges will take time to come back.
+	recharge_rate = 30
 
 /obj/item/gun/magic/wand/healing/inert
 	name = "weakened wand of healing"

@@ -7,6 +7,7 @@
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 1.5
+	max_charges = 10
 
 	canblock = TRUE
 	block_power = 50
@@ -47,7 +48,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/chaos
 	icon_state = "staffofchaos"
 	item_state = "staffofchaos"
-	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
 	/// Static list of all projectiles we can fire from our staff.
@@ -84,7 +84,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/door
 	icon_state = "staffofdoor"
 	item_state = "staffofdoor"
-	max_charges = 10
 	recharge_rate = 2
 	no_den_usage = 1
 
@@ -96,7 +95,6 @@
 	icon_state = "honker"
 	item_state = "honker"
 	max_charges = 4
-	recharge_rate = 8
 
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
@@ -127,7 +125,6 @@
 	icon_state = "locker"
 	item_state = "locker"
 	worn_icon_state = "lockerstaff"
-	max_charges = 6
 	recharge_rate = 4
 
 //yes, they don't have sounds. they're admin staves, and their projectiles will play the chaos bolt sound anyway so why bother?
