@@ -124,6 +124,9 @@
 
 	// Aggressively grabbing a target will make them fall asleep and alert nearby people
 	if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE)
+		to_chat(feed_target, span_cultbigbold("[owner.first_name()] takes you into a vicious embrace, sinking [owner.p_their()] fangs into your neck..."))
+		to_chat(feed_target, span_hypnophrase("But why does it feel so good?!"))
+
 		feed_target.Unconscious((5 + level_current) SECONDS)
 		owner.visible_message(
 			span_warning("[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!"),
@@ -131,6 +134,9 @@
 		)
 		silent_feed = FALSE
 	else
+		to_chat(feed_target, span_cultbigbold("[owner.first_name()] gently raises your arm to [owner.p_their()] lips, biting into your wrist..."))
+		to_chat(feed_target, span_hypnophrase("But why does it feel so good?!"))
+
 		owner.visible_message(
 			span_notice("[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth."),
 			span_notice("You slip your fangs into [feed_target]'s wrist."),
