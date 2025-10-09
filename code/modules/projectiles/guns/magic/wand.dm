@@ -65,7 +65,7 @@
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/death
 	icon_state = "deathwand"
-	max_charges = 3
+	max_charges = 5 //45 clone damage and 75 stamina damage per shot. One hit will slow most mobs dramatically, two will stamcrit, three will true crit.
 
 
 /////////////////////////////////////
@@ -78,7 +78,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "revivewand"
-	max_charges = 10
+	max_charges = 5 // Heals 25 of every type of damage per charge and can revive dead targets. When fully charged this is always enough to fully heal the wizard using it, but the charges will take time to come back.
 
 /obj/item/gun/magic/wand/healing/inert
 	name = "weakened wand of healing"
@@ -95,7 +95,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "polywand"
 	fire_sound = 'sound/magic/staff_change.ogg'
-	max_charges = 10
+	max_charges = 3 //Turn into one of a number of random mobs permanently. While it doesn't kill outright, this is often worse than a death sentence
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
 	. = ..() //because the user mob ceases to exists by the time wabbajack fully resolves
@@ -111,7 +111,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
-	max_charges = 10
+	max_charges = 8 //Mostly harmless most of the time. This one gets more charges
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -122,37 +122,28 @@
 	..()
 
 /////////////////////////////////////
-//WAND OF DOOR CREATION
+//WAND OF ANIMATION
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/door
-	name = "wand of door creation"
-	desc = "This particular wand can create doors in any wall for the unscrupulous wizard who shuns teleportation magics."
-	ammo_type = /obj/item/ammo_casing/magic/door
+/obj/item/gun/magic/wand/animation
+	name = "wand of animation"
+	desc = "This particular wand can spark life into inanimate objects, causing them to attack anyone nearby except the holder of this wand."
+	ammo_type = /obj/item/ammo_casing/magic/animate
 	icon_state = "doorwand"
-	fire_sound = 'sound/magic/staff_door.ogg'
-	max_charges = 20 //20, 10, 10, 7
-	no_den_usage = 1
-
-/obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, span_notice("You feel vaguely more open with your feelings."))
-	..()
+	fire_sound = 'sound/magic/staff_animation.ogg'
+	max_charges = 5
 
 /////////////////////////////////////
 //WAND OF FIREBALL
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/fireball
-	name = "wand of fireball"
-	desc = "This wand shoots scorching balls of fire that explode into destructive flames."
+	name = "wand of lesser fireball"
+	desc = "This wand shoots scorching balls of fire that explode into destructive flames. Not as powerful as the dedicated spell, but still dangerous."
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/fireball
 	icon_state = "firewand"
-	max_charges = 8 //8, 4, 4, 3
-
-/obj/item/gun/magic/wand/fireball/zap_self(mob/living/user)
-	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, magic = TRUE)
+	max_charges = 3
 
 /obj/item/gun/magic/wand/fireball/inert
 	name = "weakened wand of fireball"

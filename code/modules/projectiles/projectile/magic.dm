@@ -525,13 +525,7 @@
 
 /obj/projectile/magic/fireball/on_hit(atom/target, blocked = FALSE, pierce_hit)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/mob_target = target
-		// between this 10 burn, the 10 brute, the explosion brute, and the onfire burn,
-		// you are at about 65 damage if you stop drop and roll immediately
-
 	var/turf/target_turf = get_turf(target)
-
 	explosion(
 		target_turf,
 		devastation_range = -1,
@@ -542,7 +536,7 @@
 		adminlog = FALSE,
 	)
 
-///Used by fireball wand. Less explosive force, smaller flash range, and less direct brute damage from the impact.
+///Used by fireball wand. Less explosive force, smaller flash range, and less direct damage from the projectile impact.
 /obj/projectile/magic/fireball/lesser
 	name = "bolt of lesser fireball"
 	exp_heavy = 0

@@ -111,17 +111,6 @@
 	new /obj/item/camera_film(get_turf(user))
 	. = ..()
 
-/datum/spellbook_entry/item/wands
-	name = "Wand Assortment"
-	desc = "A collection of wands that allow for a wide variety of utility. \
-		Wands have a limited number of charges, so be conservative with their use. Comes in a handy belt."
-	item_path = /obj/item/storage/belt/wands/full
-	category = "Defensive"
-
-/datum/spellbook_entry/item/wands/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
-	var/was_equipped = user.equip_to_slot_if_possible(to_equip, ITEM_SLOT_BELT, disable_warning = TRUE)
-	to_chat(user, ("<span class='notice'>\A [to_equip.name] has been summoned [was_equipped ? "on your waist" : "at your feet"].</span>"))
-
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armour Set"
 	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space."

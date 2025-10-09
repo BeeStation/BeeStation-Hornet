@@ -361,6 +361,7 @@
 	shoes = /obj/item/clothing/shoes/sandal/magic
 	ears = /obj/item/radio/headset
 	head = /obj/item/clothing/head/wizard
+	belt = /obj/item/storage/belt/wands/full
 	r_pocket = /obj/item/teleportation_scroll
 	r_hand = /obj/item/spellbook
 	l_hand = /obj/item/staff
