@@ -49,6 +49,6 @@
 	..()
 
 
-/mob/living/simple_animal/cluwne/say(message, bubble_type,var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/cluwne/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	message = pick(speak)
 	..()

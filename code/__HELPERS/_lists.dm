@@ -487,13 +487,13 @@
 	return sortTim(list_to_sort, order >= 0 ? GLOBAL_PROC_REF(cmp_name_asc) : GLOBAL_PROC_REF(cmp_name_dsc))
 
 //Mergesort: any value in a list, preserves key=value structure
-/proc/sortAssoc(var/list/L)
+/proc/sortAssoc(list/L)
 	if(L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeAssoc(sortAssoc(L.Copy(0,middle)), sortAssoc(L.Copy(middle))) //second parameter null = to end of list
 
-/proc/mergeAssoc(var/list/L, var/list/R)
+/proc/mergeAssoc(list/L, list/R)
 	var/Li=1
 	var/Ri=1
 	var/list/result = new()

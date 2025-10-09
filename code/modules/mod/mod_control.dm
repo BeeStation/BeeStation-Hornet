@@ -6,7 +6,7 @@
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 
 /obj/item/mod/control
-	name = "MOD control unit"
+	name = "\improper MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
 	icon_state = "standard-control"
 	item_state = "mod_control"
@@ -367,7 +367,10 @@
 
 /obj/item/mod/control/GetAccess()
 	if(ai_controller)
-		return req_access.Copy()
+		if(req_access)
+			return req_access.Copy()
+		else
+			return ..()
 	else
 		return ..()
 

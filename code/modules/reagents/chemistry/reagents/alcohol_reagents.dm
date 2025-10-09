@@ -2907,7 +2907,7 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "fourthwallglass"
 
-/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild, var/severe, var/special)
+/datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(mild, severe, special)
 	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - typesof(/datum/brain_trauma/special/imaginary_friend) = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/affected_mob)

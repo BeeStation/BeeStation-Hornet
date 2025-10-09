@@ -31,7 +31,9 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer +  0.0002)
+			var/mutable_appearance/bloody_uniform = mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer + 0.0002)
+			bloody_uniform.color = get_blood_dna_color(return_blood_DNA())
+			. += bloody_uniform
 		if(accessory_overlay)
 			accessory_overlay.layer = item_layer +  0.0001
 			. += accessory_overlay
@@ -59,7 +61,7 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_w_uniform()
+		M.update_worn_undersuit()
 	if(damaged_state == CLOTHING_SHREDDED && has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
 	else if(damaged_state == CLOTHING_PRISTINE && has_sensor == BROKEN_SENSORS)
@@ -117,7 +119,7 @@
 
 	if(ishuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_w_uniform()
+		H.update_worn_undersuit()
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
@@ -125,7 +127,7 @@
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
-			H.update_inv_wear_suit()
+			H.update_worn_oversuit()
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -139,7 +141,7 @@
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
 		if(ishuman(H) && attached_accessory.above_suit)
-			H.update_inv_wear_suit()
+			H.update_worn_oversuit()
 
 	if(ishuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
@@ -177,11 +179,11 @@
 
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
-				H.update_inv_w_uniform()
-				H.update_inv_wear_suit()
+				H.update_worn_undersuit()
+				H.update_worn_oversuit()
 			if(ismonkey(loc))
 				var/mob/living/carbon/monkey/H = loc
-				H.update_inv_w_uniform()
+				H.update_worn_undersuit()
 
 			return TRUE
 
@@ -201,11 +203,11 @@
 
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
-			H.update_inv_wear_suit()
+			H.update_worn_undersuit()
+			H.update_worn_oversuit()
 		if(ismonkey(loc))
 			var/mob/living/carbon/monkey/H = loc
-			H.update_inv_w_uniform()
+			H.update_worn_undersuit()
 
 //Adds or removes mob from suit sensor global list
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
@@ -289,7 +291,7 @@
 		to_chat(usr, span_notice("You adjust the suit back to normal."))
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		H.update_inv_w_uniform()
+		H.update_worn_undersuit()
 		H.update_body()
 
 /obj/item/clothing/under/proc/toggle_jumpsuit_adjust()

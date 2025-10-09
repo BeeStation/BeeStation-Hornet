@@ -163,7 +163,7 @@
 		else
 			worn_icon_state = initial(worn_icon_state)
 			to_chat(user, span_notice("You return your hat to its original position."))
-		user.update_inv_head()
+		user.update_worn_head()
 
 /obj/item/clothing/head/fedora/det_hat/noir
 	name = "noir fedora"

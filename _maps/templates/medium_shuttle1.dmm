@@ -12,9 +12,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
 /area/ruin/powered/shuttle/medium_1)
 "d" = (
@@ -53,7 +51,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/shuttle/medium_1)
 "u" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/ruin/powered/shuttle/medium_1)
 "w" = (

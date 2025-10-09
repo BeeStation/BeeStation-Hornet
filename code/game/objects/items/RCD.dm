@@ -811,6 +811,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	canRturf = TRUE
 	item_flags = ISWEAPON
 
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	item_state = "ircd"
+	max_matter = 450
+	matter = 450
+
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
@@ -890,7 +897,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/color_choice = null
 
 
-/obj/item/construction/rld/ui_action_click(mob/user, var/datum/action/A)
+/obj/item/construction/rld/ui_action_click(mob/user, datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
 		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
@@ -915,7 +922,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 			to_chat(user, span_notice("You change RLD's mode to 'Deconstruct'."))
 
 
-/obj/item/construction/rld/proc/checkdupes(var/target)
+/obj/item/construction/rld/proc/checkdupes(target)
 	. = list()
 	var/turf/checking = get_turf(target)
 	for(var/obj/machinery/light/dupe in checking)

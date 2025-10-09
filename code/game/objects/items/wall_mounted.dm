@@ -55,7 +55,7 @@
 
 	qdel(src)
 
-/obj/item/wallframe/proc/after_attach(var/obj/O)
+/obj/item/wallframe/proc/after_attach(obj/O)
 	transfer_fingerprints_to(O)
 
 /obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)

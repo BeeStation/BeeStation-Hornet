@@ -30,9 +30,11 @@
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]", item_layer)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
+			var/mutable_appearance/bloody_armor = mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood", item_layer)
+			bloody_armor.color = get_blood_dna_color(return_blood_DNA())
+			. += bloody_armor
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
 			var/obj/item/clothing/under/U = M.w_uniform
@@ -45,7 +47,7 @@
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_suit()
+		M.update_worn_oversuit()
 
 /obj/item/clothing/suit/proc/on_mob_move()
 	SIGNAL_HANDLER
