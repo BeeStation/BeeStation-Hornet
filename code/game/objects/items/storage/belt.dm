@@ -720,12 +720,8 @@
 	new /obj/item/gun/magic/wand/healing(src)
 	new /obj/item/gun/magic/wand/polymorph(src)
 	new /obj/item/gun/magic/wand/teleport(src)
-	new /obj/item/gun/magic/wand/door(src)
+	new /obj/item/gun/magic/wand/animation(src)
 	new /obj/item/gun/magic/wand/fireball(src)
-
-	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
-		W.max_charges = initial(W.max_charges)
-		W.charges = W.max_charges
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"

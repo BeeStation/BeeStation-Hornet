@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/gun/magic/wand/healing,
 	/obj/item/gun/magic/wand/polymorph,
 	/obj/item/gun/magic/wand/teleport,
-	/obj/item/gun/magic/wand/door,
+	/obj/item/gun/magic/wand/animation,
 	/obj/item/gun/magic/wand/fireball,
 	/obj/item/gun/magic/staff/healing,
 	/obj/item/gun/magic/staff/door,

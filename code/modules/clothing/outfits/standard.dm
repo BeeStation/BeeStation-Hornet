@@ -6,7 +6,6 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
 	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
-		/obj/item/gun/magic/wand/healing/debug=1,
 		/obj/item/melee/energy/axe=1,
 		/obj/item/storage/part_replacer/bluespace/tier4=1,
 		/obj/item/debug/human_spawner=1,
@@ -44,8 +43,6 @@
 	backpack_contents = list(
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
-		/obj/item/gun/magic/wand/healing/debug = 1,
-		/obj/item/gun/magic/wand/death/debug = 1,
 		/obj/item/debug/human_spawner = 1,
 		/obj/item/debug/omnitool = 1,
 		/obj/item/storage/box/stabilized = 1,

@@ -90,28 +90,6 @@
 				smoke.set_up(max(round(4 - teleammount),0), stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 				smoke.start()
 
-/obj/projectile/magic/safety
-	name = "bolt of safety"
-	icon_state = "bluespace"
-	damage = 0
-	damage_type = OXY
-	nodamage = TRUE
-	martial_arts_no_deflect = FALSE
-
-/obj/projectile/magic/safety/on_hit(atom/target)
-	. = ..()
-	if(isturf(target))
-		return BULLET_ACT_HIT
-
-	var/turf/origin_turf = get_turf(target)
-	var/turf/destination_turf = find_safe_turf()
-
-	if(do_teleport(target, destination_turf, channel=TELEPORT_CHANNEL_MAGIC))
-		for(var/t in list(origin_turf, destination_turf))
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(0, t)
-			smoke.start()
-
 /obj/projectile/magic/door
 	name = "bolt of door creation"
 	icon_state = "energy"
@@ -533,7 +511,7 @@
 	name = "bolt of fireball"
 	icon_state = "fireball"
 	damage = 10
-	damage_type = BRUTE
+	damage_type = BURN
 	nodamage = FALSE
 
 	/// Heavy explosion range of the fireball
@@ -551,7 +529,6 @@
 		var/mob/living/mob_target = target
 		// between this 10 burn, the 10 brute, the explosion brute, and the onfire burn,
 		// you are at about 65 damage if you stop drop and roll immediately
-		mob_target.take_overall_damage(burn = 10)
 
 	var/turf/target_turf = get_turf(target)
 
@@ -564,6 +541,15 @@
 		flash_range = exp_flash,
 		adminlog = FALSE,
 	)
+
+///Used by fireball wand. Less explosive force, smaller flash range, and less direct brute damage from the impact.
+/obj/projectile/magic/fireball/lesser
+	name = "bolt of lesser fireball"
+	exp_heavy = 0
+	exp_light = 2
+	exp_fire = 2
+	exp_flash = 1
+	damage = 1
 
 /obj/projectile/magic/aoe/magic_missile
 	name = "magic missile"
