@@ -552,7 +552,7 @@
 ///Used by fireball wand. Less explosive force, smaller flash range, and less direct damage from the projectile impact.
 /obj/projectile/magic/fireball/lesser
 	name = "bolt of lesser fireball"
-	exp_heavy = 0
+	exp_heavy = -1
 	exp_light = 2
 	exp_fire = 2
 	exp_flash = 1

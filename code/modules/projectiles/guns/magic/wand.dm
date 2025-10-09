@@ -111,7 +111,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
-	max_charges = 8 //Mostly harmless most of the time. This one gets more charges
+	max_charges = 5 //Mostly harmless most of the time. This one gets more charges
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
