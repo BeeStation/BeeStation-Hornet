@@ -41,6 +41,7 @@
 				/obj/item/restraints/handcuffs/cable/zipties = 16,
 				/obj/item/reagent_containers/peppercloud_deployer = 4,
 				/obj/item/flashlight/seclite = 4,
+				/obj/item/ammo_casing/taser = 12,
 			),
 		),
 	)
@@ -111,7 +112,7 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		flick(icon_deny,src)
 		return TRUE
-	
+
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	say("Only qualified personnel are allowed to purchase spare equipment. Enlist now!")
 	flick(icon_deny,src)

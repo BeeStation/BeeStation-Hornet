@@ -6,9 +6,6 @@
 /// Two mobs one is facing a person, but the other is perpendicular
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //! Do I win the most informative but also most stupid define award?
 
-/proc/random_blood_type()
-	return pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-
 /proc/random_eye_color()
 	switch(pick(20;"brown",20;"hazel",20;"grey",15;"blue",15;"green",1;"amber",1;"albino"))
 		if("brown")
@@ -787,7 +784,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. = invoked_callback.Invoke()
 	usr = temp
 
-/proc/invertDir(var/input_dir)
+/proc/invertDir(input_dir)
 	switch(input_dir)
 		if(UP)
 			return DOWN

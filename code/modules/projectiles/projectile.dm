@@ -72,6 +72,7 @@
 	var/hit_threshhold = PROJECTILE_HIT_THRESHOLD_LAYER
 
 	var/speed = 0.8			//Amount of deciseconds it takes for projectile to travel
+	/// Angle of the projectile, 0 is up, 90 is right, 180 is down, 270 is left
 	var/Angle = 0
 	var/original_angle = 0		//Angle at firing
 	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle
@@ -159,6 +160,8 @@
 	var/shrapnel_type
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
+	/// If we are zone accurate, we always hit the zone we were targeting
+	var/zone_accurate = FALSE
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -248,15 +251,16 @@
 			if(isalien(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
-			if(B)
-				if(!IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
-					do_sparks(2, FALSE, target.loc)
-					if(prob(25))
-						new /obj/effect/decal/cleanable/oil(target_loca)
-				else
-					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir)
-				if(prob(33))
-					L.add_splatter_floor(target_loca)
+			if(B && !IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
+				do_sparks(2, FALSE, target.loc)
+			else
+				var/splatter_color = null
+				if(iscarbon(L))
+					var/mob/living/carbon/carbon_target = L
+					splatter_color = carbon_target.dna.blood_type.blood_color
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
+			if(prob(33))
+				L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
@@ -364,7 +368,10 @@
 			return TRUE
 
 	var/distance = get_dist(T, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
-	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	if (!zone_accurate)
+		def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	else if (!def_zone)
+		def_zone = ran_zone()
 
 	return process_hit(T, select_target(T, A, A), A)		// SELECT TARGET FIRST!
 

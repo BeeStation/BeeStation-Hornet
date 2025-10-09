@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	desc = "[initial(target_type.desc)] The colors look a little dodgy."
 	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
-/obj/item/proc/appearance_change(var/obj/item/target_type)
+/obj/item/proc/appearance_change(obj/item/target_type)
 	if(initial(target_type.greyscale_config) && initial(target_type.greyscale_colors))
 		set_greyscale(
 			colors=initial(target_type.greyscale_colors),

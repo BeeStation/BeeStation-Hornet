@@ -118,7 +118,7 @@
 		body += " <A href='byond://?_src_=holder;[HrefToken()];sendtoprison=[REF(M)]'>Prison</A> "
 		body += " <A href='byond://?_src_=holder;[HrefToken()];sendbacktolobby=[REF(M)]'>Send to Lobby</A>"
 		if(M.client.prefs)
-			var/muted = M.client.prefs.muted
+			var/muted = M.client.player_details.muted
 			body += "<br><br><b>Mute: </b> "
 			body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_IC]' [(muted & MUTE_IC)?"style='font-weight: bold'":""]>IC</a> "
 			body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_OOC]' [(muted & MUTE_OOC)?"style='font-weight: bold'":""]>OOC</a> "
@@ -746,7 +746,7 @@
 			message_admins("[string]")
 
 ///Plays a sound to all admins who have that preference on, with the var being the sound filepath
-/proc/play_sound_to_all_admins(var/sound = null)
+/proc/play_sound_to_all_admins(sound = null)
 	if(isnull(sound))
 		return
 	for(var/client/C as anything in GLOB.admins)
