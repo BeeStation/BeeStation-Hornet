@@ -69,7 +69,7 @@
 		target.restore_blood()
 		target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
 
-/obj/protjectile/magic/healing/greater
+/obj/projectile/magic/healing/greater
 	amount_healed = 35
 
 /obj/projectile/magic/healing/greater/on_hit(mob/living/target)
