@@ -290,6 +290,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/katana/cursed
 	slot_flags = null
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/katana/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
@@ -488,6 +490,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	custom_price = 20
 
 	force = 5
 	throwforce = 5
@@ -517,6 +520,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 	block_power = 50
+	custom_price = 30
 
 /obj/item/staff/broom
 	force = 5
@@ -525,6 +529,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	resistance_flags = FLAMMABLE
+	custom_price = 20
 
 /obj/item/staff/stick
 	name = "stick"
@@ -742,7 +747,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 
 
-/obj/item/staff/bostaff/ComponentInitialize()
+/obj/item/staff/bostaff/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=14, block_power_unwielded=75, block_power_wielded=75, icon_wielded="bostaff1")
 
@@ -844,6 +849,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("swat", "smack")
 	hitsound = 'sound/effects/snap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 50
 	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
 	var/list/strong_against
 
@@ -1014,6 +1020,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("club", "bludgeon")
 	item_flags = ISWEAPON
 	siemens_coefficient = 0
+	custom_price = 100
 	var/breakforce = 30
 	var/stamforce = 15
 
@@ -1102,7 +1109,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/vibro_weapon/ComponentInitialize()
+/obj/item/vibro_weapon/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 20, 105)
 	AddComponent(/datum/component/two_handed, force_multiplier=2, block_power_wielded=40, icon_wielded="hfrequency1")

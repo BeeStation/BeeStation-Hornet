@@ -23,15 +23,12 @@
 	var/casedesc = "This basic model accepts both beakers and bottles. It heats contents by 10 K upon ignition." // Appears when examining empty casings.
 	var/obj/item/assembly/prox_sensor/landminemode = null
 
-/obj/item/grenade/chem_grenade/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
-
 /obj/item/grenade/chem_grenade/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
 	stage_change() // If no argument is set, it will change the stage to the current stage, useful for stock grenades that start READY.
 	wires = new /datum/wires/explosive/chem_grenade(src)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_LIST(beakers)
@@ -339,6 +336,7 @@
 	name = "smart metal foam grenade"
 	desc = "Used for emergency sealing of hull breaches, while keeping areas accessible."
 	stage = GRENADE_READY
+	custom_price = 20
 
 
 /obj/item/grenade/chem_grenade/smart_metal_foam/Initialize(mapload)
@@ -432,6 +430,7 @@
 	name = "teargas grenade"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = GRENADE_READY
+	custom_price = 25
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()

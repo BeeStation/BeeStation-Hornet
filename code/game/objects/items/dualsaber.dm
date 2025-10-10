@@ -63,10 +63,17 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/item/dualsaber/ComponentInitialize()
+/obj/item/dualsaber/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=force, force_wielded=twohand_force, block_power_unwielded=70, block_power_wielded=75, \
-					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="dualsaber[saber_color]1")
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = force, \
+		force_wielded = twohand_force, \
+		block_power_unwielded=70, \
+		block_power_wielded=75, \
+		wieldsound='sound/weapons/saberon.ogg', \
+		unwieldsound='sound/weapons/saberoff.ogg', \
+		icon_wielded="dualsaber[saber_color]1", \
+	)
 
 /// Triggered on wield of two handed item
 /// Specific hulk checks due to reflection chance for balance issues and switches hitsounds.

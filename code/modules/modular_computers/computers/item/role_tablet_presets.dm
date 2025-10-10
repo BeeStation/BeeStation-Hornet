@@ -35,7 +35,7 @@
 	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
 	ignore_theme_pref = TRUE
 
-/obj/item/modular_computer/tablet/pda/preset/clown/ComponentInitialize()
+/obj/item/modular_computer/tablet/pda/preset/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, PROC_REF(AfterSlip)), 5 SECONDS)
 
@@ -314,6 +314,7 @@
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-gold"
 	init_ringtone = "ch-CHING"
+	custom_price = 500
 
 /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	name = "unlicensed PDA"

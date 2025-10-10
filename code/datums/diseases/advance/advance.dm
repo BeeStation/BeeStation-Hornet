@@ -585,7 +585,7 @@
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
 
-/datum/disease/advance/infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/infect(mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
@@ -615,7 +615,7 @@
 	log_virus("[key_name(infectee)] was infected by virus: [src.admin_details()] at [loc_name(source_turf)]")
 
 
-/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+/datum/disease/advance/proc/random_disease_name(atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
 	// If this just has 1 symptom, use that symptom's name.
 	if(length(symptoms) == 1)
 		var/datum/symptom/main_symptom = symptoms[1]
@@ -713,7 +713,7 @@
 		if(3)
 			return "[pick(bodies)][pick(suffixes)]"
 
-/datum/disease/advance/proc/logchanges(datum/reagents/holder, var/modification_type)
+/datum/disease/advance/proc/logchanges(datum/reagents/holder, modification_type)
 	if(holder?.my_atom?.fingerprintslast)
 		last_modified_by = holder.my_atom.fingerprintslast
 	else

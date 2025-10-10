@@ -122,7 +122,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	item.pickup_sound = item_sound_override
 	item.drop_sound = item_sound_override
 
-/datum/material/proc/on_applied_turf(var/turf/T, amount, material_flags)
+/datum/material/proc/on_applied_turf(turf/T, amount, material_flags)
 	if(isopenturf(T))
 		if(!turf_sound_override)
 			return

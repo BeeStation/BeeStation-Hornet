@@ -65,6 +65,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/closet/artifact)
 /obj/structure/closet/artifact
 	name = "The Bishop" //Proper name
 
-/obj/structure/closet/artifact/ComponentInitialize()
+/obj/structure/closet/artifact/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, list(/datum/xenoartifact_trait/activator/weighted/closet, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/minor/capacitive, /datum/xenoartifact_trait/major/animalize), FALSE, FALSE)

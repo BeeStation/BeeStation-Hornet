@@ -664,41 +664,6 @@
 	if(affected_mob.nutrition > NUTRITION_LEVEL_FULL - 25)
 		affected_mob.adjust_nutrition(-3 * REM * nutriment_factor * delta_time)
 
-/datum/reagent/consumable/maltodextrin
-	name = "Maltodextrin"
-	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
-	color = "#d4e1ee"
-	chemical_flags = CHEMICAL_RNG_GENERAL
-	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
-	taste_description = "processed goodness"
-	nutriment_factor = -0.3
-	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
-
-/datum/reagent/consumable/maltodextrin/microplastics
-	name = "Microplastics"
-	description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"
-	color = "#dbd6cb"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // The funny
-	taste_description = "Plastic"
-	nutriment_factor = -0.15 // it's plastic after all, it taste really good and it's real special!
-	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin
-
-/datum/reagent/consumable/maltodextrin/microplastics/on_mob_metabolize(mob/living/carbon/affected_mob)
-	. = ..()
-	if(!ishuman(affected_mob))
-		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.physiology.tox_mod *= 2
-
-/datum/reagent/consumable/maltodextrin/microplastics/on_mob_end_metabolize(mob/living/carbon/affected_mob)
-	. = ..()
-	if(!ishuman(affected_mob))
-		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.physiology.tox_mod *= 0.5
-
 ////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
@@ -867,7 +832,6 @@
 /datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.reagents.add_reagent(/datum/reagent/consumable/nutriment, 1)
-	affected_mob.reagents.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)
 
 /datum/reagent/consumable/gravy
 	name = "Gravy"

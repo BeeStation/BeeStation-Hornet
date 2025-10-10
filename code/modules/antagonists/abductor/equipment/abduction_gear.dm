@@ -78,7 +78,7 @@
 			icon_state = "vest_stealth"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_wear_suit()
+		H.update_worn_oversuit()
 	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
@@ -101,7 +101,7 @@
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
-		M.update_inv_hands()
+		M.update_held_items()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/return_disguise_name(mob/living/carbon/human/source, list/identity)
 	SIGNAL_HANDLER
@@ -286,7 +286,7 @@
 	icon_state = "silencer"
 	item_state = "gizmo"
 
-/obj/item/abductor/silencer/ComponentInitialize()
+/obj/item/abductor/silencer/Initialize(mapload)
 	. = ..()
 	//Activate the jammer
 	//This jammer will not block cameras or AI shells
@@ -462,7 +462,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/sleep_time = 2 MINUTES
 	var/time_to_cuff = 3 SECONDS
 
-/obj/item/melee/baton/abductor/ComponentInitialize()
+/obj/item/melee/baton/abductor/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 

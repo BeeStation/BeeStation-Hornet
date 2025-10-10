@@ -12,6 +12,7 @@
 	buckle_requires_restraints = TRUE
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
+	custom_price = 450
 
 	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
 	var/power_loss = 2
@@ -165,6 +166,7 @@
 	icon_state = "grounding_rod0"
 	anchored = FALSE
 	density = TRUE
+	custom_price = 350
 
 	can_buckle = TRUE
 	buckle_lying = 0
@@ -190,7 +192,7 @@
 
 	return ..()
 
-/obj/machinery/power/grounding_rod/tesla_act(var/power)
+/obj/machinery/power/grounding_rod/tesla_act(power)
 	if(anchored && !panel_open)
 		flick("grounding_rodhit", src)
 		tesla_buckle_check(power)

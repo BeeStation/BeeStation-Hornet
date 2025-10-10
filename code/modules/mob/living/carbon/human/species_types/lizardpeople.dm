@@ -38,6 +38,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
 	digitigrade_customization = DIGITIGRADE_OPTIONAL
+	blush_color = COLOR_BLUSH_TEAL
 
 	// Lizards are coldblooded and can stand a greater temperature range than humans
 	bodytemp_heat_damage_limit = (BODYTEMP_HEAT_DAMAGE_LIMIT + 20) // This puts lizards 10 above lavaland max heat for ash lizards.
@@ -46,10 +47,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/lizard,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/lizard,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/lizard,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/lizard,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/lizard,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/lizard,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/lizard,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/lizard,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/lizard,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/lizard,
 	)
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally

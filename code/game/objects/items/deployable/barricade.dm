@@ -9,8 +9,9 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrier0"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 25
 
-/obj/item/security_barricade/ComponentInitialize()
+/obj/item/security_barricade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/structure/barricade/security, time_to_deploy = 3 SECONDS)
 
@@ -205,6 +206,7 @@
 	req_access = list(ACCESS_SECURITY)
 	pickup_damaged = FALSE
 	locked_down = TRUE
+	custom_price = 25
 
 
 /datum/armor/barricade_security

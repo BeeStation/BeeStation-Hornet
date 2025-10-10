@@ -82,7 +82,7 @@
 		/obj/item/nanite_scanner = 3,
 		/obj/item/disk/tech_disk = 5,
 		/obj/item/assembly/prox_sensor = 6,
-		/obj/item/bodypart/r_arm/robot = 4,
+		/obj/item/bodypart/arm/right/robot = 4,
 		/obj/item/gun/energy/wormhole_projector = 1,
 		/obj/item/assembly/flash/handheld/weak = 2,
 		/obj/item/stock_parts/cell/high = 1,
