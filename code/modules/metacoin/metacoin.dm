@@ -70,7 +70,7 @@
 /client/proc/inc_metabalance(mc_count, ann=TRUE, reason=null)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(mc_count >= 0 && !CONFIG_GET(flag/grant_metacurrency))
-		return
+		return FALSE
 	if(metabalance_cached == null)
 		CRASH("Metacoin amount adjusted before value initialized")
 	metabalance_cached += mc_count
@@ -80,6 +80,7 @@
 		else
 			to_chat(src, span_rosebold("[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!"))
 	INVOKE_ASYNC(src, PROC_REF(db_inc_metabalance), mc_count)
+	return TRUE
 
 /client/proc/db_inc_metabalance(mc_count)
 	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(

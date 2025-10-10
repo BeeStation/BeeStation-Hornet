@@ -36,6 +36,7 @@
 	var/illustration = "writing"
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -1410,7 +1411,8 @@
 	desc = "Hacking for Dummies kit, made by the HELLRAISER Crack team. Meant to teach you how to stick it to the man! (metaphorically)."
 	icon_state = "syndiebox"
 	illustration = "disk_kit"
-	custom_price = 200
+	custom_price = 200 // this SHOULD be calculated by contents... but... that would ruin export, we need to find something else in the future for vendors
+	trade_flags = TRADE_CONTRABAND | TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/hacking4dummies/PopulateContents()
 	new /obj/item/screwdriver(src)
@@ -1462,6 +1464,7 @@
 	name = "box of shipping supplies"
 	desc = "Contains several scanners and labelers for shipping things. Wrapping Paper not included."
 	illustration = "shipping"
+	custom_price = 150
 
 /obj/item/storage/box/shipping/PopulateContents()
 	var/static/items_inside = list(

@@ -12,6 +12,7 @@
 	attack_verb_continuous = list("whips", "lashes", "disciplines")
 	attack_verb_simple = list("whip", "lash", "discipline")
 	max_integrity = 300
+	custom_price = 30
 	var/content_overlays = FALSE //If this is true, the belt will gain overlays based on what it's holding
 
 /obj/item/storage/belt/suicide_act(mob/living/carbon/user)
@@ -277,6 +278,7 @@
 	item_state = "medical"
 	worn_icon_state = "medical"
 	content_overlays = TRUE
+	custom_price = 100
 
 /obj/item/storage/belt/medical/Initialize(mapload)
 	. = ..()
@@ -423,7 +425,8 @@
 	item_state = "securitywebbing"
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
-	custom_premium_price = 800
+	max_demand = 10
+	custom_price = 150
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
