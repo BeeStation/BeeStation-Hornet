@@ -17,6 +17,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = ISWEAPON
 	armor_type = /datum/armor/melee_baton
+	custom_price = 100
 
 	throwforce = 7
 	var/throw_stun_chance = 35
@@ -294,6 +295,7 @@
 	throw_stun_chance = 10
 	slot_flags = ITEM_SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler = 0
+	custom_price = 25
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)
 	. = ..()

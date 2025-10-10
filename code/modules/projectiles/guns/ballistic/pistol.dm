@@ -16,6 +16,7 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -62,6 +63,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
@@ -79,6 +81,7 @@
 	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
 	lock_back_sound = "sound/weapons/deaglelock.ogg"
 	fire_sound = "sound/weapons/deagleshot.ogg"
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -136,6 +139,7 @@
 	fire_rate = 4
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
+	trade_flags = NONE
 	var/stripe_state = "officer_com"
 
 /obj/item/gun/ballistic/automatic/pistol/service/update_icon()
