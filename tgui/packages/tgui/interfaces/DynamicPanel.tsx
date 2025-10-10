@@ -18,6 +18,8 @@ import { Window } from '../layouts';
 
 type Data = {
   forced_extended: BooleanLike;
+  possible_storytellers: string[];
+  current_storyteller: string;
 };
 
 type RoundstartData = {
@@ -86,7 +88,7 @@ enum Tab {
 
 export const DynamicPanel = () => {
   const { data, act } = useBackend<Data>();
-  const { forced_extended } = data;
+  const { forced_extended, current_storyteller, possible_storytellers } = data;
 
   const [currentTab, setCurrentTab] = useLocalState(
     'dynamic_tab',
@@ -112,26 +114,45 @@ export const DynamicPanel = () => {
     <Window title="Dynamic Panel" theme="admin" height={500} width={700}>
       <Window.Content scrollable>
         <Section>
-          <Button
-            tooltip="Opens the Dynamic VV panel."
-            onClick={() => act('vv')}
-          >
-            VV
-          </Button>{' '}
-          <Button
-            tooltip="Reloads the `dynamic.json` file"
-            onClick={() => act('reload_config')}
-          >
-            Reload Configuration
-          </Button>{' '}
-          <Button
-            tooltip="Blocks rulesets from running"
-            color={forced_extended ? 'green' : 'red'}
-            icon={forced_extended ? 'check' : 'times'}
-            onClick={() => act('toggle_forced_extended')}
-          >
-            Forced Extended
-          </Button>
+          <Box style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Button
+              tooltip="Opens the Dynamic VV panel."
+              onClick={() => act('vv')}
+            >
+              VV
+            </Button>
+            <Button
+              tooltip="Reloads the the dynamic storyteller files. Only intended for hot reloads"
+              onClick={() => act('reload_storytellers')}
+            >
+              Reload Storytellers
+            </Button>
+            <Button
+              tooltip="Blocks rulesets from running"
+              color={forced_extended ? 'green' : 'red'}
+              icon={forced_extended ? 'check' : 'times'}
+              onClick={() => act('toggle_forced_extended')}
+            >
+              Forced Extended
+            </Button>
+            <Box
+              style={{
+                marginLeft: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+              }}
+            >
+              Current Storyteller:
+              <Dropdown
+                options={[...possible_storytellers, 'None']}
+                selected={current_storyteller ?? 'None'}
+                onSelected={(value) => {
+                  act('set_storyteller', { new_storyteller: value });
+                }}
+              />
+            </Box>
+          </Box>
         </Section>
         <Divider />
         <Tabs>

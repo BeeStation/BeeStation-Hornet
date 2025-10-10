@@ -182,3 +182,4 @@
 	var/token_attempts = 0
 	/// Port currently used by this client's Dream Seeker
 	var/seeker_port
+

@@ -82,7 +82,7 @@ There are several things that need to be remembered:
 		update_worn_head()
 		update_worn_belt()
 		update_worn_back()
-		update_worn_mask()
+		update_worn_oversuit()
 		update_pockets()
 		update_worn_neck()
 		update_transform()
@@ -117,7 +117,7 @@ There are several things that need to be remembered:
 	if(slot_flags & ITEM_SLOT_FEET)
 		update_worn_shoes()
 	if(slot_flags & ITEM_SLOT_OCLOTHING)
-		update_worn_mask()
+		update_worn_oversuit()
 	if(slot_flags & ITEM_SLOT_ICLOTHING)
 		update_worn_undersuit()
 	if(slot_flags & ITEM_SLOT_SUITSTORE)
@@ -223,15 +223,18 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
-	if(!gloves && blood_in_hands)
+	if(!gloves && blood_in_hands && (num_hands > 0))
 		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
 		if(num_hands < 2)
 			if(has_left_hand(FALSE))
 				bloody_overlay.icon_state = "bloodyhands_left"
 			else if(has_right_hand(FALSE))
 				bloody_overlay.icon_state = "bloodyhands_right"
+		var/list/blood_dna = return_blood_DNA()
+		if(length(blood_dna))
+			bloody_overlay.color = get_blood_dna_color(return_blood_DNA())
 
 		overlays_standing[GLOVES_LAYER] = bloody_overlay
 
@@ -507,7 +510,7 @@ There are several things that need to be remembered:
 
 
 
-/mob/living/carbon/human/update_worn_mask(update_obscured = TRUE)
+/mob/living/carbon/human/update_worn_oversuit(update_obscured = TRUE)
 	remove_overlay(SUIT_LAYER)
 
 	if(client && hud_used)

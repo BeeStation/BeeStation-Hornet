@@ -85,16 +85,24 @@
 	var/not_handled = FALSE //Added in case we make this type path deeper one day
 	switch(slot)
 		if(ITEM_SLOT_BELT)
+			if(belt)
+				return
 			belt = I
 			update_worn_belt()
 		if(ITEM_SLOT_ID)
+			if(wear_id)
+				return
 			wear_id = I
 			sec_hud_set_ID()
 			update_worn_id()
 		if(ITEM_SLOT_EARS)
+			if(ears)
+				return
 			ears = I
 			update_worn_ears()
 		if(ITEM_SLOT_EYES)
+			if(glasses)
+				return
 			glasses = I
 			var/obj/item/clothing/glasses/G = I
 			if(G.glass_colour_type)
@@ -108,21 +116,31 @@
 				update_sight()
 			update_worn_glasses()
 		if(ITEM_SLOT_GLOVES)
+			if(gloves)
+				return
 			gloves = I
 			update_worn_gloves()
 		if(ITEM_SLOT_FEET)
+			if(shoes)
+				return
 			shoes = I
 			update_worn_shoes()
 		if(ITEM_SLOT_OCLOTHING)
+			if(wear_suit)
+				return
+
 			wear_suit = I
+
 			if(I.flags_inv & HIDEJUMPSUIT)
 				update_worn_undersuit()
 			if(wear_suit.breakouttime) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 				stop_pulling() //can't pull if restrained
 				update_action_buttons_icon() //certain action buttons will no longer be usable.
-			update_worn_mask()
+			update_worn_oversuit()
 		if(ITEM_SLOT_ICLOTHING)
+			if(w_uniform)
+				return
 			w_uniform = I
 			update_suit_sensors()
 			update_worn_undersuit()
@@ -133,6 +151,8 @@
 			r_store = I
 			update_pockets()
 		if(ITEM_SLOT_SUITSTORE)
+			if(s_store)
+				return
 			s_store = I
 			update_suit_storage()
 		else
@@ -178,7 +198,7 @@
 		if(!QDELETED(src)) //no need to update we're getting deleted anyway
 			if(I.flags_inv & HIDEJUMPSUIT)
 				update_worn_undersuit()
-			update_worn_mask()
+			update_worn_oversuit()
 	else if(I == w_uniform)
 		if(invdrop)
 			if(r_store)

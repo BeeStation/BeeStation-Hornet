@@ -9,7 +9,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/bar)
 "af" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -115,9 +115,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned/engine)
 "az" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
@@ -287,9 +285,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/crew)
 "bh" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/girder/displaced,
 /obj/item/stack/sheet/mineral/titanium,
 /obj/item/stack/rods,
@@ -431,7 +427,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/crew)
 "bI" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -500,7 +496,7 @@
 /area/shuttle/abandoned/bridge)
 "bT" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_bridge"
 	},
@@ -699,7 +695,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/cargo)
 "cz" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -1107,9 +1103,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned/cargo)
 "dx" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/iron,
 /turf/open/floor/plating/airless,
@@ -1802,9 +1796,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned/crew)
 "Aa" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/frame/computer{
 	anchored = 1;
 	dir = 8
@@ -2101,7 +2093,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bar)
 "SY" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/machinery/door/poddoor{
 	id = "whiteship_windows"
 	},
@@ -2218,9 +2210,7 @@
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/bar)
 "Yz" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/frame/computer{
 	anchored = 1;
 	dir = 8

@@ -31,7 +31,9 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer +  0.0002)
+			var/mutable_appearance/bloody_uniform = mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer + 0.0002)
+			bloody_uniform.color = get_blood_dna_color(return_blood_DNA())
+			. += bloody_uniform
 		if(accessory_overlay)
 			accessory_overlay.layer = item_layer +  0.0001
 			. += accessory_overlay
@@ -125,7 +127,7 @@
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
-			H.update_worn_mask()
+			H.update_worn_oversuit()
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -139,7 +141,7 @@
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
 		if(ishuman(H) && attached_accessory.above_suit)
-			H.update_worn_mask()
+			H.update_worn_oversuit()
 
 	if(ishuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
@@ -178,7 +180,7 @@
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
 				H.update_worn_undersuit()
-				H.update_worn_mask()
+				H.update_worn_oversuit()
 			if(ismonkey(loc))
 				var/mob/living/carbon/monkey/H = loc
 				H.update_worn_undersuit()
@@ -202,7 +204,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.update_worn_undersuit()
-			H.update_worn_mask()
+			H.update_worn_oversuit()
 		if(ismonkey(loc))
 			var/mob/living/carbon/monkey/H = loc
 			H.update_worn_undersuit()

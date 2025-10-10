@@ -569,7 +569,7 @@
 
 	// Wash equipped stuff that cannot be covered
 	if(wear_suit?.wash(clean_types))
-		update_worn_mask()
+		update_worn_oversuit()
 		. = TRUE
 
 	if(belt?.wash(clean_types))

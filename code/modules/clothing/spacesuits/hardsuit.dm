@@ -748,7 +748,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_worn_mask()
+		H.update_worn_oversuit()
 		H.update_worn_undersuit()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_combat_mode()
@@ -760,7 +760,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
-		H.update_worn_mask()
+		H.update_worn_oversuit()
 		H.update_worn_undersuit()
 
 //Stupid snowflake type so we dont freak out the spritesheets. Its not actually used ingame
@@ -1583,7 +1583,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 
-
 /datum/armor/shielded_swat
 	melee = 80
 	bullet = 80
@@ -1612,69 +1611,4 @@
 	item_state = "hardsuit0-clown"
 	hardsuit_type = "clown"
 
-
-// Doomguy ERT version
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy
-	name = "juggernaut armor"
-	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
-	icon_state = "doomguy"
-	item_state = "doomguy"
-	shield_integrity = 20
-	recharge_delay = 100
-	armor_type = /datum/armor/shielded_doomguy
-	strip_delay = 130
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF | LAVA_PROOF
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
-	dog_fashion = /datum/dog_fashion/back/deathsquad
-
-
-/datum/armor/shielded_doomguy
-	melee = 135
-	bullet = 135
-	laser = 135
-	energy = 135
-	bomb = 135
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
-
-/obj/item/clothing/suit/space/hardsuit/shielded/doomguy/Initialize(mapload)
-	. = ..()
-	AddComponent(
-		/datum/component/shielded, \
-		max_integrity = 20, \
-		charge_recovery = 20, \
-		recharge_start_delay = 1 SECONDS, \
-		charge_increment_delay = 1 SECONDS, \
-		shield_icon = "shield-old" \
-	)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/doomguy
-	name = "juggernaut helmet"
-	desc = "A dusty old helmet, somehow capable of resisting the strongest of blows."
-	icon_state = "doomguy"
-	item_state = "doomguy"
-	armor_type = /datum/armor/shielded_doomguy
-	strip_delay = 130
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	actions_types = list()
-
 #undef HARDSUIT_EMP_BURN
-
-
-/datum/armor/shielded_doomguy
-	melee = 135
-	bullet = 135
-	laser = 135
-	energy = 135
-	bomb = 135
-	bio = 100
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 100
-	bleed = 100
