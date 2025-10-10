@@ -9,7 +9,7 @@
 	var/include_subtypes = TRUE
 
 /datum/bounty/item/New()
-	..()
+	. = ..()
 	wanted_types = string_assoc_list(zebra_typecacheof(wanted_types, only_root_path = !include_subtypes))
 
 /datum/bounty/item/completion_string()
