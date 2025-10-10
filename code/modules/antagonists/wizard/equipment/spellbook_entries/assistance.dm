@@ -27,12 +27,6 @@
 	category = "Assistance"
 	cost = 1
 
-/datum/spellbook_entry/item/staffanimation
-	name = "Staff of Animation"
-	desc = "An arcane staff capable of shooting bolts of eldritch energy which cause inanimate objects to come to life. This magic doesn't affect machines."
-	item_path = /obj/item/gun/magic/staff/animate
-	category = "Assistance"
-
 /datum/spellbook_entry/item/soulstones
 	name = "Soulstone Shard Kit"
 	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. \

@@ -8,7 +8,7 @@
 	cooldown_time = 45 SECONDS
 	cooldown_reduction_per_rank = 5 SECONDS
 
-	invocation = "ADA KAVRA!"
+	invocation = "ADABA KEVRA!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 

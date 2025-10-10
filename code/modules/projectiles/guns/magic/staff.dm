@@ -22,13 +22,14 @@
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
 
-/obj/item/gun/magic/staff/animate
-	name = "staff of animation"
+//RUKO-TODO - Make the actual bolt of dismember
+/obj/item/gun/magic/staff/dismember
+	name = "staff of dismemberment"
 	desc = "An artefact that spits bolts of life-force which causes objects which are hit by it to animate and come to life! This magic doesn't affect machines."
 	fire_sound = 'sound/magic/staff_animation.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/animate
-	icon_state = "staffofanimation"
-	item_state = "staffofanimation"
+	ammo_type = /obj/item/ammo_casing/magic/dismember
+	icon_state = "staffofdismember"
+	item_state = "staffofdismember"
 
 /obj/item/gun/magic/staff/healing
 	name = "staff of healing"

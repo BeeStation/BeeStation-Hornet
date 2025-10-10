@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,
-	/obj/item/gun/magic/staff/animate,
+	/obj/item/gun/magic/staff/dismember,
 	/obj/item/storage/belt/wands/full,
 	/obj/item/antag_spawner/contract,
 	/obj/item/gun/magic/staff/chaos,
