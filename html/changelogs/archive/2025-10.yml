@@ -152,3 +152,5 @@
       going on.
   mrmanlikesbt:
   - bugfix: fixed not having gravity when traveling on a shuttle
+  r1ks-iwnl:
+  - bugfix: Fixed being unable to load foam force guns
