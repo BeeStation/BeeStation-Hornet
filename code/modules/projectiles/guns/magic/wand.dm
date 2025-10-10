@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
 	max_charges = 5
-	recharge_rate = 15 //seconds to recharge one charge
+	recharge_rate = 20 //seconds to recharge one charge
 
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()
@@ -57,15 +57,16 @@
 	process_fire(user, user)
 
 /////////////////////////////////////
-//WAND OF DISMEMBERMENT
+//WAND OF DRAIN VITALITY
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/death
-	name = "wand of dismemberment"
-	desc = "This deadly wand causes your opponents limbs to come flying off in a most gruesome manner."
+//RUKO-TODO - Look at tasers and make something similar for this
+/obj/item/gun/magic/wand/drain
+	name = "wand of drain vitality"
+	desc = "This dark wand saps the very life force from your target, slowing them and eventually transferring their life essence to you. Requires you to remain within range to be effective."
 	fire_sound = 'sound/magic/wandodeath.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/dismember
-	icon_state = "dismemberwand"
+	ammo_type = /obj/item/ammo_casing/magic/lifedrain
+	icon_state = "drainwand"
 
 /////////////////////////////////////
 //WAND OF HEALING
@@ -77,7 +78,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "healwand"
-	recharge_rate = 30
 
 /////////////////////////////////////
 //WAND OF ICE
