@@ -28,13 +28,7 @@
 
 /obj/projectile/magic/death/on_hit(mob/living/target)
 	. = ..()
-	if(!isliving(target))
-		return
-	if(target.adjustCloneLoss(45))
-		target.adjustStaminaLoss(75) //this doesn't need to succeed
-		to_chat(target, span_danger("You feel your very will to live draining away!"))
-	else
-		//For edge cases such as cyborgs which are immune to clone damage. Most simplemobs will suffer the first effect.
+	if(isliving(target))
 		target.death()
 
 /obj/projectile/magic/healing
@@ -576,7 +570,7 @@
 		adminlog = FALSE,
 	)
 
-	//We don't want the damage from making a real explosion happen, but we do still want to send things flying
+	//We don't want the damage from making a real explosion happen, but we do still want to send things flying. Good thing we have a global proc for that.
 	goonchem_vortex(target_turf, 1, 3)
 
 

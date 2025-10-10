@@ -64,7 +64,7 @@
 	name = "wand of dismemberment"
 	desc = "This deadly wand causes your opponents limbs to come flying off in a most gruesome manner."
 	fire_sound = 'sound/magic/wandodeath.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/death
+	ammo_type = /obj/item/ammo_casing/magic/dismember
 	icon_state = "dismemberwand"
 
 /////////////////////////////////////
