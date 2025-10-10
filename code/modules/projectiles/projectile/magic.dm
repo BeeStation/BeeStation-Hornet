@@ -521,7 +521,7 @@
 	zap_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
 
 /obj/projectile/magic/fireball
-	name = "bolt of fireball"
+	name = "fireball"
 	icon_state = "fireball"
 	damage = 10
 	damage_type = BURN
@@ -549,14 +549,36 @@
 		adminlog = FALSE,
 	)
 
-///Used by fireball wand. Less explosive force, smaller flash range, and less direct damage from the projectile impact.
-/obj/projectile/magic/fireball/lesser
-	name = "bolt of lesser fireball"
-	exp_heavy = -1
-	exp_light = 2
-	exp_fire = 2
-	exp_flash = 1
-	damage = 1
+///Fireball's little brother
+/obj/projectile/magic/firebolt
+	name = "bolt of fire"
+	icon_state = "fireball"
+	damage = 20 //Because this one doesn't do an actual explosion, direct hit damage is much higher
+	damage_type = BURN
+	nodamage = FALSE
+
+/obj/projectile/magic/firebolt/on_hit(atom/target, blocked = FALSE, pierce_hit)
+	. = ..()
+	var/turf/target_turf = get_turf(target)
+
+	if(isliving(target))
+		var/mob/living/target_mob = target
+		target_mob.fire_stacks += 5 //One stop drop and roll can put this out, two if it spreads during the knockdown
+		target_mob.IgniteMob()
+
+	explosion(
+		target_turf,
+		devastation_range = -1,
+		heavy_impact_range = -1,
+		light_impact_range = -1,
+		flame_range = 2,
+		flash_range = 1,
+		adminlog = FALSE,
+	)
+
+	//We don't want the damage from making a real explosion happen, but we do still want to send things flying
+	goonchem_vortex(target_turf, 1, 3)
+
 
 /obj/projectile/magic/aoe/magic_missile
 	name = "magic missile"
