@@ -23,6 +23,12 @@
 	spell_type = /datum/action/spell/touch/smite
 	category = "Offensive"
 
+/datum/spellbook_entry/deathbolt
+	name = "Bolt of Death"
+	desc = "Launches an ethereal projectile that will immediately separate the victim's soul from their body on contact."
+	spell_type = /datum/action/spell/pointed/projectile/death
+	category = "Offensive"
+
 /datum/spellbook_entry/blind
 	name = "Blind"
 	desc = "Temporarily blinds a single target."
@@ -87,6 +93,12 @@
 	name = "Staff of Change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
 	item_path = /obj/item/gun/magic/staff/change
+	category = "Offensive"
+
+/datum/spellbook_entry/item/staffdismember
+	name = "Staff of Dismemberment"
+	desc = "An arcane staff capable of shooting bolts of eldritch energy which causes your opponents limbs to come flying off in a most gruesome manner."
+	item_path = /obj/item/gun/magic/staff/dismember
 	category = "Offensive"
 
 /datum/spellbook_entry/item/mjolnir
