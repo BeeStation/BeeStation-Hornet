@@ -4,6 +4,7 @@
 	icon = 'icons/obj/tesla_engine/tesla_generator.dmi'
 	icon_state = "TheSingGen"
 	creation_type = /obj/anomaly/energy_ball
+	custom_price = 4000
 
 /obj/machinery/the_singularitygen/tesla/zap_act(power, zap_flags)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)

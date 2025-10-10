@@ -124,6 +124,8 @@
 	armor_type = /datum/armor/space_hostile_environment
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
+	custom_price = 30000
+	max_demand = 2
 
 /datum/armor/space_hostile_environment
 	melee = 70
@@ -173,6 +175,8 @@
 	armor_type = /datum/armor/space_hostile_environment
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
+	custom_price = 10000
+	max_demand = 2
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()

@@ -10,6 +10,7 @@
 	buckle_requires_restraints = TRUE
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
+	custom_price = 450
 
 	/// Flags of the zap that the coil releases when the wire is pulsed
 	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
@@ -138,6 +139,9 @@
 	/// The techweb this coil is linked to, used for generating research points
 	var/datum/techweb/linked_techweb
 
+/obj/machinery/power/energy_accumulator/tesla_coil/research/anchored
+	anchored = TRUE
+
 /obj/machinery/power/energy_accumulator/tesla_coil/research/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
@@ -192,12 +196,11 @@
 	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
 	wants_powernet = FALSE
-
 	circuit = /obj/item/circuitboard/machine/grounding_rod
-
 	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_requires_restraints = TRUE
+	custom_price = 350
 
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored
 	anchored = TRUE

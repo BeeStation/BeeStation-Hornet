@@ -335,6 +335,7 @@
 	name = "designer envirosuit helmet"
 	desc = "A Plasmi-Deluxe envirosuit helmet with gold woven into the fabric. A designer model like this is probably worth a pretty penny."
 	greyscale_colors = "#C47D0C#C47D0C#C47D0C"
+	custom_price = 4500
 
 /obj/item/clothing/head/helmet/space/plasmaman/curator
 	name = "curator's envirosuit helmet"

@@ -810,6 +810,7 @@
 	color = COLOR_OFF_WHITE
 	name = "Hacking GUIDE"
 	desc = "Instructions on how to be a very cool hacker."
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/paper/manualhacking_guide/Initialize(mapload)
 	default_raw_text = {"Greetings initiate. I am xX_Benita_Xx of the Hellraiser team and I will be guiding you on the art of manual hacking.

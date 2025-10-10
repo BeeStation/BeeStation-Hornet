@@ -94,6 +94,7 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
+	custom_price = 50
 
 
 
@@ -126,6 +127,7 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
+	custom_price = 100
 
 
 /datum/armor/utility_bomb_suit
@@ -171,6 +173,7 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	custom_price = 50
 
 /obj/item/clothing/head/utility/radiation/Initialize(mapload)
 	. = ..()
@@ -197,6 +200,7 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
+	custom_price = 100
 
 /obj/item/clothing/suit/utility/radiation/Initialize(mapload)
 	. = ..()

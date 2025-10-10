@@ -36,10 +36,16 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
-	///Economy cost of item in premium vendor
+	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand
+	/// Can be: TRADE_CONTRABAND, TRADE_NOT_SELLABLE, TRADE_DELETE_UNSOLD. Important in exporting and other things!
+	var/trade_flags = NONE
+	/// This is the economy price of the item. This is important for exports and imports
+	var/item_price
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
