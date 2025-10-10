@@ -178,8 +178,8 @@
 		/obj/item/clothing/mask/gas,
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman/belt
-		))
+		/obj/item/tank/internals/plasmaman/belt,
+	))
 	atom_storage.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()

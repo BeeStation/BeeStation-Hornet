@@ -38,12 +38,12 @@
 	var/morphed = FALSE
 	var/atom/movable/form = null
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/anomaly,
-	/obj/eldritch/narsie,
-	/mob/living/simple_animal/hostile/morph,
-	/obj/effect,
-	/mob/camera
+		/atom/movable/screen,
+		/obj/anomaly,
+		/obj/eldritch/narsie,
+		/mob/living/simple_animal/hostile/morph,
+		/obj/effect,
+		/mob/camera,
 	))
 	var/atom/movable/throwatom = null
 
