@@ -8815,7 +8815,6 @@
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
 "bNP" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -8825,6 +8824,7 @@
 	pixel_y = 11
 	},
 /obj/effect/loot_jobscale/medical/medkits,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "bNW" = (
@@ -39155,7 +39155,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "hXe" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
 	},
@@ -39164,6 +39163,7 @@
 	dir = 8
 	},
 /obj/effect/loot_jobscale/medical/medkits,
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "hXp" = (
@@ -49725,7 +49725,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/corner{
 	dir = 8
 	},
-/obj/structure/window/reinforced/tinted/corner/spawner/directional/west,
+/obj/structure/window/reinforced/corner/spawner/directional/west,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "ker" = (
@@ -67457,7 +67457,6 @@
 /turf/open/floor/iron/textured_half,
 /area/quartermaster/storage)
 "nIM" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
@@ -67470,6 +67469,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "nIU" = (
@@ -68574,7 +68574,7 @@
 /area/engine/storage_shared)
 "nVa" = (
 /obj/effect/turf_decal/trimline/blue/filled/corner,
-/obj/structure/window/reinforced/tinted/corner/spawner/directional/south,
+/obj/structure/window/reinforced/corner/spawner/directional/south,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "nVg" = (
@@ -101391,11 +101391,11 @@
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
 "uDL" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
 /obj/machinery/iv_drip,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
 "uDS" = (
