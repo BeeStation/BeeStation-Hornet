@@ -1090,11 +1090,11 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
 
 	// Time to add/remove gravity alerts. sorry for the mess it's gotta be fast
-	var/atom/movable/screen/alert/gravity_alert = alerts["gravity"]
+	var/atom/movable/screen/alert/gravity_alert = alerts[ALERT_GRAVITY]
 	switch(gravity)
 		if(-INFINITY to NEGATIVE_GRAVITY)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/negative))
-				throw_alert("gravity", /atom/movable/screen/alert/negative)
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/negative)
 				ADD_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
 				var/matrix/flipped_matrix = transform
 				flipped_matrix.b = -flipped_matrix.b
@@ -1103,18 +1103,18 @@
 				base_pixel_y += 4
 		if(NEGATIVE_GRAVITY + 0.01 to 0)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/weightless))
-				throw_alert("gravity", /atom/movable/screen/alert/weightless)
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/weightless)
 				ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
 		if(0.01 to STANDARD_GRAVITY)
 			if(gravity_alert)
-				clear_alert("gravity")
+				clear_alert(ALERT_GRAVITY)
 		if(STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01)
-			throw_alert("gravity", /atom/movable/screen/alert/highgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/highgravity)
 		if(GRAVITY_DAMAGE_THRESHOLD to INFINITY)
-			throw_alert("gravity", /atom/movable/screen/alert/veryhighgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/veryhighgravity)
 
 	// If we had no gravity alert, or the same alert as before, go home
-	if(!gravity_alert || alerts["gravity"] == gravity_alert)
+	if(!gravity_alert || alerts[ALERT_GRAVITY] == gravity_alert)
 		return
 	// By this point we know that we do not have the same alert as we used to
 	if(istype(gravity_alert, /atom/movable/screen/alert/weightless))

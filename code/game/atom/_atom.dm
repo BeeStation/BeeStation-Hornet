@@ -925,9 +925,10 @@
  * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
  * the forced gravity var.
  *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
  * HEY JACKASS, LISTEN
  * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
- *
  * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
  * for them to use. If you add more to it, make sure you do that, or things will behave strangely
  *
