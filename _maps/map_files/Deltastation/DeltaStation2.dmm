@@ -7327,23 +7327,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "aYo" = (
@@ -16483,9 +16468,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cnW" = (
@@ -29789,10 +29772,10 @@
 /turf/open/space,
 /area/solar/port/aft)
 "ehv" = (
-/obj/effect/turf_decal/tile/yellow{
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/iron/dark/corner,
+/turf/open/floor/iron,
 /area/engine/engineering)
 "ehz" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -30744,23 +30727,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "evi" = (
@@ -39978,10 +39946,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/misc_lab/range)
-"hcT" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/plating,
-/area/engine/engineering)
 "hdm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating{
@@ -46615,6 +46579,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"jni" = (
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/space/basic,
+/area/space)
 "jnB" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder{
@@ -46659,16 +46627,6 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
-"jnR" = (
-/obj/structure/lattice,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/turf/open/space/basic,
-/area/space/nearstation)
 "jnX" = (
 /obj/structure/bodycontainer/crematorium{
 	dir = 4;
@@ -49011,6 +48969,12 @@
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
+"kbI" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "kbT" = (
 /obj/structure/filingcabinet/medical,
 /obj/machinery/firealarm{
@@ -56522,23 +56486,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "mAQ" = (
@@ -57548,8 +57497,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -64341,23 +64290,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "oUH" = (
@@ -69460,23 +69394,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "qDC" = (
@@ -76687,15 +76606,6 @@
 	},
 /turf/open/floor/wood/big,
 /area/lawoffice)
-"sJh" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/turf/open/space/basic,
-/area/space)
 "sJk" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -82160,23 +82070,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/circuit/green,
 /area/engine/supermatter)
 "uxY" = (
@@ -85732,6 +85627,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"vCS" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "vCX" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -98065,7 +97966,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+jni
 aaa
 aaa
 aaa
@@ -114679,7 +114580,7 @@ cdC
 ctn
 aad
 cja
-cqo
+kbI
 clR
 cnB
 clR
@@ -114689,7 +114590,7 @@ clR
 clR
 cnB
 clR
-ctm
+vCS
 cja
 aad
 ckw
@@ -117515,9 +117416,9 @@ xVB
 sGk
 sGk
 sGk
-aad
+qYo
 aaa
-aad
+qYo
 aaa
 qvj
 cFL
@@ -117762,9 +117663,9 @@ car
 cdH
 car
 aaa
-jnR
-sJh
-sJh
+qYo
+aaa
+aaa
 sGk
 coZ
 cqq
@@ -117772,9 +117673,9 @@ crN
 cqq
 cuP
 sGk
-sJh
-sJh
-jnR
+aaa
+aaa
+qYo
 aaa
 car
 cFM
@@ -118276,9 +118177,9 @@ cbV
 jAf
 car
 car
-hcT
-hcT
-hcT
+sGk
+sGk
+sGk
 cnC
 sJw
 cqs
@@ -118286,9 +118187,9 @@ cqr
 ctq
 cuR
 cnC
-hcT
-hcT
-hcT
+sGk
+sGk
+sGk
 car
 car
 xfy
