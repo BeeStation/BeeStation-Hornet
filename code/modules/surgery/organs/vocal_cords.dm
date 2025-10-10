@@ -60,6 +60,8 @@
 	desc = "They carry the voice of an ancient god."
 	icon_state = "voice_of_god"
 	actions_types = list(/datum/action/item_action/organ_action/colossus)
+	custom_price = 40000
+	max_demand = 2
 	var/next_command = 0
 	var/cooldown_mod = 1
 	var/base_multiplier = 1

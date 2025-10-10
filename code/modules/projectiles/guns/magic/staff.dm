@@ -95,6 +95,8 @@
 	icon_state = "honker"
 	item_state = "honker"
 	max_charges = 4
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
@@ -112,6 +114,8 @@
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
+	custom_price = 40000
+	max_demand = 2
 
 /obj/item/gun/magic/staff/spellblade/Initialize(mapload)
 	. = ..()
