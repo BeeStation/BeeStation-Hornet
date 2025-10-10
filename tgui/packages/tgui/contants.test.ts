@@ -47,7 +47,7 @@ describe('gas helper functions', () => {
     expect(gas).toEqual({
       id: 'antinoblium',
       path: '/datum/gas/antinoblium',
-      name: 'Antinoblium',
+      name: 'Anti-Noblium',
       label: 'Anti-Noblium',
       color: 'maroon',
     });
@@ -67,7 +67,7 @@ describe('gas helper functions', () => {
     expect(gas).toEqual({
       id: 'antinoblium',
       path: '/datum/gas/antinoblium',
-      name: 'Antinoblium',
+      name: 'Anti-Noblium',
       label: 'Anti-Noblium',
       color: 'maroon',
     });
