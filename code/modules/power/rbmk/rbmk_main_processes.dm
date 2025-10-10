@@ -155,7 +155,7 @@
 
 
 	update_icon()
-	radiation_pulse(src, max_range = 6, threshold = RAD_EXTREME_INSULATION)
+	radiation_pulse(src, max_range = 6, threshold = RAD_EXTREME_INSULATION, intensity = clamp(temperature * radioactivity_spice_multiplier / 100, 0, DEFAULT_RADIATION_INTENSITY))
 
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES

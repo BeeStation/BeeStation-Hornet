@@ -172,6 +172,10 @@
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
+/obj/item/clothing/head/utility/radiation/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+
 /datum/armor/utility_radiation
 	bio = 60
 	fire = 30
@@ -194,13 +198,7 @@
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
 
-/datum/armor/utility_radiation
-	bio = 60
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 15
-
 /obj/item/clothing/suit/utility/radiation/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

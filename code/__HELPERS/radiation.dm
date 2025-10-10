@@ -22,7 +22,7 @@
 	intensity = DEFAULT_RADIATION_INTENSITY,
 	minimum_exposure_time = 0,
 )
-	if(!SSradiation.can_fire)
+	if(!SSradiation.can_fire || intensity <= 0)
 		return
 
 	var/datum/radiation_pulse_information/pulse_information = new
