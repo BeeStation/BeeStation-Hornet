@@ -590,7 +590,7 @@
 				/obj/item/shield/energy = 6,
 				/obj/item/shield/riot/tele = 12,
 				/obj/item/dnainjector/lasereyesmut = 7,
-				/obj/item/gun/magic/wand/fireball/inert = 3,
+				/obj/item/gun/magic/wand/firebolt/inert = 3,
 				/obj/item/pneumatic_cannon = 15,
 				/obj/item/melee/energy/sword = 7,
 				/obj/item/book/granter/action/spell/knock = 15,

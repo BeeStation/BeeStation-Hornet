@@ -57,17 +57,16 @@
 	process_fire(user, user)
 
 /////////////////////////////////////
-//WAND OF DEATH
+//WAND OF DISMEMBERMENT
 /////////////////////////////////////
 
 /obj/item/gun/magic/wand/death
-	name = "wand of death"
-	desc = "This deadly wand overwhelms the victim's body with pure energy, attacking their very life essence directly."
+	name = "wand of dismemberment"
+	desc = "This deadly wand causes your opponents limbs to come flying off in a most gruesome manner."
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/death
-	icon_state = "deathwand"
-	max_charges = 5 //45 clone damage and 75 stamina damage per shot. One hit will slow most mobs dramatically, two will stamcrit, three will true crit.
-
+	icon_state = "dismemberwand"
+	max_charges = 5
 
 /////////////////////////////////////
 //WAND OF HEALING
@@ -78,7 +77,7 @@
 	desc = "This wand uses healing magics to heal some wounds. They are rarely utilized within the Wizard Federation for some reason."
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
-	icon_state = "revivewand"
+	icon_state = "healwand"
 	max_charges = 5 // Heals 25 of every type of damage per charge and can revive dead targets. When fully charged this is always enough to fully heal the wizard using it, but the charges will take time to come back.
 	recharge_rate = 30
 
@@ -88,16 +87,16 @@
 	max_charges = 1
 
 /////////////////////////////////////
-//WAND OF POLYMORPH
+//WAND OF ICE
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/polymorph
-	name = "wand of polymorph"
-	desc = "This wand is attuned to chaos and will radically alter the victim's form."
+/obj/item/gun/magic/wand/ice
+	name = "wand of ice"
+	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
 	ammo_type = /obj/item/ammo_casing/magic/change
-	icon_state = "polywand"
+	icon_state = "icewand"
 	fire_sound = 'sound/magic/staff_change.ogg'
-	max_charges = 3 //Turn into one of a number of random mobs permanently. While it doesn't kill outright, this is often worse than a death sentence
+	max_charges = 5
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
 	. = ..() //because the user mob ceases to exists by the time wabbajack fully resolves
@@ -109,11 +108,11 @@
 
 /obj/item/gun/magic/wand/teleport
 	name = "wand of teleportation"
-	desc = "This wand will wrench targets through space and time to move them somewhere else."
+	desc = "This wand will warp targets to somewhere else nearby. Great for clean get-away or a firm \"Get away!\"."
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
-	max_charges = 5 //Mostly harmless most of the time. This one gets more charges
+	max_charges = 5 //Mostly harmless most of the time.
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -131,23 +130,23 @@
 	name = "wand of animation"
 	desc = "This particular wand can spark life into inanimate objects, causing them to attack anyone nearby except the holder of this wand."
 	ammo_type = /obj/item/ammo_casing/magic/animate
-	icon_state = "doorwand"
+	icon_state = "animationwand"
 	fire_sound = 'sound/magic/staff_animation.ogg'
 	max_charges = 5
 
 /////////////////////////////////////
-//WAND OF FIREBALL
+//WAND OF FIRE BOLT
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/fireball
-	name = "wand of lesser fireball"
-	desc = "This wand shoots scorching balls of fire that explode into destructive flames. Not as powerful as the dedicated spell, but still dangerous."
+/obj/item/gun/magic/wand/firebolt
+	name = "wand of fire bolt"
+	desc = "This wand shoots scorching balls of fire that ignite anyone they hit. Not as powerful as a proper fireball but still very dangerous."
 	fire_sound = 'sound/magic/fireball.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/fireball
+	ammo_type = /obj/item/ammo_casing/magic/firebolt
 	icon_state = "firewand"
-	max_charges = 3
+	max_charges = 5
 
-/obj/item/gun/magic/wand/fireball/inert
+/obj/item/gun/magic/wand/firebolt/inert
 	name = "weakened wand of fireball"
 	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
 	max_charges = 1

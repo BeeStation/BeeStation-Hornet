@@ -30,8 +30,8 @@
 	projectile_type = /obj/projectile/magic/door
 	harmful = FALSE
 
-/obj/item/ammo_casing/magic/fireball
-	projectile_type = /obj/projectile/magic/fireball/lesser
+/obj/item/ammo_casing/magic/firebolt
+	projectile_type = /obj/projectile/magic/firebolt
 
 /obj/item/ammo_casing/magic/chaos
 	projectile_type = /obj/projectile/magic

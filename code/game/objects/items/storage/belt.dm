@@ -724,7 +724,7 @@
 	new /obj/item/gun/magic/wand/polymorph(src)
 	new /obj/item/gun/magic/wand/teleport(src)
 	new /obj/item/gun/magic/wand/animation(src)
-	new /obj/item/gun/magic/wand/fireball(src)
+	new /obj/item/gun/magic/wand/firebolt(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"
