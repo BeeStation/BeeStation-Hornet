@@ -6,7 +6,7 @@
 	item_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
-	max_charges = 100
+	max_charges = 5
 	recharge_rate = 15 //seconds to recharge one charge
 
 /obj/item/gun/magic/wand/examine(mob/user)
@@ -66,7 +66,6 @@
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/death
 	icon_state = "dismemberwand"
-	max_charges = 5
 
 /////////////////////////////////////
 //WAND OF HEALING
@@ -78,13 +77,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "healwand"
-	max_charges = 5 // Heals 25 of every type of damage per charge and can revive dead targets. When fully charged this is always enough to fully heal the wizard using it, but the charges will take time to come back.
 	recharge_rate = 30
-
-/obj/item/gun/magic/wand/healing/inert
-	name = "weakened wand of healing"
-	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
-	max_charges = 1
 
 /////////////////////////////////////
 //WAND OF ICE
@@ -96,7 +89,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "icewand"
 	fire_sound = 'sound/magic/staff_change.ogg'
-	max_charges = 5
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
 	. = ..() //because the user mob ceases to exists by the time wabbajack fully resolves
@@ -112,7 +104,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
-	max_charges = 5 //Mostly harmless most of the time.
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -132,7 +123,6 @@
 	ammo_type = /obj/item/ammo_casing/magic/animate
 	icon_state = "animationwand"
 	fire_sound = 'sound/magic/staff_animation.ogg'
-	max_charges = 5
 
 /////////////////////////////////////
 //WAND OF FIRE BOLT
@@ -144,9 +134,3 @@
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/firebolt
 	icon_state = "firewand"
-	max_charges = 5
-
-/obj/item/gun/magic/wand/firebolt/inert
-	name = "weakened wand of fireball"
-	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
-	max_charges = 1
