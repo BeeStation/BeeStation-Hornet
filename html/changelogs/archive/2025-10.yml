@@ -154,3 +154,26 @@
   - bugfix: fixed not having gravity when traveling on a shuttle
   r1ks-iwnl:
   - bugfix: Fixed being unable to load foam force guns
+2025-10-10:
+  PinkSuzuki:
+  - rscadd: All objects now have an export value
+  - rscadd: Added a supply/demand feature to export values
+  - tweak: Improved export scanner readings including, readability, demand (aka stock),
+      contraband checks and gas price analisys
+  - tweak: Added visual and sound effects to the export scanner
+  - tweak: Items that aren't sold on the cargo shuttle (either due to being worth
+      nothing or because they are blocked from being sold) will stay on the shuttle
+      for return instead of being deleted
+  - bugfix: Fixed Multiple export errors
+  - bugfix: Fixed an exploit that caused any items to be able to be deleted by using
+      the cargo shuttle
+  - refactor: Removed a lot of export datums in favour of a catchall datum for all
+      objects that do NOT fit other export datums
+  - balance: Reduced starting cargo budget to 2000 credits, because of this all other
+      department cards got 8000 starting cargo budget
+  - code_imp: Added a framework for defining standard department budgets
+  - code_imp: Some types such as stock_parts and stacks have a calculate_price proc
+      that handles custom_price based on different factors (part tier, stack amount,
+      for instance)
+  - balance: Items now start with a randomized price based on their weight if a custom
+      price isn't set
