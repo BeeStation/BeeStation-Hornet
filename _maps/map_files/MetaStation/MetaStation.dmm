@@ -1905,7 +1905,7 @@
 /turf/open/floor/iron/dark/side{
 	dir = 1
 	},
-/area/space)
+/area/crew_quarters/dorms)
 "ata" = (
 /obj/machinery/light/small{
 	dir = 1
