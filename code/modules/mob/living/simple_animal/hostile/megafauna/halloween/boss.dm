@@ -149,7 +149,8 @@
 		if(2)
 			INVOKE_ASYNC(src, PROC_REF(phase_shift))
 		if(3)
-			deathsound = 'sound/creatures/halloween/Harbinger/HDeath1.ogg'
+			INVOKE_ASYNC(src, PROC_REF(summon_narsie))
+			playsound(src, 'sound/creatures/halloween/Harbinger/HP3Transition2.ogg', 400, FALSE)
 			for(var/mob/living/tethered in tethered_mobs)
 				var/datum/beam/B = tethers_active[tethered]
 				if(B)
@@ -158,6 +159,23 @@
 			tethered_mobs = list()
 			qdel(tether_center)
 	..()
+
+/mob/living/simple_animal/hostile/megafauna/harbinger/proc/summon_narsie()
+	sleep(8 SECONDS)
+	playsound(src, 'sound/creatures/halloween/Unshaped/HeartBeat.ogg', 200, FALSE, 35)
+	sleep(2 SECONDS)
+	icon_dead = "dead"
+	playsound(src, 'sound/creatures/halloween/Harbinger/HDeath1.ogg', 200, FALSE)
+	phase++
+	death()
+	var/obj/effect/rune/narsie/rune = new(loc)
+	sleep(2 SECONDS)
+	rune.color = COLOR_DARK_RED
+	sleep(3 SECONDS)
+	sound_to_playing_players('sound/effects/dimensional_rend.ogg')
+	var/turf/T = get_turf(rune)
+	sleep(4 SECONDS)
+	new /obj/eldritch/narsie(T)
 
 /mob/living/simple_animal/hostile/megafauna/harbinger/Goto(target, delay, minimum_distance)
 	. = ..()
@@ -175,7 +193,7 @@
 				var/turf/T = loc
 				if(T.get_lumcount() >= 0.5)
 					passive_counter += delta_time
-					if(passive_counter >= 20 && target)
+					if(passive_counter >= 30 && target)
 						new /mob/living/simple_animal/hostile/aetherial(target.loc)
 						passive_counter = 0
 						rotate_sound("summon")
@@ -220,17 +238,16 @@
 
 	if(!introduction)
 		introduction = TRUE
-		playsound(src, 'sound/creatures/halloween/Harbinger/HP1Transition1.ogg', 200)
+		playsound(src, 'sound/creatures/halloween/Harbinger/HP1Transition1.ogg', 400)
 		sleep(15 SECONDS)
-		revive(TRUE) //No damage dealt during introduction will count for anything.
+		revive(ADMIN_HEAL_ALL) //No damage dealt during introduction will count for anything.
 		icon_dead = "p2"
 		ranged = TRUE
 	else
 		phase++
 		switch(phase)
 			if(2)
-				revive(TRUE) //Fully heal now, and again a bit later.
-				playsound(src, 'sound/creatures/halloween/Harbinger/HP2Transition2.ogg', 200)
+				playsound(src, 'sound/creatures/halloween/Harbinger/HP2Transition2.ogg', 400)
 				var/obj/effect/rune/narsie/rune = new(loc)
 				rune.color = COLOR_DARK_RED
 				icon_state = "p2"
@@ -239,13 +256,12 @@
 				update_icon()
 				passive_counter = 0
 				sleep(10 SECONDS)
-				revive(TRUE)
+				revive(ADMIN_HEAL_ALL)
 				icon_dead = "p3"
 				qdel(rune)
 
 			if(3)
-				revive(TRUE) //Fully heal now, and again a bit later
-				playsound(src, 'sound/creatures/halloween/Harbinger/HP3Transition2.ogg', 200)
+				playsound(src, 'sound/creatures/halloween/Harbinger/HP3Transition1.ogg', 400)
 				var/obj/effect/rune/narsie/rune = new(loc)
 				rune.color = COLOR_DARK_RED
 				icon_state = "p3"
@@ -259,12 +275,11 @@
 					var/throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(tethered, src)))
 					tethered.throw_at(throwtarget, 6, 6)
 				sleep(10 SECONDS)
-				revive(TRUE)
-				icon_dead = "dead"
+				revive(ADMIN_HEAL_ALL)
+				icon_dead = "p3"
 				qdel(rune)
 				health = maxHealth
 				set_observer_default_invisibility(0)
-				notify_ghosts("Orbit the harbinger to weaken him, or orbit your allies to heal them!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Orbit the Harbinger")
 
 	Goto(target,move_to_delay,minimum_distance)
 
@@ -624,13 +639,12 @@
 	summoned.name = "Abyssal Phantom" //This will revert if it exits combat
 	summoned.alpha = 255
 	summoned.move_to_delay = 6
-	summoned.health = 35
+	summoned.health = 15
 	summoned.melee_damage = 10
 	summoned.GiveTarget(target)
 	FindTarget()
 	if(extra)
 		summon_carp()
-
 
 // ABYSSAL RIFT, SUMMONED IN PHASE THREE
 
@@ -667,7 +681,7 @@
 	summon_abyssal(user)
 
 /obj/structure/abyssal_rift/proc/summon_abyssal(mob/user)
-	if(current_mob_timer < 20)
+	if(current_mob_timer < 30)
 		to_chat(user, "<span class='warning'>The rift has not stabilized yet!</span>")
 		return FALSE
 	var/help_baddie = alert("Become an abyssal and help the harbinger?", "Help the harbinger?", "Yes", "No")
