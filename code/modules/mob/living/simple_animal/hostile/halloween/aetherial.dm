@@ -54,7 +54,7 @@
 					haunted_light()
 	else
 		alpha = 255
-	if(!target && prob(2))
+	if(!target && prob(2) && !stat)
 		rotate_sound()
 		playsound(loc, attack_sound, 100, TRUE)
 

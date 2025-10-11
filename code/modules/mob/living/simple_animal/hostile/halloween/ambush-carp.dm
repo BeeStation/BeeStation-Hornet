@@ -24,8 +24,8 @@
 	maxbodytemp = 1200
 	weather_immunities = list("snow")
 	faction = list("hostile", "twisted")
-	vision_range = 2
-	aggro_vision_range = 9
+	vision_range = 3
+	aggro_vision_range = 10
 	combat_mode = TRUE
 	var/light_search = 0
 	alpha = 50
@@ -82,7 +82,7 @@
 	if(!target && !key)
 		if(alpha > 50)
 			alpha -= 20
-		if(prob(3) || key && prob(15))
+		if((prob(3) || key && prob(15) && !stat))
 			playsound(loc, idle_sound, 50)
 			rotate_sound("idle")
 
@@ -99,7 +99,7 @@
 	rotate_sound("aggro")
 	if(alpha <= 50 && isliving(target))
 		var/mob/living/L = target
-		L.Paralyze(6 SECONDS) //Get ambushed scrub, hope you have a buddy system
+		L.Paralyze(10 SECONDS) //Get ambushed scrub, hope you have a buddy system
 		visible_message("<span class='userdanger'>\The [src] ambushes [L] with a burst of abyssal energy!</span>", \
 					"<span class='userdanger'>\The [src] ambushes you with a burst of abyssal energy!</span>", null, COMBAT_MESSAGE_RANGE)
 	alpha = 250

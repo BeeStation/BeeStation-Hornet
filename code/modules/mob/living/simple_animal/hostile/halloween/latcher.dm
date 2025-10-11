@@ -112,7 +112,7 @@
 					rotate_sound("laugh")
 				hooked_victim.Knockdown(4 SECONDS)
 				hooked_victim.Immobilize(4 SECONDS)
-	else if(!target && prob(5))
+	else if(!target && prob(5) && !stat)
 		playsound(loc, idle_sound, 200)
 		rotate_sound("idle")
 
