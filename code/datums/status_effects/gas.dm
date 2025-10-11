@@ -11,6 +11,7 @@
 	if(!.)
 		return
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	owner.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_FROZEN)
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
 	if(!owner.stat)
 		to_chat(owner, span_userdanger("You become frozen in a cube!"))
@@ -21,6 +22,7 @@
 /datum/status_effect/freon/on_remove()
 	if(!owner.stat)
 		to_chat(owner, "The cube melts!")
+	owner.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_FROZEN)
 	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
 	owner.cut_overlay(cube)

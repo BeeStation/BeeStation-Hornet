@@ -35,6 +35,7 @@
 #define STASIS_MACHINE_EFFECT "stasis_machine"
 
 #define STASIS_ADMIN "stasis_admin"
+#define STASIS_FROZEN "stasis_frozen"
 
 // Stasis helpers
 #define STASIS_SHAPECHANGE_EFFECT "stasis_shapechange"

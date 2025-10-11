@@ -175,7 +175,7 @@
 	if(owner.stat == DEAD)
 		last_dead_time = world.time
 
-/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, set_duration)
+/datum/status_effect/grouped/stasis/on_creation(mob/living/new_owner, source)
 	. = ..()
 	if(.)
 		update_time_of_death()

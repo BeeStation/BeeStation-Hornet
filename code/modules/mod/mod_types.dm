@@ -500,14 +500,12 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/timeline_jumper,
 		/obj/item/mod/module/timestopper,
-		/obj/item/mod/module/rewinder,
 		/obj/item/mod/module/tem,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)
 	default_pins = list(
 		/obj/item/mod/module/timestopper,
 		/obj/item/mod/module/timeline_jumper,
-		/obj/item/mod/module/rewinder,
 		/obj/item/mod/module/tem,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)

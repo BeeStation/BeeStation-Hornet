@@ -50,47 +50,6 @@
 		new /obj/structure/chrono_field(user.loc, user)
 		return MOD_CANCEL_REMOVAL
 
-///Rewinder - Activating saves a point in time, after 10 seconds you will jump back to that state.
-/obj/item/mod/module/rewinder
-	name = "MOD rewinder module"
-	desc = "A module that can pull the user back through time given an anchor point to \
-			pull to. Very useful tool to get the job done, but keep in mind the suit locks for \
-			safety reasons while preparing a rewind."
-	icon_state = "rewinder"
-	module_type = MODULE_USABLE
-	removable = FALSE
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
-	incompatible_modules = list(/obj/item/mod/module/rewinder)
-	cooldown_time = 20 SECONDS
-
-/obj/item/mod/module/rewinder/on_use()
-	balloon_alert(mod.wearer, "anchor point set")
-	playsound(src, 'sound/items/modsuit/time_anchor_set.ogg', 50, TRUE)
-	//stops all mods from triggering during rewinding
-	for(var/obj/item/mod/module/module as anything in mod.modules)
-		RegisterSignal(module, COMSIG_MODULE_TRIGGERED, PROC_REF(on_module_triggered))
-	mod.wearer.AddComponent(/datum/component/dejavu/timeline, 1, 10 SECONDS)
-	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_block))
-	addtimer(CALLBACK(src, PROC_REF(unblock_suit_activation)), 10 SECONDS)
-
-///unregisters the modsuit deactivation blocking signal, after dejavu functionality finishes.
-/obj/item/mod/module/rewinder/proc/unblock_suit_activation()
-	for(var/obj/item/mod/module/module as anything in mod.modules)
-		UnregisterSignal(module, COMSIG_MODULE_TRIGGERED)
-	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
-
-///Signal fired when wearer attempts to activate/deactivate suits
-/obj/item/mod/module/rewinder/proc/on_activate_block(datum/source, user)
-	SIGNAL_HANDLER
-	balloon_alert(user, "not while rewinding!")
-	return MOD_CANCEL_ACTIVATE
-
-///Signal fired when wearer attempts to trigger modules, if attempting while time is stopped
-/obj/item/mod/module/rewinder/proc/on_module_triggered(datum/source)
-	SIGNAL_HANDLER
-	balloon_alert(mod.wearer, "not while rewinding!")
-	return MOD_ABORT_USE
-
 ///timestopper - Need I really explain? It's the wizard's time stop, but the user channels it by not moving instead of a duration.
 /obj/item/mod/module/timestopper
 	name = "MOD timestopper module"

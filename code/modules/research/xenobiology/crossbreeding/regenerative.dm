@@ -168,11 +168,11 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/sepia
 	colour = SLIME_TYPE_SEPIA
-	effect_desc = "Heals the target and stops time."
+	effect_desc = "Envelops the target in a cloud of freezon, freezing their body in stasis."
 
 /obj/item/slimecross/regenerative/sepia/core_effect_before(mob/living/target, mob/user)
 	to_chat(target, span_notice("You try to forget how you feel."))
-	target.AddComponent(/datum/component/dejavu)
+	target.apply_status_effect(/datum/status_effect/freon)
 
 /obj/item/slimecross/regenerative/cerulean
 	colour = SLIME_TYPE_CERULEAN

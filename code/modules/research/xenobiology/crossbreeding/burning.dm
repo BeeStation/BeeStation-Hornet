@@ -161,11 +161,11 @@ Burning extracts:
 
 /obj/item/slimecross/burning/sepia
 	colour = SLIME_TYPE_SEPIA
-	effect_desc = "Turns into a special camera that rewinds time when used."
+	effect_desc = "Turns into a special camera that pauses time when used."
 
 /obj/item/slimecross/burning/sepia/do_effect(mob/user)
 	user.visible_message(span_notice("[src] shapes itself into a camera!"))
-	new /obj/item/camera/rewind(get_turf(user))
+	new /obj/item/camera/timefreeze(get_turf(user))
 	..()
 
 /obj/item/slimecross/burning/cerulean
