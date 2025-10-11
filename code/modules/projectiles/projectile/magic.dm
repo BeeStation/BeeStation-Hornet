@@ -30,6 +30,31 @@
 	if(isliving(target))
 		target.death()
 
+/obj/projectile/magic/dismember
+	name = "bolt of dismembering"
+	icon_state = "scatterlaser"
+
+/obj/projectile/magic/dismember/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/victim = target
+	var/list/parts = list()
+	var/obj/item/bodypart/chosen_limb
+
+	for(var/obj/item/bodypart/limb in victim.bodyparts)
+		if(istype(limb, /obj/item/bodypart/leg) || istype(limb, /obj/item/bodypart/arm))
+			parts += limb
+
+	//Progress toward nugget
+	if(length(parts))
+		chosen_limb = pick(parts)
+	//Or pop the head off once we're there
+	else
+		chosen_limb = victim.get_bodypart(BODY_ZONE_HEAD)
+
+	chosen_limb.dismember(BRUTE)
+
 /obj/projectile/magic/drain
 	name = "vitality draining stream"
 	icon_state = "tentacle_end"

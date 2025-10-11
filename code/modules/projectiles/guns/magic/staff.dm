@@ -25,7 +25,7 @@
 //RUKO-TODO - Make the actual bolt of dismember
 /obj/item/gun/magic/staff/dismember
 	name = "staff of dismemberment"
-	desc = "An artefact that spits bolts of life-force which causes objects which are hit by it to animate and come to life! This magic doesn't affect machines."
+	desc = "An artefact that spits bolts of malefic energy which causes arms and legs to fly right off of its victims."
 	fire_sound = 'sound/magic/staff_animation.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/dismember
 	icon_state = "staffofdismember"
