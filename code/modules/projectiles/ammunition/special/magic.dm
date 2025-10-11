@@ -25,6 +25,9 @@
 /obj/item/ammo_casing/magic/drain
 	projectile_type = /obj/projectile/magic/drain
 
+/obj/item/ammo_casing/magic/icy_blast
+	projectile_type = /obj/projectile/magic/icy_blast
+
 /obj/item/ammo_casing/magic/teleport
 	projectile_type = /obj/projectile/magic/teleport
 	harmful = FALSE

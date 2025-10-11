@@ -138,6 +138,27 @@
 	wand.active_effect = null
 	qdel(src)
 
+//This is a shameless combintion of sec temperature gun and gluon grenade code
+/obj/projectile/magic/icy_blast
+	name = "icy blast"
+	icon_state = "ice_2"
+	range = 8
+	var/temperature = -75
+	var/ground_freeze_range = 2 //radius, so a 5x5 area
+
+/obj/projectile/magic/icy_blast/on_hit(atom/target, blocked, pierce_hit)
+	if(iscarbon(target))
+		var/mob/living/carbon/hit_mob = target
+		var/thermal_protection = 1 - hit_mob.get_insulation_protection(hit_mob.bodytemperature + temperature)
+
+		hit_mob.adjust_bodytemperature((thermal_protection * temperature) + temperature)
+	. = ..()
+
+/obj/projectile/magic/icy_blast/Destroy()
+	for(var/turf/open/floor/F in view(ground_freeze_range,loc))
+		F.MakeSlippery(TURF_WET_PERMAFROST, 1 MINUTES)
+	return ..()
+
 /obj/projectile/magic/healing
 	name = "bolt of healing"
 	icon_state = "ion"

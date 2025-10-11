@@ -93,10 +93,10 @@
 //WAND OF ICE
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/ice
-	name = "wand of ice"
+/obj/item/gun/magic/wand/icy_blast
+	name = "wand of icy blast"
 	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
-	ammo_type = /obj/item/ammo_casing/magic/change
+	ammo_type = /obj/item/ammo_casing/magic/icy_blast
 	icon_state = "icewand"
 	fire_sound = 'sound/magic/staff_change.ogg'
 

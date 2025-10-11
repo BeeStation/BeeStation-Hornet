@@ -723,7 +723,7 @@
 	new /obj/item/gun/magic/wand/healing(src)
 	new /obj/item/gun/magic/wand/teleport(src)
 	new /obj/item/gun/magic/wand/animation(src)
-	new /obj/item/gun/magic/wand/ice(src)
+	new /obj/item/gun/magic/wand/icy_blast(src)
 	new /obj/item/gun/magic/wand/firebolt(src)
 
 /obj/item/storage/belt/janitor
