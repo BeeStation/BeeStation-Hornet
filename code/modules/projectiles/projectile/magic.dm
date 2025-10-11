@@ -24,12 +24,94 @@
 /obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
-	martial_arts_no_deflect = FALSE
 
 /obj/projectile/magic/death/on_hit(mob/living/target)
 	. = ..()
 	if(isliving(target))
 		target.death()
+
+/obj/projectile/magic/drain
+	name = "vitality draining stream"
+	icon_state = "tentacle_end"
+	range = 7
+	var/datum/beam/drain_beam
+
+/obj/projectile/magic/drain/fire(angle, atom/direct_target)
+	if(!firer)
+		CRASH("Projectile [src] fired with no firer") //We don't even want any of the rest of this to play out if we don't have a firer
+	drain_beam = firer.Beam(src, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 10 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
+	return ..()
+
+/obj/projectile/magic/drain/on_hit(mob/living/target, blocked, pierce_hit)
+	. = ..()
+	if(!isliving(target))
+		return
+	target.apply_status_effect(/datum/status_effect/life_drain, firer, fired_from)
+
+/obj/projectile/magic/drain/Destroy()
+	if(!QDELETED(drain_beam))
+		QDEL_NULL(drain_beam)
+	return ..()
+
+/datum/status_effect/life_drain
+	id = "life_drain"
+	alert_type = null
+	status_type = STATUS_EFFECT_REPLACE
+	tick_interval = 0.3 SECONDS
+	duration = 10 SECONDS
+	var/datum/beam/drain_beam
+	var/mob/living/carbon/wizard
+	var/obj/item/gun/magic/wand/drain/wand
+
+/datum/status_effect/life_drain/on_creation(mob/living/new_owner, mob/living/firer, fired_from, duration_override)
+	if(isnull(firer) || isnull(fired_from) || !iscarbon(firer) || !iscarbon(new_owner))
+		qdel(src)
+		return
+	wizard = firer
+	wand = fired_from
+	wand.active_effect = src
+	drain_beam = wizard.Beam(new_owner, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 12 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
+	RegisterSignal(drain_beam, COMSIG_QDELETING, PROC_REF(end_drain))
+	new_owner.visible_message(span_warningbold("[wizard] begins draining the life force from [new_owner]!"), span_warningbold("[wizard] is draining your life force! You need to get away from them to stop it!"))
+	. = ..()
+
+/datum/status_effect/life_drain/on_apply()
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/life_drain)
+
+/datum/status_effect/life_drain/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/life_drain)
+
+/datum/status_effect/life_drain/tick()
+	if(!iscarbon(owner) || owner.stat > HARD_CRIT) //If they're dead or non-humanoid, this spell fails
+		end_drain()
+		return
+	if(!iscarbon(wizard)) //You never know what might happen with wizards around
+		end_drain()
+		return
+
+	if(HAS_TRAIT(owner, TRAIT_INCAPACITATED) || owner.stat)
+		//If the victim is incapacitated, drain their health
+		owner.take_overall_damage(1, 1, 5, updating_health = TRUE)
+	else
+		//If they aren't incapacitated yet, drain only their stamina
+		owner.take_overall_damage(0, 0, 7, updating_health = TRUE)
+
+	//Wizard heals at a steady rate over the duration of the spell regardless of the victim's state
+	wizard.heal_overall_damage(1, 1, 5, updating_health = TRUE)
+
+	//Weird beam visuals if it isn't redrawn due to the beam sending players into crit
+	drain_beam.redrawing()
+
+/datum/status_effect/life_drain/proc/end_drain()
+	SIGNAL_HANDLER
+	if(QDELING(src))
+		return
+	if(!QDELETED(drain_beam))
+		QDEL_NULL(drain_beam)
+	wand.active_effect = null
+	qdel(src)
 
 /obj/projectile/magic/healing
 	name = "bolt of healing"

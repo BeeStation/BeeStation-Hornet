@@ -721,9 +721,9 @@
 /obj/item/storage/belt/wands/full/PopulateContents()
 	new /obj/item/gun/magic/wand/drain(src)
 	new /obj/item/gun/magic/wand/healing(src)
-	new /obj/item/gun/magic/wand/polymorph(src)
 	new /obj/item/gun/magic/wand/teleport(src)
 	new /obj/item/gun/magic/wand/animation(src)
+	new /obj/item/gun/magic/wand/ice(src)
 	new /obj/item/gun/magic/wand/firebolt(src)
 
 /obj/item/storage/belt/janitor
