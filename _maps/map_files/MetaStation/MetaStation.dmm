@@ -3203,8 +3203,7 @@
 /area/crew_quarters/toilet/restrooms)
 "aDS" = (
 /obj/structure/urinal/directional/east{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 4
@@ -42849,8 +42848,7 @@
 /area/security/main)
 "llA" = (
 /obj/structure/urinal/directional/east{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 6
@@ -57095,7 +57093,6 @@
 /obj/effect/turf_decal/tile/steelgrid/diagonal,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/structure/sign/poster/official/no_erp{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/open/floor/iron/white,
@@ -60307,8 +60304,7 @@
 /area/maintenance/department/medical/central)
 "rbZ" = (
 /obj/structure/urinal/directional/east{
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 4
