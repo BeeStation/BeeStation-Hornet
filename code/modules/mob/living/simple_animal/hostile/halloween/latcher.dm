@@ -11,7 +11,7 @@
 	move_to_delay = 24 HOURS
 	speed = 0
 	wander = FALSE
-	anchored = TRUE
+	move_resist = MOVE_FORCE_OVERPOWERING
 	density = TRUE
 	maxHealth = 500
 	health = 500
