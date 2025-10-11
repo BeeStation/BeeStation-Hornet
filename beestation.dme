@@ -4349,6 +4349,7 @@
 #include "code\modules\spells\spell_types\teleport\teleport.dm"
 #include "code\modules\spells\spell_types\touch\_touch.dm"
 #include "code\modules\spells\spell_types\touch\flesh_to_stone.dm"
+#include "code\modules\spells\spell_types\touch\raise_skeleton.dm"
 #include "code\modules\spells\spell_types\touch\smite.dm"
 #include "code\modules\station_goals\bluespace_tap.dm"
 #include "code\modules\station_goals\bsa.dm"

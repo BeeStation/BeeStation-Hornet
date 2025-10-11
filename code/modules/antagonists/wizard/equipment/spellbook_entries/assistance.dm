@@ -6,6 +6,12 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/raise_skeleton
+	name = "Raise Skeleton"
+	desc = "Lets you rip the skeleton out of a fallen enemy and raise it as a loyal, if fragile minion."
+	spell_type = /datum/action/spell/touch/raise_skeleton
+	category = "Assistance"
+
 /datum/spellbook_entry/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
