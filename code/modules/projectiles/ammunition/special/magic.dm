@@ -12,6 +12,9 @@
 /obj/item/ammo_casing/magic/animate
 	projectile_type = /obj/projectile/magic/animate
 
+/obj/item/ammo_casing/magic/burger
+	projectile_type = /obj/projectile/magic/burger
+
 /obj/item/ammo_casing/magic/heal
 	projectile_type = /obj/projectile/magic/healing
 	harmful = FALSE

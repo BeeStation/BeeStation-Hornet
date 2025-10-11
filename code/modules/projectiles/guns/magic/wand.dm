@@ -98,7 +98,7 @@
 	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
 	ammo_type = /obj/item/ammo_casing/magic/icy_blast
 	icon_state = "icewand"
-	fire_sound = 'sound/magic/staff_change.ogg'
+	fire_sound = 'sound/effects/glass_step.ogg'
 
 /////////////////////////////////////
 //WAND OF TELEPORTATION
@@ -140,3 +140,13 @@
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/firebolt
 	icon_state = "firewand"
+
+/////////////////////////////////////
+//WAND OF NUTRITION
+/////////////////////////////////////
+
+/obj/item/gun/magic/wand/nutrition
+	name = "wand of nutrition"
+	desc = "This wand fulfills one the basic human needs. Even wizards have to eat sometimes!"
+	ammo_type = /obj/item/ammo_casing/magic/burger
+	icon_state = "burgerwand"

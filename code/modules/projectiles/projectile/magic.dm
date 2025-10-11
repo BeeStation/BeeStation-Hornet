@@ -21,6 +21,24 @@
 			visible_message(("<span class='warning'>[src] fizzles on contact with [victim]!</span>"))
 			return PROJECTILE_DELETE_WITHOUT_HITTING
 
+/obj/projectile/magic/burger
+	name = "bolt of nutrition"
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "bigbiteburger"
+	hitsound = 'sound/weapons/bite.ogg'
+
+/obj/projectile/magic/burger/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	if(!isliving(target))
+		return
+	var/mob/living/chubbs = target
+
+//If you're remotely hungry, you're safe. If you are not hungry, you're fat now.
+	if(chubbs.nutrition <= NUTRITION_LEVEL_FED)
+		chubbs.nutrition = NUTRITION_LEVEL_WELL_FED
+	else
+		chubbs.nutrition += 250
+
 /obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
@@ -155,6 +173,8 @@
 	. = ..()
 
 /obj/projectile/magic/icy_blast/Destroy()
+	//This isn't a hitsound because we want it to play regardless of hit
+	playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 75, TRUE)
 	for(var/turf/open/floor/F in view(ground_freeze_range,loc))
 		F.MakeSlippery(TURF_WET_PERMAFROST, 1 MINUTES)
 	return ..()
