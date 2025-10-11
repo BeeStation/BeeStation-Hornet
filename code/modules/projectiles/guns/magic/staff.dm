@@ -22,10 +22,9 @@
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
 
-//RUKO-TODO - Make the actual bolt of dismember
 /obj/item/gun/magic/staff/dismember
 	name = "staff of dismemberment"
-	desc = "An artefact that spits bolts of malefic energy which causes arms and legs to fly right off of its victims."
+	desc = "An artefact that spits bolts of malefic energy which causes arms and legs to fly right off of its victimse."
 	fire_sound = 'sound/magic/staff_animation.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/dismember
 	icon_state = "staffofdismember"

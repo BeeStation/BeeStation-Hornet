@@ -57,7 +57,7 @@
 
 /obj/projectile/magic/drain
 	name = "vitality draining stream"
-	icon_state = "tentacle_end"
+	icon_state = "nothing"
 	range = 7
 	var/datum/beam/drain_beam
 

@@ -60,7 +60,6 @@
 //WAND OF DRAIN VITALITY
 /////////////////////////////////////
 
-//RUKO-TODO - Look at tasers and make something similar for this
 /obj/item/gun/magic/wand/drain
 	name = "wand of drain vitality"
 	desc = "This dark wand saps the very life force from your target, slowing them and eventually transferring their life essence to you. Requires you to remain within range to be effective."
@@ -70,9 +69,9 @@
 	var/datum/status_effect/life_drain/active_effect
 
 /obj/item/gun/magic/wand/drain/pull_trigger(atom/target, mob/living/user, params, aimed)
-	. = ..()
-	if(active_effect)
+	if(charges && active_effect)
 		active_effect.end_drain()
+	return ..()
 
 /obj/item/gun/magic/wand/drain/dropped(mob/user)
 	. = ..()
