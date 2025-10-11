@@ -1,9 +1,0 @@
-author: rkz, mothblocks, skoglol, Primordial
-delete-after: true
-changes:
-  - admin: Going stealth mode now drops your orbiters and blocks you from being orbited.
-  - admin: Stealth mode should reset ghost name correctly.
-  - admin: Ignore and Unignore should not interfere with Stealth Mode
-  - tweak: Split the Ignore verb into two verbs (Ignore and Unignore)
-  - rscadd: Unignore allows you to view your ignore list
-  - rscadd: Unignore allows you to unignore players who are offline

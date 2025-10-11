@@ -166,6 +166,7 @@
 	slot_flags = ITEM_SLOT_ID
 	armor_type = /datum/armor/card_id
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	trade_flags = TRADE_NOT_SELLABLE
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
 	var/assignment
@@ -484,6 +485,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_CONTRABAND
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -743,21 +745,21 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
-/obj/item/card/id/ert/chaplain
-	registered_name = JOB_ERT_CHAPLAIN
-	assignment = JOB_ERT_CHAPLAIN
-	icon_state = "ert"
-
-/obj/item/card/id/ert/chaplain/Initialize(mapload)
-	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
-	. = ..()
-
 /obj/item/card/id/ert/Janitor
 	registered_name = JOB_ERT_JANITOR
 	assignment = JOB_ERT_JANITOR
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/clown
+	registered_name = JOB_ERT_CLOWN
+	assignment = JOB_ERT_CLOWN
+	icon_state = "ert"
+
+/obj/item/card/id/ert/clown/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -776,12 +778,12 @@ update_label("John Doe", "Clowny")
 	icon_state = "centcom"
 
 /// Trim for Bounty Hunters hired by centcom.
-/obj/item/card/id/silver/bounty/ert
+/obj/item/card/id/ert/bounty
 	registered_name = "Bounty Hunter"
 	assignment = "Bounty Hunter"
 	icon_state = "ert"
 
-/obj/item/card/id/silver/bounty/ert/Initialize(mapload)
+/obj/item/card/id/ert/bounty/Initialize(mapload)
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL)
 

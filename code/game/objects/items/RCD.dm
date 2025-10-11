@@ -216,6 +216,7 @@ RLD
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	actions_types = list(/datum/action/item_action/rcd_scan)
+	custom_price = 100
 	var/mode = RCD_FLOORWALL
 	var/construction_mode = RCD_FLOORWALL
 	var/ranged = FALSE
@@ -810,6 +811,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	canRturf = TRUE
 	item_flags = ISWEAPON
 
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	item_state = "ircd"
+	max_matter = 450
+	matter = 450
+
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
@@ -820,6 +828,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_price = 60
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
