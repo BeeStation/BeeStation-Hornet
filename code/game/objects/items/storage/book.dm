@@ -185,7 +185,7 @@
 			smack = 0
 		else if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			if(!istype(C.head, /obj/item/clothing/head/helmet))
+			if(isnull(C.head) || istype(C.head.get_armor(), /datum/armor/none))
 				C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 60)
 				to_chat(C, span_danger("You feel dumber."))
 
