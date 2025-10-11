@@ -1326,6 +1326,7 @@
 				/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
 				/mob/living/simple_animal/hostile/carp/ranged,
 				/mob/living/simple_animal/hostile/carp/ranged/chaos,
+				/mob/living/simple_animal/hostile/carp/megacarp,
 				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
 				/mob/living/simple_animal/hostile/asteroid/goliath/beast,
 				/mob/living/simple_animal/hostile/headcrab,
@@ -1352,14 +1353,24 @@
 				/mob/living/carbon/alien/humanoid/hunter,
 				/mob/living/carbon/alien/humanoid/sentinel,
 				/mob/living/simple_animal/hostile/alien/maid,
+				/mob/living/basic/pet/dog/corgi/capybara, //Why the fuck are these a subtype of corgi
+				/mob/living/basic/mothroach,
+				/mob/living/simple_animal/hostile/retaliate/nymph,
+				/mob/living/simple_animal/parrot,
+				/mob/living/simple_animal/hostile/netherworld/migo,
+				/mob/living/simple_animal/hostile/netherworld/blankbody,
+				/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+				/mob/living/simple_animal/hostile/asteroid/elite/herald,
+				/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
+				/mob/living/simple_animal/hostile/heretic_summon/raw_prophet,
 				)
 			new_mob = new picked_animal(loc)
 
 		if(WABBAJACK_HUMAN)
 			var/mob/living/carbon/human/new_human = new(loc)
 
-			// 50% chance that we'll also randomice race
-			if(prob(50))
+			// 90% chance that we'll also randomice race
+			if(prob(90))
 				var/list/chooseable_races = list()
 				for(var/datum/species/species_type as anything in subtypesof(/datum/species))
 					if(initial(species_type.changesource_flags) & change_flags)
