@@ -38,7 +38,7 @@
 	var/laugh_sound
 	var/mine_cooldown
 
-/mob/living/simple_animal/hostile/latcher/Initialize()
+/mob/living/simple_animal/hostile/latcher/Initialize(mapload)
 	..()
 	rotate_sound("all")
 
@@ -195,7 +195,7 @@
 	name = "harbinger tendril"
 	damage = 10
 
-/obj/projectile/latcher_harpoon/Initialize()
+/obj/projectile/latcher_harpoon/Initialize(mapload)
 	..()
 	hitsound = pick('sound/creatures/halloween/Latcher/LProjectileHit1.ogg',
 					'sound/creatures/halloween/Latcher/LProjectileHit2.ogg',

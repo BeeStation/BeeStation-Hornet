@@ -47,7 +47,7 @@
 
 	var/introduction = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/harbinger/Initialize()
+/mob/living/simple_animal/hostile/megafauna/harbinger/Initialize(mapload)
 	..()
 	tether_center = new(loc)
 	tether_center.invisibility = INVISIBILITY_ABSTRACT
@@ -536,7 +536,7 @@
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/projectile/harbinger/Initialize()
+/obj/projectile/harbinger/Initialize(mapload)
 	..()
 	hitsound = pick('sound/creatures/halloween/Harbinger/HShotHit1.ogg',
 					'sound/creatures/halloween/Harbinger/HShotHit2.ogg')

@@ -39,7 +39,7 @@
 	var/tele_cast
 	var/target_sound
 
-/mob/living/simple_animal/hostile/megafauna/unshaped/Initialize()
+/mob/living/simple_animal/hostile/megafauna/unshaped/Initialize(mapload)
 	. = ..()
 	rotate_sound("all")
 

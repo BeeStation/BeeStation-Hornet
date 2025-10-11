@@ -31,7 +31,7 @@
 	alpha = 50
 	speak_language = /datum/language/narsie
 
-/mob/living/simple_animal/hostile/ambush/Initialize()
+/mob/living/simple_animal/hostile/ambush/Initialize(mapload)
 	..()
 	rotate_sound("all")
 
