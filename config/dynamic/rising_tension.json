@@ -50,8 +50,7 @@
 			"restricted_roles": [
 				"Cyborg",
 				"AI"
-			],
-			"elasticity": 100
+			]
 		},
 		"Revolution": {
 			"points_cost": 100
