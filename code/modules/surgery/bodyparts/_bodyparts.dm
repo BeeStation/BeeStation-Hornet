@@ -72,12 +72,6 @@
 	/// Both injuries and regular damage take from this value.
 	var/max_damage = 50
 
-	// Damage reduction variables for damage handled on the limb level. Handled after worn armor.
-	///Amount subtracted from brute damage inflicted on the limb.
-	var/brute_reduction = 0
-	///Amount subtracted from burn damage inflicted on the limb.
-	var/burn_reduction = 0
-
 	//Coloring and proper item icon update
 	var/skin_tone = ""
 	var/species_color = ""
@@ -187,6 +181,7 @@
 		if (!injury.external)
 			continue
 		if (!injury.examine_description)
+			continue
 		. += span_warning("You see [injury.examine_description] blighting the surface of the limb.")
 	if(limb_id)
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
@@ -206,8 +201,8 @@
  */
 /obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list, list/whole_body_issues)
 
-	SEND_SIGNAL(src, COMSIG_BODYPART_CHECKED_FOR_INJURY, examiner, check_list, limb_damage)
-	SEND_SIGNAL(examiner, COMSIG_CARBON_CHECKING_BODYPART, src, check_list, limb_damage)
+	//SEND_SIGNAL(src, COMSIG_BODYPART_CHECKED_FOR_INJURY, examiner, check_list, limb_damage)
+	//SEND_SIGNAL(examiner, COMSIG_CARBON_CHECKING_BODYPART, src, check_list, limb_damage)
 
 	// Get the injury texts for our injuries
 	var/list/injury_texts = list()
@@ -348,14 +343,13 @@
 	if(owner)
 		if(can_be_disabled)
 			update_disabled()
-		if(updating_health)
-			owner.updatehealth()
+		owner.updatehealth()
 		if(owner.dna?.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
 			if(owner.consciousness.value > 0 && owner.stat == DEAD)
 				owner.revive()
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
-	owner.update_damage_overlays()	//temp: call this if we need to
-	return update_bodypart_damage_state()
+	update_bodypart_damage_state()
+	owner.update_damage_overlays()
 
 /// Increase the progression of an injury by a specified amount
 /// injury_type: The type of injury to progress. If the injury type belongs to a graph-based injury
@@ -377,8 +371,8 @@
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
 	var/total = accumulated_damage
-	if(include_stamina)
-		total = max(total, stamina_dam)
+	if (include_stamina)
+		total = max(total, (1 - (effectiveness / initial(effectiveness))) * max_damage)
 	return total
 
 //Checks disabled status thresholds
@@ -400,9 +394,7 @@
 		set_disabled(TRUE)
 		return
 
-	var/total_damage = max(brute_dam + burn_dam, stamina_dam)
-
-	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
+	if(accumulated_damage >= max_damage * disable_threshold || effectiveness <= 0) //Easy limb disable disables the limb at 40% health instead of 0%
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
@@ -410,7 +402,7 @@
 		set_disabled(TRUE)
 		return
 
-	if(bodypart_disabled && total_damage <= max_damage * 0.5)
+	if(bodypart_disabled && accumulated_damage <= max_damage * 0.5)
 		last_maxed = FALSE
 		set_disabled(FALSE)
 
@@ -554,8 +546,8 @@
 /obj/item/bodypart/proc/update_bodypart_damage_state()
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/tbrute = round((min(brute_dam, max_damage) / max_damage) * 3, 1)
-	var/tburn = round((min(burn_dam, max_damage) / max_damage) * 3, 1)
+	var/tbrute = round((min(get_injury_amount(BRUTE), max_damage) / max_damage) * 3, 1)
+	var/tburn = round((min(get_injury_amount(BURN), max_damage) / max_damage) * 3, 1)
 	if((tbrute != brutestate) || (tburn != burnstate))
 		brutestate = tbrute
 		burnstate = tburn

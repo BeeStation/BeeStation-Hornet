@@ -222,11 +222,11 @@
 
 	for(var/obj/item/bodypart/body_part in adult.bodyparts) //No limbs for you, small diona.
 		if(istype(body_part, /obj/item/bodypart/chest))
-			body_part.set_brute_dam(helpers.brute_damage)
-			body_part.set_burn_dam(helpers.fire_damage)
+			for (var/datum/injury/injury in helpers.injuries)
+				body_part.increase_injury(injury.base_type, injury.progression - injury:progression)
 		else if(istype(body_part, /obj/item/bodypart/head))
-			body_part.set_brute_dam(brute_damage)
-			body_part.set_burn_dam(fire_damage)
+			body_part.increase_injury(BRUTE, brute_damage)
+			body_part.increase_injury(BURN, fire_damage)
 		else // If its not a chest AND not a head
 			body_part.drop_limb(TRUE)
 

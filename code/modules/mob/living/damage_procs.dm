@@ -108,23 +108,17 @@
 	set_injury(BRUTE, amount)
 
 /mob/living/proc/getOxyLoss()
-	return oxyloss
+	return get_injury_amount(OXY)
 
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
-		return
-	. = oxyloss
-	oxyloss = clamp((oxyloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
-	if(updating_health)
-		updatehealth()
+		return FALSE
+	return adjust_injury(OXY, amount)
 
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	. = oxyloss
-	oxyloss = amount
-	if(updating_health)
-		updatehealth()
+	set_injury(OXY, amount)
 
 /mob/living/proc/getToxLoss()
 	return get_injury_amount(TOX)
@@ -187,7 +181,7 @@
 /mob/living/proc/take_direct_bodypart_injury(injury, amount, required_status)
 	take_direct_damage(amount, injury, DAMAGE_EXISTENTIAL)
 	updatehealth()
-	update_stamina(stamina >= DAMAGE_PRECISION)
+	update_stamina()
 
 // heal MANY bodyparts, in random order
 /mob/living/proc/heal_overall_injuries(injury_type, amount, required_status)

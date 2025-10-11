@@ -14,7 +14,7 @@
 	suffixes = list("-217")
 	var/replaceorgans = FALSE
 	var/replacebody = FALSE
-	var/robustbits = FALSE
+	var/robustbits
 	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
 						<b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
 						<b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
@@ -159,61 +159,40 @@
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(!IS_ORGANIC_LIMB(O))
-				if(robustbits && O.brute_reduction < 3 || O.burn_reduction < 2)
-					O.burn_reduction = max(2, O.burn_reduction)
-					O.brute_reduction = max(3, O.brute_reduction)
 				continue
 			switch(O.body_zone)
 				if(BODY_ZONE_HEAD)
 					var/obj/item/bodypart/head/robot/clockwork/B = new()
-					if(robustbits)
-						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
-						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message(span_notice("[H]'s head shifts, and becomes metal before your very eyes"), span_userdanger("Your head feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_CHEST)
 					var/obj/item/bodypart/chest/robot/clockwork/B = new()
-					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
 					var/obj/item/bodypart/l_arm/robot/clockwork/B = new()
-					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
 					var/obj/item/bodypart/r_arm/robot/clockwork/B = new()
-					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
 					var/obj/item/bodypart/l_leg/robot/clockwork/B = new()
-					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
 					var/obj/item/bodypart/r_leg/robot/clockwork/B = new()
-					if(robustbits)
-						B.brute_reduction = 3
-						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
 					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), span_userdanger("Your [O] feels numb, and cold."))
 					qdel(O)
@@ -229,10 +208,6 @@
 		if(H.stat != DEAD)
 			to_chat(H, span_userdanger("You feel lighter and springier as your innards lose their clockwork facade."))
 		H.dna.species.regenerate_organs(H, replace_current = TRUE)
-		for(var/obj/item/bodypart/O in H.bodyparts)
-			if(!IS_ORGANIC_LIMB(O))
-				O.burn_reduction = initial(O.burn_reduction)
-				O.brute_reduction = initial(O.brute_reduction)
 
 /datum/symptom/robotic_adaptation/OnRemove(datum/disease/advance/A)
 	A.infectable_biotypes -= MOB_ROBOTIC
@@ -360,40 +335,28 @@
 	name = "clockwork left arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
 
 /obj/item/bodypart/r_arm/robot/clockwork
 	name = "clockwork right arm"
 	desc = "An odd metal arm with fingers driven by blood-based hydraulics."
 	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
 
 /obj/item/bodypart/l_leg/robot/clockwork
 	name = "clockwork left leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
 
 /obj/item/bodypart/r_leg/robot/clockwork
 	name = "clockwork right leg"
 	desc = "An odd metal leg full of intricate mechanisms."
 	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
 
 /obj/item/bodypart/head/robot/clockwork
 	name = "clockwork head"
 	desc = "An odd metal head that still feels warm to the touch."
 	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
 
 /obj/item/bodypart/chest/robot/clockwork
 	name = "clockwork torso"
 	desc = "An odd metal body full of gears and pipes. It still seems alive."
 	icon_static = 'icons/mob/augmentation/augments_clockwork.dmi'
-	brute_reduction = 0
-	burn_reduction = 0

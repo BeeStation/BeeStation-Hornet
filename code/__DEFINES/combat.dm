@@ -15,7 +15,7 @@
 /// Poisoning. Mostly caused by reagents.
 #define TOX /datum/injury/acute/toxin
 /// Suffocation.
-#define OXY "oxygen"
+#define OXY /datum/injury/acute/hypoxia
 /// Cellular degredation. Rare and difficult to treat.
 #define CLONE /datum/injury/acute/genetic
 /// Exhaustion and nonlethal damage.

@@ -4398,6 +4398,7 @@
 #include "code\modules\surgery\injuries\damage_types\burn.dm"
 #include "code\modules\surgery\injuries\damage_types\exhaustion.dm"
 #include "code\modules\surgery\injuries\damage_types\genetic.dm"
+#include "code\modules\surgery\injuries\damage_types\hypoxia.dm"
 #include "code\modules\surgery\injuries\damage_types\shock.dm"
 #include "code\modules\surgery\injuries\damage_types\toxin.dm"
 #include "code\modules\surgery\injuries\trauma_tree\trauma_broken_bone.dm"

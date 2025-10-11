@@ -33,8 +33,6 @@
 	// damage from normal attacks.
 	internal_protection_rating = 0.5
 
-	brute_reduction = 5
-	burn_reduction = 4
 	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
@@ -71,8 +69,6 @@
 	// damage from normal attacks.
 	internal_protection_rating = 0.5
 
-	brute_reduction = 5
-	burn_reduction = 4
 	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
@@ -109,8 +105,6 @@
 	// damage from normal attacks.
 	internal_protection_rating = 0.5
 
-	brute_reduction = 5
-	burn_reduction = 4
 	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
@@ -147,8 +141,6 @@
 	// damage from normal attacks.
 	internal_protection_rating = 0.5
 
-	brute_reduction = 5
-	burn_reduction = 4
 	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
@@ -183,8 +175,6 @@
 	// damage from normal attacks.
 	internal_protection_rating = 0.5
 
-	brute_reduction = 5
-	burn_reduction = 4
 	effectiveness = 60
 
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
@@ -302,9 +292,6 @@
 	// damage from normal attacks.
 	internal_protection_rating = 0.5
 
-	brute_reduction = 5
-	burn_reduction = 4
-
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
 	heavy_brute_msg = ROBOTIC_HEAVY_BRUTE_MSG
@@ -396,8 +383,7 @@
 	name = "surplus prosthetic left arm"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	internal_protection_rating = 0
 	effectiveness = 40
 	max_damage = 20
 
@@ -405,8 +391,7 @@
 	name = "surplus prosthetic right arm"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	internal_protection_rating = 0
 	effectiveness = 40
 	max_damage = 20
 
@@ -414,8 +399,7 @@
 	name = "surplus prosthetic left leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	internal_protection_rating = 0
 	effectiveness = 40
 	max_damage = 20
 
@@ -423,8 +407,7 @@
 	name = "surplus prosthetic right leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
 	icon_static = 'icons/mob/augmentation/surplus_augments.dmi'
-	brute_reduction = 0
-	burn_reduction = 0
+	internal_protection_rating = 0
 	effectiveness = 40
 	max_damage = 20
 
