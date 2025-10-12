@@ -50205,7 +50205,6 @@
 /obj/item/ai_module/core/full/nutimov,
 /obj/item/ai_module/core/full/ten_commandments,
 /obj/item/ai_module/core/full/robocop,
-/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -50692,7 +50691,6 @@
 /obj/item/ai_module/core/full/overlord,
 /obj/item/ai_module/core/full/tyrant,
 /obj/item/ai_module/core/full/thermodynamic,
-/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -59791,7 +59789,6 @@
 /obj/item/ai_module/supplied/quarantine,
 /obj/item/ai_module/supplied/protect_station,
 /obj/item/ai_module/supplied/safeguard,
-/obj/machinery/door/window/brigdoor/westright,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
@@ -61766,9 +61763,6 @@
 	},
 /obj/item/ai_module/reset,
 /obj/item/ai_module/reset/purge,
-/obj/machinery/door/window/brigdoor/westright{
-	name = "Purge"
-	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
