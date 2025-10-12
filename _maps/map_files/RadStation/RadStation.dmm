@@ -21230,14 +21230,12 @@
 /area/hallway/primary/starboard)
 "gMj" = (
 /obj/structure/transit_tube,
-/obj/structure/window/reinforced/spawner,
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "satwindow";
 	name = "Window Shutters"
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "gMw" = (
@@ -50197,9 +50195,6 @@
 /area/maintenance/solars/port/aft)
 "qsH" = (
 /obj/structure/rack,
-/obj/machinery/door/window/brigdoor/westright{
-	name = "Experimental"
-	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
@@ -50210,6 +50205,7 @@
 /obj/item/ai_module/core/full/nutimov,
 /obj/item/ai_module/core/full/ten_commandments,
 /obj/item/ai_module/core/full/robocop,
+/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -50688,9 +50684,6 @@
 /area/space/nearstation)
 "qBw" = (
 /obj/structure/rack,
-/obj/machinery/door/window/brigdoor/westright{
-	name = "Dangerous"
-	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
@@ -50699,6 +50692,7 @@
 /obj/item/ai_module/core/full/overlord,
 /obj/item/ai_module/core/full/tyrant,
 /obj/item/ai_module/core/full/thermodynamic,
+/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -59794,16 +59788,14 @@
 /area/quartermaster/office)
 "tAn" = (
 /obj/structure/rack,
-/obj/machinery/door/window/brigdoor/westright{
-	name = "Quarantine"
-	},
+/obj/item/ai_module/supplied/quarantine,
+/obj/item/ai_module/supplied/protect_station,
+/obj/item/ai_module/supplied/safeguard,
+/obj/machinery/door/window/brigdoor/westright,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
 	},
-/obj/item/ai_module/supplied/quarantine,
-/obj/item/ai_module/supplied/protect_station,
-/obj/item/ai_module/supplied/safeguard,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -61768,15 +61760,15 @@
 /area/vacant_room/commissary/commissary1)
 "ufB" = (
 /obj/structure/rack,
-/obj/machinery/door/window/brigdoor/westright{
-	name = "Purge"
-	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
 	},
 /obj/item/ai_module/reset,
 /obj/item/ai_module/reset/purge,
+/obj/machinery/door/window/brigdoor/westright{
+	name = "Purge"
+	},
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
