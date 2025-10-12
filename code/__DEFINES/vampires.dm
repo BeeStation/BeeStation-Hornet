@@ -49,6 +49,51 @@
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
 
+// Clan Disciplines
+#define DISCIPLINE_CAITIFF list(DISCIPLINE_THINBLOOD)	// All their mix-blooded powers in one discipline
+#define DISCIPLINE_BRUJAH list(DISCIPLINE_CELERITY,\
+								DISCIPLINE_POTENCE_BRUJAH,\
+								DISCIPLINE_PRESENCE)
+
+#define DISCIPLINE_TOREADOR list(DISCIPLINE_AUSPEX,\
+								DISCIPLINE_FORTITUDE,\
+								DISCIPLINE_PRESENCE_TOREADOR,)
+
+#define DISCIPLINE_TREMERE list(DISCIPLINE_AUSPEX,\
+								DISCIPLINE_THAUMATURGY,\
+								DISCIPLINE_DOMINATE)
+
+#define DISCIPLINE_GANGREL list(DISCIPLINE_ANIMALISM,\
+								DISCIPLINE_PROTEAN,\
+								DISCIPLINE_FORTITUDE)
+
+#define DISCIPLINE_VENTRUE list(DISCIPLINE_DOMINATE,\
+								DISCIPLINE_POTENCE,\
+								DISCIPLINE_PRESENCE)
+
+#define DISCIPLINE_MALKAVIAN list(DISCIPLINE_DEMENTATION,\
+								DISCIPLINE_AUSPEX_MALKAVIAN,\
+								DISCIPLINE_OBFUSCATE)
+
+// Discipline Abilities
+// We start with the default base ones:
+#define DISCIPLINE_CELERITY list()
+#define DISCIPLINE_AUSPEX list()
+#define DISCIPLINE_POTENCE list()
+#define DISCIPLINE_PRESENCE list()
+#define DISCIPLINE_FORTITUDE list()
+#define DISCIPLINE_OBFUSCATE list()
+#define DISCIPLINE_DOMINATE list()
+#define DISCIPLINE_ANIMALISM list()
+#define DISCIPLINE_PROTEAN list()
+
+// Now for the ones that have clan-related shenanigans going on.
+#define DISCIPLINE_POTENCE_BRUJAH list()				// Brawn replaced with brash
+#define DISCIPLINE_PRESENCE_TOREADOR list()				// Masquerade ability added
+#define DISCIPLINE_AUSPEX_MALKAVIAN list()				// Lvl 5 lets them astral project instead.
+#define DISCIPLINE_THAUMATURGY list()					// Weird freaky wizard crossbreeding 5000 years ago. SMH
+#define DISCIPLINE_THINBLOOD list()
+
 #define FAVORITE_VASSAL "favorite_vassal"
 
 // Power defines
@@ -65,16 +110,10 @@
 /// This Power can't be used during Sol
 #define BP_CANT_USE_DURING_SOL (1<<5)
 
-/// This Power can be purchased by Vampires
-#define VAMPIRE_CAN_BUY (1<<0)
 /// This is a Default Power that all Vampires get.
 #define VAMPIRE_DEFAULT_POWER (1<<1)
-/// This Power can be purchased by Tremere Vampires
-#define TREMERE_CAN_BUY (1<<2)
-/// This Power can be purchased by Vassals
-#define VASSAL_CAN_BUY (1<<3)
-/// This Power is exclusive to Brujah vampires, who will gain them upon joining Brujah.
-#define BRUJAH_DEFAULT_POWER (1<<4)
+/// This Power is a clan power, be it a bloodline specific discipline or something else.
+#define CLAN_DEFAULT_POWER (1<<2)
 
 /// This Power is a Toggled Power
 #define BP_AM_TOGGLE (1<<0)
