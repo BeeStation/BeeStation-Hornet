@@ -719,20 +719,10 @@
 /obj/effect/turf_decal/edges/borderfloor/white/corner1{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	listening = 0;
-	name = "Custom Channel B";
-	pixel_y = -38;
-	pixel_x = 27
-	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel A";
-	pixel_x = 27;
-	pixel_y = -27
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable/orange{
+	icon_state = "2-4"
+	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "alT" = (
@@ -3997,9 +3987,6 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/aft)
 "bmL" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/structure/railing{
 	dir = 10
 	},
@@ -6701,16 +6688,6 @@
 /obj/machinery/light,
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
-"ced" = (
-/obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/cable/orange{
-	icon_state = "0-2"
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "cej" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -7463,18 +7440,6 @@
 	},
 /turf/open/floor/iron,
 /area/medical/sleeper)
-"cou" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 6
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "coH" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -12087,6 +12052,9 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "dMr" = (
@@ -12956,9 +12924,6 @@
 /turf/open/floor/iron,
 /area/engine/atmospherics_engine)
 "ebc" = (
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
 /obj/structure/railing{
 	dir = 9
 	},
@@ -18479,9 +18444,6 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engineering)
 "fRv" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/holopad,
 /turf/open/floor/circuit,
@@ -22196,9 +22158,6 @@
 /turf/open/floor/catwalk_floor,
 /area/engine/atmos)
 "hcd" = (
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
 /obj/structure/railing{
 	dir = 1
 	},
@@ -22291,6 +22250,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
+"hde" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "hdh" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -23507,6 +23472,17 @@
 /obj/effect/landmark/loneops,
 /turf/open/space/basic,
 /area/space/nearstation)
+"hBq" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aipanicshutter";
+	name = "Panic Shutters"
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "hBM" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -36353,6 +36329,12 @@
 	pixel_y = 20
 	},
 /obj/structure/lattice/catwalk,
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Common Channel A";
+	pixel_x = 27;
+	pixel_y = 32
+	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "lYp" = (
@@ -43107,16 +43089,6 @@
 	dir = 1
 	},
 /area/hallway/primary/central)
-"oey" = (
-/obj/effect/turf_decal/siding/wideplating_new/dark/corner,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/siding/dark{
-	dir = 9
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/ai_monitored/turret_protected/ai)
 "oeJ" = (
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating{
@@ -46507,6 +46479,18 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"phX" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "aipanicshutter";
+	name = "Panic Shutters"
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "phZ" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 8
@@ -48715,18 +48699,6 @@
 	dir = 1
 	},
 /area/science/xenobiology)
-"pRE" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 4
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "pRG" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -53350,14 +53322,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"rua" = (
-/obj/structure/railing/corner,
-/obj/effect/turf_decal/siding/dark_blue/corner,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "ruc" = (
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
@@ -63462,9 +63426,6 @@
 "uHw" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/machinery/status_display/ai/directional/south,
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
@@ -71006,6 +70967,14 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"xiK" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/dark_blue,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "xjh" = (
 /obj/structure/railing{
 	dir = 4
@@ -71257,6 +71226,13 @@
 	pixel_x = -29
 	},
 /obj/structure/lattice/catwalk,
+/obj/item/radio/intercom{
+	freerange = 1;
+	listening = 0;
+	name = "Custom Channel B";
+	pixel_y = -38;
+	pixel_x = -32
+	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "xms" = (
@@ -74110,18 +74086,6 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
-"ylL" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/structure/railing{
-	dir = 6
-	},
-/obj/effect/turf_decal/siding/dark_blue{
-	dir = 6
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "yme" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -106831,10 +106795,10 @@ bHd
 lXM
 bcY
 alO
-bHd
+hBq
 dLP
-paY
-nqi
+hde
+xiK
 tPy
 phr
 uTv
@@ -107087,11 +107051,11 @@ kYG
 uTv
 bHd
 bHd
-bHd
+phX
 uTv
 oGr
 quw
-ylL
+nhM
 uDI
 uTv
 uTv
@@ -107341,14 +107305,14 @@ gcn
 jXz
 nhu
 pPA
-ced
+icI
 bmL
 fRv
 ebc
 icI
 vki
 jku
-oey
+iet
 bOl
 uTv
 dhe
@@ -107602,9 +107566,9 @@ xXM
 clH
 eui
 hcd
-rua
-pRE
-cou
+quw
+ffY
+nhM
 uHw
 uTv
 uTv
