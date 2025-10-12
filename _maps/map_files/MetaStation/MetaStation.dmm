@@ -2534,10 +2534,10 @@
 	dir = 8
 	},
 /obj/structure/curtain,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/siding/thinplating/light{
 	dir = 10
 	},
-/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/white/textured,
 /area/crew_quarters/toilet/restrooms)
 "ayP" = (
@@ -2827,7 +2827,7 @@
 	dir = 4
 	},
 /obj/structure/curtain,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating/light{
 	dir = 5
 	},
 /obj/item/bikehorn/rubberducky,
@@ -2838,7 +2838,7 @@
 	dir = 8
 	},
 /obj/structure/curtain,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating/light{
 	dir = 9
 	},
 /turf/open/floor/iron/white/textured,
@@ -3191,7 +3191,6 @@
 /obj/structure/toilet{
 	pixel_y = 12
 	},
-/obj/machinery/light/floor,
 /obj/effect/decal/cleanable/xenoblood{
 	name = "mysterious stain";
 	desc = "It's green and acidic. Not only but it smells TERRIBLE."
@@ -3199,6 +3198,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet/restrooms)
 "aDS" = (
@@ -4995,7 +4995,7 @@
 	},
 /obj/item/trash/can{
 	pixel_x = -13;
-	pixel_y = 12
+	pixel_y = 6
 	},
 /turf/open/floor/iron/dark/side{
 	dir = 4
@@ -14631,8 +14631,8 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/machinery/light/floor,
 /obj/effect/landmark/start/assistant,
+/obj/machinery/light/directional/east,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet/restrooms)
 "cpd" = (
@@ -47675,8 +47675,8 @@
 	dir = 4
 	},
 /obj/item/broken_bottle{
-	pixel_x = -14;
-	pixel_y = -14
+	pixel_x = -13;
+	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/grimy,
@@ -48455,8 +48455,8 @@
 	dir = 4
 	},
 /obj/item/trash/energybar{
-	pixel_y = -12;
-	pixel_x = -6
+	pixel_y = -7;
+	pixel_x = -10
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 4
@@ -57314,7 +57314,7 @@
 	dir = 4
 	},
 /obj/structure/curtain,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/thinplating/light{
 	dir = 6
 	},
 /turf/open/floor/iron/white/textured,
@@ -64059,7 +64059,7 @@
 	dir = 4
 	},
 /obj/item/cigbutt{
-	pixel_y = -11;
+	pixel_y = -12;
 	pixel_x = -3
 	},
 /obj/effect/turf_decal/siding/thinplating_new/dark{
