@@ -49,9 +49,7 @@
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
 
-#define TREMERE_VASSAL "tremere_vassal"
 #define FAVORITE_VASSAL "favorite_vassal"
-#define DISCORDANT_VASSAL "discordant_vassal"
 
 // Power defines
 /// This Power can't be used in Torpor
