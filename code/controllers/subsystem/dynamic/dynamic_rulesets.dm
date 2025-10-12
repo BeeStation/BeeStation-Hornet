@@ -120,6 +120,10 @@
 		for(var/mob/chosen_candidate in chosen_candidates)
 			chosen_candidate.mind.add_antag_datum(antag_datum)
 
+	// I would love to keep this logged, but we must avoid hard dels.
+	candidates = null
+	chosen_candidates = null
+
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /**
