@@ -10,6 +10,12 @@
 	/// How disruptive the ruleset is (DYNAMIC_MIDROUND_LIGHT, DYNAMIC_MIDROUND_MEDIUM, DYNAMIC_MIDROUND_HEAVY)
 	var/severity
 
+/datum/dynamic_ruleset/midround/duplicate()
+	var/datum/dynamic_ruleset/midround/new_ruleset = ..()
+	new_ruleset.severity = severity
+
+	return new_ruleset
+
 /// Override this to return an icon for the poll
 /datum/dynamic_ruleset/midround/proc/get_poll_icon()
 	SHOULD_CALL_PARENT(FALSE)
@@ -26,7 +32,7 @@
 	severity = DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY
 	points_cost = 40
 	weight = 2
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/pirates/allowed()
 	if(!SSmapping.empty_space)

@@ -1,7 +1,7 @@
 /datum/dynamic_ruleset
-	/*
+	/**
 	 * Configurable Variables
-	*/
+	**/
 
 	/// For admin logging and round end screen.
 	var/name
@@ -13,7 +13,7 @@
 	var/points_cost = 7
 	/// The minimum amount of players that have to be connected for this ruleset to run
 	var/minimum_players_required = 0
-	/// How many players are drafted by this ruleset. This should usually be 1 but should be increased for team antagonists (cult, incursion)
+	/// How many players are drafted by this ruleset.
 	var/drafted_players_amount = 1
 	/// The role preference used for this ruleset
 	var/datum/role_preference/roundstart/role_preference
@@ -25,8 +25,8 @@
 	var/list/restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	/// A list of rulesets that this ruleset is not compatible with. (A blood and clock cult can't both run)
 	var/list/blocking_rulesets = list()
-	/// A flag that determines how the ruleset is handled.
-	var/flags = NONE
+	/// The flags that determines how the ruleset is handled.
+	var/ruleset_flags = NONE
 
 	/**
 	 * Backend Variables
@@ -35,9 +35,9 @@
 	/// The base abstract path for this subtype.
 	var/abstract_type = /datum/dynamic_ruleset
 	/// List of possible mobs (or minds for roundstart rulesets) for this ruleset to draft.
-	var/list/candidates = list()
+	var/list/candidates
 	/// A list of mobs (or minds for roundstart rulesets) chosen for this ruleset.
-	var/list/chosen_candidates = list()
+	var/list/chosen_candidates
 
 /**
  * Set the amount of players to be drafted.
@@ -101,12 +101,8 @@
  * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
 **/
 /datum/dynamic_ruleset/proc/select_player()
-	if(!length(candidates))
-		CRASH("[src] called select_player without any candidates!")
-
-	var/mob/selected_player = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/selected_player = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= selected_player
-
 	return selected_player
 
 /**
@@ -133,7 +129,24 @@
 	return
 
 /**
- * Set the news report and mode result here. Only call this if your ruleset is "big" (nukies, etc.)
+ * Called at roundend if you have the flag `HIGH_IMPACT_RULESET`. Set the news report and mode result here.
 **/
 /datum/dynamic_ruleset/proc/round_result()
 	return
+
+/**
+ * Instantiate and return a new ruleset with the same type and vars as src.
+ * The above explanation is kind of a lie, we only copy over vars that are likely to be configured by storytellers.
+**/
+/datum/dynamic_ruleset/proc/duplicate()
+	var/datum/dynamic_ruleset/new_ruleset = new type()
+
+	new_ruleset.weight = weight
+	new_ruleset.points_cost = points_cost
+	new_ruleset.minimum_players_required = minimum_players_required
+	new_ruleset.drafted_players_amount = drafted_players_amount
+	new_ruleset.protected_roles = protected_roles.Copy()
+	new_ruleset.restricted_roles = restricted_roles.Copy()
+	new_ruleset.ruleset_flags = ruleset_flags
+
+	return new_ruleset
