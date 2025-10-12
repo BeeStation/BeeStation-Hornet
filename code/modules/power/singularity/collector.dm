@@ -19,6 +19,7 @@
 	integrity_failure = 0.2
 	circuit = /obj/item/circuitboard/machine/rad_collector
 	rad_insulation = RAD_EXTREME_INSULATION
+	custom_price = 400
 	var/obj/item/tank/internals/plasma/loaded_tank = null
 	var/stored_energy = 0
 	var/active = 0

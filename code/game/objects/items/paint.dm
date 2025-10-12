@@ -12,7 +12,12 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
+	custom_price = 20
 	var/paintleft = 10
+
+/obj/item/paint/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = 20, hardhat_safety = TRUE, crushes = FALSE) // You ever seen home alone?
 
 /obj/item/paint/red
 	name = "red paint"

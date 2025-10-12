@@ -69,7 +69,7 @@
 
 
 	if (src.client)
-		if(src.client.prefs.muted & MUTE_DEADCHAT)
+		if(src.client.player_details.muted & MUTE_DEADCHAT)
 			to_chat(src, span_danger("You cannot talk in deadchat (muted)."))
 			return
 
@@ -95,7 +95,10 @@
 	log_talk(message, LOG_SAY, tag="DEAD")
 	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)
 		return
-	deadchat_broadcast(rendered, follow_target = src, speaker_key = key)
+	var/displayed_key = key
+	if(client.holder?.fakekey)
+		displayed_key = null
+	deadchat_broadcast(rendered, follow_target = src, speaker_key = displayed_key)
 
 ///Check if this message is an emote
 /mob/proc/check_emote(message, forced)
