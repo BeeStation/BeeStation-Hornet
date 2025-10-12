@@ -267,6 +267,7 @@
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
 			chamber_round()
 		update_icon()
+		alarmed = FALSE
 		return TRUE
 	else
 		to_chat(user, span_warning("You cannot seem to get \the [src] out of your hands!"))
@@ -292,9 +293,9 @@
 			magazine = null
 	else
 		magazine = null
-	user.put_in_hands(old_mag)
+	user?.put_in_hands(old_mag)
 	old_mag.update_icon()
-	if (display_message)
+	if (user && display_message)
 		to_chat(user, span_notice("You pull the [magazine_wording] out of \the [src]."))
 	update_icon()
 
@@ -504,7 +505,8 @@
 		rounds.Add(chambered)
 		if(drop_all)
 			chambered = null
-	rounds.Add(magazine.ammo_list(drop_all))
+	if (magazine)
+		rounds.Add(magazine.ammo_list(drop_all))
 	return rounds
 
 #define BRAINS_BLOWN_THROW_RANGE 3

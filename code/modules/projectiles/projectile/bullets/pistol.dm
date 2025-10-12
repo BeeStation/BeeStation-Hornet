@@ -44,3 +44,11 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+// x200law (Secoff, NT proprietary)
+
+/obj/projectile/bullet/x200law
+	name = "x200 LAW bullet"
+	damage = 22
+	armour_penetration = 0
+	bleed_force = BLEED_CUT

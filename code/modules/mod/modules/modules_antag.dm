@@ -2,7 +2,7 @@
 
 ///Armor Booster - Grants your suit more armor and speed in exchange for EVA protection.
 /obj/item/mod/module/armor_booster
-	name = "MOD armor booster module"
+	name = "\improper MOD armor booster module"
 	desc = "A retrofitted series of retractable armor plates, allowing the suit to function as essentially power armor, \
 		giving the user incredible protection against conventional firearms, or everyday attacks in close-quarters. \
 		However, the additional plating cannot deploy alongside parts of the suit used for vacuum sealing, \
@@ -122,11 +122,11 @@
 
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
 /obj/item/mod/module/energy_shield
-	name = "MOD energy shield module"
+	name = "\improper MOD energy shield module"
 	desc = "A personal, protective forcefield typically seen in military applications. \
 		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
 		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
-		though with its' low amount of separate charges, the user remains mortal."
+		though with its low amount of separate charges, the user remains mortal."
 	icon_state = "energy_shield"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
@@ -174,7 +174,7 @@
 	return NONE
 
 /obj/item/mod/module/energy_shield/wizard
-	name = "MOD battlemage shield module"
+	name = "\improper MOD battlemage shield module"
 	desc = "The caster wielding this spell gains a visible barrier around them, channeling arcane power through \
 		specialized runes engraved onto the surface of the suit to generate a wall of force. \
 		This shield can perfectly nullify attacks ranging from high-caliber rifles to magic missiles, \
@@ -192,7 +192,7 @@
 
 ///Magic Nullifier - Protects you from magic.
 /obj/item/mod/module/anti_magic
-	name = "MOD magic nullifier module"
+	name = "\improper MOD magic nullifier module"
 	desc = "A series of obsidian rods installed into critical points around the suit, \
 		vibrated at a certain low frequency to enable them to resonate. \
 		This creates a low-range, yet strong, magic nullification field around the user, \
@@ -212,7 +212,7 @@
 	REMOVE_TRAIT(mod.wearer, TRAIT_HOLY, REF(src))
 
 /obj/item/mod/module/anti_magic/wizard
-	name = "MOD magic neutralizer module"
+	name = "\improper MOD magic neutralizer module"
 	desc = "The caster wielding this spell gains an invisible barrier around them, channeling arcane power through \
 		specialized runes engraved onto the surface of the suit to generate anti-magic field. \
 		The field will neutralize all magic that comes into contact with the user. \
@@ -228,7 +228,7 @@
 
 ///Insignia - Gives you a skin specific stripe.
 /obj/item/mod/module/insignia
-	name = "MOD insignia module"
+	name = "\improper MOD insignia module"
 	desc = "Despite the existence of IFF systems, radio communique, and modern methods of deductive reasoning involving \
 		the wearer's own eyes, colorful paint jobs remain a popular way for different factions in the galaxy to display who \
 		they are. This system utilizes a series of tiny moving paint sprayers to both apply and remove different \
@@ -267,7 +267,7 @@
 	color = "#f0a00c"
 
 /obj/item/mod/module/noslip
-	name = "MOD anti slip module"
+	name = "\improper MOD anti slip module"
 	desc = "These are a modified variant of standard magnetic boots, utilizing piezoelectric crystals on the soles. \
 		The two plates on the bottom of the boots automatically extend and magnetize as the user steps; \
 		a pull that's too weak to offer them the ability to affix to a hull, but just strong enough to \
@@ -287,7 +287,7 @@
 
 ///Flamethrower - Launches fire across the area.
 /obj/item/mod/module/flamethrower
-	name = "MOD flamethrower module"
+	name = "\improper MOD flamethrower module"
 	desc = "A custom-manufactured flamethrower, used to burn through your path. Burn well."
 	icon_state = "flamethrower"
 	module_type = MODULE_ACTIVE
@@ -315,7 +315,7 @@
 
 ///Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
-	name = "MOD power kick module"
+	name = "\improper MOD power kick module"
 	desc = "This module uses high-power myomer to generate an incredible amount of energy, transferred into the power of a kick."
 	icon_state = "power_kick"
 	module_type = MODULE_ACTIVE
@@ -376,7 +376,7 @@
 
 ///Chameleon - lets the suit disguise as any item that would fit on that slot.
 /obj/item/mod/module/chameleon
-	name = "MOD chameleon module"
+	name = "\improper MOD chameleon module"
 	desc = "A module using chameleon technology to disguise the MOD control unit as another backpack. Only works when the suit is deactivated."
 	icon_state = "chameleon"
 	module_type = MODULE_USABLE
@@ -450,7 +450,7 @@
 
 ///Plate Compression - Compresses the suit to normal size
 /obj/item/mod/module/plate_compression
-	name = "MOD plate compression module"
+	name = "\improper MOD plate compression module"
 	desc = "A module that keeps the suit in a very tightly fit state, lowering the overall size. \
 		Due to the pressure on all the parts, typical storage modules do not fit."
 	icon_state = "plate_compression"
@@ -476,7 +476,7 @@
 	mod.forceMove(drop_location())
 
 /obj/item/mod/module/demoralizer
-	name = "MOD psi-echo demoralizer module"
+	name = "\improper MOD psi-echo demoralizer module"
 	desc = "One incredibly morbid member of the RND team at Roseus Galactic posed a question to her colleagues. \
 	'I desire the power to scar my enemies mentally as I murder them. Who will stop me implementing this in our next project?' \
 	And thus the Psi-Echo Demoralizer Device was reluctantly invented. The future of psychological warfare, today!"
@@ -495,7 +495,7 @@
 	QDEL_NULL(demoralizer)
 
 /obj/item/mod/module/infiltrator
-	name = "MOD infiltration core programs module"
+	name = "\improper MOD infiltration core programs module"
 	desc = "The primary stealth systems operating within the suit. Utilizing electromagnetic signals, \
 		the wearer simply cannot be observed closely, or heard clearly by those around them.\
 		It also contains some dampening systems to help protect a user from blows to the head."

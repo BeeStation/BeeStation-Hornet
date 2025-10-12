@@ -13,8 +13,6 @@
 	contraband = list()
 	premium = list()
 */
-/// NT's Tax rate on the price the seller (cargo) receives
-#define TAX_RATE 0.5
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -362,7 +360,7 @@
 		if(!start_empty)
 			new_record.amount = amount
 		new_record.max_amount = amount
-		new_record.custom_price = initial(temp.custom_price)
+		new_record.custom_price = initial(temp.custom_price) * PRICE_MARKUP
 		new_record.custom_premium_price = initial(temp.custom_premium_price)
 		new_record.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		new_record.category = product_to_category[typepath]
@@ -670,10 +668,10 @@
 					if(1) // shatter their legs and bleed 'em
 						crit_rebate = 60
 						C.bleed(150)
-						var/obj/item/bodypart/l_leg/l = C.get_bodypart(BODY_ZONE_L_LEG)
+						var/obj/item/bodypart/leg/left/l = C.get_bodypart(BODY_ZONE_L_LEG)
 						if(l)
 							l.receive_damage(brute=200, updating_health=TRUE)
-						var/obj/item/bodypart/r_leg/r = C.get_bodypart(BODY_ZONE_R_LEG)
+						var/obj/item/bodypart/leg/right/r = C.get_bodypart(BODY_ZONE_R_LEG)
 						if(r)
 							r.receive_damage(brute=200, updating_health=TRUE)
 						if(l || r)
@@ -874,7 +872,7 @@
 		var/list/static_record = list(
 			path = replacetext(replacetext("[record.product_path]", "/obj/item/", ""), "/", "-"),
 			name = record.name,
-			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price),
+			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price * PRICE_MARKUP),
 			max_amount = record.max_amount,
 			ref = REF(record),
 		)
@@ -1011,7 +1009,7 @@
 	if(!R || !istype(R) || !R.product_path)
 		vend_ready = TRUE
 		return FALSE
-	var/price_to_use = default_price
+	var/price_to_use = default_price * PRICE_MARKUP
 	if(R.custom_price)
 		price_to_use = R.custom_price
 	if(R in hidden_records)
@@ -1338,7 +1336,7 @@
 						return
 			vend_ready = TRUE
 
-/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, var/N)
+/obj/machinery/vending/custom/proc/make_purchase(obj/item/bought_item, mob/living/carbon/human/H, N)
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)

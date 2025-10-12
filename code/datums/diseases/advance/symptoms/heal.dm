@@ -865,7 +865,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(A.stage_rate >= 6)
 		power += 1
 
-/datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
+/datum/symptom/parasite/proc/isslimetarget(mob/living/carbon/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M))
 		return TRUE

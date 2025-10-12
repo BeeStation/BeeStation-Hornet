@@ -55,6 +55,7 @@
 	desc = "It's a fancy four-color ink pen, set to black."
 	name = "four-color pen"
 	colour = "black"
+	custom_price = 20
 
 /obj/item/pen/fourcolor/attack_self(mob/living/carbon/user)
 	switch(colour)
@@ -76,12 +77,14 @@
 	desc = "It's a common fountain pen, with a faux wood body."
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/brush
 	name = "calligraphy brush"
 	desc = "A traditional brush usually used for calligraphy and poems."
 	icon_state = "pen-brush"
 	font = BRUSH_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/charcoal
 	name = "charcoal stylus"
@@ -247,7 +250,7 @@
 		throwforce_on = 35, \
 		throw_speed_on = 4, \
 		bleedforce_on = BLEED_CUT, \
-		sharpness_on = SHARP, \
+		sharpness_on = SHARP_DISMEMBER, \
 		w_class_on = WEIGHT_CLASS_NORMAL, \
 		inhand_icon_change = FALSE, \
 	)

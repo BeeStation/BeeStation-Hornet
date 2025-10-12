@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
 
-#define PULL_PRONE_SLOWDOWN 1.5
+#define PULL_PRONE_SLOWDOWN 4
 #define HUMAN_CARRY_SLOWDOWN 0.35
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;

@@ -331,8 +331,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 				if(ERROR_SUICIDED_BODY)
 					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [clone_record.name]'s mind from a suicided body."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(ERROR_SOUL_DAMNED)
-					temp = "Err#^ [ERROR_SOUL_DAMNED]: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
 				if(ERROR_UNCLONABLE)
 					temp = "Error [ERROR_UNCLONABLE]: [clone_record.name] is not clonable."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -550,7 +548,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(!experimental)
-		if(!body_only && (mob_occupant.suiciding || mob_occupant.ishellbound()))
+		if(!body_only && mob_occupant.suiciding)
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
@@ -585,7 +583,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
-	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind?.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
+	var/datum/record/cloning/cloning_record = new(null, 18, dna.blood_type.name, dna.unique_enzymes, md5(dna.unique_identity), mob_occupant.gender, mob_occupant.mind?.assigned_role, mob_occupant.real_name, null, WEAKREF(dna), dna.unique_identity, dna.mutation_index, WEAKREF(mob_occupant.mind), FALSE, mob_occupant.faction, list(), body_only, null, dna.unique_enzymes, has_bank_account)
 
 	if(dna.species)
 		// We store the instance rather than the path, because some
