@@ -113,7 +113,11 @@
 	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
 		start_burn_splotch_timer()
 
-	human_parent.adjustToxLoss(min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE))
+	var/damage = min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE)
+	if(!HAS_TRAIT(human_parent, TRAIT_TOXIMMUNE))
+		human_parent.adjustToxLoss(damage)
+	else
+		human_parent.adjustFireLoss(damage)
 
 /datum/component/irradiated/proc/adjust_intensity(amount)
 	intensity = clamp(intensity + amount, 0, 100)
