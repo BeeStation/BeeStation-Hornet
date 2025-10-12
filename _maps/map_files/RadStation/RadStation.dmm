@@ -4598,7 +4598,7 @@
 "btj" = (
 /obj/machinery/atmospherics/components/trinary/mixer/flipped{
 	dir = 8;
-	name = "Air/Co2 Mixer"
+	name = "Air/N2O Mixer"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -18235,6 +18235,7 @@
 /obj/machinery/computer/upload/ai{
 	dir = 4
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai_upload)
 "fOb" = (
@@ -28704,8 +28705,8 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/bridge)
 "jqf" = (
-/obj/machinery/atmospherics/components/tank/carbon_dioxide{
-	name = "Co2 tank"
+/obj/machinery/atmospherics/components/tank/nitrous_oxide{
+	name = "N2O Tank"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -30041,12 +30042,6 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/engine/atmospherics_engine)
-"jKn" = (
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/ai_upload)
 "jKo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/siding/wood{
@@ -36248,7 +36243,6 @@
 	dir = 8
 	},
 /obj/structure/rack,
-/obj/machinery/airalarm/directional/west,
 /obj/item/ai_module/core/full/custom,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -36750,6 +36744,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/edges/borderfloor,
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "mec" = (
@@ -47281,7 +47276,7 @@
 	control_area = "/area/ai_monitored/turret_protected/ai_upload";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
-	pixel_y = -32
+	pixel_y = -25
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -50195,16 +50190,15 @@
 /area/maintenance/solars/port/aft)
 "qsH" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
 /obj/machinery/light/cold/no_nightlight/directional/east,
 /obj/item/ai_module/core/full/yesman,
 /obj/item/ai_module/core/full/thinkermov,
 /obj/item/ai_module/core/full/nutimov,
 /obj/item/ai_module/core/full/ten_commandments,
 /obj/item/ai_module/core/full/robocop,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -50683,14 +50677,13 @@
 /area/space/nearstation)
 "qBw" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
 /obj/item/ai_module/core/full/antimov,
 /obj/item/ai_module/core/full/overlord,
 /obj/item/ai_module/core/full/tyrant,
 /obj/item/ai_module/core/full/thermodynamic,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -59789,10 +59782,9 @@
 /obj/item/ai_module/supplied/quarantine,
 /obj/item/ai_module/supplied/protect_station,
 /obj/item/ai_module/supplied/safeguard,
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -61757,12 +61749,11 @@
 /area/vacant_room/commissary/commissary1)
 "ufB" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
 /obj/item/ai_module/reset,
 /obj/item/ai_module/reset/purge,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/door/window/brigdoor/westright,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -63197,6 +63188,18 @@
 /obj/item/storage/box/pillbottles,
 /turf/open/floor/iron,
 /area/medical/apothecary)
+"uDG" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/edges/borderfloor,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/status_display/ai/directional/south,
+/turf/open/floor/iron/smooth,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "uDI" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/machinery/camera/motion/directional/south,
@@ -106019,8 +106022,8 @@ ojY
 uTv
 uTv
 cAz
-erN
-jKn
+uDG
+dFs
 dyC
 lVO
 sED
@@ -107047,8 +107050,8 @@ uDI
 uTv
 uTv
 hDw
-erN
-jKn
+uDG
+dFs
 ufB
 tAn
 qsH
