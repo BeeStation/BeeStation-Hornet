@@ -19135,6 +19135,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
+/obj/machinery/camera/motion/directional/north,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai_upload)
 "geq" = (
