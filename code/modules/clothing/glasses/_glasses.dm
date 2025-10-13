@@ -281,11 +281,11 @@
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/glasses/sunglasses/advanced/
+/obj/item/clothing/glasses/sunglasses/advanced
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = FLASH_PROTECTION_FLASH
-	custom_price = 15
+	custom_price = 100
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -379,7 +379,7 @@
 	force_glass_colour = TRUE
 	var/next_use_time = 0
 
-/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
+/obj/item/clothing/glasses/welding/ghostbuster/Initialize(mapload)
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
 	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
@@ -430,7 +430,7 @@
 /obj/item/clothing/glasses/blindfold/white/visual_equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		update_icon(user=user)
-		user.update_inv_glasses() //Color might have been changed by update_icon.
+		user.update_worn_glasses() //Color might have been changed by update_icon.
 	..()
 
 /obj/item/clothing/glasses/blindfold/white/update_icon(updates=ALL, mob/living/carbon/human/user)
@@ -550,6 +550,8 @@
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	custom_price = 10000
+	max_demand = 10
 	vision_correction = 1  // why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability
 
@@ -589,7 +591,7 @@
 			W.desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.update_inv_wear_mask()
+				C.update_worn_mask()
 		else
 			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		qdel(src)

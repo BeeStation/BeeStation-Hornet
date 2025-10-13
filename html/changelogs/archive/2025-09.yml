@@ -381,3 +381,40 @@
       scales from guaranteed at 30 average bio armor to full protection at 90 bio
       armor
   - bugfix: bio protection properly protects against bioscrambler anomalies
+2025-09-26:
+  SunShine214:
+  - balance: Adjusted gas shielding powers. Plasma is now bad at shielding, nitrium
+      and tritium are much better then before.
+  - bugfix: Added access restrictions to the AGR monitor program. Assistants no longer
+      can ruin atmos techs days.
+  lord scrubling:
+  - rscadd: Rapid cable layers have a protolathe design under the advanced engineering
+      technode
+  - balance: Makeshift rcls have the same basic functions as the normal version
+  - bugfix: magboots not updating their slowdown when toggled
+  mrmanlikesbt, JohnFulpWillard:
+  - code_imp: Nuked ComponentInitialize(). Report anything strange!
+  rkz, Mothblocks:
+  - refactor: refactor GetFlatIcon to be clearer
+2025-09-27:
+  Rukofamicom:
+  - bugfix: Clown cars may now only be controlled by clowns
+2025-09-28:
+  Nakalon:
+  - tweak: You can now rename foods with pens again.
+  Tsunamiant, Powerfulbacon:
+  - rscadd: NPS-10 law-enforcement ballistic firearm, replacing the disabler.
+  - rscadd: APS-Arc ballistic taser, replacing the disabler in terms of non-lethal
+      usage.
+  - tweak: Removed disablers from almost every roundstart location.
+  - tweak: You can now declare a crimescene with the security holobarrier projector.
+2025-09-30:
+  BeeLover66:
+  - rscadd: Added unique descriptions for some MOD modules
+  - bugfix: The MOD bluespace storage module now uses its own sprite
+  - bugfix: The prototype MODsuit now has the prototype kinesis module
+  - bugfix: The MOD bike horn module now has the correct name
+  - spellcheck: Items with names beginning with "MOD" are now treated as improper
+      nouns
+  - spellcheck: MOD boots and gauntlets are now plural
+  - spellcheck: Fixed typos in the descriptions of MOD modules

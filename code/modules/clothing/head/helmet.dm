@@ -16,6 +16,7 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
+	custom_price = 100
 
 /datum/armor/head_helmet
 	melee = 35
@@ -95,7 +96,9 @@
 	desc = "A reliable, blue tinted helmet reminding you that you <i>still</i> owe that engineer a beer."
 	icon_state = "blueshift"
 	item_state = "blueshift"
-	custom_premium_price = 450
+	max_demand = 10
+	custom_premium_price = 150
+
 
 /obj/item/clothing/head/helmet/toggleable
 	///chat message when the visor is toggled down.
@@ -117,7 +120,7 @@
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 	to_chat(user, span_notice("[up ? alt_toggle_message : toggle_message] \the [src]."))
 
-	user.update_inv_head()
+	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		carbon_user.head_update(src, forced = TRUE)

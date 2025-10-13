@@ -1,8 +1,9 @@
 /// Tracks information about a client between log in and log outs
 /datum/player_details
-	/// Action datums assigned to this player
-	var/list/datum/action/player_actions = list()
 	/// Tracks client action logging
+	var/ckey
+  /// Action datums assigned to this player
+	var/list/player_actions = list()
 	var/list/logging = list()
 	/// Callbacks invoked when this client logs in again
 	var/list/post_login_callbacks = list()
@@ -22,9 +23,24 @@
 	var/time_of_death = 0
 	/// Whether or not this client has voted to leave
 	var/voted_to_leave = FALSE
+	/// How many commendations we have received
+	var/commendations_received = 0
+	/// How many criticisms have we received?
+	var/criticisms_received = 0
+	/// Have we criticized?
+	var/has_criticized = FALSE
+	/// Bitflags for communications that are muted
+	var/muted = NONE
 
-/datum/player_details/New(key)
-	achievements = new(key)
+/datum/player_details/New(ckey)
+	src.ckey = ckey
+	achievements = new(ckey)
+
+/datum/player_details/proc/find_client()
+	for (var/client/client in GLOB.clients)
+		if (client.ckey == ckey)
+			return client
+	return null
 
 /proc/log_played_names(ckey, ...)
 	if(!ckey)

@@ -12,6 +12,7 @@
 	clothing_flags = SNUG_FIT | THICKMATERIAL | CASTING_CLOTHES
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	custom_price = 25
 
 
 /datum/armor/head_wizard
@@ -92,6 +93,7 @@
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL | CASTING_CLOTHES
+	custom_price = 25
 
 
 /datum/armor/suit_wizrobe
@@ -107,7 +109,7 @@
 	stamina = 50
 	bleed = 60
 
-/obj/item/clothing/suit/wizrobe/ComponentInitialize()
+/obj/item/clothing/suit/wizrobe/Initialize(mapload)
 	. = ..()
 	add_anti_artifact()
 

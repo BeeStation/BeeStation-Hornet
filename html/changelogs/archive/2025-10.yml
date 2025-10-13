@@ -1,0 +1,190 @@
+2025-10-01:
+  Isaac:
+  - bugfix: Modsuit defibrillator can be dual-wielded again
+  Marshmellow105:
+  - rscdel: removed maltodexterin and microplastics
+  Rukofamicom:
+  - balance: Handcuff RNG has been removed. It is no longer possible to randomly break
+      out of cuffs sooner than the full timer, and messages about attempted escapes
+      now happen every ten attempts
+  - tweak: Dragging players which are prone (whether by choice or because they are
+      unable to stand) is now much slower. Fireman carry or use roller bed or other
+      similar item to move someone faster if they are unable or unwilling to stand.
+  - rscadd: Handcuffed players may now severely injure one of their arms to break
+      out of cuffs quickly, dealing 50 damage to a random arm or completely dismembering
+      it if they are a race that is easily delimbed. Bear in mind that this option
+      may not be wise to utilize depending on the circumstances you're in.
+  - bugfix: You now stop trying to break out of handcuffs if someone else removes
+      them
+  Schoolboy215:
+  - rscadd: Alt+clicking on the map in a shuttle clears target and thrust
+  Tsar-Salat:
+  - refactor: splits legs and arms into grandchildren. (bodypart/l_arm is now bodypart/arm/left,
+      etcetera)
+  - tweak: changed TGUI genderpicker to use pronouns
+  - code_imp: cleaned up some TGUI
+  - code_imp: updated player worn state procs
+  mrmanlikesbt:
+  - config: adjusted the nuclear operative and blood cult team size formula
+2025-10-02:
+  Isaacnml:
+  - bugfix: Lavaland syndicate base distro and waste is separated once again
+  - bugfix: Smaller issues related to lavaland syndicate base
+  Tsar-Salat:
+  - bugfix: fixes outwear overlay
+  mrmanlikesbt, Ghilker, GuillaumePrata, OrionTheFox, coiax, lessthnthree, 13spacemen, DrDiasyl, Hatterhat, Xander3359:
+  - rscadd: Holosigns are now transparent
+  - rscadd: You can now right-click an ATMOS holofan projector to enable "clearview"
+      mode, this makes all linked holofans nearly invisible and able to be clicked
+      through until it is disabled or it times out in 40 seconds.
+  - rscadd: Holosigns can now be placed on doors, holofans can be placed on windows
+      too.
+  - tweak: holofans will automatically open a firelock if placed on it
+  - code_imp: Code cleanup for holosigns
+  - admin: Holofans now have hidden fingerprints on them for who placed it.
+2025-10-03:
+  ClownMoff:
+  - rscadd: Clowns can now PDA everyone with a one and a half minute cooldown
+  Rukofamicom:
+  - balance: IPCs have had their racial traits adjusted to make them stand out as
+      a unique race a bit more
+  - tweak: IPCs are now immune to pressure damage, but instead spring an oil leak,
+      which gives them a greater resistance to space exposure without protection but
+      they will still suffer in the long-term if not prepared.
+  - tweak: IPCs are no longer immune to radiation and will suffer burns instead of
+      toxin damage from prolonged radiation exposure. System Cleaner now purges radiation
+      from IPCs in addition to its other effects though.
+  - tweak: IPCs now take 1.5x damage from brute damage.
+  - tweak: IPCs now take 1.5x damage from fires and burn damage, down from 3x and
+      2x respectively.
+  - tweak: IPCs remain functional in soft crit, but still take low steady damage over
+      time when they reach this state.
+  - tweak: IPCs are now immune to stamina damage, and stun batons electrocute them
+      for 15 burn damage. Disablers have no effect on IPCs,
+  - tweak: IPCs now have the easy limb disable trait, meaning they take 40% less damage
+      to disable a limb
+  - tweak: Dismembering a chest is only possible on dead mobs now, no more early organ
+      spilling.
+  - bugfix: Fixed the frail quirk, as well as other instances of easy limb disable.
+      They were non-functional in the code for an unknown amount of time.
+  - bugfix: Mobs that have the easy limb dismemberment trait will now find that they
+      lose their limbs to blunt damage after having them disabled as was originally
+      intended. Previously only the RNG chance was being rolled without the guaranteed
+      dismemberment. This notably affects Skeletons, Zombies, Oozelings and IPCs.
+  - bugfix: Energy swords and daggers have the appropriate sharpness again. Energy
+      swords can dismember easily, and energy daggers can dismember as soon as the
+      limb is disabled.
+  mrmanlikesbt:
+  - bugfix: fixed alt-clicking weight machines crashing your game
+  - bugfix: fixed the ChemMaster reagent analysis- you can press the question mark
+      by a chemical in the ChemMaster to see details about it.
+  - bugfix: fixed the portable thermomachine open panel icon
+  - bugfix: brig physicians now have medical records access as intended
+  - bugfix: fixed dynamic considering people who enter cryo sleep as dead
+  - bugfix: Fixed the chem dispenser UI not properly updating when inserting a beaker
+2025-10-05:
+  Sarchutar:
+  - bugfix: Mining MOD suit gives actual meaningful power now when recharged with
+      plasma ore/sheets
+  mrmanlikesbt:
+  - bugfix: Fixed Sleeping Carp users not being able to do instant aggressive grabs-
+      it is a good traitor item once more
+  - bugfix: You will always attack borgs with your held item while in combat mode
+      instead of attempting whatever relevant item interaction (fixes nightmares not
+      being able to attack borgs)
+  - bugfix: Fixed deathsquads not spawning in with mindshield implants
+  - bugfix: Fixed various security/medical records bugs
+  - rscadd: Made it more obvious that silicons aren't intended to be able to edit
+      security/medical records
+  mrmanlikesbt, Mooshimi, Jolly:
+  - refactor: You shouldn't notice anything, but something has changed about windows.
+      Report anything strange on github
+  mrmanlikesbt, TiviPlus:
+  - rscdel: Deleted the final remnants of the devil
+  'mrmanlikesbt, hry-gh, jlsnow-301, absolucy, JJRcop, SomeRandomOwl, Fikou, lessthnthree, Watermelon914, ':
+  - bugfix: Fixed admin sounds (I am so sorry)
+  - server: Replaces youtube-dl with yt-dlp
+  rkz, mothblocks, skoglol, Primordial:
+  - admin: Going stealth mode now drops your orbiters and blocks you from being orbited.
+  - admin: Stealth mode should reset ghost name correctly.
+  - admin: Ignore and Unignore should not interfere with Stealth Mode
+  - tweak: Split the Ignore verb into two verbs (Ignore and Unignore)
+  - rscadd: Unignore allows you to view your ignore list
+  - rscadd: Unignore allows you to unignore players who are offline
+  rkz, thgvr, fikou:
+  - rscadd: Greyscales all blood decals.
+  - rscadd: Species now all have different blood colors, which will show in the footprints,
+      blood trails, and damage overlays when they get hurt
+  - rscadd: Gave some species their own bloodtype
+  - rscadd: new footstep sprites
+2025-10-06:
+  TsunamiAnt:
+  - refactor: refactored just, all the ERT stuff. Everything. Including some modsuit
+      stuff with things like chrono agent.
+  - tweak: pathfinder modules have been made more loving, but also more rare.
+  - admin: inquisition ERTs are now fixed!
+2025-10-07:
+  mrmanlikesbt:
+  - rscadd: Added dynamic storytellers
+  mrmanlikesbt, tralezab, Cornelius Bogfrollup Fitzgerald, Mooshimi, MrMelbert, TealSeer, JohnFulpWillard:
+  - bugfix: Fixed jukeboxes
+  - refactor: Refactored jukebox code
+  - imageadd: Gave jukeboxes a new sprite
+  - rscdel: Deleted some ancient unused sprites
+2025-10-08:
+  PowerfulBacon:
+  - tweak: Adds a commendation buttons to LOOC chats, which rewards 1 beecoin to both
+      players.
+  - tweak: Adds a criticize button to LOOC chat, which can only be used once per round
+      and will cause a player to be muted after 2-5 minutes if they do not have enough
+      commendations.
+  Rukofamicom:
+  - tweak: Mesons no longer detect false walls that are closed. Open false walls will
+      still appear as an opening though.
+  - tweak: The bolts on false walls are now tightened with wrenches instead of screwdrivers.
+  - bugfix: picking up two of the same stabilized extract no longer renders one of
+      them permanently inert
+  - tweak: picking up two DIFFERENT stabilized extracts now destroys the second one.
+      Pick between automatic healing and no equipment slowdown, you don't get both.
+2025-10-09:
+  TsunamiAnt:
+  - rscadd: Victims of a vampire's mesmerize / feed are now told what the hell is
+      going on.
+  mrmanlikesbt:
+  - bugfix: fixed not having gravity when traveling on a shuttle
+  r1ks-iwnl:
+  - bugfix: Fixed being unable to load foam force guns
+2025-10-10:
+  PinkSuzuki:
+  - rscadd: All objects now have an export value
+  - rscadd: Added a supply/demand feature to export values
+  - tweak: Improved export scanner readings including, readability, demand (aka stock),
+      contraband checks and gas price analisys
+  - tweak: Added visual and sound effects to the export scanner
+  - tweak: Items that aren't sold on the cargo shuttle (either due to being worth
+      nothing or because they are blocked from being sold) will stay on the shuttle
+      for return instead of being deleted
+  - bugfix: Fixed Multiple export errors
+  - bugfix: Fixed an exploit that caused any items to be able to be deleted by using
+      the cargo shuttle
+  - refactor: Removed a lot of export datums in favour of a catchall datum for all
+      objects that do NOT fit other export datums
+  - balance: Reduced starting cargo budget to 2000 credits, because of this all other
+      department cards got 8000 starting cargo budget
+  - code_imp: Added a framework for defining standard department budgets
+  - code_imp: Some types such as stock_parts and stacks have a calculate_price proc
+      that handles custom_price based on different factors (part tier, stack amount,
+      for instance)
+  - balance: Items now start with a randomized price based on their weight if a custom
+      price isn't set
+2025-10-11:
+  Isaac:
+  - bugfix: Untints cardstation medical directional windows
+2025-10-12:
+  mrmanlikesbt, CoffeeDragon16, Paxilmaniac:
+  - rscadd: beware of the clown with a piano (falling objects now deal damage and
+      pianos crush people)
+  - rscadd: Pianos now have a broken sprite (this was always in the game, but unused)
+  - soundadd: Pianos have a sound for being hit now
+  - tweak: Pianos are no longer randomly a minimoog on spawn, there is now a mapping
+      helper for that now

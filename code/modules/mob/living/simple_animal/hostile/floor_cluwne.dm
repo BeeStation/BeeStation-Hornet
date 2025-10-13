@@ -425,7 +425,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	stage = STAGE_HAUNT
 	Acquire_Victim()
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(var/mob/living/H)
+/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(mob/living/H)
 	if(!istype(H) || !H.client)		return  // if theyre not human or they're afk
 	current_victim = H
 	target = H
@@ -472,7 +472,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
 		sac_target.legcuffed.dropped(sac_target)
 		sac_target.legcuffed = null
-		sac_target.update_inv_legcuffed()
+		sac_target.update_worn_legcuffs()
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))

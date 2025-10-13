@@ -329,11 +329,6 @@
 
 	base_icon_state = "defibpaddles"
 
-/obj/item/shockpaddles/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
-	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
-
 /obj/item/shockpaddles/Destroy()
 	defib = null
 	listeningTo = null
@@ -388,13 +383,21 @@
 /obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, GENERIC_ITEM_TRAIT) //stops shockpaddles from being inserted in BoH
-	if(!req_defib)
-		return //If it doesn't need a defib, just say it exists
-	if (!loc || !istype(loc, /obj/item/defibrillator)) //To avoid weird issues from admin spawns
-		return INITIALIZE_HINT_QDEL
-	defib = loc
-	busy = FALSE
-	update_appearance()
+
+	// Defib-specific initialization
+	if(req_defib)
+		// Check if we are inside a defibrillator; if not, delete the object.
+		if (!loc || !istype(loc, /obj/item/defibrillator))
+			return INITIALIZE_HINT_QDEL
+
+		// If valid, set up the reference and appearance.
+		defib = loc
+		busy = FALSE
+		update_appearance()
+
+	// Common initialization
+	AddElement(/datum/element/update_icon_updates_onmob)
+	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
 
 /obj/item/shockpaddles/update_icon_state()
 	var/wielded = ISWIELDED(src)
@@ -514,7 +517,7 @@
 
 /obj/item/shockpaddles/proc/can_defib(mob/living/carbon/H)
 	var/obj/item/organ/heart = H.get_organ_by_type(/obj/item/organ/heart)
-	if(H.suiciding || H.ishellbound() || HAS_TRAIT(H, TRAIT_HUSK))
+	if(H.suiciding || HAS_TRAIT(H, TRAIT_HUSK))
 		return
 	if((world.time - H.timeofdeath) > tlimit)
 		return
@@ -627,8 +630,6 @@
 
 				if (H.suiciding)
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Recovery of patient impossible. Further attempts futile.")
-				else if (H.ishellbound())
-					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's soul appears to be on another plane of existence.  Further attempts futile.")
 				else if (tplus > tlimit)
 					failed = span_warning("[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Body has decayed for too long. Further attempts futile.")
 				else if (!heart)

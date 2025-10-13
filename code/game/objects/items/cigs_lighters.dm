@@ -217,7 +217,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				user.put_in_hands(cig_butt)
 				playsound(user, 'sound/items/cig_snuff.ogg', 25, 1)
 
-/obj/item/clothing/mask/cigarette/afterattack(var/target, mob/living/user, proximity)
+/obj/item/clothing/mask/cigarette/afterattack(target, mob/living/user, proximity)
 	if (istype(target, /mob/living))
 		butt(target, user, proximity)
 		. = ..()
@@ -261,8 +261,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	//can't think of any other way to update the overlays :<
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_mask()
-		M.update_inv_hands()
+		M.update_worn_mask()
+		M.update_held_items()
 
 	playsound(src, 'sound/items/cig_light.ogg', 75, 1, -1)
 
@@ -283,8 +283,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(ismob(loc))
 		var/mob/living/M = loc
 		to_chat(M, span_notice("Your [name] goes out."))
-		M.update_inv_wear_mask()
-		M.update_inv_hands()
+		M.update_worn_mask()
+		M.update_held_items()
 
 /obj/item/clothing/mask/cigarette/proc/handle_reagents()
 	if(reagents.total_volume)
@@ -551,7 +551,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			lit = 0
 			icon_state = icon_off
 			item_state = icon_off
-			M.update_inv_wear_mask()
+			M.update_worn_mask()
 			packeditem = 0
 			name = "empty [initial(name)]"
 		STOP_PROCESSING(SSobj, src)
@@ -646,6 +646,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	resistance_flags = FIRE_PROOF
 	light_color = LIGHT_COLOR_FIRE
 	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/oil = 5)
+	custom_price = 20
 
 /obj/item/lighter/Initialize(mapload)
 	. = ..()
@@ -870,6 +871,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
+	custom_price = 30
 	var/chem_volume = 100
 	var/vapetime = 0 //this so it won't puff out clouds every tick
 	/// How often we take a drag in seconds

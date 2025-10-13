@@ -14,6 +14,8 @@
 	. = ..()
 	atom_storage.max_slots = 1
 
+	AddElement(/datum/element/falling_hazard, damage = 5, hardhat_safety = TRUE, crushes = FALSE, impact_sound = drop_sound)
+
 /obj/item/storage/book/attack_self(mob/user)
 	to_chat(user, span_notice("The pages of [title] have been cut out!"))
 
@@ -35,11 +37,12 @@
 	var/deity_name = "Christ"
 	force_string = "holy"
 
-/obj/item/storage/book/bible/ComponentInitialize()
+/obj/item/storage/book/bible/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, \
-	_source = src, \
-	antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY))
+		_source = src, \
+		antimagic_flags = (MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY) \
+	)
 
 /obj/item/storage/book/bible/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!"))

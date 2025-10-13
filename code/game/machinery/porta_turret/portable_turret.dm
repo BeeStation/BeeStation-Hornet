@@ -139,7 +139,7 @@
 	if(!has_cover)
 		INVOKE_ASYNC(src, PROC_REF(pop_up))
 
-/obj/machinery/porta_turret/proc/toggle_on(var/set_to)
+/obj/machinery/porta_turret/proc/toggle_on(set_to)
 	var/current = on
 	if (!isnull(set_to))
 		on = set_to
@@ -482,7 +482,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 			else if(iscarbon(mob_target))
 				var/mob/living/carbon/carbon_target = mob_target
 				//If not emagged, only target carbons that can use items
-				if(mode != TURRET_LETHAL && (carbon_target.stat || carbon_target.handcuffed || !(carbon_target.mobility_flags & MOBILITY_USE)))
+				if(mode != TURRET_LETHAL && (carbon_target.stat || HAS_TRAIT(carbon_target, TRAIT_INCAPACITATED) || carbon_target.handcuffed || !(carbon_target.mobility_flags & MOBILITY_USE)))
 					continue
 
 				//If emagged, target all but dead carbons
@@ -569,7 +569,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		if (!perp.has_mindshield_hud_icon())
 			. += 4
 
-/obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
+/obj/machinery/porta_turret/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
 		return TRUE
 	return FALSE
@@ -736,7 +736,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	stun_projectile_sound = 'sound/weapons/gunshot.ogg'
 	faction = list(FACTION_SYNDICATE)
 
-/obj/machinery/porta_turret/syndicate/ComponentInitialize()
+/obj/machinery/porta_turret/syndicate/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
@@ -862,7 +862,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	faction = list(FACTION_NEUTRAL,FACTION_SILICON,FACTION_TURRET)
 	mode = TURRET_LETHAL
 
-/obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()
+/obj/machinery/porta_turret/centcom_shuttle/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
