@@ -6,9 +6,15 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/item/glasses_of_truesight
+	name = "Glasses of Truesight"
+	desc = "A pair of glasses that allows you to see those that would hide from you"
+	item_path = /obj/item/clothing/glasses/red/wizard
+	category = "Assistance"
+
 /datum/spellbook_entry/raise_skeleton
 	name = "Raise Skeleton"
-	desc = "Lets you rip the skeleton out of a fallen enemy and raise it as a loyal, if fragile minion."
+	desc = "Lets you rip the skeleton out of a fallen enemy and raise it as a loyal minion."
 	spell_type = /datum/action/spell/touch/raise_skeleton
 	category = "Assistance"
 

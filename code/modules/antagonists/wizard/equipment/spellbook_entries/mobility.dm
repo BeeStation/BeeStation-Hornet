@@ -30,6 +30,12 @@
 	spell_type = /datum/action/spell/jaunt/ethereal_jaunt
 	category = "Mobility"
 
+/datum/spellbook_entry/item/ring_of_translocation
+	name = "Ring of Translocation"
+	desc = "A ring that allows the wearer to swap places with another person they can see."
+	item_path = /obj/item/clothing/gloves/translocation_ring
+	category = "Mobility"
+
 /datum/spellbook_entry/item/warpwhistle
 	name = "Warp Whistle"
 	desc = "A strange whistle that will transport you to a distant safe place on the station. There is a window of vulnerability at the beginning of every use."
