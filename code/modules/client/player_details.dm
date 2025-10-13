@@ -1,6 +1,5 @@
 /// Tracks information about a client between log in and log outs
 /datum/player_details
-	/// Tracks client action logging
 	var/ckey
 	/// Action datums assigned to this player
 	var/list/player_actions = list()
