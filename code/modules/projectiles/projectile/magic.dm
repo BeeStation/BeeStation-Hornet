@@ -53,9 +53,6 @@
 	icon_state = "prison_orb"
 	martial_arts_no_deflect = TRUE
 	speed = 3
-	ricochets_max = 3
-	ricochet_chance = 100
-	ricochet_decay_chance = 0
 	var/captured = FALSE
 
 /obj/projectile/magic/prison_orb/prehit_pierce(atom/target)
@@ -67,9 +64,6 @@
 		new_prison.update_icon()
 		captured = TRUE
 		return PROJECTILE_DELETE_WITHOUT_HITTING
-
-/obj/projectile/magic/prison_orb/check_ricochet_flag(atom/A)
-	return TRUE //Always bounce on impact
 
 /obj/projectile/magic/prison_orb/Destroy()
 	if(!captured)

@@ -1,7 +1,7 @@
 /datum/action/spell/pointed/projectile/arcane_prison
 	name = "Arcane Prison"
 	desc = "Trap your target in a sphere of arcane energy for a short while. They will be unable to move or act while inside, but will also be unharmed."
-	button_icon_state = "prisonorb0"
+	button_icon_state = "prison_orb0"
 
 	sound = 'sound/magic/forcewall.ogg'
 	school = SCHOOL_CONJURATION
@@ -12,7 +12,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
-	base_icon_state = "prisonorb0"
+	base_icon_state = "prison_orb"
 	active_msg = "You prepare to cast an arcane prison!"
 	deactive_msg = "They will remain free... for now."
 	cast_range = 50

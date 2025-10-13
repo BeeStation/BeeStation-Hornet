@@ -58,10 +58,10 @@
 	if(!candidate)
 		to_chat(caster, span_warning("This skeleton seems a bit mindless..."))
 		var/mob/living/simple_animal/hostile/skeleton/mindless_skeleton = new(skeleton_turf)
-		mindless_skeleton.faction = caster.faction
+		mindless_skeleton.faction = list(FACTION_WIZARD)
 		mindless_skeleton.maxHealth = rand(80, 125)
 		mindless_skeleton.melee_damage = rand(12, 20)
-		mindless_skeleton.loot = list(/mob/living/carbon/human/species/skeleton)
+		mindless_skeleton.loot = list(/obj/item/bodypart/arm/left/skeleton, /obj/item/bodypart/arm/right/skeleton, /obj/item/bodypart/leg/left/skeleton, /obj/item/bodypart/leg/right/skeleton, /obj/item/bodypart/head/skeleton, /obj/item/bodypart/chest/skeleton)
 		return TRUE //Technically a success
 
 	var/datum/mind/candidate_mind = new /datum/mind(candidate.key)
