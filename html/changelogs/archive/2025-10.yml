@@ -188,3 +188,6 @@
   - soundadd: Pianos have a sound for being hit now
   - tweak: Pianos are no longer randomly a minimoog on spawn, there is now a mapping
       helper for that now
+2025-10-13:
+  san7890 MrMelbert larentoun:
+  - rscadd: Added respawning.
