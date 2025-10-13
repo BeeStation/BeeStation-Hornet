@@ -537,8 +537,8 @@
 				L.adjustFireLoss(-3.5)
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
-				// Only heal if the mob is NOT flagged as a Spirit
-				if (! (MOB_SPIRIT in SM.mob_biotypes) )
+				// Only heal them if they're not a revenant
+				if (!isrevenant(L))
 					SM.adjustHealth(-3.5, forced = TRUE)
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Blessing of the Necropolis"
