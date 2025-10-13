@@ -63990,7 +63990,6 @@
 	pixel_y = -4
 	},
 /obj/structure/sign/warning/electricshock{
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/siding/dark_red{
@@ -73678,8 +73677,7 @@
 	icon_state = "woodbucket"
 	},
 /obj/item/grown/log/tree{
-	pixel_x = 5;
-	pixel_y = 0
+	pixel_x = 5
 	},
 /obj/structure/railing/perspective/black{
 	dir = 8
@@ -74062,7 +74060,6 @@
 	real_name = "Betsy"
 	},
 /obj/structure/sign/poster/contraband/kudzu{
-	pixel_y = 0;
 	pixel_x = 32
 	},
 /turf/open/floor/grass,
