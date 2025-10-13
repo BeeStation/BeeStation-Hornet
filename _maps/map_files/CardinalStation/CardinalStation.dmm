@@ -4397,6 +4397,22 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"aTT" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/half{
+	dir = 8
+	},
+/obj/machinery/disposal/bin,
+/obj/machinery/status_display/evac/directional/south,
+/obj/effect/turf_decal/box,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/sleeper)
 "aUa" = (
 /obj/structure/platform/gray{
 	dir = 6
@@ -8814,19 +8830,6 @@
 /obj/effect/landmark/start/mime,
 /turf/open/floor/iron/sepia,
 /area/crew_quarters/theatre)
-"bNP" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 8
-	},
-/obj/structure/table/glass,
-/obj/item/glove_box{
-	pixel_x = 7;
-	pixel_y = 11
-	},
-/obj/effect/loot_jobscale/medical/medkits,
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/sleeper)
 "bNW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
@@ -10117,6 +10120,18 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
+"bZS" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 8
+	},
+/obj/structure/table/glass,
+/obj/effect/turf_decal/tile/blue/half{
+	dir = 8
+	},
+/obj/effect/loot_jobscale/medical/medkits,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/sleeper)
 "bZX" = (
 /obj/structure/table/reinforced,
 /obj/item/kirbyplants/random{
@@ -18070,6 +18085,14 @@
 /obj/item/gun/energy/e_gun/mini/exploration,
 /turf/open/floor/carpet/cyan,
 /area/quartermaster/exploration_prep)
+"dBP" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 4
+	},
+/obj/machinery/iv_drip,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/sleeper)
 "dBX" = (
 /obj/effect/turf_decal/trimline/yellow/warning,
 /obj/effect/turf_decal/trimline/yellow/warning{
@@ -28950,6 +28973,15 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/service)
+"fWo" = (
+/obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/effect/turf_decal/siding/dark,
+/obj/effect/spawner/structure/random_piano,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/theatre/backstage)
 "fWs" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -31053,6 +31085,19 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
+"gpJ" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 8
+	},
+/obj/structure/table/glass,
+/obj/item/glove_box{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/obj/effect/loot_jobscale/medical/medkits,
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/sleeper)
 "gpX" = (
 /obj/structure/closet/secure_closet/brig_physician,
 /obj/item/clothing/under/rank/medical/doctor/purple{
@@ -33502,6 +33547,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
+"gOn" = (
+/obj/effect/turf_decal/trimline/blue/filled/corner{
+	dir = 8
+	},
+/obj/structure/window/reinforced/corner/spawner/directional/west,
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/sleeper)
 "gOo" = (
 /obj/effect/turf_decal/trimline/neutral/filled/warning{
 	dir = 1
@@ -39154,18 +39206,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"hXe" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/west,
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 8
-	},
-/obj/structure/table/glass,
-/obj/effect/turf_decal/tile/blue/half{
-	dir = 8
-	},
-/obj/effect/loot_jobscale/medical/medkits,
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/sleeper)
 "hXp" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -49721,13 +49761,6 @@
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"kek" = (
-/obj/effect/turf_decal/trimline/blue/filled/corner{
-	dir = 8
-	},
-/obj/structure/window/reinforced/tinted/corner/spawner/directional/west,
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/sleeper)
 "ker" = (
 /obj/effect/turf_decal/trimline/brown/filled/line,
 /turf/open/floor/iron/sepia,
@@ -67456,22 +67489,6 @@
 /obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/textured_half,
 /area/quartermaster/storage)
-"nIM" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/half{
-	dir = 8
-	},
-/obj/machinery/disposal/bin,
-/obj/machinery/status_display/evac/directional/south,
-/obj/effect/turf_decal/box,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/sleeper)
 "nIU" = (
 /obj/machinery/camera/directional/east{
 	c_tag = "Chapel Office - Backroom"
@@ -68572,11 +68589,6 @@
 /obj/item/stock_parts/cell/hyper,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
-"nVa" = (
-/obj/effect/turf_decal/trimline/blue/filled/corner,
-/obj/structure/window/reinforced/tinted/corner/spawner/directional/south,
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/sleeper)
 "nVg" = (
 /obj/effect/turf_decal/trimline/yellow/filled/corner,
 /obj/machinery/light/small/directional/south,
@@ -101390,14 +101402,6 @@
 	},
 /turf/open/floor/carpet/black,
 /area/vacant_room/office)
-"uDL" = (
-/obj/structure/window/reinforced/tinted/spawner/directional/east,
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 4
-	},
-/obj/machinery/iv_drip,
-/turf/open/floor/iron/white/smooth_large,
-/area/medical/sleeper)
 "uDS" = (
 /obj/effect/turf_decal/stripes/white{
 	dir = 6
@@ -110198,18 +110202,6 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron/white,
 /area/science/research)
-"wqm" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/structure/sign/poster/official/random/directional/south,
-/obj/effect/turf_decal/siding/dark,
-/obj/structure/musician/piano{
-	icon_state = "piano";
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/theatre/backstage)
 "wqn" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -112426,6 +112418,11 @@
 	},
 /turf/open/floor/iron/dark/smooth_edge,
 /area/security/warden)
+"wPs" = (
+/obj/effect/turf_decal/trimline/blue/filled/corner,
+/obj/structure/window/reinforced/corner/spawner/directional/south,
+/turf/open/floor/iron/white/smooth_large,
+/area/medical/sleeper)
 "wPB" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -158389,7 +158386,7 @@ ker
 upT
 tLt
 wBA
-wqm
+fWo
 jKy
 udB
 rtq
@@ -168147,9 +168144,9 @@ xZx
 wNy
 tuG
 mZp
-kek
-bNP
-hXe
+gOn
+gpJ
+bZS
 wNy
 drY
 vKZ
@@ -168661,9 +168658,9 @@ ymi
 wNy
 azI
 mZp
-nVa
-uDL
-nIM
+wPs
+dBP
+aTT
 wNy
 omP
 iDn

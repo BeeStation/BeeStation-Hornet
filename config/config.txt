@@ -223,8 +223,14 @@ VOTE_PERIOD 600
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
 
-## disable abandon mob
-NORESPAWN
+## Determines if players can respawn after death
+## 0 = Cannot respawn (default)
+## 1 = Can respawn
+## 2 = Can respawn if choosing a different character
+ALLOW_RESPAWN 2
+
+## Respawn delay(in deciseconds), which doesn't allow to return to lobby, default 5 minutes
+RESPAWN_DELAY 3000
 
 ## disables calling del(src) on newmobs if they logout before spawnin in
 # DONT_DEL_NEWMOB
