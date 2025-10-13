@@ -1,0 +1,5 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: Revenants no longer get free Soul Essence from the healing coming from
+      Rod of Asclepius and undead simple animals wont get healed by the rod either
