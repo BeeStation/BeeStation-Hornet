@@ -191,6 +191,9 @@
 2025-10-13:
   BotTierPC:
   - tweak: Overhauls Meta-Station Dorms, Washrooms, Garden, and Locker Room.
+  Isaac:
+  - bugfix: Revenants no longer get free Soul Essence from the healing coming from
+      Rod of Asclepius and undead simple animals wont get healed by the rod either
   lord scrubling:
   - bugfix: chaplain grave robber hat now has armor
   san7890 MrMelbert larentoun:
