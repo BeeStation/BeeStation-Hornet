@@ -118,3 +118,17 @@
 	desc = "A sword capable of firing blasts of energy which rip targets limb from limb."
 	item_path = /obj/item/gun/magic/staff/spellblade
 	category = "Offensive"
+
+/datum/spellbook_entry/item/draining_wand
+	name = "Wand of Drain Vitality"
+	desc = "A dark wand that saps the very life force from your target, giving it to you instead"
+	item_path = /obj/item/gun/magic/wand/drain
+	category = "Offensive"
+	cost = 1
+
+/datum/spellbook_entry/item/fire_wand
+	name = "Wand of Fire Bolt"
+	desc = "This wand shoots scorching balls of fire that ignite anyone they hit. Not as powerful as a proper fireball but still very dangerous."
+	item_path = /obj/item/gun/magic/wand/firebolt
+	category = "Offensive"
+	cost = 1

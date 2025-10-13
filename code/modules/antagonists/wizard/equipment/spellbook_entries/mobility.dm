@@ -49,3 +49,10 @@
 	item_path = /obj/item/gun/magic/staff/door
 	cost = 1
 	category = "Mobility"
+
+/datum/spellbook_entry/item/teleport_wand
+	name = "Wand of Teleportation"
+	desc = "A wand that teleports those affected by it to a random somewhat nearby location. Useful for both getaways and \"GET AWAY!\""
+	item_path = /obj/item/gun/magic/wand/teleport
+	category = "Mobility"
+	cost = 1

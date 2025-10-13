@@ -718,6 +718,23 @@
 		/obj/item/gun/magic/wand
 		))
 
+/obj/item/storage/belt/wands/random/PopulateContents()
+	var/variable_wand_list = list(
+		/obj/item/gun/magic/wand/drain,
+		/obj/item/gun/magic/wand/firebolt,
+		/obj/item/gun/magic/wand/teleport,
+		/obj/item/gun/magic/wand/animation,
+		/obj/item/gun/magic/wand/nutrition,
+		/obj/item/gun/magic/wand/icy_blast
+		)
+
+	//Wizard belt always contains a healing wand + three random wands
+	new /obj/item/gun/magic/wand/healing(src)
+	for(var/i in 1 to 3)
+		var/wand_type = pick(variable_wand_list)
+		new wand_type(src)
+		variable_wand_list -= wand_type
+
 /obj/item/storage/belt/wands/full/PopulateContents()
 	new /obj/item/gun/magic/wand/drain(src)
 	new /obj/item/gun/magic/wand/healing(src)

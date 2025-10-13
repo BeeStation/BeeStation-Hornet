@@ -146,3 +146,17 @@
 	item_path = /obj/item/wizard_armour_charge
 	category = "Defensive"
 	cost = 1
+
+/datum/spellbook_entry/item/healing_wand
+	name = "Wand of Healing"
+	desc = "A wand that can close any wound, though it cannot restore limbs or organs. You can use it on yourself."
+	item_path = /obj/item/gun/magic/wand/healing
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/item/ice_wand
+	name = "Wand of Icy Blast"
+	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
+	item_path = /obj/item/gun/magic/wand/icy_blast
+	category = "Defensive"
+	cost = 1

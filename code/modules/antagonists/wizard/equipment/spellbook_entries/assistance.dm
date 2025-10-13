@@ -103,3 +103,17 @@
 	limit = 3
 	category = "Assistance"
 	refundable = TRUE
+
+/datum/spellbook_entry/item/animation_wand
+	name = "Wand of Animation"
+	desc = "A wand that can animate ordinary objects into aggressively loyal minions for a short while."
+	item_path = /obj/item/gun/magic/wand/animation
+	category = "Assistance"
+	cost = 1
+
+/datum/spellbook_entry/item/nutrition_wand
+	name = "Wand of Nutrition"
+	desc = "A wand that can end universal hunger... and then some."
+	item_path = /obj/item/gun/magic/wand/nutrition
+	category = "Assistance"
+	cost = 1
