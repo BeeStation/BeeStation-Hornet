@@ -372,7 +372,7 @@
 	r_hand = null
 	l_hand = null
 	r_pocket = /obj/item/teleportation_scroll/apprentice
-	belt = belt = /obj/item/storage/belt/wands //empty belt for receiving wands from the master wizard
+	belt = /obj/item/storage/belt/wands //empty belt for receiving wands from the master wizard
 
 /datum/outfit/wizard/red
 	name = "Red Wizard"
