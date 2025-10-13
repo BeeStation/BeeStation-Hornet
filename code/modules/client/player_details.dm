@@ -2,7 +2,7 @@
 /datum/player_details
 	/// Tracks client action logging
 	var/ckey
-  /// Action datums assigned to this player
+	/// Action datums assigned to this player
 	var/list/player_actions = list()
 	var/list/logging = list()
 	/// Callbacks invoked when this client logs in again
