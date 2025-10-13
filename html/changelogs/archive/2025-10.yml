@@ -189,5 +189,7 @@
   - tweak: Pianos are no longer randomly a minimoog on spawn, there is now a mapping
       helper for that now
 2025-10-13:
+  lord scrubling:
+  - bugfix: chaplain grave robber hat now has armor
   san7890 MrMelbert larentoun:
   - rscadd: Added respawning.
