@@ -1,7 +1,7 @@
 /datum/action/spell/touch/raise_skeleton
 	name = "Raise Skeleton"
 	desc = "This spell can be used to rip the skeleton out of a corpse and raise it as a loyal minion"
-	button_icon_state = "death0" //RUKO-TODO Placeholder
+	button_icon_state = "raise_skeleton"
 	sound = 'sound/magic/RATTLEMEBONES.ogg'
 
 	school = SCHOOL_NECROMANCY
@@ -9,6 +9,8 @@
 	cooldown_reduction_per_rank = 1 MINUTES //Very slow with only one rank, but gets pretty good when its your main focus
 
 	invocation = "VIT MORTE!"
+	invocation_type = INVOCATION_SHOUT
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB
 
 	hand_path = /obj/item/melee/touch_attack/raise_skeleton
 

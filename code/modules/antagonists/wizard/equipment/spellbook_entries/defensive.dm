@@ -77,6 +77,14 @@
 	spell_type = /datum/action/spell/conjure/bee
 	category = "Defensive"
 
+//Essentially a lesser version of the locker staff that doesn't require a staff and is cheaper
+/datum/spellbook_entry/arcane_prison
+	name = "Arcane Prison"
+	desc = "Fires a sphere of magical energy that captures the first living target it hits inside for a short time."
+	spell_type = /datum/action/spell/pointed/projectile/arcane_prison
+	category = "Defensive"
+	cost = 1
+
 //There was supposed to be a cursed duffelbag that eats you but it requires code beyond the scope of this pr
 
 /datum/spellbook_entry/item/staffhealing

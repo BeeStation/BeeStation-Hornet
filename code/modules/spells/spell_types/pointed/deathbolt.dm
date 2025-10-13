@@ -10,7 +10,7 @@
 
 	invocation = "ADABA KEVRA!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB
 
 	base_icon_state = "death0"
 	active_msg = "You prepare to cast a bolt of death!"

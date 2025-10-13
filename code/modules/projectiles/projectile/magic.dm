@@ -48,6 +48,74 @@
 	if(isliving(target))
 		target.death()
 
+/obj/projectile/magic/prison_orb
+	name = "arcane prison"
+	icon_state = "prison_orb"
+	martial_arts_no_deflect = TRUE
+	speed = 3
+	ricochets_max = 3
+	ricochet_chance = 100
+	ricochet_decay_chance = 0
+	var/captured = FALSE
+
+/obj/projectile/magic/prison_orb/prehit_pierce(atom/target)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/victim = target
+		var/obj/structure/prison_orb/new_prison = new(get_turf(victim))
+		victim.forceMove(new_prison) //They are now inside of the bubble
+		new_prison.update_icon()
+		captured = TRUE
+		return PROJECTILE_DELETE_WITHOUT_HITTING
+
+/obj/projectile/magic/prison_orb/check_ricochet_flag(atom/A)
+	return TRUE //Always bounce on impact
+
+/obj/projectile/magic/prison_orb/Destroy()
+	if(!captured)
+		new /obj/effect/temp_visual/prison_burst(loc)
+		playsound(loc, 'sound/magic/repulse.ogg', 35, TRUE)
+	return ..()
+
+/obj/structure/prison_orb
+	name = "arcane prison"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "prison_orb"
+	max_integrity = 45 //It only lasts a few seconds, but can be broken a bit faster if desired
+	density = TRUE
+	var/pop_effect = /obj/effect/temp_visual/prison_burst
+
+/obj/structure/prison_orb/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, take_damage), max_integrity), 10 SECONDS)
+
+/obj/structure/prison_orb/update_icon(updates)
+	cut_overlays()
+	for(var/atom/movable/something as anything in contents)
+		if(isliving(something))
+			var/image/victim_overlay = image(something.icon, something.icon_state)
+			victim_overlay.copy_overlays(something)
+			add_overlay(victim_overlay)
+	add_overlay("prison_orb_overlay")
+	return ..()
+
+/obj/structure/prison_orb/Destroy()
+	var/turf/dropturf = get_turf(src)
+	for(var/atom/movable/something as anything in contents)
+		if(isliving(something))
+			var/mob/living/victim = something
+			victim.Knockdown(3 SECONDS)
+		something.forceMove(dropturf) //Just in case they dropped something inside.
+	new /obj/effect/temp_visual/prison_burst(dropturf)
+	return ..()
+
+/obj/effect/temp_visual/prison_burst
+	name = "prison orb"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "prison_orb_burst"
+	layer = ABOVE_ALL_MOB_LAYER
+	duration = 3
+
 /obj/projectile/magic/dismember
 	name = "bolt of dismembering"
 	icon_state = "scatterlaser"

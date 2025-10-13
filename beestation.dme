@@ -4311,6 +4311,7 @@
 #include "code\modules\spells\spell_types\list_targets\telepathy.dm"
 #include "code\modules\spells\spell_types\pointed\_pointed.dm"
 #include "code\modules\spells\spell_types\pointed\abyssal_gaze.dm"
+#include "code\modules\spells\spell_types\pointed\arcane_prison.dm"
 #include "code\modules\spells\spell_types\pointed\barnyard.dm"
 #include "code\modules\spells\spell_types\pointed\blind.dm"
 #include "code\modules\spells\spell_types\pointed\deathbolt.dm"
