@@ -197,8 +197,6 @@
 
 /datum/config_entry/string/hostedby
 
-/datum/config_entry/flag/permadeath_enabled
-
 /// Determines if a player can respawn after dying.
 /// 0 / RESPAWN_FLAG_DISABLED = Cannot respawn (default)
 /// 1 / RESPAWN_FLAG_FREE = Can respawn
