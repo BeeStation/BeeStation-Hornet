@@ -105,7 +105,7 @@
 		/obj/item/clothing/gloves/translocation_ring,
 		/obj/item/clothing/glasses/red/wizard,
 		/obj/item/tank/internals,
-		 )
+		)
 
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50

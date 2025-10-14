@@ -888,7 +888,7 @@
 		/obj/item/clothing/gloves/translocation_ring,
 		/obj/item/clothing/glasses/red/wizard,
 		/obj/item/tank/internals,
-		 )
+		)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
