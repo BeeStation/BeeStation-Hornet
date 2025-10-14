@@ -17,6 +17,7 @@
 	desc = "Lets you command an unlimited number of loyal skeletons, but they are not always able to reach their fullest potential and may attack enemies mindlessly."
 	spell_type = /datum/action/spell/touch/raise_skeleton
 	category = "Assistance"
+	cost = 1
 
 /datum/spellbook_entry/charge
 	name = "Charge"
