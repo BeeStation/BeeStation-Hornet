@@ -293,7 +293,7 @@
 	var/bad_mutation_list = list()
 	var/minor_mutation_list = list()
 
-/obj/projectile/magic/potential/Initialize()
+/obj/projectile/magic/potential/Initialize(mapload)
 	. = ..()
 	//Populate our mutation lists
 	var/list/all_mutations = subtypesof(/datum/mutation)
