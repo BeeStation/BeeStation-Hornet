@@ -4,7 +4,7 @@
 /area/template_noop)
 "b" = (
 /obj/structure/table,
-/obj/item/gun/magic/staff/healing,
+/obj/item/gun/magic/wand/healing,
 /turf/open/indestructible,
 /area/template_noop)
 "c" = (

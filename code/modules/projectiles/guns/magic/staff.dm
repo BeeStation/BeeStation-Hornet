@@ -13,7 +13,6 @@
 	block_power = 50
 	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 
-
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
@@ -30,15 +29,15 @@
 	icon_state = "staffofdismember"
 	item_state = "staffofdismember"
 
-/obj/item/gun/magic/staff/healing
-	name = "staff of healing"
-	desc = "An artefact that spits bolts of restoring magic which can remove ailments of all kinds and even raise the dead."
+/obj/item/gun/magic/staff/potential
+	name = "staff of latent potential"
+	desc = "An artefact that will unlock someone's greatest potential, or take it away again. Not everyone is destined for greatness."
 	fire_sound = 'sound/magic/staff_healing.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/heal/greater
-	icon_state = "staffofhealing"
-	item_state = "staffofhealing"
+	ammo_type = /obj/item/ammo_casing/magic/potential
+	icon_state = "staffofpotential"
+	item_state = "staffofpotential"
 
-/obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
+/obj/item/gun/magic/staff/potential/handle_suicide() //Stops people trying to commit suicide to heal themselves
 	return
 
 /obj/item/gun/magic/staff/chaos

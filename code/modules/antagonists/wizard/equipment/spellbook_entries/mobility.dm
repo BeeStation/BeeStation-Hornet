@@ -18,12 +18,6 @@
 	spell_type = /datum/action/spell/teleport/radius_turf/blink
 	category = "Mobility"
 
-/datum/spellbook_entry/teleport
-	name = "Teleport"
-	desc = "Teleports you to an area of your selection."
-	spell_type = /datum/action/spell/teleport/area_teleport/wizard
-	category = "Mobility"
-
 /datum/spellbook_entry/jaunt
 	name = "Ethereal Jaunt"
 	desc = "Turns your form ethereal, temporarily making you invisible and able to pass through walls."

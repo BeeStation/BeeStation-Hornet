@@ -146,6 +146,8 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	if(H.age < wiz_age)
 		H.age = wiz_age
 	H.equipOutfit(outfit_type)
+	var/datum/action/spell/new_spell = new /datum/action/spell/teleport/area_teleport/wizard(owner)
+	new_spell.Grant(owner.current)
 
 /datum/antagonist/wizard/greet()
 	to_chat(owner, span_boldannounce("You are the Space Wizard!"))
@@ -216,6 +218,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	switch(school)
 		if(APPRENTICE_DESTRUCTION)
 			spells_to_grant = list(
+				/datum/action/spell/teleport/area_teleport/wizard/apprentice,
 				/datum/action/spell/aoe/magic_missile,
 				/datum/action/spell/pointed/projectile/fireball,
 			)
@@ -228,23 +231,29 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 				/datum/action/spell/teleport/area_teleport/wizard,
 				/datum/action/spell/jaunt/ethereal_jaunt,
 			)
+			items_to_grant = list(
+				/obj/item/gun/magic/wand/teleport,
+			)
 			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned reality-bending \
-				mobility spells. You are able to cast teleport and ethereal jaunt.</span>"))
+				mobility spells. You are able to cast teleport and ethereal jaunt, and have a wand of teleportation.</span>"))
 
 		if(APPRENTICE_HEALING)
 			spells_to_grant = list(
+				/datum/action/spell/teleport/area_teleport/wizard/apprentice,
 				/datum/action/spell/charge,
 				/datum/action/spell/forcewall,
 			)
 			items_to_grant = list(
-				/obj/item/gun/magic/staff/healing,
+				/obj/item/gun/magic/wand/healing,
 			)
 			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned life-saving \
-				survival spells. You are able to cast charge and forcewall, and have a staff of healing.</span>"))
+				survival spells. You are able to cast charge and forcewall, and have a wand of healing.</span>"))
+
 		if(APPRENTICE_ROBELESS)
 			spells_to_grant = list(
+				/datum/action/spell/teleport/area_teleport/wizard/apprentice,
 				/datum/action/spell/aoe/knock,
 				/datum/action/spell/pointed/mind_transfer,
 			)

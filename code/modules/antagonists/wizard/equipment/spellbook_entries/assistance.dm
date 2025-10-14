@@ -78,6 +78,13 @@
 	item_path = /obj/item/holoparasite_creator/wizard
 	category = "Assistance"
 
+/datum/spellbook_entry/item/blood_contract
+	name = "Blood Contract"
+	desc = "A magical contract sends its victim spiraling into bloodthirsty madness, causing them to see all of their old friends as demonic forces. Surely one person can't kill everyone they know without dying first?"
+	item_path = /obj/item/blood_contract
+	category = "Assistance"
+	refundable = TRUE //Consumed on use
+
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
 	desc = "A bottle of magically infused blood, the smell of which will \
@@ -103,6 +110,13 @@
 	limit = 3
 	category = "Assistance"
 	refundable = TRUE
+
+/datum/spellbook_entry/item/staffpotential
+	name = "Staff of Potential"
+	desc = "This staff can awaken the hidden potential within a person, provided they're willing to put up with some side-effects."
+	item_path = /obj/item/gun/magic/staff/potential
+	cost = 1
+	category = "Assistance"
 
 /datum/spellbook_entry/item/animation_wand
 	name = "Wand of Animation"

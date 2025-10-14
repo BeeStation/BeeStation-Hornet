@@ -36,12 +36,6 @@
 	category = "Offensive"
 	cost = 1
 
-/datum/spellbook_entry/mutate
-	name = "Mutate"
-	desc = "Causes you to turn into a hulk and gain laser vision for a short while."
-	spell_type = /datum/action/spell/apply_mutations/mutate
-	category = "Offensive"
-
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	desc = "Charges your hand with the power to turn victims into inert statues for a long period of time."

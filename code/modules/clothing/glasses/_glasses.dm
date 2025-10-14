@@ -545,6 +545,7 @@
 	desc = "A pair of glasses that allow you to see those that would hide from you"
 	vision_flags = SEE_MOBS
 	darkness_view = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"

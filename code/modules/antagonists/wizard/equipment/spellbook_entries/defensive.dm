@@ -85,15 +85,6 @@
 	category = "Defensive"
 	cost = 1
 
-//There was supposed to be a cursed duffelbag that eats you but it requires code beyond the scope of this pr
-
-/datum/spellbook_entry/item/staffhealing
-	name = "Staff of Healing"
-	desc = "An altruistic staff that can heal the lame and raise the dead."
-	item_path = /obj/item/gun/magic/staff/healing
-	cost = 1
-	category = "Defensive"
-
 /datum/spellbook_entry/item/lockerstaff
 	name = "Staff of the Locker"
 	desc = "A staff that shoots lockers. It eats anyone it hits on its way, leaving a welded locker with your victims behind."

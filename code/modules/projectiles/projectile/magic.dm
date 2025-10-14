@@ -248,6 +248,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
+	///Heal this much of each damage type if revival and limb regeneration aren't applicable
 	var/amount_healed = 25
 
 /obj/projectile/magic/healing/on_hit(mob/living/target)
@@ -263,25 +264,86 @@
 		target.visible_message(span_notice("[target]'s body twitches and comes back to life!"))
 		return
 
-	else
-		target.adjustOxyLoss(-amount_healed)
-		target.adjustBruteLoss(-amount_healed)
-		target.adjustFireLoss(-amount_healed)
-		target.adjustToxLoss(-amount_healed)
-		target.adjustCloneLoss(-amount_healed)
-		target.adjustStaminaLoss(-amount_healed*2)
-		target.restore_blood()
-		target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		var/limbs_to_heal = carbon_target.get_missing_limbs()
 
-/obj/projectile/magic/healing/greater
-	amount_healed = 35
+		if(length(limbs_to_heal))
+			var/obj/item/bodypart/limb = pick(limbs_to_heal)
+			carbon_target.regenerate_limb(limb)
+			target.visible_message(span_notice("[target]'s [limb] miraculously regrows!"))
+			return
 
-/obj/projectile/magic/healing/greater/on_hit(mob/living/target)
+		else
+			carbon_target.regenerate_organs() //slap this on top of the "generic" healing done if no limbs are missing and they aren't dead
+			carbon_target.restore_blood()
+
+	target.adjustOxyLoss(-amount_healed)
+	target.adjustBruteLoss(-amount_healed)
+	target.adjustFireLoss(-amount_healed)
+	target.adjustToxLoss(-amount_healed)
+	target.adjustCloneLoss(-amount_healed)
+	target.adjustStaminaLoss(-amount_healed*2)
+	target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
+
+/obj/projectile/magic/potential
+	name = "bolt of latent potential"
+	icon_state = "ion"
+	var/good_mutation_list = list()
+	var/bad_mutation_list = list()
+	var/minor_mutation_list = list()
+
+/obj/projectile/magic/potential/Initialize()
+	. = ..()
+	//Populate our mutation lists
+	var/list/all_mutations = subtypesof(/datum/mutation)
+	for(var/datum/mutation/mutation in all_mutations)
+		switch(mutation.quality)
+			if(POSITIVE)
+				if(!length(mutation.species_allowed)) //Skip these, we only want universal mutations on this list
+					good_mutation_list += mutation
+			if(NEGATIVE)
+				if(!istype(mutation, /datum/mutation/race)) //No monkey in our bad mutations. Staff of change already does this.
+					bad_mutation_list += mutation
+			if(MINOR_NEGATIVE)
+				minor_mutation_list += mutation
+
+/obj/projectile/magic/potential/on_hit(mob/living/target)
 	if(!iscarbon(target))
-		return ..()
-	var/mob/living/carbon/humanoid_mob = target
-	humanoid_mob.regenerate_limbs()
-	humanoid_mob.regenerate_organs()
+		target.visible_message(span_notice("[src] seems to have no effect on [target]!"))
+		return
+
+	var/mob/living/carbon/carbon_target = target
+	if(!carbon_target.can_mutate())
+		target.visible_message(span_notice("[src] seems to have no effect on [carbon_target]!"))
+		return
+
+	if(HAS_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED))
+		carbon_target.dna.remove_all_mutations() //Yes even the ones not from the staff
+		REMOVE_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED, MAGIC_TRAIT)
+		target.visible_message(span_notice("The hidden potential of [carbon_target] fades away!"))
+
+	else
+		var/mutations_to_add = list()
+		if(carbon_target.dna.species.inert_mutation && prob(50)) //if they have an innate species mutation, 50% chance to pick it
+			mutations_to_add += carbon_target.dna.species.inert_mutation
+		else
+			mutations_to_add += pick(good_mutation_list)
+
+		if(!IS_WIZARD(carbon_target)) //Wizards only get the good ones
+			mutations_to_add += pick(bad_mutation_list)
+			mutations_to_add += pick(minor_mutation_list)
+
+		for(var/datum/mutation/mutation in mutations_to_add)
+			mutation.mutadone_proof = FALSE //We want mutadone to be effective regardless of what was pulled
+			if(carbon_target.dna.mutation_in_sequence(mutation))
+				carbon_target.dna.activate_mutation(mutation)
+			else
+				carbon_target.dna.add_mutation(mutation, MUT_EXTRA)
+
+		ADD_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED, MAGIC_TRAIT)
+		target.visible_message(span_notice("[target] glows for a brief moment as the magic is absorbed into them!"))
+	return ..()
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
