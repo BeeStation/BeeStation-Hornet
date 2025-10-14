@@ -1,0 +1,6 @@
+author: mrmanlikesbt, TsunamiAnt
+delete-after: true
+changes:
+  - tweak: Deputy vendors can no longer be used when there is security
+  - balance: The deputy vendor can no longer be hacked to obtain gear as a non-security
+      officer
