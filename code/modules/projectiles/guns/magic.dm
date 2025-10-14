@@ -4,6 +4,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
 	item_state = "staff"
+	//WE ALREADY HAVE LEFTHAND AND RIGHTHAND FILES HERE
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
@@ -23,9 +24,6 @@
 	requires_wielding = FALSE	//Magic has no recoil, just hold with 1 hand
 	equip_time = 0
 	has_weapon_slowdown = FALSE
-
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/gun/magic/fire_sounds()
 	var/frequency_to_use = sin((90/max_charges) * charges)
