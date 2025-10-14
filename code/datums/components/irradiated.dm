@@ -199,7 +199,7 @@
 	SIGNAL_HANDLER
 
 	if (isliving(source))
-		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [intensity]%."))
+		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [round(intensity)]%."))
 	else
 		// In case the green wasn't obvious enough...
 		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Target is irradiated."))
@@ -208,11 +208,15 @@
 
 /datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
-	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation.</span><br>"
+
+	if(advanced)
+		render_list += "<span class='alert ml-1'>Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [round(intensity)]%.</span><br>"
+	else
+		render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation.</span><br>"
 
 /atom/movable/screen/alert/irradiated
 	name = "Irradiated"
-	desc = "You're irradiated! Heal your toxins quick, and stand under a shower to halt the incoming damage."
+	desc = "You're irradiated! Seek medicine and stand under a shower to halt the incoming damage."
 	icon_state = ALERT_IRRADIATED
 
 #undef RADIATION_TOX_DAMAGE_PER_INTENSITY
