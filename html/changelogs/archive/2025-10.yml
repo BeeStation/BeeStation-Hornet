@@ -198,3 +198,6 @@
   - bugfix: chaplain grave robber hat now has armor
   san7890 MrMelbert larentoun:
   - rscadd: Added respawning.
+2025-10-14:
+  BrumalLake:
+  - balance: any hat with armor prevents bible brain damage
