@@ -223,7 +223,7 @@
 	name = "icy blast"
 	icon_state = "ice_2"
 	range = 8
-	var/temperature = -75
+	var/temperature = -100
 	var/ground_freeze_range = 2 //radius, so a 5x5 area
 
 /obj/projectile/magic/icy_blast/on_hit(atom/target, blocked, pierce_hit)
