@@ -362,7 +362,6 @@
 	ears = /obj/item/radio/headset
 	head = /obj/item/clothing/head/wizard
 	belt = /obj/item/storage/belt/wands/random
-	r_pocket = /obj/item/teleportation_scroll
 	r_hand = /obj/item/spellbook
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
@@ -371,7 +370,6 @@
 	name = "Wizard Apprentice"
 	r_hand = null
 	l_hand = null
-	r_pocket = /obj/item/teleportation_scroll/apprentice
 	belt = /obj/item/storage/belt/wands //empty belt for receiving wands from the master wizard
 
 /datum/outfit/wizard/red

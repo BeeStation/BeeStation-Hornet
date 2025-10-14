@@ -6,8 +6,7 @@
 	sound = 'sound/magic/teleport_diss.ogg'
 
 	school = SCHOOL_TRANSLOCATION
-	cooldown_time = 1 MINUTES
-	cooldown_reduction_per_rank = 10 SECONDS
+	cooldown_time = 40 SECONDS
 	spell_requirements = NONE
 	invocation = "SCYAR NILA"
 	invocation_type = INVOCATION_SHOUT
@@ -26,24 +25,5 @@
 
 	invocation_says_area = FALSE // Santa moves in mysterious ways
 
-/// Used by the wizard's teleport scroll
-/datum/action/spell/teleport/area_teleport/wizard/scroll
-	name = "Teleport (scroll)"
-	cooldown_time = 0 SECONDS
-
-	invocation = null
-	invocation_type = INVOCATION_NONE
-	teleport_mode = TELEPORT_ALLOW_WIZARD
-	invocation_says_area = FALSE
-
-/datum/action/spell/teleport/area_teleport/wizard/scroll/is_available()
-	return ..() && owner.is_holding(master)
-
-/datum/action/spell/teleport/area_teleport/wizard/scroll/pre_cast(mob/user, atom/target)
-	. = ..()
-	if(. & SPELL_CANCEL_CAST)
-		return
-
-	var/mob/living/carbon/caster = user
-	if(caster.incapacitated() || !caster.is_holding(master))
-		return . | SPELL_CANCEL_CAST
+/datum/action/spell/teleport/area_teleport/wizard/apprentice
+	cooldown_time = 60 SECONDS

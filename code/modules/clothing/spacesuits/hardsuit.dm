@@ -870,7 +870,25 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = CASTING_CLOTHES | NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS | THICKMATERIAL
 	armor_type = /datum/armor/hardsuit_wizard
-	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
+	allowed = list(
+		/obj/item/staff,
+		/obj/item/gun/magic,
+		/obj/item/singularityhammer,
+		/obj/item/mjolnir,
+		/obj/item/wizard_armour_charge,
+		/obj/item/spellbook,
+		/obj/item/scrying,
+		/obj/item/camera/rewind,
+		/obj/item/soulstone,
+		/obj/item/holoparasite_creator/wizard,
+		/obj/item/antag_spawner/contract,
+		/obj/item/antag_spawner/slaughter_demon,
+		/obj/item/warpwhistle,
+		/obj/item/necromantic_stone,
+		/obj/item/clothing/gloves/translocation_ring,
+		/obj/item/clothing/glasses/red/wizard,
+		/obj/item/tank/internals,
+		 )
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard

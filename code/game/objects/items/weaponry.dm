@@ -511,7 +511,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = ISWEAPON
 	armour_penetration = 100
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines")
