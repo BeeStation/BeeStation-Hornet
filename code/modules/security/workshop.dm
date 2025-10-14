@@ -46,8 +46,6 @@
 	if(!allowed(usr))
 		to_chat(usr, span_warning("Access denied."))
 		return
-	if(isobserver(usr))
-		return
 	if(..())
 		return
 	switch(action)
