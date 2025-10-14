@@ -13,8 +13,8 @@
 	category = "Assistance"
 
 /datum/spellbook_entry/raise_skeleton
-	name = "Raise Skeleton"
-	desc = "Lets you rip the skeleton out of a fallen enemy and raise it as a loyal minion."
+	name = "Raise Lesser Skeleton"
+	desc = "Lets you command an unlimited number of loyal skeletons, but they are not always able to reach their fullest potential and may attack enemies mindlessly."
 	spell_type = /datum/action/spell/touch/raise_skeleton
 	category = "Assistance"
 
@@ -60,7 +60,7 @@
 
 /datum/spellbook_entry/item/necrostone
 	name = "A Necromantic Stone"
-	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
+	desc = "A Necromantic stone is able to resurrect three dead individuals as armed skeletal thralls for you to command."
 	item_path = /obj/item/necromantic_stone
 	category = "Assistance"
 

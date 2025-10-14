@@ -1,16 +1,15 @@
 /datum/action/spell/touch/raise_skeleton
-	name = "Raise Skeleton"
-	desc = "This spell can be used to rip the skeleton out of a corpse and raise it as a loyal minion"
+	name = "Raise Lesser Skeleton"
+	desc = "This spell can be used to rip the skeleton out of a corpse and raise it as a loyal minion. Works even without available souls."
 	button_icon_state = "raise_skeleton"
 	sound = 'sound/magic/RATTLEMEBONES.ogg'
 
 	school = SCHOOL_NECROMANCY
-	cooldown_time = 5 MINUTES
-	cooldown_reduction_per_rank = 1 MINUTES //Very slow with only one rank, but gets pretty good when its your main focus
+	cooldown_time = 3 MINUTES
+	cooldown_reduction_per_rank = 30 SECONDS //Very slow with only one rank, but gets pretty good when its your main focus
 
 	invocation = "VIT MORTE!"
 	invocation_type = INVOCATION_SHOUT
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB
 
 	hand_path = /obj/item/melee/touch_attack/raise_skeleton
 

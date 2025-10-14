@@ -5,8 +5,8 @@
 
 	sound = 'sound/magic/wandodeath.ogg'
 	school = SCHOOL_EVOCATION
-	cooldown_time = 45 SECONDS
-	cooldown_reduction_per_rank = 5 SECONDS
+	cooldown_time = 90 SECONDS
+	cooldown_reduction_per_rank = 15 SECONDS // 40s cd at max rank
 
 	invocation = "ADABA KEVRA!"
 	invocation_type = INVOCATION_SHOUT
