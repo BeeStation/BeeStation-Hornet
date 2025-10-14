@@ -26,4 +26,6 @@
 	invocation_says_area = FALSE // Santa moves in mysterious ways
 
 /datum/action/spell/teleport/area_teleport/wizard/apprentice
+	name = "Lesser Teleport"
+	desc = "This spell teleports you to an area of your selection, but you aren't as good as your master yet so it takes longer to gather your magic for each cast."
 	cooldown_time = 60 SECONDS
