@@ -74,6 +74,8 @@
 	return ..()
 
 /obj/item/gun/magic/process(delta_time)
+	if(!can_charge)
+		STOP_PROCESSING(SSobj, src)
 	if (charges >= max_charges)
 		charge_timer = 0
 		return

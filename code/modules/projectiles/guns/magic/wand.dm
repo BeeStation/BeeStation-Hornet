@@ -25,17 +25,17 @@
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
-	if(can_charge)
-		if(!IS_WIZARD(user))
-			can_charge = FALSE //Wands only recharge in wizard hands
-			charges = 1 //And you only get one shot before it goes inert
-			to_chat(user, span_warning("The magic remaining within [src] fizzles away. Only a true wizard can utilize its power again."))
 
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
 			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
 			return
+
+	if(!IS_WIZARD(user))
+		can_charge = FALSE //Wands only recharge in wizard hands
+		charges = 1 //And you only get one shot before it goes inert
+		to_chat(user, span_warning("The magic remaining within [src] fizzles away. Only a true wizard can utilize its power again."))
 
 	if(target == user)
 		zap_self(user) //Skips straight to process_fire() around the rest of the pull_trigger checks
@@ -48,6 +48,7 @@
 	. = ..()
 	if(IS_WIZARD(user) && !can_charge)
 		can_charge = TRUE //wizards kickstart the charging
+		START_PROCESSING(SSobj, src)
 		to_chat(user, span_notice("The magic within [src] begins to stir again."))
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)

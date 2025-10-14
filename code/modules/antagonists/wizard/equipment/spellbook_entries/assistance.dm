@@ -113,7 +113,7 @@
 	refundable = TRUE
 
 /datum/spellbook_entry/item/staffpotential
-	name = "Staff of Potential"
+	name = "Staff of Latent Potential"
 	desc = "This staff can awaken the hidden potential within a person, provided they're willing to put up with some side-effects."
 	item_path = /obj/item/gun/magic/staff/potential
 	cost = 1
