@@ -203,6 +203,8 @@
   - balance: any hat with armor prevents bible brain damage
   PinkSuzuki:
   - tweak: Reworked empty shops to make them more prepared for business (or crime)
+  mrmanlikesbt:
+  - bugfix: Fixed the holodeck thunderdome not spawning with holo energy swords
   mrmanlikesbt, TsunamiAnt:
   - tweak: Deputy vendors can no longer be used when there is security
   - balance: The deputy vendor can no longer be hacked to obtain gear as a non-security
