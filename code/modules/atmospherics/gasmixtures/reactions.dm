@@ -222,17 +222,23 @@
 
 /datum/gas_reaction/tritfire/react(datum/gas_mixture/air, datum/holder)
 	var/list/cached_gases = air.gases //this speeds things up because accessing datum vars is slow
-	var/tritium = cached_gases[/datum/gas/tritium]
-	var/oxygen = cached_gases[/datum/gas/oxygen]
+	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
 	var/temperature = air.temperature
+	var/initial_tritium = cached_gases[/datum/gas/tritium][MOLES]
+	var/burned_fuel = 0
 
-	var/burned_fuel = min(tritium[MOLES] / FIRE_TRITIUM_BURN_RATE_DELTA, oxygen[MOLES] / (FIRE_TRITIUM_BURN_RATE_DELTA * TRITIUM_OXYGEN_FULLBURN), tritium[MOLES], oxygen[MOLES] * INVERSE(0.5))
-	if(burned_fuel <= 0 || tritium[MOLES] - burned_fuel < 0 || oxygen[MOLES] - burned_fuel * 0.5 < 0) //Shouldn't produce gas from nothing.
-		return
+	if(cached_gases[/datum/gas/oxygen][MOLES] < initial_tritium || MINIMUM_TRIT_OXYBURN_ENERGY > (temperature * old_heat_capacity))// Yogs -- Maybe a tiny performance boost? I'unno
+		burned_fuel = cached_gases[/datum/gas/oxygen][MOLES] / TRITIUM_BURN_OXY_FACTOR
+		if(burned_fuel > initial_tritium)
+			burned_fuel = initial_tritium //Yogs -- prevents negative moles of Tritium
+		cached_gases[/datum/gas/tritium][MOLES] -= burned_fuel
+	else
+		burned_fuel = initial_tritium // Yogs -- Conservation of Mass fix
+		cached_gases[/datum/gas/tritium][MOLES] = ((cached_gases[/datum/gas/tritium][MOLES]) * (1 - 1 / TRITIUM_OXYGEN_FULLBURN)) // Yogs -- Maybe a tiny performance boost? I'unno
+		cached_gases[/datum/gas/oxygen][MOLES] -= cached_gases[/datum/gas/tritium][MOLES]
+		energy_released += (FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel * (TRITIUM_OXYGEN_FULLBURN - 1)) // Yogs -- Fixes low-energy tritium fires
 
-	tritium[MOLES] -= burned_fuel
-	oxygen[MOLES] -= burned_fuel * 0.5
 	ASSERT_GAS(/datum/gas/water_vapor, air)
 	cached_gases[/datum/gas/water_vapor][MOLES] += burned_fuel
 
@@ -245,7 +251,7 @@
 	else if(isatom(holder))
 		location = holder
 
-	var/energy_released = FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
+	energy_released += FIRE_TRITIUM_ENERGY_RELEASED * burned_fuel
 	if(location && burned_fuel > TRITIUM_RADIATION_MINIMUM_MOLES && energy_released > TRITIUM_RADIATION_RELEASE_THRESHOLD * (air.volume / CELL_VOLUME) ** ATMOS_RADIATION_VOLUME_EXP && prob(10))
 		radiation_pulse(location, max_range = min(sqrt(burned_fuel) / TRITIUM_RADIATION_RANGE_DIVISOR, GAS_REACTION_MAXIMUM_RADIATION_PULSE_RANGE), threshold = TRITIUM_RADIATION_THRESHOLD, intensity = 1)
 

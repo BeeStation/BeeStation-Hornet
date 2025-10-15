@@ -50,12 +50,12 @@
 // - Tritium:
 /// The minimum temperature tritium combusts at.
 #define TRITIUM_MINIMUM_BURN_TEMPERATURE FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-/// The amount of energy released by burning one mole of tritium.
-#define FIRE_TRITIUM_ENERGY_RELEASED 2.8e6
-/// Multiplier for TRITIUM fire with O2 moles * TRITIUM_OXYGEN_FULLBURN for the maximum fuel consumption
+#define TRITIUM_BURN_OXY_FACTOR 100
 #define TRITIUM_OXYGEN_FULLBURN 10
-/// The divisor for the maximum tritium burn rate. (1/2 of the tritium can burn in one reaction tick.)
-#define FIRE_TRITIUM_BURN_RATE_DELTA 2
+/// This is calculated to help prevent singlecap bombs(Overpowered tritium/oxygen single tank bombs)
+#define MINIMUM_TRIT_OXYBURN_ENERGY 2000000
+/// The amount of energy released by burning one mole of tritium.
+#define FIRE_TRITIUM_ENERGY_RELEASED 280000
 /// The minimum number of moles of trit that must be burnt for a tritium fire reaction to produce a radiation pulse. (0.01 moles trit or 10 moles oxygen to start producing rads.)
 #define TRITIUM_RADIATION_MINIMUM_MOLES 0.1
 /// The minimum released energy necessary for tritium to release radiation during combustion. (at a mix volume of [CELL_VOLUME]).
