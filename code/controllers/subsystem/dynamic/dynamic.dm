@@ -483,8 +483,7 @@ SUBSYSTEM_DEF(dynamic)
 				break
 		while (prob(ruleset.elasticity))
 
-		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
-			no_other_rulesets = TRUE
+		if(no_other_rulesets)
 			break
 
 	// Deal with the NO_OTHER_RULESETS flag
