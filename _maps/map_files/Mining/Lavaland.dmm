@@ -712,15 +712,6 @@
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"dW" = (
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/mine/gateway)
 "ea" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -5097,7 +5088,6 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Cs" = (
-/obj/machinery/mineral/mint,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 1
 	},
@@ -6159,7 +6149,6 @@
 /turf/open/floor/iron/dark,
 /area/mine/production)
 "Hz" = (
-/obj/effect/turf_decal/loading_area,
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -22
 	},
@@ -39004,7 +38993,7 @@ RR
 Zd
 Zd
 yP
-dW
+ka
 Ku
 Ku
 Ku
