@@ -26,3 +26,6 @@
 #define ALERT_EMBEDDED_OBJECT "embeddedobject"
 #define ALERT_SHOES_KNOT "shoealert"
 #define ALERT_RADIOACTIVE_AREA "radioactive_area"
+
+/** Environment related */
+#define ALERT_GRAVITY "gravity"

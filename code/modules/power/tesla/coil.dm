@@ -10,6 +10,7 @@
 	buckle_requires_restraints = TRUE
 
 	circuit = /obj/item/circuitboard/machine/tesla_coil
+	custom_price = 450
 
 	/// Flags of the zap that the coil releases when the wire is pulsed
 	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_LOW_POWER_GEN
@@ -192,9 +193,8 @@
 	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
 	wants_powernet = FALSE
-
+	custom_price = 350
 	circuit = /obj/item/circuitboard/machine/grounding_rod
-
 	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_requires_restraints = TRUE
