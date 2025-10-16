@@ -7210,6 +7210,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/structure/reagent_dispensers/peppertank/directional/east,
 /turf/open/floor/vault/rock,
 /area/security/brig)
 "btV" = (
@@ -61473,6 +61474,11 @@
 	},
 /turf/open/floor/iron/half,
 /area/hallway/primary/fore)
+"mxw" = (
+/obj/effect/turf_decal/siding/red,
+/obj/structure/reagent_dispensers/peppertank/directional/south,
+/turf/open/floor/iron/dark,
+/area/security/main)
 "mxx" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/spawner/randomvend/cola,
@@ -71825,6 +71831,7 @@
 /obj/machinery/camera/directional/west,
 /obj/item/banner/security/mundane,
 /obj/effect/turf_decal/tile/techfloor/diagonal,
+/obj/structure/reagent_dispensers/peppertank/directional/west,
 /turf/open/floor/iron/techmaint,
 /area/security/warden)
 "oAV" = (
@@ -94779,6 +94786,7 @@
 "tki" = (
 /obj/structure/closet/secure_closet/genpop,
 /obj/machinery/light_switch/directional/east,
+/obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/security/prison)
 "tkG" = (
@@ -99117,6 +99125,7 @@
 /obj/structure/closet/secure_closet/security/sec,
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/clothing/mask/balaclava,
+/obj/structure/reagent_dispensers/peppertank/directional/north,
 /turf/open/floor/iron/tech,
 /area/security/main)
 "udB" = (
@@ -156877,7 +156886,7 @@ qfk
 qfk
 hZp
 nNT
-nug
+mxw
 eQO
 pct
 fCL
