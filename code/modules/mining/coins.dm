@@ -19,8 +19,10 @@
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cooldown = 0
-	var/value
+	var/value	//Do not set this, do not repeat the mistakes of our forefathers.
 	var/coinflip
+
+	var/custom_value = null	//Set this instead. Yes this prolly wont work for 0 value since byond is funny and calls that null either.
 
 /obj/item/coin/Initialize(mapload)
 	. = ..()
@@ -32,6 +34,9 @@
 /obj/item/coin/set_custom_materials(list/materials, multiplier = 1)
 	. = ..()
 	value = 0
+	if(custom_value)
+		value = custom_value
+		return
 	for(var/i in custom_materials)
 		var/datum/material/M = i
 		value += M.value_per_unit * custom_materials[M]
@@ -175,6 +180,6 @@
 	name = "arcade token"
 	custom_materials = list(/datum/material/bananium = 400)
 	desc = "A coin that allows you to redeem a prize from an arcade machine."
-	value = 0
+	custom_value = 20
 
 /obj/item/coin/iron
