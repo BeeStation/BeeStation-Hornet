@@ -2,18 +2,24 @@
 /datum/unit_test/autolathe_design_value_check
 
 /datum/unit_test/autolathe_design_value_check/Run()
-	// Material value constants (based on typical SS13 economy)
-	var/static/list/material_values = list(
-		/datum/material/iron = 1,
-		/datum/material/glass = 1,
-		/datum/material/silver = 5,
-		/datum/material/gold = 10,
-		/datum/material/copper = 2,
-		/datum/material/plasma = 15,
-		/datum/material/uranium = 20,
-		/datum/material/diamond = 50,
-		/datum/material/titanium = 30
-	)
+	// Material datum values
+	var/static/list/material_values = list()
+	if(!material_values.len)
+		for(var/material_type in list(
+			/datum/material/iron,
+			/datum/material/glass,
+			/datum/material/silver,
+			/datum/material/gold,
+			/datum/material/copper,
+			/datum/material/plasma,
+			/datum/material/uranium,
+			/datum/material/diamond,
+			/datum/material/titanium
+		))
+			var/datum/material/mat = new material_type()
+			material_values[material_type] = mat.value_per_unit || 0.001 // Default fallback
+			qdel(mat)
+
 	// List of designs that are exempt from the test (wacky material conversions)
 	var/static/list/exempted_designs = list(
 		/datum/design/rcd_ammo,
@@ -41,18 +47,17 @@
 		var/total_material_cost = 0
 		for(var/material_type in design.materials)
 			var/material_amount = design.materials[material_type]
-			var/material_value = material_values[material_type] || 1 // Default to 1 if unknown
+			var/material_value = material_values[material_type] || 0.001 // Default fallback
 			total_material_cost += material_amount * material_value
 
 		// Create the item
 		var/obj/item/created_item = allocate(design.build_path)
 		var/item_value = 0
 
-		// Check if item has custom_price
 		if(created_item.custom_price)
 			item_value = created_item.custom_price
 		else
-			// Skip items without custom_price as they may not be intended for economic balance
+			// Skip items without custom_price
 			qdel(design)
 			continue
 
@@ -67,7 +72,7 @@
 			min_acceptable_value = 1
 			max_acceptable_value = total_material_cost * 20
 
-		// Check if item value is within acceptable range
+		// Check if within acceptable range
 		if(item_value < min_acceptable_value)
 			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be undervalued (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
 			designs_failed++
