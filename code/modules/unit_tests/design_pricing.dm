@@ -14,11 +14,15 @@
 		/datum/material/diamond = 50,
 		/datum/material/titanium = 30
 	)
+	// List of designs that are exempt from the test (wacky material conversions)
+	var/static/list/exempted_designs = list(
+		/datum/design/rcd_ammo,
+	)
 
 	var/designs_tested = 0
 	var/designs_failed = 0
 
-	for(var/design_type in subtypesof(/datum/design))
+	for(var/design_type in subtypesof(/datum/design) - exempted_designs)
 		var/datum/design/design = new design_type()
 
 		// limit it to autolathe designs

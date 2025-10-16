@@ -24,7 +24,7 @@
 	name="Push Broom"
 	id="pushbroom"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(/datum/material/iron = 1200)
+	materials = list(/datum/material/iron = 8000)
 	build_path = /obj/item/pushbroom
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
@@ -340,7 +340,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 12000, /datum/material/glass = 8000)
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -348,7 +348,7 @@
 	name = "Kitchen Knife"
 	id = "kitchen_knife"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 12000)
+	materials = list(/datum/material/iron = 10000)
 	build_path = /obj/item/knife/kitchen
 	category = list("initial","Dinnerware")
 
