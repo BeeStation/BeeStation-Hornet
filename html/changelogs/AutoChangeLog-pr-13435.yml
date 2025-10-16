@@ -1,0 +1,4 @@
+author: mrmanlikesbt, san7890
+delete-after: true
+changes:
+  - bugfix: fixed heartless species (plasmamen) not receiving living hearts.
