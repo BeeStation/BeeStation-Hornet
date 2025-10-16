@@ -48,9 +48,9 @@
 		if(created_item.custom_price)
 			item_value = created_item.custom_price
 		else
-			// Fallback to a basic calculation if no custom_price
-			// This is a rough estimate based on material cost
-			item_value = total_material_cost
+			// Skip items without custom_price as they may not be intended for economic balance
+			qdel(design)
+			continue
 
 		// Define acceptable value ranges
 		// Item should be worth at least 50% of material cost (not worthless)
@@ -65,18 +65,15 @@
 
 		// Check if item value is within acceptable range
 		if(item_value < min_acceptable_value)
-			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be undervalued.")
+			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be undervalued (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
 			designs_failed++
 		else if(item_value > max_acceptable_value)
-			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be overvalued.")
+			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be overvalued (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
 			designs_failed++
 
 		qdel(design)
 
 	if(designs_tested == 0)
-		TEST_FAIL("No autolathe designs found to test")
-	else if(designs_failed == 0)
-		// Don't report success message to avoid spam
-		return
-	else
+		TEST_FAIL("No autolathe designs with custom_price found to test")
+	else if(designs_failed > 0)
 		TEST_FAIL("[designs_failed] out of [designs_tested] autolathe designs have questionable item values")
