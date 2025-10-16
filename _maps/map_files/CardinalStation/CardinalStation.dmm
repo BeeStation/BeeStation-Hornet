@@ -3170,13 +3170,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/structure/wall_closet/emergency/directional/north,
-/obj/item/clothing/suit/space/hardsuit/skinsuit,
-/obj/item/clothing/suit/space/hardsuit/skinsuit,
-/obj/item/tank/internals/oxygen,
-/obj/item/tank/internals/oxygen,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
+/obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "aIL" = (
@@ -5413,6 +5409,7 @@
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/effect/decal/cleanable/food/salt,
 /obj/effect/landmark/start/prisoner,
+/obj/item/bedsheet/orange,
 /turf/open/floor/prison,
 /area/security/prison)
 "bdT" = (
@@ -7331,6 +7328,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/landmark/start/prisoner,
+/obj/item/bedsheet/orange,
 /turf/open/floor/prison,
 /area/security/prison)
 "bwb" = (
@@ -14967,7 +14965,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "cUO" = (
@@ -22555,9 +22552,13 @@
 /obj/effect/turf_decal/tile/techfloor/diagonal{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/west,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "eCt" = (
@@ -28009,6 +28010,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/landmark/start/prisoner,
+/obj/item/bedsheet/orange,
 /turf/open/floor/prison,
 /area/security/prison)
 "fKU" = (
@@ -30308,6 +30310,19 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/structure/wall_closet/emergency/directional/east,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "gid" = (
@@ -33414,6 +33429,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/terracotta/corner{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "gMc" = (
@@ -34831,7 +34847,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/machinery/computer/security/telescreen/entertainment/directional/north{
+	pixel_x = -16
+	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "haT" = (
@@ -35040,13 +35058,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/wall_closet/emergency/directional/north,
-/obj/item/clothing/suit/space/hardsuit/skinsuit,
-/obj/item/clothing/suit/space/hardsuit/skinsuit,
-/obj/item/tank/internals/oxygen,
-/obj/item/tank/internals/oxygen,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
+/obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "hdp" = (
@@ -44916,8 +44930,6 @@
 /obj/structure/wall_closet/generic/directional/north,
 /obj/effect/spawner/lootdrop/prison_contraband,
 /obj/effect/spawner/lootdrop/prison_contraband,
-/obj/effect/spawner/lootdrop/prison_contraband,
-/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "jcT" = (
@@ -51439,6 +51451,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/landmark/start/prisoner,
+/obj/item/bedsheet/orange,
 /turf/open/floor/prison,
 /area/security/prison)
 "ksa" = (
@@ -56257,6 +56270,9 @@
 /area/engine/supermatter)
 "lsp" = (
 /obj/structure/table,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
 /turf/open/floor/wood,
 /area/security/prison)
 "lsv" = (
@@ -61622,11 +61638,6 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
-/obj/machinery/button/door/prison_lockdown{
-	req_access_txt = "2";
-	id = "Prisongate";
-	pixel_x = -32
-	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "myW" = (
@@ -67994,6 +68005,10 @@
 /obj/effect/turf_decal/tile/steelgrid,
 /obj/machinery/light/small/directional/west,
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "nML" = (
@@ -76039,8 +76054,6 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
-/obj/effect/spawner/lootdrop/prison_contraband,
-/obj/effect/spawner/lootdrop/prison_contraband,
 /obj/effect/spawner/lootdrop/prison_contraband,
 /obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
@@ -100906,6 +100919,31 @@
 "uvf" = (
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/cargo)
+"uvl" = (
+/obj/effect/turf_decal/siding/thinplating_new/terracotta{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/techfloor/diagonal{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/wall_closet/emergency/directional/east,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "uvo" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -162574,7 +162612,7 @@ xvf
 ghY
 qGz
 qGz
-qGz
+uvl
 ezf
 ljH
 soG
