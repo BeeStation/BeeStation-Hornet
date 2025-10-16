@@ -668,14 +668,14 @@
 				/obj/item/storage/pill_bottle/happy = 1,
 				/obj/item/storage/pill_bottle/lsd = 1,
 				// Misc & Money
-				/obj/item/stack/spacecash/c20 = 5,
+				/obj/item/stack/spacecash/c20 = 4,
 				/obj/item/poster/random_contraband = 3,
-				/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/stack/sheet/cardboard = 3,
 				// Garbage
-				/obj/item/paper/crumpled = 5,
-				/obj/item/reagent_containers/syringe/used = 5,
-				/obj/item/reagent_containers/cup/rag = 5,
-				/obj/item/cigbutt = 5,
-				/obj/item/food/deadmouse/moldy = 5,
-				/obj/item/food/deadmouse/prison = 5,
+				/obj/item/paper/crumpled = 3,
+				/obj/item/reagent_containers/syringe/used = 3,
+				/obj/item/reagent_containers/cup/rag = 3,
+				/obj/item/cigbutt = 3,
+				/obj/item/food/deadmouse/moldy = 3,
+				/obj/item/food/deadmouse/prison = 3,
 				)
