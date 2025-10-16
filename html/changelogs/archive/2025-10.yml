@@ -212,3 +212,5 @@
 2025-10-16:
   TsunamiAnt:
   - bugfix: Observers were unintentionally able to use the security workshop.
+  mrmanlikesbt, san7890:
+  - bugfix: fixed heartless species (plasmamen) not receiving living hearts.
