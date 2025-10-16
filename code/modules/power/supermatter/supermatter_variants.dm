@@ -20,6 +20,7 @@
 	explosion_power = 12
 	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
+	custom_price = 8000
 
 /obj/machinery/computer/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
 	context.add_left_click_tool_action(anchored ? "Unanchor" : "Anchor", TOOL_WRENCH)
