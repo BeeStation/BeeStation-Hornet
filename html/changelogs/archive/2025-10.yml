@@ -177,3 +177,35 @@
       for instance)
   - balance: Items now start with a randomized price based on their weight if a custom
       price isn't set
+2025-10-11:
+  Isaac:
+  - bugfix: Untints cardstation medical directional windows
+2025-10-12:
+  mrmanlikesbt, CoffeeDragon16, Paxilmaniac:
+  - rscadd: beware of the clown with a piano (falling objects now deal damage and
+      pianos crush people)
+  - rscadd: Pianos now have a broken sprite (this was always in the game, but unused)
+  - soundadd: Pianos have a sound for being hit now
+  - tweak: Pianos are no longer randomly a minimoog on spawn, there is now a mapping
+      helper for that now
+2025-10-13:
+  BotTierPC:
+  - tweak: Overhauls Meta-Station Dorms, Washrooms, Garden, and Locker Room.
+  Isaac:
+  - bugfix: Revenants no longer get free Soul Essence from the healing coming from
+      Rod of Asclepius and undead simple animals wont get healed by the rod either
+  lord scrubling:
+  - bugfix: chaplain grave robber hat now has armor
+  san7890 MrMelbert larentoun:
+  - rscadd: Added respawning.
+2025-10-14:
+  BrumalLake:
+  - balance: any hat with armor prevents bible brain damage
+  PinkSuzuki:
+  - tweak: Reworked empty shops to make them more prepared for business (or crime)
+  mrmanlikesbt:
+  - bugfix: Fixed the holodeck thunderdome not spawning with holo energy swords
+  mrmanlikesbt, TsunamiAnt:
+  - tweak: Deputy vendors can no longer be used when there is security
+  - balance: The deputy vendor can no longer be hacked to obtain gear as a non-security
+      officer

@@ -33,6 +33,8 @@
 				latches = "triple_latch"
 	update_icon()
 
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+
 /obj/item/storage/toolbox/update_overlays()
 	. = ..()
 	if(has_latches)

@@ -54,10 +54,10 @@
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
-
 
 /obj/item/weldingtool/update_icon_state()
 	if(welding)

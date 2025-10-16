@@ -22,6 +22,10 @@
 	toolspeed = 1
 	armor_type = /datum/armor/item_wrench
 
+/obj/item/wrench/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+
 /datum/armor/item_wrench
 	fire = 50
 	acid = 30
