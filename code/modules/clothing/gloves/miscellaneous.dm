@@ -48,6 +48,8 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
 	clothing_flags = THICKMATERIAL
+	custom_price = 150
+	trade_flags = TRADE_CONTRABAND
 
 /datum/armor/gloves_combat
 	bio = 90
