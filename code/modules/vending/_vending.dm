@@ -146,7 +146,7 @@
 	///can we access the hidden inventory?
 	var/extended_inventory = 0
 	///Are we checking the users ID
-	var/scan_id = 1
+	var/scan_id = TRUE
 	///Default price of items if not overridden
 	var/default_price = 25
 	///Default price of premium items if not overridden

@@ -1,12 +1,13 @@
+#define DREAMING_SOURCE "dreaming_source"
+
 /**
  * Begins the dreaming process on a sleeping carbon.
  *
  * Checks a 10% chance and whether or not the carbon this is called on is already dreaming. If
  * the prob() passes and there are no dream images left to display, a new dream is constructed.
  */
-
 /mob/living/carbon/proc/handle_dreams()
-	if(prob(10) && !dreaming)
+	if(!HAS_TRAIT(src, TRAIT_DREAMING) && prob(10))
 		dream()
 
 /**
@@ -16,25 +17,17 @@
  * Dreams are generated as a list of strings stored inside dream_fragments, which is passed to and displayed in dream_sequence().
  * Bedsheets on the sleeper will provide a custom subject for the dream, pulled from the dream_messages on each bedsheet.
  */
-
-/mob/living/carbon/
-	var/manus_dream_allowed = FALSE
-
-/mob/living/carbon/proc/finish_manus_dream_cooldown()
-	to_chat(src, span_hypnophrase("You feel ready to walk the forest of the manus again.."))
-	balloon_alert(src, "You are ready to dream again")
-	manus_dream_allowed = TRUE
-
 /mob/living/carbon/proc/dream()
 	set waitfor = FALSE
 	var/datum/dream/chosen_dream
 
-	if (IS_HERETIC(src) && manus_dream_allowed && GLOB.reality_smash_track.smashes.len)
+	var/datum/antagonist/heretic/heretic_antag = IS_HERETIC(src)
+	if (heretic_antag?.manus_dream_allowed && length(GLOB.reality_smash_track.smashes))
 		chosen_dream = new /datum/dream/heretic(pick(GLOB.reality_smash_track.smashes))
 	else
 		chosen_dream = pick_weight(GLOB.dreams)
 
-	dreaming = TRUE
+	ADD_TRAIT(src, TRAIT_DREAMING, DREAMING_SOURCE)
 	dream_sequence(chosen_dream.GenerateDream(src), chosen_dream)
 
 /**
@@ -50,7 +43,7 @@
 
 /mob/living/carbon/proc/dream_sequence(list/dream_fragments, datum/dream/current_dream)
 	if(stat != UNCONSCIOUS || HAS_TRAIT(src, TRAIT_CRITICAL_CONDITION))
-		dreaming = FALSE
+		REMOVE_TRAIT(src, TRAIT_DREAMING, DREAMING_SOURCE)
 		current_dream.OnDreamEnd(src)
 		return
 	var/next_message = dream_fragments[1]
@@ -63,12 +56,12 @@
 	to_chat(src, span_notice("<i>... [next_message] ...</i>"))
 
 	if(LAZYLEN(dream_fragments))
-		var/next_wait = rand(10, 30)
+		var/next_wait = rand(1 SECONDS, 3 SECONDS)
 		if(current_dream.sleep_until_finished)
 			AdjustSleeping(next_wait)
 		addtimer(CALLBACK(src, PROC_REF(dream_sequence), dream_fragments, current_dream), next_wait)
 	else
-		dreaming = FALSE
+		REMOVE_TRAIT(src, TRAIT_DREAMING, DREAMING_SOURCE)
 		current_dream.OnDreamEnd(src)
 
 //-------------------------
@@ -79,6 +72,8 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 /proc/populate_dream_list()
 	var/list/output = list()
 	for(var/datum/dream/dream_type as anything in subtypesof(/datum/dream))
+		if(!initial(dream_type.weight))
+			continue
 		output[new dream_type] = initial(dream_type.weight)
 	return output
 
@@ -162,6 +157,7 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 /// Heretics can see dreams about random machinery from the perspective of a random unused influence
 /datum/dream/heretic
 	sleep_until_finished = TRUE
+	weight = 0
 	/// The influence we will be dreaming about
 	var/obj/effect/heretic_influence/influence
 	/// The distance to the objects visible from the influence during the dream
@@ -200,11 +196,12 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 
 /datum/dream/heretic/GenerateDream(mob/living/carbon/dreamer)
 	// how
-	if (!IS_HERETIC(dreamer) || !dreamer.manus_dream_allowed || !GLOB.reality_smash_track.smashes.len)
-		return CALLBACK(pick_weight(GLOB.dreams), PROC_REF(GenerateDream), dreamer)
+	var/datum/antagonist/heretic/heretic_antag = IS_HERETIC(dreamer)
+	if (!heretic_antag || QDELETED(influence))
+		return CALLBACK(dreamer, TYPE_PROC_REF(/mob/living/carbon, dream))
 
-	dreamer.manus_dream_allowed = FALSE;
-	addtimer(CALLBACK(dreamer, TYPE_PROC_REF(/mob/living/carbon, finish_manus_dream_cooldown)), 5 MINUTES)
+	heretic_antag.manus_dream_allowed = FALSE
+	addtimer(CALLBACK(heretic_antag, TYPE_PROC_REF(/datum/antagonist/heretic, finish_manus_dream_cooldown)), 5 MINUTES)
 
 	. = list()
 	. += "You wander through the forest of Mansus"
@@ -230,3 +227,5 @@ GLOBAL_LIST_INIT(dreams, populate_dream_list())
 	else
 		. += "The images fade in the ripples"
 	. += "You feel exhausted"
+
+#undef DREAMING_SOURCE

@@ -471,5 +471,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
 #define TRAIT_BEING_SHOCKED "shocked"
+/// Trait given to a dreaming carbon when they are currently doing dreaming stuff
+#define TRAIT_DREAMING "currently_dreaming"
 
 // END TRAIT DEFINES
