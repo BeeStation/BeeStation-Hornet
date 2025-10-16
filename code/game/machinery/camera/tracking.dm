@@ -142,7 +142,7 @@
 	SIGNAL_HANDLER
 	ai_stop_tracking()
 
-/mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
+/mob/living/silicon/ai/proc/ai_stop_tracking(reacquire_failed = FALSE) //stops ai tracking
 	UnregisterSignal(ai_tracking_target, COMSIG_QDELETING)
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
 	ai_tracking_target = null

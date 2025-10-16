@@ -12,6 +12,7 @@
 	label_icon = "label_bottle"
 	isGlass = TRUE
 	throwforce = 10
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()

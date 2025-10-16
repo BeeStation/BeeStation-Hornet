@@ -18,7 +18,7 @@
 	uses_mutcolor = TRUE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/l_arm/diona
+/obj/item/bodypart/arm/left/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_l_arm"
@@ -26,7 +26,7 @@
 	uses_mutcolor = TRUE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/r_arm/diona
+/obj/item/bodypart/arm/right/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_r_arm"
@@ -34,7 +34,7 @@
 	uses_mutcolor = TRUE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/l_leg/diona
+/obj/item/bodypart/leg/left/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_l_leg"
@@ -42,7 +42,7 @@
 	uses_mutcolor = TRUE
 	is_pseudopart = TRUE
 
-/obj/item/bodypart/r_leg/diona
+/obj/item/bodypart/leg/right/diona
 	icon_static = 'icons/mob/species/diona/bodyparts.dmi'
 	icon = 'icons/mob/species/diona/bodyparts.dmi'
 	icon_state = "diona_r_leg"

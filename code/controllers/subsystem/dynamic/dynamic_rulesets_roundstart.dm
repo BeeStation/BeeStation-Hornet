@@ -70,6 +70,7 @@
 	role_preference = /datum/role_preference/roundstart/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 8
+	points_cost = 9
 
 //////////////////////////////////////////////
 //                                          //
@@ -82,6 +83,7 @@
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
+	points_cost = 12
 	minimum_players_required = 13
 
 //////////////////////////////////////////////
@@ -95,6 +97,7 @@
 	role_preference = /datum/role_preference/roundstart/vampire
 	antag_datum = /datum/antagonist/vampire
 	weight = 8
+	points_cost = 9
 	minimum_players_required = 13
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
 
@@ -200,7 +203,7 @@
 	drafted_players_amount = 2
 	weight = 5
 	points_cost = 20
-	minimum_players_required = 30
+	minimum_players_required = 24
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -209,7 +212,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 10)
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 1)
 
 /datum/dynamic_ruleset/roundstart/bloodcult/execute()
 	team = new
@@ -256,7 +259,7 @@
 	var/datum/team/clock_cult/main_cult
 
 /datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 7)
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 1)
 
 /datum/dynamic_ruleset/roundstart/clockcult/choose_candidates()
 	. = ..()
@@ -305,14 +308,14 @@
 	drafted_players_amount = 3
 	weight = 3
 	points_cost = 20
-	minimum_players_required = 28
+	minimum_players_required = 24
 	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/roundstart/nuclear/set_drafted_players_amount()
-	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 7)
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 1)
 
 /datum/dynamic_ruleset/roundstart/nuclear/choose_candidates()
 	. = ..()

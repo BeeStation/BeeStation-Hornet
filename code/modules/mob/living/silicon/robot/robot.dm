@@ -284,12 +284,15 @@
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/attacking_item, mob/living/user, params)
+	if (user.combat_mode)
+		return ..()
+
 	if(length(user.progressbars))
 		if(attacking_item.tool_behaviour == TOOL_WELDER || istype(attacking_item, /obj/item/stack/cable_coil))
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, span_notice("You are already busy!"))
 			return
-	if(attacking_item.tool_behaviour == TOOL_WELDER && (!user.combat_mode))
+	if(attacking_item.tool_behaviour == TOOL_WELDER)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(user == src)
 			to_chat(user, span_warning("You are unable to maneuver [attacking_item] properly to repair yourself, seek assistance!"))
@@ -716,12 +719,12 @@
 		robot_suit.update_icon()
 	else
 		new /obj/item/robot_suit(T)
-		new /obj/item/bodypart/l_leg/robot(T)
-		new /obj/item/bodypart/r_leg/robot(T)
+		new /obj/item/bodypart/leg/left/robot(T)
+		new /obj/item/bodypart/leg/right/robot(T)
 		new /obj/item/stack/cable_coil(T, 1)
 		new /obj/item/bodypart/chest/robot(T)
-		new /obj/item/bodypart/l_arm/robot(T)
-		new /obj/item/bodypart/r_arm/robot(T)
+		new /obj/item/bodypart/arm/left/robot(T)
+		new /obj/item/bodypart/arm/right/robot(T)
 		new /obj/item/bodypart/head/robot(T)
 		var/b
 		for(b=0, b!=2, b++)
@@ -988,7 +991,7 @@
 	upgrades -= old_upgrade
 	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
 
-/mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	if(isnull(board))
 		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
 		return FALSE
@@ -1018,7 +1021,7 @@
 		builtInCamera.c_tag = real_name
 	diag_hud_set_aishell()
 
-/mob/living/silicon/robot/proc/deploy_init(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
 	real_name = "[AI.real_name] shell [rand(100, 999)] - [designation]"	//Randomizing the name so it shows up separately in the shells list
 	name = real_name
 	if(!QDELETED(builtInCamera))

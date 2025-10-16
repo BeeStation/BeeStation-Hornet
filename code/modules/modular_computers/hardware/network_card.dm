@@ -56,7 +56,7 @@
 	return "[identification_string] (NID [hardware_id])"
 
 // 0 - No signal, 1 - Low signal, 2 - High signal. 3 - Wired Connection
-/obj/item/computer_hardware/network_card/proc/get_signal(var/specific_action = 0)
+/obj/item/computer_hardware/network_card/proc/get_signal(specific_action = 0)
 	if(!holder) // Hardware is not installed in anything. No signal. How did this even get called?
 		return 0
 	if(!check_functionality())
@@ -97,7 +97,7 @@
 	signal_level = SIGNAL_NO_RELAY
 	power_usage = 25 // Watts per second
 	icon_state = "no-relay"
-	custom_price = 100
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	identification_string = "x_net_card"
 
 /obj/item/computer_hardware/network_card/wired

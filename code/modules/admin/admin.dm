@@ -118,7 +118,7 @@
 		body += " <A href='byond://?_src_=holder;[HrefToken()];sendtoprison=[REF(M)]'>Prison</A> "
 		body += " <A href='byond://?_src_=holder;[HrefToken()];sendbacktolobby=[REF(M)]'>Send to Lobby</A>"
 		if(M.client.prefs)
-			var/muted = M.client.prefs.muted
+			var/muted = M.client.player_details.muted
 			body += "<br><br><b>Mute: </b> "
 			body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_IC]' [(muted & MUTE_IC)?"style='font-weight: bold'":""]>IC</a> "
 			body += "<A href='byond://?_src_=holder;[HrefToken()];mute=[M.ckey];mute_type=[MUTE_OOC]' [(muted & MUTE_OOC)?"style='font-weight: bold'":""]>OOC</a> "
@@ -427,15 +427,38 @@
 	set category = "Server"
 	set desc="Respawn basically"
 	set name="Toggle Respawn"
-	var/new_nores = !CONFIG_GET(flag/norespawn)
-	CONFIG_SET(flag/norespawn, new_nores)
-	if (!new_nores)
-		to_chat(world, "<B>You may now respawn.</B>")
-	else
-		to_chat(world, "<B>You may no longer respawn :(</B>")
-	message_admins(span_adminnotice("[key_name_admin(usr)] toggled respawn to [!new_nores ? "On" : "Off"]."))
-	log_admin("[key_name(usr)] toggled respawn to [!new_nores ? "On" : "Off"].")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[!new_nores ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	var/respawn_state = CONFIG_GET(flag/allow_respawn)
+	var/new_state = -1
+	var/new_state_text = ""
+	switch(respawn_state)
+		if(RESPAWN_FLAG_DISABLED) // respawn currently disabled
+			new_state = RESPAWN_FLAG_FREE
+			new_state_text = "Enabled"
+			to_chat(world, span_bold("You may now respawn."))
+
+		if(RESPAWN_FLAG_FREE) // respawn currently enabled
+			new_state = RESPAWN_FLAG_NEW_CHARACTER
+			new_state_text = "Enabled, Different Slot"
+			to_chat(world, span_bold("You may now respawn as a different character."))
+
+		if(RESPAWN_FLAG_NEW_CHARACTER) // respawn currently enabled for different slot characters only
+			new_state = RESPAWN_FLAG_DISABLED
+			new_state_text = "Disabled"
+			to_chat(world, span_bold("You may no longer respawn :("))
+		else
+			WARNING("Invalid respawn state in config: [respawn_state]")
+
+	if(new_state == -1)
+		to_chat(usr, span_warning("The config for respawn is set incorrectly, please complain to your nearest server host (or fix it yourself). \
+			In the meanwhile respawn has been set to \"Off\"."))
+		new_state = RESPAWN_FLAG_DISABLED
+		new_state_text = "Disabled"
+
+	CONFIG_SET(flag/allow_respawn, new_state)
+
+	message_admins(span_adminnotice("[key_name_admin(usr)] toggled respawn to \"[new_state_text]\"."))
+	log_admin("[key_name(usr)] toggled respawn to \"[new_state_text]\".")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[new_state_text]")) // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
 	set category = "Round"
@@ -746,7 +769,7 @@
 			message_admins("[string]")
 
 ///Plays a sound to all admins who have that preference on, with the var being the sound filepath
-/proc/play_sound_to_all_admins(var/sound = null)
+/proc/play_sound_to_all_admins(sound = null)
 	if(isnull(sound))
 		return
 	for(var/client/C as anything in GLOB.admins)

@@ -20,7 +20,7 @@
 	var/instability_step = 0
 
 	///Custom price we use if the item doesn't have its own
-	var/custom_price = 100
+	var/custom_price = PAYCHECK_COMMAND
 
 	///Artifact textures
 	var/texture_icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'

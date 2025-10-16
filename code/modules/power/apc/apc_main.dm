@@ -154,7 +154,7 @@
 	fire = 90
 	acid = 50
 
-/obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+/obj/machinery/power/apc/New(turf/loc, ndir, building=0)
 	..()
 	GLOB.apcs_list += src
 
@@ -236,10 +236,6 @@
 	area.apc = null
 	area = null
 
-/obj/machinery/power/apc/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)
-
 /obj/machinery/power/apc/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return (exposed_temperature > 2000)
 
@@ -289,6 +285,8 @@
 	update_appearance()
 
 	make_terminal()
+
+	AddElement(/datum/element/atmos_sensitive)
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 

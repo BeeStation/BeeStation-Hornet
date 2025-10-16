@@ -48,11 +48,33 @@
 /// Big
 #define MULTIPLIER_COMMAND 6
 
+
+#define EXPORT_PRICE_WEAPON_TRIVIAL CARGO_CRATE_VALUE * 0.10
+#define EXPORT_PRICE_WEAPON_LOW CARGO_CRATE_VALUE * 0.5
+#define EXPORT_PRICE_WEAPON_STANDARD CARGO_CRATE_VALUE
+#define EXPORT_PRICE_WEAPON_HIGH CARGO_CRATE_VALUE * 1.5
+
+
 // Usage example:
 // extra_price = PAYCHECK_COMMAND * MULTIPLIER_LOW
 // default_price = PAYCHECK_CREW * MULTIPLIER_STANDARD
 // extra_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 
+/// NT's Tax rate - Currently applies to vending machine sales
+#define TAX_RATE 0.5
+
+/// Economy multiplier. This controls (or hopefully will control) the whole economy as a whole
+#define ECONOMY_MULTIPLIER 1	// Currently applies to automatic item pricing
+
+/// This markup is applied to vendor prices and vendor prices only (DOES NOT APPLY TO PREMIUM PRICE)
+#define PRICE_MARKUP 2
+
+/// Defines an Item that is contraband
+#define TRADE_CONTRABAND (1 << 0)
+/// Defines Items that can not be sold
+#define TRADE_NOT_SELLABLE (1 << 1)
+/// Defines items that, if unsold will be deleted instead of being returned
+#define TRADE_DELETE_UNSOLD (1 << 2)
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget

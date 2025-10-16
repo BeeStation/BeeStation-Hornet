@@ -111,7 +111,7 @@
 	update_overlays()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
+		H.update_worn_head()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
@@ -187,7 +187,7 @@
 		set_light_on(FALSE)
 
 	update_icon()
-	user.update_inv_head() //So the mob overlay updates
+	user.update_worn_head() //So the mob overlay updates
 	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/smash_headlamp()
@@ -201,7 +201,7 @@
 	to_chat(usr, span_danger("The [src]'s headlamp is smashed to pieces!"))
 	lamp_functional = FALSE
 	update_icon()
-	usr.update_inv_head() //So the mob overlay updates
+	usr.update_worn_head() //So the mob overlay updates
 	update_button_icons(usr)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
@@ -336,6 +336,7 @@
 	name = "designer envirosuit helmet"
 	desc = "A Plasmi-Deluxe envirosuit helmet with gold woven into the fabric. A designer model like this is probably worth a pretty penny."
 	greyscale_colors = "#C47D0C#C47D0C#C47D0C"
+	custom_price = 4500
 
 /obj/item/clothing/head/helmet/space/plasmaman/curator
 	name = "curator's envirosuit helmet"

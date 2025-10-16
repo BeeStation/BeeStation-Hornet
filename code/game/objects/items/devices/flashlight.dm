@@ -225,7 +225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
-	custom_price = 45
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp
@@ -287,6 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()

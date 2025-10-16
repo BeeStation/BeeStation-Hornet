@@ -8,6 +8,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	custom_price = EXPORT_PRICE_WEAPON_STANDARD
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -16,6 +17,7 @@
 	clumsy_check = 0
 	item_flags = NONE
 	dying_key = DYE_REGISTRY_GUN
+	custom_price = PAYCHECK_CREW
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"

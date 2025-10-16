@@ -380,7 +380,7 @@
 	id = "alien_surgery"
 	tech_tier = 5
 	display_name = "Alien Surgery"
-	description = "Abductors did nothing wrong."
+	description = "Anything from brainwashing to reviving the dead. Alien technology."
 	prereq_ids = list(
 		"alientech",
 		"exp_surgery",
@@ -469,6 +469,7 @@
 		"magboots",
 		"ranged_analyzer",
 		"rcd_loaded",
+		"rcl",
 		"rpd_loaded",
 		"weldingmask",
 		"sheetifier"
@@ -1398,6 +1399,7 @@
 		"power_cord",
 		"robotic_ears",
 		"robotic_eyes",
+		"robotic_heart",
 		"robotic_liver",
 		"robotic_stomach",
 		"robotic_tongue",
@@ -1928,7 +1930,6 @@
 		"mod_visor_sechud",
 		"mod_stealth",
 		"mod_mag_harness",
-		"mod_pathfinder",
 		"mod_holster",
 		"mod_sonar",
 		"mod_projectile_dampener",

@@ -7,7 +7,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aj" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/palebush,
@@ -42,7 +42,7 @@
 /area/shuttle/escape)
 "cB" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table/reinforced,
 /obj/item/bikehorn/rubberducky{
 	pixel_y = 10;
@@ -59,7 +59,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "ec" = (
@@ -81,9 +81,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "gy" = (
@@ -116,7 +114,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
@@ -197,9 +195,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "rZ" = (
@@ -242,7 +238,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "sT" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "tn" = (
@@ -278,7 +274,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "xa" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating,
@@ -317,7 +313,7 @@
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xD" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/curtain/directional{
 	dir = 4
 	},
@@ -374,9 +370,7 @@
 	dir = 1
 	},
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Au" = (
@@ -524,9 +518,7 @@
 	dir = 5
 	},
 /obj/structure/chair/fancy/shuttle,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ns" = (
@@ -543,7 +535,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Nt" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -555,9 +547,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/recharger,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -566,7 +556,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass/no_border,
 /area/shuttle/escape)
 "Ow" = (
@@ -618,7 +608,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "RX" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
@@ -649,7 +639,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "Up" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)

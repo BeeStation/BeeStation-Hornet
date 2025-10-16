@@ -129,8 +129,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	alarm_manager = new(src)
 
-/obj/machinery/camera/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/jam_receiver, JAMMER_PROTECTION_CAMERAS)
 	RegisterSignal(src, COMSIG_ATOM_JAMMED, PROC_REF(update_jammed))
 	RegisterSignal(src, COMSIG_ATOM_UNJAMMED, PROC_REF(update_jammed))

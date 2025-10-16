@@ -11,6 +11,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	custom_price = 50
 
 
 /datum/armor/head_bio_hood
@@ -37,6 +38,7 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
+	custom_price = 100
 
 
 /datum/armor/suit_bio_suit
@@ -46,7 +48,7 @@
 	acid = 100
 	bleed = 5
 
-/obj/item/clothing/suit/bio_suit/ComponentInitialize()
+/obj/item/clothing/suit/bio_suit/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 75)
 

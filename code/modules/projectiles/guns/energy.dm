@@ -3,6 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_LUXURY //All energy guns should be between 100 and 300c
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell

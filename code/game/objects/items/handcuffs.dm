@@ -30,6 +30,7 @@
 	custom_price = PAYCHECK_COMMAND * MULTIPLIER_ULTRA_LOW
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
+	var/overlay_state = "handcuff1"
 
 /obj/item/restraints/handcuffs/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "handcuffs")
@@ -70,7 +71,7 @@
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = 0)
 	if(target.handcuffed)
 		return FALSE
 
@@ -102,7 +103,7 @@
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/restraints/handcuffs/cable/red
 	color = "#ff0000"
@@ -136,14 +137,19 @@
 	item_state = "sinewcuff"
 	custom_materials = null
 	color = null
+	custom_price = PAYCHECK_CREW
 
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
+	custom_price = PAYCHECK_COMMAND
+	max_demand = 10
 
 /obj/item/restraints/handcuffs/fake
 	name = "fake handcuffs"
 	desc = "Fake handcuffs meant for gag purposes."
 	breakouttime = 1 SECONDS
+	custom_price = PAYCHECK_CREW
+	max_demand = 10
 
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()
@@ -361,7 +367,7 @@
 		C.legcuffed = src
 		forceMove(C)
 		C.update_equipment_speed_mods()
-		C.update_inv_legcuffed()
+		C.update_worn_legcuffs()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, span_userdanger("\The [src] ensnares you!"))
 		if(knockdown)

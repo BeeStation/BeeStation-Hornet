@@ -16,6 +16,7 @@
 	var/action_off = "honk1"
 	var/action_on = "honk2"
 	var/powertool_hitsound = 'sound/vox_fem/honk.ogg'
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_HIGH
 
 
 /datum/armor/item_powertool

@@ -354,7 +354,7 @@
 	cooldown = 10
 	stamina_damage = 20
 	stun_animation = TRUE
-	custom_price = 120
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -953,6 +953,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/effects/woodhit.ogg'
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	/// Damage dealt while on help intent
 	var/non_harm_force = 3
 	/// Stamina damage dealt

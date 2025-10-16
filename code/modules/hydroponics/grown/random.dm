@@ -12,6 +12,7 @@
 	icon_harvest = "xpod-harvest"
 	growthstages = 4
 	custom_premium_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/seeds/random/Initialize(mapload)
 	. = ..()

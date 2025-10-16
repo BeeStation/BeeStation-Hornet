@@ -44,7 +44,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
-/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc, spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -82,6 +82,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/veilrender/honkrender
 	name = "honk render"
@@ -327,6 +329,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
 	item_flags = ISWEAPON
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
@@ -450,6 +454,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+	custom_price = 10000
+	max_demand = 10
 
 //Warp Whistle: Provides uncontrolled long distance teleportation.
 

@@ -92,6 +92,8 @@ Slimecrossing Items
 	desc = "A charged yellow slime extract, infused with even more plasma. It almost hurts to touch."
 	rating = 7 //Roughly 1.5 times the original.
 	maxcharge = 100 KILOWATT //5 times the normal one.
+	custom_price = 600
+	max_demand = 5
 
 //Barrier cube - Chilling Grey
 /obj/item/barriercube
@@ -209,7 +211,7 @@ Slimecrossing Items
 	else
 		to_chat(user, span_warning("The device is empty..."))
 
-/obj/item/capturedevice/proc/store(var/mob/living/M)
+/obj/item/capturedevice/proc/store(mob/living/M)
 	M.forceMove(src)
 
 /obj/item/capturedevice/proc/release()

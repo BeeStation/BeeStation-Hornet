@@ -25,7 +25,7 @@
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
-
+	custom_price = EXPORT_PRICE_WEAPON_STANDARD
 
 
 /obj/item/gun/energy/e_gun/advtaser/heirloom
@@ -43,6 +43,7 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
+	custom_price = EXPORT_PRICE_WEAPON_LOW
 
 /obj/item/gun/energy/disabler/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \

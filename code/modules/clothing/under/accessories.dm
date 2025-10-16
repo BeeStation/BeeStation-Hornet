@@ -217,7 +217,8 @@
 		atmos_spawn_air("plasma=20;TEMP=[exposed_temperature]")
 		visible_message(span_danger(" \The [src] bursts into flame!"),span_userdanger("Your [src] bursts into flame!"))
 		qdel(src)
-/obj/item/clothing/accessory/medal/plasma/ComponentInitialize()
+
+/obj/item/clothing/accessory/medal/plasma/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
