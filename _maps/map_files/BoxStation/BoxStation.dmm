@@ -29159,6 +29159,21 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"ieS" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_y = 32
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "iff" = (
 /obj/machinery/light/small,
 /obj/structure/table,
@@ -33870,6 +33885,9 @@
 "jTg" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/prison_contraband,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
 /turf/open/floor/wood,
 /area/security/prison)
 "jTn" = (
@@ -94545,7 +94563,7 @@ wqb
 sCw
 aEW
 acd
-oCt
+ieS
 hBH
 acd
 acd
