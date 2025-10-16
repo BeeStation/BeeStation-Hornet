@@ -4222,7 +4222,6 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "bqy" = (
@@ -7981,6 +7980,11 @@
 	dir = 8
 	},
 /obj/machinery/vending/games,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "czL" = (
@@ -9043,7 +9047,6 @@
 	name = "Solitary confinement timer";
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "cSN" = (
@@ -18937,8 +18940,6 @@
 /area/crew_quarters/heads/chief)
 "gby" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/reagent_containers/condiment/rice,
 /obj/item/reagent_containers/condiment/sugar,
 /obj/item/reagent_containers/condiment/flour,
@@ -18957,6 +18958,8 @@
 /obj/structure/closet/secure_closet/freezer{
 	name = "freezer"
 	},
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "gbB" = (
@@ -21471,6 +21474,13 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/wood,
 /area/vacant_room/office)
+"gSY" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/computer/security/telescreen/entertainment/directional/north{
+	pixel_x = -16
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "gSZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -23170,7 +23180,9 @@
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/poster/official/random{
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
 	pixel_x = 32
 	},
 /turf/open/floor/iron/dark,
@@ -23840,7 +23852,6 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "hLB" = (
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/curtain,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/shower{
@@ -23849,6 +23860,8 @@
 	pixel_x = -5;
 	pixel_y = -5
 	},
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/noslip/standard,
 /area/security/prison)
 "hLD" = (
@@ -26486,6 +26499,18 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/delivery,
+/obj/structure/railing/sec{
+	dir = 8
+	},
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1;
+	pixel_y = 5
+	},
+/obj/structure/railing/sec{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/shutters{
 	id = "visitationlock"
 	},
@@ -27491,6 +27516,11 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
@@ -29831,8 +29861,6 @@
 "jJi" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/closet/crate/wooden,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
@@ -29850,6 +29878,8 @@
 	prison_radio = 1
 	},
 /obj/machinery/camera/directional/east,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "jJz" = (
@@ -33775,12 +33805,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
 /obj/machinery/camera/directional/west,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/vending/dinnerware,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "ldA" = (
@@ -33803,6 +33835,7 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/wood,
 /area/security/prison)
 "lef" = (
@@ -36790,6 +36823,30 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary2)
+"miQ" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison Blast Door"
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/delivery,
+/obj/structure/railing/sec{
+	dir = 4
+	},
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1;
+	pixel_y = 5
+	},
+/obj/structure/railing/sec{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "visitationlock"
+	},
+/turf/open/floor/iron/dark,
+/area/security/prison)
 "miS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
@@ -38140,6 +38197,22 @@
 	},
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
+"mFp" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/bed{
+	dir = 8
+	},
+/obj/item/bedsheet/orange,
+/obj/structure/wall_closet/generic/directional/north,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32
+	},
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/turf/open/floor/prison,
+/area/security/prison)
 "mFK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39917,8 +39990,9 @@
 /area/engine/engine_room)
 "njg" = (
 /obj/structure/closet/crate/bin,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "njn" = (
@@ -42103,13 +42177,6 @@
 /obj/structure/chair/wood/wings,
 /turf/open/floor/carpet/green,
 /area/security/courtroom)
-"nTN" = (
-/obj/structure/table,
-/obj/machinery/computer/libraryconsole/bookmanagement{
-	pixel_y = 8
-	},
-/turf/open/floor/wood,
-/area/security/prison)
 "nUg" = (
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 8
@@ -42921,7 +42988,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/wood,
 /area/security/prison)
 "oiI" = (
@@ -53206,6 +53274,10 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	pixel_y = 8
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "rCn" = (
@@ -55639,6 +55711,8 @@
 	},
 /obj/item/bedsheet/orange,
 /obj/structure/wall_closet/generic/directional/north,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "ssK" = (
@@ -58572,6 +58646,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/scanner_gate{
+	name = "Prison Scanner";
+	scangate_mode = "Mindshield";
+	reverse = 1
+	},
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "tpt" = (
@@ -58913,8 +58992,14 @@
 	icon_state = "1-8"
 	},
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = 32
+	},
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "tvp" = (
@@ -62129,9 +62214,6 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 2
-	},
 /obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = -3;
 	pixel_y = 8
@@ -64613,8 +64695,8 @@
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "vmj" = (
@@ -67836,7 +67918,6 @@
 	name = "Solitary confinement timer";
 	pixel_x = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/camera/directional/east,
 /obj/machinery/button/door{
 	id = "visitationlock";
@@ -67845,6 +67926,8 @@
 	pixel_y = 32
 	},
 /obj/item/kirbyplants/random,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "wsD" = (
@@ -69135,6 +69218,13 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"wLj" = (
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
 "wLq" = (
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
 	dir = 4
@@ -71947,6 +72037,11 @@
 	name = "Solitary confinement timer";
 	pixel_x = -32
 	},
+/obj/machinery/button/door/prison_lockdown{
+	req_access_txt = "2";
+	id = "Prisongate";
+	pixel_x = -32
+	},
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "xBT" = (
@@ -73411,6 +73506,8 @@
 	},
 /obj/item/bedsheet/orange,
 /obj/structure/wall_closet/generic/directional/south,
+/obj/effect/spawner/lootdrop/prison_contraband,
+/obj/effect/spawner/lootdrop/prison_contraband,
 /turf/open/floor/prison,
 /area/security/prison)
 "ygL" = (
@@ -104406,8 +104503,8 @@ kbX
 gmw
 wFg
 xtP
-nTN
 dyS
+wLj
 ldH
 wNH
 xRm
@@ -105181,13 +105278,13 @@ ssI
 bjP
 ygz
 mTK
-bjP
+gSY
 bjP
 xQe
 mTK
 pzt
 hFn
-iHW
+miQ
 hIU
 ikk
 mTK
@@ -105434,7 +105531,7 @@ hLB
 mTK
 cSx
 mTK
-ssI
+mFp
 vmb
 knO
 mTK
