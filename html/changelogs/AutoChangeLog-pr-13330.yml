@@ -1,4 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - bugfix: Observers were unintentionally able to use the security workshop.
