@@ -15,3 +15,6 @@
 #define ALERT_NOT_ENOUGH_NITRO "not_enough_nitro"
 
 #define ALERT_NOT_ENOUGH_WATER "not_enough_water"
+
+/** Environment related */
+#define ALERT_GRAVITY "gravity"

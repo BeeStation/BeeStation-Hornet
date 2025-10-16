@@ -1,46 +1,3 @@
-/datum/export/large/crate
-	cost = 500
-	k_elasticity = 0
-	unit_name = "crate"
-	export_types = list(/obj/structure/closet/crate)
-	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden, /obj/structure/closet/crate/coffin, /obj/structure/closet/crate/mail)
-
-/datum/export/large/crate/total_printout(datum/export_report/ex, notes = TRUE) // That's why a goddamn metal crate costs that much.
-	. = ..()
-	if(. && notes)
-		. += " Thanks for participating in Nanotrasen Crates Recycling Program."
-
-/datum/export/large/crate/wooden
-	cost = 100
-	unit_name = "large wooden crate"
-	export_types = list(/obj/structure/closet/crate/large)
-	exclude_types = list()
-
-/datum/export/large/ore_box
-	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
-	// one ore box costs 4 planks = 80cr
-	// profit is 80cr per ore box, or 20cr/plank
-	cost = 160
-	unit_name = "ore box"
-	export_types = list(/obj/structure/ore_box)
-
-/datum/export/large/crate/wood
-	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
-	// one wooden crate costs 6 planks = 120cr
-	// profit is 100cr per wooden crate, or ~17cr/plank
-	cost = 220
-	unit_name = "wooden crate"
-	export_types = list(/obj/structure/closet/crate/wooden)
-	exclude_types = list()
-
-/datum/export/large/coffin
-	// Assuming you send back the crate and stamped manifest, wood can be ordered for 20cr/plank
-	// one coffin costs 5 planks = 100cr
-	// profit is 90cr per coffin, or 18cr/plank
-	cost = 190
-	unit_name = "coffin"
-	export_types = list(/obj/structure/closet/crate/coffin)
-
 /datum/export/large/reagent_dispenser
 	cost = 100 // +0-400 depending on amount of reagents left
 	var/contents_cost = 400
@@ -65,68 +22,6 @@
 	contents_cost = 700
 	export_types = list(/obj/structure/reagent_dispensers/beerkeg)
 
-/datum/export/large/emitter
-	cost = 550
-	unit_name = "emitter"
-	export_types = list(/obj/machinery/power/emitter)
-
-/datum/export/large/field_generator
-	cost = 550
-	unit_name = "field generator"
-	export_types = list(/obj/machinery/field/generator)
-
-/datum/export/large/collector
-	cost = 400
-	unit_name = "radiation collector"
-	export_types = list(/obj/machinery/power/rad_collector)
-
-/datum/export/large/tesla_coil
-	cost = 450
-	unit_name = "tesla coil"
-	export_types = list(/obj/machinery/power/tesla_coil)
-
-/datum/export/large/pa
-	cost = 350
-	unit_name = "particle accelerator part"
-	export_types = list(/obj/structure/particle_accelerator)
-
-/datum/export/large/pa/controls
-	cost = 500
-	unit_name = "particle accelerator control console"
-	export_types = list(/obj/machinery/particle_accelerator/control_box)
-
-/datum/export/large/supermatter
-	cost = 8000
-	unit_name = "supermatter shard"
-	export_types = list(/obj/machinery/power/supermatter_crystal/shard)
-
-/datum/export/large/grounding_rod
-	cost = 350
-	unit_name = "grounding rod"
-	export_types = list(/obj/machinery/power/grounding_rod)
-
-/datum/export/large/tesla_gen
-	cost = 4000
-	unit_name = "energy ball generator"
-	export_types = list(/obj/machinery/the_singularitygen/tesla)
-
-/datum/export/large/singulo_gen
-	cost = 4000
-	unit_name = "gravitational singularity generator"
-	export_types = list(/obj/machinery/the_singularitygen)
-	include_subtypes = FALSE
-
-/datum/export/large/iv
-	cost = 50
-	unit_name = "iv drip"
-	export_types = list(/obj/machinery/iv_drip)
-
-/datum/export/large/barrier
-	cost = 25
-	unit_name = "security barrier"
-	export_types = list(/obj/item/security_barricade, /obj/structure/barricade/security)
-
-
 /**
  * Gas canister exports.
  * I'm going to put a quick aside here as this has been a pain to balance for several years now, and I'd like to at least break how to keep gas exports tame.
@@ -141,33 +36,73 @@
  * * For more information, see code\modules\atmospherics\machinery\portable\canister.dm.
  */
 /datum/export/large/gas_canister
-	cost = 10 //Base cost of canister. You get more for nice gases inside.
 	unit_name = "Gas Canister"
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
-	k_elasticity = 0.00033
 
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
-	var/worth = cost
+	var/worth = C.item_price
 	var/datum/gas_mixture/canister_mix = C.return_air()
 	var/canister_gas = canister_mix.gases
-	var/list/gases_to_check = list(
-		/datum/gas/bz,
-		/datum/gas/nitrium,
-		/datum/gas/hypernoblium,
-		/datum/gas/tritium,
-		/datum/gas/pluoxium,
-		/datum/gas/water_vapor,
-	)
 
-	for(var/gasID in gases_to_check)
-		canister_mix.assert_gas(gasID)
-		if(canister_gas[gasID][MOLES] > 0)
-			worth += get_gas_value(gasID, canister_gas[gasID][MOLES])
+	for(var/id in canister_gas)
+		var/datum/gas/path = gas_id2path(id)
+		var/moles = canister_gas[id][MOLES]
+		if(moles > 0)
+			worth += SSdemand.get_gas_value(path, moles)
 
 	canister_mix.garbage_collect()
 	return worth
 
-/datum/export/large/gas_canister/proc/get_gas_value(datum/gas/gasType, moles)
-	var/baseValue = initial(gasType.base_value)
-	return round((baseValue/k_elasticity) * (1 - NUM_E**(-1 * k_elasticity * moles)))
+/datum/export/large/gas_canister/get_amount(obj/O)
+	var/obj/machinery/portable_atmospherics/canister/C = O
+	var/datum/gas_mixture/canister_mix = C.return_air()
+	var/canister_gas = canister_mix.gases
+
+	var/dominant_id = null
+	var/dominant_moles = 0
+	var/total_moles = 0
+
+	for(var/id in canister_gas)
+		var/moles = canister_gas[id][MOLES]
+		if(moles > 0)
+			total_moles += moles
+			if(moles > dominant_moles)
+				dominant_moles = moles
+				dominant_id = id
+
+	if(total_moles <= 0)
+		return 0
+
+	if(dominant_id)
+		var/gas_name = canister_gas[dominant_id][GAS_META][META_GAS_NAME]
+		unit_name = "Mole - Gas Canister: [gas_name]"
+	else
+		unit_name = "Mole - Mixed Gases Canister"
+
+	return total_moles
+
+/datum/export/large/gas_canister/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO)
+	var/obj/machinery/portable_atmospherics/canister/C = O
+	var/datum/gas_mixture/canister_mix = C.return_air()
+	var/canister_gas = canister_mix.gases
+
+	// Total value & amount already calculated by existing procs
+	var/total_value = get_cost(O)
+	var/total_moles = get_amount(O)
+
+	report.total_value[src] += total_value
+	report.total_amount[src] += total_moles
+
+	// Reduce demand for each gas sold
+	for(var/id in canister_gas)
+		var/datum/gas/path = gas_id2path(id)
+		var/moles = canister_gas[id][MOLES]
+		if(moles <= 0)
+			return
+		if(!dry_run)
+			var/datum/demand_state/state = SSdemand.get_demand_state(path)
+			state.current_demand = max(0, state.current_demand - moles)
+			SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[total_value]"))
+
+	return TRUE

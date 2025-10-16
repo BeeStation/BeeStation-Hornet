@@ -175,6 +175,8 @@
 	custom_materials = list(/datum/material/plastic = 400)
 	sideslist = list("valid", "salad")
 	material_flags = NONE
+	max_demand = 10
+	custom_premium_price = 150
 
 /obj/item/coin/arcade_token
 	name = "arcade token"

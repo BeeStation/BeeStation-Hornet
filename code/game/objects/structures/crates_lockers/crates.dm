@@ -25,6 +25,7 @@
 	drag_slowdown = 0
 	imacrate = TRUE
 	breakout_time = 20 SECONDS
+	custom_price = 500
 	var/mob/living/resident //The vampire owner of this crate (or coffin)
 	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
@@ -209,6 +210,7 @@
 	new /obj/item/reagent_containers/blood/OMinus(src)
 	new /obj/item/reagent_containers/blood/OPlus(src)
 	new /obj/item/reagent_containers/blood/lizard(src)
+	new /obj/item/reagent_containers/blood/synthetic(src)
 	new /obj/item/reagent_containers/blood/ethereal(src)
 	new /obj/item/reagent_containers/blood/oozeling(src)
 	for(var/i in 1 to 3)

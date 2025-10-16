@@ -13,8 +13,6 @@
 	contraband = list()
 	premium = list()
 */
-/// NT's Tax rate on the price the seller (cargo) receives
-#define TAX_RATE 0.5
 #define MAX_VENDING_INPUT_AMOUNT 30
 /**
   * # vending record datum
@@ -148,7 +146,7 @@
 	///can we access the hidden inventory?
 	var/extended_inventory = 0
 	///Are we checking the users ID
-	var/scan_id = 1
+	var/scan_id = TRUE
 	///Default price of items if not overridden
 	var/default_price = 25
 	///Default price of premium items if not overridden
@@ -362,7 +360,7 @@
 		if(!start_empty)
 			new_record.amount = amount
 		new_record.max_amount = amount
-		new_record.custom_price = initial(temp.custom_price)
+		new_record.custom_price = initial(temp.custom_price) * PRICE_MARKUP
 		new_record.custom_premium_price = initial(temp.custom_premium_price)
 		new_record.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		new_record.category = product_to_category[typepath]
@@ -874,7 +872,7 @@
 		var/list/static_record = list(
 			path = replacetext(replacetext("[record.product_path]", "/obj/item/", ""), "/", "-"),
 			name = record.name,
-			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price),
+			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price * PRICE_MARKUP),
 			max_amount = record.max_amount,
 			ref = REF(record),
 		)
@@ -1011,7 +1009,7 @@
 	if(!R || !istype(R) || !R.product_path)
 		vend_ready = TRUE
 		return FALSE
-	var/price_to_use = default_price
+	var/price_to_use = default_price * PRICE_MARKUP
 	if(R.custom_price)
 		price_to_use = R.custom_price
 	if(R in hidden_records)

@@ -36,10 +36,16 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
-	///Economy cost of item in premium vendor
+	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand
+	/// Can be: TRADE_CONTRABAND, TRADE_NOT_SELLABLE, TRADE_DELETE_UNSOLD. Important in exporting and other things!
+	var/trade_flags = NONE
+	/// This is the economy price of the item. This is important for exports and imports
+	var/item_price
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
@@ -430,7 +436,7 @@
 /mob/living/proc/get_blood_dna_list()
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	return list("ANIMAL DNA" = "Y-")
+	return list("ANIMAL DNA" = get_blood_type("Y-"))
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
@@ -440,14 +446,14 @@
 	if(dna)
 		blood_dna[dna.unique_enzymes] = dna.blood_type
 	else
-		blood_dna["UNKNOWN DNA"] = "X*"
+		blood_dna["UNKNOWN DNA"] = get_blood_type("X")
 	return blood_dna
 
 /mob/living/carbon/alien/get_blood_dna_list()
-	return list("UNKNOWN DNA" = "X*")
+	return list("UNKNOWN DNA" = get_blood_type("X"))
 
 /mob/living/silicon/get_blood_dna_list()
-	return list("MOTOR OIL" = "SAE 5W-30") //just a little flavor text.
+	return list("SYNTHETIC COOLANT" = get_blood_type("Coolant"))
 
 ///to add a mob's dna info into an object's blood_dna list.
 /atom/proc/transfer_mob_blood_dna(mob/living/L)
@@ -925,9 +931,10 @@
  * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
  * the forced gravity var.
  *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
  * HEY JACKASS, LISTEN
  * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
- *
  * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
  * for them to use. If you add more to it, make sure you do that, or things will behave strangely
  *
