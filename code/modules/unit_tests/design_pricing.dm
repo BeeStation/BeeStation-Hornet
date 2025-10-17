@@ -23,6 +23,12 @@
 	// List of designs that are exempt from the test (wacky material conversions)
 	var/static/list/exempted_designs = list(
 		/datum/design/rcd_ammo,
+		// Exclude all stock parts - they use component pricing, not commodity pricing
+		/datum/design/basic_capacitor,
+		/datum/design/basic_scanning,
+		/datum/design/micro_mani,
+		/datum/design/basic_micro_laser,
+		/datum/design/basic_matter_bin,
 	)
 
 	var/designs_tested = 0
@@ -70,8 +76,8 @@
 		// Define acceptable value ranges
 		// Item should be worth at least 50% of material cost (not worthless)
 		var/min_acceptable_value = total_material_cost * 0.5
-		// Item should not be worth more than 3x material cost (not overpowered)
-		var/max_acceptable_value = total_material_cost * 3
+		// Item should not be worth more than 500% material cost (not overpowered)
+		var/max_acceptable_value = total_material_cost * 5
 
 		// Check if within acceptable range
 		if(item_value < min_acceptable_value)

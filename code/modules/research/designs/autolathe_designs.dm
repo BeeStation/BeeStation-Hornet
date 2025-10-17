@@ -106,6 +106,14 @@
 	build_path = /obj/item/weldingtool/mini
 	category = list("initial","Tools")
 
+/datum/design/large_welding_tool
+	name = "Industrial Welding Tool"
+	id = "large_welding_tool"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 60)
+	build_path = /obj/item/weldingtool/largetank
+	category = list("hacked", "Tools")
+
 /datum/design/screwdriver
 	name = "Screwdriver"
 	id = "screwdriver"
@@ -763,14 +771,6 @@
 	build_path = /obj/item/electropack
 	category = list("hacked", "Tools")
 
-/datum/design/large_welding_tool
-	name = "Industrial Welding Tool"
-	id = "large_welding_tool"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 70, /datum/material/glass = 60)
-	build_path = /obj/item/weldingtool/largetank
-	category = list("hacked", "Tools")
-
 /datum/design/handcuffs
 	name = "Handcuffs"
 	id = "handcuffs"
@@ -971,7 +971,7 @@
 	name = "Tablet Frame"
 	id = "tablet"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500)
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 500)
 	build_path = /obj/item/modular_computer/tablet
 	category = list("initial","Misc")
 

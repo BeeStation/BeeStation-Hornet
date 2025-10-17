@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4
 	can_save_id = TRUE
-	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND

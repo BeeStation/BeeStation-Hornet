@@ -16,7 +16,7 @@
 	attack_verb_simple = list("slam", "whack", "bash", "thunk", "batter", "bludgeon", "thrash")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
-	custom_price = PAYCHECK_CREW
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_LOW
 	var/max_water = 50
 	var/last_use = 1
 	var/chem = /datum/reagent/water
