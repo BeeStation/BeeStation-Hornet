@@ -79,10 +79,12 @@
 			max_acceptable_value = total_material_cost * 20
 
 		// Check if within acceptable range
-		//if(item_value < min_acceptable_value || item_value > max_acceptable_value)
-		var/status = item_value < min_acceptable_value ? "undervalued" : "overvalued"
-		TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be [status] (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
-		designs_failed++
+		if(item_value < min_acceptable_value)
+			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be undervalued (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
+			designs_failed++
+		else if(item_value > max_acceptable_value)
+			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be overvalued (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
+			designs_failed++
 
 		qdel(design)
 
