@@ -43,12 +43,18 @@
 
 		designs_tested++
 
-		// Calculate total material cost
+		// Calculate total material cost based on sheets consumed
 		var/total_material_cost = 0
+		var/creation_efficiency = 1.0 // Stock parts efficiency
+
 		for(var/material_type in design.materials)
 			var/material_amount = design.materials[material_type]
-			var/material_value = material_values[material_type] || 0.001 // Default fallback
-			total_material_cost += material_amount * material_value
+			var/material_value_per_unit = material_values[material_type] || 0.001
+
+			// Calculate sheets needed and round up (autolathe consumes whole sheets)
+			var/sheets_needed = (material_amount * creation_efficiency) / 2000 // MINERAL_MATERIAL_AMOUNT
+			var/sheet_cost = 2000 * material_value_per_unit // Cost per full sheet
+			total_material_cost += ceil(sheets_needed) * sheet_cost // Round up to whole sheets
 
 		// Create the item
 		var/obj/item/created_item = allocate(design.build_path)
