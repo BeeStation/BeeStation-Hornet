@@ -73,11 +73,6 @@
 		// Item should not be worth more than 3x material cost (not overpowered)
 		var/max_acceptable_value = total_material_cost * 3
 
-		// Special cases for very cheap items (avoid division by zero issues)
-		if(total_material_cost < 50)
-			min_acceptable_value = 1
-			max_acceptable_value = total_material_cost * 20
-
 		// Check if within acceptable range
 		if(item_value < min_acceptable_value)
 			TEST_FAIL("Design '[design.name]' ([design.type]) produces item worth [item_value] credits, but materials cost [total_material_cost] units. Item may be undervalued (ratio: [round(item_value/total_material_cost*100, 0.1)]%).")
