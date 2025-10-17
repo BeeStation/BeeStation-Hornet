@@ -437,6 +437,8 @@
 	obj_flags = USES_TGUI
 	item_flags = EXAMINE_SKIP | NOBLUDGEON | NO_MAT_REDEMPTION
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 20000
+	max_demand = 5
 	/// The internal holoparasite builder object, which handles actually, well, building the holoparasite.
 	var/datum/holoparasite_builder/builder
 	/// A typepath to the theme of the holoparasite to create.

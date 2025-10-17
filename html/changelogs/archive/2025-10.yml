@@ -131,3 +131,88 @@
   - refactor: Refactored jukebox code
   - imageadd: Gave jukeboxes a new sprite
   - rscdel: Deleted some ancient unused sprites
+2025-10-08:
+  PowerfulBacon:
+  - tweak: Adds a commendation buttons to LOOC chats, which rewards 1 beecoin to both
+      players.
+  - tweak: Adds a criticize button to LOOC chat, which can only be used once per round
+      and will cause a player to be muted after 2-5 minutes if they do not have enough
+      commendations.
+  Rukofamicom:
+  - tweak: Mesons no longer detect false walls that are closed. Open false walls will
+      still appear as an opening though.
+  - tweak: The bolts on false walls are now tightened with wrenches instead of screwdrivers.
+  - bugfix: picking up two of the same stabilized extract no longer renders one of
+      them permanently inert
+  - tweak: picking up two DIFFERENT stabilized extracts now destroys the second one.
+      Pick between automatic healing and no equipment slowdown, you don't get both.
+2025-10-09:
+  TsunamiAnt:
+  - rscadd: Victims of a vampire's mesmerize / feed are now told what the hell is
+      going on.
+  mrmanlikesbt:
+  - bugfix: fixed not having gravity when traveling on a shuttle
+  r1ks-iwnl:
+  - bugfix: Fixed being unable to load foam force guns
+2025-10-10:
+  PinkSuzuki:
+  - rscadd: All objects now have an export value
+  - rscadd: Added a supply/demand feature to export values
+  - tweak: Improved export scanner readings including, readability, demand (aka stock),
+      contraband checks and gas price analisys
+  - tweak: Added visual and sound effects to the export scanner
+  - tweak: Items that aren't sold on the cargo shuttle (either due to being worth
+      nothing or because they are blocked from being sold) will stay on the shuttle
+      for return instead of being deleted
+  - bugfix: Fixed Multiple export errors
+  - bugfix: Fixed an exploit that caused any items to be able to be deleted by using
+      the cargo shuttle
+  - refactor: Removed a lot of export datums in favour of a catchall datum for all
+      objects that do NOT fit other export datums
+  - balance: Reduced starting cargo budget to 2000 credits, because of this all other
+      department cards got 8000 starting cargo budget
+  - code_imp: Added a framework for defining standard department budgets
+  - code_imp: Some types such as stock_parts and stacks have a calculate_price proc
+      that handles custom_price based on different factors (part tier, stack amount,
+      for instance)
+  - balance: Items now start with a randomized price based on their weight if a custom
+      price isn't set
+2025-10-11:
+  Isaac:
+  - bugfix: Untints cardstation medical directional windows
+2025-10-12:
+  mrmanlikesbt, CoffeeDragon16, Paxilmaniac:
+  - rscadd: beware of the clown with a piano (falling objects now deal damage and
+      pianos crush people)
+  - rscadd: Pianos now have a broken sprite (this was always in the game, but unused)
+  - soundadd: Pianos have a sound for being hit now
+  - tweak: Pianos are no longer randomly a minimoog on spawn, there is now a mapping
+      helper for that now
+2025-10-13:
+  BotTierPC:
+  - tweak: Overhauls Meta-Station Dorms, Washrooms, Garden, and Locker Room.
+  Isaac:
+  - bugfix: Revenants no longer get free Soul Essence from the healing coming from
+      Rod of Asclepius and undead simple animals wont get healed by the rod either
+  lord scrubling:
+  - bugfix: chaplain grave robber hat now has armor
+  san7890 MrMelbert larentoun:
+  - rscadd: Added respawning.
+2025-10-14:
+  BrumalLake:
+  - balance: any hat with armor prevents bible brain damage
+  PinkSuzuki:
+  - tweak: Reworked empty shops to make them more prepared for business (or crime)
+  mrmanlikesbt:
+  - bugfix: Fixed the holodeck thunderdome not spawning with holo energy swords
+  mrmanlikesbt, TsunamiAnt:
+  - tweak: Deputy vendors can no longer be used when there is security
+  - balance: The deputy vendor can no longer be hacked to obtain gear as a non-security
+      officer
+2025-10-16:
+  TsunamiAnt:
+  - bugfix: Observers were unintentionally able to use the security workshop.
+  mrmanlikesbt, TheBoondock, GoblinBackwards, vinylspiders, SmArtKar:
+  - rscadd: Fires now make sound
+  mrmanlikesbt, san7890:
+  - bugfix: fixed heartless species (plasmamen) not receiving living hearts.

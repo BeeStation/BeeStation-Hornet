@@ -466,4 +466,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents items from being speed potion-ed, but allows their speed to be altered in other ways
 #define TRAIT_NO_SPEED_POTION "no_speed_potion"
 
+/// Trait given to a dreaming carbon when they are currently doing dreaming stuff
+#define TRAIT_DREAMING "currently_dreaming"
+
 // END TRAIT DEFINES
