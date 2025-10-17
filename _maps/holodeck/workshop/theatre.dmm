@@ -103,9 +103,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
