@@ -259,3 +259,19 @@
 	return ..()
 
 #undef MAX_DENT_DECALS
+
+/turf/closed/wall/colored
+	icon = 'icons/turf/walls/grayscale_wall.dmi'
+
+/turf/closed/wall/colored/light
+	color = "#fafaf0"
+
+/turf/closed/wall/colored/dark
+	color = "#2c2d30"
+
+/turf/closed/wall/colored/yellow
+	color = "#4c4330"
+
+/turf/closed/wall/colored/brown
+		color = "#47342b"
+

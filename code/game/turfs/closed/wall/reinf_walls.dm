@@ -296,4 +296,18 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/turf/closed/wall/r_wall/colored
+	icon = 'icons/turf/walls/grayscale_reinforced_wall.dmi'
+
+/turf/closed/wall/r_wall/colored/light
+	color = "#fafaf0"
+
+/turf/closed/wall/r_wall/colored/dark
+	color = "#2c2d30"
+
+/turf/closed/wall/r_wall/colored/yellow
+	color = "#4c4330"
+
+/turf/closed/wall/r_wall/colored/brown
+		color = "#47342b"
 

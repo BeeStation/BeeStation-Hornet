@@ -112,6 +112,7 @@
 	desc = "A lining of paper scattered across the bottom of a wall."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "paper"
+	max_integrity = 20
 	deconstructible = FALSE
 
 /obj/structure/fluff/paper/corner

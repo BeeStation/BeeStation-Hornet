@@ -21,6 +21,20 @@
 	id = "secure"
 	base_turf = /turf/open/floor/plating/elevatorshaft
 
+//nucorg
+
+/obj/structure/elevator_segment/nucorg/bridge
+	id = "bridge"
+	base_turf = /turf/open/floor/plating/elevatorshaft
+
+/obj/structure/elevator_segment/nucorg/janitor
+	id = "janitor"
+	base_turf = /turf/open/floor/plating/elevatorshaft
+
+/obj/structure/elevator_segment/nucorg/cargo
+	id = "cargo"
+	base_turf = /turf/open/floor/plating/elevatorshaft
+
 /obj/structure/elevator_segment/Initialize(mapload)
 	music_files = list('sound/effects/turbolift/elevatormusic.ogg' = 45, 'sound/effects/turbolift/elevator_loop.ogg' = 25)
 	move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))

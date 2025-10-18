@@ -255,6 +255,68 @@
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted black anticorner ramp"
 
+/// teal tiles
+
+/obj/effect/turf_decal/tile/teal
+	name = "teal corner"
+	color = "#6ea78c"
+
+/obj/effect/turf_decal/tile/teal/corner_ramp
+	icon_state = "tile_corner_ramp"
+	name = "teal corner ramp"
+
+/obj/effect/turf_decal/tile/teal/corner_ramp/offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "teal corner ramp offset"
+
+/obj/effect/turf_decal/tile/teal/opposingcorners
+	icon_state = "tile_opposing_corners"
+	name = "opposing teal corners"
+
+/obj/effect/turf_decal/tile/teal/half
+	icon_state = "tile_half"
+	name = "teal half"
+
+/obj/effect/turf_decal/tile/teal/half/contrasted
+	icon_state = "tile_half_contrasted"
+	name = "contrasted teal half"
+
+/obj/effect/turf_decal/tile/teal/anticorner
+	icon_state = "tile_anticorner"
+	name = "teal anticorner"
+
+/obj/effect/turf_decal/tile/teal/anticorner/contrasted
+	icon_state = "tile_anticorner_contrasted"
+	name = "contrasted teal anticorner"
+
+/obj/effect/turf_decal/tile/teal/fourcorners/contrasted
+	icon_state = "tile_fourcorners_contrasted"
+	name = "teal fourcorners"
+
+/obj/effect/turf_decal/tile/teal/fourcorners
+	icon_state = "tile_fourcorners"
+	name = "teal full"
+
+/obj/effect/turf_decal/tile/teal/diagonal_centre
+	icon_state = "diagonal_centre"
+	name = "teal diagonal centre"
+
+/obj/effect/turf_decal/tile/teal/diagonal_edge
+	icon_state = "diagonal_edge"
+	name = "teal diagonal edge"
+
+/obj/effect/turf_decal/tile/teal/carat
+	icon_state = "tile_carat"
+	name = "teal carat decal"
+
+/obj/effect/turf_decal/tile/teal/anticorner_ramp
+	icon_state = "tile_anticorner_ramp"
+	name = "teal anticorner ramp"
+
+/obj/effect/turf_decal/tile/teal/anticorner_ramp/contrasted
+	icon_state = "tile_anticorner_contrasted_ramp"
+	name = "contrasted teal anticorner ramp"
+
 /// Green tiles
 
 /obj/effect/turf_decal/tile/green
@@ -378,6 +440,68 @@
 /obj/effect/turf_decal/tile/dark_green/anticorner_ramp/contrasted
 	icon_state = "tile_anticorner_contrasted_ramp"
 	name = "contrasted dark green anticorner ramp"
+
+/// orange tiles
+
+/obj/effect/turf_decal/tile/orange
+	name = "orange corner"
+	color = "#ed8326"
+
+/obj/effect/turf_decal/tile/orange/corner_ramp
+	icon_state = "tile_corner_ramp"
+	name = "orange corner ramp"
+
+/obj/effect/turf_decal/tile/orange/corner_ramp/offset
+	icon_state = "tile_corner_ramp_offset"
+	name = "orange corner ramp offset"
+
+/obj/effect/turf_decal/tile/orange/opposingcorners
+	icon_state = "tile_opposing_corners"
+	name = "opposing orange corners"
+
+/obj/effect/turf_decal/tile/orange/half
+	icon_state = "tile_half"
+	name = "orange half"
+
+/obj/effect/turf_decal/tile/orange/half/contrasted
+	icon_state = "tile_half_contrasted"
+	name = "contrasted orange half"
+
+/obj/effect/turf_decal/tile/orange/anticorner
+	icon_state = "tile_anticorner"
+	name = "orange anticorner"
+
+/obj/effect/turf_decal/tile/orange/anticorner/contrasted
+	icon_state = "tile_anticorner_contrasted"
+	name = "contrasted orange anticorner"
+
+/obj/effect/turf_decal/tile/orange/fourcorners/contrasted
+	icon_state = "tile_fourcorners_contrasted"
+	name = "orange fourcorners"
+
+/obj/effect/turf_decal/tile/orange/fourcorners
+	icon_state = "tile_fourcorners"
+	name = "orange full"
+
+/obj/effect/turf_decal/tile/orange/diagonal_centre
+	icon_state = "diagonal_centre"
+	name = "orange diagonal centre"
+
+/obj/effect/turf_decal/tile/orange/diagonal_edge
+	icon_state = "diagonal_edge"
+	name = "orange diagonal edge"
+
+/obj/effect/turf_decal/tile/orange/carat
+	icon_state = "tile_carat"
+	name = "orange carat decal"
+
+/obj/effect/turf_decal/tile/orange/anticorner_ramp
+	icon_state = "tile_anticorner_ramp"
+	name = "orange anticorner ramp"
+
+/obj/effect/turf_decal/tile/orange/anticorner_ramp/contrasted
+	icon_state = "tile_anticorner_contrasted_ramp"
+	name = "contrasted orange anticorner ramp"
 
 /// Yellow tiles
 
@@ -984,6 +1108,7 @@
 //"Rust"
 
 /obj/effect/turf_decal/tile/monorust
+	alpha = 255
 	icon_state = "mono_rusted1"
 
 /obj/effect/turf_decal/tile/monorust/intensity2
@@ -994,6 +1119,7 @@
 
 
 /obj/effect/turf_decal/tile/cornerrust
+	alpha = 255
 	icon_state = "part_rusted1"
 
 /obj/effect/turf_decal/tile/cornerrust/intensity2
@@ -1004,6 +1130,7 @@
 
 
 /obj/effect/turf_decal/tile/colorrust
+	alpha = 200
 	icon_state = "color_rusted"
 
 /obj/effect/turf_decal/tile/colorrust/corner
@@ -1203,6 +1330,65 @@
 	icon_state = "trimline_shrink_cw"
 
 /obj/effect/turf_decal/trimline/dark_red/filled/shrink_ccw
+	icon_state = "trimline_shrink_ccw"
+
+/// teal trimlines
+
+/obj/effect/turf_decal/trimline/teal
+	color = "#7fc1a2"
+
+/obj/effect/turf_decal/trimline/teal/line
+	icon_state = "trimline"
+
+/obj/effect/turf_decal/trimline/teal/corner
+	icon_state = "trimline_corner"
+
+/obj/effect/turf_decal/trimline/teal/end
+	icon_state = "trimline_end"
+
+/obj/effect/turf_decal/trimline/teal/arrow_cw
+	icon_state = "trimline_arrow_cw"
+
+/obj/effect/turf_decal/trimline/teal/arrow_ccw
+	icon_state = "trimline_arrow_ccw"
+
+/obj/effect/turf_decal/trimline/teal/warning
+	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/teal/warning_offset
+	icon_state = "trimline_warn_offset"
+
+/obj/effect/turf_decal/trimline/teal/mid_joiner
+	icon_state = "trimline_mid"
+
+/obj/effect/turf_decal/trimline/teal/filled
+	icon_state = "trimline_box_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/line
+	icon_state = "trimline_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/arrow_cw
+	icon_state = "trimline_arrow_cw_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/arrow_ccw
+	icon_state = "trimline_arrow_ccw_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/warning
+	icon_state = "trimline_warn_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/mid_joiner
+	icon_state = "trimline_mid_fill"
+
+/obj/effect/turf_decal/trimline/teal/filled/shrink_cw
+	icon_state = "trimline_shrink_cw"
+
+/obj/effect/turf_decal/trimline/teal/filled/shrink_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /// Green trimlines
@@ -1498,6 +1684,64 @@
 	icon_state = "trimline_shrink_cw"
 
 /obj/effect/turf_decal/trimline/yellow/filled/shrink_ccw
+	icon_state = "trimline_shrink_ccw"
+
+/// Orange trimlines
+/obj/effect/turf_decal/trimline/orange
+	color = "#ed8326"
+
+/obj/effect/turf_decal/trimline/orange/line
+	icon_state = "trimline"
+
+/obj/effect/turf_decal/trimline/orange/corner
+	icon_state = "trimline_corner"
+
+/obj/effect/turf_decal/trimline/orange/end
+	icon_state = "trimline_end"
+
+/obj/effect/turf_decal/trimline/orange/arrow_cw
+	icon_state = "trimline_arrow_cw"
+
+/obj/effect/turf_decal/trimline/orange/arrow_ccw
+	icon_state = "trimline_arrow_ccw"
+
+/obj/effect/turf_decal/trimline/orange/warning
+	icon_state = "trimline_warn"
+
+/obj/effect/turf_decal/trimline/orange/warning_offset
+	icon_state = "trimline_warn_offset"
+
+/obj/effect/turf_decal/trimline/orange/mid_joiner
+	icon_state = "trimline_mid"
+
+/obj/effect/turf_decal/trimline/orange/filled
+	icon_state = "trimline_box_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/line
+	icon_state = "trimline_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/arrow_cw
+	icon_state = "trimline_arrow_cw_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/arrow_ccw
+	icon_state = "trimline_arrow_ccw_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/warning
+	icon_state = "trimline_warn_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/mid_joiner
+	icon_state = "trimline_mid_fill"
+
+/obj/effect/turf_decal/trimline/orange/filled/shrink_cw
+	icon_state = "trimline_shrink_cw"
+
+/obj/effect/turf_decal/trimline/orange/filled/shrink_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /// Purple trimlines

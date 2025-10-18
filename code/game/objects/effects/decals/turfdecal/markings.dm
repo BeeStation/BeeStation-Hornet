@@ -396,6 +396,15 @@
 /obj/effect/turf_decal/siding/wideplating/end
 	icon_state = "siding_wideplating_end"
 
+/obj/effect/turf_decal/siding/wideplating/slate
+	color = "#535c5b"
+
+/obj/effect/turf_decal/siding/wideplating/slate/corner
+	icon_state = "siding_wideplating_corner"
+
+/obj/effect/turf_decal/siding/wideplating/slate/end
+	icon_state = "siding_wideplating_end"
+
 /obj/effect/turf_decal/siding/wideplating/light
 	color = "#FFFFFF"
 
@@ -472,6 +481,15 @@
 	icon_state = "siding_wideplating_new_corner"
 
 /obj/effect/turf_decal/siding/wideplating_new/end
+	icon_state = "siding_wideplating_new_end"
+
+/obj/effect/turf_decal/siding/wideplating_new/slate
+	color = "#535c5b"
+
+/obj/effect/turf_decal/siding/wideplating_new/slate/corner
+	icon_state = "siding_wideplating_new_corner"
+
+/obj/effect/turf_decal/siding/wideplating_new/slate/end
 	icon_state = "siding_wideplating_new_end"
 
 /obj/effect/turf_decal/siding/wideplating_new/light

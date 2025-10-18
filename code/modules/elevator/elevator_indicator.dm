@@ -22,6 +22,17 @@
 /obj/machinery/elevator_indicator/secure
 	id = "secure"
 
+//nucorg
+
+/obj/machinery/elevator_indicator/nucorg/bridge
+	id = "bridge"
+
+/obj/machinery/elevator_indicator/nucorg/janitor
+	id = "janitor"
+
+/obj/machinery/elevator_indicator/nucorg/cargo
+	id = "cargo"
+
 /obj/machinery/elevator_indicator/Initialize(mapload)
 	. = ..()
 	update_display(force = TRUE)

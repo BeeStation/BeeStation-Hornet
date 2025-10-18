@@ -42,6 +42,14 @@
 	name = "purple in guideline"
 	color = "#D381C9"
 
+/obj/effect/turf_decal/guideline/guideline_in/orange
+	name = "orange in guideline"
+	color = "#ed8326"
+
+/obj/effect/turf_decal/guideline/guideline_in/teal
+	name = "teal in guideline"
+	color = "#6ea78c"
+
 /obj/effect/turf_decal/guideline/guideline_in/brown
 	name = "brown in guideline"
 	color = "#A46106"
@@ -103,6 +111,14 @@
 	name = "brown in guideline"
 	color = "#A46106"
 
+/obj/effect/turf_decal/guideline/guideline_half_in/orange
+	name = "orange in guideline"
+	color = "#ed8326"
+
+/obj/effect/turf_decal/guideline/guideline_half_in/teal
+	name = "teal in guideline"
+	color = "#6ea78c"
+
 /obj/effect/turf_decal/guideline/guideline_half_in/neutral
 	name = "neutral in guideline"
 	color = "#D4D4D4"
@@ -159,6 +175,8 @@
 /obj/effect/turf_decal/guideline/guideline_half_edge/brown
 	name = "brown in guideline"
 	color = "#A46106"
+
+
 
 /obj/effect/turf_decal/guideline/guideline_half_edge/neutral
 	name = "neutral in guideline"

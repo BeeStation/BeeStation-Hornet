@@ -29,6 +29,20 @@
 	available_levels = list(1, 2, 5)
 	calltime = 3.5 SECONDS // this is a long elevator, please don't take 5 years
 
+//nucorg
+
+/obj/machinery/elevator_interface/nucorg/bridge
+	id = "bridge"
+	available_levels = list(2, 3, 4)
+
+/obj/machinery/elevator_interface/nucorg/janitor
+	id = "janitor"
+	available_levels = list(3, 4)
+
+/obj/machinery/elevator_interface/nucorg/cargo
+	id = "cargo"
+	available_levels = list(3, 4)
+
 /obj/machinery/elevator_interface/Initialize(mapload)
 	. = ..()
 	if(standing)
