@@ -36,7 +36,8 @@
 				if(STATUS_EFFECT_REFRESH)
 					existing_effect.refresh(arglist(arguments))
 				if(STATUS_EFFECT_MERGE)
-					existing_effect.merge(arglist(arguments))
+					var/list/merge_arguments = args.Copy(2) // Skip the first argument (the mob)
+					existing_effect.merge(arglist(merge_arguments))
 					return
 
 	// Create the status effect with our mob + our arguments
