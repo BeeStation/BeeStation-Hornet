@@ -6121,7 +6121,7 @@
 	id = "loungeshutter";
 	name = "Observation Lounge Shutters"
 	},
-/turf/open/floor/wood/big,
+/turf/open/floor/plating,
 /area/crew_quarters/lounge)
 "bAY" = (
 /obj/structure/chair/fancy/comfy{
@@ -17375,9 +17375,6 @@
 /obj/item/megaphone,
 /obj/machinery/newscaster{
 	pixel_y = 32
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 1
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/lounge)
@@ -33625,7 +33622,7 @@
 	id = "loungeshutter";
 	name = "Observation Lounge Shutters"
 	},
-/turf/open/floor/wood/big,
+/turf/open/floor/plating,
 /area/crew_quarters/lounge)
 "jSj" = (
 /obj/structure/sign/warning/electricshock{
@@ -51000,9 +50997,6 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 1
-	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/lounge)
 "qBp" = (
@@ -61793,7 +61787,7 @@
 /obj/structure/curtain/directional{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/plating,
 /area/janitor)
 "uxK" = (
 /obj/structure/window/reinforced/spawner/directional/south,
