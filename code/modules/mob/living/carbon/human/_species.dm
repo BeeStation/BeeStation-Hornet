@@ -509,14 +509,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
 
-	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
-		var/curedisease = TRUE
-		for(var/A.infectable_biotypes & host_type)
-			if(inherent_biotypes & host_type)
-				curedisease = FALSE
-				break
-		if(curedisease)
-			A.cure(FALSE)
+	//if we can't have the disease, dont keep it
+	for(var/datum/disease/disease in C.diseases)
+		if(!(disease.infectable_biotypes & inherent_biotypes))
+			disease.cure(FALSE)
 
 	if(TRAIT_TOXIMMUNE in inherent_traits)
 		C.setToxLoss(0, TRUE, TRUE)
