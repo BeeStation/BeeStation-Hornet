@@ -111,6 +111,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/spawnhuman,
 	/client/proc/debug_spell_requirements,
+	/datum/admins/proc/station_traits_panel,
 	/datum/admins/proc/dynamic_panel,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
