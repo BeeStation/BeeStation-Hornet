@@ -440,7 +440,7 @@
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 
-/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/revenant/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	to_chat(src, span_warning("You are too restless to rest now!"))
 	return FALSE
 

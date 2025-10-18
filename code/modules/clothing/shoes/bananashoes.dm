@@ -5,6 +5,8 @@
 	desc = "Lost prototype of advanced clown tech. Powered by bananium, these shoes leave a trail of chaos in their wake."
 	icon_state = "clown_prototype_off"
 	actions_types = list(/datum/action/item_action/toggle)
+	custom_price = 10000
+	max_demand = 10
 	var/on = FALSE
 	var/always_noslip = FALSE
 

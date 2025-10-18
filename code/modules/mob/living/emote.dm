@@ -481,7 +481,7 @@
 	if(QDELETED(user))
 		return FALSE
 
-	if(user.client && user.client.prefs.muted & MUTE_IC)
+	if(user.client && user.client.player_details.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 

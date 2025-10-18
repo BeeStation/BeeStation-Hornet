@@ -115,7 +115,7 @@
 /obj/item/storage/box/holy/graverobber/PopulateContents()
 	new /obj/item/clothing/suit/chaplainsuit/armor/templar/graverobber_coat(src)
 	new /obj/item/clothing/under/rank/civilian/graverobber_under(src)
-	new /obj/item/clothing/head/chaplain/graverobber_hat(src)
+	new /obj/item/clothing/head/helmet/chaplain/graverobber_hat(src)
 	new /obj/item/clothing/gloves/graverobber_gloves(src)
 
 /obj/item/storage/box/holy/adept

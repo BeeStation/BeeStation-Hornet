@@ -92,6 +92,12 @@
 	blood_DNA = null
 	return TRUE
 
+/datum/forensics/proc/is_bloody(datum/source, clean_types)
+	if(!isitem(parent))
+		return FALSE
+
+	return length(blood_DNA) > 0
+
 /// Empties the fibers list
 /datum/forensics/proc/wipe_fibers()
 	fibers = null
@@ -266,4 +272,4 @@
 	if(!length(blood_DNA))
 		return
 	var/atom/parent_atom = parent.resolve()
-	parent_atom.AddElement(/datum/element/decal/blood) //TODO: make decals actually work on all the items, it doesnt appear on a lot of them for some reason
+	parent_atom.AddElement(/datum/element/decal/blood, initial(parent_atom.icon) || parent_atom.icon, initial(parent_atom.icon_state) || parent_atom.icon_state, _color = get_blood_dna_color(blood_DNA))

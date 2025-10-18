@@ -197,9 +197,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
@@ -207,9 +205,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
 /area/shuttle/escape)
@@ -282,7 +278,7 @@
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bj" = (
@@ -765,7 +761,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JW" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Km" = (

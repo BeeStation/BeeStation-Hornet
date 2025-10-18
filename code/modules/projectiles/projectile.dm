@@ -12,6 +12,7 @@
 	movement_type = FLYING
 	//wound_bonus = CANT_WOUND // can't wound by default
 	generic_canpass = FALSE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -253,7 +254,12 @@
 				if(isalien(L))
 					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 				else
-					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir)
+					var/splatter_color = null
+					if(iscarbon(L))
+						var/mob/living/carbon/carbon_target = L
+						if(carbon_target.dna?.blood_type)
+							splatter_color = carbon_target.dna.blood_type.blood_color
+					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
 				if(prob(33))
 					L.add_splatter_floor(target_loca)
 			else  // So if you hit a robotic, it sparks instead of bloodspatters

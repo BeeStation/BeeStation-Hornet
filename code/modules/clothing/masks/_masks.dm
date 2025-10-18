@@ -6,6 +6,7 @@
 	strip_delay = 40
 	equip_delay_other = 40
 	visor_vars_to_toggle = NONE
+	custom_price = 25
 	var/modifies_speech = FALSE
 	var/adjusted_flags = null
 	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
@@ -46,7 +47,9 @@
 			if(damaged_clothes)
 				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
 			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+				var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+				bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+				. += bloody_mask
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()

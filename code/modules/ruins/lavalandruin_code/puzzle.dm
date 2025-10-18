@@ -317,6 +317,8 @@
 	desc = "Dusty cube with humanoid imprint on it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "prison_cube"
+	custom_price = 20000
+	max_demand = 5
 
 /obj/item/prisoncube/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

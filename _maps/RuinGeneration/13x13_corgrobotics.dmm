@@ -69,18 +69,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
-"i" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/vending/wardrobe/robo_wardrobe{
-	pixel_x = 3
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/unpowered)
 "j" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -91,6 +79,15 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/hatch,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"k" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "l" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -203,6 +200,16 @@
 "A" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"B" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/light,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered)
 "C" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -212,15 +219,6 @@
 "D" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/ruin/unpowered)
-"E" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/newscaster{
-	pixel_x = -30
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
@@ -283,18 +281,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
-"M" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/light,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/iron/dark,
-/area/ruin/unpowered)
 "N" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 1
@@ -338,6 +324,16 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/unpowered)
+"U" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/vending/wardrobe/robo_wardrobe{
+	pixel_x = 3
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
@@ -397,7 +393,7 @@ A
 A
 p
 x
-E
+k
 u
 A
 Y
@@ -490,7 +486,7 @@ f
 y
 O
 y
-M
+B
 A
 o
 A
@@ -520,7 +516,7 @@ f
 y
 O
 y
-i
+U
 A
 o
 o

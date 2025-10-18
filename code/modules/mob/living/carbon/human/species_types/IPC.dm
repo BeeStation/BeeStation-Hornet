@@ -63,8 +63,7 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ipc
 	)
 
-	exotic_blood = /datum/reagent/oil
-	blood_color = "#000000"
+	exotic_bloodtype = "Coolant"
 	bleed_effect = /datum/status_effect/bleeding/robotic
 
 	var/saved_screen //for saving the screen when they die

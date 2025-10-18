@@ -45,7 +45,10 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe", item_layer)
 		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
+			var/mutable_appearance/bloody_shoes
+			bloody_shoes = mutable_appearance('icons/effects/blood.dmi', "shoeblood", item_layer)
+			bloody_shoes.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+			. += bloody_shoes
 
 /obj/item/clothing/shoes/visual_equipped(mob/user, slot)
 	..()

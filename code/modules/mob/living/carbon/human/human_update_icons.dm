@@ -185,6 +185,12 @@ There are several things that need to be remembered:
 	var/mutable_appearance/bloody_righthand_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right", -GLOVES_LAYER)
 	cut_overlay(bloody_lefthand_overlay)
 	cut_overlay(bloody_righthand_overlay)
+
+	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
+	if(length(blood_dna))
+		bloody_lefthand_overlay.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		bloody_righthand_overlay.color = bloody_lefthand_overlay.color
+
 	if(!gloves && blood_in_hands && (num_hands > 0))
 		if(has_left_hand(check_disabled = FALSE))
 			add_overlay(bloody_lefthand_overlay)

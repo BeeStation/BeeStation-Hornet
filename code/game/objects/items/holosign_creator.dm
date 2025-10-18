@@ -122,6 +122,7 @@
 	actions_types = list(/datum/action/item_action/toggle_crimesigns)
 	creation_time = 3 SECONDS
 	max_signs = 6
+	custom_price = 50
 	var/active_crimesign = FALSE
 	var/list/active_barriers = list()
 	var/crimesign_range = 4 //in tiles
@@ -257,6 +258,11 @@
 			hologram.reset_transparency()
 		clearview = FALSE
 		deltimer(clearview_timer)
+
+/obj/item/holosign_creator/atmos/ert
+	name = "\improper ERT holofan projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions. This one was upgraded by centcom field-energy specialists"
+	max_signs = 6
 
 /obj/item/holosign_creator/medical
 	name = "\improper PENLITE barrier projector"
