@@ -23120,10 +23120,12 @@
 	pixel_y = 12
 	},
 /obj/item/paper_bin{
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 2
 	},
 /obj/item/pen{
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -43808,6 +43810,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
+/obj/item/soap/deluxe,
 /turf/open/floor/noslip/white,
 /area/crew_quarters/toilet)
 "nNc" = (
@@ -50755,14 +50758,20 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/clipboard,
-/obj/item/paper{
-	default_raw_text = "<center><h1>Tye-Dye Instructions</h2></center><hr><font size='4'> Lets get <i>groovy</i> with it, grab yourself some of those funky crayons and throw the color of your choice in the washer!<br><br>Then you like, gotta get some clothes, some cool jumpsuits and wash em with with that crayon.<center><br><br>! <font color="Red">Rock<font color="Blue"> On <font color="Green">Colorful <font color="Purple"> Broski's </font>⠀!";
-	name = "Old Instructions";
-	icon_state = "scrap_words"
-	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
+	},
+/obj/item/reagent_containers/medspray/dye{
+	pixel_x = 4;
+	pixel_y = 17
+	},
+/obj/item/reagent_containers/medspray/barber{
+	pixel_x = 9;
+	pixel_y = 10
+	},
+/obj/item/handmirror{
+	pixel_x = -3;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/white/smooth_half,
 /area/crew_quarters/locker)
