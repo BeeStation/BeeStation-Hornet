@@ -540,6 +540,13 @@
 	item_state = "redglasses"
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
+/obj/item/clothing/glasses/red/wizard
+	name = "glasses of truesight"
+	desc = "A pair of glasses that allow you to see those that would hide from you"
+	vision_flags = SEE_MOBS
+	darkness_view = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
@@ -562,7 +569,6 @@
 /obj/item/clothing/glasses/godeye/Destroy()
 	//QDEL_NULL(scan_ability)
 	return ..()
-
 
 /obj/item/clothing/glasses/godeye/equipped(mob/living/user, slot)
 	. = ..()
