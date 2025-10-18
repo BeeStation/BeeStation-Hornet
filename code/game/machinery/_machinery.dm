@@ -182,6 +182,14 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
+	// This is needed to prevent indestructible machinery still blowing up.
+	// If an explosion occurs on the same tile as the indestructible machinery without the PREVENT_CONTENTS_EXPLOSION_1 flag,
+	// /datum/controller/subsystem/explosions/proc/propagate_blastwave will call ex_act on all movable atoms inside the machine,
+	// including the circuit board and component parts. However, if those parts get deleted, the entire machine gets deleted,
+	// allowing for INDESTRUCTIBLE machines to be destroyed. (See https://github.com/tgstation/tgstation/pull/62164 for more info)
+	if((resistance_flags & INDESTRUCTIBLE) && component_parts)
+		flags_1 |= PREVENT_CONTENTS_EXPLOSION_1
+
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
@@ -296,6 +304,7 @@
 	return
 
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
+	set waitfor = FALSE
 	return PROCESS_KILL
 
 ///Called when we want to change the value of the machine_stat variable. Holds bitflags.
@@ -878,7 +887,7 @@
 		return FAILED_UNFASTEN
 	return SUCCESSFUL_UNFASTEN
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench, time = 20) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench, time = 2 SECONDS) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
 	if((flags_1 & NODECONSTRUCT_1) || wrench.tool_behaviour != TOOL_WRENCH)
 		return CANT_UNFASTEN
 
@@ -1035,14 +1044,23 @@
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
-	..()
-	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
-	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, ENERGY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(
+			epicenter = src,
+			devastation_range = 1,
+			heavy_impact_range = 2,
+			light_impact_range = 4,
+			flame_range = 2,
+			adminlog = FALSE
+		)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
+		power -= power * 5e-4
+
+	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()

@@ -13,14 +13,13 @@
 /obj/projectile/energy/bolt/radbolt
 	name = "bolt"
 	icon_state = "cbbolt"
-	damage = 15
+	damage = 25
 	damage_type = TOX
 	nodamage = FALSE
 	stamina = 35
 	eyeblur = 10
 	slur = 10
 	knockdown = 0
-	irradiate = 400
 
 /obj/projectile/energy/bolt/radbolt/Initialize(mapload)
 	. = ..()

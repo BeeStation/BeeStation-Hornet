@@ -284,7 +284,6 @@
 
 /datum/armor/plasmaman_engineering
 	bio = 100
-	rad = 10
 	fire = 100
 	acid = 75
 	bleed = 10
@@ -519,7 +518,6 @@
 
 /datum/armor/mark2_engineering
 	bio = 100
-	rad = 10
 	fire = 100
 	acid = 75
 	bleed = 10
@@ -728,7 +726,6 @@
 
 /datum/armor/protective_engineering
 	bio = 100
-	rad = 10
 	fire = 100
 	acid = 75
 	bleed = 10

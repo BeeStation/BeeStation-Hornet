@@ -521,7 +521,7 @@
 	return dna
 
 /// Returns TRUE if the mob is allowed to mutate via its DNA, or FALSE if otherwise.
-/// Only an organic Carbon with valid DNA may mutate; not robots, AIs, aliens, Ians, or other mobs.
+/// Only an organic carbon with valid DNA may mutate; not robots, AIs, aliens, Ians, or other mobs.
 /mob/proc/can_mutate()
 	return FALSE
 

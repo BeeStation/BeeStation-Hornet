@@ -48,7 +48,7 @@
 							part.embedded_objects -= item_to_retrieve
 							to_chat(C, span_warning("The [item_to_retrieve] that was embedded in your [user] has mysteriously vanished. How fortunate!"))
 							if(!C.has_embedded_objects())
-								C.clear_alert("embeddedobject")
+								C.clear_alert(ALERT_EMBEDDED_OBJECT)
 								SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 							break
 

@@ -14,7 +14,6 @@
 	armor_type = /datum/armor/structure_window
 	can_atmos_pass = ATMOS_PASS_PROC
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
-	rad_flags = RAD_PROTECT_CONTENTS
 	pass_flags_self = PASSTRANSPARENT
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/state = WINDOW_OUT_OF_FRAME
@@ -432,7 +431,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/unanchored/spawner, 0)
 /datum/armor/window_reinforced
 	melee = 50
 	bomb = 25
-	rad = 100
 	fire = 80
 	acid = 100
 
@@ -473,7 +471,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/corner/unanchored/s
 	melee = 75
 	bullet = 5
 	bomb = 45
-	rad = 100
 	fire = 99
 	acid = 100
 
@@ -519,7 +516,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/plasma/corner/unanchored/spawn
 	melee = 85
 	bullet = 20
 	bomb = 60
-	rad = 100
 	fire = 99
 	acid = 100
 
@@ -581,7 +577,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/tinted/frosted/spaw
 	melee = 45
 	bullet = 20
 	bomb = 60
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -742,7 +737,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 /datum/armor/window_shuttle
 	melee = 50
 	bomb = 50
-	rad = 100
 	fire = 80
 	acid = 100
 
@@ -780,7 +774,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 /datum/armor/window_plastitanium
 	melee = 50
 	bomb = 50
-	rad = 100
 	fire = 80
 	acid = 100
 

@@ -50,7 +50,6 @@
 	energy = 10
 	bomb = 20
 	bio = 50
-	rad = 20
 	fire = 100
 	acid = 50
 	stamina = 10
@@ -174,13 +173,14 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	rad_flags = RAD_PROTECT_CONTENTS
 	custom_price = 50
 
+/obj/item/clothing/head/utility/radiation/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/utility_radiation
 	bio = 60
-	rad = 100
 	fire = 30
 	acid = 30
 	stamina = 10
@@ -200,18 +200,9 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
-	rad_flags = RAD_PROTECT_CONTENTS
 	custom_price = 100
-
-
-/datum/armor/utility_radiation
-	bio = 60
-	rad = 100
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 15
 
 /obj/item/clothing/suit/utility/radiation/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

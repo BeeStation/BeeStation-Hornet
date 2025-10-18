@@ -11,22 +11,19 @@
 	max_integrity = 200
 	armor_type = /datum/armor/structure_disposalpipe
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	damage_deflection = 10
+
 	var/dpdir = NONE					// bitmask of pipe directions
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
-
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
-
 
 /datum/armor/structure_disposalpipe
 	melee = 25
 	bullet = 10
 	laser = 10
 	energy = 100
-	rad = 100
 	fire = 90
 	acid = 30
 

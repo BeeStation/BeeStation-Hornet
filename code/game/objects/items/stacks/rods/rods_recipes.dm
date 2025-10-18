@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 		)), \
 	new/datum/stack_recipe("ladder", /obj/structure/ladder, 10, crafting_flags = CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 6 SECONDS, category = CAT_STRUCTURE),
 	new/datum/stack_recipe("catwalk floor tile", /obj/item/stack/tile/catwalk_tile, 1, 4, 20, category = CAT_TILES),
+	new/datum/stack_recipe("sharpened iron rod", /obj/item/ammo_casing/rebar, 1, time = 0.2 SECONDS, crafting_flags = CRAFT_CHECK_DENSITY, category = CAT_WEAPON_AMMO),
 ))
 
 /obj/item/stack/rods/cyborg
