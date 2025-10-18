@@ -43,7 +43,7 @@
 #define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
 #define AUTOLATHE		(1<<2)	//Uses glass/iron only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time var.
 #define BIOGENERATOR	(1<<5) 	//Uses biomass
 #define LIMBGROWER		(1<<6) 	//Uses synthetic flesh
 #define SMELTER			(1<<7) 	//uses various minerals

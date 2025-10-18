@@ -1441,3 +1441,13 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 500)
 	construction_time = 40
 	category = list("Cyborg Upgrade Modules")
+
+/datum/design/clown_car
+	name = "Clown Car"
+	desc = "A small car that the clown can use to take people around the station in style!"
+	id = "clown_car"
+	build_type = MECHFAB
+	build_path = /obj/vehicle/sealed/car/clowncar
+	materials = list(/datum/material/iron = 10000, /datum/material/bananium = 5000, /datum/material/plastic = 2000)
+	construction_time = 100
+	category = list("Misc")
