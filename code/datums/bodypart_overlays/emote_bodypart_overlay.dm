@@ -48,12 +48,12 @@
 	return overlay
 
 /datum/bodypart_overlay/simple/emote/blush/added_to_limb(obj/item/bodypart/limb)
-    ..()
+	..()
 
-    if(limb.owner)
-        var/mob/living/carbon/human/human_owner = limb.owner
-        if(istype(human_owner) && human_owner.dna?.species?.blush_color)
-            draw_color = human_owner.dna.species.blush_color
+	if(limb.owner)
+		var/mob/living/carbon/human/human_owner = limb.owner
+		if(istype(human_owner) && human_owner.dna?.species?.blush_color)
+			draw_color = human_owner.dna.species.blush_color
 
 /datum/bodypart_overlay/simple/emote/blush
 	icon_state = "blush"
