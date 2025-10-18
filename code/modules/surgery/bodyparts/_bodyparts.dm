@@ -65,6 +65,8 @@
 	var/brutestate = 0
 	/// A value between 0 and 3 representing how badly this limb is damaged through burn
 	var/burnstate = 0
+	/// Readonly, how much pain is on this bodypart
+	var/pain = 0
 	/// How much damage have we accumulated from our injuries.
 	var/accumulated_damage = 0
 	/// How much health this bodypart has
@@ -192,7 +194,7 @@
 /obj/item/bodypart/proc/update_damage()
 	// Calculate how much damage we have accumulated, and pain
 	accumulated_damage = 0
-	var/pain = 0
+	pain = 0
 	for (var/datum/injury/injury in injuries)
 		var/damage_provided = injury.added_damage + injury.damage_multiplier * injury.progression
 		accumulated_damage += damage_provided
