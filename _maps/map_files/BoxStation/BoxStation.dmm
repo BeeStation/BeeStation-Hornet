@@ -4107,16 +4107,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"bdT" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/white,
-/area/medical/virology)
 "bdU" = (
 /obj/structure/closet/crate/medical,
 /obj/effect/decal/cleanable/dirt,
@@ -6314,16 +6304,11 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "bDo" = (
-/obj/machinery/door/airlock/medical{
-	id_tag = "QuarantineA";
-	name = "Quarantine Cell A"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Chamber"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "bDp" = (
@@ -9153,7 +9138,10 @@
 	specialfunctions = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/medical{
+	id_tag = "QuarantineA";
+	name = "Quarantine Cell A"
+	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "bYY" = (
@@ -9368,7 +9356,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "bZP" = (
@@ -9554,7 +9541,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "caV" = (
@@ -9703,8 +9689,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -10535,10 +10521,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "chl" = (
-/obj/machinery/door/airlock/virology{
-	name = "Virology Lab";
-	req_access_txt = "39"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -10547,7 +10529,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "cho" = (
@@ -20543,7 +20524,7 @@
 /obj/structure/disposaloutlet,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/trunk{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -21913,7 +21894,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/virology{
+	name = "Virology Lab";
+	req_access_txt = "39"
+	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "fBP" = (
@@ -22031,6 +22015,9 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "Isolation Chamber"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -23847,6 +23834,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/directional/west,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "glT" = (
@@ -24499,7 +24487,6 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/directional/west,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "gxD" = (
@@ -32874,7 +32861,9 @@
 	dir = 1
 	},
 /obj/machinery/camera/directional/west,
-/obj/structure/disposalpipe/junction/flip,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "jCZ" = (
@@ -40049,6 +40038,14 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"mmX" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "mnh" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -40968,6 +40965,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "mKN" = (
@@ -43663,6 +43661,18 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/carpet,
 /area/security/brig)
+"nJL" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/medical/virology)
 "nJX" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -44626,6 +44636,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "odH" = (
@@ -45349,6 +45360,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "ovr" = (
@@ -46707,6 +46719,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "oZN" = (
@@ -55549,7 +55562,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "sli" = (
@@ -56236,6 +56248,11 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet/black,
 /area/crew_quarters/bar/atrium)
+"sze" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "szk" = (
 /obj/machinery/flasher/portable,
 /obj/effect/turf_decal/stripes/line{
@@ -61815,9 +61832,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "uzT" = (
@@ -62103,7 +62117,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction/yjunction{
+/obj/structure/disposalpipe/junction/flip{
 	dir = 8
 	},
 /turf/open/floor/iron/white,
@@ -63360,6 +63374,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "veo" = (
@@ -64521,7 +64538,6 @@
 /obj/machinery/airalarm/directional/west{
 	pixel_x = -32
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "vzS" = (
@@ -65450,6 +65466,9 @@
 	dir = 10
 	},
 /obj/machinery/camera/directional/north,
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "vOQ" = (
@@ -65709,6 +65728,7 @@
 "vTC" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "vUf" = (
@@ -66147,8 +66167,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/sorting/mail/destination/virology/flip{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
@@ -67992,9 +68012,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/structure/disposalpipe/segment{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "wOv" = (
@@ -69017,7 +69034,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
@@ -109799,7 +109816,7 @@ fBK
 chl
 bZO
 gxC
-bdT
+ncJ
 vzw
 uFk
 kUD
@@ -110058,7 +110075,7 @@ gZG
 eaM
 oGT
 wCr
-ncJ
+nJL
 hqh
 hqh
 uHd
@@ -111073,8 +111090,8 @@ rZp
 wbQ
 glE
 vTC
-xyU
-gyW
+mmX
+sze
 mKM
 ovq
 odz
