@@ -478,10 +478,10 @@ AUTOADMIN_RANK Admin
 CLIENT_WARN_VERSION 516
 CLIENT_WARN_BUILD 1661
 #CLIENT_WARN_POPUP
-CLIENT_WARN_MESSAGE Your current client version does not support all features used by the server, and will have some elements such as the alt-click stat panel menu simplified. Please update to 515, as it will become mandatory in the future.
+CLIENT_WARN_MESSAGE Your current client version does not support all features used by the server. Please update to the latest version, as it will become mandatory in the future.
 CLIENT_ERROR_VERSION 516
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
-## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
+## The minimum build needed for joining the server
 CLIENT_ERROR_BUILD 1661
 ## The maximum build recommended for clients
 CLIENT_MAX_BUILD 1735
