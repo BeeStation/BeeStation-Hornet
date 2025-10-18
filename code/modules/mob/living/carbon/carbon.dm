@@ -536,8 +536,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /mob/living/carbon/updatehealth()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
-	var/total_burn	= 0
-	var/total_stamina = 0
 	var/is_burn_destroyed = TRUE
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		var/datum/injury/acute/burn_injury = BP.get_injury(/datum/injury/healthy_skin_burn)

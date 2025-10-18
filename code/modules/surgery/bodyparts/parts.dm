@@ -9,7 +9,6 @@
 	is_dimorphic = TRUE
 	px_x = 0
 	px_y = 0
-	stam_damage_coeff = 1
 	organ_slots = list(
 		ORGAN_SLOT_APPENDIX,
 		ORGAN_SLOT_WINGS,
@@ -129,7 +128,6 @@
 	plaintext_zone = "left arm"
 	aux_zone = BODY_ZONE_PRECISE_L_HAND
 	aux_layer = HANDS_PART_LAYER
-	body_damage_coeff = 0.75
 	held_index = 1
 	px_x = -6
 	px_y = 0
@@ -246,7 +244,6 @@
 	plaintext_zone = "right arm"
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
 	aux_layer = HANDS_PART_LAYER
-	body_damage_coeff = 0.75
 	held_index = 2
 	px_x = 6
 	px_y = 0
@@ -362,7 +359,6 @@
 	body_zone = BODY_ZONE_L_LEG
 	body_part = LEG_LEFT
 	plaintext_zone = "left leg"
-	body_damage_coeff = 0.75
 	px_x = -2
 	px_y = 12
 	can_be_disabled = TRUE
@@ -469,7 +465,6 @@
 	body_zone = BODY_ZONE_R_LEG
 	body_part = LEG_RIGHT
 	plaintext_zone = "right leg"
-	body_damage_coeff = 0.75
 	px_x = 2
 	px_y = 12
 	can_be_disabled = TRUE

@@ -1,10 +1,12 @@
 /datum/injury/acute/genetic
 	base_type = /datum/injury/acute/genetic
 	examine_description = "<b>cellular damage</b>"
-	heal_description = "The injury can be treated by applying ointment to the affected limb."
+	heal_description = "This injury requires advanced chemicals to heal."
 	max_absorption = 0
 	external = TRUE
 	injury_flags = INJURY_LIMB
+	damage_multiplier = 1
+	pain_multiplier = 0.6
 
 /datum/injury/acute/genetic/update_progressive_effects()
 	var/mob/living/owner = mob || bodypart.owner

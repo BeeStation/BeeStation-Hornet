@@ -6,6 +6,7 @@
 	external = FALSE
 	damage_multiplier = 0
 	injury_flags = INJURY_LIMB
+	pain_multiplier = 1.4
 	var/stam_regen_start_time
 
 /datum/injury/acute/shock/adjust_progression(delta_damage)

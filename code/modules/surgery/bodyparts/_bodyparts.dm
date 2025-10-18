@@ -61,9 +61,9 @@
 	///Controls whether bodypart_disabled makes sense or not for this limb.
 	var/can_be_disabled = FALSE
 
-	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
-	var/stam_damage_coeff = 0.7 //Why is this the default???
+	/// A value between 0 and 3 representing how badly this limb is damaged through brute
 	var/brutestate = 0
+	/// A value between 0 and 3 representing how badly this limb is damaged through burn
 	var/burnstate = 0
 	/// How much damage have we accumulated from our injuries.
 	var/accumulated_damage = 0
@@ -95,6 +95,7 @@
 	var/dmg_overlay_type = "human"
 
 	//Damage messages used by help_shake_act()
+	// TODO: Refactor these into injuries; they are unused right now
 	var/light_brute_msg = "bruised"
 	var/medium_brute_msg = "battered"
 	var/heavy_brute_msg = "mangled"
@@ -189,9 +190,16 @@
 /// Update the amount of damage that the bodypart has
 /// Must be called upon the application of an injury
 /obj/item/bodypart/proc/update_damage()
+	// Calculate how much damage we have accumulated, and pain
 	accumulated_damage = 0
+	var/pain = 0
 	for (var/datum/injury/injury in injuries)
-		accumulated_damage += injury.added_damage + injury.damage_multiplier * injury.progression
+		var/damage_provided = injury.added_damage + injury.damage_multiplier * injury.progression
+		accumulated_damage += damage_provided
+		pain += injury.pain + damage_provided
+	// Update pain
+	owner?.pain.set_pain_source(pain, body_zone)
+	// Move on to update the effectiveness of the part
 	check_effectiveness()
 
 /**
@@ -419,6 +427,7 @@
 
 	if(!owner)
 		return
+	update_damage()
 	owner.update_health_hud() //update the healthdoll
 	owner.update_body()
 
@@ -448,6 +457,8 @@
 		// Remove all injuries
 		for (var/datum/injury/injury in injuries)
 			injury.remove_from_human(old_owner)
+		// Remove pain
+		old_owner.pain.set_pain_source(0, body_zone)
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -462,6 +473,8 @@
 		// Apply all injuries
 		for (var/datum/injury/injury in injuries)
 			injury.apply_to_human(owner)
+		// Calculate and apply pain
+		update_damage()
 
 	return old_owner
 

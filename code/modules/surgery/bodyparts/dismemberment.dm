@@ -16,8 +16,8 @@
 		return FALSE
 
 	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
-	affecting.increase_injury(BRUTE, clamp(affecting.get_injury_amount(BRUTE)/2 * affecting.body_damage_coeff, 15, 50))
-	affecting.increase_injury(BURN, clamp(affecting.get_injury_amount(BURN)/2 * affecting.body_damage_coeff, 15, 50))
+	affecting.increase_injury(BRUTE, clamp(affecting.get_injury_amount(BRUTE)/2, 15, 50))
+	affecting.increase_injury(BURN, clamp(affecting.get_injury_amount(BURN)/2, 15, 50))
 	C.visible_message(span_danger("<B>[C]'s [src.name] has been violently dismembered!</B>"))
 
 	if(C.stat <= SOFT_CRIT)//No more screaming while unconsious
