@@ -33,7 +33,7 @@
 	species = "oat"
 	plantname = "Oat Stalks"
 	product = /obj/item/food/grown/oat
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/wheat, /obj/item/seeds/wheat/meat)
 
 /obj/item/food/grown/oat
 	seed = /obj/item/seeds/wheat/oat
@@ -80,7 +80,7 @@
 	species = "meatwheat"
 	plantname = "Meatwheat"
 	product = /obj/item/food/grown/meatwheat
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat)
 
 /obj/item/food/grown/meatwheat
 	name = "meatwheat"
