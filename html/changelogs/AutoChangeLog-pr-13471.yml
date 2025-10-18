@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed Ventrue vampires not being able to level up their favorite vassal
