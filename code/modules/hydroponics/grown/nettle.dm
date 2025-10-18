@@ -5,7 +5,7 @@
 	species = "nettle"
 	plantname = "Nettles"
 	product = /obj/item/food/grown/nettle
-	lifespan = 30
+	lifespan = 120
 	endurance = 40 // tuff like a toiger
 	yield = 4
 	growthstages = 5

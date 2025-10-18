@@ -221,7 +221,7 @@
 /obj/item/seeds/lavaland
 	name = "lavaland seeds"
 	desc = "You should never see this."
-	lifespan = 50
+	lifespan = 200
 	endurance = 25
 	maturation = 7
 	production = 4

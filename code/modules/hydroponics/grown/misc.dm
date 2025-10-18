@@ -5,7 +5,7 @@
 	icon_state = "seed-starthistle"
 	species = "starthistle"
 	plantname = "Starthistle"
-	lifespan = 70
+	lifespan = 280
 	endurance = 50 // damm pesky weeds
 	maturation = 5
 	production = 1
@@ -37,7 +37,7 @@
 	species = "galaxythistle"
 	plantname = "Galaxythistle"
 	product = /obj/item/food/grown/galaxythistle
-	lifespan = 70
+	lifespan = 280
 	endurance = 40
 	maturation = 3
 	production = 2
@@ -75,7 +75,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	species = "cabbage"
 	plantname = "Cabbages"
 	product = /obj/item/food/grown/cabbage
-	lifespan = 50
+	lifespan = 200
 	endurance = 25
 	maturation = 3
 	production = 5
@@ -104,7 +104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	plantname = "Sugarcane"
 	product = /obj/item/food/grown/sugarcane
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	lifespan = 60
+	lifespan = 240
 	endurance = 50
 	maturation = 3
 	yield = 4
@@ -131,7 +131,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/galaxythistle)
 	plantname = "Gatfruit Tree"
 	product = /obj/item/food/grown/shell/gatfruit
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	lifespan = 20
+	lifespan = 80
 	endurance = 20
 	maturation = 40
 	production = 10
