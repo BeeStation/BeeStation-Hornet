@@ -220,7 +220,7 @@
 /datum/status_effect/bonechill/tick()
 	if(prob(50))
 		owner.adjustFireLoss(1)
-		owner.Jitter(3)
+		owner.set_jitter_if_lower(6 SECONDS)
 		owner.adjust_bodytemperature(-10)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/humi = owner

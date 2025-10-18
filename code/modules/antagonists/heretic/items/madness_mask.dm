@@ -64,7 +64,7 @@
 			human_in_range.adjust_hallucinations_up_to(10 SECONDS, 240 SECONDS)
 
 		if(DT_PROB(40, delta_time))
-			human_in_range.Jitter(5)
+			human_in_range.set_jitter_if_lower(10 SECONDS)
 
 		if(human_in_range.getStaminaLoss() >= 85 && DT_PROB(30, delta_time))
 			human_in_range.emote(pick("giggle", "laugh"))

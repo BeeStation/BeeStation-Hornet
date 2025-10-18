@@ -675,8 +675,11 @@
 	if(prob(40))
 		var/obj/item/I = H.get_active_held_item()
 		if(I && H.dropItemToGround(I))
-			H.visible_message(span_notice("[H]'s hand convulses, and they drop their [I.name]!"),span_userdanger("Your hand convulses violently, and you drop what you were holding!"))
-			H.jitteriness += 5
+			H.visible_message(
+				span_notice("[H]'s hand convulses, and they drop their [I.name]!"),
+				span_userdanger("Your hand convulses violently, and you drop what you were holding!"),
+			)
+			H.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/jitter)
 
 /atom/movable/screen/alert/status_effect/convulsing
 	name = "Shaky Hands"
@@ -937,7 +940,7 @@
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
 			human_owner.Dizzy(50)
-			human_owner.Jitter(50)
+			human_owner.set_jitter_if_lower(100 SECONDS)
 		if(30 to 40)
 			message = span_warning("You feel a sharp sting in your side.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)

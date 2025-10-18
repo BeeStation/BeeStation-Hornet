@@ -100,7 +100,7 @@
 	if(!vampiredatum?.frenzied)
 		return
 	carbon_owner.adjustFireLoss(0.75)
-	carbon_owner.Jitter(5)
+	carbon_owner.set_jitter_if_lower(10 SECONDS)
 
 /datum/movespeed_modifier/frenzy_speed
 	blacklisted_movetypes = FLYING | FLOATING
