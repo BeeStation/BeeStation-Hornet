@@ -1016,7 +1016,7 @@
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
 	if(GET_ATOM_BLOOD_DNA(src))
-		. += "<span class='warning'>It's smeared with blood!</span>"
+		. += span_warning("It's smeared with blood!")
 
 /obj/machinery/examine_descriptor(mob/user)
 	return "machine"

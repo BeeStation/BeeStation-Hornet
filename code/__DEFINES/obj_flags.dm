@@ -22,10 +22,13 @@
 #define BEING_REMOVED			(1<<0)
 #define PICKED_UP				(1<<1)  //! Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
 #define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
-#define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
-#define SLOWS_WHILE_IN_HAND		(1<<4)
-#define NO_MAT_REDEMPTION		(1<<5)  //! Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
-#define DROPDEL					(1<<6)  //! When dropped, it calls qdel on itself
+///Used by security bots to determine if this item is safe for public use.
+#define NEEDS_PERMIT (1<<3)
+#define SLOWS_WHILE_IN_HAND (1<<4)
+///Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
+#define NO_MAT_REDEMPTION (1<<5)
+/// When dropped, it calls qdel on itself
+#define DROPDEL					(1<<6)
 #define NOBLUDGEON				(1<<7)	//! when an item has this it produces no "X has been hit by Y with Z" message in the default attackby()
 #define ABSTRACT				(1<<9) 	//! for all things that are technically items but used for various different stuff
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)

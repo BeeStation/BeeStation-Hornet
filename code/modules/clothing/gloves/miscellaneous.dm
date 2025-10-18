@@ -72,6 +72,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_bracer
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
 
 /datum/armor/gloves_bracer
@@ -92,6 +93,7 @@
 	item_state = "rapid"
 	worn_icon_state = "rapid"
 	item_flags = ISWEAPON
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 	var/warcry = "AT"
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 

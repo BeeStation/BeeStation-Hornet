@@ -80,6 +80,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 
 /datum/status_effect/bleeding/update_icon()
+	if(QDELETED(owner))
+		stack_trace("Tried to update bleeding icon [src] on deleted mob")
+		return
 	// The actual rate of bleeding, can be reduced by holding wounds
 	// Calculate the message to show to the user
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))

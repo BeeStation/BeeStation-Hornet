@@ -35,7 +35,6 @@
 	. = ..()
 	if(blood_DNA_to_add)
 		color = get_blood_dna_color(blood_DNA_to_add)
-
 /obj/effect/decal/cleanable/blood/proc/get_timer()
 	drytime = world.time + 3 MINUTES
 
