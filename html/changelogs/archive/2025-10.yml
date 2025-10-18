@@ -216,3 +216,7 @@
   - rscadd: Fires now make sound
   mrmanlikesbt, san7890:
   - bugfix: fixed heartless species (plasmamen) not receiving living hearts.
+2025-10-18:
+  mrmanlikesbt:
+  - bugfix: Fixed not being able to manually open a TTV valve
+  - bugfix: Fixed Ventrue vampires not being able to level up their favorite vassal
