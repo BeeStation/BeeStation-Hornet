@@ -94,7 +94,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.blur_eyes(10)
 		D.confused += 2
-		D.Jitter(20)
+		D.set_jitter_if_lower(40 SECONDS)
 		return 1
 	return FALSE
 

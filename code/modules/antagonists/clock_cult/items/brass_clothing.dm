@@ -43,12 +43,12 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.electrocution_animation(20)
-	C.jitteriness += 1000
-	C.do_jitter_animation(C.jitteriness)
+	C.do_jitter_animation(300) // Maximum jitter
+	C.adjust_jitter(20 SECONDS)
 	C.stuttering += 1
 	spawn(20)
 	if(C)
-		C.jitteriness = max(C.jitteriness - 990, 10)
+		C.remove_status_effect(/datum/status_effect/jitter)
 
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
@@ -132,12 +132,12 @@
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			H.electrocution_animation(20)
-		C.jitteriness += 1000
-		C.do_jitter_animation(C.jitteriness)
+		C.do_jitter_animation(300) // Maximum jitter
+		C.adjust_jitter(20 SECONDS)
 		C.stuttering += 1
 		spawn(20)
 		if(C)
-			C.jitteriness = max(C.jitteriness - 990, 10)
+			C.remove_status_effect(/datum/status_effect/jitter)
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles
 	name = "wraith spectacles"

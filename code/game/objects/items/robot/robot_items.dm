@@ -420,12 +420,12 @@
 				if(1)
 					C.confused += 5
 					C.stuttering += 10
-					C.Jitter(10)
+					C.adjust_jitter(20 SECONDS)
 				if(2)
 					C.Paralyze(40)
 					C.confused += 10
 					C.stuttering += 15
-					C.Jitter(25)
+					C.adjust_jitter(50 SECONDS)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600
 		log_game("[key_name(user)] used an emagged Cyborg Harm Alarm in [AREACOORD(user)]")
