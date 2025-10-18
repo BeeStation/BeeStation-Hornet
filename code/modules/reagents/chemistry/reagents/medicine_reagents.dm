@@ -482,6 +482,7 @@
 		affected_mob.reagents.remove_reagent(reagent.type, 1 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
+	affected_mob.radiation *= 0.9 //10% purged every cycle
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/liquid_solder
@@ -933,7 +934,7 @@
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
 	if(exposed_mob.stat == DEAD)
-		if(exposed_mob.suiciding || exposed_mob.ishellbound()) //they are never coming back
+		if(exposed_mob.suiciding) //they are never coming back
 			exposed_mob.visible_message(span_warning("[exposed_mob]'s body does not react..."))
 			return
 		if(exposed_mob.getBruteLoss() >= 100 || exposed_mob.getFireLoss() >= 100 || HAS_TRAIT(exposed_mob, TRAIT_HUSK)) //body is too damaged to be revived

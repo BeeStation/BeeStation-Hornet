@@ -16,6 +16,7 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -62,6 +63,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
@@ -79,6 +81,7 @@
 	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
 	lock_back_sound = "sound/weapons/deaglelock.ogg"
 	fire_sound = "sound/weapons/deagleshot.ogg"
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -136,6 +139,7 @@
 	fire_rate = 4
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
+	trade_flags = NONE
 	var/stripe_state = "officer_com"
 
 /obj/item/gun/ballistic/automatic/pistol/service/update_icon()
@@ -162,3 +166,39 @@
 
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
 	stripe_state = "officer_med"
+
+// Security
+/obj/item/gun/ballistic/automatic/pistol/security
+	name = "NPS-10"
+	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses x200 LAW ammo cartridges."
+	icon_state = "sec"
+	w_class = WEIGHT_CLASS_LARGE
+	mag_type = /obj/item/ammo_box/magazine/x200law
+	can_suppress = FALSE
+	worn_icon_state = "officer_pistol"
+	empty_alarm = TRUE
+	rack_sound = 'sound/weapons/nps10/NPS-rack.ogg'
+	load_empty_sound = 'sound/weapons/nps10/NPS-load.ogg'
+	bolt_drop_sound = 'sound/weapons/nps10/NPS-boltdrop.ogg'
+	lock_back_sound = 'sound/weapons/nps10/NPS-lockback.ogg'
+	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
+	recoil = 0.1
+
+/obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 16, \
+		overlay_y = 12)
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
+	. = ..()
+	. += "<i>The corporate-issue NPS-10 is a slim, nondescript sidearm built for reliability on a budget. \
+			Its brushed-gray slide and ergonomic polymer grip keep it unflashy, while the semi-auto action with \
+			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
+			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \
+			private security operators.</i>"

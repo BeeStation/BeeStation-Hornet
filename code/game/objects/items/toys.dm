@@ -32,6 +32,8 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 0
+	custom_price = 25
+	max_demand = 25
 
 /*
  * Empty plushies before stuffing
@@ -497,7 +499,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
-/obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
+/obj/item/toy/snappop/proc/pop_burst(n=3, c=1)
 	var/datum/effect_system/spark_spread/s = new()
 	s.set_up(n, c, src)
 	s.start()
@@ -868,6 +870,7 @@
 	deckstyle = "nanotrasen"
 	icon_state = "deck_nanotrasen_full"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 15
 	var/cooldown = 0
 	var/obj/machinery/computer/holodeck/holo = null // Holodeck cards should not be infinite
 	var/list/cards = list()
@@ -1202,6 +1205,7 @@
 	card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 	card_attack_verb_simple = list("attack", "slice", "dice", "slash", "cut")
 	resistance_flags = NONE
+	trade_flags = TRADE_CONTRABAND
 
 /*
  * Fake nuke
@@ -1899,6 +1903,7 @@
 /obj/item/storage/box/yatzy
 	name = "Game of Yatzy"
 	desc = "Contains all the pieces required to play a game of Yatzy with up to 4 friends!"
+	custom_price = 15
 
 /obj/item/storage/box/yatzy/PopulateContents()
 	new /obj/item/storage/pill_bottle/dice_cup/yatzy(src)

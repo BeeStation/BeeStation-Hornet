@@ -39,7 +39,7 @@
 	var/hibernationcounter = 0
 	var/list/grub_diseases = list()
 
-/mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
+/mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(mob/living/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M)) // i hate this
 		return TRUE
