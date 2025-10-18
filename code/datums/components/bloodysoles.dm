@@ -242,16 +242,17 @@
 
 /datum/component/bloodysoles/feet/update_icon()
 	. = list()
-	if(ishuman(wielder))// Monkeys get no bloody feet :(
-		if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
-			bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
-			. += bloody_feet
-		if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
-			wielder.remove_overlay(SHOES_LAYER)
-			wielder.overlays_standing[SHOES_LAYER] = bloody_feet
-			wielder.apply_overlay(SHOES_LAYER)
-		else
-			wielder.update_worn_shoes()
+	if(!ishuman(wielder))
+		return
+	if(GET_ATOM_BLOOD_DNA_LENGTH(wielder))
+		bloody_feet.color = bloody_feet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(wielder))
+		. += bloody_feet
+	if(bloody_shoes[BLOOD_STATE_HUMAN] > 0 && !is_obscured())
+		wielder.remove_overlay(SHOES_LAYER)
+		wielder.overlays_standing[SHOES_LAYER] = bloody_feet
+		wielder.apply_overlay(SHOES_LAYER)
+	else
+		wielder.update_worn_shoes()
 
 /datum/component/bloodysoles/feet/add_parent_to_footprint(obj/effect/decal/cleanable/blood/footprints/FP)
 	if(ismonkey(wielder))
