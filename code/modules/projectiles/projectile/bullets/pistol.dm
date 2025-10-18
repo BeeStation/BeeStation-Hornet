@@ -49,6 +49,6 @@
 
 /obj/projectile/bullet/x200law
 	name = "x200 LAW bullet"
-	damage = 22
+	damage = 20
 	armour_penetration = 0
 	bleed_force = BLEED_CUT

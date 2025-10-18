@@ -281,6 +281,11 @@
 					user
 				)
 
+/obj/item/gun/on_emag(mob/user)
+	if(pin)
+		pin.on_emag(user)
+	..()
+
 /obj/item/gun/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))

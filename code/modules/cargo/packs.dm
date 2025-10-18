@@ -378,7 +378,7 @@
 
 /datum/supply_pack/security/secpistol
 	name = "NPS-10 3-pack Crate"
-	desc = "Three standard issue law enforcement firearms. Requires Security access to open. Includes magazines."
+	desc = "Three standard issue law enforcement firearms. Requires Security access to open. Does not include magazines."
 	cost = 1900
 	max_supply = 2
 	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
@@ -660,6 +660,16 @@
 	small_item = TRUE
 	max_supply = 2
 	contains = list(/obj/item/knife/combat)
+
+/datum/supply_pack/security/armory/smart_ammo
+	name = "x200 SPECIAL Smart Ammo Cartridges"
+	desc = "Three high-tech multi-usage smart ammo charges. x200 formfactor. Requires Armory access to open."
+	cost = 4500
+	max_supply = 1
+	contains = list(/obj/item/x200special_charge,
+					/obj/item/x200special_charge,
+					/obj/item/x200special_charge,)
+	crate_name = "smart_ammo crate"
 
 /datum/supply_pack/security/armory/combatknives
 	name = "Combat Knives Crate"
