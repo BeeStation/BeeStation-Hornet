@@ -5,7 +5,7 @@
 	name = "clipboard"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "clipboard"
-	item_state = "clipboard"
+	inhand_icon_state = "clipboard"
 	worn_icon_state = "clipboard"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL

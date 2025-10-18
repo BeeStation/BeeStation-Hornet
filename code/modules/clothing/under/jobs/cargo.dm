@@ -6,13 +6,13 @@
 	name = "quartermaster's jumpsuit"
 	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qm"
-	item_state = "qm"
+	inhand_icon_state = "qm"
 
 /obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	name = "quartermaster's jumpskirt"
 	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qm_skirt"
-	item_state = "lb_suit"
+	inhand_icon_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
@@ -23,7 +23,7 @@
 	name = "quartermaster's turtleneck"
 	desc = "A snug turtleneck sweater worn by the Quartermaster, characterized by the expensive-looking pair of suit pants."
 	icon_state = "qmturtle"
-	item_state = "qmturtle"
+	inhand_icon_state = "qmturtle"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 
@@ -31,7 +31,7 @@
 	name = "quartermaster's turtleneck skirt"
 	desc = "A snug turtleneck sweater worn by the Quartermaster, as shown by the elegant double-lining of its silk skirt."
 	icon_state = "qmturtle_skirt"
-	item_state = "qmturtle_skirt"
+	inhand_icon_state = "qmturtle_skirt"
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
@@ -41,7 +41,7 @@
 	name = "cargo technician's jumpsuit"
 	desc = "Shooooorts! They're comfy and easy to wear!"
 	icon_state = "cargotech"
-	item_state = "cargo"
+	inhand_icon_state = "cargo"
 	body_parts_covered = CHEST|GROIN|ARMS
 	supports_variations = DIGITIGRADE_VARIATION
 	alt_covers_chest = TRUE
@@ -50,7 +50,7 @@
 	name = "cargo technician's jumpskirt"
 	desc = "Skiiiiirts! They're comfy and easy to wear!"
 	icon_state = "cargo_skirt"
-	item_state = "lb_suit"
+	inhand_icon_state = "lb_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
@@ -61,7 +61,7 @@
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
 	name = "shaft miner's jumpsuit"
 	icon_state = "miner"
-	item_state = "miner"
+	inhand_icon_state = "miner"
 	armor_type = /datum/armor/cargo_miner
 
 
@@ -74,7 +74,7 @@
 	desc = "A green uniform for operating in hazardous environments."
 	name = "shaft miner's jumpsuit"
 	icon_state = "explorer"
-	item_state = "explorer"
+	inhand_icon_state = "explorer"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/cargo/exploration
@@ -83,14 +83,14 @@
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 	icon_state = "curator"
 	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
-	item_state = null
+	inhand_icon_state = null
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/mailman
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mailman"
-	item_state = "b_suit"
+	inhand_icon_state = "b_suit"
 	//clothing_traits = list(TRAIT_HATED_BY_DOGS)
 
 /obj/item/clothing/under/misc/mailman/equipped(mob/user, slot)
@@ -106,7 +106,7 @@
 	name = "mailman's jumpskirt"
 	desc = "<i>'Special delivery!'</i> Beware of spacewind."
 	icon_state = "mailman_skirt"
-	item_state = "b_suit"
+	inhand_icon_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY

@@ -3,7 +3,7 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	button_icon_state = null
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED

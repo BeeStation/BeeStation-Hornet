@@ -2,7 +2,7 @@
 	name = "breaching charges"
 	desc = "Used by exploration crews to breach and demolish unknown places. Requires a nearby detonator to be triggered."
 	icon_state = "plastic-explosive0"
-	item_state = "plastic-explosive"
+	inhand_icon_state = "plastic-explosive"
 	lefthand_file = 'icons/mob/inhands/weapons/bombs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
 	item_flags = NOBLUDGEON
@@ -17,7 +17,7 @@
 
 /obj/item/grenade/exploration/Initialize(mapload)
 	. = ..()
-	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	plastic_overlay = mutable_appearance(icon, "[inhand_icon_state]2", HIGH_OBJ_LAYER)
 
 /obj/item/grenade/exploration/Destroy()
 	for(var/obj/item/exploration_detonator/detonator in attached_detonators)

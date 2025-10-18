@@ -1,6 +1,6 @@
 //============ Actions ============
 /datum/action/innate/shuttle_creator
-	icon_icon = 'icons/hud/actions/actions_shuttle.dmi'
+	button_icon = 'icons/hud/actions/actions_shuttle.dmi'
 	button_icon_state = null
 	var/mob/living/C
 	var/mob/camera/ai_eye/remote/shuttle_creation/remote_eye
