@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(overlays)
 	flags = SS_TICKER
 	wait = 1
 	priority = FIRE_PRIORITY_OVERLAYS
-	init_order = INIT_ORDER_OVERLAY
 
 	var/list/queue
 	var/list/stats
