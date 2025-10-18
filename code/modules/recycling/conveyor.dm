@@ -207,7 +207,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 		moving_loop.delay = 0.2 SECONDS
 		return
 
-	var/static/list/unconveyables = typecacheof(list(/obj/effect, /mob/dead))
+	var/static/list/unconveyables = typecacheof(list(
+		/obj/effect,
+		/mob/dead,
+	))
 	if(!istype(moving) || is_type_in_typecache(moving, unconveyables) || moving == src)
 		return
 	moving.AddComponent(/datum/component/convey, movedir, 0.2 SECONDS)

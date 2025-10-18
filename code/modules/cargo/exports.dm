@@ -111,8 +111,6 @@ then the player gets the profit from selling his own wasted time.
 	var/list/export_types = list()
 	/// Set to FALSE to make the datum apply only to a strict type.
 	var/include_subtypes = TRUE
-	/// Types excluded from export
-	var/list/exclude_types = list()
 	/// Are we a "catch-all" export type? This means we prioritize all non-catchall exports first, then fall back to these.
 	var/catchall = FALSE
 
@@ -120,10 +118,9 @@ then the player gets the profit from selling his own wasted time.
 	var/export_category = EXPORT_CARGO
 
 /datum/export/New()
-	..()
+	. = ..()
 	START_PROCESSING(SSprocessing, src)
-	export_types = typecacheof(export_types, ignore_root_path = FALSE, only_root_path = !include_subtypes)
-	exclude_types = typecacheof(exclude_types)
+	export_types = string_assoc_list(zebra_typecacheof(export_types, only_root_path = !include_subtypes))
 
 /datum/export/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
@@ -162,7 +159,6 @@ then the player gets the profit from selling his own wasted time.
 
 // Checks if the item is fit for export datum.
 /datum/export/proc/applies_to(obj/thing, allowed_categories = NONE)
-
 	var/category_to_use = export_category
 
 	if(thing.trade_flags & TRADE_CONTRABAND)
@@ -170,8 +166,6 @@ then the player gets the profit from selling his own wasted time.
 	if((allowed_categories & category_to_use) != category_to_use)
 		return FALSE
 	if(!is_type_in_typecache(thing, export_types))
-		return FALSE
-	if(include_subtypes && is_type_in_typecache(thing, exclude_types))
 		return FALSE
 	if(!get_cost(thing, allowed_categories))
 		return FALSE

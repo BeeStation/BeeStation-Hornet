@@ -393,7 +393,12 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/under
 	chameleon_action.chameleon_name = "Jumpsuit"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank, /obj/item/clothing/under/changeling), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/clothing/under,
+		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/rank,
+		/obj/item/clothing/under/changeling,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 
@@ -451,7 +456,10 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/suit
 	chameleon_action.chameleon_name = "Suit"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/suit/armor/abductor, /obj/item/clothing/suit/changeling), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/clothing/suit/armor/abductor,
+		/obj/item/clothing/suit/changeling,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 
@@ -570,7 +578,11 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/gloves
 	chameleon_action.chameleon_name = "Gloves"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/gloves, /obj/item/clothing/gloves/color, /obj/item/clothing/gloves/changeling), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/clothing/gloves,
+		/obj/item/clothing/gloves/color,
+		/obj/item/clothing/gloves/changeling,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 
@@ -1059,7 +1071,9 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/modular_computer/tablet/pda
 	chameleon_action.chameleon_name = "tablet"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/modular_computer/tablet/pda/preset/heads), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/modular_computer/tablet/pda/preset/heads,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 

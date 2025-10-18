@@ -10,37 +10,37 @@
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 
 GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
-		/obj/machinery/field/containment,
-		/obj/machinery/power/supermatter_crystal,
-		/obj/machinery/gravity_generator,
-		/obj/machinery/doomsday_device,
-		/obj/machinery/nuclearbomb,
-		/obj/machinery/nuclearbomb/selfdestruct,
-		/obj/machinery/nuclearbomb/syndicate,
-		/obj/machinery/syndicatebomb,
-		/obj/machinery/syndicatebomb/badmin,
-		/obj/machinery/syndicatebomb/badmin/clown,
-		/obj/machinery/syndicatebomb/empty,
-		/obj/machinery/syndicatebomb/self_destruct,
-		/obj/machinery/syndicatebomb/training,
-		/obj/machinery/atmospherics/pipe/layer_manifold,
-		/obj/machinery/atmospherics/pipe/multiz,
-		/obj/machinery/atmospherics/pipe/smart,
-		/obj/machinery/atmospherics/pipe/smart/manifold, //mapped one
-		/obj/machinery/atmospherics/pipe/smart/manifold4w, //mapped one
-		/obj/machinery/atmospherics/pipe/color_adapter,
-		/obj/machinery/atmospherics/pipe/bridge_pipe,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
-		/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
-		/obj/machinery/atmospherics/components/tank,
-		/obj/machinery/atmospherics/components/unary/portables_connector,
-		/obj/machinery/atmospherics/components/unary/passive_vent,
-		/obj/machinery/atmospherics/components/unary/heat_exchanger,
-		/obj/machinery/atmospherics/components/binary/valve,
-		/obj/machinery/portable_atmospherics/canister,
-	)))
+	/obj/machinery/field/containment,
+	/obj/machinery/power/supermatter_crystal,
+	/obj/machinery/gravity_generator,
+	/obj/machinery/doomsday_device,
+	/obj/machinery/nuclearbomb,
+	/obj/machinery/nuclearbomb/selfdestruct,
+	/obj/machinery/nuclearbomb/syndicate,
+	/obj/machinery/syndicatebomb,
+	/obj/machinery/syndicatebomb/badmin,
+	/obj/machinery/syndicatebomb/badmin/clown,
+	/obj/machinery/syndicatebomb/empty,
+	/obj/machinery/syndicatebomb/self_destruct,
+	/obj/machinery/syndicatebomb/training,
+	/obj/machinery/atmospherics/pipe/layer_manifold,
+	/obj/machinery/atmospherics/pipe/multiz,
+	/obj/machinery/atmospherics/pipe/smart,
+	/obj/machinery/atmospherics/pipe/smart/manifold, //mapped one
+	/obj/machinery/atmospherics/pipe/smart/manifold4w, //mapped one
+	/obj/machinery/atmospherics/pipe/color_adapter,
+	/obj/machinery/atmospherics/pipe/bridge_pipe,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
+	/obj/machinery/atmospherics/pipe/heat_exchanging/manifold4w,
+	/obj/machinery/atmospherics/components/tank,
+	/obj/machinery/atmospherics/components/unary/portables_connector,
+	/obj/machinery/atmospherics/components/unary/passive_vent,
+	/obj/machinery/atmospherics/components/unary/heat_exchanger,
+	/obj/machinery/atmospherics/components/binary/valve,
+	/obj/machinery/portable_atmospherics/canister,
+)))
 
 GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/ai_module/malf))
 

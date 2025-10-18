@@ -543,7 +543,10 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	var/station_vault = 0
 	///How many players joined the round.
 	var/total_players = GLOB.joined_player_list.len
-	var/static/list/typecache_bank = typecacheof(list(/datum/bank_account/department, /datum/bank_account/remote))
+	var/static/list/typecache_bank = typecacheof(list(
+		/datum/bank_account/department,
+		/datum/bank_account/remote,
+	))
 	for(var/datum/bank_account/current_acc as anything in SSeconomy.bank_accounts)
 		if(typecache_bank[current_acc.type])
 			continue

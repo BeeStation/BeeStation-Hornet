@@ -161,8 +161,16 @@
 	var/work_mode	// mode the loops have been started with, to check with do_after
 	var/active = FALSE
 	var/cyborg_minimum_charge = 50 	// minimum charge cyborgs cannot go under when charging things
-	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
-	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
+	var/static/list/charge_machines = typecacheof(list(
+		/obj/machinery/cell_charger,
+		/obj/machinery/recharger,
+		/obj/machinery/recharge_station,
+		/obj/machinery/mech_bay_recharge_port,
+	))
+	var/static/list/charge_items = typecacheof(list(
+		/obj/item/stock_parts/cell,
+		/obj/item/gun/energy,
+	))
 
 /obj/item/borg/charger/update_icon_state()
 	icon_state = "charger_[mode]"

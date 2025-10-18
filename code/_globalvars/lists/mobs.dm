@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(deadmins)							//all ckeys who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client (including unauthenticated ones)
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 
-
 GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
 	/turf/open/chasm,
 	/turf/open/lava,

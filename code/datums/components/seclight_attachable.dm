@@ -25,7 +25,9 @@
 	/// A weakref to the item action we add with the light.
 	var/datum/weakref/toggle_action_ref
 	/// Static typecache of all lights we consider seclites (all lights we can attach).
-	var/static/list/valid_lights = typecacheof(list(/obj/item/flashlight/seclite))
+	var/static/list/valid_lights = typecacheof(list(
+		/obj/item/flashlight/seclite,
+	))
 
 /datum/component/seclite_attachable/Initialize(
 	obj/item/flashlight/seclite/starting_light,

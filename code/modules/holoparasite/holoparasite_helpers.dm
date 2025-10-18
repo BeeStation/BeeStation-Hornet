@@ -7,7 +7,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 /mob/living/simple_animal/hostile/holoparasite/Initialize(mapload, _key, _name, datum/holoparasite_theme/_theme, _accent_color, _notes, datum/mind/_summoner, datum/holoparasite_stats/_stats)
 	. = ..()
 	if(!no_manifest_locs)
-		no_manifest_locs = typecacheof(list(/obj/effect, /obj/machinery/clonepod)) - typecacheof(list(/obj/effect/abstract/sync_holder, /obj/effect/dummy))
+		no_manifest_locs = zebra_typecacheof(list(
+			/obj/effect = TRUE,
+			/obj/machinery/clonepod = TRUE,
+
+			/obj/effect/abstract/sync_holder = FALSE,
+			/obj/effect/dummy = FALSE,
+		))
 
 /// Signal proc for [COMSIG_LIVING_ON_WABBAJACKED], when our summoner is wabbajacked we should be alerted.
 /mob/living/simple_animal/hostile/holoparasite/proc/on_owner_wabbajacked(mob/living/source, mob/living/new_mob)

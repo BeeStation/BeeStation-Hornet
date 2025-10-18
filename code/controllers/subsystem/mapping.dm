@@ -375,7 +375,12 @@ SUBSYSTEM_DEF(mapping)
 GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
-	var/static/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
+	var/static/list/station_areas_blacklist = typecacheof(list(
+		/area/space,
+		/area/mine,
+		/area/ruin,
+		/area/asteroid/nearstation,
+	))
 	// if we ever add /area/station (and remove this typecache) scope this loop's type to /area/station please!!
 	for(var/area/station_area in GLOB.areas)
 		if (is_type_in_typecache(station_area, station_areas_blacklist))
