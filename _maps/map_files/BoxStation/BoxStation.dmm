@@ -2363,11 +2363,11 @@
 	name = "Incoming Mail";
 	req_access_txt = "50"
 	},
-/obj/structure/window/reinforced,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "aIp" = (
@@ -5419,10 +5419,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "bqF" = (
-/obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/table/reinforced,
 /obj/item/dest_tagger,
 /obj/item/dest_tagger,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/tech,
 /area/quartermaster/sorting)
 "bqG" = (
@@ -10109,11 +10109,9 @@
 /obj/item/storage/crayons{
 	pixel_y = 3
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/light/small/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/wood/big,
 /area/storage/art)
 "ceW" = (
@@ -15303,7 +15301,6 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "deX" = (
-/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
@@ -15318,6 +15315,7 @@
 	pixel_y = -1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/tech,
 /area/quartermaster/sorting)
 "deY" = (
@@ -16445,13 +16443,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/security/brig)
-"dAi" = (
-/obj/structure/window/reinforced,
-/obj/structure/chair/wood{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "dAs" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -18887,7 +18878,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "ewu" = (
@@ -21134,10 +21125,8 @@
 /area/hallway/primary/aft)
 "fll" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/portable_atmospherics/scrubber,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron,
 /area/storage/tools)
 "flF" = (
@@ -24092,14 +24081,8 @@
 	pixel_x = -2;
 	pixel_y = -5
 	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/holofloor/carpet,
 /area/vacant_room/office)
 "gqN" = (
@@ -50706,12 +50689,12 @@
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "qyF" = (
-/obj/structure/window/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "qyK" = (
@@ -51940,15 +51923,11 @@
 /area/gateway)
 "raC" = (
 /obj/structure/disposaloutlet,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "raD" = (
@@ -56139,13 +56118,11 @@
 	dir = 9
 	},
 /obj/item/kirbyplants/random,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/light_switch/directional/west{
 	pixel_x = -24;
 	pixel_y = -6
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/wood/big,
 /area/storage/art)
 "sAR" = (
@@ -106450,7 +106427,7 @@ vwo
 prX
 oLg
 liU
-dAi
+ewj
 qSG
 rFl
 gHJ
