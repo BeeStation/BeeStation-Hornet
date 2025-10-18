@@ -511,8 +511,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
 		var/curedisease = TRUE
-		for(var/host_type in A.infectable_biotypes)
-			if(host_type in inherent_biotypes)
+		for(var/A.infectable_biotypes & host_type)
+			if(inherent_biotypes & host_type)
 				curedisease = FALSE
 				break
 		if(curedisease)
@@ -3065,7 +3065,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_biotypes_perks()
 	var/list/to_add = list()
 
-	if(MOB_UNDEAD in inherent_biotypes)
+	if(inherent_biotypes & MOB_UNDEAD)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "skull",
