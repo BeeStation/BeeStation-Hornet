@@ -10,14 +10,14 @@
 
 // NoticeBox
 $background-color: hsl(36.9, 37.9%, 57.1%) !default;
-$color-stripes: rgba(0, 0, 0, 0.1) !default;
+$color-stripes: hsla(0, 0%, 0%, 0.1) !default;
 $color-border: hsl(0, 0%, 15.3%) !default;
 $bg-map: colors.$bg-map !default;
 
 .NoticeBox {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($background-color);
-  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.35, hsl(0, 0%, 0%), hsl(0, 0%, 100%));
 
   padding: 0.33em 0.5em;
   margin-bottom: 0.5em;
@@ -37,7 +37,7 @@ $bg-map: colors.$bg-map !default;
 
 @mixin box-color($color) {
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.35, hsl(0, 0%, 0%), hsl(0, 0%, 100%));
   color: $text-color;
   background-color: color.adjust($color, $saturation: -15%, $lightness: -15%);
 }

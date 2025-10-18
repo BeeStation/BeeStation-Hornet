@@ -34,7 +34,7 @@
     user-select: none;
 
     &.create {
-      color: rgb(248, 233, 214);
+      color: hsl(34, 71%, 91%);
     }
   }
 
@@ -142,23 +142,23 @@
 
   .recipe_ingredient {
     margin: 0px 2px;
-    background-color: rgb(178, 178, 178);
-    color: rgb(0, 0, 0);
+    background-color: hsl(0, 0%, 70%);
+    color: hsl(0, 0%, 0%);
     padding: 3px 5px;
     border-radius: 5px;
     user-select: none;
     margin-bottom: 2px;
 
     &.satisfied {
-      background-color: rgb(99, 233, 112);
+      background-color: hsl(126, 75%, 65%);
     }
 
     &.catalyst {
-      background-color: rgb(212, 151, 214);
+      background-color: hsl(298, 43%, 72%);
     }
 
     &.insertable:not(.satisfied) {
-      background-color: rgb(242, 200, 149);
+      background-color: hsl(33, 78%, 77%);
     }
   }
 
@@ -209,12 +209,12 @@
     justify-content: center;
     text-align: center;
     width: 100%;
-    color: rgb(255, 199, 199);
+    color: hsl(0, 100%, 89%);
   }
 }
 
 .chem_dispenser_filter_modal {
-  background-color: rgba(25, 25, 25, 0.903);
+  background-color: hsla(0, 0%, 10%, 0.903);
   padding: 4px;
   border-radius: 4px;
 }

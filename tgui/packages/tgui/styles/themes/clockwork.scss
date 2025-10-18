@@ -45,7 +45,7 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
+    $with: ('background-color': hsla(0, 0%, 0%, 0.5))
   );
 
   //Layouts
@@ -55,7 +55,7 @@
     '../layouts/TitleBar.scss',
     $with: (
       'background-color': hsl(31.1, 74.3%, 21.4%),
-      'shadow-color': rgba(0, 0, 0, 0.1),
+      'shadow-color': hsla(0, 0%, 0%, 0.1),
       'text-color': hsl(50.7, 58.6%, 54.5%)
     )
   );
