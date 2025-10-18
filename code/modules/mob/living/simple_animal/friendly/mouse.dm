@@ -160,6 +160,9 @@
 	)
 	preserved_food = TRUE
 
+/obj/item/food/deadmouse/prison
+	name = "prison ration"
+	desc = "A prison ration. Made in prison, by prisoners, for prisoners. Yum."
 
 /obj/item/food/deadmouse/attackby(obj/item/I, mob/living/user, params)
 	if(I.is_sharp() && user.combat_mode)
