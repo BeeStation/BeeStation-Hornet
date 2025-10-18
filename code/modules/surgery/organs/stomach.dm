@@ -49,7 +49,7 @@
 
 /obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/disgusted, delta_time, times_fired)
 	var/old_disgust = disgusted.old_disgust
-	var/disgust = disgust
+	var/disgust = disgusted.disgust
 
 	if(disgust)
 		var/pukeprob = 2.5 + (0.025 * disgust)
