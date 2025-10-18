@@ -8,7 +8,6 @@
 	icon_state = null
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
-	custom_price = 15	// We dont yet have a way to calculate price based on contents
 
 	isGlass = TRUE
 
@@ -121,7 +120,7 @@
 /obj/item/reagent_containers/cup/glass/ice
 	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
-	custom_price = PAYCHECK_EASY * 0.6
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_LOW
 	icon_state = "iceglass"
 	list_reagents = list(/datum/reagent/consumable/ice = 30)
 	spillable = TRUE
@@ -157,7 +156,7 @@
 	list_reagents = list(/datum/reagent/consumable/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
 	drink_type = SUGAR
 	resistance_flags = FREEZE_PROOF
-	custom_price = PAYCHECK_MEDIUM * 1.2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_HIGH
 
 
 /obj/item/reagent_containers/cup/glass/dry_ramen
@@ -167,8 +166,7 @@
 	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3)
 	drink_type = GRAIN
 	isGlass = FALSE
-	custom_price = PAYCHECK_MEDIUM * 0.9
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_SUBSTANDARD
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
@@ -188,7 +186,7 @@
 	var/cap_lost = FALSE
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
-	custom_price = PAYCHECK_EASY * 0.8
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_SUBSTANDARD
 
 /obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
 	. = ..()
@@ -397,7 +395,7 @@
 /obj/item/reagent_containers/cup/glass/flask
 	name = "flask"
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
-	custom_price = PAYCHECK_COMMAND * 2
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_PREMIUM
 	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "flask"
 	custom_materials = list(/datum/material/iron=250)
@@ -415,7 +413,6 @@
 	desc = "The detective's only true friend."
 	icon_state = "detflask"
 	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 30)
-	custom_price = 50
 
 /obj/item/reagent_containers/cup/glass/mug/britcup
 	name = "cup"

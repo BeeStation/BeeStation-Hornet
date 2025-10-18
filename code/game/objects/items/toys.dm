@@ -870,7 +870,7 @@
 	deckstyle = "nanotrasen"
 	icon_state = "deck_nanotrasen_full"
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 	var/cooldown = 0
 	var/obj/machinery/computer/holodeck/holo = null // Holodeck cards should not be infinite
 	var/list/cards = list()
@@ -1903,7 +1903,7 @@
 /obj/item/storage/box/yatzy
 	name = "Game of Yatzy"
 	desc = "Contains all the pieces required to play a game of Yatzy with up to 4 friends!"
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/storage/box/yatzy/PopulateContents()
 	new /obj/item/storage/pill_bottle/dice_cup/yatzy(src)

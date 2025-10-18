@@ -10,6 +10,7 @@
 	department_tag = "Engineering"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/engineering
 	stripe_color = "#EFB341CA"
+	seller_department = ACCOUNT_ENG_BITFLAG
 
 /obj/machinery/rnd/production/protolathe/department/service
 	name = "department protolathe (Service)"
@@ -17,6 +18,7 @@
 	department_tag = "Service"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/service
 	stripe_color = "#83CA41CA"
+	seller_department = ACCOUNT_SRV_BITFLAG
 
 /obj/machinery/rnd/production/protolathe/department/medical
 	name = "department protolathe (Medical)"
@@ -24,6 +26,7 @@
 	department_tag = "Medical"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/medical
 	stripe_color = "#52B4E9CA"
+	seller_department = ACCOUNT_MED_BITFLAG
 
 /obj/machinery/rnd/production/protolathe/department/cargo
 	name = "department protolathe (Cargo)"
@@ -31,6 +34,7 @@
 	department_tag = "Cargo"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/cargo
 	stripe_color = "#956929CA"
+	seller_department = ACCOUNT_CAR_BITFLAG
 
 /obj/machinery/rnd/production/protolathe/department/science
 	name = "department protolathe (Science)"
@@ -38,6 +42,7 @@
 	department_tag = "Science"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/science
 	stripe_color = "#D381C9CA"
+	seller_department = ACCOUNT_SCI_BITFLAG
 
 /obj/machinery/rnd/production/protolathe/department/security
 	name = "department protolathe (Security)"
@@ -45,3 +50,4 @@
 	department_tag = "Security"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/security
 	stripe_color = "#DE3A3ACA"
+	seller_department = ACCOUNT_SEC_BITFLAG

@@ -110,7 +110,7 @@
 	name = "custodial holobarrier projector"
 	desc = "A holographic projector that creates hard light wet floor barriers."
 	holosign_type = /obj/structure/holosign/barrier/wetsign
-	custom_price = 200
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 	creation_time = 2 SECONDS
 	max_signs = 12
 
@@ -122,7 +122,7 @@
 	actions_types = list(/datum/action/item_action/toggle_crimesigns)
 	creation_time = 3 SECONDS
 	max_signs = 6
-	custom_price = 50
+	custom_price = PAYCHECK_CREW
 	var/active_crimesign = FALSE
 	var/list/active_barriers = list()
 	var/crimesign_range = 4 //in tiles

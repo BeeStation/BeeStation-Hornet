@@ -52,12 +52,14 @@
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2)
 
 	// Things that could be useful for crew protection
-	premium = list(/obj/item/clothing/head/helmet = 4,
-					/obj/item/clothing/suit/armor/vest = 4)
+	premium = list(
+		/obj/item/clothing/head/helmet = 4,
+		/obj/item/clothing/suit/armor/vest = 4
+	)
 
 	refill_canister = /obj/item/vending_refill/deputy
-	default_price = PAYCHECK_MINIMAL * 10
-	extra_price = PAYCHECK_MINIMAL * 15
+	default_price = PAYCHECK_CREW * MULTIPLIER_EXCLUSIVE
+	extra_price = PAYCHECK_CREW * MULTIPLIER_COMMAND
 
 /obj/machinery/vending/deputy/Initialize(mapload)
 	. = ..()

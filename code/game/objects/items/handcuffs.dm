@@ -27,7 +27,7 @@
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 3 MINUTES
 	armor_type = /datum/armor/restraints_handcuffs
-	custom_price = 15
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_ULTRA_LOW
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 	var/overlay_state = "handcuff1"
@@ -103,7 +103,7 @@
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 1 MINUTES
 	cuffsound = 'sound/weapons/cablecuff.ogg'
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/restraints/handcuffs/cable/red
 	color = "#ff0000"
@@ -137,18 +137,18 @@
 	item_state = "sinewcuff"
 	custom_materials = null
 	color = null
-	custom_price = 10
+	custom_price = PAYCHECK_CREW
 
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
-	custom_price = 100
+	custom_price = PAYCHECK_COMMAND
 	max_demand = 10
 
 /obj/item/restraints/handcuffs/fake
 	name = "fake handcuffs"
 	desc = "Fake handcuffs meant for gag purposes."
 	breakouttime = 1 SECONDS
-	custom_price = 10
+	custom_price = PAYCHECK_CREW
 	max_demand = 10
 
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
@@ -397,7 +397,7 @@
 	hitsound = 'sound/weapons/taserhit.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 6 SECONDS
-	custom_price = 100
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_ULTRA_LOW
 
 /obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
 	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))

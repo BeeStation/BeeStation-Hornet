@@ -18,7 +18,7 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 	crafting_complexity = FOOD_COMPLEXITY_2
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/food/sosjerky
 	name = "\improper Scaredy's Private Reserve Beef Jerky"
@@ -36,7 +36,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	foodtypes = JUNKFOOD | MEAT | SUGAR
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/food/sosjerky/healthy
 	name = "homemade beef jerky"
@@ -185,7 +185,7 @@
 	foodtypes = JUNKFOOD | FRIED
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/food/no_raisin
 	name = "\improper 4no raisins"
@@ -201,10 +201,10 @@
 	tastes = list("dried raisins" = 1)
 	foodtypes = JUNKFOOD | FRUIT | SUGAR
 	food_flags = FOOD_FINGER_FOOD
-	custom_price = PAYCHECK_MEDIUM * 0.7
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/food/no_raisin/healthy
 	name = "homemade raisins"
@@ -228,10 +228,10 @@
 	junkiness = 25
 	foodtypes = JUNKFOOD | GRAIN | SUGAR
 	food_flags = FOOD_FINGER_FOOD
-	custom_price = PAYCHECK_EASY
+	custom_price = PAYCHECK_LOWER
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/food/cheesiehonkers
 	name = "\improper Cheesie Honkers"
@@ -248,7 +248,7 @@
 	foodtypes = JUNKFOOD | DAIRY | SUGAR
 	w_class = WEIGHT_CLASS_SMALL
 	crafting_complexity = FOOD_COMPLEXITY_1
-	custom_price = 20
+	custom_price = PAYCHECK_CREW * MULTIPLIER_VERY_LOW
 
 /obj/item/food/syndicake
 	name = "\improper Syndi-Cakes"

@@ -63,7 +63,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
-	custom_price = 300
+	custom_price = EXPORT_PRICE_WEAPON_HIGH
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
@@ -81,7 +81,7 @@
 	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
 	lock_back_sound = "sound/weapons/deaglelock.ogg"
 	fire_sound = "sound/weapons/deagleshot.ogg"
-	custom_price = 300
+	custom_price = EXPORT_PRICE_WEAPON_HIGH
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -183,6 +183,7 @@
 	lock_back_sound = 'sound/weapons/nps10/NPS-lockback.ogg'
 	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
 	recoil = 0.1
+	custom_price = EXPORT_PRICE_WEAPON_LOW
 
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \

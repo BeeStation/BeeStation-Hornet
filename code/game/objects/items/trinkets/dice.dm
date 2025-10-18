@@ -4,7 +4,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	pill_variance = 0
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/storage/pill_bottle/dice/Initialize(mapload)
 	. = ..()
@@ -119,7 +119,7 @@
 	sides = 3 //shhh
 	icon_state = "fudge"
 	special_faces = list("minus","blank","plus")
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/dice/d8
 	name = "d8"

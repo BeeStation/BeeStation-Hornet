@@ -50,7 +50,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer/nano
 	/// Rating affects the size of the explosion created by the detonation of the battery through hacking
 	rating = PART_TIER_1
-	custom_price = PAYCHECK_EASY
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/computer_hardware/battery/small
 	name = "small battery"
@@ -58,7 +58,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	battery_type = /obj/item/stock_parts/cell/computer/micro
 	rating = PART_TIER_2
-	custom_price = PAYCHECK_EASY * 2
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM
 
 /obj/item/computer_hardware/battery/standard
 	name = "standard battery"
@@ -67,7 +67,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer
 	w_class = WEIGHT_CLASS_SMALL	// Fits tablets and up
 	rating = PART_TIER_3
-	custom_price = PAYCHECK_MEDIUM
+	custom_price = PAYCHECK_CREW
 
 /obj/item/computer_hardware/battery/large
 	name = "large battery"
@@ -76,7 +76,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer/advanced
 	w_class = WEIGHT_CLASS_SMALL	// Fits tablets and up
 	rating = PART_TIER_4
-	custom_price = PAYCHECK_MEDIUM * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/computer_hardware/battery/huge
 	name = "extra large battery"
@@ -85,7 +85,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	battery_type = /obj/item/stock_parts/cell/computer/super
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	rating = PART_TIER_5
-	custom_price = PAYCHECK_MEDIUM * 3
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 // =================================
 // Battery Cells: Each tier increases by 50%
@@ -98,7 +98,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_TINY
 	maxcharge = 40 KILOWATT
 	chargerate_divide = 4
-	custom_price = PAYCHECK_EASY
+	custom_price = PAYCHECK_CREW
 	rating = PART_TIER_1
 
 /obj/item/stock_parts/cell/computer/micro
@@ -107,7 +107,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell_micro"
 	maxcharge = 60 KILOWATT
 	w_class = WEIGHT_CLASS_TINY
-	custom_price = PAYCHECK_EASY * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	rating = PART_TIER_2
 	chargerate_divide = 2
 
@@ -120,7 +120,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	maxcharge = 100 KILOWATT
 	/// rating affects the size of the explosion created by the detonation of the battery (trough Power Cell Controler hacking)
 	rating = PART_TIER_3
-	custom_price = PAYCHECK_MEDIUM
+	custom_price = PAYCHECK_CREW
 
 /obj/item/stock_parts/cell/computer/advanced
 	name = "advanced battery"
@@ -128,7 +128,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	icon_state = "cell"
 	w_class = WEIGHT_CLASS_SMALL
 	maxcharge = 140 KILOWATT
-	custom_price = PAYCHECK_MEDIUM * 2
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 	rating = PART_TIER_4
 
 /obj/item/stock_parts/cell/computer/super
@@ -138,5 +138,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	w_class = WEIGHT_CLASS_NORMAL	// Fits only laptops
 	maxcharge = 220 KILOWATT
 	chargerate_divide = 10
-	custom_price = PAYCHECK_MEDIUM * 3
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 	rating = PART_TIER_5

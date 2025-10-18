@@ -708,7 +708,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "skateboard2"
 	item_state = "skateboard2"
 	board_item_type = /obj/vehicle/ridden/scooter/skateboard/pro
-	custom_premium_price = 300
+	custom_premium_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 
 /obj/item/melee/skateboard/hoverboard
 	name = "hoverboard"
@@ -716,7 +716,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	icon_state = "hoverboard_red"
 	item_state = "hoverboard_red"
 	board_item_type = /obj/vehicle/ridden/scooter/skateboard/hoverboard
-	custom_premium_price = 2015
+	custom_premium_price = PAYCHECK_COMMAND * MULTIPLIER_COMMAND //If I can't make it a meme I'll make it RAD
 
 /obj/item/melee/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"
@@ -1020,7 +1020,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb_simple = list("club", "bludgeon")
 	item_flags = ISWEAPON
 	siemens_coefficient = 0
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_EXCLUSIVE
 	var/breakforce = 30
 	var/stamforce = 15
 

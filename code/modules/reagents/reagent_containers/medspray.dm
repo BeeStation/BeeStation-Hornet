@@ -23,7 +23,7 @@
 	var/apply_method = "spray"
 	var/self_delay = 30
 	var/squirt_mode = 0
-	custom_price = 40
+	custom_price = PAYCHECK_CREW
 
 /obj/item/reagent_containers/medspray/attack_self(mob/user)
 	squirt_mode = !squirt_mode
@@ -112,7 +112,7 @@
 	desc = "A medical spray bottle, designed for precision application, with an unscrewable cap. This one contains synthflesh, an apex brute and burn healing agent."
 	icon_state = "synthspray"
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 60)
-	custom_price = 80
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/reagent_containers/medspray/sterilizine
 	name = "sterilizer spray"

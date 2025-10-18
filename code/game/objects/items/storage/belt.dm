@@ -42,7 +42,7 @@
 	item_state = "utility"
 	worn_icon_state = "utility"
 	content_overlays = TRUE
-	custom_price = 50
+	custom_premium_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbelt_pickup.ogg'
 
@@ -358,7 +358,7 @@
 	item_state = "security"//Could likely use a better one.
 	worn_icon_state = "security"
 	content_overlays = TRUE
-	custom_price = 80
+	custom_price = PAYCHECK_CREW * MULTIPLIER_EXCLUSIVE
 
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
@@ -426,7 +426,7 @@
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
 	max_demand = 10
-	custom_price = 150
+	custom_premium_price = PAYCHECK_COMMAND * MULTIPLIER_LUXURY
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
@@ -843,7 +843,7 @@
 	item_state = null
 	worn_icon_state = "fannypack_leather"
 	dying_key = DYE_REGISTRY_FANNYPACK
-	custom_price = 15
+	custom_price = PAYCHECK_CREW * MULTIPLIER_LUXURY
 
 /obj/item/storage/belt/fannypack/Initialize(mapload)
 	. = ..()

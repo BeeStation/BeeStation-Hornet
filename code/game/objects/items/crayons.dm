@@ -520,7 +520,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 /obj/item/storage/crayons/Initialize(mapload)
 	. = ..()

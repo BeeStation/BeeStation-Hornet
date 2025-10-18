@@ -99,7 +99,7 @@
 	attack_verb_simple = list("shove", "bash")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 	transparent = TRUE
-	custom_price = 100
+	custom_price = PAYCHECK_CREW * MULTIPLIER_EXCLUSIVE
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/sheet/mineral/titanium))

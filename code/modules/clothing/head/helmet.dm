@@ -16,7 +16,7 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
-	custom_price = 100
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_HIGH
 
 /datum/armor/head_helmet
 	melee = 35
@@ -97,7 +97,7 @@
 	icon_state = "blueshift"
 	item_state = "blueshift"
 	max_demand = 10
-	custom_premium_price = 150
+	custom_premium_price = PAYCHECK_COMMAND
 
 
 /obj/item/clothing/head/helmet/toggleable

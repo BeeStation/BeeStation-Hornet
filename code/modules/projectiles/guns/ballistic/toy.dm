@@ -15,7 +15,7 @@
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
 	fire_delay = 3 // Slightly worse than the actual sabre
-	custom_price = 75
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_SUBSTANDARD
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()

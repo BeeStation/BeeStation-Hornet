@@ -661,7 +661,6 @@
 
 /obj/item/electronics/firelock
 	name = "firelock circuitry"
-	custom_price = 5
 	desc = "A circuit board used in construction of firelocks."
 	icon_state = "mainboard"
 
