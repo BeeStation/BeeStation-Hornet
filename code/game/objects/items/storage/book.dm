@@ -133,9 +133,8 @@
 
 	var/mob/living/carbon/human/H = L
 
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/BP = X
-		if(!IS_ORGANIC_LIMB(BP))
+	for(var/obj/item/bodypart/bodypart as anything in H.bodyparts)
+		if(!IS_ORGANIC_LIMB(bodypart))
 			to_chat(user, span_warning("[src.deity_name] refuses to heal this metallic taint!"))
 			return 0
 
@@ -143,9 +142,8 @@
 	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
 
 	if(hurt_limbs.len)
-		for(var/X in hurt_limbs)
-			var/obj/item/bodypart/affecting = X
-			if(affecting.heal_damage(heal_amt, heal_amt, null, BODYTYPE_ORGANIC))
+		for(var/obj/item/bodypart/affecting as anything in hurt_limbs)
+			if(affecting.heal_damage(heal_amt, heal_amt, required_bodytype = BODYTYPE_ORGANIC))
 				H.update_damage_overlays()
 		H.visible_message(span_notice("[user] heals [H] with the power of [deity_name]!"))
 		to_chat(H, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
@@ -257,15 +255,17 @@
 	new /obj/item/reagent_containers/cup/glass/bottle/whiskey(src)
 
 /obj/item/storage/book/bible/syndicate
+	name = "Syndicate Tome"
+	desc = "A very ominous tome resembling a bible."
 	icon_state ="ebook"
 	deity_name = "The Syndicate"
+	item_flags = NO_BLOOD_ON_ITEM
 	throw_speed = 2
-	throwforce = 18
 	throw_range = 7
+	throwforce = 18
 	force = 18
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	name = "Syndicate Tome"
 	attack_verb_continuous = list("attacks", "burns", "blesses", "damns", "scorches")
 	attack_verb_simple = list("attack", "burn", "bless", "damn", "scorch")
 	var/uses = 1

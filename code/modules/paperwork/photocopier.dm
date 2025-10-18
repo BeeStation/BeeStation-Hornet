@@ -340,7 +340,7 @@
 		temp_img = icon('icons/ass/assalien.png')
 	else if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/temporary = ass
-		temp_img = icon(temporary.dna.features["body_model"] == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
+		temp_img = icon((temporary.physique == FEMALE) ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
 	else if(isdrone(ass)) //Drones are hot
 		temp_img = icon('icons/ass/assdrone.png')
 

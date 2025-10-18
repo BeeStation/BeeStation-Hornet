@@ -47,7 +47,7 @@
 
 	// Basic stuff
 	carbon_owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
-	carbon_owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
+	carbon_owner.add_client_colour(/datum/client_colour/manual_heart_blood)
 	carbon_owner.uncuff()
 	vampiredatum.frenzygrab.teach(carbon_owner, TRUE)
 	vampiredatum.frenzied = TRUE
@@ -76,7 +76,7 @@
 
 	// Basic stuff
 	carbon_owner.remove_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
-	carbon_owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
+	carbon_owner.remove_client_colour(/datum/client_colour/manual_heart_blood)
 	vampiredatum.frenzygrab.remove(carbon_owner)
 	vampiredatum.frenzied = FALSE
 

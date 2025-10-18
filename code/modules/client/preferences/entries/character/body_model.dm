@@ -1,27 +1,30 @@
-/datum/preference/choiced/body_model
+#define USE_GENDER "Use gender"
+
+/datum/preference/choiced/body_type
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	priority = PREFERENCE_PRIORITY_BODY_MODEL
+	priority = PREFERENCE_PRIORITY_BODY_TYPE
 	db_key = "body_model"
 	preference_type = PREFERENCE_CHARACTER
+	can_randomize = FALSE
 
-/datum/preference/choiced/body_model/init_possible_values()
-	return list(MALE, FEMALE)
+/datum/preference/choiced/body_type/init_possible_values()
+	return list(USE_GENDER, MALE, FEMALE)
 
-/datum/preference/choiced/body_model/apply_to_human(mob/living/carbon/human/target, value)
-	if (target.gender != MALE && target.gender != FEMALE)
-		target.dna.features["body_model"] = value
+/datum/preference/choiced/body_type/create_default_value()
+	return USE_GENDER
+
+/datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value)
+	if (value == USE_GENDER)
+		target.physique = target.gender
 	else
-		target.dna.features["body_model"] = target.gender
+		target.physique = value
 
-/datum/preference/choiced/body_model/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
-	if (!..())
-		return FALSE
-	var/datum/species/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
-	if(!initial(species_type.sexes))
+/datum/preference/choiced/body_type/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..(preferences))
 		return FALSE
 
-	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
-	return gender != MALE && gender != FEMALE
+	var/datum/species/species = preferences.read_preference(/datum/preference/choiced/species)
+	return initial(species.sexes)
 
 /datum/preference/choiced/body_size
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
@@ -36,3 +39,5 @@
 
 /datum/preference/choiced/body_size/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["body_size"] = value
+
+#undef USE_GENDER

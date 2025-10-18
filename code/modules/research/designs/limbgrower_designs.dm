@@ -24,7 +24,7 @@
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
 	build_path = /obj/item/bodypart/leg/left
-	category = list("initial","human","lizard","fly","moth","plasmaman")
+	category = list("initial","human","lizard","fly","moth","plasmaman", "digitigrade")
 
 /datum/design/rightleg
 	name = "Right Leg"
@@ -32,7 +32,7 @@
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
 	build_path = /obj/item/bodypart/leg/right
-	category = list("initial","human","lizard","fly","moth","plasmaman")
+	category = list("initial","human","lizard","fly","moth","plasmaman", "digitigrade")
 
 /datum/design/armblade
 	name = "Arm Blade"

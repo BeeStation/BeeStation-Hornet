@@ -72,7 +72,7 @@ Bonus
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
-	M.take_overall_damage(burn = 3 * power, required_status = BODYTYPE_ORGANIC)
+	M.take_overall_damage(burn = 3 * power, required_bodytype = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 2), 20)
 		M.visible_message(span_danger("[M] bursts into flames, spreading burning sparks about the area!"))
@@ -83,7 +83,7 @@ Bonus
 		M.adjust_fire_stacks(6 * power)
 	else
 		M.adjust_fire_stacks(3 * power)
-	M.take_overall_damage(burn = 5 * power, required_status = BODYTYPE_ORGANIC)
+	M.take_overall_damage(burn = 5 * power, required_bodytype = BODYTYPE_ORGANIC)
 	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 4), 20)
 		M.visible_message(span_danger("[M] bursts into flames, spreading burning sparks about the area!"))
@@ -179,7 +179,7 @@ Bonus
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 6 * power
 	M.adjust_fire_stacks(get_stacks)
-	M.take_overall_damage(burn = get_stacks / 2, required_status = BODYTYPE_ORGANIC)
+	M.take_overall_damage(burn = get_stacks / 2, required_bodytype = BODYTYPE_ORGANIC)
 	if(chems && M.stat != DEAD)
 		M.reagents.add_reagent(/datum/reagent/clf3, 2 * power)
 	return 1
@@ -187,7 +187,7 @@ Bonus
 /datum/symptom/alkali/proc/Alkali_fire_stage_5(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 8 * power
 	M.adjust_fire_stacks(get_stacks)
-	M.take_overall_damage(burn = get_stacks, required_status = BODYTYPE_ORGANIC)
+	M.take_overall_damage(burn = get_stacks, required_bodytype = BODYTYPE_ORGANIC)
 	if(chems && M.stat != DEAD)
 		M.reagents.add_reagent_list(list(/datum/reagent/napalm = 4 * power, /datum/reagent/clf3 = 4 * power))
 	return 1

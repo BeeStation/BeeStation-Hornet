@@ -12,6 +12,7 @@
 	//bare_wound_bonus = 20
 	stealthy_audio = TRUE
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 
 	/// The color of this energy based sword, for use in editing the icon_state.
 	var/sword_color_icon
@@ -236,7 +237,7 @@
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	icon = 'icons/obj/surgery.dmi'
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	icon_state = "implant-esaw"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 18
@@ -256,6 +257,7 @@
 
 /obj/item/melee/energy/sword/esaw/implant //Energy Saw Arm Implant
 	icon_state = "implant-esaw"
+	icon = 'icons/obj/medical/organs/organs.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 

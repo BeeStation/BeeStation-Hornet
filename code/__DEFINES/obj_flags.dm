@@ -22,10 +22,13 @@
 #define BEING_REMOVED			(1<<0)
 #define PICKED_UP				(1<<1)  //! Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
 #define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
-#define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
-#define SLOWS_WHILE_IN_HAND		(1<<4)
-#define NO_MAT_REDEMPTION		(1<<5)  //! Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
-#define DROPDEL					(1<<6)  //! When dropped, it calls qdel on itself
+///Used by security bots to determine if this item is safe for public use.
+#define NEEDS_PERMIT (1<<3)
+#define SLOWS_WHILE_IN_HAND (1<<4)
+///Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
+#define NO_MAT_REDEMPTION (1<<5)
+/// When dropped, it calls qdel on itself
+#define DROPDEL					(1<<6)
 #define NOBLUDGEON				(1<<7)	//! when an item has this it produces no "X has been hit by Y with Z" message in the default attackby()
 #define ABSTRACT				(1<<9) 	//! for all things that are technically items but used for various different stuff
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
@@ -40,6 +43,9 @@
 #define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 ///Can be equipped on digitigrade legs.
 #define IGNORE_DIGITIGRADE (1<<19)
+#define SURGICAL_TOOL (1<<20)
+/// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
+#define NO_BLOOD_ON_ITEM (1 << 22)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -69,7 +75,8 @@
 #define MASKEXTENDRANGE (1<<11)
 /// Moths cannot eat clothing with that flag
 #define NOTCONSUMABLE (1<<12)
-#define SURGICAL_TOOL (1<<20)
+/// prevents from placing on plasmaman helmet or modsuit hat holder
+#define STACKABLE_HELMET_EXEMPT (1<<15)
 /// Usable as casting clothes by wizards (matters for suits, glasses and headwear)
 #define CASTING_CLOTHES (1<<13)
 /// Headgear/helmet allows internals
@@ -83,16 +90,6 @@
 #define CLOTHING_PRISTINE 0 // We have no damage on the clothing
 #define CLOTHING_DAMAGED 1 // There's some damage on the clothing but it still has at least one functioning bodypart and can be equipped
 #define CLOTHING_SHREDDED 2 // The clothing is useless and cannot be equipped unless repaired first
-
-/// Flags for the organ_flags var on /obj/item/organ
-
-#define ORGAN_SYNTHETIC			(1<<0)	//Synthetic organs, or cybernetic organs. Reacts to EMPs and don't deteriorate or heal
-#define ORGAN_FROZEN			(1<<1)	//Frozen organs, don't deteriorate
-#define ORGAN_FAILING			(1<<2)	//Failing organs perform damaging effects until replaced or fixed
-#define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
-#define ORGAN_VITAL				(1<<4)	//Currently only the brain
-#define ORGAN_EDIBLE			(1<<5)	//is a snack? :D
-#define ORGAN_UNREMOVABLE 		(1<<6)	//Can't be removed using surgery
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 

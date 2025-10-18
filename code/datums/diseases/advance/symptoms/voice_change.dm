@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 60
 	symptom_delay_max = 120
+	required_organ = ORGAN_SLOT_TONGUE
 	prefixes = list("Vocal ")
 	var/scramble_language = FALSE
 	var/datum/language/current_language
