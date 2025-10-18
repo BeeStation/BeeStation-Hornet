@@ -349,9 +349,6 @@
 /datum/species/golem/alloy
 	name = "Alien Alloy Golem"
 	id = SPECIES_GOLEM_ALLOY
-	inherent_traits = list(
-		TRAIT_NO_UNDERWEAR,
-	)
 	meat = /obj/item/stack/sheet/mineral/abductor
 	mutanttongue = /obj/item/organ/tongue/abductor
 	info_text = "As an " + span_danger("Alloy Golem") + ", you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to be heard by other alloy golems."
