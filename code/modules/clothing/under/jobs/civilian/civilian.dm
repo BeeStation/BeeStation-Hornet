@@ -4,23 +4,6 @@
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
 
-/obj/item/clothing/under/rank/civilian/bartender
-	desc = "It looks like it could use some more flair."
-	name = "bartender's uniform"
-	icon_state = "barman"
-	item_state = "bar_suit"
-	alt_covers_chest = TRUE
-
-/obj/item/clothing/under/rank/civilian/bartender/skirt
-	name = "bartender's skirt"
-	desc = "It looks like it could use some more flair."
-	icon_state = "barman_skirt"
-	item_state = "bar_suit"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
-	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
-	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/bartender/purple
 	desc = "It looks like it has lots of flair!"
@@ -48,16 +31,16 @@
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
-/obj/item/clothing/under/rank/civilian/chef
-	name = "cook's suit"
-	desc = "A suit which is given only to the most <b>hardcore</b> cooks in space."
-	icon_state = "chef"
+/obj/item/clothing/under/rank/civilian/servicedefault
+	name = "Service suit"
+	desc = "A suit which is given only to the most <b>hardcore</b> service members in space."
+	icon_state = "service_under"
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/civilian/chef/skirt
-	name = "cook's skirt"
-	desc = "A skirt which is given only to the most <b>hardcore</b> cooks in space."
-	icon_state = "chef_skirt"
+/obj/item/clothing/under/rank/civilian/servicedefault/skirt
+	name = "Service skirt"
+	desc = "A skirt which is given only to the most <b>hardcore</b> service members space."
+	icon_state = "service_under_skirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
@@ -105,26 +88,31 @@
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/hydroponics
-	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
-	name = "botanist's jumpsuit"
+	desc = "A comfortable pair of shorts and shirt to wear under an apron."
+	name = "botanist's outfit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
 	armor_type = /datum/armor/civilian_hydroponics
 
+/obj/item/clothing/under/rank/civilian/hydroponics/original
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
+	name = "botanist's  jumpsuit"
+	icon_state = "hydroponics_og"
+	armor_type = /datum/armor/civilian_hydroponics
 
-/datum/armor/civilian_hydroponics
-	bio = 50
-
-/obj/item/clothing/under/rank/civilian/hydroponics/skirt
+/obj/item/clothing/under/rank/civilian/hydroponics/original/skirt
 	name = "botanist's jumpskirt"
 	desc = "It's a jumpskirt designed to protect against minor plant-related hazards."
-	icon_state = "hydroponics_skirt"
-	item_state = "g_suit"
+	icon_state = "hydroponics_og_skirt"
+	item_state = "b_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
+
+/datum/armor/civilian_hydroponics
+	bio = 50
 
 /obj/item/clothing/under/rank/civilian/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
