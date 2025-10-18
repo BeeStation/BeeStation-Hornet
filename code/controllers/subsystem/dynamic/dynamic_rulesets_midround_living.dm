@@ -43,7 +43,7 @@
 
 	// Select candidates
 	for(var/i = 1 to drafted_players_amount)
-		chosen_candidates += select_player()
+		LAZYADD(chosen_candidates, select_player())
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
@@ -61,7 +61,7 @@
 
 	for(var/mob/chosen_candidate in chosen_candidates)
 		chosen_candidate.mind.special_role = antag_datum.banning_key
-	. = ..()
+	return ..()
 
 //////////////////////////////////////////////
 //                                          //

@@ -227,25 +227,27 @@ SUBSYSTEM_DEF(dynamic)
 	dynamic_storyteller_jsons = list()
 	for (var/file_path in flist(DYNAMIC_STORYTELLERS_DIRECTORY))
 		var/list/split = splittext(file_path, ".")
-		if (length(split) && split[length(split)] == "json")
-			// Check the json is valid
-			var/json_file = file("[DYNAMIC_STORYTELLERS_DIRECTORY][file_path]")
-			var/list/loaded_json
-			try
-				loaded_json = json_decode(file2text(json_file))
-			catch (var/exception/error)
-				stack_trace("Error while loading: \"[file_path]\" = [error]")
-				continue
+		if (!length(split) || split[length(split)] != "json")
+			continue
 
-			var/json_name = loaded_json["Name"]
-			if (!json_name)
-				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a name.")
-				continue
-			if (!loaded_json["Description"])
-				stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
-				continue
+		// Check the json is valid
+		var/json_file = file("[DYNAMIC_STORYTELLERS_DIRECTORY][file_path]")
+		var/list/loaded_json
+		try
+			loaded_json = json_decode(file2text(json_file))
+		catch (var/exception/error)
+			stack_trace("Error while loading: \"[file_path]\" = [error]")
+			continue
 
-			dynamic_storyteller_jsons[json_name] = loaded_json
+		var/json_name = loaded_json["Name"]
+		if (!json_name)
+			stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a name.")
+			continue
+		if (!loaded_json["Description"])
+			stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
+			continue
+
+		dynamic_storyteller_jsons[json_name] = loaded_json
 
 /datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
 	revert_storyteller_config()
@@ -472,19 +474,20 @@ SUBSYSTEM_DEF(dynamic)
 		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 		roundstart_points_left -= ruleset.points_cost
 
-		roundstart_executed_rulesets += ruleset
-		ruleset.choose_candidates()
+		var/datum/dynamic_ruleset/roundstart/new_roundstart_ruleset = ruleset.duplicate()
+		roundstart_executed_rulesets += new_roundstart_ruleset
+		new_roundstart_ruleset.choose_candidates()
 
-		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
+		log_dynamic("ROUNDSTART: Chose [new_roundstart_ruleset] with [roundstart_points_left] points left")
 
-		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
+		if(CHECK_BITFIELD(ruleset.ruleset_flags, NO_OTHER_RULESETS))
 			no_other_rulesets = TRUE
 			break
 
 	// Deal with the NO_OTHER_RULESETS flag
 	if(no_other_rulesets)
 		for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
-			if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
+			if(CHECK_BITFIELD(ruleset.ruleset_flags, NO_OTHER_RULESETS))
 				continue
 			if(ruleset in roundstart_forced_rulesets)
 				continue
@@ -514,13 +517,13 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Check for bitflags
 	for(var/datum/dynamic_ruleset/other_ruleset in applied_rulesets)
-		if(CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
+		if(CHECK_BITFIELD(other_ruleset.ruleset_flags, HIGH_IMPACT_RULESET) && CHECK_BITFIELD(ruleset.ruleset_flags, HIGH_IMPACT_RULESET))
 			return TRUE
 
-		if(CHECK_BITFIELD(other_ruleset.flags, NO_OTHER_RULESETS))
+		if(CHECK_BITFIELD(other_ruleset.ruleset_flags, NO_OTHER_RULESETS))
 			return TRUE
 
-		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.flags, CANNOT_REPEAT))
+		if(other_ruleset.type == ruleset.type && CHECK_BITFIELD(other_ruleset.ruleset_flags, CANNOT_REPEAT))
 			return TRUE
 
 	return FALSE
@@ -552,14 +555,11 @@ SUBSYSTEM_DEF(dynamic)
 	if(!istype(ruleset))
 		return DYNAMIC_EXECUTE_FAILURE
 
-	if(CHECK_BITFIELD(ruleset.flags, SHOULD_PROCESS_RULESET))
-		rulesets_to_process += ruleset
-
 	var/result = ruleset.execute()
 
-	// Since we reuse rulesets we need to empty chosen_candidates
-	ruleset.candidates = list()
-	ruleset.chosen_candidates = list()
+	if(result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
+		rulesets_to_process += ruleset
+
 	return result
 
 /**
@@ -582,14 +582,16 @@ SUBSYSTEM_DEF(dynamic)
 		if(!midround_chosen_ruleset)
 			choose_midround_ruleset()
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
-			var/result = execute_ruleset(midround_chosen_ruleset)
-			message_admins("DYNAMIC: MIDROUND: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-			log_dynamic("MIDROUND: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
+
+			var/result = execute_ruleset(new_midround_ruleset)
+			message_admins("DYNAMIC: MIDROUND: Executing [new_midround_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
 			// If we successfully execute the midround, apply the cost and log it
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
-				midround_executed_rulesets += midround_chosen_ruleset
-				midround_points -= midround_chosen_ruleset.points_cost
+				midround_executed_rulesets += new_midround_ruleset
+				midround_points -= new_midround_ruleset.points_cost
 				logged_points["logged_points"] += midround_points
 			else
 				COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
@@ -763,14 +765,16 @@ SUBSYSTEM_DEF(dynamic)
 		latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
 	// Execute our latejoin ruleset
-	latejoin_forced_ruleset.candidates = list(character)
-	var/result = execute_ruleset(latejoin_forced_ruleset)
+	var/datum/dynamic_ruleset/latejoin/new_latejoin_ruleset = latejoin_forced_ruleset.duplicate()
 
-	message_admins("DYNAMIC: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-	log_dynamic("LATEJOIN: Executing [latejoin_forced_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+	new_latejoin_ruleset.candidates = list(character)
+	var/result = execute_ruleset(new_latejoin_ruleset)
+
+	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
-		latejoin_executed_rulesets += latejoin_forced_ruleset
+		latejoin_executed_rulesets += new_latejoin_ruleset
 		latejoin_forced_ruleset = null
 
 /**
@@ -780,7 +784,7 @@ SUBSYSTEM_DEF(dynamic)
 	var/list/datum/dynamic_ruleset/executed_rulesets = roundstart_executed_rulesets | midround_executed_rulesets | latejoin_executed_rulesets
 
 	for(var/datum/dynamic_ruleset/ruleset in executed_rulesets)
-		if(CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
+		if(CHECK_BITFIELD(ruleset.ruleset_flags, HIGH_IMPACT_RULESET))
 			ruleset.round_result()
 			if(SSticker.news_report)
 				return

@@ -197,7 +197,7 @@ SUBSYSTEM_DEF(ticker)
 				return
 			timeLeft -= wait
 
-			if(timeLeft <= 90 SECONDS && !sent_storyteller_vote)
+			if(timeLeft >= 60 SECONDS && timeLeft <= 90 SECONDS && !sent_storyteller_vote)
 				INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/storyteller_vote, "Dynamic", null, TRUE)
 				sent_storyteller_vote = TRUE
 
