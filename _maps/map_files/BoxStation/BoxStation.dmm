@@ -3798,19 +3798,6 @@
 "aZE" = (
 /turf/closed/wall,
 /area/quartermaster/storage)
-"aZH" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "packageSort2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/quartermaster/sorting)
 "aZI" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/cardboard,
@@ -24111,7 +24098,6 @@
 "gqo" = (
 /obj/effect/spawner/room/threexthree,
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "gqr" = (
@@ -25385,12 +25371,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
-"gPX" = (
-/obj/effect/turf_decal/tile/brown/opposingcorners,
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/iron/techmaint,
-/area/quartermaster/office)
 "gQd" = (
 /turf/closed/wall,
 /area/quartermaster/exploration_dock)
@@ -34274,7 +34254,6 @@
 	},
 /obj/machinery/camera/directional/west,
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/tech,
 /area/quartermaster/sorting)
 "kdD" = (
@@ -34609,12 +34588,6 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "klN" = (
@@ -39709,18 +39682,6 @@
 /obj/structure/closet/secure_closet/captains,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
-"mhi" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "mhm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -47168,9 +47129,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "pgs" = (
@@ -53092,9 +53050,6 @@
 	dir = 8
 	},
 /obj/item/kirbyplants/random,
-/obj/machinery/light_switch{
-	pixel_x = -27
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -55275,7 +55230,6 @@
 /area/medical/morgue)
 "scu" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/quartermaster/office)
 "scy" = (
@@ -56352,9 +56306,6 @@
 /area/storage/art)
 "sAR" = (
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -57574,9 +57525,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68726,9 +68674,6 @@
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "wZU" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -93891,7 +93836,7 @@ rBI
 wmC
 wmC
 wmC
-gPX
+wmC
 wmC
 fvV
 lHq
@@ -94148,7 +94093,7 @@ auM
 cZf
 wmC
 wNi
-gPX
+wmC
 cpj
 bfF
 iJp
@@ -94910,7 +94855,7 @@ eqS
 xyL
 hvQ
 tav
-aZH
+cUX
 tPF
 fEQ
 vOQ
@@ -112436,7 +112381,7 @@ bNd
 cOe
 cOe
 cOe
-mhi
+rtu
 cNW
 cNW
 cOe
