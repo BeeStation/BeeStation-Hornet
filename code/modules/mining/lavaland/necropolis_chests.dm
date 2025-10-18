@@ -649,7 +649,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 					wings.flight_level += 1 //upgrade the flight level
 					wings.Refresh(H) //they need to insert to get the flight emote
 			else
-				if(MOB_ROBOTIC in H.mob_biotypes)
+				if(H.mob_biotypes & MOB_ROBOTIC)
 					var/obj/item/organ/wings/cybernetic/newwings = new()
 					newwings.Insert(H)
 				else if(holycheck)

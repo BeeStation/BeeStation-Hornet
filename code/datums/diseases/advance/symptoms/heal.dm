@@ -538,7 +538,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						if(tetsuo && prob(15))
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
 								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-							if(MOB_ROBOTIC in A.infectable_biotypes)
+							if(A.infectable_biotypes & MOB_ROBOTIC)
 								new /obj/effect/decal/cleanable/robot_debris(M.loc)
 								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)

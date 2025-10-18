@@ -283,7 +283,7 @@
 
 /datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
-	if(MOB_BUG in exposed_mob.mob_biotypes)
+	if(exposed_mob.mob_biotypes & MOB_BUG)
 		exposed_mob.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10), updating_health = TRUE)
 
 /datum/reagent/toxin/spore
