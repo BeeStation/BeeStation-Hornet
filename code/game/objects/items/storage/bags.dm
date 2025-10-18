@@ -156,7 +156,6 @@
 
 /obj/item/storage/bag/ore/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.05) //please datum mats no more cancer
 	atom_storage.max_specific_storage = WEIGHT_CLASS_HUGE
 	atom_storage.max_total_storage = 250
 	atom_storage.numerical_stacking = TRUE

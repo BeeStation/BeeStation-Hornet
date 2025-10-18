@@ -230,7 +230,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 	laser = 100
 	energy = 100
 	bomb = 70
-	rad = 100
 	fire = 80
 	acid = 70
 

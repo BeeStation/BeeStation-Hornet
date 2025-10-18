@@ -22,7 +22,6 @@
 	bomb = 25
 	fire = 100
 	acid = 70
-	rad = 75
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shut_open"

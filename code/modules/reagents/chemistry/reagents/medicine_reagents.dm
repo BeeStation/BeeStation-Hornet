@@ -482,7 +482,10 @@
 		affected_mob.reagents.remove_reagent(reagent.type, 1 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
-	affected_mob.radiation *= 0.9 //10% purged every cycle
+
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(irradiated_component.intensity * -0.1)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/liquid_solder
@@ -556,11 +559,18 @@
 	color = "#BAA15D"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 2 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.radiation > 0)
-		affected_mob.radiation -= min(8 * REM * delta_time, affected_mob.radiation)
+	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		return
+
+	var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+	irradiated_component.adjust_intensity(-1 * REM * delta_time)
+
+	affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
@@ -569,6 +579,7 @@
 	color = "#E6FFF0"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -577,7 +588,10 @@
 			continue
 		affected_mob.reagents.remove_reagent(reagent.type, 2 * REM * delta_time)
 
-	affected_mob.radiation -= (max(affected_mob.radiation - RAD_MOB_SAFE, 0) / 50) * REM * delta_time
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(-2 * REM * delta_time)
+
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 

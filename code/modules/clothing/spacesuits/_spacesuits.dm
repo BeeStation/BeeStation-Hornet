@@ -29,7 +29,6 @@
 
 /datum/armor/helmet_space
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10
@@ -146,7 +145,6 @@
 
 /datum/armor/suit_space
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10

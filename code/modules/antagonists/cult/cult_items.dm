@@ -289,7 +289,6 @@ Striking a noncultist, however, will tear their flesh."}
 	energy = 30
 	bomb = 50
 	bio = 30
-	rad = 30
 	fire = 50
 	acid = 60
 	stamina = 40
@@ -332,7 +331,6 @@ Striking a noncultist, however, will tear their flesh."}
 	energy = 30
 	bomb = 50
 	bio = 100
-	rad = 30
 	fire = 50
 	acid = 60
 	stamina = 40
@@ -779,7 +777,7 @@ Striking a noncultist, however, will tear their flesh."}
 		playsound(src, 'sound/magic/exit_blood.ogg', 75, 1)
 		new /obj/effect/temp_visual/dir_setting/cult/phase(user.loc, user.dir)
 		var/turf/temp_target = get_turf_in_angle(set_angle, targets_from, 40)
-		for(var/turf/T in getline(targets_from,temp_target))
+		for(var/turf/T in get_line(targets_from,temp_target))
 			if (T.is_holy())
 				temp_target = T
 				playsound(T, 'sound/machines/clockcult/ark_damage.ogg', 50, 1)

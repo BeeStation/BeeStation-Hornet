@@ -41,7 +41,6 @@
 	energy = 25
 	bomb = 50
 	bio = 100
-	rad = 30
 	fire = 90
 	acid = 50
 	stamina = 30

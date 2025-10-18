@@ -22,7 +22,6 @@
 	laser = 90
 	energy = 100
 	bomb = 20
-	rad = 100
 
 /obj/structure/platform/black
 	icon_state = "platform_black"

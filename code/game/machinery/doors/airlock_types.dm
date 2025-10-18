@@ -194,18 +194,26 @@
 	name = "uranium airlock"
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
-	var/last_event = 0
+
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /obj/machinery/door/airlock/uranium/process(delta_time)
-	if(world.time > last_event+20)
-		if(DT_PROB(50, delta_time))
-			radiate()
-		last_event = world.time
-	..()
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	if(DT_PROB(50, delta_time))
+		radiate()
+	COOLDOWN_START(src, radiate_cooldown, 2 SECONDS)
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
-	return
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE

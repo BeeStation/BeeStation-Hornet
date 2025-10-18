@@ -16,5 +16,16 @@
 
 #define ALERT_NOT_ENOUGH_WATER "not_enough_water"
 
+/** Mob related */
+#define ALERT_SUCCUMB "succumb"
+#define ALERT_BUCKLED "buckled"
+#define ALERT_HANDCUFFED "handcuffed"
+#define ALERT_LEGCUFFED "legcuffed"
+#define ALERT_WOUNDED "wound"
+#define ALERT_IRRADIATED "irradiated"
+#define ALERT_EMBEDDED_OBJECT "embeddedobject"
+#define ALERT_SHOES_KNOT "shoealert"
+#define ALERT_RADIOACTIVE_AREA "radioactive_area"
+
 /** Environment related */
 #define ALERT_GRAVITY "gravity"

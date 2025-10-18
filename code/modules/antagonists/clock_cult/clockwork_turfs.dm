@@ -560,7 +560,6 @@
 	bullet = -20
 	bomb = 25
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 100
 
