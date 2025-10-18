@@ -16532,7 +16532,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "dAi" = (
-/obj/structure/mirror/directional/east,
 /obj/structure/window/reinforced,
 /obj/structure/chair/wood{
 	dir = 1
@@ -18968,7 +18967,6 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "ewj" = (
-/obj/structure/mirror/directional/west,
 /obj/structure/chair/wood{
 	dir = 1
 	},
@@ -37296,9 +37294,7 @@
 	pixel_x = 7;
 	pixel_y = 3
 	},
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "liZ" = (
@@ -37788,9 +37784,7 @@
 	pixel_y = -1
 	},
 /obj/item/toy/dummy,
-/obj/structure/mirror{
-	pixel_y = 28
-	},
+/obj/structure/mirror/directional/north,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "lqg" = (
