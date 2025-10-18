@@ -1,6 +1,6 @@
 /datum/injury/acute/genetic
 	base_type = /datum/injury/acute/genetic
-	examine_description = "<b>cellular damage</b>"
+	examine_description = "<b>cellular decay</b>"
 	heal_description = "This injury requires advanced chemicals to heal."
 	max_absorption = 0
 	external = TRUE

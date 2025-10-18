@@ -26,4 +26,4 @@
 	// TODO: Replicate old stamina healing behaviour, don't allow
 	// the victim to be stunlocked forever inside of pain-crit.
 	var/heal_rate = clamp(progression / 50, 1, 2)
-	progression -= 1 * heal_rate * delta_time
+	adjust_progression(-1 * heal_rate * delta_time)
