@@ -32811,7 +32811,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/dark/smooth_corner,
 /area/hydroponics/garden)
@@ -53719,9 +53719,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
 	},
 /turf/open/floor/carpet/purple,
 /area/hydroponics/garden)
