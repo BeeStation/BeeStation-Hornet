@@ -32,13 +32,11 @@
 		remove_power(power)
 
 /**
- * Called near the end of Sol. Give our vampire a level to spend if we aren't Tremere.
+ * Called near the end of Sol. Give our vampire a level to spend.
 **/
 /datum/antagonist/vampire/proc/sol_near_end(atom/source)
 	SIGNAL_HANDLER
-
-	if(!istype(my_clan, /datum/vampire_clan/tremere))
-		INVOKE_ASYNC(src, PROC_REF(rank_up))
+	INVOKE_ASYNC(src, PROC_REF(rank_up))
 
 /**
  * Handles the Sol status effect, called while Sol is risen

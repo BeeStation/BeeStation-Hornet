@@ -37,6 +37,9 @@
 	/// A multiplier for the bloodcost during sol.
 	var/sol_multiplier = 1
 
+	///The upgraded version of this Power. 'null' means it's the max level.
+	var/upgraded_power = null
+
 // Modify description to add cost.
 /datum/action/vampire/New(Target)
 	. = ..()

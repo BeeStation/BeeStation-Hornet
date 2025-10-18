@@ -14,8 +14,6 @@
 	background_icon_state_on = "tremere_power_on"
 	background_icon_state_off = "tremere_power_off"
 
-	// Tremere powers don't level up, we have them hardcoded.
-	level_current = 0
 	// Re-defining these as we want total control over them
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	purchase_flags = TREMERE_CAN_BUY
