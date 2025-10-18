@@ -517,10 +517,10 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		var/mob/living/carbon/human/H = AM
 		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
 		for(var/obj/item/I in H.get_equipped_items(TRUE))
-			I.add_blood_DNA(return_blood_DNA())
+			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()
 		for(var/obj/item/I in H.held_items)
-			I.add_blood_DNA(return_blood_DNA())
+			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()
 		playsound(src, 'sound/effects/blobattack.ogg', 50, TRUE)
 		activated_on_step = TRUE

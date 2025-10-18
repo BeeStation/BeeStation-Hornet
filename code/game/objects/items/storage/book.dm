@@ -257,15 +257,17 @@
 	new /obj/item/reagent_containers/cup/glass/bottle/whiskey(src)
 
 /obj/item/storage/book/bible/syndicate
+	name = "Syndicate Tome"
+	desc = "A very ominous tome resembling a bible."
 	icon_state ="ebook"
 	deity_name = "The Syndicate"
+	item_flags = NO_BLOOD_ON_ITEM
 	throw_speed = 2
-	throwforce = 18
 	throw_range = 7
+	throwforce = 18
 	force = 18
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	name = "Syndicate Tome"
 	attack_verb_continuous = list("attacks", "burns", "blesses", "damns", "scorches")
 	attack_verb_simple = list("attack", "burn", "bless", "damn", "scorch")
 	var/uses = 1

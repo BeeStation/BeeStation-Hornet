@@ -627,12 +627,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 0.001
 	armour_penetration = 1000
+	force_string = "INFINITE"
+	item_flags = NEEDS_PERMIT|NO_BLOOD_ON_ITEM
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
 	canblock = TRUE
 
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	qdel(hitby)
