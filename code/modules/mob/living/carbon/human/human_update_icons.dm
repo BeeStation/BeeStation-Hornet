@@ -231,6 +231,10 @@ There are several things that need to be remembered:
 	// If we had any luminosity from our glasses then we don't anymore
 	REMOVE_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
 
+	// Remove any existing emissive glasses overlay
+	var/mutable_appearance/glasses_emissive_overlay = mutable_appearance('icons/mob/clothing/eyes.dmi', "", GLASSES_LAYER)
+	cut_overlay(glasses_emissive_overlay)
+
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 	if(isnull(my_head)) //decapitated
 		return
@@ -284,7 +288,7 @@ There are several things that need to be remembered:
 		update_hud_ears(worn_item)
 
 		if(update_obscured)
-			update_obscured_slots(worn_item.flags_inv)
+		 update_obscured_slots(worn_item.flags_inv)
 
 		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_EARS)
 			return
