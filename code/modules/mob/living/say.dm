@@ -366,24 +366,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return TRUE
 
 /mob/living/proc/treat_message(message)
-
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
 		message = unintelligize(message)
 
-	if(derpspeech)
-		message = derpspeech(message, stuttering)
-
-	if(stuttering)
-		message = stutter(message)
-
-	if(slurring)
-		message = slur(message)
-
-	if(cultslurring)
-		message = cultslur(message)
-
-	if(clockslurring)
-		message = clockslur(message)
+	SEND_SIGNAL(src, COMSIG_LIVING_TREAT_MESSAGE, args)
 
 	return treat_message_min(message)
 
@@ -428,9 +414,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		. = "[verb_whisper] in [p_their()] last breath"
 	else if(message_mods[MODE_SING])
 		. = verb_sing
-	else if(stuttering)
+	else if(has_status_effect(/datum/status_effect/speech/stutter))
 		. = "stammers"
-	else if(derpspeech)
+	else if(has_status_effect(/datum/status_effect/speech/stutter/derpspeech))
 		. = "gibbers"
 	else
 		. = ..()

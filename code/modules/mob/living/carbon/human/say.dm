@@ -12,10 +12,10 @@
 			verb_ask = pick(initial(worn_mask.chosen_tongue.ask_mod))
 			verb_yell = pick(initial(worn_mask.chosen_tongue.yell_mod))
 			verb_exclaim = pick(initial(worn_mask.chosen_tongue.exclaim_mod))
-	if(slurring || !T)
+	// Any subtype of slurring in our status effects make us "slur"
+	if((locate(/datum/status_effect/speech/slurring) in status_effects) || !T)
 		return "slurs"
-	else
-		. = ..()
+	return ..()
 
 /mob/living/carbon/human/GetVoice()
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
@@ -24,7 +24,7 @@
 	var/current_name = real_name
 	if(GetSpecialVoice())
 		current_name = GetSpecialVoice()
-		
+
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )

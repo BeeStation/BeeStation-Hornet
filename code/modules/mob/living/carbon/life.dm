@@ -433,18 +433,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			AdjustSleeping(100)
 			Unconscious(100)
 
-	if(stuttering)
-		stuttering = max(stuttering - (0.5 * delta_time), 0)
-
-	if(slurring)
-		slurring = max(slurring - (0.5 * delta_time),0)
-
-	if(cultslurring)
-		cultslurring = max(cultslurring - (0.5 * delta_time), 0)
-
-	if(clockslurring)
-		clockslurring = max(clockslurring - (0.5 * delta_time), 0)
-
 	if(silent)
 		silent = max(silent - (0.5 * delta_time), 0)
 
@@ -456,7 +444,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 6)
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
 			if(DT_PROB(16, delta_time))
-				slurring += 2
+				adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/drunk)
 			adjust_jitter(-1.5 * delta_time)
 
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
@@ -465,8 +453,10 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			sound_environment_override = SOUND_ENVIRONMENT_NONE
 			clear_alert("drunk")
 
-		if(drunkenness >= 11 && slurring < 5)
-			slurring += 0.6 * delta_time
+		if(drunkenness >= 11)
+			var/datum/status_effect/speech/slurring/drunk/already_slurring = has_status_effect(/datum/status_effect/speech/slurring/drunk)
+			if(!already_slurring || already_slurring.duration - world.time <= 10 SECONDS)
+				adjust_timed_status_effect(1.2 SECONDS * delta_time, /datum/status_effect/speech/slurring/drunk)
 
 		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
 			if(SSresearch.science_tech)

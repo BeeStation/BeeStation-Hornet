@@ -23,7 +23,7 @@
 			return
 	M.apply_damage(80, STAMINA, blocked = armor_block)
 	user.do_attack_animation(M)
-	M.apply_effect(EFFECT_STUTTER, 5)
+	M.adjust_stutter(10 SECONDS)
 
 	M.visible_message(span_danger("[user] has prodded [M] with [src]!"), \
 					span_userdanger("[user] has prodded you with [src]!"))
@@ -427,12 +427,12 @@
 			switch(bang_effect)
 				if(1)
 					C.confused += 5
-					C.stuttering += 10
+					C.adjust_stutter(20 SECONDS)
 					C.adjust_jitter(20 SECONDS)
 				if(2)
 					C.Paralyze(40)
 					C.confused += 10
-					C.stuttering += 15
+					C.adjust_stutter(30 SECONDS)
 					C.adjust_jitter(50 SECONDS)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600

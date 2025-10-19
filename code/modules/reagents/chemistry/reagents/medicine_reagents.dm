@@ -1033,7 +1033,7 @@
 	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
 		affected_mob.dizziness = 0
 		affected_mob.drowsyness = 0
-		affected_mob.slurring = 0
+		affected_mob.remove_status_effect(/datum/status_effect/speech/slurring/drunk)
 		affected_mob.confused = 0
 		if(ishuman(affected_mob))
 			var/mob/living/carbon/human/affected_human = affected_mob
@@ -1551,7 +1551,7 @@
 	switch(overdose_progress)
 		if(1 to 40)
 			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 20 SECONDS)
-			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 10)
+			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 20 SECONDS)
 			affected_mob.Dizzy(5 * REM * delta_time)
 			if(DT_PROB(30, delta_time))
 				affected_mob.losebreath++
@@ -1559,7 +1559,7 @@
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
 			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
 			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
-			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 20)
+			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
 			affected_mob.Dizzy(10 * REM * delta_time)
 			if(DT_PROB(30, delta_time))
 				affected_mob.losebreath++

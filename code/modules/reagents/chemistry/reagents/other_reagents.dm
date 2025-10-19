@@ -283,10 +283,9 @@
 			to_chat(affected_mob, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
+
 	if(data["misc"] >= (25 SECONDS)) // 10 units
-		if(!affected_mob.stuttering)
-			affected_mob.stuttering = 1
-		affected_mob.stuttering = min(affected_mob.stuttering + (2 * delta_time), 10)
+		affected_mob.adjust_stutter_up_to(4 SECONDS * REM * delta_time, 20 SECONDS)
 		affected_mob.Dizzy(5)
 		if(IS_SERVANT_OF_RATVAR(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
@@ -308,7 +307,7 @@
 			if(IS_SERVANT_OF_RATVAR(affected_mob))
 				remove_servant_of_ratvar(affected_mob.mind)
 			affected_mob.remove_status_effect(/datum/status_effect/jitter)
-			affected_mob.stuttering = 0
+			affected_mob.remove_status_effect(/datum/status_effect/speech/stutter)
 			affected_mob.reagents.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
 

@@ -1693,17 +1693,15 @@
 /datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.set_drugginess(50 * REM * delta_time)
-	affected_mob.slurring += 3 * REM * delta_time
+	affected_mob.adjust_slurring(6 SECONDS * REM * delta_time)
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
 		affected_mob.confused = max(affected_mob.confused + (2 * REM * delta_time),0)
 		affected_mob.Dizzy(10 * REM * delta_time)
-	if (!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
 	switch(current_cycle)
-		if(51 to 200)
+		if(52 to 201)
 			affected_mob.Sleeping(100 * REM * delta_time)
-		if(201 to INFINITY)
+		if(202 to INFINITY)
 			affected_mob.AdjustSleeping(40 * REM * delta_time)
 			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
 			return UPDATE_MOB_HEALTH
@@ -1728,16 +1726,14 @@
 	. = ..()
 	affected_mob.dizziness += 1.5 * REM * delta_time
 	switch(current_cycle)
-		if(15 to 45)
-			if(!affected_mob.slurring)
-				affected_mob.slurring = 1 * REM * delta_time
-			affected_mob.slurring += 3 * REM * delta_time
-		if(45 to 55)
+		if(16 to 46)
+			affected_mob.adjust_slurring(3 SECONDS * REM * delta_time)
+		if(46 to 56)
 			if(DT_PROB(30, delta_time))
 				affected_mob.confused = max(affected_mob.confused + 3, 0)
-		if(55 to 200)
+		if(56 to 201)
 			affected_mob.set_drugginess(55 * REM * delta_time)
-		if(200 to INFINITY)
+		if(201 to INFINITY)
 			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
 			return UPDATE_MOB_HEALTH
 
@@ -1818,8 +1814,8 @@
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
+	affected_mob.set_slurring_if_lower(1 SECONDS * REM * delta_time)
+
 	switch(current_cycle)
 		if(1 to 5)
 			affected_mob.Dizzy(10 * REM * delta_time)
@@ -1889,8 +1885,8 @@
 
 /datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.cultslurring = min(affected_mob.cultslurring + (3 * REM * delta_time), 3)
-	affected_mob.stuttering = min(affected_mob.stuttering + (3 * REM * delta_time), 3)
+	affected_mob.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/cult, max_duration = 6 SECONDS)
+	affected_mob.adjust_stutter_up_to(6 SECONDS * REM * delta_time, 6 SECONDS)
 
 /datum/reagent/consumable/ethanol/triple_sec
 	name = "Triple Sec"
@@ -2759,7 +2755,7 @@
 	if(affected_mob.mind?.holy_role)
 		affected_mob.adjustFireLoss(-2.5 * REM * delta_time, updating_health = FALSE)
 		affected_mob.adjust_jitter(-2 SECONDS * REM * delta_time)
-		affected_mob.stuttering = max(affected_mob.stuttering - (1 * REM * delta_time), 0)
+		affected_mob.adjust_stutter(-2 SECONDS * REM * delta_time)
 		return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/blazaam
@@ -2965,8 +2961,8 @@
 	if(DT_PROB(5, delta_time))
 		to_chat(affected_mob, span_warning(pick("You can faintly hear the sound of gears.", "You can feel an unnatural hatred towards exposed blood.", "You swear you can feel steam eminating from the drink.", "You hear faint, pleasant whispers.", "You can see a white void within your mind.")))
 
-	affected_mob.clockslurring = min(affected_mob.clockslurring + (3 * REM * delta_time), 3)
-	affected_mob.stuttering = min(affected_mob.stuttering + (3 * REM * delta_time), 3)
+	affected_mob.adjust_timed_status_effect(6 SECONDS * REM * delta_time, /datum/status_effect/speech/slurring/clock, max_duration = 6 SECONDS)
+	affected_mob.adjust_stutter_up_to(6 SECONDS * REM * delta_time, 6 SECONDS)
 
 /datum/reagent/consumable/ethanol/icewing
 	name = "Icewing"

@@ -28,7 +28,8 @@
 		purge_alcohol = TRUE
 
 /datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 
@@ -36,7 +37,10 @@
 	if(A.stage >= 3)
 		M.dizziness = max(0, M.dizziness - 2)
 		M.drowsyness = max(0, M.drowsyness - 2)
-		M.slurring = max(0, M.slurring - 2)
+		// All slurring effects get reduced down a bit
+		for(var/datum/status_effect/speech/slurring/slur in M.status_effects)
+			slur.remove_duration(1 SECONDS)
+
 		M.confused = max(0, M.confused - 2)
 		if(purge_alcohol)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
