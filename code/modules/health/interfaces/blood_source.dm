@@ -55,10 +55,14 @@
 
 /// Get the oxygenation rating of the lungs
 /datum/blood_source/proc/get_oxygenation_rating()
+	if (HAS_TRAIT(owner, TRAIT_NOBREATH))
+		return 1
 	return GET_TRAIT_VALUE(src, TRAIT_VALUE_OXYGENATION)
 
 /// Get the circulation effectiveness
 /datum/blood_source/proc/get_circulation_rating()
+	if (!owner.needs_heart())
+		return 1
 	return GET_TRAIT_VALUE(src, TRAIT_VALUE_CIRCULATION)
 
 /// Set the base circulation rating to the specified value

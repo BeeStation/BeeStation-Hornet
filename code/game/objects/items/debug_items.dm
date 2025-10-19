@@ -362,9 +362,6 @@
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
 	. = ..()
-	var/obj/item/debug/orb_of_power/orb = locate() in user.get_contents()
-	if(orb)
-		return
 
 	user.spacewalk = spacewalk_initial
 
