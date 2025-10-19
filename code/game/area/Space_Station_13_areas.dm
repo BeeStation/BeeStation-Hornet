@@ -352,6 +352,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/disposal/incinerator
 	name = "Incinerator"
 	icon_state = "incinerator"
+	disable_air_alarm_automation = TRUE
 
 //Maintenance - Upper
 
