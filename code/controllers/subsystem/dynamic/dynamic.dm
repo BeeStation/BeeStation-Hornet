@@ -419,11 +419,14 @@ SUBSYSTEM_DEF(dynamic)
 				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
 				continue
 
-			roundstart_executed_rulesets += forced_ruleset
-			forced_ruleset.choose_candidates()
+			var/datum/dynamic_ruleset/roundstart/new_forced_roundstart_ruleset = forced_ruleset.duplicate()
+			roundstart_executed_rulesets += new_forced_roundstart_ruleset
+			new_forced_roundstart_ruleset.choose_candidates()
 
-			log_dynamic("ROUNDSTART: Successfully forced [forced_ruleset]")
-			message_admins("DYNAMIC: ROUNDSTART: Successfully forced [forced_ruleset]")
+			forced_ruleset.candidates = null
+
+			log_dynamic("ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
+			message_admins("DYNAMIC: ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
 
 	if(roundstart_only_use_forced_rulesets)
 		return
@@ -486,6 +489,8 @@ SUBSYSTEM_DEF(dynamic)
 				break
 		while (prob(ruleset.elasticity))
 
+		ruleset.candidates = null
+
 		if(no_other_rulesets)
 			break
 
@@ -494,7 +499,12 @@ SUBSYSTEM_DEF(dynamic)
 		for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 			if(CHECK_BITFIELD(ruleset.ruleset_flags, NO_OTHER_RULESETS))
 				continue
-			if(ruleset in roundstart_forced_rulesets)
+
+			var/are_we_forced = FALSE
+			for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in roundstart_forced_rulesets)
+				if(ruleset.type == forced_ruleset.type)
+					are_we_forced = TRUE
+			if(are_we_forced)
 				continue
 
 			// Undraft our previously drafted players
@@ -503,7 +513,9 @@ SUBSYSTEM_DEF(dynamic)
 
 				chosen_candidate.special_role = null
 				chosen_candidate.restricted_roles = list()
-			ruleset.chosen_candidates = list()
+
+			ruleset.candidates = null
+			ruleset.chosen_candidates = null
 
 			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			roundstart_executed_rulesets -= ruleset
@@ -559,6 +571,10 @@ SUBSYSTEM_DEF(dynamic)
 	var/result = ruleset.execute()
 	if(result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
 		rulesets_to_process += ruleset
+
+	// I would love to keep this logged, but we must avoid hard dels.
+	ruleset.candidates = null
+	ruleset.chosen_candidates = null
 
 	return result
 
@@ -711,6 +727,8 @@ SUBSYSTEM_DEF(dynamic)
 
 		if(!ruleset.allowed())
 			continue
+
+		ruleset.candidates = null
 
 		possible_rulesets[ruleset] = ruleset.weight
 

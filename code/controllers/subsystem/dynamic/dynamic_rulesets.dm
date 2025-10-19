@@ -120,10 +120,6 @@
 		for(var/mob/chosen_candidate in chosen_candidates)
 			chosen_candidate.mind.add_antag_datum(antag_datum)
 
-	// I would love to keep this logged, but we must avoid hard dels.
-	candidates = null
-	chosen_candidates = null
-
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /**
@@ -139,12 +135,12 @@
 	return
 
 /**
- * Instantiate and return a new ruleset with the same type and vars as src.
- * The above explanation is kind of a lie, we only copy over vars that are likely to be configured by storytellers.
+ * Instantiate and return a new ruleset with the same type and mostly the same vars as src.
  */
 /datum/dynamic_ruleset/proc/duplicate()
 	var/datum/dynamic_ruleset/new_ruleset = new type()
 
+	// Configurable vars
 	new_ruleset.weight = weight
 	new_ruleset.points_cost = points_cost
 	new_ruleset.minimum_players_required = minimum_players_required
@@ -152,5 +148,8 @@
 	new_ruleset.protected_roles = protected_roles.Copy()
 	new_ruleset.restricted_roles = restricted_roles.Copy()
 	new_ruleset.ruleset_flags = ruleset_flags
+
+	// Backend vars - intentionally not candidates.Copy()
+	new_ruleset.candidates = candidates
 
 	return new_ruleset
