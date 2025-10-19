@@ -630,6 +630,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	disable_air_alarm_automation = TRUE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 /area/server
@@ -638,6 +639,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	disable_air_alarm_automation = TRUE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
 
 //Crew
@@ -927,6 +929,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
+	disable_air_alarm_automation = TRUE
 
 /area/engine/engine_room //donut station specific
 	name = "Engine Room"
@@ -945,6 +948,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	camera_networks = list(CAMERA_NETWORK_ENGINEERING)
+	disable_air_alarm_automation = TRUE
 
 /area/engine/break_room
 	name = "Engineering Foyer"
@@ -1609,6 +1613,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Toxins Mixing Chamber"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "tox_mix_chamber"
+	disable_air_alarm_automation = TRUE
 
 /area/science/misc_lab
 	name = "Testing Lab"

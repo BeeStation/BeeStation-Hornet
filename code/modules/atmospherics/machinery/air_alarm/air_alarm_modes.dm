@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 		vent.pressure_checks = ATMOS_EXTERNAL_BOUND
 		vent.external_pressure_bound = ONE_ATMOSPHERE
 		vent.pump_direction = ATMOS_DIRECTION_RELEASING
+		vent.external_temperature = 0
 		vent.update_appearance(UPDATE_ICON)
 
 	for (var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in applied.air_scrubbers)
@@ -57,7 +58,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 /datum/air_alarm_mode/filtering/automatic/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
 	if (environment.temperature >= T0C)
 		return
-	air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/draught/temperature)
+	air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/temperature)
 
 /datum/air_alarm_mode/contaminated
 	name = "Contaminated"
@@ -70,6 +71,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 		vent.pressure_checks = ATMOS_EXTERNAL_BOUND
 		vent.external_pressure_bound = ONE_ATMOSPHERE
 		vent.pump_direction = ATMOS_DIRECTION_RELEASING
+		vent.external_temperature = 0
 		vent.update_appearance(UPDATE_ICON)
 
 	var/list/filtered = subtypesof(/datum/gas)
@@ -98,11 +100,25 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 		scrubber.set_widenet(FALSE)
 		scrubber.set_scrubbing(ATMOS_DIRECTION_SIPHONING)
 
-/datum/air_alarm_mode/draught/temperature
+/datum/air_alarm_mode/temperature
 	name = "Regulate"
 	desc = "Reaplces air to regulate temperature"
 
-/datum/air_alarm_mode/draught/temperature/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
+/datum/air_alarm_mode/temperature/apply(area/applied)
+	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
+		vent.on = TRUE
+		vent.pressure_checks = ATMOS_EXTERNAL_BOUND
+		vent.external_pressure_bound = ONE_ATMOSPHERE
+		vent.pump_direction = ATMOS_DIRECTION_RELEASING
+		vent.external_temperature = T20C
+		vent.update_appearance(UPDATE_ICON)
+
+	for (var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in applied.air_scrubbers)
+		scrubber.on = TRUE
+		scrubber.set_widenet(FALSE)
+		scrubber.set_scrubbing(ATMOS_DIRECTION_SIPHONING)
+
+/datum/air_alarm_mode/temperature/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
 	// Only vent while the pressure is low
 	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
 		var/turf/vent_turf = get_turf(vent)

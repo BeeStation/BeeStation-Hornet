@@ -209,6 +209,8 @@
 
 /// The max pressure of pumps.
 #define ATMOS_PUMP_MAX_PRESSURE (ONE_ATMOSPHERE * 50)
+/// Max external target temperature of pumps
+#define ATMOS_PUMP_MAX_TEMPERATURE 500
 
 // Value of [/obj/machinery/airalarm/var/danger_level] and retvals of [/datum/tlv/proc/check_value]
 /// No TLV exceeded.
