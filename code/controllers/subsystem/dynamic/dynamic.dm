@@ -452,33 +452,38 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("ROUNDSTART: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
 			break
 
-		// Something changed and this ruleset is no longer allowed
-		// Most common occurance is all previous candidates were assigned an antag position
-		ruleset.trim_candidates()
-		if(!ruleset.allowed())
-			possible_rulesets -= ruleset
-			continue
+		do
+			// Something changed and this ruleset is no longer allowed
+			// Most common occurance is all previous candidates were assigned an antag position
+			ruleset.trim_candidates()
+			if(!ruleset.allowed())
+				possible_rulesets -= ruleset
+				continue
 
-		// Not enough points left
-		if(ruleset.points_cost > roundstart_points_left)
-			possible_rulesets -= ruleset
-			continue
+			// Not enough points left
+			if(ruleset.points_cost > roundstart_points_left)
+				possible_rulesets -= ruleset
+				continue
 
-		// check_is_ruleset_blocked()
-		if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
-			possible_rulesets -= ruleset
-			continue
+			// check_is_ruleset_blocked()
+			if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
+				possible_rulesets -= ruleset
+				continue
 
-		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
-		roundstart_points_left -= ruleset.points_cost
+			// Apply cost and add ruleset to 'roundstart_executed_rulesets'
+			roundstart_points_left -= ruleset.points_cost
 
-		roundstart_executed_rulesets += ruleset
-		ruleset.choose_candidates()
+			roundstart_executed_rulesets += ruleset
+			ruleset.choose_candidates()
 
-		log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
+			log_dynamic("ROUNDSTART: Chose [ruleset] with [roundstart_points_left] points left")
 
-		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
-			no_other_rulesets = TRUE
+			if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_RULESETS))
+				no_other_rulesets = TRUE
+				break
+		while (prob(ruleset.elasticity))
+
+		if(no_other_rulesets)
 			break
 
 	// Deal with the NO_OTHER_RULESETS flag
