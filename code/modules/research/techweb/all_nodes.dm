@@ -258,7 +258,7 @@
 		"comp_gate_set_reset",
 	)
 
-//Circuit Templates
+/////////////////////Circuit Templates///////////////////
 /datum/techweb_node/circuit_templates
 	id = "circuit_templates"
 	tech_tier = 0
@@ -271,7 +271,9 @@
 		"template_greeter",
 		"template_ticker",
 		"template_simple_math",
-		"template_times_table"
+		"template_times_table",
+		"template_coin_flip",
+		"template_atmos_checker"
 	)
 
 /////////////////////////Biotech/////////////////////////
@@ -888,6 +890,26 @@
 		"computer_hardware_basic",
 	)
 	design_ids = list("server_shell")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+
+//Circuit Templates
+/datum/techweb_node/advanced_circuit_templates
+	id = "advanced_circuit_templates"
+	tech_tier = 2
+	display_name = "Advanced Circuit Templates"
+	description = "Circuit Templates. Some broken, some not very useful"
+	prereq_ids = list(
+		"math_circuits",
+		"list_circuits",
+		"adv_shells",
+		"bci_shells",
+		"movable_shells",
+		"server_shell")
+	design_ids = list(
+		"template_broken_translator",
+		"template_scanning_gate",
+		"template_circuit_vendor"
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /////////////////////////robotics tech/////////////////////////
