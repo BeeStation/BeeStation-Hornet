@@ -502,7 +502,7 @@
 		return
 
 	if (obj_flags & EMAGGED)
-		playsound(src, 'sound/machines/beep.ogg', 50, 1)
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
 		open()
 		return
 
