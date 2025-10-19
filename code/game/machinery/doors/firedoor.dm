@@ -227,8 +227,10 @@
 		stack_trace("We tried to check a gas_mixture that doesn't exist for its firetype, what are you DOING")
 		return
 
-	if(environment.temperature >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	// Ignore high temperatures when emagged
+	if((environment.temperature >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST) && !(obj_flags & EMAGGED))
 		return FIRELOCK_ALARM_TYPE_HOT
+	// But do the other checks, since otherwise it is just annoying
 	if(environment.temperature <= BODYTEMP_COLD_DAMAGE_LIMIT)
 		return FIRELOCK_ALARM_TYPE_COLD
 	var/pressure = environment.return_pressure()
@@ -604,7 +606,7 @@
  * changes during the timer, the door doesn't close or open incorrectly.
  */
 /obj/machinery/door/firedoor/proc/correct_state()
-	if(obj_flags & EMAGGED || being_held_open || QDELETED(src))
+	if(being_held_open || QDELETED(src))
 		return //Unmotivated, indifferent, we have no real care what state we're in anymore.
 	if(active && !density) //We should be closed but we're not
 		INVOKE_ASYNC(src, PROC_REF(close))
