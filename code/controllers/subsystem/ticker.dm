@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(ticker)
 			// If there are no players, stay in the lobby until someone joins
 			// and give enough time for them to do the storyteller vote
 			if ((totalPlayers - totalPlayersPreAuth) == 0)
-				timeleft = min(timeleft, 120 SECONDS)
+				timeLeft = min(timeLeft, 120 SECONDS)
 
 			if(start_immediately)
 				timeLeft = 0
