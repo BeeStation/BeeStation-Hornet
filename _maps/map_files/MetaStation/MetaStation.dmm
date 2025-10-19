@@ -2104,8 +2104,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
@@ -7539,8 +7538,7 @@
 /obj/item/hand_tele,
 /obj/item/beacon,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -18807,8 +18805,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -20297,8 +20294,7 @@
 /area/medical/virology)
 "dLN" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Research Division Hallway - Mech Bay"
@@ -42363,8 +42359,7 @@
 /area/security/brig)
 "loY" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -45125,8 +45120,7 @@
 /area/medical/virology)
 "mno" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -48348,8 +48342,7 @@
 /area/engine/break_room)
 "npg" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/structure/displaycase/trophy,
 /obj/effect/turf_decal/siding/wood{
@@ -48860,8 +48853,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/machinery/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -52698,8 +52690,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
@@ -75777,8 +75768,7 @@
 /area/hallway/secondary/entry)
 "wwD" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/machinery/light{
 	dir = 8
@@ -76145,8 +76135,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/showroom/corporate)
@@ -76262,8 +76251,7 @@
 /area/space/nearstation)
 "wEa" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/iron/dark/telecomms,
@@ -79721,8 +79709,7 @@
 "xJu" = (
 /obj/machinery/rnd/destructive_analyzer,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1

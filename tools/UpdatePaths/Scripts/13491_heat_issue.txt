@@ -1,1 +1,1 @@
-/obj/machinery/airalarm : /obj/machinery/airalarm{@OLD;air_conditioning=@SKIP}
+/obj/machinery/airalarm/@SUBTYPES : /obj/machinery/airalarm/@SUBTYPES{@OLD;air_conditioning=@SKIP}
