@@ -4,5 +4,5 @@
 /datum/blood_source/none/get_blood_id()
 	return null
 
-/datum/blood_source/none/get_circulation_proportion()
+/datum/blood_source/none/get_effectiveness()
 	return 1

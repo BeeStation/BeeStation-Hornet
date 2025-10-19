@@ -54,7 +54,7 @@
 	var/modifier = effectiveness / 50
 	// Ranges from 1 down to 0.5
 	modifier = clamp(modifier * 0.5 + 0.5, 0.5, 1)
-	owner.blood.multiply_circulation_rating(modifier, FROM_CHEST_DAMAGE)
+	owner.blood.multiply_oxygenation_rating(modifier, FROM_CHEST_DAMAGE)
 	owner.pain.remove_pain_messages(FROM_CHEST_DAMAGE)
 	switch (modifier)
 		if (0.6 to 0.9)
@@ -71,7 +71,7 @@
 			owner.pain.add_pain_message("You find yourself struggling for breath.", FROM_CHEST_DAMAGE)
 
 /obj/item/bodypart/chest/clear_effectiveness_modifiers()
-	owner.blood.multiply_circulation_rating(1, FROM_HEAD_DAMAGE)
+	owner.blood.multiply_oxygenation_rating(1, FROM_HEAD_DAMAGE)
 	owner.pain.remove_pain_messages(FROM_CHEST_DAMAGE)
 
 /obj/item/bodypart/chest/monkey

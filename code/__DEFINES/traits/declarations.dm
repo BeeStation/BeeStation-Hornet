@@ -463,6 +463,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Circulation value trait for blood sources
 #define TRAIT_VALUE_CIRCULATION "circulation"
 
+/// The counter-part to circulation, oxygenation factor of the blood
+#define TRAIT_VALUE_OXYGENATION "oxygenation"
+
 /// The stat of the value
 #define TRAIT_VALUE_STAT "stat"
 

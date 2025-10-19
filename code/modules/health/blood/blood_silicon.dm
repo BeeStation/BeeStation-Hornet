@@ -60,7 +60,7 @@
 /datum/blood_source/silicon/get_blood_data()
 	return list()
 
-/datum/blood_source/silicon/get_circulation_proportion()
+/datum/blood_source/silicon/get_effectiveness()
 	if (!owner.needs_heart())
 		return 1
 	// Multiplied by blood volume

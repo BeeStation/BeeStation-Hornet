@@ -126,7 +126,7 @@
 	return blood_data
 
 /// Calculate the circulation rating of the mob, cardiac arrest can limit it and cause damage
-/datum/blood_source/organic/get_circulation_proportion()
+/datum/blood_source/organic/get_effectiveness()
 	if (!owner.needs_heart())
 		return 1
 	// Multiplied by blood volume

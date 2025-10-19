@@ -81,7 +81,7 @@
 	var/L = get_organ_slot(ORGAN_SLOT_LUNGS)
 
 	if(!L)
-		blood.multiply_circulation_rating(0, FROM_BREATH)
+		blood.set_oxygenation_rating(0, FROM_BREATH)
 
 		var/datum/species/S = dna.species
 

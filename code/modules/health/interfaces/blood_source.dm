@@ -50,16 +50,36 @@
 
 /// Number between 0 and 1 representing how well blood is circulating around the body.
 /// Numbers less than 1 mean that the body is not getting enough blood-flow
-/datum/blood_source/proc/get_circulation_proportion()
+/datum/blood_source/proc/get_effectiveness()
+	return GET_TRAIT_VALUE(src, TRAIT_VALUE_CIRCULATION) * GET_TRAIT_VALUE(src, TRAIT_VALUE_OXYGENATION)
+
+/// Get the oxygenation rating of the lungs
+/datum/blood_source/proc/get_oxygenation_rating()
+	return GET_TRAIT_VALUE(src, TRAIT_VALUE_OXYGENATION)
+
+/// Get the circulation effectiveness
+/datum/blood_source/proc/get_circulation_rating()
 	return GET_TRAIT_VALUE(src, TRAIT_VALUE_CIRCULATION)
 
 /// Set the base circulation rating to the specified value
+/// The final blood effectiveness is calculated from circulation * oxygenation
 /datum/blood_source/proc/set_circulation_rating(multiplier, source)
 	ADD_CUMULATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)
 
 /// Multiply the circulation rating by the specified value
+/// The final blood effectiveness is calculated from circulation * oxygenation
 /datum/blood_source/proc/multiply_circulation_rating(multiplier, source)
 	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_CIRCULATION, source, multiplier)
+
+/// Set the base oxygenation rating to the specified value
+/// The final blood effectiveness is calculated from circulation * oxygenation
+/datum/blood_source/proc/set_oxygenation_rating(multiplier, source)
+	ADD_CUMULATIVE_TRAIT(src, TRAIT_VALUE_OXYGENATION, source, multiplier)
+
+/// Multiply the oxygenation rating by the specified value
+/// The final blood effectiveness is calculated from circulation * oxygenation
+/datum/blood_source/proc/multiply_oxygenation_rating(multiplier, source)
+	ADD_MULTIPLICATIVE_TRAIT(src, TRAIT_VALUE_OXYGENATION, source, multiplier)
 
 /// Enter shock, raised by a particular source. We are in shock if we have at least
 /// 1 shock source.

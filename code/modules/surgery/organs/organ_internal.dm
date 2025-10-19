@@ -220,7 +220,7 @@ INITIALIZE_IMMEDIATE(/obj/item/organ)
 
 	// Get the circulation rating
 	if (owner)
-		var/circulation_rating = owner.blood.get_circulation_proportion()
+		var/circulation_rating = owner.blood.get_effectiveness()
 		// How much hypoxia damage do we want to deal?
 		var/desired_hypoxia_damage = max(0, (maxHealth * 3) - (((CLAMP01(circulation_rating) * (maxHealth * 3)) ** 0.3) / ((maxHealth * 3) ** (-0.7))))
 		// Increase our damage until we reach the desired threshold

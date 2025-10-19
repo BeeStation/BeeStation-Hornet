@@ -134,7 +134,7 @@
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	//TODO: add lung damage = less oxygen gains
 	var/breathModifier = (1 - (damage/maxHealth)) * breath_multiplier
-	H.blood.multiply_circulation_rating(breathModifier, FROM_BREATH)
+	H.blood.set_oxygenation_rating(breathModifier, FROM_BREATH)
 	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -143,7 +143,7 @@
 	if(!breath || (breath.total_moles() == 0))
 		if(H.reagents.has_reagent(crit_stabilizing_reagent))
 			return
-		H.blood.multiply_circulation_rating(0, FROM_BREATH)
+		H.blood.set_oxygenation_rating(0, FROM_BREATH)
 
 		H.failed_last_breath = TRUE
 		var/alert_category
@@ -307,7 +307,7 @@
 	if(prob(20))
 		H.emote("gasp")
 	var/ratio = breath_pp/safe_breath_min
-	H.blood.multiply_circulation_rating(ratio, FROM_BREATH)
+	H.blood.set_oxygenation_rating(ratio, FROM_BREATH)
 	H.failed_last_breath = TRUE
 	. = true_pp*ratio/6
 

@@ -324,7 +324,7 @@
 	if (!(owner.blood.circulation_type_provided & circulation_flags))
 		circulation_disruption = 0
 	else
-		circulation_disruption = owner.blood.get_circulation_proportion()
+		circulation_disruption = owner.blood.get_effectiveness()
 	// Bodypart decay due to insufficient blood
 	if (circulation_disruption < 1)
 		var/damage_applied = (1 - circulation_disruption) * delta_time
