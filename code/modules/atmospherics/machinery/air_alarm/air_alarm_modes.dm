@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 /// The default.
 /datum/air_alarm_mode/filtering
 	name = "Filtering"
-	desc = "Scrubs out contaminants, ignoring temperature"
+	desc = "Scrubs out contaminants"
 	danger = FALSE
 
 /datum/air_alarm_mode/filtering/apply(area/applied)
@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 
 /datum/air_alarm_mode/filtering/automatic
 	name = "Automated"
-	desc = "Scrubs out contaminants, switching to 'Regulate' if the temperature drops too low"
+	desc = "Scrubs contaminants while regulating temperature"
 
 /datum/air_alarm_mode/filtering/automatic/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
 	if (environment.temperature >= T0C)
@@ -100,16 +100,18 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 
 /datum/air_alarm_mode/draught/temperature
 	name = "Regulate"
-	desc = "Siphons out air while replacing until the temperature is regulated"
+	desc = "Reaplces air to regulate temperature"
 
 /datum/air_alarm_mode/draught/temperature/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
 	// Only vent while the pressure is low
 	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
-		var/datum/gas_mixture/vent_environment = vent.return_air()
+		var/turf/vent_turf = get_turf(vent)
+		var/datum/gas_mixture/vent_environment = vent_turf.return_air()
 		vent.external_pressure_bound = vent_environment.return_pressure() < ONE_ATMOSPHERE ? ONE_ATMOSPHERE * 2 : ONE_ATMOSPHERE
 	// Only scrub while the pressure is high
 	for (var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in applied.air_scrubbers)
-		var/datum/gas_mixture/scrubber_environment = scrubber.return_air()
+		var/turf/scrubber_turf = get_turf(scrubber)
+		var/datum/gas_mixture/scrubber_environment = scrubber_turf.return_air()
 		scrubber.on = scrubber_environment.return_pressure() > ONE_ATMOSPHERE - 20
 	if (environment.return_temperature() >= T20C)
 		air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/filtering/automatic)

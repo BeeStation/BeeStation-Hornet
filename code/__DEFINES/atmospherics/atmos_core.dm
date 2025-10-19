@@ -135,7 +135,7 @@
 /// a hack to help make vacuums "cold", sacrificing realism for gameplay
 /// Setting this value too high results in space having so much thermal energy
 /// that heat is immediately sucked out of every room progressively.
-#define HEAT_CAPACITY_VACUUM 500
+#define HEAT_CAPACITY_VACUUM 800
 
 //FIRE
 ///Minimum temperature for fire to move to the next turf (150 °C or 433 K)
