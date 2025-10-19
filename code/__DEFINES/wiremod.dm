@@ -1,5 +1,5 @@
 /// Helper define that can only be used in /obj/item/circuit_component/input_received()
-#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger.value && trigger == port)
+#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger?.value && trigger == port)
 
 /// Define to be placed at any proc that is triggered by a port.
 #define CIRCUIT_TRIGGER SHOULD_NOT_SLEEP(TRUE)
