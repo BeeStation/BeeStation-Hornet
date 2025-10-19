@@ -94,7 +94,7 @@ def update_path(dmm_data, replacement_string, verbose=False):
                     return [match.group(0)]
             else:
                 if old_path_props[filter_prop] == "@ANY":
-                   continue
+                    continue
                 elif old_props[filter_prop] != old_path_props[filter_prop] or old_path_props[filter_prop] == "@UNSET":
                     return [match.group(0)] #does not match current filter, skip the change.
         if verbose:
