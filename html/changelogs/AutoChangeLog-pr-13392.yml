@@ -1,9 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: Botany is now ADHD friendly even without earthsblood
-  - tweak: Plants now consume 90% less water and nutrient from soil and hydroponics
-      trays
-  - tweak: Weeds and pests build up 80% slower (Carnivorous pest gain is unchanged)
-  - tweak: Plants can now live 6x longer before dying to old age
-  - tweak: Plants now grow 50% slower

@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Adds the ability to set the elasticity of rulesets, which will cause the
-      same ruleset to be re-picked with the probability provided in the elasticity
-      variable.
