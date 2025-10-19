@@ -122,16 +122,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	my_area = connected_sensor ? get_area(connected_sensor) : get_area(src)
 	alarm_manager = new(src)
-
-	if (default_mode)
-		// Override the standard mode
-		select_mode(src, default_mode, should_apply = FALSE)
-	else if (!my_area.disable_air_alarm_automation)
-		// Use automated
-		select_mode(src, /datum/air_alarm_mode/filtering/automatic, should_apply = FALSE)
-	else
-		// Use manual
-		select_mode(src, /datum/air_alarm_mode/filtering, should_apply = FALSE)
+	select_default_mode()
 
 	AddElement(/datum/element/connect_loc, atmos_connections)
 	AddComponent(/datum/component/usb_port, list(
@@ -143,6 +134,17 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	GLOB.air_alarms += src
 	check_enviroment()
+
+/obj/machinery/airalarm/proc/select_default_mode()
+	if (default_mode)
+		// Override the standard mode
+		select_mode(src, default_mode, should_apply = FALSE)
+	else if (!my_area.disable_air_alarm_automation)
+		// Use automated
+		select_mode(src, /datum/air_alarm_mode/filtering/automatic, should_apply = FALSE)
+	else
+		// Use manual
+		select_mode(src, /datum/air_alarm_mode/filtering, should_apply = FALSE)
 
 /obj/machinery/airalarm/add_context_self(datum/screentip_context/context, mob/user)
 	if(buildstage == AIR_ALARM_BUILD_NO_WIRES)
@@ -758,6 +760,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airalarm, 27)
 		log_mapping("[src] at [AREACOORD(src)] tried to connect to more than one sensor!")
 		return
 	connect_sensor(sensor)
+	select_default_mode()
 
 ///Used to connect air alarm with a sensor
 /obj/machinery/airalarm/proc/connect_sensor(obj/machinery/air_sensor/sensor)
