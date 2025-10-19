@@ -501,6 +501,11 @@
 	if(!density || welded || !attacked_item)
 		return
 
+	if (obj_flags & EMAGGED)
+		playsound(src, 'sound/machines/beep.ogg', 50, 1)
+		open()
+		return
+
 	var/obj/item/card/id/id_card = attacked_item.GetID()
 	if(istype(id_card))
 		if((alarm_type == FIRELOCK_ALARM_TYPE_GENERIC) || check_access(id_card))
