@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	/**
 	 * Roundstart variables
-	**/
+	 */
 
 	/// Set at the beginning of the round, our budget for choosing rulesets
 	var/roundstart_points = 0
@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	/**
 	 * Midround variables
-	**/
+	 */
 
 	/// How many points we currently have to spend on the next midround. Constantly changing
 	var/midround_points = 0
@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	/**
 	 * Latejoin variables
-	**/
+	 */
 
 	/// List of all latejoin rulesets that have been executed
 	var/list/datum/dynamic_ruleset/latejoin/latejoin_executed_rulesets = list()
@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	/**
 	 * Other variables
-	**/
+	 */
 
 	/// Can dynamic actually do stuff? Execute midrounds, latejoins, etc.
 	var/forced_extended = FALSE
@@ -111,11 +111,11 @@ SUBSYSTEM_DEF(dynamic)
 	 * All of these can be changed in the dynamic configuration file
 	 *
 	 * IMPORTANT: none of the variables above should be configured
-	**/
+	 */
 
 	/**
 	 * Roundstart
-	**/
+	 */
 
 	/// In order to make rounds less predictable, a randomized divergence percentage is applied to the total point value
 	/// These should be decimals. i.e: 0.20, 0.75, 1.5
@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(dynamic)
 	 * The rest is pretty simple, the chosen midround ruleset's severity is picked based off
 	 * the Light/Medium/Heavy Ruleset Chances and after that, we choose based off ruleset weights of that severity.
 	 * Finally, we save up until we have enough points to execute our chosen midround ruleset and repeat the cycle.
-	**/
+	 */
 
 	/// The chances for each type of midround ruleset to be picked at roundstart
 	var/midround_light_starting_chance = 100
@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	/**
 	 * Latejoin
-	**/
+	 */
 
 	/// The max amount of latejoin rulesets that can be picked
 	var/latejoin_max_rulesets = 1
@@ -222,7 +222,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Load all of the files from the storytellers directory
  * Only a proc for debugging purposes and in the event a new storyteller is added midround
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/load_storytellers()
 	dynamic_storyteller_jsons = list()
 	for (var/file_path in flist(DYNAMIC_STORYTELLERS_DIRECTORY))
@@ -263,7 +263,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Reverts the changed variables of a specific ruleset.
  * This is the least awful way I could think of reliably setting config values back to default when changing storytellers
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/revert_storyteller_config()
 	if (!current_storyteller)
 		return
@@ -283,7 +283,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Configure the dynamic variables from the loaded storyteller
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/configure_variables()
 	if (current_storyteller)
 		for (var/variable in current_storyteller["Dynamic"])
@@ -302,7 +302,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Returns a list of all the configured rulesets of a specific ruleset typepath
  * If `preconfigured_rulesets` is passed through, we iterate through all of those instances instead of replacing the pre-existing ones.
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype, list/datum/dynamic_ruleset/preconfigured_rulesets)
 	ASSERT(ispath(ruleset_subtype), "init_rulesets() called without `ruleset_subtype` being a typepath!")
 
@@ -328,7 +328,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Sets the variables of a ruleset to those in the loaded configuration file
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/configure_ruleset(datum/dynamic_ruleset/ruleset, revert_storyteller_config = FALSE)
 	// Set variables
 	if (current_storyteller)
@@ -355,7 +355,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Called at roundstart, set roundstart points and choose rulesets
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/select_roundstart_antagonists()
 	set_roundstart_points()
 
@@ -375,7 +375,7 @@ SUBSYSTEM_DEF(dynamic)
  * and add those ready people to the list of roundstart candidates
  *
  * A randomized divergence is then applied so rounds are less predictable
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/set_roundstart_points()
 	for(var/mob/dead/new_player/authenticated/player as anything in GLOB.auth_new_player_list)
 		// Add to candidates if ready
@@ -397,7 +397,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
@@ -511,7 +511,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Checks if this ruleset is blocked by any other rulesets or ruleset flags.
  * Return TRUE if the ruleset is blocked
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/check_is_ruleset_blocked(datum/dynamic_ruleset/ruleset, list/datum/dynamic_ruleset/applied_rulesets)
 	// Check for blocked rulesets
 	for(var/datum/dynamic_ruleset/blocked_ruleset_path as anything in ruleset.blocking_rulesets)
@@ -535,7 +535,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Execute roundstart rulesets
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
@@ -546,7 +546,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Some rulesets need to process each tick. Lets give them the opportunity to do so.
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/process_rulesets()
 	for(var/datum/dynamic_ruleset/ruleset in rulesets_to_process)
 		if(ruleset.rule_process() == RULESET_STOP_PROCESSING)
@@ -554,7 +554,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	var/result = ruleset.execute()
 	if(result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
@@ -565,7 +565,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Update our midround points and chances
  * Choose a midround ruleset to save up for if one is not already selected
-**/
+ */
 /datum/controller/subsystem/dynamic/fire(resumed)
 	if(forced_extended)
 		return
@@ -602,7 +602,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Generate midround points once per minute based off of each player's status
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/update_midround_points()
 	if(world.time - SSticker.round_start_time < midround_grace_period)
 		return
@@ -644,7 +644,7 @@ SUBSYSTEM_DEF(dynamic)
  * As the round progresses, the Light Ruleset Chance decreases and the Medium/Heavy Ruleset Chance increase
  * After reaching 60 minutes, the Light Ruleset Chance will reach 0%
  * Additionally, the Medium Ruleset Chance will start to decrease and the Heavy Ruleset Chance will increase
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/update_midround_chances()
 	var/time_elapsed = world.time - SSticker.round_start_time
 
@@ -684,7 +684,7 @@ SUBSYSTEM_DEF(dynamic)
  * Choose the midround ruleset to save towards
  * * First we choose the severity based off the Light/Medium/Heavy Ruleset Chances
  * * We then pick a midround ruleset of the same severity based of weight
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
 	if(isnull(forced_severity))
@@ -742,7 +742,7 @@ SUBSYSTEM_DEF(dynamic)
  *
  * A maximum of 3 people can be chosen for a latejoin ruleset.
  * There is a 10% chance for someone to be picked
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
 	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
@@ -779,7 +779,7 @@ SUBSYSTEM_DEF(dynamic)
 
 /**
  * Checks all high impact rulesets for their round result and sets dynamic's round result to that
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/set_round_result()
 	var/list/datum/dynamic_ruleset/executed_rulesets = roundstart_executed_rulesets | midround_executed_rulesets | latejoin_executed_rulesets
 
@@ -804,7 +804,7 @@ SUBSYSTEM_DEF(dynamic)
  *     Player B: 100 / 250 = 0.4 = 40%
  *  The role_preference argument is optional, but candidates will not use their PERSONAL antag rep if the preference is disabled, rather only using the "base" antag rep.
  *  This is mainly used in the situation where someone is drafted for a ruleset despite having the preference disabled (a feature of gamemodes) - we don't want to spend their rep.
-**/
+ */
 /datum/controller/subsystem/dynamic/proc/antag_pick(list/candidates, role_preference)
 	if(!CONFIG_GET(flag/use_antag_rep))
 		return pick(candidates)

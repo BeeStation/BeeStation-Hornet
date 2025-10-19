@@ -1,7 +1,7 @@
 /**
  * Do not directly inherit this!
  * Use either /datum/dynamic_ruleset/midround/living or /datum/dynamic_ruleset/midround/ghost
-**/
+ */
 /datum/dynamic_ruleset/midround
 	rule_category = DYNAMIC_CATEGORY_MIDROUND
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)

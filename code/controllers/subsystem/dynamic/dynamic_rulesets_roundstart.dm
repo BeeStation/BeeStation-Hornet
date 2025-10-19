@@ -24,7 +24,7 @@
 
 /**
  * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
-**/
+ */
 /datum/dynamic_ruleset/roundstart/proc/choose_candidates()
 	for(var/i = 1 to drafted_players_amount)
 		var/mob/chosen_candidate = select_player()
@@ -169,7 +169,7 @@
 
 /datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
 	. = ..()
-	team = new
+	team = new()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		team.add_member(chosen_mind)
 
@@ -264,7 +264,7 @@
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
-	main_cult = new
+	main_cult = new()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick_n_take(GLOB.servant_spawns))

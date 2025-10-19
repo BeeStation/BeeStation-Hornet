@@ -4,7 +4,7 @@
  * 30 points for antagonists that are mostly harmless and will mess with a crew a bit
  * 40 points for antagonists that will actively attack the crew
  * 50 points for antagonists that that may very well end the round
-**/
+ */
 
 /datum/dynamic_ruleset/midround/ghost
 	abstract_type = /datum/dynamic_ruleset/midround/ghost
@@ -73,7 +73,7 @@
 
 /**
  * Get a list of all possible spawn points
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/get_spawn_locations()
 	for(var/obj/effect/landmark/carpspawn/spawnpoint in GLOB.landmarks_list)
 		if(isturf(spawnpoint.loc))
@@ -81,7 +81,7 @@
 
 /**
  * Send a poll to ghosts to see if they wanna sign up for a ruleset
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/send_applications()
 	// How?
 	if(!length(candidates))
@@ -105,7 +105,7 @@
 
 /**
  * Spawn a body for the chosen candidate
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/carbon/human/new_body = makeBody(chosen_mob)
 	new_body.clean_dna()
@@ -113,7 +113,7 @@
 
 /**
  * Finalize the candidate's body
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/finish_setup(mob/new_character)
 	new_character.mind.add_antag_datum(antag_datum)
 	new_character.mind.special_role = antag_datum.banning_key

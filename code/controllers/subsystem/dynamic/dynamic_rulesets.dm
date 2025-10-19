@@ -1,7 +1,7 @@
 /datum/dynamic_ruleset
 	/**
 	 * Configurable Variables
-	**/
+	 */
 
 	/// For admin logging and round end screen.
 	var/name
@@ -30,7 +30,7 @@
 
 	/**
 	 * Backend Variables
-	**/
+	 */
 
 	/// The base abstract path for this subtype.
 	var/abstract_type = /datum/dynamic_ruleset
@@ -42,20 +42,20 @@
 /**
  * Set the amount of players to be drafted.
  * IMPORTANT: use ROUND_UP instead of round. We don't want the amount of drafted players to be 0
-**/
+ */
 /datum/dynamic_ruleset/proc/set_drafted_players_amount()
 	return
 
 /**
  * Get a list of candidates
-**/
+ */
 /datum/dynamic_ruleset/proc/get_candidates()
 	return
 
 /**
  * Remove candidates that do not meet your requirements.
  * Usually this doesn't need to be changed unless you need some specific requirements from your candidates.
-**/
+ */
 /datum/dynamic_ruleset/proc/trim_candidates()
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -80,7 +80,7 @@
 
 /**
  * Check if all requirements for this ruleset are met.
-**/
+ */
 /datum/dynamic_ruleset/proc/allowed()
 	if(length(candidates) < drafted_players_amount)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
@@ -99,7 +99,7 @@
 /**
  * Picks a player from the list of candidates.
  * If we have the SHOULD_USE_ANTAG_REP flag, take antag_rep into account.
-**/
+ */
 /datum/dynamic_ruleset/proc/select_player()
 	var/mob/selected_player = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= selected_player
@@ -107,7 +107,7 @@
 
 /**
  * Give our chosen candidates their antag datums
-**/
+ */
 /datum/dynamic_ruleset/proc/execute()
 	if(!length(chosen_candidates))
 		return DYNAMIC_EXECUTE_FAILURE
@@ -128,20 +128,20 @@
 
 /**
  * If the `SHOULD_PROCESS_RULESET` flag is defined, this is called every tick.
-**/
+ */
 /datum/dynamic_ruleset/proc/rule_process()
 	return
 
 /**
  * Called at roundend if you have the flag `HIGH_IMPACT_RULESET`. Set the news report and mode result here.
-**/
+ */
 /datum/dynamic_ruleset/proc/round_result()
 	return
 
 /**
  * Instantiate and return a new ruleset with the same type and vars as src.
  * The above explanation is kind of a lie, we only copy over vars that are likely to be configured by storytellers.
-**/
+ */
 /datum/dynamic_ruleset/proc/duplicate()
 	var/datum/dynamic_ruleset/new_ruleset = new type()
 
