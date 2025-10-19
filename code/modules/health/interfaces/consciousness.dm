@@ -68,19 +68,19 @@
 	if(value < 95)
 		var/severity = 0
 		switch(value)
-			if(80 to 100)
+			if(20 to 50)
 				severity = 1
-			if(70 to 80)
-				severity = 2
-			if(60 to 70)
-				severity = 3
-			if(50 to 60)
-				severity = 4
-			if(40 to 50)
-				severity = 5
-			if(20 to 40)
-				severity = 6
 			if(0 to 20)
+				severity = 2
+			if(-20 to 0)
+				severity = 3
+			if(-40 to -20)
+				severity = 4
+			if(-60 to -40)
+				severity = 5
+			if(-80 to -60)
+				severity = 6
+			if(-100 to -80)
 				severity = 7
 		owner.overlay_fullscreen("consciousness", /atom/movable/screen/fullscreen/oxy, severity)
 	else
