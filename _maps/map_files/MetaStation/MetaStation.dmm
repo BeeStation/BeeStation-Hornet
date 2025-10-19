@@ -14520,7 +14520,8 @@
 "cui" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "O2 to Airmix"
+	name = "O2 to Airmix";
+	target_pressure = 4500
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -47658,11 +47659,6 @@
 "nbv" = (
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"nbx" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "nbF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -64672,7 +64668,8 @@
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
-	name = "Air to External Air Ports"
+	name = "Air to External Air Ports";
+	target_pressure = 200
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -68039,7 +68036,8 @@
 "tTa" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
-	name = "Air to Distro"
+	name = "Air to Distro";
+	target_pressure = 200
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -72674,7 +72672,8 @@
 "vvW" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "Nitrogen Outlet"
+	name = "Nitrogen Outlet";
+	target_pressure = 4500
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
@@ -79128,6 +79127,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 6
 	},
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "xzx" = (
@@ -120738,7 +120739,7 @@ alq
 bwi
 xGX
 odA
-cfg
+apc
 atm
 xWi
 vxJ
@@ -120995,7 +120996,7 @@ alq
 cfg
 qqZ
 apc
-nbx
+apc
 atm
 hME
 xeD
