@@ -4037,6 +4037,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron/dark/side{
 	dir = 4
 	},
@@ -7824,6 +7825,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 10
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bMZ" = (
@@ -26601,7 +26603,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "Air to Distro";
-	target_pressure = 500
+	target_pressure = 1000
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -30849,7 +30851,8 @@
 "iNO" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "O2 Outlet Pump"
+	name = "O2 Outlet Pump";
+	target_pressure = 4500
 	},
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)
@@ -44945,7 +44948,8 @@
 "owx" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "N2 Outlet Pump"
+	name = "N2 Outlet Pump";
+	target_pressure = 4500
 	},
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)
@@ -46584,7 +46588,8 @@
 "pek" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
-	name = "Air to External"
+	name = "Air to External";
+	target_pressure = 200
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -53444,15 +53449,11 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "rIf" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 1;
-	name = "Air Outlet Pump";
-	target_pressure = 500
-	},
 /obj/machinery/camera/directional/south,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "rIm" = (

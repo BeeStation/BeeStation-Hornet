@@ -32976,7 +32976,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
 	name = "Air to Distro";
-	target_pressure = 500
+	target_pressure = 1000
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,
@@ -57689,15 +57689,13 @@
 	},
 /obj/machinery/light/cold/directional/north,
 /obj/effect/mapping_helpers/make_non_slip,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4;
-	name = "Air Outlet Pump";
-	target_pressure = 500
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible/layer2{
 	dir = 4
 	},
 /obj/structure/platform/warning/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth_edge{
@@ -78797,6 +78795,7 @@
 /obj/structure/platform/warning/corner{
 	dir = 1
 	},
+/obj/machinery/meter,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/atmos)
 "pYr" = (
@@ -79155,7 +79154,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Nitrogen to Air mixing"
+	name = "Nitrogen to Air mixing";
+	target_pressure = 4500
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
 	dir = 8
@@ -82047,7 +82047,8 @@
 	name = "Oxygen to Pure"
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Oxygen to Air mixing"
+	name = "Oxygen to Air mixing";
+	target_pressure = 4500
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
@@ -92879,9 +92880,6 @@
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
 "sTE" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/heater{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
@@ -92890,6 +92888,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/make_non_slip,
+/obj/machinery/atmospherics/components/unary/thermomachine/heater/on{
+	dir = 8
+	},
 /turf/open/floor/iron/ridged/steel,
 /area/engine/atmos)
 "sTG" = (

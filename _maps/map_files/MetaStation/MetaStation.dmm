@@ -4017,6 +4017,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 10
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "aLr" = (
@@ -30415,6 +30416,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 10
 	},
+/obj/machinery/meter,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "hjB" = (
@@ -68037,7 +68039,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "Air to Distro";
-	target_pressure = 200
+	target_pressure = 1000
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4

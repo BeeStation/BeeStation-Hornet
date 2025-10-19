@@ -4442,7 +4442,8 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "O2 to Airmix"
+	name = "O2 to Airmix";
+	target_pressure = 4500
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1{
 	dir = 8
@@ -26158,7 +26159,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
 	name = "Air to Distro";
-	target_pressure = 500
+	target_pressure = 1000
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -66969,7 +66970,8 @@
 "rjX" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	name = "N2 to Airmix"
+	name = "N2 to Airmix";
+	target_pressure = 4500
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
