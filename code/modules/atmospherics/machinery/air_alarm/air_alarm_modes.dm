@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 		var/turf/scrubber_turf = get_turf(scrubber)
 		var/datum/gas_mixture/scrubber_environment = scrubber_turf.return_air()
 		scrubber.on = scrubber_environment.return_pressure() > ONE_ATMOSPHERE - 20
-	if (environment.return_temperature() >= T20C)
+	if (environment.return_temperature() >= T0C + 10 && environment.return_temperature() <= T20C + 20)
 		air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/filtering/automatic)
 
 /datum/air_alarm_mode/refill
