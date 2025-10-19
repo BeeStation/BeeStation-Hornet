@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed multiple blood brother teams being merged into one
-  - tweak: The storyteller vote is no longer sent if the round is started early

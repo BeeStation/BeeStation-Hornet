@@ -245,6 +245,14 @@
   - tweak: Weeds and pests build up 80% slower (Carnivorous pest gain is unchanged)
   - tweak: Plants can now live 6x longer before dying to old age
   - tweak: Plants now grow 50% slower
+  mrmanlikesbt:
+  - bugfix: Fixed multiple blood brother teams being merged into one
+  - tweak: The storyteller vote is no longer sent if the round is started early
+  - bugfix: Fixed a runtime when buckling diona nymphs to the chaplain altar while
+      in the necromancy sect
+  - bugfix: Fixed a runtime when dragging (sufficiently damaged) dead diona nymphs
+  - bugfix: Fixed dionas without limbs spawning a billion nymphs whenever they were
+      supposed to split
   'rkz, MrMelbert, Wallemations, SuperNovaa41, ':
   - refactor: fingerprint transfer uses obscuration and clothing trait rather than
       crappy boolean for determining coverage
