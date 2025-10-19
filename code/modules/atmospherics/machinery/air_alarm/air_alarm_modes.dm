@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 
 /datum/air_alarm_mode/temperature
 	name = "Regulate"
-	desc = "Reaplces air to regulate temperature"
+	desc = "Replaces air to regulate temperature"
 
 /datum/air_alarm_mode/temperature/apply(area/applied)
 	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
