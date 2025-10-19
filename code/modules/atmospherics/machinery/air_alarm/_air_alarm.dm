@@ -515,28 +515,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			if (alarm_manager.clear_alarm(ALARM_ATMOS))
 				danger_level = AIR_ALARM_ALERT_NONE
 
-		if("air_conditioning")
-			if(!isnum(params["value"]))
-				return
-			if(params["value"])
-				stop_ac()
-			else
-				start_ac()
-			investigate_log("has had its air conditioning turned [air_conditioning ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
-			. = TRUE
-
-		if("set_ac_target")
-			if(!isnum(params["value"]))
-				return
-			set_ac_target(params["value"])
-			investigate_log("has had its air conditioning target set to [params["value"]] by [key_name(usr)]", INVESTIGATE_ATMOS)
-			. = TRUE
-
-		if("default_ac_target")
-			set_ac_target(initial(ac_temp_target))
-			investigate_log("has had its air conditioning target reset to default by [key_name(usr)]", INVESTIGATE_ATMOS)
-			. = TRUE
-
 		if ("disconnect_sensor")
 			if(allow_link_change)
 				disconnect_sensor()
