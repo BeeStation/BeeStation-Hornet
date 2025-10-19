@@ -330,8 +330,7 @@
 		var/damage_applied = (1 - circulation_disruption) * delta_time
 		// Organic bodyparts that need blood and nothing else die without it
 		if (circulation_flags == CIRCULATION_BLOOD)
-			var/circulation_rating = owner.blood.get_circulation_proportion()
-			var/desired_hypoxia_damage = max(0, (max_damage * 3) - (((CLAMP01(circulation_rating) * (max_damage * 3)) ** 0.3) / ((max_damage * 3) ** (-0.7))))
+			var/desired_hypoxia_damage = max(0, (max_damage * 3) - (((CLAMP01(circulation_disruption) * (max_damage * 3)) ** 0.3) / ((max_damage * 3) ** (-0.7))))
 			increase_injury(CLONE, clamp(damage_applied * 0.1, 0, desired_hypoxia_damage - damage_applied * 0.1))
 
 /// Heal an injury by the base type path of the injury tree, or by the path of the injury

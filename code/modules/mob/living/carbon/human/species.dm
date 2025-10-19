@@ -472,7 +472,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		previous_blood.transfer_to(C.blood)
 		C.blood.Initialize(C)
 	else
-		C.blood = new /datum/blood_source/organic()
+		C.blood = new blood_type()
 		previous_blood.transfer_to(C.blood)
 		C.blood.Initialize(C)
 	qdel(previous_blood)
