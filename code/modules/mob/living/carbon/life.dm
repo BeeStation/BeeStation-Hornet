@@ -77,6 +77,8 @@
 	var/obj/item/organ/lungs = get_organ_slot(ORGAN_SLOT_LUNGS)
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
+	if (HAS_TRAIT(src, TRAIT_NOBREATH))
+		return
 
 	var/datum/gas_mixture/environment
 	if(loc)

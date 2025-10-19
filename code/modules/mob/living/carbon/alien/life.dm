@@ -5,6 +5,8 @@
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
+		return
 
 	if(!breath || (breath.total_moles() == 0))
 		//Aliens breathe in vaccuum
