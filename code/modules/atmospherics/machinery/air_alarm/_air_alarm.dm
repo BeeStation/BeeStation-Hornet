@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 
 	my_area = connected_sensor ? get_area(connected_sensor) : get_area(src)
 	alarm_manager = new(src)
-	select_mode(src, /datum/air_alarm_mode/filtering, should_apply = FALSE)
+	select_mode(src, /datum/air_alarm_mode/filtering/automatic, should_apply = FALSE)
 
 	AddElement(/datum/element/connect_loc, atmos_connections)
 	AddComponent(/datum/component/usb_port, list(
@@ -365,7 +365,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 
 		// forgive me holy father
 		data["panicSiphonPath"] = /datum/air_alarm_mode/panic_siphon
-		data["filteringPath"] = /datum/air_alarm_mode/filtering
+		data["filteringPath"] = /datum/air_alarm_mode/filtering/automatic
 
 	return data
 
@@ -624,7 +624,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/airalarm)
 			var/moles = environment.gases[gas_path] ? environment.gases[gas_path][MOLES] : 0
 			danger_level = max(danger_level, tlv_collection[gas_path].check_value(pressure * moles / total_moles))
 
-	selected_mode.replace(my_area, pressure, src)
+	selected_mode.replace(my_area, pressure, src, environment)
 
 	if(danger_level)
 		alarm_manager.send_alarm(ALARM_ATMOS)

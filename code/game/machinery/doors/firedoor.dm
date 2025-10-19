@@ -231,6 +231,11 @@
 		return FIRELOCK_ALARM_TYPE_HOT
 	if(environment.temperature <= BODYTEMP_COLD_DAMAGE_LIMIT)
 		return FIRELOCK_ALARM_TYPE_COLD
+	var/pressure = environment.return_pressure()
+	if (pressure < ONE_ATMOSPHERE - 20)
+		return FIRELOCK_ALARM_TYPE_UNDER_PRESSURE
+	if (pressure > WARNING_HIGH_PRESSURE)
+		return FIRELOCK_ALARM_TYPE_OVER_PRESSURE
 	return
 
 /obj/machinery/door/firedoor/proc/process_results(datum/source)

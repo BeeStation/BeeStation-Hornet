@@ -90,27 +90,31 @@
 			use_power = ac_active ? ACTIVE_POWER_USE : IDLE_POWER_USE
 		COOLDOWN_START(src, ac_switch_cooldown, AC_SWITCH_COOLDOWN)
 	if(ac_active)
-		if(current_temp < ac_temp_target)
-			environment.temperature = min(current_temp + ac_temp_inc, ac_temp_target)
-		else
-			environment.temperature = max(current_temp - ac_temp_inc, ac_temp_target)
-		air_update_turf(update = FALSE, remove = FALSE)
-		// Update the air of adjacent turfs too
-		if(!TURF_SHARES(location))
-			return
-		var/adjacent_inc = CEILING(ac_temp_inc * ac_adjacent_mul, 0.1)
-		for(var/turf/open/adjacent_turf in location.get_atmos_adjacent_turfs(alldir = TRUE))
-			if(QDELING(adjacent_turf) || isspaceturf(adjacent_turf))
-				continue
-			var/datum/gas_mixture/adj_environment = adjacent_turf.return_air()
-			if(QDELETED(adj_environment))
-				continue
-			var/adj_temp = adj_environment.return_temperature()
-			if(adj_temp < ac_temp_target)
-				adj_environment.temperature = min(adj_temp + adjacent_inc, ac_temp_target)
+		for(var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in my_area.air_vents)
+			var/turf/vent_location = get_turf(vent)
+			var/datum/gas_mixture/vent_environment = vent.return_air()
+			var/vent_temperature = vent_environment.return_temperature()
+			if(vent_temperature < ac_temp_target)
+				vent_environment.temperature = min(vent_temperature + ac_temp_inc, ac_temp_target)
 			else
-				adj_environment.temperature = max(adj_temp - adjacent_inc, ac_temp_target)
-			adjacent_turf.air_update_turf(update = FALSE, remove = FALSE)
+				vent_environment.temperature = max(vent_temperature - ac_temp_inc, ac_temp_target)
+			vent.air_update_turf(update = FALSE, remove = FALSE)
+			// Update the air of adjacent turfs too
+			if(!TURF_SHARES(vent_location))
+				return
+			var/adjacent_inc = CEILING(ac_temp_inc * ac_adjacent_mul, 0.1)
+			for(var/turf/open/adjacent_turf in vent_location.get_atmos_adjacent_turfs(alldir = TRUE))
+				if(QDELING(adjacent_turf) || isspaceturf(adjacent_turf))
+					continue
+				var/datum/gas_mixture/adj_environment = adjacent_turf.return_air()
+				if(QDELETED(adj_environment))
+					continue
+				var/adj_temp = adj_environment.return_temperature()
+				if(adj_temp < ac_temp_target)
+					adj_environment.temperature = min(adj_temp + adjacent_inc, ac_temp_target)
+				else
+					adj_environment.temperature = max(adj_temp - adjacent_inc, ac_temp_target)
+				adjacent_turf.air_update_turf(update = FALSE, remove = FALSE)
 
 #undef AC_ADJACENT_MUL
 #undef AC_DEFAULT_INC

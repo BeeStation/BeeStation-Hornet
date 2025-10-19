@@ -27,13 +27,13 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 /datum/air_alarm_mode/proc/apply(area/applied)
 	return
 
-/datum/air_alarm_mode/proc/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm)
+/datum/air_alarm_mode/proc/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
 	return
 
 /// The default.
 /datum/air_alarm_mode/filtering
 	name = "Filtering"
-	desc = "Scrubs out contaminants"
+	desc = "Scrubs out contaminants, ignoring temperature"
 	danger = FALSE
 
 /datum/air_alarm_mode/filtering/apply(area/applied)
@@ -49,6 +49,15 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 		scrubber.filter_types = list(/datum/gas/carbon_dioxide)
 		scrubber.set_scrubbing(ATMOS_DIRECTION_SCRUBBING)
 		scrubber.set_widenet(FALSE)
+
+/datum/air_alarm_mode/filtering/automatic
+	name = "Automated"
+	desc = "Scrubs out contaminants, switching to 'Regulate' if the temperature drops too low"
+
+/datum/air_alarm_mode/filtering/automatic/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
+	if (environment.temperature >= T0C)
+		return
+	air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/draught/temperature)
 
 /datum/air_alarm_mode/contaminated
 	name = "Contaminated"
@@ -89,6 +98,22 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 		scrubber.set_widenet(FALSE)
 		scrubber.set_scrubbing(ATMOS_DIRECTION_SIPHONING)
 
+/datum/air_alarm_mode/draught/temperature
+	name = "Regulate"
+	desc = "Siphons out air while replacing until the temperature is regulated"
+
+/datum/air_alarm_mode/draught/temperature/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
+	// Only vent while the pressure is low
+	for (var/obj/machinery/atmospherics/components/unary/vent_pump/vent as anything in applied.air_vents)
+		var/datum/gas_mixture/vent_environment = vent.return_air()
+		vent.external_pressure_bound = vent_environment.return_pressure() < ONE_ATMOSPHERE ? ONE_ATMOSPHERE * 2 : ONE_ATMOSPHERE
+	// Only scrub while the pressure is high
+	for (var/obj/machinery/atmospherics/components/unary/vent_scrubber/scrubber as anything in applied.air_scrubbers)
+		var/datum/gas_mixture/scrubber_environment = scrubber.return_air()
+		scrubber.on = scrubber_environment.return_pressure() > ONE_ATMOSPHERE - 20
+	if (environment.return_temperature() >= T20C)
+		air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/filtering/automatic)
+
 /datum/air_alarm_mode/refill
 	name = "Refill"
 	desc = "Triple vent output"
@@ -127,11 +152,11 @@ GLOBAL_LIST_INIT(air_alarm_modes, init_air_alarm_modes())
 
 /// Special case for cycles. Cycles need to refill the air again after it's scrubbed out so this proc is called.
 /// Same as [/datum/air_alarm_mode/filtering/apply]
-/datum/air_alarm_mode/cycle/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm)
+/datum/air_alarm_mode/cycle/replace(area/applied, pressure, obj/machinery/airalarm/air_alarm, datum/gas_mixture/environment)
 	if(pressure >= ONE_ATMOSPHERE * 0.05)
 		return
 
-	air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/filtering)
+	air_alarm.select_mode(air_alarm, /datum/air_alarm_mode/filtering/automatic)
 
 /datum/air_alarm_mode/siphon
 	name = "Siphon"
