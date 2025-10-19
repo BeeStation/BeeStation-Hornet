@@ -2,6 +2,9 @@
 	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
 	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/roundstart
+	/// The percentage (0 to 100) chance that this ruleset will be repicked
+	/// when selected, assuming there are cost points available.
+	var/elasticity = 0
 
 /datum/dynamic_ruleset/roundstart/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()

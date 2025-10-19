@@ -222,6 +222,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			SSdynamic.process_rulesets()
 			check_queue()
+			check_respawn_availabilities()
 
 			if(!roundend_check_paused && (check_finished() || force_ending))
 				current_state = GAME_STATE_FINISHED
@@ -508,6 +509,24 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(next_in_line, span_danger("No response received. You have been removed from the line."))
 			queued_players -= next_in_line
 			queue_delay = 0
+
+/datum/controller/subsystem/ticker/proc/check_respawn_availabilities()
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(observer.check_respawn_delay() && !observer.respawn_notified)
+			observer.respawn_notified = TRUE
+			observer.respawn_available = TRUE
+
+			//Get, update, and animate their hud
+			var/datum/hud/ghost/jesus = observer.hud_used
+			for(var/atom/movable/screen/ghost/respawn/respawnbutton in jesus.static_inventory)
+				//we use update here because of vibes
+				respawnbutton.update_icon_state(observer)
+				animate(respawnbutton, 150, 1, icon_state = "respawn_blinky")
+				animate(icon_state = "respawn_available")
+
+			//Draw their attention
+			SEND_SOUND(observer, sound('sound/misc/compiler-stage2.ogg'))
+			to_chat(observer, span_bigboldinfo("Your respawn is now available! You may respawn at any time using the gold-outlined button on your ghost hud."))
 
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING

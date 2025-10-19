@@ -454,34 +454,39 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("ROUNDSTART: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
 			break
 
-		// Something changed and this ruleset is no longer allowed
-		// Most common occurance is all previous candidates were assigned an antag position
-		ruleset.trim_candidates()
-		if(!ruleset.allowed())
-			possible_rulesets -= ruleset
-			continue
+		do
+			// Something changed and this ruleset is no longer allowed
+			// Most common occurance is all previous candidates were assigned an antag position
+			ruleset.trim_candidates()
+			if(!ruleset.allowed())
+				possible_rulesets -= ruleset
+				continue
 
-		// Not enough points left
-		if(ruleset.points_cost > roundstart_points_left)
-			possible_rulesets -= ruleset
-			continue
+			// Not enough points left
+			if(ruleset.points_cost > roundstart_points_left)
+				possible_rulesets -= ruleset
+				continue
 
-		// check_is_ruleset_blocked()
-		if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
-			possible_rulesets -= ruleset
-			continue
+			// check_is_ruleset_blocked()
+			if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
+				possible_rulesets -= ruleset
+				continue
 
-		// Apply cost and add ruleset to 'roundstart_executed_rulesets'
-		roundstart_points_left -= ruleset.points_cost
+			// Apply cost and add ruleset to 'roundstart_executed_rulesets'
+			roundstart_points_left -= ruleset.points_cost
 
-		var/datum/dynamic_ruleset/roundstart/new_roundstart_ruleset = ruleset.duplicate()
-		roundstart_executed_rulesets += new_roundstart_ruleset
-		new_roundstart_ruleset.choose_candidates()
+			var/datum/dynamic_ruleset/roundstart/new_roundstart_ruleset = ruleset.duplicate()
+			roundstart_executed_rulesets += new_roundstart_ruleset
+			new_roundstart_ruleset.choose_candidates()
 
-		log_dynamic("ROUNDSTART: Chose [new_roundstart_ruleset] with [roundstart_points_left] points left")
+			log_dynamic("ROUNDSTART: Chose [new_roundstart_ruleset] with [roundstart_points_left] points left")
 
-		if(CHECK_BITFIELD(ruleset.ruleset_flags, NO_OTHER_RULESETS))
-			no_other_rulesets = TRUE
+			if(CHECK_BITFIELD(new_roundstart_ruleset.ruleset_flags, NO_OTHER_RULESETS))
+				no_other_rulesets = TRUE
+				break
+		while (prob(ruleset.elasticity))
+
+		if(no_other_rulesets)
 			break
 
 	// Deal with the NO_OTHER_RULESETS flag
@@ -532,7 +537,6 @@ SUBSYSTEM_DEF(dynamic)
  * Execute roundstart rulesets
 **/
 /datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
-	// Execute Roundstarts
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
 
@@ -552,11 +556,7 @@ SUBSYSTEM_DEF(dynamic)
  * Execute a ruleset and if it needs to process, add it to the list of rulesets to process
 **/
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
-	if(!istype(ruleset))
-		return DYNAMIC_EXECUTE_FAILURE
-
 	var/result = ruleset.execute()
-
 	if(result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
 		rulesets_to_process += ruleset
 
