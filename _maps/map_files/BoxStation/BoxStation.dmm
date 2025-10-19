@@ -5681,7 +5681,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/fancy/comfy{
-	color = "#596479";
+	color = "#666666";
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -12356,7 +12356,7 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/maintenance/disposal/incinerator)
 "cvL" = (
-/obj/item/radio/intercom/directional/south,
+/obj/machinery/light,
 /turf/open/floor/iron/large,
 /area/crew_quarters/lounge)
 "cvO" = (
@@ -15195,7 +15195,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/fancy/comfy{
-	color = "#596479";
+	color = "#666666";
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -19421,11 +19421,10 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
-/obj/machinery/light/floor,
 /obj/effect/turf_decal/siding/white{
 	dir = 5
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron/white/smooth_half,
 /area/crew_quarters/locker)
 "eFj" = (
@@ -25497,7 +25496,6 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
-/obj/structure/railing/perspective/black,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "gVg" = (
@@ -34620,7 +34618,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate{
 	dir = 8;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 4
@@ -35504,9 +35502,6 @@
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/effect/spawner/randomvend/cola,
-/obj/structure/railing/perspective/black{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "kBG" = (
@@ -37916,7 +37911,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate{
 	dir = 8;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 4
@@ -39271,9 +39266,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
-/obj/structure/railing/perspective/black/corner{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "lXQ" = (
@@ -42694,7 +42686,7 @@
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/comfy{
-	color = "#596479";
+	color = "#666666";
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -43027,7 +43019,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate/left{
 	dir = 4;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 8
@@ -43490,7 +43482,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate/left{
 	dir = 8;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 4
@@ -43849,7 +43841,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate/right{
 	dir = 8;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 4
@@ -46760,7 +46752,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/structure/railing/perspective/black/corner,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "pcA" = (
@@ -47498,9 +47489,6 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 1
-	},
-/obj/structure/railing/perspective/black/corner{
-	dir = 8
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
@@ -48527,6 +48515,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"pGf" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/west,
+/turf/open/floor/wood/big,
+/area/crew_quarters/lounge)
 "pGl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49593,7 +49588,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate{
 	dir = 4;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 8
@@ -52587,16 +52582,6 @@
 /obj/machinery/gear_requisition/mining,
 /turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
-"rla" = (
-/obj/effect/turf_decal/siding/wideplating_new{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark/diagonal_centre,
-/obj/structure/railing/perspective/black/corner{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
 "rli" = (
 /obj/structure/closet/secure_closet/detective,
 /obj/machinery/status_display/evac{
@@ -53410,7 +53395,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate/right{
 	dir = 4;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 8
@@ -53513,7 +53498,7 @@
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/comfy{
-	color = "#596479";
+	color = "#666666";
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -57664,11 +57649,8 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
-/obj/structure/railing/perspective/black{
-	dir = 1
-	},
 /obj/structure/chair/fancy/comfy{
-	color = "#596479";
+	color = "#666666";
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -59912,7 +59894,7 @@
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/structure/chair/fancy/bench/corporate{
 	dir = 4;
-	cover_color = "#373e4a"
+	cover_color = "#555555"
 	},
 /obj/structure/railing/perspective/gray{
 	dir = 8
@@ -65679,7 +65661,6 @@
 	},
 /obj/effect/turf_decal/tile/dark/diagonal_centre,
 /obj/effect/spawner/randomvend/snack,
-/obj/structure/railing/perspective/black,
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "vXR" = (
@@ -85879,7 +85860,7 @@ bVN
 aHy
 aIM
 mmR
-rla
+lXH
 wbb
 kuA
 pco
@@ -107192,7 +107173,7 @@ gqN
 lri
 pEh
 klm
-tMw
+pGf
 qsR
 pZo
 tMw
