@@ -163,7 +163,7 @@
 	You can call me The Professor. Although, I'm not actually a professor, it is kind of the nickname that I've picked up around here.
 	I could use some help with my circuit work, but I can't have you just blundering around this fancy circuit fabricator... So, I've given you my clipboard with my notes to help you along.
 	<br>
-	It has notes on some simple circuits and how they work, along with some on a few fancier circuits which I couldn't get working... maybe you could give me a hand?<br>
+	It has notes on some simple circuits and how they work, along with some on a few fancier circuits which I couldn't get working... maybe you could give me a hand?
 	You can unlock the advanced circuits in the technology node <strong>Advanced Circuit Templates</strong>.
 	</font><br>
 	<p align=right><font face="Segoe Script">Professor IV</font></p>"}
