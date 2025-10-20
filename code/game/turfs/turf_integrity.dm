@@ -101,10 +101,10 @@
 	switch(severity)
 		if(EXPLODE_HEAVY)
 			hotspot_expose(1000, CELL_VOLUME)
-			take_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
+			take_damage(FRAND(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
 		if(EXPLODE_LIGHT)
 			hotspot_expose(1000, CELL_VOLUME)
-			take_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
+			take_damage(FRAND(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
 
 /turf/contents_explosion(severity, target)
 	for(var/thing in contents)

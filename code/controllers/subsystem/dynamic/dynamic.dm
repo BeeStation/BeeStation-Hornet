@@ -390,7 +390,7 @@ SUBSYSTEM_DEF(dynamic)
 			else if(player.ready == PLAYER_READY_TO_OBSERVE)
 				roundstart_points += roundstart_points_per_observer
 
-	roundstart_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
+	roundstart_point_divergence = FRAND(roundstart_divergence_percent_lower, roundstart_divergence_percent_upper)
 	roundstart_points = round(roundstart_points * roundstart_point_divergence)
 
 	log_dynamic("ROUNDSTART: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100)]%")
