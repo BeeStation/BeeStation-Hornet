@@ -2466,7 +2466,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_biotypes_perks()
 	var/list/to_add = list()
 
-	if(MOB_UNDEAD in inherent_biotypes)
+	if(inherent_biotypes & MOB_UNDEAD)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "skull",

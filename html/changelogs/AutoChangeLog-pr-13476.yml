@@ -1,8 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed a runtime when buckling diona nymphs to the chaplain altar while
-      in the necromancy sect
-  - bugfix: Fixed a runtime when dragging (sufficiently damaged) dead diona nymphs
-  - bugfix: Fixed dionas without limbs spawning a billion nymphs whenever they were
-      supposed to split

@@ -51,7 +51,7 @@
 		return
 	if(!(src in owner.organs))
 		Remove(owner, TRUE)
-	if(MOB_MINERAL in owner.mob_biotypes)//does not process in inorganic things
+	if(owner.mob_biotypes & MOB_MINERAL)//does not process in inorganic things
 		return
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)

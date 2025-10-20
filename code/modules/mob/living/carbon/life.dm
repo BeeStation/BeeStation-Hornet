@@ -367,7 +367,7 @@
 
 	radiation = max(radiation - (RAD_LOSS_PER_SECOND * delta_time), 0)
 	if(radiation > RAD_MOB_SAFE)
-		if(MOB_ROBOTIC in mob_biotypes)
+		if(mob_biotypes & MOB_ROBOTIC)
 			adjustFireLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT*delta_time)
 		else
 			adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT*delta_time)
