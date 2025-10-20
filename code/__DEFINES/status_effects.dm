@@ -12,8 +12,11 @@
 /// call a merge proc to combine 2 status effects
 #define STATUS_EFFECT_MERGE 4
 
-/// Use in status effect "duration" to make it last forever
-#define STATUS_EFFECT_PERMANENT -1
+//Processing flags - used to define the speed at which the status will work
+///This is fast - 0.2s between ticks (I believe!)
+#define STATUS_EFFECT_FAST_PROCESS 0
+///This is slower and better for more intensive status effects - 1s between ticks
+#define STATUS_EFFECT_NORMAL_PROCESS 1
 
 //Necropolis
 ///makes the edges of the target's screen obscured
@@ -74,6 +77,11 @@
 // - Will only set the duration of that effect IF any existing duration is lower than what was passed.
 // - Ex: set_stutter_if_lower(10 SECONDS) will set stuttering to ten seconds if no stuttering or less than ten seconds of stuttering exists
 // - Ex: set_jitter_if_lower(20 SECONDS) will do nothing if more than twenty seconds of jittering already exists
+
+#define adjust_jitter(duration) adjust_timed_status_effect(duration, /datum/status_effect/jitter)
+#define adjust_jitter_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/jitter, up_to)
+#define set_jitter(duration) set_timed_status_effect(duration, /datum/status_effect/jitter)
+#define set_jitter_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/jitter, TRUE)
 
 #define adjust_hallucinations(duration) adjust_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define adjust_hallucinations_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/hallucination, up_to)
