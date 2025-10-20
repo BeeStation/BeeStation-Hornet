@@ -64,9 +64,11 @@
 	var/is_playing_alarm = FALSE
 	///Delay before we deactivate the firelock after detecting the air is fine.
 	var/activation_delay
+	/// Amount of damage we took when we last opened
+	var/damage_until_open = 15
 
 /datum/armor/door_firedoor
-	melee = 30
+	melee = 80
 	bullet = 30
 	laser = 20
 	energy = 20
@@ -99,6 +101,15 @@
 
 	if(alarm_type) // Fucking subtypes fucking mappers fucking hhhhhhhh
 		start_activation_process(alarm_type)
+
+/obj/machinery/door/firedoor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	. = ..()
+	damage_until_open -= damage_amount
+	if (damage_until_open <= 0)
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+		do_sparks(5, TRUE, src)
+		INVOKE_ASYNC(src, PROC_REF(crack_open))
+		damage_until_open = initial(damage_until_open)
 
 /**
  * Sets the offset for the warning lights.
