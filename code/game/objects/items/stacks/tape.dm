@@ -101,4 +101,3 @@
 		return
 
 	use(1)
-	return
