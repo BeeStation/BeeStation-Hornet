@@ -1,0 +1,4 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: Health Analyzers scan viruses with the hemetophagy symptom again
