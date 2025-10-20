@@ -5,7 +5,7 @@
 	bodyflag = FLAG_APID
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
-	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
