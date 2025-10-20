@@ -1032,6 +1032,27 @@
 	name = "Custom Channel B";
 	pixel_y = -38
 	},
+/obj/machinery/button/door{
+	id = "aipanicshutter";
+	name = "Core Panic Shutters";
+	pixel_y = 23;
+	req_access_txt = "16";
+	pixel_x = 24
+	},
+/obj/machinery/button/door{
+	id = "aicorelockdown";
+	name = "AI Sat Core Lockdown";
+	pixel_y = 30;
+	req_access_txt = "16";
+	pixel_x = 24
+	},
+/obj/machinery/button/door{
+	id = "satwindow";
+	name = "AI Sat Window Shutters";
+	pixel_y = 37;
+	req_access_txt = "16";
+	pixel_x = 24
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/turret_protected/ai)
 "aqc" = (
@@ -40218,6 +40239,27 @@
 	listening = 0;
 	name = "Custom Channel B";
 	pixel_y = -38
+	},
+/obj/machinery/button/door{
+	id = "aipanicshutter";
+	name = "Core Panic Shutters";
+	pixel_y = 23;
+	req_access_txt = "16";
+	pixel_x = -24
+	},
+/obj/machinery/button/door{
+	id = "aicorelockdown";
+	name = "AI Sat Core Lockdown";
+	pixel_y = 30;
+	req_access_txt = "16";
+	pixel_x = -24
+	},
+/obj/machinery/button/door{
+	id = "satwindow";
+	name = "AI Sat Window Shutters";
+	pixel_y = 37;
+	req_access_txt = "16";
+	pixel_x = -24
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/turret_protected/ai)
