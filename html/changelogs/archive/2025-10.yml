@@ -263,9 +263,15 @@
   - bugfix: fixes baconbug runtime where bleeding status effect icon would try to
       update with a nonexistent owner reference (like qdeletion)
 2025-10-20:
+  PowerfulBacon:
+  - bugfix: Fixes job data disks using large amounts of PDA power.
+  - bugfix: PDA flashlight no longer works at 0% power.
   mrmanlikesbt:
   - code_imp: Biotypes are now bitfields instead of lists. Please report anything
       strange on github
+  - tweak: Nightmare light eaters no longer act as crowbars (they can still pry open
+      doors)
+  - bugfix: Fixed changeling arm blades not being able to pry open doors
   rkz, Melbert:
   - refactor: jittering is now a status effect
   - code_imp: reorganizes status effects

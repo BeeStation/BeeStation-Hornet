@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - tweak: Nightmare light eaters no longer act as crowbars (they can still pry open
-      doors)
-  - bugfix: Fixed changeling arm blades not being able to pry open doors
