@@ -164,6 +164,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/dorms)
+"abn" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube/junction{
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "aby" = (
 /obj/structure/chair/office/light,
 /turf/open/floor/iron/grid/steel,
@@ -5901,6 +5908,10 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"bQQ" = (
+/obj/structure/transit_tube/curved/flipped,
+/turf/open/space/basic,
+/area/space)
 "bQR" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/guideline/guideline_edge/purple{
@@ -9618,6 +9629,10 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/maintenance/department/medical/morgue)
+"cZk" = (
+/obj/structure/transit_tube/crossing,
+/turf/open/space/basic,
+/area/space)
 "cZu" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/loneops,
@@ -11510,6 +11525,10 @@
 	},
 /turf/open/floor/plating,
 /area/hydroponics)
+"dGi" = (
+/obj/structure/transit_tube,
+/turf/open/space/basic,
+/area/space)
 "dGx" = (
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
@@ -22793,6 +22812,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"hqt" = (
+/obj/effect/turf_decal/edges/techfloor{
+	dir = 6
+	},
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 4
+	},
+/obj/structure/transit_tube_pod,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/turret_protected/aisat/foyer)
 "hqx" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8
@@ -24242,6 +24271,11 @@
 /obj/item/stack/ducts/fifty,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
+"hRZ" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved,
+/turf/open/space/basic,
+/area/space/nearstation)
 "hSa" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -33002,6 +33036,12 @@
 	dir = 1
 	},
 /area/science/research)
+"kQg" = (
+/obj/structure/transit_tube/curved{
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/space)
 "kQs" = (
 /obj/structure/sign/warning/pods{
 	pixel_x = -32
@@ -43102,6 +43142,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"oly" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube/crossing,
+/turf/open/space/basic,
+/area/space/nearstation)
 "olF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -43198,6 +43243,11 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
+"onk" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube/junction,
+/turf/open/space/basic,
+/area/space/nearstation)
 "onJ" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/siding/brown{
@@ -43329,18 +43379,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"opE" = (
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 4
-	},
-/obj/structure/transit_tube_pod{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/techfloor{
-	dir = 6
-	},
-/turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/aisat/foyer)
 "opK" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -49938,6 +49976,11 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
+"qsS" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube,
+/turf/open/space/basic,
+/area/space/nearstation)
 "qtc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -58000,6 +58043,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor,
 /area/engine/atmos)
+"teb" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/space)
 "teh" = (
 /obj/effect/spawner/lootdrop/techstorage/service,
 /obj/effect/spawner/lootdrop/techstorage/service,
@@ -70809,10 +70858,13 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "xgd" = (
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/structure/transit_tube/station/reverse{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/dark_green/half/contrasted,
+/obj/structure/transit_tube_pod{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "xgq" = (
@@ -71912,6 +71964,19 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/xenobiology)
+"xwb" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "xwf" = (
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light/small{
@@ -101359,14 +101424,14 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 tbZ
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -102655,13 +102720,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 ewB
@@ -102673,6 +102731,13 @@ ewB
 ewB
 ewB
 ewB
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -102911,13 +102976,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 fQL
 gsA
 gsA
@@ -102930,6 +102988,13 @@ gsA
 gsA
 gsA
 gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -103163,13 +103228,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 yeA
@@ -103188,6 +103246,13 @@ gsA
 gsA
 gsA
 fQL
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -103419,13 +103484,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 gsA
@@ -103452,6 +103510,13 @@ gsA
 ewB
 ewB
 ewB
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -103675,13 +103740,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 gsA
@@ -103706,6 +103764,13 @@ gsA
 gsA
 yeA
 yeA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
+gsA
 yeA
 yeA
 yeA
@@ -103931,13 +103996,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 gsA
@@ -103960,6 +104018,13 @@ sWE
 myJ
 dzz
 ump
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -104188,13 +104253,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -104221,6 +104279,13 @@ ioi
 gsA
 gsA
 yeA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
+gsA
 yeA
 yeA
 yeA
@@ -104446,13 +104511,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 gsA
 gsA
@@ -104474,6 +104532,13 @@ hEM
 daE
 iFQ
 ump
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -104703,13 +104768,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 gsA
 utY
@@ -104734,6 +104792,13 @@ wCw
 wCw
 wCw
 wCw
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -104959,13 +105024,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 gsA
 gsA
@@ -104991,6 +105049,13 @@ wCw
 mzd
 nPa
 wCw
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -105214,13 +105279,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -105251,6 +105309,13 @@ wCw
 wCw
 wCw
 gsA
+yeA
+gsA
+yeA
+yeA
+yeA
+gsA
+yeA
 yeA
 dVz
 vsU
@@ -105471,13 +105536,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -105508,6 +105566,13 @@ qBm
 ocU
 jVP
 jFS
+xwb
+xwb
+xwb
+xwb
+xwb
+xwb
+xwb
 ebI
 qtc
 pXK
@@ -105728,13 +105793,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 qwD
@@ -105764,6 +105822,13 @@ dFs
 dFs
 dFs
 dFs
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -105985,13 +106050,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -106021,6 +106079,13 @@ igv
 xtD
 uFH
 uSQ
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -106244,13 +106309,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 uTv
 uTv
@@ -106278,6 +106336,13 @@ usR
 fZe
 sGB
 udQ
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -106491,13 +106556,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 tbZ
 yeA
 yeA
@@ -106536,6 +106594,13 @@ qbT
 jiV
 joP
 bhk
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
+gsA
 yeA
 yeA
 pXK
@@ -106758,13 +106823,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 uTv
 uTv
@@ -106792,6 +106850,13 @@ uHK
 uHK
 ctb
 joP
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -107013,13 +107078,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -107049,6 +107107,13 @@ qNT
 qAV
 iYZ
 afL
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -107270,13 +107335,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 qwD
@@ -107306,6 +107364,13 @@ dFs
 dFs
 dFs
 dFs
+gsA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
 gsA
 yeA
 yeA
@@ -107527,13 +107592,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -107562,6 +107620,13 @@ eNB
 aVQ
 fLb
 fjW
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -107784,13 +107849,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -107821,6 +107879,13 @@ pSW
 xPj
 gsA
 gsA
+yeA
+hRZ
+dGi
+cZk
+cZk
+qsS
+teb
 yeA
 gsA
 gsA
@@ -108043,13 +108108,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 gsA
 gsA
@@ -108074,11 +108132,18 @@ pOu
 uuQ
 rmo
 txs
-opE
+hqt
 gBG
 qKq
 nlK
-qKq
+abn
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+onk
 nlK
 qKq
 uPg
@@ -108301,13 +108366,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 gsA
 aeV
@@ -108335,6 +108393,13 @@ aeX
 uuQ
 yeA
 yeA
+gsA
+bQQ
+dGi
+cZk
+oly
+dGi
+kQg
 yeA
 yeA
 gsA
@@ -108558,13 +108623,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 gsA
 gsA
 gsA
@@ -108586,6 +108644,13 @@ qkI
 daE
 fAo
 ump
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -108814,13 +108879,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 gsA
 gsA
@@ -108847,6 +108905,13 @@ ioi
 gsA
 gsA
 yeA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
+gsA
 yeA
 yeA
 yeA
@@ -109071,13 +109136,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 gsA
@@ -109100,6 +109158,13 @@ pCH
 myJ
 dzz
 ump
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -109329,13 +109394,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 gsA
@@ -109360,6 +109418,13 @@ gsA
 gsA
 yeA
 yeA
+yeA
+yeA
+gsA
+yeA
+yeA
+yeA
+gsA
 yeA
 yeA
 yeA
@@ -109587,13 +109652,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 gsA
@@ -109620,6 +109678,13 @@ gsA
 ewB
 ewB
 ewB
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
+gsA
 gsA
 gsA
 gsA
@@ -109845,13 +109910,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 yeA
@@ -109870,6 +109928,13 @@ gsA
 gsA
 gsA
 fQL
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -110107,13 +110172,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 fQL
 gsA
 gsA
@@ -110126,6 +110184,13 @@ gsA
 gsA
 gsA
 gsA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -110365,13 +110430,6 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 ewB
 ewB
 ewB
@@ -110383,6 +110441,13 @@ ewB
 ewB
 ewB
 ewB
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -111384,14 +111449,14 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 tbZ
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
@@ -111914,14 +111979,14 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
-yeA
 tbZ
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
+yeA
 yeA
 yeA
 yeA
