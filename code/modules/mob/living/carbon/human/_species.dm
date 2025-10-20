@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/species_traits = list()
 	// generic traits tied to having the species
 	var/list/inherent_traits = list()
-	var/list/inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
 
@@ -509,14 +509,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
 
-	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
-		var/curedisease = TRUE
-		for(var/host_type in A.infectable_biotypes)
-			if(host_type in inherent_biotypes)
-				curedisease = FALSE
-				break
-		if(curedisease)
-			A.cure(FALSE)
+	//if we can't have the disease, dont keep it
+	for(var/datum/disease/disease in C.diseases)
+		if(!(disease.infectable_biotypes & inherent_biotypes))
+			disease.cure(FALSE)
 
 	if(TRAIT_TOXIMMUNE in inherent_traits)
 		C.setToxLoss(0, TRUE, TRUE)
@@ -1534,7 +1530,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else if(H.satiety < 0)
 			H.satiety++
 			if(DT_PROB(round(-H.satiety/77), delta_time))
-				H.Jitter(5)
+				H.set_jitter_if_lower(10 SECONDS)
 			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= H.physiology.hunger_mod
 		H.adjust_nutrition(-hunger_rate * delta_time)
@@ -3065,7 +3061,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_biotypes_perks()
 	var/list/to_add = list()
 
-	if(MOB_UNDEAD in inherent_biotypes)
+	if(inherent_biotypes & MOB_UNDEAD)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "skull",

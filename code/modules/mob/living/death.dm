@@ -88,6 +88,7 @@
 		reset_perspective(null)
 		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
+		client.player_details.time_of_death = timeofdeath
 		//This first death of the game will not incur a ghost role cooldown
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
@@ -107,4 +108,3 @@
 
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), (DEFIB_TIME_LIMIT * 10) + 10)
-

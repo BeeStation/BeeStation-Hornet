@@ -1,9 +1,0 @@
-author: mrmanlikesbt, CoffeeDragon16, Paxilmaniac
-delete-after: true
-changes:
-  - rscadd: beware of the clown with a piano (falling objects now deal damage and
-      pianos crush people)
-  - rscadd: Pianos now have a broken sprite (this was always in the game, but unused)
-  - soundadd: Pianos have a sound for being hit now
-  - tweak: Pianos are no longer randomly a minimoog on spawn, there is now a mapping
-      helper for that now

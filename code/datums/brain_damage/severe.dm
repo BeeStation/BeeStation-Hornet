@@ -125,17 +125,19 @@
 	lose_text = span_notice("You feel awake and aware again.")
 
 /datum/brain_trauma/severe/narcolepsy/on_life(delta_time, times_fired)
-	..()
 	if(owner.IsSleeping())
 		return
+
 	var/sleep_chance = 1
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		sleep_chance += 2
 	if(owner.drowsyness)
 		sleep_chance += 3
+
 	if(DT_PROB(0.5 * sleep_chance, delta_time))
 		to_chat(owner, span_warning("You fall asleep."))
 		owner.Sleeping(60)
+
 	else if(!owner.drowsyness && DT_PROB(sleep_chance, delta_time))
 		to_chat(owner, span_warning("You feel tired..."))
 		owner.drowsyness += 10
@@ -179,36 +181,30 @@
 	var/high_stress = (stress > 60) //things get psychosomatic from here on
 	switch(rand(1, 6))
 		if(1)
-			if(!high_stress)
-				to_chat(owner, span_warning("You feel sick..."))
-			else
+			if(high_stress)
 				to_chat(owner, span_warning("You feel really sick at the thought of being alone!"))
+			else
+				to_chat(owner, span_warning("You feel sick..."))
 			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon, vomit), high_stress), 50) //blood vomit if high stress
 		if(2)
-			if(!high_stress)
-				to_chat(owner, span_warning("You can't stop shaking..."))
-				owner.dizziness += 20
-				owner.confused += 20
-				owner.Jitter(20)
-			else
+			if(high_stress)
 				to_chat(owner, span_warning("You feel weak and scared! If only you weren't alone..."))
-				owner.dizziness += 20
-				owner.confused += 20
-				owner.Jitter(20)
 				owner.adjustStaminaLoss(50)
+			else
+				to_chat(owner, span_warning("You can't stop shaking..."))
+
+			owner.dizziness += 20
+			owner.set_jitter_if_lower(20 SECONDS)
 
 		if(3, 4)
-			if(!high_stress)
-				to_chat(owner, span_warning("You feel really lonely..."))
-			else
+			if(high_stress)
 				to_chat(owner, span_warning("You're going mad with loneliness!"))
 				owner.adjust_hallucinations(60 SECONDS)
+			else
+				to_chat(owner, span_warning("You feel really lonely..."))
 
 		if(5)
-			if(!high_stress)
-				to_chat(owner, span_warning("Your heart skips a beat."))
-				owner.adjustOxyLoss(8)
-			else
+			if(high_stress)
 				if(prob(15) && ishuman(owner))
 					var/mob/living/carbon/human/H = owner
 					H.set_heartattack(TRUE)
@@ -216,6 +212,9 @@
 				else
 					to_chat(owner, span_userdanger("You feel your heart lurching in your chest..."))
 					owner.adjustOxyLoss(8)
+			else
+				to_chat(owner, span_warning("Your heart skips a beat."))
+				owner.adjustOxyLoss(8)
 		if(6)
 			pass()
 
