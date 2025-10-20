@@ -266,3 +266,7 @@
   mrmanlikesbt:
   - code_imp: Biotypes are now bitfields instead of lists. Please report anything
       strange on github
+  rkz, Melbert:
+  - refactor: jittering is now a status effect
+  - code_imp: reorganizes status effects
+  - refactor: cleanup of stabilized extract effect applications
