@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Fixes job data disks using large amounts of PDA power.
+  - bugfix: PDA flashlight no longer works at 0% power.
