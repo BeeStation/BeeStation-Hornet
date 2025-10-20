@@ -49,8 +49,8 @@
 	return ..()
 
 /turf/open/floor/is_shielded()
-	for(var/obj/structure/A in contents)
-		return 1
+	for(var/obj/structure/thing in contents)
+		return TRUE
 
 /turf/open/floor/update_icon()
 	. = ..()
