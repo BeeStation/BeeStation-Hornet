@@ -421,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	possible = list()
 	if(!voodoo_link)
 		return
-	var/list/prints = voodoo_link.return_fingerprints()
+	var/list/prints = GET_ATOM_FINGERPRINTS(voodoo_link)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)

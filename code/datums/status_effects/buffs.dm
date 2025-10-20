@@ -540,7 +540,7 @@
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				// Check if the mob is NOT a spirit AND NOT an undead.
-				if(!(MOB_SPIRIT in SM.mob_biotypes) && !(MOB_UNDEAD in SM.mob_biotypes))
+				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
 					SM.adjustHealth(-3.5, forced = TRUE)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
