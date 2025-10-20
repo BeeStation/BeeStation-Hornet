@@ -929,8 +929,11 @@
 	if(!has_gravity() || (movement_type & THROWN))
 		return
 	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
-	var/mob/living/carbon/human/humanoid = src
-	var/glowyblood = humanoid.dna.blood_type.glowy
+
+	var/glowyblood = FALSE
+	if(ishuman(src))
+		var/mob/living/carbon/human/humanoid = src
+		glowyblood = humanoid.dna.blood_type.glowy
 
 	if(isturf(start))
 		var/trail_type = getTrail()
