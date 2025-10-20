@@ -263,6 +263,8 @@
   - bugfix: fixes baconbug runtime where bleeding status effect icon would try to
       update with a nonexistent owner reference (like qdeletion)
 2025-10-20:
+  Isaac:
+  - bugfix: Health Analyzers scan viruses with the hemetophagy symptom again
   PowerfulBacon:
   - bugfix: Fixes job data disks using large amounts of PDA power.
   - bugfix: PDA flashlight no longer works at 0% power.
