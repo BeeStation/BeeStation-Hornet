@@ -12,13 +12,15 @@
 	if(DT_PROB(0.5 * GET_MUTATION_SYNCHRONIZER(src), delta_time) && owner.stat == CONSCIOUS)
 		owner.visible_message(span_danger("[owner] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
-		owner.Jitter(1000 * GET_MUTATION_POWER(src))
+		owner.set_jitter(2000 SECONDS * GET_MUTATION_POWER(src)) //yes this number looks crazy but the jitter animations are amplified based on the duration.
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
 		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 9 SECONDS)
 
 /datum/mutation/epilepsy/proc/jitter_less()
-	if(owner)
-		owner.jitteriness = 10
+	if(QDELETED(owner))
+		return
+
+	owner.set_jitter(20 SECONDS)
 
 
 //Unstable DNA induces random mutations!

@@ -262,3 +262,7 @@
       it. Applies it to esword & friends.
   - bugfix: fixes baconbug runtime where bleeding status effect icon would try to
       update with a nonexistent owner reference (like qdeletion)
+2025-10-20:
+  mrmanlikesbt:
+  - code_imp: Biotypes are now bitfields instead of lists. Please report anything
+      strange on github

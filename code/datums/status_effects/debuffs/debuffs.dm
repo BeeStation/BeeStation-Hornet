@@ -548,7 +548,6 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 300
 	tick_interval = 10
-	examine_text = span_warning("SUBJECTPRONOUN seems slow and unfocused.")
 	alert_type = /atom/movable/screen/alert/status_effect/trance
 	var/stun = TRUE
 	var/hypnosis_type = /datum/brain_trauma/hypnosis
@@ -586,6 +585,9 @@
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, span_warning("You snap out of your trance!"))
+
+/datum/status_effect/trance/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] slow and unfocused.")
 
 /datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args, list/spans, list/message_mods = list())
 	SIGNAL_HANDLER
@@ -673,8 +675,11 @@
 	if(prob(40))
 		var/obj/item/I = H.get_active_held_item()
 		if(I && H.dropItemToGround(I))
-			H.visible_message(span_notice("[H]'s hand convulses, and they drop their [I.name]!"),span_userdanger("Your hand convulses violently, and you drop what you were holding!"))
-			H.jitteriness += 5
+			H.visible_message(
+				span_notice("[H]'s hand convulses, and they drop their [I.name]!"),
+				span_userdanger("Your hand convulses violently, and you drop what you were holding!"),
+			)
+			H.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/jitter)
 
 /atom/movable/screen/alert/status_effect/convulsing
 	name = "Shaky Hands"
@@ -935,7 +940,7 @@
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
 			human_owner.Dizzy(50)
-			human_owner.Jitter(50)
+			human_owner.set_jitter_if_lower(100 SECONDS)
 		if(30 to 40)
 			message = span_warning("You feel a sharp sting in your side.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)
@@ -964,14 +969,13 @@
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	examine_text = span_warning("SUBJECTPRONOUN has a blank, catatonic like stare.")
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /datum/status_effect/ghoul/get_examine_text()
 	var/mob/living/carbon/human/H = owner
 	var/obscured = H.check_obscured_slots()
 	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
-		return examine_text
+		return span_warning("[owner.p_they(TRUE)] has a blank, catatonic like stare.")
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
@@ -997,10 +1001,12 @@
 
 /datum/status_effect/ipc/emp
 	id = "ipc_emp"
-	examine_text = span_warning("SUBJECTPRONOUN is buzzing and twitching!")
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
 	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/strandling/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] is buzzing and twitching!")
 
 /atom/movable/screen/alert/status_effect/emp
 	name = "Electro-Magnetic Pulse"
@@ -1009,10 +1015,12 @@
 
 /datum/status_effect/cyborg_malfunction
 	id = "cyborg_malfunction"
-	examine_text = span_warning("SUBJECTPRONOUN is flashing red error lights!")
 	duration = MALFUNCTION_DURATION
 	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
 	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/cyborg_malfunction/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] flashing red error lights!")
 
 /atom/movable/screen/alert/status_effect/generic_malfunction
 	name = "Malfunctioning Electronics"
@@ -1163,7 +1171,6 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/ants
 	duration = 2 MINUTES //Keeping the normal timer makes sure people can't somehow dump 300+ ants on someone at once so they stay there for like 30 minutes. Max w/ 1 dump is 57.6 brute.
-	examine_text = "<span class='warning'>SUBJECTPRONOUN is covered in ants!</span>"
 	/// Will act as the main timer as well as changing how much damage the ants do.
 	var/ants_remaining = 0
 	/// Common phrases people covered in ants scream
@@ -1205,6 +1212,9 @@
 	SIGNAL_HANDLER
 	owner.remove_status_effect(/datum/status_effect/ants)
 	//return COMPONENT_CLEANED
+
+/datum/status_effect/ants/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] covered in ants!")
 
 /datum/status_effect/ants/tick()
 	var/mob/living/carbon/human/victim = owner

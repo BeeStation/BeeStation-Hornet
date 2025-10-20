@@ -452,14 +452,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			AdjustSleeping(100)
 			Unconscious(100)
 
-	//Jitteriness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-		jitteriness = max(jitteriness - (restingpwr * delta_time), 0)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "jittery", /datum/mood_event/jittery)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
-
 	if(stuttering)
 		stuttering = max(stuttering - (0.5 * delta_time), 0)
 
@@ -484,7 +476,8 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
 			if(DT_PROB(16, delta_time))
 				slurring += 2
-			jitteriness = max(jitteriness - (1.5 * delta_time), 0)
+			adjust_jitter(-1.5 * delta_time)
+
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
