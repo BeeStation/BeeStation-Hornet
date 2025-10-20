@@ -1,7 +1,7 @@
 #define TAIL_SWEEP_COMBO "DDGH"
 #define FACE_SCRATCH_COMBO "HD"
-#define JUGULAR_CUT_COMBO "HHG"
-#define TAIL_GRAB_COMBO "DHGG"
+#define JUGULAR_CUT_COMBO "HH"
+#define TAIL_GRAB_COMBO "DHGH"
 
 /datum/martial_art/tribal_claw
 	name = "Tribal Claw"
@@ -31,12 +31,13 @@
 
 //Tail Sweep, triggers an effect similar to Alien Queen's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/A, mob/living/D)
-	if(A == current_target)
+	if(A == D) //Don't allow storing moves on yourself to cast on command
 		return
 	log_combat(A, D, "tail sweeped(Tribal Claw)", name)
 	D.visible_message(span_warning("[A] sweeps [D]'s legs with their tail!"), \
 					span_userdanger("[A] sweeps your legs with their tail!"))
 	var/datum/action/spell/aoe/repulse/xeno/R = new
+	R.aoe_radius = 1
 	R.on_cast(A, null)
 
 //Face Scratch, deals 10 brute to head(reduced by armor), blurs the target's vision and gives them the confused effect for a short time.
@@ -57,14 +58,14 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 */
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
-	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
+	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))//remove this i guess
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
 		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
 							span_userdanger("[A] cuts your jugular vein!"))
 		D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
 		if(iscarbon(D))
 			var/mob/living/carbon/carbon_defender = D
-			carbon_defender.add_bleeding(BLEED_SURFACE)
+			carbon_defender.add_bleeding(BLEED_CRITICAL)
 		D.apply_status_effect(/datum/status_effect/neck_slice)
 		A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
@@ -73,6 +74,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/A, mob/living/D)
+	if(A == D) //Don't grab yourself
+		return
 	log_combat(A, D, "tail grabbed (Tribal Claw)", name)
 	D.visible_message(span_warning("[A] grabs [D] with their tail!"), \
 						span_userdanger("[A] grabs you with their tail!"))
