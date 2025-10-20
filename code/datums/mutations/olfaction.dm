@@ -23,7 +23,7 @@
 	if(sniffed)
 		var/old_target = tracking_target
 		possible = list()
-		var/list/prints = sniffed.return_fingerprints()
+		var/list/prints = GET_ATOM_FINGERPRINTS(sniffed)
 		if(prints)
 			for(var/mob/living/carbon/potential_target in GLOB.carbon_list)
 				if(prints[rustg_hash_string(RUSTG_HASH_MD5, potential_target.dna?.unique_identity)])

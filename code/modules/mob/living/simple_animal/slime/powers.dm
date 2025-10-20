@@ -53,7 +53,7 @@
 		Feedstop()
 		return FALSE
 
-	if(issilicon(M) || (MOB_ROBOTIC in M.mob_biotypes))
+	if(issilicon(M) || (M.mob_biotypes & MOB_ROBOTIC))
 		return FALSE
 
 	if(isanimal(M))

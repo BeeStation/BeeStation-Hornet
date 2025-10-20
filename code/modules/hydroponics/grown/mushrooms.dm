@@ -14,8 +14,8 @@
 	species = "reishi"
 	plantname = "Reishi"
 	product = /obj/item/food/grown/mushroom/reishi
+	lifespan = 140
 	trade_flags = TRADE_CONTRABAND
-	lifespan = 35
 	endurance = 35
 	maturation = 10
 	production = 5
@@ -41,8 +41,8 @@
 	species = "amanita"
 	plantname = "Fly Amanitas"
 	product = /obj/item/food/grown/mushroom/amanita
+	lifespan = 200
 	trade_flags = TRADE_CONTRABAND
-	lifespan = 50
 	endurance = 35
 	maturation = 10
 	production = 5
@@ -68,7 +68,7 @@
 	species = "angel"
 	plantname = "Destroying Angels"
 	product = /obj/item/food/grown/mushroom/angel
-	lifespan = 50
+	lifespan = 200
 	endurance = 35
 	maturation = 12
 	production = 5
@@ -149,7 +149,7 @@
 	species = "walkingmushroom"
 	plantname = "Walking Mushrooms"
 	product = /obj/item/food/grown/mushroom/walkingmushroom
-	lifespan = 30
+	lifespan = 120
 	endurance = 30
 	maturation = 5
 	yield = 1
@@ -186,7 +186,7 @@
 	species = "chanter"
 	plantname = "Chanterelle Mushrooms"
 	product = /obj/item/food/grown/mushroom/chanterelle
-	lifespan = 35
+	lifespan = 140
 	endurance = 20
 	maturation = 7
 	production = 1
@@ -212,7 +212,7 @@
 	species = "jupitercup"
 	plantname = "Jupiter Cups"
 	product = /obj/item/food/grown/mushroom/jupitercup
-	lifespan = 40
+	lifespan = 160
 	production = 4
 	endurance = 8
 	yield = 4
@@ -244,8 +244,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/chanter/jupitercup)
 	species = "glowshroom"
 	plantname = "Glowshrooms"
 	product = /obj/item/food/grown/mushroom/glowshroom
+	lifespan = 400 //ten times that is the delay
 	trade_flags = TRADE_CONTRABAND
-	lifespan = 100 //ten times that is the delay
 	endurance = 30
 	maturation = 15
 	production = 1
