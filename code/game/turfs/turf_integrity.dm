@@ -91,17 +91,19 @@
 	if(resistance_flags & INDESTRUCTIBLE)
 		return ..()
 	..() //contents explosion
-	if(target == src)
+	if(target == src || severity == EXPLODE_DEVASTATE)
 		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
+
+	if(is_shielded())
+		return
+
 	switch(severity)
-		if(1)
-			take_damage(INFINITY, BRUTE, BOMB, 0)
-		if(2)
-			hotspot_expose(1000,CELL_VOLUME)
+		if(EXPLODE_HEAVY)
+			hotspot_expose(1000, CELL_VOLUME)
 			take_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
-		if(3)
-			hotspot_expose(1000,CELL_VOLUME)
+		if(EXPLODE_LIGHT)
+			hotspot_expose(1000, CELL_VOLUME)
 			take_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
 
 /turf/contents_explosion(severity, target)
