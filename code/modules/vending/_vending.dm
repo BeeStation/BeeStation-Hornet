@@ -609,6 +609,8 @@
 				pass()
 				return
 
+			COOLDOWN_START(src, vendor_lenience_hit_period, 30 SECONDS) // At this point we are at the second hit and this guy really wants to push his luck.
+
 			switch(rand(1, 100))
 				if(1 to 5)
 					freebie(3)
