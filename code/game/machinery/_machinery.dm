@@ -1016,8 +1016,8 @@
 				. += span_warning("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
-	if(return_blood_DNA())
-		. += "<span class='warning'>It's smeared with blood!</span>"
+	if(GET_ATOM_BLOOD_DNA(src))
+		. += span_warning("It's smeared with blood!")
 
 /obj/machinery/examine_descriptor(mob/user)
 	return "machine"

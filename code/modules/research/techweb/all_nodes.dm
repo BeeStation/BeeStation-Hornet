@@ -1098,6 +1098,7 @@
 	description = "Honk?!"
 	prereq_ids = list("base")
 	design_ids = list(
+		"clown_car",
 		"air_horn",
 		"borg_transform_clown",
 		"clown_mine",

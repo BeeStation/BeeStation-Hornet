@@ -212,3 +212,61 @@
 2025-10-16:
   TsunamiAnt:
   - bugfix: Observers were unintentionally able to use the security workshop.
+  mrmanlikesbt, TheBoondock, GoblinBackwards, vinylspiders, SmArtKar:
+  - rscadd: Fires now make sound
+  mrmanlikesbt, san7890:
+  - bugfix: fixed heartless species (plasmamen) not receiving living hearts.
+2025-10-18:
+  mrmanlikesbt:
+  - bugfix: Fixed not being able to manually open a TTV valve
+  - bugfix: Fixed Ventrue vampires not being able to level up their favorite vassal
+2025-10-19:
+  PowerfulBacon:
+  - rscadd: Adds the ability to set the elasticity of rulesets, which will cause the
+      same ruleset to be re-picked with the probability provided in the elasticity
+      variable.
+  Rukofamicom:
+  - tweak: You can now print clown cars at a mechfab as part of the clown technology
+      research node. They take bananium, plastic and iron. This version of the clown
+      car can be controlled by anyone inside making it pretty difficult to actually
+      go anywhere with an unwilling passenger.
+  - rscadd: Added a new subtype of the clown car which is now purchasable from uplinks
+      instead of the base version. The uplink version is only controllable by clowns
+      and also innately comes with the the toys that used to require emagging a clown
+      car to unlock.
+  - tweak: Emagging either clown car enables waddling motion with the car, and if
+      it was a printed clown car emagging will also lock the controls so that only
+      the clown can steer.
+  - tweak: Being in combat mode will prevent the printable clown car from kidnapping
+      you unless it has been emagged.
+  - tweak: Botany is now ADHD friendly even without earthsblood
+  - tweak: Plants now consume 90% less water and nutrient from soil and hydroponics
+      trays
+  - tweak: Weeds and pests build up 80% slower (Carnivorous pest gain is unchanged)
+  - tweak: Plants can now live 6x longer before dying to old age
+  - tweak: Plants now grow 50% slower
+  mrmanlikesbt:
+  - bugfix: Fixed multiple blood brother teams being merged into one
+  - tweak: The storyteller vote is no longer sent if the round is started early
+  - bugfix: Fixed a runtime when buckling diona nymphs to the chaplain altar while
+      in the necromancy sect
+  - bugfix: Fixed a runtime when dragging (sufficiently damaged) dead diona nymphs
+  - bugfix: Fixed dionas without limbs spawning a billion nymphs whenever they were
+      supposed to split
+  'rkz, MrMelbert, Wallemations, SuperNovaa41, ':
+  - refactor: fingerprint transfer uses obscuration and clothing trait rather than
+      crappy boolean for determining coverage
+  - code_imp: forensics(fingerprints, bloodprints, dnastring) has been datumized from
+      a component
+  - refactor: adds support for items not being able to be bloodspattered. Bitfields
+      it. Applies it to esword & friends.
+  - bugfix: fixes baconbug runtime where bleeding status effect icon would try to
+      update with a nonexistent owner reference (like qdeletion)
+2025-10-20:
+  mrmanlikesbt:
+  - code_imp: Biotypes are now bitfields instead of lists. Please report anything
+      strange on github
+  rkz, Melbert:
+  - refactor: jittering is now a status effect
+  - code_imp: reorganizes status effects
+  - refactor: cleanup of stabilized extract effect applications

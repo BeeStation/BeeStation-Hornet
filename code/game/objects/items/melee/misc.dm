@@ -464,7 +464,7 @@
 	return span_danger("The baton is still charging!")
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(2 SECONDS)
+	target.set_jitter_if_lower(4 SECONDS)
 	target.stuttering += 2 SECONDS
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
@@ -627,12 +627,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 0.001
 	armour_penetration = 1000
+	force_string = "INFINITE"
+	item_flags = NEEDS_PERMIT|NO_BLOOD_ON_ITEM
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
 	canblock = TRUE
 
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	qdel(hitby)

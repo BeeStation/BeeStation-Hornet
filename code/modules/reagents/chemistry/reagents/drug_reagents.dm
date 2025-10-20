@@ -216,7 +216,7 @@
 	affected_mob.AdjustImmobilized(-40 * REM * delta_time)
 	affected_mob.adjustStaminaLoss(-40 * REM * delta_time, updating_health = FALSE)
 	affected_mob.drowsyness = max(affected_mob.drowsyness - (60 * REM * delta_time), 0)
-	affected_mob.Jitter(2 * REM * delta_time)
+	affected_mob.set_jitter_if_lower(4 SECONDS * REM * delta_time)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 
 	return UPDATE_MOB_HEALTH
@@ -243,14 +243,14 @@
 	if(prob(20))
 		affected_mob.emote(pick("twitch", "drool", "moan"))
 
-	affected_mob.Jitter(5)
+	affected_mob.set_jitter_if_lower(10 SECONDS)
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage2(mob/living/carbon/affected_mob)
 	. = ..()
 	if(prob(30))
 		affected_mob.emote(pick("twitch", "drool", "moan"))
 
-	affected_mob.Jitter(10)
+	affected_mob.set_jitter_if_lower(20 SECONDS)
 	affected_mob.Dizzy(10)
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage3(mob/living/carbon/affected_mob)
@@ -262,7 +262,7 @@
 		for(var/i = 1 to 4)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.Jitter(15)
+	affected_mob.set_jitter_if_lower(30 SECONDS)
 	affected_mob.Dizzy(15)
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage4(mob/living/carbon/affected_mob)
@@ -274,7 +274,7 @@
 		for(var/i = 1 to 8)
 			step(affected_mob, pick(GLOB.cardinals))
 
-	affected_mob.Jitter(20)
+	affected_mob.set_jitter_if_lower(40 SECONDS)
 	affected_mob.Dizzy(20)
 	affected_mob.adjustToxLoss(5, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -342,7 +342,7 @@
 			step(affected_mob, pick(GLOB.cardinals))
 
 	affected_mob.adjust_hallucinations(20 SECONDS)
-	affected_mob.Jitter(5)
+	affected_mob.set_jitter_if_lower(10 SECONDS)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
 /datum/reagent/drug/bath_salts/addiction_act_stage2(mob/living/carbon/affected_mob)
@@ -355,7 +355,7 @@
 			step(affected_mob, pick(GLOB.cardinals))
 
 	affected_mob.adjust_hallucinations(40 SECONDS)
-	affected_mob.Jitter(10)
+	affected_mob.set_jitter_if_lower(20 SECONDS)
 	affected_mob.Dizzy(10)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
@@ -369,7 +369,7 @@
 			step(affected_mob, pick(GLOB.cardinals))
 
 	affected_mob.adjust_hallucinations(60 SECONDS)
-	affected_mob.Jitter(15)
+	affected_mob.set_jitter_if_lower(30 SECONDS)
 	affected_mob.Dizzy(15)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
@@ -383,7 +383,7 @@
 			step(affected_mob, pick(GLOB.cardinals))
 
 	affected_mob.adjust_hallucinations(60 SECONDS)
-	affected_mob.Jitter(50)
+	affected_mob.set_jitter_if_lower(100 SECONDS)
 	affected_mob.Dizzy(50)
 	affected_mob.adjustToxLoss(5, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
@@ -430,7 +430,7 @@
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.jitteriness = 0
+	affected_mob.remove_status_effect(/datum/status_effect/jitter)
 	affected_mob.confused = 0
 	affected_mob.disgust = 0
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * REM * delta_time)
@@ -458,7 +458,7 @@
 
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 	mood?.setSanity(max(mood.sanity, SANITY_DISTURBED))
-	affected_mob.Jitter(5)
+	affected_mob.set_jitter_if_lower(10 SECONDS)
 
 /datum/reagent/drug/happiness/addiction_act_stage2(mob/living/carbon/affected_mob)
 	. = ..()
@@ -467,7 +467,7 @@
 
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 	mood?.setSanity(max(mood.sanity, SANITY_UNSTABLE))
-	affected_mob.Jitter(10)
+	affected_mob.set_jitter_if_lower(20 SECONDS)
 
 /datum/reagent/drug/happiness/addiction_act_stage3(mob/living/carbon/affected_mob)
 	. = ..()
@@ -476,7 +476,7 @@
 
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 	mood?.setSanity(max(mood.sanity, SANITY_CRAZY))
-	affected_mob.Jitter(15)
+	affected_mob.set_jitter_if_lower(30 SECONDS)
 
 /datum/reagent/drug/happiness/addiction_act_stage4(mob/living/carbon/affected_mob)
 	. = ..()
@@ -485,7 +485,7 @@
 
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 	mood?.setSanity(SANITY_INSANE)
-	affected_mob.Jitter(20)
+	affected_mob.set_jitter_if_lower(40 SECONDS)
 
 //I had to do too much research on this to make this a thing. Hopefully the FBI won't kick my door down.
 /datum/reagent/drug/ketamine
@@ -512,7 +512,7 @@
 
 	//Providing a Mood Boost
 	affected_mob.confused -= 3 * REM * delta_time
-	affected_mob.jitteriness -= 5 * REM * delta_time
+	affected_mob.adjust_jitter(-10 SECONDS * REM * delta_time)
 	affected_mob.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
 	affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
@@ -538,13 +538,13 @@
 	. = ..()
 	if(prob(20))
 		affected_mob.drop_all_held_items()
-		affected_mob.Jitter(2)
+		affected_mob.set_jitter_if_lower(4 SECONDS)
 
 /datum/reagent/drug/ketamine/addiction_act_stage2(mob/living/carbon/affected_mob)
 	. = ..()
 	if(prob(30))
 		affected_mob.drop_all_held_items()
-		affected_mob.Jitter(3)
+		affected_mob.set_jitter_if_lower(6 SECONDS)
 		affected_mob.Dizzy(3)
 		affected_mob.adjustToxLoss(2 * REM, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
@@ -553,7 +553,7 @@
 	. = ..()
 	if(prob(40))
 		affected_mob.drop_all_held_items()
-		affected_mob.Jitter(4)
+		affected_mob.set_jitter_if_lower(8 SECONDS)
 		affected_mob.Dizzy(4)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
