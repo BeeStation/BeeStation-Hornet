@@ -1,5 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - bugfix: Storage implants drop their contents on the floor again when they are
-      removed

@@ -278,3 +278,7 @@
   - refactor: jittering is now a status effect
   - code_imp: reorganizes status effects
   - refactor: cleanup of stabilized extract effect applications
+2025-10-21:
+  Sarchutar:
+  - bugfix: Storage implants drop their contents on the floor again when they are
+      removed
