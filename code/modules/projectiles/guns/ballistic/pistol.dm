@@ -165,7 +165,7 @@
 
 
 #define NPS10_INCENDIARY "Incendiary"
-#define NPS10_SHOTGUN "Area Denial"
+#define NPS10_SHOTGUN "Multi-Vector"
 #define NPS10_BREACH "High Explosive"
 #define NPS10_SHOCK "Shock"
 #define NPS10_IMPACT "Impact"
@@ -198,7 +198,7 @@
 
 	// Callout lists
 	var/list/incendiary_callouts = list("Incendiary." = 3, "Hotshot." = 2, "Burner." = 1)
-	var/list/shotgun_callouts = list("Area." = 3, "Multishot." = 2, "Spreader." = 1)
+	var/list/shotgun_callouts = list("Scatter." = 3, "Crowdbreaker." = 2, "Spreader." = 1)
 	var/list/breach_callouts = list("High-Ex." = 3, "Breacher." = 2, "Explosive." = 1)
 	var/list/shock_callouts = list("Stun." = 3, "Shock." = 2, "Incap." = 1)
 	var/list/impact_callouts = list("Impact." = 3, "Bruiser." = 2, "Bully." = 1)
@@ -212,12 +212,19 @@
 	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/generate_radial()
+	var/info_popup
 	// Generate radial menu
 	for (var/obj/item/ammo_casing/x200special/possible_special as anything in subtypesof(/obj/item/ammo_casing/x200special))
+
+		info_popup += span_infobold("[possible_special.special_name]: <br>")
+		info_popup += span_info("[possible_special.explanation]")
+
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = possible_special.icon, icon_state = possible_special.radial_sprite)
-		option.info = "[possible_special.special_name]\n[possible_special.explanation]"
+		option.info = "[info_popup]"
 		special_types[possible_special.special_name] = option
+
+		info_popup = null
 
 /obj/item/gun/ballistic/automatic/pistol/security/proc/security_level()
 	SIGNAL_HANDLER
@@ -297,27 +304,6 @@
 	if(selected_special)
 		selected_special = null
 
-/obj/item/gun/ballistic/automatic/pistol/security/proc/get_dna()
-	var/obj/item/firing_pin/dna/D = pin
-	return D.unique_enzymes ? D.unique_enzymes : null
-
-/obj/item/gun/ballistic/automatic/pistol/security/attackby(obj/item/O, mob/user, params)
-	if(get_dna() && (ACCESS_ARMORY in O.GetAccess()))
-		to_chat(user, "<span class='notice'>You reset the DNA lock.</span>")
-		var/obj/item/firing_pin/dna/D = pin
-		D.unique_enzymes = null
-		if(D.obj_flags & EMAGGED)
-			D.obj_flags &= ~EMAGGED
-		investigate_log("dna lock reset by [key_name(user)]", INVESTIGATE_RECORDS)
-	..()
-
-/obj/item/gun/ballistic/automatic/pistol/security/emp_act(severity)
-	audible_message("<span class='italics'>You hear erratic beeping from \the [name].</span>", null,  1)
-	var/obj/item/firing_pin/dna/D = pin
-	D.unique_enzymes = null
-	investigate_log("dna lock reset by EMP", INVESTIGATE_RECORDS)
-	..()
-
 /obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
@@ -328,17 +314,8 @@
 /obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
 	. = ..()
 
-	. += span_notice("<i>Features a Warden-resettable DNA lock, as well as a Red-Alert locked smart ammunition mode.</i>")
+	. += span_notice("<i>Features a Red-Alert locked smart ammunition mode.</i>")
 	. += span_notice("<b>There are [special_ammo_reserve] special rounds left!</b>")
-
-	var/dna = get_dna()
-	if(pin.obj_flags & EMAGGED)
-		. += "<span class='warning'>The DNA lock flashes erratically! Use an ID with armory access to reset.</span>"
-	else if(dna)
-		. += "<span class='notice'>It is currently registered to: [dna]. Use an ID with armory access to reset.</span>"
-	else
-		. += "<span class='notice'>It is unregistered.</span>"
-
 	. += span_warning("Smart-Ammo is <b>[special_authorized ? "authorized" : "disabled"]</b>.")
 
 /datum/action/item_action/nps_special
@@ -480,20 +457,28 @@
 
 /obj/projectile/bullet/nps10_breaching_special
 	name = "breaching round"
-	desc = "A Titanium-tipped anti-material high-explosive payload. Great for breaching airlocks and windows."
-	damage = 10
-	bleed_force = BLEED_SURFACE
+	desc = "A Titanium-tipped anti-material bolt with an explosive payload. Great for breaching airlocks and windows. <b>Specially tuned to avoid collateral damage.</b>"
+	icon_state = "bolter"
+	damage = 30			// Not actually more powerful than a stetchkin. Don't tell the players :3
+	damage_type = BRUTE
+	armor_flag = BOMB
+	speed = 2
+	eyeblur = 15
+	stutter = 10
+	knockdown = 5
 
 /obj/projectile/bullet/nps10_breaching_special/on_hit(atom/target)
-	new /obj/effect/temp_visual/explosion/fast(target.loc)
+	new /obj/effect/temp_visual/explosion/fast(get_turf(target))
 
 	if(isstructure(target) || ismachinery(target))
-		damage = 250
+		damage = 430		// One hits glass, doors, and doesn't fully destroy doors.
 	if (isturf(target))
-		damage = 100
-	explosion(target, -1, -1, 1, 2)
+		damage = 50
 
+	explosion(target.loc, -1,-1,-1, 1, silent = TRUE) // We just want to flash them.
+	playsound(target,'sound/weapons/nps10/NPS-specialexplosion.ogg', 100, TRUE)
 	..()
+	return BULLET_ACT_HIT
 
 // Visual shock effect but no actual shock stun. You take 10 damage, get a bit jittery, take 20 stamina damage, and are stunned for a fraction of a second second.
 /obj/item/ammo_casing/x200special/shock
@@ -519,6 +504,7 @@
 		M.emote("scream")
 		playsound(src, 'sound/weapons/zapbang.ogg', 80)
 	..()
+	return BULLET_ACT_HIT
 
 // HIRR baton slugs from cm13. Fun. While I did look at how they did it, that was fucking WACK complicated. I did my own shizzazz using dirs and not angles. Less accurate, but who gives a shit.
 /obj/item/ammo_casing/x200special/impact
@@ -554,6 +540,7 @@
 		smacked.throw_at(target_turf, 2, 1, spin = FALSE)
 		playsound(src, 'sound/weapons/cqchit2.ogg', 100, falloff_distance = 5)
 	..()
+	return BULLET_ACT_HIT
 
 /obj/item/trash/impact_slug
 	icon = 'icons/obj/janitor.dmi'
