@@ -206,7 +206,7 @@
 
 	COOLDOWN_DECLARE(special_round_chambering)
 
-/obj/item/gun/ballistic/automatic/pistol/security/Initialize()
+/obj/item/gun/ballistic/automatic/pistol/security/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(security_level))
 	RegisterSignal(src, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
