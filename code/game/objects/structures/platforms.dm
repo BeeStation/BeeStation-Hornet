@@ -121,6 +121,7 @@
 
 /obj/structure/platform/update_icon_state()
 	. = ..()
+	layer = initial(layer)
 	if(!climbable) //janky way of distinguishing corners from everything else
 		if(dir == WEST || dir == SOUTH)
 			layer = ABOVE_MOB_LAYER
