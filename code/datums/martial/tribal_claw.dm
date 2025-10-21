@@ -54,7 +54,7 @@
 	D.confused += 8
 	D.blur_eyes(5)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-	playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
+	playsound(get_turf(D), 'sound/weapons/slash.ogg', 100, TRUE, -1)
 
 /*
 Jugular Cut, can only be done if the target is confused, lying down, or in aggresive grab or higher.
@@ -72,7 +72,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 			carbon_defender.add_bleeding(BLEED_CRITICAL)
 		D.apply_status_effect(/datum/status_effect/neck_slice)
 		A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, 1, -1)
+		playsound(get_turf(D), 'sound/weapons/slash.ogg', 100, TRUE, -1)
 
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/A, mob/living/D)
@@ -92,6 +92,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 		var/mob/living/carbon/carbon_defender = D
 		if(carbon_defender.silent <= 10)
 			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
+	playsound(get_turf(D), 'sound/effects/woodhit.ogg', 100, TRUE, -1)
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/A, mob/living/D)
 	add_to_streak("H",D)
