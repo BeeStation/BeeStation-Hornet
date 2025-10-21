@@ -706,6 +706,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /atom/movable/screen/alert/poll_alert/add_context_self(datum/screentip_context/context, mob/user)
 	if(poll && context.accept_mob_type(/mob))
 		context.add_left_click_action("[(owner in poll.signed_up) ? "Leave" : "Enter"] Poll")
+		context.add_right_click_action("Dismiss")
 
 		if(poll.ignoring_category)
 			context.add_alt_click_action("[(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]) ? "Cancel " : ""]Never For This Round")
@@ -730,6 +731,9 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 	var/clicky = FALSE
 	var/list/modifiers = params2list(params)
+	if (LAZYACCESS(modifiers, RIGHT_CLICK))
+		dismiss()
+		return
 	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.ignoring_category)
 		clicky = TRUE
 		set_never_round()
@@ -740,6 +744,9 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if(!clicky)
 		handle_sign_up()
 	refresh_screentips()
+
+/atom/movable/screen/alert/poll_alert/proc/dismiss()
+	owner.clear_alert("[poll.poll_key]_poll_alert")
 
 /atom/movable/screen/alert/poll_alert/proc/handle_sign_up()
 	if(owner in poll.signed_up)

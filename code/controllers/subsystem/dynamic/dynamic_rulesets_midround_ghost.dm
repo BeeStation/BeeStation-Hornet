@@ -50,13 +50,15 @@
 
 	// Don't even send applications out if we don't have enough candidates
 	if(!allowed())
-		return DYNAMIC_EXECUTE_FAILURE
+		make_persistent()
+		return DYNAMIC_EXECUTE_SUCCESS
 
 	send_applications()
 	trim_candidates()
 
 	if(!allowed())
-		return DYNAMIC_EXECUTE_FAILURE
+		make_persistent()
+		return DYNAMIC_EXECUTE_SUCCESS
 
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)
@@ -70,6 +72,32 @@
 		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
 
 	return DYNAMIC_EXECUTE_SUCCESS
+
+/datum/dynamic_ruleset/midround/ghost/proc/make_persistent()
+	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(
+		role_name_text = initial(antag_datum.name),
+		alert_pic = get_poll_icon()
+	)
+	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
+
+/datum/dynamic_ruleset/midround/ghost/proc/check_ready(datum/candidate_poll/persistent/source, list/candidates)
+	src.candidates = candidates
+	trim_candidates()
+
+	if(!allowed())
+		return DYNAMIC_EXECUTE_SUCCESS
+
+	// Pick our candidates
+	for(var/i = 1 to drafted_players_amount)
+		LAZYADD(chosen_candidates, select_player())
+
+	// Generate our candidates' bodies
+	for(var/mob/dead/observer/chosen_candidate in chosen_candidates)
+		var/mob/new_character = generate_ruleset_body(chosen_candidate)
+		finish_setup(new_character)
+
+		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+
 
 /**
  * Get a list of all possible spawn points
@@ -100,8 +128,7 @@
 		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
 		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
 	else
-		message_admins("DYNAMIC: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
-		log_dynamic("MIDROUND: FAIL: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
+		make_persistent()
 
 /**
  * Spawn a body for the chosen candidate
