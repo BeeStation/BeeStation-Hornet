@@ -19,13 +19,8 @@
 /// Use in status effect "tick_interval" to guarantee that tick() gets called on every process()
 #define STATUS_EFFECT_AUTO_TICK 0
 
-/// Indicates this status effect is an abstract type, ie not instantiated
-/// Doesn't actually do anything in practice, primarily just a marker / used in unit tests,
-/// so don't worry if your abstract status effect doesn't actually set this
-#define STATUS_EFFECT_ID_ABSTRACT "abstract"
-
-///Processing flags - used to define the speed at which the status will work
-/// This is fast - 0.2s between ticks (I believe!)
+//Processing flags - used to define the speed at which the status will work
+///This is fast - 0.2s between ticks (I believe!)
 #define STATUS_EFFECT_FAST_PROCESS 0
 /// This is slower and better for more intensive status effects - 1s between ticks
 #define STATUS_EFFECT_NORMAL_PROCESS 1
@@ -106,6 +101,11 @@
 #define adjust_slurring_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic, up_to)
 #define set_slurring(duration) set_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic)
 #define set_slurring_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/speech/slurring/generic, TRUE)
+
+#define adjust_dizzy(duration) adjust_timed_status_effect(duration, /datum/status_effect/dizziness)
+#define adjust_dizzy_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/dizziness, up_to)
+#define set_dizzy(duration) set_timed_status_effect(duration, /datum/status_effect/dizziness)
+#define set_dizzy_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/dizziness, TRUE)
 
 #define adjust_jitter(duration) adjust_timed_status_effect(duration, /datum/status_effect/jitter)
 #define adjust_jitter_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/jitter, up_to)

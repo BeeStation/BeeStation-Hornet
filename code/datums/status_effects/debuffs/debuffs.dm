@@ -151,6 +151,8 @@
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
+
+
 		if(health_ratio > 0.8)
 			var/healing = -0.2
 			if((locate(/obj/structure/bed) in owner.loc))
@@ -540,7 +542,7 @@
 /datum/status_effect/trance/tick(seconds_between_ticks)
 	if(stun)
 		owner.Stun(60, TRUE)
-	owner.dizziness = 20
+	owner.set_dizzy(40 SECONDS)
 
 /datum/status_effect/trance/on_apply()
 	if(!iscarbon(owner))
@@ -561,7 +563,7 @@
 /datum/status_effect/trance/on_remove()
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
 	REMOVE_TRAIT(owner, TRAIT_MUTE, "trance")
-	owner.dizziness = 0
+	owner.remove_status_effect(/datum/status_effect/dizziness)
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, span_warning("You snap out of your trance!"))
@@ -922,7 +924,7 @@
 			human_owner.vomit()
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
-			human_owner.Dizzy(50)
+			human_owner.set_dizzy_if_lower(100 SECONDS)
 			human_owner.set_jitter_if_lower(100 SECONDS)
 		if(30 to 40)
 			message = span_warning("You feel a sharp sting in your side.")

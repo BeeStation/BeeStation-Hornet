@@ -251,7 +251,7 @@
 		affected_mob.emote(pick("twitch", "drool", "moan"))
 
 	affected_mob.set_jitter_if_lower(20 SECONDS)
-	affected_mob.Dizzy(10)
+	affected_mob.set_dizzy_if_lower(20 SECONDS)
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage3(mob/living/carbon/affected_mob)
 	. = ..()
@@ -263,7 +263,7 @@
 			step(affected_mob, pick(GLOB.cardinals))
 
 	affected_mob.set_jitter_if_lower(30 SECONDS)
-	affected_mob.Dizzy(15)
+	affected_mob.set_dizzy_if_lower(30 SECONDS)
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage4(mob/living/carbon/affected_mob)
 	. = ..()
@@ -275,7 +275,7 @@
 			step(affected_mob, pick(GLOB.cardinals))
 
 	affected_mob.set_jitter_if_lower(40 SECONDS)
-	affected_mob.Dizzy(20)
+	affected_mob.set_dizzy_if_lower(40 SECONDS)
 	affected_mob.adjustToxLoss(5, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
@@ -356,7 +356,7 @@
 
 	affected_mob.adjust_hallucinations(40 SECONDS)
 	affected_mob.set_jitter_if_lower(20 SECONDS)
-	affected_mob.Dizzy(10)
+	affected_mob.set_dizzy_if_lower(20 SECONDS)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
 /datum/reagent/drug/bath_salts/addiction_act_stage3(mob/living/carbon/affected_mob)
@@ -370,7 +370,7 @@
 
 	affected_mob.adjust_hallucinations(60 SECONDS)
 	affected_mob.set_jitter_if_lower(30 SECONDS)
-	affected_mob.Dizzy(15)
+	affected_mob.set_dizzy_if_lower(30 SECONDS)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 
 /datum/reagent/drug/bath_salts/addiction_act_stage4(mob/living/carbon/affected_mob)
@@ -384,7 +384,7 @@
 
 	affected_mob.adjust_hallucinations(60 SECONDS)
 	affected_mob.set_jitter_if_lower(100 SECONDS)
-	affected_mob.Dizzy(50)
+	affected_mob.set_dizzy_if_lower(100 SECONDS)
 	affected_mob.adjustToxLoss(5, updating_health = FALSE)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
 	return UPDATE_MOB_HEALTH
@@ -447,7 +447,7 @@
 				SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
 			if(3)
 				affected_mob.emote("sway")
-				affected_mob.Dizzy(25)
+				affected_mob.set_dizzy_if_lower(50 SECONDS)
 
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5 * REM * delta_time)
 
@@ -531,7 +531,7 @@
 		to_chat(affected_mob, span_warning(pick("Your limbs begin to feel heavy...", "It feels hard to move...", "You feel like you your limbs won't move...")))
 
 		affected_mob.drop_all_held_items()
-		affected_mob.Dizzy(5)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
 
 //Addiction Gradient
 /datum/reagent/drug/ketamine/addiction_act_stage1(mob/living/carbon/affected_mob)
@@ -544,8 +544,8 @@
 	. = ..()
 	if(prob(30))
 		affected_mob.drop_all_held_items()
+		affected_mob.set_dizzy_if_lower(6 SECONDS)
 		affected_mob.set_jitter_if_lower(6 SECONDS)
-		affected_mob.Dizzy(3)
 		affected_mob.adjustToxLoss(2 * REM, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 
@@ -554,7 +554,7 @@
 	if(prob(40))
 		affected_mob.drop_all_held_items()
 		affected_mob.set_jitter_if_lower(8 SECONDS)
-		affected_mob.Dizzy(4)
+		affected_mob.set_dizzy_if_lower(8 SECONDS)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
 		return UPDATE_MOB_HEALTH
 

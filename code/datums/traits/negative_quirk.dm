@@ -655,7 +655,7 @@
 	if(tick_number >= 6) // how many ticks should pass between a check
 		tick_number = 0
 		var/mob/living/carbon/human/H = quirk_target
-		if(H.drunkenness > 0) // If they're not drunk, need goes up. else they're satisfied
+		if(H.get_drunk_amount() > 0) // If they're not drunk, need goes up. else they're satisfied
 			need = -15
 		else
 			need++

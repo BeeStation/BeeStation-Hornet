@@ -307,7 +307,7 @@
 	sac_target.flash_act()
 	sac_target.blur_eyes(15)
 	sac_target.set_jitter_if_lower(20 SECONDS)
-	sac_target.Dizzy(10)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
@@ -428,7 +428,7 @@
 	sac_target.flash_act()
 	sac_target.set_jitter_if_lower(120 SECONDS)
 	sac_target.blur_eyes(50)
-	sac_target.Dizzy(30)
+	sac_target.set_dizzy_if_lower(20 SECONDS)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 

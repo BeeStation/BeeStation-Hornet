@@ -1040,7 +1040,13 @@
 /datum/reagent/toxin/bungotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
-	affected_mob.confused = affected_mob.dizziness //add a tertiary effect here if this is isn't an effective poison.
+
+	// If our mob's currently dizzy from anything else, we will also gain confusion
+	var/mob_dizziness = affected_mob.confused
+	if(mob_dizziness > 0)
+		// Gain confusion equal to about half the duration of our current dizziness
+		affected_mob.confused = mob_dizziness / 2
+
 	if(current_cycle >= 12 && DT_PROB(4, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")))
 

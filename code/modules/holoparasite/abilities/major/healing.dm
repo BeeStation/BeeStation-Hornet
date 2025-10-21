@@ -164,7 +164,7 @@
 		target.adjust_blindness(-actual_effect_heal_amt)
 		target.adjust_blurriness(-actual_effect_heal_amt)
 		target.adjust_disgust(-actual_effect_heal_amt)
-		target.dizziness = max(target.dizziness - actual_effect_heal_amt, 0)
+		target.adjust_dizzy(-actual_effect_heal_amt * 2) //Status's used to tick every 2 seconds before conversion to status effects, so we double them
 		target.confused = max(target.confused - actual_effect_heal_amt, 0)
 		target.adjust_hallucinations(-actual_effect_heal_amt)
 	if(heal_clone)

@@ -286,7 +286,7 @@
 
 	if(data["misc"] >= (25 SECONDS)) // 10 units
 		affected_mob.adjust_stutter_up_to(4 SECONDS * REM * delta_time, 20 SECONDS)
-		affected_mob.Dizzy(5)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
 		if(IS_SERVANT_OF_RATVAR(affected_mob) && DT_PROB(10, delta_time))
 			affected_mob.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
 			if(prob(40))
@@ -1217,7 +1217,8 @@
 
 /datum/reagent/cryptobiolin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.Dizzy(1)
+	affected_mob.set_dizzy_if_lower(2 SECONDS)
+
 	if(!affected_mob.confused)
 		affected_mob.confused = 1
 	affected_mob.confused = max(affected_mob.confused, 20)
@@ -1981,8 +1982,7 @@
 	. = ..()
 	if(affected_mob.confused < 6)
 		affected_mob.confused = clamp(affected_mob.confused + 3 * REM * delta_time, 0, 5)
-	if(affected_mob.dizziness < 6)
-		affected_mob.dizziness = clamp(affected_mob.dizziness + 3 * REM * delta_time, 0, 5)
+	affected_mob.adjust_dizzy_up_to(6 SECONDS * REM * delta_time, 12 SECONDS)
 	if(DT_PROB(10, delta_time))
 		to_chat(affected_mob, "You feel confused and disorientated.")
 

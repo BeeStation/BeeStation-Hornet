@@ -386,45 +386,10 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?"))
 
 //this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-//this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects(delta_time, times_fired)
 	..()
 
 	var/restingpwr = 0.5 + 2 * resting
-
-	//Dizziness
-	if(dizziness)
-		var/client/C = client
-		var/pixel_x_diff = 0
-		var/pixel_y_diff = 0
-		var/temp
-		var/saved_dizz = dizziness
-		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness * world.time) + 1) // This shit is annoying at high strength
-			src = null
-			spawn(0)
-				if(C)
-					temp = amplitude * sin(saved_dizz * world.time)
-					pixel_x_diff += temp
-					C.pixel_x += temp
-					temp = amplitude * cos(saved_dizz * world.time)
-					pixel_y_diff += temp
-					C.pixel_y += temp
-					sleep(3)
-					if(C)
-						temp = amplitude * sin(saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-					sleep(3)
-					if(C)
-						C.pixel_x -= pixel_x_diff
-						C.pixel_y -= pixel_y_diff
-			src = oldsrc
-		dizziness = max(dizziness - (restingpwr * delta_time), 0)
 
 	if(drowsyness)
 		drowsyness = max(drowsyness - (restingpwr * delta_time), 0)
@@ -438,78 +403,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 
 	if(druggy)
 		adjust_drugginess(-0.5 * delta_time)
-
-	if(drunkenness)
-		drunkenness = max(drunkenness - ((0.005 + (drunkenness * 0.02)) * delta_time), 0)
-		if(drunkenness >= 6)
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
-			if(DT_PROB(16, delta_time))
-				adjust_timed_status_effect(4 SECONDS, /datum/status_effect/speech/slurring/drunk)
-			adjust_jitter(-1.5 * delta_time)
-
-			throw_alert("drunk", /atom/movable/screen/alert/drunk)
-		else
-			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
-			sound_environment_override = SOUND_ENVIRONMENT_NONE
-			clear_alert("drunk")
-
-		if(drunkenness >= 11)
-			var/datum/status_effect/speech/slurring/drunk/already_slurring = has_status_effect(/datum/status_effect/speech/slurring/drunk)
-			if(!already_slurring || already_slurring.duration - world.time <= 10 SECONDS)
-				adjust_timed_status_effect(1.2 SECONDS * delta_time, /datum/status_effect/speech/slurring/drunk)
-
-		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
-			if(SSresearch.science_tech)
-				if(drunkenness >= 12.9 && drunkenness <= 13.8)
-					drunkenness = round(drunkenness, 0.01)
-					var/ballmer_percent = 0
-					if(drunkenness == 13.35) // why run math if I dont have to
-						ballmer_percent = 1
-					else
-						ballmer_percent = (-abs(drunkenness - 13.35) / 0.9) + 1
-					if(DT_PROB(2.5, delta_time))
-						say(pick(GLOB.ballmer_good_msg), forced = "ballmer")
-					SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = BALLMER_POINTS * ballmer_percent))
-				if(drunkenness > 26) // by this point you're into windows ME territory
-					if(DT_PROB(2.5, delta_time))
-						SSresearch.science_tech.remove_point_list(list(TECHWEB_POINT_TYPE_GENERIC = BALLMER_POINTS))
-						say(pick(GLOB.ballmer_windows_me_msg), forced = "ballmer")
-
-		if(drunkenness >= 41)
-			if(DT_PROB(16, delta_time))
-				confused += 2
-			Dizzy(5 * delta_time)
-
-		if(drunkenness >= 51)
-			if(DT_PROB(1.5, delta_time))
-				confused += 15
-				vomit() // vomiting clears toxloss, consider this a blessing
-			Dizzy(12.5 * delta_time)
-
-		if(drunkenness >= 61)
-			if(DT_PROB(30, delta_time))
-				blur_eyes(5)
-
-		if(drunkenness >= 71)
-			blur_eyes(2.5 * delta_time)
-
-		if(drunkenness >= 81)
-			adjustToxLoss(0.5 * delta_time)
-			if(!stat && DT_PROB(2.5, delta_time))
-				to_chat(src, span_warning("Maybe you should lie down for a bit."))
-
-		if(drunkenness >= 91)
-			adjustToxLoss(0.5 * delta_time)
-			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
-			if(DT_PROB(10, delta_time) && !stat)
-				if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(z)) //QoL mainly
-					to_chat(src, span_warning("You're so tired, but you can't miss that shuttle."))
-				else
-					to_chat(src, span_warning("Just a quick nap."))
-					Sleeping(900)
-
-		if(drunkenness >= 101)
-			adjustToxLoss(1 * delta_time) //Let's be honest you shouldn't be alive by now
 
 /// Base carbon environment handler, adds natural stabilization
 /mob/living/carbon/handle_environment(datum/gas_mixture/environment, delta_time, times_fired)

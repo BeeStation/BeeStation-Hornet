@@ -36,7 +36,7 @@
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.drunkenness < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER)
+	if(affected_mob.get_drunk_amount() < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER || boozepwr < 0)
 		var/booze_power = boozepwr
 		if(HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE)) //we're an accomplished drinker
 			booze_power *= 0.7
@@ -45,8 +45,10 @@
 				booze_power *= -1
 			else
 				booze_power *= 2
-		affected_mob.drunkenness = max((affected_mob.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
-		if(affected_mob.drunkenness >= 250)
+
+		// Volume, power, and server alcohol rate effect how quickly one gets drunk
+		affected_mob.adjust_drunk_effect(sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)
+		if(affected_mob.get_drunk_amount() >= 250)
 			affected_mob.client?.give_award(/datum/award/achievement/misc/drunk, affected_mob)
 		var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 		if(istype(liver))
@@ -150,7 +152,7 @@
 
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.dizziness = max(affected_mob.dizziness - (5 * REM * delta_time), 0)
+	affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
 	affected_mob.drowsyness = max(affected_mob.drowsyness - (3 * REM * delta_time), 0)
 	affected_mob.AdjustSleeping(-40 * REM * delta_time)
 
@@ -1697,7 +1699,7 @@
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
 		affected_mob.confused = max(affected_mob.confused + (2 * REM * delta_time),0)
-		affected_mob.Dizzy(10 * REM * delta_time)
+		affected_mob.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
 	switch(current_cycle)
 		if(52 to 201)
 			affected_mob.Sleeping(100 * REM * delta_time)
@@ -1724,7 +1726,7 @@
 
 /datum/reagent/consumable/ethanol/gargle_blaster/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.dizziness += 1.5 * REM * delta_time
+	affected_mob.adjust_dizzy(3 SECONDS * REM * delta_time)
 	switch(current_cycle)
 		if(16 to 46)
 			affected_mob.adjust_slurring(3 SECONDS * REM * delta_time)
@@ -1767,7 +1769,7 @@
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.set_drugginess(50 * REM * delta_time)
-	affected_mob.dizziness += 2 * REM * delta_time
+	affected_mob.adjust_dizzy(4 SECONDS * REM * delta_time)
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
 
 	if(DT_PROB(10, delta_time))
@@ -1812,35 +1814,35 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "hippiesdelightglass"
 
-/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/carbon/drinker, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_slurring_if_lower(1 SECONDS * REM * delta_time)
+	drinker.set_slurring_if_lower(1 SECONDS * REM * delta_time)
 
 	switch(current_cycle)
-		if(1 to 5)
-			affected_mob.Dizzy(10 * REM * delta_time)
-			affected_mob.set_drugginess(30 * REM * delta_time)
+		if(2 to 6)
+			drinker.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
+			drinker.set_drugginess(1 MINUTES * REM * delta_time)
 			if(DT_PROB(5, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(5 to 10)
-			affected_mob.set_jitter_if_lower(40 SECONDS * REM * delta_time)
-			affected_mob.Dizzy(20 * REM * delta_time)
-			affected_mob.set_drugginess(45 * REM * delta_time)
+				drinker.emote(pick("twitch","giggle"))
+		if(6 to 11)
+			drinker.set_jitter_if_lower(40 SECONDS * REM * delta_time)
+			drinker.set_dizzy_if_lower(40 SECONDS * REM * delta_time)
+			drinker.set_drugginess(1.5 MINUTES * REM * delta_time)
 			if(DT_PROB(10, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if (10 to 200)
-			affected_mob.set_jitter_if_lower(80 SECONDS * REM * delta_time)
-			affected_mob.Dizzy(40 * REM * delta_time)
-			affected_mob.set_drugginess(60 * REM * delta_time)
+				drinker.emote(pick("twitch","giggle"))
+		if (11 to 201)
+			drinker.set_jitter_if_lower(80 SECONDS * REM * delta_time)
+			drinker.set_dizzy_if_lower(80 SECONDS * REM * delta_time)
+			drinker.set_drugginess(2 MINUTES * REM * delta_time)
 			if(DT_PROB(16, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(200 to INFINITY)
-			affected_mob.set_jitter_if_lower(120 SECONDS * REM * delta_time)
-			affected_mob.Dizzy(60 * REM * delta_time)
-			affected_mob.set_drugginess(75 * REM * delta_time)
+				drinker.emote(pick("twitch","giggle"))
+		if(201 to INFINITY)
+			drinker.set_jitter_if_lower(120 SECONDS * REM * delta_time)
+			drinker.set_dizzy_if_lower(120 SECONDS * REM * delta_time)
+			drinker.set_drugginess(2.5 MINUTES * REM * delta_time)
 			if(DT_PROB(23, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
+				drinker.emote(pick("twitch","giggle"))
+			drinker.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
 			return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/eggnog
@@ -2661,7 +2663,7 @@
 	if(DT_PROB(2, delta_time))
 		to_chat(affected_mob, span_notice(pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")))
 
-	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.drunkenness * REM * delta_time, updating_health = FALSE)
+	affected_mob.adjustStaminaLoss(-0.25 * affected_mob.get_drunk_amount() * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/ethanol/old_timer
@@ -2777,7 +2779,7 @@
 
 /datum/reagent/consumable/ethanol/blazaam/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.drunkenness > 40)
+	if(affected_mob.get_drunk_amount() > 40)
 		if(stored_teleports)
 			do_teleport(affected_mob, get_turf(affected_mob), rand(1,3), channel = TELEPORT_CHANNEL_WORMHOLE)
 			stored_teleports--
