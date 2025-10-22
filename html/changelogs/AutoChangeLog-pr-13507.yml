@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Platforms will now correctly update their blocking directions when they
+      change their facing direction.
