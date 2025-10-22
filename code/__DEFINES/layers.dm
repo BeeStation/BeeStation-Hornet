@@ -33,6 +33,7 @@
 #define GAS_FILTER_LAYER 2.48
 #define GAS_PUMP_LAYER 2.49
 #define PRESSURE_PLATE_LAYER 2.49
+#define BOT_PATH_LAYER 2.497
 #define LOW_OBJ_LAYER 2.5
 ///catwalk overlay of /turf/open/floor/plating/catwalk_floor
 #define CATWALK_LAYER 2.51

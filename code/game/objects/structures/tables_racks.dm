@@ -132,7 +132,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 	if(locate(/obj/structure/table) in get_turf(mover))
 		return TRUE
 
-/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+/obj/structure/table/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom, no_id = FALSE)
 	. = !density
 	if(istype(passing_atom))
 		. = . || (passing_atom.pass_flags & PASSTABLE)

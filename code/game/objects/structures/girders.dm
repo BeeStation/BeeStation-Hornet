@@ -314,7 +314,7 @@
 	if((mover.pass_flags & PASSGRILLE) || isprojectile(mover))
 		return prob(girderpasschance)
 
-/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom, no_id = FALSE
 	. = !density
 	if(istype(passing_atom))
 		. = . || (passing_atom.pass_flags & PASSGRILLE)

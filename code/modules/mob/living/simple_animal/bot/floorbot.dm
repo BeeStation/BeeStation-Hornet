@@ -232,7 +232,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 	if(target)
 		if(loc == target || loc == get_turf(target))
 			if(check_bot(target))	//Target is not defined at the parent
-				shuffle = TRUE
 				if(prob(50)) //50% chance to still try to repair so we dont end up with 2 floorbots failing to fix the last breach
 					target = null
 					path = list()
@@ -254,9 +253,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 		if(path.len == 0)
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, 30, id=access_card,simulated_only = FALSE)
+				path = get_path_to(src, TL, max_distance=30, id=access_card,simulated_only = FALSE)
 			else
-				path = get_path_to(src, target, 30, id=access_card,simulated_only = FALSE)
+				path = get_path_to(src, target, max_distance=30, id=access_card,simulated_only = FALSE)
 
 			if(!bot_move(target))
 				add_to_ignore(target)

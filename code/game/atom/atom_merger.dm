@@ -1,6 +1,8 @@
 /atom
 	/// Holds merger groups currently active on the atom. Do not access directly, use GetMergeGroup() instead.
 	var/list/datum/merger/mergers
+	/// How this atom should react to having its astar blocking checked
+	var/can_astar_pass = CANASTARPASS_DENSITY
 
 /// Gets a merger datum representing the connected blob of objects in the allowed_types argument
 /atom/proc/GetMergeGroup(id, list/allowed_types)
@@ -25,8 +27,9 @@
  * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
  * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
  * * caller- The movable we're checking pass flags for, if we're making any such checks
+ * * no_id: When true, doors with public access will count as impassible
  **/
-/atom/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+/atom/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(istype(caller) && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density

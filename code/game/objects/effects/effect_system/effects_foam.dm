@@ -192,18 +192,21 @@
 	return 1
 
 /obj/effect/particle_effect/foam/proc/spread_foam()
-	var/turf/t_loc = get_turf(src)
-	for(var/turf/T in t_loc.get_atmos_adjacent_turfs())
-		var/obj/effect/particle_effect/foam/foundfoam = locate() in T //Don't spread foam where there's already foam!
+	var/turf/location = get_turf(src)
+	if(!istype(location))
+		return FALSE
+
+	for(var/turf/spread_turf as anything in location.reachableAdjacentTurfs(no_id = TRUE))
+		var/obj/effect/particle_effect/foam/foundfoam = locate() in spread_turf //Don't spread foam where there's already foam!
 		if(foundfoam)
 			continue
 
-		if(is_type_in_typecache(T, blacklisted_turfs))
+		if(is_type_in_typecache(spread_turf, blacklisted_turfs))
 			continue
 
-		for(var/mob/living/L in T)
+		for(var/mob/living/L in spread_turf)
 			foam_mob(L)
-		var/obj/effect/particle_effect/foam/F = new src.type(T)
+		var/obj/effect/particle_effect/foam/F = new src.type(spread_turf)
 		F.amount = amount
 		reagents.copy_to(F, (reagents.total_volume))
 		F.add_atom_colour(color, FIXED_COLOUR_PRIORITY)

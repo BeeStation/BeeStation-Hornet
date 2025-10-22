@@ -8,7 +8,7 @@
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	can_atmos_pass = ATMOS_PASS_NO
-
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 
 /datum/armor/structure_plasticflaps
 	melee = 100
@@ -67,7 +67,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/plasticflaps/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+/obj/structure/plasticflaps/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom, no_id = FALSE)
 	if(isliving(passing_atom))
 		if(isbot(passing_atom))
 			return TRUE
@@ -77,7 +77,7 @@
 			return FALSE
 
 	if(passing_atom?.pulling)
-		return CanAStarPass(ID, to_dir, passing_atom.pulling)
+		return CanAStarPass(ID, to_dir, passing_atom.pulling, no_id = no_id)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/CanAllowThrough(atom/movable/mover, border_dir)

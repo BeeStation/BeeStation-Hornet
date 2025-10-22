@@ -640,7 +640,7 @@
 			if(z < target.z)
 				mule_up_or_down(UP)
 				return
-	path = get_path_to(src, target, 250, id=access_card, exclude=avoid)
+	path = get_path_to(src, target, max_distance=250, id=access_card, exclude=avoid)
 
 /mob/living/simple_animal/bot/mulebot/proc/mule_up_or_down(direction)
 	if(!is_reserved_level(z) && is_station_level(z))
