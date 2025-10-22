@@ -607,7 +607,7 @@ SUBSYSTEM_DEF(dynamic)
 			// If we successfully execute the midround, apply the cost and log it
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				midround_executed_rulesets += new_midround_ruleset
-				midround_points -= new_midround_ruleset.points_cost
+				midround_points = 0
 				logged_points["logged_points"] += midround_points
 			else
 				COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
