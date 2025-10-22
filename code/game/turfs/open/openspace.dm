@@ -9,11 +9,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
 	resistance_flags = INDESTRUCTIBLE
-	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
-	/* PORT WITH JPS IMPROVEMENT PR
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
-	*/
 
 	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
 
@@ -156,6 +153,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	return FALSE
 
 /turf/open/openspace/rust_heretic_act()
+	return FALSE
+
+/turf/open/openspace/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+	if(caller && !caller.can_z_move(DOWN, src, null , ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
+		return TRUE
 	return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible

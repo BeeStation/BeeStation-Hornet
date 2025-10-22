@@ -72,3 +72,9 @@
  */
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
 
+/// Turf will be passable if density is 0
+#define TURF_PATHING_PASS_DENSITY 0
+/// Turf will be passable depending on [CanAStarPass] return value
+#define TURF_PATHING_PASS_PROC 1
+/// Turf is never passable
+#define TURF_PATHING_PASS_NO 2
