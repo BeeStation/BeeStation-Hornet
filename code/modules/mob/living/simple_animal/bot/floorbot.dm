@@ -36,7 +36,6 @@
 	var/autotile = FALSE
 	var/max_targets = 50
 	var/turf/target
-	var/oldloc = null
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
@@ -77,7 +76,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 /mob/living/simple_animal/bot/floorbot/bot_reset()
 	..()
 	target = null
-	oldloc = null
 	ignore_list = list()
 	toggle_magnet(FALSE)
 
@@ -204,33 +202,32 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
-			target = scan(/turf/open/space)
+			tiles_scanned += list(/turf/open/space)
 
 		if(!target && placetiles) //Finds a floor without a tile and gives it one.
 			process_type = PLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
-			target = scan(/turf/open/floor)
+			tiles_scanned += list(/turf/open/floor)
 
 		if(!target && fixfloors) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
-			target = scan(/turf/open/floor)
+			tiles_scanned += list(/turf/open/floor)
 
 		if(!target && replacetiles && tilestack) //Replace a floor tile with custom tile
 			process_type = REPLACE_TILE //The target must be a tile. The floor must already have a floortile.
-			target = scan(/turf/open/floor)
+			tiles_scanned += list(/turf/open/floor)
 
 	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
-		target = scan(/turf/open/floor)
+		tiles_scanned += list(/turf/open/floor)
 
+	target = scan(tiles_scanned)
 
-	if(!target)
+	if(!target && auto_patrol)
+		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
+			start_patrol()
 
-		if(auto_patrol)
-			if(mode == BOT_IDLE || mode == BOT_START_PATROL)
-				start_patrol()
-
-			if(mode == BOT_PATROL)
-				bot_patrol()
+		if(mode == BOT_PATROL)
+			bot_patrol()
 
 	if(target)
 		if(loc == target || loc == get_turf(target))
@@ -270,10 +267,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/floorbot)
 			target = null
 			mode = BOT_IDLE
 			return
-
-
-
-	oldloc = loc
 
 /mob/living/simple_animal/bot/floorbot/proc/go_idle()
 	toggle_magnet(FALSE)

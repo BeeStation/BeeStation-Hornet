@@ -452,73 +452,52 @@
 
 //Generalized behavior code, override where needed!
 
-/*
-scan() will search for a given type (such as turfs, human mobs, or objects) in the bot's view range, and return a single result.
-Arguments: The object type to be searched (such as "/mob/living/carbon/human"), the old scan result to be ignored, if one exists,
-and the view range, which defaults to 7 (full screen) if an override is not passed.
-If the bot maintains an ignore list, it is also checked here.
-
-Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
-The proc would return a human next to the bot to be set to the patient var.
-Pass the desired type path itself, declaring a temporary var beforehand is not required.
-*/
-/mob/living/simple_animal/bot/proc/scan(scan_type, old_target, scan_range = DEFAULT_SCAN_RANGE)
-	var/turf/T = get_turf(src)
-	if(!T)
+/**
+ * Attempt to scan tiles near [src], first by checking adjacent, then if a target is still not found, nearby.
+ *
+ * scan_types - list (of typepaths) that nearby tiles are being scanned for.
+ * old_target - what has already been scanned, and will early return at checkscan.
+ * scan_range - how far away from [src] will be scanned, if nothing is found directly adjacent.
+ */
+/mob/living/simple_animal/bot/proc/scan(list/scan_types, old_target, scan_range = DEFAULT_SCAN_RANGE)
+	var/turf/current_turf = get_turf(src)
+	if(!current_turf)
 		return
-	var/list/adjacent = T.get_atmos_adjacent_turfs(1)
+	var/list/adjacent = current_turf.get_atmos_adjacent_turfs(1)
 	var/atom/final_result
 	var/static/list/turf_typecache = typecacheof(/turf)
 	if(shuffle)	//If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
 		adjacent = shuffle(adjacent)
 		shuffle = FALSE
-	for(var/turf/scan as() in adjacent)//Let's see if there's something right next to us first!
+
+	for(var/turf/scan as anything in adjacent) //Let's see if there's something right next to us first!
 		if(check_bot(scan))	//Is there another bot there? Then let's just skip it
 			continue
-		if(turf_typecache[scan_type])	//If we're lookeing for a turf we can just run the checks directly!
-			if(!istype(scan, scan_type))
-				continue
-			final_result = checkscan(scan,old_target)
-			if(final_result)
-				return final_result
-		else
-			for(var/deepscan in scan.contents)//Check the contents since adjacent is turfs
-				if(!istype(deepscan, scan_type))
-					continue
-				final_result = checkscan(deepscan,old_target)
-				if(final_result)
-					return final_result
+		var/final_result = checkscan(scan, scan_types, old_target)
+		if(final_result)
+			return final_result
 
-	var/list/wider_search_list = list()
-	for(var/turf/RT in oview(scan_range, src))
-		if(!(RT in adjacent))
-			wider_search_list += RT
-	wider_search_list = shuffle(wider_search_list) // Do we *really* need shuffles? Future coders should decide this.
-	if(turf_typecache[scan_type])
-		for(var/turf/scan as() in wider_search_list)
-			if(!istype(scan, scan_type))
-				continue
-			final_result = checkscan(scan,old_target)
-			if(final_result)
-				return final_result
-	else
-		for(var/turf/scan as() in wider_search_list)
-			for(var/deepscan in scan.contents) // view() barely checks contents of contents of turfs anyway
-				if(!istype(deepscan, scan_type))
-					continue
-				final_result = checkscan(deepscan,old_target)
-				if(final_result)
-					return final_result
+	for(var/turf/scanned_turfs as anything in shuffle(view(scan_range, src)) - adjacent) //Search for something in range, minus what we already checked.
+		if(check_bot(scanned_turfs)) //Is there another bot there? Then let's just skip it
+			continue
+		var/final_result = checkscan(scanned_turfs, scan_types, old_target)
+		if(final_result)
+			return final_result
 
-/mob/living/simple_animal/bot/proc/checkscan(scan, old_target)
-	if( (REF(scan) in ignore_list) || (scan == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
-		return FALSE
+/mob/living/simple_animal/bot/proc/checkscan(atom/scan, list/scan_types, old_target)
+	for(var/scan_type in scan_types)
+		if(!istype(scan, scan_type)) //Check that the thing we found is the type we want!
+			continue //If not, keep searching!
+		if((REF(scan) in ignore_list) || (scan == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
+			continue
 
-	var/scan_result = process_scan(scan) //Some bots may require additional processing when a result is selected.
-	if(scan_result)
-		return scan_result
-	else
-		return FALSE //The current element failed assessment, move on to the next.
+		var/scan_result = process_scan(scan) //Some bots may require additional processing when a result is selected.
+		if(scan_result)
+			return scan_result
+
+//When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
+/mob/living/simple_animal/bot/proc/process_scan(scan_target)
+	return scan_target
 
 /mob/living/simple_animal/bot/proc/check_bot(targ)
 	var/turf/T = get_turf(targ)
@@ -526,11 +505,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		for(var/C in T.contents)
 			if(istype(C,type) && (C != src))	//Is there another bot there already? If so, let's skip it so we dont all atack on top of eachother.
 				return TRUE	//Let's abort if we find a bot so we dont have to keep rechecking
-
-//When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
-/mob/living/simple_animal/bot/proc/process_scan(scan_target)
-	return scan_target
-
 
 /mob/living/simple_animal/bot/proc/add_to_ignore(subject)
 	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
