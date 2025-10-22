@@ -335,7 +335,8 @@ export const PersonalCrafting = (props) => {
                             <Tabs.Tab
                               key={foodtype}
                               selected={
-                                activeType === foodtype && searchText.length === 0
+                                activeType === foodtype &&
+                                searchText.length === 0
                               }
                               onClick={(e) => {
                                 setFoodType(foodtype);
@@ -351,7 +352,9 @@ export const PersonalCrafting = (props) => {
                               <FoodtypeContent
                                 type={foodtype}
                                 diet={diet}
-                                craftableCount={Object.keys(craftability).length}
+                                craftableCount={
+                                  Object.keys(craftability).length
+                                }
                               />
                             </Tabs.Tab>
                           ))}
@@ -413,7 +416,9 @@ export const PersonalCrafting = (props) => {
                                 <Stack.Item
                                   grow
                                   color={
-                                    category === 'Blood Cult' ? 'red' : 'default'
+                                    category === 'Blood Cult'
+                                      ? 'red'
+                                      : 'default'
                                   }
                                 >
                                   {category}
