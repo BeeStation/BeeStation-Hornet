@@ -290,5 +290,7 @@
       change their facing direction.
   - tweak: You can now read your antag information while sleeping, unconscious, or
       dead.
+  - tweak: Rounds will now only start when at least one person has connected, regardless
+      of whether they are playing or not.
   WhiskeyMarten:
   - bugfix: Health analyzers now show compatibility at critical blood levels again.
