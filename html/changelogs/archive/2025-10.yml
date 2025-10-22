@@ -283,5 +283,12 @@
   - bugfix: Storage implants drop their contents on the floor again when they are
       removed
 2025-10-22:
+  PowerfulBacon:
+  - tweak: Dynamic now has its midround points set to 0 when it spawns an antagonist,
+      even if it had spare points left over.
+  - bugfix: Platforms will now correctly update their blocking directions when they
+      change their facing direction.
+  - tweak: You can now read your antag information while sleeping, unconscious, or
+      dead.
   WhiskeyMarten:
   - bugfix: Health analyzers now show compatibility at critical blood levels again.

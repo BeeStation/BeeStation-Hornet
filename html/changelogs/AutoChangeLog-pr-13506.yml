@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Dynamic now has its midround points set to 0 when it spawns an antagonist,
-      even if it had spare points left over.
