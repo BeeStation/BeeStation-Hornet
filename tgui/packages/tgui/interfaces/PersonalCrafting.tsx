@@ -327,105 +327,107 @@ export const PersonalCrafting = (props) => {
                 </Stack.Item>
                 <Stack.Item grow m={-1}>
                   <Box height={'100%'} p={1} style={{ overflowY: 'auto' }}>
-                    <Tabs vertical>
-                      {tabMode === TABS.foodtype &&
-                        mode === MODE.cooking &&
-                        foodtypes.map((foodtype) => (
-                          <Tabs.Tab
-                            key={foodtype}
-                            selected={
-                              activeType === foodtype && searchText.length === 0
-                            }
-                            onClick={(e) => {
-                              setFoodType(foodtype);
-                              setPages(1);
-                              if (content) {
-                                content.scrollTop = 0;
+                    <Section fill scrollable>
+                      <Tabs vertical>
+                        {tabMode === TABS.foodtype &&
+                          mode === MODE.cooking &&
+                          foodtypes.map((foodtype) => (
+                            <Tabs.Tab
+                              key={foodtype}
+                              selected={
+                                activeType === foodtype && searchText.length === 0
                               }
-                              if (searchText.length > 0) {
-                                setSearchText('');
-                              }
-                            }}
-                          >
-                            <FoodtypeContent
-                              type={foodtype}
-                              diet={diet}
-                              craftableCount={Object.keys(craftability).length}
-                            />
-                          </Tabs.Tab>
-                        ))}
-                      {tabMode === TABS.material &&
-                        material_occurences.map((material) => (
-                          <Tabs.Tab
-                            key={material.atom_id}
-                            selected={
-                              activeMaterial === material.atom_id &&
-                              searchText.length === 0
-                            }
-                            onClick={(e) => {
-                              setMaterial(material.atom_id);
-                              setPages(1);
-                              if (content) {
-                                content.scrollTop = 0;
-                              }
-                              if (searchText.length > 0) {
-                                setSearchText('');
-                              }
-                            }}
-                          >
-                            <MaterialContent
-                              atom_id={material.atom_id}
-                              occurences={material.occurences}
-                            />
-                          </Tabs.Tab>
-                        ))}
-                      {tabMode === TABS.category &&
-                        categories.map((category) => (
-                          <Tabs.Tab
-                            key={category}
-                            selected={
-                              activeCategory === category &&
-                              searchText.length === 0
-                            }
-                            onClick={(e) => {
-                              setCategory(category);
-                              setPages(1);
-                              if (content) {
-                                content.scrollTop = 0;
-                              }
-                              if (searchText.length > 0) {
-                                setSearchText('');
-                              }
-                            }}
-                          >
-                            <Stack>
-                              <Stack.Item width="14px" textAlign="center">
-                                <Icon
-                                  color={
-                                    category === 'Blood Cult'
-                                      ? 'red'
-                                      : 'default'
-                                  }
-                                  name={CATEGORY_ICONS[category] || 'circle'}
-                                />
-                              </Stack.Item>
-                              <Stack.Item
-                                grow
-                                color={
-                                  category === 'Blood Cult' ? 'red' : 'default'
+                              onClick={(e) => {
+                                setFoodType(foodtype);
+                                setPages(1);
+                                if (content) {
+                                  content.scrollTop = 0;
                                 }
-                              >
-                                {category}
-                              </Stack.Item>
-                              {category === 'Can Make' && (
-                                <Stack.Item>
-                                  {Object.keys(craftability).length}
+                                if (searchText.length > 0) {
+                                  setSearchText('');
+                                }
+                              }}
+                            >
+                              <FoodtypeContent
+                                type={foodtype}
+                                diet={diet}
+                                craftableCount={Object.keys(craftability).length}
+                              />
+                            </Tabs.Tab>
+                          ))}
+                        {tabMode === TABS.material &&
+                          material_occurences.map((material) => (
+                            <Tabs.Tab
+                              key={material.atom_id}
+                              selected={
+                                activeMaterial === material.atom_id &&
+                                searchText.length === 0
+                              }
+                              onClick={(e) => {
+                                setMaterial(material.atom_id);
+                                setPages(1);
+                                if (content) {
+                                  content.scrollTop = 0;
+                                }
+                                if (searchText.length > 0) {
+                                  setSearchText('');
+                                }
+                              }}
+                            >
+                              <MaterialContent
+                                atom_id={material.atom_id}
+                                occurences={material.occurences}
+                              />
+                            </Tabs.Tab>
+                          ))}
+                        {tabMode === TABS.category &&
+                          categories.map((category) => (
+                            <Tabs.Tab
+                              key={category}
+                              selected={
+                                activeCategory === category &&
+                                searchText.length === 0
+                              }
+                              onClick={(e) => {
+                                setCategory(category);
+                                setPages(1);
+                                if (content) {
+                                  content.scrollTop = 0;
+                                }
+                                if (searchText.length > 0) {
+                                  setSearchText('');
+                                }
+                              }}
+                            >
+                              <Stack>
+                                <Stack.Item width="14px" textAlign="center">
+                                  <Icon
+                                    color={
+                                      category === 'Blood Cult'
+                                        ? 'red'
+                                        : 'default'
+                                    }
+                                    name={CATEGORY_ICONS[category] || 'circle'}
+                                  />
                                 </Stack.Item>
-                              )}
-                            </Stack>
-                          </Tabs.Tab>
-                        ))}
-                    </Tabs>
+                                <Stack.Item
+                                  grow
+                                  color={
+                                    category === 'Blood Cult' ? 'red' : 'default'
+                                  }
+                                >
+                                  {category}
+                                </Stack.Item>
+                                {category === 'Can Make' && (
+                                  <Stack.Item>
+                                    {Object.keys(craftability).length}
+                                  </Stack.Item>
+                                )}
+                              </Stack>
+                            </Tabs.Tab>
+                          ))}
+                      </Tabs>
+                    </Section>
                   </Box>
                 </Stack.Item>
                 <Stack.Item>
