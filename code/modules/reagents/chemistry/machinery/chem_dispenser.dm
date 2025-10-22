@@ -123,6 +123,7 @@
 		active_power_usage = (to_recharge / POWER_TRANSFER_LOSS)
 		cell.give(to_recharge)
 		update_use_power(ACTIVE_POWER_USE)
+		ui_update()
 	else
 		update_use_power(IDLE_POWER_USE)
 
