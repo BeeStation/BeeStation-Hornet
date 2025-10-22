@@ -284,12 +284,15 @@
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/attacking_item, mob/living/user, params)
+	if (user.combat_mode)
+		return ..()
+
 	if(length(user.progressbars))
 		if(attacking_item.tool_behaviour == TOOL_WELDER || istype(attacking_item, /obj/item/stack/cable_coil))
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, span_notice("You are already busy!"))
 			return
-	if(attacking_item.tool_behaviour == TOOL_WELDER && (!user.combat_mode))
+	if(attacking_item.tool_behaviour == TOOL_WELDER)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(user == src)
 			to_chat(user, span_warning("You are unable to maneuver [attacking_item] properly to repair yourself, seek assistance!"))
@@ -716,12 +719,12 @@
 		robot_suit.update_icon()
 	else
 		new /obj/item/robot_suit(T)
-		new /obj/item/bodypart/l_leg/robot(T)
-		new /obj/item/bodypart/r_leg/robot(T)
+		new /obj/item/bodypart/leg/left/robot(T)
+		new /obj/item/bodypart/leg/right/robot(T)
 		new /obj/item/stack/cable_coil(T, 1)
 		new /obj/item/bodypart/chest/robot(T)
-		new /obj/item/bodypart/l_arm/robot(T)
-		new /obj/item/bodypart/r_arm/robot(T)
+		new /obj/item/bodypart/arm/left/robot(T)
+		new /obj/item/bodypart/arm/right/robot(T)
 		new /obj/item/bodypart/head/robot(T)
 		var/b
 		for(b=0, b!=2, b++)

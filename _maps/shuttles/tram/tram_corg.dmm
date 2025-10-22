@@ -108,7 +108,7 @@
 /area/shuttle/pod_1)
 "S" = (
 /obj/structure/grille,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "W" = (

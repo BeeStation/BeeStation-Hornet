@@ -455,10 +455,12 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
 	tick_interval = 25
-	examine_text = span_notice("They seem to have an aura of healing and helpfulness about them.")
 	alert_type = null
 	var/hand
 	var/deathTick = 0
+
+/datum/status_effect/hippocratic_oath/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -537,7 +539,9 @@
 				L.adjustFireLoss(-3.5)
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
-				SM.adjustHealth(-3.5, forced = TRUE)
+				// Check if the mob is NOT a spirit AND NOT an undead.
+				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
+					SM.adjustHealth(-3.5, forced = TRUE)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Blessing of the Necropolis"
@@ -565,11 +569,7 @@
 		duration_mod = 2
 	owner.adjustBruteLoss(-20 * power)
 	owner.adjustFireLoss(-20 * power)
-	owner.cure_nearsighted()
-	owner.ExtinguishMob()
-	owner.fire_stacks = 0
-	owner.set_blindness(0)
-	owner.set_blurriness(0)
+	owner.fully_heal(HEAL_CC_STATUS)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()
 	if(istype(owner, /mob/living/carbon/human))
@@ -588,7 +588,6 @@
 /datum/status_effect/antimagic
 	id = "antimagic"
 	duration = 10 SECONDS
-	examine_text = span_notice("They seem to be covered in a dull, grey aura.")
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
@@ -605,6 +604,10 @@
 		if (anti_magic.source == MAGIC_TRAIT)
 			qdel(anti_magic)
 	owner.visible_message(span_warning("[owner]'s dull aura fades away..."))
+	return ..()
+
+/datum/status_effect/antimagic/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to be covered in a dull, grey aura.")
 
 /datum/status_effect/planthealing
 	id = "Photosynthesis"
@@ -612,7 +615,9 @@
 	duration = -1
 	tick_interval = 25
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
-	examine_text = span_notice("Their leaves seem to be flourishing in the light!")
+
+/datum/status_effect/planthealing/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] leaves seem[owner.p_s()] to be flourishing in the light!")
 
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"
@@ -633,9 +638,11 @@
 	id = "Blessing of Crucible Soul"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 15 SECONDS
-	examine_text = span_notice("They don't seem to be all here.")
 	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
 	var/turf/location
+
+/datum/status_effect/crucible_soul/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] [owner.p_do()]n't seem to be all here.")
 
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,span_notice("You phase through reality, nothing is out of bounds!"))

@@ -13,7 +13,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	var/stasis = FALSE
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT
@@ -440,7 +440,7 @@
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 
-/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/revenant/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	to_chat(src, span_warning("You are too restless to rest now!"))
 	return FALSE
 

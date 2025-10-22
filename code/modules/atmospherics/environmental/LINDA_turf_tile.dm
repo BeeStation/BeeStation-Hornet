@@ -1,13 +1,15 @@
 /turf
-	//used for temperature calculations in superconduction
+	///used for temperature calculations in superconduction
 	var/thermal_conductivity = 0.05
+	/// Amount of heat necessary to activate some atmos processes (there is a weird usage of this var because is compared directly to the temperature instead of heat energy)
 	var/heat_capacity = INFINITY //This should be opt in rather then opt out
+	/// Archived version of the temperature on a turf
 	var/temperature_archived
 
-	///list of turfs adjacent to us that air can flow onto
+	/// List of turfs adjacent to us that air can flow onto
 	var/list/atmos_adjacent_turfs
 
-	//used to determine whether we should archive
+	/// Used to determine whether we should archive
 	var/archived_cycle = 0
 	var/current_cycle = 0
 
@@ -18,34 +20,36 @@
 	 * If someone will place 0 of some gas there, SHIT WILL BREAK. Do not do that.
 	**/
 	var/initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	//approximation of MOLES_O2STANDARD and MOLES_N2STANDARD pending byond allowing constant expressions to be embedded in constant strings
-	// If someone will place 0 of some gas there, SHIT WILL BREAK. Do not do that.
 
 /turf/open
-	//used for spacewind
-	///Pressure difference between two turfs
+	// Used for spacewind
+	/// Pressure difference between two turfs
 	var/pressure_difference = 0
-	///Where the difference come from (from higher pressure to lower pressure)
+	/// Where the difference come from (from higher pressure to lower pressure)
 	var/pressure_direction = 0
 
-	///Excited group we are part of
+	/// Excited group we are part of
 	var/datum/excited_group/excited_group
-	///Are we active?
+	/// Are we active?
 	var/excited = FALSE
-	///Our gas mix
+	/// Our gas mix
 	var/datum/gas_mixture/turf/air
 
-	///If there is an active hotspot on us store a reference to it here
+	/// If there is an active hotspot on us store a reference to it here
 	var/obj/effect/hotspot/active_hotspot
-	/// air will slowly revert to initial_gas_mix
+	/// Air will slowly revert to initial_gas_mix
 	var/planetary_atmos = FALSE
-	/// once our paired turfs are finished with all other shares, do one 100% share
-	/// exists so things like space can ask to take 100% of a tile's gas
+	/// Once our paired turfs are finished with all other shares, do one 100% share
+	/// Exists so things like space can ask to take 100% of a tile's gas
 	var/run_later = FALSE
 
-	///gas IDs of current active gas overlays
+	/// Gas IDs of current active gas overlays
 	var/list/atmos_overlay_types
 	var/significant_share_ticker = 0
+
+	/// The cooldown on playing a fire starting sound each time a tile is ignited
+	COOLDOWN_DECLARE(fire_puff_cooldown)
+
 	#ifdef TRACK_MAX_SHARE
 	var/max_share = 0
 	#endif
@@ -394,7 +398,7 @@
 
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
 	set waitfor = FALSE
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_PRESSURE_PUSH) & COMSIG_MOVABLE_BLOCKS_PRESSURE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_PRESSURE_PUSH) & COMSIG_ATOM_BLOCKS_PRESSURE)
 		return
 	var/const/PROBABILITY_OFFSET = 25
 	var/const/PROBABILITY_BASE_PRECENT = 75

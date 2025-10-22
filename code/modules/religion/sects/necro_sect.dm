@@ -52,7 +52,7 @@
 	if(length(movable_reltool.buckled_mobs))
 		for(var/creature in movable_reltool.buckled_mobs)
 			lich_to_be = creature
-		if(!lich_to_be.mind.hasSoul)
+		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
@@ -68,7 +68,7 @@
 			to_chat(user,span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
 		lich_to_be = user
-		if(!lich_to_be.mind.hasSoul)
+		if(HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,span_warning("You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool]."))
 			lich_to_be = null
 			return FALSE
@@ -239,7 +239,7 @@
 	if(!length(movable_reltool.buckled_mobs))
 		to_chat(user, span_warning("Nothing is buckled to the altar!"))
 		return FALSE
-	for(var/creature in movable_reltool.buckled_mobs)
+	for(var/mob/living/creature in movable_reltool.buckled_mobs)
 		chosen_sacrifice = creature
 		if(chosen_sacrifice.stat == DEAD)
 			to_chat(user, span_warning("You can only sacrifice living creatures, this one is dead!"))
@@ -253,9 +253,8 @@
 			to_chat(user, span_warning("You cannot sacrifice this. It is not made of flesh!"))
 			chosen_sacrifice = null
 			return FALSE
-		var/mob/living/carbon/C = creature
-		if(!isnull(C))
-			cuff(C)
+		if(iscarbon(creature))
+			cuff(creature)
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)

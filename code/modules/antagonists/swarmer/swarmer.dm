@@ -5,6 +5,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=4000)
+	custom_price = 2000
 
 /obj/effect/mob_spawn/swarmer
 	name = "unactivated swarmer"
@@ -57,7 +58,7 @@
 	speak_emote = list("tones")
 	initial_language_holder = /datum/language_holder/swarmer
 	bubble_icon = "swarmer"
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	health = 65
 	maxHealth = 65
 	status_flags = CANPUSH

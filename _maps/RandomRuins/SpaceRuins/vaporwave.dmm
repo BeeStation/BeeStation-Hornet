@@ -27,13 +27,6 @@
 /obj/effect/overlay/palmtree_r,
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
-"i" = (
-/obj/structure/musician/piano,
-/obj/structure/window{
-	dir = 8
-	},
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
 "j" = (
 /obj/structure/chair/stool,
 /obj/machinery/light/small{
@@ -63,24 +56,12 @@
 	},
 /turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
-"o" = (
-/obj/structure/window{
-	dir = 4
-	},
-/turf/open/floor/iron/vaporwave,
-/area/ruin/space/has_grav/powered/aesthetic)
 "p" = (
 /obj/effect/overlay/palmtree_l,
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered/aesthetic)
 "q" = (
 /turf/open/floor/holofloor/beach,
-/area/ruin/space/has_grav/powered/aesthetic)
-"r" = (
-/obj/structure/window{
-	dir = 8
-	},
-/turf/open/floor/iron/vaporwave,
 /area/ruin/space/has_grav/powered/aesthetic)
 "s" = (
 /obj/structure/table/reinforced,
@@ -197,6 +178,10 @@
 /obj/effect/overlay/palmtree_r,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
+"N" = (
+/obj/structure/window/spawner/directional/east,
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
 "O" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#666666";
@@ -220,6 +205,15 @@
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/ruin/unpowered/no_grav)
+"S" = (
+/obj/structure/window/spawner/directional/west,
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
+"X" = (
+/obj/effect/spawner/structure/random_piano,
+/obj/structure/window/spawner/directional/west,
+/turf/open/floor/iron/vaporwave,
+/area/ruin/space/has_grav/powered/aesthetic)
 
 (1,1,1) = {"
 a
@@ -329,11 +323,11 @@ b
 c
 e
 g
-i
-r
-r
-r
-r
+X
+S
+S
+S
+S
 f
 B
 H
@@ -431,11 +425,11 @@ b
 c
 e
 f
-o
-o
-o
-o
-o
+N
+N
+N
+N
+N
 f
 G
 M

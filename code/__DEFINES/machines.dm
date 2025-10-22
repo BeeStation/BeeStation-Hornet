@@ -43,7 +43,7 @@
 #define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
 #define AUTOLATHE		(1<<2)	//Uses glass/iron only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time var.
 #define BIOGENERATOR	(1<<5) 	//Uses biomass
 #define LIMBGROWER		(1<<6) 	//Uses synthetic flesh
 #define SMELTER			(1<<7) 	//uses various minerals
@@ -187,7 +187,6 @@
 #define ERROR_COMMITED_SUICIDE 205
 #define ERROR_SOUL_DEPARTED 206
 #define ERROR_SUICIDED_BODY 207
-#define ERROR_SOUL_DAMNED 666
 #define ERROR_UNCLONABLE 901
 
 //these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.

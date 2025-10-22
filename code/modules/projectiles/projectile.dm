@@ -12,6 +12,7 @@
 	movement_type = FLYING
 	//wound_bonus = CANT_WOUND // can't wound by default
 	generic_canpass = FALSE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -150,7 +151,8 @@
 	var/eyeblur = 0
 	var/drowsy = 0
 	var/stamina = 0
-	var/jitter = 0
+	/// Jittering applied on projectile hit
+	var/jitter = 0 SECONDS
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
@@ -251,15 +253,16 @@
 			if(isalien(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
-			if(B)
-				if(!IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
-					do_sparks(2, FALSE, target.loc)
-					if(prob(25))
-						new /obj/effect/decal/cleanable/oil(target_loca)
-				else
-					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir)
-				if(prob(33))
-					L.add_splatter_floor(target_loca)
+			if(B && !IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
+				do_sparks(2, FALSE, target.loc)
+			else
+				var/splatter_color = null
+				if(iscarbon(L))
+					var/mob/living/carbon/carbon_target = L
+					splatter_color = carbon_target.dna.blood_type.blood_color
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
+			if(prob(33))
+				L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 

@@ -305,6 +305,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 				return
 			var/x = text2num(params["x"])
 			var/y = text2num(params["y"])
+			var/altKey = params["altKey"]
+			if (altKey == 1)	// If the user alt+clicked, clear their target position and thrust
+				shuttleObject.thrust = 0
+				shuttleObject.shuttleTargetPos = null
+				return
 			if(!shuttleObject.shuttleTargetPos)
 				shuttleObject.shuttleTargetPos = new(x, y)
 			else

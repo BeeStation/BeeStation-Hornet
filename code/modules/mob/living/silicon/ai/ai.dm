@@ -925,10 +925,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					switch(crit_case) // only carbons can have the fun crits
 						if(1) // shatter their legs and bleed 'em
 							carbon_target.bleed(150)
-							var/obj/item/bodypart/l_leg/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
+							var/obj/item/bodypart/leg/left/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
 							if(l)
 								l.receive_damage(brute=200, updating_health=TRUE)
-							var/obj/item/bodypart/r_leg/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
+							var/obj/item/bodypart/leg/right/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
 							if(r)
 								r.receive_damage(brute=200, updating_health=TRUE)
 							if(l || r)
@@ -1021,7 +1021,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return
 
 	else if(mind)
-		soullink(/datum/soullink/sharedbody, src, target)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
 		deployed_shell = target
 		transfer_observers_to(deployed_shell) // ai core to borg shell
 		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg

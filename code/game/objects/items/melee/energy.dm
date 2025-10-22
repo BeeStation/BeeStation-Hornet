@@ -12,6 +12,7 @@
 	//bare_wound_bonus = 20
 	stealthy_audio = TRUE
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 
 	/// The color of this energy based sword, for use in editing the icon_state.
 	var/sword_color_icon
@@ -22,7 +23,7 @@
 	/// Force while active.
 	var/active_bleedforce = 0
 	/// Sharpness while active.
-	var/active_sharpness = SHARP
+	var/active_sharpness = SHARP_DISMEMBER_EASY
 	/// Hitsound played attacking while active.
 	var/active_hitsound = 'sound/weapons/blade1.ogg'
 	/// Weight class while active.

@@ -143,20 +143,20 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2,3)
-			if(MOB_UNDEAD in M.mob_biotypes)//i dont wanna do it like this but i gotta
+			if(M.mob_biotypes & MOB_UNDEAD)//i dont wanna do it like this but i gotta
 				return
 			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
 				to_chat(M, span_warning("[pick("You feel your body break apart.", "Your skin rubs off like dust.")]"))
 		if(4,5)
 			Flesh_death(M, A)
-			if(MOB_UNDEAD in M.mob_biotypes) //ditto
+			if(M.mob_biotypes & MOB_UNDEAD) //ditto
 				return
 			if(prob(base_message_chance / 2) && M.stat != DEAD) //reduce spam
 				to_chat(M, span_userdanger("[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]"))
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
-	if(MOB_UNDEAD in M.mob_biotypes)
+	if(M.mob_biotypes & MOB_UNDEAD)
 		return //this symptom wont work on the undead.
 	M.take_overall_damage(brute = get_damage, required_status = BODYTYPE_ORGANIC)
 	if(chems)
