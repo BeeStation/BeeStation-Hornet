@@ -62,7 +62,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 */
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
-	if((D.body_position == LYING_DOWN || (A.pulling == D && A.grab_state >= GRAB_AGGRESSIVE) || D.confused))
+	if(D.body_position == LYING_DOWN || (A.pulling == D && A.grab_state >= GRAB_AGGRESSIVE) || D.confused)
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
 		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
 							span_userdanger("[A] cuts your jugular vein!"))
