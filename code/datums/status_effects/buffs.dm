@@ -585,19 +585,6 @@
 	if(!alreadyinfected)
 		to_chat(owner, span_userdanger("You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more."))
 
-/datum/status_effect/good_music
-	id = "Good Music"
-	alert_type = null
-	duration = 6 SECONDS
-	tick_interval = 1 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
-
-/datum/status_effect/good_music/tick()
-	owner.dizziness = max(0, owner.dizziness - 2)
-	owner.jitteriness = max(0, owner.jitteriness - 2)
-	owner.confused = max(0, owner.confused - 1)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
-
 /datum/status_effect/antimagic
 	id = "antimagic"
 	duration = 10 SECONDS
