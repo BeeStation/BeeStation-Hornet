@@ -282,3 +282,6 @@
   Sarchutar:
   - bugfix: Storage implants drop their contents on the floor again when they are
       removed
+2025-10-22:
+  WhiskeyMarten:
+  - bugfix: Health analyzers now show compatibility at critical blood levels again.

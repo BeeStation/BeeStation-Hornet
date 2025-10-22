@@ -1,4 +1,0 @@
-author: WhiskeyMarten
-delete-after: true
-changes:
-  - bugfix: Health analyzers now show compatibility at critical blood levels again.
