@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Rounds will now only start when at least one person has connected, regardless
+      of whether they are playing or not.
