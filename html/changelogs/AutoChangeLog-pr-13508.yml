@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: You can now read your antag information while sleeping, unconscious, or
+      dead.
