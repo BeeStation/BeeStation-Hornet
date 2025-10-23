@@ -27,6 +27,10 @@
 		return list()
 	return return_val
 
+//Assumes the requester has all access
+/proc/get_path_to_all_access(atom/movable/requester, atom/end, max_distance = 30, mintargetdist, simulated_only = TRUE, turf/exclude, skip_first=TRUE, diagonal_handling=DIAGONAL_REMOVE_CLUNKY)
+	return get_path_to(requester, end, max_distance, mintargetdist, get_all_accesses(), simulated_only, exclude, skip_first, diagonal_handling)
+
 /**
  * POTENTIALLY cheaper version of get_path_to
  * This proc generates a path map for the end atom's turf, which allows us to cheaply do pathing operations "at" it
