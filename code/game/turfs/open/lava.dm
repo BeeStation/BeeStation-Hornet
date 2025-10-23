@@ -155,6 +155,10 @@
 				L.adjust_fire_stacks(20 * delta_time)
 				L.IgniteMob()
 
+
+/turf/open/lava/can_cross_safely(atom/movable/crossing)
+	return /*HAS_TRAIT(src, TRAIT_LAVA_STOPPED) || HAS_TRAIT(crossing, immunity_trait ) ||*/ HAS_TRAIT(crossing, TRAIT_MOVE_FLYING)
+
 /turf/open/lava/smooth
 	name = "lava"
 	baseturfs = /turf/open/lava/smooth

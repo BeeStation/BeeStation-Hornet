@@ -4,6 +4,7 @@
 		BB_MOD_TARGET,
 		BB_MOD_IMPLANT,
 	)
+	//can_idle = FALSE
 	max_target_distance = MOD_AI_RANGE //a little spicy but its one specific item that summons it, and it doesnt run otherwise
 	ai_movement = /datum/ai_movement/jps
 	///ID card generated from the suit's required access. Used for pathing.
@@ -43,6 +44,6 @@
 
 /datum/ai_behavior/mod_attach/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
-	controller.blackboard[BB_MOD_TARGET] = null
+	controller.clear_blackboard_key(BB_MOD_TARGET)
 	var/obj/item/implant/mod/implant = controller.blackboard[BB_MOD_IMPLANT]
 	implant.end_recall(succeeded)

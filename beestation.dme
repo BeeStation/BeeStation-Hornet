@@ -2082,6 +2082,7 @@
 #include "code\modules\admin\verbs\modify_antag_tokens.dm"
 #include "code\modules\admin\verbs\onlyone.dm"
 #include "code\modules\admin\verbs\panicbunker.dm"
+#include "code\modules\admin\verbs\path_debugger.dm"
 #include "code\modules\admin\verbs\playsound.dm"
 #include "code\modules\admin\verbs\possess.dm"
 #include "code\modules\admin\verbs\pray.dm"

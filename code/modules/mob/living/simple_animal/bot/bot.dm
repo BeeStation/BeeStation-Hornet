@@ -691,10 +691,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/patrol_step()
 
-	if(client)		// In use by player, don't actually move.
+	if(client) // In use by player, don't actually move.
 		return
 
-	if(loc == patrol_target)		// reached target
+	if(loc == patrol_target) // reached target
 		if(original_patrol != null)
 			var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
 			if(z != original_patrol.z && E)
@@ -705,22 +705,24 @@ Pass a positive integer as an argument to override a bot's default speed.
 			find_patrol_target() //If it fails, look for the nearest one instead.
 		return
 
-	else if(path.len > 0 && patrol_target)		// valid path
+	else if(path.len > 0 && patrol_target) // valid path
 		if(path[1] == loc)
 			increment_path()
 			return
 
 
-		var/moved = bot_move(patrol_target)//step_towards(src, next)	// attempt to move
+		var/moved = bot_move(patrol_target)//step_towards(src, next) // attempt to move
 		if(!moved) //Couldn't proceed the next step of the path BOT_STEP_MAX_RETRIES times
-			spawn(2)
-				calc_path()
-				if(path.len == 0)
-					find_patrol_target()
-				tries = 0
+			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 0.2 SECONDS)
 
-	else	// no path, so calculate new one
+	else // no path, so calculate new one
 		mode = BOT_START_PATROL
+
+/mob/living/simple_animal/bot/proc/patrol_step_not_moved()
+	calc_path()
+	if(path.len == 0)
+		find_patrol_target()
+	tries = 0
 
 // finds the nearest beacon to self
 /mob/living/simple_animal/bot/proc/find_patrol_target()
@@ -867,17 +869,19 @@ Pass a positive integer as an argument to override a bot's default speed.
 			increment_path()
 			return
 
-		var/moved = bot_move(summon_target, 3)	// Move attempt
+		var/moved = bot_move(summon_target, 3) // Move attempt
 		if(!moved)
-			spawn(2)
-				calc_summon_path()
-				tries = 0
+			addtimer(CALLBACK(src, PROC_REF(summon_step_not_moved)), 0.2 SECONDS)
 
 	else	// no path, so calculate new one
 		if(summon_target != null)
 			if(z != summon_target.z)
 				last_summon = summon_target
 		calc_summon_path()
+
+/mob/living/simple_animal/bot/proc/summon_step_not_moved()
+	calc_summon_path()
+	tries = 0
 
 /mob/living/simple_animal/bot/Bump(M as mob|obj) //Leave no door unopened!
 	. = ..()
@@ -1037,8 +1041,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/insertpai(mob/user, obj/item/paicard/card)
 	if(paicard)
-		to_chat(user, span_warning("A [paicard] is already inserted!"))
-	else if(allow_pai && !key)
+		balloon_alert(user, "slot occupied!")
+		return
+	if(allow_pai && !key)
 		if(!locked && !open)
 			if(card.pai?.mind)
 				if(!user.transferItemToLoc(card, src))
@@ -1059,6 +1064,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(user, span_warning("The personality slot is locked."))
 	else
 		to_chat(user, span_warning("[src] is not compatible with [card]."))
+
+/mob/living/simple_animal/bot/ghost()
+	if(stat != DEAD) // Only ghost if we're doing this while alive, the pAI probably isn't dead yet.
+		..()
+	if(paicard && (!client || stat == DEAD))
+		ejectpai(0)
 
 /mob/living/simple_animal/bot/proc/ejectpai(mob/user = null, announce = 1)
 	if(paicard)
@@ -1089,7 +1100,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	. = ..()
 	if(!. || !client)
 		return FALSE
-	access_card.access |= player_access
+	if(length(player_access))
+		access_card.access |= player_access
 	diag_hud_set_botmode()
 
 /mob/living/simple_animal/bot/Logout()
@@ -1100,14 +1112,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	. = ..()
 	if(!.)
 		return
-
-	update_icon()
-
-/mob/living/simple_animal/bot/ghost()
-	if(stat != DEAD) // Only ghost if we're doing this while alive, the pAI probably isn't dead yet.
-		..()
-	if(paicard && (!client || stat == DEAD))
-		ejectpai(0)
+	update_appearance()
 
 /mob/living/simple_animal/bot/sentience_act()
 	faction -= FACTION_SILICON
@@ -1124,13 +1129,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 		H.remove_from_hud(src)
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
-	QDEL_LIST(path_images)
+	LAZYCLEARLIST(path_images)
 	if(length(newpath))
-		var/mutable_appearance/path_image = new /mutable_appearance()
-		path_image.icon = path_image_icon
-		path_image.icon_state = path_image_icon_state
-		path_image.layer = BOT_PATH_LAYER
-		path_image.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+		var/mutable_appearance/path_image = mutable_appearance(path_image_icon, path_image_icon_state, BOT_PATH_LAYER, appearance_flags = RESET_COLOR|RESET_TRANSFORM|KEEP_APART)
 		path_image.color = path_image_color
 		for(var/i in 1 to newpath.len)
 			var/turf/T = newpath[i]
@@ -1141,11 +1142,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 				var/turf/prevT = path[i - 1]
 				var/image/prevI = path[prevT]
 				direction = get_dir(prevT, T)
-				if(i > 2)
+				if(i > 2 && prevI) // make sure we actually have an image to manipulate at index > 2
 					var/turf/prevprevT = path[i - 2]
 					var/prevDir = get_dir(prevprevT, prevT)
 					var/mixDir = direction|prevDir
-					if(mixDir in GLOB.diagonals)
+					if(ISDIAGONALDIR(mixDir))
 						prevI.dir = mixDir
 						if(prevDir & (NORTH|SOUTH))
 							var/matrix/ntransform = matrix()
@@ -1173,11 +1174,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return
 	var/image/I = path[path[1]]
 	if(I)
-		I.icon_state = null
+		animate(I, alpha = 0, time = 3)
 	path.Cut(1, 2)
 
 	if(!length(path))
-		set_path(null)
+		addtimer(CALLBACK(src, PROC_REF(set_path), null), 0.6 SECONDS) // Enough time for the animate to finish
 
 /mob/living/simple_animal/bot/rust_heretic_act()
 	adjustBruteLoss(400)
@@ -1211,7 +1212,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(!target)
 			target = elevat
 			continue
-		if(get_dist_euclidian(elevat, src) > get_dist_euclidian(target, src))
+		if(get_dist_euclidean(elevat, src) > get_dist_euclidean(target, src))
 			continue
 		target = elevat
 	return target

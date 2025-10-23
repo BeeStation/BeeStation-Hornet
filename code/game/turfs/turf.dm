@@ -685,3 +685,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!ismopable(movable_content))
 			continue
 		movable_content.wash(clean_types)
+
+/// Returns whether it is safe for an atom to move across this turf
+/turf/proc/can_cross_safely(atom/movable/crossing)
+	return TRUE

@@ -6,7 +6,10 @@
 
 /// A helper macro for JPS, for telling when a node has forced neighbors that need expanding
 /// Only usable in the context of the jps datum because of the datum vars it relies on
+/// Checks if we are deviating from our "running" directions
 #define STEP_NOT_HERE_BUT_THERE(cur_turf, dirA, dirB) ((!CAN_STEP(cur_turf, get_step(cur_turf, dirA), simulated_only, pass_info, avoid) && CAN_STEP(cur_turf, get_step(cur_turf, dirB), simulated_only, pass_info, avoid)))
+/// Checks if a border object stops our parent from reaching a turf we CAN reach
+#define TURF_CANT_WE_CAN(parent_turf, dir_parent, cur_turf, dur_cur) ((!CAN_STEP(parent_turf, get_step(parent_turf, dir_parent), simulated_only, pass_info, avoid) && CAN_STEP(cur_turf, get_step(cur_turf, dur_cur), simulated_only, pass_info, avoid)))
 
 /// The JPS Node datum represents a turf that we find interesting enough to add to the open list and possibly search for new tiles from
 /datum/jps_node
@@ -34,7 +37,7 @@
 		previous_node = incoming_previous_node
 		number_tiles = previous_node.number_tiles + jumps
 		node_goal = previous_node.node_goal
-		heuristic = get_dist(tile, node_goal)
+		heuristic = get_dist_euclidean(tile, node_goal)
 		f_value = number_tiles + heuristic
 	// otherwise, no parent node means this is from a subscan lateral scan, so we just need the tile for now until we call [datum/jps/proc/update_parent] on it
 
@@ -47,7 +50,7 @@
 	node_goal = previous_node.node_goal
 	jumps = get_dist(tile, previous_node.tile)
 	number_tiles = previous_node.number_tiles + jumps
-	heuristic = get_dist(tile, node_goal)
+	heuristic = get_dist_euclidean(tile, node_goal)
 	f_value = number_tiles + heuristic
 
 DECLARE_HEAP_TYPE(/datum/path_heap, /datum/jps_node, b.f_value - a.f_value)
@@ -211,16 +214,20 @@ DECLARE_HEAP_TYPE(/datum/path_heap, /datum/jps_node, b.f_value - a.f_value)
 
 		switch(heading)
 			if(NORTH)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, EAST, NORTHEAST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, EAST, NORTHEAST) \
+					|| TURF_CANT_WE_CAN(get_step(current_turf, EAST), NORTH, current_turf, NORTHEAST) || TURF_CANT_WE_CAN(get_step(current_turf, WEST), NORTH, current_turf, NORTHWEST))
 					interesting = TRUE
 			if(SOUTH)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, SOUTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, EAST, SOUTHEAST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, SOUTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, EAST, SOUTHEAST) \
+					|| TURF_CANT_WE_CAN(get_step(current_turf, EAST), SOUTH, current_turf, SOUTHEAST) || TURF_CANT_WE_CAN(get_step(current_turf, WEST), SOUTH, current_turf, SOUTHWEST))
 					interesting = TRUE
 			if(EAST)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHEAST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHEAST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHEAST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHEAST) \
+					|| TURF_CANT_WE_CAN(get_step(current_turf, SOUTH), EAST, current_turf, SOUTHEAST) || TURF_CANT_WE_CAN(get_step(current_turf, NORTH), EAST, current_turf, NORTHEAST))
 					interesting = TRUE
 			if(WEST)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHWEST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHWEST) \
+					|| TURF_CANT_WE_CAN(get_step(current_turf, SOUTH), WEST, current_turf, SOUTHWEST) || TURF_CANT_WE_CAN(get_step(current_turf, NORTH), WEST, current_turf, NORTHWEST))
 					interesting = TRUE
 
 		if(interesting)
@@ -273,22 +280,26 @@ DECLARE_HEAP_TYPE(/datum/path_heap, /datum/jps_node, b.f_value - a.f_value)
 
 		switch(heading)
 			if(NORTHWEST)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, EAST, NORTHEAST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHWEST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, EAST, NORTHEAST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHWEST) \
+					|| TURF_CANT_WE_CAN(lag_turf, NORTH, current_turf, EAST) || TURF_CANT_WE_CAN(lag_turf, WEST, current_turf, SOUTH))
 					interesting = TRUE
 				else
 					possible_child_node = (lateral_scan_spec(current_turf, WEST) || lateral_scan_spec(current_turf, NORTH))
 			if(NORTHEAST)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHEAST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHEAST) \
+					|| TURF_CANT_WE_CAN(lag_turf, NORTH, current_turf, WEST) || TURF_CANT_WE_CAN(lag_turf, EAST, current_turf, SOUTH))
 					interesting = TRUE
 				else
 					possible_child_node = (lateral_scan_spec(current_turf, EAST) || lateral_scan_spec(current_turf, NORTH))
 			if(SOUTHWEST)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, EAST, SOUTHEAST) || STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHWEST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, EAST, SOUTHEAST) || STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHWEST) \
+					|| TURF_CANT_WE_CAN(lag_turf, SOUTH, current_turf, EAST) || TURF_CANT_WE_CAN(lag_turf, WEST, current_turf, NORTH))
 					interesting = TRUE
 				else
 					possible_child_node = (lateral_scan_spec(current_turf, SOUTH) || lateral_scan_spec(current_turf, WEST))
 			if(SOUTHEAST)
-				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, SOUTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHEAST))
+				if(STEP_NOT_HERE_BUT_THERE(current_turf, WEST, SOUTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHEAST) \
+					|| TURF_CANT_WE_CAN(lag_turf, SOUTH, current_turf, WEST) || TURF_CANT_WE_CAN(lag_turf, EAST, current_turf, NORTH))
 					interesting = TRUE
 				else
 					possible_child_node = (lateral_scan_spec(current_turf, SOUTH) || lateral_scan_spec(current_turf, EAST))
