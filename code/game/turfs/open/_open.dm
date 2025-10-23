@@ -41,22 +41,22 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	return "floor"
 
 //direction is direction of travel of A
-/turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	if(direction == DOWN)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_IN_DOWN)
-				return FALSE
-		return TRUE
-	return FALSE
+/turf/open/zPassIn(direction, falling = FALSE)
+	if(direction != DOWN)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & Z_BLOCK_IN_DOWN)
+			return FALSE
+	return TRUE
 
-//direction is direction of travel of A
-/turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	if(direction == UP)
-		for(var/obj/O in contents)
-			if(O.z_flags & Z_BLOCK_OUT_UP)
-				return FALSE
-		return TRUE
-	return FALSE
+//direction is direction of travel of an atom
+/turf/open/zPassOut(direction, falling = FALSE)
+	if(direction != UP)
+		return FALSE
+	for(var/obj/on_us in contents)
+		if(on_us.obj_flags & Z_BLOCK_OUT_UP)
+			return FALSE
+	return TRUE
 
 //direction is direction of travel of air
 /turf/open/zAirIn(direction, turf/source)

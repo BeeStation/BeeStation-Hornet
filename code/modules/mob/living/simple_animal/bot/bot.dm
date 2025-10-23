@@ -576,10 +576,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/call_bot(bot_caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
 
-	//For giving the bot temporary all-access.
-	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
+	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
+	//Easier then building the list ourselves. I'm sorry.
+	var/static/obj/item/card/id/all_access = new /obj/item/card/id/captains_spare()
+	//var/datum/job/captain/All = new/datum/job/captain
+	set_path(get_path_to(src, waypoint, max_distance=200, access = all_access.GetAccess()))
 
 	calling_ai = bot_caller //Link the AI to the bot!
 	ai_waypoint = waypoint
@@ -591,7 +592,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return
 
 
-	set_path(get_path_to(src, waypoint, max_distance=200, id=all_access))
+	set_path(get_path_to(src, waypoint, max_distance=200, access=all_access.GetAccess()))
 
 	if(path && path.len) //Ensures that a valid path is calculated!
 		var/end_area = get_area_name(waypoint)
@@ -826,12 +827,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 			if(z < patrol_target.z)
 				go_up_or_down(UP)
 				return
-	set_path(get_path_to(src, patrol_target, max_distance=120, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, patrol_target, max_distance=120, access=access_card.GetAccess(), exclude=avoid, diagonal_handling=DIAGONAL_REMOVE_ALL))
 
 /mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
 	check_bot_access()
 	var/datum/callback/path_complete = CALLBACK(src, PROC_REF(on_summon_path_finish))
-	SSpathfinder.pathfind(src, summon_target, max_distance=150, id=access_card, exclude=avoid, on_finish = path_complete)
+	SSpathfinder.pathfind(src, summon_target, max_distance=150, access=access_card.GetAccess(), exclude=avoid, diagonal_handling=DIAGONAL_REMOVE_ALL, on_finish=list(path_complete))
 
 /mob/living/simple_animal/bot/proc/on_summon_path_finish(list/path)
 	if(!is_reserved_level(z))
@@ -956,74 +957,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if("eject_pai")
 			to_chat(usr, span_notice("You eject [paicard] from [bot_name]"))
 			ejectpai(usr)
-
-/mob/living/simple_animal/bot/proc/show_controls(mob/M)
-	users |= M
-	var/dat = ""
-	dat = get_controls(M)
-	var/datum/browser/popup = new(M,window_id,window_name,350,600)
-	popup.set_content(dat)
-	popup.open(use_onclose = 0)
-	onclose(M,window_id,ref=src)
-	return
-
-/mob/living/simple_animal/bot/proc/update_controls()
-	for(var/mob/M in users)
-		show_controls(M)
-
-/mob/living/simple_animal/bot/proc/get_controls(mob/M)
-	return "PROTOBOT - NOT FOR USE"
-
-/mob/living/simple_animal/bot/Topic(href, href_list)
-	//No ..() to prevent strip panel showing up - Todo: make that saner
-	if(href_list["close"])// HUE HUE
-		if(usr in users)
-			users.Remove(usr)
-		return TRUE
-
-	if(topic_denied(usr))
-		to_chat(usr, span_warning("[src]'s interface is not responding!"))
-		return TRUE
-	add_fingerprint(usr)
-
-	if((href_list["power"]) && (bot_core.allowed(usr) || !locked))
-		if(on)
-			turn_off()
-		else
-			boot_up_sequence()
-
-	switch(href_list["operation"])
-		if("patrol")
-			if(!issilicon(usr) && !IsAdminGhost(usr) && !(bot_core.allowed(usr) || !locked))
-				return TRUE
-			auto_patrol = !auto_patrol
-			bot_reset()
-		if("remote")
-			remote_disabled = !remote_disabled
-		if("hack")
-			if(!issilicon(usr) && !IsAdminGhost(usr))
-				return TRUE
-			if(emagged != 2)
-				emagged = 2
-				hacked = TRUE
-				locked = TRUE
-				to_chat(usr, span_warning("[text_hack]"))
-				message_admins("Safety lock of [ADMIN_LOOKUPFLW(src)] was disabled by [ADMIN_LOOKUPFLW(usr)] in [ADMIN_VERBOSEJMP(src)]")
-				log_game("Safety lock of [src] was disabled by [key_name(usr)] in [AREACOORD(src)]")
-				bot_reset()
-			else if(!hacked)
-				to_chat(usr, span_boldannounce("[text_dehack_fail]"))
-			else
-				emagged = FALSE
-				hacked = FALSE
-				to_chat(usr, span_notice("[text_dehack]"))
-				log_game("Safety lock of [src] was re-enabled by [key_name(usr)] in [AREACOORD(src)]")
-				bot_reset()
-		if("ejectpai")
-			if(paicard && (!locked || issilicon(usr) || IsAdminGhost(usr)))
-				to_chat(usr, span_notice("You eject [paicard] from [bot_name]"))
-				ejectpai(usr)
-	update_controls()
 
 /mob/living/simple_animal/bot/update_icon_state()
 	. = ..()
@@ -1359,7 +1292,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 		destination = get_turf(new_target)
 
-	set_path(get_path_to(src, destination, 200, id=all_access))
+	set_path(get_path_to(src, destination, 200, access=all_access.GetAccess()))
 	ai_waypoint = destination
 
 	if(path && path.len) //Ensures that a valid path is calculated!
@@ -1392,7 +1325,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(!new_target)
 			return
 		patrol_target = get_turf(new_target)
-		set_path(get_path_to(src, patrol_target, 200, id=all_access))
+		set_path(get_path_to(src, patrol_target, 200, access=all_access.GetAccess()))
 
 /mob/living/simple_animal/bot/proc/summon_up_or_down(direction)
 	bot_z_mode = BOT_Z_MODE_SUMMONED
@@ -1406,4 +1339,4 @@ Pass a positive integer as an argument to override a bot's default speed.
 		target = get_turf(new_target)
 		last_summon = summon_target
 		summon_target = target
-		set_path(get_path_to(src, summon_target, 200, id=access_card))
+		set_path(get_path_to(src, patrol_target, 200, access=access_card.GetAccess()))

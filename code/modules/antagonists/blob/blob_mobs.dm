@@ -65,7 +65,7 @@
 	if(istype(mover, /obj/structure/blob))
 		return TRUE
 
-	///override to use astar/JPS instead of walk_to so we can take our blob pass_flags into account.
+///override to use astar/JPS instead of walk_to so we can take our blob pass_flags into account.
 /mob/living/simple_animal/hostile/blob/Goto(target, delay, minimum_distance)
 	if(prevent_goto_movement)
 		return FALSE
@@ -217,13 +217,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 			blob_head_overlay.color = overmind.blobstrain.complementary_color
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
-
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance)
-	if(target == src.target)
-		approaching_target = TRUE
-	else
-		approaching_target = FALSE
-	SSmove_manager.hostile_jps_move(src, target,delay, minimum_distance = minimum_distance)
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"

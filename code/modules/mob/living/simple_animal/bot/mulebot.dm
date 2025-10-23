@@ -344,55 +344,6 @@
 		if("ejectpai")
 			ejectpairemote(user)
 
-// TODO: remove this; PDAs currently depend on it
-/mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
-	var/ai = issilicon(user)
-	var/dat
-	dat += "<h3>Multiple Utility Load Effector Mk. V</h3>"
-	dat += "<b>ID:</b> [id]<BR>"
-	dat += "<b>Power:</b> [on ? "On" : "Off"]<BR>"
-	dat += "<h3>Status</h3>"
-	dat += "<div class='statusDisplay'>"
-	switch(mode)
-		if(BOT_IDLE)
-			dat += span_good("Ready")
-		if(BOT_DELIVER)
-			dat += span_good("[mode_name[BOT_DELIVER]]")
-		if(BOT_GO_HOME)
-			dat += span_good("[mode_name[BOT_GO_HOME]]")
-		if(BOT_BLOCKED)
-			dat += span_average("[mode_name[BOT_BLOCKED]]")
-		if(BOT_NAV,BOT_WAIT_FOR_NAV)
-			dat += span_average("[mode_name[BOT_NAV]]")
-		if(BOT_NO_ROUTE)
-			dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
-	dat += "</div>"
-
-	dat += "<b>Current Load:</b> [isobserver(load) ? "<i>Unknown</i>" : (load ? load.name : "<i>None</i>")]<BR>"
-	dat += "<b>Destination:</b> [!destination ? "<i>none</i>" : destination]<BR>"
-	dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
-
-	if(locked && !ai && !IsAdminGhost(user))
-		dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='byond://?src=[REF(src)];op=unlock'>Unlock Controls</A>"
-	else
-		dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='byond://?src=[REF(src)];op=lock'>Lock Controls</A><BR><BR>"
-
-		dat += "<A href='byond://?src=[REF(src)];op=power'>Toggle Power</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=stop'>Stop</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=go'>Proceed</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=home'>Return to Home</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=destination'>Set Destination</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=setid'>Set Bot ID</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=sethome'>Set Home</A><BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-		dat += "<A href='byond://?src=[REF(src)];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
-		if(load)
-			dat += "<A href='byond://?src=[REF(src)];op=unload'>Unload Now</A><BR>"
-		dat += "<div class='notice'>The maintenance hatch is closed.</div>"
-
-	return dat
-
 /mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(SIGH)
@@ -640,7 +591,7 @@
 			if(z < target.z)
 				mule_up_or_down(UP)
 				return
-	path = get_path_to(src, target, max_distance=250, id=access_card, exclude=avoid)
+	path = get_path_to(src, target, max_distance=250, access=access_card.GetAccess(), exclude=avoid, diagonal_handling=DIAGONAL_REMOVE_ALL)
 
 /mob/living/simple_animal/bot/mulebot/proc/mule_up_or_down(direction)
 	if(!is_reserved_level(z) && is_station_level(z))
@@ -653,7 +604,7 @@
 		go_here = get_turf(new_target)
 		last_target = target
 		target = go_here
-		path = get_path_to(src, target, 250, id=access_card)
+		path = get_path_to(src, target, 250, access=access_card.GetAccess())
 
 /mob/living/simple_animal/bot/mulebot/proc/mulebot_z_movement()
 	var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)

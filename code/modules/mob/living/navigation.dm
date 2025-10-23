@@ -77,7 +77,7 @@
 		stack_trace("Navigate target ([target_destination]) is not an atom, somehow.")
 		return
 
-	var/list/path = get_path_to(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, id = get_idcard(), skip_first = FALSE)
+	var/list/path = get_path_to(src, target_destination, MAX_NAVIGATE_RANGE, mintargetdist = 1, access = get_access(), skip_first = FALSE)
 	if(!length(path))
 		balloon_alert(src, "no valid path with current access!")
 		//Let them path again

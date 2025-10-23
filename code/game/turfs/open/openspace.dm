@@ -52,7 +52,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/zAirOut()
 	return TRUE
 
-/turf/open/openspace/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
+/turf/open/openspace/zPassIn(direction, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.z_flags & Z_BLOCK_IN_DOWN)
@@ -65,12 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 		return TRUE
 	return FALSE
 
-/turf/open/openspace/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	//Check if our current location has gravity
-	if(falling && !A.has_gravity(src))
-		return FALSE
-	if(A.anchored)
-		return FALSE
+/turf/open/openspace/zPassOut(direction, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
 			if(O.z_flags & Z_BLOCK_OUT_DOWN)
@@ -155,10 +150,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 /turf/open/openspace/rust_heretic_act()
 	return FALSE
 
-/turf/open/openspace/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && !caller.can_z_move(DOWN, src, null , ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
-		return TRUE
-	return FALSE
+/turf/open/openspace/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+    var/atom/movable/our_movable = pass_info.requester_ref.resolve()
+    var/turf/destination = GET_TURF_BELOW(src)
+    if(our_movable && !our_movable.can_zTravel(destination, DOWN)) //If we can't fall here (flying/lattice), it's fine to path through
+        return TRUE
+    return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible
 /turf/open/openspace/check_gravity()

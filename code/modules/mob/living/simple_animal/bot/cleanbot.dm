@@ -162,7 +162,7 @@
 				return
 
 		if(target && path.len == 0 && (get_dist(src,target) > 1))
-			path = get_path_to(src, target, max_distance=30, mintargetdist=1, id=access_card)
+			path = get_path_to(src, target, max_distance=30, mintargetdist=1, access=access_card.GetAccess())
 			mode = BOT_MOVING
 			if(!path.len)
 				add_to_ignore(target)
@@ -190,7 +190,7 @@
 		/obj/effect/decal/cleanable/glass,
 		/obj/effect/decal/cleanable/wrapping,
 		/obj/effect/decal/cleanable/glitter,
-		/obj/effect/decal/cleanable/confetti,
+		//obj/effect/decal/cleanable/confetti,
 		/obj/effect/decal/remains
 		)
 
@@ -198,7 +198,7 @@
 		target_types += list(
 			/obj/effect/decal/cleanable/xenoblood,
 			/obj/effect/decal/cleanable/blood,
-			/obj/effect/decal/cleanable/trail_holder,
+			/obj/effect/decal/cleanable/blood/trail_holder,
 		)
 
 	if(pests)
@@ -219,7 +219,7 @@
 
 	target_types = typecacheof(target_types)
 
-/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A, proximity_flag)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(ismopable(A))
@@ -343,7 +343,7 @@
 	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 
-/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A, proximity_flag)
 	if(istype(A, /obj/effect/decal/cleanable))
 		set_anchored(TRUE)
 		icon_state = "larry-c"
