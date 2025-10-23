@@ -294,3 +294,8 @@
       of whether they are playing or not.
   WhiskeyMarten:
   - bugfix: Health analyzers now show compatibility at critical blood levels again.
+2025-10-23:
+  lord scrubling:
+  - bugfix: materials list in crafting can be scrolled
+  - bugfix: chemical dispenser tgui updates as their cells charge
+  - bugfix: plumbing reaction chamber tgui
