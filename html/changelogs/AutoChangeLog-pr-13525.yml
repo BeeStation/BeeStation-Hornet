@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes an issue in dynamic where the server would crash if elasticity was
-      set to 100%.

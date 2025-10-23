@@ -295,6 +295,9 @@
   WhiskeyMarten:
   - bugfix: Health analyzers now show compatibility at critical blood levels again.
 2025-10-23:
+  PowerfulBacon:
+  - bugfix: Fixes an issue in dynamic where the server would crash if elasticity was
+      set to 100%.
   lord scrubling:
   - bugfix: materials list in crafting can be scrolled
   - bugfix: chemical dispenser tgui updates as their cells charge
