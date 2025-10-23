@@ -1184,10 +1184,6 @@
 /turf/closed/wall,
 /area/lawoffice)
 "aps" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Bay";
-	req_access_txt = "31"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1198,7 +1194,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay";
+	req_access_txt = "31"
+	},
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/storage)
 "apt" = (
 /obj/structure/disposalpipe/segment{
@@ -11206,13 +11206,13 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/mining{
-	req_access_txt = "48"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/iron,
+/obj/machinery/door/airlock/mining{
+	req_access_txt = "48"
+	},
+/turf/open/floor/iron/tech,
 /area/quartermaster/miningdock)
 "cig" = (
 /turf/closed/wall,
@@ -26290,10 +26290,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "hir" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Quartermaster";
-	req_access_txt = "41"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -26306,6 +26302,10 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Quartermaster";
+	req_access_txt = "41"
 	},
 /turf/open/floor/wood/big,
 /area/quartermaster/qm)
@@ -26412,15 +26412,9 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "hkB" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/beanbag{
-	pixel_y = 9
-	},
-/obj/item/storage/box/beanbag{
-	pixel_y = 4
-	},
 /obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "hkJ" = (
@@ -29851,6 +29845,13 @@
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
 	},
+/obj/item/storage/box/beanbag{
+	pixel_y = 4
+	},
+/obj/item/storage/box/beanbag{
+	pixel_y = 9
+	},
+/obj/item/gun/ballistic/shotgun/doublebarrel,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "isy" = (
@@ -30108,7 +30109,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
 "iwP" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
@@ -33808,7 +33809,11 @@
 /area/hallway/secondary/command)
 "jVH" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe";
+	pixel_x = -4
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "jVQ" = (
@@ -34587,13 +34592,22 @@
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
-	pixel_y = 30
+	pixel_y = 33;
+	pixel_x = 0
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/chem_master/condimaster{
-	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe";
-	pixel_x = -4
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 11;
+	pixel_y = 11
+	},
+/obj/machinery/reagentgrinder{
+	pixel_x = -7;
+	pixel_y = 12
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -36953,12 +36967,12 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "ldt" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
 	req_access_txt = "31"
 	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/iron,
+/turf/open/floor/iron/tech,
 /area/quartermaster/storage)
 "ldH" = (
 /obj/effect/turf_decal/trimline/dark_red/line{
@@ -39136,11 +39150,15 @@
 /turf/open/floor/iron,
 /area/janitor)
 "mcP" = (
+/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Maintenance";
 	req_access_txt = "31"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	name = "Cargo Bay Maintenance";
+	req_access_txt = "31"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "mcV" = (
@@ -45656,10 +45674,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "oMD" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Office";
-	req_access_txt = "31"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -45667,7 +45681,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Office";
+	req_access_txt = "31"
+	},
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/sorting)
 "oMF" = (
 /obj/machinery/firealarm{
@@ -47148,7 +47166,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
 "pom" = (
 /obj/machinery/light_switch{
@@ -47788,7 +47806,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
 "pzX" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -53103,18 +53121,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/port)
-"rBI" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/quartermaster/office)
 "rCa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -62347,7 +62353,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
 "vdp" = (
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -63127,15 +63133,16 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/command)
 "vqN" = (
-/obj/structure/table/wood,
-/obj/item/gun/ballistic/shotgun/doublebarrel,
-/obj/item/stack/spacecash/c1{
-	pixel_y = 11
-	},
-/obj/item/stack/spacecash/c100{
-	pixel_y = 10
-	},
 /obj/machinery/firealarm/directional/north,
+/obj/item/stack/spacecash/c1{
+	pixel_y = 3;
+	pixel_x = 5
+	},
+/obj/structure/table/wood,
+/obj/item/stack/spacecash/c100{
+	pixel_y = 8;
+	pixel_x = 1
+	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "vqV" = (
@@ -65050,10 +65057,6 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/maintenance/disposal/incinerator)
 "wdq" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Office";
-	req_one_access_txt = "50;48"
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -65064,7 +65067,11 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Office";
+	req_one_access_txt = "50;48"
+	},
+/turf/open/floor/iron/tech,
 /area/quartermaster/office)
 "wds" = (
 /obj/effect/landmark/xeno_spawn,
@@ -65599,7 +65606,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
 	dir = 8
 	},
-/turf/open/floor/catwalk_floor/iron_smooth,
+/turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/office)
 "woo" = (
 /obj/structure/cable/yellow{
@@ -92417,7 +92424,7 @@ dCL
 aPz
 brZ
 fWa
-rBI
+fQZ
 rSg
 rSg
 rSg
