@@ -66,7 +66,7 @@
 		set_anchored(FALSE)
 		panel_open = TRUE
 		icon_state = "thermo-open"
-		balloon_alert(user, "the port is already in use!")
+		balloon_alert(user, "a pipe is hogging the tile!")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/RefreshParts()
 	var/calculated_bin_rating
@@ -201,6 +201,20 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
 
+/obj/machinery/atmospherics/components/unary/thermomachine/wrench_act_secondary(mob/living/user, obj/item/tool)
+	. = TRUE
+	if (!panel_open)
+		balloon_alert(user, "panel closed!")
+		return
+	if (!anchored && check_pipe_on_turf())
+		balloon_alert(user, "a pipe is hogging the tile!")
+		return
+
+	if (default_unfasten_wrench(user, tool) != SUCCESSFUL_UNFASTEN)
+		return
+
+	change_nodes_connection(!anchored)
+
 /obj/machinery/atmospherics/components/unary/thermomachine/crowbar_act(mob/living/user, obj/item/tool)
 	return crowbar_deconstruction_act(user, tool)
 
@@ -284,13 +298,13 @@
 	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/user)
-	if(!can_interact(user))
-		return FALSE
 	if(!anchored)
-		return TRUE
+		return ..()
 	if(panel_open)
 		balloon_alert(user, "close panel!")
 		return TRUE
+	if(!can_interact(user))
+		return FALSE
 	if(!is_operational)
 		return TRUE
 
