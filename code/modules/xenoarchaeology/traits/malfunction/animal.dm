@@ -85,7 +85,7 @@
 /mob/living/simple_animal/hostile/twin
 	name = "evil twin"
 	desc = "It looks so familiar."
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	speed = 0

@@ -518,7 +518,7 @@
 		correct_state()
 
 
-/obj/machinery/door/firedoor/try_to_crowbar(obj/item/crowbar, mob/user)
+/obj/machinery/door/firedoor/try_to_crowbar(obj/item/crowbar, mob/user, forced = FALSE)
 	if(welded || operating)
 		return
 
