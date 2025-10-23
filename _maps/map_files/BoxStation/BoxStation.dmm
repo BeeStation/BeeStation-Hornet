@@ -34081,6 +34081,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron,
 /area/security/checkpoint/auxiliary)
 "kcl" = (
@@ -42714,6 +42715,7 @@
 	pixel_x = 1;
 	pixel_y = 6
 	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron,
 /area/security/checkpoint/auxiliary)
 "nvK" = (
