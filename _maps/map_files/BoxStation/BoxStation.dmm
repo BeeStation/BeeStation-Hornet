@@ -34612,18 +34612,13 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "kmG" = (
-/obj/machinery/requests_console{
-	department = "Kitchen";
-	departmentType = 2;
-	pixel_y = 33;
-	pixel_x = 0
-	},
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/chem_master/condimaster{
 	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
 	name = "HoochMaster Deluxe";
 	pixel_x = -4
 	},
+/obj/machinery/requests_console/directional/north,
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "kmL" = (
