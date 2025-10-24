@@ -151,12 +151,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/turf/open/openspace)
 	return FALSE
 
 /turf/open/openspace/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
-    var/atom/movable/our_movable = pass_info.requester_ref.resolve()
-    var/turf/destination = GET_TURF_BELOW(src)
-    if(our_movable && !our_movable.can_zTravel(destination, DOWN)) //If we can't fall here (flying/lattice), it's fine to path through
-        return TRUE
-    return FALSE
-
+	var/atom/movable/our_movable = pass_info.requester_ref.resolve()
+	var/turf/destination = GET_TURF_BELOW(src)
+	if(our_movable && !our_movable.can_zTravel(destination, DOWN)) //If we can't fall here (flying/lattice), it's fine to path through
+		return TRUE
+	return FALSE
+	
 //Returns FALSE if gravity is force disabled. True if grav is possible
 /turf/open/openspace/check_gravity()
 	var/turf/T = GET_TURF_BELOW(src)
