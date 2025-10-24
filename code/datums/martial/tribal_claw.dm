@@ -8,6 +8,7 @@
 	id = MARTIALART_TRIBALCLAW
 	allow_temp_override = FALSE
 	display_combos = TRUE
+	COOLDOWN_DECLARE(jugular_cut_cd)
 
 	Move1 = "Tail Sweep: Disarm Disarm Grab Harm. Requires a lizard tail. Pushes everyone around you away and knocks them down."
 	Move2 = "Face Scratch: Harm Disarm. Damages your target's head and confuses them for a short time."
@@ -63,6 +64,9 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(D.body_position == LYING_DOWN || (A.pulling == D && A.grab_state >= GRAB_AGGRESSIVE) || D.confused)
+		if(!COOLDOWN_FINISHED(src, jugular_cut_cd))	// No ultra DPS with gloves of the north star
+			return
+		COOLDOWN_START(src, jugular_cut_cd, CLICK_CD_MELEE)
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
 		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
 							span_userdanger("[A] cuts your jugular vein!"))
