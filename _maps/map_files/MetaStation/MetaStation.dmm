@@ -9358,8 +9358,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell/wired/command{
-	pixel_x = 7;
-	pixel_y = 0
+	pixel_x = 7
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -39058,8 +39057,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell/wired/medical{
-	pixel_x = 7;
-	pixel_y = 0
+	pixel_x = 7
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
@@ -47004,8 +47002,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell/wired/service{
-	pixel_x = -4;
-	pixel_y = 0
+	pixel_x = -4
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
@@ -48627,8 +48624,7 @@
 	pixel_x = 4
 	},
 /obj/structure/desk_bell/wired/science{
-	pixel_x = -9;
-	pixel_y = 0
+	pixel_x = -9
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -75705,8 +75701,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell/wired/service{
-	pixel_x = 6;
-	pixel_y = 0
+	pixel_x = 6
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)

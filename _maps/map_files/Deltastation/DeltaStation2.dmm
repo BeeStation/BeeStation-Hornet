@@ -28563,8 +28563,7 @@
 	req_access_txt = "5; 33"
 	},
 /obj/item/folder/yellow{
-	pixel_x = 3;
-	pixel_y = 0
+	pixel_x = 3
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "chemistbot";
@@ -32680,8 +32679,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/desk_bell/wired/service{
-	pixel_x = -6;
-	pixel_y = 0
+	pixel_x = -6
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -40514,8 +40512,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell/wired/science{
-	pixel_x = 8;
-	pixel_y = 0
+	pixel_x = 8
 	},
 /turf/open/floor/iron,
 /area/science/lab)

@@ -40025,8 +40025,7 @@
 	pixel_y = 4
 	},
 /obj/structure/desk_bell/wired/engineering{
-	pixel_x = -7;
-	pixel_y = 0
+	pixel_x = -7
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -46274,8 +46273,7 @@
 	pixel_y = 3
 	},
 /obj/structure/desk_bell/wired/medical{
-	pixel_x = -7;
-	pixel_y = 0
+	pixel_x = -7
 	},
 /turf/open/floor/plating,
 /area/medical/apothecary)

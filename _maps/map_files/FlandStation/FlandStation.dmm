@@ -54541,8 +54541,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/desk_bell/wired/cargo{
-	pixel_x = -8;
-	pixel_y = 0
+	pixel_x = -8
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
@@ -57894,8 +57893,7 @@
 	pixel_x = 4
 	},
 /obj/structure/desk_bell/wired/engineering{
-	pixel_x = -8;
-	pixel_y = 0
+	pixel_x = -8
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
@@ -72554,8 +72552,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell/wired/service{
-	pixel_x = -5;
-	pixel_y = 0
+	pixel_x = -5
 	},
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";
@@ -82170,7 +82167,7 @@
 	pixel_y = 3
 	},
 /obj/item/pen{
-	pixel_x = 0;
+	pixel_x = 2;
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/delivery,
@@ -86019,8 +86016,7 @@
 	pixel_y = -3
 	},
 /obj/structure/desk_bell/wired/science{
-	pixel_x = -10;
-	pixel_y = 0
+	pixel_x = -10
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/robotics/lab)

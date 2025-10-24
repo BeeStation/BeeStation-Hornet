@@ -1336,10 +1336,11 @@
 	req_one_access_txt = 0
 	},
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_y = 2
-	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -5;
+	pixel_y = 9
+	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "aFw" = (
@@ -30156,8 +30157,7 @@
 	dir = 2
 	},
 /obj/structure/desk_bell/wired/engineering{
-	pixel_x = -7;
-	pixel_y = 0
+	pixel_x = -7
 	},
 /turf/open/floor/iron/smooth_large,
 /area/engine/engineering)
@@ -39301,8 +39301,7 @@
 	pixel_y = 3
 	},
 /obj/structure/desk_bell/wired/medical{
-	pixel_x = -7;
-	pixel_y = 0
+	pixel_x = -7
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
