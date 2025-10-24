@@ -29999,6 +29999,10 @@
 	req_one_access = null;
 	req_one_access_txt = "5"
 	},
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 15;
+	pixel_y = -1
+	},
 /turf/open/floor/iron/white,
 /area/medical/office)
 "jNH" = (
@@ -30833,12 +30837,12 @@
 	name = "Hydroponics Desk";
 	req_one_access_txt = "35;28"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 5;
-	pixel_y = 10
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /obj/item/origami/paperfrog{
 	pixel_x = -4;
@@ -38407,10 +38411,13 @@
 	pixel_x = -6
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell/speed_demon,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
 	name = "Privacy Shutters"
+	},
+/obj/structure/desk_bell/wired/command{
+	pixel_x = -5;
+	pixel_y = 6
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -40017,8 +40024,9 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/structure/desk_bell{
-	pixel_x = -6
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -7;
+	pixel_y = 0
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -43176,12 +43184,13 @@
 	req_one_access_txt = 0
 	},
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_y = 2
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = 7;
+	pixel_y = -2
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
@@ -46256,9 +46265,6 @@
 	name = "chemistry Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/paper_bin{
 	pixel_x = 7;
 	pixel_y = 2
@@ -46266,6 +46272,10 @@
 /obj/item/pen{
 	pixel_x = 6;
 	pixel_y = 3
+	},
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = -7;
+	pixel_y = 0
 	},
 /turf/open/floor/plating,
 /area/medical/apothecary)
@@ -50938,9 +50948,9 @@
 	pixel_y = 6
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -9;
-	pixel_y = -1
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -8;
+	pixel_y = 10
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)
@@ -51166,10 +51176,11 @@
 /area/hallway/primary/central)
 "qVc" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6;
+	pixel_y = 1
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "qVh" = (
@@ -64058,10 +64069,11 @@
 "vge" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/siding/wideplating/dark,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 5;
+	pixel_y = 1
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "vgf" = (
@@ -64972,10 +64984,6 @@
 /obj/structure/window/reinforced/spawner/directional/north{
 	pixel_y = 3
 	},
-/obj/structure/desk_bell{
-	pixel_x = -5;
-	pixel_y = 6
-	},
 /obj/machinery/door/window/westleft{
 	name = "Delivery Desk";
 	req_access_txt = "50"
@@ -64987,6 +64995,10 @@
 /obj/item/pen{
 	pixel_x = 7;
 	pixel_y = 3
+	},
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = -6;
+	pixel_y = -1
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
@@ -71682,9 +71694,6 @@
 	},
 /obj/item/toy/plush/renault{
 	pixel_x = 8
-	},
-/obj/structure/desk_bell{
-	pixel_x = -8
 	},
 /turf/open/floor/iron/white,
 /area/medical/office)

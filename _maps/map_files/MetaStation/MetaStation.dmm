@@ -6296,11 +6296,12 @@
 	req_access_txt = "32";
 	name = "Engineering Desk"
 	},
-/obj/structure/desk_bell/wired/engineering{
-	pixel_x = -8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -6;
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
@@ -9356,6 +9357,10 @@
 	name = "Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/command{
+	pixel_x = 7;
+	pixel_y = 0
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "bye" = (
@@ -13211,9 +13216,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/structure/desk_bell{
+/obj/structure/desk_bell/wired/service{
 	pixel_x = 5;
-	pixel_y = -1
+	pixel_y = 8
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -38269,8 +38274,9 @@
 	},
 /obj/item/pen,
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = 8
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = 8;
+	pixel_y = 11
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
@@ -39039,9 +39045,6 @@
 /area/hallway/primary/fore)
 "kcW" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
@@ -39054,6 +39057,10 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 7;
+	pixel_y = 0
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "kcZ" = (
@@ -46996,8 +47003,9 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -4;
+	pixel_y = 0
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
@@ -48615,11 +48623,12 @@
 	name = "research Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/pen{
 	pixel_x = 4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -9;
+	pixel_y = 0
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -57863,10 +57872,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8;
-	pixel_y = 1
-	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "qvb" = (
@@ -75699,6 +75704,10 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6;
+	pixel_y = 0
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "wvw" = (

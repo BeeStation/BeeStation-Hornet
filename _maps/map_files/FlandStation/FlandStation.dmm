@@ -3537,8 +3537,9 @@
 	name = "Hydroponic Shutters"
 	},
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/structure/desk_bell{
-	pixel_x = 8
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 7;
+	pixel_y = 7
 	},
 /turf/open/floor/iron/techmaint,
 /area/hydroponics)
@@ -16261,8 +16262,9 @@
 	id = "hop";
 	name = "Privacy Shutters"
 	},
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/command{
+	pixel_x = -8;
+	pixel_y = -2
 	},
 /turf/open/floor/iron/techmaint,
 /area/crew_quarters/heads/hop)
@@ -53377,8 +53379,9 @@
 	pixel_x = 5;
 	pixel_y = 1
 	},
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = -10;
+	pixel_y = 8
 	},
 /turf/open/floor/iron/dark,
 /area/medical/medbay/lobby)
@@ -54537,8 +54540,9 @@
 	pixel_x = 4
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = -8;
+	pixel_y = 0
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
@@ -57886,11 +57890,12 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/folder/yellow{
 	pixel_x = 4
+	},
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -8;
+	pixel_y = 0
 	},
 /turf/open/floor/iron/techmaint,
 /area/engine/atmos)
@@ -60758,20 +60763,21 @@
 "pDz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -2;
-	pixel_y = 2
-	},
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 5;
 	pixel_y = -2
 	},
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -1;
+	pixel_y = 2
+	},
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Bar Counter Shutters"
-	},
-/obj/structure/desk_bell{
-	pixel_x = -8
 	},
 /turf/open/floor/iron/techmaint,
 /area/crew_quarters/kitchen)
@@ -72546,12 +72552,15 @@
 /area/chapel/main)
 "sCQ" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -5;
+	pixel_y = 0
+	},
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";
 	name = "Bar Counter Shutters"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "sCS" = (
@@ -82156,12 +82165,19 @@
 	name = "Apothecary Desk";
 	req_access_txt = "5;33"
 	},
-/obj/item/folder/white,
-/obj/item/pen,
+/obj/item/folder/white{
+	pixel_x = 1;
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_x = 0;
+	pixel_y = 2
+	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = -9;
+	pixel_y = -3
 	},
 /turf/open/floor/iron/techmaint,
 /area/medical/apothecary)
@@ -85992,9 +86008,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/paper_bin{
 	pixel_x = 8
 	},
@@ -86004,6 +86017,10 @@
 /obj/item/folder/white{
 	pixel_x = 2;
 	pixel_y = -3
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -10;
+	pixel_y = 0
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/robotics/lab)
@@ -91524,12 +91541,13 @@
 	name = "External Research Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/pen{
 	pixel_x = 4;
 	pixel_y = 4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -8;
+	pixel_y = 8
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/lab)

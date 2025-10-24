@@ -2729,14 +2729,15 @@
 /area/storage/primary)
 "aIP" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/machinery/door/window/northright{
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 7;
+	pixel_y = 0
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "aIQ" = (
@@ -11741,9 +11742,6 @@
 	name = "Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -6
-	},
 /obj/item/paper_bin{
 	pixel_x = 4;
 	pixel_y = -4
@@ -11751,6 +11749,10 @@
 /obj/item/pen{
 	pixel_x = 4;
 	pixel_y = -4
+	},
+/obj/structure/desk_bell/wired/command{
+	pixel_x = -7;
+	pixel_y = 8
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -14594,6 +14596,19 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
+"cJj" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 7;
+	pixel_y = 0
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "barcounter";
+	name = "Bar Counter Shutters"
+	},
+/turf/open/floor/iron/cafeteria_red,
+/area/crew_quarters/bar)
 "cJr" = (
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron,
@@ -17444,12 +17459,15 @@
 /area/science/mixing)
 "dNA" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell,
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 7;
+	pixel_y = 0
+	},
 /obj/machinery/door/poddoor/shutters{
 	id = "kitchencounter";
 	name = "Kitchen Shutters"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "dNR" = (
@@ -27531,12 +27549,13 @@
 /area/medical/medbay/central)
 "hFE" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "quarantineshutters";
 	name = "Quarantine Shutters"
+	},
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = -7;
+	pixel_y = 0
 	},
 /turf/open/floor/iron,
 /area/medical/medbay/lobby)
@@ -33809,10 +33828,18 @@
 /area/hallway/secondary/command)
 "jVH" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/chem_master/condimaster{
-	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
-	name = "HoochMaster Deluxe";
-	pixel_x = -4
+/obj/structure/table/wood,
+/obj/machinery/reagentgrinder{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 10;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 10;
+	pixel_y = 4
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -34596,18 +34623,10 @@
 	pixel_x = 0
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass{
-	pixel_x = 11;
-	pixel_y = 11
-	},
-/obj/machinery/reagentgrinder{
-	pixel_x = -7;
-	pixel_y = 12
+/obj/machinery/chem_master/condimaster{
+	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
+	name = "HoochMaster Deluxe";
+	pixel_x = -4
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
@@ -39151,10 +39170,6 @@
 /area/janitor)
 "mcP" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Cargo Bay Maintenance";
-	req_access_txt = "31"
-	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Maintenance";
 	req_access_txt = "31"
@@ -46404,8 +46419,9 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_y = 8
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -4;
+	pixel_y = 0
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -51361,15 +51377,16 @@
 	name = "Research Lab"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/paper_bin{
 	pixel_x = -4;
 	pixel_y = 4
 	},
 /obj/item/pen{
 	pixel_x = -4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = 9;
+	pixel_y = 0
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -59382,8 +59399,9 @@
 	req_access_txt = "31"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_y = 8
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = -4;
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
@@ -69270,14 +69288,15 @@
 	name = "Warden's Desk";
 	req_access_txt = "3"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/paper_bin{
 	pixel_x = -3;
 	pixel_y = 7
 	},
 /obj/item/pen,
+/obj/structure/desk_bell/wired/security{
+	pixel_x = 10;
+	pixel_y = 0
+	},
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "xNj" = (
@@ -107572,7 +107591,7 @@ aJC
 oGX
 rvC
 vqa
-pLg
+cJj
 ruT
 sVx
 tgj
