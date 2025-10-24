@@ -121,9 +121,10 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
 	. = ..()
 	. += span_notice("With the panel open:")
-	. += span_notice("-Use a wrench to rotate [src].")
+	. += span_notice("-<b>LeftClick</b> with a wrench to rotate.")
+	. += span_notice("-<b>RightClick</b> with a wrench to [anchored ? "un" : ""]anchor.")
 	. += span_notice("-Use a multitool to change the piping color.")
-	. += span_notice("-<b>AltClick</b> to cycle between temperaure ranges.")
+	. += span_notice("-<b>AltClick</b> to cycle between temperature ranges.")
 	. += span_notice("-<b>CtrlClick</b> to toggle on/off.")
 	. += span_notice("The thermostat is set to [target_temperature]K ([(T0C-target_temperature)*-1]C).")
 
