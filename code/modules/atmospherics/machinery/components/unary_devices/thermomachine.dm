@@ -46,8 +46,20 @@
 	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/add_context_self(datum/screentip_context/context, mob/user)
-	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
-	context.add_alt_click_action("Cycle temperature")
+	. = ..()
+	if (panel_open)
+		if (anchored)
+			context.add_left_click_tool_action("Close panel", TOOL_SCREWDRIVER)
+			context.add_right_click_tool_action("Unanchor", TOOL_WRENCH)
+		else
+			context.add_right_click_tool_action("Anchor", TOOL_WRENCH)
+		context.add_left_click_tool_action("Rotate", TOOL_WRENCH)
+		context.add_left_click_tool_action("Change pipe color", TOOL_MULTITOOL)
+		context.add_left_click_tool_action("Deconstruct", TOOL_CROWBAR)
+	else
+		context.add_left_click_tool_action("Open panel", TOOL_SCREWDRIVER)
+		context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+		context.add_alt_click_action("Cycle temperature")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/is_connectable()
 	if(!anchored)
