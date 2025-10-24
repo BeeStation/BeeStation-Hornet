@@ -578,8 +578,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
 	//Easier then building the list ourselves. I'm sorry.
-	var/static/obj/item/card/id/all_access = new /obj/item/card/id/captains_spare()
-	//var/datum/job/captain/All = new/datum/job/captain
+	var/static/obj/item/card/id/all_access = new /obj/item/card/id/captains_spare
+	var/datum/job/captain/All = new/datum/job/captain
+	all_access.access = All.get_access()
 	set_path(get_path_to(src, waypoint, max_distance=200, access = all_access.GetAccess()))
 	calling_ai = bot_caller //Link the AI to the bot!
 	ai_waypoint = waypoint
