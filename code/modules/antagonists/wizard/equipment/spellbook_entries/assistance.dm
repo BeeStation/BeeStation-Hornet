@@ -26,6 +26,7 @@
 	spell_type = /datum/action/spell/tap
 	category = "Assistance"
 	cost = 1
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/item/staffanimation
 	name = "Staff of Animation"
