@@ -66,7 +66,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	if(D.body_position == LYING_DOWN || (A.pulling == D && A.grab_state >= GRAB_AGGRESSIVE) || D.confused)
 		if(!COOLDOWN_FINISHED(src, jugular_cut_cd))	// No ultra DPS with gloves of the north star
 			return
-		COOLDOWN_START(src, jugular_cut_cd, CLICK_CD_MELEE)
+		COOLDOWN_START(src, jugular_cut_cd, CLICK_CD_MELEE * 2)
 		log_combat(A, D, "jugular cut (Tribal Claw)", name)
 		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
 							span_userdanger("[A] cuts your jugular vein!"))
