@@ -221,6 +221,7 @@
 	log_spellbook("[key_name(user)] cast [src] for [cost] points")
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	log_purchase(user.key)
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/proc/say_invocation(mob/living/carbon/human/user)

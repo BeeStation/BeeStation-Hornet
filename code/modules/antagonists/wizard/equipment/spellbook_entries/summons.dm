@@ -15,7 +15,6 @@
 /datum/spellbook_entry/summon/guns/buy_spell(mob/living/carbon/human/user,obj/item/spellbook/book)
 	give_guns(user)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	say_invocation(user)
 	return ..()
 
 /datum/spellbook_entry/summon/magic
@@ -31,7 +30,6 @@
 /datum/spellbook_entry/summon/magic/buy_spell(mob/living/carbon/human/user,obj/item/spellbook/book)
 	give_magic(user, 10)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	say_invocation(user)
 	return ..()
 
 /datum/spellbook_entry/summon/events
@@ -50,7 +48,6 @@
 /datum/spellbook_entry/summon/events/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
 	summonevents(user)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
-	say_invocation(user)
 	return ..()
 
 /datum/spellbook_entry/summon/curse_of_madness
@@ -66,7 +63,6 @@
 		return FALSE
 	curse_of_madness(user, message)
 	playsound(user, 'sound/magic/mandswap.ogg', 50, TRUE)
-	say_invocation(user)
 	return ..()
 
 #undef MINIMUM_THREAT_FOR_RITUALS
