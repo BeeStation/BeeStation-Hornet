@@ -123,6 +123,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 /datum/action/innate/path_debug/jps
 	name = "JPS Test"
 	button_icon = 'icons/turf/debug.dmi'
+	icon_icon = 'icons/turf/debug.dmi'
 	button_icon_state = "jps"
 
 	// Mirror vars for jps calls

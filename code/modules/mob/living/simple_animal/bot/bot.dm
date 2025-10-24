@@ -576,12 +576,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/call_bot(bot_caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
 
-	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
-	//Easier then building the list ourselves. I'm sorry.
-	var/static/obj/item/card/id/all_access = new /obj/item/card/id/captains_spare
-	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
-	set_path(get_path_to(src, waypoint, max_distance=200, access = all_access.GetAccess()))
+	var/list/all_access_list = get_all_accesses()
+	set_path(get_path_to(src, waypoint, max_distance=200, access = all_access_list))
 	calling_ai = bot_caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 	last_waypoint = ai_waypoint
@@ -592,13 +588,13 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return
 
 
-	set_path(get_path_to(src, waypoint, max_distance=200, access=all_access.GetAccess()))
+	set_path(get_path_to(src, waypoint, max_distance=200, access=all_access_list))
 
 	if(path?.len) //Ensures that a valid path is calculated!
 		var/end_area = get_area_name(waypoint)
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
-		access_card = all_access //Give the bot all-access while under the AI's command.
+		access_card.access = all_access_list //Give the bot all-access while under the AI's command.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK (src, PROC_REF(bot_reset)), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, span_notice("[span_big("Priority waypoint set by [icon2html(calling_ai, src)] <b>[bot_caller]</b>. Proceed to <b>[end_area]</b>.")]<br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds."))
@@ -1272,9 +1268,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 //BOT MULTI-Z MOVEMENT
 /mob/living/simple_animal/bot/proc/call_bot_z_move(bot_caller, turf/ori_dest, message=TRUE)
 	//For giving the bot temporary all-access.
-	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/all = new/datum/job/captain
-	all_access.access = all.get_access()
+	var/list/all_access_list = get_all_accesses()
 	bot_z_mode = BOT_Z_MODE_AI_CALLED
 
 	var/target
@@ -1293,14 +1287,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 		destination = get_turf(new_target)
 
-	set_path(get_path_to(src, destination, 200, access=all_access.GetAccess()))
+	set_path(get_path_to(src, destination, 200, access=all_access_list))
 	ai_waypoint = destination
 
 	if(path && path.len) //Ensures that a valid path is calculated!
 		var/end_area = get_area_name(destination)
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
-		access_card = all_access //Give the bot all-access while under the AI's command.
+		access_card.access = all_access_list //Give the bot all-access while under the AI's command.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK (src, PROC_REF(bot_reset)), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, span_notice("[span_big("Priority waypoint set by [icon2html(calling_ai, src)] <b>[bot_caller]</b>. Proceed to <b>[end_area]</b>.")]<br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds."))
@@ -1316,8 +1310,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 //PATROL SECTION
 /mob/living/simple_animal/bot/proc/go_up_or_down(direction)
 	//For giving the bot temporary all-access.
-	var/obj/item/card/id/all_access = new /obj/item/card/id
-	all_access.access = get_all_accesses()
+	var/list/all_access_list = get_all_accesses()
 	bot_z_mode = BOT_Z_MODE_PATROLLING
 
 	if(!is_reserved_level(z) && is_station_level(z))
@@ -1326,7 +1319,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(!new_target)
 			return
 		patrol_target = get_turf(new_target)
-		set_path(get_path_to(src, patrol_target, 200, access=all_access.GetAccess()))
+		set_path(get_path_to(src, patrol_target, 200, access=all_access_list))
 
 /mob/living/simple_animal/bot/proc/summon_up_or_down(direction)
 	bot_z_mode = BOT_Z_MODE_SUMMONED
