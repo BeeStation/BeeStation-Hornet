@@ -193,6 +193,7 @@ GLOBAL_DATUM_INIT(pathfind_dude, /obj/pathfind_guy, new())
 /datum/action/innate/path_debug/sssp
 	name = "Pathmap Test"
 	button_icon = 'icons/turf/debug.dmi'
+	icon_icon = 'icons/turf/debug.dmi'
 	button_icon_state = "sssp"
 
 	// Mirror vars for sssp calls

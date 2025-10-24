@@ -581,7 +581,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/static/obj/item/card/id/all_access = new /obj/item/card/id/captains_spare()
 	//var/datum/job/captain/All = new/datum/job/captain
 	set_path(get_path_to(src, waypoint, max_distance=200, access = all_access.GetAccess()))
-
 	calling_ai = bot_caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 	last_waypoint = ai_waypoint
@@ -594,7 +593,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	set_path(get_path_to(src, waypoint, max_distance=200, access=all_access.GetAccess()))
 
-	if(path && path.len) //Ensures that a valid path is calculated!
+	if(path?.len) //Ensures that a valid path is calculated!
 		var/end_area = get_area_name(waypoint)
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
@@ -604,7 +603,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(src, span_notice("[span_big("Priority waypoint set by [icon2html(calling_ai, src)] <b>[bot_caller]</b>. Proceed to <b>[end_area]</b>.")]<br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds."))
 		if(message)
 			to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [name] called to [end_area]. [path.len-1] meters to destination."))
-		pathset = 1
+		pathset = TRUE
 		mode = BOT_RESPONDING
 		tries = 0
 	else
