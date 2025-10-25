@@ -96,10 +96,15 @@
 
 	var/mob/living/carbon/human/human_parent = parent
 
-	if (intensity >= RADIATION_GLOW_THRESHOLD && !human_parent.get_filter("rad_glow"))
+	if (intensity >= RADIATION_GLOW_THRESHOLD)
 		create_glow()
-	if (intensity >= RADIATION_ALERT_THRESHOLD && !human_parent.has_alert(ALERT_IRRADIATED))
+	else if(human_parent.get_filter("rad_glow"))
+		human_parent.remove_filter("rad_glow")
+
+	if (intensity >= RADIATION_ALERT_THRESHOLD)
 		human_parent.throw_alert(ALERT_IRRADIATED, /atom/movable/screen/alert/irradiated)
+	else if(human_parent.has_alert(ALERT_IRRADIATED))
+		human_parent.clear_alert(ALERT_IRRADIATED)
 
 	if (should_halt_effects(human_parent))
 		return
