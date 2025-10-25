@@ -302,3 +302,8 @@
   - bugfix: materials list in crafting can be scrolled
   - bugfix: chemical dispenser tgui updates as their cells charge
   - bugfix: plumbing reaction chamber tgui
+2025-10-25:
+  lord scrubling:
+  - bugfix: right click wrenching an open pipe thermomachine toggles their anchoring,
+      instead of them only being unanchored when constructed on a pipe of the same
+      layer, requiring you to reconstruct them
