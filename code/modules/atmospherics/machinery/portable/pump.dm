@@ -214,6 +214,7 @@
 
 	if(COMPONENT_TRIGGERED_BY(turn_on, port))
 		attached_pump.on = TRUE
+		SSair.start_processing_machine(attached_pump)
 		if(attached_pump.holding && (attached_pump.direction == PUMP_IN))
 			investigate_log("[parent.get_creator()] started a transfer into [attached_pump.holding].", INVESTIGATE_ATMOS)
 	if(COMPONENT_TRIGGERED_BY(turn_off, port))
