@@ -303,6 +303,9 @@
   - bugfix: chemical dispenser tgui updates as their cells charge
   - bugfix: plumbing reaction chamber tgui
 2025-10-25:
+  Dejaku51:
+  - rscdel: Musicians no longer boost people with their music and kill the server
+      at the same time
   lord scrubling:
   - bugfix: right click wrenching an open pipe thermomachine toggles their anchoring,
       instead of them only being unanchored when constructed on a pipe of the same
