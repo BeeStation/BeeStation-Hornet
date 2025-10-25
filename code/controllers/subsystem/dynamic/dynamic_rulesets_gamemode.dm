@@ -48,7 +48,7 @@
 	name = "Traitor"
 	role_preference = /datum/role_preference/roundstart/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 10
+	weight = 8
 
 //////////////////////////////////////////////
 //                                          //
@@ -99,7 +99,7 @@
 	name = "Malfunctioning AI"
 	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
-	weight = 6
+	weight = 8
 	minimum_players_required = 16
 	restricted_roles = list(JOB_NAME_CYBORG)
 	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
@@ -119,7 +119,7 @@
 	name = "Wizard"
 	role_preference = /datum/role_preference/roundstart/wizard
 	antag_datum = /datum/antagonist/wizard
-	weight = 1
+	weight = 8
 	minimum_players_required = 20
 	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
@@ -155,7 +155,7 @@
 	antag_datum = /datum/antagonist/cult
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 2
-	weight = 5
+	weight = 8
 	minimum_players_required = 24
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
@@ -201,7 +201,7 @@
 	antag_datum = /datum/antagonist/servant_of_ratvar
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	drafted_players_amount = 4
-	weight = 5
+	weight = 8
 	minimum_players_required = 35
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
@@ -258,7 +258,7 @@
 	role_preference = /datum/role_preference/roundstart/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
-	weight = 3
+	weight = 8
 	minimum_players_required = 24
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
@@ -331,7 +331,7 @@
 	name = "Clown Operatives"
 	antag_datum = /datum/antagonist/nukeop/clownop
 	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
-	weight = 2
+	weight = 8
 
 /datum/dynamic_ruleset/gamemode/nuclear/clown_ops/execute()
 	. = ..()
@@ -354,8 +354,8 @@
 	antag_datum = /datum/antagonist/rev/head
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	drafted_players_amount = 3
-	weight = 4
-	minimum_players_required = 35
+	weight = 8
+	minimum_players_required = 22
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/team/revolution/team
