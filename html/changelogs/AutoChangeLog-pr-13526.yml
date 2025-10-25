@@ -1,0 +1,6 @@
+author: lord scrubling
+delete-after: true
+changes:
+  - bugfix: right click wrenching an open pipe thermomachine toggles their anchoring,
+      instead of them only being unanchored when constructed on a pipe of the same
+      layer, requiring you to reconstruct them
