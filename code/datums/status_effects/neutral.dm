@@ -91,6 +91,7 @@
 /datum/status_effect/bounty
 	id = "bounty"
 	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
 	var/mob/living/rewarded
 
 /datum/status_effect/bounty/on_creation(mob/living/new_owner, mob/living/caster)

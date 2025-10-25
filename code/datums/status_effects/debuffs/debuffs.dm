@@ -1,9 +1,11 @@
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
+	id = STATUS_EFFECT_ID_ABSTRACT
 	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
+	processing_speed = STATUS_EFFECT_PRIORITY
 	remove_on_fullheal = TRUE
 	heal_flag_necessary = HEAL_CC_STATUS
 	var/needs_update_stat = FALSE
@@ -195,13 +197,13 @@
 	. = ..()
 	if(!.)
 		return
-	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
-	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	update_time_of_death()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()

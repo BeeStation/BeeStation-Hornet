@@ -35,6 +35,7 @@
 				// Refresh the existing type, then early return
 				if(STATUS_EFFECT_REFRESH)
 					existing_effect.refresh(arglist(arguments))
+					return
 				if(STATUS_EFFECT_MERGE)
 					var/list/merge_arguments = args.Copy(2) // Skip the first argument (the mob)
 					existing_effect.merge(arglist(merge_arguments))
