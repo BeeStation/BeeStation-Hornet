@@ -155,11 +155,10 @@
 #define ui_ghost_jumptomob "SOUTH:6,CENTER-2"
 #define ui_ghost_orbit "SOUTH:6,CENTER-1"
 #define ui_ghost_reenter_corpse "SOUTH:6,CENTER"
-#define ui_ghost_respawn "SOUTH:6,CENTER+1"
-#define ui_ghost_teleport "SOUTH:6,CENTER+2"
-#define ui_ghost_spawners_menu "SOUTH:6,CENTER+3"
-#define ui_ghost_pai "SOUTH:6, CENTER+4"
-#define ui_ghost_language_menu "SOUTH:21, CENTER+5"
+#define ui_ghost_teleport "SOUTH:6,CENTER+1"
+#define ui_ghost_spawners_menu "SOUTH:6,CENTER+2"
+#define ui_ghost_pai "SOUTH:6, CENTER+3"
+#define ui_ghost_language_menu "SOUTH:21, CENTER+4"
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"

@@ -386,7 +386,7 @@
 	id = "alien_surgery"
 	tech_tier = 5
 	display_name = "Alien Surgery"
-	description = "Anything from brainwashing to reviving the dead. Alien technology."
+	description = "Abductors did nothing wrong."
 	prereq_ids = list(
 		"alientech",
 		"exp_surgery",
