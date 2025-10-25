@@ -14,7 +14,7 @@
 /datum/status_effect/frenzy
 	id = "Frenzy"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = 10
 	alert_type = /atom/movable/screen/alert/status_effect/frenzy
 

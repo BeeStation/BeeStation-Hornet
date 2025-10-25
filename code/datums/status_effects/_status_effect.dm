@@ -45,9 +45,13 @@
 		LAZYADD(owner.status_effects, src)
 		RegisterSignal(owner, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(remove_effect_on_heal))
 
-	if(duration != -1)
+	if(duration == INFINITY)
+		// we will optionally allow INFINITY, because i imagine it'll be convenient in some places,
+		// but we'll still set it to -1 / STATUS_EFFECT_PERMANENT for proper unified handling
+		duration = STATUS_EFFECT_PERMANENT
+	if(duration != STATUS_EFFECT_PERMANENT)
 		duration = world.time + duration
-	if(tick_interval != -1)
+	if(tick_interval != STATUS_EFFECT_NO_TICK)
 		tick_interval = world.time + tick_interval
 
 	if(alert_type)
@@ -98,7 +102,7 @@
 		qdel(src)
 		return
 
-	if(tick_interval != -1 && tick_interval < world.time)
+	if(tick_interval != STATUS_EFFECT_NO_TICK && tick_interval < world.time)
 		var/tick_length = initial(tick_interval)
 		tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
@@ -106,7 +110,7 @@
 			// tick deleted us, no need to continue
 			return
 
-	if(duration != -1)
+	if(duration != STATUS_EFFECT_PERMANENT)
 		if(duration < world.time)
 			qdel(src)
 			return
@@ -161,7 +165,7 @@
 /// has its duration refreshed in apply_status_effect - is passed New() args
 /datum/status_effect/proc/refresh(effect, ...)
 	var/original_duration = initial(duration)
-	if(original_duration == -1)
+	if(original_duration == STATUS_EFFECT_PERMANENT)
 		return
 	duration = world.time + original_duration
 
@@ -189,7 +193,7 @@
 
 /// Remove [seconds] of duration from the status effect, qdeling / ending if we eclipse the current world time.
 /datum/status_effect/proc/remove_duration(seconds)
-	if(duration == -1) // Infinite duration
+	if(duration == STATUS_EFFECT_PERMANENT) // Infinite duration
 		return FALSE
 
 	duration -= seconds
@@ -199,6 +203,18 @@
 
 	update_shown_duration()
 	return FALSE
+
+/datum/status_effect/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(!.)
+		return
+	if(var_name == NAMEOF(src, duration))
+		if(var_value == INFINITY)
+			duration = STATUS_EFFECT_PERMANENT
+		update_shown_duration()
+
+	if(var_name == NAMEOF(src, show_duration))
+		update_shown_duration()
 
 /// Alert base type for status effect alerts
 /atom/movable/screen/alert/status_effect

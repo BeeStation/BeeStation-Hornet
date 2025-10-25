@@ -1,7 +1,7 @@
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	remove_on_fullheal = TRUE
@@ -170,8 +170,7 @@
 //STASIS
 /datum/status_effect/grouped/stasis
 	id = "stasis"
-	duration = -1
-	tick_interval = 10
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/stasis
 	var/last_dead_time
 
@@ -196,15 +195,13 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_STASIS), TRAIT_STATUS_EFFECT(id))
 	update_time_of_death()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
@@ -347,7 +344,7 @@
 
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
@@ -367,7 +364,7 @@
 
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = null
 
 /datum/status_effect/cultghost/on_apply()
@@ -439,7 +436,7 @@
 	id = "neck_slice"
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 
 /datum/status_effect/neck_slice/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/H = owner
@@ -530,7 +527,7 @@
 /datum/status_effect/gonbola_pacify
 	id = "gonbolaPacify"
 	status_type = STATUS_EFFECT_MULTIPLE
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = null
 
 /datum/status_effect/gonbola_pacify/on_apply()
@@ -973,7 +970,7 @@
 /datum/status_effect/ghoul
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /datum/status_effect/ghoul/get_examine_text()
@@ -1271,7 +1268,7 @@
 
 /datum/status_effect/smoke
 	id = "smoke"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = 10
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/smoke
