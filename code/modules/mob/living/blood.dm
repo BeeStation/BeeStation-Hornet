@@ -81,9 +81,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
 	// We aren't actually bleeding
 	if (final_bleed_rate <= 0)
+		update_shown_duration()
 		return
 	// Actually do the bleeding
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
+	// Update the alert to show current bleed rate
+	update_shown_duration()
 
 /datum/status_effect/bleeding/update_shown_duration()
 	if(QDELETED(owner))
