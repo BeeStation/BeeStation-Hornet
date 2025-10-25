@@ -32,10 +32,11 @@
 
 //Tail Sweep, triggers an effect similar to Alien Queen's tail sweep but only affects stuff 1 tile next to you, basically 3x3.
 /datum/martial_art/tribal_claw/proc/tailSweep(mob/living/A, mob/living/D)
-	var/mob/living/carbon/L = A
-	if(!istype(L.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/lizard))
-		L.visible_message(span_warningbig("You lack the tail of a lizard."))
-		return
+	if(iscarbon(A))
+		var/mob/living/carbon/L = A
+		if(!istype(L.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/lizard))
+			L.visible_message(span_warningbig("You lack the tail of a lizard."))
+			return
 	if(A == D) //Don't allow storing moves on yourself to cast on command
 		return
 	log_combat(A, D, "tail sweeped(Tribal Claw)", name)
@@ -80,10 +81,11 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/A, mob/living/D)
-	var/mob/living/carbon/L = A
-	if(!istype(L.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/lizard))
-		L.visible_message(span_warningbig("You lack the tail of a lizard."))
-		return
+	if(iscarbon(A))
+		var/mob/living/carbon/L = A
+		if(!istype(L.get_organ_slot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/lizard))
+			L.visible_message(span_warningbig("You lack the tail of a lizard."))
+			return
 	if(A == D) //Don't grab yourself
 		return
 	log_combat(A, D, "tail grabbed (Tribal Claw)", name)
