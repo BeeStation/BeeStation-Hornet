@@ -1,4 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: AI no longer gets round removed when shell falls into a chasm
