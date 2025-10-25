@@ -369,6 +369,8 @@
 	icon_state = "fleshmend"
 
 /datum/status_effect/changeling
+	id = STATUS_EFFECT_ID_ABSTRACT
+	alert_type = null
 	var/datum/antagonist/changeling/ling
 	var/chem_per_tick = 1
 
@@ -608,7 +610,12 @@
 
 /datum/status_effect/antimagic
 	id = "antimagic"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
 	duration = 10 SECONDS
+
+/datum/status_effect/antimagic/refresh()
+	duration += initial(duration)
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
@@ -617,7 +624,7 @@
 		antimagic_flags = MAGIC_RESISTANCE, \
 	)
 	//glowing wings overlay
-	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
+	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, FALSE)
 	return ..()
 
 /datum/status_effect/antimagic/on_remove()

@@ -310,39 +310,7 @@
 		if(!C.has_status_effect(/datum/status_effect/syringe))
 			C.clear_alert("syringealert")
 
-
-
-/datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-	return ..()
-
-/datum/status_effect/pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-
 //OTHER DEBUFFS
-/datum/status_effect/pacify
-	id = "pacify"
-	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 1
-	duration = 100
-	alert_type = null
-
-/datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-	return ..()
-
-/datum/status_effect/pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
 
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
@@ -741,7 +709,7 @@
 	id = "interdicted"
 	duration = 25
 	status_type = STATUS_EFFECT_REFRESH
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/interdiction
 	var/running_toggled = FALSE
 
@@ -1003,7 +971,7 @@
 	to_chat(owner, span_warning("Alert: Vocal cords restored to normal function."))
 	return ..()
 
-/datum/status_effect/ipc/emp
+/datum/status_effect/ipc_emp
 	id = "ipc_emp"
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
@@ -1053,7 +1021,7 @@
 	id = "grub_infection"
 	duration = 60 SECONDS //a redgrub infestation in a slime
 	status_type = STATUS_EFFECT_UNIQUE
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/grub
 	var/adult = FALSE
 	var/spawnbonus = 0
@@ -1113,6 +1081,7 @@
 /datum/status_effect/amok
 	id = "amok"
 	status_type = STATUS_EFFECT_REPLACE
+	remove_on_fullheal = TRUE
 	alert_type = null
 	duration = 10 SECONDS
 	tick_interval = 1 SECONDS
@@ -1139,6 +1108,8 @@
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"
 	status_type = STATUS_EFFECT_REPLACE
+	remove_on_fullheal = TRUE
+	alert_type = null
 	duration = 3 SECONDS
 	on_remove_on_mob_delete = TRUE
 	///This overlay is applied to the owner for the duration of the effect.
@@ -1271,7 +1242,7 @@
 /datum/status_effect/smoke
 	id = "smoke"
 	duration = STATUS_EFFECT_PERMANENT
-	tick_interval = 10
+	tick_interval = 1 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/smoke
 
