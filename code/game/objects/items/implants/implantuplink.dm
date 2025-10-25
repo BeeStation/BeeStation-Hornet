@@ -51,4 +51,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implanter/uplink)
 	starting_tc = TELECRYSTALS_PRELOADED_IMPLANT
 
 /obj/item/implant/uplink/starting
-	starting_tc = TELECRYSTALS_DEFAULT - UPLINK_IMPLANT_TELECRYSTAL_COST
+	starting_tc = TELECRYSTALS_DEFAULT

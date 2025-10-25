@@ -1,0 +1,406 @@
+/datum/dynamic_ruleset/gamemode
+	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
+	ruleset_flags = SHOULD_USE_ANTAG_REP
+	abstract_type = /datum/dynamic_ruleset/gamemode
+
+/datum/dynamic_ruleset/gamemode/get_candidates()
+	candidates = SSdynamic.roundstart_candidates.Copy()
+
+/datum/dynamic_ruleset/gamemode/trim_candidates()
+	. = ..()
+	for(var/mob/candidate in candidates)
+		// "Connected"?
+		if(!candidate.mind)
+			candidates -= candidate
+			continue
+
+		// Already an antag?
+		if(candidate.mind.special_role)
+			candidates -= candidate
+			continue
+
+/**
+ * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
+ */
+/datum/dynamic_ruleset/gamemode/proc/choose_candidates()
+	for(var/i = 1 to drafted_players_amount)
+		var/mob/chosen_candidate = select_player()
+		var/datum/mind/chosen_mind = chosen_candidate.mind
+
+		GLOB.pre_setup_antags += chosen_mind
+		LAZYADD(chosen_candidates, chosen_mind)
+
+		chosen_mind.special_role = initial(antag_datum.banning_key)
+		chosen_mind.restricted_roles = restricted_roles
+
+/datum/dynamic_ruleset/gamemode/execute()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		GLOB.pre_setup_antags -= chosen_mind
+
+//////////////////////////////////////////////
+//                                          //
+//                  TRAITOR                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/traitor
+	name = "Traitor"
+	role_preference = /datum/role_preference/roundstart/traitor
+	antag_datum = /datum/antagonist/traitor
+	weight = 10
+
+//////////////////////////////////////////////
+//                                          //
+//                CHANGELING                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/changeling
+	name = "Changeling"
+	role_preference = /datum/role_preference/roundstart/changeling
+	antag_datum = /datum/antagonist/changeling
+	weight = 8
+
+//////////////////////////////////////////////
+//                                          //
+//                  HERETIC                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/heretic
+	name = "Heretic"
+	role_preference = /datum/role_preference/roundstart/heretic
+	antag_datum = /datum/antagonist/heretic
+	weight = 8
+	minimum_players_required = 13
+
+//////////////////////////////////////////////
+//                                          //
+//                  VAMPIRE                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/vampire
+	name = "Vampire"
+	role_preference = /datum/role_preference/roundstart/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 8
+	minimum_players_required = 8
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+//////////////////////////////////////////////
+//                                          //
+//             MALFUNCTIONING AI            //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/malf
+	name = "Malfunctioning AI"
+	role_preference = /datum/role_preference/roundstart/malfunctioning_ai
+	antag_datum = /datum/antagonist/malf_ai
+	weight = 6
+	minimum_players_required = 16
+	restricted_roles = list(JOB_NAME_CYBORG)
+	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
+
+/datum/dynamic_ruleset/gamemode/malf/choose_candidates()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
+
+//////////////////////////////////////////////
+//                                          //
+//                  WIZARD                  //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/wizard
+	name = "Wizard"
+	role_preference = /datum/role_preference/roundstart/wizard
+	antag_datum = /datum/antagonist/wizard
+	weight = 1
+	minimum_players_required = 20
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+/datum/dynamic_ruleset/gamemode/wizard/allowed()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!length(GLOB.wizardstart))
+		log_dynamic("NOT ALLOWED: [src] couldn't find any spawn points.")
+		return FALSE
+
+/datum/dynamic_ruleset/gamemode/wizard/choose_candidates()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+
+/datum/dynamic_ruleset/gamemode/wizard/execute()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
+		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+
+//////////////////////////////////////////////
+//                                          //
+//                BLOOD CULT                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/bloodcult
+	name = "Blood Cult"
+	role_preference = /datum/role_preference/roundstart/blood_cultist
+	antag_datum = /datum/antagonist/cult
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	drafted_players_amount = 2
+	weight = 5
+	minimum_players_required = 24
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	blocking_rulesets = list(
+		/datum/dynamic_ruleset/gamemode/clockcult,
+	)
+
+	var/datum/team/cult/team
+
+/datum/dynamic_ruleset/gamemode/bloodcult/set_drafted_players_amount()
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 1)
+
+/datum/dynamic_ruleset/gamemode/bloodcult/execute()
+	team = new
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		var/datum/antagonist/cult/cultist_datum = new antag_datum()
+
+		cultist_datum.cult_team = team
+		cultist_datum.give_equipment = TRUE
+
+		chosen_mind.add_antag_datum(cultist_datum)
+		GLOB.pre_setup_antags -= chosen_mind
+
+	team.setup_objectives()
+	return DYNAMIC_EXECUTE_SUCCESS
+
+/datum/dynamic_ruleset/gamemode/bloodcult/round_result()
+	if(team.check_cult_victory())
+		SSticker.mode_result = "win - cult win"
+		SSticker.news_report = CULT_SUMMON
+	else
+		SSticker.mode_result = "loss - staff stopped the cult"
+		SSticker.news_report = CULT_FAILURE
+
+//////////////////////////////////////////////
+//                                          //
+//                CLOCK CULT                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/clockcult
+	name = "Clockwork Cult"
+	role_preference = /datum/role_preference/roundstart/clock_cultist
+	antag_datum = /datum/antagonist/servant_of_ratvar
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
+	drafted_players_amount = 4
+	weight = 5
+	minimum_players_required = 35
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	blocking_rulesets = list(
+		/datum/dynamic_ruleset/gamemode/bloodcult,
+	)
+
+	var/datum/team/clock_cult/main_cult
+
+/datum/dynamic_ruleset/gamemode/clockcult/set_drafted_players_amount()
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 1)
+
+/datum/dynamic_ruleset/gamemode/clockcult/choose_candidates()
+	. = ..()
+	LoadReebe()
+	generate_clockcult_scriptures()
+
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+
+/datum/dynamic_ruleset/gamemode/clockcult/execute()
+	main_cult = new()
+
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.current.forceMove(pick_n_take(GLOB.servant_spawns))
+
+		var/datum/antagonist/servant_of_ratvar/servant_datum = add_servant_of_ratvar(chosen_mind.current, team = main_cult)
+		servant_datum.equip_carbon(chosen_mind.current)
+		servant_datum.equip_servant()
+		servant_datum.prefix = CLOCKCULT_PREFIX_MASTER
+
+		GLOB.pre_setup_antags -= chosen_mind
+
+	main_cult.setup_objectives()
+
+	calculate_clockcult_values()
+	return DYNAMIC_EXECUTE_SUCCESS
+
+/datum/dynamic_ruleset/gamemode/clockcult/round_result()
+	if(GLOB.ratvar_risen)
+		SSticker.news_report = CLOCK_SUMMON
+		SSticker.mode_result = "win - servants completed their objective (summon ratvar)"
+	else
+		SSticker.news_report = CULT_FAILURE
+		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
+
+//////////////////////////////////////////////
+//                                          //
+//            NUCLEAR OPERATIVES            //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/nuclear
+	name = "Nuclear Operatives"
+	role_preference = /datum/role_preference/roundstart/nuclear_operative
+	antag_datum = /datum/antagonist/nukeop
+	drafted_players_amount = 3
+	weight = 3
+	minimum_players_required = 24
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
+	var/datum/team/nuclear/nuke_team
+
+/datum/dynamic_ruleset/gamemode/nuclear/set_drafted_players_amount()
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 1)
+
+/datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
+	. = ..()
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+
+/datum/dynamic_ruleset/gamemode/nuclear/execute()
+	var/has_made_leader = FALSE
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		if(!has_made_leader)
+			has_made_leader = TRUE
+			var/datum/antagonist/nukeop/leader/leader_datum = chosen_mind.add_antag_datum(antag_leader_datum)
+			nuke_team = leader_datum.nuke_team
+		else
+			chosen_mind.add_antag_datum(antag_datum)
+
+		GLOB.pre_setup_antags -= chosen_mind
+
+	return DYNAMIC_EXECUTE_SUCCESS
+
+/datum/dynamic_ruleset/gamemode/nuclear/round_result()
+	var/result = nuke_team.get_result()
+	switch(result)
+		if(NUKE_RESULT_FLUKE)
+			SSticker.mode_result = "loss - syndicate nuked - disk secured"
+			SSticker.news_report = NUKE_SYNDICATE_BASE
+		if(NUKE_RESULT_NUKE_WIN)
+			SSticker.mode_result = "win - syndicate nuke"
+			SSticker.news_report = STATION_NUKED
+		if(NUKE_RESULT_NOSURVIVORS)
+			SSticker.mode_result = "halfwin - syndicate nuke - did not evacuate in time"
+			SSticker.news_report = STATION_NUKED
+		if(NUKE_RESULT_WRONG_STATION)
+			SSticker.mode_result = "halfwin - blew wrong station"
+			SSticker.news_report = NUKE_MISS
+		if(NUKE_RESULT_WRONG_STATION_DEAD)
+			SSticker.mode_result = "halfwin - blew wrong station - did not evacuate in time"
+			SSticker.news_report = NUKE_MISS
+		if(NUKE_RESULT_CREW_WIN_SYNDIES_DEAD)
+			SSticker.mode_result = "loss - evacuation - disk secured - syndi team dead"
+			SSticker.news_report = OPERATIVES_KILLED
+		if(NUKE_RESULT_CREW_WIN)
+			SSticker.mode_result = "loss - evacuation - disk secured"
+			SSticker.news_report = OPERATIVES_KILLED
+		if(NUKE_RESULT_DISK_LOST)
+			SSticker.mode_result = "halfwin - evacuation - disk not secured"
+			SSticker.news_report = OPERATIVE_SKIRMISH
+		if(NUKE_RESULT_DISK_STOLEN)
+			SSticker.mode_result = "halfwin - detonation averted"
+			SSticker.news_report = OPERATIVE_SKIRMISH
+		else
+			SSticker.mode_result = "halfwin - interrupted"
+			SSticker.news_report = OPERATIVE_SKIRMISH
+
+//////////////////////////////////////////////
+//                                          //
+//             CLOWN OPERATIVES             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/nuclear/clown_ops
+	name = "Clown Operatives"
+	antag_datum = /datum/antagonist/nukeop/clownop
+	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
+	weight = 2
+
+/datum/dynamic_ruleset/gamemode/nuclear/clown_ops/execute()
+	. = ..()
+	for(var/obj/machinery/nuclearbomb/syndicate/nuke in GLOB.nuke_list)
+		var/turf/turf = get_turf(nuke)
+		if(turf)
+			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)
+			new_nuke.yes_code = nuke.yes_code
+			qdel(nuke)
+
+//////////////////////////////////////////////
+//                                          //
+//                REVOLUTION                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/gamemode/revolution
+	name = "Revolution"
+	role_preference = /datum/role_preference/roundstart/revolutionary
+	antag_datum = /datum/antagonist/rev/head
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
+	drafted_players_amount = 3
+	weight = 4
+	minimum_players_required = 35
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+	var/datum/team/revolution/team
+	var/finished = FALSE
+
+/datum/dynamic_ruleset/gamemode/revolution/set_drafted_players_amount()
+	drafted_players_amount = ROUND_UP(length(GLOB.player_list) / 15)
+
+/datum/dynamic_ruleset/gamemode/revolution/execute()
+	team = new
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		var/datum/antagonist/rev/head/headrev_datum = new antag_datum()
+		headrev_datum.give_flash = TRUE
+		headrev_datum.give_hud = TRUE
+		headrev_datum.remove_clumsy = TRUE
+
+		chosen_mind.add_antag_datum(headrev_datum, team)
+		GLOB.pre_setup_antags -= chosen_mind
+
+	team.update_objectives()
+	team.update_heads()
+
+	return DYNAMIC_EXECUTE_SUCCESS
+
+/datum/dynamic_ruleset/gamemode/revolution/rule_process()
+	var/winner = team.process_victory()
+	if(isnull(winner))
+		return
+
+	finished = winner
+	return RULESET_STOP_PROCESSING
+
+#define REVOLUTION_VICTORY 1
+#define STATION_VICTORY 2
+
+/datum/dynamic_ruleset/gamemode/revolution/round_result()
+	if(finished == REVOLUTION_VICTORY)
+		SSticker.mode_result = "win - heads killed"
+		SSticker.news_report = REVS_WIN
+	else if (finished == STATION_VICTORY)
+		SSticker.mode_result = "loss - rev heads killed"
+		SSticker.news_report = REVS_LOSE
+	else
+		SSticker.mode_result = "minor win - station forced to be abandoned"
+		SSticker.news_report = STATION_EVACUATED
+
+#undef REVOLUTION_VICTORY
+#undef STATION_VICTORY

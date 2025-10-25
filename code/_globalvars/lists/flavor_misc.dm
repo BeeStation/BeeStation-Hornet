@@ -207,17 +207,11 @@ GLOBAL_LIST_INIT(jumpsuitlist, list(
 
 // What we show to the user
 GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(
-	UPLINK_IMPLANT_WITH_PRICE,
-	UPLINK_PDA,
-	UPLINK_PEN,
-	UPLINK_RADIO,
+	UPLINK_IMPLANT,
 ))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
 GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
 	UPLINK_IMPLANT,
-	UPLINK_PDA,
-	UPLINK_PEN,
-	UPLINK_RADIO,
 ))
 
 	//Female Uniforms
