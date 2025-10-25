@@ -215,7 +215,7 @@
 	limit = 1
 	refundable = FALSE
 	buy_word = "Cast"
-	var/ritual_invocation // This does nothing. This is a flavor to ghosts observing a wizard.
+	var/ritual_invocation // If set forces you to say a phrase as feedback when buying a summon spell
 
 /datum/spellbook_entry/summon/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
 	log_spellbook("[key_name(user)] cast [src] for [cost] points")
