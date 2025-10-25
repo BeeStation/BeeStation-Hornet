@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(economy)
 	wait = 5 MINUTES
 	runlevels = RUNLEVEL_GAME
 	dependencies = list(
+		/datum/controller/subsystem/job,
 		/datum/controller/subsystem/processing/station,
 	)
 
