@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 				var/new_spell = chosen_spell.spell_type
 				spells_to_grant += new_spell
 				spells_left--
-			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices.</b>")
+			to_chat(owner, span_bold("Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices."))
 
 	for(var/spell_type in spells_to_grant)
 		var/datum/action/spell/new_spell = new spell_type(owner)
