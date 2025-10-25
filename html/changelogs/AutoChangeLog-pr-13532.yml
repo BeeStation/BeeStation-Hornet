@@ -1,5 +1,0 @@
-author: BrumalLake
-delete-after: true
-changes:
-  - bugfix: holy books properly use your preferred bible name, unless your religion
-      name matches a preset

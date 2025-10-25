@@ -303,6 +303,18 @@
   - bugfix: chemical dispenser tgui updates as their cells charge
   - bugfix: plumbing reaction chamber tgui
 2025-10-25:
+  BotTierPC:
+  - rscadd: Added Kitchen Access to the door between Kitchen/Bar on Metastation
+  - tweak: Adds a Grinder to the Bar Backroom on Boxstation and minor room adjustments
+      to accommodate
+  - tweak: Changes Metastation Dorm Shower head directions to be more visible. Dorm
+      room 5 is changed to 4.
+  - bugfix: Fixed inconsistent floor tiles in Boxstation Cargo
+  - bugfix: Fixes Cargobay APC in Echostation.
+  - tweak: Replaces Desk Bells with Wired Desk Bells across all stations.
+  BrumalLake:
+  - bugfix: holy books properly use your preferred bible name, unless your religion
+      name matches a preset
   Dejaku51:
   - rscdel: Musicians no longer boost people with their music and kill the server
       at the same time
