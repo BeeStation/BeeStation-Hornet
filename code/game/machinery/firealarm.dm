@@ -281,7 +281,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	// Clears all fire doors and their effects for now
 	// They'll reclose if there's a problem
 	for(var/obj/machinery/door/firedoor/firelock in my_area.firedoors)
-		firelock.crack_open()
+		if (firelock.alarm_type == FIRELOCK_ALARM_TYPE_GENERIC)
+			firelock.crack_open()
 	if(user)
 		balloon_alert(user, "reset alarm")
 		user.log_message("reset a fire alarm.", LOG_GAME)

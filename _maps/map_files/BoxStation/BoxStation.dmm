@@ -10305,8 +10305,7 @@
 "ccg" = (
 /obj/machinery/telecomms/message_server/preset,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/circuit/green/telecomms,
