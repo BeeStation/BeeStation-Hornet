@@ -71,10 +71,13 @@
 		INVOKE_ASYNC(src, PROC_REF(RefreshInfectionImage))
 
 	if(stage == 5 && prob(50))
-		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs))
-				AttemptGrow(FALSE)
-				return
+		for(var/datum/surgery/operations as anything in owner.surgeries)
+			if(operations.location != BODY_ZONE_CHEST)
+				continue
+			if(!ispath(operations.steps[operations.status], /datum/surgery_step/manipulate_organs/internal))
+				continue
+			AttemptGrow(FALSE)
+			return
 		AttemptGrow()
 
 /obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)

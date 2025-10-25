@@ -455,6 +455,7 @@
 	name = "\improper DNA injector (Anti-Antiglowy)"
 	remove_mutations = list(/datum/mutation/glow/anti)
 
+/*
 /obj/item/dnainjector/strongwings
 	name = "\improper DNA injector (Strong Wings)"
 	add_mutations = list(/datum/mutation/strongwings)
@@ -462,6 +463,7 @@
 /obj/item/dnainjector/antistrongwings
 	name = "\improper DNA injector (Anti-Strong Wings)"
 	remove_mutations = list(/datum/mutation/strongwings)
+*/
 
 /obj/item/dnainjector/catclaws
 	name = "\improper DNA injector (Cat Claws)"

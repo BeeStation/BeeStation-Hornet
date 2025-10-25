@@ -4,7 +4,7 @@
 	icon_state = "cockroach"
 	icon_dead = "cockroach" //Make this work
 	density = FALSE
-	mob_biotypes = MOB_ORGANIC | MOB_BUG
+	mob_biotypes = MOB_ORGANIC|MOB_BUG
 	mob_size = MOB_SIZE_TINY
 	health = 1
 	maxHealth = 1

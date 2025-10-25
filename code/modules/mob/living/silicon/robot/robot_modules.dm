@@ -187,6 +187,7 @@
 	robot.setDir(SOUTH)
 	robot.set_anchored(FALSE)
 	robot.notransform = FALSE
+	robot.updatehealth()
 	robot.update_icons()
 	robot.notify_ai(NEW_MODEL)
 	if(robot.hud_used)

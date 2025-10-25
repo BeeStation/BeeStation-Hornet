@@ -117,9 +117,9 @@ const SurgerySubsection = (_props) => {
       </Box>
       .
       <br />
-      <b>6.</b>: Extract the subject&apos; organs using an{' '}
+      <b>6.</b>: Extract the subject&apos; organs using a{' '}
       <Box inline textColor="blue">
-        empty hand
+        retractor
       </Box>
       .
       <br />

@@ -313,7 +313,7 @@ Some preferences are attached to other preferences, like hair color to hair styl
 To do this, first set its category to `PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES`:
 
 ```dm
-/datum/preference/color_legacy/hair_color
+/datum/preference/color/hair_color
 	db_key = "hair_color"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES

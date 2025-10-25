@@ -70,10 +70,44 @@
 				DS.strain_data["SE"] = H.dna.mutation_index
 		else
 			var/list/symptoms = list()
-			var/list/spreadsymptoms = list(/datum/symptom/sneeze = 20, /datum/symptom/cough = 20, /datum/symptom/pierrot = 1, /datum/symptom/meme = 3)
-			var/list/majorspreadsymptoms = list(/datum/symptom/pustule = 10, /datum/symptom/macrophage = 10, /datum/symptom/flesh_death = 1)
-			var/list/effectivesymptoms = list(/datum/symptom/heal/surface, /datum/symptom/sweat, /datum/symptom/parasite, /datum/symptom/alcohol, /datum/symptom/beesease, /datum/symptom/deafness, /datum/symptom/fever, /datum/symptom/genetic_mutation, /datum/symptom/hallucigen, /datum/symptom/lubefeet, /datum/symptom/shedding, /datum/symptom/beard, /datum/symptom/visionloss, /datum/symptom/voice_change, /datum/symptom/cockroach)
-			var/list/majoreffectivesymptoms = list(/datum/symptom/heal/coma, /datum/symptom/EMP, /datum/symptom/growth, /datum/symptom/vampirism, /datum/symptom/braindamage, /datum/symptom/asphyxiation, /datum/symptom/robotic_adaptation, /datum/symptom/alkali, /datum/symptom/heartattack, /datum/symptom/toxoplasmosis)
+			var/list/spreadsymptoms = list(
+				/datum/symptom/sneeze = 20,
+				/datum/symptom/cough = 20,
+				/datum/symptom/pierrot = 1,
+				/datum/symptom/meme = 3
+			)
+			var/list/majorspreadsymptoms = list(
+				/datum/symptom/pustule = 10,
+				/datum/symptom/macrophage = 10,
+				/datum/symptom/flesh_death = 1
+			)
+			var/list/effectivesymptoms = list(
+				/datum/symptom/heal/surface,
+				/datum/symptom/sweat,
+				/datum/symptom/parasite,
+				/datum/symptom/alcohol,
+				/datum/symptom/beesease,
+				/datum/symptom/deafness,
+				/datum/symptom/fever,
+				/datum/symptom/genetic_mutation,
+				/datum/symptom/hallucigen,
+				/datum/symptom/lubefeet,
+				/datum/symptom/shedding,
+				/datum/symptom/beard,
+				/datum/symptom/visionloss,
+				/datum/symptom/voice_change,
+				/datum/symptom/cockroach
+			)
+			var/list/majoreffectivesymptoms = list(
+				/datum/symptom/heal/coma,
+				/datum/symptom/EMP,
+				/datum/symptom/growth,
+				/datum/symptom/vampirism,
+				/datum/symptom/braindamage,
+				/datum/symptom/asphyxiation,
+				/datum/symptom/alkali,
+				/datum/symptom/heartattack,
+			)
 			if(dangerous_virus)//pick a symptom with a major effect from either the list of spreading symptoms or effective symptoms
 				if(prob(50))
 					symptoms += pick_weight(majorspreadsymptoms)

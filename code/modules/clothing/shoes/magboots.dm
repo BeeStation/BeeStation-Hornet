@@ -12,6 +12,10 @@
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/shoes/magboots/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot)
 	. = ..()
 	if(slot & ITEM_SLOT_FEET)

@@ -84,10 +84,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
-"q" = (
-/obj/machinery/aug_manipulator,
-/turf/open/floor/iron,
-/area/template_noop)
 "r" = (
 /mob/living/simple_animal/bot/medbot{
 	on = 0
@@ -137,7 +133,12 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"B" = (
+"C" = (
+/obj/vehicle/sealed/mecha/combat/marauder/seraph,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"D" = (
 /obj/structure/table,
 /obj/item/bodypart/chest/robot{
 	pixel_y = 4
@@ -157,11 +158,6 @@
 	pixel_y = 6
 	},
 /obj/item/bodypart/head/robot,
-/turf/open/floor/iron,
-/area/template_noop)
-"C" = (
-/obj/vehicle/sealed/mecha/combat/marauder/seraph,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "E" = (
@@ -320,7 +316,7 @@ Z
 a
 e
 a
-q
+a
 a
 a
 a
@@ -373,7 +369,7 @@ a
 k
 a
 M
-B
+D
 L
 a
 t
