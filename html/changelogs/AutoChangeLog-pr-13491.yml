@@ -1,0 +1,16 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Lowers the heat capacity of the space mixture, so that heat is sucked out
+      of rooms exposed to space more slowly.
+  - balance: Firedoors now close when pressure around them is too low/high
+  - balance: Air alarms will now attempt to automatically correct temperature issues
+      when in their standard operating mode.
+  - rscdel: Removes air alarm AC mode
+  - balance: Vents now have a heating element and can be used to heat rooms by a small
+      amount.
+  - balance: Firedoors which activated due to heat/pressure will not open when the
+      fire alarm button is pressed.
+  - balance: Firedoors will no longer remain open permanently when emagged, they will
+      open briefly, will not respond to high temperatures and will open when hit with
+      anything.
