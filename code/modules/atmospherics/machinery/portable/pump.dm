@@ -226,3 +226,4 @@
 	if(COMPONENT_TRIGGERED_BY(target_pressure, port))
 		attached_pump.target_pressure = clamp(round(target_pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
 		investigate_log("a portable pump was set to [attached_pump.target_pressure] kPa by [parent.get_creator()].", INVESTIGATE_ATMOS)
+	attached_pump.update_appearance()
