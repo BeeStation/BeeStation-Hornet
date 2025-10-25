@@ -338,5 +338,9 @@
   - bugfix: right click wrenching an open pipe thermomachine toggles their anchoring,
       instead of them only being unanchored when constructed on a pipe of the same
       layer, requiring you to reconstruct them
+  mrmanlikesbt, mc-oofert, MrMelbert:
+  - rscadd: Clickable screen alerts now have a golden border
+  - rscadd: Clickable UI elements and some real world objects will change your cursor
+      to make it obvious they can be clicked.
   r1ks-iwnl:
   - bugfix: Fixed lazarus not working
