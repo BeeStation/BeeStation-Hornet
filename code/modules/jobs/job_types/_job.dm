@@ -135,7 +135,7 @@
 	var/dynamic_spawn_group = null
 	/// The maximum allowed variance to other job roles in this group.
 	/// Should be the same as everything else in the dynamic spawn group
-	var/dynamic_spawn_variance_limit = 3
+	var/dynamic_spawn_variance_limit = 2
 	/// How many times should this role count towards the spawn group size?
 	var/dynamic_spawn_group_multiplier = 1
 
