@@ -6,7 +6,7 @@
 	alert_type = null
 	var/stat_allowed = DEAD //if owner's stat is below this, will remove itself
 
-/datum/status_effect/sigil_mark/tick()
+/datum/status_effect/sigil_mark/tick(seconds_between_ticks)
 	if(owner.stat < stat_allowed)
 		qdel(src)
 
@@ -40,7 +40,7 @@
 	if(!QDELETED(reward_target))
 		reward_target.get_kill(owner)
 
-/datum/status_effect/syphon_mark/tick()
+/datum/status_effect/syphon_mark/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		get_kill()
 		qdel(src)
@@ -103,7 +103,7 @@
 	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
 	return ..()
 
-/datum/status_effect/bounty/tick()
+/datum/status_effect/bounty/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		rewards()
 		qdel(src)
@@ -244,7 +244,7 @@
 /datum/status_effect/caltropped
 	id = "caltropped"
 	duration = 1 SECONDS
-	tick_interval = INFINITY
+	tick_interval = -1
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 

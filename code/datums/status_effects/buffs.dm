@@ -67,7 +67,7 @@
 /datum/status_effect/his_grace
 	id = "his_grace"
 	duration = -1
-	tick_interval = 4
+	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
 
@@ -90,7 +90,7 @@
 	owner.add_stun_absorption("hisgrace", INFINITY, 3, null, "His Grace protects you from the stun!")
 	return ..()
 
-/datum/status_effect/his_grace/tick()
+/datum/status_effect/his_grace/tick(seconds_between_ticks)
 	bloodlust = 0
 	var/graces = 0
 	for(var/obj/item/his_grace/HG in owner.held_items)
@@ -165,7 +165,7 @@
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10
-	tick_interval = 0
+	tick_interval = -1
 	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/last_health = 0
 	var/last_bruteloss = 0
@@ -322,6 +322,7 @@
 /datum/status_effect/fleshmend
 	id = "fleshmend"
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
+	show_duration = TRUE
 	//Actual healing lasts for 30 seconds
 	duration = 32 SECONDS
 	var/ticks_passed = 0
@@ -335,7 +336,7 @@
 /datum/status_effect/fleshmend/on_remove()
 	UnregisterSignal(owner, list(COMSIG_LIVING_IGNITED, COMSIG_LIVING_EXTINGUISHED))
 
-/datum/status_effect/fleshmend/tick()
+/datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	ticks_passed ++
 	if(owner.on_fire)
 		return
@@ -454,7 +455,7 @@
 	id = "Hippocratic Oath"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	tick_interval = 25
+	tick_interval = 2.5 SECONDS
 	alert_type = null
 	var/hand
 	var/deathTick = 0
@@ -474,7 +475,7 @@
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
-/datum/status_effect/hippocratic_oath/tick()
+/datum/status_effect/hippocratic_oath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
 			deathTick += 1
@@ -553,6 +554,7 @@
 	duration = 300
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
+	show_duration = TRUE
 	var/power = 1
 	var/duration_mod = 1
 	var/alreadyinfected = FALSE
@@ -639,6 +641,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 15 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
+	show_duration = TRUE
 	var/turf/location
 
 /datum/status_effect/crucible_soul/get_examine_text()
@@ -662,6 +665,7 @@
 	id = "Blessing of Dusk and Dawn"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 60 SECONDS
+	show_duration = TRUE
 	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
 
 /datum/status_effect/duskndawn/on_apply()
