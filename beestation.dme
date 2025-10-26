@@ -1265,7 +1265,6 @@
 #include "code\game\gamemodes\objectives\basic\protect_object.dm"
 #include "code\game\gamemodes\objectives\basic\steal.dm"
 #include "code\game\gamemodes\objectives\basic\steal_five.dm"
-#include "code\game\gamemodes\objectives\basic\changeling\absorb.dm"
 #include "code\game\gamemodes\objectives\basic\contract\contract.dm"
 #include "code\game\gamemodes\objectives\basic\ninja\capture.dm"
 #include "code\game\gamemodes\objectives\basic\silicon\block.dm"
