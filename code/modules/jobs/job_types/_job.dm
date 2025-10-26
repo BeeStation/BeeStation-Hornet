@@ -267,7 +267,7 @@
 	// being only limited by its spawn variance limit
 	if (proxy == src || ignore_self_limit || proxy.dynamic_spawn_group)
 		position_limit = INFINITY
-	return min(position_limit, max(ceil(spawn_group_total / spawn_group_sizes) + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
+	return min(position_limit, max(ceil(spawn_group_total / min(spawn_group_sizes, 1)) + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
