@@ -227,7 +227,6 @@
 
 	reagents.flags |= NO_REACT
 
-	var/list/datum/reagents/reactants = list()
 	for(var/obj/item/G in beakers)
 		if (G.reagents)
 			G.reagents.trans_to(src, G.reagents.total_volume)
@@ -243,6 +242,7 @@
 
 	max_integrity = 1
 	atom_integrity = 1
+	update_icon()
 
 /obj/item/grenade/chem_grenade/ex_act(severity, target)
 	if (stage == GRENADE_DETONATED)
