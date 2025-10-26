@@ -188,4 +188,4 @@
 		if(!toppaper_ref)
 			toppaper_ref = WEAKREF(paper)
 
-	. = ..()
+	return ..()
