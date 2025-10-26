@@ -184,10 +184,8 @@
 
 /obj/item/clipboard/preloaded/Initialize(mapload)
 	//Fill the clipboard with new papers
-	for(var/paper in papers_to_add)
-		if(ispath(paper, /obj/item/paper))
-			var/obj/item/paper/p = new paper(src)
-			if(!toppaper_ref)
-				toppaper_ref = WEAKREF(p)
+	for(var/obj/item/paper/paper in papers_to_add)
+		if(!toppaper_ref)
+			toppaper_ref = WEAKREF(paper)
 
 	. = ..()
