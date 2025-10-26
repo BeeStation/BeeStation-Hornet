@@ -146,8 +146,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 					misc_contents[D.account_holder] += item
 				misc_costs[D.account_holder] += SO.pack.cost
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
-				if(SO.pack.access)
-					miscboxes[D.account_holder].req_access |= SO.pack.access
 			else //No private payment, so we just stuff it all into a generic crate
 				if(!miscboxes.len || !miscboxes["Cargo"])
 					miscboxes["Cargo"] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
