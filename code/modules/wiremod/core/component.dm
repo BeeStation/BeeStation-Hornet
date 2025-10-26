@@ -372,9 +372,8 @@
 	for(var/mat in custom_materials)
 		.[mat] += custom_materials[mat]
 
-/obj/item/circuit_component/attackby(obj/item/I, mob/living/user, params)
+/obj/item/circuit_component/attackby(obj/item/attacking_item, mob/living/user, params)
 	. = ..()
-	if(istype(I, /obj/item/integrated_circuit))
-		var/obj/item/integrated_circuit/ic = I
-		ic.add_component_manually(src, user)
-		return
+	if(istype(attacking_item, /obj/item/integrated_circuit))
+		var/obj/item/integrated_circuit/circuit = attacking_item
+		circuit.add_component_manually(src, user)
