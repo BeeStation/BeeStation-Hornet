@@ -1,0 +1,5 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Fixed wildmagic wizard apprentice getting no spells
+  - rscadd: Readded the invocation phrase when buying summon spells
