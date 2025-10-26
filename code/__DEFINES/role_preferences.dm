@@ -181,12 +181,21 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	// If this is per character, check if it's disabled. Otherwise continue and check the global value
 	if(initial(pref.per_character))
 		var/role_preference_value = src.prefs.role_preferences["[role_preference_key]"]
-		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
-			return FALSE
+		if (pref.default_enabled)
+			if(isnum(role_preference_value) && !role_preference_value)
+				return FALSE
+		else
+			if(isnum(role_preference_value) && role_preference_value)
+				return TRUE
+	// Handle global preferences
 	var/role_preference_value = src.prefs.role_preferences_global["[role_preference_key]"]
-	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
-		return FALSE
-	return TRUE
+	if (pref.default_enabled)
+		if(isnum(role_preference_value) && !role_preference_value)
+			return FALSE
+	else
+		if(isnum(role_preference_value) && role_preference_value)
+			return TRUE
+	return pref.default_enabled
 
 /// If the client given is fit for a given role based on the arguments passed
 /// banning_key: ROLE_X used for this role - to check if the player is banned.

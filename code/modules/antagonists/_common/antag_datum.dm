@@ -14,7 +14,7 @@ GLOBAL_LIST(admin_antag_list)
 	/// The ROLE_X key used for this antagonist.
 	var/banning_key
 	/// Required living playtime to be included in the rolling for this antagonist
-	var/required_living_playtime = 1
+	var/required_living_playtime = 0
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()

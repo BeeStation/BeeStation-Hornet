@@ -518,7 +518,7 @@ SUBSYSTEM_DEF(dynamic)
 
 		// Ran out of rulesets
 		if(isnull(ruleset))
-			return FALSE
+			return null
 
 		if (blacklist_types && (ruleset.type in blacklist_types))
 			remaining_to_pick -= ruleset

@@ -84,7 +84,7 @@
  * Check if all requirements for this ruleset are met.
  */
 /datum/dynamic_ruleset/proc/allowed(ignore_candidates = FALSE)
-	if(ignore_candidates && length(candidates) < drafted_players_amount)
+	if(!ignore_candidates && length(candidates) < drafted_players_amount)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 
