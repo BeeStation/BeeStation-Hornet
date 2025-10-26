@@ -156,6 +156,7 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 	user.balloon_alert_to_viewers("Lets go of [target]", "Let go of [target]", ignored_mobs = list(target), show_in_chat = FALSE)
 	user.balloon_alert(target, "[user] Lets go of you", show_in_chat = FALSE)
 	remove_pointblank()
+	auto_shoot = FALSE
 	show_ui(user, target, START)
 
 /**
@@ -228,13 +229,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 				to_chat(user, span_warning("You can't hold someone at gunpoint with an empty hand!"))
 				return
 			if(!user.pulling || user.pulling != target)
-				to_chat(user, span_warning("You start to grab \the [target]."))
-				to_chat(target, span_warning("[user] starts to grab you!"))
-				if(!do_after(user, 2 SECONDS, target))
-					to_chat(user, span_warning("You fail to grab [target]!"))
-					return
 				var/mob/living/carbon/human/H = user
-				H.dna.species.spec_attack_hand(user, target)
+				H.CtrlClick(user)
 				return
 			if(user.pulling != target)
 				return
