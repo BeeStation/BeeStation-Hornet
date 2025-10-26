@@ -238,8 +238,9 @@
 
 /datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
 	var/crate_value = 30
-	var/list/uplink_items = get_uplink_items(SSticker.mode)
-	while(crate_value)
+	var/list/uplink_items = get_uplink_items(UPLINK_NULL_CRATE, FALSE, FALSE)
+	var/max_items = 10
+	while(crate_value && max_items-- > 0)
 		var/category = pick(uplink_items)
 		var/item = pick(uplink_items[category])
 		var/datum/uplink_item/I = uplink_items[category][item]
