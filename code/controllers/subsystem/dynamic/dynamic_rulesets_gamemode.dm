@@ -1,5 +1,5 @@
 /datum/dynamic_ruleset/gamemode
-	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
+	rule_category = DYNAMIC_CATEGORY_GAMEMODE
 	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/gamemode
 

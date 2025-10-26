@@ -5,7 +5,14 @@ SUBSYSTEM_DEF(dynamic)
 	init_order = INIT_ORDER_DYNAMIC
 
 	/**
-	 * Roundstart variables
+	 * Gamemode variables
+	 */
+
+	/// A list of configured gamemodes
+	var/list/datum/dynamic_ruleset/gamemode/configured_gamemodes
+
+	/**
+	 * Roundstart (Supplementary antagonists) variables
 	 */
 
 	/// Set at the beginning of the round, our budget for choosing rulesets
@@ -274,6 +281,8 @@ SUBSYSTEM_DEF(dynamic)
 			continue
 		vars[variable] = initial(vars[variable])
 
+	for (var/datum/dynamic_ruleset/ruleset in configured_gamemodes)
+		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
 	for (var/datum/dynamic_ruleset/ruleset in roundstart_configured_rulesets)
 		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
 	for (var/datum/dynamic_ruleset/ruleset in midround_configured_rulesets)
@@ -292,6 +301,7 @@ SUBSYSTEM_DEF(dynamic)
 				continue
 			vars[variable] = current_storyteller["Dynamic"][variable]
 
+	configured_gamemodes = init_rulesets(/datum/dynamic_ruleset/gamemode, configured_gamemodes)
 	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart, roundstart_configured_rulesets)
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
 	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin, latejoin_configured_rulesets)
