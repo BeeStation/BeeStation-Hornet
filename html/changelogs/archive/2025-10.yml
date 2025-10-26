@@ -345,5 +345,22 @@
   r1ks-iwnl:
   - bugfix: Fixed lazarus not working
 2025-10-26:
+  Sarchutar:
+  - bugfix: Alt-Clicking an intercom toggles broadcasting and Ctrl-Shift-Clicking
+      toggles listening again
   Sarchutar, GoblinBackwards:
   - bugfix: Embedded objects can be removed by hand again.
+  r1ks-iwnl:
+  - bugfix: Fixed wildmagic wizard apprentice getting no spells
+  - rscadd: Readded the invocation phrase when buying summon spells
+  - rscadd: Tribal Claw tail grab has better sound feedback
+  - tweak: Tribal Claw tail related moves now actually require having a lizard tail
+  - tweak: Tribal Claw flavor text changed
+  - balance: Tribal Claw TC cost changed 6 -> 8
+  - balance: Tribal Claw jugular cut bleed increased 1.5 -> 3.6/s
+  - balance: Tribal Claw jugular cut can now be performed on all targets aggressive
+      grabbed or higher + lying down + those confused instead of neck grabbed + sleeping
+      + crit
+  - balance: Tribal Claw face scratch confused increased 5 -> 8
+  - bugfix: Tribal Claw tail sweep AoE radius reduced 2 -> 1
+  - bugfix: Fixed being able to do tail sweep and tail grab on yourself
