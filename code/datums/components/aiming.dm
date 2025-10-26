@@ -290,13 +290,13 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		UnregisterSignal(target, COMSIG_LIVING_STATUS_PARALYZE)
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	if(user)
+		user.manual_emote("stops aiming their weapon", "lowers their weapon, satisfied")
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	// Clean up the menu if it's still open
 	QDEL_NULL(choice_menu)
 	QDEL_NULL(choice_menu_target)
 	remove_pointblank()
 	target = null
-	user.manual_emote("stops aiming their weapon", "lowers their weapon, satisfied")
 
 /datum/component/aiming/proc/aim_react(mob/target)
 	set waitfor = FALSE

@@ -677,6 +677,7 @@
 	if(aimed == GUN_AIMED && chambered?.BB)
 		// Faster bullets to account for the fact you've given the target a big warning they're about to be shot
 		chambered.BB.speed = initial(chambered.BB.speed) * 0.5
+		chambered.BB.damage = initial(chambered.BB.damage) * 2
 	if(aimed == GUN_AIMED_POINTBLANK)
 		// Execution kill
 		chambered.BB.speed = initial(chambered.BB.speed) * 0.25
