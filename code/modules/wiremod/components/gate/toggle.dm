@@ -17,7 +17,6 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/gate/toggle/populate_ports()
-
 	value = add_output_port("Value", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/gate/toggle/input_received(datum/port/input/port)

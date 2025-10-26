@@ -503,7 +503,7 @@
 		for(var/i in 1 to multiplier)
 			var/obj/item/new_item = new being_built.build_path(src.loc)
 			//Detect if the printed item has embedded itself in another item. Used for Circuit Templates which self insert themselves into shells.
-			if(istype(new_item.loc, /obj))
+			if(isobj(new_item.loc))
 				var/obj/new_obj = new_item.loc //Get the object it is now embedded in.
 				new_obj.forceMove(A) //Forcemove to the release turf to trigger ZFall
 			else
