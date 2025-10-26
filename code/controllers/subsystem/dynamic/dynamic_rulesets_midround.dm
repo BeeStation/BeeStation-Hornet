@@ -34,7 +34,7 @@
 	weight = 2
 	ruleset_flags = CANNOT_REPEAT
 
-/datum/dynamic_ruleset/midround/pirates/allowed()
+/datum/dynamic_ruleset/midround/pirates/allowed(ignore_candidates = FALSE)
 	if(!SSmapping.empty_space)
 		return FALSE
 	return TRUE

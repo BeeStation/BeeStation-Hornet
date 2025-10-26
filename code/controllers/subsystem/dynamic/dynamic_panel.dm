@@ -20,7 +20,7 @@
 		data["possible_storytellers"] += storyteller_name
 
 	data["valid_roundstart_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in SSdynamic.roundstart_configured_rulesets)
+	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in SSdynamic.supplementary_configured_rulesets)
 		data["valid_roundstart_rulesets"] += list(list(
 			"name" = potential_ruleset.name,
 			"path" = potential_ruleset.type,
@@ -69,7 +69,7 @@
 	data["roundstart_points_per_observer"] = SSdynamic.roundstart_points_per_observer
 
 	data["forced_roundstart_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
+	for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 		data["forced_roundstart_rulesets"] += list(list(
 			"name" = forced_ruleset.name,
 			"path" = forced_ruleset.type,
@@ -77,7 +77,7 @@
 		))
 
 	data["executed_roundstart_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/roundstart/executed_ruleset in SSdynamic.roundstart_executed_rulesets)
+	for(var/datum/dynamic_ruleset/supplementary/executed_ruleset in SSdynamic.roundstart_executed_rulesets)
 		data["executed_roundstart_rulesets"] += list(list(
 			"name" = executed_ruleset.name,
 			"path" = executed_ruleset.type,
@@ -233,7 +233,7 @@
 
 			if(SSdynamic.roundstart_only_use_forced_rulesets)
 				var/list/forced_rulesets = list()
-				for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
+				for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 					forced_rulesets += forced_ruleset.name
 
 				message_admins("[key_name(usr)] has forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
@@ -256,7 +256,7 @@
 				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
 
 			var/list/blacklisted_rulesets = list()
-			for(var/datum/dynamic_ruleset/roundstart/blacklisted_ruleset in SSdynamic.roundstart_forced_rulesets)
+			for(var/datum/dynamic_ruleset/supplementary/blacklisted_ruleset in SSdynamic.roundstart_forced_rulesets)
 				blacklisted_rulesets += blacklisted_ruleset.name
 
 			if(SSdynamic.roundstart_blacklist_forced_rulesets)
@@ -269,15 +269,15 @@
 
 		if("force_roundstart_ruleset")
 			var/ruleset_text = params["forced_roundstart_ruleset"]
-			var/datum/dynamic_ruleset/roundstart/ruleset_path = text2path(ruleset_text)
-			if(!ispath(ruleset_path, /datum/dynamic_ruleset/roundstart) || ruleset_path == /datum/dynamic_ruleset/roundstart)
+			var/datum/dynamic_ruleset/supplementary/ruleset_path = text2path(ruleset_text)
+			if(!ispath(ruleset_path, /datum/dynamic_ruleset/supplementary) || ruleset_path == /datum/dynamic_ruleset/supplementary)
 				message_admins("[key_name(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
 				to_chat(usr, span_warning("Invalid ruleset: [ruleset_text]"))
 				return TRUE
 
 			// If it's already forced, unforce it, otherwise, force it.
 			var/needs_to_force = TRUE
-			for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
+			for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 				if(forced_ruleset.type == ruleset_path)
 					SSdynamic.roundstart_forced_rulesets -= forced_ruleset
 					needs_to_force = FALSE
@@ -288,7 +288,7 @@
 				SSdynamic.roundstart_blacklist_forced_rulesets = FALSE
 
 			if(needs_to_force)
-				for(var/datum/dynamic_ruleset/roundstart/ruleset in SSdynamic.roundstart_configured_rulesets)
+				for(var/datum/dynamic_ruleset/supplementary/ruleset in SSdynamic.supplementary_configured_rulesets)
 					if(ruleset.type == ruleset_path)
 						SSdynamic.roundstart_forced_rulesets += ruleset
 						message_admins("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")

@@ -2,6 +2,8 @@
 	rule_category = DYNAMIC_CATEGORY_GAMEMODE
 	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/gamemode
+	/// Default minimum players required so that there is some mystery involved.
+	//minimum_players_required = 3
 
 /datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
@@ -38,6 +40,9 @@
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		GLOB.pre_setup_antags -= chosen_mind
 
+/datum/dynamic_ruleset/gamemode/proc/security_report()
+	return null
+
 //////////////////////////////////////////////
 //                                          //
 //                  TRAITOR                 //
@@ -50,6 +55,9 @@
 	antag_datum = /datum/antagonist/traitor
 	weight = 8
 
+/datum/dynamic_ruleset/gamemode/traitor/security_report()
+	return "Intercepted communications between neighboring orbital stations suggest that Syndicate activity, as always, remains a potential threat."
+
 //////////////////////////////////////////////
 //                                          //
 //                CHANGELING                //
@@ -61,6 +69,10 @@
 	role_preference = /datum/role_preference/roundstart/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 8
+
+/datum/dynamic_ruleset/gamemode/changeling/security_report()
+	return "Private research teams have recently been researching lifeforms of unknown origin, capable of controlling their bodies at a cellular level. \
+	Unconfirmed reports suggest a tangible risk of impersonation and infiltration for the purposes of their species' hunting cycle."
 
 //////////////////////////////////////////////
 //                                          //
@@ -75,19 +87,10 @@
 	weight = 8
 	minimum_players_required = 13
 
-//////////////////////////////////////////////
-//                                          //
-//                  VAMPIRE                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/gamemode/vampire
-	name = "Vampire"
-	role_preference = /datum/role_preference/roundstart/vampire
-	antag_datum = /datum/antagonist/vampire
-	weight = 8
-	minimum_players_required = 8
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+/datum/dynamic_ruleset/gamemode/heretic/security_report()
+	return "Independent theological organizations have long expressed interest in this region of space for reasons that remain unclear. \
+	Individuals with confirmed or suspected thaumaturgical expertise may constitute a potential security liability, \
+	regardless of the current inconclusiveness of their findings."
 
 //////////////////////////////////////////////
 //                                          //
@@ -109,6 +112,10 @@
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		SSjob.AssignRole(chosen_mind.current, JOB_NAME_AI)
 
+/datum/dynamic_ruleset/gamemode/malf/security_report()
+	return "The proximity to multiple stars leads to a risk of ion storms born from constructive wave interference. This has been identified \
+	as an unconfirmed future risk towards various computer-controlled systems, including artificial-intelligence units and power supply technologies."
+
 //////////////////////////////////////////////
 //                                          //
 //                  WIZARD                  //
@@ -123,7 +130,7 @@
 	minimum_players_required = 20
 	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
-/datum/dynamic_ruleset/gamemode/wizard/allowed()
+/datum/dynamic_ruleset/gamemode/wizard/allowed(ignore_candidates = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -142,6 +149,11 @@
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick(GLOB.wizardstart))
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
+
+/datum/dynamic_ruleset/gamemode/wizard/security_report()
+	return "Unconfirmed rumours suggest that a series of powerful artifacts that possess intricate control over space-time are in the hands \
+	of an independant organisation. While these reports currently lack credibility, the probability of incident has yet to be determined as \
+	negligable and security should utilise this possibility as a training excercise."
 
 //////////////////////////////////////////////
 //                                          //
@@ -165,7 +177,7 @@
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/gamemode/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 1)
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
 
 /datum/dynamic_ruleset/gamemode/bloodcult/execute()
 	team = new
@@ -188,6 +200,11 @@
 	else
 		SSticker.mode_result = "loss - staff stopped the cult"
 		SSticker.news_report = CULT_FAILURE
+
+/datum/dynamic_ruleset/gamemode/bloodcult/security_report()
+	return "Although numerous fringe theological groups are under observation, one faction has shown increased operational boldness, \
+	culminating in several recorded attacks on civilian facilities. The group's capacity for further disruption cannot be dismissed; \
+	persistent monitoring of relevant sectors is advised."
 
 //////////////////////////////////////////////
 //                                          //
@@ -246,6 +263,10 @@
 	else
 		SSticker.news_report = CULT_FAILURE
 		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
+
+/datum/dynamic_ruleset/gamemode/clockcult/security_report()
+	return "A group yielding unprecedented theological methodologies involving machine logic and dimensional interfaces has been linked to several abductions. \
+	The operational intent remains unclear, but potential applications present a non-trivial security concern. Crew safety monitoring is recommended."
 
 //////////////////////////////////////////////
 //                                          //
@@ -321,6 +342,12 @@
 			SSticker.mode_result = "halfwin - interrupted"
 			SSticker.news_report = OPERATIVE_SKIRMISH
 
+
+/datum/dynamic_ruleset/gamemode/nuclear/security_report()
+	return "During construction of a nearby station, a well-armed and well-funded Syndicate faction intercepted a shipment containing the station's \
+	nuclear self-destruct system. Intelligence assessments indicate a credible risk of future terrorist activity with the objective of total target \
+	destruction. Heightened security protocols are recommended."
+
 //////////////////////////////////////////////
 //                                          //
 //             CLOWN OPERATIVES             //
@@ -341,6 +368,11 @@
 			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)
 			new_nuke.yes_code = nuke.yes_code
 			qdel(nuke)
+
+/datum/dynamic_ruleset/gamemode/nuclear/clown_ops/security_report()
+	return "During construction of a nearby circus, a well-armed and well-funded Clown faction intercepted a shipment containing the station's \
+	prank system. Intelligence assessments indicate a credible risk of future pranks with the objective of total target \
+	pranking. Looser security protocols are not recommended."
 
 //////////////////////////////////////////////
 //                                          //
@@ -401,6 +433,11 @@
 	else
 		SSticker.mode_result = "minor win - station forced to be abandoned"
 		SSticker.news_report = STATION_EVACUATED
+
+/datum/dynamic_ruleset/gamemode/revolution/security_report()
+	return "Following an industrial incident on Tellune, violent demonstrations demanding unsanctioned worker concessions occurred outside a \
+	Nanotrasen command center. The potential emergence of imitator movements with revolutionary intent presents a credible short-term security \
+	concern and should be monitored."
 
 #undef REVOLUTION_VICTORY
 #undef STATION_VICTORY

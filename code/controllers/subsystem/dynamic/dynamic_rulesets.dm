@@ -27,6 +27,8 @@
 	var/list/blocking_rulesets = list()
 	/// The flags that determines how the ruleset is handled.
 	var/ruleset_flags = NONE
+	/// Time that the ruleset was executed at
+	var/executed_at = 0
 
 	/**
 	 * Backend Variables
@@ -81,13 +83,13 @@
 /**
  * Check if all requirements for this ruleset are met.
  */
-/datum/dynamic_ruleset/proc/allowed()
-	if(length(candidates) < drafted_players_amount)
+/datum/dynamic_ruleset/proc/allowed(ignore_candidates = FALSE)
+	if(ignore_candidates && length(candidates) < drafted_players_amount)
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 
 	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
-	if(istype(src, /datum/dynamic_ruleset/roundstart))
+	if(istype(src, /datum/dynamic_ruleset/supplementary))
 		players = length(GLOB.player_list)
 
 	if(players < minimum_players_required)
@@ -113,7 +115,7 @@
 		return DYNAMIC_EXECUTE_FAILURE
 
 	// Roundstart rulesets have their candidate bodies deleted before execute so we store a list of minds, not bodies
-	if(istype(src, /datum/dynamic_ruleset/roundstart))
+	if(istype(src, /datum/dynamic_ruleset/supplementary))
 		for(var/datum/mind/chosen_mind in chosen_candidates)
 			chosen_mind.add_antag_datum(antag_datum)
 	else

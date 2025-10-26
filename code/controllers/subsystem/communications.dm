@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(communications)
 /datum/controller/subsystem/communications/proc/queue_roundstart_report()
 	addtimer(CALLBACK(src, PROC_REF(send_roundstart_report)), rand(1 MINUTES, 3 MINUTES))
 
-/datum/controller/subsystem/communications/proc/send_roundstart_report(greenshift)
+/datum/controller/subsystem/communications/proc/send_roundstart_report()
 	SSstation.generate_station_goals(CONFIG_GET(number/station_goal_budget))
 
 	var/list/datum/station_goal/goals = SSstation.get_station_goals()
@@ -68,18 +68,43 @@ SUBSYSTEM_DEF(communications)
 	if(length(trait_list_strings))
 		. += "<hr><b>Identified shift divergencies:</b><BR>" + trait_list_strings.Join()
 
-	print_command_report(., "[command_name()] Status Summary")
-	if(!CONFIG_GET(flag/no_intercept_report) && length(SSdynamic.roundstart_executed_rulesets))
-		if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_BLUE)
-			SSsecurity_level.set_level(SEC_LEVEL_BLUE)
+	if(!CONFIG_GET(flag/no_intercept_report))
+		var/list/gamemodes = list()
+		var/list/blacklisted_types = list()
+		// Add all of the rulesets that did executed
+		for (var/datum/dynamic_ruleset/ruleset in SSdynamic.executed_gamemodes)
+			gamemodes += ruleset
+			blacklisted_types += ruleset.type
+		// Throw in some rulesets that could execute but didn't
+		while (length(gamemodes) < 3)
+			var/datum/dynamic_ruleset/false_alarm = SSdynamic.pick_ruleset(SSdynamic.configured_gamemodes, TRUE, TRUE, blacklisted_types)
+			if (!false_alarm)
+				break
+			gamemodes += false_alarm
+			blacklisted_types += false_alarm.type
+		// If we didn't have any gamemodes to bluff with, then throw in some random ones
+		while (length(gamemodes) < 3)
+			var/list/random_rulesets = list()
+			for (var/datum/dynamic_ruleset/ruleset in SSdynamic.configured_gamemodes)
+				if (!(ruleset.type in blacklisted_types))
+					random_rulesets += ruleset
+			if (!length(random_rulesets))
+				break
+			var/datum/dynamic_ruleset/selected_random = pick(random_rulesets)
+			blacklisted_types += selected_random.type
+			gamemodes += selected_random
+		// So the first one isn't always the one that was executed
+		shuffle_inplace(gamemodes)
+		// Add on the gamemode reports
+		. += "<hr><b>Recent Security Incidents</b><br>"
+		for (var/datum/dynamic_ruleset/gamemode/gamemode_ruleset in gamemodes)
+			var/report = gamemode_ruleset.security_report()
+			if (report && prob(95))
+				. += "[report]<br><br>"
+			else
+				. += "Additional risk-assessment incidents were unable to be compiled prior to the report deadline, please await further updates.<br><br>"
 
-		priority_announce(
-			"[SSsecurity_level.current_security_level.elevating_to_announcement]\n\n\
-				A summary has been copied and printed to all communications consoles.",
-			"Security level elevated.",
-			ANNOUNCER_INTERCEPT,
-			color_override = SSsecurity_level.current_security_level.announcement_color,
-		)
+	print_command_report(., "[station_name()] Situation & Security Report")
 
 #undef COMMUNICATION_COOLDOWN
 #undef COMMUNICATION_COOLDOWN_AI

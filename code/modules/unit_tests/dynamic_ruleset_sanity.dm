@@ -3,7 +3,7 @@
 
 /datum/unit_test/dynamic_roundstart_ruleset_sanity/Run()
 	// Roundstart
-	for(var/datum/dynamic_ruleset/roundstart/ruleset as anything in subtypesof(/datum/dynamic_ruleset/roundstart))
+	for(var/datum/dynamic_ruleset/supplementary/ruleset as anything in subtypesof(/datum/dynamic_ruleset/supplementary))
 		if(ruleset == initial(ruleset.abstract_type))
 			continue
 

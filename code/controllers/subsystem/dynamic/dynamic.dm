@@ -4,34 +4,47 @@ SUBSYSTEM_DEF(dynamic)
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DYNAMIC
 
+
+	/**
+	 * Setup variables
+	 */
+
+	/// The amount of people ready at roundstart
+	var/roundstart_ready_amount = 0
+
 	/**
 	 * Gamemode variables
 	 */
 
 	/// A list of configured gamemodes
 	var/list/datum/dynamic_ruleset/gamemode/configured_gamemodes
+	/// List of executed gamemodes
+	var/list/datum/dynamic_ruleset/gamemode/executed_gamemodes = list()
 
 	/**
-	 * Roundstart (Supplementary antagonists) variables
+	 * Supplementary variables
 	 */
 
 	/// Set at the beginning of the round, our budget for choosing rulesets
-	var/roundstart_points = 0
+	var/supplementary_points = 0
 	/// Only here for logging purposes
-	var/roundstart_point_divergence = 1
-	/// The amount of people ready at roundstart
-	var/roundstart_ready_amount = 0
+	var/supplementary_point_divergence = 1
 	/// List of players ready on roundstart. Set to null after players are chosen to prevent hard dels.
 	var/list/mob/dead/new_player/authenticated/roundstart_candidates = list()
-	/// List of all roundstart rulesets that have been executed
-	var/list/datum/dynamic_ruleset/roundstart/roundstart_executed_rulesets = list()
 	/// A list of configured roundstart rulesets
-	var/list/datum/dynamic_ruleset/roundstart/roundstart_configured_rulesets
+	var/list/datum/dynamic_ruleset/supplementary/supplementary_configured_rulesets
+
+	/// List of all roundstart rulesets that have been executed
+	var/list/datum/dynamic_ruleset/supplementary/executed_supplementary_rulesets = list()
+	/// The supplementary ruleset that was last executed, used for determining elasticity of late-joins
+	var/datum/dynamic_ruleset/supplementary/last_executed_supplementary_path = null
+	/// The next supplementary ruleset that we want to save up for
+	var/datum/dynamic_ruleset/supplementary/next_supplementary = null
 
 	/// Dynamic Panel variables
 
 	/// List of forced roundstart rulesets from the dynamic panel
-	var/list/datum/dynamic_ruleset/roundstart/roundstart_forced_rulesets = list()
+	var/list/datum/dynamic_ruleset/supplementary/roundstart_forced_rulesets = list()
 	/// Do we choose any roundstart rulesets or only use the ones in `roundstart_forced_rulesets`
 	var/roundstart_only_use_forced_rulesets = FALSE
 	/// Inverse of the above, blacklist the rulesets in `roundstart_forced_rulesets`
@@ -80,17 +93,6 @@ SUBSYSTEM_DEF(dynamic)
 		"medium" = list(0),
 		"heavy" = list(0),
 	)
-
-	/**
-	 * Latejoin variables
-	 */
-
-	/// List of all latejoin rulesets that have been executed
-	var/list/datum/dynamic_ruleset/latejoin/latejoin_executed_rulesets = list()
-	/// The latejoin ruleset to force. Only for admin interaction
-	var/datum/dynamic_ruleset/latejoin/latejoin_forced_ruleset
-	/// A list of configured latejoin rulesets
-	var/list/datum/dynamic_ruleset/latejoin/latejoin_configured_rulesets
 
 	/**
 	 * Other variables
@@ -212,15 +214,6 @@ SUBSYSTEM_DEF(dynamic)
 		"/datum/antagonist/nightmare" = -0.4
 	)
 
-	/**
-	 * Latejoin
-	 */
-
-	/// The max amount of latejoin rulesets that can be picked
-	var/latejoin_max_rulesets = 1
-	/// The probability for a latejoin ruleset to be picked
-	var/latejoin_ruleset_probability = 10
-
 /datum/controller/subsystem/dynamic/Initialize()
 	configure_variables()
 	load_storytellers()
@@ -283,11 +276,9 @@ SUBSYSTEM_DEF(dynamic)
 
 	for (var/datum/dynamic_ruleset/ruleset in configured_gamemodes)
 		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
-	for (var/datum/dynamic_ruleset/ruleset in roundstart_configured_rulesets)
+	for (var/datum/dynamic_ruleset/ruleset in supplementary_configured_rulesets)
 		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
 	for (var/datum/dynamic_ruleset/ruleset in midround_configured_rulesets)
-		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
-	for (var/datum/dynamic_ruleset/ruleset in latejoin_configured_rulesets)
 		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
 
 /**
@@ -302,9 +293,8 @@ SUBSYSTEM_DEF(dynamic)
 			vars[variable] = current_storyteller["Dynamic"][variable]
 
 	configured_gamemodes = init_rulesets(/datum/dynamic_ruleset/gamemode, configured_gamemodes)
-	roundstart_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/roundstart, roundstart_configured_rulesets)
+	supplementary_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/supplementary, supplementary_configured_rulesets)
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
-	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin, latejoin_configured_rulesets)
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA)
@@ -369,15 +359,28 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/proc/select_roundstart_antagonists()
 	set_roundstart_points()
 
-	log_dynamic("ROUNDSTART: Listing [length(roundstart_configured_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
+	log_dynamic("ROUNDSTART: Listing [length(supplementary_configured_rulesets)] roundstart rulesets, and [length(roundstart_candidates)] players ready.")
 	if(!length(roundstart_candidates))
 		return TRUE
 
-	pick_roundstart_rulesets(roundstart_configured_rulesets)
+	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
+	select_gamemode(configured_gamemodes)
+	pick_roundstart_rulesets(supplementary_configured_rulesets)
 
 	// Save us from hard dels
 	roundstart_ready_amount = length(roundstart_candidates)
 	roundstart_candidates = null
+	return TRUE
+
+/**
+ * Select the gamemode to be ran
+ */
+/datum/controller/subsystem/dynamic/proc/select_gamemode(list/gamemodes)
+	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes)
+	if (!selected_mode)
+		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
+		return FALSE
+	execute_gamemode_ruleset(selected_mode)
 	return TRUE
 
 /**
@@ -394,31 +397,29 @@ SUBSYSTEM_DEF(dynamic)
 
 		if(!roundstart_points_override)
 			if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
-				roundstart_points += roundstart_points_per_ready
+				supplementary_points += roundstart_points_per_ready
 			else if(player.ready == PLAYER_NOT_READY)
-				roundstart_points += roundstart_points_per_unready
+				supplementary_points += roundstart_points_per_unready
 			else if(player.ready == PLAYER_READY_TO_OBSERVE)
-				roundstart_points += roundstart_points_per_observer
+				supplementary_points += roundstart_points_per_observer
 
-	roundstart_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
-	roundstart_points = round(roundstart_points * roundstart_point_divergence)
+	supplementary_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
+	supplementary_points = round(supplementary_points * supplementary_point_divergence)
 
-	log_dynamic("ROUNDSTART: Starting with [roundstart_points] roundstart points and a divergence of [round((roundstart_point_divergence - 1) * 100)]%")
+	log_dynamic("ROUNDSTART: Starting with [supplementary_points] roundstart points and a divergence of [round((supplementary_point_divergence - 1) * 100)]%")
 
 /**
  * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
  */
-/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
+/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(unfiltered_rules)
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
 		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
 		return
 
-	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
-
 	// Check for forced rulesets
 	if(!roundstart_blacklist_forced_rulesets)
-		for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in roundstart_forced_rulesets)
+		for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in roundstart_forced_rulesets)
 			forced_ruleset.set_drafted_players_amount()
 			forced_ruleset.get_candidates()
 			forced_ruleset.trim_candidates()
@@ -429,8 +430,8 @@ SUBSYSTEM_DEF(dynamic)
 				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
 				continue
 
-			var/datum/dynamic_ruleset/roundstart/new_forced_roundstart_ruleset = forced_ruleset.duplicate()
-			roundstart_executed_rulesets += new_forced_roundstart_ruleset
+			var/datum/dynamic_ruleset/supplementary/new_forced_roundstart_ruleset = forced_ruleset.duplicate()
+			executed_supplementary_rulesets += new_forced_roundstart_ruleset
 			new_forced_roundstart_ruleset.choose_candidates()
 
 			forced_ruleset.candidates = null
@@ -442,76 +443,25 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Trim the rulesets
-	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in roundstart_rules)
-		potential_ruleset.set_drafted_players_amount()
-		potential_ruleset.get_candidates()
-		potential_ruleset.trim_candidates()
-
-		if(!potential_ruleset.allowed())
-			continue
-
-		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in roundstart_forced_rulesets))
-			continue
-
-		possible_rulesets[potential_ruleset] = potential_ruleset.weight
+	var/list/possible_rulesets = get_weighted_executable_supplementary_rulesets(unfiltered_rules)
 
 	// Pick rulesets
-	var/roundstart_points_left = roundstart_points
 	var/no_other_rulesets = FALSE
-	while(roundstart_points_left > 0 && length(possible_rulesets))
-		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight(possible_rulesets)
-
-		// Ran out of rulesets
-		if(isnull(ruleset))
-			log_dynamic("ROUNDSTART: No more rulesets can be applied, stopping with [roundstart_points_left] points left.")
+	while(supplementary_points > 0 && length(possible_rulesets))
+		var/datum/dynamic_ruleset/supplementary/new_roundstart_ruleset = pick_ruleset(possible_rulesets)
+		if (!new_roundstart_ruleset)
+			log_dynamic("SUPPLEMENTARY: Failed to select a ruleset with [supplementary_points] points left")
 			break
-
-		do
-			// Something changed and this ruleset is no longer allowed
-			// Most common occurance is all previous candidates were assigned an antag position
-			ruleset.trim_candidates()
-			if(!ruleset.allowed())
-				possible_rulesets -= ruleset
-				break
-
-			// Not enough points left
-			if(ruleset.points_cost > roundstart_points_left)
-				possible_rulesets -= ruleset
-				break
-
-			// check_is_ruleset_blocked()
-			if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
-				possible_rulesets -= ruleset
-				break
-
-			// Apply cost and add ruleset to 'roundstart_executed_rulesets'
-			roundstart_points_left -= ruleset.points_cost
-
-			var/datum/dynamic_ruleset/roundstart/new_roundstart_ruleset = ruleset.duplicate()
-			roundstart_executed_rulesets += new_roundstart_ruleset
-			new_roundstart_ruleset.choose_candidates()
-
-			log_dynamic("ROUNDSTART: Chose [new_roundstart_ruleset] with [roundstart_points_left] points left")
-
-			if(CHECK_BITFIELD(new_roundstart_ruleset.ruleset_flags, NO_OTHER_RULESETS))
-				no_other_rulesets = TRUE
-				break
-		while (prob(ruleset.elasticity))
-
-		ruleset.candidates = null
-
-		if(no_other_rulesets)
-			break
+		execute_supplementary_ruleset(new_roundstart_ruleset)
 
 	// Deal with the NO_OTHER_RULESETS flag
 	if(no_other_rulesets)
-		for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
+		for(var/datum/dynamic_ruleset/supplementary/ruleset in executed_supplementary_rulesets)
 			if(CHECK_BITFIELD(ruleset.ruleset_flags, NO_OTHER_RULESETS))
 				continue
 
 			var/are_we_forced = FALSE
-			for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in roundstart_forced_rulesets)
+			for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in roundstart_forced_rulesets)
 				if(ruleset.type == forced_ruleset.type)
 					are_we_forced = TRUE
 			if(are_we_forced)
@@ -528,7 +478,98 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.chosen_candidates = null
 
 			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
-			roundstart_executed_rulesets -= ruleset
+			executed_supplementary_rulesets -= ruleset
+
+/datum/controller/subsystem/dynamic/proc/get_weighted_executable_supplementary_rulesets(list/rulesets)
+	var/list/possible_rulesets = list()
+	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in rulesets)
+		potential_ruleset.set_drafted_players_amount()
+		potential_ruleset.get_candidates()
+		potential_ruleset.trim_candidates()
+
+		if(!potential_ruleset.allowed())
+			continue
+
+		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in roundstart_forced_rulesets))
+			continue
+
+		possible_rulesets[potential_ruleset] = potential_ruleset.weight
+	return possible_rulesets
+
+/**
+ * Picks a ruleset to be executed. Does not execute the selected ruleset.
+ * possible_rulesets: The rulesets to be selected from
+ * ignore_points: If set to true, then we will not care about the point cost of this ruleset
+ * ignore_candidates: If set to true, then we will not care about needing candidates and trim_candidates will not be called.
+ * blacklist_types: If a list is provided, then rulesets whose type is in this list will be excluded.
+ */
+/datum/controller/subsystem/dynamic/proc/pick_ruleset(list/possible_rulesets, ignore_points = FALSE, ignore_candidates = FALSE, list/blacklist_types = null)
+	var/list/remaining_to_pick = possible_rulesets.Copy()
+
+	while (length(remaining_to_pick))
+		var/datum/dynamic_ruleset/ruleset = pick_weight(remaining_to_pick)
+
+		// Elasticity selection
+		if (istype(ruleset, /datum/dynamic_ruleset/supplementary) && last_executed_supplementary_path && prob(last_executed_supplementary_path::elasticity))
+			var/datum/dynamic_ruleset/override_ruleset = locate(last_executed_supplementary_path) in possible_rulesets
+			ruleset = override_ruleset
+
+		remaining_to_pick -= ruleset
+
+		// Ran out of rulesets
+		if(isnull(ruleset))
+			return FALSE
+
+		if (blacklist_types && (ruleset.type in blacklist_types))
+			remaining_to_pick -= ruleset
+			continue
+
+		// Determine all available candidates, if that's something we care about
+		if (!ignore_candidates)
+			ruleset.trim_candidates()
+		// Check if we are allowed to be executed
+		if(!ruleset.allowed(ignore_candidates))
+			remaining_to_pick -= ruleset
+			continue
+
+		// Not enough points left
+		if(ignore_points && ruleset.points_cost > supplementary_points)
+			remaining_to_pick -= ruleset
+			continue
+
+		// check_is_ruleset_blocked()
+		if(check_is_ruleset_blocked(ruleset, executed_supplementary_rulesets))
+			remaining_to_pick -= ruleset
+			continue
+
+		var/datum/dynamic_ruleset/new_roundstart_ruleset = ruleset.duplicate()
+		return new_roundstart_ruleset
+
+/**
+ * Execute the provided supplementary ruleset
+ */
+/datum/controller/subsystem/dynamic/proc/execute_supplementary_ruleset(datum/dynamic_ruleset/supplementary/ruleset)
+	// Apply cost and add ruleset to 'executed_supplementary_rulesets'
+	supplementary_points -= ruleset.points_cost
+	executed_supplementary_rulesets += ruleset
+	ruleset.choose_candidates()
+
+	log_dynamic("SUPPLEMENTARY: Executed [ruleset] with [supplementary_points] points left")
+
+	ruleset.candidates = null
+	last_executed_supplementary_path = ruleset.type
+
+/**
+ * Execute the provided supplementary ruleset
+ */
+/datum/controller/subsystem/dynamic/proc/execute_gamemode_ruleset(datum/dynamic_ruleset/gamemode/ruleset)
+	// Apply cost and add ruleset to 'executed_supplementary_rulesets'
+	executed_supplementary_rulesets += ruleset
+	ruleset.choose_candidates()
+
+	log_dynamic("GAMEMODE: Executed [ruleset]")
+
+	ruleset.candidates = null
 
 /**
  * Checks if this ruleset is blocked by any other rulesets or ruleset flags.
@@ -559,12 +600,12 @@ SUBSYSTEM_DEF(dynamic)
  * Execute roundstart rulesets
  */
 /datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
-	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
+	for(var/datum/dynamic_ruleset/supplementary/ruleset in executed_supplementary_rulesets)
 		var/result = execute_ruleset(ruleset)
 
 		log_dynamic("ROUNDSTART: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
-			roundstart_executed_rulesets -= ruleset
+			executed_supplementary_rulesets -= ruleset
 
 /**
  * Some rulesets need to process each tick. Lets give them the opportunity to do so.
@@ -579,7 +620,9 @@ SUBSYSTEM_DEF(dynamic)
  */
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	var/result = ruleset.execute()
-	if(result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
+	if (result == DYNAMIC_EXECUTE_SUCCESS)
+		ruleset.executed_at = world.time - SSticker.round_start_time
+	if (result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
 		rulesets_to_process += ruleset
 
 	// I would love to keep this logged, but we must avoid hard dels.
@@ -775,25 +818,15 @@ SUBSYSTEM_DEF(dynamic)
 	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
-	if(!length(latejoin_configured_rulesets))
+	supplementary_points += roundstart_points_per_ready * supplementary_point_divergence
+
+	if (!next_supplementary)
+		next_supplementary = pick_ruleset(get_weighted_executable_supplementary_rulesets(supplementary_configured_rulesets))
+	if (!next_supplementary)
 		return
-
-	if(length(latejoin_executed_rulesets) >= latejoin_max_rulesets)
-		return
-
-	if(!prob(latejoin_ruleset_probability))
-		return
-
-	// No latejoin ruleset chosen, lets pick one
-	if(!latejoin_forced_ruleset)
-		var/list/possible_rulesets = list()
-		for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
-			possible_rulesets[ruleset] = ruleset.weight
-
-		latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
 	// Execute our latejoin ruleset
-	var/datum/dynamic_ruleset/latejoin/new_latejoin_ruleset = latejoin_forced_ruleset.duplicate()
+	var/datum/dynamic_ruleset/supplementary/new_latejoin_ruleset = next_supplementary.duplicate()
 
 	new_latejoin_ruleset.candidates = list(character)
 	var/result = execute_ruleset(new_latejoin_ruleset)
@@ -802,14 +835,14 @@ SUBSYSTEM_DEF(dynamic)
 	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
-		latejoin_executed_rulesets += new_latejoin_ruleset
-		latejoin_forced_ruleset = null
+		executed_supplementary_rulesets += new_latejoin_ruleset
+		next_supplementary = null
 
 /**
  * Checks all high impact rulesets for their round result and sets dynamic's round result to that
  */
 /datum/controller/subsystem/dynamic/proc/set_round_result()
-	var/list/datum/dynamic_ruleset/executed_rulesets = roundstart_executed_rulesets | midround_executed_rulesets | latejoin_executed_rulesets
+	var/list/datum/dynamic_ruleset/executed_rulesets = executed_supplementary_rulesets | midround_executed_rulesets | executed_gamemodes
 
 	for(var/datum/dynamic_ruleset/ruleset in executed_rulesets)
 		if(CHECK_BITFIELD(ruleset.ruleset_flags, HIGH_IMPACT_RULESET))
