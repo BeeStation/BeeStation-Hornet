@@ -1278,6 +1278,7 @@
 #include "code\game\gamemodes\objectives\finale\hijack.dm"
 #include "code\game\gamemodes\objectives\finale\martyr.dm"
 #include "code\game\gamemodes\objectives\finale\nuclear.dm"
+#include "code\game\gamemodes\objectives\finale\survival_of_the_fittest.dm"
 #include "code\game\gamemodes\objectives\finale\survive.dm"
 #include "code\game\gamemodes\objectives\open\_open.dm"
 #include "code\game\gamemodes\objectives\open\destroy_equipment.dm"

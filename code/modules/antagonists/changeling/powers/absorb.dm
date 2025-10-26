@@ -120,29 +120,16 @@
 		changeling.antag_memory += "<B>We have no more knowledge of [target]'s speech patterns.</B><br>"
 		to_chat(owner, span_boldnotice("We have no more knowledge of [target]'s speech patterns."))
 
+	changeling.total_genetic_points += initial(changeling.total_genetic_points)
+	changeling.genetic_points += initial(changeling.total_genetic_points)
 
-	var/datum/antagonist/changeling/target_ling = IS_CHANGELING(target)
-	if(target_ling)//If the target was a changeling, suck out their extra juice and objective points!
-		to_chat(owner, span_boldnotice("[target] was one of us. We have absorbed their power."))
+	var/chems_added = initial(changeling.total_chem_storage)
+	changeling.total_chem_storage += chems_added
+	changeling.adjust_chemicals(chems_added)
 
-		// Gain half of their genetic points.
-		var/genetic_points_to_add = round(target_ling.total_genetic_points / 2)
-		changeling.genetic_points += genetic_points_to_add
-		changeling.total_genetic_points += genetic_points_to_add
+	changeling.chem_recharge_rate += initial(changeling.chem_recharge_rate)
 
-		// And half of their chemical charges.
-		var/chems_to_add = round(target_ling.total_chem_storage / 2)
-		changeling.adjust_chemicals(chems_to_add)
-		changeling.total_chem_storage += chems_to_add
-
-		// And of course however many they've absorbed, we've absorbed
-		changeling.absorbed_count += target_ling.absorbed_count
-
-		// Lastly, make them not a ling anymore. (But leave their objectives for round-end purposes).
-		var/list/copied_objectives = target_ling.objectives.Copy()
-		target.mind.remove_antag_datum(/datum/antagonist/changeling)
-		var/datum/antagonist/fallen_changeling/fallen = target.mind.add_antag_datum(/datum/antagonist/fallen_changeling)
-		fallen.objectives = copied_objectives
+	to_chat(changeling, span_changeling("With new DNA, our body adapts to the species. We gain greater chemical storage, faster chemical regeneration, and more genetic points."))
 
 /datum/action/changeling/absorbDNA/proc/attempt_absorb(mob/living/carbon/human/target)
 	for(var/absorbing_iteration in 1 to 3)

@@ -4,8 +4,8 @@
 	name = "absorb"
 	var/absorbed_count = 0
 
-/datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
-	target_amount = rand (lowbound,highbound)
+/datum/objective/absorb/proc/gen_amount_goal(lowbound = 3, highbound = 3)
+	target_amount = rand(lowbound,highbound)
 	var/n_p = 1 //autowin
 	var/list/datum/mind/owners = get_owners()
 	if (SSticker.current_state == GAME_STATE_SETTING_UP)
@@ -23,7 +23,7 @@
 
 /datum/objective/absorb/update_explanation_text()
 	. = ..()
-	explanation_text = "Extract [target_amount] compatible genome\s."
+	explanation_text = "Fully absorb [target_amount] compatible genome\s, draining and stealing their bodies."
 
 /datum/objective/absorb/admin_edit(mob/admin)
 	var/count = input(admin,"How many people to absorb?","absorb",target_amount) as num|null
@@ -45,23 +45,3 @@
 /datum/objective/absorb/get_completion_message()
 	var/span = check_completion() ? "grentext" : "redtext"
 	return "[explanation_text] <span class='[span]'>[absorbed_count] lifeform\s absorbed!</span>"
-
-/datum/objective/absorb_most
-	name = "absorb most"
-	explanation_text = "Extract more compatible genomes than any other Changeling."
-
-/datum/objective/absorb_most/check_completion()
-	var/absorbed_count = 0
-	for(var/datum/mind/M as() in get_owners())
-		if(!M)
-			continue
-		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
-		if(!changeling || !changeling.stored_profiles)
-			continue
-		absorbed_count += changeling.absorbed_count
-
-	for(var/datum/antagonist/changeling/changeling2 in GLOB.antagonists)
-		if(!changeling2.owner || changeling2.owner == owner || !changeling2.stored_profiles || changeling2.absorbed_count < absorbed_count)
-			continue
-		return ..()
-	return TRUE
