@@ -8,8 +8,7 @@
 	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
-	damage_deflection = 25
-
+	damage_deflection = 20
 
 /datum/armor/crate_secure
 	melee = 30
