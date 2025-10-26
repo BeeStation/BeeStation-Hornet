@@ -295,7 +295,7 @@
 	attack_verb_simple = list("beep", "boop")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
-	custom_price = 300
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_EXCLUSIVE
 	max_demand = 5
 	trade_flags = TRADE_CONTRABAND
 

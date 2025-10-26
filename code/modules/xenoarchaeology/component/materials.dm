@@ -20,7 +20,7 @@
 	var/instability_step = 0
 
 	///Custom price we use if the item doesn't have its own
-	var/custom_price = 100
+	var/custom_price = PAYCHECK_COMMAND
 
 	///Artifact textures
 	var/texture_icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -120,7 +120,7 @@
 	material_color = "#f1ffca"
 	instability_step = 50
 	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
-	custom_price = 800
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_PREMIUM //Joke adjusted for inflation
 	trait_flags = XENOA_PEARL_TRAIT
 	label_icon = "question"
 

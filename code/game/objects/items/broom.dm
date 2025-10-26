@@ -13,7 +13,7 @@
 	attack_verb_continuous = list("sweeps", "brushes off", "bludgeons", "whacks")
 	attack_verb_simple = list("sweep", "brush off", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE
-	custom_price = 25
+	custom_price = PAYCHECK_CREW
 
 /obj/item/pushbroom/Initialize(mapload)
 	. = ..()

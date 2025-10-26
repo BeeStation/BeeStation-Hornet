@@ -1,3 +1,10 @@
+#define EXPORT_PRICE_SLIMEEXTRACT_GREY CARGO_CRATE_VALUE * 0.05
+#define EXPORT_PRICE_SLIMEEXTRACT_COMMON CARGO_CRATE_VALUE * 0.12
+#define EXPORT_PRICE_SLIMEEXTRACT_UNCOMMON CARGO_CRATE_VALUE * 0.2
+#define EXPORT_PRICE_SLIMEEXTRACT_RARE CARGO_CRATE_VALUE * 0.28
+#define EXPORT_PRICE_SLIMEEXTRACT_EPIC CARGO_CRATE_VALUE * 0.44
+#define EXPORT_PRICE_SLIMEEXTRACT_RAINBOW CARGO_CRATE_VALUE
+
 /// Slime Extracts ///
 
 /obj/item/slime_extract
@@ -11,7 +18,7 @@
 	throw_speed = 3
 	throw_range = 6
 	grind_results = list()
-	custom_price = 25	// These need defines to separate common / rare / epic, but im nota xenobio person so I won't do it
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_GREY
 	max_demand = 100
 	var/Uses = 1 // uses before it goes inert
 	var/qdel_timer // deletion timer, for delayed reactions
@@ -111,7 +118,7 @@
 	effectmod = "symbiont"
 	color_slime = SLIME_TYPE_GOLD
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_UNCOMMON
 	max_demand = 15
 
 /obj/item/slime_extract/gold/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -143,7 +150,7 @@
 	effectmod = "consuming"
 	color_slime = SLIME_TYPE_SILVER
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 100	//Price for uncomon
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 25
 
 /obj/item/slime_extract/silver/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -169,7 +176,7 @@
 	effectmod = "industrial"
 	color_slime = SLIME_TYPE_METAL
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 60 // Price for common slime
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_COMMON
 	max_demand = 50
 
 /obj/item/slime_extract/metal/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -194,7 +201,7 @@
 	effectmod = "regenerative"
 	color_slime = SLIME_TYPE_PURPLE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 60
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_COMMON
 	max_demand = 50
 
 /obj/item/slime_extract/purple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -216,7 +223,7 @@
 	effectmod = "self-sustaining"
 	color_slime = SLIME_TYPE_DARK_PURPLE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
-	custom_price = 100
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 25
 
 /obj/item/slime_extract/darkpurple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -241,7 +248,7 @@
 	effectmod = "burning"
 	color_slime = SLIME_TYPE_ORANGE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 60
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_COMMON
 	max_demand = 50
 
 /obj/item/slime_extract/orange/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -264,7 +271,7 @@
 	effectmod = "charged"
 	color_slime = SLIME_TYPE_YELLOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 100
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 25
 
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -298,7 +305,7 @@
 	effectmod = "sanguine"
 	color_slime = SLIME_TYPE_RED
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_UNCOMMON
 	max_demand = 15
 
 /obj/item/slime_extract/red/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -321,7 +328,7 @@
 	effectmod = "stabilized"
 	color_slime = SLIME_TYPE_BLUE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 60
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_COMMON
 	max_demand = 50
 
 /obj/item/slime_extract/blue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -348,7 +355,7 @@
 	effectmod = "chilling"
 	color_slime = SLIME_TYPE_DARK_BLUE
 	activate_reagents = list(/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 100
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 25
 
 /obj/item/slime_extract/darkblue/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -374,7 +381,7 @@
 	effectmod = "gentle"
 	color_slime = SLIME_TYPE_PINK
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_UNCOMMON
 	max_demand = 15
 
 /obj/item/slime_extract/pink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -399,7 +406,7 @@
 	effectmod = "mutative"
 	color_slime = SLIME_TYPE_GREEN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/uranium/radium)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_UNCOMMON
 	max_demand = 15
 
 /obj/item/slime_extract/green/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -426,7 +433,7 @@
 	effectmod = "loyal"
 	color_slime = SLIME_TYPE_LIGHT_PINK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
-	custom_price = 220	//price for epic
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/lightpink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -451,7 +458,7 @@
 	effectmod = "transformative"
 	color_slime = SLIME_TYPE_BLACK
 	activate_reagents = list(/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/black/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -475,7 +482,7 @@
 	effectmod = "detonating"
 	color_slime = SLIME_TYPE_OIL
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/oil/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -502,7 +509,7 @@
 	effectmod = "crystalline"
 	color_slime = SLIME_TYPE_ADAMANTINE
 	activate_reagents = list(/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/adamantine/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -534,7 +541,7 @@
 	effectmod = "warping"
 	color_slime = SLIME_TYPE_BLUESPACE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 	var/teleport_ready = FALSE
 	var/teleport_x = 0
@@ -585,7 +592,7 @@
 	effectmod = "prismatic"
 	color_slime = SLIME_TYPE_PYRITE
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/pyrite/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -628,7 +635,7 @@
 	effectmod = "recurring"
 	color_slime = SLIME_TYPE_CERULEAN
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/cerulean/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -651,7 +658,7 @@
 	effectmod = "lengthened"
 	color_slime = SLIME_TYPE_SEPIA
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,/datum/reagent/water)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_EPIC
 	max_demand = 15
 
 /obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -674,7 +681,7 @@
 	effectmod = "hyperchromatic"
 	color_slime = SLIME_TYPE_RAINBOW
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma,"lesser plasma",/datum/reagent/toxin/slimejelly,"holy water and uranium") //Curse this snowflake reagent list.
-	custom_price = 500
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RAINBOW
 	max_demand = 5
 
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
@@ -726,7 +733,7 @@
 	effectmod = "verdant"
 	color_slime = SLIME_TYPE_DARK_GREEN
 	activate_reagents = list(/datum/reagent/water,/datum/reagent/medicine/earthsblood)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 15
 
 /obj/item/slime_extract/cobalt
@@ -735,7 +742,7 @@
 	effectmod = "hypercompressed"
 	color_slime = SLIME_TYPE_COBALT
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 15
 
 /obj/item/slime_extract/darkgrey
@@ -744,7 +751,7 @@
 	effectmod = "multitudinous"
 	color_slime = SLIME_TYPE_DARK_GREY
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/toxin/plasma)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 15
 
 /obj/item/slime_extract/crimson
@@ -753,7 +760,7 @@
 	effectmod = "furious"
 	color_slime = SLIME_TYPE_CRIMSON
 	activate_reagents = list(/datum/reagent/blood,/datum/reagent/blackpowder)
-	custom_price = 220
+	custom_price = EXPORT_PRICE_SLIMEEXTRACT_RARE
 	max_demand = 15
 
 ////Slime-derived potions///
@@ -1285,3 +1292,10 @@
 		T.add_atom_colour("#2956B2", FIXED_COLOUR_PRIORITY)
 	A.area_flags |= XENOBIOLOGY_COMPATIBLE
 	qdel(src)
+
+#undef EXPORT_PRICE_SLIMEEXTRACT_GREY
+#undef EXPORT_PRICE_SLIMEEXTRACT_COMMON
+#undef EXPORT_PRICE_SLIMEEXTRACT_UNCOMMON
+#undef EXPORT_PRICE_SLIMEEXTRACT_RARE
+#undef EXPORT_PRICE_SLIMEEXTRACT_EPIC
+#undef EXPORT_PRICE_SLIMEEXTRACT_RAINBOW

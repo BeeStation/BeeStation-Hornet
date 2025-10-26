@@ -1,5 +1,5 @@
 /datum/export/produce
-	cost = 0	// This is defined later based on cusgenerated prices
+	cost = 0 // This is defined later based on cusgenerated prices
 	export_category = EXPORT_CARGO
 	include_subtypes = TRUE
 	export_types = list(/obj/item/food/grown)
@@ -26,7 +26,7 @@
 
 	// Scale price by
 	var/potency_multiplier = produce.seed.potency / 100
-	if(base_price)	// Makes sure items that HAVE a value don't get completely dogged by the calculations causing it to return 0
+	if(base_price) // Makes sure items that HAVE a value don't get completely dogged by the calculations causing it to return 0
 		return max(1, round(base_price * demand_ratio) * potency_multiplier)
 	else
 		return round(base_price * demand_ratio * potency_multiplier)

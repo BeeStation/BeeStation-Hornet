@@ -1,5 +1,6 @@
 /// How many seconds between each fuel depletion tick ("use" proc)
 #define WELDER_FUEL_BURN_INTERVAL 9
+
 /obj/item/weldingtool
 	name = "welding tool"
 	desc = "A standard edition welder provided by Nanotrasen."
@@ -28,7 +29,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armor_type = /datum/armor/item_weldingtool
 	resistance_flags = FIRE_PROOF
-	custom_price = 15
+	custom_price = PAYCHECK_CREW
 
 	custom_materials = list(/datum/material/iron=70, /datum/material/glass=30)
 	///Whether the welding tool is on or off.
@@ -328,7 +329,7 @@
 	icon_state = "indwelder"
 	max_fuel = 40
 	custom_materials = list(/datum/material/glass=60)
-	custom_price = 25
+	custom_price = PAYCHECK_CREW * MULTIPLIER_PREMIUM
 
 /obj/item/weldingtool/largetank/flamethrower_screwdriver()
 	return

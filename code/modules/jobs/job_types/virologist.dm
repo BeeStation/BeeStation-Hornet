@@ -16,10 +16,11 @@
 
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
-	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_CREW)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(

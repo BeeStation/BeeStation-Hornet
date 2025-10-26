@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
-	custom_price = 20
+	custom_price = PAYCHECK_CREW
 	var/paintleft = 10
 
 /obj/item/paint/Initialize(mapload)

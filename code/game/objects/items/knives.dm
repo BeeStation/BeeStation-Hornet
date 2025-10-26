@@ -21,7 +21,7 @@
 	sharpness = SHARP
 	bleed_force = BLEED_CUT
 	armor_type = /datum/armor/item_knife
-	custom_price = 50 // Adding this here because some knives were not covered by the export datum
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_HIGH // Adding this here because some knives were not covered by the export datum
 	var/bayonet = FALSE //Can this be attached to a gun?
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
@@ -79,7 +79,7 @@
 	attack_verb_continuous = list("cleaves", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("cleave", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	w_class = WEIGHT_CLASS_NORMAL
-	custom_price = 60
+	custom_price = PAYCHECK_CREW * MULTIPLIER_EXCLUSIVE
 	sharpness = SHARP_DISMEMBER //This is a big boy knife
 
 /obj/item/knife/hunting
@@ -168,7 +168,7 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "cut")
 	bayonet = TRUE
-	custom_price = 100
+	custom_price = EXPORT_PRICE_WEAPON_LOW
 
 /obj/item/knife/combat/survival
 	name = "survival knife"

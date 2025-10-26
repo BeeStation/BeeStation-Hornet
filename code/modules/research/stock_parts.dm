@@ -223,7 +223,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	desc = "What?"
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	custom_price = 50
+	custom_price = PAYCHECK_CREW
 	var/rating = 1
 
 /obj/item/stock_parts/Initialize(mapload)
@@ -239,7 +239,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 /obj/item/stock_parts/proc/calculate_price()
 	if(rating)
 		/// T1 is 50 - T4 is 200
-		custom_price = 50 * rating
+		custom_price = PAYCHECK_CREW * rating
 
 //Rating 1
 

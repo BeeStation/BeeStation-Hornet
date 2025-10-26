@@ -16,7 +16,7 @@
 	attack_verb_simple = list("slam", "whack", "bash", "thunk", "batter", "bludgeon", "thrash")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
-	custom_price = 15
+	custom_price = PAYCHECK_LOWER * MULTIPLIER_LOW
 	var/max_water = 50
 	var/last_use = 1
 	var/chem = /datum/reagent/water
@@ -42,7 +42,7 @@
 	max_water = 30
 	sprite_name = "miniFE"
 	dog_fashion = null
-	custom_price = 10
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/extinguisher/proc/refill()
 	create_reagents(max_water, AMOUNT_VISIBLE)
@@ -62,7 +62,7 @@
 	tanktype = /obj/structure/reagent_dispensers/foamtank
 	sprite_name = "foam_extinguisher"
 	precision = TRUE
-	custom_price = 125
+	custom_price = PAYCHECK_COMMAND * MULTIPLIER_HIGH
 
 /obj/item/extinguisher/suicide_act(mob/living/carbon/user)
 	if (!safety && (reagents.total_volume >= 1))

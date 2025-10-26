@@ -182,7 +182,7 @@
 	can_toggle_range = FALSE
 	current_range = 1
 	volume = 10
-	custom_price = 50
+	custom_price = PAYCHECK_CREW
 	max_demand = 5 // We don't need many of these at centcoms... We're firing all clowns
 	list_reagents = list(/datum/reagent/water = 10)
 

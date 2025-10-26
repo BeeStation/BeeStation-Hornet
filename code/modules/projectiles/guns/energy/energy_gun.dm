@@ -9,7 +9,7 @@
 	ammo_x_offset = 3
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
-	custom_price = 300
+	custom_price = EXPORT_PRICE_WEAPON_HIGH
 
 /obj/item/gun/energy/e_gun/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \

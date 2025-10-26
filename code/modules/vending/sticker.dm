@@ -52,4 +52,4 @@
 /obj/item/sticker_gacha/series_1
 	series = STICKER_SERIES_1
 	max_demand = 100
-	custom_price = 35
+	custom_price = PAYCHECK_CREW

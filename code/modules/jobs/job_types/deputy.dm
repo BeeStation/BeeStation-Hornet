@@ -19,7 +19,7 @@
 
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
-	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_CREW) //No reason to make them lower than the role they were before
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_SECURITY)
 
 	show_in_prefs = FALSE

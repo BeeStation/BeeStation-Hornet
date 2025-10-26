@@ -7,4 +7,4 @@
 	harmful = FALSE
 	caliber = "taser cartridge"
 	harmful = FALSE
-	custom_price = 5
+	custom_price = PAYCHECK_CREW * MULTIPLIER_ULTRA_LOW

@@ -24,7 +24,7 @@
 	name="Push Broom"
 	id="pushbroom"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(/datum/material/iron = 2000)
+	materials = list(/datum/material/iron = 8000)
 	build_path = /obj/item/pushbroom
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
@@ -106,6 +106,14 @@
 	build_path = /obj/item/weldingtool/mini
 	category = list("initial","Tools")
 
+/datum/design/large_welding_tool
+	name = "Industrial Welding Tool"
+	id = "large_welding_tool"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 60)
+	build_path = /obj/item/weldingtool/largetank
+	category = list("hacked", "Tools")
+
 /datum/design/screwdriver
 	name = "Screwdriver"
 	id = "screwdriver"
@@ -146,7 +154,7 @@
 	name = "Welding Helmet"
 	id = "welding_helmet"
 	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
+	materials = list(/datum/material/iron = 800, /datum/material/glass = 400)
 	build_path = /obj/item/clothing/head/utility/welding
 	category = list("initial","Tools","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -340,7 +348,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 12000, /datum/material/glass = 8000)
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -348,7 +356,7 @@
 	name = "Kitchen Knife"
 	id = "kitchen_knife"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 12000)
+	materials = list(/datum/material/iron = 10000)
 	build_path = /obj/item/knife/kitchen
 	category = list("initial","Dinnerware")
 
@@ -364,7 +372,7 @@
 	name = "Serving Tray"
 	id = "tray"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 3000)
+	materials = list(/datum/material/iron = 600)
 	build_path = /obj/item/storage/bag/tray
 	category = list("initial","Dinnerware")
 
@@ -372,7 +380,7 @@
 	name = "Plate"
 	id = "plate"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 3500)
+	materials = list(/datum/material/iron = 400)
 	build_path = /obj/item/plate
 	category = list("initial","Dinnerware")
 
@@ -404,7 +412,7 @@
 	name = "Shaker"
 	id = "shaker"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 1500)
+	materials = list(/datum/material/iron = 600)
 	build_path = /obj/item/reagent_containers/cup/glass/shaker
 	category = list("initial","Dinnerware")
 
@@ -457,7 +465,7 @@
 	name = "Tinfoil Hat"
 	id = "tinfoil_hat"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 5500)
+	materials = list(/datum/material/iron = 800)
 	build_path = /obj/item/clothing/head/costume/foilhat
 	category = list("hacked", "Misc")
 
@@ -708,7 +716,7 @@
 	name = "Newscaster Frame"
 	id = "newscaster_frame"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 14000, /datum/material/glass = 8000)
+	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000)
 	build_path = /obj/item/wallframe/newscaster
 	category = list("initial", "Construction")
 
@@ -761,14 +769,6 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 2500)
 	build_path = /obj/item/electropack
-	category = list("hacked", "Tools")
-
-/datum/design/large_welding_tool
-	name = "Industrial Welding Tool"
-	id = "large_welding_tool"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 70, /datum/material/glass = 60)
-	build_path = /obj/item/weldingtool/largetank
 	category = list("hacked", "Tools")
 
 /datum/design/handcuffs
@@ -963,7 +963,7 @@
 	name = "Laptop Frame"
 	id = "laptop"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000)
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
 	build_path = /obj/item/modular_computer/laptop
 	category = list("initial","Misc")
 
@@ -971,7 +971,7 @@
 	name = "Tablet Frame"
 	id = "tablet"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 500)
 	build_path = /obj/item/modular_computer/tablet
 	category = list("initial","Misc")
 

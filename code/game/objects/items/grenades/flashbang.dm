@@ -4,8 +4,8 @@
 	item_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	custom_price = 25
 	var/flashbang_range = 7 //how many tiles away the mob will be stunned.
+	custom_price = EXPORT_PRICE_WEAPON_TRIVIAL
 
 /obj/item/grenade/flashbang/prime(mob/living/lanced_by)
 	. = ..()
@@ -70,7 +70,7 @@
 	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 	shrapnel_radius = 5
 	max_demand = 5
-	custom_premium_price = 200
+	custom_premium_price = PAYCHECK_COMMAND * MULTIPLIER_LUXURY // mostly gotten through cargo, but throw in one for the sec vendor ;)
 
 
 /obj/item/grenade/stingbang/mega
