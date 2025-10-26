@@ -111,7 +111,7 @@
 	return antag_bans
 
 /datum/preference_middleware/antags/proc/get_antag_living_playtime_hours_left()
-	if(!preferences.parent)
+	if(!preferences.parent || preferences.parent.holder)
 		return list()
 	var/list/antag_living_playtime_hours_left = list()
 
