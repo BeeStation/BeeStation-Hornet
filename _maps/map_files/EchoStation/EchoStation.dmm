@@ -135,6 +135,10 @@
 	id = "Chefwindow";
 	name = "Chef Window"
 	},
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -8;
+	pixel_y = -4
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "acU" = (
@@ -1332,10 +1336,11 @@
 	req_one_access_txt = 0
 	},
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_y = 2
-	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -5;
+	pixel_y = 9
+	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "aFw" = (
@@ -1547,10 +1552,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -7;
-	pixel_y = 3
-	},
 /obj/item/paper_bin{
 	pixel_x = 7;
 	pixel_y = 2
@@ -1558,6 +1559,10 @@
 /obj/item/pen{
 	pixel_x = 7;
 	pixel_y = 3
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -6;
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/science/lab)
@@ -3958,10 +3963,6 @@
 /area/hallway/primary/central)
 "bQr" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = -5;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -3970,6 +3971,10 @@
 	req_access_txt = "50"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = -3;
+	pixel_y = 9
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "bQs" = (
@@ -21540,13 +21545,12 @@
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners{
 	dir = 1
 	},
-/obj/structure/desk_bell{
-	pixel_x = -17;
-	pixel_y = 10
-	},
 /obj/machinery/door/firedoor,
 /obj/item/candydispenser/lollipop{
 	pixel_y = 9
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
@@ -26787,10 +26791,6 @@
 	pixel_y = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -6;
-	pixel_y = 9
-	},
 /obj/item/food/mint,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "Chefwindow";
@@ -26931,9 +26931,14 @@
 	},
 /obj/item/reagent_containers/cup/glass/mug/britcup{
 	desc = "Kingston's personal cup.";
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 15;
+	pixel_y = -3
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "olB" = (
@@ -28578,17 +28583,21 @@
 	pixel_x = 8;
 	pixel_y = -3
 	},
-/obj/item/paper{
-	pixel_x = -6
-	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell/speed_demon,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hopshutter";
 	name = "Privacy Shutters"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/structure/desk_bell/wired/command{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/paper{
+	pixel_x = -6;
+	pixel_y = -4
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -30140,16 +30149,15 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/structure/desk_bell{
-	pixel_x = -6;
-	pixel_y = 3
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Engidesk";
 	name = "engineering Security Door"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
+	},
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -7
 	},
 /turf/open/floor/iron/smooth_large,
 /area/engine/engineering)
@@ -31025,6 +31033,9 @@
 	},
 /turf/open/openspace/planetary,
 /area/hallway/primary/central)
+"qrb" = (
+/turf/open/floor/iron/white,
+/area/medical/medbay/central)
 "qrw" = (
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 4;
@@ -31795,10 +31806,6 @@
 /area/maintenance/department/science/xenobiology)
 "qSb" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 5;
-	pixel_y = 10
-	},
 /obj/item/origami/paperfrog{
 	pixel_x = -4;
 	pixel_y = 2
@@ -31812,6 +31819,10 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 8;
+	pixel_y = 9
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "qSp" = (
@@ -39273,9 +39284,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/paper_bin{
 	pixel_x = 7;
 	pixel_y = 2
@@ -39291,6 +39299,9 @@
 /obj/item/pen{
 	pixel_x = 6;
 	pixel_y = 3
+	},
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = -7
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -42329,10 +42340,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/highcap/ten_k{
-	pixel_x = 24;
-	name = "Cargo Bay"
-	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "wnu" = (
@@ -124393,7 +124401,7 @@ ttY
 kuU
 dhq
 lhB
-fMk
+qrb
 mIN
 hpi
 leg

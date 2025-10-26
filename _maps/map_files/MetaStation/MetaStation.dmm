@@ -585,14 +585,15 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "afQ" = (
-/obj/machinery/shower{
-	dir = 8
-	},
-/obj/structure/curtain,
-/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 10
 	},
+/obj/machinery/shower{
+	pixel_y = 16
+	},
+/obj/structure/curtain,
+/obj/effect/landmark/start/assistant,
+/obj/item/soap,
 /turf/open/floor/iron/white/textured,
 /area/crew_quarters/toilet/restrooms)
 "afS" = (
@@ -2104,8 +2105,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
@@ -6295,11 +6295,12 @@
 	req_access_txt = "32";
 	name = "Engineering Desk"
 	},
-/obj/structure/desk_bell/wired/engineering{
-	pixel_x = -8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -6;
+	pixel_y = 10
 	},
 /turf/open/floor/iron,
 /area/engine/break_room)
@@ -7539,8 +7540,7 @@
 /obj/item/hand_tele,
 /obj/item/beacon,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -9355,6 +9355,9 @@
 	name = "Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/command{
+	pixel_x = 7
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "bye" = (
@@ -13210,9 +13213,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/obj/structure/desk_bell{
+/obj/structure/desk_bell/wired/service{
 	pixel_x = 5;
-	pixel_y = -1
+	pixel_y = 8
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -18807,8 +18810,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -20297,8 +20299,7 @@
 /area/medical/virology)
 "dLN" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/machinery/camera/directional/west{
 	c_tag = "Research Division Hallway - Mech Bay"
@@ -21016,6 +21017,10 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
+	},
+/obj/item/broken_bottle{
+	pixel_x = 12;
+	pixel_y = -2
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/locker)
@@ -29913,7 +29918,7 @@
 	},
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/button/door{
-	id = "Dorm5";
+	id = "Dorm4";
 	name = "Dormitory Door Lock";
 	normaldoorcontrol = 1;
 	pixel_x = -26;
@@ -30245,6 +30250,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
 "hif" = (
@@ -38263,8 +38269,9 @@
 	},
 /obj/item/pen,
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = 8
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = 8;
+	pixel_y = 11
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
@@ -39033,9 +39040,6 @@
 /area/hallway/primary/fore)
 "kcW" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/reagent_containers/cup/glass/mug/britcup{
 	pixel_x = -5;
 	pixel_y = 1
@@ -39048,6 +39052,9 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 7
+	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "kcZ" = (
@@ -42363,8 +42370,7 @@
 /area/security/brig)
 "loY" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -45125,8 +45131,7 @@
 /area/medical/virology)
 "mno" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -46990,8 +46995,8 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -4
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
@@ -48348,8 +48353,7 @@
 /area/engine/break_room)
 "npg" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/structure/displaycase/trophy,
 /obj/effect/turf_decal/siding/wood{
@@ -48609,11 +48613,11 @@
 	name = "research Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/pen{
 	pixel_x = 4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = -9
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -48860,8 +48864,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/machinery/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -51330,13 +51333,13 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ool" = (
-/obj/machinery/shower{
-	dir = 8
-	},
-/obj/structure/curtain,
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 9
 	},
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/structure/curtain,
 /turf/open/floor/iron/white/textured,
 /area/crew_quarters/toilet/restrooms)
 "ooz" = (
@@ -52698,8 +52701,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
@@ -57857,10 +57859,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8;
-	pixel_y = 1
-	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "qvb" = (
@@ -57901,13 +57899,13 @@
 /turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "qvW" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/structure/curtain,
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 6
 	},
+/obj/machinery/shower{
+	pixel_y = 16
+	},
+/obj/structure/curtain,
 /turf/open/floor/iron/white/textured,
 /area/crew_quarters/toilet/restrooms)
 "qwR" = (
@@ -61915,7 +61913,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock{
-	id_tag = "Dorm5";
+	id_tag = "Dorm4";
 	name = "Dorm 5"
 	},
 /turf/open/floor/iron/dark,
@@ -66002,10 +66000,6 @@
 "tkl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/item/broken_bottle{
-	pixel_x = -50;
-	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/thinplating_new/dark{
@@ -74099,14 +74093,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "vRh" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/structure/curtain,
 /obj/effect/turf_decal/siding/thinplating/light{
 	dir = 5
 	},
 /obj/item/bikehorn/rubberducky,
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/structure/curtain,
 /turf/open/floor/iron/white/textured,
 /area/crew_quarters/toilet/restrooms)
 "vRq" = (
@@ -75697,6 +75691,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = 6
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "wvw" = (
@@ -75777,8 +75774,7 @@
 /area/hallway/secondary/entry)
 "wwD" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/machinery/light{
 	dir = 8
@@ -76145,8 +76141,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/showroom/corporate)
@@ -76262,8 +76257,7 @@
 /area/space/nearstation)
 "wEa" = (
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /turf/open/floor/iron/dark/telecomms,
@@ -79721,8 +79715,7 @@
 "xJu" = (
 /obj/machinery/rnd/destructive_analyzer,
 /obj/machinery/airalarm/directional/west{
-	pixel_x = -23;
-	air_conditioning = 0
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
