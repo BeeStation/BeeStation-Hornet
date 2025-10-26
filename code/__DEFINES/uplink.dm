@@ -10,6 +10,10 @@
 #define UPLINK_CLOWN_OPS (1 << 3)
 
 /// This item is purchasable to excommunicates
-#define UPLINK_EXCOMMUNICATE (1 << 4)
+#define UPLINK_NULL_CRATE (1 << 4)
 
-#define UPLINK_ALL_SYNDIE_OPS (UPLINK_TRAITORS | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_EXCOMMUNICATE)
+/// All syndicate uplinks
+#define UPLINK_ALL_SYNDIE_OPS (UPLINK_TRAITORS | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
+/// All uplinks without the null crate
+#define UPLINK_WITHOUT_NULL_CRATE (~UPLINK_NULL_CRATE)
