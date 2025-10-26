@@ -45,7 +45,7 @@
 				for(var/datum/reagent/R in G.reagents.reagent_list)
 					. += span_notice("[R.volume] units of [R.name] in the [G.name].")
 			for(var/datum/reagent/R in reagents.reagent_list)
-				. += span_notice("[R.volume] units of [R.name] in the [G.name].")
+				. += span_notice("[R.volume] units of [R.name] in the [name].")
 			if(beakers.len == 1)
 				. += span_notice("You detect no second beaker in the grenade.")
 		else
