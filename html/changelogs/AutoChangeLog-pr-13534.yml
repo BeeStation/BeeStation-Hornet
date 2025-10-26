@@ -1,4 +1,0 @@
-author: Sarchutar, GoblinBackwards
-delete-after: true
-changes:
-  - bugfix: Embedded objects can be removed by hand again.

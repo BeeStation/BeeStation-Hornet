@@ -344,3 +344,6 @@
       to make it obvious they can be clicked.
   r1ks-iwnl:
   - bugfix: Fixed lazarus not working
+2025-10-26:
+  Sarchutar, GoblinBackwards:
+  - bugfix: Embedded objects can be removed by hand again.
