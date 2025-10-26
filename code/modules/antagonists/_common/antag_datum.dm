@@ -253,8 +253,6 @@ GLOBAL_LIST(admin_antag_list)
 	return ..()
 
 /datum/antagonist/ui_state(mob/user)
-	if(owner?.current)
-		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.
