@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: Alt-Clicking an intercom toggles broadcasting and Ctrl-Shift-Clicking
+      toggles listening again
