@@ -7,6 +7,7 @@
 
 #define DYNAMIC_STORYTELLERS_DIRECTORY "[global.config.directory]/dynamic/"
 
+#define DYNAMIC_CATEGORY_GAMEMODE "Gamemode"
 #define DYNAMIC_CATEGORY_ROUNDSTART "Roundstart"
 #define DYNAMIC_CATEGORY_MIDROUND "Midround"
 #define DYNAMIC_CATEGORY_LATEJOIN "Latejoin"
