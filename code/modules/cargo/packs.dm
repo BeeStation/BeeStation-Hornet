@@ -6,9 +6,8 @@
 	var/current_supply
 	var/max_supply = 5
 	var/cost = 400 // Minimum cost, or infinite points are possible. I've already had to fix it once because someone didn't listen. Don't be THAT person.
-	var/access = FALSE
+	var/access = null
 	var/access_budget = FALSE //prevents people from requesting stupid stuff with their department's budget via app
-	var/access_any = FALSE
 	var/list/contains = null
 	var/crate_name = "crate"
 	var/desc = ""//no desc by default
@@ -34,10 +33,12 @@
 	else
 		C = new crate_type(A)
 		C.name = crate_name
-	if(access)
-		C.req_access = list(access)
-	if(access_any)
-		C.req_one_access = access_any
+	if(access && !paying_account)
+		// Assign access
+		if (islist(access))
+			C.req_one_access = access
+		else
+			C.req_one_access = list(access)
 
 	fill(C)
 	return C
@@ -455,9 +456,8 @@
 	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 4
-	access = FALSE
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/dumdum)
 	crate_name = ".38 match crate"
 
@@ -466,9 +466,8 @@
 	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 3
-	access = FALSE
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/match)
 	crate_name = ".38 match crate"
 
