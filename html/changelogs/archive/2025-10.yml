@@ -369,3 +369,6 @@
   - balance: Tribal Claw face scratch confused increased 5 -> 8
   - bugfix: Tribal Claw tail sweep AoE radius reduced 2 -> 1
   - bugfix: Fixed being able to do tail sweep and tail grab on yourself
+2025-10-27:
+  TsunamiAnt:
+  - tweak: Vendors now never crush you on the first hit.
