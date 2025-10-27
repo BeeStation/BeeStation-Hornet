@@ -159,6 +159,8 @@
 	/// Disables some optimizations
 	var/always_area_sensitive = FALSE
 
+	var/area_relationship_established = FALSE
+
 	armor_type = /datum/armor/obj_machinery
 
 /datum/armor/obj_machinery
@@ -222,6 +224,7 @@
  * does not affect power usage itself
  */
 /obj/machinery/proc/setup_area_power_relationship()
+	area_relationship_established = TRUE
 	var/area/our_area = get_area(src)
 	if(our_area)
 		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
@@ -453,10 +456,11 @@
 		if(ACTIVE_POWER_USE)
 			new_usage = active_power_usage
 
-	if(use_power == NO_POWER_USE)
-		setup_area_power_relationship()
-	else if(new_use_power == NO_POWER_USE)
-		remove_area_power_relationship()
+	if (area_relationship_established)
+		if(use_power == NO_POWER_USE)
+			setup_area_power_relationship()
+		else if(new_use_power == NO_POWER_USE)
+			remove_area_power_relationship()
 
 	static_power_usage = new_usage
 
@@ -1015,8 +1019,8 @@
 				. += span_warning("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
-	if(return_blood_DNA())
-		. += "<span class='warning'>It's smeared with blood!</span>"
+	if(GET_ATOM_BLOOD_DNA(src))
+		. += span_warning("It's smeared with blood!")
 
 /obj/machinery/examine_descriptor(mob/user)
 	return "machine"

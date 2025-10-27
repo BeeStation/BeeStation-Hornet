@@ -251,6 +251,32 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 			to_chat(owner, ("<span class='bold'>Your service has not gone unrewarded, however. \
 				Studying under [master.current.real_name], you have learned stealthy, \
 				robeless spells. You are able to cast knock and mindswap.</span>"))
+		if(APPRENTICE_WILDMAGIC)
+			var/static/list/spell_entry
+			if(!spell_entry)
+				spell_entry = list()
+				for(var/datum/spellbook_entry/each_entry as() in subtypesof(/datum/spellbook_entry) - typesof(/datum/spellbook_entry/item) - typesof(/datum/spellbook_entry/summon))
+					spell_entry += new each_entry
+
+			var/spells_left = 2
+			while(spells_left)
+				var/failsafe = FALSE
+				var/datum/spellbook_entry/chosen_spell = pick(spell_entry)
+				if(chosen_spell.no_random)
+					continue
+				for(var/spell in owner.current.actions)
+					if(chosen_spell == spell) // You don't learn the same spell
+						failsafe = TRUE
+						break
+					if(is_type_in_typecache(spell, chosen_spell.no_coexistance_typecache)) // You don't learn a spell that isn't compatible with another
+						failsafe = TRUE
+						break
+				if(failsafe)
+					continue
+				var/new_spell = chosen_spell.spell_type
+				spells_to_grant += new_spell
+				spells_left--
+			to_chat(owner, span_bold("Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices."))
 
 	for(var/spell_type in spells_to_grant)
 		var/datum/action/spell/new_spell = new spell_type(owner)
