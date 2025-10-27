@@ -303,7 +303,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
 
-	if(GLOB.station_was_nuked && CONFIG_GET(flag/automapvote))
+	if(CONFIG_GET(flag/automapvote))
 		INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/map_vote, "Map Rotation", null, TRUE)
 
 	sleep(50)
