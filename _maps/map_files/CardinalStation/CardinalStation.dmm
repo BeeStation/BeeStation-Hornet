@@ -32976,7 +32976,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
 	name = "Air to Distro";
-	target_pressure = 1000
+	target_pressure = 200
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal,

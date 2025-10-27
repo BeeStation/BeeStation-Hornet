@@ -26256,7 +26256,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
 	name = "Air to Distro";
-	target_pressure = 1000
+	target_pressure = 200
 	},
 /obj/structure/sign/warning/fire{
 	pixel_x = 32

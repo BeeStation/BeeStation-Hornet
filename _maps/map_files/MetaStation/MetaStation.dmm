@@ -68039,7 +68039,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
 	name = "Air to Distro";
-	target_pressure = 1000
+	target_pressure = 200
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
