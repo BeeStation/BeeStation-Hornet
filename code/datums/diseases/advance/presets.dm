@@ -140,16 +140,16 @@
 	var/sickrisk = 1
 	if(islizard(src) || iscatperson(src))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(MOB_INORGANIC in mob_biotypes)
+	if(mob_biotypes & MOB_INORGANIC)
 		sickrisk -= 0.5
 		guaranteed_symptoms |= /datum/symptom/inorganic_adaptation
-	else if(MOB_ROBOTIC in mob_biotypes)
+	else if(mob_biotypes & MOB_ROBOTIC)
 		sickrisk -= 0.75
 		guaranteed_symptoms |= /datum/symptom/robotic_adaptation
-	else if(MOB_UNDEAD in mob_biotypes)//this doesnt matter if it's not halloween, but...
+	else if(mob_biotypes & MOB_UNDEAD)//this doesnt matter if it's not halloween, but...
 		sickrisk -= 0.25
 		guaranteed_symptoms |= /datum/symptom/undead_adaptation
-	else if(!(MOB_ORGANIC in mob_biotypes))
+	else if(!(mob_biotypes & MOB_ORGANIC))
 		return //this mob cant be given a disease
 	if(prob(min(100, (biohazard * sickrisk))))
 		var/symptom_amt = rand(min_symptoms, max_symptoms)

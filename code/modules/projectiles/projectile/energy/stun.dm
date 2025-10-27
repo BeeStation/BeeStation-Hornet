@@ -265,7 +265,7 @@
 		mob_firer.remove_movespeed_modifier(/datum/movespeed_modifier/tasing_someone)
 
 	if(!QDELING(owner) && !owner.has_status_effect(type))
-		owner.jitteriness = max(min(owner.jitteriness + 5, 30), owner.jitteriness)
+		owner.adjust_jitter_up_to(10 SECONDS, 60 SECONDS)
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/being_tased)
 		owner.clear_alert(type)
 
@@ -287,7 +287,7 @@
 
 /datum/status_effect/tased/proc/tase_target(seconds_between_ticks)
 	owner.stuttering = max(min(owner.stuttering + 5, 30), owner.stuttering)
-	owner.jitteriness = max(min(owner.jitteriness + 20, 30), owner.jitteriness)
+	owner.adjust_jitter_up_to(40 SECONDS, 60 SECONDS)
 
 	// Use on incapacitated targets is real bad for them
 	var/mob/living/carbon/human/human = owner
@@ -488,7 +488,7 @@
 	)
 	if (disruptor.Knockdown(5 SECONDS))
 		disruptor.apply_damage(90, STAMINA)
-	owner.jitteriness = max(min(owner.jitteriness + 5, 30), owner.jitteriness)
+	owner.adjust_jitter_up_to(10 SECONDS, 60 SECONDS)
 	if(istype(taser, /obj/item/gun/ballistic/taser))
 		var/obj/item/gun/ballistic/taser/taser_object = taser
 		taser_object.forceMove(get_turf(taser_object))
@@ -500,6 +500,7 @@
 	name = "Tased!"
 	desc = "You're being tased! You can click this or resist to attempt to stop it, assuming you've not already collapsed."
 	icon_state = "stun"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/tazed/Click(location, control, params)
 	. = ..()

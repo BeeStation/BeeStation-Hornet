@@ -1,5 +1,6 @@
 /atom/movable/screen/ghost
 	icon = 'icons/hud/screen_ghost.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/ghost/MouseEntered()
 	..()
@@ -57,6 +58,22 @@
 	name = "Spawners Menu"
 	icon_state = "spawners_menu"
 
+/atom/movable/screen/ghost/respawn
+	name = "Respawn"
+	icon_state = "respawn"
+
+/atom/movable/screen/ghost/respawn/Click()
+	var/mob/dead/observer/G = usr
+	G.abandon_mob()
+
+/atom/movable/screen/ghost/respawn/update_icon_state(mob/dead/observer/mymob)
+	if(mymob)
+		if(mymob.respawn_available)
+			icon_state = "respawn_available"
+		else
+			icon_state = "respawn"
+	return ..()
+
 /atom/movable/screen/ghost/spawners_menu/Click()
 	var/mob/dead/observer/G = usr
 	G.open_spawners_menu()
@@ -82,6 +99,11 @@
 
 	using = new /atom/movable/screen/ghost/reenter_corpse()
 	using.screen_loc = ui_ghost_reenter_corpse
+	using.hud = src
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/respawn()
+	using.screen_loc = ui_ghost_respawn
 	using.hud = src
 	static_inventory += using
 

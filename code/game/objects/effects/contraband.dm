@@ -189,6 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	poster_item_name = "contraband poster"
 	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
 	poster_item_icon_state = "rolled_poster"
+	trade_flags = TRADE_CONTRABAND
 
 /obj/structure/sign/poster/contraband/random
 	name = "random contraband poster"

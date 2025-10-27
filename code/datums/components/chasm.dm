@@ -139,7 +139,10 @@
 
 		if(iscyborg(AM))
 			var/mob/living/silicon/robot/S = AM
-			qdel(S.mmi)
+			if(S.shell && S.deployed && S.mainframe)
+				S.undeploy()
+			else
+				qdel(S.mmi)
 
 		falling_atoms -= falling_ref
 		qdel(AM)

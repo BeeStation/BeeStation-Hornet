@@ -36,10 +36,16 @@
 
 	var/list/filter_data //For handling persistent filters
 
-	///Economy cost of item
+	/// Economy cost of item, 0 price items will not be sold and return when sent to CC trough cargo shuttle
 	var/custom_price
-	///Economy cost of item in premium vendor
+	/// Economy cost of item in premium vendor category (Export will use this if it exists even if custom price is defined)
 	var/custom_premium_price
+	/// Maximum demand of the object type for exporting calculations
+	var/max_demand
+	/// Can be: TRADE_CONTRABAND, TRADE_NOT_SELLABLE, TRADE_DELETE_UNSOLD. Important in exporting and other things!
+	var/trade_flags = NONE
+	/// This is the economy price of the item. This is important for exports and imports
+	var/item_price
 
 	//List of datums orbiting this atom
 	var/datum/component/orbiter/orbit_datum
@@ -152,6 +158,9 @@
 
 	if(reagents)
 		QDEL_NULL(reagents)
+
+	if(forensics)
+		QDEL_NULL(forensics)
 
 	if(atom_storage)
 		QDEL_NULL(atom_storage)
@@ -455,9 +464,9 @@
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
-	var/old_length = blood_DNA_length()
+	var/old_length = GET_ATOM_BLOOD_DNA_LENGTH(src)
 	add_blood_DNA(new_blood_dna)
-	if(blood_DNA_length() == old_length)
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src) == old_length)
 		return FALSE
 	return TRUE
 
@@ -925,9 +934,10 @@
  * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
  * the forced gravity var.
  *
+ * micro-optimized to hell because this proc is very hot, being called several times per movement every movement.
+ *
  * HEY JACKASS, LISTEN
  * IF YOU ADD SOMETHING TO THIS PROC, MAKE SURE /mob/living ACCOUNTS FOR IT
- *
  * Living mobs treat gravity in an event based manner. We've decomposed this proc into different checks
  * for them to use. If you add more to it, make sure you do that, or things will behave strangely
  *

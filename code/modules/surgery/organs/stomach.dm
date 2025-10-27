@@ -47,40 +47,49 @@
 /obj/item/organ/stomach/get_availability(datum/species/owner_species, mob/living/owner_mob)
 	return owner_species.mutantstomach
 
-/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H, delta_time, times_fired)
-	if(H.disgust)
-		var/pukeprob = 2.5 + (0.025 * H.disgust)
-		if(H.disgust >= DISGUST_LEVEL_GROSS)
-			if(DT_PROB(5, delta_time))
-				H.stuttering += 1
-				H.confused += 2
-			if(DT_PROB(5, delta_time) && !H.stat)
-				to_chat(H, span_warning("You feel kind of iffy..."))
-			H.jitteriness = max(H.jitteriness - 3, 0)
-		if(H.disgust >= DISGUST_LEVEL_VERYGROSS)
-			if(DT_PROB(pukeprob, delta_time)) //iT hAndLeS mOrE ThaN PukInG
-				H.confused += 2.5
-				H.stuttering += 1
-				H.vomit(10, 0, 1, 0, 1, 0)
-			H.Dizzy(5)
-		if(H.disgust >= DISGUST_LEVEL_DISGUSTED)
-			if(DT_PROB(13, delta_time))
-				H.blur_eyes(3) //We need to add more shit down here
+/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/disgusted, delta_time, times_fired)
+	var/old_disgust = disgusted.old_disgust
+	var/disgust = disgusted.disgust
 
-		H.adjust_disgust(-0.25 * disgust_metabolism * delta_time)
-	switch(H.disgust)
+	if(disgust)
+		var/pukeprob = 2.5 + (0.025 * disgust)
+		if(disgust >= DISGUST_LEVEL_GROSS)
+			if(DT_PROB(5, delta_time))
+				disgusted.stuttering += 1
+				disgusted.confused += 2
+			if(DT_PROB(5, delta_time) && !disgusted.stat)
+				to_chat(disgusted, span_warning("You feel kind of iffy..."))
+			disgusted.adjust_jitter(-6 SECONDS)
+		if(disgust >= DISGUST_LEVEL_VERYGROSS)
+			if(DT_PROB(pukeprob, delta_time)) //iT hAndLeS mOrE ThaN PukInG
+				disgusted.confused += 2.5
+				disgusted.stuttering += 1
+				disgusted.vomit(10, 0, 1, 0, 1, 0)
+			disgusted.Dizzy(5)
+		if(disgust >= DISGUST_LEVEL_DISGUSTED)
+			if(DT_PROB(13, delta_time))
+				disgusted.blur_eyes(3) //We need to add more shit down here
+
+		disgusted.adjust_disgust(-0.25 * disgust_metabolism * delta_time)
+
+
+	if(old_disgust == disgust)
+		return
+
+	disgusted.old_disgust = disgust
+	switch(disgust)
 		if(0 to DISGUST_LEVEL_GROSS)
-			H.clear_alert("disgust")
-			SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "disgust")
+			disgusted.clear_alert("disgust")
+			SEND_SIGNAL(disgusted, COMSIG_CLEAR_MOOD_EVENT, "disgust")
 		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
-			H.throw_alert("disgust", /atom/movable/screen/alert/gross)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/gross)
+			disgusted.throw_alert("disgust", /atom/movable/screen/alert/gross)
+			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/gross)
 		if(DISGUST_LEVEL_VERYGROSS to DISGUST_LEVEL_DISGUSTED)
-			H.throw_alert("disgust", /atom/movable/screen/alert/verygross)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/verygross)
+			disgusted.throw_alert("disgust", /atom/movable/screen/alert/verygross)
+			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/verygross)
 		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
-			H.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
-			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
+			disgusted.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
+			SEND_SIGNAL(disgusted, COMSIG_ADD_MOOD_EVENT, "disgust", /datum/mood_event/disgusted)
 
 /obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	var/mob/living/carbon/human/H = owner

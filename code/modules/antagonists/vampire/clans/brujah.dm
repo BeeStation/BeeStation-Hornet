@@ -84,7 +84,8 @@
 		if(!is_valid_target(possible_target))
 			target_options.Remove(possible_target)
 
-	target = pick(target_options)
+	if(length(target_options))
+		target = pick(target_options)
 	update_explanation_text()
 
 #undef BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS

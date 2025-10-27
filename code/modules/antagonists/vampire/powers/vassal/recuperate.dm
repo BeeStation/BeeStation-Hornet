@@ -35,7 +35,7 @@
 	if(!istype(carbon_owner))
 		return
 
-	carbon_owner.Jitter(5)
+	carbon_owner.set_jitter_if_lower(10 SECONDS)
 	carbon_owner.adjustStaminaLoss(bloodcost * 1.1)
 	carbon_owner.adjustBruteLoss(-2.5)
 	carbon_owner.adjustToxLoss(-2, forced = TRUE)

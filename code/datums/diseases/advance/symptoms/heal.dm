@@ -538,7 +538,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						if(tetsuo && prob(15))
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
 								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-							if(MOB_ROBOTIC in A.infectable_biotypes)
+							if(A.infectable_biotypes & MOB_ROBOTIC)
 								new /obj/effect/decal/cleanable/robot_debris(M.loc)
 								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
@@ -602,7 +602,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
-	var/bloodtypearchive
+	var/datum/blood_type/bloodtypearchive
 	var/bruteheal = FALSE
 	var/aggression = FALSE
 	var/vampire = FALSE
@@ -640,7 +640,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = "U"
+		H.dna.blood_type = /datum/blood_type/universal
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -982,7 +982,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(2 to 3)
 			if(prob(power) && M.stat)
-				M.Jitter(2 * power)
+				M.set_jitter_if_lower(4 SECONDS * power)
 				M.emote("twitch")
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
@@ -993,13 +993,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(power) && prob(50))
 				if(M.stat)
 					M.emote("twitch")
-					M.Jitter(2 * power)
+					M.set_jitter_if_lower(4 SECONDS * power)
 				to_chat(M, span_notice("[pick("You feel nervous...", "You feel anxious.", "You feel like everything is moving in slow motion.")]"))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/nervous)
 			if(M.satiety > NUTRITION_LEVEL_HUNGRY - (30 * power))
 				M.satiety = max(NUTRITION_LEVEL_HUNGRY - (30 * power), M.satiety - (2 * power))
 			if(prob(25))
-				M.Jitter(2 * power)
+				M.set_jitter_if_lower(4 SECONDS * power)
 			if(clearcc)
 				var/realpower = power
 				if(prob(power) && prob(50))

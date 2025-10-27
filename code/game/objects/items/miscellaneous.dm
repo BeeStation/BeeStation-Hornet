@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb_continuous = list("warns", "cautions", "smashes")
 	attack_verb_simple = list("warn", "caution", "smash")
+	custom_price = 15
 
 /obj/item/choice_beacon
 	name = "choice beacon"
@@ -374,6 +375,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("skubs")
 	attack_verb_simple = list("skub")
+	custom_price = 15 // Useless fucking thing, this should be removed
 
 /obj/item/skub/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] has declared themself as anti-skub! The skub tears them apart!"))

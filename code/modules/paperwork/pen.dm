@@ -55,6 +55,7 @@
 	desc = "It's a fancy four-color ink pen, set to black."
 	name = "four-color pen"
 	colour = "black"
+	custom_price = 20
 
 /obj/item/pen/fourcolor/attack_self(mob/living/carbon/user)
 	switch(colour)
@@ -76,12 +77,14 @@
 	desc = "It's a common fountain pen, with a faux wood body."
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/brush
 	name = "calligraphy brush"
 	desc = "A traditional brush usually used for calligraphy and poems."
 	icon_state = "pen-brush"
 	font = BRUSH_PEN_FONT
+	custom_price = 50
 
 /obj/item/pen/charcoal
 	name = "charcoal stylus"
@@ -236,6 +239,7 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP
+	item_flags = NO_BLOOD_ON_ITEM
 	/// The real name of our item when extended.
 	var/hidden_name = "energy dagger"
 

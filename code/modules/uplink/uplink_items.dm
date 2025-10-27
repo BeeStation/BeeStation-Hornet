@@ -2091,11 +2091,11 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/race_restricted/tribal_claw
 	name = "Old Tribal Scroll"
-	desc = "We found this scroll in a abandoned lizard settlement of the Knoises clan. \
+	desc = "Our lavaland presence found this next to some collapsed tendril. \
 			It teaches you how to use your claws and tail to gain an advantage in combat, \
-			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
+			don't buy this unless you are a lizard or plan to give it to one as only they can make full use of it."
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 6
+	cost = 8
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
@@ -2223,9 +2223,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			Simply insert your bikehorn and get in, and get ready to have the funniest ride of your life! \
 			You can ram any spacemen you come across and stuff them into your car, kidnapping them and locking them inside until \
 			someone saves them or they manage to crawl out. Be sure not to ram into any walls or vending machines, as the springloaded seats \
-			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
-			Premium features can be unlocked with a cryptographic sequencer!"
-	item = /obj/vehicle/sealed/car/clowncar
+			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity!"
+	item = /obj/vehicle/sealed/car/clowncar/syndicate
 	cost = 20
 	restricted_roles = list(JOB_NAME_CLOWN)
 

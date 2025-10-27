@@ -49,8 +49,6 @@
 	. = EXPORT_CARGO
 	if(contraband)
 		. |= EXPORT_CONTRABAND
-	if(obj_flags & EMAGGED)
-		. |= EXPORT_EMAG
 
 /obj/machinery/computer/cargo/on_emag(mob/user)
 	..()
