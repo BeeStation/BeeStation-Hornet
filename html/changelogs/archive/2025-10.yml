@@ -350,6 +350,11 @@
       toggles listening again
   Sarchutar, GoblinBackwards:
   - bugfix: Embedded objects can be removed by hand again.
+  SunShine214:
+  - bugfix: Portable Pumps can now be turned on by circuits again, and their appearance
+      is properly changed as well.
+  mrmanlikesbt:
+  - rscdel: Removed CorgStation
   r1ks-iwnl:
   - bugfix: Fixed wildmagic wizard apprentice getting no spells
   - rscadd: Readded the invocation phrase when buying summon spells
