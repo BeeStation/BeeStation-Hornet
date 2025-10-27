@@ -372,3 +372,4 @@
 2025-10-27:
   TsunamiAnt:
   - tweak: Vendors now never crush you on the first hit.
+  - tweak: redid radstation's AI sat.
