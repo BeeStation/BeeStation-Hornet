@@ -350,6 +350,11 @@
       toggles listening again
   Sarchutar, GoblinBackwards:
   - bugfix: Embedded objects can be removed by hand again.
+  SunShine214:
+  - bugfix: Portable Pumps can now be turned on by circuits again, and their appearance
+      is properly changed as well.
+  mrmanlikesbt:
+  - rscdel: Removed CorgStation
   r1ks-iwnl:
   - bugfix: Fixed wildmagic wizard apprentice getting no spells
   - rscadd: Readded the invocation phrase when buying summon spells
@@ -364,3 +369,7 @@
   - balance: Tribal Claw face scratch confused increased 5 -> 8
   - bugfix: Tribal Claw tail sweep AoE radius reduced 2 -> 1
   - bugfix: Fixed being able to do tail sweep and tail grab on yourself
+2025-10-27:
+  TsunamiAnt:
+  - tweak: Vendors now never crush you on the first hit.
+  - tweak: redid radstation's AI sat.
