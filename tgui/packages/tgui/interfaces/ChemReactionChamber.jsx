@@ -69,7 +69,7 @@ export const ChemReactionChamber = (props) => {
                 />
               </td>
             </tr>
-            {map((amount, reagent) => (
+            {map(reagents, (amount, reagent) => (
               <LabeledList.Item
                 key={reagent}
                 label={reagent}
@@ -87,7 +87,7 @@ export const ChemReactionChamber = (props) => {
               >
                 {amount}
               </LabeledList.Item>
-            ))(reagents)}
+            ))}
           </LabeledList>
         </Section>
       </Window.Content>
