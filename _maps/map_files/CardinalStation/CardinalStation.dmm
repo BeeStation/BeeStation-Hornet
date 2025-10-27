@@ -12478,9 +12478,7 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /obj/effect/turf_decal/tile/monorust,
-/obj/machinery/airalarm/directional/west{
-	air_conditioning = 0
-	},
+/obj/machinery/airalarm/directional/west,
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -60519,9 +60517,7 @@
 "mou" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/machinery/camera/directional/south,
-/obj/machinery/airalarm/directional/south{
-	air_conditioning = 0
-	},
+/obj/machinery/airalarm/directional/south,
 /obj/effect/mapping_helpers/airalarm/tlv_no_checks,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"

@@ -54,6 +54,7 @@
 		it will become easier for others to find your item of power."
 	spell_type =  /datum/action/spell/lichdom
 	category = "Defensive"
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
