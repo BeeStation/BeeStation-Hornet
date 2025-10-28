@@ -171,9 +171,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/show_ui(mob/user, mob/target, stage)
 	var/list/options = list()
-	var/list/possible_actions = list(CANCEL, SHOOT, RAISE_HANDS, POINTBLANK)
+	var/list/possible_actions = list(CANCEL, SHOOT, RAISE_HANDS)
 	if(holding_at_gunpoint)
 		possible_actions += LET_GO
+	else
+		possible_actions += POINTBLANK
 	if (auto_shoot)
 		possible_actions += DISABLE_AUTO
 	else
@@ -218,6 +220,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			auto_shoot = FALSE
 			user.manual_emote("hesitates, lowering their weapon")
 		if(POINTBLANK)
+			if (holding_at_gunpoint)
+				return
 			if(get_dist(target, user) > 1)
 				to_chat(user, span_warning("You need to be closer to [target] to hold [target.p_them()] at gunpoint!"))
 				return
