@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Adds null crates, an old favourite emagged cargo entry which allows the
+      conversion of money into random syndicate gear.
