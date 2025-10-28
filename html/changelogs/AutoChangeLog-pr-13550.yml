@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Grenades no longer disappear when exploding, and keep their vessel so that
-      slow reactions can take place.

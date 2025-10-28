@@ -379,3 +379,15 @@
       conversion of money into random syndicate gear.
   - balance: Privately purchased crates can be opened without access requirements.
   - balance: Spears can break open locked crates.
+  - tweak: Grenades no longer disappear when exploding, and keep their vessel so that
+      slow reactions can take place.
+  - balance: Aiming now requires the target to stand still for 1 second
+  - balance: Aiming no longer points at the target when performed
+  - balance: Removes all but one voice command on aiming, as only one was necessary.
+  - balance: Adds in an auto-shoot button mode which, when enabled, will automatically
+      fire if the target moves. Of course, if you are too far or can move into cover
+      then this will miss.
+  - balance: Increases aimed bonus to 2x speed and damage.
+  - rscdel: Removes aiming from bananas and finger guns.
+  - balance: Point blank aiming now only requires a standard grab
+  - tweak: Aiming has more emotes for different actions.
