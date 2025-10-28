@@ -2175,7 +2175,7 @@
 	crate_type = /obj/structure/closet/crate/secure/science
 
 /datum/supply_pack/science/tech_disk
-	name = "Ground-Breaking Reesearch Crate"
+	name = "Ground-Breaking Research Crate"
 	desc = "One disk containing a random cutting-edge technology that cannot be normally researched."
 	cost = 6000
 	contains = list(/obj/item/disk/tech_disk/research/random)
