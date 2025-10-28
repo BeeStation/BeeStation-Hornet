@@ -40,7 +40,7 @@
 		return
 	if(src.target || user == target) // No double-aiming
 		return
-	if (!do_after(user, 1 SECONDS, target))
+	if (!do_after(user, 1 SECONDS, target, IGNORE_TARGET_LOC_CHANGE))
 		return
 	src.user = user
 	src.target = target
@@ -234,6 +234,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 				return
 			if(user.pulling != target)
 				return
+			user.setGrabState(GRAB_AGGRESSIVE)
+			target.Stun(2 SECONDS)
 			user.say(pick("Freeze!", "Don't move!", "Don't twitch a muscle!", "Don't you dare move!", "Hold still!"), forced = "Weapon aiming")
 			user.visible_message(span_warning("[user] lines up \the [held] with [target]'s temple!"), \
 			span_notice("You line up \the [held] with [target]'s temple"), ignored_mobs = list(target))
@@ -285,8 +287,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		UnregisterSignal(target, COMSIG_MOB_DROPPED_ITEM)
 		UnregisterSignal(target, COMSIG_LIVING_STATUS_PARALYZE)
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
-	if(user)
 		user.manual_emote("stops aiming their weapon", "lowers their weapon, satisfied")
+	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	// Clean up the menu if it's still open
 	QDEL_NULL(choice_menu)
