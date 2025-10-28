@@ -52,6 +52,7 @@
 
 #define COLOR_YELLOW "#FFFF00"
 #define COLOR_VIVID_YELLOW "#FBFF23"
+#define COLOR_GOLD "#FFD700"
 
 #define COLOR_OLIVE            "#808000"
 #define COLOR_VIBRANT_LIME     "#00FF00"

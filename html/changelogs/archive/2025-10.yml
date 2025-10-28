@@ -212,3 +212,164 @@
 2025-10-16:
   TsunamiAnt:
   - bugfix: Observers were unintentionally able to use the security workshop.
+  mrmanlikesbt, TheBoondock, GoblinBackwards, vinylspiders, SmArtKar:
+  - rscadd: Fires now make sound
+  mrmanlikesbt, san7890:
+  - bugfix: fixed heartless species (plasmamen) not receiving living hearts.
+2025-10-18:
+  mrmanlikesbt:
+  - bugfix: Fixed not being able to manually open a TTV valve
+  - bugfix: Fixed Ventrue vampires not being able to level up their favorite vassal
+2025-10-19:
+  PowerfulBacon:
+  - rscadd: Adds the ability to set the elasticity of rulesets, which will cause the
+      same ruleset to be re-picked with the probability provided in the elasticity
+      variable.
+  Rukofamicom:
+  - tweak: You can now print clown cars at a mechfab as part of the clown technology
+      research node. They take bananium, plastic and iron. This version of the clown
+      car can be controlled by anyone inside making it pretty difficult to actually
+      go anywhere with an unwilling passenger.
+  - rscadd: Added a new subtype of the clown car which is now purchasable from uplinks
+      instead of the base version. The uplink version is only controllable by clowns
+      and also innately comes with the the toys that used to require emagging a clown
+      car to unlock.
+  - tweak: Emagging either clown car enables waddling motion with the car, and if
+      it was a printed clown car emagging will also lock the controls so that only
+      the clown can steer.
+  - tweak: Being in combat mode will prevent the printable clown car from kidnapping
+      you unless it has been emagged.
+  - tweak: Botany is now ADHD friendly even without earthsblood
+  - tweak: Plants now consume 90% less water and nutrient from soil and hydroponics
+      trays
+  - tweak: Weeds and pests build up 80% slower (Carnivorous pest gain is unchanged)
+  - tweak: Plants can now live 6x longer before dying to old age
+  - tweak: Plants now grow 50% slower
+  mrmanlikesbt:
+  - bugfix: Fixed multiple blood brother teams being merged into one
+  - tweak: The storyteller vote is no longer sent if the round is started early
+  - bugfix: Fixed a runtime when buckling diona nymphs to the chaplain altar while
+      in the necromancy sect
+  - bugfix: Fixed a runtime when dragging (sufficiently damaged) dead diona nymphs
+  - bugfix: Fixed dionas without limbs spawning a billion nymphs whenever they were
+      supposed to split
+  'rkz, MrMelbert, Wallemations, SuperNovaa41, ':
+  - refactor: fingerprint transfer uses obscuration and clothing trait rather than
+      crappy boolean for determining coverage
+  - code_imp: forensics(fingerprints, bloodprints, dnastring) has been datumized from
+      a component
+  - refactor: adds support for items not being able to be bloodspattered. Bitfields
+      it. Applies it to esword & friends.
+  - bugfix: fixes baconbug runtime where bleeding status effect icon would try to
+      update with a nonexistent owner reference (like qdeletion)
+2025-10-20:
+  Isaac:
+  - bugfix: Health Analyzers scan viruses with the hemetophagy symptom again
+  PowerfulBacon:
+  - bugfix: Fixes job data disks using large amounts of PDA power.
+  - bugfix: PDA flashlight no longer works at 0% power.
+  mrmanlikesbt:
+  - code_imp: Biotypes are now bitfields instead of lists. Please report anything
+      strange on github
+  - tweak: Nightmare light eaters no longer act as crowbars (they can still pry open
+      doors)
+  - bugfix: Fixed changeling arm blades not being able to pry open doors
+  rkz, Melbert:
+  - refactor: jittering is now a status effect
+  - code_imp: reorganizes status effects
+  - refactor: cleanup of stabilized extract effect applications
+2025-10-21:
+  Sarchutar:
+  - bugfix: Storage implants drop their contents on the floor again when they are
+      removed
+2025-10-22:
+  PowerfulBacon:
+  - tweak: Dynamic now has its midround points set to 0 when it spawns an antagonist,
+      even if it had spare points left over.
+  - bugfix: Platforms will now correctly update their blocking directions when they
+      change their facing direction.
+  - tweak: You can now read your antag information while sleeping, unconscious, or
+      dead.
+  - tweak: Rounds will now only start when at least one person has connected, regardless
+      of whether they are playing or not.
+  WhiskeyMarten:
+  - bugfix: Health analyzers now show compatibility at critical blood levels again.
+2025-10-23:
+  PowerfulBacon:
+  - bugfix: Fixes an issue in dynamic where the server would crash if elasticity was
+      set to 100%.
+  lord scrubling:
+  - bugfix: materials list in crafting can be scrolled
+  - bugfix: chemical dispenser tgui updates as their cells charge
+  - bugfix: plumbing reaction chamber tgui
+2025-10-25:
+  BotTierPC:
+  - rscadd: Added Kitchen Access to the door between Kitchen/Bar on Metastation
+  - tweak: Adds a Grinder to the Bar Backroom on Boxstation and minor room adjustments
+      to accommodate
+  - tweak: Changes Metastation Dorm Shower head directions to be more visible. Dorm
+      room 5 is changed to 4.
+  - bugfix: Fixed inconsistent floor tiles in Boxstation Cargo
+  - bugfix: Fixes Cargobay APC in Echostation.
+  - tweak: Replaces Desk Bells with Wired Desk Bells across all stations.
+  BrumalLake:
+  - bugfix: holy books properly use your preferred bible name, unless your religion
+      name matches a preset
+  Dejaku51:
+  - rscdel: Musicians no longer boost people with their music and kill the server
+      at the same time
+  Miliviu:
+  - bugfix: AI no longer gets round removed when shell falls into a chasm
+  PowerfulBacon:
+  - tweak: Lowers the heat capacity of the space mixture, so that heat is sucked out
+      of rooms exposed to space more slowly.
+  - balance: Firedoors now close when pressure around them is too low/high
+  - balance: Air alarms will now attempt to automatically correct temperature issues
+      when in their standard operating mode.
+  - rscdel: Removes air alarm AC mode
+  - balance: Vents now have a heating element and can be used to heat rooms by a small
+      amount.
+  - balance: Firedoors which activated due to heat/pressure will not open when the
+      fire alarm button is pressed.
+  - balance: Firedoors will no longer remain open permanently when emagged, they will
+      open briefly, will not respond to high temperatures and will open when hit with
+      anything.
+  lord scrubling:
+  - bugfix: right click wrenching an open pipe thermomachine toggles their anchoring,
+      instead of them only being unanchored when constructed on a pipe of the same
+      layer, requiring you to reconstruct them
+  mrmanlikesbt, mc-oofert, MrMelbert:
+  - rscadd: Clickable screen alerts now have a golden border
+  - rscadd: Clickable UI elements and some real world objects will change your cursor
+      to make it obvious they can be clicked.
+  r1ks-iwnl:
+  - bugfix: Fixed lazarus not working
+2025-10-26:
+  Sarchutar:
+  - bugfix: Alt-Clicking an intercom toggles broadcasting and Ctrl-Shift-Clicking
+      toggles listening again
+  Sarchutar, GoblinBackwards:
+  - bugfix: Embedded objects can be removed by hand again.
+  SunShine214:
+  - bugfix: Portable Pumps can now be turned on by circuits again, and their appearance
+      is properly changed as well.
+  mrmanlikesbt:
+  - rscdel: Removed CorgStation
+  r1ks-iwnl:
+  - bugfix: Fixed wildmagic wizard apprentice getting no spells
+  - rscadd: Readded the invocation phrase when buying summon spells
+  - rscadd: Tribal Claw tail grab has better sound feedback
+  - tweak: Tribal Claw tail related moves now actually require having a lizard tail
+  - tweak: Tribal Claw flavor text changed
+  - balance: Tribal Claw TC cost changed 6 -> 8
+  - balance: Tribal Claw jugular cut bleed increased 1.5 -> 3.6/s
+  - balance: Tribal Claw jugular cut can now be performed on all targets aggressive
+      grabbed or higher + lying down + those confused instead of neck grabbed + sleeping
+      + crit
+  - balance: Tribal Claw face scratch confused increased 5 -> 8
+  - bugfix: Tribal Claw tail sweep AoE radius reduced 2 -> 1
+  - bugfix: Fixed being able to do tail sweep and tail grab on yourself
+2025-10-27:
+  TsunamiAnt:
+  - tweak: Vendors now never crush you on the first hit.
+  - tweak: redid radstation's AI sat.

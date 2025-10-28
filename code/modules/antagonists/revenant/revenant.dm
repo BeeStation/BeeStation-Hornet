@@ -13,7 +13,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	var/stasis = FALSE
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT

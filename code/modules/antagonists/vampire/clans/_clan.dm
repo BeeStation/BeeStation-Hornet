@@ -74,7 +74,7 @@
 	living_vampire.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
 
 	living_vassal.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
-	living_vassal.Jitter(15)
+	living_vassal.set_jitter_if_lower(30 SECONDS)
 	living_vassal.emote("laugh")
 
 /**

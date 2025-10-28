@@ -27,7 +27,7 @@
 #define BLEED_TINY 0.1
 #define BLEED_SCRATCH 0.8
 #define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
-#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood in 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
 #define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
 
@@ -63,17 +63,27 @@
 #define BLOODCRAWL 1
 #define BLOODCRAWL_EAT 2
 
-//Mob bio-types
-#define MOB_ORGANIC 	"organic"
-#define MOB_INORGANIC 	"inorganic"
-#define MOB_ROBOTIC 	"robotic"
-#define MOB_UNDEAD		"undead"
-#define MOB_HUMANOID 	"humanoid"
-#define MOB_BUG 		"bug"
-#define MOB_BEAST		"beast"
-#define MOB_EPIC		"epic" //megafauna
-#define MOB_REPTILE		"reptile"
-#define MOB_SPIRIT		"spirit"
+// Mob bio-type flags
+/// The mob is organic, can heal from medical sutures.
+#define MOB_ORGANIC (1 << 0)
+/// The mob isn't organic. For example, golems and IPCs.
+#define MOB_INORGANIC (1 << 1)
+/// The mob is a synthetic lifeform, like station borgs.
+#define MOB_ROBOTIC (1 << 2)
+/// The mob is an shambling undead corpse. Or a halloween species. Pick your poison.
+#define MOB_UNDEAD (1 << 3)
+/// The mob is a human-sized human-like human-creature.
+#define MOB_HUMANOID (1 << 4)
+/// The mob is a bug/insect/arachnid/some other kind of scuttly thing.
+#define MOB_BUG (1 << 5)
+/// The mob is a wild animal. Domestication may apply.
+#define MOB_BEAST (1 << 6)
+/// The mob is some kind of a creature that should be exempt from certain **fun** interactions for balance reasons, i.e. megafauna
+#define MOB_SPECIAL (1 << 7)
+/// The mob is some kind of a scaly reptile creature
+#define MOB_REPTILE (1 << 8)
+/// The mob is a spooky phantasm or an evil ghast of such nature.
+#define MOB_SPIRIT (1 << 9)
 
 //Organ defines for carbon mobs
 #define ORGAN_ORGANIC 1
