@@ -373,3 +373,9 @@
   TsunamiAnt:
   - tweak: Vendors now never crush you on the first hit.
   - tweak: redid radstation's AI sat.
+2025-10-28:
+  PowerfulBacon:
+  - rscadd: Adds null crates, an old favourite emagged cargo entry which allows the
+      conversion of money into random syndicate gear.
+  - balance: Privately purchased crates can be opened without access requirements.
+  - balance: Spears can break open locked crates.

@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Privately purchased crates can be opened without access requirements.
-  - balance: Spears can break open locked crates.
