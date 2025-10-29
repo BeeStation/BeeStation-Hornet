@@ -42,13 +42,13 @@
 			else
 				to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))
 
-		var/datum/antagonist/vassal/vassal = IS_VASSAL(target)
-		if(vassal)
-			if(vassal.special_type)
+		var/datum/antagonist/ghoul/ghoul = IS_ghoul(target)
+		if(ghoul)
+			if(ghoul.special_type)
 				if(!silent)
 					target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
 				return FALSE
-			target.mind.remove_antag_datum(/datum/antagonist/vassal)
+			target.mind.remove_antag_datum(/datum/antagonist/ghoul)
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
 		target.sec_hud_set_implants()
 		return TRUE

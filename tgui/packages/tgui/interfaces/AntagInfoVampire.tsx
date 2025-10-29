@@ -141,7 +141,7 @@ const VampireGuide = (_props) => {
               selected={tab === 8}
               onClick={() => setTab(8)}
             >
-              Vassals
+              ghouls
             </Tabs.Tab>
           </Tabs>
         </Stack.Item>
@@ -167,10 +167,10 @@ const VampireGuide = (_props) => {
               in it.
               <br /> <br />
               <Box fontSize="20px" textColor="gold" bold>
-                Vassalizing the Crew
+                ghoulizing the Crew
               </Box>
               <br />
-              Sooner or later you are going to want to vassalize the crew.
+              Sooner or later you are going to want to ghoulize the crew.
               However, before you do so, you need to build a{' '}
               <Box inline textColor="purple">
                 Persuasion Rack
@@ -190,7 +190,7 @@ const VampireGuide = (_props) => {
                 Persuasion Racks
               </Box>{' '}
               are what you will be using to convert crewmembers into your
-              vassals. To use a{' '}
+              ghouls. To use a{' '}
               <Box inline textColor="purple">
                 Persuasion Rack
               </Box>{' '}
@@ -213,7 +213,7 @@ const VampireGuide = (_props) => {
               health, feed rate, and blood capacity.
               <br /> <br />
               Alongside this, you also gain a new power to pick in your coffin.
-              These powers are essential to surviving and vassalizing the crew.
+              These powers are essential to surviving and ghoulizing the crew.
             </Box>
           )}
           {tab === 2 && (
@@ -428,7 +428,7 @@ const VampireGuide = (_props) => {
               </Box>
               <br />
               Every vampire needs a crypt. Whether it be in maintenance or the{' '}
-              {"captain's"} bathroom, this is where you will vassalize the crew
+              {"captain's"} bathroom, this is where you will ghoulize the crew
               and recieve your vampiric gifts.
               <br /> <br />
               To claim a lair you should first locate a hidden area that nobody
@@ -466,7 +466,7 @@ const VampireGuide = (_props) => {
               </Box>
               <br />
               <Box textColor="purple">Persuasion Rack</Box>The Persuasion Rack
-              is used to vassalize crewmembers into your loyal thralls.
+              is used to ghoulize crewmembers into your loyal thralls.
               <br /> <br />
               To use it, first secure it in your{' '}
               <Box inline textColor="green">
@@ -495,18 +495,18 @@ const VampireGuide = (_props) => {
               it.
               <br /> <br />
               <Box textColor="darkred">Blood Throne</Box>Sitting on this throne
-              will allow you to commune with all of your vassals by{' '}
+              will allow you to commune with all of your ghouls by{' '}
               <b>speaking out loud.</b> They cannot respond to you.
             </Box>
           )}
           {tab === 8 && (
-            // Vassals
+            // ghouls
             <Box>
               <Box fontSize="20px" textColor="purple" bold>
-                Vassals
+                ghouls
               </Box>
               <br />
-              Crewmembers can be vassalized by building a{' '}
+              Crewmembers can be ghoulized by building a{' '}
               <Box inline textColor="purple">
                 Persuasion Rack.
               </Box>
@@ -528,14 +528,14 @@ const VampireGuide = (_props) => {
               <b>can only be converted if their mind is weak enough</b>. Crew
               that serve eldritch gods cannot be converted.
               <br /> <br />
-              After sucessfully torturing your latest vassal, they can only be
+              After sucessfully torturing your latest ghoul, they can only be
               deconverted by use of{' '}
               <Box inline textColor="blue">
                 Mindshield.
               </Box>{' '}
-              You can however promote <b>one</b> vassal into your{' '}
+              You can however promote <b>one</b> ghoul into your{' '}
               <Box inline textColor="gold">
-                Favorite Vassal
+                Favorite ghoul
               </Box>
               , which will gain powers unique to the Clan that you have chosen
               and will be immune to{' '}

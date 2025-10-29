@@ -45,7 +45,7 @@
 
 	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
-	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your Vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
+	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your ghouls are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
 	set_antag_hud(owner.current, "masquerade_broken")
 
@@ -84,7 +84,7 @@
 	else
 		to_chat(owner, span_notice("<EM>You have grown more ancient! \
 			Sleep in a coffin that you have claimed to thicken your blood and become more powerful\
-			[istype(my_clan, /datum/vampire_clan/ventrue) ? ", or put your Favorite Vassal on a persuasion rack to level them up." : "!"]</EM>"))
+			[istype(my_clan, /datum/vampire_clan/ventrue) ? ", or put your Favorite ghoul on a persuasion rack to level them up." : "!"]</EM>"))
 
 /**
  * Decrease the unspent vampire levels by one. Only for admins
@@ -94,20 +94,11 @@
 
 /datum/antagonist/vampire/proc/remove_nondefault_powers(return_levels = FALSE)
 	for(var/datum/action/vampire/power as anything in powers)
-		if(power.purchase_flags & VAMPIRE_DEFAULT_POWER)
+		if(power.special_flags & VAMPIRE_DEFAULT_POWER)
 			continue
 		remove_power(power)
 		if(return_levels)
 			vampire_level_unspent++
-
-/**
- * Helper proc to upgrade all powers and their cooldown time when ranking up
-**/
-/datum/antagonist/vampire/proc/level_up_powers()
-	for(var/datum/action/vampire/power as anything in powers)
-		if(power.purchase_flags & TREMERE_CAN_BUY)
-			continue
-		power.upgrade_power()
 
 /**
  * Disables all Torpor exclusive powers, if forced is TRUE, disable all powers

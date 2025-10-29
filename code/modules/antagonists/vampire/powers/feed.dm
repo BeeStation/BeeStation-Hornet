@@ -17,7 +17,7 @@
 		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	purchase_flags = VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER
+	special_flags = VAMPIRE_DEFAULT_POWER
 	cooldown_time = 15 SECONDS
 	target_range = 1
 	prefire_message = "Select a target."
@@ -147,7 +147,7 @@
 			continue
 		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 			continue
-		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
+		if(IS_VAMPIRE(watcher) || IS_ghoul(watcher))
 			continue
 
 		owner.balloon_alert(owner, "feed noticed!")

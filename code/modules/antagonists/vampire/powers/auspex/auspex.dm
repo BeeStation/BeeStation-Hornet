@@ -102,7 +102,7 @@
 	new /obj/effect/particle_effect/smoke/vampsmoke(targeted_turf)
 
 	for(var/mob/living/carbon/living_mob in range(1, targeted_turf)-user)
-		if(IS_VAMPIRE(living_mob) || IS_VASSAL(living_mob))
+		if(IS_VAMPIRE(living_mob) || IS_ghoul(living_mob))
 			continue
 		if(level_current >= 4)
 			living_mob.add_bleeding(BLEED_CRITICAL)

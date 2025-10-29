@@ -2,8 +2,8 @@
 	cleanup_tracker()
 	tracker = new(body, REF(src))
 
-	for(var/datum/antagonist/vassal/vassal in vassals)
-		vassal.monitor?.add_to_tracking_network(tracker.tracking_beacon)
+	for(var/datum/antagonist/ghoul/ghoul in ghouls)
+		ghoul.monitor?.add_to_tracking_network(tracker.tracking_beacon)
 	tracker.tracking_beacon.toggle_visibility(TRUE)
 
 /datum/antagonist/vampire/proc/cleanup_tracker()

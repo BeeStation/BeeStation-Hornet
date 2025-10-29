@@ -13,7 +13,7 @@
 	/// How much blood we can have at once, increases per level.
 	var/max_blood_volume = 600
 
-	/// The vampire team, used for vassals
+	/// The vampire team, used for ghouls
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
@@ -43,8 +43,8 @@
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
 	var/datum/martial_art/frenzygrab/frenzygrab = new
 
-	/// Vassals under my control. Periodically remove the dead ones.
-	var/list/datum/antagonist/vassal/vassals = list()
+	/// ghouls under my control. Periodically remove the dead ones.
+	var/list/datum/antagonist/ghoul/ghouls = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
@@ -69,13 +69,13 @@
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
-	/// Tracker so that vassals know where their master is
+	/// Tracker so that ghouls know where their master is
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
 
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
-	/// Antagonists that cannot be Vassalized no matter what
-	var/static/list/vassal_banned_antags = list(
+	/// Antagonists that cannot be ghoulized no matter what
+	var/static/list/ghoul_banned_antags = list(
 		/datum/antagonist/vampire,
 		/datum/antagonist/changeling,
 		/datum/antagonist/cult,
@@ -151,7 +151,7 @@
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
-	new /obj/structure/vampire/vassalrack(user_loc)
+	new /obj/structure/vampire/ghoulrack(user_loc)
 #endif
 
 /**
@@ -358,21 +358,21 @@
 				objectives_complete = FALSE
 				break
 
-	// Now list their vassals
-	if(length(vassals))
-		report += span_header("<br>Their Vassals were...")
-		for(var/datum/antagonist/vassal/vassal in vassals)
-			if(!vassal.owner)
+	// Now list their ghouls
+	if(length(ghouls))
+		report += span_header("<br>Their ghouls were...")
+		for(var/datum/antagonist/ghoul/ghoul in ghouls)
+			if(!ghoul.owner)
 				continue
 
-			var/list/vassal_report = list()
-			vassal_report += "<b>[vassal.owner.name]</b>"
+			var/list/ghoul_report = list()
+			ghoul_report += "<b>[ghoul.owner.name]</b>"
 
-			if(vassal.owner.assigned_role)
-				vassal_report += " the [vassal.owner.assigned_role]"
-			if(IS_FAVORITE_VASSAL(vassal.owner.current))
-				vassal_report += " and was the <b>Favorite Vassal</b>"
-			report += vassal_report.Join()
+			if(ghoul.owner.assigned_role)
+				ghoul_report += " the [ghoul.owner.assigned_role]"
+			if(IS_FAVORITE_ghoul(ghoul.owner.current))
+				ghoul_report += " and was the <b>Favorite ghoul</b>"
+			report += ghoul_report.Join()
 
 	if(objectives_complete)
 		report += span_greentextbig("<br>The [name] was successful!")
@@ -383,7 +383,7 @@
 
 /datum/antagonist/vampire/proc/give_starting_powers()
 	for(var/datum/action/vampire/all_powers as anything in all_vampire_powers)
-		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
+		if(!(initial(all_powers.special_flags) & VAMPIRE_DEFAULT_POWER))
 			continue
 		grant_power(new all_powers)
 
@@ -511,7 +511,7 @@
 	survive_objective.owner = owner
 	objectives += survive_objective
 
-	// Objective 1: Vassalize a Head/Command, or a specific target
+	// Objective 1: ghoulize a Head/Command, or a specific target
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
 			var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
@@ -555,7 +555,7 @@
 	SIGNAL_HANDLER
 
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
-	if(IS_VASSAL(examiner) in vassals)
+	if(IS_ghoul(examiner) in ghouls)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)

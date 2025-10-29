@@ -23,7 +23,7 @@
  *	A book that can only be used by Curators.
  *	When used on a player, after a short timer, will reveal if the player is a Vampire, including their real name and Clan.
  *	This book should not work on Vampires using the Masquerade ability.
- *	If it reveals a Vampire, the Curator will then be able to tell they are a Vampire on examine (Like a Vassal).
+ *	If it reveals a Vampire, the Curator will then be able to tell they are a Vampire on examine (Like a ghoul).
  *	Reading it normally will allow Curators to read what each Clan does, with some extra flavor text ones.
  *
  *	Regular Vampires won't have any negative effects from the book, while everyone else will get burns/eye damage.

@@ -27,6 +27,8 @@
 	/// What discipline are we associating this power with?
 	var/discipline = NONE	//DISCIPLINE_OBFUSCATE, DISCIPLINE_PRESENCE, etc
 
+	var/special_flags= NONE	//VAMPIRE_DEFAULT_POWER, CLAN_DEFAULT_POWER, etc
+
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
 	///Can increase to yield new abilities - Each Power ranks up each Rank
@@ -53,12 +55,12 @@
 /datum/action/vampire/Grant(mob/user)
 	. = ..()
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
-	var/datum/antagonist/vassal/favorite/favorite_vassal = IS_FAVORITE_VASSAL(owner)
+	var/datum/antagonist/ghoul/favorite/favorite_ghoul = IS_FAVORITE_ghoul(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
 		level_current = vampiredatum.vampire_level
-	else if(favorite_vassal)
-		level_current = favorite_vassal.vassal_level
+	else if(favorite_ghoul)
+		level_current = favorite_ghoul.ghoul_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/vampire/on_activate(mob/user, atom/target)
@@ -156,7 +158,7 @@
 	. = ..()
 
 /datum/action/vampire/proc/pay_cost()
-	// Vassals get powers too!
+	// ghouls get powers too!
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))

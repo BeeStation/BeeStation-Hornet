@@ -5,7 +5,6 @@
 		When you transform back into your standard vampiric form, you will gain an equal amount of damage to that which you sustained when a bat.\n\
 		You will drop all of your posessions when using this power."
 	button_icon_state = "power_batform"
-	purchase_flags = VAMPIRE_CAN_BUY|VASSAL_CAN_BUY
 	bloodcost = 40
 	constant_bloodcost = 1.5
 	sol_multiplier = 2

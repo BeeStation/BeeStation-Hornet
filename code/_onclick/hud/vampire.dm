@@ -14,12 +14,14 @@
 	icon = 'icons/vampires/actions_vampire.dmi'
 
 /atom/movable/screen/vampire/blood_counter
-	name = "Blood Consumed"
+	name = "Vitae"
+	desc = "How much life essence you have gathered. ~700 is considered average, try to keep above that."
 	icon_state = "blood_display"
 	screen_loc = UI_BLOOD_DISPLAY
 
 /atom/movable/screen/vampire/rank_counter
 	name = "Vampire Rank"
+	desc = "An abstract way to measure mastery of your vampiric disciplines."
 	icon_state = "rank"
 	screen_loc = UI_VAMPRANK_DISPLAY
 

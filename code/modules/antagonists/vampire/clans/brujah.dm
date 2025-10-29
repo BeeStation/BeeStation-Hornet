@@ -1,11 +1,11 @@
-#define BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS 4
+#define BRUJAH_FAVORITE_ghoul_ATTACK_BONUS 4
 
 /datum/vampire_clan/brujah
 	name = CLAN_BRUJAH
 	description = "The Brujah seek societal advancement through direct (and usually violent) means.\n\
 		With age they develop a powerful physique and become capable of obliterating almost anything with their bare hands.\n\
 		Be wary, as they are ferverous insurgents, rebels, and anarchists who always attempt to undermine local authorities. \n\
-		Their favorite vassal gains the regular Brawn ability and substantially strengthened fists."
+		Their favorite ghoul gains the regular Brawn ability and substantially strengthened fists."
 	clan_objective = /datum/objective/brujah
 	join_icon_state = "brujah"
 	join_description = "Gain an enhanced version of the brawn ability that lets you destroy most structures (including walls!) \
@@ -19,12 +19,12 @@
 	// TODO: this is where default powers should be given
 
 /// Raise the damage of both of their hands by four. Copied from 'finalize_spend_rank()' in '_clan.dm'
-/datum/vampire_clan/brujah/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)
+/datum/vampire_clan/brujah/on_favorite_ghoul(datum/antagonist/ghoul/favorite/favorite_ghoul)
 	. = ..()
-	var/mob/living/carbon/human/human_vassal = favorite_vassal.owner.current
-	if (istype(human_vassal))
-		var/datum/species/vassal_species = human_vassal.dna.species
-		vassal_species.punchdamage += BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS
+	var/mob/living/carbon/human/human_ghoul = favorite_ghoul.owner.current
+	if (istype(human_ghoul))
+		var/datum/species/ghoul_species = human_ghoul.dna.species
+		ghoul_species.punchdamage += BRUJAH_FAVORITE_ghoul_ATTACK_BONUS
 
 /**
  * Clan Objective
@@ -48,7 +48,7 @@
 	name = "brujahrevolution"
 	martyr_compatible = TRUE
 
-	/// Set to true when the target is turned into a Discordant Vassal.
+	/// Set to true when the target is turned into a Discordant ghoul.
 	var/target_subverted = FALSE
 	/// I have no idea what this actually does. It's on a lot of other assassination/similar objectives though...
 	var/target_role_type = FALSE
@@ -59,7 +59,7 @@
 /datum/objective/brujah/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Subvert the authority of [target.name] the [!target_role_type ? target.assigned_role : target.special_role] \
-			by turning [target.p_them()] into a Discordant Vassal with a persuassion rack."
+			by turning [target.p_them()] into a Discordant ghoul with a persuassion rack."
 	else
 		explanation_text = "Free objective."
 
@@ -84,4 +84,4 @@
 		target = pick(target_options)
 	update_explanation_text()
 
-#undef BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS
+#undef BRUJAH_FAVORITE_ghoul_ATTACK_BONUS

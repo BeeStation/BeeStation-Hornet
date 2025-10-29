@@ -1,4 +1,4 @@
-/// Uncomment this to enable testing of Vampire features (such as vassalizing people with a mind instead of a client).
+/// Uncomment this to enable testing of Vampire features (such as ghoulizing people with a mind instead of a client).
 //#define VAMPIRE_TESTING
 #if defined(VAMPIRE_TESTING) && defined(CIBUILDING)
 	#error VAMPIRE_TESTING is enabled, disable this!
@@ -18,13 +18,13 @@
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
 
-// Vassal defines
-/// If someone passes all checks and can be vassalized
-#define VASSALIZATION_ALLOWED 0
-/// If someone has to accept vassalization
-#define VASSALIZATION_DISLOYAL 1
-/// If someone is not allowed under any circimstances to become a Vassal
-#define VASSALIZATION_BANNED 2
+// ghoul defines
+/// If someone passes all checks and can be ghoulized
+#define ghoulIZATION_ALLOWED 0
+/// If someone has to accept ghoulization
+#define ghoulIZATION_DISLOYAL 1
+/// If someone is not allowed under any circimstances to become a ghoul
+#define ghoulIZATION_BANNED 2
 
 // Cooldown defines
 // Used to prevent spamming vampires
@@ -94,7 +94,7 @@
 #define DISCIPLINE_THAUMATURGY list()					// Weird freaky wizard crossbreeding 5000 years ago. SMH
 #define DISCIPLINE_THINBLOOD list()
 
-#define FAVORITE_VASSAL "favorite_vassal"
+#define FAVORITE_ghoul "favorite_ghoul"
 
 // Power defines
 /// This Power can't be used in Torpor
@@ -139,7 +139,7 @@
 #define COMSIG_SOL_END "comsig_sol_end"
 /// Sent 15 seconds before Sol ends
 #define COMSIG_SOL_NEAR_END "comsig_sol_near_end"
-/// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
+/// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, ghoul_warning_message)
 #define COMSIG_SOL_WARNING_GIVEN "comsig_sol_warning_given"
 
 #define DANGER_LEVEL_FIRST_WARNING 1

@@ -8,7 +8,7 @@
 	 */
 	var/ghost_desc
 	var/vampire_desc
-	var/vassal_desc
+	var/ghoul_desc
 	var/curator_desc
 
 /obj/structure/vampire/examine(mob/user)
@@ -20,8 +20,8 @@
 			. += span_cult("It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential")
 			return
 		. += span_cult(vampire_desc)
-	if(IS_VASSAL(user) && vassal_desc)
-		. += span_cult(vassal_desc)
+	if(IS_ghoul(user) && ghoul_desc)
+		. += span_cult(ghoul_desc)
 	if(IS_CURATOR(user) && curator_desc)
 		. += span_cult(curator_desc)
 
@@ -85,24 +85,24 @@
 		if(unsecure_response == "Yes")
 			unbolt(user)
 
-/obj/structure/vampire/vassalrack
+/obj/structure/vampire/ghoulrack
 	name = "persuasion rack"
 	desc = "If this wasn't meant for torture, then someone has some fairly horrifying hobbies."
 	icon = 'icons/vampires/vamp_obj.dmi'
-	icon_state = "vassalrack"
+	icon_state = "ghoulrack"
 	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = 180
-	ghost_desc = "This is a Vassal rack, which allows Vampires to thrall crewmembers into loyal minions."
-	vampire_desc = "This is the Vassal rack, which allows you to thrall crewmembers into loyal minions in your service. This costs blood to do.\n\
-		Simply click and hold on a victim, and then drag their sprite on the vassal rack. Right-click on the persuasion rack to unbuckle them.\n\
-		To convert into a Vassal, repeatedly click on the persuasion rack. The time required scales with the tool in your hand.\n\
-		Vassals can be turned into special ones by continuing to torture them once converted."
-	vassal_desc = "This is the vassal rack, which allows your master to thrall crewmembers into their minions.\n\
+	ghost_desc = "This is a ghoul rack, which allows Vampires to thrall crewmembers into loyal minions."
+	vampire_desc = "This is the ghoul rack, which allows you to thrall crewmembers into loyal minions in your service. This costs blood to do.\n\
+		Simply click and hold on a victim, and then drag their sprite on the ghoul rack. Right-click on the persuasion rack to unbuckle them.\n\
+		To convert into a ghoul, repeatedly click on the persuasion rack. The time required scales with the tool in your hand.\n\
+		ghouls can be turned into special ones by continuing to torture them once converted."
+	ghoul_desc = "This is the ghoul rack, which allows your master to thrall crewmembers into their minions.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
-		You can secure victims to the vassal rack by click dragging the victim onto the rack while it is secured."
-	curator_desc = "This is the vassal rack, which monsters use to brainwash crewmembers into their loyal slaves.\n\
+		You can secure victims to the ghoul rack by click dragging the victim onto the rack while it is secured."
+	curator_desc = "This is the ghoul rack, which monsters use to brainwash crewmembers into their loyal slaves.\n\
 		They usually ensure that victims are handcuffed, to prevent them from running away.\n\
 		Their rituals take time, allowing us to disrupt it."
 
@@ -115,13 +115,13 @@
 	/// No spamming torture
 	var/is_torturing = FALSE
 
-/obj/structure/vampire/vassalrack/deconstruct(disassembled = TRUE)
+/obj/structure/vampire/ghoulrack/deconstruct(disassembled = TRUE)
 	. = ..()
 	new /obj/item/stack/sheet/iron(src.loc, 4)
 	new /obj/item/stack/rods(loc, 4)
 	qdel(src)
 
-/obj/structure/vampire/vassalrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
+/obj/structure/vampire/ghoulrack/MouseDrop_T(atom/movable/movable_atom, mob/user)
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))
@@ -132,7 +132,7 @@
 		return
 	// Don't buckle Silicon to it please.
 	if(issilicon(living_target))
-		to_chat(user, span_danger("You realize that this machine cannot be vassalized, therefore it is useless to buckle them."))
+		to_chat(user, span_danger("You realize that this machine cannot be ghoulized, therefore it is useless to buckle them."))
 		return
 	if(do_after(user, 5 SECONDS, living_target))
 		density = FALSE // Temporarily set density to false so the target is actually on the rack
@@ -140,9 +140,9 @@
 		density = TRUE
 
 /**
- * Attempts to buckle target into the vassalrack
+ * Attempts to buckle target into the ghoulrack
  */
-/obj/structure/vampire/vassalrack/proc/attach_victim(mob/living/target, mob/living/user)
+/obj/structure/vampire/ghoulrack/proc/attach_victim(mob/living/target, mob/living/user)
 	if(!buckle_mob(target))
 		return
 	user.visible_message(
@@ -158,8 +158,8 @@
 	vassilization_offered = FALSE
 
 /// Attempt Unbuckle
-/obj/structure/vampire/vassalrack/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
-	if(IS_VAMPIRE(user) || IS_VASSAL(user))
+/obj/structure/vampire/ghoulrack/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(IS_VAMPIRE(user) || IS_ghoul(user))
 		return ..()
 
 	if(buckled_mob == user)
@@ -181,7 +181,7 @@
 
 	return ..()
 
-/obj/structure/vampire/vassalrack/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+/obj/structure/vampire/ghoulrack/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -190,7 +190,7 @@
 	buckled_mob.Paralyze(2 SECONDS)
 	update_appearance(UPDATE_ICON)
 
-/obj/structure/vampire/vassalrack/attack_hand(mob/user, list/modifiers)
+/obj/structure/vampire/ghoulrack/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!. || !has_buckled_mobs())
 		return FALSE
@@ -203,16 +203,16 @@
 		user_unbuckle_mob(buckled_person, user)
 		return TRUE
 
-	// Try to interact with vassal
-	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(buckled_person)
-	if(vassaldatum?.master == vampiredatum)
-		vampiredatum.my_clan?.interact_with_vassal(vassaldatum)
+	// Try to interact with ghoul
+	var/datum/antagonist/ghoul/ghouldatum = IS_ghoul(buckled_person)
+	if(ghouldatum?.master == vampiredatum)
+		vampiredatum.my_clan?.interact_with_ghoul(ghouldatum)
 		return TRUE
 
 	var/obj/item/held_item = user.get_inactive_held_item()
 	try_to_torture(user, buckled_person, held_item)
 
-/obj/structure/vampire/vassalrack/attack_hand_secondary(mob/user, list/modifiers)
+/obj/structure/vampire/ghoulrack/attack_hand_secondary(mob/user, list/modifiers)
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
 		return
@@ -225,7 +225,7 @@
 		else
 			user_unbuckle_mob(buckled_carbons, user)
 
-/obj/structure/vampire/vassalrack/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/structure/vampire/ghoulrack/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(IS_VAMPIRE(user) && has_buckled_mobs() && !user.combat_mode)
 		return try_to_torture(user, pick(buckled_mobs), attacking_item)
 	return ..()
@@ -236,12 +236,12 @@
  * * When convert_progress reaches 0, the victim is ready to be converted
  * * Using a better tool will reduce the time required to torture
  * * If the victim has a mindshield or is an antagonist, they must accept the conversion. If they don't accept, they aren't converted
- * * Vassalize target
+ * * ghoulize target
  */
-/obj/structure/vampire/vassalrack/proc/try_to_torture(mob/living/living_vampire, mob/living/living_target, obj/item/held_item)
+/obj/structure/vampire/ghoulrack/proc/try_to_torture(mob/living/living_vampire, mob/living/living_target, obj/item/held_item)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(living_vampire)
 
-	if(!vampiredatum.can_make_vassal(living_target) || is_torturing)
+	if(!vampiredatum.can_make_ghoul(living_target) || is_torturing)
 		return
 
 	// These if statements can be simplified but aren't for better code-readability.
@@ -287,18 +287,18 @@
 			balloon_alert(living_vampire, "interrupted!")
 			return
 
-		// Make our target into a vassal
+		// Make our target into a ghoul
 		vampiredatum.AddBloodVolume(-TORTURE_CONVERSION_COST)
-		vampiredatum.make_vassal(living_target)
+		vampiredatum.make_ghoul(living_target)
 
 		// Find Mind Implant & Destroy
 		for(var/obj/item/implant/mindshield/mindshield in living_target.implants)
 			mindshield.Destroy()
 
-		// We've made a vassal the proper way, do clan stuff
-		vampiredatum.my_clan?.on_vassal_made(living_vampire, living_target)
+		// We've made a ghoul the proper way, do clan stuff
+		vampiredatum.my_clan?.on_ghoul_made(living_vampire, living_target)
 
-/obj/structure/vampire/vassalrack/proc/do_torture(mob/living/user, mob/living/carbon/target, obj/item/held_item)
+/obj/structure/vampire/ghoulrack/proc/do_torture(mob/living/user, mob/living/carbon/target, obj/item/held_item)
 	var/torture_time = 15
 	torture_time -= held_item?.force / 4
 	torture_time -= held_item?.sharpness + 1
@@ -322,7 +322,7 @@
 		return FALSE
 
 /// Offer them the oppertunity to join now.
-/obj/structure/vampire/vassalrack/proc/ask_for_vassilization(mob/living/user, mob/living/target)
+/obj/structure/vampire/ghoulrack/proc/ask_for_vassilization(mob/living/user, mob/living/target)
 	if(vassilization_offered)
 		balloon_alert(user, "wait a moment!")
 		return FALSE
@@ -341,7 +341,7 @@
 	if(alert_response == "Accept")
 		wants_vassilization = TRUE
 	else
-		target.balloon_alert_to_viewers("refused vassalization!")
+		target.balloon_alert_to_viewers("refused ghoulization!")
 
 	vassilization_offered = FALSE
 
@@ -359,9 +359,9 @@
 	density = FALSE
 	can_buckle = TRUE
 	anchored = FALSE
-	ghost_desc = "This is a magical candle which drains at the sanity of non Vampires and Vassals."
+	ghost_desc = "This is a magical candle which drains at the sanity of non Vampires and ghouls."
 	vampire_desc = "This is a magical candle which drains at the sanity of mortals who are not under your command while it is active."
-	vassal_desc = "This is a magical candle which drains at the sanity of the fools who havent yet accepted your master."
+	ghoul_desc = "This is a magical candle which drains at the sanity of the fools who havent yet accepted your master."
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
@@ -384,7 +384,7 @@
 /obj/structure/vampire/candelabrum/attack_hand(mob/living/user, list/modifiers)
 	if(!..())
 		return
-	if(anchored && (IS_VASSAL(user) || IS_VAMPIRE(user)))
+	if(anchored && (IS_ghoul(user) || IS_VAMPIRE(user)))
 		toggle()
 	return ..()
 
@@ -404,13 +404,13 @@
 	if(!lit)
 		return
 	for(var/mob/living/carbon/nearby_people in viewers(7, src))
-		/// We dont want Vampires or Vassals affected by this
-		if(IS_VASSAL(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
+		/// We dont want Vampires or ghouls affected by this
+		if(IS_ghoul(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
 			continue
 		nearby_people.adjust_hallucinations(10 SECONDS)
 		SEND_SIGNAL(nearby_people, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)
 
-/// Blood Throne - Allows Vampires to remotely speak with their Vassals. - Code (Mostly) stolen from comfy chairs (armrests) and chairs (layers)
+/// Blood Throne - Allows Vampires to remotely speak with their ghouls. - Code (Mostly) stolen from comfy chairs (armrests) and chairs (layers)
 /obj/structure/vampire/bloodthrone
 	name = "blood throne"
 	desc = "Twisted metal shards jut from the arm rests. Very uncomfortable looking. It would take a masochistic sort to sit on this jagged piece of furniture."
@@ -420,9 +420,9 @@
 	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
-	ghost_desc = "This is a blood throne, any Vampire sitting on it can remotely speak to their Vassals by attempting to speak aloud."
-	vampire_desc = "This is a blood throne, sitting on it will allow you to telepathically speak to your vassals by simply speaking."
-	vassal_desc = "This is a blood throne, it allows your Master to telepathically speak to you and others like you."
+	ghost_desc = "This is a blood throne, any Vampire sitting on it can remotely speak to their ghouls by attempting to speak aloud."
+	vampire_desc = "This is a blood throne, sitting on it will allow you to telepathically speak to your ghouls by simply speaking."
+	ghoul_desc = "This is a blood throne, it allows your Master to telepathically speak to you and others like you."
 	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\
 		While buckled, Monsters can use this to telepathically communicate with eachother."
 	var/mutable_appearance/armrest
@@ -504,7 +504,7 @@
 	var/rendered = span_cultlarge("<b>[user.real_name]:</b> [message]")
 	user.log_talk(message, LOG_SAY, tag = ROLE_VAMPIRE)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
-	for(var/datum/antagonist/vassal/receiver as anything in vampiredatum.vassals)
+	for(var/datum/antagonist/ghoul/receiver as anything in vampiredatum.ghouls)
 		if(!receiver.owner.current)
 			continue
 		var/mob/receiver_mob = receiver.owner.current

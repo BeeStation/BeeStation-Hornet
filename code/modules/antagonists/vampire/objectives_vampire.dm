@@ -40,62 +40,62 @@
 
 	return FALSE
 
-/// Vassalize a certain person / people
+/// ghoulize a certain person / people
 /datum/objective/vampire/conversion
-	name = "vassalization"
+	name = "ghoulization"
 
-/// Check Vassals and get their occupations
-/datum/objective/vampire/conversion/proc/get_vassal_occupations()
+/// Check ghouls and get their occupations
+/datum/objective/vampire/conversion/proc/get_ghoul_occupations()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
-	if(!length(vampire_datum?.vassals))
+	if(!length(vampire_datum?.ghouls))
 		return FALSE
 
-	var/list/all_vassal_jobs = list()
-	for(var/datum/antagonist/vassal/vassal_datum in vampire_datum.vassals)
-		if(!vassal_datum.owner)
+	var/list/all_ghoul_jobs = list()
+	for(var/datum/antagonist/ghoul/ghoul_datum in vampire_datum.ghouls)
+		if(!ghoul_datum.owner)
 			continue
 
-		var/datum/mind/vassal_mind = vassal_datum.owner
+		var/datum/mind/ghoul_mind = ghoul_datum.owner
 
 		// Mind Assigned
-		if(vassal_mind.assigned_role)
-			all_vassal_jobs += SSjob.GetJob(vassal_mind.assigned_role)
+		if(ghoul_mind.assigned_role)
+			all_ghoul_jobs += SSjob.GetJob(ghoul_mind.assigned_role)
 			continue
 		// Mob Assigned
-		if(vassal_mind.current?.job)
-			all_vassal_jobs += SSjob.GetJob(vassal_mind.current.job)
+		if(ghoul_mind.current?.job)
+			all_ghoul_jobs += SSjob.GetJob(ghoul_mind.current.job)
 			continue
 		// PDA Assigned
-		if(ishuman(vassal_mind.current))
-			var/mob/living/carbon/human/human_vassal = vassal_mind.current
-			all_vassal_jobs += SSjob.GetJob(human_vassal.get_assignment())
+		if(ishuman(ghoul_mind.current))
+			var/mob/living/carbon/human/human_ghoul = ghoul_mind.current
+			all_ghoul_jobs += SSjob.GetJob(human_ghoul.get_assignment())
 			continue
 
-	return all_vassal_jobs
+	return all_ghoul_jobs
 
 /**
- * Vassalize a head of staff
+ * ghoulize a head of staff
  */
 /datum/objective/vampire/conversion/command
-	name = "vassalizationcommand"
-	explanation_text = "Guarantee a Vassal ends up as a Department Head or in a Leadership role."
+	name = "ghoulizationcommand"
+	explanation_text = "Guarantee a ghoul ends up as a Department Head or in a Leadership role."
 	target_amount = 1
 
 /datum/objective/vampire/conversion/command/check_completion()
-	var/list/datum/job/vassal_jobs = get_vassal_occupations()
-	for(var/datum/job/checked_job in vassal_jobs)
+	var/list/datum/job/ghoul_jobs = get_ghoul_occupations()
+	for(var/datum/job/checked_job in ghoul_jobs)
 		if(checked_job.departments & DEPT_BITFLAG_COM)
 			return TRUE
 
 	return FALSE
 
 /**
- * Vassalize crewmembers in a specific department
+ * ghoulize crewmembers in a specific department
  */
 /datum/objective/vampire/conversion/department
-	name = "vassalize department"
+	name = "ghoulize department"
 
-	///The selected department we have to vassalize.
+	///The selected department we have to ghoulize.
 	var/target_department
 	///List of all departments that can be selected for the objective.
 	var/static/list/possible_departments = list(
@@ -111,28 +111,28 @@
 /datum/objective/vampire/conversion/department/New()
 	target_department = pick(possible_departments)
 
-	// Don't assign more vassalizations than possible
-	var/vassal_max = 0
+	// Don't assign more ghoulizations than possible
+	var/ghoul_max = 0
 	switch(length(GLOB.joined_player_list))
 		if(1 to 20)
-			vassal_max = 1
+			ghoul_max = 1
 		if(21 to 30)
-			vassal_max = 3
+			ghoul_max = 3
 		if(31 to INFINITY)
-			vassal_max = 4
-	target_amount = min(rand(2, 3), vassal_max)
+			ghoul_max = 4
+	target_amount = min(rand(2, 3), ghoul_max)
 	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/conversion/department/update_explanation_text()
-	explanation_text = "Have [target_amount] Vassal\s in the [target_department] department."
+	explanation_text = "Have [target_amount] ghoul\s in the [target_department] department."
 	return ..()
 
 // WIN CONDITIONS?
 /datum/objective/vampire/conversion/department/check_completion()
-	var/list/vassal_jobs = get_vassal_occupations()
+	var/list/ghoul_jobs = get_ghoul_occupations()
 	var/converted_count = 0
-	for(var/datum/job/checked_job in vassal_jobs)
+	for(var/datum/job/checked_job in ghoul_jobs)
 		if(checked_job.departments & target_department)
 			converted_count++
 	if(converted_count >= target_amount)
@@ -209,29 +209,29 @@
 // HOW: Track each feed (if human). Count victory.
 
 // NOTE: Look up /assassinate in objective.dm for inspiration.6
-/// Vassalize a target.
-/datum/objective/vampire/vassalhim
-	name = "vassalhim"
+/// ghoulize a target.
+/datum/objective/vampire/ghoulhim
+	name = "ghoulhim"
 	var/target_department_type = FALSE
 
-/datum/objective/vampire/vassalhim/New()
+/datum/objective/vampire/ghoulhim/New()
 	find_target()
 	..()
 
 // EXPLANATION
-/datum/objective/vampire/vassalhim/update_explanation_text()
+/datum/objective/vampire/ghoulhim/update_explanation_text()
 	. = ..()
 	if(target?.current)
-		explanation_text = "Ensure [target.name], the [target.assigned_role], is Vassalized via the Persuasion Rack."
+		explanation_text = "Ensure [target.name], the [target.assigned_role], is ghoulized via the Persuasion Rack."
 	else
 		explanation_text = "Free Objective"
 
-/datum/objective/vampire/vassalhim/admin_edit(mob/admin)
+/datum/objective/vampire/ghoulhim/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
 
 // WIN CONDITIONS?
-/datum/objective/vampire/vassalhim/check_completion()
-	if(!target || target.has_antag_datum(/datum/antagonist/vassal))
+/datum/objective/vampire/ghoulhim/check_completion()
+	if(!target || target.has_antag_datum(/datum/antagonist/ghoul))
 		return TRUE
 	return FALSE
 
@@ -261,7 +261,7 @@
  */
 /datum/objective/vampire/tremere_power
 	name = "tremerepower"
-	explanation_text = "Upgrade a Blood Magic power to the maximum level, remember that Vassalizing gives more Ranks!"
+	explanation_text = "Upgrade a Blood Magic power to the maximum level, remember that ghoulizing gives more Ranks!"
 
 /datum/objective/vampire/tremere_power/check_completion()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
@@ -276,17 +276,17 @@
  */
 /datum/objective/vampire/embrace
 	name = "embrace"
-	explanation_text = "Use the persuasion rack to Rank your Favorite Vassal up enough to become a Vampire."
+	explanation_text = "Use the persuasion rack to Rank your Favorite ghoul up enough to become a Vampire."
 
-// We set the objective to complete when we level up our favorite vassal into a vampire.
+// We set the objective to complete when we level up our favorite ghoul into a vampire.
 
 /**
- * Vassal
+ * ghoul
  */
-/datum/objective/vampire/vassal
+/datum/objective/vampire/ghoul
 	name = "assist master"
 	explanation_text = "Guarantee the success of your Master's mission!"
 
-/datum/objective/vampire/vassal/check_completion()
-	var/datum/antagonist/vassal/vassal_datum = IS_VASSAL(owner.current)
-	return vassal_datum.master?.owner?.current?.stat != DEAD
+/datum/objective/vampire/ghoul/check_completion()
+	var/datum/antagonist/ghoul/ghoul_datum = IS_ghoul(owner.current)
+	return ghoul_datum.master?.owner?.current?.stat != DEAD

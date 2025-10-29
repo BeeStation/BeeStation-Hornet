@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(masquerade_breakers)
 /datum/vampire_clan/malkavian
 	name = CLAN_MALKAVIAN
 	description = "Little is documented about Malkavians. Complete insanity is the most common theme.\n\
-		The Favorite Vassal will suffer the same fate as the Master."
+		The Favorite ghoul will suffer the same fate as the Master."
 	join_icon_state = "malkavian"
 	join_description = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, \
 		and are the enforcer of the Masquerade code. You can also travel through Phobetor tears, rifts through spacetime only you can travel through."
@@ -57,12 +57,12 @@ GLOBAL_LIST_EMPTY(masquerade_breakers)
 		INVOKE_ASYNC(living_vampire, TYPE_PROC_REF(/mob/living, whisper), message)
 		COOLDOWN_START(src, revelation_cooldown, rand(REVELATION_MIN_COOLDOWN, REVELATION_MAX_COOLDOWN))
 
-/datum/vampire_clan/malkavian/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)
-	var/mob/living/carbon/carbon_vassal = favorite_vassal.owner.current
-	if(istype(carbon_vassal))
-		carbon_vassal.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
-		carbon_vassal.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
-		to_chat(carbon_vassal, span_notice("Additionally, you now suffer the same fate as your Master."))
+/datum/vampire_clan/malkavian/on_favorite_ghoul(datum/antagonist/ghoul/favorite/favorite_ghoul)
+	var/mob/living/carbon/carbon_ghoul = favorite_ghoul.owner.current
+	if(istype(carbon_ghoul))
+		carbon_ghoul.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)
+		carbon_ghoul.gain_trauma(/datum/brain_trauma/special/bluespace_prophet/phobetor, TRAUMA_RESILIENCE_ABSOLUTE)
+		to_chat(carbon_ghoul, span_notice("Additionally, you now suffer the same fate as your Master."))
 
 /datum/vampire_clan/malkavian/on_exit_torpor()
 	var/mob/living/carbon/carbon_vampire = vampiredatum.owner.current

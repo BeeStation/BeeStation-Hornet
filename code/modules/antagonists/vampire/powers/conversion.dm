@@ -6,7 +6,7 @@
 		can be used to construct vampire structures."
 	power_flags = NONE
 	check_flags = NONE
-	purchase_flags = VAMPIRE_DEFAULT_POWER
+	special_flags = VAMPIRE_DEFAULT_POWER
 	bloodcost = 50
 	cooldown_time = 10 SECONDS
 
