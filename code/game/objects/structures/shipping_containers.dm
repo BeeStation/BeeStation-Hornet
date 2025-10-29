@@ -4,7 +4,14 @@
 	icon = 'icons/obj/containers.dmi'
 	icon_state = "container_blank"
 	max_integrity = 1000
+	bound_height = 64
+	bound_width = 96
 	anchored = TRUE
+
+/obj/structure/shipping_container/Initialize(mapload)
+	. = ..()
+	var/turf/atom_turf = get_turf()
+	layer += (atom_turf.y+pixel_y)/2550 //fixes layering issues when they're right up against eachother
 
 /obj/structure/shipping_container/conarex
 	name = "\improper Conarex Aeronautics shipping container"

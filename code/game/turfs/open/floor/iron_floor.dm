@@ -98,6 +98,45 @@
 /turf/open/floor/iron/textured_large/get_turf_texture()
 	return GLOB.turf_texture_iron_nonsegmented
 
+
+/turf/open/floor/iron/sepia
+	icon_state = "sepia"
+	base_icon_state = "sepia"
+	desc = "Well, the flow of time is normal on these tiles, weird."
+	floor_tile = /obj/item/stack/tile/iron/sepia
+
+/turf/open/floor/iron/sepia/smooth_edge
+	icon_state = "sepia_edge"
+	base_icon_state = "sepia_edge"
+	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_edge
+
+/turf/open/floor/iron/sepia/smooth_edge/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
+/turf/open/floor/iron/sepia/smooth_half
+	icon_state = "sepia_half"
+	base_icon_state = "sepia_half"
+	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_half
+
+/turf/open/floor/iron/sepia/smooth_half/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
+/turf/open/floor/iron/sepia/smooth_corner
+	icon_state = "sepia_corner"
+	base_icon_state = "sepia_corner"
+	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_corner
+
+/turf/open/floor/iron/sepia/smooth_corner/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
+/turf/open/floor/iron/sepia/smooth_large
+	icon_state = "sepia_large"
+	base_icon_state = "sepia_large"
+	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_large
+
+/turf/open/floor/iron/sepia/smooth_large/get_turf_texture()
+	return GLOB.turf_texture_iron_nonsegmented
+
 /turf/open/floor/iron/dark
 	icon_state = "darkfull"
 	base_icon_state = "darkfull"
@@ -465,11 +504,6 @@
 	desc = "Sadly, these don't seem to make you faster..."
 	floor_tile = /obj/item/stack/tile/iron/bluespace
 
-/turf/open/floor/iron/sepia
-	icon_state = "sepia"
-	base_icon_state = "sepia"
-	desc = "Well, the flow of time is normal on these tiles, weird."
-	floor_tile = /obj/item/stack/tile/iron/sepia
 
 /turf/open/floor/iron/yellowsiding
 	icon_state = "yellowsiding"

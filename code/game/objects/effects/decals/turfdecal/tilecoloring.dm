@@ -13,6 +13,7 @@
 
 /obj/effect/turf_decal/tile/white
 	name = "white corner"
+	alpha = 255
 
 /obj/effect/turf_decal/tile/white/corner_ramp
 	icon_state = "tile_corner_ramp"

@@ -33,7 +33,7 @@
 
 /obj/machinery/elevator_interface/nucorg/bridge
 	id = "bridge"
-	available_levels = list(2, 3, 4)
+	available_levels = list(1, 3, 4)
 
 /obj/machinery/elevator_interface/nucorg/janitor
 	id = "janitor"
