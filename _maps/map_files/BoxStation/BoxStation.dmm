@@ -57998,21 +57998,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"taf" = (
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/item/clothing/head/beret/rainbow{
-	pixel_x = -1;
-	pixel_y = -5
-	},
-/obj/item/toy/crayon/rainbow{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/locker)
 "tam" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
@@ -90033,7 +90018,7 @@ gTq
 gsy
 lPS
 lfa
-taf
+vBK
 aPA
 aSg
 aSg
