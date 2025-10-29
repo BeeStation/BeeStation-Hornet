@@ -99,6 +99,8 @@
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
 	mouse_opacity = MOUSE_OPACITY_ICON
+	/// Do we glow to represent we do stuff when clicked
+	var/clickable_glow = FALSE
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
 	var/alerttooltipstyle = ""
@@ -106,6 +108,12 @@
 	var/mob/owner //Alert owner
 	/// The thing that this alert is showing
 	var/obj/master
+
+/atom/movable/screen/alert/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	if(clickable_glow)
+		add_filter("clickglow", 2, outline_filter(color = COLOR_GOLD, size = 1))
+		mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	..()
@@ -231,13 +239,14 @@ or something covering your eyes."
 	name = "Mind Control"
 	desc = "Your mind has been hijacked! Click to view the mind control command."
 	icon_state = "mind_control"
+	clickable_glow = TRUE
 	var/command
 
 /atom/movable/screen/alert/mind_control/Click()
 	var/mob/living/L = usr
 	if(L != owner)
 		return
-	to_chat(L, "[span_mindcontrol("[command]")]")
+	to_chat(L, span_mindcontrol("[command]"))
 
 /atom/movable/screen/alert/drunk
 	name = "Drunk"
@@ -247,8 +256,9 @@ or something covering your eyes."
 /atom/movable/screen/alert/embeddedobject
 	name = "Embedded Object"
 	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
-If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
+		If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
 	icon_state = "embeddedobject"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/embeddedobject/Click()
 	if(isliving(usr) && usr == owner)
@@ -282,6 +292,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	name = "On Fire"
 	desc = "You're on fire. Stop, drop and roll to put the fire out or move to a vacuum area."
 	icon_state = "fire"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/fire/Click()
 	var/mob/living/L = usr
@@ -294,6 +305,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
+	clickable_glow = TRUE
 	var/mob/living/carbon/offerer
 	var/obj/item/receiving
 
@@ -337,6 +349,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	name = "Succumb"
 	desc = "Shuffle off this mortal coil."
 	icon_state = "succumb"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/succumb/Click()
 	if (isobserver(usr))
@@ -598,18 +611,18 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		complete, you will have exclusive control of it, and you will gain \
 		additional processing time to unlock more malfunction abilities."
 	icon_state = "hackingapc"
-	timeout = 600
+	timeout = 60 SECONDS
+	clickable_glow = TRUE
 	var/atom/target = null
 
 /atom/movable/screen/alert/hackingapc/Click()
 	if(!usr || !usr.client || usr != owner)
 		return
-	if(!target)
-		return
-	var/mob/living/silicon/ai/AI = usr
-	var/turf/T = get_turf(target)
-	if(T)
-		AI.eyeobj.setLoc(T)
+
+	var/mob/living/silicon/ai/ai_owner = owner
+	var/turf/target_turf = get_turf(target)
+	if(target_turf)
+		ai_owner.eyeobj.setLoc(target_turf)
 
 //MECHS
 
@@ -625,7 +638,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Revival"
 	desc = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!"
 	icon_state = "template"
-	timeout = 300
+	timeout = 30 SECONDS
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/notify_cloning/Click()
 	if(!usr || !usr.client || usr != owner)
@@ -637,7 +651,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Body created"
 	desc = "A body was created. You can enter it."
 	icon_state = "template"
-	timeout = 300
+	timeout = 30 SECONDS
+	clickable_glow = TRUE
 	var/atom/target = null
 	var/action = NOTIFY_JUMP
 
@@ -809,14 +824,19 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
 	icon_state = "buckled"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/handcuffed
 	name = "Handcuffed"
-	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Left-click the alert to free yourself over time. Right-click the alert if you're willing to severely injure yourself to break out immediately."
+	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. \
+		Left-click the alert to free yourself over time. \
+		Right-click the alert if you're willing to severely injure yourself to break out immediately."
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/legcuffed
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/Click(location, control, params)
 	var/mob/living/living_mob = usr

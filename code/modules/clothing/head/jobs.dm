@@ -409,6 +409,7 @@
 	strip_delay = 60
 	dog_fashion = null
 	flags_1 = NONE
+	custom_price = 50
 
 /datum/armor/beret_sec
 	melee = 35

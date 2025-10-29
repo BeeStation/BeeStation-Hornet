@@ -16,7 +16,7 @@
 			if(!C.mind || !C.mind.has_antag_datum(/datum/antagonist/changeling))
 				C.adjustEarDamage(0, 30)
 				C.confused += 15
-				C.Jitter(20)
+				C.set_jitter_if_lower(40 SECONDS)
 			else
 				SEND_SOUND(C, sound('sound/effects/screech.ogg'))
 

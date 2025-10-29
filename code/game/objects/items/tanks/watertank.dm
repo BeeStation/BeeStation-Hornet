@@ -16,6 +16,7 @@
 	max_integrity = 200
 	armor_type = /datum/armor/item_watertank
 	resistance_flags = FIRE_PROOF
+	custom_price = 50
 
 	var/obj/item/noz = /obj/item/reagent_containers/spray/mister
 	var/volume = 500

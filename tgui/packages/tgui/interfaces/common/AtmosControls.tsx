@@ -24,6 +24,7 @@ export type VentProps = {
   internal: number;
   extdefault: number;
   intdefault: number;
+  temperature: number;
 };
 
 export type ScrubberProps = {
@@ -55,6 +56,7 @@ export const Vent = (props: VentProps) => {
     internal,
     extdefault,
     intdefault,
+    temperature,
   } = props;
   return (
     <Section
@@ -187,6 +189,33 @@ export const Vent = (props: VentProps) => {
             />
           </LabeledList.Item>
         )}
+        {
+          <LabeledList.Item label="Heating Target">
+            <NumberInput
+              value={Math.round(temperature)}
+              unit="K"
+              width="75px"
+              minValue={0}
+              step={1}
+              maxValue={500}
+              onChange={(value) =>
+                act('set_external_temperature', {
+                  ref: refID,
+                  value,
+                })
+              }
+            />
+            <Button
+              icon="undo"
+              content="Reset"
+              onClick={() =>
+                act('reset_external_temperature', {
+                  ref: refID,
+                })
+              }
+            />
+          </LabeledList.Item>
+        }
       </LabeledList>
     </Section>
   );

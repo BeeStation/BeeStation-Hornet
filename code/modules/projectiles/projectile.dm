@@ -12,6 +12,7 @@
 	movement_type = FLYING
 	//wound_bonus = CANT_WOUND // can't wound by default
 	generic_canpass = FALSE
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -150,7 +151,8 @@
 	var/eyeblur = 0
 	var/drowsy = 0
 	var/stamina = 0
-	var/jitter = 0
+	/// Jittering applied on projectile hit
+	var/jitter = 0 SECONDS
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)

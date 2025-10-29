@@ -43,7 +43,7 @@
 
 	// Select candidates
 	for(var/i = 1 to drafted_players_amount)
-		chosen_candidates += select_player()
+		LAZYADD(chosen_candidates, select_player())
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
@@ -61,7 +61,7 @@
 
 	for(var/mob/chosen_candidate in chosen_candidates)
 		chosen_candidate.mind.special_role = antag_datum.banning_key
-	. = ..()
+	return ..()
 
 //////////////////////////////////////////////
 //                                          //
@@ -75,7 +75,9 @@
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 	role_preference = /datum/role_preference/midround/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
+	weight = 3
 	points_cost = 40
+	minimum_players_required = 24
 	mob_type = /mob/living/silicon/ai
 
 /datum/dynamic_ruleset/midround/living/value_drifted/get_poll_icon()

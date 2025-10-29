@@ -92,6 +92,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
+	var/list/misc_costs = list() //list of overall costs sustained by each buyer.
 	if(!SSsupply.shoppinglist.len)
 		return
 
@@ -143,9 +144,8 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 					miscboxes[D.account_holder].req_access = list()
 				for (var/item in SO.pack.contains)
 					misc_contents[D.account_holder] += item
+				misc_costs[D.account_holder] += SO.pack.cost
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
-				if(SO.pack.access)
-					miscboxes[D.account_holder].req_access |= SO.pack.access
 			else //No private payment, so we just stuff it all into a generic crate
 				if(!miscboxes.len || !miscboxes["Cargo"])
 					miscboxes["Cargo"] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
@@ -170,7 +170,7 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	for(var/I in miscboxes)
 		var/datum/supply_order/SO = new/datum/supply_order()
 		SO.id = misc_order_num[I]
-		SO.generateCombo(miscboxes[I], I, misc_contents[I])
+		SO.generateCombo(miscboxes[I], I, misc_contents[I], misc_costs[I])
 		qdel(SO)
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
@@ -182,13 +182,10 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/presale_points = D.account_balance
 
-	if(!GLOB.exports_list.len) // No exports list? Generate it!
-		setupExports()
-
 	var/msg = ""
 	var/matched_bounty = FALSE
 
-	var/datum/export_report/ex = new
+	var/datum/export_report/report = new
 
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
@@ -198,27 +195,21 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 			if(bounty_ship_item_and_contents(AM, dry_run = FALSE))
 				matched_bounty = TRUE
 			if(!AM.anchored)
-				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
-			else if(!ismachinery(AM))
-				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
-				export_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
-
-	if(ex.exported_atoms)
-		ex.exported_atoms += "." //ugh
+				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = report)
 
 	if(matched_bounty)
 		msg += "Bounty items received. An update has been sent to all bounty consoles. "
 
-	for(var/datum/export/E in ex.total_amount)
-		var/export_text = E.total_printout(ex)
+	for(var/datum/export/export in report.exported_atoms)
+		var/export_text = export.total_printout(report)
 		if(!export_text)
 			continue
 
 		msg += export_text + "\n"
-		D.adjust_money(ex.total_value[E])
+		D.adjust_money(report.total_value[export])
 
 	SSshuttle.centcom_message = msg
-	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
+	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Exported: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
 
 
 //	Generates a box of mail depending on our exports and imports.

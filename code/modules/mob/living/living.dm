@@ -929,8 +929,11 @@
 	if(!has_gravity() || (movement_type & THROWN))
 		return
 	var/blood_exists = locate(/obj/effect/decal/cleanable/blood/trail_holder) in start
-	var/mob/living/carbon/human/humanoid = src
-	var/glowyblood = humanoid.dna.blood_type.glowy
+
+	var/glowyblood = FALSE
+	if(ishuman(src))
+		var/mob/living/carbon/human/humanoid = src
+		glowyblood = humanoid.dna.blood_type.glowy
 
 	if(isturf(start))
 		var/trail_type = getTrail()
@@ -1090,11 +1093,11 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
 
 	// Time to add/remove gravity alerts. sorry for the mess it's gotta be fast
-	var/atom/movable/screen/alert/gravity_alert = alerts["gravity"]
+	var/atom/movable/screen/alert/gravity_alert = alerts[ALERT_GRAVITY]
 	switch(gravity)
 		if(-INFINITY to NEGATIVE_GRAVITY)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/negative))
-				throw_alert("gravity", /atom/movable/screen/alert/negative)
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/negative)
 				ADD_TRAIT(src, TRAIT_MOVE_UPSIDE_DOWN, NEGATIVE_GRAVITY_TRAIT)
 				var/matrix/flipped_matrix = transform
 				flipped_matrix.b = -flipped_matrix.b
@@ -1103,18 +1106,18 @@
 				base_pixel_y += 4
 		if(NEGATIVE_GRAVITY + 0.01 to 0)
 			if(!istype(gravity_alert, /atom/movable/screen/alert/weightless))
-				throw_alert("gravity", /atom/movable/screen/alert/weightless)
+				throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/weightless)
 				ADD_TRAIT(src, TRAIT_MOVE_FLOATING, NO_GRAVITY_TRAIT)
 		if(0.01 to STANDARD_GRAVITY)
 			if(gravity_alert)
-				clear_alert("gravity")
+				clear_alert(ALERT_GRAVITY)
 		if(STANDARD_GRAVITY + 0.01 to GRAVITY_DAMAGE_THRESHOLD - 0.01)
-			throw_alert("gravity", /atom/movable/screen/alert/highgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/highgravity)
 		if(GRAVITY_DAMAGE_THRESHOLD to INFINITY)
-			throw_alert("gravity", /atom/movable/screen/alert/veryhighgravity)
+			throw_alert(ALERT_GRAVITY, /atom/movable/screen/alert/veryhighgravity)
 
 	// If we had no gravity alert, or the same alert as before, go home
-	if(!gravity_alert || alerts["gravity"] == gravity_alert)
+	if(!gravity_alert || alerts[ALERT_GRAVITY] == gravity_alert)
 		return
 	// By this point we know that we do not have the same alert as we used to
 	if(istype(gravity_alert, /atom/movable/screen/alert/weightless))
@@ -1153,13 +1156,6 @@
 	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 	animate(time = 2, flags = ANIMATION_RELATIVE)
 	animate(time = 1, transform = reset_matrix, flags = ANIMATION_RELATIVE)
-
-/mob/living/proc/do_jitter_animation(jitteriness)
-	var/amplitude = min(4, (jitteriness/100) + 1)
-	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff , time = 2, loop = 6, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
-	animate(pixel_x = -pixel_x_diff , pixel_y = -pixel_y_diff , time = 2, flags = ANIMATION_RELATIVE)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = environment ? environment.return_temperature() : T0C
@@ -2160,7 +2156,7 @@
 /mob/living/proc/process_revival(mob/living/simple_animal/target)
 	target.do_jitter_animation(10)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
-	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), TRUE, TRUE), 10 SECONDS)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), HEAL_ALL, TRUE), 10 SECONDS)
 
 /// Admin only proc for making the mob hallucinate a certain thing
 /mob/living/proc/admin_give_hallucination(mob/admin)

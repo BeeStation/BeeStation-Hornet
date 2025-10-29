@@ -22,6 +22,7 @@
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	custom_price = 50
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
@@ -31,6 +32,8 @@
 			if(prob(1))
 				latches = "triple_latch"
 	update_icon()
+
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/storage/toolbox/update_overlays()
 	. = ..()
@@ -162,6 +165,7 @@
 	force = 15
 	throwforce = 18
 	material_flags = NONE
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/toolbox/syndicate/Initialize(mapload)
 	. = ..()
