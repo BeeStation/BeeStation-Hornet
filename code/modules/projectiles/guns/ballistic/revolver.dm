@@ -328,6 +328,7 @@
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
+	can_gunpoint = FALSE
 
 /obj/item/gun/ballistic/revolver/mime/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("Your fingergun is out of ammo!"))
@@ -338,4 +339,5 @@
 
 //The Lethal Version from Advanced Mimery
 /obj/item/gun/ballistic/revolver/mime/magic
+	can_gunpoint = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

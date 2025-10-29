@@ -277,7 +277,7 @@
 		data = list("misc" = 0)
 
 	data["misc"] += delta_time SECONDS * REM
-	affected_mob.jitteriness = min(affected_mob.jitteriness + (2 * delta_time), 10)
+	affected_mob.adjust_timed_status_effect(4 SECONDS * delta_time, /datum/status_effect/jitter, max_duration = 20 SECONDS)
 	if(IS_CULTIST(affected_mob))
 		for(var/datum/action/innate/cult/blood_magic/BM in affected_mob.actions)
 			to_chat(affected_mob, span_cultlarge("Your blood rites falter as holy water scours your body!"))
@@ -307,7 +307,7 @@
 				affected_mob.mind.remove_antag_datum(/datum/antagonist/cult)
 			if(IS_SERVANT_OF_RATVAR(affected_mob))
 				remove_servant_of_ratvar(affected_mob.mind)
-			affected_mob.jitteriness = 0
+			affected_mob.remove_status_effect(/datum/status_effect/jitter)
 			affected_mob.stuttering = 0
 			affected_mob.reagents.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			return
@@ -1090,7 +1090,7 @@
 	. = ..()
 	if(current_cycle > 10 && DT_PROB(7.5, delta_time))
 		to_chat(affected_mob, span_warning("You feel unstable..."))
-		affected_mob.Jitter(2)
+		affected_mob.set_jitter_if_lower(2 SECONDS)
 		current_cycle = 1
 		addtimer(CALLBACK(affected_mob, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 
@@ -1221,7 +1221,7 @@
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.jitteriness = max(affected_mob.jitteriness - 2.5 * delta_time, 0)
+	affected_mob.adjust_timed_status_effect(-5 SECONDS * delta_time, /datum/status_effect/jitter)
 	if(DT_PROB(55, delta_time))
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(DT_PROB(30, delta_time))

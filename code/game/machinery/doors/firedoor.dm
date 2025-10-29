@@ -64,9 +64,11 @@
 	var/is_playing_alarm = FALSE
 	///Delay before we deactivate the firelock after detecting the air is fine.
 	var/activation_delay
+	/// Amount of damage we took when we last opened
+	var/damage_until_open = 15
 
 /datum/armor/door_firedoor
-	melee = 30
+	melee = 80
 	bullet = 30
 	laser = 20
 	energy = 20
@@ -99,6 +101,15 @@
 
 	if(alarm_type) // Fucking subtypes fucking mappers fucking hhhhhhhh
 		start_activation_process(alarm_type)
+
+/obj/machinery/door/firedoor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	. = ..()
+	damage_until_open -= damage_amount
+	if (damage_until_open <= 0)
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+		do_sparks(5, TRUE, src)
+		INVOKE_ASYNC(src, PROC_REF(crack_open))
+		damage_until_open = initial(damage_until_open)
 
 /**
  * Sets the offset for the warning lights.
@@ -227,10 +238,17 @@
 		stack_trace("We tried to check a gas_mixture that doesn't exist for its firetype, what are you DOING")
 		return
 
-	if(environment.temperature >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	// Ignore high temperatures when emagged
+	if((environment.temperature >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST) && !(obj_flags & EMAGGED))
 		return FIRELOCK_ALARM_TYPE_HOT
+	// But do the other checks, since otherwise it is just annoying
 	if(environment.temperature <= BODYTEMP_COLD_DAMAGE_LIMIT)
 		return FIRELOCK_ALARM_TYPE_COLD
+	var/pressure = environment.return_pressure()
+	if (pressure < ONE_ATMOSPHERE - 20)
+		return FIRELOCK_ALARM_TYPE_UNDER_PRESSURE
+	if (pressure > WARNING_HIGH_PRESSURE)
+		return FIRELOCK_ALARM_TYPE_OVER_PRESSURE
 	return
 
 /obj/machinery/door/firedoor/proc/process_results(datum/source)
@@ -494,6 +512,11 @@
 	if(!density || welded || !attacked_item)
 		return
 
+	if (obj_flags & EMAGGED)
+		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)
+		open()
+		return
+
 	var/obj/item/card/id/id_card = attacked_item.GetID()
 	if(istype(id_card))
 		if((alarm_type == FIRELOCK_ALARM_TYPE_GENERIC) || check_access(id_card))
@@ -518,7 +541,7 @@
 		correct_state()
 
 
-/obj/machinery/door/firedoor/try_to_crowbar(obj/item/crowbar, mob/user)
+/obj/machinery/door/firedoor/try_to_crowbar(obj/item/crowbar, mob/user, forced = FALSE)
 	if(welded || operating)
 		return
 
@@ -599,7 +622,7 @@
  * changes during the timer, the door doesn't close or open incorrectly.
  */
 /obj/machinery/door/firedoor/proc/correct_state()
-	if(obj_flags & EMAGGED || being_held_open || QDELETED(src))
+	if(being_held_open || QDELETED(src))
 		return //Unmotivated, indifferent, we have no real care what state we're in anymore.
 	if(active && !density) //We should be closed but we're not
 		INVOKE_ASYNC(src, PROC_REF(close))

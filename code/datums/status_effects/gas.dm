@@ -31,6 +31,7 @@
 	name = "Frozen Solid"
 	desc = "You're frozen inside an ice cube, and cannot move! You can still do stuff, like shooting. Resist out of the cube!"
 	icon_state = "frozen"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/freon/Click(location, control, params)
 	. = ..()
