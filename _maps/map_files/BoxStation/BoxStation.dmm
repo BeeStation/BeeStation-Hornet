@@ -2859,16 +2859,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"aOo" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/port)
 "aOx" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -4218,6 +4208,10 @@
 "beW" = (
 /obj/structure/chair/fancy/sofa/corp/corner/concave{
 	dir = 1
+	},
+/obj/machinery/light{
+	name = "Moody Light Fixture";
+	bulb_colour = "#9b1d70"
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hydroponics/garden)
@@ -11574,10 +11568,6 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "cvM" = (
-/obj/machinery/button/door/directional/west{
-	name = "Casino Shutters";
-	id = "casinoshutter"
-	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hydroponics/garden)
 "cvO" = (
@@ -13283,6 +13273,7 @@
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/dark/diagonal_edge,
 /obj/effect/turf_decal/tile/brown/diagonal_centre,
+/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/crew_quarters/lounge)
 "cJr" = (
@@ -15836,15 +15827,6 @@
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"dzS" = (
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/item/toy/crayon/rainbow,
-/obj/item/clothing/head/beret/rainbow,
-/turf/open/floor/iron/white/smooth_half,
-/area/crew_quarters/locker)
 "dzT" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/tcomms{
@@ -24719,6 +24701,7 @@
 /area/solar/port/aft)
 "gRp" = (
 /obj/machinery/camera/directional/south,
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/concrete/tile,
 /area/maintenance/club)
 "gRr" = (
@@ -31220,7 +31203,6 @@
 /obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/dark/diagonal_edge,
 /obj/effect/turf_decal/tile/brown/diagonal_centre,
-/obj/machinery/light/directional/north,
 /turf/open/floor/iron,
 /area/crew_quarters/lounge)
 "jer" = (
@@ -31249,6 +31231,10 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/engineering)
+"jeD" = (
+/obj/machinery/firealarm/directional/north,
+/turf/open/floor/iron,
+/area/hallway/primary/port)
 "jeH" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31487,7 +31473,7 @@
 	},
 /obj/machinery/door/poddoor/shutters{
 	name = "Abandoned Casino Shutters";
-	network_id = "casinoshutter"
+	id = "casinoshutter"
 	},
 /turf/open/floor/iron,
 /area/hydroponics/garden)
@@ -33257,9 +33243,13 @@
 	},
 /obj/structure/table,
 /obj/item/storage/crayons{
-	pixel_y = 7
+	pixel_y = 16;
+	pixel_x = 0
 	},
-/obj/item/storage/crayons,
+/obj/item/storage/crayons{
+	pixel_x = 0;
+	pixel_y = 8
+	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
@@ -37930,6 +37920,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/item/clothing/suit/apron/overalls,
+/obj/item/clothing/gloves/botanic_leather,
 /turf/open/floor/wood,
 /area/maintenance/club)
 "lxt" = (
@@ -44490,6 +44482,12 @@
 	pixel_y = 28;
 	pixel_x = 22
 	},
+/obj/machinery/button/door/directional/south{
+	pixel_x = -5;
+	pixel_y = -27;
+	id = "casinoshutter";
+	name = "Abandonded Casino Shutters"
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/hydroponics/garden)
 "nYz" = (
@@ -44964,10 +44962,20 @@
 /turf/open/floor/iron/grid,
 /area/medical/patients_rooms)
 "oiQ" = (
-/obj/machinery/computer{
+/obj/effect/turf_decal/siding/purple{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/purple{
+/obj/machinery/light{
+	bulb_colour = "#9b1d70";
+	name = "Moody Light Fixture";
+	dir = 4
+	},
+/obj/machinery/light{
+	bulb_colour = "#9b1d70";
+	name = "Moody Light Fixture";
+	dir = 4
+	},
+/obj/structure/frame/computer{
 	dir = 8
 	},
 /turf/open/floor/iron/dark/smooth_half{
@@ -46419,6 +46427,11 @@
 	},
 /obj/effect/turf_decal/siding/purple{
 	dir = 8
+	},
+/obj/machinery/light{
+	bulb_colour = "#9b1d70";
+	name = "Moody Light Fixture";
+	dir = 4
 	},
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
@@ -52609,9 +52622,6 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/suit/space/hardsuit/skinsuit,
 /obj/item/clothing/suit/space/hardsuit/skinsuit,
-/obj/machinery/light/small/directional/north{
-	pixel_x = 12
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -57993,6 +58003,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"taf" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/item/clothing/head/beret/rainbow,
+/obj/item/toy/crayon/rainbow,
+/turf/open/floor/iron/white/smooth_half,
+/area/crew_quarters/locker)
 "tam" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
@@ -59347,7 +59366,6 @@
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/dark/diagonal_edge,
 /obj/effect/turf_decal/tile/brown/diagonal_centre,
-/obj/machinery/light,
 /turf/open/floor/iron,
 /area/crew_quarters/lounge)
 "tyR" = (
@@ -69309,7 +69327,7 @@
 	},
 /obj/machinery/door/poddoor/shutters{
 	name = "Abandoned Casino Shutters";
-	network_id = "casinoshutter"
+	id = "casinoshutter"
 	},
 /turf/open/floor/iron,
 /area/hydroponics/garden)
@@ -88205,7 +88223,7 @@ pJC
 pRg
 aLE
 aNm
-aOo
+aOl
 aXP
 saO
 war
@@ -88717,7 +88735,7 @@ qeQ
 lmy
 eWR
 dcK
-aLE
+jeD
 aNm
 aOl
 eEF
@@ -89500,7 +89518,7 @@ aXs
 hfH
 jWY
 hqF
-dzS
+vBK
 aPA
 aSg
 aSg
@@ -90014,7 +90032,7 @@ gTq
 gsy
 lPS
 lfa
-vBK
+taf
 aPA
 aSg
 aSg
