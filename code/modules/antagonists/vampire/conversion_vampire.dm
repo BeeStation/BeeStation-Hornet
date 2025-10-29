@@ -59,13 +59,6 @@
 	vassaldatum.master = src
 	conversion_target.mind.add_antag_datum(vassaldatum)
 
-	if(istype(my_clan, /datum/vampire_clan/brujah) && my_clan.clan_objective.target == conversion_target.mind)
-		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
-
-		message_admins("[conversion_target], the [conversion_target.mind.assigned_role] has become a Discordant Vassal, they were enthralled by [owner.current].")
-		log_admin("[conversion_target], the [conversion_target.mind.assigned_role] has become a Discordant Vassal, they were enthralled by [owner.current].")
-		return TRUE
-
 	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
 

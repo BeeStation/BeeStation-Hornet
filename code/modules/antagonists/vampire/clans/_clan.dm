@@ -172,29 +172,9 @@
 		to_chat(living_vampire, span_notice("This Vassal is unable to gain a special rank due to innate features."))
 		return FALSE
 
-	// Brujuah clan time
-	if(istype(clan_objective, /datum/objective/brujah) && clan_objective.target == vassaldatum.owner)
-		var/datum/objective/brujah/brujah_objective = clan_objective
-
-		// Find Mind Implant & Destroy
-		for(var/obj/item/implant/mindshield/mindshield in living_vassal.implants)
-			qdel(mindshield)
-
-		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
-		brujah_objective.target_subverted = TRUE
-		to_chat(living_vampire, span_notice("You have turned [living_vassal] into a Discordant Vassal."))
-		playsound(living_vassal, 'sound/effects/rocktap3.ogg', 75)
-		vassaldatum.owner?.announce_objectives()
-		return TRUE
-
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/datum/antagonist/vassal/vassal_path as anything in subtypesof(/datum/antagonist/vassal))
-		if(vampiredatum.special_vassals[initial(vassal_path.special_type)] > 0)
-			continue
-		if(initial(vassal_path.special_type) == DISCORDANT_VASSAL && \
-			!(istype(vampiredatum.my_clan, /datum/vampire_clan/brujah) && vampiredatum.my_clan.clan_objective.target == vassaldatum.owner))
-			continue
 
 		options[initial(vassal_path.name)] = vassal_path
 
@@ -223,9 +203,9 @@
 /datum/vampire_clan/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
 	switch(total_players)
-		if(1 to 20)
+		if(1 to 30)
 			return 1
-		if(21 to 30)
+		if(21 to 40)
+			return 2
+		if(41 to INFINITY)
 			return 3
-		if(31 to INFINITY)
-			return 4

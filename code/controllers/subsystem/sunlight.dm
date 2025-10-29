@@ -1,7 +1,7 @@
 /// How long Sol lasts
-#define TIME_VAMPIRE_DAY 60
+#define TIME_VAMPIRE_DAY 120
 /// The grace period inbetween Sol
-#define TIME_VAMPIRE_NIGHT 600
+#define TIME_VAMPIRE_NIGHT 900
 /// First audio warning that Sol is coming
 #define TIME_VAMPIRE_DAY_WARN 90
 /// Second audio warning that Sol is coming

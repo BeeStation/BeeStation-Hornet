@@ -14,13 +14,9 @@
 
 /datum/vampire_clan/brujah/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
-	owner_datum.special_vassals -= DISCORDANT_VASSAL // Removes Discordant Vassal, which is in the list by default.
-	owner_datum.break_masquerade()
 	vampiredatum.remove_nondefault_powers(return_levels = TRUE)
-	// Copied over from 'clan_tremere.dm' with appropriate adjustment.
-	for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
-		if((initial(power.purchase_flags) & BRUJAH_DEFAULT_POWER))
-			vampiredatum.grant_power(new power)
+
+	// TODO: this is where default powers should be given
 
 /// Raise the damage of both of their hands by four. Copied from 'finalize_spend_rank()' in '_clan.dm'
 /datum/vampire_clan/brujah/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)

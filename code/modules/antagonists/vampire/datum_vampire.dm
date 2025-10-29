@@ -45,8 +45,6 @@
 
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
-	/// Special vassals I own, to not have double of the same type.
-	var/list/datum/antagonist/vassal/special_vassals = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0

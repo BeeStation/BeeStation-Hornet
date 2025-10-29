@@ -74,10 +74,6 @@
 	owner.enslave_mind_to_creator(master.owner)
 	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
 
-	// Handle special vassalss
-	if(special_type)
-		master.special_vassals[special_type] += 1
-
 	// Give powers
 	grant_power(new /datum/action/vampire/recuperate)
 	grant_power(new /datum/action/vampire/distress)
@@ -90,8 +86,6 @@
 
 	// Free them from their Master
 	if(master)
-		if(special_type)
-			master.special_vassals[special_type] -= 1
 		master.vassals -= src
 		owner.enslaved_to = null
 

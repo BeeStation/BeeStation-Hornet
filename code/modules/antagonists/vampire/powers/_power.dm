@@ -23,8 +23,9 @@
 	var/power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	/// Who can purchase the Power
-	var/purchase_flags = NONE // VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER | TREMERE_CAN_BUY | VASSAL_CAN_BUY
+
+	/// What discipline are we associating this power with?
+	var/discipline = NONE	//DISCIPLINE_OBFUSCATE, DISCIPLINE_PRESENCE, etc
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
