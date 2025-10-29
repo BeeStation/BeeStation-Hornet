@@ -5703,14 +5703,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/security/courtroom)
-"bgm" = (
-/obj/machinery/rnd/server,
-/obj/item/toy/figure/rd{
-	pixel_x = -6;
-	pixel_y = 11
-	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/science/server)
 "bgo" = (
 /obj/effect/turf_decal/trimline/green/filled/warning{
 	dir = 8
@@ -18276,6 +18268,14 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness)
+"dEM" = (
+/obj/machinery/rnd/server,
+/obj/item/toy/figure/scientist{
+	pixel_x = 6;
+	pixel_y = 12
+	},
+/turf/open/floor/circuit/green/telecomms/mainframe,
+/area/science/server)
 "dEV" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
@@ -27656,7 +27656,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/mapping_helpers/atmos_auto_connect,
-/obj/machinery/atmospherics/components/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
@@ -54952,9 +54952,9 @@
 /area/hallway/primary/central)
 "lgr" = (
 /obj/machinery/rnd/server,
-/obj/item/toy/figure/scientist{
-	pixel_x = 6;
-	pixel_y = 12
+/obj/item/toy/figure/rd{
+	pixel_x = -6;
+	pixel_y = 11
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -144854,9 +144854,9 @@ rxl
 loP
 lFv
 tJf
-bgm
-fIH
 lgr
+fIH
+dEM
 nmN
 lFv
 hnk
