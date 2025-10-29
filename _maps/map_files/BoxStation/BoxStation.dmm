@@ -17281,6 +17281,15 @@
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
+"eeL" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/item/clothing/head/beret/rainbow,
+/obj/item/toy/crayon/rainbow,
+/turf/open/floor/iron/white/smooth_half,
+/area/crew_quarters/locker)
 "eeW" = (
 /obj/machinery/door/airlock/security{
 	name = "Equipment Room";
@@ -33243,11 +33252,9 @@
 	},
 /obj/structure/table,
 /obj/item/storage/crayons{
-	pixel_y = 16;
-	pixel_x = 0
+	pixel_y = 16
 	},
 /obj/item/storage/crayons{
-	pixel_x = 0;
 	pixel_y = 8
 	},
 /obj/effect/turf_decal/siding/white{
@@ -90018,7 +90025,7 @@ gTq
 gsy
 lPS
 lfa
-vBK
+eeL
 aPA
 aSg
 aSg
