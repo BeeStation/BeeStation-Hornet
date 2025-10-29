@@ -44970,11 +44970,6 @@
 	name = "Moody Light Fixture";
 	dir = 4
 	},
-/obj/machinery/light{
-	bulb_colour = "#9b1d70";
-	name = "Moody Light Fixture";
-	dir = 4
-	},
 /obj/structure/frame/computer{
 	dir = 8
 	},
@@ -58008,8 +58003,14 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/item/clothing/head/beret/rainbow,
-/obj/item/toy/crayon/rainbow,
+/obj/item/clothing/head/beret/rainbow{
+	pixel_x = -1;
+	pixel_y = -5
+	},
+/obj/item/toy/crayon/rainbow{
+	pixel_x = 2;
+	pixel_y = -2
+	},
 /turf/open/floor/iron/white/smooth_half,
 /area/crew_quarters/locker)
 "tam" = (
