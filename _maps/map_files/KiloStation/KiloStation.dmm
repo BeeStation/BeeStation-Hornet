@@ -4845,14 +4845,14 @@
 	name = "Robotics Desk";
 	req_access_txt = "29"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/folder{
 	pixel_x = -6
 	},
 /obj/item/pen{
 	pixel_x = -4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = 8
 	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
@@ -17811,6 +17811,14 @@
 /obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
+"dUK" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -4
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "dUR" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -18683,12 +18691,10 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/structure/desk_bell{
-	pixel_y = 8
-	},
 /obj/item/food/grown/corn{
 	pixel_y = 6
 	},
+/obj/structure/desk_bell/wired/service,
 /turf/open/floor/plating,
 /area/hydroponics)
 "egl" = (
@@ -24225,11 +24231,15 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
-	pixel_x = -4;
+	pixel_x = -6;
 	pixel_y = 4
 	},
 /obj/item/pen{
-	pixel_x = -4
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
@@ -24285,10 +24295,11 @@
 	name = "Cargo Desk";
 	req_access_txt = "50"
 	},
-/obj/structure/desk_bell{
+/obj/item/flashlight,
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = -7;
 	pixel_y = 8
 	},
-/obj/item/flashlight,
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "fVE" = (
@@ -37535,9 +37546,6 @@
 /area/maintenance/disposal/incinerator)
 "kla" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/toy/figure/md{
 	pixel_x = 8;
 	pixel_y = 6
@@ -52787,15 +52795,16 @@
 /obj/item/pen{
 	pixel_x = -4
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/machinery/door/window/northleft{
 	dir = 2;
 	name = "Chemistry Desk";
 	req_access_txt = "5; 33"
 	},
 /obj/structure/table/reinforced,
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 8;
+	pixel_y = 7
+	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "pkC" = (
@@ -64174,12 +64183,12 @@
 /obj/machinery/door/window/southright{
 	name = "Reception Desk"
 	},
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/folder/blue{
 	pixel_x = 4;
 	pixel_y = 4
+	},
+/obj/structure/desk_bell/wired/command{
+	pixel_x = -7
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -65370,15 +65379,16 @@
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/folder{
 	pixel_x = -6
 	},
 /obj/item/pen{
 	pixel_x = -4;
 	pixel_y = 4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = 7;
+	pixel_y = 6
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -74434,8 +74444,9 @@
 /obj/item/folder/yellow{
 	pixel_x = 4
 	},
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -7;
+	pixel_y = 10
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
@@ -79239,8 +79250,8 @@
 	id = "kitchen";
 	name = "Serving Hatch"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -6
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
@@ -107719,7 +107730,7 @@ lLG
 hWS
 geQ
 tdJ
-geQ
+dUK
 rgb
 btE
 buQ

@@ -248,7 +248,7 @@
 				tank_two = null
 				. = TRUE
 		if("toggle")
-			toggle_valve(TRUE)
+			toggle_valve()
 			. = TRUE
 		if("device")
 			if(attached_device)

@@ -10,7 +10,7 @@
 	name = "\improper rabbit"
 	desc = "The hippiest hop around."
 	gender = PLURAL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	health = 15
 	maxHealth = 15
 	icon = 'icons/mob/rabbit.dmi'
