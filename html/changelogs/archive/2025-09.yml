@@ -209,14 +209,14 @@
   - bugfix: Fixed vampires sometimes greentexting when they didn't complete all of
       their objectives
   - bugfix: Fixed the Tremere Dominate ability not being able to resurrect people
-      into ghouls
+      into vassals
   - code_imp: Cleaned up some vampire code
-  - tweak: The vampire department ghoulization objective can no longer ask you to
-      ghoulize more people than possible
+  - tweak: The vampire department vassalization objective can no longer ask you to
+      vassalize more people than possible
   - tweak: Adjusted the roundend report vampire section
   - tweak: Stakes now have a medium weight size meaning people other than the staked
       person can remove them
-  - tweak: Ventrue favorite ghouls lose their ghoul status when leveled up into
+  - tweak: Ventrue favorite vassals lose their vassal status when leveled up into
       a vampire. Be careful Ventrue clan members!
   r1ks-iwnl:
   - bugfix: Bubblegum no longer ends his dashes earlier than he should

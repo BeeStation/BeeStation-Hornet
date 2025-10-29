@@ -219,7 +219,7 @@
 2025-10-18:
   mrmanlikesbt:
   - bugfix: Fixed not being able to manually open a TTV valve
-  - bugfix: Fixed Ventrue vampires not being able to level up their favorite ghoul
+  - bugfix: Fixed Ventrue vampires not being able to level up their favorite vassal
 2025-10-19:
   PowerfulBacon:
   - rscadd: Adds the ability to set the elasticity of rulesets, which will cause the
