@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes 'you lower your weapon' emote being called even after finishing
-      aiming.
-  - bugfix: Fixes the point blank hostage mode while not grabbing the target.
-  - balance: You can now aim at moving targets as long as you yourself are standing
-      still
