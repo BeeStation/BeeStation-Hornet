@@ -1,0 +1,7 @@
+author: BarteG44
+delete-after: true
+changes:
+  - tweak: Culled some lights on Cardinal station
+  - tweak: Added more SMES to Cardinal station
+  - tweak: Reduced the power draw for small light bulbs
+  - bugfix: fixes rnd server cooling on Cardinal station
