@@ -271,7 +271,7 @@
 		if(length(limbs_to_heal))
 			var/obj/item/bodypart/limb = pick(limbs_to_heal)
 			carbon_target.regenerate_limb(limb)
-			target.visible_message(span_notice("[target]'s [limb.name] miraculously regrows!"))
+			target.visible_message(span_notice("[carbon_target]'s [carbon_target.get_bodypart(limb)] miraculously regrows!"))
 			return
 
 		else
@@ -296,16 +296,17 @@
 /obj/projectile/magic/potential/Initialize(mapload)
 	. = ..()
 	//Populate our mutation lists
-	for(var/datum/mutation/mutation as anything in GLOB.all_mutations)
-		switch(mutation.quality)
+	for(var/mutation as anything in GLOB.all_mutations)
+		var/datum/mutation/initialized_mutation = GET_INITIALIZED_MUTATION(mutation)
+		switch(initialized_mutation.quality)
 			if(POSITIVE)
-				if(!length(mutation.species_allowed)) //Skip these, we only want universal mutations on this list
-					good_mutation_list += mutation
+				if(!length(initialized_mutation.species_allowed)) //Skip these, we only want universal mutations on this list
+					good_mutation_list += initialized_mutation
 			if(NEGATIVE)
-				if(!istype(mutation, /datum/mutation/race)) //No monkey in our bad mutations. Staff of change already does this.
-					bad_mutation_list += mutation
+				if(!istype(initialized_mutation, /datum/mutation/race)) //No monkey in our bad mutations. Staff of change already does this.
+					bad_mutation_list += initialized_mutation
 			if(MINOR_NEGATIVE)
-				minor_mutation_list += mutation
+				minor_mutation_list += initialized_mutation
 
 /obj/projectile/magic/potential/on_hit(mob/living/target)
 	if(!iscarbon(target))
@@ -324,7 +325,7 @@
 
 	else
 		var/mutations_to_add = list()
-		if(carbon_target.dna.species.inert_mutation && prob(50)) //if they have an innate species mutation, 50% chance to pick it
+		if(!istype(carbon_target.dna.species.inert_mutation, /datum/mutation/dwarfism) && prob(50)) //if they have an innate species mutation, 50% chance to pick it
 			mutations_to_add += carbon_target.dna.species.inert_mutation
 		else
 			mutations_to_add += pick(good_mutation_list)
@@ -333,13 +334,12 @@
 			mutations_to_add += pick(bad_mutation_list)
 			mutations_to_add += pick(minor_mutation_list)
 
-		for(var/mutation in mutations_to_add)
-			var/datum/mutation/initialized_mutation = GET_INITIALIZED_MUTATION(mutation)
-			initialized_mutation.mutadone_proof = FALSE //We want mutadone to be effective regardless of what was pulled
-			if(carbon_target.dna.mutation_in_sequence(initialized_mutation))
-				carbon_target.dna.activate_mutation(initialized_mutation)
+		for(var/datum/mutation/mutation in mutations_to_add)
+			mutation.mutadone_proof = FALSE //We want mutadone to be effective regardless of what was pulled
+			if(carbon_target.dna.mutation_in_sequence(mutation))
+				carbon_target.dna.activate_mutation(mutation)
 			else
-				carbon_target.dna.add_mutation(initialized_mutation, MUT_EXTRA)
+				carbon_target.dna.add_mutation(mutation, MUT_EXTRA)
 
 		ADD_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED, MAGIC_TRAIT)
 		target.visible_message(span_notice("[target] glows for a brief moment as the magic is absorbed into them!"))
