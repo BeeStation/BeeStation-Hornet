@@ -404,6 +404,8 @@
   - bugfix: Fixes the point blank hostage mode while not grabbing the target.
   - balance: You can now aim at moving targets as long as you yourself are standing
       still
+  - tweak: Job group size is now based off of average job fill numbers, rather than
+      the least populated department.
   Programs-The-Station:
   - rscadd: 'CIrcuits: Added Toggle Component and Set/Reset Component'
   - tweak: Circuits Save/Load Via JSON now store the cell for ease of Admin shenanigans

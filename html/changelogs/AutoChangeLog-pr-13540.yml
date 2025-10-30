@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Job group size is now based off of average job fill numbers, rather than
-      the least populated department.
