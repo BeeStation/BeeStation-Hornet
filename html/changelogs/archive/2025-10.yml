@@ -393,6 +393,11 @@
   - tweak: Aiming has more emotes for different actions.
   - tweak: Exploration research disks can now be purchased from cargo.
 2025-10-30:
+  BarteG44:
+  - tweak: Culled some lights on Cardinal station
+  - tweak: Added more SMES to Cardinal station
+  - tweak: Reduced the power draw for small light bulbs
+  - bugfix: fixes rnd server cooling on Cardinal station
   PowerfulBacon:
   - bugfix: Fixes 'you lower your weapon' emote being called even after finishing
       aiming.
