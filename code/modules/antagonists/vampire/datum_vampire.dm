@@ -33,6 +33,9 @@
 	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
 
+	/// How many humanity points do we have? 0-10
+	var/humanity = 8
+
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	/// If we are currently in a Frenzy
@@ -68,6 +71,8 @@
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
+	/// Humanity display HUD
+	var/atom/movable/screen/vampire/humanity_counter/humanity_display
 
 	/// Tracker so that ghouls know where their master is
 	var/obj/effect/abstract/vampire_tracker_holder/tracker

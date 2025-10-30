@@ -8,11 +8,10 @@
 	/// The name of the clan we're in.
 	var/name = CLAN_CAITIFF
 	/// Description of what the clan is, given when joining and through your antag UI.
-	var/description = "The Caitiff is as basic as you can get with Vampires.\n\
-		No additional abilities are gained, nothing is lost, if you want a plain Vampire, this is it.\n\
-		Your Favorite ghoul will gain the Brawn ability to help in combat."
+	var/description = "The Caitiff are seen as either vile thinbloods, or vile mongrels, either case you are likely not to make many friends.\n\
+		In your case, your blood is strong enough to grant you some basic abilities of various disciplines."
 	/// Description shown when trying to join the clan.
-	var/join_description = "The default, Classic Vampire. You gain nothing, you lose nothing."
+	var/join_description = "The average thinblood, hated by polite kindred society."
 
 	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
 	var/datum/antagonist/vampire/vampiredatum
@@ -29,6 +28,8 @@
 
 	/// How we will drink blood using Feed.
 	var/blood_drink_type = VAMPIRE_DRINK_NORMAL
+
+	var/is_sabbat = FALSE	// In case we want a bad guy clan that doesn't care about the masquerade.
 
 /datum/vampire_clan/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
@@ -83,6 +84,9 @@
 /datum/vampire_clan/proc/on_favorite_ghoul(datum/antagonist/ghoul/favorite/favorite_ghoul)
 	favorite_ghoul.grant_power(new /datum/action/vampire/targeted/brawn)
 
+/**
+ * Called when we level up inside a coffin.
+ */
 /datum/vampire_clan/proc/spend_rank(mob/living/carbon/carbon_ghoul)
 	if(QDELETED(vampiredatum.owner?.current) || vampiredatum.vampire_level_unspent <= 0)
 		return
@@ -103,9 +107,9 @@
 
 	// Show radial menu
 	if(!length(options))
-		to_chat(living_vampire, span_notice("You grow more ancient by the night!"))
+		to_chat(living_vampire, span_notice("You grow more familiar with your powers!"))
 	else
-		to_chat(living_vampire, span_notice("You have the opportunity to grow more ancient. Select a power to advance your Rank."))
+		to_chat(living_vampire, span_notice("You have the opportunity to grow your expertise. Select a power to advance your Rank."))
 
 		// If we're in a closet, anchor the radial menu to it. If not, anchor it to the vampire body
 		var/power_response
@@ -204,7 +208,5 @@
 	switch(total_players)
 		if(1 to 30)
 			return 1
-		if(21 to 40)
+		if(31 to INFINITY)
 			return 2
-		if(41 to INFINITY)
-			return 3

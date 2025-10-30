@@ -1,6 +1,3 @@
-/// A global list of vampire antag datums that have broken the Masquerade
-GLOBAL_LIST_EMPTY(masquerade_breakers)
-
 #define REVELATION_MIN_COOLDOWN	20 SECONDS
 #define REVELATION_MAX_COOLDOWN	1 MINUTES
 

@@ -20,11 +20,11 @@
 
 // ghoul defines
 /// If someone passes all checks and can be ghoulized
-#define ghoulIZATION_ALLOWED 0
+#define GHOULIZATION_ALLOWED 0
 /// If someone has to accept ghoulization
-#define ghoulIZATION_DISLOYAL 1
+#define GHOULIZATION_DISLOYAL 1
 /// If someone is not allowed under any circimstances to become a ghoul
-#define ghoulIZATION_BANNED 2
+#define GHOULIZATION_BANNED 2
 
 // Cooldown defines
 // Used to prevent spamming vampires
@@ -90,7 +90,7 @@
 // Now for the ones that have clan-related shenanigans going on.
 #define DISCIPLINE_POTENCE_BRUJAH list()				// Brawn replaced with brash
 #define DISCIPLINE_PRESENCE_TOREADOR list()				// Masquerade ability added
-#define DISCIPLINE_AUSPEX_MALKAVIAN list()				// Lvl 5 lets them astral project instead.
+#define DISCIPLINE_AUSPEX_MALKAVIAN list(/datum/action/vampire/auspex/advanced)				// Lvl 5 lets them astral project instead.
 #define DISCIPLINE_THAUMATURGY list()					// Weird freaky wizard crossbreeding 5000 years ago. SMH
 #define DISCIPLINE_THINBLOOD list()
 
