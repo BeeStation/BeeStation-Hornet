@@ -1,0 +1,14 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - rscadd: 'CIrcuits: Added Toggle Component and Set/Reset Component'
+  - tweak: Circuits Save/Load Via JSON now store the cell for ease of Admin shenanigans
+      and tutorials.
+  - tweak: Clock Component now has a Clock Divider input to slow down the tick rate.
+  - tweak: Attacking a circuit component with a bare integrated circuit adds it to
+      the circuit.
+  - rscadd: 'Preloaded clipboards: Hardcoded papers can now be added to a clipboard
+      and spawned as one entity.'
+  - rscadd: Circuit Templates via approved_circuits.json . Currently, Design Datums
+      still need to be added manually.
+  - rscadd: Simple In-game tutorial circuits and descriptions. Thanks, Professor!
