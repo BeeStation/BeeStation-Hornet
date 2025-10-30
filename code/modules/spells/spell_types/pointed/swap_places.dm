@@ -13,6 +13,12 @@
 	cast_range = INFINITE //if they have been granted additional vision range, such as a prophet, they can use that range.
 
 
+/datum/action/spell/pointed/swap_places/is_valid_spell(mob/user, atom/target)
+	. = ..()
+	if(!isliving(target))
+		return FALSE
+	return TRUE
+
 /datum/action/spell/pointed/swap_places/on_cast(mob/living/user, atom/target)
 	. = ..()
 	var/turf/user_turf = get_turf(user)

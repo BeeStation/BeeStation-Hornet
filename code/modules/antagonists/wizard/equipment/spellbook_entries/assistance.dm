@@ -85,6 +85,7 @@
 	item_path = /obj/item/blood_contract
 	category = "Assistance"
 	refundable = TRUE //Consumed on use
+	limit = 1
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"

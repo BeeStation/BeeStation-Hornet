@@ -81,7 +81,7 @@
 
 /obj/structure/prison_orb/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, take_damage), max_integrity), 10 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, take_damage), max_integrity, BRUTE, "", FALSE), 10 SECONDS)
 
 /obj/structure/prison_orb/update_icon(updates)
 	cut_overlays()
@@ -271,7 +271,7 @@
 		if(length(limbs_to_heal))
 			var/obj/item/bodypart/limb = pick(limbs_to_heal)
 			carbon_target.regenerate_limb(limb)
-			target.visible_message(span_notice("[target]'s [limb] miraculously regrows!"))
+			target.visible_message(span_notice("[target]'s [limb.name] miraculously regrows!"))
 			return
 
 		else
@@ -296,8 +296,7 @@
 /obj/projectile/magic/potential/Initialize(mapload)
 	. = ..()
 	//Populate our mutation lists
-	var/list/all_mutations = subtypesof(/datum/mutation)
-	for(var/datum/mutation/mutation in all_mutations)
+	for(var/datum/mutation/mutation as anything in GLOB.all_mutations)
 		switch(mutation.quality)
 			if(POSITIVE)
 				if(!length(mutation.species_allowed)) //Skip these, we only want universal mutations on this list
@@ -334,12 +333,13 @@
 			mutations_to_add += pick(bad_mutation_list)
 			mutations_to_add += pick(minor_mutation_list)
 
-		for(var/datum/mutation/mutation in mutations_to_add)
-			mutation.mutadone_proof = FALSE //We want mutadone to be effective regardless of what was pulled
-			if(carbon_target.dna.mutation_in_sequence(mutation))
-				carbon_target.dna.activate_mutation(mutation)
+		for(var/mutation in mutations_to_add)
+			var/datum/mutation/initialized_mutation = GET_INITIALIZED_MUTATION(mutation)
+			initialized_mutation.mutadone_proof = FALSE //We want mutadone to be effective regardless of what was pulled
+			if(carbon_target.dna.mutation_in_sequence(initialized_mutation))
+				carbon_target.dna.activate_mutation(initialized_mutation)
 			else
-				carbon_target.dna.add_mutation(mutation, MUT_EXTRA)
+				carbon_target.dna.add_mutation(initialized_mutation, MUT_EXTRA)
 
 		ADD_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED, MAGIC_TRAIT)
 		target.visible_message(span_notice("[target] glows for a brief moment as the magic is absorbed into them!"))

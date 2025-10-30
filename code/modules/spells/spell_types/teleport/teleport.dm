@@ -6,10 +6,11 @@
 	sound = 'sound/magic/teleport_diss.ogg'
 
 	school = SCHOOL_TRANSLOCATION
-	cooldown_time = 40 SECONDS
+	cooldown_time = 30 SECONDS
 	spell_requirements = NONE
 	invocation = "SCYAR NILA"
 	invocation_type = INVOCATION_SHOUT
+	teleport_mode = TELEPORT_ALLOW_WIZARD
 
 	smoke_type = /obj/effect/particle_effect/smoke
 	smoke_amt = 2
