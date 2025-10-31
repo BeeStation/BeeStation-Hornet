@@ -410,6 +410,22 @@
 	id = "comp_bci_action"
 	build_path = /obj/item/circuit_component/equipment_action/bci
 
+/datum/design/component/gate/toggle
+	name = "Toggle Gate (T Flip-Flop)"
+	id = "comp_gate_toggle"
+	build_path = /obj/item/circuit_component/gate/toggle
+
+/datum/design/component/gate/toggle
+	name = "Toggle Gate (T Flip-Flop)"
+	id = "comp_gate_toggle"
+	build_path = /obj/item/circuit_component/gate/toggle
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_GATE_COMPONENTS)
+
+/datum/design/component/gate/set_reset
+	name = "Set/Reset Component (RS Latch)"
+	id = "comp_gate_set_reset"
+	build_path = /obj/item/circuit_component/gate/set_reset
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_GATE_COMPONENTS)
 /*
 /datum/design/component/mod_action
 	name = "MOD Action Component"
