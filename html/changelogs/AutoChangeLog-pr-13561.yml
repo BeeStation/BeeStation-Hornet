@@ -1,0 +1,6 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - rscadd: Added an AI access foyer to radstation
+  - rscadd: Added intercoms to radstation AI sat(oops)
+  - tweak: moved the AI sat access from the bridge to the foyer.
