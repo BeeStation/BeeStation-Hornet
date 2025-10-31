@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/box/syndie_kit/contract_kit
 	cost = 20
 	player_minimum = 15
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/bundle_A
 	name = "Syndi-kit Tactical"
@@ -290,7 +290,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			you will receive. May contain discontinued and/or exotic items."
 	item = /obj/item/storage/box/syndie_kit/bundle_A
 	cost = 20
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/bundle_B
 	name = "Syndi-kit Special"
@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			In Syndi-kit Special, you will receive items used by famous syndicate agents of the past. Collectively worth more than 20 telecrystals, the syndicate loves a good throwback."
 	item = /obj/item/storage/box/syndie_kit/bundle_B
 	cost = 20
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/surplus
 	name = "Syndicate Surplus Crate"
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/structure/closet/crate
 	cost = 20
 	player_minimum = 20
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	var/starting_crate_value = 50
 	var/uplink_contents = UPLINK_TRAITORS
 
@@ -318,7 +318,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 40
 	player_minimum = 30
 	starting_crate_value = 125
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/user_uplink)
 	var/list/uplink_items = get_uplink_items(uplink_contents, FALSE)
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			With their all new kit, codenamed 'scam' the syndicate attempted to extract the energy of the die of fate to \
 			make a loot-box style system but failed, so instead just fake their randomness using a corgi to sniff out the items to shove in it.\
 			Item price not guaranteed. Can contain normally unobtainable items."
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	uplink_contents = (UPLINK_TRAITORS | UPLINK_NUKE_OPS)
 	player_minimum = 30
 
@@ -578,7 +578,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/holoparasite_creator/tech
 	cost = 18
 	surplus = 10
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	player_minimum = 25
 	restricted = TRUE
 	refundable = TRUE
@@ -779,7 +779,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 16
 	player_minimum = 20
 	surplus = 10
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
@@ -2063,7 +2063,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 //Race-specific items
 /datum/uplink_item/race_restricted
 	category = "Species-Restricted"
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	surplus = 0
 
 /datum/uplink_item/race_restricted/syndilamp
@@ -2102,7 +2102,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	surplus = 0
 
 /datum/uplink_item/role_restricted/ancient_jumpsuit
@@ -2384,7 +2384,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/holoparasite_creator/carp
 	cost = 18
 	surplus = 5
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)

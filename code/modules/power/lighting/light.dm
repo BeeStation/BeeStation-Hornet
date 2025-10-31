@@ -680,6 +680,8 @@
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
 	brightness = 6
+	idle_power_usage = 0.014 KILOWATT
+	active_power_usage = 0.14 KILOWATT // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
