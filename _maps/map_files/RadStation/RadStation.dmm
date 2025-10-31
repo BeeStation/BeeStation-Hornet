@@ -4222,7 +4222,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/state_laws,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/bridge)
 "bqq" = (
@@ -18530,15 +18529,7 @@
 /area/crew_quarters/heads/captain)
 "fQL" = (
 /obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/space/nearstation)
 "fQS" = (
@@ -30046,32 +30037,20 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/multitool{
-	pixel_y = 4;
-	pixel_x = 17
+	pixel_y = 1;
+	pixel_x = 8
 	},
 /obj/item/computer_hardware/hard_drive/portable/advanced{
-	pixel_y = -2;
-	pixel_x = -9
-	},
-/obj/item/computer_hardware/hard_drive/portable/advanced{
-	pixel_y = -9;
+	pixel_y = 6;
 	pixel_x = -7
 	},
 /obj/item/computer_hardware/hard_drive/portable/super{
 	pixel_y = 8;
-	pixel_x = -3
+	pixel_x = -5
 	},
-/obj/item/computer_hardware/hard_drive/portable/super{
-	pixel_y = 10;
-	pixel_x = -7
-	},
-/obj/item/wirecutters{
-	pixel_y = -2;
-	pixel_x = 9
-	},
-/obj/item/screwdriver{
-	pixel_y = 3;
-	pixel_x = 9
+/obj/item/computer_hardware/processor_unit/small{
+	pixel_y = 9;
+	pixel_x = -5
 	},
 /turf/open/floor/iron/smooth_large,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -39008,6 +38987,13 @@
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
+/obj/item/radio/intercom{
+	broadcasting = 1;
+	frequency = 1447;
+	name = "Private AI Channel";
+	pixel_y = -31;
+	pixel_x = 22
+	},
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "mLd" = (
@@ -45506,6 +45492,8 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
+/obj/item/computer_hardware/ai_slot,
+/obj/item/computer_hardware/ai_slot,
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "oTf" = (
@@ -51595,10 +51583,13 @@
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/structure/table/reinforced,
-/obj/item/computer_hardware/processor_unit/small,
-/obj/item/computer_hardware/processor_unit/small{
-	pixel_y = -3;
-	pixel_x = 5
+/obj/item/wirecutters{
+	pixel_y = 6;
+	pixel_x = -2
+	},
+/obj/item/screwdriver{
+	pixel_y = 3;
+	pixel_x = 9
 	},
 /turf/open/floor/iron/smooth_large,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -54010,15 +54001,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/captain)
 "rFp" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -58954,15 +58937,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/solar/port/fore)
 "tlI" = (
@@ -62014,15 +61989,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "ufT" = (
@@ -62545,14 +62512,29 @@
 	dir = 6
 	},
 /obj/machinery/light/cold/no_nightlight/directional/south,
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1447;
-	name = "Private AI Channel";
-	pixel_y = -30;
-	pixel_x = 29
+/obj/structure/wall_closet/generic/directional/south{
+	pixel_x = 7
 	},
-/obj/structure/wall_closet/generic/directional/south,
+/obj/item/computer_hardware/hard_drive/portable/super,
+/obj/item/computer_hardware/hard_drive/portable/super,
+/obj/item/computer_hardware/hard_drive/portable/super,
+/obj/item/computer_hardware/hard_drive/portable/advanced,
+/obj/item/computer_hardware/hard_drive/portable/advanced,
+/obj/item/computer_hardware/hard_drive/portable,
+/obj/item/computer_hardware/hard_drive/portable,
+/obj/item/computer_hardware/hard_drive,
+/obj/item/computer_hardware/hard_drive,
+/obj/item/computer_hardware/battery/standard,
+/obj/item/computer_hardware/battery/standard,
+/obj/item/computer_hardware/battery/tiny,
+/obj/item/computer_hardware/battery/tiny,
+/obj/item/computer_hardware/identifier,
+/obj/item/computer_hardware/identifier,
+/obj/item/computer_hardware/identifier,
+/obj/item/computer_hardware/processor_unit/small,
+/obj/item/computer_hardware/processor_unit/small,
+/obj/item/computer_hardware/processor_unit,
+/obj/item/computer_hardware/processor_unit,
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "umL" = (
@@ -68148,15 +68130,7 @@
 /area/hallway/secondary/service)
 "wgF" = (
 /obj/structure/lattice/catwalk,
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
+/obj/structure/marker_beacon/burgundy,
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai_upload)
 "wgX" = (
