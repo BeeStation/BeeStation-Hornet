@@ -1078,10 +1078,10 @@
 "akH" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "2-4"
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
@@ -1097,10 +1097,10 @@
 "akR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4007,6 +4007,16 @@
 "aNQ" = (
 /turf/closed/wall,
 /area/medical/cryo)
+"aOb" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "aOf" = (
 /obj/machinery/flasher{
 	id = "AI";
@@ -21990,6 +22000,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"fin" = (
+/obj/machinery/power/solar{
+	id = "aftstarboard";
+	name = "Aft-Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "fiy" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -36918,6 +36938,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"jZu" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "jZM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -49957,6 +49984,16 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"ooY" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "oph" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/camera/directional/south{
@@ -53897,16 +53934,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/aft)
-"pAn" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/space/nearstation)
 "pAw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57876,6 +57903,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"qRJ" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "qRS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72399,6 +72436,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/mixing)
+"vyr" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "vyF" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/red{
@@ -77013,6 +77060,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
+"wUu" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "wUH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -91852,10 +91912,10 @@ crL
 aaa
 aeo
 aeo
-caT
-caT
-cmJ
-caT
+aeo
+aeo
+acm
+aeo
 aaa
 aaa
 aaa
@@ -92357,17 +92417,17 @@ aeu
 aeu
 coy
 cmU
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 bDa
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 acm
 aeo
 aaa
@@ -92798,17 +92858,17 @@ aeo
 aaa
 aaQ
 acm
-iYC
-iYC
-iYC
-pAn
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 ade
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeu
@@ -93384,19 +93444,19 @@ aUz
 aeU
 aeU
 cmU
-jHP
-jHP
-jHP
-jHP
-jHP
+jZu
+jZu
+jZu
+jZu
+jZu
 ckj
 ckj
 ckj
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 acm
 aeo
 aaa
@@ -93825,19 +93885,19 @@ acm
 aeo
 aaa
 cmU
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cFs
 ctE
 ctE
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeU
@@ -94413,17 +94473,17 @@ ajd
 ajd
 ajd
 cmU
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 ckj
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 cmU
 aaa
 aeo
@@ -94854,17 +94914,17 @@ aeu
 aeU
 aeU
 cmU
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 ctE
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeU
@@ -123981,17 +124041,17 @@ aeu
 aeU
 cPR
 cmU
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 ckA
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 acm
 aeo
 acm
@@ -125008,19 +125068,19 @@ aaa
 acm
 aaa
 cmU
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 ckA
 ckA
 ckA
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 acm
 acm
 aaa
@@ -126037,17 +126097,17 @@ aeo
 acm
 aeo
 acm
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 czr
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 acm
 aaQ
 aaa
@@ -127748,17 +127808,17 @@ wRr
 mMY
 bkd
 efK
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 cjl
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 cmU
 cmU
 aeU
@@ -128775,19 +128835,19 @@ aeu
 aeu
 aeu
 aeu
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 crb
 crb
 crb
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 aeU
 aeU
 ktS
@@ -129032,11 +129092,11 @@ aeu
 aeu
 aeU
 cmU
-adS
-qsO
-qsO
-qsO
-qsO
+vyr
+wUu
+wUu
+wUu
+wUu
 oFO
 pEx
 xQl
@@ -129804,17 +129864,17 @@ aaa
 aeU
 aeU
 cmU
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 crb
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 aaa
 aeU
 coy
@@ -130061,11 +130121,11 @@ aaa
 aaa
 aeU
 aUz
-adS
-qsO
-qsO
-qsO
-qsO
+vyr
+wUu
+wUu
+wUu
+wUu
 crb
 cXK
 cXK
