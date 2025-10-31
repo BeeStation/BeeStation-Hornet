@@ -36938,13 +36938,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
-"jZu" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/port/aft)
 "jZM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -93444,11 +93437,11 @@ aUz
 aeU
 aeU
 cmU
-jZu
-jZu
-jZu
-jZu
-jZu
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 ckj
 ckj
 ckj
