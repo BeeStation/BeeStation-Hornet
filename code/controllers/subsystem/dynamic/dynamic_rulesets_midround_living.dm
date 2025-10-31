@@ -188,7 +188,7 @@
 /datum/dynamic_ruleset/midround/living/obsessed/get_poll_icon()
 	return icon('icons/obj/clothing/masks.dmi', icon_state = "mad_mask")
 
-/// Obsessed are special little snowflakes that have their own code
+/// Obsessed are special little cupcakes that require snowflake code
 /datum/dynamic_ruleset/midround/living/obsessed/trim_candidates()
 	SHOULD_CALL_PARENT(FALSE)
 	for(var/mob/candidate in candidates)
@@ -226,6 +226,7 @@
 			continue
 
 /datum/dynamic_ruleset/midround/living/obsessed/execute()
+	SHOULD_CALL_PARENT(FALSE)
 	// Get our candidates
 	set_drafted_players_amount()
 	get_candidates()
