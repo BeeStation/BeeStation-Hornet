@@ -418,3 +418,6 @@
   - rscadd: Circuit Templates via approved_circuits.json . Currently, Design Datums
       still need to be added manually.
   - rscadd: Simple In-game tutorial circuits and descriptions. Thanks, Professor!
+2025-10-31:
+  mrmanlikesbt:
+  - tweak: The map vote is now sent during the shuttle ride to centcom
