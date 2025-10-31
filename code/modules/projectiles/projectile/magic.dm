@@ -256,7 +256,7 @@
 	if(!isliving(target))
 		return
 
-	if(target.suiciding || !target.can_be_revived())
+	if(target.suiciding)
 		target.visible_message(span_warning("[target]'s body twitches a bit, but it seems the wand's magic is not powerful enough!"))
 		return
 
