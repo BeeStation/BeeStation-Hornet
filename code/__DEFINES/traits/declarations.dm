@@ -35,6 +35,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WHISPER_ONLY "whisper_only"
 
 //mob traits
+///Potential unlocked with wizard staff (they have every mutation activated)
+#define TRAIT_POTENTIAL_UNLOCKED "potential_unlocked"
 #define TRAIT_BLIND "blind"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"

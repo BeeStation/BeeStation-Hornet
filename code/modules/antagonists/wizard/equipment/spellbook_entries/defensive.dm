@@ -78,14 +78,13 @@
 	spell_type = /datum/action/spell/conjure/bee
 	category = "Defensive"
 
-//There was supposed to be a cursed duffelbag that eats you but it requires code beyond the scope of this pr
-
-/datum/spellbook_entry/item/staffhealing
-	name = "Staff of Healing"
-	desc = "An altruistic staff that can heal the lame and raise the dead."
-	item_path = /obj/item/gun/magic/staff/healing
-	cost = 1
+//Essentially a lesser version of the locker staff that doesn't require a staff and is cheaper
+/datum/spellbook_entry/arcane_prison
+	name = "Arcane Prison"
+	desc = "Fires a sphere of magical energy that captures the first living target it hits inside for a short time."
+	spell_type = /datum/action/spell/pointed/projectile/arcane_prison
 	category = "Defensive"
+	cost = 1
 
 /datum/spellbook_entry/item/lockerstaff
 	name = "Staff of the Locker"
@@ -112,17 +111,6 @@
 	new /obj/item/camera_film(get_turf(user))
 	. = ..()
 
-/datum/spellbook_entry/item/wands
-	name = "Wand Assortment"
-	desc = "A collection of wands that allow for a wide variety of utility. \
-		Wands have a limited number of charges, so be conservative with their use. Comes in a handy belt."
-	item_path = /obj/item/storage/belt/wands/full
-	category = "Defensive"
-
-/datum/spellbook_entry/item/wands/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
-	var/was_equipped = user.equip_to_slot_if_possible(to_equip, ITEM_SLOT_BELT, disable_warning = TRUE)
-	to_chat(user, ("<span class='notice'>\A [to_equip.name] has been summoned [was_equipped ? "on your waist" : "at your feet"].</span>"))
-
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armour Set"
 	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space."
@@ -148,5 +136,19 @@
 	name = "Battlemage Armour Charges"
 	desc = "A powerful defensive rune, it will grant eight additional charges to a battlemage shield."
 	item_path = /obj/item/wizard_armour_charge
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/item/healing_wand
+	name = "Wand of Healing"
+	desc = "A wand that can close any wound, though it cannot restore limbs or organs. You can use it on yourself."
+	item_path = /obj/item/gun/magic/wand/healing
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/item/ice_wand
+	name = "Wand of Icy Blast"
+	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
+	item_path = /obj/item/gun/magic/wand/icy_blast
 	category = "Defensive"
 	cost = 1
