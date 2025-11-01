@@ -187,7 +187,7 @@
 
 /datum/status_effect/vampire_sol
 	id = "vampire_sol"
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/vampire_sol
 	var/list/datum/action/vampire/burdened_actions
 

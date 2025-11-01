@@ -30,7 +30,7 @@
 	REMOVE_TRAIT(owner, TRAIT_NOSOFTCRIT, type)
 	REMOVE_TRAIT(owner, TRAIT_NOBREATH, type)
 
-/datum/status_effect/unholy_determination/tick()
+/datum/status_effect/unholy_determination/tick(seconds_between_ticks)
 	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
 	var/healing_amount = 1 + (2 - owner.usable_legs)
 

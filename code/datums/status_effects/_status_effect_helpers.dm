@@ -35,6 +35,7 @@
 				// Refresh the existing type, then early return
 				if(STATUS_EFFECT_REFRESH)
 					existing_effect.refresh(arglist(arguments))
+					return
 				if(STATUS_EFFECT_MERGE)
 					var/list/merge_arguments = args.Copy(2) // Skip the first argument (the mob)
 					existing_effect.merge(arglist(merge_arguments))
@@ -42,7 +43,8 @@
 
 	// Create the status effect with our mob + our arguments
 	var/datum/status_effect/new_instance = new new_effect(arguments)
-	return new_instance
+	if(!QDELETED(new_instance))
+		return new_instance
 
 /**
  * Removes all instances of a given status effect from this mob
