@@ -60,6 +60,8 @@
 		return
 	masquerade_infractions++
 
+	owner.current.playsound_local(null, 'sound/vampires/masquerade_violation.ogg', 50, TRUE)
+
 	if(masquerade_infractions >= 3)
 		break_masquerade()
 	else

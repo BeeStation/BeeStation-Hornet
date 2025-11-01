@@ -69,6 +69,8 @@
 	var/atom/movable/screen/vampire/blood_counter/blood_display
 	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
+	/// Vampire humanity display HUD
+	var/atom/movable/screen/vampire/rank_counter/humanity_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
@@ -144,6 +146,11 @@
 
 	current_mob.faction |= FACTION_VAMPIRE
 
+	// Teach them the old knowledge
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodthrone)
+
 	if(current_mob.hud_used)
 		on_hud_created()
 	else
@@ -184,6 +191,11 @@
 
 	current_mob.faction -= FACTION_VAMPIRE
 
+	// Tiny lobotomy
+	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/bloodthrone)
+
 /datum/antagonist/vampire/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
@@ -199,6 +211,10 @@
 	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter()
 	sunlight_display.hud = vampire_hud
 	vampire_hud.infodisplay += sunlight_display
+
+	humanity_display = new /atom/movable/screen/vampire/humanity_counter()
+	humanity_display.hud = vampire_hud
+	vampire_hud.infodisplay += humanity_display
 
 	vampire_hud.show_hud(vampire_hud.hud_version)
 	UnregisterSignal(owner.current, COMSIG_MOB_HUD_CREATED)
@@ -418,6 +434,77 @@
 
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
+
+
+/**
+ * ##add_humanity(count)
+ *
+ * Adds the specified amount of humanity to the vampire
+ * Checks to make sure it doesn't exceed 10,
+ * Adds the masquerade power at 9 or above
+ */
+/datum/antagonist/vampire/proc/add_humanity(count)
+	var/temp_humanity = humanity + count
+	var/power_given = FALSE
+
+	if (humanity >= 10)
+		return FALSE
+
+	if(temp_humanity > 10)
+		temp_humanity = 10
+		return FALSE
+
+	if(temp_humanity >= 9 && !(locate(/datum/action/vampire/masquerade) in powers))
+		grant_power(new /datum/action/vampire/masquerade)
+		if(humanity < 9)
+			power_given = TRUE
+
+	// Only run this code if there is an actual increase in humanity
+	if(humanity < temp_humanity)
+		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
+		if(power_given)
+			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life! (+[temp_humanity - humanity] humanity.)"))
+		else
+			to_chat(owner.current, span_userdanger("You have gained [temp_humanity - humanity] humanity."))
+
+	humanity = temp_humanity
+
+/**
+ * ##deduct_humanity(count)
+ *
+ * Deducts the specified amount of humanity from the vampire, so, don't put negatives in here.
+ * Checks to make sure it doesn't go under 0,
+ * Removes the masquerade power at less than 8
+ */
+/datum/antagonist/vampire/proc/deduct_humanity(count)
+	var/temp_humanity = humanity - count
+	var/power_removed = FALSE
+
+	if(count <= 0)
+		return FALSE
+
+	if (humanity <= 0)
+		return FALSE
+
+	if(temp_humanity < 0)
+		temp_humanity = 0
+		return
+
+	if(temp_humanity < 8)
+		for(var/datum/action/vampire/masquerade/power in powers)
+			remove_power(power)
+			power_removed = TRUE
+
+	// Only run this code if there is an actual decrease in humanity
+	if(humanity > temp_humanity)
+		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
+
+		if(power_removed)
+			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability! (-[humanity - temp_humanity] humanity.)"))
+		else
+			to_chat(owner.current, span_userdanger("You have lost [humanity - temp_humanity] humanity."))
+
+	humanity = temp_humanity
 
 /**
  * ##clear_power_and_stats()

@@ -86,7 +86,7 @@
 			unbolt(user)
 
 /obj/structure/vampire/ghoulrack
-	name = "persuasion rack"
+	name = "ghouling rack"
 	desc = "If this wasn't meant for torture, then someone has some fairly horrifying hobbies."
 	icon = 'icons/vampires/vamp_obj.dmi'
 	icon_state = "ghoulrack"
@@ -94,15 +94,15 @@
 	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = 180
-	ghost_desc = "This is a ghoul rack, which allows Vampires to thrall crewmembers into loyal minions."
-	vampire_desc = "This is the ghoul rack, which allows you to thrall crewmembers into loyal minions in your service. This costs blood to do.\n\
-		Simply click and hold on a victim, and then drag their sprite on the ghoul rack. Right-click on the persuasion rack to unbuckle them.\n\
-		To convert into a ghoul, repeatedly click on the persuasion rack. The time required scales with the tool in your hand.\n\
-		ghouls can be turned into special ones by continuing to torture them once converted."
-	ghoul_desc = "This is the ghoul rack, which allows your master to thrall crewmembers into their minions.\n\
+	ghost_desc = "This is a ghouling rack, which allows Vampires to turn crewmembers into loyal ghouls."
+	vampire_desc = "This is the ghouling rack, which allows you to turn crewmembers into loyal ghouls in your service. This costs blood to do.\n\
+		Simply click and hold on a victim, and then drag their sprite on the ghouling rack. Right-click on the ghouling rack to unbuckle them.\n\
+		To convert into a ghoul, repeatedly click on the ghouling rack. The time required scales with the tool in your hand.\n\
+		ghouls can be selected as favorites by continuing to torture them once converted."
+	ghoul_desc = "This is the ghouling rack, which allows your master to turn crewmembers into loyal ghouls.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
-		You can secure victims to the ghoul rack by click dragging the victim onto the rack while it is secured."
-	curator_desc = "This is the ghoul rack, which monsters use to brainwash crewmembers into their loyal slaves.\n\
+		You can secure victims to the ghouling rack by click dragging the victim onto the rack while it is secured."
+	curator_desc = "This is the ghouling rack, which monsters use to blood-slave crewmembers into ghouls.\n\
 		They usually ensure that victims are handcuffed, to prevent them from running away.\n\
 		Their rituals take time, allowing us to disrupt it."
 
@@ -114,6 +114,19 @@
 	var/vassilization_offered = FALSE
 	/// No spamming torture
 	var/is_torturing = FALSE
+
+/datum/crafting_recipe/ghoulrack
+	name = "ghouling rack"
+	result = /obj/structure/vampire/ghoulrack
+	time = 5 SECONDS
+
+	reqs = list(
+			/obj/item/stack/sheet/iron = 5,
+			/obj/item/stack/rods = 6,
+			)
+
+	category = CAT_VAMPIRE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
 
 /obj/structure/vampire/ghoulrack/deconstruct(disassembled = TRUE)
 	. = ..()
@@ -365,6 +378,20 @@
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
+/datum/crafting_recipe/candelabrum
+	name = "candelabrum"
+	result = /obj/structure/vampire/candelabrum
+	time = 5 SECONDS
+
+	reqs = list(
+			/obj/item/stack/sheet/iron = 1,
+			/obj/item/stack/rods = 3,
+			/obj/item/candle = 2,
+			)
+
+	category = CAT_VAMPIRE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
+
 /obj/structure/vampire/candelabrum/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -426,6 +453,19 @@
 	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\
 		While buckled, Monsters can use this to telepathically communicate with eachother."
 	var/mutable_appearance/armrest
+
+/datum/crafting_recipe/bloodthrone
+	name = "blood throne"
+	result = /obj/structure/vampire/bloodthrone
+	time = 5 SECONDS
+
+	reqs = list(
+			/obj/item/stack/sheet/iron = 10,
+			/obj/item/stack/rods = 2,
+			)
+
+	category = CAT_VAMPIRE
+	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
 
 // Add rotating and armrest
 /obj/structure/vampire/bloodthrone/Initialize(mapload)
