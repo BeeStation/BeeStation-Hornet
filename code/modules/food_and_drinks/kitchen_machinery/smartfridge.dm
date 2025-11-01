@@ -772,6 +772,7 @@
 		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/spray,
+		/obj/item/reagent_containers/chem_bag,
 	))
 
 	return is_type_in_typecache(weapon, chemfridge_typecache)
