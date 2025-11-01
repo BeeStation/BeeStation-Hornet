@@ -3,7 +3,7 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
 	banning_key = ROLE_TRAITOR
-	required_living_playtime = 4
+	required_living_playtime = 2
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
@@ -98,7 +98,7 @@
 	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/proc/equip(silent = FALSE)
-	var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
+	var/obj/item/uplink_loc = owner.equip_traitor(src, employer, silent, src)
 	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
 	if(uplink)
 		uplink_ref = WEAKREF(uplink)

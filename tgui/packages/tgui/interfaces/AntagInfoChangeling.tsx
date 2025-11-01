@@ -114,10 +114,12 @@ const AbilitiesSection = (_props) => {
             <Stack.Item textColor="label">
               Your
               <span style={absorbstyle}>&ensp;Absorb DNA</span> ability allows
-              you to steal the DNA and memories of a victim. Your
-              <span style={absorbstyle}>&ensp;Extract DNA Sting</span> ability
-              also steals the DNA of a victim, and is undetectable, but does not
-              grant you their memories or speech patterns.
+              you to steal the DNA and memories of a victim. This also grants
+              you more <b>genetic points</b> and better <b>chemical storage</b>.
+              Your <span style={absorbstyle}>&ensp;Extract DNA Sting</span>{' '}
+              ability also steals the DNA of a victim, and is undetectable, but
+              does not grant you their memories or speech patterns, nor does it
+              grant additional genetic points.
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item textColor="label">
