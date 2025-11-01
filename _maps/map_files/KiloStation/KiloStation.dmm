@@ -10755,7 +10755,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	name = "O2 to Airmix"
+	name = "O2 to Airmix";
+	target_pressure = 4500
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -26265,7 +26266,8 @@
 "gFB" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
-	name = "Air to Distro"
+	name = "Air to Distro";
+	target_pressure = 200
 	},
 /obj/structure/sign/warning/fire{
 	pixel_x = 32
@@ -58781,7 +58783,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
-	name = "Nitrogen Outlet"
+	name = "Nitrogen Outlet";
+	target_pressure = 4500
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
