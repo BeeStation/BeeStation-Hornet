@@ -1,5 +1,7 @@
 /datum/antagonist/traitor
 	ui_name = "TraitorBackstoryMenu"
+	/// Stores unlock texts so that, even if the uplink is destroyed we retain this piece of data in the UI
+	var/permanent_unlock_text
 
 /// We will handle this ourselves, thank you.
 /datum/antagonist/traitor/make_info_button()
@@ -38,6 +40,7 @@
 		data["employer"] = employer
 
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+	// Store unlock info if uplink is present
 	data["antag_name"] = name
 	data["has_codewords"] = has_codewords
 	if(has_codewords)
@@ -46,8 +49,12 @@
 	data["code"] = islist(uplink?.unlock_code) ? english_list(uplink?.unlock_code) : uplink?.unlock_code
 	data["failsafe_code"] = islist(uplink?.failsafe_code) ? english_list(uplink?.failsafe_code) : uplink?.failsafe_code
 	data["has_uplink"] = uplink ? TRUE : FALSE
-	if(uplink)
-		data["uplink_unlock_info"] = uplink.unlock_text
+	// Sets permanent unlock text ONCE
+	// Without this, when the uplink was taken from the PDA the message would also dissapear.
+	if(!permanent_unlock_text && uplink && uplink.unlock_text)
+		permanent_unlock_text = uplink.unlock_text
+
+	data["uplink_unlock_info"] = permanent_unlock_text || uplink?.unlock_text
 	data["objectives"] = get_objectives()
 
 	return data
