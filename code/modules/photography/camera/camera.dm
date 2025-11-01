@@ -49,7 +49,7 @@
 			// put detactable atom list here
 			/mob/dead/observer,
 			/mob/living/simple_animal/revenant,
-			/mob/living/simple_animal/hostile/floor_cluwne
+			/mob/living/simple_animal/hostile/floor_cluwne,
 		))
 
 /obj/item/camera/attack_self(mob/user)

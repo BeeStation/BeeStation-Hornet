@@ -11,8 +11,8 @@
 		/atom/movable/lighting_object,
 		/obj/projectile,
 		/obj/structure/chisel_message,
-		/mob/living/simple_animal/eminence
-		))
+		/mob/living/simple_animal/eminence,
+	))
 	var/list/processing_list = list(location)
 	. = list()
 	while(processing_list.len)

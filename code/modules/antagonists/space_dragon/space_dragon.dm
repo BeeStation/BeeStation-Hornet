@@ -41,7 +41,7 @@
 		/area/bridge,
 		/area/engine,
 		/area/security,
-		/area/science
+		/area/science,
 	))
 	// Things included above that we do NOT want
 	var/list/area/blocked_areas = typecacheof(list(

@@ -44,16 +44,16 @@
 	discovery_points = 8000
 
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/anomaly,
-	/obj/eldritch/narsie,
-	/obj/effect,
-	/obj/machinery,
-	/obj/structure,
-	/obj/item/radio/intercom,
-	/mob/camera,
-	/obj/item/storage/secure/safe,
-	/mob/living
+		/atom/movable/screen,
+		/obj/anomaly,
+		/obj/eldritch/narsie,
+		/obj/effect,
+		/obj/machinery,
+		/obj/structure,
+		/obj/item/radio/intercom,
+		/mob/camera,
+		/obj/item/storage/secure/safe,
+		/mob/living,
 	))
 	var/atom/movable/form = null
 	var/morphed = FALSE
