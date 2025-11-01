@@ -742,6 +742,23 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	message_admins("[key_name_admin(src)] ran [val] empty queries.")
 
+/client/proc/test_pathfinding()
+	set category = "Debug"
+	set name = "Toggle Pathfind Testing"
+	set desc = "Enables/Disables pathfinding testing action buttons"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Pathfind Testing")
+	log_admin("[key_name(src)] [holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools")
+	message_admins(span_adminnotice("[key_name_admin(src)] [holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools."))
+
+	if(!holder.path_debug)
+		holder.path_debug = new(holder)
+	else
+		QDEL_NULL(holder.path_debug)
+
 /client/proc/generate_ruin()
 	set category = "Debug"
 	set name = "Generate Ruin"
