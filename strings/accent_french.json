@@ -3,14 +3,16 @@
 		"yes": "oui",
 		"no": "non",
 		"I'm": "j'",
-		"am": "suis",
 		"a": "un",
 		"and": "et",
 		"the": "l'",
-		"I": "je",
 		"for": "pour",
 		"with": "avec",
 		"of": "de",
+		"okay": "bon",
+		"ok": "bon",
+		"france": "france",
+		"french": "française",
 		"assistant": "ravageur",
 		"assistants": "ravageurs",
 		"baby": ["enfant", "petit baguette"],
@@ -19,8 +21,7 @@
 		"cake": "gateau",
 		"captain": "capitaine",
 		"changeling": "changeur",
-		"cheese": ["brie", "roquefort", "camembert"],
-		"cigarette": "clope",
+		"cheese": ["fromage", "brie"],
 		"cook": "cuisinier",
 		"dad": "papa",
 		"enemy": "silly english dog",
@@ -29,31 +30,32 @@
 		"greytide": "les gitans",
 		"greytider": "les gitans",
 		"greytiders": "les gitans",
-		"hardsuit": "burkini",
 		"hello": ["'allo", "bonjour", "salut"],
 		"maint": "les banlieues",
 		"meat": ["coq au vin", "boeuf"],
 		"mom": "maman",
 		"my": "mon",
-		"nuke": ["grand bombe", "la baguette ultime"],
+		"nuke": ["grande bombe", "la baguette ultime"],
 		"op": "boche",
 		"operative": "boche",
 		"operatives": "boches",
 		"ops": "boches",
 		"security": "securite",
 		"shit": "merde",
+		"stop": "arrête",
+		"asshole": "putain",
+		"holy shit": "saperlipopette",
 		"sec": ["gendarmerie", "les keufs"],
 		"shitcurity": ["gendarmerie", "les keufs"],
 		"shitsec": ["gendarmerie", "les keufs"],
 		"spaghetti": "macaroni",
 		"spicy": "epice",
 		"thanks": "merci",
+		"thank you": "Merci beaucoup",
 		"tomato": "tomate",
 		"traitor": "collaborateur",
-		"want": "envie",
 		"what's": "quel est",
 		"who's": "qui est",
-		"why": "porquois",
 		"wine": "vin",
 		"wizard": "sorcier",
 		"fuck you": "va te faire enculer",
@@ -61,6 +63,17 @@
 },
 
 	"end": {
-		"ty": "te"
+		"ty": "té",
+		"ion": "ión"
+},
+
+	"start": {
+		"h": "'",
+		"th": "'z"
+},
+
+	"syllables": {
+		"th": "'z"
 }
+
 }
