@@ -33,7 +33,7 @@ $font-size: 24px;
   @include meta.load-css('../components/Tabs.scss');
   @include meta.load-css(
     '../components/Section.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.1))
+    $with: ('background-color': hsla(0, 0%, 0%, 0.1))
   );
   @include meta.load-css(
     '../components/Button.scss',
@@ -43,7 +43,7 @@ $font-size: 24px;
       'color-selected': hsl(0, 90.3%, 32.4%),
       'color-caution': hsl(29.5, 91%, 39%),
       'color-danger': hsl(61.1, 100%, 30.8%),
-      'color-transparent-text': rgba(0, 0, 0, 0.5)
+      'color-transparent-text': hsla(0, 0%, 0%, 0.5)
     )
   );
 
@@ -56,9 +56,9 @@ $font-size: 24px;
   @include meta.load-css(
     '../layouts/TitleBar.scss',
     $with: (
-      'text-color': rgba(0, 0, 0, 0.75),
+      'text-color': hsla(0, 0%, 0%, 0.75),
       'background-color': base.$color-bg,
-      'shadow-color-core': rgba(0, 0, 0, 0.25)
+      'shadow-color-core': hsla(0, 0%, 0%, 0.25)
     )
   );
 
@@ -68,9 +68,9 @@ $font-size: 24px;
     width: 120px;
     border: none;
     background: transparent;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid hsl(0, 0%, 0%);
     outline: none;
-    background-color: rgba(255, 255, 62, 0.8);
+    background-color: hsla(60, 100%, 62%, 0.8);
     padding: 0 4px;
     margin-right: 2px;
     line-height: 17px;
@@ -99,14 +99,14 @@ $font-size: 24px;
     padding: 0 6px;
     font-family: Verdana, sans-serif;
     background-color: transparent;
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     color: inherit;
 
     &::placeholder,
     &:-ms-input-placeholder {
       font-style: italic;
-      color: #777;
-      color: rgba(255, 255, 255, 0.45);
+      color: hsl(0, 0%, 46.7%);
+      color: hsla(0, 0%, 100%, 0.45);
     }
   }
 
@@ -125,9 +125,9 @@ $font-size: 24px;
       display: inline-block;
       border: none;
       background: transparent;
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid hsl(0, 0%, 0%);
       outline: none;
-      background-color: rgba(255, 255, 62, 0.8);
+      background-color: hsla(60, 100%, 62%, 0.8);
       padding: 0 4px;
       margin-right: 2px;
       line-height: 17px;
@@ -139,9 +139,9 @@ $font-size: 24px;
       display: inline-block;
       border: none;
       background: transparent;
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid hsl(0, 0%, 0%);
       outline: none;
-      background-color: rgba(255, 255, 62, 0.8);
+      background-color: hsla(60, 100%, 62%, 0.8);
       padding: 0 4px;
       margin-right: 2px;
       line-height: 17px;
@@ -159,9 +159,9 @@ $font-size: 24px;
 
     border: none;
     background: transparent;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid hsl(0, 0%, 0%);
     outline: none;
-    background-color: rgba(255, 255, 62, 0.8);
+    background-color: hsla(60, 100%, 62%, 0.8);
     padding: 0 4px;
     margin-right: 2px;
     line-height: 17px;
@@ -173,9 +173,9 @@ $font-size: 24px;
 
       border: none;
       background: transparent;
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid hsl(0, 0%, 0%);
       outline: none;
-      background-color: rgba(255, 255, 62, 0.8);
+      background-color: hsla(60, 100%, 62%, 0.8);
       padding: 0 4px;
       margin-right: 2px;
       line-height: 17px;

@@ -8,7 +8,7 @@
 @use '../functions.scss' as *;
 
 $color-default-fill: colors.bg(colors.$primary) !default;
-$background-color: rgba(0, 0, 0, 0) !default;
+$background-color: hsla(0, 0%, 0%, 0) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 

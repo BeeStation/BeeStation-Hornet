@@ -197,10 +197,10 @@ $disabled-color: hsl(0, 0%, 18.8%);
   }
 
   .TextArea {
-    color: white;
+    color: hsl(0, 0%, 100%);
   }
 
   .Modal {
-    background-color: white !important;
+    background-color: hsl(0, 0%, 100%) !important;
   }
 }

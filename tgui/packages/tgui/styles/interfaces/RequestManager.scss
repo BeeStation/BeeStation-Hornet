@@ -80,7 +80,7 @@ $text-color: base.$color-fg !default;
 }
 
 .RequestManager__row:hover {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: hsla(0, 0%, 0%, 0.25);
 }
 
 .RequestManager__row:hover .RequestManager__controlsContainer {
