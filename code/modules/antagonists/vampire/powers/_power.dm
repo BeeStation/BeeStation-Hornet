@@ -23,8 +23,11 @@
 	var/power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	/// Who can purchase the Power
-	var/purchase_flags = NONE // VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER | TREMERE_CAN_BUY | VASSAL_CAN_BUY
+
+	/// What discipline are we associating this power with?
+	var/discipline = NONE	//DISCIPLINE_OBFUSCATE, DISCIPLINE_PRESENCE, etc
+
+	var/special_flags= NONE	//VAMPIRE_DEFAULT_POWER, CLAN_DEFAULT_POWER, etc
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
@@ -36,6 +39,9 @@
 	var/constant_bloodcost = 0
 	/// A multiplier for the bloodcost during sol.
 	var/sol_multiplier = 1
+
+	///The upgraded version of this Power. 'null' means it's the max level.
+	var/upgraded_power = null
 
 // Modify description to add cost.
 /datum/action/vampire/New(Target)
@@ -49,12 +55,12 @@
 /datum/action/vampire/Grant(mob/user)
 	. = ..()
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
-	var/datum/antagonist/vassal/favorite/favorite_vassal = IS_FAVORITE_VASSAL(owner)
+	var/datum/antagonist/ghoul/favorite/favorite_ghoul = IS_FAVORITE_ghoul(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
 		level_current = vampiredatum.vampire_level
-	else if(favorite_vassal)
-		level_current = favorite_vassal.vassal_level
+	else if(favorite_ghoul)
+		level_current = favorite_ghoul.ghoul_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/vampire/on_activate(mob/user, atom/target)
@@ -152,7 +158,7 @@
 	. = ..()
 
 /datum/action/vampire/proc/pay_cost()
-	// Vassals get powers too!
+	// ghouls get powers too!
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))

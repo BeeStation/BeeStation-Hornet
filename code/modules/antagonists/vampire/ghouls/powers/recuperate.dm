@@ -1,4 +1,4 @@
-/// Used by Vassals
+/// Used by ghouls
 /datum/action/vampire/recuperate
 	name = "Sanguine Recuperation"
 	desc = "Slowly heals you overtime using your master's blood, in exchange for some of your own blood and effort."
@@ -8,7 +8,7 @@
 		If you aren't a bloodless race, you will additionally heal Burn damage."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	purchase_flags = NONE
+	special_flags = NONE
 	bloodcost = 1.5
 	cooldown_time = 10 SECONDS
 

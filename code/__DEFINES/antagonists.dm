@@ -159,10 +159,10 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 /// Checks if the given mob is a vampire
 #define IS_VAMPIRE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vampire))
-/// Checks if the given mob is a vassal
-#define IS_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal))
-/// Checks if the given mob is a favorite vassal
-#define IS_FAVORITE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/favorite))
+/// Checks if the given mob is a ghoul
+#define IS_ghoul(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ghoul))
+/// Checks if the given mob is a favorite ghoul
+#define IS_FAVORITE_ghoul(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ghoul/favorite))
 /// Checks if the given mob is a revolutionary
 #define IS_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev))
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))

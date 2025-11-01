@@ -52,11 +52,14 @@
 	vampiredatum.frenzygrab.teach(carbon_owner, TRUE)
 	vampiredatum.frenzied = TRUE
 
-	// Alert them
+	// Alert them // Brother this isn't an alert where is the sound, i'm fixing this shit
 	vampiredatum.disable_all_powers(forced = TRUE)
 	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
-	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
+	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggressively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")
+	carbon_owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 75, TRUE)
+
+	vampiredatum.deduct_humanity(2)
 
 	// Stamina modifier
 	if (ishuman(carbon_owner))

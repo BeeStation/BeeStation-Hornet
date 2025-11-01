@@ -32,13 +32,11 @@
 		remove_power(power)
 
 /**
- * Called near the end of Sol. Give our vampire a level to spend if we aren't Tremere.
+ * Called near the end of Sol. Give our vampire a level to spend.
 **/
 /datum/antagonist/vampire/proc/sol_near_end(atom/source)
 	SIGNAL_HANDLER
-
-	if(!istype(my_clan, /datum/vampire_clan/tremere))
-		INVOKE_ASYNC(src, PROC_REF(rank_up))
+	INVOKE_ASYNC(src, PROC_REF(rank_up))
 
 /**
  * Handles the Sol status effect, called while Sol is risen
@@ -71,7 +69,7 @@
 			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 			return
 
-/datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
+/datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, ghoul_warning_message)
 	SIGNAL_HANDLER
 
 	if(!owner?.current)

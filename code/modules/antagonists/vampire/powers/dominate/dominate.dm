@@ -4,8 +4,8 @@
  *	Level 1 - Mesmerizes target
  *	Level 2 - Mesmerizes and mutes target
  *	Level 3 - Mesmerizes, blinds and mutes target
- *	Level 4 - Target (if at least in crit & has a mind) will revive as a Mute/Deaf Vassal for 5 minutes before dying.
- *	Level 5 - Target (if at least in crit & has a mind) will revive as a Vassal for 8 minutes before dying.
+ *	Level 4 - Target (if at least in crit & has a mind) will revive as a Mute/Deaf ghoul for 5 minutes before dying.
+ *	Level 5 - Target (if at least in crit & has a mind) will revive as a ghoul for 8 minutes before dying.
  */
 
 // Copied from mesmerize.dm
@@ -49,12 +49,12 @@
 	name = "Level 4: Possession"
 	upgraded_power = /datum/action/vampire/targeted/tremere/dominate/advanced/two
 	level_current = 4
-	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
+	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary ghouls."
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
 		This will completely immobilize, mute, and blind them for the next 15 seconds.\n\
-		Additionally, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute vassal.\n\
+		Additionally, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute ghoul.\n\
 		After 5 minutes, they will die.\n\
-		If you use this on a dead Vassal, you will revive them."
+		If you use this on a dead ghoul, you will revive them."
 	background_icon_state = "tremere_power_gold_off"
 	background_icon_state_on = "tremere_power_gold_on"
 	background_icon_state_off = "tremere_power_gold_off"
@@ -63,14 +63,14 @@
 
 /datum/action/vampire/targeted/tremere/dominate/advanced/two
 	name = "Level 5: Possession"
-	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary Vassals."
+	desc = "Mesmerize, mute and blind any foe who stands still long enough, or convert the damaged to temporary ghouls."
 	level_current = 5
 	upgraded_power = null
 	power_explanation = "Click any person to mesmerize them after 4 seconds.\n\
 		This will completely immobilize, mute, and blind them for the next 17 seconds.\n\
-		Additionally, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute vassal.\n\
+		Additionally, if you are adjacent to the target, and they are in critical condition or dead, they will be turned into a temporary mute ghoul.\n\
 		After 8 minutes, they will die.\n\
-		If you use this on a dead Vassal, you will revive them."
+		If you use this on a dead ghoul, you will revive them."
 	bloodcost = 100
 	cooldown_time = 2 MINUTES
 
@@ -105,7 +105,7 @@
 	var/mob/living/living_target = target_atom
 
 	if(living_target.stat >= SOFT_CRIT && owner.Adjacent(living_target) && level_current >= 4)
-		attempt_vassalize(living_target)
+		attempt_ghoulize(living_target)
 	else if(living_target.stat == CONSCIOUS)
 		attempt_mesmerize(living_target)
 
@@ -149,14 +149,14 @@
 	if(living_target in view(6, get_turf(owner)))
 		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")
 
-/datum/action/vampire/targeted/tremere/dominate/proc/attempt_vassalize(mob/living/living_target)
-	var/datum/antagonist/vassal/vassaldatum = IS_VASSAL(living_target)
+/datum/action/vampire/targeted/tremere/dominate/proc/attempt_ghoulize(mob/living/living_target)
+	var/datum/antagonist/ghoul/ghouldatum = IS_ghoul(living_target)
 
 	living_target.balloon_alert(owner, "attempting to revive.")
 	if(!do_after(owner, 6 SECONDS, living_target))
 		return
 
-	if(vassaldatum)
+	if(ghouldatum)
 		power_activated_sucessfully()
 		living_target.balloon_alert(owner, "revived [living_target]!")
 		living_target.mind.grab_ghost()
@@ -167,17 +167,16 @@
 		living_target.balloon_alert(owner, "[living_target.p_their()] body refuses to rise.")
 		return
 
-	if(!vampiredatum_power.can_make_vassal(living_target, ignore_concious_check = TRUE))
+	if(!vampiredatum_power.can_make_ghoul(living_target, ignore_concious_check = TRUE))
 		return
 
-	vampiredatum_power.make_vassal(living_target)
+	vampiredatum_power.make_ghoul(living_target)
 	power_activated_sucessfully()
 
 	living_target.mind.grab_ghost()
 	living_target.revive(HEAL_ALL)
 
-	vassaldatum = IS_VASSAL(living_target)
-	vassaldatum.special_type = TREMERE_VASSAL //don't turn them into a favorite please
+	ghouldatum = IS_ghoul(living_target)
 
 	// You will die in 5 or 8 minutes
 	var/time_to_live
@@ -190,11 +189,11 @@
 	addtimer(CALLBACK(src, PROC_REF(end_possession), living_target), time_to_live)
 
 	// Give alerts
-	to_chat(living_target, span_userdanger("You have been revived as a temporary vassal! You will perish in [DisplayTimeText(time_to_live)]"))
+	to_chat(living_target, span_userdanger("You have been revived as a temporary ghoul! You will perish in [DisplayTimeText(time_to_live)]"))
 	living_target.balloon_alert(owner, "revived [living_target]!")
 
 /datum/action/vampire/targeted/tremere/proc/end_possession(mob/living/target)
 	target.remove_traits(list(TRAIT_MUTE, TRAIT_DEAF), TRAIT_MESMERIZED)
-	target.mind.remove_antag_datum(/datum/antagonist/vassal)
+	target.mind.remove_antag_datum(/datum/antagonist/ghoul)
 	to_chat(target, span_userdanger("You feel the Blood of your Master run out!"))
 	target.death()

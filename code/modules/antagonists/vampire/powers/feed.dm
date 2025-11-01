@@ -17,7 +17,7 @@
 		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	purchase_flags = VAMPIRE_CAN_BUY | VAMPIRE_DEFAULT_POWER
+	special_flags = VAMPIRE_DEFAULT_POWER
 	cooldown_time = 15 SECONDS
 	target_range = 1
 	prefire_message = "Select a target."
@@ -30,6 +30,9 @@
 	var/datum/weakref/target_ref
 	/// Are we feeding with passive grab or not?
 	var/silent_feed = TRUE
+
+	/// Have we fed till fatal?
+	var/feed_fatal = FALSE
 
 /datum/action/vampire/targeted/feed/can_use()
 	. = ..()
@@ -147,7 +150,7 @@
 			continue
 		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 			continue
-		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
+		if(IS_VAMPIRE(watcher) || IS_ghoul(watcher))
 			continue
 
 		owner.balloon_alert(owner, "feed noticed!")
@@ -208,13 +211,14 @@
 	if(vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY && !feed_target.mind) // Snobby
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
 	else if(feed_target.stat == DEAD) // Dead
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_bad)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood_dead)
 	else // Normal
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankblood", /datum/mood_event/drankblood)
 
 	// Alert the vampire to the target's blood level
 	if(feed_target.blood_volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
 		owner.balloon_alert(owner, "your victim's blood is fatally low!")
+		feed_fatal = TRUE
 	else if(feed_target.blood_volume <= BLOOD_VOLUME_OKAY && warning_target_bloodvol > BLOOD_VOLUME_OKAY)
 		owner.balloon_alert(owner, "your victim's blood is dangerously low.")
 	else if(feed_target.blood_volume <= BLOOD_VOLUME_SAFE && warning_target_bloodvol > BLOOD_VOLUME_SAFE)
@@ -243,6 +247,8 @@
 	. = ..()
 	REMOVE_TRAITS_IN(owner, TRAIT_FEED)
 
+	// Did we already take humanity for killing them?
+	var/humanity_deducted = FALSE
 	var/mob/living/feed_target = target_ref?.resolve()
 	if(feed_target)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
@@ -256,6 +262,16 @@
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
+			vampiredatum_power.deduct_humanity(2)
+			humanity_deducted = TRUE
+
+		if(feed_fatal && !humanity_deducted)
+			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
+			vampiredatum_power.deduct_humanity(1)
+
+	feed_fatal = FALSE
+	humanity_deducted = FALSE
+
 	target_ref = null
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM

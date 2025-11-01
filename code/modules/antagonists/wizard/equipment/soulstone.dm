@@ -48,7 +48,7 @@
 
 /obj/item/soulstone/vampire
 	theme = THEME_WIZARD
-	required_role = /datum/antagonist/vassal
+	required_role = /datum/antagonist/ghoul
 
 /obj/item/soulstone/pickup(mob/living/user)
 	..()

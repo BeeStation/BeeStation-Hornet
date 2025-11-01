@@ -13,7 +13,7 @@
 	/// How much blood we can have at once, increases per level.
 	var/max_blood_volume = 600
 
-	/// The vampire team, used for vassals
+	/// The vampire team, used for ghouls
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
@@ -33,6 +33,9 @@
 	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
 
+	/// How many humanity points do we have? 0-10
+	var/humanity = 8
+
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	/// If we are currently in a Frenzy
@@ -43,10 +46,8 @@
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
 	var/datum/martial_art/frenzygrab/frenzygrab = new
 
-	/// Vassals under my control. Periodically remove the dead ones.
-	var/list/datum/antagonist/vassal/vassals = list()
-	/// Special vassals I own, to not have double of the same type.
-	var/list/datum/antagonist/vassal/special_vassals = list()
+	/// ghouls under my control. Periodically remove the dead ones.
+	var/list/datum/antagonist/ghoul/ghouls = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
@@ -68,16 +69,18 @@
 	var/atom/movable/screen/vampire/blood_counter/blood_display
 	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
+	/// Vampire humanity display HUD
+	var/atom/movable/screen/vampire/rank_counter/humanity_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
-	/// Tracker so that vassals know where their master is
+	/// Tracker so that ghouls know where their master is
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
 
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
-	/// Antagonists that cannot be Vassalized no matter what
-	var/static/list/vassal_banned_antags = list(
+	/// Antagonists that cannot be ghoulized no matter what
+	var/static/list/ghoul_banned_antags = list(
 		/datum/antagonist/vampire,
 		/datum/antagonist/changeling,
 		/datum/antagonist/cult,
@@ -143,6 +146,11 @@
 
 	current_mob.faction |= FACTION_VAMPIRE
 
+	// Teach them the old knowledge
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodthrone)
+
 	if(current_mob.hud_used)
 		on_hud_created()
 	else
@@ -153,7 +161,7 @@
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
-	new /obj/structure/vampire/vassalrack(user_loc)
+	new /obj/structure/vampire/ghoulrack(user_loc)
 #endif
 
 /**
@@ -183,6 +191,11 @@
 
 	current_mob.faction -= FACTION_VAMPIRE
 
+	// Tiny lobotomy
+	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/bloodthrone)
+
 /datum/antagonist/vampire/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
@@ -198,6 +211,10 @@
 	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter()
 	sunlight_display.hud = vampire_hud
 	vampire_hud.infodisplay += sunlight_display
+
+	humanity_display = new /atom/movable/screen/vampire/humanity_counter()
+	humanity_display.hud = vampire_hud
+	vampire_hud.infodisplay += humanity_display
 
 	vampire_hud.show_hud(vampire_hud.hud_version)
 	UnregisterSignal(owner.current, COMSIG_MOB_HUD_CREATED)
@@ -360,21 +377,21 @@
 				objectives_complete = FALSE
 				break
 
-	// Now list their vassals
-	if(length(vassals))
-		report += span_header("<br>Their Vassals were...")
-		for(var/datum/antagonist/vassal/vassal in vassals)
-			if(!vassal.owner)
+	// Now list their ghouls
+	if(length(ghouls))
+		report += span_header("<br>Their ghouls were...")
+		for(var/datum/antagonist/ghoul/ghoul in ghouls)
+			if(!ghoul.owner)
 				continue
 
-			var/list/vassal_report = list()
-			vassal_report += "<b>[vassal.owner.name]</b>"
+			var/list/ghoul_report = list()
+			ghoul_report += "<b>[ghoul.owner.name]</b>"
 
-			if(vassal.owner.assigned_role)
-				vassal_report += " the [vassal.owner.assigned_role]"
-			if(IS_FAVORITE_VASSAL(vassal.owner.current))
-				vassal_report += " and was the <b>Favorite Vassal</b>"
-			report += vassal_report.Join()
+			if(ghoul.owner.assigned_role)
+				ghoul_report += " the [ghoul.owner.assigned_role]"
+			if(IS_FAVORITE_ghoul(ghoul.owner.current))
+				ghoul_report += " and was the <b>Favorite ghoul</b>"
+			report += ghoul_report.Join()
 
 	if(objectives_complete)
 		report += span_greentextbig("<br>The [name] was successful!")
@@ -385,7 +402,7 @@
 
 /datum/antagonist/vampire/proc/give_starting_powers()
 	for(var/datum/action/vampire/all_powers as anything in all_vampire_powers)
-		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
+		if(!(initial(all_powers.special_flags) & VAMPIRE_DEFAULT_POWER))
 			continue
 		grant_power(new all_powers)
 
@@ -417,6 +434,77 @@
 
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
+
+
+/**
+ * ##add_humanity(count)
+ *
+ * Adds the specified amount of humanity to the vampire
+ * Checks to make sure it doesn't exceed 10,
+ * Adds the masquerade power at 9 or above
+ */
+/datum/antagonist/vampire/proc/add_humanity(count)
+	var/temp_humanity = humanity + count
+	var/power_given = FALSE
+
+	if (humanity >= 10)
+		return FALSE
+
+	if(temp_humanity > 10)
+		temp_humanity = 10
+		return FALSE
+
+	if(temp_humanity >= 9 && !(locate(/datum/action/vampire/masquerade) in powers))
+		grant_power(new /datum/action/vampire/masquerade)
+		if(humanity < 9)
+			power_given = TRUE
+
+	// Only run this code if there is an actual increase in humanity
+	if(humanity < temp_humanity)
+		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
+		if(power_given)
+			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life! (+[temp_humanity - humanity] humanity.)"))
+		else
+			to_chat(owner.current, span_userdanger("You have gained [temp_humanity - humanity] humanity."))
+
+	humanity = temp_humanity
+
+/**
+ * ##deduct_humanity(count)
+ *
+ * Deducts the specified amount of humanity from the vampire, so, don't put negatives in here.
+ * Checks to make sure it doesn't go under 0,
+ * Removes the masquerade power at less than 8
+ */
+/datum/antagonist/vampire/proc/deduct_humanity(count)
+	var/temp_humanity = humanity - count
+	var/power_removed = FALSE
+
+	if(count <= 0)
+		return FALSE
+
+	if (humanity <= 0)
+		return FALSE
+
+	if(temp_humanity < 0)
+		temp_humanity = 0
+		return
+
+	if(temp_humanity < 8)
+		for(var/datum/action/vampire/masquerade/power in powers)
+			remove_power(power)
+			power_removed = TRUE
+
+	// Only run this code if there is an actual decrease in humanity
+	if(humanity > temp_humanity)
+		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
+
+		if(power_removed)
+			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability! (-[humanity - temp_humanity] humanity.)"))
+		else
+			to_chat(owner.current, span_userdanger("You have lost [humanity - temp_humanity] humanity."))
+
+	humanity = temp_humanity
 
 /**
  * ##clear_power_and_stats()
@@ -513,7 +601,7 @@
 	survive_objective.owner = owner
 	objectives += survive_objective
 
-	// Objective 1: Vassalize a Head/Command, or a specific target
+	// Objective 1: ghoulize a Head/Command, or a specific target
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
 			var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
@@ -557,7 +645,7 @@
 	SIGNAL_HANDLER
 
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
-	if(IS_VASSAL(examiner) in vassals)
+	if(IS_ghoul(examiner) in ghouls)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)

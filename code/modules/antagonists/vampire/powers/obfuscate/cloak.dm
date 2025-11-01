@@ -6,7 +6,6 @@
 		Additionally, while Cloak is active, you are completely invisible to silicons."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
-	purchase_flags = VAMPIRE_CAN_BUY | VASSAL_CAN_BUY
 	bloodcost = 5
 	constant_bloodcost = 0.2
 	sol_multiplier = 2.5
@@ -21,7 +20,7 @@
 	for(var/mob/living/watcher in view(9, owner) - owner)
 		if(watcher.stat == DEAD || QDELETED(watcher.client) || watcher.client?.is_afk())
 			continue
-		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
+		if(IS_VAMPIRE(watcher) || IS_ghoul(watcher))
 			continue
 		if(watcher.is_blind())
 			continue
