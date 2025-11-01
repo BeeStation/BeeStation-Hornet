@@ -62,9 +62,9 @@
 	max_integrity = 300
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
-	var/last_event = 0
-	var/active = null
 	impressiveness = 25 // radiation makes an impression
+
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /obj/structure/statue/uranium/nuke
 	name = "statue of a nuclear fission explosive"
@@ -76,31 +76,34 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/uranium/attackby(obj/item/attacking_item, mob/user, params)
 	radiate()
 	return ..()
 
 /obj/structure/statue/uranium/Bumped(atom/movable/AM)
 	radiate()
-	..()
+	return ..()
 
 /obj/structure/statue/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
-	. = ..()
+	return ..()
 
 /obj/structure/statue/uranium/attack_paw(mob/user)
 	radiate()
-	. = ..()
+	return ..()
 
 /obj/structure/statue/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 30)
-			last_event = world.time
-			active = null
-			return
-	return
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	COOLDOWN_START(src, radiate_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
 
 ////////////////////////////plasma///////////////////////////////////////////////////////////////////////
 

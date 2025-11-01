@@ -139,13 +139,12 @@
 	var/decayedRange //stores original range
 	var/reflect_range_decrease = 5 //amount of original range that falls off when reflecting, so it doesn't go forever
 	var/reflectable = NONE // Can it be reflected or not?
-		//Effects
+	//Effects
 	var/stun = 0
 	var/knockdown = 0
 	var/paralyze = 0
 	var/immobilize = 0
 	var/unconscious = 0
-	var/irradiate = 0
 	var/stutter = 0
 	var/slur = 0
 	var/eyeblur = 0
@@ -300,7 +299,20 @@
 	else
 		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
 
-	return L.apply_effects(stun, knockdown, unconscious, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter, paralyze, immobilize)
+	return L.apply_effects(
+		stun = stun,
+		knockdown = knockdown,
+		unconscious = unconscious,
+		slur = slur,
+		stutter = stutter,
+		eyeblur = eyeblur,
+		drowsy = drowsy,
+		blocked = blocked,
+		stamina = stamina,
+		jitter = jitter,
+		paralyze = paralyze,
+		immobilize = immobilize,
+	)
 
 /obj/projectile/proc/vol_by_damage()
 	if(src.damage)
@@ -633,7 +645,7 @@
 /obj/projectile/proc/return_pathing_turfs_in_moves(moves, forced_angle)
 	var/turf/current = get_turf(src)
 	var/turf/ending = return_predicted_turf_after_moves(moves, forced_angle)
-	return getline(current, ending)
+	return get_line(current, ending)
 
 /obj/projectile/Process_Spacemove(movement_dir = 0)
 	return TRUE	//Bullets don't drift in space

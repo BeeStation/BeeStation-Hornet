@@ -12,6 +12,9 @@
 /// call a merge proc to combine 2 status effects
 #define STATUS_EFFECT_MERGE 4
 
+/// Use in status effect "duration" to make it last forever
+#define STATUS_EFFECT_PERMANENT -1
+
 //Processing flags - used to define the speed at which the status will work
 ///This is fast - 0.2s between ticks (I believe!)
 #define STATUS_EFFECT_FAST_PROCESS 0

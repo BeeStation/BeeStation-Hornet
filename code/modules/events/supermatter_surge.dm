@@ -1,55 +1,135 @@
+#define SURGE_DURATION_MIN 240 SECONDS
+#define SURGE_DURATION_MAX 270 SECONDS
+#define SURGE_SEVERITY_MIN 1
+#define SURGE_SEVERITY_MAX 4
+#define SURGE_SEVERITY_RANDOM 5
+/// The amount of bullet energy we add for the duration of the SM surge
+#define SURGE_BULLET_ENERGY_ADDITION 5
+/// The amount of powerloss inhibition (energy retention) we add for the duration of the SM surge
+#define SURGE_BASE_POWERLOSS_INHIBITION 0.55
+/// The powerloss inhibition scaling based on surge severity
+#define SURGE_POWERLOSS_INHIBITION_MODIFIER 0.175
+/// The power generation scaling based on surge severity
+#define SURGE_POWER_GENERATION_MODIFIER 0.075
+/// The heat modifier scaling based on surge severity
+#define SURGE_HEAT_MODIFIER 0.25
+
+/**
+ * Supermatter Surge
+ *
+ * An engineering challenge event where the properties of the SM changes to be in a 'surge' of power.
+ * For the duration of the event a powerloss inhibition is added to nitrogen, causing the crystal to retain more of its internal energy.
+ * Heat modifier is lowered to generate some heat but not a high temp burn.
+ * Bullet energy from emitters is raised slightly to raise meV while turned on.
+ */
+
 /datum/round_event_control/supermatter_surge
 	name = "Supermatter Surge"
 	typepath = /datum/round_event/supermatter_surge
-	weight = 20
-	max_occurrences = 4
-	earliest_start = 10 MINUTES
+	weight = 15
+	max_occurrences = 1
+	earliest_start = 20 MINUTES
 
-/datum/round_event_control/supermatter_surge/canSpawnEvent()
-	if(GLOB.main_supermatter_engine?.has_been_powered)
-		return ..()
+/datum/round_event_control/supermatter_surge/canSpawnEvent(players_amt)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(isnull(GLOB.main_supermatter_engine))
+		return FALSE
+	if(GLOB.main_supermatter_engine.get_status() == SUPERMATTER_INACTIVE)
+		return FALSE
 
 /datum/round_event/supermatter_surge
-	announceWhen = 1
-	var/power = 2000
+	announceWhen = 4
+	endWhen = 5
+
+	/// How powerful is the supermatter surge going to be?
+	var/surge_class = SURGE_SEVERITY_RANDOM
+	/// Typecasted reference to the supermatter chosen at event start
+	var/obj/machinery/power/supermatter_crystal/engine
+	/// Typecasted reference to the nitrogen properies in the SM chamber
+	var/datum/sm_gas/nitrogen/sm_gas
 
 /datum/round_event/supermatter_surge/setup()
-	if(prob(70))
-		power = rand(200,100000)
-	else
-		power = rand(200,200000)
-/datum/round_event/supermatter_surge/announce()
-	var/severity = ""
-	switch(power)
-		if(-INFINITY to 100000)
-			var/low_threat_perc = 100-round(100*((power-200)/(100000-200)))
-			if(prob(low_threat_perc))
-				if(prob(low_threat_perc))
-					severity = "low; the supermatter should return to normal operation shortly."
-				else
-					severity = "medium; the supermatter should return to normal operation, but regardless, check if the emitters may need to be turned off temporarily."
-			else
-				severity = "high; the emitters likely need to be turned off, and if the supermatter's cooling loop is not fortified, pre-cooled gas may need to be added."
-		if(100000 to INFINITY)
-			severity = "extreme; emergency action is likely to be required even if coolant loop is fine. Turn off the emitters and make sure the loop is properly cooling gases."
-	if(power > 20000 || prob(round(power/200)))
-		priority_announce("Supermatter surge detected. Estimated severity is [severity]", "Anomaly Alert", SSstation.announcer.get_rand_alert_sound())
+	engine = GLOB.main_supermatter_engine
+	if(isnull(engine))
+		stack_trace("SM surge event failed to find a supermatter engine!")
+		return
+
+	sm_gas = LAZYACCESS(engine.current_gas_behavior, /datum/gas/nitrogen)
+	if(isnull(sm_gas))
+		stack_trace("SM surge event failed to find gas properties for [engine].")
+		return
+
+	if(surge_class == SURGE_SEVERITY_RANDOM)
+		var/severity_weight = rand(1, 100)
+		switch(severity_weight)
+			if(1 to 14)
+				surge_class = 1
+			if(15 to 34)
+				surge_class = 2
+			if(35 to 69)
+				surge_class = 3
+			if(70 to 100)
+				surge_class = 4
+
+	addtimer(CALLBACK(src, PROC_REF(actually_end)), rand(SURGE_DURATION_MIN, SURGE_DURATION_MAX), TIMER_OVERRIDE|TIMER_UNIQUE)
+
+/datum/round_event/supermatter_surge/announce(fake)
+	var/class_to_announce = fake ? pick(1, 2, 3, 4) : surge_class
+	priority_announce(
+		"The Crystal Integrity Monitoring System has detected unusual atmospheric properties in the supermatter chamber, \
+		energy output from the supermatter crystal has increased significantly. \
+		Engineering intervention is required to stabilize the engine.",
+		"Class [class_to_announce] Supermatter Surge Alert",
+		'sound/machines/engine_alert3.ogg'
+	)
 
 /datum/round_event/supermatter_surge/start()
-	var/obj/machinery/power/supermatter_crystal/supermatter = GLOB.main_supermatter_engine
-	var/power_proportion = supermatter.powerloss_inhibitor/2 // what % of the power goes into matter power, at most 50%
-	// we reduce the proportion that goes into actual matter power based on powerloss inhibitor
-	// primarily so the supermatter doesn't tesla the instant these happen
-	supermatter.matter_power += power * power_proportion
-	var/datum/gas_mixture/gas_puff = new
-	var/selected_gas = pick(4;/datum/gas/carbon_dioxide, 4;/datum/gas/water_vapor, 1;/datum/gas/bz)
-	ADD_MOLES(selected_gas, gas_puff, 500)
+	engine.bullet_energy = surge_class + SURGE_BULLET_ENERGY_ADDITION
+	sm_gas.powerloss_inhibition = (surge_class * SURGE_POWERLOSS_INHIBITION_MODIFIER) + SURGE_BASE_POWERLOSS_INHIBITION
+	sm_gas.heat_power_generation = (surge_class * SURGE_POWER_GENERATION_MODIFIER) - 1
+	sm_gas.heat_modifier = (surge_class * SURGE_HEAT_MODIFIER) - 1
 
-	gas_puff.temperature = (500)
-	var/energy_ratio = (power * 500 * (1-power_proportion)) / gas_puff.thermal_energy()
-	if(energy_ratio < 1) // energy output we want is lower than current energy, reduce the amount of gas we puff out
-		SET_MOLES(/datum/gas/water_vapor, gas_puff, energy_ratio * 500)
+/// I HATE EVENT CODE SO MUCH, BUT THIS IS THE WAY IT HAS TO BE DONE, AGH!
+/datum/round_event/supermatter_surge/proc/actually_end()
+	if(!QDELETED(engine))
+		engine.bullet_energy = initial(engine.bullet_energy)
+		priority_announce("The supermatter surge has dissipated, crystal output readings have normalized.", "Anomaly Cleared")
 
-	else // energy output we want is higher than current energy, increase its actual heat
-		gas_puff.temperature = (energy_ratio * 500)
-	supermatter.assume_air(gas_puff)
+	sm_gas.powerloss_inhibition = initial(sm_gas.powerloss_inhibition)
+	sm_gas.heat_power_generation = initial(sm_gas.heat_power_generation)
+	sm_gas.heat_modifier = initial(sm_gas.heat_modifier)
+	engine = null
+	sm_gas = null
+
+/datum/round_event_control/supermatter_surge/poly
+	name = "Supermatter Surge: Poly's Revenge"
+	typepath = /datum/round_event/supermatter_surge/poly
+	weight = 0
+	max_occurrences = 4
+	earliest_start = 0
+
+/datum/round_event/supermatter_surge/poly
+	announceWhen = 4
+	surge_class =  4
+	fakeable = FALSE
+
+/datum/round_event/supermatter_surge/poly/announce(fake)
+	priority_announce(
+		"The Crystal Integrity Monitoring System has detected unusual parrot type resonance in the supermatter chamber, energy output from the supermatter crystal has increased significantly. Engineering intervention is required to stabilize the engine.",
+		"Class P Supermatter Surge Alert",
+		'sound/machines/engine_alert3.ogg'
+	)
+
+#undef SURGE_DURATION_MIN
+#undef SURGE_DURATION_MAX
+#undef SURGE_SEVERITY_MIN
+#undef SURGE_SEVERITY_MAX
+#undef SURGE_SEVERITY_RANDOM
+#undef SURGE_BULLET_ENERGY_ADDITION
+#undef SURGE_BASE_POWERLOSS_INHIBITION
+#undef SURGE_POWERLOSS_INHIBITION_MODIFIER
+#undef SURGE_POWER_GENERATION_MODIFIER
+#undef SURGE_HEAT_MODIFIER

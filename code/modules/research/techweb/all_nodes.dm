@@ -466,7 +466,6 @@
 		"plasmaman_tank",
 		"power control",
 		"powermonitor",
-		"rad_collector",
 		"recharger",
 		"recycler",
 		"researchdisk_locator",
@@ -2014,7 +2013,7 @@
 	design_ids = list(
 		"mod_plating_atmospheric",
 		"mod_jetpack",
-		//"mod_rad_protection",
+		"mod_rad_protection",
 		"mod_emp_shield",
 		"mod_storage_expanded",
 	)

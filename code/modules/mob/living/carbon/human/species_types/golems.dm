@@ -405,20 +405,16 @@
 	fixed_mut_color = "7f0"
 	meat = /obj/item/stack/ore/uranium
 	info_text = "As an " + span_danger("Uranium Golem") + ", you emit radiation pulses every once in a while. It won't harm fellow golems, but organic lifeforms will be affected."
-
-	var/last_event = 0
-	var/active = null
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
 
-/datum/species/golem/uranium/spec_life(mob/living/carbon/human/H)
-	if(!active)
-		if(world.time > last_event+30)
-			active = 1
-			radiation_pulse(H, 50)
-			last_event = world.time
-			active = null
-	..()
+	COOLDOWN_DECLARE(radiate_cooldown)
+
+/datum/species/golem/uranium/spec_life(mob/living/carbon/human/source)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, radiate_cooldown))
+		COOLDOWN_START(src, radiate_cooldown, 3 SECONDS)
+		radiation_pulse(source, max_range = 2)
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand

@@ -655,6 +655,13 @@
 	boozepwr = 55
 	quality = DRINK_NICE
 	taste_description = "oranges"
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
+
+/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+	. = ..()
+	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
+		if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+			affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 
 /datum/glass_style/drinking_glass/screwdrivercocktail
 	name = "Screwdriver"
@@ -662,11 +669,6 @@
 	icon = 'icons/obj/drinks/mixed_drinks.dmi'
 	icon_state = "screwdriverglass"
 	required_drink_type = /datum/reagent/consumable/ethanol/screwdrivercocktail
-
-/datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
-	if(affected_mob.mind?.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))
-		affected_mob.radiation = max(affected_mob.radiation - (25 * REM * delta_time), 0)
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"
