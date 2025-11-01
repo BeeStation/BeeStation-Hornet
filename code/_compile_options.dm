@@ -114,20 +114,6 @@
 	#endif
 #endif
 
-//TODO Remove the SDMM check when it supports 1568
-#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
-//Don't forget to update this part
-#error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
-#error You need version 515.1642 or higher.
-#endif
-
-//Update this whenever the byond version is stable so people stop updating to hilariously broken versions
-#define MAX_COMPILER_VERSION 516
-#define MAX_COMPILER_BUILD 1700
-#if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (516.1700)! Stability is not guaranteed.
-#endif
-
 #define SENDMAPS_PROFILE
 
 //Additional code for the above flags.
