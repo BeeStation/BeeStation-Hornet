@@ -32,7 +32,12 @@
 
 /datum/round_event_control/supermatter_surge/canSpawnEvent(players_amt)
 	. = ..()
+	if(!.)
+		return FALSE
+
 	if(isnull(GLOB.main_supermatter_engine))
+		return FALSE
+	if(GLOB.main_supermatter_engine.get_status() == SUPERMATTER_INACTIVE)
 		return FALSE
 
 /datum/round_event/supermatter_surge
