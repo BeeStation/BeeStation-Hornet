@@ -10,16 +10,16 @@
 	desc = "A sack neatly crafted out of paper."
 	icon = 'icons/obj/storage/paperbag.dmi'
 	icon_state = "paperbag_None"
-	item_state = "paperbag_None"
+	inhand_icon_state = "paperbag_None"
 	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
 
 /obj/item/storage/box/papersack/update_icon_state()
 	if(contents.len == 0)
-		icon_state = "[item_state]"
+		icon_state = "[inhand_icon_state]"
 	else
-		icon_state = "[item_state]_closed"
+		icon_state = "[inhand_icon_state]_closed"
 	return ..()
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
@@ -39,7 +39,7 @@
 		to_chat(usr, span_notice("You make some modifications to [src] using your pen."))
 		design = designs[choice]
 		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
+		inhand_icon_state = "paperbag_[design]"
 		switch(designs[choice])
 			if(NODESIGN)
 				desc = "A sack neatly crafted out of paper."
@@ -54,12 +54,12 @@
 		return 0
 	else if(W.is_sharp())
 		if(!contents.len)
-			if(item_state == "paperbag_None")
+			if(inhand_icon_state == "paperbag_None")
 				user.show_message(span_notice("You cut eyeholes into [src]."), MSG_VISUAL)
 				new /obj/item/clothing/head/costume/papersack(user.loc)
 				qdel(src)
 				return 0
-			else if(item_state == "paperbag_SmileyFace")
+			else if(inhand_icon_state == "paperbag_SmileyFace")
 				user.show_message(span_notice("You cut eyeholes into [src] and modify the design."), MSG_VISUAL)
 				new /obj/item/clothing/head/costume/papersack/smiley(user.loc)
 				qdel(src)

@@ -10,7 +10,7 @@
 	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint_sprayer"
-	item_state = "paint_sprayer"
+	inhand_icon_state = "paint_sprayer"
 	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 15
@@ -191,7 +191,7 @@
 	desc_controls = "Alt-Click to remove the ink cartridge."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "decal_sprayer"
-	item_state = "decal_sprayer"
+	inhand_icon_state = "decal_sprayer"
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 	initial_ink_type = /obj/item/toner/large
 	/// The current direction of the decal being printed

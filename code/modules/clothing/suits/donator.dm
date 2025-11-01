@@ -35,7 +35,7 @@
 	icon = 'icons/obj/clothing/suits/jacket.dmi'
 	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	icon_state = "softshell"
-	item_state = "softshell"
+	inhand_icon_state = "softshell"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/radio)
 	armor_type = /datum/armor/toggle_softshell
 	toggle_noun = "zipper"

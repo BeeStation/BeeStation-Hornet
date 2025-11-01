@@ -4,7 +4,7 @@
 	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
-	item_state = "ygloves"
+	inhand_icon_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 0
 	armor_type = /datum/armor/color_yellow
@@ -49,7 +49,7 @@
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
 	name = "budget insulated gloves"
 	icon_state = "yellow"
-	item_state = "ygloves"
+	inhand_icon_state = "ygloves"
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 1 //Set to a default of 1, gets overridden in Initialize()
 	armor_type = /datum/armor/color_fyellow
@@ -76,7 +76,7 @@
 	desc = "These gloves would protect the wearer from electric shock... if the fingers were covered."
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
-	item_state = "ygloves"
+	inhand_icon_state = "ygloves"
 	worn_icon_state = "ygloves"
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
@@ -87,7 +87,7 @@
 	desc = "These gloves are thick and fire-resistant."
 	name = "black gloves"
 	icon_state = "black"
-	item_state = "blackgloves"
+	inhand_icon_state = "blackgloves"
 	worn_icon_state = "blackgloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -101,14 +101,14 @@
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
-	item_state = "orangegloves"
+	inhand_icon_state = "orangegloves"
 	worn_icon_state = "orangegloves"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
-	item_state = "redgloves"
+	inhand_icon_state = "redgloves"
 	worn_icon_state = "redgloves"
 
 /obj/item/clothing/gloves/color/red/insulated
@@ -122,63 +122,63 @@
 	name = "rainbow gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
-	item_state = "rainbowgloves"
+	inhand_icon_state = "rainbowgloves"
 	worn_icon_state = "rainbowgloves"
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
-	item_state = "bluegloves"
+	inhand_icon_state = "bluegloves"
 	worn_icon_state = "bluegloves"
 
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
-	item_state = "purplegloves"
+	inhand_icon_state = "purplegloves"
 	worn_icon_state = "purplegloves"
 
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
-	item_state = "greengloves"
+	inhand_icon_state = "greengloves"
 	worn_icon_state = "greengloves"
 
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
-	item_state = "graygloves"
+	inhand_icon_state = "graygloves"
 	worn_icon_state = "graygloves"
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
-	item_state = "lightbrowngloves"
+	inhand_icon_state = "lightbrowngloves"
 	worn_icon_state = "lightbrowngloves"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
-	item_state = "browngloves"
+	inhand_icon_state = "browngloves"
 	worn_icon_state = "browngloves"
 
 /obj/item/clothing/gloves/color/denied
 	name = "ERROR gloves"
 	desc = "With these gloves you will be like the legendary Midas. Except instead of turning to gold everthing you touch will become -REDACTED-."
 	icon_state = "denied"
-	item_state = "redgloves"
+	inhand_icon_state = "redgloves"
 	worn_icon_state = "deniedgloves"
 
 /obj/item/clothing/gloves/color/captain
 	desc = "Regal blue gloves, with a nice gold trim, a diamond anti-shock coating, and an integrated thermal barrier. Swanky."
 	name = "captain's gloves"
 	icon_state = "captain"
-	item_state = "egloves"
+	inhand_icon_state = "egloves"
 	worn_icon_state = "egloves"
 	siemens_coefficient = 0
 	cold_protection = HANDS
@@ -199,7 +199,7 @@
 	name = "latex gloves"
 	desc = "Cheap sterile gloves made from latex. Transfers minor paramedic knowledge to the user via budget nanochips."
 	icon_state = "latex"
-	item_state = "latex"
+	inhand_icon_state = "latex"
 	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
 	armor_type = /datum/armor/color_latex
@@ -234,7 +234,7 @@
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex. Transfers intimate paramedic knowledge into the user via nanochips."
 	icon_state = "nitrile"
-	item_state = "nitrilegloves"
+	inhand_icon_state = "nitrilegloves"
 	worn_icon_state = "nitrilegloves"
 	carrytrait = TRAIT_QUICKER_CARRY
 
@@ -242,14 +242,14 @@
 	name = "white gloves"
 	desc = "These look pretty fancy."
 	icon_state = "white"
-	item_state = "wgloves"
+	inhand_icon_state = "wgloves"
 	worn_icon_state = "wgloves"
 
 /obj/item/clothing/gloves/color/color_yellow
 	name = "yellow gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "white"
-	item_state = "wgloves"
+	inhand_icon_state = "wgloves"
 	worn_icon_state = "wgloves"
 	color = "#ffe14d"
 
@@ -274,5 +274,5 @@
 	name = "maid arm covers"
 	desc = "Cylindrical looking tubes that go over your arm, weird."
 	icon_state = "maid_arms"
-	item_state = "maid_arms"
+	inhand_icon_state = "maid_arms"
 	worn_icon_state = "maid_arms"

@@ -3,7 +3,7 @@
 	desc = "A prod with a bluespace crystal on the end. The crystal doesn't look too fun to touch."
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "teleprod"
-	item_state = "teleprod"
+	inhand_icon_state = "teleprod"
 	slot_flags = null
 
 	canblock = TRUE

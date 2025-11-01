@@ -6,12 +6,12 @@
 
 /datum/action/item_action/toggle_beacon
 	name = "Toggle Hardsuit Locator Beacon"
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-transmission"
 
 /datum/action/item_action/toggle_beacon_hud
 	name = "Toggle Hardsuit Locator HUD"
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "toggle-hud"
 
 /datum/action/item_action/toggle_beacon_hud/explorer
@@ -19,12 +19,12 @@
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	button_icon_state = "change-code"
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "scan_mode"
 	toggleable = TRUE
 
@@ -48,13 +48,13 @@
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
 
 /datum/action/item_action/kindleKicks
 	name = "Activate Kindle Kicks"
 	desc = "Kick you feet together, activating the lights in your Kindle Kicks."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "kindleKicks"
 
 /datum/action/item_action/toggle_headphones
@@ -70,7 +70,7 @@
 /datum/action/item_action/noirmode
 	name = "Noir Ambience"
 	desc = "Set up the mood for an interrogation."
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "noir_mode"
 	cooldown_time = 30 SECONDS
 
