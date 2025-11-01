@@ -15,19 +15,16 @@
 
 /atom/movable/screen/vampire/blood_counter
 	name = "Vitae"
-	desc = "How much life essence you have gathered. ~700 is considered average, try to keep above that."
 	icon_state = "blood_display"
 	screen_loc = UI_BLOOD_DISPLAY
 
 /atom/movable/screen/vampire/rank_counter
 	name = "Vampire Rank"
-	desc = "An abstract way to measure mastery of your vampiric disciplines."
 	icon_state = "rank"
 	screen_loc = UI_VAMPRANK_DISPLAY
 
 /atom/movable/screen/vampire/sunlight_counter
 	name = "Solar Flare Timer"
-	desc = "The time until Sol rises, when this happens solar flares will bombard the station heavily weakening you. Sleep in a coffin to avoid this!"
 	icon_state = "sunlight"
 	screen_loc = UI_SUNLIGHT_DISPLAY
 
