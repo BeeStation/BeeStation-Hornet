@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed dynamic spawned obsessed
+  - rscdel: Deleted the creep awakening event
