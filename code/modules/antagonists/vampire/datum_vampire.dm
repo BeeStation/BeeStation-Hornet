@@ -71,8 +71,6 @@
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
-	/// Humanity display HUD
-	var/atom/movable/screen/vampire/humanity_counter/humanity_display
 
 	/// Tracker so that ghouls know where their master is
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
