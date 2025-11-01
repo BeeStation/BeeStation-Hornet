@@ -34,16 +34,26 @@
 	var/plas = . ? .[MOLES] : 0
 	. = air_gases[/datum/gas/tritium]
 	var/trit = . ? .[MOLES] : 0
+	. = air_gases[/datum/gas/hydrogen]
+	var/h2 = . ? .[MOLES] : 0
+	. = air_gases[/datum/gas/freon]
+	var/freon = . ? .[MOLES] : 0
 	if(active_hotspot)
 		if(soh)
-			if(plas > 0.5 || trit > 0.5)
+			if(plas > 0.5 || trit > 0.5 || h2 > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
+					active_hotspot.temperature = exposed_temperature
+				if(active_hotspot.volume < exposed_volume)
+					active_hotspot.volume = exposed_volume
+			else if(freon > 0.5)
+				if(active_hotspot.temperature > exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
 		return
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (plas > 0.5 || trit > 0.5))
+	if(((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (plas > 0.5 || trit > 0.5 || h2 > 0.5)) || \
+		((exposed_temperature < FREON_MAXIMUM_BURN_TEMPERATURE) && (freon > 0.5)))
 
 		new /obj/effect/hotspot(src, exposed_volume * 25, exposed_temperature)
 		SSair.add_to_active(src)
@@ -58,8 +68,9 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "light"
 	layer = GASFIRE_LAYER
+	plane = ABOVE_GAME_PLANE
 	blend_mode = BLEND_ADD
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = LIGHT_RANGE_FIRE
 	light_power = 1
 	light_color = LIGHT_COLOR_FIRE
@@ -80,7 +91,9 @@
 	/// Whether the hotspot becomes passive and follows the gasmix temp instead of changing it.
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
-	/// The group of hotspots we are a part of
+	///Are we burning freon?
+	var/cold_fire = FALSE
+	///the group of hotspots we are a part of
 	var/datum/hot_group/our_hot_group
 
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
@@ -90,6 +103,8 @@
 		volume = starting_volume
 	if(!isnull(starting_temperature))
 		temperature = starting_temperature
+		if(temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+			cold_fire = TRUE
 
 	var/turf/open/our_turf = loc
 	//on creation we check adjacent turfs for hot spot to start grouping, if surrounding do not have hot spots we create our own
@@ -124,7 +139,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 	if(COOLDOWN_FINISHED(our_turf, fire_puff_cooldown))
-		playsound(our_turf, 'sound/effects/fire_puff.ogg', 20)
+		playsound(our_turf, 'sound/effects/fire_puff.ogg', 30)
 		COOLDOWN_START(our_turf, fire_puff_cooldown, 5 SECONDS)
 
 	// Remove just_spawned protection if no longer processing the parent cell
@@ -169,7 +184,7 @@
 	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95)
 
 	//Passive mode
-	if(bypassing)
+	if(bypassing || cold_fire)
 		reference = location.air // Our color and volume will depend on the turf's gasmix
 	//Active mode
 	else
@@ -188,6 +203,9 @@
 		temperature = reference.temperature
 
 	// Handles the burning of atoms.
+	if(cold_fire)
+		return TRUE
+
 	for(var/A in location)
 		var/atom/AT = A
 		if(!QDELETED(AT) && AT != src)
@@ -209,7 +227,12 @@
 	var/heat_a = 255
 	var/greyscale_fire = 1 //This determines how greyscaled the fire is.
 
-	if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
+	if(cold_fire)
+		heat_r = 0
+		heat_g = LERP(255, temperature, 1.2)
+		heat_b = LERP(255, temperature, 0.9)
+		heat_a = 100
+	else if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
 		var/normal_amt = gauss_lerp(temperature, 1000, 3000)
 		heat_r = LERP(heat_r,255,normal_amt)
 		heat_g = LERP(heat_g,255,normal_amt)
@@ -219,7 +242,7 @@
 	if(temperature > 40000) //Past this temperature the fire will gradually turn a bright purple
 		var/purple_amt = temperature < LERP(40000,200000,0.5) ? gauss_lerp(temperature, 40000, 200000) : 1
 		heat_r = LERP(heat_r,255,purple_amt)
-	if(temperature > 200000 && temperature < 500000) //Somewhere at this temperature nitrium happens.
+	if(temperature > 200000 && temperature < 500000) //Somewhere at this temperature nitryl happens.
 		var/sparkle_amt = gauss_lerp(temperature, 200000, 500000)
 		var/mutable_appearance/sparkle_overlay = mutable_appearance('icons/effects/effects.dmi', "shieldsparkles")
 		sparkle_overlay.blend_mode = BLEND_ADD
@@ -275,12 +298,16 @@
 	if(location.excited_group)
 		location.excited_group.reset_cooldowns()
 
-	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
+	cold_fire = FALSE
+	if(temperature <= FREON_MAXIMUM_BURN_TEMPERATURE)
+		cold_fire = TRUE
+
+	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST && !cold_fire) || (volume <= 1))
 		qdel(src)
 		return
 
 	//Not enough / nothing to burn
-	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
+	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium) && INSUFFICIENT(/datum/gas/hydrogen) && INSUFFICIENT(/datum/gas/freon)) || INSUFFICIENT(/datum/gas/oxygen))
 		qdel(src)
 		return
 
@@ -288,11 +315,14 @@
 
 	if(bypassing)
 		set_fire_stage("heavy")
-		location.burn_tile()
+		if(!cold_fire)
+			location.burn_tile()
 
 		//Possible spread due to radiated heat.
-		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
+		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD || cold_fire)
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
+			if(cold_fire)
+				radiated_temperature = location.air.temperature * COLD_FIRE_SPREAD_RADIOSITY_SCALE
 			for(var/t in location.atmos_adjacent_turfs)
 				var/turf/open/T = t
 				if(!T.active_hotspot)
@@ -329,7 +359,7 @@
 
 /obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(isliving(arrived))
+	if(isliving(arrived) && !cold_fire)
 		var/mob/living/immolated = arrived
 		immolated.fire_act(temperature, volume)
 
@@ -337,16 +367,9 @@
 	return
 
 /datum/looping_sound/fire
-	mid_sounds = list(
-		'sound/effects/fireclip1.ogg' = 1,
-		'sound/effects/fireclip2.ogg' = 1,
-		'sound/effects/fireclip3.ogg' = 1,
-		'sound/effects/fireclip4.ogg' = 1,
-		'sound/effects/fireclip5.ogg' = 1,
-		'sound/effects/fireclip6.ogg' = 1,
-		'sound/effects/fireclip7.ogg' = 1,
-	)
-	volume = 20
+	mid_sounds = list('sound/effects/fireclip1.ogg' = 1, 'sound/effects/fireclip2.ogg' = 1, 'sound/effects/fireclip3.ogg' = 1, 'sound/effects/fireclip4.ogg' = 1,
+	'sound/effects/fireclip5.ogg' = 1, 'sound/effects/fireclip6.ogg' = 1, 'sound/effects/fireclip7.ogg' = 1)
+	volume = 30
 	mid_length = 2 SECONDS
 	falloff_distance = 1
 
@@ -354,24 +377,21 @@
 ///handle the grouping of hotspot and then determining an average center to play sound in
 /datum/hot_group
 	var/list/obj/effect/hotspot/spot_list = list()
-
-	/// The sound center turf which the looping sound will play
+	///the sound center turf which the looping sound will play
 	var/turf/open/current_sound_loc
 	var/datum/looping_sound/fire/sound
-
-	// Arbitrary limit so we dont have one giant group
-	var/tiles_limit = 80
-
-	/// These lists and average var are to find the average center of a group
+	var/tiles_limit = 80 // arbitrary limit so we dont have one giant group
+	///these lists and average var are to find the average center of a group
 	var/list/x_coord = list()
 	var/list/y_coord = list()
 	var/list/z_coord = list()
 	var/average_x
 	var/average_y
 	var/average_Z
-	/// The range for the sound to drop off based on the size of the group
+	///the range for the sound to drop off based on the size of the group
 	var/drop_off_dist
 	COOLDOWN_DECLARE(update_sound_center)
+
 
 /datum/hot_group/Destroy()
 	. = ..()

@@ -51,7 +51,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 
 /datum/armor/machinery_firealarm
-	rad = 100
 	fire = 90
 	acid = 30
 

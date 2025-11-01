@@ -418,7 +418,7 @@
 /mob/living/simple_animal/hostile/mining_drone/CanAttack(atom/A)
 	if(mining_enabled && istype(A, /turf/closed/mineral)) // Normally CanAttack() skips over turfs, but we'll sometimes want to attack mineral turfs
 		var/turf/closed/mineral/T = A
-		for(var/turf/closed/obstructing_turf in getline(src,A))
+		for(var/turf/closed/obstructing_turf in get_line(src,A))
 			if(!istype(obstructing_turf, /turf/closed/mineral)) // No trying to mine through non-rock turfs
 				return ..()
 		if(T.mineralType)

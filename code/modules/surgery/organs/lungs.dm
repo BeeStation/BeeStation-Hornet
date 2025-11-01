@@ -54,7 +54,7 @@
 	var/SA_sleep_min = 5
 	var/BZ_trip_balls_min = 0.1 //BZ gas
 	var/BZ_brain_damage_min = 1
-	var/gas_stimulation_min = 0.002 //nitrium and Freon
+	var/gas_stimulation_min = 0.002 // For Nitrium and Freon
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -254,9 +254,7 @@
 		ADJUST_MOLES(gas, breath, mole_adjustments[gas])
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
-
-	// N2O
-
+		// N2O
 		var/SA_pp = PP(breath, /datum/gas/nitrous_oxide)
 		if(SA_pp > SA_para_min) // Enough to make us stunned for a bit
 			H.Unconscious(60) // 60 gives them one second to wake up and run away a bit!
@@ -269,8 +267,7 @@
 		else
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
-	// BZ
-
+		// BZ
 		var/bz_pp = PP(breath, /datum/gas/bz)
 		if(bz_pp > BZ_brain_damage_min)
 			H.adjust_hallucinations(20 SECONDS)
@@ -282,7 +279,7 @@
 			H.adjust_hallucinations(10 SECONDS)
 			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
-	// Nitrium
+		// Nitrium
 		var/nitrium_pp = PP(breath, /datum/gas/nitrium)
 		if (prob(nitrium_pp) && nitrium_pp > 15)
 			H.adjustOrganLoss(ORGAN_SLOT_LUNGS, nitrium_pp * 0.1)
@@ -298,8 +295,20 @@
 
 		REMOVE_MOLES(/datum/gas/nitrium, breath, gas_breathed)
 
-		handle_breath_temperature(breath, H)
+		// Healium
+		var/healium_pp = PP(breath, /datum/gas/healium)
+		if(healium_pp > gas_stimulation_min && prob(15))
+			to_chat(H, span_alert("Your head starts spinning and your lungs burn!"))
+			H.emote("gasp")
+		// Stun/Sleep side-effects.
+		if(healium_pp > 3 && !H.IsSleeping() && prob(30))
+			H.Sleeping(rand(3 SECONDS, 5 SECONDS))
+		// Metabolize to reagent when concentration is high enough.
+		if(healium_pp > 6)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/healium)
+			H.reagents.add_reagent(/datum/reagent/healium, max(0, 1 - existing))
 
+		handle_breath_temperature(breath, H)
 	return TRUE
 
 /obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)

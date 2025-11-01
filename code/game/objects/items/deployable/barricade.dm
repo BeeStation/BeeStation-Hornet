@@ -215,7 +215,6 @@
 	laser = 50
 	energy = 50
 	bomb = 10
-	rad = 100
 	fire = 10
 
 /obj/structure/barricade/security/pick_up_barricade()

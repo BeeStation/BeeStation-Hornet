@@ -629,11 +629,12 @@
 	required_reagents = list(/datum/reagent/teslium = 1, /datum/reagent/water = 1)
 	mix_message = span_boldannounce("The teslium starts to spark as electricity arcs away from it!")
 	mix_sound = 'sound/machines/defib_zap.ogg'
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Creates a high-energy lightning bolt on creation",
 	)
 	reaction_tags = REACTION_TAG_EXPLOSIVE
+
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN
 
 /datum/chemical_reaction/teslium_lightning/on_reaction(datum/reagents/holder, created_volume)
 	var/T1 = created_volume * 20 //100 units : Zap 3 times, with powers 2000/5000/12000. Tesla revolvers have a power of 10000 for comparison.
@@ -652,7 +653,13 @@
 /datum/chemical_reaction/teslium_lightning/proc/zappy_zappy(datum/reagents/holder, power)
 	if(QDELETED(holder.my_atom))
 		return
-	tesla_zap(holder.my_atom, 7, power, tesla_flags)
+
+	tesla_zap(
+		source = holder.my_atom,
+		zap_range = 7,
+		power = power,
+		zap_flags = zap_flags
+	)
 	playsound(holder.my_atom, 'sound/machines/defib_zap.ogg', 50, TRUE)
 
 /datum/chemical_reaction/teslium_lightning/heat
