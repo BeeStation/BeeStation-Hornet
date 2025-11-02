@@ -294,6 +294,9 @@
 	// Penalty for non-human blood
 	if(!ishuman(target))
 		blood_to_take /= 2
+	// Penalty for frenzy(messy eater)
+	if(vampiredatum_power.frenzied)
+		blood_to_take /= 2
 
 	// Give vampire the blood
 	vampiredatum_power.AddBloodVolume(blood_to_take * 2)

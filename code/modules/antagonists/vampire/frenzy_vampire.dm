@@ -43,7 +43,7 @@
 	var/mob/living/carbon/carbon_owner = owner
 	vampiredatum = IS_VAMPIRE(carbon_owner)
 
-	ASSERT(isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
+	ASSERT(!isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
 
 	// Basic stuff
 	carbon_owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)
@@ -54,12 +54,11 @@
 
 	// Alert them
 	vampiredatum.disable_all_powers(forced = TRUE)
+	vampiredatum.deduct_humanity(2)
 	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
 	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggressively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")
 	carbon_owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 75, TRUE)
-
-	vampiredatum.deduct_humanity(2)
 
 	// Stamina modifier
 	if (ishuman(carbon_owner))
