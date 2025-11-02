@@ -247,7 +247,7 @@
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
-		if(!human.mind || !find_record(human.mind.name))
+		if(!human.mind || !find_record(human.mind.name, GLOB.manifest.general))
 			continue
 
 		mail_recipients += human.mind
