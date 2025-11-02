@@ -8,7 +8,7 @@
 	var/obj/item/storage/deaddrop_box/target
 
 /datum/priority_directive/deaddrop/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
-	if (length(uplinks) < 1 && !force)
+	if (length(uplinks) <= 1 && !force)
 		reject()
 		return
 	for (var/datum/component/uplink/antag in uplinks)

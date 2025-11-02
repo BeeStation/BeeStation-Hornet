@@ -16,7 +16,7 @@
 
 /datum/priority_directive/deploy_beacon/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	empty_uplinks.Cut()
-	if (length(uplinks) <= 2 && !force)
+	if (length(uplinks) < 2 && !force)
 		reject()
 		return
 	// Pick a location that the beacon needs to be deployed at, somewhere out of prying eyes
