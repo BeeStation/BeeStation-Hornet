@@ -71,6 +71,10 @@ SUBSYSTEM_DEF(directives)
 	var/data = list()
 	data["time"] = world.time
 	var/atom/uplink_owner = uplink.parent
+	var/obj/item/implant/uplink_implant = astype(uplink_owner, /obj/item/implant)
+	if (uplink_implant)
+		uplink_owner = uplink_implant.imp_in || uplink_owner
+
 	var/turf/uplink_turf = uplink_owner && get_turf(uplink_owner)
 	if (istype(uplink_turf))
 		data["pos_x"] = uplink_turf?.x

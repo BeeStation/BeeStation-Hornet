@@ -51,7 +51,7 @@
 //return 1 if the implant injects
 //return 0 if there is no room for implant / it fails
 /obj/item/implant/proc/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
-	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
+	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, user, target, silent, force) & COMPONENT_STOP_IMPLANTING)
 		return
 	LAZYINITLIST(target.implants)
 	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))
@@ -100,7 +100,7 @@
 	return TRUE
 
 /obj/item/implant/proc/transfer_implant(mob/living/user, mob/living/target)
-	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
+	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, user, target) & COMPONENT_STOP_IMPLANTING)
 		return
 	LAZYINITLIST(target.implants)
 	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))

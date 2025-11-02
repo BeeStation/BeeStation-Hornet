@@ -290,11 +290,10 @@ GLOBAL_LIST_EMPTY(uplinks)
 	locked = FALSE
 	interact(null, implant.imp_in)
 
-/datum/component/uplink/proc/implanting(datum/source, list/arguments)
+/datum/component/uplink/proc/implanting(datum/source, mob/user, mob/living/target)
 	SIGNAL_HANDLER
 
-	var/mob/user = arguments[2]
-	owner = user?.mind
+	owner = target?.mind
 	if(owner && !purchase_log)
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 		if(GLOB.uplink_purchase_logs_by_key[owner.key])
