@@ -526,6 +526,7 @@ SUBSYSTEM_DEF(dynamic)
 
 		// Determine all available candidates, if that's something we care about
 		if (!ignore_candidates)
+			ruleset.get_candidates()
 			ruleset.trim_candidates()
 		// Check if we are allowed to be executed
 		if(!ruleset.allowed(ignore_candidates))
@@ -563,13 +564,11 @@ SUBSYSTEM_DEF(dynamic)
  * Execute the provided supplementary ruleset
  */
 /datum/controller/subsystem/dynamic/proc/execute_gamemode_ruleset(datum/dynamic_ruleset/gamemode/ruleset)
-	// Apply cost and add ruleset to 'executed_supplementary_rulesets'
-	executed_supplementary_rulesets += ruleset
+	// Apply cost and add ruleset to 'executed_gamemodes'
+	executed_gamemodes += ruleset
 	ruleset.choose_candidates()
 
 	log_dynamic("GAMEMODE: Executed [ruleset]")
-
-	ruleset.candidates = null
 
 /**
  * Checks if this ruleset is blocked by any other rulesets or ruleset flags.
@@ -600,10 +599,18 @@ SUBSYSTEM_DEF(dynamic)
  * Execute roundstart rulesets
  */
 /datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
+	// Gamemodes
+	for(var/datum/dynamic_ruleset/gamemode/ruleset in executed_gamemodes)
+		var/result = execute_ruleset(ruleset)
+
+		log_dynamic("GAMEMODE: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		if(result != DYNAMIC_EXECUTE_SUCCESS)
+			executed_gamemodes -= ruleset
+	// Supplementary
 	for(var/datum/dynamic_ruleset/supplementary/ruleset in executed_supplementary_rulesets)
 		var/result = execute_ruleset(ruleset)
 
-		log_dynamic("ROUNDSTART: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		log_dynamic("SUPPLEMENTARY: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
 			executed_supplementary_rulesets -= ruleset
 

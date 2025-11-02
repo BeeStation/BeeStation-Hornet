@@ -115,12 +115,10 @@
 		return DYNAMIC_EXECUTE_FAILURE
 
 	// Roundstart rulesets have their candidate bodies deleted before execute so we store a list of minds, not bodies
-	if(istype(src, /datum/dynamic_ruleset/supplementary))
-		for(var/datum/mind/chosen_mind in chosen_candidates)
-			chosen_mind.add_antag_datum(antag_datum)
-	else
-		for(var/mob/chosen_candidate in chosen_candidates)
-			chosen_candidate.mind.add_antag_datum(antag_datum)
+	for(var/datum/mind/chosen_mind in chosen_candidates)
+		chosen_mind.add_antag_datum(antag_datum)
+	for(var/mob/chosen_candidate in chosen_candidates)
+		chosen_candidate.mind.add_antag_datum(antag_datum)
 
 	return DYNAMIC_EXECUTE_SUCCESS
 

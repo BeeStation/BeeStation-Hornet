@@ -145,9 +145,9 @@ const AbilitiesSection = (_props) => {
             <Stack.Item textColor="label">
               The
               <span style={storestyle}>&ensp;Cellular Emporium</span> is where
-              you purchase more abilities beyond your starting kit. You have 10
-              genetic points to spend on abilities and you are able to readapt
-              after absorbing a body, refunding your points for different kits.
+              you purchase more abilities beyond your starting kit. You start
+              with 5 genetic points to spend on abilities and are able to gain
+              more by absorbing victims.
             </Stack.Item>
           </Stack>
         </Stack.Item>

@@ -58,7 +58,7 @@
 	category = ROLE_PREFERENCE_CATEGORY_ROUNDSTART
 	abstract_type = /datum/role_preference/roundstart
 	per_character = TRUE
-	default_enabled = FALSE
+	default_enabled = TRUE
 
 /// Includes living dynamic midround assignments (does not apply to conversion antags).
 /datum/role_preference/midround
