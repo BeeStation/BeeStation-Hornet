@@ -560,6 +560,20 @@ h2.alert {
   color: hsl(132, 79%, 20%);
   font-weight: bold;
 }
+
+.traitor_objective {
+  display: block;
+  font-size: large;
+  font-family: monospace;
+  color: #f08181;
+  background-color: #000000;
+  border: 1px solid #f08181;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .userdanger {
   color: hsl(0, 100%, 50%);
   font-weight: bold;

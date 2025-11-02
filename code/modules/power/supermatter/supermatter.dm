@@ -168,6 +168,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			/obj/anomaly/energy_ball,
 			/obj/boh_tear
 		))
+	AddComponent(/datum/component/trackable)
 
 /obj/machinery/power/supermatter_crystal/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINES)

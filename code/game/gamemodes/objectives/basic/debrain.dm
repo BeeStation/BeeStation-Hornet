@@ -26,3 +26,6 @@
 
 /datum/objective/debrain/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
+
+/datum/objective/debrain/get_tracking_target(atom/source)
+	return target?.current

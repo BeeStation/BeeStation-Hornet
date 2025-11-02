@@ -81,8 +81,8 @@
 	/// A holder datum used to handle holoparasites and their shared behavior.
 	var/datum/holoparasite_holder/holoparasite_holder
 
-	/// The atom of our antag stash
-	var/atom/antag_stash = null
+	/// A list of all antag stashes that we can see
+	var/list/antag_stashes = null
 
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE

@@ -5,6 +5,7 @@
 	banning_key = ROLE_TRAITOR
 	required_living_playtime = 2
 	antag_moodlet = /datum/mood_event/focused
+	faction = FACTION_SYNDICATE
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
 	/// Shown when giving uplinks and codewords to the player
@@ -74,25 +75,25 @@
 	. = ..()
 	update_traitor_icons_added()
 	// Give codewords to the new mob on mind transfer.
-	if(mob_override && istype(faction) && faction.give_codewords)
+	if(mob_override)
 		give_codewords(mob_override)
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_traitor_icons_removed()
 	// Remove codewords from the old mob on mind transfer.
-	if(mob_override && istype(faction) && faction.give_codewords)
+	if(mob_override)
 		remove_codewords(mob_override)
 
 /// Enables displaying codewords to this traitor.
 /datum/antagonist/traitor/proc/give_codewords(mob/living/mob_override)
-	if((!mob_override && !owner.current) || !istype(faction))
+	if((!mob_override && !owner.current))
 		return
 	has_codewords = TRUE
 	RegisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/proc/remove_codewords(mob/living/mob_override)
-	if((!mob_override && !owner.current) || !istype(faction))
+	if((!mob_override && !owner.current))
 		return
 	has_codewords = FALSE
 	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
@@ -106,10 +107,6 @@
 /datum/antagonist/traitor/antag_panel_data()
 	// Traitor Backstory
 	var/backstory_text = "<b>Traitor Backstory:</b><br>"
-	if(istype(faction))
-		backstory_text += "<b>Faction:</b> <span class='tooltip' style=\"font-size: 12px\">\[ [faction.name]<span class='tooltiptext' style=\"width: 320px; padding: 5px;\">[faction.description]</span> \]</span><br>"
-	else
-		backstory_text += "<font color='red'>No faction selected!</font><br>"
 	if(istype(backstory))
 		backstory_text += "<b>Backstory:</b> <span class='tooltip' style=\"font-size: 12px\">\[ [backstory.name]<span class='tooltiptext' style=\"width: 320px; padding: 5px;\">[backstory.description]</span> \]</span><br>"
 	else
@@ -156,8 +153,6 @@
 	result += objectives_text
 
 	var/backstory_text = "<br>"
-	if(istype(faction))
-		backstory_text += "<b>Faction:</b> <span class='tooltip_container' style=\"font-size: 12px\">\[ [faction.name]<span class='tooltip_hover' style=\"width: 320px; padding: 5px;\">[faction.description]</span> \]</span><br>"
 	if(istype(backstory))
 		backstory_text += "<b>Backstory:</b> <span class='tooltip_container' style=\"font-size: 12px\">\[ [backstory.name]<span class='tooltip_hover' style=\"width: 320px; padding: 5px;\">[backstory.description]</span> \]</span><br>"
 	else

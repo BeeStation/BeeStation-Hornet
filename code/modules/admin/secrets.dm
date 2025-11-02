@@ -418,7 +418,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			for(var/mob/living/H in chosenPlayers)
 				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
 					continue
-				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
+				if(H.stat == DEAD || !H.mind || ispAI(H))
 					continue
 				if(is_special_character(H))
 					continue

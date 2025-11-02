@@ -204,6 +204,20 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	seer = M
 	add_hud_to(seer)
 
+/datum/atom_hud/alternate_appearance/basic/some_people
+	var/list/seers
+
+/datum/atom_hud/alternate_appearance/basic/some_people/mobShouldSee(mob/M)
+	if(M in seers)
+		return TRUE
+	return FALSE
+
+/datum/atom_hud/alternate_appearance/basic/some_people/New(key, image/I, list/mobs)
+	..(key, I, FALSE)
+	seers = mobs
+	for (var/mob/seer in mobs)
+		add_hud_to(seer)
+
 /datum/atom_hud/alternate_appearance/basic/heretics
 	add_ghost_version = FALSE //just in case, to prevent infinite loops
 

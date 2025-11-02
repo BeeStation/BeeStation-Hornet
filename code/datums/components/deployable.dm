@@ -13,13 +13,15 @@
 	var/empty_icon
 	/// The type that we can use to reload this deployable
 	var/reload_type
+	/// The can deploy check. Parameters are user and location, a nullable atom and a turf.
+	var/datum/callback/can_deploy_check = null
 	///	For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
 	/// Private as we don't want external modifications to this
 	VAR_PRIVATE/loaded = FALSE
 	/// The atom parent of this
 	VAR_PRIVATE/obj/item/item_parent
 
-/datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null)
+/datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null, datum/callback/can_deploy_check)
 	. = ..()
 	if (!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -34,6 +36,7 @@
 	src.empty_icon = empty_icon
 	src.loaded = loaded
 	src.reload_type = reload_type
+	src.can_deploy_check = can_deploy_check
 
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
@@ -111,6 +114,8 @@
 		if (user)
 			to_chat(user, span_warning("[item_parent] has nothing to deploy!"))
 		return
+	if (can_deploy_check && !can_deploy_check.Invoke(user, location))
+		return
 	if(!location) //if no location was passed we use the current location.
 		location = item_parent.loc
 	if(isopenturf(location))
@@ -146,6 +151,8 @@
 
 ///Do not call this directly, use try_deploy instead or else deployed items may end up in invalid locations
 /datum/component/deployable/proc/deploy(mob/user, atom/location)
+	if (can_deploy_check && !can_deploy_check.Invoke(user, location))
+		return
 	if (user)
 		item_parent.add_fingerprint(user)
 	if(isnull(deployed_object)) //then this must have saved contents to dump directly instead
@@ -154,7 +161,7 @@
 			if (!QDELETED(item_parent))
 				item_parent.transfer_fingerprints_to(A)
 	else
-		var/atom/R = new deployed_object(location)
+		var/atom/R = new deployed_object(location, user)
 		for(var/atom/movable/A in item_parent.contents)
 			A.forceMove(R)
 			if (!QDELETED(item_parent))

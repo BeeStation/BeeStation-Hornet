@@ -64,6 +64,7 @@
 	else
 		icon_state = "blackbox_b"
 	return ..()
+
 /obj/item/blackbox
 	name = "the blackbox"
 	desc = "A strange relic, capable of recording data on extradimensional vertices. It lives inside the blackbox recorder for safe keeping."
@@ -73,6 +74,10 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_LARGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/blackbox/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/trackable)
 
 #define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
 

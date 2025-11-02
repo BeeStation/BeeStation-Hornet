@@ -1,11 +1,13 @@
 #define PEN_ROTATIONS 2
 
+GLOBAL_LIST_EMPTY(uplinks)
+
 /**
  * Uplinks
  *
- * All /obj/item(s) have a hidden_uplink var. By default it's null. Give the item one with 'new(src') (it must be in it's contents). Then add 'uses.'
- * Use whatever conditionals you want to check that the user has an uplink, and then call interact() on their uplink.
- * You might also want the uplink menu to open if active. Check if the uplink is 'active' and then interact() with it.
+ * All /obj/item(s) can be given an uplink. Give the item one with AddComponent(/datum/component/uplink, mind)
+ * Use whatever conditionals you want to check that the user has an uplink
+ * This component will handle UI interactions.
 **/
 /datum/component/uplink
 	dupe_mode = COMPONENT_DUPE_UNIQUE
@@ -16,7 +18,8 @@
 	var/allow_restricted = TRUE
 	var/telecrystals
 	var/selected_cat
-	var/owner = null
+	// Antag datum of the owner
+	var/datum/mind/owner = null
 	var/uplink_flag
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
@@ -28,10 +31,19 @@
 	var/compact_mode = FALSE
 	var/debug = FALSE
 	var/non_traitor_allowed = TRUE
+	// Tied to uplink rather than mind since generally traitors only have 1 uplink
+	// and tying it to anything else is difficult due to how much uses an uplink
+	var/reputation = REPUTATION_TRAITOR_START
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(datum/mind/_owner,
+		_lockable = TRUE,
+		_enabled = FALSE,
+		uplink_flag = UPLINK_TRAITORS,
+		starting_tc = TELECRYSTALS_DEFAULT,
+		_reputation = REPUTATION_TRAITOR_START,
+		)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -53,12 +65,13 @@
 	if(_owner)
 		owner = _owner
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		if(GLOB.uplink_purchase_logs_by_key[owner.key])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			purchase_log = new(owner.key, src)
 	lockable = _lockable
 	active = _enabled
+	reputation = _reputation
 	src.uplink_flag = uplink_flag
 	update_items()
 	telecrystals = starting_tc
@@ -67,6 +80,10 @@
 		locked = FALSE
 
 	previous_attempts = list()
+
+	// We need to start running this now
+	SSdirectives.can_fire = TRUE
+	GLOB.uplinks += src
 
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
@@ -78,6 +95,7 @@
 
 /datum/component/uplink/Destroy()
 	purchase_log = null
+	GLOB.uplinks -= src
 	return ..()
 
 /datum/component/uplink/proc/update_items()
@@ -152,9 +170,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Uplink", name)
-		// This UI is only ever opened by one person,
-		// and never is updated outside of user input.
-		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/component/uplink/ui_data(mob/user)
@@ -164,6 +180,8 @@
 	data["telecrystals"] = telecrystals
 	data["lockable"] = lockable
 	data["compactMode"] = compact_mode
+	data["reputation"] = reputation
+	data += SSdirectives.get_uplink_data(src)
 	return data
 
 /datum/component/uplink/ui_static_data(mob/user)
@@ -202,7 +220,8 @@
 				"cost" = I.cost,
 				"desc" = I.desc,
 				"is_illegal" = I.illegal_tech,
-				"are_contents_illegal" = I.contents_are_illegal_tech
+				"are_contents_illegal" = I.contents_are_illegal_tech,
+				"reputation" = I.reputation_required
 			))
 		data["categories"] += list(cat)
 	return data
@@ -232,6 +251,14 @@
 		if("compact_toggle")
 			compact_mode = !compact_mode
 			return TRUE
+		if ("directive_action")
+			SSdirectives.directive_action(src, usr)
+			return TRUE
+
+/datum/component/uplink/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/radar_assets),
+	)
 
 /datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
@@ -240,6 +267,8 @@
 		return
 
 	if(telecrystals < U.cost || U.limited_stock == 0)
+		return
+	if (reputation < U.reputation_required)
 		return
 	telecrystals -= U.cost
 
@@ -265,13 +294,13 @@
 	SIGNAL_HANDLER
 
 	var/mob/user = arguments[2]
-	owner = user?.key
+	owner = user?.mind
 	if(owner && !purchase_log)
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		if(GLOB.uplink_purchase_logs_by_key[owner.key])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			purchase_log = new(owner.key, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER

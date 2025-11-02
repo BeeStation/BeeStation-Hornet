@@ -1,0 +1,429 @@
+@use 'sass:color';
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+.uplink_page {
+  height: calc(100% - 45px);
+}
+
+.Home {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+
+  .HomeTitle {
+    width: 100%;
+    font-size: x-large;
+    margin-bottom: 15px;
+  }
+
+  .HomeTeam {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .HomeBottom {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .HomeRanks {
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    margin-right: 30px;
+  }
+
+  .HomeFaction {
+    flex-basis: 30%;
+    min-width: 150px;
+    flex-shrink: 0;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .HomeIntro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+  }
+
+  .IntroLink {
+    color: colors.$teal;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.TextFlash {
+  color: white;
+  animation: 1s ease alertFlash 1;
+  font-family: monospace;
+}
+
+@keyframes alertFlash {
+  0% {
+    color: white;
+  }
+  25% {
+    color: #bd4040;
+  }
+  50% {
+    color: white;
+  }
+  75% {
+    color: #bd4040;
+  }
+  100% {
+    color: white;
+  }
+}
+
+.RankCard {
+  color: #d4d4d4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 0px;
+
+  .RankCardHighlight {
+    border: 1px solid rgb(255, 209, 70);
+    box-shadow: black 3px 3px;
+  }
+
+  .RankCardMain {
+    width: 100%;
+    background: linear-gradient(0deg, #b457385a, #8d3e3e5a);
+    padding: 10px;
+    border-radius: 13px;
+    word-wrap: break-word;
+  }
+
+  .RankCardProgression {
+    min-width: 100px;
+    width: 20%;
+    margin-left: 15px;
+    padding: 10px;
+    border-radius: 13px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .RankCardTitle {
+    position: relative;
+    font-size: 1.3em;
+    margin-bottom: 6px;
+    height: 1.3em;
+  }
+
+  .RankCardName {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    text-align: right;
+    font-weight: bold;
+  }
+}
+
+.objective_card {
+  position: relative;
+  width: 180px;
+  height: 100px;
+  background: linear-gradient(
+    0deg,
+    #bd404060 0%,
+    #64282860 30%,
+    #00000060 100%
+  );
+  margin: 0px 5px;
+  padding: 4px 4px;
+  border-radius: 4px;
+  transition: background 2s ease;
+  border: 1px solid #ffffff60;
+  overflow: hidden;
+
+  &.selected {
+    border: 2px solid white;
+    background: linear-gradient(0deg, #bd404060 0%, #00000060 100%);
+  }
+}
+
+.reward_overlay {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  box-shadow: 0 0 14px 8px #00000069;
+  background-color: #00000069;
+  text-align: right;
+}
+
+.time_limit {
+  position: absolute;
+  top: 35%;
+  right: 0;
+  left: 0;
+  font-size: x-large;
+  font-family: monospace;
+  text-align: center;
+  vertical-align: middle;
+  color: #c6c6c6;
+}
+
+.directive_container {
+  margin-top: 7px;
+  position: relative;
+  height: 100%;
+}
+
+.directive_radar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  /** Aspect ratio container **/
+  padding-right: calc(50%);
+}
+
+.directive_info {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: calc(50% + 10px);
+}
+
+.directive_section {
+  position: relative;
+  height: 100%;
+}
+
+.directive_prize {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000060;
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  padding: 5px;
+  border-top: 2px solid colors.$primary;
+  border-bottom: 2px solid colors.$primary;
+  border-radius: 4px;
+}
+
+.border_section {
+  border: 2px solid colors.$primary;
+  background: linear-gradient(
+    180deg,
+    color.adjust($color: colors.$primary, $alpha: -0.85),
+    color.adjust($color: colors.$primary, $alpha: -0.75)
+  );
+  border-radius: 4px;
+  padding: 8px;
+  position: relative;
+  font-family: monospace;
+
+  // Window overrides
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: repeating-linear-gradient(
+      to right,
+      #ff0000 0px,
+      #ff0000 1px,
+      #00ff00 1px,
+      #00ff00 2px,
+      #0000ff 2px,
+      #0000ff 3px
+    );
+    background-size: 3px 100%;
+    opacity: 0.11;
+    mix-blend-mode: multiply;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: repeating-linear-gradient(
+      to top,
+      #ff0000 0px,
+      #ff0000 2px,
+      #00ff00 2px,
+      #00ff00 4px,
+      #0000ff 4px,
+      #0000ff 6px
+    );
+    background-size: 100% 6px;
+    opacity: 0.02;
+    mix-blend-mode: multiply;
+  }
+}
+
+.directive_prize_info {
+  display: flex;
+  flex-direction: row;
+  min-width: 40%;
+  vertical-align: middle;
+  height: 40px;
+  text-align: left;
+  align-items: center;
+  padding: 10px;
+}
+
+.bell_ring {
+  transform-origin: top;
+  animation: ring 1.5s infinite;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(23deg);
+  }
+  20% {
+    transform: rotate(-18deg);
+  }
+  30% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+  60% {
+    transform: rotate(-10deg);
+  }
+  70% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.reputation {
+  $luminance: luminance(#bb9b68);
+  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+
+  width: 160px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: $text-color;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent base.em(10px),
+    rgba(0, 0, 0, 0.1) base.em(10px),
+    rgba(0, 0, 0, 0.1) base.em(20px)
+  );
+
+  &.excommunicate {
+    background-color: #b92f27; // Dark red for Ex-Communication rank
+    $luminance: luminance(#b92f27);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+
+  &.blood-servant {
+    background-color: #543219; // Saddle brown for Blood Servant rank
+    $luminance: luminance(#543219);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+
+  &.field-agent {
+    background-color: #3960aa; // Cornflower blue for Field Agent rank
+    $luminance: luminance(#3960aa);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+
+  &.specialist {
+    background-color: #6724a6; // Hot pink for Specialist rank
+    $luminance: luminance(#6724a6);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+
+  &.operative {
+    background-color: #cb2e7d; // Blue violet for Operative rank
+    $luminance: luminance(#cb2e7d);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+
+  &.director {
+    background-color: #821111; // Firebrick for Director rank
+    $luminance: luminance(#821111);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+
+  &.archon {
+    background-color: #ffd059; // Gold for Archon rank
+    $luminance: luminance(#ffd059);
+    $text-color: if(
+      $luminance > 0.35,
+      rgba(0, 0, 0, 1),
+      rgba(255, 255, 255, 1)
+    );
+    color: $text-color;
+  }
+}

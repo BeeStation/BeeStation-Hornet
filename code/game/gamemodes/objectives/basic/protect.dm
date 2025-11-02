@@ -1,4 +1,5 @@
-/datum/objective/protect//The opposite of killing a dude.
+//The opposite of killing a dude.
+/datum/objective/protect
 	name = "protect"
 	var/target_role_type = FALSE
 	var/human_check = TRUE
@@ -24,6 +25,9 @@
 
 /datum/objective/protect/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
+
+/datum/objective/protect/get_tracking_target(atom/source)
+	return target?.current
 
 /datum/objective/protect/nonhuman
 	name = "protect nonhuman"
