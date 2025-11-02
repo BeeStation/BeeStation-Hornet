@@ -120,3 +120,138 @@
 		return TRUE
 
 	return FALSE
+
+/**
+ * ##add_humanity(count)
+ *
+ * Adds the specified amount of humanity to the vampire
+ * Checks to make sure it doesn't exceed 10,
+ * Adds the masquerade power at 9 or above
+ */
+/datum/antagonist/vampire/proc/add_humanity(count)
+	// Step one: Toreadors have doubled gains and losses
+	if(my_clan == /datum/vampire_clan/toreador)
+		count = count * 2
+
+	var/temp_humanity = humanity + count
+	var/power_given = FALSE
+
+	if (humanity >= 10)
+		return FALSE
+
+	if(temp_humanity > 10)
+		temp_humanity = 10
+		return FALSE
+
+	if(temp_humanity >= 9 && !(locate(/datum/action/vampire/masquerade) in powers))
+		grant_power(new /datum/action/vampire/masquerade)
+		if(humanity < 9)
+			power_given = TRUE
+
+	// Only run this code if there is an actual increase in humanity
+	if(humanity < temp_humanity)
+		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
+		if(power_given)
+			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life! (+[temp_humanity - humanity] humanity.)"))
+		else
+			to_chat(owner.current, span_userdanger("You have gained [temp_humanity - humanity] humanity."))
+
+	humanity = temp_humanity
+
+/**
+ * ##deduct_humanity(count)
+ *
+ * Deducts the specified amount of humanity from the vampire, so, don't put negatives in here.
+ * Checks to make sure it doesn't go under 0,
+ * Removes the masquerade power at less than 8
+ */
+/datum/antagonist/vampire/proc/deduct_humanity(count)
+	// Step one: Toreadors have doubled gains and losses
+	if(my_clan == /datum/vampire_clan/toreador)
+		count = count * 2
+
+	var/temp_humanity = humanity - count
+	var/power_removed = FALSE
+
+	if(count <= 0)
+		return FALSE
+
+	if (humanity <= 0)
+		return FALSE
+
+	if(temp_humanity < 0)
+		temp_humanity = 0
+		return
+
+	if(temp_humanity < 8)
+		for(var/datum/action/vampire/masquerade/power in powers)
+			remove_power(power)
+			power_removed = TRUE
+
+	// Only run this code if there is an actual decrease in humanity
+	if(humanity > temp_humanity)
+		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
+
+		if(power_removed)
+			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability! (-[humanity - temp_humanity] humanity.)"))
+		else
+			to_chat(owner.current, span_userdanger("You have lost [humanity - temp_humanity] humanity."))
+
+	humanity = temp_humanity
+
+/**
+ * ##track_humanity_gain_progress(type, subject)
+ *
+ * Adds the specified subject to the tracking lists and handles all the other stuff related to it.
+ * When a defined threshold is met, hands out humanity as appropriate and stops tracking.
+ * Ideally this can be expanded on easily by just defining a new threshold and tracking list in the datum and defines respectively.
+ * We return TRUE if it successfully added to tracked, and FALSE if it was already tracked or failed for some other reason.
+ */
+/datum/antagonist/vampire/proc/track_humanity_gain_progress(type, subject)
+	// placeholders to populate // I dunno why this works btw, i thought i made a mistake but it worked anyways.
+	var/list/tracking_list = null
+	var/goal = null
+	var/gained = FALSE
+
+	// map all the placeholders to the correct type, get the list for easier handling
+	switch(type)
+		if(HUMANITY_HUGGING_TYPE)
+			tracking_list = humanity_trackgain_hugged
+			goal = HUMANITY_HUGGING_GOAL
+			gained = humanity_gained_hugged
+		if(HUMANITY_PETTING_TYPE)
+			tracking_list = humanity_trackgain_petted
+			goal = HUMANITY_PETTING_GOAL
+			gained = humanity_gained_petted
+		if(HUMANITY_ART_TYPE)
+			tracking_list = humanity_trackgain_art
+			goal = HUMANITY_ART_GOAL
+			gained = humanity_gained_art
+		else
+			return FALSE // Cheeky check for type built in? Tsunami you genius!
+
+	// already tracked?
+	if(subject in tracking_list)
+		return FALSE
+
+	// Update the corresponding list
+	switch(type)
+		if(HUMANITY_HUGGING_TYPE)
+			humanity_trackgain_hugged += subject
+		if(HUMANITY_PETTING_TYPE)
+			humanity_trackgain_petted += subject
+		if(HUMANITY_ART_TYPE)
+			humanity_trackgain_art += subject
+
+	if(tracking_list.len >= goal && !gained)
+		// set the corresponding gained flag and award humanity
+		switch(type)
+			if(HUMANITY_HUGGING_TYPE)
+				humanity_gained_hugged = TRUE
+			if(HUMANITY_PETTING_TYPE)
+				humanity_gained_petted = TRUE
+			if(HUMANITY_ART_TYPE)
+				humanity_gained_art = TRUE
+		add_humanity(1)
+
+	return TRUE

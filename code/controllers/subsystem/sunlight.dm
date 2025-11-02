@@ -1,12 +1,12 @@
 /// How long Sol lasts
-#define TIME_VAMPIRE_DAY 120
+#define TIME_VAMPIRE_DAY 200
 /// The grace period inbetween Sol
-#define TIME_VAMPIRE_NIGHT 900
+#define TIME_VAMPIRE_NIGHT 1200
 /// First audio warning that Sol is coming
 #define TIME_VAMPIRE_DAY_WARN 90
 /// Second audio warning that Sol is coming
 #define TIME_VAMPIRE_DAY_FINAL_WARN 30
-/// Final audio warning that Sol is coming
+/// Final audio warning that Sol is coming // why is this called burn interval? I'm not touching this...
 #define TIME_VAMPIRE_BURN_INTERVAL 5
 
 ///How much time Sol can be 'off' by, keeping the time inconsistent.
@@ -58,13 +58,13 @@ SUBSYSTEM_DEF(sunlight)
 			message_admins("VAMPIRE NOTICE: Daylight beginning in [TIME_VAMPIRE_DAY_FINAL_WARN] seconds.")
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
-				vampire_warning_message = span_danger("Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_FINAL_WARN] seconds to find cover!"),
+				vampire_warning_message = span_dangerbold("Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_FINAL_WARN] seconds to find cover!"),
 				ghoul_warning_message = span_danger("In [TIME_VAMPIRE_DAY_FINAL_WARN] seconds, your master will be at risk of a Solar Flare. Make sure they find cover!"),
 			)
 		if(TIME_VAMPIRE_BURN_INTERVAL)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_THIRD_WARNING,
-				vampire_warning_message = span_danger("Seek cover, for Sol rises!"),
+				vampire_warning_message = span_narsiesmall("SEEK COVER, FOR SOL RISES!"),
 			)
 		if(NONE)
 			sunlight_active = TRUE

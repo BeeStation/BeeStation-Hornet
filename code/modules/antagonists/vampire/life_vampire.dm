@@ -56,6 +56,12 @@
 	vampire_blood_volume = clamp(vampire_blood_volume + value, 0, max_blood_volume)
 
 /**
+ * Pretty simple, remove a value from the vampire's blood volume
+**/
+/datum/antagonist/vampire/proc/RemoveBloodVolume(value)
+	vampire_blood_volume = clamp(vampire_blood_volume - value, 0, max_blood_volume)
+
+/**
  * Runs on the vampire's lifetick.
  * Heal clone, brain, brute and burn damage.
  *

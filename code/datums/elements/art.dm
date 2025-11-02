@@ -35,6 +35,10 @@
 	user.visible_message(span_notice("[user] stops and looks intently at [source]."), \
 						span_notice("You appraise [source]... [msg]"))
 
+	if(IS_VAMPIRE(user))
+		var/datum/antagonist/vampire/vampdatum = IS_VAMPIRE(user)
+		vampdatum.track_humanity_gain_progress(HUMANITY_ART_TYPE, source)
+
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 	if(!isliving(user))

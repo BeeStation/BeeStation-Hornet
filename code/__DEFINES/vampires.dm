@@ -18,6 +18,9 @@
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
 
+/// How much blood drained from the vampire each tick during sol
+#define VAMPIRE_SOL_BURN 10
+
 // ghoul defines
 /// If someone passes all checks and can be ghoulized
 #define GHOULIZATION_ALLOWED 0
@@ -25,6 +28,22 @@
 #define GHOULIZATION_DISLOYAL 1
 /// If someone is not allowed under any circimstances to become a ghoul
 #define GHOULIZATION_BANNED 2
+
+// Humanity gains (The actual tracking lists and such are in the datum duh)
+// These are supposed to be somewhat nontrivial, to the point of sometimes not being viable.
+/// Hugging of separate people
+#define HUMANITY_HUGGING_TYPE "hug"
+#define HUMANITY_HUGGING_GOAL rand(8, 12)
+
+/// Petting of separate animals
+#define HUMANITY_PETTING_TYPE "pet"
+#define HUMANITY_PETTING_GOAL rand(6, 10)
+
+/// Watching of art
+#define HUMANITY_ART_TYPE "art"
+#define HUMANITY_ART_GOAL rand(6, 10)
+
+#define HUMANITY_GAIN_TYPES list(HUMANITY_HUGGING_TYPE, HUMANITY_PETTING_TYPE, HUMANITY_ART_TYPE)
 
 // Cooldown defines
 // Used to prevent spamming vampires

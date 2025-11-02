@@ -296,7 +296,7 @@
 		blood_to_take /= 2
 
 	// Give vampire the blood
-	vampiredatum_power.AddBloodVolume(blood_to_take)
+	vampiredatum_power.AddBloodVolume(blood_to_take * 2)
 
 	// Transfer the target's reagents into the vampire's blood
 	if(target.reagents?.total_volume)

@@ -34,7 +34,8 @@
 	var/masquerade_infractions = 0
 
 	/// How many humanity points do we have? 0-10
-	var/humanity = 8
+	/// We actually always start with 0 and then add the clan's default humanity
+	var/humanity = 0
 
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
@@ -114,6 +115,15 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTHIGHPRESSURE,
 	)
+
+	/// Humanity gain tracking, thresholds are defines
+	var/list/humanity_trackgain_hugged = list()
+	var/list/humanity_trackgain_petted = list()
+	var/list/humanity_trackgain_art = list()
+
+	var/humanity_gained_hugged = FALSE
+	var/humanity_gained_petted = FALSE
+	var/humanity_gained_art = FALSE
 
 /datum/antagonist/vampire/proc/create_vampire_team()
 	vampire_team = new(owner)
@@ -434,77 +444,6 @@
 
 	/// Clear Disabilities & Organs
 	heal_vampire_organs()
-
-
-/**
- * ##add_humanity(count)
- *
- * Adds the specified amount of humanity to the vampire
- * Checks to make sure it doesn't exceed 10,
- * Adds the masquerade power at 9 or above
- */
-/datum/antagonist/vampire/proc/add_humanity(count)
-	var/temp_humanity = humanity + count
-	var/power_given = FALSE
-
-	if (humanity >= 10)
-		return FALSE
-
-	if(temp_humanity > 10)
-		temp_humanity = 10
-		return FALSE
-
-	if(temp_humanity >= 9 && !(locate(/datum/action/vampire/masquerade) in powers))
-		grant_power(new /datum/action/vampire/masquerade)
-		if(humanity < 9)
-			power_given = TRUE
-
-	// Only run this code if there is an actual increase in humanity
-	if(humanity < temp_humanity)
-		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
-		if(power_given)
-			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life! (+[temp_humanity - humanity] humanity.)"))
-		else
-			to_chat(owner.current, span_userdanger("You have gained [temp_humanity - humanity] humanity."))
-
-	humanity = temp_humanity
-
-/**
- * ##deduct_humanity(count)
- *
- * Deducts the specified amount of humanity from the vampire, so, don't put negatives in here.
- * Checks to make sure it doesn't go under 0,
- * Removes the masquerade power at less than 8
- */
-/datum/antagonist/vampire/proc/deduct_humanity(count)
-	var/temp_humanity = humanity - count
-	var/power_removed = FALSE
-
-	if(count <= 0)
-		return FALSE
-
-	if (humanity <= 0)
-		return FALSE
-
-	if(temp_humanity < 0)
-		temp_humanity = 0
-		return
-
-	if(temp_humanity < 8)
-		for(var/datum/action/vampire/masquerade/power in powers)
-			remove_power(power)
-			power_removed = TRUE
-
-	// Only run this code if there is an actual decrease in humanity
-	if(humanity > temp_humanity)
-		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
-
-		if(power_removed)
-			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability! (-[humanity - temp_humanity] humanity.)"))
-		else
-			to_chat(owner.current, span_userdanger("You have lost [humanity - temp_humanity] humanity."))
-
-	humanity = temp_humanity
 
 /**
  * ##clear_power_and_stats()

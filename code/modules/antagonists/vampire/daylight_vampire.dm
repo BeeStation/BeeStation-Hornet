@@ -69,6 +69,45 @@
 			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 			return
 
+	// We don't want to be TOO mean, so we make 3 different grades of protection.
+	// Highest grade of protection. You will be hungry, but you won't be in frenzy.
+	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
+		if(vampire_blood_volume >= FRENZY_THRESHOLD_EXIT)
+			RemoveBloodVolume(VAMPIRE_SOL_BURN / 4)
+			message_admins("COFFIN")
+		return
+
+	// Middle grade of protection. You still won't enter frenzy. But you will be damn close.
+	if(istype(owner.current.loc, /obj/structure/closet))
+		if(vampire_blood_volume >= FRENZY_THRESHOLD_ENTER * 4)
+			RemoveBloodVolume(VAMPIRE_SOL_BURN / 2)
+			message_admins("CLOSET")
+		return
+
+	// Lowest grade. At least it's something. No frenzy protection. Just a tad less vitae drain.
+	if(istype(get_area(owner.current), /area/maintenance))
+		RemoveBloodVolume(VAMPIRE_SOL_BURN / 1.5)
+		message_admins("MAINTS")
+		return
+
+	// We have checked all protections. The gloves are off.
+	RemoveBloodVolume(VAMPIRE_SOL_BURN)
+
+	// Hey gooble, why is my coworker sizzling?
+	playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 1, vary = TRUE)
+
+	// We can resist it as long as we have blood.
+	if(vampire_blood_volume >= 50)
+		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+	else
+		owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		owner.current.emote("scream")
+
+	// Rest in peace.
+	if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
+		owner.current.dust(drop_items = TRUE)
+	return
+
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, ghoul_warning_message)
 	SIGNAL_HANDLER
 
@@ -181,7 +220,6 @@
 
 	to_chat(living_owner, span_notice("You have recovered from Torpor."))
 	my_clan?.on_exit_torpor()
-
 
 /datum/status_effect/vampire_sol
 	id = "vampire_sol"
