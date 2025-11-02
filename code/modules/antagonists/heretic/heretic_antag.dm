@@ -150,8 +150,6 @@
 	msg += "The Forbidden Knowledge panel allows you to research abilities, read it very carefully! You cannot undo what has been done!"
 	msg += "You gain charges by either collecting influences or sacrificing people tracked by the living heart"
 	msg += "You can find a basic guide at: https://wiki.beestation13.com/view/Heretics"
-	if(locate(/datum/objective/major_sacrifice) in objectives)
-		msg += span_bold("<i>Any</i> head of staff can be sacrificed to complete your objective!")
 	to_chat(owner.current, examine_block(span_cult("[msg.Join("\n")]")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
 		"Collect influences or sacrifice targets to expand your forbidden knowledge.")
@@ -615,10 +613,6 @@
 	if(!istype(target_mind))
 		return
 	if(LAZYACCESS(sac_targets, WEAKREF(target_mind)))
-		return TRUE
-	// You can ALWAYS sacrifice heads of staff if you need to do so.
-	var/datum/objective/major_sacrifice/major_sacc_objective = locate() in objectives
-	if(major_sacc_objective && !major_sacc_objective.check_completion() && (target_mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		return TRUE
 
 /*

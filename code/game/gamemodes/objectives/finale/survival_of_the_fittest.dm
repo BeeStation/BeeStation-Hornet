@@ -25,7 +25,7 @@
 			continue
 		if (!ishuman(player))
 			continue
-		if(!shuttle_areas[get_area(player)])
+		if(!SSshuttle.emergency.shuttle_areas[get_area(player)])
 			continue
 		if (IS_CHANGELING(player))
 			continue
