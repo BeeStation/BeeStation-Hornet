@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(communications)
 	if(length(trait_list_strings))
 		. += "<hr><b>Identified shift divergencies:</b><BR>" + trait_list_strings.Join()
 
-	if(!CONFIG_GET(flag/no_intercept_report))
+	if(CONFIG_GET(flag/intercept_report))
 		var/list/gamemodes = list()
 		var/list/blacklisted_types = list()
 		// Add all of the rulesets that did executed
