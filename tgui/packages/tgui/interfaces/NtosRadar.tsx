@@ -198,7 +198,7 @@ export type NtosRadarMapProps = {
 export function NtosRadarMap(props: NtosRadarMapProps) {
   const { sig_err, selected, target, rightAlign } = props;
 
-  const containerRef = useRef(undefined);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useLocalState('state', {
     width: 0,
     height: 0,
@@ -209,18 +209,17 @@ export function NtosRadarMap(props: NtosRadarMapProps) {
   const scalingFactor = (width < height ? width : height) / 540;
   const offset = width - (width < height ? width : height);
 
-  const updateDimensions = () => {
-    if (!containerRef.current) {
-      return;
-    }
-    const { width, height } = containerRef.current.getBoundingClientRect();
-    setState({
-      width: width,
-      height: height,
-    });
-  };
-
   useEffect(() => {
+    const updateDimensions = () => {
+      if (!containerRef.current) {
+        return;
+      }
+      const { width, height } = containerRef.current.getBoundingClientRect();
+      setState({
+        width: width,
+        height: height,
+      });
+    };
     updateDimensions();
     window.addEventListener('resize', updateDimensions);
     return () => {
