@@ -165,7 +165,7 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(resident)
 	if(vampiredatum && vampiredatum.coffin == src)
 		vampiredatum.coffin = null
-		vampiredatum.vampire_lair_area = null
+		vampiredatum.vampire_haven_area = null
 	for(var/obj/structure/vampire/vampire_structure in get_area(src))
 		if(vampire_structure.owner == resident)
 			vampire_structure.unbolt()
@@ -209,11 +209,9 @@
 					return
 		LockMe(user)
 
-		// If we're in a clan, level up. If not, choose a clan.
+		// If we're in a clan, level up.
 		if(vampire.my_clan)
 			vampire.my_clan.spend_rank()
-		else
-			vampire.assign_clan_and_bane()
 
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the opportunity to do so.
 		vampire.check_begin_torpor()

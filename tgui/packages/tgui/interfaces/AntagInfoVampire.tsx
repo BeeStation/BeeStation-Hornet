@@ -654,7 +654,7 @@ const ClanSection = () => {
             </Box>
           </Stack.Item>
           <Stack.Item>
-            To enter a clan you must first claim a lair by sleeping in a coffin.
+            To determine your clan, utilize the clan selection ability.
           </Stack.Item>
         </Stack>
       </Section>

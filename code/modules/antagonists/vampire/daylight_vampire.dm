@@ -1,25 +1,9 @@
 /**
- * Resumes Sol, called when someone is assigned Vampire
-**/
-/datum/antagonist/vampire/proc/check_start_sunlight()
-	var/list/existing_suckers = get_antag_minds(/datum/antagonist/vampire) - owner
-	if(!length(existing_suckers))
-		SSsunlight.can_fire = TRUE
-
-/**
- * Pauses Sol, called when someone is unassigned Vampire
-**/
-/datum/antagonist/vampire/proc/check_cancel_sunlight()
-	var/list/existing_suckers = get_antag_minds(/datum/antagonist/vampire) - owner
-	if(!length(existing_suckers))
-		SSsunlight.can_fire = FALSE
-
-/**
  * Gives the Vampire the gohome power, called 1.5 minutes before Sol starts
 **/
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
 	SIGNAL_HANDLER
-	if(vampire_lair_area && !(locate(/datum/action/vampire/gohome) in powers))
+	if(vampire_haven_area && !(locate(/datum/action/vampire/gohome) in powers))
 		grant_power(new /datum/action/vampire/gohome)
 
 /**
@@ -74,20 +58,17 @@
 	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
 		if(vampire_blood_volume >= FRENZY_THRESHOLD_EXIT)
 			RemoveBloodVolume(VAMPIRE_SOL_BURN / 4)
-			message_admins("COFFIN")
 		return
 
 	// Middle grade of protection. You still won't enter frenzy. But you will be damn close.
 	if(istype(owner.current.loc, /obj/structure/closet))
 		if(vampire_blood_volume >= FRENZY_THRESHOLD_ENTER * 4)
 			RemoveBloodVolume(VAMPIRE_SOL_BURN / 2)
-			message_admins("CLOSET")
 		return
 
 	// Lowest grade. At least it's something. No frenzy protection. Just a tad less vitae drain.
 	if(istype(get_area(owner.current), /area/maintenance))
 		RemoveBloodVolume(VAMPIRE_SOL_BURN / 1.5)
-		message_admins("MAINTS")
 		return
 
 	// We have checked all protections. The gloves are off.

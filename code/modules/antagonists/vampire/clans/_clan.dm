@@ -9,15 +9,12 @@
 	var/name = CLAN_CAITIFF
 	/// Description of what the clan is, given when joining and through your antag UI.
 	var/description = "The Caitiff are seen as either vile thinbloods, or vile mongrels, either case you are likely not to make many friends.\n\
-		In your case, your blood is strong enough to grant you some basic abilities of various disciplines."
+						In your case, your blood is strong enough to grant you some basic abilities of various disciplines."
 	/// Description shown when trying to join the clan.
 	var/join_description = "The average thinblood, hated by polite kindred society."
 
 	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
 	var/datum/antagonist/vampire/vampiredatum
-
-	/// The clan objective that is required to greentext.
-	var/datum/objective/vampire/clan_objective
 
 	/// The icon of this clan on the selection radial menu.
 	var/join_icon = 'icons/vampires/clan_icons.dmi'
@@ -31,29 +28,41 @@
 
 	var/is_sabbat = FALSE	// In case we want a bad guy clan that doesn't care about the masquerade.
 
+/**
+ * Starting Humanity score, some clans are closer to the beast, some closer to humanity.
+ * 10 	Saintly
+ * 9 	Compassionate
+ * 8 	Caring
+ * 7 	Normal
+ * 6 	Distant
+ * 5 	Removed
+ * 4 	Unfeeling
+ * 3 	Cold
+ * 2 	Bestial
+ * 1 	Horrific
+ * 0 	Wight
+ */
+	var/default_humanity = 7
+
 /datum/vampire_clan/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
+	RegisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE, PROC_REF(on_vampire_broke_masquerade))
+
 	vampiredatum = owner_datum
-	give_clan_objective()
+	vampiredatum.add_humanity(default_humanity, TRUE)
+
+	// Masquerade breakers
+	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)
+		if(unmasked.owner.current)
+			on_vampire_broke_masquerade(vampiredatum.owner.current, unmasked)
+
+	for(var/datum/action/vampire/clanselect/clanselect in vampiredatum.powers)
+		vampiredatum.remove_power(clanselect)
 
 /datum/vampire_clan/Destroy(force)
-	remove_clan_objective()
 	vampiredatum = null
+	UnregisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE)
 	. = ..()
-
-/datum/vampire_clan/proc/give_clan_objective()
-	if(!ispath(clan_objective))
-		return
-	clan_objective = new clan_objective()
-	clan_objective.name = "Clan Objective"
-	clan_objective.owner = vampiredatum.owner
-	vampiredatum.objectives += clan_objective
-	vampiredatum.owner.announce_objectives()
-
-/datum/vampire_clan/proc/remove_clan_objective()
-	vampiredatum.objectives -= clan_objective
-	QDEL_NULL(clan_objective)
-	vampiredatum.owner.announce_objectives()
 
 /**
  * Called when a Vampire exits Torpor
@@ -115,9 +124,9 @@
 		var/power_response
 		if(istype(living_vampire.loc, /obj/structure/closet))
 			var/obj/structure/closet/container = living_vampire.loc
-			power_response = show_radial_menu(living_vampire, container, radial_display)
+			power_response = show_radial_menu(living_vampire, container, radial_display, radius = 45)
 		else
-			power_response = show_radial_menu(living_vampire, living_vampire, radial_display)
+			power_response = show_radial_menu(living_vampire, living_vampire, radial_display, radius = 45)
 
 		if(isnull(power_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
@@ -171,7 +180,7 @@
 	if(ghouldatum.special_type)
 		to_chat(living_vampire, span_notice("This ghoul was already assigned a special position."))
 		return FALSE
-	if(!(living_ghoul.mob_biotypes & MOB_ORGANIC))
+	if(!(MOB_ORGANIC in living_ghoul.mob_biotypes)) // !(living_ghoul.mob_biotypes & MOB_ORGANIC)
 		to_chat(living_vampire, span_notice("This ghoul is unable to gain a special rank due to innate features."))
 		return FALSE
 
@@ -190,7 +199,7 @@
 		return
 
 	to_chat(living_vampire, span_notice("You can change who this ghoul is, who are they to you?"))
-	var/ghoul_response = show_radial_menu(living_vampire, living_ghoul, radial_display)
+	var/ghoul_response = show_radial_menu(living_vampire, living_ghoul, radial_display, radius = 45)
 	if(!ghoul_response)
 		return
 	ghoul_response = options[ghoul_response]
@@ -210,3 +219,18 @@
 			return 1
 		if(31 to INFINITY)
 			return 2
+
+
+/datum/vampire_clan/proc/on_vampire_broke_masquerade(datum/source, datum/antagonist/vampire/masquerade_breaker)
+	SIGNAL_HANDLER
+
+	if(masquerade_breaker == vampiredatum)
+		return
+
+	to_chat(vampiredatum.owner.current, span_userdanger("[masquerade_breaker.owner.current] has broken the Masquerade! We must punish this transgression with final death!"))
+	var/datum/objective/assassinate/masquerade_objective = new()
+	masquerade_objective.target = masquerade_breaker.owner
+	masquerade_objective.name = "Masquerade Objective"
+	masquerade_objective.explanation_text = "Ensure [masquerade_breaker.owner.current], who has broken the Masquerade, succumbs to Final Death."
+	vampiredatum.objectives += masquerade_objective
+	vampiredatum.owner.announce_objectives()

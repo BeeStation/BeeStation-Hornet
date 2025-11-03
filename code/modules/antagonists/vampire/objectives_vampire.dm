@@ -5,37 +5,24 @@
 	update_explanation_text()
 	return ..()
 
-/// Look at all crew members, and for/loop through.
-/datum/objective/vampire/proc/return_possible_targets()
-	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target in get_crewmember_minds())
-		// Check One: Default Valid User
-		if(possible_target != owner && ishuman(possible_target.current) && possible_target.current.stat != DEAD)
-			// Check Two: Am Vampire?
-			if(IS_VAMPIRE(possible_target.current))
-				continue
-			possible_targets += possible_target
-
-	return possible_targets
-
 //////////////////////////////////////////////////////////////////////////////////////
 //	//							 OBJECTIVES 									//	//
 //////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Claim a lair
+ * Claim a haven
  */
-/datum/objective/vampire/lair
-	name = "claimlair"
-	explanation_text = "Create a lair by claiming a coffin, and protect it until the end of the shift."
+/datum/objective/vampire/haven
+	name = "claimhaven"
+	explanation_text = "Create a haven by claiming a coffin, and protect it until the end of the shift."
 
 // WIN CONDITIONS?
-/datum/objective/vampire/lair/check_completion()
+/datum/objective/vampire/haven/check_completion()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
 	if(!vampire_datum)
 		return FALSE
 
-	if(vampire_datum.coffin && vampire_datum.vampire_lair_area)
+	if(vampire_datum.coffin && vampire_datum.vampire_haven_area)
 		return TRUE
 
 	return FALSE
@@ -72,23 +59,6 @@
 			continue
 
 	return all_ghoul_jobs
-
-/**
- * ghoulize a head of staff
- */
-/datum/objective/vampire/conversion/command
-	name = "ghoulizationcommand"
-	explanation_text = "Guarantee a ghoul ends up as a Department Head or in a Leadership role."
-	target_amount = 1
-
-/datum/objective/vampire/conversion/command/check_completion()
-	var/list/datum/job/ghoul_jobs = get_ghoul_occupations()
-	for(var/datum/job/checked_job in ghoul_jobs)
-		if(checked_job.departments & DEPT_BITFLAG_COM)
-			return TRUE
-
-	return FALSE
-
 /**
  * ghoulize crewmembers in a specific department
  */
@@ -106,26 +76,15 @@
 		"service" = DEPT_BITFLAG_SRV,
 	)
 
-
 // GENERATE!
 /datum/objective/vampire/conversion/department/New()
 	target_department = pick(possible_departments)
-
-	// Don't assign more ghoulizations than possible
-	var/ghoul_max = 0
-	switch(length(GLOB.joined_player_list))
-		if(1 to 20)
-			ghoul_max = 1
-		if(21 to 30)
-			ghoul_max = 3
-		if(31 to INFINITY)
-			ghoul_max = 4
-	target_amount = min(rand(2, 3), ghoul_max)
+	target_amount = 1
 	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/conversion/department/update_explanation_text()
-	explanation_text = "Have [target_amount] ghoul\s in the [target_department] department."
+	explanation_text = "Have a ghoul in the [target_department] department."
 	return ..()
 
 // WIN CONDITIONS?
@@ -208,84 +167,12 @@
 
 // HOW: Track each feed (if human). Count victory.
 
-// NOTE: Look up /assassinate in objective.dm for inspiration.6
-/// ghoulize a target.
-/datum/objective/vampire/ghoulhim
-	name = "ghoulhim"
-	var/target_department_type = FALSE
-
-/datum/objective/vampire/ghoulhim/New()
-	find_target()
-	..()
-
-// EXPLANATION
-/datum/objective/vampire/ghoulhim/update_explanation_text()
-	. = ..()
-	if(target?.current)
-		explanation_text = "Ensure [target.name], the [target.assigned_role], is ghoulized via the Persuasion Rack."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/vampire/ghoulhim/admin_edit(mob/admin)
-	admin_simple_target_pick(admin)
-
-// WIN CONDITIONS?
-/datum/objective/vampire/ghoulhim/check_completion()
-	if(!target || target.has_antag_datum(/datum/antagonist/ghoul))
-		return TRUE
-	return FALSE
-
-//////////////////////////////////////////////
-//                                          //
-//              CLAN OBJECTIVES             //
-//                                          //
-//////////////////////////////////////////////
-
-/**
- * Nosferatu
- */
-/datum/objective/vampire/kindred
-	name = "steal kindred"
-	explanation_text = "Ensure Nosferatu steals and keeps control over the Archive of the Kindred."
-
-/datum/objective/vampire/kindred/check_completion()
-	for(var/datum/mind/vampire_minds as anything in get_antag_minds(/datum/antagonist/vampire))
-		var/obj/item/book/kindred/the_book = locate() in vampire_minds.current.get_contents()
-		if(the_book)
-			return TRUE
-
-	return FALSE
-
-/**
- * Tremere
- */
-/datum/objective/vampire/tremere_power
-	name = "tremerepower"
-	explanation_text = "Upgrade a Blood Magic power to the maximum level, remember that ghoulizing gives more Ranks!"
-
-/datum/objective/vampire/tremere_power/check_completion()
-	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
-	for(var/datum/action/vampire/targeted/tremere/tremere_power in vampire_datum.powers)
-		if(tremere_power.level_current >= 5)
-			return TRUE
-
-	return FALSE
-
-/**
- * Ventrue
- */
-/datum/objective/vampire/embrace
-	name = "embrace"
-	explanation_text = "Use the persuasion rack to Rank your Favorite ghoul up enough to become a Vampire."
-
-// We set the objective to complete when we level up our favorite ghoul into a vampire.
-
 /**
  * ghoul
  */
 /datum/objective/vampire/ghoul
 	name = "assist master"
-	explanation_text = "Guarantee the success of your Master's mission!"
+	explanation_text = "You crave the blood of your sire! Obey and protect them at all costs!"
 
 /datum/objective/vampire/ghoul/check_completion()
 	var/datum/antagonist/ghoul/ghoul_datum = IS_ghoul(owner.current)

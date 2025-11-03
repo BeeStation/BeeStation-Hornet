@@ -27,9 +27,9 @@
 	var/chosen_clan
 	if(istype(owner.current.loc, /obj/structure/closet))
 		var/obj/structure/closet/container = owner.current.loc
-		chosen_clan = show_radial_menu(person_selecting, container, radial_display)
+		chosen_clan = show_radial_menu(person_selecting, container, radial_display, radius = 45)
 	else
-		chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display)
+		chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display, radius = 45)
 
 	chosen_clan = options[chosen_clan]
 

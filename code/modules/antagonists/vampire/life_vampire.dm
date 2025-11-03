@@ -23,6 +23,13 @@
 			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 
+	var/area/current_area = get_area(owner.current)
+	if(istype(current_area, /area/chapel) && humanity <= 2)
+		to_chat(owner, span_warning("Your inhuman nature is rejected by a holy presence!"))
+		owner.current.adjustFireLoss(10)
+		owner.current.adjust_fire_stacks(4)
+		owner.current.IgniteMob()
+
 	// Standard Updates
 
 	// Clan specific stuff

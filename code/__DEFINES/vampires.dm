@@ -17,6 +17,8 @@
 #define FRENZY_THRESHOLD_EXIT 250
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
+/// The number that incoming levels are divided by when comitting the Amaranth. Example: 2 would divide the victims level by 2, and give that to the diablerist
+#define DIABLERIE_DIVISOR 1.5
 
 /// How much blood drained from the vampire each tick during sol
 #define VAMPIRE_SOL_BURN 10

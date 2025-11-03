@@ -43,7 +43,7 @@
 		return
 	broke_masquerade = TRUE
 
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/vampires/masquerade_violation.ogg', 100, FALSE, pressure_affected = FALSE)
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your ghouls are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
@@ -60,12 +60,12 @@
 		return
 	masquerade_infractions++
 
-	owner.current.playsound_local(null, 'sound/vampires/masquerade_violation.ogg', 50, TRUE)
+	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	if(masquerade_infractions >= 3)
 		break_masquerade()
 	else
-		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become a criminal to the all other Vampires!"))
+		to_chat(owner.current, span_cultbold("You violated the Masquerade! Break the Masquerade [3 - masquerade_infractions] more times and you will become hunted by all other Vampires!"))
 
 /**
  * Increase our unspent vampire levels by one and try to rank up if inside a coffin
@@ -128,7 +128,7 @@
  * Checks to make sure it doesn't exceed 10,
  * Adds the masquerade power at 9 or above
  */
-/datum/antagonist/vampire/proc/add_humanity(count)
+/datum/antagonist/vampire/proc/add_humanity(count, silent)
 	// Step one: Toreadors have doubled gains and losses
 	if(my_clan == /datum/vampire_clan/toreador)
 		count = count * 2
@@ -143,18 +143,17 @@
 		temp_humanity = 10
 		return FALSE
 
-	if(temp_humanity >= 9 && !(locate(/datum/action/vampire/masquerade) in powers))
+	if(temp_humanity >= 8 && !(locate(/datum/action/vampire/masquerade) in powers))
 		grant_power(new /datum/action/vampire/masquerade)
-		if(humanity < 9)
-			power_given = TRUE
+		power_given = TRUE
 
-	// Only run this code if there is an actual increase in humanity
-	if(humanity < temp_humanity)
+	// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
+	if(humanity < temp_humanity && !silent)
 		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
 		if(power_given)
-			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life! (+[temp_humanity - humanity] humanity.)"))
+			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
 		else
-			to_chat(owner.current, span_userdanger("You have gained [temp_humanity - humanity] humanity."))
+			to_chat(owner.current, span_userdanger("You have gained humanity."))
 
 	humanity = temp_humanity
 
@@ -193,9 +192,9 @@
 		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
 
 		if(power_removed)
-			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability! (-[humanity - temp_humanity] humanity.)"))
+			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
 		else
-			to_chat(owner.current, span_userdanger("You have lost [humanity - temp_humanity] humanity."))
+			to_chat(owner.current, span_userdanger("You have lost humanity."))
 
 	humanity = temp_humanity
 

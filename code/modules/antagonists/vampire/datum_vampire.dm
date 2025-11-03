@@ -59,8 +59,8 @@
 	/// How much damage the vampire heals each life tick. Increases per rank up
 	var/vampire_regen_rate = 0.3
 
-	/// Lair
-	var/area/vampire_lair_area
+	/// Haven
+	var/area/vampire_haven_area
 	var/obj/structure/closet/crate/coffin
 
 	/// To keep track of objectives
@@ -253,9 +253,6 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
-	// Start Sol if we're the first vampire
-	check_start_sunlight()
-
 	// Set name and reputation
 	select_first_name()
 	select_reputation(am_fledgling = TRUE)
@@ -272,7 +269,6 @@
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
-	check_cancel_sunlight()
 	owner.special_role = null
 	return ..()
 
@@ -508,8 +504,8 @@
 		return
 	// This is my Lair
 	coffin = claimed
-	vampire_lair_area = coffin_area
-	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
+	vampire_haven_area = coffin_area
+	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_haven_area]."))
 	return TRUE
 
 /// Name shown on antag list
@@ -531,9 +527,9 @@
 
 /datum/antagonist/vampire/proc/forge_objectives()
 	// Claim a Lair Objective
-	var/datum/objective/vampire/lair/lair_objective = new
-	lair_objective.owner = owner
-	objectives += lair_objective
+	var/datum/objective/vampire/haven/haven_objective = new
+	haven_objective.owner = owner
+	objectives += haven_objective
 
 	// Survive Objective
 	var/datum/objective/survive/survive_objective = new

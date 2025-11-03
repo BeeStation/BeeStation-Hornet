@@ -55,11 +55,11 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 	/// Claiming the Rack instead of using it?
 	if(vampiredatum && !owner)
-		if(!vampiredatum.vampire_lair_area)
+		if(!vampiredatum.vampire_haven_area)
 			to_chat(user, span_danger("You don't have a lair. Claim a coffin to make that location your lair."))
 			return FALSE
-		if(vampiredatum.vampire_lair_area != get_area(src))
-			to_chat(user, span_danger("You may only activate this structure in your lair: [vampiredatum.vampire_lair_area]."))
+		if(vampiredatum.vampire_haven_area != get_area(src))
+			to_chat(user, span_danger("You may only activate this structure in your lair: [vampiredatum.vampire_haven_area]."))
 			return FALSE
 
 		/// Radial menu for securing your Persuasion rack in place.
@@ -279,12 +279,6 @@
 
 		// If the victim is mindshielded or an antagonist, they choose to accept or refuse vassilization.
 		if(!wants_vassilization && (HAS_TRAIT(living_target, TRAIT_MINDSHIELD) || length(living_target.mind.antag_datums)))
-			// Check if our target is our brujah clan objective
-			if(istype(vampiredatum.my_clan, /datum/vampire_clan/brujah) && vampiredatum.my_clan.clan_objective.target == living_target.mind)
-				balloon_alert(living_vampire, "ready for communion!")
-				wants_vassilization = TRUE
-				return
-
 			balloon_alert(living_vampire, "has external loyalties! more persuasion required!")
 			if(!ask_for_vassilization(living_vampire, living_target))
 				balloon_alert(living_vampire, "refused persuasion!")

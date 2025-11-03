@@ -84,11 +84,15 @@
 	if(!target.mind && vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY && !vampiredatum_power.frenzied)
 		owner.balloon_alert(owner, "cant drink from mindless!")
 		return FALSE
-	// Cannot be a curator or vampire
-	if(IS_VAMPIRE(target) || IS_CURATOR(target))
+	// Cannot be a curator
+	if(IS_CURATOR(target))
 		owner.balloon_alert(owner, "[target] is too powerful!")
 		return FALSE
-
+	// Only allow diablerie for masquerade breakers
+	if(IS_VAMPIRE(target))
+		var/datum/antagonist/vampire/target_vampire = IS_VAMPIRE(target)
+		if(!target_vampire.broke_masquerade)
+			return FALSE
 	// Human checks
 	if(ishuman(target))
 		// Cannot drink from inorganics
@@ -225,15 +229,11 @@
 		owner.balloon_alert(owner, "your victim's blood is at an unsafe level.")
 	warning_target_bloodvol = feed_target.blood_volume
 
-	// Check if full on blood
-	if(vampiredatum_power.vampire_blood_volume >= vampiredatum_power.max_blood_volume)
-		user.balloon_alert(owner, "full on blood!")
-		power_activated_sucessfully()
-		return
-
 	// Check if target has an acceptable amount of blood left
 	if(feed_target.blood_volume <= 10)
 		user.balloon_alert(owner, "no blood left!")
+		if(IS_VAMPIRE(feed_target))
+			diablerie(feed_target)
 		power_activated_sucessfully()
 		return
 
@@ -242,6 +242,19 @@
 
 	if(!silent_feed)
 		feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
+
+/// We assume the target is a vampire.
+/datum/action/vampire/targeted/feed/proc/diablerie(mob/living/poor_sap)
+	var/datum/antagonist/vampire/victim = IS_VAMPIRE(poor_sap)
+
+	var/levels_absorbed = victim.vampire_level / DIABLERIE_DIVISOR
+
+	for(levels_absorbed)
+		vampiredatum_power.rank_up()
+
+	vampiredatum_power.deduct_humanity(victim.humanity / 3)
+
+	poor_sap.dust(drop_items = TRUE)
 
 /datum/action/vampire/targeted/feed/deactivate_power()
 	. = ..()
@@ -300,6 +313,11 @@
 
 	// Give vampire the blood
 	vampiredatum_power.AddBloodVolume(blood_to_take * 2)
+
+	// Diablerie takes vitae directly
+	if(IS_VAMPIRE(target))
+		var/datum/antagonist/vampire/vampire_target = IS_VAMPIRE(target)
+		vampire_target.RemoveBloodVolume(blood_to_take * 4)
 
 	// Transfer the target's reagents into the vampire's blood
 	if(target.reagents?.total_volume)
