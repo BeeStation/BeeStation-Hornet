@@ -574,8 +574,8 @@
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf
 
-/datum/outfit/ctf/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
-	if(visualsOnly)
+/datum/outfit/ctf/post_equip(mob/living/carbon/human/H, visuals_only=FALSE)
+	if(visuals_only)
 		return
 	var/list/no_drops = list()
 	var/obj/item/card/id/W = H.wear_id

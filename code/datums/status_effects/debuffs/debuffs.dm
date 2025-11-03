@@ -590,7 +590,7 @@
 	to_chat(owner, span_warning("You snap out of your trance!"))
 
 /datum/status_effect/trance/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] slow and unfocused.")
+	return span_warning("[owner.p_They()] seem[owner.p_s()] slow and unfocused.")
 
 /datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args, list/spans, list/message_mods = list())
 	SIGNAL_HANDLER
@@ -978,7 +978,7 @@
 	var/mob/living/carbon/human/H = owner
 	var/obscured = H.check_obscured_slots()
 	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
-		return span_warning("[owner.p_they(TRUE)] has a blank, catatonic like stare.")
+		return span_warning("[owner.p_They()] has a blank, catatonic like stare.")
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
@@ -1009,7 +1009,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 
 /datum/status_effect/strandling/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] is buzzing and twitching!")
+	return span_warning("[owner.p_They()] is buzzing and twitching!")
 
 /atom/movable/screen/alert/status_effect/emp
 	name = "Electro-Magnetic Pulse"
@@ -1023,7 +1023,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 
 /datum/status_effect/cyborg_malfunction/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] flashing red error lights!")
+	return span_warning("[owner.p_They()] [owner.p_are()] flashing red error lights!")
 
 /atom/movable/screen/alert/status_effect/generic_malfunction
 	name = "Malfunctioning Electronics"
@@ -1217,7 +1217,7 @@
 	//return COMPONENT_CLEANED
 
 /datum/status_effect/ants/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] covered in ants!")
+	return span_warning("[owner.p_They()] [owner.p_are()] covered in ants!")
 
 /datum/status_effect/ants/tick()
 	var/mob/living/carbon/human/victim = owner

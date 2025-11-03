@@ -2530,7 +2530,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/get_harm_descriptors()
-	return
+	SHOULD_CALL_PARENT(FALSE)
+	return list(
+		BLEED = "bleeding",
+		BRUTE = "bruising",
+		BURN = "burns"
+	)
 
 /datum/species/proc/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
 	// Check if legs are functional for catrobatics

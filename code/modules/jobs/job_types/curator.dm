@@ -51,10 +51,10 @@
 		/obj/item/barcodescanner = 1
 	)
 
-/datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	H.grant_all_languages(source = LANGUAGE_CURATOR)

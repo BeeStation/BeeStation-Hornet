@@ -171,8 +171,8 @@
 	if(!continue_active())
 		if(!silent_feed)
 			user.visible_message(
-				span_warning("[user] is ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),
-				span_warning("Your teeth are ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"))
+				span_warning("[user] is ripped from [feed_target]'s throat. [feed_target.p_Their()] blood sprays everywhere!"),
+				span_warning("Your teeth are ripped from [feed_target]'s throat. [feed_target.p_Their()] blood sprays everywhere!"))
 
 			// Time to start bleeding
 			if(iscarbon(feed_target))
@@ -251,7 +251,7 @@
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
 
 		if(feed_target.stat != DEAD && silent_feed)
-			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
+			to_chat(owner, span_notice("<i>[feed_target.p_They()] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
 			to_chat(feed_target, span_bighypnophrase("You don't remember how you got here..."))
 
 		if(feed_target.stat == DEAD)
