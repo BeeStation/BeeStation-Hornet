@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed half of the kilostation solar panels having their cable node in
+      the wrong direction.
