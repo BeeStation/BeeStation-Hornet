@@ -25,6 +25,7 @@
 		if(!front_id)
 			front_id = id_card
 
+		LAZYINITLIST(combined_access)
 		combined_access |= id_card.access
 
 	if(ishuman(loc))
