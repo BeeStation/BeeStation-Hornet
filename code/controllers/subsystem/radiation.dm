@@ -67,6 +67,9 @@ SUBSYSTEM_DEF(radiation)
 				target.AddComponent(/datum/component/radiation_countdown, pulse_information.minimum_exposure_time)
 				continue
 
+			if (isitem(target) && !prob(pulse_information.intensity))
+				continue
+
 			if (irradiate_after_basic_checks(target, pulse_information.intensity))
 				target.investigate_log("was irradiated by [source].", INVESTIGATE_RADIATION)
 

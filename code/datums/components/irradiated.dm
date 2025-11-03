@@ -50,7 +50,7 @@
 	if (ishuman(parent))
 		START_PROCESSING(SSobj, src)
 	else
-		QDEL_IN(src, 60 SECONDS)
+		QDEL_IN(src, 30 SECONDS)
 		create_glow()
 
 /datum/component/irradiated/RegisterWithParent()
