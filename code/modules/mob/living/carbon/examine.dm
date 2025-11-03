@@ -402,7 +402,7 @@
 	var/perpname = get_face_name(get_id_name(""))
 	var/title = ""
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)) && (user.stat == CONSCIOUS || isobserver(user)) && user != src)
-		var/datum/record/crew/target_record = find_record(perpname)
+		var/datum/record/crew/target_record = find_record(perpname, GLOB.manifest.general)
 		if(target_record)
 			. += "Rank: [target_record.rank]"
 			. += "<a href='byond://?src=[REF(src)];hud=1;photo_front=1;examine_time=[world.time]'>\[Front photo\]</a><a href='byond://?src=[REF(src)];hud=1;photo_side=1;examine_time=[world.time]'>\[Side photo\]</a>"
