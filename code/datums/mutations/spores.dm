@@ -9,6 +9,9 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
+	species_allowed = list(
+		/datum/species/psyphoza,
+	)
 
 /datum/action/spell/spores
 	name = "Release Spores"

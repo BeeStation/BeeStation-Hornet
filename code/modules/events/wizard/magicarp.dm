@@ -45,7 +45,7 @@
 		/obj/projectile/magic/animate,
 		/obj/projectile/magic/arcane_barrage,
 		/obj/projectile/magic/change,
-		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/healing,
 		/obj/projectile/magic/death,
 		/obj/projectile/magic/teleport,
 		/obj/projectile/magic/door,

@@ -6,6 +6,19 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/item/glasses_of_truesight
+	name = "Glasses of Truesight"
+	desc = "A pair of glasses that allows you to see those that would hide from you"
+	item_path = /obj/item/clothing/glasses/red/wizard
+	category = "Assistance"
+
+/datum/spellbook_entry/raise_skeleton
+	name = "Raise Lesser Skeleton"
+	desc = "Lets you command an unlimited number of loyal skeletons, but they are not always able to reach their fullest potential and may attack enemies mindlessly."
+	spell_type = /datum/action/spell/touch/raise_skeleton
+	category = "Assistance"
+	cost = 1
+
 /datum/spellbook_entry/charge
 	name = "Charge"
 	desc = "This spell can be used to recharge a variety of things in your hands, from magical artifacts to electrical components. A creative wizard can even use it to grant magical power to a fellow magic user."
@@ -28,12 +41,6 @@
 	cost = 1
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
-/datum/spellbook_entry/item/staffanimation
-	name = "Staff of Animation"
-	desc = "An arcane staff capable of shooting bolts of eldritch energy which cause inanimate objects to come to life. This magic doesn't affect machines."
-	item_path = /obj/item/gun/magic/staff/animate
-	category = "Assistance"
-
 /datum/spellbook_entry/item/soulstones
 	name = "Soulstone Shard Kit"
 	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. \
@@ -55,7 +62,7 @@
 
 /datum/spellbook_entry/item/necrostone
 	name = "A Necromantic Stone"
-	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
+	desc = "A Necromantic stone is able to resurrect three dead individuals as armed skeletal thralls for you to command."
 	item_path = /obj/item/necromantic_stone
 	category = "Assistance"
 
@@ -72,6 +79,14 @@
 	It would be wise to avoid buying these with anything capable of causing you to swap bodies with others."
 	item_path = /obj/item/holoparasite_creator/wizard
 	category = "Assistance"
+
+/datum/spellbook_entry/item/blood_contract
+	name = "Blood Contract"
+	desc = "A magical contract sends its victim spiraling into bloodthirsty madness, causing them to see all of their old friends as demonic forces. Surely one person can't kill everyone they know without dying first?"
+	item_path = /obj/item/blood_contract
+	category = "Assistance"
+	refundable = TRUE //Consumed on use
+	limit = 1
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
@@ -98,3 +113,24 @@
 	limit = 3
 	category = "Assistance"
 	refundable = TRUE
+
+/datum/spellbook_entry/item/staffpotential
+	name = "Staff of Latent Potential"
+	desc = "This staff can awaken the hidden potential within a person, provided they're willing to put up with some side-effects."
+	item_path = /obj/item/gun/magic/staff/potential
+	cost = 1
+	category = "Assistance"
+
+/datum/spellbook_entry/item/animation_wand
+	name = "Wand of Animation"
+	desc = "A wand that can animate ordinary objects into aggressively loyal minions for a short while."
+	item_path = /obj/item/gun/magic/wand/animation
+	category = "Assistance"
+	cost = 1
+
+/datum/spellbook_entry/item/nutrition_wand
+	name = "Wand of Nutrition"
+	desc = "A wand that can end universal hunger... and then some."
+	item_path = /obj/item/gun/magic/wand/nutrition
+	category = "Assistance"
+	cost = 1
