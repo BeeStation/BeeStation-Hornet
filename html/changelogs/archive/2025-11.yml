@@ -58,3 +58,5 @@
 2025-11-03:
   mrmanlikesbt:
   - bugfix: Fixed vampire frenzies
+  - bugfix: Fixed half of the kilostation solar panels having their cable node in
+      the wrong direction.
