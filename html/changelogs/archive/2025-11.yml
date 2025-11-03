@@ -55,3 +55,6 @@
   - rscdel: Removes the mutate spell
   - bugfix: Psyphoza and Lizard exclusive mutations are both actually exclusive to
       those races now as intended.
+2025-11-03:
+  mrmanlikesbt:
+  - bugfix: Fixed vampire frenzies
