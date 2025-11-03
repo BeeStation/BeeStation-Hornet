@@ -309,8 +309,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
 	H.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
-	H.put_in_hands(new /obj/item/claymore(H), TRUE)
-	H.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
+	H.put_in_hands(new /obj/item/claymore/bone(H), TRUE)
+	H.equip_to_slot_or_del(new /obj/item/spear/bonespear(H), ITEM_SLOT_BACK)
 
 
 /obj/item/voodoo
@@ -421,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	possible = list()
 	if(!voodoo_link)
 		return
-	var/list/prints = voodoo_link.return_fingerprints()
+	var/list/prints = GET_ATOM_FINGERPRINTS(voodoo_link)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
@@ -464,6 +464,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "One toot on this whistle will send you to a far away land!"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "whistle"
+	w_class = WEIGHT_CLASS_SMALL
 	var/on_cooldown = 0 //0: usable, 1: in use, 2: on cooldown
 	var/mob/living/carbon/last_user
 

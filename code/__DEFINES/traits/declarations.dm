@@ -35,6 +35,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WHISPER_ONLY "whisper_only"
 
 //mob traits
+///Potential unlocked with wizard staff (they have every mutation activated)
+#define TRAIT_POTENTIAL_UNLOCKED "potential_unlocked"
 #define TRAIT_BLIND "blind"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"
@@ -48,6 +50,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CLUMSY "clumsy"
 //means that you can't use weapons with normal trigger guards.
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"
+#define TRAIT_FINGERPRINT_PASSTHROUGH "fingerprint_passthrough"
 #define TRAIT_DUMB "dumb"
 /// Whether a mob is dexterous enough to use machines and certain items or not.
 #define TRAIT_ADVANCEDTOOLUSER "advancedtooluser"
@@ -465,5 +468,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Prevents items from being speed potion-ed, but allows their speed to be altered in other ways
 #define TRAIT_NO_SPEED_POTION "no_speed_potion"
+
+/// Trait given to a dreaming carbon when they are currently doing dreaming stuff
+#define TRAIT_DREAMING "currently_dreaming"
 
 // END TRAIT DEFINES

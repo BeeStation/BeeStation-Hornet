@@ -164,8 +164,6 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
-			if(Master.initializations_finished_with_no_players_logged_in)
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 			for(var/client/C in GLOB.clients_unsafe)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
@@ -189,6 +187,11 @@ SUBSYSTEM_DEF(ticker)
 				if(player.ready == PLAYER_READY_TO_PLAY)
 					++totalPlayersReady
 
+			// If there are no players, stay in the lobby until someone joins
+			// and give enough time for them to do the storyteller vote
+			if ((totalPlayers - totalPlayersPreAuth) == 0)
+				timeLeft = min(timeLeft, 120 SECONDS)
+
 			if(start_immediately)
 				timeLeft = 0
 
@@ -197,7 +200,7 @@ SUBSYSTEM_DEF(ticker)
 				return
 			timeLeft -= wait
 
-			if(timeLeft <= 90 SECONDS && !sent_storyteller_vote)
+			if(timeLeft >= 60 SECONDS && timeLeft <= 90 SECONDS && !sent_storyteller_vote)
 				INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/storyteller_vote, "Dynamic", null, TRUE)
 				sent_storyteller_vote = TRUE
 
@@ -222,6 +225,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			SSdynamic.process_rulesets()
 			check_queue()
+			check_respawn_availabilities()
 
 			if(!roundend_check_paused && (check_finished() || force_ending))
 				current_state = GAME_STATE_FINISHED
@@ -508,6 +512,24 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(next_in_line, span_danger("No response received. You have been removed from the line."))
 			queued_players -= next_in_line
 			queue_delay = 0
+
+/datum/controller/subsystem/ticker/proc/check_respawn_availabilities()
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(observer.check_respawn_delay() && !observer.respawn_notified)
+			observer.respawn_notified = TRUE
+			observer.respawn_available = TRUE
+
+			//Get, update, and animate their hud
+			var/datum/hud/ghost/jesus = observer.hud_used
+			for(var/atom/movable/screen/ghost/respawn/respawnbutton in jesus.static_inventory)
+				//we use update here because of vibes
+				respawnbutton.update_icon_state(observer)
+				animate(respawnbutton, 150, 1, icon_state = "respawn_blinky")
+				animate(icon_state = "respawn_available")
+
+			//Draw their attention
+			SEND_SOUND(observer, sound('sound/misc/compiler-stage2.ogg'))
+			to_chat(observer, span_bigboldinfo("Your respawn is now available! You may respawn at any time using the gold-outlined button on your ghost hud."))
 
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING

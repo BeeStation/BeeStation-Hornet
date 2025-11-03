@@ -5,7 +5,7 @@
 	species = "towercap"
 	plantname = "Tower Caps"
 	product = /obj/item/grown/log
-	lifespan = 80
+	lifespan = 320
 	endurance = 50
 	maturation = 15
 	production = 1
@@ -109,7 +109,7 @@
 	species = "bamboo"
 	plantname = "Bamboo"
 	product = /obj/item/grown/log/bamboo
-	lifespan = 80
+	lifespan = 320
 	endurance = 70
 	maturation = 15
 	production = 2
