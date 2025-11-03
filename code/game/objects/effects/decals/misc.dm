@@ -102,4 +102,4 @@
 	. = ..()
 	var/turf/open/floor/T = get_turf(src)
 	if(istype(T, /turf/open/floor))
-		T.slowdown = 2
+		T.slowdown = 1.01
