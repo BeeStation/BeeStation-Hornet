@@ -1,10 +1,11 @@
 /datum/vampire_clan/ventrue
 	name = CLAN_VENTRUE
-	description = "The Ventrue Clan is extremely snobby with their meals and refuse to drink blood from the mindless.\n\
-		You may only level yourself up to Rank 3, anything further will be ranks to spend on your Favorite ghoul through a Persuasion Rack.\n\
-		The Favorite ghoul will slowly turn more Vampiric this way, until they finally lose their last bits of Humanity."
+	description = "The Ventrue have long been one of the proudest lines of vampires. Its members work hard to maintain a reputation for honor, genteel behavior, and leadership.\n\n\
+		A sense of noblesse oblige has long pervaded the clan, accompanied by the genuine belief that the Ventrue know what is best for everyone.\n\n\
+		They not only consider themselves the oldest clan, but see themselves as the enforcers of tradition and the rightful leaders of Kindred society. "
 	join_icon_state = "ventrue"
-	join_description = "You lose the ability to drink from mindless mobs\n<b>IMPORTANT:</b> \
-		Members of the Ventrue Clan can only purchase 3 powers. The rest of their ranks they will use to level up a ghoul into a vampire."
+	join_description = "The ventrue are the de-facto leaders of the camarilla. They style themselves as kings and emperors, often inhabiting positions of power.\n\
+		<b>IMPORTANT:</b> Members of the Ventrue Clan are eligible for princedom. If there is no current prince, you will become one. Please remember that princes are expected to behave in a manner befitting their office.\n\
+		<b>DISCIPLINES:</b> Dominate, Fortitude, Presence"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 	default_humanity = 8

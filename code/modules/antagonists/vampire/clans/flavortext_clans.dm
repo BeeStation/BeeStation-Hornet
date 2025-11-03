@@ -1,14 +1,4 @@
 // These have no functionality. They're just flavortext for the Archive of the Kindred
-
-/datum/vampire_clan/toreador
-	name = CLAN_TOREADOR
-	description = "The most charming Clan of them all, allowing them to very easily disguise among the crew. \n\
-		More in touch with their morals, they suffer and benefit more strongly from humanity cost or gain of their actions. \n\
-		Known as 'The most humane kind of vampire', they have an obsession with perfectionism and beauty \n\
-		The Favorite ghoul gains the Mesmerize ability."
-	joinable_clan = FALSE
-	blood_drink_type = VAMPIRE_DRINK_SNOBBY
-
 /datum/vampire_clan/tzimisce
 	name = CLAN_TZIMISCE
 	description = "The Tzimisce Clan has no knowledge about it. \n\

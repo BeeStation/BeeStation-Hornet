@@ -8,10 +8,10 @@
 	/// The name of the clan we're in.
 	var/name = CLAN_CAITIFF
 	/// Description of what the clan is, given when joining and through your antag UI.
-	var/description = "The Caitiff are seen as either vile thinbloods, or vile mongrels, either case you are likely not to make many friends.\n\
-						In your case, your blood is strong enough to grant you some basic abilities of various disciplines."
+	var/description = "The Caitiff are seen as either vile thinbloods, or vile mongrels, either case you are likely not to make many friends.\n\n\
+		In your case, your blood is strong enough to grant you some basic abilities of various disciplines."
 	/// Description shown when trying to join the clan.
-	var/join_description = "The average thinblood, hated by polite kindred society."
+	var/join_description = "The average thinblood, hated by polite kindred society. Expect to get killed by the first proper vampire that finds out your mongrel lineage."
 
 	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
 	var/datum/antagonist/vampire/vampiredatum
