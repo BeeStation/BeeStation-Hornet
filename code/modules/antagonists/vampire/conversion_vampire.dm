@@ -23,7 +23,7 @@
 		return FALSE
 
 	if(length(ghouls) >= my_clan.get_max_ghouls())
-		living_vampire.balloon_alert(living_vampire, "too many ghouls.")
+		living_vampire.balloon_alert(living_vampire, "More ghouls, in this small of a community? Surely not...")
 		return FALSE
 
 #ifndef VAMPIRE_TESTING

@@ -682,7 +682,10 @@ const ClanSection = () => {
                 You are part of the <b>{ClanInfo.name}!</b>
               </Box>
             </Stack.Item>
-            <Box fontSize="16px">{ClanInfo.description}</Box>
+            <Box
+              fontSize="16px"
+              dangerouslySetInnerHTML={{ __html: ClanInfo.description }}
+            />
           </Stack.Item>
         </Stack>
       ))}

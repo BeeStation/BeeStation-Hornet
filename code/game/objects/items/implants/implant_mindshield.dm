@@ -44,10 +44,6 @@
 
 		var/datum/antagonist/ghoul/ghoul = IS_ghoul(target)
 		if(ghoul)
-			if(ghoul.special_type)
-				if(!silent)
-					target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
-				return FALSE
 			target.mind.remove_antag_datum(/datum/antagonist/ghoul)
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
 		target.sec_hud_set_implants()

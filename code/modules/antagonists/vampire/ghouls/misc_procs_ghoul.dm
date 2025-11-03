@@ -26,25 +26,3 @@
 /datum/antagonist/ghoul/proc/level_up_powers()
 	for(var/datum/action/vampire/power in powers)
 		power.level_current++
-
-/// Called when we are made into the Favorite ghoul
-/datum/antagonist/ghoul/proc/make_special(datum/antagonist/ghoul/ghoul_type)
-	//store what we need
-	var/datum/mind/ghoul_owner = owner
-	var/datum/antagonist/vampire/vampiredatum = master
-
-	//remove our antag datum
-	silent = TRUE
-	ghoul_owner.remove_antag_datum(/datum/antagonist/ghoul)
-
-	//give our new one
-	var/datum/antagonist/ghoul/ghouldatum = new ghoul_type(ghoul_owner)
-	ghouldatum.master = vampiredatum
-	ghouldatum.silent = TRUE
-	ghoul_owner.add_antag_datum(ghouldatum)
-	ghouldatum.silent = FALSE
-
-	//send alerts of completion
-	to_chat(master, span_danger("You have turned [ghoul_owner.current] into your [ghouldatum.name]! They will no longer be deconverted upon Mindshielding!"))
-	to_chat(ghoul_owner, span_notice("As Blood drips over your body, you feel closer to your Master... You are now the [ghouldatum.name]!"))
-	ghoul_owner.current.playsound_local(null, 'sound/magic/mutate.ogg', 75, FALSE, pressure_affected = FALSE)

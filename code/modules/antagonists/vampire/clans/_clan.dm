@@ -59,6 +59,9 @@
 	for(var/datum/action/vampire/clanselect/clanselect in vampiredatum.powers)
 		vampiredatum.remove_power(clanselect)
 
+	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/vampires/VampireAlert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	to_chat(vampiredatum.owner.current, span_narsiesmall("I remember now. I belong with the [name]..."))
+
 /datum/vampire_clan/Destroy(force)
 	vampiredatum = null
 	UnregisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE)
@@ -86,12 +89,6 @@
 	living_ghoul.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
 	living_ghoul.set_jitter_if_lower(30 SECONDS)
 	living_ghoul.emote("laugh")
-
-/**
- * Called when we successfully turn a ghoul into a Favorite ghoul
- */
-/datum/vampire_clan/proc/on_favorite_ghoul(datum/antagonist/ghoul/favorite/favorite_ghoul)
-	favorite_ghoul.grant_power(new /datum/action/vampire/targeted/brawn)
 
 /**
  * Called when we level up inside a coffin.
@@ -169,57 +166,17 @@
 	vampiredatum.update_hud()
 
 /**
- * Called when we click on a Persusasion Rack with one of our ghouls on it
- * args:
- * ghouldatum - the ghoul datum of the ghoul being interacted with.
- */
-/datum/vampire_clan/proc/interact_with_ghoul(datum/antagonist/ghoul/ghouldatum)
-	var/mob/living/living_vampire = vampiredatum.owner.current
-	var/mob/living/living_ghoul = ghouldatum.owner.current
-
-	if(ghouldatum.special_type)
-		to_chat(living_vampire, span_notice("This ghoul was already assigned a special position."))
-		return FALSE
-	if(!(MOB_ORGANIC in living_ghoul.mob_biotypes)) // !(living_ghoul.mob_biotypes & MOB_ORGANIC)
-		to_chat(living_vampire, span_notice("This ghoul is unable to gain a special rank due to innate features."))
-		return FALSE
-
-	var/list/options = list()
-	var/list/radial_display = list()
-	for(var/datum/antagonist/ghoul/ghoul_path as anything in subtypesof(/datum/antagonist/ghoul))
-
-		options[initial(ghoul_path.name)] = ghoul_path
-
-		var/datum/radial_menu_choice/option = new
-		option.image = image(icon = 'icons/mob/hud.dmi', icon_state = initial(ghoul_path.ghoul_hud_name))
-		option.info = "[span_boldnotice(initial(ghoul_path.name))]\n[span_cult(initial(ghoul_path.ghoul_description))]"
-		radial_display[initial(ghoul_path.name)] = option
-
-	if(!length(options))
-		return
-
-	to_chat(living_vampire, span_notice("You can change who this ghoul is, who are they to you?"))
-	var/ghoul_response = show_radial_menu(living_vampire, living_ghoul, radial_display, radius = 45)
-	if(!ghoul_response)
-		return
-	ghoul_response = options[ghoul_response]
-	if(QDELETED(src) || QDELETED(living_vampire) || QDELETED(living_ghoul))
-		return FALSE
-	ghouldatum.make_special(ghoul_response)
-	vampiredatum.vampire_blood_volume -= 150
-	return TRUE
-
-/**
  * Calculates how many ghouls you can have at any given time
  */
 /datum/vampire_clan/proc/get_max_ghouls()
 	var/total_players = length(GLOB.joined_player_list)
 	switch(total_players)
-		if(1 to 30)
+		if(1 to 15)			// No ghouls during low-lowpop
+			return 0
+		if(16 to 30)		// 1 ghoul during normal pop
 			return 1
-		if(31 to INFINITY)
+		if(31 to INFINITY)	// if we can support it, we allow 2
 			return 2
-
 
 /datum/vampire_clan/proc/on_vampire_broke_masquerade(datum/source, datum/antagonist/vampire/masquerade_breaker)
 	SIGNAL_HANDLER

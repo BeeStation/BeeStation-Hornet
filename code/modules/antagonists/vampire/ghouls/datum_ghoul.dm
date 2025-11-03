@@ -11,12 +11,8 @@
 	var/datum/antagonist/vampire/master
 	/// The Vampire's team
 	var/datum/team/vampire/vampire_team
-	/// List of all Purchased Powers, like Vampires.
+	/// List of Powers, like Vampires.
 	var/list/datum/action/powers = list()
-	/// Whether this ghoul is already a special type of ghoul.
-	var/special_type
-	/// Description of what this ghoul does.
-	var/ghoul_description
 	/// A link to our team monitor, used to track our master.
 	var/datum/component/team_monitor/monitor
 

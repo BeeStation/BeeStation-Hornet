@@ -55,12 +55,9 @@
 /datum/action/vampire/Grant(mob/user)
 	. = ..()
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
-	var/datum/antagonist/ghoul/favorite/favorite_ghoul = IS_FAVORITE_ghoul(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
 		level_current = vampiredatum.vampire_level
-	else if(favorite_ghoul)
-		level_current = favorite_ghoul.ghoul_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/vampire/on_activate(mob/user, atom/target)

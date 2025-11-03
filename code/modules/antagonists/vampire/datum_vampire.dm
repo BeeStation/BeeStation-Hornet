@@ -316,7 +316,7 @@
 
 	owner.announce_objectives()
 
-	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
@@ -395,8 +395,6 @@
 
 			if(ghoul.owner.assigned_role)
 				ghoul_report += " the [ghoul.owner.assigned_role]"
-			if(IS_FAVORITE_ghoul(ghoul.owner.current))
-				ghoul_report += " and was the <b>Favorite ghoul</b>"
 			report += ghoul_report.Join()
 
 	if(objectives_complete)

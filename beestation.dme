@@ -2408,7 +2408,6 @@
 #include "code\modules\antagonists\vampire\clans\tremere.dm"
 #include "code\modules\antagonists\vampire\clans\ventrue.dm"
 #include "code\modules\antagonists\vampire\ghouls\datum_ghoul.dm"
-#include "code\modules\antagonists\vampire\ghouls\favorite_ghoul.dm"
 #include "code\modules\antagonists\vampire\ghouls\misc_procs_ghoul.dm"
 #include "code\modules\antagonists\vampire\ghouls\powers\distress.dm"
 #include "code\modules\antagonists\vampire\ghouls\powers\recuperate.dm"

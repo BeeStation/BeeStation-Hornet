@@ -98,24 +98,21 @@
 
 // Discipline Abilities
 // We start with the default base ones:
-#define DISCIPLINE_CELERITY list()
-#define DISCIPLINE_AUSPEX list()
-#define DISCIPLINE_POTENCE list()
-#define DISCIPLINE_PRESENCE list()
-#define DISCIPLINE_FORTITUDE list()
-#define DISCIPLINE_OBFUSCATE list()
-#define DISCIPLINE_DOMINATE list()
-#define DISCIPLINE_ANIMALISM list()
-#define DISCIPLINE_PROTEAN list()
+#define DISCIPLINE_CELERITY list(/datum/action/vampire/targeted/haste)
+#define DISCIPLINE_AUSPEX list(/datum/action/vampire/auspex)
+#define DISCIPLINE_POTENCE list(/datum/action/vampire/targeted/brawn, /datum/action/vampire/targeted/lunge)
+#define DISCIPLINE_PRESENCE list(/datum/action/vampire/targeted/mesmerize)
+#define DISCIPLINE_FORTITUDE list(/datum/action/vampire/fortitude)
+#define DISCIPLINE_OBFUSCATE list(/datum/action/vampire/cloak, /datum/action/vampire/targeted/trespass)
+#define DISCIPLINE_DOMINATE list(/datum/action/vampire/targeted/dominate)
+#define DISCIPLINE_ANIMALISM list(/datum/action/vampire/shapeshift/batform)
+#define DISCIPLINE_PROTEAN list(/datum/action/vampire/shapeshift/wolfform)
 
 // Now for the ones that have clan-related shenanigans going on.
-#define DISCIPLINE_POTENCE_BRUJAH list()				// Brawn replaced with brash
-#define DISCIPLINE_PRESENCE_TOREADOR list()				// Masquerade ability added
-#define DISCIPLINE_AUSPEX_MALKAVIAN list(/datum/action/vampire/auspex/advanced)				// Lvl 5 lets them astral project instead.
-#define DISCIPLINE_THAUMATURGY list()					// Weird freaky wizard crossbreeding 5000 years ago. SMH
-#define DISCIPLINE_THINBLOOD list()
-
-#define FAVORITE_ghoul "favorite_ghoul"
+#define DISCIPLINE_POTENCE_BRUJAH list(/datum/action/vampire/targeted/brawn/brash, /datum/action/vampire/targeted/lunge)	// Brawn replaced with brash
+#define DISCIPLINE_AUSPEX_MALKAVIAN list(/datum/action/vampire/auspex/advanced)												// Lvl 5 lets them astral project instead.
+#define DISCIPLINE_THAUMATURGY list(/datum/action/vampire/targeted/thaumaturgy)												// Weird freaky wizard crossbreeding 5000 years ago. SMH
+#define DISCIPLINE_THINBLOOD list(/datum/action/vampire/targeted/mesmerize, /datum/action/vampire/fortitude, /datum/action/vampire/targeted/brawn)	// Not a discipline but okay. Fucking caitiffs always making things different.
 
 // Power defines
 /// This Power can't be used in Torpor

@@ -97,8 +97,7 @@
 	ghost_desc = "This is a ghouling rack, which allows Vampires to turn crewmembers into loyal ghouls."
 	vampire_desc = "This is the ghouling rack, which allows you to turn crewmembers into loyal ghouls in your service. This costs blood to do.\n\
 		Simply click and hold on a victim, and then drag their sprite on the ghouling rack. Right-click on the ghouling rack to unbuckle them.\n\
-		To convert into a ghoul, repeatedly click on the ghouling rack. The time required scales with the tool in your hand.\n\
-		ghouls can be selected as favorites by continuing to torture them once converted."
+		To convert into a ghoul, repeatedly click on the ghouling rack. The time required scales with the tool in your hand."
 	ghoul_desc = "This is the ghouling rack, which allows your master to turn crewmembers into loyal ghouls.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
 		You can secure victims to the ghouling rack by click dragging the victim onto the rack while it is secured."
@@ -214,12 +213,6 @@
 	// oh no let me free this poor soul
 	if(!vampiredatum)
 		user_unbuckle_mob(buckled_person, user)
-		return TRUE
-
-	// Try to interact with ghoul
-	var/datum/antagonist/ghoul/ghouldatum = IS_ghoul(buckled_person)
-	if(ghouldatum?.master == vampiredatum)
-		vampiredatum.my_clan?.interact_with_ghoul(ghouldatum)
 		return TRUE
 
 	var/obj/item/held_item = user.get_inactive_held_item()
