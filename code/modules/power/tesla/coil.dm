@@ -36,7 +36,7 @@
 
 /obj/machinery/power/energy_accumulator/tesla_coil/Destroy()
 	QDEL_NULL(wires)
-	. = ..()
+	return ..()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
@@ -44,7 +44,7 @@
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		power_multiplier += capacitor.rating
 		cooldown_time -= capacitor.rating * 2 SECONDS
-	input_power_multiplier = max(1 * (power_multiplier / 8), 0.25) //Max out at 50% efficency.
+	input_power_multiplier = max(power_multiplier / 8, 0.25) //Max out at 50% efficency.
 
 /obj/machinery/power/energy_accumulator/tesla_coil/examine(mob/user)
 	. = ..()
