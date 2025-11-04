@@ -80,7 +80,7 @@ export const NtosRadarContentSmall = (props) => {
   const { sig_err } = props;
   return (
     <NtosWindow.Content scrollable>
-      <NtosRadarMap selected={selected} sig_err={sig_err} target={target} />
+      <NtosRadarMap displayError={selected} sig_err={sig_err} target={target} />
     </NtosWindow.Content>
   );
 };
@@ -182,7 +182,11 @@ export const NtosRadarContent = (props: NtosRadarContentProps) => {
           top: '20px',
         }}
       >
-        <NtosRadarMap selected={selected} sig_err={sig_err} target={target} />
+        <NtosRadarMap
+          displayError={selected}
+          sig_err={sig_err}
+          target={target}
+        />
       </Flex.Item>
     </Flex>
   );
@@ -191,12 +195,12 @@ export const NtosRadarContent = (props: NtosRadarContentProps) => {
 export type NtosRadarMapProps = {
   rightAlign?: boolean;
   sig_err: string;
-  selected: AtomRef | boolean;
+  displayError: AtomRef | boolean;
   target?: TrackInfo;
 };
 
 export function NtosRadarMap(props: NtosRadarMapProps) {
-  const { sig_err, selected, target, rightAlign } = props;
+  const { sig_err, displayError, target, rightAlign } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useLocalState('state', {
@@ -258,7 +262,7 @@ export function NtosRadarMap(props: NtosRadarMapProps) {
         }}
       >
         {!target || Object.keys(target).length === 0
-          ? !!selected && (
+          ? !!displayError && (
               <NoticeBox
                 position="absolute"
                 top={20.6}

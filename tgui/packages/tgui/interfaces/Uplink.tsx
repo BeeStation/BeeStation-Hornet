@@ -376,12 +376,12 @@ const RankCard = (props, contxt) => {
 const Directives = (props) => {
   const [selected, setSelected] = useLocalState('sel_obj', 0);
   const { act, data } = useBackend<UplinkData>();
-  const { pos_x = 0, pos_y = 0, pos_z = 0, time, objectives } = data;
+  const { pos_x, pos_y, pos_z = 0, time, objectives } = data;
   const selectedObjective =
     objectives && (objectives[selected] || objectives[0]);
   const { track_x, track_y, track_z, action } = selectedObjective || {};
-  const dx = track_x ?? 0 - pos_x;
-  const dy = track_y ?? 0 - pos_y;
+  const dx = (track_x ?? 0) - (pos_x ?? 0);
+  const dy = (track_y ?? 0) - (pos_y ?? 0);
   const angle = (360 / (Math.PI * 2)) * Math.atan2(dx, dy);
   if (selectedObjective === null) {
     return <Box>No associated objectives.</Box>;
@@ -422,7 +422,7 @@ const Directives = (props) => {
           <div className="directive_radar">
             <NtosRadarMap
               sig_err="The target of this objective cannot be tracked."
-              selected={!track_x}
+              displayError={!track_x || !track_y || !pos_x || !pos_y}
               rightAlign
               target={
                 !track_x
@@ -430,17 +430,17 @@ const Directives = (props) => {
                   : {
                       dist:
                         track_x && track_y
-                          ? Math.abs(pos_x - track_x) +
-                            Math.abs(pos_y - track_y)
+                          ? Math.abs(pos_x! - track_x!) +
+                            Math.abs(pos_y! - track_y!)
                           : 0,
-                      gpsx: track_x ?? 0,
-                      gpsy: track_y ?? 0,
-                      locy: track_y ? pos_y - track_y + 24 : 0,
-                      locx: track_x ? track_x - pos_x + 24 : 0,
+                      gpsx: track_x!,
+                      gpsy: track_y!,
+                      locy: pos_y! - track_y! + 24,
+                      locx: track_x - pos_x! + 24,
                       gpsz: track_z ?? 0,
                       use_rotate: track_y
-                        ? Math.abs(pos_x - track_x) +
-                            Math.abs(pos_y - track_y) >
+                        ? Math.abs(pos_x! - track_x) +
+                            Math.abs(pos_y! - track_y) >
                           26
                         : false,
                       rotate_angle: angle,
