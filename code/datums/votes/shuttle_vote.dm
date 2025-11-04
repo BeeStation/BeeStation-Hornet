@@ -25,5 +25,8 @@
 		SSshuttle.emergencyNoRecall = TRUE
 		return
 
+/datum/vote/shuttle_vote/tiebreaker(list/winners)
+	return CHOICE_SHUTTLE //In the event of an even 50/50 split, we prefer to evacuate
+
 #undef CHOICE_SHUTTLE
 #undef CHOICE_CONTINUE
