@@ -648,12 +648,19 @@
 /datum/config_entry/string/redirect_address
 	config_entry_value = ""
 
-/datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
+///toggle for autotransfer system
+/datum/config_entry/flag/vote_autotransfer_enabled
 
-/datum/config_entry/number/vote_autotransfer_interval //How often are transfer votes called?
-	config_entry_value = 20
+///How often are transfer votes called?
+/datum/config_entry/number/vote_autotransfer_interval
+	config_entry_value = 20 MINUTES
 	integer = TRUE
 	min_val = 2 //System only fires every other minute
+
+///When a round reaches this length, the shuttle calls automatically
+/datum/config_entry/number/vote_autotransfer_override
+	config_entry_value = 0
+	integer = TRUE
 
 /datum/config_entry/flag/respect_upstream_bans
 

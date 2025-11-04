@@ -611,6 +611,9 @@ VOTE_AUTOTRANSFER_ENABLED
 ## Amount of time between votes to leave, starting at one hour into the round
 VOTE_AUTOTRANSFER_INTERVAL 12000
 
+## Hard limit on round length if enabled
+VOTE_AUTOTRANSFER_OVERRIDE 144000
+
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 600
 
