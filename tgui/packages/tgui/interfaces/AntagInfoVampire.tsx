@@ -127,7 +127,7 @@ const VampireGuide = (_props) => {
               selected={tab === 6}
               onClick={() => setTab(6)}
             >
-              Your Lair
+              Your Haven
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"

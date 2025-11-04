@@ -10,7 +10,7 @@
  */
 /datum/action/vampire/gohome
 	name = "Vanishing Act"
-	desc = "As dawn aproaches, disperse into mist and return directly to your Lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
+	desc = "As dawn aproaches, disperse into mist and return directly to your haven.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
 	button_icon_state = "power_gohome"
 	power_explanation = "Activating Vanishing Act will, after a short delay, teleport you to your Claimed Coffin.\n\
 		Immediately after activating, lights around the user will begin to flicker.\n\
@@ -32,7 +32,7 @@
 	if(!.)
 		return FALSE
 
-	/// Have No Lair (NOTE: You only got this power if you had a lair, so this means it's destroyed)
+	/// Have No haven (NOTE: You only got this power if you had a haven, so this means it's destroyed)
 	if(!vampiredatum_power?.coffin)
 		owner.balloon_alert(owner, "coffin was destroyed!")
 		return FALSE

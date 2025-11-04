@@ -4,6 +4,36 @@
 #define FEED_FRENZY_TIME 2 SECONDS
 #define FEED_BLOOD_FROM_MICE 25
 
+/**
+ * How feeding works 101:
+ * There are two versions. combat feed, and normal.
+ *
+ * Some central pillars: Once the vampire has a grab on you, there is nothing you can do to stop it. You can't just move away like you could previously.
+ * The difference is in stealth. While normal is designed to be as safe and forgiving as possible, even erasing the target's memories, combat is designed to be used as a weapon.
+ *
+ * Normal is designed to be a routine feed that can reliably deal with lone targets in non-combat situations.
+ * This means it will be "unfair" with little counterplay, unless someone else helps you. (The fucking trappers from darktide come to mind.)
+ * Normal will work as follows: A series of do_afters.
+ * > 1 second do_after where both victim and vamp are able to move, but any movement cancels the whole thing. The victim is not informed of any of this.
+ * > If the feed would result in a masquerade violation at the time of this first click, we do not allow it to happen.
+ * > if that succeeds, the victim is "mesmerized" with an audible cue and a big purple text. This is logged, because this is the exact point at which we will expect memory loss RP from them.
+ * > The vampire will be informed of the successful mesmerize. If the vampire gets dragged from their victim from now on, it will count as a failure scenario.
+ * > the instant the "mesmerize" status is applied, a second do_after happens. At this point, neither victim nor vampire can do anything unless the vampire cancels the feed.
+ * > after a second or so, the vampire visibly embraces the victim. The victim and vampire grab each other automatically. At this time we start actively tracking witnesses.
+ * > Should a masquerade violation occur, feeding automatically stops. This is a failure scenario.
+ * > vampie feeds as usual. Stops when they want to stop.
+ * > when the vampire stops the feed, and ONLY when the vampire stops the feed, the victim will receive the text "As xyz draws their teeth away from your neck, you forget they ever bit you."
+ *
+ * In combat mode, some checks and steps are skipped in favor of quickly grabbing the target.
+ * > No do_afters. No masquerade checks, no mesmerize. The vampire immediately attempts to aggressively grab the target.
+ * > If the grab did not work, the feed fails.
+ * > The vampire slams their fangs into the targets neck, alerting everyone with line of sight.
+ * > Drain speed is greatly accelerated.
+ * > During this, the vampire takes double damage from all sources, to simulate them just being a static target that's busy with their meal.
+ * > Once done, the victim is thrown away one tile from the vampire. No memory loss is present at all.
+ *
+**/
+
 /datum/action/vampire/targeted/feed
 	name = "Feed"
 	desc = "Feed blood off of a living creature."

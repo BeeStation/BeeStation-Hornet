@@ -500,10 +500,10 @@
 	if(!GLOB.the_station_areas.Find(coffin_area.type))
 		claimed.balloon_alert(owner.current, "not part of station!")
 		return
-	// This is my Lair
+	// This is my Haven
 	coffin = claimed
 	vampire_haven_area = coffin_area
-	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_haven_area]."))
+	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your haven is now [vampire_haven_area]."))
 	return TRUE
 
 /// Name shown on antag list
@@ -524,7 +524,7 @@
 	return info_button
 
 /datum/antagonist/vampire/proc/forge_objectives()
-	// Claim a Lair Objective
+	// Claim a Haven Objective
 	var/datum/objective/vampire/haven/haven_objective = new
 	haven_objective.owner = owner
 	objectives += haven_objective

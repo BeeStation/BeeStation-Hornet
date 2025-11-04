@@ -20,7 +20,7 @@
 	cooldown_time = 10 SECONDS
 	discipline = DISCIPLINE_AUSPEX
 
-/datum/action/vampire/two
+/datum/action/vampire/auspex/two
 	name = "Auspex(Level 2)"
 	upgraded_power = /datum/action/vampire/auspex/three
 	level_current = 2

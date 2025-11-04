@@ -2415,6 +2415,7 @@
 #include "code\modules\antagonists\vampire\powers\_shapeshift.dm"
 #include "code\modules\antagonists\vampire\powers\_targeted.dm"
 #include "code\modules\antagonists\vampire\powers\clanselect.dm"
+#include "code\modules\antagonists\vampire\powers\disciplines.dm"
 #include "code\modules\antagonists\vampire\powers\feed.dm"
 #include "code\modules\antagonists\vampire\powers\gohome.dm"
 #include "code\modules\antagonists\vampire\powers\masquerade.dm"
