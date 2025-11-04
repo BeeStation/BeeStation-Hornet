@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Mail can now be delivered to antagonists and dead people, provided they
-      are present on the station's manifest.
