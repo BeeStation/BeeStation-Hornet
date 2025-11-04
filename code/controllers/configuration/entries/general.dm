@@ -650,22 +650,10 @@
 
 /datum/config_entry/flag/vote_autotransfer_enabled //toggle for autotransfer system
 
-/datum/config_entry/number/autotransfer_percentage //What percentage of players are required to vote before transfer happens (default 75%)
-	config_entry_value = 0.75
-	integer = FALSE
-	min_val = 0
-	max_val = 1
-
-/datum/config_entry/number/autotransfer_decay_start //How long before the autotransfer decay starts to set in, also how often to remind players to vote (default 60 minutes)
-	config_entry_value = 36000
-	integer = FALSE
-	min_val = 0
-
-/datum/config_entry/number/autotransfer_decay_amount //Every time the transfer system checks for votes after the decay start, it subtracts this % from the required percentage to pass (default 2.5%)
-	config_entry_value = 0.025
-	integer = FALSE
-	min_val = 0
-	max_val = 1
+/datum/config_entry/number/vote_autotransfer_interval //How often are transfer votes called?
+	config_entry_value = 20
+	integer = TRUE
+	min_val = 2 //System only fires every other minute
 
 /datum/config_entry/flag/respect_upstream_bans
 

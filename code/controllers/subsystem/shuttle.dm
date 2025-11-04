@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	return TRUE
 
-/datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
+/datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason, forced = FALSE)
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the \
 			shuttle was called. Using the backup shuttle instead.")
