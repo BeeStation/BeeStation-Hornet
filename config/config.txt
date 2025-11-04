@@ -608,8 +608,8 @@ CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 ## Uncomment to enable players globally to vote when the shuttle is called
 VOTE_AUTOTRANSFER_ENABLED
 
-## Amount of time (in minutes) between votes to leave, starting at one hour into the round
-VOTE_AUTOTRANSFER_INTERVAL 20
+## Amount of time between votes to leave, starting at one hour into the round
+VOTE_AUTOTRANSFER_INTERVAL 12000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 600
