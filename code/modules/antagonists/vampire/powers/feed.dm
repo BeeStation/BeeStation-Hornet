@@ -279,7 +279,7 @@
 
 	var/levels_absorbed = victim.vampire_level / DIABLERIE_DIVISOR
 
-	for(levels_absorbed)
+	for(var/county; county<levels_absorbed; county++)
 		vampiredatum_power.rank_up()
 
 	vampiredatum_power.deduct_humanity(victim.humanity / 3)

@@ -126,7 +126,7 @@
 	if(!length(options))
 		to_chat(living_vampire, span_notice("You grow more familiar with your powers!"))
 	else
-		to_chat(living_vampire, span_notice("You have the opportunity to grow your expertise. Select a power to advance your Rank."))
+		to_chat(living_vampire, span_notice("You have the opportunity to grow your expertise. Select a discipline to advance your Rank."))
 
 		// If we're in a closet, anchor the radial menu to it. If not, anchor it to the vampire body
 		var/datum/discipline/discipline_response
@@ -146,9 +146,9 @@
 		if(isnull(discipline_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
 
-		// Remove all current power
+		// Remove all current powers
 		for(var/datum/action/vampire/power_old as anything in vampiredatum.powers)
-			if(power_old in chosen_discipline.get_abilities_with_level("current"))
+			if(is_type_in_list(power_old, chosen_discipline.get_abilities_with_level("current")))
 				vampiredatum.remove_power(power_old)
 
 		// increment level

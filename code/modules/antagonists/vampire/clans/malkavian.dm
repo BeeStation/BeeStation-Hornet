@@ -18,6 +18,10 @@
 /datum/vampire_clan/malkavian/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
 
+	vampiredatum.owned_disciplines += new /datum/discipline/presence(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/obfuscate(vampiredatum)
+
+
 	var/mob/living/carbon/carbon_owner = vampiredatum.owner.current
 	if(istype(carbon_owner))
 		carbon_owner.gain_trauma(/datum/brain_trauma/mild/hallucinations, TRAUMA_RESILIENCE_ABSOLUTE)

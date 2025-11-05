@@ -9,7 +9,10 @@
 		<b>DISCIPLINES:</b> Dominate, Fortitude, Presence"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 	default_humanity = 8
-	joinable_clan = TRUE
+	joinable_clan = FALSE
 
 /datum/vampire_clan/ventrue/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
+	vampiredatum.owned_disciplines += new /datum/discipline/presence(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/dominate(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/fortitude(vampiredatum)
