@@ -28,8 +28,15 @@
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
 			add_objective(hijack_objective)
+		if (OBJECTIVE_ROMEROL)
+			var/datum/objective/romerol/romerol_objective = new
+			romerol_objective.owner = owner
+			add_objective(romerol_objective)
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = owner
+			add_objective(escape_objective)
 	// Finally, set up our traitor's backstory!
-	setup_backstories(TRUE, is_hijacker)
+	setup_backstories(TRUE, TRUE)
 
 #undef OBJECTIVE_HIJACK
 #undef OBJECTIVE_ROMEROL
