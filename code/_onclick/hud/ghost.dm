@@ -102,10 +102,13 @@
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/respawn()
-	using.screen_loc = ui_ghost_respawn
-	using.hud = src
-	static_inventory += using
+	if (isobserver(owner))
+		var/mob/dead/observer/observer = owner
+		if (!observer.can_respawn)
+			using = new /atom/movable/screen/ghost/respawn()
+			using.screen_loc = ui_ghost_respawn
+			using.hud = src
+			static_inventory += using
 
 	using = new /atom/movable/screen/ghost/teleport()
 	using.screen_loc = ui_ghost_teleport
