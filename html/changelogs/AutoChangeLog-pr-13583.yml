@@ -1,5 +1,0 @@
-author: SunShine214
-delete-after: true
-changes:
-  - rscdel: Removed Air Conditioning mode from Air Alarm TGUI
-  - bugfix: Fixed Air Alarm TGUI

@@ -64,3 +64,7 @@
   PowerfulBacon:
   - bugfix: Mail can now be delivered to antagonists and dead people, provided they
       are present on the station's manifest.
+2025-11-05:
+  SunShine214:
+  - rscdel: Removed Air Conditioning mode from Air Alarm TGUI
+  - bugfix: Fixed Air Alarm TGUI
