@@ -218,9 +218,9 @@
 	if(!force_observe)
 		this_is_like_playing_right = tgui_alert(
 			src,
-			"Caution, you are about to observe which will make you unable to play; it will also prevent respawning. \
-			Playing is highly recommended, if you have any concerns feel free to use the 'mentorhelp' or 'looc' verbs to \
-			get any assistance or help from our friendly mentor team and community!",
+			"Caution, you are about to observe which will make you unable to play! \
+			Feel free to use the 'mentorhelp' or 'looc' verbs to \
+			get assistance from our friendly community while playing!",
 			"Spectate",
 			list("Yes", "No")
 		)

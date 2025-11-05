@@ -83,51 +83,54 @@
 	var/atom/movable/screen/using
 
 	using = new /atom/movable/screen/ghost/observe()
-	using.screen_loc = ui_ghost_observe
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/jumptomob()
-	using.screen_loc = ui_ghost_jumptomob
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/orbit()
-	using.screen_loc = ui_ghost_orbit
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/reenter_corpse()
-	using.screen_loc = ui_ghost_reenter_corpse
 	using.hud = src
 	static_inventory += using
 
 	if (isobserver(owner))
 		var/mob/dead/observer/observer = owner
-		if (!observer.can_respawn)
+		if (observer.can_respawn)
 			using = new /atom/movable/screen/ghost/respawn()
-			using.screen_loc = ui_ghost_respawn
 			using.hud = src
 			static_inventory += using
 
 	using = new /atom/movable/screen/ghost/teleport()
-	using.screen_loc = ui_ghost_teleport
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/pai()
-	using.screen_loc = ui_ghost_pai
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/spawners_menu()
-	using.screen_loc = ui_ghost_spawners_menu
 	using.hud = src
 	static_inventory += using
 
+	// Layout
+	var/count = 0
+	for (var/atom/movable/screen/ghost/auto_layout in static_inventory)
+		count ++
+	var/left_offset = -(count - 1) / 2
+	var/index = 0
+	for (var/atom/movable/screen/ghost/auto_layout in static_inventory)
+		auto_layout.screen_loc = ui_ghost_center(left_offset + index)
+		index ++
+
+	// Always position this one at the end
 	using = new /atom/movable/screen/language_menu
 	using.icon = ui_style
-	using.screen_loc = ui_ghost_language_menu
+	using.screen_loc = ui_ghost_center(left_offset + index)
 	using.hud = src
 	static_inventory += using
 

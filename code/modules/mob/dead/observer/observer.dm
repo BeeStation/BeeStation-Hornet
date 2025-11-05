@@ -30,7 +30,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	/// Are we allowed to respawn?
-	var/can_respawn = FALSE
+	var/can_respawn = TRUE
 	// Has ssticker identified us as a respawn canditate and updated our status?
 	var/respawn_notified = FALSE
 	// Are we able to respawn?
