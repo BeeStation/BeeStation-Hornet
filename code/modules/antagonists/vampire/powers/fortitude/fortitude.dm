@@ -1,3 +1,15 @@
+/datum/discipline/fortitude
+	name = "Fortitude"
+	discipline_explanation = "Fortitude is a Discipline that grants Kindred unearthly toughness, even to the point of resisting fire and sunlight."
+	icon_state = "presence"
+
+	// Lists of abilities granted per level
+	level_1 = list(/datum/action/vampire/fortitude)
+	level_2 = null
+	level_3 = null
+	level_4 = null
+	level_5 = null
+
 /datum/action/vampire/fortitude
 	name = "Fortitude"
 	desc = "Withstand egregious physical wounds and walk away from attacks that would stun, pierce, and dismember lesser beings."

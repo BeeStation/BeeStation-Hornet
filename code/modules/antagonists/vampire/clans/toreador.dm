@@ -8,6 +8,10 @@
 		<b>DISCIPLINES:</b> Presence, Auspex, Celerity"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 	default_humanity = 9
+	joinable_clan = TRUE
 
 /datum/vampire_clan/toreador/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
+	vampiredatum.owned_disciplines += new /datum/discipline/celerity(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/auspex(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/presence(vampiredatum)

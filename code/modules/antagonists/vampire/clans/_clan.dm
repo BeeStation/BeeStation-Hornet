@@ -6,22 +6,21 @@
  */
 /datum/vampire_clan
 	/// The name of the clan we're in.
-	var/name = CLAN_CAITIFF
+	var/name = "ERROR"
 	/// Description of what the clan is, given when joining and through your antag UI.
-	var/description = "The Caitiff are seen as either vile thinbloods, or vile mongrels, either case you are likely not to make many friends.\n\n\
-		In your case, your blood is strong enough to grant you some basic abilities of various disciplines."
+	var/description = "ERROR"
 	/// Description shown when trying to join the clan.
-	var/join_description = "The average thinblood, hated by polite kindred society. Expect to get killed by the first proper vampire that finds out your mongrel lineage."
+	var/join_description = "ERROR"
 
 	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
 	var/datum/antagonist/vampire/vampiredatum
 
 	/// The icon of this clan on the selection radial menu.
 	var/join_icon = 'icons/vampires/clan_icons.dmi'
-	var/join_icon_state = "caitiff"
+	var/join_icon_state = "base"
 
 	/// Whether the clan can be joined by players. FALSE for flavortext-only clans.
-	var/joinable_clan = TRUE
+	var/joinable_clan = FALSE
 
 	/// How we will drink blood using Feed.
 	var/blood_drink_type = VAMPIRE_DRINK_NORMAL
@@ -32,7 +31,7 @@
  * Starting Humanity score, some clans are closer to the beast, some closer to humanity.
  * 10 	Saintly
  * 9 	Compassionate
- * 8 	Caring
+ * 8 	Caring			// Masquerade ability given at 8 or above
  * 7 	Normal
  * 6 	Distant
  * 5 	Removed
@@ -93,21 +92,33 @@
 /**
  * Called when we level up inside a coffin.
  */
-/datum/vampire_clan/proc/spend_rank(mob/living/carbon/carbon_ghoul)
+
+	/**
+	 * For every discipline in clan_disciplines we do:
+	 * if the next level returns anything but null, we add it to the options
+	 * ///
+	 * Then we display the radial with the options.
+	 * Picking a choice will do the following:
+	 * Remove all powers from the discipline's current level, by:
+	 * for every power in get_abilities_with_level(current level) > remove
+	 * increase discipline level
+	 * for every power in get_abilities_with_level(current level) > add
+	 */
+/datum/vampire_clan/proc/spend_rank(mob/living/carbon/carbon_vampire)
 	if(QDELETED(vampiredatum.owner?.current) || vampiredatum.vampire_level_unspent <= 0)
 		return
 
 	// Generate radial menu
 	var/list/options = list()
 	var/list/radial_display = list()
-	//for(var/datum/action/vampire/power as anything in vampiredatum.all_vampire_powers)
-	//	if((initial(power.purchase_flags) & VAMPIRE_CAN_BUY) && !(locate(power) in vampiredatum.powers))
-	//		options[initial(power.name)] = power
 
-	//		var/datum/radial_menu_choice/option = new
-	//		option.image = image(icon = 'icons/vampires/actions_vampire.dmi', icon_state = initial(power.button_icon_state))
-	//		option.info = "[span_boldnotice(initial(power.name))]\n[span_cult(power.power_explanation)]"
-	//		radial_display[initial(power.name)] = option
+	for(var/datum/discipline/discipline as anything in vampiredatum.owned_disciplines)	// We do owned_disciplines, not clan_disciplines. clan_disciplines is used to populate owned_disciplines.
+		if(discipline.get_abilities_with_level("next"))
+			options[discipline.name] = discipline
+			var/datum/radial_menu_choice/option = new
+			option.image = image(icon = 'icons/vampires/disciplines.dmi', icon_state = discipline.icon_state)
+			option.info = "[span_boldnotice(discipline.name)]\n[span_cult(discipline.discipline_explanation)]"
+			radial_display[initial(discipline.name)] = option
 
 	var/mob/living/living_vampire = vampiredatum.owner.current
 
@@ -118,28 +129,43 @@
 		to_chat(living_vampire, span_notice("You have the opportunity to grow your expertise. Select a power to advance your Rank."))
 
 		// If we're in a closet, anchor the radial menu to it. If not, anchor it to the vampire body
-		var/power_response
+		var/datum/discipline/discipline_response
+
 		if(istype(living_vampire.loc, /obj/structure/closet))
 			var/obj/structure/closet/container = living_vampire.loc
-			power_response = show_radial_menu(living_vampire, container, radial_display, radius = 45)
+			discipline_response = show_radial_menu(living_vampire, container, radial_display)
 		else
-			power_response = show_radial_menu(living_vampire, living_vampire, radial_display, radius = 45)
+			discipline_response = show_radial_menu(living_vampire, living_vampire, radial_display)
 
-		if(isnull(power_response) || QDELETED(src) || QDELETED(living_vampire))
+		var/datum/discipline/chosen_discipline
+
+		for(var/datum/discipline/discipline as anything in vampiredatum.owned_disciplines)
+			if(discipline.name == discipline_response)
+				chosen_discipline = discipline
+
+		if(isnull(discipline_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
 
-		// Give power
-		var/datum/action/vampire/purchased_power = options[power_response]
-		vampiredatum.grant_power(new purchased_power)
+		// Remove all current power
+		for(var/datum/action/vampire/power_old as anything in vampiredatum.powers)
+			if(power_old in chosen_discipline.get_abilities_with_level("current"))
+				vampiredatum.remove_power(power_old)
 
-		living_vampire.balloon_alert(living_vampire, "learned [power_response]!")
-		to_chat(living_vampire, span_notice("You have learned how to use [power_response]!"))
+		// increment level
+		chosen_discipline.level_up()
+
+		// add all current powers (of the new level)
+		for(var/datum/action/vampire/power_new as anything in chosen_discipline.get_abilities_with_level("current"))
+			vampiredatum.grant_power(new power_new)
+
+		living_vampire.balloon_alert(living_vampire, "learned [discipline_response] level [chosen_discipline.level - 1]!")
+		to_chat(living_vampire, span_notice("You have learned how to use [discipline_response]!"))
 
 	finalize_spend_rank()
 
 	// QoL
 	if(vampiredatum.vampire_level_unspent > 0)
-		spend_rank(carbon_ghoul)
+		spend_rank(carbon_vampire)
 
 /datum/vampire_clan/proc/finalize_spend_rank()
 	// Level up the vampire

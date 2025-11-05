@@ -1,3 +1,15 @@
+/datum/discipline/thaumaturgy
+	name = "Thaumaturgy"
+	discipline_explanation = "Thaumaturgy is the closely guarded form of blood magic practiced by the vampiric clan Tremere."
+	icon_state = "thaumaturgy"
+
+	// Lists of abilities granted per level
+	level_1 = list(/datum/action/vampire/targeted/tremere/thaumaturgy)
+	level_2 = list(/datum/action/vampire/targeted/tremere/thaumaturgy/two)
+	level_3 = list(/datum/action/vampire/targeted/tremere/thaumaturgy/three)
+	level_4 = list(/datum/action/vampire/targeted/tremere/thaumaturgy/advanced)
+	level_5 = list(/datum/action/vampire/targeted/tremere/thaumaturgy/advanced/two)
+
 /**
  *	# Thaumaturgy
  *

@@ -1,3 +1,15 @@
+/datum/discipline/dominate
+	name = "Dominate"
+	discipline_explanation = "Dominate is a Discipline that overwhelms another person's mind with the vampire's will, forcing victims to think or act according to the vampire's decree."
+	icon_state = "dominate"
+
+	// Lists of abilities granted per level
+	level_1 = list(/datum/action/vampire/targeted/tremere/dominate)
+	level_2 = list(/datum/action/vampire/targeted/tremere/dominate/two)
+	level_3 = list(/datum/action/vampire/targeted/tremere/dominate/three)
+	level_4 = list(/datum/action/vampire/targeted/tremere/dominate/advanced)
+	level_5 = list(/datum/action/vampire/targeted/tremere/dominate/advanced/two)
+
 /**
  *	# Dominate;
  *

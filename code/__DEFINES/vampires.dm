@@ -70,50 +70,6 @@
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
 
-// Clan Disciplines
-#define DISCIPLINE_CAITIFF list(DISCIPLINE_THINBLOOD)	// All their mix-blooded powers in one discipline
-#define DISCIPLINE_BRUJAH list(DISCIPLINE_CELERITY,\
-								DISCIPLINE_POTENCE_BRUJAH,\
-								DISCIPLINE_PRESENCE)
-
-#define DISCIPLINE_TOREADOR list(DISCIPLINE_AUSPEX,\
-								DISCIPLINE_CELERITY,\
-								DISCIPLINE_PRESENCE_TOREADOR,)
-
-#define DISCIPLINE_TREMERE list(DISCIPLINE_AUSPEX,\
-								DISCIPLINE_THAUMATURGY,\
-								DISCIPLINE_DOMINATE)
-
-#define DISCIPLINE_GANGREL list(DISCIPLINE_ANIMALISM,\
-								DISCIPLINE_PROTEAN,\
-								DISCIPLINE_FORTITUDE)
-
-#define DISCIPLINE_VENTRUE list(DISCIPLINE_DOMINATE,\
-								DISCIPLINE_FORTITUDE,\
-								DISCIPLINE_PRESENCE)
-
-#define DISCIPLINE_MALKAVIAN list(DISCIPLINE_DEMENTATION,\
-								DISCIPLINE_AUSPEX_MALKAVIAN,\
-								DISCIPLINE_OBFUSCATE)
-
-// Discipline Abilities
-// We start with the default base ones:
-#define DISCIPLINE_CELERITY list(/datum/action/vampire/targeted/haste)
-#define DISCIPLINE_AUSPEX list(/datum/action/vampire/auspex)
-#define DISCIPLINE_POTENCE list(/datum/action/vampire/targeted/brawn, /datum/action/vampire/targeted/lunge)
-#define DISCIPLINE_PRESENCE list(/datum/action/vampire/targeted/mesmerize)
-#define DISCIPLINE_FORTITUDE list(/datum/action/vampire/fortitude)
-#define DISCIPLINE_OBFUSCATE list(/datum/action/vampire/cloak, /datum/action/vampire/targeted/trespass)
-#define DISCIPLINE_DOMINATE list(/datum/action/vampire/targeted/dominate)
-#define DISCIPLINE_ANIMALISM list(/datum/action/vampire/shapeshift/batform)
-#define DISCIPLINE_PROTEAN list(/datum/action/vampire/shapeshift/wolfform)
-
-// Now for the ones that have clan-related shenanigans going on.
-#define DISCIPLINE_POTENCE_BRUJAH list(/datum/action/vampire/targeted/brawn/brash, /datum/action/vampire/targeted/lunge)	// Brawn replaced with brash
-#define DISCIPLINE_AUSPEX_MALKAVIAN list(/datum/action/vampire/auspex/advanced)												// Lvl 5 lets them astral project instead.
-#define DISCIPLINE_THAUMATURGY list(/datum/action/vampire/targeted/thaumaturgy)												// Weird freaky wizard crossbreeding 5000 years ago. SMH
-#define DISCIPLINE_THINBLOOD list(/datum/action/vampire/targeted/mesmerize, /datum/action/vampire/fortitude, /datum/action/vampire/targeted/brawn)	// Not a discipline but okay. Fucking caitiffs always making things different.
-
 // Power defines
 /// This Power can't be used in Torpor
 #define BP_CANT_USE_IN_TORPOR (1<<0)

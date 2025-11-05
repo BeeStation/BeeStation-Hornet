@@ -17,6 +17,8 @@
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
+	/// Our disciplines
+	var/list/owned_disciplines = list()
 
 	/// Timer between alerts for Burn messages
 	COOLDOWN_DECLARE(vampire_spam_sol_burn)

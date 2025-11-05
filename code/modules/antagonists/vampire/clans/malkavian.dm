@@ -10,6 +10,7 @@
 	join_description = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, and gain insights better left unknown. You can also travel through Phobetor tears, rifts through spacetime only you can travel through.\n\
 		<b>DISCIPLINES:</b> Dementation, Auspex, Obfuscate"
 
+	joinable_clan = TRUE
 	default_humanity = 7
 
 	COOLDOWN_DECLARE(revelation_cooldown)

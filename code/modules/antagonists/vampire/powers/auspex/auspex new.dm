@@ -1,3 +1,18 @@
+/datum/discipline/auspex
+	name = "Auspex"
+	discipline_explanation = "Auspex is a Discipline that grants vampires supernatural senses.\n\
+		The malkavians especially have a bond with it, being seers at heart."
+	icon_state = "auspex"
+
+	// Lists of abilities granted per level
+	level_1 = list(/datum/action/vampire/auspex)
+	level_2 = list(/datum/action/vampire/auspex/two)
+	level_3 = list(/datum/action/vampire/auspex/three)
+	level_4 = list(/datum/action/vampire/auspex/four)
+
+/datum/discipline/auspex/malkavian
+	level_5 = list(/datum/action/vampire/auspex/four, /datum/action/vampire/auspex/advanced)
+
 /**
  *	# Auspex
  *
@@ -9,8 +24,6 @@
  */
 /datum/action/vampire/auspex
 	name = "Auspex(Level 1)"
-	upgraded_power = /datum/action/vampire/two
-	level_current = 1
 	desc = "Sense the vitae of any creature directly, and use your keen senses to widen your perception."
 	button_icon_state = "power_auspex"
 	power_explanation = "When Activated, you will see further."
@@ -18,36 +31,27 @@
 	bloodcost = 5
 	constant_bloodcost = 2
 	cooldown_time = 10 SECONDS
-	discipline = DISCIPLINE_AUSPEX
 
 /datum/action/vampire/auspex/two
 	name = "Auspex(Level 2)"
-	upgraded_power = /datum/action/vampire/auspex/three
-	level_current = 2
 	power_explanation = "When Activated, you will see further, and be able to sense walls and the layout of rooms."
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 
 /datum/action/vampire/auspex/three
 	name = "Auspex(Level 3)"
-	upgraded_power = /datum/action/vampire/auspex/four
-	level_current = 3
 	power_explanation = "When Activated, you will see further, and be able to sense walls and the layout of rooms."
 	bloodcost = 15
 	cooldown_time = 10 SECONDS
 
 /datum/action/vampire/auspex/four
 	name = "Auspex(Level 4)"
-	upgraded_power = /datum/action/vampire/auspex/advanced
-	level_current = 4
 	power_explanation = "When Activated, you will see further, and be able to sense anything in sight, seeing through walls and barriers as if they were glass."
 	bloodcost = 20
 	cooldown_time = 10 SECONDS
 
 /datum/action/vampire/auspex/advanced
-	name = "Auspex(Max Level)"
-	upgraded_power = null
-	level_current = 5
+	name = "Astral Projection"
 	desc = "The power of your blood empowers your auspex. Become able to project your consciousness outside your body."
 	power_explanation = "When Activated, you will become a ghost.\n\
 		Visit anywhere you like, watch anyone you want.\n\
@@ -56,7 +60,6 @@
 	background_icon_state_off = "tremere_power_gold_off"
 	bloodcost = 20
 	cooldown_time = 10 SECONDS
-	discipline = DISCIPLINE_AUSPEX_MALKAVIAN	//They may see flying monkeys eating your eyes while you talk to them, but maybe those are real.
 
 /datum/action/vampire/targeted/tremere/auspex/activate_power()
 	. = ..()

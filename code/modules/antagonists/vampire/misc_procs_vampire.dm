@@ -84,9 +84,8 @@
 	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
 		my_clan.spend_rank()
 	else
-		to_chat(owner, span_notice("<EM>You have grown more ancient! \
-			Sleep in a coffin that you have claimed to thicken your blood and become more powerful\
-			[istype(my_clan, /datum/vampire_clan/ventrue) ? ", or put your Favorite ghoul on a persuasion rack to level them up." : "!"]</EM>"))
+		to_chat(owner, span_notice("<EM>You have grown familiar with your powers! \
+			Sleep in a coffin that you have claimed to meditate on your progress"))
 
 /**
  * Decrease the unspent vampire levels by one. Only for admins

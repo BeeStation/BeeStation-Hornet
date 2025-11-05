@@ -7,6 +7,7 @@
 	join_description = "Often mistaken as werewolves, gangrel carry the smell of wet dog wherever they go. Their unique bond with the beast within allows them to transform parts of their body into powerful claws, even becoming entirely different beings.\n\
 		<b>DISCIPLINES:</b> Animalism, Protean, Fortitude"
 	default_humanity = 2
+	joinable_clan = TRUE
 
 /datum/vampire_clan/gangrel/New(datum/antagonist/vampire/owner_datum)
 	. = ..()

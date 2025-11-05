@@ -7,6 +7,7 @@
 	join_description = "With a powerful ancestry of wizards and magicians, the tremere wield the secret art of blood magic, which they guard with utmost care.\n\
 		<b>DISCIPLINES:</b> Thaumaturgy, Auspex, Dominate"
 	default_humanity = 6
+	joinable_clan = TRUE
 
 /datum/vampire_clan/tremere/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
