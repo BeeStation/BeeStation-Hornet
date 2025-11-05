@@ -35,6 +35,14 @@
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			add_objective(escape_objective)
+		if (OBJECTIVE_BRAINWASH)
+			var/datum/objective/brainwashing/brainwashing_objective = new
+			brainwashing_objective.owner = owner
+			brainwashing_objective.generate_amount()
+			add_objective(brainwashing_objective)
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = owner
+			add_objective(escape_objective)
 	// Finally, set up our traitor's backstory!
 	setup_backstories(TRUE, TRUE)
 
