@@ -1,38 +1,8 @@
-#define FEED_SILENT_NOTICE_RANGE 2
+#define FEED_SILENT_NOTICE_RANGE 3
 #define FEED_LOUD_NOTICE_RANGE 7
 #define FEED_DEFAULT_TIME 10 SECONDS
 #define FEED_FRENZY_TIME 2 SECONDS
 #define FEED_BLOOD_FROM_MICE 25
-
-/**
- * How feeding works 101:
- * There are two versions. combat feed, and normal.
- *
- * Some central pillars: Once the vampire has a grab on you, there is nothing you can do to stop it. You can't just move away like you could previously.
- * The difference is in stealth. While normal is designed to be as safe and forgiving as possible, even erasing the target's memories, combat is designed to be used as a weapon.
- *
- * Normal is designed to be a routine feed that can reliably deal with lone targets in non-combat situations.
- * This means it will be "unfair" with little counterplay, unless someone else helps you. (The fucking trappers from darktide come to mind.)
- * Normal will work as follows: A series of do_afters.
- * > 1 second do_after where both victim and vamp are able to move, but any movement cancels the whole thing. The victim is not informed of any of this.
- * > If the feed would result in a masquerade violation at the time of this first click, we do not allow it to happen.
- * > if that succeeds, the victim is "mesmerized" with an audible cue and a big purple text. This is logged, because this is the exact point at which we will expect memory loss RP from them.
- * > The vampire will be informed of the successful mesmerize. If the vampire gets dragged from their victim from now on, it will count as a failure scenario.
- * > the instant the "mesmerize" status is applied, a second do_after happens. At this point, neither victim nor vampire can do anything unless the vampire cancels the feed.
- * > after a second or so, the vampire visibly embraces the victim. The victim and vampire grab each other automatically. At this time we start actively tracking witnesses.
- * > Should a masquerade violation occur, feeding automatically stops. This is a failure scenario.
- * > vampie feeds as usual. Stops when they want to stop.
- * > when the vampire stops the feed, and ONLY when the vampire stops the feed, the victim will receive the text "As xyz draws their teeth away from your neck, you forget they ever bit you."
- *
- * In combat mode, some checks and steps are skipped in favor of quickly grabbing the target.
- * > No do_afters. No masquerade checks, no mesmerize. The vampire immediately attempts to aggressively grab the target.
- * > If the grab did not work, the feed fails.
- * > The vampire slams their fangs into the targets neck, alerting everyone with line of sight.
- * > Drain speed is greatly accelerated.
- * > During this, the vampire takes double damage from all sources, to simulate them just being a static target that's busy with their meal.
- * > Once done, the victim is thrown away one tile from the vampire. No memory loss is present at all.
- *
-**/
 
 /datum/action/vampire/targeted/feed
 	name = "Feed"
@@ -63,6 +33,8 @@
 
 	/// Have we fed till fatal?
 	var/feed_fatal = FALSE
+	/// Are we at a stage of the process where we can be noticed?
+	var/currently_feeding = FALSE
 
 /datum/action/vampire/targeted/feed/can_use()
 	. = ..()
@@ -88,8 +60,38 @@
 		return FALSE
 	if(!owner.Adjacent(target))
 		return FALSE
-	return TRUE
 
+	// Check if we are seen while feeding
+	if(currently_feeding)
+		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE) - target)
+			if(!watcher.client)
+				continue
+			if(watcher.has_unlimited_silicon_privilege)
+				continue
+			if(watcher.stat != CONSCIOUS)
+				continue
+			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+				continue
+			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+				continue
+
+			var/list/alerted = null
+			alerted = viewers(7,src) - target - owner
+			if(LAZYLEN(alerted))
+			for(var/mob/living/Living in alerted)
+				if(!Living.stat)
+					if(!Living.incapacitated(IGNORE_RESTRAINTS))
+						Living.face_atom(src)
+						Living.do_alert_animation(Living)
+						to_chat(target, span_dangerbold("Wait... is...[owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+
+			playsound(owner, 'sound/machines/chime.ogg', 50, FALSE, -5)
+
+			owner.balloon_alert(owner, "feed noticed!")
+			vampiredatum_power.give_masquerade_infraction()
+			return FALSE
+
+	return TRUE
 /datum/action/vampire/targeted/feed/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
@@ -112,7 +114,7 @@
 		return FALSE
 	// Mindless and snobby?
 	if(!target.mind && vampiredatum_power.my_clan?.blood_drink_type == VAMPIRE_DRINK_SNOBBY && !vampiredatum_power.frenzied)
-		owner.balloon_alert(owner, "cant drink from mindless!")
+		owner.balloon_alert(owner, "ew, no!")
 		return FALSE
 	// Cannot be a curator
 	if(IS_CURATOR(target))
@@ -140,6 +142,7 @@
 /datum/action/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/feed_target = target_atom
+	var/mob/living/living_owner = owner
 	target_ref = WEAKREF(feed_target)
 
 	// Mice
@@ -150,46 +153,95 @@
 		feed_target.death()
 		return
 
-	// How long should the pre-feed last
-	var/feed_time = vampiredatum_power.frenzied ? FEED_FRENZY_TIME : clamp(round(FEED_DEFAULT_TIME / (1.25 * (level_current || 1))), 1, FEED_DEFAULT_TIME)
-	owner.balloon_alert(owner, "feeding off [feed_target]...")
+	//////////////////////////
+	//We start here properly//
+	//////////////////////////
+	if(!living_owner.combat_mode)
 
-	if(!do_after(owner, feed_time, feed_target, NONE, TRUE, hidden = TRUE))
-		owner.balloon_alert(owner, "interrupted!")
-		deactivate_power()
-		return
+		owner.balloon_alert(owner, "mesmerizing [feed_target]...")
 
-	// Aggressively grabbing a target will make them fall asleep and alert nearby people
-	if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE)
-		feed_target.Unconscious((5 + level_current) SECONDS)
+		// Initial ""mesmerize""
+		if(!do_after(owner, 2 SECONDS, feed_target, NONE, TRUE, hidden = TRUE))
+			owner.balloon_alert(owner, "interrupted!")
+			deactivate_power()
+			return
+
+		// Succesfull. Start feeding process by getting feed time.
+		var/feed_time = vampiredatum_power.frenzied ? FEED_FRENZY_TIME : clamp(round(FEED_DEFAULT_TIME / (1.25 * (level_current || 1))), 1, FEED_DEFAULT_TIME)
+
+		feed_target.Stun(feed_time, TRUE)
+		to_chat(feed_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully..."), type = MESSAGE_TYPE_WARNING)
+		owner.balloon_alert(owner, "subdued! starting feed...")
+
+		// Do the pre-feed.
+		if(!do_after(owner, feed_time, feed_target, NONE, TRUE, hidden = TRUE))
+			owner.balloon_alert(owner, "interrupted!")
+			deactivate_power()
+			return
+
+		// It begins...
+		currently_feeding = TRUE
+
+		// omega switch
+		switch(get_dir(owner.loc, feed_target.loc))
+			if(NORTH)
+				owner.dir = WEST
+				feed_target.dir = EAST
+				animate(owner, 0.2 SECONDS, pixel_x = 8, pixel_y = 16)
+				animate(feed_target, 0.2 SECONDS, pixel_x = -8, pixel_y = -16)
+			if(NORTHEAST)
+				owner.dir = EAST
+				feed_target.dir = WEST
+				animate(owner, 0.2 SECONDS, pixel_x = 8, pixel_y = 16)
+				animate(feed_target, 0.2 SECONDS, pixel_x = -8, pixel_y = -16)
+			if(EAST)
+				owner.dir = EAST
+				feed_target.dir = WEST
+				animate(owner, 0.2 SECONDS, pixel_x = 8)
+				animate(feed_target, 0.2 SECONDS, pixel_x = -8)
+			if(SOUTH)
+				owner.dir = EAST
+				feed_target.dir = WEST
+				animate(owner, 0.2 SECONDS, pixel_x = -8, pixel_y = -16)
+				animate(feed_target, 0.2 SECONDS, pixel_x = 8, pixel_y = 16)
+			if(SOUTHEAST)
+				owner.dir = EAST
+				feed_target.dir = WEST
+				animate(owner, 0.2 SECONDS, pixel_x = 8, pixel_y = -16)
+				animate(feed_target, 0.2 SECONDS, pixel_x = -8, pixel_y = 16)
+			if(SOUTHWEST)
+				owner.dir = WEST
+				feed_target.dir = EAST
+				animate(owner, 0.2 SECONDS, pixel_x = -8, pixel_y = -16)
+				animate(feed_target, 0.2 SECONDS, pixel_x = 8, pixel_y = 16)
+			if(WEST)
+				owner.dir = WEST
+				feed_target.dir = EAST
+				animate(owner, 0.2 SECONDS, pixel_x = -8)
+				animate(feed_target, 0.2 SECONDS, pixel_x = 8)
+			if(NORTHWEST)
+				owner.dir = WEST
+				feed_target.dir = EAST
+				animate(owner, 0.2 SECONDS, pixel_x = -8, pixel_y = 16)
+				animate(feed_target, 0.2 SECONDS, pixel_x = 8, pixel_y = -16)
+
+		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] embraces you tightly, sinking their fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
+		to_chat(feed_target, span_hypnophrase("Why does it feel soo good..."), type = MESSAGE_TYPE_WARNING)
+
 		owner.visible_message(
-			span_warning("[owner] closes [owner.p_their()] mouth around [feed_target]'s neck!"),
-			span_warning("You sink your fangs into [feed_target]'s neck.")
-		)
-		silent_feed = FALSE
-	else
-		owner.visible_message(
-			span_notice("[owner] puts [feed_target]'s wrist up to [owner.p_their()] mouth."),
-			span_notice("You slip your fangs into [feed_target]'s wrist."),
+			span_notice("[owner.first_name()] closes [owner.p_their()] arms around [feed_target.first_name()] in a tight embrace, biting into their neck!"),
+			span_notice("You slip your fangs into [feed_target.first_name()]'s neck."),
 			vision_distance = FEED_SILENT_NOTICE_RANGE, ignored_mobs = feed_target
 		)
 
-	// Check if we were seen while feeding
-	for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE) - feed_target)
-		if(!watcher.client)
-			continue
-		if(watcher.has_unlimited_silicon_privilege)
-			continue
-		if(watcher.stat != CONSCIOUS)
-			continue
-		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
-			continue
-		if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
-			continue
-
-		owner.balloon_alert(owner, "feed noticed!")
-		vampiredatum_power.give_masquerade_infraction()
-		break
+	else if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE) // COMBAT FEED BELOW HERE!!!!!!!!!!
+		feed_target.Unconscious((5 + level_current) SECONDS)
+		owner.visible_message(
+			span_warning("[owner.first_name()] closes [owner.p_their()] mouth around [feed_target.first_name()]'s neck!"),
+			span_warning("You sink your fangs into [feed_target.first_name()]'s neck."), ignored_mobs = feed_target
+		)
+		to_chat(feed_target, span_bolddanger("[owner.first_name()] SEIZES YOU WITH INCREDIBLE STRENGTH, SINKING THEIR TEETH INTO YOUR NECK!"), type = MESSAGE_TYPE_WARNING)
+		silent_feed = FALSE
 
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_WHISPER_ONLY, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
@@ -208,8 +260,8 @@
 	if(!continue_active())
 		if(!silent_feed)
 			user.visible_message(
-				span_warning("[user] is ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),
-				span_warning("Your teeth are ripped from [feed_target]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"))
+				span_warning("[user] is ripped from [feed_target.first_name()]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"),
+				span_warning("Your teeth are ripped from [feed_target.first_name()]'s throat. [feed_target.p_their(TRUE)] blood sprays everywhere!"))
 
 			// Time to start bleeding
 			if(iscarbon(feed_target))
@@ -259,19 +311,24 @@
 		owner.balloon_alert(owner, "your victim's blood is at an unsafe level.")
 	warning_target_bloodvol = feed_target.blood_volume
 
+	// Check if full on blood
+	if(vampiredatum_power.vampire_blood_volume >= vampiredatum_power.max_blood_volume)
+		if(IS_VAMPIRE(feed_target))
+			owner.balloon_alert(owner, "we are full on blood, but we can continue feeding to absorb their power!")
+		else
+			owner.balloon_alert(owner, "we are full on blood!")
+
 	// Check if target has an acceptable amount of blood left
 	if(feed_target.blood_volume <= 10)
-		user.balloon_alert(owner, "no blood left!")
+		owner.balloon_alert(owner, "no blood left!")
 		if(IS_VAMPIRE(feed_target))
 			diablerie(feed_target)
 		power_activated_sucessfully()
 		return
 
-	// Play heartbeat sound effect to vampire (and maybe target)
+	// Play heartbeat sound effect to vampire and target
 	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
-
-	if(!silent_feed)
-		feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
+	feed_target.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
 
 /// We assume the target is a vampire.
 /datum/action/vampire/targeted/feed/proc/diablerie(mob/living/poor_sap)
@@ -293,6 +350,10 @@
 	// Did we already take humanity for killing them?
 	var/humanity_deducted = FALSE
 	var/mob/living/feed_target = target_ref?.resolve()
+
+	animate(owner, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
+	animate(feed_target, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
+
 	if(feed_target)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
 
@@ -301,7 +362,7 @@
 
 		if(feed_target.stat != DEAD && silent_feed)
 			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
-			to_chat(feed_target, span_bighypnophrase("You don't remember how you got here..."))
+			to_chat(feed_target, span_bighypnophrase("You don't anything since since you first saw their eyes, everything is so... hazy..."))
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
@@ -336,7 +397,7 @@
 		blood_to_take /= 3
 	// Penalty for non-human blood
 	if(!ishuman(target))
-		blood_to_take /= 2
+		blood_to_take /= 4
 	// Penalty for frenzy(messy eater)
 	if(vampiredatum_power.frenzied)
 		blood_to_take /= 2

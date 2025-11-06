@@ -67,7 +67,7 @@
 	if(. && isliving(target))
 		if(COOLDOWN_FINISHED(src, bloodheal_cooldown_beast))
 			playsound(loc, 'sound/vampires/bloodhealing.ogg', 30)
-			new /obj/effect/gibspawner/generic(target.loc)
+			add_splatter_floor(get_turf(target))
 			health = health + 20
 
 		COOLDOWN_START(src, bloodheal_cooldown_beast, 1 SECONDS)
