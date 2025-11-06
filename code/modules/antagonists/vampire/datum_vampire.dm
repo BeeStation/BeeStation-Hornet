@@ -204,9 +204,9 @@
 	current_mob.faction -= FACTION_VAMPIRE
 
 	// Tiny lobotomy
-	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/ghoulrack)
-	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/candelabrum)
-	current_mob.mind.forget_crafting_recipe(/datum/crafting_recipe/bloodthrone)
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/bloodthrone)
 
 /datum/antagonist/vampire/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER

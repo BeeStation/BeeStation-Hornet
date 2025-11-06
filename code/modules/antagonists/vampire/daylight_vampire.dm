@@ -75,7 +75,7 @@
 	RemoveBloodVolume(VAMPIRE_SOL_BURN)
 
 	// Hey gooble, why is my coworker sizzling?
-	playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 1, vary = TRUE)
+	playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
 
 	// We can resist it as long as we have blood.
 	if(vampire_blood_volume >= 50)
