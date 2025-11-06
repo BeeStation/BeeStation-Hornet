@@ -9,7 +9,6 @@
 	)
 	default_message = "Vote to wrap up the ongoing round with a shuttle departure."
 
-
 /datum/vote/shuttle_vote/finalize_vote(winning_option)
 	if(winning_option == CHOICE_SHUTTLE)
 		if(SSshuttle.emergency.mode == SHUTTLE_RECALL)
@@ -19,6 +18,7 @@
 
 		SSshuttle.requestEvac(null, "Crew Transfer Requested.")
 		SSshuttle.emergencyNoRecall = TRUE
+		SSautotransfer.can_fire = FALSE
 		return
 
 /datum/vote/shuttle_vote/tiebreaker(list/winners)
