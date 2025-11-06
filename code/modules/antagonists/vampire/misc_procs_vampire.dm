@@ -127,7 +127,7 @@
  * Checks to make sure it doesn't exceed 10,
  * Adds the masquerade power at 9 or above
  */
-/datum/antagonist/vampire/proc/add_humanity(count, silent)
+/datum/antagonist/vampire/proc/add_humanity(count, silent = FALSE)
 	// Step one: Toreadors have doubled gains and losses
 	if(my_clan == /datum/vampire_clan/toreador)
 		count = count * 2

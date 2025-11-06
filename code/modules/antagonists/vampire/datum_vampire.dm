@@ -242,10 +242,19 @@
 	else
 		.["Break Masquerade"] = CALLBACK(src, PROC_REF(break_masquerade))
 
+	if(!broke_masquerade)
+		.["Masquerade Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
+
 	if(my_clan)
 		.["Remove Clan"] = CALLBACK(src, PROC_REF(remove_clan))
 	else
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
+
+	if(humanity > 0)
+		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(deduct_humanity), 1)
+
+	if(humanity < 10)
+		.["Add Humanity"] = CALLBACK(src, PROC_REF(add_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
