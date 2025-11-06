@@ -71,13 +71,13 @@
  * Increase our unspent vampire levels by one and try to rank up if inside a coffin
  * Called near the end of Sol and admin abuse
 **/
-/datum/antagonist/vampire/proc/rank_up()
+/datum/antagonist/vampire/proc/rank_up(levels)
 	if(QDELETED(owner) || QDELETED(owner.current))
 		return
 
-	vampire_level_unspent++
+	vampire_level_unspent += levels
 	if(!my_clan)
-		to_chat(owner.current, span_notice("You have gained a rank. Join a clan to spend it."))
+		to_chat(owner.current, span_notice("You have grown in power. Join a clan to spend it."))
 		return
 
 	// If we're in a coffin go ahead and try to spend the rank

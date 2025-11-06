@@ -271,10 +271,11 @@
 	// Objectives
 	forge_objectives()
 
-	// Assign Powers
+	// Assign starting stats + 2 skill points.
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
+	rank_up(2)
 	owner.special_role = ROLE_VAMPIRE
 
 /datum/antagonist/vampire/on_removal()

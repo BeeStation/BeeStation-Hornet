@@ -359,7 +359,7 @@
 
 		if(feed_target.stat != DEAD && silent_feed)
 			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
-			to_chat(feed_target, span_bighypnophrase("You don't anything since since you first saw their eyes, everything is so... hazy..."))
+			to_chat(feed_target, span_bighypnophrase("You don't remember anything since you first saw their eyes, everything is so... hazy..."))
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)

@@ -20,7 +20,7 @@
 **/
 /datum/antagonist/vampire/proc/sol_near_end(atom/source)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(rank_up))
+	INVOKE_ASYNC(src, PROC_REF(rank_up), 2)
 
 /**
  * Handles the Sol status effect, called while Sol is risen
