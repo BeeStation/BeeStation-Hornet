@@ -20,7 +20,7 @@
 	for(var/mob/living/watcher in view(9, owner) - owner)
 		if(watcher.stat == DEAD || QDELETED(watcher.client) || watcher.client?.is_afk())
 			continue
-		if(IS_VAMPIRE(watcher) || IS_ghoul(watcher))
+		if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
 			continue
 		if(watcher.is_blind())
 			continue

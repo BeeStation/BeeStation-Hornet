@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// Checks if the given mob is a vampire
 #define IS_VAMPIRE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vampire))
 /// Checks if the given mob is a ghoul
-#define IS_ghoul(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ghoul))
+#define IS_GHOUL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ghoul))
 /// Checks if the given mob is a favorite ghoul
 #define IS_FAVORITE_ghoul(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/ghoul/favorite))
 /// Checks if the given mob is a revolutionary

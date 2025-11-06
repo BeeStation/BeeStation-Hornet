@@ -19,13 +19,13 @@
 	/// The owner's vampire datum
 	var/datum/antagonist/vampire/vampiredatum_power
 
+	/// Are we obviously supernatural to people watching us?
+	var/obvious
+
 	/// The effects on this Power (Toggled/Single Use/Static Cooldown)
 	var/power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-
-	/// What discipline are we associating this power with?
-	var/discipline = NONE	//DISCIPLINE_OBFUSCATE, DISCIPLINE_PRESENCE, etc
 
 	var/special_flags= NONE	//VAMPIRE_DEFAULT_POWER, CLAN_DEFAULT_POWER, etc
 
@@ -70,6 +70,23 @@
 	activate_power()
 	if(!(power_flags & BP_AM_TOGGLE) || !currently_active)
 		start_cooldown()
+
+	// If we are marked as obvious, and there's a mortal in line of sight, we get a masq infraction
+	if(obvious)
+		for(var/mob/living/watcher in oviewers(6) - target)
+			if(!watcher.client)
+				continue
+			if(watcher.has_unlimited_silicon_privilege)
+				continue
+			if(watcher.stat != CONSCIOUS)
+				continue
+			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+				continue
+			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+				continue
+
+			vampiredatum_power.give_masquerade_infraction()
+			break
 
 	return TRUE
 

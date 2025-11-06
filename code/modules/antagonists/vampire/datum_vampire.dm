@@ -580,7 +580,7 @@
 	SIGNAL_HANDLER
 
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
-	if(IS_ghoul(examiner) in ghouls)
+	if(IS_GHOUL(examiner) in ghouls)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)

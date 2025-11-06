@@ -15,6 +15,7 @@
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
 	power_activates_immediately = FALSE
+	obvious = TRUE
 
 /datum/action/vampire/targeted/lunge/upgrade_power()
 	. = ..()

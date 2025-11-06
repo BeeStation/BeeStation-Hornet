@@ -162,7 +162,7 @@
 		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")
 
 /datum/action/vampire/targeted/tremere/dominate/proc/attempt_ghoulize(mob/living/living_target)
-	var/datum/antagonist/ghoul/ghouldatum = IS_ghoul(living_target)
+	var/datum/antagonist/ghoul/ghouldatum = IS_GHOUL(living_target)
 
 	living_target.balloon_alert(owner, "attempting to revive.")
 	if(!do_after(owner, 6 SECONDS, living_target))
@@ -188,7 +188,7 @@
 	living_target.mind.grab_ghost()
 	living_target.revive(HEAL_ALL)
 
-	ghouldatum = IS_ghoul(living_target)
+	ghouldatum = IS_GHOUL(living_target)
 
 	// You will die in 5 or 8 minutes
 	var/time_to_live

@@ -23,6 +23,7 @@
 	cooldown_time = 1 SECONDS // Same as above
 	damage_coefficient = 1.625
 	brujah = TRUE
+	obvious = TRUE
 
 /// Hit an atom, set bloodcost, set cooldown time, play a sound, and deconstruct the atom
 /// with this one convenient proc!

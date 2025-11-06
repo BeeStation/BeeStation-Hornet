@@ -36,7 +36,7 @@
 		living_vampire.balloon_alert(living_vampire, "can't be ghoulized.")
 		return FALSE
 
-	var/datum/antagonist/ghoul/ghouldatum = IS_ghoul(conversion_target)
+	var/datum/antagonist/ghoul/ghouldatum = IS_GHOUL(conversion_target)
 	var/mob/living/ghoul_master = conversion_target.mind.enslaved_to
 	if((ghouldatum && !ghouldatum.master.broke_masquerade) || (ghoul_master && ghoul_master != owner.current))
 		living_vampire.balloon_alert(living_vampire, "enslaved to someone else.")
@@ -49,7 +49,7 @@
 	return TRUE
 
 /datum/antagonist/vampire/proc/make_ghoul(mob/living/conversion_target)
-	if(IS_ghoul(conversion_target))
+	if(IS_GHOUL(conversion_target))
 		conversion_target.mind.remove_antag_datum(/datum/antagonist/ghoul)
 
 	select_title()

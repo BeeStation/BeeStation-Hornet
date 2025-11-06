@@ -183,6 +183,6 @@
 	if(src in vampiredatum?.ghouls)
 		text += span_cult("<EM>This is your ghoul!</EM>")
 		examine_text += text
-	else if(vampiredatum || IS_CURATOR(examiner) || IS_ghoul(examiner))
+	else if(vampiredatum || IS_CURATOR(examiner) || IS_GHOUL(examiner))
 		text += span_cult("<EM>This is [master.return_full_name()]'s ghoul</EM>")
 		examine_text += text

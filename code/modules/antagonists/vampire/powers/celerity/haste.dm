@@ -18,6 +18,7 @@
 	cooldown_time = 12 SECONDS
 	target_range = 15
 	power_activates_immediately = TRUE
+	obvious = TRUE
 	///List of all people hit by our power, so we don't hit them again.
 	var/list/hit = list()
 

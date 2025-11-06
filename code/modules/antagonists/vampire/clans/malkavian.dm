@@ -18,7 +18,7 @@
 /datum/vampire_clan/malkavian/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
 
-	vampiredatum.owned_disciplines += new /datum/discipline/presence(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/auspex/malkavian(vampiredatum)
 	vampiredatum.owned_disciplines += new /datum/discipline/obfuscate(vampiredatum)
 
 

@@ -20,7 +20,7 @@
 			. += span_cult("It is unsecured. Click on [src] while in your Haven to secure it in place to get its full potential")
 			return
 		. += span_cult(vampire_desc)
-	if(IS_ghoul(user) && ghoul_desc)
+	if(IS_GHOUL(user) && ghoul_desc)
 		. += span_cult(ghoul_desc)
 	if(IS_CURATOR(user) && curator_desc)
 		. += span_cult(curator_desc)
@@ -171,7 +171,7 @@
 
 /// Attempt Unbuckle
 /obj/structure/vampire/ghoulrack/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
-	if(IS_VAMPIRE(user) || IS_ghoul(user))
+	if(IS_VAMPIRE(user) || IS_GHOUL(user))
 		return ..()
 
 	if(buckled_mob == user)
@@ -398,7 +398,7 @@
 /obj/structure/vampire/candelabrum/attack_hand(mob/living/user, list/modifiers)
 	if(!..())
 		return
-	if(anchored && (IS_ghoul(user) || IS_VAMPIRE(user)))
+	if(anchored && (IS_GHOUL(user) || IS_VAMPIRE(user)))
 		toggle()
 	return ..()
 
@@ -419,7 +419,7 @@
 		return
 	for(var/mob/living/carbon/nearby_people in viewers(7, src))
 		/// We dont want Vampires or ghouls affected by this
-		if(IS_ghoul(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
+		if(IS_GHOUL(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
 			continue
 		nearby_people.adjust_hallucinations(10 SECONDS)
 		SEND_SIGNAL(nearby_people, COMSIG_ADD_MOOD_EVENT, "vampcandle", /datum/mood_event/vampcandle)

@@ -42,7 +42,7 @@
 			else
 				to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))
 
-		var/datum/antagonist/ghoul/ghoul = IS_ghoul(target)
+		var/datum/antagonist/ghoul/ghoul = IS_GHOUL(target)
 		if(ghoul)
 			target.mind.remove_antag_datum(/datum/antagonist/ghoul)
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")

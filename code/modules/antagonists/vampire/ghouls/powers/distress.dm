@@ -11,7 +11,7 @@
 
 /datum/action/vampire/distress/activate_power()
 	. = ..()
-	var/datum/antagonist/ghoul/ghouldatum = IS_ghoul(owner)
+	var/datum/antagonist/ghoul/ghouldatum = IS_GHOUL(owner)
 
 	owner.balloon_alert(owner, "you call out for your master!")
 	to_chat(ghouldatum.master.owner, span_userdanger("[owner], your loyal ghoul, is desperately calling for aid at [get_area(owner)]!"))

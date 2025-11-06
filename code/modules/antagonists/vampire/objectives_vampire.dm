@@ -175,5 +175,5 @@
 	explanation_text = "You crave the blood of your sire! Obey and protect them at all costs!"
 
 /datum/objective/vampire/ghoul/check_completion()
-	var/datum/antagonist/ghoul/ghoul_datum = IS_ghoul(owner.current)
+	var/datum/antagonist/ghoul/ghoul_datum = IS_GHOUL(owner.current)
 	return ghoul_datum.master?.owner?.current?.stat != DEAD

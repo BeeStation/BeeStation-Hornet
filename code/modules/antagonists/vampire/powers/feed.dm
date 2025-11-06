@@ -184,7 +184,7 @@
 			continue
 		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 			continue
-		if(IS_VAMPIRE(watcher) || IS_ghoul(watcher))
+		if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
 			continue
 
 		owner.balloon_alert(owner, "feed noticed!")
