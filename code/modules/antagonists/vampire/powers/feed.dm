@@ -9,12 +9,14 @@
 	desc = "Feed blood off of a living creature."
 	button_icon_state = "power_feed"
 	power_explanation = "Activate Feed and select a target to start draining their blood.\n\
+		You will begin to entrance them into accepting your advances.\n\
 		The time needed before you start feeding decreases the higher level you are.\n\
-		If you are not aggressively grabbing someone they will forget that they were ever fed off.\n\
-		Feeding off of someone while you have them aggressively grabbed will put them to sleep and make you feed faster. \
+		If you are feeding normally they will forget that they were ever fed off.\n\
+		Feeding off of someone while you have them aggressively grabbed while in combat mode, will put them to sleep and make you feed faster. \
 		This is very obvious and the radius in which you can be detected is much larger!\n\
 		Mice can be fed off if you are in desperate need of blood.\n\
-		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding."
+		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding.\n\
+		<b>IMPORTANT:</b> You may feed on other vampires if they have broken the masquerade. Should you drain them, you will absorb their power!"
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	special_flags = VAMPIRE_DEFAULT_POWER
@@ -63,7 +65,7 @@
 
 	// Check if we are seen while feeding
 	if(currently_feeding)
-		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE) - target)
+		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE, owner) - target)
 			if(!watcher.client)
 				continue
 			if(watcher.has_unlimited_silicon_privilege)
@@ -75,17 +77,12 @@
 			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
 				continue
 
-			var/list/alerted = null
-			alerted = viewers(7,src) - target - owner
-			if(LAZYLEN(alerted))
-			for(var/mob/living/Living in alerted)
-				if(!Living.stat)
-					if(!Living.incapacitated(IGNORE_RESTRAINTS))
-						Living.face_atom(src)
-						Living.do_alert_animation(Living)
-						to_chat(target, span_dangerbold("Wait... is...[owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+				watcher.face_atom(owner)
 
-			playsound(owner, 'sound/machines/chime.ogg', 50, FALSE, -5)
+			watcher.do_alert_animation(watcher)
+			to_chat(watcher, span_dangerbold("Wait... is... [owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
 			vampiredatum_power.give_masquerade_infraction()
@@ -397,13 +394,13 @@
 		blood_to_take /= 3
 	// Penalty for non-human blood
 	if(!ishuman(target))
-		blood_to_take /= 4
+		blood_to_take /= 6
 	// Penalty for frenzy(messy eater)
 	if(vampiredatum_power.frenzied)
 		blood_to_take /= 2
 
 	// Give vampire the blood
-	vampiredatum_power.AddBloodVolume(blood_to_take * 2)
+	vampiredatum_power.AddBloodVolume(blood_to_take * 3)
 
 	// Diablerie takes vitae directly
 	if(IS_VAMPIRE(target))

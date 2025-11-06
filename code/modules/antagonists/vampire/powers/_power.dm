@@ -73,7 +73,7 @@
 
 	// If we are marked as obvious, and there's a mortal in line of sight, we get a masq infraction
 	if(obvious)
-		for(var/mob/living/watcher in oviewers(6) - target)
+		for(var/mob/living/watcher in oviewers(6, owner) - target)
 			if(!watcher.client)
 				continue
 			if(watcher.has_unlimited_silicon_privilege)
@@ -85,6 +85,11 @@
 			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
 				continue
 
+			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+				watcher.face_atom(owner)
+
+			watcher.do_alert_animation(watcher)
+			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 			vampiredatum_power.give_masquerade_infraction()
 			break
 
