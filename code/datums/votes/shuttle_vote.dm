@@ -9,10 +9,6 @@
 	)
 	default_message = "Vote to wrap up the ongoing round with a shuttle departure."
 
-/datum/vote/shuttle_vote/create_vote(mob/vote_creator)
-	. = ..()
-	if(!.)
-		return
 
 /datum/vote/shuttle_vote/finalize_vote(winning_option)
 	if(winning_option == CHOICE_SHUTTLE)
