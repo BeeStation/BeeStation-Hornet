@@ -235,7 +235,11 @@
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
-		user.visible_message(span_notice("[user] shows you: [icon2html(src, viewers(user))] [src.name]."), span_notice("You show \the [src.name]."))
+		var/id_href = "<a href='byond://?src=[REF(user)];see_id=1;id_ref=[REF(src)];id_name=[registered_name];examine_time=[world.time]'>[src.name]</a>"
+		user.visible_message(
+			span_notice("[user] shows you [id_href]"),
+			span_notice("You show \the [id_href]."),
+		)
 	add_fingerprint(user)
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)

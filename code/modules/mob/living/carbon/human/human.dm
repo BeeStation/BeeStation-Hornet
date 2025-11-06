@@ -109,7 +109,12 @@
 		var/can_see_still = (viewer in viewers(src))
 
 		var/obj/item/card/id/id = wear_id?.GetID()
-		var/same_id = id && (href_list["id_ref"] == REF(id) || href_list["id_name"] == id.registered_name)
+		if(!istype(id))
+			id = get_active_held_item()
+		if(!istype(id))
+			id = get_inactive_held_item()
+
+		var/same_id = istype(id) && (href_list["id_ref"] == REF(id) || href_list["id_name"] == id.registered_name)
 		if(!same_id && can_see_still)
 			to_chat(viewer, span_notice("[p_They()] [p_are()] no longer wearing that ID card."))
 			return
