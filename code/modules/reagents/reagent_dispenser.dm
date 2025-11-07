@@ -39,13 +39,12 @@
 	. = ..()
 	if(accepts_rig && get_dist(user, src) <= 2)
 		if(rig)
-			. += ("<span notice='warning'>There is some kind of device <b>rigged</b> to the tank!")
+			. += span_warning("There is some kind of device <b>rigged</b> to the tank!")
 		else
-			. += ("<span notice='warning'>It looks like you could <b>rig</b> a device to the tank.")
-	for(var/assembly in rig.assemblies)
-		if(istype(assembly, /obj/item/assembly/timer))
-			var/obj/item/assembly/timer/timer = assembly
-			. += span_notice("There is a timer [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
+			. += span_notice("It looks like you could <b>rig</b> a device to the tank.")
+
+	for(var/obj/item/assembly/timer/timer in rig?.assemblies)
+		. += span_notice("There is a timer [timer.timing ? "counting down from [timer.time]" : "set for [timer.time] seconds"].")
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
