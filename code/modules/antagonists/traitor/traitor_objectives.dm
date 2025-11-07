@@ -10,17 +10,21 @@
 	valid_objectives += OBJECTIVE_HIJACK
 
 	// Hack AI: Requires an AI
+	/*
 	var/list/active_ais = active_ais()
 	if (length(active_ais) > 0)
 		valid_objectives += OBJECTIVE_HACK_AI
+	*/
 
 	// Romerol: Requires pop limit
 	if (length(GLOB.joined_player_list) >= 12)
 		valid_objectives += OBJECTIVE_ROMEROL
 
+/*
 	// Brainwash: Requires pop limit
 	if (length(GLOB.joined_player_list) >= 8)
 		valid_objectives += OBJECTIVE_BRAINWASH
+		*/
 
 	// Add the finale objective
 	switch (pick(valid_objectives))
@@ -35,6 +39,7 @@
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			add_objective(escape_objective)
+			/*
 		if (OBJECTIVE_BRAINWASH)
 			var/datum/objective/brainwashing/brainwashing_objective = new
 			brainwashing_objective.owner = owner
@@ -43,6 +48,7 @@
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			add_objective(escape_objective)
+			*/
 	// Finally, set up our traitor's backstory!
 	setup_backstories(TRUE, TRUE)
 
