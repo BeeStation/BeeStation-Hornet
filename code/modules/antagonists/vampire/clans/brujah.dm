@@ -8,7 +8,7 @@
 	join_description = "A clan of mostly rebels, some still show signs of their lost lineage of warrior-poets. They are long split from the camarilla, and often form their own groups.\n\
 		<b>DISCIPLINES:</b> Potence, Celerity, Presence"
 	default_humanity = 7
-	joinable_clan = TRUE
+	joinable_clan = FALSE
 
 /datum/vampire_clan/brujah/New(datum/antagonist/vampire/owner_datum)
 	. = ..()

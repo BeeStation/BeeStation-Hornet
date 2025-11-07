@@ -20,6 +20,7 @@
 
 	vampiredatum.owned_disciplines += new /datum/discipline/auspex/malkavian(vampiredatum)
 	vampiredatum.owned_disciplines += new /datum/discipline/obfuscate(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/dominate(vampiredatum)
 
 
 	var/mob/living/carbon/carbon_owner = vampiredatum.owner.current
