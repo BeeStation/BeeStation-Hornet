@@ -77,3 +77,4 @@
   - bugfix: Fixed the troll paper
   - bugfix: Fixed water and welding fuel tanks runtiming when examining them
   - bugfix: Fixed not being able to put chem bags into the chemistry smartfridge
+  - bugfix: Fixed an infrequent runtime when the game loads your screentip preferences
