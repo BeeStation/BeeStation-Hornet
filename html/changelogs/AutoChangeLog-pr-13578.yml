@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed water and welding fuel tanks runtiming when examining them
