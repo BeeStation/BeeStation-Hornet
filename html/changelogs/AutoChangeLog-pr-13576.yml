@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed the code for the beer nuke not showing up on beer stained notes
+  - bugfix: Fixed the troll paper
