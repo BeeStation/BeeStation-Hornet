@@ -3,7 +3,6 @@
 	explanation_text = "Brainwash at least %GOALS% members of the crew and have them stage a terrorist attack against the station."
 	murderbone_flag = TRUE
 	var/amount = 0
-	var/target_amount = 0
 
 /datum/objective/brainwash_targets/proc/generate_amount()
 	// 5-10% of the crew
