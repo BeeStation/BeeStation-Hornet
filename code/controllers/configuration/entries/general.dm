@@ -655,7 +655,7 @@
 /datum/config_entry/number/vote_autotransfer_interval
 	config_entry_value = 20 MINUTES
 	integer = TRUE
-	min_val = 2 //System only fires every other minute
+	min_val = 2 MINUTES //System only fires every other minute
 
 ///When a round reaches this length, the shuttle calls automatically
 /datum/config_entry/number/vote_autotransfer_override
