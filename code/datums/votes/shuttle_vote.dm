@@ -9,6 +9,14 @@
 	)
 	default_message = "Vote to wrap up the ongoing round with a shuttle departure."
 
+/datum/vote/shuttle_vote/can_be_initiated(forced)
+	. = ..()
+	if(. != VOTE_AVAILABLE)
+		return .
+
+	if(!SSshuttle.canEvac() && SSshuttle.emergency.mode != SHUTTLE_RECALL)
+		return "The shuttle has already been called"
+
 /datum/vote/shuttle_vote/finalize_vote(winning_option)
 	if(winning_option == CHOICE_SHUTTLE)
 		if(SSshuttle.emergency.mode == SHUTTLE_RECALL)
