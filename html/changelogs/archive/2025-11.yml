@@ -76,3 +76,4 @@
   - bugfix: Fixed the code for the beer nuke not showing up on beer stained notes
   - bugfix: Fixed the troll paper
   - bugfix: Fixed water and welding fuel tanks runtiming when examining them
+  - bugfix: Fixed not being able to put chem bags into the chemistry smartfridge
