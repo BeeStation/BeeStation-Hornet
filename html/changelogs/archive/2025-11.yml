@@ -55,3 +55,12 @@
   - rscdel: Removes the mutate spell
   - bugfix: Psyphoza and Lizard exclusive mutations are both actually exclusive to
       those races now as intended.
+2025-11-03:
+  mrmanlikesbt:
+  - bugfix: Fixed vampire frenzies
+  - bugfix: Fixed half of the kilostation solar panels having their cable node in
+      the wrong direction.
+2025-11-04:
+  PowerfulBacon:
+  - bugfix: Mail can now be delivered to antagonists and dead people, provided they
+      are present on the station's manifest.
