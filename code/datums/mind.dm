@@ -263,6 +263,77 @@
 		traitor_mob.mind.store_memory()
 	return I
 
+/datum/mind/proc/equip_standard_uplink(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT, directive_flags = NONE)
+	if(!current)
+		return
+	var/mob/living/carbon/human/traitor_mob = current
+	if (!istype(traitor_mob))
+		return
+
+	var/list/all_contents = traitor_mob.GetAllContents()
+	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
+	var/obj/item/radio/R = locate() in all_contents
+	var/obj/item/pen/P
+
+	if (PDA) // Prioritize PDA pen, otherwise the pocket protector pens will be chosen, which causes numerous ahelps about missing uplink
+		P = locate() in PDA
+	if (!P) // If we couldn't find a pen in the PDA, or we didn't even have a PDA, do it the old way
+		P = locate() in all_contents
+		if(!P) // I do not have a pen.
+			var/obj/item/pen/inowhaveapen
+			if(istype(traitor_mob.back,/obj/item/storage)) //ok buddy you better have a backpack!
+				inowhaveapen = new /obj/item/pen(traitor_mob.back)
+			else
+				inowhaveapen = new /obj/item/pen(traitor_mob.loc)
+				traitor_mob.put_in_hands(inowhaveapen) // I hope you don't have arms and your traitor pen gets stolen for all this trouble you've caused.
+			P = inowhaveapen
+
+	var/obj/item/uplink_loc
+
+	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_character_preference(/datum/preference/choiced/uplink_location)
+	switch(uplink_spawn_location)
+		if(UPLINK_PDA)
+			uplink_loc = PDA
+			if(!uplink_loc)
+				uplink_loc = R
+			if(!uplink_loc)
+				uplink_loc = P
+		if(UPLINK_RADIO)
+			if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
+				to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
+				uplink_loc = PDA
+				if(!uplink_loc)
+					uplink_loc = R
+				if(!uplink_loc)
+					uplink_loc = P
+			else
+				uplink_loc = R
+				if(!uplink_loc)
+					uplink_loc = PDA
+				if(!uplink_loc)
+					uplink_loc = P
+		if(UPLINK_PEN)
+			uplink_loc = P
+
+	. = uplink_loc
+	var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals, directive_flags = directive_flags)
+	if(!U)
+		CRASH("Uplink creation failed.")
+	U.setup_unlock_code()
+	if(!silent)
+		if(uplink_loc == R)
+			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
+		else if(uplink_loc == PDA)
+			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+		else if(uplink_loc == P)
+			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
+		to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+
+	if(uplink_owner)
+		uplink_owner.antag_memory += U.unlock_note + "<br>"
+	else
+		traitor_mob.mind.store_memory(U.unlock_note)
+
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
 /datum/mind/proc/enslave_mind_to_creator(datum/mind/creator)

@@ -81,6 +81,9 @@
 	for(var/datum/mind/M in team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
+	// Who gets the uplink
+	var/datum/mind/uplink_owner = pick(team.members)
+	uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = DIRECTIVE_FLAG_COMPETITIVE)
 	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 

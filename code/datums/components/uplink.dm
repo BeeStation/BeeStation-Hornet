@@ -34,6 +34,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	// Tied to uplink rather than mind since generally traitors only have 1 uplink
 	// and tying it to anything else is difficult due to how much uses an uplink
 	var/reputation = REPUTATION_TRAITOR_START
+	var/directive_flags = NONE
 
 	var/list/previous_attempts
 
@@ -43,6 +44,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		uplink_flag = UPLINK_TRAITORS,
 		starting_tc = TELECRYSTALS_DEFAULT,
 		_reputation = REPUTATION_TRAITOR_START,
+		directive_flags = DIRECTIVE_FLAG_COMPETITIVE
 		)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -73,6 +75,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	active = _enabled
 	reputation = _reputation
 	src.uplink_flag = uplink_flag
+	src.directive_flags = directive_flags
 	update_items()
 	telecrystals = starting_tc
 	if(!lockable)

@@ -1,10 +1,8 @@
 SUBSYSTEM_DEF(directives)
 	name = "Priority Directives"
 	wait = 10 SECONDS
-	/// The time before the personal directives are issued
-	var/next_personal_directive_time
 	/// The currently active shared directive, which all uplink holders are given access to
-	var/datum/priority_directive/active_directive = null
+	var/list/datum/priority_directive/active_directives = list()
 	/// The time before the next directive is issued
 	var/next_directive_time
 	/// A list of directive singleton instances
@@ -13,12 +11,11 @@ SUBSYSTEM_DEF(directives)
 /datum/controller/subsystem/directives/Initialize(start_timeofday)
 	. = ..()
 	next_directive_time = world.time + 20 MINUTES
-	next_personal_directive_time = world.time + 5 MINUTES
 	for (var/directive_type in subtypesof(/datum/priority_directive))
 		directives += new directive_type()
 
 /datum/controller/subsystem/directives/fire(resumed)
-	if (active_directive)
+	for (var/datum/priority_directive/active_directive in active_directives)
 		// Are we completed or ended?
 		if (active_directive.is_completed() || active_directive.is_timed_out())
 			active_directive.finish()
@@ -45,14 +42,11 @@ SUBSYSTEM_DEF(directives)
 	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.start(GLOB.uplinks, player_minds)
 	next_directive_time = INFINITY
-	active_directive = selected
+	active_directives += selected
 
 /client/verb/force_directive()
 	set name = "force directive"
 	set category = "powerfulbacon"
-	if (SSdirectives.active_directive)
-		message_admins("not yet")
-		return
 	// Find all the minds
 	var/list/player_minds = list()
 	for (var/mob/player in GLOB.alive_mob_list)
@@ -65,7 +59,7 @@ SUBSYSTEM_DEF(directives)
 	selected.can_run(GLOB.uplinks, player_minds, TRUE)
 	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY
-	SSdirectives.active_directive = selected
+	SSdirectives.active_directives += selected
 
 /datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
 	var/data = list()
@@ -98,7 +92,9 @@ SUBSYSTEM_DEF(directives)
 					"track_z" = tracking_turf?.z,
 				))
 		// Add the priority directive
-		if (active_directive)
+		for (var/datum/priority_directive/active_directive in active_directives)
+			if (!active_directive.get_team(uplink))
+				continue
 			var/atom/track_atom = active_directive.get_track_atom()
 			var/turf/track_turf = get_turf(track_atom)
 			known_objectives += list(list(
@@ -118,11 +114,10 @@ SUBSYSTEM_DEF(directives)
 	return data
 
 /datum/controller/subsystem/directives/proc/directive_action(datum/component/uplink/uplink, mob/living/user)
-	if (!active_directive)
-		return
-	active_directive.perform_special_action(uplink, user)
+	for (var/datum/priority_directive/directive in active_directives)
+		if (!directive.get_team(uplink))
+			continue
+		directive.perform_special_action(uplink, user)
 
 /datum/controller/subsystem/directives/proc/queue_directive()
 	next_directive_time = world.time + 15 MINUTES
-
-/datum/controller/subsystem/directives/proc/dispatch_personal_objectives()

@@ -74,7 +74,9 @@
 #define PREF_SKIRT "Jumpskirt"
 
 //Uplink spawn loc
-#define UPLINK_IMPLANT "Implant"
+#define UPLINK_PDA "PDA"
+#define UPLINK_RADIO "Radio"
+#define UPLINK_PEN "Pen" //like a real spy!
 
 //Plasmamen helmet styles
 #define HELMET_DEFAULT "Default"

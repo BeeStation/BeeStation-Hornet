@@ -6,6 +6,7 @@
 		for their own, which you need to prevent from happening. There are friendly agents supporting you on this mission \
 		but their identities are unknown."
 	reputation_loss = REPUTATION_LOSS_TEAM_DIRECTIVE
+	shared = TRUE
 	var/obj/structure/uplink_beacon/deployed_beacon
 	// Don't track this for deletion, since we need to maintain a track on the same position
  	// when a turf is changed.
@@ -78,7 +79,7 @@
 		return
 	empty_uplinks += uplink
 	// Give the requester a beacon
-	var/obj/item/spawned = new /obj/item/uplink_beacon(user.loc)
+	var/obj/item/spawned = new /obj/item/uplink_beacon(user.loc, src)
 	user.put_in_active_hand(spawned)
 
 /datum/priority_directive/deploy_beacon/get_explanation(datum/component/uplink)

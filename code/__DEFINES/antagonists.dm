@@ -99,10 +99,6 @@
 #define TELECRYSTALS_DEFAULT 12
 /// How many telecrystals mapper/admin only "precharged" uplink implant
 #define TELECRYSTALS_PRELOADED_IMPLANT 10
-/// The cost of a roundstart uplink implant; used for calcuating how many
-/// TC to charge someone if they get a free implant through choice or
-/// because they have nothing else that supports an implant.
-#define UPLINK_IMPLANT_TELECRYSTAL_COST 1
 
 GLOBAL_LIST_INIT(ai_employers, list(
 	"Biohazard",
@@ -197,6 +193,12 @@ GLOBAL_LIST_INIT(ai_employers, list(
 #define REPUTATION_LOSS_SOLO_DIRECTIVE 0
 /// How much reputation you lose for failing a team-directive
 #define REPUTATION_LOSS_TEAM_DIRECTIVE 0
+
+/// Flags for the types of directives that uplinks can recieve
+/// Can recieve competitive objective shared by other people
+#define DIRECTIVE_FLAG_COMPETITIVE (1 << 0)
+/// Can recieve personal objectives that only this uplink has
+#define DIRECTIVE_FLAG_PERSONAL (1 << 1)
 
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4

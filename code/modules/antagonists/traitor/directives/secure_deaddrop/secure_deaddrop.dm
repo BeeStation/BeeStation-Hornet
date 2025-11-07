@@ -5,6 +5,7 @@
 		You have the option to track and secure the valuable items before anyone else gets to them. The items are stored in a trackable \
 		box which will automatically unlock after a set period of time. The items have been hidden in a bag underneath the floor tiles."
 	last_for = 6 MINUTES
+	shared = TRUE
 	var/obj/item/storage/deaddrop_box/target
 
 /datum/priority_directive/deaddrop/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)

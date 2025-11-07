@@ -33,8 +33,8 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 		to_chat(current, "<span class='traitor_objective'>[uppertext(message)]</span>")
 		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
 
-/// This can only be running once at a time, do not run in parallel
 /datum/priority_directive
+	var/id = 0
 	var/name
 	var/objective_explanation
 	var/details
@@ -45,6 +45,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	var/reputation_reward = REPUTATION_GAIN_PER_DIRECTIVE
 	var/reputation_loss = REPUTATION_LOSS_SOLO_DIRECTIVE
 	var/can_timeout = TRUE
+	var/shared = FALSE
 	VAR_PRIVATE/list/teams = list()
 
 /// Check if we are allowed to run this directive or not
@@ -64,6 +65,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /// Handle late allocation
 /datum/priority_directive/proc/late_allocate(datum/component/uplink)
 	RETURN_TYPE(/datum/directive_team)
+	return null
 
 /// Return the reward type and amount
 /datum/priority_directive/proc/_generate(list/teams)
@@ -82,8 +84,9 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/priority_directive/proc/finish()
 	SHOULD_CALL_PARENT(TRUE)
-	SSdirectives.active_directive = null
-	SSdirectives.queue_directive()
+	SSdirectives.active_directives -= src
+	if (shared)
+		SSdirectives.queue_directive()
 
 /// Activate the directive, requires a list of traitor datums and security minsd
 /datum/priority_directive/proc/start(list/uplinks, list/player_minds)
@@ -137,7 +140,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	for (var/datum/directive_team/team in teams)
 		if (uplink in team.uplinks)
 			return team
-	return late_allocate(uplink)
+	return null
 
 /// Perform the special directive action
 /datum/priority_directive/proc/perform_special_action(datum/component/uplink, mob/living/user)
@@ -150,22 +153,8 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/priority_directive/proc/mission_update(message, prefix = "IMPORTANT MISSION CRITICAL NOTIFICATION: ")
 	PROTECTED_PROC(TRUE)
-	for (var/datum/component/uplink/uplink in GLOB.uplinks)
-		var/syndicate_antag = FALSE
-		var/mob/living/current = uplink.parent
-		while (current && !istype(current))
-			current = current.loc
-		if (istype(current))
-			for (var/datum/antagonist/antag in current.mind?.antag_datums)
-				syndicate_antag ||= antag.faction == FACTION_SYNDICATE
-		else
-			// Nobody to notify
-			continue
-		// If we are not held by a syndicate, and we are locked then do not give a notification
-		if (!syndicate_antag && uplink.locked)
-			continue
-		to_chat(current, "<span class='traitor_objective'>[prefix][uppertext(message)]</span>")
-		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
+	for (var/datum/directive_team/team in teams)
+		team.send_message("[prefix][uppertext(message)]")
 	var/atom/follow_atom = get_track_atom()
 	if (follow_atom)
 		if (ismob(follow_atom.loc))

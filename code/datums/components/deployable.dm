@@ -15,6 +15,8 @@
 	var/reload_type
 	/// The can deploy check. Parameters are user and location, a nullable atom and a turf.
 	var/datum/callback/can_deploy_check = null
+	/// Called after deployment. Parameters are atom/deployed_item, mob/living/user
+	var/datum/callback/on_after_deploy = null
 	///	For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
 	/// Private as we don't want external modifications to this
 	VAR_PRIVATE/loaded = FALSE
@@ -171,6 +173,7 @@
 		if(istype(R, /obj/structure/closet))
 			var/obj/structure/closet/sesame = R
 			sesame.open()
+		on_after_deploy?.InvokeAsync(R, user)
 	if(consumed)
 		if (!QDELETED(item_parent))
 			qdel(item_parent)

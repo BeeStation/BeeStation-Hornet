@@ -3,10 +3,18 @@
 	desc = "A portable, deployable beacon used to establish long-range communications."
 	icon = 'icons/obj/traitor_beacon.dmi'
 	icon_state = "base"
+	var/datum/priority_directive/deploy_beacon/parent_directive
 
-/obj/item/uplink_beacon/Initialize()
+/obj/item/uplink_beacon/Initialize(mapload, datum/priority_directive/deploy_beacon/parent_directive)
 	. = ..()
-	AddComponent(/datum/component/deployable, /obj/structure/uplink_beacon, time_to_deploy = 3 SECONDS, can_deploy_check = CALLBACK(src, PROC_REF(can_deploy)))
+	AddComponent(/datum/component/deployable, /obj/structure/uplink_beacon, time_to_deploy = 3 SECONDS, can_deploy_check = CALLBACK(src, PROC_REF(can_deploy)), on_after_deploy = CALLBACK(src, PROC_REF(after_deploy)))
+	if (parent_directive)
+		src.parent_directive = parent_directive
+		RegisterSignal(parent_directive, COMSIG_QDELETING, PROC_REF(directive_ended))
+
+/obj/item/uplink_beacon/proc/directive_ended()
+	SIGNAL_HANDLER
+	parent_directive = null
 
 /obj/item/uplink_beacon/proc/can_deploy(mob/user, atom/location)
 	if (!user || !location)
@@ -14,17 +22,18 @@
 	if (!user.mind.has_antag_datum(/datum/antagonist))
 		to_chat(user, "<span class='warning'>You aren't sure what to do with this.</span>")
 		return FALSE
-	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
-	if (!istype(beacon))
+	if (!istype(parent_directive))
 		to_chat(user, "<span class='warning'>This beacon cannot be used anymore!</span>")
 		return FALSE
-	if (beacon.deployed_beacon)
+	if (parent_directive.deployed_beacon)
 		to_chat(user, "<span class='warning'>A beacon is already active, find and interact with it to modify its tramission frequency.</span>")
 		return FALSE
-	if (get_dist(src, beacon.center_turf) > 5)
+	if (get_dist(src, parent_directive.center_turf) > 5)
 		to_chat(user, "<span class='warning'>You are too far away from the deployment location, check your uplink for the deployment site.</span>")
 		return FALSE
 	return TRUE
+
+/obj/item/uplink_beacon/proc/after_deploy(obj/structure/uplink_beacon/deployed, mob/living/user)
 
 /obj/structure/uplink_beacon
 	name = "uplink beacon"
