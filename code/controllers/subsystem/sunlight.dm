@@ -1,5 +1,5 @@
 /// How long Sol lasts
-#define TIME_VAMPIRE_DAY 200
+#define TIME_VAMPIRE_DAY 150
 /// The grace period inbetween Sol
 #define TIME_VAMPIRE_NIGHT 1200
 /// First audio warning that Sol is coming
@@ -10,7 +10,7 @@
 #define TIME_VAMPIRE_DAY_WARN_3 15
 
 ///How much time Sol can be 'off' by, keeping the time inconsistent.
-#define TIME_VAMPIRE_SOL_DELAY 90
+#define TIME_VAMPIRE_SOL_DELAY 120
 
 SUBSYSTEM_DEF(sunlight)
 	name = "Sol"
@@ -88,6 +88,8 @@ SUBSYSTEM_DEF(sunlight)
 				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minute\s!"),
 				ghoul_warning_message = span_danger("Solar flares bombard the station with UV light!"),
 			)
+			for(var/mob/player as anything in SSmobs.clients_by_zlevel[2])
+				to_chat(player, span_danger("You feel waves of gentle warmth wash over you."))
 
 /datum/controller/subsystem/sunlight/proc/warn_daylight(danger_level, vampire_warning_message, ghoul_warning_message)
 	SEND_SIGNAL(src, COMSIG_SOL_WARNING_GIVEN, danger_level, vampire_warning_message, ghoul_warning_message)

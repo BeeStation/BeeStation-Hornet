@@ -1,6 +1,6 @@
 /datum/discipline/auspex
 	name = "Auspex"
-	discipline_explanation = "Auspex is a Discipline that grants vampires supernatural senses.\n\
+	discipline_explanation = "Auspex is a Discipline that grants vampires supernatural senses, letting them peer far further and see things best left unseen.\n\
 		The malkavians especially have a bond with it, being seers at heart."
 	icon_state = "auspex"
 
@@ -47,7 +47,6 @@
 /datum/action/vampire/auspex/two
 	name = "Auspex(Level 2)"
 	bloodcost = 75
-	cooldown_time = 10 SECONDS
 	zoom_out_amt = 4
 	zoom_amt = 7
 	add_meson = TRUE
@@ -55,7 +54,6 @@
 /datum/action/vampire/auspex/three
 	name = "Auspex(Level 3)"
 	bloodcost = 100
-	cooldown_time = 10 SECONDS
 	zoom_out_amt = 6
 	zoom_amt = 8
 	add_meson = TRUE
@@ -63,7 +61,6 @@
 /datum/action/vampire/auspex/four
 	name = "Auspex(Level 4)"
 	bloodcost = 125
-	cooldown_time = 10 SECONDS
 	zoom_out_amt = 10
 	zoom_amt = 10
 	add_xray = TRUE

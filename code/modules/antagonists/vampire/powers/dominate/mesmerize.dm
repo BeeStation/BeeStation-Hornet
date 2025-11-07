@@ -7,26 +7,43 @@
  * 	Level 5: Doesn't need to be facing you anymore
  */
 /datum/action/vampire/targeted/mesmerize
-	name = "Mesmerize"
+	name = "Mesmerize (Level 1)"
 	desc = "Dominate the mind of a mortal who can see your eyes."
 	button_icon_state = "power_mez"
 	power_explanation = "Click any player to attempt to mesmerize them, and freeze them in place.\n\
 		You cannot wear anything covering your face, and both parties must be facing eachother.\n\
 		If your target is already mesmerized or a Curator, you will fail.\n\
-		Once mesmerized, the target will be unable to move for a certain amount of time, scaling your rank.\n\
+		Once mesmerized, the target will be unable to move for a certain amount of time, scaling with level.\n\
 		At level 2, your target will additionally be muted.\n\
 		At level 3, you will be able to use the power through masks and helmets.\n\
-		At level 5, you will be able to mesmerize regardless of your target's direction."
+		At level 4, you will be able to mesmerize regardless of your target's direction."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 30
+	bloodcost = 75
 	cooldown_time = 20 SECONDS
 	target_range = 8
 	power_activates_immediately = FALSE
-	prefire_message = "Whom will you subvert to your will?"
+	prefire_message = "Whom will you submit to your will?"
+	level_current = 1
 
-	/// Reference to the target we've fed off of
+	/// Reference to the target
 	var/datum/weakref/target_ref
+
+/datum/action/vampire/targeted/mesmerize/two
+	name = "Mesmerize (Level 2)"
+	bloodcost = 45
+	level_current = 2
+
+/datum/action/vampire/targeted/mesmerize/three
+	name = "Mesmerize (Level 3)"
+	bloodcost = 60
+	level_current = 3
+
+/datum/action/vampire/targeted/mesmerize/four
+	name = "Mesmerize (Level 4)"
+	desc = "Dominate the mind of a mortal."
+	bloodcost = 85
+	level_current = 4
 
 /datum/action/vampire/targeted/mesmerize/can_use()
 	. = ..()
@@ -76,7 +93,7 @@
 		return FALSE
 
 	// Target facing me? (they face everyone on the floor)
-	if(((living_target.mobility_flags & MOBILITY_STAND) && !is_source_facing_target(living_target, owner) && level_current < 5))
+	if(((living_target.mobility_flags & MOBILITY_STAND) && !is_source_facing_target(living_target, owner) && level_current < 4))
 		owner.balloon_alert(owner, "[living_target] must be facing you.")
 		return FALSE
 

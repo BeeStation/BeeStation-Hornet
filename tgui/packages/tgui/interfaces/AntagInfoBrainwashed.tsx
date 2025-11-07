@@ -79,7 +79,7 @@ const ObjectivePrintout = (_props) => {
                 />
               </Stack.Item>
               <Stack.Item bold textColor="red">
-                This Directive must be followed.
+                This Directive must be followed immediately.
               </Stack.Item>
             </>
           ))}

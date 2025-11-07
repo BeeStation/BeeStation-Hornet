@@ -6,7 +6,7 @@
 		Additionally, while Cloak is active, you are completely invisible to silicons."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 5
+	bloodcost = 70
 	constant_bloodcost = 0.2
 	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS

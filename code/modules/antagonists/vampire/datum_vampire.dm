@@ -233,7 +233,7 @@
 
 /datum/antagonist/vampire/get_admin_commands()
 	. = ..()
-	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up))
+	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up), 1)
 	if(vampire_level_unspent > 0)
 		.["Remove Level"] = CALLBACK(src, PROC_REF(rank_down))
 

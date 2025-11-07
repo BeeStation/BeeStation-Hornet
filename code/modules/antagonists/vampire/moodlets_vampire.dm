@@ -1,5 +1,5 @@
 /datum/mood_event/drankblood
-	description = span_nicegreen("I have fed greedly from that which nourishes me.")
+	description = span_nicegreen("I have fed greedily from that which nourishes me.")
 	mood_change = 10
 	timeout = 8 MINUTES
 

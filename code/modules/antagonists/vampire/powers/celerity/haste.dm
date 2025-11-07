@@ -13,7 +13,7 @@
 		Higher levels will increase the knockdown dealt to enemies."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 6
+	bloodcost = 55
 	sol_multiplier = 10
 	cooldown_time = 12 SECONDS
 	target_range = 15

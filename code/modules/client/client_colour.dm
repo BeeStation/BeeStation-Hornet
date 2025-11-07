@@ -156,6 +156,9 @@
 /datum/client_colour/glass_colour/green
 	colour = "#eeffee"
 
+/datum/client_colour/glass_colour/pink
+	colour = "#ffb7de"
+
 /datum/client_colour/glass_colour/lightgreen
 	colour = "#f5fff5"
 

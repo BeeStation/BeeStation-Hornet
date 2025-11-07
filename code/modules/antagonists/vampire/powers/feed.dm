@@ -179,6 +179,14 @@
 		// It begins...
 		currently_feeding = TRUE
 
+		// Just to make sure
+		living_owner.stop_pulling()
+		feed_target.stop_pulling()
+		living_owner.stop_leaning()
+		feed_target.stop_leaning()
+
+		owner.whisper("shhhh...")
+
 		// omega switch
 		switch(get_dir(owner.loc, feed_target.loc))
 			if(NORTH)
@@ -238,6 +246,7 @@
 			span_warning("You sink your fangs into [feed_target.first_name()]'s neck."), ignored_mobs = feed_target
 		)
 		to_chat(feed_target, span_bolddanger("[owner.first_name()] SEIZES YOU WITH INCREDIBLE STRENGTH, SINKING THEIR TEETH INTO YOUR NECK!"), type = MESSAGE_TYPE_WARNING)
+		currently_feeding = TRUE
 		silent_feed = FALSE
 
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
@@ -348,11 +357,11 @@
 	var/humanity_deducted = FALSE
 	var/mob/living/feed_target = target_ref?.resolve()
 
-	animate(owner, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
-	animate(feed_target, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
-
-	if(feed_target)
+	if(feed_target && currently_feeding)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
+
+		animate(owner, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
+		animate(feed_target, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
@@ -379,7 +388,12 @@
 	blood_taken = 0
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
-	var/feed_amount = 15 + (level_current * 2)
+	var/feed_amount = 50 + (level_current * 2)
+
+	// If we are already at fatal, we speed up more.
+	if(feed_fatal)
+		feed_amount *= 1.5
+
 	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
 
 	// Remove target's blood
@@ -389,18 +403,18 @@
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)
 	owner.bodytemperature = ((vampiredatum_power.vampire_blood_volume * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.vampire_blood_volume + blood_to_take)
 
-	// Penalty for dead blood
+	// Penalty for dead blood(at least it's still human, right?)
 	if(target.stat == DEAD)
 		blood_to_take /= 3
 	// Penalty for non-human blood
 	if(!ishuman(target))
-		blood_to_take /= 6
+		blood_to_take /= 10
 	// Penalty for frenzy(messy eater)
 	if(vampiredatum_power.frenzied)
 		blood_to_take /= 2
 
 	// Give vampire the blood
-	vampiredatum_power.AddBloodVolume(blood_to_take * 3)
+	vampiredatum_power.AddBloodVolume(blood_to_take * 4)
 
 	// Diablerie takes vitae directly
 	if(IS_VAMPIRE(target))

@@ -5,7 +5,7 @@
 		When you transform back into your standard vampiric form, you will gain an equal amount of damage to that which you sustained when a bat.\n\
 		You will drop all of your posessions when using this power."
 	button_icon_state = "power_beast"
-	bloodcost = 100
+	bloodcost = 300
 	constant_bloodcost = 1.5
 	sol_multiplier = 2
 	cooldown_time = 60 SECONDS

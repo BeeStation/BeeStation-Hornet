@@ -31,8 +31,8 @@
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
-	///Can increase to yield new abilities - Each Power ranks up each Rank
-	var/level_current = 0
+	///Can increase to yield new abilities - Used to be tied to rank. I'm hijacking it instead. This is dirty but it works. Look at auspex for an ideal way to do this instead of this disgusting filth.
+	var/level_current = 1
 	///The cost to ACTIVATE this Power
 	var/bloodcost = 0
 	///The cost to MAINTAIN this Power Only used for constant powers
@@ -57,7 +57,6 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
 	if(vampiredatum)
 		vampiredatum_power = vampiredatum
-		level_current = vampiredatum.vampire_level
 
 //This is when we CLICK on the ability Icon, not USING.
 /datum/action/vampire/on_activate(mob/user, atom/target)
@@ -106,13 +105,6 @@
 		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
 	if(power_flags & BP_AM_SINGLEUSE)
 		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
-
-/// Called when the Power is upgraded.
-/datum/action/vampire/proc/upgrade_power()
-	level_current++
-	// Decrease cooldown time
-	if((power_flags & !BP_AM_STATIC_COOLDOWN) && (power_flags & !BP_AM_VERY_DYNAMIC_COOLDOWN))
-		cooldown_time = max(initial(cooldown_time) / 2, initial(cooldown_time) - (initial(cooldown_time) / 16 * (level_current - 1)))
 
 /datum/action/vampire/proc/can_pay_cost()
 	if(QDELETED(owner))

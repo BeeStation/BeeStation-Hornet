@@ -4,8 +4,8 @@
 	icon_state = "presence"
 
 	// Lists of abilities granted per level
-	level_1 = list(/datum/action/vampire/targeted/mesmerize)
-	level_2 = null
-	level_3 = null
-	level_4 = null
+	level_1 = list(/datum/action/vampire/awe)
+	level_2 = list(/datum/action/vampire/awe/two)
+	level_3 = list(/datum/action/vampire/awe/three)
+	level_4 = list(/datum/action/vampire/awe/four)
 	level_5 = null

@@ -12,16 +12,10 @@
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 10
+	bloodcost = 50
 	cooldown_time = 10 SECONDS
 	power_activates_immediately = FALSE
 	obvious = TRUE
-
-/datum/action/vampire/targeted/lunge/upgrade_power()
-	. = ..()
-	//range is lowered when you get stronger.
-	if(level_current > 3)
-		target_range = 6
 
 /datum/action/vampire/targeted/lunge/can_use()
 	. = ..()

@@ -78,7 +78,7 @@
 	playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
 
 	// We can resist it as long as we have blood.
-	if(vampire_blood_volume >= 50)
+	if(vampire_blood_volume >= 25)
 		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	else
 		owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))

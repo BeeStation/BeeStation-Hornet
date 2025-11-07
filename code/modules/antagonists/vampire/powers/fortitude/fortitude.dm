@@ -1,7 +1,7 @@
 /datum/discipline/fortitude
 	name = "Fortitude"
 	discipline_explanation = "Fortitude is a Discipline that grants Kindred unearthly toughness, even to the point of resisting fire and sunlight."
-	icon_state = "presence"
+	icon_state = "fortitude"
 
 	// Lists of abilities granted per level
 	level_1 = list(/datum/action/vampire/fortitude)
@@ -19,7 +19,7 @@
 		At level 4, you gain complete stun immunity."
 	power_flags = BP_AM_TOGGLE | BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY
-	bloodcost = 30
+	bloodcost = 75
 	cooldown_time = 8 SECONDS
 	constant_bloodcost = 0.2
 	var/fortitude_resist // So we can raise and lower your brute resist based on what your level_current WAS.

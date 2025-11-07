@@ -21,7 +21,7 @@
 #define DIABLERIE_DIVISOR 1.5
 
 /// How much blood drained from the vampire each tick during sol
-#define VAMPIRE_SOL_BURN 10
+#define VAMPIRE_SOL_BURN 15
 
 // ghoul defines
 /// If someone passes all checks and can be ghoulized
@@ -147,6 +147,8 @@
 #define TRAIT_TORPOR "trait_torpor"
 /// Source trait for vampire mesmerization.
 #define TRAIT_MESMERIZED "trait_mesmerized"
+/// Source trait for vampire commandment.
+#define TRAIT_COMMANDED "trait_commanded"
 
 // Macros
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)
