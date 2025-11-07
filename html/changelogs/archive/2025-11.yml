@@ -68,3 +68,7 @@
   SunShine214:
   - rscdel: Removed Air Conditioning mode from Air Alarm TGUI
   - bugfix: Fixed Air Alarm TGUI
+2025-11-07:
+  mrmanlikesbt:
+  - bugfix: Fixed metabolite reagents runtiming on their final tick
+  - bugfix: Fixed water tanks not bursting into... water when being destroyed
