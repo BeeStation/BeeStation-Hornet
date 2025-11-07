@@ -103,5 +103,9 @@
 	icon_state = "random_wallet"
 	worn_icon_state = "wallet"
 
+/obj/item/storage/wallet/random/Initialize(mapload)
+	. = ..()
+	icon_state = "wallet"
+
 /obj/item/storage/wallet/random/PopulateContents()
 	new /obj/item/holochip(src, rand(5,30))
