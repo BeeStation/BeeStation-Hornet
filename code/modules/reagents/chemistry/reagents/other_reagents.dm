@@ -1965,6 +1965,12 @@
 	color = "#4040FF" //A blueish color
 	glitter_type = /obj/effect/decal/cleanable/glitter/blue
 
+/datum/reagent/glitter/confetti
+	name = "Confetti"
+	description = "Tiny plastic flakes that are impossible to sweep up."
+	color = "#7dd87b"
+	glitter_type = /obj/effect/decal/cleanable/confetti
+
 /datum/reagent/pax
 	name = "Pax"
 	description = "A colorless liquid that suppresses violent urges in its subjects."
@@ -2267,7 +2273,11 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	var/turf/open/my_turf = exposed_obj.loc // No dumping ants on an object in a storage slot
 	if(!istype(my_turf)) //Are we actually in an open turf?
 		return
-	var/static/list/accepted_types = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/disposalpipe))
+	var/static/list/accepted_types = typecacheof(list(
+		/obj/machinery/atmospherics,
+		/obj/structure/cable,
+		/obj/structure/disposalpipe,
+	))
 	if(!accepted_types[exposed_obj.type]) // Bypasses pipes, vents, and cables to let people create ant mounds on top easily.
 		return
 	expose_turf(my_turf, reac_volume)

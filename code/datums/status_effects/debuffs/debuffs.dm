@@ -233,6 +233,7 @@
 	desc = "A magical strand of Durathread is wrapped around your neck, preventing you from breathing! Click this icon to remove the strand."
 	icon_state = "his_grace"
 	alerttooltipstyle = "hisgrace"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/strandling/Click(location, control, params)
 	. = ..()
@@ -1186,7 +1187,7 @@
 /datum/status_effect/ants/on_creation(mob/living/new_owner, amount_left)
 	if(isnum(amount_left) && new_owner.stat < HARD_CRIT)
 		if(new_owner.stat < UNCONSCIOUS) // Unconcious people won't get messages
-			to_chat(new_owner, "<span class='userdanger'>You're covered in ants!</span>")
+			to_chat(new_owner, span_userdanger("You're covered in ants!"))
 		ants_remaining += amount_left
 		RegisterSignal(new_owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
@@ -1196,7 +1197,7 @@
 	if(isnum(amount_left) && ants_remaining >= 1 && victim.stat < HARD_CRIT)
 		if(victim.stat < UNCONSCIOUS) // Unconcious people won't get messages
 			if(!prob(1)) // 99%
-				to_chat(victim, "<span class='userdanger'>You're covered in MORE ants!</span>")
+				to_chat(victim, span_userdanger("You're covered in MORE ants!"))
 			else // 1%
 				victim.say("AAHH! THIS SITUATION HAS ONLY BEEN MADE WORSE WITH THE ADDITION OF YET MORE ANTS!!", forced = /datum/status_effect/ants)
 		ants_remaining += amount_left
@@ -1204,7 +1205,7 @@
 
 /datum/status_effect/ants/on_remove()
 	ants_remaining = 0
-	to_chat(owner, "<span class='notice'>All of the ants are off of your body!</span>")
+	to_chat(owner, span_notice("All of the ants are off of your body!"))
 	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
 
@@ -1230,18 +1231,18 @@
 			switch(rand(1,50))
 				if (1 to 8) //16% Chance
 					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your scalp!.</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your scalp!"))
 					hed.receive_damage(1,0)
 				if (9 to 29) //40% chance
 					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your arms!</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your arms!"))
 					arm.receive_damage(3,0)
 				if (30 to 49) //38% chance
 					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your leg!</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your leg!"))
 					leg.receive_damage(3,0)
 				if(50) // 2% chance
-					to_chat(victim, "<span class='danger'>You rub some ants away from your eyes!</span>")
+					to_chat(victim, span_danger("You rub some ants away from your eyes!"))
 					victim.blur_eyes(3)
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
@@ -1250,18 +1251,19 @@
 
 /atom/movable/screen/alert/status_effect/ants
 	name = "Ants!"
-	desc = "<span class='warning'>JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!</span>"
+	desc = span_warning("JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!")
 	icon_state = "antalert"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/ants/Click()
 	var/mob/living/living = owner
 	if(!istype(living) || !living.can_resist() || living != owner)
 		return
-	to_chat(living, "<span class='notice'>You start to shake the ants off!</span>")
+	to_chat(living, span_notice("You start to shake the ants off!"))
 	if(!do_after(living, 2 SECONDS, target = living))
 		return
 	for (var/datum/status_effect/ants/ant_covered in living.status_effects)
-		to_chat(living, "<span class='notice'>You manage to get some of the ants off!</span>")
+		to_chat(living, span_notice("You manage to get some of the ants off!"))
 		ant_covered.ants_remaining -= 10 // 5 Times more ants removed per second than just waiting in place
 
 /datum/status_effect/smoke

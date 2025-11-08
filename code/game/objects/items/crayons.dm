@@ -604,7 +604,11 @@
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	if(!spraycan_touch_normally)
-		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
+		spraycan_touch_normally = typecacheof(list(
+			/obj/machinery/modular_fabricator/autolathe,
+			/obj/structure/closet,
+			/obj/machinery/disposal,
+		))
 
 /obj/item/toy/crayon/spraycan/add_context_self(datum/screentip_context/context, mob/user, atom/target)
 

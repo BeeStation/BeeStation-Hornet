@@ -253,6 +253,7 @@
 	name = "Leaning"
 	desc = "You're leaning on something!"
 	icon_state = "buckled"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/leaning/Click()
 	var/mob/living/L = usr

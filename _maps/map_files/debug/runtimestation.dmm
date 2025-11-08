@@ -490,7 +490,6 @@
 "ea" = (
 /obj/structure/table,
 /obj/machinery/camera/directional/south,
-/obj/item/gun/magic/wand/resurrection/debug,
 /turf/open/floor/iron,
 /area/storage/primary)
 "eb" = (
@@ -1112,10 +1111,6 @@
 /area/medical/chemistry)
 "iX" = (
 /obj/structure/table,
-/obj/item/gun/magic/wand/resurrection/debug,
-/obj/item/gun/magic/wand/death/debug{
-	pixel_y = 10
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},

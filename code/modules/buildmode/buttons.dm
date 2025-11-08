@@ -1,5 +1,6 @@
 /atom/movable/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/datum/buildmode/bd
 
 /atom/movable/screen/buildmode/New(bld)

@@ -463,17 +463,17 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.trim_candidates()
 			if(!ruleset.allowed())
 				possible_rulesets -= ruleset
-				continue
+				break
 
 			// Not enough points left
 			if(ruleset.points_cost > roundstart_points_left)
 				possible_rulesets -= ruleset
-				continue
+				break
 
 			// check_is_ruleset_blocked()
 			if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
 				possible_rulesets -= ruleset
-				continue
+				break
 
 			// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 			roundstart_points_left -= ruleset.points_cost

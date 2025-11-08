@@ -277,6 +277,8 @@ SUBSYSTEM_DEF(ticker)
 
 	transfer_characters()	//transfer keys to the new mobs
 
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING)
+
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
 	round_start_timeofday = world.timeofday
