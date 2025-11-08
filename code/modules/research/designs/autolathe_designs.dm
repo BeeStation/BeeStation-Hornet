@@ -601,7 +601,7 @@
 	category = list("initial", "Misc")
 
 /datum/design/tape
-	name = "Tape"
+	name = "Cassette Tape"
 	id = "tape"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 20, /datum/material/glass = 5)
@@ -1151,3 +1151,12 @@
 	build_path = /obj/item/reagent_containers/cup/bottle/vial
 	category = list("initial", "Medical")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/duct_tape
+	name = "Duct Tape"
+	id = "duct_tape"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list (/datum/material/plastic = 200)
+	build_path = /obj/item/stack/sticky_tape/duct
+	category = list("initial", "Tools", "Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
