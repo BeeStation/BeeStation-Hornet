@@ -4,7 +4,7 @@
  * 	Level 2: Now lasts 180 seconds.
  */
 /datum/action/vampire/targeted/command
-	name = "Command (Level 1)"
+	name = "Command"
 	desc = "Dominate the mind of a mortal with a simple command."
 	button_icon_state = "power_command"
 	power_explanation = "Click any player to attempt to compell them.\n\
@@ -27,7 +27,7 @@
 	var/datum/weakref/target_ref
 
 /datum/action/vampire/targeted/command/two
-	name = "Mesmerize (Level 2)"
+	name = "Command"
 	power_time = 180 SECONDS
 
 /datum/action/vampire/targeted/command/can_use()
@@ -67,7 +67,7 @@
 		return FALSE
 
 	// Vampire/Curator check
-	if(IS_VAMPIRE(living_target) || IS_CURATOR(living_target))
+	if(IS_CURATOR(living_target))
 		owner.balloon_alert(owner, "too powerful.")
 		return FALSE
 
@@ -102,11 +102,11 @@
 	var/command = get_single_word_command()
 
 	if(!command)
-		return FALSE
+		deactivate_power()
+		return
 
-	// delay to stop combat use
-	if(!do_after(owner, 2 SECONDS, living_target, NONE, TRUE, hidden = TRUE))
-		owner.balloon_alert(owner, "interrupted!")
+	// They left while we were writing
+	if(!(living_target in hearers(6, owner)))
 		deactivate_power()
 		return
 
@@ -117,9 +117,17 @@
 	//Actually command them now
 	owner.say(command)
 
-	// SIKE, god we look dumb now.
 	if(HAS_TRAIT(living_target, TRAIT_MINDSHIELD))
+		power_time /= 4
+		deactivate_power()
 		return
+
+	if(IS_VAMPIRE(living_target))
+		var/datum/antagonist/vampire/target_vampdatum = IS_VAMPIRE(living_target)
+		if(target_vampdatum.vampire_level > vampiredatum_power.vampire_level)
+			owner.balloon_alert(owner, "kindred stronger than you.")
+			deactivate_power()
+			return
 
 	ADD_TRAIT(living_target, TRAIT_PACIFISM, TRAIT_COMMANDED)
 	brainwash(living_target, brainwash_list, owner)

@@ -21,7 +21,7 @@
 	power.Remove(owner.current)
 
 /**
- * This is admin-only way of reverting a broken masquerade, sadly it doesn't remove the Malkavian objectives yet.
+ * This is admin-only way of reverting a broken masquerade, sadly it doesn't remove the objectives yet.
 **/
 /datum/antagonist/vampire/proc/fix_masquerade(mob/admin)
 	if(!broke_masquerade)

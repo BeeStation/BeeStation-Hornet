@@ -53,40 +53,58 @@
 			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 			return
 
+	var/incoming_sol_damage = "full"
+
 	// We don't want to be TOO mean, so we make 3 different grades of protection.
 	// Highest grade of protection. You will be hungry, but you won't be in frenzy.
 	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		if(vampire_blood_volume >= FRENZY_THRESHOLD_EXIT)
-			RemoveBloodVolume(VAMPIRE_SOL_BURN / 4)
-		return
+		incoming_sol_damage = "coffin"
 
-	// Middle grade of protection. You still won't enter frenzy. But you will be damn close.
+	// Now the big one. The area check.
+	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
+		if(istype(get_area(owner.current), whereami))
+			incoming_sol_damage = "area"
+
+	//You still won't enter frenzy. But you will be damn close.
 	if(istype(owner.current.loc, /obj/structure/closet))
-		if(vampire_blood_volume >= FRENZY_THRESHOLD_ENTER * 4)
-			RemoveBloodVolume(VAMPIRE_SOL_BURN / 2)
-		return
+		incoming_sol_damage = "locker"
 
-	// Lowest grade. At least it's something. No frenzy protection. Just a tad less vitae drain.
-	if(istype(get_area(owner.current), /area/maintenance))
-		RemoveBloodVolume(VAMPIRE_SOL_BURN / 1.5)
-		return
+	switch(incoming_sol_damage)
+		if("coffin")
+			RemoveBloodVolume(VAMPIRE_SOL_BURN / 4)
+			if(vampire_blood_volume >= 300)
+				RemoveBloodVolume(VAMPIRE_SOL_BURN / 2)
+		if("area")
+			if(vampire_blood_volume >= 200)
+				RemoveBloodVolume(VAMPIRE_SOL_BURN / 2)
+				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
+			if(incoming_sol_damage != last_sol_damage)
+				to_chat(owner.current, span_cultbold("You are safer, here. Though the agony persists, you should be mostly out of danger!"), type = MESSAGE_TYPE_WARNING)
+		if("locker")
+			if(vampire_blood_volume >= 100)
+				RemoveBloodVolume(VAMPIRE_SOL_BURN / 2)
+				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
+			if(incoming_sol_damage != last_sol_damage)
+				to_chat(owner.current, span_cultbigbold("Though the fires of sol continue, in here at least you will not die!"), type = MESSAGE_TYPE_WARNING)
+		if("full")
+			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
+			RemoveBloodVolume(VAMPIRE_SOL_BURN)
+			if(incoming_sol_damage != last_sol_damage)
+				to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
 
-	// We have checked all protections. The gloves are off.
-	RemoveBloodVolume(VAMPIRE_SOL_BURN)
+			// We can resist it as long as we have blood.
+			if(vampire_blood_volume >= 25)
+				owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			else
+				owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+				owner.current.emote("scream")
 
-	// Hey gooble, why is my coworker sizzling?
-	playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
+			// Rest in peace.
+			if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
+				owner.current.dust(drop_items = TRUE)
 
-	// We can resist it as long as we have blood.
-	if(vampire_blood_volume >= 25)
-		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-	else
-		owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		owner.current.emote("scream")
+	last_sol_damage = incoming_sol_damage
 
-	// Rest in peace.
-	if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
-		owner.current.dust(drop_items = TRUE)
 	return
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, ghoul_warning_message)

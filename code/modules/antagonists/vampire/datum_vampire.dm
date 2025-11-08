@@ -68,6 +68,9 @@
 	/// To keep track of objectives
 	var/total_blood_drank = 0
 
+	/// The last sol damage we got
+	var/last_sol_damage
+
 	/// Blood display HUD
 	var/atom/movable/screen/vampire/blood_counter/blood_display
 	/// Vampire level display HUD
@@ -549,10 +552,15 @@
 	// Objective 1: ghoulize a Head/Command, or a specific target
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
-			var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
-			var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
-			conversion_objective.owner = owner
-			objectives += conversion_objective
+			if(get_max_ghouls() >= 1)
+				var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
+				var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
+				conversion_objective.owner = owner
+				objectives += conversion_objective
+			else
+				var/datum/objective/vampire/gourmand/gourmand_objective = new
+				gourmand_objective.owner = owner
+				objectives += gourmand_objective
 		if(2) // Heart Thief Objective
 			var/datum/objective/vampire/heartthief/heartthief_objective = new
 			heartthief_objective.owner = owner
@@ -561,6 +569,16 @@
 			var/datum/objective/vampire/gourmand/gourmand_objective = new
 			gourmand_objective.owner = owner
 			objectives += gourmand_objective
+
+/datum/antagonist/vampire/proc/get_max_ghouls()
+	var/total_players = length(GLOB.joined_player_list)
+	switch(total_players)
+		if(1 to 15)			// No ghouls during low-lowpop
+			return 0
+		if(16 to 30)		// 1 ghoul during normal pop
+			return 1
+		if(31 to INFINITY)	// if we can support it, we allow 2
+			return 2
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()

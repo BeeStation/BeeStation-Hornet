@@ -1,7 +1,7 @@
 /datum/discipline/potence
 	name = "Potence"
 	discipline_explanation = "Potence is the Discipline that endows vampires with physical vigor and preternatural strength.\n\
-		Vampires with the Potence Discipline possess physical prowess beyond mortal bounds. "
+		Vampires with the Potence Discipline possess physical prowess beyond mortal bounds."
 	icon_state = "presence"
 
 	// Lists of abilities granted per level

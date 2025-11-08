@@ -7,8 +7,8 @@
  * 	Level 5: Doesn't need to be facing you anymore
  */
 /datum/action/vampire/targeted/mesmerize
-	name = "Mesmerize (Level 1)"
-	desc = "Dominate the mind of a mortal who can see your eyes."
+	name = "Mesmerize"
+	desc = "Transfix the mind of a mortal who can see your eyes."
 	button_icon_state = "power_mez"
 	power_explanation = "Click any player to attempt to mesmerize them, and freeze them in place.\n\
 		You cannot wear anything covering your face, and both parties must be facing eachother.\n\
@@ -30,18 +30,15 @@
 	var/datum/weakref/target_ref
 
 /datum/action/vampire/targeted/mesmerize/two
-	name = "Mesmerize (Level 2)"
 	bloodcost = 45
 	level_current = 2
 
 /datum/action/vampire/targeted/mesmerize/three
-	name = "Mesmerize (Level 3)"
 	bloodcost = 60
 	level_current = 3
 
 /datum/action/vampire/targeted/mesmerize/four
-	name = "Mesmerize (Level 4)"
-	desc = "Dominate the mind of a mortal."
+	desc = "Transfix the mind of a mortal."
 	bloodcost = 85
 	level_current = 4
 

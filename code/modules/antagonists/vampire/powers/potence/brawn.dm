@@ -13,7 +13,6 @@
 	cooldown_time = 9 SECONDS
 	target_range = 1
 	power_activates_immediately = TRUE
-	obvious = TRUE
 	prefire_message = "Select a target."
 
 	/// Only changed by the '/brawn/brash' subtype; acts as a general purpose damage multipler.

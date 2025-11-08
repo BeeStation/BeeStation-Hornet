@@ -23,7 +23,7 @@
  *	Level 5 - For Malkavians: Gain ability to astral project like a wizard.
  */
 /datum/action/vampire/auspex
-	name = "Auspex(Level 1)"
+	name = "Auspex"
 	desc = "Sense the vitae of any creature directly, and use your keen senses to widen your perception."
 	button_icon_state = "power_auspex"
 	power_explanation = "- Level 1: When Activated, you will see further. \n\
@@ -45,21 +45,21 @@
 	var/mob/listeningTo
 
 /datum/action/vampire/auspex/two
-	name = "Auspex(Level 2)"
+	name = "Auspex"
 	bloodcost = 75
 	zoom_out_amt = 4
 	zoom_amt = 7
 	add_meson = TRUE
 
 /datum/action/vampire/auspex/three
-	name = "Auspex(Level 3)"
+	name = "Auspex"
 	bloodcost = 100
 	zoom_out_amt = 6
 	zoom_amt = 8
 	add_meson = TRUE
 
 /datum/action/vampire/auspex/four
-	name = "Auspex(Level 4)"
+	name = "Auspex"
 	bloodcost = 125
 	zoom_out_amt = 10
 	zoom_amt = 10

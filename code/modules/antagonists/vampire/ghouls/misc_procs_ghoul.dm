@@ -22,7 +22,3 @@
 	powers += power
 	power.Grant(owner.current)
 	log_game("[key_name(owner.current)] has received \"[power]\" as a ghoul")
-
-/datum/antagonist/ghoul/proc/level_up_powers()
-	for(var/datum/action/vampire/power in powers)
-		power.level_current++

@@ -1,4 +1,4 @@
-#define FEED_SILENT_NOTICE_RANGE 3
+#define FEED_SILENT_NOTICE_RANGE 1
 #define FEED_LOUD_NOTICE_RANGE 7
 #define FEED_DEFAULT_TIME 10 SECONDS
 #define FEED_FRENZY_TIME 2 SECONDS
@@ -63,7 +63,7 @@
 	if(!owner.Adjacent(target))
 		return FALSE
 
-	// Check if we are seen while feeding
+	// Check if we are seen while feeding, from the vampire's POV
 	if(currently_feeding)
 		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE, owner) - target)
 			if(!watcher.client)
@@ -88,7 +88,32 @@
 			vampiredatum_power.give_masquerade_infraction()
 			return FALSE
 
+		//from the victim's POV
+		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE, target))
+			if(!watcher.client)
+				continue
+			if(watcher.has_unlimited_silicon_privilege)
+				continue
+			if(watcher.stat != CONSCIOUS)
+				continue
+			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+				continue
+			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+				continue
+
+			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+				watcher.face_atom(owner)
+
+			watcher.do_alert_animation(watcher)
+			to_chat(watcher, span_dangerbold("Wait... is... [owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
+
+			owner.balloon_alert(owner, "feed noticed!")
+			vampiredatum_power.give_masquerade_infraction()
+			return FALSE
+
 	return TRUE
+
 /datum/action/vampire/targeted/feed/check_valid_target(atom/target_atom)
 	. = ..()
 	if(!.)
@@ -153,6 +178,9 @@
 	//////////////////////////
 	//We start here properly//
 	//////////////////////////
+
+	currently_feeding = FALSE
+
 	if(!living_owner.combat_mode)
 
 		owner.balloon_alert(owner, "mesmerizing [feed_target]...")
@@ -169,6 +197,7 @@
 		feed_target.Stun(feed_time, TRUE)
 		to_chat(feed_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully..."), type = MESSAGE_TYPE_WARNING)
 		owner.balloon_alert(owner, "subdued! starting feed...")
+		owner.whisper("shhhh...")
 
 		// Do the pre-feed.
 		if(!do_after(owner, feed_time, feed_target, NONE, TRUE, hidden = TRUE))
@@ -179,13 +208,11 @@
 		// It begins...
 		currently_feeding = TRUE
 
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 10, falloff_exponent = 20)
+
 		// Just to make sure
 		living_owner.stop_pulling()
 		feed_target.stop_pulling()
-		living_owner.stop_leaning()
-		feed_target.stop_leaning()
-
-		owner.whisper("shhhh...")
 
 		// omega switch
 		switch(get_dir(owner.loc, feed_target.loc))
@@ -248,6 +275,26 @@
 		to_chat(feed_target, span_bolddanger("[owner.first_name()] SEIZES YOU WITH INCREDIBLE STRENGTH, SINKING THEIR TEETH INTO YOUR NECK!"), type = MESSAGE_TYPE_WARNING)
 		currently_feeding = TRUE
 		silent_feed = FALSE
+
+	// Garlic in 'em
+	var/mob/living/smacked = feed_target
+	if(smacked.reagents?.has_reagent(/datum/reagent/consumable/garlic, 2))
+
+		// We check which turf is one step away from our target, in the direction of the angle of the bullet. Christ. We do this twice, for range.
+		var/target_turf = get_step_away(smacked.loc, owner, 2)
+
+		to_chat(owner, span_bighypnophrase("eugh.. garlic..."))
+
+		living_owner.Stun(50)
+		living_owner.set_dizziness(10)
+		living_owner.adjust_jitter(15)
+		living_owner.blur_eyes(5)
+
+		smacked.Unconscious(10)
+		smacked.throw_at(target_turf, 2, 1, spin = TRUE)
+		playsound(smacked, 'sound/weapons/cqchit2.ogg', 80)
+		deactivate_power()
+		return
 
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_WHISPER_ONLY, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
@@ -369,14 +416,17 @@
 		if(feed_target.stat != DEAD && silent_feed)
 			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
 			to_chat(feed_target, span_bighypnophrase("You don't remember anything since you first saw their eyes, everything is so... hazy..."))
+			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
+				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
+			message_admins("TSUNAMIANT ALERT, IGNORE IF YOU AINT ME")
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
-			vampiredatum_power.deduct_humanity(2)
 			humanity_deducted = TRUE
 
 		if(feed_fatal && !humanity_deducted)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
+			to_chat(owner, span_userdanger("No way will [feed_target.p_they()] survive that..."))
 			vampiredatum_power.deduct_humanity(1)
 
 	feed_fatal = FALSE

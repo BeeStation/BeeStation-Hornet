@@ -1,6 +1,6 @@
 /datum/discipline/fortitude
 	name = "Fortitude"
-	discipline_explanation = "Fortitude is a Discipline that grants Kindred unearthly toughness, even to the point of resisting fire and sunlight."
+	discipline_explanation = "Fortitude is a Discipline that grants Kindred unearthly toughness."
 	icon_state = "fortitude"
 
 	// Lists of abilities granted per level

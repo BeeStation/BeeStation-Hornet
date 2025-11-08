@@ -1,11 +1,9 @@
 /datum/antagonist/ghoul
-	name = "\improper ghoul"
-	roundend_category = "ghouls"
+	name = "\improper Ghoul"
+	roundend_category = "Ghouls"
 	antagpanel_category = "Vampire"
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
-
-	var/ghoul_hud_name = "ghoul"
 
 	/// The Master Vampire's antag datum.
 	var/datum/antagonist/vampire/master
@@ -33,8 +31,6 @@
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
 	current_mob.faction |= FACTION_VAMPIRE
-
-	add_antag_hud(ANTAG_HUD_VAMPIRE, ghoul_hud_name, current_mob)
 
 /datum/antagonist/ghoul/remove_innate_effects(mob/living/mob_override)
 	. = ..()

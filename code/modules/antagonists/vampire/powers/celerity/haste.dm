@@ -18,7 +18,6 @@
 	cooldown_time = 12 SECONDS
 	target_range = 15
 	power_activates_immediately = TRUE
-	obvious = TRUE
 	///List of all people hit by our power, so we don't hit them again.
 	var/list/hit = list()
 
@@ -60,6 +59,7 @@
 	user.pulledby?.stop_pulling()
 	// Go to target turf
 	// DO NOT USE WALK TO.
+	check_witnesses()
 	owner.balloon_alert(owner, "you dash into the air!")
 	playsound(get_turf(owner), 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	var/safety = get_dist(user, targeted_turf) * 3 + 1

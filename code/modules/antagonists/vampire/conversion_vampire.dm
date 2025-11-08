@@ -13,7 +13,7 @@
 	return FALSE
 
 /**
- * Checks if the person is allowed to turn into the Vampire's vasssal
+ * Checks if the person is allowed to turn into the Vampire's ghoul
 **/
 /datum/antagonist/vampire/proc/can_make_ghoul(mob/living/conversion_target, ignore_concious_check = FALSE)
 	var/mob/living/living_vampire = owner.current
@@ -22,8 +22,8 @@
 		living_vampire.balloon_alert(living_vampire, "enter a clan first.")
 		return FALSE
 
-	if(length(ghouls) >= my_clan.get_max_ghouls())
-		living_vampire.balloon_alert(living_vampire, "More ghouls, in this small of a community? Surely not...")
+	if(length(ghouls) >= get_max_ghouls())
+		living_vampire.balloon_alert(living_vampire, "more ghouls, in this small of a community? Surely not...")
 		return FALSE
 
 #ifndef VAMPIRE_TESTING

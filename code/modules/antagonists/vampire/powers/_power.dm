@@ -19,9 +19,6 @@
 	/// The owner's vampire datum
 	var/datum/antagonist/vampire/vampiredatum_power
 
-	/// Are we obviously supernatural to people watching us?
-	var/obvious
-
 	/// The effects on this Power (Toggled/Single Use/Static Cooldown)
 	var/power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN | BP_AM_COSTLESS_UNCONSCIOUS
 	/// Requirement flags for checks
@@ -69,28 +66,6 @@
 	activate_power()
 	if(!(power_flags & BP_AM_TOGGLE) || !currently_active)
 		start_cooldown()
-
-	// If we are marked as obvious, and there's a mortal in line of sight, we get a masq infraction
-	if(obvious)
-		for(var/mob/living/watcher in oviewers(6, owner) - target)
-			if(!watcher.client)
-				continue
-			if(watcher.has_unlimited_silicon_privilege)
-				continue
-			if(watcher.stat != CONSCIOUS)
-				continue
-			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
-				continue
-			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
-				continue
-
-			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
-				watcher.face_atom(owner)
-
-			watcher.do_alert_animation(watcher)
-			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
-			vampiredatum_power.give_masquerade_infraction()
-			break
 
 	return TRUE
 
@@ -209,9 +184,9 @@
 		deactivate_power()
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
-	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+	if((power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
 		if(vampiredatum_power)
-			vampiredatum_power.AddBloodVolume(-constant_bloodcost)
+			vampiredatum_power.RemoveBloodVolume(constant_bloodcost)
 		else
 			var/mob/living/living_owner = owner
 			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
@@ -232,3 +207,25 @@
 /datum/action/vampire/proc/remove_after_use()
 	vampiredatum_power?.powers -= src
 	Remove(owner)
+
+// If there's a mortal in line of sight, we get a masq infraction
+/datum/action/vampire/proc/check_witnesses(mob/living/target)
+	for(var/mob/living/watcher in oviewers(6, owner) - target)
+		if(!watcher.client)
+			continue
+		if(watcher.has_unlimited_silicon_privilege)
+			continue
+		if(watcher.stat != CONSCIOUS)
+			continue
+		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
+			continue
+		if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+			continue
+
+		if(!watcher.incapacitated(IGNORE_RESTRAINTS))
+			watcher.face_atom(owner)
+
+		watcher.do_alert_animation(watcher)
+		playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
+		vampiredatum_power.give_masquerade_infraction()
+		break

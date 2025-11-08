@@ -9,7 +9,6 @@
 	constant_bloodcost = 1.5
 	sol_multiplier = 2
 	cooldown_time = 10 SECONDS
-	obvious = TRUE
 	shapeshifted_mob = /mob/living/simple_animal/hostile/retaliate/bat/vampire
 
 /datum/action/vampire/shapeshift/batform/activate_power()

@@ -9,7 +9,6 @@
 	bloodcost = 85
 	constant_bloodcost = 0.1
 	cooldown_time = 10 SECONDS
-	obvious = TRUE
 
 	// Identity Vars
 	var/prev_name
