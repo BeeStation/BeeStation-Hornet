@@ -21197,7 +21197,12 @@
 /obj/effect/turf_decal/siding/thinplating_new{
 	dir = 4
 	},
-/obj/item/stamp/chameleon,
+/obj/item/stamp/chameleon{
+	pixel_x = -5
+	},
+/obj/item/stamp/centcom{
+	pixel_x = 6
+	},
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
