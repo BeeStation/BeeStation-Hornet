@@ -8,6 +8,7 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	item_flags = NO_BLOOD_ON_ITEM
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE

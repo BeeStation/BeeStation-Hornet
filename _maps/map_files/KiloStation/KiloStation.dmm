@@ -1078,10 +1078,10 @@
 "akH" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "2-4"
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
@@ -1097,10 +1097,10 @@
 "akR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4007,6 +4007,16 @@
 "aNQ" = (
 /turf/closed/wall,
 /area/medical/cryo)
+"aOb" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "aOf" = (
 /obj/machinery/flasher{
 	id = "AI";
@@ -4845,14 +4855,14 @@
 	name = "Robotics Desk";
 	req_access_txt = "29"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/folder{
 	pixel_x = -6
 	},
 /obj/item/pen{
 	pixel_x = -4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = 8
 	},
 /turf/open/floor/plating,
 /area/science/robotics/lab)
@@ -17811,6 +17821,14 @@
 /obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
+"dUK" = (
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -4
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/bar)
 "dUR" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -18683,12 +18701,10 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/structure/desk_bell{
-	pixel_y = 8
-	},
 /obj/item/food/grown/corn{
 	pixel_y = 6
 	},
+/obj/structure/desk_bell/wired/service,
 /turf/open/floor/plating,
 /area/hydroponics)
 "egl" = (
@@ -21984,6 +22000,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"fin" = (
+/obj/machinery/power/solar{
+	id = "aftstarboard";
+	name = "Aft-Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "fiy" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -24225,11 +24251,15 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
-	pixel_x = -4;
+	pixel_x = -6;
 	pixel_y = 4
 	},
 /obj/item/pen{
-	pixel_x = -4
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 8
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
@@ -24285,10 +24315,11 @@
 	name = "Cargo Desk";
 	req_access_txt = "50"
 	},
-/obj/structure/desk_bell{
+/obj/item/flashlight,
+/obj/structure/desk_bell/wired/cargo{
+	pixel_x = -7;
 	pixel_y = 8
 	},
-/obj/item/flashlight,
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "fVE" = (
@@ -37535,9 +37566,6 @@
 /area/maintenance/disposal/incinerator)
 "kla" = (
 /obj/structure/table/reinforced,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/toy/figure/md{
 	pixel_x = 8;
 	pixel_y = 6
@@ -49949,6 +49977,16 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"ooY" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "oph" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/camera/directional/south{
@@ -52787,15 +52825,16 @@
 /obj/item/pen{
 	pixel_x = -4
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/machinery/door/window/northleft{
 	dir = 2;
 	name = "Chemistry Desk";
 	req_access_txt = "5; 33"
 	},
 /obj/structure/table/reinforced,
+/obj/structure/desk_bell/wired/medical{
+	pixel_x = 8;
+	pixel_y = 7
+	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "pkC" = (
@@ -53888,16 +53927,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/aft)
-"pAn" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/space/nearstation)
 "pAw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57867,6 +57896,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"qRJ" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "qRS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -64174,12 +64213,12 @@
 /obj/machinery/door/window/southright{
 	name = "Reception Desk"
 	},
-/obj/structure/desk_bell{
-	pixel_x = -8
-	},
 /obj/item/folder/blue{
 	pixel_x = 4;
 	pixel_y = 4
+	},
+/obj/structure/desk_bell/wired/command{
+	pixel_x = -7
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
@@ -65370,15 +65409,16 @@
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
 /obj/item/folder{
 	pixel_x = -6
 	},
 /obj/item/pen{
 	pixel_x = -4;
 	pixel_y = 4
+	},
+/obj/structure/desk_bell/wired/science{
+	pixel_x = 7;
+	pixel_y = 6
 	},
 /turf/open/floor/plating,
 /area/science/lab)
@@ -72389,6 +72429,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/mixing)
+"vyr" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "vyF" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/red{
@@ -74434,8 +74484,9 @@
 /obj/item/folder/yellow{
 	pixel_x = 4
 	},
-/obj/structure/desk_bell{
-	pixel_x = -8
+/obj/structure/desk_bell/wired/engineering{
+	pixel_x = -7;
+	pixel_y = 10
 	},
 /turf/open/floor/plating,
 /area/engine/break_room)
@@ -77002,6 +77053,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
+"wUu" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "wUH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -79239,8 +79303,8 @@
 	id = "kitchen";
 	name = "Serving Hatch"
 	},
-/obj/structure/desk_bell{
-	pixel_x = 8
+/obj/structure/desk_bell/wired/service{
+	pixel_x = -6
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen)
@@ -91841,10 +91905,10 @@ crL
 aaa
 aeo
 aeo
-caT
-caT
-cmJ
-caT
+aeo
+aeo
+acm
+aeo
 aaa
 aaa
 aaa
@@ -92346,17 +92410,17 @@ aeu
 aeu
 coy
 cmU
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 bDa
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 acm
 aeo
 aaa
@@ -92787,17 +92851,17 @@ aeo
 aaa
 aaQ
 acm
-iYC
-iYC
-iYC
-pAn
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 ade
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeu
@@ -93373,19 +93437,19 @@ aUz
 aeU
 aeU
 cmU
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 ckj
 ckj
 ckj
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 acm
 aeo
 aaa
@@ -93814,19 +93878,19 @@ acm
 aeo
 aaa
 cmU
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cFs
 ctE
 ctE
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeU
@@ -94402,17 +94466,17 @@ ajd
 ajd
 ajd
 cmU
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 ckj
-jHP
-jHP
-jHP
-jHP
-jHP
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 cmU
 aaa
 aeo
@@ -94843,17 +94907,17 @@ aeu
 aeU
 aeU
 cmU
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 ctE
-iYC
-iYC
-iYC
-iYC
-iYC
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeU
@@ -107719,7 +107783,7 @@ lLG
 hWS
 geQ
 tdJ
-geQ
+dUK
 rgb
 btE
 buQ
@@ -123970,17 +124034,17 @@ aeu
 aeU
 cPR
 cmU
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 ckA
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 acm
 aeo
 acm
@@ -124997,19 +125061,19 @@ aaa
 acm
 aaa
 cmU
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 ckA
 ckA
 ckA
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 acm
 acm
 aaa
@@ -126026,17 +126090,17 @@ aeo
 acm
 aeo
 acm
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 czr
-jEL
-jEL
-jEL
-jEL
-jEL
+fin
+fin
+fin
+fin
+fin
 acm
 aaQ
 aaa
@@ -127737,17 +127801,17 @@ wRr
 mMY
 bkd
 efK
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 cjl
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 cmU
 cmU
 aeU
@@ -128764,19 +128828,19 @@ aeu
 aeu
 aeu
 aeu
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 crb
 crb
 crb
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 aeU
 aeU
 ktS
@@ -129021,11 +129085,11 @@ aeu
 aeu
 aeU
 cmU
-adS
-qsO
-qsO
-qsO
-qsO
+vyr
+wUu
+wUu
+wUu
+wUu
 oFO
 pEx
 xQl
@@ -129793,17 +129857,17 @@ aaa
 aeU
 aeU
 cmU
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 crb
-erU
-erU
-erU
-erU
-erU
+aOb
+aOb
+aOb
+aOb
+aOb
 aaa
 aeU
 coy
@@ -130050,11 +130114,11 @@ aaa
 aaa
 aeU
 aUz
-adS
-qsO
-qsO
-qsO
-qsO
+vyr
+wUu
+wUu
+wUu
+wUu
 crb
 cXK
 cXK

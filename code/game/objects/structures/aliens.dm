@@ -156,7 +156,8 @@
 			/turf/open/space,
 			/turf/open/chasm,
 			/turf/open/lava,
-			/turf/open/openspace))
+			/turf/open/openspace,
+		))
 
 
 	last_expand = world.time + rand(growth_cooldown_low, growth_cooldown_high)

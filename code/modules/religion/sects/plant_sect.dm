@@ -89,7 +89,8 @@
 				/turf/open/openspace,
 				/turf/open/floor/plating/beach,
 				/turf/open/indestructible,
-				/turf/open/floor/prison))
+				/turf/open/floor/prison,
+			))
 			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
