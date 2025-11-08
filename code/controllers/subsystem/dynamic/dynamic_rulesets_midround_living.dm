@@ -28,7 +28,7 @@
 			continue
 
 		// Already assigned antag?
-		if(candidate.mind.special_role && !istype(src, /datum/dynamic_ruleset/midround/living/obsessed))
+		if(candidate.mind.special_role)
 			candidates -= candidate
 			continue
 
@@ -188,23 +188,72 @@
 /datum/dynamic_ruleset/midround/living/obsessed/get_poll_icon()
 	return icon('icons/obj/clothing/masks.dmi', icon_state = "mad_mask")
 
+/// Obsessed are special little cupcakes that require snowflake code
 /datum/dynamic_ruleset/midround/living/obsessed/trim_candidates()
-	. = ..()
+	SHOULD_CALL_PARENT(FALSE)
 	for(var/mob/candidate in candidates)
+		// Connected?
+		if(!candidate.client)
+			candidates -= candidate
+			continue
+
+		// Antag banned?
+		// Antag disabled?
+		// Enough hours?
+#ifndef TESTING_DYNAMIC
+		if(!candidate.client.should_include_for_role(
+			banning_key = antag_datum.banning_key,
+			role_preference_key = role_preference,
+			req_hours = antag_datum.required_living_playtime
+		))
+			candidates -= candidate
+			continue
+#endif
+
+		// Correct mob type?
+		if(!istype(candidate, mob_type))
+			candidates -= candidate
+			continue
+
+		// Ghost role?
+		if(!allow_ghost_roles && (candidate.mind?.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
+			candidates -= candidate
+			continue
+
 		// Already obsessed?
 		if(candidate.mind.has_antag_datum(/datum/antagonist/obsessed))
 			candidates -= candidate
 			continue
 
-
 /datum/dynamic_ruleset/midround/living/obsessed/execute()
-	. = ..()
-	for(var/mob/chosen_candidate in chosen_candidates)
-		var/mob/living/carbon/human/human_target = chosen_candidate
-		human_target.gain_trauma(/datum/brain_trauma/special/obsessed)
+	SHOULD_CALL_PARENT(FALSE)
+	// Get our candidates
+	set_drafted_players_amount()
+	get_candidates()
+	trim_candidates()
 
-		if(!human_target.has_trauma_type(/datum/brain_trauma/special/obsessed))
-			// hope you don't ever have more than one drafted player, lul
-			// also, i can't really think of a better way to do this so... lets just hope you weren't a traitor before!
-			human_target.mind.special_role = null
-			return DYNAMIC_EXECUTE_FAILURE
+	if(!allowed())
+		return DYNAMIC_EXECUTE_FAILURE
+
+	// Select candidates
+	for(var/i = 1 to drafted_players_amount)
+		LAZYADD(chosen_candidates, select_player())
+
+	// See if they actually want to play this role
+	var/previous_chosen_candidates = length(chosen_candidates)
+	chosen_candidates = SSpolling.poll_candidates(
+		group = chosen_candidates,
+		poll_time = 30 SECONDS,
+		role_name_text = name,
+		alert_pic = get_poll_icon(),
+	)
+
+	if(!length(chosen_candidates))
+		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		return DYNAMIC_EXECUTE_FAILURE
+
+	for(var/mob/living/carbon/human/chosen_candidate in chosen_candidates)
+		chosen_candidate.gain_trauma(/datum/brain_trauma/special/obsessed)
+
+	return DYNAMIC_EXECUTE_SUCCESS

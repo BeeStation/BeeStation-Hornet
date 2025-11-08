@@ -321,7 +321,6 @@
 		if (G.reagents)
 			G.reagents.trans_to(src, G.reagents.total_volume * fraction)
 
-	var/turf/detonation_turf = get_turf(src)
 	reagents.flags &= ~NO_REACT
 	reagents.expose_temperature(ignition_temp, 1)
 
