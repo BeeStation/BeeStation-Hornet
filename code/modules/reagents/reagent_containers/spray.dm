@@ -318,7 +318,7 @@
 	desc = "A small device used for celebrations and annoying the janitor."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "party_popper"
-	item_state = "party_popper"
+	inhand_icon_state = "party_popper"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY

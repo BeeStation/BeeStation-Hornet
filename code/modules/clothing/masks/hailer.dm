@@ -222,7 +222,7 @@
 	name = "party horn"
 	desc = "A paper tube used at parties that makes a noise when blown into."
 	icon_state = "party_horn"
-	item_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/toot)
 

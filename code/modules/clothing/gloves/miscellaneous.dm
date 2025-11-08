@@ -190,7 +190,7 @@
 	name = "ring of translocation"
 	desc = "A ring that allows the wearer to swap places with another person they can see."
 	icon_state = "ring"
-	item_state = "ring"
+	inhand_icon_state = "ring"
 	actions_types = list(/datum/action/spell/pointed/swap_places)
 
 /obj/item/clothing/gloves/translocation_ring/item_action_slot_check(slot, mob/user)
