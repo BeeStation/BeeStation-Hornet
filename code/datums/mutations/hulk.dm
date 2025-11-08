@@ -9,8 +9,10 @@
 	mobtypes_allowed = list(/mob/living/carbon/human)
 	health_req = 25
 	instability = 40
-	locked = TRUE
+	var/bodypart_color = COLOR_DARK_LIME
 	traits = list(
+		TRAIT_CHUNKYFINGERS,
+		TRAIT_HULK,
 		TRAIT_STUNIMMUNE,
 		TRAIT_PUSHIMMUNE,
 		TRAIT_CONFUSEIMMUNE,
@@ -21,15 +23,14 @@
 	)
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
-	if(..())
+	. = ..()
+	if(!.)
 		return
+	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
+		part.add_color_override(bodypart_color, LIMB_COLOR_HULK)
+	owner.update_body_parts()
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	ADD_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
-	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
-		part.variable_color = "#00aa00"
-	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
-	owner.update_body_parts()
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)
 	if(proximity) //no telekinetic hulk attack
@@ -39,17 +40,16 @@
 	if(owner.health < 0)
 		on_losing(owner)
 		to_chat(owner, span_danger("You suddenly feel very weak."))
+		qdel(src)
 
 /datum/mutation/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
-	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
-	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, TRAIT_HULK)
-	UnregisterSignal(owner, COMSIG_MOB_SAY)
-	REMOVE_TRAIT(owner, TRAIT_HULK, SOURCE_HULK)
 	for(var/obj/item/bodypart/part as anything in owner.bodyparts)
-		part.variable_color = null
+		part.remove_color_override(LIMB_COLOR_HULK)
 	owner.update_body_parts()
+	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
 /datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
