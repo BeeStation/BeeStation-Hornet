@@ -235,3 +235,9 @@
 	description = span_nicegreen("Holding that big plush was quite nice.")
 	mood_change = 1
 	timeout = 10 SECONDS
+
+/datum/mood_event/birthday
+	description = "It's my birthday!"
+	mood_change = 2
+	special_screen_obj = "birthday"
+	special_screen_replace = FALSE

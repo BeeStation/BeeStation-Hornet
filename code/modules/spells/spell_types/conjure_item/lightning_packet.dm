@@ -4,7 +4,7 @@
 		known as a spell packet will appear in your hand, that - when thrown - will stun the target."
 	button_icon_state = "thrownlightning"
 
-	cooldown_time = 1 SECONDS
+	cooldown_time = 4 SECONDS
 	spell_max_level = 1
 
 	item_type = /obj/item/spellpacket/lightningbolt

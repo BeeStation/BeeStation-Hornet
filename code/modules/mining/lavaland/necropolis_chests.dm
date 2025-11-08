@@ -1083,8 +1083,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	var/create_delay = 30
 	var/reset_cooldown = 50
 	var/timer = 0
-	var/static/list/banned_turfs = typecacheof(list(/turf/closed))
-	var/static/list/allowed_areas = typecacheof(list(/area/lavaland/surface/outdoors))
+	var/static/list/banned_turfs = typecacheof(list(
+		/turf/closed,
+	))
+	var/static/list/allowed_areas = typecacheof(list(
+		/area/lavaland/surface/outdoors,
+	))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

@@ -166,7 +166,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			/obj/eldritch,
 			/obj/anomaly/singularity,
 			/obj/anomaly/energy_ball,
-			/obj/boh_tear
+			/obj/boh_tear,
 		))
 	AddComponent(/datum/component/trackable)
 

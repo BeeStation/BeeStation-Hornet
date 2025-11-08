@@ -4,11 +4,12 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
 	item_state = "staff"
+	//WE ALREADY HAVE LEFTHAND AND RIGHTHAND FILES HERE
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
 	flags_1 =  CONDUCT_1
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_BULKY
 	var/antimagic_flags = MAGIC_RESISTANCE
 	var/max_charges = 6
 	var/charges = 0
@@ -20,12 +21,10 @@
 	clumsy_check = 0
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 	pin = /obj/item/firing_pin/magic
+	no_pin_required = TRUE
 	requires_wielding = FALSE	//Magic has no recoil, just hold with 1 hand
 	equip_time = 0
 	has_weapon_slowdown = FALSE
-
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/gun/magic/fire_sounds()
 	var/frequency_to_use = sin((90/max_charges) * charges)
@@ -76,6 +75,8 @@
 	return ..()
 
 /obj/item/gun/magic/process(delta_time)
+	if(!can_charge)
+		STOP_PROCESSING(SSobj, src)
 	if (charges >= max_charges)
 		charge_timer = 0
 		return
@@ -86,6 +87,7 @@
 	charges++
 	if(charges == 1)
 		recharge_newshot()
+		update_icon()
 	return 1
 
 /obj/item/gun/magic/update_icon()
