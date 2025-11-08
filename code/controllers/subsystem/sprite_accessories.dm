@@ -16,6 +16,7 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	name = "Sprite Accessories"
 	flags = SS_NO_FIRE | SS_NO_INIT
 
+	// HOLY SHIT COMPACT THIS INTO ASSOCIATED LISTS SO WE STOP ADDING VARIABLES
 	//Hairstyles
 	var/list/hairstyles_list //! stores /datum/sprite_accessory/hair indexed by name
 	var/list/hairstyles_male_list //! stores only hair names
@@ -122,7 +123,7 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	// generic features
 	feature_list[FEATURE_TAIL_MONKEY] = INIT_ACCESSORY(/datum/sprite_accessory/tails/monkey)
 
-/// This proc just intializes all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
+/// This proc just initializes all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
 /datum/controller/subsystem/accessories/proc/init_hair_gradients()
 	hair_gradients_list = list()
 	facial_hair_gradients_list = list()
@@ -164,6 +165,9 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 		returnable_list[DEFAULT_SPRITE_LIST][SPRITE_ACCESSORY_NONE] = new /datum/sprite_accessory/blank
 
 	return returnable_list
+
+#undef INIT_ACCESSORY
+#undef INIT_OPTIONAL_ACCESSORY
 
 #undef DEFAULT_SPRITE_LIST
 #undef MALE_SPRITE_LIST
