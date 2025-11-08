@@ -80,3 +80,25 @@
   - bugfix: Fixed water and welding fuel tanks runtiming when examining them
   - bugfix: Fixed not being able to put chem bags into the chemistry smartfridge
   - bugfix: Fixed an infrequent runtime when the game loads your screentip preferences
+2025-11-08:
+  mrmanlikesbt, TemporalOrobos:
+  - code_imp: Added zebra typecaches
+  - code_imp: Added better documentation for some list helper procs
+  ? mrmanlikesbt, coiax, Mothblocks, SuperNovaa41, Jacquerel, TimeGreen, Ghommie,
+    tralezab, Krysonism, NamelessFairy, Thunder12345
+  : - rscadd: added Employee Birthday station trait
+    - rscadd: added pinatas, these can be ordered from cargo
+    - refactor: refactored some station trait backend
+    - refactor: station traits are now chosen using a budget system
+    - admin: added a modify station traits verb in the adminbus tab
+    - server: added config values for station trait budgets
+    - code_imp: fixed typo, COMSIG_MOB_APPLY_DAMGE to COMSIG_MOB_APPLY_DAMAGE
+  necromanceranne, lord scrubling:
+  - rscadd: Duct tape! Right-click objects and cyborgs with duct tape to repair them
+      if they have been damaged! Wrap objects in duct tape to make it completely incapable
+      of embedding! Find them in your nearest Vendomat or Engi-Vend vending machines
+      today! They can also be made in Autolathes, the Engineering protolathe, and
+      the Service protolathe!
+  - tweak: the recording tape design in autolathes is now less ambiguously named
+  - bugfix: sticky tapes can no longer be applied at any distance
+  - soundadd: added sounds for tape
