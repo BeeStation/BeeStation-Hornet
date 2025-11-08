@@ -7,6 +7,8 @@ SUBSYSTEM_DEF(directives)
 	var/next_directive_time
 	/// A list of directive singleton instances
 	var/list/directives = list()
+	/// Next time when personal objectives are given out.
+	var/personal_objectives_time = null
 
 /datum/controller/subsystem/directives/Initialize(start_timeofday)
 	. = ..()
@@ -15,24 +17,33 @@ SUBSYSTEM_DEF(directives)
 		directives += new directive_type()
 
 /datum/controller/subsystem/directives/fire(resumed)
-	for (var/datum/priority_directive/active_directive in active_directives)
-		// Are we completed or ended?
-		if (active_directive.is_completed() || active_directive.is_timed_out())
-			active_directive.finish()
-		return
-	// Check if we are ready to spawn our next active_directive
-	if (world.time < next_directive_time)
-		return
 	// Find all the minds
 	var/list/player_minds = list()
 	for (var/datum/mind/player_mind in SSticker.minds)
 		if (!ishuman(player_mind.current) || !is_station_level(player_mind.current.z))
 			continue
 		player_minds += player_mind
+	check_personal_directives(player_minds)
+	// Run active directives
+	for (var/datum/priority_directive/active_directive in active_directives)
+		// Are we completed or ended?
+		if (active_directive.is_completed() || active_directive.is_timed_out())
+			active_directive.finish()
+	// Check if we are ready to spawn our next active_directive
+	if (world.time < next_directive_time)
+		return
+	// Filter uplinks to those which can get team missions
+	var/list/filtered_uplinks
+	for (var/datum/component/uplink/uplink in GLOB.uplinks)
+		if (!(uplink.directive_flags & DIRECTIVE_FLAG_COMPETITIVE))
+			continue
+		filtered_uplinks += uplink
 	// Bring on the mission
 	var/list/valid_directives = list()
 	for (var/datum/priority_directive/directive in directives)
-		if (!directive.can_run(GLOB.uplinks, player_minds))
+		if (!directive.shared)
+			continue
+		if (!directive.can_run(filtered_uplinks, player_minds))
 			continue
 		valid_directives += directive
 	if (!length(valid_directives))
@@ -40,9 +51,35 @@ SUBSYSTEM_DEF(directives)
 		next_directive_time = world.time + 1 MINUTES
 		return
 	var/datum/priority_directive/selected = pick(valid_directives)
-	selected.start(GLOB.uplinks, player_minds)
+	selected.start(filtered_uplinks, player_minds)
 	next_directive_time = INFINITY
 	active_directives += selected
+
+/// Check allocation for personal directives
+/datum/controller/subsystem/directives/proc/check_personal_directives(list/player_minds)
+	for (var/datum/component/uplink/uplink in GLOB.uplinks)
+		// Cannot be allocated personal directives
+		if (!(uplink.directive_flags & DIRECTIVE_FLAG_PERSONAL))
+			continue
+		// Not ready to allocate
+		if (uplink.next_personal_objective_time > world.time)
+			continue
+		var/list/uplink_list = list(uplink)
+		// Determine valid objectives
+		var/list/valid_directives = list()
+		for (var/datum/priority_directive/directive in directives)
+			if (directive.shared)
+				continue
+			if (!directive.can_run(uplink_list, player_minds))
+				continue
+			valid_directives += directive
+		// No directives to allocate
+		if (!length(valid_directives))
+			continue
+		var/datum/priority_directive/selected = pick(valid_directives)
+		selected.start(uplink_list, player_minds)
+		active_directives += selected
+		uplink.next_personal_objective_time = get_next_personal_objective_time()
 
 /client/verb/force_directive()
 	set name = "force directive"
@@ -121,3 +158,9 @@ SUBSYSTEM_DEF(directives)
 
 /datum/controller/subsystem/directives/proc/queue_directive()
 	next_directive_time = world.time + 15 MINUTES
+
+/datum/controller/subsystem/directives/proc/get_next_personal_objective_time()
+	// If the next object will be granted within 5 minutes, start a new batch
+	if (world.time + 5 MINUTES > personal_objectives_time)
+		personal_objectives_time = world.time + 25 MINUTES
+	return personal_objectives_time

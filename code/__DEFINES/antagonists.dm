@@ -200,6 +200,13 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// Can recieve personal objectives that only this uplink has
 #define DIRECTIVE_FLAG_PERSONAL (1 << 1)
 
+/// Directive flags for traitors
+#define TRAITOR_DIRECTIVE_FLAGS (DIRECTIVE_FLAG_COMPETITIVE | DIRECTIVE_FLAG_PERSONAL)
+/// Directive flags for brothers
+#define BROTHER_DIRECTIVE_FLAGS (DIRECTIVE_FLAG_COMPETITIVE | DIRECTIVE_FLAG_PERSONAL)
+/// Directive flags for nukies
+#define NUKIE_DIRECTIVE_FLAGS (NONE)
+
 // Max of all fugitive types
 #define MAXIMUM_TOTAL_FUGITIVES 4
 

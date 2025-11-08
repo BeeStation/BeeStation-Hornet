@@ -34,6 +34,7 @@
 	return TRUE
 
 /obj/item/uplink_beacon/proc/after_deploy(obj/structure/uplink_beacon/deployed, mob/living/user)
+	deployed.on_deployed(parent_directive, user)
 
 /obj/structure/uplink_beacon
 	name = "uplink beacon"
@@ -47,10 +48,15 @@
 	var/current_frequency = 0
 	var/time_left = 4 MINUTES
 	var/spam_cooldown = 0
+	var/datum/priority_directive/deploy_beacon/parent_directive
 
-/obj/structure/uplink_beacon/Initialize(mapload, mob/living/user)
-	. = ..()
-	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
+/obj/structure/uplink_beacon/Destroy()
+	if (istype(parent_directive))
+		parent_directive.beacon_broken()
+		parent_directive = null
+	return ..()
+
+/obj/structure/uplink_beacon/proc/on_deployed(datum/priority_directive/deploy_beacon/beacon, mob/user)
 	if (!istype(beacon))
 		log_runtime("A traitor beacon was initialised but there is no directive for it to complete. It has been deleted.")
 		return INITIALIZE_HINT_QDEL
@@ -69,25 +75,18 @@
 	update_appearance(UPDATE_OVERLAYS)
 	START_PROCESSING(SSprocessing, src)
 
-/obj/structure/uplink_beacon/Destroy()
-	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
-	if (istype(beacon))
-		beacon.beacon_broken()
-	return ..()
-
 /obj/structure/uplink_beacon/process(delta_time)
-	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
-	if (!istype(beacon))
+	if (!istype(parent_directive))
 		log_runtime("A traitor beacon was processed but there is no directive for it to complete. It has been deleted.")
 		qdel(src)
 		return PROCESS_KILL
 	if (time_left <= 0)
 		// Complete the mission
 		establish_connection()
-		beacon.complete(current_frequency)
+		parent_directive.complete(current_frequency)
 		return PROCESS_KILL
 	time_left -= delta_time * 1 SECONDS
-	beacon.update_time(time_left)
+	parent_directive.update_time(time_left)
 
 /obj/structure/uplink_beacon/update_overlays()
 	. = ..()
@@ -135,21 +134,19 @@
 	current_frequency = new_frequency
 	update_appearance(UPDATE_OVERLAYS)
 	ui_update()
-	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
-	if (!istype(beacon))
+	if (!istype(parent_directive))
 		return
 	// If there is less than 30 seconds less on the timer, reset the timer to 30 seconds
 	if (time_left < 30 SECONDS)
 		time_left = 30 SECONDS
-	beacon.beacon_colour_update(old_freq, current_frequency, time_left)
+	parent_directive.beacon_colour_update(old_freq, current_frequency, time_left)
 
 /// Establish connection with the syndicate base.
 /// Grants everyone who was on the established frequency with their prize TC
 /// and spews out some additional TC for people near the beacon to squabble over.
 /obj/structure/uplink_beacon/proc/establish_connection()
 	DECLARE_ASYNC
-	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
-	if (!istype(beacon))
+	if (!istype(parent_directive))
 		log_runtime("A traitor beacon was processed but there is no directive for it to complete. It has been deleted.")
 		qdel(src)
 		return

@@ -35,6 +35,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 	// and tying it to anything else is difficult due to how much uses an uplink
 	var/reputation = REPUTATION_TRAITOR_START
 	var/directive_flags = NONE
+	/// How long until we get a personal objective
+	var/next_personal_objective_time = 0
 
 	var/list/previous_attempts
 
@@ -44,7 +46,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		uplink_flag = UPLINK_TRAITORS,
 		starting_tc = TELECRYSTALS_DEFAULT,
 		_reputation = REPUTATION_TRAITOR_START,
-		directive_flags = DIRECTIVE_FLAG_COMPETITIVE
+		directive_flags = NONE
 		)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -86,6 +88,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 
 	// We need to start running this now
 	SSdirectives.can_fire = TRUE
+	next_personal_objective_time = SSdirectives.get_next_personal_objective_time()
 	GLOB.uplinks += src
 
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)

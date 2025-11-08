@@ -23,7 +23,7 @@
 	/// The atom parent of this
 	VAR_PRIVATE/obj/item/item_parent
 
-/datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null, datum/callback/can_deploy_check)
+/datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null, datum/callback/can_deploy_check = null, datum/callback/on_after_deploy = null)
 	. = ..()
 	if (!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -39,6 +39,7 @@
 	src.loaded = loaded
 	src.reload_type = reload_type
 	src.can_deploy_check = can_deploy_check
+	src.on_after_deploy = on_after_deploy
 
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))

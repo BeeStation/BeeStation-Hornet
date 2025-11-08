@@ -83,7 +83,7 @@
 		I.link_implant(T)
 	// Who gets the uplink
 	var/datum/mind/uplink_owner = pick(team.members)
-	uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = DIRECTIVE_FLAG_COMPETITIVE)
+	uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = BROTHER_DIRECTIVE_FLAGS)
 	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 

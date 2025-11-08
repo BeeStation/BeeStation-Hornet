@@ -56,4 +56,4 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implanter/uplink)
 
 /obj/item/implant/uplink/starting
 	starting_tc = TELECRYSTALS_DEFAULT
-	directive_flags = DIRECTIVE_FLAG_PERSONAL | DIRECTIVE_FLAG_COMPETITIVE
+	directive_flags = TRAITOR_DIRECTIVE_FLAGS
