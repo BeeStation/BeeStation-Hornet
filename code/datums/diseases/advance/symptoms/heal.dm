@@ -602,7 +602,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
-	var/bloodtypearchive
+	var/datum/blood_type/bloodtypearchive
 	var/bruteheal = FALSE
 	var/aggression = FALSE
 	var/vampire = FALSE
@@ -640,7 +640,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = "U"
+		H.dna.blood_type = /datum/blood_type/universal
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
