@@ -155,7 +155,7 @@
 	affected_mob.AdjustSleeping(-40 * REM * delta_time)
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
-		affected_mob.Jitter(5)
+		affected_mob.set_jitter_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/ethanol/whiskey
 	name = "Whiskey"
@@ -200,11 +200,11 @@
 	affected_mob.adjust_bodytemperature(-5 * REM * TEMPERATURE_DAMAGE_COEFFICIENT * delta_time, affected_mob.get_body_temp_normal())
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
-		affected_mob.Jitter(5)
+		affected_mob.set_jitter_if_lower(10 SECONDS)
 
 /datum/reagent/consumable/ethanol/thirteenloko/overdose_start(mob/living/carbon/affected_mob)
 	to_chat(affected_mob, span_userdanger("Your entire body violently jitters as you start to feel queasy. You really shouldn't have drank all of that [name]!"))
-	affected_mob.Jitter(20)
+	affected_mob.set_jitter_if_lower(40 SECONDS)
 	affected_mob.Stun(15)
 
 /datum/reagent/consumable/ethanol/thirteenloko/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -214,7 +214,7 @@
 		if(held_item)
 			affected_mob.dropItemToGround(held_item)
 			to_chat(affected_mob, span_notice("Your hands jitter and you drop what you were holding!"))
-			affected_mob.Jitter(10)
+			affected_mob.set_jitter_if_lower(20 SECONDS)
 
 	if(DT_PROB(3.5, delta_time))
 		to_chat(affected_mob, span_notice(pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")))
@@ -236,7 +236,7 @@
 	if(DT_PROB(1.5, delta_time))
 		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		affected_mob.Unconscious(100)
-		affected_mob.Jitter(350)
+		affected_mob.set_jitter_if_lower(700 SECONDS)
 
 	if(DT_PROB(0.5, delta_time))
 		affected_mob.ForceContractDisease(new /datum/disease/heart_failure)
@@ -1825,19 +1825,19 @@
 			if(DT_PROB(5, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 		if(5 to 10)
-			affected_mob.Jitter(20 * REM * delta_time)
+			affected_mob.set_jitter_if_lower(40 SECONDS * REM * delta_time)
 			affected_mob.Dizzy(20 * REM * delta_time)
 			affected_mob.set_drugginess(45 * REM * delta_time)
 			if(DT_PROB(10, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 		if (10 to 200)
-			affected_mob.Jitter(40 * REM * delta_time)
+			affected_mob.set_jitter_if_lower(80 SECONDS * REM * delta_time)
 			affected_mob.Dizzy(40 * REM * delta_time)
 			affected_mob.set_drugginess(60 * REM * delta_time)
 			if(DT_PROB(16, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 		if(200 to INFINITY)
-			affected_mob.Jitter(60 * REM * delta_time)
+			affected_mob.set_jitter_if_lower(120 SECONDS * REM * delta_time)
 			affected_mob.Dizzy(60 * REM * delta_time)
 			affected_mob.set_drugginess(75 * REM * delta_time)
 			if(DT_PROB(23, delta_time))
@@ -2756,7 +2756,7 @@
 	. = ..()
 	if(affected_mob.mind?.holy_role)
 		affected_mob.adjustFireLoss(-2.5 * REM * delta_time, updating_health = FALSE)
-		affected_mob.jitteriness = max(affected_mob.jitteriness - (1 * REM * delta_time), 0)
+		affected_mob.adjust_jitter(-2 SECONDS * REM * delta_time)
 		affected_mob.stuttering = max(affected_mob.stuttering - (1 * REM * delta_time), 0)
 		return UPDATE_MOB_HEALTH
 
@@ -2921,7 +2921,7 @@
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	var/datum/brain_trauma/OD_trauma
-	affected_mob.Jitter(2)
+	affected_mob.set_jitter_if_lower(4 SECONDS)
 	if(DT_PROB(2.5, delta_time) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
 			if(10 to 50)

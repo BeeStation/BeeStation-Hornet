@@ -260,8 +260,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
-	//Fuck you, *crowbars your evil thing
-	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()

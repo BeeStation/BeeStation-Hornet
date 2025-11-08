@@ -10,7 +10,10 @@
 	return GLOB.always_state
 
 /datum/crew_manifest/ui_status(mob/user, datum/ui_state/state)
-	var/static/list/allowed_mobs_typecache = typecacheof(list(/mob/dead, /mob/living/silicon))
+	var/static/list/allowed_mobs_typecache = typecacheof(list(
+		/mob/dead,
+		/mob/living/silicon,
+	))
 	return is_type_in_typecache(user, allowed_mobs_typecache) ? UI_INTERACTIVE : UI_CLOSE
 
 /datum/crew_manifest/ui_interact(mob/user, datum/tgui/ui)

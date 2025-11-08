@@ -88,7 +88,7 @@
 		if(prob(40))
 			M.Knockdown(200*mul)
 		else
-			M.Jitter(500*mul)
+			M.set_jitter_if_lower(1000 SECONDS*mul)
 
 	. = ..()
 

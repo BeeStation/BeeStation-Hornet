@@ -218,3 +218,23 @@
 /datum/action/item_action/halt
 	name = "HALT!"
 
+/obj/item/clothing/mask/party_horn
+	name = "party horn"
+	desc = "A paper tube used at parties that makes a noise when blown into."
+	icon_state = "party_horn"
+	item_state = null
+	w_class = WEIGHT_CLASS_SMALL
+	actions_types = list(/datum/action/item_action/toot)
+
+	COOLDOWN_DECLARE(horn_cooldown)
+
+/obj/item/clothing/mask/party_horn/ui_action_click(mob/user, action)
+	if(!COOLDOWN_FINISHED(src, horn_cooldown))
+		return
+
+	COOLDOWN_START(src, horn_cooldown, 10 SECONDS)
+	playsound(src, 'sound/items/party_horn.ogg', 75, FALSE)
+	flick("party_horn_animated", src)
+
+/datum/action/item_action/toot
+	name = "TOOT!"

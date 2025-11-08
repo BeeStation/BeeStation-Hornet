@@ -23,7 +23,7 @@
 	desc = "Death to Nanotrasen. This variant comes in MECHA DEATH flavour."
 	wanted_objects = list()
 	search_objects = 0
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 
 	var/spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded
 	var/obj/vehicle/sealed/mecha/mecha //Ref to pilot's mecha instance
@@ -42,7 +42,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/Initialize(mapload)
 	. = ..()
-	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha/combat, TRUE)
+	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha/combat, ignore_root_path = TRUE)
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/nanotrasen //nanotrasen are syndies! no it's just a weird path.
 	name = "\improper Nanotrasen Mecha Pilot"
@@ -102,7 +102,7 @@
 	targets_from = null
 
 	//Find a new mecha
-	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha/combat, TRUE)
+	wanted_objects = typecacheof(/obj/vehicle/sealed/mecha/combat, ignore_root_path = TRUE)
 	var/search_aggressiveness = 2
 	for(var/obj/vehicle/sealed/mecha/combat/C in view(vision_range,src))
 		if(is_valid_mecha(C))

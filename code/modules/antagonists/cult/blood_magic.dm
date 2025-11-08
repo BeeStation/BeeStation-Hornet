@@ -412,7 +412,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 				C.silent += 6
 				C.stuttering += 15
 				C.cultslurring += 15
-				C.Jitter(15)
+				C.set_jitter_if_lower(30 SECONDS)
 				// EMP the radio on your ears
 				if (C.ears)
 					C.ears.emp_act(EMP_LIGHT)

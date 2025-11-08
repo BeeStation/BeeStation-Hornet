@@ -239,6 +239,7 @@
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts") //these won't show up if the pen is off
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP
+	item_flags = NO_BLOOD_ON_ITEM
 	/// The real name of our item when extended.
 	var/hidden_name = "energy dagger"
 

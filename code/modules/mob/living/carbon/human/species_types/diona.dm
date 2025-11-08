@@ -23,7 +23,7 @@
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_ORGANIC, MOB_BUG)
+	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
@@ -218,30 +218,36 @@
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	// Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
 	if(gibbed)
-		H.gib(TRUE, TRUE, TRUE)  //Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
+		H.gib(TRUE, TRUE, TRUE)
 		return
-	var/list/alive_nymphs = list()
+
+	var/list/mob/living/simple_animal/hostile/retaliate/nymph/alive_nymphs = list()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
-	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
-		if(BP.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
-			BP.drop_limb()
+	for(var/obj/item/bodypart/limb as anything in H.bodyparts)
+		if(limb.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
+			limb.drop_limb()
 			continue
-		if(istype(BP, /obj/item/bodypart/head))
-			nymph.adjustBruteLoss(BP.brute_dam)
-			nymph.adjustFireLoss(BP.burn_dam)
+
+		// Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
+		if(istype(limb, /obj/item/bodypart/head))
+			nymph.adjustBruteLoss(limb.brute_dam, updating_health = FALSE)
+			nymph.adjustFireLoss(limb.burn_dam, updating_health = FALSE)
 			nymph.updatehealth()
-			continue //Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
-		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
-		limb_nymph.adjustBruteLoss(BP.brute_dam)
-		limb_nymph.adjustFireLoss(BP.burn_dam)
+			continue
+
+		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new(H.loc)
+		limb_nymph.adjustBruteLoss(limb.brute_dam, updating_health = FALSE)
+		limb_nymph.adjustFireLoss(limb.burn_dam, updating_health = FALSE)
 		limb_nymph.updatehealth()
 		if(limb_nymph.stat != DEAD)
 			alive_nymphs += limb_nymph
 
-	var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, alive_nymphs)] // Let's go gambling!
-	gambling_nymph.adjustBruteLoss(50) // Aw dangit.
-	alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
+	if(length(alive_nymphs))
+		var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, length(alive_nymphs))] // Let's go gambling!
+		gambling_nymph.adjustBruteLoss(50) // Aw dangit.
+		alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
 
 	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)

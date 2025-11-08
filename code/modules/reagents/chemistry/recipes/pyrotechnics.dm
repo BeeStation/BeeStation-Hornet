@@ -564,7 +564,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Reduces the temperature of the container when created",
 	)
-	reaction_tags = REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/cryostylane/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // cools the fuck down
@@ -578,7 +578,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Reduces the temperature of the container when created, according to the amount created",
 	)
-	reaction_tags = REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/cryostylane_oxygen/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = max(holder.chem_temp - 10*created_volume,0)
@@ -591,7 +591,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Increases the temperature of the container when created, according to the amount created",
 	)
-	reaction_tags = REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/pyrosium_oxygen/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp += 10*created_volume
@@ -603,7 +603,7 @@
 	hints = list(
 		REACTION_HINT_EXPLOSION_OTHER = "Increases the temperature of the container when created",
 	)
-	reaction_tags = REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/pyrosium/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // also cools the fuck down

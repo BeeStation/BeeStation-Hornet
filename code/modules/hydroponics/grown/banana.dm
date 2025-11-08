@@ -6,7 +6,7 @@
 	species = "banana"
 	plantname = "Banana Tree"
 	product = /obj/item/food/grown/banana
-	lifespan = 50
+	lifespan = 200
 	endurance = 30
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "banana-dead"

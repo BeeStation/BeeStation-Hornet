@@ -60,11 +60,6 @@ export function AirAlarmControlHome(props: Props) {
         </Button>
       </Stack.Item>
       <Stack.Item>
-        <Button icon="fan" onClick={() => setScreen('ac')}>
-          Air Conditioning Controls
-        </Button>
-      </Stack.Item>
-      <Stack.Item>
         <Button icon="cog" onClick={() => setScreen('modes')}>
           Operating Mode
         </Button>

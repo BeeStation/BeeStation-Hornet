@@ -80,6 +80,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 
 /datum/status_effect/bleeding/update_icon()
+	if(QDELETED(owner))
+		stack_trace("Tried to update bleeding icon [src] on deleted mob")
+		return
 	// The actual rate of bleeding, can be reduced by holding wounds
 	// Calculate the message to show to the user
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
@@ -119,6 +122,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	name = "Bleeding"
 	desc = "You are bleeding, find something to bandage the wound or you will die."
 	icon_state = "bleed"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/bleeding/Click(location, control, params)
 	var/mob/living/carbon/human/human = usr
@@ -507,7 +511,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 				drop.transfer_mob_blood_dna(src)
 				return
 			else
-				temp_blood_DNA = drop.return_blood_DNA() //we transfer the dna from the drip to the splatter
+				temp_blood_DNA = GET_ATOM_BLOOD_DNA(drop) //we transfer the dna from the drip to the splatter
 				qdel(drop)//the drip is replaced by a bigger splatter
 		else
 			drop = new(T, get_static_viruses())
