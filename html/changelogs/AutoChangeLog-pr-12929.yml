@@ -1,0 +1,11 @@
+author: mrmanlikesbt, coiax, Mothblocks, SuperNovaa41, Jacquerel, TimeGreen, Ghommie,
+  tralezab, Krysonism, NamelessFairy, Thunder12345
+delete-after: true
+changes:
+  - rscadd: added Employee Birthday station trait
+  - rscadd: added pinatas, these can be ordered from cargo
+  - refactor: refactored some station trait backend
+  - refactor: station traits are now chosen using a budget system
+  - admin: added a modify station traits verb in the adminbus tab
+  - server: added config values for station trait budgets
+  - code_imp: fixed typo, COMSIG_MOB_APPLY_DAMGE to COMSIG_MOB_APPLY_DAMAGE
