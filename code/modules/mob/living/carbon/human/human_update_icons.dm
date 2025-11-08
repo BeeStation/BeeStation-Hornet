@@ -289,7 +289,7 @@ There are several things that need to be remembered:
 		update_hud_ears(worn_item)
 
 		if(update_obscured)
-		 update_obscured_slots(worn_item.flags_inv)
+			update_obscured_slots(worn_item.flags_inv)
 
 		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_EARS)
 			return
@@ -951,9 +951,7 @@ generate/load female uniform sprites matching all previously decided variables
 
 	my_head.update_limb(is_creating = update_limb_data)
 
-	// Rebuild bodypart overlays using the canonical update routine so overlays are managed
-	// via overlays_standing[BODYPARTS_LAYER] rather than creating unmanaged overlays.
-	update_body_parts()
+	add_overlay(my_head.get_limb_icon(dropped = FALSE, update_on = src))
 	update_worn_head()
 	update_worn_mask()
 
