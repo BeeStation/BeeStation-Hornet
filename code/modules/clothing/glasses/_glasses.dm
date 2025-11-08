@@ -42,20 +42,6 @@
 		. += emissive_appearance(icon, emissive_state, layer, 100)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
-/obj/item/clothing/glasses/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = ..()
-	// If we have an emissive state, add it to the worn icon too
-	if (!isinhands && emissive_state)
-		var/mob/living/carbon/human/wearer = origin
-
-		var/mutable_appearance/emissive_overlay = emissive_appearance(icon_file, emissive_state, item_layer + 0.01, alpha = 100, filters = origin.filters)
-		emissive_overlay.plane = EMISSIVE_PLANE // Ensure it's on the emissive plane
-		. += emissive_overlay
-
-		// Add luminosity to the wearer
-		if(istype(wearer))
-			ADD_LUM_SOURCE(wearer, LUM_SOURCE_GLASSES)
-
 /obj/item/clothing/glasses/visor_toggling()
 	. = ..()
 	alternate_worn_layer = up ? ABOVE_BODY_FRONT_HEAD_LAYER : null

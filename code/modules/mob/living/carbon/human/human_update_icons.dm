@@ -231,6 +231,10 @@ There are several things that need to be remembered:
 	// If we had any luminosity from our glasses then we don't anymore
 	REMOVE_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
 
+	// Remove any existing emissive glasses overlay
+	var/mutable_appearance/glasses_emissive_overlay = mutable_appearance('icons/mob/clothing/eyes.dmi', "", GLASSES_LAYER)
+	cut_overlay(glasses_emissive_overlay)
+
 	var/obj/item/bodypart/head/my_head = get_bodypart(BODY_ZONE_HEAD)
 	if(isnull(my_head)) //decapitated
 		return
@@ -257,6 +261,13 @@ There are several things that need to be remembered:
 			return
 		my_head.worn_glasses_offset?.apply_offset(glasses_overlay)
 		overlays_standing[GLASSES_LAYER] = glasses_overlay
+
+		// We handle sunglasses and mesons and the like here
+		if(glasses.emissive_state && !(head && (head.flags_inv & HIDEEYES)) && !(wear_mask && (wear_mask.flags_inv & HIDEEYES)))
+			var/emissive_layer = GLASSES_LAYER
+			var/mutable_appearance/glasses_emissive = emissive_appearance(icon_file, glasses.emissive_state, layer = emissive_layer, alpha = 100, filters = src.filters)
+			add_overlay(glasses_emissive)
+			ADD_LUM_SOURCE(src, LUM_SOURCE_GLASSES)
 
 	apply_overlay(GLASSES_LAYER)
 
