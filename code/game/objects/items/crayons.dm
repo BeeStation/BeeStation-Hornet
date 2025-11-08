@@ -604,11 +604,7 @@
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	if(!spraycan_touch_normally)
-		spraycan_touch_normally = typecacheof(list(
-			/obj/machinery/modular_fabricator/autolathe,
-			/obj/structure/closet,
-			/obj/machinery/disposal,
-		))
+		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
 
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))

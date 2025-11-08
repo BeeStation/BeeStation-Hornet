@@ -412,10 +412,10 @@
 /obj/machinery/capture_the_flag/proc/reset_the_arena()
 	var/area/A = get_area(src)
 	var/list/ctf_object_typecache = typecacheof(list(
-		/obj/machinery,
-		/obj/effect/ctf,
-		/obj/item/ctf,
-	))
+				/obj/machinery,
+				/obj/effect/ctf,
+				/obj/item/ctf
+			))
 	for(var/atm in A)
 		if (isturf(A) || ismob(A) || isarea(A))
 			continue

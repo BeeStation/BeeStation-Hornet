@@ -20,8 +20,9 @@
 	var/static/list/allowed_money = typecacheof(list(
 		/obj/item/stack/spacecash,
 		/obj/item/holochip,
-		/obj/item/coin,
-	))
+		/obj/item/coin
+		)
+	)
 
 /datum/component/payment/Initialize(_cost, _target, _style = PAYMENT_CLINICAL)
 	if(istext(_target))

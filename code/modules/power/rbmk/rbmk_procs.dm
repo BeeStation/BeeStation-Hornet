@@ -576,7 +576,7 @@ Arguments:
 		/obj/structure/window/shuttle,
 		/obj/machinery/gateway,
 		/obj/machinery/gravity_generator,
-	))
+		))
 /// Tries to place plutonium sludge on 'floor'. Returns TRUE if the turf has been successfully processed, FALSE otherwise.
 /obj/modules/power/rbmk/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
 	if(!floor)

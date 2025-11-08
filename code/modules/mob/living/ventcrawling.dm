@@ -2,8 +2,7 @@
 GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	/obj/machinery/atmospherics/components/binary/dp_vent_pump,
 	/obj/machinery/atmospherics/components/unary/vent_pump,
-	/obj/machinery/atmospherics/components/unary/vent_scrubber,
-)))
+	/obj/machinery/atmospherics/components/unary/vent_scrubber)))
 
 //VENTCRAWLING
 

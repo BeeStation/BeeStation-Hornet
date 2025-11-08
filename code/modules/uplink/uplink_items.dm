@@ -107,8 +107,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // some items are not good to tell to have illegal tech, especially boxes, bottles
 GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	/obj/item/storage/box,
-	/obj/item/reagent_containers,
-)))
+	/obj/item/reagent_containers)))
 
 /**
  * Uplink Items

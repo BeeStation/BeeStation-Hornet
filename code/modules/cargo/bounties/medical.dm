@@ -36,10 +36,8 @@
 	description = "Station 5's Research Director Willem is requesting a few pairs of non-robotic eyes. Don't ask questions, just ship them."
 	reward = 10000
 	required_count = 3
-	wanted_types = list(
-		/obj/item/organ/eyes = TRUE,
-		/obj/item/organ/eyes/robotic = FALSE,
-	)
+	wanted_types = list(/obj/item/organ/eyes)
+	exclude_types = list(/obj/item/organ/eyes/robotic)
 
 /datum/bounty/item/medical/tongue
 	name = "Tongues"

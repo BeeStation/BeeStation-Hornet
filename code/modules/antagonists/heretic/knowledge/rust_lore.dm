@@ -74,7 +74,7 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/vehicle/sealed/mecha,
+		/obj/vehicle/sealed/mecha
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.combat_mode && !is_type_in_typecache(target, always_hit_typecache))
@@ -369,7 +369,7 @@
 		/turf/closed/indestructible,
 		/turf/open/space,
 		/turf/open/lava,
-		/turf/open/chasm,
+		/turf/open/chasm
 	))
 
 /datum/rust_spread/New(loc)

@@ -4,22 +4,25 @@
 	var/datum/map_template/shuttle/shuttle_template
 	//Static
 	//Subtypes that change this will have to redefine these.
-	var/static/list/allowed_turfs
+	var/static/list/blacklisted_turfs
+	var/static/list/whitelisted_turfs
 	var/static/list/whitelisted_areas
 
 /obj/item/survivalcapsule/shuttle/Initialize(mapload)
 	. = ..()
-	if(!allowed_turfs)
+	if(!blacklisted_turfs)
 		whitelisted_areas = typecacheof(list(
 			/area/space,
 			/area/lavaland,
 			/area/asteroid
 		))
-		allowed_turfs = zebra_typecacheof(list(
-			/turf/open/space = TRUE,
-			/turf/open/floor/plating/asteroid/basalt/lava_land_surface = TRUE,
-			/turf/open/space/bluespace = FALSE,
-			/turf/open/space/transit = FALSE,
+		whitelisted_turfs = typecacheof(list(
+			/turf/open/space,
+			/turf/open/floor/plating/asteroid/basalt/lava_land_surface
+		))
+		blacklisted_turfs = typecacheof(list(
+			/turf/open/space/bluespace,
+			/turf/open/space/transit
 		))
 
 /obj/item/survivalcapsule/shuttle/get_template()
@@ -88,7 +91,9 @@
 		if(!is_type_in_typecache(A, whitelisted_areas))
 			return SHELTER_DEPLOY_BAD_AREA
 
-		if(!is_type_in_typecache(T, allowed_turfs))
+		var/banned = is_type_in_typecache(T, blacklisted_turfs)
+		var/permitted = is_type_in_typecache(T, whitelisted_turfs)
+		if(banned && !permitted)
 			return SHELTER_DEPLOY_BAD_TURFS
 
 		for(var/obj/O in T)

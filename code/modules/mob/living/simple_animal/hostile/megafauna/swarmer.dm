@@ -170,11 +170,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	search_objects = 1
 	attack_all_objects = TRUE //attempt to nibble everything
 	lose_patience_timeout = 150
-	//eat rocks and walls
-	var/static/list/sharedWanted = typecacheof(list(
-		/turf/closed/mineral,
-		/turf/closed/wall,
-	))
+	var/static/list/sharedWanted = typecacheof(list(/turf/closed/mineral, /turf/closed/wall)) //eat rocks and walls
 	var/static/list/sharedIgnore = list()
 
 //This handles viable things to eat/attack

@@ -9,14 +9,8 @@
 	var/recharging = FALSE
 	var/obj/item/electronics/airlock/electronics = null
 	var/circuits = 5 //How many circuits the pseudocircuit has left
-	/// A typecache of circuits consumable for material
-	var/static/recycleable_circuits = typecacheof(list(
-		/obj/item/electronics/firelock,
-		/obj/item/electronics/airalarm,
-		/obj/item/electronics/firealarm,
-		/obj/item/electronics/apc,
-		/obj/item/electronics/airlock,
-	))
+	var/static/recycleable_circuits = typecacheof(list(/obj/item/electronics/firelock, /obj/item/electronics/airalarm, /obj/item/electronics/firealarm, \
+	/obj/item/electronics/apc, /obj/item/electronics/airlock))//A typecache of circuits consumable for material
 
 /obj/item/electroadaptive_pseudocircuit/Initialize(mapload)
 	. = ..()

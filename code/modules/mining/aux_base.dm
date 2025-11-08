@@ -142,12 +142,13 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		to_chat(user, span_warning("This station is not equipped with an auxillary base. Please contact your Nanotrasen contractor."))
 		return
 	if(!no_restrictions)
-		var/static/list/disallowed_turf_types = zebra_typecacheof(list(
-			/turf/closed = TRUE,
-			/turf/open/lava = TRUE,
-			/turf/open/indestructible = TRUE,
-			/turf/closed/mineral = FALSE,
-		))
+		var/static/list/disallowed_turf_types = typecacheof(list(
+			/turf/closed,
+			/turf/open/lava,
+			/turf/open/indestructible,
+			)) - typecacheof(list(
+			/turf/closed/mineral,
+			))
 
 		if(!is_mining_level(T.z))
 			return BAD_ZLEVEL
