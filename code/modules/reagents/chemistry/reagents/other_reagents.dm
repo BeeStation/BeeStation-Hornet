@@ -1936,6 +1936,12 @@
 	color = "#4040FF" //A blueish color
 	glitter_type = /obj/effect/decal/cleanable/glitter/blue
 
+/datum/reagent/glitter/confetti
+	name = "Confetti"
+	description = "Tiny plastic flakes that are impossible to sweep up."
+	color = "#7dd87b"
+	glitter_type = /obj/effect/decal/cleanable/confetti
+
 /datum/reagent/pax
 	name = "Pax"
 	description = "A colorless liquid that suppresses violent urges in its subjects."
