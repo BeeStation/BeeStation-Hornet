@@ -172,19 +172,19 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 */
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
-	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
-	target.dna.features["ethcolor"] = COLOR_WHITE
-	target.dna.features["lizard_markings"] = "None"
-	target.dna.features["ears"] = "None"
-	target.dna.features["frills"] = "None"
-	target.dna.features["horns"] = "None"
-	target.dna.features["moth_antennae"] = "Plain"
-	target.dna.features["moth_markings"] = "None"
-	target.dna.features["moth_wings"] = "Plain"
-	target.dna.features["snout"] = "Round"
-	target.dna.features["spines"] = "None"
-	target.dna.features["tail_cat"] = "Cat" // it's a lie
-	target.dna.features["tail_lizard"] = "Smooth"
+	target.dna.features[FEATURE_MUTANT_COLOR] = COLOR_VIBRANT_LIME
+	target.dna.features[FEATURE_ETHEREAL_COLOR] = COLOR_WHITE
+	target.dna.features[FEATURE_LIZARD_MARKINGS] = "None"
+	target.dna.features[FEATURE_EARS] = "None"
+	target.dna.features[FEATURE_FRILLS] = "None"
+	target.dna.features[FEATURE_HORNS] = "None"
+	target.dna.features[FEATURE_MOTH_ANTENNAE] = "Plain"
+	target.dna.features[FEATURE_MOTH_MARKINGS] = "None"
+	target.dna.features[FEATURE_MOTH_WINGS] = "Plain"
+	target.dna.features[FEATURE_SNOUT] = "Round"
+	target.dna.features[FEATURE_SPINES] = "None"
+	target.dna.features[FEATURE_TAIL] = "Cat" // it's a lie
+	target.dna.features[FEATURE_TAIL_LIZARD] = "Smooth"
 	target.dna.features["apid_stripes"] = "thick"
 	target.dna.features["apid_headstripes"] = "thick"
 	target.dna.features["apid_antenna"] = "curled"

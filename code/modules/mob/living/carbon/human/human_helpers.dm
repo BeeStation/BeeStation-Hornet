@@ -271,3 +271,21 @@
 
 		if (preference.is_randomizable())
 			preferences.write_preference(preference, preference.create_random_value(preferences))
+
+/// Sets the mob's single `eye_color` value and updates the eye organ's `eye_color` if present.
+/// This server uses a single `eye_color` (heterochromia/per-eye colors removed).
+/mob/living/carbon/human/proc/set_eye_color(color_left, color_right)
+	// Keep the signature compatible with any callers that pass two args, but ignore the right-eye value.
+	var/color = color_left
+	if(!color || color == "")
+		// nothing to do
+		return
+
+	// Set the mob's single eye_color field
+	eye_color = color
+
+	// Update the eye organ's single eye_color field if the organ exists and doesn't already override it
+	var/obj/item/organ/eyes/eyes = get_organ_by_type(/obj/item/organ/eyes)
+	if (istype(eyes) && !initial(eyes.eye_color))
+		eyes.eye_color = color
+		eyes.refresh(src, FALSE)

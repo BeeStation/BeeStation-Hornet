@@ -451,7 +451,7 @@
 		//take current alien color and darken it slightly
 		else if(HAS_TRAIT(exposed_human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(exposed_human, TRAIT_FIXED_MUTANT_COLORS))
 			var/newcolor = ""
-			var/string = exposed_human.dna.features["mcolor"]
+			var/string = exposed_human.dna.features[FEATURE_MUTANT_COLOR]
 			var/len = length(string)
 			var/char = ""
 			var/ascii = 0
@@ -474,7 +474,7 @@
 					else
 						break
 			if(ReadHSV(newcolor)[3] >= ReadHSV("#7F7F7F")[3])
-				exposed_human.dna.features["mcolor"] = newcolor
+				exposed_human.dna.features[FEATURE_MUTANT_COLOR] = newcolor
 		exposed_human.update_body(is_creating = TRUE)
 
 /datum/reagent/spraytan/overdose_start(mob/living/carbon/affected_mob)
@@ -495,7 +495,7 @@
 		if(HAS_TRAIT(affected_human, TRAIT_USES_SKINTONES))
 			affected_human.skin_tone = "orange"
 		else if(HAS_TRAIT(affected_human, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(affected_human, TRAIT_FIXED_MUTANT_COLORS)) //Aliens with custom colors simply get turned orange
-			affected_human.dna.features["mcolor"] = "#ff8800"
+			affected_human.dna.features[FEATURE_MUTANT_COLOR] = "#ff8800"
 		affected_human.update_body(is_creating = TRUE)
 
 /datum/reagent/spraytan/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)

@@ -26,59 +26,37 @@
 
 // DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE 3
-
 #define DNA_BLOCK_SIZE_COLOR DEFAULT_HEX_COLOR_LEN
-
-#define DNA_GENDER_BLOCK 1
-#define DNA_SKIN_TONE_BLOCK 2
-#define DNA_EYE_COLOR_BLOCK 3
-#define DNA_HAIRSTYLE_BLOCK 4
-#define DNA_HAIR_COLOR_BLOCK 5
-#define DNA_FACIAL_HAIRSTYLE_BLOCK 6
-#define DNA_FACIAL_HAIR_COLOR_BLOCK 7
-#define DNA_HAIRSTYLE_GRADIENT_BLOCK 8
-#define DNA_HAIR_COLOR_GRADIENT_BLOCK 9
-#define DNA_FACIAL_HAIRSTYLE_GRADIENT_BLOCK 10
-#define DNA_FACIAL_HAIR_COLOR_GRADIENT_BLOCK 11
-
-#define DNA_UNI_IDENTITY_BLOCKS 11
-
-/// This number needs to equal the total number of DNA blocks
-#define DNA_FEATURE_BLOCKS 29
-
-#define DNA_MUTANT_COLOR_BLOCK 1
-#define DNA_ETHEREAL_COLOR_BLOCK 2
-#define DNA_LIZARD_MARKINGS_BLOCK 3
-#define DNA_TAIL_BLOCK 4
-#define DNA_LIZARD_TAIL_BLOCK 5
-#define DNA_SNOUT_BLOCK 6
-#define DNA_HORNS_BLOCK 7
-#define DNA_FRILLS_BLOCK 8
-#define DNA_SPINES_BLOCK 9
-#define DNA_EARS_BLOCK 10
-#define DNA_MOTH_WINGS_BLOCK 11
-#define DNA_MOTH_ANTENNAE_BLOCK 12
-#define DNA_MOTH_MARKINGS_BLOCK 13
-#define DNA_APID_ANTENNA_BLOCK 14
-#define DNA_APID_STRIPES_BLOCK 15
-#define DNA_APID_HEADSTRIPES_BLOCK 16
-#define DNA_PSYPHOZA_CAP_BLOCK 17
-#define DNA_INSECT_TYPE_BLOCK 18
-#define DNA_IPC_SCREEN_BLOCK 19
-#define DNA_IPC_ANTENNA_BLOCK 20
-#define DNA_IPC_CHASSIS_BLOCK 21
-#define DNA_DIONA_LEAVES_BLOCK 22
-#define DNA_DIONA_THORNS_BLOCK 23
-#define DNA_DIONA_FLOWERS_BLOCK 24
-#define DNA_DIONA_MOSS_BLOCK 25
-#define DNA_DIONA_MUSHROOM_BLOCK 26
-#define DNA_DIONA_ANTENNAE_BLOCK 27
-#define DNA_DIONA_EYES_BLOCK 28
-#define DNA_DIONA_PBODY_BLOCK 29
 
 #define DNA_SEQUENCE_LENGTH 4
 #define DNA_MUTATION_BLOCKS 8
 #define DNA_UNIQUE_ENZYMES_LEN 32
+
+//Features - No more magic strings
+//These can't just simply use dna block paths like identities, because there's keys that aren't tied to blocks
+
+// Block tied
+#define FEATURE_MUTANT_COLOR "mcolor"
+#define FEATURE_ETHEREAL_COLOR "ethcolor"
+#define FEATURE_EARS "ears"
+#define FEATURE_TAIL "tail_cat"
+#define FEATURE_TAIL_LIZARD "tail_lizard"
+#define FEATURE_SNOUT "snout"
+#define FEATURE_LIZARD_MARKINGS "marking_lizard"
+#define FEATURE_HORNS "horns"
+#define FEATURE_FRILLS "frills"
+#define FEATURE_SPINES "spines"
+#define FEATURE_MOTH_WINGS "moth_wings"
+#define FEATURE_MOTH_ANTENNAE "moth_antennae"
+#define FEATURE_MOTH_MARKINGS "moth_markings"
+//Beestation-specific
+#define FEATURE_BODY_SIZE "body_size"
+
+// Other
+#define FEATURE_WINGS "wings"
+#define FEATURE_TAIL_MONKEY "tail_monkey"
+#define FEATURE_TAILSPINES "tailspines" // Different from regular spines, these appear on tails
+#define FEATURE_LEGS "legs"
 
 //Transformation proc stuff
 #define TR_KEEPITEMS	(1<<0)

@@ -54,7 +54,7 @@
 	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
 		BP.should_draw_greyscale = !!type_selection.color_src
 		if(BP.should_draw_greyscale)
-			BP.species_color = C.dna?.features["mcolor"]
+			BP.species_color = C.dna?.features[FEATURE_MUTANT_COLOR]
 		else
 			BP.species_color = null
 

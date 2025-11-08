@@ -1040,16 +1040,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			to_chat(user, span_danger("Your appearance morphs to that of a very small humanoid ash dragon! You get to look like a freak without the cool abilities."))
 			H.dna.features = list(
 				"body_size" = "Normal",
-				"mcolor" = "#A02720",
-				"tail_lizard" = "Dark Tiger",
-				"tail_human" = "None",
-				"snout" = "Sharp",
-				"horns" = "Curled",
-				"ears" = "None",
-				"frills" = "None",
-				"spines" = "Long",
-				"lizard_markings" = "Dark Tiger Body",
-				"legs" = DIGITIGRADE_LEGS,
+				FEATURE_MUTANT_COLOR = "#A02720",
+				FEATURE_TAIL_LIZARD = "Dark Tiger",
+				FEATURE_TAIL = "None",
+				FEATURE_SNOUT = "Sharp",
+				FEATURE_HORNS = "Curled",
+				FEATURE_EARS = "None",
+				FEATURE_WINGS = "None",
+				FEATURE_FRILLS = "None",
+				FEATURE_SPINES = "Long",
+				FEATURE_LIZARD_MARKINGS = "Dark Tiger Body",
+				FEATURE_LEGS = DIGITIGRADE_LEGS,
 			)
 			H.eye_color = "#FEE5A3"
 			H.set_species(/datum/species/lizard)

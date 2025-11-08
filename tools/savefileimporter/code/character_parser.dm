@@ -52,7 +52,7 @@ var/global/list/custom_name_types = list(
 
 		var/list/features = list()
 		READ_FILE_EXVAR(S["body_size"], features["body_size"])
-		READ_FILE_EXVAR(S["feature_mcolor"], features["mcolor"])
+		READ_FILE_EXVAR(S["feature_mcolor"], features[FEATURE_MUTANT_COLOR])
 		READ_FILE_EXVAR(S["feature_ethcolor"], features["ethcolor"])
 		READ_FILE_EXVAR(S["feature_lizard_tail"], features["tail_lizard"])
 		READ_FILE_EXVAR(S["feature_lizard_snout"], features["snout"])

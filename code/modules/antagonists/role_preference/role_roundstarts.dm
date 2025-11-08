@@ -53,9 +53,9 @@
 	r_hand = /obj/item/melee/arm_blade
 
 /datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.dna.features["mcolor"] = "#8be18b"
-	H.dna.features["horns"] = "Short"
-	H.dna.features["frills"] = "Simple"
+	H.dna.features[FEATURE_MUTANT_COLOR] = "#8be18b"
+	H.dna.features[FEATURE_SNOUT] = "Short"
+	H.dna.features[FEATURE_FRILLS] = "Simple"
 	H.set_species(/datum/species/lizard)
 
 /datum/role_preference/roundstart/blood_brother
@@ -72,9 +72,9 @@
 	brother1.hair_color = "#553322"
 	brother1.update_body_parts()
 
-	brother2.dna.features["moth_antennae"] = "Plain"
-	brother2.dna.features["moth_markings"] = "None"
-	brother2.dna.features["moth_wings"] = "Plain"
+	brother2.dna.features[FEATURE_MOTH_ANTENNAE] = "Plain"
+	brother2.dna.features[FEATURE_MOTH_MARKINGS] = "None"
+	brother2.dna.features[FEATURE_MOTH_WINGS] = "Plain"
 	brother2.set_species(/datum/species/moth)
 
 	var/icon/brother1_icon = render_preview_outfit(/datum/outfit/job/quartermaster, brother1)
@@ -147,7 +147,7 @@
 	l_hand = /obj/item/shield/mirror
 
 /datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.eye_color = BLOODCULT_EYE
+	H.set_eye_color(BLOODCULT_EYE)
 	H.update_body()
 
 /datum/role_preference/roundstart/clock_cultist

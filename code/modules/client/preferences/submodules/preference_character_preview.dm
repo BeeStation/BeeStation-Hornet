@@ -17,7 +17,7 @@
 	// Set up the dummy for its photoshoot
 	apply_prefs_to(mannequin, TRUE, log = FALSE)
 	// Normalize size, since it doesn't scale properly in the preview.
-	mannequin.dna.features["body_size"] = "Normal"
+	mannequin.dna.features[FEATURE_BODY_SIZE] = "Normal"
 	mannequin.dna.update_body_size()
 
 	if(preview_job)

@@ -55,7 +55,7 @@
 	return final_icon
 
 /datum/preference/choiced/lizard_body_markings/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["lizard_markings"] = value
+	target.dna.features[FEATURE_LIZARD_MARKINGS] = value
 
 /datum/preference/choiced/lizard_frills
 	db_key = "feature_lizard_frills"
@@ -72,7 +72,7 @@
 	return generate_lizard_side_shot(SSaccessories.frills_list[value], "frills")
 
 /datum/preference/choiced/lizard_frills/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["frills"] = value
+	target.dna.features[FEATURE_FRILLS] = value
 
 /datum/preference/choiced/lizard_horns
 	db_key = "feature_lizard_horns"
@@ -89,7 +89,7 @@
 	return generate_lizard_side_shot(SSaccessories.horns_list[value], "horns")
 
 /datum/preference/choiced/lizard_horns/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["horns"] = value
+	target.dna.features[FEATURE_HORNS] = value
 
 /datum/preference/choiced/lizard_legs
 	db_key = "feature_lizard_legs"
@@ -100,7 +100,7 @@
 	return list(NORMAL_LEGS, DIGITIGRADE_LEGS)
 
 /datum/preference/choiced/lizard_legs/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["legs"] = value
+	target.dna.features[FEATURE_LEGS] = value
 	// Hack to update the dummy in the preference menu
 	// (Because digi legs are ONLY handled on species change)
 	if(!isdummy(target) || target.dna.species.digitigrade_customization == DIGITIGRADE_NEVER)
@@ -145,7 +145,7 @@
 	return generate_lizard_side_shot(SSaccessories.snouts_list[value], "snout", include_snout = FALSE)
 
 /datum/preference/choiced/lizard_snout/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["snout"] = value
+	target.dna.features[FEATURE_SNOUT] = value
 
 /datum/preference/choiced/lizard_spines
 	db_key = "feature_lizard_spines"
@@ -162,7 +162,7 @@
 	return generate_lizard_body_shot(SSaccessories.spines_list[value], "spines")
 
 /datum/preference/choiced/lizard_spines/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["spines"] = value
+	target.dna.features[FEATURE_SPINES] = value
 
 /datum/preference/choiced/lizard_tail
 	db_key = "feature_lizard_tail"
@@ -181,7 +181,7 @@
 	return generate_lizard_body_shot(SSaccessories.tails_list_lizard[value], "tail")
 
 /datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["tail_lizard"] = value
+	target.dna.features[FEATURE_TAIL_LIZARD] = value
 
 /datum/preference/choiced/lizard_tail/create_default_value()
 	return /datum/sprite_accessory/tails/lizard/smooth::name

@@ -149,7 +149,7 @@
 	if(ishuman(current))
 		var/mob/living/carbon/human/H = current
 		H.eye_color = initial(H.eye_color)
-		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+		H.dna.update_ui_block(/datum/dna_block/identity/eye_colors)
 		REMOVE_TRAIT(H, CULT_EYES, null)
 		if (H.remove_overlay(HALO_LAYER))
 			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
@@ -332,8 +332,8 @@
 /datum/team/cult/proc/rise(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		H.eye_color = "#ff0000"
-		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+		H.eye_color = BLOODCULT_EYE
+		H.dna.update_ui_block(/datum/dna_block/identity/eye_colors)
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()
 
