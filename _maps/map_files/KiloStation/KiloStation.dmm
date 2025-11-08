@@ -49275,7 +49275,6 @@
 /area/crew_quarters/kitchen)
 "ocg" = (
 /obj/structure/table/reinforced,
-/obj/item/wrench,
 /obj/item/transfer_valve{
 	pixel_x = -4
 	},
@@ -69950,6 +69949,7 @@
 	},
 /obj/item/analyzer,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/item/wrench,
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "uLN" = (
@@ -73562,11 +73562,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "vQY" = (
-/obj/structure/tank_dispenser,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/radiation,
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "vRk" = (
@@ -79732,21 +79732,12 @@
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
 "xGo" = (
-/obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/book/manual/wiki/toxins{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/clothing/mask/gas{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/tank_dispenser,
 /turf/open/floor/iron/dark,
 /area/science/mixing)
 "xGy" = (

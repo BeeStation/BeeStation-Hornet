@@ -24953,7 +24953,6 @@
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "dtm" = (
-/obj/structure/closet/bombcloset,
 /obj/machinery/light_switch{
 	pixel_x = 26;
 	pixel_y = 26
@@ -24961,6 +24960,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/structure/closet/radiation,
 /turf/open/floor/iron,
 /area/science/mixing)
 "dtq" = (
@@ -48020,6 +48020,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"jLO" = (
+/obj/machinery/light/small,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/firecloset,
+/turf/open/floor/iron,
+/area/science/research)
 "jLZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -126682,7 +126688,7 @@ gPv
 dlz
 rKb
 qgH
-xOo
+jLO
 drT
 dtm
 kLu

@@ -34793,7 +34793,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "iFW" = (
-/obj/structure/closet/bombcloset,
 /obj/machinery/power/apc{
 	areastring = "/area/science/mixing";
 	dir = 4;
@@ -34803,6 +34802,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/structure/closet/radiation,
 /turf/open/floor/iron,
 /area/science/mixing)
 "iFX" = (

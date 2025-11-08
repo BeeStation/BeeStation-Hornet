@@ -4438,8 +4438,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
-/obj/structure/tank_dispenser,
-/turf/open/floor/iron,
+/obj/structure/closet/radiation,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
 /area/science/mixing)
 "bsk" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -13279,6 +13280,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/disposal/bin{
+	pixel_y = 2
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -14749,7 +14757,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 5
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/science/mixing)
@@ -22622,14 +22630,9 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "hhY" = (
+/obj/structure/tank_dispenser,
 /obj/effect/turf_decal/bot,
-/obj/machinery/disposal/bin{
-	pixel_y = 2
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/dark,
 /area/science/mixing)
 "hia" = (
 /obj/docking_port/stationary{
@@ -48165,6 +48168,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},

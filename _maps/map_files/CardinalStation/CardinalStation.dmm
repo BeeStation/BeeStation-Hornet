@@ -23802,10 +23802,10 @@
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_smes)
 "eTm" = (
-/obj/structure/closet/bombcloset,
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/camera/directional/south,
+/obj/structure/closet/radiation,
 /turf/open/floor/iron/white,
 /area/science/research)
 "eTt" = (

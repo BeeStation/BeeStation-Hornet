@@ -33687,6 +33687,11 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/science/robotics/lab)
+"iBI" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/radiation,
+/turf/open/floor/iron/grid/steel,
+/area/science/mixing)
 "iBQ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -135094,7 +135099,7 @@ xSV
 rzq
 kLc
 qLE
-wDv
+iBI
 dHi
 ape
 gMU
