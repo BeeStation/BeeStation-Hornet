@@ -3241,6 +3241,18 @@
 	crate_name = "standard costume crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
+/datum/supply_pack/costumes_toys/pinata
+	name = "Corgi Pinata Kit"
+	desc = "This crate contains a pinata full of candy, a blindfold and a bat for smashing it."
+	cost = 4000
+	contains = list(
+		/obj/item/pinata,
+		/obj/item/melee/baseball_bat,
+		/obj/item/clothing/glasses/blindfold,
+	)
+	crate_name = "corgi pinata kit"
+	crate_type = /obj/structure/closet/crate/wooden
+
 /datum/supply_pack/costumes_toys/randomised/toys
 	name = "Toy Crate"
 	desc = "Who cares about pride and accomplishment? Skip the gaming and get straight to the sweet rewards with this product! Contains five random toys. Warranty void if used to prank research directors."

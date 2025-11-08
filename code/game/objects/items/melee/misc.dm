@@ -804,7 +804,11 @@
 /obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
 	if(!ovens)
-		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+		ovens = typecacheof(list(
+			/obj/anomaly,
+			/obj/machinery/power/supermatter_crystal,
+			/obj/structure/bonfire,
+		))
 	AddComponent( \
 		/datum/component/transforming, \
 		hitsound_on = hitsound, \

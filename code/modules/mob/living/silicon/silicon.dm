@@ -507,3 +507,22 @@
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
 	modularInterface.saved_identification = newname
+
+/mob/living/silicon/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	. = FALSE
+
+	var/robot_is_damaged = getBruteLoss()
+
+	if (!robot_is_damaged)
+		balloon_alert(user, "[src] is not damaged!")
+		return
+
+	user.visible_message(span_notice("[user] begins repairing [src] with [tape]."), span_notice("You begin repairing [src] with [tape]."))
+	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
+
+	if (!do_after(user, 3 SECONDS, target = src))
+		return
+
+	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
+	adjustBruteLoss(-tape.object_repair_value)
+	return TRUE
