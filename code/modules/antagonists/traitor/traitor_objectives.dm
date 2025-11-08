@@ -49,8 +49,8 @@
 			escape_objective.owner = owner
 			add_objective(escape_objective)
 			*/
-	// Finally, set up our traitor's backstory!
-	setup_backstories(TRUE, TRUE)
+	// Finally, set up our traitor's backstory, with murderbone options of course!
+	setup_backstories(TRUE)
 
 #undef OBJECTIVE_HIJACK
 #undef OBJECTIVE_ROMEROL

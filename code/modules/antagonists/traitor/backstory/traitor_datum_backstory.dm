@@ -6,22 +6,15 @@
 	/// The actual backstory for this traitor. Can be null.
 	var/datum/traitor_backstory/backstory
 
-/datum/antagonist/traitor/proc/setup_backstories(murderbone, hijack)
+/datum/antagonist/traitor/proc/setup_backstories(murderbone)
 	allowed_backstories = list()
 	recommended_backstories = list()
 	for(var/datum/traitor_backstory/path as anything in subtypesof(/datum/traitor_backstory))
 		var/datum/traitor_backstory/backstory = GLOB.traitor_backstories["[path]"]
 		if(!istype(backstory))
 			continue
-		if(!murderbone)
-			allowed_backstories += "[path]"
-			if(hijack && backstory.murderbone)
-				recommended_backstories += "[path]"
-			continue
-		if(backstory.has_motivation(TRAITOR_MOTIVATION_FORCED))
-			continue
 		allowed_backstories += "[path]"
-		if(backstory.murderbone)
+		if(murderbone && backstory.murderbone)
 			recommended_backstories += "[path]"
 
 	add_menu_action()
