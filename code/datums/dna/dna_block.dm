@@ -16,8 +16,8 @@
 /// `create_unique_block`, don't override this.
 /datum/dna_block/proc/unique_block(mob/living/carbon/human/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	if(!ishuman(target))
-		CRASH("Non-human mobs shouldn't have DNA")
+	if(!iscarbon(target))
+		CRASH("Non-carbon mobs shouldn't have DNA")
 	return create_unique_block(target)
 
 /// Actually creates the unique block from the inputted target.
@@ -56,12 +56,14 @@
 
 /// Blocks for unique identities (skin tones, hair style, and gender)
 /datum/dna_block/identity
+	abstract_type = /datum/dna_block/identity
 
 /datum/dna_block/identity/position_in_hash()
 	return GLOB.total_ui_len_by_block[type]
 
 /// Blocks for unique features (mutant color, mutant bodyparts)
 /datum/dna_block/feature
+	abstract_type = /datum/dna_block/feature
 	/// The feature key this block ties in to.
 	var/feature_key = null
 

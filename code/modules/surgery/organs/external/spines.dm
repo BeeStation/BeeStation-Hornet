@@ -9,7 +9,7 @@
 
 	preference = "feature_lizard_spines"
 
-	dna_block = /datum/dna_block/feature/spine
+	dna_block = /datum/dna_block/feature/accessory/spine
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/spines
@@ -32,9 +32,6 @@
 /datum/bodypart_overlay/mutant/spines
 	layers = EXTERNAL_ADJACENT|EXTERNAL_BEHIND
 	feature_key = FEATURE_SPINES
-
-/datum/bodypart_overlay/mutant/spines/get_global_feature_list()
-	return SSaccessories.spines_list
 
 /datum/bodypart_overlay/mutant/spines/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner

@@ -5,7 +5,7 @@
 	/// What heading to display this entry under in the preferences menu. Use ROLE_PREFERENCE_CATEGORY defines.
 	var/category
 	/// The base abstract path for this subtype.
-	var/abstract_type = /datum/role_preference
+	abstract_type = /datum/role_preference
 	/// The Antagonist datum typepath for this entry, if there is one. Used to get data about the role for display (bans etc)
 	var/datum/antagonist/antag_datum
 	/// If this preference can vary between characters.

@@ -27,7 +27,7 @@
 	/// Whether or not this trait can be reverted by an admin
 	var/can_revert = TRUE
 	/// Trait should not be instantiated in a round if its type matches this type
-	var/abstract_type = /datum/station_trait
+	abstract_type = /datum/station_trait
 
 /datum/station_trait/New()
 	. = ..()

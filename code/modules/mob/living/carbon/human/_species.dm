@@ -640,15 +640,15 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/obj/item/bodypart/head/noggin = source.get_bodypart(BODY_ZONE_HEAD)
 
 	if(mutant_bodyparts["ipc_screen"])
-		if(!source.dna.features["ipc_screen"] || source.dna.features["ipc_screen"] == "None" || (source.head && (source.head.flags_inv & HIDEEYES)) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || !noggin)
+		if(!source.dna.features[FEATURE_IPC_SCREEN] || source.dna.features[FEATURE_IPC_SCREEN] == "None" || (source.head && (source.head.flags_inv & HIDEEYES)) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || !noggin)
 			bodyparts_to_add -= "ipc_screen"
 
 	if(mutant_bodyparts["ipc_antenna"])
-		if(!source.dna.features["ipc_antenna"] || source.dna.features["ipc_antenna"] == "None" || (source.head?.flags_inv & HIDEEARS) || !noggin)
+		if(!source.dna.features[FEATURE_IPC_ANTENNA] || source.dna.features[FEATURE_IPC_ANTENNA] == "None" || (source.head?.flags_inv & HIDEEARS) || !noggin)
 			bodyparts_to_add -= "ipc_antenna"
 
 	if(mutant_bodyparts["apid_antenna"])
-		if(!source.dna.features["apid_antenna"] || source.dna.features["apid_antenna"] == "None" || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
+		if(!source.dna.features[FEATURE_APID_ANTENNA] || source.dna.features[FEATURE_APID_ANTENNA] == "None" || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
 			bodyparts_to_add -= "apid_antenna"
 
 	if(mutant_bodyparts["apid_headstripe"])
@@ -656,39 +656,39 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			bodyparts_to_add -= "apid_headstripe"
 
 	if(mutant_bodyparts["psyphoza_cap"])
-		if(!source.dna.features["psyphoza_cap"] || source.dna.features["psyphoza_cap"] == "None" || !noggin)
+		if(!source.dna.features[FEATURE_PSYPHOZA_CAP] || source.dna.features[FEATURE_PSYPHOZA_CAP] == "None" || !noggin)
 			bodyparts_to_add -= "psyphoza_cap"
 
 	if(mutant_bodyparts["diona_leaves"])
-		if(!source.dna.features["diona_leaves"] || source.dna.features["diona_leaves"] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+		if(!source.dna.features[FEATURE_DIONA_LEAVES] || source.dna.features[FEATURE_DIONA_LEAVES] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_leaves"
 
 	if(mutant_bodyparts["diona_thorns"])
-		if(!source.dna.features["diona_thorns"] || source.dna.features["diona_thorns"] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+		if(!source.dna.features[FEATURE_DIONA_THORNS] || source.dna.features[FEATURE_DIONA_THORNS] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_thorns"
 
 	if(mutant_bodyparts["diona_flowers"])
-		if(!source.dna.features["diona_flowers"] || source.dna.features["diona_flowers"] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+		if(!source.dna.features[FEATURE_DIONA_FLOWERS] || source.dna.features[FEATURE_DIONA_FLOWERS] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_flowers"
 
 	if(mutant_bodyparts["diona_moss"])
-		if(!source.dna.features["diona_moss"] || source.dna.features["diona_moss"] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+		if(!source.dna.features[FEATURE_DIONA_MOSS] || source.dna.features[FEATURE_DIONA_MOSS] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_moss"
 
 	if(mutant_bodyparts["diona_mushroom"])
-		if(!source.dna.features["diona_mushroom"] || source.dna.features["diona_mushroom"] == "None" || !noggin)
+		if(!source.dna.features[FEATURE_DIONA_MUSHROOM] || source.dna.features[FEATURE_DIONA_MUSHROOM] == "None" || !noggin)
 			bodyparts_to_add -= "diona_mushroom"
 
 	if(mutant_bodyparts["diona_antennae"])
-		if(!source.dna.features["diona_antennae"] || source.dna.features["diona_antennae"] == "None" || !noggin)
+		if(!source.dna.features[FEATURE_DIONA_ANTENNAE] || source.dna.features[FEATURE_DIONA_ANTENNAE] == "None" || !noggin)
 			bodyparts_to_add -= "diona_antennae"
 
 	if(mutant_bodyparts["diona_eyes"])
-		if(!source.dna.features["diona_eyes"] || source.dna.features["diona_eyes"] == "None" || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
+		if(!source.dna.features[FEATURE_DIONA_EYES] || source.dna.features[FEATURE_DIONA_EYES] == "None" || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)) || source.head && (source.head.flags_inv & HIDEHAIR) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEHAIR)) || !noggin)
 			bodyparts_to_add -= "diona_eyes"
 
 	if(mutant_bodyparts["diona_pbody"])
-		if(!source.dna.features["diona_pbody"] || source.dna.features["diona_pbody"] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
+		if(!source.dna.features[FEATURE_DIONA_PBODY] || source.dna.features[FEATURE_DIONA_PBODY] == "None" || (source.wear_suit && (source.wear_suit.flags_inv & HIDEJUMPSUIT) && (!source.wear_suit.species_exception || !is_type_in_list(src, source.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_pbody"
 
 	if(!bodyparts_to_add)
@@ -703,37 +703,37 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			var/datum/sprite_accessory/accessory
 			switch(bodypart)
 				if("ipc_screen")
-					accessory = SSaccessories.ipc_screens_list[source.dna.features["ipc_screen"]]
+					accessory = SSaccessories.feature_list[FEATURE_IPC_SCREEN][source.dna.features[FEATURE_IPC_SCREEN]]
 				if("ipc_antenna")
-					accessory = SSaccessories.ipc_antennas_list[source.dna.features["ipc_antenna"]]
+					accessory = SSaccessories.feature_list[FEATURE_IPC_ANTENNA][source.dna.features[FEATURE_IPC_ANTENNA]]
 				if("ipc_chassis")
-					accessory = SSaccessories.ipc_chassis_list[source.dna.features["ipc_chassis"]]
+					accessory = SSaccessories.feature_list[FEATURE_IPC_CHASSIS][source.dna.features[FEATURE_IPC_CHASSIS]]
 				if("insect_type")
-					accessory = SSaccessories.insect_type_list[source.dna.features["insect_type"]]
+					accessory = SSaccessories.feature_list[FEATURE_INSECT_TYPE][source.dna.features[FEATURE_INSECT_TYPE]]
 				if("apid_antenna")
-					accessory = SSaccessories.apid_antenna_list[source.dna.features["apid_antenna"]]
+					accessory = SSaccessories.feature_list[FEATURE_APID_ANTENNA][source.dna.features[FEATURE_APID_ANTENNA]]
 				if("apid_stripes")
-					accessory = SSaccessories.apid_stripes_list[source.dna.features["apid_stripes"]]
+					accessory = SSaccessories.feature_list[FEATURE_APID_STRIPES][source.dna.features[FEATURE_APID_STRIPES]]
 				if("apid_headstripes")
-					accessory = SSaccessories.apid_headstripes_list[source.dna.features["apid_headstripes"]]
+					accessory = SSaccessories.feature_list[FEATURE_APID_HEADSTRIPES][source.dna.features[FEATURE_APID_HEADSTRIPES]]
 				if("psyphoza_cap")
-					accessory = SSaccessories.psyphoza_cap_list[source.dna.features["psyphoza_cap"]]
+					accessory = SSaccessories.feature_list[FEATURE_PSYPHOZA_CAP][source.dna.features[FEATURE_PSYPHOZA_CAP]]
 				if("diona_leaves")
-					accessory = SSaccessories.diona_leaves_list[source.dna.features["diona_leaves"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_LEAVES][source.dna.features[FEATURE_DIONA_LEAVES]]
 				if("diona_thorns")
-					accessory = SSaccessories.diona_thorns_list[source.dna.features["diona_thorns"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_THORNS][source.dna.features[FEATURE_DIONA_THORNS]]
 				if("diona_flowers")
-					accessory = SSaccessories.diona_flowers_list[source.dna.features["diona_flowers"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_FLOWERS][source.dna.features[FEATURE_DIONA_FLOWERS]]
 				if("diona_moss")
-					accessory = SSaccessories.diona_moss_list[source.dna.features["diona_moss"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_MOSS][source.dna.features[FEATURE_DIONA_MOSS]]
 				if("diona_mushroom")
-					accessory = SSaccessories.diona_mushroom_list[source.dna.features["diona_mushroom"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_MUSHROOM][source.dna.features[FEATURE_DIONA_MUSHROOM]]
 				if("diona_antennae")
-					accessory = SSaccessories.diona_antennae_list[source.dna.features["diona_antennae"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_ANTENNAE][source.dna.features[FEATURE_DIONA_ANTENNAE]]
 				if("diona_eyes")
-					accessory = SSaccessories.diona_eyes_list[source.dna.features["diona_eyes"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_EYES][source.dna.features[FEATURE_DIONA_EYES]]
 				if("diona_pbody")
-					accessory = SSaccessories.diona_pbody_list[source.dna.features["diona_pbody"]]
+					accessory = SSaccessories.feature_list[FEATURE_DIONA_PBODY][source.dna.features[FEATURE_DIONA_PBODY]]
 
 
 			if(!accessory || accessory.icon_state == "none")
@@ -777,13 +777,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	source.apply_overlay(BODY_FRONT_LAYER)
 
 	if(mutant_bodyparts["ipc_screen"] && noggin)
-		if(!source.dna.features["ipc_screen"] || source.dna.features["ipc_screen"] == "None")
+		if(!source.dna.features[FEATURE_IPC_SCREEN] || source.dna.features[FEATURE_IPC_SCREEN] == "None")
 			// Sanity check
 		else if((source.head && (source.head.flags_inv & HIDEEYES)) || (source.wear_mask && (source.wear_mask.flags_inv & HIDEEYES)))
 			// Blocked, skip
 		else
 			// Snowflake, im sorry. We should eventually make this its own mutant organ
-			var/datum/sprite_accessory/screen_accessory = SSaccessories.ipc_screens_list[source.dna.features["ipc_screen"]]
+			var/datum/sprite_accessory/screen_accessory = SSaccessories.feature_list[FEATURE_IPC_SCREEN][source.dna.features[FEATURE_IPC_SCREEN]]
 			if(screen_accessory?.emissive_state)
 				var/emissive_layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_ADJ_LAYER)
 				var/mutable_appearance/ipc_screen_emissive = emissive_appearance(screen_accessory.icon, screen_accessory.emissive_state, layer = emissive_layer, alpha = screen_accessory.emissive_alpha, filters = source.filters)
@@ -2015,7 +2015,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
 			|| (preference.relevant_inherent_trait in inherent_traits) \
-			|| (preference.relevant_external_organ in mutant_organs) \
+			|| (preference.relevant_organ in mutant_organs) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 			|| (preference.relevant_body_markings in body_markings) \
 		)

@@ -25,7 +25,7 @@
 		var/mob/living/carbon/human/target_human = carbon_being
 
 		//Force ears/tails for felinids
-		target_human.dna.features[FEATURE_TAIL] = "Cat"
+		target_human.dna.features[FEATURE_TAIL_CAT] = "Cat"
 		target_human.dna.features[FEATURE_EARS] = "Cat"
 
 		var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features[FEATURE_EARS])
@@ -51,7 +51,7 @@
 /datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
 	var/list/features = ..()
 	features[FEATURE_EARS] = "Cat"
-	features[FEATURE_TAIL] = "Cat"
+	features[FEATURE_TAIL_CAT] = "Cat"
 	return features
 
 /proc/mass_purrbation()

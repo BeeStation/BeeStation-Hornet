@@ -1717,11 +1717,7 @@
 	icon_state = "short"
 	spine_key = NONE
 
-/datum/sprite_accessory/tails/human/none
-	name = "None"
-	icon_state = "none"
-
-/datum/sprite_accessory/tails/human/cat
+/datum/sprite_accessory/tails/felinid/cat
 	name = "Cat"
 	icon = 'icons/mob/cat_features.dmi'
 	icon_state = "default"

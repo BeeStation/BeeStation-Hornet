@@ -1,16 +1,14 @@
-/datum/preference/choiced/apid_stripes
+/datum/preference/choiced/species_feature/apid_stripes
 	db_key = "feature_apid_stripes"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Stripe Pattern"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "apid_stripes"
+	feature_key = FEATURE_APID_STRIPES
 
-/datum/preference/choiced/apid_stripes/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.apid_stripes_list)
-
-/datum/preference/choiced/apid_stripes/icon_for(value)
-	var/datum/sprite_accessory/stripe = SSaccessories.apid_stripes_list[value]
+/datum/preference/choiced/species_feature/apid_stripes/icon_for(value)
+	var/datum/sprite_accessory/stripe = get_accessory_for_value(value)
 
 	var/datum/universal_icon/icon_with_stripes = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_chest_m", dir = SOUTH)
 	if (stripe.icon_state != "none")
@@ -24,27 +22,22 @@
 
 	return icon_with_stripes
 
-/datum/preference/choiced/apid_stripes/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["apid_stripes"] = value
-
-/datum/preference/choiced/apid_antenna
+/datum/preference/choiced/species_feature/apid_antenna
 	db_key = "feature_apid_antenna"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antennae Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "apid_antenna"
+	feature_key = FEATURE_APID_ANTENNA
 
-/datum/preference/choiced/apid_antenna/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.apid_antenna_list)
-
-/datum/preference/choiced/apid_antenna/icon_for(value)
+/datum/preference/choiced/species_feature/apid_antenna/icon_for(value)
 	var/static/datum/universal_icon/apid_head
 
 	if (isnull(apid_head))
 		apid_head = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 
-	var/datum/sprite_accessory/antenna = SSaccessories.apid_antenna_list[value]
+	var/datum/sprite_accessory/antenna = get_accessory_for_value(value)
 
 	var/datum/universal_icon/icon_with_antennae = apid_head.copy()
 	if (antenna.icon_state != "none")
@@ -56,27 +49,22 @@
 
 	return icon_with_antennae
 
-/datum/preference/choiced/apid_antenna/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["apid_antenna"] = value
-
-/datum/preference/choiced/apid_headstripes
+/datum/preference/choiced/species_feature/apid_headstripes
 	db_key = "feature_apid_headstripes"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Headstripe Pattern"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "apid_headstripes"
+	feature_key = FEATURE_APID_HEADSTRIPES
 
-/datum/preference/choiced/apid_headstripes/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.apid_headstripes_list)
-
-/datum/preference/choiced/apid_headstripes/icon_for(value)
+/datum/preference/choiced/species_feature/apid_headstripes/icon_for(value)
 	var/static/datum/universal_icon/apid_head
 
 	if (isnull(apid_head))
 		apid_head = uni_icon('icons/mob/species/apid/bodyparts.dmi', "apid_head_m", dir = SOUTH)
 
-	var/datum/sprite_accessory/headstripe = SSaccessories.apid_headstripes_list[value]
+	var/datum/sprite_accessory/headstripe = get_accessory_for_value(value)
 
 	var/datum/universal_icon/icon_with_headstripes = apid_head.copy()
 	if (headstripe.icon_state != "none")
@@ -87,6 +75,3 @@
 	icon_with_headstripes.crop(15, 64 - 31, 15 + 31, 64)
 
 	return icon_with_headstripes
-
-/datum/preference/choiced/apid_headstripes/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["apid_headstripes"] = value

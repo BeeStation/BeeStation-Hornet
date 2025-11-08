@@ -163,44 +163,17 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 /mob/living/carbon/human/dummy/remove_from_alive_mob_list()
 	return
 
-/*
 /// Takes in an accessory list and returns the first entry from that list, ensuring that we dont return SPRITE_ACCESSORY_NONE in the process.
 /proc/get_consistent_feature_entry(list/accessory_feature_list)
 	var/consistent_entry = (accessory_feature_list- SPRITE_ACCESSORY_NONE)[1]
 	ASSERT(!isnull(consistent_entry))
 	return consistent_entry
-*/
 
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features[FEATURE_MUTANT_COLOR] = COLOR_VIBRANT_LIME
 	target.dna.features[FEATURE_ETHEREAL_COLOR] = COLOR_WHITE
-	target.dna.features[FEATURE_LIZARD_MARKINGS] = "None"
-	target.dna.features[FEATURE_EARS] = "None"
-	target.dna.features[FEATURE_FRILLS] = "None"
-	target.dna.features[FEATURE_HORNS] = "None"
-	target.dna.features[FEATURE_MOTH_ANTENNAE] = "Plain"
-	target.dna.features[FEATURE_MOTH_MARKINGS] = "None"
-	target.dna.features[FEATURE_MOTH_WINGS] = "Plain"
-	target.dna.features[FEATURE_SNOUT] = "Round"
-	target.dna.features[FEATURE_SPINES] = "None"
-	target.dna.features[FEATURE_TAIL] = "Cat" // it's a lie
-	target.dna.features[FEATURE_TAIL_LIZARD] = "Smooth"
-	target.dna.features["apid_stripes"] = "thick"
-	target.dna.features["apid_headstripes"] = "thick"
-	target.dna.features["apid_antenna"] = "curled"
-	target.dna.features["insect_type"] = "fly"
-	target.dna.features["ipc_screen"] = "BSOD"
-	target.dna.features["ipc_antenna"] = "None"
-	target.dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
-	target.dna.features["psyphoza_cap"] = "Portobello"
-	target.dna.features["diona_leaves"] = "None"
-	target.dna.features["diona_thorns"] = "None"
-	target.dna.features["diona_flowers"] = "None"
-	target.dna.features["diona_moss"] = "None"
-	target.dna.features["diona_mushroom"] = "None"
-	target.dna.features["diona_antennae"] = "None"
-	target.dna.features["diona_eyes"] = "None"
-	target.dna.features["diona_pbody"] = "None"
+	for(var/feature_key in SSaccessories.feature_list)
+		target.dna.features[feature_key] = get_consistent_feature_entry(SSaccessories.feature_list[feature_key])
 	target.dna.initialize_dna(create_mutation_blocks = FALSE, randomize_features = FALSE)
 	// UF and UI are nondeterministic, even though the features are the same some blocks will randomize slightly
 	// In practice this doesn't matter, but this is for the sake of 100%(ish) consistency

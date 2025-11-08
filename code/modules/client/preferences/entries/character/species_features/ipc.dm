@@ -1,21 +1,19 @@
-/datum/preference/choiced/ipc_screen
+/datum/preference/choiced/species_feature/ipc_screen
 	db_key = "feature_ipc_screen"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Screen Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "ipc_screen"
+	feature_key = FEATURE_IPC_SCREEN
 
-/datum/preference/choiced/ipc_screen/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.ipc_screens_list)
-
-/datum/preference/choiced/ipc_screen/icon_for(value)
+/datum/preference/choiced/species_feature/ipc_screen/icon_for(value)
 	var/static/datum/universal_icon/ipc_head
 
 	if (isnull(ipc_head))
 		ipc_head = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
-	var/datum/sprite_accessory/screen = SSaccessories.ipc_screens_list[value]
+	var/datum/sprite_accessory/screen = get_accessory_for_value(value)
 	var/datum/universal_icon/icon_with_screen = ipc_head.copy()
 
 	if (value != FEATURE_NONE)
@@ -27,10 +25,7 @@
 
 	return icon_with_screen
 
-/datum/preference/choiced/ipc_screen/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ipc_screen"] = value
-
-/datum/preference/choiced/ipc_screen/compile_constant_data()
+/datum/preference/choiced/species_feature/ipc_screen/compile_constant_data()
 	var/list/data = ..()
 
 	data[SUPPLEMENTAL_FEATURE_KEY] = "feature_ipc_screen_color"
@@ -57,24 +52,22 @@
 /datum/preference/color/ipc_screen_color/create_default_value()
 	return "#ffffff"
 
-/datum/preference/choiced/ipc_antenna
+/datum/preference/choiced/species_feature/ipc_antenna
 	db_key = "feature_ipc_antenna"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antenna Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "ipc_antenna"
+	feature_key = FEATURE_IPC_ANTENNA
 
-/datum/preference/choiced/ipc_antenna/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.ipc_antennas_list)
-
-/datum/preference/choiced/ipc_antenna/icon_for(value)
+/datum/preference/choiced/species_feature/ipc_antenna/icon_for(value)
 	var/static/datum/universal_icon/ipc_head
 
 	if (isnull(ipc_head))
 		ipc_head = uni_icon('icons/mob/species/ipc/bodyparts.dmi', "mcgipc_head", dir = SOUTH)
 
-	var/datum/sprite_accessory/antenna = SSaccessories.ipc_antennas_list[value]
+	var/datum/sprite_accessory/antenna = get_accessory_for_value(value)
 	var/datum/universal_icon/icon_with_antennae = ipc_head.copy()
 
 	if (antenna.icon_state != "none")
@@ -88,10 +81,7 @@
 
 	return icon_with_antennae
 
-/datum/preference/choiced/ipc_antenna/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ipc_antenna"] = value
-
-/datum/preference/choiced/ipc_antenna/compile_constant_data()
+/datum/preference/choiced/species_feature/ipc_antenna/compile_constant_data()
 	var/list/data = ..()
 
 	data[SUPPLEMENTAL_FEATURE_KEY] = "feature_ipc_antenna_color"
@@ -113,18 +103,16 @@
 /datum/preference/color/ipc_antenna_color/create_default_value()
 	return "#222222"
 
-/datum/preference/choiced/ipc_chassis
+/datum/preference/choiced/species_feature/ipc_chassis
 	db_key = "feature_ipc_chassis"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Chassis Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "ipc_chassis"
+	feature_key = FEATURE_IPC_CHASSIS
 
-/datum/preference/choiced/ipc_chassis/init_possible_values()
-	return assoc_to_keys_features(SSaccessories.ipc_chassis_list)
-
-/datum/preference/choiced/ipc_chassis/icon_for(value)
+/datum/preference/choiced/species_feature/ipc_chassis/icon_for(value)
 	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD,
 		BODY_ZONE_CHEST,
@@ -136,13 +124,10 @@
 		BODY_ZONE_R_LEG,
 	)
 
-	var/datum/sprite_accessory/chassis = SSaccessories.ipc_chassis_list[value]
+	var/datum/sprite_accessory/chassis = get_accessory_for_value(value)
 	var/datum/universal_icon/icon_with_chassis = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	for (var/body_part in body_parts)
 		icon_with_chassis.blend_icon(uni_icon('icons/mob/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
 	return icon_with_chassis
-
-/datum/preference/choiced/ipc_chassis/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features["ipc_chassis"] = value
