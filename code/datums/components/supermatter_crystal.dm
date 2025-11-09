@@ -307,7 +307,7 @@
 	if(HAS_TRAIT(consumed_object, TRAIT_GODMODE))
 		return
 	var/obj/consumed_as_object = consumed_object
-	if (istype(consumed_as_object) && (consumed_as_object.obj_flags & INDESTRUCTIBLE))
+	if (istype(consumed_as_object) && (consumed_as_object.resistance_flags & INDESTRUCTIBLE))
 		return
 
 	var/atom/atom_source = source
