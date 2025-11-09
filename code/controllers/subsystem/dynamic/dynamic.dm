@@ -915,4 +915,6 @@ SUBSYSTEM_DEF(dynamic)
 		texts += "HEAVY"
 	return jointext(texts, " | ")
 
+#ifdef STORYTELLER_VERSION
 #undef STORYTELLER_VERSION
+#endif
