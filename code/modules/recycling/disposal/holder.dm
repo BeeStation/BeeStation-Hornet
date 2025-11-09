@@ -7,7 +7,6 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	dir = NONE
-
 	var/obj/structure/disposalpipe/last_pipe
 	var/obj/structure/disposalpipe/current_pipe
 	var/datum/gas_mixture/gas	// gas used to flush, will appear at exit point

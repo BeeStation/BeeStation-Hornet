@@ -1,3 +1,267 @@
+
+/*
+
+CONTAINS:
+T-RAY
+HEALTH ANALYZER
+GAS ANALYZER
+SLIME SCANNER
+NANITE SCANNER
+GENE SCANNER
+
+*/
+#define MODE_TRAY 1 //Normal mode, shows objects under floors
+#define MODE_BLUEPRINT 2 //Blueprint mode, shows how wires and pipes are by default
+
+/obj/item/t_scanner
+	name = "\improper T-ray scanner"
+	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
+	custom_price = 10
+	icon = 'icons/obj/device.dmi'
+	icon_state = "t-ray0"
+	var/on = FALSE
+	var/mode = MODE_TRAY
+	var/list/image/showing = list()
+	var/client/viewing
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	item_state = "electronic"
+	worn_icon_state = "electronic"
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	custom_materials = list(/datum/material/iron=150)
+
+/obj/item/t_scanner/suicide_act(mob/living/carbon/user)
+	user.visible_message(span_suicide("[user] begins to emit terahertz-rays into [user.p_their()] brain with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	return TOXLOSS
+
+/obj/item/t_scanner/proc/toggle_on()
+	on = !on
+	if(on)
+		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
+	update_appearance()
+
+/obj/item/t_scanner/proc/toggle_mode(mob/user)
+	if(mode == MODE_TRAY)
+		mode = MODE_BLUEPRINT
+		to_chat(user, span_notice("You switch the [src] to work in the 'blueprint' mode."))
+		if(on)
+			set_viewer(user)
+	else
+		to_chat(user, span_notice("You switch the [src] to work in the 'scanner' mode."))
+		mode = MODE_TRAY
+		clear_viewer(user)
+	update_appearance()
+
+/obj/item/t_scanner/update_icon_state()
+	if(on)
+		icon_state = copytext_char(icon_state, 1, -1) + "[mode]"
+	else
+		icon_state = copytext_char(icon_state, 1, -1) + "[on]"
+	return ..()
+
+/obj/item/t_scanner/AltClick(mob/user)
+	if(user.canUseTopic(src, BE_CLOSE))
+		toggle_mode(user)
+
+/obj/item/t_scanner/attack_self(mob/user)
+	toggle_on()
+
+/obj/item/t_scanner/cyborg_unequip(mob/user)
+	if(!on)
+		return
+	toggle_on()
+
+/obj/item/t_scanner/dropped(mob/user)
+	..()
+	clear_viewer(user)
+
+/obj/item/t_scanner/process()
+	if(!on)
+		STOP_PROCESSING(SSobj, src)
+		return null
+	if(mode == MODE_TRAY)
+		scan()
+	else
+		clear_viewer(loc)
+		set_viewer(loc)
+
+
+/obj/item/t_scanner/proc/scan()
+	t_ray_scan(loc)
+
+/proc/t_ray_scan(mob/viewer, flick_time = 16, distance = 3)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	var/list/t_ray_images = list()
+	for(var/obj/O in orange(distance, viewer) )
+		if(HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+			var/image/I = new(loc = get_turf(O))
+			var/mutable_appearance/MA = new(O)
+			MA.alpha = 128
+			MA.dir = O.dir
+			I.appearance = MA
+			t_ray_images += I
+	if(t_ray_images.len)
+		flick_overlay(t_ray_images, list(viewer.client), flick_time)
+
+/obj/item/t_scanner/proc/get_images(turf/T, viewsize)
+	. = list()
+	for(var/turf/TT in range(viewsize, T))
+		if(TT.blueprint_data)
+			. += TT.blueprint_data
+
+/obj/item/t_scanner/proc/set_viewer(mob/user)
+	if(!ismob(user) || !user.client)
+		return
+	if(user?.client)
+		if(viewing)
+			clear_viewer()
+		viewing = user.client
+		showing = get_images(get_turf(user), viewing.view)
+		viewing.images |= showing
+
+/obj/item/t_scanner/proc/clear_viewer(mob/user)
+	if(!ismob(user) || !user.client)
+		return
+	if(viewing)
+		viewing.images -= showing
+		viewing = null
+	showing.Cut()
+
+#undef MODE_TRAY //Normal mode, shows objects under floors
+#undef MODE_BLUEPRINT //Blueprint mode, shows how wires and pipes are by default
+
+/obj/item/nanite_scanner
+	name = "nanite scanner"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "nanite_scanner"
+	item_state = "nanite_remote"
+	worn_icon_state = "healthanalyzer"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	desc = "A hand-held body scanner able to detect nanites and their programming."
+	flags_1 = CONDUCT_1
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 3
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 3
+	throw_range = 7
+	custom_materials = list(/datum/material/iron=200)
+
+/obj/item/nanite_scanner/attack(mob/living/M, mob/living/carbon/human/user)
+	user.visible_message(span_notice("[user] analyzes [M]'s nanites."), \
+						span_notice("You analyze [M]'s nanites."))
+
+	add_fingerprint(user)
+
+	var/response = SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, TRUE)
+	if(!response)
+		to_chat(user, span_info("No nanites detected in the subject."))
+
+/obj/item/sequence_scanner
+	name = "genetic sequence scanner"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gene"
+	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	desc = "A hand-held scanner for analyzing someones gene sequence on the fly. Hold near a DNA console to update the internal database."
+	flags_1 = CONDUCT_1
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 3
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 3
+	throw_range = 7
+	custom_materials = list(/datum/material/iron=200)
+	var/list/discovered = list() //hit a dna console to update the scanners database
+	var/list/buffer
+	var/ready = TRUE
+	var/cooldown = 200
+
+/obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
+	add_fingerprint(user)
+	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
+		user.visible_message(span_notice("[user] analyzes [M]'s genetic sequence."), \
+							span_notice("You analyze [M]'s genetic sequence."))
+		gene_scan(M, user)
+		playsound(src, 'sound/effects/fastbeep.ogg', 20)
+
+	else
+		user.visible_message(span_notice("[user] failed to analyse [M]'s genetic sequence."), span_warning("[M] has no readable genetic sequence!"))
+
+/obj/item/sequence_scanner/attack_self(mob/user)
+	display_sequence(user)
+
+/obj/item/sequence_scanner/attack_self_tk(mob/user)
+	return
+
+/obj/item/sequence_scanner/afterattack(obj/O, mob/user, proximity)
+	. = ..()
+	if(!istype(O) || !proximity)
+		return
+
+	if(istype(O, /obj/machinery/computer/scan_consolenew))
+		var/obj/machinery/computer/scan_consolenew/C = O
+		if(C.stored_research)
+			to_chat(user, span_notice("[name] linked to central research database."))
+			discovered = C.stored_research.discovered_mutations
+		else
+			to_chat(user,span_warning("No database to update from."))
+
+/obj/item/sequence_scanner/proc/gene_scan(mob/living/carbon/C, mob/living/user)
+	if(!iscarbon(C) || !C.has_dna())
+		return
+	buffer = C.dna.mutation_index
+	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
+	genescan(C, user, discovered)
+
+/obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
+	if(!LAZYLEN(buffer) || !ready)
+		return
+	var/list/options = list()
+	for(var/A in buffer)
+		options += get_display_name(A)
+
+	var/answer = tgui_input_list(user, "Analyze Potential", "Sequence Analyzer", sort_list(options))
+	if(answer && ready && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		var/sequence
+		for(var/A in buffer) //this physically hurts but i dont know what anything else short of an assoc list
+			if(get_display_name(A) == answer)
+				sequence = buffer[A]
+				break
+
+		if(sequence)
+			var/display
+			for(var/i in 0 to length_char(sequence) / DNA_MUTATION_BLOCKS-1)
+				if(i)
+					display += "-"
+				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
+
+			to_chat(user, "[span_boldnotice("[display]")]<br>")
+
+		ready = FALSE
+		icon_state = "[icon_state]_recharging"
+		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown, TIMER_UNIQUE)
+
+/obj/item/sequence_scanner/proc/recharge()
+	icon_state = initial(icon_state)
+	ready = TRUE
+
+/obj/item/sequence_scanner/proc/get_display_name(mutation, active_detail=FALSE)
+	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
+	if(!HM)
+		return "ERROR"
+	if(discovered[mutation])
+		return !active_detail ? "[HM.name] ([HM.alias])" : span_green("[HM.name] ([HM.alias]) - [active_detail]")
+	else
+		return !active_detail ? HM.alias : span_green("[HM.alias] - [active_detail]")
+
 /obj/item/extrapolator
 	name = "virus extrapolator"
 	icon = 'icons/obj/device.dmi'

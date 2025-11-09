@@ -17,7 +17,9 @@
 	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
 	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
+
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
+
 
 /datum/armor/structure_disposalpipe
 	melee = 25
