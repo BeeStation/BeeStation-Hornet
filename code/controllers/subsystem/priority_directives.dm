@@ -77,6 +77,7 @@ SUBSYSTEM_DEF(directives)
 		if (!length(valid_directives))
 			continue
 		var/datum/priority_directive/selected = pick(valid_directives)
+		selected = new selected.type()
 		selected.start(uplink_list, player_minds)
 		active_directives += selected
 		uplink.next_personal_objective_time = get_next_personal_objective_time()
@@ -95,6 +96,7 @@ SUBSYSTEM_DEF(directives)
 	var/datum/priority_directive/selected = input(src, "What do you want?", "What do you want?") as null|anything in SSdirectives.directives
 	if (!selected)
 		return
+	selected = new selected.type()
 	selected.can_run(GLOB.uplinks, player_minds, TRUE)
 	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY

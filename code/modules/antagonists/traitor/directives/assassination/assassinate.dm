@@ -7,3 +7,22 @@
 		but their identities are unknown."
 	reputation_loss = REPUTATION_LOSS_SOLO_DIRECTIVE
 	shared = FALSE
+	var/mob/living/carbon/target = null
+
+/datum/priority_directive/assassination/_allocate_teams(list/uplinks, list/player_minds, force)
+	if (!length(uplinks) && !force)
+		reject()
+		return
+	// Find the victim
+	var/list/valid_targets = list()
+	// Exclude owners and friends of the owner
+	for (var/datum/component/uplink/uplink in uplinks)
+		// Ownerless
+		if (!uplink.owner)
+			continue
+
+	// Create the team
+	add_antagonist_team(uplinks)
+
+/datum/priority_directive/assassination/_generate(list/teams)
+	return rand(4, 8)
