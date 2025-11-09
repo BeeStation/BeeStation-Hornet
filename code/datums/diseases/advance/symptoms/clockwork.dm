@@ -235,7 +235,7 @@
 				O.brute_reduction = initial(O.brute_reduction)
 
 /datum/symptom/robotic_adaptation/OnRemove(datum/disease/advance/A)
-	A.infectable_biotypes -= MOB_ROBOTIC
+	A.infectable_biotypes &= ~MOB_ROBOTIC
 
 //below this point lies all clockwork bits that make this symptom tick. no pun intended.
 /obj/item/organ/ears/robot/clockwork

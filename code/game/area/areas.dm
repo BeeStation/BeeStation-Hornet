@@ -158,6 +158,10 @@
 	/// What networks should cameras in this area belong to?
 	var/list/camera_networks = list()
 
+	/// If true, then air alarm automation will be disabled in this area and it will start with filtering instead
+	/// of automated.
+	var/disable_air_alarm_automation = FALSE
+
 /**
   * A list of teleport locations
   *

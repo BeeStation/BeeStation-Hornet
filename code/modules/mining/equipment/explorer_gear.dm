@@ -33,7 +33,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 50
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -62,7 +61,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 50
 	fire = 50
 	acid = 50
 	stamina = 20
@@ -126,7 +124,8 @@
 	armor_type = /datum/armor/space_hostile_environment
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
-
+	custom_price = 30000
+	max_demand = 2
 
 /datum/armor/space_hostile_environment
 	melee = 70
@@ -134,7 +133,6 @@
 	laser = 20
 	energy = 20
 	bomb = 50
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 40
@@ -142,6 +140,7 @@
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/process(delta_time)
@@ -176,22 +175,12 @@
 	armor_type = /datum/armor/space_hostile_environment
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
-
-
-/datum/armor/space_hostile_environment
-	melee = 70
-	bullet = 40
-	laser = 20
-	energy = 20
-	bomb = 50
-	rad = 100
-	fire = 100
-	acid = 100
-	stamina = 40
-	bleed = 50
+	custom_price = 10000
+	max_demand = 2
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/spraycan_paintable)
 	update_icon()
 

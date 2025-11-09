@@ -83,7 +83,7 @@ Difficulty: Medium
 /datum/action/innate/megafauna_attack/mass_fire
 	name = "Mass Fire Attack"
 	icon_icon = 'icons/effects/fire.dmi'
-	button_icon_state = "1"
+	button_icon_state = "light"
 	chosen_message = span_colossus("You are now shooting mass fire at your target.")
 	chosen_attack_num = 3
 
@@ -256,7 +256,7 @@ Difficulty: Medium
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(0)
@@ -449,7 +449,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/lava_warning)
 	desc = "An ash drakes true flame."
 	name = "Fire Barrier"
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "1"
+	icon_state = "light"
 	anchored = TRUE
 	opacity = FALSE
 	density = TRUE

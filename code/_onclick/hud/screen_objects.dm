@@ -54,6 +54,7 @@
 /atom/movable/screen/swap_hand
 	plane = HUD_PLANE
 	name = "swap hand"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/swap_hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -74,6 +75,7 @@
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "navigate"
 	screen_loc = ui_navigate_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/navigate/Click()
 	if(!isliving(usr))
@@ -86,12 +88,14 @@
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "craft"
 	screen_loc = ui_crafting
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator
 	name = "create new area"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "area_edit"
 	screen_loc = ui_building
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
 	if(usr.incapacitated() || (isobserver(usr) && !IsAdminGhost(usr)))
@@ -107,6 +111,7 @@
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "talk_wheel"
 	screen_loc = ui_language_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/language_menu/Click()
 	usr.get_language_holder().open_language_menu(usr)
@@ -241,9 +246,9 @@
 
 /atom/movable/screen/close
 	name = "close"
-
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 	/// A reference to the object in the slot. Grabs or items, generally.
 	var/datum/component/master = null
@@ -266,6 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_drop"
 	plane = HUD_PLANE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
@@ -281,6 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "combat_off"
 	screen_loc = ui_combat_toggle
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/combattoggle/New(loc, ...)
 	. = ..()
@@ -331,6 +338,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	name = "run/walk toggle"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "running"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/mov_intent/Click()
 	toggle(usr)
@@ -352,6 +360,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	name = "stop pulling"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "pull"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/pull/Click()
 	if(isobserver(usr))
@@ -370,6 +379,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_resist"
 	plane = HUD_PLANE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/resist/Click()
 	if(isliving(usr))
@@ -381,6 +391,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/close)
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_rest"
 	plane = HUD_PLANE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
@@ -429,6 +440,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	name = "throw/catch"
 	icon = 'icons/hud/style/screen_midnight.dmi'
 	icon_state = "act_throw_off"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/throw_catch/Click()
 	if(iscarbon(usr))
@@ -439,6 +451,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	name = "damage zone"
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/selecting = BODY_ZONE_CHEST
 	var/static/list/hover_overlays_cache = list()
 	var/hovering
@@ -636,6 +649,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 /atom/movable/screen/healthdoll
 	name = "health doll"
 	screen_loc = ui_healthdoll
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/healthdoll/Click()
 	if (iscarbon(usr))
@@ -651,6 +665,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/storage)
 	name = "mood"
 	icon_state = "mood5"
 	screen_loc = ui_mood
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/sanity
 	name = "sanity"
@@ -707,6 +722,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/splash)
 
 
 /atom/movable/screen/component_button
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/atom/movable/screen/parent
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/component_button)

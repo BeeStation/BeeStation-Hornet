@@ -107,7 +107,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // some items are not good to tell to have illegal tech, especially boxes, bottles
 GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	/obj/item/storage/box,
-	/obj/item/reagent_containers)))
+	/obj/item/reagent_containers,
+)))
 
 /**
  * Uplink Items
@@ -281,7 +282,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/storage/box/syndie_kit/contract_kit
 	cost = 20
 	player_minimum = 15
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/bundle_A
 	name = "Syndi-kit Tactical"
@@ -290,7 +291,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			you will receive. May contain discontinued and/or exotic items."
 	item = /obj/item/storage/box/syndie_kit/bundle_A
 	cost = 20
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/bundle_B
 	name = "Syndi-kit Special"
@@ -298,7 +299,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			In Syndi-kit Special, you will receive items used by famous syndicate agents of the past. Collectively worth more than 20 telecrystals, the syndicate loves a good throwback."
 	item = /obj/item/storage/box/syndie_kit/bundle_B
 	cost = 20
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/surplus
 	name = "Syndicate Surplus Crate"
@@ -307,7 +308,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/structure/closet/crate
 	cost = 20
 	player_minimum = 20
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	var/starting_crate_value = 50
 	var/uplink_contents = UPLINK_TRAITORS
 
@@ -318,7 +319,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 40
 	player_minimum = 30
 	starting_crate_value = 125
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/user_uplink)
 	var/list/uplink_items = get_uplink_items(uplink_contents, FALSE)
@@ -350,7 +351,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			With their all new kit, codenamed 'scam' the syndicate attempted to extract the energy of the die of fate to \
 			make a loot-box style system but failed, so instead just fake their randomness using a corgi to sniff out the items to shove in it.\
 			Item price not guaranteed. Can contain normally unobtainable items."
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	uplink_contents = (UPLINK_TRAITORS | UPLINK_NUKE_OPS)
 	player_minimum = 30
 
@@ -578,7 +579,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/holoparasite_creator/tech
 	cost = 18
 	surplus = 10
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	player_minimum = 25
 	restricted = TRUE
 	refundable = TRUE
@@ -779,7 +780,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 16
 	player_minimum = 20
 	surplus = 10
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
@@ -1347,6 +1348,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/assembly/flash/bomb
 	cost = 1
 	surplus = 8
+
+/datum/uplink_item/explosives/pinata
+	name = "Weapons Grade Pinata Kit"
+	desc = "A pinata filled with both candy and explosives as well as two belts to carry them on, crack it open and see what you get!"
+	item = /obj/item/storage/box/syndie_kit/pinata
+	purchasable_from = UPLINK_CLOWN_OPS
+	limited_stock = 1
+	cost = 12 //This is effectively the clown ops version of the grenadier belt where you should on average get 8 explosives if you use a weapon with exactly 10 force.
+	surplus = 0
 
 /datum/uplink_item/explosives/hellfirecandle
 	name = "Portable Hellfire"
@@ -2063,7 +2073,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 //Race-specific items
 /datum/uplink_item/race_restricted
 	category = "Species-Restricted"
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	surplus = 0
 
 /datum/uplink_item/race_restricted/syndilamp
@@ -2091,18 +2101,18 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/race_restricted/tribal_claw
 	name = "Old Tribal Scroll"
-	desc = "We found this scroll in a abandoned lizard settlement of the Knoises clan. \
+	desc = "Our lavaland presence found this next to some collapsed tendril. \
 			It teaches you how to use your claws and tail to gain an advantage in combat, \
-			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
+			don't buy this unless you are a lizard or plan to give it to one as only they can make full use of it."
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 6
+	cost = 8
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
 // Role-specific items
 /datum/uplink_item/role_restricted
 	category = "Role-Restricted"
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	surplus = 0
 
 /datum/uplink_item/role_restricted/ancient_jumpsuit
@@ -2223,9 +2233,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			Simply insert your bikehorn and get in, and get ready to have the funniest ride of your life! \
 			You can ram any spacemen you come across and stuff them into your car, kidnapping them and locking them inside until \
 			someone saves them or they manage to crawl out. Be sure not to ram into any walls or vending machines, as the springloaded seats \
-			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
-			Premium features can be unlocked with a cryptographic sequencer!"
-	item = /obj/vehicle/sealed/car/clowncar
+			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity!"
+	item = /obj/vehicle/sealed/car/clowncar/syndicate
 	cost = 20
 	restricted_roles = list(JOB_NAME_CLOWN)
 
@@ -2378,7 +2387,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/holoparasite_creator/carp
 	cost = 18
 	surplus = 5
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	purchasable_from = UPLINK_TRAITORS
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)
@@ -2520,7 +2529,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Balloon"
 	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
 			Can blow the deepest of covers."
-	item = /obj/item/toy/syndicateballoon
+	item = /obj/item/toy/balloon/syndicate
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE

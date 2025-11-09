@@ -464,7 +464,7 @@
 	return span_danger("The baton is still charging!")
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(2 SECONDS)
+	target.set_jitter_if_lower(4 SECONDS)
 	target.stuttering += 2 SECONDS
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
@@ -627,12 +627,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 0.001
 	armour_penetration = 1000
+	force_string = "INFINITE"
+	item_flags = NEEDS_PERMIT|NO_BLOOD_ON_ITEM
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
 	canblock = TRUE
 
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	qdel(hitby)
@@ -701,22 +702,25 @@
 
 /obj/item/melee/supermatter_sword/proc/consume_everything(target)
 	if(isnull(target))
-		shard.Consume()
+		shard.Bump(target)
 	else if(!isturf(target))
 		shard.Bumped(target)
 	else
 		consume_turf(target)
 
-/obj/item/melee/supermatter_sword/proc/consume_turf(turf/T)
-	var/oldtype = T.type
-	var/turf/newT = T.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	if(newT.type == oldtype)
+/obj/item/melee/supermatter_sword/proc/consume_turf(turf/turf)
+	var/oldtype = turf.type
+	var/turf/new_turf = turf.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+	if(new_turf.type == oldtype)
 		return
-	playsound(T, 'sound/effects/supermatter.ogg', 50, 1)
-	T.visible_message(span_danger("[T] smacks into [src] and rapidly flashes to ash."),\
-	span_italics("You hear a loud crack as you are washed with a wave of heat."))
-	shard.Consume()
-	CALCULATE_ADJACENT_TURFS(T, MAKE_ACTIVE)
+
+	playsound(turf, 'sound/effects/supermatter.ogg', 50, TRUE)
+	turf.visible_message(
+		span_danger("[turf] smacks into [src] and rapidly flashes to ash."),
+		span_hear("You hear a loud crack as you are washed with a wave of heat."),
+	)
+	shard.Bump(turf)
+	CALCULATE_ADJACENT_TURFS(turf, MAKE_ACTIVE)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
 	return FALSE
@@ -800,7 +804,11 @@
 /obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
 	if(!ovens)
-		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+		ovens = typecacheof(list(
+			/obj/anomaly,
+			/obj/machinery/power/supermatter_crystal,
+			/obj/structure/bonfire,
+		))
 	AddComponent( \
 		/datum/component/transforming, \
 		hitsound_on = hitsound, \
@@ -953,6 +961,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/effects/woodhit.ogg'
+	custom_price = 100
 	/// Damage dealt while on help intent
 	var/non_harm_force = 3
 	/// Stamina damage dealt

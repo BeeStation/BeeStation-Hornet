@@ -235,6 +235,7 @@
 	desc = "A magical strand of Durathread is wrapped around your neck, preventing you from breathing! Click this icon to remove the strand."
 	icon_state = "his_grace"
 	alerttooltipstyle = "hisgrace"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/strandling/Click(location, control, params)
 	. = ..()
@@ -550,7 +551,6 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 300
 	tick_interval = 10
-	examine_text = span_warning("SUBJECTPRONOUN seems slow and unfocused.")
 	alert_type = /atom/movable/screen/alert/status_effect/trance
 	var/stun = TRUE
 	var/hypnosis_type = /datum/brain_trauma/hypnosis
@@ -588,6 +588,9 @@
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, span_warning("You snap out of your trance!"))
+
+/datum/status_effect/trance/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] slow and unfocused.")
 
 /datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args, list/spans, list/message_mods = list())
 	SIGNAL_HANDLER
@@ -675,8 +678,11 @@
 	if(prob(40))
 		var/obj/item/I = H.get_active_held_item()
 		if(I && H.dropItemToGround(I))
-			H.visible_message(span_notice("[H]'s hand convulses, and they drop their [I.name]!"),span_userdanger("Your hand convulses violently, and you drop what you were holding!"))
-			H.jitteriness += 5
+			H.visible_message(
+				span_notice("[H]'s hand convulses, and they drop their [I.name]!"),
+				span_userdanger("Your hand convulses violently, and you drop what you were holding!"),
+			)
+			H.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/jitter)
 
 /atom/movable/screen/alert/status_effect/convulsing
 	name = "Shaky Hands"
@@ -937,7 +943,7 @@
 		if(20 to 30)
 			message = span_warning("You feel feel very well.")
 			human_owner.Dizzy(50)
-			human_owner.Jitter(50)
+			human_owner.set_jitter_if_lower(100 SECONDS)
 		if(30 to 40)
 			message = span_warning("You feel a sharp sting in your side.")
 			human_owner.adjustOrganLoss(ORGAN_SLOT_LIVER, 5)
@@ -966,14 +972,13 @@
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	examine_text = span_warning("SUBJECTPRONOUN has a blank, catatonic like stare.")
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /datum/status_effect/ghoul/get_examine_text()
 	var/mob/living/carbon/human/H = owner
 	var/obscured = H.check_obscured_slots()
 	if(!(obscured & ITEM_SLOT_EYES) && !H.glasses) //The examine text is only displayed if the ghoul's eyes are not obscured
-		return examine_text
+		return span_warning("[owner.p_they(TRUE)] has a blank, catatonic like stare.")
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
@@ -999,10 +1004,12 @@
 
 /datum/status_effect/ipc/emp
 	id = "ipc_emp"
-	examine_text = span_warning("SUBJECTPRONOUN is buzzing and twitching!")
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
 	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/strandling/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] is buzzing and twitching!")
 
 /atom/movable/screen/alert/status_effect/emp
 	name = "Electro-Magnetic Pulse"
@@ -1011,10 +1018,12 @@
 
 /datum/status_effect/cyborg_malfunction
 	id = "cyborg_malfunction"
-	examine_text = span_warning("SUBJECTPRONOUN is flashing red error lights!")
 	duration = MALFUNCTION_DURATION
 	alert_type = /atom/movable/screen/alert/status_effect/generic_malfunction
 	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/cyborg_malfunction/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] flashing red error lights!")
 
 /atom/movable/screen/alert/status_effect/generic_malfunction
 	name = "Malfunctioning Electronics"
@@ -1165,7 +1174,6 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/ants
 	duration = 2 MINUTES //Keeping the normal timer makes sure people can't somehow dump 300+ ants on someone at once so they stay there for like 30 minutes. Max w/ 1 dump is 57.6 brute.
-	examine_text = "<span class='warning'>SUBJECTPRONOUN is covered in ants!</span>"
 	/// Will act as the main timer as well as changing how much damage the ants do.
 	var/ants_remaining = 0
 	/// Common phrases people covered in ants scream
@@ -1181,7 +1189,7 @@
 /datum/status_effect/ants/on_creation(mob/living/new_owner, amount_left)
 	if(isnum(amount_left) && new_owner.stat < HARD_CRIT)
 		if(new_owner.stat < UNCONSCIOUS) // Unconcious people won't get messages
-			to_chat(new_owner, "<span class='userdanger'>You're covered in ants!</span>")
+			to_chat(new_owner, span_userdanger("You're covered in ants!"))
 		ants_remaining += amount_left
 		RegisterSignal(new_owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
@@ -1191,7 +1199,7 @@
 	if(isnum(amount_left) && ants_remaining >= 1 && victim.stat < HARD_CRIT)
 		if(victim.stat < UNCONSCIOUS) // Unconcious people won't get messages
 			if(!prob(1)) // 99%
-				to_chat(victim, "<span class='userdanger'>You're covered in MORE ants!</span>")
+				to_chat(victim, span_userdanger("You're covered in MORE ants!"))
 			else // 1%
 				victim.say("AAHH! THIS SITUATION HAS ONLY BEEN MADE WORSE WITH THE ADDITION OF YET MORE ANTS!!", forced = /datum/status_effect/ants)
 		ants_remaining += amount_left
@@ -1199,7 +1207,7 @@
 
 /datum/status_effect/ants/on_remove()
 	ants_remaining = 0
-	to_chat(owner, "<span class='notice'>All of the ants are off of your body!</span>")
+	to_chat(owner, span_notice("All of the ants are off of your body!"))
 	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
 
@@ -1207,6 +1215,9 @@
 	SIGNAL_HANDLER
 	owner.remove_status_effect(/datum/status_effect/ants)
 	//return COMPONENT_CLEANED
+
+/datum/status_effect/ants/get_examine_text()
+	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] covered in ants!")
 
 /datum/status_effect/ants/tick()
 	var/mob/living/carbon/human/victim = owner
@@ -1222,18 +1233,18 @@
 			switch(rand(1,50))
 				if (1 to 8) //16% Chance
 					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your scalp!.</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your scalp!"))
 					hed.receive_damage(1,0)
 				if (9 to 29) //40% chance
 					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your arms!</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your arms!"))
 					arm.receive_damage(3,0)
 				if (30 to 49) //38% chance
 					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your leg!</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your leg!"))
 					leg.receive_damage(3,0)
 				if(50) // 2% chance
-					to_chat(victim, "<span class='danger'>You rub some ants away from your eyes!</span>")
+					to_chat(victim, span_danger("You rub some ants away from your eyes!"))
 					victim.blur_eyes(3)
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
@@ -1242,18 +1253,19 @@
 
 /atom/movable/screen/alert/status_effect/ants
 	name = "Ants!"
-	desc = "<span class='warning'>JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!</span>"
+	desc = span_warning("JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!")
 	icon_state = "antalert"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/ants/Click()
 	var/mob/living/living = owner
 	if(!istype(living) || !living.can_resist() || living != owner)
 		return
-	to_chat(living, "<span class='notice'>You start to shake the ants off!</span>")
+	to_chat(living, span_notice("You start to shake the ants off!"))
 	if(!do_after(living, 2 SECONDS, target = living))
 		return
 	for (var/datum/status_effect/ants/ant_covered in living.status_effects)
-		to_chat(living, "<span class='notice'>You manage to get some of the ants off!</span>")
+		to_chat(living, span_notice("You manage to get some of the ants off!"))
 		ant_covered.ants_remaining -= 10 // 5 Times more ants removed per second than just waiting in place
 
 /datum/status_effect/smoke
