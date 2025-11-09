@@ -6,7 +6,7 @@
 		Rumors of the lost bloodline of 'true' brujah exist, but any evidence is long lost."
 	join_icon_state = "brujah"
 	default_humanity = 7
-	joinable_clan = TRUE
+	joinable_clan = FALSE
 
 /datum/vampire_clan/brujah/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
