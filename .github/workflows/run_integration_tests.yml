@@ -35,6 +35,7 @@ jobs:
           mysql -u root -proot bee_ci < SQL/beestation_schema.sql
       - name: Install rust-g
         run: |
+          sudo apt install -o APT::Immediate-Configure=false curl:i386
           bash tools/ci/install_rust_g.sh
 # Bee: Dreamlua is not used
 #      - name: Install dreamluau

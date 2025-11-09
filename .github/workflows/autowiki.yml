@@ -30,6 +30,7 @@ jobs:
       - name: Install rust-g
         if: steps.secrets_set.outputs.SECRETS_ENABLED
         run: |
+          sudo apt install -o APT::Immediate-Configure=false curl:i386
           bash tools/ci/install_rust_g.sh
       - name: Compile and generate Autowiki files
         if: steps.secrets_set.outputs.SECRETS_ENABLED
