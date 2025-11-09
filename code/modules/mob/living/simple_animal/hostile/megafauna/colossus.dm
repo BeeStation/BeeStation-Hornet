@@ -780,7 +780,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		/obj/item/disk/nuclear,
 		/obj/projectile,
 		/obj/item/spellbook,
-		/obj/item/dice/d20/fate
+		/obj/item/dice/d20/fate,
 	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
