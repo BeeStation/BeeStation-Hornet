@@ -148,8 +148,8 @@ jobs:
           key: ${{ runner.os }}-byond-${{ hashFiles('dependencies.sh') }}
       - name: Compile All Maps
         run: |
-          source $HOME/BYOND/byond/bin/byondsetup
           bash tools/ci/install_byond.sh
+          source $HOME/BYOND/byond/bin/byondsetup
           tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
       - name: Check client Compatibility
         uses: tgstation/byond-client-compatibility-check@v3
