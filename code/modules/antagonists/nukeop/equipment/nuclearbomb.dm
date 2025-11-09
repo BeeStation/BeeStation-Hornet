@@ -477,7 +477,6 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
-
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE
