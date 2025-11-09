@@ -1,3 +1,5 @@
+#define STORYTELLER_VERSION "GamemodeAntagonists"
+
 SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
@@ -246,6 +248,15 @@ SUBSYSTEM_DEF(dynamic)
 		if (!loaded_json["Description"])
 			stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
 			continue
+
+#ifdef STORYTELLER_VERSION
+		if (!loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name], it did not provide a storyteller version but one was required.")
+			continue
+		if (loaded_json["Version"] != STORYTELLER_VERSION)
+			log_dynamic("Skipped loading storyteller [json_name], it did not have the required storyteller version.")
+			continue
+#endif
 
 		dynamic_storyteller_jsons[json_name] = loaded_json
 
@@ -897,3 +908,5 @@ SUBSYSTEM_DEF(dynamic)
 	if (flag & DYNAMIC_MIDROUND_HEAVY)
 		texts += "HEAVY"
 	return jointext(texts, " | ")
+
+#undef STORYTELLER_VERSION
