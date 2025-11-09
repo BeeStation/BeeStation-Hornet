@@ -45341,7 +45341,6 @@
 	req_one_access_txt = "12;48;50;1"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "muG" = (
