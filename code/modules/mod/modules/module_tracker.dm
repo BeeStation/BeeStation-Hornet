@@ -3,6 +3,7 @@
 	desc = "A module which adds a tracking beacon to the suit, \
 		along with the associated software needed to project the real-time locations \
 		of such beacons as a heads up display in the helmet. Perfect to not lose track of your friends."
+	icon_state = "tracking_beacon"
 	removable = FALSE
 	module_type = MODULE_USABLE
 	incompatible_modules = list(/obj/item/mod/module/tracking_beacon)
