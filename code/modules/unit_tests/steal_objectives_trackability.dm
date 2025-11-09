@@ -12,6 +12,8 @@
 			fails += "[item_target] is not trackable but is the target of a steal objective. Add the following code:\n[item_target]/Initialize(mapload)\n\t. = ..()\n\tAddElement(/datum/element/trackable)"
 		qdel(created)
 	for (var/atom/a in run_loc_floor_bottom_left)
+		if (iseffect(a))
+			continue
 		qdel(a)
 	if (length(fails))
 		Fail(jointext(fails, "\n"))
