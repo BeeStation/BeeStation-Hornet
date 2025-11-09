@@ -213,14 +213,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	AddComponent(/datum/component/supermatter_crystal, CALLBACK(src, PROC_REF(wrench_act_callback)), CALLBACK(src, PROC_REF(consume_callback)))
 	soundloop = new(src, TRUE)
 
-	if(!not_dustable)
-		not_dustable = typecacheof(list(
-			/obj/eldritch,
-			/obj/anomaly/singularity,
-			/obj/anomaly/energy_ball,
-			/obj/boh_tear,
-		))
-	AddComponent(/datum/component/trackable)
+	if((FESTIVE_SEASON in SSevents.holidays))
+		holiday_lights()
+
+	if (!moveable)
+		move_resist = MOVE_FORCE_OVERPOWERING // Avoid being moved by statues or other memes
+
+	// Damn math nerds
+	powerloss_linear_threshold = sqrt(POWERLOSS_LINEAR_RATE / 3 * POWERLOSS_CUBIC_DIVISOR ** 3)
+	powerloss_linear_offset = -1 * powerloss_linear_threshold * POWERLOSS_LINEAR_RATE + (powerloss_linear_threshold / POWERLOSS_CUBIC_DIVISOR) ** 3
 
 /obj/machinery/power/supermatter_crystal/Destroy()
 	if(warp)
