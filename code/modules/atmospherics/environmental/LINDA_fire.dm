@@ -21,6 +21,9 @@
  * is handled by the hotspot itself, specifically perform_exposure().
  */
 /turf/open/hotspot_expose(exposed_temperature, exposed_volume, soh)
+	if(exposed_temperature < TCMB)
+		exposed_temperature = TCMB
+		CRASH("[src].hotspot_expose() called with exposed_temperature < [TCMB]")
 	//If the air doesn't exist we just return false
 	var/list/air_gases = air?.gases
 	if(!air_gases)
@@ -139,7 +142,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 	if(COOLDOWN_FINISHED(our_turf, fire_puff_cooldown))
-		playsound(our_turf, 'sound/effects/fire_puff.ogg', 30)
+		playsound(our_turf, 'sound/effects/fire_puff.ogg', 20)
 		COOLDOWN_START(our_turf, fire_puff_cooldown, 5 SECONDS)
 
 	// Remove just_spawned protection if no longer processing the parent cell

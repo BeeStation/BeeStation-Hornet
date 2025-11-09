@@ -255,12 +255,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message(span_danger("[src] blocks [attack_text], sending out arcs of lightning!"))
-	tesla_zap(
-		source = owner,
-		zap_range = 7,
-		power = 3e4,
-		zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
-	)
+	tesla_zap(owner, zap_range = 7, power = 3e4, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)

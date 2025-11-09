@@ -1044,6 +1044,7 @@
 	taste_description = "the inside of a reactor"
 	process_flags = ORGANIC | SYNTHETIC
 	default_container = /obj/effect/decal/cleanable/greenglow
+
 	/// How much tox damage to deal per tick
 	var/tox_damage = 0.5
 	/// How radioactive is this reagent

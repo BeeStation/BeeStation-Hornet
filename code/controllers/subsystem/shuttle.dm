@@ -60,9 +60,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/shuttles_loaded = FALSE
 
-	/// Did the supermatter start a cascade event?
-	var/supermatter_cascade = FALSE
-
 /datum/controller/subsystem/shuttle/Initialize()
 	initial_load()
 
@@ -292,7 +289,7 @@ SUBSYSTEM_DEF(shuttle)
 	return 1
 
 /datum/controller/subsystem/shuttle/proc/autoEvac()
-	if (!SSticker.IsRoundInProgress() || supermatter_cascade)
+	if (!SSticker.IsRoundInProgress())
 		return
 
 	var/callShuttle = 1

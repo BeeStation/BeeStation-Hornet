@@ -72,8 +72,6 @@
 
 #define SUPERMATTER_DEFAULT_BULLET_ENERGY 2
 
-#define SUPERMATTER_CASCADE_PERCENT 80
-
 /// The divisor scaling value for cubic power loss.
 #define POWERLOSS_CUBIC_DIVISOR 500
 /// The rate at which the linear power loss function scales with power.
@@ -176,13 +174,11 @@
 /// How much we are multiplying our zap energy because of gas factors.
 #define SM_ZAP_GAS "Gas Zap Transmission Modifier"
 /// Delamination types.
-#define CASCADE_DELAMINATION "cascade"
 #define SINGULARITY_DELAMINATION "singularity"
 #define TESLA_DELAMINATION "tesla"
 /// Colours used for effects.
 #define SUPERMATTER_COLOUR "#ffd04f"
 #define SUPERMATTER_RED "#aa2c16"
-#define SUPERMATTER_CASCADE_COLOUR COLOR_ALMOST_BLACK
 #define SUPERMATTER_TESLA_COLOUR "#00ffff"
 #define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
 #define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"

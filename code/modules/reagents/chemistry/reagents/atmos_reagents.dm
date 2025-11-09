@@ -1,6 +1,3 @@
-/**
- * Nitrium
-**/
 /datum/reagent/nitrium
 	name = "Nitrium"
 	description = "A highly reactive gas that makes you feel faster."
@@ -45,9 +42,6 @@
 	//Because otherwise it lasts for a punishingly long time if an overdose is reached
 	metabolization_rate = REAGENTS_METABOLISM
 
-/**
- * Nitrosyl plasmide
-**/
 /datum/reagent/nitrosyl_plasmide
 	name = "Nitrosyl plasmide"
 	description = "A highly reactive byproduct that stops you from sleeping"
@@ -77,9 +71,6 @@
 
 	return UPDATE_MOB_HEALTH
 
-/**
- * Freon
-**/
 /datum/reagent/freon
 	name = "Freon"
 	description = "A powerful heat absorbent."
@@ -96,9 +87,6 @@
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
 
-/**
- * Halon
-**/
 /datum/reagent/halon
 	name = "Halon"
 	description = "A fire suppression gas that removes oxygen and cools down the area"
@@ -116,9 +104,6 @@
 	. = ..()
 	affected_mob.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
 
-/**
- * Healium
-**/
 /datum/reagent/healium
 	name = "Healium"
 	description = "A powerful sleeping agent with healing properties"
@@ -139,9 +124,6 @@
 	affected_mob.adjustBruteLoss(-2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
-/**
- * Hyper-Noblium
-**/
 /datum/reagent/hypernoblium
 	name = "Hyper-Noblium"
 	description = "A suppressive gas that slows the body down."
@@ -155,9 +137,6 @@
 	if(isplasmaman(affected_mob))
 		affected_mob.set_timed_status_effect(10 SECONDS * REM * delta_time, /datum/status_effect/hypernob_protection)
 
-/**
- * Pluoxium
-**/
 /datum/reagent/pluoxium
 	name = "Pluoxium"
 	description = "A gas that is eight times more efficient than O2 at lung diffusion with organ healing properties on sleeping patients."
@@ -176,9 +155,6 @@
 			continue
 		organ.apply_organ_damage(-0.5 * REM * delta_time)
 
-/**
- * Zauker
-**/
 /datum/reagent/zauker
 	name = "Zauker"
 	description = "An unstable gas that is toxic to all living beings."

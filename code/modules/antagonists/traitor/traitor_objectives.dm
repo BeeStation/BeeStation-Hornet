@@ -1,11 +1,7 @@
 /datum/antagonist/traitor/proc/forge_objectives()
 	var/is_hijacker = FALSE
-	var/is_cascader = FALSE
 	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
-		if(prob(10))
-			is_hijacker = TRUE
-		else if(prob(5))
-			is_cascader = TRUE
+		is_hijacker = prob(10)
 	var/is_martyr = prob(5)
 
 	var/objectives_to_assign = CONFIG_GET(number/traitor_objectives_amount)
@@ -24,11 +20,6 @@
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
 			add_objective(hijack_objective)
-	else if(is_cascader)
-		if (!(locate(/datum/objective/cascade) in objectives))
-			var/datum/objective/cascade/cascade_objective = new
-			cascade_objective.owner = owner
-			add_objective(cascade_objective)
 	else
 		// This check is just extra insurance now, we shouldn't assign non-martyr objectives in the first place.
 		for(var/datum/objective/O in objectives)
@@ -44,7 +35,7 @@
 			escape_objective.owner = owner
 			add_objective(escape_objective)
 	// Finally, set up our traitor's backstory!
-	setup_backstories(!is_hijacker && is_martyr && martyr_compatibility, is_hijacker || is_cascader)
+	setup_backstories(!is_hijacker && is_martyr && martyr_compatibility, is_hijacker)
 
 /datum/antagonist/traitor/proc/forge_single_human_objective(is_martyr) //Returns how many objectives are added
 	.=1

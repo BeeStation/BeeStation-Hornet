@@ -72,12 +72,6 @@
 	database_id = MEDAL_15_AI_LAW_CHANGES
 	reward = 250
 
-/datum/award/achievement/misc/theoretical_limits
-	name = "All Within Theoretical Limits"
-	desc = "I never thought I'd see a resonance cascade, let alone prevent one..."
-	database_id = MEDAL_THEORETICAL_LIMITS
-	reward = 500
-
 /datum/award/achievement/misc/welderbomb
 	name = "That was stupid of you."
 	desc = "(distant explosion noises)"

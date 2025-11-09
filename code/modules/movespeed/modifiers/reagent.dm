@@ -36,8 +36,6 @@
 /datum/movespeed_modifier/reagent/staminatoxin
 	multiplicative_slowdown = 1
 
-/// Gases
-
 /datum/movespeed_modifier/reagent/nitrium
 	multiplicative_slowdown = -0.4
 	blacklisted_movetypes = FLYING | FLOATING

@@ -32,11 +32,6 @@
 	mood_change = -2
 	timeout = 4 MINUTES
 
-/datum/mood_event/cascade
-	description = "I never thought I'd see a resonance cascade, let alone experience one..."
-	mood_change = -8
-	timeout = 5 MINUTES
-
 /datum/mood_event/depression
 	description = span_warning("I feel sad for no particular reason.")
 	mood_change = -12

@@ -29,7 +29,6 @@
 		/datum/objective/capture,
 		/datum/objective/absorb,
 		/datum/objective/custom,
-		/datum/objective/cascade,
 	),/proc/cmp_typepaths_asc)
 
 	for(var/datum/objective/X as() in allowed_types)

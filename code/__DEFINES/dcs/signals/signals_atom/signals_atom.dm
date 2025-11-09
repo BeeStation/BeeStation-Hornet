@@ -175,10 +175,7 @@
 // From /atom/proc/set_density(new_value) for when an atom changes density
 #define COMSIG_ATOM_DENSITY_CHANGED "atom_density_change"
 
-/**
- * Atom movement signals
-**/
-// Format:
+// Atom movement signals. Format:
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
 
@@ -187,10 +184,7 @@
 ///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
 //#define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
 
-/**
- * Radiation signals
-**/
-
+// Radiation signals.
 /// From the radiation subsystem, called before a potential irradiation.
 /// This does not guarantee radiation can reach or will succeed, but merely that there's a radiation source within range.
 /// (datum/radiation_pulse_information/pulse_information, insulation_to_target)
