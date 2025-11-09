@@ -14,7 +14,7 @@
 
 /obj/item/documents/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents, filled with complex diagrams and lists of names, dates and coordinates."

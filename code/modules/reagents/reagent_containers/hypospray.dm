@@ -76,7 +76,7 @@
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"

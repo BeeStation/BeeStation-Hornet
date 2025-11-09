@@ -8,7 +8,7 @@
 
 /mob/living/simple_animal/slime/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /mob/living/simple_animal/slime/Life(delta_time = SSMOBS_DT, times_fired)
 	set invisibility = 0

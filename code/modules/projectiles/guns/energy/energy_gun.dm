@@ -77,7 +77,7 @@
 
 /obj/item/gun/energy/e_gun/hos/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
 	if (!ammo_type || !cell)

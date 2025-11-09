@@ -87,7 +87,7 @@
 
 /obj/item/gun/energy/laser/captain/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /obj/item/gun/energy/laser/captain/contents_explosion(severity, target)
 	if (!ammo_type || !cell)

@@ -54,7 +54,7 @@
 
 /obj/item/areaeditor/blueprints/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /obj/item/areaeditor/blueprints/Destroy()
 	clear_viewer()

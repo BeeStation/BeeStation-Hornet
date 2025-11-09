@@ -676,7 +676,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.
 		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE, "#818157")
-		AddComponent(/datum/component/trackable)
+		AddElement(/datum/element/trackable)
 
 /obj/item/disk/nuclear/process()
 	++process_tick

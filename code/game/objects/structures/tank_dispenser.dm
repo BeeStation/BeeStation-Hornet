@@ -22,7 +22,7 @@
 	//AddElement(/datum/element/contextual_screentip_bare_hands, lmb_text = "Take Plasma Tank", rmb_text = "Take Oxygen Tank") //Uncomment this when we have screentips.
 	update_icon()
 	if (plasmatanks > 0)
-		AddComponent(/datum/component/trackable)
+		AddElement(/datum/element/trackable)
 
 /obj/structure/tank_dispenser/update_icon()
 	cut_overlays()

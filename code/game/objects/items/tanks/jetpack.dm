@@ -233,7 +233,7 @@
 
 /obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/trackable)
+	AddElement(/datum/element/trackable)
 
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"
