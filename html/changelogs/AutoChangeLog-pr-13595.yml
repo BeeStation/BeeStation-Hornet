@@ -1,0 +1,5 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed cargo exports and bounties not working
+  - bugfix: Fixed the contractor kit not spawning with extra items
