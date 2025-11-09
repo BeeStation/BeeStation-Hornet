@@ -172,7 +172,7 @@
 
 	// This is for alerting people that the person is being fed off of
 	feed_target.SetUnconscious((5 + level_current) SECONDS, ignore_canstun = TRUE)
-	feed_target.set_jitter(5 + level_current)
+	feed_target.set_jitter((5 + level_current) SECONDS)
 	playsound(feed_target, 'sound/items/drink.ogg', 10, TRUE)
 
 	// Deal with blood (the actual feeding)
