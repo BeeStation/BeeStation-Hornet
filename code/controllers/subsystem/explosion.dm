@@ -196,7 +196,7 @@ SUBSYSTEM_DEF(explosions)
 		if (explosion_count >= SMALL_EXPLOSION_TICK_LIMIT)
 			queued += list(args)
 			return
-		explosion_count ++
+	explosion_count ++
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
