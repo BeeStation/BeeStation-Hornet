@@ -11,7 +11,6 @@
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
 	speech_span = SPAN_ROBOT
