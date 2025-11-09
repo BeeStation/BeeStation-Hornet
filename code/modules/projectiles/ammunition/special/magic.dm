@@ -9,43 +9,38 @@
 /obj/item/ammo_casing/magic/change
 	projectile_type = /obj/projectile/magic/change
 
-/obj/item/ammo_casing/magic/change/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/fired_from)
-	if (!BB)
-		return
-
-	// If we were fired by a Staff of Change, we can try to inherent their preset vars for our wabbajack
-	var/obj/item/gun/magic/staff/change/change_staff = fired_from
-	var/obj/projectile/magic/change/change_projectile = BB
-	if(istype(change_staff) && istype(change_projectile))
-		change_projectile.set_wabbajack_effect = change_staff.preset_wabbajack_type
-		change_projectile.set_wabbajack_changeflags = change_staff.preset_wabbajack_changeflag
-
-	return ..()
-
 /obj/item/ammo_casing/magic/animate
 	projectile_type = /obj/projectile/magic/animate
 
+/obj/item/ammo_casing/magic/burger
+	projectile_type = /obj/projectile/magic/burger
+
 /obj/item/ammo_casing/magic/heal
-	projectile_type = /obj/projectile/magic/resurrection
+	projectile_type = /obj/projectile/magic/healing
 	harmful = FALSE
 
-/obj/item/ammo_casing/magic/death
-	projectile_type = /obj/projectile/magic/death
+/obj/item/ammo_casing/magic/potential
+	projectile_type = /obj/projectile/magic/potential
+
+/obj/item/ammo_casing/magic/dismember
+	projectile_type = /obj/projectile/magic/dismember
+
+/obj/item/ammo_casing/magic/drain
+	projectile_type = /obj/projectile/magic/drain
+
+/obj/item/ammo_casing/magic/icy_blast
+	projectile_type = /obj/projectile/magic/icy_blast
 
 /obj/item/ammo_casing/magic/teleport
 	projectile_type = /obj/projectile/magic/teleport
-	harmful = FALSE
-
-/obj/item/ammo_casing/magic/safety
-	projectile_type = /obj/projectile/magic/safety
 	harmful = FALSE
 
 /obj/item/ammo_casing/magic/door
 	projectile_type = /obj/projectile/magic/door
 	harmful = FALSE
 
-/obj/item/ammo_casing/magic/fireball
-	projectile_type = /obj/projectile/magic/fireball
+/obj/item/ammo_casing/magic/firebolt
+	projectile_type = /obj/projectile/magic/firebolt
 
 /obj/item/ammo_casing/magic/chaos
 	projectile_type = /obj/projectile/magic

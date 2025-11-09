@@ -281,11 +281,11 @@
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/glasses/sunglasses/advanced/
+/obj/item/clothing/glasses/sunglasses/advanced
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = FLASH_PROTECTION_FLASH
-	custom_price = 15
+	custom_price = 100
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
@@ -540,6 +540,13 @@
 	item_state = "redglasses"
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
+/obj/item/clothing/glasses/red/wizard
+	name = "glasses of truesight"
+	desc = "A pair of glasses that allow you to see those that would hide from you"
+	vision_flags = SEE_MOBS
+	darkness_view = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
@@ -550,6 +557,8 @@
 	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	custom_price = 10000
+	max_demand = 10
 	vision_correction = 1  // why should the eye of a god have bad vision?
 	//var/datum/action/scan/scan_ability
 
@@ -560,7 +569,6 @@
 /obj/item/clothing/glasses/godeye/Destroy()
 	//QDEL_NULL(scan_ability)
 	return ..()
-
 
 /obj/item/clothing/glasses/godeye/equipped(mob/living/user, slot)
 	. = ..()

@@ -32,6 +32,8 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 0
+	custom_price = 25
+	max_demand = 25
 
 /*
  * Empty plushies before stuffing
@@ -63,7 +65,7 @@
 /*
  * Balloons
  */
-/obj/item/toy/balloon
+/obj/item/toy/waterballoon
 	name = "water balloon"
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
@@ -71,14 +73,14 @@
 	item_state = "balloon-empty"
 
 
-/obj/item/toy/balloon/Initialize(mapload)
+/obj/item/toy/waterballoon/Initialize(mapload)
 	. = ..()
 	create_reagents(10)
 
-/obj/item/toy/balloon/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/toy/waterballoon/attack(mob/living/carbon/human/M, mob/user)
 	return
 
-/obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user, proximity)
+/obj/item/toy/waterballoon/afterattack(atom/A as mob|obj, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -94,7 +96,7 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon()
 
-/obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/cup))
 		if(I.reagents)
 			if(I.reagents.total_volume <= 0)
@@ -111,11 +113,11 @@
 	else
 		return ..()
 
-/obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/toy/waterballoon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		balloon_burst(hit_atom)
 
-/obj/item/toy/balloon/proc/balloon_burst(atom/AT)
+/obj/item/toy/waterballoon/proc/balloon_burst(atom/AT)
 	if(reagents.total_volume >= 1)
 		var/turf/T
 		if(AT)
@@ -129,7 +131,7 @@
 		icon_state = "burst"
 		qdel(src)
 
-/obj/item/toy/balloon/update_icon()
+/obj/item/toy/waterballoon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "balloon"
@@ -137,37 +139,61 @@
 		icon_state = "waterballoon-e"
 		item_state = "balloon-empty"
 
-/obj/item/toy/syndicateballoon
-	name = "syndicate balloon"
-	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
+/obj/item/toy/balloon
+	name = "balloon"
+	desc = "No birthday is complete without it."
+	icon = 'icons/obj/balloons.dmi'
+	icon_state = "balloon"
+	item_state = "balloon"
+	lefthand_file = 'icons/mob/inhands/misc/balloons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/balloons_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 	force = 0
-	icon = 'icons/obj/items_and_weapons.dmi'
+
+	var/random_color = TRUE
+	/// the string describing the name of balloon's current colour.
+	var/current_color
+
+/obj/item/toy/balloon/Initialize(mapload)
+	. = ..()
+	if(random_color)
+		var/chosen_balloon_color = pick("red", "blue", "green", "yellow")
+		name = "[chosen_balloon_color] [name]"
+		icon_state = "[icon_state]_[chosen_balloon_color]"
+		item_state = icon_state
+
+/obj/item/toy/balloon/corgi
+	name = "corgi balloon"
+	desc = "A balloon with a corgi face on it. For the all year good boys."
+	icon_state = "corgi"
+	item_state = "corgi"
+	random_color = FALSE
+
+/obj/item/toy/balloon/syndicate
+	name = "syndicate balloon"
+	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
-	lefthand_file = 'icons/mob/inhands/antag/balloons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
+	random_color = FALSE
 
-/obj/item/toy/syndicateballoon/pickup(mob/user)
+/obj/item/toy/balloon/syndicate/pickup(mob/user)
 	..()
 	if(user?.mind && user.mind.has_antag_datum(/datum/antagonist, TRUE))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
 
-/obj/item/toy/syndicateballoon/dropped(mob/user)
+/obj/item/toy/balloon/syndicate/dropped(mob/user)
 	..()
 	if(user)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
 
-
-/obj/item/toy/syndicateballoon/Destroy()
+/obj/item/toy/balloon/syndicate/Destroy()
 	if(ismob(loc))
 		var/mob/M = loc
 		SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
 	. = ..()
-
 
 /*
  * Fake singularity
@@ -868,6 +894,7 @@
 	deckstyle = "nanotrasen"
 	icon_state = "deck_nanotrasen_full"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 15
 	var/cooldown = 0
 	var/obj/machinery/computer/holodeck/holo = null // Holodeck cards should not be infinite
 	var/list/cards = list()
@@ -1202,6 +1229,7 @@
 	card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 	card_attack_verb_simple = list("attack", "slice", "dice", "slash", "cut")
 	resistance_flags = NONE
+	trade_flags = TRADE_CONTRABAND
 
 /*
  * Fake nuke
@@ -1899,6 +1927,7 @@
 /obj/item/storage/box/yatzy
 	name = "Game of Yatzy"
 	desc = "Contains all the pieces required to play a game of Yatzy with up to 4 friends!"
+	custom_price = 15
 
 /obj/item/storage/box/yatzy/PopulateContents()
 	new /obj/item/storage/pill_bottle/dice_cup/yatzy(src)

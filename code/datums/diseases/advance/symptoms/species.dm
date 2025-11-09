@@ -18,7 +18,7 @@
 /datum/symptom/undead_adaptation/OnRemove(datum/disease/advance/A)
 	if(CONFIG_GET(flag/process_dead_allowed))
 		A.process_dead = FALSE
-	A.infectable_biotypes -= MOB_UNDEAD
+	A.infectable_biotypes &= ~MOB_UNDEAD
 	A.spread_dead = TRUE
 
 /datum/symptom/inorganic_adaptation
@@ -37,4 +37,4 @@
 	A.infectable_biotypes |= MOB_INORGANIC
 
 /datum/symptom/inorganic_adaptation/OnRemove(datum/disease/advance/A)
-	A.infectable_biotypes -= MOB_INORGANIC
+	A.infectable_biotypes &= ~MOB_INORGANIC

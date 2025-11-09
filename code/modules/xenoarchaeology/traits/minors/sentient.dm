@@ -131,7 +131,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_transmit"
-	background_icon_state = "bg_ecult"
+	background_icon_state = "bg_heretic"
 	///Ref to the artifact we're handling
 	var/datum/component/xenoartifact/sentient_artifact
 

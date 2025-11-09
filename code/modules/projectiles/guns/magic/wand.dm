@@ -3,20 +3,11 @@
 	desc = "It's not just a stick, it's a MAGIC stick!"
 	ammo_type = /obj/item/ammo_casing/magic
 	icon_state = "nothingwand"
-	item_state = "wand"
+	item_state = "nothingwand"
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
-	can_charge = FALSE
-	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
-	var/variable_charges = TRUE
-
-/obj/item/gun/magic/wand/Initialize(mapload)
-	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
-		if(prob(33))
-			max_charges = CEILING(max_charges / 3, 1)
-		else
-			max_charges = CEILING(max_charges / 2, 1)
-	return ..()
+	max_charges = 5
+	recharge_rate = 20 //seconds to recharge one charge
 
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()
@@ -34,99 +25,84 @@
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
+
+	if(no_den_usage)
+		var/area/A = get_area(user)
+		if(istype(A, /area/wizard_station))
+			to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
+			return
+
+	if(!IS_WIZARD(user))
+		can_charge = FALSE //Wands only recharge in wizard hands
+		charges = 1 //And you only get one shot before it goes inert
+		to_chat(user, span_warning("The magic remaining within [src] fizzles away. Only a true wizard can utilize its power again."))
+
 	if(target == user)
-		if(no_den_usage)
-			var/area/A = get_area(user)
-			if(istype(A, /area/wizard_station))
-				to_chat(user, span_warning("You know better than to violate the security of The Den, best wait until you leave to use [src]."))
-				return
-			else
-				no_den_usage = 0
-		zap_self(user)
+		zap_self(user) //Skips straight to process_fire() around the rest of the pull_trigger checks
+		return
 	else
 		. = ..()
 	update_icon()
 
+/obj/item/gun/magic/wand/shoot_with_empty_chamber(mob/living/user)
+	. = ..()
+	if(IS_WIZARD(user) && !can_charge)
+		can_charge = TRUE //wizards kickstart the charging
+		START_PROCESSING(SSobj, src)
+		to_chat(user, span_notice("The magic within [src] begins to stir again."))
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
 	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
 	playsound(user, fire_sound, 50, 1)
 	user.log_message("zapped [user.p_them()]self with a <b>[src]</b>", LOG_ATTACK)
-
+	process_fire(user, user)
 
 /////////////////////////////////////
-//WAND OF DEATH
+//WAND OF DRAIN VITALITY
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/death
-	name = "wand of death"
-	desc = "This deadly wand overwhelms the victim's body with pure energy, slaying them without fail."
+/obj/item/gun/magic/wand/drain
+	name = "wand of drain vitality"
+	desc = "This dark wand saps the very life force from your target, slowing them and eventually transferring their life essence to you. Requires you to remain within range to be effective."
 	fire_sound = 'sound/magic/wandodeath.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/death
-	icon_state = "deathwand"
-	max_charges = 3 //3, 2, 2, 1
+	ammo_type = /obj/item/ammo_casing/magic/drain
+	icon_state = "drainwand"
+	item_state = "drainwand"
+	var/datum/status_effect/life_drain/active_effect
 
-/obj/item/gun/magic/wand/death/zap_self(mob/living/user)
-	..()
-	to_chat(user, span_warning("You irradiate yourself with pure energy! \
-	[pick("Do not pass go. Do not collect 200 zorkmids.","You feel more confident in your spell casting skills.","You Die...","Do you want your possessions identified?")]"))
-	user.adjustOxyLoss(500)
-	charges--
+/obj/item/gun/magic/wand/drain/pull_trigger(atom/target, mob/living/user, params, aimed)
+	if(charges && active_effect)
+		active_effect.end_drain()
+	return ..()
 
-/obj/item/gun/magic/wand/death/debug
-	desc = "In some obscure circles, this is known as the 'cloning tester's friend'."
-	max_charges = 500
-	variable_charges = FALSE
-	can_charge = TRUE
-	recharge_rate = 1
-
+/obj/item/gun/magic/wand/drain/dropped(mob/user)
+	. = ..()
+	if(active_effect)
+		active_effect.end_drain()
 
 /////////////////////////////////////
 //WAND OF HEALING
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/resurrection
+/obj/item/gun/magic/wand/healing
 	name = "wand of healing"
-	desc = "This wand uses healing magics to heal and revive. They are rarely utilized within the Wizard Federation for some reason."
+	desc = "This wand uses healing magics to heal some wounds. They are rarely utilized within the Wizard Federation for some reason."
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
-	icon_state = "revivewand"
-	max_charges = 10 //10, 5, 5, 4
-
-/obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
-	..()
-	charges--
-	user.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE) // This heals suicides
-	to_chat(user, span_notice("You feel great!"))
-
-/obj/item/gun/magic/wand/resurrection/debug //for testing
-	desc = "Is it possible for something to be even more powerful than regular magic? This wand is."
-	max_charges = 500
-	variable_charges = FALSE
-	can_charge = TRUE
-	recharge_rate = 1
-
-/obj/item/gun/magic/wand/resurrection/inert
-	name = "weakened wand of healing"
-	desc = "This wand uses healing magics to heal and revive. The years of the cold have weakened the magic inside the wand."
-	max_charges = 5
+	icon_state = "healwand"
+	item_state = "healwand"
 
 /////////////////////////////////////
-//WAND OF POLYMORPH
+//WAND OF ICE
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/polymorph
-	name = "wand of polymorph"
-	desc = "This wand is attuned to chaos and will radically alter the victim's form."
-	ammo_type = /obj/item/ammo_casing/magic/change
-	icon_state = "polywand"
-	fire_sound = 'sound/magic/staff_change.ogg'
-	max_charges = 10 //10, 5, 5, 4
-
-/obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
-	. = ..() //because the user mob ceases to exists by the time wabbajack fully resolves
-	user.wabbajack()
-	charges--
+/obj/item/gun/magic/wand/icy_blast
+	name = "wand of icy blast"
+	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
+	ammo_type = /obj/item/ammo_casing/magic/icy_blast
+	icon_state = "icewand"
+	item_state = "icewand"
+	fire_sound = 'sound/effects/glass_step.ogg'
 
 /////////////////////////////////////
 //WAND OF TELEPORTATION
@@ -134,11 +110,11 @@
 
 /obj/item/gun/magic/wand/teleport
 	name = "wand of teleportation"
-	desc = "This wand will wrench targets through space and time to move them somewhere else."
+	desc = "This wand will warp targets to somewhere else nearby. Great for clean get-away or a firm \"Get away!\"."
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
-	max_charges = 10 //10, 5, 5, 4
+	item_state = "telewand"
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -146,74 +122,39 @@
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(3, user.loc)
 		smoke.start()
-		charges--
-	..()
-
-/obj/item/gun/magic/wand/safety
-	name = "wand of safety"
-	desc = "This wand will use the lightest of bluespace currents to gently place the target somewhere safe."
-	ammo_type = /obj/item/ammo_casing/magic/safety
-	fire_sound = 'sound/magic/wand_teleport.ogg'
-	icon_state = "telewand"
-	max_charges = 10 //10, 5, 5, 4
-	no_den_usage = FALSE
-
-/obj/item/gun/magic/wand/safety/zap_self(mob/living/user)
-	var/turf/origin = get_turf(user)
-	var/turf/destination = find_safe_turf()
-
-	if(do_teleport(user, destination, channel=TELEPORT_CHANNEL_MAGIC, teleport_mode = TELEPORT_ALLOW_WIZARD))
-		for(var/t in list(origin, destination))
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(0, t)
-			smoke.start()
-	..()
-
-/obj/item/gun/magic/wand/safety/debug
-	desc = "This wand has 'find_safe_turf()' engraved into its blue wood. Perhaps it's a secret message?"
-	max_charges = 500
-	variable_charges = FALSE
-	can_charge = TRUE
-	recharge_rate = 1
-
-
-/////////////////////////////////////
-//WAND OF DOOR CREATION
-/////////////////////////////////////
-
-/obj/item/gun/magic/wand/door
-	name = "wand of door creation"
-	desc = "This particular wand can create doors in any wall for the unscrupulous wizard who shuns teleportation magics."
-	ammo_type = /obj/item/ammo_casing/magic/door
-	icon_state = "doorwand"
-	fire_sound = 'sound/magic/staff_door.ogg'
-	max_charges = 20 //20, 10, 10, 7
-	no_den_usage = 1
-
-/obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, span_notice("You feel vaguely more open with your feelings."))
-	charges--
 	..()
 
 /////////////////////////////////////
-//WAND OF FIREBALL
+//WAND OF ANIMATION
 /////////////////////////////////////
 
-/obj/item/gun/magic/wand/fireball
-	name = "wand of fireball"
-	desc = "This wand shoots scorching balls of fire that explode into destructive flames."
+/obj/item/gun/magic/wand/animation
+	name = "wand of animation"
+	desc = "This particular wand can spark life into inanimate objects, causing them to attack anyone nearby except the holder of this wand."
+	ammo_type = /obj/item/ammo_casing/magic/animate
+	icon_state = "animationwand"
+	item_state = "animationwand"
+	fire_sound = 'sound/magic/staff_animation.ogg'
+
+/////////////////////////////////////
+//WAND OF FIRE BOLT
+/////////////////////////////////////
+
+/obj/item/gun/magic/wand/firebolt
+	name = "wand of fire bolt"
+	desc = "This wand shoots scorching balls of fire that ignite anyone they hit. Not as powerful as a proper fireball but still very dangerous."
 	fire_sound = 'sound/magic/fireball.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/fireball
+	ammo_type = /obj/item/ammo_casing/magic/firebolt
 	icon_state = "firewand"
-	max_charges = 8 //8, 4, 4, 3
+	item_state = "firewand"
 
-/obj/item/gun/magic/wand/fireball/zap_self(mob/living/user)
-	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, magic = TRUE)
-	charges--
+/////////////////////////////////////
+//WAND OF NUTRITION
+/////////////////////////////////////
 
-/obj/item/gun/magic/wand/fireball/inert
-	name = "weakened wand of fireball"
-	desc = "This wand shoots scorching balls of fire that explode into destructive flames. The years of the cold have weakened the magic inside the wand."
-	max_charges = 4
-
+/obj/item/gun/magic/wand/nutrition
+	name = "wand of nutrition"
+	desc = "This wand fulfills one the basic human needs. Even wizards have to eat sometimes!"
+	ammo_type = /obj/item/ammo_casing/magic/burger
+	icon_state = "burgerwand"
+	item_state = "burgerwand"

@@ -85,8 +85,8 @@
 
 		//Make our lists
 		var/list/fingerprints = list()
-		var/list/blood = A.return_blood_DNA()
-		var/list/fibers = A.return_fibers()
+		var/list/blood = GET_ATOM_BLOOD_DNA(A)
+		var/list/fibers = GET_ATOM_FIBRES(A)
 		var/list/reagents = list()
 
 		var/target_name = A.name
@@ -110,7 +110,7 @@
 				to_chat(user, span_warning("Your [src] glitched out!"))
 
 			else
-				fingerprints = A.return_fingerprints()
+				fingerprints = GET_ATOM_FINGERPRINTS(A)
 
 				// Only get reagents from non-mobs.
 				if(A.reagents && A.reagents.reagent_list.len)

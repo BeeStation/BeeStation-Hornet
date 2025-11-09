@@ -31,17 +31,15 @@ SUBSYSTEM_DEF(augury)
 			biggest_threat = threat
 
 	if(length(doombringers))
-		for(var/mob/dead/observer/O in GLOB.player_list)
-			if(!(O in observers_given_action))
-				var/datum/action/augury/A = new
-				A.Grant(O)
-				observers_given_action += O
+		for(var/mob/dead/observer/observer in GLOB.player_list - observers_given_action)
+			var/datum/action/augury/action = new()
+			action.Grant(observer)
+			observers_given_action += observer
 	else
-		for(var/mob/dead/observer/O as() in observers_given_action)
-			for(var/datum/action/augury/A in O.actions)
-				qdel(A)
-				O.actions -= A
-			observers_given_action -= O
+		for(var/mob/dead/observer/observer in observers_given_action)
+			for(var/datum/action/augury/action in observer.actions)
+				qdel(action)
+			observers_given_action -= observer
 
 	for(var/mob/dead/observer/W as() in watchers)
 		if(QDELETED(W))

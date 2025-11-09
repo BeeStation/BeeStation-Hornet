@@ -14,6 +14,8 @@
 	. = ..()
 	atom_storage.max_slots = 1
 
+	AddElement(/datum/element/falling_hazard, damage = 5, hardhat_safety = TRUE, crushes = FALSE, impact_sound = drop_sound)
+
 /obj/item/storage/book/attack_self(mob/user)
 	to_chat(user, span_notice("The pages of [title] have been cut out!"))
 
@@ -186,7 +188,7 @@
 			smack = 0
 		else if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			if(!istype(C.head, /obj/item/clothing/head/helmet))
+			if(isnull(C.head) || istype(C.head.get_armor(), /datum/armor/none))
 				C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5, 60)
 				to_chat(C, span_danger("You feel dumber."))
 
@@ -255,15 +257,17 @@
 	new /obj/item/reagent_containers/cup/glass/bottle/whiskey(src)
 
 /obj/item/storage/book/bible/syndicate
+	name = "Syndicate Tome"
+	desc = "A very ominous tome resembling a bible."
 	icon_state ="ebook"
 	deity_name = "The Syndicate"
+	item_flags = NO_BLOOD_ON_ITEM
 	throw_speed = 2
-	throwforce = 18
 	throw_range = 7
+	throwforce = 18
 	force = 18
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	name = "Syndicate Tome"
 	attack_verb_continuous = list("attacks", "burns", "blesses", "damns", "scorches")
 	attack_verb_simple = list("attack", "burn", "bless", "damn", "scorch")
 	var/uses = 1
