@@ -103,6 +103,8 @@
   - bugfix: sticky tapes can no longer be applied at any distance
   - soundadd: added sounds for tape
 2025-11-09:
+  EvilDragonfiend:
+  - tweak: each type of maints is now spawned only once.
   mrmanlikesbt:
   - bugfix: Fixed cargo exports and bounties not working
   - bugfix: Fixed the contractor kit not spawning with extra items
