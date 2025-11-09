@@ -82,34 +82,6 @@ SUBSYSTEM_DEF(directives)
 		active_directives += selected
 		uplink.next_personal_objective_time = get_next_personal_objective_time()
 
-#ifdef DEBUG
-
-/client/verb/force_directive()
-	set name = "force directive"
-	set category = "powerfulbacon"
-	// Find all the minds
-	var/list/player_minds = list()
-	for (var/mob/player in GLOB.alive_mob_list)
-		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
-			continue
-		player_minds += player.mind
-	var/datum/priority_directive/selected = input(src, "What do you want?", "What do you want?") as null|anything in SSdirectives.directive_types
-	if (!selected)
-		return
-	selected = new selected()
-	selected.can_run(GLOB.uplinks, player_minds, TRUE)
-	selected.start(GLOB.uplinks, player_minds)
-	SSdirectives.next_directive_time = INFINITY
-	SSdirectives.active_directives += selected
-
-/client/verb/bump_directive()
-	set name = "bump personal directive"
-	set category = "powerfulbacon"
-	for (var/datum/component/uplink/uplink in GLOB.uplinks)
-		uplink.next_personal_objective_time = 0
-
-#endif
-
 /datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
 	var/data = list()
 	data["time"] = world.time
