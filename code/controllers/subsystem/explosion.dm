@@ -192,7 +192,7 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_LOWER 25 //The lower of the above.
 
 /datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, explosion_type, magic, holy, cap_modifier, explode_z = TRUE)
-	if (devastation_range <= 1 && heavy_impact_range <= 3)
+	if (devastation_range <= 2 && heavy_impact_range <= 5)
 		if (explosion_count >= SMALL_EXPLOSION_TICK_LIMIT)
 			queued += list(args)
 			return
@@ -530,7 +530,7 @@ SUBSYSTEM_DEF(explosions)
 	if (!is_exploding())
 		return
 
-	if (!resumed)
+	if (queued_index > queued.Cut())
 		explosion_count = 0
 		queued.Cut()
 		queued_index = 1
