@@ -187,13 +187,14 @@
  **/
 /datum/computer_file/program/proc/on_start(mob/living/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(is_supported_by_hardware(computer, user, 1))
-		if(requires_ntnet && network_destination)
-			var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
-			generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut
-		program_state = PROGRAM_STATE_ACTIVE
-		return TRUE
-	return FALSE
+	if(!is_supported_by_hardware(computer, user, TRUE))
+		return FALSE
+
+	if(requires_ntnet && network_destination)
+		var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+		generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut
+	program_state = PROGRAM_STATE_ACTIVE
+	return TRUE
 
 /**
   *
