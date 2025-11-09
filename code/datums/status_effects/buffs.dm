@@ -402,13 +402,13 @@
 	if(!..())
 		return FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camouflage/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
 /datum/status_effect/changeling/camouflage/proc/slight_increase()
@@ -585,20 +585,6 @@
 	if(!alreadyinfected)
 		to_chat(owner, span_userdanger("You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more."))
 
-/datum/status_effect/good_music
-	id = "Good Music"
-	alert_type = null
-	duration = 6 SECONDS
-	tick_interval = 1 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
-
-/datum/status_effect/good_music/tick()
-	if(owner.can_hear())
-		owner.dizziness = max(0, owner.dizziness - 2)
-		owner.adjust_jitter(-4 SECONDS)
-		owner.confused = max(0, owner.confused - 1)
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
-
 /datum/status_effect/antimagic
 	id = "antimagic"
 	duration = 10 SECONDS
@@ -724,7 +710,7 @@
 	if(!..())
 		return FALSE
 	// Effects that disrupt the cloak
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(bump_alpha))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(bump_alpha))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
 	// Effects that terminate the cloak
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
@@ -740,7 +726,7 @@
 
 /datum/status_effect/cloaked/on_remove()
 	owner.remove_alt_appearance(REF(src))
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()

@@ -572,7 +572,9 @@
 	var/sponsor = pick("DonkCo", "Waffle Co.", "Roffle Co.", "Gorlax Marauders", "Tiger Cooperative")
 	desc = "A set of snack-tical webbing worn by athletes of the [sponsor] VR sports division."
 
-/obj/item/storage/belt/military/snack/Initialize(mapload)
+/obj/item/storage/belt/military/snack/full
+
+/obj/item/storage/belt/military/snack/full/Initialize(mapload)
 	. = ..()
 	atom_storage.max_slots = 6
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
@@ -718,17 +720,30 @@
 		/obj/item/gun/magic/wand
 		))
 
-/obj/item/storage/belt/wands/full/PopulateContents()
-	new /obj/item/gun/magic/wand/death(src)
-	new /obj/item/gun/magic/wand/resurrection(src)
-	new /obj/item/gun/magic/wand/polymorph(src)
-	new /obj/item/gun/magic/wand/teleport(src)
-	new /obj/item/gun/magic/wand/door(src)
-	new /obj/item/gun/magic/wand/fireball(src)
+/obj/item/storage/belt/wands/random/PopulateContents()
+	var/variable_wand_list = list(
+		/obj/item/gun/magic/wand/drain,
+		/obj/item/gun/magic/wand/firebolt,
+		/obj/item/gun/magic/wand/teleport,
+		/obj/item/gun/magic/wand/animation,
+		/obj/item/gun/magic/wand/nutrition,
+		/obj/item/gun/magic/wand/icy_blast
+		)
 
-	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
-		W.max_charges = initial(W.max_charges)
-		W.charges = W.max_charges
+	//Wizard belt always contains a healing wand + three random wands
+	new /obj/item/gun/magic/wand/healing(src)
+	for(var/i in 1 to 3)
+		var/wand_type = pick(variable_wand_list)
+		new wand_type(src)
+		variable_wand_list -= wand_type
+
+/obj/item/storage/belt/wands/full/PopulateContents()
+	new /obj/item/gun/magic/wand/drain(src)
+	new /obj/item/gun/magic/wand/healing(src)
+	new /obj/item/gun/magic/wand/teleport(src)
+	new /obj/item/gun/magic/wand/animation(src)
+	new /obj/item/gun/magic/wand/icy_blast(src)
+	new /obj/item/gun/magic/wand/firebolt(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"

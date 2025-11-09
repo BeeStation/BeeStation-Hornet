@@ -3,18 +3,19 @@
 	desc = "A remote control switch."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
-	var/skin = "doorctrl"
+	base_icon_state = "doorctrl"
 	layer = ABOVE_WINDOW_LAYER
-	var/obj/item/assembly/device
-	var/obj/item/electronics/airlock/board
-	var/device_type = null
-	var/id = null
-	var/initialized_button = 0
 	armor_type = /datum/armor/machinery_button
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
+	var/obj/item/assembly/device
+	var/obj/item/electronics/airlock/board
+	var/device_type = null
+	var/id = null
+	var/initialized_button = FALSE
 
 /datum/armor/machinery_button
 	melee = 50
@@ -58,9 +59,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 		icon_state = "button-open"
 		return ..()
 	if(machine_stat & (NOPOWER|BROKEN))
-		icon_state = "[skin]-p"
+		icon_state = "[base_icon_state]-p"
 		return ..()
-	icon_state = skin
+	icon_state = base_icon_state
 	return ..()
 
 /obj/machinery/button/update_overlays()
@@ -75,11 +76,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 /obj/machinery/button/attackby(obj/item/W, mob/living/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(panel_open || allowed(user))
-			default_deconstruction_screwdriver(user, "button-open", "[skin]",W)
+			default_deconstruction_screwdriver(user, "button-open", "[base_icon_state]",W)
 			update_appearance()
 		else
 			to_chat(user, span_danger("Maintenance Access Denied."))
-			flick("[skin]-denied", src)
+			flick("[base_icon_state]-denied", src)
 		return
 
 	if(panel_open)
@@ -138,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 	if(id && istype(device, /obj/item/assembly/control))
 		var/obj/item/assembly/control/A = device
 		A.id = id
-	initialized_button = 1
+	initialized_button = TRUE
 
 /obj/machinery/button/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -162,10 +163,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 			to_chat(user, span_notice("You remove electronics from the button frame."))
 
 		else
-			if(skin == "doorctrl")
-				skin = "launcher"
+			if(base_icon_state == "doorctrl")
+				base_icon_state = "launcher"
 			else
-				skin = "doorctrl"
+				base_icon_state = "doorctrl"
 			to_chat(user, span_notice("You change the button frame's front panel."))
 		return
 
@@ -177,11 +178,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/button)
 
 	if(!allowed(user) && !istype(user, /mob/living/simple_animal/eminence))
 		to_chat(user, span_danger("Access Denied."))
-		flick("[skin]-denied", src)
+		flick("[base_icon_state]-denied", src)
 		return
 
 	use_power(5)
-	icon_state = "[skin]1"
+	icon_state = "[base_icon_state]1"
 
 	if(device)
 		device.pulsed(user)
@@ -242,7 +243,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	name = "mass driver button"
 	desc = "A remote control switch for a mass driver."
 	icon_state = "launcher"
-	skin = "launcher"
+	base_icon_state = "launcher"
 	device_type = /obj/item/assembly/control/massdriver
 
 /obj/machinery/button/massdriver/indestructible
@@ -252,7 +253,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	name = "ignition switch"
 	desc = "A remote control switch for a mounted igniter."
 	icon_state = "launcher"
-	skin = "launcher"
+	base_icon_state = "launcher"
 	device_type = /obj/item/assembly/control/igniter
 
 /obj/machinery/button/ignition/indestructible
@@ -275,7 +276,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	name = "flasher button"
 	desc = "A remote control switch for a mounted flasher."
 	icon_state = "launcher"
-	skin = "launcher"
+	base_icon_state = "launcher"
 	device_type = /obj/item/assembly/control/flasher
 
 /obj/machinery/button/flasher/indestructible
@@ -285,7 +286,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	name = "crematorium igniter"
 	desc = "Burn baby burn!"
 	icon_state = "launcher"
-	skin = "launcher"
+	base_icon_state = "launcher"
 	device_type = /obj/item/assembly/control/crematorium
 	id = 1
 
@@ -306,7 +307,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
 	name = "holofield switch"
 	desc = "A remote switch for a holofield generator"
 	icon_state = "launcher"
-	skin = "launcher"
+	base_icon_state = "launcher"
 	device_type = /obj/item/assembly/control/shieldwallgen
 	req_access = list()
 	id = 1
