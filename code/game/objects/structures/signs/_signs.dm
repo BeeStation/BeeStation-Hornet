@@ -6,9 +6,7 @@
 	layer = SIGN_LAYER
 	max_integrity = 100
 	armor_type = /datum/armor/structure_sign
-
-	/// Unwrenchable and modifiable
-	var/buildable_sign = TRUE
+	var/buildable_sign = 1 //unwrenchable and modifiable
 
 /datum/armor/structure_sign
 	melee = 50

@@ -247,4 +247,3 @@
 
 /turf/open/space/check_gravity()
 	return FALSE
-

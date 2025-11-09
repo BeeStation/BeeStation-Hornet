@@ -364,6 +364,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			if(charge_count % 4 == 0 && prob(75)) // Let them know it is charging/discharging.
 				playsound(src.loc, 'sound/effects/empulse.ogg', 100, 1)
 
+			if(prob(25)) // To help stop "Your clothes feel warm." spam.
+				radiation_pulse(src, max_range = 2)
+
 			var/overlay_state = null
 			switch(charge_count)
 				if(0 to 20)

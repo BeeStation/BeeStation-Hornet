@@ -22,7 +22,7 @@
 	)
 
 	for(var/atom/target in focus)
-		SSradiation.irradiate(target, intensity = 100)
+		SSradiation.irradiate(target, intensity = 25)
 
 	dump_targets()
 	clear_focus()

@@ -228,7 +228,7 @@ export type RbmkData = {
 };
 
 export const Rbmk = (props) => {
-  const { act, data } = useBackend<RbmkData>();
+  const { data } = useBackend<RbmkData>();
   const { rbmk_data } = data;
   return (
     <Window width={700} height={400} theme="ntos">

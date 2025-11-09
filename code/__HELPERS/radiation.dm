@@ -22,7 +22,7 @@
 	intensity = DEFAULT_RADIATION_INTENSITY,
 	minimum_exposure_time = 0,
 )
-	if(!SSradiation.can_fire)
+	if(!SSradiation.can_fire || intensity <= 0)
 		return
 
 	var/datum/radiation_pulse_information/pulse_information = new
@@ -31,6 +31,7 @@
 	pulse_information.threshold = threshold
 	pulse_information.intensity = intensity
 	pulse_information.minimum_exposure_time = minimum_exposure_time
+	pulse_information.turfs_to_process = RANGE_TURFS(max_range, source)
 
 	SSradiation.processing += pulse_information
 
@@ -42,9 +43,10 @@
 	var/threshold
 	var/intensity
 	var/minimum_exposure_time
+	var/list/turfs_to_process
 
 #define MEDIUM_RADIATION_THRESHOLD_RANGE 0.5
-#define EXTREME_RADIATION_INTENSITY 20
+#define EXTREME_RADIATION_INTENSITY 30
 
 /// Gets the perceived "danger" of radiation pulse, given the threshold to the target.
 /// Returns a RADIATION_DANGER_* define, see [code/__DEFINES/radiation.dm]

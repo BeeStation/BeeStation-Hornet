@@ -76,30 +76,6 @@
 		to_chat(user, span_warning("You poke [src] with [item]'s hyper-noblium tips. Nothing happens."))
 		return
 
-	if(istype(item, /obj/item/destabilizing_crystal))
-		var/obj/item/destabilizing_crystal/destabilizing_crystal = item
-
-		if(!is_main_engine)
-			to_chat(user, span_warning("You can't use \the [destabilizing_crystal] on \a [name]."))
-			return
-
-		if(get_integrity_percent() < SUPERMATTER_CASCADE_PERCENT)
-			to_chat(user, span_warning("You can only apply \the [destabilizing_crystal] to \a [name] that is at least [SUPERMATTER_CASCADE_PERCENT]% intact."))
-			return
-
-		to_chat(user, span_warning("You begin to attach \the [destabilizing_crystal] to \the [src]..."))
-		if(do_after(user, 3 SECONDS, src))
-			message_admins("[ADMIN_LOOKUPFLW(user)] attached [destabilizing_crystal] to the supermatter at [ADMIN_VERBOSEJMP(src)].")
-			user.log_message("attached [destabilizing_crystal] to the supermatter", LOG_GAME)
-			user.investigate_log("attached [destabilizing_crystal] to a supermatter crystal.", INVESTIGATE_ENGINES)
-			to_chat(user, span_danger("\The [destabilizing_crystal] snaps onto \the [src]."))
-			set_delam(SM_DELAM_PRIO_IN_GAME, /datum/sm_delam/cascade)
-			external_damage_immediate += 10
-			external_power_trickle += 500
-			log_activation(who = user, how = destabilizing_crystal)
-			qdel(destabilizing_crystal)
-		return
-
 	return ..()
 
 //Do not blow up our internal radio

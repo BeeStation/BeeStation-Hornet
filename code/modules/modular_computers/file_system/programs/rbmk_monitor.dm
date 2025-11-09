@@ -31,21 +31,31 @@
 /datum/computer_file/program/nuclear_monitor/kill_program(forced = FALSE)
 	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in reactors)
 		clear_reactor(reactor)
-	reactors = null
-	. = ..()
+	return ..()
 
 /datum/computer_file/program/nuclear_monitor/process_tick()
 	. = ..()
-	var/new_status = 0
-	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in reactors)
-		new_status = max(new_status, reactor.get_status())
-
+	var/new_status = get_status()
 	if(last_status != new_status)
 		last_status = new_status
 		ui_header = "smmon_[last_status].gif"
 		program_icon_state = "smmon_[last_status]"
 		if(istype(computer))
-			computer.update_icon()
+			computer.update_appearance()
+
+// Refreshes list of active reactors
+/datum/computer_file/program/nuclear_monitor/proc/refresh()
+	for(var/reactor in reactors)
+		clear_reactor(reactor)
+	var/turf/user_turf = get_turf(computer.ui_host())
+	if(!user_turf)
+		return
+	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in GLOB.machines)
+		// Exclude Syndicate owned, Delaminating, not within coverage, not on a tile.
+		if(!isturf(reactor.loc) || !(is_station_level(reactor.z) || is_mining_level(reactor.z) || reactor.z == user_turf.z))
+			continue
+		reactors += reactor
+		RegisterSignal(reactor, COMSIG_QDELETING, PROC_REF(clear_reactor))
 
 /datum/computer_file/program/nuclear_monitor/ui_data(mob/user)
 	var/list/data = list()
@@ -59,9 +69,6 @@
 
 /datum/computer_file/program/nuclear_monitor/ui_act(action, params)
 	. = ..()
-	if(.)
-		return TRUE
-
 	switch(action)
 		if("PRG_refresh")
 			refresh()
@@ -75,28 +82,8 @@
 						focus_reactor(reactor)
 					return TRUE
 
-// Refreshes list of active reactors
-/datum/computer_file/program/nuclear_monitor/proc/refresh()
-	for(var/reactor in reactors)
-		clear_reactor(reactor)
-
-	var/turf/user_turf = get_turf(computer.ui_host())
-	if(!user_turf)
-		return
-
-	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in GLOB.machines)
-		// Exclude Syndicate owned, Delaminating, not within coverage, not on a tile.
-		if(!isturf(reactor.loc) || !(is_station_level(reactor.z) || is_mining_level(reactor.z) || reactor.z == user_turf.z))
-			continue
-
-		reactors += reactor
-		RegisterSignal(reactor, COMSIG_QDELETING, PROC_REF(clear_reactor))
-
-
-/**
-  * Sends a meltdown alert to the computer if our focused reactor is delaminating.
-  * [var/obj/machinery/atmospherics/components/unary/rbmk/core/focused_reactor].
-**/
+/// Sends a meltdown alert to the computer if our focused reactor is delaminating.
+/// [var/obj/machinery/atmospherics/components/unary/rbmk/core/focused_reactor].
 /datum/computer_file/program/nuclear_monitor/proc/send_alert()
 	SIGNAL_HANDLER
 
@@ -108,7 +95,6 @@
 
 /datum/computer_file/program/nuclear_monitor/proc/clear_reactor(obj/machinery/atmospherics/components/unary/rbmk/core/reactor)
 	SIGNAL_HANDLER
-
 	reactors -= reactor
 	if(focused_reactor == reactor)
 		unfocus_reactor()
@@ -117,34 +103,18 @@
 /datum/computer_file/program/nuclear_monitor/proc/focus_reactor(obj/machinery/atmospherics/components/unary/rbmk/core/reactor)
 	if(reactor == focused_reactor)
 		return
-
 	if(focused_reactor)
 		unfocus_reactor()
-
 	RegisterSignal(reactor, COMSIG_SUPERMATTER_DELAM_ALARM, PROC_REF(send_alert))
 	focused_reactor = reactor
 
 /datum/computer_file/program/nuclear_monitor/proc/unfocus_reactor()
 	if(!focused_reactor)
 		return
-
 	UnregisterSignal(focused_reactor, COMSIG_SUPERMATTER_DELAM_ALARM)
 	focused_reactor = null
 
-/datum/computer_file/program/nuclear_monitor/ui_act(action, params)
-	. = ..()
-	if(.)
-		return
-
-	switch(action)
-		if("PRG_refresh")
-			refresh()
-			return TRUE
-		if("PRG_focus")
-			for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in reactors)
-				if(reactor.uid == params["focus_uid"])
-					if(focused_reactor == reactor)
-						unfocus_reactor(reactor)
-					else
-						focus_reactor(reactor)
-					return TRUE
+/datum/computer_file/program/nuclear_monitor/proc/get_status()
+	. = REACTOR_NOMINAL
+	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in reactors)
+		. = max(., reactor.get_status())

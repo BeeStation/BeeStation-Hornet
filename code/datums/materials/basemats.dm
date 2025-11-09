@@ -70,7 +70,6 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 
 /datum/material/uranium/on_applied(atom/source, amount, material_flags)
 	. = ..()
-
 	// Uranium structures should irradiate, but not items, because item irradiation is a lot more annoying.
 	// For example, consider picking up uranium as a miner.
 	if(isitem(source))
@@ -80,10 +79,8 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 
 /datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
-
 	if(isitem(source))
 		return
-
 	source.RemoveElement(/datum/element/radioactive, chance = URANIUM_IRRADIATION_INTENSITY)
 
 ///Adds firestacks on hit (Still needs support to turn into gas on destruction)

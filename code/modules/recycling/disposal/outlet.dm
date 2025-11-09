@@ -6,7 +6,6 @@
 	icon_state = "outlet"
 	density = TRUE
 	anchored = TRUE
-
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/trunk // the attached pipe trunk

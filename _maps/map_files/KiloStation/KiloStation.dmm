@@ -1075,6 +1075,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"akH" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/solar/port/fore)
 "akN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
@@ -1084,6 +1094,19 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"akR" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/solar/port/fore)
 "alf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
@@ -3968,6 +3991,16 @@
 "aNQ" = (
 /turf/closed/wall,
 /area/medical/cryo)
+"aOb" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "aOf" = (
 /obj/machinery/flasher{
 	id = "AI";
@@ -9007,39 +9040,6 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/space/nearstation)
-"bQd" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/engine/supermatter)
 "bQg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -9590,16 +9590,6 @@
 /obj/structure/sign/departments/evac,
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
-"bYx" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/incident_display/delam/directional/north,
-/turf/open/floor/engine,
-/area/engine/engineering)
 "bYD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -12631,6 +12621,14 @@
 /obj/machinery/status_display/evac,
 /turf/closed/wall/rust,
 /area/construction/mining/aux_base)
+"cDQ" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/radiation,
+/turf/open/floor/iron/dark,
+/area/science/mixing)
 "cDR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -15088,6 +15086,55 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"dcq" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "dcv" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -15104,6 +15151,55 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/storage)
+"ddp" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "ddN" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -15760,16 +15856,6 @@
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/iron,
 /area/security/brig)
-"doL" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/port/fore)
 "doQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -20916,6 +21002,56 @@
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
+"eSx" = (
+/obj/structure/table/reinforced,
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/assembly/signaler{
+	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/assembly/signaler{
+	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/assembly/signaler{
+	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/assembly/signaler{
+	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/screwdriver{
+	pixel_y = 6
+	},
+/obj/item/analyzer,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/item/wrench,
+/turf/open/floor/iron/dark,
+/area/science/mixing)
 "eSG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/external{
@@ -21958,6 +22094,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"fin" = (
+/obj/machinery/power/solar{
+	id = "aftstarboard";
+	name = "Aft-Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/aft)
 "fiy" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -24666,17 +24812,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
-"gdo" = (
-/obj/structure/closet/secure_closet/engineering_welding,
-/obj/item/storage/box/lights/mixed,
-/obj/item/wrench,
-/obj/item/stack/rods/twenty,
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/south,
-/turf/open/floor/iron,
-/area/engine/break_room)
 "gdx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -25348,19 +25483,6 @@
 	dir = 1
 	},
 /area/hallway/primary/fore)
-"gom" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/space/basic,
-/area/solar/port/fore)
 "goJ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -26177,6 +26299,55 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"gDD" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "gDS" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -33831,16 +34002,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
-"iYl" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/port/aft)
 "iYC" = (
 /obj/machinery/power/solar{
 	id = "foreport";
@@ -36338,16 +36499,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/maintenance/central)
-"jPd" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/space/basic,
-/area/solar/port/fore)
 "jPn" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -36358,39 +36509,6 @@
 /obj/effect/turf_decal/siding/wideplating_new/corner,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness/recreation)
-"jPw" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/engine/supermatter)
 "jPx" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -40664,15 +40782,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/central)
-"loc" = (
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/iron/dark,
-/area/engine/break_room)
 "lot" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -40737,6 +40846,15 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/maintenance/port)
+"loQ" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/engine/engineering)
 "lpv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
@@ -41681,6 +41799,22 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/maintenance/port/aft)
+"lFf" = (
+/obj/machinery/camera/directional/north{
+	c_tag = "Engineering Desk";
+	name = "engineering camera"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/fax/eng,
+/obj/machinery/incident_display/delam/directional/north,
+/turf/open/floor/iron/dark,
+/area/engine/break_room)
 "lFn" = (
 /obj/effect/landmark/start/shaft_miner,
 /obj/structure/cable/yellow{
@@ -42398,16 +42532,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/security/brig)
-"lSq" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/open/space/basic,
-/area/solar/starboard/fore)
 "lSB" = (
 /obj/effect/landmark/start/bartender,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -44698,18 +44822,6 @@
 	name = "mainframe floor"
 	},
 /area/tcommsat/server)
-"mCU" = (
-/obj/structure/closet/secure_closet/engineering_electrical,
-/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/bot,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/turf/open/floor/iron,
-/area/engine/break_room)
 "mDc" = (
 /obj/structure/reflector/double/anchored{
 	dir = 6
@@ -46765,19 +46877,6 @@
 	burnt = 1
 	},
 /area/maintenance/port/fore)
-"nmS" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/space/basic,
-/area/solar/starboard/fore)
 "nmU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -47857,15 +47956,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/construction/mining/aux_base)
-"nHm" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/engine/engineering)
 "nHo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49265,28 +49355,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
-"ocg" = (
-/obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/transfer_valve{
-	pixel_x = -4
-	},
-/obj/item/transfer_valve{
-	pixel_x = -4
-	},
-/obj/item/transfer_valve,
-/obj/item/transfer_valve,
-/obj/item/transfer_valve{
-	pixel_x = 4
-	},
-/obj/item/transfer_valve{
-	pixel_x = 4
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/mixing)
 "ocj" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
@@ -49980,6 +50048,16 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"ooY" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/fore)
 "oph" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/camera/directional/south{
@@ -51005,6 +51083,16 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics)
+"oDz" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/incident_display/delam/directional/north,
+/turf/open/floor/engine,
+/area/engine/engineering)
 "oDK" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=HOP";
@@ -52139,19 +52227,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
-"oXO" = (
-/obj/structure/table,
-/obj/item/folder/white{
-	pixel_x = 6
-	},
-/obj/item/storage/firstaid/regular,
-/obj/machinery/camera/directional/south{
-	c_tag = "Bridge Emergency Supplies";
-	name = "command camera"
-	},
-/obj/machinery/incident_display/bridge/directional/south,
-/turf/open/floor/iron/dark,
-/area/bridge)
 "oXS" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -52267,19 +52342,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
-"oZL" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/storage/toolbox/emergency,
-/obj/item/crowbar/red,
-/obj/item/flashlight,
-/obj/item/flashlight,
-/turf/open/floor/iron/dark,
-/area/bridge)
 "oZM" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 9
@@ -53246,6 +53308,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
+"pqq" = (
+/obj/structure/closet/secure_closet/engineering_welding,
+/obj/item/storage/box/lights/mixed,
+/obj/item/wrench,
+/obj/item/stack/rods/twenty,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/bot,
+/obj/machinery/airalarm/directional/south,
+/turf/open/floor/iron,
+/area/engine/break_room)
 "pqw" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Biohazard";
@@ -54221,6 +54294,18 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/bridge)
+"pFi" = (
+/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/bot,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/turf/open/floor/iron,
+/area/engine/break_room)
 "pFr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -56506,6 +56591,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/main)
+"qsi" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/bot,
+/obj/structure/fireaxecabinet{
+	pixel_y = -30
+	},
+/turf/open/floor/iron/dark,
+/area/bridge)
 "qsy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57736,6 +57829,27 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main)
+"qOc" = (
+/obj/structure/table/reinforced,
+/obj/item/transfer_valve{
+	pixel_x = -4
+	},
+/obj/item/transfer_valve{
+	pixel_x = -4
+	},
+/obj/item/transfer_valve,
+/obj/item/transfer_valve,
+/obj/item/transfer_valve{
+	pixel_x = 4
+	},
+/obj/item/transfer_valve{
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/mixing)
 "qOd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window{
@@ -57870,18 +57984,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/library)
-"qRj" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
-/turf/open/floor/engine,
-/area/engine/engineering)
 "qRl" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -57905,6 +58007,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"qRJ" = (
+/obj/machinery/power/solar{
+	id = "foreport";
+	name = "Fore-Port Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/port/aft)
 "qRS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61810,22 +61922,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"sfn" = (
-/obj/machinery/camera/directional/north{
-	c_tag = "Engineering Desk";
-	name = "engineering camera"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/fax/eng,
-/obj/machinery/incident_display/delam/directional/north,
-/turf/open/floor/iron/dark,
-/area/engine/break_room)
 "sfz" = (
 /obj/item/beacon,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -62785,14 +62881,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"swH" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/bot,
-/obj/structure/fireaxecabinet{
-	pixel_y = -30
-	},
-/turf/open/floor/iron/dark,
-/area/bridge)
 "swZ" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -66469,39 +66557,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"tDn" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/engine/supermatter)
 "tDs" = (
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted,
 /obj/structure/cable/yellow{
@@ -66531,39 +66586,6 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
-"tEm" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/engine/supermatter)
 "tEv" = (
 /obj/machinery/light{
 	dir = 1
@@ -67516,15 +67538,17 @@
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "tZX" = (
-/obj/machinery/power/solar{
-	id = "foreport";
-	name = "Fore-Port Solar Array"
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/starboard/fore)
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "uad" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -68832,6 +68856,55 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/maintenance/central)
+"urR" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "urT" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
@@ -69999,55 +70072,6 @@
 /obj/item/clothing/head/cone,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"uLL" = (
-/obj/structure/table/reinforced,
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/signaler{
-	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/assembly/signaler{
-	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/assembly/signaler{
-	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/assembly/signaler{
-	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. Slightly scooted.";
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/screwdriver{
-	pixel_y = 6
-	},
-/obj/item/analyzer,
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/iron/dark,
-/area/science/mixing)
 "uLN" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -70859,6 +70883,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
+"vaf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/tank_dispenser,
+/turf/open/floor/iron/dark,
+/area/science/mixing)
 "vap" = (
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /obj/structure/chair/fancy/comfy{
@@ -70939,6 +70972,55 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"vbs" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/east,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "vbt" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -72504,6 +72586,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/mixing)
+"vyr" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "vyF" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/red{
@@ -73638,14 +73730,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"vQY" = (
-/obj/structure/tank_dispenser,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/iron/dark,
-/area/science/mixing)
 "vRk" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4,
@@ -77118,6 +77202,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
+"wUu" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "wUH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -77364,39 +77461,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"wXp" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/engine/supermatter)
 "wXt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/trinary/mixer{
@@ -78295,6 +78359,19 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/maintenance/central)
+"xih" = (
+/obj/structure/table,
+/obj/item/folder/white{
+	pixel_x = 6
+	},
+/obj/item/storage/firstaid/regular,
+/obj/machinery/camera/directional/south{
+	c_tag = "Bridge Emergency Supplies";
+	name = "command camera"
+	},
+/obj/machinery/incident_display/bridge/directional/south,
+/turf/open/floor/iron/dark,
+/area/bridge)
 "xim" = (
 /obj/machinery/telecomms/processor/preset_four,
 /obj/effect/turf_decal/stripes/line,
@@ -78980,6 +79057,15 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
+"xsn" = (
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/bot,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/turf/open/floor/iron/dark,
+/area/engine/break_room)
 "xsx" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
@@ -79002,6 +79088,19 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/quartermaster/exploration_prep)
+"xty" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/storage/toolbox/emergency,
+/obj/item/crowbar/red,
+/obj/item/flashlight,
+/obj/item/flashlight,
+/turf/open/floor/iron/dark,
+/area/bridge)
 "xtK" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -79837,24 +79936,6 @@
 	},
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/entry)
-"xGo" = (
-/obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/book/manual/wiki/toxins{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/clothing/mask/gas{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/clothing/mask/gas,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/science/mixing)
 "xGy" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/decal/cleanable/dirt,
@@ -79863,16 +79944,6 @@
 	burnt = 1
 	},
 /area/maintenance/aft)
-"xGR" = (
-/obj/machinery/power/solar{
-	id = "aftstarboard";
-	name = "Aft-Starboard Solar Array"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/solarpanel/airless,
-/area/solar/starboard/aft)
 "xGT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -79967,39 +80038,6 @@
 	broken = 1
 	},
 /area/maintenance/starboard/fore)
-"xJi" = (
-/obj/structure/window/plasma/reinforced{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/circuit/green{
-	luminosity = 2
-	},
-/area/engine/supermatter)
 "xJs" = (
 /obj/structure/lattice,
 /turf/open/space,
@@ -80519,6 +80557,55 @@
 	},
 /turf/open/floor/iron,
 /area/quartermaster/qm)
+"xTc" = (
+/obj/structure/window/plasma/reinforced{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/west,
+/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/circuit/green{
+	luminosity = 2
+	},
+/area/engine/supermatter)
 "xTz" = (
 /obj/machinery/computer/camera_advanced/xenobio{
 	dir = 4
@@ -92538,17 +92625,17 @@ aeu
 aeu
 coy
 cmU
-iYl
-iYl
-iYl
-iYl
-iYl
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 bDa
-iYl
-iYl
-iYl
-iYl
-iYl
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 acm
 aeo
 aaa
@@ -92979,17 +93066,17 @@ aeo
 aaa
 aaQ
 acm
-doL
-doL
-doL
-doL
-doL
+ooY
+ooY
+ooY
+ooY
+ooY
 ade
-doL
-doL
-doL
-doL
-doL
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeu
@@ -93236,11 +93323,11 @@ aeo
 aeo
 aeo
 aaa
-jPd
-gom
-gom
-gom
-gom
+akH
+akR
+akR
+akR
+akR
 ctE
 asE
 asE
@@ -93565,19 +93652,19 @@ aUz
 aeU
 aeU
 cmU
-iYl
-iYl
-iYl
-iYl
-iYl
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 ckj
 ckj
 ckj
-iYl
-iYl
-iYl
-iYl
-iYl
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 acm
 aeo
 aaa
@@ -94006,19 +94093,19 @@ acm
 aeo
 aaa
 cmU
-doL
-doL
-doL
-doL
-doL
+ooY
+ooY
+ooY
+ooY
+ooY
 cFs
 ctE
 ctE
-doL
-doL
-doL
-doL
-doL
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeU
@@ -94263,11 +94350,11 @@ aaa
 aeo
 aaa
 cmU
-jPd
-gom
-gom
-gom
-gom
+akH
+akR
+akR
+akR
+akR
 aot
 aqw
 asL
@@ -94594,17 +94681,17 @@ ajd
 ajd
 ajd
 cmU
-iYl
-iYl
-iYl
-iYl
-iYl
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 ckj
-iYl
-iYl
-iYl
-iYl
-iYl
+qRJ
+qRJ
+qRJ
+qRJ
+qRJ
 cmU
 aaa
 aeo
@@ -95035,17 +95122,17 @@ aeu
 aeU
 aeU
 cmU
-doL
-doL
-doL
-doL
-doL
+ooY
+ooY
+ooY
+ooY
+ooY
 ctE
-doL
-doL
-doL
-doL
-doL
+ooY
+ooY
+ooY
+ooY
+ooY
 cmU
 aeU
 aeU
@@ -95292,11 +95379,11 @@ aeu
 aof
 aUz
 cmU
-jPd
-gom
-gom
-gom
-gom
+akH
+akR
+akR
+akR
+akR
 ctE
 asE
 asE
@@ -112555,7 +112642,7 @@ wfh
 wfh
 bFe
 nRH
-oXO
+xih
 atj
 lfF
 pvH
@@ -112812,7 +112899,7 @@ wfh
 wfh
 bFe
 nRH
-oZL
+xty
 atA
 gMA
 jFG
@@ -113069,7 +113156,7 @@ wxy
 lwx
 lDd
 jLs
-swH
+qsi
 atj
 yeR
 cEu
@@ -115930,7 +116017,7 @@ wil
 qJA
 tlX
 axa
-qRj
+tZX
 qqK
 hZt
 pYo
@@ -116688,7 +116775,7 @@ mDj
 xGT
 ifd
 awN
-sfn
+lFf
 xuX
 fPJ
 dFa
@@ -116945,7 +117032,7 @@ axF
 uuK
 axF
 awN
-loc
+xsn
 uwx
 mUV
 lFb
@@ -116963,9 +117050,9 @@ iBn
 axT
 aLH
 aLu
-bQd
-wXp
-jPw
+vbs
+ddp
+gDD
 axU
 mFJ
 iqU
@@ -117206,16 +117293,16 @@ ipY
 kSo
 fJe
 aIg
-mCU
+pFi
 eos
-gdo
+pqq
 axb
 rtm
 fGh
 iRA
-nHm
+loQ
 axS
-bYx
+oDz
 qVf
 aLs
 aOS
@@ -117991,9 +118078,9 @@ sfl
 axU
 aLI
 aLx
-tEm
-tDn
-xJi
+dcq
+urR
+xTc
 axU
 flz
 iqU
@@ -121525,7 +121612,7 @@ upx
 gyw
 hIj
 aVJ
-xGo
+vaf
 pif
 rkk
 bbN
@@ -122034,12 +122121,12 @@ kwe
 xWA
 aQZ
 aXl
-vQY
+cDQ
 xNj
 utl
-ocg
+qOc
 ldu
-uLL
+eSx
 pif
 xJS
 kHg
@@ -124162,17 +124249,17 @@ aeu
 aeU
 cPR
 cmU
-xGR
-xGR
-xGR
-xGR
-xGR
+fin
+fin
+fin
+fin
+fin
 ckA
-xGR
-xGR
-xGR
-xGR
-xGR
+fin
+fin
+fin
+fin
+fin
 acm
 aeo
 acm
@@ -125189,19 +125276,19 @@ aaa
 acm
 aaa
 cmU
-xGR
-xGR
-xGR
-xGR
-xGR
+fin
+fin
+fin
+fin
+fin
 ckA
 ckA
 ckA
-xGR
-xGR
-xGR
-xGR
-xGR
+fin
+fin
+fin
+fin
+fin
 acm
 acm
 aaa
@@ -126218,17 +126305,17 @@ aeo
 acm
 aeo
 acm
-xGR
-xGR
-xGR
-xGR
-xGR
+fin
+fin
+fin
+fin
+fin
 czr
-xGR
-xGR
-xGR
-xGR
-xGR
+fin
+fin
+fin
+fin
+fin
 acm
 aaQ
 aaa
@@ -127929,17 +128016,17 @@ wRr
 mMY
 bkd
 efK
-tZX
-tZX
-tZX
-tZX
-tZX
+aOb
+aOb
+aOb
+aOb
+aOb
 cjl
-tZX
-tZX
-tZX
-tZX
-tZX
+aOb
+aOb
+aOb
+aOb
+aOb
 cmU
 cmU
 aeU
@@ -128956,19 +129043,19 @@ aeu
 aeu
 aeu
 aeu
-tZX
-tZX
-tZX
-tZX
-tZX
+aOb
+aOb
+aOb
+aOb
+aOb
 crb
 crb
 crb
-tZX
-tZX
-tZX
-tZX
-tZX
+aOb
+aOb
+aOb
+aOb
+aOb
 aeU
 aeU
 ktS
@@ -129213,11 +129300,11 @@ aeu
 aeu
 aeU
 cmU
-lSq
-nmS
-nmS
-nmS
-nmS
+vyr
+wUu
+wUu
+wUu
+wUu
 oFO
 pEx
 xQl
@@ -129985,17 +130072,17 @@ aaa
 aeU
 aeU
 cmU
-tZX
-tZX
-tZX
-tZX
-tZX
+aOb
+aOb
+aOb
+aOb
+aOb
 crb
-tZX
-tZX
-tZX
-tZX
-tZX
+aOb
+aOb
+aOb
+aOb
+aOb
 aaa
 aeU
 coy
@@ -130242,11 +130329,11 @@ aaa
 aaa
 aeU
 aUz
-lSq
-nmS
-nmS
-nmS
-nmS
+vyr
+wUu
+wUu
+wUu
+wUu
 crb
 cXK
 cXK

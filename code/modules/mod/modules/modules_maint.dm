@@ -158,7 +158,8 @@
 	var/datum/reagents/holder = new()
 	holder.add_reagent(/datum/reagent/spraytan, 10)
 	holder.trans_to(mod.wearer, 10, method = VAPOR)
-	SSradiation.irradiate(mod.wearer, intensity = DEFAULT_RADIATION_INTENSITY)
+	if(prob(5))
+		SSradiation.irradiate(mod.wearer, intensity = 100)
 	drain_power(use_power_cost)
 
 ///Balloon Blower - Blows a balloon.

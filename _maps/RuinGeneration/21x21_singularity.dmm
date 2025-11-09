@@ -69,7 +69,7 @@
 	},
 /turf/open/floor/iron,
 /area/ruin)
-"I" = (
+"R" = (
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/ruin)
@@ -209,13 +209,13 @@ c
 c
 C
 C
-I
-I
-I
+R
+R
+R
 C
-I
-I
-I
+R
+R
+R
 C
 C
 c
@@ -253,7 +253,7 @@ c
 c
 c
 c
-I
+R
 a
 o
 t
@@ -263,7 +263,7 @@ S
 t
 o
 a
-I
+R
 E
 c
 c
@@ -276,7 +276,7 @@ c
 c
 c
 c
-I
+R
 t
 t
 t
@@ -286,7 +286,7 @@ a
 t
 t
 t
-I
+R
 E
 W
 c
@@ -299,7 +299,7 @@ c
 c
 c
 c
-I
+R
 a
 S
 a
@@ -309,7 +309,7 @@ S
 a
 S
 a
-I
+R
 E
 c
 c
@@ -345,7 +345,7 @@ c
 c
 c
 c
-I
+R
 a
 S
 a
@@ -355,7 +355,7 @@ S
 a
 S
 a
-I
+R
 E
 c
 c
@@ -368,7 +368,7 @@ c
 c
 c
 c
-I
+R
 t
 t
 t
@@ -378,7 +378,7 @@ a
 t
 t
 t
-I
+R
 E
 W
 c
@@ -391,7 +391,7 @@ c
 c
 c
 c
-I
+R
 a
 o
 t
@@ -401,7 +401,7 @@ S
 t
 o
 a
-I
+R
 E
 c
 c
@@ -439,13 +439,13 @@ c
 c
 C
 C
-I
-I
-I
+R
+R
+R
 C
-I
-I
-I
+R
+R
+R
 C
 C
 c

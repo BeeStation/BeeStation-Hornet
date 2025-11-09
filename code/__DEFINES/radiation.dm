@@ -35,7 +35,7 @@ Ask Mothblocks if they're around
 #define RAD_FULL_INSULATION 0 // Completely stops radiation from coming through
 
 /// The default intensity of a radiation pulse
-#define DEFAULT_RADIATION_INTENSITY 1
+#define DEFAULT_RADIATION_INTENSITY 5
 
 /// The default intensity of a radiation pulse for uranium
 #define URANIUM_IRRADIATION_INTENSITY DEFAULT_RADIATION_INTENSITY

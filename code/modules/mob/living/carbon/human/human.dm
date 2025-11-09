@@ -321,7 +321,7 @@
 		return FALSE
 	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
 	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
-	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+	for(var/obj/item/clothing/iter_clothing in get_clothing_on_part(the_part))
 		// If it has armour, it has enough thickness to block basic things
 		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 20 || iter_clothing.get_armor().get_rating(BULLET) >= 20))
 			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))

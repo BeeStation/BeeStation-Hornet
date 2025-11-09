@@ -68,7 +68,7 @@
 	var/y_distance_sign = SIGN(y_distance)
 
 	var/x = abs_x_distance >> 1 //Counters for steps taken, setting to distance/2
-	var/y = abs_y_distance >> 1 //Bit-shifting makes me l33t.  It also makes get_line() unnessecarrily fast.
+	var/y = abs_y_distance >> 1 //Bit-shifting makes me l33t.  It also makes get_line() unnecessarily fast.
 
 	if(abs_x_distance >= abs_y_distance) //x distance is greater than y
 		for(var/distance_counter in 0 to (abs_x_distance - 1))//It'll take abs_x_distance steps to get there
@@ -135,20 +135,6 @@
  */
 /proc/display_energy(units)
 	return siunit(units, "J", 3)
-
-/**
- * Converts the joule to the watt, assuming SSmachines tick rate.
- * Arguments
- *
- * * joules - the value in joules to convert
- * * datum/controller/subsystem/scheduler - the subsystem whos wait time is used in the conversion
- */
-/proc/energy_to_power(joules, datum/controller/subsystem/scheduler = SSmachines)
-	return joules * (1 SECONDS) / scheduler.wait
-
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /// Format a power value in W, kW, MW, GW.
 /proc/display_power(powerused)

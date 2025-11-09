@@ -16,7 +16,7 @@
 
 	last_parent = null
 
-	. = ..()
+	return ..()
 
 /datum/component/geiger_sound/RegisterWithParent()
 	sound = new(parent)
@@ -78,7 +78,7 @@
 
 /datum/looping_sound/geiger/Destroy()
 	last_radiation_pulse = null
-	. = ..()
+	return ..()
 
 /datum/looping_sound/geiger/get_sound()
 	if (isnull(last_radiation_pulse))

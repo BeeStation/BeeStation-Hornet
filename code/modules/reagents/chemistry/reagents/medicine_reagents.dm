@@ -482,10 +482,10 @@
 		affected_mob.reagents.remove_reagent(reagent.type, 1 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
+
 	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
 		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
-		irradiated_component.intensity *= 0.9
-
+		irradiated_component.adjust_intensity(irradiated_component.intensity * -0.1)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/liquid_solder
@@ -567,7 +567,7 @@
 		return
 
 	var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
-	irradiated_component.intensity -= REM * delta_time
+	irradiated_component.adjust_intensity(-1 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-1 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -590,7 +590,7 @@
 
 	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
 		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
-		irradiated_component.intensity -= 2 * REM * delta_time
+		irradiated_component.adjust_intensity(-2 * REM * delta_time)
 
 	affected_mob.adjustToxLoss(-2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH

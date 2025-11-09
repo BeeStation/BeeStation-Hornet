@@ -10,8 +10,6 @@
 	hitsound = null
 	damage = 10
 	damage_type = TOX
-
-	/// How much energy we give to the singularity/tesla
 	var/energy = 10
 	/// Whether or not we stop the singularity/tesla from dissipating
 	var/stop_dissipate = FALSE
@@ -22,7 +20,6 @@
 /obj/projectile/energy/accelerated_particle/weak
 	range = 8
 	energy = 5
-	damage = 5
 	stop_dissipate = TRUE //because its supposed to keep the singu/tesla stable at the same size
 
 /obj/projectile/energy/accelerated_particle/strong

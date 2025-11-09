@@ -17,8 +17,6 @@
 
 	var/power_gen = 1000 // Enough to power a single APC. 4000 output with T4 capacitor.
 
-	var/irradiate = TRUE // RTGs irradiate surroundings
-
 /obj/machinery/power/rtg/Initialize(mapload)
 	. = ..()
 	connect_to_network()
@@ -64,7 +62,6 @@
 	desc = "An alien power source that produces energy seemingly out of nowhere."
 	circuit = /obj/item/circuitboard/machine/abductor/core
 	power_gen = 20000 // 280 000 at T1, 400 000 at T4. Starts at T4.
-	irradiate = FALSE // Green energy!
 	can_buckle = FALSE
 	pixel_y = 7
 	var/going_kaboom = FALSE // Is it about to explode?

@@ -259,30 +259,30 @@
 /// The divisor for the maximum antinoblium conversion rate. (1/90 of the antinoblium converts other gases to antinoblium in one reaction tick.)
 #define ANTINOBLIUM_CONVERSION_DIVISOR 90
 
-// Plasm Fusion:
+// Plasmic Fusion:
 /// Amount of energy it takes to start a fusion reaction
-#define REAC_FUSION_ENERGY_THRESHOLD 3e9
+#define PLASMIC_FUSION_ENERGY_THRESHOLD 3e9
 /// Mole count required (tritium/plasma) to start a fusion reaction
-#define REAC_FUSION_MOLE_THRESHOLD 250
-#define REAC_FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
-#define REAC_INSTABILITY_GAS_POWER_FACTOR 3
-#define REAC_FUSION_TRITIUM_MOLES_USED 1
-#define REAC_PLASMA_BINDING_ENERGY 20000000
+#define PLASMIC_FUSION_MOLE_THRESHOLD 250
+#define PLASMIC_FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
+#define PLASMIC_FUSION_INSTABILITY_GAS_POWER_FACTOR 3
+#define PLASMIC_FUSION_TRITIUM_MOLES_USED 1
+#define PLASMIC_FUSION_PLASMA_BINDING_ENERGY 20000000
 /// Changing it by 0.1 generally doubles or halves fusion temps
-#define REAC_TOROID_CALCULATED_THRESHOLD 5.96
-#define REAC_FUSION_TEMPERATURE_THRESHOLD 10000
-#define REAC_PARTICLE_CHANCE_CONSTANT -20000000
-#define REAC_FUSION_INSTABILITY_ENDOTHERMALITY 2
+#define PLASMIC_FUSION_TOROID_CALCULATED_THRESHOLD 5.96
+#define PLASMIC_FUSION_TEMPERATURE_THRESHOLD 10000
+#define PLASMIC_FUSION_PARTICLE_CHANCE_CONSTANT -20000000
+#define PLASMIC_FUSION_INSTABILITY_ENDOTHERMALITY 2
 /// Used to be Pi
-#define REAC_FUSION_SCALE_DIVISOR 10
-#define REAC_FUSION_MINIMAL_SCALE 50
+#define PLASMIC_FUSION_SCALE_DIVISOR 10
+#define PLASMIC_FUSION_MINIMAL_SCALE 50
 /// This number is probably the safest number to change
-#define REAC_FUSION_SLOPE_DIVISOR 1250
+#define PLASMIC_FUSION_SLOPE_DIVISOR 1250
 /// This number is probably the most dangerous number to change
-#define REAC_FUSION_ENERGY_TRANSLATION_EXPONENT 1.25
+#define PLASMIC_FUSION_ENERGY_TRANSLATION_EXPONENT 1.25
 /// This number is responsible for orchestrating fusion temperatures
-#define REAC_FUSION_BASE_TEMPSCALE 6
+#define PLASMIC_FUSION_BASE_TEMPSCALE 6
 /// This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
-#define REAC_FUSION_MIDDLE_ENERGY_REFERENCE 1e6
+#define PLASMIC_FUSION_MIDDLE_ENERGY_REFERENCE 1e6
 /// Increase this to cull unrobust fusions faster
-#define REAC_FUSION_BUFFER_DIVISOR 1
+#define PLASMIC_FUSION_BUFFER_DIVISOR 1

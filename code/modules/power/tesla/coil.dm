@@ -36,7 +36,7 @@
 
 /obj/machinery/power/energy_accumulator/tesla_coil/Destroy()
 	QDEL_NULL(wires)
-	. = ..()
+	return ..()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
@@ -44,7 +44,7 @@
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		power_multiplier += capacitor.rating
 		cooldown_time -= capacitor.rating * 2 SECONDS
-	input_power_multiplier = max(1 * (power_multiplier / 8), 0.25) //Max out at 50% efficency.
+	input_power_multiplier = max(power_multiplier / 8, 0.25) //Max out at 50% efficency.
 
 /obj/machinery/power/energy_accumulator/tesla_coil/examine(mob/user)
 	. = ..()
@@ -139,6 +139,9 @@
 	/// The techweb this coil is linked to, used for generating research points
 	var/datum/techweb/linked_techweb
 
+/obj/machinery/power/energy_accumulator/tesla_coil/research/anchored
+	anchored = TRUE
+
 /obj/machinery/power/energy_accumulator/tesla_coil/research/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
@@ -193,11 +196,11 @@
 	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
 	wants_powernet = FALSE
-	custom_price = 350
 	circuit = /obj/item/circuitboard/machine/grounding_rod
 	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_requires_restraints = TRUE
+	custom_price = 350
 
 /obj/machinery/power/energy_accumulator/grounding_rod/anchored
 	anchored = TRUE

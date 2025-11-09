@@ -51,7 +51,7 @@
 		src,
 		max_range = 8,
 		threshold = threshold,
-		intensity = intensity * 50,
+		intensity = intensity * 30,
 	)
 
 /obj/machinery/power/supermatter_crystal/proc/processing_sound()

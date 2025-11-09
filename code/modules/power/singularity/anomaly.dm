@@ -1,6 +1,6 @@
 /**
  * In the end having singularity and tesla being subtypes of a common parent type is much more convenient
- **/
+ */
 /obj/anomaly
 	pass_flags_self = PASSANOMALY
 	flags_1 = SUPERMATTER_IGNORES_1

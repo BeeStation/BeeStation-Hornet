@@ -10,4 +10,4 @@
 /datum/wires/tesla_coil/on_pulse(wire)
 	var/obj/machinery/power/energy_accumulator/tesla_coil/coil = holder
 	coil.zap()
-	. = ..()
+	return ..()

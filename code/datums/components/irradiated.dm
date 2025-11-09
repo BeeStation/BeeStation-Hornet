@@ -11,6 +11,9 @@
 #define RADIATION_BURN_INTERVAL_MIN (30 SECONDS)
 #define RADIATION_BURN_INTERVAL_MAX (60 SECONDS)
 
+/// How much our intensity decreases per second if we have TRAIT_RAD_HEALER
+#define RAD_HEALER_DECREASE_PER_SECOND 0.5
+
 // Showers process on SSmachines
 #define RADIATION_CLEAN_IMMUNITY_TIME (SSMACHINES_DT + (1 SECONDS))
 
@@ -47,6 +50,7 @@
 	if (ishuman(parent))
 		START_PROCESSING(SSobj, src)
 	else
+		QDEL_IN(src, 30 SECONDS)
 		create_glow()
 
 /datum/component/irradiated/RegisterWithParent()
@@ -76,6 +80,9 @@
 
 	return ..()
 
+/datum/component/irradiated/InheritComponent(datum/component/irradiated/old_component)
+	intensity += old_component.intensity
+
 /datum/component/irradiated/process(delta_time)
 	if (!ishuman(parent))
 		return PROCESS_KILL
@@ -90,25 +97,36 @@
 
 	var/mob/living/carbon/human/human_parent = parent
 
-	if (intensity >= RADIATION_GLOW_THRESHOLD && !human_parent.get_filter("rad_glow"))
+	if (intensity >= RADIATION_GLOW_THRESHOLD)
 		create_glow()
-	if (intensity >= RADIATION_ALERT_THRESHOLD && !human_parent.has_alert(ALERT_IRRADIATED))
+	else if(human_parent.get_filter("rad_glow"))
+		human_parent.remove_filter("rad_glow")
+
+	if (intensity >= RADIATION_ALERT_THRESHOLD)
 		human_parent.throw_alert(ALERT_IRRADIATED, /atom/movable/screen/alert/irradiated)
+	else if(human_parent.has_alert(ALERT_IRRADIATED))
+		human_parent.clear_alert(ALERT_IRRADIATED)
 
 	if (should_halt_effects(human_parent))
 		return
 
-	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
-		start_burn_splotch_timer()
-
 	if (human_parent.stat != DEAD)
 		human_parent.dna?.species?.handle_radiation(human_parent, intensity, delta_time)
 
-	var/tox_dealt = min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE)
-	human_parent.apply_damage(tox_dealt, TOX)
+	if (HAS_TRAIT(human_parent, TRAIT_RADHEALER))
+		intensity = max(intensity - RAD_HEALER_DECREASE_PER_SECOND * delta_time, 0)
 
-/datum/component/irradiated/InheritComponent(datum/component/irradiated/old_component)
-	intensity += old_component.intensity
+	if (intensity >= RADIATION_BURN_THRESHOLD && !trying_to_burn)
+		start_burn_splotch_timer()
+
+	var/damage = min(RADIATION_TOX_DAMAGE_PER_INTENSITY * intensity * delta_time, RADIATION_MAX_TOX_DAMAGE)
+	if(!HAS_TRAIT(human_parent, TRAIT_TOXIMMUNE))
+		human_parent.adjustToxLoss(damage)
+	else
+		human_parent.adjustFireLoss(damage)
+
+/datum/component/irradiated/proc/adjust_intensity(amount)
+	intensity = clamp(intensity + amount, 0, 100)
 
 /datum/component/irradiated/proc/should_halt_effects(mob/living/carbon/human/target)
 	if (IS_IN_STASIS(target))
@@ -187,7 +205,7 @@
 	SIGNAL_HANDLER
 
 	if (isliving(source))
-		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [intensity]%."))
+		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [round(intensity)]%."))
 	else
 		// In case the green wasn't obvious enough...
 		to_chat(user, span_bolddanger("[icon2html(geiger_counter, user)] Target is irradiated."))
@@ -196,11 +214,15 @@
 
 /datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
-	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation.</span><br>"
+
+	if(advanced)
+		render_list += "<span class='alert ml-1'>Subject is irradiated. Contamination traces back to roughly [DisplayTimeText(world.time - beginning_of_irradiation, 5)] ago. Current radiation levels: [round(intensity)]%.</span><br>"
+	else
+		render_list += "<span class='alert ml-1'>Subject is irradiated. Supply antiradiation.</span><br>"
 
 /atom/movable/screen/alert/irradiated
 	name = "Irradiated"
-	desc = "You're irradiated! Heal your toxins quick, and stand under a shower to halt the incoming damage."
+	desc = "You're irradiated! Seek medicine and stand under a shower to halt the incoming damage."
 	icon_state = ALERT_IRRADIATED
 
 #undef RADIATION_TOX_DAMAGE_PER_INTENSITY
@@ -211,4 +233,5 @@
 #undef RADIATION_BURN_SPLOTCH_DAMAGE
 #undef RADIATION_BURN_INTERVAL_MIN
 #undef RADIATION_BURN_INTERVAL_MAX
+#undef RAD_HEALER_DECREASE_PER_SECOND
 #undef RADIATION_CLEAN_IMMUNITY_TIME

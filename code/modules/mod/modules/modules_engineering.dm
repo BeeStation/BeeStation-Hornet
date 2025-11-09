@@ -150,7 +150,6 @@
 	QDEL_NULL(line)
 	return ..()
 
-
 ///Radiation Protection - Protects the user from radiation, gives them a geiger counter and rad info in the panel.
 /obj/item/mod/module/rad_protection
 	name = "\improper MOD radiation protection module"

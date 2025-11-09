@@ -440,12 +440,13 @@
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
-		var/chance = min(volume / (20 - rad_power * 5), rad_power)
-		if(DT_PROB(chance, delta_time)) // ignore rad protection calculations bc it's inside of us
-			affected_mob.AddComponent(/datum/component/irradiated)
-	else
-		affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = TRUE)
+	if(SSradiation.can_irradiate_basic(affected_mob))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		if(!irradiated_component)
+			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(rad_power * REM * delta_time)
+
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/histamine
 	name = "Histamine"

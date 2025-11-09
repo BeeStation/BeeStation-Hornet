@@ -360,7 +360,7 @@
 	bullet = 5
 	laser = 10
 	energy = 15
-	bomb = 10 //taken from hardsuits, not long-term solution
+	bomb = 10
 	bio = 100
 	fire = 100
 	acid = 75
@@ -1494,7 +1494,7 @@
 	laser = 50
 	energy = 50
 	bomb = 35
-	bio = 1000
+	bio = 100
 	fire = 100
 	acid = 100
 	stamina = 50

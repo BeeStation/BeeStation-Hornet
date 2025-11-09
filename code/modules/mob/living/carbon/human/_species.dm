@@ -1639,6 +1639,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			to_chat(source, span_danger("Your hair starts to fall out in clumps."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
 
+/datum/species/proc/handle_blood(mob/living/carbon/human/H)
+	return FALSE
+
 /**
  * Makes the target human bald.
  *

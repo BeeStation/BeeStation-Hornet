@@ -180,8 +180,8 @@ const GASES = [
   {
     id: 'hypernoblium',
     path: '/datum/gas/hypernoblium',
-    name: 'Hyper-noblium',
-    label: 'Hyper-nob',
+    name: 'Hyper-Noblium',
+    label: 'Hyper-Noblium',
     color: 'teal',
   },
   {
@@ -244,7 +244,7 @@ const GASES = [
     id: 'proto_nitrate',
     path: '/datum/gas/proto_nitrate',
     name: 'Proto Nitrate',
-    label: 'Proto-Nitrate',
+    label: 'Proto Nitrate',
     color: 'greenyellow',
   },
   {
@@ -271,7 +271,7 @@ const GASES = [
   {
     id: 'antinoblium',
     path: '/datum/gas/antinoblium',
-    name: 'Antinoblium',
+    name: 'Anti-Noblium',
     label: 'Anti-Noblium',
     color: 'maroon',
   },

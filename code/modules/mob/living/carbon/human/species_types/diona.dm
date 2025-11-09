@@ -18,6 +18,7 @@
 		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
+		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_TRANSFORMATION_STING,
@@ -107,6 +108,14 @@
 	var/mob/living/simple_animal/hostile/retaliate/nymph/drone = drone_ref?.resolve()
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
+
+/datum/species/diona/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
+	//Dionae heal and eat radiation for a living.
+	source.adjust_nutrition(intensity * 0.1 * delta_time)
+	if(intensity > 50)
+		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_status = BODYTYPE_ORGANIC)
+		source.adjustToxLoss(-2 * delta_time)
+		source.adjustOxyLoss(-1 * delta_time)
 
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)

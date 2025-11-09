@@ -165,16 +165,6 @@
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = ALERT_TOO_MUCH_PLASMA
 
-/atom/movable/screen/alert/not_enough_n2o
-	name = "Choking (No N2O)"
-	desc = "You're not getting enough N2O. Find some good air before you pass out!"
-	icon_state = ALERT_NOT_ENOUGH_N2O
-
-/atom/movable/screen/alert/too_much_n2o
-	name = "Choking (N2O)"
-	desc = "There's sleeping gas in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and breath mask in it."
-	icon_state = ALERT_TOO_MUCH_N2O
-
 //End gas alerts
 
 
@@ -267,7 +257,7 @@ or something covering your eyes."
 	name = "Embedded Object"
 	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
 		If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
-	icon_state = "embeddedobject"
+	icon_state = ALERT_EMBEDDED_OBJECT
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/embeddedobject/Click()
@@ -358,7 +348,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 /atom/movable/screen/alert/succumb
 	name = "Succumb"
 	desc = "Shuffle off this mortal coil."
-	icon_state = "succumb"
+	icon_state = ALERT_SUCCUMB
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/succumb/Click()
@@ -833,7 +823,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /atom/movable/screen/alert/restrained/buckled
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
-	icon_state = "buckled"
+	icon_state = ALERT_BUCKLED
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/handcuffed

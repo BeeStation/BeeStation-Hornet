@@ -638,13 +638,7 @@
 /obj/machinery/light/zap_act(power, zap_flags)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		// Fire can cause a lot of lag, just do a mini explosion.
-		explosion(
-			epicenter = src,
-			devastation_range = 0,
-			heavy_impact_range = 0,
-			light_impact_range = 1,
-			adminlog = FALSE
-		)
+		explosion(src, 0, 0, 1, adminlog = FALSE)
 
 		for(var/mob/living/person in range(3, src))
 			person.fire_stacks = max(person.fire_stacks, 3)

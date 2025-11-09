@@ -55,10 +55,8 @@
 	item_state = "flashbang"
 
 	var/freeze_range = 4
-	var/rad_range = 4
-	var/rad_threshold = RAD_EXTREME_INSULATION
+	var/rad_damage = 350
 	var/stamina_damage = 30
-	var/temp_adjust = -230
 
 /obj/item/grenade/gluon/prime(mob/living/lanced_by)
 	. = ..()
@@ -66,10 +64,12 @@
 		return
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
-	radiation_pulse(src, max_range = rad_range, threshold = rad_threshold, intensity = 50)
-	for(var/turf/open/floor/F in view(freeze_range,loc))
-		F.MakeSlippery(TURF_WET_PERMAFROST, 6 MINUTES)
-		for(var/mob/living/carbon/L in F)
-			L.adjustStaminaLoss(stamina_damage)
-			L.adjust_bodytemperature(-230)
+
+	radiation_pulse(src, max_range = freeze_range, threshold = RAD_EXTREME_INSULATION, intensity = 50)
+	for(var/turf/open/floor/floor in view(freeze_range, loc))
+		floor.MakeSlippery(TURF_WET_PERMAFROST, 6 MINUTES)
+		for(var/mob/living/carbon/victim in floor)
+			victim.adjustStaminaLoss(stamina_damage)
+			victim.adjust_bodytemperature(-230)
+
 	qdel(src)

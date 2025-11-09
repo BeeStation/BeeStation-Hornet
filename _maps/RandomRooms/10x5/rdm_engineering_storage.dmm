@@ -38,13 +38,19 @@
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/template_noop)
-"j" = (
-/turf/open/floor/plating,
-/area/template_noop)
-"k" = (
+"i" = (
 /obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -232,7 +238,7 @@ q
 l
 d
 Y
-k
+i
 l
 "}
 (8,1,1) = {"

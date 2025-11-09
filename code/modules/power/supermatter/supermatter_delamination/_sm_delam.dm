@@ -1,6 +1,5 @@
 /// Priority is top to bottom.
 GLOBAL_LIST_INIT(sm_delam_list, list(
-	/datum/sm_delam/cascade = new /datum/sm_delam/cascade,
 	/datum/sm_delam/singularity = new /datum/sm_delam/singularity,
 	/datum/sm_delam/tesla = new /datum/sm_delam/tesla,
 	/datum/sm_delam/explosive = new /datum/sm_delam/explosive,

@@ -320,8 +320,7 @@
 		var/mob/living/consumed_mob = consumed_object
 		object_size = consumed_mob.mob_size + 2
 
-		if(!istype(atom_source, /obj/crystal_mass))
-			message_admins("[atom_source] has consumed [key_name_admin(consumed_mob)] [ADMIN_JMP(atom_source)].")
+		message_admins("[atom_source] has consumed [key_name_admin(consumed_mob)] [ADMIN_JMP(atom_source)].")
 
 		atom_source.investigate_log("has consumed [key_name(consumed_mob)].", INVESTIGATE_ENGINES)
 		consumed_mob.investigate_log("has been dusted by [atom_source].", INVESTIGATE_DEATHS)

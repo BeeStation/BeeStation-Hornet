@@ -410,13 +410,13 @@
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
 
-	COOLDOWN_DECLARE(pulse_cooldown)
+	COOLDOWN_DECLARE(radiate_cooldown)
 
-/datum/species/golem/uranium/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/uranium/spec_life(mob/living/carbon/human/source)
 	. = ..()
-	if(COOLDOWN_FINISHED(src, pulse_cooldown))
-		COOLDOWN_START(src, pulse_cooldown, 3 SECONDS)
-		radiation_pulse(H, max_range = 1)
+	if(COOLDOWN_FINISHED(src, radiate_cooldown))
+		COOLDOWN_START(src, radiate_cooldown, 3 SECONDS)
+		radiation_pulse(source, max_range = 2)
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand

@@ -23,9 +23,6 @@
 	/// How likely is a critical fail?
 	var/crit_fail_prob = 1
 
-	/// The amount of damage to take in BOTH Tox and Oxy on critical fail
-	var/crit_fail_damage = 15
-
 /obj/item/wirebrush/advanced/examine(mob/user)
 	. = ..()
 	. += span_danger("There is a warning label that indicates extended use of [src] may result in loss of hair, yellowing skin, and death.")

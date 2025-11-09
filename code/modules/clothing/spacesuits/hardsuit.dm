@@ -32,7 +32,6 @@
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	var/hardsuit_type = "engineering" //Determines used sprites: hardsuit[on]-[type]
 
-
 /datum/armor/space_hardsuit
 	melee = 10
 	bullet = 5

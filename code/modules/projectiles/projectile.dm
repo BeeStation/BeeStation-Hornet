@@ -299,7 +299,20 @@
 	else
 		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
 
-	return L.apply_effects(stun, knockdown, unconscious, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter, paralyze, immobilize)
+	return L.apply_effects(
+		stun = stun,
+		knockdown = knockdown,
+		unconscious = unconscious,
+		slur = slur,
+		stutter = stutter,
+		eyeblur = eyeblur,
+		drowsy = drowsy,
+		blocked = blocked,
+		stamina = stamina,
+		jitter = jitter,
+		paralyze = paralyze,
+		immobilize = immobilize,
+	)
 
 /obj/projectile/proc/vol_by_damage()
 	if(src.damage)

@@ -74,8 +74,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		if(HAS_TRAIT(O, TRAIT_IRRADIATED))
-			O.AddComponent(/datum/component/irradiated)
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -224,8 +225,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		if(HAS_TRAIT(O, TRAIT_IRRADIATED))
-			O.AddComponent(/datum/component/irradiated)
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -372,8 +374,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		if(HAS_TRAIT(O, TRAIT_IRRADIATED))
-			O.AddComponent(/datum/component/irradiated)
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)

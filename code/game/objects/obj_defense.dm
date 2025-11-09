@@ -172,6 +172,9 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		for(var/mob/living/buckled_mob in buckled_mobs)
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
+/obj/proc/reset_shocked()
+	obj_flags &= ~BEING_SHOCKED
+
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DECONSTRUCT, disassembled)

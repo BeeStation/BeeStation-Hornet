@@ -231,6 +231,23 @@
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
+	//BZ (Facepunch port of their Agent B)
+	if(GET_MOLES(/datum/gas/bz, breath))
+		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
+		if(bz_partialpressure > 1)
+			adjust_hallucinations(20)
+		else if(bz_partialpressure > 0.01)
+			adjust_hallucinations(10 SECONDS)
+
+	//NITRIUM
+	if(GET_MOLES(/datum/gas/nitrium, breath))
+		var/nitrium_partialpressure = (GET_MOLES(/datum/gas/nitrium, breath)/breath.total_moles())*breath_pressure
+		if(nitrium_partialpressure > 0.5)
+			adjustFireLoss(nitrium_partialpressure * 0.15)
+		if(nitrium_partialpressure > 5)
+			adjustToxLoss(nitrium_partialpressure * 0.05)
+
+	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)
 
 	breath.garbage_collect()
@@ -333,6 +350,7 @@
 	for(var/datum/mutation/HM as() in dna.mutations)
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
+
 
 /*
 Alcohol Poisoning Chart

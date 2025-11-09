@@ -235,7 +235,6 @@
 	. = ..()
 	AddElement(/datum/element/radiation_protected_clothing)
 
-
 // debug bag
 
 /obj/item/storage/backpack/debug
@@ -309,8 +308,7 @@
 	icon_state = "sp_green"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-	var/static/list/traits_to_give = list(
+	var/traits_to_give = list(
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_FEARLESS,
 		TRAIT_SHOCKIMMUNE,

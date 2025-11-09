@@ -17,9 +17,22 @@
 	end_message = span_notice("The air seems to be cooling off again.")
 
 	area_type = /area
-	protected_areas = list(/area/maintenance, /area/ai_monitored/turret_protected/ai_upload, /area/ai_monitored/turret_protected/ai_upload_foyer,
-	/area/ai_monitored/turret_protected/ai, /area/storage/emergency/starboard, /area/storage/emergency/port, /area/shuttle, /area/security/prison/asteroid/shielded,
-	/area/security/prison/asteroid/service, /area/space/nearstation, /area/solar, /area/security/prison, /area/holodeck/prison, /area/holodeck/debug)
+	protected_areas = list(
+		/area/maintenance,
+		/area/ai_monitored/turret_protected/ai_upload,
+		/area/ai_monitored/turret_protected/ai_upload_foyer,
+		/area/ai_monitored/turret_protected/ai,
+		/area/storage/emergency/starboard,
+		/area/storage/emergency/port,
+		/area/shuttle,
+		/area/security/prison/asteroid/shielded,
+		/area/security/prison/asteroid/service,
+		/area/space/nearstation,
+		/area/solar,
+		/area/security/prison,
+		/area/holodeck/prison,
+		/area/holodeck/debug,
+	)
 	target_trait = ZTRAIT_STATION
 
 	/// Chance we get a negative mutation, if we fail we get a positive one
@@ -62,7 +75,7 @@
 
 /datum/weather/rad_storm/proc/do_mutate(mob/living/carbon/human/mutant)
 	if(prob(negative_mutation_chance))
-		mutant.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
+		mutant.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
 	else
 		mutant.easy_random_mutate(POSITIVE)
 	mutant.domutcheck()

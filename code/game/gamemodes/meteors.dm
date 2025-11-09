@@ -320,16 +320,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/meteor)
 
 /obj/effect/meteor/irradiated/meteor_effect()
 	..()
-	explosion(src, heavy_impact_range = 1, light_impact_range = 3, flash_range = 6, adminlog = FALSE)
-	for(var/turf/open/floor/surviving_ground in range(2, get_turf(src)))
-		if(prob(70))
-			new /obj/effect/decal/cleanable/greenglow(get_turf(src))
-			radiation_pulse(
-				source = src,
-				max_range = 7,
-				threshold = RAD_EXTREME_INSULATION,
-				intensity = 100,
-			)
+	explosion(src.loc, 0, 0, 4, 3, 0)
+	new /obj/effect/decal/cleanable/greenglow(get_turf(src))
+	radiation_pulse(
+		source = src,
+		max_range = 7,
+		threshold = RAD_EXTREME_INSULATION,
+		intensity = 100,
+	)
 
 //Meaty Ore
 /obj/effect/meteor/meaty
