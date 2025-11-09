@@ -3,27 +3,18 @@
  * It is a shorthand for creating basic types.
  */
 
-#ifdef OPENDREAM
-
-#define NAMED_TUPLE_1(NAME, TYPE_1, NAME_1) /datum/##NAME {##TYPE_1/##NAME_1;New(...) {src.##NAME_1 = args[1];}}
-#define NAMED_TUPLE_2(NAME, TYPE_1, NAME_1, TYPE_2, NAME_2) /datum/##NAME {##TYPE_1/##NAME_1;##TYPE_2/##NAME_2;New(...) {src.##NAME_1 = args[1];src.##NAME_2 = args[2];}}
-
-#else
-
-#define NAMED_TUPLE_1(NAME, TYPE_1, NAME_1) /datum/##NAME {\
-	##TYPE_1/##NAME_1;\
+#define NAMED_TUPLE_1(NAME, TYPEA, NAMEA) /datum/##NAME {\
+	##TYPEA/##NAMEA;\
 }\
 /datum/##NAME/New(...) {\
-	src.##NAME_1 = args[1];\
+	src.##NAMEA = args[1];\
 }
 
-#define NAMED_TUPLE_2(NAME, TYPE_1, NAME_1, TYPE_2, NAME_2) /datum/##NAME {\
-	##TYPE_1/##NAME_1;\
-	##TYPE_2/##NAME_2;\
+#define NAMED_TUPLE_2(NAME, TYPEA, NAMEA, TYPEB, NAMEB) /datum/##NAME {\
+	##TYPEA/##NAMEA;\
+	##TYPEB/##NAMEB;\
 }\
 /datum/##NAME/New(...) {\
-	src.##NAME_1 = args[1];\
-	src.##NAME_2 = args[2];\
+	src.##NAMEA = args[1];\
+	src.##NAMEB = args[2];\
 }
-
-#endif
