@@ -67,8 +67,9 @@
 	if(!length(radial_choices))
 		stack_trace("[src] generated no radial choices")
 		return
-	var/selection = show_radial_menu(mod.wearer, mod, radial_choices, radius = 36, require_near = TRUE, tooltips = TRUE)
-	if(!selection)
+	var/selection = show_radial_menu(mod.wearer, mod, radial_choices, radius = 36, custom_check = CALLBACK(src, PROC_REF(check_menu)), require_near = TRUE, tooltips = TRUE)
+	//was there a selection? was the suit still on when we made it? (need to check again since the radial takes a bit to close when the suit deactivates)
+	if(!selection || !check_menu())
 		return
 	switch(selection)
 		if("Toggle Beacon")
@@ -103,6 +104,14 @@
 		change_frequency.image = frequency_image
 		choices["Change Frequency"] = change_frequency
 	return choices
+
+/// Callback for the radial to ensure it's closed when not allowed.
+/obj/item/mod/module/tracking_beacon/proc/check_menu()
+	if(QDELETED(src))
+		return FALSE
+	if(!mod.active)
+		return FALSE
+	return TRUE
 
 /obj/item/mod/module/tracking_beacon/proc/toggle_beacon(mob/user)
 	var/datum/component/tracking_beacon/beacon = beacon_ref?.resolve()
