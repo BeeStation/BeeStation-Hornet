@@ -9131,6 +9131,7 @@
 	dir = 5
 	},
 /obj/machinery/camera/directional/north,
+/obj/structure/wall_closet/tool/directional/north,
 /obj/item/lightreplacer{
 	pixel_y = 9;
 	pixel_x = -10
@@ -12780,6 +12781,7 @@
 	pixel_y = 10
 	},
 /obj/machinery/light/directional/north,
+/obj/item/radio/intercom/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "czg" = (
@@ -22021,7 +22023,6 @@
 	dir = 1
 	},
 /obj/item/clothing/ears/earmuffs,
-/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "exm" = (
@@ -23450,7 +23451,9 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/machinery/incident_display/delam/directional/north,
+/obj/machinery/firealarm{
+	pixel_y = 28
+	},
 /turf/open/floor/iron/grid/steel,
 /area/engine/storage)
 "eNE" = (
@@ -26214,31 +26217,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/service)
 "ftE" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -32613,7 +32591,7 @@
 /area/hallway/primary/port)
 "gDW" = (
 /obj/machinery/suit_storage_unit/engine,
-/obj/machinery/firealarm/directional/east,
+/obj/machinery/newscaster/directional/east,
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "gDX" = (
@@ -33264,7 +33242,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 9
 	},
-/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/vault/rock,
 /area/engine/engine_room)
 "gLg" = (
@@ -38401,8 +38378,8 @@
 /area/bridge/meeting_room)
 "hMG" = (
 /obj/structure/tank_dispenser,
+/obj/item/radio/intercom/directional/south,
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/newscaster/directional/south,
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "hMH" = (
@@ -45383,31 +45360,6 @@
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/port)
 "jjR" = (
-/obj/structure/window/plasma/reinforced/spawner/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 9
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -49797,31 +49749,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "keN" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -51859,13 +51786,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/maintenance/department/chapel)
-"kyg" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgew"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/bridge)
 "kyl" = (
 /obj/structure/platform/gray{
 	dir = 10
@@ -52068,6 +51988,9 @@
 	color = "#3a3a3a"
 	},
 /obj/effect/turf_decal/siding/dark,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/smooth_large,
 /area/engineering/hallway)
 "kAV" = (
@@ -59951,16 +59874,7 @@
 /area/crew_quarters/heads/chief)
 "miz" = (
 /obj/machinery/vending/engivend,
-/obj/machinery/light_switch/directional/west{
-	pixel_y = 5
-	},
-/obj/machinery/button/door{
-	pixel_x = -26;
-	name = "Radiation Shutters";
-	id = "smrad";
-	color = "#74b366";
-	pixel_y = -5
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "miB" = (
@@ -60777,9 +60691,6 @@
 	dir = 4
 	},
 /obj/machinery/light_switch/directional/north,
-/obj/item/radio/intercom/directional/north{
-	pixel_y = 34
-	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "mrd" = (
@@ -77452,18 +77363,6 @@
 /turf/open/floor/iron/white/textured_large,
 /area/crew_quarters/kitchen)
 "pKh" = (
-/obj/machinery/light/directional/west,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/brown{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet/directional/west,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/status_display/ai/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -79902,33 +79801,6 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "qkd" = (
-/obj/structure/window/plasma/reinforced/spawner/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/camera/directional/south,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/east,
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/camera/directional/south,
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible{
-	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -88527,31 +88399,6 @@
 /turf/open/floor/plating,
 /area/hallway/upper/primary/starboard)
 "rYv" = (
-/obj/structure/window/plasma/reinforced/spawner/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -93700,6 +93547,9 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/machinery/door/airlock/command{
 	name = "Power Tools Storage A";
 	req_access_txt = "19";
@@ -93958,6 +93808,9 @@
 /obj/item/powertool/jaws_of_life{
 	pixel_y = 12;
 	pixel_x = -8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/engineering/hallway)
@@ -97447,31 +97300,6 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
 "tPH" = (
-/obj/structure/window/plasma/reinforced/spawner/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/west,
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/plasma/spawner/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -99724,13 +99552,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/central)
-"umw" = (
-/obj/effect/turf_decal/tile/monorust,
-/obj/effect/turf_decal/siding/dark{
-	dir = 1
-	},
-/turf/open/floor/iron/smooth_large,
-/area/engineering/hallway)
 "umM" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/tile/steelgrid/diagonal{
@@ -101871,7 +101692,7 @@
 /obj/effect/turf_decal/trimline/yellow/filled/corner,
 /obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/camera/directional/north,
-/obj/machinery/incident_display/bridge/directional/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
 "uJJ" = (
@@ -102375,26 +102196,6 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet/restrooms)
 "uNS" = (
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
-/obj/structure/table/reinforced{
-	color = "#c2bfa3"
-	},
-/obj/item/pen,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "CEdesk"
-	},
-/obj/machinery/status_display/ai/directional/east,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -105128,6 +104929,7 @@
 	dir = 8;
 	pixel_x = 25
 	},
+/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "vpQ" = (
@@ -109453,7 +109255,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
-/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "whD" = (
@@ -110658,7 +110459,12 @@
 /area/hallway/primary/central)
 "wuv" = (
 /obj/machinery/suit_storage_unit/engine,
-/obj/structure/wall_closet/tool/directional/east,
+/obj/machinery/button/door{
+	pixel_x = 24;
+	name = "Radiation Shutters";
+	id = "smrad";
+	color = "#74b366"
+	},
 /turf/open/floor/iron/tech/grid,
 /area/engine/storage)
 "wuy" = (
@@ -114738,6 +114544,7 @@
 /obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 8
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "xov" = (
@@ -135017,7 +134824,7 @@ nzj
 nzj
 hyT
 qNN
-aMX
+saC
 unq
 xCR
 nuX
@@ -135030,7 +134837,7 @@ rvH
 hqD
 sUj
 vDz
-kyg
+saC
 qNN
 hyT
 nzj
@@ -135287,7 +135094,7 @@ izS
 hqD
 jAr
 rlB
-kyg
+saC
 qNN
 nnv
 exV
@@ -154631,10 +154438,10 @@ fVX
 uyY
 rvZ
 tdv
-umw
+wJf
 kAT
 tfv
-dGx
+btm
 whA
 fxG
 vuA
