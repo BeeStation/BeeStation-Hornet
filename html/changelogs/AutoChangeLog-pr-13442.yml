@@ -1,0 +1,16 @@
+author: mrmanlikesbt, Mothblocks, KittyNoodle, Pickle-Coding, timothymtorres, Krysonism,
+  Tiresoup, ShizCalev, lessthnthree, Lufferly, Ghilker, SyncIt21, vincentiusvin, nevimer,
+  blessedmulligan
+delete-after: true
+changes:
+  - refactor: Refactored radiation
+  - rscdel: Deleted radiation collectors
+  - rscdel: Pluoxium can no longer be produced on radioactive turfs- combine carbon
+      dioxide, oxygen, and tritium
+  - tweak: Gene tampering now causes genetic damage instead of radiation damage
+  - rscadd: The supermatter now produces power through electric shocks
+  - rscadd: The supermatter now features festive lighting during Christmas
+  - rscadd: Improved the supermatter and RBMK UI
+  - refactor: Rewrote much of the internal supermatter logic
+  - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
+      magboots!!!

@@ -171,28 +171,32 @@
 /obj/structure/falsewall/uranium
 	mineral = /obj/item/stack/sheet/mineral/uranium
 	walltype = /turf/closed/wall/mineral/uranium
-	var/active = null
-	var/last_event = 0
 
-/obj/structure/falsewall/uranium/attackby(obj/item/W, mob/user, params)
+	COOLDOWN_DECLARE(radiate_cooldown)
+
+/obj/structure/falsewall/uranium/attackby(obj/item/attacking_item, mob/user, params)
 	radiate()
 	return ..()
 
 /obj/structure/falsewall/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
-	. = ..()
+	return ..()
 
 /obj/structure/falsewall/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 150)
-			for(var/turf/closed/wall/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	COOLDOWN_START(src, radiate_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+
+	for(var/turf/closed/wall/mineral/uranium/uranium_wall in (RANGE_TURFS(1, src) - src))
+		uranium_wall.radiate()
 /*
  * Other misc falsewall types
  */
