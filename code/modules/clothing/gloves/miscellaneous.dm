@@ -95,19 +95,20 @@
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 	var/warcry = "AT"
+	var/speed = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc
 	if(get_dist(A, M) <= 1)
 		if(isliving(A) && M.combat_mode)
-			M.changeNext_move(CLICK_CD_RAPID)
+			M.changeNext_move(speed)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 
 	else if(M.combat_mode)
 		for(var/mob/living/L in oview(1, M))
 			L.attack_hand(M)
-			M.changeNext_move(CLICK_CD_RAPID)
+			M.changeNext_move(speed)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 			break
@@ -121,6 +122,25 @@
 		to_chat(user, span_warning("Invalid battlecry, please use another. Battlecry contains prohibited word(s)."))
 	else if(input)
 		warcry = input
+
+/obj/item/clothing/gloves/rapid/vampire
+	name = "Strange Blur"
+	desc = "There is a strange, subtle blur surrounding the hands."
+	icon = 'icons/vampires/vamp_obj.dmi'
+	icon_state = "quickness"
+	item_state = "quickness"
+	worn_icon_state = null
+	item_flags = ISWEAPON
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
+	warcry = null // We are not so silly.
+	speed = CLICK_CD_RANGE	// Tiny bit slower than the gloves because vamps are also stronger
+
+/obj/item/clothing/gloves/rapid/vampire/attack_self(mob/user)	// Just in case
+	return
+
+/obj/item/clothing/gloves/rapid/vampire/New()
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	return ..()
 
 /obj/item/clothing/gloves/color/white/magic
 	name = "white gloves"

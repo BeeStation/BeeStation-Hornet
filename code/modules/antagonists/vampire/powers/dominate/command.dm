@@ -16,8 +16,8 @@
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 120
-	cooldown_time = 300 SECONDS
-	target_range = 8
+	cooldown_time = 80 SECONDS
+	target_range = 6
 	power_activates_immediately = FALSE
 	prefire_message = "Whom will you subvert to your will?"
 
@@ -29,6 +29,8 @@
 /datum/action/vampire/targeted/command/two
 	name = "Command"
 	power_time = 180 SECONDS
+	bloodcost = 240
+	cooldown_time = 200 SECONDS
 
 /datum/action/vampire/targeted/command/can_use()
 	. = ..()

@@ -2423,6 +2423,7 @@
 #include "code\modules\antagonists\vampire\powers\auspex\auspex.dm"
 #include "code\modules\antagonists\vampire\powers\celerity\celerity.dm"
 #include "code\modules\antagonists\vampire\powers\celerity\haste.dm"
+#include "code\modules\antagonists\vampire\powers\celerity\quickness.dm"
 #include "code\modules\antagonists\vampire\powers\dominate\command.dm"
 #include "code\modules\antagonists\vampire\powers\dominate\dominate.dm"
 #include "code\modules\antagonists\vampire\powers\dominate\mesmerize.dm"

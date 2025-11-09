@@ -2,7 +2,6 @@
  * Level 2: Dodge Bullets
  * Level 3: Stun People Passed
  */
-
 /datum/action/vampire/targeted/haste
 	name = "Immortal Haste"
 	desc = "Dash somewhere with supernatural speed. Those nearby may be knocked away or stunned."
@@ -13,13 +12,23 @@
 		Higher levels will increase the knockdown dealt to enemies."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 55
-	sol_multiplier = 10
+	bloodcost = 15
+	sol_multiplier = 2
 	cooldown_time = 12 SECONDS
 	target_range = 15
 	power_activates_immediately = TRUE
 	///List of all people hit by our power, so we don't hit them again.
 	var/list/hit = list()
+
+/datum/action/vampire/targeted/haste/two
+	bloodcost = 30
+	cooldown_time = 6 SECONDS
+	level_current = 2
+
+/datum/action/vampire/targeted/haste/three
+	bloodcost = 45
+	cooldown_time = 2 SECONDS
+	level_current = 3
 
 /datum/action/vampire/targeted/haste/can_use()
 	. = ..()
@@ -90,5 +99,5 @@
 			continue
 		hit += hit_living
 		playsound(hit_living, "sound/weapons/punch[rand(1,4)].ogg", 15, 1, -1)
-		hit_living.Knockdown(10 + level_current * 4)
+		hit_living.Knockdown(10 + level_current * 8)
 		hit_living.spin(10, 1)

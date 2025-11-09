@@ -5,7 +5,7 @@
 
 	// Lists of abilities granted per level
 	level_1 = list(/datum/action/vampire/targeted/haste)
-	level_2 = null
-	level_3 = null
-	level_4 = null
+	level_2 = list(/datum/action/vampire/targeted/haste/two)
+	level_3 = list(/datum/action/vampire/targeted/haste/three)
+	level_4 = list(/datum/action/vampire/targeted/haste/three, /datum/action/vampire/quickness)
 	level_5 = null

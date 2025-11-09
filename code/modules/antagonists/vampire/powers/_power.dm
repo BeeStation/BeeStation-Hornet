@@ -183,16 +183,25 @@
 	if(!continue_active()) // We can't afford the Power? Deactivate it.
 		deactivate_power()
 		return FALSE
-	// We can keep this up (For now), so Pay Cost!
-	if((power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
-		if(vampiredatum_power)
-			vampiredatum_power.RemoveBloodVolume(constant_bloodcost)
-		else
-			var/mob/living/living_owner = owner
-			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-				living_owner.blood_volume -= constant_bloodcost
 
+	// IF USER IS UNCONSCIOUS
+	if(owner.stat != CONSCIOUS)
+		// CHECK FOR THE FLAG
+		if(power_flags & BP_AM_COSTLESS_UNCONSCIOUS)
+			return TRUE	// WE ARE UNCONSCIOUS, BUT WE ALSO HAVE THE FLAG. SO IT'S FINE WE, JUST RETURN
+		else
+			PowerCostHelper() // WE ARE UNCONSCIOUS, AND DO NOT HAVE THE FLAG. MAKE IT COST.
+	else
+		PowerCostHelper() // WE ARE CONSCIOUS SO THE FLAG DOES NOT MATTER
 	return TRUE
+
+/datum/action/vampire/proc/PowerCostHelper()
+	if(vampiredatum_power)
+		vampiredatum_power.RemoveBloodVolume(constant_bloodcost)
+	else
+		var/mob/living/living_owner = owner
+		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
+			living_owner.blood_volume -= constant_bloodcost
 
 /// Checks to make sure this power can stay active
 /datum/action/vampire/proc/continue_active()

@@ -7,9 +7,6 @@
 		Members of the clan have assumed the roles of seers and oracles among Kindred and kine, eerie figures bound by strange compulsions and the ability to perceive what others cannot.<br><br>\
 		They are also notorious pranksters whose 'jokes' range from silly to sadistic. Against all odds, however, the children of Malkav are among the oldest surviving vampiric lineages."
 	join_icon_state = "malkavian"
-	join_description = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, and gain insights better left unknown. You can also travel through Phobetor tears, rifts through spacetime only you can travel through.\n\
-		<b>DISCIPLINES:</b> Dementation, Auspex, Obfuscate"
-
 	joinable_clan = TRUE
 	default_humanity = 7
 

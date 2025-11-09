@@ -4,8 +4,6 @@
 		This is due in no small part to their strict hierarchy, secretive nature, and mastery of Thaumaturgy, all of which elicit suspicion, fear, and respect from other Cainites.<br><br>\
 		The Tremere stand as a pillar of the Camarilla and are one of its main defenders, despite the fact that they exist almost as a subsect."
 	join_icon_state = "tremere"
-	join_description = "With a powerful ancestry of wizards and magicians, the tremere wield the secret art of blood magic, which they guard with utmost care.\n\
-		<b>DISCIPLINES:</b> Thaumaturgy, Auspex, Dominate"
 	default_humanity = 6
 	joinable_clan = FALSE
 

@@ -5,10 +5,19 @@
 
 	// Lists of abilities granted per level
 	level_1 = list(/datum/action/vampire/fortitude)
-	level_2 = null
-	level_3 = null
-	level_4 = null
+	level_2 = list(/datum/action/vampire/fortitude/two)
+	level_3 = list(/datum/action/vampire/fortitude/three)
+	level_4 = list(/datum/action/vampire/fortitude/four)
 	level_5 = null
+
+/**
+ *	FORTITUDE
+ *	All levels: Incrementally increasing brute and stamina resistance.
+ *	Level 1: Pierce resistance
+ * 	Level 2: Push immunity
+ * 	Level 3: Dismember resistance
+ * 	Level 4: Complete stun immunity
+ */
 
 /datum/action/vampire/fortitude
 	name = "Fortitude"
@@ -19,26 +28,65 @@
 		At level 4, you gain complete stun immunity."
 	power_flags = BP_AM_TOGGLE | BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY
-	bloodcost = 75
-	cooldown_time = 8 SECONDS
-	constant_bloodcost = 0.2
-	var/fortitude_resist // So we can raise and lower your brute resist based on what your level_current WAS.
+	bloodcost = 5
+	cooldown_time = 5 SECONDS
+	constant_bloodcost = 1
+
+	var/resistance = 0.8
+
+	// Flags for what immunities to turn on at which level
+	var/pierce = TRUE
+	var/push = FALSE
+	var/dismember = FALSE
+	var/stun = FALSE
+
+	var/calculated_burn_resist // do not touch
+
+/datum/action/vampire/fortitude/two
+	bloodcost = 15
+	constant_bloodcost = 2
+	resistance = 0.6
+	pierce = TRUE
+	push = TRUE
+
+/datum/action/vampire/fortitude/three
+	bloodcost = 30
+	constant_bloodcost = 3
+	resistance = 0.4
+	pierce = TRUE
+	push = TRUE
+	dismember = TRUE
+
+/datum/action/vampire/fortitude/four
+	bloodcost = 45
+	constant_bloodcost = 4
+	resistance = 0.3
+	pierce = TRUE
+	push = TRUE
+	dismember = TRUE
+	stun = TRUE
 
 /datum/action/vampire/fortitude/activate_power()
 	. = ..()
 	owner.balloon_alert(owner, "fortitude turned on.")
 	to_chat(owner, span_notice("Your flesh has become as hard as steel!"))
+
+	calculated_burn_resist = min(1, resistance * 3)
+
 	// Traits & Effects
-	ADD_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_VAMPIRE)
-	ADD_TRAIT(owner, TRAIT_NODISMEMBER, TRAIT_VAMPIRE)
-	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_VAMPIRE)
-	if(level_current >= 4)
+	if(pierce)
+		ADD_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_VAMPIRE)
+	if(dismember)
+		ADD_TRAIT(owner, TRAIT_NODISMEMBER, TRAIT_VAMPIRE)
+	if(push)
+		ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_VAMPIRE)
+	if(stun)
 		ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE) // They'll get stun resistance + this, who cares.
 
 	var/mob/living/carbon/human/user = owner
-	fortitude_resist = max(0.3, 0.7 - level_current * 0.1)
-	user.physiology.brute_mod *= fortitude_resist
-	user.physiology.stamina_mod *= fortitude_resist
+	user.physiology.brute_mod *= resistance
+	user.physiology.stamina_mod *= resistance
+	user.physiology.burn_mod *= calculated_burn_resist // they get burn resistance, but way less
 
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/fortitude)
 
@@ -56,10 +104,11 @@
 		return
 
 	var/mob/living/carbon/human/vampire_user = owner
-	vampire_user.physiology.brute_mod /= fortitude_resist
+	vampire_user.physiology.brute_mod /= resistance
+	vampire_user.physiology.burn_mod /= calculated_burn_resist
 
 	if(!HAS_TRAIT_FROM(vampire_user, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE))
-		vampire_user.physiology.stamina_mod /= fortitude_resist
+		vampire_user.physiology.stamina_mod /= resistance
 
 	// Remove Traits & Effects
 	REMOVE_TRAIT(owner, TRAIT_PIERCEIMMUNE, TRAIT_VAMPIRE)
@@ -73,4 +122,4 @@
 	return ..()
 
 /datum/movespeed_modifier/fortitude
-	multiplicative_slowdown = 1.5
+	multiplicative_slowdown = 1.2 // Not as slow as before, but you still can't use it to hunt.

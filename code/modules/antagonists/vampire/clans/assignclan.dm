@@ -21,7 +21,7 @@
 
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = initial(all_clans.join_icon), icon_state = initial(all_clans.join_icon_state))
-		option.info = "[span_boldnotice(initial(all_clans.name))]\n[span_cult(initial(all_clans.join_description))]"
+		option.info = "[span_boldnotice(initial(all_clans.name))]\n[span_cult(get_clan_description(all_clans.name))]"
 		radial_display[initial(all_clans.name)] = option
 
 	var/chosen_clan
