@@ -9,7 +9,7 @@
 			continue
 		var/atom/created = new item_target(run_loc_floor_bottom_left)
 		if (!created.GetComponent(/datum/component/trackable))
-			fails += "[item_target] is not trackable but is the target of a steal objective. Add the following code:\n[item_target]/Initialize()\n\t. = ..()\n\tAddComponent(/datum/component/trackable)"
+			fails += "[item_target] is not trackable but is the target of a steal objective. Add the following code:\n[item_target]/Initialize(mapload)\n\t. = ..()\n\tAddComponent(/datum/component/trackable)"
 		qdel(created)
 	for (var/atom/a in run_loc_floor_bottom_left)
 		qdel(a)
