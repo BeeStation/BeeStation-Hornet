@@ -530,7 +530,7 @@ SUBSYSTEM_DEF(explosions)
 	if (!is_exploding())
 		return
 
-	if (queued_index > queued.Cut())
+	if (queued_index > length(queued))
 		explosion_count = 0
 		queued.Cut()
 		queued_index = 1
