@@ -58,7 +58,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
-		//obj/item/mod/module/rad_protection,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/tether,
 		/obj/item/mod/module/magboot,
@@ -74,7 +74,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
-		//obj/item/mod/module/rad_protection,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
 		/obj/item/mod/module/t_ray,
@@ -91,7 +91,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
-		//obj/item/mod/module/rad_protection,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/tether,
@@ -378,7 +378,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
-		//obj/item/mod/module/rad_protection,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/tether,
 		/obj/item/mod/module/springlock,
@@ -434,7 +434,7 @@
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
 	additional_module = /obj/item/mod/module/welding
-	//additional_module = /obj/item/mod/module/rad_protection
+	additional_module = /obj/item/mod/module/rad_protection
 	beacon_module = /obj/item/mod/module/tracking_beacon/centcom/engineer
 
 /obj/item/mod/control/pre_equipped/responsory/medic
@@ -550,7 +550,7 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/bikehorn,
-		//obj/item/mod/module/rad_protection,
+		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/tether,
 		/obj/item/mod/module/injector,
 	)

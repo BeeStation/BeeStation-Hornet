@@ -145,7 +145,6 @@
 	owner.visible_message(span_danger("The reactive teleport system flings [owner] clear of [attack_text], shutting itself off in the process!"))
 	playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
-	owner.rad_act(rad_amount)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/teleport/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -154,7 +153,6 @@
 	playsound(get_turf(owner), 'sound/machines/buzz-sigh.ogg', 50, 1)
 	playsound(get_turf(owner), 'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = src, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
-	owner.rad_act(rad_amount)
 	return FALSE //you didn't actually evade the attack now did you
 
 //Fire
@@ -240,7 +238,7 @@
 	emp_message = span_warning("The tesla capacitors beep ominously for a moment.")
 	var/tesla_power = 25000
 	var/tesla_range = 20
-	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
+	var/tesla_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 
 /obj/item/clothing/suit/armor/reactive/tesla/dropped(mob/user)
 	..()

@@ -28,7 +28,6 @@
 ///High temperature damage
 #define RBMK_TEMPERATURE_DAMAGE (1<<1)
 
-#define REACTOR_INACTIVE 0 // No or minimal energy
 #define REACTOR_NOMINAL 1 // Normal operation
 #define REACTOR_WARNING 2 // Integrity damaged
 #define REACTOR_DANGER 3 // Integrity < 50%
