@@ -20,7 +20,7 @@
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	special_flags = VAMPIRE_DEFAULT_POWER
-	cooldown_time = 15 SECONDS
+	cooldown_time = 5 SECONDS
 	target_range = 1
 	prefire_message = "Select a target."
 	power_activates_immediately = FALSE
@@ -296,8 +296,13 @@
 		deactivate_power()
 		return
 
-	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
-	feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_WHISPER_ONLY, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+	if(currently_feeding) // Check if we actually started successfully.
+		owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_WHISPER_ONLY, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+	else
+		owner.balloon_alert(owner, "combat feed requires aggressive grab!")
+		deactivate_power()
+		return FALSE
 
 /datum/action/vampire/targeted/feed/UsePower()
 	var/mob/living/user = owner
