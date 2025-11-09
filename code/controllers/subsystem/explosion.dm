@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(explosions)
 	var/currentpart = SSEXPLOSIONS_TURFS
 
 	var/explosion_count = 0
-	var/queued_index = 0
+	var/queued_index = 1
 	var/list/queued = list()
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
@@ -530,13 +530,13 @@ SUBSYSTEM_DEF(explosions)
 	if (!is_exploding())
 		return
 
+	explosion_count = 0
 	if (queued_index > length(queued))
-		explosion_count = 0
 		queued.Cut()
 		queued_index = 1
 
 	// Run the next explosions, until the tick limit
-	while (queued_index <= queued.Cut() && explosion_count < SMALL_EXPLOSION_TICK_LIMIT && MC_TICK_CHECK)
+	while (queued_index <= length(queued) && explosion_count < SMALL_EXPLOSION_TICK_LIMIT && MC_TICK_CHECK)
 		var/list/current = queued[queued_index++]
 		explosion(arglist(current))
 
@@ -584,11 +584,6 @@ SUBSYSTEM_DEF(explosions)
 				var/turf/T = thing
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-
-		// If a significant amount of turfs change, then we will run lighter for the rest of the tick
-		// because maptick is going to have an unexpected increase.
-		if (low_turf.len + med_turf.len + high_turf.len > 10)
-			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)
 		currentpart = SSEXPLOSIONS_THROWS
