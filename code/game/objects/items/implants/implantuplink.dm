@@ -8,7 +8,7 @@
 	var/starting_tc = 0
 	/// The uplink flags of the implant uplink inside, only checked during initialisation so modifying it after initialisation will do nothing
 	var/uplink_flag = UPLINK_TRAITORS
-	/// Flags for the types of directives the uplink can recieve
+	/// Flags for the types of directives the uplink can receive
 	var/directive_flags = NONE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/implant/uplink)

@@ -9,7 +9,7 @@
 	shared = TRUE
 	var/obj/structure/uplink_beacon/deployed_beacon
 	// Don't track this for deletion, since we need to maintain a track on the same position
- 	// when a turf is changed.
+	// when a turf is changed.
 	var/turf/center_turf
 	// List of the uplinks that already took the beacon
 	var/list/empty_uplinks = list()

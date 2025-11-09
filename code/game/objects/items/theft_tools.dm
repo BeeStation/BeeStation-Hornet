@@ -131,7 +131,7 @@
 	base_icon_state = "supermatter_sliver"
 	item_state = "supermattersliver"
 
-/obj/item/nuke_core/supermatter_sliver/Initialize()
+/obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/trackable)
 

@@ -12,7 +12,7 @@
 	pressure_resistance = 2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/documents/Initialize()
+/obj/item/documents/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/trackable)
 

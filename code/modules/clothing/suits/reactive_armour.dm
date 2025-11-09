@@ -141,7 +141,7 @@
 	var/tele_range = 6
 	var/rad_amount= 15
 
-/obj/item/clothing/suit/armor/reactive/teleport/Initialize()
+/obj/item/clothing/suit/armor/reactive/teleport/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/trackable)
 

@@ -231,7 +231,7 @@
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
-/obj/item/tank/jetpack/oxygen/captain/Initialize()
+/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/trackable)
 

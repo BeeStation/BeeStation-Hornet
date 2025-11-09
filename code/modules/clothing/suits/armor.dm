@@ -280,7 +280,7 @@
 	stamina = 40
 	bleed = 10
 
-/obj/item/clothing/suit/armor/laserproof/Initialize()
+/obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/trackable)
 

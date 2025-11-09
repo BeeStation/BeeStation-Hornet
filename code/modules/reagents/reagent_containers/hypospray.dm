@@ -74,7 +74,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
-/obj/item/reagent_containers/hypospray/CMO/Initialize()
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/trackable)
 

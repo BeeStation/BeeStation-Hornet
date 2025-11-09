@@ -194,10 +194,10 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// How much reputation you lose for failing a team-directive
 #define REPUTATION_LOSS_TEAM_DIRECTIVE 0
 
-/// Flags for the types of directives that uplinks can recieve
-/// Can recieve competitive objective shared by other people
+/// Flags for the types of directives that uplinks can receive
+/// Can receive competitive objective shared by other people
 #define DIRECTIVE_FLAG_COMPETITIVE (1 << 0)
-/// Can recieve personal objectives that only this uplink has
+/// Can receive personal objectives that only this uplink has
 #define DIRECTIVE_FLAG_PERSONAL (1 << 1)
 
 /// Directive flags for traitors

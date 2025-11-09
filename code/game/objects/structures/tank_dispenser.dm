@@ -11,11 +11,6 @@
 	var/oxygentanks = TANK_DISPENSER_CAPACITY
 	var/plasmatanks = TANK_DISPENSER_CAPACITY
 
-/obj/structure/tank_dispenser/Initialize()
-	. = ..()
-	if (plasmatanks > 0)
-		AddComponent(/datum/component/trackable)
-
 /obj/structure/tank_dispenser/oxygen
 	plasmatanks = 0
 
@@ -26,6 +21,8 @@
 	. = ..()
 	//AddElement(/datum/element/contextual_screentip_bare_hands, lmb_text = "Take Plasma Tank", rmb_text = "Take Oxygen Tank") //Uncomment this when we have screentips.
 	update_icon()
+	if (plasmatanks > 0)
+		AddComponent(/datum/component/trackable)
 
 /obj/structure/tank_dispenser/update_icon()
 	cut_overlays()
