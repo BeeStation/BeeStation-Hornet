@@ -93,6 +93,10 @@
 "aw" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
+"aB" = (
+/obj/machinery/power/supermatter_crystal/hugbox,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "aD" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/toxin,
@@ -324,10 +328,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"Rd" = (
-/obj/machinery/power/supermatter_crystal/hugbox,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "UA" = (
 /obj/machinery/status_display/evac{
 	pixel_y = -32
@@ -463,7 +463,7 @@ an
 at
 at
 bf
-Rd
+aB
 bf
 at
 at

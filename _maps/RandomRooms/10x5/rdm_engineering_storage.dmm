@@ -38,11 +38,11 @@
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/template_noop)
-"i" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+"j" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"j" = (
+"k" = (
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
@@ -230,7 +230,7 @@ q
 l
 d
 Y
-i
+k
 l
 "}
 (8,1,1) = {"

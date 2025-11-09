@@ -187,6 +187,15 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/mine/production)
+"aU" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/iron,
+/area/mine/atmospost)
 "aV" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -575,13 +584,6 @@
 	},
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"cH" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/item/radio/intercom/directional/south,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/rack_parts,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "cI" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -619,15 +621,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/mine/living_quarters)
-"dd" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
-	dir = 8
-	},
-/turf/open/floor/engine/vacuum{
-	initial_gas_mix = "TEMP=300"
-	},
-/area/mine/atmospost)
 "de" = (
 /obj/structure/closet/crate,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1020,15 +1013,6 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/mine/laborcamp)
-"fA" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/atmospherics/components/trinary/filter/atmos/n2/flipped{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/iron,
-/area/mine/atmospost)
 "fC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 5
@@ -1915,14 +1899,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/gateway)
-"kc" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid,
-/area/mine/atmospost)
 "ke" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	external_pressure_bound = 120;
@@ -2028,6 +2004,15 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
 /area/mine/atmospostengine)
+"kM" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/engine/vacuum{
+	initial_gas_mix = "TEMP=300"
+	},
+/area/mine/atmospost)
 "kN" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/rust,
@@ -2131,15 +2116,6 @@
 /obj/item/storage/firstaid/medical,
 /turf/open/floor/iron/white,
 /area/mine/living_quarters)
-"lv" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/engine/vacuum{
-	initial_gas_mix = "TEMP=300"
-	},
-/area/mine/atmospost)
 "lw" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -2197,6 +2173,15 @@
 	},
 /turf/open/floor/iron,
 /area/mine/atmospost)
+"lO" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/siding/thinplating,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/turf/open/floor/iron/dark,
+/area/mine/atmospostengine)
 "lP" = (
 /obj/structure/barricade/wooden{
 	max_integrity = 50
@@ -2353,6 +2338,15 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"mL" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/machinery/light/small,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/plating/asteroid,
+/area/mine/living_quarters)
 "mM" = (
 /obj/machinery/power/apc/auto_name/directional/west{
 	start_charge = 0
@@ -2610,6 +2604,14 @@
 /obj/structure/stone_tile/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ok" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/rack,
+/obj/item/wrench,
+/obj/item/stack/cable_coil/random/five,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "os" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2677,6 +2679,17 @@
 /obj/machinery/door/firedoor/closed,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
+"oN" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/item/bikehorn/rubberducky,
+/obj/machinery/door/window/southright{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/directional/north,
+/turf/open/floor/noslip/white,
+/area/mine/living_quarters)
 "oO" = (
 /turf/open/genturf,
 /area/lavaland/surface/outdoors/unexplored/danger)
@@ -3103,6 +3116,14 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
 /area/mine/eva)
+"rm" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
+	dir = 8
+	},
+/turf/open/floor/plating/asteroid,
+/area/mine/atmospost)
 "rn" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3815,20 +3836,6 @@
 /obj/structure/stone_tile/slab,
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
-"vm" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
-/area/mine/atmospost)
 "vn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
@@ -4240,27 +4247,6 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/mine/maintenance)
-"xz" = (
-/obj/structure/table,
-/obj/item/flashbulb/recharging/revolution{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/obj/item/toy/plush/runtime{
-	pixel_y = 5;
-	pixel_x = 7
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = -2;
-	pixel_x = -6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = -4;
-	pixel_x = -4
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "xA" = (
 /obj/item/powertool/jaws_of_life,
 /obj/item/clothing/gloves/color/fyellow/old,
@@ -4368,6 +4354,15 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
+"ym" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 8
+	},
+/turf/open/floor/engine/vacuum{
+	initial_gas_mix = "TEMP=300"
+	},
+/area/mine/atmospost)
 "yp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/wooden{
@@ -4397,6 +4392,24 @@
 "yv" = (
 /turf/closed/mineral/random/labormineral/volcanic,
 /area/lavaland/surface/outdoors/explored)
+"yy" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/light_switch/directional/north,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/siding/thinplating,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/iron/dark,
+/area/mine/atmospostengine)
+"yz" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "yB" = (
 /obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4579,17 +4592,6 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/wood,
-/area/mine/living_quarters)
-"zG" = (
-/obj/machinery/shower{
-	dir = 8
-	},
-/obj/item/bikehorn/rubberducky,
-/obj/machinery/door/window/southright{
-	dir = 8
-	},
-/obj/structure/window/reinforced/spawner/directional/north,
-/turf/open/floor/noslip/white,
 /area/mine/living_quarters)
 "zK" = (
 /obj/machinery/conveyor{
@@ -4892,14 +4894,6 @@
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Br" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/rack,
-/obj/item/wrench,
-/obj/item/stack/cable_coil/random/five,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "Bv" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -5314,15 +5308,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Dw" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
-	dir = 8
-	},
-/turf/open/floor/engine/vacuum{
-	initial_gas_mix = "TEMP=300"
-	},
-/area/mine/atmospost)
 "Dy" = (
 /turf/open/floor/engine/vacuum{
 	initial_gas_mix = "TEMP=300"
@@ -5342,6 +5327,14 @@
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
+"DE" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid,
+/area/mine/atmospost)
 "DF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -5411,6 +5404,12 @@
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/mine/living_quarters)
+"DT" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "DU" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 10
@@ -5590,15 +5589,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/techmaint,
 /area/mine/production)
-"EY" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/light/small,
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/open/floor/plating/asteroid,
-/area/mine/living_quarters)
 "Fa" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 1
@@ -5827,6 +5817,27 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
+"Ga" = (
+/obj/structure/table,
+/obj/item/flashbulb/recharging/revolution{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/toy/plush/runtime{
+	pixel_y = 5;
+	pixel_x = 7
+	},
+/obj/item/disk/tech_disk{
+	pixel_y = -2;
+	pixel_x = -6
+	},
+/obj/item/disk/tech_disk{
+	pixel_y = -4;
+	pixel_x = -4
+	},
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "Gc" = (
 /obj/item/paper_bin,
 /obj/item/folder/blue,
@@ -5999,6 +6010,12 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"GZ" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
 "Hb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -6984,13 +7001,6 @@
 	},
 /turf/open/floor/iron,
 /area/mine/laborcamp)
-"Mp" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "Mw" = (
 /obj/structure/fence{
 	dir = 4
@@ -7091,6 +7101,15 @@
 	},
 /turf/open/floor/iron,
 /area/mine/living_quarters)
+"Nh" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer2{
+	dir = 4
+	},
+/turf/open/floor/engine/vacuum{
+	initial_gas_mix = "TEMP=300"
+	},
+/area/mine/atmospost)
 "Nj" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/box,
@@ -7249,6 +7268,20 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/iron,
 /area/mine/atmospost)
+"NW" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/mine/atmospost)
 "NX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/hidden{
 	dir = 4;
@@ -7303,12 +7336,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/atmosfarmpost)
-"Oo" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
 "Oq" = (
 /obj/machinery/door/airlock{
 	id_tag = "miningdorm1";
@@ -7732,12 +7759,6 @@
 /obj/structure/closet/crate/radiation,
 /obj/effect/turf_decal/delivery,
 /obj/item/stack/ore/uranium/five,
-/turf/open/floor/iron/dark,
-/area/mine/atmosposthallway)
-"QK" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "QL" = (
@@ -8204,15 +8225,6 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/mine/laborcamp)
-"TC" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/smart/simple/orange/visible/layer2{
-	dir = 4
-	},
-/turf/open/floor/engine/vacuum{
-	initial_gas_mix = "TEMP=300"
-	},
-/area/mine/atmospost)
 "TD" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -8259,15 +8271,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"TP" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/siding/thinplating,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "TQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -8332,17 +8335,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
-"Um" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/light_switch/directional/north,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/siding/thinplating,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/iron/dark,
-/area/mine/atmospostengine)
 "Un" = (
 /obj/item/stack/rods,
 /obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
@@ -8355,21 +8347,6 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/asteroid,
-/area/mine/atmospost)
-"Us" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "Uw" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
@@ -8395,6 +8372,21 @@
 	spider_team = 101
 	},
 /obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/plating/broken,
+/area/mine/atmospost)
+"UD" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plating/broken,
 /area/mine/atmospost)
 "UF" = (
@@ -8579,14 +8571,6 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
-/area/mine/atmospost)
-"Vu" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/machinery/atmospherics/components/trinary/filter/atmos/o2/flipped{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid,
 /area/mine/atmospost)
 "Vy" = (
 /obj/machinery/camera{
@@ -8848,6 +8832,13 @@
 /obj/structure/closet/crate/science,
 /obj/item/stack/ore/plasma/five,
 /obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
+/area/mine/atmosposthallway)
+"WF" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/item/radio/intercom/directional/south,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/rack_parts,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "WI" = (
@@ -9212,6 +9203,15 @@
 	},
 /turf/open/floor/iron,
 /area/mine/production)
+"Yr" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2{
+	dir = 8
+	},
+/turf/open/floor/engine/vacuum{
+	initial_gas_mix = "TEMP=300"
+	},
+/area/mine/atmospost)
 "Yt" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/layer4{
 	dir = 1
@@ -45178,7 +45178,7 @@ UU
 UU
 Yz
 MZ
-EY
+mL
 ZH
 ZH
 Oq
@@ -46458,7 +46458,7 @@ DS
 YV
 kV
 YN
-zG
+oN
 ZH
 gp
 Wg
@@ -52104,9 +52104,9 @@ WV
 Fe
 cw
 Fi
-Oo
-Br
-cH
+DT
+ok
+WF
 EV
 Tm
 rL
@@ -52121,7 +52121,7 @@ YU
 Rk
 jo
 uJ
-Um
+yy
 DR
 EE
 vU
@@ -52361,9 +52361,9 @@ mR
 po
 pT
 cB
-xz
-Mp
-QK
+Ga
+yz
+GZ
 YU
 YU
 EV
@@ -52635,7 +52635,7 @@ EI
 Vz
 Hg
 uJ
-TP
+lO
 Bp
 TJ
 be
@@ -54677,17 +54677,17 @@ EV
 tc
 Kx
 mp
-Vu
-vm
+DE
+NW
 nK
 nK
 nK
-fA
-Us
+aU
+UD
 rn
 fC
 Gj
-kc
+rm
 qp
 Un
 eg
@@ -55705,18 +55705,18 @@ IJ
 Zd
 Zd
 NA
-dd
-TC
+ym
+Nh
 NA
 Zd
 NA
-dd
-TC
+ym
+Nh
 NA
 Zd
 NA
-Dw
-lv
+Yr
+kM
 NA
 Zd
 Zd
