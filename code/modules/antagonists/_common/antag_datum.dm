@@ -208,7 +208,8 @@ GLOBAL_LIST(admin_antag_list)
 
 //Returns the team antagonist belongs to if any.
 /datum/antagonist/proc/get_team()
-	return
+	RETURN_TYPE(/datum/team)
+	return null
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()

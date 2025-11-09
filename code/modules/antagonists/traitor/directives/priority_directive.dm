@@ -87,6 +87,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	SSdirectives.active_directives -= src
 	if (shared)
 		SSdirectives.queue_directive()
+	qdel(src)
 
 /// Activate the directive, requires a list of traitor datums and security minsd
 /datum/priority_directive/proc/start(list/uplinks, list/player_minds)
@@ -166,7 +167,12 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/priority_directive/proc/grant_victory(datum/directive_team/victor_team)
 	victor_team?.grant_reward(tc_reward, reputation_reward)
+	if (victor_team != null)
+		for (var/datum/directive_team/team in teams)
+			if (team == victor_team)
+				continue
+			team.grant_punishment(reputation_loss)
+
+/datum/priority_directive/proc/grant_universal_victory()
 	for (var/datum/directive_team/team in teams)
-		if (team == victor_team)
-			continue
-		team.grant_punishment(reputation_loss)
+		team.grant_reward(tc_reward, reputation_reward)

@@ -6,15 +6,14 @@ SUBSYSTEM_DEF(directives)
 	/// The time before the next directive is issued
 	var/next_directive_time
 	/// A list of directive singleton instances
-	var/list/directives = list()
+	var/list/directive_types = list()
 	/// Next time when personal objectives are given out.
 	var/personal_objectives_time = null
 
 /datum/controller/subsystem/directives/Initialize(start_timeofday)
 	. = ..()
-	next_directive_time = world.time + 20 MINUTES
-	for (var/directive_type in subtypesof(/datum/priority_directive))
-		directives += new directive_type()
+	next_directive_time = world.time + 15 MINUTES
+	directive_types = subtypesof(/datum/priority_directive)
 
 /datum/controller/subsystem/directives/fire(resumed)
 	// Find all the minds
@@ -40,12 +39,13 @@ SUBSYSTEM_DEF(directives)
 		filtered_uplinks += uplink
 	// Bring on the mission
 	var/list/valid_directives = list()
-	for (var/datum/priority_directive/directive in directives)
-		if (!directive.shared)
+	for (var/datum/priority_directive/directive as anything in directive_types)
+		if (!directive:shared)
 			continue
-		if (!directive.can_run(filtered_uplinks, player_minds))
+		var/datum/priority_directive/instance = new directive
+		if (!instance.can_run(filtered_uplinks, player_minds))
 			continue
-		valid_directives += directive
+		valid_directives += instance
 	if (!length(valid_directives))
 		// Try again in a minute
 		next_directive_time = world.time + 1 MINUTES
@@ -67,17 +67,17 @@ SUBSYSTEM_DEF(directives)
 		var/list/uplink_list = list(uplink)
 		// Determine valid objectives
 		var/list/valid_directives = list()
-		for (var/datum/priority_directive/directive in directives)
-			if (directive.shared)
+		for (var/datum/priority_directive/directive as anything in directive_types)
+			if (directive:shared)
 				continue
-			if (!directive.can_run(uplink_list, player_minds))
+			var/datum/priority_directive/instance = new directive
+			if (!instance.can_run(uplink_list, player_minds))
 				continue
-			valid_directives += directive
+			valid_directives += instance
 		// No directives to allocate
 		if (!length(valid_directives))
 			continue
 		var/datum/priority_directive/selected = pick(valid_directives)
-		selected = new selected.type()
 		selected.start(uplink_list, player_minds)
 		active_directives += selected
 		uplink.next_personal_objective_time = get_next_personal_objective_time()
@@ -93,10 +93,10 @@ SUBSYSTEM_DEF(directives)
 		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
 			continue
 		player_minds += player.mind
-	var/datum/priority_directive/selected = input(src, "What do you want?", "What do you want?") as null|anything in SSdirectives.directives
+	var/datum/priority_directive/selected = input(src, "What do you want?", "What do you want?") as null|anything in SSdirectives.directive_types
 	if (!selected)
 		return
-	selected = new selected.type()
+	selected = new selected()
 	selected.can_run(GLOB.uplinks, player_minds, TRUE)
 	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY
