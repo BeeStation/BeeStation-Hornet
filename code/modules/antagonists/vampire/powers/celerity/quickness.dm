@@ -13,9 +13,6 @@
 
 	// Ref to the item
 	var/datum/weakref/item_ref
-
-	var/obj/item/clothing/gloves/rapid/glovies
-
 	var/mob/living/carbon/carbon_owner
 
 /datum/action/vampire/quickness/Grant()

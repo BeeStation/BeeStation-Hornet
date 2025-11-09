@@ -209,22 +209,18 @@
 	// placeholders to populate // I dunno why this works btw, i thought i made a mistake but it worked anyways.
 	var/list/tracking_list = null
 	var/goal = null
-	var/gained = FALSE
 
 	// map all the placeholders to the correct type, get the list for easier handling
 	switch(type)
 		if(HUMANITY_HUGGING_TYPE)
 			tracking_list = humanity_trackgain_hugged
-			goal = HUMANITY_HUGGING_GOAL
-			gained = humanity_gained_hugged
+			goal = humanity_hugging_goal
 		if(HUMANITY_PETTING_TYPE)
 			tracking_list = humanity_trackgain_petted
-			goal = HUMANITY_PETTING_GOAL
-			gained = humanity_gained_petted
+			goal = humanity_petting_goal
 		if(HUMANITY_ART_TYPE)
 			tracking_list = humanity_trackgain_art
-			goal = HUMANITY_ART_GOAL
-			gained = humanity_gained_art
+			goal = humanity_art_goal
 		else
 			return FALSE // Cheeky check for type built in? Tsunami you genius!
 
@@ -241,15 +237,34 @@
 		if(HUMANITY_ART_TYPE)
 			humanity_trackgain_art += subject
 
-	if(tracking_list.len >= goal && !gained)
+	if(tracking_list.len >= goal)
 		// set the corresponding gained flag and award humanity
 		switch(type)
 			if(HUMANITY_HUGGING_TYPE)
-				humanity_gained_hugged = TRUE
+				humanity_hugging_goal *= 2
 			if(HUMANITY_PETTING_TYPE)
-				humanity_gained_petted = TRUE
+				humanity_petting_goal *= 2
 			if(HUMANITY_ART_TYPE)
-				humanity_gained_art = TRUE
+				humanity_art_goal *= 2
 		add_humanity(1)
 
 	return TRUE
+
+/datum/antagonist/vampire/proc/get_rank_string()
+	switch(vampire_level)
+		if(0 to 1)
+			return "'Initiate'"
+		if(2 to 3)
+			return "'Novice'"
+		if(4 to 5)
+			return "'Apprentice'"
+		if(6 to 7)
+			return "'Adept'"
+		if(8 to 9)
+			return "'Expert'"
+		if(10 to 11)
+			return "'Master'"
+		if(12 to 20)
+			return "'Grand Master'"
+		if(21 to INFINITY)
+			return "'<b>Methuselah</b>'"

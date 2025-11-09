@@ -35,15 +35,12 @@
 // These are supposed to be somewhat nontrivial, to the point of sometimes not being viable.
 /// Hugging of separate people
 #define HUMANITY_HUGGING_TYPE "hug"
-#define HUMANITY_HUGGING_GOAL rand(4, 8)
 
 /// Petting of separate animals
 #define HUMANITY_PETTING_TYPE "pet"
-#define HUMANITY_PETTING_GOAL rand(4, 8)
 
 /// Watching of art
 #define HUMANITY_ART_TYPE "art"
-#define HUMANITY_ART_GOAL rand(2, 6)
 
 #define HUMANITY_GAIN_TYPES list(HUMANITY_HUGGING_TYPE, HUMANITY_PETTING_TYPE, HUMANITY_ART_TYPE)
 

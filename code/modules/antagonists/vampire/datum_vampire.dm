@@ -121,14 +121,13 @@
 		TRAIT_RESISTHIGHPRESSURE,
 	)
 
-	/// Humanity gain tracking, thresholds are defines
+	/// Humanity gain tracking, when adding more, remember to add the type define
+	var/humanity_petting_goal = 5
+	var/humanity_art_goal = 2
+	var/humanity_hugging_goal = 3
 	var/list/humanity_trackgain_hugged = list()
 	var/list/humanity_trackgain_petted = list()
 	var/list/humanity_trackgain_art = list()
-
-	var/humanity_gained_hugged = FALSE
-	var/humanity_gained_petted = FALSE
-	var/humanity_gained_art = FALSE
 
 /datum/antagonist/vampire/proc/create_vampire_team()
 	vampire_team = new(owner)

@@ -132,7 +132,7 @@
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 	warcry = null // We are not so silly.
-	speed = CLICK_CD_RANGE	// Tiny bit slower than the gloves because vamps are also stronger
+	speed = 6 // Slower than the gloves because vamps are also stronger
 
 /obj/item/clothing/gloves/rapid/vampire/attack_self(mob/user)	// Just in case
 	return
