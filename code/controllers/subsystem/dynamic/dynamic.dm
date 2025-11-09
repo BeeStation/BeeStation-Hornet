@@ -1,4 +1,6 @@
-#define STORYTELLER_VERSION "GamemodeAntagonists"
+// If this is defined, then any storyteller configs which do not have
+// a 'Version' tag that match this value will not be loaded.
+//#define STORYTELLER_VERSION "GamemodeAntagonists"
 
 SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
@@ -251,10 +253,14 @@ SUBSYSTEM_DEF(dynamic)
 
 #ifdef STORYTELLER_VERSION
 		if (!loaded_json["Version"])
-			log_dynamic("Skipped loading storyteller [json_name], it did not provide a storyteller version but one was required.")
+			log_dynamic("Skipped loading storyteller [json_name], it did not provide a storyteller version but one was required. (Required '[STORYTELLER_VERSION]')")
 			continue
 		if (loaded_json["Version"] != STORYTELLER_VERSION)
-			log_dynamic("Skipped loading storyteller [json_name], it did not have the required storyteller version.")
+			log_dynamic("Skipped loading storyteller [json_name], it did not have the required storyteller version (Required '[STORYTELLER_VERSION]', got '[loaded_json["Version"]]').")
+			continue
+#else
+		if (loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name] as it has a version of '[loaded_json["Version"]]', but we expected none.")
 			continue
 #endif
 
