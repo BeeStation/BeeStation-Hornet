@@ -39,6 +39,24 @@
 	. = ..()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		GLOB.pre_setup_antags -= chosen_mind
+		if (chosen_mind.current)
+			to_chat(chosen_mind.current, {"
+<span class='testmerge_message'>
+	<span class='big bold'>Testmerge Rules Ammendment</span>
+	<br/>
+As the gamemode antagonist, you do not need to follow the antagonist conduct
+for this round. You are allowed to kill non-targets via high-impact actions
+even if it is not in pursuit of your objectives.
+<br/>
+Despite this, you should try to keep things fair and fun where possible, as the
+gamemode antagonist, it is your responsibility to be the antagonist of the round
+and provide engagement.
+<br/>
+<span class = 'bold purple'>
+These changes are not permanent, if you do not see this message in a future round
+then the above notice does not apply.
+</span>
+</span>"})
 
 /datum/dynamic_ruleset/gamemode/proc/security_report()
 	return null
