@@ -242,8 +242,8 @@
 	destination_z = dest_z
 
 //Don't fall if in zero gravity, but we should allow non-fall movement
-/turf/open/space/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	return !falling || A.has_gravity(src)
+/turf/open/space/zPassIn(direction, falling = FALSE)
+	return !falling
 
 /turf/open/space/check_gravity()
 	return FALSE
