@@ -14,12 +14,22 @@
 	target_range = 1
 	power_activates_immediately = TRUE
 	prefire_message = "Select a target."
+	level_current = 1
 
 	/// Only changed by the '/brawn/brash' subtype; acts as a general purpose damage multipler.
 	var/damage_coefficient = 1.25
 	/// Boolean indicating whether or not this version of '/brawn' is in the '/brash' subtype and should
 	/// bypass typical ability level restrictions. (There is probably a better way to do this.)
 	var/brujah = FALSE
+
+/datum/action/vampire/targeted/brawn/two
+	level_current = 2
+
+/datum/action/vampire/targeted/brawn/three
+	level_current = 3
+
+/datum/action/vampire/targeted/brawn/four
+	level_current = 4
 
 /datum/action/vampire/targeted/brawn/activate_power()
 	// Did we break out of our handcuffs?
@@ -75,6 +85,9 @@
 
 	if(used)
 		playsound(get_turf(human_owner), 'sound/effects/grillehit.ogg', 80, 1, -1)
+
+	if(used)
+		check_witnesses()
 	return used
 
 // This is its own proc because its done twice, to repeat code copypaste.
@@ -109,6 +122,8 @@
 		span_warning("You shrug off [pulled_mob]'s grasp!")
 	)
 	owner.pulledby = null // It's already done, but JUST IN CASE.
+
+	check_witnesses()
 	return TRUE
 
 /datum/action/vampire/targeted/brawn/FireTargetedPower(atom/target_atom)
@@ -133,7 +148,7 @@
 		// Attack!
 		owner.balloon_alert(owner, "you punch [living_target]!")
 		playsound(get_turf(living_target), 'sound/weapons/punch4.ogg', 60, 1, -1)
-
+		check_witnesses(living_target)
 		carbon_owner.do_attack_animation(living_target, ATTACK_EFFECT_SMASH)
 
 		var/obj/item/bodypart/affecting = living_target.get_bodypart(ran_zone(living_target.get_combat_bodyzone()))
@@ -161,11 +176,13 @@
 
 		INVOKE_ASYNC(src, PROC_REF(break_closet), target_closet)
 		playsound(get_turf(carbon_owner), 'sound/effects/grillehit.ogg', 80, TRUE, -1)
+		check_witnesses()
 	// Airlocks
 	else if(istype(target_atom, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/target_airlock = target_atom
 
 		playsound(get_turf(carbon_owner), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -1)
+		check_witnesses()
 		owner.balloon_alert(owner, "you prepare to tear open [target_airlock]...")
 		if(!do_after(carbon_owner, 2.5 SECONDS, target_airlock))
 			carbon_owner.balloon_alert(carbon_owner, "interrupted!")

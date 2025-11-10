@@ -1,8 +1,3 @@
-/**
- * For right now, these datums will only hold the raw data of what abilities should be granted.
- * It would be very easy to expand this to a state where having certain disciplines at certain levels grants permanent boons.
- * For example, all the malkavian's insanity COULD be ported into something like apply_discipline_quirk() in this file.
- */
 /datum/discipline
 	///Name of this Discipline.
 	var/name = "ERROR"
@@ -69,6 +64,7 @@
 		else
 			return null
 
+/// Can't go over 5 even if you define more
 /datum/discipline/proc/level_up()
 	if(level >= 6)	// it's six cuz 1 is null, yadda yadda
 		level = 6
@@ -76,3 +72,7 @@
 	else
 		level++
 		return TRUE
+
+// For example, extra damage for potence.
+/datum/discipline/proc/apply_discipline_quirks(datum/antagonist/vampire/clan_owner)
+	return

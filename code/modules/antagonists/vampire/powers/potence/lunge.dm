@@ -12,9 +12,28 @@
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 50
+	bloodcost = 45
 	cooldown_time = 10 SECONDS
 	power_activates_immediately = FALSE
+
+	var/instant = FALSE
+	var/knockdown_bonus = 1
+
+/datum/action/vampire/targeted/lunge/two
+	bloodcost = 60
+	cooldown_time = 10 SECONDS
+	knockdown_bonus = 2
+
+/datum/action/vampire/targeted/lunge/three
+	bloodcost = 75
+	cooldown_time = 8 SECONDS
+	knockdown_bonus = 3
+
+/datum/action/vampire/targeted/lunge/four
+	bloodcost = 90
+	cooldown_time = 6 SECONDS
+	knockdown_bonus = 4
+	instant = TRUE
 
 /datum/action/vampire/targeted/lunge/can_use()
 	. = ..()
@@ -52,7 +71,7 @@
 /datum/action/vampire/targeted/lunge/FireTargetedPower(atom/target_atom)
 	. = ..()
 	owner.face_atom(target_atom)
-	if(level_current > 3)
+	if(instant)
 		do_lunge(target_atom)
 		return TRUE
 
@@ -114,11 +133,14 @@
 	power_activated_sucessfully()
 	// Am I next to my target to start giving the effects?
 	if(!owner.Adjacent(hit_atom))
+		check_witnesses()
 		return
+
 
 	var/mob/living/user = owner
 	var/mob/living/carbon/target = hit_atom
 
+	check_witnesses(target)
 	// Did I slip or get knocked unconscious?
 	if(user.body_position != STANDING_UP || user.incapacitated())
 		var/send_dir = get_dir(user, target_turf)
@@ -145,7 +167,7 @@
 		target.grippedby(owner, instant = TRUE)
 		// Did we knock them down?
 		if(!is_source_facing_target(target, owner) || owner.alpha <= 40)
-			target.Knockdown(10 + level_current * 5)
+			target.Knockdown(10 + knockdown_bonus * 5)
 			target.Paralyze(0.1)
 
 #undef LUNGE_TIME

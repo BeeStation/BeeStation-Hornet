@@ -23,6 +23,19 @@
 	cooldown_time = 1 SECONDS // Same as above
 	damage_coefficient = 1.625
 	brujah = TRUE
+	level_current = 1
+
+/datum/action/vampire/targeted/brawn/brash/two
+	level_current = 2
+
+/datum/action/vampire/targeted/brawn/brash/three
+	level_current = 3
+
+/datum/action/vampire/targeted/brawn/brash/four
+	level_current = 4
+
+/datum/action/vampire/targeted/brawn/brash/five
+	level_current = 5
 
 /// Hit an atom, set bloodcost, set cooldown time, play a sound, and deconstruct the atom
 /// with this one convenient proc!

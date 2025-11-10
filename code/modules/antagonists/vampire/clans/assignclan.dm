@@ -38,6 +38,8 @@
 
 	my_clan = new chosen_clan(src)
 
+	my_clan.on_apply()
+
 /datum/antagonist/vampire/proc/remove_clan(mob/admin)
 	if(owner.current.has_status_effect(/datum/status_effect/frenzy))
 		to_chat(admin, span_announce("Removing a Vampire from a Clan while they are in a Frenzy will break stuff, this action has been blocked."))
