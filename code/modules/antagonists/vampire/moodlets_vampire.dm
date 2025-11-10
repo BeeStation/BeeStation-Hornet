@@ -23,11 +23,6 @@
 	mood_change = -15
 	timeout = 10 MINUTES
 
-/datum/mood_event/madevamp
-	description = span_boldwarning("A mortal has reached the undeath- by my own hand.")
-	mood_change = 15
-	timeout = 20 MINUTES
-
 /datum/mood_event/coffinsleep
 	description = span_nicegreen("I slept in a coffin during the day. I feel whole again.")
 	mood_change = 10

@@ -93,6 +93,11 @@
 	msg += span_cultlarge("This is the 'Sol' indicator.")
 	msg += span_cult("Here you see the current state of Sol, the frequent solar flares given off by the nearby star.")
 	msg += span_cult("While traditionally, vampires have thrived on space installations, Auri-Geminae's erratic solar behavior risks final death even in a shielded vessel.")
+
+	var/normal_humanity_divisor = min(2, 1 + (our_vamp.humanity / 10))
+	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
+	msg += span_cult("\n<b>Your current humanity affords you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
+
 	msg += span_cult("\n<b>When Sol hits, do not be found in the hallways. You will burn, and draw attention. A locker or maintenance can shield you.</b>")
 
 	msg += span_cult("\nThe best measure of protection is of course afforded only by the terrible deathless sleep, 'Torpor.'")
@@ -137,7 +142,12 @@
 		if(10)
 			humanitylevel = "'Saintly'"
 
-	msg += span_cult("\n<b>Right now, others would describe you as <i>[humanitylevel].</i></b>")
+	// Pardon me for my math, i was never good at this.
+
+	var/normal_humanity_divisor = min(2, 1 + (our_vamp.humanity / 10))
+	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
+
+	msg += span_cult("\n<b>Right now, others would describe you as <i>[humanitylevel],</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
 	if(our_vamp.humanity > 7)
 		msg += span_cult("Due to your connection to your own human soul, you have achieved the masquerade ability.")
 
