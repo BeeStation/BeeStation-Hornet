@@ -122,3 +122,9 @@
     - refactor: Rewrote much of the internal supermatter logic
     - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
         magboots!!!
+2025-11-10:
+  BotTierPC:
+  - tweak: Overhauls Non-Departmental Regions of BoxStation + Janitorial Department.
+      Additionally adjusts and modernizes disposals to work with new changed areas.
+  BotTierPC, BlerpFish:
+  - rscadd: Adds a Service Poster for Mapping Use.
