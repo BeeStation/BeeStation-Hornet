@@ -234,8 +234,9 @@ const RoundstartPage = () => {
                   maxValue={10}
                   step={0.2}
                   onChange={(value) =>
-                    act('set_roundstart_divergence_upper', {
-                      new_divergence_upper: value,
+                    act('set_var', {
+                      variable: 'roundstart_divergence_percent_upper',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -253,8 +254,9 @@ const RoundstartPage = () => {
                   maxValue={10}
                   step={0.2}
                   onChange={(value) =>
-                    act('set_roundstart_divergence_lower', {
-                      new_divergence_lower: value,
+                    act('set_var', {
+                      variable: 'roundstart_divergence_percent_lower',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -269,8 +271,9 @@ const RoundstartPage = () => {
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_ready', {
-                      new_points_per_ready: value,
+                    act('set_var', {
+                      variable: 'roundstart_points_per_ready',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -288,8 +291,9 @@ const RoundstartPage = () => {
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_unready', {
-                      new_points_per_unready: value,
+                    act('set_var', {
+                      variable: 'roundstart_points_per_unready',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -307,8 +311,9 @@ const RoundstartPage = () => {
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_observer', {
-                      new_points_per_observer: value,
+                    act('set_var', {
+                      variable: 'roundstart_points_per_observer',
+                      new_state: value,
                     })
                   }
                   width="50%"
@@ -627,21 +632,27 @@ const MidroundPage = () => {
                   maxValue={1000}
                   step={1}
                   onChange={(value) =>
-                    act('set_midround_points', { new_points: value })
+                    act('set_var', {
+                      variable: 'midround_points',
+                      new_state: value,
+                    })
                   }
                   width="50%"
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Grace Period" verticalAlign="middle">
                 <NumberInput
-                  value={midround_grace_period ?? 0}
+                  value={
+                    midround_grace_period ? midround_grace_period / 600 : 0
+                  }
                   animated
                   minValue={0}
                   maxValue={120}
                   step={5}
                   onChange={(value) =>
-                    act('set_midround_grace_period', {
-                      new_grace_period: value,
+                    act('set_var', {
+                      variable: 'midround_grace_period',
+                      new_state: value * 600,
                     })
                   }
                   width="50%"
@@ -652,14 +663,19 @@ const MidroundPage = () => {
                 verticalAlign="middle"
               >
                 <NumberInput
-                  value={midround_failure_stallout ?? 0}
+                  value={
+                    midround_failure_stallout
+                      ? midround_failure_stallout / 600
+                      : 0
+                  }
                   animated
                   minValue={0}
                   maxValue={60}
                   step={1}
                   onChange={(value) =>
-                    act('set_midround_failure_stallout', {
-                      new_midround_stallout: value,
+                    act('set_var', {
+                      variable: 'midround_failure_stallout',
+                      new_state: value * 600,
                     })
                   }
                   width="50%"
@@ -678,8 +694,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_living_delta', {
-                      new_living_delta: value,
+                    act('set_var', {
+                      variable: 'midround_living_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -693,7 +710,10 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_dead_delta', { new_dead_delta: value })
+                    act('set_var', {
+                      variable: 'midround_dead_delta',
+                      new_state: value,
+                    })
                   }
                   width="25%"
                 />
@@ -706,8 +726,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_dead_security_delta', {
-                      new_dead_security_delta: value,
+                    act('set_var', {
+                      variable: 'midround_dead_security_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -721,8 +742,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_observer_delta', {
-                      new_observer_delta: value,
+                    act('set_var', {
+                      variable: 'midround_observer_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -736,8 +758,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_linear_delta', {
-                      new_linear_delta: value,
+                    act('set_var', {
+                      variable: 'midround_linear_delta',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -754,8 +777,9 @@ const MidroundPage = () => {
                   maxValue={10}
                   step={0.5}
                   onChange={(value) =>
-                    act('set_midround_linear_delta_forced', {
-                      new_linear_delta_forced: value,
+                    act('set_var', {
+                      variable: 'midround_linear_delta_forced',
+                      new_state: value,
                     })
                   }
                   width="25%"
@@ -1290,7 +1314,10 @@ const LatejoinPage = () => {
             maxValue={100}
             step={10}
             onChange={(value) =>
-              act('set_latejoin_probability', { new_probability: value })
+              act('set_var', {
+                variable: 'latejoin_ruleset_probability',
+                new_state: value,
+              })
             }
             width="25%"
           />
@@ -1302,7 +1329,12 @@ const LatejoinPage = () => {
             minValue={0}
             maxValue={100}
             step={1}
-            onChange={(value) => act('set_latejoin_max', { new_max: value })}
+            onChange={(value) =>
+              act('set_var', {
+                variable: 'latejoin_max_rulesets',
+                new_state: value,
+              })
+            }
             width="25%"
           />
         </LabeledList.Item>

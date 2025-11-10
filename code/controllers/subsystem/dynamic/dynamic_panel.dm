@@ -2,7 +2,7 @@
 	set name = "Dynamic Panel"
 	set category = "Round"
 
-	var/static/datum/dynamic_panel/dynamic_panel = new
+	var/static/datum/dynamic_panel/dynamic_panel = new()
 	dynamic_panel.ui_interact(usr)
 
 /datum/dynamic_panel
@@ -102,8 +102,8 @@
 		))
 
 	data["current_midround_points"] = SSdynamic.midround_points
-	data["midround_grace_period"] = SSdynamic.midround_grace_period / (1 MINUTES)
-	data["midround_failure_stallout"] = SSdynamic.midround_failure_stallout / (1 MINUTES)
+	data["midround_grace_period"] = SSdynamic.midround_grace_period
+	data["midround_failure_stallout"] = SSdynamic.midround_failure_stallout
 
 	data["living_delta"] = SSdynamic.midround_living_delta
 	data["dead_delta"] = SSdynamic.midround_dead_delta
@@ -157,13 +157,15 @@
 		if("vv")
 			usr.client.debug_variables(SSdynamic)
 			return TRUE
-		if("reload_storytellers")
-			SSdynamic.load_storytellers()
-			return TRUE
+
 		if("toggle_forced_extended")
 			SSdynamic.forced_extended = !SSdynamic.forced_extended
 			return TRUE
-		// Midround
+
+		// Storyteller
+		if("reload_storytellers")
+			SSdynamic.load_storytellers()
+			return TRUE
 		if("set_storyteller")
 			var/new_storyteller = params["new_storyteller"]
 			SSdynamic.set_storyteller(new_storyteller == "None" ? null : new_storyteller)
@@ -172,45 +174,16 @@
 			log_dynamic("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
 			return TRUE
 
+		if("set_var")
+			var/variable = params["variable"]
+			var/new_state = params["new_state"]
+			SSdynamic.vars[variable] = new_state
+
+			message_admins("DYNAMIC: [key_name(usr)] set [variable] to [new_state]")
+			log_dynamic("DYNAMIC: [key_name(usr)] set [variable] to [new_state]")
+			return TRUE
+
 		// Roundstart
-		if("set_roundstart_points")
-			var/new_roundstart_points = params["new_roundstart_points"]
-			SSdynamic.roundstart_points = new_roundstart_points
-			message_admins("[key_name(usr)] set the roundstart points to [new_roundstart_points]")
-			log_dynamic("[key_name(usr)] set the roundstart points to [new_roundstart_points]")
-			return TRUE
-		if("set_roundstart_divergence_upper")
-			var/new_divergence_upper = params["new_divergence_upper"]
-			SSdynamic.roundstart_divergence_percent_upper = new_divergence_upper
-			message_admins("[key_name(usr)] set the roundstart divergence upper range to [new_divergence_upper]")
-			log_dynamic("[key_name(usr)] set the roundstart divergence upper range to [new_divergence_upper]")
-			return TRUE
-		if("set_roundstart_divergence_lower")
-			var/new_divergence_lower = params["new_divergence_lower"]
-			SSdynamic.roundstart_divergence_percent_lower = new_divergence_lower
-			message_admins("[key_name(usr)] set the roundstart divergence lower range to [new_divergence_lower]")
-			log_dynamic("[key_name(usr)] set the roundstart divergence lower range to [new_divergence_lower]")
-			return TRUE
-
-		if("set_roundstart_points_per_ready")
-			var/new_points_per_ready = params["new_points_per_ready"]
-			SSdynamic.roundstart_points_per_ready = new_points_per_ready
-			message_admins("[key_name(usr)] set the roundstart points per ready to [new_points_per_ready]")
-			log_dynamic("[key_name(usr)] set the roundstart points per ready to [new_points_per_ready]")
-			return TRUE
-		if("set_roundstart_points_per_unready")
-			var/new_points_per_unready = params["new_points_per_unready"]
-			SSdynamic.roundstart_points_per_unready = new_points_per_unready
-			message_admins("[key_name(usr)] set the roundstart points per unready to [new_points_per_unready]")
-			log_dynamic("[key_name(usr)] set the roundstart points per unready to [new_points_per_unready]")
-			return TRUE
-		if("set_roundstart_points_per_observer")
-			var/new_points_per_observer = params["new_points_per_observer"]
-			SSdynamic.roundstart_points_per_observer = new_points_per_observer
-			message_admins("[key_name(usr)] set the roundstart points per observer to [new_points_per_observer]")
-			log_dynamic("[key_name(usr)] set the roundstart points per observer to [new_points_per_observer]")
-			return TRUE
-
 		if("toggle_roundstart_points_override")
 			SSdynamic.roundstart_points_override = !SSdynamic.roundstart_points_override
 
@@ -314,6 +287,7 @@
 			message_admins("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
 			log_dynamic("[key_name(usr)] set the midround ruleset to [ruleset_path::name]")
 			return TRUE
+
 		if("execute_midround_ruleset")
 			var/datum/dynamic_ruleset/midround/midround_ruleset = SSdynamic.midround_chosen_ruleset
 			if(!midround_ruleset)
@@ -325,63 +299,6 @@
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
-			return TRUE
-
-		if("set_midround_points")
-			var/new_points = params["new_points"]
-			SSdynamic.midround_points = new_points
-			SSdynamic.logged_points["logged_points"] += new_points
-			message_admins("[key_name(usr)] set the midround points to [new_points]")
-			log_dynamic("[key_name(usr)] set the midround points to [new_points]")
-			return TRUE
-		if("set_midround_grace_period")
-			var/new_grace_period = params["new_grace_period"]
-			SSdynamic.midround_grace_period = new_grace_period MINUTES
-			message_admins("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
-			log_dynamic("[key_name(usr)] set the midround grace period to [new_grace_period] minutes")
-			return TRUE
-		if("set_midround_failure_stallout")
-			var/new_midround_stallout = params["new_midround_stallout"]
-			SSdynamic.midround_failure_stallout = new_midround_stallout MINUTES
-			message_admins("[key_name(usr)] set the midround stallout time to [new_midround_stallout] minutes")
-			log_dynamic("[key_name(usr)] set the midround grace period to [new_midround_stallout] minutes")
-			return TRUE
-
-		if("set_midround_living_delta")
-			var/new_living_delta = params["new_living_delta"]
-			SSdynamic.midround_living_delta = new_living_delta
-			message_admins("[key_name(usr)] set the midround living delta to [new_living_delta]")
-			log_dynamic("[key_name(usr)] set the midround living delta to [new_living_delta]")
-			return TRUE
-		if("set_midround_dead_delta")
-			var/new_dead_delta = params["new_dead_delta"]
-			SSdynamic.midround_dead_delta = new_dead_delta
-			message_admins("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
-			log_dynamic("[key_name(usr)] set the midround dead delta to [new_dead_delta]")
-			return TRUE
-		if("set_midround_dead_security_delta")
-			var/new_dead_security_delta = params["new_dead_security_delta"]
-			SSdynamic.midround_dead_security_delta = new_dead_security_delta
-			message_admins("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
-			log_dynamic("[key_name(usr)] set the midround dead security delta to [new_dead_security_delta]")
-			return TRUE
-		if("set_midround_observer_delta")
-			var/new_observer_delta = params["new_observer_delta"]
-			SSdynamic.midround_observer_delta = new_observer_delta
-			message_admins("[key_name(usr)] set the midround observer delta to [new_observer_delta]")
-			log_dynamic("[key_name(usr)] set the midround observer delta to [new_observer_delta]")
-			return TRUE
-		if("set_midround_linear_delta")
-			var/new_linear_delta = params["new_linear_delta"]
-			SSdynamic.midround_linear_delta = new_linear_delta
-			message_admins("[key_name(usr)] set the midround linear delta to [new_linear_delta]")
-			log_dynamic("[key_name(usr)] set the midround linear delta to [new_linear_delta]")
-			return TRUE
-		if("set_midround_linear_delta_forced")
-			var/new_linear_delta_forced = params["new_linear_delta_forced"]
-			SSdynamic.midround_linear_delta_forced = new_linear_delta_forced
-			message_admins("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
-			log_dynamic("[key_name(usr)] set the forced midround linear delta to [new_linear_delta_forced]")
 			return TRUE
 
 		// Latejoin
@@ -400,19 +317,6 @@
 
 			message_admins("[key_name(usr)] set the latejoin ruleset to [ruleset_path::name]")
 			log_dynamic("[key_name(usr)] set the latejoin ruleset to [ruleset_path::name]")
-			return TRUE
-
-		if("set_latejoin_probability")
-			var/new_probability = params["new_probability"]
-			SSdynamic.latejoin_ruleset_probability = new_probability
-			message_admins("[key_name(usr)] set the latejoin probability to [new_probability]%")
-			log_dynamic("[key_name(usr)] set the latejoin probability to [new_probability]%")
-			return TRUE
-		if("set_latejoin_max")
-			var/new_max = params["new_max"]
-			SSdynamic.latejoin_max_rulesets = new_max
-			message_admins("[key_name(usr)] set the latejoin max to [new_max]")
-			log_dynamic("[key_name(usr)] set the latejoin max to [new_max]")
 			return TRUE
 
 /datum/dynamic_panel/ui_status(mob/user, datum/ui_state/state)
