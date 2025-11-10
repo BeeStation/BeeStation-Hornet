@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/species_traits = list()
 	// generic traits tied to having the species
 	var/list/inherent_traits = list()
-	var/list/inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	var/inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
 
@@ -509,14 +509,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/datum/disease/A in C.diseases)
 			A.cure(FALSE)
 
-	for(var/datum/disease/A in C.diseases)//if we can't have the disease, dont keep it
-		var/curedisease = TRUE
-		for(var/host_type in A.infectable_biotypes)
-			if(host_type in inherent_biotypes)
-				curedisease = FALSE
-				break
-		if(curedisease)
-			A.cure(FALSE)
+	//if we can't have the disease, dont keep it
+	for(var/datum/disease/disease in C.diseases)
+		if(!(disease.infectable_biotypes & inherent_biotypes))
+			disease.cure(FALSE)
 
 	if(TRAIT_TOXIMMUNE in inherent_traits)
 		C.setToxLoss(0, TRUE, TRUE)
@@ -1534,7 +1530,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else if(H.satiety < 0)
 			H.satiety++
 			if(DT_PROB(round(-H.satiety/77), delta_time))
-				H.Jitter(5)
+				H.set_jitter_if_lower(10 SECONDS)
 			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= H.physiology.hunger_mod
 		H.adjust_nutrition(-hunger_rate * delta_time)
@@ -1619,37 +1615,29 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *
  * Arguments:
  * - [source][/mob/living/carbon/human]: The mob requesting handling
+ * - intensity: The intensity of the irradiation
  * - delta_time: The amount of time that has passed since the last tick
- * - times_fired: The number of times SSmobs has fired
  */
-/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/source, delta_time, times_fired)
-	if(HAS_TRAIT(source, TRAIT_RADIMMUNE))
-		source.radiation = 0
-		return TRUE
-
-	. = FALSE
-	var/radiation = source.radiation
-
-	if(radiation > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
+/datum/species/proc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
+	if(intensity > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
 		if(!source.IsParalyzed())
 			source.emote("collapse")
 		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
-		to_chat(source, "<span class='danger'>You feel weak.</span>")
+		to_chat(source, span_danger("You feel weak."))
 
-	if(radiation > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
+	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
 		source.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
-		to_chat(source, "<span class='danger'>You mutate!</span>")
+	if(intensity > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
+		to_chat(source, span_danger("You mutate!"))
 		source.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
 		source.emote("gasp")
 		source.domutcheck()
 
-	if(radiation > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
+	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
-			to_chat(source, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
+			to_chat(source, span_danger("Your hair starts to fall out in clumps."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
-
 
 /datum/species/proc/handle_blood(mob/living/carbon/human/H)
 	return FALSE
@@ -1923,7 +1911,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE)
-	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
+	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	var/hit_percent = (100-(blocked+armor))/100
 	hit_percent = (hit_percent * (100-H?.physiology?.damage_resistance))/100
 	if(!damage || (!forced && hit_percent <= 0))
@@ -3065,7 +3053,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/create_pref_biotypes_perks()
 	var/list/to_add = list()
 
-	if(MOB_UNDEAD in inherent_biotypes)
+	if(inherent_biotypes & MOB_UNDEAD)
 		to_add += list(list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "skull",

@@ -179,8 +179,8 @@
 		/obj/item/clothing/mask/gas,
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman/belt
-		))
+		/obj/item/tank/internals/plasmaman/belt,
+	))
 	atom_storage.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
@@ -1248,7 +1248,6 @@
 
 /obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.max_specific_storage = 1000
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000
@@ -1475,3 +1474,11 @@
 		/obj/item/stack/wrapping_paper/small=1
 		)
 	generate_items_inside(items_inside,src)
+
+/obj/item/storage/box/party_poppers
+	name = "box of party_poppers"
+	desc = "Turn any event into a celebration and ensure the janitor stays busy."
+
+/obj/item/storage/box/party_poppers/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/spray/chemsprayer/party(src)

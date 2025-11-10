@@ -160,15 +160,6 @@
 			render_list += "<span class='info ml-1'>Subject Major Disabilities: [carbontarget.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE)].</span>\n"
 			if(advanced)
 				render_list += "<span class='info ml-1'>Subject Minor Disabilities: [carbontarget.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, TRUE)].</span>\n"
-
-	//if (HAS_TRAIT(target, TRAIT_IRRADIATED))
-	//	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply toxin healing.</span>\n"
-
-	if (target.radiation)
-		render_list += "<span class='alert ml-1'>Subject is irradiated.</span>\n"
-		if(advanced)
-			render_list += "<span class='info ml-1'>Radiation Level: [target.radiation]%.</span>\n"
-
 	//Eyes and ears
 	if(advanced && iscarbon(target))
 		var/mob/living/carbon/carbontarget = target
@@ -369,7 +360,7 @@
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_type]")]\n"
+				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else
 				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood_volume] cl, type: [blood_type]</span>\n"
 
