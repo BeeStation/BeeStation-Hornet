@@ -128,5 +128,15 @@
       Additionally adjusts and modernizes disposals to work with new changed areas.
   BotTierPC, BlerpFish:
   - rscadd: Adds a Service Poster for Mapping Use.
+  Carapan:
+  - bugfix: fixes the cake batter recipe in the sack of flour examine text.
+  Rukofamicom:
+  - bugfix: Fixed an undocumented change that got tacked into the recent wizard tools
+      and spell changes pertaining to the laser scalpel
+  Sarchutar:
+  - bugfix: Engineering borgs can once again not be pulled/moved by the supermatter/pressure
+      differences
+  llol111:
+  - rscadd: Added a centcom stamp to centcom
   mrmanlikesbt:
   - code_imp: Deprecated 515

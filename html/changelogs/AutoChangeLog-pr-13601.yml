@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Fixed an undocumented change that got tacked into the recent wizard tools
-      and spell changes pertaining to the laser scalpel

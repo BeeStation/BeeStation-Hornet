@@ -1,5 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - bugfix: Engineering borgs can once again not be pulled/moved by the supermatter/pressure
-      differences
