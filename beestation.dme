@@ -2419,6 +2419,8 @@
 #include "code\modules\antagonists\vampire\powers\gohome.dm"
 #include "code\modules\antagonists\vampire\powers\masquerade.dm"
 #include "code\modules\antagonists\vampire\powers\animalism\animalism.dm"
+#include "code\modules\antagonists\vampire\powers\animalism\beckoning.dm"
+#include "code\modules\antagonists\vampire\powers\animalism\pact.dm"
 #include "code\modules\antagonists\vampire\powers\auspex\astral_project.dm"
 #include "code\modules\antagonists\vampire\powers\auspex\auspex.dm"
 #include "code\modules\antagonists\vampire\powers\celerity\celerity.dm"

@@ -7,7 +7,7 @@
  * Args:
  * person_selecting - Mob override for stuff like Admins selecting someone's clan.
  */
-/datum/antagonist/vampire/proc/assign_clan_and_bane(mob/person_selecting)
+/datum/antagonist/vampire/proc/assign_clan_and_bane(mob/person_selecting, secrets = FALSE)
 	if(my_clan || owner.current.has_status_effect(/datum/status_effect/frenzy))
 		return
 	person_selecting ||= owner.current
@@ -15,8 +15,9 @@
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/datum/vampire_clan/all_clans as anything in typesof(/datum/vampire_clan))
-		if(!initial(all_clans.joinable_clan)) //flavortext only
+		if(!initial(all_clans.joinable_clan) && !(initial(all_clans.secret_clan) && secrets)) //flavortext only
 			continue
+
 		options[initial(all_clans.name)] = all_clans
 
 		var/datum/radial_menu_choice/option = new
@@ -40,12 +41,5 @@
 
 	my_clan.on_apply()
 
-/datum/antagonist/vampire/proc/remove_clan(mob/admin)
-	if(owner.current.has_status_effect(/datum/status_effect/frenzy))
-		to_chat(admin, span_announce("Removing a Vampire from a Clan while they are in a Frenzy will break stuff, this action has been blocked."))
-		return
-	QDEL_NULL(my_clan)
-	to_chat(owner.current, span_announce("You have been forced out of your clan! You can re-enter one by regular means."))
-
 /datum/antagonist/vampire/proc/admin_set_clan(mob/admin)
-	assign_clan_and_bane(admin)
+	assign_clan_and_bane(admin, TRUE)

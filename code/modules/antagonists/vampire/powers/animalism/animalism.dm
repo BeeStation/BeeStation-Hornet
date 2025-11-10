@@ -5,8 +5,8 @@
 	icon_state = "animalism"
 
 	// Lists of abilities granted per level
-	level_1 = null
-	level_2 = null
-	level_3 = null
-	level_4 = null
+	level_1 = list(/datum/action/vampire/targeted/pact)
+	level_2 = list(/datum/action/vampire/targeted/pact/two)
+	level_3 = list(/datum/action/vampire/targeted/pact/three)
+	level_4 = list(/datum/action/vampire/targeted/pact/four)
 	level_5 = null

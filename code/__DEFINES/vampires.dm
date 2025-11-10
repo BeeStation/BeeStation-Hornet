@@ -21,7 +21,7 @@
 #define DIABLERIE_DIVISOR 1.5
 
 /// How much blood drained from the vampire each tick during sol
-#define VAMPIRE_SOL_BURN 15
+#define VAMPIRE_SOL_BURN 30
 
 // ghoul defines
 /// If someone passes all checks and can be ghoulized
@@ -69,6 +69,7 @@
 #define CLAN_TZIMISCE "Tzimisce Clan"
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
+#define CLAN_METHUSELAH "Methuselah"
 
 // Power defines
 /// This Power can't be used in Torpor

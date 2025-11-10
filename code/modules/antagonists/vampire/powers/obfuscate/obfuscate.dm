@@ -5,7 +5,7 @@
 
 	// Lists of abilities granted per level
 	level_1 = list(/datum/action/vampire/cloak)
-	level_2 = list(/datum/action/vampire/cloak, /datum/action/vampire/targeted/trespass)
-	level_3 = null
-	level_4 = null
+	level_2 = list(/datum/action/vampire/cloak/two, /datum/action/vampire/targeted/trespass)
+	level_3 = list(/datum/action/vampire/cloak/three, /datum/action/vampire/targeted/trespass/two)
+	level_4 = list(/datum/action/vampire/cloak/four, /datum/action/vampire/targeted/trespass/three, /datum/action/vampire/veil)
 	level_5 = null

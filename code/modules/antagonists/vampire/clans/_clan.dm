@@ -21,6 +21,8 @@
 
 	/// Whether the clan can be joined by players. FALSE for flavortext-only clans.
 	var/joinable_clan = FALSE
+	/// Selectable by admins only
+	var/secret_clan = FALSE
 
 	/// How we will drink blood using Feed.
 	var/blood_drink_type = VAMPIRE_DRINK_NORMAL
@@ -216,3 +218,25 @@
 	masquerade_objective.explanation_text = "Ensure [masquerade_breaker.owner.current], who has broken the Masquerade, succumbs to Final Death."
 	vampiredatum.objectives += masquerade_objective
 	vampiredatum.owner.announce_objectives()
+
+// Methuselah secret_clan
+/datum/vampire_clan/methuselah
+	name = CLAN_METHUSELAH
+	description = "A survivor of the great flood. Yes, the biblical one. Pray to whatever pantheon you believe in that you do not meet one of these."
+	join_icon_state = "caitiff"
+	default_humanity = 6
+	joinable_clan = FALSE
+	secret_clan = TRUE
+
+/datum/vampire_clan/methuselah/New(datum/antagonist/vampire/owner_datum)
+	. = ..()
+	vampiredatum.owned_disciplines += new /datum/discipline/dominate/ventrue(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/auspex/malkavian(vampiredatum)
+	//vampiredatum.owned_disciplines += new /datum/discipline/thaumaturgy(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/animalism(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/obfuscate(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/protean(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/potence/brujah(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/celerity(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/fortitude(vampiredatum)
+	vampiredatum.owned_disciplines += new /datum/discipline/presence(vampiredatum)

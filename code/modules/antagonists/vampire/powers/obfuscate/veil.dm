@@ -114,7 +114,6 @@
 	cast_effect() // POOF
 	owner.balloon_alert(owner, "veil turned off.")
 
-
 // CAST EFFECT // General effect (poof, splat, etc) when you cast. Doesn't happen automatically!
 /datum/action/vampire/veil/proc/cast_effect()
 	// Effect
@@ -124,6 +123,7 @@
 	puff.attach(owner) //OPTIONAL
 	puff.start()
 	owner.spin(8, 1) //Spin around like a loon.
+	check_witnesses()
 
 /obj/effect/particle_effect/smoke/vampsmoke
 	opacity = FALSE

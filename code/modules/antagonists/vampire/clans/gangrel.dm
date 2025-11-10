@@ -5,7 +5,7 @@
 		They were one of the seven founding clans of the Camarilla, but became disillusioned with the sect around 400 years ago, its elders eventually deciding to sever its ties and become an independent clan."
 	join_icon_state = "gangrel"
 	default_humanity = 2
-	joinable_clan = FALSE
+	joinable_clan = TRUE
 
 /datum/vampire_clan/gangrel/New(datum/antagonist/vampire/owner_datum)
 	. = ..()

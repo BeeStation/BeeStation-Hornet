@@ -7,11 +7,20 @@
 		Higher levels decrease the sound played from using the Power, and increase the speed of the transition."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 120
+	bloodcost = 30
 	cooldown_time = 8 SECONDS
 	prefire_message = "Select a destination."
 	//target_range = 2
 	var/turf/target_turf // We need to decide where we're going based on where we clicked. It's not actually the tile we clicked.
+	level_current = 1
+
+/datum/action/vampire/targeted/trespass/two
+	level_current = 2
+	bloodcost = 50
+
+/datum/action/vampire/targeted/trespass/three
+	level_current = 3
+	bloodcost = 70
 
 /datum/action/vampire/targeted/trespass/can_use()
 	. = ..()
@@ -60,7 +69,7 @@
 		span_notice("You disspiate into formless mist."),
 	)
 	// Effect Origin
-	var/sound_strength = max(60, 70 - level_current * 10)
+	var/sound_strength = max(40, 100 - level_current * 20)
 	playsound(get_turf(owner), 'sound/magic/summon_karp.ogg', sound_strength, 1)
 	var/datum/effect_system/steam_spread/vampire/puff = new /datum/effect_system/steam_spread()
 	puff.set_up(3, 0, my_turf)
@@ -88,9 +97,10 @@
 	user.Stun(mist_delay / 2, ignore_canstun = TRUE)
 	user.density = 1
 	user.invisibility = invis_was
+
+	check_witnesses()
 	// Effect Destination
 	playsound(get_turf(owner), 'sound/magic/summon_karp.ogg', 60, 1)
-	puff = new /datum/effect_system/steam_spread/()
-	puff.effect_type = /obj/effect/particle_effect/smoke/vampsmoke
+	puff = new /datum/effect_system/steam_spread()
 	puff.set_up(3, 0, target_turf)
 	puff.start()

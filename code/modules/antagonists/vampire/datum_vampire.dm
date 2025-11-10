@@ -247,9 +247,7 @@
 	if(!broke_masquerade)
 		.["Masquerade Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
 
-	if(my_clan)
-		.["Remove Clan"] = CALLBACK(src, PROC_REF(remove_clan))
-	else
+	if(!my_clan)
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
 
 	if(humanity > 0)
@@ -622,51 +620,3 @@
 		return
 
 	tracker?.tracking_beacon?.update_position()
-
-/// This is where we store clan descriptions.
-/// We will need to know the description of a clan before we "make" one,
-/// because we can't just get the description from the "not-made" clan ref.
-/datum/antagonist/vampire/proc/get_clan_description(clan_name)
-	/// This makes descriptions about a billion times cleaner: Spans for discipline names and their individual descriptions:
-	var/disciplines = "[span_tooltip("Disciplines are the aspects of the original curse bestowed upon caine, of which every kindred suffers/benefits. In terms of gameplay, they are groups of abilities that you level up.", "Disciplines")]"
-	var/animalism = "[span_tooltip("Animalism is a Discipline that brings the vampire closer to their animalistic nature. This typically allows them to communicate with and gain dominance over creatures of nature.", "Animalism")]"
-	var/auspex = "[span_tooltip("Auspex is a Discipline that grants vampires supernatural senses, letting them peer far further and deeper than any mortal. The malkavians especially have a strong bond with it.", "Auspex")]"
-	var/celerity = "[span_tooltip("Celerity is a Discipline that grants vampires supernatural quickness and reflexes.", "Celerity")]"
-	var/dominate = "[span_tooltip("Dominate is a Discipline that overwhelms another person's mind with the vampire's will.", "Dominate")]"
-	var/fortitude = "[span_tooltip("Fortitude is a Discipline that grants Kindred unearthly toughness.", "Fortitude")]"
-	var/obfuscate = "[span_tooltip("Obfuscate is a Discipline that allows vampires to conceal themselves, deceive the mind of others, or make them ignore what the user does not want to be seen.", "Obfuscate")]"
-	var/potence = "[span_tooltip("Potence is the Discipline that endows vampires with physical vigor and preternatural strength.", "Potence")]"
-	var/presence = "[span_tooltip("Presence is the Discipline of supernatural allure and emotional manipulation which allows Kindred to attract, sway, and control crowds.", "Presence")]"
-	var/protean = "[span_tooltip("Protean is a Discipline that gives vampires the ability to change form, from growing feral claws to turning into something entirely different.", "Protean")]"
-	var/thaumaturgy = "[span_tooltip("Thaumaturgy is the secret blood-art of the clan tremere. Allowing them all manners of blood-sorcery and pacts.", "Thaumaturgy")]"
-
-	/// All the descriptions:
-	var/ventrue = "The ventrue are the de-facto leaders of the camarilla. They style themselves as kings and emperors, often inhabiting positions of power.\n\
-		<b>IMPORTANT:</b> Members of the Ventrue Clan are eligible for princedom. If there is no current prince, you will become one. Please remember that princes are expected to behave in a manner befitting their office.\n\
-		<b>[disciplines]:</b> [dominate], [fortitude], [presence]"
-	var/tremere = "With a powerful ancestry of wizards and magicians, the tremere wield the secret art of blood magic, which they guard with utmost care.\n\
-		<b>[disciplines]:</b> [thaumaturgy], [auspex], [dominate]"
-	var/toreador = "Artists, Pleasure-workers, Celebrities. These are the people of the toreador clan. They are by far the closest to humanity of all kindred, each a deeply sensitive individual.\n\
-		<b>[disciplines]:</b> [presence], [auspex], [celerity]"
-	var/malkavian = "Completely insane. You gain constant hallucinations, become a prophet with unintelligable rambling, and gain insights better left unknown. You can also travel through Phobetor tears, rifts through spacetime only you can travel through.\n\
-		<b>[disciplines]:</b> [dominate], [auspex], [obfuscate]"
-	var/gangrel = "Often mistaken as werewolves, gangrel carry the smell of wet dog wherever they go. Their unique bond with the beast within allows them to transform parts of their body into powerful claws, even becoming entirely different beings.\n\
-		<b>[disciplines]:</b> [animalism], [protean], [fortitude]"
-	var/brujah = "A clan now, of mostly rebels. Though some still show fragments of their lost lineage of warrior-poets. They are long split from the camarilla, and often form their own groups.\n\
-		<b>[disciplines]:</b> [potence], [celerity], [presence]"
-
-	// Now the logic
-	switch(clan_name)
-		if(CLAN_TOREADOR)
-			return toreador
-		if(CLAN_VENTRUE)
-			return ventrue
-		if(CLAN_BRUJAH)
-			return brujah
-		if(CLAN_MALKAVIAN)
-			return malkavian
-		if(CLAN_TREMERE)
-			return tremere
-		if(CLAN_GANGREL)
-			return gangrel
-	return "OH MY GOD SOMETHING HORRIBLE HAS GONE WRONG CALL A CODER NOW"

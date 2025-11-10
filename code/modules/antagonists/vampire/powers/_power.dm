@@ -28,7 +28,7 @@
 
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
-	///Can increase to yield new abilities - Used to be tied to rank. I'm hijacking it instead. This is dirty but it works. Look at auspex for an ideal way to do this instead of this disgusting filth.
+	///Can increase to yield new abilities - Used to be tied to rank. I'm hijacking it instead.
 	var/level_current = 1
 	///The cost to ACTIVATE this Power
 	var/bloodcost = 0

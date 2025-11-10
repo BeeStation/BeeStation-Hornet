@@ -208,7 +208,7 @@
 		// It begins...
 		currently_feeding = TRUE
 
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 10, falloff_exponent = 20)
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 30)
 
 		// Just to make sure
 		living_owner.stop_pulling()
@@ -267,6 +267,7 @@
 		)
 
 	else if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE) // COMBAT FEED BELOW HERE!!!!!!!!!!
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 10)
 		feed_target.Unconscious((5 + level_current) SECONDS)
 		owner.visible_message(
 			span_warning("[owner.first_name()] closes [owner.p_their()] mouth around [feed_target.first_name()]'s neck!"),

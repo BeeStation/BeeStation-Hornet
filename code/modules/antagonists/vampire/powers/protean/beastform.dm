@@ -1,5 +1,5 @@
 /datum/action/vampire/shapeshift/beast
-	name = "Wolf Transformation"
+	name = "Beast Transformation"
 	desc = "Take on the shape of a horrible wolf-beast.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions on use."
 	power_explanation = "You take on the form of a beast and lose nearly all Vampire benefits, including your brutish strength.\n\
 		When you transform back into your standard vampiric form, you will gain an equal amount of damage to that which you sustained when a bat.\n\
@@ -12,6 +12,7 @@
 	shapeshifted_mob = /mob/living/simple_animal/hostile/retaliate/beast
 
 /datum/action/vampire/shapeshift/batform/activate_power()
+	check_witnesses()
 	for(var/obj/item/item in owner)
 		owner.dropItemToGround(item, TRUE)
 	. = ..()

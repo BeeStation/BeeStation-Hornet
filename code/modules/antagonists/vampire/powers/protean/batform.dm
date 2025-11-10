@@ -12,6 +12,7 @@
 	shapeshifted_mob = /mob/living/simple_animal/hostile/retaliate/bat/vampire
 
 /datum/action/vampire/shapeshift/batform/activate_power()
+	check_witnesses()
 	for(var/obj/item/item in owner)
 		owner.dropItemToGround(item, TRUE)
 	. = ..()
