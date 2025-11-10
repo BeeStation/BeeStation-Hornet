@@ -361,7 +361,7 @@ SUBSYSTEM_DEF(dynamic)
 	if(!length(roundstart_candidates))
 		return TRUE
 
-	pick_roundstart_rulesets(roundstart_configured_rulesets)
+	pick_roundstart_rulesets()
 
 	// Save us from hard dels
 	roundstart_ready_amount = length(roundstart_candidates)
@@ -396,7 +396,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
 **/
-/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
+/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets()
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
 		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
@@ -428,7 +428,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Trim the rulesets
 	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in roundstart_rules)
+	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in roundstart_configured_rulesets)
 		potential_ruleset.set_drafted_players_amount()
 		potential_ruleset.get_candidates()
 		potential_ruleset.trim_candidates()

@@ -190,30 +190,29 @@
 			if(SSdynamic.roundstart_points_override)
 				var/forced_roundstart_points = params["forced_roundstart_points"]
 				SSdynamic.roundstart_points = forced_roundstart_points
-				message_admins("[key_name(usr)] has forced dynamic to use [forced_roundstart_points] roundstart points")
-				log_dynamic("[key_name(usr)] has forced dynamic to use [forced_roundstart_points] roundstart points")
+				message_admins("[key_name(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
+				log_dynamic("[key_name(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
 			else
-				message_admins("[key_name(usr)] has let dynamic choose its own roundstart points again")
-				log_dynamic("[key_name(usr)] has let dynamic choose its own roundstart points again")
+				message_admins("[key_name(usr)] let dynamic choose its own roundstart points again")
+				log_dynamic("[key_name(usr)] let dynamic choose its own roundstart points again")
 			return TRUE
 
 		if("toggle_roundstart_rulesets_override")
 			SSdynamic.roundstart_only_use_forced_rulesets = !SSdynamic.roundstart_only_use_forced_rulesets
 
-			// Invert the other one
 			if(SSdynamic.roundstart_only_use_forced_rulesets)
+				// Force the other one to be false
 				SSdynamic.roundstart_blacklist_forced_rulesets = FALSE
 
-			if(SSdynamic.roundstart_only_use_forced_rulesets)
 				var/list/forced_rulesets = list()
 				for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 					forced_rulesets += forced_ruleset.name
 
-				message_admins("[key_name(usr)] has forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
-				log_dynamic("[key_name(usr)] has forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
+				message_admins("[key_name(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
+				log_dynamic("[key_name(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
 			else
-				message_admins("[key_name(usr)] has let dynamic choose its own roundstart rulesets again")
-				log_dynamic("[key_name(usr)] has let dynamic choose its own roundstart rulesets again")
+				message_admins("[key_name(usr)] let dynamic choose its own roundstart rulesets again")
+				log_dynamic("[key_name(usr)] let dynamic choose its own roundstart rulesets again")
 			return TRUE
 
 		if("toggle_roundstart_blacklist_forced_rulesets")
@@ -224,15 +223,14 @@
 
 			SSdynamic.roundstart_blacklist_forced_rulesets = !SSdynamic.roundstart_blacklist_forced_rulesets
 
-			// Invert the other one
-			if(SSdynamic.roundstart_blacklist_forced_rulesets)
-				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
-
 			var/list/blacklisted_rulesets = list()
 			for(var/datum/dynamic_ruleset/roundstart/blacklisted_ruleset in SSdynamic.roundstart_forced_rulesets)
 				blacklisted_rulesets += blacklisted_ruleset.name
 
 			if(SSdynamic.roundstart_blacklist_forced_rulesets)
+				// Force the other one to be false
+				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
+
 				message_admins("[key_name(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
 				log_dynamic("[key_name(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
 			else
@@ -248,7 +246,7 @@
 				to_chat(usr, span_warning("Invalid ruleset: [ruleset_text]"))
 				return TRUE
 
-			// If it's already forced, unforce it, otherwise, force it.
+			// If it's already forced, unforce it
 			var/needs_to_force = TRUE
 			for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 				if(forced_ruleset.type == ruleset_path)
@@ -293,9 +291,12 @@
 			if(!midround_ruleset)
 				return
 
+			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - POLLING PLAYERS")
+
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
 			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
