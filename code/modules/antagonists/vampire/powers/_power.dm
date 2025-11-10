@@ -79,7 +79,7 @@
 	if(constant_bloodcost > 0)
 		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
 	if(power_flags & BP_AM_SINGLEUSE)
-		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once per night.</i>"
+		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once.</i>"
 
 /datum/action/vampire/proc/can_pay_cost()
 	if(QDELETED(owner))

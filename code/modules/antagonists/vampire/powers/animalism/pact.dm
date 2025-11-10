@@ -1,7 +1,7 @@
 /datum/action/vampire/targeted/pact
 	name = "Beast Pact"
 	desc = "Form a pact with a beast of your choice. It must not have prior allegiances. Higher levels increase the power of a pact-bond."
-	button_icon_state = "power_speed"
+	button_icon_state = "power_beckon"
 	power_explanation = "Click on a dog-type beast to forge a pact.\n\
 		With higher levels, the beast gains vitality and attack power upon bonding.\n\
 		Important: The boost is only applied once, at the time of bonding. Further uses of the ability heal the beast."

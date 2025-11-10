@@ -57,9 +57,6 @@
 		if(unmasked.owner.current)
 			on_vampire_broke_masquerade(vampiredatum.owner.current, unmasked)
 
-	for(var/datum/action/vampire/clanselect/clanselect in vampiredatum.powers)
-		vampiredatum.remove_power(clanselect)
-
 	vampiredatum.owner.current.playsound_local(get_turf(vampiredatum.owner.current), 'sound/vampires/VampireAlert.ogg', 80, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(vampiredatum.owner.current, span_narsiesmall("I remember now. I belong with the [name]..."))
 
@@ -89,6 +86,9 @@
  * Called during Vampire's LifeTick
  */
 /datum/vampire_clan/proc/handle_clan_life()
+	if(!is_type_in_list(/datum/action/vampire/levelup, vampiredatum.powers) && vampiredatum.vampire_level_unspent > 0)
+		vampiredatum.grant_power(new /datum/action/vampire/levelup)
+		return
 	return
 
 /**

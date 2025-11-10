@@ -13,6 +13,7 @@
 
 /datum/action/vampire/shapeshift/batform/activate_power()
 	check_witnesses()
+	playsound(get_turf(owner), 'sound/vampires/rage_increase.ogg', 100, extrarange = 10)
 	for(var/obj/item/item in owner)
 		owner.dropItemToGround(item, TRUE)
 	. = ..()

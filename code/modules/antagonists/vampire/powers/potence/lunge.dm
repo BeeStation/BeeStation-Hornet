@@ -136,7 +136,6 @@
 		check_witnesses()
 		return
 
-
 	var/mob/living/user = owner
 	var/mob/living/carbon/target = hit_atom
 

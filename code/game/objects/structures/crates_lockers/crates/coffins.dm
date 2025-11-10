@@ -209,10 +209,6 @@
 					return
 		LockMe(user)
 
-		// If we're in a clan, level up.
-		if(vampire.my_clan)
-			vampire.my_clan.spend_rank()
-
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the opportunity to do so.
 		vampire.check_begin_torpor()
 

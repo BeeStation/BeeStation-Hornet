@@ -80,12 +80,7 @@
 		to_chat(owner.current, span_notice("You have grown in power. Join a clan to spend it."))
 		return
 
-	// If we're in a coffin go ahead and try to spend the rank
-	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		my_clan.spend_rank()
-	else
-		to_chat(owner, span_notice("<EM>You have grown familiar with your powers! \
-			Sleep in a coffin that you have claimed to meditate on your progress"))
+	to_chat(owner, span_notice("<EM>You have grown familiar with your powers!"))
 
 /**
  * Decrease the unspent vampire levels by one. Only for admins
