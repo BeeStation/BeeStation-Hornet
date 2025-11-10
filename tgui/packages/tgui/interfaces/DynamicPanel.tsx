@@ -609,7 +609,7 @@ const MidroundPage = () => {
             >
               <LabeledList.Item label="Midround Ruleset" verticalAlign="middle">
                 <Dropdown
-                  options={midround_ruleset_names}
+                  options={['Random', ...midround_ruleset_names, 'None']}
                   selected={current_midround_ruleset?.name ?? 'None'}
                   width="100%"
                   onSelected={(value) => {
@@ -1288,7 +1288,7 @@ const LatejoinPage = () => {
       <Section fill title="Variables">
         <LabeledList.Item label="Set Latejoin Ruleset" verticalAlign="middle">
           <Dropdown
-            options={latejoin_ruleset_names}
+            options={['Random', ...latejoin_ruleset_names, 'None']}
             selected={current_latejoin_ruleset?.name ?? 'None'}
             width="50%"
             onSelected={(value) => {

@@ -586,6 +586,8 @@ SUBSYSTEM_DEF(dynamic)
 	if(world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
 		if(!midround_chosen_ruleset)
 			choose_midround_ruleset()
+			log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+			message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
 			var/result = execute_ruleset(midround_chosen_ruleset)
 			message_admins("DYNAMIC: MIDROUND: Executing [midround_chosen_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
@@ -721,7 +723,6 @@ SUBSYSTEM_DEF(dynamic)
 	if(!length(possible_rulesets))
 		var/new_severity
 
-		// Don't love this solution, but whatever
 		switch(forced_severity)
 			if(DYNAMIC_MIDROUND_HEAVY)
 				new_severity = DYNAMIC_MIDROUND_MEDIUM
@@ -735,10 +736,7 @@ SUBSYSTEM_DEF(dynamic)
 
 		return
 
-	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight(possible_rulesets)
-	log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
-	message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 
 /**
  * Latejoin functionality
@@ -761,11 +759,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	// No latejoin ruleset chosen, lets pick one
 	if(!latejoin_forced_ruleset)
-		var/list/possible_rulesets = list()
-		for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
-			possible_rulesets[ruleset] = ruleset.weight
-
-		latejoin_forced_ruleset = pick_weight(possible_rulesets)
+		choose_latejoin_ruleset()
 
 	// Execute our latejoin ruleset
 	latejoin_forced_ruleset.candidates = list(character)
@@ -777,6 +771,16 @@ SUBSYSTEM_DEF(dynamic)
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
 		latejoin_executed_rulesets += latejoin_forced_ruleset
 		latejoin_forced_ruleset = null
+
+/*
+ * Randomly chooses a latejoin ruleset from the available options.
+**/
+/datum/controller/subsystem/dynamic/proc/choose_latejoin_ruleset()
+	var/list/possible_rulesets = list()
+	for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
+		possible_rulesets[ruleset] = ruleset.weight
+
+	latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
 /**
  * Checks all high impact rulesets for their round result and sets dynamic's round result to that
