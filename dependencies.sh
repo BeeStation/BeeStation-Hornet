@@ -5,7 +5,7 @@
 
 # byond version
 export BYOND_MAJOR=516
-export BYOND_MINOR=1672
+export BYOND_MINOR=1667
 
 #rust version
 export RUST_VERSION=1.70
