@@ -93,7 +93,7 @@
 	if(ishuman(target))
 		// Cannot drink from inorganics
 		var/mob/living/carbon/human/human_target = target
-		if(!human_target.dna?.species || !(MOB_ORGANIC in human_target.mob_biotypes)) // !(human_target.mob_biotypes & MOB_ORGANIC)
+		if(!human_target.dna?.species || !(human_target.mob_biotypes & MOB_ORGANIC))
 			target.balloon_alert(owner, "no blood!")
 			return FALSE
 		// Cannot be wearing super thick gear
