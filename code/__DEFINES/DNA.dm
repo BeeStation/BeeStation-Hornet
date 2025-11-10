@@ -47,6 +47,7 @@
 #define FEATURE_FRILLS "frills"
 #define FEATURE_SPINES "spines"
 #define FEATURE_MOTH_WINGS "moth_wings"
+#define FEATURE_MOTH_WINGS_OPEN "[FEATURE_MOTH_WINGS]_open"
 #define FEATURE_MOTH_ANTENNAE "moth_antennae"
 #define FEATURE_MOTH_MARKINGS "moth_markings"
 //Beestation-specific
