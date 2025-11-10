@@ -987,7 +987,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	return COMPONENT_NO_AFTERATTACK
 
 /// Opens the storage to the mob, showing them the contents to their UI.
-/datum/storage/proc/open_storage(mob/to_show)
+/datum/storage/proc/open_storage(mob/living/to_show)
 	var/obj/item/resolve_parent = parent?.resolve()
 	if(!resolve_parent)
 		return FALSE

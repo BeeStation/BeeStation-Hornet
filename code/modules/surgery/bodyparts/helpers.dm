@@ -68,9 +68,21 @@
 	return 1
 
 
-/mob/living/carbon/proc/get_missing_limbs()
+///Returns a list of all limbs this mob should have.
+/mob/living/proc/get_all_limbs() as /list
 	RETURN_TYPE(/list)
-	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	return GLOB.all_body_zones.Copy()
+
+///Returns a list of all limbs this mob should have.
+/mob/living/carbon/get_all_limbs()
+	if(dna)
+		return dna.species.bodypart_overrides.Copy()
+	return ..()
+
+///Returns a list of all missing limbs this mob should have on them, but don't.
+/mob/living/carbon/proc/get_missing_limbs() as /list
+	RETURN_TYPE(/list)
+	var/list/full = get_all_limbs()
 	for(var/zone in full)
 		if(get_bodypart(zone))
 			full -= zone
@@ -87,7 +99,7 @@
 	return list()
 
 /mob/living/carbon/get_disabled_limbs()
-	var/list/full = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	var/list/full = get_all_limbs()
 	var/list/disabled = list()
 	for(var/zone in full)
 		var/obj/item/bodypart/affecting = get_bodypart(zone)
@@ -126,6 +138,8 @@
 // FUCK YOU AUGMENT CODE - With love, Kapu
 /mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)
 	var/path = dna.species.bodypart_overrides[zone]
+	if(isnull(path))
+		return null
 	var/obj/item/bodypart/new_bodypart = new path()
 	return new_bodypart
 

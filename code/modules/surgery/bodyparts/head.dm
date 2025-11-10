@@ -157,33 +157,32 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/obj/item/bodypart/head/get_limb_icon(dropped)
+/obj/item/bodypart/head/get_limb_icon(dropped, mob/living/carbon/update_on)
 	. = ..()
-
 	. += get_hair_and_lips_icon(dropped)
 	// We need to get the eyes if we are dropped (ugh)
-	if(dropped)
-		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
-		// This is a bit of copy/paste code from eyes.dm:generate_body_overlay
-		if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
-			var/image/eyes_overlay = image('icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
-			if(head_flags & HEAD_EYECOLOR)
-				if(eyes.eye_color)
-					eyes_overlay.color = eyes.eye_color
-			if(eyes.overlay_ignore_lighting)
-				eyes_overlay.overlays += emissive_appearance(eyes_overlay.icon, eyes_overlay.icon_state, src, alpha = eyes_overlay.alpha)
-			else if(blocks_emissive)
-				var/atom/location = loc || owner || src
-				eyes_overlay.overlays += emissive_blocker(eyes_overlay.icon, eyes_overlay.icon_state, location, alpha = eyes_overlay.alpha)
-			if(worn_face_offset)
-				worn_face_offset.apply_offset(eyes_overlay)
-			. += eyes_overlay
-		else if(!eyes && (head_flags & HEAD_EYEHOLES))
-			var/image/no_eyes = image('icons/mob/species/human/human_face.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
-			worn_face_offset?.apply_offset(no_eyes)
-			. += no_eyes
+	if(!dropped)
+		return
 
-	return
+	var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in src
+	// This is a bit of copy/paste code from eyes.dm:generate_body_overlay
+	if(eyes?.eye_icon_state && (head_flags & HEAD_EYESPRITES))
+		var/image/eyes_overlay = image('icons/mob/species/human/human_face.dmi', "[eyes.eye_icon_state]", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+		if(head_flags & HEAD_EYECOLOR)
+			if(eyes.eye_color)
+				eyes_overlay.color = eyes.eye_color
+		if(eyes.overlay_ignore_lighting)
+			eyes_overlay.overlays += emissive_appearance(eyes_overlay.icon, eyes_overlay.icon_state, src, alpha = eyes_overlay.alpha)
+		else if(blocks_emissive)
+			var/atom/location = loc || owner || src
+			eyes_overlay.overlays += emissive_blocker(eyes_overlay.icon, eyes_overlay.icon_state, location, alpha = eyes_overlay.alpha)
+		if(worn_face_offset)
+			worn_face_offset.apply_offset(eyes_overlay)
+		. += eyes_overlay
+	else if(!eyes && (head_flags & HEAD_EYEHOLES))
+		var/image/no_eyes = image('icons/mob/species/human/human_face.dmi', "eyes_missing", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), dir = SOUTH)
+		worn_face_offset?.apply_offset(no_eyes)
+		. += no_eyes
 
 /obj/item/bodypart/head/talk_into(mob/holder, message, channel, spans, datum/language/language, list/message_mods)
 	var/mob/headholder = holder

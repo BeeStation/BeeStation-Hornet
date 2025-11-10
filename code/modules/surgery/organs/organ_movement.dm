@@ -74,11 +74,6 @@
 		wash(CLEAN_TYPE_BLOOD)
 		organ_flags &= ~ORGAN_VIRGIN
 
-	if(external_bodytypes)
-		receiver.synchronize_bodytypes()
-	if(external_bodyshapes)
-		receiver.synchronize_bodyshapes()
-
 	receiver.organs |= src
 	receiver.organs_slot[slot] = src
 	owner = receiver
@@ -139,6 +134,11 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 
+	if(external_bodytypes)
+		limb.owner?.synchronize_bodytypes()
+	if(external_bodyshapes)
+		limb.owner?.synchronize_bodyshapes()
+
 	if(bodypart_overlay)
 		limb.add_bodypart_overlay(bodypart_overlay)
 
@@ -181,9 +181,6 @@
 	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src, special)
 
-	organ_owner.synchronize_bodytypes()
-	organ_owner.synchronize_bodyshapes()
-
 	if((organ_flags & ORGAN_VITAL) && !special)
 		if(organ_owner.stat != DEAD)
 			organ_owner.investigate_log("has been killed by losing a vital organ ([src]).", INVESTIGATE_DEATHS)
@@ -224,7 +221,8 @@
 	moveToNullspace()
 	bodypart_owner = null
 
-	on_bodypart_remove(limb)
+	if(!isnull(limb))
+		on_bodypart_remove(limb)
 
 	return TRUE
 
@@ -240,6 +238,9 @@
 	item_flags &= ~ABSTRACT
 	REMOVE_TRAIT(src, TRAIT_NODROP, ORGAN_INSIDE_BODY_TRAIT)
 	interaction_flags_item |= INTERACT_ITEM_ATTACK_HAND_PICKUP
+
+	limb.owner?.synchronize_bodytypes()
+	limb.owner?.synchronize_bodyshapes()
 
 	if(!bodypart_overlay)
 		return

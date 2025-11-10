@@ -997,7 +997,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 /// Creates body parts for this carbon completely from scratch.
 /// Optionally takes a map of body zones to what type to instantiate instead of them.
 /mob/living/carbon/proc/create_bodyparts(list/overrides)
-	var/list/bodyparts_paths = bodyparts.Copy()
+	var/list/bodyparts_paths = overrides?.Copy() || bodyparts.Copy()
 	bodyparts = list()
 	for(var/obj/item/bodypart/bodypart_path as anything in bodyparts_paths)
 		var/real_body_part_path = overrides?[initial(bodypart_path.body_zone)] || bodypart_path

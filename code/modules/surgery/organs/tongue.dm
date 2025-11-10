@@ -80,11 +80,20 @@
 	if(modifies_speech)
 		RegisterSignal(receiver, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	receiver.UnregisterSignal(receiver, COMSIG_MOB_SAY)
+	/* This could be slightly simpler, by making the removal of the
+	* NO_TONGUE_TRAIT conditional on the tongue's `sense_of_taste`, but
+	* then you can distinguish between ageusia from no tongue, and
+	* ageusia from having a non-tasting tongue.
+	*/
+	REMOVE_TRAIT(receiver, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 
 /obj/item/organ/tongue/on_mob_remove(mob/living/carbon/tongue_owner, special, movement_flags)
+	. = ..()
+
 	UnregisterSignal(tongue_owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+	// Carbons by default start with NO_TONGUE_TRAIT caused TRAIT_AGEUSIA
+	ADD_TRAIT(tongue_owner, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 	tongue_owner.RegisterSignal(tongue_owner, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
-	return ..()
 
 /obj/item/organ/tongue/could_speak_language(datum/language/language_path)
 	return (language_path in languages_possible)

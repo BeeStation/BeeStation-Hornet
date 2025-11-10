@@ -175,7 +175,7 @@
 	else
 		affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 	var/target_area = parse_zone(check_zone(user.get_combat_bodyzone(src))) //our intended target
-	
+
 	if(affecting)
 		if(I.force && I.damtype != STAMINA && (!IS_ORGANIC_LIMB(affecting))) // Bodpart_robotic sparks when hit, but only when it does real damage
 			if(I.force >= 5)
@@ -641,7 +641,7 @@
 	harm_descriptors ||= list("bleed" = "bleeding")
 	var/bleed_msg = harm_descriptors["bleed"]
 
-	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/list/missing = get_all_limbs()
 	for(var/obj/item/bodypart/body_part as anything in bodyparts)
 		missing -= body_part.body_zone
 		if(body_part.bodypart_flags & BODYPART_PSEUDOPART) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades

@@ -861,7 +861,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	client.prefs.apply_character_randomization_prefs()
 
 	var/species_type = client.prefs.read_character_preference(/datum/preference/choiced/species)
-	var/datum/species/species = new species_type
+	var/datum/species/species = GLOB.species_prototypes[species_type]
 	if(species.check_head_flags(HEAD_HAIR))
 		hairstyle = client.prefs.read_character_preference(/datum/preference/choiced/hairstyle)
 		hair_color = brighten_color(client.prefs.read_character_preference(/datum/preference/color/hair_color))
@@ -869,8 +869,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(species.check_head_flags(HEAD_FACIAL_HAIR))
 		facial_hairstyle = client.prefs.read_character_preference(/datum/preference/choiced/facial_hairstyle)
 		facial_hair_color = brighten_color(client.prefs.read_character_preference(/datum/preference/color/facial_hair_color))
-
-	qdel(species)
 
 	update_icon()
 

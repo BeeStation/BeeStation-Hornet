@@ -174,9 +174,6 @@ GLOBAL_LIST_INIT(skin_tone_names, list(
 	"mediterranean" = "Olive",
 ))
 
-/// An assoc list of species IDs to type paths
-GLOBAL_LIST_EMPTY(species_list)
-
 /proc/age2agedescription(age)
 	switch(age)
 		if(0 to 1)

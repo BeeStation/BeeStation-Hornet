@@ -14,7 +14,7 @@
 
 	//setup_mood()
 	// This needs to be called very very early in human init (before organs / species are created at the minimum)
-	//setup_organless_effects()
+	setup_organless_effects()
 	// Physiology needs to be created before species, as some species modify physiology
 	setup_physiology()
 
@@ -49,6 +49,15 @@
 
 /mob/living/carbon/human/proc/setup_physiology()
 	physiology = new()
+
+/// This proc is for holding effects applied when a mob is missing certain organs
+/// It is called very, very early in human init because all humans innately spawn with no organs and gain them during init
+/// Gaining said organs removes these effects
+/mob/living/carbon/human/proc/setup_organless_effects()
+	// All start without eyes, and get them via set species
+	//become_blind(NO_EYES)
+	// Mobs cannot taste anything without a tongue; the tongue organ removes this on Insert
+	ADD_TRAIT(src, TRAIT_AGEUSIA, NO_TONGUE_TRAIT)
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	randomize_human_normie(src, randomize_mutations = TRUE, update_body = FALSE)

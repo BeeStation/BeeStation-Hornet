@@ -154,7 +154,6 @@
 /obj/item/organ/tail/cat
 	name = "cat tail"
 	desc = "A severed cat tail. Who's wagging now?"
-	preference = "feature_human_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/cat
 
@@ -169,7 +168,6 @@
 
 /obj/item/organ/tail/monkey
 	name = "monkey tail"
-	preference = "feature_monkey_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/monkey
 
@@ -183,7 +181,6 @@
 /obj/item/organ/tail/lizard
 	name = "lizard tail"
 	desc = "A severed lizard tail. Somewhere, no doubt, a lizard hater is very pleased with themselves."
-	preference = "feature_lizard_tail"
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/tail/lizard
 

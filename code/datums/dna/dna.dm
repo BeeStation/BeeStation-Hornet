@@ -299,20 +299,16 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
  * * create_mutation_blocks - If true, generate_dna_blocks is called, which is used to set up mutation blocks (what a mob can naturally mutate).
  * * randomize_features - If true, all entries in the features list will be randomized.
  */
-/datum/dna/proc/initialize_dna(newblood_type, create_mutation_blocks = TRUE, randomize_features = TRUE)
+/datum/dna/proc/initialize_dna(newblood_type = random_blood_type(), create_mutation_blocks = TRUE, randomize_features = TRUE)
 	if(newblood_type)
 		blood_type = newblood_type
 	if(create_mutation_blocks) //I hate this
 		generate_dna_blocks()
 	if(randomize_features)
-		var/static/list/all_species_protoypes
-		if(isnull(all_species_protoypes))
-			all_species_protoypes = list()
-			for(var/species_path in subtypesof(/datum/species))
-				all_species_protoypes += new species_path()
-
-		for(var/datum/species/random_species as anything in all_species_protoypes)
-			features |= random_species.randomize_features()
+		for(var/species_type in GLOB.species_prototypes)
+			var/list/new_features = GLOB.species_prototypes[species_type].randomize_features()
+			for(var/feature in new_features)
+				features[feature] = new_features[feature]
 
 		features[FEATURE_MUTANT_COLOR] = "#[random_color()]"
 
@@ -512,10 +508,10 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 	return force_lose(HM)
 
 //Return the active mutation of a type if there is one
-/datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM in mutations)
-		if(HM.type == A)
-			return HM
+/datum/dna/proc/get_mutation(mutation_path)
+	for(var/datum/mutation/mutation in mutations)
+		if(mutation.type == mutation_path)
+			return mutation
 
 /datum/dna/proc/check_block_string(mutation)
 	if((LAZYLEN(mutation_index) > DNA_MUTATION_BLOCKS) || !(mutation in mutation_index))
