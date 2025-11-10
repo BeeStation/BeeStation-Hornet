@@ -716,7 +716,10 @@
 			var/gender = player_client.prefs.read_character_preference(/datum/preference/choiced/gender)
 			real_name = species.random_name(gender, TRUE)
 	dna.update_dna_identity()
-	updateappearance()
+	//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
+	// Don't call updateappearance() - it decodes DNA blocks and overwrites dna.features and organ appearances
+	// Player preferences already applied correctly during apply_prefs_to() -> on_species_gain()
+	// updateappearance() is only needed for mutations/cloning, not character creation
 
 /mob/living/silicon/ai/apply_prefs_job(client/player_client, datum/job/job)
 	apply_pref_name(/datum/preference/name/ai, player_client) // This proc already checks if the player is appearance banned.

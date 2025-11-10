@@ -443,7 +443,11 @@ GLOBAL_LIST_INIT(total_uf_len_by_block, populate_total_uf_len_by_block())
 
 	if(ui)
 		dna.unique_identity = ui
-		updateappearance(icon_update=0)
+		//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
+		// Don't call updateappearance() - it decodes DNA blocks and overwrites dna.features and organ appearances
+		// This function is used for respawning, and the features are already set correctly above
+		// updateappearance() is only needed for mutations/cloning when DNA blocks should override current state
+		// updateappearance(icon_update=0)
 
 	if(mrace || newfeatures || ui)
 		update_body(is_creating = TRUE)

@@ -85,6 +85,9 @@
 	update_body_parts()
 
 /mob/living/carbon/update_body(is_creating = FALSE)
+	//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
+	if(living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)
+		return
 	dna?.species.handle_body(src) //This calls `handle_mutant_bodyparts` which calls `update_mutant_bodyparts()`. Don't double call!
 	update_body_parts(is_creating)
 	dna?.update_body_size()
@@ -287,6 +290,9 @@
 ///Checks to see if any bodyparts need to be redrawn, then does so. update_limb_data = TRUE redraws the limbs to conform to the owner.
 ///Returns an integer representing the number of limbs that were updated.
 /mob/living/carbon/proc/update_body_parts(update_limb_data)
+	//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
+	if(living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)
+		return
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	//update_wound_overlays()
