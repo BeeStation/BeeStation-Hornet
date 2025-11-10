@@ -10,7 +10,6 @@
 	SSmobs.pause()
 	var/mob/living/carbon/human/dummy = allocate(/mob/living/carbon/human/consistent)
 	dummy.maxHealth = 200 // tank mode
-	dummy.radiation = 0
 
 	/* The sanity tests: here we make sure that:
 	1) That damage procs are returning the expected values. They should be returning the actual amount of damage taken/healed.
@@ -502,7 +501,6 @@
 	gusgus.damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 1)
 	// tank mouse
 	gusgus.maxHealth = 200
-	gusgus.radiation = 0
 
 	test_sanity_simple(gusgus)
 	test_sanity_complex(gusgus)

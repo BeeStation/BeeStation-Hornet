@@ -99,6 +99,13 @@
 		H.physiology.bleed_mod *= 10
 	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
+/datum/species/ipc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
+	if(intensity > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
+		if(!source.IsParalyzed())
+			source.emote("collapse")
+		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
+		to_chat(source, span_danger("You feel weak."))
+
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 

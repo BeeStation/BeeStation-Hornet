@@ -116,6 +116,8 @@
 #define HANDCUFFED_TRAIT "handcuffed"
 /// Trait granted by [/obj/item/warpwhistle]
 #define WARPWHISTLE_TRAIT "warpwhistle"
+/// Trait sorce for "was recently shocked by something"
+#define WAS_SHOCKED "was_shocked"
 /// Trait granted by lipstick
 #define LIPSTICK_TRAIT "lipstick_trait"
 /// Trait applied by by [/datum/component/soulstoned]
@@ -164,7 +166,6 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
-#define FROM_NOOARTRIUM "nooartrium"
 
 /**
 * Trait granted by [/mob/living/carbon/Initialize] and

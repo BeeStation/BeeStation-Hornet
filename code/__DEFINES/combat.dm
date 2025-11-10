@@ -40,8 +40,6 @@
 #define LASER "laser"
 /// Involves a melee attack or a thrown object.
 #define MELEE "melee"
-/// Involves ionizing radiation.
-#define RAD	"rad"
 /*
 /// Involved in checking the likelihood of applying a wound to a mob.
 #define WOUND "wound"
@@ -50,13 +48,13 @@
 #define ARMOR_ALL "all_damage_types"
 
 /// Armor values that are used for damage
-#define ARMOR_LIST_DAMAGE list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED)
+#define ARMOR_LIST_DAMAGE list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, STAMINA, BLEED)
 
 /// Armor values that are used for durability
 #define ARMOR_LIST_DURABILITY list(ACID, FIRE)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, RAD, STAMINA, BLEED, ACID, FIRE)
+#define ARMOR_LIST_ALL list(MELEE, BULLET, LASER, ENERGY, BOMB, BIO, STAMINA, BLEED, ACID, FIRE)
 
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
@@ -74,7 +72,6 @@
 #define EFFECT_UNCONSCIOUS "unconscious"
 #define EFFECT_PARALYZE "paralyze"
 #define EFFECT_IMMOBILIZE "immobilize"
-#define EFFECT_IRRADIATE "irradiate"
 #define EFFECT_STUTTER "stutter"
 #define EFFECT_SLUR "slur"
 #define EFFECT_EYE_BLUR "eye_blur"

@@ -109,7 +109,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	bullet = 20
 	laser = 20
 	energy = 100
-	rad = 100
 
 /obj/item/modular_computer/Initialize(mapload)
 	allowed_themes = GLOB.ntos_device_themes_default

@@ -23,7 +23,7 @@
 /obj/item/dnainjector/proc/inject(mob/living/carbon/M, mob/user)
 	if(!M.can_mutate())
 		return FALSE
-	M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
+
 	var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 	for(var/HM in remove_mutations)
 		M.dna.remove_mutation(HM)
@@ -516,7 +516,7 @@
 
 	if(!M.can_mutate())
 		return FALSE
-	M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
+
 	var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 	var/endtime = world.time+duration
 	for(var/mutation in remove_mutations)
@@ -577,7 +577,7 @@
 /obj/item/dnainjector/activator/inject(mob/living/carbon/M, mob/user)
 	if(!M.can_mutate())
 		return FALSE
-	M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
+
 	var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 	for(var/mutation in add_mutations)
 		var/datum/mutation/HM = mutation

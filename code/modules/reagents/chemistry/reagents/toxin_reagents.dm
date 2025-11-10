@@ -440,7 +440,13 @@
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.radiation += 4 * REM * delta_time
+	if(SSradiation.can_irradiate_basic(affected_mob))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		if(!irradiated_component)
+			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(rad_power * REM * delta_time)
+
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/histamine
 	name = "Histamine"

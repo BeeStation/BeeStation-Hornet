@@ -16,7 +16,6 @@
 
 /datum/armor/head_bio_hood
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	bleed = 5
@@ -43,7 +42,6 @@
 
 /datum/armor/suit_bio_suit
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	bleed = 5
@@ -79,7 +77,6 @@
 	energy = 10
 	bomb = 25
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	stamina = 20
@@ -99,7 +96,6 @@
 	energy = 10
 	bomb = 25
 	bio = 100
-	rad = 80
 	fire = 30
 	acid = 100
 	stamina = 20

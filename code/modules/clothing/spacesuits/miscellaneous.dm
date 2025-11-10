@@ -36,7 +36,6 @@ Contains:
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -68,7 +67,6 @@ Contains:
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -98,7 +96,6 @@ Contains:
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -132,7 +129,6 @@ Contains:
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -187,7 +183,6 @@ Contains:
 	energy = 15
 	bomb = 30
 	bio = 30
-	rad = 30
 	fire = 60
 	acid = 75
 	stamina = 20
@@ -231,7 +226,6 @@ Contains:
 	energy = 15
 	bomb = 30
 	bio = 30
-	rad = 30
 	fire = 60
 	acid = 75
 	stamina = 20
@@ -263,7 +257,6 @@ Contains:
 	energy = 50
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 80
 	stamina = 70
@@ -311,7 +304,6 @@ Contains:
 	energy = 50
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 80
 	stamina = 70
@@ -403,7 +395,6 @@ Contains:
 
 /datum/armor/space_eva
 	bio = 100
-	rad = 20
 	fire = 50
 	acid = 65
 	bleed = 30
@@ -419,7 +410,6 @@ Contains:
 
 /datum/armor/space_eva
 	bio = 100
-	rad = 20
 	fire = 50
 	acid = 65
 	bleed = 30
@@ -444,7 +434,6 @@ Contains:
 	energy = 25
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 80
 	stamina = 10
@@ -470,7 +459,6 @@ Contains:
 	energy = 25
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 80
 	acid = 80
 	stamina = 10
@@ -561,7 +549,6 @@ Contains:
 /datum/armor/space_fragile
 	melee = 5
 	bio = 10
-	rad = 10
 	bleed = 5
 
 /obj/item/clothing/suit/space/fragile
@@ -579,7 +566,6 @@ Contains:
 /datum/armor/space_fragile
 	melee = 5
 	bio = 10
-	rad = 10
 	bleed = 5
 
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -611,7 +597,6 @@ Contains:
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 70

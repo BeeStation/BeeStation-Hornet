@@ -1190,38 +1190,30 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *
  * Arguments:
  * - [source][/mob/living/carbon/human]: The mob requesting handling
+ * - intensity: The intensity of the irradiation
  * - delta_time: The amount of time that has passed since the last tick
- * - times_fired: The number of times SSmobs has fired
  */
-/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/source, delta_time, times_fired)
-	if(HAS_TRAIT(source, TRAIT_RADIMMUNE))
-		source.radiation = 0
-		return TRUE
-
-	. = FALSE
-	var/radiation = source.radiation
-
-	if(radiation > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
+/datum/species/proc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
+	if(intensity > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
 		if(!source.IsParalyzed())
 			source.emote("collapse")
 		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
 		to_chat(source, span_danger("You feel weak."))
 
-	if(radiation > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
+	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
 		source.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
+	if(intensity > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
 		to_chat(source, span_danger("You mutate!"))
 		source.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
 		source.emote("gasp")
 		source.domutcheck()
 
-	if(radiation > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
+	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		var/obj/item/bodypart/head/head = source.get_bodypart(BODY_ZONE_HEAD)
 		if(!(source.hairstyle == "Bald") && (head?.head_flags & HEAD_HAIR|HEAD_FACIAL_HAIR) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
 			to_chat(source, span_danger("Your hair starts to fall out in clumps..."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
-
 
 /datum/species/proc/handle_blood(mob/living/carbon/human/H)
 	return FALSE
