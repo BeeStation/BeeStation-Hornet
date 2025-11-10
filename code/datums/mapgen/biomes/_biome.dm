@@ -7,7 +7,7 @@
 	///Chance of having a mob from the fauna types list spawn
 	var/fauna_density = 0
 	///list of type paths of objects that can be spawned when the turf spawns flora
-	var/list/flora_types = list(/obj/structure/flora/grass/jungle)
+	var/list/flora_types = list()
 	///list of type paths of mobs that can be spawned when the turf spawns fauna
 	var/list/fauna_types = list()
 	///X and Y maximum pixel offsets posative and negative of flora
