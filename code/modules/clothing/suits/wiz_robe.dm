@@ -22,7 +22,6 @@
 	energy = 20
 	bomb = 20
 	bio = 100
-	rad = 20
 	fire = 100
 	acid = 100
 	stamina = 50
@@ -87,7 +86,26 @@
 	gas_transfer_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	armor_type = /datum/armor/suit_wizrobe
-	allowed = list(/obj/item/teleportation_scroll)
+	allowed = list(
+		/obj/item/staff,
+		/obj/item/gun/magic,
+		/obj/item/singularityhammer,
+		/obj/item/mjolnir,
+		/obj/item/wizard_armour_charge,
+		/obj/item/spellbook,
+		/obj/item/scrying,
+		/obj/item/camera/rewind,
+		/obj/item/soulstone,
+		/obj/item/holoparasite_creator/wizard,
+		/obj/item/antag_spawner/contract,
+		/obj/item/antag_spawner/slaughter_demon,
+		/obj/item/warpwhistle,
+		/obj/item/necromantic_stone,
+		/obj/item/clothing/gloves/translocation_ring,
+		/obj/item/clothing/glasses/red/wizard,
+		/obj/item/tank/internals,
+		)
+
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	equip_delay_other = 50
@@ -103,7 +121,6 @@
 	energy = 20
 	bomb = 20
 	bio = 100
-	rad = 20
 	fire = 100
 	acid = 100
 	stamina = 50

@@ -405,13 +405,13 @@
 	if(!..())
 		return FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camouflage/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
 /datum/status_effect/changeling/camouflage/proc/slight_increase()
@@ -740,7 +740,7 @@
 	if(!..())
 		return FALSE
 	// Effects that disrupt the cloak
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(bump_alpha))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(bump_alpha))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
 	// Effects that terminate the cloak
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
@@ -756,7 +756,7 @@
 
 /datum/status_effect/cloaked/on_remove()
 	owner.remove_alt_appearance(REF(src))
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()

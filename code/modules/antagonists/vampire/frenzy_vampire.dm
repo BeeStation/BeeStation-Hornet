@@ -43,7 +43,7 @@
 	var/mob/living/carbon/carbon_owner = owner
 	vampiredatum = IS_VAMPIRE(carbon_owner)
 
-	ASSERT(isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
+	ASSERT(!isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
 
 	// Basic stuff
 	carbon_owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)

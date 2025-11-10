@@ -702,22 +702,25 @@
 
 /obj/item/melee/supermatter_sword/proc/consume_everything(target)
 	if(isnull(target))
-		shard.Consume()
+		shard.Bump(target)
 	else if(!isturf(target))
 		shard.Bumped(target)
 	else
 		consume_turf(target)
 
-/obj/item/melee/supermatter_sword/proc/consume_turf(turf/T)
-	var/oldtype = T.type
-	var/turf/newT = T.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	if(newT.type == oldtype)
+/obj/item/melee/supermatter_sword/proc/consume_turf(turf/turf)
+	var/oldtype = turf.type
+	var/turf/new_turf = turf.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+	if(new_turf.type == oldtype)
 		return
-	playsound(T, 'sound/effects/supermatter.ogg', 50, 1)
-	T.visible_message(span_danger("[T] smacks into [src] and rapidly flashes to ash."),\
-	span_italics("You hear a loud crack as you are washed with a wave of heat."))
-	shard.Consume()
-	CALCULATE_ADJACENT_TURFS(T, MAKE_ACTIVE)
+
+	playsound(turf, 'sound/effects/supermatter.ogg', 50, TRUE)
+	turf.visible_message(
+		span_danger("[turf] smacks into [src] and rapidly flashes to ash."),
+		span_hear("You hear a loud crack as you are washed with a wave of heat."),
+	)
+	shard.Bump(turf)
+	CALCULATE_ADJACENT_TURFS(turf, MAKE_ACTIVE)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
 	return FALSE
@@ -801,7 +804,11 @@
 /obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
 	if(!ovens)
-		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+		ovens = typecacheof(list(
+			/obj/anomaly,
+			/obj/machinery/power/supermatter_crystal,
+			/obj/structure/bonfire,
+		))
 	AddComponent( \
 		/datum/component/transforming, \
 		hitsound_on = hitsound, \

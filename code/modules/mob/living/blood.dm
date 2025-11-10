@@ -131,6 +131,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	name = "Bleeding"
 	desc = "You are bleeding, find something to bandage the wound or you will die."
 	icon_state = "bleed"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/bleeding/Click(location, control, params)
 	var/mob/living/carbon/human/human = usr
