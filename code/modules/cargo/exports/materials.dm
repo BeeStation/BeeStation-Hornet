@@ -2,7 +2,9 @@
 	cost = 0	// This is defined later based on cusgenerated prices
 	export_category = EXPORT_CARGO
 	include_subtypes = TRUE
-	export_types = list(/obj/item/stack)
+	export_types = list(
+		/obj/item/stack = TRUE,
+	)
 
 /datum/export/stack/get_amount(obj/item/stack/exported)
 	if(!exported.amount)

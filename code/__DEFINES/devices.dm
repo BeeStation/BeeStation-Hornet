@@ -90,3 +90,5 @@ GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
 #define GRENADE_WIRED 2
 /// Grenade is ready to be activated
 #define GRENADE_READY 3
+/// Grenade is detonated and useless
+#define GRENADE_DETONATED 4

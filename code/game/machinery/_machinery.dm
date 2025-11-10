@@ -159,6 +159,8 @@
 	/// Disables some optimizations
 	var/always_area_sensitive = FALSE
 
+	var/area_relationship_established = FALSE
+
 	armor_type = /datum/armor/obj_machinery
 
 /datum/armor/obj_machinery
@@ -222,6 +224,7 @@
  * does not affect power usage itself
  */
 /obj/machinery/proc/setup_area_power_relationship()
+	area_relationship_established = TRUE
 	var/area/our_area = get_area(src)
 	if(our_area)
 		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
@@ -296,6 +299,7 @@
 	return
 
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
+	set waitfor = FALSE
 	return PROCESS_KILL
 
 ///Called when we want to change the value of the machine_stat variable. Holds bitflags.
@@ -453,10 +457,11 @@
 		if(ACTIVE_POWER_USE)
 			new_usage = active_power_usage
 
-	if(use_power == NO_POWER_USE)
-		setup_area_power_relationship()
-	else if(new_use_power == NO_POWER_USE)
-		remove_area_power_relationship()
+	if (area_relationship_established)
+		if(use_power == NO_POWER_USE)
+			setup_area_power_relationship()
+		else if(new_use_power == NO_POWER_USE)
+			remove_area_power_relationship()
 
 	static_power_usage = new_usage
 
@@ -1035,14 +1040,23 @@
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
-	..()
-	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
-	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, ENERGY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(
+			epicenter = src,
+			devastation_range = 1,
+			heavy_impact_range = 2,
+			light_impact_range = 4,
+			flame_range = 2,
+			adminlog = FALSE
+		)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
+		power -= power * 5e-4
+
+	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()

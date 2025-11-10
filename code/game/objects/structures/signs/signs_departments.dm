@@ -196,3 +196,8 @@
 	name = "Hydroponics Division"
 	desc = "A sign labelling the hydroponics division of the station. Don't mind the redeyes and giggles."
 	icon_state = "minskyhydrob"
+
+/obj/structure/sign/departments/minsky/supply/serv
+	name = "Service Department"
+	desc = "A sign labelling the service department of the station. Keeping the station running since 2185."
+	icon_state = "minskyserv"

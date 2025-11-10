@@ -245,7 +245,7 @@
 						return
 				var/target = locate(locx,locy,mobloc.z)
 				if(target && !istype(target, /turf/closed/indestructible/cordon))
-					var/lineofturf = getline(mobloc, target)
+					var/lineofturf = get_line(mobloc, target)
 					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
 						return //No phasing over cordons
 					L.forceMove(target)

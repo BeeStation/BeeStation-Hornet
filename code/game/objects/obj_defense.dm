@@ -157,19 +157,20 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		update_icon()
 		SSfire_burning.processing -= src
 
-/obj/proc/tesla_act(power, tesla_flags, shocked_targets)
-	obj_flags |= BEING_SHOCKED
-	var/power_bounced = power / 2
-	tesla_zap(src, 3, power_bounced, tesla_flags, shocked_targets)
-	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
+///Called when the obj is hit by a tesla bolt.
+/obj/zap_act(power, zap_flags)
+	if(QDELETED(src))
+		return 0
+	ADD_TRAIT(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
+	return power / 2
 
 //The surgeon general warns that being buckled to certain objects receiving powerful shocks is greatly hazardous to your health
 //Only tesla coils and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
-/obj/proc/tesla_buckle_check(strength)
+/obj/proc/zap_buckle_check(strength)
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.electrocute_act((clamp(round(strength/400), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
+		for(var/mob/living/buckled_mob in buckled_mobs)
+			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
 /obj/proc/reset_shocked()
 	obj_flags &= ~BEING_SHOCKED

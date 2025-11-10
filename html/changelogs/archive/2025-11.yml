@@ -1,0 +1,130 @@
+2025-11-01:
+  mrmanlikesbt:
+  - bugfix: Fixed dynamic spawned obsessed
+  - rscdel: Deleted the creep awakening event
+2025-11-02:
+  Varo10, Rukofamicom:
+  - balance: Wizard robes, hardsuit and modsuit can now store ANY item available for
+      purchase from the spellbook in the suit storage slot. Wizard staves have been
+      downgraded from huge to bulky in order to accomodate this change.
+  - balance: Wizard wands now recharge like staves, but take longer per charge and
+      hold less maximum charges.
+  - balance: All wizards and apprentices now start with a wand belt and teleportation
+      spell instead of teleportation scroll. Fully fledged wizards will find their
+      wand belt always contains a healing wand and three random wands.
+  - tweak: While the fully loaded wand belt is no longer available from the spellbook,
+      individual wands may now be acquired for 1 point each.
+  - balance: All wand effects have been reworked except for the teleportation wand.
+      Some of them have entirely new effects, and some of them have weakened versions
+      of their old effects to make up for being pocket sized spell guns that now regenerate.
+      Think of wands as the wizard sidearm to their more powerful spells and staves.
+  - rscadd: Brand new effects have been added to both staves and wands, including
+      a new icy blast that freezes the ground, a life draining effect, the ability
+      to end universal hunger, the ability to mutate your victims, and even one that
+      rips their arms and legs off!
+  - rscdel: Instances where there was both a wand and staff version of a given spell
+      have been eliminated to make room for the new effects mentioned above. No wand
+      or staff effects were actually removed entirely though, just duplicate effects.
+  - rscadd: Adds a new spell, Bolt of Instant Death. The wand of death was turned
+      into a spell with a cooldown instead of being kept in a spammable form now that
+      wands regenerate charges.
+  - rscadd: Adds a new spell, Arcane Prison. This spell acts as a cheaper and shorter
+      lasting version of the spell cast by the locker staff. The prison is also transparent
+      and will cause the victims it releases to be knocked down for a few seconds
+      after bursting.
+  - rscadd: Adds a new spell, Raise Lesser Skeleton. Unlike the necromantic stone
+      this spell does not bind the original soul of its victim to you, instead ripping
+      the skeleton out and offering it to ghosts while leaving the victim otherwise
+      recoverable. Even without available souls this spell will succeed, but will
+      instead create a mindlessly aggressive skeleton ally.
+  - rscadd: Adds the Glasses of Truesight which enable the wearer to see mobs through
+      walls. They do not offer full x-ray vision, only the location of mobs are revealed.
+  - rscadd: Adds the Ring of Translocation, which enables its wearer to swap places
+      with anyone they can see on a short cooldown.
+  - rscadd: Blood Contract has been added to the wizard spellbook as a consumable
+      item.  The Blood Contract can be applied to any target from anywhere, and will
+      drive them to madness - cursed to believe their fellow crew are demons that
+      need to be slaughtered. Crew will be forced to murder anyone under the effect
+      of this contract or else be murdered themselves.
+  - tweak: Warp Whistle is now a small item so you can store it in your pocket. It
+      also now fits in the suit slot for wizard gear as mentioned above.
+  - tweak: Staff of change (and related effects) will now be generally more random
+      in what they select for transformation. 33% chance of a random humanoid species,
+      33% robot, 33% anything else. Xenos, slimes and monkeys are no longer an exceptionally
+      high chance, and syndiborg are no longer on the top of the robot chances.
+  - rscdel: Removes the mutate spell
+  - bugfix: Psyphoza and Lizard exclusive mutations are both actually exclusive to
+      those races now as intended.
+2025-11-03:
+  mrmanlikesbt:
+  - bugfix: Fixed vampire frenzies
+  - bugfix: Fixed half of the kilostation solar panels having their cable node in
+      the wrong direction.
+2025-11-04:
+  PowerfulBacon:
+  - bugfix: Mail can now be delivered to antagonists and dead people, provided they
+      are present on the station's manifest.
+2025-11-05:
+  SunShine214:
+  - rscdel: Removed Air Conditioning mode from Air Alarm TGUI
+  - bugfix: Fixed Air Alarm TGUI
+2025-11-07:
+  Programs-The-Station:
+  - tweak: Removes Slowdown on Platform Stairs
+  mrmanlikesbt:
+  - bugfix: Fixed metabolite reagents runtiming on their final tick
+  - bugfix: Fixed water tanks not bursting into... water when being destroyed
+  - bugfix: Fixed firelocks runtiming when destroyed
+  - bugfix: Fixed the code for the beer nuke not showing up on beer stained notes
+  - bugfix: Fixed the troll paper
+  - bugfix: Fixed water and welding fuel tanks runtiming when examining them
+  - bugfix: Fixed not being able to put chem bags into the chemistry smartfridge
+  - bugfix: Fixed an infrequent runtime when the game loads your screentip preferences
+2025-11-08:
+  mrmanlikesbt, TemporalOrobos:
+  - code_imp: Added zebra typecaches
+  - code_imp: Added better documentation for some list helper procs
+  ? mrmanlikesbt, coiax, Mothblocks, SuperNovaa41, Jacquerel, TimeGreen, Ghommie,
+    tralezab, Krysonism, NamelessFairy, Thunder12345
+  : - rscadd: added Employee Birthday station trait
+    - rscadd: added pinatas, these can be ordered from cargo
+    - refactor: refactored some station trait backend
+    - refactor: station traits are now chosen using a budget system
+    - admin: added a modify station traits verb in the adminbus tab
+    - server: added config values for station trait budgets
+    - code_imp: fixed typo, COMSIG_MOB_APPLY_DAMGE to COMSIG_MOB_APPLY_DAMAGE
+  necromanceranne, lord scrubling:
+  - rscadd: Duct tape! Right-click objects and cyborgs with duct tape to repair them
+      if they have been damaged! Wrap objects in duct tape to make it completely incapable
+      of embedding! Find them in your nearest Vendomat or Engi-Vend vending machines
+      today! They can also be made in Autolathes, the Engineering protolathe, and
+      the Service protolathe!
+  - tweak: the recording tape design in autolathes is now less ambiguously named
+  - bugfix: sticky tapes can no longer be applied at any distance
+  - soundadd: added sounds for tape
+2025-11-09:
+  EvilDragonfiend:
+  - tweak: each type of maints is now spawned only once.
+  mrmanlikesbt:
+  - bugfix: Fixed cargo exports and bounties not working
+  - bugfix: Fixed the contractor kit not spawning with extra items
+  ? mrmanlikesbt, Mothblocks, KittyNoodle, Pickle-Coding, timothymtorres, Krysonism,
+    Tiresoup, ShizCalev, lessthnthree, Lufferly, Ghilker, SyncIt21, vincentiusvin,
+    nevimer, blessedmulligan
+  : - refactor: Refactored radiation
+    - rscdel: Deleted radiation collectors
+    - rscdel: Pluoxium can no longer be produced on radioactive turfs- combine carbon
+        dioxide, oxygen, and tritium
+    - tweak: Gene tampering now causes genetic damage instead of radiation damage
+    - rscadd: The supermatter now produces power through electric shocks
+    - rscadd: The supermatter now features festive lighting during Christmas
+    - rscadd: Improved the supermatter and RBMK UI
+    - refactor: Rewrote much of the internal supermatter logic
+    - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
+        magboots!!!
+2025-11-10:
+  BotTierPC:
+  - tweak: Overhauls Non-Departmental Regions of BoxStation + Janitorial Department.
+      Additionally adjusts and modernizes disposals to work with new changed areas.
+  BotTierPC, BlerpFish:
+  - rscadd: Adds a Service Poster for Mapping Use.

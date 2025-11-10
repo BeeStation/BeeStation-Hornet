@@ -27,7 +27,7 @@
 #define BLEED_TINY 0.1
 #define BLEED_SCRATCH 0.8
 #define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
-#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood in 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
 #define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
 

@@ -2,5 +2,8 @@
 	cost = 0	// This is defined later based on cusgenerated prices
 	export_category = EXPORT_CARGO
 	include_subtypes = TRUE
-	export_types = list(/obj) // catch-all
+	// catch-all
+	export_types = list(
+		/obj = TRUE,
+	)
 	catchall = TRUE

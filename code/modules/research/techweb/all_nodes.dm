@@ -23,6 +23,7 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"duct_tape",
 		"epaperread",
 		"fax",
 		"glasses_prescription",
@@ -41,6 +42,7 @@
 		"plastitanium",
 		"plastitaniumglass",
 		"plumbing_rcd",
+		"portable_thermomachine",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
@@ -56,7 +58,6 @@
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
@@ -254,6 +255,26 @@
 		"integrated_circuit",
 		"module_duplicator",
 		"usb_cable",
+		"comp_gate_toggle",
+		"comp_gate_set_reset",
+	)
+
+/////////////////////Circuit Templates///////////////////
+/datum/techweb_node/circuit_templates
+	id = "circuit_templates"
+	tech_tier = 0
+	starting_node = TRUE
+	display_name = "Professor's Circuits"
+	description = "I need some help with circuits. Can you lend a hand?"
+	design_ids = list(
+		"template_notes",
+		"template_hello_world",
+		"template_greeter",
+		"template_ticker",
+		"template_simple_math",
+		"template_times_table",
+		"template_coin_flip",
+		"template_atmos_checker"
 	)
 
 /////////////////////////Biotech/////////////////////////
@@ -446,7 +467,6 @@
 		"plasmaman_tank",
 		"power control",
 		"powermonitor",
-		"rad_collector",
 		"recharger",
 		"recycler",
 		"researchdisk_locator",
@@ -870,6 +890,26 @@
 		"computer_hardware_basic",
 	)
 	design_ids = list("server_shell")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+
+//Circuit Templates
+/datum/techweb_node/advanced_circuit_templates
+	id = "advanced_circuit_templates"
+	tech_tier = 2
+	display_name = "Advanced Circuit Templates"
+	description = "Circuit Templates. Some broken, some not very useful"
+	prereq_ids = list(
+		"math_circuits",
+		"list_circuits",
+		"adv_shells",
+		"bci_shells",
+		"movable_shells",
+		"server_shell")
+	design_ids = list(
+		"template_broken_translator",
+		"template_scanning_gate",
+		"template_circuit_vendor"
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /////////////////////////robotics tech/////////////////////////
@@ -1974,7 +2014,7 @@
 	design_ids = list(
 		"mod_plating_atmospheric",
 		"mod_jetpack",
-		//"mod_rad_protection",
+		"mod_rad_protection",
 		"mod_emp_shield",
 		"mod_storage_expanded",
 	)

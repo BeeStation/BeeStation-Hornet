@@ -164,8 +164,6 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
-			if(Master.initializations_finished_with_no_players_logged_in)
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 			for(var/client/C in GLOB.clients_unsafe)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
@@ -188,6 +186,11 @@ SUBSYSTEM_DEF(ticker)
 				++totalPlayers
 				if(player.ready == PLAYER_READY_TO_PLAY)
 					++totalPlayersReady
+
+			// If there are no players, stay in the lobby until someone joins
+			// and give enough time for them to do the storyteller vote
+			if ((totalPlayers - totalPlayersPreAuth) == 0)
+				timeLeft = min(timeLeft, 120 SECONDS)
 
 			if(start_immediately)
 				timeLeft = 0
@@ -276,6 +279,8 @@ SUBSYSTEM_DEF(ticker)
 	GLOB.manifest.build()
 
 	transfer_characters()	//transfer keys to the new mobs
+
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING)
 
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
