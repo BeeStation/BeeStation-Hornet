@@ -163,6 +163,7 @@
 		var/obj/item/bodypart/chest/chest = target.get_bodypart(BODY_ZONE_CHEST)
 		chest.dismember()
 	else
+		target.drop_all_held_items()
 		target.grabbedby(owner)
 		target.grippedby(owner, instant = TRUE)
 		// Did we knock them down?
