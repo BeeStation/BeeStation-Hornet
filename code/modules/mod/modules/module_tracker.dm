@@ -109,7 +109,7 @@
 /obj/item/mod/module/tracking_beacon/proc/check_menu()
 	if(QDELETED(src))
 		return FALSE
-	if(!mod.active)
+	if(!part_activated)
 		return FALSE
 	return TRUE
 
