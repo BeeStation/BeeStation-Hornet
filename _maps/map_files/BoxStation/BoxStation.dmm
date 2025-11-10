@@ -49725,7 +49725,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "qap" = (
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
