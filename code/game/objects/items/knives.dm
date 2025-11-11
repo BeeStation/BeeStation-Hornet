@@ -9,7 +9,7 @@
 	worn_icon_state = "knife"
 	desc = "The original knife, it is said that all other knives are only copies of this one."
 	flags_1 = CONDUCT_1
-	force = 10
+	force = 14
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -88,7 +88,6 @@
 	item_state = "huntingknife"
 	icon_state = "huntingknife"
 	icon = 'icons/obj/knives.dmi'
-	force = 12
 
 /obj/item/knife/venom
 	name = "venom knife"
