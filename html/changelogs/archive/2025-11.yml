@@ -141,6 +141,8 @@
   mrmanlikesbt:
   - code_imp: Deprecated 515
 2025-11-11:
+  mrmanlikesbt:
+  - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
   mrmanlikesbt, Watermelon914:
   - refactor: Subsystems use dynamically generated init orders now instead of a previously
       hard-coded list
