@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(directives)
 	if (world.time < next_directive_time)
 		return
 	// Filter uplinks to those which can get team missions
-	var/list/filtered_uplinks
+	var/list/filtered_uplinks = list()
 	for (var/datum/component/uplink/uplink in GLOB.uplinks)
 		if (!(uplink.directive_flags & DIRECTIVE_FLAG_COMPETITIVE))
 			continue
