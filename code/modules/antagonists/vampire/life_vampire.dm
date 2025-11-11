@@ -15,7 +15,7 @@
 
 	// Deduct Blood
 	if(owner.current.stat == CONSCIOUS && !HAS_TRAIT(owner.current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(owner.current, TRAIT_NODEATH))
-		INVOKE_ASYNC(src, PROC_REF(AddBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
+		INVOKE_ASYNC(src, PROC_REF(RemoveBloodVolume), VAMPIRE_PASSIVE_BLOOD_DRAIN)
 
 	// Healing
 	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile/retaliate/bat/vampire))
@@ -139,7 +139,7 @@
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
 		var/bloodcost = (brute_heal * 0.5 + burn_heal) * bloodcost_multiplier * healing_mulitplier
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
-		AddBloodVolume(-bloodcost)
+		RemoveBloodVolume(bloodcost)
 		return TRUE
 	return FALSE
 
@@ -152,7 +152,7 @@
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
-		AddBloodVolume(-limb_regen_cost)
+		RemoveBloodVolume(limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
 		missing_bodypart.brute_dam = 60
 		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))
@@ -254,6 +254,14 @@
 	// Enter frenzy if our blood is low enough
 	if(vampire_blood_volume < FRENZY_THRESHOLD_ENTER && !frenzied)
 		owner.current.apply_status_effect(/datum/status_effect/frenzy)
+
+	// Warn them at low blood
+	if(vampire_blood_volume < VAMPIRE_LOW_BLOOD_WARNING && !low_blood_alerted)
+		owner.current.playsound_local(null, 'sound/vampires/bloodneed.ogg', 100, FALSE, pressure_affected = FALSE)
+		to_chat(owner.current, span_narsiesmall("Care now. Your vitae runs low!"), type = MESSAGE_TYPE_WARNING)
+		low_blood_alerted = TRUE
+	else if(vampire_blood_volume > VAMPIRE_LOW_BLOOD_WARNING)
+		low_blood_alerted = FALSE
 
 	// The more blood, the better the regeneration
 	if(vampire_blood_volume < BLOOD_VOLUME_BAD)

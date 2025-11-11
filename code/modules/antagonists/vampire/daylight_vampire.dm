@@ -102,10 +102,10 @@
 
 			// Rest in peace.
 			if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
+				playsound(owner.current, 'sound/vampires/burning_death.ogg', 60, TRUE)
 				owner.current.dust(drop_items = TRUE)
 
 	last_sol_damage = incoming_sol_damage
-
 	return
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, ghoul_warning_message)

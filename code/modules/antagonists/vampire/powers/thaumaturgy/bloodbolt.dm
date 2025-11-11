@@ -1,21 +1,21 @@
-/datum/action/vampire/targeted/tremere/bloodbolt
-	name = "Level 1: Thaumaturgy"
-	upgraded_power = /datum/action/vampire/targeted/tremere/thaumaturgy/two
+/datum/action/vampire/targeted/bloodbolt
+	name = "Thaumaturgy: Blood Bolt"
 	desc = "Fire a blood bolt at your enemy, dealing Burn damage."
-	level_current = 1
 	button_icon_state = "power_thaumaturgy"
+	background_icon_state_on = "tremere_power_plat_on"
+	background_icon_state_off = "tremere_power_plat_off"
 	power_explanation = "Shoots a blood bolt spell that deals burn damage"
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 20
-	constant_bloodcost = 0
-	cooldown_time = 6 SECONDS
-	prefire_message = "Click where you wish to fire."
+	power_flags = NONE
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	bloodcost = 75
+	cooldown_time = 20 SECONDS
+	target_range = 8
+	power_activates_immediately = FALSE
+	prefire_message = "Select your target."
 
-	/// Blood shield given while this Power is active.
-	var/datum/weakref/blood_shield
-
-/datum/action/vampire/targeted/tremere/thaumaturgy/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/bloodbolt/FireTargetedPower(atom/target_atom)
 	. = ..()
+	check_witness()
 	var/mob/living/living_owner = owner
 	living_owner.balloon_alert(living_owner, "you fire a blood bolt!")
 	living_owner.changeNext_move(CLICK_CD_RANGE)
@@ -28,7 +28,7 @@
 	bolt.preparePixelProjectile(target_atom, living_owner)
 	INVOKE_ASYNC(bolt, TYPE_PROC_REF(/obj/projectile, fire))
 
-	playsound(living_owner, 'sound/magic/wand_teleport.ogg', 60, TRUE)
+	playsound(living_owner, 'sound/vampires/bloodbolt.ogg', 60, TRUE)
 	power_activated_sucessfully()
 
 

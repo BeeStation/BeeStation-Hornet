@@ -9,7 +9,7 @@
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 75
 	cooldown_time = 20 SECONDS
-	target_range = 8
+	target_range = 7
 	power_activates_immediately = FALSE
 	prefire_message = "Whom will you afflict?"
 
@@ -17,14 +17,17 @@
 
 /datum/action/vampire/targeted/bloodboil/two
 	bloodcost = 45
+	target_range = 10
 	powerlevel = 2
 
 /datum/action/vampire/targeted/bloodboil/three
 	bloodcost = 60
+	target_range = 15
 	powerlevel = 3
 
 /datum/action/vampire/targeted/bloodboil/four
 	bloodcost = 85
+	target_range = 20
 	powerlevel = 4
 
 /datum/action/vampire/targeted/bloodboil/check_valid_target(atom/target_atom)
@@ -34,6 +37,7 @@
 
 	// Must be a carbon
 	if(!iscarbon(target_atom) || issilicon(target_atom))
+		owner.balloon_alert(owner, "not a valid target.")
 		return FALSE
 	var/mob/living/living_target = target_atom
 
@@ -124,6 +128,7 @@
 		carbon_owner = owner
 	else
 		return
+
 	playsound(owner, 'sound/effects/wounds/sizzle1.ogg', 50, vary = TRUE)
 	switch(power)
 		if(1)

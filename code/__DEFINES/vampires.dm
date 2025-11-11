@@ -14,11 +14,14 @@
 /// Once blood is this low, will enter a Frenzy
 #define FRENZY_THRESHOLD_ENTER 25
 /// Once blood is this high, will exit the Frenzy. Intentionally high, we want to kill the person we feed off of
-#define FRENZY_THRESHOLD_EXIT 250
+#define FRENZY_THRESHOLD_EXIT 500
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
 /// The number that incoming levels are divided by when comitting the Amaranth. Example: 2 would divide the victims level by 2, and give that to the diablerist
 #define DIABLERIE_DIVISOR 1.5
+
+/// When do we warn them about their low blood?
+#define VAMPIRE_LOW_BLOOD_WARNING 300
 
 /// How much blood drained from the vampire each tick during sol
 #define VAMPIRE_SOL_BURN 30

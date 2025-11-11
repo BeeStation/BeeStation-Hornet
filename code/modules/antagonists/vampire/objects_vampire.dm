@@ -256,14 +256,14 @@
 
 		is_torturing = TRUE
 		living_target.Paralyze(1 SECONDS)
-		vampiredatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
+		vampiredatum.RemoveBloodVolume(TORTURE_BLOOD_HALF_COST)
 
 		if(!do_torture(living_vampire, living_target, held_item))
 			is_torturing = FALSE
 			return
 		is_torturing = FALSE
 
-		vampiredatum.AddBloodVolume(-TORTURE_BLOOD_HALF_COST)
+		vampiredatum.RemoveBloodVolume(TORTURE_BLOOD_HALF_COST)
 		convert_progress--
 
 		if(convert_progress > 0)
@@ -288,7 +288,7 @@
 			return
 
 		// Make our target into a ghoul
-		vampiredatum.AddBloodVolume(-TORTURE_CONVERSION_COST)
+		vampiredatum.RemoveBloodVolume(TORTURE_CONVERSION_COST)
 		vampiredatum.make_ghoul(living_target)
 
 		// Find Mind Implant & Destroy

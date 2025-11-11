@@ -43,6 +43,8 @@
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	/// If we are currently in a Frenzy
 	var/frenzied = FALSE
+	/// If we've already alerted the player about low blood
+	var/low_blood_alerted = FALSE
 
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
