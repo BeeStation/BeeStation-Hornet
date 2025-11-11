@@ -7,6 +7,7 @@
 	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
+	var/uplink_given = FALSE
 	antag_moodlet = /datum/mood_event/focused
 
 /datum/antagonist/brother/create_team(datum/team/brother_team/new_team)
@@ -81,11 +82,18 @@
 	for(var/datum/mind/M in team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
-	// Who gets the uplink
-	var/datum/mind/uplink_owner = pick(team.members)
-	uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = BROTHER_DIRECTIVE_FLAGS)
 	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
+	if (!uplink_given)
+		distribute_uplink()
+
+/datum/antagonist/brother/proc/distribute_uplink()
+	uplink_given = TRUE
+	// Who gets the uplink
+	var/datum/mind/uplink_owner = pick(team.members)
+	var/datum/component/uplink/granted_uplink = uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = BROTHER_DIRECTIVE_FLAGS)
+	// Makes it hard for blood brothers to be a significant force in the round
+	granted_uplink.directive_tc_multiplier = 0.5
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers

@@ -3,7 +3,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/directive_team/proc/grant_reward(tc_amount, reputation_amount)
 	for (var/datum/component/uplink/uplink in uplinks)
-		uplink.telecrystals += tc_amount
+		uplink.telecrystals += tc_amount * uplink.directive_tc_multiplier
 		uplink.reputation += reputation_amount
 	send_message("[tc_amount] telecrystals and [reputation_amount] reputation points have been authorised for your use.")
 

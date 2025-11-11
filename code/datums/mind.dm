@@ -264,6 +264,7 @@
 	return I
 
 /datum/mind/proc/equip_standard_uplink(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT, directive_flags = NONE)
+	RETURN_TYPE(/datum/component/uplink)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
@@ -315,7 +316,6 @@
 		if(UPLINK_PEN)
 			uplink_loc = P
 
-	. = uplink_loc
 	var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals, directive_flags = directive_flags)
 	if(!U)
 		CRASH("Uplink creation failed.")
@@ -333,6 +333,7 @@
 		uplink_owner.antag_memory += U.unlock_note + "<br>"
 	else
 		traitor_mob.mind.store_memory(U.unlock_note)
+	return U
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 

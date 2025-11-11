@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(directives)
 				"tasks" = list(active_directive.get_explanation(uplink)),
 				"time" = active_directive.end_at,
 				"details" = active_directive.get_details(uplink),
-				"reward" = active_directive.tc_reward,
+				"reward" = active_directive.tc_reward * uplink.directive_tc_multiplier,
 				"track_x" = track_turf?.x,
 				"track_y" = track_turf?.y,
 				"track_z" = track_turf?.z,

@@ -37,6 +37,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 	var/directive_flags = NONE
 	/// How long until we get a personal objective
 	var/next_personal_objective_time = 0
+	/// TC multiplier for completed directives
+	var/directive_tc_multiplier = 1
 
 	var/list/previous_attempts
 
