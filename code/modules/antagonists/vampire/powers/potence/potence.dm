@@ -24,5 +24,5 @@
 	var/mob/living/carbon/human/stronkman = clan_owner.owner.current
 	if(istype(stronkman))
 		var/datum/species/vamp_species = stronkman.dna.species
-		vamp_species.punchdamage += 4
+		vamp_species.punchdamage += 8
 	return

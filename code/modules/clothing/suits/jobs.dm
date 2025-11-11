@@ -267,8 +267,20 @@
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
 
-//Roboticist
+/obj/item/clothing/suit/armor/monsterhunter
+	name = "monster hunter garb"
+	desc = "This worn outfit saw much use back in the day. Internal reinforcements help protect against bites and scratches."
+	allowed = list(/obj/item/storage/book/bible, /obj/item/reagent_containers/cup/glass/bottle/garlic_extract, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/stake, /obj/item/stake/hardened, /datum/crafting_recipe/silver_stake, /obj/item/food/grown/garlic)
+	icon_state = "monsterhunter"
+	item_state = null
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	armor_type = /datum/armor/chaplainsuit_armor
+	strip_delay = 80
+	equip_delay_other = 60
 
+/obj/item/clothing/suit/armor/monsterhunter/Initialize(mapload)
+	. = ..()
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
 
 /datum/armor/jacket_curator
 	melee = 25
@@ -279,6 +291,7 @@
 	stamina = 30
 	bleed = 10
 
+//Roboticist
 /obj/item/clothing/suit/hooded/techpriest
 	name = "techpriest robes"
 	desc = "For those who REALLY love their toasters."

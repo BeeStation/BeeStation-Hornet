@@ -1060,7 +1060,7 @@
 	)
 
 	///Time it takes to embed the stake into someone's chest.
-	var/staketime = 12 SECONDS
+	var/staketime = 4 SECONDS
 
 /obj/item/stake/attack(mob/living/target, mob/living/user, params)
 	. = ..()
@@ -1135,7 +1135,7 @@
 	force = 8
 	throwforce = 12
 	armour_penetration = 10
-	staketime = 8 SECONDS
+	staketime = 3 SECONDS
 
 /obj/item/stake/hardened/silver
 	name = "silver stake"
@@ -1145,4 +1145,4 @@
 	siemens_coefficient = 1
 	force = 9
 	armour_penetration = 25
-	staketime = 6 SECONDS
+	staketime = 2 SECONDS

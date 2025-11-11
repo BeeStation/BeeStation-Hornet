@@ -151,7 +151,7 @@ const VampireGuide = (_props) => {
             // The Basics
             <Box>
               <Box fontSize="20px" textColor="blue" bold>
-                Creating a Lair
+                Creating a Haven
               </Box>
               <br />
               As a vampire, one of the first things you should do is set up a

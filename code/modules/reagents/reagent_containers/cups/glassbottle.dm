@@ -246,6 +246,14 @@
 	list_reagents = list(/datum/reagent/water/holywater = 100)
 	drink_type = NONE
 
+/obj/item/reagent_containers/cup/glass/bottle/garlic_extract
+	name = "flask of garlic extract"
+	desc = "A flask of concentrated garlic extract. Surely to ward off any vampires trying to bite you. Lucky for you, those don't exist... right?"
+	icon = 'icons/obj/drinks/bottles.dmi'
+	icon_state = "holyflask"
+	list_reagents = list(/datum/reagent/consumable/garlic = 100)
+	drink_type = VEGETABLES
+
 /obj/item/reagent_containers/cup/glass/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers, reinvigorating to the faithful."

@@ -578,8 +578,18 @@
 	desc = "You got red text today kid, but it doesn't mean you have to like it."
 	icon_state = "curator"
 
-//Medical
+/obj/item/clothing/head/helmet/monsterhunter_hat
+	name = "monster hunter hat"
+	desc = "This hat saw much use back in the day."
+	icon_state = "monsterhunterhat"
+	item_state = null
+	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEEYES
+	armor_type = /datum/armor/helmet_chaplain
+	strip_delay = 80
+	dog_fashion = null
 
+//Medical
 /datum/armor/beret_supply
 	fire = 10
 
