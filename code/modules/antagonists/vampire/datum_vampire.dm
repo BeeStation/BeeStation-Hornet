@@ -28,7 +28,6 @@
 	/// Flavor only
 	var/vampire_name
 	var/vampire_title
-	var/vampire_reputation
 
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
@@ -103,9 +102,9 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
-		TRAIT_STABLEHEART,
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NOHARDCRIT,
+		TRAIT_STABLEHEART,
 		TRAIT_AGEUSIA,
 		TRAIT_COLDBLOODED,
 		TRAIT_VIRUSIMMUNE,
@@ -268,7 +267,6 @@
 
 	// Set name and reputation
 	select_first_name()
-	select_reputation(am_fledgling = TRUE)
 
 	// Objectives
 	forge_objectives()

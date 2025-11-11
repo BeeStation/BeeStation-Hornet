@@ -1,3 +1,6 @@
+
+// This is functional, but the dog's AI is bad and doesn't actually attack. Until that is fixed or made possible, this will remain unused.
+
 /datum/action/vampire/beckoning
 	name = "Beckoning"
 	desc = "Summon a pack of wild dogs, loyal to your command, to aid you in battle."

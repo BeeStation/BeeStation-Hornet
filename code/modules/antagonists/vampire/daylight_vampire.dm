@@ -56,14 +56,15 @@
 	var/incoming_sol_damage = "full"
 
 	// We don't want to be TOO mean, so we make 3 different grades of protection.
-	// Now the big one. The area check.
-	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
-		if(istype(get_area(owner.current), whereami))
-			incoming_sol_damage = "area"
 
 	//You still won't enter frenzy. But you will be damn close.
 	if(istype(owner.current.loc, /obj/structure/closet))
 		incoming_sol_damage = "locker"
+
+	// Now the big one. The area check.
+	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
+		if(istype(get_area(owner.current), whereami))
+			incoming_sol_damage = "area"
 
 	// Highest grade of protection. You will be hungry, but you won't be in frenzy.
 	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
@@ -80,13 +81,13 @@
 				RemoveBloodVolume(sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbold("You are safer, here. Though the agony persists, you should be mostly out of danger!"), type = MESSAGE_TYPE_WARNING)
+				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("locker")
 			if(vampire_blood_volume >= 100)
 				RemoveBloodVolume(sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbigbold("Though the fires of sol continue, in here at least you will not die!"), type = MESSAGE_TYPE_WARNING)
+				to_chat(owner.current, span_cultbigbold("The walls of this locker offer mild protection. <b>Don't worry, blood won't drain below 100.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("full")
 			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
 			RemoveBloodVolume(sol_burn_calculated)

@@ -1,20 +1,44 @@
-/datum/action/vampire/targeted/tremere/thaumaturgy/two
-	name = "Level 2: Thaumaturgy"
-	upgraded_power = /datum/action/vampire/targeted/tremere/thaumaturgy/three
-	desc = "Create a Blood shield and fire a blood bolt at your enemy, dealing Burn damage."
-	level_current = 2
+/datum/action/vampire/bloodshield
+	name = "Thaumaturgy: Blood Shield"
+	desc = "Create a Blood shield to protect yourself from damage."
+	button_icon_state = "power_thaumaturgy"
+	background_icon_state_on = "tremere_power_gold_on"
+	background_icon_state_off = "tremere_power_gold_off"
 	power_explanation = "Activating Thaumaturgy will temporarily give you a Blood Shield.\n\
-		The blood shield has a 75% block chance, but costs 15 Blood per hit to maintain.\n\
-		You can also fire a blood bolt which will deactivate your shield."
-	prefire_message = "Click where you wish to fire (using your power removes blood shield)."
-	bloodcost = 40
-	cooldown_time = 4 SECONDS
+		The blood shield has very good block power, but costs 15 Blood per hit to maintain."
 
+	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+
+	bloodcost = 50
+	cooldown_time = 10 SECONDS
+	constant_bloodcost = 6
+
+	/// Blood shield given while this Power is active.
+	var/datum/weakref/blood_shield
+
+/datum/action/vampire/bloodshield/activate_power()
+	. = ..()
+	var/obj/item/shield/vampire/new_shield = new
+	blood_shield = WEAKREF(new_shield)
+	if(!owner.put_in_inactive_hand(new_shield))
+		owner.balloon_alert(owner, "off hand is full!")
+		to_chat(owner, span_notice("Blood shield couldn't be activated as your off hand is full."))
+		deactivate_power()
+		return FALSE
+	owner.visible_message(
+		span_warning("[owner] 's hands begins to bleed and forms into a blood shield!"),
+		span_warning("We activate our Blood shield!"),
+		span_hear("You hear liquids forming together."))
+
+/datum/action/vampire/bloodshield/deactivate_power()
+	. = ..()
+	to_chat(owner, span_notice("Blood shield couldn't be activated as your off hand is full."))
+	if(blood_shield)
+		QDEL_NULL(blood_shield)
 
 /**
  *	# Blood Shield
- *
- *	The shield spawned when using Thaumaturgy when strong enough.
  *	Copied mostly from '/obj/item/shield/changeling'
  */
 /obj/item/shield/vampire
@@ -25,7 +49,7 @@
 	icon_state = "blood_shield"
 	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
 	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
-	block_power = 75
+	block_power = 100
 
 /obj/item/shield/vampire/Initialize(mapload)
 	. = ..()

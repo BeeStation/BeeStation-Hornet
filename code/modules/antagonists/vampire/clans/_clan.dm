@@ -193,15 +193,10 @@
 	vampiredatum.vampire_level++
 	vampiredatum.vampire_level_unspent--
 
-	// Ranked up enough to get your true Reputation?
-	if(vampiredatum.vampire_level == 4)
-		vampiredatum.select_reputation(am_fledgling = FALSE, forced = TRUE)
-
 	// Flavor
 	to_chat(vampiredatum.owner.current, span_notice("You are now a rank [vampiredatum.vampire_level] Vampire. \
 		Your strength, health, feed rate, regen rate, and maximum blood capacity have all increased! \n\
 		* Your existing powers have all ranked up as well!"))
-	vampiredatum.owner.current.playsound_local(null, 'sound/effects/pope_entry.ogg', 25, TRUE, pressure_affected = FALSE)
 	vampiredatum.update_hud()
 
 /datum/vampire_clan/proc/on_vampire_broke_masquerade(datum/source, datum/antagonist/vampire/masquerade_breaker)
