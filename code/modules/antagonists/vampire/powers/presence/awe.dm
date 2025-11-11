@@ -16,6 +16,7 @@
 	var/high_intensity = FALSE
 	var/aura = 4
 	var/visible = FALSE
+	var/mutable_appearance/effect
 
 /datum/action/vampire/awe/two
 	bloodcost = 45
@@ -38,9 +39,14 @@
 	. = ..()
 	to_chat(owner, span_hypnophrase("You activate your supernatural charm."), type = MESSAGE_TYPE_WARNING)
 
+	if(visible)
+		effect = mutable_appearance('icons/vampires/actions_vampire.dmi', "awe_aura", -MUTATIONS_LAYER)
+		owner.add_overlay(effect)
+
 /datum/action/vampire/awe/deactivate_power()
 	. = ..()
 	to_chat(owner, span_hypnophrase("You deactivate your supernatural charm."), type = MESSAGE_TYPE_WARNING)
+	owner.cut_overlay(effect)
 
 /datum/action/vampire/awe/UsePower()
 	. = ..()

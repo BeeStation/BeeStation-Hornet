@@ -14,7 +14,7 @@
 	/// Blood shield given while this Power is active.
 	var/datum/weakref/blood_shield
 
-	/datum/action/vampire/targeted/tremere/thaumaturgy/FireTargetedPower(atom/target_atom)
+/datum/action/vampire/targeted/tremere/thaumaturgy/FireTargetedPower(atom/target_atom)
 	. = ..()
 	var/mob/living/living_owner = owner
 	living_owner.balloon_alert(living_owner, "you fire a blood bolt!")
