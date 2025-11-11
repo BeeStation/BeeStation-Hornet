@@ -130,7 +130,7 @@
 	item_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
-	force = 18
+	force = 12 //This item exists for its gimmick, not as a validhunting tool.
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'

@@ -40,7 +40,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
 	damtype = BURN
-	force = 15
+	force = 5 //These should be doing damage through their ability to sting, not hardcoded damage.
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY

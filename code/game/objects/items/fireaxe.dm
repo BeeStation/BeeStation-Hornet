@@ -9,7 +9,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/axes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
 	attack_weight = 3
-	force = 5
+	force = 15
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -24,8 +24,7 @@
 	item_flags = ISWEAPON
 
 	var/force_wielded = 24
-	var/force_unwielded = 5
-	var/block_power_wielded = 25
+	var/force_unwielded = 15
 
 /datum/armor/item_fireaxe
 	fire = 100
@@ -34,7 +33,7 @@
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 80, 0 , hitsound) //axes are not known for being precision butchering tools
-	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, block_power_wielded=block_power_wielded, icon_wielded="[base_icon_state]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, icon_wielded="[base_icon_state]1")
 
 /obj/item/fireaxe/update_icon()
 	icon_state = "[base_icon_state]0"
@@ -69,4 +68,4 @@
 	base_icon_state = "bone_axe"
 	icon_state = "bone_axe0"
 	force_wielded = 23
-	block_power_wielded = 0
+	armour_penetration = 50

@@ -492,8 +492,8 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	custom_price = 20
 
-	force = 5
-	throwforce = 5
+	force = 10
+	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=50)
 	attack_verb_continuous = list("bludgeons", "whacks", "disciplines", "thrashes")
@@ -523,7 +523,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	custom_price = 30
 
 /obj/item/staff/broom
-	force = 5
+	force = 10
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon = 'icons/obj/wizard.dmi'
@@ -539,7 +539,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_state = "stick"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	force = 5
+	force = 10
 	throwforce = 5
 	throw_speed = 2
 	throw_range = 5
