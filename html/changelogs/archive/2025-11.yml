@@ -141,6 +141,11 @@
   mrmanlikesbt:
   - code_imp: Deprecated 515
 2025-11-11:
+  BotTierPC:
+  - bugfix: fixed boxstation Garden / Bar Zoning and APC names
+  PowerfulBacon:
+  - bugfix: Huge numbers of small explosions can no longer crash the server.
+  - tweak: Adds server-side support for versioning storytellers.
   mrmanlikesbt:
   - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
   mrmanlikesbt, Watermelon914:
