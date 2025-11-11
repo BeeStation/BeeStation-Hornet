@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
