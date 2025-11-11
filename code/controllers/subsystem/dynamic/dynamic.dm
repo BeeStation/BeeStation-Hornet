@@ -1,7 +1,3 @@
-// If this is defined, then any storyteller configs which do not have
-// a 'Version' tag that match this value will not be loaded.
-//#define STORYTELLER_VERSION "GamemodeAntagonists"
-
 SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
@@ -914,7 +910,3 @@ SUBSYSTEM_DEF(dynamic)
 	if (flag & DYNAMIC_MIDROUND_HEAVY)
 		texts += "HEAVY"
 	return jointext(texts, " | ")
-
-#ifdef STORYTELLER_VERSION
-#undef STORYTELLER_VERSION
-#endif
