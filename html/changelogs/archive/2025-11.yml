@@ -103,6 +103,8 @@
   - bugfix: sticky tapes can no longer be applied at any distance
   - soundadd: added sounds for tape
 2025-11-09:
+  EvilDragonfiend:
+  - tweak: each type of maints is now spawned only once.
   mrmanlikesbt:
   - bugfix: Fixed cargo exports and bounties not working
   - bugfix: Fixed the contractor kit not spawning with extra items
@@ -120,3 +122,25 @@
     - refactor: Rewrote much of the internal supermatter logic
     - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
         magboots!!!
+2025-11-10:
+  BotTierPC:
+  - tweak: Overhauls Non-Departmental Regions of BoxStation + Janitorial Department.
+      Additionally adjusts and modernizes disposals to work with new changed areas.
+  BotTierPC, BlerpFish:
+  - rscadd: Adds a Service Poster for Mapping Use.
+  Carapan:
+  - bugfix: fixes the cake batter recipe in the sack of flour examine text.
+  Rukofamicom:
+  - bugfix: Fixed an undocumented change that got tacked into the recent wizard tools
+      and spell changes pertaining to the laser scalpel
+  Sarchutar:
+  - bugfix: Engineering borgs can once again not be pulled/moved by the supermatter/pressure
+      differences
+  llol111:
+  - rscadd: Added a centcom stamp to centcom
+  mrmanlikesbt:
+  - code_imp: Deprecated 515
+2025-11-11:
+  mrmanlikesbt, Watermelon914:
+  - refactor: Subsystems use dynamically generated init orders now instead of a previously
+      hard-coded list
