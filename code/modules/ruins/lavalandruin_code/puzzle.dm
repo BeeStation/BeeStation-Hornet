@@ -1,6 +1,6 @@
 /obj/effect/sliding_puzzle
 	name = "Sliding puzzle generator"
-	icon = 'icons/obj/items_and_weapons.dmi' //mapping
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
@@ -305,7 +305,6 @@
 	laser = 50
 	energy = 50
 	bomb = 50
-	rad = 50
 	fire = 50
 	acid = 50
 

@@ -61,9 +61,11 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 // Whether or not this atom is storing contents for a disassociated storage object
 #define HAS_DISASSOCIATED_STORAGE_1 (1<<15)
 /// Is this object currently processing in the atmos object list?
-#define ATMOS_IS_PROCESSING_1 		(1<<16)
+#define ATMOS_IS_PROCESSING_1 (1<<16)
 /// Can players recolor this in-game via vendors (and maybe more if support is added)?
 #define IS_PLAYER_COLORABLE_1 (1<<16)
+/// Is this atom immune to being dusted by the supermatter?
+#define SUPERMATTER_IGNORES_1 (1<<17)
 
 //turf-only flags. These use flags_1 too.
 // These exist to cover /turf and /area at the same time
@@ -166,16 +168,20 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define FREEZE_PROOF	(1<<7) //! can't be frozen
 
 //tesla_zap
-#define TESLA_MACHINE_EXPLOSIVE		(1<<0)
-#define TESLA_ALLOW_DUPLICATES		(1<<1)
-#define TESLA_OBJ_DAMAGE			(1<<2)
-#define TESLA_MOB_DAMAGE			(1<<3)
-#define TESLA_MOB_STUN				(1<<4)
+#define ZAP_MACHINE_EXPLOSIVE (1<<0)
+#define ZAP_ALLOW_DUPLICATES (1<<1)
+#define ZAP_OBJ_DAMAGE (1<<2)
+#define ZAP_MOB_DAMAGE (1<<3)
+#define ZAP_MOB_STUN (1<<4)
+#define ZAP_GENERATES_POWER (1<<5)
+/// Zaps with this flag will generate less power through tesla coils
+#define ZAP_LOW_POWER_GEN (1<<6)
 
-#define TESLA_DEFAULT_FLAGS ALL
-#define TESLA_ENERGY_PRIMARY_BALL_FLAGS (TESLA_MACHINE_EXPLOSIVE | TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN)
-#define TESLA_ENERGY_MINI_BALL_FLAGS (TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN)
-#define TESLA_FUSION_FLAGS (TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN)
+#define ZAP_DEFAULT_FLAGS ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+#define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
+
+#define ZAP_TESLA_LARGE_FLAGS ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
+#define ZAP_TESLA_SMALL_FLAGS ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN
 
 //EMP protection
 #define EMP_PROTECT_SELF (1<<0)
@@ -192,10 +198,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_PULL			(1<<6)		//! can pull things
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
-
-// radiation
-#define RAD_PROTECT_CONTENTS (1<<0)
-#define RAD_NO_CONTAMINATE (1<<1)
 
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)

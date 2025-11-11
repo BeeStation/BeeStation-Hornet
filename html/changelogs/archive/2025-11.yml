@@ -69,6 +69,8 @@
   - rscdel: Removed Air Conditioning mode from Air Alarm TGUI
   - bugfix: Fixed Air Alarm TGUI
 2025-11-07:
+  Programs-The-Station:
+  - tweak: Removes Slowdown on Platform Stairs
   mrmanlikesbt:
   - bugfix: Fixed metabolite reagents runtiming on their final tick
   - bugfix: Fixed water tanks not bursting into... water when being destroyed
@@ -77,3 +79,70 @@
   - bugfix: Fixed the troll paper
   - bugfix: Fixed water and welding fuel tanks runtiming when examining them
   - bugfix: Fixed not being able to put chem bags into the chemistry smartfridge
+  - bugfix: Fixed an infrequent runtime when the game loads your screentip preferences
+2025-11-08:
+  mrmanlikesbt, TemporalOrobos:
+  - code_imp: Added zebra typecaches
+  - code_imp: Added better documentation for some list helper procs
+  ? mrmanlikesbt, coiax, Mothblocks, SuperNovaa41, Jacquerel, TimeGreen, Ghommie,
+    tralezab, Krysonism, NamelessFairy, Thunder12345
+  : - rscadd: added Employee Birthday station trait
+    - rscadd: added pinatas, these can be ordered from cargo
+    - refactor: refactored some station trait backend
+    - refactor: station traits are now chosen using a budget system
+    - admin: added a modify station traits verb in the adminbus tab
+    - server: added config values for station trait budgets
+    - code_imp: fixed typo, COMSIG_MOB_APPLY_DAMGE to COMSIG_MOB_APPLY_DAMAGE
+  necromanceranne, lord scrubling:
+  - rscadd: Duct tape! Right-click objects and cyborgs with duct tape to repair them
+      if they have been damaged! Wrap objects in duct tape to make it completely incapable
+      of embedding! Find them in your nearest Vendomat or Engi-Vend vending machines
+      today! They can also be made in Autolathes, the Engineering protolathe, and
+      the Service protolathe!
+  - tweak: the recording tape design in autolathes is now less ambiguously named
+  - bugfix: sticky tapes can no longer be applied at any distance
+  - soundadd: added sounds for tape
+2025-11-09:
+  EvilDragonfiend:
+  - tweak: each type of maints is now spawned only once.
+  mrmanlikesbt:
+  - bugfix: Fixed cargo exports and bounties not working
+  - bugfix: Fixed the contractor kit not spawning with extra items
+  ? mrmanlikesbt, Mothblocks, KittyNoodle, Pickle-Coding, timothymtorres, Krysonism,
+    Tiresoup, ShizCalev, lessthnthree, Lufferly, Ghilker, SyncIt21, vincentiusvin,
+    nevimer, blessedmulligan
+  : - refactor: Refactored radiation
+    - rscdel: Deleted radiation collectors
+    - rscdel: Pluoxium can no longer be produced on radioactive turfs- combine carbon
+        dioxide, oxygen, and tritium
+    - tweak: Gene tampering now causes genetic damage instead of radiation damage
+    - rscadd: The supermatter now produces power through electric shocks
+    - rscadd: The supermatter now features festive lighting during Christmas
+    - rscadd: Improved the supermatter and RBMK UI
+    - refactor: Rewrote much of the internal supermatter logic
+    - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
+        magboots!!!
+2025-11-10:
+  BotTierPC:
+  - tweak: Overhauls Non-Departmental Regions of BoxStation + Janitorial Department.
+      Additionally adjusts and modernizes disposals to work with new changed areas.
+  BotTierPC, BlerpFish:
+  - rscadd: Adds a Service Poster for Mapping Use.
+  Carapan:
+  - bugfix: fixes the cake batter recipe in the sack of flour examine text.
+  Rukofamicom:
+  - bugfix: Fixed an undocumented change that got tacked into the recent wizard tools
+      and spell changes pertaining to the laser scalpel
+  Sarchutar:
+  - bugfix: Engineering borgs can once again not be pulled/moved by the supermatter/pressure
+      differences
+  llol111:
+  - rscadd: Added a centcom stamp to centcom
+  mrmanlikesbt:
+  - code_imp: Deprecated 515
+2025-11-11:
+  mrmanlikesbt:
+  - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
+  mrmanlikesbt, Watermelon914:
+  - refactor: Subsystems use dynamically generated init orders now instead of a previously
+      hard-coded list

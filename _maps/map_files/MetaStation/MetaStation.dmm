@@ -26929,6 +26929,13 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"fYd" = (
+/obj/structure/cable,
+/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "fYf" = (
 /obj/machinery/vending/wardrobe/sec_wardrobe,
 /obj/effect/turf_decal/tile/red/anticorner,
@@ -27346,13 +27353,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/orange/visible,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
-"gev" = (
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable,
-/obj/structure/window/reinforced/plasma/spawner/directional/south,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "gew" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north{
@@ -32367,6 +32367,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"hQM" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "hQP" = (
 /obj/machinery/firealarm{
 	pixel_y = 24
@@ -34807,19 +34816,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
-"iFW" = (
-/obj/structure/closet/bombcloset,
-/obj/machinery/power/apc{
-	areastring = "/area/science/mixing";
-	dir = 4;
-	name = "Toxins Lab APC";
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron,
-/area/science/mixing)
 "iFX" = (
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -35320,6 +35316,19 @@
 "iNO" = (
 /turf/open/floor/catwalk_floor,
 /area/hallway/secondary/exit/departure_lounge)
+"iOb" = (
+/obj/machinery/power/apc{
+	areastring = "/area/science/mixing";
+	dir = 4;
+	name = "Toxins Lab APC";
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/closet/radiation,
+/turf/open/floor/iron,
+/area/science/mixing)
 "iOK" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -39697,6 +39706,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/engine,
 /area/engine/atmos)
+"kpK" = (
+/obj/structure/cable,
+/obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "kpQ" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/effect/turf_decal/tile/bar,
@@ -67666,15 +67682,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
-"tNp" = (
-/obj/machinery/power/rad_collector/anchored,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/window/reinforced/plasma/spawner/directional/north,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
-/turf/open/floor/engine,
-/area/engine/supermatter)
 "tNz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4;
@@ -75323,6 +75330,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"wof" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/window/reinforced/plasma/spawner/directional/north,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "woL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -113063,7 +113079,7 @@ rdt
 lQw
 fAX
 fgR
-iFW
+iOb
 rlZ
 nII
 wkg
@@ -124799,11 +124815,11 @@ aEr
 aRM
 djt
 daY
-gev
+fYd
 dbb
 cta
 aNv
-tNp
+hQM
 aWq
 sSP
 mJE
@@ -125056,11 +125072,11 @@ aEr
 aRM
 djt
 daY
-gev
+kpK
 dbb
 dfa
 aNv
-tNp
+wof
 daY
 xwz
 mJE
@@ -125313,11 +125329,11 @@ aEr
 kqg
 djt
 daY
-gev
+fYd
 dbb
 aMk
 aNv
-tNp
+hQM
 daY
 sSP
 uaT

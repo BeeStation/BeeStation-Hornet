@@ -1615,37 +1615,29 @@ GLOBAL_LIST_EMPTY(features_by_species)
  *
  * Arguments:
  * - [source][/mob/living/carbon/human]: The mob requesting handling
+ * - intensity: The intensity of the irradiation
  * - delta_time: The amount of time that has passed since the last tick
- * - times_fired: The number of times SSmobs has fired
  */
-/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/source, delta_time, times_fired)
-	if(HAS_TRAIT(source, TRAIT_RADIMMUNE))
-		source.radiation = 0
-		return TRUE
-
-	. = FALSE
-	var/radiation = source.radiation
-
-	if(radiation > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
+/datum/species/proc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
+	if(intensity > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
 		if(!source.IsParalyzed())
 			source.emote("collapse")
 		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
-		to_chat(source, "<span class='danger'>You feel weak.</span>")
+		to_chat(source, span_danger("You feel weak."))
 
-	if(radiation > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
+	if(intensity > RAD_MOB_VOMIT && DT_PROB(RAD_MOB_VOMIT_PROB, delta_time))
 		source.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
-		to_chat(source, "<span class='danger'>You mutate!</span>")
+	if(intensity > RAD_MOB_MUTATE && source.can_mutate() && DT_PROB(RAD_MOB_MUTATE_PROB, delta_time))
+		to_chat(source, span_danger("You mutate!"))
 		source.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
 		source.emote("gasp")
 		source.domutcheck()
 
-	if(radiation > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
+	if(intensity > RAD_MOB_HAIRLOSS && DT_PROB(RAD_MOB_HAIRLOSS_PROB, delta_time))
 		if(!(source.hair_style == "Bald") && (HAIR in species_traits) && !HAS_TRAIT(source, TRAIT_NOHAIRLOSS))
-			to_chat(source, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
+			to_chat(source, span_danger("Your hair starts to fall out in clumps."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), source), 5 SECONDS)
-
 
 /datum/species/proc/handle_blood(mob/living/carbon/human/H)
 	return FALSE
@@ -1919,7 +1911,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE)
-	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
+	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	var/hit_percent = (100-(blocked+armor))/100
 	hit_percent = (hit_percent * (100-H?.physiology?.damage_resistance))/100
 	if(!damage || (!forced && hit_percent <= 0))

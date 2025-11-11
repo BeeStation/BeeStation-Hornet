@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed an infrequent runtime when the game loads your screentip preferences
