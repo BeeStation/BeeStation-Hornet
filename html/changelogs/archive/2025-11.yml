@@ -140,3 +140,7 @@
   - rscadd: Added a centcom stamp to centcom
   mrmanlikesbt:
   - code_imp: Deprecated 515
+2025-11-11:
+  mrmanlikesbt, Watermelon914:
+  - refactor: Subsystems use dynamically generated init orders now instead of a previously
+      hard-coded list

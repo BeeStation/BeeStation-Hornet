@@ -1,5 +1,0 @@
-author: mrmanlikesbt, Watermelon914
-delete-after: true
-changes:
-  - refactor: Subsystems use dynamically generated init orders now instead of a previously
-      hard-coded list
