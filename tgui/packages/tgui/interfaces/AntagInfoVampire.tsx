@@ -169,7 +169,7 @@ const VampireGuide = (_props) => {
               selected={tab === 12}
               onClick={() => setTab(12)}
             >
-              Ghouls
+              Vassals
             </Tabs.Tab>
           </Tabs>
         </Stack.Item>
@@ -185,16 +185,16 @@ const VampireGuide = (_props) => {
                 Now shut up about it.
               </Box>
               <br />
-              No seriously. As a vampire(we call them kindred), one of the first
-              things you need to know is that there is a reason everyone thinks
-              they&apos;re fairytales. Nobody wants to accept that they&apos;re
-              just pray animals for another race, and humans are very easy to
-              get skittish.
+              No seriously. As a vampire, one of the first things you need to
+              know is that there is a reason everyone thinks they&apos;re
+              fairytales. Nobody wants to accept that they&apos;re just pray
+              animals for another race, and humans are very easy to get
+              skittish.
               <br />
               <br />
               <b>
                 The reason we&apos;ve lived this long is because we have kept
-                quiet.
+                quiet. We call that the &apos;Masquerade.&apos;
               </b>
               <br />
               <br />
@@ -267,12 +267,22 @@ const VampireGuide = (_props) => {
                 How to keep from getting us all killed.
               </Box>
               <br />
-              The most important rule of the Kindred is maintaining the{' '}
               <Box inline textColor="gold">
-                Masquerade.
+                The Masquerade
               </Box>{' '}
-              If a person that is not apart of the Kindred witnesses you doing
-              anything out of the ordinary at all, you will recieve a{' '}
+              is an organized disinformation campaign heavily enforced by
+              Kindred society (mainly the{' '}
+              <Box inline textColor="pink">
+                Camarilla
+              </Box>
+              ), meant to convince humans that vampires and various other
+              supernatural creatures do not exist. <br /> <br />
+              The Masquerade is the cornerstone survival strategy for Cainites;
+              without it, the kine undoubtedly would rise up and exterminate all
+              the undead.
+              <br /> <br />
+              If a mortal witnesses you doing anything out of the ordinary at
+              all, you will recieve a{' '}
               <Box inline textColor="red">
                 Masquerade Infraction.
               </Box>
@@ -281,8 +291,11 @@ const VampireGuide = (_props) => {
               <Box inline textColor="red">
                 Masquerade Infractions
               </Box>{' '}
-              before you are exiled from the Kindred and <b>all</b> vampires
-              turn against you.
+              before you are exiled from the Kindred and{' '}
+              <Box inline fontSize="13px" textColor="red" bold>
+                <b>ALL</b>
+              </Box>{' '}
+              vampires turn against you.
               <br /> <br />
               The {"curator's "}
               <Box inline textColor="blue">
@@ -293,8 +306,49 @@ const VampireGuide = (_props) => {
                 Masquerade Ability
               </Box>{' '}
               disabled.
-              <br /> <br /> Same for doctors and their pesky health analyzers.
-              They can quite easily tell you are dead. Do not get caught!
+              <br /> <br /> If your humanity is above 7, you will receive the
+              &apos;Masquerade&apos; ability, a power to help you blend in to a
+              degree that is even able to fool health analyzers. You will
+              functionally restore most mortal bodily processes. <br />
+              <b>This means you will not heal as usual.</b>
+              <br /> <br />
+              <Box fontSize="20px" textColor="red" bold>
+                I broke the masquerade, what now?
+              </Box>
+              Here is what you need to know:
+              <br /> - There will likely be an organized effort to hunt you
+              down, both from the mortals and from your fellow kindred.
+              <br /> - Any vassals you might have had can now be taken over by
+              other vampires.
+              <br /> - Other vampires are now allowed to feed on you. Should
+              they manage to do so, expect final death.
+              <br /> -{' '}
+              <b>
+                If a vampire drains another vampire dry, they will absorb their
+                powers.
+              </b>
+              <br /> - It is too late to beg for mercy.
+            </Box>
+          )}
+          {tab === 3 && (
+            // Humanity
+            <Box>
+              <Box fontSize="20px" textColor="gold" bold>
+                Humanity.
+              </Box>
+              <Box fontSize="15px" textColor="gold" bold>
+                Are we human? Or are we dancer?
+              </Box>
+              <br />
+              Since most Kindred were a human before their Embrace, their most
+              natural response in resisting the Beast&apos;s feral, predatory
+              nature is to cling to their humanity.
+              <br />
+              <br />A Kindred&apos;s humanity has a direct effect on the
+              strength of the vampiric curse; those who lose ground to the Beast
+              and lose their humanity find it more difficult to interact with
+              mortals, to be active during daylight hours, and to awaken from
+              long periods of torpor.
             </Box>
           )}
         </Stack.Item>

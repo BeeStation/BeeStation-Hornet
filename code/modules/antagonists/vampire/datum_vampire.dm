@@ -13,7 +13,7 @@
 	/// How much blood we can have at once, increases per level.
 	var/max_blood_volume = 600
 
-	/// The vampire team, used for ghouls
+	/// The vampire team, used for vassals
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
@@ -50,8 +50,8 @@
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
 	var/datum/martial_art/frenzygrab/frenzygrab = new
 
-	/// ghouls under my control. Periodically remove the dead ones.
-	var/list/datum/antagonist/ghoul/ghouls = list()
+	/// Vassals under my control. Periodically remove the dead ones.
+	var/list/datum/antagonist/vassal/vassals = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
@@ -81,13 +81,13 @@
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
-	/// Tracker so that ghouls know where their master is
+	/// Tracker so that vassals know where their master is
 	var/obj/effect/abstract/vampire_tracker_holder/tracker
 
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
-	/// Antagonists that cannot be ghoulized no matter what
-	var/static/list/ghoul_banned_antags = list(
+	/// Antagonists that cannot be vassalized no matter what
+	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,
 		/datum/antagonist/changeling,
 		/datum/antagonist/cult,
@@ -162,7 +162,7 @@
 	current_mob.faction |= FACTION_VAMPIRE
 
 	// Teach them the old knowledge
-	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/vassalrack)
 	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/candelabrum)
 	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodthrone)
 
@@ -176,7 +176,7 @@
 #ifdef VAMPIRE_TESTING
 	var/turf/user_loc = get_turf(current_mob)
 	new /obj/structure/closet/crate/coffin(user_loc)
-	new /obj/structure/vampire/ghoulrack(user_loc)
+	new /obj/structure/vampire/vassalrack(user_loc)
 #endif
 
 /**
@@ -207,7 +207,7 @@
 	current_mob.faction -= FACTION_VAMPIRE
 
 	// Tiny lobotomy
-	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/ghoulrack)
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/vassalrack)
 	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/candelabrum)
 	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/bloodthrone)
 
@@ -275,6 +275,8 @@
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
+	rank_up(1)
+	rank_up(1)
 	rank_up(1)
 	owner.special_role = ROLE_VAMPIRE
 
@@ -395,19 +397,19 @@
 				objectives_complete = FALSE
 				break
 
-	// Now list their ghouls
-	if(length(ghouls))
-		report += span_header("<br>Their ghouls were...")
-		for(var/datum/antagonist/ghoul/ghoul in ghouls)
-			if(!ghoul.owner)
+	// Now list their vassals
+	if(length(vassals))
+		report += span_header("<br>Their vassals were...")
+		for(var/datum/antagonist/vassal/vassal in vassals)
+			if(!vassal.owner)
 				continue
 
-			var/list/ghoul_report = list()
-			ghoul_report += "<b>[ghoul.owner.name]</b>"
+			var/list/vassal_report = list()
+			vassal_report += "<b>[vassal.owner.name]</b>"
 
-			if(ghoul.owner.assigned_role)
-				ghoul_report += " the [ghoul.owner.assigned_role]"
-			report += ghoul_report.Join()
+			if(vassal.owner.assigned_role)
+				vassal_report += " the [vassal.owner.assigned_role]"
+			report += vassal_report.Join()
 
 	if(objectives_complete)
 		report += span_greentextbig("<br>The [name] was successful!")
@@ -546,10 +548,10 @@
 	survive_objective.owner = owner
 	objectives += survive_objective
 
-	// Objective 1: ghoulize a Head/Command, or a specific target
+	// Objective 1: vassalize someone
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
-			if(get_max_ghouls() >= 1)
+			if(get_max_vassals() >= 1)
 				var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
 				var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
 				conversion_objective.owner = owner
@@ -567,12 +569,12 @@
 			gourmand_objective.owner = owner
 			objectives += gourmand_objective
 
-/datum/antagonist/vampire/proc/get_max_ghouls()
+/datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
 	switch(total_players)
-		if(1 to 15)			// No ghouls during low-lowpop
+		if(1 to 15)			// No vassals during low-lowpop
 			return 0
-		if(16 to 30)		// 1 ghoul during normal pop
+		if(16 to 30)		// 1 vassal during normal pop
 			return 1
 		if(31 to INFINITY)	// if we can support it, we allow 2
 			return 2
@@ -605,7 +607,7 @@
 	SIGNAL_HANDLER
 
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
-	if(IS_GHOUL(examiner) in ghouls)
+	if(IS_VASSAL(examiner) in vassals)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
 	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)

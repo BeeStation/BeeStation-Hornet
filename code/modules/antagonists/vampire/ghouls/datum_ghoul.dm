@@ -1,6 +1,6 @@
-/datum/antagonist/ghoul
-	name = "\improper Ghoul"
-	roundend_category = "Ghouls"
+/datum/antagonist/vassal
+	name = "\improper Vassal"
+	roundend_category = "Vassal"
 	antagpanel_category = "Vampire"
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
@@ -14,10 +14,10 @@
 	/// A link to our team monitor, used to track our master.
 	var/datum/component/team_monitor/monitor
 
-/datum/antagonist/ghoul/antag_panel_data()
+/datum/antagonist/vassal/antag_panel_data()
 	return "Master : [master.owner.name]"
 
-/datum/antagonist/ghoul/apply_innate_effects(mob/living/mob_override)
+/datum/antagonist/vassal/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
@@ -32,7 +32,7 @@
 	vampire_team.add_member(current_mob.mind)
 	current_mob.faction |= FACTION_VAMPIRE
 
-/datum/antagonist/ghoul/remove_innate_effects(mob/living/mob_override)
+/datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
 
@@ -53,7 +53,7 @@
 
 	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
-/datum/antagonist/ghoul/on_gain()
+/datum/antagonist/vassal/on_gain()
 	. = ..()
 	if(!master)
 		owner.remove_antag_datum(src)
@@ -62,9 +62,9 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
 	// Enslave them to their Master
-	master.ghouls |= src
+	master.vassals |= src
 	owner.enslave_mind_to_creator(master.owner)
-	owner.current.log_message("has been ghoulized by [master.owner]!", LOG_ATTACK, color="#960000")
+	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
 
 	// Give powers
 	grant_power(new /datum/action/vampire/recuperate)
@@ -73,12 +73,12 @@
 	// Give objectives
 	forge_objectives()
 
-/datum/antagonist/ghoul/on_removal()
+/datum/antagonist/vassal/on_removal()
 	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 
 	// Free them from their Master
 	if(master)
-		master.ghouls -= src
+		master.vassals -= src
 		owner.enslaved_to = null
 
 	// Remove powers
@@ -88,34 +88,34 @@
 
 	return ..()
 
-/datum/antagonist/ghoul/on_body_transfer(mob/living/old_body, mob/living/new_body)
+/datum/antagonist/vassal/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
 	for(var/datum/action/vampire/power in powers)
 		power.Remove(old_body)
 		power.Grant(new_body)
 
-/datum/antagonist/ghoul/greet()
+/datum/antagonist/vassal/greet()
 	. = ..()
 	if(silent)
 		return
 
-	var/mob/living/living_ghoul = owner.current
+	var/mob/living/living_vassal = owner.current
 	var/mob/living/living_master = master.owner.current
 
-	// Alert ghoul
+	// Alert vassal
 	var/list/msg = list()
 	msg += span_cultlarge("You are now the mortal servant of [living_master], a Vampire!")
 	msg += span_cult("You are not required to obey any other Vampire, for only [living_master] is your master. The laws of Nanotrasen do not apply to you now; only your Master's word must be obeyed.")
-	to_chat(living_ghoul, examine_block(msg.Join("\n")))
+	to_chat(living_vassal, examine_block(msg.Join("\n")))
 
-	living_ghoul.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
+	living_vassal.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "You are the mortal servant of <b>[living_master]</b>, a vampire!<br>"
 
 	// Alert master
-	to_chat(living_master, span_userdanger("[living_ghoul] has become addicted to your immortal blood. [living_ghoul.p_they(TRUE)] [living_ghoul.p_are()] now your undying servant"))
+	to_chat(living_master, span_userdanger("[living_vassal] has become addicted to your immortal blood. [living_vassal.p_they(TRUE)] [living_vassal.p_are()] now your undying servant"))
 	living_master.playsound_local(null, 'sound/magic/mutate.ogg', 100, FALSE, pressure_affected = FALSE)
 
-/datum/antagonist/ghoul/farewell()
+/datum/antagonist/vassal/farewell()
 	if(silent)
 		return
 
@@ -128,9 +128,9 @@
 
 	// Alert master
 	if(master.owner)
-		to_chat(master.owner, span_cultbold("You feel the bond with your ghoul [owner.current] has somehow been broken!"))
+		to_chat(master.owner, span_cultbold("You feel the bond with your vassal [owner.current] has somehow been broken!"))
 
-/datum/antagonist/ghoul/admin_add(datum/mind/new_owner, mob/admin)
+/datum/antagonist/vassal/admin_add(datum/mind/new_owner, mob/admin)
 	var/list/datum/mind/possible_vampires = list()
 
 	// Get possible vampires
@@ -145,23 +145,23 @@
 		return
 
 	// CHOOSE A DAMN PERSON
-	var/datum/mind/choice = tgui_input_list(admin, "Which vampire should this ghoul belong to?", "Vampire", possible_vampires)
+	var/datum/mind/choice = tgui_input_list(admin, "Which vampire should this vassal belong to?", "Vampire", possible_vampires)
 	if(!choice)
 		return
 
-	log_admin("[key_name_admin(usr)] turned [key_name_admin(new_owner)] into a ghoul of [key_name_admin(choice)]!")
+	log_admin("[key_name_admin(usr)] turned [key_name_admin(new_owner)] into a vassal of [key_name_admin(choice)]!")
 	var/datum/antagonist/vampire/vampire = IS_VAMPIRE(choice.current)
 	master = vampire
 	new_owner.add_antag_datum(src)
 
-	to_chat(choice, span_notice("Through divine intervention, you've gained a new ghoul!"))
+	to_chat(choice, span_notice("Through divine intervention, you've gained a new vassal!"))
 
-/datum/antagonist/ghoul/proc/forge_objectives()
-	var/datum/objective/vampire/ghoul/ghoul_objective = new
-	ghoul_objective.owner = owner
-	objectives += ghoul_objective
+/datum/antagonist/vassal/proc/forge_objectives()
+	var/datum/objective/vampire/vassal/vassal_objective = new
+	vassal_objective.owner = owner
+	objectives += vassal_objective
 
-/datum/antagonist/ghoul/proc/setup_monitor(mob/target)
+/datum/antagonist/vassal/proc/setup_monitor(mob/target)
 	QDEL_NULL(monitor)
 	if(QDELETED(master?.owner?.current) || QDELETED(master.tracker))
 		return
@@ -170,15 +170,15 @@
 	monitor.add_to_tracking_network(master.tracker.tracking_beacon)
 	monitor.show_hud(target)
 
-/datum/antagonist/ghoul/proc/on_examine(datum/source, mob/examiner, list/examine_text)
+/datum/antagonist/vassal/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
 
-	var/text = icon2html('icons/vampires/vampiric.dmi', world, "ghoul")
+	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vassal")
 
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(examiner)
-	if(src in vampiredatum?.ghouls)
-		text += span_cult("<EM>This is your ghoul!</EM>")
+	if(src in vampiredatum?.vassals)
+		text += span_cult("<EM>This is your vassal!</EM>")
 		examine_text += text
-	else if(vampiredatum || IS_CURATOR(examiner) || IS_GHOUL(examiner))
-		text += span_cult("<EM>This is [master.return_full_name()]'s ghoul</EM>")
+	else if(vampiredatum || IS_CURATOR(examiner) || IS_VASSAL(examiner))
+		text += span_cult("<EM>This is [master.return_full_name()]'s vassal</EM>")
 		examine_text += text

@@ -28,7 +28,7 @@
 	mood_change = 10
 	timeout = 6 MINUTES
 
-///Candelabrum's mood event to non Vampire/ghouls
+///Candelabrum's mood event to non Vampire/Vassals
 /datum/mood_event/vampcandle
 	description = span_boldwarning("You feel something crawling in your mind...")
 	mood_change = -15

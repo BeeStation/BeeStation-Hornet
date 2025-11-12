@@ -20,7 +20,7 @@
 **/
 /datum/antagonist/vampire/proc/sol_near_end(atom/source)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(rank_up), 2)
+	INVOKE_ASYNC(src, PROC_REF(rank_up), 1)
 
 /**
  * Handles the Sol status effect, called while Sol is risen
@@ -109,7 +109,7 @@
 	last_sol_damage = incoming_sol_damage
 	return
 
-/datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, ghoul_warning_message)
+/datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
 
 	if(!owner?.current)

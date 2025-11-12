@@ -71,7 +71,7 @@
 		return FALSE
 	if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 		return FALSE
-	if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher) || IS_CURATOR(watcher) || IS_GHOUL(watcher))
+	if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher) || IS_CURATOR(watcher))
 		return FALSE
 	if(watcher.has_status_effect(/datum/status_effect/awed/strong) || watcher.has_status_effect(/datum/status_effect/awed))
 		return FALSE

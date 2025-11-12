@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(sunlight)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ENDED,
 				vampire_warning_message = span_announce("The solar flare has ended, and the daylight danger has passed... for now."),
-				ghoul_warning_message = span_announce("The solar flare has ended, and the daylight danger has passed... for now."),
+				vassal_warning_message = span_announce("The solar flare has ended, and the daylight danger has passed... for now."),
 			)
 		return
 
@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(sunlight)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SECOND_WARNING,
 				vampire_warning_message = span_dangerbold("Solar Flares are about to bombard the station! You have [TIME_VAMPIRE_DAY_WARN_2] seconds to find cover!"),
-				ghoul_warning_message = span_danger("In [TIME_VAMPIRE_DAY_WARN_2] seconds, your master will be at risk of a Solar Flare. Make sure they find cover!"),
+				vassal_warning_message = span_danger("In [TIME_VAMPIRE_DAY_WARN_2] seconds, your master will be at risk of a Solar Flare. Make sure they find cover!"),
 			)
 		if(TIME_VAMPIRE_DAY_WARN_3)
 			warn_daylight(
@@ -86,13 +86,13 @@ SUBSYSTEM_DEF(sunlight)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_SOL_ROSE,
 				vampire_warning_message = span_danger("Solar flares bombard the station with deadly UV light! Stay in cover for the next [TIME_VAMPIRE_DAY / 60] minute\s!"),
-				ghoul_warning_message = span_danger("Solar flares bombard the station with UV light!"),
+				vassal_warning_message = span_danger("Solar flares bombard the station with UV light!"),
 			)
 			for(var/mob/player as anything in SSmobs.clients_by_zlevel[2])
 				to_chat(player, span_danger("You feel waves of gentle warmth wash over you."))
 
-/datum/controller/subsystem/sunlight/proc/warn_daylight(danger_level, vampire_warning_message, ghoul_warning_message)
-	SEND_SIGNAL(src, COMSIG_SOL_WARNING_GIVEN, danger_level, vampire_warning_message, ghoul_warning_message)
+/datum/controller/subsystem/sunlight/proc/warn_daylight(danger_level, vampire_warning_message, vassal_warning_message)
+	SEND_SIGNAL(src, COMSIG_SOL_WARNING_GIVEN, danger_level, vampire_warning_message, vassal_warning_message)
 
 #undef TIME_VAMPIRE_SOL_DELAY
 

@@ -86,7 +86,7 @@
 				continue
 			if(watcher.is_blind())
 				continue
-			if(!IS_VAMPIRE(watcher) && !IS_GHOUL(watcher))
+			if(!IS_VAMPIRE(watcher) && !IS_VASSAL(watcher))
 				for(var/obj/item/item in owner)
 					owner.dropItemToGround(item, TRUE)
 				break

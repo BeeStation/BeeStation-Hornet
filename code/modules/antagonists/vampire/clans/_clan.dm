@@ -92,15 +92,15 @@
 	return
 
 /**
- * Called when a Vampire successfully ghoulizes someone via the persuasion rack.
- * Do not call this on [/datum/antagonist/vampire/proc/make_ghoul()] !!!
+ * Called when a Vampire successfully vassalizes someone via the persuasion rack.
+ * Do not call this on [/datum/antagonist/vampire/proc/make_vassal()] !!!
  */
-/datum/vampire_clan/proc/on_ghoul_made(mob/living/living_vampire, mob/living/living_ghoul)
+/datum/vampire_clan/proc/on_vassal_made(mob/living/living_vampire, mob/living/living_vassal)
 	living_vampire.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
 
-	living_ghoul.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
-	living_ghoul.set_jitter_if_lower(30 SECONDS)
-	living_ghoul.emote("laugh")
+	living_vassal.playsound_local(null, 'sound/effects/singlebeat.ogg', 70, TRUE)
+	living_vassal.set_jitter_if_lower(30 SECONDS)
+	living_vassal.emote("laugh")
 
 /**
  * Called when we level up inside a coffin.

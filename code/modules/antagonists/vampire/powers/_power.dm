@@ -144,7 +144,7 @@
 	. = ..()
 
 /datum/action/vampire/proc/pay_cost()
-	// ghouls get powers too!
+	// Vassals get powers too!
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
@@ -228,7 +228,7 @@
 			continue
 		if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 			continue
-		if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 			continue
 
 		if(!watcher.incapacitated(IGNORE_RESTRAINTS))

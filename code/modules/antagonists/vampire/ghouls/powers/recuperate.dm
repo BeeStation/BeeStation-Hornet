@@ -1,4 +1,4 @@
-/// Used by ghouls
+/// Used by vassals
 /datum/action/vampire/recuperate
 	name = "Sanguine Recuperation"
 	desc = "Slowly heals you overtime using your master's blood, in exchange for some of your own blood and effort."

@@ -74,7 +74,7 @@
 				continue
 			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 				continue
-			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+			if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 				continue
 
 			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
@@ -98,7 +98,7 @@
 				continue
 			if(watcher.is_blind() || HAS_TRAIT(watcher, TRAIT_NEARSIGHT))
 				continue
-			if(IS_VAMPIRE(watcher) || IS_GHOUL(watcher))
+			if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
 				continue
 
 			if(!watcher.incapacitated(IGNORE_RESTRAINTS))

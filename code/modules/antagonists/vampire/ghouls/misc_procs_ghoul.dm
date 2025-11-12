@@ -1,4 +1,4 @@
-/datum/antagonist/ghoul/proc/give_warning(atom/source, danger_level, vampire_warning_message, ghoul_warning_message)
+/datum/antagonist/vassal/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
 
 	if(!owner?.current)
@@ -18,7 +18,7 @@
 			owner.current.playsound_local(null, 'sound/misc/ghosty_wind.ogg', 90, TRUE)
 
 /// Used when your Master teaches you a new Power.
-/datum/antagonist/ghoul/proc/grant_power(datum/action/vampire/power)
+/datum/antagonist/vassal/proc/grant_power(datum/action/vampire/power)
 	powers += power
 	power.Grant(owner.current)
-	log_game("[key_name(owner.current)] has received \"[power]\" as a ghoul")
+	log_game("[key_name(owner.current)] has received \"[power]\" as a vassal")

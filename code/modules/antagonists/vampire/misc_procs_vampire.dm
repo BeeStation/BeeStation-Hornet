@@ -45,7 +45,7 @@
 
 	owner.current.playsound_local(null, 'sound/vampires/masquerade_violation.ogg', 100, FALSE, pressure_affected = FALSE)
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
-	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your ghouls are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
+	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
 	set_antag_hud(owner.current, "masquerade_broken")
 

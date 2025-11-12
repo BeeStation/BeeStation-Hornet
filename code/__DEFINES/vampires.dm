@@ -1,4 +1,4 @@
-/// Uncomment this to enable testing of Vampire features (such as ghoulizing people with a mind instead of a client).
+/// Uncomment this to enable testing of Vampire features (such as vassalizing people with a mind instead of a client).
 //#define VAMPIRE_TESTING
 #if defined(VAMPIRE_TESTING) && defined(CIBUILDING)
 	#error VAMPIRE_TESTING is enabled, disable this!
@@ -26,13 +26,13 @@
 /// How much blood drained from the vampire each tick during sol
 #define VAMPIRE_SOL_BURN 30
 
-// ghoul defines
-/// If someone passes all checks and can be ghoulized
-#define GHOULIZATION_ALLOWED 0
-/// If someone has to accept ghoulization
-#define GHOULIZATION_DISLOYAL 1
-/// If someone is not allowed under any circimstances to become a ghoul
-#define GHOULIZATION_BANNED 2
+// vassal defines
+/// If someone passes all checks and can be vassalized
+#define VASSALIZATION_ALLOWED 0
+/// If someone has to accept vassalization
+#define VASSALIZATION_DISLOYAL 1
+/// If someone is not allowed under any circimstances to become a vassal
+#define VASSALIZATION_BANNED 2
 
 // Humanity gains (The actual tracking lists and such are in the datum duh)
 // These are supposed to be somewhat nontrivial, to the point of sometimes not being viable.
@@ -117,7 +117,7 @@
 #define COMSIG_SOL_END "comsig_sol_end"
 /// Sent 15 seconds before Sol ends
 #define COMSIG_SOL_NEAR_END "comsig_sol_near_end"
-/// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, ghoul_warning_message)
+/// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
 #define COMSIG_SOL_WARNING_GIVEN "comsig_sol_warning_given"
 
 #define DANGER_LEVEL_FIRST_WARNING 1
