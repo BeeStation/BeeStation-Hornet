@@ -101,7 +101,7 @@
 	bang_protect = -2
 	//preference = "feature_human_ears"
 
-	dna_block = /datum/dna_block/feature/ears
+	dna_block = DNA_EARS_BLOCK
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/cat_ears
 
@@ -109,7 +109,7 @@
 /datum/bodypart_overlay/mutant/cat_ears
 	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
 	color_source = ORGAN_COLOR_HAIR
-	feature_key = FEATURE_EARS
+	feature_key = "ears"
 
 	/// Layer upon which we add the inner ears overlay
 	var/inner_layer = EXTERNAL_FRONT

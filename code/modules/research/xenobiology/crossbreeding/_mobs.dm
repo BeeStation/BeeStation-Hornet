@@ -96,7 +96,7 @@ Slimecrossing Mobs
 		if(SLIME_TYPE_GREY)
 			ooze_colour = "#FFFFFF"
 	var/mob/living/carbon/human/species/oozeling/new_ooze = new(owner.loc)
-	new_ooze.dna.features[FEATURE_MUTANT_COLOR] = ooze_colour
+	new_ooze.dna.features["mcolor"] = ooze_colour
 	new_ooze.name = owner.name
 	new_ooze.real_name = owner.real_name
 	new_ooze.underwear = "Nude"

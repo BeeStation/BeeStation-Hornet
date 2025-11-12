@@ -62,7 +62,7 @@
 	if(!ishuman(new_ethereal))
 		return
 	var/mob/living/carbon/human/ethereal = new_ethereal
-	default_color = ethereal.dna.features[FEATURE_ETHEREAL_COLOR]
+	default_color = ethereal.dna.features["ethcolor"]
 	r1 = GETREDPART(default_color)
 	g1 = GETGREENPART(default_color)
 	b1 = GETBLUEPART(default_color)
@@ -102,7 +102,7 @@
 
 /datum/species/ethereal/randomize_features()
 	var/list/features = ..()
-	features[FEATURE_ETHEREAL_COLOR] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+	features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 	return features
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
@@ -110,8 +110,8 @@
 	if(!ethereal_light)
 		return
 
-	if(default_color != ethereal.dna.features[FEATURE_ETHEREAL_COLOR])
-		var/new_color = ethereal.dna.features[FEATURE_ETHEREAL_COLOR]
+	if(default_color != ethereal.dna.features["ethcolor"])
+		var/new_color = ethereal.dna.features["ethcolor"]
 		r1 = GETREDPART(new_color)
 		g1 = GETGREENPART(new_color)
 		b1 = GETBLUEPART(new_color)

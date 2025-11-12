@@ -38,6 +38,6 @@
 	return "Normal"
 
 /datum/preference/choiced/body_size/apply_to_human(mob/living/carbon/human/target, value)
-	target.dna.features[FEATURE_BODY_SIZE] = value
+	target.dna.features["body_size"] = value
 
 #undef USE_GENDER

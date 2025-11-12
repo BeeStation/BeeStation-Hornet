@@ -25,10 +25,10 @@
 		var/mob/living/carbon/human/target_human = carbon_being
 
 		//Force ears/tails for felinids
-		target_human.dna.features[FEATURE_TAIL] = "Cat"
-		target_human.dna.features[FEATURE_EARS] = "Cat"
+		target_human.dna.features["tail_cat"] = "Cat"
+		target_human.dna.features["ears"] = "Cat"
 
-		var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features[FEATURE_EARS])
+		var/obj/item/organ/ears/cat/ears = new(FALSE, target_human.dna.features["ears"])
 		ears.Insert(target_human, movement_flags = DELETE_IF_REPLACED)
 	return ..()
 
@@ -50,8 +50,8 @@
 
 /datum/species/human/felinid/randomize_features(mob/living/carbon/human/human_mob)
 	var/list/features = ..()
-	features[FEATURE_EARS] = "Cat"
-	features[FEATURE_TAIL] = "Cat"
+	features["ears"] = "Cat"
+	features["tail_cat"] = "Cat"
 	return features
 
 /proc/mass_purrbation()

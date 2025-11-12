@@ -10,7 +10,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	/// The db_key of the preference this relates to. Used for the preferences UI.
 	var/preference
 	///With what DNA block do we mutate in mutate_feature() ? For genetics
-	var/datum/dna_block/dna_block
+	var/dna_block
 
 	///Set to EXTERNAL_BEHIND, EXTERNAL_FRONT or EXTERNAL_ADJACENT if you want to draw one of those layers as the object sprite. FALSE to use your own
 	///This will not work if it doesn't have a limb to generate its icon with
@@ -75,8 +75,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 	var/list/feature_list = bodypart_overlay.get_global_feature_list()
 
-	var/datum/dna_block/feature/feature_block = GLOB.dna_feature_blocks[dna_block]
-	bodypart_overlay.set_appearance_from_name(feature_list[deconstruct_block(feature_block.get_block(features), feature_list.len)])
+	bodypart_overlay.set_appearance_from_name(feature_list[deconstruct_block(get_uni_feature_block(features, dna_block), feature_list.len)])
 
 ///If you need to change an external_organ for simple one-offs, use this. Pass the accessory type : /datum/accessory/something
 /obj/item/organ/proc/simple_change_sprite(accessory_type)
@@ -110,7 +109,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	slot = ORGAN_SLOT_EXTERNAL_HORNS
 
 	preference = "feature_lizard_horns"
-	dna_block = /datum/dna_block/feature/horn
+	dna_block = DNA_HORNS_BLOCK
 	restyle_flags = EXTERNAL_RESTYLE_ENAMEL
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/horns
@@ -119,7 +118,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/horns
 	layers = EXTERNAL_ADJACENT
-	feature_key = FEATURE_HORNS
+	feature_key = "horns"
 
 /datum/bodypart_overlay/mutant/horns/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner
@@ -142,7 +141,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	slot = ORGAN_SLOT_EXTERNAL_FRILLS
 
 	preference = "feature_lizard_frills"
-	dna_block = /datum/dna_block/feature/frill
+	dna_block = DNA_FRILLS_BLOCK
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/frills
@@ -151,7 +150,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/frills
 	layers = EXTERNAL_ADJACENT
-	feature_key = FEATURE_FRILLS
+	feature_key = "frills"
 
 /datum/bodypart_overlay/mutant/frills/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner
@@ -176,7 +175,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	preference = "feature_lizard_snout"
 	external_bodyshapes = BODYSHAPE_SNOUTED
 
-	dna_block = /datum/dna_block/feature/snout
+	dna_block = DNA_SNOUT_BLOCK
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/snout
@@ -185,7 +184,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 /datum/bodypart_overlay/mutant/snout
 	layers = EXTERNAL_ADJACENT
-	feature_key = FEATURE_SNOUT
+	feature_key = "snout"
 
 /datum/bodypart_overlay/mutant/snout/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner
@@ -208,7 +207,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	slot = ORGAN_SLOT_EXTERNAL_ANTENNAE
 
 	preference = "feature_moth_antennae"
-	dna_block = /datum/dna_block/feature/moth_antenna
+	dna_block = DNA_MOTH_ANTENNAE_BLOCK
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/antennae
@@ -261,7 +260,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 ///Moth antennae datum, with full burning functionality
 /datum/bodypart_overlay/mutant/antennae
 	layers = EXTERNAL_FRONT | EXTERNAL_BEHIND
-	feature_key = FEATURE_MOTH_ANTENNAE
+	feature_key = "moth_antennae"
 	///Accessory datum of the burn sprite
 	var/datum/sprite_accessory/burn_datum = /datum/sprite_accessory/moth_antennae/punished
 	///Are we burned? If so we draw differently

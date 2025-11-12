@@ -233,7 +233,7 @@
 		adult.dna.features = features
 	else
 		adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
-		adult.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(RANDOM_COLOUR)
+		adult.dna.features["mcolor"] = sanitize_hexcolor(RANDOM_COLOUR)
 	if(mind)
 		mind.transfer_to(adult)
 	else

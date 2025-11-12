@@ -281,7 +281,7 @@
 				return 60 SECONDS
 			else
 				var/obj/effect/dummy/lighting_obj/moblight/glow = new(user) //copied from glowy mutation, copied from luminescents
-				glow.set_light(2.5, 2.5, user.dna.features[FEATURE_MUTANT_COLOR]) //Weaker than regular luminescents
+				glow.set_light(2.5, 2.5, user.dna.features["mcolor"]) //Weaker than regular luminescents
 				QDEL_IN(glow, 600)
 				return 60 SECONDS
 
@@ -681,7 +681,7 @@
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			user.dna.features[FEATURE_MUTANT_COLOR] = "#[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]"
+			user.dna.features["mcolor"] = "#[pick("7F", "FF")][pick("7F", "FF")][pick("7F", "FF")]"
 			user.updateappearance(mutcolor_update = TRUE)
 			if(istype(species,/datum/species/oozeling/luminescent))
 				var/datum/species/oozeling/luminescent/lum_species = species

@@ -180,18 +180,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 
 				if(new_s_tone)
 					H.skin_tone = new_s_tone
-					H.dna.update_ui_block(/datum/dna_block/identity/skin_tone)
+					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			else if(HAS_TRAIT(H, TRAIT_MUTANT_COLORS) && !HAS_TRAIT(H, TRAIT_FIXED_MUTANT_COLORS))
-				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change",H.dna.features[FEATURE_MUTANT_COLOR])
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change",H.dna.features["mcolor"])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
 					var/temp_hsv = RGBtoHSV(new_mutantcolor)
 
 					if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright
-						H.dna.features[FEATURE_MUTANT_COLOR] = sanitize_hexcolor(new_mutantcolor)
-						H.dna.update_uf_block(FEATURE_MUTANT_COLOR)
+						H.dna.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
+						H.dna.update_uf_block(DNA_MUTANT_COLOR_BLOCK)
 
 					else
 						to_chat(H, span_notice("Invalid color. Your color is not bright enough."))
@@ -207,7 +207,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 						return
 					H.gender = FEMALE
-					to_chat(H, span_notice("Girl, you feel like a woman!"))
+					to_chat(H, span_notice("Man, you feel like a woman!"))
 				else
 					return
 
@@ -219,7 +219,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					to_chat(H, span_notice("Whoa man, you feel like a man!"))
 				else
 					return
-			H.dna.update_ui_block(/datum/dna_block/identity/gender)
+			H.dna.update_ui_block(DNA_GENDER_BLOCK)
 			H.update_body()
 			H.update_mutations_overlay() //(hulk male/female)
 
@@ -239,12 +239,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 					return
 				if(new_hair_color)
 					H.set_haircolor(sanitize_hexcolor(new_hair_color), update = FALSE)
-					H.dna.update_ui_block(/datum/dna_block/identity/hair_color)
+					H.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 				if(H.gender == MALE)
 					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color",H.facial_hair_color)
 					if(new_face_color)
 						H.set_facial_haircolor(sanitize_hexcolor(new_face_color), update = FALSE)
-						H.dna.update_ui_block(/datum/dna_block/identity/facial_color)
+						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
 			H.update_body_parts()
 
 		if(BODY_ZONE_PRECISE_EYES)
@@ -252,8 +252,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/mirror)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(new_eye_color)
-				H.set_eye_color(sanitize_hexcolor(new_eye_color))
-				H.dna.update_ui_block(/datum/dna_block/identity/eye_colors)
+				H.eye_color = sanitize_hexcolor(new_eye_color)
+				H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 				H.update_body()
 	if(choice)
 		curse(user)

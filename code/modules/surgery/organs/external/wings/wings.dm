@@ -179,7 +179,7 @@
 ///Bodypart overlay of default wings. Does not have any wing functionality
 /datum/bodypart_overlay/mutant/wings
 	layers = ALL_EXTERNAL_OVERLAYS
-	feature_key = FEATURE_WINGS
+	feature_key = "wings"
 	///Are our wings currently open? Change through open_wings or close_wings()
 	VAR_PRIVATE/wings_open = FALSE
 	///Feature render key for opened wings
