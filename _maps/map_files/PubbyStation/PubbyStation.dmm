@@ -6089,9 +6089,7 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/auxiliary)
 "aLK" = (
-/obj/structure/window/reinforced/tinted/spawner{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/toilet{
 	pixel_y = 8
 	},
