@@ -54,7 +54,7 @@
 
 /datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
 	H.dna.features[FEATURE_MUTANT_COLOR] = "#8be18b"
-	H.dna.features[FEATURE_HORNS] = "Short"
+	H.dna.features[FEATURE_SNOUT] = "Short"
 	H.dna.features[FEATURE_FRILLS] = "Simple"
 	H.set_species(/datum/species/lizard)
 
