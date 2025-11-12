@@ -229,6 +229,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 /obj/machinery/cryopod/open_machine()
 	..()
+	ghost_offering = FALSE
 	icon_state = "cryopod-open"
 	set_density(TRUE)
 	name = initial(name)
@@ -258,8 +259,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		//Offer special roles to ghosts and pause processing while we do
 		var/datum/antagonist/A = mob_occupant.mind.has_antag_datum(/datum/antagonist)
 		if(A || (mob_occupant.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
-			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
 			ghost_offering = TRUE
+			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
 			return
 		//This is not a role that needs to be offered, despawn them.
 		despawn_occupant()
@@ -270,11 +271,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		open_machine()
 	else
 		despawn_occupant()
-	ghost_offering = FALSE
-
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
+	ghost_offering = FALSE
 	//Last chance to find this computer if it exists
 	if(!control_computer_weakref)
 		find_control_computer(urgent = TRUE)
