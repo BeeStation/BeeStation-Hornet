@@ -3,12 +3,11 @@
 #define MODE_NONE ""
 #define MODE_MESON "meson"
 #define MODE_TRAY "t-ray"
-#define MODE_RAD "radiation"
 #define MODE_SHUTTLE "shuttle"
 
 /obj/item/clothing/glasses/meson/engine
 	name = "engineering scanner goggles"
-	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes, and the Radiation Scanner mode let's you see objects contaminated by radiation."
+	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, and the T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	icon_state = "trayson-meson"
 	item_state = "trayson-meson"
 	actions_types = list(/datum/action/item_action/toggle_mode)
@@ -18,7 +17,7 @@
 	lighting_alpha = null
 	invis_view = SEE_INVISIBLE_LIVING
 
-	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
+	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_NONE)
 	var/mode = MODE_NONE
 	var/range = 1
 	var/list/connection_images = list()
@@ -69,34 +68,8 @@
 	switch(mode)
 		if(MODE_TRAY)
 			t_ray_scan(user, 16, range)
-		if(MODE_RAD)
-			show_rads()
 		if(MODE_SHUTTLE)
 			show_shuttle()
-
-/obj/item/clothing/glasses/meson/engine/proc/show_rads()
-	var/mob/living/carbon/human/user = loc
-	var/list/rad_places = list()
-	for(var/datum/component/radioactive/thing in SSradiation.processing)
-		var/atom/owner = thing.parent
-		var/turf/place = get_turf(owner)
-		if(rad_places[place])
-			rad_places[place] += thing.strength
-		else
-			rad_places[place] = thing.strength
-
-	for(var/i in rad_places)
-		var/turf/place = i
-		if(get_dist(user, place) >= range*5)	//Rads are easier to see than wires under the floor
-			continue
-		var/strength = round(rad_places[i] / 1000, 0.1)
-		var/image/pic = image(loc = place)
-		var/mutable_appearance/MA = new()
-		MA.maptext = MAPTEXT("[strength]k")
-		MA.color = "#04e66d"
-		MA.plane = TEXT_EFFECT_PLANE
-		pic.appearance = MA
-		flick_overlay(pic, list(user.client), 10)
 
 /obj/item/clothing/glasses/meson/engine/proc/show_shuttle()
 	var/mob/living/carbon/human/user = loc
@@ -153,5 +126,4 @@
 #undef MODE_NONE
 #undef MODE_MESON
 #undef MODE_TRAY
-#undef MODE_RAD
 #undef MODE_SHUTTLE

@@ -3,8 +3,6 @@ GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
-	init_order = INIT_ORDER_TICKER
-
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
@@ -279,6 +277,8 @@ SUBSYSTEM_DEF(ticker)
 	GLOB.manifest.build()
 
 	transfer_characters()	//transfer keys to the new mobs
+
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING)
 
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time

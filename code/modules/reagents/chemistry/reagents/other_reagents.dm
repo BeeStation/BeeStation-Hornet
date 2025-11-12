@@ -1045,11 +1045,21 @@
 	process_flags = ORGANIC | SYNTHETIC
 	default_container = /obj/effect/decal/cleanable/greenglow
 
-	var/irradiation_level = 0.5 * REM
+	/// How much tox damage to deal per tick
+	var/tox_damage = 0.5
+	/// How radioactive is this reagent
+	var/rad_power = 1
 
 /datum/reagent/uranium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.apply_effect(irradiation_level * delta_time / affected_mob.metabolism_efficiency, EFFECT_IRRADIATE)
+	if(SSradiation.can_irradiate_basic(affected_mob))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		if(!irradiated_component)
+			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(rad_power * REM * delta_time)
+
+	affected_mob.adjustToxLoss(tox_damage * delta_time * REM, updating_health = FALSE)
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/uranium/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -1070,7 +1080,8 @@
 	chemical_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "the colour blue and regret"
 	process_flags = ORGANIC | SYNTHETIC
-	irradiation_level = 1 * REM
+	rad_power = 2
+	tox_damage = 1
 
 /datum/reagent/bluespace
 	name = "Bluespace Dust"
@@ -1936,6 +1947,12 @@
 	color = "#4040FF" //A blueish color
 	glitter_type = /obj/effect/decal/cleanable/glitter/blue
 
+/datum/reagent/glitter/confetti
+	name = "Confetti"
+	description = "Tiny plastic flakes that are impossible to sweep up."
+	color = "#7dd87b"
+	glitter_type = /obj/effect/decal/cleanable/confetti
+
 /datum/reagent/pax
 	name = "Pax"
 	description = "A colorless liquid that suppresses violent urges in its subjects."
@@ -2238,7 +2255,11 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	var/turf/open/my_turf = exposed_obj.loc // No dumping ants on an object in a storage slot
 	if(!istype(my_turf)) //Are we actually in an open turf?
 		return
-	var/static/list/accepted_types = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/disposalpipe))
+	var/static/list/accepted_types = typecacheof(list(
+		/obj/machinery/atmospherics,
+		/obj/structure/cable,
+		/obj/structure/disposalpipe,
+	))
 	if(!accepted_types[exposed_obj.type]) // Bypasses pipes, vents, and cables to let people create ant mounds on top easily.
 		return
 	expose_turf(my_turf, reac_volume)

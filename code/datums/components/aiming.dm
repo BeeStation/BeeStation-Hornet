@@ -40,7 +40,7 @@
 		return
 	if(src.target || user == target) // No double-aiming
 		return
-	if (!do_after(user, 1 SECONDS, target))
+	if (!do_after(user, 1 SECONDS, target, IGNORE_TARGET_LOC_CHANGE))
 		return
 	src.user = user
 	src.target = target
@@ -171,9 +171,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/show_ui(mob/user, mob/target, stage)
 	var/list/options = list()
-	var/list/possible_actions = list(CANCEL, SHOOT, RAISE_HANDS, POINTBLANK)
+	var/list/possible_actions = list(CANCEL, SHOOT, RAISE_HANDS)
 	if(holding_at_gunpoint)
 		possible_actions += LET_GO
+	else
+		possible_actions += POINTBLANK
 	if (auto_shoot)
 		possible_actions += DISABLE_AUTO
 	else
@@ -218,6 +220,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			auto_shoot = FALSE
 			user.manual_emote("hesitates, lowering their weapon")
 		if(POINTBLANK)
+			if (holding_at_gunpoint)
+				return
 			if(get_dist(target, user) > 1)
 				to_chat(user, span_warning("You need to be closer to [target] to hold [target.p_them()] at gunpoint!"))
 				return
@@ -229,11 +233,12 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 				to_chat(user, span_warning("You can't hold someone at gunpoint with an empty hand!"))
 				return
 			if(!user.pulling || user.pulling != target)
-				var/mob/living/carbon/human/H = user
-				H.CtrlClick(user)
+				target.CtrlClick(user)
 				return
 			if(user.pulling != target)
 				return
+			user.setGrabState(GRAB_AGGRESSIVE)
+			target.Stun(2 SECONDS)
 			user.say(pick("Freeze!", "Don't move!", "Don't twitch a muscle!", "Don't you dare move!", "Hold still!"), forced = "Weapon aiming")
 			user.visible_message(span_warning("[user] lines up \the [held] with [target]'s temple!"), \
 			span_notice("You line up \the [held] with [target]'s temple"), ignored_mobs = list(target))
@@ -285,8 +290,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		UnregisterSignal(target, COMSIG_MOB_DROPPED_ITEM)
 		UnregisterSignal(target, COMSIG_LIVING_STATUS_PARALYZE)
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
-	if(user)
 		user.manual_emote("stops aiming their weapon", "lowers their weapon, satisfied")
+	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	// Clean up the menu if it's still open
 	QDEL_NULL(choice_menu)

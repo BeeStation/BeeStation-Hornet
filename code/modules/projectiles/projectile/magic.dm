@@ -21,38 +21,329 @@
 			visible_message(("<span class='warning'>[src] fizzles on contact with [victim]!</span>"))
 			return PROJECTILE_DELETE_WITHOUT_HITTING
 
-/obj/projectile/magic/death
-	name = "bolt of death"
-	icon_state = "pulse1_bl"
-	martial_arts_no_deflect = FALSE
+/obj/projectile/magic/burger
+	name = "bolt of nutrition"
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "bigbiteburger"
+	hitsound = 'sound/weapons/bite.ogg'
 
-/obj/projectile/magic/death/on_hit(mob/living/target)
+/obj/projectile/magic/burger/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if(!isliving(target))
 		return
+	var/mob/living/chubbs = target
 
-	target.death()
+//If you're remotely hungry, you're safe. If you are not hungry, you're fat now.
+	if(chubbs.nutrition <= NUTRITION_LEVEL_FED)
+		chubbs.nutrition = NUTRITION_LEVEL_WELL_FED
+	else
+		chubbs.nutrition += 250
 
-/obj/projectile/magic/resurrection
-	name = "bolt of resurrection"
+/obj/projectile/magic/death
+	name = "bolt of death"
+	icon_state = "pulse1_bl"
+
+/obj/projectile/magic/death/on_hit(mob/living/target)
+	. = ..()
+	if(isliving(target))
+		target.death()
+
+/obj/projectile/magic/prison_orb
+	name = "arcane prison"
+	icon_state = "prison_orb"
+	martial_arts_no_deflect = TRUE
+	speed = 3
+	var/captured = FALSE
+
+/obj/projectile/magic/prison_orb/prehit_pierce(atom/target)
+	. = ..()
+	if(isliving(target))
+		var/mob/living/victim = target
+		var/obj/structure/prison_orb/new_prison = new(get_turf(victim))
+		victim.forceMove(new_prison) //They are now inside of the bubble
+		new_prison.update_icon()
+		captured = TRUE
+		return PROJECTILE_DELETE_WITHOUT_HITTING
+
+/obj/projectile/magic/prison_orb/Destroy()
+	if(!captured)
+		new /obj/effect/temp_visual/prison_burst(loc)
+		playsound(loc, 'sound/magic/repulse.ogg', 35, TRUE)
+	return ..()
+
+/obj/structure/prison_orb
+	name = "arcane prison"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "prison_orb"
+	max_integrity = 45 //It only lasts a few seconds, but can be broken a bit faster if desired
+	density = TRUE
+	var/pop_effect = /obj/effect/temp_visual/prison_burst
+
+/obj/structure/prison_orb/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, take_damage), max_integrity, BRUTE, "", FALSE), 10 SECONDS)
+
+/obj/structure/prison_orb/update_icon(updates)
+	cut_overlays()
+	for(var/atom/movable/something as anything in contents)
+		if(isliving(something))
+			var/image/victim_overlay = image(something.icon, something.icon_state)
+			victim_overlay.copy_overlays(something)
+			add_overlay(victim_overlay)
+	add_overlay("prison_orb_overlay")
+	return ..()
+
+/obj/structure/prison_orb/Destroy()
+	var/turf/dropturf = get_turf(src)
+	for(var/atom/movable/something as anything in contents)
+		if(isliving(something))
+			var/mob/living/victim = something
+			victim.Knockdown(3 SECONDS)
+		something.forceMove(dropturf) //Just in case they dropped something inside.
+	new /obj/effect/temp_visual/prison_burst(dropturf)
+	return ..()
+
+/obj/effect/temp_visual/prison_burst
+	name = "prison orb"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "prison_orb_burst"
+	layer = ABOVE_ALL_MOB_LAYER
+	duration = 3
+
+/obj/projectile/magic/dismember
+	name = "bolt of dismembering"
+	icon_state = "scatterlaser"
+
+/obj/projectile/magic/dismember/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/victim = target
+	var/list/parts = list()
+	var/obj/item/bodypart/chosen_limb
+
+	for(var/obj/item/bodypart/limb in victim.bodyparts)
+		if(istype(limb, /obj/item/bodypart/leg) || istype(limb, /obj/item/bodypart/arm))
+			parts += limb
+
+	//Progress toward nugget
+	if(length(parts))
+		chosen_limb = pick(parts)
+	//Or pop the head off once we're there
+	else
+		chosen_limb = victim.get_bodypart(BODY_ZONE_HEAD)
+
+	chosen_limb.dismember(BRUTE)
+
+/obj/projectile/magic/drain
+	name = "vitality draining stream"
+	icon_state = "nothing"
+	range = 7
+	var/datum/beam/drain_beam
+
+/obj/projectile/magic/drain/fire(angle, atom/direct_target)
+	if(!firer)
+		CRASH("Projectile [src] fired with no firer") //We don't even want any of the rest of this to play out if we don't have a firer
+	drain_beam = firer.Beam(src, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 10 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
+	return ..()
+
+/obj/projectile/magic/drain/on_hit(mob/living/target, blocked, pierce_hit)
+	. = ..()
+	if(!isliving(target))
+		return
+	target.apply_status_effect(/datum/status_effect/life_drain, firer, fired_from)
+
+/obj/projectile/magic/drain/Destroy()
+	if(!QDELETED(drain_beam))
+		QDEL_NULL(drain_beam)
+	return ..()
+
+/datum/status_effect/life_drain
+	id = "life_drain"
+	alert_type = null
+	status_type = STATUS_EFFECT_REPLACE
+	tick_interval = 0.3 SECONDS
+	duration = 10 SECONDS
+	var/datum/beam/drain_beam
+	var/mob/living/carbon/wizard
+	var/obj/item/gun/magic/wand/drain/wand
+
+/datum/status_effect/life_drain/on_creation(mob/living/new_owner, mob/living/firer, fired_from, duration_override)
+	if(isnull(firer) || isnull(fired_from) || !iscarbon(firer) || !iscarbon(new_owner))
+		qdel(src)
+		return
+	wizard = firer
+	wand = fired_from
+	wand.active_effect = src
+	drain_beam = wizard.Beam(new_owner, icon = 'icons/effects/beam.dmi', icon_state = "lifedrain", time = 12 SECONDS, maxdistance = 7, beam_color = COLOR_RED)
+	RegisterSignal(drain_beam, COMSIG_QDELETING, PROC_REF(end_drain))
+	new_owner.visible_message(span_warningbold("[wizard] begins draining the life force from [new_owner]!"), span_warningbold("[wizard] is draining your life force! You need to get away from them to stop it!"))
+	. = ..()
+
+/datum/status_effect/life_drain/on_apply()
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/life_drain)
+
+/datum/status_effect/life_drain/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/life_drain)
+
+/datum/status_effect/life_drain/tick()
+	if(!iscarbon(owner) || owner.stat > HARD_CRIT) //If they're dead or non-humanoid, this spell fails
+		end_drain()
+		return
+	if(!iscarbon(wizard)) //You never know what might happen with wizards around
+		end_drain()
+		return
+
+	if(HAS_TRAIT(owner, TRAIT_INCAPACITATED) || owner.stat)
+		//If the victim is incapacitated, drain their health
+		owner.take_overall_damage(1, 1, 5, updating_health = TRUE)
+	else
+		//If they aren't incapacitated yet, drain only their stamina
+		owner.take_overall_damage(0, 0, 7, updating_health = TRUE)
+
+	//Wizard heals at a steady rate over the duration of the spell regardless of the victim's state
+	wizard.heal_overall_damage(1, 1, 5, updating_health = TRUE)
+
+	//Weird beam visuals if it isn't redrawn due to the beam sending players into crit
+	drain_beam.redrawing()
+
+/datum/status_effect/life_drain/proc/end_drain()
+	SIGNAL_HANDLER
+	if(QDELING(src))
+		return
+	if(!QDELETED(drain_beam))
+		QDEL_NULL(drain_beam)
+	wand.active_effect = null
+	qdel(src)
+
+//This is a shameless combintion of sec temperature gun and gluon grenade code
+/obj/projectile/magic/icy_blast
+	name = "icy blast"
+	icon_state = "ice_2"
+	range = 8
+	var/temperature = -100
+	var/ground_freeze_range = 2 //radius, so a 5x5 area
+
+/obj/projectile/magic/icy_blast/on_hit(atom/target, blocked, pierce_hit)
+	if(iscarbon(target))
+		var/mob/living/carbon/hit_mob = target
+		var/thermal_protection = 1 - hit_mob.get_insulation_protection(hit_mob.bodytemperature + temperature)
+
+		hit_mob.adjust_bodytemperature((thermal_protection * temperature) + temperature)
+	. = ..()
+
+/obj/projectile/magic/icy_blast/Destroy()
+	//This isn't a hitsound because we want it to play regardless of hit
+	playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 75, TRUE)
+	for(var/turf/open/floor/F in view(ground_freeze_range,loc))
+		F.MakeSlippery(TURF_WET_PERMAFROST, 1 MINUTES)
+	return ..()
+
+/obj/projectile/magic/healing
+	name = "bolt of healing"
 	icon_state = "ion"
 	damage = 0
 	damage_type = OXY
 	nodamage = TRUE
 	martial_arts_no_deflect = FALSE
+	///Heal this much of each damage type if revival and limb regeneration aren't applicable
+	var/amount_healed = 25
 
-/obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/healing/on_hit(mob/living/target)
 	. = ..()
 	if(!isliving(target))
 		return
+
+	if(target.suiciding)
+		target.visible_message(span_warning("[target]'s body twitches a bit, but it seems the wand's magic is not powerful enough!"))
+		return
+
+	if(target.revive()) //This fails if the target is already alive, or if they have too much damage to be revived. Both cases we instead heal some damage.
+		target.visible_message(span_notice("[target]'s body twitches and comes back to life!"))
+		return
+
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		C.regenerate_limbs()
-		C.regenerate_organs()
-	if(target.revive(ADMIN_HEAL_ALL & ~HEAL_REFRESH_ORGANS, force_grab_ghost = TRUE)) // This heals suicides
-		to_chat(target, span_notice("You rise with a start, you're alive!!!"))
-	else if(target.stat != DEAD)
-		to_chat(target, span_notice("You feel great!"))
+		var/mob/living/carbon/carbon_target = target
+		var/limbs_to_heal = carbon_target.get_missing_limbs()
+
+		if(length(limbs_to_heal))
+			var/obj/item/bodypart/limb = pick(limbs_to_heal)
+			carbon_target.regenerate_limb(limb)
+			target.visible_message(span_notice("[carbon_target]'s [carbon_target.get_bodypart(limb)] miraculously regrows!"))
+			return
+
+		else
+			carbon_target.regenerate_organs() //slap this on top of the "generic" healing done if no limbs are missing and they aren't dead
+			carbon_target.restore_blood()
+
+	target.adjustOxyLoss(-amount_healed)
+	target.adjustBruteLoss(-amount_healed)
+	target.adjustFireLoss(-amount_healed)
+	target.adjustToxLoss(-amount_healed)
+	target.adjustCloneLoss(-amount_healed)
+	target.adjustStaminaLoss(-amount_healed*2)
+	target.visible_message(span_notice("[target]'s wounds close before your eyes!"))
+
+/obj/projectile/magic/potential
+	name = "bolt of latent potential"
+	icon_state = "ion"
+	var/good_mutation_list = list()
+	var/bad_mutation_list = list()
+	var/minor_mutation_list = list()
+
+/obj/projectile/magic/potential/Initialize(mapload)
+	. = ..()
+	//Populate our mutation lists
+	for(var/mutation as anything in GLOB.all_mutations)
+		var/datum/mutation/initialized_mutation = GET_INITIALIZED_MUTATION(mutation)
+		switch(initialized_mutation.quality)
+			if(POSITIVE)
+				if(!length(initialized_mutation.species_allowed)) //Skip these, we only want universal mutations on this list
+					good_mutation_list += initialized_mutation
+			if(NEGATIVE)
+				if(!istype(initialized_mutation, /datum/mutation/race)) //No monkey in our bad mutations. Staff of change already does this.
+					bad_mutation_list += initialized_mutation
+			if(MINOR_NEGATIVE)
+				minor_mutation_list += initialized_mutation
+
+/obj/projectile/magic/potential/on_hit(mob/living/target)
+	if(!iscarbon(target))
+		target.visible_message(span_notice("[src] seems to have no effect on [target]!"))
+		return
+
+	var/mob/living/carbon/carbon_target = target
+	if(!carbon_target.can_mutate())
+		target.visible_message(span_notice("[src] seems to have no effect on [carbon_target]!"))
+		return
+
+	if(HAS_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED))
+		carbon_target.dna.remove_all_mutations() //Yes even the ones not from the staff
+		REMOVE_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED, MAGIC_TRAIT)
+		target.visible_message(span_notice("The hidden potential of [carbon_target] fades away!"))
+
+	else
+		var/mutations_to_add = list()
+		if(!istype(carbon_target.dna.species.inert_mutation, /datum/mutation/dwarfism) && prob(50)) //if they have an innate species mutation, 50% chance to pick it
+			mutations_to_add += carbon_target.dna.species.inert_mutation
+		else
+			mutations_to_add += pick(good_mutation_list)
+
+		if(!IS_WIZARD(carbon_target)) //Wizards only get the good ones
+			mutations_to_add += pick(bad_mutation_list)
+			mutations_to_add += pick(minor_mutation_list)
+
+		for(var/datum/mutation/mutation in mutations_to_add)
+			mutation.mutadone_proof = FALSE //We want mutadone to be effective regardless of what was pulled
+			if(carbon_target.dna.mutation_in_sequence(mutation))
+				carbon_target.dna.activate_mutation(mutation)
+			else
+				carbon_target.dna.add_mutation(mutation, MUT_EXTRA)
+
+		ADD_TRAIT(carbon_target, TRAIT_POTENTIAL_UNLOCKED, MAGIC_TRAIT)
+		target.visible_message(span_notice("[target] glows for a brief moment as the magic is absorbed into them!"))
+	return ..()
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"
@@ -77,28 +368,6 @@
 				var/datum/effect_system/smoke_spread/smoke = new
 				smoke.set_up(max(round(4 - teleammount),0), stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 				smoke.start()
-
-/obj/projectile/magic/safety
-	name = "bolt of safety"
-	icon_state = "bluespace"
-	damage = 0
-	damage_type = OXY
-	nodamage = TRUE
-	martial_arts_no_deflect = FALSE
-
-/obj/projectile/magic/safety/on_hit(atom/target)
-	. = ..()
-	if(isturf(target))
-		return BULLET_ACT_HIT
-
-	var/turf/origin_turf = get_turf(target)
-	var/turf/destination_turf = find_safe_turf()
-
-	if(do_teleport(target, destination_turf, channel=TELEPORT_CHANNEL_MAGIC))
-		for(var/t in list(origin_turf, destination_turf))
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(0, t)
-			smoke.start()
 
 /obj/projectile/magic/door
 	name = "bolt of door creation"
@@ -495,7 +764,7 @@
 	/// The range of the zap itself when it electrocutes someone
 	var/zap_range = 15
 	/// The flags of the zap itself when it electrocutes someone
-	var/zap_flags = TESLA_MOB_DAMAGE | TESLA_MOB_STUN | TESLA_OBJ_DAMAGE
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_MOB_STUN | ZAP_OBJ_DAMAGE
 	/// A reference to the chain beam between the caster and the projectile
 	var/datum/beam/chain
 
@@ -515,13 +784,13 @@
 /obj/projectile/magic/aoe/lightning/no_zap
 	zap_power = 10000
 	zap_range = 4
-	zap_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE
+	zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 
 /obj/projectile/magic/fireball
-	name = "bolt of fireball"
+	name = "fireball"
 	icon_state = "fireball"
 	damage = 10
-	damage_type = BRUTE
+	damage_type = BURN
 	nodamage = FALSE
 
 	/// Heavy explosion range of the fireball
@@ -535,14 +804,7 @@
 
 /obj/projectile/magic/fireball/on_hit(atom/target, blocked = FALSE, pierce_hit)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/mob_target = target
-		// between this 10 burn, the 10 brute, the explosion brute, and the onfire burn,
-		// you are at about 65 damage if you stop drop and roll immediately
-		mob_target.take_overall_damage(burn = 10)
-
 	var/turf/target_turf = get_turf(target)
-
 	explosion(
 		target_turf,
 		devastation_range = -1,
@@ -552,6 +814,37 @@
 		flash_range = exp_flash,
 		adminlog = FALSE,
 	)
+
+///Fireball's little brother
+/obj/projectile/magic/firebolt
+	name = "bolt of fire"
+	icon_state = "fireball"
+	damage = 20 //Because this one doesn't do an actual explosion, direct hit damage is much higher
+	damage_type = BURN
+	nodamage = FALSE
+
+/obj/projectile/magic/firebolt/on_hit(atom/target, blocked = FALSE, pierce_hit)
+	. = ..()
+	var/turf/target_turf = get_turf(target)
+
+	if(isliving(target))
+		var/mob/living/target_mob = target
+		target_mob.fire_stacks += 5 //One stop drop and roll can put this out, two if it spreads during the knockdown
+		target_mob.IgniteMob()
+
+	explosion(
+		target_turf,
+		devastation_range = -1,
+		heavy_impact_range = -1,
+		light_impact_range = -1,
+		flame_range = 2,
+		flash_range = 1,
+		adminlog = FALSE,
+	)
+
+	//We don't want the damage from making a real explosion happen, but we do still want to send things flying. Good thing we have a global proc for that.
+	goonchem_vortex(target_turf, 1, 3)
+
 
 /obj/projectile/magic/aoe/magic_missile
 	name = "magic missile"
