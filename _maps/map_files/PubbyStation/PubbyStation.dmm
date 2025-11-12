@@ -3756,10 +3756,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "ayF" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/vending/wardrobe/gene_wardrobe,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -4425,13 +4422,13 @@
 /area/solar/port)
 "aCd" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/ai_monitored/security/armory)
@@ -6092,7 +6089,7 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/toilet/auxiliary)
 "aLK" = (
-/obj/structure/window/reinforced/tinted{
+/obj/structure/window/reinforced/tinted/spawner{
 	dir = 8
 	},
 /obj/structure/toilet{
@@ -9960,10 +9957,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "bfv" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/closet/crate/freezer,
 /obj/item/food/meat/slab/human/mutant/lizard,
 /obj/item/food/meat/slab/human/mutant/lizard,
@@ -11804,10 +11798,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/explab)
-"bqB" = (
-/obj/effect/landmark/start/prisoner,
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "bqC" = (
 /obj/machinery/monkey_recycler,
 /obj/structure/window/reinforced/spawner/directional/south,
@@ -19196,10 +19186,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/table,
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/loot_jobscale/medical/medkits,
@@ -19786,9 +19773,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "cuv" = (
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -19798,9 +19783,7 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "cuw" = (
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/machinery/grill,
 /turf/open/floor/iron/dark,
@@ -21113,6 +21096,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/janitor)
+"cLO" = (
+/obj/machinery/flasher/portable,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/ai_monitored/security/armory)
 "cLT" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -22966,6 +22958,10 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/dark/smooth_half,
 /area/storage/tech)
+"dzF" = (
+/obj/effect/landmark/start/prisoner,
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "dzH" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -24898,10 +24894,6 @@
 /turf/open/floor/iron/sepia,
 /area/chapel/dock)
 "euW" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_y = 1
-	},
 /obj/machinery/door/window/southleft,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /turf/open/floor/iron/dark,
@@ -25186,9 +25178,7 @@
 /obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/security/brig/dock)
 "eBy" = (
@@ -31614,6 +31604,18 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison/shielded)
+"hGh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/ai_monitored/security/armory)
 "hGm" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -34288,18 +34290,6 @@
 	dir = 8
 	},
 /area/chapel/main/monastery)
-"iPP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/ai_monitored/security/armory)
 "iPU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -35491,10 +35481,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/cryopod{
 	dir = 4
 	},
@@ -40083,10 +40070,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/explab)
-"lnF" = (
-/obj/effect/spawner/structure/window/reinforced/plasma,
-/turf/open/floor/plating,
-/area/engine/engineering)
 "loG" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
@@ -40391,6 +40374,18 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"lwh" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_mid/red{
+	dir = 6
+	},
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 5
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/ai_monitored/security/armory)
 "lwo" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -40598,6 +40593,15 @@
 "lAs" = (
 /turf/closed/wall,
 /area/quartermaster/sorting)
+"lBC" = (
+/obj/effect/turf_decal/tile/red/half,
+/mob/living/basic/pet/dog/bullterrier/tyson{
+	name = "Walter";
+	real_name = "Walter";
+	desc = "A sturdy yet old bullterrier his hide is covered in scars while his eyes portray a tired and friendly demeanour ."
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/security/warden)
 "lBH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
@@ -46395,13 +46399,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"oow" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/effect/landmark/start/prisoner,
-/turf/open/floor/prison/dark,
-/area/security/prison)
 "ooB" = (
 /obj/item/computer_hardware/hard_drive/role/signal/toxins,
 /obj/item/computer_hardware/hard_drive/role/signal/toxins{
@@ -48137,10 +48134,7 @@
 /turf/open/floor/iron/white/textured_large,
 /area/medical/chemistry)
 "oXB" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /obj/machinery/cryopod,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
@@ -52263,9 +52257,7 @@
 /area/crew_quarters/bar)
 "qQU" = (
 /obj/machinery/gulag_teleporter,
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/security/brig/dock)
 "qRd" = (
@@ -55442,9 +55434,7 @@
 /obj/item/clothing/under/rank/prisoner,
 /obj/item/clothing/under/rank/prisoner,
 /obj/item/clothing/shoes/sneakers/orange,
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/security/brig/dock)
 "sjE" = (
@@ -55513,6 +55503,10 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/plastitanium,
 /area/ai_monitored/nuke_storage)
+"skO" = (
+/obj/effect/spawner/structure/window/reinforced/plasma,
+/turf/open/floor/plating,
+/area/engine/engineering)
 "skP" = (
 /obj/effect/turf_decal/siding/thinplating/dark/corner{
 	dir = 8
@@ -56838,15 +56832,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"sSn" = (
-/obj/effect/turf_decal/tile/red/half,
-/mob/living/basic/pet/dog/bullterrier/tyson{
-	name = "Walter";
-	real_name = "Walter";
-	desc = "A sturdy yet old bullterrier his hide is covered in scars while his eyes portray a tired and friendly demeanour ."
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/security/warden)
 "sTS" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 4
@@ -59867,10 +59852,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "uqy" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_y = 1
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/gibber,
 /obj/item/organ/tail/lizard,
 /turf/open/floor/plating,
@@ -62539,6 +62521,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
+"vJd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "vJj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63011,9 +63000,7 @@
 "vUU" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/table_frame,
-/obj/structure/window/reinforced{
-	pixel_y = -5
-	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /obj/item/shard,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -66030,18 +66017,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/dock)
-"xla" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_mid/red{
-	dir = 6
-	},
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 5
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/ai_monitored/security/armory)
 "xlp" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start/virologist,
@@ -67006,15 +66981,6 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
-"xHa" = (
-/obj/machinery/flasher/portable,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron/dark/textured_large,
-/area/ai_monitored/security/armory)
 "xHg" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Telecommunications Chamber";
@@ -90129,7 +90095,7 @@ ajV
 jUe
 tBV
 hPC
-xHa
+cLO
 ahL
 yba
 upx
@@ -90394,7 +90360,7 @@ eIZ
 tYC
 amg
 agC
-sSn
+lBC
 fyQ
 ybh
 ajc
@@ -90897,9 +90863,9 @@ aaa
 aaa
 ahL
 eZj
-xla
-iPP
-iPP
+lwh
+aCd
+aCd
 ahL
 ahL
 sbp
@@ -90916,7 +90882,7 @@ ajc
 apJ
 ajj
 vjx
-bqB
+dzF
 ajj
 aqC
 gQX
@@ -91412,7 +91378,7 @@ aht
 ahL
 uJY
 uSo
-aCd
+hGh
 tMF
 ahL
 ahL
@@ -91948,7 +91914,7 @@ ajj
 ajj
 drx
 nME
-oow
+vJd
 gDs
 wba
 cDw
@@ -101817,13 +101783,13 @@ bXk
 bXk
 bXk
 rLQ
-lnF
+skO
 cbj
-lnF
-lnF
+skO
+skO
 cbj
 rLQ
-lnF
+skO
 bXk
 aht
 aaa
