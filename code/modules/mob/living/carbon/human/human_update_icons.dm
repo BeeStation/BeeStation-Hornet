@@ -181,21 +181,21 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	//Bloody hands begin
-	if(isnull(gloves))
-		if(blood_in_hands && num_hands > 0)
-			var/mutable_appearance/hands_combined = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
+	var/mutable_appearance/bloody_lefthand_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left", -GLOVES_LAYER)
+	var/mutable_appearance/bloody_righthand_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right", -GLOVES_LAYER)
+	cut_overlay(bloody_lefthand_overlay)
+	cut_overlay(bloody_righthand_overlay)
 
-			var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
-			if(length(blood_dna))
-				hands_combined.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
+	if(length(blood_dna))
+		bloody_lefthand_overlay.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+		bloody_righthand_overlay.color = bloody_lefthand_overlay.color
 
-			if(has_left_hand(check_disabled = FALSE))
-				hands_combined.overlays += mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left")
-			if(has_right_hand(check_disabled = FALSE))
-				hands_combined.overlays += mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right")
-			overlays_standing[GLOVES_LAYER] = hands_combined
-			apply_overlay(GLOVES_LAYER)
-		return
+	if(!gloves && blood_in_hands && (num_hands > 0))
+		if(has_left_hand(check_disabled = FALSE))
+			add_overlay(bloody_lefthand_overlay)
+		if(has_right_hand(check_disabled = FALSE))
+			add_overlay(bloody_righthand_overlay)
 	// Bloody hands end
 
 	if(gloves)
