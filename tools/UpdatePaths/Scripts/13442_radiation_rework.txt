@@ -1,0 +1,11 @@
+/obj/machinery/power/rad_collector/@SUBTYPES : @DELETE
+/obj/item/circuitboard/machine/rad_collector : @DELETE
+
+/obj/machinery/power/supermatter_crystal/shard/hugbox/fakecrystal : /obj/machinery/power/supermatter_crystal/hugbox{@OLD}
+
+/obj/machinery/power/tesla_coil{anchored = 1} : /obj/machinery/power/energy_accumulator/tesla_coil/anchored{@OLD;anchored=@SKIP}
+/obj/machinery/power/grounding_rod{anchored = 1} : /obj/machinery/power/energy_accumulator/grounding_rod/anchored{@OLD;anchored=@SKIP}
+
+/obj/machinery/power/tesla_coil : /obj/machinery/power/energy_accumulator/tesla_coil{@OLD}
+/obj/machinery/power/tesla_coil/research : /obj/machinery/power/energy_accumulator/tesla_coil/research{@OLD}
+/obj/machinery/power/grounding_rod : /obj/machinery/power/energy_accumulator/grounding_rod{@OLD}

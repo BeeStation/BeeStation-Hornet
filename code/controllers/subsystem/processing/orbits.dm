@@ -1,7 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(orbits)
 	name = "Orbits"
 	flags = SS_KEEP_TIMING
-	init_order = INIT_ORDER_ORBITS
+	init_stage = INITSTAGE_EARLY
 	priority = FIRE_PRIORITY_ORBITS
 	wait = ORBITAL_UPDATE_RATE
 

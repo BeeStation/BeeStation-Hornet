@@ -45,9 +45,17 @@
 	/// Whether we're drawing a rune or not
 	var/drawing_rune = FALSE
 	/// A static typecache of all tools we can scribe with.
-	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
+	var/static/list/scribing_tools = typecacheof(list(
+		/obj/item/pen,
+		/obj/item/toy/crayon,
+	))
 	/// A blacklist of turfs we cannot scribe on.
-	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	var/static/list/blacklisted_rune_turfs = typecacheof(list(
+		/turf/open/space,
+		/turf/open/openspace,
+		/turf/open/lava,
+		/turf/open/chasm,
+	))
 	var/datum/action/innate/hereticmenu/menu
 	/// Are we on cooldown to dream for reality tears?
 	var/manus_dream_allowed = FALSE
@@ -680,7 +688,7 @@
  * and returns HERETIC_HAS_LIVING_HEART if they have a living heart
  */
 /datum/antagonist/heretic/proc/has_living_heart()
-	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(living_heart_organ_slot)
 	if(!our_living_heart)
 		return HERETIC_NO_HEART_ORGAN
 
