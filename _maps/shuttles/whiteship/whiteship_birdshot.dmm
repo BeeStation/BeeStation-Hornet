@@ -79,9 +79,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/frosted/spawner/directional/west,
 /turf/open/floor/plating/airless,
 /area/shuttle/abandoned)
 "l" = (
@@ -113,6 +111,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth,
+/area/shuttle/abandoned)
+"o" = (
+/turf/open/floor/plating,
 /area/shuttle/abandoned)
 "p" = (
 /obj/structure/table,
@@ -280,9 +281,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
-"V" = (
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
 "X" = (
 /obj/structure/table,
 /obj/item/storage/fish_case/random{
@@ -363,7 +361,7 @@ r
 b
 "}
 (5,1,1) = {"
-V
+o
 p
 H
 i
@@ -371,7 +369,7 @@ m
 q
 y
 x
-V
+o
 "}
 (6,1,1) = {"
 r
