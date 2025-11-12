@@ -38,7 +38,6 @@
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
-	force = 12
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
