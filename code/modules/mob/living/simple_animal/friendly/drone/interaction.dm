@@ -35,7 +35,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/simple_animal/drone/attack_hand(mob/user, list/modifiers)
 	if(ishuman(user))
-		if(stat == DEAD || status_flags & GODMODE || !can_be_held)
+		if(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE) || !can_be_held)
 			..()
 			return
 		if(user.get_active_held_item())
@@ -72,7 +72,7 @@
 		return
 	user.visible_message(span_notice("[user] begins to reactivate [src]."), span_notice("You begin to reactivate [src]..."))
 	if(do_after(user, 30, target = src))
-		revive(full_heal = 1)
+		revive(HEAL_ALL)
 		user.visible_message(span_notice("[user] reactivates [src]!"), span_notice("You reactivate [src]."))
 		alert_drones(DRONE_NET_CONNECT)
 		if(G)

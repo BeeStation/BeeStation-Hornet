@@ -44,7 +44,7 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
-/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc, spawn_fast)
 	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -82,6 +82,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	spawn_amt = 20
 	activate_descriptor = "hunger"
 	rend_desc = "Reverberates with the sound of ten thousand moos."
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/veilrender/honkrender
 	name = "honk render"
@@ -271,7 +273,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		return
 
 	M.set_species(/datum/species/skeleton, icon_update=0)
-	M.revive(full_heal = 1, admin_revive = 1)
+	M.revive(ADMIN_HEAL_ALL)
 	spooky_scaries |= M
 	to_chat(M, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
 	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!"))
@@ -307,8 +309,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
 	H.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
-	H.put_in_hands(new /obj/item/claymore(H), TRUE)
-	H.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
+	H.put_in_hands(new /obj/item/claymore/bone(H), TRUE)
+	H.equip_to_slot_or_del(new /obj/item/spear/bonespear(H), ITEM_SLOT_BACK)
 
 
 /obj/item/voodoo
@@ -327,6 +329,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
 	item_flags = ISWEAPON
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
@@ -417,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	possible = list()
 	if(!voodoo_link)
 		return
-	var/list/prints = voodoo_link.return_fingerprints()
+	var/list/prints = GET_ATOM_FINGERPRINTS(voodoo_link)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
@@ -446,10 +450,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 //Provides a decent heal, need to pump every 6 seconds
 /obj/item/organ/heart/cursed/wizard
-	pump_delay = 60
+	pump_delay = 6 SECONDS
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+	custom_price = 10000
+	max_demand = 10
 
 //Warp Whistle: Provides uncontrolled long distance teleportation.
 
@@ -458,6 +464,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "One toot on this whistle will send you to a far away land!"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "whistle"
+	w_class = WEIGHT_CLASS_SMALL
 	var/on_cooldown = 0 //0: usable, 1: in use, 2: on cooldown
 	var/mob/living/carbon/last_user
 
@@ -469,8 +476,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 
 /obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
-	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
+	user.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED), WARPWHISTLE_TRAIT)
 
 /obj/item/warpwhistle/attack_self(mob/living/carbon/user)
 	if(!istype(user) || on_cooldown)
@@ -486,7 +492,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, WARPWHISTLE_TRAIT)
 		return
 	user.invisibility = INVISIBILITY_MAXIMUM
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, WARPWHISTLE_TRAIT)
 	sleep(20)
 	if(interrupted(user))
 		end_effect(user)

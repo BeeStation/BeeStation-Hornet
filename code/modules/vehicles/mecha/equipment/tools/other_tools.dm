@@ -449,7 +449,9 @@
 	fuelrate_idle = 5
 	fuelrate_active = 15
 	rechargerate = 25
-	var/radrate = 15
+
+	/// How much radiation we release per second while active
+	var/radrate = 1
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
 	fuel = new /obj/item/stack/sheet/mineral/uranium(src, 0)
@@ -457,7 +459,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process(delta_time)
 	. = ..()
 	if(!.) //process wasnt killed
-		radiation_pulse(get_turf(src), radrate * delta_time)
+		radiation_pulse(get_turf(src), max_range = 2, intensity = radrate * delta_time)
 
 
 /////////////////////////////////////////// THRUSTERS /////////////////////////////////////////////
@@ -521,13 +523,13 @@
 	if(output)
 		return "[output] <a href='byond://?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(movement_dir)
 	if(!chassis)
 		return FALSE
 	generate_effect(movement_dir)
 	return TRUE //This parent should never exist in-game outside admeme use, so why not let it be a creative thruster?
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/proc/generate_effect(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/proc/generate_effect(movement_dir)
 	var/obj/effect/particle_effect/E = new effect_type(get_turf(chassis))
 	E.dir = turn(movement_dir, 180)
 	step(E, turn(movement_dir, 180))
@@ -546,7 +548,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/gas/thrust(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/gas/thrust(movement_dir)
 	if(!chassis || !chassis.internal_tank)
 		return FALSE
 	var/moles = chassis.internal_tank.air_contents.total_moles()
@@ -565,7 +567,7 @@
 	detachable = FALSE
 	effect_type = /obj/effect/particle_effect/ion_trails
 
-/obj/item/mecha_parts/mecha_equipment/thrusters/ion/thrust(var/movement_dir)
+/obj/item/mecha_parts/mecha_equipment/thrusters/ion/thrust(movement_dir)
 	if(!chassis)
 		return FALSE
 	if(chassis.use_power(chassis.step_energy_drain))

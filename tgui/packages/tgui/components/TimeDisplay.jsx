@@ -2,7 +2,9 @@ import { Component } from 'react';
 
 // AnimatedNumber Copypaste
 const isSafeNumber = (value) => {
-  return typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value);
+  return (
+    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
+  );
 };
 
 export class TimeDisplay extends Component {
@@ -58,8 +60,14 @@ export class TimeDisplay extends Component {
     // HH:MM:SS
     // 00:02:13
     const seconds = toFixed(Math.floor((val / 10) % 60)).padStart(2, '0');
-    const minutes = toFixed(Math.floor((val / (10 * 60)) % 60)).padStart(2, '0');
-    const hours = toFixed(Math.floor((val / (10 * 60 * 60)) % 24)).padStart(2, '0');
+    const minutes = toFixed(Math.floor((val / (10 * 60)) % 60)).padStart(
+      2,
+      '0',
+    );
+    const hours = toFixed(Math.floor((val / (10 * 60 * 60)) % 24)).padStart(
+      2,
+      '0',
+    );
     const formattedValue = `${hours}:${minutes}:${seconds}`;
     return formattedValue;
   }

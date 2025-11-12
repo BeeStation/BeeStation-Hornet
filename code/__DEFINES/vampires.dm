@@ -1,17 +1,10 @@
 /// Uncomment this to enable testing of Vampire features (such as vassalizing people with a mind instead of a client).
 //#define VAMPIRE_TESTING
-
-#ifdef VAMPIRE_TESTING
-	#ifdef CIBUILDING
-		#error VAMPIRE_TESTING is enabled, disable this!
-	#else
-		#warn VAMPIRE_TESTING is enabled, you REALLY do not want this enabled outside of local testing!
-	#endif
+#if defined(VAMPIRE_TESTING) && defined(CIBUILDING)
+	#error VAMPIRE_TESTING is enabled, disable this!
 #endif
 
-/**
- * Blood-level defines
- */
+// Blood-level defines
 /// Determines Vampire regeneration rate
 #define BS_BLOOD_VOLUME_MAX_REGEN 700
 /// Cost to torture someone halfway, in blood. Called twice for full cost
@@ -25,32 +18,26 @@
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
 
-/**
- * Vassal defines
- */
-///If someone passes all checks and can be vassalized
+// Vassal defines
+/// If someone passes all checks and can be vassalized
 #define VASSALIZATION_ALLOWED 0
-///If someone has to accept vassalization
+/// If someone has to accept vassalization
 #define VASSALIZATION_DISLOYAL 1
-///If someone is not allowed under any circimstances to become a Vassal
+/// If someone is not allowed under any circimstances to become a Vassal
 #define VASSALIZATION_BANNED 2
 
-/**
- * Cooldown defines
- * Used in Cooldowns Vampires use to prevent spamming
- */
-///Spam prevention for healing messages.
-#define VAMPIRE_SPAM_HEALING (15 SECONDS)
-///Span prevention for Sol Masquerade messages.
-#define VAMPIRE_SPAM_MASQUERADE (60 SECONDS)
+// Cooldown defines
+// Used to prevent spamming vampires
+/// Spam prevention for healing messages.
+#define VAMPIRE_SPAM_HEALING 15 SECONDS
+/// Spam prevention for Sol Masquerade messages.
+#define VAMPIRE_SPAM_MASQUERADE 60 SECONDS
 
-///Span prevention for Sol messages.
-#define VAMPIRE_SPAM_SOL (30 SECONDS)
+/// Spam prevention for Sol messages.
+#define VAMPIRE_SPAM_SOL 30 SECONDS
 
-/**
- * Clan defines
- */
-#define CLAN_NONE "Caitiff"
+// Clan defines
+#define CLAN_CAITIFF "Caitiff"
 #define CLAN_BRUJAH "Brujah Clan"
 #define CLAN_TOREADOR "Toreador Clan"
 #define CLAN_NOSFERATU "Nosferatu Clan"
@@ -66,9 +53,7 @@
 #define FAVORITE_VASSAL "favorite_vassal"
 #define DISCORDANT_VASSAL "discordant_vassal"
 
-/**
- * Power defines
- */
+// Power defines
 /// This Power can't be used in Torpor
 #define BP_CANT_USE_IN_TORPOR (1<<0)
 /// This Power can't be used in Frenzy.
@@ -104,37 +89,21 @@
 /// This Power has a cooldown that is more dynamic than a typical power
 #define BP_AM_VERY_DYNAMIC_COOLDOWN (1<<4)
 
-/**
- * Vampire Signals
- */
-///Called when a Vampire ranks up: (datum/vampire_datum, mob/owner, mob/target)
-#define VAMPIRE_RANK_UP "vampire_rank_up"
-///Called when a Vampire interacts with a Vassal on their persuasion rack.
-#define VAMPIRE_INTERACT_WITH_VASSAL "vampire_interact_with_vassal"
-///Called when a Vampire makes a Vassal into their Favorite Vassal: (datum/vassal_datum, mob/master)
-#define VAMPIRE_MAKE_FAVORITE "vampire_make_favorite"
-///Called when a new Vassal is successfully made: (datum/vampire_datum)
-#define VAMPIRE_MADE_VASSAL "vampire_made_vassal"
-///Called when a Vampire exits Torpor.
-#define VAMPIRE_EXIT_TORPOR "vampire_exit_torpor"
-///Called when a Vampire breaks the Masquerade
+// Vampire Signals
+/// Called when a Vampire breaks the Masquerade
 #define COMSIG_VAMPIRE_BROKE_MASQUERADE "comsig_vampire_broke_masquerade"
-///Called when a Vampire enters Frenzy
-#define VAMPIRE_ENTERS_FRENZY "vampire_enters_frenzy"
-///Called when a Vampire exits Frenzy
-#define VAMPIRE_EXITS_FRENZY "vampire_exits_frenzy"
 
-/**
- * Sol signals & Defines
- */
-#define COMSIG_SOL_RANKUP_VAMPIRES "comsig_sol_rankup_vampires"
+// Sol signals & Defines
+/// Sent every Sol tick
 #define COMSIG_SOL_RISE_TICK "comsig_sol_rise_tick"
+/// Sent 90 seconds before Sol begins
 #define COMSIG_SOL_NEAR_START "comsig_sol_near_start"
+/// Sent at the end of Sol
 #define COMSIG_SOL_END "comsig_sol_end"
-///Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
+/// Sent 15 seconds before Sol ends
+#define COMSIG_SOL_NEAR_END "comsig_sol_near_end"
+/// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
 #define COMSIG_SOL_WARNING_GIVEN "comsig_sol_warning_given"
-///Called on a Vampire's Lifetick.
-#define COMSIG_VAMPIRE_ON_LIFETICK "comsig_vampire_on_lifetick"
 
 #define DANGER_LEVEL_FIRST_WARNING 1
 #define DANGER_LEVEL_SECOND_WARNING 2
@@ -142,19 +111,13 @@
 #define DANGER_LEVEL_SOL_ROSE 4
 #define DANGER_LEVEL_SOL_ENDED 5
 
-/**
- * Clan defines
- *
- * This is stuff that is used solely by Clans for clan-related activity.
- */
-///Drinks blood the normal Vampire way.
+// Clan defines
+/// Drinks blood the normal Vampire way.
 #define VAMPIRE_DRINK_NORMAL "vampire_drink_normal"
-///Drinks blood but is snobby, refusing to drink from mindless
+/// Drinks blood but is snobby, refusing to drink from mindless
 #define VAMPIRE_DRINK_SNOBBY "vampire_drink_snobby"
 
-/**
- * Traits
- */
+// Traits
 /// Falsifies Health analyzer blood levels
 #define TRAIT_MASQUERADE "trait_masquerade"
 /// Your body is literal room temperature. Does not make you immune to the temp
@@ -162,9 +125,8 @@
 /// For people in the middle of being staked
 #define TRAIT_BEINGSTAKED "trait_beingstaked"
 
-/**
- * Sources
- */
+// Trait sources
+/// Sour trait for all vampire traits
 #define TRAIT_VAMPIRE "trait_vampire"
 /// Source trait while Feeding
 #define TRAIT_FEED "trait_feed"
@@ -175,21 +137,5 @@
 /// Source trait for vampire mesmerization.
 #define TRAIT_MESMERIZED "trait_mesmerized"
 
-/**
- * Macros
- */
-#define IS_VAMPIRE(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vampire))
-#define IS_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal))
-#define IS_FAVORITE_VASSAL(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/vassal/favorite))
+// Macros
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)
-
-//Used in vampire_life.dm
-#define MARTIALART_FRENZYGRAB "frenzy grabbing"
-
-/**
- * Miscellaneous defines
- *
- * (Defines for things too trivial to warrant their own category so we'll just call them "misc".)
- */
-/// The attack bonus added to the punch damage of the Brujah clan's favorite vassals.
-#define BRUJAH_FAVORITE_VASSAL_ATTACK_BONUS 4

@@ -63,10 +63,10 @@
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	force = 15
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_power = 50
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 75
@@ -81,11 +81,6 @@
 /obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
-
-/obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/melee/sabre/on_exit_storage(datum/storage/container)
 	var/obj/item/storage/belt/sabre/sabre = container.real_location?.resolve()
@@ -140,17 +135,25 @@
 		user.death(FALSE)
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
+/obj/item/melee/sabre/carbon_fiber
+	name = "carbon fiber sabre"
+	desc = "A sabre made of a sleek carbon fiber polymer with a reinforced blade."
+	icon_state = "sabre_fiber"
+	item_state = "sabre_fiber"
+	force = 15
+	armour_penetration = 25
+	sharpness = SHARP //No dismembering for security sabre without direct intent
+
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
 	desc = "An elegant weapon, it has an inscription on it that says:  \"La Gluten Gutter\"."
-	force = 18
+	force = 25
 	icon_state = "rapier"
 	item_state = "rapier"
 	lefthand_file = null
 	righthand_file = null
-	block_power = 60
+	block_power = 75
 	armor_type = /datum/armor/sabre_mime
-
 
 /datum/armor/sabre_mime
 	fire = 100
@@ -351,6 +354,7 @@
 	cooldown = 10
 	stamina_damage = 20
 	stun_animation = TRUE
+	custom_price = 120
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -377,7 +381,7 @@
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(on)
 		return ..()
 	return 0
@@ -460,7 +464,7 @@
 	return span_danger("The baton is still charging!")
 
 /obj/item/melee/classic_baton/retractible_stun/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(2 SECONDS)
+	target.set_jitter_if_lower(4 SECONDS)
 	target.stuttering += 2 SECONDS
 
 /obj/item/melee/classic_baton/retractible_stun/attack_self(mob/user)
@@ -623,12 +627,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 0.001
 	armour_penetration = 1000
+	force_string = "INFINITE"
+	item_flags = NEEDS_PERMIT|NO_BLOOD_ON_ITEM
 	var/obj/machinery/power/supermatter_crystal/shard
 	var/balanced = 1
-	block_level = 1
-	block_upgrade_walk = TRUE
+	canblock = TRUE
+
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
-	force_string = "INFINITE"
 
 /obj/item/melee/supermatter_sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	qdel(hitby)
@@ -697,22 +702,25 @@
 
 /obj/item/melee/supermatter_sword/proc/consume_everything(target)
 	if(isnull(target))
-		shard.Consume()
+		shard.Bump(target)
 	else if(!isturf(target))
 		shard.Bumped(target)
 	else
 		consume_turf(target)
 
-/obj/item/melee/supermatter_sword/proc/consume_turf(turf/T)
-	var/oldtype = T.type
-	var/turf/newT = T.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	if(newT.type == oldtype)
+/obj/item/melee/supermatter_sword/proc/consume_turf(turf/turf)
+	var/oldtype = turf.type
+	var/turf/new_turf = turf.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+	if(new_turf.type == oldtype)
 		return
-	playsound(T, 'sound/effects/supermatter.ogg', 50, 1)
-	T.visible_message(span_danger("[T] smacks into [src] and rapidly flashes to ash."),\
-	span_italics("You hear a loud crack as you are washed with a wave of heat."))
-	shard.Consume()
-	CALCULATE_ADJACENT_TURFS(T, MAKE_ACTIVE)
+
+	playsound(turf, 'sound/effects/supermatter.ogg', 50, TRUE)
+	turf.visible_message(
+		span_danger("[turf] smacks into [src] and rapidly flashes to ash."),
+		span_hear("You hear a loud crack as you are washed with a wave of heat."),
+	)
+	shard.Bump(turf)
+	CALCULATE_ADJACENT_TURFS(turf, MAKE_ACTIVE)
 
 /obj/item/melee/supermatter_sword/add_blood_DNA(list/blood_dna)
 	return FALSE
@@ -796,7 +804,11 @@
 /obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
 	if(!ovens)
-		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+		ovens = typecacheof(list(
+			/obj/anomaly,
+			/obj/machinery/power/supermatter_crystal,
+			/obj/structure/bonfire,
+		))
 	AddComponent( \
 		/datum/component/transforming, \
 		hitsound_on = hitsound, \
@@ -949,6 +961,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/effects/woodhit.ogg'
+	custom_price = 100
 	/// Damage dealt while on help intent
 	var/non_harm_force = 3
 	/// Stamina damage dealt
@@ -1033,7 +1046,6 @@
 	lefthand_file = 'icons/vampires/bs_leftinhand.dmi'
 	righthand_file = 'icons/vampires/bs_rightinhand.dmi'
 	slot_flags = ITEM_SLOT_POCKETS
-	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb_continuous = list("staked", "stabbed", "tore into")
 	attack_verb_simple = list("staked", "stabbed", "tore into")

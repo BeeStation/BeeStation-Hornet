@@ -119,7 +119,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
-	brainmob.timeofhostdeath = C.timeofdeath
+	brainmob.timeofdeath = C.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = new_role

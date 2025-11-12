@@ -1,7 +1,7 @@
 /obj/effect/fun_balloon
 	name = "fun balloon"
 	desc = "This is going to be a laugh riot."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	anchored = TRUE
 	var/popped = FALSE
@@ -95,7 +95,7 @@
 /obj/effect/station_crash
 	name = "station crash"
 	desc = "With no survivors!"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	anchored = TRUE
 
@@ -132,7 +132,7 @@
 		qdel(L.pulling)
 		var/turf/LA = get_turf(pick(warp_points))
 		L.forceMove(LA)
-		L.hallucination = 0
+		L.remove_status_effect(/datum/status_effect/hallucination)
 		to_chat(L, span_reallybigredtext("The battle is won. Your bloodlust subsides."))
 		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)

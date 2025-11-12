@@ -43,6 +43,7 @@
 	automatic = 0
 	actions_types = list()
 	casing_ejector = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper PML-9"
@@ -67,7 +68,7 @@
 /obj/item/gun/ballistic/rocketlauncher/unrestricted
 	pin = /obj/item/firing_pin
 
-/obj/item/gun/ballistic/rocketlauncher/afterattack()
+/obj/item/gun/ballistic/rocketlauncher/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	. = ..()
 	magazine.get_round(FALSE) //Hack to clear the mag after it's fired
 

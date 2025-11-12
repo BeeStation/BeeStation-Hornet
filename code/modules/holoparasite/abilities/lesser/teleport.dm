@@ -219,7 +219,7 @@
 	deploy_hud.begin_timer(HOLOPARA_TELEPORT_DEPLOY_COOLDOWN)
 	var/datum/space_level/target_z_level = SSmapping.get_level(target_turf.z)
 	SSblackbox.record_feedback("associative", "holoparasite_beacons", 1, list(
-		"map" = SSmapping.config.map_name,
+		"map" = SSmapping.current_map.map_name,
 		"area" = "[target_area.name]",
 		"x" = target_turf.x,
 		"y" = target_turf.y,

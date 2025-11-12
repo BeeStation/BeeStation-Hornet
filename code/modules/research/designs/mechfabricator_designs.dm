@@ -30,7 +30,7 @@
 	name = "Cyborg Left Arm"
 	id = "borg_l_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/l_arm/robot
+	build_path = /obj/item/bodypart/arm/left/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")
@@ -39,7 +39,7 @@
 	name = "Cyborg Right Arm"
 	id = "borg_r_arm"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/r_arm/robot
+	build_path = /obj/item/bodypart/arm/right/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")
@@ -48,7 +48,7 @@
 	name = "Cyborg Left Leg"
 	id = "borg_l_leg"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/l_leg/robot
+	build_path = /obj/item/bodypart/leg/left/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")
@@ -57,7 +57,7 @@
 	name = "Cyborg Right Leg"
 	id = "borg_r_leg"
 	build_type = MECHFAB
-	build_path = /obj/item/bodypart/r_leg/robot
+	build_path = /obj/item/bodypart/leg/right/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")
@@ -1089,14 +1089,12 @@
 	materials = list(/datum/material/iron = 1500)
 	build_path = /obj/item/mod/module/mouthhole
 
-/*
 /datum/design/module/mod_rad_protection
 	name = "MOD Module: Radiation Protection"
 	id = "mod_rad_protection"
 	materials = list(/datum/material/iron = 1000, /datum/material/uranium = 1000)
 	build_path = /obj/item/mod/module/rad_protection
 	department_type = MODULE_ENGINEERING
-*/
 
 /datum/design/module/mod_emp_shield
 	name = "MOD Module: EMP Shield"
@@ -1368,6 +1366,15 @@
 	construction_time = 100
 	category = list("IPC Components")
 
+/datum/design/robotic_heart
+	name = "Coolant Pump"
+	id = "robotic_heart"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/heart/cybernetic/ipc
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/silver = 500)
+	construction_time = 100
+	category = list("IPC Components")
+
 /datum/design/robotic_stomach
 	name = "Micro-cell"
 	id = "robotic_stomach"
@@ -1432,3 +1439,13 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 500)
 	construction_time = 40
 	category = list("Cyborg Upgrade Modules")
+
+/datum/design/clown_car
+	name = "Clown Car"
+	desc = "A small car that the clown can use to take people around the station in style!"
+	id = "clown_car"
+	build_type = MECHFAB
+	build_path = /obj/vehicle/sealed/car/clowncar
+	materials = list(/datum/material/iron = 10000, /datum/material/bananium = 5000, /datum/material/plastic = 2000)
+	construction_time = 100
+	category = list("Misc")

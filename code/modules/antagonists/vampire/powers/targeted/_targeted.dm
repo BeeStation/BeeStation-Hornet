@@ -48,11 +48,6 @@
 	update_buttons()
 	unset_click_ability(owner)
 
-/datum/action/vampire/targeted/can_use()
-	. = ..()
-	if(!.)
-		return FALSE
-
 /// Check if target is VALID (wall, turf, or character?)
 /datum/action/vampire/targeted/proc/check_valid_target(atom/target_atom)
 	// No targeting yourself

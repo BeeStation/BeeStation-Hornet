@@ -3,7 +3,10 @@
 	/// How far can we see stuff?
 	var/vision_range = 9
 	/// Static typecache list of potentially dangerous objs
-	var/static/list/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/vehicle/sealed/mecha))
+	var/static/list/hostile_machines = typecacheof(list(
+		/obj/machinery/porta_turret,
+		/obj/vehicle/sealed/mecha,
+	))
 
 /datum/ai_behavior/find_potential_targets/perform(delta_time, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
 	. = ..()
@@ -14,7 +17,7 @@
 		CRASH("No target datum was supplied in the blackboard for [controller.pawn]")
 
 	var/atom/current_target = controller.blackboard[target_key]
-	if (targetting_datum.can_attack(living_mob, current_target))
+	if (targetting_datum.can_attack(living_mob, current_target, vision_range))
 		finish_action(controller, succeeded = FALSE)
 		return
 

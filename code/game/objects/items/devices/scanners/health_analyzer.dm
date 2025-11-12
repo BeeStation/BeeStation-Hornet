@@ -22,6 +22,7 @@
 	throw_speed = 3
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
+	custom_price = 100
 	var/mode = SCANNER_VERBOSE
 	var/scanmode = SCANMODE_HEALTH
 	var/advanced = FALSE
@@ -111,7 +112,7 @@
 		if(humantarget.undergoing_cardiac_arrest() && humantarget.stat != DEAD)
 			render_list += "<span class='alert ml-1'><b>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</b></span>\n"
 
-	//SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode)
+	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode, tochat)
 
 	// Husk detection
 	if(HAS_TRAIT(target, TRAIT_HUSK))
@@ -159,15 +160,6 @@
 			render_list += "<span class='info ml-1'>Subject Major Disabilities: [carbontarget.get_quirk_string(FALSE, CAT_QUIRK_MAJOR_DISABILITY, from_scan = TRUE)].</span>\n"
 			if(advanced)
 				render_list += "<span class='info ml-1'>Subject Minor Disabilities: [carbontarget.get_quirk_string(FALSE, CAT_QUIRK_MINOR_DISABILITY, TRUE)].</span>\n"
-
-	//if (HAS_TRAIT(target, TRAIT_IRRADIATED))
-	//	render_list += "<span class='alert ml-1'>Subject is irradiated. Supply toxin healing.</span>\n"
-
-	if (target.radiation)
-		render_list += "<span class='alert ml-1'>Subject is irradiated.</span>\n"
-		if(advanced)
-			render_list += "<span class='info ml-1'>Radiation Level: [target.radiation]%.</span>\n"
-
 	//Eyes and ears
 	if(advanced && iscarbon(target))
 		var/mob/living/carbon/carbontarget = target
@@ -350,17 +342,25 @@
 			else if (carbontarget.is_bandaged())
 				render_list += "<span class='alert ml-1'><b>Subject is bleeding (Bandaged)!</b></span>\n"
 			var/blood_percent = round((carbontarget.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
-			var/blood_type = carbontarget.dna.blood_type
+			var/blood_type = carbontarget.dna.blood_type.name
 			if(blood_id != /datum/reagent/blood) // special blood substance
 				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				blood_type = R ? R.name : blood_id
-			var/blood_info = "[blood_type] (Compatible: [jointext(get_safe_blood(blood_type), ", ")])"
+
+			// Get compatible blood type names
+			var/list/compatible_names = list()
+			for(var/compatible_type in carbontarget.dna.blood_type.compatible_types)
+				var/datum/blood_type/compatible_datum = new compatible_type()
+				compatible_names += compatible_datum.name
+				qdel(compatible_datum)
+			var/blood_info = "[blood_type] (Compatible: [jointext(compatible_names, ", ")])"
+
 			if(HAS_TRAIT(carbontarget, TRAIT_MASQUERADE))
 				render_list += "<span class='alert ml-1'>Blood level: 100 %, 560 cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_SAFE && carbontarget.blood_volume > BLOOD_VOLUME_OKAY)
 				render_list += "<span class='alert ml-1'>Blood level: LOW [blood_percent] %, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else if(carbontarget.blood_volume <= BLOOD_VOLUME_OKAY)
-				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_type]")]\n"
+				render_list += "<span class='alert ml-1'>Blood level: <b>CRITICAL [blood_percent] %</b>, [carbontarget.blood_volume] cl,</span> [span_info("type: [blood_info]")]\n"
 			else
 				render_list += "<span class='info ml-1'>Blood level: [blood_percent] %, [carbontarget.blood_volume] cl, type: [blood_type]</span>\n"
 
@@ -442,7 +442,7 @@
 /**
  * Scans an atom, showing any (detectable) diseases they may have.
  */
-/proc/virusscan(mob/user, atom/target, var/maximum_stealth, var/maximum, var/list/extracted_ids)
+/proc/virusscan(mob/user, atom/target, maximum_stealth, maximum, list/extracted_ids)
 	. = TRUE
 	var/list/result = target?.extrapolator_act(user, target)
 	var/list/diseases = result[EXTRAPOLATOR_RESULT_DISEASES]

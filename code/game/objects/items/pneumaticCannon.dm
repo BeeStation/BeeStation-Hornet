@@ -145,7 +145,7 @@
 		return
 	Fire(user, target)
 
-/obj/item/pneumatic_cannon/proc/Fire(mob/living/user, var/atom/target)
+/obj/item/pneumatic_cannon/proc/Fire(mob/living/user, atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
@@ -324,7 +324,19 @@
 	throw_amount = 1
 	maxWeightClass = WEIGHT_CLASS_BULKY //a single magspear or spear
 	spin_item = FALSE
-	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twenty, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/spear/explosive, /obj/item/clockwork/weapon/brass_spear))
+	var/static/list/magspear_typecache = typecacheof(list(
+		/obj/item/throwing_star/magspear,
+		/obj/item/spear,
+		/obj/item/stack/rods/fifty,
+		/obj/item/stack/rods,
+		/obj/item/stack/rods/twenty,
+		/obj/item/stack/rods/ten,
+		/obj/item/katana,
+		/obj/item/katana/cursed,
+		/obj/item/toy/katana,
+		/obj/item/spear/explosive,
+		/obj/item/clockwork/weapon/brass_spear,
+	))
 
 /obj/item/pneumatic_cannon/speargun/Initialize(mapload)
 	. = ..()

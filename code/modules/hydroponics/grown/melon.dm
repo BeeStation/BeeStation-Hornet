@@ -6,7 +6,7 @@
 	species = "watermelon"
 	plantname = "Watermelon Vines"
 	product = /obj/item/food/grown/watermelon
-	lifespan = 50
+	lifespan = 200
 	endurance = 40
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "watermelon-dead"
@@ -132,8 +132,8 @@
 	desc = "A organic balloon, lighter then air."
 	icon_state = "ballolon"
 	item_state = "ballolon"
-	lefthand_file = 'icons/mob/inhands/antag/balloons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/antag/balloons_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/misc/balloons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/balloons_righthand.dmi'
 	filling_color = "#e35b6f"
 	throw_range = 1
 	throw_speed = 1

@@ -128,7 +128,7 @@
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
-		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
+		brainmob.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
@@ -137,7 +137,7 @@
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
-	brainmob.timeofhostdeath = L.timeofdeath
+	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
@@ -313,7 +313,7 @@
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
 				if(H.health > 0)
-					H.revive(0)
+					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
 	owner.apply_status_effect(/datum/status_effect/ipc/emp)

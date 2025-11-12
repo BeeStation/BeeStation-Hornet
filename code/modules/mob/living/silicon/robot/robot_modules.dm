@@ -296,7 +296,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/geiger_counter/cyborg,
+		/obj/item/geiger_counter,
 		/obj/item/assembly/signaler/cyborg,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/electroadaptive_pseudocircuit,
@@ -318,6 +318,7 @@
 		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	model_select_icon = "engineer"
+	module_traits = list(TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 
 // --------------------- Janitor
@@ -744,7 +745,7 @@
 	var/recharge_rate = 1000
 	var/energy
 
-/datum/robot_energy_storage/New(var/obj/item/robot_model/robot)
+/datum/robot_energy_storage/New(obj/item/robot_model/robot)
 	energy = max_energy
 	robot?.storages |= src
 

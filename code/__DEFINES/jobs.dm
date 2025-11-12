@@ -77,6 +77,7 @@
 #define JOB_DISPLAY_ORDER_BRIG_PHYS 32
 #define JOB_DISPLAY_ORDER_AI 33
 #define JOB_DISPLAY_ORDER_CYBORG 34
+#define JOB_DISPLAY_ORDER_PRISONER 35
 
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
@@ -143,13 +144,13 @@
 #define JOB_NAME_PAI    "Personal AI"
 
 // ERTs
-#define JOB_ERT_DEATHSQUAD "Death Commando"
+#define JOB_ERT_DEATHSQUAD 		"Death Commando"
 #define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
 #define JOB_ERT_OFFICER         "Security Response Officer"
 #define JOB_ERT_ENGINEER        "Engineering Response Officer"
 #define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
-#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
-#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+#define JOB_ERT_JANITOR			"Janitorial Response Officer"
+#define JOB_ERT_CLOWN       	"Morale Response Officer"
 
 // CentCom
 #define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"

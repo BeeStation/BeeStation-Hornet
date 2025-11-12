@@ -123,7 +123,7 @@
 		return FALSE
 	if(get_dist(A,B) != required_distance)
 		return FALSE
-	for(var/turf/T in getline(get_turf(A),get_turf(B)))
+	for(var/turf/T in get_line(get_turf(A),get_turf(B)))
 		if(T.is_blocked_turf(TRUE))
 			return FALSE
 	return TRUE
@@ -237,7 +237,7 @@
 //Casing
 
 /obj/item/ammo_casing/energy/duel
-	e_cost = 0
+	e_cost = 0 WATT
 	projectile_type = /obj/projectile/energy/duel
 	var/setting
 

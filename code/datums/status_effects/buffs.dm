@@ -125,7 +125,7 @@
 	return ..()
 
 /datum/status_effect/wish_granters_gift/on_remove()
-	owner.revive(full_heal = TRUE, admin_revive = TRUE)
+	owner.revive(ADMIN_HEAL_ALL)
 	owner.visible_message(span_warning("[owner] appears to wake from the dead, having healed all wounds!"), span_notice("You have regenerated."))
 
 /atom/movable/screen/alert/status_effect/wish_granters_gift
@@ -326,13 +326,19 @@
 	duration = 32 SECONDS
 	var/ticks_passed = 0
 
+/datum/status_effect/fleshmend/on_apply()
+	. = ..()
+
+	RegisterSignal(owner, COMSIG_LIVING_IGNITED, PROC_REF(on_ignited))
+	RegisterSignal(owner, COMSIG_LIVING_EXTINGUISHED, PROC_REF(on_extinguished))
+
+/datum/status_effect/fleshmend/on_remove()
+	UnregisterSignal(owner, list(COMSIG_LIVING_IGNITED, COMSIG_LIVING_EXTINGUISHED))
+
 /datum/status_effect/fleshmend/tick()
 	ticks_passed ++
 	if(owner.on_fire)
-		linked_alert.icon_state = "fleshmend_fire"
 		return
-	else
-		linked_alert.icon_state = "fleshmend"
 	if(ticks_passed < 2)
 		return
 	else if(ticks_passed == 2)
@@ -345,6 +351,16 @@
 	owner.adjustOxyLoss(-5, FALSE, TRUE)
 	//Heals 0.5 cloneloss per second for a total of 15
 	owner.adjustCloneLoss(-0.5, TRUE, TRUE)
+
+/datum/status_effect/fleshmend/proc/on_ignited(datum/source)
+	SIGNAL_HANDLER
+
+	linked_alert?.icon_state = "fleshmend_fire"
+
+/datum/status_effect/fleshmend/proc/on_extinguished(datum/source)
+	SIGNAL_HANDLER
+
+	linked_alert?.icon_state = "fleshmend"
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
@@ -386,13 +402,13 @@
 	if(!..())
 		return FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camouflage/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
 /datum/status_effect/changeling/camouflage/proc/slight_increase()
@@ -439,10 +455,12 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
 	tick_interval = 25
-	examine_text = span_notice("They seem to have an aura of healing and helpfulness about them.")
 	alert_type = null
 	var/hand
 	var/deathTick = 0
+
+/datum/status_effect/hippocratic_oath/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -521,7 +539,9 @@
 				L.adjustFireLoss(-3.5)
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
-				SM.adjustHealth(-3.5, forced = TRUE)
+				// Check if the mob is NOT a spirit AND NOT an undead.
+				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
+					SM.adjustHealth(-3.5, forced = TRUE)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Blessing of the Necropolis"
@@ -549,11 +569,7 @@
 		duration_mod = 2
 	owner.adjustBruteLoss(-20 * power)
 	owner.adjustFireLoss(-20 * power)
-	owner.cure_nearsighted()
-	owner.ExtinguishMob()
-	owner.fire_stacks = 0
-	owner.set_blindness(0)
-	owner.set_blurriness(0)
+	owner.fully_heal(HEAL_CC_STATUS)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()
 	if(istype(owner, /mob/living/carbon/human))
@@ -569,23 +585,9 @@
 	if(!alreadyinfected)
 		to_chat(owner, span_userdanger("You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more."))
 
-/datum/status_effect/good_music
-	id = "Good Music"
-	alert_type = null
-	duration = 6 SECONDS
-	tick_interval = 1 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
-
-/datum/status_effect/good_music/tick()
-	owner.dizziness = max(0, owner.dizziness - 2)
-	owner.jitteriness = max(0, owner.jitteriness - 2)
-	owner.confused = max(0, owner.confused - 1)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
-
 /datum/status_effect/antimagic
 	id = "antimagic"
 	duration = 10 SECONDS
-	examine_text = span_notice("They seem to be covered in a dull, grey aura.")
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
@@ -602,6 +604,10 @@
 		if (anti_magic.source == MAGIC_TRAIT)
 			qdel(anti_magic)
 	owner.visible_message(span_warning("[owner]'s dull aura fades away..."))
+	return ..()
+
+/datum/status_effect/antimagic/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to be covered in a dull, grey aura.")
 
 /datum/status_effect/planthealing
 	id = "Photosynthesis"
@@ -609,7 +615,9 @@
 	duration = -1
 	tick_interval = 25
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
-	examine_text = span_notice("Their leaves seem to be flourishing in the light!")
+
+/datum/status_effect/planthealing/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] leaves seem[owner.p_s()] to be flourishing in the light!")
 
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"
@@ -630,9 +638,11 @@
 	id = "Blessing of Crucible Soul"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 15 SECONDS
-	examine_text = span_notice("They don't seem to be all here.")
 	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
 	var/turf/location
+
+/datum/status_effect/crucible_soul/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] [owner.p_do()]n't seem to be all here.")
 
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,span_notice("You phase through reality, nothing is out of bounds!"))
@@ -672,3 +682,60 @@
 	name = "Blessing of Dusk and Dawn"
 	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
 	icon_state = "duskndawn"
+
+/datum/status_effect/cloaked
+	id = "invisibility"
+	alert_type = /atom/movable/screen/alert/status_effect/cloaked
+	tick_interval = 2
+	duration = -1
+	show_duration = TRUE
+	var/can_see_self = FALSE
+
+/datum/status_effect/cloaked/tick()
+	if(owner.on_fire)
+		terminate_effect()
+		return
+	owner.alpha = max(owner.alpha - 10, 0)
+	if (owner.alpha <= 100 && !can_see_self)
+		// Make it so the user can always see themselves while cloaked
+		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
+		self_appearance.alpha = 100
+		self_appearance.override = TRUE
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, REF(src), image(self_appearance, loc = owner), owner)
+		can_see_self = TRUE
+	if (owner.alpha > 100 && can_see_self)
+		owner.remove_alt_appearance(REF(src))
+
+/datum/status_effect/cloaked/on_apply()
+	if(!..())
+		return FALSE
+	// Effects that disrupt the cloak
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(bump_alpha))
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
+	// Effects that terminate the cloak
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_MOB_THROW, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACK_HAND, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_HITBY, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_HULK_ATTACK, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACK_PAW, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(terminate_effect))
+	return TRUE
+
+/datum/status_effect/cloaked/on_remove()
+	owner.remove_alt_appearance(REF(src))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
+	animate(owner, time = 0.5 SECONDS, alpha = 255)
+
+/datum/status_effect/cloaked/proc/bump_alpha()
+	owner.alpha = min(owner.alpha + 40, 255)
+
+/datum/status_effect/cloaked/proc/terminate_effect()
+	qdel(src)
+
+/atom/movable/screen/alert/status_effect/cloaked
+	name = "Cloaked"
+	desc = "We are inside of an active cloaking field, which will be disrupted when we attack."
+	icon_state = "cloak"

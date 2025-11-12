@@ -117,11 +117,6 @@
 	if(holder?.my_atom)
 		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
 
-/datum/reagent/blackpowder/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
-	. = ..()
-	if(isplasmaman(affected_mob))
-		affected_mob.hallucination += 5 * REM * delta_time
-
 /datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
 	SIGNAL_HANDLER
 	if(source.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)
@@ -327,7 +322,7 @@
 	if(reac_volume >= 1)
 		var/obj/effect/particle_effect/foam/firefighting/foam = locate(/obj/effect/particle_effect/foam) in exposed_turf
 		if(!foam)
-			foam = new(foam)
+			foam = new(exposed_turf)
 		else if(istype(foam))
 			foam.lifetime = initial(foam.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
 

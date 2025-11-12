@@ -8,6 +8,7 @@
 	item_state = "shotgun"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
+	custom_price = 300
 	fire_sound = "sound/weapons/shotgunshot.ogg"
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
@@ -31,6 +32,22 @@
 	fire_rate = 1 //reee
 	recoil = 1
 	pb_knockback = 2
+
+/obj/item/gun/ballistic/shotgun/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
+	if(chambered && chambered.caliber == ".50")
+		user.log_message("fired a p50 round from [src] at [target ? target : "unknown target"]. Catastrophic failure imminent.", LOG_ATTACK, color="red")
+		if(prob(20))
+			user.log_message("[key_name(user)] fired a p50 round from [src] and it exploded.")
+			playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
+			to_chat(user, span_userdanger("[src] catastrophically explodes in your hands!"))
+			user.take_bodypart_damage(0, 40)
+			explosion(src, 0, 0, 2, 2)
+			qdel(chambered)
+			chambered = null
+			user.dropItemToGround(src)
+			qdel(src)
+			return FALSE
+	return ..()
 
 /obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -60,6 +77,7 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+	custom_price = 300
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
 	if(loc == user)
@@ -243,7 +261,7 @@
 	sawn_desc = "I'm just here for the gasoline."
 	no_pin_required = TRUE
 	unique_reskin_icon = null
-	recoil = 1.5
+	recoil = 3
 	var/slung = FALSE
 	var/reinforced = FALSE
 	var/barrel_stress = 0
@@ -251,34 +269,20 @@
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	if(chambered.BB && !reinforced)
 		var/obj/item/ammo_casing/shotgun/S = chambered
-		if(prob(10 + barrel_stress) && S.high_power)	//Base 10% chance of misfiring. Goes up with each shot of high_power ammo
-			backfire(user)
-			return FALSE
-
-		else if (S.high_power)
-			barrel_stress += 5
-			if (barrel_stress == 10)
+		if (S.high_power)
+			barrel_stress += 2.5
+			if (barrel_stress == 15)
 				to_chat(user, span_warning("[src]'s barrel is left warped from the force of the shot!"))
-			else if (barrel_stress == 25)
+			else if (barrel_stress == 30)
+				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
+		else
+			barrel_stress += 1
+			if (barrel_stress == 15)
+				to_chat(user, span_warning("[src]'s barrel is warped from the force of the shot!"))
+			else if (barrel_stress == 30)
 				to_chat(user, span_danger("[src]'s barrel cracks from the repeated strain!"))
 
-		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
-			backfire(user)
-			return FALSE
 	return ..()
-
-/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
-	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
-	to_chat(user, span_userdanger("[src] blows up in your face!"))
-
-	user.take_bodypart_damage(0,15) //The explosion already does enough damage.
-	explosion(src, 0, 0, 1, 1)
-
-	barrel_stress += 10 //Big damage to barrel, two explosions/misfires will destroy the gun entirely
-	qdel(chambered.BB)
-	chambered.BB = null //Spend the bullet when you misfire and it explodes. What's blowing up otherwise?
-
-	user.dropItemToGround(src)
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	..()
@@ -364,8 +368,12 @@
 	. = ..()
 	. += "<span class='notice'>Right-click to shoot the hook.</span>"
 
-/obj/item/gun/ballistic/shotgun/hook/afterattack_secondary(atom/target, mob/user, proximity_flag, click_parameters)
-	hook.afterattack(target, user, proximity_flag, click_parameters)
+/obj/item/gun/ballistic/shotgun/hook/ranged_attack_secondary(atom/target, mob/living/user, params)
+	hook.pull_trigger(target, user, params)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/gun/ballistic/shotgun/hook/pre_attack_secondary(atom/target, mob/living/user, params)
+	hook.pull_trigger(target, user, params)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Lever action shotgun, formerly on thefactory.dm

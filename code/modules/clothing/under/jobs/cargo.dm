@@ -91,6 +91,16 @@
 	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mailman"
 	item_state = "b_suit"
+	//clothing_traits = list(TRAIT_HATED_BY_DOGS)
+
+/obj/item/clothing/under/misc/mailman/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_ICLOTHING)
+		ADD_TRAIT(user, TRAIT_HATED_BY_DOGS, CLOTHING_TRAIT)
+
+/obj/item/clothing/under/misc/mailman/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_HATED_BY_DOGS, CLOTHING_TRAIT)
 
 /obj/item/clothing/under/misc/mailman/skirt
 	name = "mailman's jumpskirt"

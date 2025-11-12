@@ -556,6 +556,10 @@ h2.alert {
   color: hsl(0, 100%, 20%);
 }
 
+.good {
+  color: hsl(132, 79%, 20%);
+  font-weight: bold;
+}
 .userdanger {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
@@ -632,6 +636,18 @@ h2.alert {
   background-color: black;
   border: 2px solid rgb(240, 62, 225);
   border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+.prisoner_message {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  display: block;
+  color: #656062;
+  text-align: center;
+  background-color: #fff5ed;
+  border: 8px solid #9c958f;
+  border-radius: 0px;
   padding: 10px;
   margin: 10px 20px;
 }
@@ -1148,6 +1164,16 @@ h2.alert {
   padding: 0.5em 0.75em;
 }
 
+.emoji_button {
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: 0px 1px;
+  background: hsl(212, 45%, 25%);
+  border: 1px solid hsl(212, 37.6%, 100.9%);
+}
+
 //Job Colours
 //Make sure you add to replacementNodes in renderer.js
 // ----------
@@ -1585,11 +1611,17 @@ $border-width-px: $border-width * 1px;
   }
 
   .chat_alert_#{$color-name} .minor_announcement_text {
-    background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
+    background-color: lighten(
+      map.get($alert-stripe-alternate-colors, $color-name),
+      5
+    );
   }
 
   .chat_alert_#{$color-name} .major_announcement_text {
-    background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
+    background-color: lighten(
+      map.get($alert-stripe-alternate-colors, $color-name),
+      5
+    );
   }
 }
 

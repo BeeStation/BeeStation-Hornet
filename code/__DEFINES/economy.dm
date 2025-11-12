@@ -21,6 +21,21 @@
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
+/// NT's Tax rate - Currently applies to vending machine sales
+#define TAX_RATE 0.5
+
+/// Economy multiplier. This controls (or hopefully will control) the whole economy as a whole
+#define ECONOMY_MULTIPLIER 1	// Currently applies to automatic item pricing
+
+/// This markup is applied to vendor prices and vendor prices only (DOES NOT APPLY TO PREMIUM PRICE)
+#define PRICE_MARKUP 2
+
+/// Defines an Item that is contraband
+#define TRADE_CONTRABAND (1 << 0)
+/// Defines Items that can not be sold
+#define TRADE_NOT_SELLABLE (1 << 1)
+/// Defines items that, if unsold will be deleted instead of being returned
+#define TRADE_DELETE_UNSOLD (1 << 2)
 
 #define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
@@ -53,7 +68,6 @@
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
-#define NO_FREEBIES 0 // used for a vendor selling nothing for free
 #define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vendor items (i.e. HoP cartridge vendor)
 #define ACCOUNT_CIV_BITFLAG (1<<1)
 #define ACCOUNT_SRV_BITFLAG (1<<2)

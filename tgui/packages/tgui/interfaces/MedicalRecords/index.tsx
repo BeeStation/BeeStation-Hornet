@@ -1,6 +1,7 @@
-import { Window } from 'tgui/layouts';
 import { useBackend } from 'tgui/backend';
 import { Box, Button, Icon, NoticeBox, Stack } from 'tgui/components';
+import { Window } from 'tgui/layouts';
+
 import { MedicalRecordTabs } from './RecordTabs';
 import { MedicalRecordView } from './RecordView';
 import { MedicalRecordData } from './types';
@@ -12,7 +13,9 @@ export const MedicalRecords = (props) => {
   return (
     <Window title="Medical Records" width={750} height={550}>
       <Window.Content>
-        <Stack fill>{!authenticated ? <UnauthorizedView /> : <AuthView />}</Stack>
+        <Stack fill>
+          {!authenticated ? <UnauthorizedView /> : <AuthView />}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -47,7 +50,7 @@ const UnauthorizedView = (props) => {
 };
 
 const AuthView = (props) => {
-  const { act } = useBackend<MedicalRecordData>();
+  const { data, act } = useBackend<MedicalRecordData>();
 
   return (
     <>
@@ -59,14 +62,29 @@ const AuthView = (props) => {
           <Stack.Item grow>
             <MedicalRecordView />
           </Stack.Item>
-          <Stack.Item>
-            <NoticeBox align="right" info>
-              Secure Your Workspace.
-              <Button align="right" icon="lock" color="good" ml={2} onClick={() => act('logout')}>
-                Log Out
-              </Button>
-            </NoticeBox>
-          </Stack.Item>
+          {data.is_silicon ? (
+            <Stack.Item>
+              <NoticeBox danger>
+                For security reasons, silicons are not permitted to change
+                record data.
+              </NoticeBox>
+            </Stack.Item>
+          ) : (
+            <Stack.Item>
+              <NoticeBox align="right" info>
+                Secure Your Workspace.
+                <Button
+                  align="right"
+                  icon="lock"
+                  color="good"
+                  ml={2}
+                  onClick={() => act('logout')}
+                >
+                  Log Out
+                </Button>
+              </NoticeBox>
+            </Stack.Item>
+          )}
         </Stack>
       </Stack.Item>
     </>

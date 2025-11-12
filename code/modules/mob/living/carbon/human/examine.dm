@@ -61,11 +61,10 @@
 		if(!(I.item_flags & ABSTRACT) && !(I.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
 
-	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
 	//gloves
 	if(gloves && !(obscured & ITEM_SLOT_GLOVES) && !(gloves.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
-	else if(FR && length(FR.blood_DNA))
+	else if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 		if(num_hands)
 			. += span_warning("[t_He] [t_has] [num_hands > 1 ? "" : "a"] blood-stained hand[num_hands > 1 ? "s" : ""]!")
 
@@ -102,15 +101,6 @@
 	//Status effects
 	. += status_effect_examines()
 
-	//Jitters
-	switch(jitteriness)
-		if(300 to INFINITY)
-			. += span_warning("<B>[t_He] [t_is] convulsing violently!</B>")
-		if(200 to 300)
-			. += span_warning("[t_He] [t_is] extremely jittery.")
-		if(100 to 200)
-			. += span_warning("[t_He] [t_is] twitching ever so slightly.")
-
 	var/appears_dead = FALSE
 	var/just_sleeping = FALSE
 	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
@@ -122,8 +112,6 @@
 		if(!just_sleeping)
 			if(suiciding)
 				. += span_warning("[t_He] appear[p_s()] to have committed suicide... there is no hope of recovery.")
-			if(ishellbound())
-				. += span_warning("[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.")
 			. += ""
 			if(soul_departed())
 				. += span_deadsay("[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...")
@@ -210,7 +198,7 @@
 	else if (is_bandaged())
 		msg += "[src] is [bleed_msg], but it is covered.\n"
 
-	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
+	if(!(user == src && has_status_effect(/datum/status_effect/grouped/screwy_hud/fake_healthy))) //fake healthy
 		if(temp)
 			if(temp < 25)
 				msg += "[t_He] [t_has] minor [brute_msg].\n"

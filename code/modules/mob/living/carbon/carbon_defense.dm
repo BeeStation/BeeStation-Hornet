@@ -91,13 +91,13 @@
 				if(affecting.body_zone == BODY_ZONE_HEAD)
 					if(wear_mask)
 						wear_mask.add_mob_blood(src)
-						update_inv_wear_mask()
+						update_worn_mask()
 					if(wear_neck)
 						wear_neck.add_mob_blood(src)
-						update_inv_neck()
+						update_worn_neck()
 					if(head)
 						head.add_mob_blood(src)
-						update_inv_head()
+						update_worn_head()
 		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
@@ -320,14 +320,14 @@
 	if(should_stun)
 		Paralyze(40)
 	//Jitter and other fluff.
-	jitteriness += 1000
-	do_jitter_animation(jitteriness)
+	do_jitter_animation(300)
+	adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
 	stuttering += 2
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 20)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 2 SECONDS)
 	return shock_damage
 
+///Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(should_stun)
-	jitteriness = max(jitteriness - 990, 10)
 	if(should_stun)
 		Paralyze(60)
 
@@ -438,15 +438,15 @@
 		if (damage == 1)
 			to_chat(src, span_warning("Your eyes sting a little."))
 			if(prob(40))
-				eyes.applyOrganDamage(1)
+				eyes.apply_organ_damage(1)
 
 		else if (damage == 2)
 			to_chat(src, span_warning("Your eyes burn."))
-			eyes.applyOrganDamage(rand(2, 4))
+			eyes.apply_organ_damage(rand(2, 4))
 
 		else if( damage >= 3)
 			to_chat(src, span_warning("Your eyes itch and burn severely!"))
-			eyes.applyOrganDamage(rand(12, 16))
+			eyes.apply_organ_damage(rand(12, 16))
 
 		if(eyes.damage > 10)
 			adjust_blindness(damage)
@@ -461,7 +461,7 @@
 				else if(prob(eyes.damage - 25))
 					if(!is_blind())
 						to_chat(src, span_warning("You can't see anything!"))
-					eyes.applyOrganDamage(eyes.maxHealth)
+					eyes.apply_organ_damage(eyes.maxHealth)
 
 			else
 				to_chat(src, span_warning("Your eyes are really starting to hurt. This can't be good for you!"))

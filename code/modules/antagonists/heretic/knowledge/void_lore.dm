@@ -232,7 +232,7 @@
 		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 	route = HERETIC_PATH_VOID
-	announcement_text = "The nobleman of void %USER% has arrived, step along to the Waltz that ends worlds!"
+	announcement_text = "The nobleman of void %USER% has arrived, stepping along to the Waltz that ends worlds!"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop

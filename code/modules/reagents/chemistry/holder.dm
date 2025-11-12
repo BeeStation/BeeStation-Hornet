@@ -392,31 +392,32 @@
 			owner = R.holder.my_atom
 
 		if(owner && R)
-			if(owner.reagent_check(R, delta_time, times_fired) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
-				if(liverless && !R.self_consuming) //need to be metabolized
-					continue
-				if(!R.metabolizing)
-					R.metabolizing = TRUE
-					R.on_mob_metabolize(owner)
-				if(can_overdose)
-					if(R.overdose_threshold)
-						if(R.volume >= R.overdose_threshold && !R.overdosed)
-							R.overdosed = TRUE
-							need_mob_update += R.overdose_start(owner)
-							log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
-					if(R.addiction_threshold)
-						if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
-							var/datum/reagent/new_reagent = new R.type()
-							cached_addictions.Add(new_reagent)
-							log_game("[key_name(owner)] has become addicted to [R.name] at [R.volume] units.")
-					if(R.overdosed)
-						need_mob_update += R.overdose_process(owner, delta_time, times_fired)
-					if(is_type_in_list(R,cached_addictions))
-						for(var/addiction in cached_addictions)
-							var/datum/reagent/A = addiction
-							if(istype(R, A))
-								A.addiction_stage = -15 // you're satisfied for a good while.
-				need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
+			if(owner.reagent_check(R, delta_time, times_fired)) //Most relevant to Humans, this handles species-specific chem interactions.
+				return
+			if(liverless && !R.self_consuming) //need to be metabolized
+				continue
+			if(!R.metabolizing)
+				R.metabolizing = TRUE
+				R.on_mob_metabolize(owner)
+			if(can_overdose)
+				if(R.overdose_threshold)
+					if(R.volume >= R.overdose_threshold && !R.overdosed)
+						R.overdosed = TRUE
+						need_mob_update += R.overdose_start(owner)
+						log_game("[key_name(owner)] has started overdosing on [R.name] at [R.volume] units.")
+				if(R.addiction_threshold)
+					if(R.volume >= R.addiction_threshold && !is_type_in_list(R, cached_addictions))
+						var/datum/reagent/new_reagent = new R.type()
+						cached_addictions.Add(new_reagent)
+						log_game("[key_name(owner)] has become addicted to [R.name] at [R.volume] units.")
+				if(R.overdosed)
+					need_mob_update += R.overdose_process(owner, delta_time, times_fired)
+				if(is_type_in_list(R,cached_addictions))
+					for(var/addiction in cached_addictions)
+						var/datum/reagent/A = addiction
+						if(istype(R, A))
+							A.addiction_stage = -15 // you're satisfied for a good while.
+			need_mob_update += R.on_mob_life(owner, delta_time, times_fired)
 
 	if(can_overdose)
 		if(addiction_tick == 6)
@@ -1095,7 +1096,7 @@
 	return english_list(out, "something indescribable")
 
 /// Applies heat to this holder
-/datum/reagents/proc/expose_temperature(var/temperature, var/coeff=0.02)
+/datum/reagents/proc/expose_temperature(temperature, coeff=0.02)
 	var/temp_delta = (temperature - chem_temp) * coeff
 	if(temp_delta > 0)
 		chem_temp = min(chem_temp + max(temp_delta, 1), temperature)
@@ -1146,7 +1147,7 @@
 		3. add the new static variable to the 'random_reagent' list
 			then done! (of course, don't forget to turn on the new flag at each desired reagent)
 */
-/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
+/proc/get_random_reagent_id(flag_check, blacklist_flag = NONE, union = TRUE, return_as_list = FALSE)
 
 
 	// ----below is a section you might want to edit for more chem RNGs----

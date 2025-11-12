@@ -1,4 +1,5 @@
 import { sortBy } from 'common/collections';
+
 import { useLocalState } from '../../backend';
 import { Button, Flex, Grid, Section, Tabs } from '../../components';
 
@@ -18,10 +19,26 @@ const diffMap = {
 };
 
 export const AccessList = (props) => {
-  const { accesses = [], selectedList = [], accessMod, grantAll, denyAll, grantDep, denyDep } = props;
-  const [selectedAccessName, setSelectedAccessName] = useLocalState('accessName', accesses[0]?.name);
-  const selectedAccess = accesses.find((access) => access.name === selectedAccessName);
-  const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], (entry) => entry.desc);
+  const {
+    accesses = [],
+    selectedList = [],
+    accessMod,
+    grantAll,
+    denyAll,
+    grantDep,
+    denyDep,
+  } = props;
+  const [selectedAccessName, setSelectedAccessName] = useLocalState(
+    'accessName',
+    accesses[0]?.name,
+  );
+  const selectedAccess = accesses.find(
+    (access) => access.name === selectedAccessName,
+  );
+  const selectedAccessEntries = sortBy(
+    selectedAccess?.accesses || [],
+    (entry) => entry.desc,
+  );
 
   const checkAccessIcon = (accesses) => {
     let oneAccess = false;
@@ -47,10 +64,21 @@ export const AccessList = (props) => {
       title="Access"
       buttons={
         <>
-          <Button icon="check-double" content="Grant All" color="good" onClick={() => grantAll()} />
-          <Button icon="undo" content="Deny All" color="bad" onClick={() => denyAll()} />
+          <Button
+            icon="check-double"
+            content="Grant All"
+            color="good"
+            onClick={() => grantAll()}
+          />
+          <Button
+            icon="undo"
+            content="Deny All"
+            color="bad"
+            onClick={() => denyAll()}
+          />
         </>
-      }>
+      }
+    >
       <Flex>
         <Flex.Item>
           <Tabs vertical>
@@ -65,7 +93,8 @@ export const AccessList = (props) => {
                   color={color}
                   icon={icon}
                   selected={access.name === selectedAccessName}
-                  onClick={() => setSelectedAccessName(access.name)}>
+                  onClick={() => setSelectedAccessName(access.name)}
+                >
                   {access.name}
                 </Tabs.Tab>
               );
@@ -75,10 +104,22 @@ export const AccessList = (props) => {
         <Flex.Item grow={1}>
           <Grid>
             <Grid.Column mr={0}>
-              <Button fluid icon="check" content="Grant Region" color="good" onClick={() => grantDep(selectedAccess.regid)} />
+              <Button
+                fluid
+                icon="check"
+                content="Grant Region"
+                color="good"
+                onClick={() => grantDep(selectedAccess.regid)}
+              />
             </Grid.Column>
             <Grid.Column ml={0}>
-              <Button fluid icon="times" content="Deny Region" color="bad" onClick={() => denyDep(selectedAccess.regid)} />
+              <Button
+                fluid
+                icon="times"
+                content="Deny Region"
+                color="bad"
+                onClick={() => denyDep(selectedAccess.regid)}
+              />
             </Grid.Column>
           </Grid>
           {selectedAccessEntries.map((entry) => (

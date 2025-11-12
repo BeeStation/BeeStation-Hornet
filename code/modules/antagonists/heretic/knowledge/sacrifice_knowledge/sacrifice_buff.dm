@@ -46,9 +46,9 @@
 		healing_amount *= -0.5
 
 	if(owner.health > owner.crit_threshold && prob(4))
-		owner.Jitter(10)
+		owner.set_jitter_if_lower(20 SECONDS)
 		owner.Dizzy(5)
-		owner.hallucination = min(owner.hallucination + 3, 24)
+		owner.adjust_hallucinations_up_to(6 SECONDS, 48 SECONDS)
 
 	if(prob(2))
 		playsound(owner, pick(GLOB.creepy_ambience), 50, TRUE)

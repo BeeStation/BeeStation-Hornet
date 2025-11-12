@@ -14,7 +14,7 @@
 		/obj/item/toy/sword = 10,
 		/obj/item/ammo_box/foambox = 20,
 		/obj/item/toy/foamblade = 10,
-		/obj/item/toy/syndicateballoon = 10,
+		/obj/item/toy/balloon/syndicate = 10,
 		/obj/item/clothing/suit/syndicatefake = 5,
 		/obj/item/clothing/head/syndicatefake = 5,
 		/obj/item/storage/backpack/syndiassault_borg_bag = 2,
@@ -32,7 +32,6 @@
 	refill_canister = /obj/item/vending_refill/donksoft
 	default_price = 75
 	extra_price = 300
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /datum/armor/vending_donksofttoyvendor
 	melee = 100

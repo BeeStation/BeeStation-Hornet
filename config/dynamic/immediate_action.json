@@ -1,0 +1,85 @@
+{
+	"Name": "Immediate Action",
+	"Description": "Focuses on more roundstart antagonists and less midrounds with high intensity gamemodes included",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 1,
+		"roundstart_divergence_percent_upper": 1,
+		"roundstart_points_per_ready": 1.4,
+		"roundstart_points_per_unready": 0.5,
+		"midround_grace_period": 12000,
+		"midround_linear_delta": 0.6,
+		"midround_linear_delta_forced": 0.15,
+		"midround_living_delta": 0.15,
+        "midround_observer_delta": 0,
+        "midround_dead_delta": -0.8,
+		"latejoin_ruleset_probability": 10,
+		"latejoin_max_rulesets": 1,
+		"midround_light_end_time": 22000,
+		"midround_medium_end_time": 60000,
+		"midround_medium_increase_ratio": 1,
+		"midround_points_per_antag": {
+			"/datum/antagonist/ert": 0.2,
+			"/datum/antagonist/spider": -0.15,
+			"/datum/antagonist/swarmer": -0.15,
+			"/datum/antagonist/xeno": -0.2,
+			"/datum/antagonist/revenant": -0.6,
+			"/datum/antagonist/ninja": -1.1,
+			"/datum/antagonist/space_dragon": -2.5,
+			"/datum/antagonist/wizard": -2.5,
+			"/datum/antagonist/slaughter": -4,
+			"/datum/antagonist/blob": -4,
+			"/datum/antagonist/morph": -0.3,
+			"/datum/antagonist/pirate": -0.5,
+			"/datum/antagonist/pirate/captain": -0.5,
+			"/datum/antagonist/malf_ai": -0.6,
+			"/datum/antagonist/traitor": -0.2,
+			"/datum/antagonist/heretic": -0.2,
+			"/datum/antagonist/brother": -0.1,
+			"/datum/antagonist/changeling": -0.2,
+			"/datum/antagonist/abductor": -0.3,
+			"/datum/antagonist/abductor/agent": -0.3,
+			"/datum/antagonist/abductor/scientist": -0.3,
+			"/datum/antagonist/abductor/scientist/solo": -0.3,
+			"/datum/antagonist/nightmare": -0.4
+		}
+	},
+	"Roundstart": {
+		"Traitor": {
+			"points_cost": 4,
+			"weight": 10,
+			"restricted_roles": [
+				"Cyborg",
+				"AI"
+			]
+		},
+		"Revolution": {
+			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
+		},
+		"Blood Cult": {
+			"minimum_players_required": 24,
+			"weight": 4
+		},
+		"Nuclear Operatives": {
+			"minimum_players_required": 24,
+			"weight": 4
+		},
+		"Changeling": {
+			"points_cost": 5
+		},
+		"Vampire": {
+			"points_cost": 7
+		},
+		"Heretic": {
+			"points_cost": 7
+		}
+	},
+	"Midround": {
+        "Value Drifted AI": {
+            "weight": 7,
+            "minimum_players_required": 24
+        }
+    }
+}

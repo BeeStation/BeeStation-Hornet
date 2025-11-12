@@ -18,7 +18,7 @@
 	user.visible_message(span_suicide("[user] jams [src] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.adjust_blurriness(6)
 	if(eyes)
-		eyes.applyOrganDamage(rand(6,8))
+		eyes.apply_organ_damage(rand(6,8))
 	sleep(10)
 	return BRUTELOSS
 
@@ -71,6 +71,6 @@
 			return
 		visible_message(span_danger("\The [src] hits [H] in the eye!"))
 		H.adjust_blurriness(6)
-		eyes.applyOrganDamage(rand(6,8))
+		eyes.apply_organ_damage(rand(6,8))
 		H.Paralyze(40)
 		H.emote("scream")

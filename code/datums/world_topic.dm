@@ -222,7 +222,7 @@
 	. = ..()
 	data = list()
 	data["version"] = GLOB.game_version
-	data["respawn"] = config ? !CONFIG_GET(flag/norespawn) : FALSE
+	data["respawn"] = config ? !!CONFIG_GET(flag/allow_respawn) : FALSE // show respawn as true regardless of "respawn as char" or "free respawn"
 	data["enter"] = GLOB.enter_allowed
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
@@ -238,7 +238,7 @@
 	data["admins"] = presentmins.len + afkmins.len //equivalent to the info gotten from adminwho
 	data["gamestate"] = SSticker.current_state
 
-	data["map_name"] = SSmapping.config?.map_name || "Loading..."
+	data["map_name"] = SSmapping.current_map?.map_name || "Loading..."
 
 	data["security_level"] = SSsecurity_level.get_current_level_as_text()
 	data["round_duration"] = SSticker?.round_start_timeofday ? round((world.timeofday - SSticker.round_start_timeofday)/10) : 0

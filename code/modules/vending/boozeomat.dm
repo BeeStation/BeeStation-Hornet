@@ -75,7 +75,6 @@
 	refill_canister = /obj/item/vending_refill/boozeomat
 	default_price = 20
 	extra_price = 50
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_mask = "boozeomat-light-mask"
 
 /obj/machinery/vending/boozeomat/all_access

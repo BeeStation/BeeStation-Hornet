@@ -146,6 +146,11 @@ jobs:
         with:
           path: ~/BYOND
           key: ${{ runner.os }}-byond-${{ hashFiles('dependencies.sh') }}
+      - name: Install curl
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install -o APT::Immediate-Configure=false curl:i386
       - name: Compile All Maps
         run: |
           bash tools/ci/install_byond.sh

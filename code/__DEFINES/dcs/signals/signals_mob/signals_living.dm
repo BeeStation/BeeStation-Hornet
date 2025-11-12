@@ -13,8 +13,6 @@
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
-///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
-#define COMSIG_LIVING_REGENERATE_LIMBS "living_regen_limbs"
 ///from base of mob/living/set_buckled(): (new_buckled)
 #define COMSIG_LIVING_SET_BUCKLED "living_set_buckled"
 ///from base of mob/living/set_body_position()
@@ -34,6 +32,10 @@
 ///from base of mob/living/gib(): (no_brain, no_organs, no_bodyparts)
 ///Note that it is fired regardless of whether the mob was dead beforehand or not.
 #define COMSIG_LIVING_GIBBED "living_gibbed"
+
+/// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
+/// Consumers are allowed to mutate the scan_results list to add extra information
+#define COMSIG_LIVING_HEALTHSCAN "living_healthscan"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
@@ -63,6 +65,9 @@
 ///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)		//For all of them
+///from end of fully_heal(): (heal_flags)
+#define COMSIG_LIVING_POST_FULLY_HEAL "living_post_fully_heal"
+
 #define COMSIG_LIVING_STATUS_STAGGERED "living_staggered"		///from base of mob/living/Stagger() (amount, ignore_canstun)
 
 #define COMSIG_LIVING_ENTER_STASIS	"living_enter_stasis"		//! sent when a mob is put into stasis.
@@ -115,3 +120,7 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_PRE_MOB_CHANGED_TYPE "mob_changed_type"
 	#define COMPONENT_BLOCK_MOB_CHANGE (1<<0)
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"

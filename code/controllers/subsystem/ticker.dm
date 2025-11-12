@@ -3,50 +3,71 @@ GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
-	init_order = INIT_ORDER_TICKER
-
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 
-	var/current_state = GAME_STATE_STARTUP	//state of current round (used by process()) Use the defines GAME_STATE_* !
-	var/force_ending = 0					//Round was ended by admin intervention
-	// If true, there is no lobby phase, the game starts immediately.
+	/// State of current round (used by process()) Use the defines GAME_STATE_* !
+	var/current_state = GAME_STATE_STARTUP
+	/// Boolean to track if round should be forcibly ended next ticker tick.
+	/// Set by admin intervention ([ADMIN_FORCE_END_ROUND])
+	/// or a "round-ending" event, like summoning Nar'Sie, a blob victory, the nuke going off, etc. ([FORCE_END_ROUND])
+	var/force_ending = END_ROUND_AS_NORMAL
+	/// If TRUE, there is no lobby phase, the game starts immediately.
 	var/start_immediately = FALSE
-	var/setup_done = FALSE //All game setup done including mode post setup and
+	/// Boolean to track and check if our subsystem setup is done.
+	var/setup_done = FALSE
 
-	var/login_music							//music played in pregame lobby
-	var/round_end_sound						//music/jingle played when the world reboots
-	var/round_end_sound_sent = TRUE			//If all clients have loaded it
+	/// Music played in pre-game lobby
+	var/login_music
+	/// Music/jingle played when the world reboots
+	var/round_end_sound
+	/// If all clients have loaded it
+	var/round_end_sound_sent = TRUE
 
-	var/list/datum/mind/minds = list()		//The characters in the game. Used for objective tracking.
+	/// The characters in the game. Used for objective tracking.
+	var/list/datum/mind/minds = list()
 
-	var/delay_end = 0						//if set true, the round will not restart on it's own
-	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
-	var/ready_for_reboot = FALSE			//all roundend preparation done with, all that's left is reboot
+	/// If set TRUE, the round will not restart on it's own
+	var/delay_end = FALSE
+	/// A message to display to anyone who tries to restart the world after a delay
+	var/admin_delay_notice = ""
+	/// All roundend preparation done with, all that's left is reboot
+	var/ready_for_reboot = FALSE
 
-	var/triai = 0							//Global holder for Triumvirate
-	var/tipped = 0							//Did we broadcast the tip of the day yet?
-	var/selected_tip						// What will be the tip of the day?
+	/// Global holder for Triumvirate
+	var/triai = 0
+	/// Did we broadcast the tip of the day yet?
+	var/tipped = FALSE
+	/// What will be the tip of the day?
+	var/selected_tip
 
-	var/timeLeft						//pregame timer
+	/// Have we sent out the pre-game vote for the dynamic storyteller?
+	var/sent_storyteller_vote = FALSE
+
+	/// Pre-game timer
+	var/timeLeft
 	var/start_at
 
-	var/gametime_offset = 432000		//Deciseconds to add to world.time for station time.
-	var/station_time_rate_multiplier = 12		//factor of station time progressal vs real time.
+	/// Deciseconds to add to world.time for station time.
+	var/gametime_offset = 12 HOURS
+	/// Factor of station time progressal vs real time.
+	var/station_time_rate_multiplier = 12
 
-	var/totalPlayers = 0					//used for pregame stats on statpanel
-	var/totalPlayersReady = 0				//used for pregame stats on statpanel
-	var/totalPlayersPreAuth = 0				//used for pregame stats on statpanel
+	/// Used for pregame stats on statpanel
+	var/totalPlayers = 0
+	var/totalPlayersReady = 0
+	var/totalPlayersPreAuth = 0
 
+	/// Used for join queues when the server exceeds the hard population cap
 	var/queue_delay = 0
-	var/list/queued_players = list()		//used for join queues when the server exceeds the hard population cap
+	var/list/queued_players = list()
 
-	var/maprotatechecked = 0
-
+	/// The message sent to other servers when the round ends, if any
 	var/news_report
 
-	var/late_join_disabled
+	/// Set to TRUE to disable latejoining
+	var/late_join_disabled = FALSE
 
 	var/roundend_check_paused = FALSE
 
@@ -83,12 +104,12 @@ SUBSYSTEM_DEF(ticker)
 		switch(L.len)
 			if(3) //rare+MAP+sound.ogg or MAP+rare.sound.ogg -- Rare Map-specific sounds
 				if(use_rare_music)
-					if(L[1] == "rare" && L[2] == SSmapping.config.map_name)
+					if(L[1] == "rare" && L[2] == SSmapping.current_map.map_name)
 						music += S
-					else if(L[2] == "rare" && L[1] == SSmapping.config.map_name)
+					else if(L[2] == "rare" && L[1] == SSmapping.current_map.map_name)
 						music += S
 			if(2) //rare+sound.ogg or MAP+sound.ogg -- Rare sounds or Map-specific sounds
-				if((use_rare_music && L[1] == "rare") || (L[1] == SSmapping.config.map_name))
+				if((use_rare_music && L[1] == "rare") || (L[1] == SSmapping.current_map.map_name))
 					music += S
 			if(1) //sound.ogg -- common sound
 				if(L[1] == "exclude")
@@ -141,12 +162,10 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/fire()
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
-			if(Master.initializations_finished_with_no_players_logged_in)
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 			for(var/client/C in GLOB.clients_unsafe)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
-			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.config.map_name]!"), CONFIG_GET(string/chat_announce_new_game))
+			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.current_map.map_name]!"), CONFIG_GET(string/chat_announce_new_game))
 			current_state = GAME_STATE_PREGAME
 			//Everyone who wants to be an observer is now spawned
 			create_observers()
@@ -166,6 +185,11 @@ SUBSYSTEM_DEF(ticker)
 				if(player.ready == PLAYER_READY_TO_PLAY)
 					++totalPlayersReady
 
+			// If there are no players, stay in the lobby until someone joins
+			// and give enough time for them to do the storyteller vote
+			if ((totalPlayers - totalPlayersPreAuth) == 0)
+				timeLeft = min(timeLeft, 120 SECONDS)
+
 			if(start_immediately)
 				timeLeft = 0
 
@@ -174,7 +198,11 @@ SUBSYSTEM_DEF(ticker)
 				return
 			timeLeft -= wait
 
-			if(timeLeft <= 300 && !tipped)
+			if(timeLeft >= 60 SECONDS && timeLeft <= 90 SECONDS && !sent_storyteller_vote)
+				INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/storyteller_vote, "Dynamic", null, TRUE)
+				sent_storyteller_vote = TRUE
+
+			if(timeLeft <= 30 SECONDS && !tipped)
 				send_tip_of_the_round()
 				tipped = TRUE
 
@@ -195,7 +223,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			SSdynamic.process_rulesets()
 			check_queue()
-			check_maprotate()
+			check_respawn_availabilities()
 
 			if(!roundend_check_paused && (check_finished() || force_ending))
 				current_state = GAME_STATE_FINISHED
@@ -250,6 +278,8 @@ SUBSYSTEM_DEF(ticker)
 
 	transfer_characters()	//transfer keys to the new mobs
 
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING)
+
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
 	round_start_timeofday = world.timeofday
@@ -301,7 +331,7 @@ SUBSYSTEM_DEF(ticker)
 	set waitfor = FALSE
 
 	// Execute dynamic rulesets
-	SSdynamic.post_setup()
+	SSdynamic.execute_roundstart_rulesets()
 
 	// Send roundstart report
 	SScommunications.queue_roundstart_report()
@@ -483,20 +513,23 @@ SUBSYSTEM_DEF(ticker)
 			queued_players -= next_in_line
 			queue_delay = 0
 
-/datum/controller/subsystem/ticker/proc/check_maprotate()
-	if (!CONFIG_GET(flag/maprotation))
-		return
-	if (SSshuttle.emergency && SSshuttle.emergency.mode != SHUTTLE_ESCAPE || SSshuttle.canRecall())
-		return
-	if (maprotatechecked)
-		return
+/datum/controller/subsystem/ticker/proc/check_respawn_availabilities()
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(observer.check_respawn_delay() && !observer.respawn_notified)
+			observer.respawn_notified = TRUE
+			observer.respawn_available = TRUE
 
-	maprotatechecked = 1
+			//Get, update, and animate their hud
+			var/datum/hud/ghost/jesus = observer.hud_used
+			for(var/atom/movable/screen/ghost/respawn/respawnbutton in jesus.static_inventory)
+				//we use update here because of vibes
+				respawnbutton.update_icon_state(observer)
+				animate(respawnbutton, 150, 1, icon_state = "respawn_blinky")
+				animate(icon_state = "respawn_available")
 
-	//map rotate chance defaults to 75% of the length of the round (in minutes)
-	if (!prob((world.time/600)*CONFIG_GET(number/maprotatechancedelta)))
-		return
-	INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, maprotate))
+			//Draw their attention
+			SEND_SOUND(observer, sound('sound/misc/compiler-stage2.ogg'))
+			to_chat(observer, span_bigboldinfo("Your respawn is now available! You may respawn at any time using the gold-outlined button on your ghost hud."))
 
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
@@ -527,13 +560,11 @@ SUBSYSTEM_DEF(ticker)
 
 	queue_delay = SSticker.queue_delay
 	queued_players = SSticker.queued_players
-	maprotatechecked = SSticker.maprotatechecked
 	round_start_time = SSticker.round_start_time
 	round_start_timeofday = SSticker.round_start_timeofday
 
 	queue_delay = SSticker.queue_delay
 	queued_players = SSticker.queued_players
-	maprotatechecked = SSticker.maprotatechecked
 
 	if (Master) //Set Masters run level if it exists
 		switch (current_state)

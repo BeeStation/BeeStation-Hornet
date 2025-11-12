@@ -1,7 +1,6 @@
 /obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
-	custom_price = 10
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
@@ -17,6 +16,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	custom_price = 15
 	/// The sound the light makes when it's turned on
 	var/sound_on = 'sound/items/flashlight_on.ogg'
 	/// The sound the light makes when it's turned off
@@ -225,6 +225,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+	custom_price = 45
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp
@@ -286,6 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
+	custom_price = 10
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()

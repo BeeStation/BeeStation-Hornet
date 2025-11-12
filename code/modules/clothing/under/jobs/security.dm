@@ -16,6 +16,7 @@
 	strip_delay = 50
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	custom_price = 50
 
 
 /datum/armor/rank_security
@@ -76,6 +77,7 @@
 	icon_state = "blueshift"
 	item_state = null
 	can_adjust = FALSE
+	custom_price = 110
 
 /obj/item/clothing/under/rank/security/officer/formal
 	name = "security officer's formal uniform"
@@ -319,3 +321,8 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+
+/obj/item/clothing/under/rank/prisoner/lowsec
+	name = "low-security prison jumpsuit"
+	desc = "It's standardised Nanotrasen low-security prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
+	greyscale_colors = "#517a9b"

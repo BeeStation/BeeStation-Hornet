@@ -20,6 +20,7 @@
 	throwforce = 1 // if someone manages to bust out of jail with candy corn god bless them
 	tastes = list("bitter wax" = 1)
 	foodtypes = JUNKFOOD | GROSS
+	trade_flags = TRADE_NOT_SELLABLE
 
 /obj/item/food/candiedapple
 	name = "candied apple"
@@ -187,7 +188,7 @@
 	)
 	tastes = list("gummy death")
 
-/obj/item/food/gumball/syndicate/ComponentInitialize()
+/obj/item/food/gumball/syndicate/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 0.5 SECONDS, NO_SLIP_WHEN_WALKING)
 
@@ -354,6 +355,7 @@
 	foodtypes = JUNKFOOD | SUGAR
 	food_flags = FOOD_FINGER_FOOD
 	crafting_complexity = FOOD_COMPLEXITY_1
+	custom_price = 30
 
 /obj/item/food/rock_candy
 	name = "Rock candy"

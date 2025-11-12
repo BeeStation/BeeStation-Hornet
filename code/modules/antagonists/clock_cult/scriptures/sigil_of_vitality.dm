@@ -49,7 +49,7 @@
 			var/damage_healed = 20 + ((M.maxHealth - M.health) * 0.6)
 			if(GLOB.clockcult_vitality >= damage_healed)
 				GLOB.clockcult_vitality -= damage_healed
-				M.revive(TRUE, TRUE)
+				M.revive(HEAL_ALL)
 				if(M.mind)
 					M.mind.grab_ghost(TRUE)
 				else

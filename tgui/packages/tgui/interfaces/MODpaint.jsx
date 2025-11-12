@@ -1,22 +1,46 @@
-import { useBackend } from '../backend';
-import { Box, Stack, Section, ByondUi, Slider, Flex, Button } from '../components';
-import { Window } from '../layouts';
 import { capitalize } from 'common/string';
+
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  ByondUi,
+  Flex,
+  Section,
+  Slider,
+  Stack,
+} from '../components';
+import { Window } from '../layouts';
 
 const colorToMatrix = (param) => {
   switch (param) {
     case 'red':
-      return [1, 0, 0, 0, 0.25, 0.5, 0, 0, 0.25, 0, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+      return [
+        1, 0, 0, 0, 0.25, 0.5, 0, 0, 0.25, 0, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+      ];
     case 'yellow':
-      return [0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0.25, 0.25, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+      return [
+        0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0.25, 0.25, 0.5, 0, 0, 0, 0, 1, 0, 0, 0,
+        0,
+      ];
     case 'green':
-      return [0.5, 0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+      return [
+        0.5, 0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+      ];
     case 'teal':
-      return [0.25, 0.25, 0.25, 0, 0, 0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+      return [
+        0.25, 0.25, 0.25, 0, 0, 0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0, 0, 1, 0, 0,
+        0, 0,
+      ];
     case 'blue':
-      return [0.25, 0, 0.25, 0, 0, 0.5, 0.25, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+      return [
+        0.25, 0, 0.25, 0, 0, 0.5, 0.25, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+      ];
     case 'purple':
-      return [0.5, 0, 0.5, 0, 0.25, 0.5, 0.25, 0, 0.5, 0, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+      return [
+        0.5, 0, 0.5, 0, 0.25, 0.5, 0.25, 0, 0.5, 0, 0.5, 0, 0, 0, 0, 1, 0, 0, 0,
+        0,
+      ];
   }
 };
 
@@ -34,7 +58,13 @@ const displayText = (param) => {
 export const MODpaint = (props) => {
   const { act, data } = useBackend();
   const { mapRef, currentColor } = data;
-  const [[rr, rg, rb, ra], [gr, gg, gb, ga], [br, bg, bb, ba], [ar, ag, ab, aa], [cr, cg, cb, ca]] = currentColor;
+  const [
+    [rr, rg, rb, ra],
+    [gr, gg, gb, ga],
+    [br, bg, bb, ba],
+    [ar, ag, ab, aa],
+    [cr, cg, cb, ca],
+  ] = currentColor;
   const presets = ['red', 'yellow', 'green', 'teal', 'blue', 'purple'];
   const prefixes = ['r', 'g', 'b'];
   return (
@@ -43,7 +73,10 @@ export const MODpaint = (props) => {
         <Stack fill>
           <Stack.Item fill width="30%">
             {[0, 1, 2].map((row) => (
-              <Section key={row} title={`${displayText(prefixes[row])} turns to:`}>
+              <Section
+                key={row}
+                title={`${displayText(prefixes[row])} turns to:`}
+              >
                 {[0, 1, 2].map((col) => (
                   <Flex key={col}>
                     <Flex.Item align="left" width="30%">
@@ -84,7 +117,9 @@ export const MODpaint = (props) => {
                     color={preset}
                     tooltipPosition="top"
                     tooltip={capitalize(preset)}
-                    onClick={() => act('transition_color', { color: colorToMatrix(preset) })}
+                    onClick={() =>
+                      act('transition_color', { color: colorToMatrix(preset) })
+                    }
                   />
                 ))}
               </Box>

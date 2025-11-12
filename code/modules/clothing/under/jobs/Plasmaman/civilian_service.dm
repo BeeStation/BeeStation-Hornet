@@ -94,6 +94,7 @@
 	desc = "A flashy gold-trimmed envirosuit, complete with a suit jacket outerwear. This is a designer model, worth a few thousand credits."
 	icon_state = "gold_envirosuit"
 	item_state = "gold_envirosuit"
+	custom_price = 4500
 
 /obj/item/clothing/under/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit"
