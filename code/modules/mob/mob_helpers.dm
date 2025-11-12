@@ -437,7 +437,7 @@
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
 		question = poll_message,
 		check_jobban = ban_key,
-		poll_time = 10 SECONDS,
+		poll_time = 30 SECONDS,
 		jump_target = M,
 		alert_pic = M,
 	)
