@@ -82,17 +82,17 @@
 /datum/sm_delam/proc/effect_explosion(obj/machinery/power/supermatter_crystal/sm)
 	explosion(
 		epicenter = get_turf(sm),
-		devastation_range = calculate_explosion(sm) * 0.5, // max 17.5
-		heavy_impact_range = calculate_explosion(sm) + 2, // max 37
-		light_impact_range = calculate_explosion(sm) + 4, // max 39
-		flash_range = calculate_explosion(sm) + 6, //max 41
+		devastation_range = calculate_explosion(sm) * 0.5, // 17.5 at 75 MINUTES
+		heavy_impact_range = calculate_explosion(sm) + 2, // 37
+		light_impact_range = calculate_explosion(sm) + 4, // 39
+		flash_range = calculate_explosion(sm) + 6, // 41
 		adminlog = TRUE,
 		ignorecap = TRUE,
 	)
 	return TRUE
 
 /datum/sm_delam/proc/calculate_explosion(obj/machinery/power/supermatter_crystal/sm)
-	return sm.explosion_power * max(sm.gas_heat_power_generation, 0.205)
+	return sm.explosion_power * max(sm.gas_heat_power_generation, 0.205) * ((world.time - sm.activation_time) / (45 MINUTES)) //energy builds over time for explosions
 
 /// Spawns a scrung and eat the SM.
 /datum/sm_delam/proc/effect_singulo(obj/machinery/power/supermatter_crystal/sm)
