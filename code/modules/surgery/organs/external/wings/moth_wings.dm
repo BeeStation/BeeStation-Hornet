@@ -85,21 +85,6 @@
 
 	burn_datum = fetch_sprite_datum(burn_datum)
 
-/datum/bodypart_overlay/mutant/wings/moth/get_global_feature_list()
-	if(wings_open)
-		return SSaccessories.feature_list[FEATURE_MOTH_WINGS_OPEN]
-	return ..()
-
-/datum/bodypart_overlay/mutant/wings/moth/open_wings()
-	wings_open = TRUE
-	feature_key = FEATURE_MOTH_WINGS_OPEN
-	set_appearance_from_name(sprite_datum.name) //Look for the same name in the open wings list
-
-/datum/bodypart_overlay/mutant/wings/moth/close_wings()
-	wings_open = FALSE
-	feature_key = FEATURE_MOTH_WINGS
-	set_appearance_from_name(sprite_datum.name) //Look for the same name in the closed wings list
-
 /datum/bodypart_overlay/mutant/wings/moth/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner
 	if(!istype(human))
