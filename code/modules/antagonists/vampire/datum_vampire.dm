@@ -268,6 +268,9 @@
 	// Set name and reputation
 	select_first_name()
 
+	// Start society if we're the first vampire
+	check_start_society()
+
 	// Objectives
 	forge_objectives()
 
@@ -284,6 +287,7 @@
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
+	check_cancel_society()
 	owner.special_role = null
 	GLOB.all_vampires.Remove(src)
 	return ..()
