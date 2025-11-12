@@ -3,6 +3,8 @@
 	name = "moth wings"
 	desc = "Spread your wings and FLOOOOAAAAAT!"
 
+	preference = "feature_moth_wings"
+
 	dna_block = /datum/dna_block/feature/accessory/moth_wing
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings/moth

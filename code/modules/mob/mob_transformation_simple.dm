@@ -54,7 +54,7 @@
 		new_mob.updateappearance(icon_update = TRUE, mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 	else if(ishuman(desired_mob) && (!ismonkey(desired_mob)))
 		var/mob/living/carbon/human/new_human = desired_mob
-		client.prefs.safe_transfer_prefs_to(new_human)
+		client.prefs.apply_prefs_to(new_human, icon_updates = TRUE)
 		new_human.dna.update_dna_identity()
 		new_human.updateappearance(icon_update = TRUE, mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 

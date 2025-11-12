@@ -99,6 +99,7 @@
 	icon_state = "kitty"
 	visual = TRUE
 	bang_protect = -2
+	//preference = "feature_human_ears"
 
 	dna_block = /datum/dna_block/feature/accessory/ears
 
@@ -112,7 +113,7 @@
 
 	/// Layer upon which we add the inner ears overlay
 	var/inner_layer = EXTERNAL_FRONT
-
+	
 /datum/bodypart_overlay/mutant/cat_ears/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner
 	if(!istype(human))

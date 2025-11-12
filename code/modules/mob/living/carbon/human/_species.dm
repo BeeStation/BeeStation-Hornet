@@ -222,9 +222,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/selectable_species = list()
 
 	for(var/species_type in subtypesof(/datum/species))
-		var/datum/species/species = GLOB.species_prototypes[species_type]
+		var/datum/species/species = new species_type
 		if(species.check_roundstart_eligible())
 			selectable_species += species.id
+			qdel(species)
 
 	if(!selectable_species.len)
 		selectable_species += get_fallback_species_id()
@@ -447,7 +448,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	SHOULD_CALL_PARENT(TRUE)
 
 	C.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS //Don't call update_body_parts() for every single bodypart overlay added.
-
 	// Drop the items the new species can't wear
 	if(C.hud_used)
 		C.hud_used.update_locked_slots()
@@ -831,7 +831,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	var/list/new_features = list()
 	var/static/list/organs_to_randomize = list()
-	for(var/obj/item/organ/organ_path as anything in get_organs())
+	for(var/obj/item/organ/organ_path as anything in mutant_organs)
 		if(!organ_path.bodypart_overlay)
 			continue
 		var/overlay_path = initial(organ_path.bodypart_overlay)
@@ -840,7 +840,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			sample_overlay = new overlay_path()
 			organs_to_randomize[overlay_path] = sample_overlay
 
-		new_features["[sample_overlay.feature_key]"] = sample_overlay.get_random_appearance().name
+		new_features["[sample_overlay.feature_key]"] = pick(sample_overlay.get_global_feature_list())
 
 	return new_features
 
@@ -2000,18 +2000,23 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return cached_features
 
 	var/list/features = list()
-	var/list/mut_organs = get_organs()
 
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
+
 		if ( \
 			(preference.relevant_mutant_bodypart in mutant_bodyparts) \
 			|| (preference.relevant_inherent_trait in inherent_traits) \
-			|| (preference.relevant_organ in mut_organs) \
+			|| (preference.relevant_organ in mutant_organs) \
 			|| (preference.relevant_head_flag && check_head_flags(preference.relevant_head_flag)) \
 			|| (preference.relevant_body_markings in body_markings) \
 		)
 			features += preference.db_key
+
+	for (var/obj/item/organ/organ_type as anything in mutant_organs)
+		var/preference = initial(organ_type.preference)
+		if (!isnull(preference))
+			features += preference
 
 	GLOB.features_by_species[type] = features
 
@@ -2511,32 +2516,27 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/get_species_height()
 	return species_height
 
-/// Returns a list of all organ typepaths this species probably has
-/datum/species/proc/get_organs(include_brain = TRUE)
-	var/list/mut_organs = list()
-	mut_organs += mutant_organs
-	if (include_brain)
-		mut_organs += mutantbrain
-	mut_organs += mutantheart
-	mut_organs += mutantlungs
-	mut_organs += mutanteyes
-	mut_organs += mutantears
-	mut_organs += mutanttongue
-	mut_organs += mutantliver
-	mut_organs += mutantstomach
-	mut_organs += mutantappendix
-	list_clear_nulls(mut_organs)
-	return mut_organs
-
 /datum/species/proc/get_types_to_preload()
-	return get_organs(FALSE)
+	var/list/to_store = list()
+	to_store += mutant_organs
+	for(var/obj/item/organ/horny as anything in mutant_organs)
+		to_store += horny //Haha get it?
+
+	//Don't preload brains, cause reuse becomes a horrible headache
+	to_store += mutantheart
+	to_store += mutantlungs
+	to_store += mutanteyes
+	to_store += mutantears
+	to_store += mutanttongue
+	to_store += mutantliver
+	to_store += mutantstomach
+	to_store += mutantappendix
+	//We don't cache mutant hands because it's not constrained enough, too high a potential for failure
+	return to_store
 
 /// Creates body parts for the target completely from scratch based on the species
 /datum/species/proc/create_fresh_body(mob/living/carbon/target)
-	var/list/override_limbs = list()
-	for(var/bodypart in bodypart_overrides)
-		override_limbs += bodypart_overrides[bodypart]
-	target.create_bodyparts(override_limbs)
+	target.create_bodyparts(bodypart_overrides)
 
 /**
  * Checks if the species has a head with these head flags, by default.

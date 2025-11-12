@@ -7,6 +7,8 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	///The overlay datum that actually draws stuff on the limb
 	var/datum/bodypart_overlay/mutant/bodypart_overlay
 
+	/// The db_key of the preference this relates to. Used for the preferences UI.
+	var/preference
 	///With what DNA block do we mutate in mutate_feature() ? For genetics
 	var/datum/dna_block/dna_block
 
@@ -82,10 +84,10 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 	bodypart_overlay.set_appearance(typed_accessory)
 
-	if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person?
+	if(bodypart_owner) //are we in a limb?
+		bodypart_owner.update_icon_dropped()
+	else if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person?
 		owner.update_body_parts()
-	else
-		bodypart_owner?.update_icon_dropped() //are we in a limb?
 
 /obj/item/organ/update_overlays()
 	. = ..()
@@ -107,6 +109,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EXTERNAL_HORNS
 
+	preference = "feature_lizard_horns"
 	dna_block = /datum/dna_block/feature/accessory/horn
 	restyle_flags = EXTERNAL_RESTYLE_ENAMEL
 
@@ -135,6 +138,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EXTERNAL_FRILLS
 
+	preference = "feature_lizard_frills"
 	dna_block = /datum/dna_block/feature/accessory/frill
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 
@@ -163,6 +167,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EXTERNAL_SNOUT
 
+	preference = "feature_lizard_snout"
 	external_bodyshapes = BODYSHAPE_SNOUTED
 
 	dna_block = /datum/dna_block/feature/accessory/snout
@@ -193,6 +198,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	zone = BODY_ZONE_HEAD
 	slot = ORGAN_SLOT_EXTERNAL_ANTENNAE
 
+	preference = "feature_moth_antennae"
 	dna_block = /datum/dna_block/feature/accessory/moth_antenna
 	restyle_flags = EXTERNAL_RESTYLE_FLESH
 

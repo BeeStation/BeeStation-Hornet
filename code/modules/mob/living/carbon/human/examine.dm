@@ -127,11 +127,13 @@
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
 	var/list/msg = list("<span class='warning'>")
+	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/list/disabled = list()
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.bodypart_disabled)
 			disabled += BP
+		missing -= BP.body_zone
 		for(var/obj/item/I in BP.embedded_objects)
 			if(I.isEmbedHarmless())
 				msg += "<B>[t_He] [t_has] [icon2html(I, user)] \a [I] stuck to [t_his] [BP.name]!</B>\n"
@@ -154,7 +156,7 @@
 	//stores missing limbs
 	var/l_limbs_missing = 0
 	var/r_limbs_missing = 0
-	for(var/t in get_missing_limbs())
+	for(var/t in missing)
 		if(t==BODY_ZONE_HEAD)
 			msg += "<span class='deadsay'><B>[t_His] [parse_zone(t)] is missing!</B><span class='warning'>\n"
 			continue
