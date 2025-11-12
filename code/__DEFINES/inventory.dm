@@ -98,9 +98,9 @@
 
 
 //bitflags for clothing coverage - also used for limbs
-#define CHEST (1<<0)
-#define GROIN (1<<1)
-#define HEAD (1<<2)
+#define HEAD (1<<0)
+#define CHEST (1<<1)
+#define GROIN (1<<2)
 #define LEG_LEFT (1<<3)
 #define LEG_RIGHT (1<<4)
 #define LEGS (LEG_LEFT | LEG_RIGHT)

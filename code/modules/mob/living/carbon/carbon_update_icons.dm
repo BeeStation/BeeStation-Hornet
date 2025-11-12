@@ -1,3 +1,6 @@
+///The standard amount of bodyparts a carbon has. Currently 6, HEAD/L_ARM/R_ARM/CHEST/L_LEG/R_LEG
+#define BODYPARTS_DEFAULT_MAXIMUM 6
+
 /mob/living/carbon/update_obscured_slots(obscured_flags)
 	..()
 	if(obscured_flags & (HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT|HIDEMUTWINGS))
@@ -352,7 +355,7 @@
 	if(should_draw_greyscale && draw_color)
 		. += "-[draw_color]"
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
-		if(!overlay.can_draw_on_bodypart(src, owner))
+		if(!overlay.can_draw_on_bodypart(owner))
 			continue
 		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
 
@@ -411,10 +414,11 @@ GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
  *
  * Arguments:
  * * limb_overlay - The limb image being masked, not necessarily the original limb image as it could be an overlay on top of it
+ * * image_dir - Direction of the masked images.
  *
  * Returns the list of masked images, or `null` if the limb_overlay didn't exist
  */
-/obj/item/bodypart/leg/proc/generate_masked_leg(image/limb_overlay)
+/obj/item/bodypart/leg/proc/generate_masked_leg(mutable_appearance/limb_overlay, image_dir = NONE)
 	RETURN_TYPE(/list)
 	if(!limb_overlay)
 		return
@@ -440,12 +444,16 @@ GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
 	new_leg_icon_lower = GLOB.masked_leg_icons_cache[icon_cache_key][2]
 
 	//this could break layering in oddjob cases, but i'm sure it will work fine most of the time... right?
-	var/image/new_leg_appearance = new(limb_overlay)
+	var/mutable_appearance/new_leg_appearance = new(limb_overlay)
 	new_leg_appearance.icon = new_leg_icon
 	new_leg_appearance.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LAYER)
+	new_leg_appearance.dir = image_dir //for some reason, things do not work properly otherwise
 	. += new_leg_appearance
-	var/image/new_leg_appearance_lower = new(limb_overlay)
+	var/mutable_appearance/new_leg_appearance_lower = new(limb_overlay)
 	new_leg_appearance_lower.icon = new_leg_icon_lower
 	new_leg_appearance_lower.layer = CALCULATE_MOB_OVERLAY_LAYER(BODYPARTS_LOW_LAYER)
+	new_leg_appearance_lower.dir = image_dir
 	. += new_leg_appearance_lower
 	return .
+
+#undef BODYPARTS_DEFAULT_MAXIMUM

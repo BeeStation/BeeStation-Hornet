@@ -1002,9 +1002,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	for(var/obj/item/bodypart/bodypart_path as anything in bodyparts_paths)
 		var/real_body_part_path = overrides?[initial(bodypart_path.body_zone)] || bodypart_path
 		var/obj/item/bodypart/bodypart_instance = new real_body_part_path()
-		bodypart_instance.try_attach_limb(src, FALSE, TRUE)
-
-	bodyparts = sort_list(bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
+		add_bodypart(bodypart_instance)
 
 /// Called when a new hand is added
 /mob/living/carbon/proc/on_added_hand(obj/item/bodypart/arm/new_hand, hand_index)

@@ -222,13 +222,8 @@
 		return FALSE
 	return TRUE
 
-/*
- * Attach src to target mob if able, returns FALSE if it fails to.
- * Arguments:
- * special - The limb is being hotswapped or removed without side effects for some reason
- * lazy - The owner is currently initializing, so we don't need to call any update procs
- */
-/obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_limb_owner, special, lazy)
+///Attach src to target mob if able, returns FALSE if it fails to.
+/obj/item/bodypart/proc/try_attach_limb(mob/living/carbon/new_limb_owner, special)
 	if(!can_attach_limb(new_limb_owner, special))
 		return FALSE
 
@@ -236,43 +231,39 @@
 	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, new_limb_owner, special)
 	new_limb_owner.add_bodypart(src)
 
-	if(!lazy)
+	if(special) //non conventional limb attachment
+		for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
+			var/surgery_zone = check_zone(attach_surgery.location)
+			if(surgery_zone == body_zone)
+				new_limb_owner.surgeries -= attach_surgery
+				qdel(attach_surgery)
+				break
 
-		if(special) //non conventional limb attachment
-			for(var/datum/surgery/attach_surgery as anything in new_limb_owner.surgeries) //if we had an ongoing surgery to attach a new limb, we stop it.
-				var/surgery_zone = check_zone(attach_surgery.location)
-				if(surgery_zone == body_zone)
-					new_limb_owner.surgeries -= attach_surgery
-					qdel(attach_surgery)
-					break
-
-			for(var/obj/item/organ/organ as anything in new_limb_owner.organs)
-				if(deprecise_zone(organ.zone) != body_zone)
-					continue
-				organ.bodypart_insert(src)
+		for(var/obj/item/organ/organ as anything in new_limb_owner.organs)
+			if(deprecise_zone(organ.zone) != body_zone)
+				continue
+			organ.bodypart_insert(src)
 
 	update_bodypart_damage_state()
 	if(can_be_disabled)
 		update_disabled()
 
-	if(!lazy)
-		// Bodyparts need to be sorted for leg masking to be done properly. It also will allow for some predictable
-		// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
-		new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
-		new_limb_owner.updatehealth()
-		new_limb_owner.update_body()
-		new_limb_owner.update_damage_overlays()
-		//if(!special)
-		//	new_limb_owner.hud_used?.update_locked_slots()
-
-	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special, lazy)
+	// Bodyparts need to be sorted for leg masking to be done properly. It also will allow for some predictable
+	// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
+	new_limb_owner.bodyparts = sort_list(new_limb_owner.bodyparts, GLOBAL_PROC_REF(cmp_bodypart_by_body_part_asc))
+	new_limb_owner.updatehealth()
+	new_limb_owner.update_body()
+	new_limb_owner.update_damage_overlays()
+	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 	return TRUE
 
-/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special, lazy)
+/obj/item/bodypart/head/try_attach_limb(mob/living/carbon/new_head_owner, special = FALSE)
 	// These are stored before calling super. This is so that if the head is from a different body, it persists its appearance.
-	var/old_real_name = real_name
+	var/old_real_name = src.real_name
+
 	. = ..()
-	if(!. || lazy)
+
+	if(!.)
 		return
 
 	if(old_real_name)
@@ -302,10 +293,13 @@
 	new_head_owner.update_body()
 	new_head_owner.update_damage_overlays()
 
-/obj/item/bodypart/arm/try_attach_limb(mob/living/carbon/new_arm_owner, special, lazy)
+/obj/item/bodypart/arm/try_attach_limb(mob/living/carbon/new_arm_owner, special = FALSE)
 	. = ..()
-	if(. && !lazy)
-		new_arm_owner.update_worn_gloves() // To apply bloody hands overlay
+
+	if(!.)
+		return
+
+	new_arm_owner.update_worn_gloves() // To apply bloody hands overlay
 
 /mob/living/carbon/proc/regenerate_limbs(list/excluded_zones = list())
 	SEND_SIGNAL(src, COMSIG_CARBON_REGENERATE_LIMBS, excluded_zones)
