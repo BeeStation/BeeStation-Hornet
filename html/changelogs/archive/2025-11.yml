@@ -152,5 +152,7 @@
   - refactor: Subsystems use dynamically generated init orders now instead of a previously
       hard-coded list
 2025-11-12:
+  TsunamiAnt:
+  - tweak: tweaked the french accent a bit
   mrmanlikesbt:
   - bugfix: Fixed non-standard heretic races not being able to sacrifice their targets
