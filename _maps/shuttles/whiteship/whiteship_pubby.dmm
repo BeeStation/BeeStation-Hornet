@@ -115,9 +115,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "cx" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -255,10 +253,8 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/shuttle/abandoned)
 "gP" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/table/glass,
 /obj/item/clothing/shoes/magboots,
 /turf/open/floor/plating/abductor,
@@ -291,9 +287,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "iB" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/machinery/light/broken/directional/north,
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
@@ -333,18 +327,14 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "iL" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/north,
+/obj/structure/window/reinforced/tinted/spawner/directional/east,
 /obj/structure/table/glass,
 /obj/machinery/recharger,
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "ji" = (
-/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
 /obj/machinery/light/blacklight/directional/south,
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/abductor2,
@@ -451,10 +441,8 @@
 /turf/open/floor/plating/abductor2,
 /area/shuttle/abandoned)
 "oU" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
+/obj/structure/window/reinforced/tinted/spawner/directional/south,
 /obj/structure/table/glass,
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/breath,
@@ -599,9 +587,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "uc" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -837,12 +823,8 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "Er" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/tinted/spawner/directional/north,
+/obj/structure/window/reinforced/tinted/spawner/directional/west,
 /obj/structure/table/glass,
 /obj/item/gun/medbeam,
 /turf/open/floor/plating/abductor,
@@ -1276,7 +1258,7 @@
 /turf/open/floor/iron,
 /area/shuttle/abandoned)
 "RQ" = (
-/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod/spawner/directional/south,
 /mob/living/simple_animal/hostile/psycho/fast,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -1357,9 +1339,7 @@
 /area/shuttle/abandoned)
 "Vd" = (
 /mob/living/simple_animal/hostile/breadloaf/slice,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
