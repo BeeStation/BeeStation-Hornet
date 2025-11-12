@@ -139,8 +139,9 @@
 		RemoveBloodVolume(bloodcost)
 		return TRUE
 
-	// Revive them if dead and there is no damage left to heal
-	if(carbon_owner.stat == DEAD)
+	// Revive them if dead and there is no damage left to heal, just in case we are not in torpor because of some wackyness.
+	// Note this doesn't revive when staked.
+	if(carbon_owner.stat == DEAD && !in_torpor)
 		heal_vampire_organs()
 		return TRUE
 

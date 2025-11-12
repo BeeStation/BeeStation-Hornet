@@ -147,7 +147,7 @@
 
 // GENERATE!
 /datum/objective/vampire/gourmand/New()
-	target_amount = rand(450,650)
+	target_amount = rand(3000, 4000)
 	return ..()
 
 // EXPLANATION
