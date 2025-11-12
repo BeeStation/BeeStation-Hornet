@@ -91,7 +91,7 @@
 	role_preference = /datum/role_preference/roundstart/vampire
 	antag_datum = /datum/antagonist/vampire
 	weight = 4
-	points_cost = 9
+	points_cost = 8
 	minimum_players_required = 10
 	elasticity = 100
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
