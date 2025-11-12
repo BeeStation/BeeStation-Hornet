@@ -17,7 +17,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "d" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/abandoned)
 "e" = (
@@ -280,6 +280,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/smooth,
 /area/shuttle/abandoned)
+"V" = (
+/turf/open/floor/plating,
+/area/shuttle/abandoned)
 "X" = (
 /obj/structure/table,
 /obj/item/storage/fish_case/random{
@@ -360,7 +363,7 @@ r
 b
 "}
 (5,1,1) = {"
-d
+V
 p
 H
 i
@@ -368,7 +371,7 @@ m
 q
 y
 x
-d
+V
 "}
 (6,1,1) = {"
 r
