@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING
+	dependencies = list(
+		/datum/controller/subsystem/job,
+		/datum/controller/subsystem/processing/station,
+	)
 	runlevels = ALL
 
 	var/list/nuke_tiles = list()
@@ -302,7 +305,7 @@ SUBSYSTEM_DEF(mapping)
 			errorList |= pm.original_path
 
 	if(!silent)
-		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
+		INIT_ANNOUNCE("Loaded [name] in [round((REALTIMEOFDAY - start_time)/10, 0.01)]s!")
 	return parsed_maps
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()

@@ -26,7 +26,6 @@
 
 /// returns if an atom is allowed to zfall through this turf, using zPassOut and zPassIn
 /turf/proc/can_zFall(atom/movable/A, turf/target)
-	SHOULD_BE_PURE(TRUE)
 	return zPassOut(DOWN, falling = TRUE) && target.zPassIn(DOWN, falling = TRUE) && (!istype(target, /turf/open/space) || A.has_gravity(target))
 
 /// Determines if an atom should start zfalling or continue zfalling from the current point
