@@ -62,7 +62,7 @@
 		return
 
 	in_use = TRUE
-	user.balloon_alert_to_viewers(user, "reading book...", "looks at [target] and [src]")
+	user.balloon_alert_to_viewers("looks at [target] and [src]", "reading book...", 7, null, TRUE)
 	if(!do_after(user, 3 SECONDS, target, timed_action_flags = NONE, progress = TRUE))
 		to_chat(user, span_notice("You quickly close [src]."))
 		in_use = FALSE

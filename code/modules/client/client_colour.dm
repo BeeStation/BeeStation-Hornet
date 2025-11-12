@@ -157,7 +157,7 @@
 	colour = "#eeffee"
 
 /datum/client_colour/glass_colour/pink
-	colour = "#ffb7de"
+	colour = "#ffcfe9"
 
 /datum/client_colour/glass_colour/lightgreen
 	colour = "#f5fff5"

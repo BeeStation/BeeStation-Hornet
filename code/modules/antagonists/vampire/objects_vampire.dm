@@ -530,7 +530,6 @@
 	var/mob/living/carbon/human/user = source
 	var/rendered = span_cultlarge("<b>[user.real_name]:</b> [message]")
 	user.log_talk(message, LOG_SAY, tag = ROLE_VAMPIRE)
-	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 
 	for(var/datum/antagonist/vampire/receiver as anything in GLOB.all_vampires)
 		if(!receiver.owner.current)
