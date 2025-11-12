@@ -47,11 +47,7 @@
 /datum/species/fly/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
 
-	var/insect_type_key = C.dna?.features[FEATURE_INSECT_TYPE]
-	if(!insect_type_key)
-		return
-
-	var/datum/sprite_accessory/insect_type/type_selection = SSaccessories.feature_list[FEATURE_INSECT_TYPE][insect_type_key]
+	var/datum/sprite_accessory/insect_type/type_selection = SSaccessories.insect_type_list[C.dna.features["insect_type"]]
 	if(!istype(type_selection))
 		return
 

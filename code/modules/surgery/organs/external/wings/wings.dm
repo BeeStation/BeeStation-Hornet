@@ -182,6 +182,8 @@
 	feature_key = FEATURE_WINGS
 	///Are our wings currently open? Change through open_wings or close_wings()
 	VAR_PRIVATE/wings_open = FALSE
+	///Feature render key for opened wings
+	var/open_feature_key = "wingsopen"
 
 /datum/bodypart_overlay/mutant/wings/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner
@@ -197,13 +199,14 @@
 
 /datum/bodypart_overlay/mutant/wings/get_global_feature_list()
 	if(wings_open)
-		return SSaccessories.feature_list[FEATURE_WINGS_OPEN]
-	return ..()
+		return SSaccessories.wings_open_list
+	else
+		return SSaccessories.wings_list
 
 ///Update our wingsprite to the open wings variant
 /datum/bodypart_overlay/mutant/wings/proc/open_wings()
 	wings_open = TRUE
-	feature_key = FEATURE_WINGS_OPEN
+	feature_key = open_feature_key
 	set_appearance_from_name(sprite_datum.name) //It'll look for the same name again, but this time from the open wings list
 
 ///Update our wingsprite to the closed wings variant

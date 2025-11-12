@@ -664,7 +664,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	var/list/radial_wings = list()
 	var/list/name2type = list()
 	for(var/obj/item/organ/wings/possible_type as anything in wing_types)
-		var/datum/sprite_accessory/accessory = SSaccessories.feature_list[FEATURE_WINGS][possible_type::sprite_accessory_override::name] //get the singleton instance
+		var/datum/sprite_accessory/accessory = initial(possible_type.sprite_accessory_override) //get the type
+		accessory = SSaccessories.wings_list[initial(accessory.name)] //get the singleton instance
 		var/image/img = image(icon = accessory.icon, icon_state = "m_wingsopen_[accessory.icon_state]_BEHIND") //Process the HUD elements
 		img.transform *= 0.5
 		img.pixel_x = -32
@@ -1040,7 +1041,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 				"body_size" = "Normal",
 				FEATURE_MUTANT_COLOR = "#A02720",
 				FEATURE_TAIL_LIZARD = "Dark Tiger",
-				FEATURE_TAIL_CAT = "None",
+				FEATURE_TAIL = "None",
 				FEATURE_SNOUT = "Sharp",
 				FEATURE_HORNS = "Curled",
 				FEATURE_EARS = "None",

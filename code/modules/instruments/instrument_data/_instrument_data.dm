@@ -24,7 +24,7 @@
 	/// Category
 	var/category = "Unsorted"
 	/// Used for categorization subtypes
-	abstract_type = /datum/instrument
+	var/abstract_type = /datum/instrument
 	/// Write here however many samples, follow this syntax: "%note num%"='%sample file%' eg. "27"='synthesizer/e2.ogg'. Key must never be lower than 0 and higher than 127
 	var/list/real_samples
 	/// assoc list key = /datum/instrument_key. do not fill this yourself!

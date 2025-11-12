@@ -15,7 +15,7 @@
 		/obj/item/bodypart/leg/right,
 	)
 
-/// Get the accessory list from SSaccessories. Used in species.dm to get the right sprite
+/// Get the accessory list from GLOB. Used in species.dm to get the right sprite
 /datum/bodypart_overlay/simple/body_marking/proc/get_accessory(name)
 	CRASH("get_accessories() not overriden on [type] !")
 
@@ -42,12 +42,15 @@
 	var/gender_string = (use_gender && limb.is_dimorphic) ? (limb.gender == MALE ? MALE : FEMALE + "_") : "" //we only got male and female sprites
 	return mutable_appearance(icon, gender_string + icon_state + "_" + limb.body_zone, layer = CALCULATE_MOB_OVERLAY_LAYER(layer))
 
-/datum/bodypart_overlay/simple/body_marking/get_accessory(name)
-	return SSaccessories.feature_list[dna_feature_key][name]
-
 /datum/bodypart_overlay/simple/body_marking/moth
 	dna_feature_key = FEATURE_MOTH_MARKINGS
+
+/datum/bodypart_overlay/simple/body_marking/moth/get_accessory(name)
+	return SSaccessories.moth_markings_list[name]
 
 /datum/bodypart_overlay/simple/body_marking/lizard
 	dna_feature_key = FEATURE_LIZARD_MARKINGS
 	applies_to = list(/obj/item/bodypart/chest)
+
+/datum/bodypart_overlay/simple/body_marking/lizard/get_accessory(name)
+	return SSaccessories.lizard_markings_list[name]

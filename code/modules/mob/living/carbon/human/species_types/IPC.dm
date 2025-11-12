@@ -110,15 +110,15 @@
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/ipc/spec_death(gibbed, mob/living/carbon/C)
-	saved_screen = C.dna.features[FEATURE_IPC_SCREEN]
-	C.dna.features[FEATURE_IPC_SCREEN] = "BSOD"
+	saved_screen = C.dna.features["ipc_screen"]
+	C.dna.features["ipc_screen"] = "BSOD"
 	C.update_body()
 	addtimer(CALLBACK(src, PROC_REF(post_death), C), 5 SECONDS)
 
 /datum/species/ipc/proc/post_death(mob/living/carbon/C)
 	if(C.stat < DEAD)
 		return
-	C.dna.features[FEATURE_IPC_SCREEN] = null //Turns off screen on death
+	C.dna.features["ipc_screen"] = null //Turns off screen on death
 	C.update_body()
 
 /datum/action/innate/change_screen
@@ -128,7 +128,7 @@
 	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/on_activate()
-	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", SSaccessories.feature_list[FEATURE_IPC_SCREEN])
+	var/screen_choice = tgui_input_list(usr, "Which screen do you want to use?", "Screen Change", SSaccessories.ipc_screens_list)
 	var/color_choice = tgui_color_picker(usr, "Which color do you want your screen to be?", "Color Change")
 	if(!screen_choice)
 		return
@@ -137,7 +137,7 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	H.dna.features[FEATURE_IPC_SCREEN] = screen_choice
+	H.dna.features["ipc_screen"] = screen_choice
 	H.eye_color = sanitize_hexcolor(color_choice)
 	H.update_body()
 
@@ -238,7 +238,7 @@
 
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
-	H.dna.features[FEATURE_IPC_SCREEN] = "BSOD"
+	H.dna.features["ipc_screen"] = "BSOD"
 	INVOKE_ASYNC(src, PROC_REF(declare_revival), H)
 	H.update_body()
 
@@ -257,7 +257,7 @@
 	if(H.stat == DEAD)
 		return
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
-	H.dna.features[FEATURE_IPC_SCREEN] = saved_screen
+	H.dna.features["ipc_screen"] = saved_screen
 
 /datum/species/ipc/get_harm_descriptors()
 	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
@@ -265,13 +265,7 @@
 /datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
 
-	var/chassis_key = C.dna?.features[FEATURE_IPC_CHASSIS]
-	if(!chassis_key)
-		return
-
-	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = SSaccessories.feature_list[FEATURE_IPC_CHASSIS][chassis_key]
-	if(!istype(chassis_of_choice))
-		return
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = SSaccessories.ipc_chassis_list[C.dna.features["ipc_chassis"]]
 
 	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
 		BP.should_draw_greyscale = chassis_of_choice.color_src ? TRUE : FALSE

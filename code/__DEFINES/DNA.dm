@@ -39,7 +39,7 @@
 #define FEATURE_MUTANT_COLOR "mcolor"
 #define FEATURE_ETHEREAL_COLOR "ethcolor"
 #define FEATURE_EARS "ears"
-#define FEATURE_TAIL_CAT "tail_cat"
+#define FEATURE_TAIL "tail_cat"
 #define FEATURE_TAIL_LIZARD "tail_lizard"
 #define FEATURE_SNOUT "snout"
 #define FEATURE_LIZARD_MARKINGS "marking_lizard"
@@ -52,35 +52,8 @@
 //Beestation-specific
 #define FEATURE_BODY_SIZE "body_size"
 
-// IPC / Robots
-#define FEATURE_IPC_SCREEN "ipc_screen"
-#define FEATURE_IPC_ANTENNA "ipc_antenna"
-#define FEATURE_IPC_CHASSIS "ipc_chassis"
-
-// Insect / Fly
-#define FEATURE_INSECT_TYPE "insect_type"
-
-// Apid
-#define FEATURE_APID_ANTENNA "apid_antenna"
-#define FEATURE_APID_STRIPES "apid_stripes"
-#define FEATURE_APID_HEADSTRIPES "apid_headstripes"
-
-// Psyphoza
-#define FEATURE_PSYPHOZA_CAP "psyphoza_cap"
-
-// Diona
-#define FEATURE_DIONA_LEAVES "diona_leaves"
-#define FEATURE_DIONA_THORNS "diona_thorns"
-#define FEATURE_DIONA_FLOWERS "diona_flowers"
-#define FEATURE_DIONA_MOSS "diona_moss"
-#define FEATURE_DIONA_MUSHROOM "diona_mushroom"
-#define FEATURE_DIONA_ANTENNAE "diona_antennae"
-#define FEATURE_DIONA_EYES "diona_eyes"
-#define FEATURE_DIONA_PBODY "diona_pbody"
-
 // Other
 #define FEATURE_WINGS "wings"
-#define FEATURE_WINGS_OPEN "[FEATURE_WINGS]_open"
 #define FEATURE_TAIL_MONKEY "tail_monkey"
 #define FEATURE_TAILSPINES "tailspines" // Different from regular spines, these appear on tails
 #define FEATURE_LEGS "legs"

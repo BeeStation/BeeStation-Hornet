@@ -5,7 +5,7 @@
 
 	preference = "feature_moth_wings"
 
-	dna_block = /datum/dna_block/feature/accessory/moth_wing
+	dna_block = /datum/dna_block/feature/moth_wing
 
 	bodypart_overlay = /datum/bodypart_overlay/mutant/wings/moth
 
@@ -86,6 +86,12 @@
 	. = ..()
 
 	burn_datum = fetch_sprite_datum(burn_datum)
+
+/datum/bodypart_overlay/mutant/wings/moth/get_global_feature_list()
+	if(wings_open)
+		return SSaccessories.moth_wingsopen_list
+	else
+		return SSaccessories.moth_wings_list
 
 /datum/bodypart_overlay/mutant/wings/moth/can_draw_on_bodypart(obj/item/bodypart/bodypart_owner)
 	var/mob/living/carbon/human/human = bodypart_owner.owner

@@ -32,8 +32,7 @@
 	if(imprint_on_next_insertion) //We only want this set *once*
 		var/feature_name = receiver.dna.features[feature_key]
 		if (isnull(feature_name))
-			stack_trace("[type] has no default feature name for organ [parent.type]!")
-			feature_name = get_consistent_feature_entry(get_global_feature_list()) //fallback to something
+			feature_name = receiver.dna.species.mutant_organs[parent.type]
 		set_appearance_from_name(feature_name)
 		imprint_on_next_insertion = FALSE
 
@@ -116,11 +115,7 @@
 
 ///Return a dumb glob list for this specific feature (called from parse_sprite)
 /datum/bodypart_overlay/mutant/proc/get_global_feature_list()
-	var/list/feature_list = SSaccessories.feature_list[feature_key]
-	if(isnull(feature_list))
-		stack_trace("External organ has no feature list, it will render invisible")
-		return list()
-	return feature_list
+	CRASH("External organ has no feature list, it will render invisible")
 
 ///Give the organ its color. Force will override the existing one.
 /datum/bodypart_overlay/mutant/proc/inherit_color(obj/item/bodypart/bodypart_owner, force)

@@ -1,13 +1,15 @@
-/datum/preference/choiced/species_feature/diona_leaves
+/datum/preference/choiced/diona_leaves
 	db_key = "feature_diona_leaves"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Leaves"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_leaves"
-	feature_key = FEATURE_DIONA_LEAVES
 
-/datum/preference/choiced/species_feature/diona_leaves/icon_for(value)
+/datum/preference/choiced/diona_leaves/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_leaves_list)
+
+/datum/preference/choiced/diona_leaves/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD,
@@ -23,7 +25,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_leaves_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != FEATURE_NONE)
@@ -40,18 +42,23 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_leaves/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_leaves"] = value
+
 //----------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_thorns
+/datum/preference/choiced/diona_thorns
 	db_key = "feature_diona_thorns"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Thorns"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_thorns"
-	feature_key = FEATURE_DIONA_THORNS
 
-/datum/preference/choiced/species_feature/diona_thorns/icon_for(value)
+/datum/preference/choiced/diona_thorns/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_thorns_list)
+
+/datum/preference/choiced/diona_thorns/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD,
@@ -63,7 +70,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_thorns_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -80,18 +87,23 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_thorns/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_thorns"] = value
+
 //----------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_flowers
+/datum/preference/choiced/diona_flowers
 	db_key = "feature_diona_flowers"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Flowers"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_flowers"
-	feature_key = FEATURE_DIONA_FLOWERS
 
-/datum/preference/choiced/species_feature/diona_flowers/icon_for(value)
+/datum/preference/choiced/diona_flowers/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_flowers_list)
+
+/datum/preference/choiced/diona_flowers/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD,
@@ -103,7 +115,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_flowers_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -120,18 +132,23 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_flowers/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_flowers"] = value
+
 //----------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_moss
+/datum/preference/choiced/diona_moss
 	db_key = "feature_diona_moss"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Moss"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_moss"
-	feature_key = FEATURE_DIONA_MOSS
 
-/datum/preference/choiced/species_feature/diona_moss/icon_for(value)
+/datum/preference/choiced/diona_moss/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_moss_list)
+
+/datum/preference/choiced/diona_moss/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_CHEST
@@ -142,7 +159,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_moss_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -159,18 +176,23 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_moss/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_moss"] = value
+
 //----------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_mushroom
+/datum/preference/choiced/diona_mushroom
 	db_key = "feature_diona_mushroom"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Mushrooms"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_mushroom"
-	feature_key = FEATURE_DIONA_MUSHROOM
 
-/datum/preference/choiced/species_feature/diona_mushroom/icon_for(value)
+/datum/preference/choiced/diona_mushroom/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_mushroom_list)
+
+/datum/preference/choiced/diona_mushroom/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD
@@ -181,7 +203,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_mushroom_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -198,18 +220,23 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_mushroom/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_mushroom"] = value
+
 //----------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_antennae
+/datum/preference/choiced/diona_antennae
 	db_key = "feature_diona_antennae"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Antennae"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_antennae"
-	feature_key = FEATURE_DIONA_ANTENNAE
 
-/datum/preference/choiced/species_feature/diona_antennae/icon_for(value)
+/datum/preference/choiced/diona_antennae/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_antennae_list)
+
+/datum/preference/choiced/diona_antennae/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_HEAD
@@ -220,7 +247,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_antennae_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -237,24 +264,29 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_antennae/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_antennae"] = value
+
 //------------------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_eyes
+/datum/preference/choiced/diona_eyes
 	db_key = "feature_diona_eyes"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona Eyes"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_eyes"
-	feature_key = FEATURE_DIONA_EYES
 
-/datum/preference/choiced/species_feature/diona_eyes/icon_for(value)
+/datum/preference/choiced/diona_eyes/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_eyes_list)
+
+/datum/preference/choiced/diona_eyes/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 
 	if (isnull(diona_body))
 		diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_eyes_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -270,18 +302,23 @@
 
 	return icon_with_markings
 
+/datum/preference/choiced/diona_eyes/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_eyes"] = value
+
 //------------------------------------------------------------------------------------------------------------------------------
 
-/datum/preference/choiced/species_feature/diona_pbody
+/datum/preference/choiced/diona_pbody
 	db_key = "feature_diona_pbody"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Diona P-Body"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "diona_pbody"
-	feature_key = FEATURE_DIONA_PBODY
 
-/datum/preference/choiced/species_feature/diona_pbody/icon_for(value)
+/datum/preference/choiced/diona_pbody/init_possible_values()
+	return assoc_to_keys_features(SSaccessories.diona_pbody_list)
+
+/datum/preference/choiced/diona_pbody/icon_for(value)
 	var/static/datum/universal_icon/diona_body
 	var/static/list/body_parts = list(
 		BODY_ZONE_CHEST
@@ -292,7 +329,7 @@
 		for (var/body_part in body_parts)
 			diona_body.blend_icon(uni_icon('icons/mob/species/diona/bodyparts.dmi', "diona_[body_part]", dir = SOUTH), ICON_OVERLAY)
 
-	var/datum/sprite_accessory/markings = get_accessory_for_value(value)
+	var/datum/sprite_accessory/markings = SSaccessories.diona_pbody_list[value]
 	var/datum/universal_icon/icon_with_markings = diona_body.copy()
 
 	if (value != "None")
@@ -308,3 +345,6 @@
 	icon_with_markings.crop(15, 64 - 31, 15 + 31, 64)
 
 	return icon_with_markings
+
+/datum/preference/choiced/diona_pbody/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["diona_pbody"] = value
