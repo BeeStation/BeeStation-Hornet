@@ -232,9 +232,7 @@
 /obj/item/organ/proc/on_bodypart_remove(obj/item/bodypart/limb, movement_flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	// Only add blood decal if the organ has its own icon/icon_state (not bodypart overlay-based)
-	var/has_own_sprite = (initial(icon) || icon) && (initial(icon_state) || icon_state)
-	if(!IS_ROBOTIC_ORGAN(src) && !(item_flags & NO_BLOOD_ON_ITEM) && !QDELING(src) && has_own_sprite)
+	if(!IS_ROBOTIC_ORGAN(src) && !(item_flags & NO_BLOOD_ON_ITEM) && !QDELING(src))
 		AddElement(/datum/element/decal/blood, initial(icon) || icon, initial(icon_state) || icon_state, _color = get_blood_dna_color(blood_dna_info))
 
 	item_flags &= ~ABSTRACT
