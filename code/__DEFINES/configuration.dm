@@ -52,6 +52,7 @@
 #define ROADMAN_TALK_FILE "accent_roadman.json"
 #define CANADIAN_TALK_FILE "accent_canadian.json"
 #define FRENCH_TALK_FILE "accent_french.json"
+#define FRENCH_ALTERNATIVE_TALK_FILE "accent_french_alternative.json"
 #define ITALIAN_TALK_FILE "accent_italian.json"
 #define BRITISH_TALK_FILE "accent_british.json"
 #define SCOTTISH_TALK_FILE "accent_scottish.json"

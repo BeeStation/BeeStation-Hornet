@@ -331,6 +331,7 @@ GLOBAL_LIST_INIT(accents, list(
 	"British" = BRITISH_TALK_FILE,
 	"Canadian" = CANADIAN_TALK_FILE,
 	"French" = FRENCH_TALK_FILE,
+	"French Alternative" = FRENCH_ALTERNATIVE_TALK_FILE,
 	"Swedish" = SWEDISH_TALK_FILE,
 	"Italian" = ITALIAN_TALK_FILE,
 	"Scottish" = SCOTTISH_TALK_FILE,
