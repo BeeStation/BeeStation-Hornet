@@ -6,7 +6,7 @@
 		This power goes through all obstacles except Walls.\n\
 		Higher levels decrease the sound played from using the Power, and increase the speed of the transition."
 	power_flags = BP_AM_TOGGLE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 30
 	cooldown_time = 8 SECONDS
 	prefire_message = "Select a destination."

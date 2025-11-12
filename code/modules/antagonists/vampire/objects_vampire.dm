@@ -434,9 +434,9 @@
 	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
-	ghost_desc = "This is a blood throne, any Vampire sitting on it can remotely speak to their vassals by attempting to speak aloud."
-	vampire_desc = "This is a blood throne, sitting on it will allow you to telepathically speak to your vassals by simply speaking."
-	vassal_desc = "This is a blood throne, it allows your Master to telepathically speak to you and others like you."
+	ghost_desc = "This is a blood throne, any Vampire sitting on it can remotely speak to all other vampires by attempting to speak aloud."
+	vampire_desc = "This is a blood throne, sitting on it will allow you to telepathically to all other vampires by simply speaking."
+	vassal_desc = "This is a blood throne, it allows your Master to telepathically speak to all other vampires."
 	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\
 		While buckled, Monsters can use this to telepathically communicate with eachother."
 	var/mutable_appearance/armrest
@@ -531,7 +531,8 @@
 	var/rendered = span_cultlarge("<b>[user.real_name]:</b> [message]")
 	user.log_talk(message, LOG_SAY, tag = ROLE_VAMPIRE)
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
-	for(var/datum/antagonist/vassal/receiver as anything in vampiredatum.vassals)
+
+	for(var/datum/antagonist/vampire/receiver as anything in GLOB.all_vampires)
 		if(!receiver.owner.current)
 			continue
 		var/mob/receiver_mob = receiver.owner.current

@@ -6,7 +6,7 @@
 		With higher levels, the beast gains vitality and attack power upon bonding.\n\
 		Important: The boost is only applied once, at the time of bonding. Further uses of the ability heal the beast."
 	power_flags = BP_AM_TOGGLE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 15
 	sol_multiplier = 2
 	cooldown_time = 60 SECONDS

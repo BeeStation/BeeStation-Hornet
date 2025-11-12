@@ -14,7 +14,7 @@
 		At level 2, it will remain for 3 minutes.\n\
 		Be smart with your wording. They will become pacified, and won't obey violent commands."
 	power_flags = NONE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 120
 	cooldown_time = 80 SECONDS
 	target_range = 6

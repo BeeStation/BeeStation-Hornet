@@ -81,9 +81,6 @@
 	// Weirdness shield
 	if(QDELETED(owner?.current))
 		return FALSE
-	// Don't heal if staked
-	if(check_if_staked())
-		return FALSE
 	// Dont heal if you have TRAIT_MASQUERADE and not undergoing torpor
 	if(!in_torpor && HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		return FALSE
@@ -141,6 +138,12 @@
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
 		RemoveBloodVolume(bloodcost)
 		return TRUE
+
+	// Revive them if dead and there is no damage left to heal
+	if(carbon_owner.stat == DEAD)
+		heal_vampire_organs()
+		return TRUE
+
 	return FALSE
 
 /datum/antagonist/vampire/proc/try_regenerate_limbs(cost_muliplier = 1)
@@ -205,12 +208,12 @@
 		yucky_organ.Remove(carbon_user)
 		yucky_organ.forceMove(get_turf(carbon_user))
 
-	// Revive
-	if(carbon_user.stat == DEAD)
-		carbon_user.revive()
-
-	// Heal suffocation
-	carbon_user.adjustOxyLoss(-200)
+	// Don't Revive if staked
+	if(!check_if_staked())
+		if(carbon_user.stat == DEAD)
+			carbon_user.revive()
+			// Heal suffocation
+			carbon_user.adjustOxyLoss(-200)
 
 /**
  * Called when we die

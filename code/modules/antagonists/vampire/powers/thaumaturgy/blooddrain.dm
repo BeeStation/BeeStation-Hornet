@@ -6,7 +6,7 @@
 	background_icon_state_off = "tremere_power_off"
 	power_explanation = "Cast a beam of draining magic that saps the vitality of your target to steal their blood and heal yourself."
 	power_flags = BP_AM_TOGGLE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 75
 	cooldown_time = 10 SECONDS	// Very unlikely to ever last past 10 seconds even if the actual duration is longer. Combat is a fuck.
 	target_range = 7

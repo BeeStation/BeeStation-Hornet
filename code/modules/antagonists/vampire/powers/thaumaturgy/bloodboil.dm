@@ -6,7 +6,7 @@
 	background_icon_state_off = "tremere_power_bronze_off"
 	power_explanation = "Afflict a debilitating status effect on a target within range, causing them to suffer bloodloss, burn damage, and slowing them down."
 	power_flags = NONE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 75
 	cooldown_time = 20 SECONDS
 	target_range = 7

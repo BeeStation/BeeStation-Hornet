@@ -8,7 +8,7 @@
 		The blood shield has very good block power, but costs 15 Blood per hit to maintain."
 
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 
 	bloodcost = 50
 	cooldown_time = 10 SECONDS

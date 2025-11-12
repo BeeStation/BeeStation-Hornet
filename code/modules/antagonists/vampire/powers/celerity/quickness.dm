@@ -5,8 +5,7 @@
 	power_explanation = "Imbues your hands with supernatural speed. Cannot be used with gloves on.\n\
 						Use with combat mode. Does not require you to click on a target directly to hit them."
 	power_flags = BP_AM_TOGGLE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 100
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	sol_multiplier = 2
 	cooldown_time = 30 SECONDS
 	constant_bloodcost = 5

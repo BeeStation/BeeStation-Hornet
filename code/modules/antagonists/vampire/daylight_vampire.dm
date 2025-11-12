@@ -66,16 +66,13 @@
 		if(istype(get_area(owner.current), whereami))
 			incoming_sol_damage = "area"
 
-	// Highest grade of protection. You will be hungry, but you won't be in frenzy.
-	if(istype(owner.current.loc, /obj/structure/closet/crate/coffin))
-		incoming_sol_damage = "coffin"
+	// Highest grade of protection.
+	if(is_in_torpor())
+		incoming_sol_damage = "torpor"
 
 	var/sol_burn_calculated = VAMPIRE_SOL_BURN / (min(2, 1 + (humanity / 10)))
 
 	switch(incoming_sol_damage)
-		if("coffin")
-			if(vampire_blood_volume >= 300)
-				RemoveBloodVolume(sol_burn_calculated / 2)
 		if("area")
 			if(vampire_blood_volume >= 200)
 				RemoveBloodVolume(sol_burn_calculated / 2)
@@ -87,27 +84,34 @@
 				RemoveBloodVolume(sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbigbold("The walls of this locker offer mild protection. <b>Don't worry, blood won't drain below 100.</b>"), type = MESSAGE_TYPE_WARNING)
+				to_chat(owner.current, span_cultbigbold("The walls of this vessel offer mild protection. <b>Don't worry, blood won't drain below 100.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("full")
 			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
 			RemoveBloodVolume(sol_burn_calculated)
 			if(incoming_sol_damage != last_sol_damage)
 				to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
+			burn_and_kill()
+		if("torpor")
+			// Do nothing
+		else
+			return FALSE
 
-			// We can resist it as long as we have blood.
-			if(vampire_blood_volume >= 25)
-				owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-			else
-				owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-				owner.current.emote("scream")
-
-			// Rest in peace.
-			if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
-				playsound(owner.current, 'sound/vampires/burning_death.ogg', 60, TRUE)
-				owner.current.dust(drop_items = TRUE)
 
 	last_sol_damage = incoming_sol_damage
 	return
+
+/datum/antagonist/vampire/proc/burn_and_kill()
+	// We can resist it as long as we have blood.
+	if(vampire_blood_volume >= 25)
+		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+	else
+		owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		owner.current.emote("scream")
+
+	// Rest in peace.
+	if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
+		playsound(owner.current, 'sound/vampires/burning_death.ogg', 60, TRUE)
+		owner.current.dust(drop_items = TRUE)
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
@@ -170,10 +174,6 @@
 	if(total_burn >= 199)
 		return
 	if(SSsunlight.sunlight_active)
-		return
-
-	if(check_if_staked())
-		torpor_end()
 		return
 
 	// You are in a Coffin, so instead we'll check TOTAL damage.

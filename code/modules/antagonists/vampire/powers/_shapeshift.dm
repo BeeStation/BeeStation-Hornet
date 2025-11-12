@@ -1,5 +1,6 @@
 /datum/action/vampire/shapeshift
 	power_flags = BP_AM_TOGGLE
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 
 	/// A typepath to the mob we will shapeshift into
 	var/mob/shapeshifted_mob

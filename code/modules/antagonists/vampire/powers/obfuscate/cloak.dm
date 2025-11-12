@@ -5,7 +5,7 @@
 	power_explanation = "Activate this Power while unseen and you will turn nearly invisible, scaling with your rank.\n\
 		Additionally, while Cloak is active, you are completely invisible to silicons."
 	power_flags = BP_AM_TOGGLE
-	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 30
 	constant_bloodcost = 0.1
 	sol_multiplier = 2.5

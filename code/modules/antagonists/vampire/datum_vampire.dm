@@ -279,11 +279,13 @@
 	rank_up(1)
 	rank_up(1)
 	owner.special_role = ROLE_VAMPIRE
+	GLOB.all_vampires.Add(src)
 
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
 	owner.special_role = null
+	GLOB.all_vampires.Remove(src)
 	return ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
