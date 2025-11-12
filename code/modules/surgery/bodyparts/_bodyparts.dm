@@ -746,11 +746,6 @@
 /obj/item/bodypart/proc/update_limb(dropping_limb = FALSE, is_creating = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
-	// Don't update limb appearance while bodypart updates are paused (during preference application, etc.)
-	if(owner && (owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS))
-		return
-
 	if(IS_ORGANIC_LIMB(src))
 		if(owner && HAS_TRAIT(owner, TRAIT_HUSK))
 			dmg_overlay_type = "" //no damage overlay shown when husked

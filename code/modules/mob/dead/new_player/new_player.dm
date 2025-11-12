@@ -477,7 +477,6 @@
 	LAZYADD(client.player_details.joined_as_jobs, SSjob.GetJob(mind.assigned_role))
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
-
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE

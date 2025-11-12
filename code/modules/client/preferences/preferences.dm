@@ -428,12 +428,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE, log = TRUE)
 	if(log)
 		log_preferences("[parent?.ckey]: Applying character preferences to mob [key_name(character)] ([REF(character)]).")
-
-	//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
-	// Prevent bodypart updates while we're rebuilding dna.features
-	// This avoids bodyparts reading empty/incomplete dna.features during preference application
-	character.living_flags |= STOP_OVERLAY_UPDATE_BODY_PARTS
-
 	character.dna.features = list()
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
@@ -444,10 +438,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.dna.real_name = character.real_name
 
-	// Re-enable bodypart updates now that dna.features is complete
-	character.living_flags &= ~STOP_OVERLAY_UPDATE_BODY_PARTS
-
 	if(icon_updates)
 		character.icon_render_keys = list()
 		character.update_body(is_creating = TRUE)
-

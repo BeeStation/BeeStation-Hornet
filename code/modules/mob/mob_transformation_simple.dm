@@ -40,7 +40,7 @@
 		qdel(desired_mob)
 		return
 
-	if(istext(new_name))
+	if( istext(new_name) )
 		desired_mob.name = new_name
 		desired_mob.real_name = new_name
 	else
@@ -54,14 +54,9 @@
 		new_mob.updateappearance(icon_update = TRUE, mutcolor_update = TRUE, mutations_overlay_update = TRUE)
 	else if(ishuman(desired_mob) && (!ismonkey(desired_mob)))
 		var/mob/living/carbon/human/new_human = desired_mob
-		client?.prefs.safe_transfer_prefs_to(new_human)
+		client.prefs.safe_transfer_prefs_to(new_human)
 		new_human.dna.update_dna_identity()
-
-		//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
-		// Don't call updateappearance() - it decodes DNA blocks and overwrites player preferences
-		// Preferences are already correctly applied by safe_transfer_prefs_to()
 		new_human.updateappearance(icon_update = TRUE, mutcolor_update = TRUE, mutations_overlay_update = TRUE)
-		new_human.update_body(is_creating = TRUE)
 
 	//Ghosts have copys of their minds, but if an admin put somebody else in their og body, the mind will have a new mind.key
 	//	and transfer_to will transfer the wrong person since it uses mind.key

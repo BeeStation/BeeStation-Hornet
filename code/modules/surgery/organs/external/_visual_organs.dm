@@ -74,17 +74,7 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 	var/list/feature_list = bodypart_overlay.get_global_feature_list()
 
 	var/datum/dna_block/feature/feature_block = GLOB.dna_feature_blocks[dna_block]
-	var/decoded_feature = feature_list[deconstruct_block(feature_block.get_block(features), feature_list.len)]
-
-	// If the organ appearance already matches dna.features, don't override it with the DNA block value
-	// This preserves player preferences that were set during character creation
-	if(bodypart_overlay.feature_key && human.dna?.features[bodypart_overlay.feature_key])
-		var/desired_feature = human.dna.features[bodypart_overlay.feature_key]
-		if(bodypart_overlay.sprite_datum?.name == desired_feature)
-			// Organ already has correct appearance from preferences, don't reset it
-			return
-
-	bodypart_overlay.set_appearance_from_name(decoded_feature)
+	bodypart_overlay.set_appearance_from_name(feature_list[deconstruct_block(feature_block.get_block(features), feature_list.len)])
 
 ///If you need to change an external_organ for simple one-offs, use this. Pass the accessory type : /datum/accessory/something
 /obj/item/organ/proc/simple_change_sprite(accessory_type)
@@ -92,7 +82,6 @@ Unlike normal organs, we're actually inside a persons limbs at all times
 
 	bodypart_overlay.set_appearance(typed_accessory)
 
-	//TODO: Existing update_appearance bug that can alter players preferences vs ingame appearance, not optimal solution
 	if(owner && !(owner.living_flags & STOP_OVERLAY_UPDATE_BODY_PARTS)) //are we a person?
 		owner.update_body_parts()
 	else
