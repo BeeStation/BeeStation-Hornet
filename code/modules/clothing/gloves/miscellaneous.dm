@@ -94,6 +94,7 @@
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 	var/warcry = "AT"
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
 	var/mob/living/M = loc

@@ -679,7 +679,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/launchpad)
 	looker?.client?.images -= modsuit_image
 
 /// Update the position of the ping while it's still up. Not sure if i need to use the full proc but just being safe
-/obj/effect/temp_visual/sonar_ping/process(seconds_per_tick)
+/obj/effect/temp_visual/sonar_ping/process(delta_time)
 	var/mob/living/looker = mod_man?.resolve()
 	var/mob/living/creature = pinged_person?.resolve()
 	if(isnull(looker) || isnull(creature))

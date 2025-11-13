@@ -132,22 +132,13 @@
 /obj/item/tank/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/human_user = user
 	user.visible_message(span_suicide("[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!"))
-	playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
-	if (!QDELETED(human_user) && air_contents && air_contents.return_pressure() >= 1000)
-		for(var/obj/item/W in human_user)
-			human_user.dropItemToGround(W)
-			if(prob(50))
-				step(W, pick(GLOB.alldirs))
+	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	if(!QDELETED(human_user) && air_contents && air_contents.return_pressure() >= 1000)
 		ADD_TRAIT(human_user, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		human_user.add_bleeding(BLEED_CRITICAL)
-		human_user.gib_animation()
-		sleep(3)
-		human_user.adjustBruteLoss(1000) //to make the body super-bloody
-		human_user.spawn_gibs()
-		human_user.spill_organs()
-		human_user.spread_bodyparts()
-
-	return BRUTELOSS
+		human_user.inflate_gib()
+		return MANUAL_SUICIDE
+	to_chat(user, span_warning("There isn't enough pressure in [src] to commit suicide with..."))
+	return SHAME
 
 /obj/item/tank/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)

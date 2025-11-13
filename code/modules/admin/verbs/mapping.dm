@@ -314,7 +314,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 			else
 				for(var/obj/item/I in D)
 					qdel(I)
-				randomize_human(D)
+				randomize_human_normie(D)
 				JB.equip(D, TRUE, FALSE)
 				COMPILE_OVERLAYS(D)
 				var/icon/I = icon(getFlatIcon(D), frame = 1)

@@ -574,10 +574,10 @@
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.reagents.add_reagent(/datum/reagent/consumable/sugar, 1 * REM * delta_time)
-	affected_mob.adjustBruteLoss(-1, updating_health = FALSE)
-	affected_mob.adjustFireLoss(-1, updating_health = FALSE)
-	affected_mob.adjustOxyLoss(-1, updating_health = FALSE)
-	affected_mob.adjustToxLoss(-1, updating_health = FALSE)
+	affected_mob.adjustBruteLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	affected_mob.adjustFireLoss(-1, updating_health = FALSE, required_bodytype = affected_bodytype)
+	affected_mob.adjustOxyLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
+	affected_mob.adjustToxLoss(-1, updating_health = FALSE, required_biotype = affected_biotype)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/consumable/honey/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
@@ -677,7 +677,7 @@
 		affected_mob.losebreath += 4
 		affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150)
 		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
-		affected_mob.adjustStaminaLoss(10 * REM, updating_health = FALSE)
+		affected_mob.adjustStaminaLoss(10 * REM, updating_stamina = FALSE)
 		affected_mob.blur_eyes(5)
 		return UPDATE_MOB_HEALTH
 
