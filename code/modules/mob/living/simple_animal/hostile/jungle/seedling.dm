@@ -62,10 +62,10 @@
 
 /datum/status_effect/seedling_beam_indicator
 	id = "seedling beam indicator"
-	duration = 30
+	duration = 3 SECONDS
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	var/atom/movable/screen/seedling/seedling_screen_object
 	var/atom/target
 

@@ -126,12 +126,12 @@
 
 /datum/quirk/musician
 	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
+	desc = "You start with a delivery beacon for a variety of musical instruments."
 	icon = "guitar"
 	mob_trait = TRAIT_MUSICIAN
-	gain_text = span_notice("You know everything about musical instruments.")
-	lose_text = span_danger("You forget how musical instruments work.")
-	medical_record_text = "Patient brain scans show a highly-developed auditory pathway."
+	gain_text = span_notice("You feel an irresistible urge to play Stairway to Heaven in every guitar shop you enter.")
+	lose_text = span_danger("Your insatiable urge to play Wonderwall is finally sated.")
+	medical_record_text = "Patient has been banned from several music stores for repeatedly playing forbidden riffs."
 
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
