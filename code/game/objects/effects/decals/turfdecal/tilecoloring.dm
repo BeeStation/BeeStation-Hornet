@@ -1075,6 +1075,7 @@
 
 //Steelgrid
 /obj/effect/turf_decal/tile/steelgrid
+	alpha = 255
 	icon_state = "steelgrid_corner"
 
 /obj/effect/turf_decal/tile/steelgrid/diagonal
@@ -1086,6 +1087,8 @@
 
 //techfloor
 /obj/effect/turf_decal/tile/techfloor
+
+	alpha = 255
 	icon_state = "techfloor_corner"
 
 /obj/effect/turf_decal/tile/techfloor/diagonal
@@ -1097,6 +1100,7 @@
 
 //techfloorgrid
 /obj/effect/turf_decal/tile/techfloorgrid
+	alpha = 255
 	icon_state = "techfloorgrid_corner"
 
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal
