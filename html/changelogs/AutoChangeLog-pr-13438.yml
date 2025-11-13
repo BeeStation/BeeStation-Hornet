@@ -1,0 +1,9 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - balance: Vampires can now only feed off of targets that are aggressively grabbed.
+  - balance: Vampires feeding off of people has been made very obvious.
+  - balance: Masquerade infractions are now checked during feeding as a vampire, as
+      apposed to previously only checking at the beginning of feeding. If someone
+      walks in on you, you will receive a masquerade infraction.
+  - bugfix: Fixed vampires being able to chug blood bags
