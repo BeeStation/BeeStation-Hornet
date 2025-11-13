@@ -289,7 +289,7 @@ There are several things that need to be remembered:
 		update_hud_ears(worn_item)
 
 		if(update_obscured)
-		 update_obscured_slots(worn_item.flags_inv)
+			update_obscured_slots(worn_item.flags_inv)
 
 		if(check_obscured_slots(transparent_protection = TRUE) & ITEM_SLOT_EARS)
 			return
