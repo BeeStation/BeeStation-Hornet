@@ -611,8 +611,8 @@ const VampireGuide = (_props) => {
               <br />
               <br />
               <Box fontSize="15px" textColor="blue">
-                * Tip: Not every vampire needs a lair. The main way vampires
-                get found out these days, is through their lair.
+                * Tip: Not every vampire needs a lair. The main way vampires get
+                found out these days, is through their lair.
                 <br />
                 <b>
                   If you build one, just building it in maintenance is not
