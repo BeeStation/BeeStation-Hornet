@@ -11,6 +11,7 @@
 	damage = 10
 	damage_type = TOX
 	var/energy = 10
+	/// Whether or not we stop the singularity/tesla from dissipating
 	var/stop_dissipate = FALSE
 
 /obj/projectile/energy/accelerated_particle/singularity_pull()

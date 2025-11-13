@@ -16,13 +16,6 @@
 	var/allowed_size = 1
 	energy = 100 //How strong are we?
 	var/grav_pull = 4
-	dissipate = TRUE //Do we lose energy over time?
-	/// How long should it take for us to dissipate in seconds?
-	dissipate_delay = 20
-	/// How much energy do we lose every dissipate_delay?
-	dissipate_strength = 1
-	/// How long its been (in seconds) since the last dissipation
-	time_since_last_dissipiation = 0
 	var/event_chance = 10 //Prob for event each tick
 	var/move_self = TRUE
 	/// How long it's been since the singulo last acted, in seconds
@@ -72,7 +65,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/anomaly/singularity)
 		span_danger("[jedi]'s head begins to collapse in on itself!"),
 		span_userdanger("Your head feels like it's collapsing in on itself! This was really not a good idea!"),
 		span_hear("You hear something crack and explode in gore.")
-		)
+	)
 	jedi.Stun(3 SECONDS)
 	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
 	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)

@@ -864,7 +864,7 @@
 
 /datum/reagent/consumable/doctor_delight/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	// Drains the nutrition of the affected_mob.reagents. Not medical staff though, since it's the Doctor's Delight!
+	// Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
 	if(affected_mob.nutrition && (affected_mob.nutrition - 2 > 0))
 		if(!HAS_MIND_TRAIT(affected_mob, TRAIT_MEDICAL_METABOLISM))
 			affected_mob.adjust_nutrition(-2 * REM * delta_time)

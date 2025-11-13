@@ -243,7 +243,6 @@
 	src.robe_charge = TRUE
 	to_chat(usr, span_notice("The robe hums, its internal magic supply restored."))
 
-
 // The actual code for this is handled in the shielded component, see [/datum/component/shielded/proc/check_recharge_rune]
 /obj/item/wizard_armour_charge
 	name = "battlemage shield charges"

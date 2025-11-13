@@ -104,7 +104,7 @@
 		return
 	if(guns_left)
 		var/obj/item/gun/ballistic/rifle/boltaction/enchanted/gun = new type
-		gun.guns_left = guns_left - 1
+		gun.guns_left--
 		discard_gun(user)
 		user.swap_hand()
 		user.put_in_hands(gun)

@@ -19,6 +19,11 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /// Called when the count down has been finished, do the nasty work.
 /// [/obj/machinery/power/supermatter_crystal/proc/count_down]
 /datum/sm_delam/proc/delaminate(obj/machinery/power/supermatter_crystal/sm)
+	if (sm.is_main_engine)
+		SSpersistence.delam_highscore = SSpersistence.rounds_since_engine_exploded
+		SSpersistence.rounds_since_engine_exploded = ROUNDCOUNT_ENGINE_JUST_EXPLODED
+		for(var/obj/machinery/incident_display/sign in GLOB.map_incident_displays)
+			sign.update_delam_count(ROUNDCOUNT_ENGINE_JUST_EXPLODED)
 	qdel(sm)
 
 #undef ROUNDCOUNT_ENGINE_JUST_EXPLODED

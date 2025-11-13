@@ -27,7 +27,7 @@
 	mood_change = -4
 	timeout = 3 MINUTES
 
-/datum/mood_event/delam //SM delamination
+/datum/mood_event/delam
 	description = span_boldwarning("Those God damn engineers can't do anything right...")
 	mood_change = -2
 	timeout = 4 MINUTES

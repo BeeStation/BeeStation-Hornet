@@ -1404,8 +1404,10 @@
 	desc = "Typically the only thing standing between the station and a messy death. Powered by emitters. Contains two field generators."
 	cost = 1200
 	max_supply = 5
-	contains = list(/obj/machinery/field/generator,
-					/obj/machinery/field/generator)
+	contains = list(
+		/obj/machinery/field/generator,
+		/obj/machinery/field/generator,
+	)
 	crate_name = "field generator crate"
 
 /datum/supply_pack/engine/grounding_rods
@@ -1422,20 +1424,22 @@
 	crate_name = "grounding rod crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
-/datum/supply_pack/engine/PA
+/datum/supply_pack/engine/particle_accelerator
 	name = "Particle Accelerator Crate"
 	desc = "A supermassive black hole or hyper-powered teslaball are the perfect way to spice up any party! This \"My First Apocalypse\" kit contains everything you need to build your own Particle Accelerator! Ages 10 and up."
 	cost = 2700
 	max_supply = 3
 	access = ACCESS_CE
 	access_budget = ACCESS_CE
-	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
-					/obj/machinery/particle_accelerator/control_box,
-					/obj/structure/particle_accelerator/particle_emitter/center,
-					/obj/structure/particle_accelerator/particle_emitter/left,
-					/obj/structure/particle_accelerator/particle_emitter/right,
-					/obj/structure/particle_accelerator/power_box,
-					/obj/structure/particle_accelerator/end_cap)
+	contains = list(
+		/obj/structure/particle_accelerator/fuel_chamber,
+		/obj/machinery/particle_accelerator/control_box,
+		/obj/structure/particle_accelerator/particle_emitter/center,
+		/obj/structure/particle_accelerator/particle_emitter/left,
+		/obj/structure/particle_accelerator/particle_emitter/right,
+		/obj/structure/particle_accelerator/power_box,
+		/obj/structure/particle_accelerator/end_cap
+	)
 	crate_name = "particle accelerator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
@@ -1447,17 +1451,19 @@
 	max_supply = 1
 	access = ACCESS_CE
 	access_budget = ACCESS_CE
-	contains = list(/obj/item/RBMK_box/core,
-					/obj/item/RBMK_box/body/coolant_input,
-					/obj/item/RBMK_box/body/moderator_input,
-					/obj/item/RBMK_box/body/waste_output,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/RBMK_box/body,
-					/obj/item/circuitboard/computer/control_rods,
-					/obj/item/book/manual/wiki/rbmk)
+	contains = list(
+		/obj/item/RBMK_box/core,
+		/obj/item/RBMK_box/body/coolant_input,
+		/obj/item/RBMK_box/body/moderator_input,
+		/obj/item/RBMK_box/body/waste_output,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/RBMK_box/body,
+		/obj/item/circuitboard/computer/control_rods,
+		/obj/item/book/manual/wiki/rbmk
+	)
 	crate_name = "nuclear engine crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE

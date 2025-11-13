@@ -627,6 +627,14 @@
 	for (var/i in 1 to 6)
 		new /obj/item/ammo_casing/a357(src)
 
+/obj/item/storage/box/syndie_kit/rebarxbowsyndie
+	name = "Boxed Rebar Crossbow"
+	desc = "Now features instruction manual for making ammo."
+
+/obj/item/storage/box/syndie_kit/rebarxbowsyndie/PopulateContents()
+	new /obj/item/book/granter/crafting_recipe/dusting/rebarxbowsyndie_ammo(src)
+	new /obj/item/gun/ballistic/rifle/rebarxbow/syndie(src)
+
 /obj/item/storage/box/syndie_kit/pinata
 	name = "weapons grade pinata kit"
 	desc = "Contains a weapons grade pinata and 2 belts for carrying its contents."

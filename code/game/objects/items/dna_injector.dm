@@ -511,7 +511,6 @@
 	if(M.stat == DEAD)	//prevents dead people from having their DNA changed
 		to_chat(user, span_notice("You can't modify [M]'s DNA while [M.p_theyre()] dead."))
 		return FALSE
-
 	if(!M.can_mutate())
 		return FALSE
 

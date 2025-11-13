@@ -163,3 +163,56 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	heat_modifier = -1.5
 	power_transmission = -0.5
 	heat_power_generation = -1
+
+/datum/sm_gas/freon
+	gas_path = /datum/gas/freon
+	heat_modifier = -9
+	power_transmission = -3
+	heat_power_generation = -1
+
+/datum/sm_gas/hydrogen
+	gas_path = /datum/gas/hydrogen
+	heat_modifier = 9
+	power_transmission = 2.5
+	heat_resistance = 1
+	heat_power_generation = 1
+
+/datum/sm_gas/healium
+	gas_path = /datum/gas/healium
+	heat_modifier = 3
+	power_transmission = 0.24
+	heat_power_generation = 1
+
+/datum/sm_gas/proto_nitrate
+	gas_path = /datum/gas/proto_nitrate
+	heat_modifier = -4
+	power_transmission = 1.5
+	heat_resistance = 4
+	heat_power_generation = 1
+
+/datum/sm_gas/zauker
+	gas_path = /datum/gas/zauker
+	heat_modifier = 7
+	power_transmission = 2
+	heat_power_generation = 1
+	desc = "Will generate electrical zaps."
+
+/datum/sm_gas/zauker/extra_effects(obj/machinery/power/supermatter_crystal/sm)
+	if(!prob(sm.gas_percentage[/datum/gas/zauker] * 100))
+		return
+	playsound(sm.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
+	sm.supermatter_zap(
+		sm,
+		range = 6,
+		zap_str = clamp(sm.internal_energy * 1600, 3200000, 16000000),
+		zap_flags = ZAP_MOB_STUN,
+		zap_cutoff = sm.zap_cutoff,
+		power_level = sm.internal_energy,
+		zap_icon = sm.zap_icon
+	)
+
+/datum/sm_gas/antinoblium
+	gas_path = /datum/gas/antinoblium
+	heat_modifier = 14
+	power_transmission = -0.5
+	heat_power_generation = 1

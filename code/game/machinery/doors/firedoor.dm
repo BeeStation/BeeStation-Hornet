@@ -243,6 +243,8 @@
 	// Ignore high temperatures when emagged
 	if((environment.temperature >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST) && !(obj_flags & EMAGGED))
 		return FIRELOCK_ALARM_TYPE_HOT
+	if(environment.gases[/datum/gas/antinoblium] && environment.gases[/datum/gas/antinoblium][MOLES] > MINIMUM_MOLE_COUNT)
+		return FIRELOCK_ALARM_TYPE_HOT
 	// But do the other checks, since otherwise it is just annoying
 	if(environment.temperature <= BODYTEMP_COLD_DAMAGE_LIMIT)
 		return FIRELOCK_ALARM_TYPE_COLD

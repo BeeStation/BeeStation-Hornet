@@ -779,3 +779,67 @@
 	build_path = /obj/item/circuitboard/machine/photobooth/security
 	category = list("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/board/hfr_core
+	name = "HFR Core Board"
+	desc = "The circuit board for an HFR Core."
+	id = "hfr_core"
+	build_path = /obj/item/circuitboard/machine/hfr_core
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/hfr_fuel_input
+	name = "HFR Fuel Input Board"
+	desc = "The circuit board for an HFR fuel input."
+	id = "hfr_fuel_input"
+	build_path = /obj/item/circuitboard/machine/hfr_fuel_input
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/hfr_waste_output
+	name = "HFR Waste Output Board"
+	desc = "The circuit board for an HFR waste output."
+	id = "hfr_waste_output"
+	build_path = /obj/item/circuitboard/machine/hfr_waste_output
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/hfr_moderator_input
+	name = "HFR Moderator Input Board"
+	desc = "The circuit board for an HFR moderator input."
+	id = "hfr_moderator_input"
+	build_path = /obj/item/circuitboard/machine/hfr_moderator_input
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/hfr_corner
+	name = "HFR Corner Board"
+	desc = "The circuit board for an HFR corner."
+	id = "hfr_corner"
+	build_path = /obj/item/circuitboard/machine/hfr_corner
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/hfr_interface
+	name = "HFR Interface Board"
+	desc = "The circuit board for an HFR interface."
+	id = "hfr_interface"
+	build_path = /obj/item/circuitboard/machine/hfr_interface
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/crystallizer
+	name = "Crystallizer Board"
+	desc = "The circuit board for a crystallizer."
+	id = "crystallizer"
+	build_path = /obj/item/circuitboard/machine/crystallizer
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/electrolyzer
+	name = "Electrolyzer Board"
+	desc = "The circuit board for an electrolyzer."
+	id = "electrolyzer"
+	build_path = /obj/item/circuitboard/machine/electrolyzer
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING

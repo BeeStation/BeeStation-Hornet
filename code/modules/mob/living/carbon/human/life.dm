@@ -79,7 +79,7 @@
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))
-		..()
+		return ..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
