@@ -20,6 +20,7 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, \
 		_source = src, \
+		inventory_flags = (ITEM_SLOT_HANDS), \
 		antimagic_flags = (MAGIC_RESISTANCE_HOLY) \
 	)
 
