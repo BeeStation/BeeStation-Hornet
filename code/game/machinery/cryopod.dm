@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 		//Offer special roles to ghosts and pause processing while we do
 		var/datum/antagonist/A = mob_occupant.mind.has_antag_datum(/datum/antagonist)
-		if(A || (mob_occupant.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
+		if(A)
 			ghost_offering = TRUE
 			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
 			return
