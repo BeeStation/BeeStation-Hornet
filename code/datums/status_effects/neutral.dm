@@ -2,18 +2,18 @@
 
 /datum/status_effect/sigil_mark //allows the affected target to always trigger sigils while mindless
 	id = "sigil_mark"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = null
 	var/stat_allowed = DEAD //if owner's stat is below this, will remove itself
 
-/datum/status_effect/sigil_mark/tick()
+/datum/status_effect/sigil_mark/tick(seconds_between_ticks)
 	if(owner.stat < stat_allowed)
 		qdel(src)
 
 /datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
 	id = "crusher_damage"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
@@ -40,7 +40,7 @@
 	if(!QDELETED(reward_target))
 		reward_target.get_kill(owner)
 
-/datum/status_effect/syphon_mark/tick()
+/datum/status_effect/syphon_mark/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		get_kill()
 		qdel(src)
@@ -56,7 +56,7 @@
 
 /datum/status_effect/in_love
 	id = "in_love"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/in_love
 	var/mob/living/date
@@ -91,6 +91,7 @@
 /datum/status_effect/bounty
 	id = "bounty"
 	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
 	var/mob/living/rewarded
 
 /datum/status_effect/bounty/on_creation(mob/living/new_owner, mob/living/caster)
@@ -103,7 +104,7 @@
 	playsound(owner, 'sound/weapons/shotgunpump.ogg', 75, 0)
 	return ..()
 
-/datum/status_effect/bounty/tick()
+/datum/status_effect/bounty/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		rewards()
 		qdel(src)
@@ -123,7 +124,7 @@
 
 /datum/status_effect/bugged //Lets another mob hear everything you can
 	id = "bugged"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
 	var/mob/living/listening_in
@@ -149,8 +150,8 @@
 
 /datum/status_effect/offering
 	id = "offering"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	/// The people who were offered this item at the start
@@ -244,7 +245,7 @@
 /datum/status_effect/caltropped
 	id = "caltropped"
 	duration = 1 SECONDS
-	tick_interval = INFINITY
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 
@@ -265,8 +266,8 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	duration = -1
-	tick_interval = -1
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
@@ -293,7 +294,7 @@
 
 /datum/status_effect/cyborg_sentry
 	id = "cyborg_sentry"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/cyborg_sentry
 
 /datum/status_effect/cyborg_sentry/on_apply(mob/living/new_owner, ...)

@@ -319,6 +319,7 @@
 		/obj/item/stack/sheet/brass/cyborg)
 	cyborg_base_icon = "engineer"
 	model_select_icon = "engineer"
+	module_traits = list(TRAIT_NEGATES_GRAVITY)
 	hat_offset = -4
 
 // --------------------- Janitor
