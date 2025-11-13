@@ -367,6 +367,7 @@
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
 	items_to_create = list(/obj/item/apc_powercord)
 	zone = "l_arm"
+	slot = ORGAN_SLOT_LEFT_ARM_AUG
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
