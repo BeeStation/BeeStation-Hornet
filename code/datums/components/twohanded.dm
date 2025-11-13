@@ -245,7 +245,7 @@
 	// wield update status
 	wielded = FALSE
 	if(!auto_wield)
-		UnregisterSignal(wielder, COMSIG_MOB_SWAP_HANDS)
+		UnregisterSignal(wielder, COMSIG_MOB_SWAPPING_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, wielder)
 	REMOVE_TRAIT(parent, TRAIT_WIELDED, REF(src))
 
