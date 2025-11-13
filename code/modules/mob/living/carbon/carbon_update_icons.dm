@@ -1,5 +1,3 @@
-///The standard amount of bodyparts a carbon has. Currently 6, HEAD/L_ARM/R_ARM/CHEST/L_LEG/R_LEG
-#define BODYPARTS_DEFAULT_MAXIMUM 6
 
 /mob/living/carbon/update_obscured_slots(obscured_flags)
 	..()
@@ -355,7 +353,7 @@
 	if(should_draw_greyscale && draw_color)
 		. += "-[draw_color]"
 	for(var/datum/bodypart_overlay/overlay as anything in bodypart_overlays)
-		if(!overlay.can_draw_on_bodypart(owner))
+		if(!overlay.can_draw_on_bodypart(src, owner))
 			continue
 		. += "-[jointext(overlay.generate_icon_cache(), "-")]"
 
@@ -455,5 +453,3 @@ GLOBAL_LIST_EMPTY(masked_leg_icons_cache)
 	new_leg_appearance_lower.dir = image_dir
 	. += new_leg_appearance_lower
 	return .
-
-#undef BODYPARTS_DEFAULT_MAXIMUM

@@ -12,7 +12,7 @@
 		"body_size" = "Normal"
 	)
 	body_markings = list(
-		/datum/bodypart_overlay/simple/body_marking/lizard = "None"
+		/datum/bodypart_overlay/simple/body_marking/lizard = SPRITE_ACCESSORY_NONE,
 	)
 	mutant_organs = list(
 		/obj/item/organ/horns = SPRITE_ACCESSORY_NONE,

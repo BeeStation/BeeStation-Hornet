@@ -17,7 +17,7 @@
 		"body_size" = "Normal"
 	)
 	body_markings = list(
-		/datum/bodypart_overlay/simple/body_marking/moth = "None"
+		/datum/bodypart_overlay/simple/body_marking/moth = SPRITE_ACCESSORY_NONE,
 	)
 	mutant_organs = list(
 		/obj/item/organ/wings/moth = "Plain",
