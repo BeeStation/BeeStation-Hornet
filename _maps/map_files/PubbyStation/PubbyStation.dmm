@@ -14664,9 +14664,8 @@
 /area/engine/atmos)
 "bMe" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 4
+	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bMf" = (
@@ -15934,7 +15933,10 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUv" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -15943,14 +15945,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
-/obj/machinery/atmospherics/pipe/bridge_pipe/violet/visible{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUx" = (
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
@@ -19975,9 +19973,14 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "cvV" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 10
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "incinerator mix pump";
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cwa" = (
@@ -21609,6 +21612,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"cXa" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 5
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "cXW" = (
 /obj/structure/grille,
 /obj/structure/disposalpipe/segment,
@@ -22118,11 +22127,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "dgY" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -22236,10 +22245,12 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "djQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "dkd" = (
@@ -34571,6 +34582,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
+"iXP" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/suit_storage_unit/atmos,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "iYk" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -40263,7 +40281,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/violet/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ltn" = (
@@ -45567,10 +45584,10 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "nTA" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
+	dir = 4
 	},
-/obj/machinery/suit_storage_unit/atmos,
+/obj/machinery/atmospherics/pipe/bridge_pipe/purple/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "nTB" = (
@@ -48141,6 +48158,12 @@
 /obj/machinery/cryopod,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
+"oXD" = (
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 6
+	},
+/turf/open/floor/catwalk_floor/iron,
+/area/engine/atmos)
 "oXF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plating,
@@ -51002,9 +51025,10 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/sorting)
 "qkf" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 5
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "qkE" = (
@@ -52036,9 +52060,7 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "qKR" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "incinerator mix pump"
-	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "qLo" = (
@@ -104115,7 +104137,7 @@ bJP
 lba
 wQV
 lyl
-nTA
+iXP
 jvz
 bTN
 bUt
@@ -105408,8 +105430,8 @@ bQI
 bQI
 acN
 gPm
-mIg
-aTO
+oXD
+bUv
 bVZ
 qhq
 bWc
@@ -105666,7 +105688,7 @@ bSS
 bTR
 gbu
 qkf
-aTO
+djQ
 bMf
 kyp
 bLW
@@ -105923,7 +105945,7 @@ bST
 bTS
 bUu
 dgY
-bMe
+bVZ
 bWP
 qhq
 adG
@@ -106178,9 +106200,9 @@ bQM
 bQM
 bSU
 bTT
-bUv
-bMf
-bKX
+bUx
+nTA
+cXa
 ads
 byg
 bYw
@@ -106436,8 +106458,8 @@ bSg
 bPV
 bVj
 bUw
-djQ
 adr
+cvV
 jHn
 vJw
 bYw
@@ -106691,10 +106713,10 @@ bMf
 bMf
 bKX
 bMf
-cvV
-bUx
-ltl
+bMe
 qKR
+ltl
+bUx
 bWS
 jUM
 gUV
