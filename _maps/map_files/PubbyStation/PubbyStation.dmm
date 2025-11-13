@@ -12231,10 +12231,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "PubbyStation (Overhaul)";
-	desc = "i often found myself doubting and disliking various designs and kept going over them for every department, eventually i settled on something but i occasionaly still think if maybe its too much"
-	},
 /turf/open/floor/iron/smooth,
 /area/science/explab)
 "btA" = (
@@ -15938,8 +15934,8 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUv" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 10
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -15947,10 +15943,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/violet/visible{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUx" = (
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
@@ -19975,8 +19975,8 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "cvV" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "incinerator mix pump"
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -21609,17 +21609,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
-"cXa" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "PubbyStation (SM)";
-	desc = "The SM was made completely new from the old TEG design and should be somewhat easier to set but is also posistioned south for extra pain"
-	},
-/turf/open/floor/engine,
-/area/engine/engineering)
 "cXW" = (
 /obj/structure/grille,
 /obj/structure/disposalpipe/segment,
@@ -22247,13 +22236,12 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "djQ" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "PubbyStation (AI)";
-	desc = "Initially i planned to do a Resident Evil themed ai sat but after much error i decided to just buff up the old one"
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/ai)
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "dkd" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white/smooth_large,
@@ -23911,16 +23899,6 @@
 /obj/item/clothing/glasses/blindfold,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"dZq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
-/obj/machinery/atmospherics/pipe/bridge_pipe/violet/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "dZF" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/item/seeds/grape,
@@ -27507,12 +27485,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat_interior)
-"fDf" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
-	dir = 5
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "fDp" = (
 /turf/open/floor/iron/white/smooth_large{
 	color = "a7a6a3"
@@ -28600,10 +28572,6 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"gfw" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/turf/open/floor/iron,
-/area/engine/atmos)
 "gfV" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "research_shutters_2";
@@ -40295,9 +40263,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
-	dir = 10
-	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/violet/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ltn" = (
@@ -45601,15 +45567,12 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "nTA" = (
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "PubbyStation (TradePost)";
-	desc = "Remember Kilo? i thought of something similair but functional , this place doesnt have much loot and is only really accesible for gimmicks , also lone op might spawn here i wonder if they could ever work with the lavaland nerds.."
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/syndicate_sat)
+/obj/machinery/suit_storage_unit/atmos,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "nTB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -47639,13 +47602,6 @@
 "oLR" = (
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
-"oLV" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/suit_storage_unit/atmos,
-/turf/open/floor/iron,
-/area/engine/atmos)
 "oLX" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -52080,18 +52036,11 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/storage)
 "qKR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 4
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "incinerator mix pump"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "PubbyStation (Prison)";
-	desc = "I thought it would be really cool to have a prison centred brig so security will be forced to interact with them more especially since its rather vulnerable"
-	},
-/turf/open/floor/prison/dark,
-/area/security/prison)
+/turf/open/floor/iron,
+/area/engine/atmos)
 "qLo" = (
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
@@ -56519,10 +56468,6 @@
 /obj/item/storage/secure/safe/directional/north,
 /obj/item/storage/secure/safe/directional/north{
 	name = "Secure Storage"
-	},
-/obj/effect/mapping_helpers/Mapper_Comment{
-	name = "PubbyStation (MVault)";
-	desc = "The Monastery needed more crew interaction so i figured to set up a communal vault and alot of other cool service things"
 	},
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
@@ -90986,7 +90931,7 @@ dzF
 ajj
 aqC
 gQX
-qKR
+jRV
 gYl
 wba
 vuS
@@ -99569,7 +99514,7 @@ xxK
 xEh
 xxK
 qGg
-cXa
+xxK
 ddA
 oDp
 cCI
@@ -100723,7 +100668,7 @@ abO
 jKc
 abO
 abO
-djQ
+acM
 lhP
 acJ
 abO
@@ -104170,7 +104115,7 @@ bJP
 lba
 wQV
 lyl
-oLV
+nTA
 jvz
 bTN
 bUt
@@ -106233,8 +106178,8 @@ bQM
 bQM
 bSU
 bTT
-bUx
-fDf
+bUv
+bMf
 bKX
 ads
 byg
@@ -106491,7 +106436,7 @@ bSg
 bPV
 bVj
 bUw
-dZq
+djQ
 adr
 jHn
 vJw
@@ -106746,10 +106691,10 @@ bMf
 bMf
 bKX
 bMf
-bUv
-gfw
-ltl
 cvV
+bUx
+ltl
+qKR
 bWS
 jUM
 gUV
@@ -121532,7 +121477,7 @@ hiJ
 bsu
 gVL
 myJ
-nTA
+acc
 qjp
 cSM
 rji
