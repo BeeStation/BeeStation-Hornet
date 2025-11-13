@@ -1,0 +1,6 @@
+author: r1ks-iwnl, Krausus
+delete-after: true
+changes:
+  - bugfix: Roundend sounds won't be cut off
+  - admin: Set Round End Sound verb now requires a duration input along with your
+      selected sound
