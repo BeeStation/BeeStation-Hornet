@@ -156,3 +156,10 @@
   - tweak: tweaked the french accent a bit
   mrmanlikesbt:
   - bugfix: Fixed non-standard heretic races not being able to sacrifice their targets
+2025-11-13:
+  BotTierPC, Blerpfish:
+  - rscadd: Added a new Paramedic Department Poster for Mapping
+  r1ks-iwnl, Krausus:
+  - bugfix: Roundend sounds won't be cut off
+  - admin: Set Round End Sound verb now requires a duration input along with your
+      selected sound
