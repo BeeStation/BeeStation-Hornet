@@ -205,13 +205,35 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		explanation_text = team_explanation_text
 
 /datum/objective/proc/generate_stash(list/special_equipment)
-	var/datum/mind/receiver = pick(get_owners())
-	var/obj/item/storage/backpack/satchel/flat/empty/secret_bag = receiver.antag_stash
+	var/list/owners = get_owners()
+	var/datum/mind/tester = pick(owners)
+	var/obj/item/storage/secret_bag = null
+	for (var/datum/component/stash/stash in tester.antag_stashes)
+		// Is this a valid stash
+		// Must be owned exclusively by our owners
+		var/valid = TRUE
+		for (var/datum/mind/mind in stash.stash_minds)
+			if (!(mind in team.members))
+				valid = FALSE
+				break
+		if (!valid)
+			continue
+		// Everyone on the team must own this stash.
+		// Its not good enough for a team item to go into
+		// a stash owned by 1 person.
+		for (var/datum/mind/mind in owners)
+			if (!(mind in stash.stash_minds))
+				valid = FALSE
+				break
+		if (!valid)
+			continue
+		// Must be something that we can store in
+		if (!istype(stash.parent, /obj/item/storage))
+			continue
+		secret_bag = stash.parent
 	//Find and generate the stash
 	if(!secret_bag)
-		secret_bag = new()
-		// Hard-del handling is done by the component
-		receiver.antag_stash = secret_bag
+		secret_bag = new /obj/item/storage/backpack/satchel/flat/empty()
 		var/atom_text = ""
 		switch (pick_weight(list("airlock" = 3)))
 			if("airlock")
@@ -229,19 +251,22 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 					if (!(area.area_flags & HIDDEN_STASH_LOCATION))
 						continue
 					//This airlock is good for us
-					A.AddComponent(/datum/component/stash, receiver, secret_bag)
+					var/stash_comp = A.AddComponent(/datum/component/stash, owners, secret_bag)
+					for (var/datum/mind/receiver in owners)
+						if (!islist(receiver.antag_stashes))
+							receiver.antag_stashes = list()
+						receiver.antag_stashes += stash_comp
 					break
 		//Failsafe
 		if(!secret_bag.loc)
 			atom_text = "You"
-			message_admins("Could not find a location to put [ADMIN_FLW(receiver.current)]'s stash.")
-			secret_bag.forceMove(get_turf(receiver.current))
-			receiver.current.equip_to_appropriate_slot(secret_bag)
-			// Remove this from memory since the component deals with hard-dels
-			receiver.antag_stash = null
+			message_admins("Could not find a location to put [ADMIN_FLW(tester.current)]'s stash.")
+			secret_bag.forceMove(get_turf(tester.current))
+			tester.current.equip_to_appropriate_slot(secret_bag)
 		//Update the mind
-		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
-		to_chat(receiver?.current, span_noticebold("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
+		for (var/datum/mind/receiver in owners)
+			receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
+			to_chat(receiver?.current, span_noticebold("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
 		new eq_path(secret_bag)
@@ -266,3 +291,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		for(var/datum/mind/own as() in get_owners())
 			to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 			own.announce_objectives()
+
+/// Get the tracking target for this objective
+/datum/objective/proc/get_tracking_target(atom/source)
+	RETURN_TYPE(/atom)
+	return null

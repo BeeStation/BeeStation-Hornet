@@ -85,6 +85,10 @@
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/laser/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/gun/energy/laser/captain/contents_explosion(severity, target)
 	if (!ammo_type || !cell)
 		name = "\improper broken antique laser gun"

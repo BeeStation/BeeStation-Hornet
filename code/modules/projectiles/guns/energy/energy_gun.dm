@@ -75,6 +75,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/e_gun/hos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/gun/energy/e_gun/hos/contents_explosion(severity, target)
 	if (!ammo_type || !cell)
 		name = "\improper Broken X-01 MultiPhase Energy Gun"

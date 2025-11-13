@@ -231,6 +231,10 @@
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/trackable)
+
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas by security forces."
