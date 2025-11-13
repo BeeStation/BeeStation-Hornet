@@ -13401,6 +13401,7 @@
 /area/science/storage)
 "bBG" = (
 /obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/science/storage)
 "bBK" = (
@@ -14986,13 +14987,13 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bOZ" = (
-/obj/machinery/atmospherics/pipe/bridge_pipe/general{
-	dir = 4
+/obj/machinery/atmospherics/pipe/bridge_pipe/general/visible{
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/cyan,
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bPa" = (
@@ -15943,19 +15944,20 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUw" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUx" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUC" = (
@@ -19977,10 +19979,9 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
 "cvV" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "incinerator mix pump"
 	},
-/obj/machinery/suit_storage_unit/atmos,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "cwa" = (
@@ -22169,16 +22170,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "N2 To Pure"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "dii" = (
@@ -23762,6 +23760,16 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
+"dWy" = (
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "O2 To Pure"
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "dWH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -24171,6 +24179,9 @@
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
@@ -28320,16 +28331,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "O2 To Pure"
-	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "fXI" = (
@@ -29417,7 +29425,7 @@
 "gCW" = (
 /obj/machinery/door/airlock/vault{
 	name = "Monastery Vault Door";
-	id_tag = "Faith"
+	id_tag = "Faith1"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/firedoor,
@@ -32925,8 +32933,8 @@
 /obj/structure/table/wood,
 /obj/machinery/button/door/directional/east{
 	name = "Monastery Vault Bolts";
-	id = "Faith";
-	req_access_txt = "22;37";
+	id = "Faith1";
+	req_access_txt = "22";
 	pixel_x = -9
 	},
 /turf/open/floor/carpet/black,
@@ -33757,12 +33765,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "iBB" = (
-/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers,
+/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/general{
-	dir = 4
+/obj/machinery/atmospherics/pipe/bridge_pipe/general/visible{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -35775,6 +35783,13 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"jyA" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/suit_storage_unit/atmos,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "jyF" = (
 /obj/machinery/door/window/southleft{
 	dir = 8;
@@ -38253,19 +38268,19 @@
 	},
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /obj/structure/destructible/cult/tome/library,
-/obj/item/clockwork/component/hierophant_ansible{
-	name = "Mask of the Dreamer";
-	desc = "An Artifact said to provide its wearer with unimaginable power, sadly you can't";
+/obj/item/shield/adamantineshield{
+	icon = 'icons/obj/clockwork_objects.dmi';
+	icon_state = "hierophant_ansible";
+	max_integrity = 10000;
 	light_color = "#9a001f";
 	light_range = 5;
-	block_flags = 2;
-	block_level = 3;
-	block_power = 75;
-	w_class = 13;
-	attack_weight = 2;
-	slowdown = 5;
-	throw_range = 2;
-	drag_slowdown = 5
+	name = "Mask of the Dreamer";
+	desc = "An Artifact said to provide its wearer with unimaginable power, sadly you can't";
+	block_sound = 'sound/effects/curseattack.ogg';
+	item_state = "security";
+	block_power = 80;
+	damtype = "burn";
+	force = 5
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/chapel/main/monastery)
@@ -40063,6 +40078,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron/dark/textured_large,
 /area/science/shuttledock)
 "lmn" = (
@@ -40270,11 +40288,9 @@
 /area/security/prison)
 "ltl" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 4
+	dir = 5
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "incinerator mix pump"
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ltn" = (
@@ -40643,6 +40659,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
@@ -41149,11 +41168,8 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "lPR" = (
-/obj/machinery/atmospherics/components/trinary/mixer/flipped{
-	dir = 1;
-	node1_concentration = 0.2;
-	node2_concentration = 0.8;
-	on = 1
+/obj/machinery/atmospherics/components/trinary/mixer/flipped/on{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
@@ -51155,6 +51171,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"qmN" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "qmQ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -51920,6 +51943,12 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
+"qIx" = (
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "qIB" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -55994,6 +56023,9 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "svT" = (
@@ -57815,6 +57847,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/science/shuttledock)
@@ -61972,7 +62007,6 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
 "vww" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/engine,
 /area/science/storage)
@@ -63904,9 +63938,12 @@
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "woe" = (
-/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "N2 To Pure"
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -64189,8 +64226,8 @@
 /obj/item/paper_bin,
 /obj/machinery/button/door/directional/east{
 	name = "Monastery Vault Bolts";
-	id = "Faith";
-	req_access_txt = "22;37"
+	id = "Faith1";
+	req_access_txt = "37"
 	},
 /obj/machinery/door/firedoor,
 /obj/item/pen,
@@ -95374,7 +95411,7 @@ bim
 bsA
 rpq
 sbN
-fdl
+deB
 vyZ
 vTv
 hNI
@@ -104135,7 +104172,7 @@ bJP
 lba
 wQV
 lyl
-cvV
+jyA
 jvz
 bTN
 bUt
@@ -105173,7 +105210,7 @@ bQJ
 gPm
 mIg
 bVi
-woe
+dWy
 fXx
 adj
 bRC
@@ -106454,9 +106491,9 @@ bPV
 bPV
 bSg
 bPV
-bPV
-bUw
 bVj
+bUw
+qmN
 adr
 jHn
 vJw
@@ -106711,10 +106748,10 @@ bMf
 bMf
 bKX
 bMf
-bMf
+qIx
 bUx
 ltl
-bWS
+cvV
 bWS
 jUM
 gUV
@@ -107208,7 +107245,7 @@ wDl
 gxv
 bAA
 bBG
-bCR
+bBG
 sVL
 sBt
 bGi
