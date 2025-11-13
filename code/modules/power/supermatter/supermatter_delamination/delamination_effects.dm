@@ -82,7 +82,7 @@
 /datum/sm_delam/proc/effect_explosion(obj/machinery/power/supermatter_crystal/sm)
 	explosion(
 		epicenter = get_turf(sm),
-		devastation_range = calculate_explosion(sm) * 0.5, // 17.5 at 75 MINUTES
+		devastation_range = calculate_explosion(sm) * 0.5, // 17.5 at SUPERMATTER_CRITICAL_TIME define.
 		heavy_impact_range = calculate_explosion(sm) + 2, // 37
 		light_impact_range = calculate_explosion(sm) + 4, // 39
 		flash_range = calculate_explosion(sm) + 6, // 41

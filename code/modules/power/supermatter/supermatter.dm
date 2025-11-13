@@ -676,7 +676,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	internal_energy = max(internal_energy, 0)
 	if(internal_energy && !activation_time)
 		stack_trace("Supermatter powered for the first time without being logged. Internal energy factors: [json_encode(internal_energy_factors)]")
-		activation_time = TRUE // so we dont spam the log.
+		activation_time = world.time
 	else if(!internal_energy)
 		last_power_zap = world.time
 		last_energy_accumulation_perspective_machines = SSmachines.times_fired
