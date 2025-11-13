@@ -141,8 +141,25 @@
   mrmanlikesbt:
   - code_imp: Deprecated 515
 2025-11-11:
+  BotTierPC:
+  - bugfix: fixed boxstation Garden / Bar Zoning and APC names
+  PowerfulBacon:
+  - bugfix: Huge numbers of small explosions can no longer crash the server.
+  - tweak: Adds server-side support for versioning storytellers.
   mrmanlikesbt:
   - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
   mrmanlikesbt, Watermelon914:
   - refactor: Subsystems use dynamically generated init orders now instead of a previously
       hard-coded list
+2025-11-12:
+  TsunamiAnt:
+  - tweak: tweaked the french accent a bit
+  mrmanlikesbt:
+  - bugfix: Fixed non-standard heretic races not being able to sacrifice their targets
+2025-11-13:
+  BotTierPC, Blerpfish:
+  - rscadd: Added a new Paramedic Department Poster for Mapping
+  r1ks-iwnl, Krausus:
+  - bugfix: Roundend sounds won't be cut off
+  - admin: Set Round End Sound verb now requires a duration input along with your
+      selected sound

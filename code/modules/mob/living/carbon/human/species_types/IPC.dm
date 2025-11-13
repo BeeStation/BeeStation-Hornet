@@ -321,7 +321,7 @@
 	bandaged_bleeding = 0
 	..()
 
-/datum/status_effect/bleeding/robotic/update_icon()
+/datum/status_effect/bleeding/robotic/update_shown_duration()
 	// The actual rate of bleeding, can be reduced by holding wounds
 	// Calculate the message to show to the user
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))

@@ -246,6 +246,19 @@ SUBSYSTEM_DEF(dynamic)
 			stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
 			continue
 
+#ifdef STORYTELLER_VERSION
+		if (!loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name], it did not provide a storyteller version but one was required. (Required '[STORYTELLER_VERSION]')")
+			continue
+		if (loaded_json["Version"] != STORYTELLER_VERSION)
+			log_dynamic("Skipped loading storyteller [json_name], it did not have the required storyteller version (Required '[STORYTELLER_VERSION]', got '[loaded_json["Version"]]').")
+			continue
+#else
+		if (loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name] as it has a version of '[loaded_json["Version"]]', but we expected none.")
+			continue
+#endif
+
 		dynamic_storyteller_jsons[json_name] = loaded_json
 
 /datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
