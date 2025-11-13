@@ -168,7 +168,7 @@
 	if(vassaldatum.special_type)
 		to_chat(living_vampire, span_notice("This Vassal was already assigned a special position."))
 		return FALSE
-	if(!(MOB_ORGANIC in living_vassal.mob_biotypes)) // !(living_vassal.mob_biotypes & MOB_ORGANIC)
+	if(!(living_vassal.mob_biotypes & MOB_ORGANIC))
 		to_chat(living_vampire, span_notice("This Vassal is unable to gain a special rank due to innate features."))
 		return FALSE
 
