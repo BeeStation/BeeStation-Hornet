@@ -15938,17 +15938,14 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUv" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
-	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
@@ -15957,7 +15954,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "bUC" = (
@@ -22167,7 +22163,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -22176,7 +22172,10 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "N2 To Pure"
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "dii" = (
@@ -23760,16 +23759,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
-"dWy" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "O2 To Pure"
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "dWH" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -23922,6 +23911,16 @@
 /obj/item/clothing/glasses/blindfold,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"dZq" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
+/obj/machinery/atmospherics/pipe/bridge_pipe/violet/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "dZF" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/item/seeds/grape,
@@ -27508,6 +27507,12 @@
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat_interior)
+"fDf" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 5
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "fDp" = (
 /turf/open/floor/iron/white/smooth_large{
 	color = "a7a6a3"
@@ -28328,7 +28333,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+/obj/machinery/atmospherics/pipe/bridge_pipe/green/visible{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -28337,7 +28342,10 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/bridge_pipe/cyan/visible,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1;
+	name = "O2 To Pure"
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "fXI" = (
@@ -28592,6 +28600,10 @@
 /obj/effect/turf_decal/edges/borderfloor/black/full,
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"gfw" = (
+/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "gfV" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "research_shutters_2";
@@ -35783,13 +35795,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"jyA" = (
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/obj/machinery/suit_storage_unit/atmos,
-/turf/open/floor/iron,
-/area/engine/atmos)
 "jyF" = (
 /obj/machinery/door/window/southleft{
 	dir = 8;
@@ -40290,7 +40295,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 10
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "ltn" = (
@@ -47632,6 +47639,13 @@
 "oLR" = (
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
+"oLV" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/suit_storage_unit/atmos,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "oLX" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -51171,13 +51185,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
-"qmN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/turf/open/floor/iron,
-/area/engine/atmos)
 "qmQ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -51943,12 +51950,6 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
-"qIx" = (
-/obj/machinery/atmospherics/pipe/smart/simple/yellow/visible{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "qIB" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -63941,10 +63942,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1;
-	name = "N2 To Pure"
-	},
+/obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "woI" = (
@@ -104172,7 +104170,7 @@ bJP
 lba
 wQV
 lyl
-jyA
+oLV
 jvz
 bTN
 bUt
@@ -105210,7 +105208,7 @@ bQJ
 gPm
 mIg
 bVi
-dWy
+woe
 fXx
 adj
 bRC
@@ -106235,8 +106233,8 @@ bQM
 bQM
 bSU
 bTT
-bUv
-bMf
+bUx
+fDf
 bKX
 ads
 byg
@@ -106493,7 +106491,7 @@ bSg
 bPV
 bVj
 bUw
-qmN
+dZq
 adr
 jHn
 vJw
@@ -106748,8 +106746,8 @@ bMf
 bMf
 bKX
 bMf
-qIx
-bUx
+bUv
+gfw
 ltl
 cvV
 bWS
