@@ -3,7 +3,7 @@
 **/
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
 	SIGNAL_HANDLER
-	if(vampire_haven_area && !(locate(/datum/action/vampire/gohome) in powers))
+	if(vampire_lair_area && !(locate(/datum/action/vampire/gohome) in powers))
 		grant_power(new /datum/action/vampire/gohome)
 
 /**

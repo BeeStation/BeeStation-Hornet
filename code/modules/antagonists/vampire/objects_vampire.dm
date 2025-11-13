@@ -17,7 +17,7 @@
 		. += span_cult(ghost_desc)
 	if(IS_VAMPIRE(user) && vampire_desc)
 		if(!owner)
-			. += span_cult("It is unsecured. Click on [src] while in your Haven to secure it in place to get its full potential")
+			. += span_cult("It is unsecured. Click on [src] while in your Lair to secure it in place to get its full potential")
 			return
 		. += span_cult(vampire_desc)
 	if(IS_VASSAL(user) && vassal_desc)
@@ -55,11 +55,11 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 	/// Claiming the Rack instead of using it?
 	if(vampiredatum && !owner)
-		if(!vampiredatum.vampire_haven_area)
-			to_chat(user, span_danger("You don't have a haven. Claim a coffin to make that location your haven."))
+		if(!vampiredatum.vampire_lair_area)
+			to_chat(user, span_danger("You don't have a lair. Claim a coffin to make that location your lair."))
 			return FALSE
-		if(vampiredatum.vampire_haven_area != get_area(src))
-			to_chat(user, span_danger("You may only activate this structure in your haven: [vampiredatum.vampire_haven_area]."))
+		if(vampiredatum.vampire_lair_area != get_area(src))
+			to_chat(user, span_danger("You may only activate this structure in your lair: [vampiredatum.vampire_lair_area]."))
 			return FALSE
 
 		/// Radial menu for securing your Persuasion rack in place.

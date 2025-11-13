@@ -165,7 +165,7 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(resident)
 	if(vampiredatum && vampiredatum.coffin == src)
 		vampiredatum.coffin = null
-		vampiredatum.vampire_haven_area = null
+		vampiredatum.vampire_lair_area = null
 	for(var/obj/structure/vampire/vampire_structure in get_area(src))
 		if(vampire_structure.owner == resident)
 			vampire_structure.unbolt()
@@ -173,7 +173,7 @@
 	if(manual)
 		to_chat(resident, span_cultitalic("You have unclaimed your coffin! This also unclaims all your other Vampire structures!"))
 	else
-		to_chat(resident, span_cultitalic("You sense that the link with your coffin and your haven has been broken! You will need to seek another."))
+		to_chat(resident, span_cultitalic("You sense that the link with your coffin and your lair has been broken! You will need to seek another."))
 	// Remove resident. Because this objec (GC?) we need to give them a way to see they don't have a home anymore.
 	resident = null
 
@@ -202,7 +202,7 @@
 			return FALSE
 
 		if(!vampire.coffin && !resident)
-			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your haven.", "Claim haven", list("Yes", "No")))
+			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your lair.", "Claim lair", list("Yes", "No")))
 				if("Yes")
 					claim_coffin(user)
 				if("No")

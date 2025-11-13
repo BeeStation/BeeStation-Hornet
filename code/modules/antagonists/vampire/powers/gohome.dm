@@ -10,7 +10,7 @@
  */
 /datum/action/vampire/gohome
 	name = "Vanishing Act"
-	desc = "As dawn aproaches, disperse into mist and return directly to your haven.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
+	desc = "As dawn aproaches, disperse into mist and return directly to your lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
 	button_icon_state = "power_gohome"
 	power_explanation = "Activating Vanishing Act will, after a short delay, teleport you to your Claimed Coffin.\n\
 		Immediately after activating, lights around the user will begin to flicker.\n\

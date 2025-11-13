@@ -62,8 +62,8 @@
 	/// How much damage the vampire heals each life tick. Increases per rank up
 	var/vampire_regen_rate = 0.3
 
-	/// Haven
-	var/area/vampire_haven_area
+	/// Lair
+	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
 
 	/// To keep track of objectives
@@ -516,10 +516,10 @@
 	if(!GLOB.the_station_areas.Find(coffin_area.type))
 		claimed.balloon_alert(owner.current, "not part of station!")
 		return
-	// This is my Haven
+	// This is my Lair
 	coffin = claimed
-	vampire_haven_area = coffin_area
-	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your haven is now [vampire_haven_area]."))
+	vampire_lair_area = coffin_area
+	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
 	return TRUE
 
 /// Name shown on antag list
@@ -540,10 +540,10 @@
 	return info_button
 
 /datum/antagonist/vampire/proc/forge_objectives()
-	// Claim a Haven Objective
-	var/datum/objective/vampire/haven/haven_objective = new
-	haven_objective.owner = owner
-	objectives += haven_objective
+	// Claim a Lair Objective
+	var/datum/objective/vampire/lair/lair_objective = new
+	lair_objective.owner = owner
+	objectives += lair_objective
 
 	// Survive Objective
 	var/datum/objective/survive/survive_objective = new
