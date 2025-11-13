@@ -41,11 +41,6 @@
 		return FALSE
 	var/mob/living/living_target = target_atom
 
-	// Vampire/Curator check
-	if(IS_CURATOR(living_target))
-		owner.balloon_alert(owner, "too powerful.")
-		return FALSE
-
 	// Check for magic immunity
 	if(living_target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		owner.balloon_alert(owner, "your curse was blocked.")
