@@ -137,7 +137,7 @@
 	icon_state = "capsule"
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/meteor_shield/ComponentInitialize()
+/obj/item/meteor_shield/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/deployable, /obj/machinery/satellite/meteor_shield, time_to_deploy = 0)
 
@@ -155,7 +155,7 @@
 	proximity_monitor = new(src, 0)
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
-	for(var/turf/T in getline(src,meteor))
+	for(var/turf/T in get_line(src,meteor))
 		if(!isspaceturf(T))
 			return FALSE
 	return TRUE

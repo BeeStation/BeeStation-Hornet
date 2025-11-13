@@ -38,12 +38,12 @@
 	var/morphed = FALSE
 	var/atom/movable/form = null
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/anomaly,
-	/obj/eldritch/narsie,
-	/mob/living/simple_animal/hostile/morph,
-	/obj/effect,
-	/mob/camera
+		/atom/movable/screen,
+		/obj/anomaly,
+		/obj/eldritch/narsie,
+		/mob/living/simple_animal/hostile/morph,
+		/obj/effect,
+		/mob/camera,
 	))
 	var/atom/movable/throwatom = null
 
@@ -255,7 +255,7 @@
 /mob/living/simple_animal/hostile/morph/LoseAggro()
 	vision_range = initial(vision_range)
 
-/mob/living/simple_animal/hostile/morph/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(.)
 		var/list/things = list()

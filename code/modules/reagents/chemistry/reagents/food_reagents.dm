@@ -376,32 +376,28 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	taste_description = "mushroom"
 
-/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/psychonaut, delta_time, times_fired)
 	. = ..()
-	if(ispsyphoza(affected_mob))
+	if(ispsyphoza(psychonaut))
 		return
 
-	if(!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
+	if(!psychonaut.slurring)
+		psychonaut.slurring = 1 * REM * delta_time
 
 	switch(current_cycle)
-		if(1 to 5)
-			affected_mob.Dizzy(5 * REM * delta_time)
-			affected_mob.set_drugginess(30 * REM * delta_time)
+		if(2 to 6)
 			if(DT_PROB(5, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(5 to 10)
-			affected_mob.Jitter(10 * REM * delta_time)
-			affected_mob.Dizzy(10 * REM * delta_time)
-			affected_mob.set_drugginess(35 * REM * delta_time)
+				psychonaut.emote(pick("twitch", "giggle"))
+		if(6 to 11)
+			psychonaut.set_jitter_if_lower(20 SECONDS * REM * delta_time)
+			psychonaut.set_drugginess(35 * REM * delta_time)
 			if(DT_PROB(10, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if (10 to INFINITY)
-			affected_mob.Jitter(20 * REM * delta_time)
-			affected_mob.Dizzy(20 * REM * delta_time)
-			affected_mob.set_drugginess(40 * REM * delta_time)
+				psychonaut.emote(pick("twitch", "giggle"))
+		if (11 to INFINITY)
+			psychonaut.set_jitter_if_lower(40 SECONDS * REM * delta_time)
+			psychonaut.set_drugginess(40 * REM * delta_time)
 			if(DT_PROB(16, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
+				psychonaut.emote(pick("twitch", "giggle"))
 
 /datum/reagent/consumable/garlic //NOTE: having garlic in your blood stops vampires from biting you.
 	name = "Garlic Juice"
@@ -417,7 +413,7 @@
 		if(DT_PROB(min(current_cycle / 2, 12.5), delta_time))
 			to_chat(affected_mob, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			affected_mob.Paralyze(10)
-			affected_mob.Jitter(10)
+			affected_mob.set_jitter_if_lower(20 SECONDS)
 	else if(ishuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(affected_human.job == JOB_NAME_COOK)
@@ -664,41 +660,6 @@
 	if(affected_mob.nutrition > NUTRITION_LEVEL_FULL - 25)
 		affected_mob.adjust_nutrition(-3 * REM * nutriment_factor * delta_time)
 
-/datum/reagent/consumable/maltodextrin
-	name = "Maltodextrin"
-	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
-	color = "#d4e1ee"
-	chemical_flags = CHEMICAL_RNG_GENERAL
-	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
-	taste_description = "processed goodness"
-	nutriment_factor = -0.3
-	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
-
-/datum/reagent/consumable/maltodextrin/microplastics
-	name = "Microplastics"
-	description = "A byproduct of industrial clothing, Cloths containing it will weaken you in the long term!"
-	color = "#dbd6cb"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // The funny
-	taste_description = "Plastic"
-	nutriment_factor = -0.15 // it's plastic after all, it taste really good and it's real special!
-	metabolization_rate = 0.025 * REAGENTS_METABOLISM //A bit more than maltodextrin
-
-/datum/reagent/consumable/maltodextrin/microplastics/on_mob_metabolize(mob/living/carbon/affected_mob)
-	. = ..()
-	if(!ishuman(affected_mob))
-		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.physiology.tox_mod *= 2
-
-/datum/reagent/consumable/maltodextrin/microplastics/on_mob_end_metabolize(mob/living/carbon/affected_mob)
-	. = ..()
-	if(!ishuman(affected_mob))
-		return
-
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.physiology.tox_mod *= 0.5
-
 ////Lavaland Flora Reagents////
 
 /datum/reagent/consumable/entpoly
@@ -867,7 +828,6 @@
 /datum/reagent/consumable/nutriment/cloth/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
 	affected_mob.reagents.add_reagent(/datum/reagent/consumable/nutriment, 1)
-	affected_mob.reagents.add_reagent(/datum/reagent/consumable/maltodextrin/microplastics, 1)
 
 /datum/reagent/consumable/gravy
 	name = "Gravy"

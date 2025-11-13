@@ -272,7 +272,7 @@
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /**
   * Spawns fire at each position in a line from the source to the target.
@@ -283,7 +283,7 @@
   * Arguments:
   * * atom/at - The target
   */
-/mob/living/simple_animal/hostile/space_dragon/proc/fire_stream(var/atom/at = target)
+/mob/living/simple_animal/hostile/space_dragon/proc/fire_stream(atom/at = target)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	var/range = 20
 	var/list/turfs = list()

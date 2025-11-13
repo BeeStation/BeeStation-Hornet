@@ -173,7 +173,7 @@ Striking a noncultist, however, will tear their flesh."}
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 
-/obj/item/clothing/suit/hooded/cultrobes/ComponentInitialize()
+/obj/item/clothing/suit/hooded/cultrobes/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -289,7 +289,6 @@ Striking a noncultist, however, will tear their flesh."}
 	energy = 30
 	bomb = 50
 	bio = 30
-	rad = 30
 	fire = 50
 	acid = 60
 	stamina = 40
@@ -332,7 +331,6 @@ Striking a noncultist, however, will tear their flesh."}
 	energy = 30
 	bomb = 50
 	bio = 100
-	rad = 30
 	fire = 50
 	acid = 60
 	stamina = 40
@@ -586,9 +584,6 @@ Striking a noncultist, however, will tear their flesh."}
 
 /obj/item/cult_spear/Initialize(mapload)
 	. = ..()
-
-/obj/item/cult_spear/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/butchering, 100, 90)
 	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24, icon_wielded="bloodspear1")
 
@@ -782,7 +777,7 @@ Striking a noncultist, however, will tear their flesh."}
 		playsound(src, 'sound/magic/exit_blood.ogg', 75, 1)
 		new /obj/effect/temp_visual/dir_setting/cult/phase(user.loc, user.dir)
 		var/turf/temp_target = get_turf_in_angle(set_angle, targets_from, 40)
-		for(var/turf/T in getline(targets_from,temp_target))
+		for(var/turf/T in get_line(targets_from,temp_target))
 			if (T.is_holy())
 				temp_target = T
 				playsound(T, 'sound/machines/clockcult/ark_damage.ogg', 50, 1)

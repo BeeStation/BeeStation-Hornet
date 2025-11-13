@@ -1,7 +1,10 @@
 SUBSYSTEM_DEF(job)
 	name = "Jobs"
-	init_order = INIT_ORDER_JOBS
 	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/department,
+		/datum/controller/subsystem/processing/station,
+	)
 
 	var/list/occupations = list()		//List of all jobs
 	var/list/datum/job/name_occupations = list()	//Dict of all jobs, keys are titles
@@ -852,7 +855,7 @@ SUBSYSTEM_DEF(job)
 	name = "Emergency Spare ID Safe Code Requisition"
 	desc = "Proof that nobody has been approved for Captaincy. A skeleton key for a skeleton shift."
 
-/datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/authenticated/new_captain, acting_captain = FALSE)
+/datum/controller/subsystem/job/proc/promote_to_captain(mob/dead/new_player/authenticated/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character
 	if(!new_captain)
 		CRASH("Cannot promote [new_captain.ckey], there is no new_character attached to him.")

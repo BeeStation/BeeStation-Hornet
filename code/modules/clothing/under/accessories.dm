@@ -217,7 +217,8 @@
 		atmos_spawn_air("plasma=20;TEMP=[exposed_temperature]")
 		visible_message(span_danger(" \The [src] bursts into flame!"),span_userdanger("Your [src] bursts into flame!"))
 		qdel(src)
-/obj/item/clothing/accessory/medal/plasma/ComponentInitialize()
+
+/obj/item/clothing/accessory/medal/plasma/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
@@ -367,7 +368,6 @@
 	energy = 5
 	bomb = 20
 	bio = 20
-	rad = 5
 	acid = 25
 	stamina = 10
 	bleed = 10
@@ -388,7 +388,6 @@
 	energy = 5
 	bomb = 20
 	bio = 20
-	rad = 5
 	acid = 25
 	stamina = 10
 	bleed = 10

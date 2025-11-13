@@ -1,16 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/foamedmetal,
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/west,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "b" = (
 /obj/structure/foamedmetal,
-/obj/structure/window{
-	dir = 4
-	},
+/obj/structure/window/spawner/directional/east,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "l" = (
@@ -25,7 +21,7 @@
 /area/template_noop)
 "o" = (
 /obj/structure/foamedmetal,
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "p" = (
@@ -60,9 +56,7 @@
 /area/template_noop)
 "z" = (
 /obj/structure/foamedmetal,
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "A" = (
@@ -118,23 +112,19 @@
 /area/template_noop)
 "T" = (
 /obj/structure/foamedmetal,
-/obj/structure/window,
+/obj/structure/window/spawner/directional/south,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "W" = (
 /obj/structure/foamedmetal,
-/obj/structure/window{
-	dir = 8
-	},
+/obj/structure/window/spawner/directional/west,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "X" = (
 /obj/structure/foamedmetal,
-/obj/structure/window{
-	dir = 1
-	},
+/obj/structure/window/spawner/directional/north,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
@@ -148,9 +138,7 @@
 /area/template_noop)
 "Z" = (
 /obj/structure/foamedmetal,
-/obj/structure/window{
-	dir = 4
-	},
+/obj/structure/window/spawner/directional/east,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)

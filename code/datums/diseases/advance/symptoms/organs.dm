@@ -27,7 +27,7 @@
 	if(A.transmission >= 8) //purge alcohol
 		purge_alcohol = TRUE
 
-/datum/symptom/mind_restoration/Activate(var/datum/disease/advance/A)
+/datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
@@ -145,7 +145,7 @@
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	var/status = ORGAN_ORGANIC
-	if(MOB_ROBOTIC in A.infectable_biotypes)
+	if(A.infectable_biotypes & MOB_ROBOTIC)
 		status = null //if the disease is capable of interfacing with robotics, it is allowed to heal mechanical organs
 	if(A.stage >= 4)
 		M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, -1, required_status = status)

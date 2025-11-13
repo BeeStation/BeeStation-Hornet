@@ -8,7 +8,6 @@
 	buckle_lying = 0
 	density = TRUE
 	anchored = TRUE
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/mutable_appearance/overlay
 	var/weight_type = /obj/item/barbell/stacklifting
 
@@ -147,7 +146,7 @@
 	throw_range = 2
 	slowdown = 2
 
-/obj/item/barbell/ComponentInitialize()
+/obj/item/barbell/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, block_power_unwielded=block_power, block_power_wielded=block_power)
 

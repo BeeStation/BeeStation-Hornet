@@ -209,7 +209,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/ore_silo)
 	. = ..()
 	. += span_notice("[src] can be linked to techfabs, circuit printers and protolathes with a multitool.")
 
-/obj/machinery/ore_silo/on_object_saved(var/depth = 0)
+/obj/machinery/ore_silo/on_object_saved(depth = 0)
 	if(depth >= 10)
 		return ""
 	var/dat

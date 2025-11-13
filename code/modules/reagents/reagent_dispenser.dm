@@ -39,13 +39,12 @@
 	. = ..()
 	if(accepts_rig && get_dist(user, src) <= 2)
 		if(rig)
-			. += ("<span notice='warning'>There is some kind of device <b>rigged</b> to the tank!")
+			. += span_warning("There is some kind of device <b>rigged</b> to the tank!")
 		else
-			. += ("<span notice='warning'>It looks like you could <b>rig</b> a device to the tank.")
-	for(var/assembly in rig.assemblies)
-		if(istype(assembly, /obj/item/assembly/timer))
-			var/obj/item/assembly/timer/timer = assembly
-			. += span_notice("There is a timer [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].")
+			. += span_notice("It looks like you could <b>rig</b> a device to the tank.")
+
+	for(var/obj/item/assembly/timer/timer in rig?.assemblies)
+		. += span_notice("There is a timer [timer.timing ? "counting down from [timer.time]" : "set for [timer.time] seconds"].")
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
@@ -120,7 +119,7 @@
 		if(!fuel_amt)
 			visible_message(span_danger("\The [src] ruptures!"))
 		// Leave it up to future terrorists to figure out the best way to mix reagents with fuel for a useful boom here
-		chem_splash(loc, null, 2 + (reagents.total_volume + fuel_amt) / 1000, list(reagents), extra_heat=(fuel_amt / 50),adminlog=(fuel_amt<25))
+		chem_splash(loc, 2 + (reagents.total_volume + fuel_amt) / 1000, list(reagents), extra_heat=(fuel_amt / 50), adminlog=(fuel_amt<25))
 
 	if(fuel_amt) // with that done, actually explode
 		visible_message(span_danger("\The [src] explodes!"))
@@ -189,8 +188,8 @@
 /obj/structure/reagent_dispensers/fueltank/fire_act(exposed_temperature, exposed_volume)
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/tesla_act()
-	..() //extend the zap
+/obj/structure/reagent_dispensers/fueltank/zap_act(power, zap_flags)
+	. = ..()
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/projectile/P)

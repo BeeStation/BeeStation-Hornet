@@ -66,8 +66,8 @@
 
 /datum/status_effect/his_grace
 	id = "his_grace"
-	duration = -1
-	tick_interval = 4
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
 
@@ -90,7 +90,7 @@
 	owner.add_stun_absorption("hisgrace", INFINITY, 3, null, "His Grace protects you from the stun!")
 	return ..()
 
-/datum/status_effect/his_grace/tick()
+/datum/status_effect/his_grace/tick(seconds_between_ticks)
 	bloodlust = 0
 	var/graces = 0
 	for(var/obj/item/his_grace/HG in owner.held_items)
@@ -135,7 +135,7 @@
 
 /datum/status_effect/cult_master
 	id = "The Cult Master"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
 	var/alive = TRUE
@@ -165,7 +165,7 @@
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10
-	tick_interval = 0
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 	var/last_health = 0
 	var/last_bruteloss = 0
@@ -322,6 +322,7 @@
 /datum/status_effect/fleshmend
 	id = "fleshmend"
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
+	show_duration = TRUE
 	//Actual healing lasts for 30 seconds
 	duration = 32 SECONDS
 	var/ticks_passed = 0
@@ -335,7 +336,7 @@
 /datum/status_effect/fleshmend/on_remove()
 	UnregisterSignal(owner, list(COMSIG_LIVING_IGNITED, COMSIG_LIVING_EXTINGUISHED))
 
-/datum/status_effect/fleshmend/tick()
+/datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	ticks_passed ++
 	if(owner.on_fire)
 		return
@@ -368,6 +369,8 @@
 	icon_state = "fleshmend"
 
 /datum/status_effect/changeling
+	id = STATUS_EFFECT_ID_ABSTRACT
+	alert_type = null
 	var/datum/antagonist/changeling/ling
 	var/chem_per_tick = 1
 
@@ -402,13 +405,13 @@
 	if(!..())
 		return FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(large_increase))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(large_increase))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
 /datum/status_effect/changeling/camouflage/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
 /datum/status_effect/changeling/camouflage/proc/slight_increase()
@@ -453,12 +456,14 @@
 /datum/status_effect/hippocratic_oath
 	id = "Hippocratic Oath"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
-	tick_interval = 25
-	examine_text = span_notice("They seem to have an aura of healing and helpfulness about them.")
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = 2.5 SECONDS
 	alert_type = null
 	var/hand
 	var/deathTick = 0
+
+/datum/status_effect/hippocratic_oath/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -472,7 +477,7 @@
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
 
-/datum/status_effect/hippocratic_oath/tick()
+/datum/status_effect/hippocratic_oath/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		if(deathTick < 4)
 			deathTick += 1
@@ -537,7 +542,9 @@
 				L.adjustFireLoss(-3.5)
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
-				SM.adjustHealth(-3.5, forced = TRUE)
+				// Check if the mob is NOT a spirit AND NOT an undead.
+				if (!(SM.mob_biotypes & MOB_SPIRIT) && !(SM.mob_biotypes & MOB_UNDEAD))
+					SM.adjustHealth(-3.5, forced = TRUE)
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Blessing of the Necropolis"
@@ -549,6 +556,7 @@
 	duration = 300
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
+	show_duration = TRUE
 	var/power = 1
 	var/duration_mod = 1
 	var/alreadyinfected = FALSE
@@ -565,11 +573,7 @@
 		duration_mod = 2
 	owner.adjustBruteLoss(-20 * power)
 	owner.adjustFireLoss(-20 * power)
-	owner.cure_nearsighted()
-	owner.ExtinguishMob()
-	owner.fire_stacks = 0
-	owner.set_blindness(0)
-	owner.set_blurriness(0)
+	owner.fully_heal(HEAL_CC_STATUS)
 	owner.restore_blood()
 	owner.bodytemperature = owner.get_body_temp_normal()
 	if(istype(owner, /mob/living/carbon/human))
@@ -585,23 +589,16 @@
 	if(!alreadyinfected)
 		to_chat(owner, span_userdanger("You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more."))
 
-/datum/status_effect/good_music
-	id = "Good Music"
-	alert_type = null
-	duration = 6 SECONDS
-	tick_interval = 1 SECONDS
-	status_type = STATUS_EFFECT_REFRESH
-
-/datum/status_effect/good_music/tick()
-	owner.dizziness = max(0, owner.dizziness - 2)
-	owner.jitteriness = max(0, owner.jitteriness - 2)
-	owner.confused = max(0, owner.confused - 1)
-	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "goodmusic", /datum/mood_event/goodmusic)
+//Good music status effect was removed at headdev request
 
 /datum/status_effect/antimagic
 	id = "antimagic"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
 	duration = 10 SECONDS
-	examine_text = span_notice("They seem to be covered in a dull, grey aura.")
+
+/datum/status_effect/antimagic/refresh()
+	duration += initial(duration)
 
 /datum/status_effect/antimagic/on_apply()
 	owner.visible_message(span_notice("[owner] is coated with a dull aura!"))
@@ -610,7 +607,7 @@
 		antimagic_flags = MAGIC_RESISTANCE, \
 	)
 	//glowing wings overlay
-	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
+	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, FALSE)
 	return ..()
 
 /datum/status_effect/antimagic/on_remove()
@@ -618,14 +615,20 @@
 		if (anti_magic.source == MAGIC_TRAIT)
 			qdel(anti_magic)
 	owner.visible_message(span_warning("[owner]'s dull aura fades away..."))
+	return ..()
+
+/datum/status_effect/antimagic/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to be covered in a dull, grey aura.")
 
 /datum/status_effect/planthealing
 	id = "Photosynthesis"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = 25
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
-	examine_text = span_notice("Their leaves seem to be flourishing in the light!")
+
+/datum/status_effect/planthealing/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] leaves seem[owner.p_s()] to be flourishing in the light!")
 
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"
@@ -646,9 +649,12 @@
 	id = "Blessing of Crucible Soul"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 15 SECONDS
-	examine_text = span_notice("They don't seem to be all here.")
 	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
+	show_duration = TRUE
 	var/turf/location
+
+/datum/status_effect/crucible_soul/get_examine_text()
+	return span_notice("[owner.p_they(TRUE)] [owner.p_do()]n't seem to be all here.")
 
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,span_notice("You phase through reality, nothing is out of bounds!"))
@@ -668,6 +674,7 @@
 	id = "Blessing of Dusk and Dawn"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 60 SECONDS
+	show_duration = TRUE
 	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
 
 /datum/status_effect/duskndawn/on_apply()
@@ -693,7 +700,7 @@
 	id = "invisibility"
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
 	tick_interval = 2
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	show_duration = TRUE
 	var/can_see_self = FALSE
 
@@ -716,7 +723,7 @@
 	if(!..())
 		return FALSE
 	// Effects that disrupt the cloak
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(bump_alpha))
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(bump_alpha))
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(bump_alpha))
 	// Effects that terminate the cloak
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(terminate_effect))
@@ -732,7 +739,7 @@
 
 /datum/status_effect/cloaked/on_remove()
 	owner.remove_alt_appearance(REF(src))
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()

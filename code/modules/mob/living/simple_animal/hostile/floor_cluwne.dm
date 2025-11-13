@@ -332,7 +332,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				return
 			if(!eating)
 				Found_You()
-				for(var/I in getline(src,H))
+				for(var/I in get_line(src,H))
 					var/turf/T = I
 					if(T.density)
 						forceMove(H.loc)
@@ -425,7 +425,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	stage = STAGE_HAUNT
 	Acquire_Victim()
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(var/mob/living/H)
+/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(mob/living/H)
 	if(!istype(H) || !H.client)		return  // if theyre not human or they're afk
 	current_victim = H
 	target = H
@@ -472,7 +472,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
 		sac_target.legcuffed.dropped(sac_target)
 		sac_target.legcuffed = null
-		sac_target.update_inv_legcuffed()
+		sac_target.update_worn_legcuffs()
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
@@ -538,7 +538,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.flash_act()
 	sac_target.blur_eyes(15)
-	sac_target.Jitter(10)
+	sac_target.set_jitter_if_lower(20 SECONDS)
 	sac_target.Dizzy(10)
 	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
@@ -616,7 +616,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	// Oh god where are we?
 	sac_target.flash_act()
-	sac_target.Jitter(60)
+	sac_target.set_jitter_if_lower(120 SECONDS)
 	sac_target.blur_eyes(50)
 	sac_target.Dizzy(30)
 	sac_target.AdjustKnockdown(80)

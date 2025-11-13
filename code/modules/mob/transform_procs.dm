@@ -74,7 +74,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -223,7 +225,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.setOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)
@@ -298,7 +302,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, var/datum/species/original_species, species = /datum/species/human)
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, datum/species/original_species, species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
 
@@ -370,7 +374,9 @@
 		O.adjustFireLoss(getFireLoss(), 0)
 		O.adjustOrganLoss(ORGAN_SLOT_BRAIN, getOrganLoss(ORGAN_SLOT_BRAIN))
 		O.updatehealth()
-		O.radiation = radiation
+		var/datum/component/irradiated/irradiated_component = GetComponent(/datum/component/irradiated)
+		if(irradiated_component)
+			O.AddComponent(/datum/component/irradiated, irradiated_component.intensity)
 
 	//move implants to new mob
 	if(tr_flags & TR_KEEPIMPLANTS)

@@ -135,7 +135,7 @@
 	var/dynamic_spawn_group = null
 	/// The maximum allowed variance to other job roles in this group.
 	/// Should be the same as everything else in the dynamic spawn group
-	var/dynamic_spawn_variance_limit = 3
+	var/dynamic_spawn_variance_limit = 2
 	/// How many times should this role count towards the spawn group size?
 	var/dynamic_spawn_group_multiplier = 1
 
@@ -241,7 +241,9 @@
 			return -1
 		return max(proxy.total_positions + total_position_delta, 0)
 	// Calculate spawn group size
-	var/spawn_group_minimum = INFINITY
+	var/spawn_group_total = 0
+	// Amount of jobs in the same job group as us
+	var/spawn_group_sizes = 0
 	for (var/datum/job/other in SSjob.occupations)
 		// Find everything in the same group, doesn't matter if its us
 		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
@@ -250,7 +252,8 @@
 		// If the HOP removes a position from another job, then that removed position.
 		// If the HOP adds a position to a job group, then it has to be filled before the spawn
 		// group bumps.
-		spawn_group_minimum = min(spawn_group_minimum, other.count_players_in_group())
+		spawn_group_total += other.count_players_in_group()
+		spawn_group_sizes ++
 	// The amount of positions we have is the least filled job + our allowed variance
 	// variance is calculated per job, not based on the proxy
 	// If we are using a proxy, then the number of spawn positions is limited to the total
@@ -264,7 +267,7 @@
 	// being only limited by its spawn variance limit
 	if (proxy == src || ignore_self_limit || proxy.dynamic_spawn_group)
 		position_limit = INFINITY
-	return min(position_limit, max(spawn_group_minimum + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
+	return min(position_limit, max(ceil(spawn_group_total / max(spawn_group_sizes, 1)) + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -519,7 +522,7 @@
 				ACCESS_CLONING
 			)
 
-/datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
+/datum/job/proc/announce_head(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
 		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))

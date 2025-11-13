@@ -21,7 +21,7 @@
 	maxHealth = 50
 	health = 50
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 	wander = FALSE
 
 	vision_range = 4
@@ -44,16 +44,16 @@
 	discovery_points = 8000
 
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/atom/movable/screen,
-	/obj/anomaly,
-	/obj/eldritch/narsie,
-	/obj/effect,
-	/obj/machinery,
-	/obj/structure,
-	/obj/item/radio/intercom,
-	/mob/camera,
-	/obj/item/storage/secure/safe,
-	/mob/living
+		/atom/movable/screen,
+		/obj/anomaly,
+		/obj/eldritch/narsie,
+		/obj/effect,
+		/obj/machinery,
+		/obj/structure,
+		/obj/item/radio/intercom,
+		/mob/camera,
+		/obj/item/storage/secure/safe,
+		/mob/living,
 	))
 	var/atom/movable/form = null
 	var/morphed = FALSE
@@ -137,7 +137,7 @@
 	aggro_vision_range = 1
 	return
 
-/mob/living/simple_animal/hostile/mimite/proc/restore(var/intentional = FALSE)
+/mob/living/simple_animal/hostile/mimite/proc/restore(intentional = FALSE)
 	if(!morphed)
 		if(intentional)
 			to_chat(src, span_warning("You're already in your normal form!"))
@@ -172,7 +172,7 @@
 	..()
 	restore()
 
-/mob/living/simple_animal/hostile/mimite/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/mimite/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(.)
 		if(!morphed)

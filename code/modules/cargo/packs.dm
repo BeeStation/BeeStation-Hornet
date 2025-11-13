@@ -6,9 +6,8 @@
 	var/current_supply
 	var/max_supply = 5
 	var/cost = 400 // Minimum cost, or infinite points are possible. I've already had to fix it once because someone didn't listen. Don't be THAT person.
-	var/access = FALSE
+	var/access = null
 	var/access_budget = FALSE //prevents people from requesting stupid stuff with their department's budget via app
-	var/access_any = FALSE
 	var/list/contains = null
 	var/crate_name = "crate"
 	var/desc = ""//no desc by default
@@ -34,10 +33,12 @@
 	else
 		C = new crate_type(A)
 		C.name = crate_name
-	if(access)
-		C.req_access = list(access)
-	if(access_any)
-		C.req_one_access = access_any
+	if(access && !paying_account)
+		// Assign access
+		if (islist(access))
+			C.req_one_access = access
+		else
+			C.req_one_access = list(access)
 
 	fill(C)
 	return C
@@ -225,6 +226,32 @@
 	contains = list(/obj/item/storage/box/metalfoam)
 	crate_name = "metal foam grenade crate"
 
+/datum/supply_pack/emergency/syndicate
+	name = "NULL_ENTRY"
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE.@&!*() "
+	hidden = TRUE
+	cost = 20000
+	contains = list()
+	crate_name = "emergency crate"
+	crate_type = /obj/structure/closet/crate/internals
+	dangerous = TRUE
+	max_supply = 2
+
+/datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
+	var/crate_value = 30
+	var/list/uplink_items = get_uplink_items(UPLINK_NULL_CRATE, FALSE, FALSE)
+	var/max_items = 10
+	while(crate_value && max_items-- > 0)
+		var/category = pick(uplink_items)
+		var/item = pick(uplink_items[category])
+		var/datum/uplink_item/I = uplink_items[category][item]
+		if(!I.surplus || prob(100 - I.surplus))
+			continue
+		if(crate_value < I.cost)
+			continue
+		crate_value -= I.cost
+		new I.item(C)
+
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
 	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
@@ -376,15 +403,65 @@
 					/obj/item/clothing/head/helmet/sec)
 	crate_name = "armor crate"
 
-/datum/supply_pack/security/disabler
-	name = "Disabler Crate"
-	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
-	cost = 1500
+/datum/supply_pack/security/secpistol
+	name = "NPS-10 3-pack Crate"
+	desc = "Three standard issue law enforcement firearms. Requires Security access to open. Includes magazines."
+	cost = 1900
 	max_supply = 2
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
-	crate_name = "disabler crate"
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security)
+	crate_name = "pistol crate"
+
+/datum/supply_pack/security/secpistol_ammo
+	name = "x200 LAW - NPS ammo Crate"
+	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/secpistol_mags
+	name = "NPS-10 magazines Crate"
+	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty)
+	crate_name = "magazine crate"
+
+/datum/supply_pack/security/taser
+	name = "APS-Arc 3-pack Crate"
+	desc = "Three standard issue law enforcement tasers. Requires Security access to open. Includes magazines."
+	cost = 1900
+	max_supply = 2
+	contains = list(/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser)
+	crate_name = "taser crate"
+
+/datum/supply_pack/security/taser_ammo
+	name = "Taser load assemblies Crate"
+	desc = "Two boxes of pre-arranged APS taser load assemblies for station law enforcement. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/taser,
+					/obj/item/ammo_box/taser)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/taser_mags
+	name = "APS-Arc cartridge Crate"
+	desc = "Three standard issue APS-Arc taser cartridges. Pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser)
+	crate_name = "magazine crate"
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
@@ -405,9 +482,8 @@
 	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 4
-	access = FALSE
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/dumdum)
 	crate_name = ".38 match crate"
 
@@ -416,9 +492,8 @@
 	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 3
-	access = FALSE
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/match)
 	crate_name = ".38 match crate"
 
@@ -1338,10 +1413,12 @@
 	desc = "Four grounding rods guaranteed to keep any uppity tesla's lightning under control."
 	cost = 700
 	max_supply = 5
-	contains = list(/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod)
+	contains = list(
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+	)
 	crate_name = "grounding rod crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -1362,16 +1439,6 @@
 	crate_name = "particle accelerator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
-
-/datum/supply_pack/engine/collector
-	name = "Radiation Collector Crate"
-	desc = "Contains three radiation collectors. Useful for collecting energy off nearby Supermatter Crystals, Singularities or Teslas!"
-	cost = 2200
-	max_supply = 4
-	contains = list(/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector)
-	crate_name = "collector crate"
 
 /datum/supply_pack/engine/nuclear_reactor
 	name = "RBMK Nuclear Reactor Engine Crate"
@@ -1456,10 +1523,12 @@
 	desc = "Whether it's high-voltage executions, creating research points, or just plain old power generation: This pack of four Tesla coils can do it all!"
 	cost = 1200
 	max_supply = 3
-	contains = list(/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil)
+	contains = list(
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+	)
 	crate_name = "tesla coil crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -2121,8 +2190,17 @@
 	contains = list(/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard,
 		/obj/item/mod/core/standard)
-	crate_name = "MOD core crate"
+	crate_name = "\improper MOD core crate"
 	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/tech_disk
+	name = "Ground-Breaking Research Crate"
+	desc = "One disk containing a random cutting-edge technology that cannot be normally researched."
+	cost = 6000
+	contains = list(/obj/item/disk/tech_disk/research/random)
+	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure/science
+	max_supply = 4
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Service //////////////////////////////////////
@@ -3161,6 +3239,18 @@
 					/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
 					/obj/item/storage/backpack/mime)
 	crate_name = "standard costume crate"
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/supply_pack/costumes_toys/pinata
+	name = "Corgi Pinata Kit"
+	desc = "This crate contains a pinata full of candy, a blindfold and a bat for smashing it."
+	cost = 4000
+	contains = list(
+		/obj/item/pinata,
+		/obj/item/melee/baseball_bat,
+		/obj/item/clothing/glasses/blindfold,
+	)
+	crate_name = "corgi pinata kit"
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/costumes_toys/randomised/toys

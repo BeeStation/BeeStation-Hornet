@@ -161,8 +161,16 @@
 	var/work_mode	// mode the loops have been started with, to check with do_after
 	var/active = FALSE
 	var/cyborg_minimum_charge = 50 	// minimum charge cyborgs cannot go under when charging things
-	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
-	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
+	var/static/list/charge_machines = typecacheof(list(
+		/obj/machinery/cell_charger,
+		/obj/machinery/recharger,
+		/obj/machinery/recharge_station,
+		/obj/machinery/mech_bay_recharge_port,
+	))
+	var/static/list/charge_items = typecacheof(list(
+		/obj/item/stock_parts/cell,
+		/obj/item/gun/energy,
+	))
 
 /obj/item/borg/charger/update_icon_state()
 	icon_state = "charger_[mode]"
@@ -420,12 +428,12 @@
 				if(1)
 					C.confused += 5
 					C.stuttering += 10
-					C.Jitter(10)
+					C.adjust_jitter(20 SECONDS)
 				if(2)
 					C.Paralyze(40)
 					C.confused += 10
 					C.stuttering += 15
-					C.Jitter(25)
+					C.adjust_jitter(50 SECONDS)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600
 		log_game("[key_name(user)] used an emagged Cyborg Harm Alarm in [AREACOORD(user)]")

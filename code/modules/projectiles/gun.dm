@@ -99,6 +99,9 @@
 	/// Maximum amount of projectile variance for damaged guns
 	var/damage_variance = 50
 
+	/// Can we hold someone at gunpoint with this?
+	var/can_gunpoint = TRUE
+
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(pin)
@@ -127,12 +130,11 @@
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
 
-/obj/item/gun/ComponentInitialize()
-	. = ..()
 	//Smaller weapons are better when used in a single hand.
 	if(requires_wielding)
 		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
-	AddComponent(/datum/component/aiming)
+	if (can_gunpoint)
+		AddComponent(/datum/component/aiming)
 
 /obj/item/gun/proc/wield()
 	is_wielded = TRUE
@@ -336,6 +338,10 @@
 			return FALSE
 	add_fingerprint(user)
 
+	// Return true, but act as intercepted so we don't start hitting things
+	if (SEND_SIGNAL(src, COMSIG_MOB_PULL_TRIGGER, target, user, params, aimed) & CANCEL_TRIGGER_PULL)
+		return TRUE
+
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
 		var/mob/living/L = user
 		if(!can_trigger_gun(L))
@@ -461,7 +467,7 @@
 		fire_shot_at(user, target, message, params, zone_override, aimed)
 
 	if(user)
-		user.update_inv_hands()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
 
@@ -669,11 +675,13 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
 	if(aimed == GUN_AIMED && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
+		// Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.5
+		chambered.BB.damage = initial(chambered.BB.damage) * 2
 	if(aimed == GUN_AIMED_POINTBLANK)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
-		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
+		// Execution kill
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.25
+		chambered.BB.damage = initial(chambered.BB.damage) * 6
 	return SEND_SIGNAL(user, COMSIG_MOB_BEFORE_FIRE_GUN, src, target, aimed)
 
 /obj/item/gun/atom_break(damage_flag)
@@ -741,5 +749,9 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
+
+/obj/item/gun/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	balloon_alert(user, "Tape would make it too flimsy to fire!")
+	return FALSE
 
 #undef FIRING_PIN_REMOVAL_DELAY

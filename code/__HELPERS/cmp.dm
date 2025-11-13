@@ -48,7 +48,10 @@
 	return sorttext(a.ckey, b.ckey)
 
 /proc/cmp_subsystem_init(datum/controller/subsystem/a, datum/controller/subsystem/b)
-	return initial(b.init_order) - initial(a.init_order)	//uses initial() so it can be used on types
+	return a.init_order - b.init_order
+
+/proc/cmp_subsystem_init_stage(datum/controller/subsystem/a, datum/controller/subsystem/b)
+	return initial(a.init_stage) - initial(b.init_stage)
 
 /proc/cmp_subsystem_display(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return sorttext(b.name, a.name)
@@ -156,7 +159,7 @@
   * This prevents any reagent_containers from being consumed before the reagents they contain, which can
   * lead to runtimes and item duplication when it happens.
   */
-/proc/cmp_crafting_req_priority(var/A, var/B)
+/proc/cmp_crafting_req_priority(A, B)
 	var/lhs
 	var/rhs
 

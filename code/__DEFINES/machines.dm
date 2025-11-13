@@ -43,7 +43,7 @@
 #define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
 #define AUTOLATHE		(1<<2)	//Uses glass/iron only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time var.
 #define BIOGENERATOR	(1<<5) 	//Uses biomass
 #define LIMBGROWER		(1<<6) 	//Uses synthetic flesh
 #define SMELTER			(1<<7) 	//uses various minerals
@@ -130,23 +130,6 @@
 #define FIREDOOR_OPEN 1
 #define FIREDOOR_CLOSED 2
 
-
-
-// These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
-#define SUPERMATTER_ERROR -1		// Unknown status, shouldn't happen but just in case.
-#define SUPERMATTER_INACTIVE 0		// No or minimal energy
-#define SUPERMATTER_NORMAL 1		// Normal operation
-#define SUPERMATTER_NOTIFY 2		// Ambient temp > 80% of CRITICAL_TEMPERATURE
-#define SUPERMATTER_WARNING 3		// Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
-#define SUPERMATTER_DANGER 4		// Integrity < 50%
-#define SUPERMATTER_EMERGENCY 5		// Integrity < 25%
-#define SUPERMATTER_DELAMINATING 6	// Pretty obvious.
-
-#define NUCLEAR_REACTOR_ERROR -1
-#define NUCLEAR_REACTOR_INACTIVE 0
-#define NUCLEAR_REACTOR_ACTIVE 1
-#define NUCLEAR_EXPLODING 2
-
 //Nuclear bomb stuff
 #define NUKESTATE_INTACT		5
 #define NUKESTATE_UNSCREWED		4
@@ -187,7 +170,6 @@
 #define ERROR_COMMITED_SUICIDE 205
 #define ERROR_SOUL_DEPARTED 206
 #define ERROR_SUICIDED_BODY 207
-#define ERROR_SOUL_DAMNED 666
 #define ERROR_UNCLONABLE 901
 
 //these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.

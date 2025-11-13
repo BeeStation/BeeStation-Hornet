@@ -33,10 +33,6 @@
 	var/igniter_type = /obj/item/assembly/igniter
 	trigger_guard = TRIGGER_GUARD_NORMAL
 
-/obj/item/flamethrower/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
-
 /obj/item/flamethrower/Destroy()
 	if(weldtool)
 		qdel(weldtool)
@@ -85,7 +81,7 @@
 	if(user && user.get_active_held_item() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
-			var/turflist = getline(user, target_turf)
+			var/turflist = get_line(user, target_turf)
 			log_combat(user, target, "flamethrowered", src)
 			flame_turf(turflist)
 
@@ -240,6 +236,8 @@
 		if(create_with_tank)
 			ptank = new /obj/item/tank/internals/plasma/full(src)
 		update_icon()
+
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/flamethrower/full
 	create_full = TRUE

@@ -6,7 +6,6 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
 	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
-		/obj/item/gun/magic/wand/resurrection/debug=1,
 		/obj/item/melee/energy/axe=1,
 		/obj/item/storage/part_replacer/bluespace/tier4=1,
 		/obj/item/debug/human_spawner=1,
@@ -44,8 +43,6 @@
 	backpack_contents = list(
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
-		/obj/item/gun/magic/wand/resurrection/debug = 1,
-		/obj/item/gun/magic/wand/death/debug = 1,
 		/obj/item/debug/human_spawner = 1,
 		/obj/item/debug/omnitool = 1,
 		/obj/item/storage/box/stabilized = 1,
@@ -364,7 +361,7 @@
 	shoes = /obj/item/clothing/shoes/sandal/magic
 	ears = /obj/item/radio/headset
 	head = /obj/item/clothing/head/wizard
-	r_pocket = /obj/item/teleportation_scroll
+	belt = /obj/item/storage/belt/wands/random
 	r_hand = /obj/item/spellbook
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
@@ -373,7 +370,7 @@
 	name = "Wizard Apprentice"
 	r_hand = null
 	l_hand = null
-	r_pocket = /obj/item/teleportation_scroll/apprentice
+	belt = /obj/item/storage/belt/wands //empty belt for receiving wands from the master wizard
 
 /datum/outfit/wizard/red
 	name = "Red Wizard"
@@ -448,8 +445,8 @@
 
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"
-	uniform = /obj/item/clothing/under/color/white
-	suit_store = /obj/item/tank/internals/oxygen
+	uniform = /obj/item/clothing/under/costume/mech_suit/white
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	mask = /obj/item/clothing/mask/breath
 	back = /obj/item/mod/control/pre_equipped/chrono
 

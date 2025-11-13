@@ -1,0 +1,74 @@
+{
+	"Name": "Lost Traditions",
+	"Description": "A classic experience, roundstart antagonists are the same type and midrounds are random and ignore the station's state.",
+	"Dynamic": {
+		"roundstart_divergence_percent_lower": 1,
+		"roundstart_divergence_percent_upper": 1,
+		"roundstart_points_per_ready": 1.6,
+		"roundstart_points_per_unready": 0.5,
+		"midround_grace_period": 12000,
+		"midround_linear_delta": 0,
+		"midround_linear_delta_forced": 1.1,
+		"midround_living_delta": 0,
+        "midround_observer_delta": 0,
+        "midround_dead_delta": 0,
+		"latejoin_ruleset_probability": 10,
+		"latejoin_max_rulesets": 1,
+		"midround_light_end_time": 36000,
+		"midround_medium_end_time": 72000,
+		"midround_medium_increase_ratio": 1,
+		"midround_points_per_antag": {
+			"/datum/antagonist/ert": 0,
+			"/datum/antagonist/spider": 0,
+			"/datum/antagonist/swarmer": 0,
+			"/datum/antagonist/xeno": 0,
+			"/datum/antagonist/revenant": 0,
+			"/datum/antagonist/ninja": 0,
+			"/datum/antagonist/space_dragon": 0,
+			"/datum/antagonist/wizard": 0,
+			"/datum/antagonist/slaughter": 0,
+			"/datum/antagonist/blob": 0,
+			"/datum/antagonist/morph": 0,
+			"/datum/antagonist/pirate": 0,
+			"/datum/antagonist/pirate/captain": 0,
+			"/datum/antagonist/malf_ai": 0,
+			"/datum/antagonist/traitor": 0,
+			"/datum/antagonist/heretic": 0,
+			"/datum/antagonist/brother": 0,
+			"/datum/antagonist/changeling": 0,
+			"/datum/antagonist/abductor": 0,
+			"/datum/antagonist/abductor/agent": 0,
+			"/datum/antagonist/abductor/scientist": 0,
+			"/datum/antagonist/abductor/scientist/solo": 0,
+			"/datum/antagonist/nightmare":0
+		}
+	},
+	"Roundstart": {
+		"Traitor": {
+			"points_cost": 6,
+			"restricted_roles": [
+				"Cyborg",
+				"AI"
+			],
+			"elasticity": 80
+		},
+		"Revolution": {
+			"points_cost": 100
+		},
+		"Clown Operatives": {
+			"points_cost": 500
+		},
+		"Changeling": {
+			"elasticity": 80
+		},
+		"Vampire": {
+			"elasticity": 80
+		},
+		"Blood Brothers": {
+			"elasticity": 80
+		},
+		"Heretic": {
+			"elasticity": 80
+		}
+	}
+}

@@ -20,9 +20,10 @@
 	var/lifetime = 40
 	var/reagent_divisor = 7
 	var/static/list/blacklisted_turfs = typecacheof(list(
-	/turf/open/space/transit,
-	/turf/open/chasm,
-	/turf/open/lava))
+		/turf/open/space/transit,
+		/turf/open/chasm,
+		/turf/open/lava,
+	))
 	var/slippery_foam = TRUE
 
 
@@ -33,8 +34,8 @@
 	slippery_foam = FALSE
 	var/absorbed_plasma = 0
 
-/obj/effect/particle_effect/foam/firefighting/ComponentInitialize()
-	..()
+/obj/effect/particle_effect/foam/firefighting/Initialize(mapload)
+	. = ..()
 	RemoveElement(/datum/element/atmos_sensitive)
 
 /obj/effect/particle_effect/foam/firefighting/process()
@@ -115,8 +116,6 @@
 	START_PROCESSING(SSfastprocess, src)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
 
-/obj/effect/particle_effect/foam/ComponentInitialize()
-	. = ..()
 	if(slippery_foam)
 		AddComponent(/datum/component/slippery, 100)
 
@@ -371,7 +370,7 @@
 	. = ..()
 	. += span_notice("It will begin a chain reaction sequence of dissipation if touched by the firefighting backpack's nozzle in the smart foam mode.")
 
-/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(var/loc_direction)
+/obj/structure/foamedmetal/resin/chainreact/proc/find_nearby_foam(loc_direction)
 	var/obj/structure/foamedmetal/resin/chainreact/R = locate(/obj/structure/foamedmetal/resin/chainreact) in get_step(get_turf(src), loc_direction)
 	if(istype(R))
 		addtimer(CALLBACK(R, PROC_REF(start_the_chain)), 0.2 SECONDS)

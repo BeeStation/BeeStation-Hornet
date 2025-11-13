@@ -41,9 +41,6 @@
 		reset = new reset_path(get_turf(src))
 		reset.flag = src
 	RegisterSignal(src, COMSIG_PREQDELETED, PROC_REF(reset_flag)) //just in case CTF has some map hazards (read: chasms).
-
-/obj/item/ctf/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/ctf/process()
@@ -314,7 +311,7 @@
 	recently_dead_ckeys += body.ckey
 	addtimer(CALLBACK(src, PROC_REF(clear_cooldown), body.ckey), respawn_cooldown, TIMER_UNIQUE)
 
-/obj/machinery/capture_the_flag/proc/clear_cooldown(var/ckey)
+/obj/machinery/capture_the_flag/proc/clear_cooldown(ckey)
 	recently_dead_ckeys -= ckey
 
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
@@ -415,10 +412,10 @@
 /obj/machinery/capture_the_flag/proc/reset_the_arena()
 	var/area/A = get_area(src)
 	var/list/ctf_object_typecache = typecacheof(list(
-				/obj/machinery,
-				/obj/effect/ctf,
-				/obj/item/ctf
-			))
+		/obj/machinery,
+		/obj/effect/ctf,
+		/obj/item/ctf,
+	))
 	for(var/atm in A)
 		if (isturf(A) || ismob(A) || isarea(A))
 			continue

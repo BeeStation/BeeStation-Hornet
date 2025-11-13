@@ -145,7 +145,7 @@
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
 
-/datum/computer_file/program/proc/can_download(mob/user, loud = FALSE, access_to_check, var/list/access)
+/datum/computer_file/program/proc/can_download(mob/user, loud = FALSE, access_to_check, list/access)
 	if(issilicon(user))
 		return TRUE
 
@@ -187,13 +187,14 @@
  **/
 /datum/computer_file/program/proc/on_start(mob/living/user)
 	SHOULD_CALL_PARENT(TRUE)
-	if(is_supported_by_hardware(computer, user, 1))
-		if(requires_ntnet && network_destination)
-			var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
-			generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut
-		program_state = PROGRAM_STATE_ACTIVE
-		return TRUE
-	return FALSE
+	if(!is_supported_by_hardware(computer, user, TRUE))
+		return FALSE
+
+	if(requires_ntnet && network_destination)
+		var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+		generate_network_log("Connection opened to [network_destination].", network_card) // Probably should be cut
+	program_state = PROGRAM_STATE_ACTIVE
+	return TRUE
 
 /**
   *

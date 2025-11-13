@@ -61,5 +61,5 @@
 		each_mob.adjust_blindness(1.5) // very mild blindness
 		each_mob.Knockdown(10)
 		each_mob.emote("scream")
-		each_mob.Jitter(50)
+		each_mob.set_jitter_if_lower(100 SECONDS)
 		each_mob.adjust_hallucinations(40 SECONDS)
