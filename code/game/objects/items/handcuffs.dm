@@ -394,12 +394,8 @@
 	icon_state = "ebola"
 	item_state = "ebola"
 	hitsound = 'sound/weapons/taserhit.ogg'
-	knockdown = 6 SECONDS
+	knockdown = 3 SECONDS
 	custom_price = 100
-
-/obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
-	. = ..()
-	
 
 /obj/item/restraints/legcuffs/bola/energy/emp_act(severity)
 	if(prob(25 * severity))
