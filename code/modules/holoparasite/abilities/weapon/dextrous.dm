@@ -66,27 +66,29 @@
 /datum/holoparasite_ability/weapon/dextrous/New(datum/holoparasite_stats/master_stats)
 	. = ..()
 	if(!forbidden_guns)
-		forbidden_guns = typecacheof(list(
-			/obj/item/gun/ballistic/automatic/ar,
-			/obj/item/gun/ballistic/automatic/c20r,
-			/obj/item/gun/ballistic/automatic/gyropistol,
-			/obj/item/gun/ballistic/automatic/l6_saw,
-			/obj/item/gun/ballistic/automatic/m90,
-			/obj/item/gun/ballistic/automatic/mini_uzi,
-			/obj/item/gun/ballistic/automatic/proto,
-			/obj/item/gun/ballistic/automatic/tommygun,
-			/obj/item/gun/ballistic/automatic/wt550,
+		forbidden_guns = zebra_typecacheof(list(
+			/obj/item/gun/ballistic/automatic/ar = TRUE,
+			/obj/item/gun/ballistic/automatic/c20r = TRUE,
+			/obj/item/gun/ballistic/automatic/gyropistol = TRUE,
+			/obj/item/gun/ballistic/automatic/l6_saw = TRUE,
+			/obj/item/gun/ballistic/automatic/m90 = TRUE,
+			/obj/item/gun/ballistic/automatic/mini_uzi = TRUE,
+			/obj/item/gun/ballistic/automatic/proto = TRUE,
+			/obj/item/gun/ballistic/automatic/tommygun = TRUE,
+			/obj/item/gun/ballistic/automatic/wt550 = TRUE,
 			/obj/item/gun/ballistic/rocketlauncher,
-			/obj/item/gun/ballistic/shotgun,
-			/obj/item/gun/ballistic/sniper_rifle,
-			/obj/item/gun/blastcannon,
-			/obj/item/gun/energy/beam_rifle,
-			/obj/item/gun/energy/gravity_gun,
-			/obj/item/gun/energy/lasercannon,
-			/obj/item/gun/energy/pulse,
-			/obj/item/gun/grenadelauncher,
-			/obj/item/gun/magic
-		)) - typecacheof(list(/obj/item/gun/magic/staff/honk)) // honestly holopara with honk staff just sounds kinda funny, so I'm just gonna let it happen, until proven otherwise I guess.
+			/obj/item/gun/ballistic/shotgun = TRUE,
+			/obj/item/gun/ballistic/sniper_rifle = TRUE,
+			/obj/item/gun/blastcannon = TRUE,
+			/obj/item/gun/energy/beam_rifle = TRUE,
+			/obj/item/gun/energy/gravity_gun = TRUE,
+			/obj/item/gun/energy/lasercannon = TRUE,
+			/obj/item/gun/energy/pulse = TRUE,
+			/obj/item/gun/grenadelauncher = TRUE,
+			/obj/item/gun/magic = TRUE,
+			// honestly holopara with honk staff just sounds kinda funny, so I'm just gonna let it happen, until proven otherwise I guess.
+			/obj/item/gun/magic/staff/honk = FALSE,
+		))
 
 /datum/holoparasite_ability/weapon/dextrous/apply()
 	max_w_class = master_stats.potential >= 5 ? WEIGHT_CLASS_BULKY : clamp(master_stats.potential, WEIGHT_CLASS_TINY, WEIGHT_CLASS_NORMAL)

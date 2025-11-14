@@ -564,7 +564,8 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/away/deep_storage,
 		/obj/item/card/id/changeling,
 		/obj/item/card/id/golem,
-		/obj/item/card/id/pass), only_root_path = TRUE)
+		/obj/item/card/id/pass,
+	), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	add_item_action(chameleon_action)
 

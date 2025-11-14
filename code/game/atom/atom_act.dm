@@ -148,20 +148,20 @@
 		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
- * Respond to a radioactive wave hitting this atom
- *
- * Default behaviour is to send COMSIG_ATOM_RAD_ACT and return
- */
-/atom/proc/rad_act(strength)
-	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, strength)
-
-/**
  * Respond to narsie eating our atom
  *
  * Default behaviour is to send COMSIG_ATOM_NARSIE_ACT and return
  */
 /atom/proc/narsie_act()
 	SEND_SIGNAL(src, COMSIG_ATOM_NARSIE_ACT)
+
+/**
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
 
 /**
  * Respond to ratvar eating our atom
@@ -267,3 +267,28 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		log_combat(user, src, "punched", "hulk powers")
 		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
+
+/**
+ * attempts to fix something when duct tape is used on it.
+ * override if there is something that shouldn't be fixable with tape
+ */
+/atom/proc/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	. = FALSE
+
+	if (!isobj(src) || iseffect(src))
+		return
+
+	var/object_is_damaged = get_integrity() < max_integrity
+	if (!object_is_damaged)
+		balloon_alert(user, "[src] is not damaged!")
+		return
+
+	user.visible_message(span_notice("[user] begins repairing [src] with [tape]."), span_notice("You begin repairing [src] with [tape]."))
+	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
+
+	if (!do_after(user, 3 SECONDS, target = src))
+		return
+
+	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
+	repair_damage(tape.object_repair_value)
+	return TRUE

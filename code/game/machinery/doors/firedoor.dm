@@ -73,7 +73,6 @@
 	laser = 20
 	energy = 20
 	bomb = 10
-	rad = 100
 	fire = 95
 	acid = 70
 
@@ -104,6 +103,9 @@
 
 /obj/machinery/door/firedoor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	. = ..()
+	if (QDELETED(src))
+		return
+
 	damage_until_open -= damage_amount
 	if (damage_until_open <= 0)
 		playsound(src, 'sound/machines/terminal_error.ogg', 50, 1)

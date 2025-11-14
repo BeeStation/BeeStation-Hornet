@@ -191,7 +191,6 @@
 	template_height = 5
 	template_width = 10
 	weight = 4
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm161 // rare. has hostile spiders
 	name = "Bank Vault"

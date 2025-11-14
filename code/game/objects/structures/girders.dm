@@ -8,7 +8,6 @@
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 200
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 	base_icon_state = "girder"
 	smoothing_flags = SMOOTH_BITMASK
