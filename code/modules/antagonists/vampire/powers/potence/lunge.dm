@@ -12,7 +12,7 @@
 		At level 4, you will instantly lunge, but are limited to tackling from only 6 tiles away."
 	power_flags = NONE
 	check_flags =  BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 45
+	vitaecost = 45
 	cooldown_time = 10 SECONDS
 	power_activates_immediately = FALSE
 
@@ -20,17 +20,17 @@
 	var/knockdown_bonus = 1
 
 /datum/action/vampire/targeted/lunge/two
-	bloodcost = 60
+	vitaecost = 60
 	cooldown_time = 10 SECONDS
 	knockdown_bonus = 2
 
 /datum/action/vampire/targeted/lunge/three
-	bloodcost = 75
+	vitaecost = 75
 	cooldown_time = 8 SECONDS
 	knockdown_bonus = 3
 
 /datum/action/vampire/targeted/lunge/four
-	bloodcost = 90
+	vitaecost = 90
 	cooldown_time = 6 SECONDS
 	knockdown_bonus = 4
 	instant = TRUE

@@ -35,7 +35,7 @@
 	msg += span_cult("Your healing also depends on it. You reach your maximum healing potential at [BS_BLOOD_VOLUME_MAX_REGEN].")
 
 	var/bloodlevel
-	switch(our_vamp.vampire_blood_volume)
+	switch(our_vamp.current_vitae)
 		if(0 to 200)
 			bloodlevel = "starving"
 		if(201 to 500)
@@ -45,7 +45,7 @@
 		if(701 to INFINITY)
 			bloodlevel = "content"
 
-	msg += span_cult("Your current maximum is: [our_vamp.max_blood_volume].")
+	msg += span_cult("Your current maximum is: [our_vamp.max_vitae].")
 	msg += span_cult("Today, you have drank [our_vamp.total_blood_drank] Vitae.")
 	msg += span_cultlarge("\n<b>Right now, you are feeling <i>[bloodlevel].</i></b>")
 
@@ -67,7 +67,7 @@
 	msg += span_cult("<b>With your current rank, you are considered as [our_vamp.get_rank_string()] of your craft.</b>")
 	msg += span_cult("\n<b>Currently, your rank affords you the following benefits:</b>")
 	msg += span_cult("Max Regeneration rate: +[our_vamp.vampire_regen_rate]")
-	msg += span_cult("Max Vitae pool: +[our_vamp.max_blood_volume - 600] ")
+	msg += span_cult("Max Vitae pool: +[our_vamp.max_vitae - 600] ")
 	msg += span_cult("Unarmed damage: +[vampire_human.dna.species.punchdamage - 9]")
 
 	var/list/disciplinestext
@@ -169,7 +169,7 @@
 /// Update Blood Counter + Rank Counter
 /datum/antagonist/vampire/proc/update_hud()
 	var/valuecolor
-	switch(vampire_blood_volume)
+	switch(current_vitae)
 		if(0 to 200)
 			valuecolor = "#560808"
 		if(201 to 300)
@@ -181,7 +181,7 @@
 		if(701 to INFINITY)
 			valuecolor = "#ffffff"
 
-	blood_display?.maptext = FORMAT_VAMPIRE_HUD_TEXT(valuecolor, vampire_blood_volume)
+	blood_display?.maptext = FORMAT_VAMPIRE_HUD_TEXT(valuecolor, current_vitae)
 
 	if(vamprank_display)
 		if(vampire_level_unspent > 0)

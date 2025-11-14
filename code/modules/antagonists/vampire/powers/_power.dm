@@ -31,10 +31,10 @@
 	///Can increase to yield new abilities - Used to be tied to rank. I'm hijacking it instead.
 	var/level_current = 1
 	///The cost to ACTIVATE this Power
-	var/bloodcost = 0
+	var/vitaecost = 0
 	///The cost to MAINTAIN this Power Only used for constant powers
-	var/constant_bloodcost = 0
-	/// A multiplier for the bloodcost during sol.
+	var/constant_vitaecost = 0
+	/// A multiplier for the vitaecost during sol.
 	var/sol_multiplier = 1
 
 	///The upgraded version of this Power. 'null' means it's the max level.
@@ -74,10 +74,10 @@
 
 /datum/action/vampire/proc/update_desc()
 	desc = initial(desc)
-	if(bloodcost > 0)
-		desc += "<br><br><b>COST:</b> [bloodcost] Blood"
-	if(constant_bloodcost > 0)
-		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_bloodcost] Blood.</i>"
+	if(vitaecost > 0)
+		desc += "<br><br><b>COST:</b> [vitaecost] Blood"
+	if(constant_vitaecost > 0)
+		desc += "<br><br><b>CONSTANT COST:</b><i> [constant_vitaecost] Blood.</i>"
 	if(power_flags & BP_AM_SINGLEUSE)
 		desc += "<br><br><b>SINGLE USE:</br><i> Can only be used once.</i>"
 
@@ -88,7 +88,7 @@
 	// Check if we have enough blood for non-vampires
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
-		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood_volume < bloodcost)
+		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD) && living_owner.blood_volume < vitaecost)
 			living_owner.balloon_alert(living_owner, "not enough blood.")
 			return FALSE
 
@@ -97,7 +97,7 @@
 	// Have enough blood? Vampires in a Frenzy don't need to pay them
 	if(vampiredatum_power.frenzied)
 		return TRUE
-	if(vampiredatum_power.vampire_blood_volume < bloodcost)
+	if(vampiredatum_power.current_vitae < vitaecost)
 		owner.balloon_alert(owner, "not enough blood.")
 		return FALSE
 
@@ -130,7 +130,7 @@
 		to_chat(carbon_owner, span_warning("Not while you're incapacitated!"))
 		return FALSE
 	// Constant Cost (out of blood)
-	if(constant_bloodcost > 0 && vampiredatum_power?.vampire_blood_volume <= 0)
+	if(constant_vitaecost > 0 && vampiredatum_power?.current_vitae <= 0)
 		to_chat(carbon_owner, span_warning("You don't have the blood to upkeep [src]."))
 		return FALSE
 	// Sol check
@@ -148,12 +148,12 @@
 	if(!vampiredatum_power)
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-			living_owner.blood_volume -= bloodcost
+			living_owner.blood_volume -= vitaecost
 		return
 
 	// Vampires in a Frenzy don't have enough Blood to pay it, so just don't.
 	if(!vampiredatum_power.frenzied)
-		vampiredatum_power.vampire_blood_volume -= bloodcost
+		vampiredatum_power.current_vitae -= vitaecost
 		vampiredatum_power.update_hud()
 
 /datum/action/vampire/proc/activate_power()
@@ -161,7 +161,7 @@
 	if(power_flags & BP_AM_TOGGLE)
 		RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(UsePower))
 
-	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
+	owner.log_message("used [src][vitaecost != 0 ? " at the cost of [vitaecost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
 
 /datum/action/vampire/proc/deactivate_power()
@@ -197,17 +197,17 @@
 
 /datum/action/vampire/proc/PowerCostHelper()
 	if(vampiredatum_power)
-		vampiredatum_power.RemoveBloodVolume(constant_bloodcost)
+		vampiredatum_power.RemoveBloodVolume(constant_vitaecost)
 	else
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-			living_owner.blood_volume -= constant_bloodcost
+			living_owner.blood_volume -= constant_vitaecost
 
 /// Checks to make sure this power can stay active
 /datum/action/vampire/proc/continue_active()
 	if(!owner)
 		return FALSE
-	if(vampiredatum_power && vampiredatum_power.vampire_blood_volume < constant_bloodcost)
+	if(vampiredatum_power && vampiredatum_power.current_vitae < constant_vitaecost)
 		return FALSE
 
 	return TRUE

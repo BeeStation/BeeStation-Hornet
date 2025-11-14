@@ -15,7 +15,7 @@
 		Be smart with your wording. They will become pacified, and won't obey violent commands."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 120
+	vitaecost = 120
 	cooldown_time = 80 SECONDS
 	target_range = 6
 	power_activates_immediately = FALSE
@@ -29,7 +29,7 @@
 /datum/action/vampire/targeted/command/two
 	name = "Command"
 	power_time = 180 SECONDS
-	bloodcost = 240
+	vitaecost = 240
 	cooldown_time = 200 SECONDS
 
 /datum/action/vampire/targeted/command/can_use()
@@ -121,8 +121,6 @@
 
 	if(HAS_TRAIT(living_target, TRAIT_MINDSHIELD))
 		power_time /= 4
-		deactivate_power()
-		return
 
 	if(IS_VAMPIRE(living_target))
 		var/datum/antagonist/vampire/target_vampdatum = IS_VAMPIRE(living_target)

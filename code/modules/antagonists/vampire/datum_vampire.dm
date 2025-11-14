@@ -9,9 +9,9 @@
 
 	/// How much blood we have, starting off at default blood levels.
 	/// We don't use our actual body's temperature because some species don't have blood and we don't want to exclude them
-	var/vampire_blood_volume = BLOOD_VOLUME_NORMAL
+	var/current_vitae = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
-	var/max_blood_volume = 600
+	var/max_vitae = 600
 
 	/// The vampire team, used for vassals
 	var/datum/team/vampire/vampire_team
@@ -373,8 +373,8 @@
 		power_data["icon"] = power.button_icon
 		power_data["icon_state"] = power.button_icon_state
 
-		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
-		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
+		power_data["cost"] = power.vitaecost ? power.vitaecost : "0"
+		power_data["constant_cost"] = power.constant_vitaecost ? power.constant_vitaecost : "0"
 		power_data["cooldown"] = power.cooldown_time / 10
 
 		data["powers"] += list(power_data)

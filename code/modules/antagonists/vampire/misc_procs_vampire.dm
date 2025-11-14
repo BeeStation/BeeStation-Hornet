@@ -245,6 +245,12 @@
 
 	return TRUE
 
+	// It's a proc cuz we need to call this asynchronously from lifetick
+/datum/antagonist/vampire/proc/provide_clan_selector()
+	if(!is_type_in_list(/datum/action/vampire/clanselect, powers))
+		grant_power(new /datum/action/vampire/clanselect)
+		return
+
 /datum/antagonist/vampire/proc/get_rank_string()
 	switch(vampire_level)
 		if(0 to 1)
@@ -259,9 +265,9 @@
 			return "'Expert'"
 		if(10 to 11)
 			return "'Master'"
-		if(12 to 20)
+		if(12 to 24)
 			return "'Grand Master'"
-		if(21 to INFINITY)
+		if(25 to INFINITY)
 			return "[span_narsiesmall("'Methuselah'")]"
 
 /// This is where we store clan descriptions.

@@ -536,7 +536,14 @@
 			continue
 		var/mob/receiver_mob = receiver.owner.current
 		to_chat(receiver_mob, rendered, type = MESSAGE_TYPE_RADIO)
-	to_chat(user, rendered, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
+
+	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(user)
+
+	for(var/datum/antagonist/vassal/vassal as anything in vampire_datum.vassals)
+		if(!vassal.owner.current)
+			continue
+		var/mob/receiver_mob = vassal.owner.current
+		to_chat(receiver_mob, rendered, type = MESSAGE_TYPE_RADIO)
 
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(dead_mob, user)

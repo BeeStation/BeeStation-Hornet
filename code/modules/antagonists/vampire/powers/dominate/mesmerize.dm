@@ -19,7 +19,7 @@
 		At level 4, you will be able to mesmerize regardless of your target's direction."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 75
+	vitaecost = 75
 	cooldown_time = 20 SECONDS
 	target_range = 8
 	power_activates_immediately = FALSE
@@ -30,16 +30,16 @@
 	var/datum/weakref/target_ref
 
 /datum/action/vampire/targeted/mesmerize/two
-	bloodcost = 45
+	vitaecost = 45
 	level_current = 2
 
 /datum/action/vampire/targeted/mesmerize/three
-	bloodcost = 60
+	vitaecost = 60
 	level_current = 3
 
 /datum/action/vampire/targeted/mesmerize/four
 	desc = "Transfix the mind of a mortal."
-	bloodcost = 85
+	vitaecost = 85
 	level_current = 4
 
 /datum/action/vampire/targeted/mesmerize/can_use()

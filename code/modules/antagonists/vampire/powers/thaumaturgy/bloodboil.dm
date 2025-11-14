@@ -7,8 +7,8 @@
 	power_explanation = "Afflict a debilitating status effect on a target within range, causing them to suffer bloodloss, burn damage, and slowing them down."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 75
-	cooldown_time = 20 SECONDS
+	vitaecost = 30
+	cooldown_time = 35 SECONDS
 	target_range = 7
 	power_activates_immediately = FALSE
 	prefire_message = "Whom will you afflict?"
@@ -16,17 +16,20 @@
 	var/powerlevel = 1
 
 /datum/action/vampire/targeted/bloodboil/two
-	bloodcost = 45
+	cooldown_time = 30 SECONDS
+	vitaecost = 45
 	target_range = 10
 	powerlevel = 2
 
 /datum/action/vampire/targeted/bloodboil/three
-	bloodcost = 60
+	cooldown_time = 25 SECONDS
+	vitaecost = 60
 	target_range = 15
 	powerlevel = 3
 
 /datum/action/vampire/targeted/bloodboil/four
-	bloodcost = 85
+	cooldown_time = 20 SECONDS
+	vitaecost = 75
 	target_range = 20
 	powerlevel = 4
 
@@ -129,24 +132,28 @@
 		if(1)
 			carbon_owner.adjustStaminaLoss(5)
 			carbon_owner.adjustFireLoss(8)
+			owner.blood_volume -= 4
 			if(prob(50))
 				to_chat(owner, span_warning("Oh god! IT BURNS!"))
 				owner.emote("screams")
 		if(2)
 			carbon_owner.adjustStaminaLoss(10)
-			carbon_owner.adjustFireLoss(10)
+			carbon_owner.adjustFireLoss(6)
+			owner.blood_volume -= 6
 			if(prob(50))
 				to_chat(owner, span_warning("Oh god! IT BURNS!"))
 				owner.emote("screams")
 		if(3)
 			carbon_owner.adjustStaminaLoss(15)
-			carbon_owner.adjustFireLoss(12)
+			carbon_owner.adjustFireLoss(8)
+			owner.blood_volume -= 8
 			if(prob(50))
 				to_chat(owner, span_warning("Oh god! IT BURNS!"))
 				owner.emote("screams")
 		if(4)
 			carbon_owner.adjustStaminaLoss(20)
-			carbon_owner.adjustFireLoss(14)
+			carbon_owner.adjustFireLoss(9)
+			owner.blood_volume -= 10
 			if(prob(50))
 				to_chat(owner, span_warning("Oh god! IT BURNS!"))
 				owner.emote("screams")

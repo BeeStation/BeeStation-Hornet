@@ -183,7 +183,7 @@
 /datum/vampire_clan/proc/finalize_spend_rank()
 	// Level up the vampire
 	vampiredatum.vampire_regen_rate += 0.05
-	vampiredatum.max_blood_volume += 100
+	vampiredatum.max_vitae += 100
 
 	if(ishuman(vampiredatum.owner.current))
 		var/mob/living/carbon/human/vampire_human = vampiredatum.owner.current

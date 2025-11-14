@@ -214,8 +214,9 @@
 		living_owner.stop_pulling()
 		feed_target.stop_pulling()
 
+		var/ass = get_dir(owner.loc, feed_target.loc)
 		// omega switch
-		switch(get_dir(owner.loc, feed_target.loc))
+		switch(ass)
 			if(NORTH)
 				owner.dir = WEST
 				feed_target.dir = EAST
@@ -256,6 +257,11 @@
 				feed_target.dir = EAST
 				animate(owner, 0.2 SECONDS, pixel_x = -8, pixel_y = 16)
 				animate(feed_target, 0.2 SECONDS, pixel_x = 8, pixel_y = -16)
+			if(0)	// We are on the same tile. Just move them a bit so they don't overlap
+				owner.dir = WEST
+				feed_target.dir = EAST
+				animate(owner, 0.2 SECONDS, pixel_x = 8,)
+				animate(feed_target, 0.2 SECONDS, pixel_x = -8)
 
 		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] embraces you tightly, sinking their fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
 		to_chat(feed_target, span_hypnophrase("Why does it feel soo good..."), type = MESSAGE_TYPE_WARNING)
@@ -371,7 +377,7 @@
 	warning_target_bloodvol = feed_target.blood_volume
 
 	// Check if full on blood
-	if(vampiredatum_power.vampire_blood_volume >= vampiredatum_power.max_blood_volume)
+	if(vampiredatum_power.current_vitae >= vampiredatum_power.max_vitae)
 		if(IS_VAMPIRE(feed_target))
 			owner.balloon_alert(owner, "we are full on blood, but we can continue feeding to absorb their power!")
 		else
@@ -424,7 +430,6 @@
 			to_chat(feed_target, span_bighypnophrase("You don't remember anything since you first saw their eyes, everything is so... hazy..."))
 			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
 				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
-			message_admins("TSUNAMIANT ALERT, IGNORE IF YOU AINT ME")
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
@@ -457,7 +462,7 @@
 
 	// Shift body temperature (toward target's temp, by volume taken)
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)
-	owner.bodytemperature = ((vampiredatum_power.vampire_blood_volume * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.vampire_blood_volume + blood_to_take)
+	owner.bodytemperature = ((vampiredatum_power.current_vitae * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.current_vitae + blood_to_take)
 
 	// Penalty for dead blood(at least it's still human, right?)
 	if(target.stat == DEAD)

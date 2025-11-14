@@ -42,7 +42,7 @@
 /// The maximum amount of brain damage that can occur from 'extra' recoil damage.
 #define HOLOPARA_MAX_BRAIN_DAMAGE		(BRAIN_DAMAGE_SEVERE - 15)
 /// The maximum blood volume that a healing holoparasite can heal up to.
-#define HOLOPARA_MAX_BLOOD_VOLUME_HEAL	(BLOOD_VOLUME_SAFE + 15)
+#define HOLOPARA_max_vitae_HEAL	(BLOOD_VOLUME_SAFE + 15)
 
 /// The cooldown between visible 'recoil' effects from holoparasite damage.
 #define HOLOPARA_VISIBLE_RECOIL_COOLDOWN			1.5 SECONDS

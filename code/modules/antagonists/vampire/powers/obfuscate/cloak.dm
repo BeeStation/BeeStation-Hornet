@@ -6,30 +6,30 @@
 		Additionally, while Cloak is active, you are completely invisible to silicons."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 30
-	constant_bloodcost = 0.1
+	vitaecost = 30
+	constant_vitaecost = 0.1
 	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
 	level_current = 1
 
 /datum/action/vampire/cloak/two
-	bloodcost = 45
-	constant_bloodcost = 0.2
+	vitaecost = 45
+	constant_vitaecost = 0.2
 	level_current = 2
 
 /datum/action/vampire/cloak/three
-	bloodcost = 60
-	constant_bloodcost = 0.3
+	vitaecost = 60
+	constant_vitaecost = 0.3
 	level_current = 3
 
 /datum/action/vampire/cloak/four
-	bloodcost = 75
-	constant_bloodcost = 0.4
+	vitaecost = 75
+	constant_vitaecost = 0.4
 	level_current = 4
 
 /datum/action/vampire/cloak/five	// We have no nosferatu but if we had...
-	bloodcost = 90
-	constant_bloodcost = 0.5
+	vitaecost = 90
+	constant_vitaecost = 0.5
 	level_current = 5
 
 /// Must have nobody around to see the cloak

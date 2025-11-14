@@ -74,13 +74,13 @@
 
 	switch(incoming_sol_damage)
 		if("area")
-			if(vampire_blood_volume >= 200)
+			if(current_vitae >= 200)
 				RemoveBloodVolume(sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
 				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("locker")
-			if(vampire_blood_volume >= 100)
+			if(current_vitae >= 100)
 				RemoveBloodVolume(sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
@@ -102,14 +102,14 @@
 
 /datum/antagonist/vampire/proc/burn_and_kill()
 	// We can resist it as long as we have blood.
-	if(vampire_blood_volume >= 25)
+	if(current_vitae >= 25)
 		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	else
 		owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		owner.current.emote("scream")
 
 	// Rest in peace.
-	if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
+	if(current_vitae == 0 && owner.current.stat == DEAD)
 		playsound(owner.current, 'sound/vampires/burning_death.ogg', 60, TRUE)
 		owner.current.dust(drop_items = TRUE)
 
@@ -242,10 +242,10 @@
 		human_owner.physiology?.damage_resistance -= 50
 	for(var/datum/action/vampire/power in owner.actions)
 		if(power.sol_multiplier)
-			power.bloodcost *= power.sol_multiplier
-			power.constant_bloodcost *= power.sol_multiplier
+			power.vitaecost *= power.sol_multiplier
+			power.constant_vitaecost *= power.sol_multiplier
 			if(power.currently_active)
-				to_chat(owner, span_warning("[power.name] is harder to upkeep during Sol, now requiring [power.constant_bloodcost] blood while the solar flares last!"), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_warning("[power.name] is harder to upkeep during Sol, now requiring [power.constant_vitaecost] blood while the solar flares last!"), type = MESSAGE_TYPE_INFO)
 			LAZYSET(burdened_actions, power, TRUE)
 		power.update_desc()
 		power.update_buttons()
@@ -262,8 +262,8 @@
 		human_owner.physiology?.damage_resistance += 50
 	for(var/datum/action/vampire/power in owner.actions)
 		if(LAZYACCESS(burdened_actions, power))
-			power.bloodcost /= power.sol_multiplier
-			power.constant_bloodcost /= power.sol_multiplier
+			power.vitaecost /= power.sol_multiplier
+			power.constant_vitaecost /= power.sol_multiplier
 		power.update_desc()
 		power.update_buttons()
 	LAZYNULL(burdened_actions)

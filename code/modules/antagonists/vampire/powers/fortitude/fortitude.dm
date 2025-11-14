@@ -23,14 +23,16 @@
 	name = "Fortitude"
 	desc = "Withstand egregious physical wounds and walk away from attacks that would stun, pierce, and dismember lesser beings."
 	button_icon_state = "power_fortitude"
-	power_explanation = "Activating Fortitude will provide pierce, dismember, and push immunity.\n\
-		You will additionally gain Brute and Stamina resistance, scaling with your rank.\n\
-		At level 4, you gain complete stun immunity."
+	power_explanation = "Grants increasing levels of brute and stamina resistance, as well as various immunities to physical harm.\n\
+						At level 1: Gain pierce resistance.\n\
+						At level 2: Gain push immunity.\n\
+						At level 3: Gain dismember resistance.\n\
+						At level 4: Gain complete stun immunity."
 	power_flags = BP_AM_TOGGLE | BP_AM_COSTLESS_UNCONSCIOUS
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED
-	bloodcost = 5
+	vitaecost = 5
 	cooldown_time = 5 SECONDS
-	constant_bloodcost = 1
+	constant_vitaecost = 1
 
 	var/resistance = 0.8
 
@@ -43,23 +45,23 @@
 	var/calculated_burn_resist // do not touch
 
 /datum/action/vampire/fortitude/two
-	bloodcost = 15
-	constant_bloodcost = 2
+	vitaecost = 15
+	constant_vitaecost = 2
 	resistance = 0.6
 	pierce = TRUE
 	push = TRUE
 
 /datum/action/vampire/fortitude/three
-	bloodcost = 30
-	constant_bloodcost = 3
+	vitaecost = 30
+	constant_vitaecost = 3
 	resistance = 0.4
 	pierce = TRUE
 	push = TRUE
 	dismember = TRUE
 
 /datum/action/vampire/fortitude/four
-	bloodcost = 45
-	constant_bloodcost = 4
+	vitaecost = 45
+	constant_vitaecost = 4
 	resistance = 0.3
 	pierce = TRUE
 	push = TRUE

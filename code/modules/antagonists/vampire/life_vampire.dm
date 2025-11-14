@@ -19,7 +19,7 @@
 
 	// Healing
 	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile/retaliate/bat/vampire))
-		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && vampire_blood_volume > 0)
+		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && current_vitae > 0)
 			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
 
@@ -35,6 +35,8 @@
 	// Clan specific stuff
 	if(my_clan)
 		INVOKE_ASYNC(my_clan, TYPE_PROC_REF(/datum/vampire_clan, handle_clan_life))
+	else
+		INVOKE_ASYNC(src, PROC_REF(provide_clan_selector))
 
 	// Handle blood
 	INVOKE_ASYNC(src, PROC_REF(handle_blood), delta_time)
@@ -54,19 +56,19 @@
 		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
 		return
 
-	owner.current.blood_volume = vampire_blood_volume
+	owner.current.blood_volume = min(560, current_vitae)	// No longer represents blood. But we keep it scaling down because we want to get pale
 
 /**
  * Pretty simple, add a value to the vampire's blood volume
 **/
 /datum/antagonist/vampire/proc/AddBloodVolume(value)
-	vampire_blood_volume = clamp(vampire_blood_volume + value, 0, max_blood_volume)
+	current_vitae = clamp(current_vitae + value, 0, max_vitae)
 
 /**
  * Pretty simple, remove a value from the vampire's blood volume
 **/
 /datum/antagonist/vampire/proc/RemoveBloodVolume(value)
-	vampire_blood_volume = clamp(vampire_blood_volume - value, 0, max_blood_volume)
+	current_vitae = clamp(current_vitae - value, 0, max_vitae)
 
 /**
  * Runs on the vampire's lifetick.
@@ -98,7 +100,7 @@
 		return FALSE
 	var/mob/living/carbon/carbon_owner = owner.current
 
-	var/bloodcost_multiplier = 1 // Coffin makes it cheaper
+	var/vitaecost_multiplier = 1 // Coffin makes it cheaper
 	var/healing_mulitplier = 1
 
 	var/brute_heal = min(carbon_owner.getBruteLoss(), actual_regen) * healing_mulitplier
@@ -107,7 +109,7 @@
 	carbon_owner.suppress_bloodloss(BLEED_TINY * healing_mulitplier)
 
 	if(in_torpor)
-		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set bloodcost to 50%, and regenerate limbs
+		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set vitaecost to 50%, and regenerate limbs
 		// If not: heal 3x as fast and heal burn damage at 80%
 		if(istype(carbon_owner.loc, /obj/structure/closet/crate/coffin))
 			if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, vampire_spam_healing)))
@@ -117,13 +119,13 @@
 
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen)
 			healing_mulitplier = 5
-			bloodcost_multiplier = 0.5 // Decrease cost if we're sleeping in a coffin.
+			vitaecost_multiplier = 0.5 // Decrease cost if we're sleeping in a coffin.
 
 			// Extinguish and remove embedded objects
 			carbon_owner.ExtinguishMob()
 			carbon_owner.remove_all_embedded_objects()
 
-			if(try_regenerate_limbs(bloodcost_multiplier))
+			if(try_regenerate_limbs(vitaecost_multiplier))
 				return TRUE
 		else
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.8
@@ -134,9 +136,9 @@
 	burn_heal *= healing_mulitplier
 
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
-		var/bloodcost = (brute_heal * 0.5 + burn_heal) * bloodcost_multiplier * healing_mulitplier
+		var/vitaecost = (brute_heal * 0.5 + burn_heal) * vitaecost_multiplier * healing_mulitplier
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
-		RemoveBloodVolume(bloodcost)
+		RemoveBloodVolume(vitaecost)
 		return TRUE
 
 	// Revive them if dead and there is no damage left to heal, just in case we are not in torpor because of some wackyness.
@@ -152,7 +154,7 @@
 	var/limb_regen_cost = 50 * -cost_muliplier
 
 	var/list/missing = carbon_owner.get_missing_limbs()
-	if(missing.len && (vampire_blood_volume < limb_regen_cost + 5))
+	if(missing.len && (current_vitae < limb_regen_cost + 5))
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
@@ -245,36 +247,36 @@
 /datum/antagonist/vampire/proc/handle_blood(delta_time)
 	// Set nutrition
 	if(!isoozeling(owner.current))
-		owner.current.set_nutrition(min(vampire_blood_volume, NUTRITION_LEVEL_FED))
+		owner.current.set_nutrition(min(current_vitae, NUTRITION_LEVEL_FED))
 
 	// Try and exit frenzy
-	if(vampire_blood_volume >= FRENZY_THRESHOLD_EXIT && frenzied)
+	if(current_vitae >= FRENZY_THRESHOLD_EXIT && frenzied)
 		owner.current.remove_status_effect(/datum/status_effect/frenzy)
 
 	// Blood is low, lets show some effects
-	if(vampire_blood_volume < BLOOD_VOLUME_BAD && DT_PROB(5, delta_time) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	if(current_vitae < BLOOD_VOLUME_BAD && DT_PROB(5, delta_time) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		owner.current.set_jitter_if_lower(6 SECONDS)
 
 	// Enter frenzy if our blood is low enough
-	if(vampire_blood_volume < FRENZY_THRESHOLD_ENTER && !frenzied)
+	if(current_vitae < FRENZY_THRESHOLD_ENTER && !frenzied)
 		owner.current.apply_status_effect(/datum/status_effect/frenzy)
 
 	// Warn them at low blood
-	if(vampire_blood_volume < VAMPIRE_LOW_BLOOD_WARNING && !low_blood_alerted)
+	if(current_vitae < VAMPIRE_LOW_BLOOD_WARNING && !low_blood_alerted)
 		owner.current.playsound_local(null, 'sound/vampires/bloodneed.ogg', 100, FALSE, pressure_affected = FALSE)
 		to_chat(owner.current, span_narsiesmall("Care now. Your vitae runs low!"), type = MESSAGE_TYPE_WARNING)
 		low_blood_alerted = TRUE
-	else if(vampire_blood_volume > VAMPIRE_LOW_BLOOD_WARNING)
+	else if(current_vitae > VAMPIRE_LOW_BLOOD_WARNING)
 		low_blood_alerted = FALSE
 
 	// The more blood, the better the regeneration
-	if(vampire_blood_volume < BLOOD_VOLUME_BAD)
+	if(current_vitae < BLOOD_VOLUME_BAD)
 		additional_regen = 0.1
-	else if(vampire_blood_volume < BLOOD_VOLUME_OKAY)
+	else if(current_vitae < BLOOD_VOLUME_OKAY)
 		additional_regen = 0.2
-	else if(vampire_blood_volume < BLOOD_VOLUME_NORMAL)
+	else if(current_vitae < BLOOD_VOLUME_NORMAL)
 		additional_regen = 0.3
-	else if(vampire_blood_volume < BS_BLOOD_VOLUME_MAX_REGEN)
+	else if(current_vitae < BS_BLOOD_VOLUME_MAX_REGEN)
 		additional_regen = 0.4
 	else
 		additional_regen = 0.5

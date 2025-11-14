@@ -217,6 +217,7 @@
 #define span_warningitalics(str) ("<span class='warning italics'>" + (str) + "</span>")
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
 #define span_emojibutton(str) ("<span class='emoji_button'>" + (str) + "</span>")
+#define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

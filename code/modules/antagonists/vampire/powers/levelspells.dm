@@ -8,8 +8,7 @@
 	power_explanation = "Activate to select your unique vampire clan."
 	power_flags = BP_AM_SINGLEUSE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	special_flags = VAMPIRE_DEFAULT_POWER
-	bloodcost = 0
+	vitaecost = 0
 	cooldown_time = 5 SECONDS
 
 /datum/action/vampire/clanselect/activate_power()
@@ -27,7 +26,7 @@
 	power_explanation = "Activate to level one of your disciplines."
 	power_flags = BP_AM_SINGLEUSE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 0
+	vitaecost = 0
 	cooldown_time = 5 SECONDS
 
 /datum/action/vampire/levelup/activate_power()

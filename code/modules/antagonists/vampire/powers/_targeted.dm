@@ -37,7 +37,7 @@
 /datum/action/vampire/targeted/activate_power()
 	currently_active = TRUE
 
-	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
+	owner.log_message("used [src][vitaecost != 0 ? " at the cost of [vitaecost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
 
 /datum/action/vampire/targeted/deactivate_power()

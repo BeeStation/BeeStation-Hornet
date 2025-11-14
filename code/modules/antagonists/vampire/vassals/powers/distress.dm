@@ -6,7 +6,7 @@
 	power_flags = NONE
 	check_flags = NONE
 	special_flags = NONE
-	bloodcost = 10
+	vitaecost = 10
 	cooldown_time = 10 SECONDS
 
 /datum/action/vampire/distress/activate_power()

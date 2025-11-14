@@ -12,7 +12,7 @@
 		Higher levels will increase the knockdown dealt to enemies."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 15
+	vitaecost = 15
 	sol_multiplier = 2
 	cooldown_time = 12 SECONDS
 	target_range = 15
@@ -21,12 +21,12 @@
 	var/list/hit = list()
 
 /datum/action/vampire/targeted/haste/two
-	bloodcost = 30
+	vitaecost = 30
 	cooldown_time = 6 SECONDS
 	level_current = 2
 
 /datum/action/vampire/targeted/haste/three
-	bloodcost = 45
+	vitaecost = 45
 	cooldown_time = 2 SECONDS
 	level_current = 3
 
