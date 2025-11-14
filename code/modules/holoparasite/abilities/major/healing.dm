@@ -133,8 +133,8 @@
 
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		if((!carbon_target.dna?.species || !HAS_TRAIT(src, TRAIT_NOBLOOD)) && carbon_target.blood_volume < HOLOPARA_max_vitae_HEAL)
-			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_max_vitae_HEAL)
+		if((!carbon_target.dna?.species || !HAS_TRAIT(src, TRAIT_NOBLOOD)) && carbon_target.blood_volume < HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
+			carbon_target.blood_volume = min(carbon_target.blood_volume + actual_heal_amt, HOLOPARA_MAX_BLOOD_VOLUME_HEAL)
 		if(ishuman(carbon_target))
 			var/mob/living/carbon/human/human_target = carbon_target
 			human_target.cauterise_wounds(actual_heal_amt * 0.2)
