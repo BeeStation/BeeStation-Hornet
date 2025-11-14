@@ -1,9 +1,0 @@
-author: mrmanlikesbt, Ryll-Ryll, MrMelbert, Absolucy
-delete-after: true
-changes:
-  - rscadd: Changed examination to (hopefully) look better
-  - rscadd: When examining someone you can click their ID to see basic information
-      about them based off station records
-  - rscadd: Added eye contact
-  - imageadd: Gave wallets a new sprite
-  - bugfix: Fixed heretic items visually appearing when wearing a void cloak
