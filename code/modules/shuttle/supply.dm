@@ -1,40 +1,40 @@
 GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
-		/mob/living,
-		/obj/structure/blob,
-		/obj/effect/rune,
-		/obj/structure/spider/spiderling,
-		/obj/item/disk/nuclear,
-		/obj/machinery/nuclearbomb,
-		/obj/item/beacon,
-		/obj/eldritch/narsie,
-		/obj/tear_in_reality,
-		/obj/machinery/teleport/station,
-		/obj/machinery/teleport/hub,
-		/obj/machinery/quantumpad,
-		/obj/machinery/clonepod,
-		/obj/effect/mob_spawn,
-		/obj/effect/hierophant,
-		/obj/structure/receiving_pad,
-		/obj/item/warp_cube,
-		/obj/machinery/rnd/production, //print tracking beacons, send shuttle
-		/obj/machinery/modular_fabricator/autolathe, //same
-		/obj/projectile/beam/wormhole,
-		/obj/effect/portal,
-		/obj/item/shared_storage,
-		/obj/structure/extraction_point,
-		/obj/machinery/syndicatebomb,
-		/obj/item/hilbertshotel,
-		/obj/item/swapper,
-		/obj/item/mail,
-		/obj/docking_port,
-		/obj/effect/warped_rune, // no teleporting to cc for you
-		/obj/structure/slime_crystal/bluespace // Dang it, you still teleported to CC!
-	)))
+	/mob/living,
+	/obj/structure/blob,
+	/obj/effect/rune,
+	/obj/structure/spider/spiderling,
+	/obj/item/disk/nuclear,
+	/obj/machinery/nuclearbomb,
+	/obj/item/beacon,
+	/obj/eldritch/narsie,
+	/obj/tear_in_reality,
+	/obj/machinery/teleport/station,
+	/obj/machinery/teleport/hub,
+	/obj/machinery/quantumpad,
+	/obj/machinery/clonepod,
+	/obj/effect/mob_spawn,
+	/obj/effect/hierophant,
+	/obj/structure/receiving_pad,
+	/obj/item/warp_cube,
+	/obj/machinery/rnd/production, //print tracking beacons, send shuttle
+	/obj/machinery/modular_fabricator/autolathe, //same
+	/obj/projectile/beam/wormhole,
+	/obj/effect/portal,
+	/obj/item/shared_storage,
+	/obj/structure/extraction_point,
+	/obj/machinery/syndicatebomb,
+	/obj/item/hilbertshotel,
+	/obj/item/swapper,
+	/obj/item/mail,
+	/obj/docking_port,
+	/obj/effect/warped_rune, // no teleporting to cc for you
+	/obj/structure/slime_crystal/bluespace // Dang it, you still teleported to CC!
+)))
 
 GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
-		/obj/effect/mob_spawn/sentient_artifact,
-		/mob/living/simple_animal/shade/sentience
-	)))
+	/obj/effect/mob_spawn/sentient_artifact,
+	/mob/living/simple_animal/shade/sentience,
+)))
 
 
 /obj/docking_port/mobile/supply
@@ -146,8 +146,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 					misc_contents[D.account_holder] += item
 				misc_costs[D.account_holder] += SO.pack.cost
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
-				if(SO.pack.access)
-					miscboxes[D.account_holder].req_access |= SO.pack.access
 			else //No private payment, so we just stuff it all into a generic crate
 				if(!miscboxes.len || !miscboxes["Cargo"])
 					miscboxes["Cargo"] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))

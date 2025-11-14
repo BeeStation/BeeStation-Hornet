@@ -60,7 +60,7 @@
 		else
 			return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] strong!")
 
-/datum/status_effect/exercised/update_icon()
+/datum/status_effect/exercised/update_shown_duration()
 	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 
 /atom/movable/screen/alert/status_effect/exercised

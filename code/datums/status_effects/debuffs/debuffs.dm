@@ -1,9 +1,11 @@
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
-	tick_interval = 0
+	id = STATUS_EFFECT_ID_ABSTRACT
+	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
+	processing_speed = STATUS_EFFECT_PRIORITY
 	remove_on_fullheal = TRUE
 	heal_flag_necessary = HEAL_CC_STATUS
 	var/needs_update_stat = FALSE
@@ -104,7 +106,7 @@
 	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
-/datum/status_effect/incapacitating/unconscious/tick()
+/datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
 	if(owner.getStaminaLoss())
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
@@ -140,7 +142,7 @@
 	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
 	return ..()
 
-/datum/status_effect/incapacitating/sleeping/tick()
+/datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(owner.maxHealth)
 		var/health_ratio = owner.health / owner.maxHealth
 		if(health_ratio > 0.8)
@@ -170,8 +172,7 @@
 //STASIS
 /datum/status_effect/grouped/stasis
 	id = "stasis"
-	duration = -1
-	tick_interval = 10
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/stasis
 	var/last_dead_time
 
@@ -196,15 +197,13 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 
-/datum/status_effect/grouped/stasis/tick()
+/datum/status_effect/grouped/stasis/tick(seconds_between_ticks)
 	update_time_of_death()
 
 /datum/status_effect/grouped/stasis/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
-	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	update_time_of_death()
 	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
@@ -235,6 +234,7 @@
 	desc = "A magical strand of Durathread is wrapped around your neck, preventing you from breathing! Click this icon to remove the strand."
 	icon_state = "his_grace"
 	alerttooltipstyle = "hisgrace"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/strandling/Click(location, control, params)
 	. = ..()
@@ -311,44 +311,12 @@
 		if(!C.has_status_effect(/datum/status_effect/syringe))
 			C.clear_alert("syringealert")
 
-
-
-/datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-	return ..()
-
-/datum/status_effect/pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-
 //OTHER DEBUFFS
-/datum/status_effect/pacify
-	id = "pacify"
-	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 1
-	duration = 100
-	alert_type = null
-
-/datum/status_effect/pacify/on_creation(mob/living/new_owner, set_duration)
-	if(isnum_safe(set_duration))
-		duration = set_duration
-	. = ..()
-
-/datum/status_effect/pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
-	return ..()
-
-/datum/status_effect/pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "status_effect")
 
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
-	duration = -1
-	tick_interval = 4
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
 /atom/movable/screen/alert/status_effect/his_wrath
@@ -357,7 +325,7 @@
 	icon_state = "his_grace"
 	alerttooltipstyle = "hisgrace"
 
-/datum/status_effect/his_wrath/tick()
+/datum/status_effect/his_wrath/tick(seconds_between_ticks)
 	for(var/obj/item/his_grace/HG in owner.held_items)
 		qdel(src)
 		return
@@ -367,7 +335,7 @@
 
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = null
 
 /datum/status_effect/cultghost/on_apply()
@@ -375,7 +343,7 @@
 	owner.see_in_dark = 2
 	return ..()
 
-/datum/status_effect/cultghost/tick()
+/datum/status_effect/cultghost/tick(seconds_between_ticks)
 	if(owner.reagents)
 		owner.reagents.del_reagent(/datum/reagent/water/holywater) //can't be deconverted
 
@@ -414,7 +382,7 @@
 
 /datum/status_effect/stacking/saw_bleed
 	id = "saw_bleed"
-	tick_interval = 6
+	tick_interval = 0.6 SECONDS
 	delay_before_decay = 5
 	stack_threshold = 10
 	max_stacks = 10
@@ -439,9 +407,9 @@
 	id = "neck_slice"
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 
-/datum/status_effect/neck_slice/tick()
+/datum/status_effect/neck_slice/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/H = owner
 	if(H.stat == DEAD || H.get_bleed_rate() < BLEED_CUT)
 		H.remove_status_effect(/datum/status_effect/neck_slice)
@@ -460,8 +428,8 @@
 
 /datum/status_effect/necropolis_curse
 	id = "necrocurse"
-	duration = 6000 //you're cursed for 10 minutes have fun
-	tick_interval = 50
+	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	tick_interval = 5 SECONDS
 	alert_type = null
 	var/curse_flags = NONE
 	var/effect_last_activation = 0
@@ -492,7 +460,7 @@
 		owner.clear_fullscreen("curse", 50)
 	curse_flags &= ~remove_curse
 
-/datum/status_effect/necropolis_curse/tick()
+/datum/status_effect/necropolis_curse/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		return
 	if(curse_flags & CURSE_WASTING)
@@ -530,7 +498,7 @@
 /datum/status_effect/gonbola_pacify
 	id = "gonbolaPacify"
 	status_type = STATUS_EFFECT_MULTIPLE
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = null
 
 /datum/status_effect/gonbola_pacify/on_apply()
@@ -549,7 +517,7 @@
 	id = "trance"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 300
-	tick_interval = 10
+	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/trance
 	var/stun = TRUE
 	var/hypnosis_type = /datum/brain_trauma/hypnosis
@@ -559,7 +527,7 @@
 	desc = "Everything feels so distant, and you can feel your thoughts forming loops inside your head."
 	icon_state = "high"
 
-/datum/status_effect/trance/tick()
+/datum/status_effect/trance/tick(seconds_between_ticks)
 	if(stun)
 		owner.Stun(60, TRUE)
 	owner.dizziness = 20
@@ -614,7 +582,9 @@
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
 
-/datum/status_effect/spasms/tick()
+/datum/status_effect/spasms/tick(seconds_between_ticks)
+	if(owner.stat >= UNCONSCIOUS)
+		return
 	if(prob(15))
 		switch(rand(1,5))
 			if(1)
@@ -667,12 +637,13 @@
 	duration = 	150
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/convulsing
+	show_duration = TRUE
 
 /datum/status_effect/convulsing/on_creation(mob/living/zappy_boy)
 	. = ..()
 	to_chat(zappy_boy, span_boldwarning("You feel a shock moving through your body! Your hands start shaking!"))
 
-/datum/status_effect/convulsing/tick()
+/datum/status_effect/convulsing/tick(seconds_between_ticks)
 	var/mob/living/carbon/H = owner
 	if(prob(40))
 		var/obj/item/I = H.get_active_held_item()
@@ -715,7 +686,7 @@
 	id = "go_away"
 	duration = 100
 	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/go_away
 	var/direction
 
@@ -724,7 +695,7 @@
 	direction = pick(NORTH, SOUTH, EAST, WEST)
 	new_owner.setDir(direction)
 
-/datum/status_effect/go_away/tick()
+/datum/status_effect/go_away/tick(seconds_between_ticks)
 	owner.AdjustStun(1, ignore_canstun = TRUE)
 	var/turf/T = get_step(owner, direction)
 	owner.forceMove(T)
@@ -739,7 +710,7 @@
 	id = "interdicted"
 	duration = 25
 	status_type = STATUS_EFFECT_REFRESH
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/interdiction
 	var/running_toggled = FALSE
 
@@ -764,13 +735,13 @@
 
 /datum/status_effect/fake_virus
 	id = "fake_virus"
-	duration = 1800//3 minutes
+	duration = 3 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	alert_type = null
 	var/msg_stage = 0//so you dont get the most intense messages immediately
 
-/datum/status_effect/fake_virus/tick()
+/datum/status_effect/fake_virus/tick(seconds_between_ticks)
 	var/fake_msg = ""
 	var/fake_emote = ""
 	switch(msg_stage)
@@ -926,7 +897,7 @@
 	. = ..()
 	to_chat(owner, span_userdanger("Your body starts to break apart!"))
 
-/datum/status_effect/corrosion_curse/tick()
+/datum/status_effect/corrosion_curse/tick(seconds_between_ticks)
 	. = ..()
 	if(!ishuman(owner))
 		return
@@ -970,7 +941,7 @@
 /datum/status_effect/ghoul
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
+	duration = STATUS_EFFECT_PERMANENT
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /datum/status_effect/ghoul/get_examine_text()
@@ -1001,7 +972,7 @@
 	to_chat(owner, span_warning("Alert: Vocal cords restored to normal function."))
 	return ..()
 
-/datum/status_effect/ipc/emp
+/datum/status_effect/ipc_emp
 	id = "ipc_emp"
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/emp
@@ -1051,7 +1022,7 @@
 	id = "grub_infection"
 	duration = 60 SECONDS //a redgrub infestation in a slime
 	status_type = STATUS_EFFECT_UNIQUE
-	tick_interval = 1
+	tick_interval = 0.2 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/grub
 	var/adult = FALSE
 	var/spawnbonus = 0
@@ -1111,6 +1082,7 @@
 /datum/status_effect/amok
 	id = "amok"
 	status_type = STATUS_EFFECT_REPLACE
+	remove_on_fullheal = TRUE
 	alert_type = null
 	duration = 10 SECONDS
 	tick_interval = 1 SECONDS
@@ -1137,6 +1109,8 @@
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"
 	status_type = STATUS_EFFECT_REPLACE
+	remove_on_fullheal = TRUE
+	alert_type = null
 	duration = 3 SECONDS
 	on_remove_on_mob_delete = TRUE
 	///This overlay is applied to the owner for the duration of the effect.
@@ -1188,7 +1162,7 @@
 /datum/status_effect/ants/on_creation(mob/living/new_owner, amount_left)
 	if(isnum(amount_left) && new_owner.stat < HARD_CRIT)
 		if(new_owner.stat < UNCONSCIOUS) // Unconcious people won't get messages
-			to_chat(new_owner, "<span class='userdanger'>You're covered in ants!</span>")
+			to_chat(new_owner, span_userdanger("You're covered in ants!"))
 		ants_remaining += amount_left
 		RegisterSignal(new_owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
@@ -1198,7 +1172,7 @@
 	if(isnum(amount_left) && ants_remaining >= 1 && victim.stat < HARD_CRIT)
 		if(victim.stat < UNCONSCIOUS) // Unconcious people won't get messages
 			if(!prob(1)) // 99%
-				to_chat(victim, "<span class='userdanger'>You're covered in MORE ants!</span>")
+				to_chat(victim, span_userdanger("You're covered in MORE ants!"))
 			else // 1%
 				victim.say("AAHH! THIS SITUATION HAS ONLY BEEN MADE WORSE WITH THE ADDITION OF YET MORE ANTS!!", forced = /datum/status_effect/ants)
 		ants_remaining += amount_left
@@ -1206,7 +1180,7 @@
 
 /datum/status_effect/ants/on_remove()
 	ants_remaining = 0
-	to_chat(owner, "<span class='notice'>All of the ants are off of your body!</span>")
+	to_chat(owner, span_notice("All of the ants are off of your body!"))
 	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(ants_washed))
 	. = ..()
 
@@ -1218,7 +1192,7 @@
 /datum/status_effect/ants/get_examine_text()
 	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] covered in ants!")
 
-/datum/status_effect/ants/tick()
+/datum/status_effect/ants/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/victim = owner
 	victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.004),0.1))) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
 	if(victim.stat <= SOFT_CRIT) //Makes sure people don't scratch at themselves while they're in a critical condition
@@ -1232,18 +1206,18 @@
 			switch(rand(1,50))
 				if (1 to 8) //16% Chance
 					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your scalp!.</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your scalp!"))
 					hed.receive_damage(1,0)
 				if (9 to 29) //40% chance
 					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your arms!</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your arms!"))
 					arm.receive_damage(3,0)
 				if (30 to 49) //38% chance
 					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
-					to_chat(victim, "<span class='danger'>You scratch at the ants on your leg!</span>")
+					to_chat(victim, span_danger("You scratch at the ants on your leg!"))
 					leg.receive_damage(3,0)
 				if(50) // 2% chance
-					to_chat(victim, "<span class='danger'>You rub some ants away from your eyes!</span>")
+					to_chat(victim, span_danger("You rub some ants away from your eyes!"))
 					victim.blur_eyes(3)
 					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
 	ants_remaining--
@@ -1252,24 +1226,25 @@
 
 /atom/movable/screen/alert/status_effect/ants
 	name = "Ants!"
-	desc = "<span class='warning'>JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!</span>"
+	desc = span_warning("JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!")
 	icon_state = "antalert"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/ants/Click()
 	var/mob/living/living = owner
 	if(!istype(living) || !living.can_resist() || living != owner)
 		return
-	to_chat(living, "<span class='notice'>You start to shake the ants off!</span>")
+	to_chat(living, span_notice("You start to shake the ants off!"))
 	if(!do_after(living, 2 SECONDS, target = living))
 		return
 	for (var/datum/status_effect/ants/ant_covered in living.status_effects)
-		to_chat(living, "<span class='notice'>You manage to get some of the ants off!</span>")
+		to_chat(living, span_notice("You manage to get some of the ants off!"))
 		ant_covered.ants_remaining -= 10 // 5 Times more ants removed per second than just waiting in place
 
 /datum/status_effect/smoke
 	id = "smoke"
-	duration = -1
-	tick_interval = 10
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = 1 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/smoke
 

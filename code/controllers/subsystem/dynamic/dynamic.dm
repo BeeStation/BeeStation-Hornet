@@ -2,7 +2,6 @@ SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
 	wait = 1 MINUTES
-	init_order = INIT_ORDER_DYNAMIC
 
 	/**
 	 * Roundstart variables
@@ -247,6 +246,19 @@ SUBSYSTEM_DEF(dynamic)
 			stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
 			continue
 
+#ifdef STORYTELLER_VERSION
+		if (!loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name], it did not provide a storyteller version but one was required. (Required '[STORYTELLER_VERSION]')")
+			continue
+		if (loaded_json["Version"] != STORYTELLER_VERSION)
+			log_dynamic("Skipped loading storyteller [json_name], it did not have the required storyteller version (Required '[STORYTELLER_VERSION]', got '[loaded_json["Version"]]').")
+			continue
+#else
+		if (loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name] as it has a version of '[loaded_json["Version"]]', but we expected none.")
+			continue
+#endif
+
 		dynamic_storyteller_jsons[json_name] = loaded_json
 
 /datum/controller/subsystem/dynamic/proc/set_storyteller(new_storyteller)
@@ -463,17 +475,17 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.trim_candidates()
 			if(!ruleset.allowed())
 				possible_rulesets -= ruleset
-				continue
+				break
 
 			// Not enough points left
 			if(ruleset.points_cost > roundstart_points_left)
 				possible_rulesets -= ruleset
-				continue
+				break
 
 			// check_is_ruleset_blocked()
 			if(check_is_ruleset_blocked(ruleset, roundstart_executed_rulesets))
 				possible_rulesets -= ruleset
-				continue
+				break
 
 			// Apply cost and add ruleset to 'roundstart_executed_rulesets'
 			roundstart_points_left -= ruleset.points_cost
@@ -607,7 +619,7 @@ SUBSYSTEM_DEF(dynamic)
 			// If we successfully execute the midround, apply the cost and log it
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				midround_executed_rulesets += new_midround_ruleset
-				midround_points -= new_midround_ruleset.points_cost
+				midround_points = 0
 				logged_points["logged_points"] += midround_points
 			else
 				COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
