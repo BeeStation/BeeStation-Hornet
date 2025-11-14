@@ -10,17 +10,23 @@
 
 /datum/export/large/reagent_dispenser/water
 	unit_name = "watertank"
-	export_types = list(/obj/structure/reagent_dispensers/watertank)
+	export_types = list(
+		/obj/structure/reagent_dispensers/watertank = TRUE,
+	)
 	contents_cost = 200
 
 /datum/export/large/reagent_dispenser/fuel
 	unit_name = "fueltank"
-	export_types = list(/obj/structure/reagent_dispensers/fueltank)
+	export_types = list(
+		/obj/structure/reagent_dispensers/fueltank = TRUE,
+	)
 
 /datum/export/large/reagent_dispenser/beer
 	unit_name = "beer keg"
 	contents_cost = 700
-	export_types = list(/obj/structure/reagent_dispensers/beerkeg)
+	export_types = list(
+		/obj/structure/reagent_dispensers/beerkeg = TRUE,
+	)
 
 /**
  * Gas canister exports.
@@ -37,7 +43,9 @@
  */
 /datum/export/large/gas_canister
 	unit_name = "Gas Canister"
-	export_types = list(/obj/machinery/portable_atmospherics/canister)
+	export_types = list(
+		/obj/machinery/portable_atmospherics/canister = TRUE,
+	)
 
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O

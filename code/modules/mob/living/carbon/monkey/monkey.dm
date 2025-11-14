@@ -285,9 +285,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	if(!QDELETED(src))
 		qdel(src)
 
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
-
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE
 

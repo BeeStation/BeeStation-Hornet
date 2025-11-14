@@ -424,8 +424,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "e_scalpel"
 	hitsound = 'sound/weapons/blade1.ogg'
-	force = 10
-	armour_penetration = 80
+	force = 16
 	toolspeed = 0.7
 	light_system = MOVABLE_LIGHT
 	light_range = 1

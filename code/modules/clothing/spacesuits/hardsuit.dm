@@ -15,23 +15,22 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDEFACIALHAIR
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+
+	/// Whether or not this hardsuit has a geiger counter installed
+	var/geiger_counter = FALSE
+
+	/// If the headlamp is broken, used by lighteater
+	var/light_broken = FALSE
+
 	var/basestate = "hardsuit"
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	var/hardsuit_type = "engineering" //Determines used sprites: hardsuit[on]-[type]
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
-	var/geiger_counter = TRUE
-	var/current_tick_amount = 0
-	var/radiation_count = 0
-	var/grace = RAD_GEIGER_GRACE_PERIOD
-	var/datum/looping_sound/geiger/soundloop
-	/// If the headlamp is broken, used by lighteater
-	var/light_broken = FALSE
-
 
 /datum/armor/space_hardsuit
 	melee = 10
@@ -40,7 +39,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 75
 	fire = 50
 	acid = 75
 	stamina = 20
@@ -48,9 +46,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
-	soundloop = new(src, FALSE, TRUE)
-	soundloop.volume = 5
-	START_PROCESSING(SSobj, src)
+	if(geiger_counter)
+		AddComponent(/datum/component/geiger_sound)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	// Move to nullspace first to prevent qdel loops
@@ -58,9 +55,10 @@
 	if(!QDELETED(suit))
 		qdel(suit)
 	suit = null
-	QDEL_NULL(soundloop)
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+
+	if(geiger_counter)
+		qdel(GetComponent(/datum/component/geiger_sound))
+	. = ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	if(light_broken)
@@ -77,10 +75,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/user)
 	..()
-	if(suit)
-		suit.RemoveHelmet()
-		if(user.client)
-			soundloop.stop(user)
+	suit?.RemoveHelmet()
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -91,12 +86,8 @@
 	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
-			if(user.client)
-				soundloop.stop(user)
 		else
 			qdel(src)
-	else if(user.client)
-		soundloop.start(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
@@ -113,29 +104,6 @@
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b>[span_robot("[msg]")]</b>", MSG_VISUAL)
-
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
-	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION || !geiger_counter)
-		return
-	current_tick_amount += amount
-
-/obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
-	if(!geiger_counter)
-		return
-
-	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
-
-	if(current_tick_amount)
-		grace = RAD_GEIGER_GRACE_PERIOD
-	else
-		grace -= delta_time
-		if(grace <= 0)
-			radiation_count = 0
-
-	current_tick_amount = 0
-
-	soundloop.last_radiation = radiation_count
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	. = ..()
@@ -178,7 +146,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 75
 	fire = 50
 	acid = 75
 	stamina = 20
@@ -326,7 +293,6 @@
 	energy = 20
 	bomb = 10
 	bio = 100
-	rad = 75
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -350,7 +316,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 75
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -374,7 +339,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 25
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -402,7 +366,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 25
 	fire = 100
 	acid = 75
 	stamina = 20
@@ -426,7 +389,6 @@
 	energy = 15
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 90
 	stamina = 30
@@ -453,7 +415,6 @@
 	energy = 20
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 90
 	stamina = 30
@@ -481,7 +442,6 @@
 	energy = 15
 	bomb = 50
 	bio = 100
-	rad = 50
 	fire = 50
 	acid = 75
 	stamina = 40
@@ -513,7 +473,6 @@
 	energy = 20
 	bomb = 50
 	bio = 100
-	rad = 50
 	fire = 50
 	acid = 75
 	stamina = 40
@@ -547,7 +506,6 @@
 	energy = 10
 	bomb = 50
 	bio = 100
-	rad = 50
 	fire = 50
 	acid = 75
 	stamina = 20
@@ -584,7 +542,6 @@
 	energy = 15
 	bomb = 60
 	bio = 100
-	rad = 55
 	fire = 30
 	acid = 60
 	stamina = 15
@@ -615,7 +572,6 @@
 	energy = 55
 	bomb = 35
 	bio = 100
-	rad = 50
 	fire = 50
 	acid = 100
 	stamina = 60
@@ -792,7 +748,6 @@
 	energy = 80
 	bomb = 55
 	bio = 100
-	rad = 70
 	fire = 100
 	acid = 100
 	stamina = 80
@@ -821,7 +776,6 @@
 	energy = 80
 	bomb = 55
 	bio = 100
-	rad = 70
 	fire = 100
 	acid = 100
 	stamina = 80
@@ -904,7 +858,6 @@
 	energy = 50
 	bomb = 35
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 70
@@ -943,7 +896,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 60
 	fire = 60
 	acid = 75
 	stamina = 20
@@ -974,7 +926,6 @@
 	energy = 15
 	bomb = 10
 	bio = 100
-	rad = 60
 	fire = 60
 	acid = 75
 	stamina = 20
@@ -1014,7 +965,6 @@
 	energy = 15
 	bomb = 100
 	bio = 100
-	rad = 60
 	fire = 60
 	acid = 80
 	stamina = 30
@@ -1056,7 +1006,6 @@
 	energy = 15
 	bomb = 100
 	bio = 100
-	rad = 60
 	fire = 60
 	acid = 80
 	stamina = 30
@@ -1092,7 +1041,6 @@
 	energy = 50
 	bomb = 40
 	bio = 100
-	rad = 50
 	fire = 75
 	acid = 75
 	stamina = 50
@@ -1119,7 +1067,6 @@
 	energy = 50
 	bomb = 40
 	bio = 100
-	rad = 50
 	fire = 75
 	acid = 75
 	stamina = 50
@@ -1144,7 +1091,6 @@
 	energy = 50
 	bomb = 40
 	bio = 100
-	rad = 50
 	fire = 75
 	acid = 75
 	stamina = 50
@@ -1170,7 +1116,6 @@
 	energy = 60
 	bomb = 50
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1201,7 +1146,6 @@
 	energy = 60
 	bomb = 50
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1243,7 +1187,6 @@
 	energy = 20
 	bomb = 10
 	bio = 100
-	rad = 75
 	fire = 60
 	acid = 30
 	stamina = 20
@@ -1265,7 +1208,6 @@
 	energy = 20
 	bomb = 10
 	bio = 100
-	rad = 75
 	fire = 60
 	acid = 30
 	stamina = 20
@@ -1301,7 +1243,6 @@
 	energy = 10
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 75
 	stamina = 30
@@ -1329,7 +1270,6 @@
 	energy = 10
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 75
 	stamina = 30
@@ -1361,7 +1301,6 @@
 	energy = 40
 	bomb = 10
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1490,7 +1429,6 @@
 	energy = 40
 	bomb = 35
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1531,7 +1469,6 @@
 	energy = 40
 	bomb = 35
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -1573,7 +1510,6 @@
 	energy =60
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -1608,7 +1544,6 @@
 	energy = 60
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100

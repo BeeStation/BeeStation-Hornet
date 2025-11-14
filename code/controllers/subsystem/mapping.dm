@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING
+	dependencies = list(
+		/datum/controller/subsystem/job,
+		/datum/controller/subsystem/processing/station,
+	)
 	runlevels = ALL
 
 	var/list/nuke_tiles = list()
@@ -302,7 +305,7 @@ SUBSYSTEM_DEF(mapping)
 			errorList |= pm.original_path
 
 	if(!silent)
-		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
+		INIT_ANNOUNCE("Loaded [name] in [round((REALTIMEOFDAY - start_time)/10, 0.01)]s!")
 	return parsed_maps
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
@@ -318,7 +321,9 @@ SUBSYSTEM_DEF(mapping)
 				candidate = null
 				continue
 			possibletemplates[candidate] = candidate.weight
-		if(possibletemplates.len)
+		if(!length(possibletemplates))
+			stack_trace("Failed to find a valid random room / Room Info - height: [R.room_height], width: [R.room_width], name: [R.name]")
+		else
 			var/datum/map_template/random_room/template = pick_weight(possibletemplates)
 			template.stock--
 			template.weight = (template.weight / 2)

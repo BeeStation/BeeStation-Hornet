@@ -22,7 +22,6 @@
 	energy = 20
 	bomb = 20
 	bio = 100
-	rad = 20
 	fire = 100
 	acid = 100
 	stamina = 50
@@ -122,7 +121,6 @@
 	energy = 20
 	bomb = 20
 	bio = 100
-	rad = 20
 	fire = 100
 	acid = 100
 	stamina = 50

@@ -1,5 +1,3 @@
-#define INFINITE_USES -1
-
 /obj/item/autosurgeon
 	name = "autosurgeon"
 	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. It has a slot to insert implants/organs and a screwdriver slot for removing accidentally added items."
@@ -9,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/obj/item/organ/storedorgan
 	var/organ_type = /obj/item/organ
-	var/uses = INFINITE_USES
+	var/uses = INFINITY
 	var/list/starting_organ
 
 /obj/item/autosurgeon/syndicate
@@ -28,7 +26,7 @@
 	I.forceMove(src)
 
 /obj/item/autosurgeon/attack_self(mob/user)//when the object it used...
-	if(!uses)
+	if(uses <= 0)
 		to_chat(user, span_warning("[src] has already been used. The tools are dull and won't reactivate."))
 		return
 	else if(!storedorgan)
@@ -40,9 +38,8 @@
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, 1)
 	storedorgan = null
 	name = initial(name)
-	if(uses != INFINITE_USES)
-		uses--
-	if(!uses)
+	uses--
+	if(uses <= 0)
 		desc = "[initial(desc)] Looks like it's been used up."
 
 /obj/item/autosurgeon/attack_self_tk(mob/user)
@@ -77,9 +74,8 @@
 		to_chat(user, span_notice("You remove the [storedorgan] from [src]."))
 		I.play_tool_sound(src)
 		storedorgan = null
-		if(uses != INFINITE_USES)
-			uses--
-		if(!uses)
+		uses--
+		if(uses <= 0)
 			desc = "[initial(desc)] Looks like it's been used up."
 	return TRUE
 
@@ -122,5 +118,3 @@
 	desc = "A single use autosurgeon that contains a retractable combat hydraulic armblade. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
 	starting_organ = list(/obj/item/organ/cyberimp/arm/hydraulic_blade)
-
-#undef INFINITE_USES
