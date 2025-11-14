@@ -217,6 +217,7 @@
 /datum/status_effect/bola
 	id = "bola"
 	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
 	var/obj/item/linked_bola
 
 /datum/status_effect/bola/on_creation(mob/living/new_owner, bola_duration, obj/item/bola)
