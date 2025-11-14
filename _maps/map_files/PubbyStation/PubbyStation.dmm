@@ -1646,12 +1646,12 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
 "akw" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
-	dir = 9
-	},
-/obj/machinery/meter,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
@@ -1740,8 +1740,8 @@
 /area/maintenance/department/crew_quarters/dorms)
 "alj" = (
 /obj/item/wrench,
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
-	dir = 8
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden{
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
@@ -1964,11 +1964,14 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/security)
 "amH" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/machinery/door/airlock/atmos{
-	name = "Atmospherics Maintenance";
-	req_access_txt = "12;24"
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
@@ -19611,6 +19614,18 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
+"csV" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/wirecutters,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "cth" = (
 /obj/structure/table/wood/fancy,
 /obj/item/storage/fancy/candle_box,
@@ -22817,9 +22832,8 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "duZ" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "Cooling Loop Bypass";
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -25740,15 +25754,6 @@
 "eNF" = (
 /turf/closed/wall,
 /area/space/nearstation)
-"eNI" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "eOd" = (
 /obj/structure/fireaxecabinet{
 	pixel_y = -32
@@ -31453,7 +31458,9 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "hCX" = (
-/obj/machinery/atmospherics/components/trinary/filter/critical,
+/obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/engine/engineering)
 "hDk" = (
@@ -31699,6 +31706,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
+"hHQ" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "hIo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -39451,15 +39467,6 @@
 /obj/item/multitool,
 /turf/open/floor/carpet,
 /area/syndicate_sat)
-"kZe" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "kZm" = (
 /obj/structure/chair/wood/normal,
 /obj/effect/turf_decal/siding/brown{
@@ -41175,9 +41182,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "lPR" = (
-/obj/machinery/atmospherics/components/trinary/mixer/flipped/on{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "lQw" = (
@@ -42605,15 +42610,12 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "mxz" = (
-/obj/item/wirecutters,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/door/airlock/atmos{
+	name = "Atmospherics Maintenance";
+	req_access_txt = "12;24"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
+/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "mxW" = (
@@ -43132,7 +43134,9 @@
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
 "mMu" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/general/hidden,
+/obj/machinery/atmospherics/pipe/smart/manifold/general/visible{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "mNf" = (
@@ -45600,6 +45604,21 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/security/brig/medbay)
+"nTt" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "nTA" = (
 /obj/machinery/atmospherics/pipe/bridge_pipe/yellow/visible{
 	dir = 4
@@ -46011,6 +46030,14 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"obQ" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/restraints/handcuffs/cable/orange,
+/obj/item/crowbar/large,
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "ocD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48660,15 +48687,6 @@
 	dir = 8
 	},
 /area/chapel/main/monastery)
-"piq" = (
-/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "pji" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -55004,6 +55022,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/explab)
+"rZJ" = (
+/obj/machinery/atmospherics/pipe/smart/simple/purple/visible{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "rZV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -55828,10 +55855,7 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "sqT" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
-	dir = 1
-	},
-/obj/machinery/meter,
+/obj/machinery/atmospherics/components/trinary/mixer/airmix,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "sqX" = (
@@ -62977,6 +63001,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/machinery/atmospherics/components/trinary/filter/critical,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "vTv" = (
@@ -63739,6 +63764,13 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/ai_monitored/turret_protected/ai_upload)
+"wju" = (
+/obj/machinery/atmospherics/pipe/smart/manifold/cyan/hidden{
+	dir = 4
+	},
+/obj/machinery/meter,
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "wjA" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -64174,18 +64206,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "wuO" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
+/obj/item/storage/toolbox/electrical,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "wvZ" = (
@@ -66736,8 +66757,8 @@
 /turf/open/floor/mineral/plastitanium,
 /area/security/checkpoint/medical)
 "xzn" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/cyan/visible{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Cooling Loop Bypass"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -67378,9 +67399,14 @@
 /turf/open/floor/iron/dark/smooth_half,
 /area/chapel/main/monastery)
 "xNA" = (
-/obj/machinery/atmospherics/pipe/smart/simple/general/visible,
-/turf/open/floor/plating,
-/area/maintenance/department/security/brig)
+/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "xNU" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -85829,13 +85855,13 @@ hKA
 afU
 afU
 gYA
-xNA
+lPR
 lPR
 alj
 alV
+obQ
 aiu
 wWM
-mUn
 oXS
 aiu
 ajD
@@ -86089,10 +86115,10 @@ afU
 iEp
 mMu
 sqT
+wju
 jEV
-amH
 mxz
-ajD
+csV
 aiu
 aiu
 ajD
@@ -86346,10 +86372,10 @@ afU
 iEp
 akw
 all
-ajD
+wuO
 aiu
-sZe
-ajD
+aiu
+amH
 lHc
 aiu
 aiu
@@ -86605,8 +86631,8 @@ afU
 afU
 afU
 afU
-sZe
 ajD
+amH
 aiu
 aiu
 aaa
@@ -86862,8 +86888,8 @@ ftj
 xCw
 oag
 oZr
-wuO
-jsU
+mUn
+nTt
 nTB
 aiu
 aaa
@@ -97497,11 +97523,11 @@ tRm
 cbj
 ceX
 wdp
-xzn
+xxk
 kFH
-xzn
+xxk
 poT
-xzn
+xxk
 imB
 xzn
 cJw
@@ -98011,11 +98037,11 @@ tHX
 cbj
 fwi
 wrl
+duZ
 xxk
+duZ
 xxk
-xxk
-xxk
-xxk
+duZ
 xxk
 duZ
 qBV
@@ -103652,7 +103678,7 @@ iot
 acV
 qHk
 ycS
-kZe
+hHQ
 few
 bLW
 bRC
@@ -105964,7 +105990,7 @@ bST
 bTS
 bUu
 dgY
-eNI
+xNA
 bWP
 qhq
 adG
@@ -106735,7 +106761,7 @@ bMf
 bMe
 qKR
 ltl
-piq
+rZJ
 bWS
 jUM
 gUV
