@@ -102,3 +102,81 @@
   - tweak: the recording tape design in autolathes is now less ambiguously named
   - bugfix: sticky tapes can no longer be applied at any distance
   - soundadd: added sounds for tape
+2025-11-09:
+  EvilDragonfiend:
+  - tweak: each type of maints is now spawned only once.
+  mrmanlikesbt:
+  - bugfix: Fixed cargo exports and bounties not working
+  - bugfix: Fixed the contractor kit not spawning with extra items
+  ? mrmanlikesbt, Mothblocks, KittyNoodle, Pickle-Coding, timothymtorres, Krysonism,
+    Tiresoup, ShizCalev, lessthnthree, Lufferly, Ghilker, SyncIt21, vincentiusvin,
+    nevimer, blessedmulligan
+  : - refactor: Refactored radiation
+    - rscdel: Deleted radiation collectors
+    - rscdel: Pluoxium can no longer be produced on radioactive turfs- combine carbon
+        dioxide, oxygen, and tritium
+    - tweak: Gene tampering now causes genetic damage instead of radiation damage
+    - rscadd: The supermatter now produces power through electric shocks
+    - rscadd: The supermatter now features festive lighting during Christmas
+    - rscadd: Improved the supermatter and RBMK UI
+    - refactor: Rewrote much of the internal supermatter logic
+    - bugfix: Fixed the supermatter not pulling people into it as intended- wear your
+        magboots!!!
+2025-11-10:
+  BotTierPC:
+  - tweak: Overhauls Non-Departmental Regions of BoxStation + Janitorial Department.
+      Additionally adjusts and modernizes disposals to work with new changed areas.
+  BotTierPC, BlerpFish:
+  - rscadd: Adds a Service Poster for Mapping Use.
+  Carapan:
+  - bugfix: fixes the cake batter recipe in the sack of flour examine text.
+  Rukofamicom:
+  - bugfix: Fixed an undocumented change that got tacked into the recent wizard tools
+      and spell changes pertaining to the laser scalpel
+  Sarchutar:
+  - bugfix: Engineering borgs can once again not be pulled/moved by the supermatter/pressure
+      differences
+  llol111:
+  - rscadd: Added a centcom stamp to centcom
+  mrmanlikesbt:
+  - code_imp: Deprecated 515
+2025-11-11:
+  BotTierPC:
+  - bugfix: fixed boxstation Garden / Bar Zoning and APC names
+  PowerfulBacon:
+  - bugfix: Huge numbers of small explosions can no longer crash the server.
+  - tweak: Adds server-side support for versioning storytellers.
+  mrmanlikesbt:
+  - bugfix: Fixed the dynamic storyteller vote not being sent at roundstart
+  mrmanlikesbt, Watermelon914:
+  - refactor: Subsystems use dynamically generated init orders now instead of a previously
+      hard-coded list
+2025-11-12:
+  TsunamiAnt:
+  - tweak: tweaked the french accent a bit
+  mrmanlikesbt:
+  - bugfix: Fixed non-standard heretic races not being able to sacrifice their targets
+2025-11-13:
+  BotTierPC, Blerpfish:
+  - rscadd: Added a new Paramedic Department Poster for Mapping
+  mrmanlikesbt:
+  - balance: Vampires can now only feed off of targets that are aggressively grabbed.
+  - balance: Vampires feeding off of people has been made very obvious.
+  - balance: Masquerade infractions are now checked during feeding as a vampire, as
+      apposed to previously only checking at the beginning of feeding. If someone
+      walks in on you, you will receive a masquerade infraction.
+  - bugfix: Fixed vampires being able to chug blood bags
+  r1ks-iwnl, Krausus:
+  - bugfix: Roundend sounds won't be cut off
+  - admin: Set Round End Sound verb now requires a duration input along with your
+      selected sound
+  'rkz, Melbert, Absolucy, Riku, ':
+  - bugfix: Fixes REFRESH-style status effects (goodmusic)
+  - code_imp: Updated some status effect tick code to be more clear of how long is
+      elapsing between ticks. Should not be overtly noticeable.
+  - rscadd: Some alerts, such as Fleshmend's, show their remaining duration on their
+      icon.
+  - bugfix: fix bad assignments of status effect id's
+  - rscadd: adds priority subsystem for important status effects. Important stats
+      like stuns are put higher than others, so they should no longer last longer
+      than normal due to increased server load.
