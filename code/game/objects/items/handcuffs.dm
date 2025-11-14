@@ -409,8 +409,7 @@
 	icon_state = "gonbola"
 	icon_state_preview = "gonbola_preview"
 	item_state = "bola_r"
-	breakouttime = 30 SECONDS //Good god
-	slowdown = 0
+	knockdown = 10 SECONDS //Good god
 	var/datum/status_effect/gonbola_pacify/effectReference
 
 /obj/item/restraints/legcuffs/bola/gonbola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
