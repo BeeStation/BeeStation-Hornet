@@ -20,8 +20,8 @@
 /datum/job/cyborg/get_access() // no point of calling parent proc
 	return list()
 
-/datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
-	if(visualsOnly)
+/datum/job/cyborg/equip(mob/living/carbon/human/H, visuals_only = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
+	if(visuals_only)
 		CRASH("dynamic preview is unsupported")
 	return H.Robotize(FALSE, latejoin)
 

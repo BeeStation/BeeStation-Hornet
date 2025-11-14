@@ -164,7 +164,7 @@ SUBSYSTEM_DEF(polling)
 					surrounding_image = border_image
 				else
 					surrounding_image = image(chat_text_border_icon)
-				surrounding_icon = icon2html(surrounding_image, candidate_mob)
+				surrounding_icon = icon2html(surrounding_image, candidate_mob, extra_classes = "bigicon")
 			var/final_message = examine_block("<span style='text-align:center;display:block'>[surrounding_icon] <span style='font-size:1.2em'>[span_ooc(question)]</span> [surrounding_icon]\n[act_jump]      [act_signup]      [act_never]</span>")
 			to_chat(candidate_mob, final_message)
 

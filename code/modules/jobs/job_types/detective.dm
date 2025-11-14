@@ -55,13 +55,13 @@
 
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses/advanced)
 
-/datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 	if(istype(cig)) //Some species specfic changes can mess this up (plasmamen)
 		cig.light("")
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 /obj/item/storage/belt/fannypack/worn/detective/PopulateContents()

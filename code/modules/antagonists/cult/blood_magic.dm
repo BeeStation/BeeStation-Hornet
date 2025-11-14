@@ -704,10 +704,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					user.Beam(H, icon_state="sendbeam", time = 15)
 			else
 				if(H.stat == DEAD)
-					to_chat(user,span_warning("[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it."))
+					to_chat(user,span_warning("[H.p_Their()] blood has stopped flowing, you'll have to find another way to extract it."))
 					return
 				if(H.cultslurring)
-					to_chat(user,span_danger("[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
+					to_chat(user,span_danger("[H.p_Their()] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!"))
 					return
 				if(H.blood_volume > BLOOD_VOLUME_SAFE)
 					H.blood_volume -= 100
@@ -718,7 +718,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/melee/blood_magic)
 					to_chat(user,span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 				else
-					to_chat(user,span_danger("[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!"))
+					to_chat(user,span_danger("[H.p_Theyre()] missing too much blood - you cannot drain [H.p_them()] further!"))
 					return
 		if(isconstruct(target))
 			var/mob/living/simple_animal/M = target
