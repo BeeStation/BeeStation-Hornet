@@ -26,13 +26,13 @@
 	if(iscarbon(clicked_on) && clicked_on.Adjacent(clicker))
 		var/mob/living/carbon/L = clicked_on
 		if(IS_SERVANT_OF_RATVAR(L))
-			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] a servant.\"</span>"))
+			to_chat(clicker, ("<span class='neovgre'>\"[L.p_Theyre()] a servant.\"</span>"))
 			return FALSE
 		else if(L.stat)
 			to_chat(clicker, ("<span class='neovgre'>\"There is use in shackling the dead, but for examples.\"</span>"))
 			return FALSE
 		else if (istype(L.handcuffed, /obj/item/restraints/handcuffs/clockwork))
-			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] already helpless, no?\"</span>"))
+			to_chat(clicker, ("<span class='neovgre'>\"[L.p_Theyre()] already helpless, no?\"</span>"))
 			return FALSE
 
 		playsound(clicker.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE)

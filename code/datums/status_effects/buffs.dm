@@ -463,7 +463,7 @@
 	var/deathTick = 0
 
 /datum/status_effect/hippocratic_oath/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
+	return span_notice("[owner.p_They()] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -618,7 +618,7 @@
 	return ..()
 
 /datum/status_effect/antimagic/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to be covered in a dull, grey aura.")
+	return span_notice("[owner.p_They()] seem[owner.p_s()] to be covered in a dull, grey aura.")
 
 /datum/status_effect/planthealing
 	id = "Photosynthesis"
@@ -628,7 +628,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
 
 /datum/status_effect/planthealing/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] leaves seem[owner.p_s()] to be flourishing in the light!")
+	return span_notice("[owner.p_They()] leaves seem[owner.p_s()] to be flourishing in the light!")
 
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"
@@ -654,7 +654,7 @@
 	var/turf/location
 
 /datum/status_effect/crucible_soul/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] [owner.p_do()]n't seem to be all here.")
+	return span_notice("[owner.p_They()] [owner.p_do()]n't seem to be all here.")
 
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,span_notice("You phase through reality, nothing is out of bounds!"))
