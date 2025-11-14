@@ -8,8 +8,8 @@
 	box = /obj/item/storage/box/survival
 	var/assignment
 
-/datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	var/obj/item/card/id/W = H.wear_id
 	W.assignment = assignment
@@ -39,8 +39,8 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/spacepol
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
-/datum/outfit/spacepol/officer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/spacepol/officer/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	if(prob(40))
 		head = /obj/item/clothing/head/helmet/swat/nanotrasen
@@ -62,8 +62,8 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	box = /obj/item/storage/box/survival
 
-/datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	if(prob(50))
 		head = /obj/item/clothing/head/costume/ushanka
@@ -87,8 +87,8 @@
 	suit = /obj/item/clothing/suit/jacket/officer/tan
 	head = /obj/item/clothing/head/helmet/rus_ushanka
 
-/datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	if(prob(50))
 		gloves = /obj/item/clothing/gloves/tackler/combat
@@ -105,10 +105,10 @@
 	uniform = /obj/item/clothing/under/syndicate/combat
 	id = /obj/item/card/id/silver/bounty
 
-/datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 // OPERATIVE. STEALTHY, SOLID-SNAKE TYPE GUY. INTENDED LEADER.
@@ -149,8 +149,8 @@
 	l_pocket = /obj/item/ammo_box/magazine/m45
 	r_pocket = /obj/item/ammo_box/magazine/m45
 
-/datum/outfit/bounty/gunner/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/bounty/gunner/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
 	eyes.Insert(H, drop_if_replaced = FALSE)
@@ -172,8 +172,8 @@
 		/obj/item/bountytrap = 4,
 	)
 
-/datum/outfit/bounty/technician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/bounty/technician/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	H.set_species(/datum/species/abductor, icon_update=0)

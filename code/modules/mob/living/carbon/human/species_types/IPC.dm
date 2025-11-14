@@ -267,7 +267,11 @@
 	H.dna.features["ipc_screen"] = saved_screen
 
 /datum/species/ipc/get_harm_descriptors()
-	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
+	return list(
+		BLEED = "leaking",
+		BRUTE = "denting",
+		BURN = "burns"
+	)
 
 /datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()

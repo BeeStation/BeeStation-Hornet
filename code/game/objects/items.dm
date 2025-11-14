@@ -116,7 +116,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/belt_icon_state
 
 	/// The body parts this item covers when worn. Used mostly for armor. See _DEFINES/setup.dm
-	var/body_parts_covered = 0
+	var/body_parts_covered = NONE
 	/// For leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/gas_transfer_coefficient = 1
 
@@ -771,6 +771,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/datum/action/action_item_has as anything in actions)
 		action_item_has.Remove(user)
 
+	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)))
+
 	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
@@ -825,14 +827,19 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	visual_equipped(user, slot, initial)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
+
 	// Give out actions our item has to people who equip it.
 	for(var/datum/action/action as anything in actions)
 		give_item_action(action, user, slot)
+
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NO_WORN_ICON), SIGNAL_REMOVETRAIT(TRAIT_NO_WORN_ICON)), PROC_REF(update_slot_icon), override = TRUE)
+
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
 	if(ismonkey(user)) //Only generate icons if we have to
 		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
+
 	if(!initial)
 		if(equip_sound && slot_flags)
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
@@ -1061,34 +1068,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
 /obj/item/proc/update_slot_icon()
+	SIGNAL_HANDLER
 	if(!ismob(loc))
 		return
 	var/mob/owner = loc
-	var/flags = slot_flags
-	if(flags & ITEM_SLOT_OCLOTHING)
-		owner.update_worn_oversuit()
-	if(flags & ITEM_SLOT_ICLOTHING)
-		owner.update_worn_undersuit()
-	if(flags & ITEM_SLOT_GLOVES)
-		owner.update_worn_gloves()
-	if(flags & ITEM_SLOT_EYES)
-		owner.update_worn_glasses()
-	if(flags & ITEM_SLOT_EARS)
-		owner.update_worn_ears()
-	if(flags & ITEM_SLOT_MASK)
-		owner.update_worn_mask()
-	if(flags & ITEM_SLOT_HEAD)
-		owner.update_worn_head()
-	if(flags & ITEM_SLOT_FEET)
-		owner.update_worn_shoes()
-	if(flags & ITEM_SLOT_ID)
-		owner.update_worn_id()
-	if(flags & ITEM_SLOT_BELT)
-		owner.update_worn_belt()
-	if(flags & ITEM_SLOT_BACK)
-		owner.update_worn_back()
-	if(flags & ITEM_SLOT_NECK)
-		owner.update_worn_neck()
+	owner.update_clothing(slot_flags | owner.get_slot_by_item(src))
 
 /obj/item/proc/is_hot()
 	return heat

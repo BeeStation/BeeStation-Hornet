@@ -756,7 +756,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
 					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
 					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
-				cig.light(span_rose("[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with."))
+				cig.light(span_rose("[user] whips the [name] out and holds it for [M]. [user.p_Their()] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with."))
 			else
 				if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
 					message_admins("[cig.name] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")

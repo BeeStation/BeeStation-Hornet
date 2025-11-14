@@ -435,7 +435,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	obj_flags = USES_TGUI
-	item_flags = EXAMINE_SKIP | NOBLUDGEON | NO_MAT_REDEMPTION
+	item_flags = NOBLUDGEON | NO_MAT_REDEMPTION
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 20000
 	max_demand = 5
@@ -461,6 +461,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/Initialize(mapload, datum/holoparasite_theme/theme_override)
 	. = ..()
 	builder = new(src, theme_override || theme, max_points, max_level, uses, debug_mode)
+	ADD_TRAIT(src, TRAIT_EXAMINE_SKIP, INNATE_TRAIT)
 
 /obj/item/holoparasite_creator/Destroy()
 	QDEL_NULL(builder)
