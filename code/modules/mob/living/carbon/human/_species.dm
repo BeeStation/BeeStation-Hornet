@@ -1831,6 +1831,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [I]!"))
 		return 0
 
+	//This must be placed after blocking checks
 	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
 		H.batong_act(I)
 
