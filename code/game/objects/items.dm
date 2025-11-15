@@ -711,7 +711,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/obj/item/I = hitby
 
 		//If we block a stamina weapon, it does nothing
-		if(I.damtype == STAMINA || I.block_flags & BLOCKING_EFFORTLESS)
+		if(I.damtype == STAMINA || (I.block_flags & BLOCKING_EFFORTLESS))
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter
