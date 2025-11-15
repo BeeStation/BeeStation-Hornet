@@ -96,6 +96,12 @@
 	update_icon()
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
+/obj/item/melee/baton/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	//Only a 35% success chance if you throw it
+	if(damtype == STAMINA && prob(65))
+		attack_self()
+	return ..()
+
 /obj/item/melee/baton/attack_self(mob/user)
 	//Always allow it to be turned off if it is on, this proc is how the baton turns off when depleted.
 	if(damtype == STAMINA)
