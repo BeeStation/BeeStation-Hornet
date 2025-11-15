@@ -18,7 +18,7 @@
 	attack_verb_continuous = list("beats")
 	attack_verb_simple = list("beat")
 
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = ISWEAPON
 	armor_type = /datum/armor/melee_baton
