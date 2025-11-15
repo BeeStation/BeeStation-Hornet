@@ -51,6 +51,8 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 		if(summon_objective)
 			summon_objective.summoned = TRUE
 	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
+		if(!cultist.owner)
+			continue
 		if(isliving(cultist.owner.current))
 			var/mob/living/L = cultist.owner.current
 			L.narsie_act()

@@ -790,9 +790,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 /obj/effect/rune/summon/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-		if(cultist?.owner?.current?.stat != DEAD && !(cultist.owner.current in invokers))
-			cultists |= cultist.owner.current
+	for(var/datum/mind/M in get_antag_minds(/datum/antagonist/cult))
+		if(M.current?.stat != DEAD && !(M.current in invokers))
+			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
 	var/held_in_place = FALSE
 	if(iscarbon(cultist_to_summon))
