@@ -108,7 +108,10 @@
 			if(source.block_flags & (BLOCKING_COUNTERATTACK | BLOCKING_NASTY))
 				readout += "It is able to counter-attack while blocking."
 			if(source.block_flags & BLOCKING_PROJECTILE)
-				readout += "It can reflect laser weaponry."
+				if(source.pass_flags & PASSTRANSPARENT)
+					readout += "It can block ballistic gunfire, but lasers will pass right through it"
+				else
+					readout += "It can block both ballistic and laser gunfire."
 
 	// Custom manual notes
 	if(source.offensive_notes)
