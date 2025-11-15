@@ -1831,6 +1831,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [I]!"))
 		return 0
 
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		H.batong_act(I)
+
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
 		affecting = H.bodyparts[1]

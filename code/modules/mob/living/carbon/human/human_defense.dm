@@ -175,7 +175,7 @@
 	else
 		affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 	var/target_area = parse_zone(check_zone(user.get_combat_bodyzone(src))) //our intended target
-	
+
 	if(affecting)
 		if(I.force && I.damtype != STAMINA && (!IS_ORGANIC_LIMB(affecting))) // Bodpart_robotic sparks when hit, but only when it does real damage
 			if(I.force >= 5)
@@ -446,6 +446,10 @@
 			if(heart.Restart() && stat == CONSCIOUS)
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
+
+/mob/living/carbon/human/batong_act(obj/item/melee/baton/batong)
+	. = ..()
+	force_say(src) //Cut them off if they were talking
 
 /mob/living/carbon/human/emp_act(severity)
 	. = ..()

@@ -382,6 +382,10 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+///Called whenever a mob is hit with any electric baton to handle jittering and stuttering
+/mob/living/proc/batong_act(obj/item/melee/baton/batong)
+	return FALSE
+
 /*
  * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
  * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()

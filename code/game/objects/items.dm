@@ -172,7 +172,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The tool speed multiplier of how long it takes to do the tool action.
 	var/toolspeed = 1
 
-	/// The chance that holding this item will block attacks.
+	/// Whether or not an item can block attacks
 	var/canblock = FALSE
 	//blocking flags
 	var/block_flags = BLOCKING_ACTIVE
@@ -710,8 +710,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 
-		//If we block a stamina weapon, it does nothing unless it electrocutes us separately
-		if(I.damtype == STAMINA)
+		//If we block a stamina weapon, it does nothing
+		if(I.damtype == STAMINA || I.block_flags & BLOCKING_EFFORTLESS)
 			attackforce = 0
 
 		//Blocking gets a bonus against weapons that don't get their power from brute force, but the weight also doesn't matter

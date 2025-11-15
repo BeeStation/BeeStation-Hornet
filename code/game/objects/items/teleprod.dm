@@ -4,33 +4,19 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "teleprod"
 	item_state = "teleprod"
-	slot_flags = null
 
 	canblock = TRUE
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	block_power = 50
 
-/obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/carbon/M, mob/living/carbon/user)//handles making things teleport when hit
+/obj/item/melee/baton/cattleprod/teleprod/attack(mob/target, mob/living/carbon/user)
+	if(damtype != STAMINA)
+		return ..()
+
+	if(isliving(target))
+		var/mob/living/living_target = target
+		do_teleport(living_target, get_turf(living_target), 15, channel = TELEPORT_CHANNEL_BLUESPACE)
 	..()
-	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src]!"), \
-							span_userdanger("You accidentally hit yourself with [src]!"))
-		if(do_teleport(user, get_turf(user), 50, channel = TELEPORT_CHANNEL_BLUESPACE))//honk honk
-			SEND_SIGNAL(user, COMSIG_LIVING_MINOR_SHOCK)
-			user.Paralyze(stun_time*3)
-			deductcharge(cell_hit_cost)
-		else
-			SEND_SIGNAL(user, COMSIG_LIVING_MINOR_SHOCK)
-			user.Paralyze(stun_time*3)
-			deductcharge(cell_hit_cost/4)
-		return
-	else
-		if(turned_on)
-			if(!istype(M) && M.anchored)
-				return .
-			else
-				SEND_SIGNAL(M, COMSIG_LIVING_MINOR_SHOCK)
-				do_teleport(M, get_turf(M), 15, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/item/melee/baton/cattleprod/attackby(obj/item/I, mob/user, params)//handles sticking a crystal onto a stunprod to make a teleprod
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
