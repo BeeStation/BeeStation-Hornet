@@ -103,6 +103,9 @@
 /// Returns the nth root of x.
 #define ROOT(n, x) ((x) ** (1 / (n)))
 
+/// Generates a random float in a range
+#define FRAND(low, high) (rand() * (high - low) + low)
+
 // The quadratic formula. Returns a list with the solutions, or an empty list
 // if they are imaginary.
 /proc/SolveQuadratic(a, b, c)
