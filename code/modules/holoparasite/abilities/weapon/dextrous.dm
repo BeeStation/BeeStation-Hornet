@@ -153,13 +153,12 @@
 	create_misc_hud(hud, huds_to_add)
 
 /datum/holoparasite_ability/weapon/dextrous/proc/create_storage_hud(datum/hud/holoparasite/hud)
-	var/atom/movable/screen/inventory/inv_box = new /atom/movable/screen/inventory()
+	var/atom/movable/screen/inventory/inv_box = new /atom/movable/screen/inventory(null, hud)
 	inv_box.name = "internal storage"
 	inv_box.icon = hud.ui_style
 	inv_box.icon_state = "suit_storage"
 	inv_box.screen_loc = ui_inventory
 	inv_box.slot_id = ITEM_SLOT_DEX_STORAGE
-	inv_box.hud = hud
 	hud.static_inventory |= inv_box
 
 /datum/holoparasite_ability/weapon/dextrous/proc/create_misc_hud(datum/hud/holoparasite/hud, list/huds_to_add)
@@ -173,10 +172,9 @@
 	hud.zone_select.update_icon()
 	huds_to_add += hud.zone_select
 
-	drop = new
+	drop = new(null, hud)
 	drop.icon = hud.ui_style
 	drop.screen_loc = "CENTER-1:9,SOUTH+1:4"
-	drop.hud = hud
 	drop.update_icon()
 	hud.static_inventory += drop
 
