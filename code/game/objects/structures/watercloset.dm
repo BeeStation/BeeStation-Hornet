@@ -303,7 +303,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 	if(istype(O, /obj/item/melee/baton))
 		var/obj/item/melee/baton/batong = O
-		if(batong?.cell?.charge && batong.damtype == STAMINA)
+		if(batong.cell?.charge && batong.damtype == STAMINA)
 			flick("baton_active", src)
 			user.Paralyze(batong.active_force)
 			batong.cell.use(batong.cell.charge)
