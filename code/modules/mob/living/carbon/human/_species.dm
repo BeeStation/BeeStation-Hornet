@@ -46,7 +46,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///What the species drops when gibbed by a gibber machine.
 	var/meat = /obj/item/food/meat/slab/human
 	var/skinned_type
-	var/list/no_equip = list()	// slots the race can't equip stuff to
+	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
+	var/no_equip_flags
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	/// What languages this species can understand and say.
 	/// Use a [language holder datum][/datum/language_holder] typepath in this var.
@@ -440,6 +441,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			// organ.Insert will qdel any current organs in that slot, so we don't need to.
 			replacement.Insert(organ_holder, special=TRUE, drop_if_replaced=FALSE)
 
+/datum/species/proc/worn_items_fit_body_check(mob/living/carbon/wearer)
+	for(var/obj/item/equipped_item in wearer.get_equipped_items(include_pockets = TRUE))
+		var/equipped_item_slot = wearer.get_slot_by_item(equipped_item)
+		if(!equipped_item.mob_can_equip(wearer, equipped_item_slot, bypass_equip_delay_self = TRUE))
+			wearer.dropItemToGround(equipped_item, force = TRUE)
+
 ///Handles replacing all of the bodyparts with their species version during set_species()
 /datum/species/proc/replace_body(mob/living/carbon/target, datum/species/new_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
@@ -463,13 +470,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	// Drop the items the new species can't wear
 	if((AGENDER in species_traits))
 		C.gender = PLURAL
-	for(var/slot_id in no_equip)
-		var/obj/item/thing = C.get_item_by_slot(slot_id)
-		if(thing && (!thing.species_exception || !is_type_in_list(src,thing.species_exception)))
-			C.dropItemToGround(thing)
+
+	// Drop the items the new species can't wear
+	worn_items_fit_body_check(C)
+
 	if(C.hud_used)
 		C.hud_used.update_locked_slots()
 
@@ -1251,7 +1257,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE)
-	if(slot in no_equip)
+	if(no_equip_flags & slot)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 	if(I.species_restricted & H.dna?.species.bodyflag)
