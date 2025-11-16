@@ -14,17 +14,41 @@
 /// Once blood is this low, will enter a Frenzy
 #define FRENZY_THRESHOLD_ENTER 25
 /// Once blood is this high, will exit the Frenzy. Intentionally high, we want to kill the person we feed off of
-#define FRENZY_THRESHOLD_EXIT 250
+#define FRENZY_THRESHOLD_EXIT 500
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
+/// The number that incoming levels are divided by when comitting the Amaranth. Example: 2 would divide the victims level by 2, and give that to the diablerist
+#define DIABLERIE_DIVISOR 1.5
 
-// Vassal defines
+/// When do we warn them about their low blood?
+#define VAMPIRE_LOW_BLOOD_WARNING 300
+
+/// How much blood drained from the vampire each tick during sol
+#define VAMPIRE_SOL_BURN 30
+
+// vassal defines
 /// If someone passes all checks and can be vassalized
 #define VASSALIZATION_ALLOWED 0
 /// If someone has to accept vassalization
 #define VASSALIZATION_DISLOYAL 1
-/// If someone is not allowed under any circimstances to become a Vassal
+/// If someone is not allowed under any circimstances to become a vassal
 #define VASSALIZATION_BANNED 2
+
+// Humanity gains (The actual tracking lists and such are in the datum duh)
+// These are supposed to be somewhat nontrivial, to the point of sometimes not being viable.
+/// Hugging of separate people
+#define HUMANITY_HUGGING_TYPE "hug"
+
+/// Petting of separate animals
+#define HUMANITY_PETTING_TYPE "pet"
+
+/// Watching of art
+#define HUMANITY_ART_TYPE "art"
+
+#define HUMANITY_GAIN_TYPES list(HUMANITY_HUGGING_TYPE, HUMANITY_PETTING_TYPE, HUMANITY_ART_TYPE)
+
+// List of areas that are shielded from sol.
+#define VAMPIRE_SOL_SHIELDED list(/area/maintenance, /area/medical/morgue, /area/security/prison, /area/ai_monitored)
 
 // Cooldown defines
 // Used to prevent spamming vampires
@@ -48,10 +72,7 @@
 #define CLAN_TZIMISCE "Tzimisce Clan"
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
-
-#define TREMERE_VASSAL "tremere_vassal"
-#define FAVORITE_VASSAL "favorite_vassal"
-#define DISCORDANT_VASSAL "discordant_vassal"
+#define CLAN_METHUSELAH "Methuselah"
 
 // Power defines
 /// This Power can't be used in Torpor
@@ -67,16 +88,10 @@
 /// This Power can't be used during Sol
 #define BP_CANT_USE_DURING_SOL (1<<5)
 
-/// This Power can be purchased by Vampires
-#define VAMPIRE_CAN_BUY (1<<0)
 /// This is a Default Power that all Vampires get.
 #define VAMPIRE_DEFAULT_POWER (1<<1)
-/// This Power can be purchased by Tremere Vampires
-#define TREMERE_CAN_BUY (1<<2)
-/// This Power can be purchased by Vassals
-#define VASSAL_CAN_BUY (1<<3)
-/// This Power is exclusive to Brujah vampires, who will gain them upon joining Brujah.
-#define BRUJAH_DEFAULT_POWER (1<<4)
+/// This Power is a clan power, be it a bloodline specific discipline or something else.
+#define CLAN_DEFAULT_POWER (1<<2)
 
 /// This Power is a Toggled Power
 #define BP_AM_TOGGLE (1<<0)
@@ -136,6 +151,8 @@
 #define TRAIT_TORPOR "trait_torpor"
 /// Source trait for vampire mesmerization.
 #define TRAIT_MESMERIZED "trait_mesmerized"
+/// Source trait for vampire commandment.
+#define TRAIT_COMMANDED "trait_commanded"
 
 // Macros
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)

@@ -22,7 +22,9 @@
 		to_chat(M, "<span class='notice'>You [response_help_simple] [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
-
+		if(IS_VAMPIRE(M))
+			var/datum/antagonist/vampire/vampdatum = IS_VAMPIRE(M)
+			vampdatum.track_humanity_gain_progress(HUMANITY_PETTING_TYPE, src)
 	else
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")

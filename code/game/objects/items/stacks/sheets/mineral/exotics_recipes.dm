@@ -31,6 +31,9 @@ STACKSIZE_MACRO(/obj/item/stack/sheet/mineral/abductor)
 /* Meat */
 GLOBAL_LIST_INIT(meat_recipes, list (
 	//new/datum/stack_recipe("meat recipe example", /obj/structure/bed/meat, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND),
+	new/datum/stack_recipe("Meat coffin", /obj/structure/closet/crate/coffin/meatcoffin, 5, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 ), \
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/meat)
+
+

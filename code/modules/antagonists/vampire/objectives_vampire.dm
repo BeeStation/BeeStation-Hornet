@@ -5,19 +5,6 @@
 	update_explanation_text()
 	return ..()
 
-/// Look at all crew members, and for/loop through.
-/datum/objective/vampire/proc/return_possible_targets()
-	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target in get_crewmember_minds())
-		// Check One: Default Valid User
-		if(possible_target != owner && ishuman(possible_target.current) && possible_target.current.stat != DEAD)
-			// Check Two: Am Vampire?
-			if(IS_VAMPIRE(possible_target.current))
-				continue
-			possible_targets += possible_target
-
-	return possible_targets
-
 //////////////////////////////////////////////////////////////////////////////////////
 //	//							 OBJECTIVES 									//	//
 //////////////////////////////////////////////////////////////////////////////////////
@@ -42,9 +29,9 @@
 
 /// Vassalize a certain person / people
 /datum/objective/vampire/conversion
-	name = "vassalization"
+	name = "Vassalization"
 
-/// Check Vassals and get their occupations
+/// Check vassals and get their occupations
 /datum/objective/vampire/conversion/proc/get_vassal_occupations()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
 	if(!length(vampire_datum?.vassals))
@@ -72,28 +59,11 @@
 			continue
 
 	return all_vassal_jobs
-
-/**
- * Vassalize a head of staff
- */
-/datum/objective/vampire/conversion/command
-	name = "vassalizationcommand"
-	explanation_text = "Guarantee a Vassal ends up as a Department Head or in a Leadership role."
-	target_amount = 1
-
-/datum/objective/vampire/conversion/command/check_completion()
-	var/list/datum/job/vassal_jobs = get_vassal_occupations()
-	for(var/datum/job/checked_job in vassal_jobs)
-		if(checked_job.departments & DEPT_BITFLAG_COM)
-			return TRUE
-
-	return FALSE
-
 /**
  * Vassalize crewmembers in a specific department
  */
 /datum/objective/vampire/conversion/department
-	name = "vassalize department"
+	name = "Vassalize department"
 
 	///The selected department we have to vassalize.
 	var/target_department
@@ -106,26 +76,15 @@
 		"service" = DEPT_BITFLAG_SRV,
 	)
 
-
 // GENERATE!
 /datum/objective/vampire/conversion/department/New()
 	target_department = pick(possible_departments)
-
-	// Don't assign more vassalizations than possible
-	var/vassal_max = 0
-	switch(length(GLOB.joined_player_list))
-		if(1 to 20)
-			vassal_max = 1
-		if(21 to 30)
-			vassal_max = 3
-		if(31 to INFINITY)
-			vassal_max = 4
-	target_amount = min(rand(2, 3), vassal_max)
+	target_amount = 1
 	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/conversion/department/update_explanation_text()
-	explanation_text = "Have [target_amount] Vassal\s in the [target_department] department."
+	explanation_text = "Have a vassal in the [target_department] department."
 	return ..()
 
 // WIN CONDITIONS?
@@ -188,7 +147,7 @@
 
 // GENERATE!
 /datum/objective/vampire/gourmand/New()
-	target_amount = rand(450,650)
+	target_amount = rand(3000, 4000)
 	return ..()
 
 // EXPLANATION
@@ -208,84 +167,12 @@
 
 // HOW: Track each feed (if human). Count victory.
 
-// NOTE: Look up /assassinate in objective.dm for inspiration.6
-/// Vassalize a target.
-/datum/objective/vampire/vassalhim
-	name = "vassalhim"
-	var/target_department_type = FALSE
-
-/datum/objective/vampire/vassalhim/New()
-	find_target()
-	..()
-
-// EXPLANATION
-/datum/objective/vampire/vassalhim/update_explanation_text()
-	. = ..()
-	if(target?.current)
-		explanation_text = "Ensure [target.name], the [target.assigned_role], is Vassalized via the Persuasion Rack."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/vampire/vassalhim/admin_edit(mob/admin)
-	admin_simple_target_pick(admin)
-
-// WIN CONDITIONS?
-/datum/objective/vampire/vassalhim/check_completion()
-	if(!target || target.has_antag_datum(/datum/antagonist/vassal))
-		return TRUE
-	return FALSE
-
-//////////////////////////////////////////////
-//                                          //
-//              CLAN OBJECTIVES             //
-//                                          //
-//////////////////////////////////////////////
-
-/**
- * Nosferatu
- */
-/datum/objective/vampire/kindred
-	name = "steal kindred"
-	explanation_text = "Ensure Nosferatu steals and keeps control over the Archive of the Kindred."
-
-/datum/objective/vampire/kindred/check_completion()
-	for(var/datum/mind/vampire_minds as anything in get_antag_minds(/datum/antagonist/vampire))
-		var/obj/item/book/kindred/the_book = locate() in vampire_minds.current.get_contents()
-		if(the_book)
-			return TRUE
-
-	return FALSE
-
-/**
- * Tremere
- */
-/datum/objective/vampire/tremere_power
-	name = "tremerepower"
-	explanation_text = "Upgrade a Blood Magic power to the maximum level, remember that Vassalizing gives more Ranks!"
-
-/datum/objective/vampire/tremere_power/check_completion()
-	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
-	for(var/datum/action/vampire/targeted/tremere/tremere_power in vampire_datum.powers)
-		if(tremere_power.level_current >= 5)
-			return TRUE
-
-	return FALSE
-
-/**
- * Ventrue
- */
-/datum/objective/vampire/embrace
-	name = "embrace"
-	explanation_text = "Use the persuasion rack to Rank your Favorite Vassal up enough to become a Vampire."
-
-// We set the objective to complete when we level up our favorite vassal into a vampire.
-
 /**
  * Vassal
  */
 /datum/objective/vampire/vassal
 	name = "assist master"
-	explanation_text = "Guarantee the success of your Master's mission!"
+	explanation_text = "You crave the blood of your sire! Obey and protect them at all costs!"
 
 /datum/objective/vampire/vassal/check_completion()
 	var/datum/antagonist/vassal/vassal_datum = IS_VASSAL(owner.current)

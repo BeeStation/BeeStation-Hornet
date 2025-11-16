@@ -31,6 +31,11 @@
 						"<span class='notice'>[user] [response_help_continuous] you.</span>", null, null, list(user))
 		to_chat(user, "<span class='notice'>You [response_help_simple] [src].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+		// Vampires gain humanity from petting
+		if(IS_VAMPIRE(user))
+			var/datum/antagonist/vampire/vampdatum = IS_VAMPIRE(user)
+			vampdatum.track_humanity_gain_progress(HUMANITY_PETTING_TYPE, src)
 	else
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")

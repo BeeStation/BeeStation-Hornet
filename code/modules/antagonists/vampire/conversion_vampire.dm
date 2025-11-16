@@ -13,7 +13,7 @@
 	return FALSE
 
 /**
- * Checks if the person is allowed to turn into the Vampire's vasssal
+ * Checks if the person is allowed to turn into the Vampire's vassal
 **/
 /datum/antagonist/vampire/proc/can_make_vassal(mob/living/conversion_target, ignore_concious_check = FALSE)
 	var/mob/living/living_vampire = owner.current
@@ -22,8 +22,8 @@
 		living_vampire.balloon_alert(living_vampire, "enter a clan first.")
 		return FALSE
 
-	if(length(vassals) >= my_clan.get_max_vassals())
-		living_vampire.balloon_alert(living_vampire, "too many vassals.")
+	if(length(vassals) >= get_max_vassals())
+		living_vampire.balloon_alert(living_vampire, "more vassals, in this small of a community? Surely not...")
 		return FALSE
 
 #ifndef VAMPIRE_TESTING
@@ -59,14 +59,7 @@
 	vassaldatum.master = src
 	conversion_target.mind.add_antag_datum(vassaldatum)
 
-	if(istype(my_clan, /datum/vampire_clan/brujah) && my_clan.clan_objective.target == conversion_target.mind)
-		vassaldatum.make_special(/datum/antagonist/vassal/discordant)
-
-		message_admins("[conversion_target], the [conversion_target.mind.assigned_role] has become a Discordant Vassal, they were enthralled by [owner.current].")
-		log_admin("[conversion_target], the [conversion_target.mind.assigned_role] has become a Discordant Vassal, they were enthralled by [owner.current].")
-		return TRUE
-
-	message_admins("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
-	log_admin("[conversion_target] has become a Vassal, and is enslaved to [owner.current].")
+	message_admins("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
+	log_admin("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
 
 	return TRUE

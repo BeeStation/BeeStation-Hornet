@@ -9,14 +9,16 @@
 
 	/// How much blood we have, starting off at default blood levels.
 	/// We don't use our actual body's temperature because some species don't have blood and we don't want to exclude them
-	var/vampire_blood_volume = BLOOD_VOLUME_NORMAL
+	var/current_vitae = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
-	var/max_blood_volume = 600
+	var/max_vitae = 600
 
 	/// The vampire team, used for vassals
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
+	/// Our disciplines
+	var/list/owned_disciplines = list()
 
 	/// Timer between alerts for Burn messages
 	COOLDOWN_DECLARE(vampire_spam_sol_burn)
@@ -26,17 +28,22 @@
 	/// Flavor only
 	var/vampire_name
 	var/vampire_title
-	var/vampire_reputation
 
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
 	/// How many Masquerade Infractions do we have?
 	var/masquerade_infractions = 0
 
+	/// How many humanity points do we have? 0-10
+	/// We actually always start with 0 and then add the clan's default humanity
+	var/humanity = 0
+
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
 	/// If we are currently in a Frenzy
 	var/frenzied = FALSE
+	/// If we've already alerted the player about low blood
+	var/low_blood_alerted = FALSE
 
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
@@ -45,8 +52,6 @@
 
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
-	/// Special vassals I own, to not have double of the same type.
-	var/list/datum/antagonist/vassal/special_vassals = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
@@ -64,10 +69,15 @@
 	/// To keep track of objectives
 	var/total_blood_drank = 0
 
+	/// The last sol damage we got
+	var/last_sol_damage
+
 	/// Blood display HUD
 	var/atom/movable/screen/vampire/blood_counter/blood_display
 	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
+	/// Vampire humanity display HUD
+	var/atom/movable/screen/vampire/rank_counter/humanity_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
@@ -76,7 +86,7 @@
 
 	/// Static typecache of all vampire powers.
 	var/static/list/all_vampire_powers = typecacheof(/datum/action/vampire, ignore_root_path = TRUE)
-	/// Antagonists that cannot be Vassalized no matter what
+	/// Antagonists that cannot be vassalized no matter what
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/vampire,
 		/datum/antagonist/changeling,
@@ -92,9 +102,9 @@
 		TRAIT_RESISTCOLD,
 		TRAIT_RADIMMUNE,
 		TRAIT_GENELESS,
-		TRAIT_STABLEHEART,
 		TRAIT_NOSOFTCRIT,
 		TRAIT_NOHARDCRIT,
+		TRAIT_STABLEHEART,
 		TRAIT_AGEUSIA,
 		TRAIT_COLDBLOODED,
 		TRAIT_VIRUSIMMUNE,
@@ -111,6 +121,14 @@
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTHIGHPRESSURE,
 	)
+
+	/// Humanity gain tracking, when adding more, remember to add the type define
+	var/humanity_petting_goal = 5
+	var/humanity_art_goal = 2
+	var/humanity_hugging_goal = 3
+	var/list/humanity_trackgain_hugged = list()
+	var/list/humanity_trackgain_petted = list()
+	var/list/humanity_trackgain_art = list()
 
 /datum/antagonist/vampire/proc/create_vampire_team()
 	vampire_team = new(owner)
@@ -142,6 +160,11 @@
 	add_antag_hud(ANTAG_HUD_VAMPIRE, "vampire", current_mob)
 
 	current_mob.faction |= FACTION_VAMPIRE
+
+	// Teach them the old knowledge
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/vassalrack)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodthrone)
 
 	if(current_mob.hud_used)
 		on_hud_created()
@@ -183,6 +206,11 @@
 
 	current_mob.faction -= FACTION_VAMPIRE
 
+	// Tiny lobotomy
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/vassalrack)
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/candelabrum)
+	current_mob?.mind?.forget_crafting_recipe(/datum/crafting_recipe/bloodthrone)
+
 /datum/antagonist/vampire/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
@@ -196,12 +224,16 @@
 	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
 	vampire_hud.infodisplay += sunlight_display
 
+	humanity_display = new /atom/movable/screen/vampire/humanity_counter()
+	humanity_display.hud = vampire_hud
+	vampire_hud.infodisplay += humanity_display
+
 	vampire_hud.show_hud(vampire_hud.hud_version)
 	UnregisterSignal(owner.current, COMSIG_MOB_HUD_CREATED)
 
 /datum/antagonist/vampire/get_admin_commands()
 	. = ..()
-	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up))
+	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up), 1)
 	if(vampire_level_unspent > 0)
 		.["Remove Level"] = CALLBACK(src, PROC_REF(rank_down))
 
@@ -210,10 +242,17 @@
 	else
 		.["Break Masquerade"] = CALLBACK(src, PROC_REF(break_masquerade))
 
-	if(my_clan)
-		.["Remove Clan"] = CALLBACK(src, PROC_REF(remove_clan))
-	else
+	if(!broke_masquerade)
+		.["Masquerade Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
+
+	if(!my_clan)
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
+
+	if(humanity > 0)
+		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(deduct_humanity), 1)
+
+	if(humanity < 10)
+		.["Add Humanity"] = CALLBACK(src, PROC_REF(add_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
@@ -223,27 +262,27 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
-	// Start Sol if we're the first vampire
-	check_start_sunlight()
-
 	// Set name and reputation
 	select_first_name()
-	select_reputation(am_fledgling = TRUE)
 
 	// Objectives
 	forge_objectives()
 
-	// Assign Powers
+	// Assign starting stats skill point.
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
+	rank_up(1)
+	rank_up(1)
+	rank_up(1)
 	owner.special_role = ROLE_VAMPIRE
+	GLOB.all_vampires.Add(src)
 
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
-	check_cancel_sunlight()
 	owner.special_role = null
+	GLOB.all_vampires.Remove(src)
 	return ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
@@ -290,7 +329,7 @@
 
 	owner.announce_objectives()
 
-	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
 	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
 
 /datum/antagonist/vampire/farewell()
@@ -331,8 +370,8 @@
 		power_data["icon"] = power.button_icon
 		power_data["icon_state"] = power.button_icon_state
 
-		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
-		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
+		power_data["cost"] = power.vitaecost ? power.vitaecost : "0"
+		power_data["constant_cost"] = power.constant_vitaecost ? power.constant_vitaecost : "0"
 		power_data["cooldown"] = power.cooldown_time / 10
 
 		data["powers"] += list(power_data)
@@ -359,7 +398,7 @@
 
 	// Now list their vassals
 	if(length(vassals))
-		report += span_header("<br>Their Vassals were...")
+		report += span_header("<br>Their vassals were...")
 		for(var/datum/antagonist/vassal/vassal in vassals)
 			if(!vassal.owner)
 				continue
@@ -369,8 +408,6 @@
 
 			if(vassal.owner.assigned_role)
 				vassal_report += " the [vassal.owner.assigned_role]"
-			if(IS_FAVORITE_VASSAL(vassal.owner.current))
-				vassal_report += " and was the <b>Favorite Vassal</b>"
 			report += vassal_report.Join()
 
 	if(objectives_complete)
@@ -382,7 +419,7 @@
 
 /datum/antagonist/vampire/proc/give_starting_powers()
 	for(var/datum/action/vampire/all_powers as anything in all_vampire_powers)
-		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
+		if(!(initial(all_powers.special_flags) & VAMPIRE_DEFAULT_POWER))
 			continue
 		grant_power(new all_powers)
 
@@ -479,7 +516,7 @@
 	// This is my Lair
 	coffin = claimed
 	vampire_lair_area = coffin_area
-	to_chat(owner, span_userdanger("You have claimed the [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
+	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
 	return TRUE
 
 /// Name shown on antag list
@@ -510,13 +547,18 @@
 	survive_objective.owner = owner
 	objectives += survive_objective
 
-	// Objective 1: Vassalize a Head/Command, or a specific target
+	// Objective 1: vassalize someone
 	switch(rand(1, 3))
 		if(1) // Conversion Objective
-			var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
-			var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
-			conversion_objective.owner = owner
-			objectives += conversion_objective
+			if(get_max_vassals() >= 1)
+				var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
+				var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
+				conversion_objective.owner = owner
+				objectives += conversion_objective
+			else
+				var/datum/objective/vampire/gourmand/gourmand_objective = new
+				gourmand_objective.owner = owner
+				objectives += gourmand_objective
 		if(2) // Heart Thief Objective
 			var/datum/objective/vampire/heartthief/heartthief_objective = new
 			heartthief_objective.owner = owner
@@ -525,6 +567,16 @@
 			var/datum/objective/vampire/gourmand/gourmand_objective = new
 			gourmand_objective.owner = owner
 			objectives += gourmand_objective
+
+/datum/antagonist/vampire/proc/get_max_vassals()
+	var/total_players = length(GLOB.joined_player_list)
+	switch(total_players)
+		if(1 to 15)			// No vassals during low-lowpop
+			return 0
+		if(16 to 30)		// 1 vassal during normal pop
+			return 1
+		if(31 to INFINITY)	// if we can support it, we allow 2
+			return 2
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
