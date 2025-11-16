@@ -158,7 +158,7 @@
 	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=6000)
 	flags_1 = CONDUCT_1
 	item_flags = SURGICAL_TOOL
-	force = 15
+	force = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb_continuous = list("drills")
 	attack_verb_simple = list("drill")
@@ -249,7 +249,7 @@
 	throwhitsound =  'sound/weapons/pierce.ogg'
 	flags_1 = CONDUCT_1
 	item_flags = SURGICAL_TOOL
-	force = 15
+	force = 12 //These are not large saws, their big threat is how bad the bleeding is.
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9
 	throw_speed = 2
@@ -297,12 +297,13 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	item_state = "wrench"
 	flags_1 = CONDUCT_1
-	force = 7
+	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_materials = list(/datum/material/iron=12000)
 	attack_verb_continuous = list("attacks", "slashes", "saws", "cuts")
 	attack_verb_simple = list("attack", "slash", "saw", "cut")
 	sharpness = SHARP
+	bleed_force = BLEED_CUT
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2
 
@@ -424,7 +425,8 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "e_scalpel"
 	hitsound = 'sound/weapons/blade1.ogg'
-	force = 16
+	force = 10 //11 when it's on
+	armour_penetration = 80 //it'll cut right through almost anything, but it's still just a tiny scalpel.
 	toolspeed = 0.7
 	light_system = MOVABLE_LIGHT
 	light_range = 1

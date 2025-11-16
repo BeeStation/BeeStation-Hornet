@@ -187,6 +187,7 @@
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 	worn_icon_state = "fightgloves"
+	undyeable = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
