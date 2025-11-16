@@ -1596,20 +1596,20 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 7
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS) //you can't buy it in nuke, because the elite modsuit costs the same while being better
 
-/*
-/datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
-	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
-	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
-	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
+/datum/uplink_item/suits/modsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
+	var/obj/item/mod/control/mod = ..()
+	var/datum/component/tracking_beacon/beacon = mod.GetComponent(/datum/component/tracking_beacon)
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(helmet))
+		var/datum/component/team_monitor/worn/hud = helmet.GetComponent(/datum/component/team_monitor/worn)
 
-	var/datum/antagonist/nukeop/nukie = IS_NUCLEAR_OPERATIVE(user)
-	if(nukie?.nuke_team?.team_frequency)
-		if(hud)
-			hud.set_frequency(nukie.nuke_team.team_frequency)
-		if(beacon)
-			beacon.set_frequency(nukie.nuke_team.team_frequency)
-	return suit
-*/
+		var/datum/antagonist/nukeop/nukie = IS_NUCLEAR_OPERATIVE(user)
+		if(nukie?.nuke_team?.team_frequency)
+			if(hud)
+				hud.set_frequency(nukie.nuke_team.team_frequency)
+			if(beacon)
+				beacon.set_frequency(nukie.nuke_team.team_frequency)
+	return mod
 
 /datum/uplink_item/suits/modsuit/elite
 	name = "Elite Syndicate MODsuit"
