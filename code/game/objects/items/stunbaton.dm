@@ -172,7 +172,7 @@
 			attack_self()
 		update_icon()
 
-/obj/item/melee/baton/attack(mob/target, mob/living/carbon/human/user, params)
+/obj/item/melee/baton/attack(mob/living/target, mob/living/carbon/human/user, params)
 	//Clumsy gives a 50% chance to hit themselves if the baton is on
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED) && damtype == STAMINA)
 		target = user
@@ -180,17 +180,19 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		if(check_martial_counter(human_target, user))
-			return
+			return FALSE
 
 	//Drain the cell regardless of attack success
 	if(damtype == STAMINA)
 		cell.use(cell_hit_cost)
 
 	//Proceed with the attack chain
-	..()
+	. = ..()
 
 	//After the attack chain has resolved, check if the baton should turn itself off
 	check_charge()
+
+	return .
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
