@@ -8,6 +8,7 @@
 	id = MARTIALART_KARATE
 	allow_temp_override = FALSE
 	display_combos = TRUE
+	bypass_blocking = TRUE
 
 	Move1 = "Calf Kick: Harm Grab Disarm. Paralyses one of your opponent's legs."
 	Move2 = "Jumping Knee: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly."

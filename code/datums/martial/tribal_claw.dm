@@ -9,6 +9,7 @@
 	allow_temp_override = FALSE
 	display_combos = TRUE
 	COOLDOWN_DECLARE(jugular_cut_cd)
+	bypass_blocking = TRUE
 
 	Move1 = "Tail Sweep: Disarm Disarm Grab Harm. Requires a lizard tail. Pushes everyone around you away and knocks them down."
 	Move2 = "Face Scratch: Harm Disarm. Damages your target's head and confuses them for a short time."

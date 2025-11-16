@@ -232,6 +232,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLOCKING_COUNTERATTACK		(1<<3) //if it parries a bare hand or a weapon, has a chance to return a hit
 #define BLOCKING_UNBALANCE			(1<<4) //has a chance to knock the opponent off-balance (knockdown + longer attack delay)
 #define BLOCKING_UNBLOCKABLE		(1<<5) //attacks with this item can only be blocked by another unblockable item
+#define BLOCKING_EFFORTLESS			(1<<6) //This marks an attacking item as effortless to block, making it deal no stamina damage
 
 // Object/Item sharpness
 #define BLUNT					0	//Can only remove limbs if they're easy to remove
