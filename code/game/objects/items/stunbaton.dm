@@ -216,7 +216,7 @@
 	throwforce = 5
 	cell_hit_cost = 20 KILOWATT
 	slot_flags = ITEM_SLOT_BACK
-	var/obj/item/assembly/igniter/sparkler = 0
+	var/obj/item/assembly/igniter/sparkler
 	custom_price = 25
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)
