@@ -48,7 +48,7 @@
 #define HUMANITY_GAIN_TYPES list(HUMANITY_HUGGING_TYPE, HUMANITY_PETTING_TYPE, HUMANITY_ART_TYPE)
 
 // List of areas that are shielded from sol.
-#define VAMPIRE_SOL_SHIELDED list(/area/maintenance, /area/medical/morgue, /area/security/prison, /area/ai_monitored)
+#define VAMPIRE_SOL_SHIELDED list(/area/maintenance, /area/medical/morgue, /area/security/prison, /area/ai_monitored, /area/holodeck/prison)
 
 // Cooldown defines
 // Used to prevent spamming vampires

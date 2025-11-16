@@ -12,9 +12,9 @@
 		You will begin to entrance them into accepting your advances.\n\
 		The time needed before you start feeding decreases the higher level you are.\n\
 		If you are feeding normally they will forget that they were ever fed off.\n\
-		Feeding off of someone while you have them aggressively grabbed while in combat mode, will put them to sleep and make you feed faster. \
-		This is very obvious and the radius in which you can be detected is much larger!\n\
 		Mice can be fed off if you are in desperate need of blood.\n\
+		<b>Feeding off of someone while you have them aggressively grabbed while in combat mode, will put them to sleep and make you feed faster</b>. \
+		This is very obvious and the radius in which you can be detected is much larger!\n\
 		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding.\n\
 		<b>IMPORTANT:</b> You may feed on other vampires if they have broken the masquerade. Should you drain them, you will absorb their power!"
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
@@ -273,13 +273,21 @@
 		)
 
 	else if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE) // COMBAT FEED BELOW HERE!!!!!!!!!!
+
 		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 10)
-		feed_target.Unconscious((5 + level_current) SECONDS)
+
+		feed_target.Stun((5 + level_current) SECONDS)
+		feed_target.adjust_jitter((5 + level_current) SECONDS)
+
 		owner.visible_message(
 			span_warning("[owner.first_name()] closes [owner.p_their()] mouth around [feed_target.first_name()]'s neck!"),
 			span_warning("You sink your fangs into [feed_target.first_name()]'s neck."), ignored_mobs = feed_target
 		)
-		to_chat(feed_target, span_bolddanger("[owner.first_name()] SEIZES YOU WITH INCREDIBLE STRENGTH, SINKING THEIR TEETH INTO YOUR NECK!"), type = MESSAGE_TYPE_WARNING)
+
+		to_chat(feed_target, span_bolddanger("[owner.first_name()] seizes you with incredible strength, sinking [owner.p_their()] fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
+
+		to_chat(owner, span_announce("* Vampire Tip: Combat feeding does not erase their memories!"))
+
 		currently_feeding = TRUE
 		silent_feed = FALSE
 
@@ -318,9 +326,6 @@
 	if(!feed_target)
 		power_activated_sucessfully()
 		return
-
-	if(!silent_feed)
-		feed_target.SetUnconscious(10 SECONDS)
 
 	if(!continue_active())
 		if(!silent_feed)
@@ -399,10 +404,9 @@
 /datum/action/vampire/targeted/feed/proc/diablerie(mob/living/poor_sap)
 	var/datum/antagonist/vampire/victim = IS_VAMPIRE(poor_sap)
 
-	var/levels_absorbed = victim.vampire_level / DIABLERIE_DIVISOR
+	var/levels_absorbed = (victim.vampire_level + victim.vampire_level_unspent) / DIABLERIE_DIVISOR
 
-	for(var/county; county<levels_absorbed; county++)
-		vampiredatum_power.rank_up()
+	vampiredatum_power.rank_up(levels_absorbed)
 
 	vampiredatum_power.deduct_humanity(victim.humanity / 3)
 
@@ -423,6 +427,7 @@
 		animate(feed_target, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
+
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
 
 		if(feed_target.stat != DEAD && silent_feed)
@@ -449,11 +454,16 @@
 	blood_taken = 0
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
+	var/mob/living/living_owner = owner
 	var/feed_amount = 50 + (level_current * 2)
 
 	// If we are already at fatal, we speed up more.
 	if(feed_fatal)
 		feed_amount *= 1.5
+
+	// But, if we are in combat we want to get them some time to react.
+	if(!silent_feed)
+		feed_amount *= 0.3
 
 	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
 
@@ -491,6 +501,26 @@
 
 	vampiredatum_power.total_blood_drank += blood_to_take
 	blood_taken += blood_to_take
+
+	// If we are on combat feed, we only want it to take a bit and then stop.
+	if(!silent_feed && blood_taken >= 60)
+
+		playsound(target, 'sound/weapons/cqchit2.ogg', 80)
+
+		owner.visible_message(
+			span_warning("[target.first_name()] struggles, pushing [owner.first_name()] away!"),
+			span_warning("[target.first_name()] manages to struggle free from your grip!"), ignored_mobs = target
+		)
+
+		var/shove_dir = get_dir(target.loc, owner.loc)
+		var/turf/target_shove_turf = get_step(owner.loc, shove_dir)
+		owner.Move(target_shove_turf, shove_dir)
+
+		target.SetStun(0 SECONDS)
+		living_owner.Stun(1 SECONDS)
+
+		owner.balloon_alert(owner, "struggles free!")
+		deactivate_power()
 
 #undef FEED_SILENT_NOTICE_RANGE
 #undef FEED_LOUD_NOTICE_RANGE

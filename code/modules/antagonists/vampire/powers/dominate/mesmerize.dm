@@ -119,8 +119,6 @@
 	owner.balloon_alert(owner, "successfully mesmerized [living_target].")
 	to_chat(living_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully... You're mesmerized!"), type = MESSAGE_TYPE_WARNING)
 
-	to_chat(living_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully... You're mesmerized!"), type = MESSAGE_TYPE_WARNING)
-
 	//Actually mesmerize them now
 	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS
 
@@ -153,6 +151,8 @@
 /datum/action/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/living_target)
 	living_target.notransform = FALSE
 	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
+
+	to_chat(living_target, span_hypnophrase("With the spell waning, so does your memory of being mesmerized."), type = MESSAGE_TYPE_WARNING)
 
 	if (living_target in view(6, get_turf(owner)))
 		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")

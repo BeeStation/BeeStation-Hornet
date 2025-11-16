@@ -8,7 +8,7 @@
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	vitaecost = 75
-	cooldown_time = 20 SECONDS
+	cooldown_time = 60 SECONDS
 	target_range = 80 // Sniper :)
 	power_activates_immediately = FALSE
 	prefire_message = "Select your target."
@@ -40,7 +40,7 @@
 /obj/projectile/magic/arcane_barrage/vampire
 	name = "blood bolt"
 	icon_state = "mini_leaper"
-	damage = 80
+	damage = 40
 	hitsound = 'sound/vampires/bloodbolt.ogg'
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	var/datum/action/vampire/targeted/bloodbolt/vampire_power
