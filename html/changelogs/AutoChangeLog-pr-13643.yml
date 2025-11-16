@@ -1,0 +1,4 @@
+author: BotTierPC
+delete-after: true
+changes:
+  - tweak: Fixes Metastation Service Access by changing mapping_helpers
