@@ -42,7 +42,7 @@
 
 /obj/item/melee/baton/suicide_act(mob/living/user)
 	if(damtype == STAMINA)
-		user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
 		. = (FIRELOSS)
 		user.electrocute_act(200, "suicide by stun baton", 1, SHOCK_NOGLOVES)
 	else
