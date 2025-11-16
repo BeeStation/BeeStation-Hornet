@@ -362,3 +362,28 @@
 	icon_state = "gravity_gun"
 	automatic_charge_overlays = FALSE
 	var/power = 4
+
+/obj/item/gun/energy/splintergun
+	name = "splintergun"
+	desc = "A powerful rifle firing micrometer-width tungsten fletchettes at obscene velocities. Largely non-effective against light and unarmored targets, but lethal against heavy armor due to spalling and internal damage. Has enough ammo to last a lifetime, you only need to worry about power."
+	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "splintergun"
+	item_state = "laser"
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = ITEM_SLOT_BACK
+	shaded_charge = TRUE
+	fire_sound = "sound/weapons/sniper_shot.ogg"
+	fire_sound_volume = 90
+
+	recoil = 5
+	force = 15
+	zoomable = TRUE
+	zoom_amt = 10
+	zoom_out_amt = 2
+
+	pin = /obj/item/firing_pin
+
+	custom_materials = null
+	ammo_type = list(/obj/item/ammo_casing/energy/splintergun)
+	ammo_x_offset = 1
