@@ -184,6 +184,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/generate_pipe_spritesheet,
 	/client/proc/clear_dynamic_transit,
 	/client/proc/run_empty_query,
+	/client/proc/test_pathfinding,
 	/client/proc/fucky_wucky,
 	/client/proc/toggle_medal_disable,
 	/client/proc/pump_random_event,
