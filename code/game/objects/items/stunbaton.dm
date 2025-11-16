@@ -120,7 +120,7 @@
 
 ///Check if there is enough remaining charge to attack with, and turn it off if not
 /obj/item/melee/baton/proc/check_charge()
-	if(cell?.charge < cell_hit_cost)
+	if(isnull(cell) || cell.charge < cell_hit_cost)
 		if(damtype == STAMINA)
 			attack_self() //turn it off if there isn't enough
 
