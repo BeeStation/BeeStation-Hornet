@@ -188,3 +188,6 @@
   - rscadd: Added eye contact
   - imageadd: Gave wallets a new sprite
   - bugfix: Fixed heretic items visually appearing when wearing a void cloak
+2025-11-16:
+  BotTierPC:
+  - tweak: Fixes Metastation Service Access by changing mapping_helpers
