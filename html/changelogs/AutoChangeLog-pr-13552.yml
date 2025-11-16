@@ -1,0 +1,4 @@
+author: mrmanlikesbt, JohnFulpWillard, Ben10Omnitrix
+delete-after: true
+changes:
+  - code_imp: Screen objects now have their hud owner set in Initialize()
