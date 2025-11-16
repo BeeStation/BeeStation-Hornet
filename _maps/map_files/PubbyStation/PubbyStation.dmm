@@ -13017,7 +13017,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
 "bys" = (
@@ -34249,16 +34248,6 @@
 /obj/item/storage/toolbox/emergency,
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
-"iDS" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "iEp" = (
 /obj/machinery/atmospherics/components/tank/nitrogen,
 /obj/structure/lattice/catwalk,
@@ -39555,7 +39544,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
 "kTl" = (
@@ -48547,7 +48535,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
 "oUI" = (
@@ -55621,13 +55608,6 @@
 "sbk" = (
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"sbo" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "sbp" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -62160,7 +62140,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/plating,
 /area/holodeck/prison)
 "vjC" = (
@@ -66235,10 +66214,6 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
-"wYO" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "wYY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91428,7 +91403,7 @@ fyQ
 ybh
 ajc
 apJ
-wYO
+ajj
 ice
 ajj
 ajj
@@ -92200,7 +92175,7 @@ veb
 ajc
 apJ
 ajj
-sbo
+oVB
 ajj
 ajj
 mzX
@@ -92455,11 +92430,11 @@ eVS
 jij
 ybh
 ajc
-iDS
+apJ
 ajj
 oVB
-wYO
-wYO
+ajj
+ajj
 drx
 oAJ
 amZ
@@ -92715,8 +92690,8 @@ amh
 eMS
 ajj
 oVB
-wYO
-wYO
+ajj
+ajj
 drx
 nME
 vJd
