@@ -1803,7 +1803,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return
 	if(attacker.mind)
 		attacker_style = attacker.mind.martial_art
-	if((attacker != target) && !attacker_style.bypass_blocking && attacker.combat_mode && target.check_shields(attacker, 0, attacker.name, attack_type = UNARMED_ATTACK))
+	if((attacker != target) && !attacker_style?.bypass_blocking && attacker.combat_mode && target.check_shields(attacker, 0, attacker.name, attack_type = UNARMED_ATTACK))
 		log_combat(attacker, target, "attempted to touch")
 		target.visible_message(span_warning("[attacker] attempts to touch [target]!"), \
 						span_danger("[attacker] attempts to touch you!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, attacker)
