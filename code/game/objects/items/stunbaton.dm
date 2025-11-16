@@ -46,7 +46,7 @@
 		. = (FIRELOSS)
 		user.electrocute_act(200, "suicide by stun baton", 1, SHOCK_NOGLOVES)
 	else
-		user.visible_message("<span class='suicide'>[user] is shoving the [name] down their throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is shoving the [name] down their throat! It looks like [user.p_theyre()] trying to commit suicide!"))
 		. = (OXYLOSS)
 
 /obj/item/melee/baton/Initialize(mapload)
