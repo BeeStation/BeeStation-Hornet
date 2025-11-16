@@ -1805,9 +1805,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		attacker_style = attacker.mind.martial_art
 	if((attacker != target) && !attacker_style.bypass_blocking && attacker.combat_mode && target.check_shields(attacker, 0, attacker.name, attack_type = UNARMED_ATTACK))
 		log_combat(attacker, target, "attempted to touch")
-		target.visible_message("<span class='warning'>[attacker] attempts to touch [target]!</span>", \
-						"<span class='danger'>[attacker] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, attacker)
-		to_chat(attacker, "<span class='warning'>You attempt to touch [target]!</span>")
+		target.visible_message(span_warning("[attacker] attempts to touch [target]!"), \
+						span_danger("[attacker] attempts to touch you!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, attacker)
+		to_chat(attacker, span_warning("You attempt to touch [target]!"))
 		return
 
 	SEND_SIGNAL(attacker, COMSIG_MOB_ATTACK_HAND, attacker, target, attacker_style)
