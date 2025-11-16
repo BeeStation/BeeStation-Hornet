@@ -36,11 +36,6 @@ map deltastation
 	votable
 endmap
 
-map kilostation
-	maxplayers 20
-	votable
-endmap
-
 map flandstation
 	minplayers 40
 	votable
@@ -48,11 +43,6 @@ endmap
 
 map radstation
 	minplayers 20
-	votable
-endmap
-
-map echostation
-	maxplayers 28
 	votable
 endmap
 

@@ -22,10 +22,8 @@
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
 		#include "map_files\BoxStation\BoxStation.dmm"
-		#include "map_files\KiloStation\KiloStation.dmm"
 		#include "map_files\flandstation\flandstation.dmm"
 		#include "map_files\RadStation\RadStation.dmm"
-		#include "map_files\EchoStation\EchoStation.dmm"
 		#include "map_files\CardinalStation\CardinalStation.dmm"
 
 		#ifdef CIBUILDING
