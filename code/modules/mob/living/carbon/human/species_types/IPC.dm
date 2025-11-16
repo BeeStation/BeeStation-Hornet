@@ -243,7 +243,8 @@
 
 /datum/species/ipc/spec_attacked_by(obj/item/item, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/ipc)
 	//Need to make sure it wasn't blocked somehow
-	if(!..())
+	. = ..()
+	if(!.)
 		return FALSE
 
 	if(istype(item, /obj/item/melee/baton) && item.damtype == STAMINA)
