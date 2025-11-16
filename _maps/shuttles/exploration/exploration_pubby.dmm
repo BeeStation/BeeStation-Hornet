@@ -401,6 +401,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
+"Jh" = (
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/holopad,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
 "KU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -470,10 +477,10 @@
 /obj/item/multitool,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/gps/mining,
-/obj/item/stack/sheet/mineral/plasma/five,
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light/small,
+/obj/item/stack/sheet/mineral/plasma/ten,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PA" = (
@@ -541,7 +548,10 @@
 /area/template_noop)
 "SA" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/secure/weapon,
+/obj/structure/closet/crate/secure/weapon{
+	name = "Contraband crate";
+	desc = "A secure Contraband crate, so security can't legally raid your findings."
+	},
 /obj/item/firing_pin/clown,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
 /turf/open/floor/mineral/plastitanium,
@@ -708,7 +718,7 @@ OE
 po
 cg
 rQ
-rQ
+Jh
 vc
 IS
 tq
