@@ -530,9 +530,9 @@ Striking a noncultist, however, will tear their flesh."}
 	if(istype(A, /obj/item))
 
 		var/list/cultists = list()
-		for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-			if(cultist.owner?.current?.stat != DEAD)
-				cultists |= cultist.owner.current
+		for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+			if(cult_mind.current?.stat != DEAD)
+				cultists |= cult_mind.current
 		var/mob/living/cultist_to_receive = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in (cultists - user)
 		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 			return
