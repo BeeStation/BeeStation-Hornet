@@ -10,7 +10,7 @@
 	desc = "Just your average condiment bottle."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "bottle"
-	item_state = "beer" //Generic held-item sprite until unique ones are made.
+	inhand_icon_state = "beer" //Generic held-item sprite until unique ones are made.
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	reagent_flags = OPENCONTAINER
@@ -114,7 +114,7 @@
 	name = "sugar sack"
 	desc = "Tasty spacey sugar!"
 	icon_state = "sugar"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/sugar = 50)
@@ -133,7 +133,7 @@
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
 	icon_empty = "emptyshaker"
-	item_state = ""
+	inhand_icon_state = ""
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
@@ -167,7 +167,7 @@
 	desc = "Often used to flavor food or make people sneeze."
 	icon_state = "peppermillsmall"
 	icon_empty = "emptyshaker"
-	item_state = ""
+	inhand_icon_state = ""
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
@@ -178,7 +178,7 @@
 	name = "space milk"
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/milk = 50)
@@ -196,7 +196,7 @@
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/flour = 50)
@@ -222,7 +222,7 @@
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/soymilk = 50)
@@ -232,7 +232,7 @@
 	name = "rice sack"
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/rice = 50)
@@ -243,7 +243,7 @@
 	name = "cornmeal box"
 	desc = "A big box of cornmeal. Great for southern style cooking."
 	icon_state = "cornmeal"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	list_reagents = list(/datum/reagent/consumable/cornmeal = 30)

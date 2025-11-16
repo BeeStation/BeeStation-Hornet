@@ -22,7 +22,7 @@ Mineral Sheets
 	desc = "This appears to be a combination of both sand and stone."
 	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
-	item_state = "sheet-sandstone"
+	inhand_icon_state = "sheet-sandstone"
 	throw_speed = 3
 	throw_range = 5
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
@@ -38,7 +38,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
-	item_state = "sheet-diamond"
+	inhand_icon_state = "sheet-diamond"
 	singular_name = "diamond"
 	sheettype = "diamond"
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT)
@@ -56,7 +56,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
-	item_state = "sheet-uranium"
+	inhand_icon_state = "sheet-uranium"
 	singular_name = "uranium rod"
 	sheettype = "uranium"
 	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT)
@@ -74,7 +74,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
-	item_state = "sheet-plasma"
+	inhand_icon_state = "sheet-plasma"
 	singular_name = "plasma crystal"
 	sheettype = "plasma"
 	resistance_flags = FLAMMABLE
@@ -115,7 +115,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
-	item_state = "sheet-gold"
+	inhand_icon_state = "sheet-gold"
 	singular_name = "gold bar"
 	sheettype = "gold"
 	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT)
@@ -133,7 +133,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
-	item_state = "sheet-silver"
+	inhand_icon_state = "sheet-silver"
 	singular_name = "silver bar"
 	sheettype = "silver"
 	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT)
@@ -152,7 +152,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/copper
 	name = "copper"
 	icon_state = "sheet-copper"
-	item_state = "sheet-copper"
+	inhand_icon_state = "sheet-copper"
 	singular_name = "copper bar"
 	sheettype = "copper"
 	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT)
@@ -170,7 +170,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
 	icon_state = "sheet-titanium"
-	item_state = "sheet-titanium"
+	inhand_icon_state = "sheet-titanium"
 	singular_name = "titanium sheet"
 	force = 5
 	throwforce = 5
@@ -192,7 +192,7 @@ Mineral Sheets
 /obj/item/stack/sheet/mineral/plastitanium
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
-	item_state = "sheet-plastitanium"
+	inhand_icon_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
 	force = 5
 	throwforce = 5

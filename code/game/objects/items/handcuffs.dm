@@ -14,7 +14,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "handcuff"
-	item_state = "handcuff"
+	inhand_icon_state = "handcuff"
 	worn_icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -96,7 +96,7 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff"
-	item_state = "coil"
+	inhand_icon_state = "coil"
 	color = "#ff0000"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -134,7 +134,7 @@
 	desc = "A pair of restraints fashioned from long strands of flesh."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
-	item_state = "sinewcuff"
+	inhand_icon_state = "sinewcuff"
 	custom_materials = null
 	color = null
 	custom_price = 10
@@ -196,7 +196,7 @@
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_used"
-	item_state = "cuff"
+	inhand_icon_state = "cuff"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
@@ -338,7 +338,7 @@
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
 	icon_state_preview = "bola_preview"
-	item_state = "bola"
+	inhand_icon_state = "bola"
 	lefthand_file = 'icons/mob/inhands/weapons/thrown_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/thrown_righthand.dmi'
 	breakouttime = 2 SECONDS
@@ -378,7 +378,7 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
-	item_state = "bola_r"
+	inhand_icon_state = "bola_r"
 	breakouttime = 7 SECONDS
 	knockdown = 2 SECONDS
 
@@ -386,14 +386,14 @@
 	name = "watcher Bola"
 	desc = "A Bola made from the stretchy sinew of fallen watchers."
 	icon_state = "bola_watcher"
-	item_state = "bola_watcher"
+	inhand_icon_state = "bola_watcher"
 	breakouttime = 4.5 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
-	item_state = "ebola"
+	inhand_icon_state = "ebola"
 	hitsound = 'sound/weapons/taserhit.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 6 SECONDS
@@ -415,7 +415,7 @@
 	desc = "Hey, if you have to be hugged in the legs by anything, it might as well be this little guy."
 	icon_state = "gonbola"
 	icon_state_preview = "gonbola_preview"
-	item_state = "bola_r"
+	inhand_icon_state = "bola_r"
 	breakouttime = 30 SECONDS //Good god
 	slowdown = 0
 	var/datum/status_effect/gonbola_pacify/effectReference

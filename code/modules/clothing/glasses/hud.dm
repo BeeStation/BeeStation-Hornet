@@ -131,7 +131,7 @@
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
 	emissive_state = "nvg_emissive"
-	item_state = "glasses"
+	inhand_icon_state = "glasses"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
@@ -172,7 +172,7 @@
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
 	emissive_state = "nvg_emissive"
-	item_state = "glasses"
+	inhand_icon_state = "glasses"
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
@@ -182,7 +182,7 @@
 	desc = "Sunglasses with a diagnostic HUD."
 	icon_state = "sunhuddiag"
 	emissive_state = "sun_emissive"
-	item_state = "glasses"
+	inhand_icon_state = "glasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
@@ -287,7 +287,7 @@
 	name = "\improper HUD gar glasses"
 	desc = "GAR glasses with a HUD."
 	icon_state = "gars"
-	item_state = "garb"
+	inhand_icon_state = "garb"
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -301,7 +301,7 @@
 	name = "giga HUD gar glasses"
 	desc = "GIGA GAR glasses with a HUD."
 	icon_state = "supergars"
-	item_state = "garb"
+	inhand_icon_state = "garb"
 	force = 12
 	throwforce = 12
 
@@ -378,7 +378,7 @@
 	name = "Omni HUD"
 	desc = "Glasses with every function."
 	icon_state = "doublegodeye"
-	item_state = "doublegodeye"
+	inhand_icon_state = "doublegodeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
 	flash_protect = FLASH_PROTECTION_WELDER

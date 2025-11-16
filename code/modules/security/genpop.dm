@@ -696,7 +696,7 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 
 /obj/item/card/id/prisoner //renamed existing prisonner id to id/gulag
 	icon_state = "orange"
-	item_state = "orange-id"
+	inhand_icon_state = "orange-id"
 	assignment = "convict"
 	hud_state = JOB_HUD_PRISONER
 	var/served_time = 0 //Seconds.

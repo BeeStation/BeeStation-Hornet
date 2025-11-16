@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/head/wizard.dmi'
 	worn_icon = 'icons/mob/clothing/head/wizard.dmi'
 	icon_state = "wizard"
-	item_state = "wizhat"
+	inhand_icon_state = "wizhat"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	armor_type = /datum/armor/head_wizard
 	strip_delay = 50
@@ -65,14 +65,14 @@
 	name = "\improper Magus helm"
 	desc = "A mysterious helmet that hums with an unearthly power."
 	icon_state = "magus"
-	item_state = null
+	inhand_icon_state = null
 	dog_fashion = null
 
 /obj/item/clothing/head/wizard/santa
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
-	item_state = "santahat"
+	inhand_icon_state = "santahat"
 	flags_inv = HIDEHAIR|HIDEFACIALHAIR
 	dog_fashion = null
 
@@ -82,7 +82,7 @@
 	icon = 'icons/obj/clothing/suits/wizard.dmi'
 	icon_state = "wizard"
 	worn_icon = 'icons/mob/clothing/suits/wizard.dmi'
-	item_state = "wizrobe"
+	inhand_icon_state = "wizrobe"
 	gas_transfer_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	armor_type = /datum/armor/suit_wizrobe
@@ -141,50 +141,50 @@
 	name = "red wizard robe"
 	desc = "A magnificent red gem-lined robe that seems to radiate power."
 	icon_state = "redwizard"
-	item_state = "redwizrobe"
+	inhand_icon_state = "redwizrobe"
 
 /obj/item/clothing/suit/wizrobe/yellow
 	name = "yellow wizard robe"
 	desc = "A magnificent yellow gem-lined robe that seems to radiate power."
 	icon_state = "yellowwizard"
-	item_state = "yellowwizrobe"
+	inhand_icon_state = "yellowwizrobe"
 
 /obj/item/clothing/suit/wizrobe/black
 	name = "black wizard robe"
 	desc = "An unnerving black gem-lined robe that reeks of death and decay."
 	icon_state = "blackwizard"
-	item_state = "blackwizrobe"
+	inhand_icon_state = "blackwizrobe"
 
 /obj/item/clothing/suit/wizrobe/marisa
 	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/suit/wizrobe/magusblue
 	name = "\improper Magus robe"
 	desc = "A set of armored robes that seem to radiate a dark power."
 	icon_state = "magusblue"
-	item_state = "magusblue"
+	inhand_icon_state = "magusblue"
 
 /obj/item/clothing/suit/wizrobe/magusred
 	name = "\improper Magus robe"
 	desc = "A set of armored robes that seem to radiate a dark power."
 	icon_state = "magusred"
-	item_state = "magusred"
+	inhand_icon_state = "magusred"
 
 
 /obj/item/clothing/suit/wizrobe/santa
 	name = "Santa's suit"
 	desc = "Festive!"
 	icon_state = "santa"
-	item_state = "santa"
+	inhand_icon_state = "santa"
 
 /obj/item/clothing/suit/wizrobe/fake
 	name = "wizard robe"
 	desc = "A rather dull blue robe meant to mimick real wizard robes."
 	icon_state = "wizard-fake"
-	item_state = "wizrobe"
+	inhand_icon_state = "wizrobe"
 	gas_transfer_coefficient = 1
 	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
@@ -203,7 +203,7 @@
 	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
-	item_state = "marisarobe"
+	inhand_icon_state = "marisarobe"
 	gas_transfer_coefficient = 1
 	armor_type = /datum/armor/none
 	resistance_flags = FLAMMABLE
@@ -213,7 +213,7 @@
 	name = "papier-mache robe" // no non-latin characters!
 	desc = "A robe held together by various bits of clear-tape and paste."
 	icon_state = "wizard-paper"
-	item_state = "wizard-paper"
+	inhand_icon_state = "wizard-paper"
 	var/robe_charge = TRUE
 	actions_types = list(/datum/action/item_action/stickmen)
 	clothing_flags = NONE

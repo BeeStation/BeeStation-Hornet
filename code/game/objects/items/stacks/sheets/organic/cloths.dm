@@ -42,7 +42,7 @@ Various Cloths
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	icon = 'icons/obj/stacks/organic.dmi'
-	item_state = "sheet-cloth"
+	inhand_icon_state = "sheet-cloth"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -68,7 +68,7 @@ Various Cloths
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
-	item_state = "sheet-durathread"
+	inhand_icon_state = "sheet-durathread"
 	icon = 'icons/obj/stacks/organic.dmi'
 	resistance_flags = FLAMMABLE
 	force = 0
@@ -87,7 +87,7 @@ Various Cloths
 	desc = "A long soft material. This one is made from cotton rather than spidersilk."
 	singular_name = "Silk Sheet"
 	icon_state = "sheet-silk"
-	item_state = "sheet-silk"
+	inhand_icon_state = "sheet-silk"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/silk
 	icon = 'icons/obj/stacks/organic.dmi'

@@ -35,7 +35,7 @@
 	desc = "An 'Infiltrator' double-barreled derringer, chambered in the powerful .357. Useful in a pinch but inadequate for longer engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = null //Too small to show in hand, unless examined
+	inhand_icon_state = null //Too small to show in hand, unless examined
 	throwforce = 0 //Derringers are light and tiny, no hurtie
 	mag_type = /obj/item/ammo_box/magazine/internal/der38
 	load_sound = 'sound/weapons/revolverload.ogg'
@@ -86,12 +86,12 @@
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"
-	item_state = "deagleg"
+	inhand_icon_state = "deagleg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/camo
 	desc = "A Deagle brand Deagle for operators operating operationally. Uses .50 AE ammo."
 	icon_state = "deaglecamo"
-	item_state = "deagleg"
+	inhand_icon_state = "deagleg"
 
 /obj/item/gun/ballistic/automatic/pistol/APS
 	name = "stechkin APS pistol"

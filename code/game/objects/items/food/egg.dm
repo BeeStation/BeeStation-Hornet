@@ -22,7 +22,7 @@
 	desc = "An egg!"
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
-	item_state = "egg"
+	inhand_icon_state = "egg"
 	food_reagents = list(
 		/datum/reagent/consumable/eggyolk = 2, /datum/reagent/consumable/eggwhite = 4
 	)

@@ -3,7 +3,7 @@
 	desc = "A spray bottle, with an unscrewable top."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
-	item_state = "cleaner"
+	inhand_icon_state = "cleaner"
 	worn_icon_state = "spraybottle"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
@@ -177,7 +177,7 @@
 	desc = "A seemingly innocent sunflower...with a twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
-	item_state = "sunflower"
+	inhand_icon_state = "sunflower"
 	amount_per_transfer_from_this = 1
 	has_variable_transfer_amount = FALSE
 	can_toggle_range = FALSE
@@ -241,7 +241,7 @@
 	desc = "A utility used to spray large amounts of reagents in a given area."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
-	item_state = "chemsprayer"
+	inhand_icon_state = "chemsprayer"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	throwforce = 0
@@ -279,7 +279,7 @@
 	name = "janitor chem sprayer"
 	desc = "A utility used to spray large amounts of cleaning reagents in a given area. It regenerates space cleaner by itself but it's unable to be fueled by normal means."
 	icon_state = "chemsprayer_janitor"
-	item_state = "chemsprayer_janitor"
+	inhand_icon_state = "chemsprayer_janitor"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	reagent_flags = NONE
@@ -309,7 +309,7 @@
 	name = "lubinator 8000"
 	desc = "A modified industrial cleaning sprayer, capable of coating entire hallways in high performance lubricant, honk!"
 	icon_state = "chemsprayer"
-	item_state = "chemsprayer"
+	inhand_icon_state = "chemsprayer"
 	list_reagents = list(/datum/reagent/lube = 1000)
 	generate_type = /datum/reagent/lube
 
@@ -318,7 +318,7 @@
 	desc = "A small device used for celebrations and annoying the janitor."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "party_popper"
-	item_state = "party_popper"
+	inhand_icon_state = "party_popper"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -342,7 +342,7 @@
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
-	item_state = "plantbgone"
+	inhand_icon_state = "plantbgone"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	volume = 100
@@ -386,7 +386,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/reagent_containers/spray/cyborg)
 	desc = "A bottle of weed killer spray for stopping kudzu-based harm."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
-	item_state = "plantbgone"
+	inhand_icon_state = "plantbgone"
 	set_reagent = /datum/reagent/toxin/plantbgone
 
 /obj/item/reagent_containers/spray/cyborg/lube

@@ -2,7 +2,7 @@
 	name = "syringe gun"
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance."
 	icon_state = "syringegun"
-	item_state = "syringegun"
+	inhand_icon_state = "syringegun"
 	w_class = WEIGHT_CLASS_LARGE
 	throw_speed = 3
 	throw_range = 7
@@ -92,7 +92,7 @@
 	name = "dart pistol"
 	desc = "A small spring-loaded sidearm that functions identically to a syringe gun."
 	icon_state = "syringe_pistol"
-	item_state = "gun" //Smaller inhand
+	inhand_icon_state = "gun" //Smaller inhand
 	w_class = WEIGHT_CLASS_SMALL
 	force = 2 //Also very weak because it's smaller
 	suppressed = TRUE //Softer fire sound
@@ -130,7 +130,7 @@
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
 	has_syringe_overlay = FALSE
-	item_state = "blowgun"
+	inhand_icon_state = "blowgun"
 	fire_sound = 'sound/items/syringeproj.ogg'
 	no_pin_required = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
