@@ -56448,8 +56448,9 @@
 /turf/open/floor/iron/tech,
 /area/science/robotics/lab)
 "ssg" = (
-/obj/machinery/computer/holodeck/prison{
-	dir = 4
+/obj/machinery/modular_computer/console/preset/command{
+	dir = 4;
+	name = "Security Console"
 	},
 /obj/structure/railing/sec,
 /obj/structure/railing{
