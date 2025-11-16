@@ -9,6 +9,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/holopad,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "cH" = (
@@ -401,13 +402,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
-"Jh" = (
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/holopad,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/exploration)
 "KU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -718,7 +712,7 @@ OE
 po
 cg
 rQ
-Jh
+rQ
 vc
 IS
 tq
