@@ -247,7 +247,6 @@
 		return FALSE
 
 	if(istype(item, /obj/item/melee/baton) && item.damtype == STAMINA)
-
 		if(!affecting)
 			affecting = ipc.bodyparts[1]
 		var/hit_area = parse_zone(affecting.body_zone)
