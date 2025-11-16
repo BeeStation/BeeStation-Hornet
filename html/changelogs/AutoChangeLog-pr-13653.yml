@@ -1,0 +1,9 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Summon Cultist rune works again
+  - bugfix: Cultist torch now works again
+  - bugfix: Blood cultists get dusted if Rat'Var wins again
+  - bugfix: Cultist leader's location on death gets announced again
+  - bugfix: Cultists can see eachother's antag HUD icons again
+  - code_imp: Nar'Sie doesn't runtime on spawn
