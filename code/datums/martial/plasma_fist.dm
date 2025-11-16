@@ -10,7 +10,6 @@
 	var/plasma_increment = 1 //how much explosion power gets added per kill (1 = 1, 2, 4. 2 = 2, 4, 8 and so on)
 	var/plasma_cap = 12 //max size explosion level
 	display_combos = TRUE
-	bypass_blocking = TRUE //This is an adminbus only martial art
 
 	Move1 = "Tail Sweep: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down."
 	Move2 = "Tornado Sweep: Harm Harm Disarm. Repulses target and everyone back."

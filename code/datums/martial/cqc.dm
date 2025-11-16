@@ -10,7 +10,6 @@
 	block_chance = 75
 	smashes_tables = TRUE
 	display_combos = TRUE
-	bypass_blocking = TRUE
 
 	Move1 = "Slam: Grab Punch. Slam opponent into the ground, knocking them down."
 	Move2 = "CQC Kick: Punch Punch. Knocks opponent away. Knocks out stunned or knocked down opponents."

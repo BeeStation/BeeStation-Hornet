@@ -11,7 +11,6 @@
 	smashes_tables = TRUE
 	display_combos = TRUE
 	var/old_grab_state = null
-	bypass_blocking = TRUE
 
 	Move1 = "Wrist Wrench: Disarm Disarm. Forces opponent to drop item in hand."
 	Move2 = "Back Kick: Harm Grab. Opponent must be facing away. Knocks down."

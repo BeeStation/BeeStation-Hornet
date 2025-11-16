@@ -1,7 +1,6 @@
 /datum/martial_art/mushpunch
 	name = "Mushroom Punch"
 	id = MARTIALART_MUSHPUNCH
-	bypass_blocking = TRUE
 
 /datum/martial_art/mushpunch/harm_act(mob/living/A, mob/living/D)
 	var/atk_verb
