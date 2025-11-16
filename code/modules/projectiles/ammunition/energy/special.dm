@@ -70,3 +70,9 @@
 	e_cost = 2000 WATT
 	select_name = "stun"
 	projectile_type = /obj/projectile/energy/tesla/revolver
+
+/obj/item/ammo_casing/energy/splintergun
+	projectile_type = /obj/projectile/energy/splintergun
+	fire_sound = "sound/weapons/sniper_shot.ogg"
+	select_name = "splinter"
+	e_cost = 800 WATT
