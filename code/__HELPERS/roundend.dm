@@ -867,7 +867,7 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	var/list/ded = SSblackbox.first_death
 	if(ded)
 		discordmsg += "First Death: [ded["name"]], [ded["role"]], at [ded["area"]]\n"
-		var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They had no last words.\n"
+		var/last_words = ded["last_words"] ? "Their last words were: \"[ded["last_words"]]\"\n" : "They died wordlessly.\n"
 		discordmsg += "[last_words]\n"
 	else
 		discordmsg += "Nobody died!\n"
