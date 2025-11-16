@@ -113,7 +113,7 @@
 				if(istype(source, /obj/item/shield))
 					var/obj/item/shield/source_shield = source
 					if(source_shield.transparent)
-						readout +=  "Because it is transparent, lasers will pass right through it."
+						readout += "Because it is transparent, lasers will pass right through it."
 
 	// Custom manual notes
 	if(source.offensive_notes)
