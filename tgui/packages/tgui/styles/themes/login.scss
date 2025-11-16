@@ -2,9 +2,9 @@
 @use 'sass:meta';
 @use '../functions.scss' as *;
 
-$generic: #484455;
-$accent: #4f56a5;
-$accent-2: #ffbf00;
+$generic: hsl(254.1, 11.1%, 30%);
+$accent: hsl(235.1, 35.2%, 47.8%);
+$accent-2: hsl(44.9, 100%, 50%);
 $title-bar-height: 48px;
 
 @use '../colors.scss' with (
@@ -13,8 +13,8 @@ $title-bar-height: 48px;
   $primary: $accent
 );
 @use '../base.scss' with (
-  $color-bg: #333333,
-  $color-bg-section: #1a1a1a,
+  $color-bg: hsl(0, 0%, 20%),
+  $color-bg-section: hsl(0, 0%, 10.2%),
   $color-bg-grad-spread: 0%,
   $border-radius: 0px
 );
@@ -26,15 +26,15 @@ $title-bar-height: 48px;
     $with: (
       'color-default': black,
       'border-radius': 0.16em,
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
+      'color-transparent-text': hsla(212, 100%, 95%, 0.75)
     )
   );
   .Button--color--default {
     box-sizing: content-box;
-    border: 1px solid #100f0edd;
+    border: 1px solid hsla(30, 7%, 6%, 0.867);
   }
   .Button--color--default:focus {
-    border: 1px solid #404040;
+    border: 1px solid hsl(0, 0%, 25.1%);
     transition:
       color 100ms,
       background-color 100ms,
@@ -57,16 +57,16 @@ $title-bar-height: 48px;
     font-weight: bold;
     font-size: 16px;
     border: none;
-    box-shadow: 0 0 4px #100f0eaa;
+    box-shadow: 0 0 4px hsla(30, 7%, 6%, 0.667);
   }
   .Section {
-    box-shadow: 0 0 4px 4px #100f0edd;
+    box-shadow: 0 0 4px 4px hsla(30, 7%, 6%, 0.867);
   }
 
   @include meta.load-css(
     '../components/Input.scss',
     $with: (
-      'border-color': #100f0edd,
+      'border-color': hsla(30, 7%, 6%, 0.867),
       'background-color': black,
       'input-height': 30px,
       'font-size': 12px
@@ -76,7 +76,7 @@ $title-bar-height: 48px;
     transition: border-color 0.05s linear;
   }
   .Input:focus-within {
-    border-color: #404040;
+    border-color: hsl(0, 0%, 25.1%);
   }
 
   // Layouts
@@ -90,7 +90,7 @@ $title-bar-height: 48px;
     $with: (
       'background-color': black,
       'text-color': white,
-      'shadow-color': #ffff0021,
+      'shadow-color': hsla(60, 100%, 50%, 0.129),
       'shadow-color-core': $accent-2,
       'shadow-core-height': 3px,
       'title-bar-height': $title-bar-height
@@ -111,8 +111,8 @@ $title-bar-height: 48px;
     transition:
       color 50ms,
       background-color 50ms;
-    background-color: #5865f2;
-    color: white;
+    background-color: hsl(234.9, 85.6%, 64.7%);
+    color: hsl(0, 0%, 100%);
     &:hover {
       transition:
         color 0ms,
@@ -124,8 +124,8 @@ $title-bar-height: 48px;
         background-color 100ms;
     }
     &:hover {
-      background-color: lighten(#5865f2, 30%);
-      color: white;
+      background-color: lighten(hsl(234.9, 85.6%, 64.7%), 30%);
+      color: hsl(0, 0%, 100%);
     }
   }
 }

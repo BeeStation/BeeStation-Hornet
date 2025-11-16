@@ -2,7 +2,7 @@
 @use '../base.scss';
 $fg-map: colors.$fg-map !default;
 .CircuitInfo__Examined {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: hsl(0, 0%, 0%);
   padding: 8px;
   border-radius: 5px;
   user-select: none;
@@ -17,7 +17,7 @@ $fg-map: colors.$fg-map !default;
 }
 .ObjectComponent__Content {
   white-space: nowrap;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: hsla(0, 0%, 0%, 0.5);
   -ms-user-select: none;
   user-select: none;
 }
@@ -86,7 +86,7 @@ $category-colors: (
     contrast: white,
   ),
   'BCI': (
-    bg: rgb(131, 26, 201),
+    bg: hsl(276, 77%, 45%),
     contrast: white,
   ),
   'Gates': (
