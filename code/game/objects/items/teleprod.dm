@@ -9,14 +9,10 @@
 	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK
 	block_power = 50
 
-/obj/item/melee/baton/cattleprod/teleprod/attack(mob/target, mob/living/carbon/user)
-	if(damtype != STAMINA)
-		return ..()
-
-	if(isliving(target))
-		var/mob/living/living_target = target
-		do_teleport(living_target, get_turf(living_target), 15, channel = TELEPORT_CHANNEL_BLUESPACE)
-	..()
+/obj/item/melee/baton/cattleprod/teleprod/attack(mob/living/target_mob, mob/living/user, params)
+	. = ..()
+	if(damtype == STAMINA)
+		do_teleport(target_mob, target_mob, 15, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/item/melee/baton/cattleprod/attackby(obj/item/I, mob/user, params)//handles sticking a crystal onto a stunprod to make a teleprod
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
