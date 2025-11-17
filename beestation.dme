@@ -876,6 +876,7 @@
 #include "code\datums\components\crafting\crafting_lists\primal.dm"
 #include "code\datums\components\crafting\crafting_lists\robots.dm"
 #include "code\datums\components\crafting\crafting_lists\structures.dm"
+#include "code\datums\components\crafting\crafting_lists\vampire_structures.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\_recipes.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_bread.dm"
 #include "code\datums\components\crafting\crafting_lists\foodstuffs\recipes_burger.dm"

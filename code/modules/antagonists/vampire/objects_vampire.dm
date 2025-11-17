@@ -114,19 +114,6 @@
 	/// No spamming torture
 	var/is_torturing = FALSE
 
-/datum/crafting_recipe/vassalrack
-	name = "Vassalization rack"
-	result = /obj/structure/vampire/vassalrack
-	time = 5 SECONDS
-
-	reqs = list(
-			/obj/item/stack/sheet/iron = 5,
-			/obj/item/stack/rods = 6,
-			)
-
-	category = CAT_VAMPIRE
-	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
-
 /obj/structure/vampire/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
 	new /obj/item/stack/sheet/iron(src.loc, 4)
@@ -365,20 +352,6 @@
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
-/datum/crafting_recipe/candelabrum
-	name = "candelabrum"
-	result = /obj/structure/vampire/candelabrum
-	time = 5 SECONDS
-
-	reqs = list(
-			/obj/item/stack/sheet/iron = 1,
-			/obj/item/stack/rods = 3,
-			/obj/item/candle = 2,
-			)
-
-	category = CAT_VAMPIRE
-	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
-
 /obj/structure/vampire/candelabrum/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -440,19 +413,6 @@
 	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\
 		While buckled, Monsters can use this to telepathically communicate with eachother."
 	var/mutable_appearance/armrest
-
-/datum/crafting_recipe/bloodthrone
-	name = "blood throne"
-	result = /obj/structure/vampire/bloodthrone
-	time = 5 SECONDS
-
-	reqs = list(
-			/obj/item/stack/sheet/iron = 10,
-			/obj/item/stack/rods = 2,
-			)
-
-	category = CAT_VAMPIRE
-	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
 
 // Add rotating and armrest
 /obj/structure/vampire/bloodthrone/Initialize(mapload)
