@@ -577,11 +577,11 @@
 /datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
 	switch(total_players)
-		if(1 to 15)			// No vassals during low-lowpop
+		if(1 to 15) // No vassals during low-lowpop
 			return 0
-		if(16 to 30)		// 1 vassal during normal pop
+		if(16 to 30) // 1 vassal during normal pop
 			return 1
-		if(31 to INFINITY)	// if we can support it, we allow 2
+		if(31 to INFINITY) // if we can support it, we allow 2
 			return 2
 
 // Taken directly from changeling.dm
