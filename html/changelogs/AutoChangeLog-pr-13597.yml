@@ -1,0 +1,6 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - rscadd: Added a MOD team-tracker module, all Syndicate and ERT MODsuits have it
+  - bugfix: fixed an issue where arrows from team-trackers where permanently stuck
+      on screen when changing the frequency
