@@ -54,7 +54,7 @@
 
 	// Alert them
 	vampiredatum.disable_all_powers(forced = TRUE)
-	vampiredatum.deduct_humanity(2)
+	vampiredatum.adjust_humanity(-2)
 	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
 	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggressively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")

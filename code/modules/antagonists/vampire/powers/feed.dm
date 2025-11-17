@@ -408,7 +408,7 @@
 
 	vampiredatum_power.rank_up(levels_absorbed)
 
-	vampiredatum_power.deduct_humanity(victim.humanity / 3)
+	vampiredatum_power.adjust_humanity(-victim.humanity / 3)
 
 	poor_sap.dust(drop_items = TRUE)
 
@@ -443,7 +443,7 @@
 		if(feed_fatal && !humanity_deducted)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
 			to_chat(owner, span_userdanger("No way will [feed_target.p_they()] survive that..."))
-			vampiredatum_power.deduct_humanity(1)
+			vampiredatum_power.adjust_humanity(-1)
 
 	feed_fatal = FALSE
 	humanity_deducted = FALSE

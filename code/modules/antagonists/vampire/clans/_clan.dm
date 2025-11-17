@@ -50,7 +50,7 @@
 	RegisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE, PROC_REF(on_vampire_broke_masquerade))
 
 	vampiredatum = owner_datum
-	vampiredatum.add_humanity(default_humanity, TRUE)
+	vampiredatum.adjust_humanity(default_humanity, TRUE)
 
 	// Masquerade breakers
 	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)

@@ -122,81 +122,63 @@
 		return TRUE
 
 	return FALSE
-
 /**
- * ##add_humanity(count)
+ * ##adjust_humanity(count, silent)
  *
  * Adds the specified amount of humanity to the vampire
  * Checks to make sure it doesn't exceed 10,
+ * Checks to make sure it doesn't go under 0,
  * Adds the masquerade power at 9 or above
  */
-/datum/antagonist/vampire/proc/add_humanity(count, silent = FALSE)
+/datum/antagonist/vampire/proc/adjust_humanity(count, silent = FALSE)
 	// Step one: Toreadors have doubled gains and losses
 	if(my_clan == /datum/vampire_clan/toreador)
 		count = count * 2
 
 	var/temp_humanity = humanity + count
 	var/power_given = FALSE
+	var/power_removed = FALSE
 
 	if (humanity >= 10)
 		return FALSE
 
-	if(temp_humanity > 10)
-		temp_humanity = 10
-		return FALSE
+	// Are we adding or removing?
+	if(count >= 0)
+		// We are adding
+		if(temp_humanity > 10)
+			temp_humanity = 10
+			return FALSE
 
-	if(temp_humanity >= 8 && !(locate(/datum/action/vampire/masquerade) in powers))
-		grant_power(new /datum/action/vampire/masquerade)
-		power_given = TRUE
+		if(temp_humanity >= 8 && !(locate(/datum/action/vampire/masquerade) in powers))
+			grant_power(new /datum/action/vampire/masquerade)
+			power_given = TRUE
 
-	// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
-	if(humanity < temp_humanity && !silent)
-		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
-		if(power_given)
-			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
-		else
-			to_chat(owner.current, span_userdanger("You have gained humanity."))
+		// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
+		if(humanity < temp_humanity && !silent)
+			owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
+			if(power_given)
+				to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
+			else
+				to_chat(owner.current, span_userdanger("You have gained humanity."))
+	else
+		// We are removing
+		if(temp_humanity < 0)
+			temp_humanity = 0
+			return
 
-	humanity = temp_humanity
+		if(temp_humanity < 8)
+			for(var/datum/action/vampire/masquerade/power in powers)
+				remove_power(power)
+				power_removed = TRUE
 
-/**
- * ##deduct_humanity(count)
- *
- * Deducts the specified amount of humanity from the vampire, so, don't put negatives in here.
- * Checks to make sure it doesn't go under 0,
- * Removes the masquerade power at less than 8
- */
-/datum/antagonist/vampire/proc/deduct_humanity(count)
-	// Step one: Toreadors have doubled gains and losses
-	if(my_clan == /datum/vampire_clan/toreador)
-		count = count * 2
+		// Only run this code if there is an actual decrease in humanity
+		if(humanity > temp_humanity && !silent)
+			owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
 
-	var/temp_humanity = humanity - count
-	var/power_removed = FALSE
-
-	if(count <= 0)
-		return FALSE
-
-	if (humanity <= 0)
-		return FALSE
-
-	if(temp_humanity < 0)
-		temp_humanity = 0
-		return
-
-	if(temp_humanity < 8)
-		for(var/datum/action/vampire/masquerade/power in powers)
-			remove_power(power)
-			power_removed = TRUE
-
-	// Only run this code if there is an actual decrease in humanity
-	if(humanity > temp_humanity)
-		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
-
-		if(power_removed)
-			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
-		else
-			to_chat(owner.current, span_userdanger("You have lost humanity."))
+			if(power_removed)
+				to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
+			else
+				to_chat(owner.current, span_userdanger("You have lost humanity."))
 
 	humanity = temp_humanity
 
@@ -249,7 +231,7 @@
 				humanity_petting_goal *= 2
 			if(HUMANITY_ART_TYPE)
 				humanity_art_goal *= 2
-		add_humanity(1)
+		adjust_humanity(1)
 
 	return TRUE
 

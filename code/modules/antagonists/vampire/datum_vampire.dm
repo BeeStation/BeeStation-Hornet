@@ -260,10 +260,10 @@
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
 
 	if(humanity > 0)
-		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(deduct_humanity), 1)
+		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
 
 	if(humanity < 10)
-		.["Add Humanity"] = CALLBACK(src, PROC_REF(add_humanity), 1, FALSE)
+		.["Add Humanity"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
