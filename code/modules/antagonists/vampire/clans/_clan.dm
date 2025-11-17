@@ -6,11 +6,11 @@
  */
 /datum/vampire_clan
 	/// The name of the clan we're in.
-	var/name = "ERROR"
+	var/name
 	/// Description of what the clan is, given when joining and through your antag UI.
 	var/description = "ERROR"
 	/// Description shown when trying to join the clan.
-	var/join_description = "ERROR"
+	var/join_description
 
 	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
 	var/datum/antagonist/vampire/vampiredatum
