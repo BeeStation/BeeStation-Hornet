@@ -233,6 +233,10 @@
 		carbon_owner.legcuffed = null
 		carbon_owner.update_worn_legcuffs()
 
+/datum/status_effect/bola/Destroy()
+	. = ..()
+	linked_bola = null
+
 //OTHER DEBUFFS
 /datum/status_effect/strandling //get it, strand as in durathread strand + strangling = strandling hahahahahahahahahahhahahaha i want to die
 	id = "strandling"

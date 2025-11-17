@@ -345,6 +345,12 @@
 	var/knockdown = 2 SECONDS
 	gender = NEUTER
 
+/obj/item/restraints/legcuffs/bola/Destroy()
+	. = ..()
+	if(isliving(loc))
+		var/mob/living/bola_mob = loc
+		bola_mob.remove_status_effect(/datum/status_effect/bola)
+
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(!..())
 		return
