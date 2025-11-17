@@ -8,7 +8,7 @@
  */
 /datum/action/vampire/targeted/mesmerize
 	name = "Mesmerize"
-	desc = "Transfix the mind of a mortal who can see your eyes."
+	desc = "Transfix the mind of a mortal who can see your eyes, freezing them in place."
 	button_icon_state = "power_mez"
 	power_explanation = "Click any player to attempt to mesmerize them, and freeze them in place.\n\
 		You cannot wear anything covering your face, and both parties must be facing eachother.\n\
