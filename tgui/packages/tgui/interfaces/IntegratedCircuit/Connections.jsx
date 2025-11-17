@@ -1,6 +1,7 @@
+import { classes } from 'common/react';
+
 import { CSS_COLORS } from '../../constants';
 import { SVG_CURVE_INTENSITY } from './constants';
-import { classes } from 'common/react';
 
 export const Connections = (props) => {
   const { connections } = props;
@@ -20,7 +21,8 @@ export const Connections = (props) => {
         pointerEvents: 'none',
         zIndex: -1,
         overflow: 'visible',
-      }}>
+      }}
+    >
       {connections.map((val, index) => {
         const from = val.from;
         const to = val.to;
@@ -43,7 +45,9 @@ export const Connections = (props) => {
         val.color = val.color || 'blue';
         return (
           <path
-            className={classes([isColorClass(val.color) && `color-stroke-${val.color}`])}
+            className={classes([
+              isColorClass(val.color) && `color-stroke-${val.color}`,
+            ])}
             key={index}
             d={path}
             fill="transparent"

@@ -5,6 +5,7 @@
 	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 40
 	equip_delay_other = 40
+	custom_price = 25
 	var/modifies_speech = FALSE
 	var/mask_adjusted = FALSE
 	var/adjusted_flags = null
@@ -45,14 +46,16 @@
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
 				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
-			if(HAS_BLOOD_DNA(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+			if(GET_ATOM_BLOOD_DNA_LENGTH(src))
+				var/mutable_appearance/bloody_mask = mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
+				bloody_mask.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
+				. += bloody_mask
 
 /obj/item/clothing/mask/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_wear_mask()
+		M.update_worn_mask()
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
 /obj/item/clothing/mask/proc/adjustmask(mob/living/carbon/user)

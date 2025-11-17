@@ -12,8 +12,7 @@
 	item_flags = ISWEAPON
 	force = 8
 	throwforce = 10
-	block_upgrade_walk = TRUE
-	block_power = 20
+
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
 	custom_materials = list(/datum/material/iron = 2000)
@@ -143,8 +142,7 @@
 	item_state = "plastic_chair"
 	force = 3//have you ever been hit by a plastic chair? those aren't as bad as a metal or a wood one!
 	throwforce = 6
-	block_upgrade_walk = TRUE
-	block_power = 10
+
 	throw_range = 4
 	origin_type = /obj/structure/chair/fancy/plastic
 	hitsound = 'sound/weapons/genhit1.ogg'

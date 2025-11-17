@@ -30,7 +30,6 @@
 #define ROLE_NINJA				"Space Ninja"
 #define ROLE_ABDUCTOR			"Abductor"
 #define ROLE_REVENANT			"Revenant"
-#define ROLE_DEVIL				"Devil"
 #define ROLE_BROTHER			"Blood Brother"
 #define ROLE_HIVE				"Hivemind Host"
 #define ROLE_OBSESSED			"Obsessed"
@@ -71,7 +70,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_NINJA,
 	ROLE_ABDUCTOR,
 	ROLE_REVENANT,
-	ROLE_DEVIL,
 	ROLE_BROTHER,
 	ROLE_HIVE,
 	ROLE_OBSESSED,

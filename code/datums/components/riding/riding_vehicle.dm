@@ -331,7 +331,7 @@
 	AM.remove_emitter("smoke")
 
 /datum/component/riding/vehicle/lawnmower
-	vehicle_move_delay = 2
+	vehicle_move_delay = 2.75
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 
 /datum/component/riding/vehicle/lawnmower/handle_specials()
@@ -339,5 +339,5 @@
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-5, 2), TEXT_WEST = list(5, 2)))
 
 /datum/component/riding/vehicle/lawnmower/nukie
-	vehicle_move_delay = 1
+	vehicle_move_delay = 1.5
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER

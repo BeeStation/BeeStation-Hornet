@@ -141,7 +141,7 @@
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
 
-/obj/structure/closet/proc/animate_door(var/closing = FALSE)
+/obj/structure/closet/proc/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -682,7 +682,7 @@
 		togglelock(user)
 		T1.visible_message(span_warning("[user] dives into [src]!"))
 
-/obj/structure/closet/on_object_saved(var/depth = 0)
+/obj/structure/closet/on_object_saved(depth = 0)
 	// Generate the contents if we haven't already
 	if (!contents_initialised)
 		PopulateContents()

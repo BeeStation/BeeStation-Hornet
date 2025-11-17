@@ -7,6 +7,7 @@
 	icon_state = "oxycandle"
 	item_state = "oxycandle"
 	actions_types = list()
+	custom_price = 20
 	/// How many seconds of fuel we have left
 	var/fuel = 300
 	var/on_damage = 7

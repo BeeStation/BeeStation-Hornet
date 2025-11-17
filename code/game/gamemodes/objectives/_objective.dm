@@ -24,7 +24,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
 
-/datum/objective/New(var/text)
+/datum/objective/New(text)
 	if(text)
 		explanation_text = text
 

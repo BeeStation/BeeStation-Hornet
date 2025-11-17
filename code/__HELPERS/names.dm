@@ -38,8 +38,8 @@ GLOBAL_VAR(command_name)
 
 	//Rename the station on the orbital charter.
 	if(SSorbits.station_instance)
-		if (SSmapping.config.planet_name)
-			SSorbits.station_instance.name = "[SSmapping.config.planet_name] ([newname])"
+		if (SSmapping.current_map.planet_name)
+			SSorbits.station_instance.name = "[SSmapping.current_map.planet_name] ([newname])"
 		else
 			SSorbits.station_instance.name = newname
 

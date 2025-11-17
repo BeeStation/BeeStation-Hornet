@@ -106,6 +106,7 @@
 	icon_state = "razor"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = 15
 	var/extended = 1
 
 /obj/item/razor/suicide_act(mob/living/carbon/user)
@@ -228,7 +229,7 @@
 		H.hair_style = new_style
 		H.update_hair()
 
-/obj/item/razor/proc/new_facial_hairstyle(mob/living/carbon/human/H, mob/user, var/mirror)
+/obj/item/razor/proc/new_facial_hairstyle(mob/living/carbon/human/H, mob/user, mirror)
 	if(H == user && !mirror)
 		to_chat(user, span_warning("You need a mirror to properly style your own facial hair!"))
 		return

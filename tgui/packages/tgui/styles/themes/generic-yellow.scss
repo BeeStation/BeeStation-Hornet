@@ -8,18 +8,21 @@ $accent-2: hsl(44.9, 100%, 50%);
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
-  $primary: $accent,
+  $primary: $accent
 );
 @use '../base.scss' with (
   $color-bg: color.scale($generic, $lightness: -45%),
-  $border-radius: 2px,
+  $border-radius: 2px
 );
 
 .theme-generic-yellow {
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': $accent, 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': $accent,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   @include meta.load-css(
     '../components/ColorSelectBox.scss',
@@ -27,11 +30,17 @@ $accent-2: hsl(44.9, 100%, 50%);
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-default-fill': $accent, 'background-color': rgba(0, 0, 0, 0.5))
+    $with: (
+      'color-default-fill': $accent,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
   );
   @include meta.load-css('../components/Section.scss');
 
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(235, 100%, 74.1%)));
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(235, 100%, 74.1%))
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');

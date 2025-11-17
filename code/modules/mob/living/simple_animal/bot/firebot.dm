@@ -49,11 +49,7 @@
 
 	create_extinguisher()
 
-/mob/living/simple_animal/bot/firebot/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
-
-
 
 /mob/living/simple_animal/bot/firebot/bot_reset()
 	create_extinguisher()

@@ -46,7 +46,7 @@
 	victim_dummy.update_hair()
 
 	var/icon/obsessed_icon = render_preview_outfit(/datum/outfit/obsessed)
-	obsessed_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
+	//obsessed_icon.Blend(icon('icons/effects/blood.dmi', "uniformblood"), ICON_OVERLAY)
 
 	var/icon/final_icon = finish_preview_icon(obsessed_icon)
 

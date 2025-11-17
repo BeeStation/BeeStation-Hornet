@@ -32,7 +32,11 @@
 	/// A list of weakrefs to all of ourc urrent runes
 	var/list/datum/weakref/current_runes = list()
 	/// Turfs that you cannot draw carvings on
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava))
+	var/static/list/blacklisted_turfs = typecacheof(list(
+		/turf/open/space,
+		/turf/open/openspace,
+		/turf/open/lava,
+	))
 
 /obj/item/melee/rune_carver/examine(mob/user)
 	. = ..()
@@ -238,7 +242,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/trap/eldritch)
 	carbon_victim.adjustStaminaLoss(80)
 	carbon_victim.silent += 10
 	carbon_victim.stuttering += 30
-	carbon_victim.Jitter(10)
+	carbon_victim.set_jitter_if_lower(20 SECONDS)
 	carbon_victim.Dizzy(20)
 	carbon_victim.adjust_blindness(2)
 	SEND_SIGNAL(carbon_victim, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)

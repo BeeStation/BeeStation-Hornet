@@ -33,10 +33,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/oozeling,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/oozeling,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/oozeling,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/oozeling,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/oozeling,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/oozeling
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/oozeling,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/oozeling,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/oozeling,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/oozeling
 	)
 
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)

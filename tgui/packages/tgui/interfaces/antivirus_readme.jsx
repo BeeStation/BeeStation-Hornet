@@ -1,7 +1,7 @@
-import { NtosWindow } from '../layouts';
-import { Section, Box } from '../components';
 import { Component } from 'react';
-import { useBackend } from '../backend';
+
+import { Box, Section } from '../components';
+import { NtosWindow } from '../layouts';
 
 // Static header always visible
 const header = String.raw`
@@ -87,7 +87,13 @@ export class ReadmeScroller extends Component {
     return (
       <Section fill scrollable backgroundColor="black">
         {(header + display).split('\n').map((line, i) => (
-          <Box mb={1} key={i} fontFamily="monospace" color="white" style={{ whiteSpace: 'pre-wrap' }}>
+          <Box
+            mb={1}
+            key={i}
+            fontFamily="monospace"
+            color="white"
+            style={{ whiteSpace: 'pre-wrap' }}
+          >
             {line === '' ? '\u00A0' : line}
           </Box>
         ))}

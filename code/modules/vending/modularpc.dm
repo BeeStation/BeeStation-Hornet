@@ -38,12 +38,11 @@
 			"name" = "Power",
 			"icon" = "battery-half",
 			"products" = list(
-					/obj/item/computer_hardware/battery = 6,
-					/obj/item/stock_parts/cell/computer/nano = 6,
-					/obj/item/stock_parts/cell/computer/micro = 6,
-					/obj/item/stock_parts/cell/computer = 3,
-					/obj/item/stock_parts/cell/computer/advanced = 3,
-					/obj/item/stock_parts/cell/computer/super = 3,
+					/obj/item/computer_hardware/battery/tiny = 6,
+					/obj/item/computer_hardware/battery/small = 6,
+					/obj/item/computer_hardware/battery/standard = 3,
+					/obj/item/computer_hardware/battery/large = 3,
+					/obj/item/computer_hardware/battery/huge = 3,
 			),
 		),
 
@@ -117,7 +116,6 @@
 
 	refill_canister = /obj/item/vending_refill/modularpc
 	default_price = PAYCHECK_MEDIUM
-	dept_req_for_free = NO_FREEBIES
 
 /obj/item/vending_refill/modularpc
 	machine_name = "Deluxe Silicate Selections"

@@ -150,7 +150,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		overmind.add_points(point_rate+point_rate_bonus)
 	overmind.blob_core.repair_damage(base_core_regen + core_regen_bonus)
 
-/datum/blobstrain/proc/attack_living(var/mob/living/L) // When the blob attacks people
+/datum/blobstrain/proc/attack_living(mob/living/L) // When the blob attacks people
 	send_message(L)
 
 /datum/blobstrain/proc/blobbernaut_attack(mob/living/L) // When this blob's blobbernaut attacks people

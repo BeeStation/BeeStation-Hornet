@@ -1,22 +1,52 @@
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props) => {
   const { act, data } = useBackend();
   const [tab, setTab] = useSharedState('tab', 1);
-  const { can_hack, is_silicon, extracting, cyborgs = [], drones = [], uploads = [] } = data;
+  const {
+    can_hack,
+    is_silicon,
+    extracting,
+    cyborgs = [],
+    drones = [],
+    uploads = [],
+  } = data;
   return (
     <Window width={500} height={460}>
       <Window.Content scrollable>
         <Tabs>
-          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 1} onClick={() => setTab(1)}>
+          <Tabs.Tab
+            icon="list"
+            lineHeight="23px"
+            selected={tab === 1}
+            onClick={() => setTab(1)}
+          >
             Cyborgs ({cyborgs.length})
           </Tabs.Tab>
-          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 2} onClick={() => setTab(2)}>
+          <Tabs.Tab
+            icon="list"
+            lineHeight="23px"
+            selected={tab === 2}
+            onClick={() => setTab(2)}
+          >
             Drones ({drones.length})
           </Tabs.Tab>
-          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 3} onClick={() => setTab(3)}>
+          <Tabs.Tab
+            icon="list"
+            lineHeight="23px"
+            selected={tab === 3}
+            onClick={() => setTab(3)}
+          >
             Uploads ({uploads.length})
           </Tabs.Tab>
         </Tabs>
@@ -37,7 +67,9 @@ const Cyborgs = (props) => {
   const { cyborgs, can_hack } = props;
   const { act, data } = useBackend();
   if (!cyborgs.length) {
-    return <NoticeBox>No cyborg units detected within access parameters</NoticeBox>;
+    return (
+      <NoticeBox>No cyborg units detected within access parameters</NoticeBox>
+    );
   }
   return cyborgs.map((cyborg) => {
     return (
@@ -79,21 +111,42 @@ const Cyborgs = (props) => {
               }
             />
           </>
-        }>
+        }
+      >
         <LabeledList>
           <LabeledList.Item label="Status">
-            <Box color={cyborg.status ? 'bad' : cyborg.locked_down ? 'average' : 'good'}>
-              {cyborg.status ? 'Not Responding' : cyborg.locked_down ? 'Locked Down' : 'Nominal'}
+            <Box
+              color={
+                cyborg.status ? 'bad' : cyborg.locked_down ? 'average' : 'good'
+              }
+            >
+              {cyborg.status
+                ? 'Not Responding'
+                : cyborg.locked_down
+                  ? 'Locked Down'
+                  : 'Nominal'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Charge">
-            <Box color={cyborg.charge <= 30 ? 'bad' : cyborg.charge <= 70 ? 'average' : 'good'}>
-              {typeof cyborg.charge === 'number' ? cyborg.charge + '%' : 'Not Found'}
+            <Box
+              color={
+                cyborg.charge <= 30
+                  ? 'bad'
+                  : cyborg.charge <= 70
+                    ? 'average'
+                    : 'good'
+              }
+            >
+              {typeof cyborg.charge === 'number'
+                ? cyborg.charge + '%'
+                : 'Not Found'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Model">{cyborg.module}</LabeledList.Item>
           <LabeledList.Item label="Master AI">
-            <Box color={cyborg.synchronization ? 'default' : 'average'}>{cyborg.synchronization || 'None'}</Box>
+            <Box color={cyborg.synchronization ? 'default' : 'average'}>
+              {cyborg.synchronization || 'None'}
+            </Box>
           </LabeledList.Item>
         </LabeledList>
       </Section>
@@ -106,7 +159,9 @@ const Drones = (props) => {
   const { act } = useBackend();
 
   if (!drones.length) {
-    return <NoticeBox>No drone units detected within access parameters</NoticeBox>;
+    return (
+      <NoticeBox>No drone units detected within access parameters</NoticeBox>
+    );
   }
 
   return drones.map((drone) => {
@@ -125,10 +180,13 @@ const Drones = (props) => {
               })
             }
           />
-        }>
+        }
+      >
         <LabeledList>
           <LabeledList.Item label="Status">
-            <Box color={drone.status ? 'bad' : 'good'}>{drone.status ? 'Not Responding' : 'Nominal'}</Box>
+            <Box color={drone.status ? 'bad' : 'good'}>
+              {drone.status ? 'Not Responding' : 'Nominal'}
+            </Box>
           </LabeledList.Item>
         </LabeledList>
       </Section>
@@ -140,23 +198,35 @@ const Uploads = (props) => {
   const { uploads, is_silicon } = props;
   if (!is_silicon) {
     if (!uploads.length) {
-      return <NoticeBox>No uploads detected within access parameters</NoticeBox>;
+      return (
+        <NoticeBox>No uploads detected within access parameters</NoticeBox>
+      );
     }
 
     return uploads.map((upload) => {
       return (
         <Flex key={upload.ref}>
-          <Section title={upload.name[0].toUpperCase() + upload.name.substring(1)}>
+          <Section
+            title={upload.name[0].toUpperCase() + upload.name.substring(1)}
+          >
             <LabeledList>
-              <LabeledList.Item label="Location">{upload.area}</LabeledList.Item>
-              <LabeledList.Item label="Coordinates">{upload.coords}</LabeledList.Item>
+              <LabeledList.Item label="Location">
+                {upload.area}
+              </LabeledList.Item>
+              <LabeledList.Item label="Coordinates">
+                {upload.coords}
+              </LabeledList.Item>
             </LabeledList>
           </Section>
         </Flex>
       );
     });
   } else {
-    return <NoticeBox>For security reasons silicon forms are not permitted access</NoticeBox>;
+    return (
+      <NoticeBox>
+        For security reasons silicon forms are not permitted access
+      </NoticeBox>
+    );
   }
 };
 

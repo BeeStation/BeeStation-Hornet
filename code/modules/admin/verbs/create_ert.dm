@@ -92,6 +92,7 @@
 
 		var/mob/dead/observer/earmarked_leader
 		var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
+		var/frontman_spawned = FALSE // if low_priority_leader = TRUE then we don't want to spawn a lead unless at least one other teammember is already spawned
 
 		if(template.leader_experience)
 			var/list/candidate_living_exps = list()
@@ -110,7 +111,13 @@
 			var/spawnloc = spawnpoints[index+1]
 			//loop through spawnpoints one at a time
 			index = (index + 1) % spawnpoints.len
-			var/mob/dead/observer/chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
+			var/mob/dead/observer/chosen_candidate
+			var/list/mob/dead/observer/candidatesGuaranteedLeaderless = candidates
+			candidatesGuaranteedLeaderless -= earmarked_leader
+			if(template.low_priority_leader && !frontman_spawned && numagents > 1)
+				chosen_candidate = pick(candidatesGuaranteedLeaderless)// this way we make sure our leader DOESN'T get chosen
+			else
+				chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
 			candidates -= chosen_candidate
 			if(!chosen_candidate?.key)
 				continue
@@ -126,13 +133,20 @@
 			//Give antag datum
 			var/datum/antagonist/ert/ert_antag
 
-			if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
-				ert_antag = new template.leader_role ()
-				earmarked_leader = null
-				leader_spawned = TRUE
-			else
+			if(template.low_priority_leader && !frontman_spawned)
 				ert_antag = template.roles[WRAP(numagents,1,length(template.roles) + 1)]
 				ert_antag = new ert_antag ()
+				frontman_spawned = TRUE
+			else
+				if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
+					ert_antag = new template.leader_role()
+					earmarked_leader = null
+					leader_spawned = TRUE
+				else
+					ert_antag = template.roles[WRAP(numagents, 1, length(template.roles) + 1)]
+					ert_antag = new ert_antag()
+					frontman_spawned = TRUE
+
 			ert_antag.random_names = template.random_names
 
 			ert_operative.mind.add_antag_datum(ert_antag,ert_team)

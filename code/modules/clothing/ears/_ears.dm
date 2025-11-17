@@ -18,7 +18,7 @@
 	custom_price = 40
 	bang_protect = 2
 
-/obj/item/clothing/ears/earmuffs/ComponentInitialize()
+/obj/item/clothing/ears/earmuffs/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/earhealing)
 
@@ -56,9 +56,9 @@
 	update_appearance()
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
-		H.update_inv_ears()
-		H.update_inv_neck()
-		H.update_inv_head()
+		H.update_worn_ears()
+		H.update_worn_neck()
+		H.update_worn_head()
 	to_chat(owner, span_notice("You turn the music [headphones_on? "on. Untz Untz Untz!" : "off."]"))
 	balloon_alert(owner, "Music is now [headphones_on? "on" : "off"]")
 

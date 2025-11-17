@@ -79,7 +79,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects(old_body)
-	if(old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
+	if(old_body?.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
 	var/datum/action/antag_info/info_button = info_button_ref?.resolve()
 	if(info_button)
@@ -253,8 +253,6 @@ GLOBAL_LIST(admin_antag_list)
 	return ..()
 
 /datum/antagonist/ui_state(mob/user)
-	if(owner?.current)
-		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.

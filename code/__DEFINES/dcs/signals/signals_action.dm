@@ -31,3 +31,6 @@
 #define COMSIG_SWOOP_INVULNERABILITY_STARTED "mob_swoop_invulnerability_started"
 /// From base of /datum/action/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
 #define COMSIG_LAVA_ARENA_FAILED "mob_lava_arena_failed"
+
+/// From /datum/action/cooldown/manual_heart/Activate(): ()
+#define COMSIG_HEART_MANUAL_PULSE "heart_manual_pulse"

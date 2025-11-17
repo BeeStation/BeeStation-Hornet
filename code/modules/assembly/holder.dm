@@ -55,7 +55,7 @@
 	SSblackbox.record_feedback("tally", "assembly_made", 1, "[initial(A.name)]-[initial(A2.name)]")
 
 // on_attach: Pass on_attach message to child assemblies
-/obj/item/assembly_holder/proc/on_attach(var/obj/structure/reagent_dispensers/rig)
+/obj/item/assembly_holder/proc/on_attach(obj/structure/reagent_dispensers/rig)
 	var/obj/item/newloc = loc
 	if(!newloc.IsSpecialAssembly() && !newloc.IsAssemblyHolder())
 		return

@@ -7,6 +7,7 @@
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_wheelys
 	actions_types = list(/datum/action/item_action/wheelys)
+	custom_price = 100
 	///False means wheels are not popped out
 	var/wheelToggle = FALSE
 	///The vehicle associated with the shoes

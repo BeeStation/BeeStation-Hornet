@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_CTF_BLUE]" = "blueteamradio"
 	))
 
-/atom/movable/proc/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, range = 7, atom/source=src)
+/atom/movable/proc/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, range = 7, atom/source=src)
 	if(!can_speak())
 		return
 	if(message == "" || !message)
@@ -150,7 +150,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	return "[say_mod], \"[spanned]\""
 
 /// Scans the input sentence for speech emphasis modifiers, notably _italics_ and **bold**
-/atom/proc/say_emphasis(message, var/list/ignore = list())
+/atom/proc/say_emphasis(message, list/ignore = list())
 	var/regex/markup
 	for(var/tag in (GLOB.markup_tags - ignore))
 		markup = GLOB.markup_regex[tag]

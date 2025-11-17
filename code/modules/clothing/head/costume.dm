@@ -27,6 +27,7 @@
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
+	custom_price = 75
 
 /obj/item/clothing/head/costume/cueball
 	name = "cueball helmet"
@@ -185,7 +186,6 @@
 	energy = 20
 	bomb = 30
 	bio = 100
-	rad = 75
 	fire = 60
 	acid = 75
 	stamina = 40
@@ -202,7 +202,6 @@
 
 /datum/armor/spaceproof_old
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10

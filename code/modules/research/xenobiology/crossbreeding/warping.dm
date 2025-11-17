@@ -236,7 +236,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		T.MakeSlippery(TURF_WET_PERMAFROST, 1 MINUTES)
 	. = ..()
 
-/obj/effect/warped_rune/cyanspace/ComponentInitialize()
+/obj/effect/warped_rune/cyanspace/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 30)
 
@@ -362,7 +362,6 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100
@@ -517,10 +516,10 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		var/mob/living/carbon/human/H = AM
 		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
 		for(var/obj/item/I in H.get_equipped_items(TRUE))
-			I.add_blood_DNA(return_blood_DNA())
+			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()
 		for(var/obj/item/I in H.held_items)
-			I.add_blood_DNA(return_blood_DNA())
+			I.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			I.update_icon()
 		playsound(src, 'sound/effects/blobattack.ogg', 50, TRUE)
 		activated_on_step = TRUE

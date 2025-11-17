@@ -17,7 +17,7 @@
 			if(L.confused < 5)
 				L.confused += 1
 		if(8 to 12)
-			L.Jitter(10)
+			L.set_jitter_if_lower(20 SECONDS)
 		if(13 to 14)
 			shake_camera(L, 15, 1)
 			L.emote("whimper")

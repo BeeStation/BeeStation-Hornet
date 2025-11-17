@@ -1,5 +1,12 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
+import {
+  Button,
+  Flex,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 export const NaniteProgramHub = (props) => {
@@ -14,15 +21,28 @@ export const NaniteProgramHub = (props) => {
           title="Program Disk"
           buttons={
             <>
-              <Button icon="eject" content="Eject" onClick={() => act('eject')} />
-              <Button icon="minus-circle" content="Delete Program" onClick={() => act('clear')} />
+              <Button
+                icon="eject"
+                content="Eject"
+                onClick={() => act('eject')}
+              />
+              <Button
+                icon="minus-circle"
+                content="Delete Program"
+                onClick={() => act('clear')}
+              />
             </>
-          }>
+          }
+        >
           {has_disk ? (
             has_program ? (
               <LabeledList>
-                <LabeledList.Item label="Program Name">{disk.name}</LabeledList.Item>
-                <LabeledList.Item label="Description">{disk.desc}</LabeledList.Item>
+                <LabeledList.Item label="Program Name">
+                  {disk.name}
+                </LabeledList.Item>
+                <LabeledList.Item label="Description">
+                  {disk.desc}
+                </LabeledList.Item>
               </LabeledList>
             ) : (
               <NoticeBox>No Program Installed</NoticeBox>
@@ -40,9 +60,14 @@ export const NaniteProgramHub = (props) => {
                 content={detail_view ? 'Detailed' : 'Compact'}
                 onClick={() => act('toggle_details')}
               />
-              <Button icon="sync" content="Sync Research" onClick={() => act('refresh')} />
+              <Button
+                icon="sync"
+                content="Sync Research"
+                onClick={() => act('refresh')}
+              />
             </>
-          }>
+          }
+        >
           {programs !== null ? (
             <Flex>
               <Flex.Item minWidth="110px" mr={1}>
@@ -56,7 +81,8 @@ export const NaniteProgramHub = (props) => {
                       <Tabs.Tab
                         key={category}
                         selected={category === selectedCategory}
-                        onClick={() => setSelectedCategory(category)}>
+                        onClick={() => setSelectedCategory(category)}
+                      >
                         {tabLabel}
                       </Tabs.Tab>
                     );
@@ -81,7 +107,8 @@ export const NaniteProgramHub = (props) => {
                             })
                           }
                         />
-                      }>
+                      }
+                    >
                       {program.desc}
                     </Section>
                   ))

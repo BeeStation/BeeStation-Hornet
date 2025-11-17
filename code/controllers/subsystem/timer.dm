@@ -19,9 +19,9 @@
 SUBSYSTEM_DEF(timer)
 	name = "Timer"
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
-	init_order = INIT_ORDER_TIMER
 	priority = FIRE_PRIORITY_TIMER
 	flags = SS_TICKER|SS_NO_INIT
+	init_stage = INITSTAGE_EARLY
 
 	var/list/datum/timedevent/second_queue = list() //awe, yes, you've had first queue, but what about second queue?
 	var/list/hashes = list()
@@ -499,11 +499,18 @@ SUBSYSTEM_DEF(timer)
   * If the timed event is tracking client time, it will be added to a special bucket.
   */
 /datum/timedevent/proc/bucketJoin()
-	// Generate debug-friendly name for timer
+#if defined(TIMER_DEBUG)
+	// Generate debug-friendly name for timer, more complex but also more expensive
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
 	name = "Timer: [id] ([FAST_REF(src)]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield_to_list(flags, bitfield_flags), ", ")], \
 		callBack: [FAST_REF(callBack)], callBack.object: [callBack.object][FAST_REF(callBack.object)]([getcallingtype()]), \
 		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
+#else
+	// Generate a debuggable name for the timer, simpler but wayyyy cheaper, string generation is a bitch and this saves a LOT of time
+	name = "Timer: [id] ([text_ref(src)]), TTR: [timeToRun], wait:[wait] Flags: [flags], \
+		callBack: [text_ref(callBack)], callBack.object: [callBack.object]([getcallingtype()]), \
+		callBack.delegate:[callBack.delegate], source: [source]"
+#endif
 
 	if (bucket_joined)
 		stack_trace("Bucket already joined! [name]")

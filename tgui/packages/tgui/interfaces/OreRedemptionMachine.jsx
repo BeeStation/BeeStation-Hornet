@@ -1,6 +1,14 @@
 import { toTitleCase } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Box, Button, NumberInput, Section, Table } from '../components';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  NumberInput,
+  Section,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
 
 export const OreRedemptionMachine = (props) => {
@@ -20,14 +28,23 @@ export const OreRedemptionMachine = (props) => {
               Unclaimed points:
             </Box>
             {unclaimedPoints}
-            <Button ml={2} content="Claim" disabled={unclaimedPoints === 0} onClick={() => act('Claim')} />
+            <Button
+              ml={2}
+              content="Claim"
+              disabled={unclaimedPoints === 0}
+              onClick={() => act('Claim')}
+            />
           </Box>
         </Section>
         <Section>
           {(hasDisk && (
             <>
               <Box mb={1}>
-                <Button icon="eject" content="Eject design disk" onClick={() => act('diskEject')} />
+                <Button
+                  icon="eject"
+                  content="Eject design disk"
+                  onClick={() => act('diskEject')}
+                />
               </Box>
               <Table>
                 {diskDesigns.map((design) => (
@@ -50,7 +67,13 @@ export const OreRedemptionMachine = (props) => {
                 ))}
               </Table>
             </>
-          )) || <Button icon="save" content="Insert design disk" onClick={() => act('diskInsert')} />}
+          )) || (
+            <Button
+              icon="save"
+              content="Insert design disk"
+              onClick={() => act('diskInsert')}
+            />
+          )}
         </Section>
         <Section title="Materials">
           <Table>
@@ -118,7 +141,11 @@ const MaterialRow = (props) => {
           value={amount}
           onChange={(value) => setAmount(value)}
         />
-        <Button disabled={amountAvailable < 1} content="Release" onClick={() => onRelease(amount)} />
+        <Button
+          disabled={amountAvailable < 1}
+          content="Release"
+          onClick={() => onRelease(amount)}
+        />
       </Table.Cell>
     </Table.Row>
   );

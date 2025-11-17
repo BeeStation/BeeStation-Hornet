@@ -1,4 +1,4 @@
-import { CHANNELS, RADIO_PREFIXES, WINDOW_SIZES } from '../constants';
+import { CHANNELS, RADIO_PREFIXES } from '../constants';
 import { windowClose, windowLoad, windowOpen, windowSet } from '../helpers';
 import { Modal } from '../types';
 
@@ -20,7 +20,8 @@ export const handleComponentMount = function (this: Modal) {
   Byond.subscribeTo('open', (data) => {
     const channel = CHANNELS.indexOf(data.channel) || 0;
     this.setState({
-      buttonContent: RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
+      buttonContent:
+        RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
       channel,
     });
     setTimeout(() => {

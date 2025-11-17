@@ -10,14 +10,9 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	weight = 15
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
-	///Old block level
-	var/old_block_level
-	var/max_block_level = 4
 	///old block power
 	var/old_block_power
-	var/max_block_power = 80
-	///Old block upgrade
-	var/old_block_upgrade
+	var/max_block_power = 75
 
 /datum/xenoartifact_trait/minor/shielded/register_parent(datum/source)
 	. = ..()
@@ -25,24 +20,20 @@
 		return
 	var/obj/item/item_parent = component_parent.parent
 	if(isitem(item_parent))
-		//Level
-		old_block_level = item_parent.block_level
-		item_parent.block_level = ROUND_UP(max_block_level * (component_parent.trait_strength/100))
+		//canblock
+		item_parent.canblock = TRUE
+		item_parent.block_flags = BLOCKING_ACTIVE
 		//power
 		old_block_power = item_parent.block_power
 		item_parent.block_power = ROUND_UP(max_block_power * (component_parent.trait_strength/100))
-		//upgrade
-		old_block_upgrade = item_parent.block_upgrade_walk
-		item_parent.block_upgrade_walk = 1
 
 /datum/xenoartifact_trait/minor/shielded/remove_parent(datum/source, pensive)
 	if(!component_parent?.parent)
 		return ..()
 	var/obj/item/item_parent = component_parent.parent
 	if(isitem(item_parent))
-		item_parent.block_level = old_block_level
+		item_parent.canblock = initial(item_parent.canblock)
 		item_parent.block_power = old_block_power
-		item_parent.block_upgrade_walk = old_block_upgrade
 	return ..()
 
 /datum/xenoartifact_trait/minor/shielded/get_dictionary_hint()

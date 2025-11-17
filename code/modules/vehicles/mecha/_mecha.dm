@@ -261,12 +261,11 @@
 			thing.attach(src, FALSE)
 			equip_by_category[key] -= path
 
-/obj/mecha/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
-/obj/vehicle/sealed/mecha/proc/Eject(var/mob/living/silicon/ai/unlucky_ai)
+/obj/vehicle/sealed/mecha/proc/Eject(mob/living/silicon/ai/unlucky_ai)
 
 	for(var/mob/living/occupant as anything in occupants)
 		if(isAI(occupant))

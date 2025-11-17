@@ -4,7 +4,7 @@
 	var/unique_enzymes
 	var/unique_identity
 	var/unique_features
-	var/blood_type
+	var/datum/blood_type/blood_type
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
 	var/list/features = list("FFF") //first value is mutant color
 	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
@@ -526,7 +526,7 @@
 	return FALSE
 
 /mob/living/carbon/can_mutate()
-	if(!(MOB_ORGANIC in mob_biotypes))
+	if(!(mob_biotypes & MOB_ORGANIC))
 		return FALSE
 	if(has_dna() && !HAS_TRAIT(src, TRAIT_GENELESS) && !HAS_TRAIT(src, TRAIT_BADDNA))
 		return TRUE
@@ -940,12 +940,9 @@
 				set_species(/datum/species/skeleton)
 				if(prob(90) && !QDELETED(src))
 					addtimer(CALLBACK(src, PROC_REF(death)), 30)
-					if(mind)
-						mind.hasSoul = FALSE
 			if(5)
 				to_chat(src, span_phobia("LOOK UP!"))
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
-
 
 /mob/living/carbon/proc/something_horrible_mindmelt()
 	if(!is_blind())

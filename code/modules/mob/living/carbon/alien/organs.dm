@@ -118,7 +118,7 @@
 		owner.emote("scream")
 		owner.Paralyze(100)
 
-	owner.jitteriness += 30
+	owner.adjust_timed_status_effect(1 MINUTES, /datum/status_effect/jitter)
 	owner.confused += 30
 	owner.stuttering += 30
 

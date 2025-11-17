@@ -20,8 +20,10 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	speak_emote = list("squeaks")
 	ventcrawler = VENTCRAWLER_ALWAYS
+	/// The mind to transfer to our egg when it hatches
 	var/datum/mind/origin
-	var/egg_lain = 0
+	/// Set to true once we've implanted our egg
+	var/egg_lain = FALSE
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
@@ -35,20 +37,22 @@
 		I.forceMove(egg)
 	visible_message(span_warning("[src] plants something in [victim]'s flesh!"), \
 					span_danger("We inject our egg into [victim]'s body!"))
-	egg_lain = 1
+	egg_lain = TRUE
 
 /mob/living/simple_animal/hostile/headcrab/AttackingTarget()
 	. = ..()
-	if(. && !egg_lain && iscarbon(target) && !ismonkey(target))
-		// Changeling egg can survive in aliens!
-		var/mob/living/carbon/C = target
-		if(C.stat >= UNCONSCIOUS)
-			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
-				to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another?"))
-				return
-			Infect(target)
-			to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
-			addtimer(CALLBACK(src, PROC_REF(death)), 100)
+	if (!. || egg_lain || !iscarbon(target) || ismonkey(target))
+		return
+	// Changeling egg can survive in aliens!
+	var/mob/living/carbon/C = target
+	if(C.stat < UNCONSCIOUS) //State less than unconscious
+		return
+	if(HAS_TRAIT(C, TRAIT_XENO_HOST))
+		to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another?"))
+		return
+	Infect(target)
+	to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
+	addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
 
 /obj/item/organ/body_egg/changeling_egg
 	name = "changeling egg"
@@ -60,32 +64,36 @@
 
 /obj/item/organ/body_egg/changeling_egg/egg_process(delta_time, times_fired)
 	// Changeling eggs grow in dead people
-	time += delta_time
+	time += delta_time * 10
 	if(time >= EGG_INCUBATION_TIME)
 		pop()
-		Remove(owner.loc)
+		var/turf/remove_loc = get_turf(owner)
+		if(!remove_loc)
+			remove_loc = get_turf(src)
+		Remove(remove_loc)
 		qdel(src)
 
 /obj/item/organ/body_egg/changeling_egg/proc/pop()
-	var/mob/living/carbon/spawned_monkey = new(owner)
-	spawned_monkey.set_species(/datum/species/monkey)
+	var/turf/spawn_loc = get_turf(owner)
+	if(!spawn_loc)
+		spawn_loc = get_turf(src)
+	var/mob/living/carbon/monkey/spawned_monkey = new(spawn_loc)
 
 	for(var/obj/item/organ/insertable in src)
 		insertable.Insert(spawned_monkey, 1)
 
 	if(origin && (origin.current ? (origin.current.stat == DEAD) : origin.get_ghost()))
 		origin.transfer_to(spawned_monkey)
-		spawned_monkey.key = origin.key
 		var/datum/antagonist/changeling/changeling_datum = origin.has_antag_datum(/datum/antagonist/changeling)
 		if(!changeling_datum)
 			changeling_datum = origin.add_antag_datum(/datum/antagonist/changeling/xenobio)
 		if(changeling_datum.can_absorb_dna(owner))
 			changeling_datum.add_new_profile(owner)
 
-		var/datum/action/changeling/lesserform/transform = new()
-		changeling_datum.purchased_powers += transform
+		var/datum/action/changeling/humanform/hf = new()
+		changeling_datum.purchased_powers[hf.type] = hf
 		changeling_datum.regain_powers()
-
+		spawned_monkey.key = origin.key
 	owner.investigate_log("has been gibbed by a changeling egg burst.", INVESTIGATE_DEATHS)
 	owner.gib()
 	qdel(src)

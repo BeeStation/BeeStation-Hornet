@@ -9,6 +9,9 @@
 ///From mob/living/carbon/human/suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 
+///from base of /mob/living/carbon/regenerate_limbs(): (excluded_limbs)
+#define COMSIG_CARBON_REGENERATE_LIMBS "living_regen_limbs"
+
 ///called from /obj/effect/proc_holder/spell/cast_check (src)
 #define COMSIG_MOB_PRE_CAST_SPELL "mob_cast_spell"
 	/// Return to cancel the cast from beginning.

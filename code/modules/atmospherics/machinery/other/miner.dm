@@ -13,7 +13,6 @@
 	icon_state = "miner"
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
-	interacts_with_air = TRUE
 	var/spawn_id = null
 	var/spawn_temp = T20C
 	/// Moles of gas to spawn per second

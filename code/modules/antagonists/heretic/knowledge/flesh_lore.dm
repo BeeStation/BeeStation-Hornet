@@ -109,7 +109,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghoul, [ADMIN_LOOKUPFLW(human_target)].")
 
 	RegisterSignal(human_target, COMSIG_MOB_DEATH, PROC_REF(remove_ghoul))
-	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
+	human_target.revive(ADMIN_HEAL_ALL) // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
 	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
 	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk(MAGIC_TRAIT)
@@ -191,7 +191,7 @@
 	ADD_TRAIT(soon_to_be_ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 	log_game("[key_name(user)] created a voiceless dead, controlled by [key_name(soon_to_be_ghoul)].")
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(soon_to_be_ghoul)].")
-	soon_to_be_ghoul.revive(full_heal = TRUE, admin_revive = TRUE)
+	soon_to_be_ghoul.revive(HEAL_ALL)
 	soon_to_be_ghoul.setMaxHealth(MUTE_MAX_HEALTH)
 	soon_to_be_ghoul.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	soon_to_be_ghoul.become_husk()
@@ -278,7 +278,7 @@
 	required_atoms = list(
 		/obj/item/organ/eyes = 1,
 		/obj/effect/decal/cleanable/blood = 1,
-		/obj/item/bodypart/l_arm = 1,
+		/obj/item/bodypart/arm/left = 1,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
 	cost = 1

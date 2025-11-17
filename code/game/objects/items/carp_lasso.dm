@@ -27,8 +27,13 @@
 	blacklist_mobs = blacklist_mob_cache[type]
 
 /obj/item/mob_lasso/proc/init_whitelists()
-	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp/lia,\
-	/mob/living/basic/cow, /mob/living/simple_animal/hostile/retaliate/dolphin), only_root_path = TRUE)
+	whitelist_mob_cache[type] = typecacheof(list(
+		/mob/living/simple_animal/hostile/carp,
+		/mob/living/simple_animal/hostile/carp/megacarp,
+		/mob/living/simple_animal/hostile/carp/lia,
+		/mob/living/basic/cow,
+		/mob/living/simple_animal/hostile/retaliate/dolphin,
+	), only_root_path = TRUE)
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/living/user, proximity_flag, click_parameters)
 	. = ..()
@@ -60,8 +65,8 @@
 			C.faction |= user.faction
 			C.transform = transform.Turn(0)
 			C.toggle_ai(AI_ON)
-			var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
-			T.add_ally(user)
+			//var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
+			//T.add_ally(user)
 			to_chat(user, span_notice("[C] nuzzles you."))
 			UnregisterSignal(mob_target, COMSIG_QDELETING)
 			mob_target = null
@@ -112,8 +117,12 @@
 	uses = 2
 
 /obj/item/mob_lasso/primal/init_whitelists(mapload)
-	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub,\
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher, /mob/living/simple_animal/hostile/asteroid/gutlunch))
+	whitelist_mob_cache[type] = typecacheof(list(
+		/mob/living/simple_animal/hostile/asteroid/goliath,
+		/mob/living/simple_animal/hostile/asteroid/goldgrub,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
+		/mob/living/simple_animal/hostile/asteroid/gutlunch,
+	))
 
 /obj/item/mob_lasso/drake
 	name = "drake lasso"
@@ -128,7 +137,9 @@
 	. = ..()
 
 /obj/item/mob_lasso/drake/init_whitelists(mapload)
-	whitelist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/megafauna/dragon), only_root_path = TRUE)
+	whitelist_mob_cache[type] = typecacheof(list(
+		/mob/living/simple_animal/hostile/megafauna/dragon
+	), only_root_path = TRUE)
 
 /obj/item/mob_lasso/traitor
 	name = "bluespace lasso"
@@ -136,7 +147,11 @@
 	uses = INFINITY
 
 /obj/item/mob_lasso/traitor/init_whitelists(mapload)
-	blacklist_mob_cache[type] = typecacheof(list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate))
+	blacklist_mob_cache[type] = typecacheof(list(
+		/mob/living/simple_animal/hostile/megafauna,
+		/mob/living/simple_animal/hostile/alien,
+		/mob/living/simple_animal/hostile/syndicate,
+	))
 
 /obj/item/mob_lasso/debug
 	name = "debug lasso"

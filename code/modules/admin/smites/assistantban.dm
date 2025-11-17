@@ -14,7 +14,7 @@
 		return
 	var/mob/living/simple_animal/hostile/banassistant/H = new(spawn_turf)
 	H.smitetarget = target
-	H.status_flags = GODMODE
+	ADD_TRAIT(H, TRAIT_GODMODE, ROUNDSTART_TRAIT)
 	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death))
 	assassin = H
 
@@ -55,7 +55,7 @@
 	icon_living = "banassist"
 	icon_dead = "banassist"
 	icon_gib = "banassist"
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 1
 	speed = 0
@@ -109,7 +109,7 @@
 		return FALSE
 	if(see_invisible < the_target.invisibility)
 		return FALSE
-	if(ismob(the_target) && (the_target.status_flags & GODMODE))
+	if(ismob(the_target) && HAS_TRAIT(the_target, TRAIT_GODMODE))
 		return FALSE
 	return TRUE
 

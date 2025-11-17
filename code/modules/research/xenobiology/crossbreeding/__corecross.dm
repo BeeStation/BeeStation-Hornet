@@ -92,8 +92,6 @@ To add a crossbreed:
 			itemcolor = "#008B8B"
 	add_atom_colour(itemcolor, FIXED_COLOUR_PRIORITY)
 
-/obj/item/slimecross/ComponentInitialize()
-	. = ..()
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 

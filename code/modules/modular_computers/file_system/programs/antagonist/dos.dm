@@ -10,6 +10,7 @@
 	available_on_syndinet = TRUE
 	tgui_id = "NtosNetDos"
 	program_icon = "satellite-dish"
+	power_consumption = 300 WATT
 
 
 

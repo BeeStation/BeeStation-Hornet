@@ -1,6 +1,19 @@
 import { Component, Fragment } from 'react';
+
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Grid, Icon, LabeledList, Modal, NoticeBox, Section, Table, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Icon,
+  LabeledList,
+  Modal,
+  NoticeBox,
+  Section,
+  Table,
+  Tabs,
+} from '../components';
 import { NtosWindow } from '../layouts';
 
 const CONTRACT_STATUS_INACTIVE = 1;
@@ -145,7 +158,11 @@ export const SyndContractorContent = (props) => {
     return (
       <Section minHeight="525px">
         <Box width="100%" textAlign="center">
-          <Button content="REGISTER USER" color="transparent" onClick={() => act('PRG_login')} />
+          <Button
+            content="REGISTER USER"
+            color="transparent"
+            onClick={() => act('PRG_login')}
+          />
         </Box>
         {!!data.error && <NoticeBox>{data.error}</NoticeBox>}
       </Section>
@@ -170,7 +187,13 @@ export const SyndContractorContent = (props) => {
         <Box backgroundColor="rgba(0, 0, 0, 0.8)" minHeight="500px">
           <FakeTerminal allMessages={infoEntries} linesPerSecond={10} />
         </Box>
-        <Button fluid content="CONTINUE" color="transparent" textAlign="center" onClick={() => act('PRG_toggle_info')} />
+        <Button
+          fluid
+          content="CONTINUE"
+          color="transparent"
+          textAlign="center"
+          onClick={() => act('PRG_toggle_info')}
+        />
       </>
     );
   }
@@ -191,28 +214,46 @@ export const StatusPane = (props) => {
       title={
         <>
           Contractor Status
-          <Button content="View Information Again" color="transparent" mb={0} ml={1} onClick={() => act('PRG_toggle_info')} />
+          <Button
+            content="View Information Again"
+            color="transparent"
+            mb={0}
+            ml={1}
+            onClick={() => act('PRG_toggle_info')}
+          />
         </>
       }
       buttons={
         <Box bold mr={1}>
           {data.contract_rep} Rep
         </Box>
-      }>
+      }
+    >
       <Grid>
         <Grid.Column size={0.85}>
           <LabeledList>
             <LabeledList.Item
               label="TC Availible"
-              buttons={<Button content="Claim" disabled={data.redeemable_tc <= 0} onClick={() => act('PRG_redeem_TC')} />}>
+              buttons={
+                <Button
+                  content="Claim"
+                  disabled={data.redeemable_tc <= 0}
+                  onClick={() => act('PRG_redeem_TC')}
+                />
+              }
+            >
               {String(data.redeemable_tc)}
             </LabeledList.Item>
-            <LabeledList.Item label="TC Earned">{String(data.earned_tc)}</LabeledList.Item>
+            <LabeledList.Item label="TC Earned">
+              {String(data.earned_tc)}
+            </LabeledList.Item>
           </LabeledList>
         </Grid.Column>
         <Grid.Column>
           <LabeledList>
-            <LabeledList.Item label="Contracts Completed">{String(data.contracts_completed)}</LabeledList.Item>
+            <LabeledList.Item label="Contracts Completed">
+              {String(data.contracts_completed)}
+            </LabeledList.Item>
             <LabeledList.Item label="Current Status">ACTIVE</LabeledList.Item>
           </LabeledList>
         </Grid.Column>
@@ -253,9 +294,13 @@ const ContractsTab = (props) => {
             disabled={!data.ongoing_contract || data.extraction_enroute}
             onClick={() => act('PRG_call_extraction')}
           />
-        }>
+        }
+      >
         {contracts.map((contract) => {
-          if (data.ongoing_contract && contract.status !== CONTRACT_STATUS_ACTIVE) {
+          if (
+            data.ongoing_contract &&
+            contract.status !== CONTRACT_STATUS_ACTIVE
+          ) {
             return;
           }
           const active = contract.status > CONTRACT_STATUS_INACTIVE;
@@ -265,7 +310,11 @@ const ContractsTab = (props) => {
           return (
             <Section
               key={contract.target}
-              title={contract.target ? `${contract.target} (${contract.target_rank})` : 'Invalid Target'}
+              title={
+                contract.target
+                  ? `${contract.target} (${contract.target_rank})`
+                  : 'Invalid Target'
+              }
               level={active ? 1 : 2}
               buttons={
                 <>
@@ -283,7 +332,8 @@ const ContractsTab = (props) => {
                     }
                   />
                 </>
-              }>
+              }
+            >
               <Grid>
                 <Grid.Column>{contract.message}</Grid.Column>
                 <Grid.Column size={0.5}>
@@ -297,7 +347,11 @@ const ContractsTab = (props) => {
           );
         })}
       </Section>
-      <Section title="Dropoff Locator" textAlign="center" opacity={data.ongoing_contract ? 100 : 0}>
+      <Section
+        title="Dropoff Locator"
+        textAlign="center"
+        opacity={data.ongoing_contract ? 100 : 0}
+      >
         <Box bold>{data.dropoff_direction}</Box>
       </Section>
     </>
@@ -326,7 +380,10 @@ const HubTab = (props) => {
                 )}
                 <Button
                   content="Purchase"
-                  disabled={data.contract_rep < item.cost || (limited && item.limited <= 0)}
+                  disabled={
+                    data.contract_rep < item.cost ||
+                    (limited && item.limited <= 0)
+                  }
                   onClick={() =>
                     act('buy_hub', {
                       item: item.name,
@@ -335,7 +392,8 @@ const HubTab = (props) => {
                   }
                 />
               </>
-            }>
+            }
+          >
             <Table>
               <Table.Row>
                 <Table.Cell>

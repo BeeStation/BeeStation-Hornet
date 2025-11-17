@@ -1,11 +1,19 @@
-import { Box, Button, Icon, Input, Section, Table } from '../components';
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Icon, Input, Section, Table } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 
-const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#c4cf2d', '#e67e22', '#ed5100', '#e74c3c', '#801308'];
+const HEALTH_COLOR_BY_LEVEL = [
+  '#17d568',
+  '#c4cf2d',
+  '#e67e22',
+  '#ed5100',
+  '#e74c3c',
+  '#801308',
+];
 
 const SORT_NAMES = {
   ijob: 'Job',
@@ -75,7 +83,13 @@ const areaSort = (a: CrewSensor, b: CrewSensor) => {
   return 0;
 };
 
-const healthToAttribute = (oxy: number, tox: number, burn: number, brute: number, attributeList: string[]) => {
+const healthToAttribute = (
+  oxy: number,
+  tox: number,
+  burn: number,
+  brute: number,
+  attributeList: string[],
+) => {
   const healthSum = oxy + tox + burn + brute;
   const level = Math.min(Math.max(Math.ceil(healthSum / 25), 0), 5);
   return attributeList[level];
@@ -132,7 +146,10 @@ const CrewTable = (props) => {
   const { sensors } = data;
 
   const [sortAsc, setSortAsc] = useLocalState<boolean>('sortAsc', true);
-  const [searchQuery, setSearchQuery] = useLocalState<string>('searchQuery', '');
+  const [searchQuery, setSearchQuery] = useLocalState<string>(
+    'searchQuery',
+    '',
+  );
   const [sortBy, setSortBy] = useLocalState<string>('sortBy', SORT_OPTIONS[0]);
 
   const cycleSortBy = () => {
@@ -164,11 +181,20 @@ const CrewTable = (props) => {
         <>
           <Button onClick={cycleSortBy}>{SORT_NAMES[sortBy]}</Button>
           <Button onClick={() => setSortAsc(!sortAsc)}>
-            <Icon style={{ marginLeft: '2px' }} name={sortAsc ? 'chevron-up' : 'chevron-down'} />
+            <Icon
+              style={{ marginLeft: '2px' }}
+              name={sortAsc ? 'chevron-up' : 'chevron-down'}
+            />
           </Button>
-          <Input placeholder="Search for name..." onInput={(e) => setSearchQuery((e.target as HTMLTextAreaElement).value)} />
+          <Input
+            placeholder="Search for name..."
+            onInput={(e) =>
+              setSearchQuery((e.target as HTMLTextAreaElement).value)
+            }
+          />
         </>
-      }>
+      }
+    >
       <Table>
         <Table.Row>
           <Table.Cell bold>Name</Table.Cell>
@@ -201,7 +227,18 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
   const { act, data } = useBackend<CrewConsoleData>();
   const { link_allowed } = data;
   const { sensor_data } = props;
-  const { name, assignment, ijob, life_status, oxydam, toxdam, burndam, brutedam, area, can_track } = sensor_data;
+  const {
+    name,
+    assignment,
+    ijob,
+    life_status,
+    oxydam,
+    toxdam,
+    burndam,
+    brutedam,
+    area,
+    can_track,
+  } = sensor_data;
 
   return (
     <Table.Row className="candystripe">
@@ -213,7 +250,13 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
         {oxydam !== undefined ? (
           <Icon
             name={statToIcon(life_status)}
-            color={healthToAttribute(oxydam, toxdam, burndam, brutedam, HEALTH_COLOR_BY_LEVEL)}
+            color={healthToAttribute(
+              oxydam,
+              toxdam,
+              burndam,
+              brutedam,
+              HEALTH_COLOR_BY_LEVEL,
+            )}
             size={1}
           />
         ) : life_status !== STAT_DEAD ? (
@@ -239,7 +282,13 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
           'Dead'
         )}
       </Table.Cell>
-      <Table.Cell>{area !== '~' && area !== undefined ? area : <Icon name="question" color="#ffffff" size={1} />}</Table.Cell>
+      <Table.Cell>
+        {area !== '~' && area !== undefined ? (
+          area
+        ) : (
+          <Icon name="question" color="#ffffff" size={1} />
+        )}
+      </Table.Cell>
       {!!link_allowed && (
         <Table.Cell collapsing>
           <Button
@@ -248,7 +297,8 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
               act('select_person', {
                 name: name,
               })
-            }>
+            }
+          >
             Track
           </Button>
         </Table.Cell>

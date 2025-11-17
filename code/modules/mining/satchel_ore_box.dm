@@ -8,6 +8,7 @@
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
+	custom_price = 160
 	var/static/list/typecache_to_take
 
 /obj/structure/ore_box/Initialize(mapload)
@@ -25,10 +26,6 @@
 		ui_update()
 	else
 		return ..()
-
-/obj/structure/ore_box/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.01) //please datum mats no more cancer
 
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
 	if(I.use_tool(src, user, 50, volume=50))

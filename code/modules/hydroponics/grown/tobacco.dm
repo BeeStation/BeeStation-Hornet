@@ -6,7 +6,7 @@
 	species = "tobacco"
 	plantname = "Tobacco Plant"
 	product = /obj/item/food/grown/tobacco
-	lifespan = 20
+	lifespan = 80
 	maturation = 5
 	production = 5
 	yield = 10

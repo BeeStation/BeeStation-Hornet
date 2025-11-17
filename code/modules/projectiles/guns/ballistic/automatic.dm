@@ -22,6 +22,7 @@
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
 	burst_size = 3
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -98,6 +99,7 @@
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
@@ -143,8 +145,12 @@
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted(src)
 	update_icon()
 
-/obj/item/gun/ballistic/automatic/m90/afterattack_secondary(atom/target, mob/living/user, flag, params)
-	underbarrel.afterattack(target, user, flag, params)
+/obj/item/gun/ballistic/automatic/m90/ranged_attack_secondary(atom/target, mob/living/user, params)
+	underbarrel.pull_trigger(target, user, params)
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
+
+/obj/item/gun/ballistic/automatic/m90/pre_attack_secondary(atom/target, mob/living/user, params)
+	underbarrel.pull_trigger(target, user, params)
 	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 /obj/item/gun/ballistic/automatic/m90/attackby(obj/item/A, mob/user, params)
@@ -204,6 +210,7 @@
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
 	fire_rate = 4
+	custom_price = 300
 
 
 // L6 SAW //
@@ -256,8 +263,7 @@
 	. = ..()
 	. += "l6_door_[cover_open ? "open" : "closed"]"
 
-
-/obj/item/gun/ballistic/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
+/obj/item/gun/ballistic/automatic/l6_saw/pull_trigger(atom/target, mob/living/user, flag, params, aimed)
 	if(cover_open)
 		to_chat(user, span_warning("[src]'s cover is open! Close it before firing!"))
 		return
@@ -310,7 +316,7 @@
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/pipem9mm
 	special_mags = TRUE
-	caliber = "9mm"
+	caliber = list("9mm")
 	tac_reloads = FALSE
 	bolt_type = BOLT_TYPE_OPEN
 	no_pin_required = TRUE

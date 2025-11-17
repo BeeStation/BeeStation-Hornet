@@ -181,6 +181,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	custom_materials = list(/datum/material/iron=75000, /datum/material/glass=37500)
 	armor_type = /datum/armor/item_pipe_dispenser
 	resistance_flags = FIRE_PROOF
+	custom_price = 100
 	///Sparks system used when changing device in the UI
 	var/datum/effect_system/spark_spread/spark_system
 	///Direction of the device we are going to spawn, set up in the UI
@@ -602,7 +603,13 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 
 /obj/item/pipe_dispenser/proc/check_can_make_pipe(atom/target_of_attack)
 	//make sure what we're clicking is valid for the current category
-	var/static/list/make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
+	var/static/list/make_pipe_whitelist = typecacheof(list(
+		/obj/structure/lattice,
+		/obj/structure/girder,
+		/obj/item/pipe,
+		/obj/structure/window,
+		/obj/structure/grille,
+	))
 	var/can_we_make_pipe = (isturf(target_of_attack) || is_type_in_typecache(target_of_attack, make_pipe_whitelist))
 	return can_we_make_pipe
 

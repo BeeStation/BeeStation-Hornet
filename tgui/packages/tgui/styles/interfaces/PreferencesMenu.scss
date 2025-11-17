@@ -264,7 +264,10 @@
         border-radius: 0 !important;
         text-shadow: 0 0 1px black;
         &--off {
-          background-color: color.adjust(colors.$grey, $lightness: 10%) !important;
+          background-color: color.adjust(
+            colors.$grey,
+            $lightness: 10%
+          ) !important;
           border-color: color.adjust(colors.$grey, $lightness: 20%);
           border-left: none;
         }
@@ -279,7 +282,10 @@
           text-shadow: none;
         }
         &--high {
-          background-color: color.adjust(colors.$green, $lightness: 10%) !important;
+          background-color: color.adjust(
+            colors.$green,
+            $lightness: 10%
+          ) !important;
           color: black !important;
           text-shadow: none;
         }

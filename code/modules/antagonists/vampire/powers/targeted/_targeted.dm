@@ -48,11 +48,6 @@
 	update_buttons()
 	unset_click_ability(owner)
 
-/datum/action/vampire/targeted/can_use()
-	. = ..()
-	if(!.)
-		return FALSE
-
 /// Check if target is VALID (wall, turf, or character?)
 /datum/action/vampire/targeted/proc/check_valid_target(atom/target_atom)
 	// No targeting yourself
@@ -68,6 +63,7 @@
 
 /datum/action/vampire/targeted/InterceptClickOn(mob/living/clicker, params, atom/target)
 	INVOKE_ASYNC(src, PROC_REF(click_with_power), target)
+	return TRUE
 
 /// Click Target
 /datum/action/vampire/targeted/proc/click_with_power(atom/target_atom)

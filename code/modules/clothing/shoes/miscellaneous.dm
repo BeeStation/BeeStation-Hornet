@@ -41,7 +41,6 @@
 	energy = 25
 	bomb = 50
 	bio = 100
-	rad = 30
 	fire = 90
 	acid = 50
 	stamina = 30
@@ -71,6 +70,7 @@
 	name = "magical sandals"
 	desc = "A pair of sandals imbued with magic."
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
+	custom_price = 25
 
 /obj/item/clothing/shoes/galoshes
 	desc = "A pair of yellow rubber boots, designed to prevent slipping on wet surfaces."

@@ -6,7 +6,8 @@
 	icon_state = "close"
 	obj_flags = CAN_BE_HIT | USES_TGUI
 	use_power = ACTIVE_POWER_USE
-	active_power_usage = 60
+	active_power_usage = 100 WATT
+	idle_power_usage = 50 WATT
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the unit is open
@@ -427,7 +428,7 @@
 			toasted = TRUE
 			if(mob_occupant)
 				visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber."))
-				mob_occupant.radiation = 0 //The guy inside is toasted to a crisp, no need to leave him with the rads
+				qdel(mob_occupant.GetComponent(/datum/component/irradiated))
 			else
 				visible_message(span_warning("[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber."))
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
@@ -446,7 +447,7 @@
 		if(!toasted) //Special toast check to prevent a double finishing message.
 			if(mob_occupant)
 				visible_message(span_warning("[src]'s door slides open, barraging you with the nauseating smell of charred flesh."))
-				mob_occupant.radiation = 0
+				qdel(mob_occupant.GetComponent(/datum/component/irradiated))
 			else
 				visible_message(span_notice("[src]'s door slides open. The glowing yellow lights dim to a gentle green."))
 		toasted = FALSE
@@ -486,7 +487,7 @@
 	if(!cell)
 		return
 	use_power(charge_rate * delta_time)
-	cell.give(charge_rate * delta_time)
+	cell.give((charge_rate * delta_time) * POWER_TRANSFER_LOSS)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))

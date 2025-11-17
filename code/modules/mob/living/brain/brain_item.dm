@@ -132,7 +132,7 @@
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
-		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
+		brainmob.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
@@ -141,7 +141,7 @@
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
-	brainmob.timeofhostdeath = L.timeofdeath
+	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
@@ -189,7 +189,7 @@
 	if(suicided)
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
 	else if(brainmob)
-		if(!brainmob.soul_departed())
+		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's lifeless and severely damaged.")
 			else if(organ_flags & ORGAN_FAILING)
@@ -326,10 +326,10 @@
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
 				if(H.health > 0)
-					H.revive(0)
+					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	owner.apply_status_effect(/datum/status_effect/ipc/emp)
+	owner.apply_status_effect(/datum/status_effect/ipc_emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////

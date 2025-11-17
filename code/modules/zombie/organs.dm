@@ -47,7 +47,7 @@
 		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
-	if(MOB_INORGANIC in owner.mob_biotypes)//does not process in inorganic things
+	if(owner.mob_biotypes & MOB_INORGANIC)//does not process in inorganic things
 		return
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * delta_time)
@@ -67,7 +67,7 @@
 	var/flags = TIMER_STOPPABLE
 	timer_id = addtimer(CALLBACK(src, PROC_REF(zombify), owner), revive_time, flags)
 
-/obj/item/organ/zombie_infection/proc/zombify(var/mob/living/carbon/C)
+/obj/item/organ/zombie_infection/proc/zombify(mob/living/carbon/C)
 	timer_id = null
 
 	if(!converts_living && owner.stat != DEAD)

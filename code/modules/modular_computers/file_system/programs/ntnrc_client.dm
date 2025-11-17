@@ -14,6 +14,7 @@
 	tgui_id = "NtosNetChat"
 	program_icon = "comment-alt"
 	alert_able = TRUE
+	power_consumption = 60 WATT
 	/// Used to generate the toolbar icon
 	var/last_message
 	var/username

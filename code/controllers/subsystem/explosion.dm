@@ -1,12 +1,11 @@
 #define EXPLOSION_THROW_SPEED 4
 /// Max amount of explosions that we accept in a row from the same turf
-#define EXPLOSION_TURF_MAX 100
+#define SMALL_EXPLOSION_TICK_LIMIT 20
 
 GLOBAL_LIST_EMPTY(explosions)
 
 SUBSYSTEM_DEF(explosions)
 	name = "Explosions"
-	init_order = INIT_ORDER_EXPLOSIONS
 	priority = FIRE_PRIORITY_EXPLOSIONS
 	wait = 1
 	flags = SS_TICKER|SS_NO_INIT
@@ -39,8 +38,9 @@ SUBSYSTEM_DEF(explosions)
 
 	var/currentpart = SSEXPLOSIONS_TURFS
 
-	var/turf/last_exploded_turf = null
-	var/last_explosion_count = 0
+	var/explosion_count = 0
+	var/queued_index = 1
+	var/list/queued = list()
 
 /datum/controller/subsystem/explosions/stat_entry(msg)
 	msg += "C:{"
@@ -191,18 +191,14 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_LOWER 25 //The lower of the above.
 
 /datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, explosion_type, magic, holy, cap_modifier, explode_z = TRUE)
+	if (devastation_range <= 2 && heavy_impact_range <= 5)
+		if (explosion_count >= SMALL_EXPLOSION_TICK_LIMIT)
+			queued += list(args)
+			return
+	explosion_count ++
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
-
-	// If we get a lot of explosions on the same turfs, do a lot of explosions but skip some of the ones towards the end
-	if (epicenter == last_exploded_turf)
-		last_explosion_count ++
-		if (last_explosion_count > EXPLOSION_TURF_MAX)
-			return
-	else
-		last_explosion_count = 0
-		last_exploded_turf = epicenter
 
 	if(isnull(flame_range))
 		flame_range = light_impact_range
@@ -532,6 +528,17 @@ SUBSYSTEM_DEF(explosions)
 /datum/controller/subsystem/explosions/fire(resumed = 0)
 	if (!is_exploding())
 		return
+
+	explosion_count = 0
+	if (queued_index > length(queued))
+		queued.Cut()
+		queued_index = 1
+
+	// Run the next explosions, until the tick limit
+	while (queued_index <= length(queued) && explosion_count < SMALL_EXPLOSION_TICK_LIMIT && MC_TICK_CHECK)
+		var/list/current = queued[queued_index++]
+		explosion(arglist(current))
+
 	var/timer
 	Master.current_ticklimit = TICK_LIMIT_RUNNING //force using the entire tick if we need it.
 
@@ -576,11 +583,6 @@ SUBSYSTEM_DEF(explosions)
 				var/turf/T = thing
 				new /obj/effect/hotspot(T) //Mostly for ambience!
 		cost_flameturf = MC_AVERAGE(cost_flameturf, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-
-		// If a significant amount of turfs change, then we will run lighter for the rest of the tick
-		// because maptick is going to have an unexpected increase.
-		if (low_turf.len + med_turf.len + high_turf.len > 10)
-			Master.laggy_byond_map_update_incoming()
 
 	if(currentpart == SSEXPLOSIONS_MOVABLES)
 		currentpart = SSEXPLOSIONS_THROWS
@@ -645,6 +647,6 @@ SUBSYSTEM_DEF(explosions)
 	currentpart = SSEXPLOSIONS_TURFS
 
 #undef EXPLOSION_THROW_SPEED
-#undef EXPLOSION_TURF_MAX
+#undef SMALL_EXPLOSION_TICK_LIMIT
 #undef SSEX_TURF
 #undef SSEX_OBJ

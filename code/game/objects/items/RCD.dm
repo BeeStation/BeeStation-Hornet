@@ -216,6 +216,7 @@ RLD
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	actions_types = list(/datum/action/item_action/rcd_scan)
+	custom_price = 100
 	var/mode = RCD_FLOORWALL
 	var/construction_mode = RCD_FLOORWALL
 	var/ranged = FALSE
@@ -396,16 +397,17 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	//Not scaling these down to button size because they look horrible then, instead just bumping up radius.
 	return MA
 
-/obj/item/construction/rcd/proc/change_computer_dir(mob/user)
+/obj/item/construction/rcd/proc/change_computer_dir(mob/user, atom/anchor = src, require_near = TRUE)
 	if(!user)
 		return
+
 	var/list/computer_dirs = list(
 		"NORTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cnorth"),
 		"EAST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "ceast"),
 		"SOUTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "csouth"),
 		"WEST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cwest")
 		)
-	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	var/computerdirs = show_radial_menu(user, anchor, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(computerdirs)
@@ -418,7 +420,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		if("WEST")
 			computer_dir = 8
 
-/obj/item/construction/rcd/proc/change_airlock_setting(mob/user)
+/obj/item/construction/rcd/proc/change_airlock_setting(mob/user, atom/anchor = src, require_near = TRUE)
 	if(!user)
 		return
 
@@ -466,13 +468,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
 	)
 
-	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	var/airlockcat = show_radial_menu(user, anchor, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(airlockcat)
 		if("Solid")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, anchor, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -517,7 +519,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 		if("Glass")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, anchor, glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -809,6 +811,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	canRturf = TRUE
 	item_flags = ISWEAPON
 
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	item_state = "ircd"
+	max_matter = 450
+	matter = 450
+
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
@@ -819,6 +828,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_price = 60
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
@@ -887,7 +897,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/color_choice = null
 
 
-/obj/item/construction/rld/ui_action_click(mob/user, var/datum/action/A)
+/obj/item/construction/rld/ui_action_click(mob/user, datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
 		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
@@ -912,7 +922,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 			to_chat(user, span_notice("You change RLD's mode to 'Deconstruct'."))
 
 
-/obj/item/construction/rld/proc/checkdupes(var/target)
+/obj/item/construction/rld/proc/checkdupes(target)
 	. = list()
 	var/turf/checking = get_turf(target)
 	for(var/obj/machinery/light/dupe in checking)

@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import { TextArea } from './TextArea';
 
 const DEFAULT_UPDATE_INTERVAL = 2000;
@@ -15,9 +16,13 @@ interface BufferedTextAreaPropsUnique {
 }
 
 // If anyone ever refactors TextArea to use TypeScript, remove the & Record<string, unknown> part
-type BufferedTextAreaProps = BufferedTextAreaPropsUnique & Record<string, unknown>;
+type BufferedTextAreaProps = BufferedTextAreaPropsUnique &
+  Record<string, unknown>;
 
-export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedTextAreaState> {
+export class BufferedTextArea extends Component<
+  BufferedTextAreaProps,
+  BufferedTextAreaState
+> {
   bufferTimer: NodeJS.Timeout;
 
   state = {
@@ -26,7 +31,10 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
   };
 
   componentDidMount() {
-    this.bufferTimer = setInterval(this.handlePush.bind(this), this.props.updateInterval || DEFAULT_UPDATE_INTERVAL);
+    this.bufferTimer = setInterval(
+      this.handlePush.bind(this),
+      this.props.updateInterval || DEFAULT_UPDATE_INTERVAL,
+    );
   }
 
   componentWillUnmount() {
@@ -45,7 +53,9 @@ export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedT
     const { updateValue, value, updateInterval, ...rest } = this.props;
     return (
       <TextArea
-        onInput={(_, value) => this.setState({ bufferedText: value, textChanged: true })}
+        onInput={(_, value) =>
+          this.setState({ bufferedText: value, textChanged: true })
+        }
         onBlur={this.handlePush}
         value={this.state.bufferedText}
         {...rest}

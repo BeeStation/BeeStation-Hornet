@@ -11,6 +11,7 @@
 	undeletable = TRUE // Antag datum is baked directly into the SSD that spawns with the Contractor Tablet. Changing this will cause runtimes whenever the program is transfered into another drive.
 	tgui_id = "SyndContractor"
 	program_icon = "tasks"
+	power_consumption = 0
 	var/error = ""
 	var/info_screen = TRUE
 	var/assigned = FALSE

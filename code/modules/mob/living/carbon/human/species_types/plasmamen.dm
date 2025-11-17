@@ -16,7 +16,7 @@
 		TRAIT_NOBLOOD,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
-	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
@@ -41,11 +41,11 @@
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/plasmaman,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/plasmaman,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/plasmaman,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/plasmaman,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/plasmaman,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/plasmaman,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/plasmaman,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/plasmaman,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/plasmaman,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
 	)
 
@@ -91,7 +91,7 @@
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visuals_only = FALSE, client/preference_source = null)
 	H.open_internals(H.get_item_for_held_index(2))
 
 	if(!preference_source?.prefs)
@@ -108,6 +108,10 @@
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 			H.open_internals(H.get_item_for_held_index(2))
+
+/datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
+	. = ..()
+	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
@@ -156,6 +160,13 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
+
+	if(istype(chem, /datum/reagent/blackpowder))
+		H.set_drugginess(7.5 * delta_time)
+		if(H.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10 < chem.volume)
+			H.adjust_hallucinations(2.5 SECONDS * delta_time)
+		// Do normal metabolism
+		return FALSE
 	return ..()
 
 /datum/species/plasmaman/get_scream_sound(mob/living/carbon/user)

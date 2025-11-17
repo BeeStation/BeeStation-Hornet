@@ -9,8 +9,8 @@
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
-  $primary: hsl(0.0, 0.0%, 0.0%),
-  $label: hsl(0.0, 0.0%, 20.8%)
+  $primary: hsl(0, 0%, 0%),
+  $label: hsl(0, 0%, 20.8%)
 );
 @use '../base.scss' with (
   $color-bg: hsl(52.3, 40.3%, 84.9%),
@@ -41,13 +41,19 @@
       'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(50.9, 23.1%, 28%)));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(50.9, 23.1%, 28%))
+  );
 
   .Button {
     font-family: monospace;

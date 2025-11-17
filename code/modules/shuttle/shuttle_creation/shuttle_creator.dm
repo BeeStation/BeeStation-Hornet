@@ -425,7 +425,12 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			return FALSE
 		if(!istype(t,/turf/open/floor/dock/drydock)) //Drydocks bypass the area check, but not the recursion check
 			var/static/list/drydock_types = typesof(/turf/open/floor/dock/drydock, /turf/open/floor/plating/grass, /turf/open/floor/plating/dirt/planetary, /turf/open/floor/plating/dirt/jungle/wasteland, /turf/open/floor/plating/beach/sand, /turf/open/floor/plating/asteroid/planetary)
-			var/static/list/valid_area_types = typecacheof(list(/area/space, /area/lavaland/surface/outdoors, /area/asteroid/generated, /area/paradise/surface))
+			var/static/list/valid_area_types = typecacheof(list(
+				/area/space,
+				/area/lavaland/surface/outdoors,
+				/area/asteroid/generated,
+				/area/paradise/surface,
+			))
 			if(islist(t.baseturfs))
 				for(var/j in 0 to t.baseturfs.len - 1) //See if there's a drydock here that isn't being used by another shuttle
 					var/path = t.baseturfs[t.baseturfs.len-j]
@@ -483,7 +488,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	overlay_holder.highlight_turf(T)
 
 /obj/item/shuttle_creator/proc/add_saved_area(mob/user)
-	var/static/area_or_turf_fail_types = typecacheof(list(/area/shuttle))
+	var/static/area_or_turf_fail_types = typecacheof(list(
+		/area/shuttle,
+	))
 	area_or_turf_fail_types += GLOB.shuttle_turf_blacklist
 	//Detect the turfs connected in the curerrent enclosed area
 	var/list/turfs = detect_room(get_turf(user), area_or_turf_fail_types)

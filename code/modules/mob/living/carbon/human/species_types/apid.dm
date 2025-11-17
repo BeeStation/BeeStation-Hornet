@@ -5,7 +5,7 @@
 	bodyflag = FLAG_APID
 	species_traits = list(LIPS,NOEYESPRITES,MUTCOLORS)
 	inherent_traits = list(TRAIT_BEEFRIEND)
-	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	mutant_bodyparts = list("apid_stripes" = "thick","apid_headstripes" = "thick", "apid_antenna" = "curled")
 	hair_color = "fixedmutcolor"
 	attack_verb = "slash"
@@ -27,10 +27,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/apid,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/apid,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/apid,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/apid,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/apid,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/apid
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/apid,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/apid,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/apid,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/apid
 	)
 
 	species_height = SPECIES_HEIGHTS(2, 1, 0)

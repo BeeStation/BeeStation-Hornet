@@ -11,6 +11,7 @@
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	program_icon = "download"
+	power_consumption = 80 WATT
 
 
 
@@ -199,6 +200,7 @@
 	ui_header = "downloader_finished.gif"
 	tgui_id = "NtosNetDownloader"
 	emagged = TRUE
+	power_consumption = 10 WATT
 
 /datum/computer_file/program/ntnetdownload/syndicate/on_start()
 	. = ..()

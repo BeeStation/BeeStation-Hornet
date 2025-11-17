@@ -16,7 +16,8 @@
 					/obj/item/flashlight/glowstick = 3,
 					/obj/item/flashlight/glowstick/red = 3,
 					/obj/item/flashlight = 5,
-					/obj/item/clothing/ears/earmuffs = 1)
+					/obj/item/clothing/ears/earmuffs = 1,
+					/obj/item/stack/sticky_tape/duct = 3)
 	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/storage/belt/utility = 2,
 		           /obj/item/weldingtool/hugetank = 2,
@@ -27,7 +28,6 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 10
 	extra_price = 80
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 
 /datum/armor/vending_tool
 	melee = 100

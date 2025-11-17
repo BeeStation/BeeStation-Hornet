@@ -63,7 +63,7 @@
 	add_objectives()
 	if(give_equipment)
 		equip_cultist(TRUE)
-	add_antag_hud(ANTAG_HUD_CULT, "cultist", current)
+	add_antag_hud(ANTAG_HUD_CULT, "cult", current)
 	current.log_message("has been converted to the cult of Nar'Sie!", LOG_ATTACK, color="#960000")
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)

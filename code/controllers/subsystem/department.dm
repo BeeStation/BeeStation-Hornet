@@ -1,7 +1,7 @@
 
 SUBSYSTEM_DEF(department)
 	name = "Departments"
-	init_order = INIT_ORDER_DEPARTMENT
+	init_stage = INITSTAGE_EARLY
 	flags = SS_NO_FIRE
 
 	/// full list of department datums.
@@ -230,7 +230,8 @@ SUBSYSTEM_DEF(department)
 				JOB_NAME_VIP,
 				JOB_NAME_CHAPLAIN,
 				JOB_NAME_CURATOR,
-				JOB_NAME_LAWYER)
+				JOB_NAME_LAWYER,
+				JOB_NAME_PRISONER)
 
 	pref_category_name = DEPT_NAME_CIVILIAN
 	pref_category_order = DEPT_PREF_ORDER_CIVILIAN

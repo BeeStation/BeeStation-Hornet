@@ -51,6 +51,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
+	custom_price = 25
 
 	var/max_uses = 20
 	var/uses = 10
@@ -185,7 +186,7 @@
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(mob/user)
 	AddUses(1)
 
 /obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/U)

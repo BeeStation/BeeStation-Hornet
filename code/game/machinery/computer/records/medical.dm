@@ -3,7 +3,7 @@
 	desc = "This can be used to check medical records."
 	icon_screen = "medcomp"
 	icon_keyboard = "med_key"
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
+	req_one_access = list(ACCESS_BRIGPHYS, ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/computer/records/medical
 	light_color = LIGHT_COLOR_BLUE
 
@@ -95,7 +95,7 @@
 			return TRUE
 		if ("gender")
 			return TRUE
-		if ("dna")
+		if ("dna_string")
 			return TRUE
 		if ("blood_type")
 			return TRUE

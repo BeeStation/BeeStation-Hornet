@@ -10,7 +10,7 @@
 	. = ..()
 	starting_area = get_area(loc)
 
-/mob/camera/ai_eye/remote/base_construction/setLoc(var/t)
+/mob/camera/ai_eye/remote/base_construction/setLoc(t)
 	var/area/curr_area = get_area(t)
 	if(curr_area == starting_area || istype(curr_area, /area/shuttle/auxillary_base))
 		return ..()
@@ -64,6 +64,8 @@
 	. = ..()
 	if(mapload) //Map spawned consoles have a filled RCD and stocked special structures
 		RCD.matter = RCD.max_matter
+		RCD.mode = RCD_FLOORWALL //Initialize To Floor And Wall Mode
+		RCD.upgrade = RCD_UPGRADE_FRAMES //Fancy Frames
 		fans_remaining = 4
 		turret_stock = 4
 
@@ -184,7 +186,7 @@
 			rcd_target = S //If we don't break out of this loop we'll get the last placed thing
 
 	owner.changeNext_move(CLICK_CD_RANGE)
-	B.RCD.afterattack(rcd_target, owner, TRUE) //Activate the RCD and force it to work remotely!
+	B.RCD.rcd_create(rcd_target, owner) //Activate the RCD and force it to work remotely!
 	playsound(target_turf, 'sound/items/deconstruct.ogg', 60, 1)
 
 /datum/action/innate/aux_base/switch_mode
@@ -195,10 +197,13 @@
 	if(..())
 		return
 
-	var/list/buildlist = list("Walls and Floors" = 1,"Airlocks" = 2,"Deconstruction" = 3,"Windows and Grilles" = 4)
-	var/buildmode = tgui_input_list("Set construction mode.", "Base Console", buildlist)
-	B.RCD.mode = buildlist[buildmode]
-	to_chat(owner, "Build mode is now [buildmode].")
+	var/list/buildlist = list("Walls and Floors" = RCD_FLOORWALL,"Airlocks" = RCD_AIRLOCK,"Deconstruction" = RCD_DECONSTRUCT,"Windows and Grilles" = RCD_WINDOWGRILLE, "Machine Frames"= RCD_MACHINE, "Computer Frames"=RCD_COMPUTER)
+	var/buildmode = tgui_input_list(owner, "Set construction mode.", "Base Console", buildlist,  timeout = 0 )
+	if(buildmode)
+		B.RCD.mode = buildlist[buildmode]
+		to_chat(owner, "Build mode is now [buildmode].")
+		if(B.RCD.mode == RCD_COMPUTER)//Bring up the menu to change computer direction
+			B.RCD.change_computer_dir(owner, remote_eye, FALSE)
 
 /datum/action/innate/aux_base/airlock_type
 	name = "Select Airlock Type"
@@ -208,7 +213,7 @@
 	if(..())
 		return
 
-	B.RCD.change_airlock_setting()
+	B.RCD.change_airlock_setting(owner,remote_eye, FALSE)
 
 
 /datum/action/innate/aux_base/window_type
@@ -218,7 +223,7 @@
 /datum/action/innate/aux_base/window_type/on_activate()
 	if(..())
 		return
-	B.RCD.toggle_window_glass()
+	B.RCD.toggle_window_glass(owner)
 
 /datum/action/innate/aux_base/place_fan
 	name = "Place Tiny Fan"

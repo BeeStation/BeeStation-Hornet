@@ -207,11 +207,11 @@
 		if(!heart)
 			// damn you, heartless bastard!!
 			for(var/obj/item/organ/organ in new_body.internal_organs)
-				organ.applyOrganDamage(rand(20, 40), organ.maxHealth - 1)
+				organ.apply_organ_damage(rand(20, 40), organ.maxHealth - 1)
 		else
-			heart.applyOrganDamage(rand(20, 40), heart.maxHealth - 1)
+			heart.apply_organ_damage(rand(20, 40), heart.maxHealth - 1)
 	else
-		brain.applyOrganDamage(rand(20, 40), HOLOPARA_MAX_BRAIN_DAMAGE)
+		brain.apply_organ_damage(rand(20, 40), HOLOPARA_MAX_BRAIN_DAMAGE)
 	// straight to stamcrit with you!!
 	new_body.take_overall_damage(stamina = rand(new_body.maxHealth * 1.1, new_body.maxHealth * 1.5), updating_health = TRUE)
 	if(new_body.confused < 120)

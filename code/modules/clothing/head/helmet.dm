@@ -16,6 +16,7 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR
 	bang_protect = 1
+	custom_price = 100
 
 /datum/armor/head_helmet
 	melee = 35
@@ -95,7 +96,9 @@
 	desc = "A reliable, blue tinted helmet reminding you that you <i>still</i> owe that engineer a beer."
 	icon_state = "blueshift"
 	item_state = "blueshift"
-	custom_premium_price = 450
+	max_demand = 10
+	custom_premium_price = 150
+
 
 /obj/item/clothing/head/helmet/toggleable
 	///chat message when the visor is toggled down.
@@ -117,7 +120,7 @@
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 	to_chat(user, span_notice("[up ? alt_toggle_message : toggle_message] \the [src]."))
 
-	user.update_inv_head()
+	user.update_worn_head()
 	if(iscarbon(user))
 		var/mob/living/carbon/carbon_user = user
 		carbon_user.head_update(src, forced = TRUE)
@@ -221,7 +224,6 @@
 	energy = 40
 	bomb = 50
 	bio = 90
-	rad = 20
 	fire = 50
 	acid = 50
 	stamina = 50
@@ -260,7 +262,6 @@
 	energy = 50
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 90
 	acid = 90
 
@@ -453,7 +454,6 @@
 	bullet = 30
 	energy = 15
 	bomb = 10
-	rad = 20
 	fire = 20
 	acid = 50
 	stamina = 20
@@ -482,7 +482,6 @@
 	energy = 10
 	bomb = 20
 	bio = 50
-	rad = 20
 	fire = -10
 	acid = 50
 	stamina = 20
@@ -507,7 +506,6 @@
 	energy = 10
 	bomb = 30
 	bio = 30
-	rad = 20
 	acid = 40
 	stamina = 25
 	bleed = 15

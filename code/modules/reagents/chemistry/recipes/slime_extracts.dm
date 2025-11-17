@@ -673,8 +673,6 @@
 	var/list/techshells = list(
 		/obj/item/ammo_casing/shotgun/dragonsbreath,
 		/obj/item/ammo_casing/shotgun/pulseslug,
-		/obj/item/ammo_casing/shotgun/meteorslug,
-		/obj/item/ammo_casing/shotgun/frag12,
 		/obj/item/ammo_casing/shotgun/ion,
 		/obj/item/ammo_casing/shotgun/laserslug
 	)

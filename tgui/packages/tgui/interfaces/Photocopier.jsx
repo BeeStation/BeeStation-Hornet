@@ -1,6 +1,15 @@
 import { sortBy } from 'common/collections';
+import { Dropdown } from 'tgui-core/components';
+
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Flex, NumberInput, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  NumberInput,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const Photocopier = (props) => {
@@ -21,7 +30,9 @@ export const Photocopier = (props) => {
           <Blanks />
         ) : (
           <Section title="Blanks">
-            <Box color="average">No forms found. Please contact your system administrator.</Box>
+            <Box color="average">
+              No forms found. Please contact your system administrator.
+            </Box>
           </Section>
         )}
         {has_item ? (
@@ -48,10 +59,15 @@ const Toner = (props) => {
     <Section
       title="Toner"
       buttons={
-        <Button disabled={!has_toner} onClick={() => act('remove_toner')} icon="eject">
+        <Button
+          disabled={!has_toner}
+          onClick={() => act('remove_toner')}
+          icon="eject"
+        >
           Eject
         </Button>
-      }>
+      }
+    >
       <ProgressBar
         ranges={{
           good: [average_toner, max_toner],
@@ -94,7 +110,13 @@ const Options = (props) => {
           />
         </Flex.Item>
         <Flex.Item>
-          <Button ml={0.2} icon="copy" textAlign="center" disabled={!has_enough_toner} onClick={() => act('make_copy')}>
+          <Button
+            ml={0.2}
+            icon="copy"
+            textAlign="center"
+            disabled={!has_enough_toner}
+            onClick={() => act('make_copy')}
+          >
             Copy
           </Button>
         </Flex.Item>
@@ -110,7 +132,8 @@ const Options = (props) => {
                 act('color_mode', {
                   mode: 'Greyscale',
                 })
-              }>
+              }
+            >
               Greyscale
             </Button>
           </Flex.Item>
@@ -123,13 +146,20 @@ const Options = (props) => {
                 act('color_mode', {
                   mode: 'Color',
                 })
-              }>
+              }
+            >
               Color
             </Button>
           </Flex.Item>
         </Flex>
       )}
-      <Button mt={0.5} textAlign="center" icon="reply" fluid onClick={() => act('remove')}>
+      <Button
+        mt={0.5}
+        textAlign="center"
+        icon="reply"
+        fluid
+        onClick={() => act('remove')}
+      >
         Remove item
       </Button>
     </Section>
@@ -150,7 +180,9 @@ const Blanks = (props) => {
   }
 
   const selectedCategory = category ?? categories[0];
-  const visibleBlanks = sortedBlanks.filter((blank) => blank.category === selectedCategory);
+  const visibleBlanks = sortedBlanks.filter(
+    (blank) => blank.category === selectedCategory,
+  );
 
   return (
     <Section title="Blanks">
@@ -175,7 +207,8 @@ const Blanks = (props) => {
                 name: blank.name,
                 info: blank.info,
               })
-            }>
+            }
+          >
             {blank.code}
           </Button>
         ))}
@@ -191,7 +224,13 @@ const AIOptions = (props) => {
   return (
     <Section title="AI Options">
       <Box>
-        <Button fluid icon="images" textAlign="center" disabled={!can_AI_print} onClick={() => act('ai_photo')}>
+        <Button
+          fluid
+          icon="images"
+          textAlign="center"
+          disabled={!can_AI_print}
+          onClick={() => act('ai_photo')}
+        >
           Print photo from database
         </Button>
       </Box>

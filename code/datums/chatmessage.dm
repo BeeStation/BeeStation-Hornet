@@ -375,6 +375,14 @@
 				else
 					m.end_of_life()
 
+/datum/chatmessage/proc/transfer_to(atom/location)
+	LAZYREMOVE(message_loc.chat_messages, src)
+	message_loc = location
+	// Due to async, this may not have been created yet
+	for (var/datum/chatmessage_group/group in groups)
+		group.message.loc = location
+	LAZYADD(message_loc.chat_messages, src)
+
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
   * sets timer for scheduling deletion
@@ -425,6 +433,15 @@
 /mob/dead/new_player/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote, is_heard)
 	return CHATMESSAGE_CANNOT_HEAR
 
+/**
+ * Creates a message overlay at a defined location for a given speaker
+ *
+ * Arguments:
+ * * speaker - The atom who is saying this message
+ * * message_language - The language that the message is said in
+ * * raw_message - The text content of the message
+ * * spans - Additional classes to be added to the message
+ */
 /proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
 		return
@@ -682,6 +699,9 @@
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/atom/proc/transfer_messages_to(atom/new_location)
+	for (var/datum/chatmessage/message as() in chat_messages)
+		message.transfer_to(new_location)
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT

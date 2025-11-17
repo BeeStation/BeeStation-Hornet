@@ -8,3 +8,4 @@
 */
 
 #include "..\..\_maps\map_files\EchoStation\map_adjustment_echo.dm"
+#include "..\..\_maps\map_files\KiloStation\map_adjustment_kilo.dm"

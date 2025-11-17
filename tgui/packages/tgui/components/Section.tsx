@@ -5,7 +5,13 @@
  */
 
 import { canRender, classes } from 'common/react';
-import { forwardRef, ReactNode, RefObject, useEffect, UIEventHandler } from 'react';
+import {
+  forwardRef,
+  ReactNode,
+  RefObject,
+  UIEventHandler,
+  useEffect,
+} from 'react';
 
 import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
@@ -59,65 +65,69 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDivElement>) => {
-  const {
-    buttons,
-    children,
-    className,
-    fill,
-    fitted,
-    independent,
-    onScroll,
-    scrollable,
-    scrollableHorizontal,
-    title,
-    ...rest
-  } = props;
+export const Section = forwardRef(
+  (props: Props, forwardedRef: RefObject<HTMLDivElement>) => {
+    const {
+      buttons,
+      children,
+      className,
+      fill,
+      fitted,
+      independent,
+      onScroll,
+      scrollable,
+      scrollableHorizontal,
+      title,
+      ...rest
+    } = props;
 
-  const hasTitle = canRender(title) || canRender(buttons);
+    const hasTitle = canRender(title) || canRender(buttons);
 
-  /** We want to be able to scroll on hover, but using focus will steal it from inputs */
-  useEffect(() => {
-    if (!forwardedRef?.current) return;
-    if (!scrollable && !scrollableHorizontal) return;
-
-    addScrollableNode(forwardedRef.current);
-
-    return () => {
+    /** We want to be able to scroll on hover, but using focus will steal it from inputs */
+    useEffect(() => {
       if (!forwardedRef?.current) return;
-      removeScrollableNode(forwardedRef.current!);
-    };
-  }, []);
+      if (!scrollable && !scrollableHorizontal) return;
 
-  return (
-    <div
-      className={classes([
-        'Section',
-        fill && 'Section--fill',
-        fitted && 'Section--fitted',
-        independent && 'Section--independent',
-        scrollable && 'Section--scrollable',
-        scrollableHorizontal && 'Section--scrollableHorizontal',
-        className,
-        computeBoxClassName(rest),
-      ])}
-      {...computeBoxProps(rest)}>
-      {hasTitle && (
-        <div className="Section__title">
-          <span className="Section__titleText">{title}</span>
-          <div className="Section__buttons">{buttons}</div>
-        </div>
-      )}
-      <div className="Section__rest">
-        <div
-          className="Section__content"
-          onScroll={onScroll}
-          // For posterity: the forwarded ref needs to be here specifically
-          // to actually let things interact with the scrolling.
-          ref={forwardedRef}>
-          {children}
+      addScrollableNode(forwardedRef.current);
+
+      return () => {
+        if (!forwardedRef?.current) return;
+        removeScrollableNode(forwardedRef.current!);
+      };
+    }, []);
+
+    return (
+      <div
+        className={classes([
+          'Section',
+          fill && 'Section--fill',
+          fitted && 'Section--fitted',
+          independent && 'Section--independent',
+          scrollable && 'Section--scrollable',
+          scrollableHorizontal && 'Section--scrollableHorizontal',
+          className,
+          computeBoxClassName(rest),
+        ])}
+        {...computeBoxProps(rest)}
+      >
+        {hasTitle && (
+          <div className="Section__title">
+            <span className="Section__titleText">{title}</span>
+            <div className="Section__buttons">{buttons}</div>
+          </div>
+        )}
+        <div className="Section__rest">
+          <div
+            className="Section__content"
+            onScroll={onScroll}
+            // For posterity: the forwarded ref needs to be here specifically
+            // to actually let things interact with the scrolling.
+            ref={forwardedRef}
+          >
+            {children}
+          </div>
         </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);

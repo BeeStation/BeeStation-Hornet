@@ -5,6 +5,7 @@
 	var/can_be_driven = TRUE
 	/// If TRUE, this creature's abilities can be triggered by the rider while mounted
 	var/can_use_abilities = FALSE
+	var/list/shared_action_buttons = list()
 
 /datum/component/riding/creature/Initialize(mob/living/riding_mob, force = FALSE, ride_check_flags = NONE, potion_boost = FALSE)
 	if(!isliving(parent))
@@ -29,6 +30,7 @@
 	if(isanimal(parent))
 		var/mob/living/simple_animal/simple_parent = parent
 		simple_parent.stop_automated_movement = FALSE
+	REMOVE_TRAIT(parent, TRAIT_AI_PAUSED, REF(src))
 	return ..()
 
 /datum/component/riding/creature/RegisterWithParent()
@@ -43,25 +45,25 @@
 	if(!istype(living_parent) || !istype(rider))
 		return
 
-	living_parent.log_message("is now being ridden by [rider]", LOG_ATTACK, color="pink")
-	rider.log_message("started riding [living_parent]", LOG_ATTACK, color="pink")
+	living_parent.log_message("is now being ridden by [rider].", LOG_GAME, color="pink")
+	rider.log_message("started riding [living_parent].", LOG_GAME, color="pink")
 
 // this applies to humans and most creatures, but is replaced again for cyborgs
-/datum/component/riding/creature/ride_check(mob/living/rider)
+/datum/component/riding/creature/ride_check(mob/living/rider, consequences = TRUE)
+	. = TRUE
 	var/mob/living/living_parent = parent
 
-	var/kick_us_off
 	if(living_parent.body_position != STANDING_UP) // if we move while on the ground, the rider falls off
-		kick_us_off = TRUE
+		. = FALSE
 	// for piggybacks and (redundant?) borg riding, check if the rider is stunned/restrained
-	else if((ride_check_flags & RIDER_NEEDS_ARMS) && (HAS_TRAIT(rider, TRAIT_RESTRAINED) || rider.incapacitated(TRUE, TRUE)))
-		kick_us_off = TRUE
+	else if((ride_check_flags & RIDER_NEEDS_ARMS) && (HAS_TRAIT(rider, TRAIT_RESTRAINED) || rider.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
+		. = FALSE
 	// for fireman carries, check if the ridden is stunned/restrained
-	else if((ride_check_flags & CARRIER_NEEDS_ARM) && (HAS_TRAIT(living_parent, TRAIT_RESTRAINED) || living_parent.incapacitated(TRUE, TRUE)))
-		kick_us_off = TRUE
+	else if((ride_check_flags & CARRIER_NEEDS_ARM) && (HAS_TRAIT(living_parent, TRAIT_RESTRAINED) || living_parent.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB)))
+		. = FALSE
 
-	if(!kick_us_off)
-		return TRUE
+	if(. || !consequences)
+		return
 
 	rider.visible_message(span_warning("[rider] falls off of [living_parent]!"), \
 					span_warning("You fall off of [living_parent]!"))
@@ -69,17 +71,23 @@
 	rider.Knockdown(4 SECONDS)
 	living_parent.unbuckle_mob(rider)
 
-/datum/component/riding/creature/vehicle_mob_buckle(datum/source, mob/living/rider, force = FALSE)
+/datum/component/riding/creature/vehicle_mob_buckle(mob/living/ridden, mob/living/rider, force = FALSE)
 	// Ensure that the /mob/post_buckle_mob(mob/living/M) does not mess us up with layers
 	// If we do not do this override we'll be stuck with the above proc (+ 0.1)-ing our rider's layer incorrectly
 	rider.layer = initial(rider.layer)
+	if(can_be_driven)
+		//let the player take over if they should be controlling movement
+		ADD_TRAIT(ridden, TRAIT_AI_PAUSED, REF(src))
 	return ..()
 
 /datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/formerly_ridden, mob/living/former_rider, force = FALSE)
 	if(istype(formerly_ridden) && istype(former_rider))
-		formerly_ridden.log_message("is no longer being ridden by [former_rider]", LOG_ATTACK, color="pink")
-		former_rider.log_message("is no longer riding [formerly_ridden]", LOG_ATTACK, color="pink")
+		formerly_ridden.log_message("is no longer being ridden by [former_rider].", LOG_GAME, color="pink")
+		former_rider.log_message("is no longer riding [formerly_ridden].", LOG_GAME, color="pink")
 	remove_abilities(former_rider)
+	if(!formerly_ridden.buckled_mobs.len)
+		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, REF(src))
+	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
 	formerly_ridden.layer = MOB_LAYER
 	return ..()
@@ -87,10 +95,16 @@
 /datum/component/riding/creature/driver_move(atom/movable/movable_parent, mob/living/user, direction)
 	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown))
 		return COMPONENT_DRIVER_BLOCK_MOVE
-
+	if(!keycheck(user))
+		if(ispath(keytype, /obj/item))
+			var/obj/item/key = keytype
+			to_chat(user, span_warning("You need a [initial(key.name)] to ride [movable_parent]!"))
+		return COMPONENT_DRIVER_BLOCK_MOVE
 	var/mob/living/living_parent = parent
+	var/turf/next = get_step(living_parent, direction)
 	step(living_parent, direction)
-	COOLDOWN_START(src, vehicle_move_cooldown, vehicle_move_delay * vehicle_move_multiplier)
+	last_move_diagonal = ((direction & (direction - 1)) && (living_parent.loc == next))
+	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal? 2 : 1) * vehicle_move_delay * vehicle_move_multiplier)
 	return ..()
 
 /// Yeets the rider off, used for animals and cyborgs, redefined for humans who shove their piggyback rider off
@@ -160,7 +174,7 @@
 		human_parent.buckle_lying = 0
 		// the riding mob is made nondense so they don't bump into any dense atoms the carrier is pulling,
 		// since pulled movables are moved before buckled movables
-		riding_mob.density = FALSE
+		riding_mob.set_density(FALSE)
 	else if(ride_check_flags & CARRIER_NEEDS_ARM) // fireman
 		human_parent.buckle_lying = 90
 
@@ -174,11 +188,11 @@
 		return
 
 	if(ride_check_flags & RIDER_NEEDS_ARMS) // piggyback
-		living_parent.log_message("started giving [rider] a piggyback ride", LOG_ATTACK, color="pink")
-		rider.log_message("started piggyback riding [living_parent]", LOG_ATTACK, color="pink")
+		living_parent.log_message("started giving [rider] a piggyback ride.", LOG_GAME, color="pink")
+		rider.log_message("started piggyback riding [living_parent].", LOG_GAME, color="pink")
 	else if(ride_check_flags & CARRIER_NEEDS_ARM) // fireman
-		living_parent.log_message("started fireman carrying [rider]", LOG_ATTACK, color="pink")
-		rider.log_message("was fireman carried by [living_parent]", LOG_ATTACK, color="pink")
+		living_parent.log_message("started fireman carrying [rider].", LOG_GAME, color="pink")
+		rider.log_message("was fireman carried by [living_parent].", LOG_GAME, color="pink")
 
 /datum/component/riding/creature/human/vehicle_mob_unbuckle(datum/source, mob/living/former_rider, force = FALSE)
 	unequip_buckle_inhands(parent)
@@ -210,7 +224,7 @@
 
 /datum/component/riding/creature/human/handle_vehicle_layer(dir)
 	var/atom/movable/AM = parent
-	if(!AM.buckled_mobs?.len)
+	if(!AM.buckled_mobs || !AM.buckled_mobs.len)
 		AM.layer = MOB_LAYER
 		return
 
@@ -219,14 +233,14 @@
 
 	if(!AM.buckle_lying) // rider is vertical, must be piggybacking
 		if(dir == SOUTH)
-			AM.layer = ABOVE_MOB_LAYER
+			AM.layer = MOB_ABOVE_PIGGYBACK_LAYER
 		else
-			AM.layer = OBJ_LAYER
+			AM.layer = MOB_BELOW_PIGGYBACK_LAYER
 	else  // laying flat, we must be firemanning the rider
 		if(dir == NORTH)
-			AM.layer = OBJ_LAYER
+			AM.layer = MOB_BELOW_PIGGYBACK_LAYER
 		else
-			AM.layer = ABOVE_MOB_LAYER
+			AM.layer = MOB_ABOVE_PIGGYBACK_LAYER
 
 /datum/component/riding/creature/human/get_offsets(pass_index)
 	var/mob/living/carbon/human/H = parent
@@ -248,21 +262,21 @@
 /datum/component/riding/creature/cyborg
 	can_be_driven = FALSE
 
-/datum/component/riding/creature/cyborg/ride_check(mob/living/user)
+/datum/component/riding/creature/cyborg/ride_check(mob/living/user, consequences = TRUE)
 	var/mob/living/silicon/robot/robot_parent = parent
 	if(!iscarbon(user))
-		return
-	var/mob/living/carbon/carbonuser = user
-	if(!carbonuser.usable_hands)
+		return TRUE
+	. = user.usable_hands
+	if(!. && consequences)
 		Unbuckle(user)
 		to_chat(user, span_warning("You can't grab onto [robot_parent] with no hands!"))
 
 /datum/component/riding/creature/cyborg/handle_vehicle_layer(dir)
 	var/atom/movable/robot_parent = parent
 	if(dir == SOUTH)
-		robot_parent.layer = ABOVE_MOB_LAYER
+		robot_parent.layer = MOB_ABOVE_PIGGYBACK_LAYER
 	else
-		robot_parent.layer = OBJ_LAYER
+		robot_parent.layer = MOB_BELOW_PIGGYBACK_LAYER
 
 /datum/component/riding/creature/cyborg/get_offsets(pass_index) // list(dir = x, y, layer)
 	return list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-6, 3), TEXT_WEST = list( 6, 3))
@@ -352,32 +366,3 @@
 	set_vehicle_dir_layer(NORTH, OBJ_LAYER)
 	set_vehicle_dir_layer(EAST, OBJ_LAYER)
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
-
-
-
-
-//tamed riding
-/datum/component/riding/creature/tamed/Initialize()
-	. = ..()
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		override_allow_spacemove = S.spacewalk
-		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(handle_mortality))
-
-/datum/component/riding/creature/tamed/proc/handle_mortality()
-	qdel(src)
-
-//Snowflake, I know, but good enough for the time being
-/datum/component/riding/creature/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		M.spacewalk = S.spacewalk
-		S.toggle_ai(AI_OFF)
-	..()
-
-/datum/component/riding/creature/tamed/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
-	M.spacewalk = FALSE
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		S.toggle_ai(AI_ON)
-	..()

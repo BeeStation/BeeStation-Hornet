@@ -201,6 +201,7 @@
 	icon_state = "officerbluejacket"
 	item_state = null
 	body_parts_covered = CHEST|ARMS
+	custom_price = 50
 
 /obj/item/clothing/suit/jacket/officer/tan
 	name = "security officer's jacket"

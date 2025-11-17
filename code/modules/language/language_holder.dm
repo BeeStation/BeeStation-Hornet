@@ -194,7 +194,7 @@ Key procs
 
 /// Copies all languages from the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/datum/language_holder/proc/copy_languages(var/datum/language_holder/from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=FALSE)
+/datum/language_holder/proc/copy_languages(datum/language_holder/from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=FALSE)
 	if(understood)
 		for(var/language in from_holder.understood_languages)
 			grant_language(language, UNDERSTOOD_LANGUAGE, source_override || from_holder.understood_languages[language]) // if you don't have 'source_override' argument, source from 'from_holder' will be used.

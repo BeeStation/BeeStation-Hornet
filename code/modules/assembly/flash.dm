@@ -90,6 +90,7 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	item_flags = ISWEAPON
+	custom_price = 20
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -431,7 +432,7 @@
 				M.confused += min(M.confused + 10, 20)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
-				M.apply_status_effect(/datum/status_effect/pacify, 100)
+				M.adjust_pacifism(10 SECONDS)
 
 
 
@@ -445,7 +446,7 @@
 		M.confused += min(M.confused + 4, 20)
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
-		M.apply_status_effect(/datum/status_effect/pacify, 40)
+		M.adjust_pacifism(4 SECONDS)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

@@ -508,7 +508,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "uQ" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "uY" = (
@@ -552,7 +552,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/leafybush,
-/obj/structure/window/shuttle,
+/obj/structure/window/reinforced/shuttle,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "wb" = (
@@ -1222,7 +1222,7 @@
 /area/shuttle/escape)
 "VT" = (
 /obj/structure/shuttle/engine/heater,
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Wh" = (

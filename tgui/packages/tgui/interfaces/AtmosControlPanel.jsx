@@ -12,14 +12,17 @@ export const AtmosControlPanel = (props) => {
       // Generate a unique id
       id: group.area + i,
     })),
-    (group) => group.id
+    (group) => group.id,
   );
   return (
     <Window title="SSAir Control Panel" width={900} height={500} resizable>
       <Section m={1}>
         <Flex justify="space-between" align="baseline">
           <Flex.Item>
-            <Button onClick={() => act('toggle-freeze')} color={data.frozen === 1 ? 'good' : 'bad'}>
+            <Button
+              onClick={() => act('toggle-freeze')}
+              color={data.frozen === 1 ? 'good' : 'bad'}
+            >
               {data.frozen === 1 ? 'Freeze Subsystem' : 'Unfreeze Subsystem'}
             </Button>
           </Flex.Item>
@@ -29,12 +32,18 @@ export const AtmosControlPanel = (props) => {
           <Flex.Item>Hotspots: {data.hotspots_size}</Flex.Item>
           <Flex.Item>Superconductors: {data.conducting_size}</Flex.Item>
           <Flex.Item>
-            <Button.Checkbox checked={data.showing_user} onClick={() => act('toggle_user_display')}>
+            <Button.Checkbox
+              checked={data.showing_user}
+              onClick={() => act('toggle_user_display')}
+            >
               Personal View
             </Button.Checkbox>
           </Flex.Item>
           <Flex.Item>
-            <Button.Checkbox checked={data.show_all} onClick={() => act('toggle_show_all')}>
+            <Button.Checkbox
+              checked={data.show_all}
+              onClick={() => act('toggle_show_all')}
+            >
               Display all
             </Button.Checkbox>
           </Flex.Item>
@@ -49,7 +58,9 @@ export const AtmosControlPanel = (props) => {
                 <Table.Cell collapsing>Breakdown</Table.Cell>
                 <Table.Cell collapsing>Dismantle</Table.Cell>
                 <Table.Cell collapsing>Turfs</Table.Cell>
-                <Table.Cell collapsing>{data.display_max === 1 && 'Max Share'}</Table.Cell>
+                <Table.Cell collapsing>
+                  {data.display_max === 1 && 'Max Share'}
+                </Table.Cell>
                 <Table.Cell collapsing>Display</Table.Cell>
               </Table.Row>
               {groups.map((group) => (

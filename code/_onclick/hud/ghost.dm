@@ -1,5 +1,6 @@
 /atom/movable/screen/ghost
 	icon = 'icons/hud/screen_ghost.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/ghost/MouseEntered()
 	..()
@@ -57,6 +58,22 @@
 	name = "Spawners Menu"
 	icon_state = "spawners_menu"
 
+/atom/movable/screen/ghost/respawn
+	name = "Respawn"
+	icon_state = "respawn"
+
+/atom/movable/screen/ghost/respawn/Click()
+	var/mob/dead/observer/G = usr
+	G.abandon_mob()
+
+/atom/movable/screen/ghost/respawn/update_icon_state(mob/dead/observer/mymob)
+	if(mymob)
+		if(mymob.respawn_available)
+			icon_state = "respawn_available"
+		else
+			icon_state = "respawn"
+	return ..()
+
 /atom/movable/screen/ghost/spawners_menu/Click()
 	var/mob/dead/observer/G = usr
 	G.open_spawners_menu()
@@ -65,45 +82,41 @@
 	..()
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/ghost/observe()
+	using = new /atom/movable/screen/ghost/observe(null, src)
 	using.screen_loc = ui_ghost_observe
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/jumptomob()
+	using = new /atom/movable/screen/ghost/jumptomob(null, src)
 	using.screen_loc = ui_ghost_jumptomob
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/orbit()
+	using = new /atom/movable/screen/ghost/orbit(null, src)
 	using.screen_loc = ui_ghost_orbit
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/reenter_corpse()
+	using = new /atom/movable/screen/ghost/reenter_corpse(null, src)
 	using.screen_loc = ui_ghost_reenter_corpse
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/teleport()
+	using = new /atom/movable/screen/ghost/respawn(null, src)
+	using.screen_loc = ui_ghost_respawn
+	static_inventory += using
+
+	using = new /atom/movable/screen/ghost/teleport(null, src)
 	using.screen_loc = ui_ghost_teleport
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/pai()
+	using = new /atom/movable/screen/ghost/pai(null, src)
 	using.screen_loc = ui_ghost_pai
-	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/spawners_menu()
+	using = new /atom/movable/screen/ghost/spawners_menu(null, src)
 	using.screen_loc = ui_ghost_spawners_menu
-	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/language_menu
 	using.icon = ui_style
 	using.screen_loc = ui_ghost_language_menu
-	using.hud = src
 	static_inventory += using
 
 /datum/hud/ghost/show_hud(version = 0, mob/viewmob)

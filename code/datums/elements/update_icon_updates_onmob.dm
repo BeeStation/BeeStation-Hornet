@@ -13,6 +13,6 @@
 	if(ismob(target.loc))
 		var/mob/M = target.loc
 		if(M.is_holding(target))
-			M.update_inv_hands()
+			M.update_held_items()
 		else
 			M.regenerate_icons() //yeah this is shit, but we don't know which update_foo() proc to call instead so we'll call them all

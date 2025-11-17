@@ -147,7 +147,7 @@
 	var/turf/caster_turf = get_turf(owner)
 	if((spell_requirements & SPELL_REQUIRES_OFF_CENTCOM) && is_centcom_level(caster_turf.z))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You can't cast [src] here!</span>"))
+			to_chat(owner, span_warning("You can't cast [src] here!"))
 		return FALSE
 
 	if((spell_requirements & SPELL_REQUIRES_MIND) && !owner.mind)
@@ -157,19 +157,19 @@
 	if((spell_requirements & SPELL_REQUIRES_MIME_VOW) && !owner.mind?.miming)
 		// In the future this can be moved out of spell checks exactly
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You must dedicate yourself to silence first!</span>"))
+			to_chat(owner, span_warning("You must dedicate yourself to silence first!"))
 		return FALSE
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
 	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !owner.can_cast_magic(antimagic_flags))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>Some form of antimagic is preventing you from casting [src]!</span>"))
+			to_chat(owner, span_warning("Some form of antimagic is preventing you from casting [src]!"))
 		return FALSE
 
 	if(!(spell_requirements & SPELL_CASTABLE_WHILE_PHASED) && HAS_TRAIT(owner, TRAIT_MAGICALLY_PHASED))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>[src] cannot be cast unless you are completely manifested in the material plane!</span>"))
+			to_chat(owner, span_warning("[src] cannot be cast unless you are completely manifested in the material plane!"))
 		return FALSE
 
 	if(!can_invoke(feedback = feedback))
@@ -191,12 +191,12 @@
 		// If the spell requires wizard equipment and we're not a human (can't wear robes or hats), that's just a given
 		if(spell_requirements & (SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_HUMAN))
 			if(feedback)
-				to_chat(owner, ("<span class='warning'>[src] can only be cast by humans!</span>"))
+				to_chat(owner, span_warning("[src] can only be cast by humans!"))
 			return FALSE
 
 		if(!(spell_requirements & SPELL_CASTABLE_AS_BRAIN) && isbrain(owner))
 			if(feedback)
-				to_chat(owner, ("<span class='warning'>[src] can't be cast in this state!</span>"))
+				to_chat(owner, span_warning("[src] can't be cast in this state!"))
 			return FALSE
 
 		// Being put into a card form breaks a lot of spells, so we'll just forbid them in these states
@@ -347,18 +347,18 @@
 	// If you want a spell usable by ghosts for some reason, it must be INVOCATION_NONE
 	if(!isliving(owner))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You need to be living to invoke [src]!</span>"))
+			to_chat(owner, span_warning("You need to be living to invoke [src]!"))
 		return FALSE
 
 	var/mob/living/living_owner = owner
 	if(invocation_type == INVOCATION_EMOTE && HAS_TRAIT(living_owner, TRAIT_EMOTEMUTE))
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You can't position your hands correctly to invoke [src]!</span>"))
+			to_chat(owner, span_warning("You can't position your hands correctly to invoke [src]!"))
 		return FALSE
 
 	if((invocation_type == INVOCATION_WHISPER || invocation_type == INVOCATION_SHOUT) && !living_owner.can_speak_vocal())
 		if(feedback)
-			to_chat(owner, ("<span class='warning'>You can't get the words out to invoke [src]!</span>"))
+			to_chat(owner, span_warning("You can't get the words out to invoke [src]!"))
 		return FALSE
 
 	return TRUE

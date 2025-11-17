@@ -471,9 +471,9 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		return
 	qdel(src)
 
-/obj/machinery/nuclearbomb/tesla_act(power, tesla_flags)
-	..()
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/nuclearbomb/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
@@ -672,9 +672,6 @@ This is here to make the tiles around the station mininuke change when it's arme
 		AddElement(/datum/element/point_of_interest)
 		last_disk_move = world.time
 		START_PROCESSING(SSobj, src)
-
-/obj/item/disk/nuclear/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/stationloving, !fake)
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.

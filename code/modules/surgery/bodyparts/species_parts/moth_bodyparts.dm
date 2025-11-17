@@ -9,20 +9,20 @@
 	is_dimorphic = TRUE
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/l_arm/moth
+/obj/item/bodypart/arm/left/moth
 	icon_static = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
-/obj/item/bodypart/r_arm/moth
+/obj/item/bodypart/arm/right/moth
 	icon_static = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
-/obj/item/bodypart/l_leg/moth
+/obj/item/bodypart/leg/left/moth
 	icon_static = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE
 
-/obj/item/bodypart/r_leg/moth
+/obj/item/bodypart/leg/right/moth
 	icon_static = 'icons/mob/species/moth/bodyparts.dmi'
 	limb_id = SPECIES_MOTH
 	should_draw_greyscale = FALSE

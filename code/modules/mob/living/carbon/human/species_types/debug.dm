@@ -5,7 +5,7 @@
 	changesource_flags = MIRROR_BADMIN
 	sexes = 0
 
-/datum/species/debug/get_custom_icons(var/part)
+/datum/species/debug/get_custom_icons(part)
 	switch(part)
 		if("uniform")
 			return 'icons/mob/species/debug/debug_all.dmi'

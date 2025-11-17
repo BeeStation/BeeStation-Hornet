@@ -171,7 +171,7 @@
 	return TRUE
 
 /datum/record/crew/proc/delete_medical_note(note_ref)
-	var/datum/medical_note/old_note = note_ref
+	var/datum/medical_note/old_note = locate(note_ref) in medical_notes
 	if(isnull(old_note))
 		return FALSE
 

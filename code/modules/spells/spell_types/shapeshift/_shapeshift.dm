@@ -1,3 +1,6 @@
+/// Helper for checking of someone's shapeshifted currently.
+#define is_shifted(mob) mob.has_status_effect(/datum/status_effect/shapechange_mob/from_spell)
+
 /**
  * Shapeshift spells.
  *
@@ -26,6 +29,10 @@
 	/// All possible types we can become.
 	/// This should be implemented even if there is only one choice.
 	var/list/atom/possible_shapes
+
+/datum/action/spell/shapeshift/Remove(mob/remove_from)
+	unshift_owner()
+	return ..()
 
 /datum/action/spell/shapeshift/is_valid_spell(mob/user, atom/target)
 	return isliving(user)
@@ -174,3 +181,12 @@
 /// Returns an instance of a living mob. Can be overridden.
 /datum/action/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
 	return new shapeshift_type(loc)
+
+/// Removes an active shapeshift effect from the owner
+/datum/action/spell/shapeshift/proc/unshift_owner()
+	if (isnull(owner))
+		return
+	if (is_shifted(owner))
+		do_unshapeshift(owner)
+
+#undef is_shifted

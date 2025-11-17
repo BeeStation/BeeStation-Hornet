@@ -10,6 +10,9 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
+	species_allowed = list(
+		/datum/species/lizard,
+	)
 
 /datum/mutation/firebreath/modify()
 	. = ..()

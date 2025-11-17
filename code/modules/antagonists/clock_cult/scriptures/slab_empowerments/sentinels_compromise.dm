@@ -25,7 +25,7 @@
 			to_chat(clicker, ("<span class='inathneq'>\"[L] does not yet serve Ratvar.\"</span>"))
 			return TRUE
 		if(L.stat == DEAD)
-			to_chat(clicker, ("<span class='inathneq'>\"[L.p_theyre(TRUE)] dead. [text2ratvar("Oh, child. To have your life cut short...")]\"</span>"))
+			to_chat(clicker, ("<span class='inathneq'>\"[L.p_Theyre()] dead. [text2ratvar("Oh, child. To have your life cut short...")]\"</span>"))
 			return TRUE
 
 		var/brutedamage = L.getBruteLoss()

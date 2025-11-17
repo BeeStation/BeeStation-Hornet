@@ -5,7 +5,7 @@
 
 ///Eradication lock - Prevents people who aren't the owner of the suit from existing on the timeline via eradicating the suit with the intruder inside
 /obj/item/mod/module/eradication_lock
-	name = "MOD eradication lock module"
+	name = "\improper MOD eradication lock module"
 	desc = "A module which remembers the original owner of the suit, even alternate universe \
 			versions. When a non-owner enters, the eradication lock will begin eradicating the suit \
 			from the timeline... with the intruder inside. Not the way you want to go, so it turns \
@@ -52,7 +52,7 @@
 
 ///Rewinder - Activating saves a point in time, after 10 seconds you will jump back to that state.
 /obj/item/mod/module/rewinder
-	name = "MOD rewinder module"
+	name = "\improper MOD rewinder module"
 	desc = "A module that can pull the user back through time given an anchor point to \
 			pull to. Very useful tool to get the job done, but keep in mind the suit locks for \
 			safety reasons while preparing a rewind."
@@ -93,7 +93,7 @@
 
 ///timestopper - Need I really explain? It's the wizard's time stop, but the user channels it by not moving instead of a duration.
 /obj/item/mod/module/timestopper
-	name = "MOD timestopper module"
+	name = "\improper MOD timestopper module"
 	desc = "A module that can halt time in a small radius around the user... for as long as they \
 			want! Great for monologues or lunch breaks. Keep in mind moving will end the stop, and the \
 			module has a hefty cooldown period to avoid reality errors."
@@ -143,7 +143,7 @@
 
 ///timeline jumper - Infinite phasing. needs some special effects
 /obj/item/mod/module/timeline_jumper
-	name = "MOD timeline jumper module"
+	name = "\improper MOD timeline jumper module"
 	desc = "A module used to traverse timelines, phasing the user in and out of the stream of events."
 	icon_state = "timeline_jumper"
 	module_type = MODULE_USABLE
@@ -197,7 +197,7 @@
 
 ///TEM - Lets you eradicate people.
 /obj/item/mod/module/tem
-	name = "MOD timestream eradication module"
+	name = "\improper MOD timestream eradication module"
 	desc = "The correction device of a fourth dimensional group outside time itself used to \
 			change the destination of a timeline. this device is capable of wiping a being from the \
 			timestream. They never are, they never were, they never will be."
@@ -373,6 +373,10 @@
 		qdel(src)
 	else if(timetokill <= 0)
 		to_chat(captured, span_notice("As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy..."))
+
+		for(var/mob/M in GLOB.player_list)
+			to_chat(M, span_notice("As the last vestiges of their being are erased from time, all memories of [captured.real_name] that you might have had fade from your mind!"))
+
 		var/mob/dead/observer/ghost = captured.ghostize(can_reenter_corpse = TRUE)
 		if(captured.mind)
 			if(ghost)

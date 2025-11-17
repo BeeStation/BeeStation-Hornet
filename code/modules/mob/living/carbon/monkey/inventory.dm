@@ -45,7 +45,7 @@
 		if(ITEM_SLOT_ICLOTHING)
 			w_uniform = I
 			update_suit_sensors()
-			update_inv_w_uniform()
+			update_worn_undersuit()
 		else
 			to_chat(src, span_danger("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
 
@@ -78,4 +78,4 @@
 	if(I == w_uniform)
 		w_uniform = null
 		if(!QDELETED(src))
-			update_inv_w_uniform()
+			update_worn_undersuit()

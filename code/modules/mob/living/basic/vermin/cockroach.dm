@@ -4,7 +4,7 @@
 	icon_state = "cockroach"
 	icon_dead = "cockroach" //Make this work
 	density = FALSE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_TINY
 	health = 1
 	maxHealth = 1
@@ -53,7 +53,8 @@
 
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()
+		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic(),
+		BB_PET_TARGETTING_DATUM = new /datum/targetting_datum/basic/not_friends,
 	)
 
 	ai_traits = STOP_MOVING_WHEN_PULLED

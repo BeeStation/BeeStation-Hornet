@@ -1,5 +1,14 @@
 /** Radio channels */
-export const CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC', 'Asay', 'Dsay', 'Msay'];
+export const CHANNELS = [
+  'Say',
+  'Radio',
+  'Me',
+  'OOC',
+  'LOOC',
+  'Asay',
+  'Dsay',
+  'Msay',
+];
 export const CYCLEABLE_CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC'];
 export const NO_RADIO_CHANNELS = ['Me', 'OOC', 'LOOC'];
 

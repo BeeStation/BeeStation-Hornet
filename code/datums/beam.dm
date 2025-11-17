@@ -187,7 +187,6 @@
 	var/emissive = TRUE
 	var/datum/beam/owner
 
-
 /obj/effect/ebeam/Initialize(mapload, beam_owner)
 	owner = beam_owner
 	return ..()

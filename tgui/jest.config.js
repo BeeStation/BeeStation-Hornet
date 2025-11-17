@@ -1,6 +1,9 @@
 module.exports = {
   roots: ['<rootDir>/packages'],
-  testMatch: ['<rootDir>/packages/**/__tests__/*.{js,jsx,ts,tsx}', '<rootDir>/packages/**/*.{spec,test}.{js,jsx,ts,tsx}'],
+  testMatch: [
+    '<rootDir>/packages/**/__tests__/*.{js,jsx,ts,tsx}',
+    '<rootDir>/packages/**/*.{spec,test}.{js,jsx,ts,tsx}',
+  ],
   testPathIgnorePatterns: ['<rootDir>/packages/tgui-bench'],
   testEnvironment: 'jsdom',
   testRunner: require.resolve('jest-circus/runner'),

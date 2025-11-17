@@ -200,7 +200,6 @@
 	energy = 50
 	bomb = 70
 	bio = 50
-	rad = 50
 	fire = 60
 	acid = 60
 	stamina = 60
@@ -324,7 +323,7 @@
 
 
 
-/obj/item/clothing/head/chaplain/graverobber_hat
+/obj/item/clothing/head/helmet/chaplain/graverobber_hat
 	name = "grave robber hat"
 	desc = "A tattered leather hat. It reeks of death."
 	icon_state = "graverobber_hat"

@@ -1,6 +1,7 @@
+import '../styles/VirusReadme.scss';
+
 import { NtosWindow } from '../layouts';
 import { VirusHeader } from './VirusHeader';
-import '../styles/VirusReadme.scss';
 
 // Static header always visible
 const header = String.raw`

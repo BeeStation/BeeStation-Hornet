@@ -9,7 +9,7 @@
 	var/clockwork_desc = "A fabled artifact from beyond the stars. Contains concentrated meme essence." //Shown to clockwork cultists instead of the normal description
 
 /obj/item/clockwork/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	. = list("[examine_title(user, TRUE)].")
 
 	if(IS_SERVANT_OF_RATVAR(user) && clockwork_desc)
 		. += clockwork_desc

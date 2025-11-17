@@ -1,7 +1,9 @@
-/// A Brujah exclusive ability that acts as an enhanced version of "Brawn"
-/// 'bloodcost' and 'cooldown_time' vary depending on what the power is used for.
-/// Lots of code has been copied over from Brawn wherever inheritance might prove insufficient.
-/// Comments from copied code have been removed (they can still be found in their original location.)
+/**
+ * A Brujah exclusive ability that acts as an enhanced version of "Brawn"
+ * 'bloodcost' and 'cooldown_time' vary depending on what the power is used for.
+ * Lots of code has been copied over from Brawn wherever inheritance might prove insufficient.
+ * Comments from copied code have been removed (they can still be found in their original location.)
+**/
 
 /datum/action/vampire/targeted/brawn/brash
 	name = "Brash"

@@ -1,6 +1,6 @@
 ///MOD module - A special device installed in a MODsuit allowing the suit to do new stuff.
 /obj/item/mod/module
-	name = "MOD module"
+	name = "\improper MOD module"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
 	/// If it can be removed
@@ -136,6 +136,8 @@
 		applied_cooldown = cooldown_time
 	COOLDOWN_START(src, cooldown_timer, applied_cooldown)
 	SEND_SIGNAL(src, COMSIG_MODULE_COOLDOWN_STARTED, applied_cooldown)
+	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), applied_cooldown+1) //need to run it a bit after the cooldown starts to avoid conflicts
+	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_action_buttons)), applied_cooldown+1) //need to run it a bit after the cooldown starts to avoid conflicts
 
 /// Called when the module is activated
 /obj/item/mod/module/proc/activate()
@@ -207,7 +209,6 @@
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
 		return FALSE
 	start_cooldown()
-	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
 	mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_USED)
 	on_use()
@@ -406,7 +407,7 @@
 
 ///Anomaly Locked - Causes the module to not function without an anomaly.
 /obj/item/mod/module/anomaly_locked
-	name = "MOD anomaly locked module"
+	name = "\improper MOD anomaly locked module"
 	desc = "A form of a module, locked behind an anomalous core to function."
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked)
 	/// The core item the module runs off.

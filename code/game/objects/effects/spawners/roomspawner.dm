@@ -40,7 +40,9 @@
 			candidate = null
 			continue
 		possibletemplates[candidate] = candidate.weight
-	if(possibletemplates.len)
+	if(!length(possibletemplates))
+		stack_trace("Failed to find a valid random room / Room Info - height: [room_height], width: [room_width], name: [name]")
+	else
 		var/datum/map_template/random_room/template = pick_weight(possibletemplates)
 		template.stock --
 		template.weight = (template.weight / 2)

@@ -56,13 +56,9 @@
 	var/datum/martial_art/martial_art = null
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
-	var/hellbound = FALSE
 	var/list/antag_datums
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
-	var/damnation_type = 0
-	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
-	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
 	var/holy_role = NONE //is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
 	var/isAntagTarget = FALSE
 	var/no_cloning_at_all = FALSE
@@ -94,20 +90,18 @@
 	/// What color our soul is
 	var/soul_glimmer
 
-/datum/mind/New(var/key)
+/datum/mind/New(key)
 	src.key = key
 	var/client/found_client = GLOB.directory[ckey(key)]
 	if(found_client)
 		src.display_name = found_client.display_name()
 		src.display_name_chat = found_client.display_name_chat()
-	soulOwner = src
 	martial_art = default_martial_art
 	setup_soul_glimmer()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
 	QDEL_LIST(antag_datums)
-	soulOwner = null
 	set_current(null)
 	return ..()
 
@@ -124,7 +118,7 @@
 	SIGNAL_HANDLER
 	set_current(null)
 
-/datum/mind/proc/transfer_to(mob/new_character, var/force_key_move = 0)
+/datum/mind/proc/transfer_to(mob/new_character, force_key_move = 0)
 	if(current)	// remove ourself from our old body's mind variable
 		current.mind = null
 		UnregisterSignal(current, COMSIG_MOB_DEATH)
@@ -629,9 +623,6 @@
 /datum/mind/proc/take_uplink()
 	qdel(find_syndicate_uplink())
 
-/datum/mind/proc/owns_soul()
-	return soulOwner == src
-
 /datum/mind/proc/transfer_martial_arts(mob/living/new_character)
 	if(!ishuman(new_character))
 		return
@@ -671,7 +662,7 @@
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = 1		//indicates that the mind is currently synced with a client
 
-/datum/mind/proc/has_martialart(var/string)
+/datum/mind/proc/has_martialart(string)
 	if(martial_art && martial_art.id == string)
 		return martial_art
 	return FALSE

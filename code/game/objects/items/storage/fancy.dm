@@ -75,7 +75,7 @@
 	icon = 'icons/obj/food/donuts.dmi'
 	icon_state = "donutbox"
 	base_icon_state = "donutbox"
-	spawn_type = /obj/item/food/donut/premade
+	spawn_type = /obj/item/food/donut/plain
 	spawn_count = 6
 	appearance_flags = KEEP_TOGETHER|LONG_GLIDE
 	contents_tag = "donut"
@@ -171,6 +171,7 @@
 	spawn_type = /obj/item/clothing/mask/cigarette/space_cigarette
 	spawn_count = 6
 	contents_tag = "cigarette"
+	custom_price = 15
 	//Special handling for cig overlays
 	var/display_cigs = TRUE
 
@@ -279,6 +280,7 @@
 	icon_state = "carp"
 	base_icon_state = "carp"
 	spawn_type = /obj/item/clothing/mask/cigarette/carp
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	name = "cigarette packet"
@@ -286,6 +288,7 @@
 	icon_state = "syndie"
 	base_icon_state = "syndie"
 	spawn_type = /obj/item/clothing/mask/cigarette/syndicate
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
@@ -293,6 +296,7 @@
 	icon_state = "midori"
 	base_icon_state = "midori"
 	spawn_type = /obj/item/clothing/mask/cigarette/rollie/nicotine
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name = "\improper Shady Jim's Super Slims packet"
@@ -300,6 +304,7 @@
 	icon_state = "shadyjim"
 	base_icon_state = "shadyjim"
 	spawn_type = /obj/item/clothing/mask/cigarette/shadyjims
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/storage/fancy/cigarettes/cigpack_xeno
 	name = "\improper Xeno Filtered packet"
@@ -332,6 +337,7 @@
 	contents_tag = "rolling paper"
 	spawn_count = 10
 	spawn_type = /obj/item/rollingpaper
+	custom_price = 15
 
 /obj/item/storage/fancy/rollingpapers/Initialize(mapload)
 	. = ..()

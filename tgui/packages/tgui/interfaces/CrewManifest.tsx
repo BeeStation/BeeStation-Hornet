@@ -1,7 +1,15 @@
-import { sortBy } from '../../common/collections';
 import { classes } from 'common/react';
+
+import { sortBy } from '../../common/collections';
 import { useBackend } from '../backend';
-import { Box, Icon, CollapsibleSection, Table, Tooltip, Flex } from '../components';
+import {
+  Box,
+  CollapsibleSection,
+  Flex,
+  Icon,
+  Table,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 
 type DepartmentCrew = { [department: string]: ManifestEntry[] };
@@ -50,19 +58,33 @@ export const CrewManifest = (_props) => {
     <Window title="Crew Manifest" width={450} height={500} theme={user_theme}>
       <Window.Content scrollable>
         {Object.entries(manifest).map(([dept, crew]) => {
-          const sorted_jobs = dept === command.dept ? sortSpecific(crew, command.order) : sortSpecific(crew, order);
+          const sorted_jobs =
+            dept === command.dept
+              ? sortSpecific(crew, command.order)
+              : sortSpecific(crew, order);
           return (
             <CollapsibleSection
               className={classes(['CrewManifest', `CrewManifest--${dept}`])}
               key={dept}
               sectionKey={dept}
-              title={dept}>
+              title={dept}
+            >
               <Table>
                 {Object.entries(sorted_jobs).map(([crewIndex, crewMember]) => {
-                  const is_command = command.huds.includes(crewMember.hud) || command.jobs.includes(crewMember.rank);
+                  const is_command =
+                    command.huds.includes(crewMember.hud) ||
+                    command.jobs.includes(crewMember.rank);
                   return (
-                    <Table.Row key={crewIndex} className="candystripe" height="16px">
-                      <Table.Cell className={'CrewManifest__Cell'} bold={is_command} pl={0.5}>
+                    <Table.Row
+                      key={crewIndex}
+                      className="candystripe"
+                      height="16px"
+                    >
+                      <Table.Cell
+                        className={'CrewManifest__Cell'}
+                        bold={is_command}
+                        pl={0.5}
+                      >
                         <Flex direction="row" style={{ alignItems: 'center' }}>
                           <Flex.Item>
                             <Box
@@ -76,7 +98,14 @@ export const CrewManifest = (_props) => {
                           <Flex.Item grow>{crewMember.name}</Flex.Item>
                         </Flex>
                       </Table.Cell>
-                      <Table.Cell className={classes(['CrewManifest__Cell', 'CrewManifest__Cell--Rank'])} collapsing pr={1}>
+                      <Table.Cell
+                        className={classes([
+                          'CrewManifest__Cell',
+                          'CrewManifest__Cell--Rank',
+                        ])}
+                        collapsing
+                        pr={1}
+                      >
                         {is_command && (
                           <Tooltip content="Head of Staff" position="bottom">
                             <Icon

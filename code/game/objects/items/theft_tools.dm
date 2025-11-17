@@ -9,12 +9,13 @@
 	desc = "Extremely radioactive. Wear goggles."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "plutonium_core"
+	base_icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
+
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	layer = ABOVE_MOB_LAYER
-	var/pulse = 0
-	var/cooldown = 0
-	var/pulseicon = "plutonium_core_pulse"
+
+	COOLDOWN_DECLARE(pulse_cooldown)
 
 /obj/item/nuke_core/Initialize(mapload)
 	. = ..()
@@ -30,11 +31,13 @@
 	else
 		return ..()
 
-/obj/item/nuke_core/process()
-	if(cooldown < world.time - 60)
-		cooldown = world.time
-		flick(pulseicon, src)
-		radiation_pulse(src, 400, 2)
+/obj/item/nuke_core/process(delta_time)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, pulse_cooldown))
+		COOLDOWN_START(src, pulse_cooldown, 6 SECONDS)
+
+		flick("[base_icon_state]_pulse", src)
+		radiation_pulse(src, max_range = 2, threshold = RAD_EXTREME_INSULATION, intensity = 10)
 
 /obj/item/nuke_core/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -124,8 +127,8 @@
 	name = "supermatter sliver"
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
+	base_icon_state = "supermatter_sliver"
 	item_state = "supermattersliver"
-	pulseicon = "supermatter_sliver_pulse"
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return
@@ -133,9 +136,9 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/hemostat/supermatter))
-		var/obj/item/hemostat/supermatter/tongs = W
+/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(istype(attacking_item, /obj/item/hemostat/supermatter))
+		var/obj/item/hemostat/supermatter/tongs = attacking_item
 		if (tongs.sliver)
 			to_chat(user, span_notice("\The [tongs] is already holding a supermatter sliver!"))
 			return FALSE
@@ -143,13 +146,13 @@
 		tongs.sliver = src
 		tongs.update_icon()
 		to_chat(user, span_notice("You carefully pick up [src] with [tongs]."))
-	else if(istype(W, /obj/item/scalpel/supermatter) || istype(W, /obj/item/nuke_core_container/supermatter/)) // we don't want it to dust
+	else if(istype(attacking_item, /obj/item/scalpel/supermatter) || istype(attacking_item, /obj/item/nuke_core_container/supermatter/)) // we don't want it to dust
 		return
 	else
-		to_chat(user, span_notice("As it touches \the [src], both \the [src] and \the [W] burst into dust!"))
-		radiation_pulse(user, 100)
+		to_chat(user, span_notice("As it touches \the [src], both \the [src] and \the [attacking_item] burst into dust!"))
+		radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, intensity = 25)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
-		qdel(W)
+		qdel(attacking_item)
 		qdel(src)
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
@@ -160,7 +163,7 @@
 	user.visible_message(span_danger("[victim] reaches out and tries to pick up [src]. [victim.p_their()] body starts to glow and bursts into flames before flashing into dust!"),\
 			span_userdanger("You reach for [src] with your hands. That was dumb."),\
 			span_italics("Everything suddenly goes silent."))
-	radiation_pulse(user, 500, 2)
+	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, intensity = 25)
 	playsound(get_turf(user), 'sound/effects/supermatter.ogg', 50, 1)
 	victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 	victim.dust()
@@ -264,7 +267,7 @@
 			span_italics("Everything suddenly goes silent."))
 		user.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		user.dust()
-	radiation_pulse(src, 500, 2)
+	radiation_pulse(user, max_range = 2, threshold = RAD_EXTREME_INSULATION, intensity = 25)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, 1)
 	QDEL_NULL(sliver)
 	update_icon()

@@ -7,7 +7,7 @@
 	combat_mode = TRUE
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	mob_biotypes = list(MOB_ORGANIC, MOB_EPIC)
+	mob_biotypes = MOB_ORGANIC | MOB_SPECIAL
 	obj_damage = 400
 	light_range = 3
 	faction = list(FACTION_MINING, FACTION_BOSS)
@@ -73,7 +73,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/death(gibbed, var/list/force_grant)
+/mob/living/simple_animal/hostile/megafauna/death(gibbed, list/force_grant)
 	if(health > 0)
 		return
 	else
@@ -131,7 +131,7 @@
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill, var/list/grant_achievement = list())
+/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill, list/grant_achievement = list())
 	if(!achievement_type || (flags_1 & ADMIN_SPAWNED_1) || !SSachievements.achievements_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
 	if(!grant_achievement.len)

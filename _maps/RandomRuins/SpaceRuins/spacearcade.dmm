@@ -22,7 +22,7 @@
 /turf/open/floor/eighties,
 /area/ruin/space/has_grav/powered)
 "h" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/eighties,
 /area/ruin/space/has_grav/powered)
 "i" = (

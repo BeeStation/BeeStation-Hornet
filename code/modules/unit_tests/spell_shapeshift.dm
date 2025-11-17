@@ -1,6 +1,5 @@
 /**
- * Validates that all shapeshift type spells
- * have a valid possible_shapes setup.
+ * Validates that all shapeshift type spells have a valid possible_shapes setup.
  */
 /datum/unit_test/shapeshift_spell_validity
 

@@ -60,6 +60,8 @@
 	desc = "They carry the voice of an ancient god."
 	icon_state = "voice_of_god"
 	actions_types = list(/datum/action/item_action/organ_action/colossus)
+	custom_price = 40000
+	max_demand = 2
 	var/next_command = 0
 	var/cooldown_mod = 1
 	var/base_multiplier = 1
@@ -283,8 +285,15 @@
 	//HALLUCINATE
 	else if((findtext(message, hallucinate_words)))
 		cooldown = COOLDOWN_MEME
-		for(var/mob/living/carbon/C in listeners)
-			new /datum/hallucination/delusion(C, TRUE, null,150 * power_multiplier,0)
+		for(var/mob/living/target in listeners)
+			target.cause_hallucination( \
+				get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), \
+				"voice of god", \
+				duration = 15 SECONDS * power_multiplier, \
+				affects_us = FALSE, \
+				affects_others = TRUE, \
+				skip_nearby = FALSE, \
+			)
 
 	//WAKE UP
 	else if((findtext(message, wakeup_words)))

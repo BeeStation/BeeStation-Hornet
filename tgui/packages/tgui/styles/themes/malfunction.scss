@@ -7,13 +7,13 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: hsl(0.0, 98.6%, 28.6%),
+  $primary: hsl(0, 98.6%, 28.6%),
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
 @use '../base.scss' with (
   $color-bg: hsl(202.5, 42.6%, 18.4%),
-  $color-bg-grad-spread: 6%,
+  $color-bg-grad-spread: 6%
 );
 
 .theme-malfunction {
@@ -31,17 +31,35 @@
       'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': hsl(0, 98.6%, 28.6%)));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': hsl(203.6, 54%, 22.2%)));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': hsl(0, 98.6%, 28.6%)));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(0, 98.6%, 28.6%))
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': hsl(203.6, 54%, 22.2%))
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': hsl(0, 98.6%, 28.6%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(204.3, 54.5%, 30.2%)));
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(204.3, 54.5%, 30.2%))
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': hsl(203.6, 54%, 22.2%)));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(203.6, 54%, 22.2%))
+  );
 
   .Layout__content {
     background-image: none;

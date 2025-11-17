@@ -69,7 +69,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.head == src)
-			H.update_inv_head()
+			H.update_worn_head()
 
 /obj/item/clothing/head/wig/update_icon()
 	cut_overlays()
@@ -137,7 +137,7 @@
 	. = ..()
 	if(ishuman(user) && (slot == ITEM_SLOT_HEAD || slot == ITEM_SLOT_NECK))
 		update_icon(ALL, user)
-		user.update_inv_head() //Color might have been changed by update_appearance.
+		user.update_worn_head() //Color might have been changed by update_appearance.
 	..()
 
 /obj/item/clothing/head/kitty/update_icon(updates=ALL, mob/living/carbon/human/user)

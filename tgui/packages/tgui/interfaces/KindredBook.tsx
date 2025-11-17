@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Collapsible, Table, Section } from '../components';
+import { Collapsible, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -20,8 +20,9 @@ export const KindredBook = (props) => {
         <Section title="Vampire Clans">
           <Table mb={2}>
             <Table.Row>
-              Written by generations of Curators, this holds all information we the Curators know about the undead threat that
-              looms the station...
+              Written by generations of Curators, this holds all information we
+              the Curators know about the undead threat that looms the
+              station...
             </Table.Row>
             <Table.Row>So, what Clan are you interested in?</Table.Row>
           </Table>

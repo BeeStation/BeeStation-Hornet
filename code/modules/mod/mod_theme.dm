@@ -227,7 +227,6 @@
 	laser = 5
 	energy = 5
 	bio = 50
-	rad = 5
 	fire = 25
 	acid = 25
 	bleed = 10
@@ -293,7 +292,6 @@
 	laser = 10
 	energy = 10
 	bomb = 10
-	rad = 75 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
 	acid = 50
@@ -318,6 +316,7 @@
 		/obj/item/t_scanner,
 		/obj/item/construction/rcd,
 		/obj/item/pipe_dispenser,
+		/obj/item/extinguisher,
 	)
 	variants = list(
 		"atmospheric" = list(
@@ -362,7 +361,6 @@
 	laser = 10
 	energy = 15
 	bomb = 10
-	rad = 25 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
 	acid = 75
@@ -434,7 +432,6 @@
 	laser = 20
 	energy = 15
 	bomb = 50
-	rad = 100 //taken from hardsuits, not long-term solution
 	bio = 100
 	fire = 100
 	acid = 90
@@ -579,7 +576,7 @@
 	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/mail,
-		/obj/item/small_delivery,
+		/obj/item/delivery/small,
 		/obj/item/paper,
 		/obj/item/storage/backpack/satchel/mail,
 	)
@@ -951,7 +948,6 @@
 	energy = 25
 	bomb = 25
 	bio = 100
-	rad = 30
 	fire = 75
 	acid = 75
 	stamina = 25
@@ -1021,7 +1017,6 @@
 	energy = 25
 	bomb = 40
 	bio = 100
-	rad = 40
 	fire = 100
 	acid = 95
 	stamina = 30
@@ -1271,7 +1266,6 @@
 	energy = 30
 	bomb = 35
 	bio = 100
-	rad = 40
 	fire = 50
 	acid = 90
 	stamina = 30
@@ -1345,7 +1339,6 @@
 	energy = 35
 	bomb = 55
 	bio = 100
-	rad = 65
 	fire = 100
 	acid = 100
 	stamina = 45
@@ -1420,7 +1413,6 @@
 	laser = 40
 	energy = 40
 	bomb = 40
-	rad = 75
 	fire = 100
 	acid = 100
 	stamina = 40
@@ -1444,9 +1436,23 @@
 	ui_theme = "wizard"
 	inbuilt_modules = list(/obj/item/mod/module/anti_magic/wizard)
 	allowed_suit_storage = list(
-		/obj/item/teleportation_scroll,
-		//obj/item/highfrequencyblade/wizard,
+		/obj/item/staff,
 		/obj/item/gun/magic,
+		/obj/item/singularityhammer,
+		/obj/item/mjolnir,
+		/obj/item/wizard_armour_charge,
+		/obj/item/spellbook,
+		/obj/item/scrying,
+		/obj/item/camera/rewind,
+		/obj/item/soulstone,
+		/obj/item/holoparasite_creator/wizard,
+		/obj/item/antag_spawner/contract,
+		/obj/item/antag_spawner/slaughter_demon,
+		/obj/item/warpwhistle,
+		/obj/item/necromantic_stone,
+		/obj/item/clothing/gloves/translocation_ring,
+		/obj/item/clothing/glasses/red/wizard,
+		/obj/item/tank/internals,
 	)
 	variants = list(
 		"enchanted" = list(
@@ -1489,7 +1495,6 @@
 	energy = 50
 	bomb = 35
 	bio = 100
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 50
@@ -1554,16 +1559,15 @@
 	)
 
 /datum/armor/mod_theme_ninja
-	melee = 40
+	melee = 10
 	bullet = 30
-	laser = 20
+	laser = 30
 	energy = 30
-	bomb = 30
+	bomb = 70
 	bio = 100
-	rad = 60
 	fire = 100
 	acid = 100
-	bleed = 50
+	bleed = 60
 
 /datum/mod_theme/prototype
 	name = "prototype"
@@ -1583,7 +1587,7 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_deployed = 0.75
 	ui_theme = "hackerman"
-	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis)
+	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prototype)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/t_scanner,
@@ -1631,7 +1635,6 @@
 	energy = 15
 	bomb = 50
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 75
 	stamina = 30
@@ -1651,6 +1654,7 @@
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/restraints/handcuffs,
@@ -1733,7 +1737,6 @@
 	energy = 50
 	bomb = 50
 	bio = 100
-	rad = 90
 	fire = 100
 	acid = 90
 	stamina = 40
@@ -2001,7 +2004,6 @@
 	laser = 50
 	energy = 50
 	bomb = 100
-	rad = 100
 	bio = 100
 	fire = 100
 	stamina = 50
@@ -2065,7 +2067,6 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 100

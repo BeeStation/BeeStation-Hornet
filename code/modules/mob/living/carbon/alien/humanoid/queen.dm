@@ -90,11 +90,13 @@
 	SSshuttle.clearInfestation(src)
 	..()
 
-/mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal = 0, admin_revive = 0)
-	if(..())
-		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(set_countdown))
-		set_countdown()
-		SSshuttle.registerInfestation(src)
+/mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
+	. = ..()
+	if(!.)
+		return
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(set_countdown))
+	set_countdown()
+	SSshuttle.registerInfestation(src)
 
 /mob/living/carbon/alien/humanoid/royal/queen/Destroy()
 	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)

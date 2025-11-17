@@ -6,7 +6,7 @@
 	var/forced_type //Admin abuse
 
 
-/datum/round_event_control/falsealarm/admin_setup()
+/datum/round_event_control/falsealarm/admin_setup(mob/admin)
 	if(!check_rights(R_FUN))
 		return
 

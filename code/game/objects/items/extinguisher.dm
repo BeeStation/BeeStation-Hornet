@@ -16,6 +16,7 @@
 	attack_verb_simple = list("slam", "whack", "bash", "thunk", "batter", "bludgeon", "thrash")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
+	custom_price = 15
 	var/max_water = 50
 	var/last_use = 1
 	var/chem = /datum/reagent/water
@@ -41,6 +42,7 @@
 	max_water = 30
 	sprite_name = "miniFE"
 	dog_fashion = null
+	custom_price = 10
 
 /obj/item/extinguisher/proc/refill()
 	create_reagents(max_water, AMOUNT_VISIBLE)
@@ -60,6 +62,7 @@
 	tanktype = /obj/structure/reagent_dispensers/foamtank
 	sprite_name = "foam_extinguisher"
 	precision = TRUE
+	custom_price = 125
 
 /obj/item/extinguisher/suicide_act(mob/living/carbon/user)
 	if (!safety && (reagents.total_volume >= 1))
@@ -217,7 +220,7 @@
 		return
 	EmptyExtinguisher(user)
 
-/obj/item/extinguisher/proc/EmptyExtinguisher(var/mob/user)
+/obj/item/extinguisher/proc/EmptyExtinguisher(mob/user)
 	if(loc == user && reagents.total_volume)
 		reagents.clear_reagents()
 
@@ -230,7 +233,7 @@
 
 //firebot assembly
 /obj/item/extinguisher/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
+	if(istype(O, /obj/item/bodypart/arm/left/robot) || istype(O, /obj/item/bodypart/arm/right/robot))
 		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		qdel(src)

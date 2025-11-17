@@ -205,10 +205,8 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 		say("Located: [AM.name] at [get_area_name(AM)]")
 
 /obj/machinery/loot_locator/proc/find_random_loot()
-	if(!GLOB.exports_list.len)
-		setupExports()
 	var/list/possible_loot = list()
-	for(var/datum/export/pirate/E in GLOB.exports_list)
+	for(var/datum/export/E in GLOB.exports_list)
 		possible_loot += E
 	var/datum/export/pirate/P
 	var/atom/movable/AM
@@ -330,7 +328,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	for(var/atom/movable/AM in get_turf(pad))
 		if(AM == pad)
 			continue
-		export_item_and_contents(AM, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, dry_run = TRUE, external_report = ex)
+		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND, dry_run = TRUE, external_report = ex)
 
 	for(var/datum/export/E in ex.total_amount)
 		status_report += E.total_printout(ex,notes = FALSE)
@@ -349,7 +347,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	for(var/atom/movable/AM in get_turf(pad))
 		if(AM == pad)
 			continue
-		export_item_and_contents(AM, EXPORT_PIRATE | EXPORT_CARGO | EXPORT_CONTRABAND | EXPORT_EMAG, apply_elastic = FALSE, delete_unsold = FALSE, external_report = ex)
+		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND, delete_unsold = FALSE, external_report = ex)
 
 	status_report = "Sold: "
 	var/value = 0
@@ -365,8 +363,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	if(!total_report)
 		total_report = ex
 	else
-		total_report.exported_atoms += ex.exported_atoms
 		for(var/datum/export/E in ex.total_amount)
+			total_report.exported_atoms[E] = ex.exported_atoms
 			total_report.total_amount[E] += ex.total_amount[E]
 			total_report.total_value[E] += ex.total_value[E]
 
@@ -398,10 +396,12 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	pad.icon_state = pad.idle_state
 	deltimer(sending_timer)
 
-/datum/export/pirate
-	export_category = EXPORT_PIRATE
+// Export pirate category is irrelevant
+// export/pirate applies to living things (which don't fit the cargo shuttle) and money, which I don't see a reason not to
 
-//Attempts to find the thing on station
+/// This only serves to be a parent type to all pirate exports for purposes of find_loot
+/datum/export/pirate
+
 /datum/export/pirate/proc/find_loot()
 	return
 
@@ -446,7 +446,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 	unit_name = "bills"
 	export_types = list(/obj/item/stack/spacecash)
 
-/datum/export/pirate/cash/get_amount(obj/O)
+/datum/export/pirate/get_amount(obj/O)
 	var/obj/item/stack/spacecash/C = O
 	return ..() * C.amount * C.value
 

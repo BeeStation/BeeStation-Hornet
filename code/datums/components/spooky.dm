@@ -11,7 +11,7 @@
 		var/mob/living/carbon/human/U = user
 		if(!istype(U.dna.species, /datum/species/skeleton))
 			U.adjustStaminaLoss(35) //Extra Damage
-			U.Jitter(35)
+			U.set_jitter_if_lower(70 SECONDS)
 			U.stuttering = 20
 			if(U.getStaminaLoss() > 95)
 				to_chat(U, "<font color ='red', size ='4'><B>Your ears weren't meant for this spectral sound.</B></font>")
@@ -25,7 +25,7 @@
 		if(istype(H.dna.species, /datum/species/zombie))
 			H.adjustStaminaLoss(25)
 			H.Paralyze(15) //zombies can't resist the doot
-		C.Jitter(35)
+		C.set_jitter_if_lower(70 SECONDS)
 		C.stuttering = 20
 		if((!istype(H.dna.species, /datum/species/golem)) && (!istype(H.dna.species, /datum/species/android)) && (!istype(H.dna.species, /datum/species/oozeling)))
 			C.adjustStaminaLoss(25) //boneless humanoids don't lose the will to live
@@ -33,7 +33,7 @@
 		INVOKE_ASYNC(src, PROC_REF(spectral_change), H)
 
 	else //the sound will spook monkeys.
-		C.Jitter(15)
+		C.set_jitter_if_lower(30 SECONDS)
 		C.stuttering = 20
 
 /datum/component/spooky/proc/spectral_change(mob/living/carbon/human/H, mob/user)

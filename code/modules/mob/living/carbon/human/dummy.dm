@@ -1,7 +1,7 @@
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
+	status_flags = CANPUSH
 	mouse_drag_pointer = MOUSE_INACTIVE_POINTER
 	visual_only_organs = TRUE
 	var/in_use = FALSE
@@ -11,7 +11,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
-
+	ADD_TRAIT(src, TRAIT_GODMODE, TRAIT_GENERIC)
 
 // We don't want your dummy floating up and down in the preference menu.
 /mob/living/carbon/human/dummy/mob_negates_gravity()

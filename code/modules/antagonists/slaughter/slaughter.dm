@@ -15,7 +15,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speed = 1
 	combat_mode = TRUE
 	stop_automated_movement = 1
@@ -83,7 +83,7 @@
 
 		if(!revive_eject)
 			continue
-		if(!stored_mob.revive(full_heal = TRUE, admin_revive = TRUE))
+		if(!stored_mob.revive(HEAL_ALL))
 			continue
 		stored_mob.grab_ghost(force = TRUE)
 		to_chat(stored_mob, span_clowntext("You leave [src]'s warm embrace, and feel ready to take on the world."))

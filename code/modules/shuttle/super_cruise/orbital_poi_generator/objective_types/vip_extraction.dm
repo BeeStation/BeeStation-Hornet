@@ -87,8 +87,8 @@
 	back = /obj/item/storage/backpack
 	r_hand = /obj/item/gps/off
 
-/datum/outfit/vip_target/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/vip_target/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	if(H.wear_id?.GetID())

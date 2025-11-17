@@ -12,12 +12,13 @@
 	load_sound = null
 	fire_sound = 'sound/weapons/bowfire.ogg'
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = NEEDS_PERMIT
+	item_flags = SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN | NEEDS_PERMIT
 	casing_ejector = FALSE
 	internal_magazine = TRUE
 	pin = null
 	no_pin_required = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL //so ashwalkers can use it
+	custom_price = 200
 
 /obj/item/gun/ballistic/bow/shoot_with_empty_chamber()
 	return

@@ -139,12 +139,12 @@
 	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")
 
-/datum/antagonist/ninja/proc/update_ninja_icons_added(var/mob/living/carbon/human/ninja)
+/datum/antagonist/ninja/proc/update_ninja_icons_added(mob/living/carbon/human/ninja)
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninjahud.join_hud(ninja)
 	set_antag_hud(ninja, "ninja")
 
-/datum/antagonist/ninja/proc/update_ninja_icons_removed(var/mob/living/carbon/human/ninja)
+/datum/antagonist/ninja/proc/update_ninja_icons_removed(mob/living/carbon/human/ninja)
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninjahud.leave_hud(ninja)
 	set_antag_hud(ninja, null)

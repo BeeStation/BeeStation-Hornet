@@ -225,10 +225,23 @@
 	toxpwr = 0
 	taste_description = "sourness"
 
+/datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
+	. = ..()
+	ADD_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+
+/datum/reagent/toxin/mindbreaker/on_mob_end_metabolize(mob/living/metabolizer)
+	. = ..()
+	REMOVE_TRAIT(metabolizer, TRAIT_HALLUCINATION_SUPPRESSED, type)
+
 /datum/reagent/toxin/mindbreaker/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(!affected_mob.has_quirk(/datum/quirk/insanity))
-		affected_mob.hallucination += 5 * REM * delta_time
+	// mindbreaker toxin assuages hallucinations in those plagued with it, mentally
+	if(affected_mob.has_trauma_type(/datum/brain_trauma/mild/hallucinations))
+		affected_mob.remove_status_effect(/datum/status_effect/hallucination)
+
+	// otherwise it creates hallucinations. truly a miracle medicine.
+	else
+		affected_mob.adjust_hallucinations(10 SECONDS * REM * delta_time)
 
 /datum/reagent/toxin/plantbgone
 	name = "Plant-B-Gone"
@@ -270,7 +283,7 @@
 
 /datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()
-	if(MOB_BUG in exposed_mob.mob_biotypes)
+	if(exposed_mob.mob_biotypes & MOB_BUG)
 		exposed_mob.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10), updating_health = TRUE)
 
 /datum/reagent/toxin/spore
@@ -427,7 +440,13 @@
 
 /datum/reagent/toxin/polonium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.radiation += 4 * REM * delta_time
+	if(SSradiation.can_irradiate_basic(affected_mob))
+		var/datum/component/irradiated/irradiated_component = affected_mob.GetComponent(/datum/component/irradiated)
+		if(!irradiated_component)
+			irradiated_component = affected_mob.AddComponent(/datum/component/irradiated)
+		irradiated_component.adjust_intensity(rad_power * REM * delta_time)
+
+	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/histamine
 	name = "Histamine"

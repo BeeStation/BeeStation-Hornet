@@ -1,9 +1,10 @@
+import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import { BlockQuote, Section, Stack } from '../components';
-import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
-import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { AntagInfoHeader } from './common/AntagInfoHeader';
+import { Objective, ObjectivesSection } from './common/ObjectiveSection';
 
 const badstyle = {
   color: 'red',
@@ -35,18 +36,25 @@ const UplinkSection = (_props) => {
       <Stack vertical>
         <Stack.Item>
           <BlockQuote>
-            Keep this uplink safe, and don&apos;t feel like you need to buy everything immediately — you can save your
-            telecrystals to use whenever you&apos;re in a tough situation and need help.
+            Keep this uplink safe, and don&apos;t feel like you need to buy
+            everything immediately — you can save your telecrystals to use
+            whenever you&apos;re in a tough situation and need help.
           </BlockQuote>
         </Stack.Item>
         <Stack.Divider />
         <Stack.Item>
           <Stack fill>
-            <Stack.Item bold>{code && <span style={goalstyle}>Code: {code}</span>}</Stack.Item>
+            <Stack.Item bold>
+              {code && <span style={goalstyle}>Code: {code}</span>}
+            </Stack.Item>
             <Stack.Divider />
             {failsafe_code && (
               <>
-                <Stack.Item bold>{failsafe_code && <span style={goalstyle}>Failsafe: {failsafe_code}</span>}</Stack.Item>
+                <Stack.Item bold>
+                  {failsafe_code && (
+                    <span style={goalstyle}>Failsafe: {failsafe_code}</span>
+                  )}
+                </Stack.Item>
                 <Stack.Divider />
               </>
             )}
@@ -68,16 +76,22 @@ const CodewordsSection = (_props) => {
       <Stack fill>
         {(!has_codewords && (
           <BlockQuote>
-            You have not been supplied with codewords. You will have to use alternative methods to find potential allies.
-            Proceed with caution, however, as everyone is a potential foe.
+            You have not been supplied with codewords. You will have to use
+            alternative methods to find potential allies. Proceed with caution,
+            however, as everyone is a potential foe.
           </BlockQuote>
         )) || (
           <>
             <Stack.Item grow basis={0}>
               <BlockQuote>
-                Your employer provided you with the following codewords to identify fellow agents. Use the codewords during
-                regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.
-                <span style={badstyle}>&ensp;You have memorized the codewords, allowing you to recognise them when heard.</span>
+                Your employer provided you with the following codewords to
+                identify fellow agents. Use the codewords during regular
+                conversation to identify other agents. Proceed with caution,
+                however, as everyone is a potential foe.
+                <span style={badstyle}>
+                  &ensp;You have memorized the codewords, allowing you to
+                  recognise them when heard.
+                </span>
               </BlockQuote>
             </Stack.Item>
             <Stack.Divider mr={1} />

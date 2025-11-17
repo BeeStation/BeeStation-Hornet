@@ -101,7 +101,7 @@
 #define VV_HK_TRIGGER_EMP "empulse"
 #define VV_HK_TRIGGER_EXPLOSION "explode"
 #define VV_HK_AUTO_RENAME "auto_rename"
-#define VV_HK_RADIATE "radiate"
+#define VV_HK_IRRADIATE "irradiate"
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_COLOR_MATRIX "edit_color_matrix"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
@@ -149,12 +149,13 @@
 #define VV_HK_DIRECT_CONTROL "direct_control"
 #define VV_HK_GIVE_DIRECT_CONTROL "give_direct_control"
 #define VV_HK_OFFER_GHOSTS "offer_ghosts"
+#define VV_HK_GIVE_HALLUCINATION "give_hallucination"
+#define VV_HK_GIVE_DELUSION_HALLUCINATION "give_hallucination_delusion"
 
 // /mob/living/carbon
 #define VV_HK_MAKE_AI "aiify"
 #define VV_HK_MODIFY_BODYPART "mod_bodypart"
 #define VV_HK_MODIFY_ORGANS "organs_modify"
-#define VV_HK_HALLUCINATION "force_hallucinate"
 #define VV_HK_MARTIAL_ART "give_martial_art"
 #define VV_HK_GIVE_TRAUMA "give_trauma"
 #define VV_HK_CURE_TRAUMA "cure_trauma"

@@ -104,30 +104,35 @@
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 	max_integrity = 500
 
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /turf/closed/wall/mineral/uranium/proc/radiate()
-	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			radiation_pulse(src, 40)
-			for(var/turf/closed/wall/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
-				T.radiate()
-			last_event = world.time
-			active = null
-			return
-	return
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	COOLDOWN_START(src, radiate_cooldown, 1.5 SECONDS)
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
+
+	for(var/turf/closed/wall/mineral/uranium/uranium_wall in (RANGE_TURFS(1, src) - src))
+		uranium_wall.radiate()
 
 /turf/closed/wall/mineral/uranium/attack_hand(mob/user, list/modifiers)
 	radiate()
-	. = ..()
+	return ..()
 
-/turf/closed/wall/mineral/uranium/attackby(obj/item/W, mob/user, params)
+/turf/closed/wall/mineral/uranium/attackby(obj/item/attacking_item, mob/user, params)
 	radiate()
-	..()
+	return ..()
 
 /turf/closed/wall/mineral/uranium/Bumped(atom/movable/AM)
 	radiate()
-	..()
+	return ..()
 
 /turf/closed/wall/mineral/plasma
 	name = "plasma wall"
@@ -141,14 +146,14 @@
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 	max_integrity = 400
 
-/turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		if(plasma_ignition(6))
-			new /obj/structure/girder/displaced(loc)
-	..()
+/turf/closed/wall/mineral/plasma/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item.is_hot() > 300 && plasma_ignition(6))//If the temperature of the object is over 300, then ignite
+		new /obj/structure/girder/displaced(loc)
+	return ..()
 
 /turf/closed/wall/mineral/plasma/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return exposed_temperature > 300
+
 /turf/closed/wall/mineral/plasma/atmos_expose(datum/gas_mixture/air, exposed_temperature)
 	if(plasma_ignition(6))
 		new /obj/structure/girder/displaced(loc)

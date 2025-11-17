@@ -139,7 +139,7 @@
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return
@@ -214,7 +214,7 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (GET_MOLES(/datum/gas/plasma, breath)/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_plas)
 	else
 		clear_alert("too_much_tox")
 
@@ -236,14 +236,9 @@
 	if(GET_MOLES(/datum/gas/bz, breath))
 		var/bz_partialpressure = (GET_MOLES(/datum/gas/bz, breath)/breath.total_moles())*breath_pressure
 		if(bz_partialpressure > 1)
-			hallucination += 10
+			adjust_hallucinations(20)
 		else if(bz_partialpressure > 0.01)
-			hallucination += 5
-
-	//TRITIUM
-	if(GET_MOLES(/datum/gas/tritium, breath))
-		var/tritium_partialpressure = (GET_MOLES(/datum/gas/tritium, breath)/breath.total_moles())*breath_pressure
-		radiation += tritium_partialpressure/10
+			adjust_hallucinations(10 SECONDS)
 
 	//NITRIUM
 	if(GET_MOLES(/datum/gas/nitrium, breath))
@@ -319,44 +314,43 @@
 		if(stat != DEAD || D.process_dead)
 			D.stage_act(delta_time, times_fired)
 
-/mob/living/carbon/handle_mutations_and_radiation(delta_time, times_fired)
-	if(dna && dna.temporary_mutations.len)
-		for(var/mut in dna.temporary_mutations)
-			if(dna.temporary_mutations[mut] < world.time)
-				if(mut == UI_CHANGED)
-					if(dna.previous["UI"])
-						dna.unique_identity = merge_text(dna.unique_identity,dna.previous["UI"])
-						updateappearance(mutations_overlay_update=1)
-						dna.previous.Remove("UI")
-					dna.temporary_mutations.Remove(mut)
-					continue
-				if(mut == UE_CHANGED)
-					if(dna.previous["name"])
-						real_name = dna.previous["name"]
-						name = real_name
-						dna.previous.Remove("name")
-					if(dna.previous["UE"])
-						dna.unique_enzymes = dna.previous["UE"]
-						dna.previous.Remove("UE")
-					if(dna.previous["blood_type"])
-						dna.blood_type = dna.previous["blood_type"]
-						dna.previous.Remove("blood_type")
-					dna.temporary_mutations.Remove(mut)
-					continue
-				if(mut == UF_CHANGED)
-					if(dna.previous["UF"])
-						dna.unique_features = dna.previous["UF"]
-						updateappearance(mutations_overlay_update=1)
-						dna.previous.Remove("UF")
-					dna.temporary_mutations.Remove(mut)
-					continue
-		for(var/datum/mutation/HM as() in dna.mutations)
-			if(HM?.timeout)
-				dna.remove_mutation(HM.type)
+/mob/living/carbon/handle_mutations(delta_time, times_fired)
+	if(!length(dna?.temporary_mutations))
+		return
 
-	radiation = max(radiation - (RAD_LOSS_PER_SECOND * delta_time), 0)
-	if(radiation > RAD_MOB_SAFE)
-		adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT*delta_time)
+	for(var/mut in dna.temporary_mutations)
+		if(dna.temporary_mutations[mut] < world.time)
+			if(mut == UI_CHANGED)
+				if(dna.previous["UI"])
+					dna.unique_identity = merge_text(dna.unique_identity,dna.previous["UI"])
+					updateappearance(mutations_overlay_update=1)
+					dna.previous.Remove("UI")
+				dna.temporary_mutations.Remove(mut)
+				continue
+			if(mut == UE_CHANGED)
+				if(dna.previous["name"])
+					real_name = dna.previous["name"]
+					name = real_name
+					dna.previous.Remove("name")
+				if(dna.previous["UE"])
+					dna.unique_enzymes = dna.previous["UE"]
+					dna.previous.Remove("UE")
+				if(dna.previous["blood_type"])
+					dna.blood_type = dna.previous["blood_type"]
+					dna.previous.Remove("blood_type")
+				dna.temporary_mutations.Remove(mut)
+				continue
+			if(mut == UF_CHANGED)
+				if(dna.previous["UF"])
+					dna.unique_features = dna.previous["UF"]
+					updateappearance(mutations_overlay_update=1)
+					dna.previous.Remove("UF")
+				dna.temporary_mutations.Remove(mut)
+				continue
+
+	for(var/datum/mutation/HM as() in dna.mutations)
+		if(HM?.timeout)
+			dna.remove_mutation(HM.type)
 
 
 /*
@@ -439,14 +433,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			AdjustSleeping(100)
 			Unconscious(100)
 
-	//Jitteriness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-		jitteriness = max(jitteriness - (restingpwr * delta_time), 0)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "jittery", /datum/mood_event/jittery)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
-
 	if(stuttering)
 		stuttering = max(stuttering - (0.5 * delta_time), 0)
 
@@ -465,16 +451,14 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	if(druggy)
 		adjust_drugginess(-0.5 * delta_time)
 
-	if(hallucination)
-		handle_hallucinations(delta_time, times_fired)
-
 	if(drunkenness)
 		drunkenness = max(drunkenness - ((0.005 + (drunkenness * 0.02)) * delta_time), 0)
 		if(drunkenness >= 6)
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
 			if(DT_PROB(16, delta_time))
 				slurring += 2
-			jitteriness = max(jitteriness - (1.5 * delta_time), 0)
+			adjust_jitter(-1.5 * delta_time)
+
 			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")

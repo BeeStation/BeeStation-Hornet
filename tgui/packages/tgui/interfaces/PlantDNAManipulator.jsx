@@ -1,7 +1,15 @@
-import { sortBy } from 'common/collections';
-import { toTitleCase } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Table, Modal, Stack, LabeledList, NoticeBox, Box, Tooltip } from '../components';
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  LabeledList,
+  Modal,
+  NoticeBox,
+  Section,
+  Stack,
+  Table,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 
 export const PlantDNAManipulator = (props) => {
@@ -39,7 +47,8 @@ const PlantDNAManipulatorConfirmReplace = (props) => {
 
   return (
     <>
-      Are you sure you want to replace <Accent>{operation_target.name}</Accent> with <Accent>{disk_gene.name}</Accent>?
+      Are you sure you want to replace <Accent>{operation_target.name}</Accent>{' '}
+      with <Accent>{disk_gene.name}</Accent>?
     </>
   );
 };
@@ -50,7 +59,8 @@ const PlantDNAManipulatorConfirmRemove = (props) => {
 
   return (
     <>
-      Are you sure you want to remove <Accent>{operation_target.name} </Accent> from the <Accent>{seed}</Accent>?
+      Are you sure you want to remove <Accent>{operation_target.name} </Accent>{' '}
+      from the <Accent>{seed}</Accent>?
     </>
   );
 };
@@ -64,27 +74,34 @@ const PlantDNAManipulatorConfirmExtract = (props) => {
     statname = operation_target.stat.toLowerCase();
     [stat_limit_type, stat_limit] = machine_stats[statname];
     stat_result =
-      stat_limit_type === 'min' ? Math.max(operation_target.value, stat_limit) : Math.min(operation_target.value, stat_limit);
+      stat_limit_type === 'min'
+        ? Math.max(operation_target.value, stat_limit)
+        : Math.min(operation_target.value, stat_limit);
   }
 
   return (
     <Stack vertical>
       <Stack.Item>
-        Are you sure you want to extract <Accent>{operation_target.name}</Accent> from the <Accent>{seed}</Accent>?
+        Are you sure you want to extract{' '}
+        <Accent>{operation_target.name}</Accent> from the{' '}
+        <Accent>{seed}</Accent>?
       </Stack.Item>
       <Stack.Item>
-        {operation_target.type === 'core' && stat_result !== operation_target.value && (
-          <NoticeBox info>
-            <Box>
-              Target gene will be degraded to{' '}
-              <Accent>
-                {stat_result} {statname}
-              </Accent>{' '}
-              on extraction. Upgrade the machine to increase efficiency.
-            </Box>
-          </NoticeBox>
-        )}
-        <NoticeBox danger>The sample will be destroyed in the process</NoticeBox>
+        {operation_target.type === 'core' &&
+          stat_result !== operation_target.value && (
+            <NoticeBox info>
+              <Box>
+                Target gene will be degraded to{' '}
+                <Accent>
+                  {stat_result} {statname}
+                </Accent>{' '}
+                on extraction. Upgrade the machine to increase efficiency.
+              </Box>
+            </NoticeBox>
+          )}
+        <NoticeBox danger>
+          The sample will be destroyed in the process
+        </NoticeBox>
       </Stack.Item>
     </Stack>
   );
@@ -96,7 +113,8 @@ const PlantDNAManipulatorConfirmInsert = (props) => {
 
   return (
     <>
-      Are you sure you want to insert <Accent>{disk_gene.name}</Accent> into the <Accent>{seed}</Accent>?
+      Are you sure you want to insert <Accent>{disk_gene.name}</Accent> into the{' '}
+      <Accent>{seed}</Accent>?
     </>
   );
 };
@@ -125,7 +143,11 @@ const PlantDNAManipulatorConfirmationPrompt = (props) => {
                 <Button content="Confirm" onClick={() => act('confirm')} />
               </Stack.Item>
               <Stack.Item>
-                <Button content="Abort" color="red" onClick={() => act('abort')} />
+                <Button
+                  content="Abort"
+                  color="red"
+                  onClick={() => act('abort')}
+                />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -148,13 +170,20 @@ const PlantDNAManipulatorHeader = (props) => {
           checked={skip_confirmation}
           onClick={() => act('toggle_skip_confirmation')}
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Plant sample">
-          <Button content={seed ?? 'None'} onClick={() => act('eject_insert_seed')} />
+          <Button
+            content={seed ?? 'None'}
+            onClick={() => act('eject_insert_seed')}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Data disk">
-          <Button content={disk ?? 'None'} onClick={() => act('eject_insert_disk')} />
+          <Button
+            content={disk ?? 'None'}
+            onClick={() => act('eject_insert_disk')}
+          />
         </LabeledList.Item>
       </LabeledList>
     </Section>
@@ -169,16 +198,30 @@ const PlantDNAManipulatorContent = (props) => {
     return (
       <>
         <NoticeBox>No sample found</NoticeBox>
-        <NoticeBox info>Please insert a plant sample to use this device.</NoticeBox>
+        <NoticeBox info>
+          Please insert a plant sample to use this device.
+        </NoticeBox>
       </>
     );
   }
 
   return (
     <>
-      <PlantDNAManipulatorGenes label="Core genes" type="core" list={core_genes} />
-      <PlantDNAManipulatorGenes label="Reagent genes" type="reagent" list={reagent_genes} />
-      <PlantDNAManipulatorGenes label="Trait genes" type="trait" list={trait_genes} />
+      <PlantDNAManipulatorGenes
+        label="Core genes"
+        type="core"
+        list={core_genes}
+      />
+      <PlantDNAManipulatorGenes
+        label="Reagent genes"
+        type="reagent"
+        list={reagent_genes}
+      />
+      <PlantDNAManipulatorGenes
+        label="Trait genes"
+        type="trait"
+        list={trait_genes}
+      />
     </>
   );
 };
@@ -200,12 +243,17 @@ const PlantDNAManipulatorGene = (props) => {
 
   const act_data = { gene_id: gene?.id };
 
-  const tooltip_text = gene.type === 'core' && stat_tooltips[gene.stat.toLowerCase()];
+  const tooltip_text =
+    gene.type === 'core' && stat_tooltips[gene.stat.toLowerCase()];
 
   return (
     <Table.Row className="candystripe">
       <Table.Cell collapsing width="50%" position="relative">
-        <ConditionalTooltip condition={!!tooltip_text} content={tooltip_text} position="bottom-end">
+        <ConditionalTooltip
+          condition={!!tooltip_text}
+          content={tooltip_text}
+          position="bottom-end"
+        >
           <Box>{gene.name}</Box>
         </ConditionalTooltip>
       </Table.Cell>
@@ -221,11 +269,20 @@ const PlantDNAManipulatorGene = (props) => {
         {gene.type === 'core' ? (
           <Button
             content="Replace"
-            disabled={!disk_gene || disk_gene?.id !== gene.id || !gene.removable || !disk_canadd}
+            disabled={
+              !disk_gene ||
+              disk_gene?.id !== gene.id ||
+              !gene.removable ||
+              !disk_canadd
+            }
             onClick={() => act('replace', act_data)}
           />
         ) : (
-          <Button content="Remove" disabled={!gene.removable} onClick={() => act('remove', act_data)} />
+          <Button
+            content="Remove"
+            disabled={!gene.removable}
+            onClick={() => act('remove', act_data)}
+          />
         )}
       </Table.Cell>
       <Table.Cell />
@@ -246,7 +303,11 @@ const PlantDNAManipulatorGenes = (props) => {
         ))}
       </Table>
       {disk_gene?.type === type && type !== 'core' && (
-        <Button content={'Insert: ' + disk_gene.name} disabled={!disk_canadd} onClick={() => act('insert')} />
+        <Button
+          content={'Insert: ' + disk_gene.name}
+          disabled={!disk_canadd}
+          onClick={() => act('insert')}
+        />
       )}
     </Section>
   );

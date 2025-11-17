@@ -1,11 +1,19 @@
-import { useBackend } from '../backend';
 import { classes } from 'common/react';
-import { Button, Box, LabeledList, Section, Stack } from '../components';
+
+import { useBackend } from '../backend';
+import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const LanguageMenu = (props) => {
   const { act, data } = useBackend();
-  const { admin_mode, is_living, omnitongue, language_static_data = [], known_languages = [], unknown_languages = [] } = data;
+  const {
+    admin_mode,
+    is_living,
+    omnitongue,
+    language_static_data = [],
+    known_languages = [],
+    unknown_languages = [],
+  } = data;
   return (
     <Window theme="generic" width={700} height={600}>
       <Window.Content scrollable>
@@ -23,7 +31,10 @@ export const LanguageMenu = (props) => {
                           <Stack mb={-1}>
                             <Stack.Item mr={0.2}>
                               <Box
-                                className={classes(['chat16x16', 'language-' + languageData.icon_state])}
+                                className={classes([
+                                  'chat16x16',
+                                  'language-' + languageData.icon_state,
+                                ])}
                                 style={{ verticalAlign: 'bottom' }}
                               />
                             </Stack.Item>
@@ -39,7 +50,11 @@ export const LanguageMenu = (props) => {
                       <>
                         {!!is_living && (
                           <Button
-                            content={each_language.is_default ? 'Default Language' : 'Select as Default'}
+                            content={
+                              each_language.is_default
+                                ? 'Default Language'
+                                : 'Select as Default'
+                            }
                             disabled={!each_language.can_speak}
                             selected={each_language.is_default}
                             onClick={() =>
@@ -70,14 +85,19 @@ export const LanguageMenu = (props) => {
                           </>
                         )}
                       </>
-                    }>
+                    }
+                  >
                     <Box>{languageData.desc}</Box>
                     <Box>
-                      {each_language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
+                      {each_language.can_understand
+                        ? 'Can understand.'
+                        : 'Cannot understand.'}{' '}
                       {each_language.can_speak ? 'Can speak.' : 'Cannot speak.'}
                     </Box>
                   </LabeledList.Item>
-                  {index !== known_languages.length - 1 && <LabeledList.Divider />}
+                  {index !== known_languages.length - 1 && (
+                    <LabeledList.Divider />
+                  )}
                 </>
               );
             })}
@@ -92,7 +112,8 @@ export const LanguageMenu = (props) => {
                 selected={omnitongue}
                 onClick={() => act('toggle_omnitongue')}
               />
-            }>
+            }
+          >
             <LabeledList>
               {unknown_languages.map((each_language, index) => {
                 const languageData = language_static_data[each_language.name];
@@ -105,7 +126,12 @@ export const LanguageMenu = (props) => {
                           <Stack.Item>
                             <Stack mb={-1}>
                               <Stack.Item mr={0.2}>
-                                <Box className={classes(['chat16x16', 'language-' + languageData.icon_state])} />
+                                <Box
+                                  className={classes([
+                                    'chat16x16',
+                                    'language-' + languageData.icon_state,
+                                  ])}
+                                />
                               </Stack.Item>
                               <Stack.Item>{languageData.name}</Stack.Item>
                             </Stack>
@@ -124,14 +150,21 @@ export const LanguageMenu = (props) => {
                             })
                           }
                         />
-                      }>
+                      }
+                    >
                       <Box>{languageData.desc}</Box>
                       <Box>
-                        {each_language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
-                        {each_language.can_speak ? 'Can speak.' : 'Cannot speak.'}
+                        {each_language.can_understand
+                          ? 'Can understand.'
+                          : 'Cannot understand.'}{' '}
+                        {each_language.can_speak
+                          ? 'Can speak.'
+                          : 'Cannot speak.'}
                       </Box>
                     </LabeledList.Item>
-                    {index !== unknown_languages.length - 1 && <LabeledList.Divider />}
+                    {index !== unknown_languages.length - 1 && (
+                      <LabeledList.Divider />
+                    )}
                   </>
                 );
               })}

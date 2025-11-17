@@ -75,9 +75,7 @@
 	..()
 	if(istype(S))
 		// Things that *really should always* happen to the shade when it comes out should go here.
-		S.status_flags &= ~GODMODE
-		REMOVE_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-		REMOVE_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+		S.remove_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 		S.cancel_camera()
 		if(theme == THEME_HOLY)
 			S.icon_state = "shade_angelic"
@@ -95,7 +93,7 @@
 
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!role_check(user))
-		user.Unconscious(100)
+		user.Unconscious(10 SECONDS)
 		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(spent)
@@ -103,14 +101,14 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
-	if(M.mind && !M.mind.hasSoul)
-		to_chat(user, span_warning("That person has no soul!"))
-		return
 	if(IS_CULTIST(M) && IS_CULTIST(user))
 		to_chat(user, span_cultlarge("\"Come now, do not capture your brethren's soul.\""))
 		return
 	if(theme == THEME_HOLY && IS_CULTIST(user))
 		hot_potato(user)
+		return
+	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
+		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
 	log_combat(user, M, "captured [M.name]'s soul", src)
 	transfer_soul("VICTIM", M, user)
@@ -236,7 +234,7 @@
 				to_chat(user, "[span_userdanger("Capture failed!")]: The soulstone is full! Free an existing soul to make room.")
 			else
 				T.forceMove(src) //put shade in stone
-				T.status_flags |= GODMODE
+				ADD_TRAIT(T, TRAIT_GODMODE, SOULSTONE_TRAIT)
 				T.mobility_flags = NONE
 				T.health = T.maxHealth
 				if(theme == THEME_HOLY)
@@ -349,9 +347,8 @@
 	T.invisibility = INVISIBILITY_ABSTRACT
 	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
-	S.status_flags |= GODMODE //So they won't die inside the stone somehow
-	ADD_TRAIT(S, TRAIT_IMMOBILIZED, SOULSTONE_TRAIT)
-	ADD_TRAIT(S, TRAIT_HANDS_BLOCKED, SOULSTONE_TRAIT)
+	//So they won't die inside the stone somehow
+	S.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
 	S.key = shade_controller.key

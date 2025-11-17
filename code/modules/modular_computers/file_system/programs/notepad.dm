@@ -9,6 +9,7 @@
 	size = 2
 	tgui_id = "NtosNotepad"
 	program_icon = "book"
+	power_consumption = 20 WATT
 	/// Cooldown var for printing paper sheets.
 	COOLDOWN_DECLARE(printer_ready)
 

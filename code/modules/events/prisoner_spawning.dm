@@ -62,7 +62,7 @@
 	player_mind.special_role = ROLE_PRISONER
 	var/datum/antagonist/prisoner/A = new()
 	player_mind.add_antag_datum(A)
-	var/outfit = /datum/outfit/prisoner
+	var/outfit = /datum/outfit/escapedprisoner
 	S.equipOutfit(outfit)
 
 	new /obj/effect/pod_landingzone(landing_turf, pod)

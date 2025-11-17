@@ -9,18 +9,18 @@
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/effect/holodeck_effect/proc/activate(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/proc/activate(obj/machinery/computer/holodeck/HC)
 	return
 
-/obj/effect/holodeck_effect/proc/deactivate(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/proc/deactivate(obj/machinery/computer/holodeck/HC)
 	qdel(src)
 	return
 
 // Called by the holodeck computer as long as the program is running
-/obj/effect/holodeck_effect/proc/tick(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/proc/tick(obj/machinery/computer/holodeck/HC)
 	return
 
-/obj/effect/holodeck_effect/proc/safety(var/active)
+/obj/effect/holodeck_effect/proc/safety(active)
 	return
 
 
@@ -30,7 +30,7 @@
 	icon_state = "deck_nanotrasen_full"
 	var/obj/item/toy/cards/deck/deck
 
-/obj/effect/holodeck_effect/cards/activate(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/cards/activate(obj/machinery/computer/holodeck/HC)
 	deck = new(loc)
 	safety(!(HC.obj_flags & EMAGGED))
 	deck.holo = HC
@@ -60,7 +60,7 @@
 		deck.card_attack_verb_continuous = list("attacks", "slices", "dices", "slashes", "cuts")
 
 
-/obj/effect/holodeck_effect/sparks/activate(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/sparks/activate(obj/machinery/computer/holodeck/HC)
 	var/turf/T = get_turf(src)
 	if(T)
 		var/datum/effect_system/spark_spread/s = new
@@ -83,7 +83,7 @@
 	var/mobtype = /mob/living/simple_animal/hostile/carp/holocarp
 	var/mob/our_mob = null
 
-/obj/effect/holodeck_effect/mobspawner/activate(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/mobspawner/activate(obj/machinery/computer/holodeck/HC)
 	if(islist(mobtype))
 		mobtype = pick(mobtype)
 	our_mob = new mobtype(loc)
@@ -95,7 +95,7 @@
 	RegisterSignal(our_mob, COMSIG_QDELETING, PROC_REF(handle_mob_delete))
 	return our_mob
 
-/obj/effect/holodeck_effect/mobspawner/deactivate(var/obj/machinery/computer/holodeck/HC)
+/obj/effect/holodeck_effect/mobspawner/deactivate(obj/machinery/computer/holodeck/HC)
 	if(our_mob)
 		HC.derez(our_mob)
 	qdel(src)
@@ -104,12 +104,23 @@
 	SIGNAL_HANDLER
 	our_mob = null
 
-/obj/effect/holodeck_effect/mobspawner/pet
+/obj/effect/holodeck_effect/mobspawner/pet/Initialize(mapload)
+	. = ..()
 	mobtype = list(
-		/mob/living/simple_animal/butterfly, /mob/living/simple_animal/chick/holo,
-		/mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/cat/kitten,
-		/mob/living/basic/pet/dog/corgi, /mob/living/basic/pet/dog/corgi/puppy,
-		/mob/living/basic/pet/dog/pug, /mob/living/simple_animal/pet/fox)
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/chick/holo,
+		/mob/living/simple_animal/pet/fox,
+		/mob/living/simple_animal/rabbit,
+	)
+	mobtype += pick(
+		/mob/living/basic/pet/dog/corgi,
+		/mob/living/basic/pet/dog/corgi/puppy,
+		/mob/living/basic/pet/dog/pug,
+	)
+	mobtype += pick(
+		/mob/living/simple_animal/pet/cat,
+		/mob/living/simple_animal/pet/cat/kitten,
+	)
 
 /obj/effect/holodeck_effect/mobspawner/bee
 	mobtype = /mob/living/simple_animal/hostile/poison/bees/toxin

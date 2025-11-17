@@ -15,7 +15,7 @@
 		return 0
 	to_chat(user, span_notice("We transform our appearance."))
 	..()
-	changeling.purchased_powers -= src
+	changeling.purchased_powers -= src.type
 	Remove(user)
 
 	var/datum/dna/chosen_dna = chosen_prof.dna

@@ -167,7 +167,7 @@
 	span_italics("You hear organic matter ripping and tearing!"))
 
 	qdel(blade)
-	target.update_inv_hands()
+	target.update_held_items()
 
 /datum/action/changeling/sting/extract_dna
 	name = "Extract DNA Sting"
@@ -230,12 +230,13 @@
 
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	log_combat(user, target, "stung", "LSD sting")
-	addtimer(CALLBACK(src, PROC_REF(hallucination_time), target), rand(300,600))
+	addtimer(CALLBACK(src, PROC_REF(hallucination_time), target), rand(30 SECONDS, 60 SECONDS))
 	return TRUE
 
 /datum/action/changeling/sting/LSD/proc/hallucination_time(mob/living/carbon/target)
-	if(target)
-		target.hallucination = max(90, target.hallucination)
+	if(QDELETED(src) || QDELETED(target))
+		return
+	target.adjust_hallucinations(180 SECONDS)
 
 /datum/action/changeling/sting/cryo
 	name = "Cryogenic Sting"

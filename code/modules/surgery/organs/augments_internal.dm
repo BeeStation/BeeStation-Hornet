@@ -9,7 +9,7 @@
 	var/implant_overlay
 	var/syndicate_implant = FALSE //Makes the implant invisible to health analyzers and medical HUDs.
 
-/obj/item/organ/cyberimp/New(var/mob/M = null)
+/obj/item/organ/cyberimp/New(mob/M = null)
 	if(iscarbon(M))
 		src.Insert(M)
 	if(implant_overlay)
@@ -37,7 +37,7 @@
 	if(prob(30/severity))
 		owner.drop_all_held_items()
 		owner.Knockdown((6 SECONDS)/severity)
-		owner.Jitter((4 SECONDS)/severity)
+		owner.set_jitter_if_lower((8 SECONDS)/severity)
 		to_chat(owner, span_warning("Your body seizes up!"))
 
 
@@ -81,7 +81,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(active)
 		ui_action_click()
 	..()

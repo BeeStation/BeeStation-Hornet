@@ -338,9 +338,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		//Create a mob and transfer their mind to it.
 		CHECK_TICK
 		var/mob/living/carbon/human/H = new(pod)
-		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		ADD_TRAIT(H, TRAIT_DROPS_ITEMS_ON_DEATH, BATTLE_ROYALE_TRAIT)
-		H.status_flags |= GODMODE
+		H.add_traits(list(TRAIT_PACIFISM, TRAIT_DROPS_ITEMS_ON_DEATH, TRAIT_GODMODE), BATTLE_ROYALE_TRAIT)
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
 		//Give them a spell
@@ -358,14 +356,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, span_boldannounce("[players.len] people remain..."))
 
 	//Start processing our world events
-	addtimer(CALLBACK(src, PROC_REF(end_grace)), 300)
+	addtimer(CALLBACK(src, PROC_REF(end_grace)), 30 SECONDS)
 	generate_basic_loot(150)
 
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
 		knock.Remove(M)
-		M.status_flags -= GODMODE
-		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
+		M.remove_traits(list(TRAIT_PACIFISM, TRAIT_DROPS_ITEMS_ON_DEATH, TRAIT_GODMODE), BATTLE_ROYALE_TRAIT)
 		to_chat(M, span_greenannounce("You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing."))
 
 //==================================
