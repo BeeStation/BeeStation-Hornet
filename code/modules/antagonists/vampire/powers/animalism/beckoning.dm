@@ -21,7 +21,7 @@
 
 	check_witnesses()
 	var/mob/living/basic/pet/dog/beast/doggo
-	for(var/dogcount = 0; dogcount < 3; dogcount++)
+	for(var/dogcount = 1 to 3)
 		doggo = new /mob/living/basic/pet/dog/beast(owner.loc)
 		if (doggo.befriend(owner))
 			doggo.tamed(owner)
