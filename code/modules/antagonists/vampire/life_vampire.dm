@@ -15,7 +15,7 @@
 
 	// Deduct Blood
 	if(owner.current.stat == CONSCIOUS && !HAS_TRAIT(owner.current, TRAIT_IMMOBILIZED) && !HAS_TRAIT(owner.current, TRAIT_NODEATH))
-		INVOKE_ASYNC(src, PROC_REF(RemoveBloodVolume), VAMPIRE_PASSIVE_BLOOD_DRAIN)
+		INVOKE_ASYNC(src, PROC_REF(AdjustBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
 
 	// Healing
 	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile/retaliate/bat/vampire))
@@ -61,14 +61,8 @@
 /**
  * Pretty simple, add a value to the vampire's blood volume
 **/
-/datum/antagonist/vampire/proc/AddBloodVolume(value)
+/datum/antagonist/vampire/proc/AdjustBloodVolume(value)
 	current_vitae = clamp(current_vitae + value, 0, max_vitae)
-
-/**
- * Pretty simple, remove a value from the vampire's blood volume
-**/
-/datum/antagonist/vampire/proc/RemoveBloodVolume(value)
-	current_vitae = clamp(current_vitae - value, 0, max_vitae)
 
 /**
  * Runs on the vampire's lifetick.
@@ -138,7 +132,7 @@
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
 		var/vitaecost = (brute_heal * 0.5 + burn_heal) * vitaecost_multiplier * healing_mulitplier
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
-		RemoveBloodVolume(vitaecost)
+		AdjustBloodVolume(-vitaecost)
 		return TRUE
 
 	// Revive them if dead and there is no damage left to heal, just in case we are not in torpor because of some wackyness.
@@ -158,7 +152,7 @@
 		return FALSE
 	for(var/missing_limb in missing) //Find ONE Limb and regenerate it.
 		carbon_owner.regenerate_limb(missing_limb, FALSE)
-		RemoveBloodVolume(limb_regen_cost)
+		AdjustBloodVolume(-limb_regen_cost)
 		var/obj/item/bodypart/missing_bodypart = carbon_owner.get_bodypart(missing_limb)
 		missing_bodypart.brute_dam = 60
 		to_chat(carbon_owner, span_notice("Your flesh knits as it regrows your [missing_bodypart]!"))

@@ -197,7 +197,7 @@
 
 /datum/action/vampire/proc/PowerCostHelper()
 	if(vampiredatum_power)
-		vampiredatum_power.RemoveBloodVolume(constant_vitaecost)
+		vampiredatum_power.AdjustBloodVolume(-constant_vitaecost)
 	else
 		var/mob/living/living_owner = owner
 		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
