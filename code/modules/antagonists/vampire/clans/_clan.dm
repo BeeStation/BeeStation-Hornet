@@ -149,6 +149,7 @@
 		for(var/datum/discipline/discipline as anything in vampiredatum.owned_disciplines)
 			if(discipline.name == discipline_response)
 				chosen_discipline = discipline
+				break
 
 		if(isnull(discipline_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
