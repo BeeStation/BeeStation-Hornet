@@ -11,8 +11,7 @@
 	description = "This Clan is composed of curious practioners of dark magic who enjoy toying with the dead. \n\
 		Often compared to the Lasombra, they sometimes act in similar ways and draw power from the void. \n\
 		However, they are also very different, and place an emphasis on creating zombie like puppets from the dead. \n\
-		They are able to raise the dead as temporary vassals, permanently revive dead vassals, communicate to their vassals from afar, and summon wraiths. \n\
-		Their Favorite vassal also has inherited a small fraction of their power, being able to call wraiths into the world as well."
+		They are able to raise the dead as temporary vassals, permanently revive dead vassals, communicate to their vassals from afar, and summon wraiths."
 	joinable_clan = FALSE
 
 /datum/vampire_clan/lasombra
@@ -20,14 +19,12 @@
 	description = "This Clan seems to adore living in the Shadows, worshipping it's secrets. \n\
 		They take their research and vanity seriously, they are always very proud of themselves after even minor achievements. \n\
 		They appear to be in search of a station with a veil weakness to be able to channel their shadow's abyssal powers. \n\
-		Thanks to this, they have also evolved a dark liquid in their veins, which makes them able to manipulate shadows. \n\
-		Their Favorite vassal appears to have been imbued with abyssal essence and is able to blend in with the shadows."
+		Thanks to this, they have also evolved a dark liquid in their veins, which makes them able to manipulate shadows."
 	joinable_clan = FALSE
 
 /datum/vampire_clan/nosferatu
 	name = CLAN_NOSFERATU
 	description = "The Nosferatu Clan is unable to blend in with the crew, with no abilities such as Masquerade and Veil. \n\
 		Additionally, has a permanent bad back and looks like a Vampire upon a simple examine, and is entirely unidentifiable, \n\
-		they can fit in the vents regardless of their form and equipment. \n\
-		The Favorite vassal is permanently disfigured, and can also ventcrawl, but only while entirely nude."
+		they can fit in the vents regardless of their form and equipment."
 	joinable_clan = FALSE
