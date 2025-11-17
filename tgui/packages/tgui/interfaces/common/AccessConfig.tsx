@@ -63,11 +63,18 @@ export function AccessConfig(props: ConfigProps) {
     denyDep,
   } = props;
 
-  const [selectedAccessName, setSelectedAccessName] = useState(accesses[0]?.name);
+  const [selectedAccessName, setSelectedAccessName] = useState(
+    accesses[0]?.name,
+  );
 
-  const selectedAccess = accesses.find((access) => access.name === selectedAccessName) || accesses[0];
+  const selectedAccess =
+    accesses.find((access) => access.name === selectedAccessName) ||
+    accesses[0];
 
-  const selectedAccessEntries = sortBy(selectedAccess?.accesses || [], (entry: Area) => entry.desc);
+  const selectedAccessEntries = sortBy(
+    selectedAccess?.accesses || [],
+    (entry: Area) => entry.desc,
+  );
 
   function checkAccessIcon(accesses: Area[]) {
     let oneAccess = false;
@@ -101,7 +108,8 @@ export function AccessConfig(props: ConfigProps) {
             Deny All
           </Button>
         </>
-      }>
+      }
+    >
       <Stack fill>
         <Stack.Item>
           <Tabs vertical>
@@ -115,7 +123,8 @@ export function AccessConfig(props: ConfigProps) {
                   color={color as string}
                   icon={icon}
                   selected={access.name === selectedAccessName}
-                  onClick={() => setSelectedAccessName(access.name)}>
+                  onClick={() => setSelectedAccessName(access.name)}
+                >
                   {access.name}
                 </Tabs.Tab>
               );
@@ -153,12 +162,22 @@ function AccessButtons(props: AccessButtonProps) {
       <Stack.Item>
         <Stack fill>
           <Stack.Item grow>
-            <Button fluid icon="check" color="good" onClick={() => grantDep(selectedAccess.name)}>
+            <Button
+              fluid
+              icon="check"
+              color="good"
+              onClick={() => grantDep(selectedAccess.name)}
+            >
               Grant Region
             </Button>
           </Stack.Item>
           <Stack.Item grow>
-            <Button fluid icon="times" color="bad" onClick={() => denyDep(selectedAccess.name)}>
+            <Button
+              fluid
+              icon="times"
+              color="bad"
+              onClick={() => denyDep(selectedAccess.name)}
+            >
               Deny Region
             </Button>
           </Stack.Item>
@@ -172,7 +191,8 @@ function AccessButtons(props: AccessButtonProps) {
               fluid
               key={entry.desc}
               checked={selectedList.includes(entry.ref)}
-              onClick={() => accessMod(entry.ref)}>
+              onClick={() => accessMod(entry.ref)}
+            >
               {entry.desc}
             </Button.Checkbox>
           ))}

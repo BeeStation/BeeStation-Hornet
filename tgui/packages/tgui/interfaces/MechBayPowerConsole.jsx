@@ -57,7 +57,8 @@ export const MechBayPowerConsole = (props) => {
                       good: [0.7, Infinity],
                       average: [0.3, 0.7],
                       bad: [-Infinity, 0.3],
-                    }}>
+                    }}
+                  >
                     {formatEnergy(cell.charge) +
                       '/' +
                       formatEnergy(cell.maxcharge)}

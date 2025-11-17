@@ -56,7 +56,8 @@ export const AlertPane = (props) => {
                   : overclock_temp_percentage > 0.5
                     ? 'average'
                     : 'good')
-              }>
+              }
+            >
               {overclock_mode
                 ? `Overclocking (${Math.round(
                     overclock_temp_percentage * 100,
@@ -81,7 +82,8 @@ export const AlertPane = (props) => {
             )}
           </>
         )
-      }>
+      }
+    >
       <Stack vertical>
         {!scanmod_rating ? (
           <Box height={8}>
@@ -97,7 +99,8 @@ export const AlertPane = (props) => {
                       internal_damage & internal_damage_keys[t]
                         ? 'red'
                         : 'green'
-                    }>
+                    }
+                  >
                     <Icon
                       mr={1}
                       name={
@@ -120,7 +123,8 @@ export const AlertPane = (props) => {
                           flag: internal_damage_keys[t],
                         })
                       }
-                      color={'red'}>
+                      color={'red'}
+                    >
                       Repair
                     </Button>
                   </Stack.Item>
