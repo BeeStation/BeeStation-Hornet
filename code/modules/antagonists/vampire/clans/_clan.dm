@@ -82,8 +82,6 @@
 /datum/vampire_clan/proc/handle_clan_life()
 	if(!is_type_in_list(/datum/action/vampire/levelup, vampiredatum.powers) && vampiredatum.vampire_level_unspent > 0)
 		vampiredatum.grant_power(new /datum/action/vampire/levelup)
-		return
-	return
 
 /**
  * Called when a Vampire successfully vassalizes someone via the persuasion rack.
