@@ -71,12 +71,6 @@
 	. = ..()
 
 /**
- * Called we want to assign it. We leave it blank because obv we just return a string and every clan has their own.
- */
-/datum/vampire_clan/proc/get_join_description()
-	return
-
-/**
  * Called when a Vampire exits Torpor
  */
 /datum/vampire_clan/proc/on_exit_torpor()
