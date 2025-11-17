@@ -25,8 +25,7 @@
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 
 	// Special flags you can give to powers. Mainly used for any powers we want them to have by default, so, feed.
-	var/special_flags= NONE	//VAMPIRE_DEFAULT_POWER and more maybe if anyone wants
-
+	var/special_flags = NONE
 	/// If the Power is currently active, differs from action cooldown because of how powers are handled.
 	var/currently_active = FALSE
 	///Can increase to yield new abilities - Used to be tied to rank. I'm hijacking it instead.
