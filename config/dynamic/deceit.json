@@ -73,7 +73,7 @@
 		},
 		"Vampire": {
 			"weight": 10,
-			"elasticity": 100
+			"elasticity": 70
 		},
 		"Malfunctioning AI": {
 			"weight": 10

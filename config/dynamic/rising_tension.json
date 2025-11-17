@@ -72,7 +72,7 @@
 		},
 		"Vampire": {
 			"points_cost": 9,
-			"elasticity": 100
+			"elasticity": 70
 		},
 		"Heretic": {
 			"points_cost": 12
