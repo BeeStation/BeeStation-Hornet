@@ -5,6 +5,8 @@
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
 
+	var/vassal_hud_name = "vassal"
+
 	/// The Master Vampire's antag datum.
 	var/datum/antagonist/vampire/master
 	/// The Vampire's team
@@ -31,6 +33,8 @@
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
 	current_mob.faction |= FACTION_VAMPIRE
+
+	add_antag_hud(ANTAG_HUD_VAMPIRE, vassal_hud_name, current_mob)
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
