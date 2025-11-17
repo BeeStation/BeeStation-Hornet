@@ -482,26 +482,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait given to a dreaming carbon when they are currently doing dreaming stuff
 #define TRAIT_DREAMING "currently_dreaming"
 
-// VAMPIRES
-/// Falsifies Health analyzer blood levels
-#define TRAIT_MASQUERADE "trait_masquerade"
-/// Your body is literal room temperature. Does not make you immune to the temp
-#define TRAIT_COLDBLOODED "trait_coldblooded"
-/// For people in the middle of being staked
-#define TRAIT_BEINGSTAKED "trait_beingstaked"
-
-// Trait sources
-/// Sour trait for all vampire traits
-#define TRAIT_VAMPIRE "trait_vampire"
-/// Source trait while Feeding
-#define TRAIT_FEED "trait_feed"
-/// Source trait during a Frenzy
-#define TRAIT_FRENZY "trait_frenzy"
-/// Source trait for vampires in torpor.
-#define TRAIT_TORPOR "trait_torpor"
-/// Source trait for vampire mesmerization.
-#define TRAIT_MESMERIZED "trait_mesmerized"
-/// Source trait for vampire commandment.
-#define TRAIT_COMMANDED "trait_commanded"
-
 // END TRAIT DEFINES
