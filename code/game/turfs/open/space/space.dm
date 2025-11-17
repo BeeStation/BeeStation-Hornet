@@ -32,6 +32,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 1
+	light_range = 2
 	light_color = COLOR_STARLIGHT
 	fullbright_type = FULLBRIGHT_STARLIGHT
 	bullet_bounce_sound = null

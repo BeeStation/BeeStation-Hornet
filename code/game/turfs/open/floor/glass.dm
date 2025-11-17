@@ -15,31 +15,39 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	floor_tile = /obj/item/stack/tile/glass
 	overfloor_placed = FALSE
-
 	z_flags = Z_MIMIC_DEFAULTS
+
+	/// Color of starlight to use. Defaults to STARLIGHT_COLOR if not set
+	var/starlight_colour
 
 /turf/open/floor/glass/broken_states()
 	return GLOB.glass_turf_damage
-
-/turf/open/floor/glass/AfterChange()
-	var/turf/base = READ_BASETURF(src)
-	if(ispath(base, /turf/baseturf_bottom))
-		base = get_z_base_turf()
-
-	luminosity = initial(base.luminosity)
-	fullbright_type = initial(base.fullbright_type)
-	set_light_power(initial(base.light_power))
-
-	var/area/A = loc
-	if(IS_DYNAMIC_LIGHTING(A) && fullbright_type == FULLBRIGHT_STARLIGHT)
-		overlays += GLOB.starfloor_overlay
-
-	return ..()
 
 /turf/open/floor/glass/Initialize(mapload)
 	icon_state = "" //Prevent the normal icon from appearing behind the smooth overlays
 	..()
 	return INITIALIZE_HINT_LATELOAD
+
+/turf/open/floor/glass/LateInitialize()
+	setup_glow()
+
+/turf/open/floor/glass/Destroy()
+	. = ..()
+	UnregisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE)
+
+/turf/open/floor/glass/proc/setup_glow()
+	if(!ispath(get_z_base_turf(), /turf/open/space)) // We ain't the bottom brother
+		return
+
+	if(!starlight_colour)
+		RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(starlight_changed))
+	else
+		UnregisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE)
+
+	set_light(1.25, 1, starlight_colour || GLOB.starlight_colour, l_height = LIGHTING_HEIGHT_SPACE)
+
+/turf/open/floor/glass/proc/starlight_changed(datum/source, new_colour, transition_time)
+	set_light(l_color = new_colour)
 
 /turf/open/floor/glass/make_plating()
 	return
