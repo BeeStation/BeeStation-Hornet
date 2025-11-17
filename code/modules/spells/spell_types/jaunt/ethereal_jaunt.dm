@@ -207,7 +207,7 @@
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "phaseshift"
 
 	cooldown_time = 25 SECONDS

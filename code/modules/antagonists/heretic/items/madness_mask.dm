@@ -3,7 +3,7 @@
 	name = "Abyssal Mask"
 	desc = "A mask created from the suffering of existence. Looking down its eyes, you notice something gazing back at you."
 	icon_state = "mad_mask"
-	item_state = "mad_mask"
+	inhand_icon_state = "mad_mask"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE

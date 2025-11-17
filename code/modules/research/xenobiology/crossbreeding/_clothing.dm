@@ -9,7 +9,7 @@ Slimecrossing Armor
 	name = "rebreather mask"
 	desc = "A transparent mask, resembling a conventional breath mask, but made of bluish slime. Seems to lack any air supply tube, though."
 	icon_state = "slime"
-	item_state = "slime"
+	inhand_icon_state = "slime"
 	body_parts_covered = NONE
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0
@@ -72,7 +72,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 
 /datum/action/item_action/change_prism_colour
 	name = "Adjust Prismatic Lens"
-	icon_icon = 'icons/obj/slimecrossing.dmi'
+	button_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "prismcolor"
 
 /datum/action/item_action/change_prism_colour/on_activate(mob/user, atom/target)
@@ -84,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 
 /datum/action/item_action/place_light_prism
 	name = "Fabricate Light Prism"
-	icon_icon = 'icons/obj/slimecrossing.dmi'
+	button_icon = 'icons/obj/slimecrossing.dmi'
 	button_icon_state = "lightprism"
 
 /datum/action/item_action/place_light_prism/on_activate(mob/user, atom/target)
@@ -105,7 +105,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	icon = 'icons/obj/slimecrossing.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "peaceflower"
-	item_state = null
+	inhand_icon_state = null
 	slot_flags = ITEM_SLOT_HEAD
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
@@ -140,7 +140,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/light_prism)
 	name = "adamantine armor"
 	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do. The locked joints appear to move under their own power, making this suit of armor impossible to speed up."
 	icon_state = "adamsuit"
-	item_state = "adamsuit"
+	inhand_icon_state = "adamsuit"
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
 	clothing_flags = THICKMATERIAL

@@ -191,7 +191,7 @@
 	name = "Split"
 	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
 	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
@@ -263,7 +263,7 @@
 	name = "Partition"
 	desc = "Allow a nymph to partition from our gestalt self."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	cooldown_time = 5 MINUTES
 	var/ability_partition_cooldow

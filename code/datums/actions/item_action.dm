@@ -14,7 +14,7 @@
 
 /datum/action/item_action/apply_icon(atom/movable/screen/movable/action_button/current_button, force)
 	var/obj/item/item_target = master
-	if(button_icon && button_icon_state)
+	if(background_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
 		// of the item appearence
 		..()
