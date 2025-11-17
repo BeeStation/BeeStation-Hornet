@@ -210,7 +210,7 @@
 		if(carbon_user.stat == DEAD)
 			carbon_user.revive()
 			// Heal suffocation
-			carbon_user.adjustOxyLoss(-200)
+			carbon_user.setOxyLoss(0)
 
 /**
  * Called when we die
