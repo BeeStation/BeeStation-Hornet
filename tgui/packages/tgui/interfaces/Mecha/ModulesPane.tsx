@@ -366,9 +366,9 @@ const SnowflakeWeaponBallistic = (props) => {
           )
         }
       >
-        <ProgressBar
-          value={projectiles / max_magazine}
-        >{`${projectiles} of ${max_magazine}`}</ProgressBar>
+        <ProgressBar value={projectiles / max_magazine}>
+          {`${projectiles} of ${max_magazine}`}
+        </ProgressBar>
       </LabeledList.Item>
       {!!projectiles_cache_max && (
         <LabeledList.Item label="Stored">
@@ -445,14 +445,14 @@ const SnowflakeSyringe = (props) => {
   return (
     <>
       <LabeledList.Item label={'Syringes'}>
-        <ProgressBar
-          value={syringe / max_syringe}
-        >{`${syringe} of ${max_syringe}`}</ProgressBar>
+        <ProgressBar value={syringe / max_syringe}>
+          {`${syringe} of ${max_syringe}`}
+        </ProgressBar>
       </LabeledList.Item>
       <LabeledList.Item label={'Reagents'}>
-        <ProgressBar
-          value={reagents / total_reagents}
-        >{`${reagents} of ${total_reagents} units`}</ProgressBar>
+        <ProgressBar value={reagents / total_reagents}>
+          {`${reagents} of ${total_reagents} units`}
+        </ProgressBar>
       </LabeledList.Item>
       <LabeledList.Item label={'Mode'}>
         <Button
