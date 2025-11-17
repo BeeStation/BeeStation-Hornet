@@ -23,10 +23,9 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)
-		if (CONFIG_GET(flag/starlight))
-			for(var/area/A as anything in GLOB.areas)
-				if (A.dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-					A.luminosity = 0
+		for(var/area/A as anything in GLOB.areas)
+			if (A.dynamic_lighting == DYNAMIC_LIGHTING_ENABLED)
+				A.luminosity = 0
 
 		create_all_lighting_objects()
 		initialized = TRUE
