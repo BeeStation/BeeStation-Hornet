@@ -29,7 +29,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "h" = (
-/obj/vehicle/sealed/mecha/combat/gygax,
+/obj/vehicle/sealed/mecha/gygax,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -80,7 +80,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "p" = (
-/obj/vehicle/sealed/mecha/combat/gygax/dark/loaded,
+/obj/vehicle/sealed/mecha/gygax/dark/loaded,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -101,12 +101,12 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "u" = (
-/obj/vehicle/sealed/mecha/medical/odysseus,
+/obj/vehicle/sealed/mecha/odysseus,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
 "v" = (
-/obj/vehicle/sealed/mecha/combat/durand,
+/obj/vehicle/sealed/mecha/durand,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
@@ -180,7 +180,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "H" = (
-/obj/vehicle/sealed/mecha/combat/phazon,
+/obj/vehicle/sealed/mecha/phazon,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/template_noop)
