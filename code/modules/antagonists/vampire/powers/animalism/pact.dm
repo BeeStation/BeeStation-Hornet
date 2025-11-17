@@ -18,19 +18,16 @@
 
 /datum/action/vampire/targeted/pact/two
 	vitaecost = 30
-
 	bonus_health = 30
 	bonus_damage = 10
 
 /datum/action/vampire/targeted/pact/three
 	vitaecost = 45
-
 	bonus_health = 50
 	bonus_damage = 15
 
 /datum/action/vampire/targeted/pact/four
 	vitaecost = 60
-
 	bonus_health = 70
 	bonus_damage = 20
 
