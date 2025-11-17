@@ -132,34 +132,34 @@
 	var/humanitylevel
 	switch(our_vamp.humanity)
 		if(0)
-			humanitylevel = "'a Wight'"
+			humanitylevel = "Monstrous"
 		if(1)
-			humanitylevel = "'Horrific"
+			humanitylevel = "Horrific"
 		if(2)
-			humanitylevel = "'Bestial'"
+			humanitylevel = "Bestial"
 		if(3)
-			humanitylevel = "'Cold'"
+			humanitylevel = "Cold"
 		if(4)
-			humanitylevel = "'Unfeeling'"
+			humanitylevel = "Unfeeling"
 		if(5)
-			humanitylevel = "'Removed'"
+			humanitylevel = "Removed"
 		if(6)
-			humanitylevel = "'Distant'"
+			humanitylevel = "Distant"
 		if(7)
-			humanitylevel = "'Normal'"
+			humanitylevel = "Normal"
 		if(8)
-			humanitylevel = "'Caring'"
+			humanitylevel = "Caring"
 		if(9)
-			humanitylevel = "'Compassionate'"
+			humanitylevel = "Compassionate"
 		if(10)
-			humanitylevel = "'Saintly'"
+			humanitylevel = "Saintly"
 
 	// Pardon me for my math, i was never good at this.
 
 	var/normal_humanity_divisor = min(2, 1 + (our_vamp.humanity / 10))
 	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
 
-	msg += span_cult("\n<b>Right now, others would describe you as <i>[humanitylevel],</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
+	msg += span_cult("\n<b>Right now, others would describe you as <i>'[humanitylevel]',</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
 	if(our_vamp.humanity > 7)
 		msg += span_cult("Due to your connection to your own human soul, you have achieved the masquerade ability.")
 
