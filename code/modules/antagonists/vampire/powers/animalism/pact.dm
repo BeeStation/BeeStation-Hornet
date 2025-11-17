@@ -46,16 +46,16 @@
 
 	if (!isdog(target))
 		owner.balloon_alert(owner, "not a type of dog!")
-		return ..()
+		return FALSE
 
 	if (living_owner.combat_mode)
 		owner.balloon_alert(owner, "can't be in combat mode!")
-		return ..()
+		return FALSE
 
 	var/mob/living/basic/pet/dog/dog_target = target
 	if (dog_target.stat != CONSCIOUS)
 		owner.balloon_alert(owner, "must be conscious!")
-		return ..()
+		return FALSE
 
 /datum/action/vampire/targeted/pact/FireTargetedPower(atom/target_atom)
 	. = ..()
