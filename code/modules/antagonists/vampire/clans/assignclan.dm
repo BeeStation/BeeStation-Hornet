@@ -15,7 +15,10 @@
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/datum/vampire_clan/all_clans as anything in typesof(/datum/vampire_clan))
-		if(!initial(all_clans.joinable_clan) && !(initial(all_clans.secret_clan) && secrets)) //flavortext only
+		if(!initial(all_clans.joinable_clan)) //flavortext only
+			continue
+
+		if(initial(all_clans.secret_clan) && !secrets)
 			continue
 
 		options[initial(all_clans.name)] = all_clans
