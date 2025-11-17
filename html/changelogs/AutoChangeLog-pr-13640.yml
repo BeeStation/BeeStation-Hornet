@@ -1,4 +1,0 @@
-author: Bisar
-delete-after: true
-changes:
-  - code_imp: optimized heat capacity calculations a bit

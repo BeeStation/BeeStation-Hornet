@@ -205,6 +205,8 @@
   mrmanlikesbt, JohnFulpWillard, Ben10Omnitrix:
   - code_imp: Screen objects now have their hud owner set in Initialize()
 2025-11-17:
+  Bisar:
+  - code_imp: optimized heat capacity calculations a bit
   Rukofamicom:
   - bugfix: Most martial arts now ignore blocking entirely, with Krav Maga, Boxing
       and Psychotic Brawling being the exceptions that are still blockable. Don't
