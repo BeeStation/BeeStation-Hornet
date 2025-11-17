@@ -109,10 +109,9 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/humantarget = target
-		if(humantarget.get_organ_slot(ORGAN_SLOT_HEART))
-			var/obj/item/organ/heart/heart = humantarget.get_organ_slot(ORGAN_SLOT_HEART)
-			if(!heart.beating)
-				render_list += "<span class='alert ml-1'><b>No cardiac activity detected. Apply defibrillation or other electric shock immediately!</b></span>\n"
+		var/obj/item/organ/heart/heart = humantarget.get_organ_slot(ORGAN_SLOT_HEART)
+		if(heart && !heart.beating)
+			render_list += "<span class='alert ml-1'><b>No cardiac activity detected. Apply defibrillation or other electric shock immediately!</b></span>\n"
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, render_list, advanced, user, mode, tochat)
 
