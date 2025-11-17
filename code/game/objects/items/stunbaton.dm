@@ -172,7 +172,7 @@
 			attack_self()
 		update_icon()
 
-/obj/item/melee/baton/attack(mob/living/target, mob/living/carbon/human/user, params)
+/obj/item/melee/baton/attack(mob/living/target, mob/living/user, params)
 	//Clumsy gives a 50% chance to hit themselves if the baton is on
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED) && damtype == STAMINA)
 		target = user
