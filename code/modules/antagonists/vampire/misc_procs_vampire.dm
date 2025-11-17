@@ -71,8 +71,13 @@
  * Increase our unspent vampire levels by one and try to rank up if inside a coffin
  * Called near the end of Sol and admin abuse
 **/
-/datum/antagonist/vampire/proc/rank_up(levels)
+/datum/antagonist/vampire/proc/rank_up(levels, ignore_reqs = FALSE)
 	if(QDELETED(owner) || QDELETED(owner.current))
+		return
+
+	message_admins("[vitae_goal_progress]")
+	if(vitae_goal_progress <= current_vitae_goal && !ignore_reqs)
+		to_chat(owner.current, span_notice("Your lack of experience has left you unable to level up. Fulfill your vitae goal next time in order to level up."))
 		return
 
 	vampire_level_unspent += levels
@@ -81,6 +86,9 @@
 		return
 
 	to_chat(owner, span_notice("<EM>You have grown familiar with your powers!"))
+
+	current_vitae_goal += VITAE_GOAL_STANDARD
+	vitae_goal_progress = 0
 
 /**
  * Decrease the unspent vampire levels by one. Only for admins
@@ -320,3 +328,11 @@
 		if(CLAN_METHUSELAH)
 			return methuselah
 	return "OH MY GOD SOMETHING HORRIBLE HAS GONE WRONG CALL A CODER NOW"
+
+/**
+ * Called when a Vampire reaches Final Death
+ * Releases all Vassals.
+ */
+/datum/antagonist/vampire/proc/free_all_vassals()
+	for(var/datum/antagonist/vassal/all_vassals in vassals)
+		all_vassals.owner.remove_antag_datum(/datum/antagonist/vassal)

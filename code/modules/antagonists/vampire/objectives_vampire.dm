@@ -147,7 +147,7 @@
 
 // GENERATE!
 /datum/objective/vampire/gourmand/New()
-	target_amount = rand(3000, 4000)
+	target_amount = rand(500, 1000)		// This is blood, not vitae.
 	return ..()
 
 // EXPLANATION

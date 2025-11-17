@@ -16,6 +16,7 @@
 	icon = 'icons/vampires/actions_vampire.dmi'
 	var/mob/living/our_guy
 	var/datum/antagonist/vampire/our_vamp
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/vampire/Click()
 	our_guy = usr
@@ -26,18 +27,20 @@
 	icon_state = "blood_display"
 	screen_loc = UI_BLOOD_DISPLAY
 
+
 /atom/movable/screen/vampire/blood_counter/Click()
 	. = ..()
 	var/list/msg = list()
 
 	msg += span_cultlarge("This is your Vitae-Counter.")
 	msg += span_cult("Here you see your current level of blood-energy. This is used for all of your abilities, and sustains your very being.")
+	msg += span_cult("\n<b>You need to drink a certain amount from living, sentient beings in order to level up.</b>")
 	msg += span_cult("Your healing also depends on it. You reach your maximum healing potential at [BS_BLOOD_VOLUME_MAX_REGEN].")
 
 	var/bloodlevel
 	switch(our_vamp.current_vitae)
 		if(0 to 200)
-			bloodlevel = "starving"
+			bloodlevel = "starved"
 		if(201 to 500)
 			bloodlevel = "thirsty"
 		if(501 to 700)
@@ -46,8 +49,14 @@
 			bloodlevel = "content"
 
 	msg += span_cult("Your current maximum is: [our_vamp.max_vitae].")
-	msg += span_cult("Today, you have drank [our_vamp.total_blood_drank] Vitae.")
+	msg += span_cult("This shift, you have drank [our_vamp.total_blood_drank] units of blood.")
+
 	msg += span_cultlarge("\n<b>Right now, you are feeling <i>[bloodlevel].</i></b>")
+
+	if(our_vamp.vitae_goal_progress <= our_vamp.current_vitae_goal)
+		msg += span_cultlarge("\n<b>Your progress to the next level is: <i>[our_vamp.vitae_goal_progress]/[our_vamp.current_vitae_goal].</i></b>")
+	else
+		msg += span_cultlarge("\n<b>You have drank deeply and greedily. Upon next sol, you will level up.</b>")
 
 	to_chat(usr, examine_block(msg.Join("\n")))
 

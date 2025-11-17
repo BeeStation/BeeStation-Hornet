@@ -233,6 +233,11 @@
 	if(QDELETED(owner.current) || check_if_staked() || is_in_torpor())
 		return
 
+	// Fire Damage? (above double health)
+	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
+		final_death()
+		return
+
 	torpor_begin()
 
 /**
@@ -280,3 +285,45 @@
 		additional_regen = 0.4
 	else
 		additional_regen = 0.5
+
+/// dust
+/datum/antagonist/vampire/proc/final_death(skip_destruction = FALSE)
+	var/mob/living/body = owner.current
+	// If we have no body, end here.
+	if(QDELETED(body))
+		return
+
+	UnregisterSignal(body, list(
+		COMSIG_LIVING_LIFE,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_LIVING_DEATH,
+		COMSIG_MOVABLE_MOVED,
+	))
+
+	final_death = TRUE
+	free_all_vassals()
+
+	if(!skip_destruction)
+		if(iscarbon(body))
+			// Drop anything in us and play a tune
+			var/mob/living/carbon/carbon_body = body
+			carbon_body.drop_all_held_items()
+			carbon_body.unequip_everything()
+			carbon_body.remove_all_embedded_objects()
+			playsound(owner.current, 'sound/vampires/burning_death.ogg', 80, TRUE)
+		else
+			body.dust(drop_items = TRUE)
+
+	if(SEND_SIGNAL(src, COMSIG_VAMPIRE_FINAL_DEATH) & DONT_DUST)
+		return
+
+	if(skip_destruction || QDELETED(body))
+		return
+
+	// Get dusted lmao
+	body.visible_message(
+		span_warning("[body]'s skin crackles and dries, [body.p_their()] skin and bones withering to dust. A hollow cry whips from what is now a sandy pile of remains."),
+		span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
+		span_hear("You hear a dry, crackling sound.")
+	)
+	addtimer(CALLBACK(body, TYPE_PROC_REF(/mob/living, dust)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)

@@ -484,8 +484,14 @@
 	if(vampiredatum_power.frenzied)
 		blood_to_take /= 2
 
-	// Give vampire the blood
-	vampiredatum_power.AddBloodVolume(blood_to_take * 4)
+	// Give vampire the blood^
+	var/vitae_absorbed = blood_to_take * 4
+
+	/// Tracking of the vitae goal
+	if(target.client)
+		vampiredatum_power.vitae_goal_progress += vitae_absorbed
+
+	vampiredatum_power.AddBloodVolume(vitae_absorbed)
 
 	// Diablerie takes vitae directly
 	if(IS_VAMPIRE(target))
@@ -501,6 +507,8 @@
 
 	vampiredatum_power.total_blood_drank += blood_to_take
 	blood_taken += blood_to_take
+
+
 
 	// If we are on combat feed, we only want it to take a bit and then stop.
 	if(!silent_feed && blood_taken >= 60)

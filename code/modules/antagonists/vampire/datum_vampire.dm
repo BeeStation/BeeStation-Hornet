@@ -45,6 +45,11 @@
 	/// If we've already alerted the player about low blood
 	var/low_blood_alerted = FALSE
 
+	/// Goal of vitae required for the next level up
+	var/current_vitae_goal = VITAE_GOAL_STANDARD
+	/// progress to that goal
+	var/vitae_goal_progress = 0
+
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
@@ -55,7 +60,10 @@
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
-	var/vampire_level_unspent = 0
+	var/vampire_level_unspent = VAMPIRE_STARTING_LEVELS
+
+	/// If this guy has suffered final death.
+	var/final_death = FALSE
 
 	/// Additional regeneration when the vampire has a lot of blood
 	var/additional_regen
@@ -275,9 +283,6 @@
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
-	rank_up(1)
-	rank_up(1)
-	rank_up(1)
 	owner.special_role = ROLE_VAMPIRE
 	GLOB.all_vampires.Add(src)
 
@@ -325,8 +330,6 @@
 
 	msg += span_cultlarge("You are [fullname], a Vampire!")
 	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more.")
-	if(vampire_level_unspent >= 1)
-		msg += span_cult("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.")
 
 	to_chat(owner, examine_block(msg.Join("\n")))
 

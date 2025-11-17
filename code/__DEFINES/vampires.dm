@@ -19,6 +19,11 @@
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
 /// The number that incoming levels are divided by when comitting the Amaranth. Example: 2 would divide the victims level by 2, and give that to the diablerist
 #define DIABLERIE_DIVISOR 1.5
+/// Amount of vitae drunk from another player required to level up.
+#define VITAE_GOAL_STANDARD 250
+
+/// How many starting levels do we want each one to have?
+#define VAMPIRE_STARTING_LEVELS 3
 
 /// When do we warn them about their low blood?
 #define VAMPIRE_LOW_BLOOD_WARNING 300
@@ -103,6 +108,11 @@
 #define BP_AM_COSTLESS_UNCONSCIOUS (1<<3)
 /// This Power has a cooldown that is more dynamic than a typical power
 #define BP_AM_VERY_DYNAMIC_COOLDOWN (1<<4)
+
+///Called when a Vampire reaches Final Death.
+#define COMSIG_VAMPIRE_FINAL_DEATH "vampire_final_death"
+	///Whether the vampire should not be dusted when arriving Final Death
+	#define DONT_DUST (1<<0)
 
 // Vampire Signals
 /// Called when a Vampire breaks the Masquerade
