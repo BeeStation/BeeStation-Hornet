@@ -18,19 +18,16 @@
 	var/datum/antagonist/vampire/our_vamp
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
-/atom/movable/screen/vampire/Click()
-	our_guy = usr
-	our_vamp = IS_VAMPIRE(our_guy)
-
 /atom/movable/screen/vampire/blood_counter
 	name = "Vitae"
 	icon_state = "blood_display"
 	screen_loc = UI_BLOOD_DISPLAY
 
-
 /atom/movable/screen/vampire/blood_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	msg += span_cultlarge("This is your Vitae-Counter.")
 	msg += span_cult("Here you see your current level of blood-energy. This is used for all of your abilities, and sustains your very being.")
@@ -68,6 +65,8 @@
 /atom/movable/screen/vampire/rank_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	var/mob/living/carbon/human/vampire_human = our_guy
 	msg += span_cultlarge("This is your Rank-Counter.")
@@ -98,6 +97,8 @@
 /atom/movable/screen/vampire/sunlight_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	msg += span_cultlarge("This is the 'Sol' indicator.")
 	msg += span_cult("Here you see the current state of Sol, the frequent solar flares given off by the nearby star.")
@@ -121,6 +122,8 @@
 /atom/movable/screen/vampire/humanity_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	msg += span_cultlarge("This is your Humanity score.")
 	msg += span_cult("Humanity is a measure of how closely a vampire clings to the morality and values of mortal life, and consequently how well they are able to resist the urges of the Beast.")
