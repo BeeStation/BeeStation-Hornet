@@ -205,6 +205,27 @@
   mrmanlikesbt, JohnFulpWillard, Ben10Omnitrix:
   - code_imp: Screen objects now have their hud owner set in Initialize()
 2025-11-17:
+  Rukofamicom:
+  - bugfix: Most martial arts now ignore blocking entirely, with Krav Maga, Boxing
+      and Psychotic Brawling being the exceptions that are still blockable. Don't
+      fight the chef on his turf.
+  - bugfix: Items which block projectiles now correctly report their behavior when
+      examined
+  - bugfix: Blocked projectiles no longer trigger their on_hit effects. They didn't
+      hit after all.
+  - bugfix: Stun batons (and subtypes of them) can now be blocked properly. There
+      was a major refactor to stun baton code, so please report anything unusual you
+      notice.
+  - tweak: Stun Batons (and subtypes) can no longer harm baton. They do either stamina
+      damage when on, or brute when they are off.
+  - tweak: Stun batons (and subtypes) as well as telescopic batons do not deal any
+      stamina or shield damage when successfully blocked. They still trigger the block
+      cooldown, but you're going to need something stronger to break through a shield.
+  - tweak: Teleprods can now be worn on the back and have backsprites
+  Sarchutar:
+  - rscadd: Added a MOD team-tracker module, all Syndicate and ERT MODsuits have it
+  - bugfix: fixed an issue where arrows from team-trackers where permanently stuck
+      on screen when changing the frequency
   r1ks-iwnl:
   - bugfix: Summon Cultist rune works again
   - bugfix: Cultist torch now works again
