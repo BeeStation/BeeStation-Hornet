@@ -143,14 +143,14 @@
 
 /datum/action/vampire/targeted/command/proc/get_single_word_command()
 	. = TRUE
-	var/command = tgui_input_text(owner, "What would you like to command? One VERB, only.", "Input a command", "STOP", timeout = 2 MINUTES)
+	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", timeout = 2 MINUTES)
 	if(QDELETED(src))
 		return FALSE
 	if(CHAT_FILTER_CHECK(command))
 		to_chat(owner, span_warning("The command '[span_boldname("[command]")]' is forbidden!"))
 		return FALSE
 	if(findtext(command, " "))
-		to_chat(owner, span_warning("Please only input a single word, preferably a verb. Note that all commands are logged. Do not try to game the system."))
+		to_chat(owner, span_warning("Please only input a single word."))
 		return FALSE
 	if(length(command)  > 5)
 		to_chat(owner, span_warning("Command too long!"))
