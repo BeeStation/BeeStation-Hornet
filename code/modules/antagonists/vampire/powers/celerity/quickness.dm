@@ -29,7 +29,6 @@
 			return TRUE
 		owner.balloon_alert(owner, "you're wearing gloves!")
 		return FALSE
-	return TRUE
 
 /datum/action/vampire/quickness/activate_power()
 	. = ..()
