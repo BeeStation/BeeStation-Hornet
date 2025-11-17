@@ -75,7 +75,6 @@
 	if(QDELETED(owner) || QDELETED(owner.current))
 		return
 
-	message_admins("[vitae_goal_progress]")
 	if(vitae_goal_progress <= current_vitae_goal && !ignore_reqs)
 		to_chat(owner.current, span_notice("Your lack of experience has left you unable to level up. Fulfill your vitae goal next time in order to level up."))
 		return
