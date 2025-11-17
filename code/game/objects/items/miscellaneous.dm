@@ -125,7 +125,7 @@
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/melee/curator_whip(src)
 
-/obj/item/storage/box/hero/witchhunter		// I SWEAR this isn't just the chaplains stuff!!!!
+/obj/item/storage/box/hero/witchhunter // I SWEAR this isn't just the chaplains stuff!!!!
 	name = "Monster-Hunter Kit - 1735"
 	item_icon_state = "witchhunter"
 	info_text = "Monster-Hunter Kit - 1735. \n" + span_notice("The garb can hold a variety of relevant items. \n Comes with a crucifix that wards against hexes, and a few premium stakes.")
