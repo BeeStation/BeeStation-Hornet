@@ -185,23 +185,16 @@
 		return FALSE
 
 	// IF USER IS UNCONSCIOUS
-	if(owner.stat != CONSCIOUS)
-		// CHECK FOR THE FLAG
-		if(power_flags & BP_AM_COSTLESS_UNCONSCIOUS)
-			return TRUE	// WE ARE UNCONSCIOUS, BUT WE ALSO HAVE THE FLAG. SO IT'S FINE WE, JUST RETURN
+	if((power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+		return TRUE
+	else
+		if(vampiredatum_power)
+			vampiredatum_power.AdjustBloodVolume(-constant_vitaecost)
 		else
-			PowerCostHelper() // WE ARE UNCONSCIOUS, AND DO NOT HAVE THE FLAG. MAKE IT COST.
-	else
-		PowerCostHelper() // WE ARE CONSCIOUS SO THE FLAG DOES NOT MATTER
+			var/mob/living/living_owner = owner
+			if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
+				living_owner.blood_volume -= constant_vitaecost
 	return TRUE
-
-/datum/action/vampire/proc/PowerCostHelper()
-	if(vampiredatum_power)
-		vampiredatum_power.AdjustBloodVolume(-constant_vitaecost)
-	else
-		var/mob/living/living_owner = owner
-		if(!HAS_TRAIT(living_owner, TRAIT_NO_BLOOD))
-			living_owner.blood_volume -= constant_vitaecost
 
 /// Checks to make sure this power can stay active
 /datum/action/vampire/proc/continue_active()
