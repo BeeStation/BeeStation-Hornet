@@ -102,7 +102,7 @@
 GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_purple_pink",
 		"pill_shape_capsule_bloodred",
-		"pill_shape_capsule_red_whitelined",
+		"pill_shape_capsule_orange_whitelined",
 		"pill_shape_capsule_orange",
 		"pill_shape_capsule_yellow",
 		"pill_shape_capsule_green",
@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_cyan_brown",
 		"pill_shape_capsule_purple_yellow",
 		"pill_shape_capsule_black_white",
-		"pill_shape_capsule_lightgreen_white",
+		"pill_shape_capsule_cyan_white",
 		"pill_shape_tablet_red_lined",
 		"pill_shape_tablet_lightred_flat",
 		"pill_shape_tablet_orange_flat",
@@ -142,11 +142,18 @@ GLOBAL_LIST_INIT(pill_shape_list, list(
 #define PILL_SHAPE_LIST_WITH_DUMMY (GLOB.pill_shape_list+"pill_random_dummy")
 
 GLOBAL_LIST_INIT(patch_shape_list, list(
-		"bandaid_small_cross",
+		"bandaid_small_suffocation",
+		"bandaid_small_toxin",
 		"bandaid_small_blank",
+		"bandaid_small_brute",
+		"bandaid_small_burn",
+		"bandaid_small_both",
+		"bandaid_big_suffocation",
+		"bandaid_big_toxin",
 		"bandaid_big_brute",
 		"bandaid_big_burn",
 		"bandaid_big_both",
+		"bandaid_big_unknown",
 		"bandaid_big_blank",))
 
 #define PATCH_SHAPE_LIST (GLOB.patch_shape_list)
