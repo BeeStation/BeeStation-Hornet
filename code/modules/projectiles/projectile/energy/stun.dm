@@ -79,13 +79,18 @@
 	)
 
 /obj/projectile/energy/electrode/Range()
-	if (!firer || !HAS_TRAIT(firer, TRAIT_SECURITY_HUD))
-		..()
-		return
+	var/has_sec_aim = firer && HAS_TRAIT(firer, TRAIT_SECURITY_HUD)
 	for (var/cardinal in GLOB.alldirs)
 		// Snap on to any targets with a wanted status
 		for(var/mob/living/carbon/human/M in get_step(src, cardinal))
-			if(M.get_wanted_status() == WANTED_ARREST && can_hit_target(M, M == original, TRUE))
+			// If the target is adjacent to the tile that we originally fired at,
+			// snap on to them (unless we specifically clicked a mob that wasn't them)
+			// Always snap on to the mob that we clicked on.
+			if (get_dist(M, original) <= 1 && (!ismob(original) || original == M))
+				Impact(M)
+				return
+			// Snap on to targets who are wanted if we have a SecHUD on.
+			if(has_sec_aim && M.get_wanted_status() == WANTED_ARREST && can_hit_target(M, M == original, TRUE))
 				Impact(M)
 				return
 	..()
@@ -222,6 +227,7 @@
 
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(try_remove_taser))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
+	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_victim_movement))
 
 	//RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(someome_removing_taser))
 	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
@@ -368,6 +374,14 @@
 	tase_line.RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, TYPE_PROC_REF(/datum/beam, redrawing))
 	recalculate_distance()
 
+/// If this move would take you out of the range of the taser, then block it.
+/datum/status_effect/tased/proc/check_victim_movement(datum/source, atom/newloc)
+	SIGNAL_HANDLER
+	var/turf/next_loc = get_turf(newloc)
+	if (get_dist(owner, next_loc) >= tase_range)
+		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	recalculate_distance()
+
 /datum/status_effect/tased/proc/recalculate_distance(...)
 	SIGNAL_HANDLER
 	var/distance = get_dist(firer, owner)
@@ -382,7 +396,7 @@
 
 /datum/status_effect/tased/proc/user_cancel_tase(mob/living/source, atom/clicked_on, modifiers)
 	SIGNAL_HANDLER
-	if(clicked_on != owner && !LAZYACCESS(modifiers, RIGHT_CLICK))
+	if(!LAZYACCESS(modifiers, RIGHT_CLICK))
 		return NONE
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return NONE
