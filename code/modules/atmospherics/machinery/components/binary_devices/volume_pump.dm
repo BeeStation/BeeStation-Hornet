@@ -156,6 +156,10 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/multitool_act(mob/living/user, obj/item/I)
 	if(!overclocked)
+		var/turf/turf = loc
+		if(isclosedturf(turf))
+			to_chat(user, "The pump is sealed inside a closed space, you can't safely disable its pressure limits here.")
+			return TRUE
 		overclocked = TRUE
 		to_chat(user, "The pump makes a grinding noise and air starts to hiss out as you disable its pressure limits.")
 		update_icon()
