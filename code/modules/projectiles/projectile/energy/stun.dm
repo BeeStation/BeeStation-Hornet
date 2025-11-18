@@ -14,11 +14,11 @@
 	// fully stun the target.
 	zone_accurate = TRUE
 	/// How much stamina damage will the tase deal per second
-	VAR_PROTECTED/tase_stamina = 40
+	VAR_PROTECTED/tase_stamina = 35
 	/// What is the maximum duration that the taser can apply for?
-	VAR_PROTECTED/max_duration = 6 SECONDS
+	VAR_PROTECTED/max_duration = 8 SECONDS
 	/// If false then we will not be able to affect targets with pierce protection.
-	VAR_PROTECTED/piercing = FALSE
+	VAR_PROTECTED/piercing = TRUE
 	/// Electrodes that follow the projectile
 	VAR_PRIVATE/datum/weakref/beam_weakref
 	/// We need to track who was the ORIGINAL firer of the projectile specifically to ensure deflects work correctly
@@ -93,6 +93,8 @@
 			if(has_sec_aim && M.get_wanted_status() == WANTED_ARREST && can_hit_target(M, M == original, TRUE))
 				Impact(M)
 				return
+	// Manually override the range to be based on distance from user
+	range = get_dist(src, firer) + 1
 	..()
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
@@ -190,7 +192,7 @@
 /// Actually does the tasing with the passed atom
 /// Returns TRUE if the tasing was successful, FALSE if it failed
 /datum/status_effect/tased/proc/do_tase_with(atom/with_what, seconds_between_ticks)
-	if(!can_see(taser, owner, 5))
+	if(!can_see(taser, owner, tase_range))
 		return FALSE
 	if(istype(with_what, /obj/item/gun/energy))
 		var/obj/item/gun/energy/taser_gun = with_what
@@ -329,7 +331,7 @@
 /// Sets the passed atom as the "taser"
 /datum/status_effect/tased/proc/set_taser(datum/new_taser)
 	taser = new_taser
-	RegisterSignals(taser, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(end_tase))
+	RegisterSignals(taser, COMSIG_QDELETING, PROC_REF(end_tase))
 	RegisterSignal(taser, COMSIG_MOB_PULL_TRIGGER, PROC_REF(block_firing))
 	// snowflake cases! yay!
 	if(istype(taser, /obj/machinery/porta_turret))
@@ -378,7 +380,9 @@
 /datum/status_effect/tased/proc/check_victim_movement(datum/source, atom/newloc)
 	SIGNAL_HANDLER
 	var/turf/next_loc = get_turf(newloc)
-	if (get_dist(owner, next_loc) >= tase_range)
+	var/turf/source_loc = get_turf(firer)
+	var/distance = get_dist(source_loc, next_loc)
+	if (distance >= tase_range)
 		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 	recalculate_distance()
 
