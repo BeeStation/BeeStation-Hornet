@@ -4,7 +4,7 @@
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,
-		"roundstart_points_per_ready": 1.5,
+		"roundstart_points_per_ready": 1.4,
 		"roundstart_points_per_unready": 0.5,
 		"midround_grace_period": 12000,
 		"midround_linear_delta": 0.6,
@@ -45,7 +45,7 @@
 	},
 	"Roundstart": {
 		"Traitor": {
-			"points_cost": 6,
+			"points_cost": 4,
 			"weight": 10,
 			"restricted_roles": [
 				"Cyborg",
@@ -60,20 +60,20 @@
 		},
 		"Blood Cult": {
 			"minimum_players_required": 24,
-			"weight": 25
+			"weight": 4
 		},
 		"Nuclear Operatives": {
 			"minimum_players_required": 24,
-			"weight": 20
+			"weight": 4
 		},
 		"Changeling": {
-			"points_cost": 3
+			"points_cost": 5
 		},
 		"Vampire": {
-			"points_cost": 6
+			"points_cost": 7
 		},
 		"Heretic": {
-			"points_cost": 3
+			"points_cost": 7
 		}
 	},
 	"Midround": {

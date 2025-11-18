@@ -15,7 +15,10 @@
 	var/thankscount
 	var/cannonmode = FALSE
 	var/cannonbusy = FALSE
+	var/upgraded = FALSE
 
+/obj/vehicle/sealed/car/clowncar/syndicate
+	upgraded = TRUE
 
 /datum/armor/car_clowncar
 	melee = 70
@@ -30,12 +33,18 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/horn/clowncar, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Thank, VEHICLE_CONTROL_KIDNAPPED)
 
+/obj/vehicle/sealed/car/clowncar/syndicate/generate_actions()
+	. = ..()
+	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
+
 /obj/vehicle/sealed/car/clowncar/relaymove(mob/living/user, direction)
-	if(!ishuman(user))
-		return FALSE
-	var/mob/living/carbon/human/rider = user
-	if(rider.mind?.assigned_role != JOB_NAME_CLOWN) //Only clowns can drive the car.
-		return FALSE
+	if(upgraded)
+		if(!ishuman(user))
+			return FALSE
+		var/mob/living/carbon/human/rider = user
+		if(rider.mind?.assigned_role != JOB_NAME_CLOWN) //Only clowns can drive the syndicate version of the clown car.
+			return FALSE
 	return ..()
 
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
@@ -91,14 +100,8 @@
 	if(isliving(M))
 		if(ismegafauna(M))
 			return
-		var/mob/living/L = M
-		if(iscarbon(L))
-			var/mob/living/carbon/C = L
-			C.Paralyze(40) //I play to make sprites go horizontal
-			restraintarget(C)
-		L.visible_message(span_warning("[src] rams into [L] and sucks him up!")) //fuck off shezza this isn't ERP.
-		mob_forced_enter(L)
-		playsound(src, pick('sound/vehicles/clowncar_ram1.ogg', 'sound/vehicles/clowncar_ram2.ogg', 'sound/vehicles/clowncar_ram3.ogg'), 75)
+		try_pickup_target(M)
+
 	else if(istype(M, /turf/closed))
 		visible_message(span_warning("[src] rams into [M] and crashes!"))
 		playsound(src, pick('sound/vehicles/clowncar_crash1.ogg', 'sound/vehicles/clowncar_crash2.ogg'), 75)
@@ -106,11 +109,28 @@
 		DumpMobs(TRUE)
 
 /obj/vehicle/sealed/car/clowncar/RunOver(mob/living/carbon/human/H)
-	mob_forced_enter(H)
-	H.visible_message(span_warning("[src] drives over [H] and sucks him up!"))
-	restraintarget(H)
+	try_pickup_target(H)
 
-/obj/vehicle/sealed/car/clowncar/proc/restraintarget(mob/living/carbon/C)
+/obj/vehicle/sealed/car/clowncar/proc/try_pickup_target(mob/living/L)
+	if(!isliving(L))
+		return
+	var/picking_up = (!L.combat_mode || upgraded) //Upgraded can always pick up, normal needs target to be outside of combat mode
+
+	if(picking_up)
+		playsound(src, pick('sound/vehicles/clowncar_ram1.ogg', 'sound/vehicles/clowncar_ram2.ogg', 'sound/vehicles/clowncar_ram3.ogg'), 75)
+		restraintarget(L)
+		L.visible_message(span_warning("[L] is stuffed into [src]!"))
+		mob_forced_enter(L)
+
+	else if(!L.IsKnockdown())
+		L.visible_message(span_warning("[src] rams into [L] and runs them over!"))
+		L.Knockdown(3 SECONDS)
+		playsound(src, pick('sound/vehicles/clowncar_crash1.ogg', 'sound/vehicles/clowncar_crash2.ogg'), 75)
+
+/obj/vehicle/sealed/car/clowncar/proc/restraintarget(mob/living/L)
+	if(!iscarbon(L))
+		return //can't restrain what doesn't have hands
+	var/mob/living/carbon/C = L
 	if(istype(C))
 		// Dont try and apply more handcuffs if already handcuffed, obviously
 		if(C.handcuffed)
@@ -126,10 +146,9 @@
 
 /obj/vehicle/sealed/car/clowncar/on_emag(mob/user)
 	..()
-	to_chat(user, span_danger("You scramble the clowncar child safety lock and a panel with 6 colorful buttons appears!"))
-	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
-	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
+	to_chat(user, span_danger("You scramble the clowncar safety lock and enable high-octane waddling!"))
 	AddComponent(/datum/component/waddling)
+	upgraded = TRUE
 
 /obj/vehicle/sealed/car/clowncar/Destroy()
 	playsound(src, 'sound/vehicles/clowncar_fart.ogg', 100)

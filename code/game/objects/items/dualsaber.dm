@@ -16,7 +16,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
 	armour_penetration = 35
-	item_flags = ISWEAPON
+	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 	var/saber_color = "green"
 	light_color = "#00ff00"//green
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
@@ -187,7 +187,7 @@
 		var/mob/living/carbon/C = user
 		if(C.wear_mask)
 			in_mouth = ", barely missing [user.p_their()] nose"
-	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.")
+	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_They()] light[user.p_s()] [user.p_their()] [A.name] in the process.")
 	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 	// Light your candles while spinning around the room

@@ -3,7 +3,7 @@
 	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
 	invisibility = INVISIBILITY_SPIRIT
 	health = INFINITY
@@ -69,9 +69,6 @@
 
 /mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE
-
-/mob/living/simple_animal/eminence/rad_act(amount)
-	return
 
 /mob/living/simple_animal/eminence/Initialize(mapload)
 	. = ..()

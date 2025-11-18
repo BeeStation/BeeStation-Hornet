@@ -1003,20 +1003,20 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	return "\[[loadstring]\]"
 
 /**
-  * Formats a number to human readable form with the appropriate SI unit.
-  *
-  * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
-  * Examples:
-  * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
-  * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
-  * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
-  * Arguments:
-  * * value - The number to convert to text. Can be positive or negative.
-  * * unit - The base unit of the number, such as "Pa" or "W".
-  * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
-  * *
-  * * For pressure conversion, use proc/siunit_pressure() below
-  */
+ * Formats a number to human readable form with the appropriate SI unit.
+ *
+ * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
+ * Examples:
+ * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
+ * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
+ * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
+ * Arguments:
+ * * value - The number to convert to text. Can be positive or negative.
+ * * unit - The base unit of the number, such as "Pa" or "W".
+ * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
+ * *
+ * * For pressure conversion, use proc/siunit_pressure() below
+ */
 /proc/siunit(value, unit, maxdecimals=1)
 	var/static/list/prefixes = list("f","p","n","μ","m","","k","M","G","T","P")
 

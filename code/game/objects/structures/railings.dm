@@ -25,7 +25,6 @@
 	laser = 70
 	energy = 100
 	bomb = 10
-	rad = 100
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"

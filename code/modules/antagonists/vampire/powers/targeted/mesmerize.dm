@@ -102,7 +102,9 @@
 	owner.balloon_alert(owner, "attempting to hypnotize [living_target]...")
 	if(!do_after(owner, 4 SECONDS, living_target, extra_checks = CALLBACK(src, PROC_REF(continue_active)), hidden = TRUE))
 		return
+
 	owner.balloon_alert(owner, "successfully mesmerized [living_target].")
+	to_chat(living_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully... You're mesmerized!"), type = MESSAGE_TYPE_WARNING)
 
 	//Actually mesmerize them now
 	var/power_time = 9 SECONDS + level_current * 1.5 SECONDS

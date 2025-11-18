@@ -50,10 +50,10 @@
 	shoes = /obj/item/clothing/shoes/laceup
 
 
-/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	ADD_TRAIT(H, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)

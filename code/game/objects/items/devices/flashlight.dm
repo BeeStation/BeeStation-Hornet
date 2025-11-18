@@ -1,7 +1,6 @@
 /obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
-	custom_price = 10
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
@@ -17,6 +16,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	custom_price = 15
 	/// The sound the light makes when it's turned on
 	var/sound_on = 'sound/items/flashlight_on.ogg'
 	/// The sound the light makes when it's turned off
@@ -168,11 +168,11 @@
 		return
 	else
 		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
-			results += span_warning("[M.p_their(TRUE)] pupils don't react to the light!")
+			results += span_warning("[M.p_Their()] pupils don't react to the light!")
 		else if(M.has_dna() && M.dna.check_mutation(/datum/mutation/thermal/x_ray))	//mob has X-ray vision
-			results += span_danger("[M.p_their(TRUE)] pupils give an eerie glow!")
+			results += span_danger("[M.p_Their()] pupils give an eerie glow!")
 		else //they're okay!
-			results += span_notice("[M.p_their(TRUE)] pupils narrow.")
+			results += span_notice("[M.p_Their()] pupils narrow.")
 
 	to_chat(user, examine_block(jointext(results, "\n")))
 
@@ -287,6 +287,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
+	custom_price = 10
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()

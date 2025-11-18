@@ -1,7 +1,10 @@
 /datum/dynamic_ruleset/roundstart
 	rule_category = DYNAMIC_CATEGORY_ROUNDSTART
-	flags = SHOULD_USE_ANTAG_REP
+	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/roundstart
+	/// The percentage (0 to 100) chance that this ruleset will be repicked
+	/// when selected, assuming there are cost points available.
+	var/elasticity = 0
 
 /datum/dynamic_ruleset/roundstart/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
@@ -19,28 +22,19 @@
 			candidates -= candidate
 			continue
 
-/datum/dynamic_ruleset/roundstart/select_player()
-	if(!length(candidates))
-		CRASH("[src] called select_player without any candidates!")
-
-	var/mob/selected_player = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
-
-	if(selected_player)
-		candidates -= selected_player
-	return selected_player.mind
-
 /**
  * Choose candidates, if your ruleset makes them a non-crewmember, set their assigned role here.
-**/
+ */
 /datum/dynamic_ruleset/roundstart/proc/choose_candidates()
 	for(var/i = 1 to drafted_players_amount)
-		var/datum/mind/chosen_candidate = select_player()
+		var/mob/chosen_candidate = select_player()
+		var/datum/mind/chosen_mind = chosen_candidate.mind
 
-		GLOB.pre_setup_antags += chosen_candidate
-		chosen_candidates += chosen_candidate
+		GLOB.pre_setup_antags += chosen_mind
+		LAZYADD(chosen_candidates, chosen_mind)
 
-		chosen_candidate.special_role = initial(antag_datum.banning_key)
-		chosen_candidate.restricted_roles = restricted_roles
+		chosen_mind.special_role = initial(antag_datum.banning_key)
+		chosen_mind.restricted_roles = restricted_roles
 
 /datum/dynamic_ruleset/roundstart/execute()
 	. = ..()
@@ -115,7 +109,7 @@
 	points_cost = 13
 	minimum_players_required = 24
 	restricted_roles = list(JOB_NAME_CYBORG)
-	flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
+	ruleset_flags = SHOULD_USE_ANTAG_REP | CANNOT_REPEAT
 
 /datum/dynamic_ruleset/roundstart/malf/choose_candidates()
 	. = ..()
@@ -135,7 +129,7 @@
 	weight = 1
 	points_cost = 15
 	minimum_players_required = 20
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/wizard/allowed()
 	. = ..()
@@ -175,7 +169,7 @@
 
 /datum/dynamic_ruleset/roundstart/brothers/choose_candidates()
 	. = ..()
-	team = new
+	team = new()
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		team.add_member(chosen_mind)
 
@@ -204,7 +198,7 @@
 	weight = 5
 	points_cost = 20
 	minimum_players_required = 24
-	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/clockcult,
 	)
@@ -251,7 +245,7 @@
 	weight = 5
 	points_cost = 35
 	minimum_players_required = 35
-	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 	)
@@ -270,7 +264,7 @@
 		chosen_mind.assigned_role = initial(antag_datum.banning_key)
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
-	main_cult = new
+	main_cult = new()
 
 	for(var/datum/mind/chosen_mind in chosen_candidates)
 		chosen_mind.current.forceMove(pick_n_take(GLOB.servant_spawns))
@@ -309,7 +303,7 @@
 	weight = 3
 	points_cost = 20
 	minimum_players_required = 24
-	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
@@ -406,7 +400,7 @@
 	weight = 4
 	points_cost = 20
 	minimum_players_required = 35
-	flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/team/revolution/team
 	var/finished = FALSE

@@ -1,8 +1,8 @@
 /datum/outfit/centcom
 	name = "CentCom Base"
 
-/datum/outfit/centcom/post_equip(mob/living/carbon/human/centcom_member, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/centcom/post_equip(mob/living/carbon/human/centcom_member, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/implant/mindshield/mindshield = new /obj/item/implant/mindshield(centcom_member)//hmm lets have centcom officials become revs
@@ -22,8 +22,8 @@
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/alt
 
-/datum/outfit/centcom/ert/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/centcom/ert/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears
@@ -56,10 +56,10 @@
 	l_pocket = /obj/item/door_remote/omni
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
-/datum/outfit/centcom/ert/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/commander/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	var/obj/item/radio/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/heads/captain
@@ -118,10 +118,10 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
-/datum/outfit/centcom/ert/security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/security/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears
@@ -173,10 +173,10 @@
 	glasses = /obj/item/clothing/glasses/hud/health
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
-/datum/outfit/centcom/ert/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/medic/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears
@@ -234,10 +234,10 @@
 	l_pocket = /obj/item/holosign_creator/atmos/ert
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
-/datum/outfit/centcom/ert/engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/engineer/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears
@@ -296,10 +296,10 @@
 	r_hand = /obj/item/gun/ballistic/automatic/pistol/security
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 
-/datum/outfit/centcom/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/janitor/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears
@@ -362,10 +362,10 @@
 		/obj/item/door_remote/omni=1,
 	)
 
-/datum/outfit/centcom/ert/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/death_commando/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	. = ..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears
@@ -382,7 +382,7 @@
 	W.update_label(W.registered_name, W.assignment)
 
 
-/datum/outfit/centcom/ert/death_commando/officer/post_equip(mob/living/carbon/human/squaddie, visualsOnly = FALSE)
+/datum/outfit/centcom/ert/death_commando/officer/post_equip(mob/living/carbon/human/squaddie, visuals_only = FALSE)
 	..()
 
 	var/obj/item/mod/control/mod = squaddie.back
@@ -420,8 +420,8 @@
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads
 	l_hand = /obj/item/clipboard
 
-/datum/outfit/centcom/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/centcom/centcom_official/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/modular_computer/tablet/pda/preset/heads/pda = H.r_store
@@ -475,8 +475,8 @@
 	id = /obj/item/card/id/centcom
 	backpack_contents = list(/obj/item/storage/box/survival = 1)
 
-/datum/outfit/centcom/centcom_intern/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/centcom/centcom_intern/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/card/id/W = H.wear_id
@@ -532,8 +532,8 @@
 
 	implants = list(/obj/item/implant/sad_trombone)
 
-/datum/outfit/centcom/centcom_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/centcom/centcom_clown/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/radio/R = H.ears

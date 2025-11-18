@@ -109,7 +109,7 @@
 	if(vampiredatum.vampire_level_unspent > 0)
 		spend_rank(carbon_vassal)
 
-/datum/vampire_clan/ventrue/interact_with_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/favorite/vassaldatum)
+/datum/vampire_clan/ventrue/interact_with_vassal(datum/antagonist/vassal/favorite/vassaldatum)
 	. = ..()
 	if(.)
 		return TRUE
@@ -121,7 +121,7 @@
 		spend_rank(vassaldatum.owner.current)
 		return TRUE
 
-	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels or enough to rank [vassaldatum.owner.current] up with."))
+	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels to rank [vassaldatum.owner.current] up with."))
 	return TRUE
 
 /datum/vampire_clan/ventrue/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)

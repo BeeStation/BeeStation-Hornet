@@ -102,7 +102,9 @@
 
 	//animals
 	var/obj/machinery/dna_vault/our_vault = dna_vault_ref?.resolve()
-	var/static/list/non_simple_animals = typecacheof(list(/mob/living/carbon/alien))
+	var/static/list/non_simple_animals = typecacheof(list(
+		/mob/living/carbon/alien,
+	))
 	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, non_simple_animals) || ismonkey(target))
 		var/mob/living/living_target = target
 		if(our_vault.animals[living_target.type])
@@ -111,7 +113,7 @@
 		if(animals[living_target.type])
 			to_chat(user, span_notice("Animal data already present in local storage."))
 			return
-		if(!(MOB_ORGANIC in living_target.mob_biotypes))
+		if(!(living_target.mob_biotypes & MOB_ORGANIC))
 			to_chat(user, span_alert("No compatible DNA detected."))
 			return .
 		animals[living_target.type] = 1

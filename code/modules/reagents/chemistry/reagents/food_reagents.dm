@@ -376,32 +376,28 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	taste_description = "mushroom"
 
-/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
+/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/psychonaut, delta_time, times_fired)
 	. = ..()
-	if(ispsyphoza(affected_mob))
+	if(ispsyphoza(psychonaut))
 		return
 
-	if(!affected_mob.slurring)
-		affected_mob.slurring = 1 * REM * delta_time
+	if(!psychonaut.slurring)
+		psychonaut.slurring = 1 * REM * delta_time
 
 	switch(current_cycle)
-		if(1 to 5)
-			affected_mob.Dizzy(5 * REM * delta_time)
-			affected_mob.set_drugginess(30 * REM * delta_time)
+		if(2 to 6)
 			if(DT_PROB(5, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if(5 to 10)
-			affected_mob.Jitter(10 * REM * delta_time)
-			affected_mob.Dizzy(10 * REM * delta_time)
-			affected_mob.set_drugginess(35 * REM * delta_time)
+				psychonaut.emote(pick("twitch", "giggle"))
+		if(6 to 11)
+			psychonaut.set_jitter_if_lower(20 SECONDS * REM * delta_time)
+			psychonaut.set_drugginess(35 * REM * delta_time)
 			if(DT_PROB(10, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
-		if (10 to INFINITY)
-			affected_mob.Jitter(20 * REM * delta_time)
-			affected_mob.Dizzy(20 * REM * delta_time)
-			affected_mob.set_drugginess(40 * REM * delta_time)
+				psychonaut.emote(pick("twitch", "giggle"))
+		if (11 to INFINITY)
+			psychonaut.set_jitter_if_lower(40 SECONDS * REM * delta_time)
+			psychonaut.set_drugginess(40 * REM * delta_time)
 			if(DT_PROB(16, delta_time))
-				affected_mob.emote(pick("twitch", "giggle"))
+				psychonaut.emote(pick("twitch", "giggle"))
 
 /datum/reagent/consumable/garlic //NOTE: having garlic in your blood stops vampires from biting you.
 	name = "Garlic Juice"
@@ -417,7 +413,7 @@
 		if(DT_PROB(min(current_cycle / 2, 12.5), delta_time))
 			to_chat(affected_mob, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			affected_mob.Paralyze(10)
-			affected_mob.Jitter(10)
+			affected_mob.set_jitter_if_lower(20 SECONDS)
 	else if(ishuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(affected_human.job == JOB_NAME_COOK)

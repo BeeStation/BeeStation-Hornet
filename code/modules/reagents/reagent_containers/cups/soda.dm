@@ -18,6 +18,7 @@
 	volume = 30
 	throwforce = 12 // set to 0 upon being opened. Have you ever been domed by a soda can? Those things fucking hurt
 	/// If the can hasn't been opened yet, this is the measure of how fizzed up it is from being shaken or thrown around. When opened, this is rolled as a percentage chance to burst
+	custom_price = 25
 	var/fizziness = 0
 
 /obj/item/reagent_containers/cup/soda_cans/random/Initialize(mapload)

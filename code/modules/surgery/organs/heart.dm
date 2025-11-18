@@ -3,9 +3,11 @@
 	desc = "I feel bad for the heartless bastard who lost this."
 	icon_state = "heart-on"
 	base_icon_state = "heart"
+
 	visual = FALSE
 	zone = BODY_ZONE_CHEST
 	slot = ORGAN_SLOT_HEART
+	item_flags = NO_BLOOD_ON_ITEM
 
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = 5 * STANDARD_ORGAN_DECAY //designed to fail about 5 minutes after death
@@ -15,10 +17,11 @@
 	now_fixed = span_info("Your heart begins to beat again.")
 	high_threshold_cleared = span_info("The pain in your chest has died down, and your breathing becomes more relaxed.")
 
-	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
-	var/beating = TRUE
 	attack_verb_continuous = list("beats", "thumps")
 	attack_verb_simple = list("beat", "thump")
+
+	// Heart attack code is in code/modules/mob/living/carbon/human/life.dm
+	var/beating = TRUE
 	//is this mob having a heatbeat sound played? if so, which?
 	var/beat = BEAT_NONE
 	//to prevent constantly running failing code
@@ -27,8 +30,8 @@
 	var/operated = FALSE
 
 /obj/item/organ/heart/update_icon_state()
+	. = ..()
 	icon_state = "[base_icon_state]-[beating ? "on" : "off"]"
-	return ..()
 
 /obj/item/organ/heart/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
@@ -36,6 +39,8 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
 
 /obj/item/organ/heart/proc/stop_if_unowned()
+	if(QDELETED(src))
+		return
 	if(!owner)
 		Stop()
 
@@ -81,10 +86,11 @@
 			H.stop_sound_channel(CHANNEL_HEARTBEAT)
 			beat = BEAT_NONE
 
-		if(H.jitteriness)
+		if(H.has_status_effect(/datum/status_effect/jitter))
 			if(H.health > HEALTH_THRESHOLD_FULLCRIT && (!beat || beat == BEAT_SLOW))
 				H.playsound_local(get_turf(H),fastbeat,40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
 				beat = BEAT_FAST
+
 		else if(beat == BEAT_FAST)
 			H.stop_sound_channel(CHANNEL_HEARTBEAT)
 			beat = BEAT_NONE

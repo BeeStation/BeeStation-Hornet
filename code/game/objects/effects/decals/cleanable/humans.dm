@@ -31,6 +31,11 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/effect/decal/cleanable/blood/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
+	. = ..()
+	if(blood_dna)
+		color = get_blood_dna_color(blood_dna)
+
 /obj/effect/decal/cleanable/blood/proc/get_timer()
 	drytime = world.time + 3 MINUTES
 
@@ -51,7 +56,7 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
-	C.add_blood_DNA(return_blood_DNA())
+	C.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 	if (bloodiness)
 		C.bloodiness = min((C.bloodiness + bloodiness), BLOOD_AMOUNT_PER_DECAL)
 	return ..()
@@ -172,8 +177,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/decal/cleanable/blood/gibs)
 	if(mapload)
 		for (var/i = 1, i < range, i++)
 			var/obj/effect/decal/cleanable/blood/splatter/splat = new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
-			if(!QDELETED(splat) && HAS_BLOOD_DNA(src))
-				splat.add_blood_DNA(src.return_blood_DNA())
+			if(!QDELETED(splat) && GET_ATOM_BLOOD_DNA_LENGTH(src))
+				splat.add_blood_DNA(GET_ATOM_BLOOD_DNA(src))
 			if (!step_to(src, get_step(src, direction), 0))
 				break
 		return

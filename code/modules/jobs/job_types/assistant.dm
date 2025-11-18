@@ -75,7 +75,7 @@ Assistant
 	..()
 	give_grey_suit(H)
 
-/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visuals_only)
 	..()
 
 	// This outfit is used by the assets SS, which is ran before the atoms SS

@@ -127,7 +127,7 @@
 			if(fear_state <= PHOBIA_STATE_EDGY)
 				fear_state = PHOBIA_STATE_UNEASY
 				owner.add_movespeed_modifier(/datum/movespeed_modifier/phobia)
-				owner.Jitter(5)
+				owner.set_jitter_if_lower(10 SECONDS)
 				if(prob(stress * 5))
 					fearscore = 17
 		if(17 to 28)
@@ -160,7 +160,7 @@
 				owner.remove_movespeed_modifier(/datum/movespeed_modifier/phobia, TRUE)
 				owner.visible_message(span_danger("[owner] collapses into a fetal position and cowers in fear!"), span_userdanger("I'm done for..."))
 				owner.Paralyze(80)
-				owner.Jitter(8)
+				owner.set_jitter_if_lower(16 SECONDS)
 				stress++
 				if(prob(stress * 5))
 					fearscore = 36 //we immediately keel over and faint
@@ -180,7 +180,7 @@
 						to_chat(owner, span_userdanger("Your heart stops!"))
 				else
 					owner.visible_message(span_danger("[owner] looks ghostly pale, trembling uncontrollably!"), span_userdanger("This is HELL! OUT!! NOW!!!"))
-					owner.Jitter(10)
+					owner.set_jitter_if_lower(20 SECONDS)
 					stress++
 
 
@@ -239,11 +239,11 @@
 		fearscore ++ //I have no idea how this would happen. just increase fear by one, with no cap
 	switch(fear_state)//only happens once every five or so seconds, while scared
 		if(PHOBIA_STATE_EDGY)
-			owner.Jitter(1)
+			owner.set_jitter_if_lower(2 SECONDS)
 			if(reason)
 				to_chat(owner, span_warning("[reason] sets you on edge..."))
 		if(PHOBIA_STATE_UNEASY)
-			owner.Jitter(1)
+			owner.set_jitter_if_lower(2 SECONDS)
 			if(reason)
 				to_chat(owner, span_warning("[reason] makes you uneasy..."))
 		if(PHOBIA_STATE_FIGHTORFLIGHT)
@@ -255,7 +255,7 @@
 			owner.SetParalyzed(0)
 		if(PHOBIA_STATE_TERROR)
 			owner.Paralyze(10 * spooklevel)
-			owner.Jitter(3)
+			owner.set_jitter_if_lower(6 SECONDS)
 		if(PHOBIA_STATE_FAINT)
 			if(!owner.stat)
 				if(!timer || (timer && COOLDOWN_FINISHED(src, timer)))  //If fainting hasnt happened yet, the cooldown timer never havve been created, so we check for that too

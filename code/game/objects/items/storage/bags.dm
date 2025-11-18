@@ -42,6 +42,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	storage_type = /datum/storage/trash
+	custom_price = 50
 	var/insertable = TRUE
 
 /obj/item/storage/bag/trash/Initialize(mapload)
@@ -155,7 +156,6 @@
 
 /obj/item/storage/bag/ore/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, 0.05) //please datum mats no more cancer
 	atom_storage.max_specific_storage = WEIGHT_CLASS_HUGE
 	atom_storage.max_total_storage = 250
 	atom_storage.numerical_stacking = TRUE
@@ -386,7 +386,6 @@
 	throw_range = 5
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	custom_price = 10
 	custom_materials = list(/datum/material/iron=3000)
 
 /obj/item/storage/bag/tray/Initialize(mapload)

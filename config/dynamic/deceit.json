@@ -4,7 +4,7 @@
 	"Dynamic": {
 		"roundstart_divergence_percent_lower": 1,
 		"roundstart_divergence_percent_upper": 1,
-		"roundstart_points_per_ready": 1.6,
+		"roundstart_points_per_ready": 1.4,
 		"roundstart_points_per_unready": 0.5,
 		"midround_grace_period": 24000,
 		"midround_linear_delta": 0.3,
@@ -50,7 +50,8 @@
 			"restricted_roles": [
 				"Cyborg",
 				"AI"
-			]
+			],
+			"elasticity": 50
 		},
 		"Revolution": {
 			"points_cost": 100
@@ -64,20 +65,21 @@
 		"Nuclear Operatives": {
 			"weight": 0
 		},
+		"Wizard": {
+			"weight": 0
+		},
 		"Changeling": {
 			"weight": 15
 		},
 		"Vampire": {
-			"weight": 10
+			"weight": 10,
+			"elasticity": 70
 		},
 		"Malfunctioning AI": {
 			"weight": 10
 		},
 		"Blood Brothers": {
 			"weight": 15
-		},
-		"Wizard": {
-			"weight": 0
 		}
 	},
 	"Midround": {

@@ -32,7 +32,6 @@
 	energy = 80
 	bomb = 10
 	bio = 100
-	rad = 100
 	fire = 90
 	acid = 50
 
@@ -249,7 +248,7 @@
 			var/obj/O = AM
 			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
 				playsound(src, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
-				tesla_zap(src, 3, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN | TESLA_ALLOW_DUPLICATES) // Around 20 damage for humans
+				tesla_zap(src, 3, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) // Around 20 damage for humans
 	return ..()
 
 /obj/machinery/turnstile/welder_act(mob/living/user, obj/item/I)

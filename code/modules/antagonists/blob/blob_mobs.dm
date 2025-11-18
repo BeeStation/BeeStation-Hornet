@@ -144,7 +144,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
-	mob_biotypes += MOB_HUMANOID
+	mob_biotypes |= MOB_HUMANOID
 	melee_damage += 11
 	movement_type = GROUND
 	death_cloud_size = 0

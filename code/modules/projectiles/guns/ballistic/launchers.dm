@@ -43,6 +43,7 @@
 	automatic = 0
 	actions_types = list()
 	casing_ejector = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper PML-9"
@@ -93,7 +94,7 @@
 		sleep(5)
 		shoot_with_empty_chamber(user)
 		sleep(20)
-		user.visible_message(span_warning("[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!"), \
+		user.visible_message(span_warning("[user] looks about the room realizing [user.p_theyre()] still there. [user.p_They()] proceed to shove [src] down their throat and choke [user.p_them()]self with it!"), \
 			span_userdanger("You look around after realizing you're still here, then proceed to choke yourself to death with [src]!"))
 		sleep(20)
 		return OXYLOSS

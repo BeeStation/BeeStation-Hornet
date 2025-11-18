@@ -37,7 +37,7 @@
 /area/template_noop)
 "j" = (
 /obj/structure/grille/broken,
-/obj/structure/musician/piano,
+/obj/effect/spawner/structure/random_piano,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (

@@ -126,12 +126,12 @@
 
 /datum/quirk/musician
 	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
+	desc = "You start with a delivery beacon for a variety of musical instruments."
 	icon = "guitar"
 	mob_trait = TRAIT_MUSICIAN
-	gain_text = span_notice("You know everything about musical instruments.")
-	lose_text = span_danger("You forget how musical instruments work.")
-	medical_record_text = "Patient brain scans show a highly-developed auditory pathway."
+	gain_text = span_notice("You feel an irresistible urge to play Stairway to Heaven in every guitar shop you enter.")
+	lose_text = span_danger("Your insatiable urge to play Wonderwall is finally sated.")
+	medical_record_text = "Patient has been banned from several music stores for repeatedly playing forbidden riffs."
 
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
@@ -217,3 +217,10 @@
 /datum/quirk/accent/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 	handle_accented_speech(speech_args, accent_to_use)
+
+/datum/quirk/shifty_eyes
+	name = "Shifty Eyes"
+	desc = "Your eyes tend to wander all over the place, whether you mean to or not, causing people to sometimes think you're looking directly at them when you aren't."
+	icon = "fa-eye"
+	medical_record_text = "Fucking creep kept staring at me the whole damn checkup. I'm only diagnosing this because it's less awkward than thinking it was on purpose."
+	mob_trait = TRAIT_SHIFTY_EYES

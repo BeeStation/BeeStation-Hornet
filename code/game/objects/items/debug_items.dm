@@ -197,6 +197,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	geiger_counter = FALSE
 
+/obj/item/clothing/head/helmet/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/hardsuit_debug
 	melee = 300
@@ -205,7 +208,6 @@
 	energy = 300
 	bomb = 300
 	bio = 300
-	rad = 300
 	fire = 300
 	acid = 300
 	stamina = 300
@@ -229,6 +231,9 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/item/clothing/suit/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 // debug bag
 
@@ -249,13 +254,11 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
 /obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.allow_big_nesting = TRUE
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000

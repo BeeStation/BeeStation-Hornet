@@ -17,6 +17,7 @@
 						/obj/item/seeds/cannabis/white,
 						/obj/item/seeds/cannabis/ultimate)
 	reagents_add = list(/datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.35) // gives u the munchies
+	trade_flags = TRADE_CONTRABAND
 
 
 /obj/item/seeds/cannabis/rainbow
@@ -95,6 +96,7 @@
 	foodtypes = VEGETABLES //i dont really know what else weed could be to be honest
 	tastes = list("cannabis" = 1)
 	wine_power = 20
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/grown/cannabis/rainbow
 	seed = /obj/item/seeds/cannabis/rainbow

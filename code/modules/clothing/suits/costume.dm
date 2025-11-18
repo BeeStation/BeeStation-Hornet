@@ -86,6 +86,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
+	custom_price = 75
 
 /obj/item/clothing/suit/costume/hastur
 	name = "\improper Hastur's robe"
@@ -232,7 +233,6 @@
 	energy = 20
 	bomb = 30
 	bio = 30
-	rad = 20
 	acid = 30
 	stamina = 35
 
@@ -291,7 +291,6 @@
 	energy = 20
 	bomb = 30
 	bio = 100
-	rad = 75
 	fire = 60
 	acid = 75
 	stamina = 40

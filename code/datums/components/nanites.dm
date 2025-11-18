@@ -28,7 +28,7 @@
 	if(isliving(parent))
 		host_mob = parent
 
-		if(!(MOB_ORGANIC in host_mob.mob_biotypes) && !(MOB_UNDEAD in host_mob.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE)) //Shouldn't happen, but this avoids HUD runtimes in case a silicon gets them somehow.
+		if(!(host_mob.mob_biotypes & MOB_ORGANIC) && !(host_mob.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE)) //Shouldn't happen, but this avoids HUD runtimes in case a silicon gets them somehow.
 			return COMPONENT_INCOMPATIBLE
 
 		start_time = world.time
@@ -313,7 +313,7 @@
 /datum/component/nanites/proc/check_viable_biotype()
 	SIGNAL_HANDLER
 
-	if(!(MOB_ORGANIC in host_mob.mob_biotypes) && !(MOB_UNDEAD in host_mob.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
+	if(!(host_mob.mob_biotypes & MOB_ORGANIC) && !(host_mob.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 		qdel(src) //bodytype no longer sustains nanites
 
 /datum/component/nanites/proc/check_access(datum/source, obj/O)

@@ -140,9 +140,9 @@
 	if(!isinhands)
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet", item_layer)
-		if(HAS_BLOOD_DNA(src))
+		if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 			var/mutable_appearance/bloody_helmet = mutable_appearance('icons/effects/blood.dmi', "helmetblood", item_layer)
-			bloody_helmet.color = get_blood_dna_color(return_blood_DNA())
+			bloody_helmet.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
 			. += bloody_helmet
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)

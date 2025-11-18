@@ -9,7 +9,7 @@
 	standard 0 if fail
 */
 /mob/living/proc/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE)
-	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
+	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone)
 	var/hit_percent = (100-blocked)/100
 	if(!damage || (!forced && hit_percent <= 0))
 		return 0
@@ -99,8 +99,6 @@
 			Immobilize(effect * hit_percent)
 		if(EFFECT_UNCONSCIOUS)
 			Unconscious(effect * hit_percent)
-		if(EFFECT_IRRADIATE)
-			radiation += max(effect * hit_percent, 0)
 		if(EFFECT_SLUR)
 			slurring = max(slurring,(effect * hit_percent))
 		if(EFFECT_STUTTER)
@@ -110,13 +108,23 @@
 			blur_eyes(effect * hit_percent)
 		if(EFFECT_DROWSY)
 			drowsyness = max(drowsyness,(effect * hit_percent))
-		if(EFFECT_JITTER)
-			if((status_flags & CANSTUN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE))
-				jitteriness = max(jitteriness,(effect * hit_percent))
 	return 1
 
 
-/mob/living/proc/apply_effects(stun = 0, knockdown = 0, unconscious = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = FALSE, stamina = 0, jitter = 0, paralyze = 0, immobilize = 0)
+/mob/living/proc/apply_effects(
+	stun = 0,
+	knockdown = 0,
+	unconscious = 0,
+	slur = 0,
+	stutter = 0,
+	eyeblur = 0,
+	drowsy = 0,
+	blocked = 0, // This one's not an effect, don't be confused - it's block chance
+	stamina = 0, // This one's a damage type, and not an effect
+	jitter = 0 SECONDS,
+	paralyze = 0,
+	immobilize = 0
+	)
 	if(blocked >= 100)
 		return BULLET_ACT_BLOCK
 	if(stun)
@@ -129,8 +137,6 @@
 		apply_effect(paralyze, EFFECT_PARALYZE, blocked)
 	if(immobilize)
 		apply_effect(immobilize, EFFECT_IMMOBILIZE, blocked)
-	if(irradiate)
-		apply_effect(irradiate, EFFECT_IRRADIATE, blocked)
 	if(slur)
 		apply_effect(slur, EFFECT_SLUR, blocked)
 	if(stutter)
@@ -141,8 +147,9 @@
 		apply_effect(drowsy, EFFECT_DROWSY, blocked)
 	if(stamina)
 		apply_damage(stamina, STAMINA, null, blocked)
-	if(jitter)
-		apply_effect(jitter, EFFECT_JITTER, blocked)
+
+	if(jitter && (status_flags & CANSTUN) && !HAS_TRAIT(src, TRAIT_STUNIMMUNE))
+		adjust_timed_status_effect(jitter, /datum/status_effect/jitter)
 	return BULLET_ACT_HIT
 
 

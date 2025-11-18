@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(on_station_posis)
 
 	show_in_prefs = FALSE //No reason to show in preferences
 
-/datum/job/posibrain/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
+/datum/job/posibrain/equip(mob/living/carbon/human/H, visuals_only = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 
 	var/obj/item/mmi/posibrain/P = pick(GLOB.on_station_posis)
 

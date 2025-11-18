@@ -80,12 +80,14 @@
 	desc = "This colorizer will give your Tablet the Syndicate look! 'So you wanna be a lil' devil? You wanna be up for some mischief? You wanna get brigged for 5 minutes over a colorizer?'"
 	icon_state = "syndicolorizer"
 	apply_icon_state = "tablet-syndicate"
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/colorizer/tablet/contractor
 	name = "Contractor Tablet Colorizer"
 	desc = "This colorizer will make your Tablet look like a Contractor Knockoff! So the HoS says you can't play with the real deal huh?"
 	icon_state = "contractorcolorizer"
 	apply_icon_state = "tablet-contractor"
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/colorizer/tablet/clearb
 	name = "Transparent Blue Tablet Colorizer"
@@ -104,6 +106,7 @@
 	desc = "This colorizer is broken. What a let down..."
 	icon_state = "emagcolorizer"
 	apply_icon_state = "tablet-emag"
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/colorizer/tablet/cat
 	name = "cat colorizer"

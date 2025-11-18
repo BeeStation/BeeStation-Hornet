@@ -13,14 +13,17 @@
 	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
 	var/silent = FALSE 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-	var/dreaming = 0 //How many dream images we have left to send
+
 	///Whether or not the mob is currently handcuffed, defined as the handcuff item restraining them
 	var/obj/item/restraints/handcuffs/handcuffed = null
 	///used to track how many times the mob has tried breaking away from their handcuffs since being cuffed. Reset to zero in update_handcuffed()
 	var/cuff_breakout_attempts = 0
 	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
 
+	/// Measure of how disgusted we are. See DISGUST_LEVEL_GROSS and friends
 	var/disgust = 0
+	/// How disgusted we were LAST time we processed disgust. Helps prevent unneeded work
+	var/old_disgust = 0
 
 	//inventory slots
 	var/obj/item/back = null

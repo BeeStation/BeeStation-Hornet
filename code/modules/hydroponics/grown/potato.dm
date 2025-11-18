@@ -6,7 +6,7 @@
 	species = "potato"
 	plantname = "Potato Plants"
 	product = /obj/item/food/grown/potato
-	lifespan = 30
+	lifespan = 120
 	maturation = 10
 	production = 1
 	yield = 4

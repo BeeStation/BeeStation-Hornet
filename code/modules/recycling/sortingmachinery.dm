@@ -4,6 +4,7 @@
 	var/sort_tag = 0
 	var/obj/item/paper/note
 	var/obj/item/barcode/sticker
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/delivery/Initialize(mapload)
 	. = ..()
@@ -386,6 +387,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "barcode"
 	w_class = WEIGHT_CLASS_TINY
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 	///All values inheirited from the sales tagger it came from.
 	var/datum/bank_account/payments_acc = null
 	var/cut_multiplier = 0.5

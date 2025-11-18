@@ -38,7 +38,7 @@ GLOBAL_LIST(end_titles)
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.read_player_preference(/datum/preference/toggle/show_credits))
-			C.screen += new /atom/movable/screen/credit/title_card(null, null)
+			C.screen += new /atom/movable/screen/credit/title_card(null, null, null)
 	sleep(CREDIT_SPAWN_SPEED * 3)
 	for(var/i in 1 to GLOB.end_titles.len)
 		var/C = GLOB.end_titles[i]
@@ -50,7 +50,7 @@ GLOBAL_LIST(end_titles)
 
 
 /proc/create_credit(credit)
-	new /atom/movable/screen/credit(null, credit)
+	new /atom/movable/screen/credit(null, null, credit)
 
 /atom/movable/screen/credit
 	icon_state = "blank"
@@ -62,7 +62,7 @@ GLOBAL_LIST(end_titles)
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
 
-/atom/movable/screen/credit/Initialize(mapload, credited)
+/atom/movable/screen/credit/Initialize(mapload, datum/hud/hud_owner, credited)
 	. = ..()
 	maptext = MAPTEXT("<font face='Verdana'>[credited]</font>")
 	maptext_height = world.icon_size * 2
@@ -91,7 +91,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit)
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/credit/title_card)
 
-/atom/movable/screen/credit/title_card/Initialize(mapload, credited)
+/atom/movable/screen/credit/title_card/Initialize(mapload, datum/hud/hud_owner, credited)
 	. = ..()
 	maptext = null
 

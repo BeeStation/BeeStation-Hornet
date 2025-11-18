@@ -502,7 +502,13 @@
 	else
 		for(var/i in 1 to multiplier)
 			var/obj/item/new_item = new being_built.build_path(src.loc)
-			new_item.forceMove(A) //Forcemove to the release turf to trigger ZFall
+			//Detect if the printed item has embedded itself in another item. Used for Circuit Templates which self insert themselves into shells.
+			if(isobj(new_item.loc))
+				var/obj/new_obj = new_item.loc //Get the object it is now embedded in.
+				new_obj.forceMove(A) //Forcemove to the release turf to trigger ZFall
+			else
+				new_item.forceMove(A) //Forcemove to the release turf to trigger ZFall
+
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount
 	being_built = null

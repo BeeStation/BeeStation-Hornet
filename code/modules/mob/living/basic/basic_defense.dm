@@ -191,7 +191,7 @@
 
 /mob/living/basic/emp_act(severity)
 	. = ..()
-	if(MOB_ROBOTIC in mob_biotypes)
+	if(mob_biotypes & MOB_ROBOTIC)
 		emp_reaction(severity)
 
 /mob/living/basic/proc/emp_reaction(severity)

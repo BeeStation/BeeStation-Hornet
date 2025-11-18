@@ -2,8 +2,10 @@ SUBSYSTEM_DEF(vote)
 	name = "Vote"
 	wait = 1 SECONDS
 	flags = SS_KEEP_TIMING
-	init_order = INIT_ORDER_VOTE
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	dependencies = list(
+		/datum/controller/subsystem/dynamic,
+	)
 
 	/// A list of all generated action buttons
 	var/list/datum/action/generated_actions = list()

@@ -118,73 +118,6 @@
 /// Successful, but don't print anything. Useful if subsystem was disabled.
 #define SS_INIT_NO_NEED 3
 
-//! ### SS initialization load orders
-// Subsystem init_order, from highest priority to lowest priority
-// Subsystems shutdown in the reverse of the order they initialize in
-// The numbers just define the ordering, they are meaningless otherwise.
-
-#define INIT_ORDER_FAIL2TOPIC		102
-#define INIT_ORDER_PROFILER			101
-#define INIT_ORDER_TITLE			100
-#define INIT_ORDER_GARBAGE			99
-#define INIT_ORDER_DBCORE			95
-#define INIT_ORDER_BLACKBOX			94
-#define INIT_ORDER_SERVER_MAINT		93
-#define INIT_ORDER_INPUT			85
-#define INIT_ORDER_TOPIC			84
-#define INIT_ORDER_SOUNDS			83
-#define INIT_ORDER_INSTRUMENTS		82
-#define INIT_ORDER_GREYSCALE 		81
-#define INIT_ORDER_VIS				80
-#define INIT_ORDER_SECURITY_LEVEL 79 // We need to load before events so that it has a security level to choose from.
-#define INIT_ORDER_ACHIEVEMENTS 	77
-#define INIT_ORDER_XENOARCHAEOLOGY	76
-#define INIT_ORDER_RESEARCH			75
-#define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
-#define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_DEPARTMENT		72 //This is important: it has access distributing code, so should be initialized quickly
-#define INIT_ORDER_QUIRKS			71
-#define INIT_ORDER_JOBS				70 //Must initialize before events for holidays
-#define INIT_ORDER_EVENTS			69
-#define INIT_ORDER_AI_MOVEMENT 		56 //We need the movement setup
-#define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
-#define INIT_ORDER_TICKER			55
-#define INIT_ORDER_MAPPING			50
-#define INIT_ORDER_EARLY_ASSETS		48
-#define INIT_ORDER_TIMETRACK		47
-#define INIT_ORDER_NETWORKS 45
-#define INIT_ORDER_SPATIAL_GRID 43
-#define INIT_ORDER_DYNAMIC 42
-#define INIT_ORDER_VOTE 41
-#define INIT_ORDER_ECONOMY			40
-#define INIT_ORDER_OUTPUTS			35
-#define INIT_ORDER_ATOMS			30
-#define INIT_ORDER_LANGUAGE			25
-#define INIT_ORDER_MACHINES			20
-#define INIT_ORDER_CIRCUIT			15
-#define INIT_ORDER_TIMER			1
-#define INIT_ORDER_DEFAULT			0
-#define INIT_ORDER_AIR				-1
-#define INIT_ORDER_PERSISTENCE		-2 //before assets because some assets take data from SSPersistence
-#define INIT_ORDER_PERSISTENT_PAINTINGS -3 // Assets relies on this
-#define INIT_ORDER_ASSETS			-4
-#define INIT_ORDER_ICON_SMOOTHING	-5
-#define INIT_ORDER_OVERLAY			-6
-#define INIT_ORDER_STAT				-7
-#define INIT_ORDER_XKEYSCORE		-10
-#define INIT_ORDER_STICKY_BAN		-10
-#define INIT_ORDER_LIGHTING			-20
-#define INIT_ORDER_SHUTTLE			-21 // After atoms have been initialised to prevent mix-ups
-#define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
-#define INIT_ORDER_MINOR_MAPPING	-40
-#define INIT_ORDER_PATH				-50
-#define INIT_ORDER_EXPLOSIONS		-69
-#define INIT_ORDER_BAN_CACHE		-98
-//Near the end, logs the costs of initialize
-#define INIT_ORDER_INIT_PROFILER -99
-#define INIT_ORDER_NATURAL_LIGHT	-120
-#define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
-
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
@@ -217,6 +150,7 @@
 #define FIRE_PRIOTITY_BURNING		40
 #define FIRE_PRIORITY_DEFAULT		50
 #define FIRE_PRIORITY_INSTRUMENTS	80
+#define FIRE_PRIORITY_PRIORITY_EFFECTS 90
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_ASSETS		105
 #define FIRE_PRIORITY_TGUI			110

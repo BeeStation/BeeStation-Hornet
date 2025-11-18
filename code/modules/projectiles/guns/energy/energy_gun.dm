@@ -9,6 +9,7 @@
 	ammo_x_offset = 3
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+	custom_price = 300
 
 /obj/item/gun/energy/e_gun/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
@@ -150,11 +151,11 @@
 		switch(fail_tick)
 			if(0 to 200)
 				fail_tick += (2*(fail_chance))
-				M.rad_act(40)
+				M.adjustFireLoss(3)
 				to_chat(M, span_userdanger("Your [name] feels warmer."))
 			if(201 to INFINITY)
 				SSobj.processing.Remove(src)
-				M.rad_act(80)
+				M.adjustFireLoss(10)
 				reactor_overloaded = TRUE
 				to_chat(M, span_userdanger("Your [name]'s reactor overloads!"))
 

@@ -19,7 +19,7 @@
 	var/datum/mind/owner = null	//The person who placed this structure
 
 /obj/structure/destructible/clockwork/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	. = list("[examine_title(user, TRUE)].")
 
 	if(IS_SERVANT_OF_RATVAR(user) && clockwork_desc)
 		. += clockwork_desc
@@ -30,6 +30,12 @@
 	if(immune_to_servant_attacks && IS_SERVANT_OF_RATVAR(user))
 		return
 	. = ..()
+
+// clock cult structures, they should use their power through fabricators
+// the ark should never be repairable
+/obj/structure/destructible/clockwork/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	balloon_alert(user, "The tape would catch on the gears!")
+	return FALSE
 
 //for the ark and Ratvar
 /obj/structure/destructible/clockwork/massive

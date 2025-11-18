@@ -5,7 +5,7 @@
 	icon_state = "gnome"
 	icon_living = "gnome"
 	pass_flags = PASSMOB
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speed = 1
 	maxHealth = 40
 	health = 40

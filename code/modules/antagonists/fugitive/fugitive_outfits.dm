@@ -4,8 +4,8 @@
 	shoes = /obj/item/clothing/shoes/sneakers/orange
 	r_pocket = /obj/item/knife/shiv/carrot
 
-/datum/outfit/escapedprisoner/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
-	if(visualsOnly)
+/datum/outfit/escapedprisoner/post_equip(mob/living/carbon/human/H, visuals_only=FALSE)
+	if(visuals_only)
 		return
 	H.fully_replace_character_name(null,"NTP #CC-0[rand(111,999)]") //same as the lavaland prisoner transport, but this time they are from CC, or CentCom
 
@@ -26,8 +26,8 @@
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/regular/circle
 
-/datum/outfit/waldo/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
-	if(visualsOnly)
+/datum/outfit/waldo/post_equip(mob/living/carbon/human/H, visuals_only=FALSE)
+	if(visuals_only)
 		return
 	H.fully_replace_character_name(null,"Waldo")
 	H.eye_color = "000"
@@ -56,8 +56,8 @@
 	uniform = /obj/item/clothing/under/color/white
 	ears = /obj/item/radio/headset
 
-/datum/outfit/synthetic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/synthetic/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
 	eyes.Insert(H, drop_if_replaced = FALSE)

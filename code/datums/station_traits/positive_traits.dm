@@ -1,7 +1,3 @@
-#define PARTY_COOLDOWN_LENGTH_MIN 6 MINUTES
-#define PARTY_COOLDOWN_LENGTH_MAX 12 MINUTES
-
-
 /datum/station_trait/lucky_winner
 	name = "Lucky winner"
 	trait_type = STATION_TRAIT_POSITIVE
@@ -9,27 +5,23 @@
 	show_in_report = TRUE
 	report_message = "Your station has won the grand prize of the annual station charity event. Free snacks will be delivered to the bar every now and then."
 	trait_processes = TRUE
-	COOLDOWN_DECLARE(party_cooldown)
 
-/datum/station_trait/lucky_winner/on_round_start()
-	. = ..()
-	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
+	COOLDOWN_DECLARE(party_cooldown)
 
 /datum/station_trait/lucky_winner/process(delta_time)
 	if(!COOLDOWN_FINISHED(src, party_cooldown))
 		return
 
-	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
+	COOLDOWN_START(src, party_cooldown, rand(6 MINUTES, 12 MINUTES))
 
-	var/area/area_to_spawn_in = pick(GLOB.bar_areas)
-	var/turf/T = get_safe_random_station_turfs(area_to_spawn_in)
+	var/turf/turf = get_safe_random_station_turfs(pick(GLOB.bar_areas))
 
-	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
+	var/obj/structure/closet/supplypod/centcompod/drop_pod = new()
 	var/obj/item/pizzabox/pizza_to_spawn = pick(list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/mushroom, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable)) //no pineapple pizza you monster
-	new pizza_to_spawn(toLaunch)
+	new pizza_to_spawn(drop_pod)
 	for(var/i in 1 to 6)
-		new /obj/item/reagent_containers/cup/glass/bottle/beer(toLaunch)
-	new /obj/effect/pod_landingzone(T, toLaunch)
+		new /obj/item/reagent_containers/cup/glass/bottle/beer(drop_pod)
+	new /obj/effect/pod_landingzone(turf, drop_pod)
 
 /datum/station_trait/galactic_grant
 	name = "Galactic grant"
@@ -54,6 +46,7 @@
 	name = "Bountiful bounties"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
+	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
 	report_message = "It seems collectors in this system are extra keen to on bounties, and will pay more to see their completion."
 
@@ -73,6 +66,7 @@
 	name = "Scarves"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
+	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
 	var/list/scarves
 
@@ -105,10 +99,12 @@
 	name = "Filled up maintenance"
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
+	cost = STATION_TRAIT_COST_LOW
 	show_in_report = TRUE
 	report_message = "Our workers accidentally forgot more of their personal belongings in the maintenance areas."
 	blacklist = list(/datum/station_trait/empty_maint)
 	trait_to_give = STATION_TRAIT_FILLED_MAINT
+	can_revert = FALSE
 
 /datum/station_trait/quick_shuttle
 	name = "Quick Shuttle"
@@ -121,6 +117,3 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
-
-#undef PARTY_COOLDOWN_LENGTH_MIN
-#undef PARTY_COOLDOWN_LENGTH_MAX

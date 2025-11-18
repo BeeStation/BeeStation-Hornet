@@ -3,7 +3,7 @@
 	real_name = "Construct"
 	desc = ""
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 	speak_emote = list("hisses")
 	response_help_continuous = "thinks better of touching"
 	response_help_simple = "think better of touching"
@@ -81,7 +81,7 @@
 	to_chat(src, playstyle_string)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
-	var/t_He = p_they(TRUE)
+	var/t_He = p_They()
 	var/t_s = p_s()
 	var/text_span
 	switch(theme)

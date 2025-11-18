@@ -76,10 +76,10 @@
 		H.equipOutfit(plasmaman_outfit)
 		H.open_internals(H.get_item_for_held_index(2))
 	H.equipOutfit(outfit)
-	//Set the suits frequency
-	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
-	if(I)
-		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
+	//Set the mod frequency
+	var/obj/item/mod = H.get_item_by_slot(ITEM_SLOT_BACK)
+	if(mod)
+		var/datum/component/tracking_beacon/beacon = mod.GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
 			beacon.set_frequency(ert_team.ert_frequency)
 

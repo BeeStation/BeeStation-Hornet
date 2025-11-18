@@ -9,39 +9,55 @@
 /datum/bounty/item/core/bleed
 	name = "blood anomaly core"
 	reward = 25000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/blood)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/blood = TRUE,
+	)
 
 /datum/bounty/item/core/bluespace
 	name = "bluespace anomaly core"
 	reward = 45000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/bluespace)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/bluespace = TRUE,
+	)
 
 /datum/bounty/item/core/bioscrambler
 	name = "bioscrambler anomaly core"
 	reward = 30000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/bioscrambler)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/bioscrambler = TRUE,
+	)
 
 /datum/bounty/item/core/flux
 	name = "flux anomaly core"
 	reward = 20000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/flux)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/flux = TRUE,
+	)
 
 /datum/bounty/item/core/pyro
 	name = "pyroclastic anomaly core"
 	reward = 25000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/pyro)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/pyro = TRUE,
+	)
 
 /datum/bounty/item/core/vortex
 	name = "vortex anomaly core"
 	reward = 50000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/vortex)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/vortex = TRUE,
+	)
 
 /datum/bounty/item/core/gravity
 	name = "gravitational anomaly core"
 	reward = 20000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/grav)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/grav = TRUE,
+	)
 
 /datum/bounty/item/core/hallucination
 	name = "hallucination anomaly core"
 	reward = 15000
-	wanted_types = list(/obj/item/assembly/signaler/anomaly/hallucination)
+	wanted_types = list(
+		/obj/item/assembly/signaler/anomaly/hallucination = TRUE,
+	)

@@ -6,7 +6,7 @@
 	species = "pumpkin"
 	plantname = "Pumpkin Vines"
 	product = /obj/item/food/grown/pumpkin
-	lifespan = 50
+	lifespan = 200
 	endurance = 40
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'

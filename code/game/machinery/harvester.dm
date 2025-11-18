@@ -78,7 +78,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/attack_hand, "Toggle Open")
 				say("Subject may not have abiotic items on.")
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 				return
-	if(!(MOB_ORGANIC in C.mob_biotypes))
+	if(!(C.mob_biotypes & MOB_ORGANIC))
 		say("Subject is not organic.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 		return

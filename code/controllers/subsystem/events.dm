@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(events)
 	name = "Events"
-	init_order = INIT_ORDER_EVENTS
+	dependencies = list(
+		/datum/controller/subsystem/processing/station,
+		/datum/controller/subsystem/job,
+	)
 	runlevels = RUNLEVEL_GAME
 
 	var/list/control = list()	//list of all datum/round_event_control. Used for selecting events based on weight and occurrences.

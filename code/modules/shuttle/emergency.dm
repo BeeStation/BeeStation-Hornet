@@ -520,6 +520,9 @@
 					color_override = "orange",
 				)
 
+				if(CONFIG_GET(flag/automapvote))
+					INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/map_vote, "Map Rotation", null, TRUE)
+
 		if(SHUTTLE_STRANDED)
 			SSshuttle.checkHostileEnvironment()
 

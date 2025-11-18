@@ -40,6 +40,11 @@ jobs:
 #      - name: Install dreamluau
 #        run: |
 #          bash tools/ci/install_dreamluau.sh
+      - name: Install curl
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install -o APT::Immediate-Configure=false curl:i386
       - name: Configure version
         run: |
           echo "BYOND_MAJOR=${{ inputs.major }}" >> $GITHUB_ENV

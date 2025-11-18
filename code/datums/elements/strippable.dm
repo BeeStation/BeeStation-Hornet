@@ -350,7 +350,11 @@
 	. = ..()
 	src.owner = owner
 	src.strippable = strippable
-
+	if(ismob(owner))
+		var/mob/M = owner
+		if(M.real_name in usr.client.player_details.played_names)
+			log_game("[key_name(usr)] has started stripping one of their prior lives' bodies.")
+			message_admins("ATTENTION! [key_name(usr)][ADMIN_JMP(usr.loc)] is stripping [owner], a mob that they played previously! They may be metagaming to recover loot!")
 /datum/strip_menu/Destroy()
 	owner = null
 	strippable = null

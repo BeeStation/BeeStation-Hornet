@@ -223,7 +223,7 @@
 	if(get_dist(src,the_target) > vine_grab_distance || vines.len == max_vines)
 		return
 
-	for(var/turf/T in getline(src,the_target))
+	for(var/turf/T in get_line(src,the_target))
 		if (T.density)
 			return
 		for(var/obj/O in T)

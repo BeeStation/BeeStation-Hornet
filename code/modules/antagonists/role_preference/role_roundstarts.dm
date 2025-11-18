@@ -15,7 +15,7 @@
 	l_hand = /obj/item/melee/energy/sword
 	r_hand = /obj/item/gun/energy/recharge/ebow
 
-/datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/traitor/post_equip(mob/living/carbon/human/H, visuals_only)
 	var/obj/item/melee/energy/sword/sword = locate() in H.held_items
 	sword.icon_state = "swordred"
 	H.update_held_items()
@@ -52,7 +52,7 @@
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	r_hand = /obj/item/melee/arm_blade
 
-/datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/medical_doctor_changeling_preview/post_equip(mob/living/carbon/human/H, visuals_only)
 	H.dna.features["mcolor"] = "8d8"
 	H.dna.features["horns"] = "Short"
 	H.dna.features["frills"] = "Simple"
@@ -146,7 +146,7 @@
 	r_hand = /obj/item/melee/blood_magic/stun
 	l_hand = /obj/item/shield/mirror
 
-/datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/blood_cult_preview/post_equip(mob/living/carbon/human/H, visuals_only)
 	H.eye_color = BLOODCULT_EYE
 	H.update_body()
 
@@ -275,7 +275,7 @@
 
 	back = /obj/item/mod/control/pre_equipped/empty/syndicate
 
-/datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/nuclear_operative/post_equip(mob/living/carbon/human/H, visuals_only)
 	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
 	booster.active = TRUE
 	H.update_worn_back()
@@ -287,7 +287,7 @@
 	l_hand = /obj/item/modular_computer/tablet/nukeops
 	r_hand = /obj/item/shield/energy
 
-/datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visuals_only)
 	var/obj/item/mod/module/armor_booster/booster = locate() in H.back
 	booster.active = TRUE
 	H.update_worn_back()

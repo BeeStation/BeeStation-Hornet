@@ -454,3 +454,23 @@ again.
 	icon = 'icons/obj/containers.dmi'
 	icon_state = "random_container"
 	spawn_list = list(/obj/structure/shipping_container/conarex = 3,/obj/structure/shipping_container/deforest = 3,/obj/structure/shipping_container/kahraman = 3,/obj/structure/shipping_container/kahraman/alt = 3,/obj/structure/shipping_container/kosmologistika = 3,/obj/structure/shipping_container/interdyne = 3,/obj/structure/shipping_container/nakamura = 3,/obj/structure/shipping_container/nanotrasen = 3,/obj/structure/shipping_container/nthi = 3,/obj/structure/shipping_container/vitezstvi = 3,/obj/structure/shipping_container/cybersun = 2,/obj/structure/shipping_container/donk_co = 2,/obj/structure/shipping_container/gorlex = 1,/obj/structure/shipping_container/gorlex/red = 1)
+
+/obj/effect/spawner/structure/random_piano
+	name = "random piano spawner"
+	icon = 'icons/effects/landmarks_spawners.dmi'
+	icon_state = "piano"
+
+/// This is stupid, I hate it, I'm already working on a pr to overhaul this entire stupid ass cocksucking bitch of a system
+/// Also, the spawner above has the same issue and spawns every single shipping container
+/obj/effect/spawner/structure/random_piano/Initialize(mapload)
+	. = ..()
+	var/obj/structure/musician/piano/chosen_piano = prob(50) ? /obj/structure/musician/piano : /obj/structure/musician/piano/minimoog
+
+	// When spawner is created at a holodeck template
+	var/area/holodeck/holodeck_area = get_area(src)
+	if(istype(holodeck_area, /area/holodeck))
+		var/obj/machinery/computer/holodeck/holocomputer = holodeck_area.linked
+		holocomputer.from_spawner += new chosen_piano(loc)
+		return
+
+	new chosen_piano(loc)

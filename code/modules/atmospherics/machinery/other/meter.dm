@@ -18,7 +18,6 @@
 
 /datum/armor/machinery_meter
 	energy = 100
-	rad = 100
 	fire = 40
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/meter)

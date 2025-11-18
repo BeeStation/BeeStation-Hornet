@@ -60,10 +60,10 @@
 	satchel = /obj/item/storage/backpack/mime
 
 
-/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	// Start our mime out with a vow of silence and the ability to break (or make) it

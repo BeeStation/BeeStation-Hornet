@@ -78,7 +78,7 @@
 		else if(brain.brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD)
 			. += span_info("It seems to be leaking some kind of... clear fluid? The brain inside must be in pretty bad shape... There is no coming back from that.")
 		else if(brainmob)
-			if(!brainmob.soul_departed())
+			if(brain.brainmob.key || brain.brainmob.get_ghost(FALSE, TRUE))
 				. += span_info("Its muscles are still twitching slightly... It still seems to have a bit of life left to it.")
 			else
 				. += span_info("It seems seems particularly lifeless. Perhaps there'll be a chance for them later.")

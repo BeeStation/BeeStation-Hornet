@@ -4,7 +4,7 @@
  * 30 points for antagonists that are mostly harmless and will mess with a crew a bit
  * 40 points for antagonists that will actively attack the crew
  * 50 points for antagonists that that may very well end the round
-**/
+ */
 
 /datum/dynamic_ruleset/midround/ghost
 	abstract_type = /datum/dynamic_ruleset/midround/ghost
@@ -29,10 +29,7 @@
 			return FALSE
 
 /datum/dynamic_ruleset/midround/ghost/select_player()
-	if(!length(candidates))
-		CRASH("[src] called select_player without any candidates!")
-
-	var/mob/candidate = CHECK_BITFIELD(flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
+	var/mob/candidate = CHECK_BITFIELD(ruleset_flags, SHOULD_USE_ANTAG_REP) ? SSdynamic.antag_pick(candidates, role_preference) : pick(candidates)
 	candidates -= candidate
 
 	if(!isobserver(candidate))
@@ -43,8 +40,7 @@
 			// Got revived, lets get a new candidate
 			return select_player()
 
-	var/mob/dead/observer/selected_player = candidate
-	return selected_player
+	return candidate
 
 /datum/dynamic_ruleset/midround/ghost/execute()
 	// Get our candidates
@@ -64,8 +60,7 @@
 
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)
-		var/mob/dead/observer/chosen_candidate = select_player()
-		chosen_candidates += chosen_candidate
+		LAZYADD(chosen_candidates, select_player())
 
 	// Generate our candidates' bodies
 	for(var/mob/dead/observer/chosen_candidate in chosen_candidates)
@@ -78,7 +73,7 @@
 
 /**
  * Get a list of all possible spawn points
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/get_spawn_locations()
 	for(var/obj/effect/landmark/carpspawn/spawnpoint in GLOB.landmarks_list)
 		if(isturf(spawnpoint.loc))
@@ -86,7 +81,7 @@
 
 /**
  * Send a poll to ghosts to see if they wanna sign up for a ruleset
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/send_applications()
 	// How?
 	if(!length(candidates))
@@ -110,15 +105,15 @@
 
 /**
  * Spawn a body for the chosen candidate
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/generate_ruleset_body(mob/dead/observer/chosen_mob)
 	var/mob/living/carbon/human/new_body = makeBody(chosen_mob)
-	new_body.dna.remove_all_mutations()
+	new_body.clean_dna()
 	return new_body
 
 /**
  * Finalize the candidate's body
-**/
+ */
 /datum/dynamic_ruleset/midround/ghost/proc/finish_setup(mob/new_character)
 	new_character.mind.add_antag_datum(antag_datum)
 	new_character.mind.special_role = antag_datum.banning_key
@@ -164,7 +159,7 @@
 	minimum_players_required = 20
 	weight = 4
 	use_spawn_locations = FALSE
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 	var/datum/team/nuclear/team
 	var/has_made_leader = FALSE
@@ -199,7 +194,7 @@
 	minimum_players_required = 13
 	weight = 4
 	use_spawn_locations = FALSE
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/blob/get_poll_icon()
 	var/icon/blob_icon = icon('icons/mob/blob.dmi', icon_state = "blob_core")
@@ -224,7 +219,7 @@
 	points_cost = 50
 	minimum_players_required = 20
 	weight = 4
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_poll_icon()
 	return /mob/living/carbon/alien/larva
@@ -268,7 +263,7 @@
 	points_cost = 40
 	weight = 4
 	minimum_players_required = 10
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
 	return /mob/living/simple_animal/hostile/space_dragon
@@ -297,7 +292,7 @@
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
 	weight = 4
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
 	return /obj/item/energy_katana
@@ -521,7 +516,7 @@
 	antag_datum = /datum/antagonist/swarmer
 	points_cost = 40
 	weight = 4
-	flags = CANNOT_REPEAT
+	ruleset_flags = CANNOT_REPEAT
 
 	var/announce_probability = 25
 
@@ -645,7 +640,6 @@
 		return FALSE
 	for(var/datum/team/fugitive_hunters/hunter_team in GLOB.antagonist_teams)
 		return FALSE
-
 
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_spawn_locations()
 	for(var/turf/turf in GLOB.xeno_spawn)

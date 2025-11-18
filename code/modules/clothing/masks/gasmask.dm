@@ -10,6 +10,7 @@
 	armor_type = /datum/armor/mask_gas
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
+	custom_price = 50
 
 
 /datum/armor/mask_gas
@@ -72,6 +73,7 @@
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "syndicate"
 	strip_delay = 60
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"

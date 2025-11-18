@@ -9,7 +9,7 @@
 			to_chat(user, span_warning("[src] is already at maximum fuel load."))
 			return FALSE
 		to_chat(user, span_notice("You start to insert [attacked_item] into [src]..."))
-		radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
+		radiation_pulse(src, max_range = 3, threshold = RAD_EXTREME_INSULATION)
 		if(do_after(user, 5 SECONDS, target=src))
 			if(length(fuel_rods) >= 5)
 				to_chat(user, span_warning("[src] is already at maximum fuel load."))
@@ -498,7 +498,7 @@ Arguments:
 	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
 	update_icon()
 	STOP_PROCESSING(SSmachines, src)
-	AddComponent(/datum/component/radioactive, 15000 , src)
+	AddElement(/datum/element/radioactive, intensity = 20, threshold = RAD_EXTREME_INSULATION)
 	var/turf/reactor_turf = get_turf(src)
 	var/rbmkzlevel = reactor_turf.get_virtual_z_level()
 	for(var/mob/player_mob in GLOB.player_list)
@@ -576,7 +576,7 @@ Arguments:
 		/obj/structure/window/shuttle,
 		/obj/machinery/gateway,
 		/obj/machinery/gravity_generator,
-		))
+	))
 /// Tries to place plutonium sludge on 'floor'. Returns TRUE if the turf has been successfully processed, FALSE otherwise.
 /obj/modules/power/rbmk/nuclear_sludge_spawner/proc/place_sludge(turf/open/floor, epicenter = FALSE)
 	if(!floor)
@@ -585,7 +585,6 @@ Arguments:
 	if(epicenter)
 		for(var/obj/effect/decal/cleanable/nuclear_waste/waste in floor) //Replace nuclear waste with the stronger version
 			qdel(waste)
-		new /obj/effect/decal/cleanable/nuclear_waste/epicenter (floor)
 		return TRUE
 
 	if(!prob(PLUTONIUM_SLUDGE_CHANCE)) //Scatter the sludge, don't smear it everywhere

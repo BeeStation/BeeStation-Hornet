@@ -13,7 +13,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	var/stasis = FALSE
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT
@@ -225,9 +225,6 @@
 	if(!revealed || stasis)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
-
-/mob/living/simple_animal/revenant/rad_act(amount)
-	return
 
 //damage, gibbing, and dying
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)

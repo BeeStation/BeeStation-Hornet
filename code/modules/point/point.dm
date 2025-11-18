@@ -127,6 +127,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/point)
 		return FALSE
 	if(istype(A, /obj/effect/temp_visual/point))
 		return FALSE
+	if (SEND_SIGNAL(src, COMSIG_MOB_POINTED, A) & COMSIG_MOB_POINTED_CANCEL)
+		return
 	point_at(A, params, usr)
-	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE
