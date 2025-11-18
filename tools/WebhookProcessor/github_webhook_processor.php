@@ -850,6 +850,7 @@ function checkchangelog($payload, $compile = true) {
 				if($item != 'made something easier to use') {
 					$tags[] = 'Quality of Life';
 					$currentchangelogblock[] = array('type' => 'qol', 'body' => $item);
+				}
 			case 'sound':
 				if($item != 'added/modified/removed audio or sound effects') {
 					$tags[] = 'Sound';
