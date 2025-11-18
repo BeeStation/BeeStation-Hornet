@@ -195,3 +195,6 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 #define REACTION_TAG_CHEMICAL (1<<14)
 /// This reaction is produces a product that affects plants
 #define REACTION_TAG_PLANT (1<<15)
+
+#define BLASTOFF_DANCE_MOVE_CHANCE_PER_UNIT 3
+#define BLASTOFF_DANCE_MOVES_PER_SUPER_MOVE 3

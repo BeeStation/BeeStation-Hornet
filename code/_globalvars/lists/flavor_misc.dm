@@ -363,7 +363,8 @@ GLOBAL_LIST_INIT(alcoholic_bottles, list(
 ))
 
 GLOBAL_LIST_INIT(junkie_drugs, list(
-	/datum/reagent/drug/crank,
+	/datum/reagent/drug/cannabis,
+	/datum/reagent/drug/blastoff,
 	/datum/reagent/drug/krokodil,
 	/datum/reagent/medicine/morphine,
 	/datum/reagent/drug/happiness,

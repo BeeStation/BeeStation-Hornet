@@ -104,3 +104,4 @@
 
 #define adjust_pacifism(duration) adjust_timed_status_effect(duration, /datum/status_effect/pacify)
 #define set_pacifism(duration) set_timed_status_effect(duration, /datum/status_effect/pacify)
+

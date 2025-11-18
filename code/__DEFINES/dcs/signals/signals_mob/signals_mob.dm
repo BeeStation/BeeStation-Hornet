@@ -127,3 +127,6 @@
 
 /// Signal sent when a blackboard key is cleared
 #define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"
+
+/// Signal sent when a mob emotes
+#define COMSIG_MOB_EMOTED(emote_key) "mob_emoted_[emote_key]"

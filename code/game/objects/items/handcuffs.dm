@@ -56,7 +56,7 @@
 								span_userdanger("[user] is trying to put [src.name] on you!"))
 
 			playsound(loc, cuffsound, 30, 1, -2)
-			if(do_after(user, 4 SECONDS, C) && C.canBeHandcuffed())
+			if(do_after(user, 4 SECONDS, C, timed_action_flags = IGNORE_SLOWDOWNS) && C.canBeHandcuffed())
 				if(iscyborg(user))
 					apply_cuffs(C, user, TRUE)
 				else

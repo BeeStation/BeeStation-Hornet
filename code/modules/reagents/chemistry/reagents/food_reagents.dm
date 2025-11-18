@@ -368,38 +368,6 @@
 		to_chat(affected_mob, span_warning("Your insides revolt at the presence of lethal chocolate!"))
 		affected_mob.vomit(20)
 
-/datum/reagent/drug/mushroomhallucinogen
-	name = "Mushroom Hallucinogen"
-	description = "A strong hallucinogenic drug derived from certain species of mushroom."
-	color = "#E700E7" // rgb: 231, 0, 231
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
-	metabolization_rate = 0.2 * REAGENTS_METABOLISM
-	taste_description = "mushroom"
-	addiction_types = list(/datum/addiction/hallucinogens = 12)
-
-/datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/psychonaut, delta_time, times_fired)
-	. = ..()
-	if(ispsyphoza(psychonaut))
-		return
-
-	if(!psychonaut.slurring)
-		psychonaut.slurring = 1 * REM * delta_time
-
-	switch(current_cycle)
-		if(2 to 6)
-			if(DT_PROB(5, delta_time))
-				psychonaut.emote(pick("twitch", "giggle"))
-		if(6 to 11)
-			psychonaut.set_jitter_if_lower(20 SECONDS * REM * delta_time)
-			psychonaut.set_drugginess(35 * REM * delta_time)
-			if(DT_PROB(10, delta_time))
-				psychonaut.emote(pick("twitch", "giggle"))
-		if (11 to INFINITY)
-			psychonaut.set_jitter_if_lower(40 SECONDS * REM * delta_time)
-			psychonaut.set_drugginess(40 * REM * delta_time)
-			if(DT_PROB(16, delta_time))
-				psychonaut.emote(pick("twitch", "giggle"))
-
 /datum/reagent/consumable/garlic //NOTE: having garlic in your blood stops vampires from biting you.
 	name = "Garlic Juice"
 	description = "Crushed garlic. Chefs love it, but it can make you smell bad."

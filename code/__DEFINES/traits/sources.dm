@@ -160,3 +160,5 @@
 #define MODULE_TRAIT "module_trait"
 /// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+/// This mobs bodyparts are invisible but still clickable.
+#define TRAIT_INVISIBLE_MAN "invisible_man"

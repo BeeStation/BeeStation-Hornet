@@ -22,7 +22,7 @@
 			continue
 		emote.run_emote(src, param, m_type, intentional)
 		SEND_SIGNAL(src, COMSIG_MOB_EMOTE, emote, act, m_type, message, intentional)
-		//SEND_SIGNAL(src, COMSIG_MOB_EMOTED(emote.key))
+		SEND_SIGNAL(src, COMSIG_MOB_EMOTED(emote.key))
 		return TRUE
 	if(intentional && !silenced)
 		to_chat(src, span_notice("Unusable emote '[act]'. Say *help for a list."))

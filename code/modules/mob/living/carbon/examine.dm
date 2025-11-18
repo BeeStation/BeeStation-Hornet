@@ -310,6 +310,8 @@
 			. += "[t_He] [t_has] [glasses.examine_title(user)] covering [t_his] eyes."
 		else if(HAS_TRAIT(src, CULT_EYES))
 			. += span_boldwarning("[t_His] eyes are glowing with an unnatural red aura!")
+		else if(HAS_TRAIT(src, TRAIT_BLOODSHOT_EYES))
+			. += span_boldwarning("[t_His] eyes are bloodshot and red.")
 	//ears
 	if(ears && !(obscured & ITEM_SLOT_EARS) && !HAS_TRAIT(ears, TRAIT_EXAMINE_SKIP))
 		. += "[t_He] [t_has] [ears.examine_title(user)] on [t_his] ears."
@@ -468,6 +470,9 @@
 
 /mob/living/carbon/human/examine_more(mob/user)
 	. = ..()
+
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN) || HAS_TRAIT(src, TRAIT_INVISIBLE_MAN))
+		return
 
 	if(istype(w_uniform, /obj/item/clothing/under) && !(check_obscured_slots() & ITEM_SLOT_ICLOTHING) && !HAS_TRAIT(w_uniform, TRAIT_EXAMINE_SKIP))
 		var/obj/item/clothing/under/undershirt = w_uniform

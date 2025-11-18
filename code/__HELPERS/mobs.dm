@@ -336,7 +336,8 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	var/holding = user.get_active_held_item()
 
-	delay *= user.cached_multiplicative_actions_slowdown
+	if(!(timed_action_flags & IGNORE_SLOWDOWNS))
+		delay *= user.cached_multiplicative_actions_slowdown
 
 	if (HAS_TRAIT(user, INSTANT_DO_AFTER))
 		delay = -1

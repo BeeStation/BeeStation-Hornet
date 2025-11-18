@@ -524,7 +524,7 @@
 	lose_text = span_notice("You feel like you should kick your drug habit.")
 	medical_record_text = "Patient has a history of hard drugs."
 	process = TRUE
-	var/list/drug_list = list(/datum/reagent/drug/crank, /datum/reagent/drug/krokodil, /datum/reagent/medicine/morphine, /datum/reagent/drug/happiness, /datum/reagent/drug/methamphetamine, /datum/reagent/drug/ketamine) //List of possible IDs
+	var/list/drug_list = list(/datum/reagent/drug/blastoff, /datum/reagent/drug/cannabis, /datum/reagent/drug/krokodil, /datum/reagent/medicine/morphine, /datum/reagent/drug/happiness, /datum/reagent/drug/methamphetamine, /datum/reagent/drug/ketamine) //List of possible IDs
 	var/datum/reagent/reagent_type //!If this is defined, reagent_id will be unused and the defined reagent type will be instead.
 	var/datum/reagent/reagent_instance //! actual instanced version of the reagent
 	var/where_drug //! Where the drug spawned
