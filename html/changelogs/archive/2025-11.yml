@@ -235,3 +235,9 @@
   - bugfix: Cultist leader's location on death gets announced again
   - bugfix: Cultists can see eachother's antag HUD icons again
   - code_imp: Nar'Sie doesn't runtime on spawn
+2025-11-18:
+  Gboster-0:
+  - bugfix: fixed cells not properly updating their sprites on being charged with
+      a yellow slime pylon
+  - bugfix: fixed a message thats supposed to show up when you blow yourself up with
+      the yellow slime pylon

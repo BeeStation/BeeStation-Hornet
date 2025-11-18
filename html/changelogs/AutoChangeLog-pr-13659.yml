@@ -1,7 +1,0 @@
-author: Gboster-0
-delete-after: true
-changes:
-  - bugfix: fixed cells not properly updating their sprites on being charged with
-      a yellow slime pylon
-  - bugfix: fixed a message thats supposed to show up when you blow yourself up with
-      the yellow slime pylon
