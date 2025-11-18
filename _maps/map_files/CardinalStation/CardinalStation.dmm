@@ -21111,36 +21111,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/port/fore)
-"enL" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/clothing/head/helmet{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/head/helmet{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/machinery/light_switch/directional/south,
-/obj/machinery/light/directional/east,
-/turf/open/floor/iron/dark/textured,
-/area/ai_monitored/security/armory)
 "enV" = (
 /obj/machinery/flasher/directional/west,
 /turf/open/space/basic,
@@ -33626,11 +33596,14 @@
 	name = "Armor Storage";
 	req_one_access_txt = "3"
 	},
-/obj/structure/rack,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_shield,
 /obj/effect/loot_jobscale/armoury/riot_shield,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
-/obj/effect/loot_jobscale/armoury/riot_suit,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
+/obj/structure/rack,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "gQy" = (
@@ -71834,13 +71807,31 @@
 	name = "Armor Storage";
 	req_one_access_txt = "3"
 	},
-/obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/riot_shield,
-/obj/effect/loot_jobscale/armoury/riot_helmet,
-/obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/item/clothing/head/helmet{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/head/helmet{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/structure/rack,
+/obj/item/clothing/suit/armor/vest{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/head/helmet,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "oHY" = (
@@ -107507,6 +107498,7 @@
 	},
 /obj/item/ammo_box/magazine/wt550m9,
 /obj/item/ammo_box/magazine/wt550m9,
+/obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
 "vPo" = (
@@ -115800,6 +115792,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/research)
+"xDg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/structure/closet/sec_sabre,
+/obj/machinery/light/directional/east,
+/turf/open/floor/iron/dark/textured,
+/area/ai_monitored/security/armory)
 "xDn" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
@@ -117927,7 +117928,6 @@
 /obj/item/food/donut/berry{
 	name = "suspicious pink donut"
 	},
-/obj/machinery/light/directional/west,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark/textured,
 /area/ai_monitored/security/armory)
@@ -157131,10 +157131,10 @@ tSP
 bdb
 rQZ
 eQO
-vVj
+xDg
 bTo
 xhW
-enL
+vVj
 eQO
 lHO
 bSC

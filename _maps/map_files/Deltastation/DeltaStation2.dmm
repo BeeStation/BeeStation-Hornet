@@ -50216,34 +50216,14 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
 "krM" = (
-/obj/structure/closet/crate/secure/weapon{
-	desc = "A secure clothing crate.";
-	name = "formal uniform crate";
-	req_access_txt = "3"
-	},
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/officer/formal,
-/obj/item/clothing/under/rank/security/warden/formal,
-/obj/item/clothing/under/rank/security/head_of_security/formal,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navyofficer,
-/obj/item/clothing/head/beret/sec/navywarden,
-/obj/item/clothing/head/hats/hos/beret/navyhos,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/closet/sec_sabre,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "ksc" = (
@@ -66710,9 +66690,34 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmospherics_engine)
 "pKI" = (
+/obj/structure/closet/crate/secure/weapon{
+	desc = "A secure clothing crate.";
+	name = "formal uniform crate";
+	req_access_txt = "3"
+	},
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
+/obj/item/clothing/under/rank/security/warden/formal,
+/obj/item/clothing/under/rank/security/head_of_security/formal,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navyofficer,
+/obj/item/clothing/head/beret/sec/navywarden,
+/obj/item/clothing/head/hats/hos/beret/navyhos,
 /obj/effect/turf_decal/bot,
-/obj/vehicle/ridden/secway,
-/obj/item/key/security,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
 /obj/machinery/light,
 /obj/machinery/button/door{
 	id = "HOSarmory";
@@ -66720,12 +66725,6 @@
 	pixel_x = -6;
 	pixel_y = -24;
 	req_access_txt = "58"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -69023,6 +69022,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"qxA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/vehicle/ridden/secway,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "qxF" = (
 /obj/machinery/power/solar_control{
 	dir = 8;
@@ -74655,6 +74662,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/item/key/security,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "sgR" = (
@@ -151311,7 +151320,7 @@ lFY
 bLs
 hxv
 jYT
-sgJ
+qxA
 sgJ
 gVw
 pKI

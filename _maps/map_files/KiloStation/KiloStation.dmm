@@ -31789,7 +31789,12 @@
 "irm" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy/donut_box{
+	pixel_x = 9
+	},
+/obj/machinery/recharger{
+	pixel_x = -7
+	},
 /turf/open/floor/iron,
 /area/security/brig)
 "irJ" = (
@@ -37139,6 +37144,9 @@
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/recharger{
+	pixel_x = 7
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
@@ -62544,18 +62552,13 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "srB" = (
-/obj/machinery/recharger{
-	pixel_x = -7
-	},
-/obj/machinery/recharger{
-	pixel_x = 7
-	},
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	pixel_y = -6
 	},
+/obj/structure/closet/sec_sabre,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "ssg" = (

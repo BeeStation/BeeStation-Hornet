@@ -8444,6 +8444,7 @@
 /area/maintenance/department/engine)
 "err" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/closet/sec_sabre,
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
 "ert" = (
@@ -11086,6 +11087,10 @@
 /obj/effect/turf_decal/box/white,
 /turf/open/floor/iron/textured_large,
 /area/engine/engineering)
+"fHh" = (
+/obj/structure/closet/sec_sabre,
+/turf/open/floor/plating,
+/area/maintenance/department/bridge)
 "fHo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22307,6 +22312,10 @@
 	},
 /turf/open/floor/iron/large,
 /area/engine/engineering)
+"lCF" = (
+/obj/structure/closet/sec_sabre,
+/turf/closed/wall,
+/area/maintenance/department/bridge)
 "lCL" = (
 /turf/open/openspace/planetary,
 /area/ai_monitored/turret_protected/aisat/maint)
@@ -22697,6 +22706,8 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/item/storage/belt/sabre/carbon_fiber,
+/obj/item/storage/belt/sabre/carbon_fiber,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "lOG" = (
@@ -127768,7 +127779,7 @@ inZ
 ajB
 rYQ
 xiF
-opN
+fHh
 pnX
 pnX
 qTi
@@ -128801,7 +128812,7 @@ cwz
 pGn
 tDF
 opN
-aCm
+lCF
 opN
 opN
 opN
