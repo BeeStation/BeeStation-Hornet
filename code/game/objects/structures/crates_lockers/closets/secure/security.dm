@@ -422,7 +422,5 @@
 
 /obj/structure/closet/sec_sabre/PopulateContents()
 	..()
-	new /obj/item/storage/belt/sabre/(src)
-	new /obj/item/storage/belt/sabre/(src)
-	new /obj/item/storage/belt/sabre/(src)
-	new /obj/item/storage/belt/sabre/(src)
+	for(var/i in 2 to 3)
+		new /obj/item/storage/belt/sabre/carbon_fiber(src)
