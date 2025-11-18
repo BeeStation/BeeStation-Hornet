@@ -415,7 +415,7 @@
 		new /obj/item/storage/box/lethalshot(src)
 
 /obj/structure/closet/secure_closet/sec_sabre
-	name = "\improper Sabre closet"
+	name = "\improper Carbon fibre sabre closet"
 	desc = "It's a storage unit for security carbon sabres."
 	icon_state = "sabre"
 	req_access = list(ACCESS_ARMORY)
