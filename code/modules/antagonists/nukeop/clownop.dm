@@ -45,9 +45,9 @@
 /datum/outfit/syndicate/clownop/no_crystals
 	tc = 0
 
-/datum/outfit/syndicate/clownop/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/syndicate/clownop/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	H.dna.add_mutation(/datum/mutation/clumsy)
 

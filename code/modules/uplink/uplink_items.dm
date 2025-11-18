@@ -107,7 +107,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // some items are not good to tell to have illegal tech, especially boxes, bottles
 GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	/obj/item/storage/box,
-	/obj/item/reagent_containers)))
+	/obj/item/reagent_containers,
+)))
 
 /**
  * Uplink Items
@@ -1348,6 +1349,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 1
 	surplus = 8
 
+/datum/uplink_item/explosives/pinata
+	name = "Weapons Grade Pinata Kit"
+	desc = "A pinata filled with both candy and explosives as well as two belts to carry them on, crack it open and see what you get!"
+	item = /obj/item/storage/box/syndie_kit/pinata
+	purchasable_from = UPLINK_CLOWN_OPS
+	limited_stock = 1
+	cost = 12 //This is effectively the clown ops version of the grenadier belt where you should on average get 8 explosives if you use a weapon with exactly 10 force.
+	surplus = 0
+
 /datum/uplink_item/explosives/hellfirecandle
 	name = "Portable Hellfire"
 	desc = "This modified oxygen candle is delivered fresh directly off the conveyor at one of our signature warcrime factories. \
@@ -1586,20 +1596,20 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 7
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS) //you can't buy it in nuke, because the elite modsuit costs the same while being better
 
-/*
-/datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
-	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
-	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
-	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
+/datum/uplink_item/suits/modsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
+	var/obj/item/mod/control/mod = ..()
+	var/datum/component/tracking_beacon/beacon = mod.GetComponent(/datum/component/tracking_beacon)
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	if(istype(helmet))
+		var/datum/component/team_monitor/worn/hud = helmet.GetComponent(/datum/component/team_monitor/worn)
 
-	var/datum/antagonist/nukeop/nukie = IS_NUCLEAR_OPERATIVE(user)
-	if(nukie?.nuke_team?.team_frequency)
-		if(hud)
-			hud.set_frequency(nukie.nuke_team.team_frequency)
-		if(beacon)
-			beacon.set_frequency(nukie.nuke_team.team_frequency)
-	return suit
-*/
+		var/datum/antagonist/nukeop/nukie = IS_NUCLEAR_OPERATIVE(user)
+		if(nukie?.nuke_team?.team_frequency)
+			if(hud)
+				hud.set_frequency(nukie.nuke_team.team_frequency)
+			if(beacon)
+				beacon.set_frequency(nukie.nuke_team.team_frequency)
+	return mod
 
 /datum/uplink_item/suits/modsuit/elite
 	name = "Elite Syndicate MODsuit"
@@ -2519,7 +2529,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Balloon"
 	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
 			Can blow the deepest of covers."
-	item = /obj/item/toy/syndicateballoon
+	item = /obj/item/toy/balloon/syndicate
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE

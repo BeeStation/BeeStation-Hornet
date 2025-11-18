@@ -82,39 +82,31 @@
 	..()
 	var/atom/movable/screen/using
 
-	using = new /atom/movable/screen/ghost/observe()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/observe(null, src)
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/jumptomob()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/jumptomob(null, src)
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/orbit()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/orbit(null, src)
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/reenter_corpse()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/reenter_corpse(null, src)
 	static_inventory += using
 
 	if (isobserver(owner))
 		var/mob/dead/observer/observer = owner
 		if (observer.can_respawn)
-			using = new /atom/movable/screen/ghost/respawn()
-			using.hud = src
+			using = new /atom/movable/screen/ghost/respawn(null, src)
 			static_inventory += using
 
-	using = new /atom/movable/screen/ghost/teleport()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/teleport(null, src)
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/pai()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/pai(null, src)
 	static_inventory += using
 
-	using = new /atom/movable/screen/ghost/spawners_menu()
-	using.hud = src
+	using = new /atom/movable/screen/ghost/spawners_menu(null, src)
 	static_inventory += using
 
 	// Layout
@@ -128,10 +120,9 @@
 		index ++
 
 	// Always position this one at the end
-	using = new /atom/movable/screen/language_menu
+	using = new /atom/movable/screen/language_menu(null, src)
 	using.icon = ui_style
 	using.screen_loc = ui_ghost_center(left_offset + index)
-	using.hud = src
 	static_inventory += using
 
 /datum/hud/ghost/show_hud(version = 0, mob/viewmob)

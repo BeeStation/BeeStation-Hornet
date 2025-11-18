@@ -13,7 +13,6 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm063
 	name = "Pubby Clutter 5"
@@ -38,7 +37,6 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm079 //comment this out if you want to avoid tiders dying to a simplemob once in awhile
 	name = "Kilo Mob Den"
@@ -48,7 +46,6 @@
 	template_height = 5
 	template_width = 3
 	weight = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm084
 	name = "Monky Paradise"
@@ -84,7 +81,6 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm094
 	name = "Canister Room"
@@ -93,7 +89,6 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm095
 	name = "Durand Wreck"

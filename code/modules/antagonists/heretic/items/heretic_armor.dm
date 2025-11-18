@@ -41,7 +41,6 @@
 	energy = 50
 	bomb = 35
 	bio = 20
-	rad = 20
 	fire = 20
 	acid = 20
 	stamina = 50
@@ -64,9 +63,7 @@
 	flags_inv = NONE
 	flags_cover = NONE
 	desc = "Black like tar and doesn't reflect any light. Runic symbols line the outside, with each flash you lose comprehension of what you are seeing."
-	item_flags = EXAMINE_SKIP
 	armor_type = /datum/armor/cult_hoodie_void
-
 
 /datum/armor/cult_hoodie_void
 	melee = 30
@@ -79,7 +76,7 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/void/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_STRIP, REF(src))
+	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), INNATE_TRAIT)
 
 /obj/item/clothing/suit/hooded/cultrobes/void
 	name = "void cloak"
@@ -110,6 +107,16 @@
 	create_storage(storage_type = /datum/storage/pockets/void_cloak)
 	make_visible()
 
+/obj/item/clothing/suit/hooded/cultrobes/void/equipped(mob/user, slot)
+	. = ..()
+	if(slot & ITEM_SLOT_OCLOTHING)
+		RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(hide_item))
+		RegisterSignal(user, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(show_item))
+
+/obj/item/clothing/suit/hooded/cultrobes/void/dropped(mob/user)
+	. = ..()
+	UnregisterSignal(user, list(COMSIG_MOB_UNEQUIPPED_ITEM, COMSIG_MOB_EQUIPPED_ITEM))
+
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	// This is before the hood actually goes down
 	// We only make it visible if the hood is being moved from up to down
@@ -130,10 +137,26 @@
 	make_invisible()
 	return ..()
 
+/obj/item/clothing/suit/hooded/cultrobes/void/proc/hide_item(datum/source, obj/item/item, slot)
+	SIGNAL_HANDLER
+	if(slot & ITEM_SLOT_SUITSTORE)
+		item.add_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), REF(src))
+
+/obj/item/clothing/suit/hooded/cultrobes/void/proc/show_item(datum/source, obj/item/item, slot)
+	SIGNAL_HANDLER
+	item.remove_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), REF(src))
+
+/obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
+	. = ..()
+	if(!IS_HERETIC(user) || !hood_up)
+		return
+
+	// Let examiners know this works as a focus only if the hood is down
+	. += span_notice("Allows you to cast heretic spells while the hood is down.")
+
 /// Makes our cloak "invisible". Not the wearer, the cloak itself.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
-	item_flags |= EXAMINE_SKIP
-	ADD_TRAIT(src, TRAIT_NO_STRIP, REF(src))
+	add_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), REF(src))
 	RemoveElement(/datum/element/heretic_focus)
 
 	if(isliving(loc))
@@ -142,8 +165,7 @@
 
 /// Makes our cloak "visible" again.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
-	item_flags &= ~EXAMINE_SKIP
-	REMOVE_TRAIT(src, TRAIT_NO_STRIP, REF(src))
+	remove_traits(list(TRAIT_NO_STRIP, TRAIT_EXAMINE_SKIP), REF(src))
 	AddElement(/datum/element/heretic_focus)
 
 	if(isliving(loc))
