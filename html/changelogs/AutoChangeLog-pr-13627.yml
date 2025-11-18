@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Supermatter surges can no longer happen before the one-hour mark outside
+      of adminbus
