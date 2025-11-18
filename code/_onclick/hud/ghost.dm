@@ -120,7 +120,7 @@
 		index ++
 
 	// Always position this one at the end
-	using = new /atom/movable/screen/language_menu(null, src)
+	using = new /atom/movable/screen/language_menu
 	using.icon = ui_style
 	using.screen_loc = ui_ghost_center(left_offset + index)
 	static_inventory += using
