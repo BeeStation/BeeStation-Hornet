@@ -180,6 +180,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	//Should we preload this species's organs?
 	var/preload = TRUE
 
+	/// The name key for the species, if the user changes from one species
+	/// to another which has a different name key, their name will be reset
+	/// to a random name.
+	/// If null, then it will always change.
+	var/name_key = null
+
 ///////////
 // PROCS //
 ///////////
