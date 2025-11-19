@@ -50,6 +50,7 @@
 	if(user.maxHealth <= 0)
 		to_chat(user, ("<span class='userdanger'>Your weakened soul is completely consumed by the tap!</span>"))
 		ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
+		user.fragment_soul()
 
 		user.visible_message(("<span class='danger'>[user] suddenly dies!</span>"), ignored_mobs = user)
 		user.death()

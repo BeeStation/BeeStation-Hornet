@@ -24,10 +24,13 @@
 		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel unusually drained as you pull the lever, but you \
 		know it'll be worth it."))
 
-
-	user.maxHealth -= soul_drain //This is permanent. There is no recovering from using the machine.
+	//This is permanent. There is no recovering from using the machine.
+	user.maxHealth -= soul_drain
 	user.health = min(user.health, user.maxHealth)
+
+	//These are what make truly permanent - you cannot be revived via cloning, soul shards or make use of wizard soul magic because you no longer own your soul
 	user.fragment_soul()
+	ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
 	obj_flags |= IN_USE
 

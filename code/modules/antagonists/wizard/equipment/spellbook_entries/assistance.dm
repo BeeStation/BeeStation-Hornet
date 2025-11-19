@@ -41,6 +41,13 @@
 	cost = 1
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
+/datum/spellbook_entry/tap/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(user.soul_fragmented)
+		to_chat(user, span_boldwarning("Your soul is already promised to another, you cannot spend it on soul tap."))
+		return FALSE
+	return .
+
 /datum/spellbook_entry/item/soulstones
 	name = "Soulstone Shard Kit"
 	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. \

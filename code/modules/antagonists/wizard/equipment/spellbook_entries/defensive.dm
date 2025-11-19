@@ -56,6 +56,13 @@
 	category = "Defensive"
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
+/datum/spellbook_entry/lichdom/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(user.soul_fragmented)
+		to_chat(user, span_boldwarning("Becoming a lich requires that you have your entire soul, but yours has been fragmented."))
+		return FALSE
+	return .
+
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
