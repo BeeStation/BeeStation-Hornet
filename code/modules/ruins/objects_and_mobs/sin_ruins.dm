@@ -17,16 +17,17 @@
 		return
 
 	if(user.maxHealth <= soul_drain)
-		to_chat(user, span_userdanger("The machine rejects you, you have nothing left to take..."))
+		to_chat(user, span_userdanger("The machine rejects you, you have nothing left to give..."))
 		return
 
 	else
 		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel unusually drained as you pull the lever, but you \
 		know it'll be worth it."))
-		can_reenter_corpse = FALSE //When you die without your entire soul, you can never return.
+
 
 	user.maxHealth -= soul_drain //This is permanent. There is no recovering from using the machine.
 	user.health = min(user.health, user.maxHealth)
+	user.fragment_soul()
 
 	obj_flags |= IN_USE
 

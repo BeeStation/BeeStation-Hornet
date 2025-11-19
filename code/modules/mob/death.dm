@@ -12,3 +12,15 @@
 /mob/proc/death(gibbed)
 	SEND_SIGNAL(src, COMSIG_MOB_DEATH, gibbed)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_DEATH, src , gibbed)
+
+///Marks a mob as being unable to return from death
+/mob/living/proc/fragment_soul()
+	if(!soul_fragmented)
+		RegisterSignal(src, COMSIG_MOB_DEATH, TYPE_PROC_REF(/mob/living, soulless_death))
+		soul_fragmented = TRUE
+
+/mob/living/proc/soulless_death()
+	SIGNAL_HANDLER
+	to_chat(src, span_userdanger("Your fragmented soul can never return..."))
+	ghostize(FALSE)
+	UnregisterSignal(src, COMSIG_MOB_DEATH) //This mob can never die again

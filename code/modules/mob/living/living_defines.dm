@@ -172,3 +172,6 @@
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
+
+	///Marks a mob as unable to return from death, set as part of /proc/fragment_soul()
+	var/soul_fragmented = FALSE
