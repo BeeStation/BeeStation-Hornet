@@ -72,7 +72,6 @@
 	user.visible_message(span_warning("[user] opens the bag and and removes a die. The bag then vanishes."), "[span_boldwarning("You open the bag...!")]\n[span_danger("And see a bag full of dice. Confused, you take one... and the bag vanishes.")]")
 	var/turf/T = get_turf(user)
 	var/obj/item/dice/d20/fate/one_use/critical_fail = new(T)
-	critical_fail.sides = 19 //no wizard roll, sorry.
 	user.put_in_hands(critical_fail)
 	qdel(src)
 
