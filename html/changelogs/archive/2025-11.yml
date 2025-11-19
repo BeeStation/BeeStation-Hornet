@@ -246,3 +246,6 @@
   Rukofamicom:
   - tweak: Supermatter surges can no longer happen before the one-hour mark outside
       of adminbus
+2025-11-19:
+  Isaac:
+  - bugfix: No more compiler warnings from ED209 fix.
