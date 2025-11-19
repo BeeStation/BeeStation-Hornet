@@ -7,7 +7,7 @@
 	icon_state = "slots1"
 	anchored = TRUE
 	density = TRUE
-	var/win_prob = 10
+	var/win_prob = 20
 	var/soul_drain = 5
 
 /obj/structure/cursed_slot_machine/interact(mob/living/carbon/human/user)
@@ -23,6 +23,7 @@
 	else
 		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel unusually drained as you pull the lever, but you \
 		know it'll be worth it."))
+		can_reenter_corpse = FALSE //When you die without your entire soul, you can never return.
 
 	user.maxHealth -= soul_drain //This is permanent. There is no recovering from using the machine.
 	user.health = min(user.health, user.maxHealth)
