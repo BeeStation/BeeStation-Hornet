@@ -10,6 +10,8 @@
 	var/datum/species/old_species = previous_value
 	var/datum/species/new_species = value
 
+	if (old_species == new_species)
+		return
 	if (ispath(old_species, /datum/species) && ispath(new_species, /datum/species) && old_species::name_key && old_species::name_key == new_species::name_key)
 		return
 
