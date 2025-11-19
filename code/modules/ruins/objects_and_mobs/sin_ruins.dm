@@ -7,27 +7,28 @@
 	icon_state = "slots1"
 	anchored = TRUE
 	density = TRUE
-	var/win_prob = 5
+	var/win_prob = 10
+	var/soul_drain = 5
 
 /obj/structure/cursed_slot_machine/interact(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
 	if(obj_flags & IN_USE)
 		return
-	if(isipc(user))
-		user.visible_message(span_warning(" As [user] tries to pull \the [src]'s lever, the machine seems to hesitate a bit."), span_warning("You feel as if you are trying to put at stake something you don't even have...\ You suddenly feel your mind... Suboptimal?"))
-		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
+
+	if(user.maxHealth <= soul_drain)
+		to_chat(user, span_userdanger("The machine rejects you, you have nothing left to take..."))
+		return
+
 	else
-		user.adjustCloneLoss(20)
+		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel unusually drained as you pull the lever, but you \
+		know it'll be worth it."))
+
+	user.maxHealth -= soul_drain //This is permanent. There is no recovering from using the machine.
+	user.health = min(user.health, user.maxHealth)
+
 	obj_flags |= IN_USE
 
-	if(user.stat)
-		to_chat(user, span_userdanger("No... just one more try..."))
-		user.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
-		user.gib()
-	else
-		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel a draining as you pull the lever, but you \
-		know it'll be worth it."))
 	icon_state = "slots2"
 	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, 0)
 	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
@@ -69,6 +70,7 @@
 	user.visible_message(span_warning("[user] opens the bag and and removes a die. The bag then vanishes."), "[span_boldwarning("You open the bag...!")]\n[span_danger("And see a bag full of dice. Confused, you take one... and the bag vanishes.")]")
 	var/turf/T = get_turf(user)
 	var/obj/item/dice/d20/fate/one_use/critical_fail = new(T)
+	critical_fail.sides = 19 //no wizard roll, sorry.
 	user.put_in_hands(critical_fail)
 	qdel(src)
 
