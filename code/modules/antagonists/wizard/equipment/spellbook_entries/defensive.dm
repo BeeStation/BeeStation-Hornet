@@ -58,8 +58,8 @@
 
 /datum/spellbook_entry/lichdom/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
-	if(user.soul_fragmented)
-		to_chat(user, span_boldwarning("Becoming a lich requires that you have your entire soul, but yours has been fragmented."))
+	if(HAS_TRAIT(user, TRAIT_NO_SOUL))
+		to_chat(user, span_boldwarning("You cannot store your soul into an object when you have already lost it."))
 		return FALSE
 	return .
 

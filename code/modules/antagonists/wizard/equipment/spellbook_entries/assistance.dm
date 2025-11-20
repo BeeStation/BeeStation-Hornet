@@ -43,8 +43,8 @@
 
 /datum/spellbook_entry/tap/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
-	if(user.soul_fragmented)
-		to_chat(user, span_boldwarning("Your soul is already promised to another, you cannot spend it on soul tap."))
+	if(HAS_TRAIT(user, TRAIT_NO_SOUL))
+		to_chat(user, span_boldwarning("You need to have ownership of your soul to spend it on soul tap."))
 		return FALSE
 	return .
 
