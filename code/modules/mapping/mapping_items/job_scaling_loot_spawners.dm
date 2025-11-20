@@ -30,22 +30,22 @@
 		return
 	var/turf/T = get_turf(src)
 
-	var/atom/movable/storage_target = null // If there's a closet on turf, detect it
-	for (var/obj/structure/closet/C in T)
-		storage_target = C
-		break
+	// Look for the closet once
+	var/obj/structure/closet/dest_closet = locate(/obj/structure/closet) in T
+
 	var/loot_spawned = 0
 	while((lootcount-loot_spawned) && loot.len)
 		var/lootspawn = pick_weight(loot)
 		if(!lootdoubles)
 			loot.Remove(lootspawn)
-		if(lootspawn)
-			var/atom/movable/spawned_loot
 
-			if(storage_target) // Spawn inside the closet if there's one, otherwise on the turf
-				spawned_loot = new lootspawn(storage_target)
+		if(lootspawn)
+			if(dest_closet)
+				// If we are in a closet, just spawn it.
+				new lootspawn(dest_closet)
 			else
-				spawned_loot = new lootspawn(T)
+				// If we are on the floor, apply offsets
+				var/atom/movable/spawned_loot = new lootspawn(T)
 
 				if(!fan_out_items)
 					if (pixel_x != 0)
@@ -58,5 +58,4 @@
 							((!(loot_spawned % 2) * loot_spawned / 2) * -1) + \
 							((loot_spawned % 2) * (loot_spawned + 1) / 2)
 		loot_spawned++
-
 	qdel(src)
