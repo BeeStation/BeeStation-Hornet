@@ -1,6 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - rscadd: Weapons Closet can now be made
-  - bugfix: Armory weapons now spawn inside the respective weapon locker rather than
-      ontop of them

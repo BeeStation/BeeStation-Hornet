@@ -249,3 +249,8 @@
 2025-11-19:
   Isaac:
   - bugfix: No more compiler warnings from ED209 fix.
+2025-11-20:
+  Isaac:
+  - rscadd: Weapons Closet can now be made
+  - bugfix: Armory weapons now spawn inside the respective weapon locker rather than
+      ontop of them
