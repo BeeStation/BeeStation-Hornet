@@ -64,17 +64,17 @@
 /datum/award/achievement/misc/kronk
 	name = "HOLY SHIT!"
 	desc = "You're on an entirely new spectrum!"
-	database_id = MEDAL_APPLY_REAGENT_METH
+	database_id = MEDAL_APPLY_REAGENT_KRONK
 
 /datum/award/achievement/misc/high
 	name = "Seeing Sounds"
 	desc = "You just had your first experience, it won't be your last."
-	database_id = MEDAL_APPLY_REAGENT_METH
+	database_id = MEDAL_APPLY_REAGENT_DRUGS
 
 /datum/award/achievement/misc/stoned
 	name = "Hi, how are you?"
 	desc = "You're tooo stoneddd forrr thiss shittt."
-	database_id = MEDAL_APPLY_REAGENT_METH
+	database_id = MEDAL_APPLY_REAGENT_CANNABIS
 
 /datum/award/achievement/misc/soy
 	name = "Soyboy"
