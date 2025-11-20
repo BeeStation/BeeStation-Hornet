@@ -30,10 +30,7 @@
 		return
 	var/turf/T = get_turf(src)
 
-	var/atom/movable/storage_target = null // If there's a closet on turf, detect it
-	for (var/obj/structure/closet/C in T)
-		storage_target = C
-		break
+	var/obj/structure/closet/storage_target = locate() in T
 	var/loot_spawned = 0
 	while((lootcount-loot_spawned) && loot.len)
 		var/lootspawn = pick_weight(loot)
