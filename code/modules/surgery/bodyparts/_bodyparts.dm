@@ -630,10 +630,6 @@
 	draw_color = variable_color
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
-	if(HAS_TRAIT(human_owner, TRAIT_INVISIBLE_MAN) && IS_ORGANIC_LIMB(src))
-		limb_id = "invisible" //overrides shit apparently
-		dmg_overlay_type = "" //no damage overlay shown when invisible since the wounds themselves are invisible.
-		should_draw_greyscale = FALSE
 
 //to update the bodypart's icon when not attached to a mob
 /obj/item/bodypart/proc/update_icon_dropped()

@@ -12,6 +12,7 @@
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	trade_flags = TRADE_CONTRABAND
 
 /obj/item/food/grown/kronkus

@@ -4,7 +4,27 @@
 
 /datum/mood_event/stoned
 	mood_change = 6
-	description = "I'm sooooo stooooooooooooned..."
+	description = span_nicegreen("I'm sooooo stooooooooooooned...")
+
+/datum/mood_event/narcotic_medium
+	description = span_nicegreen("I feel comfortably numb.")
+	mood_change = 4
+	timeout = 3 MINUTES
+
+/datum/mood_event/narcotic_heavy
+	description = span_nicegreen("I feel like I'm wrapped in cotton!")
+	mood_change = 9
+	timeout = 3 MINUTES
+
+/datum/mood_event/stimulant_medium
+	description = span_nicegreen("I have so much energy and I feel like I could do anything.")
+	mood_change = 4
+	timeout = 3 MINUTES
+
+/datum/mood_event/stimulant_heavy
+	description = span_nicegreen("Eh ah AAAAH! HA HA HA HA HAA! Uuuh.")
+	mood_change = 6
+	timeout = 3 MINUTES
 
 /datum/mood_event/smoked
 	description = span_nicegreen("I have had a smoke recently.")

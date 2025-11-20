@@ -53,39 +53,22 @@
 	required_temp = 470
 	reaction_tags = REACTION_TAG_DRUG
 
-//These drug item reactions should probably be converted to fermichem in the future.
-/datum/chemical_reaction/moon_rock //botany is real easy so it requires a lot of kronkus_extract, make it cheaper if it doesnt get made.
-	required_reagents = list(/datum/reagent/kronkus_extract = 15, /datum/reagent/fuel = 5, /datum/reagent/ammonia = 3)
+/datum/chemical_reaction/kronkaine
+	name = "Kronkaine"
+	results = list(/datum/reagent/drug/kronkaine = 10)
+	required_reagents = list(/datum/reagent/kronkus_extract = 5, /datum/reagent/fuel = 5, /datum/reagent/ammonia = 3)
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_DRUG
 
-/datum/chemical_reaction/moon_rock/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		var/obj/item/food/drug/moon_rock/new_rock = new(location)
-		new_rock.pixel_x = rand(-6, 6)
-		new_rock.pixel_y = rand(-6, 6)
-
-/datum/chemical_reaction/blastoff_ampoule
-	required_reagents = list(/datum/reagent/silver = 10, /datum/reagent/toxin/cyanide = 10, /datum/reagent/lye = 5)
-	mob_react = FALSE
+/datum/chemical_reaction/blastoff
+	name = "BlastoFF"
+	results = list(/datum/reagent/drug/blastoff = 10)
+	required_reagents = list(/datum/reagent/silver = 5, /datum/reagent/toxin/cyanide = 10, /datum/reagent/lye = 5)
+	required_temp = 420
 	reaction_tags = REACTION_TAG_DRUG
 
-/datum/chemical_reaction/blastoff_ampoule/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/iteration in 1 to created_volume)
-		var/obj/item/reagent_containers/cup/blastoff_ampoule/new_ampoule = new(location)
-		new_ampoule.pixel_x = rand(-6, 6)
-		new_ampoule.pixel_y = rand(-6, 6)
-
-/datum/chemical_reaction/saturnx_glob
-	required_reagents = list(/datum/reagent/drug/space_drugs = 5, /datum/reagent/consumable/nothing = 5, /datum/reagent/ammonia = 5)
-	mob_react = FALSE
+/datum/chemical_reaction/saturnx
+	name = "Saturn-X"
+	results = list(/datum/reagent/drug/saturnx = 15)
+	required_reagents = list(/datum/reagent/drug/space_drugs = 5, /datum/reagent/toxin/mindbreaker = 5, /datum/reagent/ammonia = 5)
 	reaction_tags = REACTION_TAG_DRUG
-
-/datum/chemical_reaction/saturnx_glob/on_reaction(datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/iteration in 1 to created_volume)
-		var/obj/item/food/drug/saturnx/new_glob = new(location)
-		new_glob.pixel_x = rand(-6, 6)
-		new_glob.pixel_y = rand(-6, 6)

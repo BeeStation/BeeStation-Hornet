@@ -431,3 +431,33 @@
 		/obj/item/stack/sheet/cardboard = 2
 	)
 	category = CAT_MISC
+
+// Drug crafting
+
+/datum/crafting_recipe/saturnx
+	name = "Saturn-X"
+	result = /obj/item/food/drug/saturnx
+	time = 2 SECONDS
+	reqs = list(
+		/datum/reagent/drug/saturnx = 10
+	)
+	category = CAT_MISC
+
+/datum/crafting_recipe/moon_rock
+	name = "Moon Rock"
+	result = /obj/item/food/drug/moon_rock
+	time = 2 SECONDS
+	reqs = list(
+		/datum/reagent/drug/kronkaine = 10
+	)
+	category = CAT_MISC
+
+/datum/crafting_recipe/blastoff
+	name = "BlastoFF Ampoule"
+	result = /obj/item/reagent_containers/cup/blastoff_ampoule
+	time = 4 SECONDS
+	reqs = list(
+		/datum/reagent/drug/blastoff = 10,
+		/obj/item/shard = 1
+	)
+	category = CAT_MISC

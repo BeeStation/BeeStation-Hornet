@@ -71,12 +71,14 @@
 	if(!ishuman(owner))
 		return FALSE
 	var/mob/living/carbon/human/human_owner = owner
+	original_eye_color = human_owner.eye_color
 	human_owner.add_movespeed_modifier(/datum/movespeed_modifier/reagent/cannabis) //slows you down
 	human_owner.eye_color = BLOODCULT_EYE //makes cult eyes less obvious
 	human_owner.update_body() //updates eye color
-	human_owner.add_traits(list(TRAIT_CLUMSY, TRAIT_BLOODSHOT_EYES), TRAIT_STATUS_EFFECT(id)) // impairs motor coordination and dilates blood vessels in eyes
+	human_owner.add_traits(list(TRAIT_CLUMSY, TRAIT_BLOODSHOT_EYES, TRAIT_DUMB), TRAIT_STATUS_EFFECT(id)) // impairs motor coordination, dilates blood vessels in eyes and disrupts cognitive function.
 	SEND_SIGNAL(human_owner, COMSIG_ADD_MOOD_EVENT, "stoned", /datum/mood_event/stoned) //improves mood
 	human_owner.sound_environment_override = SOUND_ENVIRONMENT_DRUGGED //not realistic but very immersive
+	human_owner.overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
 	return TRUE
 
 /datum/status_effect/stoned/on_remove()
@@ -86,11 +88,68 @@
 	human_owner.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/cannabis)
 	human_owner.eye_color = original_eye_color
 	human_owner.update_body()
-	human_owner.remove_traits(list(TRAIT_CLUMSY, TRAIT_BLOODSHOT_EYES), TRAIT_STATUS_EFFECT(id))
+	human_owner.remove_traits(list(TRAIT_CLUMSY, TRAIT_BLOODSHOT_EYES, TRAIT_DUMB), TRAIT_STATUS_EFFECT(id))
 	SEND_SIGNAL(human_owner, COMSIG_CLEAR_MOOD_EVENT, "stoned")
 	human_owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	human_owner.clear_fullscreen("high")
 
 /atom/movable/screen/alert/status_effect/stoned
 	name = "Stoned"
 	desc = "Cannabis is impairing your speed, motor skills, and mental cognition."
 	icon_state = "stoned"
+
+/datum/status_effect/tweaked
+	id = "tweaked"
+	duration = 10 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/tweaked
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/tweaked/on_apply()
+	if(!ishuman(owner))
+		return FALSE
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.add_traits(list(TRAIT_CLUMSY), TRAIT_STATUS_EFFECT(id))
+	SEND_SIGNAL(human_owner, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium) //improves mood
+	human_owner.sound_environment_override = SOUND_ENVIROMENT_PHASED
+	human_owner.overlay_fullscreen("tweak", /atom/movable/screen/fullscreen/tweak)
+	return TRUE
+
+/datum/status_effect/tweaked/on_remove()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_traits(list(TRAIT_CLUMSY), TRAIT_STATUS_EFFECT(id))
+	SEND_SIGNAL(human_owner, COMSIG_CLEAR_MOOD_EVENT, "tweaked")
+	human_owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	human_owner.clear_fullscreen("tweak")
+
+/atom/movable/screen/alert/status_effect/tweaked
+	name = "Tweaking"
+	desc = "You are tweaking out hard right now."
+	icon_state = "energized"
+
+/datum/status_effect/glaggle
+	id = "glaggle"
+	duration = 10 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/glaggle
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/glaggle/on_apply()
+	if(!ishuman(owner))
+		return FALSE
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.sound_environment_override = SOUND_ENVIROMENT_PHASED
+	human_owner.overlay_fullscreen("glaggle", /atom/movable/screen/fullscreen/tweak)
+	return TRUE
+
+/datum/status_effect/glaggle/on_remove()
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.sound_environment_override = SOUND_ENVIRONMENT_NONE
+	human_owner.clear_fullscreen("glaggle")
+
+/atom/movable/screen/alert/status_effect/glaggle
+	name = "Forced Euphoria"
+	desc = "You are happy right now, or are you?"
+	icon_state = "glaggle"
