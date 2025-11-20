@@ -15,9 +15,9 @@
 
 ///Marks a mob as being unable to return from death
 /mob/living/proc/fragment_soul()
-	if(!soul_fragmented)
+	if(!HAS_TRAIT(src, TRAIT_NO_SOUL))
 		RegisterSignal(src, COMSIG_MOB_DEATH, TYPE_PROC_REF(/mob/living, soulless_death))
-		soul_fragmented = TRUE
+		ADD_TRAIT(src, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
 /mob/living/proc/soulless_death()
 	SIGNAL_HANDLER

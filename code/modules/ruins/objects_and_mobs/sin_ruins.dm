@@ -28,9 +28,8 @@
 	user.maxHealth -= soul_drain
 	user.health = min(user.health, user.maxHealth)
 
-	//These are what make truly permanent - you cannot be revived via cloning, soul shards or make use of wizard soul magic because you no longer own your soul
+	//This is what makes it truly permanent - you cannot be revived by any means and soul magic is beyond your reach because you no longer have ownership of your soul
 	user.fragment_soul()
-	ADD_TRAIT(user, TRAIT_NO_SOUL, MAGIC_TRAIT)
 
 	obj_flags |= IN_USE
 
