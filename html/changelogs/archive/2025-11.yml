@@ -255,5 +255,7 @@
   - bugfix: Armory weapons now spawn inside the respective weapon locker rather than
       ontop of them
 2025-11-21:
+  Isaac:
+  - bugfix: iFixes xenobio extract infinite explosions
   PowerfulBacon:
   - bugfix: Changing species now assigns a new name.
