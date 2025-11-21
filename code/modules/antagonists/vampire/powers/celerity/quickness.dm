@@ -8,7 +8,7 @@
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	sol_multiplier = 2
 	cooldown_time = 30 SECONDS
-	constant_bloodcost = 5
+	constant_vitaecost = 5
 
 	// Ref to the item
 	var/datum/weakref/item_ref
@@ -29,7 +29,6 @@
 			return TRUE
 		owner.balloon_alert(owner, "you're wearing gloves!")
 		return FALSE
-	return TRUE
 
 /datum/action/vampire/quickness/activate_power()
 	. = ..()

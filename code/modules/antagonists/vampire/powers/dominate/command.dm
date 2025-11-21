@@ -15,7 +15,7 @@
 		Be smart with your wording. They will become pacified, and won't obey violent commands."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 120
+	vitaecost = 120
 	cooldown_time = 80 SECONDS
 	target_range = 6
 	power_activates_immediately = FALSE
@@ -29,7 +29,7 @@
 /datum/action/vampire/targeted/command/two
 	name = "Command"
 	power_time = 180 SECONDS
-	bloodcost = 240
+	vitaecost = 240
 	cooldown_time = 200 SECONDS
 
 /datum/action/vampire/targeted/command/can_use()
@@ -119,10 +119,10 @@
 	//Actually command them now
 	owner.say(command)
 
+	var/power_time_adjusted = FALSE
 	if(HAS_TRAIT(living_target, TRAIT_MINDSHIELD))
-		power_time /= 4
-		deactivate_power()
-		return
+		power_time /= 2
+		power_time_adjusted = TRUE
 
 	if(IS_VAMPIRE(living_target))
 		var/datum/antagonist/vampire/target_vampdatum = IS_VAMPIRE(living_target)
@@ -141,18 +141,22 @@
 	to_chat(living_target, span_narsie("[command]!"), type = MESSAGE_TYPE_WARNING)
 	addtimer(CALLBACK(src, PROC_REF(end_command), living_target), power_time)
 
+	if(power_time_adjusted)
+		power_time *= 2
+		power_time_adjusted = FALSE
+
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 
 /datum/action/vampire/targeted/command/proc/get_single_word_command()
 	. = TRUE
-	var/command = tgui_input_text(owner, "What would you like to command? One VERB, only.", "Input a command", "STOP", timeout = 2 MINUTES)
+	var/command = tgui_input_text(owner, "What would you like to command?", "Input a command", "STOP", timeout = 2 MINUTES)
 	if(QDELETED(src))
 		return FALSE
 	if(CHAT_FILTER_CHECK(command))
 		to_chat(owner, span_warning("The command '[span_boldname("[command]")]' is forbidden!"))
 		return FALSE
 	if(findtext(command, " "))
-		to_chat(owner, span_warning("Please only input a single word, preferably a verb. Note that all commands are logged. Do not try to game the system."))
+		to_chat(owner, span_warning("Please only input a single word."))
 		return FALSE
 	if(length(command)  > 5)
 		to_chat(owner, span_warning("Command too long!"))

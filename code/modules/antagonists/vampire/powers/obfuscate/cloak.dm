@@ -6,31 +6,31 @@
 		Additionally, while Cloak is active, you are completely invisible to silicons."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 30
-	constant_bloodcost = 0.1
+	vitaecost = 30
+	constant_vitaecost = 0.1
 	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
-	level_current = 1
+	var/cloaklevel = 40
 
 /datum/action/vampire/cloak/two
-	bloodcost = 45
-	constant_bloodcost = 0.2
-	level_current = 2
+	vitaecost = 45
+	constant_vitaecost = 0.2
+	cloaklevel = 30
 
 /datum/action/vampire/cloak/three
-	bloodcost = 60
-	constant_bloodcost = 0.3
-	level_current = 3
+	vitaecost = 60
+	constant_vitaecost = 0.3
+	cloaklevel = 20
 
 /datum/action/vampire/cloak/four
-	bloodcost = 75
-	constant_bloodcost = 0.4
-	level_current = 4
+	vitaecost = 75
+	constant_vitaecost = 0.4
+	cloaklevel = 10
 
 /datum/action/vampire/cloak/five	// We have no nosferatu but if we had...
-	bloodcost = 90
-	constant_bloodcost = 0.5
-	level_current = 5
+	vitaecost = 90
+	constant_vitaecost = 0.5
+	cloaklevel = 0
 
 /// Must have nobody around to see the cloak
 /datum/action/vampire/cloak/can_use()
@@ -55,7 +55,7 @@
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.AddElement(/datum/element/digital_camo)
 	user.balloon_alert(user, "cloak turned on.")
-	animate(owner, alpha = max(0, 255 - min(255, 60 * level_current)), time = 1 SECONDS)
+	animate(owner, alpha = cloaklevel, time = 1 SECONDS)
 
 /datum/action/vampire/cloak/continue_active()
 	. = ..()

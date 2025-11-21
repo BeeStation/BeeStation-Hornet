@@ -124,7 +124,7 @@
 		attacker.visible_message(
 			span_notice("[attacker] puts the [src] up to [victim]'s mouth."),
 			span_notice("You put the [src] up to [victim]'s mouth."))
-		if(!do_after(victim, 5 SECONDS, attacker))
+		if(!do_after(attacker, 5 SECONDS, victim))
 			return
 		attacker.visible_message(
 			span_notice("[attacker] forces [victim] to drink from the [src]."),
@@ -134,7 +134,7 @@
 
 		// I would add more flavor, but I don't want to make this an antag check
 		if(vampiredatum?.my_clan?.blood_drink_type != VAMPIRE_DRINK_SNOBBY)
-			vampiredatum?.AddBloodVolume(to_feed / 4)
+			vampiredatum?.AdjustBloodVolume(to_feed / 4)
 		playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
 		return TRUE
 
@@ -154,7 +154,7 @@
 		span_notice("You feed from the [src]."))
 
 	reagents.trans_to(victim, to_feed, transfered_by = attacker, method = INGEST)
-	vampiredatum?.AddBloodVolume(to_feed / 4)
+	vampiredatum?.AdjustBloodVolume(to_feed / 4)
 	playsound(victim.loc, 'sound/items/drink.ogg', 30, 1)
 
 	return TRUE

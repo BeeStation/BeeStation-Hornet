@@ -113,7 +113,7 @@ const VampireGuide = (_props) => {
               selected={tab === 5}
               onClick={() => setTab(5)}
             >
-              Sol
+              Sol & Levelling
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
@@ -134,7 +134,7 @@ const VampireGuide = (_props) => {
               selected={tab === 8}
               onClick={() => setTab(8)}
             >
-              Your Haven
+              Your Lair
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
@@ -214,18 +214,19 @@ const VampireGuide = (_props) => {
               might even point you toward the local prince.
               <br />
               <br />
-              <Box fontSize="20px" textColor="darkred" bold>
-                Growing in Power
+              <Box fontSize="20px" textColor="magenta" bold>
+                The #1 Tip on how to stay alive
               </Box>
-              At the end of each{' '}
-              <Box inline textColor="yellow">
-                Sol
-              </Box>
-              , you gain a Rank. Ranking up boosts strength, health, feeding
-              rate, and blood capacity.
+              Keep your vitae above 300. There is so much that can go wrong in a
+              panic, so much chaos that can unfold. A starving vampire is a
+              careless vampire.
               <br />
-              You also earn discipline points. These powers aren&apos;t
-              optional. They&apos;re how you survive.
+              <br />
+              <Box fontSize="15px" textColor="grey">
+                All ways a kindred can die start with insufficient vitae. It
+                sneaks up on you, and suddenly you&apos;re running around
+                panicking, making mistakes. Be smart, be careful.
+              </Box>
             </Box>
           )}
           {tab === 2 && (
@@ -432,6 +433,24 @@ const VampireGuide = (_props) => {
               </Box>{' '}
               has passed, you will gain a rank to spend on upgrading your
               disciplines.
+              <br />
+              <br />
+              <Box fontSize="20px" textColor="darkred" bold>
+                Growing in Power
+              </Box>
+              Click on your blood meter. You will notice a progress tracker.
+              <br />
+              At the end of each{' '}
+              <Box inline textColor="yellow">
+                Sol
+              </Box>
+              , provided you have drank he amount of vitae in your goal, you
+              gain a Rank. <br />
+              Ranking up boosts strength, health, feeding rate, and blood
+              capacity.
+              <br />
+              You also earn discipline points. These powers aren&apos;t
+              optional. They&apos;re how you survive.
             </Box>
           )}
           {tab === 6 && (
@@ -444,8 +463,8 @@ const VampireGuide = (_props) => {
               As an undead, you constantly feel the hunger of the{' '}
               <Box inline textColor="orange">
                 Beast
-              </Box>{' '}
-              Feeding is not a luxury. <b>It is a necessity.</b> As your blood
+              </Box>
+              . Feeding is not a luxury. <b>It is a necessity.</b> As your blood
               reaches zero, you will slowly feel the side-effects, such as
               blurry vision, and impaired healing.
               <br />
@@ -477,7 +496,7 @@ const VampireGuide = (_props) => {
               If you ever deplete all of your vitae, you will enter a{' '}
               <Box inline textColor="orange">
                 frenzy.
-              </Box>
+              </Box>{' '}
               In this state, diplomacy goes out the window. You will revert to a
               feral beast, likely assaulting and draining the nearest mortal you
               can see.
@@ -573,17 +592,17 @@ const VampireGuide = (_props) => {
             </Box>
           )}
           {tab === 8 && (
-            // Havens
+            // Lairs
             <Box>
               <Box fontSize="20px" textColor="green" bold>
-                Your Haven
+                Your Lair
               </Box>
               <br />
-              Some vampires may want to claim a Haven. Whether it be in
+              Some vampires may want to claim a Lair. Whether it be in
               maintenance or the captain&apos;s bathroom, this is where you will
               vassalize the crew and retreat to for healing.
               <br /> <br />
-              To claim a Haven you should first locate a hidden area that nobody
+              To claim a Lair you should first locate a hidden area that nobody
               will <b>ever</b> walk into. After securing your chosen location,
               bring a coffin there and rest in it to claim the area.
               <br /> <br />
@@ -598,7 +617,7 @@ const VampireGuide = (_props) => {
               category, or they can be found across the station. Most stations
               have coffins in the Chapel!
               <br /> <br />
-              After you have claimed your Haven, you can anchor vampiric
+              After you have claimed your Lair, you can anchor vampiric
               structures down such as the{' '}
               <Box inline textColor="purple">
                 Vassalization Rack
@@ -611,8 +630,8 @@ const VampireGuide = (_props) => {
               <br />
               <br />
               <Box fontSize="15px" textColor="blue">
-                * Tip: Not every vampire needs a haven. The main way vampires
-                get found out these days, is through their Havens.
+                * Tip: Not every vampire needs a lair. The main way vampires get
+                found out these days, is through their lair.
                 <br />
                 <b>
                   If you build one, just building it in maintenance is not
@@ -638,7 +657,7 @@ const VampireGuide = (_props) => {
               <br /> <br />
               To use it, first secure it in your{' '}
               <Box inline textColor="green">
-                Haven
+                Lair
               </Box>{' '}
               and then capture and restrain a subject. After restraining them,
               drag them onto the rack and repeatedly torture them by clicking on

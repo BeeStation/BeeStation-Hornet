@@ -7,7 +7,7 @@
 	power_explanation = "Cast a beam of draining magic that saps the vitality of your target to steal their blood and heal yourself."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 75
+	vitaecost = 75
 	cooldown_time = 10 SECONDS	// Very unlikely to ever last past 10 seconds even if the actual duration is longer. Combat is a fuck.
 	target_range = 7
 	power_activates_immediately = FALSE
@@ -66,7 +66,6 @@
 ///
 /// Status Effect. Literally copied from life drain spell of wizards, but modified to work with vampires.
 ///
-
 /datum/status_effect/blood_drain
 	id = "blood_drain"
 	alert_type = null
@@ -121,7 +120,7 @@
 	//Vampire heals at a steady rate over the duration of the spell regardless of the victim's state
 	vampire.heal_overall_damage(0.5, 0.5, 5, updating_health = TRUE)
 
-	spell.vampiredatum_power.vampire_blood_volume += blood_drain * 2	// Vampires get double the blood drained because of balance
+	spell.vampiredatum_power.current_vitae += blood_drain * 2	// Vampires get double the blood drained because of balance
 	//Weird beam visuals if it isn't redrawn due to the beam sending players into crit
 	drain_beam.redrawing()
 

@@ -3,7 +3,7 @@
 **/
 /datum/antagonist/vampire/proc/sol_near_start(atom/source)
 	SIGNAL_HANDLER
-	if(vampire_haven_area && !(locate(/datum/action/vampire/gohome) in powers))
+	if(vampire_lair_area && !(locate(/datum/action/vampire/gohome) in powers))
 		grant_power(new /datum/action/vampire/gohome)
 
 /**
@@ -58,8 +58,8 @@
 	// We don't want to be TOO mean, so we make 3 different grades of protection.
 
 	//You still won't enter frenzy. But you will be damn close.
-	if(istype(owner.current.loc, /obj/structure/closet))
-		incoming_sol_damage = "locker"
+	if(istype(owner.current.loc, /obj/structure/closet) || istype(owner.current.loc, /obj/machinery))
+		incoming_sol_damage = "container"
 
 	// Now the big one. The area check.
 	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
@@ -74,20 +74,20 @@
 
 	switch(incoming_sol_damage)
 		if("area")
-			if(vampire_blood_volume >= 200)
-				RemoveBloodVolume(sol_burn_calculated / 2)
+			if(current_vitae >= 200)
+				AdjustBloodVolume(-sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
 				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
-		if("locker")
-			if(vampire_blood_volume >= 100)
-				RemoveBloodVolume(sol_burn_calculated / 2)
+		if("container")
+			if(current_vitae >= 100)
+				AdjustBloodVolume(-sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
 				to_chat(owner.current, span_cultbigbold("The walls of this vessel offer mild protection. <b>Don't worry, blood won't drain below 100.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("full")
 			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
-			RemoveBloodVolume(sol_burn_calculated)
+			AdjustBloodVolume(-sol_burn_calculated)
 			if(incoming_sol_damage != last_sol_damage)
 				to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
 			burn_and_kill()
@@ -102,16 +102,11 @@
 
 /datum/antagonist/vampire/proc/burn_and_kill()
 	// We can resist it as long as we have blood.
-	if(vampire_blood_volume >= 25)
+	if(current_vitae >= 25)
 		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	else
-		owner.current.apply_damage(30, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		owner.current.apply_damage(50, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		owner.current.emote("scream")
-
-	// Rest in peace.
-	if(vampire_blood_volume == 0 && owner.current.stat == DEAD)
-		playsound(owner.current, 'sound/vampires/burning_death.ogg', 60, TRUE)
-		owner.current.dust(drop_items = TRUE)
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
@@ -143,7 +138,7 @@
  * - Entering a Coffin with more than 10 combined Brute/Burn damage, dealt with by /closet/crate/coffin/close() [coffins.dm]
  * - Death, dealt with by /HandleDeath()
  * Torpor is ended by:
- * - Having less than 10 Brute damage while OUTSIDE of your Coffin while it isnt Sol.
+ * - Having less than 10 Burn damage while OUTSIDE of your Coffin while it isnt Sol.
  * - Having less than 10 Brute & Burn Combined while INSIDE of your Coffin while it isnt Sol.
  * - Sol being over, dealt with by /sunlight/process() [vampire_daylight.dm]
 **/
@@ -219,12 +214,15 @@
 
 	heal_vampire_organs()
 
+	if(current_vitae >= 300) // we wake up hungy
+		current_vitae = 300
+
 	to_chat(living_owner, span_notice("You have recovered from Torpor."))
 	my_clan?.on_exit_torpor()
 
 /datum/status_effect/vampire_sol
 	id = "vampire_sol"
-	tick_interval = -1
+	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/vampire_sol
 	var/list/datum/action/vampire/burdened_actions
 
@@ -242,10 +240,10 @@
 		human_owner.physiology?.damage_resistance -= 50
 	for(var/datum/action/vampire/power in owner.actions)
 		if(power.sol_multiplier)
-			power.bloodcost *= power.sol_multiplier
-			power.constant_bloodcost *= power.sol_multiplier
+			power.vitaecost *= power.sol_multiplier
+			power.constant_vitaecost *= power.sol_multiplier
 			if(power.currently_active)
-				to_chat(owner, span_warning("[power.name] is harder to upkeep during Sol, now requiring [power.constant_bloodcost] blood while the solar flares last!"), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_warning("[power.name] is harder to upkeep during Sol, now requiring [power.constant_vitaecost] blood while the solar flares last!"), type = MESSAGE_TYPE_INFO)
 			LAZYSET(burdened_actions, power, TRUE)
 		power.update_desc()
 		power.update_buttons()
@@ -262,8 +260,8 @@
 		human_owner.physiology?.damage_resistance += 50
 	for(var/datum/action/vampire/power in owner.actions)
 		if(LAZYACCESS(burdened_actions, power))
-			power.bloodcost /= power.sol_multiplier
-			power.constant_bloodcost /= power.sol_multiplier
+			power.vitaecost /= power.sol_multiplier
+			power.constant_vitaecost /= power.sol_multiplier
 		power.update_desc()
 		power.update_buttons()
 	LAZYNULL(burdened_actions)

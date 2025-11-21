@@ -10,19 +10,19 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Claim a haven
+ * Claim a lair
  */
-/datum/objective/vampire/haven
-	name = "claimhaven"
-	explanation_text = "Create a haven by claiming a coffin, and protect it until the end of the shift."
+/datum/objective/vampire/lair
+	name = "claimlair"
+	explanation_text = "Create a lair by claiming a coffin, and protect it until the end of the shift."
 
 // WIN CONDITIONS?
-/datum/objective/vampire/haven/check_completion()
+/datum/objective/vampire/lair/check_completion()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
 	if(!vampire_datum)
 		return FALSE
 
-	if(vampire_datum.coffin && vampire_datum.vampire_haven_area)
+	if(vampire_datum.coffin && vampire_datum.vampire_lair_area)
 		return TRUE
 
 	return FALSE
@@ -147,7 +147,7 @@
 
 // GENERATE!
 /datum/objective/vampire/gourmand/New()
-	target_amount = rand(3000, 4000)
+	target_amount = rand(500, 1000)		// This is blood, not vitae.
 	return ..()
 
 // EXPLANATION

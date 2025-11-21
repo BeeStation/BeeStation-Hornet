@@ -10,14 +10,14 @@
  */
 /datum/action/vampire/gohome
 	name = "Vanishing Act"
-	desc = "As dawn aproaches, disperse into mist and return directly to your haven.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
+	desc = "As dawn aproaches, disperse into mist and return directly to your lair.<br><b>WARNING:</b> You will drop <b>ALL</b> of your possessions if observed by mortals."
 	button_icon_state = "power_gohome"
 	power_explanation = "Activating Vanishing Act will, after a short delay, teleport you to your Claimed Coffin.\n\
 		Immediately after activating, lights around the user will begin to flicker.\n\
 		Once the user teleports to their coffin, in their place will be a Rat or Bat."
 	power_flags = BP_AM_TOGGLE | BP_AM_SINGLEUSE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED
-	bloodcost = 100
+	vitaecost = 100
 	cooldown_time = 100 SECONDS
 	///What stage of the teleportation are we in
 	var/teleporting_stage = GOHOME_START

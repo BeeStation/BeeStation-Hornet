@@ -17,7 +17,7 @@
 		. += span_cult(ghost_desc)
 	if(IS_VAMPIRE(user) && vampire_desc)
 		if(!owner)
-			. += span_cult("It is unsecured. Click on [src] while in your Haven to secure it in place to get its full potential")
+			. += span_cult("It is unsecured. Click on [src] while in your Lair to secure it in place to get its full potential")
 			return
 		. += span_cult(vampire_desc)
 	if(IS_VASSAL(user) && vassal_desc)
@@ -55,11 +55,11 @@
 	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
 	/// Claiming the Rack instead of using it?
 	if(vampiredatum && !owner)
-		if(!vampiredatum.vampire_haven_area)
-			to_chat(user, span_danger("You don't have a haven. Claim a coffin to make that location your haven."))
+		if(!vampiredatum.vampire_lair_area)
+			to_chat(user, span_danger("You don't have a lair. Claim a coffin to make that location your lair."))
 			return FALSE
-		if(vampiredatum.vampire_haven_area != get_area(src))
-			to_chat(user, span_danger("You may only activate this structure in your haven: [vampiredatum.vampire_haven_area]."))
+		if(vampiredatum.vampire_lair_area != get_area(src))
+			to_chat(user, span_danger("You may only activate this structure in your lair: [vampiredatum.vampire_lair_area]."))
 			return FALSE
 
 		/// Radial menu for securing your Persuasion rack in place.
@@ -114,19 +114,6 @@
 	/// No spamming torture
 	var/is_torturing = FALSE
 
-/datum/crafting_recipe/vassalrack
-	name = "Vassalization rack"
-	result = /obj/structure/vampire/vassalrack
-	time = 5 SECONDS
-
-	reqs = list(
-			/obj/item/stack/sheet/iron = 5,
-			/obj/item/stack/rods = 6,
-			)
-
-	category = CAT_VAMPIRE
-	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
-
 /obj/structure/vampire/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
 	new /obj/item/stack/sheet/iron(src.loc, 4)
@@ -137,7 +124,7 @@
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))
-		to_chat(user, span_announce("* Vampire Tip: Examine the Persuasion Rack to understand how it functions!"))
+		to_chat(user, span_announce("* Vampire Tip: Examine the Vassal Rack to understand how it functions!"))
 		return
 	// Default checks
 	if(!isliving(movable_atom) || !living_target.Adjacent(src) || living_target == user || !isliving(user) || has_buckled_mobs() || user.incapacitated() || living_target.buckled)
@@ -256,14 +243,14 @@
 
 		is_torturing = TRUE
 		living_target.Paralyze(1 SECONDS)
-		vampiredatum.RemoveBloodVolume(TORTURE_BLOOD_HALF_COST)
+		vampiredatum.AdjustBloodVolume(-TORTURE_BLOOD_HALF_COST)
 
 		if(!do_torture(living_vampire, living_target, held_item))
 			is_torturing = FALSE
 			return
 		is_torturing = FALSE
 
-		vampiredatum.RemoveBloodVolume(TORTURE_BLOOD_HALF_COST)
+		vampiredatum.AdjustBloodVolume(-TORTURE_BLOOD_HALF_COST)
 		convert_progress--
 
 		if(convert_progress > 0)
@@ -288,7 +275,7 @@
 			return
 
 		// Make our target into a vassal
-		vampiredatum.RemoveBloodVolume(TORTURE_CONVERSION_COST)
+		vampiredatum.AdjustBloodVolume(-TORTURE_CONVERSION_COST)
 		vampiredatum.make_vassal(living_target)
 
 		// Find Mind Implant & Destroy
@@ -365,20 +352,6 @@
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
-/datum/crafting_recipe/candelabrum
-	name = "candelabrum"
-	result = /obj/structure/vampire/candelabrum
-	time = 5 SECONDS
-
-	reqs = list(
-			/obj/item/stack/sheet/iron = 1,
-			/obj/item/stack/rods = 3,
-			/obj/item/candle = 2,
-			)
-
-	category = CAT_VAMPIRE
-	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
-
 /obj/structure/vampire/candelabrum/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -440,19 +413,6 @@
 	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\
 		While buckled, Monsters can use this to telepathically communicate with eachother."
 	var/mutable_appearance/armrest
-
-/datum/crafting_recipe/bloodthrone
-	name = "blood throne"
-	result = /obj/structure/vampire/bloodthrone
-	time = 5 SECONDS
-
-	reqs = list(
-			/obj/item/stack/sheet/iron = 10,
-			/obj/item/stack/rods = 2,
-			)
-
-	category = CAT_VAMPIRE
-	crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND | CRAFT_MUST_BE_LEARNED
 
 // Add rotating and armrest
 /obj/structure/vampire/bloodthrone/Initialize(mapload)
@@ -536,7 +496,14 @@
 			continue
 		var/mob/receiver_mob = receiver.owner.current
 		to_chat(receiver_mob, rendered, type = MESSAGE_TYPE_RADIO)
-	to_chat(user, rendered, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
+
+	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(user)
+
+	for(var/datum/antagonist/vassal/vassal as anything in vampire_datum.vassals)
+		if(!vassal.owner.current)
+			continue
+		var/mob/receiver_mob = vassal.owner.current
+		to_chat(receiver_mob, rendered, type = MESSAGE_TYPE_RADIO)
 
 	for(var/mob/dead_mob in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(dead_mob, user)

@@ -8,7 +8,7 @@
  */
 /datum/action/vampire/targeted/mesmerize
 	name = "Mesmerize"
-	desc = "Transfix the mind of a mortal who can see your eyes."
+	desc = "Transfix the mind of a mortal who can see your eyes, freezing them in place."
 	button_icon_state = "power_mez"
 	power_explanation = "Click any player to attempt to mesmerize them, and freeze them in place.\n\
 		You cannot wear anything covering your face, and both parties must be facing eachother.\n\
@@ -19,7 +19,7 @@
 		At level 4, you will be able to mesmerize regardless of your target's direction."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 75
+	vitaecost = 75
 	cooldown_time = 20 SECONDS
 	target_range = 8
 	power_activates_immediately = FALSE
@@ -30,16 +30,16 @@
 	var/datum/weakref/target_ref
 
 /datum/action/vampire/targeted/mesmerize/two
-	bloodcost = 45
+	vitaecost = 45
 	level_current = 2
 
 /datum/action/vampire/targeted/mesmerize/three
-	bloodcost = 60
+	vitaecost = 60
 	level_current = 3
 
 /datum/action/vampire/targeted/mesmerize/four
 	desc = "Transfix the mind of a mortal."
-	bloodcost = 85
+	vitaecost = 85
 	level_current = 4
 
 /datum/action/vampire/targeted/mesmerize/can_use()
@@ -115,8 +115,8 @@
 	owner.balloon_alert(owner, "attempting to hypnotize [living_target]...")
 	if(!do_after(owner, 4 SECONDS, living_target, extra_checks = CALLBACK(src, PROC_REF(continue_active)), hidden = TRUE))
 		return
-	owner.balloon_alert(owner, "successfully mesmerized [living_target].")
 
+	owner.balloon_alert(owner, "successfully mesmerized [living_target].")
 	to_chat(living_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully... You're mesmerized!"), type = MESSAGE_TYPE_WARNING)
 
 	//Actually mesmerize them now
@@ -151,6 +151,8 @@
 /datum/action/vampire/targeted/mesmerize/proc/end_mesmerize(mob/living/living_target)
 	living_target.notransform = FALSE
 	REMOVE_TRAIT(living_target, TRAIT_MUTE, TRAIT_MESMERIZED)
+
+	to_chat(living_target, span_hypnophrase("With the spell waning, so does your memory of being mesmerized."), type = MESSAGE_TYPE_WARNING)
 
 	if (living_target in view(6, get_turf(owner)))
 		living_target.balloon_alert(owner, "snapped out of [living_target.p_their()] trance!")

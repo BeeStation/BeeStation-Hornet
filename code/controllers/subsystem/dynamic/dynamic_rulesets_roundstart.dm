@@ -82,22 +82,6 @@
 
 //////////////////////////////////////////////
 //                                          //
-//                  VAMPIRE                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/vampire
-	name = "Vampire"
-	role_preference = /datum/role_preference/roundstart/vampire
-	antag_datum = /datum/antagonist/vampire
-	weight = 4
-	points_cost = 1			// We want many of them
-	minimum_players_required = 10
-	elasticity = 100
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
-
-//////////////////////////////////////////////
-//                                          //
 //             MALFUNCTIONING AI            //
 //                                          //
 //////////////////////////////////////////////
@@ -232,6 +216,26 @@
 		SSticker.news_report = CULT_FAILURE
 
 //////////////////////////////////////////////
+//                                          //
+//                  VAMPIRES                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/vampires
+	name = "Vampires"
+	role_preference = /datum/role_preference/roundstart/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 5
+	points_cost = 13
+	minimum_players_required = 12
+	drafted_players_amount = 3
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+/datum/dynamic_ruleset/roundstart/bloodcult/set_drafted_players_amount()
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 4, 1), 3) // Start with 3 at 12 pop. Every four players, a vampire gets added.
+
+/////////////////////////////////////////////
 //                                          //
 //                CLOCK CULT                //
 //                                          //

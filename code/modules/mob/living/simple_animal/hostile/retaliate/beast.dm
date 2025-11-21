@@ -20,7 +20,7 @@
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
 	response_disarm_simple = "gently push aside"
-	armour_penetration = 30
+	armour_penetration = 60
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	maxHealth = 200
 	health = 200
@@ -35,8 +35,6 @@
 	mob_size = MOB_SIZE_LARGE
 	footstep_type = FOOTSTEP_MOB_CLAW
 	speed = -1
-
-	COOLDOWN_DECLARE(bloodheal_cooldown_beast)
 
 // Gorillas like to dismember limbs from unconscious mobs.
 // Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
@@ -65,12 +63,9 @@
 		return ..()
 	. = ..()
 	if(. && isliving(target))
-		if(COOLDOWN_FINISHED(src, bloodheal_cooldown_beast))
-			playsound(loc, 'sound/vampires/bloodhealing.ogg', 30)
-			add_splatter_floor(get_turf(target))
-			health = health + 20
-
-		COOLDOWN_START(src, bloodheal_cooldown_beast, 1 SECONDS)
+		playsound(loc, 'sound/vampires/bloodhealing.ogg', 30)
+		add_splatter_floor(get_turf(target))
+		health = health + 50
 
 /mob/living/simple_animal/hostile/retaliate/beast/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)

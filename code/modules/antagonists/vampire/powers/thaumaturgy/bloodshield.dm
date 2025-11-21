@@ -10,9 +10,9 @@
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 
-	bloodcost = 50
+	vitaecost = 50
 	cooldown_time = 10 SECONDS
-	constant_bloodcost = 6
+	constant_vitaecost = 6
 
 	/// Blood shield given while this Power is active.
 	var/datum/weakref/blood_shield
@@ -57,5 +57,5 @@
 
 /obj/item/shield/vampire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/datum/antagonist/vampire/vampire = IS_VAMPIRE(owner)
-	vampire?.RemoveBloodVolume(15)
+	vampire?.AdjustBloodVolume(-15)
 	return ..()

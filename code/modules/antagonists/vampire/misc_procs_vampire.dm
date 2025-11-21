@@ -71,8 +71,12 @@
  * Increase our unspent vampire levels by one and try to rank up if inside a coffin
  * Called near the end of Sol and admin abuse
 **/
-/datum/antagonist/vampire/proc/rank_up(levels)
+/datum/antagonist/vampire/proc/rank_up(levels, ignore_reqs = FALSE)
 	if(QDELETED(owner) || QDELETED(owner.current))
+		return
+
+	if(vitae_goal_progress <= current_vitae_goal && !ignore_reqs)
+		to_chat(owner.current, span_notice("Your lack of experience has left you unable to level up. Fulfill your vitae goal next time in order to level up."))
 		return
 
 	vampire_level_unspent += levels
@@ -81,6 +85,9 @@
 		return
 
 	to_chat(owner, span_notice("<EM>You have grown familiar with your powers!"))
+
+	current_vitae_goal += VITAE_GOAL_STANDARD
+	vitae_goal_progress = 0
 
 /**
  * Decrease the unspent vampire levels by one. Only for admins
@@ -114,81 +121,63 @@
 		return TRUE
 
 	return FALSE
-
 /**
- * ##add_humanity(count)
+ * ##adjust_humanity(count, silent)
  *
  * Adds the specified amount of humanity to the vampire
  * Checks to make sure it doesn't exceed 10,
+ * Checks to make sure it doesn't go under 0,
  * Adds the masquerade power at 9 or above
  */
-/datum/antagonist/vampire/proc/add_humanity(count, silent = FALSE)
+/datum/antagonist/vampire/proc/adjust_humanity(count, silent = FALSE)
 	// Step one: Toreadors have doubled gains and losses
 	if(my_clan == /datum/vampire_clan/toreador)
 		count = count * 2
 
 	var/temp_humanity = humanity + count
 	var/power_given = FALSE
+	var/power_removed = FALSE
 
 	if (humanity >= 10)
 		return FALSE
 
-	if(temp_humanity > 10)
-		temp_humanity = 10
-		return FALSE
+	// Are we adding or removing?
+	if(count >= 0)
+		// We are adding
+		if(temp_humanity > 10)
+			temp_humanity = 10
+			return FALSE
 
-	if(temp_humanity >= 8 && !(locate(/datum/action/vampire/masquerade) in powers))
-		grant_power(new /datum/action/vampire/masquerade)
-		power_given = TRUE
+		if(temp_humanity >= 8 && !(locate(/datum/action/vampire/masquerade) in powers))
+			grant_power(new /datum/action/vampire/masquerade)
+			power_given = TRUE
 
-	// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
-	if(humanity < temp_humanity && !silent)
-		owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
-		if(power_given)
-			to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
-		else
-			to_chat(owner.current, span_userdanger("You have gained humanity."))
+		// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
+		if(humanity < temp_humanity && !silent)
+			owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
+			if(power_given)
+				to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
+			else
+				to_chat(owner.current, span_userdanger("You have gained humanity."))
+	else
+		// We are removing
+		if(temp_humanity < 0)
+			temp_humanity = 0
+			return
 
-	humanity = temp_humanity
+		if(temp_humanity < 8)
+			for(var/datum/action/vampire/masquerade/power in powers)
+				remove_power(power)
+				power_removed = TRUE
 
-/**
- * ##deduct_humanity(count)
- *
- * Deducts the specified amount of humanity from the vampire, so, don't put negatives in here.
- * Checks to make sure it doesn't go under 0,
- * Removes the masquerade power at less than 8
- */
-/datum/antagonist/vampire/proc/deduct_humanity(count)
-	// Step one: Toreadors have doubled gains and losses
-	if(my_clan == /datum/vampire_clan/toreador)
-		count = count * 2
+		// Only run this code if there is an actual decrease in humanity
+		if(humanity > temp_humanity && !silent)
+			owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
 
-	var/temp_humanity = humanity - count
-	var/power_removed = FALSE
-
-	if(count <= 0)
-		return FALSE
-
-	if (humanity <= 0)
-		return FALSE
-
-	if(temp_humanity < 0)
-		temp_humanity = 0
-		return
-
-	if(temp_humanity < 8)
-		for(var/datum/action/vampire/masquerade/power in powers)
-			remove_power(power)
-			power_removed = TRUE
-
-	// Only run this code if there is an actual decrease in humanity
-	if(humanity > temp_humanity)
-		owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
-
-		if(power_removed)
-			to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
-		else
-			to_chat(owner.current, span_userdanger("You have lost humanity."))
+			if(power_removed)
+				to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
+			else
+				to_chat(owner.current, span_userdanger("You have lost humanity."))
 
 	humanity = temp_humanity
 
@@ -204,6 +193,9 @@
 	// placeholders to populate // I dunno why this works btw, i thought i made a mistake but it worked anyways.
 	var/list/tracking_list = null
 	var/goal = null
+
+	if(humanity >= 10) // Don't add anything if we're already at max.
+		return
 
 	// map all the placeholders to the correct type, get the list for easier handling
 	switch(type)
@@ -241,9 +233,15 @@
 				humanity_petting_goal *= 2
 			if(HUMANITY_ART_TYPE)
 				humanity_art_goal *= 2
-		add_humanity(1)
+		adjust_humanity(1)
 
 	return TRUE
+
+	// It's a proc cuz we need to call this asynchronously from lifetick
+/datum/antagonist/vampire/proc/provide_clan_selector()
+	if(!is_type_in_list(/datum/action/vampire/clanselect, powers))
+		grant_power(new /datum/action/vampire/clanselect)
+		return
 
 /datum/antagonist/vampire/proc/get_rank_string()
 	switch(vampire_level)
@@ -259,9 +257,9 @@
 			return "'Expert'"
 		if(10 to 11)
 			return "'Master'"
-		if(12 to 20)
+		if(12 to 24)
 			return "'Grand Master'"
-		if(21 to INFINITY)
+		if(25 to INFINITY)
 			return "[span_narsiesmall("'Methuselah'")]"
 
 /// This is where we store clan descriptions.
@@ -314,3 +312,11 @@
 		if(CLAN_METHUSELAH)
 			return methuselah
 	return "OH MY GOD SOMETHING HORRIBLE HAS GONE WRONG CALL A CODER NOW"
+
+/**
+ * Called when a Vampire reaches Final Death
+ * Releases all Vassals.
+ */
+/datum/antagonist/vampire/proc/free_all_vassals()
+	for(var/datum/antagonist/vassal/all_vassals in vassals)
+		all_vassals.owner.remove_antag_datum(/datum/antagonist/vassal)

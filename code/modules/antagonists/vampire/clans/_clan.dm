@@ -6,11 +6,11 @@
  */
 /datum/vampire_clan
 	/// The name of the clan we're in.
-	var/name = "ERROR"
+	var/name
 	/// Description of what the clan is, given when joining and through your antag UI.
 	var/description = "ERROR"
 	/// Description shown when trying to join the clan.
-	var/join_description = "ERROR"
+	var/join_description
 
 	/// The vampire datum that owns this clan. Use this over 'source', because while it's the same thing, this is more consistent (and used for deletion).
 	var/datum/antagonist/vampire/vampiredatum
@@ -50,7 +50,7 @@
 	RegisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE, PROC_REF(on_vampire_broke_masquerade))
 
 	vampiredatum = owner_datum
-	vampiredatum.add_humanity(default_humanity, TRUE)
+	vampiredatum.adjust_humanity(default_humanity, TRUE)
 
 	// Masquerade breakers
 	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)
@@ -71,12 +71,6 @@
 	. = ..()
 
 /**
- * Called we want to assign it. We leave it blank because obv we just return a string and every clan has their own.
- */
-/datum/vampire_clan/proc/get_join_description()
-	return
-
-/**
  * Called when a Vampire exits Torpor
  */
 /datum/vampire_clan/proc/on_exit_torpor()
@@ -88,8 +82,6 @@
 /datum/vampire_clan/proc/handle_clan_life()
 	if(!is_type_in_list(/datum/action/vampire/levelup, vampiredatum.powers) && vampiredatum.vampire_level_unspent > 0)
 		vampiredatum.grant_power(new /datum/action/vampire/levelup)
-		return
-	return
 
 /**
  * Called when a Vampire successfully vassalizes someone via the persuasion rack.
@@ -155,6 +147,7 @@
 		for(var/datum/discipline/discipline as anything in vampiredatum.owned_disciplines)
 			if(discipline.name == discipline_response)
 				chosen_discipline = discipline
+				break
 
 		if(isnull(discipline_response) || QDELETED(src) || QDELETED(living_vampire))
 			return FALSE
@@ -183,7 +176,7 @@
 /datum/vampire_clan/proc/finalize_spend_rank()
 	// Level up the vampire
 	vampiredatum.vampire_regen_rate += 0.05
-	vampiredatum.max_blood_volume += 100
+	vampiredatum.max_vitae += 100
 
 	if(ishuman(vampiredatum.owner.current))
 		var/mob/living/carbon/human/vampire_human = vampiredatum.owner.current

@@ -12,9 +12,9 @@
 		You will begin to entrance them into accepting your advances.\n\
 		The time needed before you start feeding decreases the higher level you are.\n\
 		If you are feeding normally they will forget that they were ever fed off.\n\
-		Feeding off of someone while you have them aggressively grabbed while in combat mode, will put them to sleep and make you feed faster. \
-		This is very obvious and the radius in which you can be detected is much larger!\n\
 		Mice can be fed off if you are in desperate need of blood.\n\
+		<b>Feeding off of someone while you have them aggressively grabbed while in combat mode, will put them to sleep and make you feed faster</b>. \
+		This is very obvious and the radius in which you can be detected is much larger!\n\
 		<b>IMPORTANT:</b> You are given a Masquerade Infraction if a mortal witnesses you while feeding.\n\
 		<b>IMPORTANT:</b> You may feed on other vampires if they have broken the masquerade. Should you drain them, you will absorb their power!"
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
@@ -81,7 +81,7 @@
 				watcher.face_atom(owner)
 
 			watcher.do_alert_animation(watcher)
-			to_chat(watcher, span_dangerbold("Wait... is... [owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
 			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
@@ -105,7 +105,7 @@
 				watcher.face_atom(owner)
 
 			watcher.do_alert_animation(watcher)
-			to_chat(watcher, span_dangerbold("Wait... is... [owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
 			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
@@ -169,8 +169,8 @@
 
 	// Mice
 	if(istype(feed_target, /mob/living/simple_animal/mouse))
-		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))
-		vampiredatum_power.AddBloodVolume(FEED_BLOOD_FROM_MICE)
+		to_chat(owner, span_warning("You recoil at the taste of a lesser lifeform."))
+		vampiredatum_power.AdjustBloodVolume(FEED_BLOOD_FROM_MICE)
 		power_activated_sucessfully()
 		feed_target.death()
 		return
@@ -208,7 +208,7 @@
 		// It begins...
 		currently_feeding = TRUE
 
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 30)
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, FALSE, 0, 500)
 
 		// Just to make sure
 		living_owner.stop_pulling()
@@ -256,24 +256,37 @@
 				feed_target.dir = EAST
 				animate(owner, 0.2 SECONDS, pixel_x = -8, pixel_y = 16)
 				animate(feed_target, 0.2 SECONDS, pixel_x = 8, pixel_y = -16)
+			if(0)	// We are on the same tile. Just move them a bit so they don't overlap
+				owner.dir = WEST
+				feed_target.dir = EAST
+				animate(owner, 0.2 SECONDS, pixel_x = 8,)
+				animate(feed_target, 0.2 SECONDS, pixel_x = -8)
 
-		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] embraces you tightly, sinking their fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
-		to_chat(feed_target, span_hypnophrase("Why does it feel soo good..."), type = MESSAGE_TYPE_WARNING)
+		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] grabs you tightly, sinking [owner.p_their()] fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
+		to_chat(feed_target, span_hypnophrase("But the pain melts away..."), type = MESSAGE_TYPE_WARNING)
 
 		owner.visible_message(
-			span_notice("[owner.first_name()] closes [owner.p_their()] arms around [feed_target.first_name()] in a tight embrace, biting into their neck!"),
+			span_notice("[owner.first_name()] grabs [feed_target.first_name()] tightly, biting into their neck!"),
 			span_notice("You slip your fangs into [feed_target.first_name()]'s neck."),
 			vision_distance = FEED_SILENT_NOTICE_RANGE, ignored_mobs = feed_target
 		)
 
 	else if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE) // COMBAT FEED BELOW HERE!!!!!!!!!!
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 10)
-		feed_target.Unconscious((5 + level_current) SECONDS)
+
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50)
+
+		feed_target.Stun((5 + level_current) SECONDS)
+		feed_target.adjust_jitter((5 + level_current) SECONDS)
+
 		owner.visible_message(
 			span_warning("[owner.first_name()] closes [owner.p_their()] mouth around [feed_target.first_name()]'s neck!"),
 			span_warning("You sink your fangs into [feed_target.first_name()]'s neck."), ignored_mobs = feed_target
 		)
-		to_chat(feed_target, span_bolddanger("[owner.first_name()] SEIZES YOU WITH INCREDIBLE STRENGTH, SINKING THEIR TEETH INTO YOUR NECK!"), type = MESSAGE_TYPE_WARNING)
+
+		to_chat(feed_target, span_bolddanger("[owner.first_name()] seizes you with incredible strength, sinking [owner.p_their()] fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
+
+		to_chat(owner, span_announce("* Vampire Tip: Combat feeding does not erase their memories!"))
+
 		currently_feeding = TRUE
 		silent_feed = FALSE
 
@@ -312,9 +325,6 @@
 	if(!feed_target)
 		power_activated_sucessfully()
 		return
-
-	if(!silent_feed)
-		feed_target.SetUnconscious(10 SECONDS)
 
 	if(!continue_active())
 		if(!silent_feed)
@@ -371,7 +381,7 @@
 	warning_target_bloodvol = feed_target.blood_volume
 
 	// Check if full on blood
-	if(vampiredatum_power.vampire_blood_volume >= vampiredatum_power.max_blood_volume)
+	if(vampiredatum_power.current_vitae >= vampiredatum_power.max_vitae)
 		if(IS_VAMPIRE(feed_target))
 			owner.balloon_alert(owner, "we are full on blood, but we can continue feeding to absorb their power!")
 		else
@@ -393,12 +403,11 @@
 /datum/action/vampire/targeted/feed/proc/diablerie(mob/living/poor_sap)
 	var/datum/antagonist/vampire/victim = IS_VAMPIRE(poor_sap)
 
-	var/levels_absorbed = victim.vampire_level / DIABLERIE_DIVISOR
+	var/levels_absorbed = (victim.vampire_level + victim.vampire_level_unspent) / DIABLERIE_DIVISOR
 
-	for(var/county; county<levels_absorbed; county++)
-		vampiredatum_power.rank_up()
+	vampiredatum_power.rank_up(levels_absorbed)
 
-	vampiredatum_power.deduct_humanity(victim.humanity / 3)
+	vampiredatum_power.adjust_humanity(-victim.humanity / 3)
 
 	poor_sap.dust(drop_items = TRUE)
 
@@ -417,6 +426,7 @@
 		animate(feed_target, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 
 		log_combat(owner, feed_target, "fed on blood", addition = "(and took [blood_taken] blood)")
+
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
 
 		if(feed_target.stat != DEAD && silent_feed)
@@ -424,7 +434,6 @@
 			to_chat(feed_target, span_bighypnophrase("You don't remember anything since you first saw their eyes, everything is so... hazy..."))
 			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
 				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
-			message_admins("TSUNAMIANT ALERT, IGNORE IF YOU AINT ME")
 
 		if(feed_target.stat == DEAD)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
@@ -433,7 +442,7 @@
 		if(feed_fatal && !humanity_deducted)
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
 			to_chat(owner, span_userdanger("No way will [feed_target.p_they()] survive that..."))
-			vampiredatum_power.deduct_humanity(1)
+			vampiredatum_power.adjust_humanity(-1)
 
 	feed_fatal = FALSE
 	humanity_deducted = FALSE
@@ -444,11 +453,16 @@
 	blood_taken = 0
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
+	var/mob/living/living_owner = owner
 	var/feed_amount = 50 + (level_current * 2)
 
 	// If we are already at fatal, we speed up more.
 	if(feed_fatal)
 		feed_amount *= 1.5
+
+	// But, if we are in combat we want to get them some time to react.
+	if(!silent_feed)
+		feed_amount *= 0.3
 
 	var/blood_to_take = min(feed_amount * mult, target.blood_volume)
 
@@ -457,7 +471,7 @@
 
 	// Shift body temperature (toward target's temp, by volume taken)
 	// ((vamp_blood_volume * vamp_temp) + (target_blood_volume * target_temp)) / (vamp_blood_volume + blood_to_take)
-	owner.bodytemperature = ((vampiredatum_power.vampire_blood_volume * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.vampire_blood_volume + blood_to_take)
+	owner.bodytemperature = ((vampiredatum_power.current_vitae * owner.bodytemperature) + (blood_to_take * target.bodytemperature)) / (vampiredatum_power.current_vitae + blood_to_take)
 
 	// Penalty for dead blood(at least it's still human, right?)
 	if(target.stat == DEAD)
@@ -469,13 +483,19 @@
 	if(vampiredatum_power.frenzied)
 		blood_to_take /= 2
 
-	// Give vampire the blood
-	vampiredatum_power.AddBloodVolume(blood_to_take * 4)
+	// Give vampire the blood^
+	var/vitae_absorbed = blood_to_take * 4
+
+	/// Tracking of the vitae goal
+	if(target.client)
+		vampiredatum_power.vitae_goal_progress += vitae_absorbed
+
+	vampiredatum_power.AdjustBloodVolume(vitae_absorbed)
 
 	// Diablerie takes vitae directly
 	if(IS_VAMPIRE(target))
 		var/datum/antagonist/vampire/vampire_target = IS_VAMPIRE(target)
-		vampire_target.RemoveBloodVolume(blood_to_take * 4)
+		vampire_target.AdjustBloodVolume(- (blood_to_take * 4))
 
 	// Transfer the target's reagents into the vampire's blood
 	if(target.reagents?.total_volume)
@@ -486,6 +506,28 @@
 
 	vampiredatum_power.total_blood_drank += blood_to_take
 	blood_taken += blood_to_take
+
+
+
+	// If we are on combat feed, we only want it to take a bit and then stop.
+	if(!silent_feed && blood_taken >= 60)
+
+		playsound(target, 'sound/weapons/cqchit2.ogg', 80)
+
+		owner.visible_message(
+			span_warning("[target.first_name()] struggles, pushing [owner.first_name()] away!"),
+			span_warning("[target.first_name()] manages to struggle free from your grip!"), ignored_mobs = target
+		)
+
+		var/shove_dir = get_dir(target.loc, owner.loc)
+		var/turf/target_shove_turf = get_step(owner.loc, shove_dir)
+		owner.Move(target_shove_turf, shove_dir)
+
+		target.SetStun(0 SECONDS)
+		living_owner.Stun(1 SECONDS)
+
+		owner.balloon_alert(owner, "struggles free!")
+		deactivate_power()
 
 #undef FEED_SILENT_NOTICE_RANGE
 #undef FEED_LOUD_NOTICE_RANGE

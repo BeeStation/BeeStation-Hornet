@@ -7,7 +7,7 @@
 		Important: The boost is only applied once, at the time of bonding. Further uses of the ability heal the beast."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 15
+	vitaecost = 15
 	sol_multiplier = 2
 	cooldown_time = 60 SECONDS
 	target_range = 15
@@ -17,20 +17,17 @@
 	var/bonus_damage = 5
 
 /datum/action/vampire/targeted/pact/two
-	bloodcost = 30
-
+	vitaecost = 30
 	bonus_health = 30
 	bonus_damage = 10
 
 /datum/action/vampire/targeted/pact/three
-	bloodcost = 45
-
+	vitaecost = 45
 	bonus_health = 50
 	bonus_damage = 15
 
 /datum/action/vampire/targeted/pact/four
-	bloodcost = 60
-
+	vitaecost = 60
 	bonus_health = 70
 	bonus_damage = 20
 
@@ -49,16 +46,16 @@
 
 	if (!isdog(target))
 		owner.balloon_alert(owner, "not a type of dog!")
-		return ..()
+		return FALSE
 
 	if (living_owner.combat_mode)
 		owner.balloon_alert(owner, "can't be in combat mode!")
-		return ..()
+		return FALSE
 
 	var/mob/living/basic/pet/dog/dog_target = target
 	if (dog_target.stat != CONSCIOUS)
 		owner.balloon_alert(owner, "must be conscious!")
-		return ..()
+		return FALSE
 
 /datum/action/vampire/targeted/pact/FireTargetedPower(atom/target_atom)
 	. = ..()

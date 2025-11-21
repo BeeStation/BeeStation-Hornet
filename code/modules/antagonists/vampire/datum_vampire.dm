@@ -9,9 +9,9 @@
 
 	/// How much blood we have, starting off at default blood levels.
 	/// We don't use our actual body's temperature because some species don't have blood and we don't want to exclude them
-	var/vampire_blood_volume = BLOOD_VOLUME_NORMAL
+	var/current_vitae = BLOOD_VOLUME_NORMAL
 	/// How much blood we can have at once, increases per level.
-	var/max_blood_volume = 600
+	var/max_vitae = 600
 
 	/// The vampire team, used for vassals
 	var/datum/team/vampire/vampire_team
@@ -45,6 +45,11 @@
 	/// If we've already alerted the player about low blood
 	var/low_blood_alerted = FALSE
 
+	/// Goal of vitae required for the next level up
+	var/current_vitae_goal = VITAE_GOAL_STANDARD
+	/// progress to that goal
+	var/vitae_goal_progress = 0
+
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
 	/// Frenzy Grab Martial art given to Vampires in a Frenzy
@@ -55,15 +60,18 @@
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
-	var/vampire_level_unspent = 0
+	var/vampire_level_unspent = VAMPIRE_STARTING_LEVELS
+
+	/// If this guy has suffered final death.
+	var/final_death = FALSE
 
 	/// Additional regeneration when the vampire has a lot of blood
 	var/additional_regen
 	/// How much damage the vampire heals each life tick. Increases per rank up
 	var/vampire_regen_rate = 0.3
 
-	/// Haven
-	var/area/vampire_haven_area
+	/// Lair
+	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
 
 	/// To keep track of objectives
@@ -215,20 +223,16 @@
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
 
-	blood_display = new /atom/movable/screen/vampire/blood_counter()
-	blood_display.hud = vampire_hud
+	blood_display = new /atom/movable/screen/vampire/blood_counter(null, vampire_hud)
 	vampire_hud.infodisplay += blood_display
 
-	vamprank_display = new /atom/movable/screen/vampire/rank_counter()
-	vamprank_display.hud = vampire_hud
+	vamprank_display = new /atom/movable/screen/vampire/rank_counter(null, vampire_hud)
 	vampire_hud.infodisplay += vamprank_display
 
-	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter()
-	sunlight_display.hud = vampire_hud
+	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
 	vampire_hud.infodisplay += sunlight_display
 
-	humanity_display = new /atom/movable/screen/vampire/humanity_counter()
-	humanity_display.hud = vampire_hud
+	humanity_display = new /atom/movable/screen/vampire/humanity_counter(null, vampire_hud)
 	vampire_hud.infodisplay += humanity_display
 
 	vampire_hud.show_hud(vampire_hud.hud_version)
@@ -252,10 +256,10 @@
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
 
 	if(humanity > 0)
-		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(deduct_humanity), 1)
+		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
 
 	if(humanity < 10)
-		.["Add Humanity"] = CALLBACK(src, PROC_REF(add_humanity), 1, FALSE)
+		.["Add Humanity"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
@@ -278,9 +282,6 @@
 	check_blacklisted_species()
 	give_starting_powers()
 	assign_starting_stats()
-	rank_up(1)
-	rank_up(1)
-	rank_up(1)
 	owner.special_role = ROLE_VAMPIRE
 	GLOB.all_vampires.Add(src)
 
@@ -329,8 +330,6 @@
 
 	msg += span_cultlarge("You are [fullname], a Vampire!")
 	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more.")
-	if(vampire_level_unspent >= 1)
-		msg += span_cult("As a latejoin, you have [vampire_level_unspent] bonus Ranks, entering your claimed coffin allows you to spend a Rank.")
 
 	to_chat(owner, examine_block(msg.Join("\n")))
 
@@ -377,8 +376,8 @@
 		power_data["icon"] = power.button_icon
 		power_data["icon_state"] = power.button_icon_state
 
-		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
-		power_data["constant_cost"] = power.constant_bloodcost ? power.constant_bloodcost : "0"
+		power_data["cost"] = power.vitaecost ? power.vitaecost : "0"
+		power_data["constant_cost"] = power.constant_vitaecost ? power.constant_vitaecost : "0"
 		power_data["cooldown"] = power.cooldown_time / 10
 
 		data["powers"] += list(power_data)
@@ -520,10 +519,10 @@
 	if(!GLOB.the_station_areas.Find(coffin_area.type))
 		claimed.balloon_alert(owner.current, "not part of station!")
 		return
-	// This is my Haven
+	// This is my Lair
 	coffin = claimed
-	vampire_haven_area = coffin_area
-	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your haven is now [vampire_haven_area]."))
+	vampire_lair_area = coffin_area
+	to_chat(owner, span_userdanger("You have claimed [claimed] as your place of immortal rest! Your lair is now [vampire_lair_area]."))
 	return TRUE
 
 /// Name shown on antag list
@@ -544,10 +543,10 @@
 	return info_button
 
 /datum/antagonist/vampire/proc/forge_objectives()
-	// Claim a Haven Objective
-	var/datum/objective/vampire/haven/haven_objective = new
-	haven_objective.owner = owner
-	objectives += haven_objective
+	// Claim a Lair Objective
+	var/datum/objective/vampire/lair/lair_objective = new
+	lair_objective.owner = owner
+	objectives += lair_objective
 
 	// Survive Objective
 	var/datum/objective/survive/survive_objective = new
@@ -578,11 +577,11 @@
 /datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
 	switch(total_players)
-		if(1 to 15)			// No vassals during low-lowpop
+		if(1 to 15) // No vassals during low-lowpop
 			return 0
-		if(16 to 30)		// 1 vassal during normal pop
+		if(16 to 30) // 1 vassal during normal pop
 			return 1
-		if(31 to INFINITY)	// if we can support it, we allow 2
+		if(31 to INFINITY) // if we can support it, we allow 2
 			return 2
 
 // Taken directly from changeling.dm

@@ -10,8 +10,8 @@
 						<b>IMPORTANT:</b> People with mindshields are resistant. Even at level 4, they only get mild effects."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags =  BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY
-	bloodcost = 30
-	constant_bloodcost = 1
+	vitaecost = 30
+	constant_vitaecost = 1
 	cooldown_time = 10 SECONDS
 	var/high_intensity = FALSE
 	var/aura = 4
@@ -19,18 +19,18 @@
 	var/mutable_appearance/effect
 
 /datum/action/vampire/awe/two
-	bloodcost = 45
-	constant_bloodcost = 2
+	vitaecost = 45
+	constant_vitaecost = 2
 	aura = 5
 
 /datum/action/vampire/awe/three
-	bloodcost = 60
-	constant_bloodcost = 3
+	vitaecost = 60
+	constant_vitaecost = 3
 	aura = 6
 
 /datum/action/vampire/awe/four
-	bloodcost = 75
-	constant_bloodcost = 4
+	vitaecost = 75
+	constant_vitaecost = 4
 	high_intensity = TRUE
 	aura = 7
 	visible = TRUE
@@ -103,15 +103,41 @@
 	icon_state = "hypnosis"
 
 /datum/status_effect/awed/tick()
-	switch(rand(0, 10))
-		if(0 to 2)
+	// expand the random pool for more varied behaviors; 0 is a nop as before
+	switch(rand(1, 10))
+		if(1)
 			owner.Stun(20, TRUE)
 			to_chat(owner, "What was I doing again...", type = MESSAGE_TYPE_INFO)
-		if(3 to 8)
+		if(2)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, "God, [object_of_desire.p_they()] [object_of_desire.p_are()] so pretty...", type = MESSAGE_TYPE_INFO)
-		if(9 to 10)
+				to_chat(owner, span_awe("God, [object_of_desire.p_they()] [object_of_desire.p_are()] so pretty..."), type = MESSAGE_TYPE_INFO)
+		if(3)
+			if(!owner.incapacitated(IGNORE_RESTRAINTS))
+				owner.face_atom(object_of_desire)
+				to_chat(owner, span_awe("I need to listen. [object_of_desire.p_they()] [object_of_desire.p_are()] so wise..."), type = MESSAGE_TYPE_INFO)
+		if(4)
+			to_chat(owner, span_awe("My mind keeps drifting back to [object_of_desire]..."), type = MESSAGE_TYPE_INFO)
+		if(5)	// Knees weak
+			if(!owner.incapacitated(IGNORE_RESTRAINTS))
+				owner.face_atom(object_of_desire)
+				to_chat(owner, span_awe("[object_of_desire] is so amazing... God my knees are wobbly..."), type = MESSAGE_TYPE_INFO)
+
+				owner.apply_damage(rand(10,30), STAMINA, owner.get_bodypart(BODY_ZONE_L_LEG), FALSE, TRUE)	// left
+				owner.apply_damage(rand(10,30), STAMINA, owner.get_bodypart(BODY_ZONE_R_LEG), FALSE, TRUE)	// right
+		if(6)
+			if(!owner.incapacitated(IGNORE_RESTRAINTS))
+				owner.face_atom(object_of_desire)
+				to_chat(owner, "I should move closer...", type = MESSAGE_TYPE_INFO)
+				if(owner.body_position == STANDING_UP)
+					owner.visible_message(span_warning("[owner] stumbles dumbly towards [object_of_desire]."), span_awe("[object_of_desire]..."))
+					owner.Move(get_step(owner.loc, get_dir(owner.loc, object_of_desire.loc)))
+		if(7)
+			if(!owner.incapacitated(IGNORE_RESTRAINTS))
+				owner.face_atom(object_of_desire)
+				to_chat(owner, span_awe("I should be kind to [object_of_desire]..."), type = MESSAGE_TYPE_INFO)
+				owner.emote("smiles")
+		if(8 to 10)
 			return
 
 /datum/status_effect/awed/on_apply()

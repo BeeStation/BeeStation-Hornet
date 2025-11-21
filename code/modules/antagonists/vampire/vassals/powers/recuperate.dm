@@ -9,7 +9,7 @@
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	special_flags = NONE
-	bloodcost = 1.5
+	vitaecost = 1.5
 	cooldown_time = 10 SECONDS
 
 /datum/action/vampire/recuperate/can_use()
@@ -36,12 +36,12 @@
 		return
 
 	carbon_owner.set_jitter_if_lower(10 SECONDS)
-	carbon_owner.adjustStaminaLoss(bloodcost * 1.1)
+	carbon_owner.adjustStaminaLoss(vitaecost * 1.1)
 	carbon_owner.adjustBruteLoss(-2.5)
 	carbon_owner.adjustToxLoss(-2, forced = TRUE)
 	// Plasmamen won't lose blood, they don't have any, so they don't heal from Burn.
 	if(!HAS_TRAIT(carbon_owner, TRAIT_NO_BLOOD))
-		carbon_owner.blood_volume -= bloodcost
+		carbon_owner.blood_volume -= vitaecost
 		carbon_owner.adjustFireLoss(-1.5)
 	// Stop Bleeding
 	if(istype(carbon_owner) && carbon_owner.is_bleeding())

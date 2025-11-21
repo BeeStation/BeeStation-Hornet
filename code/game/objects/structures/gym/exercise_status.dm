@@ -54,13 +54,13 @@
 /datum/status_effect/exercised/get_examine_text()
 	switch (exercise_amount)
 		if (0.3 to 0.5)
-			return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] exceptionally strong!")
+			return span_warning("[owner.p_They()] seem[owner.p_s()] exceptionally strong!")
 		if (0.1 to 0.3)
-			return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] very strong!")
+			return span_warning("[owner.p_They()] seem[owner.p_s()] very strong!")
 		else
-			return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] strong!")
+			return span_warning("[owner.p_They()] seem[owner.p_s()] strong!")
 
-/datum/status_effect/exercised/update_icon()
+/datum/status_effect/exercised/update_shown_duration()
 	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 
 /atom/movable/screen/alert/status_effect/exercised

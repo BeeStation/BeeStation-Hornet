@@ -16,10 +16,7 @@
 	icon = 'icons/vampires/actions_vampire.dmi'
 	var/mob/living/our_guy
 	var/datum/antagonist/vampire/our_vamp
-
-/atom/movable/screen/vampire/Click()
-	our_guy = usr
-	our_vamp = IS_VAMPIRE(our_guy)
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/vampire/blood_counter
 	name = "Vitae"
@@ -29,15 +26,18 @@
 /atom/movable/screen/vampire/blood_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	msg += span_cultlarge("This is your Vitae-Counter.")
 	msg += span_cult("Here you see your current level of blood-energy. This is used for all of your abilities, and sustains your very being.")
+	msg += span_cult("\n<b>You need to drink a certain amount from living, sentient beings in order to level up.</b>")
 	msg += span_cult("Your healing also depends on it. You reach your maximum healing potential at [BS_BLOOD_VOLUME_MAX_REGEN].")
 
 	var/bloodlevel
-	switch(our_vamp.vampire_blood_volume)
+	switch(our_vamp.current_vitae)
 		if(0 to 200)
-			bloodlevel = "starving"
+			bloodlevel = "starved"
 		if(201 to 500)
 			bloodlevel = "thirsty"
 		if(501 to 700)
@@ -45,9 +45,15 @@
 		if(701 to INFINITY)
 			bloodlevel = "content"
 
-	msg += span_cult("Your current maximum is: [our_vamp.max_blood_volume].")
-	msg += span_cult("Today, you have drank [our_vamp.total_blood_drank] Vitae.")
+	msg += span_cult("Your current maximum is: [our_vamp.max_vitae].")
+	msg += span_cult("This shift, you have drank [our_vamp.total_blood_drank] units of blood.")
+
 	msg += span_cultlarge("\n<b>Right now, you are feeling <i>[bloodlevel].</i></b>")
+
+	if(our_vamp.vitae_goal_progress <= our_vamp.current_vitae_goal)
+		msg += span_cultlarge("\n<b>Your progress to the next level is: <i>[our_vamp.vitae_goal_progress]/[our_vamp.current_vitae_goal].</i></b>")
+	else
+		msg += span_cultlarge("\n<b>You have drank deeply and greedily. Upon next sol, you will level up.</b>")
 
 	to_chat(usr, examine_block(msg.Join("\n")))
 
@@ -59,6 +65,8 @@
 /atom/movable/screen/vampire/rank_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	var/mob/living/carbon/human/vampire_human = our_guy
 	msg += span_cultlarge("This is your Rank-Counter.")
@@ -67,7 +75,7 @@
 	msg += span_cult("<b>With your current rank, you are considered as [our_vamp.get_rank_string()] of your craft.</b>")
 	msg += span_cult("\n<b>Currently, your rank affords you the following benefits:</b>")
 	msg += span_cult("Max Regeneration rate: +[our_vamp.vampire_regen_rate]")
-	msg += span_cult("Max Vitae pool: +[our_vamp.max_blood_volume - 600] ")
+	msg += span_cult("Max Vitae pool: +[our_vamp.max_vitae - 600] ")
 	msg += span_cult("Unarmed damage: +[vampire_human.dna.species.punchdamage - 9]")
 
 	var/list/disciplinestext
@@ -89,6 +97,8 @@
 /atom/movable/screen/vampire/sunlight_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	msg += span_cultlarge("This is the 'Sol' indicator.")
 	msg += span_cult("Here you see the current state of Sol, the frequent solar flares given off by the nearby star.")
@@ -112,6 +122,8 @@
 /atom/movable/screen/vampire/humanity_counter/Click()
 	. = ..()
 	var/list/msg = list()
+	our_guy = usr
+	our_vamp = IS_VAMPIRE(our_guy)
 
 	msg += span_cultlarge("This is your Humanity score.")
 	msg += span_cult("Humanity is a measure of how closely a vampire clings to the morality and values of mortal life, and consequently how well they are able to resist the urges of the Beast.")
@@ -120,34 +132,34 @@
 	var/humanitylevel
 	switch(our_vamp.humanity)
 		if(0)
-			humanitylevel = "'a Wight'"
+			humanitylevel = "Monstrous"
 		if(1)
-			humanitylevel = "'Horrific"
+			humanitylevel = "Horrific"
 		if(2)
-			humanitylevel = "'Bestial'"
+			humanitylevel = "Bestial"
 		if(3)
-			humanitylevel = "'Cold'"
+			humanitylevel = "Cold"
 		if(4)
-			humanitylevel = "'Unfeeling'"
+			humanitylevel = "Unfeeling"
 		if(5)
-			humanitylevel = "'Removed'"
+			humanitylevel = "Removed"
 		if(6)
-			humanitylevel = "'Distant'"
+			humanitylevel = "Distant"
 		if(7)
-			humanitylevel = "'Normal'"
+			humanitylevel = "Normal"
 		if(8)
-			humanitylevel = "'Caring'"
+			humanitylevel = "Caring"
 		if(9)
-			humanitylevel = "'Compassionate'"
+			humanitylevel = "Compassionate"
 		if(10)
-			humanitylevel = "'Saintly'"
+			humanitylevel = "Saintly"
 
 	// Pardon me for my math, i was never good at this.
 
 	var/normal_humanity_divisor = min(2, 1 + (our_vamp.humanity / 10))
 	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
 
-	msg += span_cult("\n<b>Right now, others would describe you as <i>[humanitylevel],</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
+	msg += span_cult("\n<b>Right now, others would describe you as <i>'[humanitylevel]',</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
 	if(our_vamp.humanity > 7)
 		msg += span_cult("Due to your connection to your own human soul, you have achieved the masquerade ability.")
 
@@ -169,7 +181,7 @@
 /// Update Blood Counter + Rank Counter
 /datum/antagonist/vampire/proc/update_hud()
 	var/valuecolor
-	switch(vampire_blood_volume)
+	switch(current_vitae)
 		if(0 to 200)
 			valuecolor = "#560808"
 		if(201 to 300)
@@ -181,7 +193,7 @@
 		if(701 to INFINITY)
 			valuecolor = "#ffffff"
 
-	blood_display?.maptext = FORMAT_VAMPIRE_HUD_TEXT(valuecolor, vampire_blood_volume)
+	blood_display?.maptext = FORMAT_VAMPIRE_HUD_TEXT(valuecolor, current_vitae)
 
 	if(vamprank_display)
 		if(vampire_level_unspent > 0)

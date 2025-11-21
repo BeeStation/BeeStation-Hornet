@@ -16,6 +16,14 @@
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
+/obj/item/clothing/neck/crucifix/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, \
+		_source = src, \
+		inventory_flags = (ITEM_SLOT_HANDS), \
+		antimagic_flags = (MAGIC_RESISTANCE_HOLY) \
+	)
+
 /obj/item/clothing/neck/crucifix/rosary
 	name = "rosary beads"
 	desc = "A wooden crucifix meant to ward off curses and hexes."

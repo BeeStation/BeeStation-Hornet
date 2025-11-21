@@ -35,5 +35,3 @@ GLOBAL_LIST_INIT(meat_recipes, list (
 	))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/meat)
-
-

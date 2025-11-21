@@ -6,8 +6,8 @@
 		Your name and appearance will be completely randomized, deactivating the ability will restore you to your former self."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_DURING_SOL
-	bloodcost = 85
-	constant_bloodcost = 0.1
+	vitaecost = 85
+	constant_vitaecost = 0.1
 	cooldown_time = 10 SECONDS
 
 	// Identity Vars

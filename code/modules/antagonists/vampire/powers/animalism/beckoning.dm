@@ -8,7 +8,7 @@
 	power_explanation = "Activate to select your unique vampire clan."
 	power_flags = NONE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	bloodcost = 400
+	vitaecost = 400
 	cooldown_time = 1200 SECONDS
 	background_icon_state = "tremere_power_gold_off"
 	background_icon_state_on = "tremere_power_gold_on"
@@ -21,7 +21,7 @@
 
 	check_witnesses()
 	var/mob/living/basic/pet/dog/beast/doggo
-	for(var/dogcount = 0; dogcount < 3; dogcount++)
+	for(var/dogcount = 1 to 3)
 		doggo = new /mob/living/basic/pet/dog/beast(owner.loc)
 		if (doggo.befriend(owner))
 			doggo.tamed(owner)

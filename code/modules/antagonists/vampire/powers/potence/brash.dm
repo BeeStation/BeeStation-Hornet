@@ -1,6 +1,6 @@
 /**
  * A Brujah exclusive ability that acts as an enhanced version of "Brawn"
- * 'bloodcost' and 'cooldown_time' vary depending on what the power is used for.
+ * 'vitaecost' and 'cooldown_time' vary depending on what the power is used for.
  * Lots of code has been copied over from Brawn wherever inheritance might prove insufficient.
  * Comments from copied code have been removed (they can still be found in their original location.)
 **/
@@ -19,7 +19,7 @@
 		Higher levels will increase this ability's damage and knockdown."
 	special_flags = CLAN_DEFAULT_POWER
 	power_flags = BP_AM_VERY_DYNAMIC_COOLDOWN
-	bloodcost = 0 // Set on use
+	vitaecost = 0 // Set on use
 	cooldown_time = 1 SECONDS // Same as above
 	damage_coefficient = 1.625
 	brujah = TRUE
@@ -37,7 +37,7 @@
 /datum/action/vampire/targeted/brawn/brash/five
 	level_current = 5
 
-/// Hit an atom, set bloodcost, set cooldown time, play a sound, and deconstruct the atom
+/// Hit an atom, set vitaecost, set cooldown time, play a sound, and deconstruct the atom
 /// with this one convenient proc!
 /datum/action/vampire/targeted/brawn/brash/proc/hit_with_style(atom/target_atom, sound, vol as num, cost as num, cooldown)
 	if(!isobj(target_atom))
@@ -45,7 +45,7 @@
 
 	var/obj/target_obj = target_atom
 	owner.do_attack_animation(target_obj)
-	bloodcost = cost
+	vitaecost = cost
 	cooldown_time = cooldown
 	playsound(target_atom, sound, 75, TRUE)
 	target_obj.deconstruct(FALSE)
@@ -54,13 +54,13 @@
 	. = ..()
 	// People
 	if(isliving(target_atom))
-		bloodcost = 25
+		vitaecost = 25
 		cooldown_time = 10 SECONDS
 		return
 
 	// Closets
 	if(istype(target_atom, /obj/structure/closet))
-		bloodcost = 8
+		vitaecost = 8
 		cooldown_time = 7 SECONDS
 		return
 
@@ -122,10 +122,10 @@
 	var/rip_time = (istype(target, /turf/closed/wall/r_wall) ? tear_time * reinforced_multiplier : tear_time)
 
 	if(istype(target, /turf/closed/wall/r_wall))
-		bloodcost = 40
+		vitaecost = 40
 		cooldown_time = 20 SECONDS
 	else
-		bloodcost = 20
+		vitaecost = 20
 		cooldown_time = 15 SECONDS
 
 	while(istype(target, /turf/closed/wall))

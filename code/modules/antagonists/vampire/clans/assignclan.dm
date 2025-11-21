@@ -7,7 +7,7 @@
  * Args:
  * person_selecting - Mob override for stuff like Admins selecting someone's clan.
  */
-/datum/antagonist/vampire/proc/assign_clan_and_bane(mob/person_selecting, secrets = FALSE)
+/datum/antagonist/vampire/proc/assign_clan_and_bane(mob/person_selecting, allow_secrets = FALSE)
 	if(my_clan || owner.current.has_status_effect(/datum/status_effect/frenzy))
 		return
 	person_selecting ||= owner.current
@@ -15,7 +15,10 @@
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/datum/vampire_clan/all_clans as anything in typesof(/datum/vampire_clan))
-		if(!initial(all_clans.joinable_clan) && !(initial(all_clans.secret_clan) && secrets)) //flavortext only
+		if(!initial(all_clans.joinable_clan)) //flavortext only
+			continue
+
+		if(initial(all_clans.secret_clan) && !allow_secrets)
 			continue
 
 		options[initial(all_clans.name)] = all_clans
