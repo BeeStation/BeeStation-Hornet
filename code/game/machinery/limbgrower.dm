@@ -121,7 +121,7 @@
 	if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff))	//sanity check, if this happens we are in big trouble
 		reagents.remove_reagent(/datum/reagent/medicine/synthflesh,being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)
 		var/buildpath = being_built.build_path
-		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spatgheti code, but i need to initialize a limb somehow
+		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spaghetti code, but i need to initialize a limb somehow
 			build_limb(create_buildpath())
 		else
 			//Just build whatever it is
