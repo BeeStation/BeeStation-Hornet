@@ -28,7 +28,7 @@
 	typepath = /datum/round_event/supermatter_surge
 	weight = 15
 	max_occurrences = 1
-	earliest_start = 20 MINUTES
+	earliest_start = 60 MINUTES
 
 /datum/round_event_control/supermatter_surge/canSpawnEvent(players_amt)
 	. = ..()

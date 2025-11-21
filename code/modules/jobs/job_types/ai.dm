@@ -21,8 +21,8 @@
 /datum/job/ai/get_access() // no point of calling parent proc
 	return list()
 
-/datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
-	if(visualsOnly)
+/datum/job/ai/equip(mob/living/carbon/human/H, visuals_only, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
+	if(visuals_only)
 		CRASH("dynamic preview is unsupported")
 	. = H.AIize(latejoin,preference_source)
 

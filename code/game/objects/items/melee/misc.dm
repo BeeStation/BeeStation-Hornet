@@ -368,6 +368,7 @@
 	stun_animation = FALSE
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
+	block_flags = BLOCKING_EFFORTLESS
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = ISWEAPON
 	force = 0

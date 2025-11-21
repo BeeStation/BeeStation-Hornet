@@ -212,6 +212,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return card_slot.GetID()
 	return ..()
 
+/obj/item/modular_computer/get_id_examine_strings(mob/user)
+	. = ..()
+	var/obj/item/card/id/stored_id = GetID()
+	if(stored_id)
+		. += "[src] is displaying [stored_id]:"
+		. += stored_id.get_id_examine_strings(user)
+
 /obj/item/modular_computer/RemoveID()
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]

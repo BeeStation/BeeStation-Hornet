@@ -657,3 +657,7 @@
 
 	else if(duration > 0)
 		apply_status_effect(effect, duration)
+
+/// Helper to check if we seem to be alive or not
+/mob/living/proc/appears_alive()
+	return stat != DEAD && !HAS_TRAIT(src, TRAIT_FAKEDEATH)
