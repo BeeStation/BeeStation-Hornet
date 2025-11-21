@@ -315,14 +315,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (isnull(requested_preference))
 				return FALSE
 
-			var/current_value = read_preference(requested_preference.type)
+			var/current_value = read_character_preference(requested_preference.type)
 
 			// SAFETY: `update_preference` performs validation checks
 			if (!update_preference(requested_preference, value))
 				return FALSE
 
 			// Might be different from what we requested
-			var/new_value = read_preference(requested_preference.type)
+			var/new_value = read_character_preference(requested_preference.type)
 
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 				if (preference_middleware.post_set_preference(usr, requested_preference_key, current_value, new_value))
