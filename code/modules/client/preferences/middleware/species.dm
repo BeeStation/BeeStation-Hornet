@@ -7,6 +7,10 @@
 	)
 
 /datum/preference_middleware/species/post_set_preference(mob/user, preference, previous_value, value)
+	// Wrong preference
+	if (preference != /datum/preference/choiced/species::db_key)
+		return
+
 	var/datum/species/old_species = previous_value
 	var/datum/species/new_species = value
 
