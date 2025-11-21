@@ -933,6 +933,8 @@
 /datum/status_effect/stabilized/oil/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		explosion(get_turf(owner),1,2,4,flame_range = 5)
+		qdel(src) // Deletes it, so it cannot explode multiple times
+		return
 	return ..()
 
 /datum/status_effect/stabilized/oil/get_examine_text()
