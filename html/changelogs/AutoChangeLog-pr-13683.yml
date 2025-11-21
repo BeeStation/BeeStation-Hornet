@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: 'Hotfix: Fixes names being randomised when any preference is changed.'

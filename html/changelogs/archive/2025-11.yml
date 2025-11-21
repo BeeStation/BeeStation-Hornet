@@ -259,3 +259,4 @@
   - bugfix: iFixes xenobio extract infinite explosions
   PowerfulBacon:
   - bugfix: Changing species now assigns a new name.
+  - bugfix: 'Hotfix: Fixes names being randomised when any preference is changed.'
