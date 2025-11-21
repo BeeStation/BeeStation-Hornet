@@ -113,7 +113,7 @@ const VampireGuide = (_props) => {
               selected={tab === 5}
               onClick={() => setTab(5)}
             >
-              Sol
+              Sol & Levelling
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
@@ -214,18 +214,19 @@ const VampireGuide = (_props) => {
               might even point you toward the local prince.
               <br />
               <br />
-              <Box fontSize="20px" textColor="darkred" bold>
-                Growing in Power
+              <Box fontSize="20px" textColor="magenta" bold>
+                The #1 Tip on how to stay alive
               </Box>
-              At the end of each{' '}
-              <Box inline textColor="yellow">
-                Sol
-              </Box>
-              , you gain a Rank. Ranking up boosts strength, health, feeding
-              rate, and blood capacity.
+              Keep your vitae above 300. There is so much that can go wrong in a
+              panic, so much chaos that can unfold. A starving vampire is a
+              careless vampire.
               <br />
-              You also earn discipline points. These powers aren&apos;t
-              optional. They&apos;re how you survive.
+              <br />
+              <Box fontSize="15px" textColor="grey">
+                All ways a kindred can die start with insufficient vitae. It
+                sneaks up on you, and suddenly you&apos;re running around
+                panicking, making mistakes. Be smart, be careful.
+              </Box>
             </Box>
           )}
           {tab === 2 && (
@@ -432,6 +433,24 @@ const VampireGuide = (_props) => {
               </Box>{' '}
               has passed, you will gain a rank to spend on upgrading your
               disciplines.
+              <br />
+              <br />
+              <Box fontSize="20px" textColor="darkred" bold>
+                Growing in Power
+              </Box>
+              Click on your blood meter. You will notice a progress tracker.
+              <br />
+              At the end of each{' '}
+              <Box inline textColor="yellow">
+                Sol
+              </Box>
+              , provided you have drank he amount of vitae in your goal, you
+              gain a Rank. <br />
+              Ranking up boosts strength, health, feeding rate, and blood
+              capacity.
+              <br />
+              You also earn discipline points. These powers aren&apos;t
+              optional. They&apos;re how you survive.
             </Box>
           )}
           {tab === 6 && (
@@ -444,8 +463,8 @@ const VampireGuide = (_props) => {
               As an undead, you constantly feel the hunger of the{' '}
               <Box inline textColor="orange">
                 Beast
-              </Box>{' '}
-              Feeding is not a luxury. <b>It is a necessity.</b> As your blood
+              </Box>
+              . Feeding is not a luxury. <b>It is a necessity.</b> As your blood
               reaches zero, you will slowly feel the side-effects, such as
               blurry vision, and impaired healing.
               <br />
@@ -477,7 +496,7 @@ const VampireGuide = (_props) => {
               If you ever deplete all of your vitae, you will enter a{' '}
               <Box inline textColor="orange">
                 frenzy.
-              </Box>
+              </Box>{' '}
               In this state, diplomacy goes out the window. You will revert to a
               feral beast, likely assaulting and draining the nearest mortal you
               can see.
