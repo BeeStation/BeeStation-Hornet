@@ -254,3 +254,6 @@
   - rscadd: Weapons Closet can now be made
   - bugfix: Armory weapons now spawn inside the respective weapon locker rather than
       ontop of them
+2025-11-21:
+  PowerfulBacon:
+  - bugfix: Changing species now assigns a new name.
