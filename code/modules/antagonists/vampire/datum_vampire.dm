@@ -29,6 +29,8 @@
 	var/vampire_name
 	var/vampire_title
 
+	/// Are we the prince?
+	var/prince = FALSE
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
 	/// How many Masquerade Infractions do we have?
@@ -272,9 +274,6 @@
 	// Set name and reputation
 	select_first_name()
 
-	// Start society if we're the first vampire
-	check_start_society()
-
 	// Objectives
 	forge_objectives()
 
@@ -285,12 +284,15 @@
 	owner.special_role = ROLE_VAMPIRE
 	GLOB.all_vampires.Add(src)
 
+	// Start society if we're the first vampire
+	check_start_society()
+
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
-	check_cancel_society()
 	owner.special_role = null
 	GLOB.all_vampires.Remove(src)
+	check_cancel_society()
 	return ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)

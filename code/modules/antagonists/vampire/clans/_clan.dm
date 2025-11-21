@@ -6,9 +6,9 @@
  */
 /datum/vampire_clan
 	/// The name of the clan we're in.
-	var/name
+	var/name = "Caitiff"
 	/// Description of what the clan is, given when joining and through your antag UI.
-	var/description = "ERROR"
+	var/description = "Vile thinblooded mongrel. Choose a clan or die like the freak you are."
 	/// Description shown when trying to join the clan.
 	var/join_description
 
@@ -27,7 +27,9 @@
 	/// How we will drink blood using Feed.
 	var/blood_drink_type = VAMPIRE_DRINK_NORMAL
 
-	var/is_sabbat = FALSE	// In case we want a bad guy clan that doesn't care about the masquerade.
+	// Society
+	var/is_sabbat = FALSE // In case we want a bad guy clan that doesn't care about the masquerade.
+	var/princely_score_bonus = -10 // Will be added to playtime in get_princely_score()
 
 /**
  * Starting Humanity score, some clans are closer to the beast, some closer to humanity.

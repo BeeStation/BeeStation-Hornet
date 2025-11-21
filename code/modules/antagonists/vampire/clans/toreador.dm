@@ -6,6 +6,7 @@
 	join_icon_state = "toreador"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 	default_humanity = 9
+	princely_score_bonus = 10
 	joinable_clan = TRUE
 
 /datum/vampire_clan/toreador/New(datum/antagonist/vampire/owner_datum)
