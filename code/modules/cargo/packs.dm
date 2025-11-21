@@ -1763,11 +1763,10 @@
 
 /datum/supply_pack/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
-	desc = "Contains eight different blood packs for reintroducing blood to patients."
+	desc = "Contains ten different blood packs for reintroducing blood to patients."
 	cost = 700
 	max_supply = 4
-	contains = list(/obj/item/reagent_containers/blood,
-					/obj/item/reagent_containers/blood,
+	contains = list(/obj/item/reagent_containers/blood/synthetic,
 					/obj/item/reagent_containers/blood/APlus,
 					/obj/item/reagent_containers/blood/AMinus,
 					/obj/item/reagent_containers/blood/BPlus,
@@ -1776,7 +1775,8 @@
 					/obj/item/reagent_containers/blood/OMinus,
 					/obj/item/reagent_containers/blood/lizard,
 					/obj/item/reagent_containers/blood/ethereal,
-					/obj/item/reagent_containers/blood/oozeling)
+					/obj/item/reagent_containers/blood/oozeling,
+					/obj/item/reagent_containers/blood/random)
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
