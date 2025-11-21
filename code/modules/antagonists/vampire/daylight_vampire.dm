@@ -58,8 +58,8 @@
 	// We don't want to be TOO mean, so we make 3 different grades of protection.
 
 	//You still won't enter frenzy. But you will be damn close.
-	if(istype(owner.current.loc, /obj/structure/closet))
-		incoming_sol_damage = "locker"
+	if(istype(owner.current.loc, /obj/structure/closet) || istype(owner.current.loc, /obj/machinery))
+		incoming_sol_damage = "container"
 
 	// Now the big one. The area check.
 	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
@@ -79,7 +79,7 @@
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
 				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
-		if("locker")
+		if("container")
 			if(current_vitae >= 100)
 				AdjustBloodVolume(-sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
@@ -138,7 +138,7 @@
  * - Entering a Coffin with more than 10 combined Brute/Burn damage, dealt with by /closet/crate/coffin/close() [coffins.dm]
  * - Death, dealt with by /HandleDeath()
  * Torpor is ended by:
- * - Having less than 10 Brute damage while OUTSIDE of your Coffin while it isnt Sol.
+ * - Having less than 10 Burn damage while OUTSIDE of your Coffin while it isnt Sol.
  * - Having less than 10 Brute & Burn Combined while INSIDE of your Coffin while it isnt Sol.
  * - Sol being over, dealt with by /sunlight/process() [vampire_daylight.dm]
 **/
@@ -213,6 +213,9 @@
 	living_owner.remove_traits(torpor_traits, TRAIT_TORPOR)
 
 	heal_vampire_organs()
+
+	if(current_vitae >= 300) // we wake up hungy
+		current_vitae = 300
 
 	to_chat(living_owner, span_notice("You have recovered from Torpor."))
 	my_clan?.on_exit_torpor()

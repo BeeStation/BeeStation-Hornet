@@ -81,7 +81,7 @@
 				watcher.face_atom(owner)
 
 			watcher.do_alert_animation(watcher)
-			to_chat(watcher, span_dangerbold("Wait... is... [owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
 			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
@@ -105,7 +105,7 @@
 				watcher.face_atom(owner)
 
 			watcher.do_alert_animation(watcher)
-			to_chat(watcher, span_dangerbold("Wait... is... [owner.first_name()] BITING [target.first_name()]?!"), type = MESSAGE_TYPE_WARNING)
+			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
 			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
@@ -169,7 +169,7 @@
 
 	// Mice
 	if(istype(feed_target, /mob/living/simple_animal/mouse))
-		to_chat(owner, span_notice("You recoil at the taste of a lesser lifeform."))
+		to_chat(owner, span_warning("You recoil at the taste of a lesser lifeform."))
 		vampiredatum_power.AdjustBloodVolume(FEED_BLOOD_FROM_MICE)
 		power_activated_sucessfully()
 		feed_target.death()
@@ -208,15 +208,14 @@
 		// It begins...
 		currently_feeding = TRUE
 
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 30)
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, FALSE, 0, 500)
 
 		// Just to make sure
 		living_owner.stop_pulling()
 		feed_target.stop_pulling()
 
-		var/ass = get_dir(owner.loc, feed_target.loc)
 		// omega switch
-		switch(ass)
+		switch(get_dir(owner.loc, feed_target.loc))
 			if(NORTH)
 				owner.dir = WEST
 				feed_target.dir = EAST
@@ -263,18 +262,18 @@
 				animate(owner, 0.2 SECONDS, pixel_x = 8,)
 				animate(feed_target, 0.2 SECONDS, pixel_x = -8)
 
-		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] embraces you tightly, sinking their fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
-		to_chat(feed_target, span_hypnophrase("Why does it feel soo good..."), type = MESSAGE_TYPE_WARNING)
+		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] grabs you tightly, sinking [owner.p_their()] fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
+		to_chat(feed_target, span_hypnophrase("But the pain melts away..."), type = MESSAGE_TYPE_WARNING)
 
 		owner.visible_message(
-			span_notice("[owner.first_name()] closes [owner.p_their()] arms around [feed_target.first_name()] in a tight embrace, biting into their neck!"),
+			span_notice("[owner.first_name()] grabs [feed_target.first_name()] tightly, biting into their neck!"),
 			span_notice("You slip your fangs into [feed_target.first_name()]'s neck."),
 			vision_distance = FEED_SILENT_NOTICE_RANGE, ignored_mobs = feed_target
 		)
 
 	else if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE) // COMBAT FEED BELOW HERE!!!!!!!!!!
 
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, falloff_exponent = 10)
+		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50)
 
 		feed_target.Stun((5 + level_current) SECONDS)
 		feed_target.adjust_jitter((5 + level_current) SECONDS)

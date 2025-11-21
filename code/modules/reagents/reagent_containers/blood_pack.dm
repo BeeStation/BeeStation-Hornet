@@ -124,7 +124,7 @@
 		attacker.visible_message(
 			span_notice("[attacker] puts the [src] up to [victim]'s mouth."),
 			span_notice("You put the [src] up to [victim]'s mouth."))
-		if(!do_after(victim, 5 SECONDS, attacker))
+		if(!do_after(attacker, 5 SECONDS, victim))
 			return
 		attacker.visible_message(
 			span_notice("[attacker] forces [victim] to drink from the [src]."),

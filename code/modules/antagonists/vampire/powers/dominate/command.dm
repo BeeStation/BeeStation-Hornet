@@ -119,8 +119,10 @@
 	//Actually command them now
 	owner.say(command)
 
+	var/power_time_adjusted = FALSE
 	if(HAS_TRAIT(living_target, TRAIT_MINDSHIELD))
-		power_time /= 4
+		power_time /= 2
+		power_time_adjusted = TRUE
 
 	if(IS_VAMPIRE(living_target))
 		var/datum/antagonist/vampire/target_vampdatum = IS_VAMPIRE(living_target)
@@ -138,6 +140,10 @@
 	living_target.Immobilize(2 SECONDS, TRUE)
 	to_chat(living_target, span_narsie("[command]!"), type = MESSAGE_TYPE_WARNING)
 	addtimer(CALLBACK(src, PROC_REF(end_command), living_target), power_time)
+
+	if(power_time_adjusted)
+		power_time *= 2
+		power_time_adjusted = FALSE
 
 	power_activated_sucessfully() // PAY COST! BEGIN COOLDOWN!
 

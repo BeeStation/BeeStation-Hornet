@@ -194,6 +194,9 @@
 	var/list/tracking_list = null
 	var/goal = null
 
+	if(humanity >= 10) // Don't add anything if we're already at max.
+		return
+
 	// map all the placeholders to the correct type, get the list for easier handling
 	switch(type)
 		if(HUMANITY_HUGGING_TYPE)

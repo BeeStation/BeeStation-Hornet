@@ -18,7 +18,7 @@
 		INVOKE_ASYNC(src, PROC_REF(AdjustBloodVolume), -VAMPIRE_PASSIVE_BLOOD_DRAIN)
 
 	// Healing
-	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile/retaliate/bat/vampire))
+	if(handle_healing() && !istype(owner, /mob/living/simple_animal/hostile))
 		if((COOLDOWN_FINISHED(src, vampire_spam_healing)) && current_vitae > 0)
 			to_chat(owner.current, span_notice("The power of your blood knits your wounds..."))
 			COOLDOWN_START(src, vampire_spam_healing, VAMPIRE_SPAM_HEALING)
@@ -46,7 +46,7 @@
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
 
 /**
- * Assuming you aren't Masquerading and your species has blood, set the body's blood_volume to the internal vampire blood volume
+ * Assuming you aren't Masquerading and your species has blood
 **/
 /datum/antagonist/vampire/proc/update_blood()
 	if(HAS_TRAIT(owner.current, TRAIT_NO_BLOOD))
@@ -56,7 +56,7 @@
 		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
 		return
 
-	owner.current.blood_volume = min(560, current_vitae)	// No longer represents blood. But we keep it scaling down because we want to get pale
+	owner.current.blood_volume = min(560, current_vitae)	// we want to get pale
 
 /**
  * Pretty simple, add a value to the vampire's blood volume
@@ -246,14 +246,14 @@
 /datum/antagonist/vampire/proc/handle_blood(delta_time)
 	// Set nutrition
 	if(!isoozeling(owner.current))
-		owner.current.set_nutrition(min(current_vitae, NUTRITION_LEVEL_FED))
+		owner.current.set_nutrition(min(current_vitae, NUTRITION_LEVEL_WELL_FED))
 
 	// Try and exit frenzy
 	if(current_vitae >= FRENZY_THRESHOLD_EXIT && frenzied)
 		owner.current.remove_status_effect(/datum/status_effect/frenzy)
 
 	// Blood is low, lets show some effects
-	if(current_vitae < BLOOD_VOLUME_BAD && DT_PROB(5, delta_time) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	if(current_vitae < 100 && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		owner.current.set_jitter_if_lower(6 SECONDS)
 
 	// Enter frenzy if our blood is low enough
