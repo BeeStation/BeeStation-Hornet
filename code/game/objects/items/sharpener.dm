@@ -9,7 +9,7 @@
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
-
+	var/reusable = FALSE
 
 /obj/item/sharpener/attackby(obj/item/I, mob/user, params)
 	if(used)
@@ -42,10 +42,14 @@
 	I.bleed_force *= 1.1
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
-	name = "worn out [name]"
-	desc = "[desc] At least, it used to."
-	used = 1
+	if(!reusable)
+		name = "worn out [name]"
+		desc = "[desc] At least, it used to."
+		used = TRUE
 	update_icon()
+
+/obj/item/sharpener/chef
+	reusable = TRUE
 
 /obj/item/sharpener/super
 	name = "super whetstone"
@@ -53,3 +57,11 @@
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"
+
+/obj/item/sharpener/steel
+	name = "sharpening steel"
+	desc = "A steel rod that can help maintain the sharpness of blades"
+	prefix = "honed"
+	icon_state = "steel-sharpener"
+	increment = 1
+	max = 20

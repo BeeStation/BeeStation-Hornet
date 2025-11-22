@@ -48,7 +48,7 @@
 	suit = /obj/item/clothing/suit/toggle/chef
 	head = /obj/item/clothing/head/utility/chefhat
 	mask = /obj/item/clothing/mask/fakemoustache/italian
-	backpack_contents = list(/obj/item/sharpener = 1)
+	backpack_contents = list(/obj/item/sharpener/chef = 1)
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()

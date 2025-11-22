@@ -360,6 +360,15 @@
 	)
 	category = CAT_MISC
 
+/datum/crafting_recipe/steel_sharpener
+	name = "Steel Sharpener"
+	result = /obj/item/sharpener/steel
+	time = 5 SECONDS
+	reqs = list(
+		/obj/item/stack/rods = 2
+	)
+	category = CAT_MISC
+
 /// banners
 
 /datum/crafting_recipe/security_banner

@@ -19,7 +19,7 @@
 				/obj/item/plate/small = 5,
 				/obj/item/plate = 10,
 				/obj/item/plate/large = 5,
-				/obj/item/sharpener = 2
+				/obj/item/sharpener/steel = 2
 			),
 		),
 		list(
