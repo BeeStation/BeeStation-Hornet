@@ -260,3 +260,9 @@
   PowerfulBacon:
   - bugfix: Changing species now assigns a new name.
   - bugfix: 'Hotfix: Fixes names being randomised when any preference is changed.'
+2025-11-22:
+  BotTierPC:
+  - rscdel: Deleted a Stray Disposal Pipe outside Boxstation Armory
+  Rukofamicom:
+  - bugfix: Abductor batons turn themselves on automatically when used again. No more
+      accidentally bonking your abduction targets.
