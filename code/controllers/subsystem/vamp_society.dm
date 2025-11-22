@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(society)
 
 		vampire_living_candidates += currentmob
 
-		to_chat(vampire.owner.current, span_announce("* Vampire Tip: Polite kindred society is almost always governed by a powerful Prince. A Prince enforces order and preserves the masquerade. Leadership may be strict, but is usually respected."))
+		to_chat(vampire.owner.current, span_announce("* Vampire Tip: Polite kindred society is almost always governed by a powerful Prince. A Prince enforces order and preserves the masquerade. Read up on vampire society in your info panel."))
 
 	currently_polling = TRUE
 	var/list/pollers = SSpolling.poll_candidates(
@@ -78,5 +78,6 @@ SUBSYSTEM_DEF(society)
 
 	if(chosen_datum)
 		chosen_datum.princify()
+		princedatum = WEAKREF(chosen_datum)
 		for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
 			to_chat(vampire.owner.current, span_narsiesmall("[chosen_datum.owner.current] has claimed the role of Prince!"))

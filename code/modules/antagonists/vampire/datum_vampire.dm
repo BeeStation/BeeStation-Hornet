@@ -30,6 +30,8 @@
 
 	/// Are we the prince?
 	var/prince = FALSE
+	/// Are we the scourge? Literally only used for the examine. Okay.
+	var/scourge = FALSE
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
 	/// How many Masquerade Infractions do we have?
@@ -611,14 +613,32 @@
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
-
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
+
+	if(scourge)
+		text = icon2html('icons/vampires/vampiric.dmi', world, "scourge")
+
+	if(prince)
+		text = icon2html('icons/vampires/vampiric.dmi', world, "prince")
+
 	if(IS_VASSAL(examiner) in vassals)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
-	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
+		return
+
+	if(IS_VAMPIRE(examiner))
 		text += span_cult("<EM>[return_full_name()]</EM>")
+
+		if(examiner != owner.current) // So many ifs. where is yanderedev.
+			if(scourge)
+				text += span_cultlarge("<br><EM>[owner.current.p_They()] [owner.current.p_are()] the Scourge!</EM>")
+			if(prince)
+				text += span_cultlarge("<br><EM>[owner.current.p_They()] [owner.current.p_are()] your Prince!</EM>")
+			if(broke_masquerade)
+				text += span_cultlarge("<br><EM>You recognize [owner.current.p_Them()] as a masquerade breaker!</EM>")
+
 		examine_text += text
+		return
 
 /datum/antagonist/vampire/proc/on_moved(datum/source)
 	SIGNAL_HANDLER
