@@ -12730,7 +12730,16 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
-/obj/machinery/vending/wardrobe/science_wardrobe,
+/obj/effect/turf_decal/bot,
+/obj/machinery/droneDispenser/hivebot{
+	dispense_type = /mob/living/carbon/human/species/ipc;
+	name = "Intergrated Chasis fabricator";
+	glass_cost = 50000;
+	iron_cost = 100000;
+	break_message = "lets out a tiny alarm before falling dark.";
+	desc = "A large, bulky machine that whirs with activity, steam hissing from vents at its sides, a thin worn out label states Insert Glass and Iron to Produce Standard Enrichment Center Testing Doll NTAS3";
+	end_create_message = "slams open, revealing a IPC Chasis!"
+	},
 /turf/open/floor/iron/white/smooth_large,
 /area/science/explab)
 "bwm" = (
@@ -41333,6 +41342,7 @@
 	pixel_x = -9;
 	pixel_y = -6
 	},
+/obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "lJn" = (
@@ -47149,15 +47159,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/droneDispenser/hivebot{
-	dispense_type = /mob/living/carbon/human/species/ipc;
-	name = "Intergrated Chasis fabricator";
-	glass_cost = 50000;
-	iron_cost = 100000;
-	break_message = "lets out a tiny alarm before falling dark.";
-	desc = "A large, bulky machine that whirs with activity, steam hissing from vents in its sides,might produce something provided enough iron and glass.";
-	end_create_message = "slams open, revealing a IPC Chasis!"
-	},
+/obj/machinery/limbgrower,
 /turf/open/floor/iron/white/textured_large,
 /area/medical/sleeper)
 "otx" = (
