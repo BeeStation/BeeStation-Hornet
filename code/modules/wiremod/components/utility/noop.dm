@@ -10,11 +10,11 @@
 	category = "Utility"
 
 	power_usage_per_input = 0 //This does nothing, so consumes no power.
+	circuit_size = 0 //This does nothing, it should take no space.
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL | CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-	/// A comment String for the part. Does Nothing
-	var/datum/port/input/comment
+	var/datum/port/input/comment // A comment String for the part. Does Nothing
 
 
 /obj/item/circuit_component/noop/populate_ports()
