@@ -144,9 +144,9 @@
 	if(!QDELETED(GLOB.narsie))
 		return //if Nar'Sie is alive, don't even worry about it
 	var/area/area = get_area(owner)
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-		if(isliving(cultist.owner))
-			var/mob/living/cultist_body = cultist.owner.current
+	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+		if(isliving(cult_mind.current))
+			var/mob/living/cultist_body = cult_mind.current
 			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
 			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
 

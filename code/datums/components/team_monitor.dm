@@ -296,10 +296,10 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/team_monitor/proc/set_frequency(new_frequency)
 	var/hud_on = hud_visible
 	var/mob/user = updating
+	if(updating)
+		toggle_hud(FALSE, updating)
 	//Remove tracking from old frequency
 	if(team_frequency)
-		if(updating)
-			toggle_hud(FALSE, updating)
 		//Remove from the global frequency
 		GLOB.tracker_huds[team_frequency] -= src
 		//Clear tracking
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/team_monitor/worn/proc/parent_equipped(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
-	var/obj/item/clothing/item = parent
+	var/obj/item/item = parent
 	if(!istype(item))
 		return
 	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
@@ -478,7 +478,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 /datum/component/tracking_beacon/proc/parent_equipped(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
-	var/obj/item/clothing/item = parent
+	var/obj/item/item = parent
 	if(!istype(item))
 		return
 	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
@@ -587,6 +587,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		attached_monitor.set_frequency(new_freq)
 
 /datum/component/tracking_beacon/proc/set_frequency(new_frequency)
+	var/beacon_on = visible
 	//Remove tracking from old frequency
 	if(team_frequency)
 		//Disable the beacon on other trackers
@@ -600,7 +601,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Adds our tracking component to the global list of trackers
 	add_tracker_beacon(team_frequency, src)
 	//Set our visibility on the tracking network
-	toggle_visibility(visible)
+	toggle_visibility(beacon_on)
 
 //=======
 // Generic Arrow, No special effects
