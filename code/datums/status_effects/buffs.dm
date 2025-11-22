@@ -700,7 +700,7 @@
 	id = "invisibility"
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
 	tick_interval = 2
-	duration = STATUS_EFFECT_PERMANENT
+	duration = 40 SECONDS
 	show_duration = TRUE
 	var/can_see_self = FALSE
 
@@ -718,6 +718,12 @@
 		can_see_self = TRUE
 	if (owner.alpha > 100 && can_see_self)
 		owner.remove_alt_appearance(REF(src))
+	// Check for restoring the duration
+	var/turf/location = get_turf(owner)
+	if (location.get_lumcount() < 0.7)
+		var/time_left = duration - world.time
+		var/new_time = min(time_left + 2 SECONDS, initial(duration))
+		duration = world.time + new_time
 
 /datum/status_effect/cloaked/on_apply()
 	if(!..())
@@ -735,6 +741,7 @@
 	RegisterSignal(owner, COMSIG_ATOM_HULK_ATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_PAW, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_MOB_ABILITY_STARTED, PROC_REF(terminate_effect))
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()
