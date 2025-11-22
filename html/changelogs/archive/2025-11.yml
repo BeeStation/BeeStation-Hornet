@@ -263,6 +263,7 @@
 2025-11-22:
   BotTierPC:
   - rscdel: Deleted a Stray Disposal Pipe outside Boxstation Armory
+  - tweak: Cargo's blood pack crates now contain 15 random blood bags
   Rukofamicom:
   - bugfix: Abductor batons turn themselves on automatically when used again. No more
       accidentally bonking your abduction targets.
