@@ -149,9 +149,11 @@
 #define TRAIT_COLDBLOODED "trait_coldblooded"
 /// For people in the middle of being staked
 #define TRAIT_BEINGSTAKED "trait_beingstaked"
+/// For people we have bitten
+#define TRAIT_FEED_MARKED "trait_feedmarked"
 
 // Trait sources
-/// Sour trait for all vampire traits
+/// Source trait for all vampire traits
 #define TRAIT_VAMPIRE "trait_vampire"
 /// Source trait while Feeding
 #define TRAIT_FEED "trait_feed"
@@ -163,6 +165,8 @@
 #define TRAIT_MESMERIZED "trait_mesmerized"
 /// Source trait for vampire commandment.
 #define TRAIT_COMMANDED "trait_commanded"
+/// Source trait for feedmarks
+#define TRAIT_FEED_MARKS "trait_feedmarks"
 
 // Macros
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)

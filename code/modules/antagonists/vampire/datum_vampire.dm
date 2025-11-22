@@ -27,7 +27,6 @@
 
 	/// Flavor only
 	var/vampire_name
-	var/vampire_title
 
 	/// Are we the prince?
 	var/prince = FALSE

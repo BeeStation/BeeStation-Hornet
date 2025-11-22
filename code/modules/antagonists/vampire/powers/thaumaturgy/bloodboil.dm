@@ -172,4 +172,4 @@
 /datum/status_effect/bloodboil/on_remove()
 
 /datum/status_effect/bloodboil/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] writhes and squirms, they seem weirdly red?")
+	return span_warning("[owner.p_They()] writhe[owner.p_s()] and squirm[owner.p_s()], [owner.p_They()] seem[owner.p_s()] weirdly red?")

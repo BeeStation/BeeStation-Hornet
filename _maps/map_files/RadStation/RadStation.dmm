@@ -36642,7 +36642,6 @@
 /area/ai_monitored/turret_protected/ai)
 "lZw" = (
 /obj/structure/destructible/cult/tome,
-/obj/item/book/codex_gigas,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "lZE" = (

@@ -1,7 +1,5 @@
 /datum/antagonist/vampire/proc/return_full_name()
 	var/fullname = vampire_name ? vampire_name : owner.current.name
-	if(vampire_title)
-		fullname = "[vampire_title] [fullname]"
 
 	fullname += " the [get_rank_string(vampire_level)]"
 
@@ -33,34 +31,3 @@
 			"Alcestis","Damaris","Elisavet","Khthonia","Teodora", // Greek
 			"Nefret","Ankhesenpep", // Egyptian
 		)
-
-///Returns a Title for the Vampire.
-/datum/antagonist/vampire/proc/select_title()
-	// Already have Title
-	if(!isnull(vampire_title))
-		return
-	if(owner.current.gender == MALE)
-		vampire_title = pick(
-			"Count",
-			"Baron",
-			"Viscount",
-			"Prince",
-			"Duke",
-			"Tzar",
-			"Dreadlord",
-			"Lord",
-			"Master",
-		)
-	else
-		vampire_title = pick(
-			"Countess",
-			"Baroness",
-			"Viscountess",
-			"Princess",
-			"Duchess",
-			"Tzarina",
-			"Dreadlady",
-			"Lady",
-			"Mistress",
-		)
-	to_chat(owner, span_announce("You have earned a title! You are now known as <i>[return_full_name()]</i>!"))

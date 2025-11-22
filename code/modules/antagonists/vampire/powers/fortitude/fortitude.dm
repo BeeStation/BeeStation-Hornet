@@ -90,8 +90,6 @@
 	user.physiology.stamina_mod *= resistance
 	user.physiology.burn_mod *= calculated_burn_resist // they get burn resistance, but way less
 
-	owner.add_movespeed_modifier(/datum/movespeed_modifier/fortitude)
-
 /datum/action/vampire/fortitude/UsePower()
 	. = ..()
 	if(!.)
@@ -118,10 +116,6 @@
 	REMOVE_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_VAMPIRE)
 	REMOVE_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_VAMPIRE)
 
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/fortitude)
 	owner.balloon_alert(owner, "fortitude turned off.")
 
 	return ..()
-
-/datum/movespeed_modifier/fortitude
-	multiplicative_slowdown = 1.2 // Not as slow as before, but you still can't use it to hunt.
