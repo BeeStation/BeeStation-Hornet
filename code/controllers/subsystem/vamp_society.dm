@@ -39,6 +39,8 @@ SUBSYSTEM_DEF(society)
 
 		vampire_living_candidates += currentmob
 
+		to_chat(vampire.owner.current, span_announce("* Vampire Tip: Polite kindred society is almost always governed by a powerful Prince. A Prince enforces order and preserves the masquerade. Leadership may be strict, but is usually respected."))
+
 	currently_polling = TRUE
 	var/list/pollers = SSpolling.poll_candidates(
 		question = "You are eligible for princedom.",

@@ -24,10 +24,11 @@ GLOBAL_LIST_EMPTY(all_vampires)
  * Turns the player into a prince.
 **/
 /datum/antagonist/vampire/proc/princify()
-	to_chat(owner.current, span_cultbold("As a true prince, you find some of your old power!"))
+	to_chat(owner.current, span_cultbold("As a true prince, you find some of your old power returning to you!"))
 	set_antag_hud(owner.current, "vampire_prince")
 	owner.current.playsound_local(null, 'sound/vampires/prince.ogg', 100, FALSE, pressure_affected = FALSE)
-	rank_up(6, TRUE)
+
+	rank_up(8, TRUE) // Rank up a lot.
 
 /**
  * Returns the princyness of this vampire.
