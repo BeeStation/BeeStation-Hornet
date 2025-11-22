@@ -9,11 +9,10 @@
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
-	var/reusable = FALSE
 
 /obj/item/sharpener/attackby(obj/item/I, mob/user, params)
 	if(used)
-		to_chat(user, span_warning("The sharpening block is too worn to use again!"))
+		to_chat(user, span_warning("The sharpening tool is too worn to use again!"))
 		return
 	if(I.force >= max || I.throwforce >= max)//no esword sharpening
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
@@ -42,10 +41,9 @@
 	I.bleed_force *= 1.1
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
-	if(!reusable)
-		name = "worn out [name]"
-		desc = "[desc] At least, it used to."
-		used = TRUE
+	name = "worn out [name]"
+	desc = "[desc] At least, it used to."
+	used = TRUE
 	update_icon()
 
 /obj/item/sharpener/chef
