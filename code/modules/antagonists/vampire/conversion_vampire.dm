@@ -52,8 +52,6 @@
 	if(IS_VASSAL(conversion_target))
 		conversion_target.mind.remove_antag_datum(/datum/antagonist/vassal)
 
-	select_title()
-
 	// Set the master, then give the datum.
 	var/datum/antagonist/vassal/vassaldatum = new(conversion_target.mind)
 	vassaldatum.master = src

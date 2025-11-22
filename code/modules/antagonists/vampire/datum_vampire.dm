@@ -27,7 +27,6 @@
 
 	/// Flavor only
 	var/vampire_name
-	var/vampire_title
 
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE

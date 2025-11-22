@@ -145,6 +145,7 @@
 		return FALSE
 	if(!owner.has_quirk(/datum/quirk/monochromatic) && strong)
 		owner.add_client_colour(/datum/client_colour/glass_colour/pink)
+	RegisterSignals(owner, list(COMSIG_MOVABLE_PULLED, COMSIG_ATOM_NO_LONGER_PULLED), PROC_REF(update_puller))
 	return TRUE
 
 /datum/status_effect/awed/on_creation(mob/living/new_owner, target)
@@ -159,6 +160,14 @@
 /datum/status_effect/awed/on_remove()
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_PULLED, COMSIG_ATOM_NO_LONGER_PULLED))
 
 /datum/status_effect/awed/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] seem[owner.p_s()] slow and unfocused.")
+	return span_warning("[owner.p_They()] look[owner.p_s()] awestruck, staring at [object_of_desire].")
+
+/datum/status_effect/awed/proc/update_puller()
+    SIGNAL_HANDLER
+    if(owner.pulledby == object_of_desire)
+        ADD_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))
+    else
+        REMOVE_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))

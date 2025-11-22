@@ -183,19 +183,24 @@
 
 	if(!living_owner.combat_mode)
 
-		owner.balloon_alert(owner, "mesmerizing [feed_target]...")
+		if(!IS_VASSAL(feed_target)) // Vassals don't need all this shit.
+			owner.balloon_alert(owner, "mesmerizing [feed_target]...")
 
-		// Initial ""mesmerize""
-		if(!do_after(owner, 2 SECONDS, feed_target, NONE, TRUE, hidden = TRUE))
-			owner.balloon_alert(owner, "interrupted!")
-			deactivate_power()
-			return
+			// Initial ""mesmerize""
+			if(!do_after(owner, 2 SECONDS, feed_target, NONE, TRUE, hidden = TRUE))
+				owner.balloon_alert(owner, "interrupted!")
+				deactivate_power()
+				return
 
-		// Succesfull. Start feeding process by getting feed time.
-		var/feed_time = vampiredatum_power.frenzied ? FEED_FRENZY_TIME : clamp(round(FEED_DEFAULT_TIME / (1.25 * (level_current || 1))), 1, FEED_DEFAULT_TIME)
+		// Succesful. Start feeding process by getting feed time.
+		var/feed_time = (vampiredatum_power.frenzied ? FEED_FRENZY_TIME : clamp(round(FEED_DEFAULT_TIME / (1.25 * (level_current || 1))), 1, FEED_DEFAULT_TIME)) / 2
+
+		if(!IS_VASSAL(feed_target))
+			feed_time /= 4
 
 		feed_target.Stun(feed_time, TRUE)
-		to_chat(feed_target, span_hypnophrase("[owner.first_name()]'s eyes glitter so beautifully..."), type = MESSAGE_TYPE_WARNING)
+		feed_target.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
+		to_chat(feed_target, span_hypnophrase("You suddenly fall into a deep trance..."), type = MESSAGE_TYPE_WARNING)
 		owner.balloon_alert(owner, "subdued! starting feed...")
 		owner.whisper("shhhh...")
 
@@ -262,9 +267,6 @@
 				animate(owner, 0.2 SECONDS, pixel_x = 8,)
 				animate(feed_target, 0.2 SECONDS, pixel_x = -8)
 
-		to_chat(feed_target, span_bigboldwarning("[owner.first_name()] grabs you tightly, sinking [owner.p_their()] fangs into your neck!"), type = MESSAGE_TYPE_WARNING)
-		to_chat(feed_target, span_hypnophrase("But the pain melts away..."), type = MESSAGE_TYPE_WARNING)
-
 		owner.visible_message(
 			span_notice("[owner.first_name()] grabs [feed_target.first_name()] tightly, biting into their neck!"),
 			span_notice("You slip your fangs into [feed_target.first_name()]'s neck."),
@@ -312,7 +314,11 @@
 
 	if(currently_feeding) // Check if we actually started successfully.
 		owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
-		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_WHISPER_ONLY, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_DEAF, TRAIT_DREAMING, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+
+		// Normally removed traits are done. Now we give the victim a lil something to remember us by.
+		ADD_TRAIT(feed_target, TRAIT_FEED_MARKED, TRAIT_FEED_MARKS)
+		addtimer(TRAIT_CALLBACK_REMOVE(feed_target, TRAIT_FEED_MARKED, TRAIT_FEED_MARKS), rand(5 MINUTES, 10 MINUTES))
 	else
 		owner.balloon_alert(owner, "combat feed requires aggressive grab!")
 		deactivate_power()
@@ -419,6 +425,9 @@
 	var/humanity_deducted = FALSE
 	var/mob/living/feed_target = target_ref?.resolve()
 
+	if(feed_target)
+		feed_target.cure_blind(TRAIT_FEED)
+
 	if(feed_target && currently_feeding)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
 
@@ -430,8 +439,8 @@
 		to_chat(owner, span_notice("You slowly release [feed_target]."))
 
 		if(feed_target.stat != DEAD && silent_feed)
-			to_chat(owner, span_notice("<i>[feed_target.p_they(TRUE)] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
-			to_chat(feed_target, span_bighypnophrase("You don't remember anything since you first saw their eyes, everything is so... hazy..."))
+			to_chat(owner, span_notice("<i>[feed_target.p_They()] look[feed_target.p_s()] dazed, and will not remember this.</i>"))
+			to_chat(feed_target, span_bighypnophrase("You wake from your trance. Everything is so... hazy..."))
 			if(feed_target.blood_volume >= BLOOD_VOLUME_OKAY)
 				to_chat(feed_target, span_announce("You feel dizzy, but it will probably pass by itself!"))
 
@@ -443,6 +452,8 @@
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled)
 			to_chat(owner, span_userdanger("No way will [feed_target.p_they()] survive that..."))
 			vampiredatum_power.adjust_humanity(-1)
+
+		feed_target.bleed(BLEED_SCRATCH)
 
 	feed_fatal = FALSE
 	humanity_deducted = FALSE
@@ -534,3 +545,9 @@
 #undef FEED_DEFAULT_TIME
 #undef FEED_FRENZY_TIME
 #undef FEED_BLOOD_FROM_MICE
+
+/atom/movable/screen/fullscreen/blind/feed
+	icon_state = "feed"
+	render_target = "blind_fullscreen_overlay"
+	layer = BLIND_LAYER
+	plane = FULLSCREEN_PLANE
