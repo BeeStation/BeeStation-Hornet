@@ -46,9 +46,6 @@
 	used = TRUE
 	update_icon()
 
-/obj/item/sharpener/chef
-	reusable = TRUE
-
 /obj/item/sharpener/super
 	name = "super whetstone"
 	desc = "A block that will make your weapon sharper than Einstein on adderall."
