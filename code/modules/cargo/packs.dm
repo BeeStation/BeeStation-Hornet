@@ -1763,10 +1763,14 @@
 
 /datum/supply_pack/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
-	desc = "Contains ten different blood packs for reintroducing blood to patients."
-	cost = 700
+	desc = "Contains a variety of blood packs for reintroducing blood to patients."
+	cost = 900
 	max_supply = 4
 	contains = list(/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
 					/obj/item/reagent_containers/blood/random,
 					/obj/item/reagent_containers/blood/random,
 					/obj/item/reagent_containers/blood/random,
