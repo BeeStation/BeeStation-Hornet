@@ -90,7 +90,7 @@
 	icon_state = "plasma"
 	flags_1 = CONDUCT_1
 	slot_flags = null	//they have no straps!
-	force = 8
+	force = 10
 
 
 /obj/item/tank/internals/plasma/populate_gas()
