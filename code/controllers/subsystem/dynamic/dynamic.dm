@@ -7,7 +7,6 @@ SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
 	wait = 1 MINUTES
-	init_order = INIT_ORDER_DYNAMIC
 
 
 	/**

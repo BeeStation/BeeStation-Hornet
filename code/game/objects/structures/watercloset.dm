@@ -302,15 +302,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 			return FALSE
 
 	if(istype(O, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = O
-		if(B.cell && B.cell.charge && B.turned_on)
+		var/obj/item/melee/baton/batong = O
+		if(batong.cell?.charge && batong.damtype == STAMINA)
 			flick("baton_active", src)
-			user.Paralyze(B.stun_time)
-			user.stuttering = B.stun_time/20
-			B.deductcharge(B.cell_hit_cost)
-			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [B.name]!"), \
-								span_userdanger("You unwisely attempt to wash [B] while it's still on."))
-			playsound(src, B.stun_sound, 50, TRUE)
+			user.Paralyze(batong.active_force)
+			batong.cell.use(batong.cell.charge)
+			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [batong.name]!"), \
+								span_userdanger("You unwisely attempt to wash [batong] while it's still on."))
+			playsound(src, batong.active_hitsound, 50, TRUE)
 			return
 
 	if(istype(O, /obj/item/mop))

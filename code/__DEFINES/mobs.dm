@@ -633,6 +633,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
 
+/// How far away you can be to make eye contact with someone while examining
+#define EYE_CONTACT_RANGE 5
+
 /// Returns whether or not the given mob can succumb
 #define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
 
@@ -701,3 +704,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 // Species related bitflags go here.
 #define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
+
+/// Distance which you can see someone's ID card
+/// Short enough that you can inspect over tables (bartender checking age)
+#define ID_EXAMINE_DISTANCE 3
