@@ -6,18 +6,25 @@
 	return ..()
 
 //////////////////////////////////////////////////////////////////////////////////////
-//	//							 OBJECTIVES 									//	//
+//	//						   EGO OBJECTIVES 									//	//
 //////////////////////////////////////////////////////////////////////////////////////
+/datum/objective/vampire/ego
+	name = "Egotism Objective"
+	explanation_text = "I am mighty, a lord of the night. I think today, I will:<br>"
 
-/**
- * Claim a lair
- */
-/datum/objective/vampire/lair
-	name = "claimlair"
-	explanation_text = "Create a lair by claiming a coffin, and protect it until the end of the shift."
+
+//////////////////////////////////////////////////       Lair
+////////////////////////////////////////////////////////////////////
+
+/datum/objective/vampire/ego/lair
+	name = "Claim a Lair"
+
+/datum/objective/vampire/ego/lair/update_explanation_text()
+	. = ..()
+	explanation_text += "Create a lair from which to rule, and protect it until the end of the shift."
 
 // WIN CONDITIONS?
-/datum/objective/vampire/lair/check_completion()
+/datum/objective/vampire/ego/lair/check_completion()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
 	if(!vampire_datum)
 		return FALSE
@@ -27,12 +34,34 @@
 
 	return FALSE
 
-/// Vassalize a certain person / people
-/datum/objective/vampire/conversion
-	name = "Vassalization"
 
-/// Check vassals and get their occupations
-/datum/objective/vampire/conversion/proc/get_vassal_occupations()
+////////////////////////////////////////////////// Department Vassal
+////////////////////////////////////////////////////////////////////
+
+/datum/objective/vampire/ego/department_vassal
+	name = "Vassalize department"
+
+	///The selected department we have to vassalize.
+	var/target_department
+	///List of all departments that can be selected for the objective.
+	var/static/list/possible_departments = list(
+		"engineering" = DEPT_BITFLAG_ENG,
+		"medical" = DEPT_BITFLAG_MED,
+		"science" = DEPT_BITFLAG_SCI,
+		"cargo" = DEPT_BITFLAG_CAR,
+		"service" = DEPT_BITFLAG_SRV,
+	)
+
+/datum/objective/vampire/ego/department_vassal/New()
+	target_department = pick(possible_departments)
+	target_amount = 1
+	return ..()
+
+/datum/objective/vampire/ego/department_vassal/update_explanation_text()
+	explanation_text += "Vassalize a mortal in the [target_department] department, to do my bidding as all kine should."
+	return ..()
+
+/datum/objective/vampire/ego/department_vassal/proc/get_vassal_occupations()
 	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
 	if(!length(vampire_datum?.vassals))
 		return FALSE
@@ -59,36 +88,8 @@
 			continue
 
 	return all_vassal_jobs
-/**
- * Vassalize crewmembers in a specific department
- */
-/datum/objective/vampire/conversion/department
-	name = "Vassalize department"
 
-	///The selected department we have to vassalize.
-	var/target_department
-	///List of all departments that can be selected for the objective.
-	var/static/list/possible_departments = list(
-		"engineering" = DEPT_BITFLAG_ENG,
-		"medical" = DEPT_BITFLAG_MED,
-		"science" = DEPT_BITFLAG_SCI,
-		"cargo" = DEPT_BITFLAG_CAR,
-		"service" = DEPT_BITFLAG_SRV,
-	)
-
-// GENERATE!
-/datum/objective/vampire/conversion/department/New()
-	target_department = pick(possible_departments)
-	target_amount = 1
-	return ..()
-
-// EXPLANATION
-/datum/objective/vampire/conversion/department/update_explanation_text()
-	explanation_text = "Have a vassal in the [target_department] department."
-	return ..()
-
-// WIN CONDITIONS?
-/datum/objective/vampire/conversion/department/check_completion()
+/datum/objective/vampire/ego/department_vassal/check_completion()
 	var/list/vassal_jobs = get_vassal_occupations()
 	var/converted_count = 0
 	for(var/datum/job/checked_job in vassal_jobs)
@@ -98,33 +99,53 @@
 		return TRUE
 	return FALSE
 
-/**
-* # IMPORTANT NOTE!!
-*
-* Look for Job Values on mobs! This is assigned at the start, but COULD be changed via the HoP
-* ALSO - Search through all jobs (look for prefs earlier that look for all jobs, and search through all jobs to see if their head matches the head listed, or it IS the head)
-* ALSO - registered_account in _vending.dm for banks, and assigning new ones.
-*/
+
+//////////////////////////////////////////////////    Big Places
+////////////////////////////////////////////////////////////////////
+
+/datum/objective/vampire/ego/bigplaces
+	name = "Rise up the Ranks"
+
+/datum/objective/vampire/ego/bigplaces/update_explanation_text()
+	. = ..()
+	explanation_text += "Gain the power of a master. I should consider becoming prince or scourge, or feeding from those who have broken the masquerade. Though regular feeding ought to suffice."
+
+// WIN CONDITIONS?
+/datum/objective/vampire/ego/bigplaces/check_completion()
+	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	if(!vampire_datum)
+		return FALSE
+
+	if(vampire_datum.vampire_level + vampire_datum.vampire_level_unspent >= 8)
+		return TRUE
+
+	return FALSE
+
 
 //////////////////////////////////////////////////////////////////////////////////////
+//	//						 HEDONISM OBJECTIVES 								//	//
+//////////////////////////////////////////////////////////////////////////////////////
 
-// NOTE: Look up /steal in objective.dm for inspiration.
-/// Steal hearts. You just really wanna have some hearts.
-/datum/objective/vampire/heartthief
-	name = "heartthief"
+/datum/objective/vampire/hedonism
+	name = "Hedonism Objective"
+	explanation_text = "I crave so much. My urges demand that I:<br>"
 
-// GENERATE!
-/datum/objective/vampire/heartthief/New()
+
+//////////////////////////////////////////////////     Heart Thief
+////////////////////////////////////////////////////////////////////
+
+/datum/objective/vampire/hedonism/heartthief
+	name = "Heart Thief"
+
+/datum/objective/vampire/hedonism/heartthief/New()
 	target_amount = rand(2,3)
 	return ..()
 
-// EXPLANATION
-/datum/objective/vampire/heartthief/update_explanation_text()
+/datum/objective/vampire/hedonism/heartthief/update_explanation_text()
 	. = ..()
-	explanation_text = "Steal and keep [target_amount] organic heart\s."
+	explanation_text += "Feel the sinewy flesh of mortal hearts squirming in my grasp. I shall steal, and keep [target_amount] organic heart\s."
 
-// WIN CONDITIONS?
-/datum/objective/vampire/heartthief/check_completion()
+/datum/objective/vampire/hedonism/heartthief/check_completion()
 	if(!owner.current)
 		return FALSE
 
@@ -139,24 +160,22 @@
 		return TRUE
 	return FALSE
 
-//////////////////////////////////////////////////////////////////////////////////////
 
-///Eat blood from a lot of people
-/datum/objective/vampire/gourmand
-	name = "gourmand"
+//////////////////////////////////////////////////     Gourmand
+////////////////////////////////////////////////////////////////////
 
-// GENERATE!
-/datum/objective/vampire/gourmand/New()
-	target_amount = rand(500, 1000)		// This is blood, not vitae.
+/datum/objective/vampire/hedonism/gourmand
+	name = "Gourmand"
+
+/datum/objective/vampire/hedonism/gourmand/New()
+	target_amount = rand(500, 1000) // This is blood, not vitae.
 	return ..()
 
-// EXPLANATION
-/datum/objective/vampire/gourmand/update_explanation_text()
+/datum/objective/vampire/hedonism/gourmand/update_explanation_text()
 	. = ..()
-	explanation_text = "Using your Feed ability, drink [target_amount] units of Blood."
+	explanation_text += "Drink deep and greedily from that which nourishes me. Using your Feed ability, drink [target_amount] units of Blood."
 
-// WIN CONDITIONS?
-/datum/objective/vampire/gourmand/check_completion()
+/datum/objective/vampire/hedonism/gourmand/check_completion()
 	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampiredatum)
 		return FALSE
@@ -165,7 +184,28 @@
 		return TRUE
 	return FALSE
 
-// HOW: Track each feed (if human). Count victory.
+//////////////////////////////////////////////////     Thirster
+////////////////////////////////////////////////////////////////////
+
+/datum/objective/vampire/hedonism/thirster
+	name = "Thirster"
+
+/datum/objective/vampire/hedonism/thirster/update_explanation_text()
+	. = ..()
+	explanation_text += "Savour the ecstasy of draining a mortal utterly, to feel their pallid skin in my grasp and see the light leave their eyes."
+
+/datum/objective/vampire/hedonism/thirster/check_completion()
+	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!vampiredatum)
+		return FALSE
+
+	if(vampiredatum.thirster_objective)
+		return TRUE
+
+	return FALSE
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Vassal

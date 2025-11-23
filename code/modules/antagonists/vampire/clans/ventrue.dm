@@ -6,6 +6,7 @@
 	join_icon_state = "ventrue"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
 	default_humanity = 8
+	princely_score_bonus = 15	// IT'S OVER NIN- ten. It's over ten.
 	joinable_clan = TRUE
 
 /datum/vampire_clan/ventrue/New(datum/antagonist/vampire/owner_datum)

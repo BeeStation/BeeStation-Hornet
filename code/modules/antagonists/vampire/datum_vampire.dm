@@ -28,6 +28,10 @@
 	/// Flavor only
 	var/vampire_name
 
+	/// Are we the prince?
+	var/prince = FALSE
+	/// Are we the scourge? Literally only used for the examine. Okay.
+	var/scourge = FALSE
 	/// Have we been broken the Masquerade?
 	var/broke_masquerade = FALSE
 	/// How many Masquerade Infractions do we have?
@@ -48,6 +52,10 @@
 	var/current_vitae_goal = VITAE_GOAL_STANDARD
 	/// progress to that goal
 	var/vitae_goal_progress = 0
+	/// Thirster objective completed.
+	var/thirster_objective = FALSE
+	/// To keep track of objective
+	var/total_blood_drank = 0
 
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
@@ -72,9 +80,6 @@
 	/// Lair
 	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
-
-	/// To keep track of objectives
-	var/total_blood_drank = 0
 
 	/// The last sol damage we got
 	var/last_sol_damage
@@ -281,11 +286,15 @@
 	owner.special_role = ROLE_VAMPIRE
 	GLOB.all_vampires.Add(src)
 
+	// Start society if we're the first vampire
+	check_start_society()
+
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
 	owner.special_role = null
 	GLOB.all_vampires.Remove(src)
+	check_cancel_society()
 	return ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
@@ -537,37 +546,46 @@
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
+/**
+ * Every vampire has 3 starting objective categories:
+ * Ego: Grow more powerful / strengthen your position / etc
+ * Hedonism: Indulge in bad things that feel all too right.
+ * Survival: Survive. Obviously.
+ */
 /datum/antagonist/vampire/proc/forge_objectives()
-	// Claim a Lair Objective
-	var/datum/objective/vampire/lair/lair_objective = new
-	lair_objective.owner = owner
-	objectives += lair_objective
+	var/datum/objective/vampire/extra_objective
+
+	if(get_max_vassals() >= 1) // Two trees for if we can make vassals or not.
+		//pick Ego objective
+		switch(rand(1, 3))
+			if(3)
+				extra_objective = new /datum/objective/vampire/ego/department_vassal()
+			if(2)
+				extra_objective = new /datum/objective/vampire/ego/bigplaces()
+			if(1)
+				extra_objective = new /datum/objective/vampire/ego/lair()
+	else
+		extra_objective = new /datum/objective/vampire/ego/bigplaces()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
+
+	//pick Hedonism objective
+	switch(rand(1, 3))
+		if(3)
+			extra_objective = new /datum/objective/vampire/hedonism/heartthief()
+		if(2)
+			extra_objective = new /datum/objective/vampire/hedonism/gourmand()
+		if(1)
+			extra_objective = new /datum/objective/vampire/hedonism/thirster()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
 
 	// Survive Objective
 	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner
 	objectives += survive_objective
-
-	// Objective 1: vassalize someone
-	switch(rand(1, 3))
-		if(1) // Conversion Objective
-			if(get_max_vassals() >= 1)
-				var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
-				var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
-				conversion_objective.owner = owner
-				objectives += conversion_objective
-			else
-				var/datum/objective/vampire/gourmand/gourmand_objective = new
-				gourmand_objective.owner = owner
-				objectives += gourmand_objective
-		if(2) // Heart Thief Objective
-			var/datum/objective/vampire/heartthief/heartthief_objective = new
-			heartthief_objective.owner = owner
-			objectives += heartthief_objective
-		if(3) // Drink Blood Objective
-			var/datum/objective/vampire/gourmand/gourmand_objective = new
-			gourmand_objective.owner = owner
-			objectives += gourmand_objective
 
 /datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)
@@ -605,14 +623,32 @@
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
-
 	var/text = icon2html('icons/vampires/vampiric.dmi', world, "vampire")
+
+	if(scourge)
+		text = icon2html('icons/vampires/vampiric.dmi', world, "scourge")
+
+	if(prince)
+		text = icon2html('icons/vampires/vampiric.dmi', world, "prince")
+
 	if(IS_VASSAL(examiner) in vassals)
 		text += span_cult("<EM>This is, [return_full_name()] your Master!</EM>")
 		examine_text += text
-	else if(IS_VAMPIRE(examiner) || my_clan?.name == CLAN_NOSFERATU)
+		return
+
+	if(IS_VAMPIRE(examiner))
 		text += span_cult("<EM>[return_full_name()]</EM>")
+
+		if(examiner != owner.current) // So many ifs. where is yanderedev.
+			if(scourge)
+				text += span_cultlarge("<br><EM>[owner.current.p_They()] [owner.current.p_are()] the Scourge!</EM>")
+			if(prince)
+				text += span_cultlarge("<br><EM>[owner.current.p_They()] [owner.current.p_are()] your Prince!</EM>")
+			if(broke_masquerade)
+				text += span_cultlarge("<br><EM>You recognize [owner.current.p_Them()] as a masquerade breaker!</EM>")
+
 		examine_text += text
+		return
 
 /datum/antagonist/vampire/proc/on_moved(datum/source)
 	SIGNAL_HANDLER
