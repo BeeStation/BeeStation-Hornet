@@ -61,7 +61,7 @@
 			return ..()
 		writter_job = SSjob.GetJob(user.mind?.assigned_role)
 	if(!writter_job)
-		to_chat(user, span_notice("It seems you do not have any expertise in any job."))
+		to_chat(user, span_notice("It seems you do not have expertise in any job."))
 		return ..()
 
 	bookwriting(I, user, writter_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
