@@ -4,7 +4,7 @@
 	name = "empty manuscript"
 	icon = 'icons/obj/library.dmi'
 	icon_state ="book4"
-	desc = "A book that is ready to write about a professional experience."
+	desc = "A book that is ready to be completed with professional experience."
 	unique = TRUE
 	var/writing /// a flag that prevents double-writting
 	var/datum/job/booked_job /// a job datum that this manuscript has
