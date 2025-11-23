@@ -16,7 +16,7 @@
 						/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/white,
 						/obj/item/seeds/cannabis/ultimate)
-	reagents_add = list(/datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.35) // gives u the munchies
+	reagents_add = list(/datum/reagent/drug/cannabis = 0.15) // gives u the munchies
 	trade_flags = TRADE_CONTRABAND
 
 
@@ -29,7 +29,7 @@
 	plantname = "Rainbow Weed"
 	product = /obj/item/food/grown/cannabis/rainbow
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/mindbreaker = 0.15, /datum/reagent/toxin/lipolicide = 0.35)
+	reagents_add = list(/datum/reagent/toxin/mindbreaker = 0.15, /datum/reagent/drug/cannabis = 0.15, /datum/reagent/drug/krokodil = 0.3)
 	rarity = 40
 
 /obj/item/seeds/cannabis/death
@@ -41,7 +41,7 @@
 	plantname = "Deathweed"
 	product = /obj/item/food/grown/cannabis/death
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/cyanide = 0.35, /datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.15)
+	reagents_add = list(/datum/reagent/toxin/cyanide = 0.35, /datum/reagent/drug/cannabis = 0.15)
 	rarity = 40
 
 /obj/item/seeds/cannabis/white
@@ -53,7 +53,7 @@
 	plantname = "Lifeweed"
 	product = /obj/item/food/grown/cannabis/white
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/omnizine = 0.35, /datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.15)
+	reagents_add = list(/datum/reagent/medicine/omnizine = 0.35, /datum/reagent/drug/cannabis = 0.15)
 	rarity = 40
 
 
@@ -67,7 +67,7 @@
 	product = /obj/item/food/grown/cannabis/ultimate
 	genes = list(/datum/plant_gene/trait/glow/green)
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/drug/space_drugs = 0.3,
+	reagents_add = list(/datum/reagent/drug/cannabis = 0.3,
 						/datum/reagent/toxin/mindbreaker = 0.3,
 						/datum/reagent/mercury = 0.15,
 						/datum/reagent/lithium = 0.15,
@@ -78,11 +78,11 @@
 						/datum/reagent/barbers_aid = 0.15,
 						/datum/reagent/drug/bath_salts = 0.15,
 						/datum/reagent/toxin/itching_powder = 0.15,
-						/datum/reagent/drug/crank = 0.15,
 						/datum/reagent/drug/krokodil = 0.15,
 						/datum/reagent/toxin/histamine = 0.15,
 						/datum/reagent/toxin/lipolicide = 0.15)
 	rarity = 69 ///really...
+				///you complained yet you let it stay...
 
 
 // ---------------------------------------------------------------

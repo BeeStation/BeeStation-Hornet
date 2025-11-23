@@ -4,14 +4,6 @@
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/lithium = 1)
 	reaction_tags = REACTION_TAG_DRUG
 
-/datum/chemical_reaction/crank
-	name = "Crank"
-	results = list(/datum/reagent/drug/crank = 5)
-	required_reagents = list(/datum/reagent/medicine/diphenhydramine = 1, /datum/reagent/ammonia = 1, /datum/reagent/lithium = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/fuel = 1)
-	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
-	required_temp = 390
-	reaction_tags = REACTION_TAG_DRUG
-
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
 	results = list(/datum/reagent/drug/krokodil = 6)
@@ -59,4 +51,24 @@
 	results = list(/datum/reagent/drug/nooartrium = 1)
 	required_reagents = list(/datum/reagent/medicine/atropine = 1, /datum/reagent/medicine/morphine = 1, /datum/reagent/teslium = 1, /datum/reagent/medicine/tricordrazine =1)
 	required_temp = 470
+	reaction_tags = REACTION_TAG_DRUG
+
+/datum/chemical_reaction/kronkaine
+	name = "Kronkaine"
+	results = list(/datum/reagent/drug/kronkaine = 10)
+	required_reagents = list(/datum/reagent/kronkus_extract = 5, /datum/reagent/fuel = 5, /datum/reagent/ammonia = 3)
+	mob_react = FALSE
+	reaction_tags = REACTION_TAG_DRUG
+
+/datum/chemical_reaction/blastoff
+	name = "BlastoFF"
+	results = list(/datum/reagent/drug/blastoff = 10)
+	required_reagents = list(/datum/reagent/silver = 5, /datum/reagent/toxin/cyanide = 10, /datum/reagent/lye = 5)
+	required_temp = 420
+	reaction_tags = REACTION_TAG_DRUG
+
+/datum/chemical_reaction/saturnx
+	name = "Saturn-X"
+	results = list(/datum/reagent/drug/saturnx = 15)
+	required_reagents = list(/datum/reagent/drug/space_drugs = 5, /datum/reagent/toxin/mindbreaker = 5, /datum/reagent/ammonia = 5)
 	reaction_tags = REACTION_TAG_DRUG

@@ -78,14 +78,14 @@
 /obj/item/reagent_containers/pill/tox
 	name = "toxins pill"
 	desc = "Highly toxic."
-	icon_state = "pill_shape_capsule_red_whitelined"
+	icon_state = "pill_shape_capsule_orange_whitelined"
 	list_reagents = list(/datum/reagent/toxin = 50)
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/cyanide
 	name = "cyanide pill"
 	desc = "Don't swallow this."
-	icon_state = "pill_shape_capsule_red_whitelined"
+	icon_state = "pill_shape_capsule_orange_whitelined"
 	list_reagents = list(/datum/reagent/toxin/cyanide = 50)
 
 /obj/item/reagent_containers/pill/adminordrazine
@@ -124,7 +124,7 @@
 /obj/item/reagent_containers/pill/epinephrine
 	name = "epinephrine pill"
 	desc = "Used to stabilize patients."
-	icon_state = "pill_shape_capsule_red_whitelined"
+	icon_state = "pill_shape_capsule_orange_whitelined"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 15)
 	rename_with_volume = TRUE
 
@@ -184,21 +184,21 @@
 	name = "psicodine pill"
 	desc = "Used to treat mental instability and phobias."
 	list_reagents = list(/datum/reagent/medicine/psicodine = 10)
-	icon_state = "pill_shape_capsule_lightgreen_white"
+	icon_state = "pill_shape_capsule_cyan_white"
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/penacid
 	name = "pentetic acid pill"
 	desc = "Used to expunge radiation and toxins."
 	list_reagents = list(/datum/reagent/medicine/pen_acid = 10)
-	icon_state = "pill_shape_capsule_lightgreen_white"
+	icon_state = "pill_shape_capsule_cyan_white"
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/neurine
 	name = "neurine pill"
 	desc = "Used to treat non-severe mental traumas."
 	list_reagents = list(/datum/reagent/medicine/neurine = 10)
-	icon_state = "pill_shape_capsule_lightgreen_white"
+	icon_state = "pill_shape_capsule_cyan_white"
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/mutarad

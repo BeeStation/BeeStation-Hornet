@@ -180,6 +180,7 @@
 		)
 	else
 		CRASH("Emote [type] has no valid emote type set!")
+	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key))
 
 	if(!isnull(user.client))
 		var/dchatmsg = "<b>[user]</b> [msg]"
