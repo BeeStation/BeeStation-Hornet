@@ -3566,7 +3566,8 @@
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,
 					/obj/item/book/random,
-					/obj/item/book/random)
+					/obj/item/book/random,
+					/obj/item/book/manuscript)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/paper
