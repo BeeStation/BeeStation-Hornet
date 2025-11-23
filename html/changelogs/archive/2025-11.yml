@@ -280,3 +280,5 @@
   Programs-The-Station:
   - rscadd: Added a No-Operation Wiremod Component which... does nothing except help
       organize.
+  mrmanlikesbt, Pickle-Coding:
+  - rscdel: Volume pumps can no longer be overclocked on closed turfs
