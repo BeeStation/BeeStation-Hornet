@@ -42,7 +42,7 @@
 	mult += rand(-4, 6)/10
 
 	reward = round(reward*mult, 1) + rand(100, 2000)
-	name = "Manuscript of [bounty_job.title]"
+	name = "Manuscript of the [bounty_job.title]"
 	description = "Central Command seeks the professional knowledge of the [bounty_job.title] in the form of a manuscript written by someone with relevant expertise. Find someone to write the manuscript, and ship it to Central Command."
 
 /datum/bounty/manuscript/completion_string()
