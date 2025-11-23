@@ -314,7 +314,7 @@
 
 	var/mob/living/carbon/carbon = source
 
-	if(carbon.dna?.species && (item_slot in carbon.dna.species.no_equip))
+	if(carbon.dna?.species && (carbon.dna.species.no_equip_flags & item_slot))
 		return TRUE
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
