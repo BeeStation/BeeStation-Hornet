@@ -82,6 +82,10 @@ const VampireGuide = (_props) => {
   const { clan } = data;
 
   const [tab, setTab] = useLocalState('guideTab', 1);
+
+  // small vertical padding for each tab; tweak values as desired
+  const guideTabStyle = { paddingTop: '10px', paddingBottom: '10px' } as const;
+
   return (
     <Section title="Guide">
       <Stack>
@@ -91,6 +95,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 1}
               onClick={() => setTab(1)}
+              style={guideTabStyle}
             >
               The Basics
             </Tabs.Tab>
@@ -98,6 +103,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 2}
               onClick={() => setTab(2)}
+              style={guideTabStyle}
             >
               The Masquerade
             </Tabs.Tab>
@@ -105,13 +111,23 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 3}
               onClick={() => setTab(3)}
+              style={guideTabStyle}
             >
               Humanity
             </Tabs.Tab>
             <Tabs.Tab
               icon="list"
+              selected={tab === 4}
+              onClick={() => setTab(4)}
+              style={guideTabStyle}
+            >
+              Princes & Society
+            </Tabs.Tab>
+            <Tabs.Tab
+              icon="list"
               selected={tab === 5}
               onClick={() => setTab(5)}
+              style={guideTabStyle}
             >
               Sol & Levelling
             </Tabs.Tab>
@@ -119,6 +135,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 6}
               onClick={() => setTab(6)}
+              style={guideTabStyle}
             >
               Vitae
             </Tabs.Tab>
@@ -126,6 +143,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 7}
               onClick={() => setTab(7)}
+              style={guideTabStyle}
             >
               Combat
             </Tabs.Tab>
@@ -133,6 +151,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 8}
               onClick={() => setTab(8)}
+              style={guideTabStyle}
             >
               Your Lair
             </Tabs.Tab>
@@ -140,6 +159,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 9}
               onClick={() => setTab(9)}
+              style={guideTabStyle}
             >
               Structures
             </Tabs.Tab>
@@ -147,6 +167,7 @@ const VampireGuide = (_props) => {
               icon="list"
               selected={tab === 10}
               onClick={() => setTab(10)}
+              style={guideTabStyle}
             >
               Vassals
             </Tabs.Tab>
@@ -357,10 +378,78 @@ const VampireGuide = (_props) => {
             </Box>
           )}
           {tab === 4 && (
-            // Society. Not implemented.
+            // Society.
             <Box>
-              <Box fontSize="20px" textColor="red" bold>
-                Kindred society.
+              <Box fontSize="20px" textColor="purple" bold>
+                The Camarilla
+              </Box>
+              <br />
+              The{' '}
+              <Box inline textColor="purple">
+                Camarilla
+              </Box>{' '}
+              is a decentralized form of government, the most organised of the
+              vampiric sects, an elite club that favours tradition and control
+              of the mortal populace from behind the scenes. Most vampire clans
+              these days are part of them.{' '}
+              <Box inline textColor="orange">
+                Notably, the Brujah insist on remaining independent.
+              </Box>{' '}
+              <br />
+              <br />
+              Every city or station, every colony or outpost. If it has a
+              kindred presence, the camarilla knows. And there will be a{' '}
+              <Box inline textColor="red">
+                Prince
+              </Box>{' '}
+              to oversee it.
+              <br />
+              <br />
+              The{' '}
+              <Box inline textColor="purple">
+                Camarilla
+              </Box>{' '}
+              are the chief enforcers of the{' '}
+              <Box inline textColor="gold">
+                Masquerade
+              </Box>{' '}
+              .
+              <br />
+              <br />
+              <Box fontSize="20px" textColor="darkred" bold>
+                Princes & Scourges
+              </Box>
+              A{' '}
+              <Box inline textColor="red">
+                Prince
+              </Box>{' '}
+              is an elder vampire entrusted by the camarilla and recognized by
+              the other princes. They rule their territories with iron fists,
+              keeping track of every kindred present.
+              <br />
+              <br />
+              They of course do not do so alone. Many a prince may employ the
+              services of a{' '}
+              <Box inline textColor="red">
+                Scourge
+              </Box>{' '}
+              , a sort of enforcer, loyal to them and only them.
+              <br />
+              <br />
+              <Box fontSize="15px" textColor="blue">
+                * Important:
+              </Box>
+              <Box fontSize="15px" textColor="blue">
+                Princes have higher expectations placed upon them than normal
+                vampires. Please be aware that they are supposed to be the
+                &apos;Responsible&apos; ones in most situations.
+                <br />
+                <br />
+                <b>
+                  You must protect the masquerade viciously. Do not hesitate to
+                  deliver final death to other kindred should they test their
+                  limits.
+                </b>
               </Box>
             </Box>
           )}
