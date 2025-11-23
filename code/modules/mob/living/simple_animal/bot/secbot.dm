@@ -104,6 +104,14 @@
 	text_dehack = "You reboot [name] and restore the target identification."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
+/*
+/mob/living/simple_animal/bot/secbot/handle_atom_del(atom/deleting_atom)
+	if(deleting_atom == weapon)
+		weapon = null
+		update_appearance()
+	return ..()
+*/
+
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
 	if(!locked || issilicon(user) || IsAdminGhost(user))

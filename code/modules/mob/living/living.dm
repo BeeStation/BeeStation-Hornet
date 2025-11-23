@@ -522,6 +522,14 @@
 
 /mob/proc/get_contents()
 
+/**
+ * Returns the access list for this mob
+ */
+/mob/living/proc/get_access()
+	var/obj/item/card/id/id = get_idcard()
+	if(isnull(id))
+		return list()
+	return id.GetAccess()
 
 /mob/living/proc/toggle_resting()
 	set name = "Rest"
