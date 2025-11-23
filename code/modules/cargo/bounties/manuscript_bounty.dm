@@ -43,7 +43,7 @@
 
 	reward = round(reward*mult, 1) + rand(100, 2000)
 	name = "Manuscript of [bounty_job.title]"
-	description = "Central Command seeks for a professional knowledge of [bounty_job.title] as a form of a manuscript written by someone who has the excellent expertise in their job. Find someone to write a manuscript, and ship the paper to the command."
+	description = "Central Command seeks the professional knowledge of the [bounty_job.title] in the form of a manuscript written by someone with relevant expertise. Find someone to write the manuscript, and ship it to Central Command."
 
 /datum/bounty/manuscript/completion_string()
 	return shipped ? "Shipped" : "Not Shipped"
