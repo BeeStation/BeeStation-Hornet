@@ -1,4 +1,4 @@
-#define BOOKWRITING_COOLTIEM 15 MINUTES
+#define BOOKWRITING_COOLDOWN_TIME 15 MINUTES
 
 /obj/item/book/manuscript
 	name = "empty manuscript"
@@ -10,7 +10,7 @@
 	var/datum/job/booked_job /// a job datum that this manuscript has
 
 	var/static/list/valid_jobs /// which jobs a manuscript can accept (used for antag filter)
-	var/static/list/writing_cooltime = list() /// a snowflake that prevents an antag from making a lot of books
+	var/static/list/writing_cooldown_list = list() /// a snowflake that prevents an antag from making a lot of books
 
 	attackby_skip = TRUE
 
@@ -43,8 +43,8 @@
 	var/datum/mind/mind = user.mind
 	if(!mind)
 		return ..()
-	if(writing_cooltime[FAST_REF(mind)] && (writing_cooltime[FAST_REF(mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
-		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
+	if(writing_cooldown_list[FAST_REF(mind)] && (writing_cooldown_list[FAST_REF(mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
+		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooldown_list[FAST_REF(mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
 		return ..()
 
 	var/is_antag = length(mind.antag_datums)
@@ -79,8 +79,8 @@
 		writing = FALSE
 		return
 
-	if(writing_cooltime[FAST_REF(user.mind)] && (writing_cooltime[FAST_REF(user.mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
-		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(user.mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
+	if(writing_cooldown_list[FAST_REF(user.mind)] && (writing_cooldown_list[FAST_REF(user.mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
+		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooldown_list[FAST_REF(user.mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
 		writing = FALSE
 		return
 
@@ -95,7 +95,7 @@
 	add_overlay(image(icon='icons/mob/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
 
 	// Preventing antag book mass production
-	writing_cooltime[FAST_REF(user.mind)] = REALTIMEOFDAY + BOOKWRITING_COOLTIEM
+	writing_cooldown_list[FAST_REF(user.mind)] = REALTIMEOFDAY + BOOKWRITING_COOLDOWN_TIME
 	return
 
-#undef BOOKWRITING_COOLTIEM
+#undef BOOKWRITING_COOLDOWN_TIME
