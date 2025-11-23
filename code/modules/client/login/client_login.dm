@@ -118,8 +118,8 @@
 	if(authenticated)
 		GLOB.clients += src
 
-	if(first_run && byond_version >= 516)
-		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
+	if(first_run)
+		winset(src, null, list("browser-options" = "find,refresh"))
 
 	// Instantiate tgui panel
 	if(first_run)

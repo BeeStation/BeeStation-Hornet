@@ -32,3 +32,7 @@
 /datum/config_entry/flag/cache_assets
 
 /datum/config_entry/flag/smart_cache_assets
+
+/datum/config_entry/string/storage_cdn_iframe
+	protection = CONFIG_ENTRY_LOCKED
+	config_entry_value = "https://tgstation.github.io/byond-client-storage/iframe.html"
