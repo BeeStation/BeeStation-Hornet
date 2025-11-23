@@ -21,21 +21,6 @@
 	power.Remove(owner.current)
 
 /**
- * This is admin-only way of reverting a broken masquerade, sadly it doesn't remove the objectives yet.
-**/
-/datum/antagonist/vampire/proc/fix_masquerade(mob/admin)
-	if(!broke_masquerade)
-		return
-	broke_masquerade = FALSE
-
-	owner.current.playsound_local(null, 'sound/vampires/lunge_warn.ogg', 100, FALSE, pressure_affected = FALSE)
-	to_chat(owner.current, span_userdanger("You have re-entered the Masquerade."))
-
-	set_antag_hud(owner.current, "vampire")
-
-	GLOB.masquerade_breakers.Remove(src)
-
-/**
  * When a Vampire breaks the Masquerade, they get their HUD icon changed, and Malkavian Vampires get alerted.
 **/
 /datum/antagonist/vampire/proc/break_masquerade(mob/admin)

@@ -40,13 +40,19 @@
 	owner.log_message("used [src][vitaecost != 0 ? " at the cost of [vitaecost]" : ""].", LOG_ATTACK, color="red")
 	update_buttons()
 
-/datum/action/vampire/targeted/deactivate_power()
+/datum/action/vampire/targeted/deactivate_power(successful = FALSE)
 	if(power_flags & BP_AM_TOGGLE)
 		UnregisterSignal(owner, COMSIG_LIVING_LIFE)
+
+	if((power_flags & BP_AM_SINGLEUSE) && successful)
+		remove_after_use()
+		return
 
 	currently_active = FALSE
 	update_buttons()
 	unset_click_ability(owner)
+
+
 
 /// Check if target is VALID (wall, turf, or character?)
 /datum/action/vampire/targeted/proc/check_valid_target(atom/target_atom)
@@ -97,4 +103,4 @@
 /datum/action/vampire/targeted/proc/power_activated_sucessfully()
 	pay_cost()
 	start_cooldown()
-	deactivate_power()
+	deactivate_power(TRUE)

@@ -12,18 +12,20 @@ GLOBAL_LIST_EMPTY(all_vampires)
 **/
 /datum/antagonist/vampire/proc/check_start_society()
 	if(length(GLOB.all_vampires) >= 2)
-		SSsociety.can_fire = TRUE
+		SSvsociety.can_fire = TRUE
 /**
  * Pauses society, called when someone is unassigned Vampire
 **/
 /datum/antagonist/vampire/proc/check_cancel_society()
 	if(length(GLOB.all_vampires) < 2)
-		SSsociety.can_fire = FALSE
+		SSvsociety.can_fire = FALSE
 
 /**
  * Turns the player into a prince.
 **/
 /datum/antagonist/vampire/proc/princify()
+	SSvsociety.princedatum = WEAKREF(src)
+
 	rank_up(8, TRUE) // Rank up a lot.
 	to_chat(owner.current, span_cultbold("As a true prince, you find some of your old power returning to you!"))
 	set_antag_hud(owner.current, "prince")
@@ -39,7 +41,7 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	objectives += prince_objective
 	owner.announce_objectives()
 
-	tgui_alert(owner, "You have been chosen for Princedom. Please note that this entails a certain responsibility. Your job, now, is to keep order, and to enforce the masquerade.", "Welcome, my Prince.", list("I understand"), 30 SECONDS, TRUE)
+	tgui_alert(owner.current, "Congratulations, you have been chosen for Princedom.<br>Please note that this entails a certain responsibility. Your job, now, is to keep order, and to enforce the masquerade.", "Welcome, my Prince.", list("I understand"), 30 SECONDS, TRUE)
 
 /**
  * Turns the player into a scourge.

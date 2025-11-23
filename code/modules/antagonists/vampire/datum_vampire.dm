@@ -244,23 +244,22 @@
 
 /datum/antagonist/vampire/get_admin_commands()
 	. = ..()
-	.["Level +"] = CALLBACK(src, PROC_REF(rank_up), 1)
-	if(vampire_level_unspent > 0)
-		.["Level -"] = CALLBACK(src, PROC_REF(rank_down))
+	.["Level Add"] = CALLBACK(src, PROC_REF(rank_up), 1)
 
-	if(broke_masquerade)
-		.["Fix Masq"] = CALLBACK(src, PROC_REF(fix_masquerade))
-	else
+	if(vampire_level_unspent > 0)
+		.["Level Deduct"] = CALLBACK(src, PROC_REF(rank_down))
+
+	if(!broke_masquerade)
 		.["Break Masq"] = CALLBACK(src, PROC_REF(break_masquerade))
 
 	if(!broke_masquerade)
-		.["Masq Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
+		.["Add Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
 
 	if(humanity > 0)
-		.["Humanity -"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
+		.["Humanity Deduct"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
 
 	if(humanity < 10)
-		.["Humanity +"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
+		.["Humanity Add"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()

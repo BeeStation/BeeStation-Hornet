@@ -7,10 +7,9 @@
  * Args:
  * person_selecting - Mob override for stuff like Admins selecting someone's clan.
  */
-/datum/antagonist/vampire/proc/assign_clan_and_bane(mob/person_selecting)
+/datum/antagonist/vampire/proc/assign_clan_and_bane()
 	if(my_clan || owner.current.has_status_effect(/datum/status_effect/frenzy))
 		return
-	person_selecting ||= owner.current
 
 	var/list/options = list()
 	var/list/radial_display = list()
@@ -28,9 +27,9 @@
 	var/chosen_clan
 	if(istype(owner.current.loc, /obj/structure/closet))
 		var/obj/structure/closet/container = owner.current.loc
-		chosen_clan = show_radial_menu(person_selecting, container, radial_display, radius = 45)
+		chosen_clan = show_radial_menu(owner.current, container, radial_display, radius = 45)
 	else
-		chosen_clan = show_radial_menu(person_selecting, owner.current, radial_display, radius = 45)
+		chosen_clan = show_radial_menu(owner.current, owner.current, radial_display, radius = 45)
 
 	chosen_clan = options[chosen_clan]
 

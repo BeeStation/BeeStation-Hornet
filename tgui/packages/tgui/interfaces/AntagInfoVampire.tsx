@@ -38,7 +38,7 @@ type Info = {
 export const AntagInfoVampire = (_props) => {
   const [tab, setTab] = useLocalState('tab', 1);
   return (
-    <Window width={620} height={800} theme="spooky">
+    <Window width={700} height={700} theme="spooky">
       <Window.Content>
         <Tabs>
           <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
@@ -67,7 +67,7 @@ const VampireIntroduction = (_props) => {
       <Stack.Item>
         <AntagInfoHeader name={'Vampire'} asset="vampire.png" />
       </Stack.Item>
-      <Stack.Item grow maxHeight="200px">
+      <Stack.Item grow maxHeight="220px">
         <ObjectivesSection objectives={objectives} />
       </Stack.Item>
       <Stack.Item grow>
@@ -380,6 +380,45 @@ const VampireGuide = (_props) => {
           {tab === 4 && (
             // Society.
             <Box>
+              <Box fontSize="20px" textColor="darkred" bold>
+                Princes & Scourges
+              </Box>
+              <br />A{' '}
+              <Box inline textColor="red">
+                Prince
+              </Box>{' '}
+              is an elder vampire entrusted by the camarilla and recognized by
+              the other princes. They rule their territories with iron fists,
+              keeping track of every kindred present.
+              <br />
+              <br />
+              They of course do not do so alone. Many a prince may employ the
+              services of a{' '}
+              <Box inline textColor="red">
+                Scourge
+              </Box>
+              , a sort of enforcer. Loyal to them and only them. Many scourges
+              are chosen from clans such as the Tremere, but some rare princes
+              were known to employ even Brujah scourges.
+              <br />
+              <br />
+              <Box fontSize="15px" textColor="blue">
+                * Important:
+              </Box>
+              <Box fontSize="15px" textColor="blue">
+                Princes have higher expectations placed upon them than normal
+                vampires. Please be aware that they are supposed to be the
+                &apos;Responsible&apos; ones in most situations.
+                <br />
+                <br />
+                <b>
+                  You must protect the masquerade viciously. Do not hesitate to
+                  deliver final death to other kindred should they test their
+                  limits.
+                </b>
+              </Box>
+              <br />
+              <br />
               <Box fontSize="20px" textColor="purple" bold>
                 The Camarilla
               </Box>
@@ -414,45 +453,6 @@ const VampireGuide = (_props) => {
                 Masquerade
               </Box>{' '}
               .
-              <br />
-              <br />
-              <Box fontSize="20px" textColor="darkred" bold>
-                Princes & Scourges
-              </Box>
-              <br />A{' '}
-              <Box inline textColor="red">
-                Prince
-              </Box>{' '}
-              is an elder vampire entrusted by the camarilla and recognized by
-              the other princes. They rule their territories with iron fists,
-              keeping track of every kindred present.
-              <br />
-              <br />
-              They of course do not do so alone. Many a prince may employ the
-              services of a{' '}
-              <Box inline textColor="red">
-                Scourge
-              </Box>
-              , a sort of enforcer. Loyal to them and only them. Many scourges
-              are chosen from clans such as the Tremere, but some rare princes
-              were known to employ Brujah scourges.
-              <br />
-              <br />
-              <Box fontSize="15px" textColor="blue">
-                * Important:
-              </Box>
-              <Box fontSize="15px" textColor="blue">
-                Princes have higher expectations placed upon them than normal
-                vampires. Please be aware that they are supposed to be the
-                &apos;Responsible&apos; ones in most situations.
-                <br />
-                <br />
-                <b>
-                  You must protect the masquerade viciously. Do not hesitate to
-                  deliver final death to other kindred should they test their
-                  limits.
-                </b>
-              </Box>
             </Box>
           )}
           {tab === 5 && (

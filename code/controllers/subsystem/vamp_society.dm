@@ -1,4 +1,4 @@
-SUBSYSTEM_DEF(society)
+SUBSYSTEM_DEF(vsociety)
 	name = "Vampire Society"
 	wait = 10 MINUTES * 2	// For some reason this actually fires at HALF this time.
 	flags = SS_NO_INIT | SS_BACKGROUND | SS_TICKER
@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(society)
 	// Ref to the prince datum
 	var/datum/weakref/princedatum
 
-/datum/controller/subsystem/society/fire(resumed = FALSE)
+/datum/controller/subsystem/vsociety/fire(resumed = FALSE)
 	var/time_elapsed = world.time - SSticker.round_start_time
 
 	// Give them some breathing room
@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(society)
 			to_chat(vampire.owner.current, span_announce("* Vampire Tip: A vote for Prince will occur soon. If you are interested in leading your fellow kindred, read up on princes in your info panel now!"))
 		addtimer(CALLBACK(src, PROC_REF(poll_for_prince)), 2 MINUTES)
 
-/datum/controller/subsystem/society/proc/poll_for_prince()
+/datum/controller/subsystem/vsociety/proc/poll_for_prince()
 	//Build a list of mobs in GLOB.all_vampires
 	var/list/vampire_living_candidates = list()
 
@@ -75,4 +75,3 @@ SUBSYSTEM_DEF(society)
 
 	if(chosen_datum)
 		chosen_datum.princify()
-		princedatum = WEAKREF(chosen_datum)
