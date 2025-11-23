@@ -44,7 +44,7 @@
 	if(!mind)
 		return ..()
 	if(writing_cooltime[FAST_REF(mind)] && (writing_cooltime[FAST_REF(mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
-		to_chat(user, span_notice("You feel tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
+		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
 		return ..()
 
 	var/is_antag = length(mind.antag_datums)
