@@ -80,7 +80,7 @@
 		return
 
 	if(writing_cooltime[FAST_REF(user.mind)] && (writing_cooltime[FAST_REF(user.mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
-		to_chat(user, span_notice("You feel tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(user.mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
+		to_chat(user, span_notice("You feel too tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(user.mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
 		writing = FALSE
 		return
 
