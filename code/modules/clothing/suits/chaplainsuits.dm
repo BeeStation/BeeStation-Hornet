@@ -63,12 +63,6 @@
 	item_state = null
 	body_parts_covered = ARMS|CHEST
 
-/obj/item/clothing/suit/chaplainsuit/armor/witchhunter
-	name = "witchunter garb"
-	desc = "This worn outfit saw much use back in the day."
-	icon_state = "witchhunter"
-	item_state = null
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
 /obj/item/clothing/suit/hooded/chaplainsuit/monkfrock
 	name = "monk's frock"
@@ -233,14 +227,6 @@
 	desc = "Defend the treasure..."
 	icon_state = "knight_ancient"
 	item_state = null
-
-/obj/item/clothing/head/helmet/chaplain/witchunter_hat
-	name = "witchunter hat"
-	desc = "This hat saw much use back in the day."
-	icon_state = "witchhunterhat"
-	item_state = null
-	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEEYES
 
 /obj/item/clothing/head/helmet/chaplain/adept
 	name = "adept hood"

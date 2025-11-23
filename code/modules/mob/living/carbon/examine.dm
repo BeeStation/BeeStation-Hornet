@@ -213,6 +213,9 @@
 				ADD_NEWLINE_IF_NECESSARY(.)
 				. += span_deadsay(npc_message)
 
+	if(HAS_TRAIT(src, TRAIT_FEED_MARKED))
+		. += span_warning("There are two strange punctures on [t_his] neck.")
+
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += span_warning("This body has been reduced to a grotesque husk.")
 
