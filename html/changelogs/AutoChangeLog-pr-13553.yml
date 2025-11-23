@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - code_imp: Species use bitfields for slots they can't equip to instead of lists
-      now

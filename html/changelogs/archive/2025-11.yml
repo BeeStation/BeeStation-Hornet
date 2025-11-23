@@ -280,5 +280,8 @@
   Programs-The-Station:
   - rscadd: Added a No-Operation Wiremod Component which... does nothing except help
       organize.
+  mrmanlikesbt:
+  - code_imp: Species use bitfields for slots they can't equip to instead of lists
+      now
   mrmanlikesbt, Pickle-Coding:
   - rscdel: Volume pumps can no longer be overclocked on closed turfs
