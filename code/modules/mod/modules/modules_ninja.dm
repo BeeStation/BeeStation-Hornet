@@ -104,9 +104,9 @@
 	dispense_type = /obj/item/throwing_star/stamina/ninja
 	cooldown_time = 0.5 SECONDS
 
-/obj/item/throwing_star/ninja
+/obj/item/throwing_star/stamina/ninja
 	name = "ninja throwing star"
-	throwforce = 18
+	throwforce = 10
 
 ///Hacker - This module hooks onto your right-clicks with empty hands and causes ninja actions.
 /obj/item/mod/module/hacker
