@@ -4385,6 +4385,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aBH" = (
@@ -8510,10 +8511,9 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "aWm" = (
-/obj/structure/disposalpipe/segment,
-/obj/item/storage/box/drinkingglasses,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/bar)
+/obj/structure/bed/dogbed/renault,
+/turf/open/floor/carpet,
+/area/crew_quarters/heads/captain)
 "aWs" = (
 /obj/machinery/computer/cargo/request{
 	dir = 4
@@ -8957,6 +8957,9 @@
 	pixel_y = 26;
 	req_access_txt = "28"
 	},
+/obj/structure/musician/piano,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "aZg" = (
@@ -19457,6 +19460,9 @@
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "cqs" = (
@@ -33578,6 +33584,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"ioG" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/mob/living/simple_animal/pet/fox/Renault,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/captain)
 "ioI" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -34534,7 +34548,7 @@
 	desc = "A Cute bear rescued from Soviet Forces after the Completely mysterious destruction of their first orbital space station";
 	obj_damage = 70;
 	melee_damage = 20;
-	faction = list("spiders")
+	faction = list("neutral","monkey")
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -34778,6 +34792,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/item/storage/box/drinkingglasses,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
 "iUo" = (
@@ -48595,6 +48610,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /mob/living/carbon/monkey/punpun,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -54209,6 +54228,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/virology)
 "ryI" = (
@@ -97088,7 +97108,7 @@ fqw
 oII
 aEz
 aFx
-aza
+aWm
 awR
 ixy
 bjR
@@ -97343,7 +97363,7 @@ aAx
 aBo
 nLe
 dAL
-aAt
+ioG
 aAt
 fmp
 awR
@@ -100704,7 +100724,7 @@ tDv
 har
 vpW
 iUj
-oWf
+aXb
 anI
 bbr
 qQR
@@ -100961,7 +100981,7 @@ aVg
 kCg
 rfF
 cOz
-uwo
+oWf
 rdI
 bbo
 kOO
@@ -102243,7 +102263,7 @@ aKY
 jCx
 aPE
 aVj
-aWm
+bck
 uIQ
 cQw
 cpk
