@@ -137,7 +137,7 @@
 	name = "12g breaching round"
 	desc = "A breaching round designed to destroy minor objects and windows with only a few shots, but is ineffective against other targets."
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
-	damage = 10 //does shit damage to everything except doors and windows
+	damage = 10 //does shit damage to everything except doors, windows, structures and mechs
 	bleed_force = BLEED_SURFACE
 
 /obj/projectile/bullet/shotgun_breaching/on_hit(atom/target)
@@ -145,4 +145,28 @@
 		damage = 500
 	if (isturf(target))
 		damage = 150 // 3 shots for normal walls 8 for rwalls
+	if (ismecha(target))
+		var/obj/vehicle/sealed/mecha/targetmech = target
+		if (istype(targetmech, /obj/vehicle/sealed/mecha/combat))
+			damage = 100 // High HP, High Armor, High Damage being dealt
+		else if (istype(targetmech, /obj/vehicle/sealed/mecha/working))
+			damage = 60 // Mid HP, Low Armor, Mid Damage being dealt
+		else if (istype(targetmech, /obj/vehicle/sealed/mecha/medical/odysseus))
+			damage = 30 // Low HP, Low Armor, Low Damage being dealt
+		targetmech.visible_message(span_danger("The breaching round leaves a visible hole in the armor, leaving sparks from where it hit!"))
+		var/internaldamagetype = rand(1, 100) // Apart from the damage, we choose an additional effect to deal upon the mech.
+		switch(internaldamagetype)
+			if(1 to 15)
+				targetmech.set_internal_damage(MECHA_INT_TANK_BREACH)
+			if(16 to 30)
+				targetmech.set_internal_damage(MECHA_INT_SHORT_CIRCUIT)
+			if(31 to 45)
+				targetmech.set_internal_damage(MECHA_INT_FIRE)
+			if(46 to 60)
+				targetmech.set_internal_damage(MECHA_INT_CONTROL_LOST)
+			if(61 to 75)
+				targetmech.set_internal_damage(MECHA_INT_TEMP_CONTROL)
+			else
+				return // 25% to not apply any internal damage
+
 	..()
