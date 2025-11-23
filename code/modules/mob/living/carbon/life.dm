@@ -46,6 +46,10 @@
 			update_stamina() //needs to go before updatehealth to remove stamcrit
 			updatehealth()
 
+	if(. && mind) //. == not dead
+		for(var/key in mind.addiction_points)
+			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
+			addiction.process_addiction(src, delta_time, times_fired)
 	if(stat != DEAD)
 		return TRUE
 
@@ -140,6 +144,8 @@
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		failed_last_breath = FALSE
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 		return
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return

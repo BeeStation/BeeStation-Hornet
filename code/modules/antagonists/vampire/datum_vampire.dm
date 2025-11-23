@@ -400,7 +400,7 @@
 	user.add_traits(vampire_traits, TRAIT_VAMPIRE)
 
 	// Clear Addictions
-	user.reagents.addiction_list = new/list()
+	user.fully_heal(HEAL_TRAUMAS)
 	owner.remove_quirk(/datum/quirk/junkie)
 	owner.remove_quirk(/datum/quirk/junkie/smoker)
 
