@@ -369,3 +369,59 @@
   - balance: Tribal Claw face scratch confused increased 5 -> 8
   - bugfix: Tribal Claw tail sweep AoE radius reduced 2 -> 1
   - bugfix: Fixed being able to do tail sweep and tail grab on yourself
+2025-10-27:
+  TsunamiAnt:
+  - tweak: Vendors now never crush you on the first hit.
+  - tweak: redid radstation's AI sat.
+2025-10-28:
+  PowerfulBacon:
+  - rscadd: Adds null crates, an old favourite emagged cargo entry which allows the
+      conversion of money into random syndicate gear.
+  - balance: Privately purchased crates can be opened without access requirements.
+  - balance: Spears can break open locked crates.
+  - tweak: Grenades no longer disappear when exploding, and keep their vessel so that
+      slow reactions can take place.
+  - balance: Aiming now requires the target to stand still for 1 second
+  - balance: Aiming no longer points at the target when performed
+  - balance: Removes all but one voice command on aiming, as only one was necessary.
+  - balance: Adds in an auto-shoot button mode which, when enabled, will automatically
+      fire if the target moves. Of course, if you are too far or can move into cover
+      then this will miss.
+  - balance: Increases aimed bonus to 2x speed and damage.
+  - rscdel: Removes aiming from bananas and finger guns.
+  - balance: Point blank aiming now only requires a standard grab
+  - tweak: Aiming has more emotes for different actions.
+  - tweak: Exploration research disks can now be purchased from cargo.
+2025-10-30:
+  BarteG44:
+  - tweak: Culled some lights on Cardinal station
+  - tweak: Added more SMES to Cardinal station
+  - tweak: Reduced the power draw for small light bulbs
+  - bugfix: fixes rnd server cooling on Cardinal station
+  PowerfulBacon:
+  - bugfix: Fixes 'you lower your weapon' emote being called even after finishing
+      aiming.
+  - bugfix: Fixes the point blank hostage mode while not grabbing the target.
+  - balance: You can now aim at moving targets as long as you yourself are standing
+      still
+  - tweak: Job group size is now based off of average job fill numbers, rather than
+      the least populated department.
+  Programs-The-Station:
+  - rscadd: 'CIrcuits: Added Toggle Component and Set/Reset Component'
+  - tweak: Circuits Save/Load Via JSON now store the cell for ease of Admin shenanigans
+      and tutorials.
+  - tweak: Clock Component now has a Clock Divider input to slow down the tick rate.
+  - tweak: Attacking a circuit component with a bare integrated circuit adds it to
+      the circuit.
+  - rscadd: 'Preloaded clipboards: Hardcoded papers can now be added to a clipboard
+      and spawned as one entity.'
+  - rscadd: Circuit Templates via approved_circuits.json . Currently, Design Datums
+      still need to be added manually.
+  - rscadd: Simple In-game tutorial circuits and descriptions. Thanks, Professor!
+2025-10-31:
+  TsunamiAnt:
+  - rscadd: Added an AI access foyer to radstation
+  - rscadd: Added intercoms to radstation AI sat(oops)
+  - tweak: moved the AI sat access from the bridge to the foyer.
+  mrmanlikesbt:
+  - tweak: The map vote is now sent during the shuttle ride to centcom

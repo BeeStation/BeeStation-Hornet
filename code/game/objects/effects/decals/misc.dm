@@ -97,9 +97,3 @@
 
 /obj/effect/decal/fakestairs/newstairs/left
 	icon_state = "stairs-l"
-
-/obj/effect/decal/fakestairs/Initialize(mapload)
-	. = ..()
-	var/turf/open/floor/T = get_turf(src)
-	if(istype(T, /turf/open/floor))
-		T.slowdown = 2

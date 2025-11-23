@@ -183,7 +183,8 @@ GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
-	/obj/item/tank/internals)))
+	/obj/item/tank/internals,
+)))
 
 GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/ammo_box,
@@ -196,7 +197,8 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/melee/tonfa,
 	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
-	/obj/item/tank/internals)))
+	/obj/item/tank/internals,
+)))
 
 GLOBAL_LIST_INIT(detective_vest_allowed, (list(
 	/obj/item/ammo_box,

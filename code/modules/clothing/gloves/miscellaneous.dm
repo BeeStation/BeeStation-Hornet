@@ -82,7 +82,6 @@
 	energy = 20
 	bomb = 35
 	bio = 35
-	rad = 35
 	stamina = 20
 	bleed = 20
 
@@ -185,3 +184,13 @@
 		var/obj/item/clothing/gloves/artifact_pinchers/pinchy = master
 		if(istype(pinchy))
 			button.color = (pinchy.safety ? "#0f0" : "#fff")
+
+/obj/item/clothing/gloves/translocation_ring
+	name = "ring of translocation"
+	desc = "A ring that allows the wearer to swap places with another person they can see."
+	icon_state = "ring"
+	item_state = "ring"
+	actions_types = list(/datum/action/spell/pointed/swap_places)
+
+/obj/item/clothing/gloves/translocation_ring/item_action_slot_check(slot, mob/user)
+	return slot == ITEM_SLOT_GLOVES

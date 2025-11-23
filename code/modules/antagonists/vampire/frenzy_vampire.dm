@@ -14,8 +14,8 @@
 /datum/status_effect/frenzy
 	id = "Frenzy"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = -1
-	tick_interval = 10
+	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/frenzy
 
 	/// Boolean on whether they were an AdvancedToolUser, to give the trait back upon exiting.
@@ -43,7 +43,7 @@
 	var/mob/living/carbon/carbon_owner = owner
 	vampiredatum = IS_VAMPIRE(carbon_owner)
 
-	ASSERT(isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
+	ASSERT(!isnull(vampiredatum), "Frenzy status effect applied to a non-vampire!")
 
 	// Basic stuff
 	carbon_owner.add_movespeed_modifier(/datum/movespeed_modifier/frenzy_speed)

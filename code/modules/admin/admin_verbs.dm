@@ -111,6 +111,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/spawnhuman,
 	/client/proc/debug_spell_requirements,
+	/datum/admins/proc/station_traits_panel,
 	/datum/admins/proc/dynamic_panel,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
@@ -279,7 +280,6 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/Debug2,
 	/client/proc/reload_admins,
 	/client/proc/cmd_debug_make_powernets,
-	/client/proc/startSinglo,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,

@@ -16,7 +16,8 @@
 					/obj/item/electronics/firealarm = 10,
 					/obj/item/electronics/firelock = 10,
 					/obj/item/flashlight/oxycandle = 10,
-					/obj/item/storage/bag/construction = 3)
+					/obj/item/storage/bag/construction = 3,
+					/obj/item/stack/sticky_tape/duct = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3,
 				   /obj/item/storage/box/smart_metal_foam = 3,

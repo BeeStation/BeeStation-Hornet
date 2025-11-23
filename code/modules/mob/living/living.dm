@@ -208,7 +208,7 @@
 	if(len)
 		for(var/obj/item/I in held_items)
 			if(!length(holding))
-				holding += "[p_they(TRUE)] [p_are()] holding \a [I]"
+				holding += "[p_They()] [p_are()] holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
@@ -837,7 +837,7 @@
 	losebreath = 0
 	set_disgust(0)
 	cure_husk()
-	radiation = 0
+	qdel(GetComponent(/datum/component/irradiated))
 	ExtinguishMob()
 	fire_stacks = 0
 
@@ -1081,9 +1081,6 @@
 /mob/living/proc/resist_restraints()
 	return
 
-/mob/living/proc/get_visible_name()
-	return name
-
 /mob/living/proc/update_gravity(gravity)
 	// Handle movespeed stuff
 	var/speed_change = max(0, gravity - STANDARD_GRAVITY)
@@ -1277,31 +1274,25 @@
 	var/mob/living/new_mob
 
 	var/static/list/possible_results = list(
-		WABBAJACK_MONKEY,
-		WABBAJACK_ROBOT,
-		WABBAJACK_SLIME,
-		WABBAJACK_XENO,
-		WABBAJACK_HUMAN,
-		WABBAJACK_ANIMAL,
+		WABBAJACK_ROBOT = 5,
+		WABBAJACK_HUMAN = 5,
+		WABBAJACK_ANIMAL = 20,
 	)
 
 	// If we weren't passed one, pick a default one
-	what_to_randomize ||= pick(possible_results)
+	what_to_randomize ||= pick_weight(possible_results)
 
 	switch(what_to_randomize)
-		if(WABBAJACK_MONKEY)
-			new_mob = new /mob/living/carbon/monkey(loc)
-
 		if(WABBAJACK_ROBOT)
 			var/static/list/robot_options = list(
-				/mob/living/silicon/robot = 200,
-				/mob/living/simple_animal/drone/polymorphed = 200,
+				/mob/living/silicon/robot = 20,
+				/mob/living/simple_animal/drone/polymorphed = 10,
 				/mob/living/silicon/robot/model/syndicate = 1,
 				/mob/living/silicon/robot/model/syndicate/medical = 1,
 				/mob/living/silicon/robot/model/syndicate/saboteur = 1,
 			)
 
-			var/picked_robot = pick(robot_options)
+			var/picked_robot = pick_weight(robot_options)
 			new_mob = new picked_robot(loc)
 			if(issilicon(new_mob))
 				var/mob/living/silicon/robot/created_robot = new_mob
@@ -1313,24 +1304,6 @@
 				created_robot.mmi.transfer_identity(src) //Does not transfer key/client.
 				created_robot.clear_inherent_laws(announce = FALSE)
 				created_robot.clear_zeroth_law(announce = FALSE)
-
-		if(WABBAJACK_SLIME)
-			new_mob = new /mob/living/simple_animal/slime/random(loc)
-
-		if(WABBAJACK_XENO)
-			var/picked_xeno_type
-
-			if(ckey)
-				picked_xeno_type = pick(
-					/mob/living/carbon/alien/humanoid/hunter,
-					/mob/living/carbon/alien/humanoid/sentinel,
-				)
-			else
-				picked_xeno_type = pick(
-					/mob/living/carbon/alien/humanoid/hunter,
-					/mob/living/simple_animal/hostile/alien/sentinel,
-				)
-			new_mob = new picked_xeno_type(loc)
 
 		if(WABBAJACK_ANIMAL)
 			var/picked_animal = pick(
@@ -1346,6 +1319,7 @@
 				/mob/living/simple_animal/hostile/blob/blobbernaut/independent,
 				/mob/living/simple_animal/hostile/carp/ranged,
 				/mob/living/simple_animal/hostile/carp/ranged/chaos,
+				/mob/living/simple_animal/hostile/carp/megacarp,
 				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
 				/mob/living/simple_animal/hostile/asteroid/goliath/beast,
 				/mob/living/simple_animal/hostile/headcrab,
@@ -1367,14 +1341,29 @@
 				/mob/living/simple_animal/butterfly,
 				/mob/living/simple_animal/pet/cat/cak,
 				/mob/living/simple_animal/chick,
+				/mob/living/simple_animal/slime/random,
+				/mob/living/carbon/monkey,
+				/mob/living/carbon/alien/humanoid/hunter,
+				/mob/living/carbon/alien/humanoid/sentinel,
+				/mob/living/simple_animal/hostile/alien/maid,
+				/mob/living/basic/pet/dog/corgi/capybara, //Why the fuck are these a subtype of corgi
+				/mob/living/basic/mothroach,
+				/mob/living/simple_animal/hostile/retaliate/nymph,
+				/mob/living/simple_animal/parrot,
+				/mob/living/simple_animal/hostile/netherworld/migo,
+				/mob/living/simple_animal/hostile/netherworld/blankbody,
+				/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+				/mob/living/simple_animal/hostile/asteroid/elite/herald,
+				/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
+				/mob/living/simple_animal/hostile/heretic_summon/raw_prophet,
 				)
 			new_mob = new picked_animal(loc)
 
 		if(WABBAJACK_HUMAN)
 			var/mob/living/carbon/human/new_human = new(loc)
 
-			// 50% chance that we'll also randomice race
-			if(prob(50))
+			// 90% chance that we'll also randomice race
+			if(prob(90))
 				var/list/chooseable_races = list()
 				for(var/datum/species/species_type as anything in subtypesof(/datum/species))
 					if(initial(species_type.changesource_flags) & change_flags)
@@ -1435,21 +1424,6 @@
 	// Well, no mmind, guess we should try to move a key over
 	else if(key)
 		new_mob.key = key
-
-/mob/living/rad_act(amount)
-	. = ..()
-
-	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE) || HAS_TRAIT(src, TRAIT_NORADDAMAGE))
-		return
-
-	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
-
-	var/blocked = getarmor(null, RAD)
-
-	if(amount > RAD_BURN_THRESHOLD)
-		apply_damage((amount-RAD_BURN_THRESHOLD)/RAD_BURN_THRESHOLD, BURN, null, blocked)
-
-	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
 
 /mob/living/can_block_magic(casted_magic_flags)
 	. = ..()

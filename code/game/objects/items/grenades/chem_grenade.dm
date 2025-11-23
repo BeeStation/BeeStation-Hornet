@@ -39,11 +39,13 @@
 	display_timer = (stage == GRENADE_READY)	//show/hide the timer based on assembly state
 	. = ..()
 	if(user.can_see_reagents())
-		if(beakers.len)
+		if(length(beakers) || length(reagents.reagent_list))
 			. += span_notice("You scan the grenade and detect the following reagents:")
 			for(var/obj/item/reagent_containers/cup/G in beakers)
 				for(var/datum/reagent/R in G.reagents.reagent_list)
 					. += span_notice("[R.volume] units of [R.name] in the [G.name].")
+			for(var/datum/reagent/R in reagents.reagent_list)
+				. += span_notice("[R.volume] units of [R.name] in the [name].")
 			if(beakers.len == 1)
 				. += span_notice("You detect no second beaker in the grenade.")
 		else
@@ -62,6 +64,8 @@
 		wires.interact(user)
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+	if (stage == GRENADE_DETONATED)
+		return ..()
 	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -153,6 +157,10 @@
 		name = initial(name)
 		desc = initial(desc)
 		icon_state = "[initial(icon_state)]_locked"
+	else if (stage == GRENADE_DETONATED)
+		name = "expended [initial(name)]"
+		desc = "A detonated [initial(desc)]"
+		icon_state = "[initial(icon_state)]_ass"
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	var/obj/item/assembly/A = wires.get_attached(wires.get_wire(1))
@@ -172,6 +180,8 @@
 		log_bomber(user, "primed a", src, "containing:[reagent_string]", message_admins = !dud_flags)
 
 /obj/item/grenade/chem_grenade/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)
+	if(stage != GRENADE_READY)
+		return
 	var/turf/T = get_turf(src)
 	log_grenade(user, T) //Inbuilt admin procs already handle null users
 	if(user)
@@ -198,10 +208,14 @@
 	if(!.)
 		return
 
+	stage_change(GRENADE_DETONATED)
+	max_integrity = 1
+	atom_integrity = 1
+
 	for(var/obj/item/slime_extract/S in beakers)
 		if(S.Uses)
 			for(var/obj/item/reagent_containers/cup/G in beakers)
-				G.reagents.trans_to(S, G.reagents.total_volume)
+				G.reagents.trans_to(src, G.reagents.total_volume)
 
 			//If there is still a core (sometimes it's used up)
 			//and there are reagents left, behave normally,
@@ -215,27 +229,26 @@
 					S.forceMove(get_turf(src))
 					no_splash = TRUE
 
-	var/list/datum/reagents/reactants = list()
-	for(var/obj/item/reagent_containers/cup/G in beakers)
-		reactants += G.reagents
+	reagents.flags |= NO_REACT
+
+	for(var/obj/item/G in beakers)
+		if (G.reagents)
+			G.reagents.trans_to(src, G.reagents.total_volume)
 
 	var/turf/detonation_turf = get_turf(src)
+	reagents.flags &= ~NO_REACT
+	reagents.expose_temperature(max(reagents.chem_temp + ignition_temp, 0), 1)
 
-	if(!chem_splash(detonation_turf, affected_area, reactants, ignition_temp, threatscale, override_atom = src) && !no_splash)
-		playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
-		if(beakers.len)
-			for(var/obj/O in beakers)
-				O.forceMove(drop_location())
-			beakers = list()
-		stage_change(GRENADE_EMPTY)
-		active = FALSE
-		return
 //	logs from custom assemblies priming are handled by the wire component
 	log_game("A grenade detonated at [AREACOORD(detonation_turf)]")
 
 	update_mob()
 
-	qdel(src)
+/obj/item/grenade/chem_grenade/ex_act(severity, target)
+	if (stage == GRENADE_DETONATED)
+		qdel(src)
+		return
+	return ..()
 
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
@@ -290,6 +303,10 @@
 		update_icon()
 		return
 
+	max_integrity = 1
+	atom_integrity = 1
+	stage_change(GRENADE_DETONATED)
+
 	var/total_volume = 0
 	for(var/obj/item/reagent_containers/RC in beakers)
 		total_volume += RC.reagents.total_volume
@@ -297,17 +314,19 @@
 		qdel(src)
 		return
 	var/fraction = unit_spread/total_volume
-	var/datum/reagents/reactants = new(unit_spread)
-	reactants.my_atom = src
-	for(var/obj/item/reagent_containers/RC in beakers)
-		RC.reagents.trans_to(reactants, RC.reagents.total_volume*fraction, threatscale, 1, 1)
-	chem_splash(get_turf(src), affected_area, list(reactants), ignition_temp, threatscale)
+
+	reagents.flags |= NO_REACT
+
+	for(var/obj/item/G in beakers)
+		if (G.reagents)
+			G.reagents.trans_to(src, G.reagents.total_volume * fraction)
+
+	reagents.flags &= ~NO_REACT
+	reagents.expose_temperature(ignition_temp, 1)
 
 	var/turf/DT = get_turf(src)
 	addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 	log_game("A grenade detonated at [AREACOORD(DT)]")
-
-
 
 
 //////////////////////////////

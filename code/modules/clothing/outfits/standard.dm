@@ -6,7 +6,6 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
 	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
-		/obj/item/gun/magic/wand/resurrection/debug=1,
 		/obj/item/melee/energy/axe=1,
 		/obj/item/storage/part_replacer/bluespace/tier4=1,
 		/obj/item/debug/human_spawner=1,
@@ -24,12 +23,12 @@
 	ears = /obj/item/radio/headset/headset_cent/debug
 	box = /obj/item/storage/box/debugtools
 
-/datum/outfit/debug/pre_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/debug/pre_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	if(isplasmaman(H))
 		suit_store = /obj/item/tank/internals/plasmaman/belt/full/debug
 
-/datum/outfit/debug/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/debug/post_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	var/obj/item/clothing/shoes/magboots/boots = H.shoes
 	boots.toggle()
@@ -44,8 +43,6 @@
 	backpack_contents = list(
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
-		/obj/item/gun/magic/wand/resurrection/debug = 1,
-		/obj/item/gun/magic/wand/death/debug = 1,
 		/obj/item/debug/human_spawner = 1,
 		/obj/item/debug/omnitool = 1,
 		/obj/item/storage/box/stabilized = 1,
@@ -60,7 +57,7 @@
 	box = /obj/item/storage/box/debugtools
 	internals_slot = ITEM_SLOT_SUITSTORE
 
-/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
 	W.update_label()
@@ -116,8 +113,8 @@
 	l_pocket = /obj/item/grenade/chem_grenade/cleaner
 	backpack_contents = list(/obj/item/stack/tile/iron=6)
 
-/datum/outfit/tournament/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/tournament/janitor/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/reagent_containers/cup/bucket/bucket = H.get_item_for_held_index(1)
@@ -192,8 +189,8 @@
 	id = /obj/item/card/id
 	r_hand = /obj/item/fireaxe
 
-/datum/outfit/tunnel_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/tunnel_clown/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/card/id/W = H.wear_id
@@ -238,11 +235,11 @@
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/modular_computer/tablet/pda/preset/heads
 
-/datum/outfit/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/assassin/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	var/obj/item/clothing/under/U = H.w_uniform
 	U.attach_accessory(new /obj/item/clothing/accessory/waistcoat(H))
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	//Could use a type
@@ -290,8 +287,8 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/commander
 	uniform = /obj/item/clothing/under/plasmaman/commander
 
-/datum/outfit/centcom/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/centcom/commander/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	if(isplasmaman(H))
@@ -332,8 +329,8 @@
 	id = /obj/item/card/id/centcom
 	r_hand = /obj/item/megaphone/command
 
-/datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/card/id/W = H.wear_id
@@ -364,7 +361,7 @@
 	shoes = /obj/item/clothing/shoes/sandal/magic
 	ears = /obj/item/radio/headset
 	head = /obj/item/clothing/head/wizard
-	r_pocket = /obj/item/teleportation_scroll
+	belt = /obj/item/storage/belt/wands/random
 	r_hand = /obj/item/spellbook
 	l_hand = /obj/item/staff
 	back = /obj/item/storage/backpack
@@ -373,7 +370,7 @@
 	name = "Wizard Apprentice"
 	r_hand = null
 	l_hand = null
-	r_pocket = /obj/item/teleportation_scroll/apprentice
+	belt = /obj/item/storage/belt/wands //empty belt for receiving wands from the master wizard
 
 /datum/outfit/wizard/red
 	name = "Red Wizard"
@@ -403,8 +400,8 @@
 
 	id = /obj/item/card/id/silver
 
-/datum/outfit/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/soviet/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/card/id/silver/W = H.wear_id
@@ -427,8 +424,8 @@
 	r_hand = /obj/item/gun/ballistic/automatic/tommygun
 	id = /obj/item/card/id
 
-/datum/outfit/mobster/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/mobster/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/card/id/W = H.wear_id
@@ -453,7 +450,7 @@
 	mask = /obj/item/clothing/mask/breath
 	back = /obj/item/mod/control/pre_equipped/chrono
 
-/datum/outfit/chrono_agent/post_equip(mob/living/carbon/human/agent, visualsOnly)
+/datum/outfit/chrono_agent/post_equip(mob/living/carbon/human/agent, visuals_only)
 	. = ..()
 	var/obj/item/mod/control/mod = agent.back
 	if(!istype(mod))
@@ -471,8 +468,8 @@
 	ears = /obj/item/radio/headset/headset_srv
 
 
-/datum/outfit/joker/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/joker/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
 	var/obj/item/card/id/I = H.wear_id

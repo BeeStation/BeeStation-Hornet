@@ -35,6 +35,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WHISPER_ONLY "whisper_only"
 
 //mob traits
+///Potential unlocked with wizard staff (they have every mutation activated)
+#define TRAIT_POTENTIAL_UNLOCKED "potential_unlocked"
 #define TRAIT_BLIND "blind"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"
@@ -75,8 +77,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 /// This allows a person who has antimagic to cast spells without getting blocked
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
-/// Are we immune to specifically tesla / SM shocks?
-#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 #define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
 /// Can weave webs into cloth
 #define TRAIT_WEB_WEAVER "web_weaver"
@@ -92,7 +92,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BOMBIMMUNE "bomb_immunity"
 #define TRAIT_RADIMMUNE "rad_immunity"
 #define TRAIT_GENELESS "geneless"
-#define TRAIT_NORADDAMAGE		"no_rad_damage"
+#define TRAIT_RADHEALER "rad_healer"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER "dismember_immunity"
@@ -135,6 +135,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MARTIAL_ARTS_IMMUNE "martial_arts_immune" // nobody can use martial arts on this mob
 /// this mob takes reduced damage from falling
 #define TRAIT_LIGHT_LANDING "lightlanding"
+/// Items with this trait will not have their worn icon overlayed.
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
+/// Items with this trait will not appear when examined.
+#define TRAIT_EXAMINE_SKIP "examine_skip"
+/// Gives you the Shifty Eyes quirk, rarely making people who examine you think you examined them back even when you didn't
+#define TRAIT_SHIFTY_EYES "shifty_eyes"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
@@ -266,12 +272,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // You're immune to the hallucination effect of the supermatter, either
 // through force of will, or equipment.
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+// You can stare into the abyss, and it turns pink.
+// Being close enough to the supermatter makes it heal at higher temperatures and emit less heat.
+#define TRAIT_SUPERMATTER_SOOTHER "supermatter_soother"
 
 //non-mob traits
 /// Used for limb-based paralysis, where replacing the limb will fix it.
 #define TRAIT_PARALYSIS "paralysis"
-/// Used for limbs.
-#define TRAIT_DISABLED_BY_WOUND "disabled-by-wound"
 /// This object has been slathered with a speed potion
 #define TRAIT_SPEED_POTIONED "speed_potioned"
 
@@ -426,6 +433,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_DISTANT_SUPPLY_LINES "distant_supply_lines"
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
 #define STATION_TRAIT_UNITED_BUDGET "united_budget"
+#define STATION_TRAIT_BIRTHDAY "station_trait_birthday"
 #define STATION_TRAIT_UNIQUE_AI "station_trait_unique_ai"
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
@@ -467,6 +475,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prevents items from being speed potion-ed, but allows their speed to be altered in other ways
 #define TRAIT_NO_SPEED_POTION "no_speed_potion"
 
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+/// Is this atom being actively shocked? Used to prevent repeated shocks.
+#define TRAIT_BEING_SHOCKED "shocked"
 /// Trait given to a dreaming carbon when they are currently doing dreaming stuff
 #define TRAIT_DREAMING "currently_dreaming"
 

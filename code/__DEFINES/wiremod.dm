@@ -1,5 +1,5 @@
 /// Helper define that can only be used in /obj/item/circuit_component/input_received()
-#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger.value && trigger == port)
+#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger?.value && trigger == port)
 
 /// Define to be placed at any proc that is triggered by a port.
 #define CIRCUIT_TRIGGER SHOULD_NOT_SLEEP(TRUE)
@@ -210,12 +210,14 @@
 #define WIREMOD_MATH_COMPONENTS "Math Components"
 #define WIREMOD_TIME_COMPONENTS "Time Components"
 #define WIREMOD_LOGIC_COMPONENTS "Logic Components"
+#define WIREMOD_GATE_COMPONENTS "Gate Components"
 #define WIREMOD_LIST_COMPONENTS "List Components"
 #define WIREMOD_MEMORY_COMPONENTS "Memory Components"
 #define WIREMOD_CONVERSION_COMPONENTS "Conversion Components"
 #define WIREMOD_STRING_COMPONENTS "String Components"
 #define WIREMOD_REFERENCE_COMPONENTS "Reference Components"
 #define WIREMOD_BCI_COMPONENTS "BCI Components"
+#define WIREMOD_TEMPLATES "Professor's Circuits"
 
 #define WIREMODE_CATEGORIES list(\
 	WIREMOD_CIRCUITRY,\
@@ -226,5 +228,7 @@
 	WIREMOD_MATH_COMPONENTS,\
 	WIREMOD_TIME_COMPONENTS,\
 	WIREMOD_LOGIC_COMPONENTS,\
-	WIREMOD_BCI_COMPONENTS\
+	WIREMOD_GATE_COMPONENTS,\
+	WIREMOD_BCI_COMPONENTS,\
+	WIREMOD_TEMPLATES,\
 	)
