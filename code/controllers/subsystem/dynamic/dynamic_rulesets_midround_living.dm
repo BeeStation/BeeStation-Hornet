@@ -141,17 +141,19 @@
 
 //////////////////////////////////////////////
 //                                          //
-//             VAMPIRE (LIGHT)              //
+//             VAMPIRES						//
 //                                          //
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/living/vampire
-	name = "Vampiric Accident"
-	severity = DYNAMIC_MIDROUND_LIGHT
+	name = "Vampiric Awakening"
+	severity = DYNAMIC_MIDROUND_LIGHT // We want this spawned early on.
 	role_preference = /datum/role_preference/midround/vampire
 	antag_datum = /datum/antagonist/vampire
-	weight = 7
-	points_cost = 30
+	weight = 2 // Rare
+	points_cost = 60
+	minimum_players_required = 12
+	drafted_players_amount = 4
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
 
 /datum/dynamic_ruleset/midround/living/vampire/trim_candidates()
@@ -165,11 +167,10 @@
 /datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
 	return icon('icons/vampires/actions_vampire.dmi', icon_state = "power_feed")
 
-/datum/dynamic_ruleset/midround/living/vampire/execute()
-	. = ..()
-	for(var/mob/chosen_candidate in chosen_candidates)
-		var/datum/antagonist/vampire/new_vampire = IS_VAMPIRE(chosen_candidate)
-		new_vampire.vampire_level_unspent = rand(2,3)
+/datum/dynamic_ruleset/midround/living/vampire/set_drafted_players_amount()
+	// Start with 3 at 12 pop. Every four players, a vampire gets added.
+	// This is less heavy on the amount, since by now it's likely that some time has passed.
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 4, 1), 3)
 
 //////////////////////////////////////////////
 //                                          //
