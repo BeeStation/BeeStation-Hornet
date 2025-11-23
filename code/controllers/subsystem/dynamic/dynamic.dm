@@ -850,10 +850,19 @@ SUBSYSTEM_DEF(dynamic)
 	if (!next_supplementary)
 		return
 
+	if (supplementary_points < next_supplementary.points_cost)
+		return
+
 	// Execute our latejoin ruleset
 	var/datum/dynamic_ruleset/supplementary/new_latejoin_ruleset = next_supplementary.duplicate()
 
 	new_latejoin_ruleset.candidates = list(character)
+	new_latejoin_ruleset.trim_candidates()
+	if (!new_latejoin_ruleset.allowed())
+		log_dynamic("LATEJOIN: Could not run [forced_ruleset]")
+		message_admins("DYNAMIC: LATEJOIN: Could not run [forced_ruleset], moving to next joiner")
+		continue
+	execute_supplementary_ruleset(new_latejoin_ruleset)
 	var/result = execute_ruleset(new_latejoin_ruleset)
 
 	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")

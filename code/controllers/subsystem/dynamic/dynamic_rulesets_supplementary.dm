@@ -49,7 +49,7 @@
 
 /datum/dynamic_ruleset/supplementary/brothers
 	name = "Blood Brothers"
-	role_preference = /datum/role_preference/roundstart/blood_brother
+	role_preference = /datum/role_preference/latejoin/brother
 	antag_datum = /datum/antagonist/brother
 	drafted_players_amount = 2
 	weight = 6
@@ -82,7 +82,7 @@
 
 /datum/dynamic_ruleset/supplementary/vampire
 	name = "Vampire"
-	role_preference = /datum/role_preference/roundstart/vampire
+	role_preference = /datum/role_preference/latejoin/vampire
 	antag_datum = /datum/antagonist/vampire
 	weight = 8
 	points_cost = 12
