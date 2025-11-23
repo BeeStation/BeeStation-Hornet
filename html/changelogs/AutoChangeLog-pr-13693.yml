@@ -1,0 +1,5 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - rscadd: Added a No-Operation Wiremod Component which... does nothing except help
+      organize.
