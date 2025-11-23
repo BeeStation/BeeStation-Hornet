@@ -580,7 +580,7 @@
 	objectives += extra_objective
 
 	// Survive Objective
-	var/datum/objective/survive/survive_objective = new
+	var/datum/objective/survive/vampire/survive_objective = new
 	survive_objective.owner = owner
 	objectives += survive_objective
 
