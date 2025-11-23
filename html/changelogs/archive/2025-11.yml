@@ -267,3 +267,7 @@
   Rukofamicom:
   - bugfix: Abductor batons turn themselves on automatically when used again. No more
       accidentally bonking your abduction targets.
+2025-11-23:
+  Programs-The-Station:
+  - rscadd: Added a No-Operation Wiremod Component which... does nothing except help
+      organize.
