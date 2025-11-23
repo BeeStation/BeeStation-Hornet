@@ -49,25 +49,25 @@
 
 	var/is_antag = length(mind.antag_datums)
 
-	var/datum/job/writter_job
+	var/datum/job/writer_job
 	if(is_antag) // antag can make any job books. *NOTE: every antag including non-humans can do this, but who cares...
-		writter_job = tgui_input_list(user, "Choose a job to mimic ", "Job selection for writing", valid_jobs)
-		if(!writter_job)
+		writer_job = tgui_input_list(user, "Choose a job to mimic ", "Job selection for writing", valid_jobs)
+		if(!writer_job)
 			return ..()
-		writter_job = SSjob.GetJob(writter_job)
+		writer_job = SSjob.GetJob(writer_job)
 	else
 		if(!(user.mind?.assigned_role in valid_jobs))
 			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
-		writter_job = SSjob.GetJob(user.mind?.assigned_role)
-	if(!writter_job)
+		writer_job = SSjob.GetJob(user.mind?.assigned_role)
+	if(!writer_job)
 		to_chat(user, span_notice("It seems you do not have expertise in any job."))
 		return ..()
 
-	bookwriting(I, user, writter_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
+	bookwriting(I, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()
 
-/obj/item/book/manuscript/proc/bookwriting(obj/item/I, mob/user, datum/job/writter_job, writing_delay = 20 SECONDS)
+/obj/item/book/manuscript/proc/bookwriting(obj/item/I, mob/user, datum/job/writer_job, writing_delay = 20 SECONDS)
 	if(writing)
 		to_chat(user, span_notice("The book is already being writen."))
 		return
@@ -84,7 +84,7 @@
 		writing = FALSE
 		return
 
-	booked_job = writter_job
+	booked_job = writer_job
 	name = "Manuscript: [booked_job.title] addition"
 	title = name
 	desc = "A book with the expertise of the [booked_job.title]."
