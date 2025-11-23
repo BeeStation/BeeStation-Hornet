@@ -26,7 +26,7 @@
 
 /obj/item/book/manuscript/on_read(mob/user)
 	if(isnull(booked_job))
-		to_chat(user, span_notice("This book needs a pen to have someone's experience."))
+		to_chat(user, span_notice("This book needs a pen to write someone's experience."))
 		return
 	to_chat(user, span_notice("This is written about [booked_job]. There's a wall of texts with unrecognisable handwriting."))
 
