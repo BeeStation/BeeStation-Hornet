@@ -4661,6 +4661,7 @@
 #include "code\modules\wiremod\components\utility\delay.dm"
 #include "code\modules\wiremod\components\utility\getter.dm"
 #include "code\modules\wiremod\components\utility\iterator.dm"
+#include "code\modules\wiremod\components\utility\noop.dm"
 #include "code\modules\wiremod\components\utility\router.dm"
 #include "code\modules\wiremod\components\utility\setter.dm"
 #include "code\modules\wiremod\components\utility\switchcase.dm"

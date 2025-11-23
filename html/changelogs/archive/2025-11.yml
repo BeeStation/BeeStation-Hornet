@@ -260,3 +260,23 @@
   PowerfulBacon:
   - bugfix: Changing species now assigns a new name.
   - bugfix: 'Hotfix: Fixes names being randomised when any preference is changed.'
+2025-11-22:
+  BotTierPC:
+  - rscdel: Deleted a Stray Disposal Pipe outside Boxstation Armory
+  - tweak: Cargo's blood pack crates now contain 15 random blood bags
+  Rukofamicom:
+  - bugfix: Abductor batons turn themselves on automatically when used again. No more
+      accidentally bonking your abduction targets.
+2025-11-23:
+  PowerfulBacon:
+  - balance: Buffs tasers, making them easier to aim, giving them longer range while
+      you are moving, and decreasing the number of things that can fully block the
+      taser.
+  - balance: Once the taser lands, you can no longer walk away from it without attacking
+      the firer or breaking line of sight with the firer.
+  - balance: Removes full pierce protection from all civilian modsuits, including
+      security modsuits. Standard pierce protection is applied when they have a melee
+      or bullet armour of at least 20.
+  Programs-The-Station:
+  - rscadd: Added a No-Operation Wiremod Component which... does nothing except help
+      organize.
