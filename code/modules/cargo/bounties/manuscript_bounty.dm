@@ -8,6 +8,7 @@
 		/datum/job/gimmick,
 		/datum/job/ai,
 		/datum/job/cyborg,
+		/datum/job/posibrain,
 		/datum/job/deputy,
 	), only_root_path = TRUE)
 

@@ -7,7 +7,15 @@
 	var/datum/job/booked_job
 	var/writing // a flag that prevents double-writting
 
+	var/static/list/valid_jobs
+
 	attackby_skip = TRUE
+
+/obj/item/book/manuscript/Initialize(mapload)
+	. = ..()
+	if(isnull(valid_jobs))
+		valid_jobs = SSjob.name_occupations.Copy()
+		valid_jobs -= list(JOB_NAME_GIMMICK, JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 
 /obj/item/book/manuscript/Destroy()
 	booked_job = null
@@ -36,11 +44,14 @@
 
 	var/datum/job/writter_job
 	if(is_antag) // antag can make any job books. *NOTE: every antag including non-humans can do this, but who cares...
-		writter_job = tgui_input_list(user, "Choose a job to pretend (*These books work real)", "Job selection for writing", SSjob.name_occupations)
+		writter_job = tgui_input_list(user, "Choose a job to pretend (*These books work real)", "Job selection for writing", valid_jobs)
 		if(!writter_job)
 			return ..()
 		writter_job = SSjob.GetJob(writter_job)
 	else
+		if(!(user.mind?.assigned_role in valid_jobs))
+			to_chat(user, span_notice("Your knowledge seems to be not describable in writing."))
+			return ..()
 		writter_job = SSjob.GetJob(user.mind?.assigned_role)
 	if(!writter_job)
 		to_chat(user, span_notice("It seems you do not have any expertise in any job."))
@@ -50,6 +61,9 @@
 	return ..()
 
 /obj/item/book/manuscript/proc/bookwriting(obj/item/I, mob/user, datum/job/writter_job, writing_delay = 20 SECONDS)
+	if(writing)
+		to_chat(user, span_notice("The book is already being writen."))
+		return
 	writing = TRUE
 	to_chat(user, span_notice("You start writing about your profession."))
 
