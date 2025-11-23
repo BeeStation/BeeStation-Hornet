@@ -72,10 +72,17 @@
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
 
-// Pump mechanism just won't do anything if the pressure is too high/too low unless you overclock it.
+	// Pump mechanism just won't do anything if the pressure is too high/too low unless you overclock it.
 
 	var/input_starting_pressure = air1.return_pressure()
 	var/output_starting_pressure = air2.return_pressure()
+
+	if(overclocked)
+		var/turf/turf = loc
+		if(isclosedturf(turf))
+			balloon_alert_to_viewers("jammed!")
+			overclocked = FALSE
+			update_appearance(UPDATE_ICON)
 
 	if((input_starting_pressure < VOLUME_PUMP_MINIMUM_OUTPUT_PRESSURE) || ((output_starting_pressure > VOLUME_PUMP_MAX_OUTPUT_PRESSURE))&&!overclocked)
 		return
@@ -149,6 +156,10 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/multitool_act(mob/living/user, obj/item/I)
 	if(!overclocked)
+		var/turf/turf = loc
+		if(isclosedturf(turf))
+			to_chat(user, "The pump is sealed inside a closed space, you can't safely disable its pressure limits here.")
+			return TRUE
 		overclocked = TRUE
 		to_chat(user, "The pump makes a grinding noise and air starts to hiss out as you disable its pressure limits.")
 		update_icon()
