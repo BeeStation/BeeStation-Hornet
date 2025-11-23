@@ -79,7 +79,7 @@
               border-style: solid;
               border-radius: 50%;
               border-width: 4px;
-              background-color: #222;
+              background-color: hsl(0, 0%, 13.3%);
 
               box-sizing: content-box;
 
@@ -185,7 +185,7 @@
 
         .antagonist-overlay-text {
           text-align: center;
-          text-shadow: 1px 1px 3px 2px #222;
+          text-shadow: 1px 1px 3px 2px hsl(0, 0%, 13.3%);
           font-size: 1.2rem;
           z-index: 1;
 
@@ -222,9 +222,9 @@
           }
 
           background: colors.fg($color-value);
-          border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-          border-left: 2px solid rgba(0, 0, 0, 0.3);
-          border-right: 2px solid rgba(0, 0, 0, 0.3);
+          border-bottom: 2px solid hsla(0, 0%, 0%, 0.3);
+          border-left: 2px solid hsla(0, 0%, 0%, 0.3);
+          border-right: 2px solid hsla(0, 0%, 0%, 0.3);
           color: black;
 
           > * {
@@ -233,11 +233,11 @@
           }
 
           &:first-child {
-            border-top: 2px solid rgba(0, 0, 0, 0.3);
+            border-top: 2px solid hsla(0, 0%, 0%, 0.3);
           }
 
           .options {
-            background: rgba(0, 0, 0, 0.2);
+            background: hsla(0, 0%, 0%, 0.2);
             height: 100%;
           }
         }
@@ -257,7 +257,7 @@
 
       &__priority {
         color: black;
-        border-left: 1px solid #222;
+        border-left: 1px solid hsl(0, 0%, 13.3%);
         border-right: none;
         border-top: none;
         border-bottom: none;
@@ -290,12 +290,12 @@
           text-shadow: none;
         }
         &--disabled {
-          background-color: #444 !important;
-          color: white !important;
+          background-color: hsl(0, 0%, 26.7%) !important;
+          color: hsl(0, 0%, 100%) !important;
           transition: ease-out 0.25s background-color;
           text-shadow: 0 0 1px black;
           &:hover {
-            background-color: #666 !important;
+            background-color: hsl(0, 0%, 40%) !important;
           }
         }
       }
@@ -317,7 +317,7 @@
       &__quirk {
         background-color: colors.$white;
         border-bottom: 1px solid black;
-        color: #111;
+        color: hsl(0, 0%, 6.7%);
         transition: background-color 0.1s ease-in;
 
         $quality_map: (
