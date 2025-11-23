@@ -50,6 +50,7 @@
 		alert_pic = null,
 		chat_text_border_icon = null
 		)
+	message_admins("Created [type]")
 	role = polled_role
 	src.preference_key = preference_key
 	question = polled_question
@@ -292,4 +293,5 @@
 	poll_alert_button.update_stacks_overlay()
 	poll_alert_button.update_candidates_number_overlay()
 	poll_alert_button.update_signed_up_overlay()
+	poll_alert_button.timeout = INFINITY
 	return poll_alert_button

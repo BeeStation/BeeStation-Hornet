@@ -16,91 +16,91 @@ SUBSYSTEM_DEF(polling)
 		if(running_poll.time_left() <= 0)
 			polling_finished(running_poll)
 
+/datum/poll_config
+	/// Optional, The question to ask the candidates. If null, a default question will be used. ("Do you want to play as role?")
+	var/question = null
+	/// Optional, A role preference (/datum/role_preference/roundstart/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
+	var/role = null
+	/// Optional, What jobban role / flag to check, it won't show to any candidates who have this jobban.
+	var/check_jobban = null
+	/// How long the poll will last.
+	var/poll_time = 30 SECONDS
+	/// Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.
+	var/ignore_category = null
+	/// If TRUE, the candidate's window will flash when they're polled.
+	var/flash_window = TRUE
+	/// Optional, An /atom or an /image to display on the poll alert.
+	var/alert_pic = null
+	/// An /atom to teleport/jump to, if alert_pic is an /atom defaults to that.
+	var/atom/jump_target = null
+	/// Optional, A string to display in logging / the (default) question. If null, the role name will be used.
+	var/role_name_text = null
+	/// Optional, A list of strings to use as responses to the poll. If null, the default responses will be used. see __DEFINES/polls.dm for valid keys to use.
+	var/list/custom_response_messages = null
+	/// If TRUE, all candidates will start signed up for the poll, making it opt-out rather than opt-in.
+	var/start_signed_up = FALSE
+	/// Lets you pick candidates and return a single mob or list of mobs that were chosen. If set to a non-zero value, then the poll proc will return a random selection of this many candidates, otherwise all candidates will be returned so that you can handle selection yourself.
+	var/amount_to_pick = 0
+	/// Object or path to make an icon of to decorate the chat announcement.
+	var/chat_text_border_icon
+	/// Whether we should announce the chosen candidates in chat. This is ignored unless amount_to_pick is greater than 0.
+	var/announce_chosen = TRUE
+	/// A function that goes from /mob -> boolean that determines whether the provided mob should be included in the poll.
+	var/datum/callback/check_candidate = null
+
 /**
  * Starts a poll.
  *
  * Arguments
- * * question: Optional, The question to ask the candidates. If null, a default question will be used. ("Do you want to play as role?")
- * * role: Optional, A role preference (/datum/role_preference/roundstart/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
- * * check_jobban: Optional, What jobban role / flag to check, it won't show to any candidates who have this jobban.
- * * poll_time: How long the poll will last.
- * * ignore_category: Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.
- * * flash_window: If TRUE, the candidate's window will flash when they're polled.
- * * list/group: A list of candidates to poll.
- * * alert_pic: Optional, An /atom or an /image to display on the poll alert.
- * * jump_target: An /atom to teleport/jump to, if alert_pic is an /atom defaults to that.
- * * role_name_text: Optional, A string to display in logging / the (default) question. If null, the role name will be used.
- * * list/custom_response_messages: Optional, A list of strings to use as responses to the poll. If null, the default responses will be used. see __DEFINES/polls.dm for valid keys to use.
- * * start_signed_up: If TRUE, all candidates will start signed up for the poll, making it opt-out rather than opt-in.
- * * amount_to_pick: Lets you pick candidates and return a single mob or list of mobs that were chosen.
- * * chat_text_border_icon: Object or path to make an icon of to decorate the chat announcement.
- * * announce_chosen: Whether we should announce the chosen candidates in chat. This is ignored unless amount_to_pick is greater than 0.
+ * * config: The config for how the poll should be displayed, see datum/poll_config
+ * * group: The candidates to be polled
  *
  * Returns a list of all mobs who signed up for the poll, OR, in the case that amount_to_pick is equal to 1 the singular mob/null if no available candidates.
  */
-/datum/controller/subsystem/polling/proc/poll_candidates(
-	question,
-	role,
-	check_jobban,
-	poll_time = 30 SECONDS,
-	ignore_category = null,
-	flash_window = TRUE,
-	list/group = null,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	start_signed_up = FALSE,
-	amount_to_pick = 0,
-	chat_text_border_icon,
-	announce_chosen = TRUE
-)
+/datum/controller/subsystem/polling/proc/poll_candidates(datum/poll_config/config, list/group)
 	if(!length(group))
 		return
-	if(role && !role_name_text)
-		role_name_text = role
-	if(role_name_text && !question)
-		question = "Do you want to play as [span_notice(role_name_text)]?"
-	if(!question)
-		question = "Do you want to play as a special role?"
-	log_game("Polling candidates [role_name_text ? "for [role_name_text]" : "\"[question]\""] for [DisplayTimeText(poll_time)]")
+	if(config.role && !config.role_name_text)
+		config.role_name_text = config.role
+	if(config.role_name_text && !config.question)
+		config.question = "Do you want to play as [span_notice(config.role_name_text)]?"
+	if(!config.question)
+		config.question = "Do you want to play as a special role?"
+	log_game("Polling candidates [config.role_name_text ? "for [config.role_name_text]" : "\"[config.question]\""] for [DisplayTimeText(config.poll_time)]")
 
 	// Start firing
 	total_polls++
 
-	if(isnull(jump_target) && isatom(alert_pic))
-		jump_target = alert_pic
+	if(isnull(config.jump_target) && isatom(config.alert_pic))
+		config.jump_target = config.alert_pic
 
-	var/datum/candidate_poll/new_poll = new(
-		role_name_text,
-		role,
-		question,
-		poll_time,
-		ignore_category,
-		jump_target,
-		custom_response_messages,
-		check_jobban,
-		alert_pic,
-		chat_text_border_icon
-	)
+	// Apply custom filtering callback
+	if (config.check_candidate)
+		var/list/filtered_group = list()
+		for (var/mob/source as anything in group)
+			if (config.check_candidate.Invoke(source))
+				filtered_group += source
+		group = filtered_group
+
+	var/datum/candidate_poll/new_poll = new(config, group)
 	LAZYADD(currently_polling, new_poll)
 
 	for(var/mob/candidate_mob as anything in group)
-		new_poll.show_to(candidate_mob, start_signed_up, flash_window)
+		new_poll.show_to(candidate_mob, config.start_signed_up, config.flash_window)
 
 	// Sleep until the time is up
 	UNTIL(new_poll.finished)
-	if(!amount_to_pick)
+	if(!config.amount_to_pick)
 		return new_poll.signed_up
 	if (!length(new_poll.signed_up))
 		return null
-	for(var/pick in 1 to amount_to_pick)
+	for(var/pick in 1 to config.amount_to_pick)
 		// There may be less people signed up than amount_to_pick
 		// pick_n_take returns the default return value of null if passed an empty list, so just break in that case rather than adding null to the list.
 		if(!length(new_poll.signed_up))
 			break
 		new_poll.chosen_candidates += pick_n_take(new_poll.signed_up)
-	if(announce_chosen)
+	if(config.announce_chosen)
 		new_poll.announce_chosen(group)
 	if(new_poll.chosen_candidates.len == 1)
 		var/chosen_one = pick(new_poll.chosen_candidates)
@@ -110,55 +110,25 @@ SUBSYSTEM_DEF(polling)
 /*
 * Polls all ghosts
 */
-/datum/controller/subsystem/polling/proc/poll_ghost_candidates(
-	question,
-	role,
-	check_jobban,
-	poll_time = 30 SECONDS,
-	ignore_category = null,
-	flashwindow = TRUE,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	start_signed_up = FALSE,
-	amount_to_pick = 0,
-	chat_text_border_icon,
-	announce_chosen = TRUE,
-)
+/datum/controller/subsystem/polling/proc/poll_ghost_candidates(datum/poll_config/config)
 	var/list/candidates = list()
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
 		return
 	for(var/mob/dead/observer/ghost_player in GLOB.player_list)
 		candidates += ghost_player
 
-	return poll_candidates(question, role, check_jobban, poll_time, ignore_category, flashwindow, candidates, alert_pic, jump_target, role_name_text, custom_response_messages, start_signed_up, amount_to_pick, chat_text_border_icon, announce_chosen)
+	return poll_candidates(config, candidates)
 
 /*
 * Polls ghosts for a single target and returns one ghost
 * Used when you want to make a poll for something (Alien Embryo) and don't want multiple polls running for it at the same time
 */
-/datum/controller/subsystem/polling/proc/poll_ghosts_for_target(
-	question,
-	role,
-	check_jobban,
-	poll_time = 30 SECONDS,
-	atom/movable/checked_target,
-	ignore_category = null,
-	flashwindow = TRUE,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	start_signed_up = FALSE,
-	chat_text_border_icon,
-	announce_chosen = TRUE,
-)
+/datum/controller/subsystem/polling/proc/poll_ghosts_for_target(datum/poll_config/config, atom/movable/checked_target)
 	var/static/list/atom/movable/currently_polling_targets = list()
 	if(currently_polling_targets.Find(checked_target))
 		return
 	currently_polling_targets += checked_target
-	var/mob/chosen_one = poll_ghost_candidates(question, role, check_jobban, poll_time, ignore_category, flashwindow, alert_pic, jump_target, role_name_text, custom_response_messages, start_signed_up, amount_to_pick = 1, chat_text_border_icon = chat_text_border_icon, announce_chosen = announce_chosen)
+	var/mob/chosen_one = poll_ghost_candidates(config)
 	currently_polling_targets -= checked_target
 	if(!checked_target || QDELETED(checked_target) || !checked_target.loc)
 		return null
@@ -168,22 +138,8 @@ SUBSYSTEM_DEF(polling)
 * Polls all ghosts for a list of targets
 * See `fun_balloon.dm`
 */
-/datum/controller/subsystem/polling/proc/poll_ghosts_for_targets(
-	question,
-	role,
-	check_jobban,
-	poll_time = 30 SECONDS,
-	list/checked_targets,
-	ignore_category = null,
-	flashwindow = TRUE,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	start_signed_up = FALSE,
-	chat_text_border_icon,
-)
-	var/list/candidate_list = poll_ghost_candidates(question, role, check_jobban, poll_time, ignore_category, flashwindow, alert_pic, jump_target, role_name_text, custom_response_messages, start_signed_up, chat_text_border_icon = chat_text_border_icon)
+/datum/controller/subsystem/polling/proc/poll_ghosts_for_targets(datum/poll_config/config, list/checked_targets)
+	var/list/candidate_list = poll_ghost_candidates(config)
 	for(var/atom/movable/potential_target as anything in checked_targets)
 		if(QDELETED(potential_target) || !potential_target.loc)
 			checked_targets -= potential_target
@@ -194,22 +150,7 @@ SUBSYSTEM_DEF(polling)
 /*
 * Polls all ghosted mentors
 */
-/datum/controller/subsystem/polling/proc/poll_mentor_ghost_candidates(
-	question,
-	role,
-	check_jobban,
-	poll_time = 30 SECONDS,
-	ignore_category = null,
-	flashwindow = TRUE,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	start_signed_up = FALSE,
-	amount_to_pick = 0,
-	chat_text_border_icon,
-	announce_chosen = TRUE,
-)
+/datum/controller/subsystem/polling/proc/poll_mentor_ghost_candidates(datum/poll_config/config)
 	var/list/candidates = list()
 
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
@@ -218,25 +159,12 @@ SUBSYSTEM_DEF(polling)
 		if(ghost_player.client?.is_mentor())
 			candidates += ghost_player
 
-	return poll_candidates(question, role, check_jobban, poll_time, ignore_category, flashwindow, candidates, alert_pic, jump_target, role_name_text, custom_response_messages, start_signed_up, amount_to_pick, chat_text_border_icon, announce_chosen)
+	return poll_candidates(config, candidates)
 
-/datum/controller/subsystem/polling/proc/poll_ghosts_one_choice(
-	question,
-	role,
-	check_jobban,
-	poll_time = 30 SECONDS,
-	ignore_category = null,
-	flashwindow = TRUE,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	start_signed_up = FALSE,
-	amount_to_pick = 0,
-	chat_text_border_icon,
-	announce_chosen = TRUE,
-)
-	var/list/candidates = poll_ghost_candidates(question, role, check_jobban, poll_time, ignore_category, flashwindow, alert_pic, jump_target, role_name_text, custom_response_messages, start_signed_up, amount_to_pick = 1, chat_text_border_icon = chat_text_border_icon, announce_chosen = announce_chosen)
+/datum/controller/subsystem/polling/proc/poll_ghosts_one_choice(datum/poll_config/config)
+	if (config.amount_to_pick == 0)
+		config.amount_to_pick = 1
+	var/list/candidates = poll_ghost_candidates(config)
 
 	return pick(candidates)
 
@@ -244,96 +172,65 @@ SUBSYSTEM_DEF(polling)
  * Starts a persistent poll which stays open until it concludes.
  *
  * Arguments
- * * question: Optional, The question to ask the candidates. If null, a default question will be used. ("Do you want to play as role?")
- * * role: Optional, A role preference (/datum/role_preference/roundstart/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
- * * check_jobban: Optional, What jobban role / flag to check, it won't show to any candidates who have this jobban.
- * * ignore_category: Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.
- * * flash_window: If TRUE, the candidate's window will flash when they're polled.
- * * list/group: A list of candidates to poll.
- * * alert_pic: Optional, An /atom or an /image to display on the poll alert.
- * * jump_target: An /atom to teleport/jump to, if alert_pic is an /atom defaults to that.
- * * role_name_text: Optional, A string to display in logging / the (default) question. If null, the role name will be used.
- * * list/custom_response_messages: Optional, A list of strings to use as responses to the poll. If null, the default responses will be used. see __DEFINES/polls.dm for valid keys to use.
- * * amount_to_pick: Lets you pick candidates and return a single mob or list of mobs that were chosen.
- * * chat_text_border_icon: Object or path to make an icon of to decorate the chat announcement.
- * * announce_chosen: Whether we should announce the chosen candidates in chat. This is ignored unless amount_to_pick is greater than 0.
+ * * config: The poll configuration, ignores the time property
  *
  * Returns a candidate_poll datum to cancel the poll early.
  */
-/datum/controller/subsystem/polling/proc/poll_candidates_persistently(
-	question,
-	role,
-	check_jobban,
-	ignore_category = null,
-	flash_window = FALSE,
-	list/group = null,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	amount_to_pick = 0,
-	chat_text_border_icon,
-	announce_chosen = TRUE
-)
+/datum/controller/subsystem/polling/proc/poll_candidates_persistently(datum/poll_config/config, list/group)
 	if(!length(group))
 		return
-	if(role && !role_name_text)
-		role_name_text = role
-	if(role_name_text && !question)
-		question = "Do you want to play as [span_notice(role_name_text)]?"
-	if(!question)
-		question = "Do you want to play as a special role?"
-	log_game("Polling candidates persistently [role_name_text ? "for [role_name_text]" : "\"[question]\""]")
+	if(config.role && !config.role_name_text)
+		config.role_name_text = config.role
+	if(config.role_name_text && !config.question)
+		config.question = "Do you want to play as [span_notice(config.role_name_text)]?"
+	if(!config.question)
+		config.question = "Do you want to play as a special role?"
+	log_game("Polling candidates persistently [config.role_name_text ? "for [config.role_name_text]" : "\"[config.question]\""]")
 
 	// Start firing
 	total_polls++
 
-	if(isnull(jump_target) && isatom(alert_pic))
-		jump_target = alert_pic
+	if(isnull(config.jump_target) && isatom(config.alert_pic))
+		config.jump_target = config.alert_pic
 
 	var/datum/candidate_poll/persistent/new_poll = new(
-		role_name_text,
-		role,
-		question,
+		config.role_name_text,
+		config.role,
+		config.question,
 		0,
-		ignore_category,
-		jump_target,
-		custom_response_messages,
-		check_jobban,
-		alert_pic,
-		chat_text_border_icon
+		config.ignore_category,
+		config.jump_target,
+		config.custom_response_messages,
+		config.check_jobban,
+		config.alert_pic,
+		config.chat_text_border_icon
 	)
 	LAZYADD(currently_polling, new_poll)
 
+	// Apply custom filtering callback
+	if (config.check_candidate)
+		var/list/filtered_group = list()
+		for (var/mob/source as anything in group)
+			if (config.check_candidate.Invoke(source))
+				filtered_group += source
+		group = filtered_group
+
 	for(var/mob/candidate_mob as anything in group)
-		new_poll.show_to(candidate_mob, flash_window)
+		new_poll.show_to(candidate_mob, config.start_signed_up, config.flash_window)
 
 	return new_poll
 
 /*
 * Polls ghosts until someone accepts
 */
-/datum/controller/subsystem/polling/proc/poll_ghost_candidates_persistently(
-	question,
-	role,
-	check_jobban,
-	ignore_category = null,
-	flashwindow = TRUE,
-	alert_pic,
-	jump_target,
-	role_name_text,
-	list/custom_response_messages,
-	amount_to_pick = 0,
-	chat_text_border_icon,
-	announce_chosen = TRUE,
-)
+/datum/controller/subsystem/polling/proc/poll_ghost_candidates_persistently(datum/poll_config/config)
 	var/list/candidates = list()
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
 		return
 	for(var/mob/dead/observer/ghost_player in GLOB.player_list)
 		candidates += ghost_player
 
-	var/datum/candidate_poll/poll = poll_candidates_persistently(question, role, check_jobban, ignore_category, flashwindow, candidates, alert_pic, jump_target, role_name_text, custom_response_messages, amount_to_pick, chat_text_border_icon, announce_chosen)
+	var/datum/candidate_poll/poll = poll_candidates_persistently(config, candidates)
 
 	return poll
 

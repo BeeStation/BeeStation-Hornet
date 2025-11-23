@@ -715,6 +715,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 			context.add_ctrl_click_action("Jump To")
 
 /atom/movable/screen/alert/poll_alert/process()
+	if (poll)
+		timeout = world.time + poll.time_left()
 	if(show_time_left)
 		var/timeleft = timeout - world.time
 		if(timeleft <= 0)

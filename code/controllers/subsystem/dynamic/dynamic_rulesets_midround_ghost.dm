@@ -74,13 +74,15 @@
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/midround/ghost/proc/make_persistent()
-	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(
-		role_name_text = initial(antag_datum.name),
-		alert_pic = get_poll_icon()
-	)
+	message_admins("Poll turned into a persistant poll")
+	var/datum/poll_config/config = new()
+	config.role_name_text = initial(antag_datum.name)
+	config.alert_pic = get_poll_icon()
+	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
 	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
 
 /datum/dynamic_ruleset/midround/ghost/proc/check_ready(datum/candidate_poll/persistent/source, list/candidates)
+	message_admins("Checking ready status")
 	src.candidates = candidates
 	trim_candidates()
 
@@ -118,11 +120,10 @@
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	candidates = SSpolling.poll_ghost_candidates(
-		poll_time = 30 SECONDS,
-		role_name_text = initial(antag_datum.name),
-		alert_pic = get_poll_icon(),
-	)
+	var/datum/poll_config/config = new()
+	config.role_name_text = initial(antag_datum.name)
+	config.alert_pic = get_poll_icon()
+	candidates = SSpolling.poll_ghost_candidates(config)
 
 	if(length(candidates) >= drafted_players_amount)
 		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
