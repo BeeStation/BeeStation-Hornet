@@ -303,6 +303,8 @@
 				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")))
 	if(data["misc"] >= (1 MINUTES)) // 24 units
 		if(IS_CULTIST(affected_mob) || IS_SERVANT_OF_RATVAR(affected_mob))
+			if(IS_FAKE_CULTIST(affected_mob))
+				return
 			if(IS_CULTIST(affected_mob))
 				affected_mob.mind.remove_antag_datum(/datum/antagonist/cult)
 			if(IS_SERVANT_OF_RATVAR(affected_mob))
