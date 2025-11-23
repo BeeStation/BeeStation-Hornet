@@ -94,12 +94,12 @@
 
 /atom/movable/screen/alert/status_effect/awed
 	name = "Awed"
-	desc = "If you see this yell at a coder."
+	desc = null
 	icon_state = "in_love"
 
 /atom/movable/screen/alert/status_effect/awed/strong
 	name = "Marvelled"
-	desc = "If you see this yell at a coder."
+	desc = null
 	icon_state = "hypnosis"
 
 /datum/status_effect/awed/tick()
@@ -107,7 +107,7 @@
 	switch(rand(1, 10))
 		if(1)
 			owner.Stun(20, TRUE)
-			to_chat(owner, "What was I doing again...", type = MESSAGE_TYPE_INFO)
+			to_chat(owner, span_awe("What was I doing again..."), type = MESSAGE_TYPE_INFO)
 		if(2)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
@@ -128,7 +128,7 @@
 		if(6)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, "I should move closer...", type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_awe("I should move closer..."), type = MESSAGE_TYPE_INFO)
 				if(owner.body_position == STANDING_UP)
 					owner.visible_message(span_warning("[owner] stumbles dumbly towards [object_of_desire]."), span_awe("[object_of_desire]..."))
 					owner.Move(get_step(owner.loc, get_dir(owner.loc, object_of_desire.loc)))
@@ -145,7 +145,6 @@
 		return FALSE
 	if(!owner.has_quirk(/datum/quirk/monochromatic) && strong)
 		owner.add_client_colour(/datum/client_colour/glass_colour/pink)
-	RegisterSignals(owner, list(COMSIG_MOVABLE_PULLED, COMSIG_ATOM_NO_LONGER_PULLED), PROC_REF(update_puller))
 	return TRUE
 
 /datum/status_effect/awed/on_creation(mob/living/new_owner, target)
@@ -160,14 +159,6 @@
 /datum/status_effect/awed/on_remove()
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_PULLED, COMSIG_ATOM_NO_LONGER_PULLED))
 
 /datum/status_effect/awed/get_examine_text()
 	return span_warning("[owner.p_They()] look[owner.p_s()] awestruck, staring at [object_of_desire].")
-
-/datum/status_effect/awed/proc/update_puller()
-	SIGNAL_HANDLER
-	if(owner.pulledby == object_of_desire)
-		ADD_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))
-	else
-		REMOVE_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))

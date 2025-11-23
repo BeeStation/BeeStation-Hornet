@@ -173,7 +173,7 @@
 
 /datum/objective/vampire/hedonism/gourmand/update_explanation_text()
 	. = ..()
-	explanation_text += "Drink deep and greedily from that which nourishes me. I must feed, I want to gorge on at least [target_amount] units of Blood."
+	explanation_text += "Drink deep and greedily from that which nourishes me. I must feed! I want to gorge on at least [target_amount] units of Blood."
 
 /datum/objective/vampire/hedonism/gourmand/check_completion()
 	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
