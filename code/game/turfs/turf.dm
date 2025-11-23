@@ -489,7 +489,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	GLOB.cameranet.updateVisibility(src)
 
 /turf/proc/is_shielded()
-	return
+	return FALSE
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
