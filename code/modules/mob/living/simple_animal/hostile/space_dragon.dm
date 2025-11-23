@@ -313,7 +313,7 @@
 	var/list/hit_list = list()
 	hit_list += src
 	new /obj/effect/hotspot/bright(T)
-	T.hotspot_expose(700,50,1)
+	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(L.faction_check_mob(src) && L != src)
 			hit_list += L
