@@ -445,7 +445,7 @@
 				to_chat(src, span_notice("You feel your heart beating again!"))
 	electrocution_animation(40)
 
-/mob/living/carbon/human/batong_act(obj/item/melee/baton/batong)
+/mob/living/carbon/human/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
 	. = ..()
 	force_say(src) //Cut them off if they were talking
 
