@@ -34366,7 +34366,6 @@
 	pixel_y = 10
 	},
 /obj/item/food/candyheart{
-	pixel_x = 0;
 	pixel_y = 1
 	},
 /obj/item/stamp/clown{

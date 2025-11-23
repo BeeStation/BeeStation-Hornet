@@ -11973,12 +11973,10 @@
 	pixel_y = 4
 	},
 /obj/item/toy/figure/mime{
-	pixel_x = 0;
 	pixel_y = 13
 	},
 /obj/item/toy/dummy{
-	pixel_x = 6;
-	pixel_y = 0
+	pixel_x = 6
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)

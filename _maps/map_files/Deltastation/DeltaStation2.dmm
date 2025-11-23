@@ -7037,8 +7037,7 @@
 	pixel_y = 6
 	},
 /obj/item/toy/figure/mime{
-	pixel_x = -8;
-	pixel_y = 0
+	pixel_x = -8
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/theatre)
