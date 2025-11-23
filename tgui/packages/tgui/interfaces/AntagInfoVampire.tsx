@@ -419,7 +419,7 @@ const VampireGuide = (_props) => {
               <Box fontSize="20px" textColor="darkred" bold>
                 Princes & Scourges
               </Box>
-              A{' '}
+              <br />A{' '}
               <Box inline textColor="red">
                 Prince
               </Box>{' '}
@@ -432,8 +432,10 @@ const VampireGuide = (_props) => {
               services of a{' '}
               <Box inline textColor="red">
                 Scourge
-              </Box>{' '}
-              , a sort of enforcer, loyal to them and only them.
+              </Box>
+              , a sort of enforcer. Loyal to them and only them. Many scourges
+              are chosen from clans such as the Tremere, but some rare princes
+              were known to employ Brujah scourges.
               <br />
               <br />
               <Box fontSize="15px" textColor="blue">

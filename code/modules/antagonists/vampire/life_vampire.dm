@@ -41,6 +41,9 @@
 	// Handle blood
 	INVOKE_ASYNC(src, PROC_REF(handle_blood), delta_time)
 
+	// Check for Final Death
+	INVOKE_ASYNC(src, PROC_REF(check_final_death))
+
 	// Set our body's blood_volume to mimick our vampire one (if we aren't using the Masquerade power)
 	INVOKE_ASYNC(src, PROC_REF(update_blood))
 	INVOKE_ASYNC(src, PROC_REF(update_hud))
@@ -227,11 +230,6 @@
 	if(QDELETED(owner.current) || check_if_staked() || is_in_torpor())
 		return
 
-	// Fire Damage? (above double health)
-	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
-		final_death()
-		return
-
 	torpor_begin()
 
 /**
@@ -280,6 +278,15 @@
 	else
 		additional_regen = 0.5
 
+/datum/antagonist/vampire/proc/check_final_death()
+	if(owner.current.stat <= UNCONSCIOUS)
+		return
+
+	// Fire Damage? (above double health)
+	if(owner.current.getFireLoss() >= (owner.current.maxHealth * 2.5))
+		final_death()
+		return
+
 /// dust
 /datum/antagonist/vampire/proc/final_death(skip_destruction = FALSE)
 	var/mob/living/body = owner.current
@@ -304,7 +311,7 @@
 			carbon_body.drop_all_held_items()
 			carbon_body.unequip_everything()
 			carbon_body.remove_all_embedded_objects()
-			playsound(owner.current, 'sound/vampires/burning_death.ogg', 80, TRUE)
+			playsound(owner.current, 'sound/vampires/burning_death.ogg', 100, TRUE)
 		else
 			body.dust(drop_items = TRUE)
 
@@ -320,4 +327,6 @@
 		span_userdanger("Your soul escapes your withering body as the abyss welcomes you to your Final Death."),
 		span_hear("You hear a dry, crackling sound.")
 	)
-	addtimer(CALLBACK(body, TYPE_PROC_REF(/mob/living, dust)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
+
+	torpor_end() // End it BEFORE we dust them.
+	body.dust(FALSE, TRUE)

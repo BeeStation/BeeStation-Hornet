@@ -105,8 +105,11 @@
 	if(current_vitae >= 25)
 		owner.current.apply_damage(1, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	else
-		owner.current.apply_damage(20, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
-		owner.current.emote("scream")
+		if(owner.current.stat == CONSCIOUS)
+			owner.current.apply_damage(20, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+			owner.current.emote("scream")
+		else
+			owner.current.apply_damage(50, BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 
 /datum/antagonist/vampire/proc/give_warning(atom/source, danger_level, vampire_warning_message, vassal_warning_message)
 	SIGNAL_HANDLER
@@ -153,6 +156,8 @@
 		return
 	if(frenzied)
 		return
+	if(final_death)
+		return
 
 	torpor_begin()
 
@@ -191,6 +196,9 @@
 	if(QDELETED(living_owner))
 		return
 
+	if(final_death) // We do not want any of this to run if we have died for good.
+		return
+
 	// Handle traits
 	REMOVE_TRAIT(living_owner, TRAIT_SLEEPIMMUNE, TRAIT_VAMPIRE)
 	living_owner.add_traits(torpor_traits, TRAIT_TORPOR)
@@ -203,6 +211,12 @@
 
 /datum/antagonist/vampire/proc/torpor_end()
 	var/mob/living/living_owner = owner.current
+
+	if(QDELETED(living_owner))
+		return
+
+	if(final_death) // We do not want any of this to run if we have died for good.
+		return
 
 	living_owner.remove_status_effect(/datum/status_effect/vampire_sol)
 	living_owner.grab_ghost()
