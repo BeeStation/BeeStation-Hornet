@@ -269,7 +269,7 @@ Difficulty: Medium
 		if(istype(T, /turf/closed))
 			break
 		new /obj/effect/hotspot/bright(T)
-		T.hotspot_expose(700,50,1)
+		T.hotspot_expose(700, 50, 1)
 		for(var/mob/living/L in T.contents)
 			if((L in hit_list) || L == source)
 				continue
@@ -550,7 +550,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/target)
 		M.gets_drilled()
 	playsound(T, "explosion", 80, 1)
 	new /obj/effect/hotspot/bright(T)
-	T.hotspot_expose(700,50,1)
+	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
