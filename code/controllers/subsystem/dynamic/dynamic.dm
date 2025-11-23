@@ -859,9 +859,9 @@ SUBSYSTEM_DEF(dynamic)
 	new_latejoin_ruleset.candidates = list(character)
 	new_latejoin_ruleset.trim_candidates()
 	if (!new_latejoin_ruleset.allowed())
-		log_dynamic("LATEJOIN: Could not run [forced_ruleset]")
-		message_admins("DYNAMIC: LATEJOIN: Could not run [forced_ruleset], moving to next joiner")
-		continue
+		log_dynamic("LATEJOIN: Could not run [new_latejoin_ruleset]")
+		message_admins("DYNAMIC: LATEJOIN: Could not run [new_latejoin_ruleset], moving to next joiner")
+		return
 	execute_supplementary_ruleset(new_latejoin_ruleset)
 	var/result = execute_ruleset(new_latejoin_ruleset)
 

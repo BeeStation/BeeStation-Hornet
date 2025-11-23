@@ -54,7 +54,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/implant/mindshield/removed(mob/target, silent = FALSE, special = 0)
+/obj/item/implant/mindshield/removed(mob/target, silent = FALSE, destroyed = FALSE)
 	if(..())
 		if(isliving(target))
 			var/mob/living/L = target

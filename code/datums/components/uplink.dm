@@ -53,6 +53,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
+	if (!istype(_owner))
+		CRASH("Uplink initialized with a key instead of a /datum/mind.")
 
 	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))

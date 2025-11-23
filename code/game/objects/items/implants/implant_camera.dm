@@ -18,7 +18,7 @@
 	camera.network = list(CAMERA_NETWORK_STATION)
 	camera.internal_light = FALSE		//No AI camera light
 
-/obj/item/implant/camera/removed(mob/living/source, silent, special)
+/obj/item/implant/camera/removed(mob/living/source, silent, destroyed)
 	. = ..()
 	if(.)
 		QDEL_NULL(camera)

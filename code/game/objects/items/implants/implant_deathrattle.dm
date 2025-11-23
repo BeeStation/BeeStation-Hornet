@@ -34,7 +34,7 @@
 
 	RegisterSignal(target, COMSIG_MOB_STATCHANGE, PROC_REF(on_user_statchange))
 
-/datum/deathrattle_group/proc/on_implant_removal(obj/item/implant/implant, mob/living/source, silent = FALSE, special = 0)
+/datum/deathrattle_group/proc/on_implant_removal(obj/item/implant/implant, mob/living/source, silent = FALSE, removed = FALSE)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(source, COMSIG_MOB_STATCHANGE)

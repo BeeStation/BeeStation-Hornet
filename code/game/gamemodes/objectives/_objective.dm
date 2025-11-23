@@ -204,8 +204,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
 		explanation_text = team_explanation_text
 
-/datum/objective/proc/generate_stash(list/special_equipment)
-	var/list/owners = get_owners()
+/proc/generate_stash(list/special_equipment, list/owners, datum/team/owner_team)
 	var/datum/mind/tester = pick(owners)
 	var/obj/item/storage/secret_bag = null
 	for (var/datum/component/stash/stash in tester.antag_stashes)
@@ -213,7 +212,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		// Must be owned exclusively by our owners
 		var/valid = TRUE
 		for (var/datum/mind/mind in stash.stash_minds)
-			if (!(mind in team.members))
+			if (!(mind in owner_team.members))
 				valid = FALSE
 				break
 		if (!valid)
@@ -269,7 +268,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			to_chat(receiver?.current, span_noticebold("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
-		new eq_path(secret_bag)
+		if (ispath(eq_path))
+			new eq_path(secret_bag)
+		else
+			var/obj/item/object = eq_path
+			object.forceMove(secret_bag)
 
 /datum/objective/proc/on_target_cryo()
 	SIGNAL_HANDLER

@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		steal_target = targetinfo.targetitem
 		explanation_text = "Steal [targetinfo.name]"
 		if (length(targetinfo.special_equipment))
-			generate_stash(targetinfo.special_equipment)
+			generate_stash(targetinfo.special_equipment, get_owners())
 		update_explanation_text()
 		return steal_target
 	else

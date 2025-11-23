@@ -31,8 +31,6 @@
 /obj/item/implant/item_action_slot_check(slot, mob/user)
 	return user == imp_in
 
-
-
 /obj/item/implant/proc/can_be_implanted_in(mob/living/target) // for human-only and other special requirements
 	return TRUE
 
@@ -45,7 +43,7 @@
 /mob/living/simple_animal/can_be_implanted()
 	return healable //Applies to robots and most non-organics, exceptions can override.
 
-/obj/item/implant/proc/on_implanted(mob/user)
+/obj/item/implant/proc/on_implanted(mob/living/user)
 
 //What does the implant do upon injection?
 //return 1 if the implant injects
@@ -118,7 +116,7 @@
 	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, TRUE, FALSE)
 	return TRUE
 
-/obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0)
+/obj/item/implant/proc/removed(mob/living/source, silent = FALSE, destroyed = FALSE)
 	moveToNullspace()
 	imp_in = null
 	source.implants -= src
@@ -128,12 +126,12 @@
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 
-	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source, silent, special)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source, silent, destroyed)
 	return TRUE
 
 /obj/item/implant/Destroy()
 	if(imp_in)
-		removed(imp_in)
+		removed(imp_in, destroyed = TRUE)
 	return ..()
 
 /obj/item/implant/proc/get_data()

@@ -7,7 +7,6 @@
 	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
-	var/uplink_given = FALSE
 	antag_moodlet = /datum/mood_event/focused
 
 /datum/antagonist/brother/create_team(datum/team/brother_team/new_team)
@@ -29,8 +28,10 @@
 	return ..()
 
 /datum/antagonist/brother/on_removal()
-	if(owner.current)
-		to_chat(owner.current,span_userdanger("You are no longer the Blood Brother!"))
+	if (!silent && owner.current)
+		owner.current.visible_message("[span_deconversionmessage("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] their true allegiance!")]", null, null, null, owner.current)
+		to_chat(owner.current, span_userdanger("Your mind slips away from the clutches of your blood-brother. You are no longer required to follow their orders, but blackmail of your past crimes may make it difficult for you to find a way out of working with them..."))
+		owner.current.log_message("has had their blood brother removed!", LOG_ATTACK, color="#960000")
 	owner.special_role = null
 	return ..()
 
@@ -64,7 +65,10 @@
 
 /datum/antagonist/brother/greet()
 	var/brother_text = get_brother_names()
-	to_chat(owner.current, span_alertsyndie("You are the Blood Brother of [brother_text]."))
+	if (brother_text)
+		to_chat(owner.current, span_alertsyndie("You are the Blood Brother of [brother_text]."))
+	else
+		to_chat(owner.current, span_alertsyndie("You are the Blood Brother."))
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together! You and your team are outfitted with communication implants allowing for direct, encrypted communication.")
 	owner.announce_objectives()
 	give_meeting_area()
@@ -72,30 +76,15 @@
 		"The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
 
 /datum/antagonist/brother/proc/finalize_brother()
-	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
-	I.implant(owner.current, null, TRUE, TRUE)
-	if(team.team_id <= length(GLOB.color_list_blood_brothers))
-		I.span_implant_colour = GLOB.color_list_blood_brothers[team.team_id]
-	else
-		I.span_implant_colour = "cfc_redpurple"
-		stack_trace("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
-	for(var/datum/mind/M in team.members) // Link the implants of all team members
-		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
-		I.link_implant(T)
 	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
-	if (!uplink_given)
-		distribute_uplink()
-
-/datum/antagonist/brother/proc/distribute_uplink()
-	uplink_given = TRUE
-	// Who gets the uplink
-	var/datum/mind/uplink_owner = pick(team.members)
-	var/datum/component/uplink/granted_uplink = uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = BROTHER_DIRECTIVE_FLAGS)
-	// Makes it hard for blood brothers to be a significant force in the round
-	granted_uplink.directive_tc_multiplier = 0.5
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
+	// Jank: Add it normally
+	if (istype(src, /datum/antagonist/brother/prime))
+		create_team(new /datum/team/brother_team)
+		team.forge_brother_objectives()
+		return ..()
 	//show list of possible brothers
 	var/list/candidates = list()
 	for(var/mob/living/L in GLOB.player_list)
@@ -112,11 +101,51 @@
 	T.add_member(bro)
 	T.pick_meeting_area()
 	T.forge_brother_objectives()
-	new_owner.add_antag_datum(/datum/antagonist/brother,T)
+	new_owner.add_antag_datum(/datum/antagonist/brother/prime/no_conversion, T)
 	bro.add_antag_datum(/datum/antagonist/brother, T)
 	T.update_name()
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(bro)] into blood brothers.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(bro)] into blood brothers.")
+
+/datum/antagonist/brother/prime
+	name = "First-Born Brother"
+	var/give_conversion_implant = TRUE
+
+/datum/antagonist/brother/prime/greet()
+	to_chat(owner.current, span_alertsyndie("You are the First-Born Blood Brother."))
+	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves and can work with a team. Recruit a co-conspirator and complete your objectives together, you have been given an implant which can be given to someone who you find that you can trust.")
+	owner.announce_objectives()
+	give_meeting_area()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
+		"Use the implant that you have been given to recruit someone as your brother.")
+
+/datum/antagonist/brother/prime/finalize_brother()
+	// Do normal stuff
+	..()
+	// Give them the self-implant
+	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
+	I.linked_team = team
+	I.implant(owner.current, null, TRUE, TRUE)
+	if(team.team_id <= length(GLOB.color_list_blood_brothers))
+		I.span_implant_colour = GLOB.color_list_blood_brothers[team.team_id]
+	else
+		I.span_implant_colour = "cfc_redpurple"
+		stack_trace("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
+	for(var/datum/mind/M in team.members) // Link the implants of all team members
+		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
+		I.link_implant(T)
+	// Give them the conversion implant
+	generate_stash(list(
+		new /obj/item/implanter/bloodbrother(null, team)
+	), list(owner), team)
+	// Give them the uplink
+	var/datum/mind/uplink_owner = pick(team.members)
+	var/datum/component/uplink/granted_uplink = uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = BROTHER_DIRECTIVE_FLAGS)
+	// Makes it hard for blood brothers to be a significant force in the round
+	granted_uplink.directive_tc_multiplier = 0.5
+
+/datum/antagonist/brother/prime/no_conversion
+	give_conversion_implant = FALSE
 
 /datum/team/brother_team
 	name = "brotherhood"

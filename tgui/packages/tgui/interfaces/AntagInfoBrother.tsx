@@ -18,7 +18,11 @@ export const AntagInfoBrother = (_props) => {
         <Stack vertical fill>
           <Stack.Item>
             <AntagInfoHeader
-              name={`${antag_name || 'Blood Brother'} of ${brothers}`}
+              name={
+                brothers
+                  ? `${antag_name || 'Blood Brother'} of ${brothers}`
+                  : antag_name || 'Blood Brother'
+              }
               asset="traitor.png"
             />
           </Stack.Item>

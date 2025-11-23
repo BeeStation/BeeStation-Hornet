@@ -52,7 +52,9 @@ SUBSYSTEM_DEF(directives)
 		for (var/datum/component/uplink/uplink in GLOB.uplinks)
 			if (!(uplink.directive_flags & DIRECTIVE_FLAG_COMPETITIVE))
 				continue
-			var/datum/priority_directive/result = give_personal_objective(uplink)
+			var/datum/priority_directive/result = give_personal_objective(player_minds, uplink)
+			if (!result)
+				continue
 			longest_objective = max(longest_objective, world.time + result.last_for)
 		// Queue the next one 15 minutes after all the distributed objectives end
 		next_directive_time = longest_objective + 15 MINUTES
@@ -71,9 +73,9 @@ SUBSYSTEM_DEF(directives)
 		// Not ready to allocate
 		if (uplink.next_personal_objective_time > world.time)
 			continue
-		give_personal_objective(uplink)
+		give_personal_objective(player_minds, uplink)
 
-/datum/controller/subsystem/directives/proc/give_personal_objective(datum/component/uplink/uplink)
+/datum/controller/subsystem/directives/proc/give_personal_objective(list/player_minds, datum/component/uplink/uplink)
 	var/list/uplink_list = list(uplink)
 	// Determine valid objectives
 	var/list/valid_directives = list()
@@ -86,7 +88,7 @@ SUBSYSTEM_DEF(directives)
 		valid_directives += instance
 	// No directives to allocate
 	if (!length(valid_directives))
-		continue
+		return null
 	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.start(uplink_list, player_minds)
 	active_directives += selected

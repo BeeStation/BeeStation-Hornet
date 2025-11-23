@@ -270,6 +270,8 @@
 	var/mob/living/carbon/human/traitor_mob = current
 	if (!istype(traitor_mob))
 		return
+	if (!traitor_mob.mind)
+		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
 	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
@@ -316,7 +318,7 @@
 		if(UPLINK_PEN)
 			uplink_loc = P
 
-	var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, starting_tc = telecrystals, directive_flags = directive_flags)
+	var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.mind, TRUE, FALSE, starting_tc = telecrystals, directive_flags = directive_flags)
 	if(!U)
 		CRASH("Uplink creation failed.")
 	U.setup_unlock_code()

@@ -50,11 +50,11 @@
 /datum/dynamic_ruleset/supplementary/brothers
 	name = "Blood Brothers"
 	role_preference = /datum/role_preference/latejoin/brother
-	antag_datum = /datum/antagonist/brother
-	drafted_players_amount = 2
+	antag_datum = /datum/antagonist/brother/prime
+	drafted_players_amount = 1
 	weight = 6
 	points_cost = 8
-	ruleset_flags = SHOULD_USE_ANTAG_REP | NO_LATE_JOIN
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 
 	var/datum/team/brother_team/team
 

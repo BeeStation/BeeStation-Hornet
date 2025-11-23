@@ -5,11 +5,30 @@
 	icon_state = "headset"
 	/// BB implant colour is different per team, and is set by brother antag datum
 	var/span_implant_colour = "cfc_redpurple"
-	var/list/linked_implants // All other implants that this communicates to
+	/// All other implants that this communicates to
+	var/list/linked_implants
+	/// If implanted into someone who isn't a blood brother, this will convert them to the team
+	var/datum/team/brother_team/linked_team
 
 /obj/item/implant/bloodbrother/Initialize(mapload)
 	. = ..()
 	linked_implants = list()
+
+/obj/item/implant/bloodbrother/on_implanted(mob/living/user)
+	. = ..()
+	if (!user.mind)
+		return
+	// Determine if we have the antag datum
+	for (var/datum/antagonist/brother/brother in user.mind.antag_datums)
+		if (brother.get_team() == linked_team)
+			return
+	// Remove mindshields
+	for(var/obj/item/implant/mindshield/mindshield in user.implants)
+		qdel(mindshield)
+	// Become a blood brother
+	user.mind.add_antag_datum(/datum/antagonist/brother, linked_team)
+	linked_team.update_name()
+	log_objective("[key_name(user)] was made into a blood brother via implanting.")
 
 /obj/item/implant/bloodbrother/activate()
 	. = ..()
@@ -39,6 +58,29 @@
 	else
 		to_chat(imp_in, span_bold("There are no linked implants!"))
 
+/obj/item/implant/bloodbrother/removed(mob/living/source, silent, destroyed)
+	. = ..()
+	// If we were deleted through destruction (and not surgery) then do nothing
+	if (destroyed)
+		return
+	if (!source.mind)
+		qdel(src)
+		return
+	// Check to see if we can remove the implant
+	for (var/datum/antagonist/brother/brother in source.mind.antag_datums)
+		if (brother.get_team() == linked_team)
+			// Implant removal resisted
+			if (istype(brother, /datum/antagonist/brother/prime))
+				source.visible_message(span_warning("[source] seems to resist the implant!"), span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
+				qdel(src)
+				return
+			// Non-prime brothers can return to their original self
+			// This is because important roles like sec CAN be converted.
+			source.mind.remove_antag_datum(brother)
+			return
+	// If we did not remove an antag datum, destroy the implant
+	qdel(src)
+
 /obj/item/implant/bloodbrother/Destroy()
 	. = ..()
 	for(var/obj/item/implant/bloodbrother/i in linked_implants) // Removes this implant from the list of implants
@@ -65,5 +107,8 @@
 	name = "implanter (communication)"
 	imp_type = /obj/item/implant/bloodbrother
 
-
-
+/obj/item/implanter/bloodbrother/Initialize(mapload, datum/team/brother_team)
+	. = ..()
+	if (brother_team)
+		var/obj/item/implant/bloodbrother/implant = imp
+		implant.linked_team = brother_team
