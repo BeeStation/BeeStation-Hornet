@@ -47,8 +47,15 @@ SUBSYSTEM_DEF(directives)
 			continue
 		valid_directives += instance
 	if (!length(valid_directives))
-		// Try again in a minute
-		next_directive_time = world.time + 1 MINUTES
+		// Give out personal directives instead
+		var/longest_objective = world.time
+		for (var/datum/component/uplink/uplink in GLOB.uplinks)
+			if (!(uplink.directive_flags & DIRECTIVE_FLAG_COMPETITIVE))
+				continue
+			var/datum/priority_directive/result = give_personal_objective(uplink)
+			longest_objective = max(longest_objective, world.time + result.last_for)
+		// Queue the next one 15 minutes after all the distributed objectives end
+		next_directive_time = longest_objective + 15 MINUTES
 		return
 	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.start(filtered_uplinks, player_minds)
@@ -64,23 +71,27 @@ SUBSYSTEM_DEF(directives)
 		// Not ready to allocate
 		if (uplink.next_personal_objective_time > world.time)
 			continue
-		var/list/uplink_list = list(uplink)
-		// Determine valid objectives
-		var/list/valid_directives = list()
-		for (var/datum/priority_directive/directive as anything in directive_types)
-			if (directive:shared)
-				continue
-			var/datum/priority_directive/instance = new directive
-			if (!instance.can_run(uplink_list, player_minds))
-				continue
-			valid_directives += instance
-		// No directives to allocate
-		if (!length(valid_directives))
+		give_personal_objective(uplink)
+
+/datum/controller/subsystem/directives/proc/give_personal_objective(datum/component/uplink/uplink)
+	var/list/uplink_list = list(uplink)
+	// Determine valid objectives
+	var/list/valid_directives = list()
+	for (var/datum/priority_directive/directive as anything in directive_types)
+		if (directive:shared)
 			continue
-		var/datum/priority_directive/selected = pick(valid_directives)
-		selected.start(uplink_list, player_minds)
-		active_directives += selected
-		uplink.next_personal_objective_time = get_next_personal_objective_time()
+		var/datum/priority_directive/instance = new directive
+		if (!instance.can_run(uplink_list, player_minds))
+			continue
+		valid_directives += instance
+	// No directives to allocate
+	if (!length(valid_directives))
+		continue
+	var/datum/priority_directive/selected = pick(valid_directives)
+	selected.start(uplink_list, player_minds)
+	active_directives += selected
+	uplink.next_personal_objective_time = get_next_personal_objective_time()
+	return selected
 
 /datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
 	var/data = list()
