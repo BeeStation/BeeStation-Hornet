@@ -57,7 +57,7 @@
 		writter_job = SSjob.GetJob(writter_job)
 	else
 		if(!(user.mind?.assigned_role in valid_jobs))
-			to_chat(user, span_notice("Your knowledge seems to be not describable in writing."))
+			to_chat(user, span_notice("Your job knowledge doesn't seem to be describable in writing."))
 			return ..()
 		writter_job = SSjob.GetJob(user.mind?.assigned_role)
 	if(!writter_job)
