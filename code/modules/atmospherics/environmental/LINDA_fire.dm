@@ -336,6 +336,7 @@
 /obj/effect/hotspot/singularity_pull(atom/singularity, current_size)
 	return
 
+//Hotspot meant for higher visibility fire
 /obj/effect/hotspot/bright
 	icon_state = "medium"
 
