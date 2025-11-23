@@ -336,6 +336,13 @@
 /obj/effect/hotspot/singularity_pull(atom/singularity, current_size)
 	return
 
+/obj/effect/hotspot/bright
+	icon_state = "medium"
+
+/obj/effect/hotspot/bright/update_color()
+	..()
+	alpha = 255
+
 /datum/looping_sound/fire
 	mid_sounds = list(
 		'sound/effects/fireclip1.ogg' = 1,
