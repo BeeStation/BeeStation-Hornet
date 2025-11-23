@@ -200,9 +200,11 @@
 
 		feed_target.Stun(feed_time, TRUE)
 		feed_target.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
+
+		feed_target.playsound_local(null, 'sound/vampires/mesmerize.ogg', 100, FALSE, pressure_affected = FALSE)
+
 		to_chat(feed_target, span_hypnophrase("You suddenly fall into a deep trance..."), type = MESSAGE_TYPE_WARNING)
 		owner.balloon_alert(owner, "subdued! starting feed...")
-		owner.whisper("shhhh...")
 
 		// Do the pre-feed.
 		if(!do_after(owner, feed_time, feed_target, NONE, TRUE, hidden = TRUE))
@@ -396,6 +398,8 @@
 	// Check if target has an acceptable amount of blood left
 	if(feed_target.blood_volume <= 10)
 		owner.balloon_alert(owner, "no blood left!")
+		if(feed_target.client)
+			vampiredatum_power.thirster_objective = TRUE
 		if(IS_VAMPIRE(feed_target))
 			diablerie(feed_target)
 		power_activated_sucessfully()

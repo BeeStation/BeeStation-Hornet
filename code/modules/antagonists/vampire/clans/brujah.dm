@@ -13,3 +13,7 @@
 	vampiredatum.owned_disciplines += new /datum/discipline/celerity(vampiredatum)
 	vampiredatum.owned_disciplines += new /datum/discipline/potence/brujah(vampiredatum)
 	vampiredatum.owned_disciplines += new /datum/discipline/presence(vampiredatum)
+
+/datum/vampire_clan/brujah/on_apply()
+	. = ..()
+	set_antag_hud(vampiredatum.owner.current, "brujah")

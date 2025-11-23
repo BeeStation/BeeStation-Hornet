@@ -52,6 +52,10 @@
 	var/current_vitae_goal = VITAE_GOAL_STANDARD
 	/// progress to that goal
 	var/vitae_goal_progress = 0
+	/// Thirster objective completed.
+	var/thirster_objective = FALSE
+	/// To keep track of objective
+	var/total_blood_drank = 0
 
 	/// Powers currently owned
 	var/list/datum/action/vampire/powers = list()
@@ -76,9 +80,6 @@
 	/// Lair
 	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
-
-	/// To keep track of objectives
-	var/total_blood_drank = 0
 
 	/// The last sol damage we got
 	var/last_sol_damage
@@ -545,37 +546,46 @@
 	info_button_ref = WEAKREF(info_button)
 	return info_button
 
+/**
+ * Every vampire has 3 starting objective categories:
+ * Ego: Grow more powerful / strengthen your position / etc
+ * Hedonism: Indulge in bad things that feel all too right.
+ * Survival: Survive. Obviously.
+ */
 /datum/antagonist/vampire/proc/forge_objectives()
-	// Claim a Lair Objective
-	var/datum/objective/vampire/lair/lair_objective = new
-	lair_objective.owner = owner
-	objectives += lair_objective
+	var/datum/objective/vampire/extra_objective
+
+	if(get_max_vassals() >= 1) // Two trees for if we can make vassals or not.
+		//pick Ego objective
+		switch(rand(1, 3))
+			if(3)
+				extra_objective = new /datum/objective/vampire/ego/department_vassal()
+			if(2)
+				extra_objective = new /datum/objective/vampire/ego/bigplaces()
+			if(1)
+				extra_objective = new /datum/objective/vampire/ego/lair()
+	else
+		extra_objective = new /datum/objective/vampire/ego/bigplaces()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
+
+	//pick Hedonism objective
+	switch(rand(1, 3))
+		if(3)
+			extra_objective = new /datum/objective/vampire/hedonism/heartthief()
+		if(2)
+			extra_objective = new /datum/objective/vampire/hedonism/gourmand()
+		if(1)
+			extra_objective = new /datum/objective/vampire/hedonism/thirster()
+
+	extra_objective.owner = owner
+	objectives += extra_objective
 
 	// Survive Objective
 	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner
 	objectives += survive_objective
-
-	// Objective 1: vassalize someone
-	switch(rand(1, 3))
-		if(1) // Conversion Objective
-			if(get_max_vassals() >= 1)
-				var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
-				var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
-				conversion_objective.owner = owner
-				objectives += conversion_objective
-			else
-				var/datum/objective/vampire/gourmand/gourmand_objective = new
-				gourmand_objective.owner = owner
-				objectives += gourmand_objective
-		if(2) // Heart Thief Objective
-			var/datum/objective/vampire/heartthief/heartthief_objective = new
-			heartthief_objective.owner = owner
-			objectives += heartthief_objective
-		if(3) // Drink Blood Objective
-			var/datum/objective/vampire/gourmand/gourmand_objective = new
-			gourmand_objective.owner = owner
-			objectives += gourmand_objective
 
 /datum/antagonist/vampire/proc/get_max_vassals()
 	var/total_players = length(GLOB.joined_player_list)

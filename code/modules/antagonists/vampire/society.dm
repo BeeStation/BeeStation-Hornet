@@ -30,6 +30,17 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	owner.current.playsound_local(null, 'sound/vampires/prince.ogg', 100, FALSE, pressure_affected = FALSE)
 	prince = TRUE
 
+	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
+		to_chat(vampire.owner.current, span_narsiesmall("[owner.current] has claimed the role of Prince!"))
+
+	grant_power(new /datum/action/vampire/targeted/scourgify)
+
+	var/datum/objective/vampire/prince/prince_objective = new()
+	objectives += prince_objective
+	owner.announce_objectives()
+
+	tgui_alert(owner, "You have been chosen for Princedom. Please note that this entails a certain responsibility. Your job, now, is to keep order, and to enforce the masquerade.", "Welcome, my Prince.", list("I understand"), 30 SECONDS, TRUE)
+
 /**
  * Turns the player into a scourge.
 **/
@@ -40,8 +51,15 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	rank_up(4, TRUE) // Rank up less.
 	to_chat(owner.current, span_cultbold("As a camarilla scourge, your newfound purpose empowers you!"))
 	set_antag_hud(owner.current, "scourge")
-	owner.current.playsound_local(null, 'sound/vampires/prince.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(null, 'sound/vampires/scourge_recruit.ogg', 100, FALSE, pressure_affected = FALSE)
 	scourge = TRUE
+
+	var/datum/objective/vampire/scourge/scourge_objective = new()
+	objectives += scourge_objective
+	owner.announce_objectives()
+
+	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
+		to_chat(vampire.owner.current, span_cultbigbold("Under authority of the Prince, [owner.current] has been raised to the duty of the Scourge!"))
 
 /**
  * Returns the princyness of this vampire.
@@ -54,3 +72,12 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	var/clan_bonus = my_clan.princely_score_bonus
 
 	return clan_bonus + calculated_hour_score
+
+// We could put this in objectives but like, it's just two tiny hardcoded things. It's fine here.
+/datum/objective/vampire/scourge
+	name = "Camarilla Scourge"
+	explanation_text = "Obey your prince! Ensure order! Safeguard the Masquerade!"
+
+/datum/objective/vampire/prince
+	name = "Camarilla Prince"
+	explanation_text = "Rule your fellow kindred with an iron fist! Ensure the sanctity of the Masquerade, at ALL costs!"

@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(society)
 	name = "Vampire Society"
-	wait = 5 MINUTES	// For some reason this actually fires at HALF this time.
+	wait = 10 MINUTES * 2	// For some reason this actually fires at HALF this time.
 	flags = SS_NO_INIT | SS_BACKGROUND | SS_TICKER
 	can_fire = FALSE
 
@@ -13,13 +13,14 @@ SUBSYSTEM_DEF(society)
 /datum/controller/subsystem/society/fire(resumed = FALSE)
 	var/time_elapsed = world.time - SSticker.round_start_time
 
-	// Don't ask them before at least some time has passed from round start. Give them some time to acclimatize.
-	// Make sure this is at least one minute shorter than the wait time.
-	if (time_elapsed < 4 MINUTES)
+	// Give them some breathing room
+	if(time_elapsed < 9 MINUTES)
 		return
 
 	if(!princedatum && !currently_polling)
-		poll_for_prince()
+		for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
+			to_chat(vampire.owner.current, span_announce("* Vampire Tip: A vote for Prince will occur soon. If you are interested in leading your fellow kindred, read up on princes in your info panel now!"))
+		addtimer(CALLBACK(src, PROC_REF(poll_for_prince)), 2 MINUTES)
 
 /datum/controller/subsystem/society/proc/poll_for_prince()
 	//Build a list of mobs in GLOB.all_vampires
@@ -35,16 +36,12 @@ SUBSYSTEM_DEF(society)
 		if(livingmob.stat != CONSCIOUS) // Are we alive?
 			continue
 
-		message_admins("[vampire.owner?.current?.client?.get_exp_living(TRUE)]")
-
 		vampire_living_candidates += currentmob
-
-		to_chat(vampire.owner.current, span_announce("* Vampire Tip: Polite kindred society is almost always governed by a powerful Prince. A Prince enforces order and preserves the masquerade. Read up on vampire society in your info panel."))
 
 	currently_polling = TRUE
 	var/list/pollers = SSpolling.poll_candidates(
 		question = "You are eligible for princedom.",
-		poll_time = 2 MINUTES,
+		poll_time = 3 MINUTES,
 		flash_window = TRUE,
 		group = vampire_living_candidates,
 		role_name_text = "Prince",
@@ -79,5 +76,3 @@ SUBSYSTEM_DEF(society)
 	if(chosen_datum)
 		chosen_datum.princify()
 		princedatum = WEAKREF(chosen_datum)
-		for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
-			to_chat(vampire.owner.current, span_narsiesmall("[chosen_datum.owner.current] has claimed the role of Prince!"))
