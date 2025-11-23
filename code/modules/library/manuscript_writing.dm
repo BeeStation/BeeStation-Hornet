@@ -1,13 +1,16 @@
+#define BOOKWRITING_COOLTIEM 15 MINUTES
+
 /obj/item/book/manuscript
 	name = "empty manuscript"
 	icon = 'icons/obj/library.dmi'
 	icon_state ="book4"
 	desc = "A book that is ready to write about a professional experience."
 	unique = TRUE
-	var/datum/job/booked_job
-	var/writing // a flag that prevents double-writting
+	var/writing /// a flag that prevents double-writting
+	var/datum/job/booked_job /// a job datum that this manuscript has
 
-	var/static/list/valid_jobs
+	var/static/list/valid_jobs /// which jobs a manuscript can accept (used for antag filter)
+	var/static/list/writing_cooltime = list() /// a snowflake that prevents an antag makes a lot of books
 
 	attackby_skip = TRUE
 
@@ -40,6 +43,10 @@
 	var/datum/mind/mind = user.mind
 	if(!mind)
 		return ..()
+	if(writing_cooltime[FAST_REF(mind)] && (writing_cooltime[FAST_REF(mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
+		to_chat(user, span_notice("You feel tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
+		return ..()
+
 	var/is_antag = length(mind.antag_datums)
 
 	var/datum/job/writter_job
@@ -72,13 +79,23 @@
 		writing = FALSE
 		return
 
+	if(writing_cooltime[FAST_REF(user.mind)] && (writing_cooltime[FAST_REF(user.mind)] > REALTIMEOFDAY)) // Prevent people writing multiple books
+		to_chat(user, span_notice("You feel tired to write more books for now. You might feel better in [round((writing_cooltime[FAST_REF(user.mind)] - REALTIMEOFDAY) / 600, 0.5)+0.5] minutes."))
+		writing = FALSE
+		return
+
 	booked_job = writter_job
 	name = "Manuscript: [booked_job.title] addition"
 	title = name
 	desc = "A book with the expertise of [booked_job.title]."
-
-	add_overlay(image(icon='icons/mob/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
-
 	to_chat(user, span_notice("You completed writing a job manuscript."))
 	writing = FALSE
+
+	// puts a job hud like a sticker on the book. Good to recognise
+	add_overlay(image(icon='icons/mob/hud.dmi', icon_state="hud[get_hud_by_jobname(booked_job.title)]", pixel_x = 12, pixel_y = -8, layer = src.layer+0.1))
+
+	// Preventing antag book mass production
+	writing_cooltime[FAST_REF(user.mind)] = REALTIMEOFDAY + BOOKWRITING_COOLTIEM
 	return
+
+#undef BOOKWRITING_COOLTIEM
