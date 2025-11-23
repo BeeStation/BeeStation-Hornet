@@ -74,6 +74,10 @@
 	give_meeting_area()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
 		"The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
+	for (var/datum/mind/brother in team.members)
+		if (brother == owner)
+			continue
+		to_chat(brother.current, span_alertsyndie("[owner.current.name] is now your blood brother."))
 
 /datum/antagonist/brother/proc/finalize_brother()
 	add_antag_hud(ANTAG_HUD_BROTHER, "brother", owner.current)
