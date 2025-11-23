@@ -10,7 +10,7 @@
 	var/datum/job/booked_job /// a job datum that this manuscript has
 
 	var/static/list/valid_jobs /// which jobs a manuscript can accept (used for antag filter)
-	var/static/list/writing_cooltime = list() /// a snowflake that prevents an antag makes a lot of books
+	var/static/list/writing_cooltime = list() /// a snowflake that prevents an antag from making a lot of books
 
 	attackby_skip = TRUE
 
