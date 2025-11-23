@@ -9,7 +9,6 @@
 	required_living_playtime = 4
 	var/static/fake_cult_team
 
-	vote = null // You have no reason to be the cult leader
 	var/datum/action/innate/cult/pretend_ascend/pretend_ascend = new
 
 /datum/antagonist/cult/fake/create_team(datum/team/cult/new_team)
@@ -30,6 +29,7 @@
 	current.clear_alert("bloodsense")
 	pretend_ascend.Grant(current)
 	pretend_ascend.fake_cult_team = fake_cult_team
+	vote.Remove(current) // You have no reason to be the cult leader
 
 /datum/antagonist/cult/on_gain()
 	. = ..()
@@ -79,3 +79,12 @@
 	to_chat(owner, span_cultlarge("You are now looking terrifying cultist."))
 	fake_cult_team.ascend(owner)
 	Remove(owner)
+
+/obj/effect/rune
+	var/check_fake_cultist_allowed = TRUE
+
+/obj/effect/rune/convert
+	check_fake_cultist_allowed = FALSE
+
+/obj/effect/rune/narsie
+	check_fake_cultist_allowed = FALSE

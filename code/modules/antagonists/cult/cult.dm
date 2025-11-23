@@ -114,7 +114,7 @@
 		current = mob_override
 	current.faction |= FACTION_CULT
 	current.grant_language(/datum/language/narsie, source = LANGUAGE_CULTIST)
-	if(!cult_team.cult_master && vote)
+	if(!cult_team.cult_master)
 		vote.Grant(current)
 	communion.Grant(current)
 	if(ishuman(current))
@@ -142,7 +142,7 @@
 		current = mob_override
 	current.faction -= FACTION_CULT
 	current.remove_language(/datum/language/narsie, source = LANGUAGE_CULTIST)
-	vote?.Remove(current)
+	vote.Remove(current)
 	communion.Remove(current)
 	magic.Remove(current)
 	current.clear_alert("bloodsense")

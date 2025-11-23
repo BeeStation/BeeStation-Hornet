@@ -161,7 +161,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/can_invoke(mob/living/user=null)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
-	if(user && (allow_ghosts || !user.has_status_effect(/datum/status_effect/cultghost)))
+	if(user && IS_FAKE_CULTIST(user) && !check_fake_cultist_allowed)
+		to_chat(user, span_warning("You refuse to invoke the rune. You are not the one who seeks for the destruction of the humanity."))
+	else if(user && (allow_ghosts || !user.has_status_effect(/datum/status_effect/cultghost)))
 		invokers += user
 	else if(user)
 		to_chat(user, span_warning("You do not possess a strong enough physical binding to activate this rune!"))
@@ -170,6 +172,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
 		for(var/mob/living/L in viewers(1, src))
+			if(IS_FAKE_CULTIST(L) && !check_fake_cultist_allowed)
+				continue
 			if(IS_CULTIST(L))
 				if(L == user)
 					continue
