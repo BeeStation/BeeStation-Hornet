@@ -101,12 +101,12 @@
 		using the nanites already hosted in the wearer's suit to transmute into monomolecular shuriken. \
 		While these lack the intense bleeding edge of conventional throwing stars, \
 		they have been set to electrify fleeing targets; and branded with the Spider Clan symbol."
-	dispense_type = /obj/item/throwing_star/stamina/ninja
+	dispense_type = /obj/item/throwing_star/ninja
 	cooldown_time = 0.5 SECONDS
 
-/obj/item/throwing_star/stamina/ninja
+/obj/item/throwing_star/ninja
 	name = "ninja throwing star"
-	throwforce = 10
+	throwforce = 18
 
 ///Hacker - This module hooks onto your right-clicks with empty hands and causes ninja actions.
 /obj/item/mod/module/hacker
