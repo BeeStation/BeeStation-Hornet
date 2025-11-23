@@ -54,37 +54,40 @@
 #define COLOR_VIVID_YELLOW "#FBFF23"
 #define COLOR_GOLD "#FFD700"
 
-#define COLOR_OLIVE            "#808000"
-#define COLOR_VIBRANT_LIME     "#00FF00"
+#define COLOR_OLIVE "#808000"
+#define COLOR_VIBRANT_LIME "#00FF00"
 #define COLOR_PALE_GREEN "#20e28e"
 #define COLOR_LIME "#32CD32"
 #define COLOR_GREEN "#008000"
 #define COLOR_DARK_MODERATE_LIME_GREEN "#44964A"
 #define COLOR_VERY_DARK_LIME_GREEN "#003300"
 
-#define COLOR_CYAN             "#00FFFF"
-#define COLOR_DARK_CYAN	  	   "#00A2FF"
-#define COLOR_TEAL             "#008080"
+#define COLOR_CYAN "#00FFFF"
+#define COLOR_DARK_CYAN "#00A2FF"
+#define COLOR_TEAL "#008080"
 #define COLOR_BLUSH_TEAL "#009696"
-#define COLOR_BLUE             "#0000FF"
+#define COLOR_BLUE "#0000FF"
 #define COLOR_MODERATE_BLUE "#555CC2"
-#define COLOR_BLUE_LIGHT       "#33CCFF"
-#define COLOR_NAVY             "#000080"
-#define COLOR_BLUE_GRAY        "#75A2BB"
+#define COLOR_BLUE_LIGHT "#33CCFF"
+#define COLOR_NAVY "#000080"
+#define COLOR_BLUE_GRAY "#75A2BB"
 
-#define COLOR_PINK             "#FFC0CB"
+/// Starlight!
+#define COLOR_STARLIGHT "#8589fa"
+
+#define COLOR_PINK "#FFC0CB"
 #define COLOR_LIGHT_PINK "#FF3CC8"
 #define COLOR_MOSTLY_PURE_PINK "#E4005B"
-#define COLOR_BLUSH_PINK 		"#DE5D83"
-#define COLOR_FADED_PINK 	   "#ff80d5"
-#define COLOR_MAGENTA          "#FF00FF"
+#define COLOR_BLUSH_PINK "#DE5D83"
+#define COLOR_FADED_PINK "#ff80d5"
+#define COLOR_MAGENTA "#FF00FF"
 #define COLOR_STRONG_MAGENTA "#B800B8"
-#define COLOR_PURPLE           "#800080"
-#define COLOR_VIOLET           "#B900F7"
+#define COLOR_PURPLE "#800080"
+#define COLOR_VIOLET "#B900F7"
 #define COLOR_VOID_PURPLE "#53277E"
-#define COLOR_AMETHYST		 "#822BFF"
-#define COLOR_STRONG_VIOLET    "#6927C5"
-#define COLOR_DARK_PURPLE 	   "#551A8B"
+#define COLOR_AMETHYST "#822BFF"
+#define COLOR_STRONG_VIOLET "#6927C5"
+#define COLOR_DARK_PURPLE "#551A8B"
 
 
 #define COLOR_ORANGE "#FF9900"
@@ -105,31 +108,31 @@
 #define COLOR_LIGHT_BROWN "#996666"
 #define COLOR_BROWNER_BROWN "#663300"
 
-#define COLOR_GREEN_GRAY       "#99BB76"
-#define COLOR_RED_GRAY         "#B4696A"
-#define COLOR_PALE_BLUE_GRAY   "#98C5DF"
-#define COLOR_PALE_GREEN_GRAY  "#B7D993"
-#define COLOR_PALE_ORANGE      "#FFBE9D"
-#define COLOR_PALE_RED_GRAY    "#D59998"
+#define COLOR_GREEN_GRAY "#99BB76"
+#define COLOR_RED_GRAY "#B4696A"
+#define COLOR_PALE_BLUE_GRAY "#98C5DF"
+#define COLOR_PALE_GREEN_GRAY "#B7D993"
+#define COLOR_PALE_ORANGE "#FFBE9D"
+#define COLOR_PALE_RED_GRAY "#D59998"
 #define COLOR_PALE_PURPLE_GRAY "#CBB1CA"
-#define COLOR_PURPLE_GRAY      "#AE8CA8"
+#define COLOR_PURPLE_GRAY "#AE8CA8"
 
 //Color defines used by the assembly detailer.
-#define COLOR_ASSEMBLY_BLACK   "#545454"
-#define COLOR_ASSEMBLY_BGRAY   "#9497AB"
-#define COLOR_ASSEMBLY_WHITE   "#E2E2E2"
-#define COLOR_ASSEMBLY_RED     "#CC4242"
-#define COLOR_ASSEMBLY_ORANGE  "#E39751"
-#define COLOR_ASSEMBLY_BEIGE   "#AF9366"
-#define COLOR_ASSEMBLY_BROWN   "#97670E"
-#define COLOR_ASSEMBLY_GOLD    "#AA9100"
-#define COLOR_ASSEMBLY_YELLOW  "#CECA2B"
-#define COLOR_ASSEMBLY_GURKHA  "#999875"
-#define COLOR_ASSEMBLY_LGREEN  "#789876"
-#define COLOR_ASSEMBLY_GREEN   "#44843C"
-#define COLOR_ASSEMBLY_LBLUE   "#5D99BE"
-#define COLOR_ASSEMBLY_BLUE    "#38559E"
-#define COLOR_ASSEMBLY_PURPLE  "#6F6192"
+#define COLOR_ASSEMBLY_BLACK "#545454"
+#define COLOR_ASSEMBLY_BGRAY "#9497AB"
+#define COLOR_ASSEMBLY_WHITE "#E2E2E2"
+#define COLOR_ASSEMBLY_RED "#CC4242"
+#define COLOR_ASSEMBLY_ORANGE "#E39751"
+#define COLOR_ASSEMBLY_BEIGE "#AF9366"
+#define COLOR_ASSEMBLY_BROWN "#97670E"
+#define COLOR_ASSEMBLY_GOLD "#AA9100"
+#define COLOR_ASSEMBLY_YELLOW "#CECA2B"
+#define COLOR_ASSEMBLY_GURKHA "#999875"
+#define COLOR_ASSEMBLY_LGREEN "#789876"
+#define COLOR_ASSEMBLY_GREEN "#44843C"
+#define COLOR_ASSEMBLY_LBLUE "#5D99BE"
+#define COLOR_ASSEMBLY_BLUE "#38559E"
+#define COLOR_ASSEMBLY_PURPLE "#6F6192"
 
 
 ///Pipe colors
@@ -192,40 +195,42 @@
 /// deep crimson
 #define LIGHT_COLOR_BLOOD_MAGIC "#D00000"
 
-#define LIGHT_COLOR_WHITE		"#FFFFFF" //! Full white. rgb(255, 255, 255)
-#define LIGHT_COLOR_RED        "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
-#define LIGHT_COLOR_CLOCKWORK 	"#BE8700"
+#define LIGHT_COLOR_WHITE "#FFFFFF" //! Full white. rgb(255, 255, 255)
+#define LIGHT_COLOR_RED "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
+#define LIGHT_COLOR_CLOCKWORK "#BE8700"
 
 //These ones aren't a direct colour like the ones above, because nothing would fit
-#define LIGHT_COLOR_FIRE       "#FAA019" //! Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
-#define LIGHT_COLOR_LAVA       "#C48A18" //! Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
-#define LIGHT_COLOR_FLARE      "#FA644B" //! Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
+#define LIGHT_COLOR_FIRE "#FAA019" //! Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
+#define LIGHT_COLOR_LAVA "#C48A18" //! Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
+#define LIGHT_COLOR_FLARE "#FA644B" //! Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
 #define LIGHT_COLOR_SLIME_LAMP "#AFC84B" //! Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
-#define LIGHT_COLOR_TUNGSTEN   "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
-#define LIGHT_COLOR_HALOGEN    "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
+#define LIGHT_COLOR_TUNGSTEN "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
+#define LIGHT_COLOR_HALOGEN "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
 
 // check "chat-light-theme.scss" and "chat-dark-theme.scss"
 GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
-	"cfc_red",\
-	"cfc_purple",\
-	"cfc_navy",\
-	"cfc_darkbluesky",\
-	"cfc_bluesky",\
-	"cfc_cyan",\
-	"cfc_lime",\
-	"cfc_orange",\
-	"cfc_redorange")))
+	"cfc_red",
+	"cfc_purple",
+	"cfc_navy",
+	"cfc_darkbluesky",
+	"cfc_bluesky",
+	"cfc_cyan",
+	"cfc_lime",
+	"cfc_orange",
+	"cfc_redorange",
+)))
 
 // Do not use this as a font color. try cfc color formats.
 GLOBAL_LIST_INIT(color_list_rainbow, list(
-	"#FF5050",\
-	"#FF902A",\
-	"#D6B20C",\
-	"#88d818",\
-	"#42c9eb",\
-	"#422ED8",\
-	"#D977FD"))
+	"#FF5050",
+	"#FF902A",
+	"#D6B20C",
+	"#88d818",
+	"#42c9eb",
+	"#422ED8",
+	"#D977FD",
+))
 
 // Color Filters
 /// Icon filter that creates ambient occlusion

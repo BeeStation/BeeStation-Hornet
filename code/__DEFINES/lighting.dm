@@ -15,6 +15,10 @@
 
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
 
+/// light UNDER the floor. primarily used for starlight, shouldn't fuck with this
+#define LIGHTING_HEIGHT_SPACE -0.5
+/// light ON the floor
+#define LIGHTING_HEIGHT_FLOOR 0
 /// height off the ground of light sources on the pseudo-z-axis, you should probably leave this alone
 #define LIGHTING_HEIGHT 1
 /// Value used to round lumcounts, values smaller than 1/129 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.
@@ -53,7 +57,6 @@
 //lighting area defines
 #define DYNAMIC_LIGHTING_DISABLED 0 //! dynamic lighting disabled (area stays at full brightness)
 #define DYNAMIC_LIGHTING_ENABLED 1 //! dynamic lighting enabled
-#define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //! dynamic lighting enabled only if starlight is.
 #define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
 
 // Fullbright lighting defines
@@ -132,13 +135,6 @@ GLOBAL_DATUM_INIT(starlight_overlay, /image, create_starlight_overlay())
 /proc/create_starlight_overlay()
 	var/image/lighting_effect = new()
 	lighting_effect.appearance = /obj/effect/fullbright/starlight
-	return lighting_effect
-
-GLOBAL_DATUM_INIT(starfloor_overlay, /image, create_starfloor_overlay())
-
-/proc/create_starfloor_overlay()
-	var/image/lighting_effect = new()
-	lighting_effect.appearance = /obj/effect/fullbright/starlight/starfloor
 	return lighting_effect
 
 /// Innate lum source that cannot be removed
