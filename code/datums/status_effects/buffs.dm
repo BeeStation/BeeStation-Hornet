@@ -750,7 +750,6 @@
 
 /datum/status_effect/cloaked/on_remove()
 	owner.remove_alt_appearance(REF(src))
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()
