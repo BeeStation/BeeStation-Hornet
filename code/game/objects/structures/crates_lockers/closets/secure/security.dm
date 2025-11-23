@@ -234,7 +234,6 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/storage/belt/sabre/carbon_fiber(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -414,3 +413,14 @@
 	..()
 	for(var/i in 1 to 3)
 		new /obj/item/storage/box/lethalshot(src)
+
+/obj/structure/closet/secure_closet/sec_sabre
+	name = "\improper Carbon fibre sabre closet"
+	desc = "It's a storage unit for security carbon sabres."
+	icon_state = "sabre"
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/sec_sabre/PopulateContents()
+	..()
+	for(var/i in 2 to 3)
+		new /obj/item/storage/belt/sabre/carbon_fiber(src)

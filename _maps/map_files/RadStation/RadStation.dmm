@@ -45074,12 +45074,20 @@
 	dir = 4
 	},
 /obj/item/storage/box/flashbangs{
-	pixel_x = -3;
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/storage/box/trackimp{
+	pixel_x = -6;
+	pixel_y = -1
+	},
+/obj/item/storage/box/chemimp{
+	pixel_x = 6;
 	pixel_y = 9
 	},
 /obj/item/storage/box/firingpins{
-	pixel_x = 5;
-	pixel_y = 4
+	pixel_x = 6;
+	pixel_y = -1
 	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
@@ -59353,16 +59361,8 @@
 	},
 /area/science/research)
 "tqK" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/storage/box/trackimp{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "tqL" = (
@@ -61798,12 +61798,12 @@
 /turf/open/floor/iron,
 /area/crew_quarters/cafeteria)
 "uci" = (
-/obj/item/kirbyplants/random,
 /obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/closet/sec_sabre,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "ucm" = (
