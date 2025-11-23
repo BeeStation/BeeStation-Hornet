@@ -166,8 +166,8 @@
 	return span_warning("[owner.p_They()] look[owner.p_s()] awestruck, staring at [object_of_desire].")
 
 /datum/status_effect/awed/proc/update_puller()
-    SIGNAL_HANDLER
-    if(owner.pulledby == object_of_desire)
-        ADD_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))
-    else
-        REMOVE_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))
+	SIGNAL_HANDLER
+	if(owner.pulledby == object_of_desire)
+		ADD_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))
+	else
+		REMOVE_TRAIT(owner, TRAIT_GRABWEAKNESS, TRAIT_STATUS_EFFECT(id))

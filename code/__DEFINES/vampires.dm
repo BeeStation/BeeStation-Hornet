@@ -77,7 +77,6 @@
 #define CLAN_TZIMISCE "Tzimisce Clan"
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
-#define CLAN_METHUSELAH "Methuselah"
 
 // Power defines
 /// This Power can't be used in Torpor

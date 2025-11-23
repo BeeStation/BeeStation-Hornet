@@ -293,7 +293,6 @@
 		<b>[disciplines]:</b> [animalism], [protean], [fortitude]"
 	var/brujah = "A clan now, of mostly rebels. Though some still show fragments of their lost lineage of warrior-poets. They are long split from the camarilla, and often form their own groups.\n\
 		<b>[disciplines]:</b> [potence], [celerity], [presence]"
-	var/methuselah = "If you see this, thank the gods for what is about to happen. Even wizards would cry at the power you wield."
 
 	// Now the logic
 	switch(clan_name)
@@ -309,8 +308,6 @@
 			return tremere
 		if(CLAN_GANGREL)
 			return gangrel
-		if(CLAN_METHUSELAH)
-			return methuselah
 	return "OH MY GOD SOMETHING HORRIBLE HAS GONE WRONG CALL A CODER NOW"
 
 /**

@@ -244,26 +244,23 @@
 
 /datum/antagonist/vampire/get_admin_commands()
 	. = ..()
-	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up), 1)
+	.["Level +"] = CALLBACK(src, PROC_REF(rank_up), 1)
 	if(vampire_level_unspent > 0)
-		.["Remove Level"] = CALLBACK(src, PROC_REF(rank_down))
+		.["Level -"] = CALLBACK(src, PROC_REF(rank_down))
 
 	if(broke_masquerade)
-		.["Fix Masquerade"] = CALLBACK(src, PROC_REF(fix_masquerade))
+		.["Fix Masq"] = CALLBACK(src, PROC_REF(fix_masquerade))
 	else
-		.["Break Masquerade"] = CALLBACK(src, PROC_REF(break_masquerade))
+		.["Break Masq"] = CALLBACK(src, PROC_REF(break_masquerade))
 
 	if(!broke_masquerade)
-		.["Masquerade Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
-
-	if(!my_clan)
-		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
+		.["Masq Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
 
 	if(humanity > 0)
-		.["Deduct Humanity"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
+		.["Humanity -"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
 
 	if(humanity < 10)
-		.["Add Humanity"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
+		.["Humanity +"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)
 
 /datum/antagonist/vampire/on_gain()
 	. = ..()
