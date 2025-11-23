@@ -34357,20 +34357,24 @@
 	pixel_x = -30
 	},
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 4
+/obj/item/toy/figure/mime{
+	pixel_x = -9;
+	pixel_y = 11
 	},
-/obj/item/storage/crayons{
-	pixel_x = 3;
-	pixel_y = 7
+/obj/item/toy/figure/clown{
+	pixel_x = 8;
+	pixel_y = 10
 	},
-/obj/item/storage/crayons{
-	pixel_x = -1;
+/obj/item/food/candyheart{
+	pixel_x = 0;
 	pixel_y = 1
 	},
-/obj/item/toy/figure/mime{
+/obj/item/stamp/clown{
 	pixel_x = 9;
+	pixel_y = -1
+	},
+/obj/item/stamp/mime{
+	pixel_x = -9;
 	pixel_y = -1
 	},
 /turf/open/floor/wood,
@@ -40087,13 +40091,13 @@
 /area/maintenance/port/aft)
 "ndA" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/clown{
-	pixel_x = 7;
-	pixel_y = 3
+/obj/item/storage/crayons{
+	pixel_x = 2;
+	pixel_y = 1
 	},
-/obj/item/stamp/clown{
-	pixel_x = -3;
-	pixel_y = 5
+/obj/item/storage/crayons{
+	pixel_x = -4;
+	pixel_y = 7
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
@@ -73611,9 +73615,13 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/pen/blue{
-	pixel_x = 8;
-	pixel_y = 8
+/obj/item/pen/invisible{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/toy/dummy{
+	pixel_x = 7;
+	pixel_y = 4
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
