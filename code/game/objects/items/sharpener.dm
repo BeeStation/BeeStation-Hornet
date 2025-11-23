@@ -10,10 +10,9 @@
 	var/max = 30
 	var/prefix = "sharpened"
 
-
 /obj/item/sharpener/attackby(obj/item/I, mob/user, params)
 	if(used)
-		to_chat(user, span_warning("The sharpening block is too worn to use again!"))
+		to_chat(user, span_warning("The sharpening tool is too worn to use again!"))
 		return
 	if(I.force >= max || I.throwforce >= max)//no esword sharpening
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
@@ -44,7 +43,7 @@
 	I.name = "[prefix] [I.name]"
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
-	used = 1
+	used = TRUE
 	update_icon()
 
 /obj/item/sharpener/super
@@ -53,3 +52,11 @@
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"
+
+/obj/item/sharpener/steel
+	name = "sharpening steel"
+	desc = "A steel rod that can help maintain the sharpness of blades"
+	prefix = "honed"
+	icon_state = "steel-sharpener"
+	increment = 1
+	max = 20
