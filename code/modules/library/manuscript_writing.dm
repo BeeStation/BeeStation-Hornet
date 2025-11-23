@@ -51,7 +51,7 @@
 
 	var/datum/job/writter_job
 	if(is_antag) // antag can make any job books. *NOTE: every antag including non-humans can do this, but who cares...
-		writter_job = tgui_input_list(user, "Choose a job to pretend (*These books work real)", "Job selection for writing", valid_jobs)
+		writter_job = tgui_input_list(user, "Choose a job to mimic ", "Job selection for writing", valid_jobs)
 		if(!writter_job)
 			return ..()
 		writter_job = SSjob.GetJob(writter_job)
