@@ -1051,12 +1051,6 @@
 	new /obj/item/melee/sabre/carbon_fiber(src)
 	update_appearance()
 
-/obj/item/storage/belt/sabre/carbon_fiber/empty
-	custom_premium_price = 50
-
-/obj/item/storage/belt/sabre/carbon_fiber/empty/PopulateContents()
-	return
-
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"
 	desc = "Bon appetit!"
