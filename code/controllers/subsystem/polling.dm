@@ -303,3 +303,5 @@ SUBSYSTEM_DEF(polling)
 		return FALSE
 
 	return next_poll_to_finish
+
+/datum/controller/subsystem/polling/proc/adopt_

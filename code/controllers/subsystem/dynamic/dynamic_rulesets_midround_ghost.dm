@@ -74,20 +74,30 @@
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/midround/ghost/proc/make_persistent()
-	message_admins("Poll turned into a persistant poll")
 	var/datum/poll_config/config = new()
 	config.role_name_text = initial(antag_datum.name)
 	config.alert_pic = get_poll_icon()
+	config.check_candidate = CALLBACK(src, PROC_REF(is_allowed))
 	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
 	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
 
+/datum/dynamic_ruleset/midround/ghost/proc/is_allowed(mob/candidate)
+	if(!candidate.client.should_include_for_role(
+		banning_key = antag_datum.banning_key,
+		role_preference_key = role_preference,
+		req_hours = antag_datum.required_living_playtime
+	))
+		return FALSE
+	return TRUE
+
 /datum/dynamic_ruleset/midround/ghost/proc/check_ready(datum/candidate_poll/persistent/source, list/candidates)
-	message_admins("Checking ready status")
-	src.candidates = candidates
+	src.candidates = candidates.Copy()
 	trim_candidates()
 
 	if(!allowed())
 		return DYNAMIC_EXECUTE_SUCCESS
+
+	source.end_poll()
 
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)

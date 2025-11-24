@@ -30,6 +30,7 @@
 		POLL_RESPONSE_TOO_LATE_TO_UNREGISTER = "It's too late to unregister yourself, selection has already begun!",
 		POLL_RESPONSE_UNREGISTERED = "You have been unregistered as a candidate for %ROLE%. You can sign up again before the poll ends.",
 	)
+	/// List of candidates chosen by the poll
 	var/list/chosen_candidates = list()
 	/// The key to use for job bans
 	var/job_ban_key = null
@@ -37,6 +38,9 @@
 	var/alert_pic = null
 	/// The icon we display in the chat which represents this roll
 	var/chat_text_border_icon = null
+	/// If defined, then users will automatically see this poll when they meet
+	/// certain specific conditions.
+	var/auto_add_type = null
 
 /datum/candidate_poll/New(
 		polled_role,
@@ -50,7 +54,6 @@
 		alert_pic = null,
 		chat_text_border_icon = null
 		)
-	message_admins("Created [type]")
 	role = polled_role
 	src.preference_key = preference_key
 	question = polled_question
@@ -295,3 +298,6 @@
 	poll_alert_button.update_signed_up_overlay()
 	poll_alert_button.timeout = INFINITY
 	return poll_alert_button
+
+/datum/candidate_poll/persistent/proc/end_poll()
+	SSpolling.polling_finished(src)
