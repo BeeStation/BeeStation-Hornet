@@ -133,7 +133,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir"
 	nodamage = FALSE
-	damage = 0
+	damage = 30
 	range = 40
 	projectile_phasing = NONE
 	projectile_piercing = (ALL & (~PASSCLOSEDTURF))
