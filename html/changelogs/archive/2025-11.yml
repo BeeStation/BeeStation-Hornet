@@ -290,5 +290,15 @@
   - balance: Ninja invisibility is now limited to 40 seconds, but that timer increases
       while in the dark.
   - balance: Ninja invisibility disables when any other ability is activated.
+  Rukofamicom:
+  - bugfix: Unintentionally buffed bola durations have been reverted to their prior
+      values. Energy bolas will last for 3 seconds and reinforced bolas for 7 seconds,
+      down from being accidentally buffed to 5 and 10 respectively.
+  - tweak: Rather than applying a hardcoded slowdown when hit with a bola, players
+      are knocked down for the intended escape duration and bolas will automatically
+      fall off after the intended duration is up
+  - tweak: Energy bolas are no longer consumed upon hitting a target
+  - tweak: Gonbolas have had their duration reduced from 30 seconds to 10 seconds
+      since they are also knockdown instead of just a pacification tool now.
   r1ks-iwnl:
   - tweak: Makes ash drake, space dragon, clf3 and meth fires more visible.
