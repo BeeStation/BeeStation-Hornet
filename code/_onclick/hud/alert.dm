@@ -829,8 +829,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /atom/movable/screen/alert/restrained/handcuffed
 	name = "Handcuffed"
 	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. \
-		Left-click the alert to free yourself over time. \
-		Right-click the alert if you're willing to severely injure yourself to break out immediately."
+		Left-click the alert to attempt to free yourself."
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/legcuffed
@@ -838,19 +837,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 	clickable_glow = TRUE
 
-/atom/movable/screen/alert/restrained/Click(location, control, params)
+/atom/movable/screen/alert/restrained/Click()
 	var/mob/living/living_mob = usr
 	if(!istype(living_mob) || !living_mob.can_resist() || living_mob != owner)
 		return
 
 	living_mob.changeNext_move(CLICK_CD_RESIST)
-
-	var/list/parameters = params2list(params)
-	if(LAZYACCESS(parameters, RIGHT_CLICK))
-		var/mob/living/carbon/human/human_mob = living_mob
-		if(ishuman(human_mob) && human_mob.handcuffed)
-			return human_mob.breakout_breaking_arms()
-
 	return living_mob.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
