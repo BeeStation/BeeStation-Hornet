@@ -92,7 +92,7 @@
 	return TRUE
 
 /datum/sm_delam/proc/calculate_explosion(obj/machinery/power/supermatter_crystal/sm)
-	return sm.explosion_power * max(sm.gas_heat_power_generation, 0.205) * min(((world.time - sm.activation_time) / SUPERMATTER_CRITICAL_TIME), 3) //energy builds over time for explosions
+	return sm.explosion_power * max(sm.gas_heat_power_generation, 0.205) * min(((world.time - sm.activation_time) / SUPERMATTER_CRITICAL_TIME), 2) //energy builds over time for explosions
 
 /// Spawns a scrung and eat the SM.
 /datum/sm_delam/proc/effect_singulo(obj/machinery/power/supermatter_crystal/sm)
