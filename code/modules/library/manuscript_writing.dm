@@ -30,8 +30,8 @@
 		return
 	to_chat(user, span_notice("This is about the [booked_job]. There's a wall of text with unrecognisable handwriting."))
 
-/obj/item/book/manuscript/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/pen) || !user.is_literate())
+/obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, params)
+	if(!istype(attacking_item, /obj/item/pen) || !user.is_literate())
 		return ..()
 	if(booked_job)
 		to_chat(user, span_notice("The book is already written."))
@@ -51,7 +51,7 @@
 
 	var/datum/job/writer_job
 	if(is_antag) // antag can make any job books. *NOTE: every antag including non-humans can do this, but who cares...
-		writer_job = tgui_input_list(user, "Choose a job to mimic ", "Job selection for writing", valid_jobs)
+		writer_job = tgui_input_list(user, "Choose a job to mimic", "Antag helper for writing", valid_jobs)
 		if(!writer_job)
 			return ..()
 		writer_job = SSjob.GetJob(writer_job)
@@ -64,17 +64,17 @@
 		to_chat(user, span_notice("It seems you do not have expertise in any job."))
 		return ..()
 
-	bookwriting(I, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
+	bookwriting(attacking_item, user, writer_job, is_antag ? 10 SECONDS : 20 SECONDS) // antag can write fast... it will look less suspicious
 	return ..()
 
-/obj/item/book/manuscript/proc/bookwriting(obj/item/I, mob/user, datum/job/writer_job, writing_delay = 20 SECONDS)
+/obj/item/book/manuscript/proc/bookwriting(obj/item/attacking_item, mob/user, datum/job/writer_job, writing_delay = 20 SECONDS)
 	if(writing)
 		to_chat(user, span_notice("The book is already being writen."))
 		return
 	writing = TRUE
 	to_chat(user, span_notice("You start writing about your profession."))
 
-	if(!I.use_tool(src, user, writing_delay, volume=50)) // TODO: pen writing sound?
+	if(!attacking_item.use_tool(src, user, writing_delay, volume=50)) // TODO: pen writing sound?
 		to_chat(user, span_notice("You stopped writing."))
 		writing = FALSE
 		return
