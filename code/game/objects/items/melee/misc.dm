@@ -143,7 +143,7 @@
 	armour_penetration = 25
 	belt_icon_state = "sabre"
 	sharpness = SHARP //No dismembering for security sabre without direct intent
-	custom_premium_price = 200
+	custom_premium_price = 100
 
 /obj/item/melee/sabre/carbon_fiber
 
