@@ -300,5 +300,7 @@
   - tweak: Energy bolas are no longer consumed upon hitting a target
   - tweak: Gonbolas have had their duration reduced from 30 seconds to 10 seconds
       since they are also knockdown instead of just a pacification tool now.
+  mrmanlikesbt:
+  - bugfix: fixed tremere vampires being able to level up an infinite amount of times
   r1ks-iwnl:
   - tweak: Makes ash drake, space dragon, clf3 and meth fires more visible.
