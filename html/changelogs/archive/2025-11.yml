@@ -285,3 +285,8 @@
       now
   mrmanlikesbt, Pickle-Coding:
   - rscdel: Volume pumps can no longer be overclocked on closed turfs
+2025-11-24:
+  PowerfulBacon:
+  - balance: Ninja invisibility is now limited to 40 seconds, but that timer increases
+      while in the dark.
+  - balance: Ninja invisibility disables when any other ability is activated.
