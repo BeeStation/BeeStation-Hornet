@@ -218,6 +218,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
+	canblock = FALSE
 	cell_hit_cost = 20 KILOWATT
 	slot_flags = ITEM_SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler

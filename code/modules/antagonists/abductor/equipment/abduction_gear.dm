@@ -442,6 +442,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	force = 7
 	active_force = 140
+	canblock = FALSE
 
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
