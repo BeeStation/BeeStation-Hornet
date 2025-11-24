@@ -332,15 +332,20 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	else if(istype(cuffs, /obj/item/restraints/handcuffs))
 		to_chat(src, span_notice("You attempt to wriggle your way out of [cuffs]..."))
 		while(cuffs.item_flags & BEING_REMOVED && handcuffed == cuffs)
-			cuff_breakout_attempts++ //We increment these first so that long-term progress is still made even if interrupted
-			if(!do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
+			if(!do_after(src, (pulledby ? (10 SECONDS) : (5 SECONDS)), timed_action_flags = (pulledby ? (IGNORE_HELD_ITEM) : (IGNORE_HELD_ITEM | IGNORE_USER_LOC_CHANGE)), hidden = TRUE))
 				break
-			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime)
-				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / (5 SECONDS)] attempts", important = FALSE)
+			cuff_breakout_attempts++ //We have made progress
+			if(cuff_breakout_attempts * 10 SECONDS >= breakouttime)
+				log_combat(src, src, "slipped out of [cuffs]", important = FALSE)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
-			else if(cuff_breakout_attempts % 10 == 0)
-				visible_message(span_warning("[src] seems to be trying to wriggle out of [cuffs]!")) //Ten second warning for zipties, three warnings for real cuffs
+
+			//When they are about to start their final do_after, send an alert visible to all nearby mobs so they have a chance to react
+			else if(breakouttime - (cuff_breakout_attempts * 10 SECONDS) <= 10 SECONDS)
+				visible_message(span_warning("[src] seems to be trying to wriggle out of [cuffs]!"), ignored_mobs = src)
+
+			//Update the player every time they make progress
+			to_chat(src, span_notice("You wriggle the cuffs down a bit, it should take about another [(((breakouttime) - (cuff_breakout_attempts * 10 SECONDS)) / (pulledby ? 10 : 20))] seconds to free yourself if you aren't interrupted"))
 
 	else
 		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)]"))
@@ -387,8 +392,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return FALSE
 	if(I != handcuffed && I != legcuffed)
 		return FALSE
-	visible_message(span_danger("[src] manages to [cuff_break ? "break" : "remove"] [I]!"))
-	to_chat(src, span_notice("You successfully [cuff_break ? "break" : "remove"] [I]."))
+	visible_message(span_danger("[src] manages to [cuff_break ? "break" : "remove"] [I]!"), span_notice("You successfully [cuff_break ? "break" : "remove"] [I]."))
 
 	if(cuff_break)
 		. = !((I == handcuffed) || (I == legcuffed))
