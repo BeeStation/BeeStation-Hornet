@@ -14,7 +14,7 @@
 	damtype = BRUTE 		//becomes STAMINA when turned on, and is used to track whether the baton is off or on
 
 	canblock = TRUE
-	block_power = 50
+	block_power = 0 // Not great but good enough!
 	block_flags = BLOCKING_ACTIVE | BLOCKING_EFFORTLESS
 
 	attack_verb_continuous = list("beats")
