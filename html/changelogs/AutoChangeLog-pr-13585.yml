@@ -1,0 +1,12 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - rscadd: Players will now be regularly given a proper poll for ending the round
+      after a certain amount of time has passed. Only players who participate in the
+      voting system will be counted and a vote of at least 50% is required to call
+      the shuttle no matter how much time has passed.
+  - tweak: The maximum time for the evacuation shuttle is now 10 minutes for both
+      green alert and cases where every option for calling the shuttle is destroyed.
+  - tweak: Blue alert shuttles now take 7.5 minutes.
+  - tweak: Round length is now capped at four hours instead of two, with this value
+      being directly configurable for future tweaks.
