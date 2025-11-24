@@ -360,8 +360,20 @@
 	content_overlays = TRUE
 	custom_price = 80
 
+/obj/item/storage/belt/security/update_icon_state()
+	worn_icon_state = initial(worn_icon_state)
+	if(locate(/obj/item/melee/sabre/carbon_fiber) in contents)
+		worn_icon_state += "_sabre"
+	return ..()
+
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
+
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 56
+
 	atom_storage.set_holdable(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
@@ -383,7 +395,8 @@
 		/obj/item/club,
 		/obj/item/shield/riot/tele,
 		/obj/item/gun/ballistic/taser,
-		/obj/item/ammo_casing/taser
+		/obj/item/ammo_casing/taser,
+		/obj/item/melee/sabre/carbon_fiber,
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -420,13 +433,44 @@
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
-	desc = "Unique and versatile chest rig, can hold security gear."
+	desc = "Unique and versatile chest rig, can hold most security gear."
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
 	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
 	max_demand = 10
 	custom_price = 150
+
+/obj/item/storage/belt/security/webbing/Initialize(mapload)
+	. = ..()
+
+	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
+	atom_storage.max_slots = 9
+	atom_storage.max_total_storage = 56
+
+	atom_storage.set_holdable(list(
+		/obj/item/melee/baton,
+		/obj/item/melee/tonfa,
+		/obj/item/melee/classic_baton/police,
+		/obj/item/grenade,
+		/obj/item/reagent_containers/peppercloud_deployer,
+		/obj/item/restraints/handcuffs,
+		/obj/item/assembly/flash/handheld,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/food/donut,
+		/obj/item/knife/combat,
+		/obj/item/flashlight/seclite,
+		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/holosign_creator/security,
+		/obj/item/club,
+		/obj/item/shield/riot/tele,
+		/obj/item/gun/ballistic/taser,
+		/obj/item/ammo_casing/taser,
+		))
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
@@ -986,6 +1030,12 @@
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
 	update_appearance()
+
+/obj/item/storage/belt/sabre/empty
+	custom_premium_price = 50
+
+/obj/item/storage/belt/sabre/empty/PopulateContents()
+	return
 
 //While it might be useful in a pinch, this is the real reason I want the sheathes to be able to block
 /obj/item/storage/belt/sabre/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)

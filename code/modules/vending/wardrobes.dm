@@ -44,6 +44,7 @@
 		/obj/item/clothing/suit/jacket/officer/blue = 3,
 		/obj/item/clothing/head/beret/sec/navyofficer = 3,
 		/obj/item/storage/backpack/peace_borg_bag = 3,
+		/obj/item/storage/belt/sabre/empty = 3,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	light_color = COLOR_MOSTLY_PURE_RED

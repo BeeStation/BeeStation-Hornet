@@ -40,6 +40,29 @@
 	icon_state = "weapon_crate"
 	icon_door = "weapon_crate"
 
+/obj/structure/closet/crate/secure/weapon/formal
+	desc = "A secure clothing crate."
+	name = "formal uniform crate"
+
+/obj/structure/closet/crate/secure/weapon/formal/PopulateContents()
+	. = ..()
+	new /obj/item/clothing/under/rank/security/officer/formal(src)
+	new /obj/item/clothing/under/rank/security/officer/formal(src)
+	new /obj/item/clothing/under/rank/security/officer/formal(src)
+	new /obj/item/clothing/under/rank/security/officer/formal(src)
+	new /obj/item/clothing/suit/jacket/officer/blue(src)
+	new /obj/item/clothing/suit/jacket/officer/blue(src)
+	new /obj/item/clothing/suit/jacket/officer/blue(src)
+	new /obj/item/clothing/suit/jacket/officer/blue(src)
+	new	/obj/item/clothing/head/beret/sec/navyofficer(src)
+	new	/obj/item/clothing/head/beret/sec/navyofficer(src)
+	new	/obj/item/clothing/head/beret/sec/navyofficer(src)
+	new	/obj/item/clothing/head/beret/sec/navyofficer(src)
+	new /obj/item/storage/belt/sabre/carbon_fiber(src)
+	new /obj/item/storage/belt/sabre/carbon_fiber(src)
+	new /obj/item/storage/belt/sabre/carbon_fiber(src)
+	new /obj/item/storage/belt/sabre/carbon_fiber(src)
+
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"

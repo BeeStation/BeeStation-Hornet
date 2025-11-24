@@ -77,7 +77,6 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)
 
-
 /obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
@@ -142,7 +141,11 @@
 	item_state = "sabre_fiber"
 	force = 15
 	armour_penetration = 25
+	belt_icon_state = "sabre"
 	sharpness = SHARP //No dismembering for security sabre without direct intent
+	custom_premium_price = 200
+
+/obj/item/melee/sabre/carbon_fiber
 
 /obj/item/melee/sabre/mime
 	name = "Bread Blade"
