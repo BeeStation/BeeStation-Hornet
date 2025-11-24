@@ -38167,10 +38167,10 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/solars/port/fore)
 "lDj" = (
-/obj/machinery/flasher/portable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/closet/crate/secure/weapon/formal,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "lDH" = (

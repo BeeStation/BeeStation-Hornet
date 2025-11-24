@@ -1031,12 +1031,6 @@
 	new /obj/item/melee/sabre(src)
 	update_appearance()
 
-/obj/item/storage/belt/sabre/empty
-	custom_premium_price = 50
-
-/obj/item/storage/belt/sabre/empty/PopulateContents()
-	return
-
 //While it might be useful in a pinch, this is the real reason I want the sheathes to be able to block
 /obj/item/storage/belt/sabre/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(!length(contents) && istype(hitby, /obj/item/melee/sabre))
@@ -1056,6 +1050,12 @@
 /obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
 	new /obj/item/melee/sabre/carbon_fiber(src)
 	update_appearance()
+
+/obj/item/storage/belt/sabre/carbon_fiber/empty
+	custom_premium_price = 50
+
+/obj/item/storage/belt/sabre/carbon_fiber/empty/PopulateContents()
+	return
 
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"

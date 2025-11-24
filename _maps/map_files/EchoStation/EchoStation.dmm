@@ -10800,6 +10800,14 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = -2;
+	pixel_y = -2
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fwN" = (
@@ -20327,20 +20335,12 @@
 /area/quartermaster/sorting)
 "kxH" = (
 /obj/effect/turf_decal/bot,
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/structure/rack,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/structure/closet/crate/secure/weapon/formal,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "kxR" = (

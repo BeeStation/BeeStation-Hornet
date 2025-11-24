@@ -16527,7 +16527,6 @@
 	},
 /area/maintenance/starboard)
 "dAI" = (
-/obj/machinery/flasher/portable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1
@@ -16536,6 +16535,7 @@
 	pixel_y = 26
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/weapon/formal,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/security/armory)
 "dAP" = (
