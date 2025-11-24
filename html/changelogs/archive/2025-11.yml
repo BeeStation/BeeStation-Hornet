@@ -290,3 +290,5 @@
   - balance: Ninja invisibility is now limited to 40 seconds, but that timer increases
       while in the dark.
   - balance: Ninja invisibility disables when any other ability is activated.
+  r1ks-iwnl:
+  - tweak: Makes ash drake, space dragon, clf3 and meth fires more visible.
