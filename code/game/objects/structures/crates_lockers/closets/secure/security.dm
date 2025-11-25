@@ -234,7 +234,6 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/storage/belt/sabre/carbon_fiber(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
