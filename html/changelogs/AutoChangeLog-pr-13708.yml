@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed mjolnir not being two handed
-  - balance: Set the mjolnir projectile's damage to 30 (this was reverted ~3 years
-      ago)
