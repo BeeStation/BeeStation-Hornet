@@ -231,13 +231,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define WINGS_FLYING 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
 
-//Surgery Defines
-#define BIOWARE_GENERIC "generic"
-#define BIOWARE_NERVES "nerves"
-#define BIOWARE_CIRCULATION "circulation"
-#define BIOWARE_LIGAMENTS "ligaments"
-#define BIOWARE_CORTEX "cortex"
-
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
 #define SCREWYHUD_CRIT 1
