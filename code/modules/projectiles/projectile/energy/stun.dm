@@ -349,6 +349,7 @@
 		RegisterSignal(firer, COMSIG_QDELETING, PROC_REF(end_tase))
 	RegisterSignal(firer, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(check_hands))
 	RegisterSignal(firer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_hands))
+	RegisterSignal(firer, COMSIG_MOB_DROPPED_ITEM, PROC_REF(check_hands))
 
 	RegisterSignal(firer, COMSIG_MOB_CLICKON, PROC_REF(user_cancel_tase))
 	RegisterSignal(firer, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
@@ -412,8 +413,11 @@
 	SIGNAL_HANDLER
 	if(QDELING(src))
 		return
-	// We don't care about switching hands, only about item equips
-	if (item.item_flags & ABSTRACT)
+	if (!isliving(firer))
+		end_tase()
+		return
+	var/mob/living/living_firer = firer
+	if (taser in living_firer.held_items)
 		return
 	end_tase()
 
