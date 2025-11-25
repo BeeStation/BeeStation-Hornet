@@ -440,6 +440,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "wonderprod"
 	worn_icon_state = "classic_baton"
 
+	canblock = FALSE
 	force = 7
 	active_force = 140
 

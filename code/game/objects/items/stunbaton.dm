@@ -13,7 +13,9 @@
 	var/active_force = 40 	//STAMINA when on
 	damtype = BRUTE 		//becomes STAMINA when turned on, and is used to track whether the baton is off or on
 
-	block_flags = BLOCKING_EFFORTLESS
+	canblock = TRUE
+	block_power = 0
+	block_flags = BLOCKING_EFFORTLESS | BLOCKING_ACTIVE
 
 	attack_verb_continuous = list("beats")
 	attack_verb_simple = list("beat")
@@ -217,6 +219,7 @@
 	force = 3
 	throwforce = 5
 	cell_hit_cost = 20 KILOWATT
+	canblock = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler
 	custom_price = 25
