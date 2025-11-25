@@ -20,40 +20,6 @@ SUBSYSTEM_DEF(polling)
 		if(running_poll.time_left() <= 0)
 			polling_finished(running_poll)
 
-/datum/poll_config
-	/// Optional, The question to ask the candidates. If null, a default question will be used. ("Do you want to play as role?")
-	var/question = null
-	/// Optional, A role preference (/datum/role_preference/roundstart/traitor) to pass, it won't show to any candidates who don't have it in their preferences.
-	var/role = null
-	/// Optional, What jobban role / flag to check, it won't show to any candidates who have this jobban.
-	var/check_jobban = null
-	/// How long the poll will last.
-	var/poll_time = 30 SECONDS
-	/// Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.
-	var/ignore_category = null
-	/// If TRUE, the candidate's window will flash when they're polled.
-	var/flash_window = TRUE
-	/// Optional, An /atom or an /image to display on the poll alert.
-	var/alert_pic = null
-	/// An /atom to teleport/jump to, if alert_pic is an /atom defaults to that.
-	var/atom/jump_target = null
-	/// Optional, A string to display in logging / the (default) question. If null, the role name will be used.
-	var/role_name_text = null
-	/// Optional, A list of strings to use as responses to the poll. If null, the default responses will be used. see __DEFINES/polls.dm for valid keys to use.
-	var/list/custom_response_messages = null
-	/// If TRUE, all candidates will start signed up for the poll, making it opt-out rather than opt-in.
-	var/start_signed_up = FALSE
-	/// Lets you pick candidates and return a single mob or list of mobs that were chosen. If set to a non-zero value, then the poll proc will return a random selection of this many candidates, otherwise all candidates will be returned so that you can handle selection yourself.
-	var/amount_to_pick = 0
-	/// Object or path to make an icon of to decorate the chat announcement.
-	var/chat_text_border_icon
-	/// Whether we should announce the chosen candidates in chat. This is ignored unless amount_to_pick is greater than 0.
-	var/announce_chosen = TRUE
-	/// A function that goes from /mob -> boolean that determines whether the provided mob should be included in the poll.
-	var/datum/callback/check_candidate = null
-	/// Who we auto add to the poll
-	var/auto_add_type = POLL_AUTO_ADD_NONE
-
 /**
  * Starts a poll.
  *
@@ -88,7 +54,7 @@ SUBSYSTEM_DEF(polling)
 				filtered_group += source
 		group = filtered_group
 
-	var/datum/candidate_poll/new_poll = new(config.role_name_text, config.question, config.poll_time, config.ignore_category, config.jump_target, config.custom_response_messages, auto_add_type = config.auto_add_type)
+	var/datum/candidate_poll/new_poll = new(config)
 	LAZYADD(currently_polling, new_poll)
 
 	for(var/mob/candidate_mob as anything in group)
@@ -236,8 +202,11 @@ SUBSYSTEM_DEF(polling)
 	if (isobserver(created_mob))
 		return
 	for (var/datum/candidate_poll/poll in currently_polling)
-		if (poll.auto_add_type != POLL_AUTO_ADD_GHOSTS)
+		if (poll.config.auto_add_type != POLL_AUTO_ADD_GHOSTS)
 			continue
+		if (poll.config.check_candidate != null)
+			if (!poll.config.check_candidate.Invoke(created_mob))
+				continue
 		INVOKE_ASYNC(poll, TYPE_PROC_REF(/datum/candidate_poll, show_to))
 
 /datum/controller/subsystem/polling/proc/is_eligible(mob/potential_candidate, role, check_jobban, the_ignore_category)
@@ -262,7 +231,7 @@ SUBSYSTEM_DEF(polling)
 	// Trim players who aren't eligible anymore
 	var/length_pre_trim = length(finishing_poll.signed_up)
 	finishing_poll.trim_candidates()
-	log_game("Candidate poll [finishing_poll.role ? "for [finishing_poll.role]" : "\"[finishing_poll.question]\""] finished. [length_pre_trim] players signed up, [length(finishing_poll.signed_up)] after trimming")
+	log_game("Candidate poll [finishing_poll.config.role ? "for [finishing_poll.config.role]" : "\"[finishing_poll.config.question]\""] finished. [length_pre_trim] players signed up, [length(finishing_poll.signed_up)] after trimming")
 	finishing_poll.finished = TRUE
 
 	// Take care of updating the remaining screen alerts if a similar poll is found, or deleting them.

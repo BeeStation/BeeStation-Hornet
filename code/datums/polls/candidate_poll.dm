@@ -1,17 +1,7 @@
 /// The datum that describes one instance of candidate polling
 /datum/candidate_poll
-	/// The role the poll is for
-	var/role
-	/// The preference key for the role
-	var/preference_key
-	/// The question asked to potential candidates
-	var/question
-	/// The duration of the poll
-	var/duration
-	/// the atom observers can jump/teleport to
-	var/atom/jump_to_me
-	/// Never For This Round category
-	var/ignoring_category
+	/// Settings for the poll
+	var/datum/poll_config/config
 	/// The players who signed up to this poll
 	var/list/mob/signed_up
 	/// the linked alert buttons
@@ -32,53 +22,22 @@
 	)
 	/// List of candidates chosen by the poll
 	var/list/chosen_candidates = list()
-	/// The key to use for job bans
-	var/job_ban_key = null
-	/// The image we use for the poll
-	var/alert_pic = null
-	/// The icon we display in the chat which represents this roll
-	var/chat_text_border_icon = null
-	/// If defined, then users will automatically see this poll when they meet
-	/// certain specific conditions.
-	var/auto_add_type = POLL_AUTO_ADD_NONE
 
-/datum/candidate_poll/New(
-		polled_role,
-		preference_key,
-		polled_question,
-		poll_duration,
-		poll_ignoring_category,
-		poll_jumpable,
-		list/custom_response_messages = list(),
-		job_ban_key = null,
-		alert_pic = null,
-		chat_text_border_icon = null,
-		auto_add_type = POLL_AUTO_ADD_NONE
-		)
-	role = polled_role
-	src.preference_key = preference_key
-	question = polled_question
-	duration = poll_duration
-	ignoring_category = poll_ignoring_category
-	jump_to_me = poll_jumpable
+/datum/candidate_poll/New(datum/poll_config/config)
 	signed_up = list()
 	time_started = world.time
-	poll_key = "[question]_[role ? role : "0"]"
-	src.job_ban_key = job_ban_key
-	src.alert_pic = alert_pic
-	src.chat_text_border_icon = chat_text_border_icon
-	src.auto_add_type = auto_add_type
-	if(custom_response_messages.len)
-		response_messages = custom_response_messages
+	poll_key = "[config.question]_[config.role ? config.role : "0"]"
+	if(length(config.custom_response_messages))
+		response_messages = config.custom_response_messages
 	for(var/individual_message in response_messages)
-		response_messages[individual_message] = replacetext(response_messages[individual_message], "%ROLE%", role)
+		response_messages[individual_message] = replacetext(response_messages[individual_message], "%ROLE%", config.role)
 	return ..()
 
 /datum/candidate_poll/Destroy()
 	if(src in SSpolling.currently_polling)
 		SSpolling.polling_finished(src)
 		return QDEL_HINT_IWILLGC // the above proc will call QDEL_IN(src, 0.5 SECONDS)
-	jump_to_me = null
+	config.jump_target = null
 	signed_up = null
 	return ..()
 
@@ -135,15 +94,15 @@
 	return TRUE
 
 /datum/candidate_poll/proc/do_never_for_this_round(mob/candidate)
-	var/list/ignore_list = GLOB.poll_ignore[ignoring_category]
+	var/list/ignore_list = GLOB.poll_ignore[config.ignore_category]
 	if(!ignore_list)
-		GLOB.poll_ignore[ignoring_category] = list()
-	GLOB.poll_ignore[ignoring_category] += candidate.ckey
+		GLOB.poll_ignore[config.ignore_category] = list()
+	GLOB.poll_ignore[config.ignore_category] += candidate.ckey
 	to_chat(candidate, span_danger("Choice registered: Never for this round."))
 	remove_candidate(candidate, silent = TRUE)
 
 /datum/candidate_poll/proc/undo_never_for_this_round(mob/candidate)
-	GLOB.poll_ignore[ignoring_category] -= candidate.ckey
+	GLOB.poll_ignore[config.ignore_category] -= candidate.ckey
 	to_chat(candidate, span_notice("Choice registered: Eligible for this round"))
 
 /datum/candidate_poll/proc/trim_candidates()
@@ -153,7 +112,7 @@
 			signed_up -= candidate
 
 /datum/candidate_poll/proc/time_left()
-	return duration - (world.time - time_started)
+	return config.poll_time - (world.time - time_started)
 
 /// Print to chat which candidate was selected
 /datum/candidate_poll/proc/announce_chosen(list/poll_recipients)
@@ -162,13 +121,13 @@
 	for(var/mob/chosen in chosen_candidates)
 		var/client/chosen_client = chosen.client
 		for(var/mob/poll_recipient as anything in poll_recipients)
-			to_chat(poll_recipient, span_ooc("[isobserver(poll_recipient) ? FOLLOW_LINK(poll_recipient, chosen_client.mob) : null][span_warning(" [full_capitalize(role)] Poll: ")]Player was selected."))
+			to_chat(poll_recipient, span_ooc("[isobserver(poll_recipient) ? FOLLOW_LINK(poll_recipient, chosen_client.mob) : null][span_warning(" [full_capitalize(config.role)] Poll: ")]Player was selected."))
 
 /datum/candidate_poll/proc/show_to(mob/candidate_mob, start_signed_up = FALSE, flash_window = FALSE)
 	if(!candidate_mob.client)
 		return
 	// Universal opt-out for all players.
-	if(!SSpolling.is_eligible(candidate_mob, preference_key, job_ban_key, ignoring_category))
+	if(!SSpolling.is_eligible(candidate_mob, config.role, config.check_jobban, config.ignore_category))
 		return
 
 	if(start_signed_up)
@@ -181,9 +140,9 @@
 	// If we somehow send two polls for the same mob type, but with a duration on the second one shorter than the time left on the first one,
 	// we need to keep the first one's timeout rather than use the shorter one
 	var/atom/movable/screen/alert/poll_alert/current_alert = LAZYACCESS(candidate_mob.alerts, category)
-	var/alert_time = duration
+	var/alert_time = config.poll_time
 	var/datum/candidate_poll/alert_poll = src
-	if(current_alert && current_alert.timeout > (world.time + duration - world.tick_lag))
+	if(current_alert && current_alert.timeout > (world.time + config.poll_time - world.tick_lag))
 		alert_time = current_alert.timeout - world.time + world.tick_lag
 		alert_poll = current_alert.poll
 
@@ -207,13 +166,13 @@
 
 	// Image to display
 	var/image/poll_image
-	if(ispath(alert_pic, /atom) || isatom(alert_pic))
-		poll_image = new /mutable_appearance(alert_pic)
+	if(ispath(config.alert_pic, /atom) || isatom(config.alert_pic))
+		poll_image = new /mutable_appearance(config.alert_pic)
 		poll_image.layer = FLOAT_LAYER
 		poll_image.plane = poll_alert_button.plane
 		poll_image.pixel_z = 0
-	else if(!isnull(alert_pic))
-		poll_image = alert_pic
+	else if(!isnull(config.alert_pic))
+		poll_image = config.alert_pic
 	else
 		poll_image = image('icons/effects/effects.dmi', icon_state = "static")
 		poll_image.layer = FLOAT_LAYER
@@ -226,11 +185,11 @@
 	var/act_jump = ""
 	var/custom_link_style_start = "<style>a:visited{color:Crimson !important}</style>"
 	var/custom_link_style_end = "style='color:DodgerBlue;font-weight:bold;-dm-text-outline: 1px black'"
-	if(isatom(alert_pic) && isobserver(candidate_mob))
+	if(isatom(config.alert_pic) && isobserver(candidate_mob))
 		act_jump = "[custom_link_style_start]<a href='byond://?src=[REF(poll_alert_button)];jump=1'[custom_link_style_end]>\[Teleport\]</a>"
 	var/act_signup = "[custom_link_style_start]<a href='byond://?src=[REF(poll_alert_button)];signup=1'[custom_link_style_end]>\[[start_signed_up ? "Opt out" : "Sign Up"]\]</a>"
 	var/act_never = ""
-	if(ignoring_category)
+	if(config.ignore_category)
 		act_never = "[custom_link_style_start]<a href='byond://?src=[REF(poll_alert_button)];never=1'[custom_link_style_end]>\[Never For This Round\]</a>"
 
 	if(!SSpolling.duplicate_message_check(alert_poll)) //Only notify people once. They'll notice if there are multiple and we don't want to spam people.
@@ -239,15 +198,15 @@
 			candidate_mob.playsound_local(null, 'sound/misc/prompt.ogg', 50)
 
 		var/surrounding_icon
-		if(chat_text_border_icon)
+		if(config.chat_text_border_icon)
 			var/image/surrounding_image
-			if(!ispath(chat_text_border_icon))
-				var/mutable_appearance/border_image = chat_text_border_icon
+			if(!ispath(config.chat_text_border_icon))
+				var/mutable_appearance/border_image = config.chat_text_border_icon
 				surrounding_image = border_image
 			else
-				surrounding_image = image(chat_text_border_icon)
+				surrounding_image = image(config.chat_text_border_icon)
 			surrounding_icon = icon2html(surrounding_image, candidate_mob)
-		var/final_message = examine_block("<span style='text-align:center;display:block'>[surrounding_icon] <span style='font-size:1.2em'>[span_ooc(question)]</span> [surrounding_icon]\n[act_jump]      [act_signup]      [act_never]</span>")
+		var/final_message = examine_block("<span style='text-align:center;display:block'>[surrounding_icon] <span style='font-size:1.2em'>[span_ooc(config.question)]</span> [surrounding_icon]\n[act_jump]      [act_signup]      [act_never]</span>")
 		to_chat(candidate_mob, final_message)
 
 	// Start processing it so it updates visually the timer
@@ -258,7 +217,7 @@
 	if(!poll_alert_button)
 		return null
 	poll_alert_button.icon = ui_style2icon(candidate_mob.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
-	poll_alert_button.desc = "[question]"
+	poll_alert_button.desc = "[config.question]"
 	poll_alert_button.show_time_left = TRUE
 	poll_alert_button.poll = alert_poll
 	poll_alert_button.set_role_overlay()
@@ -291,7 +250,7 @@
 	if(!poll_alert_button)
 		return null
 	poll_alert_button.icon = ui_style2icon(candidate_mob.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
-	poll_alert_button.desc = "[question]"
+	poll_alert_button.desc = "[config.question]"
 	poll_alert_button.show_time_left = FALSE
 	poll_alert_button.poll = alert_poll
 	poll_alert_button.set_role_overlay()

@@ -685,7 +685,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	signed_up_overlay = mutable_appearance('icons/hud/screen_gen.dmi', icon_state = "selector")
 
 /atom/movable/screen/alert/poll_alert/proc/set_role_overlay()
-	var/role_or_only_question = poll.role || "?"
+	var/role_or_only_question = poll.config.role || "?"
 	role_overlay = new
 	role_overlay.screen_loc = screen_loc
 	role_overlay.maptext = MAPTEXT("<span style='text-align: right; color: #B3E3FC'>[full_capitalize(role_or_only_question)]</span>")
@@ -708,10 +708,10 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		context.add_left_click_action("[(owner in poll.signed_up) ? "Leave" : "Enter"] Poll")
 		context.add_right_click_action("Dismiss")
 
-		if(poll.ignoring_category)
-			context.add_alt_click_action("[(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]) ? "Cancel " : ""]Never For This Round")
+		if(poll.config.ignore_category)
+			context.add_alt_click_action("[(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]) ? "Cancel " : ""]Never For This Round")
 
-		if(poll.jump_to_me && isobserver(owner))
+		if(poll.config.jump_target && isobserver(owner))
 			context.add_ctrl_click_action("Jump To")
 
 /atom/movable/screen/alert/poll_alert/process()
@@ -736,10 +736,10 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if (LAZYACCESS(modifiers, RIGHT_CLICK))
 		dismiss()
 		return
-	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.ignoring_category)
+	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.config.ignore_category)
 		clicky = TRUE
 		set_never_round()
-	if(LAZYACCESS(modifiers, CTRL_CLICK) && poll.jump_to_me)
+	if(LAZYACCESS(modifiers, CTRL_CLICK) && poll.config.jump_target)
 		clicky = TRUE
 		jump_to_jump_target()
 
@@ -753,12 +753,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /atom/movable/screen/alert/poll_alert/proc/handle_sign_up()
 	if(owner in poll.signed_up)
 		poll.remove_candidate(owner)
-	else if(!(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]))
+	else if(!(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]))
 		poll.sign_up(owner)
 	update_signed_up_overlay()
 
 /atom/movable/screen/alert/poll_alert/proc/set_never_round()
-	if(!(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]))
+	if(!(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]))
 		poll.do_never_for_this_round(owner)
 		color = "red"
 		update_signed_up_overlay()
@@ -767,9 +767,9 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	color = initial(color)
 
 /atom/movable/screen/alert/poll_alert/proc/jump_to_jump_target()
-	if(!poll?.jump_to_me || !isobserver(owner))
+	if(!poll?.config.jump_target || !isobserver(owner))
 		return
-	var/turf/target_turf = get_turf(poll.jump_to_me)
+	var/turf/target_turf = get_turf(poll.config.jump_target)
 	if(target_turf && isturf(target_turf))
 		owner.abstract_move(target_turf)
 
