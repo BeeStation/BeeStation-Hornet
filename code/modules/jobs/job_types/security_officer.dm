@@ -165,11 +165,6 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival/security
 
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/x200law = 1,
-		/obj/item/ammo_casing/taser = 1,
-		)
-
 	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)

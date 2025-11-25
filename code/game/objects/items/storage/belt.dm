@@ -362,6 +362,10 @@
 
 /obj/item/storage/belt/security/Initialize(mapload)
 	. = ..()
+
+	atom_storage.max_specific_storage = WEIGHT_CLASS_LARGE
+	atom_storage.max_slots = 5
+
 	atom_storage.set_holdable(list(
 		/obj/item/melee/baton,
 		/obj/item/melee/tonfa,
@@ -383,16 +387,16 @@
 		/obj/item/club,
 		/obj/item/shield/riot/tele,
 		/obj/item/gun/ballistic/taser,
-		/obj/item/ammo_casing/taser
+		/obj/item/ammo_casing/taser,
+		/obj/item/ammo_box/magazine/x200law,
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/gun/ballistic/taser(src)
+	new /obj/item/ammo_casing/taser(src)
+	new /obj/item/ammo_box/magazine/x200law(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/ert/full/PopulateContents()
@@ -400,9 +404,7 @@
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/club(src)
 	new /obj/item/grenade/flashbang(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
 	new /obj/item/gun/ballistic/taser(src)
-	new /obj/item/holosign_creator/security(src)
 	update_appearance()
 
 /obj/item/storage/belt/security/deputy
@@ -411,10 +413,8 @@
 /obj/item/storage/belt/security/deputy/PopulateContents()
 	new /obj/item/melee/tonfa(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/peppercloud_deployer(src)
-	new /obj/item/flashlight/seclite(src)
 	new /obj/item/gun/ballistic/taser(src)
 	update_appearance()
 
@@ -427,6 +427,12 @@
 	content_overlays = FALSE
 	max_demand = 10
 	custom_price = 150
+
+/obj/item/storage/belt/security/webbing/Initialize(mapload)
+	. = ..()
+
+	atom_storage.max_specific_storage = WEIGHT_CLASS_MEDIUM
+	atom_storage.max_slots = 9
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
