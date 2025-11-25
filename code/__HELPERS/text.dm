@@ -248,8 +248,8 @@
 		return 0
 
 	// Sanitize inputs to lowercase
-	text1 = lowertext(text1)
-	text2 = lowertext(text2)
+	text1 = LOWER_TEXT(text1)
+	text2 = LOWER_TEXT(text2)
 
 	// Do they contain eachother entirely?
 	if(findtext(text1, text2) || findtext(text2, text1))
