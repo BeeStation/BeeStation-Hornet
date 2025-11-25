@@ -1,7 +1,7 @@
 /obj/item/melee/baton
 	name = "stun baton"
 	desc = "A stun baton for incapacitating people with."
-	desc_controls = "Left click to stun, right click to baton shove. Also hits hard while inactive."
+	desc_controls = "Left click to stun, right click to baton shove."
 
 	icon_state = "stunbaton"
 	item_state = "baton"
@@ -9,13 +9,11 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 
-	force = 15 				//BRUTE when off
+	force = 8 				//BRUTE when off
 	var/active_force = 40 	//STAMINA when on
 	damtype = BRUTE 		//becomes STAMINA when turned on, and is used to track whether the baton is off or on
 
-	canblock = TRUE
-	block_power = 0 // Not great but good enough!
-	block_flags = BLOCKING_ACTIVE | BLOCKING_EFFORTLESS
+	block_flags = BLOCKING_EFFORTLESS
 
 	attack_verb_continuous = list("beats")
 	attack_verb_simple = list("beat")
@@ -218,7 +216,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
-	canblock = FALSE
 	cell_hit_cost = 20 KILOWATT
 	slot_flags = ITEM_SLOT_BACK
 	var/obj/item/assembly/igniter/sparkler
