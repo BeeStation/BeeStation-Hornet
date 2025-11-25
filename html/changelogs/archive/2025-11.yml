@@ -314,6 +314,9 @@
   r1ks-iwnl:
   - tweak: Makes ash drake, space dragon, clf3 and meth fires more visible.
 2025-11-25:
+  PowerfulBacon:
+  - bugfix: Fixes taser continuing to fire even after being put in your backpack.
+  - balance: Fixes tasers unequipping when pulling out items in your second hand.
   mrmanlikesbt:
   - bugfix: Fixed mjolnir not being two handed
   - balance: Set the mjolnir projectile's damage to 30 (this was reverted ~3 years

@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes taser continuing to fire even after being put in your backpack.
-  - balance: Fixes tasers unequipping when pulling out items in your second hand.
