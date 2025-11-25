@@ -138,8 +138,6 @@
 	if(length(candidates) >= drafted_players_amount)
 		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
 		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
-	else
-		make_persistent()
 
 /**
  * Spawn a body for the chosen candidate

@@ -24,9 +24,12 @@
 	var/list/chosen_candidates = list()
 
 /datum/candidate_poll/New(datum/poll_config/config)
+	if (config == null)
+		CRASH("Assertion Violation: Creating a poll without passing a valid config for that poll.")
 	signed_up = list()
 	time_started = world.time
 	poll_key = "[config.question]_[config.role ? config.role : "0"]"
+	src.config = config
 	if(length(config.custom_response_messages))
 		response_messages = config.custom_response_messages
 	for(var/individual_message in response_messages)

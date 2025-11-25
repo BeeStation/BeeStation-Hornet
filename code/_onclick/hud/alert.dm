@@ -685,7 +685,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	signed_up_overlay = mutable_appearance('icons/hud/screen_gen.dmi', icon_state = "selector")
 
 /atom/movable/screen/alert/poll_alert/proc/set_role_overlay()
-	var/role_or_only_question = poll.config.role || "?"
+	var/role_or_only_question = poll.config.role_name_text || "?"
 	role_overlay = new
 	role_overlay.screen_loc = screen_loc
 	role_overlay.maptext = MAPTEXT("<span style='text-align: right; color: #B3E3FC'>[full_capitalize(role_or_only_question)]</span>")
@@ -721,11 +721,16 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		var/timeleft = timeout - world.time
 		if(timeleft <= 0)
 			return PROCESS_KILL
-		cut_overlay(time_left_overlay)
+		if (time_left_overlay)
+			cut_overlay(time_left_overlay)
 		time_left_overlay = new
 		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[CEILING(timeleft / (1 SECONDS), 1)]</b></span>")
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 19)
 		add_overlay(time_left_overlay)
+	else
+		if (time_left_overlay)
+			cut_overlay(time_left_overlay)
+			time_left_overlay = null
 
 /atom/movable/screen/alert/poll_alert/Click(location, control, params)
 	if(isnull(poll))

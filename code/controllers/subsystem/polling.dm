@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(polling)
 	var/total_polls = 0
 
 /datum/controller/subsystem/polling/Initialize()
-	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_CREATED, PROC_REF(on_ghost_appeared))
+	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, PROC_REF(on_ghost_appeared))
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/polling/fire()
@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(polling)
 
 /datum/controller/subsystem/polling/proc/on_ghost_appeared(datum/source, mob/created_mob)
 	SIGNAL_HANDLER
-	if (isobserver(created_mob))
+	if (!isobserver(created_mob))
 		return
 	for (var/datum/candidate_poll/poll in currently_polling)
 		if (poll.config.auto_add_type != POLL_AUTO_ADD_GHOSTS)
@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(polling)
 		if (poll.config.check_candidate != null)
 			if (!poll.config.check_candidate.Invoke(created_mob))
 				continue
-		INVOKE_ASYNC(poll, TYPE_PROC_REF(/datum/candidate_poll, show_to))
+		INVOKE_ASYNC(poll, TYPE_PROC_REF(/datum/candidate_poll, show_to), created_mob)
 
 /datum/controller/subsystem/polling/proc/is_eligible(mob/potential_candidate, role, check_jobban, the_ignore_category)
 	if(isnull(potential_candidate.key) || isnull(potential_candidate.client))
@@ -231,7 +231,7 @@ SUBSYSTEM_DEF(polling)
 	// Trim players who aren't eligible anymore
 	var/length_pre_trim = length(finishing_poll.signed_up)
 	finishing_poll.trim_candidates()
-	log_game("Candidate poll [finishing_poll.config.role ? "for [finishing_poll.config.role]" : "\"[finishing_poll.config.question]\""] finished. [length_pre_trim] players signed up, [length(finishing_poll.signed_up)] after trimming")
+	log_game("Candidate poll [finishing_poll.config.role_name_text ? "for [finishing_poll.config.role_name_text]" : "\"[finishing_poll.config.question]\""] finished. [length_pre_trim] players signed up, [length(finishing_poll.signed_up)] after trimming")
 	finishing_poll.finished = TRUE
 
 	// Take care of updating the remaining screen alerts if a similar poll is found, or deleting them.
