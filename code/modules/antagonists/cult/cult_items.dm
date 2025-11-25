@@ -112,8 +112,7 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "A strong bola, bound with dark magic that allows it to pass harmlessly through Nar'Sien cultists. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
-	breakouttime = 6 SECONDS
-	knockdown = 20
+	knockdown = 6 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -530,9 +529,9 @@ Striking a noncultist, however, will tear their flesh."}
 	if(istype(A, /obj/item))
 
 		var/list/cultists = list()
-		for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-			if(cultist.owner?.current?.stat != DEAD)
-				cultists |= cultist.owner.current
+		for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+			if(cult_mind.current?.stat != DEAD)
+				cultists |= cult_mind.current
 		var/mob/living/cultist_to_receive = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in (cultists - user)
 		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 			return

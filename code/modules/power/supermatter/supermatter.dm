@@ -120,8 +120,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	/// The key our internal radio uses
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 
-	/// Boolean used to log the first activation of the SM.
-	var/activation_logged = FALSE
+	/// Variable used to log the first activation of the SM.
+	var/activation_time
 
 	/// An effect we show to admins and ghosts the percentage of delam we're at
 	var/obj/effect/countdown/supermatter/countdown
@@ -674,9 +674,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	for(var/powergain_types in additive_power)
 		internal_energy += additive_power[powergain_types]
 	internal_energy = max(internal_energy, 0)
-	if(internal_energy && !activation_logged)
+	if(internal_energy && !activation_time)
 		stack_trace("Supermatter powered for the first time without being logged. Internal energy factors: [json_encode(internal_energy_factors)]")
-		activation_logged = TRUE // so we dont spam the log.
+		activation_time = world.time
 	else if(!internal_energy)
 		last_power_zap = world.time
 		last_energy_accumulation_perspective_machines = SSmachines.times_fired
@@ -691,7 +691,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
  * * how - A datum. How they powered it. Optional.
  */
 /obj/machinery/power/supermatter_crystal/proc/log_activation(who, how)
-	if(activation_logged || disable_power_change)
+	if(activation_time || disable_power_change)
 		return
 	if(!who)
 		CRASH("Supermatter activated by an unknown source")
@@ -702,7 +702,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else
 		investigate_log("has been powered for the first time by [key_name(who)][how ? " with [how]" : ""].", INVESTIGATE_ENGINES)
 		message_admins("[src] [ADMIN_JMP(src)] has been powered for the first time by [ADMIN_FULLMONTY(who)][how ? " with [how]" : ""].")
-	activation_logged = TRUE
+	activation_time = world.time
 
 /**
  * Perform calculation for the main zap power transmission rate in W/MeV.

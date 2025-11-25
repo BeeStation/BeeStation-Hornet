@@ -108,7 +108,12 @@
 			if(source.block_flags & (BLOCKING_COUNTERATTACK | BLOCKING_NASTY))
 				readout += "It is able to counter-attack while blocking."
 			if(source.block_flags & BLOCKING_PROJECTILE)
-				readout += "It can reflect laser weaponry."
+				readout += "It is able to block gunfire."
+
+				if(istype(source, /obj/item/shield))
+					var/obj/item/shield/source_shield = source
+					if(source_shield.transparent)
+						readout += "Because it is transparent, lasers will pass right through it."
 
 	// Custom manual notes
 	if(source.offensive_notes)
