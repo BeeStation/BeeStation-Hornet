@@ -89,7 +89,7 @@
 	/// Vampire level display HUD
 	var/atom/movable/screen/vampire/rank_counter/vamprank_display
 	/// Vampire humanity display HUD
-	var/atom/movable/screen/vampire/rank_counter/humanity_display
+	var/atom/movable/screen/vampire/humanity_counter/humanity_display
 	/// Sunlight timer HUD
 	var/atom/movable/screen/vampire/sunlight_counter/sunlight_display
 
