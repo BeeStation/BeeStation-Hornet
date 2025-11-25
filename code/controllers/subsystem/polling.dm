@@ -1,12 +1,16 @@
 SUBSYSTEM_DEF(polling)
 	name = "Polling"
-	flags = SS_BACKGROUND | SS_NO_INIT
+	flags = SS_BACKGROUND
 	wait = 1 SECONDS
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	/// List of polls currently ongoing, to be checked on next fire()
 	var/list/datum/candidate_poll/currently_polling
 	/// Number of polls performed since the start
 	var/total_polls = 0
+
+/datum/controller/subsystem/polling/Initialize()
+	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_CREATED, PROC_REF(on_ghost_appeared))
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/polling/fire()
 	if(!currently_polling) // if polls_active is TRUE then this shouldn't happen, but still..
@@ -234,7 +238,7 @@ SUBSYSTEM_DEF(polling)
 	for (var/datum/candidate_poll/poll in currently_polling)
 		if (poll.auto_add_type != POLL_AUTO_ADD_GHOSTS)
 			continue
-		poll.show_to()
+		INVOKE_ASYNC(poll, TYPE_PROC_REF(/datum/candidate_poll, show_to))
 
 /datum/controller/subsystem/polling/proc/is_eligible(mob/potential_candidate, role, check_jobban, the_ignore_category)
 	if(isnull(potential_candidate.key) || isnull(potential_candidate.client))
