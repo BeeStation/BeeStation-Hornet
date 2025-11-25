@@ -239,6 +239,65 @@
 #define NUMBERS_DETECTED 3
 #define LETTERS_DETECTED 4
 
+/**
+ * Calculates the similarity between two strings
+ * Returns a percentage for similarity
+ */
+/proc/text_similarity(text1, text2)
+	if(!text1 || !text2)
+		return 0
+
+	// Sanitize inputs to lowercase
+	text1 = lowertext(text1)
+	text2 = lowertext(text2)
+
+	// Do they contain eachother entirely?
+	if(findtext(text1, text2) || findtext(text2, text1))
+		return 1
+
+	// Calculate character similarity
+	var/len1 = length(text1)
+	var/len2 = length(text2)
+
+	if(len1 == 0 || len2 == 0)
+		return 0
+
+	// Count matching characters
+	var/matches = 0
+	var/max_len = max(len1, len2)
+
+	// count how many characters from text2 appear in text1
+	var/list/chars1 = list()
+	var/char = ""
+	for(var/i = 1, i <= len1, i += length(char))
+		char = text1[i]
+		if(!chars1[char])
+			chars1[char] = 0
+		chars1[char]++
+
+	for(var/i = 1, i <= len2, i += length(char))
+		char = text2[i]
+		if(chars1[char] && chars1[char] > 0)
+			matches++
+			chars1[char]--
+
+	// Return similarity ratio
+	return matches / max_len
+
+/**
+ * Validates a name against a ckey for similarity
+ * Returns null if valid
+ */
+/proc/reject_bad_name_ckey(t_in, check_against_ckey)
+	if(!t_in || !check_against_ckey)
+		return null
+
+	var/similarity = text_similarity(t_in, check_against_ckey)
+	if(similarity >= CONFIG_GET(number/ckey_name_similarity_threshold))
+		return TRUE
+
+	return FALSE
+
 //Filters out undesirable characters from names
 /proc/reject_bad_name(t_in, allow_numbers = FALSE, max_length = MAX_NAME_LEN, ascii_only = TRUE)
 	if(!t_in)

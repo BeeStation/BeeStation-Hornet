@@ -416,5 +416,8 @@
 
 /datum/config_entry/flag/special_symptom_thresholds
 
-/datum/config_entry/number/virus_thinning_cap
-	config_entry_value = 4
+/datum/config_entry/number/ckey_name_similarity_threshold
+	config_entry_value = 0.6
+	integer = FALSE
+	min_val = 0
+	max_val = 1

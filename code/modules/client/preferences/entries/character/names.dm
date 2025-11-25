@@ -56,8 +56,18 @@
 
 /datum/preference/name/real_name/deserialize(input, datum/preferences/preferences)
 	var/datum/species/selected_species = preferences.read_character_preference(/datum/preference/choiced/species)
+
+	// Check for ckey similarity first
+	if(reject_bad_name_ckey(input, preferences?.parent?.ckey))
+		if(preferences?.parent)
+			to_chat(preferences.parent, span_warning("Your character name is too similar to your account name ([preferences?.parent?.ckey])."))
+		return null
+
+	// Now validate the name normally
 	input = reject_bad_name(input, initial(selected_species.allow_numbers_in_name))
 	if (!input)
+		if(preferences?.parent)
+			to_chat(preferences.parent, span_warning("Invalid character name."))
 		return input
 
 	if (CONFIG_GET(flag/humans_need_surnames) && selected_species == /datum/species/human)
