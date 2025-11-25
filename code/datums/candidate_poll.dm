@@ -40,7 +40,7 @@
 	var/chat_text_border_icon = null
 	/// If defined, then users will automatically see this poll when they meet
 	/// certain specific conditions.
-	var/auto_add_type = null
+	var/auto_add_type = POLL_AUTO_ADD_NONE
 
 /datum/candidate_poll/New(
 		polled_role,
@@ -52,7 +52,8 @@
 		list/custom_response_messages = list(),
 		job_ban_key = null,
 		alert_pic = null,
-		chat_text_border_icon = null
+		chat_text_border_icon = null,
+		auto_add_type = POLL_AUTO_ADD_NONE
 		)
 	role = polled_role
 	src.preference_key = preference_key
@@ -66,6 +67,7 @@
 	src.job_ban_key = job_ban_key
 	src.alert_pic = alert_pic
 	src.chat_text_border_icon = chat_text_border_icon
+	src.auto_add_type = auto_add_type
 	if(custom_response_messages.len)
 		response_messages = custom_response_messages
 	for(var/individual_message in response_messages)

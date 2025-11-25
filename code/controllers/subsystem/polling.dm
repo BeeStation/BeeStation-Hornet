@@ -47,6 +47,8 @@ SUBSYSTEM_DEF(polling)
 	var/announce_chosen = TRUE
 	/// A function that goes from /mob -> boolean that determines whether the provided mob should be included in the poll.
 	var/datum/callback/check_candidate = null
+	/// Who we auto add to the poll
+	var/auto_add_type = POLL_AUTO_ADD_NONE
 
 /**
  * Starts a poll.
@@ -82,7 +84,7 @@ SUBSYSTEM_DEF(polling)
 				filtered_group += source
 		group = filtered_group
 
-	var/datum/candidate_poll/new_poll = new(config, group)
+	var/datum/candidate_poll/new_poll = new(config.role_name_text, config.question, config.poll_time, config.ignore_category, config.jump_target, config.custom_response_messages, auto_add_type = config.auto_add_type)
 	LAZYADD(currently_polling, new_poll)
 
 	for(var/mob/candidate_mob as anything in group)
@@ -116,6 +118,7 @@ SUBSYSTEM_DEF(polling)
 		return
 	for(var/mob/dead/observer/ghost_player in GLOB.player_list)
 		candidates += ghost_player
+	config.auto_add_type = POLL_AUTO_ADD_GHOSTS
 
 	return poll_candidates(config, candidates)
 
@@ -193,18 +196,7 @@ SUBSYSTEM_DEF(polling)
 	if(isnull(config.jump_target) && isatom(config.alert_pic))
 		config.jump_target = config.alert_pic
 
-	var/datum/candidate_poll/persistent/new_poll = new(
-		config.role_name_text,
-		config.role,
-		config.question,
-		0,
-		config.ignore_category,
-		config.jump_target,
-		config.custom_response_messages,
-		config.check_jobban,
-		config.alert_pic,
-		config.chat_text_border_icon
-	)
+	var/datum/candidate_poll/persistent/new_poll = new(config)
 	LAZYADD(currently_polling, new_poll)
 
 	// Apply custom filtering callback
@@ -230,6 +222,7 @@ SUBSYSTEM_DEF(polling)
 	for(var/mob/dead/observer/ghost_player in GLOB.player_list)
 		candidates += ghost_player
 
+	config.auto_add_type = POLL_AUTO_ADD_GHOSTS
 	var/datum/candidate_poll/poll = poll_candidates_persistently(config, candidates)
 
 	return poll
@@ -238,6 +231,10 @@ SUBSYSTEM_DEF(polling)
 	SIGNAL_HANDLER
 	if (isobserver(created_mob))
 		return
+	for (var/datum/candidate_poll/poll in currently_polling)
+		if (poll.auto_add_type != POLL_AUTO_ADD_GHOSTS)
+			continue
+		poll.show_to()
 
 /datum/controller/subsystem/polling/proc/is_eligible(mob/potential_candidate, role, check_jobban, the_ignore_category)
 	if(isnull(potential_candidate.key) || isnull(potential_candidate.client))
@@ -303,5 +300,3 @@ SUBSYSTEM_DEF(polling)
 		return FALSE
 
 	return next_poll_to_finish
-
-/datum/controller/subsystem/polling/proc/adopt_
