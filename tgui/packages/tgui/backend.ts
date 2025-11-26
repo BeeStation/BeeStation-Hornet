@@ -13,6 +13,7 @@
 
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
+import { BooleanLike } from 'tgui-core/react';
 
 import { cleanupByondUIs } from './components/ByondUi';
 import { setupDrag } from './drag';
@@ -391,12 +392,12 @@ type BackendState<TData> = {
       name: string;
       layout: string;
     };
-    refreshing: boolean;
+    refreshing: BooleanLike;
     window: {
       key: string;
       size: [number, number];
-      fancy: boolean;
-      locked: boolean;
+      fancy: BooleanLike;
+      locked: BooleanLike;
     };
     client: {
       ckey: string;
