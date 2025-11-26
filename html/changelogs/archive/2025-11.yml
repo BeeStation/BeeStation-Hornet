@@ -329,3 +329,11 @@
   mrmanlikesbt:
   - soundadd: Added title0 to the title music pool
   - sounddel: Removed the clown theme from the title music pool
+  mrmanlikesbt, LemonIntheDark, Jackriip:
+  - tweak: The color of space has been tweaked to look prettier
+  - bugfix: Fixed solar panel arrays being on full bright
+  - bugfix: Fixed glass floors not glowing when above space
+  - server: Removed the starlight config option.
+  mrmanlikesbt, tralezab, MrMelbert:
+  - rscadd: Inventory slots now dim when unavailable
+  - code_imp: Converted the species var "nojumpsuit" to a trait "TRAIT_NO_JUMPSUIT"

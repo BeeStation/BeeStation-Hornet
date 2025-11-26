@@ -1,7 +1,0 @@
-author: mrmanlikesbt, LemonIntheDark, Jackriip
-delete-after: true
-changes:
-  - tweak: The color of space has been tweaked to look prettier
-  - bugfix: Fixed solar panel arrays being on full bright
-  - bugfix: Fixed glass floors not glowing when above space
-  - server: Removed the starlight config option.
