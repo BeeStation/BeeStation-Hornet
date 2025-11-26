@@ -14,4 +14,4 @@
 	// Can't change it here
 	if (istype(client.mob, /mob/dead/new_player))
 		return
-	client.view_size?.setDefault(value)
+	client.view_size?.resetToDefault(value)

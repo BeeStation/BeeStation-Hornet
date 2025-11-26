@@ -30,11 +30,8 @@
 	return ..()
 
 /datum/view_data/proc/setDefault(string)
-	var/list/current_size = getviewsize(default)
 	default = string
-	// New default, apply
-	if (current_size[1] == width && current_size[2] == height)
-		apply()
+	apply()
 
 /datum/view_data/proc/afterViewChange()
 	if(isZooming())
