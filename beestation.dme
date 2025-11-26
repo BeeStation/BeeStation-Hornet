@@ -2707,6 +2707,7 @@
 #include "code\modules\client\preferences\entries\player\roundend.dm"
 #include "code\modules\client\preferences\entries\player\runechat.dm"
 #include "code\modules\client\preferences\entries\player\scaling_method.dm"
+#include "code\modules\client\preferences\entries\player\screen_size.dm"
 #include "code\modules\client\preferences\entries\player\screentips.dm"
 #include "code\modules\client\preferences\entries\player\sound.dm"
 #include "code\modules\client\preferences\entries\player\tgui.dm"

@@ -30,8 +30,11 @@
 	return ..()
 
 /datum/view_data/proc/setDefault(string)
+	var/list/current_size = getviewsize(default)
 	default = string
-	apply()
+	// New default, apply
+	if (current_size[1] == width && current_size[2] == height)
+		apply()
 
 /datum/view_data/proc/afterViewChange()
 	if(isZooming())
@@ -145,5 +148,8 @@
 	// New players on the menu get the size of the lobby art
 	if(istype(M, /mob/dead/new_player))
 		return SStitle.lobby_screen_size
+	// Get the client's view size
+	if (M.client)
+		return M.client.prefs.read_player_preference(/datum/preference/choiced/screen_size)
 	// Otherwise, they get the default view
-	return CONFIG_GET(string/default_view)
+	return world.view

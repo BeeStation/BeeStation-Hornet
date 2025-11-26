@@ -17,6 +17,10 @@
 #define SCALING_METHOD_DISTORT "distort"
 #define SCALING_METHOD_BLUR "blur"
 
+#define SCREEN_SIZE_TINY "15x15"
+#define SCREEN_SIZE_SMALL "17x15"
+#define SCREEN_SIZE_NORMAL "19x15"
+
 #define PARALLAX_DELAY_DEFAULT world.tick_lag
 #define PARALLAX_DELAY_MED     1
 #define PARALLAX_DELAY_LOW     2
