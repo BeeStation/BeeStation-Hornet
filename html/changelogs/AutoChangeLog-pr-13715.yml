@@ -1,4 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - bugfix: Round start machines now properly link to the Silo once again.

@@ -321,3 +321,6 @@
   - bugfix: Fixed mjolnir not being two handed
   - balance: Set the mjolnir projectile's damage to 30 (this was reverted ~3 years
       ago)
+2025-11-26:
+  Programs-The-Station:
+  - bugfix: Round start machines now properly link to the Silo once again.
