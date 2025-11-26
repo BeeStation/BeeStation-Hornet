@@ -324,3 +324,8 @@
 2025-11-26:
   Programs-The-Station:
   - bugfix: Round start machines now properly link to the Silo once again.
+  Rukofamicom:
+  - tweak: Using stun batons with combat mode active does brute damage again.
+  mrmanlikesbt:
+  - soundadd: Added title0 to the title music pool
+  - sounddel: Removed the clown theme from the title music pool
