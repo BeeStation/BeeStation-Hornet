@@ -135,7 +135,7 @@
 
 	if(start_signed_up)
 		sign_up(candidate_mob, TRUE)
-	if(flash_window)
+	if(flash_window && !config.silent)
 		window_flash(candidate_mob.client)
 
 	var/category = "[poll_key]_poll_alert"
@@ -195,7 +195,7 @@
 	if(config.ignore_category)
 		act_never = "[custom_link_style_start]<a href='byond://?src=[REF(poll_alert_button)];never=1'[custom_link_style_end]>\[Never For This Round\]</a>"
 
-	if(!SSpolling.duplicate_message_check(alert_poll)) //Only notify people once. They'll notice if there are multiple and we don't want to spam people.
+	if(!SSpolling.duplicate_message_check(alert_poll) && !config.silent) //Only notify people once. They'll notice if there are multiple and we don't want to spam people.
 		// ghost poll sounds
 		if(candidate_mob.client?.prefs.read_preference(/datum/preference/toggle/sound_ghostpoll))
 			candidate_mob.playsound_local(null, 'sound/misc/prompt.ogg', 50)

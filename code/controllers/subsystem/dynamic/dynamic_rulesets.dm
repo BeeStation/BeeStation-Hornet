@@ -52,6 +52,11 @@
 /datum/dynamic_ruleset/proc/get_candidates()
 	return
 
+/// Called when we successfully execute
+/datum/dynamic_ruleset/proc/success()
+	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
+		SSdynamic.rulesets_to_process += src
+
 /**
  * Remove candidates that do not meet your requirements.
  * Usually this doesn't need to be changed unless you need some specific requirements from your candidates.

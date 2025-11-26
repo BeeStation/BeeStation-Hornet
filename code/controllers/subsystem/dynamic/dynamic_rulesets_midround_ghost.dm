@@ -14,6 +14,9 @@
 	/// Whether or not this ruleset should be blocked if there aren't any spawn locations
 	var/use_spawn_locations = TRUE
 
+	/// The poll that we are gathering candidates from
+	var/datum/candidate_poll/persistent/poll = null
+
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = SSdynamic.current_players[CURRENT_DEAD_PLAYERS] | SSdynamic.current_players[CURRENT_OBSERVERS]
 
@@ -50,15 +53,15 @@
 
 	// Don't even send applications out if we don't have enough candidates
 	if(!allowed())
-		make_persistent()
-		return DYNAMIC_EXECUTE_SUCCESS
+		make_persistent(FALSE)
+		return DYNAMIC_EXECUTE_WAITING
 
 	send_applications()
 	trim_candidates()
 
 	if(!allowed())
-		make_persistent()
-		return DYNAMIC_EXECUTE_SUCCESS
+		make_persistent(TRUE)
+		return DYNAMIC_EXECUTE_WAITING
 
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)
@@ -73,13 +76,21 @@
 
 	return DYNAMIC_EXECUTE_SUCCESS
 
-/datum/dynamic_ruleset/midround/ghost/proc/make_persistent()
+/datum/dynamic_ruleset/midround/ghost/abort()
+	. = ..()
+	if (poll)
+		poll.end_poll()
+		poll = null
+
+/datum/dynamic_ruleset/midround/ghost/proc/make_persistent(silent)
 	var/datum/poll_config/config = new()
 	config.role_name_text = initial(antag_datum.name)
 	config.alert_pic = get_poll_icon()
 	config.check_candidate = CALLBACK(src, PROC_REF(is_allowed))
+	config.silent = silent
 	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
 	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
+	src.poll = poll
 
 /datum/dynamic_ruleset/midround/ghost/proc/is_allowed(mob/candidate)
 	if(!candidate.client.should_include_for_role(
@@ -95,8 +106,9 @@
 	trim_candidates()
 
 	if(!allowed())
-		return DYNAMIC_EXECUTE_SUCCESS
+		return
 
+	poll = null
 	source.end_poll()
 
 	// Pick our candidates

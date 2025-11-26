@@ -7,6 +7,8 @@
 	var/check_jobban = null
 	/// How long the poll will last.
 	var/poll_time = 30 SECONDS
+	/// If true, then we will not be announced or play a sound
+	var/silent = FALSE
 	/// Optional, A poll category. If a candidate has this category in their ignore list, they won't be polled.
 	var/ignore_category = null
 	/// If TRUE, the candidate's window will flash when they're polled.
