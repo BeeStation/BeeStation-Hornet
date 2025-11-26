@@ -64,6 +64,7 @@
 		if("NPS-10")
 			new /obj/item/gun/ballistic/automatic/pistol/security(drop_location)
 			new /obj/item/ammo_box/magazine/x200law(drop_location)
+			new /obj/item/ammo_box/magazine/x200law(drop_location)
 
 	qdel(voucher)
 
