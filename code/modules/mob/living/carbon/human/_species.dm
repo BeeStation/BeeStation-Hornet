@@ -1843,10 +1843,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [I]!"))
 		return 0
 
-	//This must be placed after blocking checks
-	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-		H.batong_act(I)
-
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
 		affecting = H.bodyparts[1]
@@ -1858,6 +1854,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
+
+	//This must be placed after blocking checks
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		H.batong_act(I, user, affecting, armor_block)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
