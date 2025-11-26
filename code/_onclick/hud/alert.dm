@@ -775,6 +775,9 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		poll.remove_candidate(owner)
 	else if(!(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]))
 		poll.sign_up(owner)
+	// Sign-up may delete the poll in the case of overriden signup logic
+	if (QDELETED(poll))
+		return
 	update_signed_up_overlay()
 
 /atom/movable/screen/alert/poll_alert/proc/set_never_round()

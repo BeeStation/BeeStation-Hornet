@@ -33,7 +33,7 @@
 	if(length(config.custom_response_messages))
 		response_messages = config.custom_response_messages
 	for(var/individual_message in response_messages)
-		response_messages[individual_message] = replacetext(response_messages[individual_message], "%ROLE%", config.role)
+		response_messages[individual_message] = replacetext(response_messages[individual_message], "%ROLE%", config.role_name_text)
 	return ..()
 
 /datum/candidate_poll/Destroy()
