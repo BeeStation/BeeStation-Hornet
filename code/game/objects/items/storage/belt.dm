@@ -431,7 +431,7 @@
 /obj/item/storage/belt/security/webbing/Initialize(mapload)
 	. = ..()
 
-	atom_storage.max_slots = 9
+	atom_storage.max_slots = 7
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
