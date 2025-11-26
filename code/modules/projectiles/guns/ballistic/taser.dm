@@ -8,7 +8,7 @@
 	cartridge_wording = "taser cartridge"
 	fire_sound = 'sound/weapons/taser/shot.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/taser
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	can_suppress = FALSE
 	fire_rate = 1
 	throwforce = 0

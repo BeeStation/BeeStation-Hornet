@@ -431,7 +431,6 @@
 /obj/item/storage/belt/security/webbing/Initialize(mapload)
 	. = ..()
 
-	atom_storage.max_specific_storage = WEIGHT_CLASS_MEDIUM
 	atom_storage.max_slots = 9
 
 /obj/item/storage/belt/mining

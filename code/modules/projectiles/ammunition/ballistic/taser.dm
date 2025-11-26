@@ -7,4 +7,4 @@
 	harmful = FALSE
 	caliber = "taser cartridge"
 	custom_price = 5
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
