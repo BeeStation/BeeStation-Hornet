@@ -33,10 +33,8 @@
 		return pda.saved_identification
 	return if_no_id
 
-//repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name()
-	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
-		return "Unknown"
+/// Combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
+/mob/living/carbon/human/get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
 	var/list/identity = list(null, null, null)
 	SEND_SIGNAL(src, COMSIG_HUMAN_GET_VISIBLE_NAME, identity)
 	var/signal_face = LAZYACCESS(identity, VISIBLE_NAME_FACE)
@@ -44,15 +42,29 @@
 	var/force_set = LAZYACCESS(identity, VISIBLE_NAME_FORCED)
 	if(force_set) // our name is overriden by something
 		return signal_face // no need to null-check, because force_set will always set a signal_face
-	var/face_name = !isnull(signal_face) ? signal_face : get_face_name("")
-	var/id_name = !isnull(signal_id) ? signal_id : get_id_name("")
-	if(face_name)
-		if(id_name && (id_name != face_name))
+
+	var/face_name = isnull(signal_face) ? get_face_name("") : signal_face
+	var/id_name = isnull(signal_id) ? get_id_name("") : signal_id
+
+	// We need to account for real name
+	if(force_real_name)
+		var/disguse_name = get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
+		return "[real_name][disguse_name == real_name ? "" : " (as [disguse_name])"]"
+
+	// We're just some unknown guy
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return "Unknown"
+
+	// We have a face and an ID
+	if(face_name && id_name)
+		var/normal_id_name = get_id_name("") // need to check base ID name to avoid "John (as Captain John)"
+		if(normal_id_name == face_name)
+			return id_name // (this turns "John" into "Captain John")
+		if(add_id_name)
 			return "[face_name] (as [id_name])"
-		return face_name
-	if(id_name)
-		return id_name
-	return "Unknown"
+
+	// Just go down the list of stuff we recorded
+	return face_name || id_name || "Unknown"
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")

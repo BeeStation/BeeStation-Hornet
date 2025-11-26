@@ -23,6 +23,9 @@
 	update_pipenets()
 	update_appearance()
 
+	if(COOLDOWN_FINISHED(src, next_stat_interval))
+		update_logged_data()
+
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/atmos_process(delta_time)
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]
 	var/datum/gas_mixture/moderator_input = linked_moderator.airs[1]
@@ -152,7 +155,8 @@
 
 
 	update_icon()
-	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
+	radiation_pulse(src, max_range = 6, threshold = RAD_EXTREME_INSULATION, intensity = clamp(temperature * radioactivity_spice_multiplier / 100, 0, DEFAULT_RADIATION_INTENSITY))
+
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES
 		for(var/obj/machinery/light/light in GLOB.machines)
@@ -178,4 +182,3 @@
 	if(reactor_cable)
 		reactor_cable.get_connections()
 		reactor_cable.add_avail(last_power_produced)
-

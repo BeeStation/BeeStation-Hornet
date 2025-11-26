@@ -1,20 +1,23 @@
-//Status effects are used to apply temporary or permanent effects to mobs. Mobs are aware of their status effects at all times.
-//This file contains their code, plus code for applying and removing them.
-//When making a new status effect, add a define to status_effects.dm in __DEFINES for ease of use!
-
+/// Status effects are used to apply temporary or permanent effects to mobs.
+/// This file contains their code, plus code for applying and removing them.
 /datum/status_effect
 	/// The ID of the effect. ID is used in adding and removing effects to check for duplicates, among other things.
 	var/id = "effect"
 	/// When set initially / in on_creation, this is how long the status effect lasts in deciseconds.
 	/// While processing, this becomes the world.time when the status effect will expire.
 	/// -1 = infinite duration.
-	var/duration = -1
+	var/duration = STATUS_EFFECT_PERMANENT
 	/// When set initially / in on_creation, this is how long between [proc/tick] calls in deciseconds.
+	/// Note that this cannot be faster than the processing subsystem you choose to fire the effect on. (See: [var/processing_speed])
 	/// While processing, this becomes the world.time when the next tick will occur.
-	/// -1 = will stop processing, if duration is also unlimited (-1).
+	/// -1 = will prevent ticks, and if duration is also unlimited (-1), stop processing wholesale.
 	var/tick_interval = 1 SECONDS
+	///If our tick intervals are set to be a dynamic value within a range, the lowerbound of said range
+	var/tick_interval_lowerbound
+	///If our tick intervals are set to be a dynamic value within a range, the upperbound of said range
+	var/tick_interval_upperbound
 	/// The mob affected by the status effect.
-	var/mob/living/owner
+	VAR_FINAL/mob/living/owner
 	/// How many of the effect can be on one mob, and/or what happens when you try to add a duplicate.
 	var/status_type = STATUS_EFFECT_UNIQUE
 	/// If TRUE, we call [proc/on_remove] when owner is deleted. Otherwise, we call [proc/be_replaced].
@@ -23,13 +26,11 @@
 	/// Status effect "name"s and "description"s are shown to the owner here.
 	var/alert_type = /atom/movable/screen/alert/status_effect
 	/// The alert itself, created in [proc/on_creation] (if alert_type is specified).
-	var/atom/movable/screen/alert/status_effect/linked_alert
+	VAR_FINAL/atom/movable/screen/alert/status_effect/linked_alert
+	/// If TRUE, and we have an alert, we will show a duration on the alert
+	var/show_duration = FALSE
 	/// Used to define if the status effect should be using SSfastprocess or SSprocessing
 	var/processing_speed = STATUS_EFFECT_FAST_PROCESS
-	/// While enabled, the duration of the status effect will show alongside the icon.
-	/// Regardless of what this value is set to, duration will not display if a linked alert is not set
-	var/show_duration = TRUE
-	var/last_shown_duration = 0
 	/// Do we self-terminate when a fullheal is called?
 	var/remove_on_fullheal = FALSE
 	/// If remove_on_fullheal is TRUE, what flag do we need to be removed?
@@ -38,6 +39,9 @@
 /datum/status_effect/New(list/arguments)
 	on_creation(arglist(arguments))
 
+/// Called from New() with any supplied status effect arguments.
+/// Not guaranteed to exist by the end.
+/// Returning FALSE from on_apply will stop on_creation and self-delete the effect.
 /datum/status_effect/proc/on_creation(mob/living/new_owner, ...)
 	if(new_owner)
 		owner = new_owner
@@ -48,21 +52,30 @@
 		LAZYADD(owner.status_effects, src)
 		RegisterSignal(owner, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(remove_effect_on_heal))
 
-	if(duration != -1)
+	if(duration == INFINITY)
+		// we will optionally allow INFINITY, because i imagine it'll be convenient in some places,
+		// but we'll still set it to -1 / STATUS_EFFECT_PERMANENT for proper unified handling
+		duration = STATUS_EFFECT_PERMANENT
+	if(duration != STATUS_EFFECT_PERMANENT)
 		duration = world.time + duration
-	tick_interval = world.time + tick_interval
-	if(alert_type)
-		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
-		A.attached_effect = src //so the alert can reference us, if it needs to
-		linked_alert = A //so we can reference the alert, if we need to
+	if(tick_interval != STATUS_EFFECT_NO_TICK)
+		tick_interval = world.time + tick_interval
 
-	update_icon()
-	if(duration > 0 || initial(tick_interval) > 0) //don't process if we don't care
+	if(alert_type)
+		var/atom/movable/screen/alert/status_effect/new_alert = owner.throw_alert(id, alert_type)
+		new_alert.attached_effect = src //so the alert can reference us, if it needs to
+		linked_alert = new_alert //so we can reference the alert, if we need to
+		update_shown_duration()
+
+	if(duration > world.time || tick_interval > world.time) //don't process if we don't care
 		switch(processing_speed)
 			if(STATUS_EFFECT_FAST_PROCESS)
 				START_PROCESSING(SSfastprocess, src)
 			if (STATUS_EFFECT_NORMAL_PROCESS)
 				START_PROCESSING(SSprocessing, src)
+			if(STATUS_EFFECT_PRIORITY)
+				START_PROCESSING(SSpriority_effects, src)
+
 	return TRUE
 
 /datum/status_effect/Destroy()
@@ -71,6 +84,8 @@
 			STOP_PROCESSING(SSfastprocess, src)
 		if (STATUS_EFFECT_NORMAL_PROCESS)
 			STOP_PROCESSING(SSprocessing, src)
+		if(STATUS_EFFECT_PRIORITY)
+			STOP_PROCESSING(SSpriority_effects, src)
 	if(owner)
 		linked_alert = null
 		owner.clear_alert(id)
@@ -80,22 +95,40 @@
 		owner = null
 	return ..()
 
-// Status effect process. Handles adjusting it's duration and ticks.
+/// Updates the status effect alert's maptext (if possible)
+/datum/status_effect/proc/update_shown_duration()
+	//PRIVATE_PROC(TRUE)
+	if(!linked_alert || !show_duration)
+		return
+
+	linked_alert.maptext = MAPTEXT("<span style='text-align:center'>[round((duration - world.time)/10, 1)]s</span>")
+
+// Status effect process. Handles adjusting its duration and ticks.
 // If you're adding processed effects, put them in [proc/tick]
-// instead of extending / overriding ththe process() proc.
-/datum/status_effect/process(delta_time)
+// instead of extending / overriding the process() proc.
+/datum/status_effect/process(seconds_per_tick)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
 	if(QDELETED(owner))
 		qdel(src)
 		return
-	var/needs_update = last_shown_duration != CEILING((duration - world.time) / 10, 1)
-	if(tick_interval < world.time)
-		tick()
-		tick_interval = world.time + initial(tick_interval)
-		needs_update = TRUE
-	if (needs_update)
-		update_icon()
-	if(duration != -1 && duration < world.time)
-		qdel(src)
+
+	if(tick_interval == STATUS_EFFECT_AUTO_TICK)
+		tick(seconds_per_tick)
+	else if(tick_interval != STATUS_EFFECT_NO_TICK && tick_interval < world.time)
+		var/tick_length = (tick_interval_upperbound && tick_interval_lowerbound) ? rand(tick_interval_lowerbound, tick_interval_upperbound) : initial(tick_interval)
+		tick(tick_length / (1 SECONDS))
+		tick_interval = world.time + tick_length
+
+	if(QDELING(src))
+		// tick deleted us, no need to continue
+		return
+
+	if(duration != STATUS_EFFECT_PERMANENT)
+		if(duration < world.time)
+			qdel(src)
+			return
+		update_shown_duration()
 
 /// Called whenever the effect is applied in on_created
 /// Returning FALSE will cause it to delete itself during creation instead.
@@ -107,8 +140,17 @@
 /datum/status_effect/proc/get_examine_text()
 	return null
 
-/// Called every tick from process().
-/datum/status_effect/proc/tick()
+/**
+ * Called every tick from process().
+ * This is only called of tick_interval is not -1.
+ *
+ * Note that every tick =/= every processing cycle.
+ *
+ * * seconds_between_ticks = This is how many SECONDS that elapse between ticks.
+ * This is a constant value based upon the initial tick interval set on the status effect.
+ * It is similar to seconds_per_tick, from processing itself, but adjusted to the status effect's tick interval.
+ */
+/datum/status_effect/proc/tick(seconds_between_ticks)
 	return
 
 /// Called whenever the buff expires or is removed (qdeleted)
@@ -137,7 +179,7 @@
 /// has its duration refreshed in apply_status_effect - is passed New() args
 /datum/status_effect/proc/refresh(effect, ...)
 	var/original_duration = initial(duration)
-	if(original_duration == -1)
+	if(original_duration == STATUS_EFFECT_PERMANENT)
 		return
 	duration = world.time + original_duration
 
@@ -163,15 +205,9 @@
 	if(!heal_flag_necessary || (heal_flags & heal_flag_necessary))
 		qdel(src)
 
-/datum/status_effect/proc/update_icon()
-	if (!linked_alert || !show_duration || duration <= 0)
-		return
-	last_shown_duration = CEILING((duration - world.time) / 10, 1)
-	linked_alert.maptext = MAPTEXT("[last_shown_duration]s")
-
 /// Remove [seconds] of duration from the status effect, qdeling / ending if we eclipse the current world time.
 /datum/status_effect/proc/remove_duration(seconds)
-	if(duration == -1) // Infinite duration
+	if(duration == STATUS_EFFECT_PERMANENT) // Infinite duration
 		return FALSE
 
 	duration -= seconds
@@ -179,12 +215,27 @@
 		qdel(src)
 		return TRUE
 
+	update_shown_duration()
 	return FALSE
+
+/datum/status_effect/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(!.)
+		return
+	if(var_name == NAMEOF(src, duration))
+		if(var_value == INFINITY)
+			duration = STATUS_EFFECT_PERMANENT
+		update_shown_duration()
+
+	if(var_name == NAMEOF(src, show_duration))
+		update_shown_duration()
 
 /// Alert base type for status effect alerts
 /atom/movable/screen/alert/status_effect
 	name = "Curse of Mundanity"
 	desc = "You don't feel any different..."
+	maptext_y = 2
+	/// The status effect we're linked to
 	var/datum/status_effect/attached_effect
 
 /atom/movable/screen/alert/status_effect/Destroy()

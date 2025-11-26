@@ -114,7 +114,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 

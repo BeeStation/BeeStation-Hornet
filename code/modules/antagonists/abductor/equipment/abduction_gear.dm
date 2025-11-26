@@ -37,7 +37,6 @@
 	laser = 50
 	energy = 50
 	bomb = 50
-	rad = 15
 	bio = 50
 	fire = 90
 	acid = 90
@@ -50,7 +49,6 @@
 	laser = 15
 	energy = 25
 	bomb = 15
-	rad = 50
 	bio = 15
 	fire = 70
 	acid = 70
@@ -443,6 +441,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	worn_icon_state = "classic_baton"
 
 	force = 7
+	active_force = 140
 
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
@@ -450,8 +449,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	//The mob we are currently incapacitating.
 	var/mob/current_target
-
-	stun_time = 14 SECONDS
 
 	preload_cell_type = /obj/item/stock_parts/cell/infinite //Any sufficiently advanced technology is indistinguishable from magic
 	activate_sound = null
@@ -481,8 +478,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			txt = "probing"
 
-	if(!turned_on)
-		toggle_on(user)
 	to_chat(usr, span_notice("You switch the baton to [txt] mode."))
 	update_icon()
 
@@ -521,54 +516,41 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!AbductorCheck(user))
 		return FALSE
 
-	if(!deductcharge(cell_hit_cost))
-		to_chat(user, "<span class='warning'>[src] [cell ? "is out of charge" : "does not have a power source installed"].</span>")
-		return FALSE
-
-	if(!turned_on)
-		toggle_on(user)
-
 	if(iscyborg(target))
-		if(mode == BATON_STUN)
-			..()
 		return FALSE
 
 	if(!isliving(target))
 		return FALSE
 
-	if(clumsy_check(user))
-		return FALSE
+	//Turn the baton on if it isn't, no sense in letting abductors accidentally bonk people
+	if(damtype != STAMINA)
+		attack_self(user)
 
-	var/mob/living/L = target
+	//Standard attack logic if the basic stun is being used
+	if(mode == BATON_STUN)
+		return ..()
 
-	user.do_attack_animation(L)
+	var/mob/living/living_target = target
+	user.do_attack_animation(living_target)
 
-	if(shields_blocked(L, user))
-		return FALSE
-
+	//None of these run through standard attack or blocking code because they have no notable effect if the target isn't already disabled
 	switch (mode)
-		if(BATON_STUN)
-			..()
 		if(BATON_SLEEP)
-			SleepAttack(L,user)
+			SleepAttack(living_target, user)
 		if(BATON_CUFF)
-			CuffAttack(L,user)
+			CuffAttack(living_target, user)
 		if(BATON_PROBE)
-			ProbeAttack(L,user)
-	return
-
-/obj/item/melee/baton/abductor/proc/StunAttack(mob/living/L)
-	L.Paralyze(stun_time)
+			ProbeAttack(living_target, user)
 
 /obj/item/melee/baton/abductor/attack_self(mob/living/user)
+	//If it isn't on, turn it on.
+	if(damtype != STAMINA)
+		return ..()
+	//If it's already on, cycle the baton to a new mode
 	toggle(user)
 
-/obj/item/melee/baton/abductor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	turned_on = FALSE
-	..()
-
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/L,mob/living/user)
-	playsound(src, stun_sound, 50, TRUE, -1)
+	playsound(src, active_hitsound, 50, TRUE, -1)
 	if(L.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, span_warning("The specimen's protective headgear is interfering with the sleep inducement!"))

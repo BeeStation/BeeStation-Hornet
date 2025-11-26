@@ -29,7 +29,6 @@
 
 /datum/armor/machinery_portable_atmospherics
 	energy = 100
-	rad = 100
 	fire = 60
 	acid = 30
 

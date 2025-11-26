@@ -36,3 +36,7 @@
 #define DYNAMIC_EXECUTE_STRINGIFY(state) (state == DYNAMIC_EXECUTE_FAILURE ? "FAIL" : (state == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "WAITING"))
 
 #define RULESET_STOP_PROCESSING 1
+
+// If this is defined, then any storyteller configs which do not have
+// a 'Version' tag that match this value will not be loaded.
+//#define STORYTELLER_VERSION "GamemodeAntagonists"

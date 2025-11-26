@@ -187,16 +187,13 @@
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
 
-	blood_display = new /atom/movable/screen/vampire/blood_counter()
-	blood_display.hud = vampire_hud
+	blood_display = new /atom/movable/screen/vampire/blood_counter(null, vampire_hud)
 	vampire_hud.infodisplay += blood_display
 
-	vamprank_display = new /atom/movable/screen/vampire/rank_counter()
-	vamprank_display.hud = vampire_hud
+	vamprank_display = new /atom/movable/screen/vampire/rank_counter(null, vampire_hud)
 	vampire_hud.infodisplay += vamprank_display
 
-	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter()
-	sunlight_display.hud = vampire_hud
+	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
 	vampire_hud.infodisplay += sunlight_display
 
 	vampire_hud.show_hud(vampire_hud.hud_version)

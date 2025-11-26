@@ -31,7 +31,7 @@
 	armor = 55
 	siemens_coeff = 0
 	punchdamage = 11
-	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
+	no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	nojumpsuit = 1
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	sexes = FALSE
@@ -405,20 +405,16 @@
 	fixed_mut_color = "7f0"
 	meat = /obj/item/stack/ore/uranium
 	info_text = "As an " + span_danger("Uranium Golem") + ", you emit radiation pulses every once in a while. It won't harm fellow golems, but organic lifeforms will be affected."
-
-	var/last_event = 0
-	var/active = null
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown", "235")
 
-/datum/species/golem/uranium/spec_life(mob/living/carbon/human/H)
-	if(!active)
-		if(world.time > last_event+30)
-			active = 1
-			radiation_pulse(H, 50)
-			last_event = world.time
-			active = null
-	..()
+	COOLDOWN_DECLARE(radiate_cooldown)
+
+/datum/species/golem/uranium/spec_life(mob/living/carbon/human/source)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, radiate_cooldown))
+		COOLDOWN_START(src, radiate_cooldown, 3 SECONDS)
+		radiation_pulse(source, max_range = 2)
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
@@ -797,7 +793,7 @@
 /datum/species/golem/clockwork/no_scrap //These golems are created through the herald's beacon and leave normal corpses on death.
 	id = SPECIES_GOLEM_CLOCKWORK_SERVANT
 	armor = 15 //Balance reasons make this armor weak
-	no_equip = list()
+	no_equip_flags = NONE
 	nojumpsuit = FALSE
 	has_corpse = TRUE
 	random_eligible = FALSE

@@ -11,7 +11,6 @@
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
 	speech_span = SPAN_ROBOT
@@ -175,7 +174,7 @@
 /mob/living/silicon/try_inject(mob/user, target_zone, injection_flags)
 	. = ..()
 	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, "<span class='alert'>[p_Their()] outer shell is too tough.</span>")
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -508,3 +507,22 @@
 		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
 		create_modularInterface()
 	modularInterface.saved_identification = newname
+
+/mob/living/silicon/try_ducttape(mob/living/user, obj/item/stack/sticky_tape/duct/tape)
+	. = FALSE
+
+	var/robot_is_damaged = getBruteLoss()
+
+	if (!robot_is_damaged)
+		balloon_alert(user, "[src] is not damaged!")
+		return
+
+	user.visible_message(span_notice("[user] begins repairing [src] with [tape]."), span_notice("You begin repairing [src] with [tape]."))
+	playsound(user, 'sound/items/duct_tape/duct_tape_rip.ogg', 50, TRUE)
+
+	if (!do_after(user, 3 SECONDS, target = src))
+		return
+
+	to_chat(user, span_notice("You finish repairing [src] with [tape]."))
+	adjustBruteLoss(-tape.object_repair_value)
+	return TRUE
