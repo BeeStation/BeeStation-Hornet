@@ -49,3 +49,35 @@
 /obj/item/vending_refill/security
 	machine_name = "SecTech"
 	icon_state = "refill_sec"
+
+/obj/machinery/vending/security/proc/RedeemVoucher(obj/item/mining_voucher/security/voucher, mob/redeemer)
+	var/items = list("Carbon Fibre Sabre", "NPS-10")
+
+	var/selection = input(redeemer, "Pick your equipment", "Voucher Redemption") as null|anything in sort_list(items)
+	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
+		return
+	var/drop_location = drop_location()
+	switch(selection)
+		if("Carbon Fibre Sabre")
+			new /obj/item/storage/belt/sabre/carbon_fiber(drop_location)
+
+		if("NPS-10")
+			new /obj/item/gun/ballistic/automatic/pistol/security(drop_location)
+			new /obj/item/ammo_box/magazine/x200law(drop_location)
+
+	qdel(voucher)
+
+/obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/mining_voucher/security))
+		var/obj/item/mining_voucher/security/V = I
+		RedeemVoucher(V, user)
+		return
+	return ..()
+
+/obj/item/mining_voucher/security
+	name = "Sec-Tech equipment voucher"
+	desc = "A token to redeem for a choice of lethal side-arm. Use on any registered Sec-Tech equipment vendor."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "security_voucher"
+	w_class = WEIGHT_CLASS_TINY
+	voucher_type = "security"
