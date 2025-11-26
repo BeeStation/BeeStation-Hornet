@@ -1,0 +1,5 @@
+author: mrmanlikesbt, tralezab, MrMelbert
+delete-after: true
+changes:
+  - rscadd: Inventory slots now dim when unavailable
+  - code_imp: Converted the species var "nojumpsuit" to a trait "TRAIT_NO_JUMPSUIT"
