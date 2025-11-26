@@ -223,18 +223,17 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	. = ..()
 	set_light(3)
 
-/obj/structure/slime_crystal/yellow/attacked_by(obj/item/I, mob/living/user)
-	if(istype(I,/obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/cell = I
-		//Punishment for greed
-		if(cell.charge == cell.maxcharge)
-			to_chat(span_danger(" You try to charge the cell, but it is already fully energized. You are not sure if this was a good idea..."))
-			cell.explode()
-			return
-		to_chat(user, span_notice("You charged the [I.name] on [name]!"))
-		cell.give(cell.maxcharge)
+/obj/structure/slime_crystal/yellow/attacked_by(obj/item/stock_parts/cell/cell, mob/living/user)
+	if(!istype(cell))
+		return ..()
+	if(cell.charge == cell.maxcharge) // Punishment for greed
+		to_chat(user, span_danger("You try to charge [cell], but it is already fully energized. You are not sure if this was a good idea..."))
+		cell.explode()
 		return
-	return ..()
+	to_chat(user, span_notice("You charge [cell] on [src]!"))
+	cell.give(cell.maxcharge)
+	cell.update_appearance()
+
 /obj/structure/slime_crystal/darkpurple
 	colour = SLIME_TYPE_DARK_PURPLE
 

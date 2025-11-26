@@ -14,11 +14,11 @@
 	// fully stun the target.
 	zone_accurate = TRUE
 	/// How much stamina damage will the tase deal per second
-	VAR_PROTECTED/tase_stamina = 40
+	VAR_PROTECTED/tase_stamina = 35
 	/// What is the maximum duration that the taser can apply for?
-	VAR_PROTECTED/max_duration = 6 SECONDS
+	VAR_PROTECTED/max_duration = 8 SECONDS
 	/// If false then we will not be able to affect targets with pierce protection.
-	VAR_PROTECTED/piercing = FALSE
+	VAR_PROTECTED/piercing = TRUE
 	/// Electrodes that follow the projectile
 	VAR_PRIVATE/datum/weakref/beam_weakref
 	/// We need to track who was the ORIGINAL firer of the projectile specifically to ensure deflects work correctly
@@ -79,15 +79,22 @@
 	)
 
 /obj/projectile/energy/electrode/Range()
-	if (!firer || !HAS_TRAIT(firer, TRAIT_SECURITY_HUD))
-		..()
-		return
+	var/has_sec_aim = firer && HAS_TRAIT(firer, TRAIT_SECURITY_HUD)
 	for (var/cardinal in GLOB.alldirs)
 		// Snap on to any targets with a wanted status
 		for(var/mob/living/carbon/human/M in get_step(src, cardinal))
-			if(M.get_wanted_status() == WANTED_ARREST && can_hit_target(M, M == original, TRUE))
+			// If the target is adjacent to the tile that we originally fired at,
+			// snap on to them (unless we specifically clicked a mob that wasn't them)
+			// Always snap on to the mob that we clicked on.
+			if (get_dist(M, original) <= 1 && (!ismob(original) || original == M))
 				Impact(M)
 				return
+			// Snap on to targets who are wanted if we have a SecHUD on.
+			if(has_sec_aim && M.get_wanted_status() == WANTED_ARREST && can_hit_target(M, M == original, TRUE))
+				Impact(M)
+				return
+	// Manually override the range to be based on distance from user
+	range = get_dist(src, firer) + 1
 	..()
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
@@ -185,7 +192,7 @@
 /// Actually does the tasing with the passed atom
 /// Returns TRUE if the tasing was successful, FALSE if it failed
 /datum/status_effect/tased/proc/do_tase_with(atom/with_what, seconds_between_ticks)
-	if(!can_see(taser, owner, 5))
+	if(!can_see(taser, owner, tase_range))
 		return FALSE
 	if(istype(with_what, /obj/item/gun/energy))
 		var/obj/item/gun/energy/taser_gun = with_what
@@ -222,6 +229,7 @@
 
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(try_remove_taser))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
+	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_victim_movement))
 
 	//RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(someome_removing_taser))
 	SEND_SIGNAL(owner, COMSIG_LIVING_MINOR_SHOCK)
@@ -323,7 +331,7 @@
 /// Sets the passed atom as the "taser"
 /datum/status_effect/tased/proc/set_taser(datum/new_taser)
 	taser = new_taser
-	RegisterSignals(taser, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(end_tase))
+	RegisterSignals(taser, COMSIG_QDELETING, PROC_REF(end_tase))
 	RegisterSignal(taser, COMSIG_MOB_PULL_TRIGGER, PROC_REF(block_firing))
 	// snowflake cases! yay!
 	if(istype(taser, /obj/machinery/porta_turret))
@@ -341,6 +349,7 @@
 		RegisterSignal(firer, COMSIG_QDELETING, PROC_REF(end_tase))
 	RegisterSignal(firer, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(check_hands))
 	RegisterSignal(firer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_hands))
+	RegisterSignal(firer, COMSIG_MOB_DROPPED_ITEM, PROC_REF(check_hands))
 
 	RegisterSignal(firer, COMSIG_MOB_CLICKON, PROC_REF(user_cancel_tase))
 	RegisterSignal(firer, COMSIG_MOVABLE_MOVED, PROC_REF(recalculate_distance))
@@ -368,6 +377,16 @@
 	tase_line.RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, TYPE_PROC_REF(/datum/beam, redrawing))
 	recalculate_distance()
 
+/// If this move would take you out of the range of the taser, then block it.
+/datum/status_effect/tased/proc/check_victim_movement(datum/source, atom/newloc)
+	SIGNAL_HANDLER
+	var/turf/next_loc = get_turf(newloc)
+	var/turf/source_loc = get_turf(firer)
+	var/distance = get_dist(source_loc, next_loc)
+	if (distance >= tase_range)
+		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	recalculate_distance()
+
 /datum/status_effect/tased/proc/recalculate_distance(...)
 	SIGNAL_HANDLER
 	var/distance = get_dist(firer, owner)
@@ -382,7 +401,7 @@
 
 /datum/status_effect/tased/proc/user_cancel_tase(mob/living/source, atom/clicked_on, modifiers)
 	SIGNAL_HANDLER
-	if(clicked_on != owner && !LAZYACCESS(modifiers, RIGHT_CLICK))
+	if(!LAZYACCESS(modifiers, RIGHT_CLICK))
 		return NONE
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return NONE
@@ -394,8 +413,11 @@
 	SIGNAL_HANDLER
 	if(QDELING(src))
 		return
-	// We don't care about switching hands, only about item equips
-	if (item.item_flags & ABSTRACT)
+	if (!isliving(firer))
+		end_tase()
+		return
+	var/mob/living/living_firer = firer
+	if (taser in living_firer.held_items)
 		return
 	end_tase()
 

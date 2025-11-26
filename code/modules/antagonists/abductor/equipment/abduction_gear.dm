@@ -522,6 +522,10 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!isliving(target))
 		return FALSE
 
+	//Turn the baton on if it isn't, no sense in letting abductors accidentally bonk people
+	if(damtype != STAMINA)
+		attack_self(user)
+
 	//Standard attack logic if the basic stun is being used
 	if(mode == BATON_STUN)
 		return ..()
@@ -539,9 +543,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			ProbeAttack(living_target, user)
 
 /obj/item/melee/baton/abductor/attack_self(mob/living/user)
-	toggle(user)
+	//If it isn't on, turn it on.
 	if(damtype != STAMINA)
 		return ..()
+	//If it's already on, cycle the baton to a new mode
+	toggle(user)
 
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/L,mob/living/user)
 	playsound(src, active_hitsound, 50, TRUE, -1)

@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("tool closet", /obj/structure/closet/toolcloset/empty, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
 		new/datum/stack_recipe("wardrobe closet", /obj/structure/closet/wardrobe/empty, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
 		new/datum/stack_recipe("bomb closet", /obj/structure/closet/bombcloset/empty, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
+		new/datum/stack_recipe("weapon closet", /obj/structure/closet/gun_locker, 2, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 1.5 SECONDS, category = CAT_CONTAINERS), \
 		)),
 	new /datum/stack_recipe_list("wall closets",	 list( \
 		new/datum/stack_recipe("wall closet",								/obj/item/wallframe/wall_closet, 2, time = 1.5 SECONDS), \

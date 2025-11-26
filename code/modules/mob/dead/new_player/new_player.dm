@@ -216,7 +216,14 @@
 
 	var/this_is_like_playing_right = "Yes"
 	if(!force_observe)
-		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe?", "Player Setup", list("Yes", "No"))
+		this_is_like_playing_right = tgui_alert(
+			src,
+			"Caution, you are about to observe which will make you unable to play! \
+			Feel free to use the 'mentorhelp' or 'looc' verbs to \
+			get assistance from our friendly community while playing!",
+			"Spectate",
+			list("Yes", "No")
+		)
 
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
@@ -232,6 +239,8 @@
 	spawning = TRUE
 
 	observer.started_as_observer = TRUE
+	observer.can_respawn = FALSE
+
 	close_spawn_windows()
 	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	to_chat(src, span_notice("Now teleporting."))

@@ -426,22 +426,6 @@ AUTH_CLIENT_VERB(speech_format_help)
 
 	to_chat(usr, span_notice("[message]"))
 
-AUTH_CLIENT_VERB(vote_to_leave)
-	set name = "Vote to leave"
-	set category = "OOC"
-	set desc = "Votes to end the round"
-
-	if(isnewplayer(mob))
-		to_chat(src, "<font color='purple'>You cannot vote from the lobby.</font>")
-	else if(player_details.voted_to_leave)
-		player_details.voted_to_leave = FALSE
-		SSautotransfer.connected_votes_to_leave--
-		to_chat(src, "<font color='purple'>You are no longer voting for the current round to end.</font>")
-	else
-		player_details.voted_to_leave = TRUE
-		SSautotransfer.connected_votes_to_leave++
-		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
-
 AUTH_CLIENT_VERB(show_map_vote_tallies)
 	set name = "Show Map Vote Tallies"
 	set category = "OOC"

@@ -121,7 +121,7 @@
 	if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff))	//sanity check, if this happens we are in big trouble
 		reagents.remove_reagent(/datum/reagent/medicine/synthflesh,being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)
 		var/buildpath = being_built.build_path
-		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spatgheti code, but i need to initilise a limb somehow
+		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spaghetti code, but i need to initialize a limb somehow
 			build_limb(create_buildpath())
 		else
 			//Just build whatever it is
@@ -134,13 +134,13 @@
 	updateUsrDialog()
 
 /obj/machinery/limbgrower/proc/create_buildpath()
-	var/part_type = being_built.id //their ids match bodypart typepaths
+	var/part_type = being_built.build_path
 	var/species = selected_category
 	var/path
 	if(species == SPECIES_HUMAN) //Humans use the parent type.
-		path = "/obj/item/bodypart/[part_type]"
+		path = "[part_type]"
 	else
-		path = "/obj/item/bodypart/[part_type]/[species]"
+		path = "[part_type]/[species]"
 	return text2path(path)
 
 /obj/machinery/limbgrower/proc/build_limb(buildpath)
