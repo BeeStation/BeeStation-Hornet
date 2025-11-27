@@ -47,6 +47,10 @@
 /datum/preference_middleware/proc/pre_set_preference(mob/user, preference, value)
 	return FALSE
 
+/// Called every set_preference, returns TRUE if this handled it.
+/datum/preference_middleware/proc/post_set_preference(mob/user, preference, previous_value, value)
+	return FALSE
+
 /// Called when a character is changed.
 /datum/preference_middleware/proc/on_new_character(mob/user)
 	return
