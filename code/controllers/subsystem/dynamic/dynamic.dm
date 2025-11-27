@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(dynamic)
 	)
 
 	/// Midround ruleset that is currently waiting to execute
-	var/datum/dynamic_ruleset/midround/waiting_ruleset
+	var/datum/dynamic_ruleset/midround/midround_waiting_ruleset
 
 	/**
 	 * Latejoin
@@ -616,16 +616,16 @@ SUBSYSTEM_DEF(dynamic)
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
 			var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
 
-			if (waiting_ruleset)
-				waiting_ruleset.abort()
-				waiting_ruleset = null
+			if (midround_waiting_ruleset)
+				midround_waiting_ruleset.abort()
+				midround_waiting_ruleset = null
 
 			var/result = execute_ruleset(new_midround_ruleset)
 			message_admins("DYNAMIC: MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 			log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 
 			if (result == DYNAMIC_EXECUTE_WAITING)
-				waiting_ruleset = new_midround_ruleset
+				midround_waiting_ruleset = new_midround_ruleset
 
 			// If we successfully execute the midround, apply the cost and log it
 			if(result == DYNAMIC_EXECUTE_SUCCESS || result == DYNAMIC_EXECUTE_WAITING)
