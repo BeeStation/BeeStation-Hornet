@@ -262,6 +262,15 @@
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+
+	if(SSticker.reboot_timer)
+		var/reboot_time = timeleft(SSticker.reboot_timer)
+		if(reboot_time)
+			tab_data["Reboot"] = DisplayTimeText(reboot_time, 1)
+	// admin must have delayed round end
+	else if(SSticker.ready_for_reboot)
+		tab_data["Reboot"] = "DELAYED"
+
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
