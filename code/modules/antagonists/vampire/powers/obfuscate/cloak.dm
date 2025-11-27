@@ -38,19 +38,11 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/watcher in view(9, owner) - owner)
-		if(watcher.stat == DEAD || QDELETED(watcher.client) || watcher.client?.is_afk())
-			continue
-		if(IS_VAMPIRE(watcher) || IS_VASSAL(watcher))
-			continue
-		if(watcher.is_blind())
-			continue
-		owner.balloon_alert(owner, "you can only vanish unseen.")
-		return FALSE
 	return TRUE
 
 /datum/action/vampire/cloak/activate_power()
 	. = ..()
+	check_witnesses()
 	var/mob/living/user = owner
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/cloak)
 	user.AddElement(/datum/element/digital_camo)
