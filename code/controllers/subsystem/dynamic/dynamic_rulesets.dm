@@ -54,6 +54,7 @@
 
 /// Called when we successfully execute
 /datum/dynamic_ruleset/proc/success()
+	SHOULD_CALL_PARENT(TRUE)
 	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
 		SSdynamic.rulesets_to_process += src
 

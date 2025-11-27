@@ -93,12 +93,14 @@
 	src.poll = poll
 
 /datum/dynamic_ruleset/midround/ghost/proc/is_allowed(mob/candidate)
+#ifndef TESTING_DYNAMIC
 	if(!candidate.client.should_include_for_role(
 		banning_key = antag_datum.banning_key,
 		role_preference_key = role_preference,
 		req_hours = antag_datum.required_living_playtime
 	))
 		return FALSE
+#endif
 	return TRUE
 
 /datum/dynamic_ruleset/midround/ghost/proc/check_ready(datum/candidate_poll/persistent/source, list/candidates)
