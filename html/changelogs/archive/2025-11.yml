@@ -338,6 +338,8 @@
   - rscadd: Inventory slots now dim when unavailable
   - code_imp: Converted the species var "nojumpsuit" to a trait "TRAIT_NO_JUMPSUIT"
 2025-11-27:
+  PowerfulBacon:
+  - bugfix: Fixes player preferences not working.
   mrmanlikesbt:
   - bugfix: Fixed the scrubbers and distro pipes being above the floor in the radstation
       engine room
