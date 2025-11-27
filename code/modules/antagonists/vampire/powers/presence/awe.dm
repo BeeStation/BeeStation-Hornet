@@ -81,7 +81,7 @@
 	id = "awed"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 19.7 SECONDS
-	tick_interval = 10 SECONDS
+	tick_interval = 8 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/awed
 	var/mob/living/object_of_desire
 	var/strong = FALSE
@@ -145,6 +145,8 @@
 		return FALSE
 	if(!owner.has_quirk(/datum/quirk/monochromatic) && strong)
 		owner.add_client_colour(/datum/client_colour/glass_colour/pink)
+
+	owner.add_emitter(/obj/emitter/hearts, "awed")
 	return TRUE
 
 /datum/status_effect/awed/on_creation(mob/living/new_owner, target)
@@ -159,6 +161,28 @@
 /datum/status_effect/awed/on_remove()
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
+	owner.remove_emitter("awed")
 
 /datum/status_effect/awed/get_examine_text()
 	return span_warning("[owner.p_They()] look[owner.p_s()] awestruck, staring at [object_of_desire].")
+
+/obj/emitter/hearts
+	alpha = 225
+	particles = new/particles/hearts
+
+/particles/hearts
+	color = generator("color", "#ff2a4e", "#ff93fb", UNIFORM_RAND)
+	spawning = 0.05
+	count = 2
+	lifespan = 30
+	fade = 5
+	position = generator("vector", list(-3,6,0), list(3,6,0), NORMAL_RAND)
+	gravity = list(0, 0.2, 0)
+	color_change = 0
+	friction = 0.2
+	drift = generator("vector", list(0.25,0,0), list(-0.25,0,0), UNIFORM_RAND)
+	icon = 'icons/effects/particles/misc.dmi'
+	icon_state = "heart"
+	#ifndef SPACEMAN_DMM
+	fadein = 10
+	#endif
