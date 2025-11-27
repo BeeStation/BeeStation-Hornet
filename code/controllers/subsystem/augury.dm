@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(augury)
 
 /datum/action/augury
 	name = "Auto Follow Debris"
-	icon_icon = 'icons/obj/meteor.dmi'
+	button_icon = 'icons/obj/meteor.dmi'
 	button_icon_state = "flaming"
 	background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	toggleable = TRUE

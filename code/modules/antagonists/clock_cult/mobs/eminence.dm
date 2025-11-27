@@ -156,7 +156,7 @@
 /datum/action/spell/eminence
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
+	button_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	button_icon_state = "ratvarian_spear"
 	background_icon_state = "bg_clock"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC

@@ -158,7 +158,7 @@
 	name = "Pump your blood"
 	cooldown_time = 2 SECONDS
 	check_flags = NONE
-	icon_icon = 'icons/obj/surgery.dmi'
+	button_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "cursedheart-off"
 
 /datum/action/manual_heart/on_activate(mob/user, atom/target, trigger_flags)
