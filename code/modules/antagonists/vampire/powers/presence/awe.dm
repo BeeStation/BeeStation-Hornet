@@ -10,7 +10,7 @@
 						<b>IMPORTANT:</b> People with mindshields are resistant. Even at level 4, they only get mild effects."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags =  BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY
-	vitaecost = 30
+	vitaecost = 50
 	constant_vitaecost = 1
 	cooldown_time = 10 SECONDS
 	var/high_intensity = FALSE
@@ -19,17 +19,17 @@
 	var/mutable_appearance/effect
 
 /datum/action/vampire/awe/two
-	vitaecost = 45
+	vitaecost = 40
 	constant_vitaecost = 2
 	aura = 5
 
 /datum/action/vampire/awe/three
-	vitaecost = 60
+	vitaecost = 30
 	constant_vitaecost = 3
 	aura = 6
 
 /datum/action/vampire/awe/four
-	vitaecost = 75
+	vitaecost = 20
 	constant_vitaecost = 4
 	high_intensity = TRUE
 	aura = 7

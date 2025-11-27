@@ -5,8 +5,8 @@
 		When you transform back into your standard vampiric form, you will gain an equal amount of damage to that which you sustained when a bat.\n\
 		You will drop all of your posessions when using this power."
 	button_icon_state = "power_batform"
-	vitaecost = 200
-	constant_vitaecost = 1.5
+	vitaecost = 100
+	constant_vitaecost = 3
 	sol_multiplier = 2
 	cooldown_time = 10 SECONDS
 	shapeshifted_mob = /mob/living/simple_animal/hostile/retaliate/bat/vampire

@@ -27,12 +27,12 @@
 	desc = "Sense the vitae of any creature directly, and use your keen senses to widen your perception."
 	button_icon_state = "power_auspex"
 	power_explanation = "- Level 1: When Activated, you will see further. \n\
-						- Level 2: When Activated, you will see further, and be able to sense walls and the layout of rooms. \n\
-						- Level 3: When Activated, You still have meson vision, same as level 3, but even more range. \n\
-						- Level 4: When Activated, you will see further, and be able to sense anything in sight, seeing through walls and barriers as if they were glass."
+					- Level 2: When Activated, you will see further, and be able to sense walls and the layout of rooms. \n\
+					- Level 3: When Activated, You still have meson vision, same as level 3, but even more range. \n\
+					- Level 4: When Activated, you will see further, and be able to sense anything in sight, seeing through walls and barriers as if they were glass."
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	vitaecost = 15
+	vitaecost = 50
 	constant_vitaecost = 1
 	cooldown_time = 10 SECONDS
 	var/add_meson = FALSE
@@ -46,7 +46,7 @@
 
 /datum/action/vampire/auspex/two
 	name = "Auspex"
-	vitaecost = 30
+	vitaecost = 40
 	constant_vitaecost = 2
 	zoom_out_amt = 4
 	zoom_amt = 7
@@ -54,7 +54,7 @@
 
 /datum/action/vampire/auspex/three
 	name = "Auspex"
-	vitaecost = 45
+	vitaecost = 30
 	constant_vitaecost = 3
 	zoom_out_amt = 6
 	zoom_amt = 8
@@ -62,7 +62,7 @@
 
 /datum/action/vampire/auspex/four
 	name = "Auspex"
-	vitaecost = 60
+	vitaecost = 20
 	constant_vitaecost = 4
 	zoom_out_amt = 10
 	zoom_amt = 10
