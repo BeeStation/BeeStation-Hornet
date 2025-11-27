@@ -210,9 +210,11 @@
 		hud_used.infodisplay -= blood_display
 		hud_used.infodisplay -= vamprank_display
 		hud_used.infodisplay -= sunlight_display
+		hud_used.infodisplay -= humanity_display
 		QDEL_NULL(blood_display)
 		QDEL_NULL(vamprank_display)
 		QDEL_NULL(sunlight_display)
+		QDEL_NULL(humanity_display)
 
 	remove_antag_hud(ANTAG_HUD_VAMPIRE, current_mob)
 
