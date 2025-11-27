@@ -312,15 +312,6 @@
 	SSticker.force_ending = ADMIN_FORCE_END_ROUND
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/cancel_reboot()
-	set name = "Cancel Reboot"
-	set desc = "Cancels a pending world reboot."
-	set category = "Server"
-	if(!SSticker.cancel_reboot(usr))
-		return
-	log_admin("[key_name(usr)] cancelled the pending world reboot.")
-	message_admins("[key_name_admin(usr)] cancelled the pending world reboot.")
-
 /datum/admins/proc/announce()
 	set category = "Admin"
 	set name = "Announce"
