@@ -443,7 +443,7 @@
 	. = ..(skip_examine_link)
 	// Only add the View link if we're not skipping examine links
 	if(!skip_examine_link)
-		. += "  <a href='byond://?src=\ref[src];look_at_me=1'>\[View\]</a>"
+		. += " <a href='byond://?src=\ref[src];look_at_me=1'>\[View\]</a>"
 
 /obj/item/clothing/accessory/badge/examine(mob/user)
 	. = ..()
