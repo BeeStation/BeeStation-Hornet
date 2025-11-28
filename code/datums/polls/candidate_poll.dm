@@ -61,6 +61,22 @@
 			SEND_SOUND(candidate, 'sound/machines/buzz-sigh.ogg')
 		return FALSE
 
+	if (config.requires_confirmation)
+		if (tgui_alert(candidate, "Are you sure you want to sign up to be \a [config.role_name_text]?", "Confirm Action", list("Yes", "No"), 10 SECONDS) != "Yes")
+			return FALSE
+		// Re-check all initial conditions
+		if(!istype(candidate) || isnull(candidate.key) || isnull(candidate.client))
+			return FALSE
+		if(candidate in signed_up)
+			if(!silent)
+				to_chat(candidate, span_warning(response_messages[POLL_RESPONSE_ALREADY_SIGNED]))
+			return FALSE
+		if(time_left() <= 0)
+			if(!silent)
+				to_chat(candidate, span_danger("Sorry, you were too late for the consideration!"))
+				SEND_SOUND(candidate, 'sound/machines/buzz-sigh.ogg')
+			return FALSE
+
 	signed_up += candidate
 	if(!silent)
 		to_chat(candidate, span_notice(response_messages[POLL_RESPONSE_SIGNUP]))

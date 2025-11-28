@@ -88,6 +88,7 @@
 	config.alert_pic = get_poll_icon()
 	config.check_candidate = CALLBACK(src, PROC_REF(is_allowed))
 	config.silent = silent
+	config.requires_confirmation = TRUE
 	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
 	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
 	src.poll = poll
