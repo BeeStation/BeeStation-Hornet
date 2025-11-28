@@ -580,7 +580,7 @@
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
+		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
 		if(user.incapacitated())
 			return
 		if(popup_input == "Forge")
@@ -636,10 +636,12 @@
 			return
 	return ..()
 
-/obj/item/card/id/syndicate/Topic(href, href_list)
-	if(!(href_list && href_list["look_at_id"]) && !user.mind.special_role)
-		return
-	. = ..()
+/obj/item/card/id/syndicate/examine(mob/user)
+	if(!user?.mind?.special_role)
+		// Non-syndicate see a generic/fake description
+		to_chat(user, span_notice("This ID card belongs to [registered_name || "John Doe"], [assignment || "Master at Arms"]."))
+		return list()
+	return ..()
 
 /obj/item/card/id/syndicate/emp_act(severity)
 	. = ..()
