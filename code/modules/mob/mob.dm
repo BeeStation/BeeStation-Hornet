@@ -534,7 +534,7 @@
 	set name = "Examine"
 	set category = "IC"
 
-	CALLBACK(src, PROC_REF(run_examinate), examinify)
+	INVOKE_ASYNC(src, PROC_REF(run_examinate), examinify)
 
 /mob/proc/run_examinate(atom/examinify)
 	if(QDELETED(examinify))
