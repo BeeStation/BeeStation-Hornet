@@ -343,3 +343,6 @@
   mrmanlikesbt:
   - bugfix: Fixed the scrubbers and distro pipes being above the floor in the radstation
       engine room
+2025-11-28:
+  Schoolboy215:
+  - bugfix: Lipid extractor not detecting occupants
