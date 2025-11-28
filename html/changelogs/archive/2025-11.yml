@@ -346,3 +346,5 @@
 2025-11-28:
   Schoolboy215:
   - bugfix: Lipid extractor not detecting occupants
+  mrmanlikesbt:
+  - admin: Use of the dynamic panel now checks for debug perms instead of fun perms
