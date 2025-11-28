@@ -655,8 +655,8 @@ BLIND	 // can't see anything
 	if (!is_mining_level(T.z))
 		return . * high_pressure_multiplier
 
-/obj/item/clothing/get_examine_line()
-	. = ..()
+/obj/item/clothing/get_examine_line(skip_examine_link = FALSE)
+	. = ..(skip_examine_link)
 	// Check if we have an attached accessory that should be visible
 	if(istype(src, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = src

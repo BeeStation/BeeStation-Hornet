@@ -1652,18 +1652,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/examine_title(mob/user, thats = FALSE)
 	// Items use get_examine_line() which includes blood stains, ID links, examine links, etc.
-	var/examine_line = get_examine_line()
+	// Don't include examine link when this is the item being examined (skip_examine_link = TRUE)
+	var/examine_line = get_examine_line(skip_examine_link = TRUE)
 	if(thats)
 		examine_line = "[examine_thats] [examine_line]"
 	return examine_line
 
-/obj/item/proc/get_examine_line()
+/obj/item/proc/get_examine_line(skip_examine_link = FALSE)
 	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
 	if(blood_dna)
 		var/blood_color = get_blood_dna_color(blood_dna)
 		. = span_warning("[icon2html(src, viewers(get_turf(src)))] [gender==PLURAL?"some":"a"] [span_color(blood_color, "stained")] [src]")
 	else
 		. = "[icon2html(src, viewers(get_turf(src)))] \a [src]"
+
+	// Don't add examine link if this is the item being directly examined
+	if(skip_examine_link)
+		return
+
 	var/obj/item/card/id/ID = GetID()
 	if(ID)
 		. += "  <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
