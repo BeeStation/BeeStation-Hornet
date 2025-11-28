@@ -27,6 +27,11 @@
 	SIGNAL_HANDLER
 
 	var/atom/A = source
+	var/list/blood_dna = GET_ATOM_BLOOD_DNA(A)
+	if(!blood_dna)
+		return
+
+	var/blood_color = get_blood_dna_color(blood_dna)
 	override[EXAMINE_POSITION_ARTICLE] = A.gender == PLURAL? "some" : "a"
-	override[EXAMINE_POSITION_BEFORE] = "blood-stained"
+	override[EXAMINE_POSITION_BEFORE] = "[span_color(blood_color, "blood-stained")]"
 	return COMPONENT_EXNAME_CHANGED

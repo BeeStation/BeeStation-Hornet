@@ -1660,12 +1660,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return examine_line
 
 /obj/item/proc/get_examine_line(skip_examine_link = FALSE)
-	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
-	if(blood_dna)
-		var/blood_color = get_blood_dna_color(blood_dna)
-		. = span_warning("[icon2html(src, viewers(get_turf(src)))] [gender==PLURAL?"some":"a"] [span_color(blood_color, "stained")] [src]")
-	else
-		. = "[icon2html(src, viewers(get_turf(src)))] \a [src]"
+	var/examine_name = get_examine_name(usr)
+	. = "[icon2html(src, viewers(get_turf(src)))] [examine_name]"
 
 	// Don't add examine link if this is the item being directly examined
 	if(skip_examine_link)
