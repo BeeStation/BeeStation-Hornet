@@ -534,6 +534,12 @@
 	set name = "Examine"
 	set category = "IC"
 
+	CALLBACK(src, PROC_REF(run_examinate), examinify)
+
+/mob/proc/run_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
 	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
@@ -542,6 +548,16 @@
 		return
 
 	face_atom(examinify)
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && examinify.loc != src && !is_holding(examinify))
+		for(var/mob/M in viewers(4, src))
+			if(M == src || !M.client || M.is_blind())
+				continue
+			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
 	var/result_combined
 	if(client)
 		LAZYINITLIST(client.recent_examines)

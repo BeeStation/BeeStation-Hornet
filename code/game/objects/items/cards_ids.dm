@@ -242,6 +242,15 @@
 		)
 	add_fingerprint(user)
 
+/obj/item/card/id/Topic(href, href_list)
+	. = ..()
+	if(!(usr in view(get_turf(src))))
+		return
+
+	if(href_list["look_at_id"])
+		usr.examinate(src)
+		return TRUE
+
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(.)

@@ -1640,3 +1640,32 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // For item specific checks on strip start. Return true to interrupt stripping, return false to continue stripping.
 /obj/item/proc/on_start_stripping(mob/source, mob/user, item_slot)
 	return FALSE
+
+/obj/item/Topic(href, href_list)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+
+	if (href_list["examine"])
+		usr.examinate(src)
+		return TRUE
+
+/obj/item/examine_title(mob/user, thats = FALSE)
+	// Items use get_examine_line() which includes blood stains, ID links, examine links, etc.
+	var/examine_line = get_examine_line()
+	if(thats)
+		examine_line = "[examine_thats] [examine_line]"
+	return examine_line
+
+/obj/item/proc/get_examine_line()
+	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
+	if(blood_dna)
+		var/blood_color = get_blood_dna_color(blood_dna)
+		. = span_warning("[icon2html(src, viewers(get_turf(src)))] [gender==PLURAL?"some":"a"] [span_color(blood_color, "stained")] [src]")
+	else
+		. = "[icon2html(src, viewers(get_turf(src)))] \a [src]"
+	var/obj/item/card/id/ID = GetID()
+	if(ID)
+		. += "  <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+	else
+		. += "  <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"

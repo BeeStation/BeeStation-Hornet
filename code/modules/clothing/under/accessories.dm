@@ -430,26 +430,47 @@
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
 
 //Security Badges
-/obj/item/clothing/accessory/badge/officer/det
-	name = "\improper Detective's badge"
-	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
-	icon_state = "detbadge"
-	worn_icon_state = "detbadge"
-
-/obj/item/clothing/accessory/badge/officer/hos
-	name = "\improper Head of Security badge"
-	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
-	icon_state = "hosbadge"
-	worn_icon_state = "hosbadge"
-
-/obj/item/clothing/accessory/badge/officer
+/obj/item/clothing/accessory/badge
 	name = "\improper Security badge"
 	desc = "A badge of the Nanotrasen Security Division, made of silver and set on false black leather."
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
+	var/badge_number
+	var/officer_name
 
-/obj/item/clothing/accessory/badge/officer/attack_self(mob/user)
+/obj/item/clothing/accessory/badge/attack_self(mob/user)
 	if(Adjacent(user))
 		user.visible_message(span_notice("[user] shows you \the: [icon2html(src, viewers(user))] [src.name]."), span_notice("You show \the [src.name]."))
 	..()
+
+/obj/item/clothing/accessory/badge/Topic(href, href_list)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+	add_fingerprint(usr)
+
+	if (href_list["look_at_me"])
+		usr.examinate(src)
+		return TRUE
+
+/obj/item/clothing/accessory/badge/get_examine_line()
+	. = ..()
+	. += "  <a href='byond://?src=\ref[src];look_at_me=1'>\[View\]</a>"
+
+/obj/item/clothing/accessory/badge/examine(mob/user)
+	. = ..()
+	if(officer_name)
+		to_chat(user,"It reads: [officer_name], [badge_number].")
+
+/obj/item/clothing/accessory/badge/det
+	name = "\improper Detective's badge"
+	desc = "A badge of the Nanotrasen Detective Agency, made of gold and set on false leather."
+	icon_state = "detbadge"
+	worn_icon_state = "detbadge"
+
+/obj/item/clothing/accessory/badge/hos
+	name = "\improper Head of Security badge"
+	desc = "A badge of the Nanotrasen Security Division, made of gold and set on false black leather."
+	icon_state = "hosbadge"
+	worn_icon_state = "hosbadge"

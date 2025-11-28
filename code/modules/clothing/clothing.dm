@@ -655,6 +655,21 @@ BLIND	 // can't see anything
 	if (!is_mining_level(T.z))
 		return . * high_pressure_multiplier
 
+/obj/item/clothing/get_examine_line()
+	. = ..()
+	// Check if we have an attached accessory that should be visible
+	if(istype(src, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = src
+		if(U.attached_accessory)
+			var/covered = FALSE
+			// Check if the accessory is hidden by a suit
+			if(ishuman(loc))
+				var/mob/living/carbon/human/H = loc
+				if(src == H.w_uniform && H.wear_suit && !U.attached_accessory.above_suit)
+					covered = H.wear_suit.body_parts_covered & U.attached_accessory.attachment_slot
+			if(!covered)
+				. += " with \icon[U.attached_accessory] \a [U.attached_accessory] attached"
+
 #undef SENSORS_OFF
 #undef SENSORS_BINARY
 #undef SENSORS_VITALS
