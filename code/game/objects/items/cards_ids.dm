@@ -636,6 +636,10 @@
 			return
 	return ..()
 
+/obj/item/card/id/syndicate/Topic(href, href_list)
+	if(!(href_list && href_list["look_at_id"]) && !user.mind.special_role)
+		return
+	. = ..()
 
 /obj/item/card/id/syndicate/emp_act(severity)
 	. = ..()

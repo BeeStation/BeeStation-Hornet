@@ -1673,6 +1673,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/obj/item/card/id/ID = GetID()
 	if(ID)
-		. += "  <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+		. += " <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
 	else
-		. += "  <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+		. += " <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
