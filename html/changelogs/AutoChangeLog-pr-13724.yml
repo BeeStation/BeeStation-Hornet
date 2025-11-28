@@ -1,0 +1,4 @@
+author: Schoolboy215
+delete-after: true
+changes:
+  - bugfix: Lipid extractor not detecting occupants
