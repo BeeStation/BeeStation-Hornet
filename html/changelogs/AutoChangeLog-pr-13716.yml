@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - admin: Use of the dynamic panel now checks for debug perms instead of fun perms
