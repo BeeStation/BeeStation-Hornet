@@ -268,11 +268,9 @@
 						var/popup_input = alert(M, "Do you want to reforge the job title as the default one of the chosen chameleon card?", "Agent ID job name", "Yes", "No (Keep the current job title)")
 						if(popup_input == "Yes")
 							ID.assignment = initial(ID_from.assignment)
-							ID.update_label()
 			else
 				keepname = TRUE
 				ID.assignment = initial(ID_from.assignment) || "Unknown"
-				ID.update_label()
 
 			// we're going to find a PDA that this ID card is inserted into, then force-update PDA
 			var/atom/current_holder = master

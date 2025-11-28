@@ -60,7 +60,6 @@
 /datum/outfit/admin/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
-	W.update_label()
 	W.update_icon()
 
 /datum/outfit/space
@@ -172,7 +171,6 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		W.registered_name = H.real_name
-		W.update_label(H.real_name)
 
 /datum/outfit/tunnel_clown
 	name = "Tunnel Clown"
@@ -198,7 +196,6 @@
 	W.icon_state = "clown_op"
 	W.assignment = "Tunnel Clown!"
 	W.registered_name = H.real_name
-	W.update_label(H.real_name)
 
 /datum/outfit/psycho
 	name = "Masked Killer"
@@ -261,7 +258,6 @@
 	W.access = get_all_accesses()
 	W.assignment = "Reaper"
 	W.registered_name = H.real_name
-	W.update_label(H.real_name)
 
 /datum/outfit/centcom/commander
 	name = JOB_CENTCOM_COMMANDER
@@ -300,7 +296,6 @@
 	W.access |= get_centcom_access(JOB_CENTCOM_COMMANDER)
 	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
-	W.update_label()
 
 /datum/outfit/centcom/commander/mod
 	name = "CentCom Commander (MODsuit)"
@@ -339,7 +334,6 @@
 	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
-	W.update_label()
 
 	var/obj/item/radio/headset/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
@@ -410,7 +404,6 @@
 	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
-	W.update_label()
 
 /datum/outfit/mobster
 	name = "Mobster"
@@ -431,7 +424,6 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.assignment = JOB_NAME_ASSISTANT
 	W.registered_name = H.real_name
-	W.update_label()
 
 /datum/outfit/plasmaman
 	var/list/helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
@@ -475,4 +467,3 @@
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = "Joker"
 	I.registered_name = H.real_name
-	I.update_label()
