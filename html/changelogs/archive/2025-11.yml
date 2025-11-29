@@ -358,3 +358,14 @@
       3 jobs.
   - rscadd: a tiny helper code that cargo shuttle only needs short seconds to move
       when debugging
+  Rukofamicom:
+  - tweak: When an APC loses its powernet connection connection, department lights
+      will switch to emergency mode almost immediately to conserve power to be spent
+      on keeping the area operational for longer.
+  - tweak: An APC without an active connection will now continue to power departmental
+      equipment until it reaches 15% charge, instead of shutting off vital machinery
+      at 50% charge.
+  - tweak: APCs now hold 50% more maximum charge at roundstart, and start with 100%
+      charge instead of 90%.
+  mrmanlikesbt, nemvar, MrMelbert:
+  - code_imp: renamed some misleading vars
