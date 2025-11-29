@@ -27,10 +27,8 @@
 				CRASH("Failed to make a manuscript bounty: There are no available jobs.")
 			job = pick_n_take(available_jobs)
 			if((!job.total_positions) || job.lock_flags || is_type_in_typecache(job, bad_jobs))
-				message_admins("FAIL: [job.type]")
 				job = null
 				continue
-		message_admins("Chosen job: [job.type]")
 		available_jobs -= job
 		bounty_job = job
 		error_count = 30
