@@ -567,7 +567,7 @@
 			(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
 			(environ_power_req + equip_power_req),
 			TRUE) // only lighting triggers alarms
-      
+
 		equipment = update_channel(equipment, equip_power_req,
 			(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
 
