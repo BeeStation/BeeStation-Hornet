@@ -155,7 +155,6 @@ GLOBAL_VAR(antag_prototypes)
 			priority_sections |= antag_category
 			antag_header_parts += span_bad("[current_antag.name]")
 			antag_header_parts += " - <a href='byond://?src=[REF(src)];remove_antag=[REF(current_antag)]'>Remove</a>"
-		//antag_header_parts += "</td>"
 
 		//We aren't antag of this category, grab first prototype to check the prefs (This is pretty vague but really not sure how else to do this)
 		var/datum/antagonist/pref_source = current_antag
