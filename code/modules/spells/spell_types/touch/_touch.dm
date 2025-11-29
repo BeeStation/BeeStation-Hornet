@@ -308,7 +308,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "latexballon"
-	item_state = null
+	inhand_icon_state = null
 	item_flags = NEEDS_PERMIT | ABSTRACT
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0

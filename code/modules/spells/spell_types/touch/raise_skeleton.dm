@@ -68,8 +68,7 @@
 	skelebones.real_name = "Necro Skelebones ([rand(1,999)])"
 
 	//Same equipment restrictions as golems. No hiding their identity or putting on any real armor
-	skelebones.dna.species.no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
-	skelebones.dna.species.nojumpsuit = TRUE
+	skelebones.dna.species.no_equip_flags = ITEM_SLOT_MASK | ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 
 	candidate_mind.active = 1
 	candidate_mind.transfer_to(skelebones)
@@ -80,4 +79,4 @@
 	name = "\improper necromantic touch"
 	desc = "This hand of mine glows with the power to command the dead!"
 	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	inhand_icon_state = "disintegrate"

@@ -46,8 +46,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///What the species drops when gibbed by a gibber machine.
 	var/meat = /obj/item/food/meat/slab/human
 	var/skinned_type
-	var/list/no_equip = list()	// slots the race can't equip stuff to
-	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
+	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
+	var/no_equip_flags
 	/// What languages this species can understand and say.
 	/// Use a [language holder datum][/datum/language_holder] typepath in this var.
 	/// Should never be null.
@@ -179,6 +179,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 	//Should we preload this species's organs?
 	var/preload = TRUE
+
+	/// The name key for the species, if the user changes from one species
+	/// to another which has a different name key, their name will be reset
+	/// to a random name.
+	/// If null, then it will always change.
+	var/name_key = null
 
 ///////////
 // PROCS //
@@ -440,6 +446,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			// organ.Insert will qdel any current organs in that slot, so we don't need to.
 			replacement.Insert(organ_holder, special=TRUE, drop_if_replaced=FALSE)
 
+/datum/species/proc/worn_items_fit_body_check(mob/living/carbon/wearer)
+	for(var/obj/item/equipped_item in wearer.get_equipped_items(include_pockets = TRUE))
+		var/equipped_item_slot = wearer.get_slot_by_item(equipped_item)
+		if(!equipped_item.mob_can_equip(wearer, equipped_item_slot, bypass_equip_delay_self = TRUE))
+			wearer.dropItemToGround(equipped_item, force = TRUE)
+
 ///Handles replacing all of the bodyparts with their species version during set_species()
 /datum/species/proc/replace_body(mob/living/carbon/target, datum/species/new_species)
 	new_species ||= target.dna.species //If no new species is provided, assume its src.
@@ -463,15 +475,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	SHOULD_CALL_PARENT(TRUE)
-	// Drop the items the new species can't wear
 	if((AGENDER in species_traits))
 		C.gender = PLURAL
-	for(var/slot_id in no_equip)
-		var/obj/item/thing = C.get_item_by_slot(slot_id)
-		if(thing && (!thing.species_exception || !is_type_in_list(src,thing.species_exception)))
-			C.dropItemToGround(thing)
-	if(C.hud_used)
-		C.hud_used.update_locked_slots()
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -479,6 +484,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
+	// Update locked slots AFTER all organ and body stuff is handled
+	C.hud_used?.update_locked_slots()
+	// Drop the items the new species can't wear
+	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = get_blood_type(exotic_bloodtype)
@@ -1246,7 +1255,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return
 
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE)
-	if(slot in no_equip)
+	if(no_equip_flags & slot)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 	if(I.species_restricted & H.dna?.species.bodyflag)
@@ -1310,7 +1319,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1355,7 +1364,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1370,7 +1379,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_L_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1384,7 +1393,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1826,10 +1835,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [I]!"))
 		return 0
 
-	//This must be placed after blocking checks
-	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-		H.batong_act(I)
-
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
 		affecting = H.bodyparts[1]
@@ -1841,6 +1846,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
+
+	//This must be placed after blocking checks
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		H.batong_act(I, user, affecting, armor_block)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
