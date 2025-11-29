@@ -71,8 +71,7 @@
 		if(!isliving(target) || iscameramob(target) || isobserver(target)) //We can't register cameras or observers, but we shouldn't waste an activation
 			continue
 		component_parent.register_target(target, TRUE)
-		component_parent.trigger(TRUE)
-		return
+		break
 	component_parent.trigger(TRUE)
 
 //Instant variant, no move delay. Can only move when not seen
