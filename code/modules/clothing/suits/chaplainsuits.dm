@@ -31,7 +31,7 @@
 	name = "holiday priest"
 	desc = "This is a nice holiday, my son."
 	icon_state = "holidaypriest"
-	item_state = "w_suit"
+	inhand_icon_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 
@@ -39,7 +39,7 @@
 	name = "nun robe"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun"
-	item_state = "nun"
+	inhand_icon_state = "nun"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
@@ -47,20 +47,20 @@
 	name = "bishop's robes"
 	desc = "Glad to see the tithes you collected were well spent."
 	icon_state = "bishoprobe"
-	item_state = "bishoprobe"
+	inhand_icon_state = "bishoprobe"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/chaplainsuit/bishoprobe/black
 	name = "black bishop's robes"
 	icon_state = "blackbishoprobe"
-	item_state = "blackbishoprobe"
+	inhand_icon_state = "blackbishoprobe"
 
 /obj/item/clothing/suit/chaplainsuit/armor/studentuni
 	name = "student robe"
 	desc = "The uniform of a bygone institute of learning."
 	icon_state = "studentuni"
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = ARMS|CHEST
 
 
@@ -70,7 +70,7 @@
 	icon_state = "monkfrock"
 	icon = 'icons/obj/clothing/suits/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/suits/chaplain.dmi'
-	item_state = "monkfrock"
+	inhand_icon_state = "monkfrock"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/monkfrock
@@ -81,7 +81,7 @@
 	icon = 'icons/obj/clothing/head/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "monkhood"
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS
 
@@ -89,7 +89,7 @@
 	name = "eastern monk's robes"
 	desc = "Best combined with a shaved head."
 	icon_state = "monkrobeeast"
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = GROIN|LEGS
 	flags_inv = HIDEJUMPSUIT
 
@@ -97,7 +97,7 @@
 	name = "white robe"
 	desc = "Good for clerics and sleepy crewmembers."
 	icon_state = "whiterobe"
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 
@@ -105,7 +105,7 @@
 	name = "Robes of the Honkmother"
 	desc = "Meant for a clown of the cloth."
 	icon_state = "clownpriest"
-	item_state = "clownpriest"
+	inhand_icon_state = "clownpriest"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/megaphone/clown, /obj/item/soap, /obj/item/food/pie/cream, /obj/item/bikehorn, /obj/item/bikehorn/golden, /obj/item/bikehorn/airhorn, /obj/item/instrument/bikehorn, /obj/item/reagent_containers/cup/soda_cans/canned_laughter, /obj/item/toy/crayon, /obj/item/toy/crayon/spraycan, /obj/item/toy/crayon/spraycan/lubecan, /obj/item/grown/bananapeel, /obj/item/food/grown/banana)
@@ -118,7 +118,7 @@
 	icon = 'icons/obj/clothing/head/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "knight_templar"
-	item_state = null
+	inhand_icon_state = null
 	armor_type = /datum/armor/helmet_chaplain
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -139,7 +139,7 @@
 	name = "crusader armour"
 	desc = "God wills it!"
 	icon_state = "knight_templar"
-	item_state = null
+	inhand_icon_state = null
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	slowdown = 0
 	move_sound = null
@@ -150,7 +150,7 @@
 	icon = 'icons/obj/clothing/head/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "crusader"
-	item_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
 	armor_type = /datum/armor/plate_crusader
@@ -169,11 +169,11 @@
 
 /obj/item/clothing/head/helmet/plate/crusader/blue
 	icon_state = "crusader-blue"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/head/helmet/plate/crusader/red
 	icon_state = "crusader-red"
-	item_state = null
+	inhand_icon_state = null
 
 //Prophet helmet
 /obj/item/clothing/head/helmet/plate/crusader/prophet
@@ -181,7 +181,7 @@
 	desc = "A religious-looking hat."
 	icon_state = null
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
-	item_state = null
+	inhand_icon_state = null
 	flags_1 = 0
 	armor_type = /datum/armor/crusader_prophet
 	worn_y_offset = 6
@@ -201,18 +201,18 @@
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/red
 	icon_state = "prophet-red"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/blue
 	icon_state = "prophet-blue"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/head/helmet/chaplain/cage
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
 	flags_inv = NONE
 	icon_state = "cage"
-	item_state = null
+	inhand_icon_state = null
 	dynamic_hair_suffix = ""
 	worn_y_offset = 7
 
@@ -220,19 +220,19 @@
 	name = "ancient helmet"
 	desc = "None may pass!"
 	icon_state = "knight_ancient"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/suit/chaplainsuit/armor/ancient
 	name = "ancient armour"
 	desc = "Defend the treasure..."
 	icon_state = "knight_ancient"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/head/helmet/chaplain/adept
 	name = "adept hood"
 	desc = "Its only heretical when others do it."
 	icon_state = "crusader"
-	item_state = null
+	inhand_icon_state = null
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 
@@ -240,7 +240,7 @@
 	name = "adept robes"
 	desc = "The ideal outfit for burning the unfaithful."
 	icon_state = "crusader"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/suit/chaplainsuit/armor/crusader
 	name = "Crusader's Armour"
@@ -274,7 +274,7 @@
 	icon_state = "chaplain_hoodie"
 	icon = 'icons/obj/clothing/suits/chaplain.dmi'
 	worn_icon = 'icons/mob/clothing/suits/chaplain.dmi'
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/cup/glass/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
@@ -292,7 +292,7 @@
 	name = "leader hoodie"
 	desc = "Now you're ready for some 50 dollar bling water."
 	icon_state = "chaplain_hoodie_leader"
-	item_state = null
+	inhand_icon_state = null
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/leader
 
 /obj/item/clothing/head/hooded/chaplain_hood/leader
@@ -304,7 +304,7 @@
 	name = "grave robber coat"
 	desc = "To those with a keen eye, gold gleams like a dagger's point."
 	icon_state = "graverobber_coat"
-	item_state = "graverobber_coat"
+	inhand_icon_state = "graverobber_coat"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
 
@@ -313,7 +313,7 @@
 	name = "grave robber hat"
 	desc = "A tattered leather hat. It reeks of death."
 	icon_state = "graverobber_hat"
-	item_state = "graverobber_hat"
+	inhand_icon_state = "graverobber_hat"
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEHAIR|HIDEEARS
 
@@ -321,7 +321,7 @@
 	name = "grave robber gloves"
 	desc = "A pair of leather gloves in poor condition."
 	icon_state = "graverobber-gloves"
-	item_state = "graverobber-gloves"
+	inhand_icon_state = "graverobber-gloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -339,5 +339,5 @@
 	name = "grave robber uniform"
 	desc = "A shirt and some leather pants in poor condition."
 	icon_state = "graverobber_under"
-	item_state = "graverobber_under"
+	inhand_icon_state = "graverobber_under"
 	can_adjust = FALSE

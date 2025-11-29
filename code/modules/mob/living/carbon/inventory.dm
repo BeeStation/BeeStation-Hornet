@@ -117,6 +117,7 @@
 	//in a slot (handled further down inheritance chain, probably living/carbon/human/equip_to_slot
 	if(!not_handled)
 		has_equipped(I, slot)
+		hud_used?.update_locked_slots()
 
 	return not_handled
 
@@ -166,6 +167,7 @@
 
 	update_equipment_speed_mods()
 	update_obscured_slots(I.flags_inv)
+	hud_used?.update_locked_slots()
 
 /// Returns TRUE if an air tank compatible helmet is equipped.
 /mob/living/carbon/proc/can_breathe_helmet()

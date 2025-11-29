@@ -116,7 +116,7 @@
 
 /obj/item/storage/fancy/egg_box
 	icon = 'icons/obj/food/containers.dmi'
-	item_state = "eggbox"
+	inhand_icon_state = "eggbox"
 	icon_state = "eggbox"
 	base_icon_state = "eggbox"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
@@ -142,7 +142,7 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candlebox5"
 	base_icon_state = "candlebox"
-	item_state = "candlebox5"
+	inhand_icon_state = "candlebox5"
 	worn_icon_state = "cigpack"
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 2
@@ -162,7 +162,7 @@
 	desc = "The most popular brand of cigarettes, sponsors of the Space Olympics."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig"
-	item_state = "cigpacket"
+	inhand_icon_state = "cigpacket"
 	base_icon_state = "cig"
 	worn_icon_state = "cigpack"
 	w_class = WEIGHT_CLASS_TINY
@@ -408,7 +408,7 @@
 	name = "heart-shaped box"
 	desc = "A heart-shaped box for holding tiny chocolates."
 	icon = 'icons/obj/food/containers.dmi'
-	item_state = "chocolatebox"
+	inhand_icon_state = "chocolatebox"
 	icon_state = "chocolatebox"
 	base_icon_state = "chocolatebox"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'

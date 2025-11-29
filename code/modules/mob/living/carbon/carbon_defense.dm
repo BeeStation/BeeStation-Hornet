@@ -73,8 +73,6 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
-	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-		batong_act(I)
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
 		var/hit_amount = (100 - armour_block) / 100
@@ -104,6 +102,9 @@
 			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
+
+		if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+			batong_act(I, user, affecting, armour_block)
 
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
@@ -476,7 +477,7 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
-/mob/living/carbon/batong_act(obj/item/melee/baton/batong)
+/mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
 	. = ..()
 	apply_effect(EFFECT_STUTTER, (batong.active_force / 2)) //0.5 seconds of stuttering speech for every 10 stamina damage
 	do_stun_animation()

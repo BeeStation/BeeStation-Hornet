@@ -3,7 +3,7 @@
 	desc = "Some rods. Can be used for building or something."
 	singular_name = "iron rod"
 	icon_state = "rods"
-	item_state = "rods"
+	inhand_icon_state = "rods"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 9

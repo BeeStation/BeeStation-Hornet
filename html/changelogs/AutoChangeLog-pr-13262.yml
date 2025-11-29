@@ -1,0 +1,4 @@
+author: mrmanlikesbt, nemvar, MrMelbert
+delete-after: true
+changes:
+  - code_imp: renamed some misleading vars

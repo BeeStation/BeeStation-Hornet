@@ -11,7 +11,7 @@
 	var/list/forbidden_targets = list()
 	var/apply_icon = null
 	var/apply_icon_state = null
-	var/apply_item_state = null
+	var/apply_inhand_icon_state = null
 	var/apply_righthand_file = null
 	var/apply_lefthand_file = null
 	/// Deletes the colorizer when it runs out of charges
@@ -56,8 +56,8 @@
 
 	var/obj/item/target_item = to_be_colored
 	if(istype(target_item))
-		if(apply_item_state)
-			target_item.item_state = apply_item_state
+		if(apply_inhand_icon_state)
+			target_item.inhand_icon_state = apply_inhand_icon_state
 		if(apply_righthand_file)
 			target_item.righthand_file = apply_righthand_file
 		if(apply_lefthand_file)
