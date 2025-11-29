@@ -68,6 +68,8 @@
 		return
 	//Find a target
 	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
+		if(!isliving(target))
+			continue
 		component_parent.register_target(target, TRUE)
 		component_parent.trigger(TRUE)
 		return
