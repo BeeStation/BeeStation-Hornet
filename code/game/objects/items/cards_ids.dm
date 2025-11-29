@@ -214,7 +214,7 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
-	//TODO, this direct override is necessary for chameleon IDs and seemingly only chameleon IDs. Cull when chameleon follows datums or something sane
+	// Items can initialize with their own name, but all should read 'identification'
 	name = "identification card"
 	if(mapload && access_txt)
 		access = text2access(access_txt)
@@ -634,13 +634,6 @@
 		else if (popup_input == "Change Account ID")
 			set_new_account(user)
 			return
-	return ..()
-
-/obj/item/card/id/syndicate/examine(mob/user)
-	if(!user?.mind?.special_role)
-		// Non-syndicate see a generic/fake description
-		to_chat(user, span_notice("This ID card belongs to [registered_name || "John Doe"], [assignment || "Master at Arms"]."))
-		return list()
 	return ..()
 
 /obj/item/card/id/syndicate/emp_act(severity)
@@ -1082,6 +1075,14 @@
 	icon_state = JOB_HUD_RAWCOMMAND
 	hud_state = JOB_HUD_RAWCOMMAND
 
+/obj/item/card/id/gold/vip
+	assignment = JOB_NAME_VIP
+	hud_state = JOB_HUD_VIP
+
+/obj/item/card/id/gold/king
+	assignment = JOB_NAME_KING
+	hud_state = JOB_HUD_KING
+
 // ---- Service ----
 /obj/item/card/id/job/assistant
 	name = "Job card (Serv) - Assistant"
@@ -1347,16 +1348,6 @@
 	icon_state = "orange"
 	assignment = JOB_NAME_PRISONER
 	hud_state = JOB_HUD_PRISONER
-
-/obj/item/card/id/gold/vip
-	name = "important gold identification card"
-	assignment = JOB_NAME_VIP
-	hud_state = JOB_HUD_VIP
-
-/obj/item/card/id/gold/king
-	name = "their majesty's gold identification card"
-	assignment = JOB_NAME_KING
-	hud_state = JOB_HUD_KING
 
 /obj/item/card/id/pass
 	name = "promotion pass"
