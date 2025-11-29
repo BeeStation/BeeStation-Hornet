@@ -564,15 +564,15 @@
 	// Now checks for cell presence to avoid runtime errors when calling percent() on a null
 	if (cell)
 		lighting = update_channel(lighting, light_power_req,
-		  (cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
-		  (environ_power_req + equip_power_req),
-		  TRUE) // only lighting triggers alarms
+			(cell.percent() > 95 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+			(environ_power_req + equip_power_req),
+			TRUE) // only lighting triggers alarms
       
 		equipment = update_channel(equipment, equip_power_req,
-		  (cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
-      
+			(cell.percent() >= 15 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+
 		environ = update_channel(environ, environ_power_req,
-		  (cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+			(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
 	else
 		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
 		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
