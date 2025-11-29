@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 		//Offer special roles to ghosts and pause processing while we do
 		var/datum/antagonist/A = mob_occupant.mind.has_antag_datum(/datum/antagonist)
-		if(A)
+		if(A?.leave_behaviour == ANTAGONIST_LEAVE_OFFER)
 			ghost_offering = TRUE
 			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
 			return
@@ -417,6 +417,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	log_admin(span_notice("[key_name(target)], the [target.job] entered a stasis pod."))
 	add_fingerprint(target)
+
+	tgui_alert_async(user, "You may now freely leave the game, if you have an antagonist role then it will be automatically handled.", "Cryostasis", list("Ok"))
 
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()

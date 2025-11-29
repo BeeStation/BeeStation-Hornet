@@ -13,6 +13,7 @@
 	hijack_speed = 0.5
 	/// Whether to give this changeling objectives or not
 	give_objectives = TRUE
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	/// Whether we assign objectives which compete with other lings
 	var/competitive_objectives = FALSE
 
@@ -875,6 +876,7 @@
 	name = "Xenobio Changeling"
 	give_objectives = FALSE
 	show_in_roundend = FALSE //These are here for admin tracking purposes only
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
@@ -911,6 +913,7 @@
 	antagpanel_category = "Changeling"
 	banning_key = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/fallen_changeling
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/mood_event/fallen_changeling
 	description = "My powers! Where are my powers?!"

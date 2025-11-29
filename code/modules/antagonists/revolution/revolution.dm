@@ -162,6 +162,7 @@
 	hud_type = "rev_head"
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 4
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
