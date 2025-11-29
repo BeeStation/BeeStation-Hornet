@@ -440,7 +440,7 @@
 	var/officer_name
 
 /obj/item/clothing/accessory/badge/get_examine_line(skip_examine_link = FALSE)
-	. = ..(skip_examine_link)
+	. = ..()
 	// Only add the View link if we're not skipping examine links
 	if(!skip_examine_link)
 		. += " <a href='byond://?src=\ref[src];look_at_me=1'>\[View\]</a>"
