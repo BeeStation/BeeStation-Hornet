@@ -51,19 +51,28 @@
 	icon_state = "refill_sec"
 
 /obj/machinery/vending/security/proc/redeem_voucher(obj/item/mining_voucher/security/voucher, mob/redeemer)
+	var/obj/item/storage/spawned_box
+
 	var/items = list("Carbon Fibre Sabre", "NPS-10")
 
 	var/selection = input(redeemer, "Pick your equipment", "Voucher Redemption") as null|anything in sort_list(items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
-	var/drop_location = drop_location()
+
+	spawned_box = new /obj/item/storage/box/gearvend
+
 	switch(selection)
 		if("Carbon Fibre Sabre")
-			new /obj/item/storage/belt/sabre/carbon_fiber(drop_location)
+			new /obj/item/storage/belt/sabre/carbon_fiber(spawned_box)
 
 		if("NPS-10")
-			new /obj/item/gun/ballistic/automatic/pistol/security(drop_location)
-			new /obj/item/ammo_box/magazine/x200law(drop_location)
+			new /obj/item/gun/ballistic/automatic/pistol/security(spawned_box)
+			new /obj/item/ammo_box/magazine/x200law(spawned_box)
+
+	// We spawned a box, populated it. Now we put it into the redeemer's hands.
+	if(!redeemer.put_in_hands(spawned_box))
+		// Couldn't fit in hands, drop it on the ground.
+		spawned_box.forceMove(drop_location())
 
 	qdel(voucher)
 
@@ -74,6 +83,9 @@
 		return
 	return ..()
 
+
+// The stuff we need
+
 /obj/item/mining_voucher/security
 	name = "Sec-Tech equipment voucher"
 	desc = "A token to redeem for a choice of lethal side-arm. Use on any registered Sec-Tech equipment vendor."
@@ -81,3 +93,8 @@
 	icon_state = "security_voucher"
 	w_class = WEIGHT_CLASS_TINY
 	voucher_type = "security"
+
+/obj/item/storage/box/gearvend
+	name = "security gear compression box"
+	desc = "A compression box full of security gear."
+	icon_state = "secbox"
