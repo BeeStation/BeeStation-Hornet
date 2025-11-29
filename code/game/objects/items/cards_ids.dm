@@ -246,7 +246,7 @@
 
 /obj/item/card/id/Topic(href, href_list)
 	. = ..()
-	if(!(usr in view(get_turf(src))))
+	if(!usr.canUseTopic(src, BE_CLOSE))
 		return
 
 	if(href_list["look_at_id"])

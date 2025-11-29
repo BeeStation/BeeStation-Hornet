@@ -435,7 +435,7 @@
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
+	//slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
 	var/badge_title = "Security Officer"
 	var/officer_name
 
@@ -448,7 +448,7 @@
 /obj/item/clothing/accessory/badge/examine(mob/user)
 	. = ..()
 	if(officer_name)
-		to_chat(user,"It reads: [officer_name], [badge_title].")
+		to_chat(user, "The [src]'s text reads: [officer_name], [badge_title].")
 
 /obj/item/clothing/accessory/badge/attack_self(mob/user)
 	if (!officer_name)
@@ -458,7 +458,7 @@
 		return
 	if (isliving(user))
 		if(officer_name)
-			user.visible_message(span_notice("[user] displays their [src.name].\nIt reads: [officer_name], [badge_title]."),span_notice("You display your [src.name].\nIt reads: [officer_name], [badge_title]."))
+			user.visible_message(span_notice("[user] displays their [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."),span_notice("You display your [src.name].\nThe [src]'s text reads: [officer_name], [badge_title]."))
 		else
 			user.visible_message(span_notice("[user] displays their [src.name].\nIt reads: [badge_title]."),span_notice("You display your [src.name]. It reads: [badge_title]."))
 	..()
@@ -468,7 +468,7 @@
 	if (isliving(user) && istype(target))
 		user.visible_message(span_danger("[user] invades [target]'s personal space, thrusting \the [src] into their face insistently."), span_danger("You invade [target]'s personal space, thrusting \the [src] into their face insistently."))
 		if (officer_name)
-			to_chat(target, span_warning("It reads: [officer_name], [badge_title]."))
+			to_chat(target, span_warning("The [src]'s text reads: [officer_name], [badge_title]."))
 
 /obj/item/clothing/accessory/badge/Topic(href, href_list)
 	. = ..()
