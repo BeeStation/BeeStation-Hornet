@@ -50,7 +50,7 @@
 	machine_name = "SecTech"
 	icon_state = "refill_sec"
 
-/obj/machinery/vending/security/proc/RedeemVoucher(obj/item/mining_voucher/security/voucher, mob/redeemer)
+/obj/machinery/vending/security/proc/redeem_voucher(obj/item/mining_voucher/security/voucher, mob/redeemer)
 	var/items = list("Carbon Fibre Sabre", "NPS-10")
 
 	var/selection = input(redeemer, "Pick your equipment", "Voucher Redemption") as null|anything in sort_list(items)
@@ -70,7 +70,7 @@
 /obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_voucher/security))
 		var/obj/item/mining_voucher/security/V = I
-		RedeemVoucher(V, user)
+		redeem_voucher(V, user)
 		return
 	return ..()
 
