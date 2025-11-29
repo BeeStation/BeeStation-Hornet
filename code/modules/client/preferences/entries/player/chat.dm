@@ -90,4 +90,4 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "whole_word_examine_links"
 	preference_type = PREFERENCE_PLAYER
-	default_value = FALSE
+	default_value = TRUE
