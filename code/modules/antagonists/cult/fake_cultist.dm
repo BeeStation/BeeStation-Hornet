@@ -80,10 +80,10 @@
 
 
 /obj/effect/rune
-	var/check_fake_cultist_allowed = TRUE /// a variable that lets Fake Cultist can draw and invoke. If set FALSE, they will not use it.
+	var/not_allowed_to_fake_cultist /// Prevents a fake cultist to draw and invoke, if set TRUE.
 
 /obj/effect/rune/convert
-	check_fake_cultist_allowed = FALSE
+	not_allowed_to_fake_cultist = TRUE
 
 /obj/effect/rune/narsie
-	check_fake_cultist_allowed = FALSE
+	not_allowed_to_fake_cultist = TRUE

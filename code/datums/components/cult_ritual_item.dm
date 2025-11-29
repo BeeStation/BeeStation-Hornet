@@ -272,7 +272,7 @@
 	if(!can_scribe_rune(tool, cultist))
 		return FALSE
 
-	if(IS_FAKE_CULTIST(cultist) && !(rune_to_scribe::check_fake_cultist_allowed))
+	if(IS_FAKE_CULTIST(cultist) && rune_to_scribe::not_allowed_to_fake_cultist)
 		to_chat(cultist, span_cultitalic("It wouldn't be a good idea for you to draw such evil rune..."))
 		return
 
