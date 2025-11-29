@@ -582,7 +582,7 @@
 	name = "monster hunter hat"
 	desc = "This hat saw much use back in the day."
 	icon_state = "monsterhunterhat"
-	item_state = null
+	inhand_icon_state = null
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEEYES
 	armor_type = /datum/armor/helmet_chaplain

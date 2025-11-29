@@ -126,7 +126,7 @@
 	name = "Strange Blur"
 	desc = "There is a strange, subtle blur surrounding the hands."
 	icon_state = "exactitude"
-	item_state = "exactitude"
+	inhand_icon_state = "exactitude"
 	worn_icon_state = null
 	item_flags = ISWEAPON
 	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)

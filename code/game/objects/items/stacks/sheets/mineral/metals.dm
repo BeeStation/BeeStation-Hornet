@@ -179,4 +179,3 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
-
