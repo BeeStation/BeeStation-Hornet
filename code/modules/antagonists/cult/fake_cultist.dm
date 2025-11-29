@@ -1,14 +1,12 @@
-
 /datum/antagonist/cult/fake
 	name = "Fake Cultist"
 	roundend_category = "Fake cultists"
 	antagpanel_category = "Cult (FAKE)"
-	ui_name = "AntagInfoBloodCult"
+	//ui_name = "AntagInfoBloodCult"
+	//banning_key = ROLE_CULTIST
 	antag_moodlet = null
-	banning_key = ROLE_CULTIST
-	required_living_playtime = 4
-	var/static/fake_cult_team
 
+	var/static/fake_cult_team
 	var/datum/action/innate/cult/pretend_ascend/pretend_ascend = new
 
 /datum/antagonist/cult/fake/create_team(datum/team/cult/new_team)
@@ -80,8 +78,9 @@
 	fake_cult_team.ascend(owner)
 	Remove(owner)
 
+
 /obj/effect/rune
-	var/check_fake_cultist_allowed = TRUE
+	var/check_fake_cultist_allowed = TRUE /// a variable that lets Fake Cultist can draw and invoke. If set FALSE, they will not use it.
 
 /obj/effect/rune/convert
 	check_fake_cultist_allowed = FALSE

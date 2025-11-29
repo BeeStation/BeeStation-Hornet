@@ -272,7 +272,7 @@
 	if(!can_scribe_rune(tool, cultist))
 		return FALSE
 
-	if(IS_FAKE_CULTIST(cultist) && ( ispath(rune_to_scribe, /obj/effect/rune/convert) || ispath(rune_to_scribe, /obj/effect/rune/narsie) ))
+	if(IS_FAKE_CULTIST(cultist) && !(rune_to_scribe::check_fake_cultist_allowed))
 		to_chat(cultist, span_cultitalic("It wouldn't be a good idea for you to draw such evil rune..."))
 		return
 
