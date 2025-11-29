@@ -79,4 +79,4 @@
 	name = "\improper necromantic touch"
 	desc = "This hand of mine glows with the power to command the dead!"
 	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	inhand_icon_state = "disintegrate"
