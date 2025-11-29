@@ -35,3 +35,5 @@
 	var/auto_add_type = POLL_AUTO_ADD_NONE
 	/// If true, we require confirmation before we are added to the poll
 	var/requires_confirmation = FALSE
+	/// If true, the poll will be included in the spawners menu
+	var/include_in_spawners = FALSE

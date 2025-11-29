@@ -34,6 +34,10 @@
 		response_messages = config.custom_response_messages
 	for(var/individual_message in response_messages)
 		response_messages[individual_message] = replacetext(response_messages[individual_message], "%ROLE%", config.role_name_text)
+	// Add to spawners
+	if (config.include_in_spawners)
+		LAZYADD(GLOB.mob_spawners["[config.role_name_text]"], src)
+		SSmobs.update_spawners()
 	return ..()
 
 /datum/candidate_poll/Destroy()
@@ -42,13 +46,20 @@
 		return QDEL_HINT_IWILLGC // the above proc will call QDEL_IN(src, 0.5 SECONDS)
 	config.jump_target = null
 	signed_up = null
+	// Remove from spawners
+	if (config.include_in_spawners)
+		var/list/spawners = GLOB.mob_spawners[config.role_name_text]
+		LAZYREMOVE(spawners, src)
+		if(!LAZYLEN(spawners))
+			GLOB.mob_spawners -= config.role_name_text
+		SSmobs.update_spawners()
 	return ..()
 
 /datum/candidate_poll/proc/clear_alert_ref(atom/movable/screen/alert/poll_alert/source)
 	SIGNAL_HANDLER
 	alert_buttons -= source
 
-/datum/candidate_poll/proc/sign_up(mob/candidate, silent = FALSE)
+/datum/candidate_poll/proc/sign_up(mob/candidate, silent = FALSE, skip_confirmation = FALSE)
 	if(!istype(candidate) || isnull(candidate.key) || isnull(candidate.client))
 		return FALSE
 	if(candidate in signed_up)
@@ -61,7 +72,7 @@
 			SEND_SOUND(candidate, 'sound/machines/buzz-sigh.ogg')
 		return FALSE
 
-	if (config.requires_confirmation)
+	if (!skip_confirmation && config.requires_confirmation)
 		if (tgui_alert(candidate, "Are you sure you want to sign up to be \a [config.role_name_text]?", "Confirm Action", list("Yes", "No"), 10 SECONDS) != "Yes")
 			return FALSE
 		// Re-check all initial conditions
@@ -255,7 +266,7 @@
 	/// of candidates as the second
 	var/datum/callback/on_signup
 
-/datum/candidate_poll/persistent/sign_up(mob/candidate, silent)
+/datum/candidate_poll/persistent/sign_up(mob/candidate, silent = FALSE, skip_confirmation = FALSE)
 	if (!..())
 		return FALSE
 	on_signup?.Invoke(src, signed_up)
