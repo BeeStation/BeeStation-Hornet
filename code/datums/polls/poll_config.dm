@@ -37,3 +37,5 @@
 	var/requires_confirmation = FALSE
 	/// If true, the poll will be included in the spawners menu
 	var/include_in_spawners = FALSE
+	/// Can we right click to dismiss this poll?
+	var/can_hide = FALSE

@@ -90,6 +90,7 @@
 	config.silent = silent
 	config.include_in_spawners = TRUE
 	config.requires_confirmation = TRUE
+	config.can_hide = TRUE
 	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
 	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
 	src.poll = poll
