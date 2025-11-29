@@ -162,7 +162,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	if(user && IS_FAKE_CULTIST(user) && !check_fake_cultist_allowed)
-		to_chat(user, span_warning("You refuse to invoke the rune. You are not the one who seeks for the destruction of the humanity."))
+		to_chat(user, span_warning("You refuse to invoke the rune. You are not the one who seeks the destruction of the humanity."))
 	else if(user && (allow_ghosts || !user.has_status_effect(/datum/status_effect/cultghost)))
 		invokers += user
 	else if(user)
