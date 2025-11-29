@@ -29,7 +29,6 @@
 			if((!job.total_positions) || job.lock_flags || is_type_in_typecache(job, bad_jobs))
 				job = null
 				continue
-		available_jobs -= job
 		bounty_job = job
 		error_count = 30
 
@@ -39,9 +38,10 @@
 		mult = 0.4 // too easy for cargo
 	if(bounty_job.departments & DEPT_BITFLAG_COM)
 		mult += 1
-	mult += rand(-4, 6)/10
+	if(bounty_job.title == JOB_NAME_CAPTAIN)
+		mult += 0.2
 
-	reward = round(reward*mult, 1) + rand(100, 2000)
+	reward = round(reward*mult, 50)
 	name = "Manuscript of the [bounty_job.title]"
 	description = "Central Command seeks the professional knowledge of the [bounty_job.title] in the form of a manuscript written by someone with relevant expertise. Find someone to write the manuscript, and ship it to Central Command."
 
@@ -71,7 +71,7 @@
 // /datum/bounty/manuscript/compatible_with(datum/bounty/other_bounty)
 
 /datum/bounty/manuscript/assistant
-	reward = 1500
+	reward = 2000
 
 /datum/bounty/manuscript/assistant/New()
 	bounty_job = SSjob.GetJob(JOB_NAME_ASSISTANT)
