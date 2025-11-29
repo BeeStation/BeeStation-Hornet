@@ -123,7 +123,7 @@ export const examine_messages: FeatureToggle = {
   name: 'Enable Examine Messages',
   category: 'CHAT',
   subcategory: 'IC',
-  description: 'Receive \'player examined x\' examine messages in chat.',
+  description: "Receive 'player examined x' examine messages in chat.",
   component: CheckboxInput,
 };
 
