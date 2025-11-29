@@ -437,7 +437,7 @@
 	var/datum/poll_config/config = new()
 	config.question = poll_message
 	config.check_jobban = ban_key
-	config.poll_time = 10 SECONDS
+	config.poll_time = 30 SECONDS
 	config.jump_target = M
 	config.alert_pic = M
 	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
