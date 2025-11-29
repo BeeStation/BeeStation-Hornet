@@ -1660,19 +1660,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return examine_line
 
 /obj/item/proc/get_examine_line(skip_examine_link = FALSE)
-	var/list/blood_dna = GET_ATOM_BLOOD_DNA(src)
-	if(blood_dna)
-		var/blood_color = get_blood_dna_color(blood_dna)
-		. = span_warning("[icon2html(src, viewers(get_turf(src)))] [gender==PLURAL?"some":"a"] [span_color(blood_color, "stained")] [src]")
-	else
-		. = "[icon2html(src, viewers(get_turf(src)))] \a [src]"
+	var/whole_word = usr?.client?.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
+	var/examine_name = get_examine_name(usr)
 
 	// Don't add examine link if this is the item being directly examined
 	if(skip_examine_link)
-		return
+		return "[icon2html(src, viewers(get_turf(src)))] [examine_name]"
 
 	var/obj/item/card/id/ID = GetID()
 	if(ID)
-		. += " <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+		if(whole_word)
+			. = "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a> <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+		else
+			. = "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
 	else
-		. += " <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+		if(whole_word)
+			. = "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a>"
+		else
+			. = "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+
