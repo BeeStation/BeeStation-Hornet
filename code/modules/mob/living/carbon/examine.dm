@@ -157,7 +157,7 @@
 			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
 				. += span_warning("[src] is [damage_desc[BLEED]] at a significant rate.")
 			else
-				. += span_warning("[src] has some minor [damage_desc[BLEED]] which look like it will stop soon.")
+				. += span_warning("[src] has some minor [damage_desc[BLEED]] which looks like it will stop soon.")
 	else if (is_bandaged())
 		. += span_warning("[src] is [damage_desc[BLEED]], but it is covered.")
 
