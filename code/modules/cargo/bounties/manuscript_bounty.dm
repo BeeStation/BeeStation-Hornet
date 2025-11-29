@@ -20,15 +20,17 @@
 		var/datum/job/job
 		var/static/error_count = 30
 		while(!job)
-			if(!available_jobs)
+			if(!length(available_jobs))
 				available_jobs = SSjob.occupations.Copy()
 			if(error_count-- < 0)
 				name = "MANUSCRIPT BOUNTY ERROR"
 				CRASH("Failed to make a manuscript bounty: There are no available jobs.")
 			job = pick_n_take(available_jobs)
-			if((!job.total_positions) || job.lock_flags || is_type_in_list(job, bad_jobs))
-				available_jobs -= job
+			if((!job.total_positions) || job.lock_flags || is_type_in_typecache(job, bad_jobs))
+				message_admins("FAIL: [job.type]")
+				job = null
 				continue
+		message_admins("Chosen job: [job.type]")
 		available_jobs -= job
 		bounty_job = job
 		error_count = 30
