@@ -36,7 +36,7 @@ GLOBAL_VAR(antag_prototypes)
 	var/objective_part = antag_panel_objectives()
 	var/memory_part = antag_panel_memory()
 
-	var/list/parts = listtrim(list("<b>\< Antagonist Info : [name] \></b>",command_part,data_part,objective_part,memory_part, "<hr>"))
+	var/list/parts = listtrim(list("<b>&lt; Antagonist Info : [name] &gt;</b>",command_part,data_part,objective_part,memory_part, "<hr>"))
 
 	return parts.Join("<br>")
 
