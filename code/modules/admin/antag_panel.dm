@@ -56,7 +56,7 @@ GLOBAL_VAR(antag_prototypes)
 /datum/antagonist/proc/antag_panel_memory()
 	var/out = "<b>Memory:</b><br>"
 	out += antag_memory
-	out += "<br><a href='byond://?src=[REF(src)];memory_edit=1'>Edit memory</a><br>"
+	out += "<br><a href='byond://?src=[REF(src)];memory_edit=1'>Edit memory</a>"
 	return out
 
 /datum/mind/proc/get_common_admin_commands()
@@ -194,13 +194,7 @@ GLOBAL_VAR(antag_prototypes)
 		sections[antag_category] = cat_section
 
 	out += "<hr>"
-	out += {"
-<style>
-table, td {
-  border:1px solid grey;
-}
-</style>
-"}
+	out += "<style>table, td {border:1px solid grey;}</style>" // bit clunky snowflake
 	out += "<table style='width:auto; border:1px solid black;'>"
 	for(var/s in priority_sections)
 		out += sections[s]
