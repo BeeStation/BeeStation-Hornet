@@ -754,7 +754,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	var/clicky = FALSE
 	var/list/modifiers = params2list(params)
 	if (LAZYACCESS(modifiers, RIGHT_CLICK))
-		dismiss()
+		dismiss(usr)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.config.ignore_category)
 		clicky = TRUE
@@ -767,7 +767,9 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		handle_sign_up()
 	refresh_screentips()
 
-/atom/movable/screen/alert/poll_alert/proc/dismiss()
+/atom/movable/screen/alert/poll_alert/proc/dismiss(mob/user)
+	if (tgui_alert(user, "Would you like to hide this alert?", "Ignore", list("Hide", "Keep")) != "Hide")
+		return
 	owner.clear_alert("[poll.poll_key]_poll_alert")
 
 /atom/movable/screen/alert/poll_alert/proc/handle_sign_up()
@@ -834,6 +836,14 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	stacks_overlay.transform = stacks_overlay.transform.Translate(3, 2)
 	stacks_overlay.layer = layer
 	add_overlay(stacks_overlay)
+
+/atom/movable/screen/alert/poll_alert/MouseEntered(location, control, params)
+	. = ..()
+	usr.client.set_right_click_menu_mode(TRUE)
+
+/atom/movable/screen/alert/poll_alert/MouseExited()
+	. = ..()
+	usr.client.set_right_click_menu_mode(usr.shift_to_open_context_menu)
 
 //OBJECT-BASED
 
