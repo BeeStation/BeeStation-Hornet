@@ -157,7 +157,7 @@
 			if (BLEED_RATE_MINOR to BLEED_DEEP_WOUND)
 				. += span_warning("[src] is [damage_desc[BLEED]] at a significant rate.")
 			else
-				. += span_warning("[src] has some minor [damage_desc[BLEED]] which look like it will stop soon.")
+				. += span_warning("[src] has some minor [damage_desc[BLEED]] which looks like it will stop soon.")
 	else if (is_bandaged())
 		. += span_warning("[src] is [damage_desc[BLEED]], but it is covered.")
 
@@ -365,8 +365,10 @@
 	if(wear_id && !HAS_TRAIT(wear_id, TRAIT_EXAMINE_SKIP))
 		var/obj/item/card/id/id = wear_id.GetID()
 		if(id && get_dist(user, src) <= ID_EXAMINE_DISTANCE)
-			var/id_href = "<a href='byond://?src=[REF(src)];see_id=1;id_ref=[REF(id)];id_name=[id.registered_name];examine_time=[world.time]'>[wear_id.examine_title(user, thats = TRUE)]</a>"
-			. += "[t_He] [t_is] wearing [id_href]."
+			// Get the item description without any examine link, then add our own clickable [Look at ID] link
+			var/id_line = wear_id.get_examine_line(skip_examine_link = TRUE)
+			var/id_link = "<a href='byond://?src=[REF(src)];see_id=1;id_ref=[REF(id)];id_name=[id.registered_name];examine_time=[world.time]'>\[Look at ID\]</a>"
+			. += "[t_He] [t_is] wearing [id_line] [id_link]."
 
 		else
 			. += "[t_He] [t_is] wearing [wear_id.examine_title(user)]."
