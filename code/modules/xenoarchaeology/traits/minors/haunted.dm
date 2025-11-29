@@ -68,11 +68,12 @@
 		return
 	//Find a target
 	for(var/atom/target in oview(component_parent.target_range, get_turf(component_parent?.parent)))
-		if(!isliving(target))
+		if(!isliving(target) || iscameramob(target) || isobserver(target)) //We can't register cameras or observers, but we shouldn't waste an activation
 			continue
 		component_parent.register_target(target, TRUE)
 		component_parent.trigger(TRUE)
 		return
+	component_parent.trigger(TRUE)
 
 //Instant variant, no move delay. Can only move when not seen
 /datum/xenoartifact_trait/minor/haunted/instant
