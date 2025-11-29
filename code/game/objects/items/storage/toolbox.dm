@@ -3,7 +3,7 @@
 	desc = "Danger. Very robust."
 	icon = 'icons/obj/storage/toolbox.dmi'
 	icon_state = "toolbox_default"
-	item_state = "toolbox_default"
+	inhand_icon_state = "toolbox_default"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -48,7 +48,7 @@
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
 	icon_state = "red"
-	item_state = "toolbox_red"
+	inhand_icon_state = "toolbox_red"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/emergency/PopulateContents()
@@ -73,7 +73,7 @@
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
-	item_state = "toolbox_blue"
+	inhand_icon_state = "toolbox_blue"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical/PopulateContents()
@@ -110,7 +110,7 @@
 	name = "toolbox"
 	desc = "A old, blue toolbox, it looks robust."
 	icon_state = "oldtoolboxclean"
-	item_state = "toolbox_blue"
+	inhand_icon_state = "toolbox_blue"
 	has_latches = FALSE
 	force = 19
 	throwforce = 22
@@ -142,7 +142,7 @@
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
 	icon_state = "yellow"
-	item_state = "toolbox_yellow"
+	inhand_icon_state = "toolbox_yellow"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/electrical/PopulateContents()
@@ -161,7 +161,7 @@
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
 	icon_state = "syndicate"
-	item_state = "toolbox_syndi"
+	inhand_icon_state = "toolbox_syndi"
 	force = 15
 	throwforce = 18
 	material_flags = NONE
@@ -183,7 +183,7 @@
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
 	icon_state = "blue"
-	item_state = "toolbox_blue"
+	inhand_icon_state = "toolbox_blue"
 	material_flags = NONE
 
 /obj/item/storage/toolbox/drone/PopulateContents()
@@ -200,7 +200,7 @@
 	name = "brass box"
 	desc = "A huge brass box with several indentations in its surface."
 	icon_state = "brassbox"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = null
 	has_latches = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -230,7 +230,7 @@
 	name = "artistic toolbox"
 	desc = "A toolbox painted bright green. Why anyone would store art supplies in a toolbox is beyond you, but it has plenty of extra space."
 	icon_state = "green"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
 	material_flags = NONE
 
@@ -256,7 +256,7 @@
 	desc = "It contains a few clips."
 	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "ammobox"
-	item_state = "ammobox"
+	inhand_icon_state = "ammobox"
 	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
 	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
 

@@ -1,7 +1,7 @@
 /datum/action/spell/conjure/construct
 	name = "Summon Construct Shell"
 	desc = "This spell conjures a construct which may be controlled by Shades."
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "artificer"
 	sound = 'sound/magic/summonitems_generic.ogg'
 

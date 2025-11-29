@@ -132,7 +132,7 @@
 	desc = "Destroys all runes carved by this blade."
 	background_icon_state = "bg_heretic"
 	button_icon_state = "rune_break"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 
 /datum/action/item_action/rune_shatter/New(Target)
 	. = ..()
