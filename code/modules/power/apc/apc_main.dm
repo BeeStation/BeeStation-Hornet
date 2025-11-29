@@ -575,17 +575,20 @@
 		main_status = APC_NO_POWER
 
 	// The following math salad handles channel activation based on cell percent and if its charge plus surplus can meet the channels demand
-	// TODO: Not having it require cell
-	lighting = update_channel(lighting, light_power_req,
-		(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
-		(environ_power_req + equip_power_req),
-		TRUE) // only lighting triggers alarms
-
-	equipment = update_channel(equipment, equip_power_req,
-		(cell.percent() >= 50 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
-
-	environ = update_channel(environ, environ_power_req,
-		(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+	// Now checks for cell presence to avoid runtime errors when calling percent() on a null
+	if (cell)
+		lighting = update_channel(lighting, light_power_req,
+			(cell.percent() > 65 && (surplus() + cell.charge - (environ_power_req + equip_power_req)) > light_power_req),
+			(environ_power_req + equip_power_req),
+			TRUE) // only lighting triggers alarms
+		equipment = update_channel(equipment, equip_power_req,
+			(cell.percent() >= 50 && (surplus() + cell.charge - environ_power_req) > equip_power_req), environ_power_req, FALSE)
+		environ = update_channel(environ, environ_power_req,
+			(cell.percent() > 15 && (surplus() + cell.charge) > environ_power_req), 0, FALSE)
+	else
+		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
+		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
+		environ = autoset(environ, AUTOSET_FORCE_OFF)
 
 	if(cell && !shorted) //need to check to make sure the cell is still there since rigged cells can randomly explode after use().
 		var/surplus_used = min(surplus(), lastused_total)	//Here we're using the powernet to meet demand
@@ -652,6 +655,59 @@
 	if(alarm_channel)
 		alarm_manager.send_alarm(ALARM_POWER)
 	return autoset(current, AUTOSET_OFF)
+
+/*Handle exchange_parts specially here since APCs do not use component_parts*/
+/obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
+	if(!istype(replacer_tool))
+		return FALSE
+
+	if((flags_1 & NODECONSTRUCT_1) && !replacer_tool.works_from_distance)
+		return FALSE
+
+	if(machine_stat & BROKEN)
+		return FALSE
+
+	var/shouldplaysound = FALSE
+
+	if(!opened && !replacer_tool.works_from_distance)
+		to_chat(user, display_parts(user))
+		if(shouldplaysound)
+			replacer_tool.play_rped_sound()
+		return FALSE
+
+	var required_type = /obj/item/stock_parts/cell
+
+	for(var/obj/item/secondary_part in replacer_tool.contents)
+		if(!istype(secondary_part, required_type) || !istype(cell, required_type))
+			continue
+		// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+		if(istype(secondary_part, /obj/item/stock_parts/cell) && replacer_tool.works_from_distance)
+			var/obj/item/stock_parts/cell/checked_cell = secondary_part
+			// If it's rigged or corrupted, max the charge. Then explode it.
+			if(checked_cell.rigged || checked_cell.corrupted)
+				checked_cell.charge = checked_cell.maxcharge
+				checked_cell.explode()
+		if(secondary_part.get_part_rating() > cell.get_part_rating())
+			to_chat(user, "<span class='notice'>[capitalize(cell.name)] replaced with [secondary_part.name].</span>")
+			if(replacer_tool.atom_storage.attempt_remove(secondary_part, src))
+				replacer_tool.atom_storage.attempt_insert(cell, user, TRUE)
+				cell = secondary_part
+				secondary_part.forceMove(src)
+			shouldplaysound = TRUE //Only play the sound when parts are actually replaced!
+			break
+	RefreshParts()
+
+	if(shouldplaysound)
+		replacer_tool.play_rped_sound()
+	return TRUE
+
+// Slimmed down version of display_parts since the APC will only have a cell
+/obj/machinery/power/apc/display_parts(mob/user)
+	. = list()
+	. += span_notice("It contains the following parts:")
+	if (cell)
+		. += span_notice("[icon2html(cell, user)] \A [cell].")
+	. = jointext(., "")
 
 /*Power module, used for APC construction*/
 /obj/item/electronics/apc

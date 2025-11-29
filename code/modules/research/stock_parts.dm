@@ -28,12 +28,15 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	if(ismachinery(attacked_object))
 		var/obj/machinery/attacked_machinery = attacked_object
 
-		if(!attacked_machinery.component_parts)
+		if(!attacked_machinery.component_parts && !istype(attacked_machinery, /obj/machinery/power/apc)) // Check for APC specifically since it has no component_parts
 			return ..()
 
 		if(works_from_distance)
 			user.Beam(attacked_machinery, icon_state = "rped_upgrade", time = 5)
-		attacked_machinery.exchange_parts(user, src)
+		if (!istype(attacked_machinery, /obj/machinery/power/apc) || astype(attacked_machinery, /obj/machinery/power/apc).cell) // If this is an APC, only exchange if it has a cell
+			attacked_machinery.exchange_parts(user, src)
+		else // Otherwise we need to bo attackby since APCs don't exist as a machine frame before assembly
+			attacked_machinery.attackby(src, user)
 		return TRUE
 
 	var/obj/structure/frame/machine/attacked_frame = attacked_object
@@ -56,7 +59,7 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	if(ismachinery(attacked_object))
 		var/obj/machinery/attacked_machinery = attacked_object
 
-		if(!attacked_machinery.component_parts)
+		if(!attacked_machinery.component_parts && !istype(attacked_machinery, /obj/machinery/power/apc)) // Check for APC specifically since it has no component_parts
 			return ..()
 
 		if(works_from_distance)
