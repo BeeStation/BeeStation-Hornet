@@ -55,7 +55,7 @@
 
 	var/items = list("Carbon Fibre Sabre", "NPS-10")
 
-	var/selection = input(redeemer, "Pick your equipment", "Voucher Redemption") as null|anything in sort_list(items)
+	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Voucher Redemption", sort_list(items), "NPS-10")
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
@@ -78,8 +78,8 @@
 
 /obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_voucher/security))
-		var/obj/item/mining_voucher/security/V = I
-		redeem_voucher(V, user)
+		var/obj/item/mining_voucher/security/voucher = I
+		redeem_voucher(voucher, user)
 		return
 	return ..()
 
