@@ -36,7 +36,7 @@ GLOBAL_VAR(antag_prototypes)
 	var/objective_part = antag_panel_objectives()
 	var/memory_part = antag_panel_memory()
 
-	var/list/parts = listtrim(list(command_part,data_part,objective_part,memory_part))
+	var/list/parts = listtrim(list("<b>\< Antagonist Info : [name] \></b><br>",command_part,data_part,objective_part,memory_part, "<hr>"))
 
 	return parts.Join("<br>")
 
@@ -104,7 +104,7 @@ GLOBAL_VAR(antag_prototypes)
 
 	var/special_statuses = get_special_statuses()
 	if(length(special_statuses))
-		out += get_special_statuses() + "<br>"
+		out += special_statuses + "<br>"
 
 	if(!GLOB.antag_prototypes)
 		GLOB.antag_prototypes = list()
@@ -121,7 +121,7 @@ GLOBAL_VAR(antag_prototypes)
 	var/list/priority_sections = list()
 
 	for(var/antag_category in GLOB.antag_prototypes)
-		var/category_header = "<i><b>[antag_category]:</b></i>"
+		var/category_header = "<tr><td><i><b>[antag_category]:</b></i></td><td>"
 		var/list/antag_header_parts = list(category_header)
 
 		var/datum/antagonist/current_antag
@@ -146,16 +146,16 @@ GLOBAL_VAR(antag_prototypes)
 
 		if(!current_antag) //Show antagging options
 			if(possible_admin_antags.len)
-				antag_header_parts += span_highlight("None")
-				antag_header_parts += possible_admin_antags
+				antag_header_parts += possible_admin_antags.Join("")
 			else
 				//If there's no antags to show in this category skip the section completely
+				antag_header_parts += "</td></tr>"
 				continue
 		else //Show removal and current one
 			priority_sections |= antag_category
 			antag_header_parts += span_bad("[current_antag.name]")
-			antag_header_parts += "<a href='byond://?src=[REF(src)];remove_antag=[REF(current_antag)]'>Remove</a>"
-
+			antag_header_parts += " - <a href='byond://?src=[REF(src)];remove_antag=[REF(current_antag)]'>Remove</a>"
+		//antag_header_parts += "</td>"
 
 		//We aren't antag of this category, grab first prototype to check the prefs (This is pretty vague but really not sure how else to do this)
 		var/datum/antagonist/pref_source = current_antag
@@ -174,10 +174,11 @@ GLOBAL_VAR(antag_prototypes)
 					if(initial(role_pref_type.antag_datum) == pref_source.type)
 						related_preferences += role_pref_type
 				if(length(related_preferences) == 1)
-					antag_header_parts += current.client.role_preference_enabled(related_preferences[1]) ? "Enabled in Prefs" : "Disabled in Prefs"
+					antag_header_parts += current.client.role_preference_enabled(related_preferences[1]) ? "(Enabled in Prefs)" : "(Disabled in Prefs)"
 				else if(length(related_preferences) >= 1)
 					for(var/datum/role_preference/preftype as anything in related_preferences)
-						antag_header_parts += "<b>[initial(preftype.name)]:</b> [current.client.role_preference_enabled(preftype) ? "Enabled Pref" : "Disabled Pref"]"
+						antag_header_parts += "<br> - <b>[initial(preftype.name)]:</b> [current.client.role_preference_enabled(preftype) ? "(Enabled Pref)" : "(Disabled Pref)"]"
+		antag_header_parts += "</td></tr>"
 
 		//Traitor : None | Traitor | IAA
 		//	Command1 | Command2 | Command3
@@ -187,19 +188,30 @@ GLOBAL_VAR(antag_prototypes)
 		//		[a][b]
 		//	Memory:
 		//		Uplink Code: 777 Alpha
-		var/cat_section = antag_header_parts.Join(" | ") + "<br>"
+		var/cat_section = antag_header_parts.Join("")
 		if(current_antag)
 			cat_section += current_antag.antag_panel()
 		sections[antag_category] = cat_section
 
+	out += "<hr>"
+	out += {"
+<style>
+table, td {
+  border:1px solid grey;
+}
+</style>
+"}
+	out += "<table style='width:auto; border:1px solid black;'>"
 	for(var/s in priority_sections)
 		out += sections[s]
 	for(var/s in sections - priority_sections)
 		out += sections[s]
+	out += "</table>"
 
 	out += "<br>"
 
 	//Uplink
+	out += "<hr>"
 	if(ishuman(current))
 		var/uplink_info = "<i><b>Uplink</b></i>:"
 		var/datum/component/uplink/U = find_syndicate_uplink()
@@ -214,12 +226,15 @@ GLOBAL_VAR(antag_prototypes)
 		uplink_info += "." //hiel grammar
 
 		out += uplink_info + "<br>"
+
 	//Common Memory
-	var/common_memory = "<span>Common Memory:</span>"
+	out += "<hr>"
+	var/common_memory = "<span>Common Memory: </span>"
 	common_memory += memory
 	common_memory += "<a href='byond://?src=[REF(src)];memory_edit=1'>Edit Memory</a>"
 	out += common_memory + "<br>"
 	//Other stuff
+	out += "<hr>"
 	out += get_common_admin_commands()
 
 	var/datum/browser/panel = new(usr, "traitorpanel", "", 600, 600)
