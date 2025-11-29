@@ -28,6 +28,10 @@
 #define SHOULD_USE_ANTAG_REP (1 << 3)
 /// If this flag is enabled no other rulesets can be executed
 #define NO_OTHER_RULESETS (1 << 4)
+/// If we ignore the number of candidates when seeing if we can execute this
+/// Mainly useful for rulesets which require a certain number of candidates, but
+/// can draft them past the point of execution (midrounds from ghosts)
+#define IGNORE_DRAFTED_COUNT (1 << 5)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
