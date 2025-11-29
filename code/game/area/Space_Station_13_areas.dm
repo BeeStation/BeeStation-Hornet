@@ -40,7 +40,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space/nearstation
 	icon_state = "space_near"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	default_gravity = ZERO_GRAVITY
 
 /area/start
@@ -985,7 +985,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	//requires_power = FALSE /* YOU WISH FOR INFINITE POWER YOU STINGY CHEAPO, TOO BAD */
 	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	area_flags = UNIQUE_AREA | NO_GRAVITY
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI

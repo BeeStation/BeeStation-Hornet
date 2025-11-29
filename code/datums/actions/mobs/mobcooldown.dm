@@ -1,6 +1,6 @@
 /datum/action/mob_cooldown
 	name = "Standard Mob Cooldown Ability"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	desc = "Click this ability to attack."
 	check_flags = AB_CHECK_CONSCIOUS

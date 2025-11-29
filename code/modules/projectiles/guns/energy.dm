@@ -241,7 +241,7 @@
 	update_appearance()
 
 /obj/item/gun/energy/update_icon_state()
-	var/skip_inhand = initial(item_state) //only build if we aren't using a preset inhand icon
+	var/skip_inhand = initial(inhand_icon_state) //only build if we aren't using a preset inhand icon
 	var/skip_worn_icon = initial(worn_icon_state) //only build if we aren't using a preset worn icon
 
 	if(skip_inhand && skip_worn_icon) //if we don't have either, don't do the math.
@@ -260,7 +260,7 @@
 
 	temp_icon_to_use += "[ratio]"
 	if(!skip_inhand)
-		item_state = temp_icon_to_use
+		inhand_icon_state = temp_icon_to_use
 	if(!skip_worn_icon)
 		worn_icon_state = temp_icon_to_use
 	return ..()
