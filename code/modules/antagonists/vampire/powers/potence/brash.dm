@@ -53,24 +53,24 @@
 	. = ..()
 	// People
 	if(isliving(target_atom))
-		vitaecost = 25
+		vitaecost = 50
 		cooldown_time = 10 SECONDS
 		return
 
 	// Closets
 	if(istype(target_atom, /obj/structure/closet))
-		vitaecost = 8
+		vitaecost = 50
 		cooldown_time = 7 SECONDS
 		return
 
 	// Girders
 	if(istype(target_atom, /obj/structure/girder))
-		hit_with_style(target_atom, 'sound/effects/bang.ogg', 60, 10, 5 SECONDS)
+		hit_with_style(target_atom, 'sound/effects/bang.ogg', 60, 300, 5 SECONDS)
 		return
 
 	// Grilles
 	if(istype(target_atom, /obj/structure/grille))
-		hit_with_style(target_atom, 'sound/effects/grillehit.ogg', 50, 1, 0.5 SECONDS)
+		hit_with_style(target_atom, 'sound/effects/grillehit.ogg', 50, 10, 0.5 SECONDS)
 		return
 
 	// Windows
@@ -84,19 +84,19 @@
 			return
 
 		if(istype(window, /obj/structure/window/reinforced) || istype(window, /obj/structure/window/plasma))
-			hit_with_style(window, 'sound/effects/bang.ogg', 30, 25, 15 SECONDS)
+			hit_with_style(window, 'sound/effects/bang.ogg', 30, 50, 15 SECONDS)
 		else
-			hit_with_style(window, 'sound/effects/bang.ogg', 20, 15, 10 SECONDS)
+			hit_with_style(window, 'sound/effects/bang.ogg', 20, 75, 10 SECONDS)
 		return
 
 	// Windoors
 	if(istype(target_atom, /obj/machinery/door/window))
-		hit_with_style(target_atom, 'sound/effects/bang.ogg', 50, 10, 5 SECONDS)
+		hit_with_style(target_atom, 'sound/effects/bang.ogg', 50, 35, 5 SECONDS)
 		return
 
 	// Tables
 	if(istype(target_atom, /obj/structure/table))
-		hit_with_style(target_atom, 'sound/effects/bang.ogg', 35, 10, 5 SECONDS)
+		hit_with_style(target_atom, 'sound/effects/bang.ogg', 35, 25, 5 SECONDS)
 		return
 
 	// Walls
@@ -121,10 +121,10 @@
 	var/rip_time = (istype(target, /turf/closed/wall/r_wall) ? tear_time * reinforced_multiplier : tear_time)
 
 	if(istype(target, /turf/closed/wall/r_wall))
-		vitaecost = 40
+		vitaecost = 100
 		cooldown_time = 20 SECONDS
 	else
-		vitaecost = 20
+		vitaecost = 85
 		cooldown_time = 15 SECONDS
 
 	while(istype(target, /turf/closed/wall))

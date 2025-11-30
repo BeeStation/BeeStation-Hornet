@@ -8,7 +8,7 @@
 		Higher ranks will increase the damage when punching someone."
 	power_flags = BP_AM_TOGGLE
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
-	vitaecost = 8
+	vitaecost = 50
 	sol_multiplier = 5
 	cooldown_time = 9 SECONDS
 	target_range = 1
@@ -194,10 +194,10 @@
 			// Adjust cost and cooldown if Brujah
 			if(brujah)
 				if(target_airlock.locked)
-					vitaecost = 20
+					vitaecost = 100
 					cooldown_time = 10 SECONDS
 				else
-					vitaecost = 10
+					vitaecost = 75
 					cooldown_time = 6 SECONDS
 			else // If not Brujah then just make the vampire wait a second...
 				carbon_owner.Stun(1 SECONDS)
