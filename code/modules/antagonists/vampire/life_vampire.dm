@@ -59,7 +59,7 @@
 		owner.current.blood_volume = BLOOD_VOLUME_NORMAL
 		return
 
-	owner.current.blood_volume = min(560, current_vitae)	// we want to get pale
+	owner.current.blood_volume = max(BLOOD_VOLUME_BAD, min(BLOOD_VOLUME_NORMAL, current_vitae))	// we want to get pale but not completely fucked up
 
 /**
  * Pretty simple, add a value to the vampire's blood volume
