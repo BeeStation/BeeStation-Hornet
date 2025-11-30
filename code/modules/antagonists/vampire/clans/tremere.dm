@@ -4,7 +4,7 @@
 		This is due in no small part to their strict hierarchy, secretive nature, and mastery of Thaumaturgy, all of which elicit suspicion, fear, and respect from other Cainites.<br><br>\
 		The Tremere stand as a pillar of the Camarilla and are one of its main defenders, despite the fact that they exist almost as a subsect."
 	join_icon_state = "tremere"
-	default_humanity = 6
+	default_humanity = 7
 	princely_score_bonus = 8
 	joinable_clan = TRUE
 

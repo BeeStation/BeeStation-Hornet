@@ -31,10 +31,10 @@
 
 /**
  * Starting Humanity score, some clans are closer to the beast, some closer to humanity.
- * 10 	Saintly
- * 9 	Compassionate
- * 8 	Caring
- * 7 	Normal
+ * 10 	Saintly			Toreador
+ * 9 	Compassionate	Ventrue
+ * 8 	Caring			Malkavian, Brujah
+ * 7 	Normal			Tremere
  * 6 	Distant
  * 5 	Removed
  * 4 	Unfeeling

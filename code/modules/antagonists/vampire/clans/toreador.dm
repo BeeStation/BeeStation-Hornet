@@ -5,7 +5,7 @@
 		They are inherently divas by blood, and their humanity and sense of morality may plummit as fast as it rises."
 	join_icon_state = "toreador"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
-	default_humanity = 9
+	default_humanity = 10
 	princely_score_bonus = 10
 	joinable_clan = TRUE
 

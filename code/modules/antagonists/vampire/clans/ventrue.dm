@@ -5,7 +5,7 @@
 		They not only consider themselves the oldest clan, but see themselves as the enforcers of tradition and the rightful leaders of Kindred society. "
 	join_icon_state = "ventrue"
 	blood_drink_type = VAMPIRE_DRINK_SNOBBY
-	default_humanity = 8
+	default_humanity = 9
 	princely_score_bonus = 15	// IT'S OVER NIN- ten. It's over ten.
 	joinable_clan = TRUE
 
