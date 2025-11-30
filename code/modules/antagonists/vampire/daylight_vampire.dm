@@ -74,17 +74,17 @@
 
 	switch(incoming_sol_damage)
 		if("area")
-			if(current_vitae >= 200)
+			if(current_vitae >= 400)
 				AdjustBloodVolume(-sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
+				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 400.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("container")
-			if(current_vitae >= 100)
+			if(current_vitae >= 300)
 				AdjustBloodVolume(-sol_burn_calculated / 2)
 				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
 			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbigbold("The walls of this vessel offer mild protection. <b>Don't worry, blood won't drain below 100.</b>"), type = MESSAGE_TYPE_WARNING)
+				to_chat(owner.current, span_cultbigbold("The walls of this vessel offer mild protection. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
 		if("full")
 			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
 			AdjustBloodVolume(-sol_burn_calculated)
@@ -92,7 +92,7 @@
 				to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
 			burn_and_kill()
 		if("torpor")
-			// Do nothing
+			// Do nothing, we deduct blood at the end of each torpor
 		else
 			return FALSE
 
@@ -228,10 +228,12 @@
 
 	heal_vampire_organs()
 
-	if(current_vitae >= 300) // we wake up hungy
-		current_vitae = 300
+	if(current_vitae >= 500) // We wake up hungy, but only if it wouldn't kill us. The baby check.
+		current_vitae = 500
+		to_chat(living_owner, span_notice("You use your vitae to revive from the deathless sleep."))
+	else
+		to_chat(living_owner, span_notice("You have recovered from Torpor."))
 
-	to_chat(living_owner, span_notice("You have recovered from Torpor."))
 	my_clan?.on_exit_torpor()
 
 /datum/status_effect/vampire_sol
