@@ -129,7 +129,8 @@
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
 				to_chat(owner, span_awe("I should move closer..."), type = MESSAGE_TYPE_INFO)
-				if(owner.body_position == STANDING_UP)
+				// Step towards them, but not if that would swap places with them. This feels bad but oh well.
+				if(owner.body_position == STANDING_UP && get_step(owner.loc, get_dir(owner.loc, object_of_desire.loc)) != object_of_desire.loc)
 					owner.visible_message(span_warning("[owner] stumbles dumbly towards [object_of_desire]."), span_awe("[object_of_desire]..."))
 					owner.Move(get_step(owner.loc, get_dir(owner.loc, object_of_desire.loc)))
 		if(7)
