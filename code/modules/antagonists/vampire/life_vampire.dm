@@ -97,13 +97,13 @@
 		return FALSE
 	var/mob/living/carbon/carbon_owner = owner.current
 
-	var/vitaecost_multiplier = 1 // Coffin makes it cheaper
-	var/healing_mulitplier = 1
+	var/vitaecost_multiplier = 0.5 // Coffin makes it cheaper
+	var/healing_multiplier = 1
 
-	var/brute_heal = min(carbon_owner.getBruteLoss(), actual_regen) * healing_mulitplier
-	var/burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.75 * healing_mulitplier
+	var/brute_heal = min(carbon_owner.getBruteLoss(), actual_regen) * healing_multiplier
+	var/burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.75 * healing_multiplier
 
-	carbon_owner.suppress_bloodloss(BLEED_TINY * healing_mulitplier)
+	carbon_owner.suppress_bloodloss(BLEED_TINY * healing_multiplier)
 
 	if(in_torpor)
 		// If in a coffin: heal 5x as fast, heal burn damage at full capacity, set vitaecost to 50%, and regenerate limbs
@@ -115,8 +115,8 @@
 				return FALSE
 
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen)
-			healing_mulitplier = 5
-			vitaecost_multiplier = 0.5 // Decrease cost if we're sleeping in a coffin.
+			healing_multiplier = 5
+			vitaecost_multiplier = 0.25 // Decrease cost if we're sleeping in a coffin.
 
 			// Extinguish and remove embedded objects
 			carbon_owner.ExtinguishMob()
@@ -126,14 +126,14 @@
 				return TRUE
 		else
 			burn_heal = min(carbon_owner.getFireLoss(), actual_regen) * 0.8
-			healing_mulitplier = 3
+			healing_multiplier = 3
 
 	// Heal if Damaged
-	brute_heal *= healing_mulitplier
-	burn_heal *= healing_mulitplier
+	brute_heal *= healing_multiplier
+	burn_heal *= healing_multiplier
 
 	if(brute_heal > 0 || burn_heal > 0) // Just a check? Don't heal/spend, and return.
-		var/vitaecost = (brute_heal * 0.5 + burn_heal) * vitaecost_multiplier * healing_mulitplier
+		var/vitaecost = (brute_heal * 0.5 + burn_heal) * vitaecost_multiplier * healing_multiplier
 		carbon_owner.heal_overall_damage(brute_heal, burn_heal)
 		AdjustBloodVolume(-vitaecost)
 		return TRUE
