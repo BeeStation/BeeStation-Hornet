@@ -1,5 +1,0 @@
-author: '@DrDuckedGoose code @aramix273 sleuthing help, feedback, and suggestions'
-delete-after: true
-changes:
-  - bugfix: Fixed runtime in artifact trait code, for the porous trait.
-  - tweak: The haunted artifact trait will now exclusively target living mobs.
