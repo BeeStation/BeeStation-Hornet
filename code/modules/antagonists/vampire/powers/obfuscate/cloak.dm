@@ -10,27 +10,22 @@
 	constant_vitaecost = 1
 	sol_multiplier = 2.5
 	cooldown_time = 5 SECONDS
-	var/cloaklevel = 40
+	var/cloaklevel = 20
 
 /datum/action/vampire/cloak/two
 	vitaecost = 40
 	constant_vitaecost = 2
-	cloaklevel = 30
+	cloaklevel = 15
 
 /datum/action/vampire/cloak/three
 	vitaecost = 30
 	constant_vitaecost = 3
-	cloaklevel = 20
+	cloaklevel = 10
 
 /datum/action/vampire/cloak/four
 	vitaecost = 20
 	constant_vitaecost = 4
-	cloaklevel = 10
-
-/datum/action/vampire/cloak/five	// We have no nosferatu but if we had...
-	vitaecost = 10
-	constant_vitaecost = 5
-	cloaklevel = 0
+	cloaklevel = 5
 
 /// Must have nobody around to see the cloak
 /datum/action/vampire/cloak/can_use()
