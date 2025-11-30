@@ -1643,10 +1643,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/Topic(href, href_list)
 	. = ..()
-	if(!usr.canUseTopic(src, BE_CLOSE))
-		return
 
 	if (href_list["examine"])
+		// Allow examine from up to 4 tiles away
+		if(get_dist(usr, src) > 4)
+			to_chat(usr, span_warning("You are too far away!"))
+			return
 		usr.examinate(src)
 		return TRUE
 
