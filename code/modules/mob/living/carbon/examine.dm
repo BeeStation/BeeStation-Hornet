@@ -145,9 +145,9 @@
 	switch(apparent_blood_volume)
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 			. += span_warning("[t_He] [t_has] pale skin.")
-		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_OKAY)
 			. += span_boldwarning("[t_He] look[p_s()] like pale death.")
-		if(-INFINITY to BLOOD_VOLUME_BAD)
+		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 			. += span_deadsay("<b>[t_He] resemble[p_s()] a crushed, empty juice pouch.</b>")
 
 	if (is_bleeding())
