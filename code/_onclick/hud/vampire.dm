@@ -14,8 +14,6 @@
 
 /atom/movable/screen/vampire
 	icon = 'icons/vampires/actions_vampire.dmi'
-	var/mob/living/our_guy
-	var/datum/antagonist/vampire/our_vamp
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/vampire/blood_counter
@@ -26,8 +24,11 @@
 /atom/movable/screen/vampire/blood_counter/Click()
 	. = ..()
 	var/list/msg = list()
-	our_guy = usr
-	our_vamp = IS_VAMPIRE(our_guy)
+	var/mob/living/owner_mob = hud.mymob
+	var/datum/antagonist/vampire/owner_vamp = IS_VAMPIRE(owner_mob)
+
+	if(!owner_vamp)
+		return
 
 	msg += span_cultlarge("This is your Vitae-Counter.")
 	msg += span_cult("Here you see your current level of blood-energy. This is used for all of your abilities, and sustains your very being.")
@@ -35,7 +36,7 @@
 	msg += span_cult("Your healing also depends on it. You reach your maximum healing potential at [BS_BLOOD_VOLUME_MAX_REGEN].")
 
 	var/bloodlevel
-	switch(our_vamp.current_vitae)
+	switch(owner_vamp.current_vitae)
 		if(0 to 200)
 			bloodlevel = "starved"
 		if(201 to 500)
@@ -45,13 +46,13 @@
 		if(701 to INFINITY)
 			bloodlevel = "content"
 
-	msg += span_cult("Your current maximum is: [our_vamp.max_vitae].")
-	msg += span_cult("This shift, you have drank [our_vamp.total_blood_drank] units of blood.")
+	msg += span_cult("Your current maximum is: [owner_vamp.max_vitae].")
+	msg += span_cult("This shift, you have drank [owner_vamp.total_blood_drank] units of blood.")
 
 	msg += span_cultlarge("\n<b>Right now, you are feeling <i>[bloodlevel].</i></b>")
 
-	if(our_vamp.vitae_goal_progress <= our_vamp.current_vitae_goal)
-		msg += span_cultlarge("\n<b>Your progress to the next level is: <i>[our_vamp.vitae_goal_progress]/[our_vamp.current_vitae_goal].</i></b>")
+	if(owner_vamp.vitae_goal_progress <= owner_vamp.current_vitae_goal)
+		msg += span_cultlarge("\n<b>Your progress to the next level is: <i>[owner_vamp.vitae_goal_progress]/[owner_vamp.current_vitae_goal].</i></b>")
 	else
 		msg += span_cultlarge("\n<b>You have drank deeply and greedily. Upon next sol, you will level up.</b>")
 
@@ -65,21 +66,24 @@
 /atom/movable/screen/vampire/rank_counter/Click()
 	. = ..()
 	var/list/msg = list()
-	our_guy = usr
-	our_vamp = IS_VAMPIRE(our_guy)
+	var/mob/living/owner_mob = hud.mymob
+	var/datum/antagonist/vampire/owner_vamp = IS_VAMPIRE(owner_mob)
 
-	var/mob/living/carbon/human/vampire_human = our_guy
+	if(!owner_vamp)
+		return
+
+	var/mob/living/carbon/human/vampire_human = owner_mob
 	msg += span_cultlarge("This is your Rank-Counter.")
 	msg += span_cult("Here you see your current progress in the mastery of your disciplines.")
 	msg += span_cult("This is a measure of your main progress as a vampire, and, should you feed on another vampire(that has broken the masquerade), you will absorb half of their levels.")
-	msg += span_cult("<b>With your current rank, you are considered as [our_vamp.get_rank_string()] of your craft.</b>")
+	msg += span_cult("<b>With your current rank, you are considered as [owner_vamp.get_rank_string()] of your craft.</b>")
 	msg += span_cult("\n<b>Currently, your rank affords you the following benefits:</b>")
-	msg += span_cult("Max Regeneration rate: +[our_vamp.vampire_regen_rate]")
-	msg += span_cult("Max Vitae pool: +[our_vamp.max_vitae - 600] ")
+	msg += span_cult("Max Regeneration rate: +[owner_vamp.vampire_regen_rate]")
+	msg += span_cult("Max Vitae pool: +[owner_vamp.max_vitae - 600] ")
 	msg += span_cult("Unarmed damage: +[vampire_human.dna.species.punchdamage - 9]")
 
 	var/list/disciplinestext
-	for(var/datum/discipline/discipline in our_vamp.owned_disciplines)
+	for(var/datum/discipline/discipline in owner_vamp.owned_disciplines)
 		disciplinestext += "\n[discipline.name] - "
 		disciplinestext += "Level:"
 		disciplinestext += "[discipline.level - 1]"
@@ -97,14 +101,17 @@
 /atom/movable/screen/vampire/sunlight_counter/Click()
 	. = ..()
 	var/list/msg = list()
-	our_guy = usr
-	our_vamp = IS_VAMPIRE(our_guy)
+	var/mob/living/owner_mob = hud.mymob
+	var/datum/antagonist/vampire/owner_vamp = IS_VAMPIRE(owner_mob)
+
+	if(!owner_vamp)
+		return
 
 	msg += span_cultlarge("This is the 'Sol' indicator.")
 	msg += span_cult("Here you see the current state of Sol, the frequent solar flares given off by the nearby star.")
 	msg += span_cult("While traditionally, vampires have thrived on space installations, Auri-Geminae's erratic solar behavior risks final death even in a shielded vessel.")
 
-	var/normal_humanity_divisor = min(2, 1 + (our_vamp.humanity / 10))
+	var/normal_humanity_divisor = min(2, 1 + (owner_vamp.humanity / 10))
 	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
 	msg += span_cult("\n<b>Your current humanity affords you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
 
@@ -122,15 +129,15 @@
 /atom/movable/screen/vampire/humanity_counter/Click()
 	. = ..()
 	var/list/msg = list()
-	our_guy = usr
-	our_vamp = IS_VAMPIRE(our_guy)
+	var/mob/living/owner_mob = hud.mymob
+	var/datum/antagonist/vampire/owner_vamp = IS_VAMPIRE(owner_mob)
 
 	msg += span_cultlarge("This is your Humanity score.")
 	msg += span_cult("Humanity is a measure of how closely a vampire clings to the morality and values of mortal life, and consequently how well they are able to resist the urges of the Beast.")
 	msg += span_cult("This has an active effect on the curse of all cainites. Vampires with little humanity may find it harder to stay awake during the day, or to awaken from long periods of torpor. If your humanity is particularly low, you may even burst into flames in the presence of god's light.")
 
 	var/humanitylevel
-	switch(our_vamp.humanity)
+	switch(owner_vamp.humanity)
 		if(0)
 			humanitylevel = "Monstrous"
 		if(1)
@@ -156,27 +163,19 @@
 
 	// Pardon me for my math, i was never good at this.
 
-	var/normal_humanity_divisor = min(2, 1 + (our_vamp.humanity / 10))
+	var/normal_humanity_divisor = min(2, 1 + (owner_vamp.humanity / 10))
 	var/divisor_turned_percentage = ((normal_humanity_divisor - 1) * 200) / 4
 
 	msg += span_cult("\n<b>Right now, others would describe you as <i>'[humanitylevel]',</i> giving you a [divisor_turned_percentage]% resistance to the ravages of Sol.</b>")
-	if(our_vamp.humanity > 7)
+	if(owner_vamp.humanity > 7)
 		msg += span_cult("Due to your connection to your own human soul, you have achieved the masquerade ability.")
 
 	msg += span_cult("\n<b>You may gain humanity by engaging in human activities, such as:</b>")
-	msg += span_cult("Hugging different mortals: [length(our_vamp.humanity_trackgain_hugged)] of [our_vamp.humanity_hugging_goal].")
-	msg += span_cult("Petting various animals: [length(our_vamp.humanity_trackgain_petted)] of [our_vamp.humanity_petting_goal].")
-	msg += span_cult("Looking at art: [length(our_vamp.humanity_trackgain_art)] of [our_vamp.humanity_art_goal].")
+	msg += span_cult("Hugging different mortals: [length(owner_vamp.humanity_trackgain_hugged)] of [owner_vamp.humanity_hugging_goal].")
+	msg += span_cult("Petting various animals: [length(owner_vamp.humanity_trackgain_petted)] of [owner_vamp.humanity_petting_goal].")
+	msg += span_cult("Looking at art: [length(owner_vamp.humanity_trackgain_art)] of [owner_vamp.humanity_art_goal].")
 
 	to_chat(usr, examine_block(msg.Join("\n")))
-
-#ifdef VAMPIRE_TESTING
-	var/datum/controller/subsystem/sunlight/sunlight_subsystem
-
-/atom/movable/screen/vampire/sunlight_counter/New(loc, ...)
-	. = ..()
-	sunlight_subsystem = SSsunlight
-#endif
 
 /// Update Blood Counter + Rank Counter
 /datum/antagonist/vampire/proc/update_hud()
