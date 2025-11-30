@@ -37,7 +37,7 @@
 
 	if(IS_VAMPIRE(user))
 		var/datum/antagonist/vampire/vampdatum = IS_VAMPIRE(user)
-		vampdatum.track_humanity_gain_progress(HUMANITY_ART_TYPE, source)
+		SEND_SIGNAL(vampdatum, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, HUMANITY_ART_TYPE, source)
 
 /datum/element/art/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER

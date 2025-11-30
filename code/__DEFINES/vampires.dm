@@ -117,7 +117,7 @@
 /// Called when a Vampire breaks the Masquerade
 #define COMSIG_VAMPIRE_BROKE_MASQUERADE "comsig_vampire_broke_masquerade"
 
-// Sol signals & Defines
+// Signals & Defines
 /// Sent every Sol tick
 #define COMSIG_SOL_RISE_TICK "comsig_sol_rise_tick"
 /// Sent 90 seconds before Sol begins
@@ -128,6 +128,8 @@
 #define COMSIG_SOL_NEAR_END "comsig_sol_near_end"
 /// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
 #define COMSIG_SOL_WARNING_GIVEN "comsig_sol_warning_given"
+/// Sent when tracking humanity gain progress: (type, subject)
+#define COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN "comsig_vampire_track_humanity_gain"
 
 #define DANGER_LEVEL_FIRST_WARNING 1
 #define DANGER_LEVEL_SECOND_WARNING 2

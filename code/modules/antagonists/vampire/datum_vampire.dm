@@ -270,6 +270,7 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
+	RegisterSignal(src, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, PROC_REF(on_track_humanity_gain_signal))
 
 	// Set name and reputation
 	select_first_name()

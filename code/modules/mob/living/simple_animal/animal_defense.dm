@@ -24,7 +24,7 @@
 
 		if(IS_VAMPIRE(M))
 			var/datum/antagonist/vampire/vampdatum = IS_VAMPIRE(M)
-			vampdatum.track_humanity_gain_progress(HUMANITY_PETTING_TYPE, src)
+			SEND_SIGNAL(vampdatum, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, HUMANITY_PETTING_TYPE, src)
 	else
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
