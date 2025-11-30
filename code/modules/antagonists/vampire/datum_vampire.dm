@@ -321,6 +321,8 @@
 	else if(ishuman(human_new_body))
 		var/datum/species/new_species = human_new_body.dna.species
 		new_species.punchdamage += 2
+		human_new_body.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST
+
 
 	// Vampire Traits
 	old_body?.remove_traits(vampire_traits, TRAIT_VAMPIRE)
@@ -440,6 +442,7 @@
 		var/datum/species/user_species = user.dna.species
 		user_species.species_traits += TRAIT_DRINKSBLOOD
 		user_species.punchdamage += 2
+		user.physiology.stamina_mod *= VAMPIRE_INHERENT_STAMINA_RESIST // Vampires have inherent stamina resistance
 		user.dna.remove_all_mutations()
 
 	// Give Vampire Traits
@@ -486,7 +489,9 @@
 	/// Stats
 	if(ishuman(owner.current))
 		var/datum/species/user_species = user.dna.species
+		var/mob/living/carbon/human/human_user = user
 		user_species.species_traits -= TRAIT_DRINKSBLOOD
+		human_user.physiology.stamina_mod /= VAMPIRE_INHERENT_STAMINA_RESIST
 
 	// Remove all vampire traits
 	user.remove_traits(vampire_traits, TRAIT_VAMPIRE)

@@ -24,6 +24,8 @@
 
 /// How many starting levels do we want each one to have?
 #define VAMPIRE_STARTING_LEVELS 3
+/// Vampire's default stamina resist. Tuned to withstand one taser and not more.
+#define VAMPIRE_INHERENT_STAMINA_RESIST 0.45
 
 /// When do we warn them about their low blood?
 #define VAMPIRE_LOW_BLOOD_WARNING 300
