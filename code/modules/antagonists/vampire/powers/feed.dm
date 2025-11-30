@@ -35,6 +35,8 @@
 
 	/// Have we fed till fatal?
 	var/feed_fatal = FALSE
+	/// During feeding, have we breached the masquerade?
+	var/masquerade_breached = FALSE
 	/// Are we at a stage of the process where we can be noticed?
 	var/currently_feeding = FALSE
 
@@ -79,14 +81,14 @@
 
 			if(!watcher.incapacitated(IGNORE_RESTRAINTS))
 				watcher.face_atom(owner)
-
 			watcher.do_alert_animation(watcher)
 			to_chat(watcher, span_warning("[owner.first_name()] is biting [target.first_name()]'s neck!"), type = MESSAGE_TYPE_WARNING)
 			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
-			vampiredatum_power.give_masquerade_infraction()
-			return FALSE
+			if(!masquerade_breached)
+				masquerade_breached = TRUE
+				vampiredatum_power.give_masquerade_infraction()
 
 		//from the victim's POV
 		for(var/mob/living/watcher in oviewers(silent_feed ? FEED_SILENT_NOTICE_RANGE : FEED_LOUD_NOTICE_RANGE, target))
@@ -109,8 +111,9 @@
 			playsound(watcher, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 			owner.balloon_alert(owner, "feed noticed!")
-			vampiredatum_power.give_masquerade_infraction()
-			return FALSE
+			if(!masquerade_breached)
+				masquerade_breached = TRUE
+				vampiredatum_power.give_masquerade_infraction()
 
 	return TRUE
 
@@ -159,6 +162,18 @@
 			owner.balloon_alert(owner, "suit too thick!")
 			return FALSE
 
+	if(isliving(owner))
+		var/mob/living/living_owner = owner
+		if(living_owner.body_position != STANDING_UP)
+			living_owner.balloon_alert(living_owner, "must be standing!")
+			return FALSE
+
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		if(carbon_owner.handcuffed)
+			carbon_owner.balloon_alert(carbon_owner, "can't feed while restrained!")
+			return FALSE
+
 	silent_feed = TRUE
 
 /datum/action/vampire/targeted/feed/FireTargetedPower(atom/target_atom)
@@ -180,6 +195,7 @@
 	//////////////////////////
 
 	currently_feeding = FALSE
+	masquerade_breached = FALSE
 
 	if(!living_owner.combat_mode)
 
