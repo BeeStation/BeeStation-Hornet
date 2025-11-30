@@ -96,8 +96,6 @@
 
 /// This is a Default Power that all Vampires get.
 #define VAMPIRE_DEFAULT_POWER (1<<1)
-/// This Power is a clan power, be it a bloodline specific discipline or something else.
-#define CLAN_DEFAULT_POWER (1<<2)
 
 /// This Power is a Toggled Power
 #define BP_AM_TOGGLE (1<<0)
