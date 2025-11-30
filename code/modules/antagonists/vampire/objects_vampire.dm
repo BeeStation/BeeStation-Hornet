@@ -114,6 +114,16 @@
 	/// No spamming torture
 	var/is_torturing = FALSE
 
+/obj/structure/vampire/vassalrack/examine(mob/user)
+    . = ..()
+    var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
+    if(vampiredatum)
+        var/remaining_vassals = vampiredatum.get_max_vassals() - length(vampiredatum.vassals)
+        if(remaining_vassals > 0)
+            . += span_info("You are currently capable of creating <b>[remaining_vassals]</b> more vassal\s.")
+        else
+            . += span_warning("You cannot create any more vassals at the moment!")
+
 /obj/structure/vampire/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
 	new /obj/item/stack/sheet/iron(src.loc, 4)
