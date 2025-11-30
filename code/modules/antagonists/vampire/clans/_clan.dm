@@ -43,7 +43,7 @@
  * 1 	Horrific
  * 0 	Wight
  */
-	var/default_humanity = 7
+	var/default_humanity = VAMPIRE_DEFAULT_HUMANITY
 
 /datum/vampire_clan/New(datum/antagonist/vampire/owner_datum)
 	. = ..()

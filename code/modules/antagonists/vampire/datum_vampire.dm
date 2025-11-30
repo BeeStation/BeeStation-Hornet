@@ -38,8 +38,8 @@
 	var/masquerade_infractions = 0
 
 	/// How many humanity points do we have? 0-10
-	/// We actually always start with 0 and then add the clan's default humanity
-	var/humanity = 0
+	/// We actually always start with 7 and then add the clan's default humanity
+	var/humanity = VAMPIRE_DEFAULT_HUMANITY
 
 	/// Blood required to enter Frenzy
 	var/frenzy_threshold = FRENZY_THRESHOLD_ENTER
