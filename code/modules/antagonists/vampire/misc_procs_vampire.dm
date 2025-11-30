@@ -133,7 +133,7 @@
 			temp_humanity = 10
 			return FALSE
 
-		if(temp_humanity >= 8 && !(locate(/datum/action/vampire/masquerade) in powers))
+		if(temp_humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER && !(locate(/datum/action/vampire/masquerade) in powers))
 			grant_power(new /datum/action/vampire/masquerade)
 			power_given = TRUE
 
@@ -150,7 +150,7 @@
 			temp_humanity = 0
 			return
 
-		if(temp_humanity < 8)
+		if(temp_humanity < VAMPIRE_HUMANITY_MASQUERADE_POWER)
 			for(var/datum/action/vampire/masquerade/power in powers)
 				remove_power(power)
 				power_removed = TRUE

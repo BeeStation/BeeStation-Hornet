@@ -33,7 +33,7 @@
  * Starting Humanity score, some clans are closer to the beast, some closer to humanity.
  * 10 	Saintly
  * 9 	Compassionate
- * 8 	Caring			// Masquerade ability given at 8 or above
+ * 8 	Caring
  * 7 	Normal
  * 6 	Distant
  * 5 	Removed

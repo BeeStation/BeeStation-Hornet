@@ -140,6 +140,8 @@
 #define VAMPIRE_DRINK_NORMAL "vampire_drink_normal"
 /// Drinks blood but is snobby, refusing to drink from mindless
 #define VAMPIRE_DRINK_SNOBBY "vampire_drink_snobby"
+// Masquerade ability given at this point or above
+#define VAMPIRE_HUMANITY_MASQUERADE_POWER 7
 
 // Traits
 /// Falsifies Health analyzer blood levels
