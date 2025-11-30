@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(sunlight)
 		if(TIME_VAMPIRE_DAY_WARN_3)
 			warn_daylight(
 				danger_level = DANGER_LEVEL_THIRD_WARNING,
-				vampire_warning_message = span_narsiesmall("SEEK COVER, FOR SOL RISES!"),
+				vampire_warning_message = span_narsiesmall("YET AGAIN, SOL RISES!"),
 			)
 		if(NONE)
 			sunlight_active = TRUE
