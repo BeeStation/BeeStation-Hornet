@@ -167,7 +167,7 @@
 	humanity = temp_humanity
 
 /// Bacon wanted a signal
-/datum/antagonist/vampire/proc/on_track_humanity_gain_signal(type, subject)
+/datum/antagonist/vampire/proc/on_track_humanity_gain_signal(datum/source, type, subject)
 	SIGNAL_HANDLER
 	return track_humanity_gain_progress(type, subject)
 

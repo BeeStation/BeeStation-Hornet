@@ -31,6 +31,7 @@
 
 /**
  * Starting Humanity score, some clans are closer to the beast, some closer to humanity.
+ * We start out at null and set it in new because we want a fall back to the global default if none is set.
  * 10 	Saintly			Toreador
  * 9 	Compassionate	Ventrue
  * 8 	Caring			Malkavian, Brujah
@@ -43,14 +44,17 @@
  * 1 	Horrific
  * 0 	Wight
  */
-	var/default_humanity = VAMPIRE_DEFAULT_HUMANITY
+	var/default_humanity
 
 /datum/vampire_clan/New(datum/antagonist/vampire/owner_datum)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_VAMPIRE_BROKE_MASQUERADE, PROC_REF(on_vampire_broke_masquerade))
 
 	vampiredatum = owner_datum
-	vampiredatum.adjust_humanity(default_humanity, TRUE)
+	// Apply clan-specific default humanity; fall back to the global default only if none was set.
+	if(isnull(default_humanity))
+		default_humanity = VAMPIRE_DEFAULT_HUMANITY
+	vampiredatum.adjust_humanity(default_humanity - VAMPIRE_DEFAULT_HUMANITY, TRUE)
 
 	// Masquerade breakers
 	for(var/datum/antagonist/vampire/unmasked in GLOB.masquerade_breakers)
