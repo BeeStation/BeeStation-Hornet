@@ -608,7 +608,7 @@ const ObjectiveCard = (props) => {
         </Tooltip>
       </Box>
       <Box className="time_limit">
-        {time_left === null
+        {time_left === null || time_left > 60 * 60 * 10
           ? '--:--'
           : '00:' +
             String(Math.floor(time_left / 60)).padStart(2, '0') +

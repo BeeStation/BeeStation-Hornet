@@ -103,7 +103,6 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/priority_directive/proc/add_antagonist_team(list/uplinks, list/data = null)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	PROTECTED_PROC(TRUE)
 	RETURN_TYPE(/datum/directive_team)
 	var/created = new /datum/directive_team(islist(uplinks) ? uplinks : list(uplinks), islist(data) ? data : list())
 	teams += created

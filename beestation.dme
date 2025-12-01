@@ -2405,6 +2405,7 @@
 #include "code\modules\antagonists\traitor\directives\assassination\assassinate.dm"
 #include "code\modules\antagonists\traitor\directives\deploy_beacon\beacon.dm"
 #include "code\modules\antagonists\traitor\directives\deploy_beacon\deploy_beacon.dm"
+#include "code\modules\antagonists\traitor\directives\recruit\recruit.dm"
 #include "code\modules\antagonists\traitor\directives\secure_deaddrop\deaddrop_box.dm"
 #include "code\modules\antagonists\traitor\directives\secure_deaddrop\secure_deaddrop.dm"
 #include "code\modules\antagonists\traitor\equipment\contractor.dm"

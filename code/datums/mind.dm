@@ -329,7 +329,7 @@
 			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 		else if(uplink_loc == P)
 			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
-		to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
+		to_chat(traitor_mob, span_traitorobjective("[U.unlock_text]"))
 
 	if(uplink_owner)
 		uplink_owner.antag_memory += U.unlock_note + "<br>"

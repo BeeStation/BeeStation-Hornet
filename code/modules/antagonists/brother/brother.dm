@@ -24,8 +24,8 @@
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
 	owner.special_role = ROLE_BROTHER
+	. = ..()
 	finalize_brother()
-	return ..()
 
 /datum/antagonist/brother/on_removal()
 	if (!silent && owner.current)
@@ -114,6 +114,16 @@
 /datum/antagonist/brother/prime
 	name = "First-Born Brother"
 	var/give_conversion_implant = TRUE
+	/// Text word of the uplink unlock code
+	var/uplink_note
+	/// Location of the stash
+	var/stash_location
+
+/datum/antagonist/brother/prime/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["uplink_note"] = uplink_note
+	data["stash_location"] = stash_location
+	return data
 
 /datum/antagonist/brother/prime/greet()
 	to_chat(owner.current, span_alertsyndie("You are the First-Born Blood Brother."))
@@ -139,14 +149,29 @@
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
 	// Give them the conversion implant
-	generate_stash(list(
-		new /obj/item/implanter/bloodbrother(null, team)
+	var/obj/item/implanter/bloodbrother/implanter = new /obj/item/implanter/bloodbrother(null, team)
+	stash_location = generate_stash(list(
+		implanter
 	), list(owner), team)
 	// Give them the uplink
 	var/datum/mind/uplink_owner = pick(team.members)
-	var/datum/component/uplink/granted_uplink = uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = BROTHER_DIRECTIVE_FLAGS)
+	// Starts with a forced directive to recruit a brother
+	var/datum/component/uplink/granted_uplink = uplink_owner.equip_standard_uplink(uplink_owner = src, telecrystals = 0, directive_flags = NONE)
+	uplink_note = granted_uplink.unlock_text
+	granted_uplink.reputation = 0
+	give_directive(granted_uplink, implanter)
 	// Makes it hard for blood brothers to be a significant force in the round
 	granted_uplink.directive_tc_multiplier = 0.5
+
+/datum/antagonist/brother/prime/proc/give_directive(datum/component/uplink/uplink, obj/item/implanter/bloodbrother/implanter)
+	var/datum/priority_directive/recruit/selected = new /datum/priority_directive/recruit()
+	selected.add_antagonist_team(list(uplink))
+	selected.start(list(uplink), team.members)
+	selected.reputation_reward = 300
+	selected.tc_reward = 4
+	selected.track_implanter(implanter)
+	SSdirectives.active_directives += selected
+	uplink.next_personal_objective_time = INFINITY
 
 /datum/antagonist/brother/prime/no_conversion
 	give_conversion_implant = FALSE
