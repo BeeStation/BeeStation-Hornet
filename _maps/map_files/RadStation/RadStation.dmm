@@ -11212,13 +11212,8 @@
 /area/vacant_room/office)
 "dyS" = (
 /obj/structure/table,
-/obj/item/book/manual/wiki/sopsecurity{
-	pixel_x = 4;
-	pixel_y = 5
-	},
-/obj/item/toy/plush/nukeplushie{
-	pixel_x = -3;
-	pixel_y = -9
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
 	},
 /turf/open/floor/wood,
 /area/security/prison)

@@ -24344,7 +24344,9 @@
 	pixel_y = 26;
 	pixel_x = 16
 	},
-/obj/item/storage/crayons,
+/obj/machinery/cell_charger{
+	desc = "It charges power cells. There is a small tag on it: Public tools charger. Please do no remove"
+	},
 /turf/open/floor/wood,
 /area/security/prison)
 "fae" = (
