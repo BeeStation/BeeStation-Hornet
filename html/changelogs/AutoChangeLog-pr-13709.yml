@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Supermatter crystals now have an upper limit on their explosive force,
+      achieved after 90 minutes of being powered.
