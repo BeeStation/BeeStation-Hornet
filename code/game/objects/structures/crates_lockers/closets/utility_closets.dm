@@ -228,7 +228,7 @@
 
 		// Create overlay image from the item's icon
 		var/image/overlay = image(item, src)
-		var	icon/item_icon = icon(item.icon, item.icon_state)
+		var/icon/item_icon = icon(item.icon, item.icon_state)
 
 		// Scale the overlay to a fixed thumbnail size
 		overlay.transform = overlay.transform.Scale(
