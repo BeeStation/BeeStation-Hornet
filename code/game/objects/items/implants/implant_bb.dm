@@ -22,6 +22,10 @@
 	for (var/datum/antagonist/brother/brother in user.mind.antag_datums)
 		if (brother.get_team() == linked_team)
 			return
+	// Link to all implants
+	for(var/datum/mind/M in linked_team.members) // Link the implants of all team members
+		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
+		link_implant(T)
 	// Remove mindshields
 	for(var/obj/item/implant/mindshield/mindshield in user.implants)
 		qdel(mindshield)
