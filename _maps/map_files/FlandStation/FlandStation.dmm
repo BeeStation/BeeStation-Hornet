@@ -10997,8 +10997,6 @@
 /turf/open/floor/iron/sepia,
 /area/science/shuttle)
 "cRA" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/sec_barricades,
 /obj/item/gun/grenadelauncher{
 	pixel_y = 4
 	},
@@ -11013,6 +11011,9 @@
 	dir = 9
 	},
 /obj/item/survivalcapsule/capsule_checkpoint,
+/obj/structure/closet/gun_locker/support,
+/obj/effect/loot_jobscale/armoury/dragnet,
+/obj/item/beacon/nettingportal,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "cRD" = (
@@ -12186,9 +12187,6 @@
 /area/hallway/primary/central)
 "dhA" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/rack,
 /obj/item/gun/energy/ionrifle{
 	pixel_y = 4
 	},
@@ -12196,16 +12194,13 @@
 	pixel_y = -2
 	},
 /obj/item/clothing/suit/armor/laserproof,
-/obj/machinery/door/window/southright{
-	name = "EMP Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/gun_locker/techgear,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "dhM" = (
@@ -26682,7 +26677,6 @@
 /turf/open/floor/iron/white,
 /area/science/explab)
 "gNl" = (
-/obj/structure/rack,
 /obj/item/clothing/suit/armor/vest{
 	pixel_x = -3;
 	pixel_y = 3
@@ -26701,13 +26695,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "Armour Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -29342,14 +29330,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "hzL" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "Armour Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -29358,6 +29339,7 @@
 	},
 /obj/effect/loot_jobscale/armoury/bulletproof_vest,
 /obj/effect/loot_jobscale/armoury/bulletproof_helmet,
+/obj/structure/closet/gun_locker/armor_bulletproof,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hzM" = (
@@ -47730,18 +47712,10 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "mfr" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/paper/fluff{
 	default_raw_text = "I used the shotgun. You know why? Cause the shot gun doesn't miss, and unlike the shitty hybrid taser it stops a criminal in their tracks in two hits. Bang, bang, and they're fucking done. I use four shots just to make damn sure. Because, once again, I'm not there to coddle a buncha criminal scum sucking f------, I'm there to 1) Survive the fucking round. 2) Guard the armory. So you can absolutely get fucked. If I get unbanned, which I won't, you can guarantee I will continue to use the shotgun to apprehend criminals. Because it's quick, clean and effective as fuck. Why in the seven hells would I fuck around with the disabler shots, which take half a clip just to bring someone down, or with the tazer bolts which are slow as balls, impossible to aim and do about next to jack shit, fuck all. The shotgun is the superior law enforcement weapon. Because it stops crime. And it stops crime by reducing the number of criminals roaming the fucking halls.";
 	name = "Shotgun manifesto"
-	},
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Balistic Weapons Storage";
-	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -47750,6 +47724,7 @@
 	dir = 8
 	},
 /obj/effect/loot_jobscale/armoury/riot_shotgun,
+/obj/structure/closet/gun_locker/ballistic,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "mfv" = (
@@ -47826,12 +47801,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "mgs" = (
-/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -53330,8 +53300,11 @@
 	req_access_txt = "3"
 	},
 /obj/structure/table/reinforced,
-/obj/item/beacon/nettingportal,
-/obj/effect/loot_jobscale/armoury/dragnet,
+/obj/item/storage/box/sec_barricades,
+/obj/item/storage/box/handcuffs{
+	pixel_y = 10;
+	pixel_x = 5
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "nDQ" = (
@@ -62360,13 +62333,7 @@
 /turf/open/floor/iron/dark/side,
 /area/engine/atmos)
 "qaT" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/door/window/southright{
-	name = "Balistic Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/item/ammo_box/magazine/wt550m9/rubber{
 	pixel_y = -4
 	},
@@ -62388,6 +62355,7 @@
 	dir = 8
 	},
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
+/obj/structure/closet/gun_locker/ballistic,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "qaW" = (
@@ -67726,7 +67694,6 @@
 /area/maintenance/starboard/central)
 "rve" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
-/obj/structure/table/reinforced,
 /obj/item/storage/box/rubbershot{
 	pixel_x = -4;
 	pixel_y = -4
@@ -67748,6 +67715,7 @@
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/machinery/light,
 /obj/structure/cable/yellow,
+/obj/structure/closet/gun_locker/boxes,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "rvn" = (
@@ -78329,13 +78297,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "ueg" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -80704,16 +80665,7 @@
 /turf/open/floor/plating,
 /area/engine/storage)
 "uHM" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Armour Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -80723,6 +80675,7 @@
 /obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
 /obj/effect/loot_jobscale/armoury/riot_shield,
+/obj/structure/closet/gun_locker/armor_riot,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "uHW" = (
@@ -83945,16 +83898,7 @@
 /turf/open/floor/iron,
 /area/teleporter)
 "vuL" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Disabler Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -83962,6 +83906,7 @@
 	dir = 4
 	},
 /obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/structure/closet/gun_locker/energy,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "vuO" = (
@@ -91549,23 +91494,16 @@
 /area/maintenance/aft/secondary)
 "xgj" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/rack,
 /obj/item/storage/box/firingpins,
 /obj/item/storage/box/firingpins{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/machinery/door/window/southright{
-	dir = 8;
-	name = "Firing Pins Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/closet/gun_locker/boxes,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "xgk" = (
@@ -93670,7 +93608,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "xCu" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/box/flashes{
 	pixel_x = 3
 	},
@@ -93678,7 +93615,6 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/item/storage/box/handcuffs,
 /obj/item/storage/box/teargas{
 	pixel_x = 3;
 	pixel_y = 3
@@ -93694,6 +93630,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/closet/gun_locker/boxes,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "xCv" = (

@@ -6657,19 +6657,13 @@
 "aSE" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Disabler Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/structure/rack,
-/obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/structure/closet/gun_locker/armor_bulletproof,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "aSP" = (
@@ -7071,35 +7065,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"aVt" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/table/reinforced,
-/obj/item/storage/box/rubbershot{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "aVV" = (
 /obj/structure/sink{
 	dir = 8;
@@ -19591,6 +19556,29 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port)
+"cEo" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/closet/gun_locker/boxes,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
 "cEp" = (
 /obj/structure/table/wood,
 /obj/structure/sign/painting/library{
@@ -23812,22 +23800,17 @@
 /turf/open/floor/iron,
 /area/science/research)
 "did" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "Armour Storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/bulletproof_vest,
-/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
+/obj/structure/closet/gun_locker/armor_riot,
+/obj/effect/loot_jobscale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
+/obj/effect/loot_jobscale/armoury/riot_suit,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "die" = (
@@ -27933,8 +27916,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/structure/rack,
 /obj/item/storage/fancy/donut_box,
-/obj/effect/loot_jobscale/armoury/dragnet,
-/obj/item/beacon/nettingportal,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "dOK" = (
@@ -33937,11 +33918,6 @@
 /area/maintenance/starboard/fore)
 "fpp" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/door/window/southright{
-	name = "Balistic Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/item/ammo_box/magazine/wt550m9/rubber{
 	pixel_y = -4
 	},
@@ -33964,7 +33940,7 @@
 	},
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/rack,
+/obj/structure/closet/gun_locker/ballistic,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fpB" = (
@@ -41616,15 +41592,6 @@
 /area/crew_quarters/locker)
 "hFo" = (
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/firingpins,
-/obj/item/storage/box/firingpins{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/machinery/door/window/southright{
-	name = "Firing Pins Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -41633,7 +41600,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/structure/rack,
+/obj/structure/closet/gun_locker/energy,
+/obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/wt550,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hFt" = (
@@ -44581,13 +44550,6 @@
 /area/science/explab)
 "iAK" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -49749,37 +49711,20 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "klp" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/suit/armor/vest{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/clothing/head/helmet{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/head/helmet,
-/obj/item/clothing/head/helmet{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "Armour Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/table,
+/obj/item/storage/lockbox/loyalty,
+/obj/item/storage/box/trackimp{
+	pixel_x = -3
+	},
+/obj/item/storage/box/chemimp{
+	pixel_x = 6
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -49908,10 +49853,6 @@
 "kno" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/effect/turf_decal/bot,
-/obj/machinery/door/window/southright{
-	name = "Weapons Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -63990,25 +63931,20 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "oOD" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Armour Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/loot_jobscale/armoury/riot_suit,
-/obj/effect/loot_jobscale/armoury/riot_helmet,
-/obj/effect/loot_jobscale/armoury/riot_shield,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/closet/gun_locker/boxes,
+/obj/item/storage/box/flashbangs{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/teargas,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "oOL" = (
@@ -64562,7 +64498,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
 "oYT" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
 	pixel_y = 24
@@ -64573,14 +64508,12 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/item/storage/box/flashbangs{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/teargas,
 /obj/item/gun/grenadelauncher{
 	pixel_y = 4
 	},
+/obj/effect/loot_jobscale/armoury/dragnet,
+/obj/item/beacon/nettingportal,
+/obj/structure/closet/gun_locker/support,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "oZg" = (
@@ -67467,27 +67400,6 @@
 	},
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
-"pYj" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/mask/gas/sechailer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/mask/gas/sechailer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/item/flashlight/seclite,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "pYv" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -74801,6 +74713,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/closet/gun_locker/boxes,
+/obj/item/storage/box/firingpins{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/firingpins{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "sgR" = (
@@ -79141,9 +79062,6 @@
 /area/medical/patients_rooms)
 "txI" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/rack,
 /obj/item/gun/energy/ionrifle{
 	pixel_y = 4
 	},
@@ -79151,16 +79069,13 @@
 	pixel_y = -2
 	},
 /obj/item/clothing/suit/armor/laserproof,
-/obj/machinery/door/window/southright{
-	name = "EMP Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/gun_locker/techgear,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "txW" = (
@@ -79883,16 +79798,9 @@
 /area/security/prison)
 "tLC" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/item/paper/fluff{
 	default_raw_text = "I used the shotgun. You know why? Cause the shot gun doesn't miss, and unlike the shitty hybrid taser it stops a criminal in their tracks in two hits. Bang, bang, and they're fucking done. I use four shots just to make damn sure. Because, once again, I'm not there to coddle a buncha criminal scum sucking f------, I'm there to 1) Survive the fucking round. 2) Guard the armory. So you can absolutely get fucked. If I get unbanned, which I won't, you can guarantee I will continue to use the shotgun to apprehend criminals. Because it's quick, clean and effective as fuck. Why in the seven hells would I fuck around with the disabler shots, which take half a clip just to bring someone down, or with the tazer bolts which are slow as balls, impossible to aim and do about next to jack shit, fuck all. The shotgun is the superior law enforcement weapon. Because it stops crime. And it stops crime by reducing the number of criminals roaming the fucking halls.";
 	name = "Shotgun manifesto"
-	},
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Balistic Weapons Storage";
-	req_one_access_txt = "1;4"
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -79902,7 +79810,7 @@
 	},
 /obj/effect/loot_jobscale/armoury/riot_shotgun,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/rack,
+/obj/structure/closet/gun_locker/ballistic,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "tLD" = (
@@ -86240,21 +86148,6 @@
 /area/bridge)
 "vPb" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/rack,
-/obj/item/storage/box/chemimp{
-	pixel_x = 6
-	},
-/obj/item/storage/box/trackimp{
-	pixel_x = -3
-	},
-/obj/item/storage/lockbox/loyalty,
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	dir = 1;
-	icon_state = "left";
-	name = "Implants Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -86262,7 +86155,16 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/structure/table/reinforced,
+/obj/item/flashlight/seclite,
+/obj/item/clothing/mask/gas/sechailer,
+/obj/item/clothing/mask/gas/sechailer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "vPc" = (
@@ -151375,7 +151277,7 @@ lFY
 bLs
 hxv
 jYT
-sgJ
+cEo
 sgJ
 gVw
 pKI
@@ -152663,7 +152565,7 @@ ucj
 vPb
 kno
 rlC
-aVt
+bLs
 bLs
 aaa
 aaa
@@ -152920,8 +152822,8 @@ gLG
 emR
 emR
 gfu
-pYj
 bLs
+qYo
 aaa
 aaa
 aaa
@@ -153177,8 +153079,8 @@ bLs
 bLs
 bLs
 bLs
-bLs
 jPs
+qYo
 aaa
 aaa
 aaa
