@@ -47,6 +47,7 @@
 	var/anchorable = TRUE
 	var/obj/effect/overlay/closet_door/door_obj
 	var/is_animating_door = FALSE
+	var/seethrough_doors = FALSE // May be incompatible with lock/weld/emag overlays
 	var/door_anim_squish = 0.30
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
@@ -126,7 +127,11 @@
 			. += door_overlay
 			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 		else if(has_closed_overlay)
-			. += "[icon_door || overlay_state]_door"
+			if(seethrough_doors)
+				var/mutable_appearance/door_overlay = mutable_appearance(icon, "[overlay_state]_door", ABOVE_MOB_LAYER, alpha = src.alpha)
+				. += door_overlay
+			else
+				. += "[icon_door || overlay_state]_door"
 	if(welded)
 		. += icon_welded
 	if(broken)

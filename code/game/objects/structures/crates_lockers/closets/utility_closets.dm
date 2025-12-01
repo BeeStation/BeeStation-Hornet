@@ -195,9 +195,121 @@
  *Gun-Lockers except they are actually lockers
  */
 /obj/structure/closet/gun_locker
-	name = "\improper weapon closet"
-	desc = "It's a storage unit for weapons and similar objects."
-	icon_state = "shotguncase"
+	name = "\improper armory locker"
+	desc = "A storage unit for weapons, ammo, and similar objects."
+	icon = 'icons/obj/storage/guncase.dmi'
+	icon_state = "guncase"
+	anchored = TRUE
+	seethrough_doors = TRUE
+
+	// How many small item thumbnails to draw and their size
+	var/max_contents_overlays = 2
+	var/static/CONTENTS_OVERLAY_SIZE = 16
+
+/obj/structure/closet/gun_locker/update_overlays()
+	. = ..()
+
+	if(!length(contents))
+		return .
+
+	// small horizontal shifts for each successive item overlay
+	var/static/list/overlay_shifts = list(-4, 2, -10, 6, -14, -1, -7)
+
+	var/count = 0
+	var/stack_vertically = FALSE
+
+	for(var/atom/movable/item in contents)
+		if(count >= max_contents_overlays)
+			break
+
+		// Only allow good shtuff
+		if(!istype(item, /obj/item/storage) && !istype(item, /obj/item/gun))
+			continue
+
+		// Create overlay image from the item's icon
+		var/image/overlay = image(item, src)
+		var	icon/item_icon = icon(item.icon, item.icon_state)
+
+		// Scale the overlay to a fixed thumbnail size
+		overlay.transform = overlay.transform.Scale(
+			CONTENTS_OVERLAY_SIZE / item_icon.Width(),
+			CONTENTS_OVERLAY_SIZE / item_icon.Height(),
+		)
+
+		// Now we handle each type of item specifically for positioning
+		// Rotate guns 90 degrees so they appear horizontally
+		if(istype(item, /obj/item/gun))
+			overlay.transform = turn(overlay.transform, 90)
+			overlay.pixel_y = -2
+		else
+			overlay.pixel_y = -6
+
+		// If we are a box, shift right. We also want to stack them vertically instead of horizontally
+		if(istype(item, /obj/item/storage))
+			overlay.pixel_x = 1
+			overlay.pixel_y = -3.5
+			stack_vertically = TRUE
+			overlay.pixel_y = overlay_shifts[(count % overlay_shifts.len) + 1]
+
+		// Position it slightly in front of the locker face, beneath the door overlay
+		overlay.layer = FLOAT_LAYER
+		overlay.plane = FLOAT_PLANE
+		overlay.blend_mode = BLEND_INSET_OVERLAY
+
+		if(!stack_vertically)
+			overlay.pixel_x = overlay_shifts[(count % overlay_shifts.len) + 1]
+
+		count += 1
+
+		. += overlay
+
+	return .
+
+/obj/structure/closet/gun_locker/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(on_roundstart_update_overlays))
+
+/obj/structure/closet/gun_locker/proc/on_roundstart_update_overlays()
+	if(!isturf(loc))
+		return
+
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/structure/closet/gun_locker/ballistic
+	name = "\improper ballistic armory locker"
+	desc = "A red-striped locker that smells faintly of gun oil, meant for top-shelf ballistic ordnance."
+	icon_state = "guncase_ballistic"
+
+/obj/structure/closet/gun_locker/energy
+	name = "\improper energy armory locker"
+	desc = "A yellow-striped locker that hums with leftover capacitor charge and a faint ozone tang. Likely contains energy weapons."
+	icon_state = "guncase_energy"
+
+/obj/structure/closet/gun_locker/armor_bulletproof
+	name = "\improper ballistic armor locker"
+	desc = "A green-striped locker lined with reinforced placards and hooks. Holds bulletproof vests and helmets."
+	icon_state = "guncase_bulletarmor"
+
+/obj/structure/closet/gun_locker/armor_riot
+	name = "\improper riot armor locker"
+	desc = "A dark green-striped locker, dented and battle-scarred. Stocked for crowd control and blunt-force diplomacy."
+	icon_state = "guncase_riotarmor"
+
+/obj/structure/closet/gun_locker/techgear
+	name = "\improper tech gear locker"
+	desc = "A blue-striped locker crammed with gimmicks. Temp-guns, reflector vests, and the like."
+	icon_state = "guncase_techgear"
+
+/obj/structure/closet/gun_locker/support
+	name = "\improper support locker"
+	desc = "A silver-striped locker stocked with all kinds of support gear."
+	icon_state = "guncase_support"
+
+/obj/structure/closet/gun_locker/boxes
+	name = "\improper storage armory locker"
+	desc = "A compact locker that has neat shelves meant for standard NT boxes of most kinds."
+	icon_state = "guncase_boxes"
 
 /*
  * Bombsuit closet
