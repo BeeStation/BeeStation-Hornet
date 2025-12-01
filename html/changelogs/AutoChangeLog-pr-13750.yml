@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - config: The default (local) config no longer has respawning enabled.
