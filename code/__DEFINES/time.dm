@@ -22,6 +22,7 @@
 #define EASTER					"Easter"
 #define HALLOWEEN				"Halloween"
 #define CHRISTMAS				"Christmas"
+#define CHRISTMAS_TREE			"Christmas Tree"
 #define FESTIVE_SEASON			"Festive Season"
 #define GARBAGEDAY				"Garbage Day"
 
