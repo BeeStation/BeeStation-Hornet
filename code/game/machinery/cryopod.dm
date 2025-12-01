@@ -256,18 +256,31 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(!(world.time > despawn_world_time))
 			return
 
-		//Offer special roles to ghosts and pause processing while we do
-		var/datum/antagonist/A = mob_occupant.mind.has_antag_datum(/datum/antagonist)
-		if(A?.leave_behaviour == ANTAGONIST_LEAVE_OFFER)
-			ghost_offering = TRUE
-			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
+		if (!mob_occupant.mind)
+			despawn_occupant()
 			return
-		//This is not a role that needs to be offered, despawn them.
-		despawn_occupant()
 
-/obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/mob_occupant)
-	mob_occupant.SetUnconscious(30 SECONDS, TRUE)
-	if(offer_control(mob_occupant))
+		//Offer special roles to ghosts and pause processing while we do
+		var/highest_leave = ANTAGONIST_LEAVE_DESPAWN
+		for (var/datum/antagonist/antagonist_datum in mob_occupant.mind.antag_datums)
+			highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
+		// Determine how we should handle our leaving
+		switch (highest_leave)
+			if (ANTAGONIST_LEAVE_DESPAWN)
+				despawn_occupant()
+			if (ANTAGONIST_LEAVE_OFFER)
+				ghost_offering = TRUE
+				INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
+			if (ANTAGONIST_LEAVE_KEEP)
+				ghost_offering = TRUE
+				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
+
+/obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
+	target.ghostize(FALSE)
+
+/obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
+	target.ghostize(FALSE)
+	if(offer_control(target))
 		open_machine()
 	else
 		despawn_occupant()

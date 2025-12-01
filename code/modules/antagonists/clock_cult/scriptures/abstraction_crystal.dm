@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 /datum/antagonist/servant_of_ratvar/manifestation
 	name = "Servant Manifestation"
 	counts_towards_total = FALSE
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal
 	name = "Abstraction Crystal"
@@ -18,7 +19,6 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	summoned_structure = /obj/structure/destructible/clockwork/abstraction_crystal
 	cogs_required = 5
 	category = SPELLTYPE_STRUCTURES
-	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements(mob/user)
 	if(!..())
