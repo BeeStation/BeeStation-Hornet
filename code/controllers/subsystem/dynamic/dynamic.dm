@@ -460,7 +460,7 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Trim the rulesets
-	var/list/possible_rulesets = get_weighted_executable_supplementary_rulesets(unfiltered_rules)
+	var/list/possible_rulesets = get_weighted_executable_supplementary_rulesets(unfiltered_rules, FALSE)
 
 	// Pick rulesets
 	var/no_other_rulesets = FALSE
@@ -497,14 +497,15 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			executed_supplementary_rulesets -= ruleset
 
-/datum/controller/subsystem/dynamic/proc/get_weighted_executable_supplementary_rulesets(list/rulesets)
+/datum/controller/subsystem/dynamic/proc/get_weighted_executable_supplementary_rulesets(list/rulesets, for_midround = FALSE)
 	var/list/possible_rulesets = list()
 	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in rulesets)
 		potential_ruleset.set_drafted_players_amount()
-		potential_ruleset.get_candidates()
-		potential_ruleset.trim_candidates()
+		if (!for_midround)
+			potential_ruleset.get_candidates()
+			potential_ruleset.trim_candidates()
 
-		if(!potential_ruleset.allowed())
+		if(!potential_ruleset.allowed(ignore_candidates = for_midround))
 			continue
 
 		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in roundstart_forced_rulesets))
@@ -845,7 +846,7 @@ SUBSYSTEM_DEF(dynamic)
 	supplementary_points += roundstart_points_per_ready * supplementary_point_divergence
 
 	if (!next_supplementary)
-		next_supplementary = pick_ruleset(get_weighted_executable_supplementary_rulesets(supplementary_configured_rulesets))
+		next_supplementary = pick_ruleset(get_weighted_executable_supplementary_rulesets(supplementary_configured_rulesets, TRUE), ignore_candidates = TRUE)
 	if (!next_supplementary)
 		return
 
