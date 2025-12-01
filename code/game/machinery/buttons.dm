@@ -333,7 +333,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/shieldwallgen, 24)
 /obj/machinery/button/door/prison_lockdown
 	name = "Prison Lockdown"
 	desc = "A remote control switch. This one's 'High Security', if the eggheads are to be believed."
-	skin = "prisonlock"
+	base_icon_state = "prisonlock"
 	// Tiny bit of ambient light to make finding it eZ in the dark
 	light_color = "#ff2466"
 	light_range = 0.5
