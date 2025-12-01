@@ -7,7 +7,7 @@
 	combat_mode = TRUE
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	mob_biotypes = list(MOB_ORGANIC, MOB_EPIC)
+	mob_biotypes = MOB_ORGANIC | MOB_SPECIAL
 	obj_damage = 400
 	light_range = 3
 	faction = list(FACTION_MINING, FACTION_BOSS)
@@ -150,7 +150,7 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = ""
 	var/chosen_message
 	var/chosen_attack_num = 0

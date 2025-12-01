@@ -30,7 +30,7 @@
 		TRAIT_NO_TRANSFORMATION_STING
 	)
 
-	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	mutantbrain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot
@@ -106,6 +106,13 @@
 		H.physiology.bleed_mod *= 10
 	UnregisterSignal(C, COMSIG_LIVING_REVIVE)
 
+/datum/species/ipc/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
+	if(intensity > RAD_MOB_KNOCKDOWN && DT_PROB(RAD_MOB_KNOCKDOWN_PROB, delta_time))
+		if(!source.IsParalyzed())
+			source.emote("collapse")
+		source.Paralyze(RAD_MOB_KNOCKDOWN_AMOUNT)
+		to_chat(source, span_danger("You feel weak."))
+
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
@@ -124,7 +131,7 @@
 /datum/action/innate/change_screen
 	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/on_activate()
@@ -234,6 +241,25 @@
 	H.visible_message(span_notice("[H] unplugs from the [target]."), span_notice("You unplug from the [target]."))
 	return
 
+/datum/species/ipc/spec_attacked_by(obj/item/item, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/ipc)
+	//Need to make sure it wasn't blocked somehow
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(istype(item, /obj/item/melee/baton) && item.damtype == STAMINA)
+		if(!affecting)
+			affecting = ipc.bodyparts[1]
+		var/hit_area = parse_zone(affecting.body_zone)
+		var/def_zone = affecting.body_zone
+
+		//We check STAMINA armor because it's still a stun baton, but we are converting it to burn damage because it's a conductive robot that is immune to STAMINA.
+		var/armor_block = ipc.run_armor_check(affecting, STAMINA, span_notice("Your armor has protected your [hit_area]!"), span_warning("Your armor has softened a hit to your [hit_area]!"),item.armour_penetration)
+
+		//All in all this does 16.5 burn damage to an IPC if using a standard 40 stamina stun baton.
+		ipc.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
+		apply_damage((item.force/4), BURN, def_zone, armor_block, ipc)
+
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
 
 	H.notify_ghost_cloning("You have been repaired!")
@@ -260,7 +286,11 @@
 	H.dna.features["ipc_screen"] = saved_screen
 
 /datum/species/ipc/get_harm_descriptors()
-	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
+	return list(
+		BLEED = "leaking",
+		BRUTE = "denting",
+		BURN = "burns"
+	)
 
 /datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
@@ -314,7 +344,7 @@
 	bandaged_bleeding = 0
 	..()
 
-/datum/status_effect/bleeding/robotic/update_icon()
+/datum/status_effect/bleeding/robotic/update_shown_duration()
 	// The actual rate of bleeding, can be reduced by holding wounds
 	// Calculate the message to show to the user
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))

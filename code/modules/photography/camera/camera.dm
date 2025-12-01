@@ -6,7 +6,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "camera"
+	inhand_icon_state = "camera"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_system = MOVABLE_LIGHT //Used as a flash here.
@@ -49,7 +49,7 @@
 			// put detactable atom list here
 			/mob/dead/observer,
 			/mob/living/simple_animal/revenant,
-			/mob/living/simple_animal/hostile/floor_cluwne
+			/mob/living/simple_animal/hostile/floor_cluwne,
 		))
 
 /obj/item/camera/attack_self(mob/user)

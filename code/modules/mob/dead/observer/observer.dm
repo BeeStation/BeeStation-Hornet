@@ -29,6 +29,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
+	/// Are we allowed to respawn?
+	var/can_respawn = TRUE
 	// Has ssticker identified us as a respawn canditate and updated our status?
 	var/respawn_notified = FALSE
 	// Are we able to respawn?
@@ -898,6 +900,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else
 				remove_verb(/mob/dead/observer/verb/boo)
 				remove_verb(/mob/dead/observer/verb/possess)
+		if(NAMEOF(src, can_respawn))
+			create_mob_hud()
 
 /mob/dead/observer/reset_perspective(atom/new_eye)
 	if(client)

@@ -2,7 +2,7 @@
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. Walking carefully lets the user gain better traction."
 	name = "magboots"
 	icon_state = "magboots0"
-	item_state = "magboots"
+	inhand_icon_state = "magboots"
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
@@ -96,7 +96,6 @@
 	energy = 25
 	bomb = 50
 	bio = 30
-	rad = 30
 	fire = 90
 	acid = 50
 	stamina = 30

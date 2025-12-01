@@ -7,7 +7,7 @@
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
@@ -284,9 +284,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//Removing it deletes it
 	if(!QDELETED(src))
 		qdel(src)
-
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
 
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE

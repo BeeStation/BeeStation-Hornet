@@ -4,7 +4,9 @@ SUBSYSTEM_DEF(ai_controllers)
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
 	priority = FIRE_PRIORITY_NPC
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_AI_CONTROLLERS
+	dependencies = list(
+		/datum/controller/subsystem/movement/ai_movement,
+	)
 	wait = 0.5 SECONDS //Plan every half second if required, not great not terrible.
 
 	///List of all ai_subtree singletons, key is the typepath while assigned value is a newly created instance of the typepath. See setup_subtrees()

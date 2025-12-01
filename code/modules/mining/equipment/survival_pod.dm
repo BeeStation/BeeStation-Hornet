@@ -366,8 +366,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/corner
 						/obj/item/gun/ballistic/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
 						/obj/item/gun/magic/staff/spellblade,
-						/obj/item/gun/magic/wand/death,
-						/obj/item/gun/magic/wand/fireball,
+						/obj/item/gun/magic/wand/drain,
+						/obj/item/gun/magic/wand/firebolt,
 						/obj/item/stack/sheet/telecrystal/twenty,
 						/obj/item/nuke_core,
 						/obj/item/banhammer)
@@ -379,4 +379,4 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/corner
 	icon = initial(I.icon)
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
-	item_state = initial(I.item_state)
+	inhand_icon_state = initial(I.inhand_icon_state)

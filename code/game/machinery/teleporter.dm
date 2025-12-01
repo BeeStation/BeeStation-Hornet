@@ -87,7 +87,6 @@
 						to_chat(M, span_italics("You hear a buzzing in your ears."))
 						human.set_species(/datum/species/fly)
 
-					human.apply_effect((rand(160 - accuracy * 40, 240 - accuracy * 60)), EFFECT_IRRADIATE, 0)
 			calibrated = 0
 	return
 

@@ -8,7 +8,7 @@
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast city."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	force = 15
@@ -237,7 +237,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "A shard capable of resurrecting humans as skeleton thralls."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "necrostone"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -276,7 +276,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	M.revive(ADMIN_HEAL_ALL)
 	spooky_scaries |= M
 	to_chat(M, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
-	to_chat(M, span_userdanger("[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!"))
+	to_chat(M, span_userdanger("[user.p_Theyre()] your master now, assist [user.p_them()] even if it costs you your new life!"))
 
 	equip_roman_skeleton(M)
 
@@ -309,8 +309,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
 	H.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
-	H.put_in_hands(new /obj/item/claymore(H), TRUE)
-	H.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
+	H.put_in_hands(new /obj/item/claymore/bone(H), TRUE)
+	H.equip_to_slot_or_del(new /obj/item/spear/bonespear(H), ITEM_SLOT_BACK)
 
 
 /obj/item/voodoo
@@ -318,7 +318,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "Something creepy about it."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "voodoo"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	var/mob/living/carbon/human/target = null
@@ -421,7 +421,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	possible = list()
 	if(!voodoo_link)
 		return
-	var/list/prints = voodoo_link.return_fingerprints()
+	var/list/prints = GET_ATOM_FINGERPRINTS(voodoo_link)
 	if(!length(prints))
 		return FALSE
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
@@ -464,6 +464,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	desc = "One toot on this whistle will send you to a far away land!"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "whistle"
+	w_class = WEIGHT_CLASS_SMALL
 	var/on_cooldown = 0 //0: usable, 1: in use, 2: on cooldown
 	var/mob/living/carbon/last_user
 

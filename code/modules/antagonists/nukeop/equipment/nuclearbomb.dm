@@ -471,9 +471,9 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		return
 	qdel(src)
 
-/obj/machinery/nuclearbomb/tesla_act(power, tesla_flags)
-	..()
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/nuclearbomb/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
@@ -637,7 +637,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 /obj/item/disk
 	icon = 'icons/obj/module.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	icon_state = "datadisk0"

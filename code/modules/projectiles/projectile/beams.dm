@@ -69,7 +69,6 @@
 	name = "\improper X-ray beam"
 	icon_state = "xray"
 	damage = 15
-	irradiate = 300
 	range = 15
 	armour_penetration = 60
 	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS

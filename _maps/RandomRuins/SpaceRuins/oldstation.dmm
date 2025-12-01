@@ -573,26 +573,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/betanorth)
-"cg" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/transit_tube{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/betanorth)
 "ch" = (
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/template_noop,
 /area/template_noop)
-"ci" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/transit_tube{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation)
 "cj" = (
 /obj/structure/transit_tube/station/reverse/flipped,
 /obj/effect/decal/cleanable/dirt,
@@ -686,14 +670,6 @@
 /obj/structure/transit_tube,
 /turf/template_noop,
 /area/template_noop)
-"cv" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/transit_tube{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "cw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/station/reverse/flipped,
@@ -2067,6 +2043,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"gD" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/engine/air,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "gE" = (
 /obj/effect/spawner/structure/window/hollow/reinforced,
 /obj/structure/cable/yellow{
@@ -2468,11 +2449,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
-/area/ruin/space/has_grav/ancientstation/deltacorridor)
-"hK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/rad_collector,
-/turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "hL" = (
 /obj/structure/cable{
@@ -3270,10 +3246,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
-"kn" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/turf/open/floor/engine/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "ko" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
 	dir = 1
@@ -3331,13 +3303,6 @@
 /obj/item/paper/fluff/ruins/oldstation/protosuit,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"ku" = (
-/obj/structure/window/reinforced/spawner/directional/east,
-/obj/machinery/door/poddoor{
-	id = "proto"
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/ancientstation/proto)
 "kv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -3356,13 +3321,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"ky" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/door/poddoor{
-	id = "proto"
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/ancientstation/proto)
 "kz" = (
 /obj/machinery/light{
 	dir = 4
@@ -3371,10 +3329,6 @@
 /obj/item/paper/fluff/ruins/oldstation/protosing,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
-"kA" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/turf/open/floor/engine/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "kB" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -3561,16 +3515,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
-"kX" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon{
-	dir = 8;
-	id_tag = "oldstation_air_out";
-	name = "air output"
-	},
-/turf/open/floor/engine/air,
-/area/ruin/space/has_grav/ancientstation/atmo)
 "kY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -3617,11 +3561,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
-/area/ruin/space/has_grav/ancientstation/atmo)
-"le" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/open/floor/engine/air,
 /area/ruin/space/has_grav/ancientstation/atmo)
 "lf" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end,
@@ -3720,6 +3659,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/rnd)
+"mG" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/transit_tube{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/deltacorridor)
 "mH" = (
 /turf/closed/wall/rust,
 /area/ruin/space/has_grav/ancientstation/atmo)
@@ -3733,6 +3680,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"nj" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/transit_tube{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation)
 "nk" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -3809,6 +3764,10 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/engi)
+"pd" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/turf/open/floor/engine/airless,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "pk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -3951,6 +3910,16 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/sec)
+"vh" = (
+/obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon{
+	dir = 8;
+	id_tag = "oldstation_air_out";
+	name = "air output"
+	},
+/turf/open/floor/engine/air,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "vZ" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3984,6 +3953,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
+"wD" = (
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/door/poddoor{
+	id = "proto"
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/proto)
 "xi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -4029,6 +4005,10 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/comm)
+"xG" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/engine/airless,
+/area/ruin/space/has_grav/ancientstation/atmo)
 "xH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -4173,6 +4153,13 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/ancientstation/kitchen)
+"Dd" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/machinery/door/poddoor{
+	id = "proto"
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/ancientstation/proto)
 "Dj" = (
 /obj/structure/transit_tube{
 	dir = 4
@@ -4302,6 +4289,14 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/ancientstation/rnd)
+"FB" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/transit_tube{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/ancientstation/betanorth)
 "FH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mirror{
@@ -5092,11 +5087,11 @@ jO
 km
 mH
 mH
-kn
-kA
+pd
+xG
 kL
-kX
-le
+vh
+gD
 mH
 mH
 aa
@@ -5408,7 +5403,7 @@ aa
 aa
 bJ
 bK
-cg
+FB
 bK
 bJ
 dF
@@ -6176,7 +6171,7 @@ aa
 aa
 aG
 bL
-ci
+nj
 bL
 dl
 Fh
@@ -7232,7 +7227,7 @@ aa
 aa
 aG
 bL
-ci
+nj
 bL
 dv
 vc
@@ -7248,7 +7243,7 @@ ik
 TV
 dv
 bL
-ci
+nj
 bL
 aG
 aa
@@ -7616,7 +7611,7 @@ aa
 aa
 bD
 bY
-cv
+mG
 bY
 bD
 aa
@@ -7632,7 +7627,7 @@ aa
 aa
 bD
 bY
-cv
+mG
 bY
 bD
 aa
@@ -8020,9 +8015,9 @@ ju
 jL
 jV
 ke
-ku
+Dd
 jV
-ku
+Dd
 ke
 jV
 aa
@@ -8356,9 +8351,9 @@ dc
 ca
 jV
 ke
-ky
+wD
 jV
-ky
+wD
 ke
 jV
 aa
@@ -8681,8 +8676,8 @@ eZ
 fz
 fz
 dh
-hK
-hK
+dh
+dh
 Ku
 Ll
 Sf
@@ -8729,8 +8724,8 @@ bD
 fz
 fz
 fz
-hK
-hK
+dh
+dh
 BH
 wC
 bD

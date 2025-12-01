@@ -119,9 +119,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	current_cycle++
 
 	if(!QDELETED(holder))
-		holder.remove_reagent(type, metabolization_rate * affected_mob.metabolism_efficiency * delta_time) //By default it slowly disappears.
 		if(metabolite)
 			holder.add_reagent(metabolite, metabolization_rate * affected_mob.metabolism_efficiency * METABOLITE_RATE * delta_time)
+		holder.remove_reagent(type, metabolization_rate * affected_mob.metabolism_efficiency * delta_time) //By default it slowly disappears.
 
 ///Called after a reagent is transfered
 /datum/reagent/proc/on_transfer(atom/A, method = TOUCH, trans_volume)
