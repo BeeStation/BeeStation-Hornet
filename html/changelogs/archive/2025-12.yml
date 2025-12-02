@@ -8,3 +8,5 @@
   EvilDragonfiend:
   - bugfix: fixed the manuscript bounty that it picked the wrong jobs
   - tweak: made the manuscript bounty's reward credits more consistent.
+  PowerfulBacon:
+  - tweak: All midround ghost roles can only execute once per-round.

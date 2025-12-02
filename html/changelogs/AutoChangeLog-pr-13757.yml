@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: All midround ghost roles can only execute once per-round.
