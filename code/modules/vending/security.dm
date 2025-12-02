@@ -51,7 +51,9 @@
 	icon_state = "refill_sec"
 
 /obj/machinery/vending/security/proc/redeem_voucher(obj/item/mining_voucher/security/voucher, mob/redeemer)
-	var/obj/item/storage/spawned_box
+
+	// Supports single items or whole boxes.
+	var/atom/movable/spawned
 
 	var/items = list("Carbon Fibre Sabre", "NPS-10")
 
@@ -59,20 +61,19 @@
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 
-	spawned_box = new /obj/item/storage/box/gearvend
-
 	switch(selection)
 		if("Carbon Fibre Sabre")
-			new /obj/item/storage/belt/sabre/carbon_fiber(spawned_box)
+			spawned = new /obj/item/storage/belt/sabre/carbon_fiber(redeemer)
 
 		if("NPS-10")
-			new /obj/item/gun/ballistic/automatic/pistol/security(spawned_box)
-			new /obj/item/ammo_box/magazine/x200law(spawned_box)
+			spawned = new /obj/item/storage/box/gearvend
+			new /obj/item/gun/ballistic/automatic/pistol/security(spawned)
+			new /obj/item/ammo_box/magazine/x200law(spawned)
 
 	// We spawned a box, populated it. Now we put it into the redeemer's hands.
-	if(!redeemer.put_in_hands(spawned_box))
+	if(!redeemer.put_in_hands(spawned))
 		// Couldn't fit in hands, drop it on the ground.
-		spawned_box.forceMove(drop_location())
+		spawned.forceMove(drop_location())
 
 	qdel(voucher)
 
