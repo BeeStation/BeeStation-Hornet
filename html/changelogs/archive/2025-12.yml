@@ -4,3 +4,7 @@
   Rukofamicom:
   - tweak: Supermatter crystals now have an upper limit on their explosive force,
       achieved after 90 minutes of being powered.
+2025-12-02:
+  EvilDragonfiend:
+  - bugfix: fixed the manuscript bounty that it picked the wrong jobs
+  - tweak: made the manuscript bounty's reward credits more consistent.

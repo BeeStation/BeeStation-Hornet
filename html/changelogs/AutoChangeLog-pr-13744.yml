@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: fixed the manuscript bounty that it picked the wrong jobs
-  - tweak: made the manuscript bounty's reward credits more consistent.
