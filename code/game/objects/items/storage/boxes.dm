@@ -1305,7 +1305,7 @@
 	icon_state = "secbox"
 	illustration = "writing_syndie"
 
-/obj/item/storage/box/deputy/PopulateContents()
+/obj/item/storage/box/vouchers/PopulateContents()
 	for(var/i in 1 to 4)
 		new /obj/item/mining_voucher/security(src)
 
