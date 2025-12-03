@@ -68,8 +68,8 @@
 	default_enabled = TRUE
 
 /// Includes roundstart antagonists
-/datum/role_preference/latejoin
-	category = ROLE_PREFERENCE_CATEGORY_LATEJOIN
-	abstract_type = /datum/role_preference/latejoin
+/datum/role_preference/supplementary
+	category = ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY
+	abstract_type = /datum/role_preference/supplementary
 	per_character = TRUE
 	default_enabled = TRUE

@@ -246,12 +246,12 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 
 #define ROLE_PREFERENCE_CATEGORY_ROUNDSTART "Roundstart Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND "Midround Antagonists"
-#define ROLE_PREFERENCE_CATEGORY_LATEJOIN "Latejoin Antagonists"
+#define ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY "Supplementary Antagonists"
 
 GLOBAL_LIST_INIT(role_preference_categories, list(
 	ROLE_PREFERENCE_CATEGORY_ROUNDSTART,
 	ROLE_PREFERENCE_CATEGORY_MIDROUND,
-	ROLE_PREFERENCE_CATEGORY_LATEJOIN,
+	ROLE_PREFERENCE_CATEGORY_SUPPLEMENTARY,
 ))
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())

@@ -30,10 +30,10 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 			syndicate_antag ||= antag.faction == FACTION_SYNDICATE
 	else
 		// Nobody to notify
-		continue
+		return
 	// If we are not held by a syndicate, and we are locked then do not give a notification
 	if (!syndicate_antag && uplink.locked)
-		continue
+		return
 	to_chat(current, "<span class='traitor_objective'>[uppertext(message)]</span>")
 	SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
 

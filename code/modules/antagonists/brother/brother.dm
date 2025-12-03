@@ -118,6 +118,8 @@
 	var/uplink_note
 	/// Location of the stash
 	var/stash_location
+	/// List of minds that we can convert
+	var/list/valid_converts = list()
 
 /datum/antagonist/brother/prime/ui_static_data(mob/user)
 	var/list/data = ..()
@@ -145,7 +147,8 @@
 	else
 		I.span_implant_colour = "cfc_redpurple"
 		stack_trace("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
-	for(var/datum/mind/M in team.members) // Link the implants of all team members
+	// Link the implants of all team members, in case any team-members already exist for some reason
+	for(var/datum/mind/M in team.members)
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
 	// Give them the conversion implant
