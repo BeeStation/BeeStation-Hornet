@@ -21,46 +21,41 @@ GLOBAL_VAR(antag_prototypes)
 	if(!new_antag.owner)
 		qdel(new_antag)
 
-/proc/listtrim(list/L)
-	for(var/x in L)
-		if(istext(x) && !x)
-			L -= x
-	return L
-
 /datum/antagonist/proc/antag_panel()
+	var/antag_panel_title = "<span style='font-size: 20px; margin: 8px; height: 0px; display: block;'><b>&lt; Antagonist Info : [name] &gt;</b></span>"
 	var/list/commands = list()
 	for(var/command in get_admin_commands())
 		commands += "<a href='byond://?src=[REF(src)];command=[command]'>[command]</a>"
-	var/command_part = commands.Join(" | ")
-	var/data_part = antag_panel_data()
-	var/objective_part = antag_panel_objectives()
-	var/memory_part = antag_panel_memory()
 
-	var/list/parts = listtrim(list("<b>&lt; Antagonist Info : [name] &gt;</b>",command_part,data_part,objective_part,memory_part, "<hr>"))
+	var/list/parts = list()
+	for(var/each in list(antag_panel_title, commands.Join(""), antag_panel_data(), antag_panel_objectives(), antag_panel_memory()))
+		if(length(each))
+			parts += each
+	parts += "<hr>"
 
 	return parts.Join("<br>")
 
 /datum/antagonist/proc/antag_panel_objectives()
-	var/result = "<i><b>Objectives</b></i>:<br>"
-	if (objectives.len == 0)
-		result += "EMPTY<br>"
+	var/result = "<i><b>Objectives</b></i>:  (<a href='byond://?src=[REF(owner)];obj_add=1;target_antag=[REF(src)]'>Add objective</a><a href='byond://?src=[REF(owner)];obj_announce=1'>Announce objectives</a>)<br>"
+	if (length(objectives))
+		result += "<i>(no objectives)</i><br>"
 	else
 		var/obj_count = 1
 		for(var/datum/objective/objective in objectives)
-			result += "<B>[obj_count]</B>: <font color=[objective.check_completion() ? "green" : "white"]>[objective.explanation_text]</font> <a href='byond://?src=[REF(owner)];obj_edit=[REF(objective)]'>Edit</a> <a href='byond://?src=[REF(owner)];obj_delete=[REF(objective)]'>Delete</a> <a href='byond://?src=[REF(owner)];obj_completed=[REF(objective)]'><font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Mark as incomplete" : "Mark as complete"]</font></a><br>"
+			result += "<B>[obj_count]</B>:   <font color=[objective.check_completion() ? "green" : "white"]>[objective.explanation_text]</font> <a href='byond://?src=[REF(owner)];obj_edit=[REF(objective)]'>Edit</a> <a href='byond://?src=[REF(owner)];obj_delete=[REF(objective)]'>Delete</a> <a href='byond://?src=[REF(owner)];obj_completed=[REF(objective)]'><font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Mark as incomplete" : "Mark as complete"]</font></a><br>"
 			obj_count++
-	result += "<a href='byond://?src=[REF(owner)];obj_add=1;target_antag=[REF(src)]'>Add objective</a><br>"
-	result += "<a href='byond://?src=[REF(owner)];obj_announce=1'>Announce objectives</a><br>"
 	return result
 
 /datum/antagonist/proc/antag_panel_memory()
-	var/out = "<b>Memory:</b><br>"
-	out += antag_memory
-	out += "<br><a href='byond://?src=[REF(src)];memory_edit=1'>Edit memory</a>"
+	var/out = "<b><i>Antagonist Memory</i></b>:      (<a href='byond://?src=[REF(src)];memory_edit=1'>Edit memory</a>)<br>"
+	if(length(antag_memory))
+		out += antag_memory
+	else
+		out += "<i>(empty)</i>"
 	return out
 
 /datum/mind/proc/get_common_admin_commands()
-	var/common_commands = "<span>Common Commands:</span>"
+	var/common_commands = "<span>Common Commands: </span>"
 	if(ishuman(current))
 		common_commands += "<a href='byond://?src=[REF(src)];common=undress'>undress</a>"
 	else if(iscyborg(current))
@@ -97,15 +92,16 @@ GLOBAL_VAR(antag_prototypes)
 		alert("This mind doesn't have a mob, or is deleted! For some reason!", "Edit Memory")
 		return
 
-	var/out = "[TOOLTIP_CSS_SETUP]<B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]<br>"
-	out += "Mind currently owned by key: [full_key()] [active?"(synced)":"(not synced)"]<br>"
-	out += "Assigned role: [assigned_role]. <a href='byond://?src=[REF(src)];role_edit=1'>Edit</a><br>"
-	out += "Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
+	var/out = "[TOOLTIP_CSS_SETUP]<span style='font-size: 24px; margin: 8px; height: 0px; display: block;'><B>[name]</B>[(current && (current.real_name!=name))?" (as [current.real_name])":""]</span><br>"
+	out += " - Mind currently owned by key: [full_key()] [active?"(synced)":"(not synced)"]<br>"
+	out += " - Assigned role: [assigned_role]. <a href='byond://?src=[REF(src)];role_edit=1'>Edit</a><br>"
+	out += " - Faction and special role: <b><font color='red'>[special_role]</font></b><br>"
 
 	var/special_statuses = get_special_statuses()
 	if(length(special_statuses))
-		out += special_statuses + "<br>"
+		out += " - Special Statuses: [special_statuses]<br>"
 
+	//// Initializing antag panel texts ////
 	if(!GLOB.antag_prototypes)
 		GLOB.antag_prototypes = list()
 		for(var/antag_type in subtypesof(/datum/antagonist))
@@ -200,8 +196,7 @@ GLOBAL_VAR(antag_prototypes)
 	for(var/s in sections - priority_sections)
 		out += sections[s]
 	out += "</table>"
-
-	out += "<br>"
+	//// End of antag panel texts ////
 
 	//Uplink
 	out += "<hr>"
@@ -222,9 +217,9 @@ GLOBAL_VAR(antag_prototypes)
 
 	//Common Memory
 	out += "<hr>"
-	var/common_memory = "<span>Common Memory: </span>"
-	common_memory += memory
-	common_memory += "<a href='byond://?src=[REF(src)];memory_edit=1'>Edit Memory</a>"
+	var/common_memory = "<b><i>Common Memory</i></b>      (<a href='byond://?src=[REF(src)];memory_edit=1'>Edit Memory</a>)</span><br>"
+	if(memory)
+		common_memory += memory
 	out += common_memory + "<br>"
 	//Other stuff
 	out += "<hr>"
