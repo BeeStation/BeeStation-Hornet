@@ -56,8 +56,10 @@ SUBSYSTEM_DEF(directives)
 			if (!result)
 				continue
 			longest_objective = max(longest_objective, world.time + result.last_for)
-		// Queue the next one 15 minutes after all the distributed objectives end
-		next_directive_time = longest_objective + 15 MINUTES
+		// Queue the next one 10 minutes after half the time of the longest objective.
+		// The longest objective will likely be 30 minute (assassination), so this gives the next objective
+		// after 25 minutes. This means you might get 2 objectives at the same time, but that is okay.
+		next_directive_time = 0.5 * longest_objective + 10 MINUTES
 		return
 	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.start(filtered_uplinks, player_minds)
@@ -154,7 +156,7 @@ SUBSYSTEM_DEF(directives)
 		directive.perform_special_action(uplink, user)
 
 /datum/controller/subsystem/directives/proc/queue_directive()
-	next_directive_time = world.time + 15 MINUTES
+	next_directive_time = world.time + rand(5 MINUTES, 10 MINUTES)
 
 /datum/controller/subsystem/directives/proc/get_next_personal_objective_time()
 	// If the next object will be granted within 5 minutes, start a new batch
