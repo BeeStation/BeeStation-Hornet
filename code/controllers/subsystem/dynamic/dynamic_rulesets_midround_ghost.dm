@@ -84,6 +84,8 @@
 	if (poll)
 		poll.end_poll()
 		poll = null
+	// We did not get a chance to execute, don't report it in the round-end
+	SSdynamic.midround_executed_rulesets -= src
 
 /datum/dynamic_ruleset/midround/ghost/proc/make_persistent(silent)
 	var/datum/poll_config/config = new()
