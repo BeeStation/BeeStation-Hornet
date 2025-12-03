@@ -1,7 +1,7 @@
 /datum/action/spell/basic_projectile/juggernaut
 	name = "Gauntlet Echo"
 	desc = "Channels energy into your gauntlet - firing its essence forward in a slow moving, yet devastating, attack."
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	button_icon_state = "cultfist"
 	background_icon_state = "bg_demon"
 	sound = 'sound/weapons/resonator_blast.ogg'

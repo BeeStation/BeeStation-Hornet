@@ -422,7 +422,7 @@
 			return TRUE
 
 /datum/dynamic_panel/ui_status(mob/user, datum/ui_state/state)
-	return check_rights_for(user.client, R_FUN) ? UI_INTERACTIVE : UI_CLOSE
+	return check_rights_for(user.client, R_DEBUG) ? UI_INTERACTIVE : UI_CLOSE
 
 /datum/dynamic_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

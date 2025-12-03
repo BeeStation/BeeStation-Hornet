@@ -3,7 +3,7 @@
 	desc = "An NT Brand anti-virus disk. Its the basic package, but its better than nothing."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "antivirus1"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	max_capacity = 16
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
