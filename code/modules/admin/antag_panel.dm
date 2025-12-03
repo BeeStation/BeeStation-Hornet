@@ -37,12 +37,12 @@ GLOBAL_VAR(antag_prototypes)
 
 /datum/antagonist/proc/antag_panel_objectives()
 	var/result = "<i><b>Objectives</b></i>:  (<a href='byond://?src=[REF(owner)];obj_add=1;target_antag=[REF(src)]'>Add objective</a><a href='byond://?src=[REF(owner)];obj_announce=1'>Announce objectives</a>)<br>"
-	if (length(objectives))
+	if (!length(objectives))
 		result += "<i>(no objectives)</i><br>"
 	else
 		var/obj_count = 1
 		for(var/datum/objective/objective in objectives)
-			result += "<B>[obj_count]</B>:   <font color=[objective.check_completion() ? "green" : "white"]>[objective.explanation_text]</font> <a href='byond://?src=[REF(owner)];obj_edit=[REF(objective)]'>Edit</a> <a href='byond://?src=[REF(owner)];obj_delete=[REF(objective)]'>Delete</a> <a href='byond://?src=[REF(owner)];obj_completed=[REF(objective)]'><font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Mark as incomplete" : "Mark as complete"]</font></a><br>"
+			result += "<B>[obj_count]</B>: <font color=[objective.check_completion() ? "green" : "white"]>[objective.explanation_text]</font> <a href='byond://?src=[REF(owner)];obj_edit=[REF(objective)]'>Edit</a> <a href='byond://?src=[REF(owner)];obj_delete=[REF(objective)]'>Delete</a> <a href='byond://?src=[REF(owner)];obj_completed=[REF(objective)]'><font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Mark as incomplete" : "Mark as complete"]</font></a><br>"
 			obj_count++
 	return result
 
