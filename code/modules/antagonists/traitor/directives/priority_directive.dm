@@ -5,7 +5,8 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	for (var/datum/component/uplink/uplink in uplinks)
 		uplink.telecrystals += tc_amount * uplink.directive_tc_multiplier
 		uplink.reputation += reputation_amount
-	send_message("[tc_amount] telecrystals and [reputation_amount] reputation points have been authorised for your use.")
+	for (var/datum/component/uplink/uplink in uplinks)
+		send_message_to("[tc_amount * uplink.directive_tc_multiplier] telecrystals and [reputation_amount] reputation points have been authorised for your use.", uplink)
 
 /datum/directive_team/proc/grant_punishment(loss_amount)
 	for (var/datum/component/uplink/uplink in uplinks)
@@ -17,21 +18,24 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/directive_team/proc/send_message(message)
 	for (var/datum/component/uplink/uplink in uplinks)
-		var/syndicate_antag = FALSE
-		var/mob/living/current = uplink.parent
-		while (current && !istype(current))
-			current = current.loc
-		if (istype(current))
-			for (var/datum/antagonist/antag in current.mind?.antag_datums)
-				syndicate_antag ||= antag.faction == FACTION_SYNDICATE
-		else
-			// Nobody to notify
-			continue
-		// If we are not held by a syndicate, and we are locked then do not give a notification
-		if (!syndicate_antag && uplink.locked)
-			continue
-		to_chat(current, "<span class='traitor_objective'>[uppertext(message)]</span>")
-		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
+		send_message_to(message, uplink)
+
+/datum/directive_team/proc/send_message_to(message, datum/component/uplink/uplink)
+	var/syndicate_antag = FALSE
+	var/mob/living/current = uplink.parent
+	while (current && !istype(current))
+		current = current.loc
+	if (istype(current))
+		for (var/datum/antagonist/antag in current.mind?.antag_datums)
+			syndicate_antag ||= antag.faction == FACTION_SYNDICATE
+	else
+		// Nobody to notify
+		continue
+	// If we are not held by a syndicate, and we are locked then do not give a notification
+	if (!syndicate_antag && uplink.locked)
+		continue
+	to_chat(current, "<span class='traitor_objective'>[uppertext(message)]</span>")
+	SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
 
 /datum/priority_directive
 	var/id = 0

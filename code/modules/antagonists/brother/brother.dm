@@ -168,7 +168,7 @@
 	selected.add_antagonist_team(list(uplink))
 	selected.start(list(uplink), team.members)
 	selected.reputation_reward = 300
-	selected.tc_reward = 4
+	selected.tc_reward = 8
 	selected.track_implanter(implanter)
 	SSdirectives.active_directives += selected
 	uplink.next_personal_objective_time = INFINITY
