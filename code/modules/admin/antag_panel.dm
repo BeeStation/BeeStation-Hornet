@@ -22,7 +22,7 @@ GLOBAL_VAR(antag_prototypes)
 		qdel(new_antag)
 
 /datum/antagonist/proc/antag_panel()
-	var/antag_panel_title = "<span style='font-size: 20px; margin: 8px; height: 0px; display: block;'><b>&lt; Antagonist Info : [name] &gt;</b></span>"
+	var/antag_panel_title = "<span style='font-size: 20px; margin: 8px; height: 0px; display: block;'><b> Antagonist Info : [name];</b></span>"
 	var/list/commands = list()
 	for(var/command in get_admin_commands())
 		commands += "<a href='byond://?src=[REF(src)];command=[command]'>[command]</a>"
