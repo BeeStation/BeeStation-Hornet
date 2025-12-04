@@ -6,7 +6,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 		uplink.telecrystals += tc_amount * uplink.directive_tc_multiplier
 		uplink.reputation += reputation_amount
 	for (var/datum/component/uplink/uplink in uplinks)
-		send_message_to("[tc_amount * uplink.directive_tc_multiplier] telecrystals and [reputation_amount] reputation points have been authorised for your use.", uplink)
+		send_uplink_message_to(uplink, "[tc_amount * uplink.directive_tc_multiplier] telecrystals and [reputation_amount] reputation points have been authorised for your use.")
 
 /datum/directive_team/proc/grant_punishment(loss_amount)
 	for (var/datum/component/uplink/uplink in uplinks)
@@ -18,9 +18,9 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/directive_team/proc/send_message(message)
 	for (var/datum/component/uplink/uplink in uplinks)
-		send_message_to(message, uplink)
+		send_uplink_message_to(uplink, message)
 
-/datum/directive_team/proc/send_message_to(message, datum/component/uplink/uplink)
+/proc/send_uplink_message_to(datum/component/uplink/uplink, message)
 	var/syndicate_antag = FALSE
 	var/mob/living/current = uplink.parent
 	while (current && !istype(current))
@@ -76,7 +76,9 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	PROTECTED_PROC(TRUE)
 
 /// Get the tracking target of this atom
-/datum/priority_directive/proc/get_track_atom()
+/// origin: The turf that we are searching from
+/// tracker: The uplink that is doing the searching, or null, if this is a ghost broadcast.
+/datum/priority_directive/proc/get_track_atom(turf/origin, datum/component/uplink/tracker)
 
 /// Check if we have finished early. We always complete after a set time period.
 /datum/priority_directive/proc/is_completed()
@@ -159,7 +161,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	PROTECTED_PROC(TRUE)
 	for (var/datum/directive_team/team in teams)
 		team.send_message("[prefix][uppertext(message)]")
-	var/atom/follow_atom = get_track_atom()
+	var/atom/follow_atom = get_track_atom(SSmapping.get_station_center(), null)
 	if (follow_atom)
 		if (ismob(follow_atom.loc))
 			deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", follow_target = follow_atom)

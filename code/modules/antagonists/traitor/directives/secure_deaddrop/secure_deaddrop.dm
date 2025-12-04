@@ -48,5 +48,5 @@
 	else
 		grant_victory(null)
 
-/datum/priority_directive/deaddrop/get_track_atom()
+/datum/priority_directive/deaddrop/get_track_atom(turf/origin, datum/component/uplink/tracker)
 	return target

@@ -72,7 +72,7 @@
 /datum/priority_directive/assassination/_generate(list/teams)
 	return rand(4, 8)
 
-/datum/priority_directive/assassination/get_track_atom()
+/datum/priority_directive/assassination/get_track_atom(turf/origin, datum/component/uplink/tracker)
 	return target
 
 /datum/priority_directive/assassination/finish()

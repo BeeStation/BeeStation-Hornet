@@ -18,9 +18,29 @@
 /datum/priority_directive/recruit/_generate(list/teams)
 	return 0
 
-/datum/priority_directive/recruit/get_track_atom()
+/datum/priority_directive/recruit/get_track_atom(turf/origin, datum/component/uplink/tracker)
+	// Track the implanter if it is not in nullspace
 	if (implanter_to_track?.loc)
-		return implanter_to_track
+		// Track the implanter
+		if (!tracker || get_dist(origin, implanter_to_track) >= 1)
+			return implanter_to_track
+		// Return the nearest conversion target
+		var/closest_distance = INFINITY
+		var/closet_target = implanter_to_track
+		var/obj/item/implant/bloodbrother/implant = implanter_to_track.imp
+		// Implanter has no implant in it, track it anyway
+		if (!istype(implant))
+			return closet_target
+		// Find the things that the implanter is looking for and track them
+		for(var/datum/mind/victim in implant.linked_team?.valid_converts)
+			if (!victim.current)
+				continue
+			var/distance = get_dist(victim.current, origin)
+			if (distance < closest_distance)
+				closest_distance = distance
+				closet_target = victim.current
+		return closet_target
+	// Track the location of the stash component
 	var/datum/directive_team/team = teams[1]
 	if (!team)
 		CRASH("Recruitment directive has no team assigned.")

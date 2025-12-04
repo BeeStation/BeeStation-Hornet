@@ -14,6 +14,9 @@
 	. = ..()
 	linked_implants = list()
 
+/obj/item/implant/bloodbrother/can_be_implanted_in(mob/living/target)
+	return target.mind && (target.mind in linked_team.valid_converts)
+
 /obj/item/implant/bloodbrother/on_implanted(mob/living/user)
 	. = ..()
 	if (!user.mind)

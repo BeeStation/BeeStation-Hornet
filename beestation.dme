@@ -2178,6 +2178,8 @@
 #include "code\modules\antagonists\blood_contract\blood_contract.dm"
 #include "code\modules\antagonists\brainwashing\brainwashing.dm"
 #include "code\modules\antagonists\brother\brother.dm"
+#include "code\modules\antagonists\brother\brother_prime.dm"
+#include "code\modules\antagonists\brother\brother_team.dm"
 #include "code\modules\antagonists\changeling\cellular_emporium.dm"
 #include "code\modules\antagonists\changeling\changeling.dm"
 #include "code\modules\antagonists\changeling\changeling_power.dm"

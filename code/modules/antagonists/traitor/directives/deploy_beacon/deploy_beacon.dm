@@ -67,7 +67,7 @@
 /datum/priority_directive/deploy_beacon/_generate(list/teams)
 	return rand(2, 4)
 
-/datum/priority_directive/deploy_beacon/get_track_atom()
+/datum/priority_directive/deploy_beacon/get_track_atom(turf/origin, datum/component/uplink/tracker)
 	return center_turf
 
 /datum/priority_directive/deploy_beacon/get_special_action(datum/component/uplink)

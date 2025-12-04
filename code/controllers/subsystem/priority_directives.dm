@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(directives)
 		for (var/datum/priority_directive/active_directive in active_directives)
 			if (!active_directive.get_team(uplink))
 				continue
-			var/atom/track_atom = active_directive.get_track_atom()
+			var/atom/track_atom = active_directive.get_track_atom(uplink_turf, uplink)
 			var/turf/track_turf = get_turf(track_atom)
 			known_objectives += list(list(
 				"name" = active_directive.name,
