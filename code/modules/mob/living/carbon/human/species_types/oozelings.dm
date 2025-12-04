@@ -163,11 +163,13 @@
 			H.blood_volume -= 80*limbs_to_heal.len
 			H.nutrition -= 20*limbs_to_heal.len
 			to_chat(H, span_notice("...and after a moment you finish reforming!"))
+		else
+			to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
 		return
 	if(H.blood_volume >= 80)//We can partially heal some limbs
 		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
 			if(!do_after(H, 3 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
-				to_chat(H, span_warning("...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!"))
+				to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
 				return
 			var/healed_limb = pick(limbs_to_heal)
 			H.regenerate_limb(healed_limb)
