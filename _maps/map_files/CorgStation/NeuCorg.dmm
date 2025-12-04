@@ -501,6 +501,15 @@
 	dir = 8
 	},
 /area/space)
+"aog" = (
+/obj/structure/platform/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "aoA" = (
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
@@ -2645,6 +2654,15 @@
 	dir = 4
 	},
 /area/space)
+"bEl" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 1
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "bEm" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/space)
@@ -4392,6 +4410,16 @@
 	},
 /turf/open/floor/pod/light,
 /area/space)
+"cJs" = (
+/obj/structure/platform/gray,
+/obj/effect/turf_decal/siding/light_slate/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "cJE" = (
 /obj/effect/turf_decal/siding/dark{
 	dir = 4
@@ -4831,6 +4859,13 @@
 	},
 /turf/open/openspace,
 /area/space)
+"cWJ" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 6
+	},
+/obj/effect/turf_decal/weather/snow/full,
+/turf/open/floor/plating/concrete,
+/area/space)
 "cWQ" = (
 /turf/open/floor/iron/stairs/right{
 	dir = 1
@@ -5131,6 +5166,9 @@
 /obj/effect/turf_decal/siding/light_slate/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 4
+	},
 /turf/open/floor/plating/concrete,
 /area/space)
 "dll" = (
@@ -5138,6 +5176,9 @@
 	dir = 4
 	},
 /obj/structure/platform/warning,
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 5
+	},
 /turf/open/floor/plating/concrete,
 /area/space)
 "dlp" = (
@@ -6315,6 +6356,11 @@
 	},
 /obj/machinery/disposal/bin,
 /turf/open/floor/wood,
+/area/space)
+"dSr" = (
+/obj/effect/turf_decal/siding/light_slate,
+/obj/effect/turf_decal/weather/snow/full/edge,
+/turf/open/floor/plating/concrete,
 /area/space)
 "dSw" = (
 /obj/effect/turf_decal/siding/dark_brown{
@@ -7669,6 +7715,16 @@
 	dir = 8
 	},
 /turf/open/floor/wood/big,
+/area/space)
+"eJC" = (
+/obj/structure/platform/gray,
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 1
+	},
+/turf/open/floor/plating/concrete,
 /area/space)
 "eKy" = (
 /obj/effect/turf_decal/siding/light_gray{
@@ -9356,6 +9412,15 @@
 	},
 /obj/effect/decal/cleanable/food/salt,
 /turf/open/floor/prison,
+/area/space)
+"fGJ" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/full/end{
+	dir = 4
+	},
+/turf/open/floor/plating/concrete,
 /area/space)
 "fGQ" = (
 /turf/open/floor/iron/stairs/left,
@@ -13106,6 +13171,13 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/space)
+"inT" = (
+/obj/effect/turf_decal/siding/light_slate,
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 4
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "iog" = (
 /obj/effect/turf_decal/siding/dark_brown,
 /obj/effect/turf_decal/siding/light_slate{
@@ -15946,6 +16018,13 @@
 	},
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/space)
+"kbF" = (
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/corner,
+/turf/open/floor/plating/concrete,
+/area/space)
 "kbT" = (
 /obj/structure/grille,
 /turf/closed/wall/r_wall,
@@ -17517,6 +17596,13 @@
 "kYp" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/space)
+"kYu" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/corner,
+/turf/open/floor/plating/concrete,
+/area/space)
 "kYB" = (
 /obj/structure/platform/warning{
 	dir = 5
@@ -18051,6 +18137,15 @@
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/iron/tech/grid,
+/area/space)
+"lpm" = (
+/obj/effect/turf_decal/alphabet/number_3{
+	dir = 4
+	},
+/obj/effect/turf_decal/alphabet/symbol_dash{
+	dir = 8
+	},
+/turf/open/floor/plating/concrete,
 /area/space)
 "lpz" = (
 /obj/structure/platform/warning{
@@ -19068,6 +19163,15 @@
 /obj/machinery/door/airlock,
 /turf/open/floor/iron/smooth_half,
 /area/space)
+"lVi" = (
+/obj/structure/platform/gray{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 5
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "lVA" = (
 /obj/structure/shuttle/engine/propulsion/left{
 	dir = 8
@@ -19562,6 +19666,15 @@
 	dir = 8
 	},
 /area/space)
+"mnv" = (
+/obj/structure/platform/gray{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 9
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "mnz" = (
 /obj/effect/turf_decal/tile/blue/half{
 	dir = 1
@@ -19922,6 +20035,15 @@
 /obj/effect/turf_decal/siding/white,
 /turf/open/floor/iron/white,
 /area/science/breakroom)
+"mwL" = (
+/obj/structure/platform/gray{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "mwO" = (
 /obj/structure/platform/warning{
 	dir = 8
@@ -20180,6 +20302,15 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/light_slate/corner,
+/turf/open/floor/plating/concrete,
+/area/space)
+"mFe" = (
+/obj/structure/platform/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 4
+	},
 /turf/open/floor/plating/concrete,
 /area/space)
 "mFi" = (
@@ -20935,6 +21066,16 @@
 "nbZ" = (
 /obj/structure/shuttle/engine/router,
 /turf/open/floor/plating,
+/area/space)
+"ncb" = (
+/obj/structure/platform/gray,
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/concrete,
 /area/space)
 "ncf" = (
 /obj/structure/platform/wood{
@@ -23092,6 +23233,15 @@
 	},
 /turf/open/floor/iron/white/smooth_corner,
 /area/medical/genetics)
+"owv" = (
+/obj/structure/platform/gray{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "owL" = (
 /obj/effect/turf_decal/siding/white,
 /obj/machinery/disposal/bin,
@@ -23561,6 +23711,15 @@
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/science/lobby)
+"oNp" = (
+/obj/structure/platform/gray{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 9
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "oNz" = (
 /obj/effect/turf_decal/siding/light_slate{
 	dir = 4
@@ -23803,6 +23962,15 @@
 	dir = 4
 	},
 /turf/open/floor/plating/concrete/slab,
+/area/space)
+"oVJ" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 6
+	},
+/turf/open/floor/plating/concrete,
 /area/space)
 "oWa" = (
 /obj/effect/turf_decal/siding/dark/corner,
@@ -24388,6 +24556,15 @@
 	},
 /turf/open/floor/iron/grid,
 /area/science/lab)
+"prs" = (
+/obj/structure/platform/gray{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/full/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "pru" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
@@ -26628,6 +26805,12 @@
 	},
 /turf/open/floor/carpet/orange/no_smooth,
 /area/space)
+"qQe" = (
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 6
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "qQh" = (
 /obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/bot{
@@ -28305,6 +28488,13 @@
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron,
 /area/space)
+"sfv" = (
+/obj/structure/platform/gray{
+	dir = 5
+	},
+/obj/effect/turf_decal/weather/snow/full,
+/turf/open/floor/plating/concrete,
+/area/space)
 "sfQ" = (
 /obj/effect/turf_decal/siding/gray{
 	dir = 4
@@ -29318,6 +29508,7 @@
 /obj/effect/turf_decal/weather/snow/full/corner{
 	dir = 1
 	},
+/obj/structure/girder,
 /turf/open/floor/iron/textured_large,
 /area/space)
 "sQa" = (
@@ -32855,6 +33046,15 @@
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/iron/dark,
 /area/space)
+"via" = (
+/obj/effect/turf_decal/siding/light_slate/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 5
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "vii" = (
 /obj/machinery/holopad,
 /turf/open/floor/wood/big,
@@ -32908,6 +33108,16 @@
 	pixel_y = 22
 	},
 /turf/open/floor/iron/tiled/light,
+/area/space)
+"vju" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/platform/warning{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/full/corner,
+/turf/open/floor/plating/concrete,
 /area/space)
 "vjG" = (
 /obj/effect/turf_decal/siding/brown{
@@ -33499,6 +33709,13 @@
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
 /area/space)
+"vFZ" = (
+/obj/structure/platform/warning/corner,
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 1
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
 "vHm" = (
 /obj/effect/turf_decal/trimline/blue/warning_offset{
 	dir = 1
@@ -34007,6 +34224,13 @@
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/open/floor/iron/dark,
 /area/space)
+"vYz" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/full/edge,
+/turf/open/floor/plating/concrete,
+/area/space)
 "vYE" = (
 /obj/structure/platform/gray{
 	dir = 8
@@ -34099,6 +34323,15 @@
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
+/area/space)
+"wac" = (
+/obj/effect/turf_decal/siding/light_slate{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 6
+	},
+/turf/open/floor/plating/concrete,
 /area/space)
 "waj" = (
 /obj/effect/turf_decal/edges/techfloor{
@@ -35122,6 +35355,13 @@
 	},
 /obj/structure/platform/gray{
 	dir = 5
+	},
+/turf/open/floor/plating/concrete,
+/area/space)
+"wJI" = (
+/obj/effect/turf_decal/siding/light_slate,
+/obj/effect/turf_decal/weather/snow/full/edge{
+	dir = 6
 	},
 /turf/open/floor/plating/concrete,
 /area/space)
@@ -260590,7 +260830,7 @@ lRf
 oMa
 ari
 ari
-ari
+bMG
 ari
 ari
 bzp
@@ -260847,7 +261087,7 @@ iPO
 oMa
 ari
 ari
-ari
+hEU
 ari
 ari
 bzp
@@ -265073,7 +265313,7 @@ pvV
 sNM
 ari
 ari
-ari
+bMG
 ari
 ihN
 mRl
@@ -265242,7 +265482,7 @@ ari
 ari
 ari
 ari
-ari
+bMG
 vSt
 pvV
 aRm
@@ -265330,7 +265570,7 @@ pvV
 sNM
 ari
 ari
-ari
+lpm
 ari
 ihN
 mRl
@@ -265499,7 +265739,7 @@ qxg
 qxg
 swp
 ari
-ari
+hEU
 vSt
 pvV
 aRm
@@ -266109,10 +266349,10 @@ iRg
 edA
 edA
 edA
-iRg
-edA
-edA
-edA
+vju
+mFe
+mFe
+aog
 iRg
 edA
 iPl
@@ -266336,17 +266576,17 @@ evS
 evS
 iPO
 pvV
-mKG
-mri
-mri
-mri
-mri
+jiu
+fXa
+fXa
+oNp
+owv
 mri
 dYv
 ari
 ari
-ari
-bzp
+xxC
+inT
 izZ
 izZ
 cEd
@@ -266366,10 +266606,10 @@ bps
 xbA
 xbA
 xbA
-xbA
-xbA
-xbA
-xbA
+wac
+xRJ
+xRJ
+ooy
 xbA
 xbA
 xbA
@@ -266593,17 +266833,17 @@ evS
 evS
 iPO
 pvV
-sNM
+hPC
+gNf
+twV
+ecH
 ari
 ari
 ari
-ari
-ari
-ari
-ari
-ari
-ari
-bzp
+xxC
+erW
+qQe
+tbi
 izZ
 grA
 grA
@@ -266617,9 +266857,9 @@ izZ
 aPm
 gdy
 iOu
-trR
-ari
-bzp
+caC
+ghj
+gsF
 btn
 btn
 btn
@@ -266850,17 +267090,17 @@ evS
 evS
 iPO
 pvV
-sNM
-ari
-ari
+hPC
+gNf
+uvS
 ari
 bps
 xbA
-xbA
-xbA
-xbA
-xbA
-kmD
+tFa
+wac
+xRJ
+xRJ
+cWJ
 izZ
 grA
 grA
@@ -266874,9 +267114,9 @@ izZ
 gkd
 xVg
 nxy
-trR
-ari
-bzp
+tYp
+kbF
+wJI
 btn
 asp
 lRc
@@ -267107,9 +267347,9 @@ evS
 evS
 iPO
 pvV
-sNM
-ari
-ari
+hPC
+twV
+ecH
 ari
 bzp
 izZ
@@ -267131,9 +267371,9 @@ izZ
 lWu
 siC
 iOu
-akB
-xbA
-kmD
+wWI
+fGJ
+cWJ
 btn
 orJ
 lHY
@@ -267364,8 +267604,8 @@ evS
 evS
 iPO
 pvV
-sNM
-ari
+hPC
+uvS
 ari
 ari
 bzp
@@ -267621,8 +267861,8 @@ evS
 evS
 iPO
 pvV
-sNM
-ari
+mnv
+ecH
 ari
 ari
 bzp
@@ -267660,9 +267900,9 @@ btn
 tBp
 upQ
 btn
-trR
-ari
-ari
+kYu
+erW
+ghj
 ari
 vSt
 pvV
@@ -267878,7 +268118,7 @@ evS
 evS
 iPO
 pvV
-sNM
+mwL
 ari
 ari
 bps
@@ -267917,10 +268157,10 @@ btn
 cQG
 cOJ
 btn
-akB
-xbA
-mSM
-ari
+oVJ
+xRJ
+via
+ghj
 vSt
 pvV
 aRm
@@ -268176,8 +268416,8 @@ btn
 btn
 btn
 btn
-trR
-ari
+tYp
+uvS
 vSt
 pvV
 aRm
@@ -268433,8 +268673,8 @@ bRD
 qLv
 lax
 qcw
-trR
-ari
+tYp
+uvS
 vSt
 pvV
 aRm
@@ -268690,8 +268930,8 @@ eXo
 oOt
 rNs
 qcw
-trR
-ari
+tYp
+uvS
 vSt
 pvV
 aRm
@@ -268947,9 +269187,9 @@ ths
 ths
 glK
 qcw
-akB
-xbA
-blj
+wWI
+ooy
+cJs
 pvV
 aRm
 evS
@@ -269163,7 +269403,7 @@ iPO
 pvV
 sNM
 ari
-ari
+bMG
 ari
 bps
 xbA
@@ -269206,7 +269446,7 @@ btn
 btn
 btn
 btn
-irk
+eJC
 pvV
 aRm
 evS
@@ -269420,9 +269660,9 @@ iPO
 pvV
 sNM
 ari
+lpm
 ari
-ari
-bzp
+gsF
 izZ
 izZ
 izZ
@@ -269463,7 +269703,7 @@ eZw
 fPP
 lFS
 btn
-irk
+ncb
 pvV
 aRm
 evS
@@ -269679,7 +269919,7 @@ sNM
 ari
 ari
 ari
-bzp
+dSr
 izZ
 grA
 grA
@@ -269935,8 +270175,8 @@ pvV
 sNM
 ari
 ari
-ari
-bzp
+xxC
+wJI
 izZ
 grA
 grA
@@ -270192,8 +270432,8 @@ pvV
 sNM
 ari
 ari
-ari
-bzp
+hOc
+tbi
 izZ
 grA
 grA
@@ -270449,8 +270689,8 @@ mri
 dYv
 ari
 ari
-ari
-bzp
+hOc
+tbi
 izZ
 grA
 grA
@@ -270706,8 +270946,8 @@ ari
 ari
 ari
 bps
-xbA
-kmD
+vYz
+cWJ
 izZ
 grA
 grA
@@ -271003,8 +271243,8 @@ lOg
 vPM
 rYd
 btn
-pDf
-kqV
+krh
+bEl
 sBW
 pvV
 aRm
@@ -271260,8 +271500,8 @@ lOg
 nzc
 hFT
 nxy
-trR
-ari
+tYp
+uvS
 vSt
 pvV
 aRm
@@ -271517,8 +271757,8 @@ lOg
 jwq
 jQg
 btn
-trR
-ari
+uyK
+ecH
 vSt
 pvV
 aRm
@@ -271774,7 +272014,7 @@ btn
 btn
 btn
 btn
-trR
+bEI
 ari
 vSt
 pvV
@@ -272657,7 +272897,7 @@ kqV
 yei
 ari
 ari
-ari
+bMG
 ari
 ari
 ari
@@ -272914,7 +273154,7 @@ ari
 ari
 vsV
 ari
-ari
+hEU
 ari
 ari
 ari
@@ -273261,7 +273501,7 @@ oMh
 ghj
 ari
 ari
-ari
+bMG
 vSt
 pvV
 wnN
@@ -273518,7 +273758,7 @@ gNf
 oMh
 ghj
 ari
-ari
+hDl
 vSt
 pvV
 pvV
@@ -273569,8 +273809,8 @@ grA
 grA
 grA
 izZ
-pDf
-kqV
+krh
+bEl
 yei
 vSt
 pvV
@@ -273826,9 +274066,9 @@ grA
 grA
 grA
 izZ
-trR
-ari
-ari
+uyK
+ecH
+bMG
 pLS
 bFg
 pvV
@@ -274083,9 +274323,9 @@ izZ
 jWE
 izZ
 izZ
-trR
+bEI
 ari
-ari
+lpm
 ari
 vSt
 pvV
@@ -274336,7 +274576,7 @@ iOu
 qec
 evS
 izZ
-pDf
+pLz
 kqV
 xiT
 tIT
@@ -274561,7 +274801,7 @@ evS
 iPO
 pvV
 sNM
-bzp
+gsF
 btn
 dAK
 suh
@@ -274593,7 +274833,7 @@ iOu
 qec
 evS
 cEd
-trR
+mZA
 ari
 vSt
 pvV
@@ -274818,7 +275058,7 @@ evS
 iPO
 pvV
 sNM
-bzp
+dSr
 btn
 dAK
 bPf
@@ -274850,8 +275090,8 @@ ijr
 qec
 evS
 izZ
-trR
-ari
+caC
+ghj
 vSt
 pvV
 tFb
@@ -275075,7 +275315,7 @@ evS
 iPO
 pvV
 sNM
-bzp
+dSr
 btn
 dAK
 baT
@@ -275107,8 +275347,8 @@ iOu
 qec
 evS
 cEd
-trR
-ari
+tYp
+uvS
 vSt
 pvV
 aRm
@@ -275364,8 +275604,8 @@ iOu
 qec
 evS
 izZ
-trR
-ari
+tYp
+uvS
 vSt
 pvV
 aRm
@@ -275621,8 +275861,8 @@ iOu
 qec
 evS
 izZ
-trR
-ari
+uyK
+ecH
 vSt
 pvV
 aRm
@@ -275878,7 +276118,7 @@ dGF
 uZl
 cZv
 izZ
-trR
+bEI
 ari
 vSt
 pvV
@@ -281244,7 +281484,7 @@ nxA
 kuu
 lRf
 pvV
-sNM
+prs
 vJK
 hzo
 cEd
@@ -281501,7 +281741,7 @@ evS
 evS
 iPO
 pvV
-sNM
+lVi
 dla
 csQ
 lrK
@@ -281758,8 +281998,8 @@ evS
 evS
 iPO
 pvV
-sNM
-pYW
+hPC
+vFZ
 qxg
 sgI
 qxg
@@ -282015,7 +282255,7 @@ evS
 evS
 iPO
 pvV
-mHP
+sfv
 dll
 kSp
 xKn
