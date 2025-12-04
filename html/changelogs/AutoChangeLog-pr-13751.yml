@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Admins can now bypass antagonist time restrictions when the use_exp_restrictions_admin_bypass
-      flag is set, making local testing easier.
