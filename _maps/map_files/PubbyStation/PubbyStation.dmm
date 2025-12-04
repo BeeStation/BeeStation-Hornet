@@ -536,7 +536,6 @@
 	name = "MiniSat Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
@@ -545,7 +544,6 @@
 	name = "MiniSat Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
@@ -745,7 +743,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
@@ -1190,7 +1187,6 @@
 	name = "MiniSat External Access"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -2366,6 +2362,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "apr" = (
@@ -5285,7 +5282,6 @@
 	pixel_x = 9;
 	pixel_y = 13
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/captain,
 /turf/open/space,
 /area/space/nearstation)
 "aGt" = (
@@ -25531,11 +25527,6 @@
 	},
 /turf/open/floor/iron/dark/textured,
 /area/security/execution)
-"eAk" = (
-/obj/structure/window/reinforced/fulltile,
-/obj/effect/mapping_helpers/airlock/access/any/command/captain,
-/turf/open/floor/plating,
-/area/hallway/primary/central)
 "eAG" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
@@ -27314,7 +27305,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
@@ -29406,7 +29396,6 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "AI Core"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/mineral/plastitanium,
 /area/ai_monitored/turret_protected/ai)
@@ -37009,7 +36998,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai)
@@ -38199,7 +38187,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
@@ -39982,7 +39969,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
@@ -42070,7 +42056,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
@@ -42119,7 +42104,6 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -45083,6 +45067,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "npG" = (
@@ -46379,20 +46364,6 @@
 /obj/item/wrench,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"nRP" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "nSe" = (
 /obj/structure/table,
 /obj/item/food/cake/birthday,
@@ -50281,15 +50252,19 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
 "pym" = (
-/obj/machinery/button/door{
-	id = "mainthideout";
-	name = "Hideout Door Bolts";
-	normaldoorcontrol = 1;
-	pixel_y = -26;
-	specialfunctions = 4
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/open/floor/plating,
-/area/maintenance/department/security/brig)
+/area/maintenance/department/engine)
 "pyw" = (
 /mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /obj/item/chair,
@@ -50383,7 +50358,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
@@ -52482,7 +52456,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai)
@@ -60733,6 +60706,16 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/genetics)
+"ujh" = (
+/obj/machinery/button/door{
+	id = "mainthideout";
+	name = "Hideout Door Bolts";
+	normaldoorcontrol = 1;
+	pixel_y = -26;
+	specialfunctions = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "ujz" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -64014,7 +63997,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -64689,7 +64671,6 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -86307,7 +86288,7 @@ ait
 ajD
 ajD
 ajD
-pym
+ujh
 aiu
 ait
 ait
@@ -100980,7 +100961,7 @@ tiD
 oLI
 pXU
 aAB
-eAk
+aGn
 axi
 aHZ
 aDZ
@@ -101548,7 +101529,7 @@ bva
 bva
 bva
 bva
-nRP
+pym
 bva
 bPE
 bPE
