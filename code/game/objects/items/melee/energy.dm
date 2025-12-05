@@ -96,10 +96,10 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
 		icon_state = "[base_icon_state]_on_[sword_color_icon]" // "esword_on_red"
-		item_state = icon_state
+		inhand_icon_state = icon_state
 	else
 		icon_state = base_icon_state
-		item_state = base_icon_state
+		inhand_icon_state = base_icon_state
 
 /**
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -134,7 +134,7 @@
 	name = "energy axe"
 	desc = "An energized battle axe."
 	icon_state = "axe"
-	item_state = "axe"
+	inhand_icon_state = "axe"
 	base_icon_state = "axe"
 	lefthand_file = 'icons/mob/inhands/weapons/axes_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/axes_righthand.dmi'
@@ -174,7 +174,7 @@
 	desc = "May the force be within you."
 	icon_state = "e_sword"
 	base_icon_state = "e_sword"
-	item_state = "e_sword"
+	inhand_icon_state = "e_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = "swing_hit"
@@ -336,7 +336,7 @@
 	name = "energy cutlass"
 	desc = "Arrrr matey."
 	icon_state = "e_cutlass"
-	item_state = "e_cutlass"
+	inhand_icon_state = "e_cutlass"
 	base_icon_state = "e_cutlass"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
@@ -380,4 +380,4 @@
 	name = "hardlight blade"
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
-	item_state = "lightblade"
+	inhand_icon_state = "lightblade"

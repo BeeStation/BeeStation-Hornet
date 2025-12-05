@@ -106,7 +106,7 @@
 	name = "Nightmare"
 	id = "nightmare"
 	burnmod = 1.5
-	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
+	no_equip_flags = ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	species_traits = list(
 		NO_UNDERWEAR,
 		NOEYESPRITES,
@@ -125,12 +125,12 @@
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_JUMPSUIT,
 		TRAIT_NO_TRANSFORMATION_STING,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
 	mutantbrain = /obj/item/organ/brain/nightmare
-	nojumpsuit = 1
 
 	var/info_text = "You are a " + span_danger("Nightmare") + ". The ability " + span_warning("shadow walk") + " allows unlimited, unrestricted movement in the dark while activated. \
 					Your " + span_warning("light eater") + " will destroy any light producing objects you attack, as well as destroy any lights a living creature may be holding. You will automatically dodge gunfire and melee attacks when on a dark tile. If killed, you will eventually revive if left in darkness."
@@ -250,7 +250,7 @@
 	name = "light eater" //as opposed to heavy eater
 	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "arm_blade"
-	item_state = "arm_blade"
+	inhand_icon_state = "arm_blade"
 	force = 25
 
 	armour_penetration = 35
@@ -554,7 +554,7 @@
 // Shadow comms, copied from cult
 
 /datum/action/innate/shadow_comms
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 

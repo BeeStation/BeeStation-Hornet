@@ -216,7 +216,9 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 			if(feedback)
 				to_chat(src, "<span class='warning'>You are banned from this role!</span>")
 			return FALSE
-	if(req_hours && !holder) //minimum living hour count
+	if(req_hours) //minimum living hour count
+		if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(src, R_ADMIN))
+			return TRUE
 		if((src.get_exp_living(TRUE)/60) < req_hours)
 			if(feedback)
 				to_chat(src, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")

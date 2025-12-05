@@ -132,7 +132,7 @@
 
 /datum/action/innate/aux_base //Parent aux base action
 	button_icon_state = null
-	icon_icon = 'icons/hud/actions/actions_construction.dmi'
+	button_icon = 'icons/hud/actions/actions_construction.dmi'
 	var/mob/living/C //Mob using the action
 	var/mob/camera/ai_eye/remote/base_construction/remote_eye //Console's eye mob
 	var/obj/machinery/computer/camera_advanced/base_construction/B //Console itself

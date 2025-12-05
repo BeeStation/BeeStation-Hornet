@@ -132,7 +132,7 @@
 	name = "dueling pistol"
 	desc = "High-tech dueling pistol. Launches chaff and projectile according to preset settings."
 	icon_state = "dueling_pistol"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	ammo_x_offset = 2
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_type = list(/obj/item/ammo_casing/energy/duel)
@@ -301,7 +301,7 @@
 	name = "dueling pistol case"
 	desc = "Let's solve this like gentlespacemen."
 	icon_state = "medalbox+l"
-	item_state = "medalbox+l"
+	inhand_icon_state = "medalbox+l"
 	base_icon_state = "medalbox"
 	w_class = WEIGHT_CLASS_LARGE
 	req_access = list(ACCESS_CAPTAIN)

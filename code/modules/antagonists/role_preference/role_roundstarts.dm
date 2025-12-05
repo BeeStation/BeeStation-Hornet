@@ -79,7 +79,7 @@
 	icon.Crop(-15, -15, 48, 48)
 
 	var/obj/item/melee/cultblade/longsword = new
-	icon.Blend(icon(longsword.lefthand_file, longsword.item_state), ICON_OVERLAY)
+	icon.Blend(icon(longsword.lefthand_file, longsword.inhand_icon_state), ICON_OVERLAY)
 	qdel(longsword)
 
 	// Move the guy back to the bottom left, 32x32.
@@ -183,7 +183,7 @@
 	icon.Crop(-15, -15, 48, 48)
 
 	var/obj/item/melee/sickly_blade/ash/blade = new
-	icon.Blend(icon(blade.lefthand_file, blade.item_state), ICON_OVERLAY)
+	icon.Blend(icon(blade.lefthand_file, blade.inhand_icon_state), ICON_OVERLAY)
 	qdel(blade)
 
 	// Move the guy back to the bottom left, 32x32.
