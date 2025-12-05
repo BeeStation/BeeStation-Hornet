@@ -76,6 +76,15 @@
 	implanter_to_track = implanter
 	RegisterSignal(implanter, COMSIG_QDELETING, PROC_REF(implanter_used))
 	RegisterSignal(implanter.imp, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanter_used))
+	var/list/targets = list()
+	var/obj/item/implant/bloodbrother/implant = implanter_to_track.imp
+	// Implanter has no implant in it, track it anyway
+	if (!istype(implant))
+		return
+	// Find the things that the implanter is looking for and track them
+	for(var/datum/mind/victim in implant.linked_team?.valid_converts)
+		targets += victim.name
+	details = "[initial(details)] The following subjects are suitable for conversion: [jointext(targets, ", ")]."
 
 /datum/priority_directive/recruit/proc/implanter_used()
 	SIGNAL_HANDLER
