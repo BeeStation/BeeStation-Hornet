@@ -330,17 +330,16 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			to_chat(src, span_warning("You fail to break [cuffs]!"))
 
 	else if(istype(cuffs, /obj/item/restraints/handcuffs))
+
 		to_chat(src, span_notice("You attempt to wriggle your way out of [cuffs]..."))
-		while(cuffs.item_flags & BEING_REMOVED && handcuffed == cuffs)
-			cuff_breakout_attempts++ //We increment these first so that long-term progress is still made even if interrupted
-			if(!do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
-				break
-			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime)
+		while(do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
+			cuff_breakout_attempts++
+			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime || (prob(cuff_breakout_attempts/4)))
 				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / (5 SECONDS)] attempts", important = FALSE)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
-			else if(cuff_breakout_attempts % 10 == 0)
-				visible_message(span_warning("[src] seems to be trying to wriggle out of [cuffs]!")) //Ten second warning for zipties, three warnings for real cuffs
+			else if(prob(4))
+				visible_message(span_warning("[src] seems to be trying to wriggle out of [cuffs]!"))
 
 	else
 		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)]"))
@@ -348,6 +347,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			to_chat(src, span_warning("You fail to remove [cuffs]!"))
+
 
 	cuffs.item_flags &= ~BEING_REMOVED
 
