@@ -52,6 +52,8 @@
 
 	if(target.mind && owner.mind)//if the victim and owner have minds
 		absorb_memories(target)
+	else
+		to_chat(owner, span_changeling("We were unable to find any memories inside of [target.p_them()], we gain no additional DNA to work with."))
 
 	is_absorbing = FALSE
 
