@@ -837,12 +837,12 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/Click()
-	var/mob/living/L = usr
-	if(!istype(L) || !L.can_resist() || L != owner)
+	var/mob/living/living_mob = usr
+	if(!istype(living_mob) || !living_mob.can_resist() || living_mob != owner)
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if((L.mobility_flags & MOBILITY_MOVE) && (L.last_special <= world.time))
-		return L.resist_restraints()
+	living_mob.changeNext_move(CLICK_CD_RESIST)
+	if((living_mob.mobility_flags & MOBILITY_MOVE) && (living_mob.last_special <= world.time))
+		return living_mob.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
 	var/mob/living/L = usr
