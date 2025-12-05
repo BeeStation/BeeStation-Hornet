@@ -99,7 +99,7 @@
 /datum/priority_directive/recruit/get_special_action(datum/component/uplink)
 	return new /datum/directive_special_action("Get equipment")
 
-/datum/priority_directive/deploy_beacon/perform_special_action(datum/component/uplink, mob/living/user)
+/datum/priority_directive/recruit/perform_special_action(datum/component/uplink, mob/living/user)
 	if (equipment_granted)
 		to_chat(user, "<span class='warning'>You have already recieved your special equipment.</span>")
 		return
