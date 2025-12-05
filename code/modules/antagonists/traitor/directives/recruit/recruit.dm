@@ -101,7 +101,7 @@
 
 /datum/priority_directive/recruit/perform_special_action(datum/component/uplink, mob/living/user)
 	if (equipment_granted)
-		to_chat(user, "<span class='warning'>You have already recieved your special equipment.</span>")
+		to_chat(user, "<span class='warning'>You have already received your special equipment.</span>")
 		return
 	equipment_granted = TRUE
 	switch (rand(1, 4))
