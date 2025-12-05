@@ -78,9 +78,14 @@
 		to_chat(user, "<span class='warning'>You have already received your beacon! Pick it up or find someone aligned with your mission.</span>")
 		return
 	empty_uplinks += uplink
+	RegisterSignal(uplink, COMSIG_QDELETING, PROC_REF(component_destroyed))
 	// Give the requester a beacon
 	var/obj/item/spawned = new /obj/item/uplink_beacon(user.loc, src)
 	user.put_in_active_hand(spawned)
+
+/datum/priority_directive/deploy_beacon/proc/component_destroyed(datum/component/uplink)
+	SIGNAL_HANDLER
+	empty_uplinks -= uplink
 
 /datum/priority_directive/deploy_beacon/get_explanation(datum/component/uplink)
 	return "Activate a beacon in the specified location that is broadcasting on the [uplink_beacon_channel_to_color(get_team(uplink).data["code"])] channel."

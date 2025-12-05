@@ -10,6 +10,7 @@
 	/// Flags that get assigned to the owner's uplink upon objective completion
 	var/flags_to_assign = BROTHER_DIRECTIVE_FLAGS
 	var/obj/item/implanter/bloodbrother/implanter_to_track = null
+	var/equipment_granted = FALSE
 
 /datum/priority_directive/recruit/_allocate_teams(list/uplinks, list/player_minds, force)
 	// Never automatically run this directive
@@ -76,6 +77,14 @@
 	implanter_to_track = implanter
 	RegisterSignal(implanter, COMSIG_QDELETING, PROC_REF(implanter_used))
 	RegisterSignal(implanter.imp, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanter_used))
+
+/datum/priority_directive/recruit/proc/implanter_used()
+	SIGNAL_HANDLER
+	implanter_to_track = null
+	grant_universal_victory()
+	finish()
+
+/datum/priority_directive/recruit/proc/update_details()
 	var/list/targets = list()
 	var/obj/item/implant/bloodbrother/implant = implanter_to_track.imp
 	// Implanter has no implant in it, track it anyway
@@ -86,8 +95,29 @@
 		targets += victim.name
 	details = "[initial(details)] The following subjects are suitable for conversion: [jointext(targets, ", ")]."
 
-/datum/priority_directive/recruit/proc/implanter_used()
-	SIGNAL_HANDLER
-	implanter_to_track = null
-	grant_universal_victory()
-	finish()
+
+/datum/priority_directive/recruit/get_special_action(datum/component/uplink)
+	return new /datum/directive_special_action("Get equipment")
+
+/datum/priority_directive/deploy_beacon/perform_special_action(datum/component/uplink, mob/living/user)
+	if (equipment_granted)
+		to_chat(user, "<span class='warning'>You have already recieved your special equipment.</span>")
+		return
+	equipment_granted = TRUE
+	switch (rand(1, 4))
+		if (1)
+			var/obj/item/spawned = new /obj/item/pen/paralytic(user.loc)
+			user.put_in_active_hand(spawned)
+		if (2)
+			var/obj/item/spawned = new /obj/item/storage/box/syndie_kit/chemical(user.loc)
+			user.put_in_active_hand(spawned)
+			spawned = new /obj/item/gun/syringe(user.loc)
+			user.put_in_inactive_hand(spawned)
+		if (3)
+			var/obj/item/spawned = new /obj/item/gun/ballistic/automatic/pistol(user.loc)
+			user.put_in_active_hand(spawned)
+		if (4)
+			var/obj/item/spawned = new /obj/item/jammer(user.loc)
+			user.put_in_active_hand(spawned)
+			spawned = new /obj/item/melee/baton/loaded(user.loc)
+			user.put_in_inactive_hand(spawned)

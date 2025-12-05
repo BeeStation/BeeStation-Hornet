@@ -81,6 +81,7 @@
 
 /datum/antagonist/brother/prime/proc/give_directive(datum/component/uplink/uplink, obj/item/implanter/bloodbrother/implanter, list/conversion_targets)
 	var/datum/priority_directive/recruit/selected = new /datum/priority_directive/recruit()
+	selected.update_details()
 	selected.add_antagonist_team(list(uplink))
 	selected.start(list(uplink), team.members)
 	selected.reputation_reward = 300
