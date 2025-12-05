@@ -367,8 +367,11 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/AIsatextAS)
 "acV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-4"
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -1025,10 +1028,6 @@
 /obj/item/toy/batong,
 /obj/item/restraints/handcuffs,
 /obj/item/restraints/legcuffs/bola/energy,
-/obj/machinery/camera/directional/east{
-	c_tag = "Brig Hallway - Office";
-	dir = 5
-	},
 /turf/open/floor/iron/dark/textured_large,
 /area/security)
 "agd" = (
@@ -7776,15 +7775,12 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/sorting)
 "aSh" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/iron/tech,
+/area/ai_monitored/turret_protected/ai)
 "aSi" = (
 /obj/machinery/button/door{
 	id = "qm_warehouse";
@@ -8489,12 +8485,11 @@
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "aWa" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "4-8"
 	},
-/turf/open/floor/plating,
-/area/security/checkpoint/science)
+/turf/open/floor/engine,
+/area/engine/engineering)
 "aWb" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -11556,7 +11551,7 @@
 	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Central Primary Hallway - Medical";
-	dir = 10
+	dir = 8
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
@@ -15268,12 +15263,17 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "bPM" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/iron/tech,
-/area/ai_monitored/turret_protected/ai)
+/obj/effect/turf_decal/trimline/brown/filled/line{
+	dir = 8
+	},
+/obj/machinery/camera/directional/west{
+	c_tag = "Monastery - Main Chamber - Aft"
+	},
+/turf/open/floor/carpet,
+/area/chapel/main/monastery)
 "bPQ" = (
 /turf/closed/wall,
 /area/engine/atmos)
@@ -24702,6 +24702,16 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/storage/primary)
+"ejp" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "ejv" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/secure/loot,
@@ -28325,11 +28335,15 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "fNd" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/turf/open/floor/engine,
-/area/engine/engineering)
+/obj/effect/turf_decal/edges/borderfloor/black/cee,
+/obj/machinery/camera/directional/south{
+	c_tag = "Gravity Generator"
+	},
+/turf/open/floor/iron/dark/smooth_half,
+/area/engine/gravity_generator)
 "fNf" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -28474,16 +28488,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/office)
-"fRQ" = (
-/obj/structure/chair/stool,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "fSh" = (
 /turf/open/floor/wood/broken,
 /area/medical/exam_room)
@@ -29272,6 +29276,16 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/science)
+"gop" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "goF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32346,17 +32360,6 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
-"hKR" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "hLb" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -38569,7 +38572,9 @@
 /area/security/prison)
 "ktH" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/security/checkpoint/science)
 "ktM" = (
@@ -46981,16 +46986,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/qm)
-"ofH" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/edges/borderfloor/black/cee,
-/obj/machinery/camera/directional/south{
-	c_tag = "Gravity Generator"
-	},
-/turf/open/floor/iron/dark/smooth_half,
-/area/engine/gravity_generator)
 "ofY" = (
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard)
@@ -48575,15 +48570,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
-"oMU" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/engine,
-/area/engine/engineering)
 "oNd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -53262,6 +53248,15 @@
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security)
+"qQP" = (
+/obj/vehicle/ridden/secway,
+/obj/effect/turf_decal/bot,
+/obj/machinery/camera/directional/east{
+	c_tag = "Brig Hallway - Office";
+	dir = 2
+	},
+/turf/open/floor/iron/dark/textured_large,
+/area/security)
 "qQR" = (
 /obj/structure/chair/wood/normal{
 	dir = 4
@@ -54035,7 +54030,7 @@
 	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Prison - Transfer Centre";
-	dir = 9
+	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/security/prison)
@@ -56762,6 +56757,12 @@
 /obj/effect/turf_decal/trimline/blue/warning,
 /turf/open/floor/iron/tech/grid,
 /area/bridge)
+"spj" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/engine,
+/area/engine/engineering)
 "spn" = (
 /obj/structure/chair{
 	dir = 1
@@ -65245,18 +65246,6 @@
 	},
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/medbay/central)
-"wrw" = (
-/obj/effect/turf_decal/trimline/brown/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/brown/filled/line{
-	dir = 8
-	},
-/obj/machinery/camera/directional/west{
-	c_tag = "Monastery - Main Chamber - Aft"
-	},
-/turf/open/floor/carpet,
-/area/chapel/main/monastery)
 "wrF" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -68583,6 +68572,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/syndicate_sat)
+"xMy" = (
+/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "xMA" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -69486,6 +69486,11 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/iron/white/smooth_large,
 /area/medical/sleeper)
+"ykN" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/security/checkpoint/science)
 "ylb" = (
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
@@ -85416,7 +85421,7 @@ bOw
 bOw
 mci
 iKT
-wrw
+bPM
 wgE
 pEt
 jwR
@@ -91478,7 +91483,7 @@ ahL
 yba
 upx
 sTS
-agd
+qQP
 amg
 sQJ
 agO
@@ -97230,7 +97235,7 @@ bQn
 cCP
 qih
 cCH
-ofH
+fNd
 bPB
 uwX
 wMM
@@ -101105,7 +101110,7 @@ wAS
 slE
 pQT
 slE
-oMU
+acV
 ajn
 wqF
 hsK
@@ -101362,7 +101367,7 @@ tno
 ulY
 nQt
 ulY
-acV
+aWa
 agn
 ree
 mZR
@@ -101619,7 +101624,7 @@ tno
 ulY
 nQt
 ulY
-fNd
+spj
 fQN
 jpg
 hsO
@@ -102764,7 +102769,7 @@ pmj
 aaa
 abO
 abO
-bPM
+aSh
 aKv
 abO
 abO
@@ -103137,7 +103142,7 @@ xtg
 dSD
 bOL
 bBo
-fRQ
+gop
 gmn
 jhP
 lpy
@@ -104664,7 +104669,7 @@ fcH
 aOp
 ctO
 wuM
-ktH
+ykN
 hLO
 kZB
 kdM
@@ -104921,7 +104926,7 @@ byC
 byC
 wDU
 jQo
-ktH
+ykN
 nui
 bCL
 vEO
@@ -105178,7 +105183,7 @@ oaP
 bvB
 tDV
 xBx
-ktH
+ykN
 nZt
 rAK
 jcN
@@ -105437,8 +105442,8 @@ yjE
 joI
 bAu
 bAu
-aWa
-aWa
+ktH
+ktH
 bAu
 bAu
 bfO
@@ -105694,7 +105699,7 @@ bxm
 ooa
 fUb
 rfs
-hKR
+xMy
 eFU
 rKf
 vJc
@@ -105951,7 +105956,7 @@ gHs
 rZV
 bAw
 bBz
-aSh
+ejp
 rgv
 uUf
 bBz
