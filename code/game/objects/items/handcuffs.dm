@@ -288,11 +288,9 @@
 
 	close_trap()
 	if(ignore_movetypes)
-		victim.visible_message(span_danger("\The [src] ensnares [victim]!"), \
-				span_danger("\The [src] ensnares you!"))
+		victim.visible_message(span_danger("\The [src] ensnares [victim]!"), span_danger("\The [src] ensnares you!"))
 	else
-		victim.visible_message(span_danger("[victim] triggers \the [src]."), \
-				span_danger("You trigger \the [src]!"))
+		victim.visible_message(span_danger("[victim] triggers \the [src]."), span_danger("You trigger \the [src]!"))
 	var/def_zone = BODY_ZONE_CHEST
 	if(iscarbon(victim) && (victim.body_position == STANDING_UP || hit_prone))
 		var/mob/living/carbon/carbon_victim = victim
@@ -416,15 +414,15 @@
 	inhand_icon_state = "bola_r"
 	breakouttime = 30 SECONDS
 	slowdown = 0
-	var/datum/status_effect/gonbola_pacify/effectReference
+	var/datum/status_effect/gonbola_pacify/effect_reference
 
 /obj/item/restraints/legcuffs/bola/gonbola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/C = hit_atom
-		effectReference = C.apply_status_effect(/datum/status_effect/gonbola_pacify)
+		effect_reference = C.apply_status_effect(/datum/status_effect/gonbola_pacify)
 
 /obj/item/restraints/legcuffs/bola/gonbola/dropped(mob/user)
-	..()
-	if(effectReference)
-		QDEL_NULL(effectReference)
+	. = ..()
+	if(effect_reference)
+		QDEL_NULL(effect_reference)
