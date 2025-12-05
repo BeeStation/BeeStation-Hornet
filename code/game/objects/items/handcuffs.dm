@@ -1,5 +1,5 @@
 /obj/item/restraints
-	breakouttime = 1 MINUTES
+	breakouttime = 600
 	item_flags = ISWEAPON
 
 /obj/item/restraints/suicide_act(mob/living/carbon/user)
@@ -25,7 +25,7 @@
 	throw_speed = 3
 	throw_range = 5
 	custom_materials = list(/datum/material/iron=500)
-	breakouttime = 3 MINUTES
+	breakouttime = 1 MINUTES
 	armor_type = /datum/armor/restraints_handcuffs
 	custom_price = 15
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
@@ -101,7 +101,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
-	breakouttime = 1 MINUTES
+	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 	custom_price = 15
 
@@ -189,7 +189,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	custom_materials = null
-	breakouttime = 2 MINUTES
+	breakouttime = 450 //Deciseconds = 45s
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 	color = null
 
@@ -215,7 +215,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	slowdown = 7
-	breakouttime = 30 SECONDS
+	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
@@ -309,7 +309,7 @@
 	armed = 1
 	icon_state = "e_snare"
 	trap_damage = 0
-	breakouttime = 3 SECONDS
+	breakouttime = 30
 	item_flags = DROPDEL | ISWEAPON
 	flags_1 = NONE
 
@@ -327,7 +327,7 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
-	breakouttime = 3 SECONDS
+	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
 
 /obj/item/restraints/legcuffs/beartrap/energy/emp_act(severity)
 	do_sparks(1, TRUE, src)
@@ -341,7 +341,7 @@
 	inhand_icon_state = "bola"
 	lefthand_file = 'icons/mob/inhands/weapons/thrown_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/thrown_righthand.dmi'
-	breakouttime = 2 SECONDS
+	breakouttime = 20//easy to apply, easy to break out of
 	gender = NEUTER
 	var/knockdown = 0
 
@@ -379,15 +379,15 @@
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
 	inhand_icon_state = "bola_r"
-	breakouttime = 7 SECONDS
-	knockdown = 2 SECONDS
+	breakouttime = 70
+	knockdown = 20
 
 /obj/item/restraints/legcuffs/bola/watcher //tribal bola for tribal lizards
 	name = "watcher Bola"
 	desc = "A Bola made from the stretchy sinew of fallen watchers."
 	icon_state = "bola_watcher"
 	inhand_icon_state = "bola_watcher"
-	breakouttime = 4.5 SECONDS
+	breakouttime = 45
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
@@ -396,8 +396,7 @@
 	inhand_icon_state = "ebola"
 	hitsound = 'sound/weapons/taserhit.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 6 SECONDS
-	custom_price = 100
+	breakouttime = 60
 
 /obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
 	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
@@ -416,7 +415,7 @@
 	icon_state = "gonbola"
 	icon_state_preview = "gonbola_preview"
 	inhand_icon_state = "bola_r"
-	breakouttime = 30 SECONDS //Good god
+	breakouttime = 300
 	slowdown = 0
 	var/datum/status_effect/gonbola_pacify/effectReference
 

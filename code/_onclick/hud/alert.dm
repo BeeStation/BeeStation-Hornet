@@ -841,14 +841,16 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	return L.resist_restraints()
+	if((L.mobility_flags & MOBILITY_MOVE) && (L.last_special <= world.time))
+		return L.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	return L.resist_buckle()
+	if(L.last_special <= world.time)
+		return L.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
