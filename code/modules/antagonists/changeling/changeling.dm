@@ -60,6 +60,9 @@
 	/// A reference to our cellular emporium action (which opens the UI for the datum).
 	var/datum/action/innate/cellular_emporium/emporium_action
 
+	/// List of minds that have been absorbed
+	var/list/absorbed_minds = list()
+
 	/// Static typecache of all changeling powers that are usable.
 	var/static/list/all_powers = typecacheof(/datum/action/changeling, ignore_root_path = TRUE)
 

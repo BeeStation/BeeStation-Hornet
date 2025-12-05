@@ -50,10 +50,15 @@
 	// Absorb a lizard, speak Draconic.
 	owner.copy_languages(target, LANGUAGE_ABSORB)
 
-	if(target.mind && owner.mind)//if the victim and owner have minds
+	if(target.mind && owner.mind && !(REF(owner.mind) in changeling.absorbed_minds))//if the victim and owner have minds
+		// You can only absorb each mind once
+		changeling.absorbed_minds += REF(owner.mind)
 		absorb_memories(target)
 	else
-		to_chat(owner, span_changeling("We were unable to find any memories inside of [target.p_them()], we gain no additional DNA to work with."))
+		if (REF(owner.mind) in changeling.absorbed_minds)
+			to_chat(owner, span_changeling("We already absorbed [target.p_their()] memories, we gain no additional DNA to work with."))
+		else
+			to_chat(owner, span_changeling("We were unable to find any memories inside of [target.p_them()], we gain no additional DNA to work with."))
 
 	is_absorbing = FALSE
 
