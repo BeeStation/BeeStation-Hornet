@@ -21,6 +21,10 @@
 	SHOULD_CALL_PARENT(FALSE)
 	return
 
+/// Abort the midround event, calling off our search to fufill the event.
+/datum/dynamic_ruleset/midround/proc/abort()
+	return
+
 //////////////////////////////////////////////
 //                                          //
 //             PIRATES (MEDIUM)             //

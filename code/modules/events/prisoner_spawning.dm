@@ -18,12 +18,11 @@
 		message_admins("No valid spawn locations found, aborting...")
 		return MAP_ERROR
 	var/turf/landing_turf = pick(possible_spawns)
-	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
-		check_jobban = ROLE_PRISONER,
-		poll_time = 30 SECONDS,
-		role_name_text = "prisoner",
-		alert_pic = /obj/item/card/id/prisoner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_PRISONER
+	config.role_name_text = "prisoner"
+	config.alert_pic = /obj/item/card/id/prisoner
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	var/result = spawn_prisoners(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result

@@ -558,13 +558,13 @@
 	to_chat(src, span_userdanger("You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!"))
 	ghostize(FALSE)
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = JOB_NAME_CYBORG,
-		poll_time = 10 SECONDS,
-		jump_target = src,
-		role_name_text = name,
-		alert_pic = src,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = JOB_NAME_CYBORG
+	config.poll_time = 10 SECONDS
+	config.jump_target = src
+	config.role_name_text = name
+	config.alert_pic = src
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
 		key = candidate.key

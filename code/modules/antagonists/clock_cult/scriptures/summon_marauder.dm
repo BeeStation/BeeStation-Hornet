@@ -16,14 +16,14 @@
 	var/mob/dead/observer/selected
 
 /datum/clockcult/scripture/marauder/invoke()
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/roundstart/clock_cultist,
-		check_jobban = ROLE_SERVANT_OF_RATVAR,
-		poll_time = 10 SECONDS,
-		ignore_category = POLL_IGNORE_CLOCKWORK_HELPER,
-		role_name_text = "clockwork marauder",
-		alert_pic = /mob/living/simple_animal/hostile/clockwork_marauder,
-	)
+	var/datum/poll_config/config = new()
+	config.role = /datum/role_preference/roundstart/clock_cultist
+	config.check_jobban = ROLE_SERVANT_OF_RATVAR
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_CLOCKWORK_HELPER
+	config.role_name_text = "clockwork marauder"
+	config.alert_pic = /mob/living/simple_animal/hostile/clockwork_marauder
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	selected = candidate
 	if(!selected)
 		to_chat(invoker, span_brass("<i>There are no ghosts willing to be a Clockwork Marauder!</i>"))

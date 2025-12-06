@@ -533,16 +533,15 @@
 
 	possessed = TRUE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		question = "Do you want to play as the spirit of [user.real_name]'s blade?",
-		check_jobban = ROLE_SPECTRAL_BLADE,
-		poll_time = 10 SECONDS,
-		checked_target = user,
-		ignore_category = POLL_IGNORE_SPECTRAL_BLADE,
-		jump_target = user,
-		role_name_text = "blade spirit",
-		alert_pic = user,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "Do you want to play as the spirit of [user.real_name]'s blade?"
+	config.check_jobban = ROLE_SPECTRAL_BLADE
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_SPECTRAL_BLADE
+	config.jump_target = user
+	config.role_name_text = "blade spirit"
+	config.alert_pic = user
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, user)
 
 	if(candidate)
 		var/mob/living/simple_animal/shade/S = new(src)

@@ -52,14 +52,13 @@
 	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
-	var/list/candidates = SSpolling.poll_ghosts_for_targets(
-		question = "Would you like to be [span_notice(group_name)]?",
-		check_jobban = ROLE_SENTIENCE,
-		poll_time = 10 SECONDS,
-		checked_targets = bodies,
-		role_name_text = "sentience fun balloon",
-		alert_pic = src,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "Would you like to be [span_notice(group_name)]?"
+	config.check_jobban = ROLE_SENTIENCE
+	config.poll_time = 10 SECONDS
+	config.role_name_text = "sentience fun balloon"
+	config.alert_pic = src
+	var/list/candidates = SSpolling.poll_ghosts_for_targets(config, bodies)
 	while(LAZYLEN(candidates) && LAZYLEN(bodies))
 		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		var/mob/living/body = pick_n_take(bodies)

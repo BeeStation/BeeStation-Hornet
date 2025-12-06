@@ -366,13 +366,13 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = SSpolling.poll_ghost_candidates(
-			check_jobban = ROLE_HOLOPARASITE,
-			poll_time = 30 SECONDS,
-			jump_target = user,
-			role_name_text = "[holopara_name], [user]'s [theme.name]",
-			alert_pic = /mob/living/simple_animal/hostile/holoparasite,
-		)
+		var/datum/poll_config/config = new()
+		config.check_jobban = ROLE_HOLOPARASITE
+		config.poll_time = 30 SECONDS
+		config.jump_target = user
+		config.role_name_text = "[holopara_name], [user]'s [theme.name]"
+		config.alert_pic = /mob/living/simple_animal/hostile/holoparasite
+		candidates = SSpolling.poll_ghost_candidates(config)
 	waiting = FALSE
 	if(!length(candidates))
 		theme.display_message(user, HOLOPARA_MESSAGE_FAILED)
