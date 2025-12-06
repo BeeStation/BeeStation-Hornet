@@ -170,7 +170,7 @@ Behavior that's still missing from this component that original food items had t
 	else if (quality <= TOXIC_FOOD_QUALITY_THRESHOLD)
 		examine_list += span_warning("You find this meal disgusting!")
 	else
-		examine_list += span_green("You find this meal inedible.")
+		examine_list += span_warning("You find this meal inedible.")
 
 	var/datum/mind/mind = user.mind
 	if(mind && HAS_TRAIT_FROM(owner, TRAIT_FOOD_CHEF_MADE, REF(mind)))
