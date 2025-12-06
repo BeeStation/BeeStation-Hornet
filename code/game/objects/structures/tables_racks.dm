@@ -675,6 +675,99 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/table)
 		return TRUE
 	return FALSE
 
+/obj/structure/table/round
+	name = "round table"
+	desc = "21.46% less table, per table."
+	icon = 'icons/obj/structures/round_tables.dmi'
+	icon_state = "iron"
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
+/obj/structure/table/round/wood
+	icon_state = "wood"
+
+/obj/structure/table/round/glass
+	icon_state = "glass"
+
+// /obj/structure/railing
+// 	name = "railing"
+// 	desc = "Basic railing meant to protect idiots like you from falling."
+// 	icon = 'icons/obj/fluff.dmi'
+// 	icon_state = "railing"
+// 	flags_1 = ON_BORDER_1
+// 	obj_flags = CAN_BE_HIT | BLOCKS_CONSTRUCTION_DIR
+// 	density = TRUE
+// 	anchored = TRUE
+// 	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
+// 	/// armor more or less consistent with grille. max_integrity about one time and a half that of a grille.
+// 	armor_type = /datum/armor/structure_railing
+// 	max_integrity = 75
+// 	var/drop_type = /obj/item/stack/rods
+// 	var/diagonals_possible = TRUE //for in-game rotating
+
+// 	var/climbable = TRUE
+
+// 	var/reverse = FALSE //for end pieces which block all but one dir of movement
+// 	var/blocking_dir
+
+
+// /obj/structure/railing/Initialize(mapload)
+// 	. = ..()
+// 	get_blocking_dir()
+
+// 	if(climbable)
+// 		AddElement(/datum/element/climbable)
+
+// 	if(density && (flags_1 & ON_BORDER_1)) // blocks normal movement from and to the direction it's facing.
+// 		var/static/list/loc_connections = list(
+// 			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+// 		)
+// 		AddElement(/datum/element/connect_loc, loc_connections)
+
+// 	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM|(diagonals_possible ? ROTATION_DIAGONAL : null))
+
+
+// /obj/structure/railing/CanPass(atom/movable/mover, border_dir)
+// 	. = ..()
+// 	if(border_dir & blocking_dir)
+// 		return . || mover.throwing || mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND
+// 	return TRUE
+
+// /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
+// 	SIGNAL_HANDLER
+
+// 	if(leaving == src)
+// 		return // Let's not block ourselves.
+
+// 	if(!(direction & blocking_dir))
+// 		return
+
+// 	if (!density)
+// 		return
+
+// 	if (leaving.throwing)
+// 		return
+
+// 	if (leaving.movement_type & (PHASING | MOVETYPES_NOT_TOUCHING_GROUND))
+// 		return
+
+// 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
+// 		return
+
+// 	leaving.Bump(src)
+// 	return COMPONENT_ATOM_BLOCK_EXIT
+
+// /obj/structure/railing/proc/check_anchored(checked_anchored)
+// 	if(anchored == checked_anchored)
+// 		return TRUE
+
+// /obj/structure/railing/proc/get_blocking_dir()
+// 	if(reverse)
+// 		blocking_dir = (NORTH | SOUTH | EAST | WEST) - REVERSE_DIR(dir)
+// 	else
+// 		blocking_dir = dir
+
 /*
  * Racks
  */

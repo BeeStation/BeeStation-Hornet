@@ -8,7 +8,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aE" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 9
 	},
 /obj/structure/table/reinforced,
@@ -298,7 +298,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ig" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 6
 	},
 /obj/structure/window/reinforced/spawner/directional/east,
@@ -1057,7 +1057,7 @@
 	},
 /area/shuttle/escape)
 "FO" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 10
 	},
 /obj/machinery/computer/operating{
@@ -1067,7 +1067,7 @@
 /area/shuttle/escape)
 "Gi" = (
 /obj/structure/table/optable,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 8
 	},
 /obj/item/clothing/gloves/color/latex,
@@ -1174,7 +1174,7 @@
 	},
 /area/shuttle/escape)
 "HA" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /obj/machinery/door/window/eastright,
@@ -1480,7 +1480,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "SZ" = (
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 5
 	},
 /obj/structure/window/reinforced/spawner/directional/east,

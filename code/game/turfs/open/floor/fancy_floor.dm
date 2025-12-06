@@ -342,6 +342,10 @@
 	icon_state = "carpetstar"
 	floor_tile = /obj/item/stack/tile/carpet/star
 
+/turf/open/floor/carpet/default/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
+
 /turf/open/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
 	icon_state = "carpet_black-255"
@@ -349,6 +353,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_BLACK)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLACK)
 	floor_tile = /obj/item/stack/tile/carpet/black
+
+/turf/open/floor/carpet/black/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/open/floor/carpet/blue
 	icon = 'icons/turf/floors/carpet_blue.dmi'
@@ -358,6 +366,10 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLUE)
 	floor_tile = /obj/item/stack/tile/carpet/blue
 
+/turf/open/floor/carpet/blue/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
+
 /turf/open/floor/carpet/cyan
 	icon = 'icons/turf/floors/carpet_cyan.dmi'
 	icon_state = "carpet_cyan-255"
@@ -365,6 +377,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_CYAN)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_CYAN)
 	floor_tile = /obj/item/stack/tile/carpet/cyan
+
+/turf/open/floor/carpet/cyan/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/open/floor/carpet/green
 	icon = 'icons/turf/floors/carpet_green.dmi'
@@ -374,6 +390,10 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_GREEN)
 	floor_tile = /obj/item/stack/tile/carpet/green
 
+/turf/open/floor/carpet/green/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
+
 /turf/open/floor/carpet/orange
 	icon = 'icons/turf/floors/carpet_orange.dmi'
 	icon_state = "carpet_orange-255"
@@ -381,6 +401,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_ORANGE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ORANGE)
 	floor_tile = /obj/item/stack/tile/carpet/orange
+
+/turf/open/floor/carpet/orange/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/open/floor/carpet/purple
 	icon = 'icons/turf/floors/carpet_purple.dmi'
@@ -390,6 +414,10 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_PURPLE)
 	floor_tile = /obj/item/stack/tile/carpet/purple
 
+/turf/open/floor/carpet/purple/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
+
 /turf/open/floor/carpet/red
 	icon = 'icons/turf/floors/carpet_red.dmi'
 	icon_state = "carpet_red-255"
@@ -397,6 +425,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_RED)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_RED)
 	floor_tile = /obj/item/stack/tile/carpet/red
+
+/turf/open/floor/carpet/red/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
@@ -406,6 +438,10 @@
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYAL_BLACK)
 	floor_tile = /obj/item/stack/tile/carpet/royalblack
 
+/turf/open/floor/carpet/royalblack/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
+
 /turf/open/floor/carpet/royalblue
 	icon = 'icons/turf/floors/carpet_royalblue.dmi'
 	icon_state = "carpet_royalblue-255"
@@ -413,6 +449,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_ROYAL_BLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYAL_BLUE)
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
+
+/turf/open/floor/carpet/royalblue/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/open/floor/carpet/grimy
 	name = "grimy carpet"
@@ -423,6 +463,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_CARPET_GRIMY)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_GRIMY)
 	floor_tile = /obj/item/stack/tile/carpet/grimy
+
+/turf/open/floor/carpet/grimy/no_smooth
+	smoothing_groups = null
+	canSmoothWith = null
 
 /turf/open/floor/eighties
 	name = "retro floor"

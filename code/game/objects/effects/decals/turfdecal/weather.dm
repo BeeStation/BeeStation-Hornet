@@ -7,9 +7,26 @@
 	name = "snowy floor"
 	icon_state = "snowfloor"
 
+/obj/effect/turf_decal/weather/snow/full
+	icon = 'icons/turf/snow.dmi'
+	name = "snow"
+	icon_state = "snow"
+
+/obj/effect/turf_decal/weather/snow/full/Initialize(mapload)
+	. = ..()
+	icon_state = "snow[rand(1,12)]"
+
+/obj/effect/turf_decal/weather/snow/full/corner
+	icon_state = "snow_corner"
+
+/obj/effect/turf_decal/weather/snow/full/edge
+	icon_state = "snow_edge"
+
+/obj/effect/turf_decal/weather/snow/full/end
+	icon_state = "snow_end"
+
 /obj/effect/turf_decal/weather/snow/corner
 	name = "snow corner piece"
-	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow_corner"
 	layer = 3
 

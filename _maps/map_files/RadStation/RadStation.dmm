@@ -4831,7 +4831,7 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "bwK" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 10
 	},
 /turf/open/floor/glass/reinforced,
@@ -5414,7 +5414,7 @@
 /area/hydroponics)
 "bJk" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 9
 	},
 /turf/open/floor/glass/reinforced,
@@ -15829,7 +15829,7 @@
 /area/ai_monitored/turret_protected/ai)
 "eXq" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced,
@@ -16897,7 +16897,7 @@
 /area/quartermaster/qm)
 "fnR" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 5
 	},
 /turf/open/floor/glass/reinforced,
@@ -35103,7 +35103,7 @@
 /area/maintenance/department/security)
 "luO" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/light_gray,
 /turf/open/floor/glass/reinforced,
 /area/hallway/primary/central)
 "luY" = (
@@ -42401,7 +42401,7 @@
 /area/ai_monitored/turret_protected/ai)
 "nNI" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 4
 	},
 /turf/open/floor/glass/reinforced,
@@ -55241,7 +55241,7 @@
 /area/medical/sleeper)
 "sec" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 6
 	},
 /turf/open/floor/glass/reinforced,
@@ -57108,7 +57108,7 @@
 /area/quartermaster/office)
 "sJX" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/siding/white{
+/obj/effect/turf_decal/siding/light_gray{
 	dir = 1
 	},
 /turf/open/floor/glass/reinforced,

@@ -6,8 +6,8 @@
 	icon_state = "ladder11"
 	anchored = TRUE
 	max_integrity = 100
-	var/obj/structure/ladder/down   //the ladder below this one
-	var/obj/structure/ladder/up     //the ladder above this one
+	var/obj/structure/ladder/down = null //the ladder below this one
+	var/obj/structure/ladder/up = null //the ladder above this one
 	z_flags = Z_BLOCK_OUT_DOWN
 	/// travel time for ladder in deciseconds
 	var/travel_time = 1 SECONDS
@@ -360,3 +360,34 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 				break  // break if both our connections are filled
 
 	update_icon()
+
+/obj/structure/ladder/floor_hatch
+	name = "floor hatch"
+	desc = "A hatch in the floor. Presumably leads down. Can be hidden under floor tiles."
+	icon_state = "floor_hatch"
+	var/hide = TRUE //should be hidden under floor tiles by default but there will probably be other special cases
+
+	var/image/tile_overlay = null
+
+/obj/structure/ladder/floor_hatch/Initialize(mapload)
+	. = ..()
+
+	if(hide)
+
+		tile_overlay = icon(icon, "floor_hatch_latch")
+
+		AddElement(/datum/element/undertile, tile_overlay = tile_overlay, TRAIT_T_RAY_VISIBLE, INVISIBILITY_OBSERVER)
+
+/obj/structure/ladder/floor_hatch/LateInitialize()
+	var/turf/T = get_turf(src)
+	var/obj/structure/ladder/L
+
+	if (!down) //only checking down
+		L = locate() in GET_TURF_BELOW(T)
+		if (L)
+			down = L
+			L.up = src
+			L.update_icon()
+		else
+			down = FALSE
+
