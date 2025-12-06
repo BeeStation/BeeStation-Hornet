@@ -145,5 +145,8 @@
 	// New players on the menu get the size of the lobby art
 	if(istype(M, /mob/dead/new_player))
 		return SStitle.lobby_screen_size
+	// Get the client's view size
+	if (M.client)
+		return M.client.prefs.read_player_preference(/datum/preference/choiced/screen_size)
 	// Otherwise, they get the default view
-	return CONFIG_GET(string/default_view)
+	return world.view
