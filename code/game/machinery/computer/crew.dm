@@ -297,8 +297,11 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		entry["can_track"] = tracked_human.can_track()
 
 		/// Update the tracked entry
-		if (I?.registered_name)
-			outdated_update[I.registered_name] = entry
+		if (I?.registered_name && find_record(I.registered_name, GLOB.manifest.general))
+			outdated_update[I.registered_name] = list(
+				"name" = I.registered_name,
+				"last_update" = world.time
+			)
 			valid_refs[I.registered_name] = TRUE
 
 		results[++results.len] = entry
@@ -307,8 +310,12 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		if (valid_refs[outdated_ref])
 			continue
 		var/list/last_results = outdated_update[outdated_ref]
+		// Deleted from the records, cryo'd or malicious intent. Remove the target
+		if (!find_record(last_results["name"], GLOB.manifest.general))
+			outdated_update -= outdated_ref
+			continue
 		results[++results.len] = list(
-			"ref" = REF(outdated_ref),
+			"ref" = outdated_ref,
 			"name" = last_results["name"],
 			"last_update" = last_results["last_update"],
 			"missing" = TRUE

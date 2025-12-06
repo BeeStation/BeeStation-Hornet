@@ -269,7 +269,7 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
             justifyContent: 'center',
           }}
         >
-          <Icon name="question" color="#ffffff" size={1} />
+          <Icon name="question" color="#ffffff" size={1} />{' '}
         </Table.Cell>
       </Table.Row>
     );
