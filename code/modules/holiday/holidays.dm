@@ -541,6 +541,11 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 
+/datum/holiday/christmas_tree
+	name = CHRISTMAS_TREE //This controls the days where the xmas tree with presents spawns.
+	begin_day = 14
+	begin_month = DECEMBER
+	end_day = 28
 
 /datum/holiday/festive_season
 	name = FESTIVE_SEASON

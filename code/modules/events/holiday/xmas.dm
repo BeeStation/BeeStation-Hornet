@@ -78,7 +78,7 @@
 
 /obj/effect/spawner/xmastree/Initialize(mapload)
 	. = ..()
-	if((CHRISTMAS in SSevents.holidays) && christmas_tree)
+	if((CHRISTMAS_TREE in SSevents.holidays) && christmas_tree)
 		new christmas_tree(get_turf(src))
 	else if((FESTIVE_SEASON in SSevents.holidays) && festive_tree)
 		new festive_tree(get_turf(src))
