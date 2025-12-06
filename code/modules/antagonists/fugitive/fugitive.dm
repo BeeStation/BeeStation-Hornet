@@ -6,7 +6,7 @@
 	antagpanel_category = "Fugitives"
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
-	required_living_playtime = 1
+	required_living_playtime = 0
 	var/datum/team/fugitive/fugitive_team
 	var/is_captured = FALSE
 	var/living_on_capture = TRUE

@@ -16,5 +16,5 @@
 /// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
 #define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
 
-/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+/// called on implants, after an implant has been removed: (mob/living/source, silent, removed)
 #define COMSIG_IMPLANT_REMOVED "implant_removed"

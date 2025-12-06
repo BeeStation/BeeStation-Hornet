@@ -14,7 +14,7 @@ GLOBAL_LIST(admin_antag_list)
 	/// The ROLE_X key used for this antagonist.
 	var/banning_key
 	/// Required living playtime to be included in the rolling for this antagonist
-	var/required_living_playtime = 1
+	var/required_living_playtime = 0
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
@@ -22,6 +22,10 @@ GLOBAL_LIST(admin_antag_list)
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
 	var/ui_name = "AntagInfoGeneric"
+	/// What faction does the antag belong to, used to determine if faction specific items
+	/// such as uplinks can detect this datum's objectives for the cases where a syndicate
+	/// gets new objectives due to conversion.
+	var/faction = null
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
@@ -204,7 +208,8 @@ GLOBAL_LIST(admin_antag_list)
 
 //Returns the team antagonist belongs to if any.
 /datum/antagonist/proc/get_team()
-	return
+	RETURN_TYPE(/datum/team)
+	return null
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()

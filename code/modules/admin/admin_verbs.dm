@@ -837,7 +837,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] re-adminned themselves.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Readmin")
 
-/client/proc/populate_world(amount = 50 as num)
+/client/proc/populate_world(amount = 50 as num, give_minds as anything in list("Give minds", "Don't give minds"))
 	set name = "Populate World"
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
@@ -867,6 +867,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 						if(tile)
 							var/mob/living/carbon/human/hooman = new(tile)
+							if (give_minds == "Yes")
+								hooman.mind_initialize()
 							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
 							testing("Spawned test mob at [COORD(tile)]")
 			while(!area && --j > 0)

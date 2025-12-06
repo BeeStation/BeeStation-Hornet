@@ -1279,33 +1279,6 @@ const LatejoinPage = () => {
             }}
           />
         </LabeledList.Item>
-        <LabeledList.Item
-          label="Set Latejoin Probability"
-          verticalAlign="middle"
-        >
-          <NumberInput
-            value={latejoin_probability ?? 0}
-            animated
-            minValue={0}
-            maxValue={100}
-            step={10}
-            onChange={(value) =>
-              act('set_latejoin_probability', { new_probability: value })
-            }
-            width="25%"
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Set Max Latejoins" verticalAlign="middle">
-          <NumberInput
-            value={latejoin_max ?? 0}
-            animated
-            minValue={0}
-            maxValue={100}
-            step={1}
-            onChange={(value) => act('set_latejoin_max', { new_max: value })}
-            width="25%"
-          />
-        </LabeledList.Item>
       </Section>
       <Divider />
 

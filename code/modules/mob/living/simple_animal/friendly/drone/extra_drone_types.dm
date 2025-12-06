@@ -35,6 +35,7 @@
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
 	hidden_uplink.telecrystals = 10
+	hidden_uplink.directive_flags = NONE
 
 /mob/living/simple_animal/drone/syndrone/Login()
 	. = ..()
@@ -50,6 +51,7 @@
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
 	hidden_uplink.telecrystals = 30
+	hidden_uplink.directive_flags = NONE
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(src)
 	W.implant(src, force = TRUE)
 
