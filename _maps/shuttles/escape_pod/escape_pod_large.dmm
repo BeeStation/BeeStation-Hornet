@@ -6,6 +6,8 @@
 /obj/item/storage/pod{
 	pixel_x = -24
 	},
+/obj/item/toy/batong,
+/obj/item/clothing/head/costume/kitty,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "r" = (
@@ -30,9 +32,6 @@
 /area/shuttle/pod_1)
 "C" = (
 /obj/machinery/computer/shuttle_flight/monastery_shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "H" = (
@@ -48,6 +47,9 @@
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "L" = (
@@ -62,6 +64,9 @@
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
