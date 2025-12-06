@@ -172,7 +172,6 @@
 
 			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
 			target_id_card.assignment = "Unassigned"
-			target_id_card.update_label()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -191,7 +190,6 @@
 				return
 			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			target_id_card.registered_name = new_name
-			target_id_card.update_label()
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_assign")
@@ -211,7 +209,6 @@
 				else
 					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 					target_id_card.assignment = custom_name
-					target_id_card.update_label()
 			else
 				if(minor && !(target in head_subordinates))
 					return
@@ -235,7 +232,6 @@
 				log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 
 				target_id_card.assignment = target
-				target_id_card.update_label()
 
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE

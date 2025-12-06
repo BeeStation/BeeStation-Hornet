@@ -73,7 +73,7 @@
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
-	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
+	l_pocket = /obj/item/clothing/accessory/badge/hos
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

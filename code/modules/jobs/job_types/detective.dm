@@ -47,7 +47,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
 	l_pocket = /obj/item/modular_computer/tablet/pda/preset/detective
-	r_pocket = /obj/item/clothing/accessory/badge/officer/det
+	r_pocket = /obj/item/clothing/accessory/badge/det
 
 	mask = /obj/item/clothing/mask/cigarette
 

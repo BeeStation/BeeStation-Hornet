@@ -581,7 +581,6 @@
 	var/obj/item/card/id/W = H.wear_id
 	no_drops += W
 	W.registered_name = H.real_name
-	W.update_label(W.registered_name, W.assignment)
 
 	no_drops += H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_GLOVES)

@@ -199,7 +199,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			id.access |= get_every_access()
 			id.registered_name = H.real_name
 			id.assignment = JOB_NAME_CAPTAIN
-			id.update_label()
 
 			if(worn)
 				if(istype(worn, /obj/item/modular_computer/tablet/pda))

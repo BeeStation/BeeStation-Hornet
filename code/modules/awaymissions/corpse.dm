@@ -232,7 +232,6 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		if(id_job)
 			W.assignment = id_job
 		W.registered_name = H.real_name
-		W.update_label()
 
 //Instant version - use when spawning corpses during runtime
 /obj/effect/mob_spawn/human/corpse

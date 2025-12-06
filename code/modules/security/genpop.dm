@@ -717,7 +717,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 			registered_name = "Prisoner WR-ROSETTA#[rand(0, 10000)]"
 		else
 			registered_name = _name
-		update_label(registered_name, "Convict")
 		START_PROCESSING(SSobj, src)
 
 /obj/item/card/id/prisoner/Destroy()
@@ -736,7 +735,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 	if(served_time >= sentence) //FREEDOM!
 		assignment = "Ex-Convict"
 		access = list(ACCESS_PRISONER)
-		update_label(registered_name, assignment)
 		playsound(loc, 'sound/machines/ping.ogg', 50, 1)
 
 		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)

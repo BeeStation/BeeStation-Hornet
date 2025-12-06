@@ -1640,3 +1640,44 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // For item specific checks on strip start. Return true to interrupt stripping, return false to continue stripping.
 /obj/item/proc/on_start_stripping(mob/source, mob/user, item_slot)
 	return FALSE
+
+/obj/item/Topic(href, href_list)
+	. = ..()
+
+	if (href_list["examine"])
+		// Allow examine from up to 4 tiles away
+		if(get_dist(usr, src) > 4)
+			to_chat(usr, span_warning("You are too far away!"))
+			return
+		usr.examinate(src)
+		return TRUE
+
+/obj/item/examine_title(mob/user, thats = FALSE)
+	// Items use get_examine_line() which includes blood stains, ID links, examine links, etc.
+	// When thats=TRUE, this is the main item being examined, so skip the self-referential examine link
+	// When thats=FALSE, this is an inventory item, so include the examine link
+	var/examine_line = get_examine_line(skip_examine_link = thats)
+	if(thats)
+		examine_line = "[examine_thats] [examine_line]"
+	return examine_line
+
+/obj/item/proc/get_examine_line(skip_examine_link = FALSE)
+	var/whole_word = usr?.client?.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
+	var/examine_name = get_examine_name(usr)
+
+	// Don't add examine link if this is the item being directly examined
+	if(skip_examine_link)
+		return "[icon2html(src, viewers(get_turf(src)))] [examine_name]"
+
+	var/obj/item/card/id/ID = GetID()
+	if(ID)
+		if(whole_word)
+			. = "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a> <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+		else
+			. = "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+	else
+		if(whole_word)
+			. = "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a>"
+		else
+			. = "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+
