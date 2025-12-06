@@ -1299,6 +1299,16 @@
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/deputy(src)
 
+/obj/item/storage/box/vouchers
+	name = "box of security vouchers"
+	desc = "To be issued to new recruits only."
+	icon_state = "secbox"
+	illustration = "writing_syndie"
+
+/obj/item/storage/box/vouchers/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/mining_voucher/security(src)
+
 /obj/item/storage/box/radiokey
 	name = "box of generic radio keys"
 	desc = "You shouldn't be seeing this. Ahelp."
