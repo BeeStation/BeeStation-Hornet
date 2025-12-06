@@ -1,6 +1,6 @@
 /datum/antagonist/vassal
 	name = "\improper Vassal"
-	roundend_category = "vassals"
+	roundend_category = "Vassal"
 	antagpanel_category = "Vampire"
 	banning_key = ROLE_VAMPIRE
 	show_in_roundend = FALSE
@@ -11,12 +11,8 @@
 	var/datum/antagonist/vampire/master
 	/// The Vampire's team
 	var/datum/team/vampire/vampire_team
-	/// List of all Purchased Powers, like Vampires.
+	/// List of Powers, like Vampires.
 	var/list/datum/action/powers = list()
-	/// Whether this vassal is already a special type of Vassal.
-	var/special_type
-	/// Description of what this Vassal does.
-	var/vassal_description
 	/// A link to our team monitor, used to track our master.
 	var/datum/component/team_monitor/monitor
 
@@ -36,9 +32,8 @@
 	// Team
 	vampire_team = master.vampire_team
 	vampire_team.add_member(current_mob.mind)
-	current_mob.faction |= FACTION_VAMPIRE
-
 	add_antag_hud(ANTAG_HUD_VAMPIRE, vassal_hud_name, current_mob)
+	current_mob.faction |= FACTION_VAMPIRE
 
 /datum/antagonist/vassal/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -74,10 +69,6 @@
 	owner.enslave_mind_to_creator(master.owner)
 	owner.current.log_message("has been vassalized by [master.owner]!", LOG_ATTACK, color="#960000")
 
-	// Handle special vassalss
-	if(special_type)
-		master.special_vassals[special_type] += 1
-
 	// Give powers
 	grant_power(new /datum/action/vampire/recuperate)
 	grant_power(new /datum/action/vampire/distress)
@@ -90,8 +81,6 @@
 
 	// Free them from their Master
 	if(master)
-		if(special_type)
-			master.special_vassals[special_type] -= 1
 		master.vassals -= src
 		owner.enslaved_to = null
 

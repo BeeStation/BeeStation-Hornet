@@ -81,9 +81,3 @@
 	antag_datum = /datum/antagonist/vampire
 	weight = 4
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
-
-/datum/dynamic_ruleset/latejoin/vampire/execute()
-	. = ..()
-	for(var/mob/chosen_candidate in chosen_candidates)
-		var/datum/antagonist/vampire/new_vampire = IS_VAMPIRE(chosen_candidate)
-		new_vampire.vampire_level_unspent = rand(2,3)

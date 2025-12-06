@@ -82,21 +82,6 @@
 
 //////////////////////////////////////////////
 //                                          //
-//                  VAMPIRE                 //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/roundstart/vampire
-	name = "Vampire"
-	role_preference = /datum/role_preference/roundstart/vampire
-	antag_datum = /datum/antagonist/vampire
-	weight = 8
-	points_cost = 9
-	minimum_players_required = 13
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
-
-//////////////////////////////////////////////
-//                                          //
 //             MALFUNCTIONING AI            //
 //                                          //
 //////////////////////////////////////////////
@@ -231,6 +216,28 @@
 		SSticker.news_report = CULT_FAILURE
 
 //////////////////////////////////////////////
+//                                          //
+//                  VAMPIRES                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/vampires
+	name = "Vampires"
+	role_preference = /datum/role_preference/roundstart/vampire
+	antag_datum = /datum/antagonist/vampire
+	weight = 5
+	points_cost = 15
+	minimum_players_required = 12
+	drafted_players_amount = 4
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+
+/datum/dynamic_ruleset/roundstart/vampires/set_drafted_players_amount()
+	// Start with 4 at 12 pop. Every three players, a vampire gets added.
+	// We make this a bit on the heavy side, because starting pop is always low.
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 3, 1), 4)
+
+/////////////////////////////////////////////
 //                                          //
 //                CLOCK CULT                //
 //                                          //

@@ -14,17 +14,51 @@
 /// Once blood is this low, will enter a Frenzy
 #define FRENZY_THRESHOLD_ENTER 25
 /// Once blood is this high, will exit the Frenzy. Intentionally high, we want to kill the person we feed off of
-#define FRENZY_THRESHOLD_EXIT 250
+#define FRENZY_THRESHOLD_EXIT 500
 /// How much blood drained from the vampire each lifetick
 #define VAMPIRE_PASSIVE_BLOOD_DRAIN 0.1
+/// The number that incoming levels are divided by when comitting the Amaranth. Example: 2 would divide the victims level by 2, and give that to the diablerist
+#define DIABLERIE_DIVISOR 1.5
+/// Amount of vitae drunk from another player required to level up.
+#define VITAE_GOAL_STANDARD 250
 
-// Vassal defines
+/// How many starting levels do we want each one to have?
+#define VAMPIRE_STARTING_LEVELS 3
+/// Vampire's default stamina resist. Tuned to withstand one taser and not more.
+#define VAMPIRE_INHERENT_STAMINA_RESIST 0.45
+
+/// When do we warn them about their low blood?
+#define VAMPIRE_LOW_BLOOD_WARNING 300
+
+/// How much blood drained from the vampire each tick during sol
+#define VAMPIRE_SOL_BURN 30
+
+// vassal defines
 /// If someone passes all checks and can be vassalized
 #define VASSALIZATION_ALLOWED 0
 /// If someone has to accept vassalization
 #define VASSALIZATION_DISLOYAL 1
-/// If someone is not allowed under any circimstances to become a Vassal
+/// If someone is not allowed under any circimstances to become a vassal
 #define VASSALIZATION_BANNED 2
+
+// Humanity gains (The actual tracking lists and such are in the datum duh)
+// These are supposed to be somewhat nontrivial, to the point of sometimes not being viable.
+/// Hugging of separate people
+#define HUMANITY_HUGGING_TYPE "hug"
+
+/// Petting of separate animals
+#define HUMANITY_PETTING_TYPE "pet"
+
+/// Watching of art
+#define HUMANITY_ART_TYPE "art"
+
+#define HUMANITY_GAIN_TYPES list(HUMANITY_HUGGING_TYPE, HUMANITY_PETTING_TYPE, HUMANITY_ART_TYPE)
+
+/// Default Humanity
+#define VAMPIRE_DEFAULT_HUMANITY 7
+
+// List of areas that are shielded from sol.
+#define VAMPIRE_SOL_SHIELDED list(/area/maintenance, /area/medical/morgue, /area/security/prison, /area/ai_monitored, /area/holodeck/prison)
 
 // Cooldown defines
 // Used to prevent spamming vampires
@@ -49,10 +83,6 @@
 #define CLAN_HECATA "Hecata Clan"
 #define CLAN_LASOMBRA "Lasombra Clan"
 
-#define TREMERE_VASSAL "tremere_vassal"
-#define FAVORITE_VASSAL "favorite_vassal"
-#define DISCORDANT_VASSAL "discordant_vassal"
-
 // Power defines
 /// This Power can't be used in Torpor
 #define BP_CANT_USE_IN_TORPOR (1<<0)
@@ -67,16 +97,8 @@
 /// This Power can't be used during Sol
 #define BP_CANT_USE_DURING_SOL (1<<5)
 
-/// This Power can be purchased by Vampires
-#define VAMPIRE_CAN_BUY (1<<0)
 /// This is a Default Power that all Vampires get.
 #define VAMPIRE_DEFAULT_POWER (1<<1)
-/// This Power can be purchased by Tremere Vampires
-#define TREMERE_CAN_BUY (1<<2)
-/// This Power can be purchased by Vassals
-#define VASSAL_CAN_BUY (1<<3)
-/// This Power is exclusive to Brujah vampires, who will gain them upon joining Brujah.
-#define BRUJAH_DEFAULT_POWER (1<<4)
 
 /// This Power is a Toggled Power
 #define BP_AM_TOGGLE (1<<0)
@@ -89,11 +111,16 @@
 /// This Power has a cooldown that is more dynamic than a typical power
 #define BP_AM_VERY_DYNAMIC_COOLDOWN (1<<4)
 
+///Called when a Vampire reaches Final Death.
+#define COMSIG_VAMPIRE_FINAL_DEATH "vampire_final_death"
+	///Whether the vampire should not be dusted when arriving Final Death
+	#define DONT_DUST (1<<0)
+
 // Vampire Signals
 /// Called when a Vampire breaks the Masquerade
 #define COMSIG_VAMPIRE_BROKE_MASQUERADE "comsig_vampire_broke_masquerade"
 
-// Sol signals & Defines
+// Signals & Defines
 /// Sent every Sol tick
 #define COMSIG_SOL_RISE_TICK "comsig_sol_rise_tick"
 /// Sent 90 seconds before Sol begins
@@ -104,6 +131,8 @@
 #define COMSIG_SOL_NEAR_END "comsig_sol_near_end"
 /// Sent when a warning for Sol is meant to go out: (danger_level, vampire_warning_message, vassal_warning_message)
 #define COMSIG_SOL_WARNING_GIVEN "comsig_sol_warning_given"
+/// Sent when tracking humanity gain progress: (type, subject)
+#define COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN "comsig_vampire_track_humanity_gain"
 
 #define DANGER_LEVEL_FIRST_WARNING 1
 #define DANGER_LEVEL_SECOND_WARNING 2
@@ -116,6 +145,8 @@
 #define VAMPIRE_DRINK_NORMAL "vampire_drink_normal"
 /// Drinks blood but is snobby, refusing to drink from mindless
 #define VAMPIRE_DRINK_SNOBBY "vampire_drink_snobby"
+// Masquerade ability given at this point or above
+#define VAMPIRE_HUMANITY_MASQUERADE_POWER 7
 
 // Traits
 /// Falsifies Health analyzer blood levels
@@ -124,9 +155,11 @@
 #define TRAIT_COLDBLOODED "trait_coldblooded"
 /// For people in the middle of being staked
 #define TRAIT_BEINGSTAKED "trait_beingstaked"
+/// For people we have bitten
+#define TRAIT_FEED_MARKED "trait_feedmarked"
 
 // Trait sources
-/// Sour trait for all vampire traits
+/// Source trait for all vampire traits
 #define TRAIT_VAMPIRE "trait_vampire"
 /// Source trait while Feeding
 #define TRAIT_FEED "trait_feed"
@@ -136,6 +169,10 @@
 #define TRAIT_TORPOR "trait_torpor"
 /// Source trait for vampire mesmerization.
 #define TRAIT_MESMERIZED "trait_mesmerized"
+/// Source trait for vampire commandment.
+#define TRAIT_COMMANDED "trait_commanded"
+/// Source trait for feedmarks
+#define TRAIT_FEED_MARKS "trait_feedmarks"
 
 // Macros
 #define IS_CURATOR(mob) (mob?.mind?.assigned_role == JOB_NAME_CURATOR)

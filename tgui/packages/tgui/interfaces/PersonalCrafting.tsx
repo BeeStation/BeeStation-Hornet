@@ -65,6 +65,7 @@ const CATEGORY_ICONS_CRAFTING = {
   Tools: 'screwdriver-wrench',
   Entertainment: 'masks-theater',
   'Blood Cult': 'users',
+  Vampire: 'droplet',
 } as const;
 
 const CATEGORY_ICONS_COOKING = {
