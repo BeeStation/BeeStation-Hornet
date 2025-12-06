@@ -14,3 +14,7 @@
   PowerfulBacon:
   - tweak: Admins can now bypass antagonist time restrictions when the use_exp_restrictions_admin_bypass
       flag is set, making local testing easier.
+2025-12-05:
+  PowerfulBacon:
+  - bugfix: Fixes a lag issue caused by reagent containers detonating under certain
+      conditions.
