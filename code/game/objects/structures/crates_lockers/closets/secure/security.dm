@@ -406,7 +406,8 @@
 	new /obj/item/clothing/suit/armor/bulletproof(src)
 
 /obj/structure/closet/secure_closet/lethalshots
-	name = "shotgun lethal rounds"
+	name = "lethal armory ammunition locker"
+	desc = "A locker containing lethal ammunition for armory-issued weapons. Standard issue is sold separately."
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "tac"
 
@@ -414,3 +415,6 @@
 	..()
 	for(var/i in 1 to 3)
 		new /obj/item/storage/box/lethalshot(src)
+		new /obj/item/storage/box/breacherslug(src)
+		new /obj/item/ammo_box/magazine/wt550m9(src) // Six of them
+		new /obj/item/ammo_box/magazine/wt550m9(src)

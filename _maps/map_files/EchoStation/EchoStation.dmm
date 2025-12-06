@@ -2814,7 +2814,6 @@
 /turf/open/openspace/planetary,
 /area/engineering/hallway)
 "bnW" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/box/flashbangs{
 	pixel_x = -3;
 	pixel_y = 9
@@ -2827,6 +2826,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/structure/closet/gun_locker/boxes,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "bnY" = (
@@ -10794,12 +10794,12 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/rack,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/structure/closet/gun_locker/boxes,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fwN" = (
@@ -15186,7 +15186,6 @@
 /turf/open/openspace/planetary,
 /area/engineering/hallway)
 "hKm" = (
-/obj/structure/table/reinforced,
 /obj/item/gun/energy/ionrifle{
 	pixel_x = -1;
 	pixel_y = 10
@@ -15203,6 +15202,8 @@
 	pixel_x = 5;
 	pixel_y = 32
 	},
+/obj/item/clothing/suit/armor/laserproof,
+/obj/structure/closet/gun_locker/techgear,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hKJ" = (
@@ -20331,16 +20332,13 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/structure/rack,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/structure/closet/gun_locker/ballistic,
+/obj/effect/loot_jobscale/armoury/wt550,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "kxR" = (
@@ -22683,20 +22681,17 @@
 /turf/open/floor/iron/dark/textured_corner,
 /area/engine/atmos)
 "lOq" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/gun/energy/laser{
-	pixel_x = 1;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = 2;
-	pixel_y = 1
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/structure/closet/gun_locker/boxes,
+/obj/item/storage/box/trackimp{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/storage/lockbox/loyalty,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "lOG" = (
@@ -26180,33 +26175,18 @@
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
 "nHO" = (
-/obj/structure/table/reinforced,
-/obj/structure/barricade/security{
-	pixel_x = 8;
-	pixel_y = 12
-	},
-/obj/structure/barricade/security{
-	pixel_x = 8;
-	pixel_y = 7
-	},
-/obj/structure/barricade/security{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/obj/item/storage/box/trackimp{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/structure/barricade/security{
-	pixel_y = 10
-	},
-/obj/structure/barricade/security{
-	pixel_y = 5
-	},
-/obj/item/storage/lockbox/loyalty,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/energy,
+/obj/item/gun/energy/laser{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 2;
+	pixel_y = 1
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -27949,26 +27929,12 @@
 /area/engine/atmos)
 "oKo" = (
 /obj/machinery/firealarm/directional/south,
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_y = 7
-	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/clothing/head/helmet/alt{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/helmet/alt{
-	pixel_y = 1
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/machinery/flasher/portable,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "oKy" = (
@@ -28565,7 +28531,6 @@
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/structure/rack,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -28578,6 +28543,7 @@
 	pixel_x = 5;
 	pixel_y = 32
 	},
+/obj/structure/closet/gun_locker/armor_riot,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "oVK" = (
@@ -30655,10 +30621,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"qfG" = (
-/obj/machinery/flasher/portable,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "qgn" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -41558,12 +41520,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "vPr" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box{
-	name = "Emergency donut box";
-	pixel_x = -2;
-	pixel_y = 15
-	},
 /obj/item/gun/energy/e_gun/dragnet{
 	pixel_x = -2;
 	pixel_y = 1
@@ -41579,10 +41535,10 @@
 /obj/machinery/camera/motion/directional/west{
 	c_tag = "Armory - Internal"
 	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -11
+/obj/item/gun/grenadelauncher/security{
+	pixel_y = 8
 	},
+/obj/structure/closet/gun_locker/support,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "vPC" = (
@@ -45160,14 +45116,24 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "xNi" = (
-/obj/structure/table/reinforced,
-/obj/item/gun/grenadelauncher/security{
-	pixel_y = 8
-	},
-/obj/item/clothing/suit/armor/laserproof,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/armor_bulletproof,
+/obj/item/clothing/head/helmet/alt{
+	pixel_y = 1
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_y = 7
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/clothing/head/helmet/alt{
+	pixel_x = 6;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -187643,7 +187609,7 @@ jXs
 fbe
 dNl
 qRb
-qfG
+pio
 bnk
 gBk
 jSJ
