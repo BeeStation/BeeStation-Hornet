@@ -129,6 +129,7 @@
 		)
 	species_language_holder = /datum/language_holder/lizard/ash
 	mutantlungs = /obj/item/organ/lungs/ashwalker
+	mutantbrain = /obj/item/organ/brain/primitive
 	digitigrade_customization = DIGITIGRADE_FORCED
 
 /datum/species/lizard/ashwalker/spec_life(mob/living/carbon/human/H)
