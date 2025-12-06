@@ -32,6 +32,9 @@
 	var/detonation_timer
 	var/explode_now = FALSE
 
+	/// Time that the bomb was primed at
+	VAR_FINAL/primed_at = 0
+
 /obj/machinery/syndicatebomb/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/syndicatebomb(src)
@@ -54,7 +57,7 @@
 	if((payload in src) && (active || ignore_active))
 		if(istype(payload, /obj/item/bombcore))
 			var/obj/item/bombcore/bomb_payload = payload
-			bomb_payload.detonate()
+			bomb_payload.detonate(world.time - primed_at)
 		else if(istype(payload, /obj/item/transfer_valve))
 			var/obj/item/transfer_valve/valve_payload = payload
 			valve_payload.toggle_valve()
@@ -215,6 +218,7 @@
 	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE, "#c32bff")
 	countdown.start()
 	next_beep = world.time + 10
+	primed_at = world.time
 	detonation_timer = world.time + (timer_set * 10)
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
 	notify_ghosts("\A [src] has been activated at [get_area(src)]!", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Bomb Planted")
@@ -227,12 +231,10 @@
 	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && in_range(src, user) && isliving(user))
 		if(active)
 			return
-		if(!anchored)
-			to_chat(user, span_warning("[src] must be anchored in order to arm!"))
+		if(atom_integrity <= integrity_failure * max_integrity)
+			to_chat(user, span_warning("[src] is too damaged to arm!"))
 			return
-		if(atom_integrity != max_integrity)
-			to_chat(user, span_warning("[src] must be undamaged in order to arm!"))
-			return
+		set_anchored(TRUE)
 		visible_message(span_danger("[icon2html(src, viewers(loc))] [timer_set] seconds until detonation, please clear the area."))
 		activate()
 		update_icon()
@@ -285,7 +287,8 @@
 
 /obj/item/bombcore
 	name = "bomb payload"
-	desc = "A powerful secondary explosive of syndicate design and unknown composition, it should be stable under normal conditions..."
+	desc = "A powerful secondary explosive of syndicate design and unknown composition, it requires \
+		an arm time of 10 minutes to reach full strength. It should be stable under normal conditions..."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
 	inhand_icon_state = "eshield0"
@@ -297,10 +300,15 @@
 	/// Indicates if the bombcore is inside a valid bomb and is ready to explode. Set this to true to allow for activation.
 	var/installed = FALSE
 	var/adminlog = null
-	var/range_heavy = 3
-	var/range_medium = 9
-	var/range_light = 17
-	var/range_flame = 17
+	/// The strength multiplier of the explosive before reaching full strength
+	var/base_multiplier = 0.5
+	/// The amount of time that a bomb needs to be armed for before
+	/// it reaches full strength.
+	var/charge_time = 10 MINUTES
+	var/range_heavy = 6
+	var/range_medium = 16
+	var/range_light = 24
+	var/range_flame = 24
 
 /obj/item/bombcore/ex_act(severity, target) // Little boom can chain a big boom.
 	detonate()
@@ -309,14 +317,16 @@
 	detonate()
 	return ..()
 
-/obj/item/bombcore/proc/detonate()
+/obj/item/bombcore/proc/detonate(time_spent)
 	if(!loc)
 		return
 	if(!installed)
 		qdel(src)
 		return
 
-	explosion(src, range_heavy, range_medium, range_light, flame_range = range_flame)
+	var/explosion_multiplier = CLAMP01(time_spent / charge_time) * (1 - base_multiplier) + base_multiplier
+
+	explosion(src, range_heavy * explosion_multiplier, range_medium * explosion_multiplier, range_light * explosion_multiplier, flame_range = range_flame * explosion_multiplier)
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
@@ -394,10 +404,11 @@
 
 /obj/item/bombcore/large
 	name = "large bomb payload"
-	range_heavy = 5
-	range_medium = 10
-	range_light = 20
-	range_flame = 20
+	range_heavy = 8
+	range_medium = 16
+	range_light = 30
+	range_flame = 30
+	base_multiplier = 1
 
 // Special bomb core for inside the lavaland syndicate base walls. Players should not be able to interact with this.
 /obj/item/bombcore/large/syndicate_base
@@ -408,10 +419,10 @@
 /obj/item/bombcore/miniature
 	name = "small bomb core"
 	w_class = WEIGHT_CLASS_SMALL
-	range_heavy = 1
-	range_medium = 2
-	range_light = 4
-	range_flame = 2
+	range_heavy = 2
+	range_medium = 3
+	range_light = 5
+	range_flame = 3
 
 /obj/item/bombcore/chemical
 	name = "chemical payload"
