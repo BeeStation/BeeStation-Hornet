@@ -11965,16 +11965,18 @@
 /area/hallway/primary/aft)
 "geb" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/clown{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stamp/clown{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/structure/sign/poster/contraband/clown{
 	pixel_x = -30
+	},
+/obj/item/toy/figure/clown{
+	pixel_x = -9;
+	pixel_y = 4
+	},
+/obj/item/toy/figure/mime{
+	pixel_y = 13
+	},
+/obj/item/toy/dummy{
+	pixel_x = 6
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
@@ -18143,19 +18145,19 @@
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
 "jqN" = (
-/obj/item/bikehorn{
-	pixel_x = -3;
-	pixel_y = 16
-	},
 /obj/structure/bed,
-/obj/item/bedsheet/clown,
-/obj/effect/landmark/start/clown,
 /obj/machinery/requests_console{
 	department = "Theatre";
 	name = "theatre RC";
 	pixel_x = 32;
 	pixel_y = -3
 	},
+/obj/item/bikehorn/rubberducky{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/obj/effect/landmark/start/mime,
+/obj/item/bedsheet/mime,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "jqV" = (
@@ -18528,6 +18530,10 @@
 /area/tcommsat/computer)
 "jCv" = (
 /obj/structure/dresser,
+/obj/item/flashlight/lamp/bananalamp{
+	pixel_y = 20;
+	pixel_x = 2
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "jCG" = (
@@ -21942,15 +21948,15 @@
 	pixel_y = -3
 	},
 /obj/structure/bed,
-/obj/item/bikehorn/rubberducky{
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/obj/item/bedsheet/mime,
-/obj/effect/landmark/start/mime,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/bikehorn{
+	pixel_x = -3;
+	pixel_y = 16
+	},
+/obj/effect/landmark/start/clown,
+/obj/item/bedsheet/clown,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "lqo" = (
@@ -31277,10 +31283,6 @@
 /area/hallway/primary/central)
 "qyG" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/mime{
-	pixel_x = 9;
-	pixel_y = -1
-	},
 /obj/item/paper_bin{
 	pixel_x = -4;
 	pixel_y = 4
@@ -31290,6 +31292,10 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/item/pen{
+	pixel_x = -4;
+	pixel_y = 5
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
@@ -32430,12 +32436,20 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/pen/blue{
-	pixel_x = 8;
-	pixel_y = 8
-	},
 /obj/structure/mirror{
 	pixel_x = -26
+	},
+/obj/item/stamp/clown{
+	pixel_x = 9;
+	pixel_y = 12
+	},
+/obj/item/pen/invisible{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/stamp/mime{
+	pixel_x = 9;
+	pixel_y = 2
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
