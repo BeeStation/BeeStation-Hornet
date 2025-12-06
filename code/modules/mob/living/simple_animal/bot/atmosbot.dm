@@ -176,7 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/atmosbot)
 
 		if(!LAZYLEN(path))
 			var/turf/target_turf = get_turf(target)
-			path = get_path_to(src, target_turf, 30, id=access_card, simulated_only = FALSE)
+			path = get_path_to(src, target_turf, 30, access=access_card.GetAccess(), simulated_only = FALSE)
 
 			if(!bot_move(target))
 				add_to_ignore(target)

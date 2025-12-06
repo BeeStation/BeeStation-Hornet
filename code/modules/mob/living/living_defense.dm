@@ -143,6 +143,7 @@
 	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /mob/living/fire_act()
+	. = ..()
 	adjust_fire_stacks(3)
 	IgniteMob()
 
