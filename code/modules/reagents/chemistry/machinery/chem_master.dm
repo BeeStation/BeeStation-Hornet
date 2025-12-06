@@ -25,9 +25,9 @@
 	var/mode = 1
 	/// Decides what UI to show. If TRUE shows UI of CondiMaster, if FALSE - ChemMaster
 	var/condi = FALSE
-	/// Currently selected pill style
+	/// Currently selected pill icon
 	var/chosen_pill_style = "pill_shape_capsule_purple_pink"
-	var/chosen_patch_style = "bandaid_small_cross"
+	var/chosen_patch_style = "bandaid_small_suffocation"
 	/// Currently selected condiment bottle style
 	var/chosen_condi_style = CONDIMASTER_STYLE_AUTO
 	/// Current UI screen. On the moment of writing this comment there were two: 'home' - main screen, and 'analyze' - info about specific reagent
@@ -504,8 +504,7 @@
 					"color" = initial(R.color),
 					"description" = initial(R.description),
 					"metaRate" = initial(R.metabolization_rate) * (60 / 3),
-					"overD" = initial(R.overdose_threshold),
-					"addicD" = initial(R.addiction_threshold)
+					"overD" = initial(R.overdose_threshold)
 				)
 				screen = "analyze"
 				. = TRUE

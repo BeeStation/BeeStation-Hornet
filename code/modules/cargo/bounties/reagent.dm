@@ -137,7 +137,7 @@
 		/datum/reagent/medicine/ephedrine,
 		/datum/reagent/medicine/diphenhydramine,
 		/datum/reagent/drug/space_drugs,
-		/datum/reagent/drug/crank,
+		/datum/reagent/drug/blastoff,
 		/datum/reagent/blackpowder,
 		/datum/reagent/napalm,
 		/datum/reagent/firefighting_foam,

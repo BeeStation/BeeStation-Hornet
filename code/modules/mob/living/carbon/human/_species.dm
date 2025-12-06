@@ -596,8 +596,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(!HD) //Decapitated
 		return
 
-	if(HAS_TRAIT(H, TRAIT_HUSK))
-		return
 	var/datum/sprite_accessory/S
 	var/list/standing = list()
 
@@ -908,9 +906,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.remove_overlay(BODY_FRONT_LAYER)
 
 	REMOVE_LUM_SOURCE(H, LUM_SOURCE_MUTANT_BODYPART)
-
-	if(!mutant_bodyparts)
-		return
 
 	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
 

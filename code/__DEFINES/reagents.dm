@@ -50,6 +50,18 @@
 #define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
+///Minimum requirement for addiction buzz to be met. Addiction code only checks this once every two seconds, so this should generally be low
+#define MIN_ADDICTION_REAGENT_AMOUNT 1
+///Nicotine requires much less in your system to be happy
+#define MIN_NICOTINE_ADDICTION_REAGENT_AMOUNT 0.01
+#define MAX_ADDICTION_POINTS 1000
+
+///Addiction start/ends
+#define WITHDRAWAL_STAGE1_START_CYCLE 61
+#define WITHDRAWAL_STAGE1_END_CYCLE 120
+#define WITHDRAWAL_STAGE2_START_CYCLE 121
+#define WITHDRAWAL_STAGE2_END_CYCLE 180
+#define WITHDRAWAL_STAGE3_START_CYCLE 181
 
 //Used in holder.dm/equlibrium.dm to set values and volume limits
 ///the minimum volume of reagents than can be operated on.
@@ -90,7 +102,7 @@
 GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_purple_pink",
 		"pill_shape_capsule_bloodred",
-		"pill_shape_capsule_red_whitelined",
+		"pill_shape_capsule_orange_whitelined",
 		"pill_shape_capsule_orange",
 		"pill_shape_capsule_yellow",
 		"pill_shape_capsule_green",
@@ -105,7 +117,7 @@ GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_cyan_brown",
 		"pill_shape_capsule_purple_yellow",
 		"pill_shape_capsule_black_white",
-		"pill_shape_capsule_lightgreen_white",
+		"pill_shape_capsule_cyan_white",
 		"pill_shape_tablet_red_lined",
 		"pill_shape_tablet_lightred_flat",
 		"pill_shape_tablet_orange_flat",
@@ -130,11 +142,18 @@ GLOBAL_LIST_INIT(pill_shape_list, list(
 #define PILL_SHAPE_LIST_WITH_DUMMY (GLOB.pill_shape_list+"pill_random_dummy")
 
 GLOBAL_LIST_INIT(patch_shape_list, list(
-		"bandaid_small_cross",
+		"bandaid_small_suffocation",
+		"bandaid_small_toxin",
 		"bandaid_small_blank",
+		"bandaid_small_brute",
+		"bandaid_small_burn",
+		"bandaid_small_both",
+		"bandaid_big_suffocation",
+		"bandaid_big_toxin",
 		"bandaid_big_brute",
 		"bandaid_big_burn",
 		"bandaid_big_both",
+		"bandaid_big_unknown",
 		"bandaid_big_blank",))
 
 #define PATCH_SHAPE_LIST (GLOB.patch_shape_list)
@@ -176,3 +195,6 @@ GLOBAL_LIST_INIT(patch_shape_list, list(
 #define REACTION_TAG_CHEMICAL (1<<14)
 /// This reaction is produces a product that affects plants
 #define REACTION_TAG_PLANT (1<<15)
+
+#define BLASTOFF_DANCE_MOVE_CHANCE_PER_UNIT 3
+#define BLASTOFF_DANCE_MOVES_PER_SUPER_MOVE 3

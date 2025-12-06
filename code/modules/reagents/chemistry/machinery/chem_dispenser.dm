@@ -256,7 +256,6 @@
 					"volume" = created_amount,
 					"path" = result_path,
 					"description" = result_path::description,
-					"addiction" = result_path::addiction_threshold,
 					"overdose" = result_path::overdose_threshold,
 				))
 			//if (!results.len)
