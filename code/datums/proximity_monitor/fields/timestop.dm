@@ -209,24 +209,24 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/timestop)
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_projectile(obj/projectile/P)
 	P.paused = FALSE
 
-/datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/L)
-	frozen_mobs += L
-	if(L.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
-		immune += L
+/datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/victim)
+	frozen_mobs += victim
+	if(victim.can_block_magic(MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE))
+		immune += victim
 		return
-	L.Stun(20, ignore_canstun = TRUE)
-	SSmove_manager.stop_looping(src) //stops them mid pathing even if they're stunimmune //This is really dumb
-	if(isanimal(L))
-		var/mob/living/simple_animal/S = L
+	victim.Stun(20, ignore_canstun = TRUE)
+	SSmove_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune //This is really dumb
+	if(isanimal(victim))
+		var/mob/living/simple_animal/S = victim
 		S.toggle_ai(AI_OFF)
 		if(ishostile(S))
 			var/mob/living/simple_animal/hostile/hostile_victim = S
 			hostile_victim.LoseTarget()
-	else if(isbasicmob(L))
-		var/mob/living/basic/basic_victim = L
+	else if(isbasicmob(victim))
+		var/mob/living/basic/basic_victim = victim
 		basic_victim.ai_controller?.set_ai_status(AI_STATUS_OFF)
-	if(ishostile(L))
-		var/mob/living/simple_animal/hostile/H = L
+	if(ishostile(victim))
+		var/mob/living/simple_animal/hostile/H = victim
 		H.LoseTarget()
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/victim)
