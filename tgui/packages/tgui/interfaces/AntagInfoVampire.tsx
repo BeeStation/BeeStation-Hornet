@@ -36,23 +36,68 @@ type Info = {
 };
 
 export const AntagInfoVampire = (_props) => {
-  const [tab, setTab] = useLocalState('tab', 1);
+  // Set default to 2 so Basics (now in the middle) opens by default
+  const [tab, setTab] = useLocalState('tab', 2);
+
+  // Styles for the top-level tabs:
+  const topTabsStyle = {
+    display: 'flex',
+    width: '100%',
+    fontFamily:
+      '"Cinzel Decorative", "Uncial Antiqua", "Old English Text MT", serif',
+  } as const;
+  const topTabStyle = {
+    flex: 1,
+    fontSize: '25px',
+    padding: '10px 12px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontWeight: 900,
+    letterSpacing: '0.5px',
+    textShadow: '0 1px 0 rgba(0,0,0,0.6)',
+    fontFamily:
+      '"Cinzel Decorative", "Uncial Antiqua", "Old English Text MT", serif',
+  } as const;
+
   return (
-    <Window width={700} height={700} theme="spooky">
+    <Window width={700} height={750} theme="spooky">
       <Window.Content>
-        <Tabs>
-          <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
-            Basics
-          </Tabs.Tab>
-          <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
-            General Guide
-          </Tabs.Tab>
-          <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
-            Powers
-          </Tabs.Tab>
-        </Tabs>
-        {tab === 1 && <VampireIntroduction />}
-        {tab === 2 && <VampireGuide />}
+        <Box align="center" style={{ width: '100%' }}>
+          <Tabs style={topTabsStyle}>
+            {/* Guide on the left */}
+            <Tabs.Tab
+              style={topTabStyle}
+              selected={tab === 1}
+              onClick={() => setTab(1)}
+            >
+              General Guide
+            </Tabs.Tab>
+
+            {/* Basics in the middle (slightly larger/bold for emphasis) */}
+            <Tabs.Tab
+              style={{ ...topTabStyle, fontSize: '30px', fontWeight: 900 }}
+              selected={tab === 2}
+              onClick={() => setTab(2)}
+            >
+              Basics
+            </Tabs.Tab>
+
+            {/* Powers on the right */}
+            <Tabs.Tab
+              style={topTabStyle}
+              selected={tab === 3}
+              onClick={() => setTab(3)}
+            >
+              Powers
+            </Tabs.Tab>
+          </Tabs>
+        </Box>
+
+        {/* Re-map which component shows for each tab index to match the new ordering */}
+        {tab === 1 && <VampireGuide />}
+        {tab === 2 && <VampireIntroduction />}
         {tab === 3 && <PowerSection />}
       </Window.Content>
     </Window>

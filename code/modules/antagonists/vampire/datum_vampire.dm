@@ -333,8 +333,9 @@
 	var/fullname = return_full_name()
 	var/list/msg = list()
 
-	msg += span_cultlarge("You are [fullname], a Vampire!")
-	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more.")
+	msg += span_cultlarge("You are a Vampire!\n")
+	msg += span_cult("Open the Vampire Information panel for information about your Powers, Clan, and more. \n\n\
+			You can also click on all of your hud meters for more information about them!")
 
 	to_chat(owner, examine_block(msg.Join("\n")))
 
