@@ -276,7 +276,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
 
 /obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
+	if(target.client)
+		if (tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+			open_machine()
+			return
 	target.ghostize(FALSE)
+	offer_control_persistently(target)
 
 /obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
 	target.ghostize(FALSE)
@@ -430,8 +435,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	log_admin(span_notice("[key_name(target)], the [target.job] entered a stasis pod."))
 	add_fingerprint(target)
-
-	tgui_alert_async(user, "You may now freely leave the game, if you have an antagonist role then it will be automatically handled.", "Cryostasis", list("Ok"))
 
 //Attacks/effects.
 /obj/machinery/cryopod/blob_act()
