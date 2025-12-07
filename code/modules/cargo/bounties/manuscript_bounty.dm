@@ -89,5 +89,5 @@
 /datum/bounty/manuscript/assistant
 /datum/bounty/manuscript/assistant/New()
 	bounty_job = SSjob.GetJob(JOB_NAME_ASSISTANT)
-	available_jobs -= JOB_NAME_ASSISTANT
 	..()
+	available_jobs -= JOB_NAME_ASSISTANT
