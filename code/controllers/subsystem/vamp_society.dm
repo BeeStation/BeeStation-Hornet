@@ -21,8 +21,13 @@ SUBSYSTEM_DEF(vsociety)
 		for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
 			to_chat(vampire.owner.current, span_announce("* Vampire Tip: A vote for Prince will occur soon. If you are interested in leading your fellow kindred, read up on princes in your info panel now!"))
 		addtimer(CALLBACK(src, PROC_REF(poll_for_prince)), 2 MINUTES)
+		message_admins("Vampire society has fired, and a prince poll will occur in [2 MINUTES].")
+		log_game("Vampire society has fired, and a prince poll will occur soon.")
 
 /datum/controller/subsystem/vsociety/proc/poll_for_prince()
+	message_admins("Vampire society is now polling for a new prince.")
+	log_game("Vampire society is now polling for a new prince.")
+
 	//Build a list of mobs in GLOB.all_vampires
 	var/list/vampire_living_candidates = list()
 

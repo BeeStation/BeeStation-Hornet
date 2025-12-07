@@ -11,14 +11,18 @@ GLOBAL_LIST_EMPTY(all_vampires)
  * Resumes society, called when someone is assigned Vampire
 **/
 /datum/antagonist/vampire/proc/check_start_society()
-	if(length(GLOB.all_vampires) >= 2)
+	if(length(GLOB.all_vampires) >= 3)
 		SSvsociety.can_fire = TRUE
+		message_admins("Vampire Society has started, as there are [length(GLOB.all_vampires)] vampires active.")
+		log_game("Vampire Society has started, as there are [length(GLOB.all_vampires)] vampires active.")
 /**
  * Pauses society, called when someone is unassigned Vampire
 **/
 /datum/antagonist/vampire/proc/check_cancel_society()
-	if(length(GLOB.all_vampires) < 2)
+	if(length(GLOB.all_vampires) < 3)
 		SSvsociety.can_fire = FALSE
+		message_admins("Vampire Society has paused, as there are only [length(GLOB.all_vampires)] vampires active.")
+		log_game("Vampire Society has paused, as there are only [length(GLOB.all_vampires)] vampires active.")
 
 /**
  * Turns the player into a prince.
@@ -41,7 +45,10 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	objectives += prince_objective
 	owner.announce_objectives()
 
-	tgui_alert(owner.current, "Congratulations, you have been chosen for Princedom.<br>Please note that this entails a certain responsibility. Your job, now, is to keep order, and to enforce the masquerade.", "Welcome, my Prince.", list("I understand"), 30 SECONDS, TRUE)
+	message_admins("[owner.current] has received the role of Vampire Prince. ([get_princely_score()] princely score, with [my_clan?.princely_score_bonus]/[min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10] clan/hour bonus.)")
+	log_game("[owner.current] has become the Vampire Prince. ([get_princely_score()] princely score, with [my_clan?.princely_score_bonus]/[min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10] clan/hour bonus.)")
+
+	tgui_alert(owner.current, "Congratulations, you have been chosen for Princedom.\nPlease note that this entails a certain responsibility. Your job, now, is to keep order, and to enforce the masquerade.", "Welcome, my Prince.", list("I understand"), 30 SECONDS, TRUE)
 
 /**
  * Turns the player into a scourge.
@@ -63,6 +70,9 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
 		to_chat(vampire.owner.current, span_cultbigbold("Under authority of the Prince, [owner.current] has been raised to the duty of the Scourge!"))
 
+	message_admins("[owner.current] has been made a Scourge of the Vampires!")
+	log_game("[owner.current] has become a Scourge of the Vampires.")
+
 /**
  * Returns the princyness of this vampire.
  * get the players hours, convert it into a 10 point scale, 0-100 hours.
@@ -70,8 +80,13 @@ GLOBAL_LIST_EMPTY(all_vampires)
  * Add those together.
 **/
 /datum/antagonist/vampire/proc/get_princely_score()
-	var/calculated_hour_score = min(100, owner.current?.client?.get_exp_living(TRUE) / 60) / 10
-	var/clan_bonus = my_clan.princely_score_bonus
+	var/calculated_hour_score = min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10
+
+	var/clan_bonus = 0
+	if(my_clan)
+		clan_bonus = my_clan.princely_score_bonus
+	else
+		clan_bonus = -10
 
 	return clan_bonus + calculated_hour_score
 
