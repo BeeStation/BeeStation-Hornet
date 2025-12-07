@@ -81,8 +81,8 @@
 	var/area/vampire_lair_area
 	var/obj/structure/closet/crate/coffin
 
-	/// The last sol damage we got
-	var/last_sol_damage
+	/// To make sure we don't spam sol damage messages
+	var/were_shielded = FALSE
 
 	/// Blood display HUD
 	var/atom/movable/screen/vampire/blood_counter/blood_display

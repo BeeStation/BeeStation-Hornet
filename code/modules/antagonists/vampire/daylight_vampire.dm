@@ -53,51 +53,32 @@
 			SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/coffinsleep)
 			return
 
-	var/incoming_sol_damage = "full"
+	var/shielded = FALSE
 
-	// We don't want to be TOO mean, so we make 3 different grades of protection.
-
-	//You still won't enter frenzy. But you will be damn close.
 	if(istype(owner.current.loc, /obj/structure/closet) || istype(owner.current.loc, /obj/machinery))
-		incoming_sol_damage = "container"
+		shielded = TRUE
 
-	// Now the big one. The area check.
 	for(var/area/whereami as anything in VAMPIRE_SOL_SHIELDED)
 		if(istype(get_area(owner.current), whereami))
-			incoming_sol_damage = "area"
-
-	// Highest grade of protection.
-	if(is_in_torpor())
-		incoming_sol_damage = "torpor"
+			shielded = TRUE
+			break
 
 	var/sol_burn_calculated = VAMPIRE_SOL_BURN / (min(2, 1 + (humanity / 10)))
 
-	switch(incoming_sol_damage)
-		if("area")
-			if(current_vitae >= 400)
-				AdjustBloodVolume(-sol_burn_calculated / 2)
-				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
-			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbold("Maintenance's shielding affords acceptable safety. <b>Don't worry, blood won't drain below 400.</b>"), type = MESSAGE_TYPE_WARNING)
-		if("container")
-			if(current_vitae >= 300)
-				AdjustBloodVolume(-sol_burn_calculated / 2)
-				playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
-			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_cultbigbold("The walls of this vessel offer mild protection. <b>Don't worry, blood won't drain below 200.</b>"), type = MESSAGE_TYPE_WARNING)
-		if("full")
-			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
-			AdjustBloodVolume(-sol_burn_calculated)
-			if(incoming_sol_damage != last_sol_damage)
-				to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
-			burn_and_kill()
-		if("torpor")
-			// Do nothing, we deduct blood at the end of each torpor
-		else
-			return FALSE
+	if(shielded)
+		if(current_vitae >= VAMPIRE_SOL_SHIELD_THRESHOLD)
+			AdjustBloodVolume(-sol_burn_calculated / 2)
+			playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 2, vary = TRUE)
+		if(shielded != were_shielded)
+			to_chat(owner.current, span_cultbold("This area's shielding affords acceptable safety. <b>Don't worry, blood won't drain below [VAMPIRE_SOL_SHIELD_THRESHOLD].</b>"), type = MESSAGE_TYPE_WARNING)
+	else if(!is_in_torpor())
+		playsound(owner.current, 'sound/effects/wounds/sizzle1.ogg', 10, vary = TRUE)
+		AdjustBloodVolume(-sol_burn_calculated)
+		if(shielded != were_shielded)
+			to_chat(owner.current, span_narsiesmall("IT BURNS!"), type = MESSAGE_TYPE_WARNING)
+		burn_and_kill()
 
-
-	last_sol_damage = incoming_sol_damage
+	were_shielded = shielded
 	return
 
 /datum/antagonist/vampire/proc/burn_and_kill()

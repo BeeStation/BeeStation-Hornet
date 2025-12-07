@@ -32,6 +32,8 @@
 
 /// How much blood drained from the vampire each tick during sol
 #define VAMPIRE_SOL_BURN 30
+/// We don't go below this threshold when in a shielded area during sol
+#define VAMPIRE_SOL_SHIELD_THRESHOLD 500
 
 // vassal defines
 /// If someone passes all checks and can be vassalized
@@ -58,7 +60,7 @@
 #define VAMPIRE_DEFAULT_HUMANITY 7
 
 // List of areas that are shielded from sol.
-#define VAMPIRE_SOL_SHIELDED list(/area/maintenance, /area/medical/morgue, /area/security/prison, /area/ai_monitored, /area/holodeck/prison)
+#define VAMPIRE_SOL_SHIELDED list(/area/maintenance, /area/medical/morgue, /area/security/prison, /area/ai_monitored, /area/holodeck/prison, /area/shuttle)
 
 // Cooldown defines
 // Used to prevent spamming vampires
