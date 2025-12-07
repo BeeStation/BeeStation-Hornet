@@ -23,3 +23,6 @@
   - rscdel: 'Reverted handcuffs to the previous behavior. Which means: you can no
       longer break your wrists to escape handcuffs and you now must stand completely
       still for the handcuff''s escape duration to... escape.'
+2025-12-07:
+  Programs-The-Station:
+  - bugfix: Inedible food's span is now warning instead of green.

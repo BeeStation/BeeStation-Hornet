@@ -1,4 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - bugfix: Inedible food's span is now warning instead of green.
