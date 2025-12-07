@@ -152,13 +152,13 @@
 			A.setup_master(user)
 			servant_mind.transfer_to(H)
 
-			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-				role = ROLE_WIZARD,
-				poll_time = 15 SECONDS,
-				jump_target = H,
-				role_name_text = "[user.real_name] magical servant?",
-				alert_pic = H,
-			)
+			var/datum/poll_config/config = new()
+			config.role = ROLE_WIZARD
+			config.poll_time = 15 SECONDS
+			config.jump_target = H
+			config.role_name_text = "[user.real_name] magical servant?"
+			config.alert_pic = H
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				H.key = candidate.key
 				message_admins("[ADMIN_LOOKUPFLW(candidate)] was spawned as Dice Servant")
