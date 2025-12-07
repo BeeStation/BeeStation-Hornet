@@ -33,6 +33,11 @@
 	lightup_areas = list(/area/security/detectives_office)
 	minimal_lightup_areas = list(/area/security/warden)
 
+	manuscript_jobs = list(
+		JOB_NAME_WARDEN,
+		JOB_NAME_SECURITYOFFICER // technically, Warden is just promoted seccie, right?
+	)
+
 /datum/job/warden/get_access()
 	. = ..()
 	if(check_config_for_sec_maint())

@@ -59,6 +59,13 @@
 		/area/security/warden
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER
+	)
+
 /datum/outfit/job/head_of_security
 	name = JOB_NAME_HEADOFSECURITY
 	jobtype = /datum/job/head_of_security
