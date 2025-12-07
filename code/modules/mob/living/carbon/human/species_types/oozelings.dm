@@ -171,9 +171,8 @@
 			if(!do_after(H, 3 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
 				to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
 				return
-			var/healed_limb = pick(limbs_to_heal)
+			var/healed_limb = pick_n_take(limbs_to_heal)
 			H.regenerate_limb(healed_limb)
-			limbs_to_heal -= healed_limb
 			H.blood_volume -= 80
 			H.nutrition -= 20
 		return
