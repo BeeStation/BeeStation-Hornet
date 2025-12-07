@@ -6,6 +6,7 @@
 	max_integrity = 1000
 	bound_height = 64
 	bound_width = 96
+	density = TRUE
 	anchored = TRUE
 
 /obj/structure/shipping_container/Initialize(mapload)
