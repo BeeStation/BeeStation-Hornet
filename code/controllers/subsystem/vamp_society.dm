@@ -43,20 +43,22 @@ SUBSYSTEM_DEF(vsociety)
 
 		vampire_living_candidates += currentmob
 
+	// Build a poll_config datum to match the new polling API
 	currently_polling = TRUE
-	var/list/pollers = SSpolling.poll_candidates(
-		question = "You are eligible for princedom.",
-		poll_time = 3 MINUTES,
-		flash_window = TRUE,
-		group = vampire_living_candidates,
-		role_name_text = "Prince",
-		amount_to_pick = length(GLOB.all_vampires),
-		announce_chosen = FALSE,
-		custom_response_messages = list(
-			POLL_RESPONSE_SIGNUP = "You have made your bid for princedom. <br>* Note: Princedom has certain expectations placed upon you. If you are not in a position to enforce the masquerade, consider letting someone else take this burden.",
-			POLL_RESPONSE_UNREGISTERED = "You have removed your bid to princedom."
-		)
-		)
+	var/datum/poll_config/config = new()
+	config.question = "You are eligible for princedom."
+	config.poll_time = 3 MINUTES
+	config.flash_window = TRUE
+	config.role_name_text = "Prince"
+	config.amount_to_pick = length(GLOB.all_vampires)
+	config.announce_chosen = FALSE
+	config.requires_confirmation = TRUE
+	config.custom_response_messages = list(
+		POLL_RESPONSE_SIGNUP = "You have made your bid for princedom. <br>* Note: Princedom has certain expectations placed upon you. If you are not in a position to enforce the masquerade, consider letting someone else take this burden.",
+		POLL_RESPONSE_UNREGISTERED = "You have removed your bid to princedom."
+	)
+
+	var/list/pollers = SSpolling.poll_candidates(config, vampire_living_candidates)
 	currently_polling = FALSE
 
 	var/datum/antagonist/vampire/chosen_datum
