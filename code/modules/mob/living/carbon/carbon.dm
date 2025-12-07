@@ -372,7 +372,7 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	update_equipment_speed_mods() // In case cuffs ever change speed
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
-	if(!I.loc || buckled)
+	if(!I.loc)
 		return FALSE
 	if(I != handcuffed && I != legcuffed)
 		return FALSE
