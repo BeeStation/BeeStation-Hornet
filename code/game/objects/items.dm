@@ -668,12 +668,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return FALSE
+	// Shields do not have a blocking cooldown
+	if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
+		COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
 	else
-		//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it. This OR is intentional
-		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
-			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
-		else
-			return FALSE
+		return FALSE
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
