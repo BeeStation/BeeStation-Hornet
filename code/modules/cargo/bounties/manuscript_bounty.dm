@@ -87,7 +87,11 @@
 // no restriction for now
 // /datum/bounty/manuscript/compatible_with(datum/bounty/other_bounty)
 /datum/bounty/manuscript/assistant
+	reward = 4000
+
 /datum/bounty/manuscript/assistant/New()
 	bounty_job = SSjob.GetJob(JOB_NAME_ASSISTANT)
+	if(!length(available_jobs))
+		available_jobs = SSjob.occupations.Copy()
+		available_jobs -= JOB_NAME_ASSISTANT
 	..()
-	available_jobs -= JOB_NAME_ASSISTANT
