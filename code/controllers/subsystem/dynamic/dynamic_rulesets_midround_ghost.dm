@@ -8,6 +8,7 @@
 
 /datum/dynamic_ruleset/midround/ghost
 	abstract_type = /datum/dynamic_ruleset/midround/ghost
+	ruleset_flags = CANNOT_REPEAT
 
 	/// List of possible locations for this antag to spawn
 	var/list/spawn_locations = list()
@@ -159,7 +160,6 @@
 	minimum_players_required = 20
 	weight = 4
 	use_spawn_locations = FALSE
-	ruleset_flags = CANNOT_REPEAT
 
 	var/datum/team/nuclear/team
 	var/has_made_leader = FALSE
@@ -194,7 +194,6 @@
 	minimum_players_required = 13
 	weight = 4
 	use_spawn_locations = FALSE
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/blob/get_poll_icon()
 	var/icon/blob_icon = icon('icons/mob/blob.dmi', icon_state = "blob_core")
@@ -219,7 +218,6 @@
 	points_cost = 50
 	minimum_players_required = 20
 	weight = 4
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_poll_icon()
 	return /mob/living/carbon/alien/larva
@@ -263,7 +261,6 @@
 	points_cost = 40
 	weight = 4
 	minimum_players_required = 10
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
 	return /mob/living/simple_animal/hostile/space_dragon
@@ -292,7 +289,6 @@
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
 	weight = 4
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
 	return /obj/item/energy_katana
@@ -516,7 +512,6 @@
 	antag_datum = /datum/antagonist/swarmer
 	points_cost = 40
 	weight = 4
-	ruleset_flags = CANNOT_REPEAT
 
 	var/announce_probability = 25
 
