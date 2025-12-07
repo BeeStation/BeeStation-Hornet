@@ -423,26 +423,6 @@
 	if(usr)
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
-
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(offer_control_get_config(M))
-
-	if(candidate)
-		M.ghostize(FALSE)
-		M.key = candidate.key
-
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
-		return TRUE
-	else
-		to_chat(M, "There were no ghosts willing to take control.")
-		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
-		return FALSE
-
-/// Offer control of the passed in mobs until a player takes the role.
-/proc/offer_control_persistently(mob/M)
-
-/// Get the config settings for offering console of a mob to the ghosts
-/proc/offer_control_get_config(mob/M)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
 	if(M.mind && M.mind.assigned_role)
@@ -460,7 +440,19 @@
 	config.poll_time = 10 SECONDS
 	config.jump_target = M
 	config.alert_pic = M
-	return config
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+
+	if(candidate)
+		M.ghostize(FALSE)
+		M.key = candidate.key
+
+		to_chat(M, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
+		return TRUE
+	else
+		to_chat(M, "There were no ghosts willing to take control.")
+		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
+		return FALSE
 
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()
