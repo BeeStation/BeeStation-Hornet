@@ -1,0 +1,6 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: Fixed not being able to escape cuffs while buckled to a chair
+  - spellcheck: Fixed an accidental revert of the black gloves description saying
+      that they are thick
