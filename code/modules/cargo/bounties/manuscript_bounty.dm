@@ -65,7 +65,7 @@
 	repeated++
 	total_claimed += reward * SSeconomy.bounty_modifier
 	description = "Central Command appreciates your service of delivering the manuscript. Another manuscript will be demanded in 4 minutes. You have completed this for [repeated == 1 ? "[repeated] time" : "[repeated] times"], and earned credits in total of [total_claimed]."
-	addtimer(CALLBACK(src, PROC_REF(assign_bounty_job), TRUE), 30 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(assign_bounty_job), TRUE), 4 MINUTES, TIMER_UNIQUE | TIMER_STOPPABLE)
 	//addtimer(CALLBACK(src, PROC_REF(begin_tracking), picked_level), 60 SECONDS)
 
 /datum/bounty/manuscript/applies_to(obj/item/book/manuscript/book)
