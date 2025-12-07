@@ -1,6 +1,6 @@
 /datum/action/vampire/awe
 	name = "Awe"
-	desc = "Subtly influence those around you to see you more favorably."
+	desc = "Influence those around you to see you more favorably."
 	button_icon_state = "power_awe"
 	power_explanation = "Project an aura around yourself that periodically injects thoughts into everyone around you. This is not a subtle power, expect people to question why they feel this way.\n\
 						- Level 1: Aura reaching 4 tiles with nearly neutral attraction. People must be able to see you.\n\

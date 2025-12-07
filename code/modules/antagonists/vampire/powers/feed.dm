@@ -199,6 +199,12 @@
 
 	if(!living_owner.combat_mode)
 
+		// Don't allow normal feed on vamps. It's too easy and feels unfair.
+		if(IS_VAMPIRE(feed_target))
+			owner.balloon_alert(owner, "Too powerful. Knock them out and combat feed on them!")
+			deactivate_power()
+			return
+
 		if(!IS_VASSAL(feed_target)) // Vassals don't need all this shit.
 			owner.balloon_alert(owner, "mesmerizing [feed_target]...")
 
@@ -416,10 +422,15 @@
 		owner.balloon_alert(owner, "no blood left!")
 		if(feed_target.client)
 			vampiredatum_power.thirster_objective = TRUE
-		if(IS_VAMPIRE(feed_target))
-			diablerie(feed_target)
 		power_activated_sucessfully()
 		return
+
+	if(IS_VAMPIRE(feed_target))
+		var/datum/antagonist/vampire/target_vampire = IS_VAMPIRE(feed_target)
+		if(target_vampire.current_vitae <= 50)
+			diablerie(feed_target)
+			power_activated_sucessfully()
+			return
 
 	// Play heartbeat sound effect to vampire and target
 	owner.playsound_local(null, 'sound/effects/singlebeat.ogg', 40, TRUE)
@@ -431,11 +442,11 @@
 
 	var/levels_absorbed = (victim.vampire_level + victim.vampire_level_unspent) / DIABLERIE_DIVISOR
 
-	vampiredatum_power.rank_up(levels_absorbed)
+	vampiredatum_power.rank_up(levels_absorbed, TRUE)
 
 	vampiredatum_power.adjust_humanity(-victim.humanity / 3)
 
-	poor_sap.dust(drop_items = TRUE)
+	victim.final_death()
 
 /datum/action/vampire/targeted/feed/deactivate_power()
 	. = ..()
@@ -538,10 +549,8 @@
 	vampiredatum_power.total_blood_drank += blood_to_take
 	blood_taken += blood_to_take
 
-
-
-	// If we are on combat feed, we only want it to take a bit and then stop.
-	if(!silent_feed && blood_taken >= 60)
+	// If we are on combat feed, we only want it to take a bit and then stop. Except if they are not conscious
+	if(!silent_feed && blood_taken >= 60 && target.stat <= SOFT_CRIT)
 
 		playsound(target, 'sound/weapons/cqchit2.ogg', 80)
 
