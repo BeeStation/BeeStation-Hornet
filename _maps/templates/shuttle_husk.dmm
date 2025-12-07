@@ -8,6 +8,7 @@
 /area/template_noop)
 "b" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/structure/table,
 /turf/open/floor/mineral/plastitanium,
 /area/template_noop)
 "c" = (
@@ -23,8 +24,8 @@
 /area/template_noop)
 "f" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron/dark/textured_large,
+/obj/structure/girder,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
 /obj/effect/turf_decal/tile/dark/half{
@@ -62,7 +63,12 @@
 /area/template_noop)
 "m" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/item/trash/cheesie,
 /turf/open/floor/iron/dark,
+/area/template_noop)
+"n" = (
+/obj/item/trash/energybar,
+/turf/open/floor/holofloor/plating,
 /area/template_noop)
 "o" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
@@ -83,6 +89,7 @@
 /area/template_noop)
 "r" = (
 /obj/machinery/light/small,
+/obj/structure/frame/machine,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "s" = (
@@ -100,6 +107,15 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"v" = (
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron/dark/textured_large,
 /area/template_noop)
 "x" = (
 /obj/effect/turf_decal/stripes/line{
@@ -148,11 +164,9 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/template_noop)
 "E" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken/directional/east,
 /turf/open/floor/iron/dark/textured_large,
 /area/template_noop)
 "F" = (
@@ -162,16 +176,23 @@
 "G" = (
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "H" = (
 /obj/effect/turf_decal/tile/dark/half{
 	dir = 4
 	},
+/obj/structure/frame/computer,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
 /turf/closed/wall/mineral/plastitanium,
+/area/template_noop)
+"J" = (
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "K" = (
 /obj/effect/turf_decal/tile/dark/anticorner/contrasted{
@@ -180,6 +201,10 @@
 /turf/open/floor/iron/dark/textured_large,
 /area/template_noop)
 "L" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/structure/grille,
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (
@@ -194,6 +219,7 @@
 /area/template_noop)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/boritos,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "Q" = (
@@ -211,6 +237,13 @@
 /area/template_noop)
 "T" = (
 /turf/open/floor/mineral/plastitanium,
+/area/template_noop)
+"U" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/holofloor/plating,
 /area/template_noop)
 "V" = (
 /obj/effect/turf_decal/tile/dark/anticorner/contrasted,
@@ -233,6 +266,7 @@
 	},
 /obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/trash/energybar,
 /turf/open/floor/iron/dark/textured_large,
 /area/template_noop)
 "Z" = (
@@ -248,8 +282,8 @@ e
 O
 Q
 t
-t
-f
+v
+w
 t
 t
 t
@@ -262,12 +296,12 @@ l
 (2,1,1) = {"
 O
 O
-m
+J
 t
 F
-f
-f
-f
+w
+w
+w
 Y
 t
 k
@@ -300,7 +334,7 @@ R
 a
 P
 G
-m
+f
 b
 T
 u
@@ -333,13 +367,13 @@ O
 m
 t
 F
-f
+w
 X
-f
+w
 E
-t
-Z
-d
+v
+U
+n
 p
 W
 I
@@ -355,8 +389,8 @@ D
 D
 z
 t
-W
-W
+v
+M
 W
 I
 l
