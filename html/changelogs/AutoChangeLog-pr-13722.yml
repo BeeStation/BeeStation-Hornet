@@ -1,0 +1,13 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Refactors some logic in the candidate poll system used by dynamic midround
+      events.
+  - tweak: Dynamic will wait until a candidate is available when a ruleset is executed,
+      cancelling any existing polls if a previous event did not find a candidate.
+  - tweak: Upon becoming a ghost, you will gain access to any candidate polls that
+      are currently in progress.
+  - tweak: Midround rulesets can now be selected as an option even if there are no
+      ghosts, as upon execution it will simply wait until enough ghosts sign up before
+      execution. This means that rulesets other than space pirates can execute on
+      lowpop.
