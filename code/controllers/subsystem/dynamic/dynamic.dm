@@ -735,8 +735,8 @@ SUBSYSTEM_DEF(dynamic)
 	// Pick severity
 	if(isnull(forced_severity))
 		var/current_minute = times_fired
-		var/light_chance = midround_chances["light"][current_minute]
-		var/medium_chance = midround_chances["medium"][current_minute]
+		var/light_chance = midround_chances["light"][min(length(midround_chances["light"]), current_minute)]
+		var/medium_chance = midround_chances["medium"][min(length(midround_chances["medium"]), current_minute)]
 
 		var/random_value = rand(1, 100)
 		if(random_value <= light_chance)
