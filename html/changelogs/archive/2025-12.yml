@@ -43,3 +43,7 @@
   - bugfix: Fixed not being able to escape cuffs while buckled to a chair
   - spellcheck: Fixed an accidental revert of the black gloves description saying
       that they are thick
+2025-12-08:
+  BotTierPC:
+  - tweak: Adds the Ventriloquist Dummy to Echo, Rad, and Deltastation and adjusts
+      the rooms slightly to accommodate the new item.
