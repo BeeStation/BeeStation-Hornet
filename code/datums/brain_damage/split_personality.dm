@@ -34,14 +34,13 @@
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_SPLIT_PERSONALITY,
-		poll_time = 10 SECONDS,
-		checked_target = owner,
-		jump_target = owner,
-		role_name_text = "[owner]'s split personality",
-		alert_pic = owner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_SPLIT_PERSONALITY
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s split personality"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
 
@@ -218,14 +217,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 /datum/brain_trauma/severe/split_personality/brainwashing/get_ghost()
 	set waitfor = FALSE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_TRAITOR,
-		poll_time = 10 SECONDS,
-		jump_target = owner,
-		checked_target = owner,
-		role_name_text = "[owner]'s brainwashed mind",
-		alert_pic = owner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_TRAITOR
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s brainwashed mind"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
 	else

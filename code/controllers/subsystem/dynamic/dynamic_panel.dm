@@ -319,9 +319,15 @@
 			if(!midround_ruleset)
 				return
 
+			if (SSdynamic.midround_waiting_ruleset)
+				SSdynamic.midround_waiting_ruleset.abort()
+				SSdynamic.midround_waiting_ruleset = null
+
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
-			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(DYNAMIC_EXECUTE_SUCCESS)]")
+			if (result == DYNAMIC_EXECUTE_WAITING)
+				SSdynamic.midround_waiting_ruleset = midround_ruleset
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
@@ -416,7 +422,7 @@
 			return TRUE
 
 /datum/dynamic_panel/ui_status(mob/user, datum/ui_state/state)
-	return check_rights_for(user.client, R_FUN) ? UI_INTERACTIVE : UI_CLOSE
+	return check_rights_for(user.client, R_DEBUG) ? UI_INTERACTIVE : UI_CLOSE
 
 /datum/dynamic_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

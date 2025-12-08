@@ -144,9 +144,9 @@
 	if(!QDELETED(GLOB.narsie))
 		return //if Nar'Sie is alive, don't even worry about it
 	var/area/area = get_area(owner)
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-		if(isliving(cultist.owner))
-			var/mob/living/cultist_body = cultist.owner.current
+	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+		if(isliving(cult_mind.current))
+			var/mob/living/cultist_body = cult_mind.current
 			SEND_SOUND(cultist_body, sound('sound/hallucinations/veryfar_noise.ogg'))
 			to_chat(cultist_body, span_cultlarge("The Cult's Master, [owner], has fallen in \the [area]!"))
 
@@ -463,7 +463,7 @@
 	var/deathTick = 0
 
 /datum/status_effect/hippocratic_oath/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
+	return span_notice("[owner.p_They()] seem[owner.p_s()] to have an aura of healing and helpfulness about [owner.p_them()].")
 
 /datum/status_effect/hippocratic_oath/on_apply()
 	//Makes the user passive, it's in their oath not to harm!
@@ -618,7 +618,7 @@
 	return ..()
 
 /datum/status_effect/antimagic/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] seem[owner.p_s()] to be covered in a dull, grey aura.")
+	return span_notice("[owner.p_They()] seem[owner.p_s()] to be covered in a dull, grey aura.")
 
 /datum/status_effect/planthealing
 	id = "Photosynthesis"
@@ -628,7 +628,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/planthealing
 
 /datum/status_effect/planthealing/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] leaves seem[owner.p_s()] to be flourishing in the light!")
+	return span_notice("[owner.p_They()] leaves seem[owner.p_s()] to be flourishing in the light!")
 
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"
@@ -654,7 +654,7 @@
 	var/turf/location
 
 /datum/status_effect/crucible_soul/get_examine_text()
-	return span_notice("[owner.p_they(TRUE)] [owner.p_do()]n't seem to be all here.")
+	return span_notice("[owner.p_They()] [owner.p_do()]n't seem to be all here.")
 
 /datum/status_effect/crucible_soul/on_apply()
 	to_chat(owner,span_notice("You phase through reality, nothing is out of bounds!"))
@@ -699,16 +699,17 @@
 /datum/status_effect/cloaked
 	id = "invisibility"
 	alert_type = /atom/movable/screen/alert/status_effect/cloaked
-	tick_interval = 2
-	duration = STATUS_EFFECT_PERMANENT
+	tick_interval = STATUS_EFFECT_AUTO_TICK
+	duration = 40 SECONDS
 	show_duration = TRUE
 	var/can_see_self = FALSE
+	var/last_time_update = 0
 
-/datum/status_effect/cloaked/tick()
+/datum/status_effect/cloaked/tick(delta_time)
 	if(owner.on_fire)
 		terminate_effect()
 		return
-	owner.alpha = max(owner.alpha - 10, 0)
+	owner.alpha = max(owner.alpha - 50 * delta_time, 0)
 	if (owner.alpha <= 100 && !can_see_self)
 		// Make it so the user can always see themselves while cloaked
 		var/mutable_appearance/self_appearance = mutable_appearance('icons/hud/actions/actions_minor_antag.dmi', "ninja_cloak")
@@ -718,6 +719,15 @@
 		can_see_self = TRUE
 	if (owner.alpha > 100 && can_see_self)
 		owner.remove_alt_appearance(REF(src))
+	// Check for restoring the duration
+	var/turf/location = get_turf(owner)
+	if (location.get_lumcount() < LIGHTING_TILE_IS_DARK)
+		var/time_left = duration - world.time
+		// Calculate how much real time has passed
+		// Add on tick interval + 1 to make it never stutter when increasing
+		var/new_time = min(time_left + ((world.time - last_time_update) / (1 SECONDS)) * 2 SECONDS, initial(duration))
+		duration = world.time + new_time
+	last_time_update = world.time
 
 /datum/status_effect/cloaked/on_apply()
 	if(!..())
@@ -735,11 +745,11 @@
 	RegisterSignal(owner, COMSIG_ATOM_HULK_ATTACK, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_PAW, PROC_REF(terminate_effect))
 	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(terminate_effect))
+	RegisterSignal(owner, COMSIG_MOB_ABILITY_STARTED, PROC_REF(terminate_effect))
 	return TRUE
 
 /datum/status_effect/cloaked/on_remove()
 	owner.remove_alt_appearance(REF(src))
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMAGE, COMSIG_ATOM_BUMPED))
 	animate(owner, time = 0.5 SECONDS, alpha = 255)
 
 /datum/status_effect/cloaked/proc/bump_alpha()

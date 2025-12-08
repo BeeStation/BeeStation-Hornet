@@ -65,7 +65,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	icon_icon = 'icons/hud/actions/actions_elites.dmi'
+	button_icon = 'icons/hud/actions/actions_elites.dmi'
 	button_icon_state = null
 	background_icon_state = "bg_default"
 	var/chosen_message
@@ -138,13 +138,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message(span_boldwarning("Something within [src] stirs..."))
-				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-					check_jobban = ROLE_LAVALAND_ELITE,
-					poll_time = 10 SECONDS,
-					jump_target = src,
-					role_name_text = "lavaland elite",
-					alert_pic = src,
-				)
+				var/datum/poll_config/config = new()
+				config.check_jobban = ROLE_LAVALAND_ELITE
+				config.poll_time = 10 SECONDS
+				config.jump_target = src
+				config.role_name_text = "lavaland elite"
+				config.alert_pic = src
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					audible_message(span_boldwarning("The stirring sounds increase in volume!"))
 					candidate.playsound_local(null, 'sound/effects/magic.ogg', 40, 0)
@@ -289,7 +289,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "crevice_shard"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	item_state = "screwdriver_head"
+	inhand_icon_state = "screwdriver_head"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -306,13 +306,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(!E.key && !using)
 			using = TRUE //No ghost poll spam please.
 			user.visible_message(span_notice("[E] stirs briefly..."))
-			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-				check_jobban = ROLE_SENTIENCE,
-				poll_time = 15 SECONDS,
-				jump_target = E,
-				role_name_text = "enslaved lavaland elite",
-				alert_pic = E,
-			)
+			var/datum/poll_config/config = new()
+			config.check_jobban = ROLE_SENTIENCE
+			config.poll_time = 15 SECONDS
+			config.jump_target = E
+			config.role_name_text = "enslaved lavaland elite"
+			config.alert_pic = E
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			if(candidate)
 				E.key = candidate.key
 			else

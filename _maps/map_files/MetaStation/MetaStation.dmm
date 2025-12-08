@@ -28306,15 +28306,15 @@
 "gyo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/door/airlock{
 	name = "Theatre Backstage";
 	req_one_access_txt = "12;46"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "gyM" = (
@@ -30248,8 +30248,8 @@
 /obj/machinery/door/airlock{
 	name = "Bar Access"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
@@ -30292,8 +30292,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen/coldroom)
 "hir" = (
@@ -50761,11 +50761,11 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet/restrooms)
 "oeJ" = (
-/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
 /obj/machinery/door/airlock{
 	name = "Theatre Backstage";
 	req_one_access_txt = "12;46"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/theatre,
 /turf/open/floor/wood,
 /area/maintenance/starboard)
 "oeP" = (
@@ -54519,8 +54519,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "ppx" = (
@@ -57708,8 +57708,8 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "qrR" = (
@@ -66538,10 +66538,10 @@
 /obj/machinery/door/airlock{
 	name = "Bar Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "tsL" = (
