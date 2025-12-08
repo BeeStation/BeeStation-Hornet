@@ -87,10 +87,10 @@
 /**
  * Check if all requirements for this ruleset are met.
  */
-/datum/dynamic_ruleset/proc/allowed(ignore_drafted = FALSE)
+/datum/dynamic_ruleset/proc/allowed(require_drafted = TRUE)
 	// Some rulesets such as midrounds don't need drafted players to be
 	// picked, as the poll will continue until it hits the players required
-	if(length(candidates) < drafted_players_amount && !(ruleset_flags & IGNORE_DRAFTED_COUNT))
+	if(length(candidates) < drafted_players_amount && (require_drafted || !(ruleset_flags & IGNORE_DRAFTED_COUNT)))
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 

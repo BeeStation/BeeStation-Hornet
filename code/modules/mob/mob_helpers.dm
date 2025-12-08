@@ -472,7 +472,7 @@
 	config.question = poll_message
 	config.check_jobban = ban_key
 	config.role_name_text = M.real_name
-	config.poll_time = 30 SECONDS
+	config.poll_time = 10 SECONDS
 	config.jump_target = M
 	config.alert_pic = M
 	return config

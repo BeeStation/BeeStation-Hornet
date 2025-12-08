@@ -748,7 +748,8 @@ SUBSYSTEM_DEF(dynamic)
 		ruleset.get_candidates()
 		ruleset.trim_candidates()
 
-		if(!ruleset.allowed())
+		// Do not require drafted players to exist for the one we pick
+		if(!ruleset.allowed(FALSE))
 			continue
 
 		ruleset.candidates = null

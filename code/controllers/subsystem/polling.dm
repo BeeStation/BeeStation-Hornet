@@ -150,8 +150,6 @@ SUBSYSTEM_DEF(polling)
  * Returns a candidate_poll datum to cancel the poll early.
  */
 /datum/controller/subsystem/polling/proc/poll_candidates_persistently(datum/poll_config/config, list/group)
-	if(!length(group))
-		return
 	if(config.role && !config.role_name_text)
 		config.role_name_text = config.role
 	if(config.role_name_text && !config.question)

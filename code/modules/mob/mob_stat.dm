@@ -257,11 +257,22 @@
 	if(SSticker.round_start_time)
 		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(SSsecurity_level.get_current_level_as_text())]")
 
-	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+	if(SSticker.reboot_timer)
+		tab_data["divider_3"] = GENERATE_STAT_BLANK
+		var/reboot_time = timeleft(SSticker.reboot_timer)
+		if(reboot_time)
+			tab_data["Reboot"] = GENERATE_STAT_TEXT(DisplayTimeText(reboot_time, 1))
+	// admin must have delayed round end
+	else if(SSticker.ready_for_reboot)
+		tab_data["divider_3"] = GENERATE_STAT_BLANK
+		tab_data["Reboot"] = GENERATE_STAT_TEXT("DELAYED")
+
+	tab_data["divider_4"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()

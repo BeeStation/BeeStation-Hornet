@@ -324,3 +324,52 @@
 2025-11-26:
   Programs-The-Station:
   - bugfix: Round start machines now properly link to the Silo once again.
+  Rukofamicom:
+  - tweak: Using stun batons with combat mode active does brute damage again.
+  mrmanlikesbt:
+  - soundadd: Added title0 to the title music pool
+  - sounddel: Removed the clown theme from the title music pool
+  mrmanlikesbt, LemonIntheDark, Jackriip:
+  - tweak: The color of space has been tweaked to look prettier
+  - bugfix: Fixed solar panel arrays being on full bright
+  - bugfix: Fixed glass floors not glowing when above space
+  - server: Removed the starlight config option.
+  mrmanlikesbt, tralezab, MrMelbert:
+  - rscadd: Inventory slots now dim when unavailable
+  - code_imp: Converted the species var "nojumpsuit" to a trait "TRAIT_NO_JUMPSUIT"
+2025-11-27:
+  PowerfulBacon:
+  - bugfix: Fixes player preferences not working.
+  mrmanlikesbt:
+  - bugfix: Fixed the scrubbers and distro pipes being above the floor in the radstation
+      engine room
+2025-11-28:
+  Schoolboy215:
+  - bugfix: Lipid extractor not detecting occupants
+  mrmanlikesbt:
+  - admin: Use of the dynamic panel now checks for debug perms instead of fun perms
+2025-11-29:
+  EvilDragonfiend (credit to r1ks-iwnl for grammar correction):
+  - rscadd: New bounty has been added - Profession manuscript. To write a manuscript,
+      find an empty "manuscript" book first. You can get them from random book shelves
+      with 5% chance, or get one from cargo book ordering, and then click the book
+      with your pen. Antagonist can write a manuscript in any job (but everyone has
+      15 minutes cooldown to write one). There are always assistant bounty, and random
+      3 jobs.
+  - rscadd: a tiny helper code that cargo shuttle only needs short seconds to move
+      when debugging
+  Rukofamicom:
+  - tweak: When an APC loses its powernet connection connection, department lights
+      will switch to emergency mode almost immediately to conserve power to be spent
+      on keeping the area operational for longer.
+  - tweak: An APC without an active connection will now continue to power departmental
+      equipment until it reaches 15% charge, instead of shutting off vital machinery
+      at 50% charge.
+  - tweak: APCs now hold 50% more maximum charge at roundstart, and start with 100%
+      charge instead of 90%.
+  mrmanlikesbt, nemvar, MrMelbert:
+  - code_imp: renamed some misleading vars
+2025-11-30:
+  '@DrDuckedGoose code @aramix273 sleuthing help, feedback, and suggestions':
+  - bugfix: Fixed runtime in artifact trait code, for the porous trait.
+  - tweak: The haunted artifact trait will now exclusively target living mobs.
