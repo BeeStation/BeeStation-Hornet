@@ -708,7 +708,7 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
 	if(isnull(forced_severity))
-		var/list/current_minute = times_fired - 1
+		var/current_minute = times_fired
 		var/light_chance = midround_chances["light"][current_minute]
 		var/medium_chance = midround_chances["medium"][current_minute]
 
