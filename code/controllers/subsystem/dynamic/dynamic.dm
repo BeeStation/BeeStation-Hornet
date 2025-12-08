@@ -46,6 +46,8 @@ SUBSYSTEM_DEF(dynamic)
 	/// An associative list of the pre-calculated midround chances over the duration of the round
 	/// "light" / "medium" / "heavy" -> list(CHANCE_AT_MINUTE_1, CHANCE_AT_MINUTE_2, ...)
 	var/list/midround_chances
+	/// Are we ready to execute the midround ruleset? Used to give admins a one minute heads up.
+	var/midround_ready_to_execute = FALSE
 
 	/// The cooldown until the chosen midround can execute
 	COOLDOWN_DECLARE(midround_ruleset_cooldown)
@@ -699,6 +701,13 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 			message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
 	else if(midround_points >= midround_chosen_ruleset.points_cost)
+		if(!midround_ready_to_execute)
+			midround_ready_to_execute = TRUE
+			message_admins("DYNAMIC: [midround_chosen_ruleset] is ready and will be executed in [DisplayTimeText(wait)]. <a href='byond://?src=[REF(src)];cancel_midround=1'>CANCEL</a> <a href='byond://?src=[REF(src)];randomize_midround=1'>CHOOSE ANOTHER</a>")
+			play_sound_to_all_admins('sound/effects/admin_alert.ogg')
+			return
+		midround_ready_to_execute = FALSE
+
 		var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
 
 		var/result = execute_ruleset(new_midround_ruleset)
@@ -774,6 +783,23 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	midround_chosen_ruleset = pick_weight(possible_rulesets)
+
+/datum/controller/subsystem/dynamic/Topic(href, href_list)
+	. = ..()
+	if (!check_rights(R_DEBUG))
+		message_admins("DYNAMIC: Midround execution cancelled.")
+		return
+
+	if(href_list["cancel_midround"])
+		midround_chosen_ruleset = null
+		midround_ready_to_execute = FALSE
+		message_admins("[key_name_admin(usr)] has cancelled the chosen midround ruleset")
+		log_dynamic("[key_name(usr)] has cancelled the chosen midround ruleset")
+	else if(href_list["randomize_midround"])
+		SSdynamic.choose_midround_ruleset(DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY)
+		// If absolutely zero midround rulesets are available, midround_chosen_ruleset can be null
+		message_admins("[key_name_admin(usr)] randomly set the midround ruleset to: [midround_chosen_ruleset || "None"]")
+		log_dynamic("[key_name(usr)] randomly set the midround ruleset to: [midround_chosen_ruleset || "None"]")
 
 /**
  * Latejoin functionality

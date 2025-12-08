@@ -176,7 +176,7 @@
 			var/new_storyteller = params["new_storyteller"]
 			SSdynamic.set_storyteller(new_storyteller == "None" ? null : new_storyteller)
 
-			message_admins("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
+			message_admins("[key_name_admin(usr)] set the dynamic storyteller to [new_storyteller]")
 			log_dynamic("[key_name(usr)] set the dynamic storyteller to [new_storyteller]")
 			return TRUE
 
@@ -196,10 +196,10 @@
 			if(SSdynamic.roundstart_points_override)
 				var/forced_roundstart_points = params["forced_roundstart_points"]
 				SSdynamic.roundstart_points = forced_roundstart_points
-				message_admins("[key_name(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
+				message_admins("[key_name_admin(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
 				log_dynamic("[key_name(usr)] forced dynamic to use [forced_roundstart_points] roundstart points")
 			else
-				message_admins("[key_name(usr)] let dynamic choose its own roundstart points again")
+				message_admins("[key_name_admin(usr)] let dynamic choose its own roundstart points again")
 				log_dynamic("[key_name(usr)] let dynamic choose its own roundstart points again")
 			return TRUE
 
@@ -214,16 +214,16 @@
 				for(var/datum/dynamic_ruleset/roundstart/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
 					forced_rulesets += forced_ruleset.name
 
-				message_admins("[key_name(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
+				message_admins("[key_name_admin(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
 				log_dynamic("[key_name(usr)] forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
 			else
-				message_admins("[key_name(usr)] let dynamic choose its own roundstart rulesets again")
+				message_admins("[key_name_admin(usr)] let dynamic choose its own roundstart rulesets again")
 				log_dynamic("[key_name(usr)] let dynamic choose its own roundstart rulesets again")
 			return TRUE
 
 		if("toggle_roundstart_blacklist_forced_rulesets")
 			if(!length(SSdynamic.roundstart_forced_rulesets))
-				message_admins("[key_name(usr)] tried to blacklist the forced rulesets, but there were none")
+				message_admins("[key_name_admin(usr)] tried to blacklist the forced rulesets, but there were none")
 				log_dynamic("[key_name(usr)] tried to blacklist the forced rulesets, but there were none")
 				return TRUE
 
@@ -237,10 +237,10 @@
 				// Force the other one to be false
 				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
 
-				message_admins("[key_name(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
+				message_admins("[key_name_admin(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
 				log_dynamic("[key_name(usr)] has blacklisted these roundstart rulesets: [blacklisted_rulesets.Join(", ")]")
 			else
-				message_admins("[key_name(usr)] has un-blacklisted these rulesets: [blacklisted_rulesets.Join(", ")]")
+				message_admins("[key_name_admin(usr)] has un-blacklisted these rulesets: [blacklisted_rulesets.Join(", ")]")
 				log_dynamic("[key_name(usr)] has un-blacklisted these rulesets: [blacklisted_rulesets.Join(", ")]")
 			return TRUE
 
@@ -248,7 +248,8 @@
 			var/ruleset_text = params["forced_roundstart_ruleset"]
 			var/datum/dynamic_ruleset/roundstart/ruleset_path = text2path(ruleset_text)
 			if(!ispath(ruleset_path, /datum/dynamic_ruleset/roundstart) || ruleset_path == /datum/dynamic_ruleset/roundstart)
-				message_admins("[key_name(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
+				message_admins("[key_name_admin(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
+				log_dynamic("[key_name(usr)] tried to force/blacklist an invalid roundstart ruleset: [ruleset_text]")
 				return TRUE
 
 			// If it's already forced, unforce it
@@ -257,7 +258,7 @@
 				if(forced_ruleset.type == ruleset_path)
 					SSdynamic.roundstart_forced_rulesets -= forced_ruleset
 					needs_to_force = FALSE
-					message_admins("[key_name(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
+					message_admins("[key_name_admin(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 					log_dynamic("[key_name(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 
 			if(!length(SSdynamic.roundstart_forced_rulesets))
@@ -267,7 +268,7 @@
 				for(var/datum/dynamic_ruleset/roundstart/ruleset in SSdynamic.roundstart_configured_rulesets)
 					if(ruleset.type == ruleset_path)
 						SSdynamic.roundstart_forced_rulesets += ruleset
-						message_admins("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
+						message_admins("[key_name_admin(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 						log_dynamic("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 						break
 
@@ -278,19 +279,19 @@
 			var/ruleset_text = params["new_midround_ruleset"]
 			if(ruleset_text == "None")
 				SSdynamic.midround_chosen_ruleset = null
-				message_admins("[key_name(usr)] set the midround ruleset to: [ruleset_text]")
+				message_admins("[key_name_admin(usr)] set the midround ruleset to: [ruleset_text]")
 				log_dynamic("[key_name(usr)] set the midround ruleset to: [ruleset_text]")
 				return TRUE
 			else if(ruleset_text == "Random")
 				SSdynamic.choose_midround_ruleset(DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY)
-				// If absolutely zero midround rulesets are available midround_chosen_ruleset can be null
-				message_admins("[key_name(usr)] randomly set the midround ruleset to: [SSdynamic.midround_chosen_ruleset || "None"]")
+				// If absolutely zero midround rulesets are available, midround_chosen_ruleset can be null
+				message_admins("[key_name_admin(usr)] randomly set the midround ruleset to: [SSdynamic.midround_chosen_ruleset || "None"]")
 				log_dynamic("[key_name(usr)] randomly set the midround ruleset to: [SSdynamic.midround_chosen_ruleset || "None"]")
 				return TRUE
 
 			var/datum/dynamic_ruleset/midround/ruleset_path = text2path(ruleset_text)
 			if(!ispath(ruleset_path, /datum/dynamic_ruleset/midround) || ruleset_path == initial(ruleset_path.abstract_type))
-				message_admins("[key_name(usr)] tried to set an invalid midround ruleset: [ruleset_text]")
+				message_admins("[key_name_admin(usr)] tried to set an invalid midround ruleset: [ruleset_text]")
 				return TRUE
 
 			for(var/datum/dynamic_ruleset/midround/ruleset in SSdynamic.midround_configured_rulesets)
@@ -298,7 +299,7 @@
 					SSdynamic.midround_chosen_ruleset = ruleset
 					break
 
-			message_admins("[key_name(usr)] set the midround ruleset to: [ruleset_path::name]")
+			message_admins("[key_name_admin(usr)] set the midround ruleset to: [ruleset_path::name]")
 			log_dynamic("[key_name(usr)] set the midround ruleset to: [ruleset_path::name]")
 			return TRUE
 
@@ -312,7 +313,7 @@
 				SSdynamic.midround_waiting_ruleset = null
 
 			var/result = SSdynamic.execute_ruleset(midround_ruleset)
-			message_admins("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+			message_admins("[key_name_admin(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 			log_dynamic("[key_name(usr)] forced the midround ruleset ([midround_ruleset]) to execute - [DYNAMIC_EXECUTE_STRINGIFY(DYNAMIC_EXECUTE_SUCCESS)]")
 			if (result == DYNAMIC_EXECUTE_WAITING)
 				SSdynamic.midround_waiting_ruleset = midround_ruleset
@@ -330,18 +331,18 @@
 			var/ruleset_text = params["new_latejoin_ruleset"]
 			if(ruleset_text == "None")
 				SSdynamic.latejoin_forced_ruleset = null
-				message_admins("[key_name(usr)] set the latejoin ruleset to: [ruleset_text]")
+				message_admins("[key_name_admin(usr)] set the latejoin ruleset to: [ruleset_text]")
 				log_dynamic("[key_name(usr)] set the latejoin ruleset to: [ruleset_text]")
 				return TRUE
 			else if(ruleset_text == "Random")
 				SSdynamic.choose_latejoin_ruleset()
-				message_admins("[key_name(usr)] randomly set the latejoin ruleset to: [SSdynamic.latejoin_forced_ruleset]")
+				message_admins("[key_name_admin(usr)] randomly set the latejoin ruleset to: [SSdynamic.latejoin_forced_ruleset]")
 				log_dynamic("[key_name(usr)] randomly set the latejoin ruleset to: [SSdynamic.latejoin_forced_ruleset]")
 				return TRUE
 
 			var/datum/dynamic_ruleset/latejoin/ruleset_path = text2path(ruleset_text)
 			if(!ispath(ruleset_path, /datum/dynamic_ruleset/latejoin) || ruleset_path == /datum/dynamic_ruleset/latejoin)
-				message_admins("[key_name(usr)] tried to set an invalid latejoin ruleset: [ruleset_text]")
+				message_admins("[key_name_admin(usr)] tried to set an invalid latejoin ruleset: [ruleset_text]")
 				return TRUE
 
 			for(var/datum/dynamic_ruleset/latejoin/ruleset in SSdynamic.latejoin_configured_rulesets)
@@ -349,7 +350,7 @@
 					SSdynamic.latejoin_forced_ruleset = ruleset
 					break
 
-			message_admins("[key_name(usr)] set the latejoin ruleset to: [ruleset_path::name]")
+			message_admins("[key_name_admin(usr)] set the latejoin ruleset to: [ruleset_path::name]")
 			log_dynamic("[key_name(usr)] set the latejoin ruleset to: [ruleset_path::name]")
 			return TRUE
 
