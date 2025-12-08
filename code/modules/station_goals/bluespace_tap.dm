@@ -237,7 +237,7 @@
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20
 	/// Amount of points to give per mining level
-	var/base_points = 4
+	var/base_points = 10
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
