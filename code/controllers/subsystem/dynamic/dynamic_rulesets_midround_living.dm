@@ -55,8 +55,9 @@
 	)
 
 	if(!length(chosen_candidates))
-		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
-		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		var/multiple_candidates = previous_chosen_candidates == 0 || previous_chosen_candidates > 1
+		message_admins("DYNAMIC: [previous_chosen_candidates] player[multiple_candidates ? "s" : ""] [multiple_candidates ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] player[multiple_candidates ? "s" : ""] [multiple_candidates ? "were" : "was"] selected for [src], but none of them wanted to play it.")
 		return DYNAMIC_EXECUTE_FAILURE
 
 	for(var/mob/chosen_candidate in chosen_candidates)
