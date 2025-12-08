@@ -87,9 +87,6 @@
 		/obj/item/grenade/clusterbuster/cleaner = 10,
 		/obj/item/grenade/clusterbuster/soap = 10,
 		/obj/item/toy/katana = 10,
-		/obj/item/stack/sheet/iron/twenty = 15,
-		/obj/item/stack/sheet/glass/fifty = 10,
-		/obj/item/stack/sheet/mineral/copper/twenty = 20,
 		/obj/item/sord = 20,
 		/obj/item/toy/balloon/syndicate = 15,
 		/obj/item/lighter/greyscale = 5,
@@ -142,7 +139,7 @@
 
 /obj/effect/spawner/lootdrop/bluespace_tap/food
 	name = "fancy food"
-	lootcount = 3
+	lootcount = 2
 	loot = list(
 		/obj/item/food/burger/crab,
 		/obj/item/food/crab_rangoon,
@@ -164,7 +161,27 @@
 		/obj/item/pizzabox,
 	)
 
-
+/obj/effect/spawner/lootdrop/bluespace_tap/materials
+	name = "materials"
+	lootcount = 3
+	loot = list(
+		/obj/item/stack/sheet/iron/twenty = 20,
+		/obj/item/stack/sheet/glass/twenty = 20,
+		/obj/item/stack/sheet/mineral/copper/ten = 15,
+		/obj/item/stack/sheet/mineral/plasma/ten = 10, // Not that rare for a material
+		/obj/item/stack/sheet/mineral/gold/five = 5,
+		/obj/item/stack/sheet/mineral/silver/five = 5,
+		/obj/item/stack/sheet/mineral/titanium/five = 5,
+		/obj/item/stack/sheet/mineral/uranium/five = 5,
+		/obj/item/stack/sheet/mineral/diamond = 7, // You only got one, not lucky for you
+		/obj/item/stack/sheet/mineral/diamond/five = 5, // You lucked out to get these
+		/obj/item/stack/sheet/mineral/coal/five = 5, // Not everything is useful
+		/obj/item/stack/sheet/mineral/abductor = 1, // Really rare, you only get one
+		/obj/item/stack/sheet/mineral/adamantine/five = 1, // If you're lucky you can get these
+		/obj/item/stack/sheet/runed_metal = 1, // Blood cult material, really rare
+		/obj/item/stack/sheet/brass = 1, // Clock cult material, technically one, really rare
+		/obj/item/stack/sheet/bronze/ten = 10 // Not a whole lot useful, can be made by chemistry
+	)
 
 /**
   * # Bluespace Harvester
@@ -196,9 +213,10 @@
 
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 5000),
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
+	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 6000),
+	new /datum/data/bluespace_tap_product("Unknown Material Recolection", /obj/effect/spawner/lootdrop/bluespace_tap/materials, 3000), // Spawns random materials, argueably the only useful one
+	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 2000), // Why was food so expensive to being with
+	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000), // This is mostly junk, the reason why it's so expensive, nobody knows
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
 	)
 
