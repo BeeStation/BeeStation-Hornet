@@ -231,7 +231,6 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
-
 	// Tweak these and active_power_usage to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
@@ -431,7 +430,7 @@
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
-	max_mobs = 5		//Dont' want them overrunning the station
+	max_mobs = 2		// 5 was a bit too much, let's lower it to 2
 	max_integrity = 250
 
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)

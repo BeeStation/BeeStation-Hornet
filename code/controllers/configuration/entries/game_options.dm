@@ -162,7 +162,7 @@
 
 /datum/config_entry/number/station_goal_budget
 	default = 2
-	min_val = 0
+	min_val = 2
 
 /datum/config_entry/flag/diona_ghost_spawn
 
