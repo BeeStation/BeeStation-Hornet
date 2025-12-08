@@ -213,9 +213,9 @@
 
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Material Recolection", /obj/effect/spawner/lootdrop/bluespace_tap/materials, 3000), // Spawns random materials, argueably the only useful one
 	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 2000), // Why was food so expensive to being with
+	new /datum/data/bluespace_tap_product("Unknown Material Recolection", /obj/effect/spawner/lootdrop/bluespace_tap/materials, 3000), // Spawns random materials, argueably the only useful one
+	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 6000),
 	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000), // This is mostly junk, the reason why it's so expensive, nobody knows
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
 	)
