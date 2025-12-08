@@ -47,3 +47,6 @@
   BotTierPC:
   - tweak: Adds the Ventriloquist Dummy to Echo, Rad, and Deltastation and adjusts
       the rooms slightly to accommodate the new item.
+  mrmanlikesbt:
+  - spellcheck: Fixed the Abandoned Club and Xenobiology Maintenance area names being
+      swapped
