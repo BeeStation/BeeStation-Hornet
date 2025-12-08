@@ -22,6 +22,9 @@
 	return ..()
 
 /datum/vampire_clan/tremere/spend_rank(mob/living/carbon/carbon_vassal)
+	if(QDELETED(vampiredatum.owner?.current) || vampiredatum.vampire_level_unspent <= 0)
+		return
+
 	// Purchase Power Prompt
 	var/list/options = list()
 	var/list/radial_display = list()

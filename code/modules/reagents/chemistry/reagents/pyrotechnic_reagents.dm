@@ -65,7 +65,7 @@
 		if(isfloorturf(floor))
 			for(var/turf/open/turf in RANGE_TURFS(1,floor))
 				if(!locate(/obj/effect/hotspot) in turf)
-					new /obj/effect/hotspot(floor)
+					new /obj/effect/hotspot/bright(floor)
 
 	else if(iswallturf(exposed_turf))
 		var/turf/closed/wall/wall = exposed_turf
@@ -80,7 +80,7 @@
 		exposed_mob.adjust_fire_stacks(min(reac_volume/5, 10))
 		exposed_mob.IgniteMob()
 		if(!locate(/obj/effect/hotspot) in exposed_mob.loc)
-			new /obj/effect/hotspot(exposed_mob.loc)
+			new /obj/effect/hotspot/bright(exposed_mob.loc)
 
 /datum/reagent/sorium
 	name = "Sorium"

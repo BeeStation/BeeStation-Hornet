@@ -2,7 +2,6 @@ SUBSYSTEM_DEF(dynamic)
 	name = "Dynamic"
 	runlevels = RUNLEVEL_GAME
 	wait = 1 MINUTES
-	init_order = INIT_ORDER_DYNAMIC
 
 	/**
 	 * Roundstart variables
@@ -196,6 +195,9 @@ SUBSYSTEM_DEF(dynamic)
 		"/datum/antagonist/nightmare" = -0.4
 	)
 
+	/// Midround ruleset that is currently waiting to execute
+	var/datum/dynamic_ruleset/midround/midround_waiting_ruleset
+
 	/**
 	 * Latejoin
 	 */
@@ -237,6 +239,19 @@ SUBSYSTEM_DEF(dynamic)
 		if (!loaded_json["Description"])
 			stack_trace("Dynamic config: \"[file_path]\" could not be loaded because it did not have a description.")
 			continue
+
+#ifdef STORYTELLER_VERSION
+		if (!loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name], it did not provide a storyteller version but one was required. (Required '[STORYTELLER_VERSION]')")
+			continue
+		if (loaded_json["Version"] != STORYTELLER_VERSION)
+			log_dynamic("Skipped loading storyteller [json_name], it did not have the required storyteller version (Required '[STORYTELLER_VERSION]', got '[loaded_json["Version"]]').")
+			continue
+#else
+		if (loaded_json["Version"])
+			log_dynamic("Skipped loading storyteller [json_name] as it has a version of '[loaded_json["Version"]]', but we expected none.")
+			continue
+#endif
 
 		dynamic_storyteller_jsons[json_name] = loaded_json
 
@@ -407,7 +422,7 @@ SUBSYSTEM_DEF(dynamic)
 
 			if(!forced_ruleset.allowed())
 				log_dynamic("ROUNDSTART: Could not force [forced_ruleset]")
-				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
+				message_admins("DYNAMIC: Could not force [forced_ruleset]")
 				continue
 
 			var/datum/dynamic_ruleset/roundstart/new_forced_roundstart_ruleset = forced_ruleset.duplicate()
@@ -417,7 +432,7 @@ SUBSYSTEM_DEF(dynamic)
 			forced_ruleset.candidates = null
 
 			log_dynamic("ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
-			message_admins("DYNAMIC: ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
+			message_admins("DYNAMIC: Forced [new_forced_roundstart_ruleset]")
 
 	if(roundstart_only_use_forced_rulesets)
 		return
@@ -543,7 +558,7 @@ SUBSYSTEM_DEF(dynamic)
 	for(var/datum/dynamic_ruleset/roundstart/ruleset in roundstart_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
 
-		log_dynamic("ROUNDSTART: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		log_dynamic("ROUNDSTART: Executing [ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
 			roundstart_executed_rulesets -= ruleset
 
@@ -560,8 +575,9 @@ SUBSYSTEM_DEF(dynamic)
  */
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	var/result = ruleset.execute()
-	if(result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
-		rulesets_to_process += ruleset
+	// Successful execution
+	if(result == DYNAMIC_EXECUTE_SUCCESS)
+		ruleset.success()
 
 	// I would love to keep this logged, but we must avoid hard dels.
 	ruleset.candidates = null
@@ -686,18 +702,19 @@ SUBSYSTEM_DEF(dynamic)
 		var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
 
 		var/result = execute_ruleset(new_midround_ruleset)
-		message_admins("DYNAMIC: MIDROUND: Executing [new_midround_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-		log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		message_admins("DYNAMIC: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+		log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+
+		if (result == DYNAMIC_EXECUTE_WAITING)
+			midround_waiting_ruleset = new_midround_ruleset
 
 		// If we successfully execute the midround, apply the cost and log it
-		// If not, begin the stallout cooldown and delete the ruleset
-		if(result == DYNAMIC_EXECUTE_SUCCESS)
+		if(result == DYNAMIC_EXECUTE_SUCCESS || result == DYNAMIC_EXECUTE_WAITING)
 			midround_executed_rulesets += new_midround_ruleset
 			midround_points = 0
-			midround_logged_points["logged_points"] += midround_points
+			logged_points["logged_points"] += midround_points
 		else
 			COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
-			qdel(new_midround_ruleset)
 
 		midround_chosen_ruleset = null
 /**
@@ -733,7 +750,8 @@ SUBSYSTEM_DEF(dynamic)
 		ruleset.get_candidates()
 		ruleset.trim_candidates()
 
-		if(!ruleset.allowed())
+		// Do not require drafted players to exist for the one we pick
+		if(!ruleset.allowed(FALSE))
 			continue
 
 		ruleset.candidates = null
@@ -786,8 +804,8 @@ SUBSYSTEM_DEF(dynamic)
 	new_latejoin_ruleset.candidates = list(character)
 	var/result = execute_ruleset(new_latejoin_ruleset)
 
-	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
 		latejoin_executed_rulesets += new_latejoin_ruleset

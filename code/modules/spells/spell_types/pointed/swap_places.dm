@@ -10,7 +10,7 @@
 
 	active_msg = "You prepare to swap places with a target..."
 	deactive_msg = "You dispel the translocation."
-	cast_range = INFINITE //if they have been granted additional vision range, such as a prophet, they can use that range.
+	cast_range = INFINITY //if they have been granted additional vision range, such as a prophet, they can use that range.
 
 
 /datum/action/spell/pointed/swap_places/is_valid_spell(mob/user, atom/target)

@@ -2,7 +2,7 @@
 	name = "Speech"
 	desc = "Make (or break) a vow of silence."
 	background_icon_state = "bg_mime"
-	icon_icon = 'icons/hud/actions/actions_mime.dmi'
+	button_icon = 'icons/hud/actions/actions_mime.dmi'
 	button_icon_state = "mime_speech"
 
 	school = SCHOOL_MIME

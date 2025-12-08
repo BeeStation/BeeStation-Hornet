@@ -271,7 +271,7 @@
 	name = "mirage grenade"
 	desc = "A special device that, when activated, produces a holographic copy of the user."
 	icon_state = "mirage"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	det_time = 3 SECONDS
 	/// Mob that threw the grenade.
 	var/mob/living/thrower

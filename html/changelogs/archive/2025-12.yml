@@ -1,0 +1,52 @@
+2025-12-01:
+  PowerfulBacon:
+  - config: The default (local) config no longer has respawning enabled.
+  Rukofamicom:
+  - tweak: Supermatter crystals now have an upper limit on their explosive force,
+      achieved after 90 minutes of being powered.
+2025-12-02:
+  EvilDragonfiend:
+  - bugfix: fixed the manuscript bounty that it picked the wrong jobs
+  - tweak: made the manuscript bounty's reward credits more consistent.
+  PowerfulBacon:
+  - tweak: All midround ghost roles can only execute once per-round.
+2025-12-04:
+  PowerfulBacon:
+  - tweak: Admins can now bypass antagonist time restrictions when the use_exp_restrictions_admin_bypass
+      flag is set, making local testing easier.
+2025-12-05:
+  PowerfulBacon:
+  - bugfix: Fixes a lag issue caused by reagent containers detonating under certain
+      conditions.
+2025-12-06:
+  mrmanlikesbt:
+  - rscdel: 'Reverted handcuffs to the previous behavior. Which means: you can no
+      longer break your wrists to escape handcuffs and you now must stand completely
+      still for the handcuff''s escape duration to... escape.'
+2025-12-07:
+  Absolucy:
+  - bugfix: Fixed oozeling limb regeneration potentially crashing the server.
+  PowerfulBacon:
+  - refactor: Refactors some logic in the candidate poll system used by dynamic midround
+      events.
+  - tweak: Dynamic will wait until a candidate is available when a ruleset is executed,
+      cancelling any existing polls if a previous event did not find a candidate.
+  - tweak: Upon becoming a ghost, you will gain access to any candidate polls that
+      are currently in progress.
+  - tweak: Midround rulesets can now be selected as an option even if there are no
+      ghosts, as upon execution it will simply wait until enough ghosts sign up before
+      execution. This means that rulesets other than space pirates can execute on
+      lowpop.
+  Programs-The-Station:
+  - bugfix: Inedible food's span is now warning instead of green.
+  mrmanlikesbt:
+  - bugfix: Fixed not being able to escape cuffs while buckled to a chair
+  - spellcheck: Fixed an accidental revert of the black gloves description saying
+      that they are thick
+2025-12-08:
+  BotTierPC:
+  - tweak: Adds the Ventriloquist Dummy to Echo, Rad, and Deltastation and adjusts
+      the rooms slightly to accommodate the new item.
+  mrmanlikesbt:
+  - spellcheck: Fixed the Abandoned Club and Xenobiology Maintenance area names being
+      swapped
