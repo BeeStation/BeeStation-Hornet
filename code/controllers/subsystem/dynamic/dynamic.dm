@@ -712,7 +712,7 @@ SUBSYSTEM_DEF(dynamic)
 		if(result == DYNAMIC_EXECUTE_SUCCESS || result == DYNAMIC_EXECUTE_WAITING)
 			midround_executed_rulesets += new_midround_ruleset
 			midround_points = 0
-			logged_points["logged_points"] += midround_points
+			midround_logged_points["logged_points"] += midround_points
 		else
 			COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
 
