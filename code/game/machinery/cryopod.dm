@@ -267,7 +267,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		// Determine how we should handle our leaving
 		switch (highest_leave)
 			if (ANTAGONIST_LEAVE_DESPAWN)
-				despawn_occupant()
+				ghost_offering = TRUE
+				INVOKE_ASYNC(src, PROC_REF(leave_game), mob_occupant)
 			if (ANTAGONIST_LEAVE_OFFER)
 				ghost_offering = TRUE
 				INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
@@ -284,11 +285,22 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	offer_control_persistently(target)
 
 /obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
+	if(target.client)
+		if (tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+			open_machine()
+			return
 	target.ghostize(FALSE)
 	if(offer_control(target))
 		open_machine()
 	else
 		despawn_occupant()
+
+/obj/machinery/cryopod/proc/leave_game(mob/living/target)
+	if(target.client)
+		if (tgui_alert(target, "Would you like to leave the game? You will immediately be ghosted.", "Leave Game", list("Yes", "No")) != "Yes")
+			open_machine()
+			return
+	despawn_occupant()
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
