@@ -112,18 +112,24 @@
 	data["linear_delta"] = SSdynamic.midround_linear_delta
 	data["linear_delta_forced"] = SSdynamic.midround_linear_delta_forced
 
-	data["logged_points"] = SSdynamic.logged_points["logged_points"]
-	data["logged_points_living"] = SSdynamic.logged_points["logged_points_living"]
-	data["logged_points_observer"] = SSdynamic.logged_points["logged_points_observer"]
-	data["logged_points_dead"] = SSdynamic.logged_points["logged_points_dead"]
-	data["logged_points_dead_security"] = SSdynamic.logged_points["logged_points_dead_security"]
-	data["logged_points_antag"] = SSdynamic.logged_points["logged_points_antag"]
-	data["logged_points_linear"] = SSdynamic.logged_points["logged_points_linear"]
-	data["logged_points_linear_forced"] = SSdynamic.logged_points["logged_points_linear_forced"]
+	data["logged_points"] = SSdynamic.midround_logged_points["logged_points"]
+	data["logged_points_living"] = SSdynamic.midround_logged_points["logged_points_living"]
+	data["logged_points_observer"] = SSdynamic.midround_logged_points["logged_points_observer"]
+	data["logged_points_dead"] = SSdynamic.midround_logged_points["logged_points_dead"]
+	data["logged_points_dead_security"] = SSdynamic.midround_logged_points["logged_points_dead_security"]
+	data["logged_points_antag"] = SSdynamic.midround_logged_points["logged_points_antag"]
+	data["logged_points_linear"] = SSdynamic.midround_logged_points["logged_points_linear"]
+	data["logged_points_linear_forced"] = SSdynamic.midround_logged_points["logged_points_linear_forced"]
 
-	data["logged_light_chance"] = SSdynamic.logged_chances["light"]
-	data["logged_medium_chance"] = SSdynamic.logged_chances["medium"]
-	data["logged_heavy_chance"] = SSdynamic.logged_chances["heavy"]
+	data["calculated_light_chances"] = SSdynamic.midround_chances["light"]
+	data["calculated_medium_chances"] = SSdynamic.midround_chances["medium"]
+	data["calculated_heavy_chances"] = SSdynamic.midround_chances["heavy"]
+
+	data["minutes_elapsed"] = SSdynamic.times_fired - 1
+
+	data["light_end_time"] = SSdynamic.midround_light_end_time
+	data["medium_end_time"] = SSdynamic.midround_medium_end_time
+	data["medium_increase_ratio"] = SSdynamic.midround_medium_increase_ratio
 
 	// Latejoin
 	data["executed_latejoin_rulesets"] = list()
@@ -310,6 +316,10 @@
 			if(result == DYNAMIC_EXECUTE_SUCCESS)
 				SSdynamic.midround_executed_rulesets += SSdynamic.midround_chosen_ruleset
 			SSdynamic.midround_chosen_ruleset = null
+			return TRUE
+
+		if("calculate_midround_chances")
+			SSdynamic.calculate_midround_chances()
 			return TRUE
 
 		// Latejoin

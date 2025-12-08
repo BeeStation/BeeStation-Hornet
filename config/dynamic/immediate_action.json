@@ -14,8 +14,8 @@
         "midround_dead_delta": -0.8,
 		"latejoin_ruleset_probability": 10,
 		"latejoin_max_rulesets": 1,
-		"midround_light_end_time": 22000,
-		"midround_medium_end_time": 60000,
+		"midround_light_end_time": 40,
+		"midround_medium_end_time": 100,
 		"midround_medium_increase_ratio": 1,
 		"midround_points_per_antag": {
 			"/datum/antagonist/ert": 0.2,
