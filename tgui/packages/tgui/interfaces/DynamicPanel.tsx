@@ -1,20 +1,20 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { BooleanLike } from 'common/react';
 import { useState } from 'react';
+import { Dropdown } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Chart,
   Divider,
-  Dropdown,
   Flex,
   LabeledList,
   NumberInput,
   Section,
   Tabs,
-} from 'tgui-core/components';
-
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
