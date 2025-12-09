@@ -265,15 +265,13 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		for (var/datum/antagonist/antagonist_datum in mob_occupant.mind.antag_datums)
 			highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
 		// Determine how we should handle our leaving
+		ghost_offering = TRUE
 		switch (highest_leave)
 			if (ANTAGONIST_LEAVE_DESPAWN)
-				ghost_offering = TRUE
 				INVOKE_ASYNC(src, PROC_REF(leave_game), mob_occupant)
 			if (ANTAGONIST_LEAVE_OFFER)
-				ghost_offering = TRUE
 				INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
 			if (ANTAGONIST_LEAVE_KEEP)
-				ghost_offering = TRUE
 				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
 
 /obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
