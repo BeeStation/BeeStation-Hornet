@@ -51,5 +51,7 @@
   - spellcheck: Fixed the Abandoned Club and Xenobiology Maintenance area names being
       swapped
 2025-12-09:
+  EvilDragonfiend:
+  - admin: TP panel is better to recognise
   Programs-The-Station:
   - tweak: Transfer shuttle will not be called when there are zero votes in the poll.
