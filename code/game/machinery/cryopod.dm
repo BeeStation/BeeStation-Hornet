@@ -285,10 +285,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	offer_control_persistently(target)
 
 /obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
-	if(target.client)
-		if (tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
-			open_machine()
-			return
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+		open_machine()
+		return
 	target.ghostize(FALSE)
 	if(offer_control(target))
 		open_machine()
