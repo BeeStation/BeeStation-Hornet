@@ -291,7 +291,7 @@
 	owner.announce_objectives()
 
 	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
+	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>."
 
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
