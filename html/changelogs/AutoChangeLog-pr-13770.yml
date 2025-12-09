@@ -1,0 +1,4 @@
+author: Programs-The-Station
+delete-after: true
+changes:
+  - tweak: Transfer shuttle will not be called when there are zero votes in the poll.
