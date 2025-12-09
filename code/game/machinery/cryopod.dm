@@ -277,10 +277,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
 
 /obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
-	if(target.client)
-		if (tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
-			open_machine()
-			return
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+		open_machine()
+		return
 	target.ghostize(FALSE)
 	offer_control_persistently(target)
 
