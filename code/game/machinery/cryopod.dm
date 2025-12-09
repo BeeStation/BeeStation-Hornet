@@ -294,10 +294,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		despawn_occupant()
 
 /obj/machinery/cryopod/proc/leave_game(mob/living/target)
-	if(target.client)
-		if (tgui_alert(target, "Would you like to leave the game? You will immediately be ghosted.", "Leave Game", list("Yes", "No")) != "Yes")
-			open_machine()
-			return
+	if(target.client && tgui_alert(target, "Would you like to leave the game? You will immediately be ghosted.", "Leave Game", list("Yes", "No")) != "Yes")
+		open_machine()
+		return
 	despawn_occupant()
 
 // This function can not be undone; do not call this unless you are sure
