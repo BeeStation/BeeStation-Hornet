@@ -47172,10 +47172,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"jGa" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/space/basic,
-/area/space)
 "jGe" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/edges/techfloor{
@@ -121069,7 +121065,7 @@ nzj
 nzj
 nzj
 nzj
-jGa
+nzj
 nzj
 nzj
 nzj
