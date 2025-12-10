@@ -30,7 +30,10 @@
 		return
 
 /datum/vote/shuttle_vote/tiebreaker(list/winners)
-	return CHOICE_SHUTTLE //In the event of an even 50/50 split, we prefer to evacuate
+	if(!length(get_living_crew())) //No Players? Shuttle
+		return CHOICE_SHUTTLE
+
+	return length(choices_by_ckey) ? CHOICE_SHUTTLE : CHOICE_CONTINUE  //If there are no votes, continue, otherwise, prefer shuttle.
 
 #undef CHOICE_SHUTTLE
 #undef CHOICE_CONTINUE
