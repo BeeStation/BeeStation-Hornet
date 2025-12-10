@@ -28,7 +28,7 @@
 	if(isnull(booked_job))
 		to_chat(user, span_notice("This book needs a pen to write someone's experience."))
 		return
-	to_chat(user, span_notice("This is about the [booked_job]. There's a wall of text with unrecognisable handwriting."))
+	to_chat(user, span_notice("This is about the [booked_job::title]. There's a wall of text with unrecognisable handwriting."))
 
 /obj/item/book/manuscript/attackby(obj/item/attacking_item, mob/user, params)
 	if(!istype(attacking_item, /obj/item/pen) || !user.is_literate())
