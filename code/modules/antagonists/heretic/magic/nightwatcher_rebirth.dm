@@ -4,7 +4,7 @@
 		healing you for each victim drained. Those in critical condition \
 		will have the last of their vitality drained, killing them."
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "smoke"
 
 	school = SCHOOL_FORBIDDEN

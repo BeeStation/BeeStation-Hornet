@@ -455,7 +455,7 @@ There are several things that need to be remembered:
 		if(client && hud_used && hud_used.hud_shown)
 			client.screen += s_store
 		update_observer_view(s_store)
-		var/t_state = s_store.item_state
+		var/t_state = s_store.inhand_icon_state
 		if(!t_state)
 			t_state = s_store.icon_state
 		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('icons/mob/clothing/belt_mirror.dmi', t_state, -SUIT_STORE_LAYER)
@@ -711,7 +711,7 @@ There are several things that need to be remembered:
 							observers = null
 							break
 
-		var/t_state = I.item_state
+		var/t_state = I.inhand_icon_state
 		if(!t_state)
 			t_state = I.icon_state
 
@@ -813,7 +813,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if(override_state)
 		t_state = override_state
 	else
-		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (item_state ? item_state : icon_state)
+		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (inhand_icon_state ? inhand_icon_state : icon_state)
 
 	//Find a valid icon file from variables+arguments
 	var/file2use = !isinhands ? (worn_icon ? worn_icon : default_icon_file) : default_icon_file

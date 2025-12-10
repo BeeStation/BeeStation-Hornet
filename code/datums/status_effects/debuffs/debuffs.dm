@@ -496,27 +496,23 @@
 	deltimer(timerid)
 
 /datum/status_effect/gonbola_pacify
-	id = "gonbolaPacify"
+	id = "gondola_pacify"
 	status_type = STATUS_EFFECT_MULTIPLE
 	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = null
 
 /datum/status_effect/gonbola_pacify/on_apply()
-	ADD_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
-	ADD_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
-	ADD_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
+	owner.add_traits(list(TRAIT_PACIFISM, TRAIT_MUTE, TRAIT_JOLLY), TRAIT_STATUS_EFFECT(id))
 	to_chat(owner, span_notice("You suddenly feel at peace and feel no need to make any sudden or rash actions."))
 	return ..()
 
 /datum/status_effect/gonbola_pacify/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
-	REMOVE_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
-	REMOVE_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
+	owner.remove_traits(list(TRAIT_PACIFISM, TRAIT_MUTE, TRAIT_JOLLY), TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/trance
 	id = "trance"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = 300
+	duration = 30 SECONDS
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/trance
 	var/stun = TRUE

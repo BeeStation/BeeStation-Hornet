@@ -11017,12 +11017,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
-"cpD" = (
-/obj/structure/disposalpipe/sorting/mail/destination/dormitories{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space)
 "cpF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -107201,7 +107195,7 @@ aaa
 aaa
 aaa
 aaa
-cpD
+aaa
 aaa
 aaa
 aaa
