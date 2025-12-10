@@ -107,7 +107,7 @@
 	))
 	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, non_simple_animals) || ismonkey(target))
 		var/mob/living/living_target = target
-		if(our_vault && our_vault.animals && our_vault.animals[living_target.type])
+		if(our_vault?.animals?[living_target.type])
 			to_chat(user, span_notice("Animal data already present in vault storage."))
 			return
 		if(animals[living_target.type])
