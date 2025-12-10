@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: The crew monitoring console will now show when someone's sensors have gone
-      offline, if they are in the crew manifest.

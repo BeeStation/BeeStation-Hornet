@@ -55,3 +55,7 @@
   - admin: TP panel is better to recognise
   Programs-The-Station:
   - tweak: Transfer shuttle will not be called when there are zero votes in the poll.
+2025-12-10:
+  PowerfulBacon:
+  - tweak: The crew monitoring console will now show when someone's sensors have gone
+      offline, if they are in the crew manifest.
