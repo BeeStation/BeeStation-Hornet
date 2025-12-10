@@ -2,7 +2,7 @@
  * Vampire clans
  *
  * Handles everything related to clans.
- * the entire idea of datumizing this came to me in a dream.
+ * The entire idea of datumizing this came to me in a dream.
  */
 /datum/vampire_clan
 	/// The name of the clan we're in.
