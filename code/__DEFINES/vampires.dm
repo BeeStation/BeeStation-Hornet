@@ -73,7 +73,6 @@
 #define VAMPIRE_SPAM_SOL 30 SECONDS
 
 // Clan defines
-#define CLAN_CAITIFF "Caitiff"
 #define CLAN_BRUJAH "Brujah Clan"
 #define CLAN_TOREADOR "Toreador Clan"
 #define CLAN_NOSFERATU "Nosferatu Clan"
