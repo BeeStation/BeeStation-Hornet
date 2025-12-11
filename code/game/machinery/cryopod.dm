@@ -276,15 +276,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 /obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
 	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
-		open_machine()
-		return
+		if (target.client)
+			open_machine()
+			return
 	target.ghostize(FALSE)
 	offer_control_persistently(target)
 
 /obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
 	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
-		open_machine()
-		return
+		if (target.client)
+			open_machine()
+			return
 	target.ghostize(FALSE)
 	if(offer_control(target))
 		open_machine()
@@ -293,8 +295,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 /obj/machinery/cryopod/proc/leave_game(mob/living/target)
 	if(target.client && tgui_alert(target, "Would you like to leave the game? You will immediately be ghosted.", "Leave Game", list("Yes", "No")) != "Yes")
-		open_machine()
-		return
+		if (target.client)
+			open_machine()
+			return
 	despawn_occupant()
 
 // This function can not be undone; do not call this unless you are sure
