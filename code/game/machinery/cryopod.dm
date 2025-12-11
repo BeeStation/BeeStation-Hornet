@@ -435,7 +435,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		return
 	close_machine(target)
 
-	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
 		message_admins("[span_danger("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>")])")
 	else
