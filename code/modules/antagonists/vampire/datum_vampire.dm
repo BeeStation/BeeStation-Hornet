@@ -642,7 +642,11 @@
 		return
 
 	if(IS_VAMPIRE(examiner))
-		text += span_cult("<EM>[return_full_name()]</EM>")
+
+		if(my_clan)
+			text += span_cult("<EM>[return_full_name()], of the [my_clan].</EM>")
+		else
+			text += span_cult("<EM>[return_full_name()], a disgusting caitiff thinblood.</EM>")
 
 		if(examiner != owner.current) // So many ifs. where is yanderedev.
 			if(scourge)
