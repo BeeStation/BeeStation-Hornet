@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(directives)
 		// Queue the next one 10 minutes after half the time of the longest objective.
 		// The longest objective will likely be 30 minute (assassination), so this gives the next objective
 		// after 25 minutes. This means you might get 2 objectives at the same time, but that is okay.
-		next_directive_time = 0.5 * longest_objective + 10 MINUTES
+		next_directive_time = world.time + 0.5 * longest_objective + 10 MINUTES
 		return
 	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.start(filtered_uplinks, player_minds)
