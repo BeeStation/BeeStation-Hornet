@@ -26,6 +26,10 @@
 /area/hallway/secondary/exit/departure_lounge)
 "aaB" = (
 /obj/structure/table/round/wood,
+/obj/item/modular_computer/laptop/preset/civillian{
+	pixel_y = 4
+	},
+/obj/machinery/power/apc/auto_name/directional/east,
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "aaO" = (
@@ -40,6 +44,7 @@
 /obj/machinery/door/airlock/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/engine/atmos)
 "abd" = (
@@ -209,6 +214,15 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-4"
 	},
+/obj/item/newspaper{
+	pixel_y = 3;
+	pixel_x = -3
+	},
+/obj/item/newspaper{
+	pixel_y = 5;
+	pixel_x = 4
+	},
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/security/detectives_office)
 "afG" = (
@@ -459,6 +473,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/hallway/primary/aft)
 "akB" = (
@@ -523,6 +538,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/hallway/primary/aft)
 "aln" = (
@@ -732,6 +748,7 @@
 /obj/machinery/door/airlock/virology,
 /obj/effect/mapping_helpers/airlock/access/all/medical/virology,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 4
 	},
@@ -770,6 +787,9 @@
 	},
 /obj/effect/turf_decal/siding/gray{
 	dir = 5
+	},
+/obj/machinery/camera/directional/north{
+	dir = 9
 	},
 /turf/open/floor/monotile/steel,
 /area/security/detectives_office)
@@ -880,6 +900,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -973,6 +994,7 @@
 "atC" = (
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -2498,6 +2520,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -3169,6 +3192,19 @@
 /area/crew_quarters/heads/captain)
 "bra" = (
 /obj/structure/table/wood,
+/obj/item/clipboard{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/paper{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/obj/machinery/newscaster/directional/west,
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "brk" = (
@@ -3248,6 +3284,17 @@
 "btn" = (
 /turf/closed/wall/r_wall,
 /area/space)
+"bts" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/kirbyplants/random{
+	pixel_y = 10
+	},
+/obj/machinery/status_display/ai/directional/east,
+/turf/open/floor/wood/big,
+/area/security/detectives_office)
 "btw" = (
 /obj/item/storage/bag/trash{
 	icon_state = "trashbag3";
@@ -4407,8 +4454,9 @@
 	},
 /area/engine/atmos)
 "bSF" = (
-/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/detective,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "bSG" = (
@@ -4662,6 +4710,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/crew_quarters/dorms/upper)
 "bYe" = (
@@ -5882,6 +5931,7 @@
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood,
 /area/medical/break_room)
 "cEw" = (
@@ -6487,6 +6537,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/crew_quarters/kitchen)
 "cQr" = (
@@ -6785,6 +6836,7 @@
 /area/hallway/primary/central)
 "cXq" = (
 /obj/machinery/door/airlock/science/glass,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/medical/genetics)
 "cXy" = (
@@ -6802,6 +6854,7 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new/slate,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/crew_quarters/fitness)
 "cYh" = (
@@ -7061,6 +7114,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/hallway/primary/aft)
 "dfH" = (
@@ -7212,7 +7266,8 @@
 /obj/machinery/door/airlock/grunge,
 /obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/wood,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
 /area/chapel/office)
 "dkJ" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -8791,6 +8846,7 @@
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/cmo,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/smooth_half{
 	dir = 1
 	},
@@ -10065,6 +10121,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/crew_quarters/dorms/upper)
 "exs" = (
@@ -10097,6 +10154,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -10540,6 +10598,16 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/space)
+"eIk" = (
+/obj/structure/table/wood{
+	icon_state = "wood_table-12"
+	},
+/obj/item/sticky_note_pile{
+	pixel_x = 22;
+	pixel_y = 7
+	},
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "eIl" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -11332,6 +11400,7 @@
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -11590,6 +11659,7 @@
 "ffa" = (
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/ce,
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/chief)
 "ffb" = (
@@ -11800,6 +11870,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/turf_decal/trimline/orange/line,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -12482,7 +12553,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/janitor,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/smooth_half,
 /area/janitor)
 "fwd" = (
 /obj/effect/turf_decal/siding/gray{
@@ -13154,6 +13226,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -14535,6 +14608,7 @@
 /obj/machinery/door/airlock/medical,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -14819,9 +14893,8 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/iron/white/textured_half{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white/textured_half,
 /area/medical/surgery)
 "gBO" = (
 /obj/effect/turf_decal/siding/slate/corner,
@@ -15257,10 +15330,23 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/iron/smooth,
 /area/maintenance/fore)
+"gNP" = (
+/obj/machinery/light_switch/directional/south,
+/obj/structure/fluff/paper/stack{
+	dir = 4;
+	pixel_y = 10;
+	pixel_x = 3;
+	max_integrity = 20
+	},
+/turf/open/floor/carpet/grimy,
+/area/security/detectives_office)
 "gOy" = (
 /obj/structure/platform/warning,
 /obj/structure/railing/perspective/gray,
 /obj/effect/decal/fakestairs/newstairs/right{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark{
 	dir = 4
 	},
 /turf/open/floor/iron/smooth,
@@ -15993,9 +16079,6 @@
 /obj/machinery/door/morgue{
 	name = "Confession Booth"
 	},
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 8
-	},
 /turf/open/floor/wood,
 /area/chapel/main)
 "hfW" = (
@@ -16007,6 +16090,7 @@
 /obj/machinery/computer/records/security{
 	dir = 4
 	},
+/obj/machinery/requests_console/auto_name/directional/west,
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "hgo" = (
@@ -16122,6 +16206,21 @@
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/edge,
 /area/hallway/primary/central)
+"hiS" = (
+/obj/machinery/door/airlock/engineering/glass,
+/obj/effect/turf_decal/siding/wideplating_new/slate{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wideplating_new/slate{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
+/area/engine/engine_room/external)
 "hiX" = (
 /obj/effect/turf_decal/siding/light_slate{
 	dir = 4
@@ -16131,6 +16230,17 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/space)
+"hiZ" = (
+/obj/structure/table/wood{
+	icon_state = "wood_table-4"
+	},
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen,
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "hja" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/effect/turf_decal/siding/slate/corner{
@@ -16504,6 +16614,7 @@
 "htO" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/security/interrogation_room)
 "huc" = (
@@ -16757,6 +16868,16 @@
 	dir = 4
 	},
 /obj/structure/table/wood/fancy,
+/obj/item/photo{
+	pixel_x = -3
+	},
+/obj/item/photo{
+	pixel_y = 15
+	},
+/obj/item/photo{
+	pixel_x = 6;
+	pixel_y = 4
+	},
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "hzo" = (
@@ -16795,6 +16916,7 @@
 "hAo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/southleft,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
 "hAG" = (
@@ -17014,6 +17136,7 @@
 "hGH" = (
 /obj/machinery/door/airlock/maintenance/external,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -17065,6 +17188,7 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -17403,6 +17527,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/slate,
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/crew_quarters/heads/captain)
 "hRN" = (
@@ -18395,6 +18520,7 @@
 /area/bridge)
 "iqd" = (
 /obj/machinery/door/airlock/grunge,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -19252,6 +19378,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/engine/engine_room)
 "iKa" = (
@@ -19378,9 +19505,8 @@
 "iNC" = (
 /obj/machinery/door/airlock/medical,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/iron/white/textured_half{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/white/textured_half,
 /area/medical/surgery)
 "iNM" = (
 /obj/effect/turf_decal/siding/light_slate{
@@ -19612,6 +19738,7 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -19673,6 +19800,7 @@
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/all/medical/cmo,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/crew_quarters/heads/cmo)
 "iTr" = (
@@ -19864,6 +19992,7 @@
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/hallway/primary/central)
 "iZg" = (
@@ -20176,6 +20305,15 @@
 	},
 /turf/open/floor/carpet/default/no_smooth,
 /area/library)
+"jfF" = (
+/obj/structure/fluff/paper/stack{
+	dir = 1;
+	max_integrity = 20;
+	name = "Safety Inspector's report";
+	desc = "A piece of paper, childish scribbles are scattered across it."
+	},
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "jgk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/railing/perspective/black/corner,
@@ -20243,6 +20381,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/engine/engine_room)
 "jhP" = (
@@ -20328,6 +20467,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -20860,6 +21000,9 @@
 /area/crew_quarters/heads/captain)
 "jww" = (
 /obj/machinery/vending/wardrobe/det_wardrobe,
+/obj/item/radio/intercom/directional/east,
+/obj/machinery/light/small/directional/north,
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "jwE" = (
@@ -20937,6 +21080,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/slate,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/crew_quarters/heads/hop)
 "jyp" = (
@@ -21496,6 +21640,9 @@
 "jLX" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood/fancy,
+/obj/item/kirbyplants/random{
+	pixel_y = 26
+	},
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "jMa" = (
@@ -21618,6 +21765,7 @@
 /area/science/xenobiology)
 "jPN" = (
 /obj/machinery/door/airlock/research/glass,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -22072,6 +22220,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/crew_quarters/dorms/upper)
 "kaj" = (
@@ -23109,6 +23258,15 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-12"
 	},
+/obj/item/folder/red{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/photo{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/pen,
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/security/detectives_office)
 "kAd" = (
@@ -23804,6 +23962,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -23999,6 +24158,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/concrete/slab,
 /area/quartermaster/sorting)
 "kWM" = (
@@ -24318,6 +24478,7 @@
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/noslip/dark,
 /area/storage/tech)
 "ler" = (
@@ -24435,6 +24596,7 @@
 	pixel_y = 5
 	},
 /obj/machinery/door/window/southright,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/tech,
 /area/science/xenobiology)
 "lge" = (
@@ -24563,6 +24725,7 @@
 "liA" = (
 /obj/machinery/door/airlock/grunge,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -25022,6 +25185,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/engine/engine_smes)
 "lvI" = (
@@ -25084,9 +25248,20 @@
 	},
 /area/engine/atmos)
 "lxC" = (
-/obj/machinery/door/airlock/security,
-/turf/open/floor/wood,
-/area/security/detectives_office)
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/mirror{
+	pixel_x = 24;
+	pixel_y = 4
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/light_switch/directional/south{
+	pixel_x = 22
+	},
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/toilet/restrooms)
 "lxI" = (
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 8
@@ -25270,6 +25445,7 @@
 "lCx" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/vacant_room/office)
 "lCN" = (
@@ -26347,6 +26523,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/security/checkpoint/medical)
 "lYN" = (
@@ -26404,6 +26581,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "maq" = (
@@ -26545,6 +26723,7 @@
 /obj/machinery/door/airlock/medical,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/medical/storage)
 "mdD" = (
@@ -26698,6 +26877,7 @@
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -26771,7 +26951,10 @@
 "miH" = (
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/quartermaster/miningdock)
 "miY" = (
 /obj/structure/chair/fancy/bench/pew/right,
@@ -27265,6 +27448,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/engine/atmos)
 "muL" = (
@@ -27339,6 +27523,7 @@
 "mwn" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood,
 /area/lawoffice)
 "mwr" = (
@@ -27490,6 +27675,9 @@
 	},
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
+	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 4
 	},
 /turf/open/floor/iron/smooth,
 /area/medical/chemistry)
@@ -27665,6 +27853,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/light{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 4
 	},
@@ -27689,6 +27878,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -27705,6 +27895,7 @@
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -28326,11 +28517,12 @@
 /area/quartermaster/storage)
 "mTs" = (
 /obj/machinery/door/airlock/glass_large,
-/obj/effect/turf_decal/siding/light_gray,
+/obj/effect/turf_decal/siding/wideplating_new,
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/medical/exam_room)
 "mTF" = (
@@ -28761,6 +28953,7 @@
 "ney" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/security/warden)
 "neD" = (
@@ -28780,6 +28973,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/maintenance/department/engine/atmos)
 "nfm" = (
@@ -29101,6 +29295,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/crew_quarters/dorms/upper)
 "nou" = (
@@ -29248,6 +29443,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood/fancy,
+/obj/machinery/status_display/evac/directional/west,
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "nsS" = (
@@ -29493,6 +29689,7 @@
 "nyG" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/chapel/main)
 "nyT" = (
@@ -30204,6 +30401,10 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-2"
 	},
+/obj/machinery/computer/records/medical/laptop{
+	dir = 8;
+	pixel_y = 2
+	},
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/security/detectives_office)
 "nNf" = (
@@ -30440,6 +30641,7 @@
 "nSY" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/camera/directional/south,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "nTc" = (
@@ -30813,6 +31015,7 @@
 /obj/machinery/door/airlock/science/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -31246,6 +31449,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small/directional/north,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/toilet/restrooms)
 "okh" = (
@@ -32070,7 +32274,10 @@
 "oBy" = (
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/smooth_half{
+	dir = 1
+	},
 /area/quartermaster/miningoffice)
 "oBT" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
@@ -32379,6 +32586,21 @@
 /obj/machinery/disposal/bin,
 /turf/open/floor/iron/white,
 /area/science/explab)
+"oKi" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood/fancy,
+/obj/item/folder/red{
+	pixel_x = 7
+	},
+/obj/item/folder/blue{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/wood/big,
+/area/security/detectives_office)
 "oKm" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -33190,6 +33412,7 @@
 "pgg" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/security/brig)
 "pgi" = (
@@ -33939,6 +34162,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -33961,6 +34185,7 @@
 	},
 /obj/effect/turf_decal/siding/wideplating_new/slate,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/crew_quarters/cryopods)
 "pyO" = (
@@ -34110,6 +34335,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/hallway/primary/central)
 "pDf" = (
@@ -34171,6 +34397,9 @@
 /obj/item/soap{
 	pixel_y = 7;
 	pixel_x = -4
+	},
+/obj/machinery/light/small/directional/south{
+	pixel_x = -16
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
@@ -34372,6 +34601,7 @@
 "pJX" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/science/aft)
 "pKn" = (
@@ -34607,6 +34837,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -34770,6 +35001,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/quartermaster/exploration_prep)
 "pQU" = (
@@ -34910,6 +35142,7 @@
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/engine/engineering)
 "pVv" = (
@@ -36115,6 +36348,7 @@
 "qyB" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -36375,6 +36609,7 @@
 	},
 /obj/machinery/door/airlock/virology,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/crew_quarters/cryopods)
 "qDJ" = (
@@ -36417,6 +36652,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -36793,6 +37029,7 @@
 	},
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -36950,12 +37187,10 @@
 /turf/open/floor/plating,
 /area/maintenance/upper/fore/secondary)
 "qUM" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mailroom";
-	req_access_txt = "50"
-	},
+/obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/smooth_half,
 /area/quartermaster/storage)
 "qVo" = (
 /turf/open/openspace,
@@ -36981,6 +37216,7 @@
 /area/space)
 "qVH" = (
 /obj/machinery/door/airlock/security,
+/obj/effect/mapping_helpers/airlock/access/all/security/detective,
 /turf/open/floor/iron/textured_half,
 /area/security/detectives_office)
 "qVO" = (
@@ -37006,6 +37242,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/engine/storage_shared)
 "qWU" = (
@@ -37488,6 +37725,7 @@
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/engine/engineering)
 "rmd" = (
@@ -37515,6 +37753,21 @@
 "rmr" = (
 /turf/open/floor/iron/white/smooth_large,
 /area/science/lobby)
+"rmH" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/light_switch{
+	pixel_y = -24;
+	pixel_x = -6
+	},
+/obj/machinery/light/small/directional/south,
+/obj/machinery/button/door{
+	pixel_y = -24;
+	id = "det";
+	name = "shutters button";
+	pixel_x = 6
+	},
+/turf/open/floor/wood/big,
+/area/security/detectives_office)
 "rmN" = (
 /obj/structure/platform/black{
 	dir = 1
@@ -37694,6 +37947,8 @@
 /obj/effect/turf_decal/siding/gray{
 	dir = 6
 	},
+/obj/item/clothing/mask/surgical,
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/monotile/steel,
 /area/security/detectives_office)
 "rrE" = (
@@ -37821,6 +38076,7 @@
 "rva" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -38376,6 +38632,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/slate{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/engine/storage_shared)
 "rJs" = (
@@ -38401,6 +38658,13 @@
 /area/space)
 "rKM" = (
 /obj/structure/closet/secure_closet/detective,
+/obj/item/book/manual/wiki/detective{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/secure/safe{
+	pixel_x = 32
+	},
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "rKR" = (
@@ -39005,6 +39269,7 @@
 "rYz" = (
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -39212,7 +39477,7 @@
 /area/maintenance/aft)
 "sdo" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/security/detective,
 /turf/open/floor/plating,
 /area/security/detectives_office)
 "sdC" = (
@@ -39257,7 +39522,10 @@
 "sdQ" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/iron/dark/textured_half,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
 /area/science/misc_lab)
 "sdR" = (
 /obj/machinery/disposal/bin,
@@ -39746,6 +40014,15 @@
 	},
 /obj/structure/platform/gray/stair_cutoff,
 /obj/structure/platform/gray,
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_half_in/blue{
+	dir = 5
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/_corner/yellow{
+	dir = 1
+	},
 /turf/open/floor/iron/edge,
 /area/engine/atmos)
 "snQ" = (
@@ -40107,6 +40384,14 @@
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/maintenance/upper/central)
+"syQ" = (
+/obj/machinery/photocopier,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "syZ" = (
 /obj/structure/platform/gray/end{
 	dir = 8
@@ -40202,6 +40487,14 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron,
 /area/maintenance/central)
+"sBy" = (
+/obj/structure/fluff/paper/stack{
+	dir = 6;
+	max_integrity = 20;
+	pixel_x = 12
+	},
+/turf/open/floor/carpet/grimy,
+/area/security/detectives_office)
 "sBA" = (
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -40382,6 +40675,10 @@
 /area/medical/medbay)
 "sFF" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	name = "Detective's Office Shutters";
+	id = "det"
+	},
 /turf/open/floor/plating,
 /area/security/detectives_office)
 "sFI" = (
@@ -40850,10 +41147,11 @@
 	},
 /area/maintenance/aft/secondary)
 "sWe" = (
-/obj/effect/turf_decal/siding/light_gray,
+/obj/effect/turf_decal/siding/wideplating_new,
 /obj/effect/turf_decal/siding/wideplating_new{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/medical/exam_room)
 "sWG" = (
@@ -41059,6 +41357,9 @@
 	dir = 5
 	},
 /obj/structure/elevator_segment/nucorg/cargo,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 5
+	},
 /turf/open/floor/iron/ridged/steel,
 /area/quartermaster/storage)
 "tdd" = (
@@ -41294,6 +41595,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/slate,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half,
 /area/hallway/secondary/command)
 "tgS" = (
@@ -41992,6 +42294,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -42215,6 +42518,7 @@
 	},
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -42817,6 +43121,15 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/upper/secondary/entry)
+"tVZ" = (
+/obj/structure/fluff/paper/stack{
+	dir = 4;
+	pixel_y = 10;
+	pixel_x = 3;
+	max_integrity = 20
+	},
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "tWx" = (
 /obj/structure/fence{
 	dir = 8
@@ -43227,6 +43540,7 @@
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/medical/medbay/central)
 "uiO" = (
@@ -43304,6 +43618,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -44345,6 +44660,14 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/space)
+"uIt" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/wall_closet/sec/directional/south,
+/obj/machinery/light/small/directional/south{
+	pixel_x = -16
+	},
+/turf/open/floor/wood/big,
+/area/security/detectives_office)
 "uIM" = (
 /obj/effect/turf_decal/tile/monorust/intensity2,
 /obj/structure/reagent_dispensers/foamtank,
@@ -44555,6 +44878,7 @@
 /obj/machinery/door/airlock/personal{
 	id_tag = "foodcommissarydoor"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -44569,6 +44893,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -44704,7 +45029,10 @@
 "uRm" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/iron/dark/textured_half,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
 /area/science/robotics/lab)
 "uRw" = (
 /obj/structure/platform/gray/stair_cutoff{
@@ -45140,6 +45468,7 @@
 "vaZ" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/science/aft)
 "vbk" = (
@@ -45194,6 +45523,7 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half,
 /area/security/interrogation_room)
 "vbK" = (
@@ -45290,7 +45620,9 @@
 	pixel_y = 10;
 	pixel_x = 1
 	},
-/obj/effect/turf_decal/siding/dark,
+/obj/effect/turf_decal/siding/dark{
+	dir = 6
+	},
 /turf/open/floor/iron/smooth,
 /area/medical/chemistry)
 "vcJ" = (
@@ -46003,6 +46335,10 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-8"
 	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_y = 5
+	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/security/detectives_office)
 "vxu" = (
@@ -46361,6 +46697,7 @@
 	icon_type = "bathroom"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -47095,6 +47432,9 @@
 	dir = 1;
 	pixel_y = 9
 	},
+/obj/effect/turf_decal/siding/dark{
+	dir = 5
+	},
 /turf/open/floor/iron/smooth,
 /area/medical/chemistry)
 "vWd" = (
@@ -47298,6 +47638,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -47474,6 +47815,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/concrete/slab,
 /area/quartermaster/sorting)
 "wdu" = (
@@ -47486,6 +47828,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -47613,6 +47956,7 @@
 "wgE" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -47912,6 +48256,10 @@
 /obj/structure/table/wood{
 	icon_state = "wood_table-12"
 	},
+/obj/item/clothing/glasses/hud/security/sunglasses{
+	pixel_y = -1;
+	pixel_x = 2
+	},
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/security/detectives_office)
 "wnj" = (
@@ -48048,6 +48396,7 @@
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine_equipment,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/smooth_half{
 	dir = 1
 	},
@@ -48222,12 +48571,14 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/hallway/primary/fore)
 "wuX" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/medical/medbay)
 "wvd" = (
@@ -48273,6 +48624,7 @@
 "wvL" = (
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -48487,6 +48839,7 @@
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -48630,6 +48983,7 @@
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half{
 	dir = 1
 	},
@@ -48676,6 +49030,18 @@
 	dir = 10
 	},
 /obj/structure/wall_closet/brig_phys/directional/south,
+/obj/item/bodybag{
+	pixel_y = 8
+	},
+/obj/item/bodybag{
+	pixel_y = 8
+	},
+/obj/item/bodybag{
+	pixel_y = 8
+	},
+/obj/item/bodybag{
+	pixel_y = 8
+	},
 /turf/open/floor/monotile/steel,
 /area/security/detectives_office)
 "wHm" = (
@@ -48994,7 +49360,8 @@
 /obj/machinery/door/airlock/grunge,
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium,
 /obj/effect/mapping_helpers/airlock/autoname,
-/turf/open/floor/wood,
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
 /area/chapel/office)
 "wNH" = (
 /turf/closed/wall/r_wall/colored/light,
@@ -49241,6 +49608,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "wUF" = (
@@ -49271,6 +49639,12 @@
 /obj/structure/closet/secure_closet/atmospherics,
 /turf/open/floor/plating/rust,
 /area/maintenance/disposal/incinerator)
+"wWA" = (
+/obj/machinery/holopad{
+	pixel_x = 16
+	},
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "wWG" = (
 /obj/effect/turf_decal/stripes/full,
 /turf/open/floor/engine,
@@ -49593,6 +49967,15 @@
 	dir = 8
 	},
 /area/hallway/primary/central)
+"xfE" = (
+/obj/machinery/camera/directional/east,
+/obj/item/toy/figure/detective{
+	pixel_y = 66
+	},
+/obj/item/radio/intercom/directional/east,
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/carpet/grimy/no_smooth,
+/area/security/detectives_office)
 "xfO" = (
 /obj/structure/railing/perspective/black/corner{
 	dir = 4;
@@ -49666,6 +50049,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/effect/turf_decal/trimline/orange/warning,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -50010,6 +50394,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -50467,6 +50852,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -50821,9 +51207,6 @@
 "xHE" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth"
-	},
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 8
 	},
 /turf/open/floor/wood,
 /area/chapel/office)
@@ -51224,6 +51607,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half{
 	dir = 1
 	},
@@ -51344,7 +51728,20 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "xUV" = (
-/obj/machinery/camera/directional/north,
+/obj/structure/filingcabinet{
+	pixel_x = -10;
+	pixel_y = 16;
+	density = 0
+	},
+/obj/structure/filingcabinet{
+	pixel_y = 16;
+	density = 0
+	},
+/obj/structure/filingcabinet{
+	pixel_x = 10;
+	pixel_y = 16;
+	density = 0
+	},
 /turf/open/floor/carpet/grimy/no_smooth,
 /area/security/detectives_office)
 "xVg" = (
@@ -51380,6 +51777,7 @@
 "xVD" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/textured_half,
 /area/security/checkpoint/science/research)
 "xVJ" = (
@@ -51452,6 +51850,7 @@
 "xWY" = (
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/white/textured_half,
 /area/crew_quarters/toilet/restrooms)
 "xXa" = (
@@ -51805,6 +52204,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/concrete/slab,
 /area/engine/engine_room/external)
+"ygY" = (
+/obj/machinery/light/small/directional/west,
+/obj/machinery/power/apc/auto_name/directional/west,
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/toilet/restrooms)
 "yhd" = (
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/effect/turf_decal/trimline/purple/warning_offset{
@@ -52030,6 +52434,7 @@
 /obj/effect/turf_decal/siding/gray{
 	dir = 1
 	},
+/obj/machinery/light/directional/north,
 /turf/open/floor/monotile/steel,
 /area/security/detectives_office)
 "ylJ" = (
@@ -210445,7 +210850,7 @@ hSi
 ago
 wEV
 iMa
-qCW
+hiS
 iMa
 lYe
 wES
@@ -216886,9 +217291,9 @@ bHO
 lHN
 qky
 gef
-afu
+hiZ
 eVe
-eVe
+syQ
 qZH
 nsy
 jLX
@@ -217144,11 +217549,11 @@ vxD
 sns
 gef
 wmP
-eVe
-eVe
+wWA
+tVZ
 afu
 xRm
-gin
+rmH
 ylP
 sQf
 kxZ
@@ -217658,9 +218063,9 @@ uMp
 mEg
 gef
 xUV
-eVe
-eVe
-kzZ
+xfE
+jfF
+eIk
 xRm
 gin
 bSF
@@ -217914,7 +218319,7 @@ nhk
 acZ
 nhk
 nVJ
-lxC
+bSF
 wrP
 nMY
 bCJ
@@ -218171,7 +218576,7 @@ wHa
 qZH
 bra
 hgb
-cCY
+gNP
 qZH
 sjo
 bll
@@ -218426,14 +218831,14 @@ gef
 ylI
 trD
 qVH
-cCY
+sBy
 xDh
 cCY
-lxC
+bSF
 sJb
 sJb
 sJb
-gin
+uIt
 gef
 bKY
 kLM
@@ -218687,8 +219092,8 @@ jww
 rKM
 aaB
 wrP
-hzm
-hzm
+oKi
+bts
 hzm
 mFi
 gef
@@ -220745,7 +221150,7 @@ sSb
 bxm
 ryt
 tii
-arl
+ygY
 arl
 xWY
 mpM
@@ -221003,7 +221408,7 @@ gNv
 uXa
 lpj
 jcm
-jcm
+lxC
 vCO
 nMC
 vmj
