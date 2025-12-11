@@ -63,3 +63,4 @@
   r1ks-iwnl:
   - bugfix: Fixed changelings getting round removed by decapitation.
   - bugfix: Fixed changelings being incapable of using abilities without a brain.
+  - spellcheck: Throwing text for third person uses correct inflection.
