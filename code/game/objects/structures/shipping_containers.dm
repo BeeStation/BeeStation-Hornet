@@ -11,7 +11,7 @@
 
 /obj/structure/shipping_container/Initialize(mapload)
 	. = ..()
-	var/turf/atom_turf = get_turf()
+	var/turf/atom_turf = get_turf(src)
 	layer += (atom_turf.y+pixel_y)/2550 //fixes layering issues when they're right up against eachother
 
 /obj/structure/shipping_container/conarex
