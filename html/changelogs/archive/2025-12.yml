@@ -59,3 +59,7 @@
   PowerfulBacon:
   - tweak: The crew monitoring console will now show when someone's sensors have gone
       offline, if they are in the crew manifest.
+2025-12-11:
+  r1ks-iwnl:
+  - bugfix: Fixed changelings getting round removed by decapitation.
+  - bugfix: Fixed changelings being incapable of using abilities without a brain.
