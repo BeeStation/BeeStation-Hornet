@@ -1,0 +1,5 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Fixed changelings getting round removed by decapitation.
+  - bugfix: Fixed changelings being incapable of using abilities without a brain.
