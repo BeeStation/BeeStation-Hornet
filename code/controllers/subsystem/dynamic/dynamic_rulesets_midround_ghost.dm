@@ -21,7 +21,7 @@
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = SSdynamic.current_players[CURRENT_DEAD_PLAYERS] | SSdynamic.current_players[CURRENT_OBSERVERS]
 
-/datum/dynamic_ruleset/midround/ghost/allowed()
+/datum/dynamic_ruleset/midround/ghost/allowed(require_drafted = TRUE)
 	// With ghost midrounds, we do not care about drafted player counts
 	// as the players may come later
 	. = ..()
@@ -679,7 +679,7 @@
 /datum/dynamic_ruleset/midround/ghost/fugitives/get_poll_icon()
 	return /obj/item/clothing/mask/gas/tiki_mask
 
-/datum/dynamic_ruleset/midround/ghost/fugitives/allowed(ignore_candidates = FALSE)
+/datum/dynamic_ruleset/midround/ghost/fugitives/allowed(require_drafted = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE

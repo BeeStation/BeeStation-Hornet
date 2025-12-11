@@ -508,7 +508,7 @@ SUBSYSTEM_DEF(dynamic)
 			potential_ruleset.get_candidates()
 			potential_ruleset.trim_candidates()
 
-		if(!potential_ruleset.allowed(ignore_candidates = for_midround))
+		if(!potential_ruleset.allowed(require_drafted = !for_midround))
 			continue
 
 		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in roundstart_forced_rulesets))

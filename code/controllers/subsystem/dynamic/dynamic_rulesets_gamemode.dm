@@ -148,7 +148,7 @@ then the above notice does not apply.
 	minimum_players_required = 20
 	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
-/datum/dynamic_ruleset/gamemode/wizard/allowed(ignore_candidates = FALSE)
+/datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
