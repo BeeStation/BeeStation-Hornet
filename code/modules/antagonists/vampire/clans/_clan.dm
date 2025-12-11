@@ -25,7 +25,7 @@
 	/// How we will drink blood using Feed.
 	var/blood_drink_type = VAMPIRE_DRINK_NORMAL
 
-	// Society
+	// Societee
 	var/is_sabbat = FALSE // In case we want a bad guy clan that doesn't care about the masquerade.
 	var/princely_score_bonus = -10 // Will be added to playtime in get_princely_score()
 
