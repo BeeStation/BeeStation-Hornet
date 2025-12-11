@@ -14,11 +14,11 @@
 
 /datum/antagonist/brother/prime/greet()
 	to_chat(owner.current, span_alertsyndie("You are the First-Born Blood Brother."))
-	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves and can work with a team. Recruit a co-conspirator and complete your objectives together, you have been given an implant which can be given to someone who you find that you can trust.")
+	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves and can work with a team. Recruit a co-conspirator and complete your objectives together, you have been given an implant which can be given to someone who you find that you can trust. Your uplink lists three emotionally vulnerable targets for conversion.")
 	owner.announce_objectives()
 	give_meeting_area()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
-		"Use the implant that you have been given to recruit someone as your brother.")
+		"Use the implant that you have been given to recruit one of your three targets to serve as your brother.")
 
 /datum/antagonist/brother/prime/finalize_brother()
 	// Do normal stuff
