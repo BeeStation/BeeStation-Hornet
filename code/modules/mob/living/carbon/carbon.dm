@@ -210,10 +210,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	log_message("has thrown [thrown_thing].", LOG_ATTACK)
 
 	if (!held_item)
-		visible_message(span_danger("[src] [verb_text] [thrown_thing]."), \
+		visible_message(span_danger("[src] [verb_text][plural_s(verb_text)] [thrown_thing]."), \
 							span_danger("You [verb_text] [thrown_thing]."))
 	else
-		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
+		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text][plural_s(verb_text)] [thrown_thing]."), \
 							span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
 	log_message("has thrown [thrown_thing]", LOG_ATTACK)
 
