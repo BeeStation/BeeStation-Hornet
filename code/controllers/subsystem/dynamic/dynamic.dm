@@ -218,6 +218,9 @@ SUBSYSTEM_DEF(dynamic)
 		"/datum/antagonist/nightmare" = -0.4
 	)
 
+	/// Midround ruleset that is currently waiting to execute
+	var/datum/dynamic_ruleset/midround/midround_waiting_ruleset
+
 /datum/controller/subsystem/dynamic/Initialize()
 	configure_variables()
 	load_storytellers()
@@ -547,7 +550,7 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.get_candidates()
 			ruleset.trim_candidates()
 		// Check if we are allowed to be executed
-		if(!ruleset.allowed(ignore_candidates))
+		if(!ruleset.allowed(!ignore_candidates))
 			remaining_to_pick -= ruleset
 			continue
 
@@ -621,7 +624,7 @@ SUBSYSTEM_DEF(dynamic)
 	for(var/datum/dynamic_ruleset/gamemode/ruleset in executed_gamemodes)
 		var/result = execute_ruleset(ruleset)
 
-		log_dynamic("GAMEMODE: Executing [ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+		log_dynamic("GAMEMODE: Executing [ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
 			executed_gamemodes -= ruleset
 	// Supplementary
@@ -645,10 +648,9 @@ SUBSYSTEM_DEF(dynamic)
  */
 /datum/controller/subsystem/dynamic/proc/execute_ruleset(datum/dynamic_ruleset/ruleset)
 	var/result = ruleset.execute()
-	if (result == DYNAMIC_EXECUTE_SUCCESS)
-		ruleset.executed_at = world.time - SSticker.round_start_time
-	if (result == DYNAMIC_EXECUTE_SUCCESS && CHECK_BITFIELD(ruleset.ruleset_flags, SHOULD_PROCESS_RULESET))
-		rulesets_to_process += ruleset
+	// Successful execution
+	if(result == DYNAMIC_EXECUTE_SUCCESS)
+		ruleset.success()
 
 	// I would love to keep this logged, but we must avoid hard dels.
 	ruleset.candidates = null
@@ -678,12 +680,19 @@ SUBSYSTEM_DEF(dynamic)
 		else if(midround_points >= midround_chosen_ruleset.points_cost)
 			var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
 
+			if (midround_waiting_ruleset)
+				midround_waiting_ruleset.abort()
+				midround_waiting_ruleset = null
+
 			var/result = execute_ruleset(new_midround_ruleset)
-			message_admins("DYNAMIC: MIDROUND: Executing [new_midround_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-			log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+			message_admins("DYNAMIC: MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+			log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+
+			if (result == DYNAMIC_EXECUTE_WAITING)
+				midround_waiting_ruleset = new_midround_ruleset
 
 			// If we successfully execute the midround, apply the cost and log it
-			if(result == DYNAMIC_EXECUTE_SUCCESS)
+			if(result == DYNAMIC_EXECUTE_SUCCESS || result == DYNAMIC_EXECUTE_WAITING)
 				midround_executed_rulesets += new_midround_ruleset
 				midround_points = 0
 				logged_points["logged_points"] += midround_points
@@ -803,7 +812,8 @@ SUBSYSTEM_DEF(dynamic)
 		ruleset.get_candidates()
 		ruleset.trim_candidates()
 
-		if(!ruleset.allowed())
+		// Do not require drafted players to exist for the one we pick
+		if(!ruleset.allowed(FALSE))
 			continue
 
 		ruleset.candidates = null
@@ -865,8 +875,8 @@ SUBSYSTEM_DEF(dynamic)
 	execute_supplementary_ruleset(new_latejoin_ruleset)
 	var/result = execute_ruleset(new_latejoin_ruleset)
 
-	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
-	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [result == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "FAIL"]")
+	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
 		executed_supplementary_rulesets += new_latejoin_ruleset

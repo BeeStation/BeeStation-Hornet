@@ -31,9 +31,17 @@
 #define NO_OTHER_RULESETS (1 << 4)
 /// Latejoining as this ruleset is not allowed, used for supplementary rulesets
 #define NO_LATE_JOIN (1 << 5)
+/// If we ignore the number of candidates when seeing if we can execute this
+/// Mainly useful for rulesets which require a certain number of candidates, but
+/// can draft them past the point of execution (midrounds from ghosts)
+#define IGNORE_DRAFTED_COUNT (1 << 6)
 
 #define DYNAMIC_EXECUTE_FAILURE 0
 #define DYNAMIC_EXECUTE_SUCCESS 1
+#define DYNAMIC_EXECUTE_WAITING 2
+
+#define DYNAMIC_EXECUTE_STRINGIFY(state) (state == DYNAMIC_EXECUTE_FAILURE ? "FAIL" : (state == DYNAMIC_EXECUTE_SUCCESS ? "SUCCESS" : "WAITING"))
+
 #define RULESET_STOP_PROCESSING 1
 
 // If this is defined, then any storyteller configs which do not have
