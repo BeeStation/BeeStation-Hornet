@@ -11,14 +11,23 @@ GLOBAL_LIST_EMPTY(all_vampires)
  * Resumes society, called when someone is assigned Vampire
 **/
 /datum/antagonist/vampire/proc/check_start_society()
+
+	if(SSvsociety.can_fire)
+		return
+
 	if(length(GLOB.all_vampires) >= 3)
 		SSvsociety.can_fire = TRUE
 		message_admins("Vampire Society has started, as there are [length(GLOB.all_vampires)] vampires active.")
 		log_game("Vampire Society has started, as there are [length(GLOB.all_vampires)] vampires active.")
+
 /**
  * Pauses society, called when someone is unassigned Vampire
 **/
 /datum/antagonist/vampire/proc/check_cancel_society()
+
+	if(!SSvsociety.can_fire)
+		return
+
 	if(length(GLOB.all_vampires) < 3)
 		SSvsociety.can_fire = FALSE
 		message_admins("Vampire Society has paused, as there are only [length(GLOB.all_vampires)] vampires active.")
