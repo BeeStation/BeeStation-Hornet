@@ -70,9 +70,8 @@
 		"Changeling": {
 			"points_cost": 9
 		},
-		"Vampire": {
-			"points_cost": 9,
-			"elasticity": 70
+		"Vampires": {
+			"points_cost": 9
 		},
 		"Heretic": {
 			"points_cost": 12

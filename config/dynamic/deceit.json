@@ -71,9 +71,8 @@
 		"Changeling": {
 			"weight": 15
 		},
-		"Vampire": {
-			"weight": 10,
-			"elasticity": 70
+		"Vampires": {
+			"weight": 10
 		},
 		"Malfunctioning AI": {
 			"weight": 10
@@ -93,10 +92,6 @@
 			"severity": 3
         },
         "Fanatic Revelation": {
-            "weight": 14,
-			"severity": 3
-        },
-        "Vampiric Accident": {
             "weight": 14,
 			"severity": 3
         },
