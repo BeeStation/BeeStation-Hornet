@@ -102,8 +102,9 @@ SUBSYSTEM_DEF(communications)
 			if (report && prob(95))
 				. += "[report]<br><br>"
 			else
-				. += "Additional risk-assessment incidents were unable to be compiled prior to the report deadline, please await further updates.<br><br>"
-		. += "It is most likely that the most serious risks to the station have already infiltrated the crew. Additional crew have been screened against these \
+				. += "Additional risk-assessment incidents were unable to be compiled prior to the report deadline, the information on the underlying threat was unable \
+				to be evaluated. Please be aware of any security incidents which are not present on this compilation.<br><br>"
+		. += "It is most likely that the most serious risks to the station have already infiltrated the crew. Additional crew have been screened against some \
 		major risks but new threats may have developed since the screening system was put in place.<br>"
 
 	print_command_report(., "[station_name()] Situation & Security Report")

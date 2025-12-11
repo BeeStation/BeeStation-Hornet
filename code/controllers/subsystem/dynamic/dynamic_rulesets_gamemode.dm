@@ -305,7 +305,7 @@ then the above notice does not apply.
 	var/datum/team/nuclear/nuke_team
 
 /datum/dynamic_ruleset/gamemode/nuclear/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 1)
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 2)
 
 /datum/dynamic_ruleset/gamemode/nuclear/choose_candidates()
 	. = ..()
