@@ -3,5 +3,7 @@
 #define ANNOUNCEMENT_TYPE_PRIORITY "Priority"
 /// Make it sound like it's coming from the Captain
 #define ANNOUNCEMENT_TYPE_CAPTAIN "Captain"
+/// Make it sound like it's a standard station announcement
+#define ANNOUNCEMENT_TYPE_STATION "Station"
 /// Make it sound like it's coming from the Syndicate
 #define ANNOUNCEMENT_TYPE_SYNDICATE "Syndicate"

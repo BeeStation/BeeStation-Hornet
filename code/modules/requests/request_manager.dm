@@ -18,10 +18,10 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  * that occur in the duration of a round.
  */
 /datum/request_manager
-	/// Associative list of ckey -> list of requests
-	var/list/requests = list()
+	/// Associative list of ckey -> list of requests (each entry is a list of /datum/request)
+	var/list/list/datum/request/requests = list()
 	/// List where requests can be accessed by ID
-	var/list/requests_by_id = list()
+	var/list/datum/request/requests_by_id = list()
 
 /datum/request_manager/Destroy(force, ...)
 	QDEL_LIST(requests)
@@ -100,10 +100,30 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  * * message - The message
  */
 /datum/request_manager/proc/nuke_request(client/C, message)
+
 	request_for_client(C, REQUEST_NUKE, message)
 	for(var/client/admin in GLOB.admins)
 		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
 			SEND_SOUND(admin, sound('sound/misc/compiler-stage2.ogg'))
+	// Auto-approve timer: if no admin rejects within approval_time, set the code
+	var/request_list = requests[C.ckey]
+	if(!request_list)
+		return
+	// find the most recent nuke request for this client
+	var/datum/request/request
+	for(var/datum/request/r as anything in request_list)
+		if(r.req_type == REQUEST_NUKE)
+			request = r
+	if(!request)
+		return
+	// set a response timer id on the request to allow veto
+	var/approval_time = 60 SECONDS// seconds until auto-approve
+	request.response_timer_id = addtimer(CALLBACK(src, PROC_REF(_auto_approve_nuke_request), request.id), approval_time, TIMER_STOPPABLE)
+	// notify admins with a clickable veto link
+	var/msg = span_adminnotice("<b><font color=orange>NUKE CODE REQUEST:</font></b> Self-destruct code requested with the following message: [request.message] (will autoapprove in [DisplayTimeText(approval_time)]). [ADMIN_REJECT_SD_REQUEST(request)]")
+
+	to_chat(GLOB.admins, msg)
+
 /**
  * Creates a request for fax answer
  *
@@ -251,6 +271,49 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				"timestamp_str" = gameTimestamp(wtime = request.timestamp)
 			)
 			.["requests"] += list(data)
+
+/datum/request_manager/proc/_auto_approve_nuke_request(request_id)
+	var/datum/request/request = requests_by_id[request_id]
+	if(!request)
+		return
+	// If the admin rejected, the request may have been deleted or response_timer_id nulled
+	if(!request.response_timer_id)
+		return
+
+	// Generate code and apply to all nukes
+	var/code = random_code(5)
+	for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
+		SD.r_code = code
+		SD.minimum_timer_set = 300 // Set minimum timer to 5 minutes
+
+	// Announce to admins and requester
+	message_admins(span_adminnotice("Auto-approved nuke request from [request.owner_name]: code set to [code]."))
+
+	priority_announce("Request for activation of stationside nuclear self destruct detected. Classified response available at all communications consoles.", "Central High Command (Automated)", 'sound/machines/engine_alert3.ogg')
+	print_command_report(
+		"<code><center>--- AUTOMATED MESSAGE --- \n\
+		Request for stationside nuclear authorization detected.\n\
+		This transmission has been generated automatically.\n\n\
+		ATTENTION:\n\
+		Misuse of this function will trigger direct disciplinary action upon review by High Command.\n\n\
+		Authorization codes for your station have been assigned:\n\
+		=>>> [code] <<<=\n\n\
+		Your alert level has been set to RED automatically.\n\n\
+		--- END OF MESSAGE ---</code></center>", "Automated Message", FALSE)
+
+	addtimer(CALLBACK(src, PROC_REF(set_nuke_level)), 5 SECONDS)
+
+	// Cleanup on aisle six
+	request.response_timer_id = null
+	// Remove request from tracking lists
+	if(requests[request.owner_ckey])
+		requests[request.owner_ckey].Remove(request)
+	requests_by_id[request.id] = null
+	qdel(request)
+
+// If there is a better way, please tell me
+/datum/request_manager/proc/set_nuke_level()
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 
 #undef REQUEST_PRAYER
 #undef REQUEST_CENTCOM
