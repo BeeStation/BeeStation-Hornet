@@ -40,15 +40,15 @@
 	human_victim.gib()
 	human_victim.investigate_log("has been gibbed by the raise skeleton spell.", INVESTIGATE_DEATHS)
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		question = "Do you wish to be a wizard's skeletal minion?",
-		check_jobban = ROLE_BRAINWASHED,
-		poll_time = 30 SECONDS,
-		ignore_category = POLL_IGNORE_WIZARD_HELPER,
-		jump_target = victim,
-		role_name_text = "spooky scary skeleton",
-		alert_pic = /mob/living/carbon/human/species/skeleton,
-	)
+	var/datum/poll_config/config = new
+	config.question ="Do you wish to be a wizard's skeletal minion?"
+	config.check_jobban = ROLE_BRAINWASHED
+	config.poll_time = 30 SECONDS
+	config.ignore_category = POLL_IGNORE_WIZARD_HELPER
+	config.jump_target = victim
+	config.role_name_text = "spooky scary skeleton"
+	config.alert_pic = /mob/living/carbon/human/species/skeleton
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 	qdel(necromantic_rune)
 	qdel(necromantic_summon_effect) //because the summon will be instant if no ghosts are available
@@ -79,4 +79,4 @@
 	name = "\improper necromantic touch"
 	desc = "This hand of mine glows with the power to command the dead!"
 	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	inhand_icon_state = "disintegrate"

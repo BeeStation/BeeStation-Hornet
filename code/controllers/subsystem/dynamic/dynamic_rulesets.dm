@@ -52,6 +52,12 @@
 /datum/dynamic_ruleset/proc/get_candidates()
 	return
 
+/// Called when we successfully execute
+/datum/dynamic_ruleset/proc/success()
+	SHOULD_CALL_PARENT(TRUE)
+	if (CHECK_BITFIELD(ruleset_flags, SHOULD_PROCESS_RULESET))
+		SSdynamic.rulesets_to_process += src
+
 /**
  * Remove candidates that do not meet your requirements.
  * Usually this doesn't need to be changed unless you need some specific requirements from your candidates.
@@ -81,8 +87,10 @@
 /**
  * Check if all requirements for this ruleset are met.
  */
-/datum/dynamic_ruleset/proc/allowed()
-	if(length(candidates) < drafted_players_amount)
+/datum/dynamic_ruleset/proc/allowed(require_drafted = TRUE)
+	// Some rulesets such as midrounds don't need drafted players to be
+	// picked, as the poll will continue until it hits the players required
+	if(length(candidates) < drafted_players_amount && (require_drafted || !(ruleset_flags & IGNORE_DRAFTED_COUNT)))
 		log_dynamic("NOT ALLOWED: [src] did not meet the minimum candidate requirement! (required candidates: [drafted_players_amount]) (candidates: [length(candidates)])")
 		return FALSE
 

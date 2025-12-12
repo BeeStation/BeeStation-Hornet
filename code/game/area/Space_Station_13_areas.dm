@@ -269,14 +269,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "maint_engi"
 
 /area/maintenance/department/science/xenobiology
-	name = "Abandoned Club"
+	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
 	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
 
 //Maintenance - Cardstation's club
 
 /area/maintenance/club
-	name = "Xenobiology Maintenance"
+	name = "Abandoned Club"
 	icon_state = "yellow"
 
 //Maintenance - Generic

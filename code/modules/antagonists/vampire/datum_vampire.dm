@@ -291,7 +291,7 @@
 	owner.announce_objectives()
 
 	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
+	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>."
 
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
@@ -328,7 +328,7 @@
 
 		power_data["name"] = power.name
 		power_data["explanation"] = power.power_explanation
-		power_data["icon"] = power.button_icon
+		power_data["icon"] = power.background_icon
 		power_data["icon_state"] = power.button_icon_state
 
 		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
@@ -488,7 +488,7 @@
 
 /datum/action/antag_info/vampire
 	name = "Vampire Guide"
-	button_icon = 'icons/vampires/actions_vampire.dmi'
+	background_icon = 'icons/vampires/actions_vampire.dmi'
 	background_icon_state = "vamp_power_off"
 
 /datum/antagonist/vampire/make_info_button()

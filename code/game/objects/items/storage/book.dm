@@ -30,7 +30,7 @@
 	desc = "Apply to head repeatedly."
 	icon = 'icons/obj/storage/book.dmi'
 	icon_state = "bible"
-	item_state = "bible"
+	inhand_icon_state = "bible"
 	lefthand_file = 'icons/mob/inhands/misc/books_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/books_righthand.dmi'
 	var/mob/affecting = null
@@ -55,7 +55,7 @@
 	if(!current_skin && H.mind.holy_role == HOLY_ROLE_HIGHPRIEST)
 		if(GLOB.bible_icon_state)//If the original has been reskinned but this one hasn't been, we make it look like the original
 			icon_state = GLOB.bible_icon_state
-			item_state = GLOB.bible_item_state
+			inhand_icon_state = GLOB.bible_inhand_icon_state
 			if(icon_state == "honk1" || icon_state == "honk2")
 				var/mob/living/carbon/C = H
 				if(C.has_dna())
@@ -113,8 +113,8 @@
 		current_skin = choice
 		icon_state = unique_reskin_icon[choice]
 		GLOB.bible_icon_state = icon_state
-		item_state = unique_reskin_icon[choice]
-		GLOB.bible_item_state = item_state
+		inhand_icon_state = unique_reskin_icon[choice]
+		GLOB.bible_inhand_icon_state = inhand_icon_state
 		if(choice == "Clown Bible" || choice == "Banana Bible")
 			var/mob/living/carbon/C = M
 			if(C.has_dna())
@@ -227,7 +227,7 @@
 			var/obj/item/storage/book/bible/B = A
 			B.name = name
 			B.icon_state = icon_state
-			B.item_state = item_state
+			B.inhand_icon_state = inhand_icon_state
 
 	else if(istype(A, /obj/item/soulstone) && !IS_CULTIST(user))
 		var/obj/item/soulstone/SS = A

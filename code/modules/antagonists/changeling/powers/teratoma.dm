@@ -38,13 +38,13 @@
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	c.chem_charges -= chemical_cost				//I'm taking your chemicals hostage!
 	var/turf/A = get_turf(user)
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = ROLE_TERATOMA,
-		poll_time = 10 SECONDS,
-		jump_target = owner,
-		role_name_text = "living teratoma",
-		alert_pic = /mob/living/carbon/monkey/tumor,
-	)
+	var/datum/poll_config/config = new()
+	config.poll_time = 10 SECONDS
+	config.check_jobban = ROLE_TERATOMA
+	config.jump_target = owner
+	config.role_name_text = "living teratoma"
+	config.alert_pic = /mob/living/carbon/monkey/tumor
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(!candidate) //if we got at least one candidate, they're teratoma now
 		to_chat(usr, span_warning("You fail at creating a tumor. Perhaps you should try again later?"))
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
