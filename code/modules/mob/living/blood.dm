@@ -358,7 +358,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
 		var/obj/item/organ/heart/heart = get_organ_slot(ORGAN_SLOT_HEART)
-		if (!heart || !heart.beating)
+		if (!heart || !heart.beating || src.stat == DEAD)
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
