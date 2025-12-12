@@ -1293,7 +1293,7 @@
 				if(response)
 					log_query_debug("[usr.key] | [response]")
 		else if(answer == "no")
-		 log_query_debug("[usr.key] | Reported no server hang")
+			log_query_debug("[usr.key] | Reported no server hang")
 
 	else if(href_list["ctf_toggle"])
 		if(!check_rights(R_ADMIN))
