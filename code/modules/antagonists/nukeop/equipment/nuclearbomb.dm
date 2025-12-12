@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 
 	var/timer_set = 90
 	var/minimum_timer_set = 90
-	var/maximum_timer_set = 3600
+	var/maximum_timer_set = 120	// The default ones do not have, and should not have the periodic announcements. This ensures that it blows up roughly when the song finishes.
 
 	var/numeric_input = ""
 	var/ui_mode = NUKEUI_AWAIT_DISK
@@ -35,12 +35,18 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
 	var/obj/effect/countdown/nuclearbomb/countdown
+	var/obj/item/radio/radio
 	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
+
+	// Announcement helpers for station self-destruct (selfdestruct variant only)
+	// These procs schedule and deliver priority/radio announcements when the station self-destruct is armed.
+	var/announcement_timers = list()
 
 /obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	countdown = new(src)
+	radio = new(src)
 	GLOB.nuke_list += src
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
@@ -56,6 +62,7 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	GLOB.nuke_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(core)
+	QDEL_NULL(radio)
 	. = ..()
 
 /obj/machinery/nuclearbomb/examine(mob/user)
@@ -71,6 +78,8 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	icon = 'icons/obj/machines/nuke_terminal.dmi'
 	icon_state = "nuclearbomb_base"
 	anchored = TRUE //stops it being moved
+	minimum_timer_set = 300 // This guy needs some time!
+	maximum_timer_set = 600
 
 /obj/machinery/nuclearbomb/syndicate
 	// actually the nuke op bomb is a stole nt bomb
@@ -444,10 +453,12 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
-		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 
-		if(proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
+		// DisplayTimeText expects the timer in the same units as world.time (deciseconds), so convert the
+		// seconds returned by get_time_left() back to deciseconds by multiplying by 10.
+		priority_announce("An active radiological device has been detected on-station. Detonation in: [DisplayTimeText(get_time_left() * 10)]", "Stationside Sensor Alert", SSstation.announcer.get_rand_alert_sound(), ANNOUNCEMENT_TYPE_STATION)
+		addtimer(CALLBACK(src, PROC_REF(set_delta)), 5 SECONDS)
+
 	else
 		detonation_timer = null
 		SSsecurity_level.set_level(previous_level)
@@ -459,6 +470,13 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 		countdown.stop()
 	COOLDOWN_START(src, arm_cooldown, ARM_ACTION_COOLDOWN)
 	update_icon()
+
+// If there is a better way, please tell me
+/obj/machinery/nuclearbomb/proc/set_delta()
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+
+	if(proper_bomb) // Why does this exist
+		countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 
 /obj/machinery/nuclearbomb/proc/get_time_left()
 	if(timing)
@@ -623,6 +641,8 @@ This is here to make the tiles around the station mininuke change when it's arme
 	..()
 	if(timing)
 		SSmapping.add_nuke_threat(src)
+		// Schedule automated announcements for the self-destruct timer (only for the selfdestruct variant)
+		schedule_selfdestruct_announcements()
 	else
 		SSmapping.remove_nuke_threat(src)
 
@@ -632,6 +652,51 @@ This is here to make the tiles around the station mininuke change when it's arme
 		SSmapping.add_nuke_threat(src)
 	else
 		SSmapping.remove_nuke_threat(src)
+
+/obj/machinery/nuclearbomb/proc/schedule_selfdestruct_announcements()
+	// Only schedule when timing is active and we have a valid timer_set value
+	if(!timing || !detonation_timer)
+		return
+	var/seconds = timer_set
+	// Priority announcements
+	if(seconds >= 150)
+		addtimer(CALLBACK(src, PROC_REF(selfdestruct_half)), (seconds - 150) * 10)
+	if(seconds >= 60)
+		addtimer(CALLBACK(src, PROC_REF(selfdestruct_1_minute)), (seconds - 60) * 10)
+	// Radio warning at 30s remaining
+	if(seconds >= 30)
+		addtimer(CALLBACK(src, PROC_REF(selfdestruct_30_seconds)), (seconds - 30) * 10)
+	// Counting down in the radio for the last up-to-15 seconds (or less if timer shorter)
+	var/start = min(15, seconds)
+	for(var/i = start; i >= 1; i--)
+		var/delay = (seconds - i) * 10
+		if(delay >= 0)
+			addtimer(CALLBACK(src, PROC_REF(selfdestruct_countdown), i), delay)
+	return
+
+/obj/machinery/nuclearbomb/proc/selfdestruct_half()
+	if(!timing)
+		return
+	priority_announce("Detonation in 2.5 minutes. Evacuate immediately.", "Station Self-Destruct (Automated)", SSstation.announcer.get_rand_alert_sound(), ANNOUNCEMENT_TYPE_PRIORITY)
+	return
+
+/obj/machinery/nuclearbomb/proc/selfdestruct_1_minute()
+	if(!timing)
+		return
+	priority_announce("Detonation in 60 seconds. Evacuate immediately.", "Station Self-Destruct (Automated)", SSstation.announcer.get_rand_alert_sound(), ANNOUNCEMENT_TYPE_PRIORITY)
+	return
+
+/obj/machinery/nuclearbomb/proc/selfdestruct_30_seconds()
+	if(!timing)
+		return
+	radio.talk_into(src, "WARNING: Station self-destruct active. Beginning live-tracking. 30 seconds until detonation. Evacuate immediately.", RADIO_CHANNEL_COMMON)
+	return
+
+/obj/machinery/nuclearbomb/proc/selfdestruct_countdown(seconds_left)
+	if(!timing)
+		return
+	radio.talk_into(src, "[seconds_left] seconds until station self-destruct.", RADIO_CHANNEL_COMMON)
+	return
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk

@@ -284,7 +284,6 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	var/code = random_code(5)
 	for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
 		SD.r_code = code
-		SD.minimum_timer_set = 300 // Set minimum timer to 5 minutes
 
 	// Announce to admins and requester
 	message_admins(span_adminnotice("Auto-approved nuke request from [request.owner_name]: code set to [code]."))

@@ -897,8 +897,6 @@
 		// notify admins and requester
 		message_admins("[key_name(src.owner)] has rejected a nuke request from [request.owner_name].")
 		log_admin("[key_name(src.owner)] rejected a nuke request from [request.owner_name].")
-		if(request.owner && request.owner.mob)
-			to_chat(request.owner.mob, span_warning("Your request for the self-destruct code has been rejected by the admins."))
 		qdel(request)
 
 	else if(href_list["jumpto"])
