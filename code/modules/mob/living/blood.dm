@@ -339,7 +339,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		adjustOxyLoss(health_difference)
 
 /mob/living/proc/bleed(amt)
-	add_splatter_floor(src.loc, 1)
+	add_splatter_floor(src.loc, TRUE)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
@@ -356,7 +356,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
-				add_splatter_floor(src.loc, 1)
+				add_splatter_floor(src.loc, TRUE)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
