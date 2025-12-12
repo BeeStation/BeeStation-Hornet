@@ -163,8 +163,8 @@ const GetLevel = (
 };
 
 export const Uplink = (props) => {
-  const { data } = useBackend<UplinkData>();
-  const { telecrystals, reputation } = data;
+  const { act, data } = useBackend<UplinkData>();
+  const { telecrystals, reputation, lockable } = data;
 
   const [tab, setTab] = useSharedState('tab_id', 2);
 
@@ -217,6 +217,18 @@ export const Uplink = (props) => {
           >
             {currentLevel ? currentLevel : 'Neutral Reputation'} ({reputation})
           </Tabs.Tab>
+          <Box
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '0px 5px 0px 0px',
+            }}
+          >
+            {!!lockable && (
+              <Button icon="lock" content="Lock" onClick={() => act('lock')} />
+            )}
+          </Box>
         </Tabs>
         {tab === 0 ? (
           <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" />
@@ -622,7 +634,7 @@ const ObjectiveCard = (props) => {
 export const GenericUplink = (props) => {
   const { currencyAmount = 0, currencySymbol = 'cr' } = props;
   const { act, data } = useBackend<UplinkData>();
-  const { compactMode, lockable, categories = [], reputation } = data;
+  const { compactMode, categories = [], reputation } = data;
   const [searchText, setSearchText] = useLocalState('searchText', '');
   const [selectedCategory, setSelectedCategory] = useLocalState(
     'category',
@@ -663,9 +675,6 @@ export const GenericUplink = (props) => {
             content={compactMode ? 'Compact' : 'Detailed'}
             onClick={() => act('compact_toggle')}
           />
-          {!!lockable && (
-            <Button icon="lock" content="Lock" onClick={() => act('lock')} />
-          )}
         </>
       }
     >
