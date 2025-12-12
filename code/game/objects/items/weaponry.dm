@@ -276,7 +276,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_power = 25
 	canblock = TRUE
 
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_integrity = 200
