@@ -1646,7 +1646,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if (href_list["examine"])
 		// Allow examine from up to 4 tiles away
-		if(get_dist(usr, src) > 4)
+		if(!isobserver(usr) && (get_dist(usr, src) > 4))
 			to_chat(usr, span_warning("You are too far away!"))
 			return
 		usr.examinate(src)
