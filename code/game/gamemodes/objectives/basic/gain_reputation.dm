@@ -1,7 +1,6 @@
 /datum/objective/gain_reputation
 	name = "Gain Reputation"
 	explanation_text = "Gain at least 800 reputation."
-	var/target_amount = 800
 
 /datum/objective/gain_reputation/check_completion()
 	for (var/datum/component/uplink/uplink in GLOB.uplinks)
