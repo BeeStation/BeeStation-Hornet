@@ -298,6 +298,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 		Misuse of this function will trigger direct disciplinary action upon review by High Command.\n\n\
 		Authorization codes for your station have been assigned:\n\
 		=>>> [code] <<<=\n\n\
+		Per regulation, minimum detonation core timer is locked at 5 minutes.\n\n\
 		Your alert level has been set to RED automatically.\n\n\
 		--- END OF MESSAGE ---</code></center>", "Automated Message", FALSE)
 
