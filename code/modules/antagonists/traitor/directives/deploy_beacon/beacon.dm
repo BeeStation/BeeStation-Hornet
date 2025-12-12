@@ -60,6 +60,7 @@
 	if (!istype(beacon))
 		log_runtime("A traitor beacon was initialised but there is no directive for it to complete. It has been deleted.")
 		return INITIALIZE_HINT_QDEL
+	parent_directive = beacon
 	if (user != null)
 		// Try to find the team colour of the user
 		var/datum/component/uplink/uplink = user.mind.find_syndicate_uplink()
