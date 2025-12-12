@@ -214,8 +214,6 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
-	// Items can initialize with their own name, but all should read 'identification'
-	name = "identification card"
 	if(mapload && access_txt)
 		access = text2access(access_txt)
 
@@ -252,6 +250,13 @@
 	if(href_list["look_at_id"])
 		usr.examinate(src)
 		return TRUE
+
+/obj/item/card/id/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(.)
+		switch(var_name)
+			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
+				update_label()
 
 /obj/item/card/id/vv_get_dropdown()
 	. = ..()
@@ -464,6 +469,21 @@
 			powergaming.update_label()
 			powergaming.update_appearance()
 
+/*
+Usage:
+update_label()
+	Sets the id name to whatever registered_name and assignment is
+
+update_label("John Doe", "Clowny")
+	Properly formats the name and occupation and sets the id name to the arguments
+*/
+/obj/item/card/id/proc/update_label(newname, newjob)
+	if(newname || newjob)
+		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
+		return
+
+	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+
 /obj/item/card/id/silver
 	name = "silver identification card"
 	desc = "A silver ID card, issued to positions which require honour and dedication."
@@ -616,6 +636,7 @@
 				hud_state = get_hud_by_jobname(target_id_style)
 				var/mob/living/carbon/human/H = user
 				H.sec_hud_set_ID()
+			update_label()
 			to_chat(user, span_notice("You successfully forge the ID card."))
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
 
@@ -884,6 +905,7 @@
 	if(need_setup)
 		if(isgolem(user))
 			registered_name = user.name // automatically change registered name if it's picked up by a golem at first time
+			update_label()
 		need_setup = FALSE
 		// if non-golem picks it up, the renaming feature will be disabled
 
@@ -912,6 +934,7 @@
 		var/target_job = tgui_input_text(user, "What job would you like to be displayed on the card?", "Assignment:", assignment || "Assistant", MAX_MESSAGE_LEN)
 		assignment = target_job || assignment
 		to_chat(user, span_notice("You scribble the name [target_job] onto the slip."))
+		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
 	to_chat(user, span_warning("There's no money circuitry in here!"))

@@ -647,6 +647,7 @@
 		if(user.age)
 			card.registered_age = user.age
 
+		card.update_label()
 		card.update_icon()
 
 		for(var/datum/bank_account/account in SSeconomy.bank_accounts)

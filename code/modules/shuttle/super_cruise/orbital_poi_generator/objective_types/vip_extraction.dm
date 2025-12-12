@@ -95,6 +95,7 @@
 		var/obj/item/card/id/I = H.wear_id.GetID()
 		if(I)
 			I.registered_name = H.real_name
+			I.update_label()
 
 
 //=====================

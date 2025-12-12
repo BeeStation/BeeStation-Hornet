@@ -33,6 +33,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		W.registered_name = H.real_name
+		W.update_label()
 	..()
 
 //////////////////////////////////////////
@@ -378,6 +379,7 @@
 	W.access |= get_centcom_access(JOB_ERT_DEATHSQUAD) //Let's add their alloted CentCom access.
 	W.assignment = JOB_ERT_DEATHSQUAD
 	W.registered_name = H.real_name
+	W.update_label(W.registered_name, W.assignment)
 
 
 /datum/outfit/centcom/ert/death_commando/officer/post_equip(mob/living/carbon/human/squaddie, visuals_only = FALSE)
@@ -433,6 +435,7 @@
 	W.access |= ACCESS_WEAPONS
 	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
+	W.update_label()
 
 //////////////////////////////////////////
 ////////        ATTORNEY         /////////
@@ -482,6 +485,7 @@
 	W.access |= ACCESS_WEAPONS
 	W.assignment = name
 	W.registered_name = H.real_name
+	W.update_label()
 
 /datum/outfit/centcom/centcom_intern/unarmed
 	name = "CentCom Intern (Unarmed)"
@@ -541,6 +545,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
 	W.access |= ACCESS_THEATRE
+	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(/datum/mutation/clumsy)
 
 //////////////////////////////////////////

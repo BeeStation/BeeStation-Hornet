@@ -148,6 +148,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/golem)
 		var/obj/item/card/id/I = new_spawn.get_idcard()
 		if(I)
 			I.registered_name = new_spawn.name
+			I.update_label()
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user, list/modifiers)
 	. = ..()

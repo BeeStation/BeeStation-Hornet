@@ -148,6 +148,7 @@
 			card.access |= stored_access
 		if(update_id_name)
 			card.registered_name = H.real_name
+			card.update_label()
 
 /datum/outfit/varedit/get_json_data()
 	. = .. ()

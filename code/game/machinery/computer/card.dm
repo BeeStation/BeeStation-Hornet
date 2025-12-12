@@ -930,6 +930,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
+	if (inserted_modify_id)
+		inserted_modify_id.update_label()
 	updateUsrDialog()
 
 /obj/machinery/computer/card/proc/get_subordinates(rank)
