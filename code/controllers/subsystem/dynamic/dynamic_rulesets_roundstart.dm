@@ -225,7 +225,7 @@
 	name = "Vampires"
 	role_preference = /datum/role_preference/roundstart/vampire
 	antag_datum = /datum/antagonist/vampire
-	weight = 5
+	weight = 8
 	points_cost = 15
 	minimum_players_required = 12
 	drafted_players_amount = 4
