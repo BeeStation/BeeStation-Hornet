@@ -347,11 +347,16 @@ GLOBAL_VAR_INIT(nuke_off_station, 0)
 	switch(action)
 		if("eject_disk")
 			if(auth && auth.loc == src)
-				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
-				playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
-				auth.forceMove(get_turf(src))
-				auth = null
-				. = TRUE
+				if(!timing)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+					playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
+					auth.forceMove(get_turf(src))
+					auth = null
+					. = TRUE
+				else
+					playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
+					balloon_alert_to_viewers("Cannot eject disk from active nuclear device!")
+					numeric_input = "ERROR"
 			else
 				var/obj/item/I = usr.is_holding_item_of_type(/obj/item/disk/nuclear)
 				if(I && disk_check(I) && usr.transferItemToLoc(I, src))
