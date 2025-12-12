@@ -87,6 +87,7 @@ then the above notice does not apply.
 	role_preference = /datum/role_preference/roundstart/changeling
 	antag_datum = /datum/antagonist/changeling
 	weight = 8
+	minimum_players_required = 8
 
 /datum/dynamic_ruleset/gamemode/changeling/security_report()
 	return "Private research teams have recently been researching lifeforms of unknown origin, capable of controlling their bodies at a cellular level. \
@@ -103,7 +104,7 @@ then the above notice does not apply.
 	role_preference = /datum/role_preference/roundstart/heretic
 	antag_datum = /datum/antagonist/heretic
 	weight = 8
-	minimum_players_required = 13
+	minimum_players_required = 10
 
 /datum/dynamic_ruleset/gamemode/heretic/security_report()
 	return "Independent theological organizations have long expressed interest in this region of space for reasons that remain unclear. \
@@ -298,7 +299,7 @@ then the above notice does not apply.
 	antag_datum = /datum/antagonist/nukeop
 	drafted_players_amount = 3
 	weight = 8
-	minimum_players_required = 24
+	minimum_players_required = 18
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
