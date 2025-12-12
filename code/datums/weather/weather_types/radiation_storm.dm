@@ -7,10 +7,9 @@
 	telegraph_message = null
 
 	weather_message = span_userdanger("<i>You feel waves of heat wash over you! Find shelter!</i>")
-	weather_overlay = "ash_storm"
+	weather_overlay = "rad_storm"
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 150 SECONDS
-	weather_color = "green"
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 10 SECONDS
