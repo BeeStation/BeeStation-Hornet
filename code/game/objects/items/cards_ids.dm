@@ -1098,14 +1098,6 @@ update_label("John Doe", "Clowny")
 	icon_state = JOB_HUD_RAWCOMMAND
 	hud_state = JOB_HUD_RAWCOMMAND
 
-/obj/item/card/id/gold/vip
-	assignment = JOB_NAME_VIP
-	hud_state = JOB_HUD_VIP
-
-/obj/item/card/id/gold/king
-	assignment = JOB_NAME_KING
-	hud_state = JOB_HUD_KING
-
 // ---- Service ----
 /obj/item/card/id/job/assistant
 	name = "Job card (Serv) - Assistant"
@@ -1371,6 +1363,16 @@ update_label("John Doe", "Clowny")
 	icon_state = "orange"
 	assignment = JOB_NAME_PRISONER
 	hud_state = JOB_HUD_PRISONER
+
+/obj/item/card/id/gold/vip
+	name = "important gold identification card"
+	assignment = JOB_NAME_VIP
+	hud_state = JOB_HUD_VIP
+
+/obj/item/card/id/gold/king
+	name = "their majesty's gold identification card"
+	assignment = JOB_NAME_KING
+	hud_state = JOB_HUD_KING
 
 /obj/item/card/id/pass
 	name = "promotion pass"
