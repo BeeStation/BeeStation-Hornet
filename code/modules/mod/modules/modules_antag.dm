@@ -47,7 +47,7 @@
 
 /obj/item/mod/module/armor_booster/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	balloon_alert(mod.wearer, "Combat mode Active, EVA Lost")
+	balloon_alert(mod.wearer, "Combat protocol engaged, EVA Lost")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
@@ -67,7 +67,7 @@
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		balloon_alert(mod.wearer, "Combat mode Deactivated, EVA ready")
+		balloon_alert(mod.wearer, "Combat protocol disengaged, EVA ready")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
