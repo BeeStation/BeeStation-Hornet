@@ -63,8 +63,7 @@ GLOBAL_LIST_EMPTY(all_vampires)
  * Turns the player into a scourge.
 **/
 /datum/antagonist/vampire/proc/scourgify()
-	if(prince) // Literally how would this happen. Still, just in case.
-		CRASH("Somehow a prince was going to be turned into a scourge")
+	ASSERT(!prince, "Somehow a prince was going to be turned into a scourge") // Literally how would this happen. Still, just in case.
 
 	rank_up(4, TRUE) // Rank up less.
 	to_chat(owner.current, span_cultbold("As a camarilla scourge, your newfound purpose empowers you!"))
