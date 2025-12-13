@@ -67,3 +67,6 @@
 2025-12-13:
   mrmanlikesbt:
   - bugfix: Fixed a timestop runtime when freezing a person
+  - bugfix: fixed not being able to dream
+  - code_imp: slightly improved the sleeping status effect code
+  - tweak: slightly adjusted your chance to dream or snore while sleeping

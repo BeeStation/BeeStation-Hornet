@@ -1,6 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: fixed not being able to dream
-  - code_imp: slightly improved the sleeping status effect code
-  - tweak: slightly adjusted your chance to dream or snore while sleeping
