@@ -35,8 +35,8 @@
 
 	U.set_armor(U.get_armor().add_other_armor(get_armor()))
 
-	if(isliving(user))
-		on_uniform_equip(U, user)
+	if(isliving(U.loc))
+		on_uniform_equip(U, U.loc)
 
 	return TRUE
 
@@ -59,10 +59,10 @@
 	U.attached_accessory = null
 	U.accessory_overlay = null
 
-/obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, user)
+/obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	return
 
-/obj/item/clothing/accessory/proc/on_uniform_dropped(obj/item/clothing/under/U, user)
+/obj/item/clothing/accessory/proc/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
 	return
 
 /obj/item/clothing/accessory/AltClick(mob/user)
@@ -317,13 +317,13 @@
 		user.say("The testimony contradicts the evidence!", forced = "attorney's badge")
 	user.visible_message("[user] shows [user.p_their()] attorney's badge.", span_notice("You show your attorney's badge."))
 
-/obj/item/clothing/accessory/lawyers_badge/on_uniform_equip(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/lawyers_badge/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L)
 		L.bubble_icon = "lawyer"
 
-/obj/item/clothing/accessory/lawyers_badge/on_uniform_dropped(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/lawyers_badge/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L)
 		L.bubble_icon = initial(L.bubble_icon)
 
@@ -419,13 +419,13 @@
 	desc = "A pin made from a poppy, worn to remember those who have fallen in war."
 	icon_state = "poppy_pin"
 
-/obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "poppy_pin", /datum/mood_event/poppy_pin)
 
-/obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, user)
-	var/mob/living/L = user
+/obj/item/clothing/accessory/poppy_pin/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
+	var/mob/living/L = wearer
 	if(L && L.mind)
 		SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "poppy_pin")
 
