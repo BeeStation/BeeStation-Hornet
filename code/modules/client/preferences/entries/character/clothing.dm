@@ -52,9 +52,6 @@
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
 	target.backbag = value
 
-/datum/preference/choiced/backpack/create_random_value(datum/preferences/preferences)
-	return pick(get_choices())
-
 /datum/preference/choiced/backpack/create_default_value()
 	return DBACKPACK
 
