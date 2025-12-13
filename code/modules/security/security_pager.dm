@@ -21,6 +21,7 @@
 	. = ..()
 	UnregisterSignal(wearer, COMSIG_MOB_DEATH)
 
-/obj/item/clothing/accessory/security_pager/proc/on_owner_died(datum/source)
+/obj/item/clothing/accessory/security_pager/proc/on_owner_died(mob/living/source)
 	SIGNAL_HANDLER
 	radio.talk_into(src, "Alert, vital signs from the wearer have been lost.", RADIO_CHANNEL_SECURITY)
+	playsound(source, 'sound/voice/sec_death.ogg', 200, TRUE, TRUE)
