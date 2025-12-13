@@ -90,11 +90,7 @@ GLOBAL_LIST_EMPTY(all_vampires)
 /datum/antagonist/vampire/proc/get_princely_score()
 	var/calculated_hour_score = min(50, owner.current?.client?.get_exp_living(TRUE) / 60) / 10
 
-	var/clan_bonus = 0
-	if(my_clan)
-		clan_bonus = my_clan.princely_score_bonus
-	else
-		clan_bonus = -10
+	var/clan_bonus = my_clan?.princely_score_bonus || -10
 
 	return clan_bonus + calculated_hour_score
 
