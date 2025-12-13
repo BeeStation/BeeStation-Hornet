@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: Fixed a timestop runtime when freezing a person
