@@ -9,9 +9,11 @@
 	active_power_usage = 300 WATT // This is overriden while giving power
 	circuit = /obj/item/circuitboard/machine/recharger
 	pass_flags = PASSTABLE
+	/// The item currently inserted into the charger
 	var/obj/item/charging = null
-	var/recharge_coeff = 1
-
+	/// How good the capacitor is at charging the item
+	var/recharge_coeff = 2
+	/// List of items that can be recharged
 	var/static/list/allowed_devices = typecacheof(list(
 		/obj/item/gun/energy,
 		/obj/item/melee/baton,
@@ -21,8 +23,8 @@
 	))
 
 /obj/machinery/recharger/RefreshParts()
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_coeff = C.rating
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		recharge_coeff = capacitor.rating * 2
 
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()
@@ -31,19 +33,18 @@
 		return
 
 	if(charging)
-		. += "[span_notice("\The [src] contains:")]\n"+\
-		span_notice("- \A [charging].")
+		. += "[span_notice("\The [src] contains:\n- \A [charging]")]"
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
 		. += span_notice("The status display reads:")
 		. += span_notice("- Current recharge coefficient: <b>[recharge_coeff]</b>.")
 		if(charging)
-			var/obj/item/stock_parts/cell/C = charging.get_cell()
+			var/obj/item/stock_parts/cell/cell = charging.get_cell()
 			if (istype(charging, /obj/item/ammo_box/magazine/recharge))
 				var/obj/item/ammo_box/magazine/recharge/magazine = charging
 				. += span_notice("- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo * 100]%</b>.")
-			else if(C)
-				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
+			else if(cell)
+				. += span_notice("- \The [charging]'s cell is at <b>[cell.percent()]%</b>.")
 			else
 				. += span_notice("- \The [charging] has no power cell installed.")
 
@@ -131,27 +132,31 @@
 /obj/machinery/recharger/process(delta_time)
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
 		return
-	if(charging)
-		var/obj/item/stock_parts/cell/C = charging.get_cell()
-		if(C)
-			if(C.charge >= C.maxcharge)
-				update_use_power(IDLE_POWER_USE)
-			else
-				C.give(C.chargerate * recharge_coeff)
-				active_power_usage = (C.chargerate * recharge_coeff / POWER_TRANSFER_LOSS)
-				update_use_power(ACTIVE_POWER_USE)
 
-		if(istype(charging, /obj/item/ammo_box/magazine/recharge))
-			var/obj/item/ammo_box/magazine/recharge/R = charging
-			if(R.stored_ammo.len >= R.max_ammo)
-				update_use_power(IDLE_POWER_USE)
-			else
-				R.stored_ammo += new R.ammo_type(R)
-				active_power_usage = (1000 WATT / recharge_coeff)
-				update_use_power(ACTIVE_POWER_USE)
-		update_appearance()
-	else
+	update_appearance()
+
+	if(!charging)
 		update_use_power(IDLE_POWER_USE)
+		return
+
+
+	var/obj/item/stock_parts/cell/cell = charging.get_cell()
+	if(cell)
+		if(cell.charge >= cell.maxcharge)
+			update_use_power(IDLE_POWER_USE)
+		else
+			cell.give(cell.chargerate * recharge_coeff)
+			active_power_usage = (cell.chargerate * recharge_coeff / POWER_TRANSFER_LOSS)
+			update_use_power(ACTIVE_POWER_USE)
+
+	if(istype(charging, /obj/item/ammo_box/magazine/recharge))
+		var/obj/item/ammo_box/magazine/recharge/R = charging
+		if(R.stored_ammo.len >= R.max_ammo)
+			update_use_power(IDLE_POWER_USE)
+		else
+			R.stored_ammo += new R.ammo_type(R)
+			active_power_usage = (1000 WATT / recharge_coeff)
+			update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/recharger/emp_act(severity)
 	. = ..()
