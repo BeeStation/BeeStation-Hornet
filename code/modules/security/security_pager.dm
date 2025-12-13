@@ -4,6 +4,7 @@
 	icon_state = "pager"
 	above_suit = TRUE
 	var/obj/item/radio/radio
+	COOLDOWN_DECLARE(deathgasp_cooldown)
 
 /obj/item/clothing/accessory/security_pager/Initialize(mapload)
 	. = ..()
@@ -16,10 +17,20 @@
 /obj/item/clothing/accessory/security_pager/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	. = ..()
 	RegisterSignal(wearer, COMSIG_MOB_DEATH, PROC_REF(on_owner_died))
+	RegisterSignal(wearer, COMSIG_MOB_DEATHGASP, PROC_REF(on_owner_died))
 
 /obj/item/clothing/accessory/security_pager/on_uniform_dropped(obj/item/clothing/under/U, mob/living/wearer)
 	. = ..()
 	UnregisterSignal(wearer, COMSIG_MOB_DEATH)
+	UnregisterSignal(wearer, COMSIG_MOB_DEATHGASP)
+
+/obj/item/clothing/accessory/security_pager/proc/on_owner_deathgasp(mob/living/source)
+	SIGNAL_HANDLER
+	if (!COOLDOWN_FINISHED(src, deathgasp_cooldown))
+		return COMSIG_MOB_CANCEL_DEATHGASP_SOUND
+	COOLDOWN_START(src, deathgasp_cooldown, 10 SECONDS)
+	playsound(source, 'sound/voice/sec_death.ogg', 200, TRUE, TRUE)
+	return COMSIG_MOB_CANCEL_DEATHGASP_SOUND
 
 /obj/item/clothing/accessory/security_pager/proc/on_owner_died(mob/living/source)
 	SIGNAL_HANDLER
