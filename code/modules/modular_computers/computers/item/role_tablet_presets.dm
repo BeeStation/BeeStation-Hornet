@@ -1,10 +1,11 @@
 /obj/item/modular_computer/tablet/pda/preset	//This needs to exist or else we can't really have empty PDA shells!
+	var/cell_type = /obj/item/computer_hardware/battery/tiny
 
 /obj/item/modular_computer/tablet/pda/preset/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/hard_drive/micro)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery/tiny)
+	install_component(new cell_type)
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
@@ -134,7 +135,7 @@
 	icon_state = "pda-science"
 	init_ringtone = "boom"
 
-/obj/item/modular_computer/tablet/pda/science/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/preset/science/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/radio_card)
 
@@ -237,11 +238,10 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	default_virus_defense = ANTIVIRUS_BEST
+	cell_type = /obj/item/computer_hardware/battery/huge
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	. = ..()
-	forget_component(all_components[MC_CELL])
-	install_component(new /obj/item/computer_hardware/battery/huge)
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(istype(network_card))
 		forget_component(network_card)
