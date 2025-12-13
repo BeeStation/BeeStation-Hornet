@@ -103,6 +103,7 @@
 	icon_state = "hypnosis"
 
 /datum/status_effect/awed/Destroy()
+	. = ..()
 	object_of_desire = null
 
 /datum/status_effect/awed/tick()
