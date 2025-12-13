@@ -1,5 +1,5 @@
 /datum/crafting_recipe/vassalrack
-	name = "Vassalization rack"
+	name = "vassalization rack"
 	result = /obj/structure/vampire/vassalrack
 	time = 5 SECONDS
 

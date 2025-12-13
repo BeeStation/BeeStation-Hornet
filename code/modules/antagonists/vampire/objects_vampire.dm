@@ -86,7 +86,7 @@
 			unbolt(user)
 
 /obj/structure/vampire/vassalrack
-	name = "Vassalization rack"
+	name = "vassalization rack"
 	desc = "If this wasn't meant for torture, then someone has some fairly horrifying hobbies."
 	icon = 'icons/vampires/vamp_obj.dmi'
 	icon_state = "vassalrack"
