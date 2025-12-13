@@ -125,7 +125,6 @@
 
 	if(attached_accessory && slot != ITEM_SLOT_HANDS && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
 			H.update_worn_oversuit()
 
@@ -134,6 +133,9 @@
 	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
 		freshly_laundered = FALSE
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
+	// If we have an accessory, trigger equipepd behaviour
+	if (attached_accessory && (slot & slot_flags))
+		attached_accessory.on_uniform_equip(src, user)
 
 /obj/item/clothing/under/dropped(mob/user)
 	..()

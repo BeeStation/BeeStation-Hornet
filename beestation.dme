@@ -4221,6 +4221,7 @@
 #include "code\modules\screentips\screentip_hud.dm"
 #include "code\modules\security\genpop.dm"
 #include "code\modules\security\prison_scanner.dm"
+#include "code\modules\security\security_pager.dm"
 #include "code\modules\security\workshop.dm"
 #include "code\modules\security_levels\keycard_authentication.dm"
 #include "code\modules\security_levels\security_level_datums.dm"
