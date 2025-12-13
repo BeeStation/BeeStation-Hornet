@@ -25,9 +25,9 @@
 /obj/effect/turf_decal/weather/snow/full/end
 	icon_state = "snow_end"
 
-/obj/effect/turf_decal/weather/snow/corner
-	name = "snow corner piece"
-	icon_state = "snow_corner"
+/obj/effect/turf_decal/weather/snow/spot
+	name = "snow piece"
+	icon_state = "snow_spot"
 	layer = 3
 
 /obj/effect/turf_decal/weather/dirt

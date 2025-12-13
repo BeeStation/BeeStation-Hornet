@@ -4,7 +4,7 @@
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/template_noop)
 "af" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -195,7 +195,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint/planetary{
@@ -227,7 +227,7 @@
 	},
 /area/template_noop)
 "do" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/glass/reinforced{
@@ -272,7 +272,7 @@
 "ea" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
 "ep" = (
@@ -362,7 +362,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -387,7 +387,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -462,7 +462,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -486,7 +486,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -535,7 +535,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -585,7 +585,7 @@
 "hP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
@@ -644,7 +644,7 @@
 	dir = 1
 	},
 /obj/machinery/hydroponics/soil,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -656,7 +656,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -722,7 +722,7 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -752,7 +752,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -781,7 +781,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -837,7 +837,7 @@
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
 "lx" = (
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
@@ -864,7 +864,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint/planetary{
@@ -957,7 +957,7 @@
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/template_noop)
 "mU" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -1006,7 +1006,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -1191,7 +1191,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -1200,7 +1200,7 @@
 	},
 /area/template_noop)
 "rO" = (
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/iron/techmaint/planetary{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
@@ -1213,7 +1213,7 @@
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
 "sa" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -1265,7 +1265,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
@@ -1351,7 +1351,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -1387,7 +1387,7 @@
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
 "tx" = (
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/plating/ice/smooth/planetary,
 /area/template_noop)
 "tC" = (
@@ -1396,7 +1396,7 @@
 /area/template_noop)
 "tI" = (
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -1428,7 +1428,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -1445,7 +1445,7 @@
 /turf/open/floor/plating/asteroid/frozengrass,
 /area/template_noop)
 "vm" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -1455,13 +1455,13 @@
 /area/template_noop)
 "vs" = (
 /obj/structure/chair/stool/directional/west,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "vu" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/glass/reinforced{
@@ -1535,7 +1535,7 @@
 /obj/item/seeds/carrot/parsnip,
 /obj/item/seeds/carrot/parsnip,
 /obj/item/seeds/carrot/parsnip,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/wood{
@@ -1573,7 +1573,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -1633,7 +1633,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -1661,7 +1661,7 @@
 	pixel_y = 4;
 	name = "Fishing rod"
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /obj/structure/chair/stool/directional/east,
@@ -1678,7 +1678,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -1702,7 +1702,7 @@
 /area/template_noop)
 "yq" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
@@ -1839,7 +1839,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -1897,7 +1897,7 @@
 /turf/open/floor/plating/beach/deep_water/cold,
 /area/template_noop)
 "By" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/iron/techmaint/planetary{
@@ -1921,7 +1921,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -1932,7 +1932,7 @@
 "BG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/iron/techmaint/planetary,
 /area/template_noop)
@@ -1943,7 +1943,7 @@
 /turf/open/floor/plating/asteroid/snow/planetary,
 /area/template_noop)
 "BM" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -2035,7 +2035,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -2049,7 +2049,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -2062,7 +2062,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -2075,7 +2075,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -2091,7 +2091,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -2247,7 +2247,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -2269,7 +2269,7 @@
 /area/template_noop)
 "FH" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
 	},
@@ -2333,7 +2333,7 @@
 /turf/open/floor/iron/solarpanel/cold,
 /area/template_noop)
 "GP" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/plating/ice/smooth/planetary,
@@ -2353,7 +2353,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -2417,7 +2417,7 @@
 /area/template_noop)
 "HX" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/wood{
@@ -2466,7 +2466,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -2554,7 +2554,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/wood{
@@ -2774,7 +2774,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -2790,7 +2790,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -2818,7 +2818,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/sepia/planetary{
@@ -2860,7 +2860,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
@@ -2897,7 +2897,7 @@
 	},
 /area/template_noop)
 "PQ" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
@@ -2930,7 +2930,7 @@
 	name = "map - level 0";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint/planetary{
@@ -2999,10 +2999,10 @@
 /turf/open/floor/plating/snowed/smoothed/planetary,
 /area/template_noop)
 "Rs" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/glass/reinforced{
@@ -3098,7 +3098,7 @@
 	name = "map - level 3";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/iron/techmaint/planetary{
@@ -3121,7 +3121,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
@@ -3154,7 +3154,7 @@
 	pixel_x = -31;
 	pixel_y = -3
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -3199,7 +3199,7 @@
 /obj/effect/turf_decal/siding/wideplating/terracotta{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid/snow/planetary,
@@ -3208,7 +3208,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/sepia/planetary{
@@ -3229,7 +3229,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/sepia/planetary{
 	slowdown = 0;
 	initial_gas_mix = "o2=26;n2=97;TEMP=259.15"
@@ -3243,7 +3243,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /turf/open/floor/sepia/planetary{
@@ -3282,7 +3282,7 @@
 	},
 /area/template_noop)
 "UH" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /obj/structure/chair/stool/directional/west,
@@ -3394,7 +3394,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/sepia/planetary{
@@ -3430,7 +3430,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{
@@ -3540,7 +3540,7 @@
 	desc = "He demands you let him sleep";
 	name = "Sir Fluffington McWhiskerface the Third, Esquire, Purveyor of Mischief and Master of Naps"
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/wood{
@@ -3573,7 +3573,7 @@
 /area/template_noop)
 "Yn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/sepia/planetary{
@@ -3609,7 +3609,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/sepia/planetary{
@@ -3665,7 +3665,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/sepia/planetary{

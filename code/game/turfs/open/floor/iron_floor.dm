@@ -108,7 +108,7 @@
 /turf/open/floor/iron/sepia/smooth_edge
 	icon_state = "sepia_edge"
 	base_icon_state = "sepia_edge"
-	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_edge
+	//floor_tile = /obj/item/stack/tile/iron/sepia/smooth_edge TODO
 
 /turf/open/floor/iron/sepia/smooth_edge/get_turf_texture()
 	return GLOB.turf_texture_iron_nonsegmented
@@ -116,7 +116,7 @@
 /turf/open/floor/iron/sepia/smooth_half
 	icon_state = "sepia_half"
 	base_icon_state = "sepia_half"
-	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_half
+	//floor_tile = /obj/item/stack/tile/iron/sepia/smooth_half TODO
 
 /turf/open/floor/iron/sepia/smooth_half/get_turf_texture()
 	return GLOB.turf_texture_iron_nonsegmented
@@ -124,7 +124,7 @@
 /turf/open/floor/iron/sepia/smooth_corner
 	icon_state = "sepia_corner"
 	base_icon_state = "sepia_corner"
-	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_corner
+	//floor_tile = /obj/item/stack/tile/iron/sepia/smooth_corner TODO
 
 /turf/open/floor/iron/sepia/smooth_corner/get_turf_texture()
 	return GLOB.turf_texture_iron_nonsegmented
@@ -132,7 +132,7 @@
 /turf/open/floor/iron/sepia/smooth_large
 	icon_state = "sepia_large"
 	base_icon_state = "sepia_large"
-	floor_tile = /obj/item/stack/tile/iron/sepia/smooth_large
+	//floor_tile = /obj/item/stack/tile/iron/sepia/smooth_large TODO
 
 /turf/open/floor/iron/sepia/smooth_large/get_turf_texture()
 	return GLOB.turf_texture_iron_nonsegmented

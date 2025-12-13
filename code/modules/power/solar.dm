@@ -63,6 +63,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/power/solar)
 	var/obj/effect/overlay/solar_panel/overlay = new(src)
 	overlay.icon_state = icon_state
 	overlay.pixel_z = z_offset
+	overlay.layer = ABOVE_MOB_LAYER
 	vis_contents += overlay
 	return overlay
 

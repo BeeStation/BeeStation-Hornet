@@ -5388,7 +5388,7 @@
 	},
 /area/centcom/supply)
 "anH" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow,
@@ -6022,7 +6022,7 @@
 /turf/open/floor/iron/smooth_large,
 /area/centcom/evac)
 "apf" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/plating/snowed,
@@ -6385,7 +6385,7 @@
 	dir = 8
 	},
 /obj/structure/flora/rock/pile,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
 "aqd" = (
@@ -7586,7 +7586,7 @@
 	},
 /area/centcom/control)
 "atx" = (
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
 "aty" = (
@@ -7677,7 +7677,7 @@
 /turf/open/floor/plating,
 /area/centcom/ferry)
 "atH" = (
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
 "atI" = (
@@ -8127,7 +8127,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -9809,7 +9809,7 @@
 /area/ctf)
 "azw" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/plating,
 /area/syndicate_mothership/control)
 "azz" = (
@@ -10638,7 +10638,7 @@
 /turf/open/floor/iron/tech,
 /area/centcom/ferry)
 "aBD" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/plating/snowed,
@@ -14855,7 +14855,7 @@
 	},
 /area/tdome/tdomeadmin)
 "aMB" = (
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /obj/effect/turf_decal/weather/snow,
 /turf/open/floor/plating/snowed,
 /area/syndicate_mothership)
@@ -17775,7 +17775,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/turf_decal/weather/snow/spot,
 /turf/open/floor/plating/asteroid/planetary,
 /area/syndicate_mothership/control)
 "aTG" = (
@@ -18328,7 +18328,7 @@
 /area/syndicate_mothership/control)
 "aUY" = (
 /obj/effect/turf_decal/sand/plating,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -20334,7 +20334,7 @@
 /turf/open/floor/iron/tech,
 /area/syndicate_mothership/control)
 "bGL" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /obj/structure/fans/tiny/invisible,
@@ -20603,7 +20603,7 @@
 "dyB" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shuttledock,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -20677,7 +20677,7 @@
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "ejH" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/plating/snowed,
@@ -20877,7 +20877,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "geF" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/snowed,
@@ -20943,7 +20943,7 @@
 /area/syndicate_mothership/control)
 "gFf" = (
 /obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -20976,7 +20976,7 @@
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shuttledock,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -21192,10 +21192,10 @@
 /area/syndicate_mothership/control)
 "hHR" = (
 /obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/plating/snowed,
@@ -21375,10 +21375,10 @@
 /turf/open/floor/iron/dark,
 /area/centcom/control)
 "ivj" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/plating/snowed,
@@ -21552,7 +21552,7 @@
 "juD" = (
 /obj/effect/turf_decal/sand,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /turf/open/floor/plating/broken,
@@ -21586,10 +21586,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
 "jRP" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 9
 	},
 /turf/open/floor/plating/snowed,
@@ -21700,7 +21700,7 @@
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "kCg" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/plating/snowed,
@@ -21801,7 +21801,7 @@
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
 "lcz" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -21879,10 +21879,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
 "lun" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
 /turf/open/floor/plating/snowed,
@@ -22090,7 +22090,7 @@
 /area/syndicate_mothership/control)
 "mEY" = (
 /obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/plating/snowed,
@@ -22397,10 +22397,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/syndicate_mothership/control)
 "oCO" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/snowed,
@@ -22602,7 +22602,7 @@
 "qdT" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/lattice/catwalk,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/broken,
@@ -22666,7 +22666,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
 "qzl" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /turf/open/floor/plating/snowed,
@@ -23064,7 +23064,7 @@
 /turf/open/floor/plating/broken,
 /area/syndicate_mothership/control)
 "tbW" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 4
 	},
 /turf/open/floor/plating/snowed,
@@ -23193,10 +23193,10 @@
 /turf/open/floor/iron/freezer,
 /area/syndicate_mothership/control)
 "ubX" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 6
 	},
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 10
 	},
 /turf/open/floor/plating/snowed,
@@ -23238,7 +23238,7 @@
 /area/centcom/control)
 "ufj" = (
 /obj/effect/turf_decal/weather/snow,
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 8
 	},
 /turf/open/floor/plating/snowed,
@@ -23667,7 +23667,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/centcom/control)
 "xLM" = (
-/obj/effect/turf_decal/weather/snow/corner{
+/obj/effect/turf_decal/weather/snow/spot{
 	dir = 5
 	},
 /obj/structure/fans/tiny/invisible,

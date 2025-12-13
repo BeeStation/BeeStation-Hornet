@@ -61,6 +61,11 @@ map cardinalstation
 	votable
 endmap
 
+map neucorg
+	minplayers 25
+	votable
+endmap
+
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation

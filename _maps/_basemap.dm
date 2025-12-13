@@ -1,8 +1,8 @@
-// #define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
+ #define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
 // #define QUICKSTART // uncomment this to start the round immidiately when ready and automatically spawn players with debug outfit
 
 // uncomment this for a map you need to use
-// #define FORCE_MAP "boxstation"
+ #define FORCE_MAP "neucorg"
 // #define FORCE_MAP "cardinalstation"
 // #define FORCE_MAP "metastation"
 // #define FORCE_MAP "deltastation"
@@ -21,6 +21,7 @@
 		#include "map_files\debug\runtimestation.dmm"
 		#include "map_files\Deltastation\DeltaStation2.dmm"
 		#include "map_files\MetaStation\MetaStation.dmm"
+		#include "map_files\CorgStation\NeuCorg.dmm"
 		#include "map_files\BoxStation\BoxStation.dmm"
 		#include "map_files\KiloStation\KiloStation.dmm"
 		#include "map_files\flandstation\flandstation.dmm"
