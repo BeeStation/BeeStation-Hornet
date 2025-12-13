@@ -102,6 +102,9 @@
 	desc = null
 	icon_state = "hypnosis"
 
+/datum/status_effect/awed/Destroy()
+	object_of_desire = null
+
 /datum/status_effect/awed/tick()
 	// expand the random pool for more varied behaviors; 0 is a nop as before
 	switch(rand(1, 10))
