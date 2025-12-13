@@ -7200,10 +7200,6 @@
 "aWH" = (
 /turf/closed/wall,
 /area/engine/atmos)
-"aWJ" = (
-/obj/structure/sign/warning/nosmoking,
-/turf/closed/wall,
-/area/engine/atmos)
 "aWK" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -50327,10 +50323,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
-"ksJ" = (
-/obj/structure/table/reinforced,
-/turf/open/floor/iron,
-/area/space)
 "ktc" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -67776,12 +67768,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"qfe" = (
-/obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/turf/open/floor/catwalk_floor/iron_smooth,
-/area/space)
 "qfw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -74418,6 +74404,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
+"sbW" = (
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/fireaxecabinet/directional/south,
+/turf/open/floor/iron/dark/corner,
+/area/engine/atmos)
 "sbX" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
@@ -83723,7 +83719,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/space)
+/area/engine/atmos)
 "vbH" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -116854,7 +116850,7 @@ aMB
 ovG
 vQW
 oiG
-qfe
+mnL
 iBI
 lqt
 mnL
@@ -119939,13 +119935,13 @@ rMV
 oLD
 aRy
 cfI
-aUS
-aWJ
+sbW
+aWH
 fLC
 fLC
 fLC
 fLC
-ksJ
+dIe
 aWH
 wGY
 oPr
