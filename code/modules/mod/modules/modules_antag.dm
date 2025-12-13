@@ -19,15 +19,11 @@
 	var/remove_pressure_protection = TRUE
 	/// Slowdown added to the control unit while this module is disabled
 	var/space_slowdown = 0.5
-	/// Armor values added to the suit parts.
-	var/datum/armor/armor_mod = /datum/armor/mod_module_armor_boost
 	/// List of parts of the suit that are spaceproofed, for giving them back the pressure protection.
 	var/list/spaceproofed = list()
 
 /obj/item/mod/module/armor_booster/no_speedbost
 	space_slowdown = 0
-
-/datum/armor/mod_module_armor_boost
 
 /obj/item/mod/module/armor_booster/on_part_activation()
 	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
@@ -47,7 +43,7 @@
 
 /obj/item/mod/module/armor_booster/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	balloon_alert(mod.wearer, "Combat protocol engaged, EVA Lost")
+	balloon_alert(mod.wearer, "Combat Protocol engaged, EVA Lost")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
@@ -55,7 +51,6 @@
 		seal_helmet(mod, head_cover)
 	*/
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.set_armor(part.get_armor().add_other_armor(armor_mod))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -67,14 +62,13 @@
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		balloon_alert(mod.wearer, "Combat protocol disengaged, EVA ready")
+		balloon_alert(mod.wearer, "Combat mode Deactivated, EVA ready")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
 		UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
 	*/
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
