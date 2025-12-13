@@ -3,9 +3,9 @@
 ///Mode Switch - Switch from combat mode to EVA.
 /obj/item/mod/module/armor_booster
 	name = "\improper MOD Mode Switch Module"
-	desc = "A retrofitted series of retractable armor plates, allowing the suit to change from two versions, EVA and combat, \
-		removing the usual weight given by the armor platings, however both versions cannot be deployed at the same time, \
-		since it retracts part of the armor to make them lightweight and less bulkier on the body, while removing the ability to spacewalk."
+	desc = "A retrofitted pressurized shell which allow the suit to change between two versions, EVA and combat. \
+		Activating combat mode removes the usual weight given by the shell allowing, for greater mobility, \
+		but sacrificing the ability to safely navigate vacuums."
 	icon_state = "armor_booster"
 	module_type = MODULE_TOGGLE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
