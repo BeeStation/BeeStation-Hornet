@@ -240,6 +240,8 @@
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	. = ..()
+	forget_component(all_components[MC_CELL])
+	install_component(new /obj/item/computer_hardware/battery/huge)
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(istype(network_card))
 		forget_component(network_card)
