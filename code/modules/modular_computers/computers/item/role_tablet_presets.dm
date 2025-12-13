@@ -238,7 +238,7 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	default_virus_defense = ANTIVIRUS_BEST
-	cell_type = /obj/item/computer_hardware/battery/huge
+	cell_type = /obj/item/computer_hardware/battery/large
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	. = ..()
