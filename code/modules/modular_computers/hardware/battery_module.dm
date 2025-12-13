@@ -96,7 +96,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	desc = "A tiny power cell, commonly seen in low-end portable microcomputers."
 	icon_state = "cell_micro"
 	w_class = WEIGHT_CLASS_TINY
-	maxcharge = 40 KILOWATT
+	maxcharge = 60 KILOWATT
 	chargerate_divide = 4
 	custom_price = PAYCHECK_EASY
 	rating = PART_TIER_1
@@ -105,7 +105,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/computer_hardware/battery)
 	name = "micro battery"
 	desc = "A small power cell, commonly seen in most portable microcomputers."
 	icon_state = "cell_micro"
-	maxcharge = 60 KILOWATT
+	maxcharge = 80 KILOWATT
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = PAYCHECK_EASY * 2
 	rating = PART_TIER_2
