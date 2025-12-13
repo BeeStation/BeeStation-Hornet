@@ -131,13 +131,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"hj" = (
-/obj/machinery/door/airlock/survival_pod,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "ht" = (
 /obj/structure/table/wood,
 /obj/machinery/smartfridge/disks{
@@ -1433,7 +1426,7 @@ qz
 Pz
 gT
 Zl
-hj
+CD
 iQ
 RR
 Ns
