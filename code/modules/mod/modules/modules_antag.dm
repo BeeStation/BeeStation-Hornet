@@ -1,12 +1,11 @@
 //Antag modules for MODsuits
 
-///Armor Booster - Grants your suit more armor and speed in exchange for EVA protection.
+///Mode Switch - Switch from combat mode to EVA.
 /obj/item/mod/module/armor_booster
-	name = "\improper MOD armor booster module"
-	desc = "A retrofitted series of retractable armor plates, allowing the suit to function as essentially power armor, \
-		giving the user incredible protection against conventional firearms, or everyday attacks in close-quarters. \
-		However, the additional plating cannot deploy alongside parts of the suit used for vacuum sealing, \
-		so this extra armor provides zero ability for extravehicular activity while deployed."
+	name = "\improper MOD Mode Switch Module"
+	desc = "A retrofitted series of retractable armor plates, allowing the suit to change from two versions, EVA and combat, \
+		removing the usual weight given by the armor platings, however both versions cannot be deployed at the same time. \
+		since it retracts part of the armor to make them lightweight and less bulkier on the body, while removing the ability to spacewalk."
 	icon_state = "armor_booster"
 	module_type = MODULE_TOGGLE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -29,10 +28,6 @@
 	space_slowdown = 0
 
 /datum/armor/mod_module_armor_boost
-	melee = 25
-	bullet = 30
-	laser = 15
-	energy = 15
 
 /obj/item/mod/module/armor_booster/on_part_activation()
 	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
@@ -52,7 +47,7 @@
 
 /obj/item/mod/module/armor_booster/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	balloon_alert(mod.wearer, "armor boosted, EVA lost")
+	balloon_alert(mod.wearer, "Combat mode Active, EVA Lost")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
@@ -72,7 +67,7 @@
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		balloon_alert(mod.wearer, "armor retracts, EVA ready")
+		balloon_alert(mod.wearer, "Combat mode Deactivated, EVA ready")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)

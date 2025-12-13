@@ -1212,16 +1212,16 @@
 	)
 
 /datum/armor/mod_theme_syndicate
-	melee = 22.5
-	bullet = 22.5
-	laser = 15
-	energy = 30
+	melee = 40
+	bullet = 50
+	laser = 30
+	energy = 55
 	bomb = 35
 	bio = 100
 	fire = 50
-	acid = 90
-	stamina = 30
-	bleed = 55
+	acid = 100
+	stamina = 60
+	bleed = 70
 
 /datum/mod_theme/elite
 	name = "elite"
@@ -1285,16 +1285,16 @@
 	)
 
 /datum/armor/mod_theme_elite
-	melee = 35
-	bullet = 30
-	laser = 35
-	energy = 35
+	melee = 60
+	bullet = 60
+	laser = 50
+	energy = 70
 	bomb = 55
 	bio = 100
 	fire = 100
 	acid = 100
-	stamina = 45
-	bleed = 60
+	stamina = 80
+	bleed = 70
 
 /datum/mod_theme/infiltrator
 	name = "infiltrator"
