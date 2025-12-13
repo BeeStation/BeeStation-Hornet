@@ -238,6 +238,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 /// Dependant on gender to create an informed value
 #define PREFERENCE_PRIORITY_UNDERWEAR 4
 
+/// Dependant on gender to create an informed value
+#define PREFERENCE_PRIORITY_JUMPSUIT 4
+
 /// Dependant on hair colour to create an informed value
 #define PREFERENCE_PRIORITY_FACIAL_COLOR 5
 
