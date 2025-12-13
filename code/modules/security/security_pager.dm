@@ -1,4 +1,3 @@
-
 /obj/item/clothing/accessory/security_pager
 	name = "security pager"
 	desc = "A chest-mounted pager which is used to quickly keep in touch with a commanding body."
