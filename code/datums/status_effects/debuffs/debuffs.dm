@@ -116,31 +116,37 @@
 	id = "sleeping"
 	alert_type = /atom/movable/screen/alert/status_effect/asleep
 	needs_update_stat = TRUE
-	var/mob/living/carbon/carbon_owner
-	var/mob/living/carbon/human/human_owner
-
-/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner)
-	. = ..()
-	if(.)
-		if(iscarbon(owner)) //to avoid repeated istypes
-			carbon_owner = owner
-		if(ishuman(owner))
-			human_owner = owner
-
-/datum/status_effect/incapacitating/sleeping/Destroy()
-	carbon_owner = null
-	human_owner = null
-	return ..()
+	tick_interval = 2 SECONDS
 
 /datum/status_effect/incapacitating/sleeping/on_apply()
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	if(HAS_TRAIT(owner, TRAIT_SLEEPIMMUNE))
+		tick_interval = STATUS_EFFECT_NO_TICK
+	else
+		ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_SLEEPIMMUNE), PROC_REF(on_owner_insomniac))
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_SLEEPIMMUNE), PROC_REF(on_owner_sleepy))
 
 /datum/status_effect/incapacitating/sleeping/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	UnregisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_SLEEPIMMUNE), SIGNAL_REMOVETRAIT(TRAIT_SLEEPIMMUNE)))
+	if(!HAS_TRAIT(owner, TRAIT_SLEEPIMMUNE))
+		REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+		tick_interval = initial(tick_interval)
 	return ..()
+
+/// If the mob is sleeping and gain the TRAIT_SLEEPIMMUNE we remove the TRAIT_KNOCKEDOUT and stop the tick() from happening
+/datum/status_effect/incapacitating/sleeping/proc/on_owner_insomniac(mob/living/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	tick_interval = STATUS_EFFECT_NO_TICK
+
+/// If the mob has the TRAIT_SLEEPIMMUNE but somehow looses it we make him sleep and restart the tick()
+/datum/status_effect/incapacitating/sleeping/proc/on_owner_sleepy(mob/living/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	tick_interval = initial(tick_interval)
 
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(owner.maxHealth)
@@ -152,17 +158,25 @@
 			else
 				if((locate(/obj/structure/table) in owner.loc))
 					healing -= 0.1
-			owner.adjustBruteLoss(healing)
-			owner.adjustFireLoss(healing)
-			owner.adjustToxLoss(healing * 0.5, TRUE, TRUE)
-			owner.adjustStaminaLoss(healing)
-	if(human_owner?.drunkenness)
+
+			var/need_mob_update = FALSE
+			need_mob_update += owner.adjustBruteLoss(healing, updating_health = FALSE)
+			need_mob_update += owner.adjustFireLoss(healing, updating_health = FALSE)
+			need_mob_update += owner.adjustToxLoss(healing * 0.5, updating_health = FALSE, forced = TRUE)
+			need_mob_update += owner.adjustStaminaLoss(healing, updating_health = FALSE)
+			if(need_mob_update)
+				owner.updatehealth()
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
 		human_owner.drunkenness *= 0.997 //reduce drunkenness by 0.3% per tick, 6% per 2 seconds
-	if(prob(20))
-		if(carbon_owner)
-			carbon_owner.handle_dreams()
-		if(prob(10) && owner.health > owner.crit_threshold)
-			owner.emote("snore")
+
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.handle_dreams()
+
+	if(prob(8) && owner.health > owner.crit_threshold)
+		owner.emote("snore")
 
 /atom/movable/screen/alert/status_effect/asleep
 	name = "Asleep"
