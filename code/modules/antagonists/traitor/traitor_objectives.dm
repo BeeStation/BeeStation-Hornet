@@ -16,6 +16,8 @@
 		var/datum/objective/escape/escape_objective = new
 		escape_objective.owner = owner
 		add_objective(escape_objective)
+		// Finally, set up our traitor's backstory, with murderbone options of course!
+		setup_backstories(TRUE)
 		return
 
 	// Hijack: Catch-all objective, always available
