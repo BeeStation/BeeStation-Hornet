@@ -560,7 +560,7 @@ SUBSYSTEM_DEF(dynamic)
 			continue
 
 		// Not enough points left
-		if(ignore_points && ruleset.points_cost > supplementary_points)
+		if(!ignore_points && ruleset.points_cost > supplementary_points)
 			remaining_to_pick -= ruleset
 			continue
 
