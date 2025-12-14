@@ -30,7 +30,7 @@
 		return
 
 /datum/vote/shuttle_vote/tiebreaker(list/winners)
-	if(!length(get_living_crew())) //No Players? Shuttle
+	if(!length(get_living_connected_crew())) //No Players? Shuttle
 		return CHOICE_SHUTTLE
 
 	return length(choices_by_ckey) ? CHOICE_SHUTTLE : CHOICE_CONTINUE  //If there are no votes, continue, otherwise, prefer shuttle.
