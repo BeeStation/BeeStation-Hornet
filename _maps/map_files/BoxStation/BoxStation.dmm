@@ -9608,7 +9608,7 @@
 	dir = 8
 	},
 /obj/item/multitool{
-	pixel_x = 6
+	pixel_x = 5
 	},
 /obj/machinery/firealarm{
 	dir = 1;
