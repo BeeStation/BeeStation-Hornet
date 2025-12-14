@@ -35,30 +35,22 @@
 
 //Preset Processors
 
-/obj/machinery/telecomms/processor/preset_one
-	id = "Processor 1"
+/obj/machinery/telecomms/processor/leadership
+	id = "Leadership Processor"
 	network = "tcommsat"
-	autolinkers = list("processor1") // processors are sort of isolated; they don't need backward links
+	autolinkers = list("processor_leadership")
 
-/obj/machinery/telecomms/processor/preset_two
-	id = "Processor 2"
+/obj/machinery/telecomms/processor/discovery
+	id = "Discovery Processor"
 	network = "tcommsat"
-	autolinkers = list("processor2")
+	autolinkers = list("processor_discovery")
 
-/obj/machinery/telecomms/processor/preset_three
-	id = "Processor 3"
+/obj/machinery/telecomms/processor/support
+	id = "Support Processor"
 	network = "tcommsat"
-	autolinkers = list("processor3")
+	autolinkers = list("processor_support")
 
-/obj/machinery/telecomms/processor/preset_four
-	id = "Processor 4"
+/obj/machinery/telecomms/processor/logistics
+	id = "Logistics Processor"
 	network = "tcommsat"
-	autolinkers = list("processor4")
-
-/obj/machinery/telecomms/processor/preset_one/birdstation
-	name = "Processor"
-
-/obj/machinery/telecomms/processor/preset_exploration
-	id = "Exploration Processor"
-	network = "exploration"
-	autolinkers = list("processorExp")
+	autolinkers = list("processor_logstics")

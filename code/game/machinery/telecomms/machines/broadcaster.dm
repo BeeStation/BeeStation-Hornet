@@ -64,28 +64,12 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 		GLOB.message_delay = 0
 	return ..()
 
-
-
-//Preset Broadcasters
-
-//--PRESET LEFT--//
-
-/obj/machinery/telecomms/broadcaster/preset_left
-	id = "Broadcaster A"
+/obj/machinery/telecomms/broadcaster/mission
+	id = "Broadcaster Mission"
 	network = "tcommsat"
-	autolinkers = list("broadcasterA")
+	autolinkers = list("broadcaster_mission, broadcaster_exploration")
 
-//--PRESET RIGHT--//
-
-/obj/machinery/telecomms/broadcaster/preset_right
-	id = "Broadcaster B"
+/obj/machinery/telecomms/broadcaster/operations
+	id = "Broadcaster Operations"
 	network = "tcommsat"
-	autolinkers = list("broadcasterB")
-
-/obj/machinery/telecomms/broadcaster/preset_left/birdstation
-	name = "Broadcaster"
-
-/obj/machinery/telecomms/broadcaster/preset_exploration
-	id = "Exploration Broadcaster"
-	network = "exploration"
-	autolinkers = list("broadcasterExp")
+	autolinkers = list("broadcaster_operations")

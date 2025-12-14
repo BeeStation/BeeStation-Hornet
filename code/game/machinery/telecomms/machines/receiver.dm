@@ -42,35 +42,20 @@
 
 //Preset Receivers
 
-//--PRESET LEFT--//
-
-/obj/machinery/telecomms/receiver/preset_left
-	id = "Receiver A"
+/obj/machinery/telecomms/receiver/mission
+	id = "Receiver Mission"
 	network = "tcommsat"
-	autolinkers = list("receiverA") // link to relay
-	freq_listening = list(FREQ_SCIENCE, FREQ_MEDICAL, FREQ_SUPPLY, FREQ_SERVICE)
+	autolinkers = list("receiver_mission")
+	freq_listening = list(FREQ_COMMAND, FREQ_SECURITY, FREQ_SCIENCE, FREQ_EXPLORATION)
 
-
-//--PRESET RIGHT--//
-
-/obj/machinery/telecomms/receiver/preset_right
-	id = "Receiver B"
+/obj/machinery/telecomms/receiver/operations
+	id = "Receiver Operations"
 	network = "tcommsat"
-	autolinkers = list("receiverB") // link to relay
-	freq_listening = list(FREQ_COMMAND, FREQ_ENGINEERING, FREQ_SECURITY)
+	autolinkers = list("receiver_operations")
+	freq_listening = list(FREQ_MEDICAL, FREQ_ENGINEERING, FREQ_SUPPLY, FREQ_SERVICE)
 
 	//Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/receiver/preset_right/Initialize(mapload)
+/obj/machinery/telecomms/receiver/operations/Initialize(mapload)
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
-
-/obj/machinery/telecomms/receiver/preset_left/birdstation
-	name = "Receiver"
-	freq_listening = list()
-
-/obj/machinery/telecomms/receiver/preset_exploration
-	id = "Exploration Receiver"
-	network = "exploration"
-	autolinkers = list("receiverExp") // link to relay
-	freq_listening = list(FREQ_EXPLORATION)
