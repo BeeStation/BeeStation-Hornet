@@ -278,7 +278,7 @@
 
 /obj/item/clothing/head/costume/fakehalo
 	name = "toy halo"
-	desc = "A cheap plastic replica of a cult halo. Produced by THE ARM Toys, Inc."
+	desc = "A cheap plastic replica of a cult halo. Produced by THE ARM Toys, Inc.\nDisclaimer - This item may get you prematurely lynched by trigger happy security, wear at your own risk."
 	icon = 'icons/obj/cult.dmi'
 	worn_icon = FALSE
 	icon_state = "fakehalo"
