@@ -3,7 +3,7 @@
 	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/gamemode
 	/// Default minimum players required so that there is some mystery involved.
-	//minimum_players_required = 3
+	minimum_players_required = 3
 
 /datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()

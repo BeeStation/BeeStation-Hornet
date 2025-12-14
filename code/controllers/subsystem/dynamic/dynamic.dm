@@ -465,13 +465,18 @@ SUBSYSTEM_DEF(dynamic)
 	// Trim the rulesets
 	var/list/possible_rulesets = get_weighted_executable_supplementary_rulesets(unfiltered_rules, FALSE)
 
+	// Swap out a gamemode for a supplementary
+	var/free_ruleset = !length(executed_gamemodes)
+
 	// Pick rulesets
 	var/no_other_rulesets = FALSE
 	while(supplementary_points > 0 && length(possible_rulesets))
-		var/datum/dynamic_ruleset/supplementary/new_roundstart_ruleset = pick_ruleset(possible_rulesets)
+		var/datum/dynamic_ruleset/supplementary/new_roundstart_ruleset = pick_ruleset(possible_rulesets, free_ruleset)
 		if (!new_roundstart_ruleset)
 			log_dynamic("SUPPLEMENTARY: Failed to select a ruleset with [supplementary_points] points left")
 			break
+		// We only get 1 ruleset for free
+		free_ruleset = FALSE
 		execute_supplementary_ruleset(new_roundstart_ruleset)
 
 	// Deal with the NO_OTHER_RULESETS flag
