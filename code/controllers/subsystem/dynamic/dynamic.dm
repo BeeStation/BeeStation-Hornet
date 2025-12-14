@@ -396,7 +396,7 @@ SUBSYSTEM_DEF(dynamic)
  * Select the gamemode to be ran
  */
 /datum/controller/subsystem/dynamic/proc/select_gamemode(list/gamemodes)
-	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes)
+	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes, TRUE)
 	if (!selected_mode)
 		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
 		return FALSE
