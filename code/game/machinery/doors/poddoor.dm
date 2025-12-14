@@ -59,7 +59,7 @@
 			balloon_alert(user, "not enough cable!")
 			return
 		balloon_alert(user, "adding cables...")
-		if(!coil.use_tool(src, user, 5 SECONDS))
+		if(!coil.use_tool(src, user, 5 SECONDS, amount = amount_needed, volume = 50))
 			return TRUE
 		deconstruction = BLASTDOOR_NEEDS_ELECTRONICS
 		balloon_alert(user, "cables added")
@@ -67,7 +67,7 @@
 
 	if(deconstruction == BLASTDOOR_NEEDS_ELECTRONICS && istype(attacking_item, /obj/item/electronics/airlock))
 		balloon_alert(user, "adding electronics...")
-		if(!attacking_item.use_tool(src, user, 10 SECONDS))
+		if(!attacking_item.use_tool(src, user, 10 SECONDS, volume = 50))
 			return TRUE
 		qdel(attacking_item)
 		balloon_alert(user, "electronics added")
