@@ -285,7 +285,7 @@
 
 /obj/item/clothing/head/costume/fakehalo/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_WORN_ICON, src)
+	ADD_TRAIT(src, TRAIT_NO_WORN_ICON, "Fake Halo")
 
 /obj/item/clothing/head/costume/fakehalo/equipped(mob/living/carbon/human/user, slot)
 	if(IS_CULTIST(user))
