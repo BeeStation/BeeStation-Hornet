@@ -62,7 +62,7 @@
 	qdel(src)
 	if(ishuman(affecting))
 		var/mob/living/carbon/human/H = affecting
-		for(var/obj/item/W in H)
+		for(var/obj/item/W in H.get_all_gear())
 			if(W == H.w_uniform)
 				ADD_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
 				for (var/obj/item/subitem in W)
@@ -106,7 +106,7 @@
 	// Drop any items acquired from the location
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		for(var/obj/item/W in H)
+		for(var/obj/item/W in H.get_all_gear())
 			if(W == H.w_uniform)
 				REMOVE_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
 				// So no cheeky buggers can store stuff in their boots to bring it back
