@@ -57463,9 +57463,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/science/shuttle)
-"oJz" = (
-/turf/open/space/basic,
-/area/tcommsat/server)
 "oJD" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -58692,9 +58689,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/engine_smes)
-"pbv" = (
-/turf/open/space/basic,
-/area/maintenance/starboard/fore)
 "pbw" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -147617,12 +147611,12 @@ joS
 mVm
 uhU
 nHC
-oJz
-oJz
-oJz
-oJz
-oJz
-pbv
+kGA
+kGA
+kGA
+kGA
+kGA
+kGA
 qul
 qlJ
 rAq
