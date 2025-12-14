@@ -27,11 +27,7 @@
 	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
 	I.linked_team = team
 	I.implant(owner.current, null, TRUE, TRUE)
-	if(team.team_id <= length(GLOB.color_list_blood_brothers))
-		I.span_implant_colour = GLOB.color_list_blood_brothers[team.team_id]
-	else
-		I.span_implant_colour = "cfc_redpurple"
-		stack_trace("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
+	I.update_colour()
 	// Link the implants of all team members, in case any team-members already exist for some reason
 	for(var/datum/mind/M in team.members)
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants

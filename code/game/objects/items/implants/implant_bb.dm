@@ -100,6 +100,13 @@
 		linked_implants |= BB
 		BB.linked_implants |= src
 
+/obj/item/implant/bloodbrother/proc/update_colour()
+	if(linked_team.team_id <= length(GLOB.color_list_blood_brothers))
+		span_implant_colour = GLOB.color_list_blood_brothers[linked_team.team_id]
+	else
+		span_implant_colour = "cfc_redpurple"
+		stack_trace("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
+
 /obj/item/implant/bloodbrother/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Donk Corp(tm) Initiate Communication Implant<BR>
@@ -119,3 +126,4 @@
 	if (brother_team)
 		var/obj/item/implant/bloodbrother/implant = imp
 		implant.linked_team = brother_team
+		implant.update_colour()
