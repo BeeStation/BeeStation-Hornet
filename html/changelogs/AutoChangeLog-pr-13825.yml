@@ -1,4 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - tweak: Adds basic parsing flag to web request, removes pause in build process
