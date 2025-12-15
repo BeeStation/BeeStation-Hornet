@@ -295,8 +295,7 @@
 	if(slot == ITEM_SLOT_HEAD)
 		if(user.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
 			return
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
-		user.overlays_standing[HALO_LAYER] = new_halo_overlay
+		user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
 		user.apply_overlay(HALO_LAYER)
 
 
