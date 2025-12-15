@@ -134,16 +134,14 @@
 	incompatible_modules = list(/obj/item/mod/module/energy_shield)
 	required_slots = list(ITEM_SLOT_BACK)
 	/// Max charges of the shield.
-	var/max_charges = 3
-	/// The time it takes for the first charge to recover.
+	var/max_charges = 60
+	/// How long we have to avoid being hit to replenish charges.
 	var/recharge_start_delay = 20 SECONDS
-	/// How much time it takes for charges to recover after they started recharging.
+	/// Once we go unhit long enough to recharge, we replenish charges this often.
 	var/charge_increment_delay = 1 SECONDS
-	/// How much charge is recovered per recovery.
-	var/charge_recovery = 1
-	/// Whether or not this shield can lose multiple charges.
-	var/lose_multiple_charges = FALSE
-	/// The item path to recharge this shielkd.
+	/// How many charges we recover on each charge increment.
+	var/charge_recovery = 20
+	/// The item path to recharge this shield.
 	var/recharge_path
 	/// The icon file of the shield.
 	var/shield_icon_file = 'icons/effects/effects.dmi'
@@ -157,19 +155,31 @@
 	charges = max_charges
 
 /obj/item/mod/module/energy_shield/on_part_activation()
-	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
-	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS,  PROC_REF(shield_reaction))
+	mod.AddComponent(/datum/component/shielded, max_integrity = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
+	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	if(mod?.wearer)
+		RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 /obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
-	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
-	charges = shield.current_integrity
-	qdel(shield)
-	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
+	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
+	if(shield)
+		charges = shield.current_integrity
+		qdel(shield)
+	if(mod?.wearer)
+		UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
-/obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
-	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, 0, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
-		drain_power(use_power_cost)
+/obj/item/mod/module/energy_shield/proc/shield_reaction(
+	mob/living/carbon/human/owner,
+	atom/movable/hitby,
+	damage = 0,
+	attack_text = "the attack",
+	attack_type = MELEE_ATTACK,
+	armour_penetration = 0)
+	(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
+	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
+	if(!shield || shield.current_integrity <= 0)
+		return NONE
+	if(drain_power(use_power_cost))
 		return SHIELD_BLOCK
 	return NONE
 
@@ -182,11 +192,10 @@
 	icon_state = "battlemage_shield"
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic too
-	max_charges = 15
-	recharge_start_delay = 0 SECONDS
-	charge_recovery = 8
-	shield_icon_file = 'icons/obj/magic.dmi'
-	shield_icon = "mageshield"
+	max_charges = 600
+	charge_increment_delay = 1 SECONDS
+	charge_recovery = 0
+	charges = 300
 	recharge_path = /obj/item/wizard_armour_charge
 	required_slots = list()
 

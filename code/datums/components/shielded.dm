@@ -56,7 +56,7 @@
 		shield_inhand = FALSE,
 		shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE,
 		shield_alpha = 160,
-		rechage_path = null,
+		recharge_path = null,
 		run_hit_callback,
 		on_active_effects,
 		on_deactive_effects,
