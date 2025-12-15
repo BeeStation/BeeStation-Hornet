@@ -287,7 +287,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_WORN_ICON, INNATE_TRAIT)
 
-/obj/item/clothing/head/costume/fakehalo/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/head/costume/fakehalo/equipped(mob/user, slot, initial = FALSE)
 	if(IS_CULTIST(user))
 		to_chat(user, span_warning("You can't fake it, you're the real deal!"))
 		return
