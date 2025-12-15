@@ -291,7 +291,7 @@
 	if(IS_CULTIST(user))
 		to_chat(user, span_warning("You can't fake it, you're the real deal!"))
 		return
-	..()
+	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		if(user.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
 			return
