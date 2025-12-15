@@ -299,7 +299,7 @@
 		user.apply_overlay(HALO_LAYER)
 
 
-/obj/item/clothing/head/costume/fakehalo/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/head/costume/fakehalo/dropped(mob/user, silent = FALSE)
 	. = ..()
 	if(IS_CULTIST(user))
 		return
