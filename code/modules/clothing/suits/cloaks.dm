@@ -211,3 +211,42 @@
 /obj/item/clothing/neck/cloak/chap/bishop/black
 	name = "black bishop's cloak"
 	icon_state = "blackbishopcloak"
+
+/obj/item/clothing/neck/cloak/fakehalo //I made it a cloak so you can wear spooky hats, also because the hat version kept removing hair and I'm lazy.
+	name = "toy halo"
+	desc = "A cheap plastic replica of a cult halo. Produced by THE ARM Toys, Inc.\nDisclaimer - This item may get you prematurely lynched by trigger happy security, wear at your own risk."
+	icon = 'icons/obj/cult.dmi'
+	worn_icon = FALSE
+	icon_state = "fakehalo"
+
+/obj/item/clothing/neck/cloak/fakehalo/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_WORN_ICON, INNATE_TRAIT)
+
+/obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+	if(ishuman(M))
+		var/mob/living/carbon/H = M
+		if(H.overlays_standing[HALO_LAYER])
+			to_chat(H, span_warning("You already have a halo!"))
+			return FALSE
+	. = ..()
+
+/obj/item/clothing/neck/cloak/fakehalo/equipped(mob/user, slot, initial = FALSE)
+	if(ishuman(user))
+		var/mob/living/carbon/H = user
+		. = ..()
+		if(slot == ITEM_SLOT_NECK)
+			if(H.overlays_standing[HALO_LAYER])
+				to_chat(H, span_warning("You already have a halo!"))
+				H.dropItemToGround(src)
+				return
+			H.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+			H.apply_overlay(HALO_LAYER)
+
+/obj/item/clothing/neck/cloak/fakehalo/dropped(mob/user, silent = FALSE)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/H = user
+		var/datum/antagonist/cult/cultist = IS_CULTIST(H)
+		if(!cultist?.cult_team?.cult_ascendent && H.overlays_standing[HALO_LAYER])
+			H.remove_overlay(HALO_LAYER)

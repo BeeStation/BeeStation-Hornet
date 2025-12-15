@@ -274,31 +274,3 @@
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-/obj/item/clothing/head/costume/fakehalo
-	name = "toy halo"
-	desc = "A cheap plastic replica of a cult halo. Produced by THE ARM Toys, Inc.\nDisclaimer - This item may get you prematurely lynched by trigger happy security, wear at your own risk."
-	icon = 'icons/obj/cult.dmi'
-	worn_icon = FALSE
-	icon_state = "fakehalo"
-
-/obj/item/clothing/head/costume/fakehalo/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_WORN_ICON, INNATE_TRAIT)
-
-/obj/item/clothing/head/costume/fakehalo/equipped(mob/user, slot, initial = FALSE)
-	if(IS_CULTIST(user))
-		to_chat(user, span_warning("You can't fake it, you're the real deal!"))
-		return
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		if(user.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
-			return
-		user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
-		user.apply_overlay(HALO_LAYER)
-
-
-/obj/item/clothing/head/costume/fakehalo/dropped(mob/user, silent = FALSE)
-	. = ..()
-	var/datum/antagonist/cult/cultist = IS_CULTIST(user)
-	if(!cultist?.cult_team?.cult_ascendent && user.overlays_standing[HALO_LAYER])
-		user.remove_overlay(HALO_LAYER)
