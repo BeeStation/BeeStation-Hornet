@@ -248,6 +248,8 @@
 		return
 
 	if(href_list["look_at_id"])
+		if(!usr.run_worn_examinify_checks(src))
+			return
 		usr.examinate(src)
 		return TRUE
 

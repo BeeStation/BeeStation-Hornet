@@ -583,8 +583,20 @@
 	to_chat(src, examine_block(span_infoplain(result_combined)))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
-/mob/proc/blind_examine_check(atom/examined_thing)
+//This is a proc for worn item examines. See /obj/item/proc/get_examine_line
+/mob/proc/run_worn_examinify_checks(atom/examinify)
+	// Allow examine from up to 4 tiles away
+	if(!isobserver(usr) && !(usr in viewers(4, get_turf(examinify))))
+		to_chat(usr, span_warning("You are too far away!"))
+		return FALSE
+	if(is_blind())
+		//blind_examine_check has some funky item movement stuff going on, so we just block blind examines
+		to_chat(usr, span_warning("You can't feel those details!"))
+		return FALSE
 	return TRUE
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE //The non-living will always succeed at this check.
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
