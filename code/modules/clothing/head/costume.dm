@@ -301,7 +301,7 @@
 
 
 /obj/item/clothing/head/costume/fakehalo/dropped(mob/living/carbon/human/user)
-	..()
+	. = ..()
 	if(IS_CULTIST(user))
 		return
 	if(user.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
