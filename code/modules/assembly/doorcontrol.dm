@@ -12,7 +12,7 @@
 
 /obj/item/assembly/control/examine(mob/user)
 	. = ..()
-	if (!isnull(id))
+	if (!isnull(id)) // We check for null here instead of just the value so 0 displays as a valid ID
 		. += span_notice("Its channel ID is '[id]'.")
 	else
 		. += span_notice("It has no channel ID set. You can set it with a multitool or by scanning another controller.")
