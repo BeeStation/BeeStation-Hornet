@@ -217,12 +217,6 @@
 	desc = "A cheap plastic replica of a cult halo. Produced by THE ARM Toys, Inc.\nDisclaimer - This item may get you prematurely lynched by trigger happy security, wear at your own risk."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "fakehalo"
-	worn_icon = null
-	worn_icon_state = null
-
-/obj/item/clothing/neck/cloak/fakehalo/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_WORN_ICON, INNATE_TRAIT)
 
 /obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	if(ishuman(M))
