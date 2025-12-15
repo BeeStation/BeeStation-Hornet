@@ -301,7 +301,6 @@
 
 /obj/item/clothing/head/costume/fakehalo/dropped(mob/user, silent = FALSE)
 	. = ..()
-	if(IS_CULTIST(user))
-		return
-	if(user.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
+	var/datum/antagonist/cult/cultist = IS_CULTIST(user)
+	if(!cultist?.cult_team?.cult_ascendent && user.overlays_standing[HALO_LAYER])
 		user.remove_overlay(HALO_LAYER)
