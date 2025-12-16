@@ -11,7 +11,7 @@
 	name = "earmuffs"
 	desc = "Protects your hearing from loud noises, and quiet ones as well."
 	icon_state = "earmuffs"
-	item_state = "earmuffs"
+	inhand_icon_state = "earmuffs"
 	strip_delay = 15
 	equip_delay_other = 25
 	resistance_flags = FLAMMABLE
@@ -28,7 +28,7 @@
 	icon = 'icons/obj/clothing/accessories.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "headphones"
-	item_state = "headphones"
+	inhand_icon_state = "headphones"
 	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK //Fluff item, put it wherever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	var/headphones_on = FALSE
@@ -43,7 +43,7 @@
 
 /obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "[initial(icon_state)]_[headphones_on? "on" : "off"]"
-	item_state = "[initial(item_state)]_[headphones_on? "on" : "off"]"
+	inhand_icon_state = "[initial(inhand_icon_state)]_[headphones_on? "on" : "off"]"
 	. = ..()
 
 /obj/item/clothing/ears/headphones/proc/toggle(owner, force_state)

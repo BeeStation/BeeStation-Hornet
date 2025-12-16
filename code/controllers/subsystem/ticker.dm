@@ -24,10 +24,17 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound
 	/// If all clients have loaded it
 	var/round_end_sound_sent = TRUE
-
+	/// How early before reboot can we start playing the sound
+	var/round_end_sound_duration
+	/// Timer for syncing up the end of the sound with the server reboot
+	var/round_end_sound_timer
 	/// The characters in the game. Used for objective tracking.
 	var/list/datum/mind/minds = list()
 
+	/// Time when reboot has started
+	var/start_wait
+	/// Time before world reboot happens
+	var/reboot_delay
 	/// If set TRUE, the round will not restart on it's own
 	var/delay_end = FALSE
 	/// A message to display to anyone who tries to restart the world after a delay
@@ -77,6 +84,9 @@ SUBSYSTEM_DEF(ticker)
 	var/list/round_end_events
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
+
+	/// ID of round reboot timer, if it exists
+	var/reboot_timer = null
 
 /datum/controller/subsystem/ticker/Initialize()
 	var/list/byond_sound_formats = list(
@@ -515,7 +525,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/check_respawn_availabilities()
 	for(var/mob/dead/observer/observer in GLOB.player_list)
-		if(observer.check_respawn_delay() && !observer.respawn_notified)
+		if(observer.check_respawn_delay() && !observer.respawn_notified && observer.can_respawn)
 			observer.respawn_notified = TRUE
 			observer.respawn_available = TRUE
 
@@ -749,16 +759,31 @@ SUBSYSTEM_DEF(ticker)
 			//Break chain since this has a sleep input in it
 			addtimer(CALLBACK(player, TYPE_PROC_REF(/mob/dead/new_player/authenticated, make_me_an_observer)), 1)
 
-/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
+/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound, duration)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
+	round_end_sound_duration = duration
+	if(round_end_sound_timer)// Replace any existing timer with a new one
+		var/time_left = reboot_delay - (world.time - start_wait)
+		if(time_left > round_end_sound_duration)
+			deltimer(round_end_sound_timer)
+			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), time_left - round_end_sound_duration, TIMER_STOPPABLE)
+		else // Not enough time, play it anyway
+			deltimer(round_end_sound_timer)
+			round_end_sound_timer = null
+			PlayRoundEndSound()
+
 	for(var/thing in GLOB.clients_unsafe)
 		var/client/C = thing
-		if (!C)
+		if(!C)
 			continue
 		C.Export("##action=load_rsc", round_end_sound)
 	round_end_sound_sent = TRUE
+
+/datum/controller/subsystem/ticker/proc/PlayRoundEndSound()
+	if(!delay_end)
+		SEND_SOUND(world, sound(round_end_sound))
 
 /datum/controller/subsystem/ticker/proc/Reboot(reason, end_string, delay)
 	set waitfor = FALSE
@@ -775,13 +800,30 @@ SUBSYSTEM_DEF(ticker)
 
 	to_chat(world, span_boldannounce("Rebooting World in [DisplayTimeText(delay)]. [reason]"))
 
-	var/start_wait = world.time
+	start_wait = world.time
+	reboot_delay = delay
 	UNTIL(round_end_sound_sent || (world.time - start_wait) > (delay * 2))	//don't wait forever
-	sleep(delay - (world.time - start_wait))
 
-	if(delay_end && !skip_delay)
-		to_chat(world, span_boldannounce("Reboot was cancelled by an admin."))
-		return
+	if(!round_end_sound)
+		var/list/tracks = flist("sound/roundend/")
+		if(tracks.len)
+			var/selected_sound_name = pick(tracks)
+			round_end_sound = "sound/roundend/[selected_sound_name]"
+			// Extract sound duration from file name
+			round_end_sound_duration = text2num(splittext(selected_sound_name, "+")[2]) * 1 SECONDS
+
+			if(delay > round_end_sound_duration) // If there's time, play the round-end sound before rebooting
+				round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
+	else // Admin added sound
+		if(delay > round_end_sound_duration)
+			round_end_sound_timer = addtimer(CALLBACK(src, PROC_REF(PlayRoundEndSound)), delay - round_end_sound_duration, TIMER_STOPPABLE)
+		else // Not enough time, play it anyway
+			PlayRoundEndSound()
+
+	reboot_timer = addtimer(CALLBACK(src, PROC_REF(reboot_callback), reason, end_string), delay - (world.time - start_wait), TIMER_STOPPABLE)
+
+/// Sends a few messages and then reboots the world
+/datum/controller/subsystem/ticker/proc/reboot_callback(reason, end_string)
 	if(end_string)
 		end_state = end_string
 
@@ -796,16 +838,25 @@ SUBSYSTEM_DEF(ticker)
 
 	world.Reboot()
 
+/**
+ * Deletes the current reboot timer and nulls the var
+ *
+ * Arguments:
+ * * user - the user that cancelled the reboot, may be null
+ */
+/datum/controller/subsystem/ticker/proc/cancel_reboot(mob/user)
+	if(!reboot_timer)
+		to_chat(user, span_warning("There is no pending reboot!"))
+		return FALSE
+	to_chat(world, span_boldannounce("An admin has delayed the round end."))
+	deltimer(reboot_timer)
+	reboot_timer = null
+	return TRUE
+
 /datum/controller/subsystem/ticker/Shutdown()
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()
 	update_everything_flag_in_db()
-	if(!round_end_sound)
-		var/list/tracks = flist("sound/roundend/")
-		if(tracks.len)
-			round_end_sound = "sound/roundend/[pick(tracks)]"
-
-	SEND_SOUND(world, sound(round_end_sound))
 	rustg_file_append(login_music, "data/last_round_lobby_music.txt")
 
 #undef ROUND_START_MUSIC_LIST

@@ -396,6 +396,13 @@
 	build_path = /obj/item/circuit_component/ntnet_send
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
 
+/datum/design/component/noop
+	name = "No Operation Component"
+	id = "comp_noop"
+	build_path = /obj/item/circuit_component/noop
+	category = list(WIREMOD_CIRCUITRY)
+
+
 /datum/design/component/list_literal
 	name = "List Literal Component"
 	id = "comp_list_literal"

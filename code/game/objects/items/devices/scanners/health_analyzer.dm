@@ -9,7 +9,7 @@
 	name = "health analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
-	item_state = "healthanalyzer"
+	inhand_icon_state = "healthanalyzer"
 	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -370,7 +370,7 @@
 		var/cyberimp_detect
 		for(var/obj/item/organ/cyberimp/cyberimp in carbontarget.internal_organs)
 			if(cyberimp.status == ORGAN_ROBOTIC && !cyberimp.syndicate_implant)
-				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.get_examine_string(user)]" : ", [cyberimp.get_examine_string(user)]"]"
+				cyberimp_detect += "[!cyberimp_detect ? "[cyberimp.examine_title(user)]" : ", [cyberimp.examine_title(user)]"]"
 		if(cyberimp_detect)
 			render_list += "<span class='notice ml-1'>Detected cybernetic modifications:</span>\n"
 			render_list += "<span class='notice ml-2'>[cyberimp_detect]</span>\n"

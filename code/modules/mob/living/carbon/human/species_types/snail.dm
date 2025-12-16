@@ -60,7 +60,7 @@
 	name = "snail shell"
 	desc = "Worn by snails as armor and storage compartment."
 	icon_state = "snailshell"
-	item_state = "snailshell"
+	inhand_icon_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	armor_type = /datum/armor/backpack_snail

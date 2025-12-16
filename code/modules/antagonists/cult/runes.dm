@@ -651,16 +651,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/narsie)
 
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-			question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?",
-			role = /datum/role_preference/roundstart/blood_cultist,
-			check_jobban = ROLE_CULTIST,
-			poll_time = 10 SECONDS,
-			checked_target = mob_to_revive,
-			jump_target = mob_to_revive,
-			role_name_text = "inactive blood cultist",
-			alert_pic = mob_to_revive,
-		)
+		var/datum/poll_config/config = new()
+		config.question = "Do you want to play as a [mob_to_revive.name], an inactive blood cultist?"
+		config.role = /datum/role_preference/roundstart/blood_cultist
+		config.check_jobban = ROLE_CULTIST
+		config.poll_time = 10 SECONDS
+		config.jump_target = mob_to_revive
+		config.role_name_text = "inactive blood cultist"
+		config.alert_pic = mob_to_revive
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = mob_to_revive)
 		if(candidate)
 			mob_to_revive.ghostize(FALSE)
 			mob_to_revive.key = candidate.key
@@ -790,9 +789,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/wall)
 /obj/effect/rune/summon/invoke(list/invokers)
 	var/mob/living/user = invokers[1]
 	var/list/cultists = list()
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-		if(cultist?.owner?.current?.stat != DEAD && !(cultist.owner.current in invokers))
-			cultists |= cultist.owner.current
+	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+		if(cult_mind.current?.stat != DEAD && !(cult_mind.current in invokers))
+			cultists |= cult_mind.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
 	var/held_in_place = FALSE
 	if(iscarbon(cultist_to_summon))

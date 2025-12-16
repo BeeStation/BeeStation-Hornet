@@ -81,7 +81,7 @@
 	to_chat(src, playstyle_string)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
-	var/t_He = p_they(TRUE)
+	var/t_He = p_They()
 	var/t_s = p_s()
 	var/text_span
 	switch(theme)
@@ -490,7 +490,7 @@
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	var/tracking = FALSE
 	var/mob/living/simple_animal/hostile/construct/the_construct
 
@@ -526,7 +526,7 @@
 /datum/action/innate/seek_prey
 	name = "Seek the Harvest"
 	desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
