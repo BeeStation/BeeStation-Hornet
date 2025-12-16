@@ -374,8 +374,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				radio_freq = FREQ_SUPPLY
 
 		var/datum/signal/subspace/messaging/rc/signal = new(src, list(
-			"sender" = department,
+			"sender" = department, //Why are you like this
 			"recipient_department" = to_department,
+			"sender_department" = department,
 			"message" = message,
 			"verified" = msgVerified,
 			"stamped" = msgStamped,
