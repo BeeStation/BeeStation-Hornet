@@ -110,6 +110,10 @@
 
 /datum/team/brother_team/proc/get_conversion_targets()
 	var/list/candidates = list()
+	var/sec_count = 0
+	for (var/job in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
+		sec_count += SSjob.GetJob(job).current_positions
+	var/sec_allowed = sec_count >= 2
 	for (var/datum/mind/mind in SSticker.minds)
 		// Mind has no mob
 		if (!mind.current)
@@ -128,6 +132,12 @@
 			continue
 		// Is an antagonist already
 		if (length(mind.antag_datums))
+			continue
+		// Are we allowed security?
+		if (!sec_allowed && (mind.assigned_role?.department_flag & DEPT_BITFLAG_SEC))
+			continue
+		// Are they a head?
+		if (mind.assigned_role?.department_flag & DEPT_BITFLAG_COM)
 			continue
 		// Mind is a target
 		var/is_target = FALSE
