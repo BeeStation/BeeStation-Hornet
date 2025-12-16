@@ -76,3 +76,7 @@
   - tweak: Adds basic parsing flag to web request, removes pause in build process
   PowerfulBacon:
   - tweak: The default backpack choice will always be departmental backpack now.
+2025-12-16:
+  mrmanlikesbt:
+  - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
+      person and not playing a sound effect

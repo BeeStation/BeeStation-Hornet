@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
-      person and not playing a sound effect
