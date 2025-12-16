@@ -53,11 +53,16 @@ GLOBAL_VAR_INIT(message_delay, FALSE)
 
 	if(!GLOB.message_delay)
 		GLOB.message_delay = TRUE
-		addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(end_message_delay), 1 SECONDS))
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_message_delay)), 1 SECONDS)
 
 	/* --- Do a snazzy animation! --- */
 	flick("broadcaster_send", src)
 
+/**
+ * Simply resets the message delay and the recent messages list, to ensure that
+ * recent messages can be sent again. Is called on a one second timer after a
+ * delay is set, from `/obj/machinery/telecomms/broadcaster/receive_information()`
+ */
 /proc/end_message_delay()
 	GLOB.message_delay = FALSE
 	GLOB.recent_messages = list()
