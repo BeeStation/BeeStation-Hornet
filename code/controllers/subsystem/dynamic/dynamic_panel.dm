@@ -27,9 +27,9 @@
 			"cost" = potential_ruleset.points_cost,
 		))
 
-	data["valid_roundstart_rulesets"] = list()
+	data["valid_supplementary_rulesets"] = list()
 	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in SSdynamic.supplementary_configured_rulesets)
-		data["valid_roundstart_rulesets"] += list(list(
+		data["valid_supplementary_rulesets"] += list(list(
 			"name" = potential_ruleset.name,
 			"path" = potential_ruleset.type,
 			"cost" = potential_ruleset.points_cost,
@@ -56,29 +56,46 @@
 	data["roundstart_points_override"] = SSdynamic.roundstart_points_override
 	data["roundstart_only_use_forced_rulesets"] = SSdynamic.roundstart_only_use_forced_rulesets
 	data["roundstart_blacklist_forced_rulesets"] = SSdynamic.roundstart_blacklist_forced_rulesets
-
-	data["roundstart_points"] = SSdynamic.supplementary_points
-	data["roundstart_divergence"] = SSdynamic.supplementary_point_divergence
 	data["roundstart_ready_amount"] = SSdynamic.roundstart_ready_amount
+
+	// Gamemode
+	data["valid_gamemode_rulesets"] = list()
+	for(var/datum/dynamic_ruleset/gamemode/executed_ruleset in SSdynamic.configured_gamemodes)
+		data["valid_gamemode_rulesets"] += list(list(
+			"name" = executed_ruleset.name,
+			"path" = executed_ruleset.type,
+		))
+
+	data["executed_gamemode_rulesets"] = list()
+	for(var/datum/dynamic_ruleset/gamemode/executed_ruleset in SSdynamic.executed_gamemodes)
+		data["executed_gamemode_rulesets"] += list(list(
+			"name" = executed_ruleset.name,
+			"path" = executed_ruleset.type,
+		))
+
+	// Supplementary
+
+	data["supplementary_points"] = SSdynamic.supplementary_points
+	data["supplementary_divergence"] = SSdynamic.supplementary_point_divergence
 	data["has_round_started"] = SSticker.HasRoundStarted()
 
-	data["roundstart_divergence_upper"] = SSdynamic.roundstart_divergence_percent_upper
-	data["roundstart_divergence_lower"] = SSdynamic.roundstart_divergence_percent_lower
-	data["roundstart_points_per_ready"] = SSdynamic.roundstart_points_per_ready
-	data["roundstart_points_per_unready"] = SSdynamic.roundstart_points_per_unready
-	data["roundstart_points_per_observer"] = SSdynamic.roundstart_points_per_observer
+	data["supplementary_divergence_upper"] = SSdynamic.roundstart_divergence_percent_upper
+	data["supplementary_divergence_lower"] = SSdynamic.roundstart_divergence_percent_lower
+	data["supplementary_points_per_ready"] = SSdynamic.supplementary_points_per_ready
+	data["supplementary_points_per_unready"] = SSdynamic.supplementary_points_per_unready
+	data["supplementary_points_per_observer"] = SSdynamic.supplementary_points_per_observer
 
-	data["forced_roundstart_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
-		data["forced_roundstart_rulesets"] += list(list(
+	data["forced_supplementary_rulesets"] = list()
+	for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.supplementary_forced_rulesets)
+		data["forced_supplementary_rulesets"] += list(list(
 			"name" = forced_ruleset.name,
 			"path" = forced_ruleset.type,
 			"cost" = forced_ruleset.points_cost,
 		))
 
-	data["executed_roundstart_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/supplementary/executed_ruleset in SSdynamic.configured_gamemodes)
-		data["executed_roundstart_rulesets"] += list(list(
+	data["executed_supplementary_rulesets"] = list()
+	for(var/datum/dynamic_ruleset/supplementary/executed_ruleset in SSdynamic.executed_supplementary_rulesets)
+		data["executed_supplementary_rulesets"] += list(list(
 			"name" = executed_ruleset.name,
 			"path" = executed_ruleset.type,
 			"cost" = executed_ruleset.points_cost,
@@ -134,19 +151,6 @@
 			"cost" = executed_ruleset.points_cost,
 		))
 
-	/*
-	var/datum/dynamic_ruleset/latejoin/chosen_latejoin_ruleset = SSdynamic.latejoin_forced_ruleset
-	if(chosen_latejoin_ruleset)
-		data["current_latejoin_ruleset"] = list(
-			"name" = chosen_latejoin_ruleset.name,
-			"path" = chosen_latejoin_ruleset.type,
-			"cost" = chosen_latejoin_ruleset.points_cost,
-		)
-
-	data["latejoin_probability"] = SSdynamic.latejoin_ruleset_probability
-	data["latejoin_max"] = SSdynamic.latejoin_max_rulesets
-	*/
-
 	return data
 
 /datum/dynamic_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -194,21 +198,21 @@
 			log_dynamic("[key_name(usr)] set the roundstart divergence lower range to [new_divergence_lower]")
 			return TRUE
 
-		if("set_roundstart_points_per_ready")
+		if("set_supplementary_points_per_ready")
 			var/new_points_per_ready = params["new_points_per_ready"]
-			SSdynamic.roundstart_points_per_ready = new_points_per_ready
+			SSdynamic.supplementary_points_per_ready = new_points_per_ready
 			message_admins("[key_name(usr)] set the roundstart points per ready to [new_points_per_ready]")
 			log_dynamic("[key_name(usr)] set the roundstart points per ready to [new_points_per_ready]")
 			return TRUE
-		if("set_roundstart_points_per_unready")
+		if("set_supplementary_points_per_unready")
 			var/new_points_per_unready = params["new_points_per_unready"]
-			SSdynamic.roundstart_points_per_unready = new_points_per_unready
+			SSdynamic.supplementary_points_per_unready = new_points_per_unready
 			message_admins("[key_name(usr)] set the roundstart points per unready to [new_points_per_unready]")
 			log_dynamic("[key_name(usr)] set the roundstart points per unready to [new_points_per_unready]")
 			return TRUE
-		if("set_roundstart_points_per_observer")
+		if("set_supplementary_points_per_observer")
 			var/new_points_per_observer = params["new_points_per_observer"]
-			SSdynamic.roundstart_points_per_observer = new_points_per_observer
+			SSdynamic.supplementary_points_per_observer = new_points_per_observer
 			message_admins("[key_name(usr)] set the roundstart points per observer to [new_points_per_observer]")
 			log_dynamic("[key_name(usr)] set the roundstart points per observer to [new_points_per_observer]")
 			return TRUE
@@ -235,7 +239,7 @@
 
 			if(SSdynamic.roundstart_only_use_forced_rulesets)
 				var/list/forced_rulesets = list()
-				for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
+				for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.supplementary_forced_rulesets)
 					forced_rulesets += forced_ruleset.name
 
 				message_admins("[key_name(usr)] has forced only these roundstart rulesets: [forced_rulesets.Join(", ")]")
@@ -246,7 +250,7 @@
 			return TRUE
 
 		if("toggle_roundstart_blacklist_forced_rulesets")
-			if(!length(SSdynamic.roundstart_forced_rulesets))
+			if(!length(SSdynamic.supplementary_forced_rulesets))
 				message_admins("[key_name(usr)] tried to blacklist the forced rulesets, but there were none")
 				log_dynamic("[key_name(usr)] tried to blacklist the forced rulesets, but there were none")
 				return TRUE
@@ -258,7 +262,7 @@
 				SSdynamic.roundstart_only_use_forced_rulesets = FALSE
 
 			var/list/blacklisted_rulesets = list()
-			for(var/datum/dynamic_ruleset/supplementary/blacklisted_ruleset in SSdynamic.roundstart_forced_rulesets)
+			for(var/datum/dynamic_ruleset/supplementary/blacklisted_ruleset in SSdynamic.supplementary_forced_rulesets)
 				blacklisted_rulesets += blacklisted_ruleset.name
 
 			if(SSdynamic.roundstart_blacklist_forced_rulesets)
@@ -279,20 +283,20 @@
 
 			// If it's already forced, unforce it, otherwise, force it.
 			var/needs_to_force = TRUE
-			for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.roundstart_forced_rulesets)
+			for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in SSdynamic.supplementary_forced_rulesets)
 				if(forced_ruleset.type == ruleset_path)
-					SSdynamic.roundstart_forced_rulesets -= forced_ruleset
+					SSdynamic.supplementary_forced_rulesets -= forced_ruleset
 					needs_to_force = FALSE
 					message_admins("[key_name(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 					log_dynamic("[key_name(usr)] has un[SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 
-			if(!length(SSdynamic.roundstart_forced_rulesets))
+			if(!length(SSdynamic.supplementary_forced_rulesets))
 				SSdynamic.roundstart_blacklist_forced_rulesets = FALSE
 
 			if(needs_to_force)
 				for(var/datum/dynamic_ruleset/supplementary/ruleset in SSdynamic.supplementary_configured_rulesets)
 					if(ruleset.type == ruleset_path)
-						SSdynamic.roundstart_forced_rulesets += ruleset
+						SSdynamic.supplementary_forced_rulesets += ruleset
 						message_admins("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 						log_dynamic("[key_name(usr)] has [SSdynamic.roundstart_blacklist_forced_rulesets ? "blacklisted" : "forced"]: [ruleset_path::name]")
 						break

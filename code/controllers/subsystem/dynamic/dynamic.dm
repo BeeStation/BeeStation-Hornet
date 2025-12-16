@@ -48,10 +48,10 @@ SUBSYSTEM_DEF(dynamic)
 	/// Dynamic Panel variables
 
 	/// List of forced roundstart rulesets from the dynamic panel
-	var/list/datum/dynamic_ruleset/supplementary/roundstart_forced_rulesets = list()
-	/// Do we choose any roundstart rulesets or only use the ones in `roundstart_forced_rulesets`
+	var/list/datum/dynamic_ruleset/supplementary/supplementary_forced_rulesets = list()
+	/// Do we choose any roundstart rulesets or only use the ones in `supplementary_forced_rulesets`
 	var/roundstart_only_use_forced_rulesets = FALSE
-	/// Inverse of the above, blacklist the rulesets in `roundstart_forced_rulesets`
+	/// Inverse of the above, blacklist the rulesets in `supplementary_forced_rulesets`
 	var/roundstart_blacklist_forced_rulesets = FALSE
 	/// Whether or not we ignore our roundstart points calculation
 	var/roundstart_points_override = FALSE
@@ -135,9 +135,9 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_divergence_percent_lower = 1
 	var/roundstart_divergence_percent_upper = 1
 	/// How many roundstart points should be granted per player based off ready status
-	var/roundstart_points_per_ready = 1.8
-	var/roundstart_points_per_unready = 0.5
-	var/roundstart_points_per_observer = 0
+	var/supplementary_points_per_ready = 1.8
+	var/supplementary_points_per_unready = 0.5
+	var/supplementary_points_per_observer = 0
 
 	/**
 	 * Midround
@@ -417,11 +417,11 @@ SUBSYSTEM_DEF(dynamic)
 
 		if(!roundstart_points_override)
 			if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
-				supplementary_points += roundstart_points_per_ready
+				supplementary_points += supplementary_points_per_ready
 			else if(player.ready == PLAYER_NOT_READY)
-				supplementary_points += roundstart_points_per_unready
+				supplementary_points += supplementary_points_per_unready
 			else if(player.ready == PLAYER_READY_TO_OBSERVE)
-				supplementary_points += roundstart_points_per_observer
+				supplementary_points += supplementary_points_per_observer
 
 	supplementary_point_divergence = rand() * ((roundstart_divergence_percent_upper) - (roundstart_divergence_percent_lower)) + (roundstart_divergence_percent_lower)
 	supplementary_points = round(supplementary_points * supplementary_point_divergence)
@@ -439,7 +439,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	// Check for forced rulesets
 	if(!roundstart_blacklist_forced_rulesets)
-		for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in roundstart_forced_rulesets)
+		for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in supplementary_forced_rulesets)
 			forced_ruleset.set_drafted_players_amount()
 			forced_ruleset.get_candidates()
 			forced_ruleset.trim_candidates()
@@ -486,7 +486,7 @@ SUBSYSTEM_DEF(dynamic)
 				continue
 
 			var/are_we_forced = FALSE
-			for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in roundstart_forced_rulesets)
+			for(var/datum/dynamic_ruleset/supplementary/forced_ruleset in supplementary_forced_rulesets)
 				if(ruleset.type == forced_ruleset.type)
 					are_we_forced = TRUE
 			if(are_we_forced)
@@ -516,7 +516,7 @@ SUBSYSTEM_DEF(dynamic)
 		if(!potential_ruleset.allowed(require_drafted = !for_midround))
 			continue
 
-		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in roundstart_forced_rulesets))
+		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in supplementary_forced_rulesets))
 			continue
 
 		possible_rulesets[potential_ruleset] = potential_ruleset.weight
@@ -858,7 +858,7 @@ SUBSYSTEM_DEF(dynamic)
 	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
-	supplementary_points += roundstart_points_per_ready * supplementary_point_divergence
+	supplementary_points += supplementary_points_per_ready * supplementary_point_divergence
 
 	if (!next_supplementary)
 		next_supplementary = pick_ruleset(get_weighted_executable_supplementary_rulesets(supplementary_configured_rulesets, TRUE), ignore_candidates = TRUE)

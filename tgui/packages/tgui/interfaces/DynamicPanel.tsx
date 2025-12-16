@@ -22,27 +22,36 @@ type Data = {
   current_storyteller: string;
 };
 
-type RoundstartData = {
-  roundstart_points: number;
-  roundstart_divergence: number;
-  roundstart_divergence_upper: number;
-  roundstart_divergence_lower: number;
+type GamemodeData = {
+  has_round_started: BooleanLike;
+  valid_gamemode_rulesets: Ruleset[];
+  executed_gamemode_rulesets: Ruleset[];
+};
+
+type SupplementaryData = {
+  supplementary_points: number;
+  supplementary_divergence: number;
+  supplementary_divergence_upper: number;
+  supplementary_divergence_lower: number;
+  supplementary_points_per_ready: number;
+  supplementary_points_per_unready: number;
+  supplementary_points_per_observer: number;
   roundstart_ready_amount: number;
-  roundstart_points_per_ready: number;
-  roundstart_points_per_unready: number;
-  roundstart_points_per_observer: number;
   has_round_started: BooleanLike;
   roundstart_points_override: BooleanLike;
   roundstart_only_use_forced_rulesets: BooleanLike;
   roundstart_blacklist_forced_rulesets: BooleanLike;
-  forced_roundstart_rulesets: Ruleset[];
-  valid_roundstart_rulesets: Ruleset[];
-  executed_roundstart_rulesets: Ruleset[];
+  forced_supplementary_rulesets: CostRuleset[];
+  valid_supplementary_rulesets: CostRuleset[];
+  executed_supplementary_rulesets: CostRuleset[];
 };
 
 type Ruleset = {
   name: string;
   path: string;
+};
+
+type CostRuleset = Ruleset & {
   cost: number;
 };
 
@@ -72,18 +81,10 @@ type MidroundData = {
   executed_midround_rulesets: Ruleset[];
 };
 
-type LatejoinData = {
-  executed_latejoin_rulesets: Ruleset[];
-  valid_latejoin_rulesets: Ruleset[];
-  current_latejoin_ruleset: Ruleset;
-  latejoin_probability: number;
-  latejoin_max: number;
-};
-
 enum Tab {
-  Roundstart,
+  Gamemode,
+  Supplementary,
   Midround,
-  Latejoin,
 }
 
 export const DynamicPanel = () => {
@@ -92,19 +93,19 @@ export const DynamicPanel = () => {
 
   const [currentTab, setCurrentTab] = useLocalState(
     'dynamic_tab',
-    Tab.Roundstart,
+    Tab.Gamemode,
   );
   let currentPage;
 
   switch (currentTab) {
-    case Tab.Roundstart:
-      currentPage = <RoundstartPage />;
+    case Tab.Gamemode:
+      currentPage = <GamemodePage />;
+      break;
+    case Tab.Supplementary:
+      currentPage = <SupplementaryPage />;
       break;
     case Tab.Midround:
       currentPage = <MidroundPage />;
-      break;
-    case Tab.Latejoin:
-      currentPage = <LatejoinPage />;
       break;
     default:
       exhaustiveCheck(currentTab);
@@ -157,22 +158,22 @@ export const DynamicPanel = () => {
         <Divider />
         <Tabs>
           <Tabs.Tab
-            selected={currentTab === Tab.Roundstart}
-            onClick={() => setCurrentTab(Tab.Roundstart)}
+            selected={currentTab === Tab.Gamemode}
+            onClick={() => setCurrentTab(Tab.Gamemode)}
           >
-            Roundstart
+            Gamemodes
+          </Tabs.Tab>
+          <Tabs.Tab
+            selected={currentTab === Tab.Supplementary}
+            onClick={() => setCurrentTab(Tab.Supplementary)}
+          >
+            Supplementary
           </Tabs.Tab>
           <Tabs.Tab
             selected={currentTab === Tab.Midround}
             onClick={() => setCurrentTab(Tab.Midround)}
           >
             Midround
-          </Tabs.Tab>
-          <Tabs.Tab
-            selected={currentTab === Tab.Latejoin}
-            onClick={() => setCurrentTab(Tab.Latejoin)}
-          >
-            Latejoin
           </Tabs.Tab>
         </Tabs>
         {currentPage}
@@ -181,24 +182,12 @@ export const DynamicPanel = () => {
   );
 };
 
-const RoundstartPage = () => {
-  const { act, data } = useBackend<RoundstartData>();
+const GamemodePage = () => {
+  const { act, data } = useBackend<GamemodeData>();
   const {
-    roundstart_points,
-    roundstart_divergence,
-    roundstart_divergence_upper,
-    roundstart_divergence_lower,
-    roundstart_ready_amount,
-    roundstart_points_per_ready,
-    roundstart_points_per_unready,
-    roundstart_points_per_observer,
+    valid_gamemode_rulesets,
+    executed_gamemode_rulesets,
     has_round_started,
-    roundstart_points_override,
-    roundstart_only_use_forced_rulesets,
-    roundstart_blacklist_forced_rulesets,
-    forced_roundstart_rulesets,
-    valid_roundstart_rulesets,
-    executed_roundstart_rulesets,
   } = data;
 
   const [forced_roundstart_points, set_forced_points] = useLocalState(
@@ -207,7 +196,63 @@ const RoundstartPage = () => {
   );
 
   const roundstart_rulesets_by_name = Object.fromEntries(
-    valid_roundstart_rulesets.map((ruleset) => {
+    valid_gamemode_rulesets.map((ruleset) => {
+      return [ruleset.name, ruleset.path];
+    }),
+  );
+
+  const roundstart_ruleset_names = Object.keys(roundstart_rulesets_by_name);
+  roundstart_ruleset_names.sort();
+
+  return (
+    <Flex direction="column">
+      {/* Executed roundstarts */}
+      <Section fill title="Executed Gamemodes Rulesets">
+        {executed_gamemode_rulesets.length === 0 ? (
+          <Box italic>No executed gamemode rulesets.</Box>
+        ) : (
+          executed_gamemode_rulesets.map((executed_ruleset, idx) => (
+            <LabeledList.Item
+              key={executed_ruleset.path + idx}
+              label={executed_ruleset.name}
+              verticalAlign="middle"
+            >
+              <Box>Executed Roundstart</Box>
+            </LabeledList.Item>
+          ))
+        )}
+      </Section>
+    </Flex>
+  );
+};
+
+const SupplementaryPage = () => {
+  const { act, data } = useBackend<SupplementaryData>();
+  const {
+    supplementary_points,
+    supplementary_divergence,
+    supplementary_divergence_upper,
+    supplementary_divergence_lower,
+    roundstart_ready_amount,
+    supplementary_points_per_ready,
+    supplementary_points_per_unready,
+    supplementary_points_per_observer,
+    has_round_started,
+    roundstart_points_override,
+    roundstart_only_use_forced_rulesets,
+    roundstart_blacklist_forced_rulesets,
+    forced_supplementary_rulesets,
+    valid_supplementary_rulesets,
+    executed_supplementary_rulesets,
+  } = data;
+
+  const [forced_roundstart_points, set_forced_points] = useLocalState(
+    'forced_roundstart_points',
+    0,
+  );
+
+  const roundstart_rulesets_by_name = Object.fromEntries(
+    valid_supplementary_rulesets.map((ruleset) => {
       return [ruleset.name, ruleset.path];
     }),
   );
@@ -227,7 +272,7 @@ const RoundstartPage = () => {
                 verticalAlign="middle"
               >
                 <NumberInput
-                  value={roundstart_divergence_upper ?? 0}
+                  value={supplementary_divergence_upper ?? 0}
                   disabled={has_round_started}
                   animated
                   minValue={0}
@@ -246,7 +291,7 @@ const RoundstartPage = () => {
                 verticalAlign="middle"
               >
                 <NumberInput
-                  value={roundstart_divergence_lower ?? 0}
+                  value={supplementary_divergence_lower ?? 0}
                   disabled={has_round_started}
                   animated
                   minValue={0}
@@ -262,14 +307,14 @@ const RoundstartPage = () => {
               </LabeledList.Item>
               <LabeledList.Item label="Points per Ready" verticalAlign="middle">
                 <NumberInput
-                  value={roundstart_points_per_ready ?? 0}
+                  value={supplementary_points_per_ready ?? 0}
                   disabled={has_round_started}
                   animated
                   minValue={0}
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_ready', {
+                    act('set_supplementary_points_per_ready', {
                       new_points_per_ready: value,
                     })
                   }
@@ -281,14 +326,14 @@ const RoundstartPage = () => {
                 verticalAlign="middle"
               >
                 <NumberInput
-                  value={roundstart_points_per_unready ?? 0}
+                  value={supplementary_points_per_unready ?? 0}
                   disabled={has_round_started}
                   animated
                   minValue={0}
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_unready', {
+                    act('set_supplementary_points_per_unready', {
                       new_points_per_unready: value,
                     })
                   }
@@ -300,14 +345,14 @@ const RoundstartPage = () => {
                 verticalAlign="middle"
               >
                 <NumberInput
-                  value={roundstart_points_per_observer ?? 0}
+                  value={supplementary_points_per_observer ?? 0}
                   disabled={has_round_started}
                   animated
                   minValue={0}
                   maxValue={100}
                   step={1}
                   onChange={(value) =>
-                    act('set_roundstart_points_per_observer', {
+                    act('set_supplementary_points_per_observer', {
                       new_points_per_observer: value,
                     })
                   }
@@ -338,12 +383,12 @@ const RoundstartPage = () => {
               }
             >
               <LabeledList.Item
-                label="Roundstart Points"
+                label="Supplementary Points"
                 verticalAlign="middle"
               >
                 <NumberInput
                   value={forced_roundstart_points ?? 0}
-                  disabled={has_round_started}
+                  disabled={has_round_started || !roundstart_points_override}
                   animated
                   minValue={0}
                   maxValue={100}
@@ -391,12 +436,12 @@ const RoundstartPage = () => {
           roundstart_ruleset_names.map((ruleset, idx) => (
             <Button.Checkbox
               disabled={has_round_started}
-              checked={forced_roundstart_rulesets.find(
+              checked={forced_supplementary_rulesets.find(
                 (forced_ruleset) => forced_ruleset.name === ruleset,
               )}
               key={ruleset + idx}
               onClick={() => {
-                const selectedRuleset = valid_roundstart_rulesets.find(
+                const selectedRuleset = valid_supplementary_rulesets.find(
                   (valid_ruleset) => valid_ruleset.name === ruleset,
                 );
                 act('force_roundstart_ruleset', {
@@ -415,21 +460,24 @@ const RoundstartPage = () => {
       <Divider />
 
       {/* Roundstart Stats */}
-      <Section fill title="Roundstart Stats" tooltip="test">
+      <Section fill title="Supplementary Stats" tooltip="test">
         {has_round_started ? (
           <>
             <LabeledList.Item label="Ready Count" verticalAlign="middle">
               {roundstart_ready_amount ?? 0}
             </LabeledList.Item>
-            <LabeledList.Item label="Roundstart Points" verticalAlign="middle">
-              {roundstart_points ?? 0}
+            <LabeledList.Item
+              label="Supplementary Points"
+              verticalAlign="middle"
+            >
+              {supplementary_points ?? 0}
             </LabeledList.Item>
             <LabeledList.Item
               label="Roundstart Divergence"
               verticalAlign="middle"
             >
-              {roundstart_divergence
-                ? `${Math.round((roundstart_divergence - 1) * 100)}%`
+              {supplementary_divergence
+                ? `${Math.round((supplementary_divergence - 1) * 100)}%`
                 : '0%'}
             </LabeledList.Item>
           </>
@@ -440,18 +488,18 @@ const RoundstartPage = () => {
       <Divider />
 
       {/* Executed roundstarts */}
-      <Section fill title="Executed Roundstart Rulesets">
-        {executed_roundstart_rulesets.length === 0 ? (
+      <Section fill title="Executed Supplementary Rulesets">
+        {executed_supplementary_rulesets.length === 0 ? (
           <Box italic>No executed roundstart rulesets.</Box>
         ) : (
-          executed_roundstart_rulesets.map((executed_ruleset, idx) => (
+          executed_supplementary_rulesets.map((executed_ruleset, idx) => (
             <LabeledList.Item
               key={executed_ruleset.path + idx}
               label={executed_ruleset.name}
               verticalAlign="middle"
             >
               <Box>
-                {forced_roundstart_rulesets.find(
+                {forced_supplementary_rulesets.find(
                   (forced_ruleset) =>
                     forced_ruleset.name === executed_ruleset.name,
                 )
@@ -1235,69 +1283,6 @@ const MidroundPage = () => {
           </Section>
         </Flex.Item>
       </Flex>
-    </Flex>
-  );
-};
-
-const LatejoinPage = () => {
-  const { act, data } = useBackend<LatejoinData>();
-  const {
-    executed_latejoin_rulesets,
-    valid_latejoin_rulesets,
-    current_latejoin_ruleset,
-    latejoin_probability,
-    latejoin_max,
-  } = data;
-
-  const latejoin_rulesets_by_name = Object.fromEntries(
-    valid_latejoin_rulesets.map((ruleset) => {
-      return [ruleset.name, ruleset.path];
-    }),
-  );
-
-  const latejoin_ruleset_names = Object.keys(latejoin_rulesets_by_name);
-  latejoin_ruleset_names.sort();
-
-  return (
-    <Flex direction="column">
-      {/* Variables */}
-      <Section fill title="Variables">
-        <LabeledList.Item label="Set Latejoin Ruleset" verticalAlign="middle">
-          <Dropdown
-            options={latejoin_ruleset_names}
-            selected={current_latejoin_ruleset?.name ?? 'None'}
-            width="50%"
-            onSelected={(value) => {
-              const selectedRuleset = valid_latejoin_rulesets.find(
-                (ruleset) => ruleset.name === value,
-              );
-              act('set_latejoin_ruleset', {
-                new_latejoin_ruleset: selectedRuleset
-                  ? selectedRuleset.path
-                  : value,
-              });
-            }}
-          />
-        </LabeledList.Item>
-      </Section>
-      <Divider />
-
-      {/* Executed latejoins */}
-      <Section fill title="Executed Latejoin Rulesets">
-        {executed_latejoin_rulesets.length === 0 ? (
-          <Box italic>No executed latejoin rulesets.</Box>
-        ) : (
-          executed_latejoin_rulesets.map((ruleset, idx) => (
-            <LabeledList.Item
-              key={ruleset.path + idx}
-              label={ruleset.name}
-              verticalAlign="middle"
-            >
-              <Box>Cost: {ruleset.cost}</Box>
-            </LabeledList.Item>
-          ))
-        )}
-      </Section>
     </Flex>
   );
 };
