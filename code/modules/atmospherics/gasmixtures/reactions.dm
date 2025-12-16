@@ -6,7 +6,7 @@
 
 	//Builds a list of gas id to reaction group
 	for(var/gas_id in GLOB.meta_gas_info)
-		priority_reactions[gas_id] = list(
+		priority_reactions[gas_id] = alist(
 			PRIORITY_PRE_FORMATION = list(),
 			PRIORITY_FORMATION = list(),
 			PRIORITY_POST_FORMATION = list(),

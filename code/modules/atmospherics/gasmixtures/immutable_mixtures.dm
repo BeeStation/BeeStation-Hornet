@@ -96,4 +96,4 @@
 //hoped for an initial_gas_string but apparently that's a turf thing
 /datum/gas_mixture/immutable/planetary/cloner
 	initial_temperature = T20C
-	initial_gas = list(/datum/gas/nitrogen = list(MOLES = 104, ARCHIVE = 104))
+	initial_gas = list(/datum/gas/nitrogen = alist(MOLES = 104, ARCHIVE = 104))
