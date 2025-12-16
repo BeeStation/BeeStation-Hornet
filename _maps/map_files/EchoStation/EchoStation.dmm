@@ -36883,6 +36883,10 @@
 /obj/structure/sign/painting/library{
 	pixel_y = -32
 	},
+/obj/machinery/camera/motion/directional/south{
+	c_tag = "MiniSat Exterior 2";
+	view_range = 5
+	},
 /turf/open/openspace/planetary,
 /area/ai_monitored/turret_protected/aisat/maint)
 "tww" = (
