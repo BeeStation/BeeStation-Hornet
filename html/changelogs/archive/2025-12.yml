@@ -63,3 +63,16 @@
   r1ks-iwnl:
   - bugfix: Fixed changelings getting round removed by decapitation.
   - bugfix: Fixed changelings being incapable of using abilities without a brain.
+  - spellcheck: Throwing text for third person uses correct inflection.
+2025-12-13:
+  mrmanlikesbt:
+  - bugfix: Fixed a timestop runtime when freezing a person
+  - bugfix: fixed not being able to dream
+  - code_imp: slightly improved the sleeping status effect code
+  - tweak: slightly adjusted your chance to dream or snore while sleeping
+  - bugfix: fixed monkeys sometimes runtiming when their AI controller is deleted
+2025-12-15:
+  DrDuckedGoose:
+  - tweak: Adds basic parsing flag to web request, removes pause in build process
+  PowerfulBacon:
+  - tweak: The default backpack choice will always be departmental backpack now.
