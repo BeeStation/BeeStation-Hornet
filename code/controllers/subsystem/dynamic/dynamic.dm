@@ -884,7 +884,6 @@ SUBSYSTEM_DEF(dynamic)
 	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
-		executed_supplementary_rulesets += new_latejoin_ruleset
 		next_supplementary = null
 
 /**
