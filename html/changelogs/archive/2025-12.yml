@@ -80,3 +80,4 @@
   mrmanlikesbt:
   - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
       person and not playing a sound effect
+  - balance: gun rechargers now charge twice as fast
