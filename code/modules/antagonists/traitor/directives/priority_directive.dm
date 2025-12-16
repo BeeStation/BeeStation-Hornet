@@ -100,7 +100,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	end_at = world.time + last_for
 	tc_reward = _generate(teams)
-	mission_update("NEW PRIORITY DIRECTIVE RECEIVED. SEE UPLINK FOR DETAILS.", prefix = "")
+	mission_update("New priority directive relayed to available uplinks. [objective_explanation]", prefix = "")
 
 /// Advertise this directive to security objectives consoles
 /datum/priority_directive/proc/advertise_security()
