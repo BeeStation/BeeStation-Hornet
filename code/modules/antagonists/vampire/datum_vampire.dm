@@ -258,7 +258,7 @@
 		.["Add Infraction"] = CALLBACK(src, PROC_REF(give_masquerade_infraction))
 
 	if(humanity > 0)
-		.["Humanity Deduct"] = CALLBACK(src, PROC_REF(adjust_humanity), -1)
+		.["Humanity Deduct"] = CALLBACK(src, PROC_REF(adjust_humanity), -1, FALSE)
 
 	if(humanity < 10)
 		.["Humanity Add"] = CALLBACK(src, PROC_REF(adjust_humanity), 1, FALSE)

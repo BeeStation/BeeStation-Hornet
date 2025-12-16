@@ -116,40 +116,45 @@
  */
 /datum/antagonist/vampire/proc/adjust_humanity(count, silent = FALSE)
 	// Step one: Toreadors have doubled gains and losses
-	if(my_clan == /datum/vampire_clan/toreador)
+	if(istype(my_clan, /datum/vampire_clan/toreador))
 		count = count * 2
 
+	// No-op if nothing to change
+	if(count == 0)
+		return FALSE
+
+	// If trying to add but already at max, there's nothing to do
+	if(count > 0 && humanity >= 10)
+		return FALSE
+
+	// Same for removing
+	if(count < 0 && humanity <= 0)
+		return FALSE
+
 	var/temp_humanity = humanity + count
+
 	var/power_given = FALSE
 	var/power_removed = FALSE
 
-	if (humanity >= 10)
-		return FALSE
-
 	// Are we adding or removing?
-	if(count >= 0)
+	if(count > 0)
 		// We are adding
-		if(temp_humanity > 10)
-			temp_humanity = 10
-			return FALSE
-
-		if(temp_humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER && !(locate(/datum/action/vampire/masquerade) in powers))
-			grant_power(new /datum/action/vampire/masquerade)
-			power_given = TRUE
+		if(temp_humanity >= VAMPIRE_HUMANITY_MASQUERADE_POWER && !is_type_in_list(/datum/action/vampire/masquerade, powers))
+			// Grant_power might fail, so we need to check if it actually got granted
+			var/was_granted = grant_power(new /datum/action/vampire/masquerade)
+			if(was_granted)
+				power_given = TRUE
 
 		// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
 		if(humanity < temp_humanity && !silent)
 			owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
+
 			if(power_given)
 				to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
 			else
 				to_chat(owner.current, span_userdanger("You have gained humanity."))
 	else
 		// We are removing
-		if(temp_humanity < 0)
-			temp_humanity = 0
-			return
-
 		if(temp_humanity < VAMPIRE_HUMANITY_MASQUERADE_POWER)
 			for(var/datum/action/vampire/masquerade/power in powers)
 				remove_power(power)
@@ -164,7 +169,14 @@
 			else
 				to_chat(owner.current, span_userdanger("You have lost humanity."))
 
+	// Clamp to valid range, we are so sane we might see the face of god
+	if(temp_humanity > 10)
+		temp_humanity = 10
+	if(temp_humanity < 0)
+		temp_humanity = 0
+
 	humanity = temp_humanity
+	return TRUE
 
 /// Bacon wanted a signal
 /datum/antagonist/vampire/proc/on_track_humanity_gain_signal(datum/source, type, subject)

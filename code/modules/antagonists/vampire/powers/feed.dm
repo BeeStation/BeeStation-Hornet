@@ -20,7 +20,7 @@
 	power_flags = BP_AM_TOGGLE | BP_AM_STATIC_COOLDOWN
 	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_WHILE_STAKED | BP_CANT_USE_WHILE_INCAPACITATED | BP_CANT_USE_WHILE_UNCONSCIOUS
 	special_flags = VAMPIRE_DEFAULT_POWER
-	cooldown_time = 5 SECONDS
+	cooldown_time = 1 SECONDS
 	target_range = 1
 	prefire_message = "Select a target."
 	power_activates_immediately = FALSE
@@ -222,6 +222,7 @@
 
 		feed_target.Stun(feed_time, TRUE)
 		feed_target.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
+		feed_target.add_traits(list(TRAIT_DEAF), TRAIT_FEED)
 
 		feed_target.playsound_local(null, 'sound/vampires/mesmerize.ogg', 100, FALSE, pressure_affected = FALSE)
 
@@ -236,8 +237,7 @@
 
 		// It begins...
 		currently_feeding = TRUE
-
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50, FALSE, 0, 500)
+		living_owner.playsound_local(null, 'sound/vampires/drinkblood1.ogg', 100, FALSE, pressure_affected = FALSE)
 
 		// Just to make sure
 		living_owner.stop_pulling()
@@ -338,7 +338,7 @@
 
 	if(currently_feeding) // Check if we actually started successfully.
 		owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
-		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_DEAF, TRAIT_DREAMING, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
+		feed_target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_MUTE, TRAIT_HANDS_BLOCKED), TRAIT_FEED)
 
 		// Normally removed traits are done. Now we give the victim a lil something to remember us by.
 		ADD_TRAIT(feed_target, TRAIT_FEED_MARKED, TRAIT_FEED_MARKS)
@@ -457,7 +457,8 @@
 	var/mob/living/feed_target = target_ref?.resolve()
 
 	if(feed_target)
-		feed_target.cure_blind(TRAIT_FEED)
+		// Call cure_blind after a (truly tiny) delay to make sure they don't see NOTHING
+		addtimer(CALLBACK(src, PROC_REF(cure_blindness_helper), feed_target), 1 SECONDS)
 
 	if(feed_target && currently_feeding)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
@@ -484,7 +485,20 @@
 			to_chat(owner, span_userdanger("No way will [feed_target.p_they()] survive that..."))
 			vampiredatum_power.adjust_humanity(-1)
 
-		feed_target.bleed(BLEED_SCRATCH)
+		if(iscarbon(feed_target))
+			var/mob/living/carbon/carbon_target = feed_target
+			// More/less humanity adds/deducts bleedy.
+			switch(vampiredatum_power.humanity)
+				if(0 to 2)
+					carbon_target.bleed(BLEED_CRITICAL)
+				if(3 to 4)
+					carbon_target.bleed(BLEED_DEEP_WOUND)
+				if(5 to 6)
+					carbon_target.bleed(BLEED_CUT)
+				if(7 to 8)
+					carbon_target.bleed(BLEED_SURFACE)
+				if(9 to 10)
+					carbon_target.bleed(BLEED_SCRATCH)
 
 	feed_fatal = FALSE
 	humanity_deducted = FALSE
@@ -493,6 +507,10 @@
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
+
+/datum/action/vampire/targeted/feed/proc/cure_blindness_helper(mob/living/feed_target)
+	if(feed_target)
+		feed_target.cure_blind(TRAIT_FEED)
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/mob/living/living_owner = owner
