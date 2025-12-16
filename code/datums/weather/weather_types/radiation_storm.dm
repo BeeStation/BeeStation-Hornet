@@ -11,6 +11,8 @@
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 150 SECONDS
 
+	weather_color = "#00ff0dff"
+
 	end_duration = 10 SECONDS
 	end_message = span_notice("The air seems to be cooling off again.")
 
