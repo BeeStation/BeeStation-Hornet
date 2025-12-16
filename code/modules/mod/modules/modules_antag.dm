@@ -147,9 +147,7 @@
 	var/shield_icon_file = 'icons/effects/effects.dmi'
 	/// The icon_state of the shield.
 	var/shield_icon = "shield-red"
-	/// Charges the shield should start with.
-	var/charges
-	/// Self explaining, the charges it currently has
+	/// Self explaining, the charges it currently has, it's being saved upon deactivation and activation
 	var/current_charges
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
@@ -160,9 +158,11 @@
 	mod.AddComponent(/datum/component/shielded, max_integrity = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
-	if(shield && current_charges < max_charges)
-		shield.current_integrity = current_charges
-	if(mod?.wearer)
+	if (shield && current_charges < max_charges)
+		shield.set_charge(current_charges)
+		if (current_charges <= 0 && mod?.wearer)
+			mod.wearer.update_appearance(UPDATE_ICON)
+	if (mod?.wearer)
 		RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 /obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
@@ -200,7 +200,6 @@
 	max_charges = 600
 	charge_increment_delay = 1 SECONDS
 	charge_recovery = 0
-	charges = 300
 	recharge_path = /obj/item/wizard_armour_charge
 	required_slots = list()
 
