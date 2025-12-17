@@ -46,7 +46,8 @@ SUBSYSTEM_DEF(directives)
 		if (!instance.can_run(filtered_uplinks, player_minds))
 			continue
 		valid_directives += instance
-	if (!length(valid_directives))
+	// 30% chance for solo global objectives instead of team-based ones
+	if (!length(valid_directives) || prob(30))
 		// Give out personal directives instead
 		var/longest_objective = world.time
 		for (var/datum/component/uplink/uplink in GLOB.uplinks)
