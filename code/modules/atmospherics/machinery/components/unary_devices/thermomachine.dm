@@ -42,6 +42,7 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()
+	wanted_on = on
 	RefreshParts()
 	update_appearance()
 
