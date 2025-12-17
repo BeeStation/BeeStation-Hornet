@@ -32,6 +32,7 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 	var/color_index = 1
+	var/wanted_on = FALSE // Does it want/need to be on if power goes out?
 
 
 /datum/armor/unary_thermomachine
@@ -177,6 +178,8 @@
 
 	var/port_capacity = port.heat_capacity()
 
+
+
 	// The difference between target and what we need to heat/cool. Positive if heating, negative if cooling.
 	var/temperature_target_delta = target_temperature - port.temperature
 
@@ -192,6 +195,14 @@
 
 	use_power = power_usage
 	update_parents()
+
+/obj/machinery/atmospherics/components/unary/thermomachine/power_change()
+	. = ..()
+	if(!powered())
+		on = FALSE
+	else
+		on = wanted_on
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/screwdriver_act(mob/living/user, obj/item/tool)
 	if(on)
@@ -281,7 +292,8 @@
 
 	switch(action)
 		if("power")
-			on = !on
+			wanted_on = !wanted_on
+			on = wanted_on && powered()
 			update_use_power(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
@@ -314,7 +326,9 @@
 	if(!is_operational)
 		return TRUE
 
-	on = !on
+
+	wanted_on = !wanted_on
+	on = wanted_on && powered()
 	balloon_alert(user, "turned [on ? "on" : "off"]")
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	update_appearance()
