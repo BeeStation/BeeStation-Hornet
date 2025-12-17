@@ -126,20 +126,19 @@
 	desc = "A personal, protective forcefield typically seen in military applications. \
 		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
 		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
-		though with its low amount of separate charges, the user remains mortal."
+		though with its low durability, the user remains mortal."
 	icon_state = "energy_shield"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/energy_shield)
 	required_slots = list(ITEM_SLOT_BACK)
-	/// Max charges of the shield.
-	var/max_charges = 60
-	/// How long we have to avoid being hit to replenish charges.
+	max_integrity = 60 	/// Max integrity of the shield.
+	/// How long we have to avoid being hit to start replenishing integrity.
 	var/recharge_start_delay = 20 SECONDS
-	/// Once we go unhit long enough to recharge, we replenish charges this often.
+	/// Once we go unhit long enough to recharge, we replenish integrity this often.
 	var/charge_increment_delay = 1 SECONDS
-	/// How many charges we recover on each charge increment.
+	/// How much integrity we recover on each increment.
 	var/charge_recovery = 20
 	/// The item path to recharge this shield.
 	var/recharge_path
@@ -147,20 +146,20 @@
 	var/shield_icon_file = 'icons/effects/effects.dmi'
 	/// The icon_state of the shield.
 	var/shield_icon = "shield-red"
-	/// Self explaining, the charges it currently has, it's being saved upon deactivation and activation
-	var/current_charges
+	/// Self explaining, the integrity it currently has, it's being saved upon deactivation and activation
+	var/current_integrity
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
 	. = ..()
-	current_charges = max_charges
+	current_integrity = max_integrity
 
 /obj/item/mod/module/energy_shield/on_part_activation()
-	mod.AddComponent(/datum/component/shielded, max_integrity = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
+	mod.AddComponent(/datum/component/shielded, max_integrity = max_integrity, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
-	if (shield && current_charges < max_charges)
-		shield.set_charge(current_charges)
-		if (current_charges <= 0 && mod?.wearer)
+	if (shield && current_integrity < max_integrity)
+		shield.set_charge(current_integrity)
+		if (current_integrity <= 0 && mod?.wearer)
 			mod.wearer.update_appearance(UPDATE_ICON)
 	if (mod?.wearer)
 		RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
@@ -168,7 +167,7 @@
 /obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(shield)
-		current_charges = shield.current_integrity // Saving the current charge
+		current_integrity = shield.current_integrity // Saving the current charge
 		qdel(shield)
 	if(mod?.wearer)
 		UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
@@ -197,7 +196,7 @@
 	icon_state = "battlemage_shield"
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic too
-	max_charges = 600
+	max_integrity = 600
 	charge_increment_delay = 1 SECONDS
 	charge_recovery = 0
 	recharge_path = /obj/item/wizard_armour_charge
