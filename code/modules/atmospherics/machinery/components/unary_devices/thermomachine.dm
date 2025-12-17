@@ -179,8 +179,6 @@
 
 	var/port_capacity = port.heat_capacity()
 
-
-
 	// The difference between target and what we need to heat/cool. Positive if heating, negative if cooling.
 	var/temperature_target_delta = target_temperature - port.temperature
 
