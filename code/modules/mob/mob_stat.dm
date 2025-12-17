@@ -268,6 +268,12 @@
 		tab_data["Reboot"] = GENERATE_STAT_TEXT("DELAYED")
 
 	tab_data["divider_4"] = GENERATE_STAT_DIVIDER
+	if(!isnewplayer(src))
+		if(!isobserver(src) && HAS_TRAIT(src, TRAIT_INCAPACITATED))
+			tab_data["Current Area"] = GENERATE_STAT_TEXT("(Unable to recognise)")
+		else
+			var/area/my_area = get_area(src)
+			tab_data["Current Area"] = GENERATE_STAT_TEXT(my_area?.ingame_area_name || my_area?.name || "??Unknown??")
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
