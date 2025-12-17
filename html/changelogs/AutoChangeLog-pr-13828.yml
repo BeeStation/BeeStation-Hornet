@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: fixed a runtime when re-aquiring a client's parallax cache
