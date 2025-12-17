@@ -132,6 +132,9 @@
 			for(var/obj/item/item in living_target.contents)
 				if(isclothing(item))
 					continue //no reason to strip them of sensors
+				// Something inside of the mob rather than worn by it
+				if (!living_target.get_slot_by_item(item))
+					continue
 				living_target.dropItemToGround(item, TRUE)
 				if(QDELING(item))
 					continue //skip it
