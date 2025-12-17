@@ -196,12 +196,11 @@
 	update_parents()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/power_change()
-	. = ..()
 	if(!powered())
 		on = FALSE
 	else
 		on = wanted_on
-	update_appearance()
+	return ..()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/screwdriver_act(mob/living/user, obj/item/tool)
 	if(on)

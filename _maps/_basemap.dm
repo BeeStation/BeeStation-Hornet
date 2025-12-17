@@ -2,7 +2,7 @@
 // #define QUICKSTART // uncomment this to start the round immidiately when ready and automatically spawn players with debug outfit
 
 // uncomment this for a map you need to use
-// #define FORCE_MAP "boxstation"
+#define FORCE_MAP "boxstation"
 // #define FORCE_MAP "cardinalstation"
 // #define FORCE_MAP "metastation"
 // #define FORCE_MAP "deltastation"
