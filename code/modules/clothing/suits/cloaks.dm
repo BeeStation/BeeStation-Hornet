@@ -239,8 +239,8 @@
 
 /obj/item/clothing/neck/cloak/fakehalo/dropped(mob/user, silent = FALSE)
 	. = ..()
-	if(ishuman(user))
-		var/mob/living/carbon/H = user
-		var/datum/antagonist/cult/cultist = IS_CULTIST(H)
-		if(!cultist?.cult_team?.cult_ascendent && H.overlays_standing[HALO_LAYER])
-			H.remove_overlay(HALO_LAYER)
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
+		var/datum/antagonist/cult/cultist = IS_CULTIST(carbon_user)
+		if(!cultist?.cult_team?.cult_ascendent && carbon_user.overlays_standing[HALO_LAYER])
+			carbon_user.remove_overlay(HALO_LAYER)
