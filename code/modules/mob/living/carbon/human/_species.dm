@@ -48,7 +48,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/skinned_type
 	///flags for inventory slots the race can't equip stuff to. Golems cannot wear jumpsuits, for example.
 	var/no_equip_flags
-	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	/// What languages this species can understand and say.
 	/// Use a [language holder datum][/datum/language_holder] typepath in this var.
 	/// Should never be null.
@@ -479,18 +478,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if((AGENDER in species_traits))
 		C.gender = PLURAL
 
-	// Drop the items the new species can't wear
-	worn_items_fit_body_check(C)
-
-	if(C.hud_used)
-		C.hud_used.update_locked_slots()
-
 	C.mob_biotypes = inherent_biotypes
 
 	if(old_species.type != type)
 		replace_body(C, src)
 
 	regenerate_organs(C, old_species, visual_only = C.visual_only_organs)
+	// Update locked slots AFTER all organ and body stuff is handled
+	C.hud_used?.update_locked_slots()
+	// Drop the items the new species can't wear
+	INVOKE_ASYNC(src, PROC_REF(worn_items_fit_body_check), C, TRUE)
 
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = get_blood_type(exotic_bloodtype)
@@ -1327,7 +1324,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1372,7 +1369,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1387,7 +1384,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_L_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1401,7 +1398,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
+			if(!H.w_uniform && !HAS_TRAIT(H, TRAIT_NO_JUMPSUIT) && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, span_warning("You need a jumpsuit before you can attach this [I.name]!"))
 				return FALSE
@@ -1843,10 +1840,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						span_userdanger("You block [I]!"))
 		return 0
 
-	//This must be placed after blocking checks
-	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
-		H.batong_act(I)
-
 	var/hit_area
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
 		affecting = H.bodyparts[1]
@@ -1858,6 +1851,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/limb_damage = affecting.get_damage() //We need to save this for later to simplify dismemberment
 	apply_damage(I.force, I.damtype, def_zone, armor_block, H)
+
+	//This must be placed after blocking checks
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		H.batong_act(I, user, affecting, armor_block)
 
 	if (I.bleed_force)
 		var/armour_block = user.run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
@@ -1922,8 +1919,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.force_say(user)
 	else if (I.damtype == BURN && H.is_bleeding())
 		H.cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
-		to_chat(user, span_userdanger("The heat from [I] cauterizes your bleeding!"))
-		playsound(src, 'sound/surgery/cautery2.ogg', 70)
+		to_chat(H, span_userdanger("The heat from [I] cauterizes your bleeding!"))
+		playsound(H, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE)

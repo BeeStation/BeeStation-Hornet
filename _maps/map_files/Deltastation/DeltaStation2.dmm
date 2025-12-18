@@ -2958,13 +2958,15 @@
 /area/maintenance/disposal)
 "auN" = (
 /obj/structure/table/wood,
-/obj/item/food/baguette,
 /obj/item/toy/crayon/spraycan/mimecan{
-	charges = 5
+	charges = 5;
+	pixel_x = -10;
+	pixel_y = 14
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
+/obj/item/food/baguette,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/theatre)
 "auP" = (
@@ -7030,8 +7032,13 @@
 /area/crew_quarters/theatre)
 "aVk" = (
 /obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/toy/figure/mime,
+/obj/item/toy/dummy{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/item/toy/figure/mime{
+	pixel_x = -8
+	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/theatre)
 "aVl" = (
@@ -68798,6 +68805,10 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
+/obj/item/toy/figure/clown{
+	pixel_x = -7;
+	pixel_y = 15
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/theatre)
 "qug" = (
@@ -77672,10 +77683,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"tbI" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/space/basic,
-/area/space)
 "tbK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -87575,15 +87582,17 @@
 	pixel_x = 26
 	},
 /obj/item/storage/crayons,
-/obj/item/storage/crayons,
+/obj/item/storage/crayons{
+	pixel_x = -4;
+	pixel_y = 7
+	},
 /obj/item/flashlight/lamp/bananalamp{
-	pixel_y = 5
+	pixel_y = 5;
+	pixel_x = 6
 	},
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
-/obj/item/toy/figure/clown,
-/obj/item/clipboard,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -97958,7 +97967,7 @@ aaa
 aaa
 aaa
 aaa
-tbI
+aaa
 aaa
 aaa
 aaa

@@ -52,6 +52,9 @@
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
 	target.backbag = value
 
+/datum/preference/choiced/backpack/create_default_value()
+	return DBACKPACK
+
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit_style
 	db_key = "jumpsuit_style"

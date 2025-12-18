@@ -13,7 +13,7 @@
 
 /datum/action/breathe
 	name = "Inhale"
-	icon_icon = 'icons/hud/actions/actions_hive.dmi'
+	button_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "add"									//Feel free to replace
 	check_flags = AB_CHECK_CONSCIOUS
 	var/datum/emote/next_emote = "inhale"

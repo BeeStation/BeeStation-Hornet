@@ -8,33 +8,33 @@
 
 /obj/item/clothing/under/misc/pj/red
 	icon_state = "red_pyjamas"
-	item_state = "w_suit"
+	inhand_icon_state = "w_suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/pj/blue
 	icon_state = "blue_pyjamas"
-	item_state = "w_suit"
+	inhand_icon_state = "w_suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/patriotsuit
 	name = "Patriotic Suit"
 	desc = "Motorcycle not included."
 	icon_state = "ek"
-	item_state = "ek"
+	inhand_icon_state = "ek"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/vice_officer
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
 	icon_state = "vice"
-	item_state = "gy_suit"
+	inhand_icon_state = "gy_suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/adminsuit
 	name = "administrative cybernetic jumpsuit"
 	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	icon_state = "syndicate"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	desc = "A cybernetically enhanced jumpsuit used for administrative duties."
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -64,7 +64,7 @@
 	name = "burial garments"
 	desc = "Traditional burial garments from the early 22nd century."
 	icon_state = "burial"
-	item_state = "burial"
+	inhand_icon_state = "burial"
 	can_adjust = FALSE
 	has_sensor = NO_SENSORS
 
@@ -72,7 +72,7 @@
 	name = "laborer's overalls"
 	desc = "A set of durable overalls for getting the job done."
 	icon_state = "overalls"
-	item_state = "lb_suit"
+	inhand_icon_state = "lb_suit"
 	can_adjust = FALSE
 	custom_price = 20
 
@@ -80,7 +80,7 @@
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
 	icon_state = "assistant_formal"
-	item_state = "gy_suit"
+	inhand_icon_state = "gy_suit"
 	can_adjust = FALSE
 
 /obj/item/extinguisher_refill

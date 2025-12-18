@@ -15,3 +15,8 @@
 #define POLL_RESPONSE_TOO_LATE_TO_UNREGISTER "failed_unregister"
 ///The message sent when you successfully unregister from a poll.
 #define POLL_RESPONSE_UNREGISTERED "unregistered"
+
+/// Do not auto-add anyone to the pull
+#define POLL_AUTO_ADD_NONE null
+/// Auto-add ghosts to the poll when created
+#define POLL_AUTO_ADD_GHOSTS "ghosts"

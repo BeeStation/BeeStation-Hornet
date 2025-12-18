@@ -4,7 +4,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	icon_state = "white"
-	item_state = "wgloves"
+	inhand_icon_state = "wgloves"
 	siemens_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
