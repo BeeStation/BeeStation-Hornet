@@ -340,10 +340,8 @@
 /datum/team/cult/proc/ascend(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		if(isclothing(H.wear_neck))
-			var/obj/item/clothing/cloak = H.wear_neck
-			if(istype(cloak, /obj/item/clothing/neck/cloak/fakehalo))
-				H.dropItemToGround(cloak)
+		if(istype(H.wear_neck, /obj/item/clothing/neck/cloak/fakehalo))
+			H.dropItemToGround(H.wear_neck)
 		if(H.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
 			return
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
