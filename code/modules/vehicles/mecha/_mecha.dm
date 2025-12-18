@@ -173,6 +173,10 @@
 	var/overclock_temp = 0
 	///Temperature threshold at which actuators may start causing internal damage
 	var/overclock_temp_danger = 15
+	///Whether the mech has an option to enable safe overclocking
+	var/overclock_safety_available = FALSE
+	///Whether the overclocking turns off automatically when overheated
+	var/overclock_safety = FALSE
 
 	//Bool for zoom on/off
 	var/zoom_mode = FALSE
@@ -257,12 +261,11 @@
 			thing.attach(src, FALSE)
 			equip_by_category[key] -= path
 
-/obj/mecha/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
+	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE)
 
 //separate proc so that the ejection mechanism can be easily triggered by other things, such as admins
-/obj/vehicle/sealed/mecha/proc/Eject(var/mob/living/silicon/ai/unlucky_ai)
+/obj/vehicle/sealed/mecha/proc/Eject(mob/living/silicon/ai/unlucky_ai)
 
 	for(var/mob/living/occupant as anything in occupants)
 		if(isAI(occupant))
@@ -524,6 +527,9 @@
 	overclock_temp = min(overclock_temp + delta_time, overclock_temp_danger * 2)
 	if(overclock_temp < overclock_temp_danger)
 		return
+	if(overclock_temp >= overclock_temp_danger && overclock_safety)
+		toggle_overclock(FALSE)
+		return
 	var/damage_chance = 100 * ((overclock_temp - overclock_temp_danger) / (overclock_temp_danger * 2))
 	if(DT_PROB(damage_chance, delta_time))
 		do_sparks(5, TRUE, src)
@@ -782,7 +788,7 @@
 			mecha_flags  &= ~SILICON_PILOT
 			AI.forceMove(card)
 			card.AI = AI
-			AI.controlled_mech = null
+			AI.controlled_equipment = null
 			AI.remote_control = null
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "[span_boldnotice("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
@@ -822,7 +828,7 @@
 	mecha_flags |= SILICON_PILOT
 	moved_inside(AI)
 	AI.cancel_camera()
-	AI.controlled_mech = src
+	AI.controlled_equipment = src
 	AI.remote_control = src
 	to_chat(AI, AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!") :\
 		span_notice("You have been uploaded to a mech's onboard computer."))
@@ -944,6 +950,15 @@
 	else
 		overclock_mode = !overclock_mode
 	log_message("Toggled overclocking.", LOG_MECHA)
+
+	for(var/mob/occupant as anything in occupants)
+		var/datum/action/act = locate(/datum/action/vehicle/sealed/mecha/mech_overclock) in occupant.actions
+		if(!act)
+			continue
+		act.button_icon_state = "mech_overload_[overclock_mode ? "on" : "off"]"
+		balloon_alert(occupant, "overclock [overclock_mode ? "on":"off"]")
+		act.update_buttons()
+
 	if(overclock_mode)
 		movedelay = movedelay / overclock_coeff
 		visible_message(span_notice("[src] starts heating up, making humming sounds."))
@@ -990,5 +1005,5 @@
 			act.button_icon_state = "mech_lights_on"
 		else
 			act.button_icon_state = "mech_lights_off"
-		balloon_alert(occupant, "toggled lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
+		balloon_alert(occupant, "lights [mecha_flags & LIGHTS_ON ? "on":"off"]")
 		act.update_buttons()

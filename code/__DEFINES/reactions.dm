@@ -50,16 +50,20 @@
 // - Tritium:
 /// The minimum temperature tritium combusts at.
 #define TRITIUM_MINIMUM_BURN_TEMPERATURE FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-#define TRITIUM_BURN_OXY_FACTOR				100
-#define TRITIUM_BURN_TRIT_FACTOR			10
-//The neutrons gotta go somewhere. Completely arbitrary number.
-#define TRITIUM_BURN_RADIOACTIVITY_FACTOR	50000
-//minimum 0.01 moles trit or 10 moles oxygen to start producing rads
-#define TRITIUM_MINIMUM_RADIATION_ENERGY	0.1
-//This is calculated to help prevent singlecap bombs(Overpowered tritium/oxygen single tank bombs)
-#define MINIMUM_TRIT_OXYBURN_ENERGY 		2000000
+#define TRITIUM_BURN_OXY_FACTOR 100
+#define TRITIUM_OXYGEN_FULLBURN 10
+/// This is calculated to help prevent singlecap bombs(Overpowered tritium/oxygen single tank bombs)
+#define MINIMUM_TRIT_OXYBURN_ENERGY 2000000
 /// The amount of energy released by burning one mole of tritium.
 #define FIRE_TRITIUM_ENERGY_RELEASED 280000
+/// The minimum number of moles of trit that must be burnt for a tritium fire reaction to produce a radiation pulse. (0.01 moles trit or 10 moles oxygen to start producing rads.)
+#define TRITIUM_RADIATION_MINIMUM_MOLES 0.1
+/// The minimum released energy necessary for tritium to release radiation during combustion. (at a mix volume of [CELL_VOLUME]).
+#define TRITIUM_RADIATION_RELEASE_THRESHOLD (FIRE_TRITIUM_ENERGY_RELEASED)
+/// A scaling factor for the range of radiation pulses produced by tritium fires.
+#define TRITIUM_RADIATION_RANGE_DIVISOR 0.5
+/// The threshold of the tritium combustion's radiation. Lower values means it will be able to penetrate through more structures.
+#define TRITIUM_RADIATION_THRESHOLD 0.3
 
 // N2O:
 /// The minimum temperature N2O can form from nitrogen and oxygen in the presence of BZ at.
@@ -100,29 +104,20 @@
 /// The amount of energy one mole of pluoxium forming from carbon dioxide, oxygen, and tritium releases.
 #define PLUOXIUM_FORMATION_ENERGY 250
 
-// NITRYL:
-/// The minimum temperature necessary for NITRYL to form from tritium, nitrogen, and BZ.
-#define NITRYL_FORMATION_MIN_TEMP 1500
-/// A scaling divisor for the rate of NITRYL formation relative to mix temperature.
-#define NITRYL_FORMATION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
-/// The amount of thermal energy consumed when a mole of NITRYL is formed from tritium, nitrogen, and BZ.
-#define NITRYL_FORMATION_ENERGY 100000
+// Nitrium:
+/// The minimum temperature necessary for nitrium to form from tritium, nitrogen, and BZ.
+#define NITRIUM_FORMATION_MIN_TEMP 1500
+/// A scaling divisor for the rate of nitrium formation relative to mix temperature.
+#define NITRIUM_FORMATION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
+/// The amount of thermal energy consumed when a mole of nitrium is formed from tritium, nitrogen, and BZ.
+#define NITRIUM_FORMATION_ENERGY 100000
 
-/// The maximum temperature NITRYL can decompose into nitrogen and hydrogen at.
-#define NITRYL_DECOMPOSITION_MAX_TEMP (T0C + 70) //Pretty warm, explicitly not fire temps. Time bombs are cool, but not that cool. If it makes you feel any better it's close.
-/// A scaling divisor for the rate of NITRYL decomposition relative to mix temperature.
-#define NITRYL_DECOMPOSITION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
-/// The amount of energy released when a mole of NITRYL decomposes into nitrogen and hydrogen.
-#define NITRYL_DECOMPOSITION_ENERGY 30000
-
-
-// Stimulum:
-#define STIMULUM_HEAT_SCALE 100000
-#define STIMULUM_FIRST_RISE 0.65
-#define STIMULUM_FIRST_DROP 0.065
-#define STIMULUM_SECOND_RISE 0.0009
-#define STIMULUM_ABSOLUTE_DROP 0.00000335
-#define STIMULUM_MINIMUM_TEMPERATURE 1500
+/// The maximum temperature nitrium can decompose into nitrogen and hydrogen at.
+#define NITRIUM_DECOMPOSITION_MAX_TEMP (T0C + 70) //Pretty warm, explicitly not fire temps. Time bombs are cool, but not that cool. If it makes you feel any better it's close.
+/// A scaling divisor for the rate of nitrium decomposition relative to mix temperature.
+#define NITRIUM_DECOMPOSITION_TEMP_DIVISOR (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8)
+/// The amount of energy released when a mole of nitrium decomposes into nitrogen and hydrogen.
+#define NITRIUM_DECOMPOSITION_ENERGY 30000
 
 // H-Nob:
 /// The maximum temperature hyper-noblium can form from tritium and nitrogen at.
@@ -137,22 +132,31 @@
 
 #define STIM_BALL_GAS_AMOUNT				5
 #define PLUOXIUM_TEMP_CAP 200
-//Plasma fusion properties
-#define FUSION_ENERGY_THRESHOLD				3e9 	//! Amount of energy it takes to start a fusion reaction
-#define FUSION_MOLE_THRESHOLD				250 	//! Mole count required (tritium/plasma) to start a fusion reaction
-#define FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
-#define INSTABILITY_GAS_POWER_FACTOR 		3
-#define FUSION_TRITIUM_MOLES_USED  			1
-#define PLASMA_BINDING_ENERGY  				20000000
-#define TOROID_CALCULATED_THRESHOLD			5.96	//! changing it by 0.1 generally doubles or halves fusion temps
-#define FUSION_TEMPERATURE_THRESHOLD	    10000
-#define PARTICLE_CHANCE_CONSTANT 			(-20000000)
-#define FUSION_INSTABILITY_ENDOTHERMALITY   2
-#define FUSION_SCALE_DIVISOR				10		//! Used to be Pi
-#define FUSION_MINIMAL_SCALE				50
-#define FUSION_SLOPE_DIVISOR				1250	//! This number is probably the safest number to change
-#define FUSION_ENERGY_TRANSLATION_EXPONENT	1.25	//! This number is probably the most dangerous number to change
-#define FUSION_BASE_TEMPSCALE				6       //! This number is responsible for orchestrating fusion temperatures
-#define FUSION_RAD_MIDPOINT					15		//! If you decrease this by one, the fusion rads will *triple* and vice versa
-#define FUSION_MIDDLE_ENERGY_REFERENCE		1e6		//! This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
-#define FUSION_BUFFER_DIVISOR				1		//! Increase this to cull unrobust fusions faster
+
+// Plasmic Fusion:
+/// Amount of energy it takes to start a fusion reaction
+#define PLASMIC_FUSION_ENERGY_THRESHOLD 3e9
+/// Mole count required (tritium/plasma) to start a fusion reaction
+#define PLASMIC_FUSION_MOLE_THRESHOLD 250
+#define PLASMIC_FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
+#define PLASMIC_FUSION_INSTABILITY_GAS_POWER_FACTOR 3
+#define PLASMIC_FUSION_TRITIUM_MOLES_USED 1
+#define PLASMIC_FUSION_PLASMA_BINDING_ENERGY 20000000
+/// Changing it by 0.1 generally doubles or halves fusion temps
+#define PLASMIC_FUSION_TOROID_CALCULATED_THRESHOLD 5.96
+#define PLASMIC_FUSION_TEMPERATURE_THRESHOLD 10000
+#define PLASMIC_FUSION_PARTICLE_CHANCE_CONSTANT -20000000
+#define PLASMIC_FUSION_INSTABILITY_ENDOTHERMALITY 2
+/// Used to be Pi
+#define PLASMIC_FUSION_SCALE_DIVISOR 10
+#define PLASMIC_FUSION_MINIMAL_SCALE 50
+/// This number is probably the safest number to change
+#define PLASMIC_FUSION_SLOPE_DIVISOR 1250
+/// This number is probably the most dangerous number to change
+#define PLASMIC_FUSION_ENERGY_TRANSLATION_EXPONENT 1.25
+/// This number is responsible for orchestrating fusion temperatures
+#define PLASMIC_FUSION_BASE_TEMPSCALE 6
+/// This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
+#define PLASMIC_FUSION_MIDDLE_ENERGY_REFERENCE 1e6
+/// Increase this to cull unrobust fusions faster
+#define PLASMIC_FUSION_BUFFER_DIVISOR 1

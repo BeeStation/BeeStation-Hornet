@@ -77,7 +77,6 @@
 	icon = 'icons/obj/bus.dmi'
 	icon_state = null
 	density = TRUE
-	anchored = TRUE
 	deconstructible = FALSE
 
 /obj/structure/fluff/bus/dense
@@ -128,7 +127,6 @@
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "error"
-	anchored = TRUE
 	density = TRUE
 
 /obj/structure/fluff/divine/nexus
@@ -180,7 +178,6 @@
 	smoothing_groups = list(SMOOTH_GROUP_HEDGE_FLUFF)
 	canSmoothWith = list(SMOOTH_GROUP_HEDGE_FLUFF)
 	density = TRUE
-	anchored = TRUE
 	deconstructible = FALSE
 
 /obj/structure/fluff/hedge/opaque //useful for mazes and such
@@ -191,4 +188,14 @@
 	icon_state = "fan_tiny"
 	name = "environmental regulation system"
 	desc = "A vent nested into the wall, managing the airflow between the rooms"
-	anchored = TRUE
+
+/obj/structure/fluff/rug
+	icon = 'icons/obj/rug.dmi'
+	icon_state = "tiger_rug"
+	name = "tiger rug"
+	desc = "A huge rug made out of tiger skin. Was this a real tiger?"
+	pixel_x = -32
+	pixel_y = -16
+	plane = FLOOR_PLANE
+	anchored = FALSE
+	deconstructible = FALSE

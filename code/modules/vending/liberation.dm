@@ -30,7 +30,6 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 300
 	extra_price = 500
-	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 	light_mask = "liberation-light-mask"
 
 /datum/armor/vending_liberationstation

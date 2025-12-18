@@ -9,8 +9,14 @@
 	var/recharging = FALSE
 	var/obj/item/electronics/airlock/electronics = null
 	var/circuits = 5 //How many circuits the pseudocircuit has left
-	var/static/recycleable_circuits = typecacheof(list(/obj/item/electronics/firelock, /obj/item/electronics/airalarm, /obj/item/electronics/firealarm, \
-	/obj/item/electronics/apc, /obj/item/electronics/airlock))//A typecache of circuits consumable for material
+	/// A typecache of circuits consumable for material
+	var/static/recycleable_circuits = typecacheof(list(
+		/obj/item/electronics/firelock,
+		/obj/item/electronics/airalarm,
+		/obj/item/electronics/firealarm,
+		/obj/item/electronics/apc,
+		/obj/item/electronics/airlock,
+	))
 
 /obj/item/electroadaptive_pseudocircuit/Initialize(mapload)
 	. = ..()
@@ -32,7 +38,7 @@
 		to_chat(R, span_warning("You need a power cell installed for that."))
 		return
 	if(!R.cell.use(circuit_cost))
-		to_chat(R, span_warning("You don't have the energy for that (you need [display_energy(circuit_cost)].)"))
+		to_chat(R, span_warning("You don't have the energy for that (you need [display_power(circuit_cost)].)"))
 		return
 	if(recharging)
 		to_chat(R, span_warning("[src] needs some time to recharge first."))

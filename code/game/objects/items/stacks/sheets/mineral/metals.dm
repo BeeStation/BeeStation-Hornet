@@ -19,7 +19,7 @@ Metals Sheets
 	desc = "Sheets made out of iron."
 	singular_name = "iron sheet"
 	icon_state = "sheet-metal"
-	item_state = "sheet-metal"
+	inhand_icon_state = "sheet-metal"
 	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10
 	flags_1 = CONDUCT_1
@@ -85,7 +85,7 @@ Metals Sheets
 	singular_name = "plasteel sheet"
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
-	item_state = "sheet-metal"
+	inhand_icon_state = "sheet-metal"
 	mats_per_unit = list(/datum/material/alloy/plasteel=MINERAL_MATERIAL_AMOUNT)
 	material_type = /datum/material/alloy/plasteel
 	throwforce = 10
@@ -107,37 +107,6 @@ Metals Sheets
 /obj/item/stack/sheet/plasteel/get_recipes()
 	return GLOB.plasteel_recipes
 
-/* Runed Metal */
-
-/obj/item/stack/sheet/runed_metal
-	name = "runed metal"
-	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal sheet"
-	icon_state = "sheet-runed"
-	item_state = "sheet-runed"
-	//icon = 'icons/obj/stacks/mineral.dmi'
-	sheettype = "runed"
-	merge_type = /obj/item/stack/sheet/runed_metal
-	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/blood = 15)
-
-/obj/item/stack/sheet/runed_metal/ratvar_act()
-	new /obj/item/stack/sheet/brass(loc, amount)
-	qdel(src)
-
-/obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
-	if(!iscultist(user))
-		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
-		return
-	var/turf/T = get_turf(user) //we may have moved. adjust as needed...
-	var/area/A = get_area(user)
-	if((!is_station_level(T.z) && !is_mining_level(T.z)) || (A && !(A.area_flags & (BLOBS_ALLOWED | VALID_TERRITORY))))
-		to_chat(user, span_warning("The veil is not weak enough here."))
-		return FALSE
-	return ..()
-
-/obj/item/stack/sheet/runed_metal/get_recipes()
-	return GLOB.runed_metal_recipes
-
 /* Brass - the cult one */
 
 /obj/item/stack/sheet/brass
@@ -145,7 +114,7 @@ Metals Sheets
 	desc = "Sheets made out of brass."
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
-	item_state = "sheet-brass"
+	inhand_icon_state = "sheet-brass"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
@@ -160,7 +129,7 @@ Metals Sheets
 	qdel(src)
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_danger("[src] seems far too brittle to build with.")) //haha that's because it's actually replicant alloy you DUMMY << WOAH TOOO FAR! << :^)
 	else
 		return ..()
@@ -178,11 +147,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 /* Bronze - the non cult one */
 
 /obj/item/stack/sheet/bronze
-	name = "brass"
+	name = "bronze"
 	desc = "On closer inspection, what appears to be wholly-unsuitable-for-building brass is actually more structurally stable bronze."
 	singular_name = "bronze sheet"
 	icon_state = "sheet-brass"
-	item_state = "sheet-brass"
+	inhand_icon_state = "sheet-brass"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
@@ -192,9 +161,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/brass)
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/copper = 3) //we have no "tin" reagent so this is the closest thing
 	merge_type = /obj/item/stack/sheet/bronze
 	tableVariant = /obj/structure/table/bronze
+	walltype = /turf/closed/wall/mineral/bronze
+	has_unique_girder = TRUE
 
 /obj/item/stack/sheet/bronze/attack_self(mob/living/user)
-	if(is_servant_of_ratvar(user))
+	if(IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_danger("Wha... what is this cheap imitation crap? This isn't brass at all!"))
 	else
 		return ..()
@@ -208,3 +179,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet/bronze)
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
+
+/* Fleshy iron */
+
+/obj/item/stack/sheet/fleshymass
+	name = "fleshy mass"
+	singular_name = "fleshy mass"
+	desc = "You swear it looks at you..."
+	icon_state = "sheet-fleshymass"
+	inhand_icon_state = "sheet-fleshymass"
+	merge_type = /obj/item/stack/sheet/fleshymass
+
+/obj/item/stack/sheet/fleshymass/get_recipes()
+	return GLOB.fleshymass_recipes

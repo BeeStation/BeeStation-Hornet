@@ -25,24 +25,30 @@
 /datum/brain_trauma/severe/split_personality/proc/make_backseats()
 	stranger_backseat = new(owner, src)
 	var/datum/action/spell/personality_commune/stranger_spell = new(src)
-	//stranger_backseat.AddSpell(stranger_spell)
 	stranger_spell.Grant(stranger_backseat)
 
 	owner_backseat = new(owner, src)
 	var/datum/action/spell/personality_commune/owner_spell = new(src)
 	owner_spell.Grant(owner_backseat)
-	//owner_backseat.AddSpell(owner_spell)
 
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s split personality?", ROLE_SPLIT_PERSONALITY, null, 7.5 SECONDS, stranger_backseat)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		stranger_backseat.key = C.key
+
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_SPLIT_PERSONALITY
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s split personality"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
+	if(candidate)
+		stranger_backseat.key = candidate.key
+
 		log_game("[key_name(stranger_backseat)] became [key_name(owner)]'s split personality.")
 		message_admins("[ADMIN_LOOKUPFLW(stranger_backseat)] became [ADMIN_LOOKUPFLW(owner)]'s split personality.")
 	else
 		qdel(src)
+
 
 /datum/brain_trauma/severe/split_personality/on_life(delta_time, times_fired)
 	if(owner.stat == DEAD)
@@ -167,7 +173,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	to_chat(src, span_notice("As a split personality, you cannot do anything but observe. However, you will eventually gain control of your body, switching places with the current personality."))
 	to_chat(src, span_warning("<b>Do not commit suicide or put the body in a deadly position. Behave like you care about it as much as the owner.</b>"))
 
-/mob/living/split_personality/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/split_personality/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	to_chat(src, span_warning("You cannot speak, your other self is controlling your body!"))
 	return FALSE
 
@@ -210,10 +216,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 
 /datum/brain_trauma/severe/split_personality/brainwashing/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s brainwashed mind?", ROLE_TRAITOR, null, 7.5 SECONDS, stranger_backseat, ignore_category = FALSE)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		stranger_backseat.key = C.key
+
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_TRAITOR
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s brainwashed mind"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
+	if(candidate)
+		stranger_backseat.key = candidate.key
 	else
 		qdel(src)
 

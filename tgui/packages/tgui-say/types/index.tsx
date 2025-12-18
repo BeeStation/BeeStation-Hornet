@@ -33,6 +33,7 @@ type Fields = {
   innerRef: RefObject<HTMLInputElement>;
   lightMode: boolean;
   showRadioPrefix: boolean;
+  dpi: number;
   maxLength: number;
   radioPrefix: string;
   tempHistory: string;

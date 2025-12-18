@@ -35,12 +35,4 @@
 #define EXTRAPOLATOR_RESULT_ACT_PRIORITY	"extrapolator_result_action_priority"
 #define EXTRAPOLATOR_ACT_PRIORITY_SPECIAL	"extrapolator_action_priority_special"
 #define EXTRAPOLATOR_ACT_PRIORITY_ISOLATE	"extrapolator_action_priority_isolate"
-#define EXTRAPOLATOR_ACT_ADD_DISEASES(target_list, diseases)					\
-	do {																		\
-		var/_D = ##diseases;													\
-		if ((islist(_D) && length(_D)) || istype(_D, /datum/disease)) {			\
-			LAZYORASSOCLIST(##target_list, EXTRAPOLATOR_RESULT_DISEASES, _D);	\
-		}																		\
-	} while(0)
 #define EXTRAPOLATOR_ACT_CHECK(target_list, wanted_action_priority) (##target_list[EXTRAPOLATOR_RESULT_ACT_PRIORITY] == ##wanted_action_priority)
-#define EXTRAPOLATOR_ACT_SET(target_list, wanted_action_priority) (##target_list[EXTRAPOLATOR_RESULT_ACT_PRIORITY] = ##wanted_action_priority)

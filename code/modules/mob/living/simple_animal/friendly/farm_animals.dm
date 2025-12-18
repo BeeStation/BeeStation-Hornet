@@ -21,7 +21,7 @@
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	faction = list(FACTION_NEUTRAL)
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	attack_same = 1
 	attack_verb_continuous = "kicks"
 	attack_verb_simple = "kick"
@@ -102,89 +102,6 @@
 /mob/living/simple_animal/hostile/retaliate/goat/rabid
 	name = "Rabid Maintenance Pete"
 	faction = list(FACTION_HOSTILE)
-			
-//cow
-/mob/living/simple_animal/cow
-	name = "cow"
-	desc = "Known for their milk, just don't tip them over."
-	icon_state = "cow"
-	icon_living = "cow"
-	icon_dead = "cow_dead"
-	icon_gib = "cow_gib"
-	gender = FEMALE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	speak = list("moo?","moo","MOOOOOO")
-	speak_emote = list("moos","moos hauntingly")
-	speak_language = /datum/language/metalanguage
-	emote_hear = list("brays.")
-	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	butcher_results = list(/obj/item/food/meat/slab = 6)
-	response_help_continuous = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
-	attack_sound = 'sound/weapons/punch1.ogg'
-	health = 50
-	maxHealth = 50
-	gold_core_spawnable = FRIENDLY_SPAWN
-	blood_volume = BLOOD_VOLUME_NORMAL
-	chat_color = "#FFFFFF"
-
-	footstep_type = FOOTSTEP_MOB_SHOE
-
-/mob/living/simple_animal/cow/Initialize(mapload)
-	AddComponent(/datum/component/udder)
-	AddComponent(/datum/component/tippable, \
-		tip_time = 0.5 SECONDS, \
-		untip_time = 0.5 SECONDS, \
-		self_right_time = rand(25 SECONDS, 50 SECONDS), \
-		post_tipped_callback = CALLBACK(src, PROC_REF(after_cow_tipped)))
-	. = ..()
-
-/*
- * Proc called via callback after the cow is tipped by the tippable component.
- * Begins a timer for us pleading for help.
- *
- * tipper - the mob who tipped us
- */
-/mob/living/simple_animal/cow/proc/after_cow_tipped(mob/living/carbon/tipper)
-	addtimer(CALLBACK(src, PROC_REF(look_for_help), tipper), rand(10 SECONDS, 20 SECONDS))
-
-/*
- * Find a mob in a short radius around us (prioritizing the person who originally tipped us)
- * and either look at them for help, or give up. No actual mechanical difference between the two.
- *
- * tipper - the mob who originally tipped us
- */
-/mob/living/simple_animal/cow/proc/look_for_help(mob/living/carbon/tipper)
-	// visible part of the visible message
-	var/seen_message = ""
-	// self part of the visible message
-	var/self_message = ""
-	// the mob we're looking to for aid
-	var/mob/living/carbon/savior
-	// look for someone in a radius around us for help. If our original tipper is in range, prioritize them
-	for(var/mob/living/carbon/potential_aid in oview(3, get_turf(src)))
-		if(potential_aid == tipper)
-			savior = tipper
-			break
-		savior = potential_aid
-
-	if(prob(75) && savior)
-		var/text = pick("imploringly", "pleadingly", "with a resigned expression")
-		seen_message = "[src] looks at [savior] [text]."
-		self_message = "You look at [savior] [text]."
-	else
-		seen_message = "[src] seems resigned to its fate."
-		self_message = "You resign yourself to your fate."
-	visible_message(span_notice("[seen_message]"), span_notice("[self_message]"))
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"
@@ -197,7 +114,7 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "chick"
 	gender = FEMALE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
 	speak_language = /datum/language/metalanguage
@@ -218,6 +135,7 @@
 	health = 3
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
+	var/can_grow = TRUE
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
@@ -236,6 +154,8 @@
 	. =..()
 	if(!.)
 		return
+	if(!can_grow)
+		return
 	if(!stat && !ckey)
 		amount_grown += rand(0.5 * delta_time, 1 * delta_time)
 		if(amount_grown >= 100)
@@ -251,15 +171,19 @@
 		GLOB.total_chickens--
 	return ..()
 
-/mob/living/simple_animal/chick/holo/Life()
-	..()
-	amount_grown = 0
+/mob/living/simple_animal/chick/holo
+	can_grow = FALSE
+
+/mob/living/simple_animal/chick/dave
+	name = "Dave"
+	desc = "A tiny chick personally rescued from the station's kitchen by the captain, now it's the bridge mascot. Despite his previous high density broiler diet, he seemingly does not grow or age."
+	can_grow = FALSE
 
 /mob/living/simple_animal/chicken
 	name = "\improper chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
@@ -272,8 +196,6 @@
 	speak_chance = 2
 	turns_per_move = 3
 	butcher_results = list(/obj/item/food/meat/slab/chicken = 2)
-	var/egg_type = /obj/item/food/egg
-	var/food_type = /obj/item/food/grown/wheat
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
@@ -285,36 +207,34 @@
 	health = 15
 	maxHealth = 15
 	ventcrawler = VENTCRAWLER_ALWAYS
-	var/eggsleft = 0
-	var/eggsFertile = TRUE
-	var/body_color
-	var/icon_prefix = "chicken"
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
-	var/list/layMessage = EGG_LAYING_MESSAGES
-	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
-	var/static/chicken_count = 0
 	chat_color = "#FFDC9B"
 	mobchatspan = "stationengineer"
 
 	footstep_type = FOOTSTEP_MOB_CLAW
+	///counter for how many chickens are in existence to stop too many chickens from lagging shit up
+	var/static/chicken_count = 0
+	///boolean deciding whether eggs laid by this chicken can hatch into chicks
+	var/process_eggs = TRUE
 
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
-	if(!body_color)
-		body_color = pick(validColors)
-	icon_state = "[icon_prefix]_[body_color]"
-	icon_living = "[icon_prefix]_[body_color]"
-	icon_dead = "[icon_prefix]_[body_color]_dead"
-	held_state = "[icon_prefix]_[body_color]"
-	head_icon = 'icons/mob/pets_held_large.dmi'
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
 	GLOB.total_chickens++
+	AddElement(/datum/element/animal_variety, "chicken", pick("brown","black","white"), TRUE)
+	AddComponent(/datum/component/egg_layer,\
+		/obj/item/food/egg,\
+		list(/obj/item/food/grown/wheat),\
+		feed_messages = list("[p_they()] clucks happily."),\
+		lay_messages = EGG_LAYING_MESSAGES,\
+		eggs_left = 0,\
+		eggs_added_from_eating = rand(1, 4),\
+		max_eggs_held = 8,\
+		egg_laid_callback = CALLBACK(src, PROC_REF(egg_laid))\
+	)
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	GLOB.total_chickens--
@@ -325,33 +245,12 @@
 		GLOB.total_chickens--
 	return ..()
 
-/mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
-	if(istype(O, food_type)) //feedin' dem chickens
-		if(!stat && eggsleft < 8)
-			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
-			user.visible_message(feedmsg)
-			qdel(O)
-			eggsleft += rand(1, 4)
-		else
-			to_chat(user, span_warning("[name] doesn't seem hungry!"))
-	else
-		..()
-
-/mob/living/simple_animal/chicken/Life(delta_time = SSMOBS_DT, times_fired)
-	. =..()
-	if(!.)
-		return
-	if((!stat && DT_PROB(1.5, delta_time) && eggsleft > 0) && egg_type && GLOB.total_chickens < CONFIG_GET(number/max_chickens))
-		visible_message("[src] [pick(layMessage)]")
-		eggsleft--
-		var/obj/item/E = new egg_type(get_turf(src))
-		E.pixel_x = E.base_pixel_x + rand(-6,6)
-		E.pixel_y = E.base_pixel_y + rand(-6,6)
-		if(eggsFertile)
-			if(prob(25))
-				START_PROCESSING(SSobj, E)
+/mob/living/simple_animal/chicken/proc/egg_laid(obj/item/egg)
+	if(chicken_count <= GLOB.total_chickens && process_eggs && prob(25))
+		START_PROCESSING(SSobj, egg)
 
 /obj/item/food/egg/var/amount_grown = 0
+
 /obj/item/food/egg/process(delta_time)
 	if(isturf(loc))
 		amount_grown += rand(1,2) * delta_time
@@ -377,29 +276,9 @@
 	density = FALSE
 	health = 15
 	maxHealth = 15
-	egg_type = null
 	attack_verb_continuous = "pecks"
 	attack_verb_simple = "peck"
 	attack_sound = 'sound/creatures/turkey.ogg'
 	ventcrawler = VENTCRAWLER_ALWAYS
-	icon_prefix = "turkey"
-	feedMessages = list("It gobbles up the food voraciously.","It clucks happily.")
-	validColors = list("plain")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"
-
-/mob/living/simple_animal/chicken/rabbit
-	name = "\improper rabbit"
-	desc = "It's a rabbit, everyone knows what a rabbit is."
-	icon = 'icons/mob/easter.dmi'
-	icon_state = "b_rabbit_white"
-	icon_living = "b_rabbit_white"
-	icon_dead = "b_rabbit_white_dead"
-	speak = null
-	speak_emote = list("sniffles","twitches")
-	emote_hear = list("hops.")
-	emote_see = list("hops around","bounces up and down")
-	icon_prefix = "b_rabbit"
-	feedMessages = list("It nibbles happily.","It noms happily.")
-	butcher_results = list(/obj/item/food/meat/slab = 1)
-	food_type = /obj/item/food/grown/carrot

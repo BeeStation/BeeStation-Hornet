@@ -11,9 +11,6 @@
 	/// What storage type to use for this item
 	var/datum/storage/storage_type = /datum/storage
 
-/obj/item/storage/get_dumping_location(obj/item/storage/source,mob/user)
-	return src
-
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
@@ -59,7 +56,7 @@
 /obj/item/storage/proc/emptyStorage()
 	atom_storage.remove_all()
 
-/obj/item/storage/on_object_saved(var/depth = 0)
+/obj/item/storage/on_object_saved(depth = 0)
 	if(depth >= 10)
 		return ""
 	var/dat = ""

@@ -52,9 +52,9 @@
 	name = "hypernoblium tank input injector"
 	chamber_id = ATMOS_GAS_MONITOR_HYPERNOBLIUM
 
-/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitryl_input
-	name = "nitryl tank input injector"
-	chamber_id = ATMOS_GAS_MONITOR_NITRYL
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/atmos/nitrium_input
+	name = "nitrium tank input injector"
+	chamber_id = ATMOS_GAS_MONITOR_NITRIUM
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/pluoxium_input
 	name = "pluoxium tank input injector"

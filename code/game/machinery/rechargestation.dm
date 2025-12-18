@@ -1,6 +1,6 @@
 /obj/machinery/recharge_station
-	name = "cyborg recharging station"
-	desc = "This device recharges cyborgs and resupplies their materials."
+	name = "recharging station"
+	desc = "This device recharges energy dependent lifeforms, like cyborgs, ethereals and MODsuit users."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
 	density = FALSE
@@ -103,7 +103,6 @@
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
-		var/mob/living/silicon/robot/R = occupant
-		if(R?.module)
-			var/coeff = recharge_speed * 0.025
-			R.module.respawn_consumable(R, coeff)
+		var/mob/living/silicon/robot/robot = occupant
+		if(robot?.model)
+			robot.model.respawn_consumable(robot, recharge_speed * 0.025)

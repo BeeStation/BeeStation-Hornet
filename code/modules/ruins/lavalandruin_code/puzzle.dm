@@ -1,6 +1,6 @@
 /obj/effect/sliding_puzzle
 	name = "Sliding puzzle generator"
-	icon = 'icons/obj/items_and_weapons.dmi' //mapping
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
@@ -305,7 +305,6 @@
 	laser = 50
 	energy = 50
 	bomb = 50
-	rad = 50
 	fire = 50
 	acid = 50
 
@@ -317,6 +316,8 @@
 	desc = "Dusty cube with humanoid imprint on it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "prison_cube"
+	custom_price = 20000
+	max_demand = 5
 
 /obj/item/prisoncube/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

@@ -32,21 +32,29 @@
 	/// If toggleable, deactivate will be called when the action button is pressed after
 	/// being activated.
 	var/toggleable = FALSE
+	/// full key we are bound to
+	var/full_key
 	// =====================================
 	// Action Appearance
 	// =====================================
+	/// Do we come with a button?
+	var/has_button = TRUE
 	/// The style the button's tooltips appear to be
 	var/buttontooltipstyle = ""
 	/// Whether the button becomes transparent when it can't be used or just reddened
 	var/transparent_when_unavailable = TRUE
-	/// This is the file for the BACKGROUND icon of the button
-	var/button_icon = 'icons/hud/actions/backgrounds.dmi'
-	/// This is the icon state state for the BACKGROUND icon of the button
+
+	/// This is the file for the BACKGROUND underlay icon of the button
+	var/background_icon = 'icons/hud/actions/backgrounds.dmi'
+	/// This is the icon state state for the BACKGROUND underlay icon of the button
+	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
 	/// This is the file for the icon that appears OVER the button background
-	var/icon_icon = 'icons/hud/actions.dmi'
+	var/button_icon = 'icons/hud/actions.dmi'
 	/// This is the icon state for the icon that appears OVER the button background
 	var/button_icon_state = "default"
+
 	///List of all mobs that are viewing our action button -> A unique movable for them to view.
 	var/list/viewers = list()
 	/// What icon to replace our mouse cursor with when active. Optional, Requires requires_target
@@ -86,7 +94,7 @@
 /// Links the passed target to our action, registering any relevant signals
 /datum/action/proc/link_to(master)
 	src.master = master
-	RegisterSignal(master, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	RegisterSignal(master, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
 	if(isatom(master))
 		RegisterSignal(master, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_icon_on_signal))
@@ -99,7 +107,7 @@
 		Remove(owner)
 	master = null
 	if (selected_target)
-		UnregisterSignal(selected_target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(selected_target, COMSIG_QDELETING)
 		selected_target = null
 	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
@@ -117,16 +125,19 @@
 
 /// Grants the action to the passed mob, making it the owner
 /datum/action/proc/Grant(mob/grant_to)
-	if(!grant_to)
+	if(isnull(grant_to))
 		Remove(owner)
 		return
-	if(owner)
-		if(owner == grant_to)
-			return
-		Remove(owner)
-	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, grant_to)
+	if(grant_to == owner)
+		return // We already have it
+	var/mob/previous_owner = owner
 	owner = grant_to
-	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	if(!isnull(previous_owner))
+		Remove(previous_owner)
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	//SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	RegisterSignal(owner, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
 
 	// Register some signals based on our check_flags
 	// so that our button icon updates when relevant
@@ -161,20 +172,29 @@
 	LAZYREMOVE(remove_from.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
 	viewers = list()
 
-	if(owner)
-		SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
-		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+	if(isnull(owner))
+		return
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	//SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
+	UnregisterSignal(owner, COMSIG_QDELETING)
+	UnregisterSignal(owner, COMSIG_MOB_KEYDOWN)
 
-		// Clean up our check_flag signals
-		UnregisterSignal(owner, list(
-			COMSIG_LIVING_SET_BODY_POSITION,
-			COMSIG_MOB_STATCHANGE,
-			SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
-			SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
-		))
+	// Clean up our check_flag signals
+	UnregisterSignal(owner, list(
+		COMSIG_LIVING_SET_BODY_POSITION,
+		COMSIG_MOB_STATCHANGE,
+		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
+		SIGNAL_ADDTRAIT(TRAIT_MAGICALLY_PHASED),
+		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
+		SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED),
+		SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED),
+	))
 
-		if(master == owner)
-			RegisterSignal(master, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+	if(master == owner)
+		RegisterSignal(master, COMSIG_QDELETING, PROC_REF(clear_ref))
+	if (owner == remove_from)
 		owner = null
 
 	if (remove_from.click_intercept == src)
@@ -235,7 +255,7 @@
 		active = TRUE
 		if (target)
 			selected_target = target
-			RegisterSignal(selected_target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref))
+			RegisterSignal(selected_target, COMSIG_QDELETING, PROC_REF(clear_ref))
 	. = on_activate(user, target, trigger_flags)
 	// There is a possibility our action (or owner) is qdeleted in on_activate().
 	if(!QDELETED(src) && !QDELETED(owner))
@@ -256,7 +276,7 @@
 	active = FALSE
 	on_deactivate(user, selected_target)
 	if (selected_target)
-		UnregisterSignal(selected_target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(selected_target, COMSIG_QDELETING)
 		selected_target = null
 
 /// Called when the action is deactivated.
@@ -292,23 +312,40 @@
 		unset_click_ability(clicker, refund_cooldown = FALSE)
 	clicker.next_click = world.time + click_cd_override
 
-/// Whether our action is currently available to use or not
-/datum/action/proc/is_available()
+/**
+ * Whether our action is currently available to use or not
+ * * feedback - If true this is being called to check if we have any messages to show to the owner
+ */
+/datum/action/proc/is_available(feedback = FALSE)
 	if(!owner)
 		return FALSE
 	if (next_use_time && world.time < next_use_time)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		if (feedback)
+			owner.balloon_alert(owner, "hands blocked!")
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		if (feedback)
+			owner.balloon_alert(owner, "can't move!")
+		return FALSE
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
+		if (feedback)
+			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && isliving(owner))
 		var/mob/living/action_user = owner
 		if(action_user.body_position == LYING_DOWN)
+			if (feedback)
+				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
 	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		if (feedback)
+			owner.balloon_alert(owner, "unconscious!")
 		return FALSE
 	if ((check_flags & AB_CHECK_DEAD) && owner.stat == DEAD)
+		if (feedback)
+			owner.balloon_alert(owner, "dead!")
 		return FALSE
 	return TRUE
 
@@ -330,8 +367,8 @@
 			if(button.icon_state != settings["bg_state"])
 				button.icon_state = settings["bg_state"]
 		else
-			if(button.icon != button_icon)
-				button.icon = button_icon
+			if(button.icon != background_icon)
+				button.icon = background_icon
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
 
@@ -344,6 +381,7 @@
 		QDEL_NULL(timer_overlay)
 
 	var/available = is_available()
+	button.update_keybind_maptext(full_key)
 	if(available)
 		button.color = rgb(255,255,255,255)
 	else
@@ -352,9 +390,9 @@
 
 /// Applies our button icon over top the background icon of the action
 /datum/action/proc/apply_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
+	if(button_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
-		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
+		current_button.add_overlay(mutable_appearance(button_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
 /datum/action/proc/update_cooldown_icon(atom/movable/screen/movable/action_button/button, force = FALSE)
@@ -386,6 +424,9 @@
 
 /// Adds our action button to the screen of the passed viewer.
 /datum/action/proc/show_to(mob/viewer)
+	if (!has_button)
+		return
+
 	var/datum/hud/our_hud = viewer.hud_used
 	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
 		return
@@ -516,3 +557,33 @@
 
 /datum/action/proc/is_active()
 	return active
+
+/datum/action/proc/begin_creating_bind(atom/movable/screen/movable/action_button/current_button, mob/user)
+	if(!current_button || user != owner)
+		return
+	if(!isnull(full_key))
+		full_key = null
+		update_button(current_button)
+		return
+	full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
+	update_button(current_button)
+
+//Exists to keep master private
+/datum/action/proc/get_master()
+	SHOULD_BE_PURE(TRUE)
+	return master
+
+//Exists to keep next_use_time private
+/datum/action/proc/reset_next_use_time()
+	next_use_time = initial(next_use_time)
+
+/datum/action/proc/keydown(mob/source, key, client/client, full_key)
+	SIGNAL_HANDLER
+	if(isnull(full_key) || full_key != src.full_key)
+		return
+	if(istype(source))
+		if(source.next_click > world.time)
+			return
+		else
+			source.next_click = world.time + CLICK_CD_HYPER_RAPID
+	INVOKE_ASYNC(src, PROC_REF(trigger))

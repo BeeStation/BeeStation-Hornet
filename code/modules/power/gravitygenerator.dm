@@ -42,9 +42,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(prob(20))
 		set_broken()
 
-/obj/machinery/gravity_generator/tesla_act(power, tesla_flags)
-	..()
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/gravity_generator/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 /obj/machinery/gravity_generator/update_icon()
@@ -111,8 +111,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 /obj/machinery/gravity_generator/main
 	icon_state = "on_8"
-	idle_power_usage = 0
-	active_power_usage = 3000
+	idle_power_usage = 5 KILOWATT
+	active_power_usage = 50 KILOWATT
 	power_channel = AREA_USAGE_ENVIRON
 	sprite_number = 8
 	use_power = IDLE_POWER_USE
@@ -125,7 +125,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/charge_count = 100
 	var/current_overlay = null
 	var/broken_state = 0
-	var/setting = 1	//Gravity value when on
+	//Gravity value when on
+	var/setting = 1
 
 /obj/machinery/gravity_generator/main/Initialize(mapload)
 	. = ..()
@@ -310,7 +311,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/enable()
 	charging_state = POWER_IDLE
 	on = TRUE
-	use_power = ACTIVE_POWER_USE
 
 	var/old_gravity = gravity_in_level()
 	complete_state_update()
@@ -325,7 +325,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/disable()
 	charging_state = POWER_IDLE
 	on = FALSE
-	use_power = IDLE_POWER_USE
 
 	QDEL_NULL(gravity_field)
 	var/old_gravity = gravity_in_level()
@@ -347,22 +346,26 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/process()
 	if(machine_stat & BROKEN)
 		return
-	if(charging_state != POWER_IDLE)
+	if(charging_state == POWER_IDLE)
+		update_use_power(IDLE_POWER_USE)	// When fully charged goes back to Idle power use.
+	else if(charging_state != POWER_IDLE)
 		if(charging_state == POWER_UP && charge_count >= 100)
 			enable()
 		else if(charging_state == POWER_DOWN && charge_count <= 0)
 			disable()
 		else
 			if(charging_state == POWER_UP)
+				update_use_power(ACTIVE_POWER_USE)	//Active powr use kicks in while charging
 				charge_count += 2
 			else if(charging_state == POWER_DOWN)
+				update_use_power(ACTIVE_POWER_USE)
 				charge_count -= 2
 
 			if(charge_count % 4 == 0 && prob(75)) // Let them know it is charging/discharging.
 				playsound(src.loc, 'sound/effects/empulse.ogg', 100, 1)
 
 			if(prob(25)) // To help stop "Your clothes feel warm." spam.
-				pulse_radiation()
+				radiation_pulse(src, max_range = 2)
 
 			var/overlay_state = null
 			switch(charge_count)
@@ -383,10 +386,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 					if(overlay_state)
 						middle.add_overlay(overlay_state)
 					current_overlay = overlay_state
-
-
-/obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	radiation_pulse(src, 200)
 
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()

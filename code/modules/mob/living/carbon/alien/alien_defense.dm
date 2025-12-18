@@ -7,6 +7,9 @@
 /mob/living/carbon/alien/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..(AM, skipcatch = TRUE, hitpush = FALSE)
 
+//You cant knock down aliens through shoving
+/mob/living/carbon/alien/is_shove_knockdown_blocked()
+	return TRUE
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
@@ -66,20 +69,25 @@ In all, this is a lot like the monkey code. /N
 
 	if(user.combat_mode)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			if(HAS_TRAIT(user, TRAIT_PACIFISM))
-				to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
-				return
-			playsound(loc, "punch", 25, 1, -1)
-			visible_message("<span class='danger'>[user] punches [src]!</span>", \
-					"<span class='userdanger'>[user] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
-			apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
-			log_combat(user, src, "attacked", user)
-			user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			user.disarm(src)
+			return TRUE
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, span_notice("You don't want to hurt [src]!"))
+			return
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message(span_danger("[user] punches [src]!"), \
+				span_userdanger("[user] punches you!"), null, COMBAT_MESSAGE_RANGE)
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+		apply_damage(user.dna.species.punchdamage, BRUTE, affecting)
+		log_combat(user, src, "attacked", user)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		return TRUE
 	else
-		help_shake_act(user)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			user.disarm(src)
+			return TRUE
+		else
+			help_shake_act(user)
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	if(!..())

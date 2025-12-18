@@ -147,3 +147,11 @@
 	serving as a supply and repair depot, as well as being host to its most important legal proceedings\
 	and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \
 	We hope you enjoy your stay!"
+
+//////////// CardinalStation
+
+/obj/item/paper/fluff/stations/cardinalstation/medbay_blood
+	name = "Medbay Storage Closet"
+	default_raw_text = "<i>Since I'm going to be on vacation leave for the next few cycles, \
+	I just wanted to let you know that other than the blood freezer in the surgery room, there's \
+	a second one I left in our storage closet in maintenance (That's just south of the chemistry lab).<br><P align=right>-Dr. Antek</p></i>"

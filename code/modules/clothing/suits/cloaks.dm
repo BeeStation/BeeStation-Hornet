@@ -5,7 +5,7 @@
 	desc = "It's a cape that can be worn around your neck."
 	icon = 'icons/obj/clothing/cloaks.dmi'
 	icon_state = "qmcloak"
-	item_state = "qmcloak"
+	inhand_icon_state = "qmcloak"
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESUITSTORAGE
@@ -117,6 +117,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
 	high_pressure_multiplier = 0.4
+	custom_price = 10000
+	max_demand = 10
 
 
 /datum/armor/cloak_drake
@@ -126,7 +128,6 @@
 	energy = 40
 	bomb = 70
 	bio = 60
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 30
@@ -150,7 +151,6 @@
 	energy = 40
 	bomb = 70
 	bio = 60
-	rad = 50
 	fire = 100
 	acid = 100
 	stamina = 30

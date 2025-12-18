@@ -5,24 +5,26 @@
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 300
+	idle_power_usage = 100 WATT
+	active_power_usage = 300 WATT // This is overriden while giving power
 	circuit = /obj/item/circuitboard/machine/recharger
 	pass_flags = PASSTABLE
+	/// The item currently inserted into the charger
 	var/obj/item/charging = null
-	var/recharge_coeff = 1
-	var/using_power = FALSE
-
+	/// How good the capacitor is at charging the item
+	var/recharge_coeff = 2
+	/// List of items that can be recharged
 	var/static/list/allowed_devices = typecacheof(list(
 		/obj/item/gun/energy,
 		/obj/item/melee/baton,
 		/obj/item/ammo_box/magazine/recharge,
 		/obj/item/toy/batong,
-		/obj/item/modular_computer))
+		/obj/item/modular_computer,
+	))
 
 /obj/machinery/recharger/RefreshParts()
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_coeff = C.rating
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		recharge_coeff = capacitor.rating * 2
 
 /obj/machinery/recharger/examine(mob/user)
 	. = ..()
@@ -36,30 +38,16 @@
 
 	if(!(machine_stat & (NOPOWER|BROKEN)))
 		. += span_notice("The status display reads:")
-		. += span_notice("- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.")
+		. += span_notice("- Current recharge coefficient: <b>[recharge_coeff]</b>.")
 		if(charging)
-			var/obj/item/stock_parts/cell/C = charging.get_cell()
+			var/obj/item/stock_parts/cell/cell = charging.get_cell()
 			if (istype(charging, /obj/item/ammo_box/magazine/recharge))
 				var/obj/item/ammo_box/magazine/recharge/magazine = charging
 				. += span_notice("- \The [charging]'s cell is at <b>[magazine.ammo_count() / magazine.max_ammo * 100]%</b>.")
-			else if(C)
-				. += span_notice("- \The [charging]'s cell is at <b>[C.percent()]%</b>.")
+			else if(cell)
+				. += span_notice("- \The [charging]'s cell is at <b>[cell.percent()]%</b>.")
 			else
 				. += span_notice("- \The [charging] has no power cell installed.")
-
-
-/obj/machinery/recharger/proc/setCharging(new_charging)
-	charging = new_charging
-	if (new_charging)
-		START_PROCESSING(SSmachines, src)
-		update_use_power(ACTIVE_POWER_USE)
-		use_power = ACTIVE_POWER_USE
-		using_power = TRUE
-		update_appearance()
-	else
-		update_use_power(IDLE_POWER_USE)
-		using_power = FALSE
-		update_appearance()
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
 	if(G.tool_behaviour == TOOL_WRENCH)
@@ -101,7 +89,7 @@
 
 			if(!user.transferItemToLoc(G, src))
 				return 1
-			setCharging(G)
+			charging = G
 
 		else
 			to_chat(user, span_notice("[src] isn't connected to anything!"))
@@ -128,41 +116,44 @@
 		charging.update_icon()
 		charging.forceMove(drop_location())
 		user.put_in_hands(charging)
-		setCharging(null)
+		charging = null
+		update_use_power(IDLE_POWER_USE)
+		update_appearance()
 
 /obj/machinery/recharger/attack_tk(mob/user)
 	if(!charging)
 		return
 	charging.update_icon()
 	charging.forceMove(drop_location())
-	setCharging(null)
+	charging = null
+	update_use_power(IDLE_POWER_USE)
+	update_appearance()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/recharger/process(delta_time)
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
-		return PROCESS_KILL
-
-	using_power = FALSE
+		return
 	if(charging)
 		var/obj/item/stock_parts/cell/C = charging.get_cell()
 		if(C)
-			if(C.charge < C.maxcharge)
-				C.give(C.chargerate * recharge_coeff * delta_time / 2)
-				use_power(125 * recharge_coeff * delta_time)
-				using_power = TRUE
-			update_appearance()
+			if(C.charge >= C.maxcharge)
+				update_use_power(IDLE_POWER_USE)
+			else
+				C.give(C.chargerate * recharge_coeff)
+				active_power_usage = (C.chargerate * recharge_coeff / POWER_TRANSFER_LOSS)
+				update_use_power(ACTIVE_POWER_USE)
 
 		if(istype(charging, /obj/item/ammo_box/magazine/recharge))
 			var/obj/item/ammo_box/magazine/recharge/R = charging
-			if(R.stored_ammo.len < R.max_ammo)
+			if(R.stored_ammo.len >= R.max_ammo)
+				update_use_power(IDLE_POWER_USE)
+			else
 				R.stored_ammo += new R.ammo_type(R)
-				use_power(100 * recharge_coeff * delta_time)
-				using_power = TRUE
-			update_appearance()
-			return
-
+				active_power_usage = (1000 WATT / recharge_coeff)
+				update_use_power(ACTIVE_POWER_USE)
+		update_appearance()
 	else
-		return PROCESS_KILL
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/recharger/emp_act(severity)
 	. = ..()
@@ -196,12 +187,12 @@
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 		return
 
-	if(using_power)
+	if(use_power == ACTIVE_POWER_USE)
 		. += mutable_appearance(icon, "[base_icon_state]-charging", alpha = src.alpha)
 		. += emissive_appearance(icon, "[base_icon_state]-charging", layer, alpha = src.alpha)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
-		return
 
-	. += mutable_appearance(icon, "[base_icon_state]-full", alpha = src.alpha)
-	. += emissive_appearance(icon, "[base_icon_state]-full", layer, alpha = src.alpha)
-	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+	if(use_power == IDLE_POWER_USE)
+		. += mutable_appearance(icon, "[base_icon_state]-full", alpha = src.alpha)
+		. += emissive_appearance(icon, "[base_icon_state]-full", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)

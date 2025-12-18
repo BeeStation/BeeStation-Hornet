@@ -52,23 +52,12 @@
 
 ///Override for checkliked in edible component, because all cops LOVE donuts
 /obj/item/food/donut/proc/check_liked(mob/living/carbon/human/H)
-	if(HAS_TRAIT(H.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM) && !HAS_TRAIT(H, TRAIT_AGEUSIA))
+	if(HAS_MIND_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		return FOOD_LIKED
 
 //Regular, tasty donut.
 /obj/item/food/donut/plain
 	icon_state = "donut"
-
-//Its like eating an Midwest donut, versus a scrumptious East Coast donut. Not very filling and you just want to eat more
-/obj/item/food/donut/premade
-	name = "prepackaged donut"
-	desc = "A mass produced donut, goes great with a cup of coffee."
-	icon_state = "donut"
-	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 3,
-		/datum/reagent/consumable/sprinkles = 1,
-		/datum/reagent/consumable/sugar = 2
-	)
 
 /obj/item/food/donut/chaos
 	name = "chaos donut"

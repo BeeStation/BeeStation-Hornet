@@ -19,7 +19,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 	if(head_icon)
 		worn_icon = head_icon
 	if(worn_state)
-		item_state = worn_state
+		inhand_icon_state = worn_state
 	if(lh_icon)
 		lefthand_file = lh_icon
 	if(rh_icon)
@@ -99,7 +99,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder/rabbit)
 
 /obj/item/clothing/head/mob_holder/rabbit/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
-	var/mob/living/simple_animal/chicken/rabbit/easter/rabbit = new(src)
+	var/mob/living/simple_animal/rabbit/rabbit = new(src)
 	return ..(mapload, rabbit, rabbit.held_state, rabbit.head_icon, rabbit.held_lh, rabbit.held_rh, rabbit.worn_slot_flags)
 
 /obj/item/clothing/head/mob_holder/drone/deposit(mob/living/L)

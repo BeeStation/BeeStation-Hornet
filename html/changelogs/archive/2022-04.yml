@@ -1,0 +1,285 @@
+2022-04-01:
+  Hardly:
+  - rscadd: Adds Carp Hunter and Sword Saint into the Curator's Heroic Beacon
+2022-04-02:
+  Hardly, RaidenKoizuma:
+  - rscadd: Added medical department medals
+  - rscadd: Added a lockbox containing two medals inside CMO's locker.
+  Ivniinvi:
+  - tweak: Immovable Rod is much more likely to hit the station
+  MNarath1:
+  - bugfix: blob spores hitting multiple times rapidly after a long chase
+  - tweak: any new proccal of goto on spores will end the previous instances
+  Mat05usz:
+  - bugfix: Decal painter can no longer paint on walls
+  Phil Smith:
+  - rscadd: Cargo can now order 5 plushies in a crate
+  ivanmixo:
+  - bugfix: energy bola can be caught again
+2022-04-03:
+  Mat05usz:
+  - bugfix: You can no longer join as borgs/golems etc during Battle Royale
+  - bugfix: All living mobs are cleared when BR starts, no more disconnecting to avoid
+      the wipe
+  PowerfulBacon:
+  - bugfix: Fixes gamemode setup failing due to clients disconnecting
+2022-04-04:
+  covertcorvid:
+  - balance: People can no longer be paralyzed by sonic effects while deaf
+  ike709:
+  - rscadd: People running a local testing server through VSCode will now get a big
+      warning reminding them to disable breakpoints on runtime errors.
+  - bugfix: Fixed a keybind runtime caused by guest ckeys.
+2022-04-05:
+  OverwatchVoice:
+  - bugfix: Meclizine effects now get removed when fully metabolized
+2022-04-06:
+  LemonLimeSoda:
+  - tweak: Chaplains now come with their null rods and armor beacons
+  - tweak: Null rods have been removed from the hidden chapel locations across maps,
+      and the chaplain's armaments beacons have been removed from ChapDrobes.
+  - bugfix: Newly spawned null rods can be reskinned and newly spawned holy armor
+      beacons actually work (instead of deleting themselves).
+  ivanmixo:
+  - bugfix: you can no longer bypass the spam detection system by spamming emotes
+2022-04-08:
+  Archanial:
+  - config: added ability to disable cross server bans
+2022-04-10:
+  PowerfulBacon:
+  - code_imp: overriden signals will now display the type of the object causing an
+      error.
+  - bugfix: The ninja's energy katana now gets properly deleted when the ninja is
+      killed.
+  - bugfix: Fixes wormhole runtime
+  - balance: Mr. Freeze traitor item now gets no slip boots.
+  - bugfix: Monkey AI disposal behaviour runtime
+  - bugfix: Fixes a runtime in xenobiology cameras that prevented the use of the hotkey
+      actions.
+  - bugfix: Fixes a potential runtime if z clear cannot find any free z-levels
+  The-Moon-Itself:
+  - rscadd: Rapid shuttle designator has a new UI
+  - rscadd: Rapid shuttle designator can now edit shuttles after designation
+  - rscadd: Make clones of you rapid shuttle designator using a custom shuttle console
+  - tweak: Custom shuttle console can have shuttle designators inserted like IDs
+  - bugfix: Corrected shuttle bounds detection
+  - bugfix: Removed a runtime when docking a large shuttle on a small port
+  - bugfix: Prevented splitting shuttles by undesignating turf bridges
+  - bugfix: Corrected message when designating too many turfs for a shuttle
+  - bugfix: Better skipover turf placement to make shuttle designation on lavaland
+      and asteroids more reliable.
+  - bugfix: Shuttle capsules now make stationary ports on deploy as well, fixing a
+      runtime and preventing players from turning lavaland into space.
+  zeskorion:
+  - bugfix: hellbound now works properly
+2022-04-11:
+  DingleFlop:
+  - tweak: Toxins Storage and Turbine area walls moved to allow tank access
+  - tweak: Atmosia main no longer needlessly uses layered pipes
+  - bugfix: Atmosia burn chamber no longer lacks a vent pump, and can be entered again
+  Hardly, MCterra10:
+  - rscadd: Split personalities can now communicate.
+  Ivniinvi:
+  - admin: The Admin Log for Stealth Mode will now include your fakekey
+  Ivniinvi, Melbert, AnturK, ChungusGamer666, ZephyrTFA:
+  - code_imp: Rust is now an element
+  - rscadd: Wirebrushes can be made at an autolathe to clean rust.
+  Jeff-3:
+  - rscdel: Removed redundant check in xeno code
+  Kapu1178:
+  - refactor: Random name code cleaned up
+  MNarath1:
+  - bugfix: A lot of runtimes
+  - bugfix: multiple qdel calls for the same object
+  PowerfulBacon:
+  - balance: Cult bolas no longer affect people with holy magic protection.
+  - bugfix: Fixes dual energy sword always being red
+  bobbahbrown, Mat05usz:
+  - bugfix: Crew console is properly displaying custom jobs and unknowns
+  - refactor: Cleans up crew console code
+  dog132:
+  - rscadd: Kilo Station - there is now space for two Virologists
+  - bugfix: Kilo Station - Virology Airlock is no longer a tomb
+  - bugfix: Kilo Station - makes the Brig Physician's access actually make sense
+  - rscadd: Kilo Station - the Brig Physician gets a surgery duffle bag, a surgery
+      table and a surgery operating computer
+  - bugfix: Kilo Station - the SMES in Engineering has been properly connected to
+      the network
+  ivanmixo:
+  - rscdel: Removes the backpressure surge event
+  - bugfix: intelligence potions don't bypass ghost role spawners flag anymore
+  - bugfix: LOWMEMORYMODE now doesn't runtime and supercruise works on it
+  zeskorion:
+  - bugfix: really fixes extrapolators this time
+  - bugfix: fixes a few wing icon bugs
+  - tweak: virus food no longer speeds up special viruses
+2022-04-12:
+  Chiryn, Ivanmixo:
+  - bugfix: Welded firelocks can no longer be opened by IDs
+  Mat05usz:
+  - bugfix: Fixes fireman carry bug
+  PowerfulBacon:
+  - bugfix: CLF3 can no longer damage explosive proof tiles.
+2022-04-13:
+  Ivanmixo, PowerfulBacon:
+  - rscadd: You now drop all your stuff upon death in battle royale
+  PowerfulBacon:
+  - bugfix: Mech syringe gun, hypodermic prickles and the cat surgeon will no longer
+      bypass pierce protection.
+  - bugfix: Closets and decals placed on the same tile will no longer cause runtimes
+      and break map generation.
+2022-04-14:
+  PestoVerde322:
+  - rscadd: Added new icons for zones and randomized items for mapping purposes
+2022-04-15:
+  Ivniinvi:
+  - admin: Necromantic Stone usage is now logged.
+  PowerfulBacon:
+  - spellcheck: Fixes the spelling of distributed
+  ivanmixo:
+  - balance: Methamphentamine and Nuka cola speedups have been nerfed
+  - balance: Nuka cola now deals minor radiation
+  - rscadd: Riot helmets can now actually have seclites attached
+  - rscdel: Removed a bunch of old useless procs/verbs/vars
+  - bugfix: The light on the justice sec helmet now actually spins
+  - refactor: Refactored a bunch of the headwear code, it sucks a tiny bit less now
+  mystery3525:
+  - rscadd: More info messages for ectoscopic sniffer.
+  - bugfix: Ectoscopic sniffer wrenching.
+2022-04-16:
+  Archanial:
+  - rscadd: Added global suit sensors list
+  - bugfix: fixed crew monitor
+  - bugfix: fixed monitors (again!)
+  PowerfulBacon:
+  - tweak: Changeling transformation will now give you an ID card that affects runechat
+      colouring
+  - tweak: Adrenaline cost decreased from 30 chemicals to 20
+  - tweak: Biodegrade cost reduced from 30 to 15, now removes legcuffs and will apply
+      acid and stun anyone pulling you
+  - tweak: Digital camo - Completely reworked, now actively uses chemicals and is
+      much better than the mutation, moving slightly increases transparency but moving
+      slowly allows you to maintain decent invisibility.
+  - tweak: Fleshmend - Effect length increased from 10 to 30 seconds, heals per second
+      reduced. No longer heals toxin damage.
+  - tweak: Gaseous pores cost reduced from 2 DNA to 1.
+  - tweak: Dissonant shriek DNA cost increased from 1 to 2, chemical cost increased
+      from 20 to 25 and EMP light ranged reduced from 5 to 3
+  - tweak: False armblade now triggers after 5 to 10 seconds
+  - rscdel: Changeling hivemind has been removed
+  - rscadd: 'Added new changeling ability: Organic mindshield'
+  - balance: Magical EMPs no longer affect magic protected mobs
+  - balance: Magic explosions (fireball) no longer affect magic protected mobs
+  - balance: Holy/cult EMPs no longer affect blessed turfs
+  - balance: Holy/cult EMPs no longer affect mobs with holy protection
+  - bugfix: Fixes de-sword runtime
+  TheChaser212:
+  - bugfix: fixed wooden walls
+  benbot16:
+  - rscadd: You can now hold people at gunpoint by pointing at them while holding
+      a gun.
+  - bugfix: Fixes automatic weapons shooting when examining, pointing, or clicking
+      certain UI items.
+2022-04-17:
+  Archanial:
+  - bugfix: sensors are working
+  PowerfulBacon:
+  - tweak: Observers can no longer use OOC pre-game.
+  - bugfix: Fixes OOC
+2022-04-18:
+  Archanial:
+  - bugfix: fixed a null is jammed runtime in crew sensors
+  Crossedfall:
+  - server: Minimist's resolution set to ^1.2.6
+  ivanmixo:
+  - bugfix: nukies now use antag rep to determine who gets the role
+2022-04-19:
+  PowerfulBacon:
+  - bugfix: Removes a hard del from radial menus
+  red031000:
+  - soundadd: add medbot voice lines from tgstation/tgstation#51555
+2022-04-20:
+  Karmic-Skink:
+  - rscadd: The smelter console now allows you to obtain mining points
+  - code_imp: Mappers can use the link_id variables on the smelting and stacking machines
+      and consoles to automatically link machines that are not next to each other
+2022-04-21:
+  ImSynthex:
+  - tweak: Removed the alert allowing everyone to easily tell apart fake and real
+      radiation storms
+  Ivniinvi:
+  - bugfix: Acid Ooze no longer has infinite range.
+  Mat05usz:
+  - bugfix: Fixes another crewmonitor runtime caused by simplemobs having nanite suit
+      sensors.
+  PowerfulBacon:
+  - bugfix: Fixes clockcult pressure trap not working.
+  - bugfix: Fixes shuttle docking with away missions during war-ops.
+  - bugfix: The Mr.Freeze no-slip boots now protect from gluon frag grenade slips.
+  Putnam3145, ported by mystery3525:
+  - tweak: HE pipes can now cool to within 1 Kelvin of the environment instead of
+      20 Kelvin
+  - tweak: HE pipes only require a temp difference of 1 degree to exchange heat, down
+      from 20. This makes HE pipes viable for cooling/heating station rooms.
+  - balance: A knock-on effect of the HE pipe change is that space cooling is much
+      more powerful
+  The-Moon-Itself:
+  - bugfix: Waddling, pituitary disruption, and the dance machine now properly reset
+      transforms
+  TheChaser212:
+  - bugfix: fixed plants having no or incorrect icons
+  - bugfix: fixed plants not inheriting stats
+  - bugfix: fixed trays not updating their name
+  - bugfix: fixed kudzu killing own flower buds
+2022-04-22:
+  Ivniinvi:
+  - bugfix: Integration Cogs will now correctly hide from Power Monitors.
+  LemonLimeSoda:
+  - rscadd: Adds 50 gimmick objectives available for traitors
+  - tweak: Traitors now get one kill/steal/maroon objective, one gimmick objective,
+      and escape/hijack/martyr
+2022-04-23:
+  Archanial:
+  - bugfix: fixed null light runtime when changing species into ethereal
+  Mat05usz:
+  - tweak: Crewmonitor is 800px wide again
+  Rukofamicom:
+  - bugfix: Centered the chicken nugget box sprite
+  - bugfix: Hyposprays may be refilled after use again
+  - bugfix: Spawner descriptions for fugitives
+  - tweak: Hand labelers are now tiny
+2022-04-25:
+  lordScrubling, Ghilker, nicbn:
+  - rscadd: atmospherics now has 2 additional layers; excludes HE pipes
+  - rscadd: multi-z adapters can now be placed with rpds
+  - tweak: layer manifold has its volume increased from 280L to 350 to compensate
+      for increase in layers
+2022-04-26:
+  ActionNinja, Cacogen, Hardly:
+  - soundadd: Replaced closet sounds with newer ones.
+  MNarath1:
+  - code_imp: converts ai tracking code towards using signals
+  - tweak: the change camera network verb will not immidiatly stop ai tracking(until
+      you select a network)
+  - refactor: moves move_camera_by_click proc to the eyeobject
+  MSO, ported by ike709:
+  - server: Expensive harddels can now be disabled in config.
+2022-04-27:
+  Gamer025:
+  - bugfix: Stickyban subsystem no longer runtimes on invalid entries
+  Ivniinvi:
+  - server: Version 514.1583 or higher is now required to play.
+  Qustinnus, AnturK, Ported by Rukofamicom:
+  - bugfix: Attachments now appear on guns again
+2022-04-28:
+  ivanmixo:
+  - tweak: you are actually you character's species in CTF (unless it's a plasmaman)
+  mystery3525:
+  - spellcheck: pun pun can now save mask between servers (typo)
+2022-04-29:
+  Rukofamicom:
+  - bugfix: vend-a-tray no longer drop glass shards when broken since they aren't
+      made of glass
+2022-04-30:
+  Dejaku51:
+  - bugfix: fixed flamethrower lighting runtime

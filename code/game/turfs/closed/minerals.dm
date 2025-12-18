@@ -45,7 +45,7 @@
 				if(istype(M) && !M.mineralType)
 					M.Change_Ore(mineralType)
 
-/turf/closed/mineral/proc/Change_Ore(var/ore_type, random = 0)
+/turf/closed/mineral/proc/Change_Ore(ore_type, random = 0)
 	if(random)
 		mineralAmt = rand(1, 5)
 	if(ispath(ore_type, /obj/item/stack/ore)) //If it has a scan_state, switch to it
@@ -507,6 +507,11 @@
 	environment_type = "waste"
 	turf_type = /turf/open/floor/plating/ashplanet/rocky
 	defer_change = 1
+
+/turf/closed/mineral/ash_rock/station
+	baseturfs = /turf/open/floor/plating
+	turf_type = /turf/open/floor/plating
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/closed/mineral/snowmountain
 	name = "snowy mountainside"

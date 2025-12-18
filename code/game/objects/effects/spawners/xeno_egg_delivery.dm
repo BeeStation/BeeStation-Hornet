@@ -2,7 +2,7 @@
 	name = "xeno egg delivery"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "egg_growing"
-	var/announcement_time = 1200
+	var/announcement_time = 2 MINUTES
 
 /obj/effect/spawner/xeno_egg_delivery/Initialize(mapload)
 	. = ..()
@@ -21,7 +21,7 @@
 	name = "\"xeno egg\" delivery"
 	icon = 'icons/mob/clothing/mask.dmi'
 	icon_state = "clown"
-	var/announcement_time = 1000
+	var/announcement_time = 100 SECONDS
 
 /obj/effect/spawner/xeno_egg_delivery_troll/Initialize(mapload)
 	. = ..()

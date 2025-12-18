@@ -29,7 +29,7 @@
 
 /obj/item/organ/heart/gland/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
@@ -41,6 +41,9 @@
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1
+
+	owner?.mind?.add_antag_datum(/datum/antagonist/abductee)
+
 	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/heart/gland/proc/update_gland_hud()
@@ -77,38 +80,43 @@
 	owner.clear_alert("mind_control")
 	active_mind_control = FALSE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	active = 0
+/obj/item/organ/heart/gland/Remove(mob/living/carbon/gland_owner, special = FALSE, pref_load = FALSE)
+	. = ..()
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.remove_from_hud(owner)
+	gland_owner?.mind?.remove_antag_datum(/datum/antagonist/abductee)
+	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
-	..()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = 0)
-	..()
+/obj/item/organ/heart/gland/Insert(mob/living/carbon/gland_owner, special = FALSE, drop_if_replaced = TRUE)
+	. = ..()
+	if(!.)
+		return
+
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(owner)
+	hud.add_to_hud(gland_owner)
 	update_gland_hud()
 
 /obj/item/organ/heart/gland/on_life(delta_time, times_fired)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
 	if(COOLDOWN_FINISHED(src, activation_cooldown))
 		activate()
 		uses--
 		COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/heart/gland/proc/activate()
 	return
@@ -137,13 +145,15 @@
 	mind_control_uses = 1
 	mind_control_duration = 2400
 
-/obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/gland/slime/on_insert(mob/living/carbon/gland_owner)
+	. = ..()
 	owner.faction |= FACTION_SLIME
 	owner.grant_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
-/obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
+/obj/item/organ/heart/gland/slime/on_remove(mob/living/carbon/gland_owner)
+	. = ..()
+	if(!owner) // Add null check
+		return
 	owner.faction -= FACTION_SLIME
 	owner.remove_language(/datum/language/slime, source = LANGUAGE_GLAND)
 
@@ -180,7 +190,7 @@
 				H.confused += 15
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
 			if(3)
-				H.hallucination += 60
+				H.adjust_hallucinations(120 SECONDS)
 
 /obj/item/organ/heart/gland/pop
 	true_name = "anthropmorphic translocator"
@@ -304,13 +314,13 @@
 	mind_control_uses = 2
 	mind_control_duration = 900
 
-/obj/item/organ/heart/gland/electric/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	..()
-	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
+/obj/item/organ/heart/gland/electric/on_insert(mob/living/carbon/gland_owner)
+	. = ..()
+	ADD_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
-/obj/item/organ/heart/gland/electric/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
-	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, ORGAN_TRAIT)
-	..()
+/obj/item/organ/heart/gland/electric/on_remove(mob/living/carbon/gland_owner)
+	. = ..()
+	REMOVE_TRAIT(gland_owner, TRAIT_SHOCKIMMUNE, ABDUCTOR_GLAND_TRAIT)
 
 /obj/item/organ/heart/gland/electric/activate()
 	owner.visible_message(span_danger("[owner]'s skin starts emitting electric arcs!"),\
@@ -319,7 +329,7 @@
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/heart/gland/electric/proc/zap()
-	tesla_zap(owner, 4, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN)
+	tesla_zap(owner, 4, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
 /obj/item/organ/heart/gland/chem

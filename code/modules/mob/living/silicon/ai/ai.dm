@@ -10,7 +10,6 @@
 				subject.attack_ai(M)
 	return is_in_use
 
-
 /mob/living/silicon/ai
 	name = JOB_NAME_AI
 	real_name = JOB_NAME_AI
@@ -40,7 +39,7 @@
 	var/requires_power = POWER_REQ_ALL
 	var/can_be_carded = TRUE
 	var/icon/holo_icon //Default is assigned when AI is created.
-	var/obj/vehicle/sealed/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
+	var/obj/controlled_equipment //A piece of equipment, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
 	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/multitool/aiMulti
@@ -168,7 +167,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	if(isturf(loc))
 		add_verb(list(
-			/mob/living/silicon/ai/proc/ai_network_change,
 			/mob/living/silicon/ai/proc/ai_hologram_change,
 			/mob/living/silicon/ai/proc/botcall,
 			/mob/living/silicon/ai/proc/control_integrated_radio,
@@ -179,7 +177,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	GLOB.shuttle_caller_list += src
 
 	builtInCamera = new (src)
-	builtInCamera.network = list(CAMERA_NETWORK_STATION)
+	builtInCamera.network = list()
 
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, ROUNDSTART_TRAIT)
@@ -293,12 +291,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 				robot_status = "OFFLINE"
 			else if(!R.cell || R.cell.charge <= 0)
 				robot_status = "DEPOWERED"
-			//Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+			//Name, Health, Battery, Model, Area, and Status! Everything an AI wants to know about its borgies!
 			index++
 			tab_data["[R.name] (Connection [index])"] = list(
 				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
-					Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
-				type=STAT_TEXT)
+					Model: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]", type = STAT_TEXT)
 		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
@@ -492,7 +489,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 			log_game("Warning: possible href exploit by [key_name(usr)] - attempted control of a mecha without can_dominate_mechs or a control beacon in the mech.")
 			return
 
-		if(controlled_mech)
+		if(controlled_equipment)
 			to_chat(src, span_warning("You are already loaded into an onboard computer!"))
 			return
 		if(!GLOB.cameranet.checkCameraVis(M))
@@ -580,50 +577,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /mob/living/silicon/ai/proc/alarm_cleared(datum/source, alarm_type, area/source_area)
 	SIGNAL_HANDLER
 	queueAlarm("--- [alarm_type] alarm in [source_area.name] has been cleared.", alarm_type, 0)
-
-//Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
-//Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
-//Addition by Mord_Sith to define AI's network change ability
-/mob/living/silicon/ai/proc/ai_network_change()
-	set category = "AI Commands"
-	set name = "Jump To Network"
-	unset_machine()
-	var/cameralist[0]
-
-	if(incapacitated())
-		return
-
-	var/mob/living/silicon/ai/U = usr
-
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if(!(is_station_level(C.z) || is_mining_level(C.z)))
-			continue
-		if(!C.can_use())
-			continue
-
-		for(var/i in C.network)
-			if (i == CAMERA_NETWORK_RESEARCH || i == CAMERA_NETWORK_TOXINS_TEST || i == CAMERA_NETWORK_PRISON)
-				continue
-			cameralist[i] = i
-	var/old_network = network
-	network = input(U, "Which network would you like to view?") as null|anything in sort_list(cameralist)
-	if(ai_tracking_target)
-		ai_stop_tracking()
-	if(!U.eyeobj)
-		U.view_core()
-		return
-
-	if(isnull(network))
-		network = old_network // If nothing is selected
-	else
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			if(!C.can_use())
-				continue
-			if(network in C.network)
-				U.eyeobj.setLoc(get_turf(C))
-				break
-	to_chat(src, span_notice("Switched to the \"[uppertext(network)]\" camera network."))
-//End of code by Mord_Sith
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
@@ -910,10 +863,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(malf_picker)
 		stack_trace("Attempted to give malf AI malf picker to \[[src]\], who already has a malf picker.")
 		return
+
 	malf_picker = new /datum/module_picker
-	if(!IS_MALF_AI(src)) //antagonists have their modules built into their antag info panel. this is for adminbus and the combat upgrade
-		modules_action = new(malf_picker)
-		modules_action.Grant(src)
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // AI needs to work as their own...
@@ -946,11 +899,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		clear_fullscreen("remote_view", 0)
 
-/mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
+/mob/living/silicon/ai/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.) //successfully ressuscitated from death
-		set_core_display_icon(display_icon_override)
-		set_eyeobj_visible(TRUE)
+	if(!.) //successfully ressuscitated from death
+		return
+
+	set_core_display_icon(display_icon_override)
+	set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/tilt(turf/target, damage, chance_to_crit, paralyze_time, damage_type = BRUTE, rotation = 90)
 	if(!target.is_blocked_turf(TRUE, src, list(src)))
@@ -970,10 +925,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					switch(crit_case) // only carbons can have the fun crits
 						if(1) // shatter their legs and bleed 'em
 							carbon_target.bleed(150)
-							var/obj/item/bodypart/l_leg/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
+							var/obj/item/bodypart/leg/left/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
 							if(l)
 								l.receive_damage(brute=200, updating_health=TRUE)
-							var/obj/item/bodypart/r_leg/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
+							var/obj/item/bodypart/leg/right/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
 							if(r)
 								r.receive_damage(brute=200, updating_health=TRUE)
 							if(l || r)
@@ -1035,7 +990,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
 
-/mob/living/silicon/ai/verb/deploy_to_shell(var/mob/living/silicon/robot/target)
+/mob/living/silicon/ai/verb/deploy_to_shell(mob/living/silicon/robot/target)
 	set category = "AI Commands"
 	set name = "Deploy to Shell"
 
@@ -1049,7 +1004,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	for(var/borgie in GLOB.available_ai_shells)
 		var/mob/living/silicon/robot/R = borgie
-		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)) || (R.ratvar && !is_servant_of_ratvar(src)))
+		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)) || (R.ratvar && !IS_SERVANT_OF_RATVAR(src)))
 			possible += R
 
 	if(!LAZYLEN(possible))
@@ -1058,7 +1013,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = input(src, "Which body to control?") as null|anything in sort_names(possible)
 
-	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
+	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !IS_SERVANT_OF_RATVAR(src)))
 		return
 
 	if(target.is_jammed(JAMMER_PROTECTION_AI_SHELL))
@@ -1066,11 +1021,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return
 
 	else if(mind)
-		soullink(/datum/soullink/sharedbody, src, target)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
 		deployed_shell = target
 		transfer_observers_to(deployed_shell) // ai core to borg shell
 		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg
-		if(is_servant_of_ratvar(src) && !deployed_shell.ratvar)
+		if(IS_SERVANT_OF_RATVAR(src) && !deployed_shell.ratvar)
 			deployed_shell.SetRatvar(TRUE)
 		target.deploy_init(src)
 		mind.transfer_to(target)
@@ -1079,7 +1034,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/on_activate(mob/user, atom/target)
@@ -1091,7 +1046,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
@@ -1149,6 +1104,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+/mob/living/silicon/ai/get_exp_list(minutes)
+	. = ..()
+
+	var/datum/job/ai/ai_job_ref = SSjob.GetJobType(/datum/job/ai)
+
+	.[ai_job_ref.title] = minutes
 
 /mob/living/silicon/ai/verb/change_photo_camera_radius()
 	set category = "AI Commands"

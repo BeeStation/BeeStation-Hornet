@@ -2,7 +2,7 @@
 	desc = "A close-fitting mask that can be connected to an air supply."
 	name = "breath mask"
 	icon_state = "breath"
-	item_state = "m_mask"
+	inhand_icon_state = "m_mask"
 	body_parts_covered = 0
 	clothing_flags = MASKINTERNALS
 	visor_flags = MASKINTERNALS
@@ -13,7 +13,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
-
+	custom_price = 10
 
 /datum/armor/mask_breath
 	bio = 50
@@ -25,11 +25,6 @@
 /obj/item/clothing/mask/breath/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/breath/AltClick(mob/user)
-	..()
-	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, !iscyborg(user)))
-		adjustmask(user)
-
 /obj/item/clothing/mask/breath/examine(mob/user)
 	. = ..()
 	. += span_notice("Alt-click [src] to adjust it.")
@@ -38,7 +33,7 @@
 	desc = "A close-fitting sterile mask that can be connected to an air supply."
 	name = "medical mask"
 	icon_state = "medical"
-	item_state = "m_mask"
+	inhand_icon_state = "m_mask"
 	armor_type = /datum/armor/breath_medical
 	equip_delay_other = 10
 

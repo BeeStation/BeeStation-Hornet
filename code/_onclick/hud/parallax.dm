@@ -1,12 +1,11 @@
 
-/client
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
-	var/turf/previous_turf
-	var/parallax_movedir = 0
-	var/parallax_layers_max = 4
-	var/parallax_animate_timer
-	var/frozen_parallax
+/client/var/list/parallax_layers
+/client/var/list/parallax_layers_cached
+/client/var/turf/previous_turf
+/client/var/parallax_movedir = 0
+/client/var/parallax_layers_max = 4
+/client/var/parallax_animate_timer
+/client/var/frozen_parallax
 
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -16,12 +15,12 @@
 
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_1(null, C.view)
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_2(null, C.view)
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null, C.view)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_1(null, null, C.view)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_2(null, null, C.view)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null, null, C.view)
 		if(SSparallax.random_layer)
-			C.parallax_layers_cached += new SSparallax.random_layer
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_3(null, C.view)
+			C.parallax_layers_cached += new SSparallax.random_layer(null, null, C.view)
+		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_3(null, null, C.view)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
@@ -268,11 +267,13 @@
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 
-/atom/movable/screen/parallax_layer/Initialize(mapload, view)
+/atom/movable/screen/parallax_layer/Initialize(mapload, datum/hud/hud_owner, view)
 	. = ..()
-	if (!view)
-		view = world.view
-	update_o(view)
+	// Parallax layers are independent of hud, they care about client
+	// This ensures we never have a hud_owner set
+	set_new_hud(hud_owner = null)
+
+	update_o(view || world.view)
 
 /atom/movable/screen/parallax_layer/proc/update_o(view)
 	if (!view)
@@ -321,7 +322,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer)
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/parallax_layer/random/space_gas)
 
-/atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
+/atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, datum/hud/hud_owner, view)
 	. = ..()
 	src.add_atom_colour(SSparallax.assign_random_parallax_colour(), ADMIN_COLOUR_PRIORITY)
 

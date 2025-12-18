@@ -222,7 +222,7 @@
 
 	return data
 
-/obj/machinery/plantgenes/proc/find_gene_by_id(var/gene_id)
+/obj/machinery/plantgenes/proc/find_gene_by_id(gene_id)
 	for(var/datum/plant_gene/gene in core_genes)
 		if(get_gene_id(gene) == gene_id)
 			return gene

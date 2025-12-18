@@ -16,29 +16,41 @@
 /datum/bounty/item/mech/ripleymk2
 	name = "APLU MK-II \"Ripley\""
 	reward = 13000
-	wanted_types = list(/obj/vehicle/sealed/mecha/ripley/mk2)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/ripley/mk2 = TRUE,
+	)
 
 /datum/bounty/item/mech/clarke
 	name = "Clarke"
 	reward = 16000
-	wanted_types = list(/obj/vehicle/sealed/mecha/clarke)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/clarke = TRUE,
+	)
 
 /datum/bounty/item/mech/odysseus
 	name = "Odysseus"
 	reward = 11000
-	wanted_types = list(/obj/vehicle/sealed/mecha/odysseus)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/odysseus = TRUE,
+	)
 
 /datum/bounty/item/mech/gygax
 	name = "Gygax"
 	reward = 28000
-	wanted_types = list(/obj/vehicle/sealed/mecha/gygax)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/gygax = TRUE,
+	)
 
 /datum/bounty/item/mech/durand
 	name = "Durand"
 	reward = 20000
-	wanted_types = list(/obj/vehicle/sealed/mecha/durand)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/durand = TRUE,
+	)
 
 /datum/bounty/item/mech/phazon
 	name = "Phazon"
 	reward = 100000
-	wanted_types = list(/obj/vehicle/sealed/mecha/phazon)
+	wanted_types = list(
+		/obj/vehicle/sealed/mecha/phazon = TRUE,
+	)

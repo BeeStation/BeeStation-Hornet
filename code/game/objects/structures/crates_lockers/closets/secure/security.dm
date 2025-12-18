@@ -51,7 +51,7 @@
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/head/hats/caphat(src)
-	new /obj/item/clothing/head/beret/captain(src)
+	new /obj/item/clothing/head/caphat/beret(src)
 	new /obj/item/clothing/head/hats/caphat/parade(src)
 	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
@@ -67,6 +67,7 @@
 
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
+	new /obj/item/dog_bone(src)
 	new /obj/item/storage/box/suitbox/hop(src)
 	new /obj/item/radio/headset/heads/head_of_personnel(src)
 
@@ -182,6 +183,7 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/alt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/alt/skirt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/white(src)
+	new /obj/item/clothing/under/rank/security/head_of_security/grey(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
 	new /obj/item/clothing/head/hats/hos(src)
@@ -193,15 +195,19 @@
 
 /obj/structure/closet/secure_closet/warden/PopulateContents()
 	..()
+	new /obj/item/dog_bone(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/suit/armor/vest/warden(src)
 	new /obj/item/clothing/head/hats/warden(src)
+	new /obj/item/clothing/head/hats/warden/red(src)
 	new /obj/item/clothing/head/hats/warden/drill(src)
 	new /obj/item/clothing/head/beret/sec/navywarden(src)
 	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/under/rank/security/warden/formal(src)
 	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/white(src)
+	new /obj/item/clothing/under/rank/security/warden/grey(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -228,6 +234,7 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/storage/belt/sabre/carbon_fiber(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -276,19 +283,11 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
-	new /obj/item/storage/box/evidence(src)
-	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/detective_scanner(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/reagent_containers/peppercloud_deployer(src)
+	new /obj/item/storage/backpack/duffelbag/sec/detective(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
-	new /obj/item/pinpointer/crew(src)
-	new /obj/item/binoculars(src)
-	new /obj/item/clothing/neck/tie/red(src)
-	new	/obj/item/clothing/neck/tie/black(src)
-	new /obj/item/clothing/neck/tie/detective(src)
-	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/clothing/glasses/hud/security(src)
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"

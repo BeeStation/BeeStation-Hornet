@@ -545,7 +545,7 @@
 	symptoms += SSdisease.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc))
+			var/symptom = tgui_input_list(user, "Choose a symptom to add, [i] remaining (Select \"Done\" at the end of the list to finalize early):", "Choose a Symptom", sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc)))
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -559,8 +559,11 @@
 
 	if(D.symptoms.len > 0)
 
-		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
+		var/new_name = tgui_input_text(user, "Name your new disease.", "New Name")
 		if(!new_name)
+			to_chat(user, span_warning("No name was given, using random name instead."))
+			new_name = D.random_disease_name()
+		if(tgui_alert(user, "Create Virus ([new_name]) as is?", "Confirmation", list("Yes", "No")) != "Yes")
 			return
 		D.AssignName(new_name)
 		D.Refresh()
@@ -582,7 +585,7 @@
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
 
-/datum/disease/advance/infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/infect(mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
@@ -612,7 +615,7 @@
 	log_virus("[key_name(infectee)] was infected by virus: [src.admin_details()] at [loc_name(source_turf)]")
 
 
-/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+/datum/disease/advance/proc/random_disease_name(atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
 	// If this just has 1 symptom, use that symptom's name.
 	if(length(symptoms) == 1)
 		var/datum/symptom/main_symptom = symptoms[1]
@@ -710,7 +713,7 @@
 		if(3)
 			return "[pick(bodies)][pick(suffixes)]"
 
-/datum/disease/advance/proc/logchanges(datum/reagents/holder, var/modification_type)
+/datum/disease/advance/proc/logchanges(datum/reagents/holder, modification_type)
 	if(holder?.my_atom?.fingerprintslast)
 		last_modified_by = holder.my_atom.fingerprintslast
 	else

@@ -25,14 +25,14 @@
 
 	if(iscarbon(clicked_on) && clicked_on.Adjacent(clicker))
 		var/mob/living/carbon/L = clicked_on
-		if(is_servant_of_ratvar(L))
-			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] a servant.\"</span>"))
+		if(IS_SERVANT_OF_RATVAR(L))
+			to_chat(clicker, ("<span class='neovgre'>\"[L.p_Theyre()] a servant.\"</span>"))
 			return FALSE
 		else if(L.stat)
 			to_chat(clicker, ("<span class='neovgre'>\"There is use in shackling the dead, but for examples.\"</span>"))
 			return FALSE
 		else if (istype(L.handcuffed, /obj/item/restraints/handcuffs/clockwork))
-			to_chat(clicker, ("<span class='neovgre'>\"[L.p_theyre(TRUE)] already helpless, no?\"</span>"))
+			to_chat(clicker, ("<span class='neovgre'>\"[L.p_Theyre()] already helpless, no?\"</span>"))
 			return FALSE
 
 		playsound(clicker.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE)
@@ -57,7 +57,7 @@
 	name = "replicant manacles"
 	desc = "Heavy manacles made out of freezing-cold metal. It looks like brass, but feels much more solid."
 	icon_state = "brass_manacles"
-	item_state = "brass_manacles"
+	inhand_icon_state = "brass_manacles"
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/clockwork/dropped(mob/user)

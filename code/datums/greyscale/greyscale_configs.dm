@@ -39,6 +39,11 @@
 	icon_file = 'icons/mob/carp.dmi'
 	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
+/datum/greyscale_config/garden_gnome
+	name = "Garden Gnome"
+	icon_file = 'icons/mob/garden_gnome.dmi'
+	json_config = 'code/datums/greyscale/json_configs/garden_gnome.json'
+
 /datum/greyscale_config/carp/disk_mouth
 	name = "Space Carp Disk in Mouth"
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
@@ -207,6 +212,26 @@
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_spacelizard.json'
 
+/datum/greyscale_config/beret
+	name = "Beret"
+	icon_file = 'icons/obj/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret.json'
+
+/datum/greyscale_config/beret/worn
+	name = "Beret Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_worn.json'
+
+/datum/greyscale_config/beret_badge
+	name = "Beret With Badge"
+	icon_file = 'icons/obj/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_badge.json'
+
+/datum/greyscale_config/beret_badge/worn
+	name = "Beret With Badge Worn"
+	icon_file = 'icons/mob/clothing/head/beret.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'
+
 /datum/greyscale_config/bandana
 	name = "Bandana"
 	icon_file = 'icons/obj/clothing/masks.dmi'
@@ -285,3 +310,23 @@
 	name = "Worn CTF Light Vest"
 	icon_file = 'icons/mob/clothing/suits/ctf.dmi'
 	json_config = 'code/datums/greyscale/json_configs/ctf_light_worn.json'
+
+/datum/greyscale_config/festive_hat
+	name = "Festive Hat"
+	icon_file = 'icons/obj/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/festive_hat.json'
+
+/datum/greyscale_config/festive_hat_worn
+	name = "Festive Hat Worn"
+	icon_file = 'icons/mob/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/festive_hat.json'
+
+/datum/greyscale_config/party_hat
+	name = "Party Hat"
+	icon_file = 'icons/obj/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/party_hat.json'
+
+/datum/greyscale_config/party_hat_worn
+	name = "Party Hat Worn"
+	icon_file = 'icons/mob/clothing/head/costume.dmi'
+	json_config = 'code/datums/greyscale/json_configs/party_hat.json'

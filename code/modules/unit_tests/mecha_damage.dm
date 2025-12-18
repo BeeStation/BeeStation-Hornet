@@ -24,7 +24,7 @@
 
 	// Get a sample "melee" weapon.
 	// The energy axe is chosen here due to having a high base force, to make sure we get over the equipment DT.
-	var/obj/item/dummy_melee = allocate(/obj/item/melee/transforming/energy/axe)
+	var/obj/item/dummy_melee = allocate(/obj/item/melee/energy/axe)
 	dummy_melee.force = 150
 	var/expected_melee_damage = round(dummy_melee.force * (1 - expected_melee_armor / 100) * demo_mech.facing_modifiers[MECHA_FRONT_ARMOUR], DAMAGE_PRECISION)
 
@@ -69,7 +69,7 @@
 	// SHOOT IT
 	var/pre_bullet_integrity = demo_mech.get_integrity()
 	var/pre_bullet_arm_integrity = left_arm_equipment.get_integrity()
-	dummy_gun.fire_gun(demo_mech, dummy, FALSE)
+	dummy_gun.pull_trigger(demo_mech, dummy, FALSE)
 
 	check_integrity(demo_mech, pre_bullet_integrity, expected_bullet_damage, "shot with a bullet")
 	check_integrity(left_arm_equipment, pre_bullet_arm_integrity, expected_bullet_damage, "shot with a bullet")

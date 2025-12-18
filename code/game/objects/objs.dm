@@ -8,25 +8,17 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	/// ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
 	var/set_obj_flags
 
+	/// Extra examine line to describe controls, such as right-clicking, left-clicking, etc.
+	var/desc_controls
+
+	/// Icon to use as a 32x32 preview in crafting menus and such
+	var/icon_preview
+	var/icon_state_preview
+
 	var/damtype = BRUTE
 	var/force = 0
 	/// How much bleeding damage do we cause, see __DEFINES/mobs.dm
 	var/bleed_force = 0
-
-	/*
-	VAR_PRIVATE/atom_integrity //defaults to max_integrity
-	/// The maximum integrity the object can have.
-	var/max_integrity = 500
-	/// The object will break once atom_integrity reaches this amount in take_damage(). 0 if we have no special broken behavior, otherwise is a percentage of at what point the obj breaks. 0.5 being 50%
-	var/integrity_failure = 0
-	/// Damage under this value will be completely ignored
-	var/damage_deflection = 0
-	/// Maximum damage that can be taken in a single hit
-	var/max_hit_damage = null
-
-	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
-	var/resistance_flags = NONE
-	*/
 
 	/// How much acid is on that obj
 	var/acid_level = 0
@@ -206,7 +198,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 	if(!machine)
 		return
-	UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(machine, COMSIG_QDELETING)
 	machine.on_unset_machine(src)
 	machine = null
 
@@ -218,7 +210,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if(machine)
 		unset_machine()
 	machine = O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
+	RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
@@ -308,10 +300,15 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 
 /obj/examine(mob/user)
 	. = ..()
-	if(obj_flags & UNIQUE_RENAME)
-		. += span_notice("Use a pen on it to rename it or change its description.")
+	if(desc_controls)
+		. += span_notice(desc_controls)
 	if(unique_reskin_icon && !current_skin)
 		. += span_notice("Alt-click it to reskin it.")
+
+/obj/examine_tags(mob/user)
+	. = ..()
+	if(obj_flags & UNIQUE_RENAME)
+		.["renameable"] = "Use a pen on it to rename it or change its description."
 
 /obj/AltClick(mob/user)
 	. = ..()
@@ -370,7 +367,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 //Where thing is the additional thing you want to same (For example ores inside an ORM)
 //Just add ,\n between each thing
 //generate_tgm_metadata(thing) handles everything inside the {} for you
-/obj/proc/on_object_saved(var/depth = 0)
+/obj/proc/on_object_saved(depth = 0)
 	return ""
 
 // Should move all contained objects to it's location.

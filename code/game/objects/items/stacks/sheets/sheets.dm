@@ -2,6 +2,7 @@
 	name = "sheet"
 	lefthand_file = 'icons/mob/inhands/misc/sheets_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/sheets_righthand.dmi'
+	icon_state = "sheet-metal_3"
 	full_w_class = WEIGHT_CLASS_NORMAL
 	force = 5
 	throwforce = 5
@@ -21,5 +22,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/sheet)
 
 /obj/item/stack/sheet/Initialize(mapload, new_amount, merge)
 	. = ..()
-	pixel_x = rand(-4, 4)
-	pixel_y = rand(-4, 4)
+	if(!pixel_y && !pixel_x)
+		pixel_x = rand(-4, 4)
+		pixel_y = rand(-4, 4)

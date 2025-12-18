@@ -54,6 +54,7 @@
 		it will become easier for others to find your item of power."
 	spell_type =  /datum/action/spell/lichdom
 	category = "Defensive"
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
@@ -77,14 +78,13 @@
 	spell_type = /datum/action/spell/conjure/bee
 	category = "Defensive"
 
-//There was supposed to be a cursed duffelbag that eats you but it requires code beyond the scope of this pr
-
-/datum/spellbook_entry/item/staffhealing
-	name = "Staff of Healing"
-	desc = "An altruistic staff that can heal the lame and raise the dead."
-	item_path = /obj/item/gun/magic/staff/healing
-	cost = 1
+//Essentially a lesser version of the locker staff that doesn't require a staff and is cheaper
+/datum/spellbook_entry/arcane_prison
+	name = "Arcane Prison"
+	desc = "Fires a sphere of magical energy that captures the first living target it hits inside for a short time."
+	spell_type = /datum/action/spell/pointed/projectile/arcane_prison
 	category = "Defensive"
+	cost = 1
 
 /datum/spellbook_entry/item/lockerstaff
 	name = "Staff of the Locker"
@@ -98,46 +98,57 @@
 	item_path = /obj/item/scrying
 	category = "Defensive"
 
-/datum/spellbook_entry/item/wands
-	name = "Wand Assortment"
-	desc = "A collection of wands that allow for a wide variety of utility. \
-		Wands have a limited number of charges, so be conservative with their use. Comes in a handy belt."
-	item_path = /obj/item/storage/belt/wands/full
+/datum/spellbook_entry/item/rewind_camera
+	name = "Rewind Camera"
+	desc = "A camera that reverts the subject of a photo back to when the photo was taken, after a time. Restores limbs and injuries, but not death. Refillable with film, and comes with three shots."
+	item_path = /obj/item/camera/rewind
 	category = "Defensive"
+	cost = 1
 
-/datum/spellbook_entry/item/wands/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
-	var/was_equipped = user.equip_to_slot_if_possible(to_equip, ITEM_SLOT_BELT, disable_warning = TRUE)
-	to_chat(user, ("<span class='notice'>\A [to_equip.name] has been summoned [was_equipped ? "on your waist" : "at your feet"].</span>"))
+/datum/spellbook_entry/item/rewind_camera/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
+	new /obj/item/camera_film(get_turf(user)) //the camera only natively has one shot, so we'll give some reloads until they can raid the library
+	new /obj/item/camera_film(get_turf(user))
+	new /obj/item/camera_film(get_turf(user))
+	. = ..()
 
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armour Set"
 	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space."
-	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
+	item_path = /obj/item/mod/control/pre_equipped/enchanted
 	category = "Defensive"
 
-/datum/spellbook_entry/item/armor/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
-	new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
-	new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
-	new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
-	. = ..()
-
-/datum/spellbook_entry/item/shielded_armor
-	name = "Shielded Mastercrafted Armour Set"
-	desc = "An artefact suit of armour that allows you to cast spells while providing more protection against attacks and the void of space. A shielded variation that requires additional charges to be bought in order to restore it's magical shields"
-	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	category = "Defensive"
-
-/datum/spellbook_entry/item/shielded_armor/buy_spell(mob/living/carbon/human/user, obj/item/spellbook/book)
-	new /obj/item/clothing/shoes/sandal/magic(get_turf(user)) //In case they've lost them.
-	new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
-	new /obj/item/clothing/mask/breath(get_turf(user)) // so the air gets to your mouth. Just an average mask.
-	new /obj/item/tank/internals/emergency_oxygen/magic_oxygen(get_turf(user)) // so you have something to actually breathe. Near infinite.
-	. = ..()
+/datum/spellbook_entry/item/armor/try_equip_item(mob/living/carbon/human/user, obj/item/to_equip)
+	var/obj/item/mod/control/mod = to_equip
+	var/obj/item/mod/module/storage/storage = locate() in mod.modules
+	var/obj/item/back = user.back
+	if(back)
+		if(!user.dropItemToGround(back))
+			return
+		for(var/obj/item/item as anything in back.contents)
+			item.forceMove(storage)
+	if(!user.equip_to_slot_if_possible(mod, mod.slot_flags, qdel_on_fail = FALSE, disable_warning = TRUE))
+		return
+	if(!user.dropItemToGround(user.wear_suit) || !user.dropItemToGround(user.head))
+		return
+	mod.quick_activation()
 
 /datum/spellbook_entry/item/battlemage_charge
 	name = "Battlemage Armour Charges"
 	desc = "A powerful defensive rune, it will grant eight additional charges to a battlemage shield."
 	item_path = /obj/item/wizard_armour_charge
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/item/healing_wand
+	name = "Wand of Healing"
+	desc = "A wand that can close any wound, though it cannot restore limbs or organs. You can use it on yourself."
+	item_path = /obj/item/gun/magic/wand/healing
+	category = "Defensive"
+	cost = 1
+
+/datum/spellbook_entry/item/ice_wand
+	name = "Wand of Icy Blast"
+	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
+	item_path = /obj/item/gun/magic/wand/icy_blast
 	category = "Defensive"
 	cost = 1

@@ -2,7 +2,7 @@
 	name = "Bolt Rifle"
 	desc = "Some kind of bolt action rifle. You get the feeling you shouldn't have this."
 	icon_state = "moistnugget"
-	item_state = "moistnugget"
+	inhand_icon_state = "moistnugget"
 	worn_icon_state = "moistnugget"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
@@ -20,7 +20,7 @@
 	..()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
-/obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+/obj/item/gun/ballistic/rifle/after_live_shot_fired(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
 		if(!is_wielded)
 			recoil = 5
@@ -36,11 +36,11 @@
 	name = "\improper Mosin Nagant"
 	desc = "This piece of junk looks like something that could have been used 700 years ago. It feels slightly moist."
 	icon_state = "moistnugget"
-	item_state = "moistnugget"
+	inhand_icon_state = "moistnugget"
 	can_sawoff = TRUE
 	sawn_name = "\improper Mosin Obrez"
 	sawn_desc = "A hand cannon of a rifle, try not to break your wrists."
-	sawn_item_state = "halfnugget"
+	sawn_inhand_icon_state = "halfnugget"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	can_bayonet = TRUE
@@ -76,10 +76,10 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	pin = /obj/item/firing_pin/magic
 	icon_state = "arcane_barrage"
-	item_state = "arcane_barrage"
+	inhand_icon_state = "arcane_barrage"
 	slot_flags = null
 	can_bayonet = FALSE
-	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON
+	item_flags = NEEDS_PERMIT | DROPDEL | ABSTRACT | NOBLUDGEON | SLOWS_WHILE_IN_HAND | NO_WORN_SLOWDOWN
 	flags_1 = NONE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
@@ -98,7 +98,7 @@
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/attack_self()
 	return
 
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/ballistic/rifle/boltaction/enchanted/fire_shot_at(mob/living/user, atom/target, message, params, zone_override, aimed)
 	. = ..()
 	if(!.)
 		return
@@ -121,7 +121,7 @@
 	icon_state = "leverrifle"
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
-	item_state = "leveraction"
+	inhand_icon_state = "leveraction"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BACK
@@ -151,8 +151,8 @@
 	icon_state = "piperifle"
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
-	item_state = "shotgun_improv"
-	sawn_item_state = "shotgun_improv_shorty"
+	inhand_icon_state = "shotgun_improv"
+	sawn_inhand_icon_state = "shotgun_improv_shorty"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	bolt_type = BOLT_TYPE_NO_BOLT

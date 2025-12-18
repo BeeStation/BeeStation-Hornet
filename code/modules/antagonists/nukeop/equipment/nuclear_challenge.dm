@@ -6,7 +6,7 @@
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault.  \
@@ -50,7 +50,6 @@
 	declare_war(user, war_declaration)
 
 /obj/item/nuclear_challenge/proc/declare_war(mob/user, war_declaration)
-	set_dynamic_high_impact_event("nuclear operatives have declared war")
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 	SSsecurity_level.set_level(SEC_LEVEL_BLACK)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(play_soundtrack_music), /datum/soundtrack_song/bee/future_perception), 7 SECONDS)

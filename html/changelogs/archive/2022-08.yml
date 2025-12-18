@@ -1,0 +1,332 @@
+2022-08-01:
+  etherware-novice:
+  - rscadd: Added inspect text for the splashscreen turf
+2022-08-02:
+  Penwin0:
+  - admin: admin requests pannel now updates with new requests
+  benbot16:
+  - refactor: Refactors minebot code.
+  - rscadd: Minebots can now autonomously mine when set to mining mode. However, they
+      won't avoid obstacles such as lava while this is active, so you should still
+      keep an eye on them.
+  - rscadd: Minebots aren't gibbed on death, and can be revived with a welder.
+  - tweak: Removing ore from a minebot is now done by alt-clicking the minebot.
+  - rscadd: Adds a weatherproofing module, an automatic ore pickup module, and a medipen
+      module for minebots.
+  - balance: The minebot AI upgrade doesn't nerf a minebot's stats anymore, however
+      some upgrades have been changed to compensate for this.
+  - balance: Minebots can now equip additional equipment such as plasma cutters, advanced
+      drills, and mining scanners. These can be attached to a minebot by using them
+      on said minebot.
+  coiax, Bazelart at TGI Friday's, TheBonded, Ghilker ported by mystery3525:
+  - rscadd: Supermatter delamination now spawns anomalies across the station, both
+      instantly and overtime.
+  - refactor: Moves supermatter delamination to its own datum.
+  - rscadd: New hallucination anomaly which creates powerful hallucination pulses.
+  - rscadd: New delimber anomaly which randomizes and even rips off organs/limbs.
+  - balance: Each of the reactive armors now have unique negative effects when emp'ed.
+  - bugfix: Psychologists are no longer mistakenly told they have headaches
+  itsmeow:
+  - rscadd: Persistent auto-updating Morph UI with favorites system
+  - refactor: Morph stomach contents now uses TGUI
+  - bugfix: Morph menu HUD icon is no longer invisible
+  - bugfix: Rapid attacking as morph no longer spams your chat with messages
+  - rscdel: Removed morph Strip button in favor of regular stripping as it was extremely
+      buggy
+  - tweak: Digesting a mob as morph now drops it before dusting it
+  - tweak: Digesting a mob with items no longer "strips" it first, instead the items
+      are dropped onto the ground around the morph
+  - tweak: Morph can now morph into other things without going back to its normal
+      form
+  - tweak: You can now remove your throw target as morph
+  - code_imp: Fixed issue with icon2base64
+2022-08-03:
+  zeskorion:
+  - bugfix: fixes an exploit involving superficial healing and regen coma
+  - balance: superficial healing and regen coma no longer have an undocumented stage
+      speed six threshold that doubles healing
+2022-08-04:
+  Penwin0:
+  - bugfix: mesons protect you from SM hallucinations properly again
+2022-08-05:
+  DatBoiTim:
+  - tweak: Changed the flavor description of Cognac
+  Penwin0:
+  - bugfix: Cultists can't draw the cluwne rune anymore
+2022-08-07:
+  ro5490:
+  - admin: Cigarettes and similar now have proper logs
+  - bugfix: fixed logging cigs
+2022-08-08:
+  Crossedfall:
+  - server: Fail2Topic logging migrated from world logging to topic logging
+  DarkwindLeaf:
+  - rscadd: Nostalgic winter coats added to BeeCoin shop.
+  - rscadd: Atmospherics winter coat added to BeeCoin shop.
+  Penwin0:
+  - admin: Makes hypnosis and brainwash logging appear in attack log
+  Phil Smith:
+  - balance: Thermal vision (the mutation) is no longer obtainable
+  PowerfulBacon:
+  - bugfix: Fixes fail2topic firewall banning not working.
+  Sarchutar:
+  - refactor: refactored the cyborg power connector code
+  - rscadd: changing modes of the power connector now uses a balloon alert
+  - rscadd: limit when charging things to not accidentally completely drain ones cell
+  - rscadd: when drawing power/charging it has a progress bar now
+  - bugfix: fixed a bug which made the connector unusable when moving while drawing
+      power from a cell
+  benbot16:
+  - balance: Tweaks xenomorph embryo bursting time. Embryos will now take 2.5-3.5
+      minutes to burst.
+  - balance: Xenomorph embryo growth times now scale based on the amount of living
+      xenos.
+  itsmeow:
+  - bugfix: Overmind and eminence can no longer see runechat
+  - bugfix: Imaginary friends can hear again
+  - bugfix: Using staff of change on remote AI shells will first disconnect the AI
+      instead of locking them into the new body.
+  - bugfix: Staff of change transformations on silicons no longer drops their internal,
+      unobtainable parts.
+  - rscadd: Added a message when transformed into antagonistic forms with the staff
+      of change not to self-antag.
+  - rscadd: The ability to change what type of titanium floor tiles you wish to place
+      via shift-clicking your stack of titanium floor tiles.
+  - rscadd: New smooth titanium floor sprite as an option
+  - code_imp: Added object path keys to radials
+  - code_imp: Added generic tile reskinning system
+  ivanmixo:
+  - rscadd: The tank transfer valve now uses tgui for it's interface
+  - admin: Added more robust logging for tank transfer valves and signalers
+  zeskorion:
+  - rscdel: random organ drops no longer create teratoma spawners. this means maint
+      and mail tomas no longer exist, either
+  - tweak: pituitary disruption no longer makes you grow nearly as large
+  - balance: pituitary disruption no longer drops random organs from monkeys
+2022-08-09:
+  Dejaku51, WarlockD:
+  - rscadd: Turning off ntnet remote system control makes it so you can't use door
+      remotes
+  - code_imp: updated ntnet code
+  Penwin0:
+  - tweak: changelings can now use augmented eyesight in monkey mode
+  PestoVerde322:
+  - config: protects fail2topic configs
+  itsmeow:
+  - rscadd: Added floor tile sprayer for spraying colored corners onto floors
+  - rscadd: Added toner cartridge examine message showing ink level
+  - tweak: Tool belts can hold airlock/decal/floor sprayers
+  - code_imp: Added button vertical alignment prop
+  - rscadd: New airlock, decal, extreme decal, and floor painter sprites
+  - tweak: Alt-Clicking is no longer used to set designs on decal painters, instead
+      it removes the ink cartridge
+  ? itsmeow, Mothblocks, Y0SH1M4S73R, IndieanaJones, Iamgoofball, wesoda25, Watermelon914,
+    tf-4, Ghommie, JohnFulpWillard, Mooshimi, MrMelbert
+  : - balance: Changed most dynamic weights, threats, and minimum player requirements.
+        They will all be different and hopefully more balanced now.
+    - bugfix: dynamic will no longer spawn abductors if there aren't enough applicants
+        for a proper 2-person abductor team
+    - rscadd: Revenant, Space Pirates, and Obsessed have been added to dynamic mode.
+    - bugfix: Fixes the lone operative event hardly ever rolling even if the disk
+        is left on the same place for hours on dynamic.
+    - server: Dynamic now has an extra configuration value, max_threat_level. Defaults
+        to 100 threat.
+    - balance: Makes wizard a high impact ruleset.
+    - bugfix: A lack of candidates for certain antags will no longer runtime
+    - balance: Midround rolls will now happen more frequently, with their power scaling
+        up over time.
+    - bugfix: Fixed midrounds not logging properly.
+    - balance: Winning dynamic revs no longer adds midround threat. Instead, it'll
+        force a heavy ruleset to spawn, and barring that, will spawn a dangerous random
+        event.
+    - server: Added more dynamic logging
+  mc_meiler:
+  - tweak: Coffins now sell for 140 instead of 250 credits.
+2022-08-10:
+  Sarchutar, Mothblocks, Wayland-Smithy:
+  - bugfix: Chat highlighting now takes every entry into account
+  - rscadd: Hightlighting can now be case sensitive and/or matched by whole words
+  - tweak: Messages sent by yourself no longer highlight
+  itsmeow:
+  - refactor: Software Downloader program UI revamp
+  - tweak: The NtOS home screen has been updated with disk and ID eject buttons.
+  - rscadd: Added support for modular PC expansion bays, or hardware bays designed
+      to be used by nonessential hardware. Devices have a limited number of bays (tablets
+      less than others).
+  - balance: The AI card slot, printer, and APC-siphoning recharger are now expansion
+      bay hardware.
+  - balance: The modular PC atmos scanner now requires a new expansion bay hardware
+      item - the sensor package. Certain shift-start tablets have been adjusted to
+      reflect this.
+  - refactor: Modular PC card readers have been split -- The primary ID card reader,
+      which comes pre-installed on nearly all devices, and a secondary ID card reader
+      which is an expansion bay hardware and will need to be purchased separately.
+      Certain shift-start devices have a secondary reader pre-installed.
+  - bugfix: Buying a tablet from the Laptop/Tablet vendor, and paying extra for the
+      mini-printer, will now attach the correct printer rather than attempt to stuff
+      a laptop printer into a tablet and silently fail but still take your cash.
+  - rscadd: Added icons for all modular computer programs
+  - rscadd: Supermatter Monitoring will now send notifications if the app is closed
+      with a supermatter selected, and the selected supermatter starts delaminating.
+  - bugfix: Modular computers can now be attacked with non-help intent.
+  - code_imp: Fixes a runtime error with recharger examine text if the inserted item's
+      power cell is null
+  - bugfix: Fixed a runtime with ID modification program when the second ID slot is
+      missing.
+  - bugfix: ID modification program now follows the standard for ID reading and requires
+      you to insert your card.
+  - tweak: Primary and secondary ID card slots in ModPCs have separate names to make
+      it easier to differentiate.
+2022-08-12:
+  Froststahr:
+  - tweak: A cancel button has been added to the admin cinematic input dialog
+  PowerfulBacon:
+  - balance: Cameras can no longer be upgraded with an analyser.
+  SapphicOverload:
+  - tweak: atmospherics beret now obtainable from the AtmosDrobe vendor
+  Seris02:
+  - bugfix: fixes a runtime in detective_work.dm
+  itsmeow:
+  - bugfix: Tablet flashlights no longer incorrectly start as ON
+2022-08-13:
+  Miliviu:
+  - rscadd: added the Mothroach cargo crate
+  bluezorua:
+  - rscadd: You can now tame and ride dolphins like space carp
+  etherware-novice:
+  - tweak: intern no longer hides the shuttle call reason
+2022-08-14:
+  Dejaku51:
+  - tweak: scrubbers and vents are numbered once again
+  Isy232:
+  - tweak: Engineering circuit imprinters are once again generic.
+  SapphicOverload:
+  - tweak: gas synthesis gives discovery research
+2022-08-17:
+  CydiaLamiales:
+  - rscadd: Added the wig and the natural wig to the BeeCoin store
+  The-Moon-Itself:
+  - bugfix: Atmos machines initialize properly when maploaded. Traitor shuttle capsules
+      are functional again!
+  etherware-novice:
+  - rscadd: Nanotrasen has weakened the dna lock on mail, allowing changelings to
+      open their disguise's mail.
+2022-08-18:
+  etherware-novice:
+  - balance: social anxiety trait now works
+  - rscadd: social anxiety trait has unique moodlets
+  ivanmixo:
+  - admin: Mods no longer have access to the supplypod menu
+2022-08-19:
+  Impish_Delights:
+  - rscadd: Added additional set of deny and approval stamps to QM's office
+  - rscadd: Added HoS stamp to HoS's quarters
+  - rscadd: Added Ecto-Sniffer to robotics, to bring in line with other maps
+  - rscadd: Added chest drawers to store paperwork in both the HoP's office, and cargo
+      lobby
+  - rscdel: Removed redundant Captain's stamp from quarters
+  - tweak: Shifted around RD & CMO stamps so they are not hidden under items at round
+      start
+  - tweak: Modified cargo bay lobby to have a desk, consoles shifted to side
+  ivanmixo:
+  - balance: The delimber anomaly doesn't give out random organs anymore
+  - balance: The delimber anomaly isn't eternal anymore
+2022-08-20:
+  benbot16:
+  - bugfix: Fixes the xenomorph transfer plasma ability
+  - tweak: Silicons can now speak apidite
+  etherware-novice:
+  - rscadd: new scarfs now in the ooc store
+2022-08-21:
+  etherware-novice:
+  - tweak: air scrubber and pump has a proper description now
+  ivanmixo:
+  - rscadd: Getting batonned makes you shake and stutter
+2022-08-23:
+  PowerfulBacon:
+  - tweak: Alt clicking on suits that contain embedded storage (pockets) will now
+      open the inventory instead of adjusting the style of that article of clothing.
+      Adjusting the style can be done through the context menu or the stat panel under
+      the object tab.
+2022-08-24:
+  Naevii:
+  - tweak: Change most sprites in cult.dmi
+  - tweak: Change bloodspear sprites in polearms_(lefthand & righthand).dmi
+  - tweak: Change cultblade sprites in swords_(lefthand & righthand).dmi
+  - tweak: Change cultrobe sprites in suit.dmi
+  - tweak: Change cultrobe sprites in clothing_(lefthand & righthand).dmi
+  - tweak: Change cultrobe sprites in suits.dmi
+  - tweak: Change mirror-shield in shields.dmi
+  - tweak: Change mirror shield in shields_(lefthand & righthand).dmi
+2022-08-28:
+  CydiaLamiales:
+  - bugfix: Fixes the spite of the Virologist action toy
+  - rscadd: Added brute healing to Salicyclic Acid's overdose.
+  - rscadd: More accurate descriptions to Salicyclic Acid and Oxandrolone.
+  - rscdel: Removed burn healing from Salicyclic Acid's overdose
+  Penwin0:
+  - tweak: You can't upgrade cameras to have xray anymore
+  PestoVerde322:
+  - rscadd: Better melee attack animation, sliding to attack is no more.
+  PowerfulBacon:
+  - bugfix: Optical ecto-scanners no longer work if toggled in your pocket.
+  - tweak: Optical ecto-scanners now have a flash protect of 2 while down
+  - tweak: Optical ecto-scanners now have a green tint when worn
+  'PowerfulBacon (Porting), TiviPlus, spookydonut, MrStonedOne, ':
+  - code_imp: Updates our master controller to the current one that TG is using
+  - bugfix: Fixes subsystem freezing hopefully.
+  Sarchutar:
+  - rscadd: Highlighting for your own messages in chat is now a setting (default -
+      off, found next to the match word and case settings)
+  etherware-novice:
+  - spellcheck: The virus extrapolator has been upgraded to use proper grammar
+  - tweak: fixed ipcs being able to talk without any tongues (speakers)
+  ro5490:
+  - rscadd: Added Depleted Uranium Windows - created by using uranium in-hand
+  - rscadd: DU Windows block all radiation, make sure you've secured your setup with
+      either fulltiles or two layers of directionals!
+  - imageadd: added some icons for the above windows
+2022-08-29:
+  CydiaLamiales:
+  - bugfix: Moves the 'give' action code to the proper file
+  - rscadd: Adds a transparent PDA colorizer
+  - rscadd: Adds said colorizer to the BeeCoin store
+  - rscadd: Adds a blacklist to colorizers
+2022-08-30:
+  CydiaLamiales:
+  - rscadd: Adds 9 new emojis
+  - bugfix: Centers the green face emojis
+  EvilDragonfiend:
+  - tweak: Custom command job now has blue chat colour rather than assistant-like
+      white
+  Mat05usz:
+  - balance: Refresh rate for crew monitor goes up from 10 seconds to 60 seconds
+  Penwin0:
+  - bugfix: You can't remotely slap tables anymore
+  PestoVerde322:
+  - soundadd: Energy and Magic gunfire sound pitch now varies based on how much ammo
+      is left.
+  - soundadd: Ballistic and Energy gunfire now has a low-ammo click/fuse sound.
+  benbot16:
+  - bugfix: Fixes a bunch of autofire-related bugs.
+  etherware-novice:
+  - admin: new VV to trigger a payday
+  - rscadd: Nanotrasen has implemented kickflip skills into all employees, in an attempt
+      to boost skateboard sales.
+  itsmeow:
+  - tweak: All forms of mind-to-mind communication now properly capitalize and auto-punctuate
+      text.
+  - tweak: MMIs and posibrains now auto-punctuate speech.
+  - admin: Added logging to blob telepathy speech from non-overminds.
+  - tweak: Heads of staff can now message CentCom during Red Alert.
+2022-08-31:
+  LodedDiper69:
+  - rscadd: Added a new type of food, Pingles
+  PowerfulBacon:
+  - balance: Wizards now get pierce protection on their standard robes.
+  benbot16:
+  - tweak: Tweaks minebot HUDs a bit.
+  - tweak: Minebots can now use all of the silicon emotes, instead of just beep.
+  - bugfix: Fixes minebot radio implants.
+  - balance: Minebots can now use computer and shuttle consoles.
+  - balance: Minebots are now slightly faster.

@@ -366,11 +366,13 @@
 	if(debug_mode)
 		candidates = list(user)
 	else
-		candidates = poll_ghost_candidates(
-			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
-			jobban_type = ROLE_HOLOPARASITE,
-			poll_time = 30 SECONDS
-		)
+		var/datum/poll_config/config = new()
+		config.check_jobban = ROLE_HOLOPARASITE
+		config.poll_time = 30 SECONDS
+		config.jump_target = user
+		config.role_name_text = "[holopara_name], [user]'s [theme.name]"
+		config.alert_pic = /mob/living/simple_animal/hostile/holoparasite
+		candidates = SSpolling.poll_ghost_candidates(config)
 	waiting = FALSE
 	if(!length(candidates))
 		theme.display_message(user, HOLOPARA_MESSAGE_FAILED)
@@ -433,8 +435,10 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	obj_flags = USES_TGUI
-	item_flags = EXAMINE_SKIP | NOBLUDGEON | NO_MAT_REDEMPTION
+	item_flags = NOBLUDGEON | NO_MAT_REDEMPTION
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 20000
+	max_demand = 5
 	/// The internal holoparasite builder object, which handles actually, well, building the holoparasite.
 	var/datum/holoparasite_builder/builder
 	/// A typepath to the theme of the holoparasite to create.
@@ -457,6 +461,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/holoparasite_creator)
 /obj/item/holoparasite_creator/Initialize(mapload, datum/holoparasite_theme/theme_override)
 	. = ..()
 	builder = new(src, theme_override || theme, max_points, max_level, uses, debug_mode)
+	ADD_TRAIT(src, TRAIT_EXAMINE_SKIP, INNATE_TRAIT)
 
 /obj/item/holoparasite_creator/Destroy()
 	QDEL_NULL(builder)

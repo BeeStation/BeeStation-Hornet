@@ -5,22 +5,36 @@ import { Window } from '../layouts';
 export const Achievements = (props) => {
   const { data } = useBackend();
   const { categories } = data;
-  const [selectedCategory, setSelectedCategory] = useLocalState('category', categories[0]);
-  const achievements = data.achievements.filter((x) => x.category === selectedCategory);
+  const [selectedCategory, setSelectedCategory] = useLocalState(
+    'category',
+    categories[0],
+  );
+  const achievements = data.achievements.filter(
+    (x) => x.category === selectedCategory,
+  );
   return (
     <Window theme="generic" title="Achievements" width={540} height={680}>
       <Window.Content scrollable>
         <Tabs>
           {categories.map((category) => (
-            <Tabs.Tab key={category} selected={selectedCategory === category} onClick={() => setSelectedCategory(category)}>
+            <Tabs.Tab
+              key={category}
+              selected={selectedCategory === category}
+              onClick={() => setSelectedCategory(category)}
+            >
               {category}
             </Tabs.Tab>
           ))}
-          <Tabs.Tab selected={selectedCategory === 'High Scores'} onClick={() => setSelectedCategory('High Scores')}>
+          <Tabs.Tab
+            selected={selectedCategory === 'High Scores'}
+            onClick={() => setSelectedCategory('High Scores')}
+          >
             High Scores
           </Tabs.Tab>
         </Tabs>
-        {(selectedCategory === 'High Scores' && <HighScoreTable />) || <AchievementTable achievements={achievements} />}
+        {(selectedCategory === 'High Scores' && <HighScoreTable />) || (
+          <AchievementTable achievements={achievements} />
+        )}
       </Window.Content>
     </Window>
   );
@@ -48,8 +62,14 @@ const Achievement = (props) => {
       <Table.Cell verticalAlign="top">
         <h1>{name}</h1>
         {desc}
-        {(score && <Box color={value > 0 ? 'good' : 'bad'}>{value > 0 ? `Earned ${value} times` : 'Locked'}</Box>) || (
-          <Box color={value ? 'good' : 'bad'}>{value ? 'Unlocked' : 'Locked'}</Box>
+        {(score && (
+          <Box color={value > 0 ? 'good' : 'bad'}>
+            {value > 0 ? `Earned ${value} times` : 'Locked'}
+          </Box>
+        )) || (
+          <Box color={value ? 'good' : 'bad'}>
+            {value ? 'Unlocked' : 'Locked'}
+          </Box>
         )}
       </Table.Cell>
     </Table.Row>
@@ -73,7 +93,11 @@ const HighScoreTable = (props) => {
       <Flex.Item>
         <Tabs vertical>
           {highscores.map((highscore, i) => (
-            <Tabs.Tab key={highscore.name} selected={highScoreIndex === i} onClick={() => setHighScoreIndex(i)}>
+            <Tabs.Tab
+              key={highscore.name}
+              selected={highScoreIndex === i}
+              onClick={() => setHighScoreIndex(i)}
+            >
               {highscore.name}
             </Tabs.Tab>
           ))}
@@ -91,7 +115,10 @@ const HighScoreTable = (props) => {
               <Table.Cell color="label" textAlign="center">
                 {i + 1}
               </Table.Cell>
-              <Table.Cell color={score.ckey === user_ckey && 'green'} textAlign="center">
+              <Table.Cell
+                color={score.ckey === user_ckey && 'green'}
+                textAlign="center"
+              >
                 {i === 0 && <Icon name="crown" color="yellow" mr={2} />}
                 {score.ckey}
                 {i === 0 && <Icon name="crown" color="yellow" ml={2} />}

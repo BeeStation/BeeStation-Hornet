@@ -81,7 +81,9 @@
 	LAZYINITLIST(occupant_actions[take_from])
 	if(occupant_actions[take_from][actiontype])
 		var/datum/action/action = occupant_actions[take_from][actiontype]
-		action.Remove(take_from)
+		// Actions don't dissipate on removal, they just sit around assuming they'll be reusued
+		// Gotta qdel
+		qdel(action)
 		occupant_actions[take_from] -= actiontype
 	return TRUE
 
@@ -96,7 +98,7 @@
 /obj/vehicle/proc/grant_passenger_actions(mob/grant_to)
 	for(var/v in autogrant_actions_passenger)
 		grant_action_type_to_mob(v, grant_to)
-		
+
 /**
  * ## remove_passenger_actions
  *
@@ -153,13 +155,21 @@
 
 /datum/action/vehicle
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_vehicle.dmi'
+	button_icon = 'icons/hud/actions/actions_vehicle.dmi'
 	button_icon_state = null
 	var/obj/vehicle/vehicle_target
+
+/datum/action/vehicle/Destroy()
+	vehicle_target = null
+	return ..()
 
 /datum/action/vehicle/sealed
 	check_flags = AB_CHECK_INCAPACITATED | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
+
+/datum/action/vehicle/sealed/Destroy()
+	vehicle_entered_target = null
+	return ..()
 
 /datum/action/vehicle/sealed/climb_out
 	name = "Climb Out"

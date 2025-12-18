@@ -6,9 +6,8 @@
 	var/current_supply
 	var/max_supply = 5
 	var/cost = 400 // Minimum cost, or infinite points are possible. I've already had to fix it once because someone didn't listen. Don't be THAT person.
-	var/access = FALSE
+	var/access = null
 	var/access_budget = FALSE //prevents people from requesting stupid stuff with their department's budget via app
-	var/access_any = FALSE
 	var/list/contains = null
 	var/crate_name = "crate"
 	var/desc = ""//no desc by default
@@ -19,6 +18,7 @@
 	var/DropPodOnly = FALSE//only usable by the Bluespace Drop Pod via the express cargo console
 	var/admin_spawned = FALSE
 	var/small_item = FALSE //Small items can be grouped into a single crate.
+	var/can_secure = TRUE //Can this order be secured
 
 /datum/supply_pack/New()
 	. = ..()
@@ -27,16 +27,18 @@
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
 	var/obj/structure/closet/crate/C
-	if(paying_account)
+	if(paying_account && can_secure)
 		C = new /obj/structure/closet/crate/secure/owned(A, paying_account)
 		C.name = "[crate_name] - Purchased by [paying_account.account_holder]"
 	else
 		C = new crate_type(A)
 		C.name = crate_name
-	if(access)
-		C.req_access = list(access)
-	if(access_any)
-		C.req_one_access = access_any
+	if(access && !paying_account)
+		// Assign access
+		if (islist(access))
+			C.req_one_access = access
+		else
+			C.req_one_access = list(access)
 
 	fill(C)
 	return C
@@ -55,7 +57,11 @@
 			A.flags_1 |= ADMIN_SPAWNED_1
 	else
 		for(var/item in contains)
-			new item(C)
+			if(ispath(item))
+				new item(C)
+			else if(ismovable(item))
+				var/atom/movable/MA = item
+				MA.forceMove(C)
 
 // If you add something to this list, please group it by type and sort it alphabetically instead of just jamming it in like an animal
 
@@ -203,6 +209,15 @@
 	crate_name = "internals crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/lawnmower
+	name = "Lawnmower Crate"
+	desc = "Contains an unstable and slow lawnmower. Use with caution!"
+	cost = 3000
+	max_supply = 3
+	contains = list(/obj/vehicle/ridden/lawnmower)
+	crate_name = "lawnmower crate"
+	contraband = TRUE
+
 /datum/supply_pack/emergency/metalfoam
 	name = "Metal Foam Grenade Crate"
 	desc = "Seal up those pesky hull breaches with 7 Metal Foam Grenades."
@@ -210,6 +225,32 @@
 	max_supply = 4
 	contains = list(/obj/item/storage/box/metalfoam)
 	crate_name = "metal foam grenade crate"
+
+/datum/supply_pack/emergency/syndicate
+	name = "NULL_ENTRY"
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE.@&!*() "
+	hidden = TRUE
+	cost = 20000
+	contains = list()
+	crate_name = "emergency crate"
+	crate_type = /obj/structure/closet/crate/internals
+	dangerous = TRUE
+	max_supply = 2
+
+/datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
+	var/crate_value = 30
+	var/list/uplink_items = get_uplink_items(UPLINK_NULL_CRATE, FALSE, FALSE)
+	var/max_items = 10
+	while(crate_value && max_items-- > 0)
+		var/category = pick(uplink_items)
+		var/item = pick(uplink_items[category])
+		var/datum/uplink_item/I = uplink_items[category][item]
+		if(!I.surplus || prob(100 - I.surplus))
+			continue
+		if(crate_value < I.cost)
+			continue
+		crate_value -= I.cost
+		new I.item(C)
 
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
@@ -294,7 +335,7 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
-					/obj/item/pen/sleepy,
+					/obj/item/pen/paralytic,
 					/obj/item/grenade/chem_grenade/incendiary)
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
@@ -362,15 +403,65 @@
 					/obj/item/clothing/head/helmet/sec)
 	crate_name = "armor crate"
 
-/datum/supply_pack/security/disabler
-	name = "Disabler Crate"
-	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
-	cost = 1500
+/datum/supply_pack/security/secpistol
+	name = "NPS-10 3-pack Crate"
+	desc = "Three standard issue law enforcement firearms. Requires Security access to open. Includes magazines."
+	cost = 1900
 	max_supply = 2
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
-	crate_name = "disabler crate"
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security,
+					/obj/item/gun/ballistic/automatic/pistol/security)
+	crate_name = "pistol crate"
+
+/datum/supply_pack/security/secpistol_ammo
+	name = "x200 LAW - NPS ammo Crate"
+	desc = "A box of x200 LAW; steel-cartridged low velocity ammo for law enforcement firearms, and 3 twelve-packs alongside. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law,
+					/obj/item/ammo_box/pouch/x200law)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/secpistol_mags
+	name = "NPS-10 magazines Crate"
+	desc = "Three standard issue NPS-10 compatible magazines for law enforcement firearms. Does not come pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty,
+					/obj/item/ammo_box/magazine/x200law/empty)
+	crate_name = "magazine crate"
+
+/datum/supply_pack/security/taser
+	name = "APS-Arc 3-pack Crate"
+	desc = "Three standard issue law enforcement tasers. Requires Security access to open. Includes magazines."
+	cost = 1900
+	max_supply = 2
+	contains = list(/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser,
+					/obj/item/gun/ballistic/taser)
+	crate_name = "taser crate"
+
+/datum/supply_pack/security/taser_ammo
+	name = "Taser load assemblies Crate"
+	desc = "Two boxes of pre-arranged APS taser load assemblies for station law enforcement. Requires Security access to open."
+	cost = 950
+	max_supply = 2
+	contains = list(/obj/item/ammo_box/taser,
+					/obj/item/ammo_box/taser)
+	crate_name = "ammo crate"
+
+/datum/supply_pack/security/taser_mags
+	name = "APS-Arc cartridge Crate"
+	desc = "Three standard issue APS-Arc taser cartridges. Pre-loaded. Requires Security access to open."
+	cost = 1200
+	max_supply = 2
+	contains = list(/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser,
+					/obj/item/ammo_casing/taser)
+	crate_name = "magazine crate"
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
@@ -391,9 +482,8 @@
 	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 4
-	access = FALSE
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/dumdum)
 	crate_name = ".38 match crate"
 
@@ -402,9 +492,8 @@
 	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
 	cost = 1200
 	max_supply = 3
-	access = FALSE
 	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	contains = list(/obj/item/ammo_box/c38/match)
 	crate_name = ".38 match crate"
 
@@ -440,7 +529,7 @@
 					/obj/item/clothing/head/beret/sec/navywarden,
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
 					/obj/item/clothing/suit/jacket/hos/blue,
-					/obj/item/clothing/head/beret/sec/navyhos)
+					/obj/item/clothing/head/hats/hos/beret/navyhos)
 	crate_name = "security clothing crate"
 
 /datum/supply_pack/security/stingpack
@@ -1068,17 +1157,13 @@
 	crate_name = "space shelter crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
-/obj/item/stock_parts/cell/inducer_supply
-	maxcharge = 5000
-	charge = 5000
-
 /datum/supply_pack/engineering/inducers
 	name = "NT-100 Heavy-Duty Inducers Crate"
 	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
 	cost = 2000
 	max_supply = 3
-	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
+	contains = list(/obj/item/inducer, /obj/item/inducer)
+	crate_name = "industrial inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
 /datum/supply_pack/engineering/pacman
@@ -1328,10 +1413,12 @@
 	desc = "Four grounding rods guaranteed to keep any uppity tesla's lightning under control."
 	cost = 700
 	max_supply = 5
-	contains = list(/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod)
+	contains = list(
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+		/obj/machinery/power/energy_accumulator/grounding_rod,
+	)
 	crate_name = "grounding rod crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -1352,16 +1439,6 @@
 	crate_name = "particle accelerator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
-
-/datum/supply_pack/engine/collector
-	name = "Radiation Collector Crate"
-	desc = "Contains three radiation collectors. Useful for collecting energy off nearby Supermatter Crystals, Singularities or Teslas!"
-	cost = 2200
-	max_supply = 4
-	contains = list(/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector,
-					/obj/machinery/power/rad_collector)
-	crate_name = "collector crate"
 
 /datum/supply_pack/engine/nuclear_reactor
 	name = "RBMK Nuclear Reactor Engine Crate"
@@ -1446,10 +1523,12 @@
 	desc = "Whether it's high-voltage executions, creating research points, or just plain old power generation: This pack of four Tesla coils can do it all!"
 	cost = 1200
 	max_supply = 3
-	contains = list(/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil,
-					/obj/machinery/power/tesla_coil)
+	contains = list(
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+		/obj/machinery/power/energy_accumulator/tesla_coil,
+	)
 	crate_name = "tesla coil crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -1684,20 +1763,24 @@
 
 /datum/supply_pack/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
-	desc = "Contains eight different blood packs for reintroducing blood to patients."
-	cost = 700
+	desc = "Contains a variety of blood packs for reintroducing blood to patients."
+	cost = 900
 	max_supply = 4
-	contains = list(/obj/item/reagent_containers/blood,
-					/obj/item/reagent_containers/blood,
-					/obj/item/reagent_containers/blood/APlus,
-					/obj/item/reagent_containers/blood/AMinus,
-					/obj/item/reagent_containers/blood/BPlus,
-					/obj/item/reagent_containers/blood/BMinus,
-					/obj/item/reagent_containers/blood/OPlus,
-					/obj/item/reagent_containers/blood/OMinus,
-					/obj/item/reagent_containers/blood/lizard,
-					/obj/item/reagent_containers/blood/ethereal,
-					/obj/item/reagent_containers/blood/oozeling)
+	contains = list(/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random)
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
@@ -1900,7 +1983,6 @@
 	max_supply = 4
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/food/monkeycube,
-					/obj/item/reagent_containers/cup/glass/bottle/virusfood,
 					/obj/item/reagent_containers/cup/bottle/mutagen,
 					/obj/item/reagent_containers/cup/bottle/formaldehyde,
 					/obj/item/reagent_containers/cup/bottle/synaptizine,
@@ -2030,8 +2112,8 @@
 	desc = "No rechargers? No problem, with the NT-50 EPI, you can recharge any standard cell-based equipment anytime, anywhere! Contains two Science inducers."
 	cost = 1000
 	max_supply = 3
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
-	crate_name = "inducer crate"
+	contains = list(/obj/item/inducer/sci/with_cell, /obj/item/inducer/sci/with_cell)
+	crate_name = "science inducer crate"
 
 /datum/supply_pack/science/rped
 	name = "RPED crate"
@@ -2061,7 +2143,7 @@
 /datum/supply_pack/science/modularpc
 	name = "Deluxe Silicate Selections restocking unit"
 	desc = "What's a computer? Contains Deluxe Silicate Selections restocking unit."
-	cost = 1200
+	cost = 5500
 	max_supply = 4
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
@@ -2102,6 +2184,27 @@
 					/obj/item/circuitboard/machine/processor/slime)
 	crate_name = "xenobiology starter crate"
 	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/mod_core
+	name = "MOD core Crate"
+	desc = "Three cores, perfect for any MODsuit construction! Naturally harvested™, of course."
+	cost = 600
+	access = ACCESS_ROBOTICS
+	access_budget = ACCESS_ROBOTICS
+	contains = list(/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard)
+	crate_name = "\improper MOD core crate"
+	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/tech_disk
+	name = "Ground-Breaking Research Crate"
+	desc = "One disk containing a random cutting-edge technology that cannot be normally researched."
+	cost = 6000
+	contains = list(/obj/item/disk/tech_disk/research/random)
+	small_item = TRUE
+	crate_type = /obj/structure/closet/crate/secure/science
+	max_supply = 4
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Service //////////////////////////////////////
@@ -2301,13 +2404,13 @@
 	crate_type = /obj/structure/closet/crate
 
 /datum/supply_pack/service/vending/dinnerware
-	name = "Dinnerware Supply Crate"
-	desc = "More knives for the chef."
-	cost = 800
+	name = "Kitchen Supply Crate"
+	desc = "More knives and ingredients for the chef."
+	cost = 500
 	max_supply = 6
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/vending_refill/dinnerware)
-	crate_name = "dinnerware supply crate"
+	crate_name = "kitchen supply crate"
 
 /datum/supply_pack/service/vending/games
 	name = "Games Supply Crate"
@@ -2817,13 +2920,19 @@
 		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/basic/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/lisa(.)
+
+/datum/supply_pack/critter/dog_bone
+	name = "Jumbo Dog Bone"
+	desc = "The best dog bone money can have exported to a space station. A perfect gift for a dog."
+	cost = PAYCHECK_COMMAND * 4
+	contains = list(/obj/item/dog_bone)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
 	desc = "The cow goes moo!"
 	cost = 3000
-	contains = list(/mob/living/simple_animal/cow)
+	contains = list(/mob/living/basic/cow)
 	crate_name = "cow crate"
 
 /datum/supply_pack/critter/crab
@@ -2910,6 +3019,19 @@
 	cost = 10000
 	contains = list(/mob/living/basic/pet/dog/corgi/capybara)
 	crate_name = "capybara crate"
+
+/datum/supply_pack/critter/garden_gnome
+	name = "Garden Gnome Crate"
+	desc = "Collect them all for your garden. Comes with three!"
+	hidden = TRUE
+	cost = 4000
+	contains = list(/mob/living/basic/garden_gnome)
+	crate_name = "garden gnome crate"
+
+/datum/supply_pack/critter/garden_gnome/generate()
+	. = ..()
+	for(var/i in 1 to 2)
+		new /mob/living/basic/garden_gnome(.)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////
@@ -3123,6 +3245,18 @@
 	crate_name = "standard costume crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
+/datum/supply_pack/costumes_toys/pinata
+	name = "Corgi Pinata Kit"
+	desc = "This crate contains a pinata full of candy, a blindfold and a bat for smashing it."
+	cost = 4000
+	contains = list(
+		/obj/item/pinata,
+		/obj/item/melee/baseball_bat,
+		/obj/item/clothing/glasses/blindfold,
+	)
+	crate_name = "corgi pinata kit"
+	crate_type = /obj/structure/closet/crate/wooden
+
 /datum/supply_pack/costumes_toys/randomised/toys
 	name = "Toy Crate"
 	desc = "Who cares about pride and accomplishment? Skip the gaming and get straight to the sweet rewards with this product! Contains five random toys. Warranty void if used to prank research directors."
@@ -3166,22 +3300,22 @@
 	cost = 800
 	max_supply = 3
 	contains = list(
-		/obj/item/cardboard_cutout/adaptive/chess/king,
-		/obj/item/cardboard_cutout/adaptive/chess/queen,
-		/obj/item/cardboard_cutout/adaptive/chess/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/structure/chess/whiteking,
+		/obj/structure/chess/whitequeen,
+		/obj/structure/chess/whiterook,
+		/obj/structure/chess/whiterook,
+		/obj/structure/chess/whiteknight,
+		/obj/structure/chess/whiteknight,
+		/obj/structure/chess/whitebishop,
+		/obj/structure/chess/whitebishop,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
+		/obj/structure/chess/whitepawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
@@ -3191,22 +3325,22 @@
 	cost = 800
 	max_supply = 3
 	contains = list(
-		/obj/item/cardboard_cutout/adaptive/chess/black/king,
-		/obj/item/cardboard_cutout/adaptive/chess/black/queen,
-		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
-		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/structure/chess/blackking,
+		/obj/structure/chess/blackqueen,
+		/obj/structure/chess/blackrook,
+		/obj/structure/chess/blackrook,
+		/obj/structure/chess/blackknight,
+		/obj/structure/chess/blackknight,
+		/obj/structure/chess/blackbishop,
+		/obj/structure/chess/blackbishop,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
+		/obj/structure/chess/blackpawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
@@ -3360,7 +3494,8 @@
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/toy/crayon/rainbow,
-					/obj/item/toy/crayon/rainbow)
+					/obj/item/toy/crayon/rainbow,
+					/obj/item/vending_refill/sticker)
 	crate_name = "art supply crate"
 	crate_type = /obj/structure/closet/crate/wooden
 
@@ -3431,7 +3566,8 @@
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,
 					/obj/item/book/random,
-					/obj/item/book/random)
+					/obj/item/book/random,
+					/obj/item/book/manuscript)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/paper
@@ -3458,7 +3594,8 @@
 					/obj/item/clipboard,
 					/obj/item/stamp,
 					/obj/item/stamp/denied,
-					/obj/item/laser_pointer/purple)
+					/obj/item/laser_pointer/purple,
+					/obj/item/sticky_note_pile)
 	crate_name = "bureaucracy crate"
 
 /datum/supply_pack/misc/bulk_paper

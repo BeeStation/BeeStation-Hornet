@@ -1,6 +1,8 @@
 /turf
-	var/fullbright_type = FULLBRIGHT_NONE
+	light_height = LIGHTING_HEIGHT_FLOOR
 	luminosity = 1
+
+	var/fullbright_type = FULLBRIGHT_NONE
 
 	var/tmp/lighting_corners_initialised = FALSE
 
@@ -41,7 +43,7 @@
 	new/atom/movable/lighting_object(src)
 
 // Used to get a scaled lumcount.
-/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
+/turf/proc/get_lumcount(minlum = 0, maxlum = 1)
 	if (!lighting_object)
 		return 1
 

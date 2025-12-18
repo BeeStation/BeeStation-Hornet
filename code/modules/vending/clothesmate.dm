@@ -50,6 +50,7 @@
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
 				/obj/item/clothing/neck/tie/horrible = 3,
+				/obj/item/clothing/head/beret/black = 3,
 				/obj/item/clothing/head/chaplain/kippah = 3,
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
 				/obj/item/clothing/head/hats/tophat = 1,
@@ -203,7 +204,6 @@
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = PAYCHECK_MEDIUM
 	extra_price = PAYCHECK_HARD
-	dept_req_for_free = NO_FREEBIES
 	light_mask = "wardrobe-light-mask"
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 

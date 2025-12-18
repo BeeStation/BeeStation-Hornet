@@ -48,14 +48,14 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/create_skull
 	name = "Create Legion Skull"
-	icon_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	button_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	button_icon_state = "legion_head"
 	chosen_message = span_colossus("You are now creating legion skulls.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/charge_target
 	name = "Charge Target"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("You are now charging at your target.")
 	chosen_attack_num = 2
@@ -170,13 +170,15 @@ Difficulty: Medium
 	name = "staff of storms"
 	desc = "An ancient staff retrieved from the remains of Legion. The wind stirs as you move it."
 	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	inhand_icon_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
+	custom_price = 20000
+	max_demand = 5
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
 	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/outdoors/explored)

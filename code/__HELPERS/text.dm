@@ -428,6 +428,11 @@
 		. = t[1]
 		return uppertext(.) + copytext(t, 1 + length(.))
 
+/// Returns a string with the first letter of each word capitialized
+/proc/full_capitalize(input)
+	var/regex/first_letter = new(@"[^A-z]*?([A-z]*)", "g")
+	return replacetext(input, first_letter, /proc/capitalize)
+
 /proc/stringmerge(text,compare,replace = "*")
 	var/newtext = text
 	var/text_it = 1 //iterators
@@ -998,20 +1003,20 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	return "\[[loadstring]\]"
 
 /**
-  * Formats a number to human readable form with the appropriate SI unit.
-  *
-  * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
-  * Examples:
-  * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
-  * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
-  * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
-  * Arguments:
-  * * value - The number to convert to text. Can be positive or negative.
-  * * unit - The base unit of the number, such as "Pa" or "W".
-  * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
-  * *
-  * * For pressure conversion, use proc/siunit_pressure() below
-  */
+ * Formats a number to human readable form with the appropriate SI unit.
+ *
+ * Supports SI exponents between 1e-15 to 1e15, but properly handles numbers outside that range as well.
+ * Examples:
+ * * `siunit(1234, "Pa", 1)` -> `"1.2 kPa"`
+ * * `siunit(0.5345, "A", 0)` -> `"535 mA"`
+ * * `siunit(1000, "Pa", 4)` -> `"1 kPa"`
+ * Arguments:
+ * * value - The number to convert to text. Can be positive or negative.
+ * * unit - The base unit of the number, such as "Pa" or "W".
+ * * maxdecimals - Maximum amount of decimals to display for the final number. Defaults to 1.
+ * *
+ * * For pressure conversion, use proc/siunit_pressure() below
+ */
 /proc/siunit(value, unit, maxdecimals=1)
 	var/static/list/prefixes = list("f","p","n","μ","m","","k","M","G","T","P")
 
@@ -1050,7 +1055,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 
 ///Returns a string based on the weight class define used as argument
-/proc/weight_class_to_text(var/w_class)
+/proc/weight_class_to_text(w_class)
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
 			. = "tiny"
@@ -1068,6 +1073,16 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 			. = "gigantic"
 		else
 			. = ""
+
+/proc/weight_class_to_tooltip(w_class)
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY to WEIGHT_CLASS_SMALL)
+			return "This item can fit into pockets, boxes and backpacks."
+		if(WEIGHT_CLASS_NORMAL)
+			return "This item can fit into backpacks."
+		if(WEIGHT_CLASS_BULKY to WEIGHT_CLASS_GIGANTIC)
+			return "This item is too large to fit into any standard storage."
+	return ""
 
 /atom/proc/get_boozepower_text(booze_power, mob/living/L)
 	if(isnull(booze_power))
@@ -1142,3 +1157,8 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	if(!.)
 		. = "not measurable. Ask the space god for what's wrong with this drink."
 		CRASH("not valid booze power value is detected: [booze_power]")
+
+/// Returns TRUE if the input_text ends with the ending
+/proc/endswith(input_text, ending)
+	var/input_length = LAZYLEN(ending)
+	return !!findtext(input_text, ending, -input_length)

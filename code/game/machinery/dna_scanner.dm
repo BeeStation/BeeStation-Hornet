@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "scanner"
 	density = TRUE
+	obj_flags = BLOCKS_CONSTRUCTION // Becomes undense when the door is open
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
@@ -151,25 +152,6 @@
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !ISADVANCEDTOOLUSER(user) || locked)
 		return
 	close_machine(target)
-
-/obj/machinery/dna_scannernew/proc/irradiate(mob/living/carbon/target)
-	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
-		return
-	to_chat(target, span_danger("You feel warm."))
-	target.rad_act(250/(damage_coeff ** 2))
-
-	if(!target.has_dna() || HAS_TRAIT(target, TRAIT_BADDNA))
-		return
-
-	var/resist = target.getarmor(null, RAD)
-	if(prob(max(0,100-resist)))
-		target.randmuti()
-		if(prob(20))
-			if(prob(90))
-				target.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
-			else
-				target.easy_randmut(POSITIVE)
-			target.domutcheck()
 
 /obj/machinery/dna_scannernew/proc/shock(mob/user, prb)
 	if(machine_stat & (BROKEN|NOPOWER))		// unpowered, no shock

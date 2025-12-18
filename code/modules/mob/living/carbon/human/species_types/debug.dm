@@ -5,7 +5,7 @@
 	changesource_flags = MIRROR_BADMIN
 	sexes = 0
 
-/datum/species/debug/get_custom_icons(var/part)
+/datum/species/debug/get_custom_icons(part)
 	switch(part)
 		if("uniform")
 			return 'icons/mob/species/debug/debug_all.dmi'
@@ -37,5 +37,5 @@
 	desc = "The Return"
 	flags_inv = HIDEEARS|HIDEHAIR
 	icon_state = "ushankadown"
-	item_state = "ushankadown"
+	inhand_icon_state = "ushankadown"
 	sprite_sheets = FLAG_DEBUG_SPECIES //The small emblem on the ushanka will appear green for the debug species instead of red

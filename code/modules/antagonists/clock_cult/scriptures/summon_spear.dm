@@ -5,7 +5,7 @@
 	cooldown_time = 20 SECONDS
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
+	button_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	button_icon_state = "ratvarian_spear"
 	background_icon_state = "bg_clock"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
@@ -17,7 +17,7 @@
 	if(QDELETED(marked_item))
 		qdel(src)
 
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 
 	var/obj/item_to_retrieve = marked_item

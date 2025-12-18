@@ -3,7 +3,7 @@
 	desc = "A glowing ball of light."
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
 	invisibility = INVISIBILITY_SPIRIT
 	health = INFINITY
@@ -69,9 +69,6 @@
 
 /mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE
-
-/mob/living/simple_animal/eminence/rad_act(amount)
-	return
 
 /mob/living/simple_animal/eminence/Initialize(mapload)
 	. = ..()
@@ -159,7 +156,7 @@
 /datum/action/spell/eminence
 	invocation = "none"
 	invocation_type = INVOCATION_NONE
-	icon_icon = 'icons/hud/actions/actions_clockcult.dmi'
+	button_icon = 'icons/hud/actions/actions_clockcult.dmi'
 	button_icon_state = "ratvarian_spear"
 	background_icon_state = "bg_clock"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
@@ -224,7 +221,7 @@
 	if(!isliving(M))
 		to_chat(user, span_warning("You cannot jump to them!"))
 		return
-	if(!is_servant_of_ratvar(M))
+	if(!IS_SERVANT_OF_RATVAR(M))
 		to_chat(user, span_warning("They are no longer a servant of Rat'var!"))
 		return
 	var/turf/T = get_turf(M)
@@ -264,7 +261,7 @@
 	var/mob/living/simple_animal/eminence/E = owner
 	if(!istype(E))
 		return FALSE
-	if(E.selected_mob && is_servant_of_ratvar(E.selected_mob))
+	if(E.selected_mob && IS_SERVANT_OF_RATVAR(E.selected_mob))
 		return TRUE
 	return FALSE
 
@@ -275,7 +272,7 @@
 		to_chat(E, span_brass("You are not the Eminence! (This is a bug)"))
 		reset_spell_cooldown()
 		return FALSE
-	if(!E.selected_mob || !is_servant_of_ratvar(E.selected_mob))
+	if(!E.selected_mob || !IS_SERVANT_OF_RATVAR(E.selected_mob))
 		E.selected_mob = null
 		to_chat(user, span_neovgre("You need to select a valid target by clicking on them."))
 		reset_spell_cooldown()

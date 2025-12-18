@@ -58,13 +58,15 @@
 	ReadColorsFromString(starting_colors || target?.greyscale_colors)
 
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(ui_close))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(ui_close))
 
 	refresh_preview()
 
 /datum/greyscale_modify_menu/Destroy()
 	target = null
 	user = null
+	apply_callback = null
+	config = null
 	return ..()
 
 /datum/greyscale_modify_menu/ui_state(mob/user)

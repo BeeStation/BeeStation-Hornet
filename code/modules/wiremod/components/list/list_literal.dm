@@ -6,6 +6,7 @@
 /obj/item/circuit_component/list_literal
 	display_name = "List Literal"
 	desc = "A component that returns the value of a list at a given index. Use the plus and minus to change the list size."
+	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The inputs used to create the list

@@ -6,9 +6,9 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$neutral: #2c3141;
-$neutral-accent: #aa2a2a;
-$accent: #4b00c4;
+$neutral: hsl(225.7, 19.3%, 21.4%);
+$neutral-accent: hsl(0, 60.4%, 41.6%);
+$accent: hsl(263, 100%, 38.4%);
 
 @use '../colors.scss' with (
   $primary: $neutral-accent,
@@ -24,18 +24,27 @@ $accent: #4b00c4;
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': $accent, 'color-transparent-text': rgba(227, 240, 255, 0.75))
+    $with: (
+      'color-default': $accent,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-default-fill': $accent, 'background-color': rgba(0, 0, 0, 0.5))
+    $with: (
+      'color-default-fill': $accent,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
   );
   @include meta.load-css('../components/Section.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': color.scale($neutral, $lightness: -25%)));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': color.scale($neutral, $lightness: -25%))
+  );
 
   .Layout__content {
     background-image: url('../../assets/bg-neutral.svg');

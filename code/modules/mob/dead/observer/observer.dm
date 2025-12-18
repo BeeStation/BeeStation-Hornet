@@ -29,6 +29,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
+	/// Are we allowed to respawn?
+	var/can_respawn = TRUE
+	// Has ssticker identified us as a respawn canditate and updated our status?
+	var/respawn_notified = FALSE
+	// Are we able to respawn?
+	var/respawn_available = FALSE
 	var/atom/movable/following = null
 	var/fun_verbs = 0
 	var/image/ghostimage_default = null //this mobs ghost image without accessories and dirs
@@ -158,6 +164,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
+
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
@@ -298,8 +306,16 @@ Works together with spawning an observer, noted above.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 			var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
 			SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
+
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
+
+			//If we cannot re-enter we note the time of conceptual death in player details.
+			if(can_reenter_corpse)
+				ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
+			else
+				ghost.client.player_details.time_of_death = world.time
+
 			return ghost
 
 /*
@@ -398,7 +414,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	src.log_message("[key_name(src)] has opted to do-not-resuscitate / DNR from their body [mind?.current]", LOG_GAME)
 	return TRUE
 
-/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source, flashwindow = TRUE)
+/mob/dead/observer/proc/notify_cloning(message, sound, atom/source, flashwindow = TRUE)
 	if(flashwindow)
 		window_flash(client)
 	if(message)
@@ -884,6 +900,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else
 				remove_verb(/mob/dead/observer/verb/boo)
 				remove_verb(/mob/dead/observer/verb/possess)
+		if(NAMEOF(src, can_respawn))
+			create_mob_hud()
 
 /mob/dead/observer/reset_perspective(atom/new_eye)
 	if(client)
@@ -897,6 +915,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
+
+/mob/dead/observer/verb/cancel_camera_ghosts()
+	set name = "Cancel Camera View"
+	set category = "Ghost"
+	reset_perspective(null)
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
@@ -917,6 +941,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
 		client.set_eye(mob_eye)
+		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 		if(mob_eye.hud_used)
 			client.screen = list()
 			LAZYINITLIST(mob_eye.observers)

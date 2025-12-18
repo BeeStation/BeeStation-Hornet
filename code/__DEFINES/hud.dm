@@ -139,7 +139,7 @@
 #define ui_pai_newscaster "SOUTH:6,WEST+5"
 #define ui_pai_host_monitor "SOUTH:6,WEST+6"
 #define ui_pai_crew_manifest "SOUTH:6,WEST+7"
-#define ui_pai_state_laws "SOUTH:6,WEST+8"
+#define ui_pai_state_laws "SOUTH:6,WEST+9"
 #define ui_pai_pda_send "SOUTH:6,WEST+9"
 #define ui_pai_pda_log "SOUTH:6,WEST+10"
 #define ui_pai_internal_gps "SOUTH:6,WEST+11"
@@ -151,13 +151,7 @@
 
 //Ghosts
 
-#define ui_ghost_jumptomob "SOUTH:6,CENTER-3:24"
-#define ui_ghost_orbit "SOUTH:6,CENTER-2:24"
-#define ui_ghost_reenter_corpse "SOUTH:6,CENTER-1:24"
-#define ui_ghost_teleport "SOUTH:6,CENTER:24"
-#define ui_ghost_spawners_menu "SOUTH:6,CENTER+1:24"
-#define ui_ghost_pai "SOUTH: 6, CENTER+2:24"
-#define ui_ghost_language_menu "SOUTH:21, CENTER+3:7"
+#define ui_ghost_center(offset) "SOUTH:6,CENTER+[offset]"
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
@@ -165,9 +159,7 @@
 //Families
 #define ui_wanted_lvl "NORTH,11"
 
-
-#define ui_devilsouldisplay "WEST:6,CENTER-1:15" //Feel free to delete this later, devils aren't real
-	//borgs
+//borgs
 #define ui_borg_crew_manifest "CENTER+5:21,SOUTH:5"	//borgs
 
 #define ui_monkey_body "CENTER-6:12,SOUTH:5"	//monkey
@@ -189,9 +181,9 @@
 #define ui_acti "EAST-3:24,SOUTH:5"
 #define ui_zonesel "EAST-1:28,SOUTH:5"
 #define ui_acti_alt "EAST-1:28,SOUTH:5"	//alternative intent switcher for when the interface is hidden (F12)
-#define ui_crafting	"EAST-4:22,SOUTH:5"
-#define ui_building "EAST-4:22,SOUTH:21"
-#define ui_language_menu "EAST-4:6,SOUTH:21"
+#define ui_crafting	"EAST-4:38,SOUTH:5"
+#define ui_building "EAST-4:38,SOUTH:21"
+#define ui_language_menu "EAST-4:22,SOUTH:21"
 #define ui_navigate_menu "EAST-4:22,SOUTH:5"
 
 
@@ -230,7 +222,7 @@
 #define ui_ai_move_up "SOUTH:6,WEST+14"
 #define ui_ai_move_down "SOUTH:6,WEST+15"
 
-#define ui_pai_mod_int "SOUTH:6,WEST+12"
+#define ui_pai_mod_int "SOUTH:6,WEST+8"
 
 //Team finder
 

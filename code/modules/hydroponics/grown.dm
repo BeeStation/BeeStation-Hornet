@@ -12,6 +12,7 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	name = "fresh produce" //fix naming bug
 	max_volume = 100
+	max_demand = 150
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	/// type path, gets converted to item on New(). It's safe to assume it's always a seed item.
@@ -36,6 +37,8 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	var/filling_color
 	//Amount of discovery points given for scanning
 	var/discovery_points = 0
+	//otherwise this is a huge headache if you are an ashwalker or that survivalist, or just anyone without hydroponic gear access.
+	decomp_req_handle = TRUE
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
@@ -53,9 +56,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 	else if(!seed)
 		stack_trace("Grown object created without a seed. WTF")
 		return INITIALIZE_HINT_QDEL
-
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
+	if(!pixel_y && !pixel_x)
+		pixel_x = base_pixel_x + rand(-5, 5)
+		pixel_y = base_pixel_y + rand(-5, 5)
 
 	make_dryable()
 
@@ -111,7 +114,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 /obj/item/food/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "[span_info("This is \a [span_name(src)]")].\n"
+		var/msg = "[span_info("This is \a [span_name(name)]")].\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -123,7 +126,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/food/grown)
 
 		if(reag_txt)
 			msg += reag_txt
-		to_chat(user, EXAMINE_BLOCK(msg))
+		to_chat(user, examine_block(msg))
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)

@@ -6,9 +6,6 @@
 /// Two mobs one is facing a person, but the other is perpendicular
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //! Do I win the most informative but also most stupid define award?
 
-/proc/random_blood_type()
-	return pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-
 /proc/random_eye_color()
 	switch(pick(20;"brown",20;"hazel",20;"grey",15;"blue",15;"green",1;"amber",1;"albino"))
 		if("brown")
@@ -178,6 +175,56 @@
 	if(attempts < 10)
 		if(findname(.))
 			. = .(gender, ++attempts)
+
+//this proc tries to generate an AI name that mimics the way players name AIs and borgs
+/proc/random_ai_name(style, attempts = 1)
+	var/numbers = list("1","2","3","4","5","6","7","8","9","0")
+	var/version_words = list("v", "V", "Version ", "mk", "MK", "Mark ")
+	for(var/i in 1 to attempts)
+
+		if(!style)
+			style = rand(1,2)
+
+		switch(style)
+			if(1) //2-3 random sectors
+				var/sectors = 2 + prob(20) //small chance for 3 sectors
+				for(var/s in 1 to sectors)
+					var/sector
+					var/sector_characters
+					var/breakup_character = "-"
+					var/sectorlength = rand(1,3)
+					switch(rand(1,100))
+						if(1 to 25)//25% chance for both numbers and letters
+							sector_characters = numbers + GLOB.alphabet + GLOB.alphabet //add alphabet twice so that numbers are lower weight
+						if(25 to 75) //50% chance for only letters
+							sector_characters = GLOB.alphabet
+						else //25% chance for only numbers, along with shorter sector length and a different breakup character
+							sector_characters = numbers
+							breakup_character = "."
+							sectorlength = rand(1,3)
+
+					sector = random_string(sectorlength, sector_characters)
+					if(prob(80)) //it's probably going to be uppercase
+						sector = uppertext(sector)
+
+					if(s > 1)
+						. += breakup_character
+					. += sector
+
+			if(2) //random vaguely AI related word with a chance to be followed by a version number or a "mark", such as mk1.2, or v3.6
+				. += pick(GLOB.ai_names)
+				if(prob(max(30 - (LAZYLEN(.)), 10))) //chance to for every character to be capitalized followed by a period. the chance is lower the longer the name is.
+					. = uppertext(replacetextEx(.,regex(@"([a-z](?=[a-z]))","g"),"$1."))
+				else if (prob(50)) //slightly higher chance to just be full uppertext
+					. = uppertext(.)
+				else
+					. = capitalize(.)
+
+				if(prob(33))
+
+					var/version_string = " " + pick(version_words) + num2text(prob(50) ? rand(1, 100) / 10 : rand(1,10))
+
+					. += version_string
 
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
@@ -525,6 +572,12 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
 			. |= player
 
+/proc/get_living_connected_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && player.client)
+			. |= player
+
 //Gets all sentient humans that are alive
 /proc/get_living_crew()
 	. = list()
@@ -575,6 +628,68 @@ GLOBAL_LIST_EMPTY(species_list)
 			return "right foot"
 		else
 			return zone
+
+///Returns a list of strings for a given slot flag.
+/proc/parse_slot_flags(slot_flags)
+	var/list/slot_strings = list()
+	if(slot_flags & ITEM_SLOT_BACK)
+		slot_strings += "back"
+	if(slot_flags & ITEM_SLOT_MASK)
+		slot_strings += "mask"
+	if(slot_flags & ITEM_SLOT_NECK)
+		slot_strings += "neck"
+	if(slot_flags & ITEM_SLOT_HANDCUFFED)
+		slot_strings += "handcuff"
+	if(slot_flags & ITEM_SLOT_LEGCUFFED)
+		slot_strings += "legcuff"
+	if(slot_flags & ITEM_SLOT_BELT)
+		slot_strings += "belt"
+	if(slot_flags & ITEM_SLOT_ID)
+		slot_strings += "id"
+	if(slot_flags & ITEM_SLOT_EARS)
+		slot_strings += "ear"
+	if(slot_flags & ITEM_SLOT_EYES)
+		slot_strings += "glasses"
+	if(slot_flags & ITEM_SLOT_GLOVES)
+		slot_strings += "glove"
+	if(slot_flags & ITEM_SLOT_HEAD)
+		slot_strings += "head"
+	if(slot_flags & ITEM_SLOT_FEET)
+		slot_strings += "shoe"
+	if(slot_flags & ITEM_SLOT_OCLOTHING)
+		slot_strings += "oversuit"
+	if(slot_flags & ITEM_SLOT_ICLOTHING)
+		slot_strings += "undersuit"
+	if(slot_flags & ITEM_SLOT_SUITSTORE)
+		slot_strings += "suit storage"
+	if(slot_flags & (ITEM_SLOT_LPOCKET|ITEM_SLOT_RPOCKET))
+		slot_strings += "pocket"
+	if(slot_flags & ITEM_SLOT_HANDS)
+		slot_strings += "hand"
+	if(slot_flags & ITEM_SLOT_DEX_STORAGE)
+		slot_strings += "dextrous storage"
+	if(slot_flags & ITEM_SLOT_BACKPACK)
+		slot_strings += "backpack"
+	return slot_strings
+///Takes a zone and returns it's "parent" zone, if it has one.
+/proc/deprecise_zone(precise_zone)
+	switch(precise_zone)
+		if(BODY_ZONE_PRECISE_GROIN)
+			return BODY_ZONE_CHEST
+		if(BODY_ZONE_PRECISE_EYES)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return BODY_ZONE_HEAD
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return BODY_ZONE_R_ARM
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return BODY_ZONE_L_ARM
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return BODY_ZONE_L_LEG
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return BODY_ZONE_R_LEG
+		else
+			return precise_zone
 
 ///Returns the direction that the initiator and the target are facing
 /proc/check_target_facings(mob/living/initator, mob/living/target)
@@ -675,7 +790,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. = invoked_callback.Invoke()
 	usr = temp
 
-/proc/invertDir(var/input_dir)
+/proc/invertDir(input_dir)
 	switch(input_dir)
 		if(UP)
 			return DOWN
@@ -720,7 +835,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/mob/living/silicon/ai/selected
 	var/list/active = active_ais()
 	for(var/mob/living/silicon/ai/A in active)
-		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !is_servant_of_ratvar(A))
+		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !IS_SERVANT_OF_RATVAR(A))
 			selected = A
 
 	return selected
@@ -730,7 +845,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sort_list(borgs)
+			. = tgui_input_list(user,"Unshackled cyborg signals detected:", "Cyborg Selection", sort_list(borgs))
 		else
 			. = pick(borgs)
 	return .
@@ -740,7 +855,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sort_list(ais)
+			. = tgui_input_list(user,"AI signals detected:", "AI Selection", sort_list(ais))
 		else
 			. = pick(ais)
 	return .
@@ -811,23 +926,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		to_chat(C.mob, span_warning("Cyborg name already used this round by another character, your name has been randomized"))
 		return FALSE
 
-/proc/view_or_range(distance = world.view , center = usr , type)
-	switch(type)
-		if("view")
-			. = view(distance,center)
-		if("range")
-			. = range(distance,center)
-	return
-
-//Currently not used
-/proc/oview_or_orange(distance = world.view , center = usr , type)
-	switch(type)
-		if("view")
-			. = oview(distance,center)
-		if("range")
-			. = orange(distance,center)
-	return
-
 /**
  * Gets the mind from a variable, whether it be a mob, or a mind itself.
  * If [include_last] is true, then it will also return last_mind for carbons if there isn't a current mind.
@@ -847,5 +945,3 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 #undef FACING_SAME_DIR
 #undef FACING_EACHOTHER
 #undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
-
-#define ISADVANCEDTOOLUSER(mob) (HAS_TRAIT(mob, TRAIT_ADVANCEDTOOLUSER) && !HAS_TRAIT(mob, TRAIT_DISCOORDINATED))

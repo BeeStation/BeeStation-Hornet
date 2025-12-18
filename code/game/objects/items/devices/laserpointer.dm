@@ -3,7 +3,7 @@
 	desc = "Don't shine it in your eyes!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	worn_icon_state = "pen"
 	var/pointer_icon_state
 	flags_1 = CONDUCT_1
@@ -111,20 +111,12 @@
 
 	//robots
 	else if(iscyborg(target))
-		var/mob/living/silicon/robot/S = target
-		log_combat(user, S, "shone in the sensors", src)
+		var/mob/living/silicon/robot/R = target
+		log_combat(user, R, "shone in the sensors", src)
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
-			S.flash_act(affect_silicon = 1)
-			if(S.last_flashed + FLASHED_COOLDOWN < world.time)
-				S.last_flashed = world.time
-				S.Paralyze(5 SECONDS)
-				to_chat(S, span_danger("Your sensors were overloaded by a laser!"))
-				outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
-			else
-				outmsg = span_warning("You attempt to overload [S]'s sensors with the flash, but their defense protocols mitigate the effect!")
-		else
-			outmsg = span_warning("You fail to overload [S] by shining [src] at [S.p_their()] sensors!")
+			R.flash_act(affect_silicon = TRUE)
+			outmsg = span_notice("You overload [R] by shining [src] at [R.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))

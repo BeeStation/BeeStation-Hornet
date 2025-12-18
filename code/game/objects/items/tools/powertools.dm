@@ -16,6 +16,7 @@
 	var/action_off = "honk1"
 	var/action_on = "honk2"
 	var/powertool_hitsound = 'sound/vox_fem/honk.ogg'
+	custom_price = 50
 
 
 /datum/armor/item_powertool
@@ -31,6 +32,7 @@
 		w_class_on = w_class, \
 		clumsy_check = FALSE)
 	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+	tool_behaviour = tool_act_off
 
 /*
  * Signal proc for [COMSIG_TRANSFORMING_ON_TRANSFORM].
@@ -53,7 +55,7 @@
 	name = "hand drill"
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill"
-	item_state = "drill"
+	inhand_icon_state = "drill"
 	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
@@ -84,7 +86,7 @@
 	desc = "A set of jaws of life, compressed through the magic of science. It's fitted with a prying head."
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	worn_icon_state = "jawsoflife"
 
 	force = 15

@@ -123,7 +123,7 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	icon_state = "sec-case"
-	item_state = "sec-case"
+	inhand_icon_state = "sec-case"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	desc = "A large briefcase with a digital locking system."
@@ -176,7 +176,6 @@
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
 	desc = "Excellent for securing things away from grubby hands."
-	force = 8
 	layer = ABOVE_WINDOW_LAYER
 	w_class = WEIGHT_CLASS_GIGANTIC
 	anchored = TRUE
@@ -231,7 +230,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 	laser = 100
 	energy = 100
 	bomb = 70
-	rad = 100
 	fire = 80
 	acid = 70
 

@@ -8,8 +8,7 @@
 	armor_type = /datum/armor/crate_secure
 	var/tamperproof = 0
 	icon_door = "crate"
-	damage_deflection = 25
-
+	damage_deflection = 20
 
 /datum/armor/crate_secure
 	melee = 30
@@ -52,6 +51,58 @@
 	name = "gear crate"
 	icon_state = "secgear_crate"
 	icon_door = "secgear_crate"
+
+/obj/structure/closet/crate/secure/gear/debug
+	name = "debug crate"
+	storage_capacity = 300 // unit test blames extreme amount
+
+/obj/structure/closet/crate/secure/gear/debug/cyborg
+	name = "debug mech equipment"
+
+/obj/structure/closet/crate/secure/gear/debug/PopulateContents()
+	. = ..()
+	new /obj/item/robot_model/syndicate_medical(src)
+	new /obj/item/robot_model/syndicate(src)
+	new /obj/item/robot_model/guard(src)
+	new /obj/item/robot_model/saboteur(src)
+	new /obj/item/robot_model/deathsquad(src)
+
+/obj/structure/closet/crate/secure/gear/debug/mech
+	name = "debug mech equipment"
+
+/obj/structure/closet/crate/secure/gear/debug/mech/PopulateContents()
+	. = ..()
+	for(var/item in subtypesof(/obj/item/mecha_parts/mecha_equipment))
+		new item(src)
+	for(var/i in 1 to 5)
+		new /obj/item/stack/sheet/animalhide/goliath_hide()
+	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
+
+/obj/structure/closet/crate/secure/gear/debug/cyborg
+	name = "debug mech equipment"
+
+/obj/structure/closet/crate/secure/gear/debug/PopulateContents()
+	. = ..()
+	new /obj/item/robot_model/syndicate_medical(src)
+	new /obj/item/robot_model/syndicate(src)
+	new /obj/item/robot_model/guard(src)
+	new /obj/item/robot_model/saboteur(src)
+	new /obj/item/robot_model/deathsquad(src)
+
+/obj/structure/closet/crate/secure/gear/debug/mech
+	name = "debug mech equipment"
+
+/obj/structure/closet/crate/secure/gear/debug/mech/PopulateContents()
+	. = ..()
+	for(var/item in subtypesof(/obj/item/mecha_parts/mecha_equipment))
+		new item(src)
+	for(var/i in 1 to 5)
+		new /obj/item/stack/sheet/animalhide/goliath_hide()
+	new /obj/item/mecha_parts/mecha_equipment/concealed_weapon_bay(src)
+	new /obj/item/mecha_parts/mecha_tracking(src)
+	new /obj/item/mecha_parts/mecha_tracking/ai_control(src)
 
 /obj/structure/closet/crate/secure/hydroponics
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."

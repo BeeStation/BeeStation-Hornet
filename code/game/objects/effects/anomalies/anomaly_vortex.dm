@@ -1,7 +1,8 @@
 /obj/effect/anomaly/bhole
 	name = "vortex anomaly"
-	icon_state = "bhole3"
+	icon_state = "vortex"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
+	anomaly_core = /obj/item/assembly/signaler/anomaly/vortex
 
 /obj/effect/anomaly/bhole/anomalyEffect()
 	..()
@@ -13,6 +14,8 @@
 
 	//Throwing stuff around!
 	for(var/obj/O in orange(2,src))
+		if(O == src)
+			return
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
 			if(target && !target.stat)

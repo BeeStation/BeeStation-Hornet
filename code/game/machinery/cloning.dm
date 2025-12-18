@@ -41,7 +41,6 @@
 	var/flesh_number = 0
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/experimental_pod = FALSE //experimental cloner will have true. TRUE allows you to clone a weird brain after scanning it.
 
 /obj/machinery/clonepod/Initialize(mapload)
@@ -89,6 +88,8 @@
 		heal_level = MINIMUM_HEAL_LEVEL
 	if(heal_level > 100)
 		heal_level = 100
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 /obj/machinery/clonepod/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -212,12 +213,6 @@
 				return ERROR_SOUL_DEPARTED
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SUICIDED_BODY
-		if(clonemind.damnation_type) //Can't clone the damned.
-			INVOKE_ASYNC(src, PROC_REF(horrifyingsound))
-			mess = TRUE
-			icon_state = "pod_g"
-			update_icon()
-			return ERROR_SOUL_DAMNED
 		if(clonemind.no_cloning_at_all) // nope.
 			return ERROR_UNCLONABLE
 		current_insurance = insurance
@@ -233,9 +228,9 @@
 			var/list/unclean_mutations = (GLOB.not_good_mutations|GLOB.bad_mutations)
 			H.dna.remove_mutation_group(unclean_mutations)
 		if(efficiency > 5 && prob(20))
-			H.easy_randmut(POSITIVE)
+			H.easy_random_mutate(POSITIVE)
 		if(efficiency < 3 && prob(50))
-			var/mob/M = H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			var/mob/M = H.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 			if(ismob(M))
 				H = M
 
@@ -291,12 +286,18 @@
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
-	if(length(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		H.key = C.key
-		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
-		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_EXPERIMENTAL_CLONE
+	config.poll_time = 30 SECONDS
+	config.jump_target = H
+	config.role_name_text = "[H.real_name]'s experimental clone?"
+	config.alert_pic = H
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, H)
+	if(candidate)
+		H.key = candidate.key
+
+		log_game("[key_name(candidate)] became [H.real_name]'s experimental clone.")
+		message_admins("[key_name_admin(candidate)] became [H.real_name]'s experimental clone.")
 		to_chat(H, span_warning("You will instantly die if you do 'ghost'. Please stand by until the cloning is done."))
 
 //Grow clones to maturity then kick them out.  FREELOADERS
@@ -338,7 +339,7 @@
 						fair_market_price = round(fair_market_price/length(dept_list))
 						for(var/datum/bank_account/department/D in dept_list)
 							D.adjust_money(fair_market_price)
-		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
+		if(mob_occupant && mob_occupant.stat == DEAD || mob_occupant.suiciding)  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")
 			if(internal_radio)
 				SPEAK("The cloning of [mob_occupant.real_name] has been \
@@ -370,7 +371,7 @@
 					O.Insert(mob_occupant)
 				else if(isbodypart(I))
 					var/obj/item/bodypart/BP = I
-					BP.attach_limb(mob_occupant)
+					BP.try_attach_limb(mob_occupant)
 
 			use_power(5000 * speed_coeff) //This might need tweaking.
 
@@ -388,7 +389,7 @@
 					O.Insert(mob_occupant)
 				else if(isbodypart(i))
 					var/obj/item/bodypart/BP = i
-					BP.attach_limb(mob_occupant)
+					BP.try_attach_limb(mob_occupant)
 
 			go_out()
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
