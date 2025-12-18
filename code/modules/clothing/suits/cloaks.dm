@@ -227,16 +227,15 @@
 	return ..()
 
 /obj/item/clothing/neck/cloak/fakehalo/equipped(mob/user, slot, initial = FALSE)
-	if(ishuman(user))
-		var/mob/living/carbon/H = user
-		. = ..()
+	if(iscarbon(user))
+		var/mob/living/carbon/carbon_user = user
 		if(slot == ITEM_SLOT_NECK)
-			if(H.overlays_standing[HALO_LAYER])
-				to_chat(H, span_warning("You already have a halo!"))
-				H.dropItemToGround(src)
+			if(carbon_user.overlays_standing[HALO_LAYER])
+				to_chat(carbon_user, span_warning("You already have a halo!"))
 				return
-			H.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
-			H.apply_overlay(HALO_LAYER)
+			carbon_user.overlays_standing[HALO_LAYER] = mutable_appearance('icons/effects/32x64.dmi', "halo_static", CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+			carbon_user.apply_overlay(HALO_LAYER)
+	return ..()
 
 /obj/item/clothing/neck/cloak/fakehalo/dropped(mob/user, silent = FALSE)
 	. = ..()
