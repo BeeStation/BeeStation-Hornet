@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Characters generated through the strict random generator will no longer
+      spawn with jumpskirts when male.
