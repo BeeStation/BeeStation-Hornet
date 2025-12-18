@@ -736,7 +736,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 /obj/structure/window/reinforced/shuttle/unanchored
 	anchored = FALSE
 
-
 /datum/armor/window_shuttle
 	melee = 50
 	bomb = 50
