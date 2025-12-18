@@ -1,6 +1,6 @@
 /datum/preference/choiced/quirk/alcohol_type
 	db_key = "quirk_alcohol_type"
-	required_quirk = /datum/quirk/alcoholic
+	required_quirk = /datum/quirk/item_quirk/alcoholic
 
 /datum/preference/choiced/quirk/alcohol_type/init_possible_values()
 	return ..() + GLOB.alcoholic_bottles

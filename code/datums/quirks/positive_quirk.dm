@@ -5,8 +5,9 @@
 	desc = "You are used to the awful things that happen here, bad events affect your mood less."
 	icon = "meh"
 	quirk_value = 1
-	mood_quirk = TRUE
+	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
 	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
+	mail_goodies = list(/obj/item/hourglass)
 
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
@@ -17,9 +18,11 @@
 	gain_text = span_notice("You feel like a drink would do you good.")
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
+	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_PROCESSES
+	//mail_goodies = list(/obj/effect/spawner/random/food_or_drink/booze)
 
 /datum/quirk/drunkhealing/process(delta_time)
-	var/mob/living/carbon/carbon_holder = quirk_holder
+	var/mob/living/carbon/carbon_holder = quirk_target
 	switch(carbon_holder.drunkenness)
 		if (6 to 40)
 			carbon_holder.adjustBruteLoss(-0.1*delta_time, FALSE)
@@ -50,6 +53,7 @@
 	gain_text = span_notice("You feel lithe on your feet!")
 	lose_text = span_danger("You feel clumsy again.")
 	medical_record_text = "Patient scored highly on cardio tests."
+	mail_goodies = list(/obj/item/melee/skateboard)
 
 /datum/quirk/friendly
 	name = "Friendly"
@@ -59,8 +63,9 @@
 	mob_trait = TRAIT_FRIENDLY
 	gain_text = span_notice("You want to hug someone.")
 	lose_text = span_danger("You no longer feel compelled to hug others.")
-	mood_quirk = TRUE
+	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
 	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
+	mail_goodies = list(/obj/item/storage/box/hug)
 
 /datum/quirk/jolly
 	name = "Jolly"
@@ -68,13 +73,9 @@
 	icon = "grin"
 	quirk_value = 1
 	mob_trait = TRAIT_JOLLY
-	mood_quirk = TRUE
-	process = TRUE
+	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
 	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
-
-/datum/quirk/jolly/on_process(delta_time)
-	if(DT_PROB(0.05, delta_time))
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
+	mail_goodies = list(/obj/item/clothing/mask/joy)
 
 /datum/quirk/light_step
 	name = "Light Step"
@@ -85,6 +86,7 @@
 	gain_text = span_notice("You walk with a little more litheness.")
 	lose_text = span_danger("You start tromping around like a barbarian.")
 	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
+	mail_goodies = list(/obj/item/clothing/shoes/sandal)
 
 /datum/quirk/linguist
 	name = "Linguist"
@@ -121,7 +123,7 @@
 		known_language = pick(languages_possible)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
-/datum/quirk/multilingual/add()
+/datum/quirk/multilingual/add(client/client_source)
 	known_language = read_choice_preference(/datum/preference/choiced/quirk/multilingual_language)
 	if(!known_language) // default to random
 		set_up_language()
@@ -142,16 +144,27 @@
 	mob_trait = TRAIT_NIGHT_VISION_WEAK
 	gain_text = span_notice("The shadows seem a little less dark.")
 	lose_text = span_danger("Everything seems a little darker.")
-	medical_record_text = "Patient possesses a better than average retina."
+	medical_record_text = "Patient's eyes show above-average acclimation to darkness."
+	mail_goodies = list(
+		/obj/item/flashlight/flashdark,
+		/obj/item/food/grown/mushroom/glowshroom/shadowshroom,
+	)
 
-/datum/quirk/night_vision/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/organ/eyes/eyes = H.get_organ_by_type(/obj/item/organ/eyes)
+/datum/quirk/night_vision/add(client/client_source)
+	refresh_quirk_holder_eyes()
+
+/datum/quirk/night_vision/remove()
+	refresh_quirk_holder_eyes()
+
+/datum/quirk/night_vision/proc/refresh_quirk_holder_eyes()
+	var/mob/living/carbon/human/human_quirk_holder = quirk_target
+	var/obj/item/organ/eyes/eyes = human_quirk_holder.get_organ_by_type(/obj/item/organ/eyes)
 	if(!eyes || eyes.lighting_alpha)
 		return
-	eyes.Insert(H) //refresh their eyesight and vision
+	// We've either added or removed TRAIT_NIGHT_VISION_WEAK before calling this proc. Just refresh the eyes.
+	eyes.Insert(human_quirk_holder, special = TRUE)
 
-/datum/quirk/photographer
+/datum/quirk/item_quirk/photographer
 	name = "Psychic Photographer"
 	desc = "You have a special camera that can capture a photo of ghosts. Your experience in photography shortens the delay between each shot."
 	icon = "camera"
@@ -160,19 +173,19 @@
 	gain_text = span_notice("You know everything about photography.")
 	lose_text = span_danger("You forget how photo cameras work.")
 	medical_record_text = "Patient mentions photography as a stress-relieving hobby."
+	mail_goodies = list(/obj/item/camera_film)
 
-/datum/quirk/photographer/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/camera/spooky/camera = new(get_turf(H))
-	var/list/camera_slots = list (
-		"neck" = ITEM_SLOT_NECK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET,
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS
+/datum/quirk/item_quirk/photographer/add_unique(client/client_source)
+	give_item_to_holder(
+		/obj/item/camera/spooky,
+		list(
+			LOCATION_NECK = ITEM_SLOT_NECK,
+			LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
+			LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
+			LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
+			LOCATION_HANDS = ITEM_SLOT_HANDS
+		)
 	)
-	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE)
-	H.regenerate_icons()
 
 /datum/quirk/selfaware
 	name = "Self-Aware"
@@ -181,6 +194,7 @@
 	quirk_value = 1
 	mob_trait = TRAIT_SELF_AWARE
 	medical_record_text = "Patient demonstrates an uncanny knack for self-diagnosis."
+	mail_goodies = list(/obj/item/clothing/neck/stethoscope)
 
 /datum/quirk/skittish
 	name = "Skittish"
@@ -189,8 +203,9 @@
 	quirk_value = 1
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
+	mail_goodies = list(/obj/structure/closet/cardboard)
 
-/datum/quirk/tagger
+/datum/quirk/item_quirk/tagger
 	name = "Tagger"
 	desc = "You're an experienced artist. While drawing graffiti, you can get twice as many uses out of drawing supplies."
 	icon = "spray-can"
@@ -198,14 +213,16 @@
 	mob_trait = TRAIT_TAGGER
 	gain_text = span_notice("You know how to tag walls efficiently.")
 	lose_text = span_danger("You forget how to tag walls properly.")
-	medical_record_text = "Patient recently seen for paint poisoning."
+	medical_record_text = "Patient was recently seen for possible paint huffing incident."
+	mail_goodies = list(
+		/obj/item/toy/crayon/spraycan,
+		/obj/item/canvas/nineteen_nineteen,
+		/obj/item/canvas/twentythree_nineteen,
+		/obj/item/canvas/twentythree_twentythree
+	)
 
-/datum/quirk/tagger/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/toy/crayon/spraycan/spraycan = new(get_turf(H))
-	H.put_in_hands(spraycan)
-	H.equip_to_slot(spraycan, ITEM_SLOT_BACKPACK)
-	H.regenerate_icons()
+/datum/quirk/item_quirk/tagger/add_unique(client/client_source)
+	give_item_to_holder(/obj/item/toy/crayon/spraycan, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
 
 /datum/quirk/voracious
 	name = "Voracious"
@@ -216,6 +233,7 @@
 	gain_text = span_notice("You feel HONGRY.")
 	lose_text = span_danger("You no longer feel HONGRY.")
 	medical_record_text = "Patient has an above average appreciation for food and drink."
+	//mail_goodies = list(/obj/effect/spawner/random/food_or_drink/dinner)
 
 /datum/quirk/neet
 	name = "NEET"
@@ -225,18 +243,17 @@
 	mob_trait = TRAIT_NEET
 	gain_text = span_notice("You feel useless to society.")
 	lose_text = span_danger("You no longer feel useless to society.")
-	mood_quirk = TRUE
-	process = TRUE
+	quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_MOODLET_BASED
 	medical_record_text = "Patient qualifies for social welfare."
 
-/datum/quirk/neet/on_spawn()
+/datum/quirk/neet/add_unique(client/client_source)
 	var/mob/living/carbon/human/H = quirk_target
 	var/datum/bank_account/D = H.get_bank_account()
 	if(!D) //if their current mob doesn't have a bank account, likely due to them being a special role (ie nuke op)
 		return
 	D.payment_per_department[ACCOUNT_NEET_ID] += PAYCHECK_WELFARE
 
-/datum/quirk/proskater
+/datum/quirk/item_quirk/proskater
 	name = "Skater Bro"
 	desc = "You're a little too into old-earth skater culture! You're much more used to riding and falling off skateboards, needing less stamina to do kickflips and taking less damage upon bumping into something."
 	icon = "hand-middle-finger"
@@ -246,9 +263,8 @@
 	lose_text = span_danger("You no longer feel like you're in touch with the youth.")
 	medical_record_text = "Patient demonstrated a high affinity for skateboards."
 
-/datum/quirk/proskater/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
+/datum/quirk/item_quirk/proskater/add_unique(client/client_source)
+	give_item_to_holder(/obj/item/melee/skateboard/pro, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
 
 /datum/quirk/computer_whiz
 	name = "Computer Whiz"

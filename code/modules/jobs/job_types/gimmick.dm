@@ -121,12 +121,22 @@
 /datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/psychiatrist
+
 	id = /obj/item/card/id/job/psychiatrist
+	uniform = /obj/item/clothing/under/suit/black
+	backpack_contents = list(
+		/obj/item/choice_beacon/pet/ems = 1,
+		/obj/item/storage/pill_bottle/happinesspsych,
+		/obj/item/storage/pill_bottle/lsdpsych,
+		/obj/item/storage/pill_bottle/mannitol,
+		/obj/item/storage/pill_bottle/paxpsych,
+		/obj/item/storage/pill_bottle/psicodine,
+	)
 	belt = /obj/item/modular_computer/tablet/pda/preset/medical
 	ears = /obj/item/radio/headset/headset_med
-	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
-	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
+	l_hand = /obj/item/clipboard
+	neck = /obj/item/clothing/neck/tie/black
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/vip

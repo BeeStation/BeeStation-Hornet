@@ -71,9 +71,9 @@
 	var/datum/objective/protect/obsessed/yandere = new
 	yandere.owner = owner
 	yandere.set_target(obsession_mind)
-	var/datum/quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
-
-	if(!QDELETED(family_heirloom?.heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	var/datum/quirk/item_quirk/family_heirloom/family_heirloom = locate() in obsession_mind.quirks
+	var/obj/item/heirloom_item = family_heirloom?.heirloom?.resolve()
+	if(!QDELETED(heirloom_item))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
@@ -105,7 +105,7 @@
 				var/datum/objective/steal/heirloom_thief/heirloom_thief = new
 				heirloom_thief.owner = owner
 				heirloom_thief.set_target(obsession_mind)//while you usually wouldn't need this for stealing, we need the name of the obsession
-				heirloom_thief.steal_target = family_heirloom.heirloom
+				heirloom_thief.steal_target = heirloom_item
 				objectives += heirloom_thief
 				log_objective(owner, heirloom_thief.explanation_text)
 			if("jealous")

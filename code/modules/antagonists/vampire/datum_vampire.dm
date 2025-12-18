@@ -401,8 +401,8 @@
 
 	// Clear Addictions
 	user.reagents.addiction_list = new/list()
-	owner.remove_quirk(/datum/quirk/junkie)
-	owner.remove_quirk(/datum/quirk/junkie/smoker)
+	owner.remove_quirk(/datum/quirk/item_quirk/junkie)
+	owner.remove_quirk(/datum/quirk/item_quirk/junkie/smoker)
 
 	// No Skittish "People" allowed
 	if(HAS_TRAIT(user, TRAIT_SKITTISH))

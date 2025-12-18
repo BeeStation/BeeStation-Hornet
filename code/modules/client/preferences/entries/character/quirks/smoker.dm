@@ -1,6 +1,6 @@
 /datum/preference/choiced/quirk/smoker_cigarettes
 	db_key = "quirk_smoker_cigarettes"
-	required_quirk = /datum/quirk/junkie/smoker
+	required_quirk = /datum/quirk/item_quirk/junkie/smoker
 
 /datum/preference/choiced/quirk/smoker_cigarettes/init_possible_values()
 	return ..() + GLOB.smoker_cigarettes

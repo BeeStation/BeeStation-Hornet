@@ -208,6 +208,14 @@
 			setSanity(0)
 	HandleNutrition(owner)
 
+	// 0.416% is 15 successes / 3600 seconds. Calculated with 2 minute
+	// mood runtime, so 50% average uptime across the hour.
+	if(HAS_TRAIT(parent, TRAIT_DEPRESSION) && DT_PROB(0.416, delta_time))
+		add_event(null, "depression", /datum/mood_event/depression)
+
+	if(HAS_TRAIT(parent, TRAIT_JOLLY) && DT_PROB(0.416, delta_time))
+		add_event(null, "jolly", /datum/mood_event/jolly)
+
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
 	var/mob/living/owner = parent
 
@@ -391,7 +399,7 @@
 	var/mob/living/owner = parent
 
 	if(A.mood_check(owner))
-		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
+		if(get_event("area")) //walking between areas that give mood bonus should first clear the bonus from the previous one
 			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
 	else

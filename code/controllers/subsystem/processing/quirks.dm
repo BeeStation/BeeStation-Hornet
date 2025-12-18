@@ -10,7 +10,6 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 
 	var/list/quirks = list()		//Assoc. list of all roundstart quirk datum types; "name" = /path/
 	var/list/quirk_points = list()	//Assoc. list of quirk names and their "point cost"; positive numbers are good traits, and negative ones are bad
-	var/list/quirk_objects = list()	//A list of all quirk objects in the game, since some may process
 	/// A list of quirks that can not be used with each other. Format: list(quirk1,quirk2),list(quirk3,quirk4)
 	var/static/list/quirk_blacklist = list(
 		list("Blind","Nearsighted"),
@@ -28,7 +27,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 /// Returns the list of possible quirks
 /datum/controller/subsystem/processing/quirks/proc/get_quirks()
 	RETURN_TYPE(/list)
-	if (!quirks.len)
+	if (!length(quirks))
 		SetupQuirks()
 	return quirks
 
@@ -36,27 +35,33 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	// Sort by Positive, Negative, Neutral; and then by name
 	var/list/quirk_list = sort_list(subtypesof(/datum/quirk), GLOBAL_PROC_REF(cmp_quirk_asc))
 
-	for(var/datum/quirk/T as() in quirk_list)
-		quirks[initial(T.name)] = T
-		quirk_points[initial(T.name)] = initial(T.quirk_value)
+	for(var/type in quirk_list)
+		var/datum/quirk/quirk_type = type
 
-/datum/controller/subsystem/processing/quirks/proc/AssignQuirks(datum/mind/user, client/cli, spawn_effects)
+		if(initial(quirk_type.abstract_parent_type) == type)
+			continue
+
+		quirks[initial(quirk_type.name)] = quirk_type
+		quirk_points[initial(quirk_type.name)] = initial(quirk_type.quirk_value)
+
+/datum/controller/subsystem/processing/quirks/proc/AssignQuirks(datum/mind/user, client/applied_client)
 	var/list/bad_quirks = list()
 	var/positive_quirks = 0
-	for(var/V in cli.prefs.all_quirks)
-		var/datum/quirk/Q = quirks[V]
-		if(Q)
-			user.add_quirk(Q, spawn_effects)
-			if(Q.quirk_value > 0) //Tally up the total of all of the positive quirks, future-proofing for when we re-add 2-point positive quirks
-				positive_quirks += Q.quirk_value
+	for(var/quirk_name in applied_client.prefs.all_quirks)
+		var/datum/quirk/quirk_type = quirks[quirk_name]
+		if(ispath(quirk_type))
+			if(user.add_quirk(quirk_type, override_client = applied_client))
+				SSblackbox.record_feedback("nested tally", "quirks_taken", 1, list("[quirk_name]"))
+			if(quirk_type.quirk_value > 0) //Tally up the total of all of the positive quirks, future-proofing for when we re-add 2-point positive quirks
+				positive_quirks += quirk_type.quirk_value
 		else
-			stack_trace("Invalid quirk \"[V]\" in client [cli.ckey] preferences. the game has reset their quirks automatically.")
-			bad_quirks += V
+			stack_trace("Invalid quirk \"[quirk_name]\" in client [applied_client.ckey] preferences. the game has reset their quirks automatically.")
+			bad_quirks += quirk_name
 	if(length(bad_quirks) || positive_quirks > MAX_POSITIVE_QUIRKS)
-		cli.prefs.all_quirks = list()
+		applied_client.prefs.all_quirks = list()
 		// save the new cleared quirks.
-		cli.prefs.mark_undatumized_dirty_character()
-		client_alert(cli, "You have invalid quirks: [length(bad_quirks) ? "[english_list(bad_quirks)]" : "Too many positive quirks"]. Your quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")
+		applied_client.prefs.mark_undatumized_dirty_character()
+		client_alert(applied_client, "You have invalid quirks: [length(bad_quirks) ? "[english_list(bad_quirks)]" : "Too many positive quirks"]. Your quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")
 
 /// Takes a list of quirk names and returns a new list of quirks that would
 /// be valid.
@@ -73,7 +78,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		if (isnull(quirk))
 			continue
 
-		if (initial(quirk.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
+		if ((initial(quirk.quirk_flags) & QUIRK_MOODLET_BASED) && CONFIG_GET(flag/disable_human_mood))
 			continue
 
 		var/blacklisted = FALSE

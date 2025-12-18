@@ -27,6 +27,24 @@
 	else
 		apply_loadout_to_mob(mannequin, mannequin, preference_source = parent, on_dummy = TRUE)
 
+	// Apply visual quirks
+	// Yes we do it every time because it needs to be done after job gear
+	if(SSquirks?.initialized)
+		// And yes we need to clean all the quirk datums every time
+		// In this codebase, quirks are stored on minds, so we need to ensure the dummy has a mind
+		if(!mannequin.mind)
+			mannequin.mind = new /datum/mind()
+			mannequin.mind.set_current(mannequin)
+		
+		// Remove existing quirks before applying new ones
+		mannequin.mind.remove_all_quirks()
+		
+		for(var/quirk_name in all_quirks)
+			var/datum/quirk/quirk_type = SSquirks.quirks[quirk_name]
+			if(!(initial(quirk_type.quirk_flags) & QUIRK_CHANGES_APPEARANCE))
+				continue
+			mannequin.mind.add_quirk(quirk_type, parent)
+
 	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance
 

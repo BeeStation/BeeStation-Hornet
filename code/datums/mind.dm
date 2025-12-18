@@ -157,8 +157,9 @@
 	set_current(new_character) //associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
 
-	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
-		T.transfer_mob(new_character)
+	for(var/datum/quirk/quirk as anything in quirks) //Transfer all quirks to the new body
+		quirk.remove_from_current_holder(quirk_transfer = TRUE)
+		quirk.add_to_holder(src, new_character, quirk_transfer = TRUE)
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
@@ -717,15 +718,30 @@
 
 // Quirk Procs //
 
-/datum/mind/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
-	if(HAS_TRAIT(src, quirktype))
-		return
-	var/datum/quirk/T = quirktype
-	var/qname = initial(T.name)
+
+/**
+ * Adds the passed quirk to the mind
+ *
+ * Arguments
+ * * quirktype - Quirk typepath to add to the mind
+ * * override_client - optional, allows a client to be passed to the quirks on add procs.
+ * If not passed, defaults to this mind's client.
+ *
+ * Returns TRUE on success, FALSE on failure (already has the quirk, etc)
+ */
+/datum/mind/proc/add_quirk(datum/quirk/quirktype, client/override_client)
+	if(has_quirk(quirktype))
+		return FALSE
+	var/qname = initial(quirktype.name)
 	if(!SSquirks || !SSquirks.quirks[qname])
-		return
-	new quirktype (src, current, spawn_effects)
-	return TRUE
+		return FALSE
+	if(!current)
+		return FALSE
+	var/datum/quirk/quirk = new quirktype()
+	if(quirk.add_to_holder(src, current, client_source = override_client))
+		return TRUE
+	qdel(quirk)
+	return FALSE
 
 /datum/mind/proc/remove_quirk(quirktype)
 	for(var/datum/quirk/Q in quirks)

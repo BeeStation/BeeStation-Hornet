@@ -15,6 +15,8 @@
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define JOB_TRAIT "job"
 #define CYBORG_ITEM_TRAIT "cyborg-item"
+/// Any traits granted by quirks.
+#define QUIRK_TRAIT "quirk_trait"
 #define ADMIN_TRAIT "admin" // (B)admins only.
 /// Any traits given through a smite.
 #define SMITE_TRAIT "smite"

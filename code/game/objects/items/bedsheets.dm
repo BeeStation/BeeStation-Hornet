@@ -94,6 +94,13 @@
 	inhand_icon_state = "sheetyellow"
 	dream_messages = list("yellow")
 
+/obj/item/bedsheet/chaplain
+	name = "chaplain's blanket"
+	desc = "A blanket woven with the hearts of gods themselves... Wait, that's just linen."
+	icon_state = "sheetchap"
+	inhand_icon_state = "sheetchap"
+	dream_messages = list("a grey ID", "the gods", "a fulfilled prayer", "a cult", "the chaplain")
+
 /obj/item/bedsheet/brown
 	icon_state = "sheetbrown"
 	inhand_icon_state = "sheetbrown"

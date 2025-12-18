@@ -37,21 +37,6 @@
 	mood_change = -12
 	timeout = 2 MINUTES
 
-/datum/mood_event/anxiety
-	description = span_warning("I feel scared around all these people...")
-	mood_change = -2
-	timeout = 60 SECONDS
-
-/datum/mood_event/anxiety_mute
-	description = span_boldwarning("I can't speak up, not with everyone here!")
-	mood_change = -4
-	timeout = 2 MINUTES
-
-/datum/mood_event/anxiety_dumb
-	description = span_boldwarning("Oh god, I made a fool of myself.")
-	mood_change = -10
-	timeout = 2 MINUTES
-
 /datum/mood_event/shameful_suicide //suicide_acts that return SHAME, like sord
 	description = span_boldwarning("I can't even end it all!")
 	mood_change = -15

@@ -411,7 +411,7 @@
 		SSdynamic.on_player_latejoin(humanc)
 
 	if(CONFIG_GET(flag/roundstart_traits))
-		SSquirks.AssignQuirks(character.mind, character.client, TRUE)
+		SSquirks.AssignQuirks(character.mind, character.client)
 
 	if(humanc)
 		GLOB.manifest.inject(humanc)

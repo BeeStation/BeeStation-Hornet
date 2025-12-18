@@ -74,6 +74,13 @@
 	inhand_icon_state = "soviet"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/costume/redcoat
+	name = "redcoat uniform"
+	desc = "Looks old."
+	icon_state = "redcoat"
+	inhand_icon_state = null
+	can_adjust = FALSE
+
 /obj/item/clothing/under/costume/kilt
 	name = "kilt"
 	desc = "Includes shoes and plaid."

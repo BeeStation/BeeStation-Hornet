@@ -90,6 +90,11 @@
 	icon_state = "stamp-mime"
 	dye_color = DYE_MIME
 
+/obj/item/stamp/chap
+	name = "chaplain's rubber stamp"
+	icon_state = "stamp-chap"
+	dye_color = DYE_CHAP
+
 /obj/item/stamp/centcom
 	name = "CENTCOM rubber stamp"
 	icon_state = "stamp-cent"

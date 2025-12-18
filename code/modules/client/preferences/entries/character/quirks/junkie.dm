@@ -1,6 +1,6 @@
 /datum/preference/choiced/quirk/junkie_drug
 	db_key = "quirk_junkie_drug"
-	required_quirk = /datum/quirk/junkie
+	required_quirk = /datum/quirk/item_quirk/junkie
 
 /datum/preference/choiced/quirk/junkie_drug/init_possible_values()
 	return ..() + GLOB.junkie_drugs

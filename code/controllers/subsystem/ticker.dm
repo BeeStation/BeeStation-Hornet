@@ -444,7 +444,7 @@ SUBSYSTEM_DEF(ticker)
 			if(mind.assigned_role != mind.special_role)
 				SSjob.EquipRank(N, mind.assigned_role, FALSE)
 			if(CONFIG_GET(flag/roundstart_traits))
-				SSquirks.AssignQuirks(mind, N.client, TRUE)
+				SSquirks.AssignQuirks(mind, N.client)
 		CHECK_TICK
 	if(length(spare_id_candidates))			//No captain, time to choose acting captain
 		if(!enforce_coc)

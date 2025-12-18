@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown,
+		DYE_CHAP = /obj/item/clothing/under/rank/civilian/chaplain,
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
@@ -20,8 +21,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer,
+		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat,
 		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied,
 		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer,
+		DYE_PRISONER = /obj/item/clothing/under/rank/prisoner,
 		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
 		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
@@ -37,6 +40,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/jumpskirt/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime/skirt,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown/sexy,
+		DYE_CHAP = /obj/item/clothing/under/rank/civilian/chaplain/skirt,
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/skirt,
 		DYE_LAW = /obj/item/clothing/under/suit/black/skirt,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain/skirt,
@@ -108,6 +112,8 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_RD = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_CMO = /obj/item/clothing/shoes/sneakers/brown,
+		DYE_SYNDICATE = /obj/item/clothing/shoes/combat,
+		DYE_CENTCOM = /obj/item/clothing/shoes/combat,
 		DYE_DENIED = /obj/item/clothing/shoes/sneakers/rainbow/denied,
 		DYE_SECURITY = /obj/item/clothing/shoes/jackboots
 	),
@@ -157,6 +163,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_PURPLE = /obj/item/storage/belt/fannypack/purple,
 		DYE_BLACK = /obj/item/storage/belt/fannypack/black,
 		DYE_WHITE = /obj/item/storage/belt/fannypack/white,
+		DYE_SYNDICATE = /obj/item/storage/belt/military,
 		DYE_DENIED = /obj/item/storage/belt/fannypack/red
 	),
 	DYE_REGISTRY_BEDSHEET = list(
@@ -171,6 +178,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/bedsheet/rainbow,
 		DYE_MIME = /obj/item/bedsheet/mime,
 		DYE_CLOWN = /obj/item/bedsheet/clown,
+		DYE_CHAP = /obj/item/bedsheet/chaplain,
 		DYE_QM = /obj/item/bedsheet/qm,
 		DYE_LAW = /obj/item/bedsheet/black,
 		DYE_CAPTAIN = /obj/item/bedsheet/captain,
@@ -180,7 +188,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/bedsheet/rd,
 		DYE_CMO = /obj/item/bedsheet/cmo,
 		DYE_COSMIC = /obj/item/bedsheet/cosmos,
-		DYE_DENIED = /obj/item/bedsheet/cult
+		DYE_DENIED = /obj/item/bedsheet/cult,
+		DYE_SYNDICATE = /obj/item/bedsheet/syndie,
+		DYE_CENTCOM = /obj/item/bedsheet/centcom
 	),
 	DYE_REGISTRY_GUN = list(
 		DYE_CLOWN = /obj/item/food/grown/banana

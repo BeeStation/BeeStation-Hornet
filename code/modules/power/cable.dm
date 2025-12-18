@@ -782,6 +782,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		C.denode()// this call may have disconnected some cables that terminated on the centre of the turf, if so split the powernets.
 		return
 
+/obj/item/stack/cable_coil/five
+	amount = 5
+
 //////////////////////////////
 // Misc.
 /////////////////////////////

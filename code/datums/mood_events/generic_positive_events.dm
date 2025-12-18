@@ -113,6 +113,7 @@
 /datum/mood_event/religiously_comforted
 	description = span_nicegreen("I feel comforted by the presence of a holy person.")
 	mood_change = 3
+	timeout = 5 MINUTES
 
 /datum/mood_event/clownshoes
 	description = span_nicegreen("The shoes are a clown's legacy, I never want to take them off!")
@@ -241,3 +242,7 @@
 	mood_change = 2
 	special_screen_obj = "birthday"
 	special_screen_replace = FALSE
+
+/datum/mood_event/gondola
+	description = "I feel at peace and feel no need to make any sudden or rash actions."
+	mood_change = 3

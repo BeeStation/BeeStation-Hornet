@@ -850,6 +850,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	flags_1 = NONE
 
 /area/chapel
+	name = "\improper Chapel"
 	icon_state = "chapel"
 	ambience_index = AMBIENCE_HOLY
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
@@ -861,25 +862,25 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
 /area/chapel/main
-	name = "Chapel"
+	name = "\improper Chapel"
 
 /area/chapel/main/monastery
-	name = "Monastery"
+	name = "\improper Monastery"
 
 /area/chapel/office
-	name = "Chapel Office"
+	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
 
 /area/chapel/asteroid
-	name = "Chapel Asteroid"
+	name = "\improper Chapel Asteroid"
 	icon_state = "explored"
 	sound_environment = SOUND_AREA_ASTEROID
 
 /area/chapel/asteroid/monastery
-	name = "Monastery Asteroid"
+	name = "\improper Monastery Asteroid"
 
 /area/chapel/dock
-	name = "Chapel Dock"
+	name = "\improper Chapel Dock"
 	icon_state = "construction"
 
 /area/lawoffice
