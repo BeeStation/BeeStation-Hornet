@@ -129,9 +129,9 @@
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/affected_mob, delta_time, times_fired)
 	. = ..()
-	var/need_mob_update
-	need_mob_update = affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.25 * REM * delta_time)
-	need_mob_update = affected_mob.adjustToxLoss(0.25 * REM * delta_time, updating_health = FALSE)
+	var/need_mob_update = FALSE
+	need_mob_update += affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.25 * REM * delta_time)
+	need_mob_update += affected_mob.adjustToxLoss(0.25 * REM * delta_time, updating_health = FALSE)
 	if(need_mob_update)
 		return UPDATE_MOB_HEALTH
 
