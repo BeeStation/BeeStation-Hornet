@@ -81,3 +81,6 @@
   - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
       person and not playing a sound effect
   - balance: gun rechargers now charge twice as fast
+2025-12-18:
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when re-aquiring a client's parallax cache
