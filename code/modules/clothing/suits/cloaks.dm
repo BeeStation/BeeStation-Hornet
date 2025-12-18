@@ -219,12 +219,12 @@
 	icon_state = "fakehalo"
 
 /obj/item/clothing/neck/cloak/fakehalo/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
-	if(ishuman(M))
-		var/mob/living/carbon/H = M
-		if(H.overlays_standing[HALO_LAYER])
-			to_chat(H, span_warning("You already have a halo!"))
+	if(iscarbon(M))
+		var/mob/living/carbon/carbon_wearer = M
+		if(carbon_wearer.overlays_standing[HALO_LAYER])
+			to_chat(carbon_wearer, span_warning("You already have a halo!"))
 			return FALSE
-	. = ..()
+	return ..()
 
 /obj/item/clothing/neck/cloak/fakehalo/equipped(mob/user, slot, initial = FALSE)
 	if(ishuman(user))
