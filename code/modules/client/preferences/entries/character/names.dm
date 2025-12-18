@@ -60,14 +60,13 @@
 	// Check for ckey similarity first
 	if(reject_bad_name_ckey(input, preferences?.parent?.ckey))
 		if(preferences?.parent)
-			to_chat(preferences.parent, span_warning("Your character name is too similar to your account name ([preferences?.parent?.ckey])."))
-		return null
+			to_chat(preferences.parent, span_boldwarning("Your character name is too similar to your account name ([preferences?.parent?.ckey]). Please refer to the naming guidelines: https://wiki.beestation13.com/view/Naming_Guidelines"))
 
 	// Now validate the name normally
 	input = reject_bad_name(input, initial(selected_species.allow_numbers_in_name))
 	if (!input)
 		if(preferences?.parent)
-			to_chat(preferences.parent, span_warning("Invalid character name."))
+			to_chat(preferences.parent, span_boldwarning("Invalid character name."))
 		return input
 
 	if (CONFIG_GET(flag/humans_need_surnames) && selected_species == /datum/species/human)
