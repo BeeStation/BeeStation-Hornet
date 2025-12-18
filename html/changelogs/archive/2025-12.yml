@@ -82,5 +82,10 @@
       person and not playing a sound effect
   - balance: gun rechargers now charge twice as fast
 2025-12-18:
+  PowerfulBacon:
+  - bugfix: Characters generated through the strict random generator will no longer
+      spawn with jumpskirts when male.
+  - bugfix: Morphs no longer cause mobs that they eat to drop implants and other items
+      inside of the mob that aren't being worn by the mob.
   mrmanlikesbt:
   - bugfix: fixed a runtime when re-aquiring a client's parallax cache

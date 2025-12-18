@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Morphs no longer cause mobs that they eat to drop implants and other items
-      inside of the mob that aren't being worn by the mob.
