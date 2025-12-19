@@ -49,7 +49,7 @@
 	name = "Manuscript of the [bounty_job.title]"
 	description = "Central Command seeks the professional knowledge of the [bounty_job.title] in the form of a manuscript written by someone with relevant expertise. Find someone to write the manuscript, and ship it to Central Command."
 	if(repeated)
-		description += "\nYou have completed this for [repeated == 1 ? "[repeated] time" : "[repeated] times"], and earned credits in total of [total_claimed]."
+		description += "\nYou have completed this for [repeated] [repeated == 1 ? "time" : "times"], and earned credits in total of [total_claimed]."
 
 	shipped = FALSE
 	claimed = FALSE
