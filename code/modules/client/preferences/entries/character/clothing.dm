@@ -59,6 +59,9 @@
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
 	target.backbag = value
 
+/datum/preference/choiced/backpack/create_default_value()
+	return DBACKPACK
+
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit_style
 	db_key = "jumpsuit_style"
@@ -67,6 +70,8 @@
 	main_feature_name = "Jumpsuit"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
+	informed = TRUE
+	priority = PREFERENCE_PRIORITY_JUMPSUIT
 
 /datum/preference/choiced/jumpsuit_style/init_possible_values()
 	return list(
@@ -88,13 +93,10 @@
 	return PREF_SUIT
 /*
 /datum/preference/choiced/jumpsuit_style/create_informed_default_value(datum/preferences/preferences)
-	switch(preferences.read_preference(/datum/preference/choiced/gender))
-		if(MALE)
-			return PREF_SUIT
-		if(FEMALE)
-			return PREF_SKIRT
-
-	return ..()
+	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
+	if (gender == MALE)
+		return PREF_SUIT
+	return pick(PREF_SUIT, PREF_SKIRT)
 */
 /// Socks preference
 /datum/preference/choiced/socks

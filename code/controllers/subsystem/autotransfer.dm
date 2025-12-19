@@ -1,66 +1,37 @@
 SUBSYSTEM_DEF(autotransfer)
 	name = "Autotransfer Vote"
 	flags = SS_KEEP_TIMING | SS_BACKGROUND
-	wait = 1 MINUTES
-
-	var/reminder_time
-	var/checkvotes_time
-	var/decay_start
-	var/decay_count = 0
-	var/connected_votes_to_leave = 0
-	var/required_votes_to_leave = 0
-	///Total players currently in the game, dead or observing. Explicitly excludes lobby players
-	var/active_playercount = 0
+	wait = 2 MINUTES
+	runlevels = RUNLEVEL_GAME
+	var/time_to_vote
+	var/forced_call_time
 
 /datum/controller/subsystem/autotransfer/Initialize()
-	reminder_time = REALTIMEOFDAY + CONFIG_GET(number/autotransfer_decay_start)
-	checkvotes_time = REALTIMEOFDAY + 5 MINUTES
-	required_votes_to_leave = length(GLOB.clients) * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
-
 	if(!CONFIG_GET(flag/vote_autotransfer_enabled))
 		can_fire = FALSE
+		return SS_INIT_NO_NEED
+
+	time_to_vote = world.time + (CONFIG_GET(number/shuttle_refuel_delay)) + (CONFIG_GET(number/vote_autotransfer_interval))
+	forced_call_time = (CONFIG_GET(number/vote_autotransfer_override))
+	//Make sure a value has been set before fully initializing it. If this value is zero it needs to stay zero.
+	if(forced_call_time)
+		forced_call_time += world.time
 
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/autotransfer/fire()
-	// Calculate always to account for disconnected/reconnected players
-	// Alternatively this could just hook into client/new and client/destroy, but
-	// it doesn't matter that much if we lose count for a bit
-	connected_votes_to_leave = 0
-	active_playercount = 0
+	//No reason to vote if shuttle is already called unless it has been recalled
+	if(!SSshuttle.canEvac() && SSshuttle.emergency.mode != SHUTTLE_RECALL)
+		return
 
-	for(var/client/c in GLOB.clients)
-		//Clients that are still in the lobby cannot vote and are also not counted as active
-		if(isnewplayer(c.mob))
-			continue
+	//This will fail if forced_call_time is 0, allowing for indefinite round length
+	if(forced_call_time && world.time > forced_call_time)
+		if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE
+			SSshuttle.requestEvac(null, "Crew Transfer Requested.")
+			can_fire = FALSE //This system has served its purpose for as long as it can
+		SSshuttle.emergencyNoRecall = TRUE
+		return
 
-		//Only non-antagonist players count as "active" for the sake of determining how many votes are necessary to leave
-		if(isliving(c.mob) && !c.mob?.mind?.special_role)
-			active_playercount ++
-
-		//All players not in the lobby can vote to leave, living and dead
-		if (c.player_details.voted_to_leave)
-			connected_votes_to_leave ++
-
-	if(REALTIMEOFDAY > checkvotes_time)
-		if(decay_start)
-			decay_count++
-
-		//After a certain point votes are ignored and the shuttle is called unless config is set to this doesn't happen. Indefinite rounds are not possible.
-		required_votes_to_leave = active_playercount * (CONFIG_GET(number/autotransfer_percentage) - CONFIG_GET(number/autotransfer_decay_amount) * decay_count)
-
-		if(connected_votes_to_leave >= required_votes_to_leave)
-			if(SSshuttle.canEvac() == TRUE) //This must include the == TRUE because all returns for this proc have a value, we specifically want to check for TRUE
-				SSshuttle.requestEvac(null, "Crew Transfer Requested.")
-				SSshuttle.emergencyNoRecall = TRUE
-				can_fire = FALSE //The only way out of this shuttle call is admin override. They probably don't care about democracy anymore.
-			return
-
-		//Reset the next vote check
-		checkvotes_time = REALTIMEOFDAY + 5 MINUTES
-
-	if(REALTIMEOFDAY > reminder_time)
-		decay_start = TRUE
-		sound_to_playing_players('sound/misc/server-ready.ogg')
-		to_chat(world, "<font color='purple'>Don't forget you can vote to leave by pushing the button on the status tab if you're ready for the round to end!</font>")
-		reminder_time = reminder_time + CONFIG_GET(number/autotransfer_decay_start)
+	if(world.time > time_to_vote)
+		INVOKE_ASYNC(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote), /datum/vote/shuttle_vote, "Autotransfer", null, TRUE)
+		time_to_vote += (CONFIG_GET(number/vote_autotransfer_interval))

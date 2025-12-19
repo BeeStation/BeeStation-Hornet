@@ -124,7 +124,7 @@
 /datum/action/innate/change_screen
 	name = "Change Display"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
 
 /datum/action/innate/change_screen/on_activate()
@@ -252,7 +252,7 @@
 
 		//All in all this does 16.5 burn damage to an IPC if using a standard 40 stamina stun baton.
 		ipc.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
-		apply_damage((item.force/4), BURN, def_zone, armor_block, ipc)
+		ipc.apply_damage(damage = (item.force/4), damagetype = BURN, def_zone = def_zone, blocked = armor_block)
 
 /datum/species/ipc/proc/mechanical_revival(mob/living/carbon/human/H)
 

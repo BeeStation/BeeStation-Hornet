@@ -3,7 +3,7 @@
 	name = "syndicate minibomb"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	ex_heavy = 2
 	ex_light = 4
 	ex_flame = 2
@@ -52,7 +52,7 @@
 	name = "gluon frag grenade"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "bluefrag"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 
 	var/freeze_range = 4
 	var/rad_damage = 350

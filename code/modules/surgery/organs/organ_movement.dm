@@ -102,6 +102,8 @@
 	for(var/datum/status_effect/effect as anything in organ_effects)
 		organ_owner.apply_status_effect(effect, type)
 
+	if(!special)
+		organ_owner.hud_used?.update_locked_slots()
 	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, organ_owner)
 	SEND_SIGNAL(organ_owner, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
@@ -183,6 +185,9 @@
 
 	organ_owner.synchronize_bodytypes()
 	organ_owner.synchronize_bodyshapes()
+
+	if(!special)
+		organ_owner.hud_used?.update_locked_slots()
 
 	if((organ_flags & ORGAN_VITAL) && !special)
 		if(organ_owner.stat != DEAD)

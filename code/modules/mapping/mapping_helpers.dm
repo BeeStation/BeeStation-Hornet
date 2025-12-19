@@ -495,10 +495,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		return
 	if(target.cut_ai_wire)
 		target.wires.cut(WIRE_AI)
-	if(target.cell_5k)
-		target.install_cell_5k()
-	if(target.cell_10k)
-		target.install_cell_10k()
 	if(target.unlocked)
 		target.unlock()
 	if(target.syndicate_access)
@@ -509,8 +505,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		target.set_no_charge()
 	if(target.full_charge)
 		target.set_full_charge()
-	if(target.cell_5k && target.cell_10k)
-		CRASH("Tried to combine non-combinable cell_5k and cell_10k APC helpers!")
 	if(target.syndicate_access && target.away_general_access)
 		CRASH("Tried to combine non-combinable syndicate_access and away_general_access APC helpers!")
 	if(target.no_charge && target.full_charge)
@@ -530,26 +524,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 		var/area/apc_area = get_area(target)
 		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to mend the AI wire on the [target] but it's already cut!")
 	target.cut_ai_wire = TRUE
-
-/obj/effect/mapping_helpers/apc/cell_5k
-	name = "apc 5k cell helper"
-	icon_state = "apc_5k_cell_helper"
-
-/obj/effect/mapping_helpers/apc/cell_5k/payload(obj/machinery/power/apc/target)
-	if(target.cell_5k)
-		var/area/apc_area = get_area(target)
-		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to change [target]'s cell to cell_5k but it's already changed!")
-	target.cell_5k = TRUE
-
-/obj/effect/mapping_helpers/apc/cell_10k
-	name = "apc 10k cell helper"
-	icon_state = "apc_10k_cell_helper"
-
-/obj/effect/mapping_helpers/apc/cell_10k/payload(obj/machinery/power/apc/target)
-	if(target.cell_10k)
-		var/area/apc_area = get_area(target)
-		log_mapping("[src] at [AREACOORD(src)] [(apc_area.type)] tried to change [target]'s cell to cell_10k but it's already changed!")
-	target.cell_10k = TRUE
 
 /obj/effect/mapping_helpers/apc/syndicate_access
 	name = "apc syndicate access helper"

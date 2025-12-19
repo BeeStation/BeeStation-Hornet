@@ -3,7 +3,7 @@
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
 	icon_state = "jackboots"
-	item_state = "jackboots"
+	inhand_icon_state = "jackboots"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -65,7 +65,7 @@
 	desc = "A pair of shiny black wooden sandals."
 	name = "black sandals"
 	icon_state = "blacksandals"
-	item_state = "blacksandals"
+	inhand_icon_state = "blacksandals"
 
 /obj/item/clothing/shoes/sandal/magic
 	name = "magical sandals"
@@ -111,7 +111,7 @@
 	desc = "The prankster's standard-issue clowning shoes. Damn, they're huge! Ctrl-click to toggle waddle dampeners."
 	name = "clown shoes"
 	icon_state = "clown"
-	item_state = "clown_shoes"
+	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	var/datum/component/waddle
 	var/enabled_waddle = TRUE
@@ -159,7 +159,7 @@
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
 	icon_state = "sec_jackboots"
-	item_state = "sec_jackboots"
+	inhand_icon_state = "sec_jackboots"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -184,7 +184,7 @@
 	name = "replica jackboots"
 	desc = "An unarmored replica of Nanotrasen's Security combat boots. Unlike the real deal, this pair is better fit for everyday wear rather than combat."
 	icon_state = "jackboots"
-	item_state = "jackboots"
+	inhand_icon_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 
@@ -192,7 +192,7 @@
 	name = "white replica jackboots"
 	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal, this pair is better fit for everyday wear rather than combat."
 	icon_state = "white_jackboots"
-	item_state = "white_jackboots"
+	inhand_icon_state = "white_jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 
@@ -200,7 +200,7 @@
 	name = "winter boots"
 	desc = "Boots lined with 'synthetic' animal fur."
 	icon_state = "winterboots"
-	item_state = "winterboots"
+	inhand_icon_state = "winterboots"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	armor_type = /datum/armor/shoes_winterboots
 	cold_protection = FEET|LEGS
@@ -233,7 +233,7 @@
 	name = "work boots"
 	desc = "Nanotrasen-issue Engineering lace-up work boots for the especially blue-collar."
 	icon_state = "workboots"
-	item_state = "jackboots"
+	inhand_icon_state = "jackboots"
 	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -260,7 +260,7 @@
 	name = "\improper Nar'Sien invoker boots"
 	desc = "A pair of boots worn by the followers of Nar'Sie."
 	icon_state = "cult"
-	item_state = "cult"
+	inhand_icon_state = "cult"
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
@@ -287,7 +287,7 @@
 	name = "roman sandals"
 	desc = "Sandals with buckled leather straps on it."
 	icon_state = "roman"
-	item_state = "roman"
+	inhand_icon_state = "roman"
 	strip_delay = 100
 	equip_delay_other = 100
 	armor_type = /datum/armor/shoes_roman
@@ -300,7 +300,7 @@
 	name = "griffon boots"
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
-	item_state = "griffinboots"
+	inhand_icon_state = "griffinboots"
 
 /obj/item/clothing/shoes/griffin/Initialize(mapload)
 	. = ..()
@@ -311,7 +311,7 @@
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid forward movement."
 	icon_state = "jetboots"
-	item_state = "jetboots"
+	inhand_icon_state = "jetboots"
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
 	armor_type = /datum/armor/shoes_bhop
@@ -373,7 +373,7 @@
 	name = "Kindle Kicks"
 	desc = "They'll sure kindle something in you, and it's not childhood nostalgia..."
 	icon_state = "kindleKicks"
-	item_state = "kindleKicks"
+	inhand_icon_state = "kindleKicks"
 	actions_types = list(/datum/action/item_action/kindleKicks)
 	var/lightCycle = 0
 	var/active = FALSE
@@ -404,7 +404,7 @@
 	name = "russian boots"
 	desc = "Comfy shoes."
 	icon_state = "rus_shoes"
-	item_state = "rus_shoes"
+	inhand_icon_state = "rus_shoes"
 
 /obj/item/clothing/shoes/russian/Initialize(mapload)
 	. = ..()
@@ -415,4 +415,4 @@
 	name = "swag shoes"
 	desc = "They got me for my foams!"
 	icon_state = "SwagShoes"
-	item_state = "SwagShoes"
+	inhand_icon_state = "SwagShoes"

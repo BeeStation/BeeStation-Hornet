@@ -2,7 +2,7 @@
 	name = "tactical turtleneck"
 	desc = "A non-descript and slightly suspicious looking turtleneck with digital camouflage cargo pants."
 	icon_state = "syndicate"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	has_sensor = NO_SENSORS
 	armor_type = /datum/armor/under_syndicate
 	alt_covers_chest = TRUE
@@ -22,7 +22,7 @@
 	name = "blood-red sneaksuit"
 	desc = "It still counts as stealth if there are no witnesses."
 	icon_state = "bloodred_pajamas"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	armor_type = /datum/armor/clothing_under/syndicate_bloodred
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	can_adjust = FALSE
@@ -41,7 +41,7 @@
 	name = "blood-red pajamas"
 	desc = "Do operatives dream of nuclear sheep?"
 	icon_state = "bloodred_pajamas"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	armor_type = /datum/armor/clothing_under/bloodred_sleepytime
 
 /datum/armor/clothing_under/bloodred_sleepytime
@@ -52,7 +52,7 @@
 	name = "tacticool turtleneck"
 	desc = "Just looking at it makes you want to buy an SKS, go into the woods, and -operate-."
 	icon_state = "tactifool"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	armor_type = /datum/armor/syndicate_tacticool
 
 /datum/armor/syndicate_tacticool
@@ -65,14 +65,14 @@
 	name = "Tactical turtleneck suit"
 	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The collar is really sharp."
 	icon_state = "tactical_suit"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/syndicate/camo
 	name = "camouflage fatigues"
 	desc = "A green military camouflage uniform."
 	icon_state = "camogreen"
-	item_state = "g_suit"
+	inhand_icon_state = "g_suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/syndicate/soviet

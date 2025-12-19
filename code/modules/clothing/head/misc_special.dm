@@ -14,7 +14,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	item_state = "welding"
+	inhand_icon_state = "welding"
 	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
@@ -41,7 +41,7 @@
 /obj/item/clothing/head/utility/welding/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
-	item_state = "[initial(item_state)][up ? "off" : ""]"
+	inhand_icon_state = "[initial(inhand_icon_state)][up ? "off" : ""]"
 
 /obj/item/clothing/head/kitty/visual_equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -59,14 +59,14 @@
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
 	icon_state = "speedwagon"
-	item_state = "speedwagon"
+	inhand_icon_state = "speedwagon"
 	worn_y_offset = 4
 
 /obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
 	icon_state = "speedwagon"
-	item_state = "speedwagon"
+	inhand_icon_state = "speedwagon"
 	worn_y_offset = 6
 
 /obj/item/clothing/head/franks_hat
@@ -75,4 +75,4 @@
 	icon = 'icons/obj/clothing/head/cowboy.dmi'
 	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy"
-	item_state = "cowboy"
+	inhand_icon_state = "cowboy"

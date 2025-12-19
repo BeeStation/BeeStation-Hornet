@@ -72,7 +72,7 @@
 /datum/action/innate/hereticmob/change_sight_range
 	name = "Change Sight Range"
 	desc = "Change your sight range."
-	icon_icon = 'icons/obj/items_and_weapons.dmi'
+	button_icon = 'icons/obj/items_and_weapons.dmi'
 	button_icon_state = "binoculars"
 	background_icon_state = "bg_heretic"
 

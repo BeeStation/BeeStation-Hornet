@@ -4,7 +4,7 @@
 	desc = "A generic brand of lipstick."
 	icon = 'icons/obj/cosmetic.dmi'
 	icon_state = "lipstick"
-	item_state = "lipstick"
+	inhand_icon_state = "lipstick"
 	w_class = WEIGHT_CLASS_TINY
 	var/open = FALSE
 	/// Actual color of the lipstick, also gets applied to the human
@@ -24,7 +24,7 @@
 
 /obj/item/lipstick/update_icon_state()
 	icon_state = "lipstick[open ? "_uncap" : null]"
-	item_state = "lipstick[open ? "open" : null]"
+	inhand_icon_state = "lipstick[open ? "open" : null]"
 	return ..()
 
 /obj/item/lipstick/update_overlays()
@@ -141,7 +141,7 @@
 	desc = "The latest and greatest power razor born from the science of shaving."
 	icon = 'icons/obj/cosmetic.dmi'
 	icon_state = "razor"
-	item_state = "razor"
+	inhand_icon_state = "razor"
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = 15

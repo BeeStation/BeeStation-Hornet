@@ -72,7 +72,7 @@
 	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_heretic"
-	icon_icon = 'icons/obj/heretic.dmi'
+	button_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "living_heart"
 	cooldown_time = 4 SECONDS
 

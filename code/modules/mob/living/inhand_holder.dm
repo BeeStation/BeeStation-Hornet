@@ -19,7 +19,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/head/mob_holder)
 	if(head_icon)
 		worn_icon = head_icon
 	if(worn_state)
-		item_state = worn_state
+		inhand_icon_state = worn_state
 	if(lh_icon)
 		lefthand_file = lh_icon
 	if(rh_icon)

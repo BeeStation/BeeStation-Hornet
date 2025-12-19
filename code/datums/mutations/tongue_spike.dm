@@ -12,7 +12,7 @@
 /datum/action/spell/tongue_spike
 	name = "Launch spike"
 	desc = "Shoot your tongue out in the direction you're facing, embedding it and dealing damage until they remove it."
-	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
+	button_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spike"
 	mindbound = FALSE
 	cooldown_time = 10 SECONDS
@@ -146,7 +146,7 @@
 	name = "Transfer Chemicals"
 	desc = "Send all of your reagents into whomever the chem spike is embedded in. One use."
 	background_icon_state = "bg_spell"
-	icon_icon = 'icons/hud/unused/actions_genetic.dmi'
+	button_icon = 'icons/hud/unused/actions_genetic.dmi'
 	button_icon_state = "spikechemswap"
 	check_flags = AB_CHECK_CONSCIOUS
 

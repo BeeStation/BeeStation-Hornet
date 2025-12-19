@@ -7,7 +7,7 @@
 	desc = "Used to recolor floors and walls. Can be removed by the janitor."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "paint_neutral"
-	item_state = "paintcan"
+	inhand_icon_state = "paintcan"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	max_integrity = 100

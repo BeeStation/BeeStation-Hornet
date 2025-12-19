@@ -586,7 +586,7 @@ There are several things that need to be remembered:
 							observers = null
 							break
 
-		var/t_state = worn_item.item_state
+		var/t_state = worn_item.inhand_icon_state
 		if(!t_state)
 			t_state = worn_item.icon_state
 
@@ -838,7 +838,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if(override_state)
 		t_state = override_state
 	else
-		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (item_state ? item_state : icon_state)
+		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (inhand_icon_state ? inhand_icon_state : icon_state)
 
 	//Find a valid icon file from variables+arguments
 	var/file2use

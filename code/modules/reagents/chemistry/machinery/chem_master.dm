@@ -568,8 +568,8 @@
   * 		?"generate_name" = <if truthy, autogenerates default name from reagents instead of using "name">,
   * 		?"icon_empty" = <icon_state when empty>,
   * 		?"fill_icon_thresholds" = <list of thresholds for reagentfillings, no tresholds if not provided or falsy>,
-  * 		?"item_state" = <inhand icon_state, falsy - no icon, not provided - whatever is initial (currently "beer")>,
-  * 		?"lefthand_file" = <file for inhand icon for left hand, ignored if "item_state" not provided>,
+  * 		?"inhand_icon_state" = <inhand icon_state, falsy - no icon, not provided - whatever is initial (currently "beer")>,
+  * 		?"lefthand_file" = <file for inhand icon for left hand, ignored if "inhand_icon_state" not provided>,
   * 		?"righthand_file" = <same as "lefthand_file" but for right hand>,
   * 	),
   * 	..
@@ -591,11 +591,11 @@
 			"frostoil" = list("icon_state" = "coldsauce", "icon_empty" = "", "name" = "coldsauce bottle", "desc" = "Leaves the tongue numb from its passage."),
 			"mayonnaise" = list("icon_state" = "mayonnaise", "icon_empty" = "", "name" = "mayonnaise bottle", "desc" = "An oily condiment made from egg yolks."),
 			"ketchup" = list("icon_state" = "ketchup", "icon_empty" = "", "name" = "ketchup bottle", "desc" = "A tomato slurry in a tall plastic bottle. Somehow still vaguely American."),
-			"blackpepper" = list("icon_state" = "peppermillsmall", "item_state" = "", "icon_empty" = "emptyshaker", "name" = "pepper mill", "desc" = "Often used to flavor food or make people sneeze."),
-			"sodiumchloride" = list("icon_state" = "saltshakersmall", "item_state" = "", "icon_empty" = "emptyshaker", "name" = "salt shaker", "desc" = "Salt. From dead crew, presumably."),
+			"blackpepper" = list("icon_state" = "peppermillsmall", "inhand_icon_state" = "", "icon_empty" = "emptyshaker", "name" = "pepper mill", "desc" = "Often used to flavor food or make people sneeze."),
+			"sodiumchloride" = list("icon_state" = "saltshakersmall", "inhand_icon_state" = "", "icon_empty" = "emptyshaker", "name" = "salt shaker", "desc" = "Salt. From dead crew, presumably."),
 			"milk" = list("icon_state" = "milk", "icon_empty" = "", "name" = "space milk", "desc" = "It's milk. White and nutritious goodness!"),
 			"soymilk" = list("icon_state" = "soymilk", "icon_empty" = "", "name" = "soy milk", "desc" = "It's soy milk. White and nutritious goodness!"),
-			"soysauce" = list("icon_state" = "soysauce", "item_state" = "", "icon_empty" = "", "name" = "soy sauce bottle", "desc" = "A salty soy-based flavoring."),
+			"soysauce" = list("icon_state" = "soysauce", "inhand_icon_state" = "", "icon_empty" = "", "name" = "soy sauce bottle", "desc" = "A salty soy-based flavoring."),
 			"bbqsauce" = list("icon_state" = "bbqsauce", "icon_empty" = "", "name" = "bbq sauce bottle", "desc" = "Hand wipes not included."),
 			"oliveoil" = list("icon_state" = "oliveoil", "icon_empty" = "", "name" = "olive oil bottle", "desc" = "A delicious oil made from olives."),
 			"cooking_oil" = list("icon_state" = "cooking_oil", "icon_empty" = "", "name" = "cooking oil bottle", "desc" = "A cooking oil for deep frying."),
@@ -604,7 +604,7 @@
 			"honey" = list("icon_state" = "honey", "icon_empty" = "", "name" = "honey bottle", "desc" = "A cheerful bear-shaped bottle of tasty honey."),
 		)
 		var/list/carton_in_hand = list(
-			"item_state" = "carton",
+			"inhand_icon_state" = "carton",
 			"lefthand_file" = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi',
 			"righthand_file" = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 		)
@@ -651,8 +651,8 @@
 	container.icon_state = style["icon_state"]
 	container.icon_empty = style["icon_empty"]
 	container.fill_icon_thresholds = style["fill_icon_thresholds"]
-	if ("item_state" in style)
-		container.item_state = style["item_state"]
+	if ("inhand_icon_state" in style)
+		container.inhand_icon_state = style["inhand_icon_state"]
 		if (style["lefthand_file"] || style["righthand_file"])
 			container.lefthand_file = style["lefthand_file"]
 			container.righthand_file = style["righthand_file"]

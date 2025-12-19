@@ -37,7 +37,7 @@
 	name = "Toggle Flight"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE|AB_CHECK_INCAPACITATED
 	button_icon = 'icons/hud/actions/actions_items.dmi'
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	//icon_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "flight"
 
 /datum/action/innate/flight/on_activate(mob/user, atom/target)

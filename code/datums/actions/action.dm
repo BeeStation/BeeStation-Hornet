@@ -43,14 +43,18 @@
 	var/buttontooltipstyle = ""
 	/// Whether the button becomes transparent when it can't be used or just reddened
 	var/transparent_when_unavailable = TRUE
-	/// This is the file for the BACKGROUND icon of the button
-	var/button_icon = 'icons/hud/actions/backgrounds.dmi'
-	/// This is the icon state state for the BACKGROUND icon of the button
+
+	/// This is the file for the BACKGROUND underlay icon of the button
+	var/background_icon = 'icons/hud/actions/backgrounds.dmi'
+	/// This is the icon state state for the BACKGROUND underlay icon of the button
+	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
 	/// This is the file for the icon that appears OVER the button background
-	var/icon_icon = 'icons/hud/actions.dmi'
+	var/button_icon = 'icons/hud/actions.dmi'
 	/// This is the icon state for the icon that appears OVER the button background
 	var/button_icon_state = "default"
+
 	///List of all mobs that are viewing our action button -> A unique movable for them to view.
 	var/list/viewers = list()
 	/// What icon to replace our mouse cursor with when active. Optional, Requires requires_target
@@ -363,8 +367,8 @@
 			if(button.icon_state != settings["bg_state"])
 				button.icon_state = settings["bg_state"]
 		else
-			if(button.icon != button_icon)
-				button.icon = button_icon
+			if(button.icon != background_icon)
+				button.icon = background_icon
 			if(button.icon_state != background_icon_state)
 				button.icon_state = background_icon_state
 
@@ -386,9 +390,9 @@
 
 /// Applies our button icon over top the background icon of the action
 /datum/action/proc/apply_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
+	if(button_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
-		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
+		current_button.add_overlay(mutable_appearance(button_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
 /datum/action/proc/update_cooldown_icon(atom/movable/screen/movable/action_button/button, force = FALSE)

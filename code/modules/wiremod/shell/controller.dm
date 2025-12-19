@@ -9,7 +9,7 @@
 	desc = "A handheld device with three buttons."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small_calc"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	//worn_icon_state = "electronic"	//remember to change it
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
