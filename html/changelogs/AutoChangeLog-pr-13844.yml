@@ -1,4 +1,0 @@
-author: Isaac
-delete-after: true
-changes:
-  - bugfix: Thermomachines will not turn themselves off if power goes out

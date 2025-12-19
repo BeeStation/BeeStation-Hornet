@@ -1,4 +1,0 @@
-author: MarkusLarsson421
-delete-after: true
-changes:
-  - bugfix: Fixes the construction of titanium windows.
