@@ -179,7 +179,7 @@
 	attack_text = "the attack",
 	attack_type = MELEE_ATTACK,
 	armour_penetration = 0)
-	(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type))
+	SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type)
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(!shield || shield.current_integrity <= 0)
 		return NONE
