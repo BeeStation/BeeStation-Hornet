@@ -1,0 +1,5 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Fixed death not slowing down bleeding.
+  - bugfix: Fixed blood splatters spawning on every tile when subjected to heavy bleeding.
