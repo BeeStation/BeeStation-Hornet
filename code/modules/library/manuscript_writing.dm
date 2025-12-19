@@ -63,7 +63,7 @@
 		: null
 
 	if(length(jobs_with_knowledge))
-		writer_job = tgui_input_list(user, "Choose a job", "Manuscript helper", jobs_with_knowledge)
+		writer_job = tgui_input_list(user, "Choose a job", "Manuscript", jobs_with_knowledge)
 		if(!writer_job)
 			return ..()
 		writer_job = SSjob.GetJob(writer_job)
