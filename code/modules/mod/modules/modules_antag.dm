@@ -158,16 +158,16 @@
 	charge_recovery = charge_recovery, recharge_path = recharge_path, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	if (shield && current_integrity < max_integrity)
-		shield.set_charge(current_integrity)
+		shield.set_charge(current_integrity) // No exploiting the integrity by deactivating and reactivating
 		if (current_integrity <= 0 && mod?.wearer)
-			mod.wearer.update_appearance(UPDATE_ICON)
+			mod.wearer.update_appearance(UPDATE_ICON) // It kept the shield visible if it was at 0 integrity, this fixes that
 	if (mod?.wearer)
 		RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 /obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(shield)
-		current_integrity = shield.current_integrity // Saving the current charge
+		current_integrity = shield.current_integrity // Saving the current integrity for later
 		qdel(shield)
 	if(mod?.wearer)
 		UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
@@ -179,7 +179,7 @@
 	attack_text = "the attack",
 	attack_type = MELEE_ATTACK,
 	armour_penetration = 0)
-	(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
+	(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, damage, attack_type))
 	var/datum/component/shielded/shield = mod?.GetComponent(/datum/component/shielded)
 	if(!shield || shield.current_integrity <= 0)
 		return NONE
