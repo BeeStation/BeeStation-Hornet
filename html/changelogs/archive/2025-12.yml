@@ -90,6 +90,8 @@
   mrmanlikesbt:
   - bugfix: fixed a runtime when re-aquiring a client's parallax cache
 2025-12-19:
+  Dejaku51:
+  - bugfix: Fixed echo having metal floor instead of water in winter variant
   Isaac:
   - bugfix: Thermomachines will not turn themselves off if power goes out
   MarkusLarsson421:
