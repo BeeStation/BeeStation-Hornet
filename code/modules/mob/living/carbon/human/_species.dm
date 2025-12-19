@@ -190,6 +190,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	 **/
 	var/properly_gained = FALSE
 
+	/// The name key for the species, if the user changes from one species
+	/// to another which has a different name key, their name will be reset
+	/// to a random name.
+	/// If null, then it will always change.
+	var/name_key = null
+
 ///////////
 // PROCS //
 ///////////
@@ -1371,34 +1377,33 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style, modifiers)
-	if(!istype(M))
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/attacker, mob/living/carbon/human/target, datum/martial_art/attacker_style, modifiers)
+	if(!istype(attacker))
 		return
-	CHECK_DNA_AND_SPECIES(M)
-	CHECK_DNA_AND_SPECIES(H)
+	CHECK_DNA_AND_SPECIES(attacker)
+	CHECK_DNA_AND_SPECIES(target)
 
-	if(!istype(M)) //sanity check for drones.
+	if(!istype(attacker)) //sanity check for drones.
 		return
-	if(M.mind)
-
-		attacker_style = M.mind.martial_art
-	if((M != H) && M.combat_mode && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
-		log_combat(M, H, "attempted to touch")
-		H.visible_message("<span class='warning'>[M] attempts to touch [H]!</span>", \
-						"<span class='danger'>[M] attempts to touch you!</span>", "<span class='hear'>You hear a swoosh!</span>", COMBAT_MESSAGE_RANGE, M)
-		to_chat(M, "<span class='warning'>You attempt to touch [H]!</span>")
+	if(attacker.mind)
+		attacker_style = attacker.mind.martial_art
+	if((attacker != target) && !attacker_style?.bypass_blocking && attacker.combat_mode && target.check_shields(attacker, 0, attacker.name, attack_type = UNARMED_ATTACK))
+		log_combat(attacker, target, "attempted to touch")
+		target.visible_message(span_warning("[attacker] attempts to touch [target]!"), \
+						span_danger("[attacker] attempts to touch you!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, attacker)
+		to_chat(attacker, span_warning("You attempt to touch [target]!"))
 		return
 
-	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
-	SEND_SIGNAL(H, COMSIG_MOB_HAND_ATTACKED, H, M, attacker_style)
+	SEND_SIGNAL(attacker, COMSIG_MOB_ATTACK_HAND, attacker, target, attacker_style)
+	SEND_SIGNAL(target, COMSIG_MOB_HAND_ATTACKED, target, attacker, attacker_style)
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		disarm(M, H, attacker_style)
+		disarm(attacker, target, attacker_style)
 		return // dont attack after
-	if(M.combat_mode)
-		harm(M, H, attacker_style)
+	if(attacker.combat_mode)
+		harm(attacker, target, attacker_style)
 	else
-		help(M, H, attacker_style)
+		help(attacker, target, attacker_style)
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
@@ -1411,6 +1416,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return 0
 
 	affecting ||= H.bodyparts[1] //Something went wrong. Maybe the limb is missing?
+	//This must be placed after blocking checks
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		H.batong_act(I)
+
 	var/hit_area = affecting.plaintext_zone
 
 	var/armor_block = H.run_armor_check(
@@ -1836,29 +1845,29 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		SEND_SIGNAL(H, COMSIG_HUMAN_BURNING)
 		//the fire tries to damage the exposed clothes and items
 		var/list/burning_items = list()
-		var/obscured = H.check_obscured_slots(TRUE)
+		var/covered = H.check_covered_slots()
 		//HEAD//
 
-		if(H.glasses && !(obscured & ITEM_SLOT_EYES))
+		if(H.glasses && !(covered & ITEM_SLOT_EYES))
 			burning_items += H.glasses
-		if(H.wear_mask && !(obscured & ITEM_SLOT_MASK))
+		if(H.wear_mask && !(covered & ITEM_SLOT_MASK))
 			burning_items += H.wear_mask
-		if(H.wear_neck && !(obscured & ITEM_SLOT_NECK))
+		if(H.wear_neck && !(covered & ITEM_SLOT_NECK))
 			burning_items += H.wear_neck
-		if(H.ears && !(obscured & ITEM_SLOT_EARS))
+		if(H.ears && !(covered & ITEM_SLOT_EARS))
 			burning_items += H.ears
 		if(H.head)
 			burning_items += H.head
 
 		//CHEST//
-		if(H.w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
+		if(H.w_uniform && !(covered & ITEM_SLOT_ICLOTHING))
 			burning_items += H.w_uniform
 		if(H.wear_suit)
 			burning_items += H.wear_suit
 
 		//ARMS & HANDS//
 		var/obj/item/clothing/arm_clothes = null
-		if(H.gloves && !(obscured & ITEM_SLOT_GLOVES))
+		if(H.gloves && !(covered & ITEM_SLOT_GLOVES))
 			arm_clothes = H.gloves
 		else if(H.wear_suit && ((H.wear_suit.body_parts_covered & HANDS) || (H.wear_suit.body_parts_covered & ARMS)))
 			arm_clothes = H.wear_suit
@@ -1869,7 +1878,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		//LEGS & FEET//
 		var/obj/item/clothing/leg_clothes = null
-		if(H.shoes && !(obscured & ITEM_SLOT_FEET))
+		if(H.shoes && !(covered & ITEM_SLOT_FEET))
 			leg_clothes = H.shoes
 		else if(H.wear_suit && ((H.wear_suit.body_parts_covered & FEET) || (H.wear_suit.body_parts_covered & LEGS)))
 			leg_clothes = H.wear_suit
@@ -1918,7 +1927,12 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	return FALSE
 
 /datum/species/proc/get_harm_descriptors()
-	return
+	SHOULD_CALL_PARENT(FALSE)
+	return list(
+		BLEED = "bleeding",
+		BRUTE = "bruising",
+		BURN = "burns"
+	)
 
 /datum/species/proc/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
 	// Check if legs are functional for catrobatics

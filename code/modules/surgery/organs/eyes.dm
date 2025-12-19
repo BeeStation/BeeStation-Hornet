@@ -100,7 +100,7 @@
 	var/mutable_appearance/eye_overlay = mutable_appearance('icons/mob/species/human/human_face.dmi', "[eye_icon_state]", layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
 	var/list/overlays = list(eye_overlay)
 
-	var/obscured = parent.check_obscured_slots(TRUE)
+	var/obscured = parent.check_obscured_slots()
 	if(overlay_ignore_lighting && !(obscured & ITEM_SLOT_EYES))
 		overlays += emissive_appearance(eye_overlay.icon, eye_overlay.icon_state, layer = CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER), alpha = eye_overlay.alpha)
 	var/obj/item/bodypart/head/my_head = parent.get_bodypart(BODY_ZONE_HEAD)

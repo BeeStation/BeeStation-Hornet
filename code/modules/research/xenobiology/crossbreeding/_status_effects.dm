@@ -541,7 +541,7 @@
 
 /datum/status_effect/stabilized/purple/get_examine_text()
 	if(healed_last_tick)
-		return span_warning("[owner.p_they(TRUE)] [owner.p_are()] regenerating slowly, purplish goo filling in small injuries!")
+		return span_warning("[owner.p_They()] [owner.p_are()] regenerating slowly, purplish goo filling in small injuries!")
 
 	return null
 
@@ -616,7 +616,7 @@
 	var/obj/item/hothands/fire
 
 /datum/status_effect/stabilized/darkpurple/get_examine_text()
-	return span_notice("[owner.p_their(TRUE)] fingertips burn brightly!")
+	return span_notice("[owner.p_Their()] fingertips burn brightly!")
 
 /datum/status_effect/stabilized/darkpurple/on_apply()
 	ADD_TRAIT(owner, TRAIT_RESISTHEATHANDS, "slimestatus")
@@ -825,7 +825,7 @@
 // Only occasionally give examiners a warning.
 /datum/status_effect/stabilized/green/get_examine_text()
 	if(prob(50))
-		return span_warning("[owner.p_they(TRUE)] look[owner.p_s()] a bit green and gooey...")
+		return span_warning("[owner.p_They()] look[owner.p_s()] a bit green and gooey...")
 
 	return null
 
@@ -936,7 +936,7 @@
 	return ..()
 
 /datum/status_effect/stabilized/oil/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] smell[owner.p_s()] of sulfur and oil!")
+	return span_warning("[owner.p_They()] smell[owner.p_s()] of sulfur and oil!")
 
 /// How much damage is dealt per healing done for the stabilized back.
 /// This multiplier is applied to prevent two people from converting each other's damage away.
@@ -979,7 +979,7 @@
 	if(!draining)
 		return null
 
-	return span_warning("[owner.p_they(TRUE)] [owner.p_are()] draining health from [draining]!")
+	return span_warning("[owner.p_They()] [owner.p_are()] draining health from [draining]!")
 
 /datum/status_effect/stabilized/black/tick(seconds_between_ticks)
 	if(owner.grab_state < GRAB_KILL || !IS_WEAKREF_OF(owner.pulling, draining_ref))
@@ -1035,7 +1035,7 @@
 	colour = SLIME_TYPE_ADAMANTINE
 
 /datum/status_effect/stabilized/adamantine/get_examine_text()
-	return span_warning("[owner.p_they(TRUE)] [owner.p_have()] strange metallic coating on [owner.p_their()] skin.")
+	return span_warning("[owner.p_They()] [owner.p_have()] strange metallic coating on [owner.p_their()] skin.")
 
 /datum/status_effect/stabilized/gold
 	id = "stabilizedgold"

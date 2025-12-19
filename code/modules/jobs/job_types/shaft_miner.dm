@@ -84,9 +84,9 @@
 
 	l_hand = /obj/item/gun/energy/recharge/kinetic_accelerator
 
-/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 		var/obj/item/clothing/suit/hooded/S = H.wear_suit

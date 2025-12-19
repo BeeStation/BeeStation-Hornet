@@ -107,6 +107,64 @@
 	return ..()
 
 /mob/living/carbon/human/Topic(href, href_list)
+	if(href_list["see_id"])
+		var/mob/viewer = usr
+		var/can_see_still = (viewer in viewers(src))
+
+		var/obj/item/card/id/id = wear_id?.GetID()
+		if(!istype(id))
+			id = get_active_held_item()
+		if(!istype(id))
+			id = get_inactive_held_item()
+
+		var/same_id = istype(id) && (href_list["id_ref"] == REF(id) || href_list["id_name"] == id.registered_name)
+		if(!same_id && can_see_still)
+			to_chat(viewer, span_notice("[p_They()] [p_are()] no longer wearing that ID card."))
+			return
+
+		var/viable_time = can_see_still ? 3 MINUTES : 1 MINUTES // assuming 3min is the length of a hop line visit - give some leeway if they're still in sight
+		if(!same_id || (text2num(href_list["examine_time"]) + viable_time) < world.time)
+			to_chat(viewer, span_notice("You don't have that good of a memory. Examine [p_them()] again."))
+			return
+		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+			to_chat(viewer, span_notice("You can't make out that ID anymore."))
+			return
+		if(!isobserver(viewer) && get_dist(viewer, src) > ID_EXAMINE_DISTANCE + 1) // leeway, ignored if the viewer is a ghost
+			to_chat(viewer, span_notice("You can't make out that ID from here."))
+			return
+
+		var/id_name = id.registered_name
+		var/id_age = id.registered_age
+		var/id_job = id.assignment
+		// Should probably be recorded on the ID, but this is easier (albiet more restrictive) on chameleon ID users
+		var/datum/record/crew/record = find_record(id_name, GLOB.manifest.general)
+		var/id_blood_type = record?.blood_type
+		var/id_gender = record?.gender
+		var/id_species = record?.species
+		var/id_icon = jointext(id.get_id_examine_strings(viewer), "")
+		// Fill in some blanks for chameleon IDs to maintain the illusion of a real ID
+		if(istype(id, /obj/item/card/id/syndicate))
+			id_gender ||= gender
+			id_species ||= dna.species.name
+			id_blood_type ||= dna.blood_type?.name
+
+		var/id_examine = span_slightly_larger(separator_hr("This is <em>[src]'s ID card</em>."))
+		id_examine += "<div class='img_by_text_container'>"
+		id_examine += "[id_icon]"
+		id_examine += "<div class='img_text'>"
+		id_examine += jointext(list(
+			"&bull; Name: [id_name || "Unknown"]",
+			"&bull; Job: [id_job || "Unassigned"]",
+			"&bull; Age: [id_age || "Unknown"]",
+			"&bull; Gender: [id_gender || "Unknown"]",
+			"&bull; Blood Type: [id_blood_type || "?"]",
+			"&bull; Species: [id_species || "Unknown"]",
+		), "<br>")
+		id_examine += "</div>" // container
+		id_examine += "</div>" // text
+
+		to_chat(viewer, examine_block(span_info(id_examine)))
+
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
@@ -516,8 +574,7 @@
   * Returns false if we couldn't wash our hands due to them being obscured, otherwise true
   */
 /mob/living/carbon/human/proc/wash_hands(clean_types)
-	var/obscured = check_obscured_slots()
-	if(obscured & ITEM_SLOT_GLOVES)
+	if(check_covered_slots() & ITEM_SLOT_GLOVES)
 		return FALSE
 
 	if(gloves)
@@ -537,13 +594,10 @@
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
-	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
-		update_worn_glasses()
+	if(glasses && !is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash(clean_types))
 		. = TRUE
 
-	var/obscured = check_obscured_slots()
-	if(wear_mask && !(obscured & ITEM_SLOT_MASK) && wear_mask.wash(clean_types))
-		update_worn_mask()
+	if(wear_mask && !(check_covered_slots() & ITEM_SLOT_MASK) && wear_mask.wash(clean_types))
 		. = TRUE
 
 /**
@@ -551,28 +605,11 @@
   */
 /mob/living/carbon/human/wash(clean_types)
 	. = ..()
-
-	// Wash equipped stuff that cannot be covered
-	if(wear_suit?.wash(clean_types))
-		update_worn_oversuit()
-		. = TRUE
-
-	if(belt?.wash(clean_types))
-		update_worn_belt()
-		. = TRUE
-
-	// Check and wash stuff that can be covered
-	var/obscured = check_obscured_slots()
-
-	if(!(obscured & ITEM_SLOT_ICLOTHING) && w_uniform?.wash(clean_types))
-		update_worn_undersuit()
-		. = TRUE
-
 	if(!is_mouth_covered() && clean_lips())
 		. = TRUE
 
 	// Wash hands if exposed
-	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(obscured & ITEM_SLOT_GLOVES))
+	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(check_covered_slots() & ITEM_SLOT_GLOVES))
 		blood_in_hands = 0
 		update_worn_gloves()
 		. = TRUE

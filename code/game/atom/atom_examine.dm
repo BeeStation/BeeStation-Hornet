@@ -1,6 +1,14 @@
 /atom
 	/// If non-null, overrides a/an/some in all cases
 	var/article
+	/// Text that appears preceding the name in examine()
+	var/examine_thats = "That's"
+
+/mob/living/carbon/human
+	examine_thats = "This is"
+
+/mob/living/silicon/robot
+	examine_thats = "This is"
 
 /**
  * Called when a mob examines (shift click or verb) this atom
@@ -11,18 +19,13 @@
  * Produces a signal COMSIG_ATOM_EXAMINE
  */
 /atom/proc/examine(mob/user)
-	var/examine_string = get_examine_string(user, thats = TRUE)
-	if(examine_string)
-		. = list("[examine_string].")
-	else
-		. = list()
-
+	. = list()
 	if(desc)
-		. += desc
+		. += "<i>[desc]</i>"
 
 	if(z && user.z != z) // Z-mimic
 		var/diff = abs(user.z - z)
-		. += span_boldnotice("[p_theyre(TRUE)] [diff] level\s below you.")
+		. += span_boldnotice("[p_Theyre()] [diff] level\s below you.")
 
 	var/list/tags_list = examine_tags(user)
 	if (length(tags_list))
@@ -138,17 +141,56 @@
  * Get the name of this object for examine
  *
  * You can override what is returned from this proc by registering to listen for the
- * COMSIG_ATOM_GET_EXAMINE_NAME signal
+ * [COMSIG_ATOM_GET_EXAMINE_NAME] signal
  */
 /atom/proc/get_examine_name(mob/user)
-	. = "\a <b>[src]</b>"
-	var/list/override = list(gender == PLURAL ? "some" : "a", " ", "[name]")
-	if(article)
-		. = "[article] <b>[src]</b>"
-		override[EXAMINE_POSITION_ARTICLE] = article
-	if(SEND_SIGNAL(src, COMSIG_ATOM_GET_EXAMINE_NAME, user, override) & COMPONENT_EXNAME_CHANGED)
-		. = override.Join("")
+	var/list/override = list(article, null, "<em>[get_visible_name()]</em>")
+	SEND_SIGNAL(src, COMSIG_ATOM_GET_EXAMINE_NAME, user, override)
 
-/// Generate the full examine string of this atom (including icon for goonchat)
-/atom/proc/get_examine_string(mob/user, thats = FALSE)
-	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
+	if(!isnull(override[EXAMINE_POSITION_ARTICLE]))
+		override -= null // IF there is no "before", don't try to join it
+		return jointext(override, " ")
+	if(!isnull(override[EXAMINE_POSITION_BEFORE]))
+		override -= null // There is no article, don't try to join it
+		return "\a [jointext(override, " ")]"
+	return "\a [src]"
+
+/mob/living/get_examine_name(mob/user)
+	var/visible_name = get_visible_name()
+	var/list/name_override = list(visible_name)
+	if(SEND_SIGNAL(user, COMSIG_LIVING_PERCEIVE_EXAMINE_NAME, src, visible_name, name_override) & COMPONENT_EXAMINE_NAME_OVERRIDEN)
+		return name_override[1]
+	return visible_name
+
+/// Icon displayed in examine
+/atom/proc/get_examine_icon(mob/user)
+	return icon2html(src, user)
+
+/**
+ * Formats the atom's name into a string for use in examine (as the "title" of the atom)
+ *
+ * * user - the mob examining the atom
+ * * thats - whether to include "That's", or similar (mobs use "This is") before the name
+ */
+/atom/proc/examine_title(mob/user, thats = FALSE)
+	var/examine_icon = get_examine_icon(user)
+	return "[examine_icon ? "[examine_icon] " : ""][thats ? "[examine_thats] ":""]<em>[get_examine_name(user)]</em>"
+
+/**
+ * Returns an extended list of examine strings for any contained ID cards.
+ *
+ * Arguments:
+ * * user - The user who is doing the examining.
+ */
+/atom/proc/get_id_examine_strings(mob/user)
+	. = list()
+
+/**
+ * Used by mobs to determine the name for someone wearing a mask, or with a disfigured or missing face.
+ * By default just returns the atom's name.
+ *
+ * * add_id_name - If TRUE, ID information such as honorifics or name (if mismatched) are appended
+ * * force_real_name - If TRUE, will always return real_name and add (as face_name/id_name) if it doesn't match their appearance
+ */
+/atom/proc/get_visible_name(add_id_name = TRUE, force_real_name = FALSE)
+	return name

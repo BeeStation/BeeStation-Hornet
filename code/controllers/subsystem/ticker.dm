@@ -519,7 +519,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/check_respawn_availabilities()
 	for(var/mob/dead/observer/observer in GLOB.player_list)
-		if(observer.check_respawn_delay() && !observer.respawn_notified)
+		if(observer.check_respawn_delay() && !observer.respawn_notified && observer.can_respawn)
 			observer.respawn_notified = TRUE
 			observer.respawn_available = TRUE
 

@@ -322,7 +322,7 @@
 /mob/living/carbon/human/toggle_externals(obj/item/tank)
 	return toggle_internals(tank, TRUE)
 
-/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
+/mob/living/carbon/human/proc/equipOutfit(outfit, visuals_only = FALSE)
 	var/datum/outfit/O = null
 
 	if(ispath(outfit))
@@ -334,7 +334,7 @@
 	if(!O)
 		return 0
 
-	return O.equip(src, visualsOnly)
+	return O.equip(src, visuals_only)
 
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()

@@ -73,6 +73,8 @@
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, affecting.plaintext_zone, affecting)
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		batong_act(I)
 	if (I.bleed_force)
 		var/armour_block = run_armor_check(affecting, BLEED, armour_penetration = I.armour_penetration, silent = (I.force > 0))
 		var/hit_amount = (100 - armour_block) / 100
@@ -475,6 +477,14 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
+/mob/living/carbon/batong_act(obj/item/melee/baton/batong)
+	. = ..()
+	apply_effect(EFFECT_STUTTER, (batong.active_force / 2)) //0.5 seconds of stuttering speech for every 10 stamina damage
+	do_stun_animation()
+	if(ismonkey(src))
+		emote("screech")
+	else
+		emote("scream")
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference

@@ -81,7 +81,7 @@
 	to_chat(src, playstyle_string)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
-	var/t_He = p_they(TRUE)
+	var/t_He = p_They()
 	var/t_s = p_s()
 	var/text_span
 	switch(theme)

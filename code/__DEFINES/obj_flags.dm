@@ -37,9 +37,8 @@
 #define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
-#define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
-#define ISCARVABLE			    (1<<17) //! Examine will not read out this item
-#define NO_WORN_SLOWDOWN		(1<<18)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
+#define ISCARVABLE			    (1<<16) //! Examine will not read out this item
+#define NO_WORN_SLOWDOWN		(1<<17)	//! Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
 #define HAND_ITEM (1<<18) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
 ///Can be equipped on digitigrade legs.
 #define IGNORE_DIGITIGRADE (1<<19)

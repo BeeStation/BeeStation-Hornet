@@ -4,7 +4,7 @@
 /datum/sm_delam/singularity
 
 /datum/sm_delam/singularity/can_select(obj/machinery/power/supermatter_crystal/sm)
-	return (sm.absorbed_gasmix.total_moles() >= MOLE_PENALTY_THRESHOLD)
+	return (sm.absorbed_gasmix.total_moles() >= MOLE_PENALTY_THRESHOLD / min(((world.time - sm.activation_time) / SUPERMATTER_CRITICAL_TIME), 1))
 
 /datum/sm_delam/singularity/delam_progress(obj/machinery/power/supermatter_crystal/sm)
 	. = ..()
@@ -67,7 +67,7 @@
 /datum/sm_delam/tesla
 
 /datum/sm_delam/tesla/can_select(obj/machinery/power/supermatter_crystal/sm)
-	return (sm.internal_energy > POWER_PENALTY_THRESHOLD)
+	return (sm.internal_energy > POWER_PENALTY_THRESHOLD / min(((world.time - sm.activation_time) / SUPERMATTER_CRITICAL_TIME), 1))
 
 /datum/sm_delam/tesla/delam_progress(obj/machinery/power/supermatter_crystal/sm)
 	if(!..())

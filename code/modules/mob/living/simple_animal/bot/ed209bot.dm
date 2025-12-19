@@ -362,9 +362,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 	drop_part(cell_type, Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new (Tsec)
-		G.cell.charge = 0
-		G.update_icon()
+		new /obj/item/gun/ballistic/taser(Tsec)
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/bluetag/G = new (Tsec)
 		G.cell.charge = 0
