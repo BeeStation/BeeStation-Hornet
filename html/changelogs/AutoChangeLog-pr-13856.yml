@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: Fixed echo having metal floor instead of water in winter variant
