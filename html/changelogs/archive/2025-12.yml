@@ -99,6 +99,9 @@
       to use the crafting menu
   - bugfix: fixed some jankiness with constructing shutters and blast doors
   - bugfix: fixed not being able to deconstruct shutters and blast doors
+  r1ks-iwnl:
+  - bugfix: Fixed death not slowing down bleeding.
+  - bugfix: Fixed blood splatters spawning on every tile when subjected to heavy bleeding.
   ro5490:
   - rscadd: Added a toy halo, now you can impersonate your favorite cultist! Disclaimer
       - This item may get you prematurely lynched by trigger happy security, wear
