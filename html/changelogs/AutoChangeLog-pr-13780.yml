@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Projectile blocking now respects the blocking cooldown.
-  - balance: Removes projectile blocking from most non-shield weapons, excluding some
-      unique ones (mainly, energy swords and the real katana).
-  - balance: Null rod katana now has the same stats as the regular claymore.

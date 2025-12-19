@@ -94,6 +94,11 @@
   - bugfix: Thermomachines will not turn themselves off if power goes out
   MarkusLarsson421:
   - bugfix: Fixes the construction of titanium windows.
+  PowerfulBacon:
+  - balance: Projectile blocking now respects the blocking cooldown.
+  - balance: Removes projectile blocking from most non-shield weapons, excluding some
+      unique ones (mainly, energy swords and the real katana).
+  - balance: Null rod katana now has the same stats as the regular claymore.
   mrmanlikesbt, JohnFulpWillard, 00-Steven:
   - rscadd: shutter frames can now be made with plasteel in-hand instead of having
       to use the crafting menu
