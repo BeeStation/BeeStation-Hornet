@@ -1,7 +1,0 @@
-author: mrmanlikesbt, JohnFulpWillard, 00-Steven
-delete-after: true
-changes:
-  - rscadd: shutter frames can now be made with plasteel in-hand instead of having
-      to use the crafting menu
-  - bugfix: fixed some jankiness with constructing shutters and blast doors
-  - bugfix: fixed not being able to deconstruct shutters and blast doors

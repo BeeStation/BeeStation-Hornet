@@ -94,6 +94,11 @@
   - bugfix: Thermomachines will not turn themselves off if power goes out
   MarkusLarsson421:
   - bugfix: Fixes the construction of titanium windows.
+  mrmanlikesbt, JohnFulpWillard, 00-Steven:
+  - rscadd: shutter frames can now be made with plasteel in-hand instead of having
+      to use the crafting menu
+  - bugfix: fixed some jankiness with constructing shutters and blast doors
+  - bugfix: fixed not being able to deconstruct shutters and blast doors
   ro5490:
   - rscadd: Added a toy halo, now you can impersonate your favorite cultist! Disclaimer
       - This item may get you prematurely lynched by trigger happy security, wear
