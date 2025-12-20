@@ -25,148 +25,134 @@
 		),
 	)
 
-	var/list/prefreturn = presentpreflikepicker(usr,"Customize ERT", "Customize ERT", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+	var/list/pref_return = present_pref_like_picker(usr, "Customize ERT", "Customize ERT", width = 600, timeout = 0, settings = settings)
 
-	if (isnull(prefreturn))
+	if (isnull(pref_return))
 		return FALSE
 
-	if (prefreturn["button"] == 1)
-		var/list/prefs = settings["mainsettings"]
+	if (pref_return["button"] != 1)
+		return FALSE
 
-		var/templtype = prefs["template"]["value"]
-		if (!ispath(prefs["template"]["value"]))
-			templtype = text2path(prefs["template"]["value"]) // new text2path ... doesn't compile in 511
+	var/list/prefs = settings["mainsettings"]
 
-		if (template.type != templtype)
-			template = new templtype
+	var/templtype = prefs["template"]["value"]
+	if (!ispath(prefs["template"]["value"]))
+		templtype = text2path(prefs["template"]["value"]) // new text2path ... doesn't compile in 511
 
-		template.teamsize = prefs["teamsize"]["value"]
-		template.mission = prefs["mission"]["value"]
-		template.polldesc = prefs["polldesc"]["value"]
-		template.enforce_human = prefs["enforce_human"]["value"] == "Yes" // these next 5 are effectively toggles
-		template.opendoors = prefs["open_armory"]["value"] == "Yes"
-		template.leader_experience = prefs["leader_experience"]["value"] == "Yes"
-		template.random_names = prefs["random_names"]["value"] == "Yes"
-		template.spawn_admin = prefs["spawn_admin"]["value"] == "Yes"
+	if (template.type != templtype)
+		template = new templtype
 
-		var/list/spawnpoints = GLOB.emergencyresponseteamspawn
-		var/index = 0
+	template.teamsize = prefs["teamsize"]["value"]
+	template.mission = prefs["mission"]["value"]
+	template.polldesc = prefs["polldesc"]["value"]
+	template.enforce_human = prefs["enforce_human"]["value"] == "Yes" // these next 5 are effectively toggles
+	template.opendoors = prefs["open_armory"]["value"] == "Yes"
+	template.leader_experience = prefs["leader_experience"]["value"] == "Yes"
+	template.random_names = prefs["random_names"]["value"] == "Yes"
+	template.spawn_admin = prefs["spawn_admin"]["value"] == "Yes"
 
-		if(template.spawn_admin)
-			if(isobserver(usr))
-				var/mob/living/carbon/human/admin_officer = new (spawnpoints[1])
-				var/chosen_outfit = usr.client?.prefs?.read_preference(/datum/preference/choiced/brief_outfit)
-				usr.client.prefs.safe_transfer_prefs_to(admin_officer, is_antag = TRUE)
-				admin_officer.equipOutfit(chosen_outfit)
-				admin_officer.key = usr.key
-			else
-				to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
+	var/list/spawnpoints = GLOB.emergencyresponseteamspawn
+	var/index = 0
 
-		var/datum/poll_config/config = new()
-		config.question = "Do you wish to be considered for [template.polldesc]?"
-		config.check_jobban = ROLE_ERT
-		config.role_name_text = "emergency response team"
-		config.alert_pic = /obj/item/card/id/ert
-		var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
-		if(!length(candidates))
-			return FALSE
-
-		var/teamSpawned = FALSE
-
-		//Pick the (un)lucky players
-		var/numagents = min(template.teamsize,candidates.len)
-
-		//Create team
-		var/datum/team/ert/ert_team = new template.team ()
-		if(template.rename_team)
-			ert_team.name = template.rename_team
-
-		//Assign team objective
-		var/datum/objective/missionobj = new ()
-		missionobj.team = ert_team
-		missionobj.explanation_text = template.mission
-		missionobj.completed = TRUE
-		ert_team.objectives += missionobj
-		ert_team.mission = missionobj
-
-		var/mob/dead/observer/earmarked_leader
-		var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
-		var/frontman_spawned = FALSE // if low_priority_leader = TRUE then we don't want to spawn a lead unless at least one other teammember is already spawned
-
-		if(template.leader_experience)
-			var/list/candidate_living_exps = list()
-			for(var/i in candidates)
-				var/mob/dead/observer/potential_leader = i
-				candidate_living_exps[potential_leader] = potential_leader.client?.get_exp_living(TRUE)
-
-			candidate_living_exps = sort_list(candidate_living_exps, cmp=/proc/cmp_numeric_dsc)
-			if(candidate_living_exps.len > ERT_EXPERIENCED_LEADER_CHOOSE_TOP)
-				candidate_living_exps = candidate_living_exps.Cut(ERT_EXPERIENCED_LEADER_CHOOSE_TOP+1) // pick from the top ERT_EXPERIENCED_LEADER_CHOOSE_TOP contenders in playtime
-			earmarked_leader = pick(candidate_living_exps)
+	if(template.spawn_admin)
+		if(isobserver(usr))
+			var/mob/living/carbon/human/admin_officer = new (spawnpoints[1])
+			var/chosen_outfit = usr.client?.prefs?.read_preference(/datum/preference/choiced/brief_outfit)
+			usr.client.prefs.safe_transfer_prefs_to(admin_officer, is_antag = TRUE)
+			admin_officer.equipOutfit(chosen_outfit)
+			admin_officer.key = usr.key
 		else
-			earmarked_leader = pick(candidates)
+			to_chat(usr, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
 
-		while(numagents && candidates.len)
-			var/spawnloc = spawnpoints[index+1]
-			//loop through spawnpoints one at a time
-			index = (index + 1) % spawnpoints.len
-			var/mob/dead/observer/chosen_candidate
-			var/list/mob/dead/observer/candidatesGuaranteedLeaderless = candidates
-			candidatesGuaranteedLeaderless -= earmarked_leader
-			if(template.low_priority_leader && !frontman_spawned && numagents > 1)
-				chosen_candidate = pick(candidatesGuaranteedLeaderless)// this way we make sure our leader DOESN'T get chosen
-			else
-				chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
-			candidates -= chosen_candidate
-			if(!chosen_candidate?.key)
-				continue
+	var/datum/poll_config/config = new()
+	config.question = "Do you wish to be considered for [template.polldesc]?"
+	config.check_jobban = ROLE_ERT
+	config.role_name_text = "emergency response team"
+	config.alert_pic = /obj/item/card/id/ert
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
+	if(!length(candidates))
+		return FALSE
 
-			//Spawn the body
-			var/mob/living/carbon/human/ert_operative = new template.mobtype(spawnloc)
-			chosen_candidate.client.prefs.safe_transfer_prefs_to(ert_operative, is_antag = TRUE)
-			ert_operative.key = chosen_candidate.key
+	var/teamSpawned = FALSE
 
-			if(template.enforce_human || !(ert_operative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
-				ert_operative.set_species(/datum/species/human)
+	//Pick the (un)lucky players
+	var/numagents = min(template.teamsize,candidates.len)
 
-			//Give antag datum
-			var/datum/antagonist/ert/ert_antag
+	//Create team
+	var/datum/team/ert/ert_team = new template.team ()
+	if(template.rename_team)
+		ert_team.name = template.rename_team
 
-			if(template.low_priority_leader && !frontman_spawned)
-				ert_antag = template.roles[WRAP(numagents,1,length(template.roles) + 1)]
-				ert_antag = new ert_antag ()
-				frontman_spawned = TRUE
-			else
-				if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
-					ert_antag = new template.leader_role()
-					earmarked_leader = null
-					leader_spawned = TRUE
-				else
-					ert_antag = template.roles[WRAP(numagents, 1, length(template.roles) + 1)]
-					ert_antag = new ert_antag()
-					frontman_spawned = TRUE
+	//Assign team objective
+	var/datum/objective/missionobj = new ()
+	missionobj.team = ert_team
+	missionobj.explanation_text = template.mission
+	missionobj.completed = TRUE
+	ert_team.objectives += missionobj
+	ert_team.mission = missionobj
 
-			ert_antag.random_names = template.random_names
+	var/mob/dead/observer/earmarked_leader
+	var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
 
-			ert_operative.mind.add_antag_datum(ert_antag,ert_team)
-			ert_operative.mind.assigned_role = ert_antag.name
+	if(template.leader_experience)
+		var/list/candidate_living_exps = list()
+		for(var/i in candidates)
+			var/mob/dead/observer/potential_leader = i
+			candidate_living_exps[potential_leader] = potential_leader.client?.get_exp_living(TRUE)
 
-			//Logging and cleanup
-			log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
-			numagents--
-			teamSpawned++
+		candidate_living_exps = sort_list(candidate_living_exps, cmp=/proc/cmp_numeric_dsc)
+		if(candidate_living_exps.len > ERT_EXPERIENCED_LEADER_CHOOSE_TOP)
+			candidate_living_exps = candidate_living_exps.Cut(ERT_EXPERIENCED_LEADER_CHOOSE_TOP+1) // pick from the top ERT_EXPERIENCED_LEADER_CHOOSE_TOP contenders in playtime
+		earmarked_leader = pick(candidate_living_exps)
+	else
+		earmarked_leader = pick(candidates)
 
-		if (teamSpawned)
-			message_admins("[template.polldesc] has spawned with the mission: [template.mission]")
+	while(numagents && candidates.len)
+		var/spawnloc = spawnpoints[index+1]
+		//loop through spawnpoints one at a time
+		index = (index + 1) % spawnpoints.len
+		var/mob/dead/observer/chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
+		candidates -= chosen_candidate
+		if(!chosen_candidate?.key)
+			continue
 
-		//Open the Armory doors
-		if(template.opendoors)
-			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
-				door.open()
-				CHECK_TICK
-		return TRUE
+		//Spawn the body
+		var/mob/living/carbon/human/ert_operative = new template.mobtype(spawnloc)
+		chosen_candidate.client.prefs.safe_transfer_prefs_to(ert_operative, is_antag = TRUE)
+		ert_operative.key = chosen_candidate.key
 
-	return
+		if(template.enforce_human || !(ert_operative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
+			ert_operative.set_species(/datum/species/human)
+
+		//Give antag datum
+		var/datum/antagonist/ert/ert_antag
+
+		if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
+			ert_antag = new template.leader_role ()
+			earmarked_leader = null
+			leader_spawned = TRUE
+		else
+			ert_antag = template.roles[WRAP(numagents,1,length(template.roles) + 1)]
+			ert_antag = new ert_antag ()
+		ert_antag.random_names = template.random_names
+
+		ert_operative.mind.add_antag_datum(ert_antag,ert_team)
+		ert_operative.mind.assigned_role = ert_antag.name
+
+		//Logging and cleanup
+		log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
+		numagents--
+		teamSpawned++
+
+	if (teamSpawned)
+		message_admins("[template.polldesc] has spawned with the mission: [template.mission]")
+
+	//Open the Armory doors
+	if(template.opendoors)
+		for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+			door.open()
+			CHECK_TICK
+	return TRUE
 
 /datum/admins/proc/makeERTTemplateModified(list/settings)
 	. = settings

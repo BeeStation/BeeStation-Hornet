@@ -46,7 +46,7 @@
 			register_for_interview()
 			return
 
-	new_player_panel()
+	addtimer(CALLBACK(src, PROC_REF(new_player_panel), 1 SECONDS))
 	if(SSticker.current_state < GAME_STATE_SETTING_UP)
 		var/tl = SSticker.GetTimeLeft()
 		to_chat(src, "Please set up your character and select \"Ready\". The game will start [tl > 0 ? "in about [DisplayTimeText(tl)]" : "soon"].")

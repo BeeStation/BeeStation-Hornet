@@ -49,7 +49,7 @@
 
 /obj/item/camera_bug/ui_interact(mob/user = usr)
 	. = ..()
-	var/datum/browser/popup = new(user, "camerabug","Camera Bug",nref=src)
+	var/datum/browser/popup = new(user, "camerabug", "Camera Bug", source = src)
 	popup.set_content(menu(get_cameras()))
 	popup.open()
 
