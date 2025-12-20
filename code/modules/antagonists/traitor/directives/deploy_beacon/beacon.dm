@@ -155,6 +155,10 @@
 	var/list/throw_target_turfs = view(6, origin)
 	for (var/i in 1 to rand(3, 6))
 		var/turf/tc_turf = pick(throw_target_turfs)
+		var/sanity = 500
+		// Find another turf
+		while (isclosedturf(tc_turf) && sanity-- > 0)
+			tc_turf = pick(throw_target_turfs)
 		var/obj/item/stack/sheet/telecrystal/telecrystal = new(tc_turf, 1)
 		telecrystal.pixel_x = 32 * (origin.x - tc_turf.x)
 		telecrystal.pixel_y = 32 * (origin.y - tc_turf.y)
