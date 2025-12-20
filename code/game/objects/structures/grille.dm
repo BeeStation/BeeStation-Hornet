@@ -248,7 +248,7 @@
 				else if(istype(W, /obj/item/stack/sheet/rglass))
 					WD = new/obj/structure/window/reinforced/fulltile(drop_location()) //reinforced window
 				else if(istype(W, /obj/item/stack/sheet/titaniumglass))
-					WD = new/obj/structure/window/shuttle(drop_location())
+					WD = new/obj/structure/window/reinforced/shuttle(drop_location())
 				else if(istype(W, /obj/item/stack/sheet/plastitaniumglass))
 					WD = new/obj/structure/window/reinforced/plasma/plastitanium(drop_location())
 				else
