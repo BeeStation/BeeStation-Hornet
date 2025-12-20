@@ -112,7 +112,8 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "A strong bola, bound with dark magic that allows it to pass harmlessly through Nar'Sien cultists. Throw it to trip and slow your victim."
 	icon_state = "bola_cult"
 	inhand_icon_state = "bola_cult"
-	knockdown = 6 SECONDS
+	breakouttime = 6 SECONDS
+	knockdown = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -821,7 +822,6 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_range = 4
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
-	block_flags = BLOCKING_PROJECTILE
 	attack_verb_continuous = list("bumps", "prods")
 	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'

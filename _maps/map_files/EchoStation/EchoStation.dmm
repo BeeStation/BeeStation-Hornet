@@ -1193,6 +1193,24 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"aBZ" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/obj/structure/bed,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/bikehorn{
+	pixel_x = -3;
+	pixel_y = 16
+	},
+/obj/effect/landmark/start/clown,
+/obj/item/bedsheet/clown,
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "aCf" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -1646,6 +1664,43 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
+"aKM" = (
+/obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_y = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/head/helmet/toggleable/riot{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/clothing/head/helmet/toggleable/riot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/shield/riot{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/shield/riot{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/item/storage/secure/safe{
+	name = "armory safe A";
+	pixel_x = 5;
+	pixel_y = 32
+	},
+/obj/structure/closet/gun_locker/armor_riot,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "aLc" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -2813,22 +2868,6 @@
 	},
 /turf/open/openspace/planetary,
 /area/engineering/hallway)
-"bnW" = (
-/obj/item/storage/box/flashbangs{
-	pixel_x = -3;
-	pixel_y = 9
-	},
-/obj/item/storage/box/firingpins{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/closet/gun_locker/boxes,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "bnY" = (
 /obj/structure/chair/wood/normal,
 /turf/open/floor/wood,
@@ -4137,6 +4176,43 @@
 	dir = 1
 	},
 /area/engine/engineering)
+"bXu" = (
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/boxes,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "bXx" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -6958,6 +7034,22 @@
 /obj/machinery/digital_clock/directional/north,
 /turf/open/floor/iron,
 /area/security/brig)
+"dwO" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/energy,
+/obj/item/gun/energy/laser{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "dxs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
@@ -10765,43 +10857,6 @@
 /obj/structure/railing,
 /turf/open/floor/iron,
 /area/science/robotics)
-"fwf" = (
-/obj/effect/turf_decal/bot,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/breacherslug,
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/rubbershot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/closet/gun_locker/boxes,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "fwN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11963,21 +12018,6 @@
 "gdS" = (
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
-"geb" = (
-/obj/structure/table/wood,
-/obj/item/toy/figure/clown{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stamp/clown{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/structure/sign/poster/contraband/clown{
-	pixel_x = -30
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "ged" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -15185,27 +15225,6 @@
 /obj/structure/marker_beacon,
 /turf/open/openspace/planetary,
 /area/engineering/hallway)
-"hKm" = (
-/obj/item/gun/energy/ionrifle{
-	pixel_x = -1;
-	pixel_y = 10
-	},
-/obj/item/gun/energy/temperature/security{
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/item/storage/secure/safe{
-	name = "armory safe B";
-	pixel_x = 5;
-	pixel_y = 32
-	},
-/obj/item/clothing/suit/armor/laserproof,
-/obj/structure/closet/gun_locker/techgear,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "hKJ" = (
 /obj/item/pipe_dispenser,
 /turf/closed/mineral/random/air,
@@ -18143,22 +18162,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
-"jqN" = (
-/obj/item/bikehorn{
-	pixel_x = -3;
-	pixel_y = 16
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/clown,
-/obj/effect/landmark/start/clown,
-/obj/machinery/requests_console{
-	department = "Theatre";
-	name = "theatre RC";
-	pixel_x = 32;
-	pixel_y = -3
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "jqV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -18261,6 +18264,21 @@
 "jsN" = (
 /turf/open/floor/iron/textured_half,
 /area/engine/engineering)
+"jsS" = (
+/obj/effect/turf_decal/bot,
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/structure/closet/gun_locker/ballistic,
+/obj/effect/loot_jobscale/armoury/wt550,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "jtr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -18527,10 +18545,6 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/tcommsat/computer)
-"jCv" = (
-/obj/structure/dresser,
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "jCG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
@@ -18606,6 +18620,22 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/open/floor/grass/no_border,
 /area/hallway/primary/aft)
+"jEe" = (
+/obj/item/storage/box/flashbangs{
+	pixel_x = -3;
+	pixel_y = 9
+	},
+/obj/item/storage/box/firingpins{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/boxes,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "jEu" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -19634,6 +19664,24 @@
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
+"kec" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/machinery/newscaster{
+	pixel_y = 30
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/pen{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "kef" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
@@ -20326,21 +20374,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
-"kxH" = (
-/obj/effect/turf_decal/bot,
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/structure/closet/gun_locker/ballistic,
-/obj/effect/loot_jobscale/armoury/wt550,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "kxR" = (
 /obj/structure/railing/corner,
 /obj/structure/lattice,
@@ -20475,6 +20508,28 @@
 "kBA" = (
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"kBG" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/armor_bulletproof,
+/obj/item/clothing/head/helmet/alt{
+	pixel_y = 1
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_y = 7
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/clothing/head/helmet/alt{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "kBK" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -20595,6 +20650,20 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/fitness/recreation)
+"kDD" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/closet/gun_locker/boxes,
+/obj/item/storage/box/trackimp{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/storage/lockbox/loyalty,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "kDF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -21933,24 +22002,6 @@
 	},
 /turf/open/floor/iron/half,
 /area/engine/engineering)
-"lqn" = (
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 32;
-	pixel_y = -3
-	},
-/obj/structure/bed,
-/obj/item/bikehorn/rubberducky{
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/obj/item/bedsheet/mime,
-/obj/effect/landmark/start/mime,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "lqo" = (
 /obj/structure/railing/corner,
 /turf/open/openspace/planetary,
@@ -22680,20 +22731,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron/dark/textured_corner,
 /area/engine/atmos)
-"lOq" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/closet/gun_locker/boxes,
-/obj/item/storage/box/trackimp{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/storage/lockbox/loyalty,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "lOG" = (
 /obj/machinery/ai_slipper{
 	uses = 10
@@ -26174,22 +26211,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/dorms)
-"nHO" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/closet/gun_locker/energy,
-/obj/item/gun/energy/laser{
-	pixel_x = 2;
-	pixel_y = 1
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = 2;
-	pixel_y = 1
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "nHR" = (
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible,
 /turf/open/floor/iron/textured_large,
@@ -26632,6 +26653,35 @@
 	},
 /turf/open/floor/pod/dark,
 /area/hallway/primary/fore)
+"nZq" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	bulb_colour = "#22bfa2";
+	bulb_vacuum_colour = "#22bfa2";
+	dir = 8;
+	nightshift_light_color = "#22bfa2"
+	},
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/structure/mirror{
+	pixel_x = -26
+	},
+/obj/item/stamp/clown{
+	pixel_x = 9;
+	pixel_y = 12
+	},
+/obj/item/pen/invisible{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/stamp/mime{
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "nZz" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 4
@@ -27485,6 +27535,28 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood/broken,
 /area/library/abandoned)
+"owA" = (
+/obj/item/gun/energy/e_gun/dragnet{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/item/beacon/nettingportal,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/machinery/camera/motion/directional/west{
+	c_tag = "Armory - Internal"
+	},
+/obj/item/gun/grenadelauncher/security{
+	pixel_y = 8
+	},
+/obj/structure/closet/gun_locker/support,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "oxj" = (
 /obj/effect/turf_decal/bot{
 	dir = 1
@@ -27927,16 +27999,6 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"oKo" = (
-/obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/flasher/portable,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "oKy" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/stripes/line{
@@ -28509,43 +28571,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
-"oVJ" = (
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/suit/armor/riot{
-	pixel_y = 4
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/toggleable/riot{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/helmet/toggleable/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/shield/riot{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/shield/riot{
-	pixel_x = 1;
-	pixel_y = -3
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/item/storage/secure/safe{
-	name = "armory safe A";
-	pixel_x = 5;
-	pixel_y = 32
-	},
-/obj/structure/closet/gun_locker/armor_riot,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "oVK" = (
 /obj/machinery/airalarm/directional/south,
 /obj/structure/closet/secure_closet/exile,
@@ -28973,6 +28998,27 @@
 	},
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
+"pkM" = (
+/obj/item/gun/energy/ionrifle{
+	pixel_x = -1;
+	pixel_y = 10
+	},
+/obj/item/gun/energy/temperature/security{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/item/storage/secure/safe{
+	name = "armory safe B";
+	pixel_x = 5;
+	pixel_y = 32
+	},
+/obj/item/clothing/suit/armor/laserproof,
+/obj/structure/closet/gun_locker/techgear,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "pld" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -31237,24 +31283,6 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
-"qyG" = (
-/obj/structure/table/wood,
-/obj/item/toy/figure/mime{
-	pixel_x = 9;
-	pixel_y = -1
-	},
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/machinery/newscaster{
-	pixel_y = 30
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "qyH" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/planetary,
@@ -32380,27 +32408,6 @@
 /obj/structure/ladder,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/crew_quarters/bar)
-"rgH" = (
-/obj/structure/table/wood,
-/obj/machinery/light{
-	bulb_colour = "#22bfa2";
-	bulb_vacuum_colour = "#22bfa2";
-	dir = 8;
-	nightshift_light_color = "#22bfa2"
-	},
-/obj/item/paper_bin{
-	pixel_x = -5;
-	pixel_y = 4
-	},
-/obj/item/pen/blue{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/structure/mirror{
-	pixel_x = -26
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/theatre/backstage)
 "rgL" = (
 /obj/effect/turf_decal/tile/dark_red{
 	alpha = 180;
@@ -35408,6 +35415,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"sKv" = (
+/obj/structure/dresser,
+/obj/item/flashlight/lamp/bananalamp{
+	pixel_y = 20;
+	pixel_x = 2
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "sKD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/portable_thermomachine,
@@ -36722,6 +36737,23 @@
 	},
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/crew_quarters/heads/hop)
+"tss" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/contraband/clown{
+	pixel_x = -30
+	},
+/obj/item/toy/figure/clown{
+	pixel_x = -9;
+	pixel_y = 4
+	},
+/obj/item/toy/figure/mime{
+	pixel_y = 13
+	},
+/obj/item/toy/dummy{
+	pixel_x = 6
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "tst" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -41519,28 +41551,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"vPr" = (
-/obj/item/gun/energy/e_gun/dragnet{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/beacon/nettingportal,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/camera/motion/directional/west{
-	c_tag = "Armory - Internal"
-	},
-/obj/item/gun/grenadelauncher/security{
-	pixel_y = 8
-	},
-/obj/structure/closet/gun_locker/support,
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "vPC" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -42803,6 +42813,22 @@
 /obj/item/soap/nanotrasen,
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
+"wDi" = (
+/obj/structure/bed,
+/obj/machinery/requests_console{
+	department = "Theatre";
+	name = "theatre RC";
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/obj/item/bikehorn/rubberducky{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/obj/effect/landmark/start/mime,
+/obj/item/bedsheet/mime,
+/turf/open/floor/wood,
+/area/crew_quarters/theatre/backstage)
 "wDn" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -44268,6 +44294,16 @@
 "xqF" = (
 /turf/closed/wall/r_wall,
 /area/paradise)
+"xqU" = (
+/obj/machinery/firealarm/directional/south,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/machinery/flasher/portable,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "xrC" = (
 /obj/effect/turf_decal/numbers/two_nine{
 	dir = 1
@@ -45115,28 +45151,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"xNi" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/closet/gun_locker/armor_bulletproof,
-/obj/item/clothing/head/helmet/alt{
-	pixel_y = 1
-	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_y = 7
-	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/clothing/head/helmet/alt{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "xOl" = (
 /obj/item/radio/intercom/chapel{
 	pixel_x = 32;
@@ -127947,8 +127961,8 @@ mGR
 mGR
 gEP
 pLD
-rgH
-geb
+nZq
+tss
 tFm
 gEP
 sNa
@@ -128717,7 +128731,7 @@ mGR
 mGR
 mGR
 gEP
-qyG
+kec
 uFv
 ucF
 uZx
@@ -129231,10 +129245,10 @@ mGR
 mGR
 mGR
 gEP
-jCv
-lqn
+sKv
+aBZ
 hoO
-jqN
+wDi
 gEP
 slG
 lvo
@@ -187095,11 +187109,11 @@ uRS
 uRS
 uRS
 fLS
-hKm
-bnW
-vPr
-xNi
-nHO
+pkM
+jEe
+owA
+kBG
+dwO
 fLS
 xkN
 lHU
@@ -187352,11 +187366,11 @@ ftt
 ftt
 ftt
 fLS
-oVJ
+aKM
 eBB
 ouA
 pio
-fwf
+bXu
 fLS
 vqE
 fKm
@@ -187613,7 +187627,7 @@ pio
 bnk
 gBk
 jSJ
-kxH
+jsS
 fLS
 pME
 cRp
@@ -188382,8 +188396,8 @@ iXj
 fLS
 byk
 qhy
-lOq
-oKo
+kDD
+xqU
 fLS
 qDJ
 jEu
