@@ -1,0 +1,6 @@
+author: Isaac
+delete-after: true
+changes:
+  - balance: Syndicate Modsuits now have it's full armor, regardless if it's in EVA
+      or Combat
+  - balance: Lone Operative now starts with the modsuit
