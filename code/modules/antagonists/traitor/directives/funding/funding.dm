@@ -7,7 +7,6 @@
 	reputation_loss = 0
 	shared = TRUE
 	last_for = 8 MINUTES
-	var/tracking_unlocked = FALSE
 	var/turf/highest_bid_location = null
 
 /datum/priority_directive/acquire_funding/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
@@ -61,6 +60,7 @@
 	if (!team)
 		to_chat(user, span_warning("You are not participating in this mission, please report this as a bug!"))
 		CRASH("[key_name(user)] called perform_special_action for a directive that they did not own.")
+	qdel(target_item)
 	var/datum/directive_team/current_highest = get_highest_bidder()
 	team.data["bid"] += value
 	var/current_bid = team.data["bid"]
@@ -78,14 +78,14 @@
 		end_at = max(end_at, world.time + 1 MINUTES)
 		var/time_left = end_at - world.time
 		// Bid is now tied
-		if (!current_highest)
+		if (!new_highest)
 			mission_update("The bid is now tied with [DisplayTimeText(time_left, 1)] left; nobody is in the lead. The bidder's location has been tracked.")
 		else
-			mission_update("A new highest bid has been made for [current_highest.data["bid"]] credits. The bid ends in [DisplayTimeText(time_left, 1)] left. The bidder's location has been tracked.")
-	if (team == current_highest)
+			mission_update("A new highest bid has been made for [new_highest.data["bid"]] credits. The bid ends in [DisplayTimeText(time_left, 1)] left. The bidder's location has been tracked.")
+	if (team == new_highest)
 		highest_bid_location = get_turf(user)
-		if (current_highest == new_highest)
-			mission_update("The bid has been raised to [current_highest.data["bid"]] credits. The bidders location has been tracked.")
+		if (new_highest == new_highest)
+			mission_update("The bid has been raised to [new_highest.data["bid"]] credits. The bidders location has been tracked.")
 
 /datum/priority_directive/acquire_funding/proc/get_highest_bidder()
 	RETURN_TYPE(/datum/directive_team)

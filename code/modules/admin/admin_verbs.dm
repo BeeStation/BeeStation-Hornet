@@ -112,6 +112,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawnhuman,
 	/client/proc/debug_spell_requirements,
 	/datum/admins/proc/station_traits_panel,
+	/client/proc/force_directive,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -388,8 +389,66 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(src, span_interface("All of your adminverbs are now visible."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-
+/client/proc/force_directive()
+	set category = "Adminbus"
+	set name = "Run Priority Directive"
+	if(!holder)
+		return
+	// Find all the minds
+	var/list/player_minds = list()
+	for (var/datum/mind/player_mind in SSticker.minds)
+		if (!ishuman(player_mind.current) || !is_station_level(player_mind.current.z))
+			continue
+		player_minds += player_mind
+	var/list/options = list()
+	options["Global"] = null
+	for (var/datum/component/uplink/uplink in GLOB.uplinks)
+		options["[uplink.owner?.name]'s [uplink.name] inside of [uplink.parent]"] = uplink
+	var/result = tgui_input_list(usr, "Which uplink would you like to deploy the directive to?", "Force Directive", options, null)
+	if (!result)
+		return
+	var/datum/component/uplink/selected_uplink = options[result]
+	if (!selected_uplink)
+		// Run a global event
+		var/list/types = list()
+		for (var/datum/priority_directive/directive as anything in SSdirectives.directive_types)
+			if (!directive:shared)
+				continue
+			types += directive
+		var/selected_type = tgui_input_list(usr, "Which directive type do you want to run?", "Force Directive", types, null)
+		if (!selected_type)
+			return
+		var/list/filtered_uplinks = list()
+		for (var/datum/component/uplink/uplink in GLOB.uplinks)
+			if (!(uplink.directive_flags & DIRECTIVE_FLAG_COMPETITIVE))
+				continue
+			filtered_uplinks += uplink
+		var/datum/priority_directive/created = new selected_type
+		if (!created.can_run(filtered_uplinks, player_minds))
+			if (!created.can_run(filtered_uplinks, player_minds, TRUE))
+				to_chat(usr, span_warning("Unable to execute directive even when forced."))
+				return
+			to_chat(usr, span_warning("Directive was executed in forced mode, which may result in unexpected behaviour."))
+		created.start(filtered_uplinks, player_minds)
+		SSdirectives.active_directives += created
+	else
+		var/list/types = list()
+		for (var/datum/priority_directive/directive as anything in SSdirectives.directive_types)
+			if (directive:shared)
+				continue
+			types += directive
+		var/selected_type = tgui_input_list(usr, "Which directive type do you want to run?", "Force Directive", types, null)
+		if (!selected_type)
+			return
+		var/list/uplinks = list(selected_uplink)
+		var/datum/priority_directive/created = new selected_type
+		if (!created.can_run(uplinks, player_minds))
+			if (!created.can_run(uplinks, player_minds, TRUE))
+				to_chat(usr, span_warning("Unable to execute directive even when forced."))
+				return
+			to_chat(usr, span_warning("Directive was executed in forced mode, which may result in unexpected behaviour."))
+		created.start(uplinks, player_minds)
+		SSdirectives.active_directives += created
 
 /client/proc/admin_ghost()
 	set category = "Adminbus"
