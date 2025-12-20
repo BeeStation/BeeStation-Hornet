@@ -78,7 +78,7 @@ type MidroundData = {
   logged_heavy_chance: number[][];
   current_midround_ruleset: Ruleset;
   valid_midround_rulesets: Ruleset[];
-  executed_midround_rulesets: Ruleset[];
+  executed_midround_rulesets: CostRuleset[];
 };
 
 enum Tab {
