@@ -15,11 +15,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install curl
-      run: |
-        sudo dpkg --add-architecture i386
-        sudo apt update || true
-        sudo apt install -o APT::Immediate-Configure=false curl:i386
     - name: Configure BYOND version from inputs
       if: ${{ inputs.major }}
       shell: bash
