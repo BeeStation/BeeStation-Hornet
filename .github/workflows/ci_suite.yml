@@ -46,7 +46,7 @@ jobs:
       build_versions: ${{ needs.collect_data.outputs.required_build_versions }}
 
   run_all_tests:
-    name: Run Integration Tests
+    name: Integration Tests
     needs: [collect_data, setup_build_artifacts]
     uses: ./.github/workflows/perform_regular_version_tests.yml
     with:
@@ -54,8 +54,8 @@ jobs:
       max_required_byond_client: ${{needs.collect_data.outputs.max_required_byond_client}}
 
   run_alternate_tests:
-    if: needs.collect_data.outputs.alternate_tests != '[]'
-    name: Run Alternate Tests
+    #if: needs.collect_data.outputs.alternate_tests != '[]'
+    name: Alternate Tests
     needs: [collect_data, setup_build_artifacts]
     uses: ./.github/workflows/perform_alternate_version_tests.yml
     with:
