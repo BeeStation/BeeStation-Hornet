@@ -21,8 +21,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('tgui/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:
