@@ -65,68 +65,58 @@
 	var/name = "data packet (#)"
 	var/parameters = list()  // copied from signal.data above
 
-
-// Preset Servers
-/obj/machinery/telecomms/server/presets
-	network = "tcommsat"
-
-/obj/machinery/telecomms/server/presets/Initialize(mapload)
+/obj/machinery/telecomms/server/Initialize(mapload)
 	. = ..()
 	name = id
 
 
-/obj/machinery/telecomms/server/presets/science
-	id = "Science Server"
+/obj/machinery/telecomms/server/science
+	name = "Science Server"
 	freq_listening = list(FREQ_SCIENCE)
 	autolinkers = list("science")
 
-/obj/machinery/telecomms/server/presets/medical
-	id = "Medical Server"
+/obj/machinery/telecomms/server/medical
+	name = "Medical Server"
 	freq_listening = list(FREQ_MEDICAL)
 	autolinkers = list("medical")
 
-/obj/machinery/telecomms/server/presets/supply
-	id = "Supply Server"
+/obj/machinery/telecomms/server/supply
+	name = "Supply Server"
 	freq_listening = list(FREQ_SUPPLY)
 	autolinkers = list("supply")
 
-/obj/machinery/telecomms/server/presets/exploration
-	id = "Exploration Server"
-	network = "exploration"
+/obj/machinery/telecomms/server/exploration
+	name = "Exploration Server"
 	freq_listening = list(FREQ_EXPLORATION)
 	autolinkers = list("exploration")
 
-/obj/machinery/telecomms/server/presets/service
-	id = "Service Server"
+/obj/machinery/telecomms/server/service
+	name = "Service Server"
 	freq_listening = list(FREQ_SERVICE)
 	autolinkers = list("service")
 
-/obj/machinery/telecomms/server/presets/common
-	id = "Common Server"
+/obj/machinery/telecomms/server/common
+	name = "Common Server"
 	freq_listening = list()
 	autolinkers = list("common")
 
 //Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/server/presets/common/Initialize(mapload)
+/obj/machinery/telecomms/server/common/Initialize(mapload)
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
 
-/obj/machinery/telecomms/server/presets/command
-	id = "Command Server"
+/obj/machinery/telecomms/server/command
+	name = "Command Server"
 	freq_listening = list(FREQ_COMMAND)
 	autolinkers = list("command")
 
-/obj/machinery/telecomms/server/presets/engineering
-	id = "Engineering Server"
+/obj/machinery/telecomms/server/engineering
+	name = "Engineering Server"
 	freq_listening = list(FREQ_ENGINEERING)
 	autolinkers = list("engineering")
 
-/obj/machinery/telecomms/server/presets/security
-	id = "Security Server"
+/obj/machinery/telecomms/server/security
+	name = "Security Server"
 	freq_listening = list(FREQ_SECURITY)
 	autolinkers = list("security")
-
-/obj/machinery/telecomms/server/presets/common/birdstation/Initialize(mapload)
-	. = ..()
-	freq_listening = list()

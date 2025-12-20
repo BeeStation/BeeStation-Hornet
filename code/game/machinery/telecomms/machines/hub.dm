@@ -34,16 +34,9 @@
 		// Then broadcast that signal to
 		relay_information(signal, /obj/machinery/telecomms/broadcaster)
 
-//Preset HUB
-
 /obj/machinery/telecomms/hub/preset
 	id = "Hub"
 	network = "tcommsat"
 	autolinkers = list("hub", "relay", "s_relay", "m_relay", "r_relay", "h_relay", "science", "medical",
 	"supply", "service", "common", "command", "engineering", "security",
-	"receiverA", "receiverB", "broadcasterA", "broadcasterB", "autorelay", "messaging")
-
-/obj/machinery/telecomms/hub/preset/exploration
-	id = "Exploration Hub"
-	network = "exploration"
-	autolinkers = list("exp_relay", "exploration", "receiverExp", "broadcasterExp")
+	"receiver_mission", "receiver_operations", "broadcaster_mission", "broadcaster_operations", "autorelay", "messaging")

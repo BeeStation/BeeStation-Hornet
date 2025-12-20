@@ -18683,10 +18683,6 @@
 	},
 /turf/open/floor/iron/tech,
 /area/centcom/ferry)
-"aVV" = (
-/obj/machinery/telecomms/bus/preset_exploration,
-/turf/open/floor/iron,
-/area/ctf)
 "aVW" = (
 /obj/structure/bookcase/manuals,
 /obj/item/clothing/shoes/jackboots{
@@ -78083,7 +78079,7 @@ aGg
 afZ
 aOe
 ahP
-aVV
+ahP
 afZ
 aUy
 aUy
@@ -84494,7 +84490,7 @@ aZZ
 aZZ
 aZZ
 afZ
-aVV
+ahP
 ahP
 aOe
 afZ

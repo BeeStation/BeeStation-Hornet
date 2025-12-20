@@ -49,42 +49,31 @@
 
 //Preset Buses
 
-/obj/machinery/telecomms/bus/preset_one
-	id = "Bus 1"
-	network = "tcommsat"
-	freq_listening = list(FREQ_SCIENCE, FREQ_MEDICAL)
-	autolinkers = list("processor1", "science", "medical")
-
-/obj/machinery/telecomms/bus/preset_two
-	id = "Bus 2"
-	network = "tcommsat"
-	freq_listening = list(FREQ_SUPPLY, FREQ_SERVICE)
-	autolinkers = list("processor2", "supply", "service")
-
-/obj/machinery/telecomms/bus/preset_three
-	id = "Bus 3"
+/obj/machinery/telecomms/bus/leadership
+	id = "Leadership Bus"
 	network = "tcommsat"
 	freq_listening = list(FREQ_SECURITY, FREQ_COMMAND)
-	autolinkers = list("processor3", "security", "command")
+	autolinkers = list("processor_leadership", "security", "command")
 
-/obj/machinery/telecomms/bus/preset_four
-	id = "Bus 4"
+/obj/machinery/telecomms/bus/discovery
+	id = "Disccovery Bus"
 	network = "tcommsat"
-	freq_listening = list(FREQ_ENGINEERING)
-	autolinkers = list("processor4", "engineering", "common", "messaging")
+	freq_listening = list(FREQ_SCIENCE, FREQ_EXPLORATION)
+	autolinkers = list("processor_discovery", "exploration", "science", "exploration")
 
-/obj/machinery/telecomms/bus/preset_four/Initialize(mapload)
+/obj/machinery/telecomms/bus/logistics
+	id = "Logistics Bus"
+	network = "tcommsat"
+	freq_listening = list(FREQ_SUPPLY, FREQ_ENGINEERING)
+	autolinkers = list("processor_logstics", "engineering", "supply")
+
+/obj/machinery/telecomms/bus/support
+	id = "Support Bus"
+	network = "tcommsat"
+	freq_listening = list(FREQ_SERVICE, FREQ_MEDICAL)
+	autolinkers = list("processor_support", "service", "medical", "common", "messaging")
+
+/obj/machinery/telecomms/bus/support/Initialize(mapload)
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
-
-/obj/machinery/telecomms/bus/preset_one/birdstation
-	name = "Bus"
-	autolinkers = list("processor1", "common", "messaging")
-	freq_listening = list()
-
-/obj/machinery/telecomms/bus/preset_exploration
-	id = "Exploration Bus"
-	network = "exploration"
-	freq_listening = list(FREQ_EXPLORATION)
-	autolinkers = list("processorExp", "exploration")
