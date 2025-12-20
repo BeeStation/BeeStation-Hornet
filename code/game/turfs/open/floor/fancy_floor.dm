@@ -317,6 +317,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	max_integrity = 150
+	//no_smooth = FALSE //done like this so it's structured better in SDMM
 
 /turf/open/floor/carpet/examine(mob/user)
 	. = ..()
@@ -327,6 +328,8 @@
 	update_icon()
 
 /turf/open/floor/carpet/update_icon()
+	//if(no_smooth)
+	//	return 0
 	if(!..())
 		return 0
 	if(!broken && !burnt)
@@ -357,6 +360,7 @@
 /turf/open/floor/carpet/black/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/blue
 	icon = 'icons/turf/floors/carpet_blue.dmi'
@@ -369,6 +373,7 @@
 /turf/open/floor/carpet/blue/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/cyan
 	icon = 'icons/turf/floors/carpet_cyan.dmi'
@@ -381,6 +386,7 @@
 /turf/open/floor/carpet/cyan/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/green
 	icon = 'icons/turf/floors/carpet_green.dmi'
@@ -393,6 +399,7 @@
 /turf/open/floor/carpet/green/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/orange
 	icon = 'icons/turf/floors/carpet_orange.dmi'
@@ -405,6 +412,7 @@
 /turf/open/floor/carpet/orange/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/purple
 	icon = 'icons/turf/floors/carpet_purple.dmi'
@@ -417,6 +425,7 @@
 /turf/open/floor/carpet/purple/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/red
 	icon = 'icons/turf/floors/carpet_red.dmi'
@@ -429,6 +438,7 @@
 /turf/open/floor/carpet/red/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
@@ -441,6 +451,7 @@
 /turf/open/floor/carpet/royalblack/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/royalblue
 	icon = 'icons/turf/floors/carpet_royalblue.dmi'
@@ -453,6 +464,7 @@
 /turf/open/floor/carpet/royalblue/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/carpet/grimy
 	name = "grimy carpet"
@@ -467,6 +479,7 @@
 /turf/open/floor/carpet/grimy/no_smooth
 	smoothing_groups = null
 	canSmoothWith = null
+	//no_smooth = TRUE
 
 /turf/open/floor/eighties
 	name = "retro floor"

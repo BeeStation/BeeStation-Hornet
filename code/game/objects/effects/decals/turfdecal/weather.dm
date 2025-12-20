@@ -8,8 +8,8 @@
 	icon_state = "snowfloor"
 
 /obj/effect/turf_decal/weather/snow/full
-	icon = 'icons/turf/snow.dmi'
 	name = "snow"
+	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 
 /obj/effect/turf_decal/weather/snow/full/Initialize(mapload)
