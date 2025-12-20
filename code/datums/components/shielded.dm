@@ -272,5 +272,5 @@
 
 	max_integrity += recharge_rune.added_shield
 	adjust_charge(recharge_rune.added_shield)
-	to_chat(user, span_notice("You charge \the [parent]. It can now absorb [current_integrity] hits."))
+	to_chat(user, span_notice("You charge \the [parent]. It can now absorb [current_integrity] damage."))
 	qdel(recharge_rune)
