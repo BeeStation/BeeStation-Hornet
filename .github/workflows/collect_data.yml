@@ -23,7 +23,7 @@ jobs:
       max_required_byond_client: ${{ steps.max_required_byond_client.outputs.max_required_byond_client }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
       - name: Find Maps
         id: map_finder
         run: |
