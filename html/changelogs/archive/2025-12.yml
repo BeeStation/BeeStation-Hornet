@@ -114,5 +114,9 @@
       - This item may get you prematurely lynched by trigger happy security, wear
       at your own risk.
 2025-12-20:
+  Isaac:
+  - balance: Syndicate Modsuits now have it's full armor, regardless if it's in EVA
+      or Combat
+  - balance: Lone Operative now starts with the modsuit
   mrmanlikesbt:
   - bugfix: fixed toy eswords not having an inhand icon
