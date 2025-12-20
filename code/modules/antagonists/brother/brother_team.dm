@@ -134,11 +134,12 @@
 		if (length(mind.antag_datums))
 			continue
 		// Are we allowed security?
-		if (!sec_allowed && (mind.assigned_role?.department_flag & DEPT_BITFLAG_SEC))
-			continue
-		// Are they a head?
-		if (mind.assigned_role?.department_flag & DEPT_BITFLAG_COM)
-			continue
+		if (istype(assigned_role, /datum/job))
+			if (!sec_allowed && (mind.assigned_role?.department_flag & DEPT_BITFLAG_SEC))
+				continue
+			// Are they a head?
+			if (mind.assigned_role?.department_flag & DEPT_BITFLAG_COM)
+				continue
 		// Mind is a target
 		var/is_target = FALSE
 		for (var/datum/objective/objective in objectives)
