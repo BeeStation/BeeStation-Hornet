@@ -105,7 +105,8 @@
 		var/list/target_contents = target_human.get_equipped_items(include_pockets = TRUE) + target_human.held_items
 		for(var/obj/item/item in target_contents)
 			if(item == target_human.w_uniform || item == target_human.shoes)
-				ADD_TRAIT(item, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				REMOVE_TRAIT(item, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				// So no cheeky buggers can store stuff in their boots to bring it back
 				for (var/obj/item/subitem in item)
 					target_human.dropItemToGround(subitem)
 				continue //So all they're left with are shoes and uniform.
