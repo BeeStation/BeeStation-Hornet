@@ -43,6 +43,7 @@
 			if(dest_closet)
 				// If we are in a closet, just spawn it.
 				new lootspawn(dest_closet)
+				dest_closet.update_appearance(UPDATE_OVERLAYS)
 			else
 				// If we are on the floor, apply offsets
 				var/atom/movable/spawned_loot = new lootspawn(T)
