@@ -1,9 +1,5 @@
 name: CI Suite
 on:
-  push:
-    branches:
-    - master
-    - 'project/**'
   pull_request:
     branches:
     - master
