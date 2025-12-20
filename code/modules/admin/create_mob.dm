@@ -43,21 +43,21 @@
 		// Hair colour
 		switch (H.gender)
 			if (MALE)
-				H.hair_color = copytext(pick(GLOB.natural_hair_colours), 2)
+				H.hair_color = pick(GLOB.natural_hair_colours)
 			else
 				if (prob(10))
-					H.hair_color = copytext(pick(GLOB.female_dyed_hair_colours), 2)
+					H.hair_color = pick(GLOB.female_dyed_hair_colours)
 				else
-					H.hair_color = copytext(pick(GLOB.natural_hair_colours), 2)
+					H.hair_color = pick(GLOB.natural_hair_colours)
 		// Gradient colour
 		if (prob(40))
 			H.gradient_color = H.hair_color
 		else
 			switch (H.gender)
 				if (MALE)
-					H.gradient_color = copytext(pick(GLOB.secondary_dye_hair_colours), 2)
+					H.gradient_color = pick(GLOB.secondary_dye_hair_colours)
 				else
-					H.gradient_color = copytext(pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours), 2)
+					H.gradient_color = pick(GLOB.secondary_dye_hair_colours + GLOB.secondary_dye_female_hair_colours)
 		// Facial hair colour
 		H.facial_hair_color = H.hair_color
 	var/datum/sprite_accessory/gradient_style = pick_default_accessory(GLOB.hair_gradients_list, required_gender = H.gender)
