@@ -1,0 +1,36 @@
+name: Compile All Maps
+
+on:
+  workflow_call:
+    inputs:
+      max_required_byond_client:
+        required: true
+        type: string
+
+jobs:
+  compile_all_maps:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore BYOND cache
+        uses: actions/cache@v4
+        with:
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-${{ hashFiles('dependencies.sh') }}
+      - name: Install curl
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install -o APT::Immediate-Configure=false curl:i386
+      - name: Compile All Maps
+        run: |
+          bash tools/ci/install_byond.sh
+          source $HOME/BYOND/byond/bin/byondsetup
+          tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
+      - name: Check client Compatibility
+        uses: tgstation/byond-client-compatibility-check@v3
+        with:
+          dmb-location: beestation.dmb
+          max-required-client-version: ${{needs.collect_data.outputs.max_required_byond_client}}
