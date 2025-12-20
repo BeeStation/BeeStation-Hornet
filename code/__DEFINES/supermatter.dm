@@ -5,17 +5,17 @@
 /// How much the amount of CO2 consumed per tick scales with gasmix power ratio. Higher values means gasmix has a greater effect on the CO2 consumed.
 #define CO2_GASMIX_SCALING (0.1)
 
-#define MOLE_PENALTY_THRESHOLD 1800 //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
-#define POWER_PENALTY_THRESHOLD 5000 //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000 //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
-#define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define HEAT_PENALTY_THRESHOLD 40 //Higher == Crystal safe operational temperature is higher.
+#define MOLE_PENALTY_THRESHOLD 18000 //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
+#define POWER_PENALTY_THRESHOLD 50000 //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
+#define SEVERE_POWER_PENALTY_THRESHOLD 70000 //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
+#define CRITICAL_POWER_PENALTY_THRESHOLD 90000 //+1 bolt of electricity.
+#define HEAT_PENALTY_THRESHOLD 400 //Higher == Crystal safe operational temperature is higher.
 
-#define THERMAL_RELEASE_MODIFIER 4 //Higher == less heat released during reaction, not to be confused with the above values
-#define PLASMA_RELEASE_MODIFIER 650 //Higher == less plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 340 //Higher == less oxygen released at high temperature/power
+#define THERMAL_RELEASE_MODIFIER 40 //Higher == less heat released during reaction, not to be confused with the above values
+#define PLASMA_RELEASE_MODIFIER 6500 //Higher == less plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 3400 //Higher == less oxygen released at high temperature/power
 
-#define REACTION_POWER_MODIFIER 0.65 //Higher == more waste gas
+#define REACTION_POWER_MODIFIER 6.5 //Higher == more waste gas
 
 #define MATTER_POWER_CONVERSION 10 //Crystal converts 1/this value of stored matter into energy.
 
@@ -35,7 +35,7 @@
 #define SUPERMATTER_WARNING_DELAY (60 SECONDS)
 
 /// If the crystal is healing faster than this per damage check, we suppress the Common radio notification for the cooldown
-#define SUPERMATTER_FAST_HEALING_RATE 0.025
+#define SUPERMATTER_FAST_HEALING_RATE 0.25
 
 #define SUPERMATTER_COMMON_RADIO_DELAY (6 MINUTES)
 
