@@ -13,7 +13,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install curl
+    - name: Install curl (Linux only)
+      if: runner.os != 'Windows'
       shell: bash
       run: |
         sudo dpkg --add-architecture i386
