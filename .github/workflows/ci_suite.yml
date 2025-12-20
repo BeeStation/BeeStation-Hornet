@@ -2,29 +2,36 @@ name: CI Suite
 on:
   pull_request:
     branches:
-    - master
-    - 'project/**'
+      - master
+      - "project/**"
   merge_group:
     branches:
-    - master
+      - master
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  run_linters:
+  start_gate:
     if: ( !contains(github.event.head_commit.message, '[ci skip]') )
+    name: Start Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mandatory Empty Step
+        run: exit 0
+
+  run_linters:
     name: Run Linters
+    needs: start_gate
     uses: ./.github/workflows/run_linters.yml
 
   collect_data:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Collect data for other tasks
+    needs: start_gate
     uses: ./.github/workflows/collect_data.yml
 
   compile_all_maps:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Compile Maps
     needs: collect_data
     uses: ./.github/workflows/compile_all_maps.yml
@@ -32,35 +39,49 @@ jobs:
       max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
 
   run_all_tests:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Integration Tests
-    needs: [collect_data]
-
+    needs: collect_data
     uses: ./.github/workflows/perform_regular_version_tests.yml
     with:
       maps: ${{ needs.collect_data.outputs.maps }}
       max_required_byond_client: ${{needs.collect_data.outputs.max_required_byond_client}}
 
   run_alternate_tests:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') && needs.collect_data.outputs.alternate_tests != '[]' )
+    if: needs.collect_data.outputs.alternate_tests != '[]'
     name: Alternate Tests
     needs: collect_data
-
     uses: ./.github/workflows/perform_alternate_version_tests.yml
     with:
       alternate_tests: ${{ needs.collect_data.outputs.alternate_tests }}
       default_max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
 
   compare_screenshots:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') && ( needs.collect_data.outputs.alternate_tests == '[]' || needs.run_alternate_tests.result == 'success' )
+    if: needs.collect_data.outputs.alternate_tests == '[]' || needs.run_alternate_tests.result == 'success'
     needs: [collect_data, run_all_tests, run_alternate_tests]
     name: Compare Screenshot Tests
     uses: ./.github/workflows/compare_screenshots.yml
 
   test_windows:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Windows Build
     needs: collect_data
     uses: ./.github/workflows/test_windows.yml
     with:
       max_required_byond_client: ${{needs.collect_data.outputs.max_required_byond_client}}
+
+  completion_gate: # Serves as a non-moving target for branch rulesets
+    if: always() && !cancelled()
+    name: Completion Gate
+    needs: [
+        compare_screenshots,
+        compile_all_maps,
+        run_all_tests,
+        run_alternate_tests,
+        run_linters,
+      ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
+          allowed-skips: compare_screenshots
