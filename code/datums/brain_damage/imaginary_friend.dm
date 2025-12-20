@@ -52,14 +52,13 @@
 		qdel(src)
 		return
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_IMAGINARY_FRIEND,
-		poll_time = 10 SECONDS,
-		checked_target = owner,
-		jump_target = owner,
-		role_name_text = "[owner]'s imaginary friend",
-		alert_pic = owner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_IMAGINARY_FRIEND
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s imaginary friend"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		friend.key = candidate.key
 		friend_initialized = TRUE
@@ -270,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_join
 	name = "Join"
 	desc = "Join your owner, following them from inside their mind."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
@@ -281,7 +280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_hide
 	name = "Hide"
 	desc = "Hide yourself from your owner's sight."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 

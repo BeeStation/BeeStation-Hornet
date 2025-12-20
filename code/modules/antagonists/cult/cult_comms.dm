@@ -1,7 +1,7 @@
 // Contains cult communion, guide, and cult master abilities
 
 /datum/action/innate/cult
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	button_icon_state = null
 	buttontooltipstyle = "cult"
@@ -110,21 +110,20 @@
 		if(B.current && B.current != nominee && !B.current.incapacitated())
 			SEND_SOUND(B.current, 'sound/magic/exit_blood.ogg')
 			asked_cultists += B.current
-	var/list/yes_voters = SSpolling.poll_candidates(
-		question = "[span_notice(nominee.name)] seeks to lead your cult, do you support [nominee.p_them()]?",
-		poll_time = 30 SECONDS,
-		group = asked_cultists,
-		role_name_text = "cult master nomination",
-		alert_pic = nominee,
-		custom_response_messages = list(
-			POLL_RESPONSE_SIGNUP = "You have pledged your allegience to [nominee].",
-			POLL_RESPONSE_ALREADY_SIGNED = "You have already pledged your allegience!",
-			POLL_RESPONSE_NOT_SIGNED = "You aren't nominated for this.",
-			POLL_RESPONSE_TOO_LATE_TO_UNREGISTER = "It's too late to unregister yourself, voting has already begun!",
-			POLL_RESPONSE_UNREGISTERED = "You have been removed your pledge to [nominee]."
-		),
-		chat_text_border_icon = mutable_appearance('icons/effects/effects.dmi', "cult_master_logo"),
+	var/datum/poll_config/config = new()
+	config.question = "[span_notice(nominee.name)] seeks to lead your cult, do you support [nominee.p_them()]?"
+	config.poll_time = 30 SECONDS
+	config.role_name_text = "cult master nomination"
+	config.custom_response_messages = list(
+		POLL_RESPONSE_SIGNUP = "You have pledged your allegience to [nominee].",
+		POLL_RESPONSE_ALREADY_SIGNED = "You have already pledged your allegience!",
+		POLL_RESPONSE_NOT_SIGNED = "You aren't nominated for this.",
+		POLL_RESPONSE_TOO_LATE_TO_UNREGISTER = "It's too late to unregister yourself, voting has already begun!",
+		POLL_RESPONSE_UNREGISTERED = "You have been removed your pledge to [nominee]."
 	)
+	config.alert_pic = nominee
+	config.chat_text_border_icon = mutable_appearance('icons/effects/effects.dmi', "cult_master_logo")
+	var/list/yes_voters = SSpolling.poll_candidates(config, asked_cultists)
 	if(QDELETED(nominee) || nominee.incapacitated())
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
@@ -352,7 +351,7 @@
 /datum/action/innate/cult/master/pulse
 	name = "Eldritch Pulse"
 	desc = "Seize upon a fellow cultist or cult structure and teleport it to a nearby location."
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "arcane_barrage"
 	requires_target = TRUE
 	enable_text = "<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>"

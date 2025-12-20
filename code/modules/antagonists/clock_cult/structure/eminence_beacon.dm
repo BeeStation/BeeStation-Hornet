@@ -35,14 +35,14 @@
 	vote_active = FALSE
 	used = TRUE
 	if(!eminence)
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-			role = /datum/role_preference/roundstart/clock_cultist,
-			check_jobban = ROLE_SERVANT_OF_RATVAR,
-			poll_time = 10 SECONDS,
-			jump_target = src,
-			role_name_text = "eminence",
-			alert_pic = /mob/living/simple_animal/eminence,
-		)
+		var/datum/poll_config/config = new()
+		config.role = /datum/role_preference/roundstart/clock_cultist
+		config.check_jobban = ROLE_SERVANT_OF_RATVAR
+		config.poll_time = 10 SECONDS
+		config.jump_target = src
+		config.role_name_text = "eminence"
+		config.alert_pic = /mob/living/simple_animal/eminence
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)
 			eminence = candidate

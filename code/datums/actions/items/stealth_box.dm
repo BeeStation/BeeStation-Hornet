@@ -4,7 +4,7 @@
 	desc = "Find inner peace, here, in the box."
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_agent"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	button_icon_state = "deploy_box"
 	///The type of closet this action spawns.
 	var/boxtype = /obj/structure/closet/cardboard/agent

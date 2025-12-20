@@ -164,7 +164,20 @@
 			set_base_pixel_y(var_value)
 			. = TRUE
 		if (NAMEOF(src, _emissive_count))
-			return FALSE
+			. = FALSE
+		if(NAMEOF(src, light_height))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_height = var_value)
+				. = TRUE
+		if(NAMEOF(src, light_on))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_on = var_value)
+			else
+				set_light_on(var_value)
+			. = TRUE
+		if(NAMEOF(src, light_flags))
+			set_light_flags(var_value)
+			. = TRUE
 
 	if(!isnull(.))
 		datum_flags |= DF_VAR_EDITED

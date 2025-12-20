@@ -53,16 +53,15 @@
 				if(M.mind)
 					M.mind.grab_ghost(TRUE)
 				else
-					var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-						question = "Do you want to play as a [M.name], an inactive clock cultist?",
-						role = /datum/role_preference/roundstart/clock_cultist,
-						check_jobban = ROLE_SERVANT_OF_RATVAR,
-						poll_time = 10 SECONDS,
-						checked_target = M,
-						jump_target = M,
-						role_name_text = "inactive clock cultist",
-						alert_pic = M,
-					)
+					var/datum/poll_config/config = new()
+					config.question = "Do you want to play as a [M.name], an inactive clock cultist?"
+					config.role = /datum/role_preference/roundstart/clock_cultist
+					config.check_jobban = ROLE_SERVANT_OF_RATVAR
+					config.poll_time = 10 SECONDS
+					config.jump_target = M
+					config.role_name_text = "inactive clock cultist"
+					config.alert_pic = M
+					var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, M)
 					if(candidate)
 						M.key = candidate.key
 						message_admins("[key_name_admin(candidate)] has taken control of ([key_name_admin(M)]) to replace an AFK player.")

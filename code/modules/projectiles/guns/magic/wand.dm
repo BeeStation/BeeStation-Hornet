@@ -3,7 +3,7 @@
 	desc = "It's not just a stick, it's a MAGIC stick!"
 	ammo_type = /obj/item/ammo_casing/magic
 	icon_state = "nothingwand"
-	item_state = "nothingwand"
+	inhand_icon_state = "nothingwand"
 	w_class = WEIGHT_CLASS_SMALL
 	weapon_weight = WEAPON_LIGHT
 	max_charges = 5
@@ -67,7 +67,7 @@
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/drain
 	icon_state = "drainwand"
-	item_state = "drainwand"
+	inhand_icon_state = "drainwand"
 	var/datum/status_effect/life_drain/active_effect
 
 /obj/item/gun/magic/wand/drain/pull_trigger(atom/target, mob/living/user, params, aimed)
@@ -90,7 +90,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "healwand"
-	item_state = "healwand"
+	inhand_icon_state = "healwand"
 
 /////////////////////////////////////
 //WAND OF ICE
@@ -101,7 +101,7 @@
 	desc = "This wand will chill your enemies to the bone, and the ground beneath their feet too!"
 	ammo_type = /obj/item/ammo_casing/magic/icy_blast
 	icon_state = "icewand"
-	item_state = "icewand"
+	inhand_icon_state = "icewand"
 	fire_sound = 'sound/effects/glass_step.ogg'
 
 /////////////////////////////////////
@@ -114,7 +114,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	icon_state = "telewand"
-	item_state = "telewand"
+	inhand_icon_state = "telewand"
 	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -133,7 +133,7 @@
 	desc = "This particular wand can spark life into inanimate objects, causing them to attack anyone nearby except the holder of this wand."
 	ammo_type = /obj/item/ammo_casing/magic/animate
 	icon_state = "animationwand"
-	item_state = "animationwand"
+	inhand_icon_state = "animationwand"
 	fire_sound = 'sound/magic/staff_animation.ogg'
 
 /////////////////////////////////////
@@ -146,7 +146,7 @@
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/firebolt
 	icon_state = "firewand"
-	item_state = "firewand"
+	inhand_icon_state = "firewand"
 
 /////////////////////////////////////
 //WAND OF NUTRITION
@@ -157,4 +157,4 @@
 	desc = "This wand fulfills one the basic human needs. Even wizards have to eat sometimes!"
 	ammo_type = /obj/item/ammo_casing/magic/burger
 	icon_state = "burgerwand"
-	item_state = "burgerwand"
+	inhand_icon_state = "burgerwand"

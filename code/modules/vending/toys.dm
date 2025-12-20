@@ -25,7 +25,8 @@
 		/obj/item/gun/ballistic/automatic/c20r/toy/unrestricted = 10,
 		/obj/item/gun/ballistic/automatic/l6_saw/toy/unrestricted = 10,
 		/obj/item/toy/katana = 10,
-		/obj/item/dualsaber/toy = 5)
+		/obj/item/dualsaber/toy = 5,
+		/obj/item/clothing/neck/cloak/fakehalo = 10)
 
 	armor_type = /datum/armor/vending_donksofttoyvendor
 	resistance_flags = FIRE_PROOF

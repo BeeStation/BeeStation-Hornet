@@ -207,11 +207,15 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 			if(feedback)
 				to_chat(src, "<span class='warning'>You are banned from this role!</span>")
 			return FALSE
+#ifndef TESTING_DYNAMIC
 	if(req_hours) //minimum living hour count
+		if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(src, R_ADMIN))
+			return TRUE
 		if((src.get_exp_living(TRUE)/60) < req_hours)
 			if(feedback)
 				to_chat(src, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")
 			return FALSE
+#endif
 	return TRUE
 
 /client/proc/can_take_ghost_spawner(banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_ghost_role = FALSE, is_admin_spawned = FALSE)

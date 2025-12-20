@@ -32,7 +32,7 @@
 			options[initial(power.name)] = power
 
 			var/datum/radial_menu_choice/option = new
-			option.image = image(icon = initial(power.icon_icon), icon_state = initial(power.button_icon_state))
+			option.image = image(icon = initial(power.button_icon), icon_state = initial(power.button_icon_state))
 			option.info = "[span_boldnotice(initial(power.name))]\n[span_cult(power.power_explanation)]"
 			radial_display[initial(power.name)] = option
 

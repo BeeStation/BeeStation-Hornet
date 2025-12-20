@@ -9,8 +9,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/curtain/bounty,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -22,8 +22,8 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "m" = (
@@ -40,7 +40,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "s" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/carpet/red,
 /area/template_noop)
@@ -56,10 +56,8 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "w" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/template_noop)
 "y" = (
@@ -73,13 +71,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/template_noop)
-"A" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/structure/chair/fancy/sofa/old/right,
-/turf/open/floor/carpet/red,
 /area/template_noop)
 "C" = (
 /obj/structure/chair/fancy/sofa/old/left,
@@ -102,15 +93,15 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
 /turf/template_noop/closed,
 /area/template_noop)
 "R" = (
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/template_noop)
 "S" = (
@@ -118,9 +109,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "T" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/template_noop)
 "U" = (
@@ -162,7 +151,7 @@ Q
 W
 m
 a
-A
+s
 s
 R
 w

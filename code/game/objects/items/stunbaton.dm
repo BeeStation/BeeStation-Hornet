@@ -4,7 +4,7 @@
 	desc_controls = "Left click to stun, right click to baton shove."
 
 	icon_state = "stunbaton"
-	item_state = "baton"
+	inhand_icon_state = "baton"
 	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -209,7 +209,7 @@
 	name = "stunprod"
 	desc = "An improvised stun baton."
 	icon_state = "stunprod"
-	item_state = "prod"
+	inhand_icon_state = "prod"
 	worn_icon_state = null
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'

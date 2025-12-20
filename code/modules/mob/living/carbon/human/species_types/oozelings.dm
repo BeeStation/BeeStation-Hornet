@@ -137,7 +137,7 @@
 	name = "Regenerate Limbs"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "slimeheal"
-	icon_icon = 'icons/hud/actions/actions_slime.dmi'
+	button_icon = 'icons/hud/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/regenerate_limbs/is_available()
@@ -150,27 +150,31 @@
 
 /datum/action/innate/regenerate_limbs/on_activate()
 	var/mob/living/carbon/human/H = owner
+	if(DOING_INTERACTION(H, DOAFTER_SOURCE_REGEN_LIMBS))
+		return
 	var/list/limbs_to_heal = H.get_missing_limbs()
 	if(!LAZYLEN(limbs_to_heal))
 		to_chat(H, span_notice("You feel intact enough as it is."))
 		return
 	to_chat(H, span_notice("You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]..."))
 	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
-		if(do_after(H, 60, target = H))
+		if(do_after(H, 6 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
 			H.regenerate_limbs()
 			H.blood_volume -= 80*limbs_to_heal.len
 			H.nutrition -= 20*limbs_to_heal.len
 			to_chat(H, span_notice("...and after a moment you finish reforming!"))
+		else
+			to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
 		return
 	if(H.blood_volume >= 80)//We can partially heal some limbs
 		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
-			if(do_after(H, 30, target = H))
-				var/healed_limb = pick(limbs_to_heal)
-				H.regenerate_limb(healed_limb)
-				limbs_to_heal -= healed_limb
-				H.blood_volume -= 80
-				H.nutrition -= 20
-			to_chat(H, span_warning("...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!"))
+			if(!do_after(H, 3 SECONDS, target = H, interaction_key = DOAFTER_SOURCE_REGEN_LIMBS))
+				to_chat(H, span_warning("...but you must stay still in order to focus on regenerating!"))
+				return
+			var/healed_limb = pick_n_take(limbs_to_heal)
+			H.regenerate_limb(healed_limb)
+			H.blood_volume -= 80
+			H.nutrition -= 20
 		return
 	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more blood volume to heal!"))
 

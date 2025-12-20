@@ -129,7 +129,8 @@
 	if(do_after(src, 3 SECONDS, living_target))
 		if(ishuman(living_target) || ismonkey(living_target) || isalienadult(living_target) || istype(living_target, /mob/living/basic/pet/dog) || istype(living_target, /mob/living/simple_animal/parrot))
 			var/list/turfs_to_throw = view(2, src)
-			for(var/obj/item/item in living_target.contents)
+			var/list/target_contents = living_target.get_equipped_items(include_pockets = TRUE) + living_target.held_items
+			for(var/obj/item/item in target_contents)
 				if(isclothing(item))
 					continue //no reason to strip them of sensors
 				living_target.dropItemToGround(item, TRUE)

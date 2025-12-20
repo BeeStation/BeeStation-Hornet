@@ -825,16 +825,15 @@
 
 	balloon_alert(user, "offering...")
 	being_used = TRUE
-	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(
-		question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!",
-		check_jobban = ROLE_SENTIENCE,
-		poll_time = 10 SECONDS,
-		checked_target = dumb_mob,
-		ignore_category = POLL_IGNORE_SENTIENCE_POTION,
-		alert_pic = dumb_mob,
-		role_name_text = "intelligence potion",
-		chat_text_border_icon = src,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "[span_danger(user.name)] is offering [span_notice(dumb_mob.name)] an intelligence potion!"
+	config.check_jobban = ROLE_SENTIENCE
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_SENTIENCE_POTION
+	config.alert_pic = dumb_mob
+	config.role_name_text = "intelligence potion"
+	config.chat_text_border_icon = src
+	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(config, dumb_mob)
 	on_poll_concluded(user, dumb_mob, chosen_one)
 
 /// Assign the chosen ghost to the mob
@@ -1241,7 +1240,7 @@
 	singular_name = "floor tile"
 	desc = "Through a series of micro-teleports these tiles let people move at incredible speeds."
 	icon_state = "tile-bluespace"
-	item_state = "tile-bluespace"
+	inhand_icon_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)
@@ -1258,7 +1257,7 @@
 	singular_name = "floor tile"
 	desc = "Time seems to flow very slowly around these tiles."
 	icon_state = "tile_sepia"
-	item_state = "tile-sepia"
+	inhand_icon_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)

@@ -187,7 +187,7 @@
 	if(handcuffed)
 		if(update_obscured)
 			update_obscured_slots(handcuffed.flags_inv)
-		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', handcuffed.overlay_state, CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
+		overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", CALCULATE_MOB_OVERLAY_LAYER(HANDCUFF_LAYER))
 		apply_overlay(HANDCUFF_LAYER)
 
 

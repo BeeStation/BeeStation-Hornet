@@ -57,8 +57,17 @@ have ways of interacting with a specific mob and control it.
 	return ..() //Run parent at end
 
 /datum/ai_controller/monkey/UnpossessPawn(destroy)
-	UnregisterSignal(pawn, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_LIVING_START_PULL,\
-	COMSIG_LIVING_TRY_SYRINGE,  COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_MOB_MOVESPEED_UPDATED))
+	if(!isnull(pawn))
+		UnregisterSignal(pawn, list(
+			COMSIG_ATOM_WAS_ATTACKED,
+			COMSIG_ATOM_BULLET_ACT,
+			COMSIG_ATOM_HITBY,
+			COMSIG_LIVING_START_PULL,
+			COMSIG_LIVING_TRY_SYRINGE,
+			COMSIG_CARBON_CUFF_ATTEMPTED,
+			COMSIG_MOB_MOVESPEED_UPDATED,
+		))
+
 	qdel(GetComponent(/datum/component/connect_loc_behalf))
 	return ..() //Run parent at end
 

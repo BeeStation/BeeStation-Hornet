@@ -489,13 +489,12 @@
 	name = "Syndicate Operative - Full Kit"
 
 	glasses = /obj/item/clothing/glasses/night
+	back = /obj/item/mod/control/pre_equipped/nuclear
 	mask = /obj/item/clothing/mask/gas/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
-	r_hand = /obj/item/gun/ballistic/shotgun/automatic/bulldog
-	l_hand = /obj/item/tank/jetpack/oxygen/harness
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	backpack_contents = list(
 		/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\

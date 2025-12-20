@@ -16,8 +16,8 @@
 	volume = 100
 	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
-	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
-	var/broken_item_state = "broken_beer"
+	inhand_icon_state = "broken_beer" //Generic held-item sprite until unique ones are made.
+	var/broken_inhand_icon_state = "broken_beer"
 	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	drink_type = ALCOHOL
@@ -40,7 +40,7 @@
 	if(!ranged && thrower)
 		thrower.put_in_hands(B)
 	B.mimic_broken(src, target)
-	B.item_state = broken_item_state
+	B.inhand_icon_state = broken_inhand_icon_state
 
 	qdel(src)
 	target.Bumped(B)
@@ -121,7 +121,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "broken_beer"
+	inhand_icon_state = "broken_beer"
 	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -412,7 +412,7 @@
 	name = "carton of synthflesh"
 	desc = "A No-Name carton of synthflesh. It seems moldy. And it seems that YOUR INCOMPETENT ASS IS THE ONLY FUCKING REASON THIS THING EVEN EXISTS!!!!"
 	icon_state = "synthflesh"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 100)
 
@@ -539,7 +539,7 @@
  */
 /obj/item/reagent_containers/cup/glass/bottle/juice
 	custom_price = PAYCHECK_MEDIUM
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice

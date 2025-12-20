@@ -1,0 +1,122 @@
+2025-12-01:
+  PowerfulBacon:
+  - config: The default (local) config no longer has respawning enabled.
+  Rukofamicom:
+  - tweak: Supermatter crystals now have an upper limit on their explosive force,
+      achieved after 90 minutes of being powered.
+2025-12-02:
+  EvilDragonfiend:
+  - bugfix: fixed the manuscript bounty that it picked the wrong jobs
+  - tweak: made the manuscript bounty's reward credits more consistent.
+  PowerfulBacon:
+  - tweak: All midround ghost roles can only execute once per-round.
+2025-12-04:
+  PowerfulBacon:
+  - tweak: Admins can now bypass antagonist time restrictions when the use_exp_restrictions_admin_bypass
+      flag is set, making local testing easier.
+2025-12-05:
+  PowerfulBacon:
+  - bugfix: Fixes a lag issue caused by reagent containers detonating under certain
+      conditions.
+2025-12-06:
+  mrmanlikesbt:
+  - rscdel: 'Reverted handcuffs to the previous behavior. Which means: you can no
+      longer break your wrists to escape handcuffs and you now must stand completely
+      still for the handcuff''s escape duration to... escape.'
+2025-12-07:
+  Absolucy:
+  - bugfix: Fixed oozeling limb regeneration potentially crashing the server.
+  PowerfulBacon:
+  - refactor: Refactors some logic in the candidate poll system used by dynamic midround
+      events.
+  - tweak: Dynamic will wait until a candidate is available when a ruleset is executed,
+      cancelling any existing polls if a previous event did not find a candidate.
+  - tweak: Upon becoming a ghost, you will gain access to any candidate polls that
+      are currently in progress.
+  - tweak: Midround rulesets can now be selected as an option even if there are no
+      ghosts, as upon execution it will simply wait until enough ghosts sign up before
+      execution. This means that rulesets other than space pirates can execute on
+      lowpop.
+  Programs-The-Station:
+  - bugfix: Inedible food's span is now warning instead of green.
+  mrmanlikesbt:
+  - bugfix: Fixed not being able to escape cuffs while buckled to a chair
+  - spellcheck: Fixed an accidental revert of the black gloves description saying
+      that they are thick
+2025-12-08:
+  BotTierPC:
+  - tweak: Adds the Ventriloquist Dummy to Echo, Rad, and Deltastation and adjusts
+      the rooms slightly to accommodate the new item.
+  mrmanlikesbt:
+  - spellcheck: Fixed the Abandoned Club and Xenobiology Maintenance area names being
+      swapped
+2025-12-09:
+  EvilDragonfiend:
+  - admin: TP panel is better to recognise
+  Programs-The-Station:
+  - tweak: Transfer shuttle will not be called when there are zero votes in the poll.
+2025-12-10:
+  PowerfulBacon:
+  - tweak: The crew monitoring console will now show when someone's sensors have gone
+      offline, if they are in the crew manifest.
+2025-12-11:
+  r1ks-iwnl:
+  - bugfix: Fixed changelings getting round removed by decapitation.
+  - bugfix: Fixed changelings being incapable of using abilities without a brain.
+  - spellcheck: Throwing text for third person uses correct inflection.
+2025-12-13:
+  mrmanlikesbt:
+  - bugfix: Fixed a timestop runtime when freezing a person
+  - bugfix: fixed not being able to dream
+  - code_imp: slightly improved the sleeping status effect code
+  - tweak: slightly adjusted your chance to dream or snore while sleeping
+  - bugfix: fixed monkeys sometimes runtiming when their AI controller is deleted
+2025-12-15:
+  DrDuckedGoose:
+  - tweak: Adds basic parsing flag to web request, removes pause in build process
+  PowerfulBacon:
+  - tweak: The default backpack choice will always be departmental backpack now.
+2025-12-16:
+  mrmanlikesbt:
+  - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
+      person and not playing a sound effect
+  - balance: gun rechargers now charge twice as fast
+2025-12-18:
+  PowerfulBacon:
+  - bugfix: Characters generated through the strict random generator will no longer
+      spawn with jumpskirts when male.
+  - bugfix: Morphs no longer cause mobs that they eat to drop implants and other items
+      inside of the mob that aren't being worn by the mob.
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when re-aquiring a client's parallax cache
+2025-12-19:
+  Dejaku51:
+  - bugfix: Fixed echo having metal floor instead of water in winter variant
+  Isaac:
+  - bugfix: Thermomachines will not turn themselves off if power goes out
+  MarkusLarsson421:
+  - bugfix: Fixes the construction of titanium windows.
+  PowerfulBacon:
+  - balance: Projectile blocking now respects the blocking cooldown.
+  - balance: Removes projectile blocking from most non-shield weapons, excluding some
+      unique ones (mainly, energy swords and the real katana).
+  - balance: Null rod katana now has the same stats as the regular claymore.
+  mrmanlikesbt, JohnFulpWillard, 00-Steven:
+  - rscadd: shutter frames can now be made with plasteel in-hand instead of having
+      to use the crafting menu
+  - bugfix: fixed some jankiness with constructing shutters and blast doors
+  - bugfix: fixed not being able to deconstruct shutters and blast doors
+  r1ks-iwnl:
+  - bugfix: Fixed death not slowing down bleeding.
+  - bugfix: Fixed blood splatters spawning on every tile when subjected to heavy bleeding.
+  ro5490:
+  - rscadd: Added a toy halo, now you can impersonate your favorite cultist! Disclaimer
+      - This item may get you prematurely lynched by trigger happy security, wear
+      at your own risk.
+2025-12-20:
+  Isaac:
+  - balance: Syndicate Modsuits now have it's full armor, regardless if it's in EVA
+      or Combat
+  - balance: Lone Operative now starts with the modsuit
+  mrmanlikesbt:
+  - bugfix: fixed toy eswords not having an inhand icon

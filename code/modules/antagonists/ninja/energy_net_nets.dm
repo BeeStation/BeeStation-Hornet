@@ -61,22 +61,18 @@
 	success = TRUE
 	qdel(src)
 	if(ishuman(affecting))
-		var/mob/living/carbon/human/H = affecting
-		for(var/obj/item/W in H)
-			if(W == H.w_uniform)
-				ADD_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
-				for (var/obj/item/subitem in W)
-					H.dropItemToGround(subitem)
-				continue//So all they're left with are shoes and uniform.
-			if(W == H.shoes)
-				ADD_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
-				for (var/obj/item/subitem in W)
-					H.dropItemToGround(subitem)
-				continue
-			H.dropItemToGround(W)
+		var/mob/living/carbon/human/affected_human = affecting
+		var/list/target_contents = affected_human.get_equipped_items(include_pockets = TRUE) + affected_human.held_items
+		for(var/obj/item/item in target_contents)
+			if(item == affected_human.w_uniform || item == affected_human.shoes)
+				ADD_TRAIT(item, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+				for (var/obj/item/subitem in item)
+					affected_human.dropItemToGround(subitem)
+				continue //So all they're left with are shoes and uniform.
+			affected_human.dropItemToGround(item)
 
 		// After we remove items, at least give them what they need to live.
-		H.dna.species.give_important_for_life(H)
+		affected_human.dna.species.give_important_for_life(affected_human)
 
 	playsound(affecting, 'sound/effects/sparks4.ogg', 50, 1)
 	new /obj/effect/temp_visual/dir_setting/ninja/phase/out(affecting.drop_location(), affecting.dir)
@@ -105,22 +101,19 @@
 		return
 	// Drop any items acquired from the location
 	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		for(var/obj/item/W in H)
-			if(W == H.w_uniform)
-				REMOVE_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
+		var/mob/living/carbon/human/target_human = target
+		var/list/target_contents = target_human.get_equipped_items(include_pockets = TRUE) + target_human.held_items
+		for(var/obj/item/item in target_contents)
+			if(item == target_human.w_uniform || item == target_human.shoes)
+				REMOVE_TRAIT(item, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
 				// So no cheeky buggers can store stuff in their boots to bring it back
-				for (var/obj/item/subitem in W)
-					H.dropItemToGround(subitem)
-				continue//So all they're left with are shoes and uniform.
-			if(W == H.shoes)
-				REMOVE_TRAIT(W, TRAIT_NODROP, NINJA_KIDNAPPED_TRAIT)
-				for (var/obj/item/subitem in W)
-					H.dropItemToGround(subitem)
-				continue
-			H.dropItemToGround(W)
+				for (var/obj/item/subitem in item)
+					target_human.dropItemToGround(subitem)
+				continue //So all they're left with are shoes and uniform.
+			target_human.dropItemToGround(item)
+
 		// After we remove items, at least give them what they need to live.
-		H.dna.species.give_important_for_life(H)
+		target_human.dna.species.give_important_for_life(target_human)
 	// Teleport
 	var/turf/picked_station_level = get_random_station_turf()	//Don't want to limit this specifically to z 2 in case we get multi-z in rotation
 	var/turf/safe_location = find_safe_turf(picked_station_level.z, extended_safety_checks = TRUE, dense_atoms = FALSE)

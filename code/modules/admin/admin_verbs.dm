@@ -112,7 +112,6 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawnhuman,
 	/client/proc/debug_spell_requirements,
 	/datum/admins/proc/station_traits_panel,
-	/datum/admins/proc/dynamic_panel,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -219,6 +218,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_clear_smart_asset_cache,
 	/client/proc/view_runtimes,
 	/client/proc/debug_hallucination_weighted_list_per_type,
+	/datum/admins/proc/dynamic_panel,
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))

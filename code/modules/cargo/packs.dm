@@ -3094,7 +3094,8 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 					/obj/item/clothing/mask/gas/syndicate,
 					/obj/item/clothing/neck/necklace/dope,
-					/obj/item/vending_refill/donksoft)
+					/obj/item/vending_refill/donksoft,
+					/obj/item/clothing/neck/cloak/fakehalo)
 	crate_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce
@@ -3566,7 +3567,8 @@
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,
 					/obj/item/book/random,
-					/obj/item/book/random)
+					/obj/item/book/random,
+					/obj/item/book/manuscript)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/paper

@@ -4,7 +4,7 @@
 	singular_name = "floor tile"
 	desc = "The ground you walk on."
 	icon_state = "tile"
-	item_state = "tile"
+	inhand_icon_state = "tile"
 	force = 6
 	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10

@@ -8,7 +8,7 @@
 	armor_type = /datum/armor/eva_plasmaman
 	resistance_flags = FIRE_PROOF
 	icon_state = "plasmaman_suit"
-	item_state = "plasmaman_suit"
+	inhand_icon_state = "plasmaman_suit"
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 10
@@ -48,7 +48,7 @@
 	icon = 'icons/obj/clothing/head/plasmaman_hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/plasmaman_head.dmi'
 	icon_state = "helmet"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 	greyscale_colors = "#DF5900#A349A4#DF5900"
 	greyscale_config = /datum/greyscale_config/plasmaman_helmet_default
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
@@ -346,7 +346,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "prototype_envirohelm"
-	item_state = "prototype_envirohelm"
+	inhand_icon_state = "prototype_envirohelm"
 	smile_state = "prototype_smile"
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany
@@ -374,7 +374,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "mime_envirohelm"
-	item_state = "mime_envirohelm"
+	inhand_icon_state = "mime_envirohelm"
 	visor_state = "mime_visor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
@@ -386,7 +386,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "honk_envirohelm"
-	item_state = "honk_envirohelm"
+	inhand_icon_state = "honk_envirohelm"
 	smile_state = "clown_smile"
 	visor_state = "clown_visor"
 
@@ -632,7 +632,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "mime_mark2"
-	item_state = "mime_mark2"
+	inhand_icon_state = "mime_mark2"
 	visor_state = "mime_visor_mk2"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/clown
@@ -644,7 +644,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	icon_state = "clown_mark2"
-	item_state = "clown_mark2"
+	inhand_icon_state = "clown_mark2"
 	visor_state = "clown_visor_mk2"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)

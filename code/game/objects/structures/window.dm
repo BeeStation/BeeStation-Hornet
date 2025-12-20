@@ -733,6 +733,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/depleteduranium/corner/unancho
 	glass_amount = 2
 	ricochet_chance_mod = 0.9
 
+/obj/structure/window/reinforced/shuttle/unanchored
+	anchored = FALSE
 
 /datum/armor/window_shuttle
 	melee = 50

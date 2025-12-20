@@ -434,13 +434,13 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		question = poll_message,
-		check_jobban = ban_key,
-		poll_time = 10 SECONDS,
-		jump_target = M,
-		alert_pic = M,
-	)
+	var/datum/poll_config/config = new()
+	config.question = poll_message
+	config.check_jobban = ban_key
+	config.poll_time = 10 SECONDS
+	config.jump_target = M
+	config.alert_pic = M
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 	if(candidate)
 		M.ghostize(FALSE)

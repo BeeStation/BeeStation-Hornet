@@ -181,13 +181,13 @@
 	if (.)
 		to_chat(user, span_notice("The uplink vibrates quietly, connecting to nearby agents..."))
 
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-			check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT,
-			poll_time = 10 SECONDS,
-			jump_target = user,
-			role_name_text = "contractor support unit for [user.real_name]",
-			alert_pic = user,
-		)
+		var/datum/poll_config/config = new()
+		config.check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT
+		config.poll_time = 10 SECONDS
+		config.jump_target = user
+		config.role_name_text = "contractor support unit for [user.real_name]"
+		config.alert_pic = user
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)
 			spawn_contractor_partner(user, candidate.key)

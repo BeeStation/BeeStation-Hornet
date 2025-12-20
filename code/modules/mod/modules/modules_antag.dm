@@ -1,17 +1,16 @@
 //Antag modules for MODsuits
 
-///Armor Booster - Grants your suit more armor and speed in exchange for EVA protection.
-/obj/item/mod/module/armor_booster
-	name = "\improper MOD armor booster module"
-	desc = "A retrofitted series of retractable armor plates, allowing the suit to function as essentially power armor, \
-		giving the user incredible protection against conventional firearms, or everyday attacks in close-quarters. \
-		However, the additional plating cannot deploy alongside parts of the suit used for vacuum sealing, \
-		so this extra armor provides zero ability for extravehicular activity while deployed."
+///Mode Switch - Switch from combat mode to EVA.
+/obj/item/mod/module/mod_switch
+	name = "\improper MOD Mode Switch Module"
+	desc = "A retrofitted pressurized shell which allow the suit to change between two versions, EVA and combat. \
+		Activating combat mode removes the usual weight given by the shell allowing for greater mobility, \
+		but sacrificing the ability to safely navigate vacuums."
 	icon_state = "armor_booster"
 	module_type = MODULE_TOGGLE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	removable = FALSE
-	incompatible_modules = list(/obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
+	incompatible_modules = list(/obj/item/mod/module/mod_switch, /obj/item/mod/module/welding)
 	overlay_state_inactive = "module_armorbooster_off"
 	overlay_state_active = "module_armorbooster_on"
 	use_mod_colors = TRUE
@@ -20,28 +19,17 @@
 	var/remove_pressure_protection = TRUE
 	/// Slowdown added to the control unit while this module is disabled
 	var/space_slowdown = 0.5
-	/// Armor values added to the suit parts.
-	var/datum/armor/armor_mod = /datum/armor/mod_module_armor_boost
 	/// List of parts of the suit that are spaceproofed, for giving them back the pressure protection.
 	var/list/spaceproofed = list()
 
-/obj/item/mod/module/armor_booster/no_speedbost
-	space_slowdown = 0
-
-/datum/armor/mod_module_armor_boost
-	melee = 25
-	bullet = 30
-	laser = 15
-	energy = 15
-
-/obj/item/mod/module/armor_booster/on_part_activation()
+/obj/item/mod/module/mod_switch/on_part_activation()
 	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
 	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		head_cover.flash_protect = FLASH_PROTECTION_WELDER
 	mod.update_speed()
 
-/obj/item/mod/module/armor_booster/on_part_deactivation(deleting = FALSE)
+/obj/item/mod/module/mod_switch/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
 	UnregisterSignal(mod, COMSIG_MOD_UPDATE_SPEED)
@@ -50,9 +38,9 @@
 		head_cover.flash_protect = initial(head_cover.flash_protect)
 	mod.update_speed()
 
-/obj/item/mod/module/armor_booster/on_activation()
+/obj/item/mod/module/mod_switch/on_activation()
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	balloon_alert(mod.wearer, "armor boosted, EVA lost")
+	balloon_alert(mod.wearer, "Combat Protocol engaged, EVA Lost")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
@@ -60,7 +48,6 @@
 		seal_helmet(mod, head_cover)
 	*/
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.set_armor(part.get_armor().add_other_armor(armor_mod))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -69,17 +56,16 @@
 			spaceproofed[clothing_part] = TRUE
 	mod.update_speed()
 
-/obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
+/obj/item/mod/module/mod_switch/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		balloon_alert(mod.wearer, "armor retracts, EVA ready")
+		balloon_alert(mod.wearer, "Combat Protocol disengaged, EVA ready")
 	/*
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(head_cover)
 		UnregisterSignal(mod, COMSIG_MOD_PART_SEALED)
 	*/
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -88,18 +74,18 @@
 	mod.update_speed()
 	spaceproofed = list()
 
-/obj/item/mod/module/armor_booster/proc/on_update_speed(datum/source, list/module_slowdowns, prevent_slowdown)
+/obj/item/mod/module/mod_switch/proc/on_update_speed(datum/source, list/module_slowdowns, prevent_slowdown)
 	SIGNAL_HANDLER
 	if (!active)
 		module_slowdowns += space_slowdown
 
-/obj/item/mod/module/armor_booster/generate_worn_overlay(mutable_appearance/standing)
+/obj/item/mod/module/mod_switch/generate_worn_overlay(mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
 
 /*
-/obj/item/mod/module/armor_booster/proc/seal_helmet(datum/source, datum/mod_part/part)
+/obj/item/mod/module/mod_switch/proc/seal_helmet(datum/source, datum/mod_part/part)
 	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
 	if(part != head_cover)
 		return
@@ -109,13 +95,13 @@
 		REMOVE_TRAIT(mod.wearer, TRAIT_HEAD_INJURY_BLOCKED, REF(src))
 */
 
-/obj/item/mod/module/armor_booster/on_install()
+/obj/item/mod/module/mod_switch/on_install()
 	RegisterSignal(mod, COMSIG_MOD_GET_VISOR_OVERLAY, PROC_REF(on_visor_overlay))
 
-/obj/item/mod/module/armor_booster/on_uninstall(deleting)
+/obj/item/mod/module/mod_switch/on_uninstall(deleting)
 	UnregisterSignal(mod, COMSIG_MOD_GET_VISOR_OVERLAY)
 
-/obj/item/mod/module/armor_booster/proc/on_visor_overlay(datum/source,  mutable_appearance/standing, list/overrides)
+/obj/item/mod/module/mod_switch/proc/on_visor_overlay(datum/source,  mutable_appearance/standing, list/overrides)
 	SIGNAL_HANDLER
 	if (active)
 		overrides += mutable_appearance(overlay_icon_file, "module_armorbooster_visor-[mod.skin]", layer = standing.layer + 0.1)
@@ -429,7 +415,7 @@
 	mod.lefthand_file = initial(current_disguise.lefthand_file)
 	mod.righthand_file = initial(current_disguise.righthand_file)
 	mod.worn_icon_state = initial(current_disguise.worn_icon_state)
-	mod.item_state = initial(current_disguise.item_state)
+	mod.inhand_icon_state = initial(current_disguise.inhand_icon_state)
 	mod.wearer.update_clothing(mod.slot_flags)
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(return_look))
 
@@ -443,7 +429,7 @@
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
 	mod.worn_icon_state = null
-	mod.item_state = null
+	mod.inhand_icon_state = null
 	mod.wearer.update_clothing(mod.slot_flags)
 	current_disguise = null
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
@@ -503,7 +489,7 @@
 	complexity = 0
 	removable = FALSE
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0
-	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
+	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/mod_switch, /obj/item/mod/module/welding)
 	required_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_OCLOTHING)
 
 /obj/item/mod/module/infiltrator/on_install()

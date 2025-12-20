@@ -497,13 +497,14 @@
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
+	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 	switch(has_living_heart())
 		if(HERETIC_NO_LIVING_HEART)
 			.["Give Living Heart"] = CALLBACK(src, PROC_REF(admin_give_living_heart))
 		if(HERETIC_HAS_LIVING_HEART)
 			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(admin_add_marked_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
-	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
+			if(length(sac_targets))
+				.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
 
 /*
  * Admin proc for giving a heretic a Living Heart easily.
@@ -580,7 +581,7 @@
 		else
 			string_of_knowledge += knowledge.name
 
-	return "<br><b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
+	return "<b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
 
 /datum/antagonist/heretic/antag_panel_objectives()
 	. = ..()
@@ -594,7 +595,6 @@
 			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
-	. += "<br>"
 
 /*
  * Learns the passed [typepath] of knowledge, creating a knowledge datum
@@ -784,7 +784,7 @@
 /datum/action/antag_info/heretic
 	name = "Forbidden Knowledge"
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
-	icon_icon = 'icons/obj/heretic.dmi'
+	button_icon = 'icons/obj/heretic.dmi'
 	button_icon_state = "book_open"
 	background_icon_state = "bg_heretic"
 

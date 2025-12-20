@@ -205,8 +205,9 @@
 	return
 
 /obj/machinery/door/welder_act(mob/living/user, obj/item/tool)
-	try_to_weld(tool, user)
-	return TOOL_ACT_TOOLTYPE_SUCCESS
+	if (!user.combat_mode)
+		try_to_weld(tool, user)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/door/crowbar_act(mob/living/user, obj/item/tool)
 	if(user.combat_mode || HAS_TRAIT(tool, TRAIT_DOOR_PRYER))

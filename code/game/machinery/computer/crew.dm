@@ -101,6 +101,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	/// Cache of last update time for each z-level
 	var/list/last_update = list()
 
+	/// The last update for the crew-member
+	var/list/outdated_update = list()
+
 	/// Map of job to ID for sorting purposes
 	var/list/jobs = list(
 		// Note that jobs divisible by 10 are considered heads of staff, and bolded
@@ -201,7 +204,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		z = T.get_virtual_z_level()
 	. = list(
 		"sensors" = update_data(z, T.z),
-		"link_allowed" = isAI(user)
+		"link_allowed" = isAI(user),
+		"time" = world.time
 	)
 
 /// z represents the virtual z-level the user is on
@@ -211,6 +215,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		return data_by_z["[z]"]
 
 	var/list/results = list()
+
+	var/list/valid_refs = list()
 
 	for(var/mob/living/carbon/human/tracked_human as () in GLOB.suit_sensors_list)
 		if(!tracked_human)
@@ -260,6 +266,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			"ref" = REF(tracked_human),
 			"name" = "Unknown",
 			"ijob" = UNKNOWN_JOB_ID,
+			"last_update" = world.time,
+			"missing" = FALSE
 		)
 
 		var/obj/item/card/id/I = tracked_human.wear_id ? tracked_human.wear_id.GetID() : null
@@ -288,7 +296,30 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// Trackability
 		entry["can_track"] = tracked_human.can_track()
 
+		/// Update the tracked entry
+		if (I?.registered_name && find_record(I.registered_name, GLOB.manifest.general))
+			outdated_update[I.registered_name] = list(
+				"name" = I.registered_name,
+				"last_update" = world.time
+			)
+			valid_refs[I.registered_name] = TRUE
+
 		results[++results.len] = entry
+
+	for (var/outdated_ref in outdated_update)
+		if (valid_refs[outdated_ref])
+			continue
+		var/list/last_results = outdated_update[outdated_ref]
+		// Deleted from the records, cryo'd or malicious intent. Remove the target
+		if (!find_record(last_results["name"], GLOB.manifest.general))
+			outdated_update -= outdated_ref
+			continue
+		results[++results.len] = list(
+			"ref" = outdated_ref,
+			"name" = last_results["name"],
+			"last_update" = last_results["last_update"],
+			"missing" = TRUE
+		)
 
 	data_by_z["[z]"] = results
 	last_update["[z]"] = world.time

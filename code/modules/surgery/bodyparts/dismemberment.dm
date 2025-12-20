@@ -132,6 +132,8 @@
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
 	C.update_hair()
+	if(!special)
+		C.hud_used?.update_locked_slots()
 
 	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -320,6 +322,8 @@
 	new_limb_owner.update_body()
 	new_limb_owner.update_hair()
 	new_limb_owner.update_damage_overlays()
+	if(!special)
+		new_limb_owner.hud_used?.update_locked_slots()
 	SEND_SIGNAL(new_limb_owner, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 	return TRUE
 

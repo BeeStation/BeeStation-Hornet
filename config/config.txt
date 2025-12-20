@@ -227,7 +227,7 @@ DEFAULT_NO_VOTE
 ## 0 = Cannot respawn (default)
 ## 1 = Can respawn
 ## 2 = Can respawn if choosing a different character
-ALLOW_RESPAWN 2
+ALLOW_RESPAWN 0
 
 ## Respawn delay(in deciseconds), which doesn't allow to return to lobby, default 5 minutes
 RESPAWN_DELAY 3000
