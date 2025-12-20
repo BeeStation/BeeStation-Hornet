@@ -50,50 +50,70 @@ const DisplayGasOutput = (production_list) => {
     ));
 };
 
-const DisplayValues = (position, barHeight, data) => {
-  const count = 5;
+const DisplayValues = (position, barHeight, depthMin, depthMax) => {
+  // Show 20 intermediate tick values between depthMax (top) and depthMin (bottom)
+  const count = 20;
   let items = [];
+  const range = depthMax - depthMin || 1;
   for (let i = 0; i <= count; i++) {
-    items.push((data.max_depth / count) * i);
+    // produce descending values: top = depthMax, bottom = depthMin
+    items.push(Math.round(depthMax - (range / count) * i));
   }
-  return items.map((item, index) => (
-    <>
-      <text
-        key={item}
-        x={position}
-        y={barHeight * (index / count) + 12}
-        fill="white"
-        fontSize="12px"
-      >
-        {item}
-      </text>
-      <rect
-        x={position - 15}
-        width="10"
-        height="1"
-        y={barHeight * (index / count) + 6}
-        fill="grey"
-      />
-    </>
-  ));
+  return items.map((item, index) => {
+    const displayKm = (item / 1000).toFixed(0) + 'km';
+    return (
+      <>
+        <text
+          key={item}
+          x={position}
+          y={barHeight * (index / count) + 12}
+          fill="white"
+          fontSize="11px"
+          fontFamily="Consolas, 'Courier New', monospace"
+        >
+          {displayKm}
+        </text>
+        <rect
+          x={position - 15}
+          width="10"
+          height="1"
+          y={barHeight * (index / count) + 6}
+          fill="grey"
+        />
+      </>
+    );
+  });
 };
 
 const DisplayGasBar = (
   position_bar,
   constant,
-  max_depth,
+  depthMin,
+  depthMax,
   barHeight,
   color,
   text,
 ) => {
   const barOffset = 6;
+  const range = depthMax - depthMin || 1;
+  const clamp = (v) => Math.max(depthMin, Math.min(depthMax, v));
+  // Ensure we have ordered bounds
+  const a = clamp(constant[0]);
+  const b = clamp(constant[1]);
+  const low = Math.min(a, b);
+  const high = Math.max(a, b);
+  // Flip orientation: top corresponds to depthMax, bottom to depthMin
+  const normTop = (depthMax - high) / range;
+  const normBottom = (depthMax - low) / range;
+  const yStart = barHeight * normTop + barOffset;
+  const height = Math.max(0, barHeight * (normBottom - normTop));
   return (
     <Tooltip content={text}>
       <rect
         x={position_bar}
-        y={barHeight * (constant[0] / max_depth) + barOffset}
+        y={yStart}
         width="10"
-        height={barHeight * ((constant[1] - constant[0]) / max_depth)}
+        height={height}
         fill={color}
       />
     </Tooltip>
@@ -105,12 +125,13 @@ export const AtmosGasRigTemplate = (props) => {
   const {
     depth,
     active,
-    max_depth,
+    max_extension,
     max_shield,
     shield_strength,
     max_health,
     health,
-    set_depth,
+    extension,
+    set_extension,
     shield_strength_change,
     gas_power,
     gas_modifier,
@@ -129,6 +150,8 @@ export const AtmosGasRigTemplate = (props) => {
   const barHeight = 300;
   const barOffset = 6;
   const svgOffset = -50;
+  const depth_min = 80000;
+  const depth_max = 100000;
   return (
     <>
       <Button
@@ -141,11 +164,12 @@ export const AtmosGasRigTemplate = (props) => {
       <Flex>
         <Flex.Item>
           <Box minWidth="300px">
-            Depth:
+            Nozzle Extension:
+            <span> {extension}m</span>
             <ProgressBar
               minValue={0}
-              maxValue={max_depth}
-              value={depth}
+              maxValue={max_extension}
+              value={extension}
               ranges={{
                 good: [0.7, Infinity],
                 average: [0.4, 0.7],
@@ -175,24 +199,94 @@ export const AtmosGasRigTemplate = (props) => {
               }}
             />
             <br />
-            Set Depth:
+            Set Nozzle Extension:
             <br />
-            <NumberInput
-              animated
-              value={parseFloat(set_depth)}
-              width="75px"
-              unit="km"
-              minValue={0}
-              maxValue={max_depth}
-              step={10}
-              onChange={(value) =>
-                act('set_depth', {
-                  set_depth: value,
-                })
-              }
-            />
-            <br />
+            <Flex align="center">
+              <Flex.Item>
+                <NumberInput
+                  animated
+                  value={Number(set_extension)}
+                  width="75px"
+                  unit="m"
+                  minValue={0}
+                  maxValue={max_extension}
+                  step={10}
+                  onChange={(value) =>
+                    act('set_extension', {
+                      // send meters (integer) to backend
+                      set_extension: Math.round(value),
+                    })
+                  }
+                />
+              </Flex.Item>
+              <Flex.Item shrink={0} ml={1}>
+                <Button
+                  width="40px"
+                  onClick={() =>
+                    act('set_extension', {
+                      set_extension: Math.min(
+                        max_extension,
+                        Math.round(Number(set_extension) + 50),
+                      ),
+                    })
+                  }
+                  content="+50"
+                />
+              </Flex.Item>
+              <Flex.Item shrink={0} ml={1}>
+                <Button
+                  width="40px"
+                  onClick={() =>
+                    act('set_extension', {
+                      set_extension: Math.max(
+                        0,
+                        Math.round(Number(set_extension) - 50),
+                      ),
+                    })
+                  }
+                  content="-50"
+                />
+              </Flex.Item>
+              <Flex.Item shrink={0} ml={1}>
+                <Tooltip content="Stop Extension Adjustment">
+                  <Button
+                    width="22px"
+                    color="orange"
+                    icon="stop"
+                    onClick={() =>
+                      act('set_extension', {
+                        // set the pending set_extension value to the current extension
+                        set_extension: Math.round(extension),
+                      })
+                    }
+                  />
+                </Tooltip>
+              </Flex.Item>
+              <Flex.Item shrink={0} ml={1}>
+                <Tooltip content="SCRAM: Immediately retract nozzle to minimum extension.">
+                  <Button
+                    width="56px"
+                    color="red"
+                    content="SCRAM"
+                    onClick={() =>
+                      act('set_extension', {
+                        set_extension: 0,
+                      })
+                    }
+                  />
+                </Tooltip>
+              </Flex.Item>
+            </Flex>
             <Box mb={2} mt={2}>
+              {' '}
+              <Tooltip content="Current Depth of the Station itself">
+                <Box>
+                  Station Altitude: {((depth + extension) / 1000).toFixed(1)}km
+                </Box>
+              </Tooltip>
+              <Tooltip content="Current Depth of the Gas Rig Nozzle">
+                <Box>Depth at Tip: {(depth / 1000).toFixed(1)}km</Box>
+              </Tooltip>
               <Tooltip content="Power * Modifier">
                 <Box>
                   Shielding Strength:
@@ -200,7 +294,6 @@ export const AtmosGasRigTemplate = (props) => {
                   <br />
                 </Box>
               </Tooltip>
-
               <BlockQuote color="">
                 Total Gas Power: {gas_power.toFixed(2)}
                 <br />
@@ -232,97 +325,130 @@ export const AtmosGasRigTemplate = (props) => {
               fill="black"
               stroke="grey"
             />
-            <Tooltip content={'Depth: ' + depth + ' km'}>
+            <Tooltip
+              content={
+                'Station Altitude: ' +
+                ((depth + extension) / 1000).toFixed(1) +
+                ' km'
+              }
+            >
+              {/* Draw station position indicator (small blip) */}
+              <rect
+                x={141 + svgOffset}
+                y={
+                  barOffset +
+                  // normalize station depth (depth + extension), flipped so top = depth_max
+                  ((depth_max - (depth + extension)) /
+                    (depth_max - depth_min || 1)) *
+                    barHeight -
+                  2
+                }
+                width="8"
+                height="4"
+                fill="white"
+              />
+            </Tooltip>
+            <Tooltip content={'Nozzle Extension: ' + extension + ' m'}>
+              {/* Draw nozzle extension indicator bar */}
               <rect
                 x={143 + svgOffset}
-                y={barOffset}
+                y={
+                  barOffset +
+                  // normalize station depth (depth + extension), flipped so top = depth_max
+                  ((depth_max - (depth + extension)) /
+                    (depth_max - depth_min || 1)) *
+                    barHeight
+                }
                 width="4"
-                height={barHeight * (depth / max_depth)}
+                height={(extension / (depth_max - depth_min || 1)) * barHeight}
                 fill="grey"
               />
             </Tooltip>
             {DisplayGasBar(
-              125 + svgOffset,
-              o2_constants,
-              max_depth,
-              barHeight,
-              'blue',
-              'O2',
-            )}{' '}
-            {/* O2 */}
-            {DisplayGasBar(
-              115 + svgOffset,
-              n2_constants,
-              max_depth,
-              barHeight,
-              'red',
-              'N2',
-            )}{' '}
-            {/* N2 */}
-            {DisplayGasBar(
-              125 + svgOffset,
-              plas_constants,
-              max_depth,
-              barHeight,
-              'purple',
-              'Plasma',
-            )}{' '}
-            {/* Plasma */}
-            {DisplayGasBar(
               105 + svgOffset,
-              co2_constants,
-              max_depth,
-              barHeight,
-              'grey',
-              'CO2',
-            )}{' '}
-            {/* CO2 */}
-            {DisplayGasBar(
-              115 + svgOffset,
               n2o_constants,
-              max_depth,
+              depth_min,
+              depth_max,
               barHeight,
               'white',
               'N2O',
-            )}{' '}
-            {/* N2O */}
-            {DisplayGasBar(
-              125 + svgOffset,
-              nob_constants,
-              max_depth,
-              barHeight,
-              'teal',
-              'Hypernoblium',
-            )}{' '}
-            {/* Hypernoblium */}
+            )}
             {DisplayGasBar(
               115 + svgOffset,
+              n2_constants,
+              depth_min,
+              depth_max,
+              barHeight,
+              'red',
+              'N2',
+            )}
+            {DisplayGasBar(
+              125 + svgOffset,
+              o2_constants,
+              depth_min,
+              depth_max,
+              barHeight,
+              'blue',
+              'O2',
+            )}
+
+            {DisplayGasBar(
+              105 + svgOffset,
               bz_constants,
-              max_depth,
+              depth_min,
+              depth_max,
               barHeight,
               'brown',
               'BZ',
-            )}{' '}
-            {/* BZ */}
+            )}
             {DisplayGasBar(
-              95 + svgOffset,
-              plox_constants,
-              max_depth,
-              barHeight,
-              'yellow',
-              'Pluoxium',
-            )}{' '}
-            {/* Pluoxium */}
-            {DisplayGasBar(
-              105 + svgOffset,
+              115 + svgOffset,
               trit_constants,
-              max_depth,
+              depth_min,
+              depth_max,
               barHeight,
               'lawngreen',
               'Tritium',
-            )}{' '}
-            {/* Tritium */}
-            {DisplayValues(155 + svgOffset, barHeight, data)}
+            )}
+            {DisplayGasBar(
+              125 + svgOffset,
+              plas_constants,
+              depth_min,
+              depth_max,
+              barHeight,
+              'purple',
+              'Plasma',
+            )}
+
+            {DisplayGasBar(
+              105 + svgOffset,
+              plox_constants,
+              depth_min,
+              depth_max,
+              barHeight,
+              'yellow',
+              'Pluoxium',
+            )}
+            {DisplayGasBar(
+              115 + svgOffset,
+              nob_constants,
+              depth_min,
+              depth_max,
+              barHeight,
+              'teal',
+              'Hypernoblium',
+            )}
+            {DisplayGasBar(
+              125 + svgOffset,
+              co2_constants,
+              depth_min,
+              depth_max,
+              barHeight,
+              'grey',
+              'CO2',
+            )}
+
+            {DisplayValues(155 + svgOffset, barHeight, depth_min, depth_max)}
           </svg>
         </Flex.Item>
       </Flex>
