@@ -17,17 +17,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  start_gate:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
-    name: Start Gate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Mandatory Empty Step
-        run: exit 0
-
   run_linters:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Run Linters
-    needs: start_gate
     runs-on: ubuntu-22.04
     timeout-minutes: 5
 
@@ -141,8 +133,9 @@ jobs:
         run: tools/build/build --ci lint tgui-test
 
   compile_all_maps:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Compile Maps
-    needs: collect_data
+    needs: [collect_data]
     runs-on: ubuntu-22.04
     timeout-minutes: 5
 
@@ -170,8 +163,8 @@ jobs:
           max-required-client-version: ${{needs.collect_data.outputs.max_required_byond_client}}
 
   collect_data:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Collect data for other tasks
-    needs: start_gate
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     outputs:
@@ -200,8 +193,9 @@ jobs:
           echo "max_required_byond_client=$(grep -Ev '^[[:blank:]]{0,}#{1,}|^[[:blank:]]{0,}$' .github/max_required_byond_client.txt | tail -n1)" >> $GITHUB_OUTPUT
 
   run_all_tests:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Integration Tests
-    needs: collect_data
+    needs: [collect_data]
 
     uses: ./.github/workflows/perform_regular_version_tests.yml
     with:
@@ -209,7 +203,7 @@ jobs:
       max_required_byond_client: ${{needs.collect_data.outputs.max_required_byond_client}}
 
   run_alternate_tests:
-    if: needs.collect_data.outputs.alternate_tests != '[]'
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') && needs.collect_data.outputs.alternate_tests != '[]' )
     name: Alternate Tests
     needs: collect_data
 
@@ -219,15 +213,16 @@ jobs:
       default_max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
 
   check_alternate_tests:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') && needs.collect_data.outputs.alternate_tests != '[]' )
     name: Check Alternate Tests
-    needs: run_alternate_tests
+    needs: [run_alternate_tests, collect_data]
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
       - run: echo Alternate tests passed.
 
   compare_screenshots:
-    if: (!failure() && !cancelled())
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') && (always() && (!failure() && !cancelled())) )
     needs: [run_all_tests, run_alternate_tests]
     name: Compare Screenshot Tests
     timeout-minutes: 15
@@ -265,6 +260,7 @@ jobs:
           path: artifacts/screenshot_comparisons
 
   test_windows:
+    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Windows Build
     needs: [collect_data]
     runs-on: windows-latest
@@ -293,11 +289,3 @@ jobs:
         with:
           dmb-location: beestation.dmb
           max-required-client-version: ${{needs.collect_data.outputs.max_required_byond_client}}
-
-completion_gate: # Serves as a non-moving target for branch rulesets
-    name: Completion Gate
-    needs: [ test_windows, compare_screenshots, compile_all_maps, run_all_tests, run_alternate_tests, run_linters ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Mandatory Empty Step
-        run: exit 0
