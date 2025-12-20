@@ -44,6 +44,8 @@ jobs:
           sudo systemctl start mysql
           mysql -u root -proot -e 'CREATE DATABASE bee_ci;'
           mysql -u root -proot bee_ci < SQL/beestation_schema.sql
+      - name: Setup Node
+        uses: ./.github/actions/setup_node
       - name: Install rust-g
         run: |
           bash tools/ci/install_rust_g.sh
