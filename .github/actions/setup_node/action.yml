@@ -21,7 +21,6 @@ runs:
         sudo apt update || true
         sudo apt install -o APT::Immediate-Configure=false curl:i386
     - name: Configure Node version
-      shell: bash
       run: |
         source dependencies.sh
         echo "NODE_VERSION_REQUIRED=$NODE_VERSION_LTS" >> $GITHUB_ENV
