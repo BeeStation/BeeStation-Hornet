@@ -120,3 +120,5 @@
   - balance: Lone Operative now starts with the modsuit
   mrmanlikesbt:
   - bugfix: fixed toy eswords not having an inhand icon
+  - bugfix: fixed a runtime when eating clothes
+  - bugfix: fixed ninja nets destroying mindshields when sent to the hotel area

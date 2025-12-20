@@ -1,4 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: fixed ninja nets destroying mindshields when sent to the hotel area
