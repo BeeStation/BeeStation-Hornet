@@ -17365,15 +17365,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"cVz" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/window{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/central)
 "cVC" = (
 /mob/living/simple_animal/sloth/citrus,
 /obj/structure/disposalpipe/segment{
@@ -21278,7 +21269,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/bar,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "ecO" = (
@@ -49480,6 +49470,7 @@
 /area/security/brig)
 "nKr" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/mob/living/carbon/monkey/punpun,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/crew_quarters/bar)
@@ -79330,9 +79321,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "xCh" = (
@@ -114057,7 +114045,7 @@ xkt
 iYt
 uQL
 lJh
-cVz
+aWf
 aWf
 aWf
 dCT
