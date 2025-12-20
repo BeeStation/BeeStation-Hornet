@@ -27,7 +27,7 @@ jobs:
       required_build_versions: ${{ steps.setup_required_build_versions.outputs.required_build_versions }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Find Maps
         id: map_finder
         run: |
@@ -52,6 +52,7 @@ jobs:
         run: |
           DEFAULT_VERSION='[{"major": "${{ env.BYOND_MAJOR }}","minor": "${{ env.BYOND_MINOR }}"}]'
           ALTERNATE_VERSIONS='${{ steps.alternate_test_finder.outputs.alternate_tests }}'
+
           REQUIRED_BUILD_VERSIONS=$(jq -nc \
             --argjson alternate "$ALTERNATE_VERSIONS" \
             --argjson default "$DEFAULT_VERSION" '
