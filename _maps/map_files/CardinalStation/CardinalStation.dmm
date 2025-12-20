@@ -9514,6 +9514,16 @@
 	},
 /turf/open/floor/wood/big,
 /area/hydroponics)
+"bUq" = (
+/obj/structure/table/wood,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/open/floor/engine/cult,
+/area/library/lounge)
 "bUD" = (
 /turf/open/floor/iron/smooth,
 /area/hallway/upper/primary/port)
@@ -98259,19 +98269,6 @@
 	dir = 1
 	},
 /area/engine/atmos)
-"uaN" = (
-/obj/structure/table/wood,
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/item/book/codex_gigas{
-	pixel_y = 7
-	},
-/turf/open/floor/engine/cult,
-/area/library/lounge)
 "uaO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -153862,7 +153859,7 @@ kAL
 ktD
 mjk
 due
-uaN
+bUq
 ddF
 due
 tAC

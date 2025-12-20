@@ -145,9 +145,9 @@
 	switch(apparent_blood_volume)
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 			. += span_warning("[t_He] [t_has] pale skin.")
-		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_OKAY)
 			. += span_boldwarning("[t_He] look[p_s()] like pale death.")
-		if(-INFINITY to BLOOD_VOLUME_BAD)
+		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 			. += span_deadsay("<b>[t_He] resemble[p_s()] a crushed, empty juice pouch.</b>")
 
 	if (is_bleeding())
@@ -212,6 +212,9 @@
 				// give some space since this is usually near the end
 				ADD_NEWLINE_IF_NECESSARY(.)
 				. += span_deadsay(npc_message)
+
+	if(HAS_TRAIT(src, TRAIT_FEED_MARKED))
+		. += span_warning("There are two strange punctures on [t_his] neck.")
 
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += span_warning("This body has been reduced to a grotesque husk.")

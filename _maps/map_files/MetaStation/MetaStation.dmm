@@ -11429,7 +11429,6 @@
 	},
 /obj/item/stack/cable_coil/cut/red,
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,
 /area/library)
 "bPW" = (
