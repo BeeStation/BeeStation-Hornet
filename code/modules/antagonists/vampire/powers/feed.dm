@@ -458,7 +458,7 @@
 
 	if(feed_target)
 		// Call cure_blind after a (truly tiny) delay to make sure they don't see NOTHING
-		addtimer(CALLBACK(src, PROC_REF(cure_blindness_helper), feed_target), 1 SECONDS)
+		addtimer(CALLBACK(feed_target, TYPE_PROC_REF(/mob/living, cure_blind), TRAIT_FEED), 1 SECONDS)
 
 	if(feed_target && currently_feeding)
 		REMOVE_TRAITS_IN(feed_target, TRAIT_FEED)
@@ -507,10 +507,6 @@
 
 	warning_target_bloodvol = BLOOD_VOLUME_MAXIMUM
 	blood_taken = 0
-
-/datum/action/vampire/targeted/feed/proc/cure_blindness_helper(mob/living/feed_target)
-	if(feed_target)
-		feed_target.cure_blind(TRAIT_FEED)
 
 /datum/action/vampire/targeted/feed/proc/handle_feeding(mob/living/carbon/target, mult = 1)
 	var/mob/living/living_owner = owner
