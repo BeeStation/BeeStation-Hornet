@@ -1894,7 +1894,7 @@
 /obj/item/toy/plush/lizard_plushie{
 	name = "Swims-the-ocean"
 	},
-/turf/open/floor/plating/beach/deep_water/cold,
+/turf/open/floor/plating/beach/deep_water,
 /area/template_noop)
 "By" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -3597,7 +3597,7 @@
 /turf/open/floor/glass/reinforced,
 /area/template_noop)
 "Yt" = (
-/turf/open/floor/plating/beach/deep_water/cold,
+/turf/open/floor/plating/beach/deep_water,
 /area/template_noop)
 "YA" = (
 /obj/structure/fence/cut/medium{

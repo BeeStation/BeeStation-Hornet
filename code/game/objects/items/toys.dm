@@ -506,7 +506,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	canblock = TRUE
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	item_flags = ISWEAPON
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_SURFACE

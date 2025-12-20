@@ -36509,6 +36509,11 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"gbn" = (
+/obj/structure/destructible/cult/tome/library,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/library)
 "gbI" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -72488,11 +72493,6 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /turf/open/floor/iron,
 /area/maintenance/department/science)
-"rAy" = (
-/obj/structure/destructible/cult/tome/library,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/library)
 "rAA" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -77682,10 +77682,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai)
-"tbI" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/space/basic,
-/area/space)
 "tbK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -97970,7 +97966,7 @@ aaa
 aaa
 aaa
 aaa
-tbI
+aaa
 aaa
 aaa
 aaa
@@ -126929,7 +126925,7 @@ hlY
 gYg
 caG
 cwv
-rAy
+gbn
 czK
 caG
 qzX

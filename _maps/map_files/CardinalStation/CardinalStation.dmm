@@ -9514,6 +9514,16 @@
 	},
 /turf/open/floor/wood/big,
 /area/hydroponics)
+"bUq" = (
+/obj/structure/table/wood,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/open/floor/engine/cult,
+/area/library/lounge)
 "bUD" = (
 /turf/open/floor/iron/smooth,
 /area/hallway/upper/primary/port)
@@ -47172,10 +47182,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"jGa" = (
-/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
-/turf/open/space/basic,
-/area/space)
 "jGe" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/turf_decal/edges/techfloor{
@@ -98263,16 +98269,6 @@
 	dir = 1
 	},
 /area/engine/atmos)
-"uaN" = (
-/obj/structure/table/wood,
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/turf/open/floor/engine/cult,
-/area/library/lounge)
 "uaO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -121066,7 +121062,7 @@ nzj
 nzj
 nzj
 nzj
-jGa
+nzj
 nzj
 nzj
 nzj
@@ -153863,7 +153859,7 @@ kAL
 ktD
 mjk
 due
-uaN
+bUq
 ddF
 due
 tAC

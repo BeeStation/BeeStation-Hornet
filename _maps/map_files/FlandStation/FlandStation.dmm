@@ -10231,14 +10231,6 @@
 	},
 /turf/open/floor/carpet,
 /area/chapel/office)
-"cIP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
-/obj/structure/destructible/cult/tome,
-/obj/item/stack/cable_coil/cut/red,
-/turf/open/floor/wood,
-/area/library)
 "cIQ" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/iron/dark,
@@ -42441,10 +42433,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"kQc" = (
-/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
-/turf/open/space/basic,
-/area/space)
 "kQd" = (
 /turf/closed/wall,
 /area/science/nanite)
@@ -85837,6 +85825,14 @@
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
+"vPm" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/structure/destructible/cult/tome,
+/obj/item/stack/cable_coil/cut/red,
+/turf/open/floor/wood,
+/area/library)
 "vPn" = (
 /obj/structure/chair/fancy/sofa/old/left{
 	color = "#596479";
@@ -102001,7 +101997,7 @@ nnx
 nnx
 nnx
 nnx
-kQc
+nnx
 nnx
 nnx
 nnx
@@ -115471,7 +115467,7 @@ yjW
 vNZ
 fnP
 yfU
-cIP
+vPm
 oOp
 cZC
 yfU

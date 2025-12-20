@@ -91,3 +91,4 @@
 	custom_price = 20
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 	grind_results = list(/datum/reagent/iron = 10, /datum/reagent/silicon = 10)
+	usesound = 'sound/items/deconstruct.ogg'
