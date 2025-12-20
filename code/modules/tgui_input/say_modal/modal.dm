@@ -94,7 +94,7 @@
 	winshow(client, window.id, FALSE)
 	window.send_message("props", list(
 		"lightMode" = client.prefs?.read_preference(/datum/preference/toggle/tgui_say_light_mode),
-		"scale" = client.prefs?.read_preference(/datum/preference/toggle/ui_scale),
+		"showRadioPrefix" = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_show_prefix),
 		"maxLength" = max_length,
 	))
 	stop_thinking()
