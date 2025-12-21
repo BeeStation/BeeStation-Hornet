@@ -104,7 +104,7 @@
 		to_chat(user, "<span class='warning'>You have already received your special equipment.</span>")
 		return
 	equipment_granted = TRUE
-	switch (rand(1, 4))
+	switch (rand(1, 3))
 		if (1)
 			var/obj/item/spawned = new /obj/item/pen/paralytic(user.loc)
 			user.put_in_active_hand(spawned)
@@ -114,9 +114,6 @@
 			spawned = new /obj/item/gun/syringe(user.loc)
 			user.put_in_inactive_hand(spawned)
 		if (3)
-			var/obj/item/spawned = new /obj/item/gun/ballistic/automatic/pistol(user.loc)
-			user.put_in_active_hand(spawned)
-		if (4)
 			var/obj/item/spawned = new /obj/item/jammer(user.loc)
 			user.put_in_active_hand(spawned)
 			spawned = new /obj/item/melee/baton/loaded(user.loc)
