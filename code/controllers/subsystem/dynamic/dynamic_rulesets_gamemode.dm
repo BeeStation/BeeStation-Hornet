@@ -4,7 +4,7 @@
 	abstract_type = /datum/dynamic_ruleset/gamemode
 	/// Default minimum players required so that there is some mystery involved.
 	/// Disabled for now, since traitor works fine on 0 pop
-	//minimum_players_required = 3
+	minimum_players_required = 3
 
 /datum/dynamic_ruleset/gamemode/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
