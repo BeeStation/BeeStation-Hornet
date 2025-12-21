@@ -48,8 +48,8 @@
 	var/memory
 	var/list/quirks = list()
 
-	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
-	var/datum/job/assigned_role
+	/// The role that this mob was assigned, as a text value, may be a job which GetJob can be called to fetch
+	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
 	/// Martial art on this mind
