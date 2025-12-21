@@ -6,16 +6,28 @@
 	inhand_icon_state = ""	//no inhands
 	slot_flags = 0
 	w_class = WEIGHT_CLASS_SMALL
-	var/above_suit = FALSE
-	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
-	var/attachment_slot = CHEST
 	appearance_flags = TILE_BOUND | RESET_COLOR
+	/// The accessory slot that is consumed by this item, 2 accessories cannot exist on the same spot.
+	var/accessory_slot = ACCESSORY_CHEST
+	/// Is this accessory hidden to examiners?
+	var/hidden = FALSE
+	/// Does it show above the armour slot item
+	var/above_suit = FALSE
+	/// TRUE if shown as a small icon in corner, FALSE if overlayed
+	var/minimize_when_attached = TRUE
+	/// The slot that the clothing must cover for the accessory to be valid
+	var/attachment_slot = CHEST
 
-/obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/U, mob/user)
-	if(!attachment_slot || (U && U.body_parts_covered & attachment_slot))
-		return TRUE
-	if(user)
-		to_chat(user, span_warning("There doesn't seem to be anywhere to put [src]..."))
+/obj/item/clothing/accessory/proc/can_attach_accessory(obj/item/clothing/under/U, mob/user, silent = TRUE)
+	if(attachment_slot && !(U && U.body_parts_covered & attachment_slot))
+		if(user && !silent)
+			to_chat(user, span_warning("There doesn't seem to be anywhere to put [src]..."))
+		return FALSE
+	if (accessory_slot in U.attached_accessories)
+		if(user && !silent)
+			to_chat(user, span_warning("You already have an accessory covering the [lowertext(accessory_slot)] of \the [U]."))
+		return FALSE
+	return TRUE
 
 /obj/item/clothing/accessory/proc/attach(obj/item/clothing/under/U, user)
 	if(atom_storage)
@@ -23,7 +35,7 @@
 			return FALSE
 		U.clone_storage(atom_storage)
 		U.atom_storage.set_real_location(src)
-	U.attached_accessory = src
+	U.attached_accessories[accessory_slot] = src
 	forceMove(U)
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
@@ -56,7 +68,7 @@
 	layer = initial(layer)
 	plane = initial(plane)
 	U.cut_overlays()
-	U.attached_accessory = null
+	U.attached_accessories -= accessory_slot
 	U.accessory_overlay = null
 
 /obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
@@ -103,6 +115,7 @@
 	icon_state = "bronze"
 	custom_materials = list(/datum/material/iron=1000)
 	resistance_flags = FIRE_PROOF
+	accessory_slot = ACCESSORY_MEDAL
 	var/medaltype = "medal" //Sprite used for medalbox
 	var/commended = FALSE
 
@@ -255,6 +268,7 @@
 	desc = "A fancy red armband!"
 	icon_state = "redband"
 	attachment_slot = null
+	accessory_slot = ACCESSORY_ARMBAND
 
 /obj/item/clothing/accessory/armband/blue
 	name = "blue armband"
@@ -418,6 +432,7 @@
 	name = "poppy pin"
 	desc = "A pin made from a poppy, worn to remember those who have fallen in war."
 	icon_state = "poppy_pin"
+	accessory_slot = ACCESSORY_MEDAL
 
 /obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	var/mob/living/L = wearer
@@ -433,6 +448,7 @@
 /obj/item/clothing/accessory/badge
 	name = "badge"
 	desc = "A badge that symbolises a person's authority as a member of security."
+	accessory_slot = ACCESSORY_MEDAL
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
