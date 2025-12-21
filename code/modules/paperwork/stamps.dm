@@ -81,10 +81,6 @@
 	icon_state = "stamp-clown"
 	dye_color = DYE_CLOWN
 
-/obj/item/stamp/chap
-	name = "chaplain's rubber stamp"
-	icon_state = "stamp-chap"
-
 /obj/item/stamp/mime
 	name = "mime's rubber stamp"
 	icon_state = "stamp-mime"
