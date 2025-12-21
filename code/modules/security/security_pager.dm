@@ -14,6 +14,10 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
+/obj/item/clothing/accessory/security_pager/Destroy()
+	. = ..()
+	QDEL_NULL(radio)
+
 /obj/item/clothing/accessory/security_pager/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	. = ..()
 	RegisterSignal(wearer, COMSIG_MOB_DEATH, PROC_REF(on_owner_died))
