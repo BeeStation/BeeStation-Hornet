@@ -45,6 +45,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	COOLDOWN_DECLARE(orbital_report_cooldown)
 	COOLDOWN_DECLARE(orbital_report_critical)
+	COOLDOWN_DECLARE(heavy_atmospheric_drag_cooldown)
 
 /datum/controller/subsystem/orbital_altitude/fire(resumed = FALSE)
 	if(SSmapping.current_map.planetary_station)
@@ -282,9 +283,6 @@ SUBSYSTEM_DEF(orbital_altitude)
  * Spawn atmospheric drag meteors to simulate structural damage during low orbit
  */
 /datum/controller/subsystem/orbital_altitude/proc/spawn_atmospheric_drag()
-	if(prob(50)) // 50% chance each call to spawn a meteor
-		return
-
 	// Get all station z-levels
 	var/list/station_z_levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 	if(!length(station_z_levels))
@@ -320,7 +318,8 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(!start_turf || !target_turf)
 		return
 
-	if(prob(10))
+	if(COOLDOWN_FINISHED(src, heavy_atmospheric_drag_cooldown))
+		COOLDOWN_START(src, heavy_atmospheric_drag_cooldown, 30 SECONDS)
 		new /obj/effect/meteor/atmospheric_drag/heavy(start_turf, target_turf)
 	else
 		new /obj/effect/meteor/atmospheric_drag(start_turf, target_turf)
@@ -430,8 +429,8 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(isspaceturf(T))
 		return
 
-	// Only damage the turf itself
-	SSexplosions.highturf += T
+	// Only damage the turf itself - use light damage for normal ones
+	SSexplosions.lowturf += T
 
 	get_hit()
 
@@ -462,8 +461,23 @@ SUBSYSTEM_DEF(orbital_altitude)
 /obj/effect/meteor/atmospheric_drag/heavy
 	name = "heavy atmospheric drag"
 	hitpwr = EXPLODE_HEAVY
-	hits = 10
+	hits = 50
 	erosionpower = 100
+
+/obj/effect/meteor/atmospheric_drag/heavy/ram_turf(turf/T)
+	// Skip any mob warnings/messages
+	// Check if there are any mobs on this turf - don't damage if so
+	for(var/mob/M in T)
+		return // Don't damage turfs with mobs on them
+
+	// Skip space turfs - only damage station turfs
+	if(isspaceturf(T))
+		return
+
+	// Heavy meteors use high damage
+	SSexplosions.highturf += T
+
+	get_hit()
 
 #undef ORBITAL_ALTITUDE_HIGH_CRITICAL
 #undef ORBITAL_ALTITUDE_HIGH
