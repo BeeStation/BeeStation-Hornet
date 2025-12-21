@@ -325,45 +325,7 @@ export const AtmosGasRigTemplate = (props) => {
               fill="black"
               stroke="grey"
             />
-            <Tooltip
-              content={
-                'Station Altitude: ' +
-                ((depth + extension) / 1000).toFixed(1) +
-                ' km'
-              }
-            >
-              {/* Draw station position indicator (small blip) */}
-              <rect
-                x={141 + svgOffset}
-                y={
-                  barOffset +
-                  // normalize station depth (depth + extension), flipped so top = depth_max
-                  ((depth_max - (depth + extension)) /
-                    (depth_max - depth_min || 1)) *
-                    barHeight -
-                  2
-                }
-                width="8"
-                height="4"
-                fill="white"
-              />
-            </Tooltip>
-            <Tooltip content={'Nozzle Extension: ' + extension + ' m'}>
-              {/* Draw nozzle extension indicator bar */}
-              <rect
-                x={143 + svgOffset}
-                y={
-                  barOffset +
-                  // normalize station depth (depth + extension), flipped so top = depth_max
-                  ((depth_max - (depth + extension)) /
-                    (depth_max - depth_min || 1)) *
-                    barHeight
-                }
-                width="4"
-                height={(extension / (depth_max - depth_min || 1)) * barHeight}
-                fill="grey"
-              />
-            </Tooltip>
+            {/* gas bars (unchanged) */}
             {DisplayGasBar(
               105 + svgOffset,
               n2o_constants,
@@ -449,6 +411,47 @@ export const AtmosGasRigTemplate = (props) => {
             )}
 
             {DisplayValues(155 + svgOffset, barHeight, depth_min, depth_max)}
+
+            {/* Station blip and nozzle indicator after tickmarks so they draw on top */}
+            <Tooltip
+              content={
+                'Station Altitude: ' +
+                ((depth + extension) / 1000).toFixed(1) +
+                ' km'
+              }
+            >
+              {/* Draw station position indicator */}
+              <rect
+                x={141 + svgOffset}
+                y={
+                  barOffset +
+                  // normalize station depth (depth + extension), flipped so top = depth_max
+                  ((depth_max - (depth + extension)) /
+                    (depth_max - depth_min || 1)) *
+                    barHeight -
+                  2
+                }
+                width="8"
+                height="4"
+                fill="white"
+              />
+            </Tooltip>
+            <Tooltip content={'Nozzle Extension: ' + extension + ' m'}>
+              {/* Draw nozzle extension indicator bar */}
+              <rect
+                x={143 + svgOffset}
+                y={
+                  barOffset +
+                  // normalize station depth (depth + extension), flipped so top = depth_max
+                  ((depth_max - (depth + extension)) /
+                    (depth_max - depth_min || 1)) *
+                    barHeight
+                }
+                width="4"
+                height={(extension / (depth_max - depth_min || 1)) * barHeight}
+                fill="grey"
+              />
+            </Tooltip>
           </svg>
         </Flex.Item>
       </Flex>
