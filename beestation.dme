@@ -536,6 +536,7 @@
 #include "code\controllers\subsystem\profiler.dm"
 #include "code\controllers\subsystem\radiation.dm"
 #include "code\controllers\subsystem\radio.dm"
+#include "code\controllers\subsystem\re_entry_lighting.dm"
 #include "code\controllers\subsystem\research.dm"
 #include "code\controllers\subsystem\runechat.dm"
 #include "code\controllers\subsystem\screentip.dm"

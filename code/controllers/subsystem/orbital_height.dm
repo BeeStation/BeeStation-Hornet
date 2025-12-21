@@ -42,13 +42,6 @@ SUBSYSTEM_DEF(orbital_altitude)
 	/// Whether station bounds have been calculated
 	var/bounds_calculated = FALSE
 
-	/// Whether atmospheric fire visual effects are active
-	var/atmospheric_fire_effect_active = FALSE
-	/// Original starlight color before fire effects
-	var/original_starlight_colour = COLOR_STARLIGHT
-	/// List of fire colors for atmospheric re-entry effects
-	var/list/fire_colors = list(LIGHT_COLOR_FIRE, LIGHT_COLOR_LAVA, LIGHT_COLOR_ORANGE, "#FF4500", "#FF6B00", "#FFA500")
-
 	COOLDOWN_DECLARE(orbital_report_cooldown)
 	COOLDOWN_DECLARE(orbital_report_critical)
 	COOLDOWN_DECLARE(heavy_atmospheric_drag_cooldown)
@@ -69,10 +62,6 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// Check for critical orbit conditions and warnings
 	check_critical_orbit()
-
-	// Update visual atmospheric fire effects
-	if(atmospheric_fire_effect_active)
-		flicker_atmospheric_fire_effect()
 
 	// Send periodic status reports
 	if(COOLDOWN_FINISHED(src, orbital_report_cooldown) && !in_critical_orbit)
@@ -166,8 +155,8 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 /datum/controller/subsystem/orbital_altitude/proc/check_critical_orbit()
 	// Start atmospheric fire effects at 95km (LOW threshold) for early warning
-	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !atmospheric_fire_effect_active)
-		start_atmospheric_fire_effect()
+	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !SSreentry_lighting.atmospheric_fire_effect_active)
+		SSreentry_lighting.start_atmospheric_fire_effect()
 
 	// Critical orbit handling (below 90km)
 	if(orbital_altitude < ORBITAL_ALTITUDE_LOW_CRITICAL)
@@ -239,8 +228,8 @@ SUBSYSTEM_DEF(orbital_altitude)
 				SSsecurity_level.set_level(previous_alert_level)
 
 		// Stop fire effects when safely above 95km (hysteresis to prevent flickering)
-		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && atmospheric_fire_effect_active)
-			stop_atmospheric_fire_effect()
+		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && SSreentry_lighting.atmospheric_fire_effect_active)
+			SSreentry_lighting.stop_atmospheric_fire_effect()
 
 /datum/controller/subsystem/orbital_altitude/proc/announce_countdown_stage()
 	switch(countdown_stage)
@@ -321,7 +310,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	if(!length(station_z_levels))
 		return
 
-	// Calculate bounding box for each station Z-level
+	// Calculate bounding box and cache space turfs for each station Z-level
 	for(var/z_level in station_z_levels)
 		var/min_x = world.maxx
 		var/max_x = 1
@@ -353,7 +342,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 		// Cache the bounds for this Z-level
 		if(found_station && max_x >= min_x && max_y >= min_y)
-			var/key = "[z_level]"
+			var	key = "[z_level]"
 			station_bounds_cache[key] = list("min_x" = min_x, "max_x" = max_x, "min_y" = min_y, "max_y" = max_y)
 
 // Invisible atmospheric drag effect that damages station structures
@@ -460,70 +449,6 @@ SUBSYSTEM_DEF(orbital_altitude)
 	SSexplosions.highturf += T
 
 	get_hit()
-
-// ===== ATMOSPHERIC FIRE VISUAL EFFECTS =====
-// These procs manipulate the starlight plane to create flickering fire-colored lighting
-// during atmospheric re-entry, providing visual feedback of the station's dangerous altitude
-
-/datum/controller/subsystem/orbital_altitude/proc/start_atmospheric_fire_effect()
-	if(atmospheric_fire_effect_active)
-		return
-
-	atmospheric_fire_effect_active = TRUE
-	original_starlight_colour = GLOB.starlight_colour // Do we need to do this?
-
-	// Start with a subtle transition to a fire color
-	var/initial_color = pick(fire_colors)
-	var/brightened = brighten_color(initial_color, 1.15) // 15% brighter for subtle effect
-	set_starlight_colour(brightened, 2 SECONDS) // Slow fade-in
-
-/datum/controller/subsystem/orbital_altitude/proc/flicker_atmospheric_fire_effect()
-	if(!atmospheric_fire_effect_active)
-		return
-
-	// Calculate atmospheric depth relative to the LOW threshold (95km)
-	// depth_ratio scales from:
-	//   0.0 at 95km (just entered LOW threshold - subtle effect)
-	//   0.5 at 90km (critical threshold - noticeable)
-	//   1.0 at 85km (extreme atmospheric drag - intense)
-	//   1.5 at 80km (hard minimum - overwhelming)
-	var/atmospheric_depth = ORBITAL_ALTITUDE_LOW - orbital_altitude
-	var/depth_ratio = clamp(atmospheric_depth / 10000, 0, 1.5)
-
-	// Progressive intensity scaling based on atmospheric depth
-	// Transition speed decreases as we descend (slower = more frequent changes)
-	var/transition_time = max(0.1, (1.5 - depth_ratio)) // 1.5s → 0.1s
-
-	var/flicker_intensity = rand(60, 100)
-	var/picked_color = pick(fire_colors)
-
-	// Brightness multiplier increases with depth
-	var/base_brightness = 1.0 + (depth_ratio * 0.5) // 1.0x → 1.75x
-	var/brightened_color = brighten_color(picked_color, base_brightness + (flicker_intensity / 300))
-	set_starlight_colour(brightened_color, transition_time)
-
-/datum/controller/subsystem/orbital_altitude/proc/brighten_color(color_input, multiplier)
-	// Extract RGB components from hex color
-	var/r = hex2num(copytext(color_input, 2, 4))
-	var/g = hex2num(copytext(color_input, 4, 6))
-	var/b = hex2num(copytext(color_input, 6, 8))
-
-	// Apply brightness multiplier and clamp to valid range
-	r = min(255, r * multiplier)
-	g = min(255, g * multiplier)
-	b = min(255, b * multiplier)
-
-	// Convert back to hex color
-	return rgb(r, g, b)
-
-/datum/controller/subsystem/orbital_altitude/proc/stop_atmospheric_fire_effect()
-	if(!atmospheric_fire_effect_active)
-		return
-
-	atmospheric_fire_effect_active = FALSE
-
-	// Slowly restore original starlight color over 5 seconds
-	set_starlight_colour(original_starlight_colour, 5 SECONDS)
 
 #undef ORBITAL_ALTITUDE_HIGH_CRITICAL
 #undef ORBITAL_ALTITUDE_HIGH
