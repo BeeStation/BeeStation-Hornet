@@ -78,6 +78,28 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
+/area/NeuCorg
+	name = "NeuCorg"
+	icon_state = "asteroid"
+	outdoors = TRUE
+	area_flags = UNIQUE_AREA
+	camera_networks = list(CAMERA_NETWORK_STATION)
+	requires_power = FALSE
+
+/area/NeuCorg/surface
+	name = "NeuCorg surface"
+	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	sound_environment = null
+	area_flags = UNIQUE_AREA
+	fullbright_type = FULLBRIGHT_STARLIGHT
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+
+/area/NeuCorg/caves
+	name = "NeuCorg caves"
+	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	sound_environment = null
+	area_flags = UNIQUE_AREA
+
 /area/paradise
 	name = "paradise"
 	icon_state = "asteroid"
