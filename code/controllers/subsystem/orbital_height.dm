@@ -379,22 +379,22 @@ SUBSYSTEM_DEF(orbital_altitude)
 	name = "atmospheric drag"
 	desc = "You shouldn't be seeing this."
 	icon_state = "dust"
-	alpha = 255 // TEMPORARY: Make visible for debugging (normally 0)
+	alpha = 0
 	hits = 1
 	hitpwr = EXPLODE_LIGHT
 	meteorsound = null
 	meteordrop = list() // No drops
 	dropamt = 0
-	threat = 0 // Not a threat to track
+	threat = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSDOORS // Pass through everything except turfs
-	mouse_opacity = 2 // Cannot be clicked
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT // Cannot be clicked
 	movement_type = FLYING // Can move over dense objects
 	var/erosionpower = 20
 
 /obj/effect/meteor/atmospheric_drag/Initialize(mapload, target)
 	. = ..()
-	//GLOB.meteor_list -= src
-	//SSaugury.unregister_doom(src)
+	GLOB.meteor_list -= src
+	SSaugury.unregister_doom(src)
 
 /obj/effect/meteor/atmospheric_drag/chase_target(atom/chasing, delay, home)
 	. = ..()
