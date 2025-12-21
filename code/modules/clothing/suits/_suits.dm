@@ -26,6 +26,7 @@
 	. = ..()
 	if(pockets)
 		create_storage(storage_type = /datum/storage/pockets/exo)
+
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
@@ -38,10 +39,11 @@
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
 			var/obj/item/clothing/under/U = M.w_uniform
-			if(istype(U) && U.attached_accessory)
-				var/obj/item/clothing/accessory/A = U.attached_accessory
-				if(A.above_suit)
-					. += U.accessory_overlay
+			if(istype(U))
+				for (var/accessory_slot in U.attached_accessories)
+					var/obj/item/clothing/accessory/accessory = U.attached_accessories[accessory_slot]
+					if(accessory.above_suit)
+						. += U.accessory_overlay
 
 /obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()
