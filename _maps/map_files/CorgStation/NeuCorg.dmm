@@ -8980,6 +8980,9 @@
 	dir = 1;
 	pixel_y = -20
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "dpY" = (
@@ -12375,6 +12378,12 @@
 	dir = 8
 	},
 /area/hallway/primary/aft)
+"eBd" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-32"
+	},
+/turf/open/openspace,
+/area/maintenance/upper/fore)
 "eBt" = (
 /obj/effect/turf_decal/siding/dark,
 /obj/effect/turf_decal/alphabet/letter_m/quarter{
@@ -22178,6 +22187,12 @@
 	},
 /turf/open/floor/iron/smooth,
 /area/hallway/secondary/command)
+"iis" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "iiy" = (
 /obj/effect/turf_decal/siding/slate,
 /turf/open/floor/iron/smooth,
@@ -25540,6 +25555,9 @@
 "jvD" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/maintenance/fore)
@@ -41812,6 +41830,12 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engine_smes)
+"pGN" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/rust,
+/area/maintenance/fore)
 "pGO" = (
 /obj/effect/turf_decal/edges/borderfloor/black,
 /obj/effect/turf_decal/siding/red{
@@ -42451,6 +42475,17 @@
 /obj/effect/turf_decal/trimline/blue/filled/line,
 /turf/open/floor/iron/tiled/light,
 /area/medical/surgery)
+"pQz" = (
+/obj/structure/railing/perspective/gray,
+/obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/openspace,
+/area/maintenance/upper/fore)
 "pQI" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/turf_decal/stripes/closeup,
@@ -48041,6 +48076,12 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=180"
 	},
 /area/paradise/surface)
+"sha" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "shd" = (
 /obj/structure/platform/warning,
 /obj/effect/turf_decal/siding/light_slate/corner{
@@ -59642,6 +59683,12 @@
 /obj/machinery/atmospherics/pipe/smart/simple/supply/hidden,
 /turf/open/floor/engine/air,
 /area/engine/atmos)
+"wJA" = (
+/obj/structure/cable/yellow{
+	icon_state = "8-16"
+	},
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "wJI" = (
 /obj/effect/turf_decal/siding/light_slate,
 /obj/effect/turf_decal/weather/snow/full/edge{
@@ -233556,7 +233603,7 @@ bxm
 lBW
 gNv
 sSb
-bxm
+rAD
 xxQ
 wzg
 wzg
@@ -233813,9 +233860,9 @@ nQH
 nQH
 lBW
 bxm
-bxm
-gNv
-bxm
+sha
+dJg
+iis
 opL
 yfL
 bVW
@@ -234072,7 +234119,7 @@ lBW
 bxm
 bxm
 fFh
-gNv
+kKz
 hoH
 yfL
 bVW
@@ -234329,9 +234376,9 @@ bxm
 lBW
 lBW
 fFh
-lBW
+pGN
 dpQ
-bxm
+mbF
 nvi
 fnl
 fvd
@@ -234588,7 +234635,7 @@ lBW
 fFh
 bxm
 lBW
-bxm
+wJA
 bxm
 bVW
 fvd
@@ -300123,8 +300170,8 @@ kcL
 bfg
 sKE
 bwz
-ddw
-ulU
+pQz
+eBd
 bCr
 ljB
 uER
