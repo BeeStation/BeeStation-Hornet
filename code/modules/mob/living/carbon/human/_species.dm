@@ -1919,8 +1919,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.force_say(user)
 	else if (I.damtype == BURN && H.is_bleeding())
 		H.cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
-		to_chat(user, span_userdanger("The heat from [I] cauterizes your bleeding!"))
-		playsound(src, 'sound/surgery/cautery2.ogg', 70)
+		to_chat(H, span_userdanger("The heat from [I] cauterizes your bleeding!"))
+		playsound(H, 'sound/surgery/cautery2.ogg', 70)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE)
