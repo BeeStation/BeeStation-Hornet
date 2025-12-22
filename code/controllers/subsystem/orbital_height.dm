@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	flags = SS_NO_INIT | SS_KEEP_TIMING
 
 	/// Current orbital altitude in meters
-	var/orbital_altitude = 98000
+	var/orbital_altitude = ORBITAL_ALTITUDE_DEFAULT
 
 	/// Velocity index for display purposes (-10 to +10)
 	var/velocity_index = 0
@@ -23,6 +23,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/decay_rate = 0
 	/// Atmospheric resistance coefficient (0.5 to 1.0)
 	var/resistance = 1.0
+
+	/// List of all orbital thrusters
+	var/list/orbital_thrusters = list()
 
 	/// World time when critical orbit was entered
 	var/critical_orbit_start_time = 0
@@ -59,6 +62,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 		calculate_all_station_bounds()
 		bounds_calculated = TRUE
 
+	// Update thrust from all orbital thrusters
+	update_thrust_from_thrusters()
+
 	// Update orbital altitude based on physics
 	orbital_altitude_change()
 
@@ -74,6 +80,25 @@ SUBSYSTEM_DEF(orbital_altitude)
 		spawn_atmospheric_drag()
 		if(COOLDOWN_FINISHED(src, orbital_report_critical))
 			send_orbital_report()
+
+/datum/controller/subsystem/orbital_altitude/proc/update_thrust_from_thrusters()
+	// Calculate total thrust from all thrusters
+	thrust = 0
+	var/thruster_count = 0
+	var/summed_thrust = 0
+
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/T in orbital_thrusters)
+		if(QDELETED(T))
+			continue
+		thruster_count++
+		summed_thrust += T.thrust_level
+
+	// We now know how many thrusters we have, and what their collective thrust is.
+
+	// Average the thrust level
+	summed_thrust /= thruster_count
+
+	thrust = clamp(summed_thrust * 2, -40, 40) // Since thrusters can now range from -20 to +20, and we need -40 to +40 range
 
 /datum/controller/subsystem/orbital_altitude/proc/orbital_altitude_change()
 	var/orbital_altitude_change = 0

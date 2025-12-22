@@ -32,6 +32,10 @@
 	name = "mix tank input injector"
 	chamber_id = ATMOS_GAS_MONITOR_MIX
 
+/obj/machinery/atmospherics/components/unary/outlet_injector/monitored/fuelsupply_input
+	name = "fuelsupply tank input injector"
+	chamber_id = ATMOS_GAS_MONITOR_FUELSUPPLY
+
 /obj/machinery/atmospherics/components/unary/outlet_injector/monitored/nitrous_input
 	name = "nitrous oxide tank input injector"
 	chamber_id = ATMOS_GAS_MONITOR_N2O

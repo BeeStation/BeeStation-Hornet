@@ -327,7 +327,7 @@ const ThrustControlPanel = (props: {
     fontFamily: 'Consolas, "Courier New", monospace',
     fontWeight: 'bold',
     fontSize: '1.5em',
-    padding: '10px 0',
+    padding: '10px 20',
     textAlign: 'center' as const,
     backgroundColor: 'rgba(64, 224, 208, 0.15)',
     border: '2px solid #40e0d0',
@@ -345,7 +345,7 @@ const ThrustControlPanel = (props: {
         left: '10px',
         top: '10px',
         zIndex: 10,
-        width: '90px',
+        width: '100px',
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
         border: altitude_hold_enabled
           ? '2px solid rgba(64, 224, 208, 0.3)'
@@ -402,11 +402,13 @@ const ThrustControlPanel = (props: {
         <Box
           style={{
             fontFamily: 'Consolas, "Courier New", monospace',
-            color: '#00ff00',
+            color: thrust_level >= 0 ? '#00ff00' : '#ff4444',
             fontSize: '3em',
             fontWeight: 'bold',
             textShadow:
-              '0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.4)',
+              thrust_level >= 0
+                ? '0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.4)'
+                : '0 0 10px rgba(255, 68, 68, 0.8), 0 0 20px rgba(255, 68, 68, 0.4)',
             lineHeight: '1',
           }}
         >
@@ -457,12 +459,18 @@ const ThrustControlPanel = (props: {
           <Box
             style={{
               fontFamily: 'Consolas, "Courier New", monospace',
-              color: thrustMismatch ? '#ffa500' : '#40e0d0',
+              color: thrustMismatch
+                ? '#ffa500'
+                : actual_thrust >= 0
+                  ? '#40e0d0'
+                  : '#ff4444',
               fontSize: '1.8em',
               fontWeight: 'bold',
               textShadow: thrustMismatch
                 ? '0 0 8px rgba(255, 165, 0, 0.8)'
-                : '0 0 8px rgba(64, 224, 208, 0.8)',
+                : actual_thrust >= 0
+                  ? '0 0 8px rgba(64, 224, 208, 0.8)'
+                  : '0 0 8px rgba(255, 68, 68, 0.8)',
               lineHeight: '1',
             }}
           >

@@ -7,9 +7,30 @@
 	light_color = LIGHT_COLOR_BLUE
 
 	var/altitude_hold_enabled = FALSE
-	var/altitude_hold_target = 120000  // in meters
+	var/altitude_hold_target = 110000  // in meters
 
 	var/set_thrust = 0
+
+/obj/machinery/computer/orbital_height_control/Initialize(mapload)
+	. = ..()
+	begin_processing()
+
+/obj/machinery/computer/orbital_height_control/process()
+
+
+	if(altitude_hold_enabled)
+		// Simple altitude hold logic
+		if(SSorbital_altitude.orbital_altitude < altitude_hold_target)
+			set_thrust = 20
+		else if(SSorbital_altitude.orbital_altitude > altitude_hold_target + 5000) // Add buffer to prevent oscillation
+			set_thrust = -20
+		else
+			set_thrust = 0
+
+	// Send thrust commands to all thrusters
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/T in SSorbital_altitude.orbital_thrusters)
+		if(!QDELETED(T))
+			T.set_thrust(set_thrust)
 
 /obj/machinery/computer/orbital_height_control/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -31,7 +52,7 @@
 	data["normalized_resistance"] = round(resistance_normalized, 0.1)
 
 	data["thrust_level"] = set_thrust
-	data["actual_thrust"] = SSorbital_altitude.thrust
+	data["actual_thrust"] = SSorbital_altitude.thrust / 2 // It uses -40 to +40 range, we only want to display -20 to +20
 	data["altitude_hold_enabled"] = altitude_hold_enabled || FALSE
 	data["altitude_hold_target"] = altitude_hold_target || SSorbital_altitude.orbital_altitude
 
@@ -79,12 +100,12 @@
 
 	switch(action)
 		if("increase_thrust")
-			// Increase thrust by 1, max 30
-			set_thrust = clamp(set_thrust + 1, 0, 30)
+			// Increase thrust by 1, max 20
+			set_thrust = clamp(set_thrust + 1, -20, 20)
 			. = TRUE
 		if("decrease_thrust")
-			// Decrease thrust by 1, min 0
-			set_thrust = clamp(set_thrust - 1, 0, 30)
+			// Decrease thrust by 1, min -20
+			set_thrust = clamp(set_thrust - 1, -20, 20)
 			. = TRUE
 		if("set_altitude_hold_target")
 			// Set the target altitude for altitude hold system
