@@ -51,7 +51,7 @@
 	prime = FALSE
 
 /datum/role_preference/supplementary/vampire
-	name = "Vampire Breakout"
+	name = "Vampire"
 	description = "After your death, you awaken to see yourself as an undead monster. \n\
 		Scrape by Space Station 13, or take it over, vassalizing your way!"
 	antag_datum = /datum/antagonist/vampire
