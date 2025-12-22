@@ -18,9 +18,9 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/velocity_index = 0
 
 	/// Current thrust applied to the station (from engines)
-	var/thrust
+	var/thrust = 0
 	/// Current orbital decay rate in m/s
-	var/decay_rate
+	var/decay_rate = 0
 	/// Atmospheric resistance coefficient (0.5 to 1.0)
 	var/resistance = 1.0
 
@@ -28,6 +28,8 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/critical_orbit_start_time = 0
 	/// Whether the station is in critical orbit (below 90km)
 	var/in_critical_orbit = FALSE
+	/// Whether the station is in low altitude warning zone (below 95km)
+	var/in_low_altitude = FALSE
 	/// Whether the final 60-second countdown has started
 	var/final_countdown_active = FALSE
 	/// World time of the last warning announcement
@@ -154,6 +156,15 @@ SUBSYSTEM_DEF(orbital_altitude)
 												"Station Orbital Report")
 
 /datum/controller/subsystem/orbital_altitude/proc/check_critical_orbit()
+	// Low altitude warning (95km threshold)
+	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !in_low_altitude)
+		in_low_altitude = TRUE
+		priority_announce("Advisory: Station orbital altitude has decreased below normal operating parameters. \
+			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
+			Further monitoring is advised.", \
+			"Orbital Altitude Advisory",
+			sound = 'sound/misc/notice2.ogg')
+
 	// Start atmospheric fire effects at 95km (LOW threshold) for early warning
 	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !SSreentry_lighting.atmospheric_fire_effect_active)
 		SSreentry_lighting.start_atmospheric_fire_effect()
@@ -226,6 +237,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 			// Restore previous security level if we escalated to delta
 			if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 				SSsecurity_level.set_level(previous_alert_level)
+
+		// Clear low altitude flag when safely above 95km
+		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && in_low_altitude)
+			in_low_altitude = FALSE
 
 		// Stop fire effects when safely above 95km (hysteresis to prevent flickering)
 		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && SSreentry_lighting.atmospheric_fire_effect_active)
@@ -449,9 +464,3 @@ SUBSYSTEM_DEF(orbital_altitude)
 	SSexplosions.highturf += T
 
 	get_hit()
-
-#undef ORBITAL_ALTITUDE_HIGH_CRITICAL
-#undef ORBITAL_ALTITUDE_HIGH
-#undef ORBITAL_ALTITUDE_DEFAULT
-#undef ORBITAL_ALTITUDE_LOW
-#undef ORBITAL_ALTITUDE_LOW_CRITICAL
