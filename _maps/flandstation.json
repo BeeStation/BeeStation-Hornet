@@ -3,6 +3,7 @@
     "map_link": "flandstation",
     "map_path": "map_files/FlandStation",
     "map_file": "FlandStation.dmm",
+	"reentry_direction": "EAST",
     "shuttles": {
 		"cargo": "cargo_fland",
 		"ferry": "ferry_fland",

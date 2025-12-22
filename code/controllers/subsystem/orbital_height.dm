@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	flags = SS_NO_INIT | SS_KEEP_TIMING
 
 	/// Current orbital altitude in meters
-	var/orbital_altitude = 91000
+	var/orbital_altitude = 98000
 
 	/// Velocity index for display purposes (-10 to +10)
 	var/velocity_index = 0
@@ -298,7 +298,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// Spawn heavy drag occasionally, light drag otherwise
 	if(COOLDOWN_FINISHED(src, heavy_atmospheric_drag_cooldown))
-		COOLDOWN_START(src, heavy_atmospheric_drag_cooldown, 30 SECONDS)
+		COOLDOWN_START(src, heavy_atmospheric_drag_cooldown, 60 SECONDS)
 		new /obj/effect/meteor/atmospheric_drag/heavy(start_turf, target_turf)
 	else
 		new /obj/effect/meteor/atmospheric_drag(start_turf, target_turf)

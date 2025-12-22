@@ -3,6 +3,7 @@
 	"map_link": "cardinalstation",
 	"map_path": "map_files/CardinalStation",
 	"map_file": "CardinalStation.dmm",
+	"reentry_direction": "SOUTH",
 	"shuttles": {
 		"cargo": "cargo_card",
 		"ferry": "ferry_standard",

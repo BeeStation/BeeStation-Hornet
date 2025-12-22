@@ -3,6 +3,7 @@
 	"map_link": "kilostation",
 	"map_path": "map_files/KiloStation",
 	"map_file": "KiloStation.dmm",
+	"reentry_direction": "NORTH",
 	"shuttles": {
 		"emergency": "emergency_kilo",
 		"ferry": "ferry_kilo",

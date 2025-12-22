@@ -3,6 +3,7 @@
 	"map_link": "radstation",
 	"map_path": "map_files/RadStation",
 	"map_file": "RadStation.dmm",
+	"reentry_direction": "NORTH",
 	"shuttles": {
 		"cargo": "cargo_rad",
 		"ferry": "ferry_standard",

@@ -3,6 +3,7 @@
 	"map_link": "boxstation",
 	"map_path": "map_files/BoxStation",
 	"map_file": "BoxStation.dmm",
+	"reentry_direction": "SOUTH",
 	"shuttles": {
 		"cargo": "cargo_box",
 		"ferry": "ferry_standard",
