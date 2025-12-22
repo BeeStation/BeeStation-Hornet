@@ -1,0 +1,11 @@
+author: Isaac
+delete-after: true
+changes:
+  - bugfix: Energy Shield Modules not working
+  - bugfix: Wizard Shield not working
+  - bugfix: Wizard battlemage shield can be recharged again by using the "Battlemage
+      shield charges" on the backpack modsuit
+  - rscadd: Energy Shield Module can be purchased from the nukie uplink for 8 TC's
+  - balance: Wizard shield can withstand 600 damage, has to be recharged manually
+  - balance: Syndicate Energy shield can withstand 60 damage, recharges after not
+      being hit for 20 seconds
