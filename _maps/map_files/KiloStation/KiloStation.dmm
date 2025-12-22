@@ -40306,9 +40306,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/security/brig)
-"lSk" = (
-/turf/open/space/basic,
-/area/maintenance/aft)
 "lSB" = (
 /obj/effect/landmark/start/bartender,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -107658,7 +107655,7 @@ fIl
 off
 bFa
 bGG
-lSk
+wVB
 lXr
 tbC
 cXN

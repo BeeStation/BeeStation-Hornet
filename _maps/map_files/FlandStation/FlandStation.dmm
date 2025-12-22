@@ -72429,13 +72429,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
-"tLC" = (
-/obj/machinery/atmospherics/components/binary/valve/digital{
-	name = "Waste Release";
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/engine/atmos)
 "tLH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -136862,7 +136855,7 @@ vNt
 uzm
 sZm
 qaD
-tLC
+aWm
 xoK
 sZm
 cQb
