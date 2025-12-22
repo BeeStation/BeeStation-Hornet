@@ -11188,9 +11188,6 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmos)
 "cts" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 10
-	},
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
@@ -11212,6 +11209,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -31101,7 +31101,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
 "iFI" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -31109,6 +31108,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "iFL" = (
@@ -40306,6 +40306,9 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/security/brig)
+"lSk" = (
+/turf/open/space/basic,
+/area/maintenance/aft)
 "lSB" = (
 /obj/effect/landmark/start/bartender,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -41678,12 +41681,12 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "moK" = (
-/obj/machinery/atmospherics/components/binary/valve/digital{
-	dir = 8;
-	name = "Waste Release"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Waste Release";
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "moM" = (
@@ -64501,11 +64504,11 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "ufY" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -65397,15 +65400,21 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "uty" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
-	dir = 5
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 5
+	},
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 8;
+	name = "Waste to Filter";
+	icon_state = "pump_on_map-4";
+	piping_layer = 4
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -67346,6 +67355,7 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer4,
 /turf/open/floor/iron/showroomfloor,
 /area/engine/atmos)
 "vcj" = (
@@ -69326,6 +69336,9 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer4{
+	dir = 5
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/engine/atmos)
 "vHK" = (
@@ -107650,7 +107663,7 @@ fIl
 off
 bFa
 bGG
-bGG
+lSk
 lXr
 tbC
 cXN

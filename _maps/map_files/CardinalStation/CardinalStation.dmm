@@ -8658,6 +8658,12 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Waste to Filter";
+	dir = 1;
+	piping_layer = 4;
+	icon_state = "pump_on_map-4"
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "bSf" = (
@@ -16598,6 +16604,16 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/smooth_edge,
 /area/hallway/secondary/command)
+"dyZ" = (
+/obj/structure/platform/gray{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/dark/fourcorners/contrasted,
+/obj/machinery/light/floor{
+	pixel_y = 16
+	},
+/turf/open/floor/iron/tech,
+/area/hallway/primary/port)
 "dzc" = (
 /obj/effect/turf_decal/siding/dark/corner{
 	dir = 1
@@ -27760,6 +27776,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/brown/visible/layer2{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
+	dir = 9
+	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)
 "geA" = (
@@ -30605,8 +30624,8 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
-	dir = 1
+/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible/layer4{
+	dir = 8
 	},
 /turf/open/floor/iron/smooth_edge{
 	dir = 4
@@ -40812,7 +40831,7 @@
 /area/medical/storage)
 "iRU" = (
 /obj/structure/platform/warning/stair_cutoff{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/fakestairs/newstairs/left{
 	dir = 4
@@ -89618,9 +89637,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "tCF" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Waste In"
-	},
 /obj/machinery/camera/directional/east,
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
@@ -89633,6 +89649,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible/layer4{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /turf/open/floor/iron/ridged/steel,
 /area/engine/atmos)
 "tCS" = (
@@ -93207,7 +93224,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/platform/warning/stair_cutoff{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/fakestairs/newstairs/left{
 	dir = 4
@@ -132231,7 +132248,7 @@ nvg
 waW
 gyk
 oHy
-aZZ
+dyZ
 gDQ
 wWI
 nvg

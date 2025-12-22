@@ -14311,6 +14311,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
+	dir = 6
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -17178,7 +17181,7 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "esF" = (
-/obj/machinery/atmospherics/components/binary/valve/layer2,
+/obj/machinery/atmospherics/components/binary/valve/digital/layer2,
 /turf/open/floor/iron/dark/side{
 	dir = 10
 	},
@@ -21443,12 +21446,12 @@
 	name = "Atmos RC";
 	pixel_x = 30
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
 /turf/open/floor/catwalk_floor/iron,
 /area/engine/atmos)
 "gbp" = (
@@ -28657,6 +28660,15 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"iXN" = (
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Waste to Filter"
+	},
+/turf/open/floor/iron/dark/side{
+	dir = 8
+	},
+/area/engine/atmos)
 "iXQ" = (
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 5
@@ -31170,6 +31182,7 @@
 /obj/item/stack/cable_coil/white,
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -31525,6 +31538,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -58235,6 +58249,7 @@
 /obj/item/t_scanner,
 /obj/item/clothing/gloves/color/yellow,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -97047,7 +97062,7 @@ gty
 hwD
 hdg
 djc
-hwD
+iXN
 klg
 kaW
 vpB

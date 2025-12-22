@@ -37453,11 +37453,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 8;
-	name = "Waste to Space"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Waste Release";
+	dir = 4
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -52197,7 +52197,9 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "oiB" = (
-/obj/machinery/atmospherics/pipe/bridge_pipe/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/smart/manifold/green/visible{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/engine/atmos)
 "oiJ" = (
@@ -72427,6 +72429,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"tLC" = (
+/obj/machinery/atmospherics/components/binary/valve/digital{
+	name = "Waste Release";
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/engine/atmos)
 "tLH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
@@ -136853,7 +136862,7 @@ vNt
 uzm
 sZm
 qaD
-aWm
+tLC
 xoK
 sZm
 cQb

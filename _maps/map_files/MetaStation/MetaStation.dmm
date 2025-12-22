@@ -22570,12 +22570,12 @@
 /turf/open/floor/iron,
 /area/crew_quarters/toilet/auxiliary)
 "eKY" = (
-/obj/machinery/atmospherics/pipe/smart/manifold/scrubbers/visible,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
 /turf/open/floor/iron,
 /area/engine/atmos)
 "eLi" = (
@@ -26824,7 +26824,7 @@
 /area/hallway/primary/central)
 "goC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
@@ -28543,6 +28543,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible/layer1,
 /obj/machinery/atmospherics/pipe/smart/simple/dark/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Waste to Filter"
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -36795,6 +36798,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
 "jRx" = (
@@ -56215,7 +56221,7 @@
 	name = "Inner Pipe Access";
 	req_access_txt = "24"
 	},
-/obj/machinery/atmospherics/components/binary/valve/digital/on,
+/obj/machinery/atmospherics/components/binary/valve/digital,
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "qVZ" = (
@@ -60293,6 +60299,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms,
 /obj/effect/mapping_helpers/airlock/access/any/command/minisat,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/engine/transit_tube)
 "sxv" = (
