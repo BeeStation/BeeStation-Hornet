@@ -132,3 +132,7 @@
   - balance: Wizard shield can withstand 600 damage, has to be recharged manually
   - balance: Syndicate Energy shield can withstand 60 damage, recharges after not
       being hit for 20 seconds
+  PowerfulBacon:
+  - bugfix: Fixes non-unique randomised humans only ever spawning with white hair.
+  - bugfix: Fixes humans spawning as unique by default, even when not created through
+      unique means.
