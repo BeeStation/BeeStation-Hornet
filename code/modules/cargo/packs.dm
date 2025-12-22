@@ -3094,7 +3094,8 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 					/obj/item/clothing/mask/gas/syndicate,
 					/obj/item/clothing/neck/necklace/dope,
-					/obj/item/vending_refill/donksoft)
+					/obj/item/vending_refill/donksoft,
+					/obj/item/clothing/neck/cloak/fakehalo)
 	crate_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce
