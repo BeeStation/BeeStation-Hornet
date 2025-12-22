@@ -98,7 +98,9 @@
 		return FALSE
 
 	var/players = length(SSdynamic.current_players[CURRENT_LIVING_PLAYERS])
-	if(istype(src, /datum/dynamic_ruleset/supplementary))
+	if (!SSticker.HasRoundStarted())
+		players = SSticker.totalPlayersReady
+	if (istype(src, /datum/dynamic_ruleset/supplementary))
 		players = length(GLOB.player_list)
 
 	if(players < minimum_players_required)
