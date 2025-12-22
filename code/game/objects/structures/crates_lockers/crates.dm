@@ -167,6 +167,20 @@
 	name = "trash cart"
 	icon_state = "trashcart"
 
+/obj/structure/closet/crate/trashcart/filled
+
+/obj/structure/closet/crate/trashcart/filled/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		new /obj/effect/spawner/random/trash/grime(loc) //needs to be done before the trashcart is opened because it spawns things in a range outside of the trashcart
+
+/obj/structure/closet/crate/trashcart/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(7,15))
+		new /obj/effect/spawner/random/trash/garbage(src)
+		if(prob(12))
+			new /obj/item/storage/bag/trash/filled(src)
+
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
@@ -309,6 +323,15 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/decorations
+	icon_state = "engi_crate"
+	base_icon_state = "engi_crate"
+
+/obj/structure/closet/crate/decorations/PopulateContents()
+	. = ..()
+	for(var/i in 1 to 4)
+		new /obj/effect/spawner/random/decoration/generic(src)
 
 /obj/structure/closet/crate/capsule
 	name = "bluespace capsule"

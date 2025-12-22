@@ -50,11 +50,11 @@
 							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
 							/obj/item/stack/ore/bluespace_crystal = 5)
 
-/obj/effect/spawner/lootdrop/bluespace_tap
+/obj/effect/spawner/random/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
+	spawn_loot_count = 1
 
-/obj/effect/spawner/lootdrop/bluespace_tap/hat
+/obj/effect/spawner/random/bluespace_tap/hat
 	name = "exotic hat"
 	loot = list(
 			/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
@@ -81,7 +81,7 @@
 	)
 
 
-/obj/effect/spawner/lootdrop/bluespace_tap/cultural
+/obj/effect/spawner/random/bluespace_tap/cultural
 	name = "cultural artifacts"
 	loot = list(
 		/obj/item/grenade/clusterbuster/cleaner = 10,
@@ -115,7 +115,7 @@
 		/obj/item/clothing/gloves/tackler/combat = 5
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_tap/organic
+/obj/effect/spawner/random/bluespace_tap/organic
 	name = "organic objects"
 	loot = list(
 		/obj/item/seeds/random = 10,
@@ -140,9 +140,9 @@
 		/obj/item/soap/deluxe = 5
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_tap/food
+/obj/effect/spawner/random/bluespace_tap/food
 	name = "fancy food"
-	lootcount = 3
+	spawn_loot_count = 3
 	loot = list(
 		/obj/item/food/burger/crab,
 		/obj/item/food/crab_rangoon,
@@ -196,10 +196,10 @@
 
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 5000),
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
-	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
+		new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/random/bluespace_tap/hat, 5000),
+		new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/random/bluespace_tap/food, 6000),
+		new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/random/bluespace_tap/cultural, 15000),
+		new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/random/bluespace_tap/organic, 20000)
 	)
 
 	/// The level the machine is currently mining at. 0 means off

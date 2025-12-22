@@ -61,7 +61,7 @@
 		/obj/item/reagent_containers/cup/bottle/toxin/mutagen = 12,
 		/obj/item/grenade/chem_grenade/antiweed = 10,
 		/obj/item/gun/energy/floragun = 10,
-		/obj/item/seeds/random = 10,
+		/obj/effect/spawner/random/food_or_drink/seed_rare = 10,
 		/obj/item/scythe = 10
 	)
 
@@ -255,6 +255,7 @@
 		/obj/item/stack/marker_beacon/thirty = 5,
 		/obj/item/extraction_pack = 5,
 		/obj/item/gps/mining/exploration = 5,
+		/obj/effect/spawner/random/engineering/tool_advanced = 3,
 	)
 
 //GENETICIST
@@ -485,3 +486,9 @@
 		/obj/item/storage/box/handcuffs = 5,
 		/obj/item/melee/classic_baton/police/telescopic = 1,
 		)
+
+//Prisoner
+/datum/job/prisoner
+	mail_goodies = list(
+		/obj/effect/spawner/random/contraband/prison = 1
+	)

@@ -51,7 +51,7 @@ Difficulty: Hard
 	pixel_x = -32
 	base_pixel_x = -32
 	del_on_death = TRUE
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
+	loot = list(/obj/effect/spawner/random/badcode/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0

@@ -25,8 +25,8 @@
 //port:					5  items,  5 spots 0 extra (08/08/2014)
 
 GLOBAL_LIST_INIT(maintenance_loot, list(
-	/obj/effect/spawner/lootdrop/gloves = 8,
-	/obj/effect/spawner/lootdrop/glowstick = 4,
+	/obj/effect/spawner/random/clothing/gloves = 8,
+	/obj/effect/spawner/random/decoration/glowstick = 4,
 	/obj/item/airlock_painter = 1,
 	/obj/item/airlock_painter/decal = 1,
 	/obj/item/airlock_painter/decal/tile = 1,

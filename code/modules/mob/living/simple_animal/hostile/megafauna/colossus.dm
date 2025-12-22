@@ -48,7 +48,7 @@ Difficulty: Very Hard
 	achievement_type = /datum/award/achievement/boss/colussus_kill
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
-	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
+	loot = list(/obj/effect/spawner/random/badcode/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
