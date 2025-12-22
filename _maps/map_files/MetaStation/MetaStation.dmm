@@ -8356,14 +8356,6 @@
 /obj/machinery/computer/communications,
 /turf/open/floor/iron/dark,
 /area/bridge)
-"bow" = (
-/obj/machinery/computer/security/wooden_tv{
-	pixel_x = 1;
-	pixel_y = 6
-	},
-/obj/structure/table/glass,
-/turf/open/floor/iron/dark,
-/area/bridge)
 "box" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/table/glass,
@@ -13668,6 +13660,10 @@
 	dir = 5
 	},
 /area/science/research)
+"clR" = (
+/obj/machinery/computer/orbital_height_control,
+/turf/open/floor/iron/dark,
+/area/bridge)
 "clT" = (
 /obj/machinery/door/airlock/external{
 	name = "Departure Lounge Airlock"
@@ -39345,7 +39341,11 @@
 /area/crew_quarters/bar/lounge)
 "kjq" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/spawner/randomvend/snack,
+/obj/structure/table/glass,
+/obj/machinery/computer/security/wooden_tv{
+	pixel_x = 1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "kjs" = (
@@ -109159,7 +109159,7 @@ lIC
 bjd
 eUH
 gVe
-bov
+clR
 pSR
 bsX
 imT
@@ -109416,7 +109416,7 @@ vuX
 bjb
 omo
 oVY
-bow
+bov
 bqM
 bsY
 bsU
