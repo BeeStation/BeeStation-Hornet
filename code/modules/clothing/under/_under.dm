@@ -15,11 +15,11 @@
 	var/can_adjust = TRUE
 	var/adjusted = NORMAL_STYLE
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
-	var/list/obj/item/clothing/accessory/attached_accessories
-	var/mutable_appearance/accessory_overlay
+	var/list/obj/item/clothing/accessory/attached_accessories = list()
+	var/mutable_appearance/accessory_overlay_under
+	var/mutable_appearance/accessory_overlay_over
 	var/freshly_laundered = FALSE
 	dying_key = DYE_REGISTRY_UNDER
-
 
 /datum/armor/clothing_under
 	bio = 10
@@ -34,9 +34,9 @@
 			var/mutable_appearance/bloody_uniform = mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer + 0.0002)
 			bloody_uniform.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
 			. += bloody_uniform
-		if(accessory_overlay)
-			accessory_overlay.layer = item_layer +  0.0001
-			. += accessory_overlay
+		if(accessory_overlay_under)
+			accessory_overlay_under.layer = item_layer +  0.0001
+			. += accessory_overlay_under
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if((has_sensor == BROKEN_SENSORS) && istype(I, /obj/item/stack/cable_coil))
@@ -85,7 +85,6 @@
 	else if(can_adjust)
 		context.add_alt_click_action(adjusted == ALT_STYLE ? "Wear normally" : "Wear casually")
 
-
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
 	var/new_sensor_mode = sensor_mode
@@ -125,7 +124,32 @@
 
 	if(length(attached_accessories) && slot != ITEM_SLOT_HANDS && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.update_worn_oversuit()
+		// Check for oversuit update
+		for (var/acc_slot in attached_accessories)
+			var/obj/item/clothing/accessory/accessory = attached_accessories[acc_slot]
+			if (accessory.above_suit)
+				H.update_worn_oversuit()
+				break
+
+/obj/item/clothing/under/update_overlays()
+	. = ..()
+	var/list/accessories = list()
+	for (var/accessory_slot in attached_accessories)
+		var/obj/item/clothing/accessory/accessory = attached_accessories[accessory_slot]
+		BINARY_INSERT(accessory, accessories, /obj/item/clothing/accessory, accessory, accessory_layer, COMPARE_KEY)
+	var/current_pixel_y = 0
+	for (var/obj/item/clothing/accessory/accessory in accessories)
+		if (!accessory.icon_state)
+			continue
+		// Copy the appearance
+		var/mutable_appearance/accessory_appearance = mutable_appearance()
+		accessory_appearance.appearance = accessory.appearance
+		if (accessory.minimize_when_attached)
+			accessory_appearance.transform *= 0.5
+			accessory_appearance.pixel_x += 8
+			accessory_appearance.pixel_y -= 8 - 8 * current_pixel_y
+			current_pixel_y ++
+		. += accessory_appearance
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -172,21 +196,47 @@
 		if(user && notifyAttach)
 			to_chat(user, span_notice("You attach [I] to [src]."))
 
-		var/accessory_color = attached_accessory.icon_state
-		accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_color]")
-		accessory_overlay.appearance_flags |= RESET_COLOR
-		accessory_overlay.alpha = attached_accessory.alpha
-		accessory_overlay.color = attached_accessory.color
-
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.update_worn_undersuit()
-			H.update_worn_oversuit()
-		if(ismonkey(loc))
-			var/mob/living/carbon/monkey/H = loc
-			H.update_worn_undersuit()
+		update_accessory_overlays()
 
 		return TRUE
+
+/obj/item/clothing/under/proc/update_accessory_overlays()
+	if (accessory_overlay_over)
+		accessory_overlay_over.overlays.Cut()
+	if (accessory_overlay_under)
+		accessory_overlay_under.overlays.Cut()
+	// Populate overlays
+	for (var/accessory_slot in attached_accessories)
+		var/obj/item/clothing/accessory/accessory = attached_accessories[accessory_slot]
+		var/accessory_icon = accessory.icon_state
+		if (!accessory_icon)
+			continue
+		var/mutable_appearance/accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_icon]")
+		accessory_overlay.alpha = accessory.alpha
+		accessory_overlay.color = accessory.color
+		accessory_overlay.layer = FLOAT_PLANE + accessory.accessory_layer
+		if (accessory.above_suit)
+			if (!accessory_overlay_over)
+				accessory_overlay_over = mutable_appearance()
+				accessory_overlay_over.appearance_flags |= RESET_COLOR
+			accessory_overlay_over.overlays += accessory_overlay
+		else
+			if (!accessory_overlay_under)
+				accessory_overlay_under = mutable_appearance()
+				accessory_overlay_under.appearance_flags |= RESET_COLOR
+			accessory_overlay_under.overlays += accessory_overlay
+	if (accessory_overlay_over && !length(accessory_overlay_over.overlays))
+		accessory_overlay_over = null
+	if (accessory_overlay_under && !length(accessory_overlay_under.overlays))
+		accessory_overlay_under = null
+	// Update if necessary
+	if (ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_worn_undersuit()
+		H.update_worn_oversuit()
+	if(ismonkey(loc))
+		var/mob/living/carbon/monkey/H = loc
+		H.update_worn_undersuit()
 
 /obj/item/clothing/under/proc/remove_accessory(mob/user)
 	if(!isliving(user))
@@ -201,7 +251,7 @@
 		for (var/accessory_slot in attached_accessories)
 			var/obj/item/clothing/accessory/accessory = attached_accessories[accessory_slot]
 			options[accessory.name] = accessory
-		var/result = tgui_alert(user, "Which accessory would you like to remove?", "Remove Accessory", options)
+		var/result = tgui_input_list(user, "Which accessory would you like to remove?", "Remove Accessory", options)
 		if (!result)
 			return
 		if(!isliving(user))
@@ -217,14 +267,6 @@
 		to_chat(user, span_notice("You detach [attached_accessory] from [src]."))
 	else
 		to_chat(user, span_notice("You detach [attached_accessory] from [src] and it falls on the floor."))
-
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_worn_undersuit()
-		H.update_worn_oversuit()
-	if(ismonkey(loc))
-		var/mob/living/carbon/monkey/H = loc
-		H.update_worn_undersuit()
 
 //Adds or removes mob from suit sensor global list
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)

@@ -40,10 +40,9 @@
 		if(ishuman(M) && M.w_uniform)
 			var/obj/item/clothing/under/U = M.w_uniform
 			if(istype(U))
-				for (var/accessory_slot in U.attached_accessories)
-					var/obj/item/clothing/accessory/accessory = U.attached_accessories[accessory_slot]
-					if(accessory.above_suit)
-						. += U.accessory_overlay
+				if (U.accessory_overlay_over)
+					U.accessory_overlay_over.layer = item_layer + 0.0001
+					. += U.accessory_overlay_over
 
 /obj/item/clothing/suit/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)
 	..()

@@ -1,12 +1,15 @@
 /obj/item/clothing/accessory
 	name = "Accessory"
 	desc = "Something has gone wrong!"
+	// Accessory worn icons found in icons/mob/accessories.dmi
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "plasma"
 	inhand_icon_state = ""	//no inhands
 	slot_flags = 0
 	w_class = WEIGHT_CLASS_SMALL
 	appearance_flags = TILE_BOUND | RESET_COLOR
+	/// If we have multiple accessories, what is the layer of this one?
+	var/accessory_layer = ACCESSORY_LAYER_DEFAULT
 	/// The accessory slot that is consumed by this item, 2 accessories cannot exist on the same spot.
 	var/accessory_slot = ACCESSORY_CHEST
 	/// Is this accessory hidden to examiners?
@@ -39,11 +42,7 @@
 	forceMove(U)
 	layer = FLOAT_LAYER
 	plane = FLOAT_PLANE
-	if(minimize_when_attached)
-		transform *= 0.5 //halve the size so it doesn't overpower the under
-		pixel_x += 8
-		pixel_y -= 8
-	U.add_overlay(src)
+	U.update_appearance(UPDATE_OVERLAYS)
 
 	U.set_armor(U.get_armor().add_other_armor(get_armor()))
 
@@ -61,15 +60,11 @@
 	if(isliving(user))
 		on_uniform_dropped(U, user)
 
-	if(minimize_when_attached)
-		transform *= 2
-		pixel_x -= 8
-		pixel_y += 8
 	layer = initial(layer)
 	plane = initial(plane)
-	U.cut_overlays()
 	U.attached_accessories -= accessory_slot
-	U.accessory_overlay = null
+	U.update_appearance(UPDATE_OVERLAYS)
+	U.update_accessory_overlays()
 
 /obj/item/clothing/accessory/proc/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	return
@@ -116,6 +111,7 @@
 	custom_materials = list(/datum/material/iron=1000)
 	resistance_flags = FIRE_PROOF
 	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
 	var/medaltype = "medal" //Sprite used for medalbox
 	var/commended = FALSE
 
@@ -269,6 +265,7 @@
 	icon_state = "redband"
 	attachment_slot = null
 	accessory_slot = ACCESSORY_ARMBAND
+	accessory_layer = ACCESSORY_LAYER_ARMBAND
 
 /obj/item/clothing/accessory/armband/blue
 	name = "blue armband"
@@ -433,6 +430,7 @@
 	desc = "A pin made from a poppy, worn to remember those who have fallen in war."
 	icon_state = "poppy_pin"
 	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
 
 /obj/item/clothing/accessory/poppy_pin/on_uniform_equip(obj/item/clothing/under/U, mob/living/wearer)
 	var/mob/living/L = wearer
@@ -449,6 +447,8 @@
 	name = "badge"
 	desc = "A badge that symbolises a person's authority as a member of security."
 	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
+	above_suit = TRUE
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
