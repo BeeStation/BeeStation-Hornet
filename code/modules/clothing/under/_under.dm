@@ -311,7 +311,7 @@
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 	for (var/accessory_slot in attached_accessories)
 		var/obj/item/clothing/accessory/accessory = attached_accessories[accessory_slot]
-		. += "\A [accessory] is attached to it's [lowertext(accessory_slot)]."
+		. += "\A [accessory] is attached to it's [LOWER_TEXT(accessory_slot)]."
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Adjust Suit Sensors"

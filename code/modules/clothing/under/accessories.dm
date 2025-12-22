@@ -28,7 +28,7 @@
 		return FALSE
 	if (accessory_slot in U.attached_accessories)
 		if(user && !silent)
-			to_chat(user, span_warning("You already have an accessory covering the [lowertext(accessory_slot)] of \the [U]."))
+			to_chat(user, span_warning("You already have an accessory covering the [LOWER_TEXT(accessory_slot)] of \the [U]."))
 		return FALSE
 	return TRUE
 
