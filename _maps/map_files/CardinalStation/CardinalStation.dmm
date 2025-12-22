@@ -8658,11 +8658,9 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
 	name = "Waste to Filter";
-	dir = 1;
-	piping_layer = 4;
-	icon_state = "pump_on_map-4"
+	dir = 1
 	},
 /turf/open/floor/iron/smooth,
 /area/engine/atmos)

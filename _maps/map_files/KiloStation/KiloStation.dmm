@@ -44679,9 +44679,6 @@
 	dir = 8;
 	target_pressure = 4500
 	},
-/obj/machinery/atmospherics/components/binary/pump/on/layer4{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "ntG" = (
@@ -65410,11 +65407,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 8;
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
 	name = "Waste to Filter";
-	icon_state = "pump_on_map-4";
-	piping_layer = 4
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)

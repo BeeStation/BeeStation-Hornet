@@ -31095,11 +31095,9 @@
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
 	name = "Waste to Filter";
-	dir = 2;
-	piping_layer = 4;
-	icon_state = "pump_on_map-4"
+	dir = 2
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
