@@ -138,7 +138,7 @@
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
 
 
-/obj/structure/closet/crate/open(mob/living/user)
+/obj/structure/closet/crate/open(mob/living/user, force = FALSE, special_effects)
 	. = ..()
 	if(. && manifest)
 		to_chat(user, span_notice("The manifest is torn off [src]."))
@@ -147,6 +147,16 @@
 		manifest = null
 		update_appearance()
 
+///Spawns two to six maintenance spawners inside the closet
+/obj/structure/closet/proc/populate_with_random_maint_loot()
+	SIGNAL_HANDLER
+
+	for (var/i in 1 to rand(2,6))
+		new /obj/effect/spawner/random/maintenance(src)
+
+	UnregisterSignal(src, COMSIG_CLOSET_CONTENTS_INITIALIZED)
+
+///Removes the supply manifest from the closet
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
 	to_chat(user, span_notice("You tear the manifest off of [src]."))
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
@@ -194,7 +204,7 @@
 //Snowflake organ freezer code
 //Order is important, since we check source, we need to do the check whenever we have all the organs in the crate
 
-/obj/structure/closet/crate/freezer/open()
+/obj/structure/closet/crate/freezer/open(mob/living/user, force, special_effects)
 	recursive_organ_check(src)
 	..()
 
@@ -372,7 +382,7 @@
 		addtimer(CALLBACK(src, PROC_REF(compress)), 2 SECONDS)
 		return ..()
 
-/obj/structure/closet/crate/capsule/open(mob/living/user)
+/obj/structure/closet/crate/capsule/open(mob/living/user, force = FALSE, special_effects)
 	if(!closing)
 		return ..()
 

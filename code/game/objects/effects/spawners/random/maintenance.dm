@@ -1,3 +1,6 @@
+#define MAINT_LOOT "maintenance_loot"
+#define DUMPSTER_LOOT "dumpster_loot"
+
 /obj/effect/spawner/random/maintenance
 	name = "maintenance loot spawner"
 	desc = "Come on Lady Luck, spawn me a pair of sunglasses."

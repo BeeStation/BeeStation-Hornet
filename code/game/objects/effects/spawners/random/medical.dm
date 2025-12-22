@@ -6,8 +6,8 @@
 	name = "minor healing spawner"
 	icon_state = "gauze"
 	loot = list(
-		/obj/item/stack/medical/suture,
-		/obj/item/stack/medical/mesh,
+		/obj/item/stack/medical/bruise_pack,
+		/obj/item/stack/medical/ointment,
 		/obj/item/stack/medical/gauze,
 	)
 
@@ -115,7 +115,6 @@
 	name = "rare firstaid kit spawner"
 	icon_state = "firstaid"
 	loot = list(
-		/obj/item/storage/firstaid/emergency,
 		/obj/item/storage/firstaid/medical,
 		/obj/item/storage/firstaid/advanced,
 	)
