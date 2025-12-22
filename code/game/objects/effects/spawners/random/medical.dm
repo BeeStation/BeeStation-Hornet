@@ -29,7 +29,6 @@
 		/obj/item/organ/heart/gland/plasma = 7,
 		/obj/item/organ/heart/gland/chem = 5,
 		/obj/item/organ/heart/gland/mindshock = 5,
-		/obj/item/organ/heart/gland/transform = 5,
 		/obj/item/organ/heart/gland/spiderman = 5,
 		/obj/item/organ/heart/gland/pop = 5,
 		/obj/item/organ/heart/gland/slime = 4,
@@ -87,7 +86,6 @@
 		/obj/item/circular_saw,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
-		/obj/item/bonesetter,
 	)
 
 /obj/effect/spawner/random/medical/surgery_tool_advanced

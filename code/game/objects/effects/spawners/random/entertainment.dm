@@ -37,12 +37,12 @@
 	icon_state = "dice"
 	loot = list(
 		/obj/item/gun/ballistic/revolver/russian = 5,
-		/obj/item/clothing/head/ushanka = 3,
+		/obj/item/clothing/head/costume/ushanka = 3,
 		/obj/effect/spawner/random/entertainment/coin = 3,
 		/obj/effect/spawner/random/entertainment/money = 3,
 		/obj/item/dice/d6 = 3,
 		/obj/item/storage/box/syndie_kit/throwing_weapons = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka = 1,
+		/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka = 1,
 	)
 
 /obj/effect/spawner/random/entertainment/coin
@@ -59,7 +59,6 @@
 		/obj/item/coin/bananium = 2,
 		/obj/item/coin/adamantine = 2,
 		/obj/item/coin/mythril = 2,
-		/obj/item/coin/runite = 2,
 		/obj/item/coin/twoheaded = 1,
 		/obj/item/coin/antagtoken = 1,
 	)
@@ -102,14 +101,13 @@
 		/obj/item/stack/spacecash/c200 = 20,
 		/obj/item/stack/spacecash/c500 = 10,
 		/obj/item/stack/spacecash/c1000 = 5,
-		/obj/item/stack/spacecash/c10000 = 1,
 	)
 
 /obj/effect/spawner/random/entertainment/drugs
 	name = "recreational drugs spawner"
 	icon_state = "pill"
 	loot = list(
-		/obj/item/reagent_containers/food/drinks/bottle/hooch = 50,
+		/obj/item/reagent_containers/cup/glass/bottle/hooch = 50,
 		/obj/item/clothing/mask/cigarette/rollie/cannabis = 15,
 		/obj/item/reagent_containers/syringe = 15,
 		/obj/item/cigbutt/roach = 15,
@@ -139,7 +137,6 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_candy = 1,
 	)
 
 /obj/effect/spawner/random/entertainment/cigarette
@@ -189,7 +186,7 @@
 	spawn_loot_count = 1
 	loot = list(	// random photos would go here. IF I HAD ONE. :'(
 		/obj/item/lipstick/random,
-		/obj/item/reagent_containers/pill/maintenance,
+		/obj/item/reagent_containers/pill/floorpill,
 		/obj/effect/spawner/random/food_or_drink/seed,
 		/obj/effect/spawner/random/medical/minor_healing,
 		/obj/effect/spawner/random/medical/injector,
@@ -209,8 +206,6 @@
 	icon_state = "deck"
 	loot = list(
 		/obj/item/toy/cards/deck = 10,
-		/obj/item/toy/cards/deck/kotahi = 3,
-		/obj/item/toy/cards/deck/wizoff = 3,
 		/obj/item/toy/cards/deck/tarot = 2,
 		/obj/item/toy/cards/deck/cas = 1,
 		/obj/item/toy/cards/deck/cas/black = 1,

@@ -159,12 +159,13 @@
 		/obj/item/clothing/suit/wizrobe/marisa/fake
 	)
 
-/obj/effect/spawner/costume/costume/cutewitch
+/obj/effect/spawner/costume/cutewitch
 	name = "cute witch costume spawner"
 	items = list(
 		/obj/item/clothing/under/dress/sundress,
 		/obj/item/clothing/head/costume/witchwig,
-		/obj/item/staff/broom)
+		/obj/item/staff/broom
+	)
 
 /obj/effect/spawner/costume/costume/wizard
 	name = "wizard costume spawner"

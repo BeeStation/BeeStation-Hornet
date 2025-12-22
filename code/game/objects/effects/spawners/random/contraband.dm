@@ -7,7 +7,7 @@
 	name = "armory loot spawner"
 	icon_state = "pistol"
 	loot = list(
-		/obj/item/gun/ballistic/automatic/pistol/locker = 8,
+		/obj/item/gun/ballistic/automatic/pistol = 8,
 		/obj/item/gun/ballistic/shotgun/automatic/combat = 5,
 		/obj/item/storage/box/syndie_kit/throwing_weapons = 3,
 		/obj/item/grenade/clusterbuster = 2,
@@ -25,7 +25,6 @@
 		/obj/item/reagent_containers/syringe/contraband/bath_salts,
 		/obj/item/reagent_containers/syringe/contraband/fentanyl,
 		/obj/item/reagent_containers/syringe/contraband/morphine,
-		/obj/item/reagent_containers/syringe/contraband/saturnx,
 		/obj/item/storage/pill_bottle/happy,
 		/obj/item/storage/pill_bottle/lsd,
 		/obj/item/storage/pill_bottle/psicodine,
@@ -35,10 +34,10 @@
 	name = "permabrig weapon spawner"
 	icon_state = "shiv"
 	loot = list(
-		/obj/item/kitchen/knife/shiv = 5,
-		/obj/item/kitchen/knife/shiv/carrot = 5,
-		/obj/item/tailclub = 5, //want to buy makeshift wooden club sprite
-		/obj/item/kitchen/knife = 3,
+		/obj/item/knife/shiv = 5,
+		/obj/item/knife/shiv/carrot = 5,
+		/obj/item/club/tailclub = 5, //want to buy makeshift wooden club sprite
+		/obj/item/knife = 3,
 		/obj/item/assembly/flash/handheld = 1,
 		/obj/item/grenade/smokebomb = 1,
 	)
@@ -52,9 +51,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/restraints/handcuffs,
-		/obj/item/paper/fluff/jobs/prisoner/letter,
 		/obj/item/storage/wallet/random,
-		/obj/item/pda,
+		/obj/item/modular_computer/tablet/pda,
 		/obj/item/radio/off,
 	)
 

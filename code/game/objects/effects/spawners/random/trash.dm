@@ -23,7 +23,6 @@
 	loot = list(
 		/obj/item/cigbutt = 50,
 		/obj/item/cigbutt/roach = 30,
-		/obj/item/food/candy_trash = 10,
 		/obj/item/cigbutt/cigarbutt = 10,
 	)
 
@@ -36,15 +35,13 @@
 		/obj/item/trash/chips = 2,
 		/obj/item/trash/sosjerky = 2,
 		/obj/item/trash/pistachios = 2,
-		/obj/item/trash/peanuts = 2,
+		/obj/item/reagent_containers/cup/glass/sillycup = 2,
 		/obj/item/trash/boritos = 1,
-		/obj/item/trash/can/food/beans = 1,
 		/obj/item/trash/popcorn = 1,
 		/obj/item/trash/energybar = 1,
-		/obj/item/trash/can/food/peaches/maint = 1,
 		/obj/item/trash/semki = 1,
-		/obj/item/trash/cnds = 1,
 		/obj/item/trash/syndi_cakes = 1,
+		/obj/item/trash/tray = 1,
 	)
 
 /obj/effect/spawner/random/trash/botanical_waste
@@ -82,7 +79,6 @@
 	spawn_all_loot = TRUE
 	loot = list(
 		/obj/effect/spawner/random/trash/moisture,
-		/obj/structure/moisture_trap,
 	)
 
 /obj/effect/spawner/random/trash/mess
@@ -96,7 +92,6 @@
 		/obj/effect/decal/cleanable/insectguts = 1,
 		/obj/effect/decal/cleanable/greenglow/ecto = 1,
 		/obj/effect/decal/cleanable/wrapping = 1,
-		/obj/effect/decal/cleanable/plastic = 1,
 		/obj/effect/decal/cleanable/glass = 1,
 		/obj/effect/decal/cleanable/ants = 1,
 	)
@@ -122,8 +117,8 @@
 		/obj/item/clothing/head/cone = 7,
 		/obj/item/clothing/suit/caution = 3,
 		/mob/living/simple_animal/hostile/retaliate/frog = 2,
-		/obj/item/reagent_containers/glass/rag = 2,
-		/obj/item/reagent_containers/glass/bucket = 2,
+		/obj/item/reagent_containers/cup/rag = 2,
+		/obj/item/reagent_containers/cup/bucket = 2,
 		/obj/effect/decal/cleanable/blood/old = 2,
 		/obj/structure/mopbucket = 2,
 	)
@@ -172,8 +167,7 @@
 		/obj/structure/mopbucket = 10,
 		/obj/item/mop = 5,
 		/obj/item/clothing/suit/caution = 3,
-		/obj/item/reagent_containers/glass/bucket = 1,
-		/obj/item/reagent_containers/glass/bucket/wooden = 1,
+		/obj/item/reagent_containers/cup/bucket = 1,
 	)
 
 /obj/effect/spawner/random/trash/caution_sign
@@ -191,8 +185,7 @@
 	name = "bucket spawner"
 	icon_state = "caution"
 	loot = list(
-		/obj/item/reagent_containers/glass/bucket,
-		/obj/item/reagent_containers/glass/bucket/wooden,
+		/obj/item/reagent_containers/cup/bucket
 	)
 
 /obj/effect/spawner/random/trash/soap
@@ -205,7 +198,6 @@
 		/obj/item/soap/deluxe = 15,
 		/obj/item/soap/nanotrasen = 10,
 		/obj/item/food/urinalcake = 5,
-		/obj/item/bikehorn/rubberducky/plasticducky = 5,
 	)
 
 /obj/effect/spawner/random/trash/box
@@ -224,7 +216,6 @@
 		/obj/structure/closet/crate/trashcart = 3,
 		/obj/structure/closet/crate/trashcart/filled = 3,
 		/obj/effect/spawner/random/trash/box = 3,
-		/obj/structure/closet/crate/trashcart/laundry = 1,
 	)
 
 

@@ -5,11 +5,6 @@
 	spawn_loot_split_pixel_offsets = 4
 
 // Misc armory stuff
-/obj/effect/spawner/random/armory/barrier_grenades
-	name = "barrier grenade spawner"
-	icon_state = "barrier_grenade"
-	loot = list(/obj/item/grenade/barrier)
-
 /obj/effect/spawner/random/armory/barrier_grenades/six
 	name = "six barrier grenade spawner"
 	spawn_loot_count = 6

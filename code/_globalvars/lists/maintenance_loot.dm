@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(oddity_loot, list(//oddity: strange or crazy items
 		//obj/item/toy/cards/deck/tarot/haunted = 1,
 	))
 
-/Maintenance loot spawner pools
+//Maintenance loot spawner pools
 #define maint_trash_weight 4500
 #define maint_common_weight 4500
 #define maint_uncommon_weight 900

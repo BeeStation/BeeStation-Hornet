@@ -4,16 +4,15 @@
 
 /obj/effect/spawner/random/structure/crate
 	name = "crate spawner"
-	icon_state = "crate"
+	icon_state = "crate_secure"
 	loot = list(
-		/obj/effect/spawner/random/structure/crate_empty = 75,
-		/obj/structure/closet/crate/trashcart/filled = 7,
-		/obj/effect/spawner/random/trash/moisture_trap = 5,
-		/obj/effect/spawner/random/trash/hobo_squat = 3,
-		/obj/structure/closet/mini_fridge = 3,
-		/obj/item/kirbyplants/random = 3,
-		/obj/effect/spawner/random/trash/mess = 3,
-		/obj/structure/closet/crate/decorations = 1,
+		/obj/effect/spawner/random/structure/crate_loot = 744,
+		/obj/structure/closet/crate/trashcart/filled = 75,
+		/obj/effect/spawner/random/trash/moisture_trap = 50,
+		/obj/effect/spawner/random/trash/hobo_squat = 30,
+		/obj/effect/spawner/random/trash/mess = 30,
+		/obj/item/kirbyplants/random = 20,
+		/obj/structure/closet/crate/decorations = 15,
 	)
 
 /obj/effect/spawner/random/structure/crate_abandoned
@@ -72,23 +71,12 @@
 	loot_type_path = /obj/structure/table/wood/fancy
 	loot = list()
 
-/obj/effect/spawner/random/structure/tank_holder
-	name = "tank holder spawner"
-	icon_state = "tank_holder"
-	loot = list(
-		/obj/structure/tank_holder/oxygen = 40,
-		/obj/structure/tank_holder/extinguisher = 40,
-		/obj/structure/tank_holder = 20,
-		/obj/structure/tank_holder/extinguisher/advanced = 1,
-	)
-
 /obj/effect/spawner/random/structure/closet_empty
 	name = "empty closet spawner"
 	icon_state = "locker"
 	loot = list(
 		/obj/structure/closet = 850,
 		/obj/structure/closet/cabinet = 150,
-		/obj/structure/closet/acloset = 1,
 	)
 
 /obj/effect/spawner/random/structure/closet_empty/make_item(spawn_loc, type_path_to_make)
@@ -152,7 +140,6 @@
 		/obj/structure/closet/l3closet = 1,
 		/obj/structure/closet/radiation = 1,
 		/obj/structure/closet/bombcloset = 1,
-		/obj/structure/closet/mini_fridge = 1,
 	)
 
 /obj/effect/spawner/random/structure/chair_flipped
@@ -168,7 +155,7 @@
 /obj/effect/spawner/random/structure/chair_comfy
 	name = "comfy chair spawner"
 	icon_state = "chair"
-	loot_type_path = /obj/structure/chair/comfy
+	loot_type_path = /obj/structure/chair/fancy/comfy
 	loot = list()
 
 /obj/effect/spawner/random/structure/chair_maintenance

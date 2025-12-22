@@ -19,7 +19,7 @@
 		/obj/item/multitool = 1,
 		/obj/item/clothing/glasses/meson = 1,
 		/obj/item/storage/belt/utility = 1,
-		/obj/item/clothing/head/welding = 1,
+		/obj/item/clothing/head/utility/welding = 1,
 	)
 
 /obj/effect/spawner/random/engineering/tool_advanced
@@ -49,9 +49,9 @@
 	name = "Cheap material spawner"
 	icon_state = "cardboard"
 	loot = list(
-		/obj/item/stack/sheet/mineral/wood{amount = 30},
+		/obj/item/stack/sheet/wood{amount = 30},
 		/obj/item/stack/sheet/cardboard{amount = 30},
-		/obj/item/stack/sheet/mineral/sandstone/thirty,
+		/obj/item/stack/sheet/mineral/sandstone{amount = 30},
 	)
 
 /obj/effect/spawner/random/engineering/material
@@ -96,7 +96,6 @@
 		/obj/effect/spawner/random/decoration/glowstick = 10,
 		/obj/item/flashlight/lantern = 5,
 		/obj/item/flashlight/seclite = 4,
-		/obj/item/flashlight/lantern/jade = 1,
 	)
 
 /obj/effect/spawner/random/engineering/canister
@@ -126,7 +125,7 @@
 	name = "portable atmospherics machine spawner"
 	icon_state = "heater"
 	loot = list(
-		/obj/machinery/space_heater = 8,
+		/obj/machinery/portable_thermomachine = 8,
 		/obj/machinery/portable_atmospherics/pump = 1,
 		/obj/machinery/portable_atmospherics/scrubber = 1,
 	)

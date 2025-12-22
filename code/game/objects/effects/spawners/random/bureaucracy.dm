@@ -11,7 +11,6 @@
 		/obj/item/pen/red = 5,
 		/obj/item/flashlight/pen = 5,
 		/obj/item/pen/fourcolor = 2,
-		/obj/item/flashlight/pen/paramedic = 2,
 		/obj/item/pen/fountain = 1,
 	)
 
@@ -44,9 +43,7 @@
 		/obj/item/paper = 20,
 		/obj/item/paper/crumpled = 2,
 		/obj/item/paper/crumpled/bloody = 2,
-		/obj/item/paper/crumpled/muddy = 2,
 		/obj/item/paper/construction = 1,
-		/obj/item/paper/carbon = 1,
 	)
 
 /obj/effect/spawner/random/bureaucracy/briefcase
