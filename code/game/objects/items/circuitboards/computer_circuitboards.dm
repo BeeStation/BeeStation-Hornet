@@ -212,6 +212,11 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/station_alert
 
+/obj/item/circuitboard/computer/orbital_height_control
+	name = "orbital height control console (Computer Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/orbital_height_control
+
 /obj/item/circuitboard/computer/teleporter
 	name = "teleporter console (Computer Board)"
 	icon_state = "engineering"
