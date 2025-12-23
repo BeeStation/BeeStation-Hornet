@@ -15,7 +15,7 @@
 
 /obj/effect/spawner/random/food_or_drink/donkpocketsfinlandia
 	name = "5% gondola pocket spawner"
-	icon_state = "random_donk"
+	icon_state = "donkpocket"
 	loot = list(
 		/obj/item/storage/box/donkpockets = 19,
 		/obj/item/storage/box/donkpockets/donkpocketgondolafinlandia = 1

@@ -3,7 +3,7 @@
 //--------------------------------------------//
 /obj/effect/spawner/mail
 	name = "\improper Random mail spawner"
-	icon = 'icons/effects/landmarks_spawners.dmi'
+	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_loot"
 
 /obj/effect/spawner/mail/organminor
