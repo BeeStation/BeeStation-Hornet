@@ -617,6 +617,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/portable_atmospherics/canister)
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
 
+/obj/machinery/portable_atmospherics/canister/hydrogen_fuel
+	name = "formulated hydrogen fuel canister"
+	gas_type = /datum/gas/hydrogen_fuel
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#00ffff#000000"
+
 /obj/machinery/portable_atmospherics/canister/fusion_test
 	name = "fusion test canister"
 	temp_limit = 1e12

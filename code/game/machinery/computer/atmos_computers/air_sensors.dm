@@ -19,7 +19,7 @@
 	chamber_id = ATMOS_GAS_MONITOR_N2O
 
 /obj/machinery/air_sensor/fuelsupply_tank
-	name = "fuelsupply tank gas sensor"
+	name = "formulated hydrogen fuel tank gas sensor"
 	chamber_id = ATMOS_GAS_MONITOR_FUELSUPPLY
 
 /obj/machinery/air_sensor/air_tank

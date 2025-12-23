@@ -23,7 +23,7 @@
 #define ATMOS_GAS_MONITOR_DISTRO "distro"
 #define ATMOS_GAS_MONITOR_WASTE "waste"
 #define ATMOS_GAS_MONITOR_ENGINE "engine"
-#define ATMOS_GAS_MONITOR_FUELSUPPLY "fuelsupply"
+#define ATMOS_GAS_MONITOR_FUELSUPPLY GAS_HYDROGEN_FUEL
 
 
 ///maps a chamber id to its air sensor
@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(station_gas_chambers, list(
 	ATMOS_GAS_MONITOR_PLUOXIUM = "Pluoxium Supply",
 	ATMOS_GAS_MONITOR_TRITIUM = "Tritium Supply",
 	ATMOS_GAS_MONITOR_H2O = "Water Vapor Supply",
+	ATMOS_GAS_MONITOR_FUELSUPPLY = "Formulated Hydrogen Fuel Supply",
 	ATMOS_GAS_MONITOR_MIX = "Mix Chamber",
 	ATMOS_GAS_MONITOR_INCINERATOR = "Incinerator Chamber",
 	ATMOS_GAS_MONITOR_TOXINS_LAB = "Toxins Chamber",

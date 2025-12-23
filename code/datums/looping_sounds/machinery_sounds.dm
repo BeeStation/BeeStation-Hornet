@@ -140,10 +140,7 @@
 
 /datum/looping_sound/orbital_thruster
 	mid_sounds = list('sound/machines/thruster_loop.ogg' = 1)
-	mid_length = 4.05 SECONDS
-	volume = 50
-	extra_range = 30
-	falloff_exponent = 3
-	falloff_distance = 10
-	pressure_affected = TRUE
+	mid_length = 4 SECONDS
+	volume = 100
+	pressure_affected = FALSE
 	vary = FALSE

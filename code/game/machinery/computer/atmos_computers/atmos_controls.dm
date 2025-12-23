@@ -44,9 +44,9 @@
 	atmos_chambers = list(ATMOS_GAS_MONITOR_HYPERNOBLIUM = "Hypernoblium Supply")
 
 /obj/machinery/computer/atmos_control/fuelsupply_tank
-	name = "Fuelsupply Control"
+	name = "Formulated Hydrogen Fuel Supply Control"
 	circuit = /obj/item/circuitboard/computer/atmos_control/fuelsupply_tank
-	atmos_chambers = list(ATMOS_GAS_MONITOR_FUELSUPPLY = "Fuelsupply Control")
+	atmos_chambers = list(ATMOS_GAS_MONITOR_FUELSUPPLY = "FHF Supply Control")
 
 /obj/machinery/computer/atmos_control/nitrium_tank
 	name = "Nitrium Supply Control"

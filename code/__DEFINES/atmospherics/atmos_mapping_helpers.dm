@@ -36,6 +36,7 @@
 #define ATMOS_TANK_TRITIUM GAS_TRITIUM + "=100000;TEMP=293.15"
 #define ATMOS_TANK_H2O GAS_WATER_VAPOR + "=100000;TEMP=293.15"
 #define ATMOS_TANK_AIRMIX GAS_O2 + "=2644;" + GAS_N2 + "=10580;TEMP=293.15"
+#define ATMOS_TANK_HYDROGEN_FUEL GAS_HYDROGEN_FUEL + "=100000;TEMP=293.15"
 
 //LAVALAND
 /// what pressure you have to be under to increase the effect of equipment meant for lavaland

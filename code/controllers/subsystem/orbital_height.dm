@@ -1,9 +1,11 @@
 // Orbital altitude thresholds in meters
-#define ORBITAL_ALTITUDE_HIGH_CRITICAL 130000  // 130km - Upper critical threshold
-#define ORBITAL_ALTITUDE_HIGH 120000           // 120km - Upper normal threshold
-#define ORBITAL_ALTITUDE_DEFAULT 110000        // 110km - Default stable altitude
-#define ORBITAL_ALTITUDE_LOW 95000             // 95km - Lower warning threshold (visual effects start)
-#define ORBITAL_ALTITUDE_LOW_CRITICAL 90000    // 90km - Lower critical threshold (structural damage begins)
+#define ORBITAL_ALTITUDE_HIGH_BOUND 140000 // 140km - Cannot go higher than this
+#define ORBITAL_ALTITUDE_HIGH_CRITICAL 130000 // 130km - Upper critical threshold
+#define ORBITAL_ALTITUDE_HIGH 120000 // 120km - Upper normal threshold
+#define ORBITAL_ALTITUDE_DEFAULT 110000 // 110km - Default stable altitude
+#define ORBITAL_ALTITUDE_LOW 95000 // 95km - Lower warning threshold (visual effects start)
+#define ORBITAL_ALTITUDE_LOW_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
+#define ORBITAL_ALTITUDE_LOW_BOUND 80000 // 80km - Cannot go lower than this
 
 SUBSYSTEM_DEF(orbital_altitude)
 	name = "Orbital Altitude"
@@ -33,6 +35,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/in_critical_orbit = FALSE
 	/// Whether the station is in low altitude warning zone (below 95km)
 	var/in_low_altitude = FALSE
+	/// Whether the station is in high altitude warning zone (above 120km)
+	var/in_high_altitude = FALSE
+	/// Whether the station is in critical high altitude zone (above 130km)
+	var/in_high_altitude_critical = FALSE
 	/// Whether the final 60-second countdown has started
 	var/final_countdown_active = FALSE
 	/// World time of the last warning announcement
@@ -104,7 +110,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	var/orbital_altitude_change = 0
 
 	// Calculate atmospheric decay rate (increases as altitude decreases)
-	decay_rate = min(max((-orbital_altitude * 0.0008) + 96, 0), 30)
+	decay_rate = min(max((-orbital_altitude * 0.0006) + 78, 0), 30)
 
 	// Calculate atmospheric resistance (decreases as altitude decreases)
 	resistance = min(max((orbital_altitude * 0.0001) - 8.5, 0.5), 1)
@@ -138,7 +144,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 	orbital_altitude += orbital_altitude_change
 
 	// Enforce hard altitude limits (80km minimum, 140km maximum)
-	orbital_altitude = clamp(orbital_altitude, 80000, 140000)
+	orbital_altitude = clamp(orbital_altitude, ORBITAL_ALTITUDE_LOW_BOUND, ORBITAL_ALTITUDE_HIGH_BOUND)
 
 /datum/controller/subsystem/orbital_altitude/proc/send_orbital_report()
 	COOLDOWN_START(src, orbital_report_cooldown, 10 MINUTES)
@@ -181,6 +187,26 @@ SUBSYSTEM_DEF(orbital_altitude)
 												"Station Orbital Report")
 
 /datum/controller/subsystem/orbital_altitude/proc/check_critical_orbit()
+	// High altitude critical warning (above 130km threshold)
+	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH_CRITICAL && !in_high_altitude_critical)
+		in_high_altitude_critical = TRUE
+		priority_announce("DANGER: Station orbital altitude has exceeded critical upper threshold. \
+			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
+			Station entering the Osei-Hollund radiation band. Critical radiative exposure likely. \
+			Immediate corrective action required.", \
+			"CRITICAL ALTITUDE WARNING",
+			sound = 'sound/misc/notice1.ogg',
+			has_important_message = TRUE)
+
+	// High altitude warning (above 120km threshold)
+	if(orbital_altitude > ORBITAL_ALTITUDE_HIGH && !in_high_altitude && !in_high_altitude_critical)
+		in_high_altitude = TRUE
+		priority_announce("Advisory: Station orbital altitude has exceeded normal operating parameters. \
+			Current altitude: [round(orbital_altitude/1000, 0.1)]km. \
+			Entering radiative zone at this altitude. Further monitoring is advised.", \
+			"High Altitude Advisory",
+			sound = 'sound/misc/notice2.ogg')
+
 	// Low altitude warning (95km threshold)
 	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !in_low_altitude)
 		in_low_altitude = TRUE
@@ -270,6 +296,21 @@ SUBSYSTEM_DEF(orbital_altitude)
 		// Stop fire effects when safely above 95km (hysteresis to prevent flickering)
 		if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && SSreentry_lighting.atmospheric_fire_effect_active)
 			SSreentry_lighting.stop_atmospheric_fire_effect()
+
+	// Clear high altitude flags when returning to normal range
+	if(orbital_altitude <= ORBITAL_ALTITUDE_HIGH)
+		if(in_high_altitude_critical)
+			in_high_altitude_critical = FALSE
+			priority_announce("Station altitude has returned below critical upper threshold. \
+				Radiative exposure normalized.", \
+				"Altitude Stabilized",
+				sound = 'sound/misc/notice2.ogg')
+
+		if(in_high_altitude)
+			in_high_altitude = FALSE
+			priority_announce("Station altitude has returned to normal operating parameters.", \
+				"Altitude Normalized",
+				sound = 'sound/misc/notice2.ogg')
 
 /datum/controller/subsystem/orbital_altitude/proc/announce_countdown_stage()
 	switch(countdown_stage)

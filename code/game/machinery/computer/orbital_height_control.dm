@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/computer/orbital_height_control
 	light_color = LIGHT_COLOR_BLUE
 
-	var/altitude_hold_enabled = FALSE
+	var/altitude_hold_enabled = TRUE
 	var/altitude_hold_target = 110000  // in meters
 
 	var/set_thrust = 0
@@ -22,7 +22,7 @@
 		// Simple altitude hold logic
 		if(SSorbital_altitude.orbital_altitude < altitude_hold_target)
 			set_thrust = 20
-		else if(SSorbital_altitude.orbital_altitude > altitude_hold_target + 5000) // Add buffer to prevent oscillation
+		else if(SSorbital_altitude.orbital_altitude > altitude_hold_target + 500) // Add buffer to prevent oscillation
 			set_thrust = -20
 		else
 			set_thrust = 0
