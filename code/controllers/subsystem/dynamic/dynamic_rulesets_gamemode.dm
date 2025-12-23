@@ -197,7 +197,7 @@ then the above notice does not apply.
 	var/datum/team/cult/team
 
 /datum/dynamic_ruleset/gamemode/bloodcult/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
+	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 9, 1), 2)
 
 /datum/dynamic_ruleset/gamemode/bloodcult/execute()
 	team = new
