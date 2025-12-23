@@ -392,14 +392,6 @@ SUBSYSTEM_DEF(ticker)
 	else
 		LAZYADD(round_end_events, cb)
 
-/datum/controller/subsystem/ticker/proc/station_explosion_detonation(atom/bomb)
-	if(bomb)	//BOOM
-		qdel(bomb)
-		for(var/mob/M in GLOB.mob_list)
-			var/turf/T = get_turf(M)
-			if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer)) //protip: freezers protect you from nukes
-				M.gib(TRUE)
-
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/dead/new_player/authenticated/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
