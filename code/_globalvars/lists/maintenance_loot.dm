@@ -1,7 +1,12 @@
-//as of:10/28/2019:
-//boxstation: ~153 loot items spawned
-//metastation: ~183 loot items spawned
-//deltastation: ~165 loot items spawned
+//as of:12/22/2025:
+//boxstation: ~168 maintenance spawners = (89 flat base + variable random-maint spawners)
+//cardinalstation: ~132 maintenance spawners = (77 flat base + variable random-maint spawners)
+//deltastation: ~228 maintenance spawners = (134 flat base + variable random-maint spawners)
+//echostation: ~137 maintenance spawners = (76 flat base + variable random-maint spawners)
+//flandstation: 243~ maintenance spawners = (162 flat base + variable random-maint spawners)
+//kilostation: ~ maintenance spawners = (70 flat base + variable random-maint spawners)
+//radstation: ~138 maintenance spawners = (92 flat base + variable random-maint spawners)
+//metastation: ~194 maintenance spawners = (129 flat base + variable random-maint spawners)
 
 //how to balance maint loot spawns:
 // 1) Ensure each category has items of approximately the same power level

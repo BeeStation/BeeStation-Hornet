@@ -33,7 +33,7 @@
 		/obj/item/book/manual/wiki/atmospherics = 12,
 		/obj/item/tank/internals/emergency_oxygen/engi = 10,
 		/obj/item/clothing/mask/gas = 10,
-		/obj/effect/spawner/mail/maintloot = 7,
+		/obj/effect/spawner/random/maintenance = 7,
 		/obj/item/tank/internals/plasma/empty = 5,
 		/obj/item/crowbar/large = 3,
 	)
@@ -98,7 +98,7 @@
 //CARGO TECH
 /datum/job/cargo_technician
 	mail_goodies = list(
-		/obj/effect/spawner/mail/maintloot = 15,
+		/obj/effect/spawner/random/maintenance = 15,
 		/obj/item/pizzabox = 10,
 		/obj/item/ammo_box/a762 = 3,
 		//URAAAAHH
