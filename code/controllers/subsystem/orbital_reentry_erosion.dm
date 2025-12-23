@@ -4,8 +4,8 @@
 #define EROSION_ALTITUDE_SEVERE 85000  // 85km - Heavy damage
 #define EROSION_ALTITUDE_EXTREME 80000  // 80km - Maximum damage
 
-SUBSYSTEM_DEF(reentry_erosion)
-	name = "Reentry Erosion"
+SUBSYSTEM_DEF(orbital_reentry_erosion)
+	name = "Orbital Reentry Erosion"
 	wait = 1 SECONDS
 	dependencies = list(
 		/datum/controller/subsystem/mapping,
@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(reentry_erosion)
 	/// Is the subsystem currently active (altitude-based)?
 	var/erosion_active = FALSE
 
-/datum/controller/subsystem/reentry_erosion/Initialize()
+/datum/controller/subsystem/orbital_reentry_erosion/Initialize()
 	// Disable for planetary stations
 	if(SSmapping.current_map.planetary_station)
 		can_fire = FALSE
@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(reentry_erosion)
 
 	return SS_INIT_SUCCESS
 
-/datum/controller/subsystem/reentry_erosion/proc/has_real_contents(turf/tile)
+/datum/controller/subsystem/orbital_reentry_erosion/proc/has_real_contents(turf/tile)
 	// Check if the tile has any real contents (objects or mobs)
 	if (!tile)
 		return FALSE
@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(reentry_erosion)
 
 	return has_contents
 
-/datum/controller/subsystem/reentry_erosion/proc/is_real(atom/thing)
+/datum/controller/subsystem/orbital_reentry_erosion/proc/is_real(atom/thing)
 	if (isobj(thing))
 		if (!iseffect(thing)) // With exceptions :3
 			return TRUE
@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(reentry_erosion)
 	return FALSE
 
 
-/datum/controller/subsystem/reentry_erosion/fire(resumed)
+/datum/controller/subsystem/orbital_reentry_erosion/fire(resumed)
 	// Check if we should be active based on altitude
 	var/current_altitude = SSorbital_altitude.orbital_altitude
 	var/should_be_active = current_altitude < EROSION_ALTITUDE_START
@@ -154,7 +154,7 @@ SUBSYSTEM_DEF(reentry_erosion)
 		if (MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/reentry_erosion/proc/get_damage_multiplier(altitude)
+/datum/controller/subsystem/orbital_reentry_erosion/proc/get_damage_multiplier(altitude)
 	// No damage above EROSION_ALTITUDE_START
 	if (altitude >= EROSION_ALTITUDE_START)
 		return 0
@@ -174,7 +174,7 @@ SUBSYSTEM_DEF(reentry_erosion)
 	// Maximum damage below EROSION_ALTITUDE_EXTREME. Though this should not really be reachable.
 	return 4.0
 
-/datum/controller/subsystem/reentry_erosion/proc/apply_erosion_damage(turf/target_tile, damage_multiplier)
+/datum/controller/subsystem/orbital_reentry_erosion/proc/apply_erosion_damage(turf/target_tile, damage_multiplier)
 	// Very light fire effect only (no damage)
 	if (damage_multiplier <= 0.1)
 		// Only spawn fire visual, no actual damage

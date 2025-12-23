@@ -1,5 +1,5 @@
-SUBSYSTEM_DEF(reentry_lighting)
-	name = "Re-Entry Lighting"
+SUBSYSTEM_DEF(orbital_visuals)
+	name = "Orbital Visuals"
 	can_fire = TRUE
 	wait = 0.1 SECONDS
 	flags = SS_NO_INIT | SS_KEEP_TIMING
@@ -11,17 +11,28 @@ SUBSYSTEM_DEF(reentry_lighting)
 	/// List of fire colors for atmospheric re-entry effects
 	var/list/fire_colors = list(LIGHT_COLOR_FIRE, LIGHT_COLOR_LAVA, LIGHT_COLOR_ORANGE, "#FF4500", "#FF6B00", "#FFA500")
 
-/datum/controller/subsystem/reentry_lighting/fire(resumed = FALSE)
+/datum/controller/subsystem/orbital_visuals/fire(resumed = FALSE)
 	// Disable for planetary stations (they don't orbit)
 	if(SSmapping.current_map.planetary_station)
 		can_fire = FALSE
 		return
 
+	// Get current orbital altitude
+	var/orbital_altitude = SSorbital_altitude.orbital_altitude
+
+	// Start atmospheric fire effects at 95km (LOW threshold) for early warning
+	if(orbital_altitude < ORBITAL_ALTITUDE_LOW && !atmospheric_fire_effect_active)
+		start_atmospheric_fire_effect()
+
 	// Update visual atmospheric fire effects
 	if(atmospheric_fire_effect_active)
 		flicker_atmospheric_fire_effect()
 
-/datum/controller/subsystem/reentry_lighting/proc/start_atmospheric_fire_effect()
+	// Stop fire effects when safely above 95km (hysteresis to prevent flickering)
+	if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && atmospheric_fire_effect_active)
+		stop_atmospheric_fire_effect()
+
+/datum/controller/subsystem/orbital_visuals/proc/start_atmospheric_fire_effect()
 	if(atmospheric_fire_effect_active)
 		return
 
@@ -33,7 +44,7 @@ SUBSYSTEM_DEF(reentry_lighting)
 	var/brightened = brighten_color(initial_color, 1.15) // 15% brighter for subtle effect
 	set_starlight_colour(brightened, 2 SECONDS) // Slow fade-in
 
-/datum/controller/subsystem/reentry_lighting/proc/flicker_atmospheric_fire_effect()
+/datum/controller/subsystem/orbital_visuals/proc/flicker_atmospheric_fire_effect()
 	if(!atmospheric_fire_effect_active)
 		return
 
@@ -61,7 +72,7 @@ SUBSYSTEM_DEF(reentry_lighting)
 	var/brightened_color = brighten_color(picked_color, base_brightness + (flicker_intensity / 300))
 	set_starlight_colour(brightened_color, transition_time)
 
-/datum/controller/subsystem/reentry_lighting/proc/brighten_color(color_input, multiplier)
+/datum/controller/subsystem/orbital_visuals/proc/brighten_color(color_input, multiplier)
 	// Extract RGB components from hex color
 	var/r = hex2num(copytext(color_input, 2, 4))
 	var/g = hex2num(copytext(color_input, 4, 6))
@@ -75,7 +86,7 @@ SUBSYSTEM_DEF(reentry_lighting)
 	// Convert back to hex color
 	return rgb(r, g, b)
 
-/datum/controller/subsystem/reentry_lighting/proc/stop_atmospheric_fire_effect()
+/datum/controller/subsystem/orbital_visuals/proc/stop_atmospheric_fire_effect()
 	if(!atmospheric_fire_effect_active)
 		return
 

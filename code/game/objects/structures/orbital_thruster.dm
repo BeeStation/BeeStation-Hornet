@@ -22,9 +22,9 @@
 	var/has_fuel = FALSE
 
 	/// How many moles of propellant needed per thrust level per tick
-	var/propellant_per_thrust = 0.20
+	var/propellant_per_thrust = 0.1
 	/// Target buffer amount for propellant
-	var/buffer_target = 15
+	var/buffer_target = 10
 	/// Internal fuel buffer separate from the pipe connection because I cannot fucking get the pipe to stop equalizing
 	var/datum/gas_mixture/fuel_buffer
 
