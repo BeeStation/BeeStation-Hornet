@@ -435,7 +435,6 @@
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
-	//slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
 	var/badge_title = "Security Officer"
 	var/officer_name
 
