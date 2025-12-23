@@ -1670,12 +1670,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/obj/item/card/id/ID = GetID()
 	if(ID)
 		if(whole_word)
-			. = "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a> <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+			return "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a> <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
 		else
-			. = "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+			return "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
 	else
 		if(whole_word)
-			. = "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a>"
+			return "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a>"
 		else
-			. = "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
+			return "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
 
