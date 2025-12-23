@@ -534,7 +534,7 @@
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
 	Cinematic(get_cinematic_type(off_station),world)
-	ASSERT(!isnull(bomb_z_level), "/obj/machinery/nuclearbomb/really_actually_explode() was called without a z level!"
+	ASSERT(!isnull(bomb_z_level), "/obj/machinery/nuclearbomb/really_actually_explode() was called without a z level!")
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(kill_everyone_on_z_group), bomb_z_level)
 	qdel(src)
 
