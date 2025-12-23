@@ -76,7 +76,7 @@
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_x = -30
 	},
-/obj/effect/spawner/lootdrop/sanitarium,
+/obj/effect/spawner/random/badcode/sanitarium,
 /turf/open/floor/plating,
 /area/template_noop)
 "iK" = (

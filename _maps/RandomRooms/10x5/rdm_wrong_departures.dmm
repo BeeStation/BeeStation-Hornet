@@ -17,7 +17,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
@@ -41,7 +41,7 @@
 "m" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
@@ -118,7 +118,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark/side{
 	dir = 6
 	},
@@ -210,7 +210,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark/side{
 	dir = 5
 	},
