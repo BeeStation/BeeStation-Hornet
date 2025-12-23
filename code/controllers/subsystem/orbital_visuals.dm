@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	if(atmospheric_fire_effect_active)
 		flicker_atmospheric_fire_effect()
 
-	// Stop fire effects when safely above 95km (hysteresis to prevent flickering)
+	// Stop fire effects when safely above 95km
 	if(orbital_altitude >= ORBITAL_ALTITUDE_LOW && atmospheric_fire_effect_active)
 		stop_atmospheric_fire_effect()
 
