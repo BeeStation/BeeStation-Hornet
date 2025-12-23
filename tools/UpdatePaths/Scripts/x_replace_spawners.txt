@@ -106,5 +106,7 @@
 /obj/effect/spawner/lootdrop/teratoma/minor : /obj/effect/spawner/random/medical/teratoma/minor
 /obj/effect/spawner/lootdrop/teratoma/robot : /obj/effect/spawner/random/medical/teratoma/robot
 
+/obj/effect/spawner/mail/maintloot : /obj/effect/spawner/random/maintenance
+
 #comment I don't know why this one fucks up, so we do it manually here
 /obj/effect/spawner/bundle/costume/cutewitch : /obj/effect/spawner/costume/cutewitch
