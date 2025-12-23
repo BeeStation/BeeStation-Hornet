@@ -5,5 +5,5 @@
 
 /obj/emitter/thruster_jet/Initialize(mapload)
 	. = ..()
-	add_filter("outline", 1, list(type = "outline", size = 2, color = "#FF3300"))
-	add_filter("bloom", 2, list(type = "bloom", threshold = rgb(255,128,100), size = 6, offset = 3, alpha = 200))
+	// Blue-cyan-purple glow filters instead of orange
+	add_filter("bloom", 2, list(type = "bloom", threshold = rgb(199, 255, 254), size = 6, offset = 3, alpha = 150))

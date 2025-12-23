@@ -48,11 +48,18 @@
 	SSorbital_altitude.orbital_thrusters -= src
 	return ..()
 
+/obj/machinery/atmospherics/components/unary/orbital_thruster/process()
+	// Gradually step thrust_level toward requested_thrust (one level per tick)
+	if(thrust_level < requested_thrust)
+		thrust_level++
+	else if(thrust_level > requested_thrust)
+		thrust_level--
+
 /obj/machinery/atmospherics/components/unary/orbital_thruster/process_atmos()
 	..()
 
 	// Calculate required propellant (use absolute value for consumption)
-	var/required_moles = abs(requested_thrust) * propellant_per_thrust
+	var/required_moles = abs(thrust_level) * propellant_per_thrust
 
 	// Check if we have enough propellant in our air network
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -67,9 +74,8 @@
 		// Consume the propellant
 		air_contents.remove(required_moles)
 		has_fuel = TRUE
-		thrust_level = requested_thrust
 	else
-		// Not enough fuel
+		// Not enough fuel - stop the thruster
 		has_fuel = FALSE
 		thrust_level = 0
 
@@ -102,15 +108,18 @@
 
 	/// Current visual thrust level
 	var/visual_thrust = 0
-	/// Particle effect holder
-	var/obj/effect/abstract/particle_holder/particle_effect
+	/// Sound loop for the thruster
+	var/datum/looping_sound/orbital_thruster/soundloop
 
 /obj/machinery/orbital_thruster_nozzle/Initialize(mapload)
 	. = ..()
 	begin_processing()
+	soundloop = new(src, FALSE)
 
 /obj/machinery/orbital_thruster_nozzle/Destroy()
-	QDEL_NULL(particle_effect)
+	if(visual_thrust > 0)
+		remove_emitter("thruster")
+	QDEL_NULL(soundloop)
 	return ..()
 
 /obj/machinery/orbital_thruster_nozzle/process()
@@ -123,44 +132,87 @@
 	else if(target_thrust == 0 && visual_thrust > 0)
 		stop_thruster_effect()
 
+	// Update sound loop based on thrust level
+	if(target_thrust > 0)
+		if(!soundloop.loop_started)
+			soundloop.start()
+		// Calculate volume based on thrust percentage (0-40 range maps to 30-100 volume)
+		soundloop.volume = clamp(30 + ((target_thrust / 40) * 70), 30, 100)
+	else if(soundloop.loop_started)
+		soundloop.stop()
+
 	visual_thrust = target_thrust
+
+	// Update appearance for glow overlay
+	update_appearance()
 
 	// Apply damage to anything in the thrust direction
 	if(visual_thrust > 0)
 		apply_thrust_damage()
 
+/obj/machinery/orbital_thruster_nozzle/update_overlays()
+	. = ..()
+	if(visual_thrust > 0)
+		var/mutable_appearance/glow = mutable_appearance('icons/obj/orbital_thrust_effect.dmi', "glow")
+		// Calculate alpha based on thrust level (0-40 range from subsystem)
+		// Scale from 0 to 255 alpha
+		glow.alpha = clamp((visual_thrust / 40) * 255, 0, 255)
+		glow.pixel_x = -32
+		glow.pixel_y = -8
+		glow.layer = ABOVE_OBJ_LAYER
+		. += glow
+
 /obj/machinery/orbital_thruster_nozzle/proc/update_thruster_effect(thrust)
-	// Create particle effect if it doesn't exist
-	if(!particle_effect)
-		particle_effect = new(src)
-		particle_effect.add_emitter(/obj/emitter/thruster_jet, "thruster")
-		vis_contents += particle_effect
+	// Add or update the thruster effect
+	if(!master_holder || !master_holder.emitters["thruster"])
+		add_emitter(/obj/emitter/thruster_jet, "thruster")
+
+	// Update particle intensity based on thrust level (0-40 range from subsystem)
+	if(master_holder && master_holder.emitters["thruster"])
+		var/obj/emitter/thruster_jet/emitter = master_holder.emitters["thruster"]
+		if(emitter && emitter.particles)
+			// Scale count from 0 to 1000 based on thrust (0-40)
+			emitter.particles.count = clamp(thrust * 25, 0, 1000)
+			// Scale spawning from 1 to 10 based on thrust
+			emitter.particles.spawning = clamp(thrust * 0.25, 1, 10)
 
 /obj/machinery/orbital_thruster_nozzle/proc/stop_thruster_effect()
-	if(particle_effect)
-		vis_contents -= particle_effect
-		QDEL_NULL(particle_effect)
+	remove_emitter("thruster")
 
 /obj/machinery/orbital_thruster_nozzle/proc/apply_thrust_damage()
-	// Find the turf in front of the thruster based on direction
-	var/turf/target_turf = get_step(src, dir)
-	if(!target_turf)
+	// Cast a ray 5 tiles in the direction of the thruster
+	var/turf/current_turf = get_turf(src)
+	if(!current_turf)
 		return
 
-	// Calculate damage based on thrust level
-	var/damage = visual_thrust * 5 // 0-100 damage based on thrust level
+	// Calculate base damage based on thrust level
+	var/base_damage = SSorbital_altitude.thrust * 2
 
-	// Apply damage to all mobs in the target turf
-	for(var/mob/living/L in target_turf)
-		L.adjustFireLoss(damage)
-		if(damage > 20)
-			L.throw_at(get_edge_target_turf(target_turf, dir), 5, 1)
+	// Cast ray for 5 tiles
+	for(var/i = 1 to 5)
+		current_turf = get_step(current_turf, dir)
+		if(!current_turf)
+			break
 
-	// Also damage objects
-	for(var/obj/O in target_turf)
-		if(O.resistance_flags & INDESTRUCTIBLE)
-			continue
-		O.take_damage(damage / 2)
+		// Get the current turf and its adjacent turfs
+		var/list/affected_turfs = list(current_turf)
+		affected_turfs += get_adjacent_open_turfs(current_turf)
+
+		// Calculate damage falloff based on distance (100% at tile 1, 20% at tile 5)
+		var/distance_multiplier = 1 - ((i - 1) * 0.2)
+		var/damage = base_damage * distance_multiplier
+
+		// Apply damage to all affected turfs
+		for(var/turf/T in affected_turfs)
+			// Apply damage to all mobs in the turf
+			for(var/mob/living/L in T)
+				L.adjustFireLoss(damage)
+
+			// Also damage objects
+			for(var/obj/O in T)
+				if(O.resistance_flags & INDESTRUCTIBLE)
+					continue
+				O.take_damage(damage / 2)
 
 
 
