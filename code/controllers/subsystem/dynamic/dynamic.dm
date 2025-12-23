@@ -434,8 +434,14 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(unfiltered_rules)
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
-		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
+		log_dynamic("SUPPLEMENTARY: Starting a round of forced extended.")
 		return
+
+	// Cancel if the gamemode prevents other rulesets from spawning
+	for (var/datum/dynamic_ruleset/gamemode/gamemode in executed_gamemodes)
+		if (gamemode.ruleset_flags & NO_OTHER_RULESETS)
+			log_dynamic("SUPPLEMENTARY: A gamemode ruleset has executed which prevents the execution of supplementary rulesets!")
+			return
 
 	// Check for forced rulesets
 	if(!roundstart_blacklist_forced_rulesets)
@@ -446,8 +452,8 @@ SUBSYSTEM_DEF(dynamic)
 			forced_ruleset.minimum_players_required = 0 // lel
 
 			if(!forced_ruleset.allowed())
-				log_dynamic("ROUNDSTART: Could not force [forced_ruleset]")
-				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
+				log_dynamic("SUPPLEMENTARY: Could not force [forced_ruleset]")
+				message_admins("DYNAMIC: SUPPLEMENTARY: Could not force [forced_ruleset]")
 				continue
 
 			var/datum/dynamic_ruleset/supplementary/new_forced_roundstart_ruleset = forced_ruleset.duplicate()
@@ -456,8 +462,8 @@ SUBSYSTEM_DEF(dynamic)
 
 			forced_ruleset.candidates = null
 
-			log_dynamic("ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
-			message_admins("DYNAMIC: ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
+			log_dynamic("SUPPLEMENTARY: Forced [new_forced_roundstart_ruleset]")
+			message_admins("DYNAMIC: SUPPLEMENTARY: Forced [new_forced_roundstart_ruleset]")
 
 	if(roundstart_only_use_forced_rulesets)
 		return
@@ -502,7 +508,7 @@ SUBSYSTEM_DEF(dynamic)
 			ruleset.candidates = null
 			ruleset.chosen_candidates = null
 
-			log_dynamic("ROUNDSTART: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
+			log_dynamic("SUPPLEMENTARY: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			executed_supplementary_rulesets -= ruleset
 
 /datum/controller/subsystem/dynamic/proc/get_weighted_executable_supplementary_rulesets(list/rulesets, for_midround = FALSE)
@@ -857,6 +863,11 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
 	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
+
+	// Cancel if the gamemode prevents other rulesets from spawning
+	for (var/datum/dynamic_ruleset/gamemode/gamemode in executed_gamemodes)
+		if (gamemode.ruleset_flags & NO_OTHER_RULESETS)
+			return
 
 	supplementary_points += supplementary_points_per_ready * supplementary_point_divergence
 
