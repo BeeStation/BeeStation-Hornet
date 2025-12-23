@@ -22805,8 +22805,19 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/meter,
 /obj/effect/turf_decal/bot,
+/obj/structure/table,
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 3;
+	pixel_y = -1
+	},
+/obj/item/paper/guides/jobs/engi/solars,
+/obj/item/extinguisher/advanced{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/catwalk_floor,
 /area/engine/atmospherics_engine)
 "hMK" = (
@@ -36668,14 +36679,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/engine)
-"mGp" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/obj/machinery/power/solar_control{
-	dir = 1
-	},
-/turf/open/space/basic,
-/area/solar/starboard/aft)
 "mGv" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	alpha = 180;
@@ -44003,9 +44006,6 @@
 "pgc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/machinery/camera/directional/west,
@@ -49439,24 +49439,18 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
-	},
-/obj/item/storage/toolbox/emergency{
-	pixel_x = 3;
-	pixel_y = -1
 	},
 /obj/item/radio/intercom{
 	pixel_y = -26
 	},
-/obj/item/extinguisher/advanced{
-	pixel_x = -8;
-	pixel_y = 2
+/obj/machinery/power/solar_control{
+	dir = 1
 	},
-/obj/item/paper/guides/jobs/engi/solars,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/iron/dark,
 /area/engine/atmospherics_engine)
 "rcw" = (
@@ -113139,8 +113133,8 @@ egp
 egp
 egp
 pgc
-egp
-mGp
+nBj
+nBj
 bhN
 gsA
 gsA
