@@ -1,0 +1,6 @@
+author: pixelpoepleman
+delete-after: true
+changes:
+  - bugfix: Meta stationside AI sat access airlocks now cycle.
+  - bugfix: Meta stationside AI sat access air vent now connected to distro
+  - bugfix: A couple stairs in Card now allow you to pass them.
