@@ -32,7 +32,7 @@
 			options[initial(power.name)] = power
 
 			var/datum/radial_menu_choice/option = new
-			option.image = image(icon = initial(power.icon_icon), icon_state = initial(power.button_icon_state))
+			option.image = image(icon = initial(power.button_icon), icon_state = initial(power.button_icon_state))
 			option.info = "[span_boldnotice(initial(power.name))]\n[span_cult(power.power_explanation)]"
 			radial_display[initial(power.name)] = option
 
@@ -109,7 +109,7 @@
 	if(vampiredatum.vampire_level_unspent > 0)
 		spend_rank(carbon_vassal)
 
-/datum/vampire_clan/ventrue/interact_with_vassal(datum/antagonist/vampire/source, datum/antagonist/vassal/favorite/vassaldatum)
+/datum/vampire_clan/ventrue/interact_with_vassal(datum/antagonist/vassal/favorite/vassaldatum)
 	. = ..()
 	if(.)
 		return TRUE
@@ -121,7 +121,7 @@
 		spend_rank(vassaldatum.owner.current)
 		return TRUE
 
-	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels or enough to rank [vassaldatum.owner.current] up with."))
+	to_chat(vampiredatum.owner.current, span_danger("You don't have any levels to rank [vassaldatum.owner.current] up with."))
 	return TRUE
 
 /datum/vampire_clan/ventrue/on_favorite_vassal(datum/antagonist/vassal/favorite/favorite_vassal)

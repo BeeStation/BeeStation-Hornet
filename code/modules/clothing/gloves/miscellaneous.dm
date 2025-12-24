@@ -3,21 +3,21 @@
 	name = "fingerless gloves"
 	desc = "Plain black gloves without fingertips for the hard working."
 	icon_state = "fingerless"
-	item_state = "fingerless"
+	inhand_icon_state = "fingerless"
 	worn_icon_state = "fingerless"
-	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	custom_price = 10
 	undyeable = TRUE
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
 /obj/item/clothing/gloves/botanic_leather
 	name = "botanist's leather gloves"
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin.  They're also quite warm."
 	icon_state = "leather"
-	item_state = "ggloves"
+	inhand_icon_state = "ggloves"
 	worn_icon_state = "ggloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -37,7 +37,7 @@
 	name = "combat gloves"
 	desc = "These tactical gloves are fireproof and shock resistant."
 	icon_state = "cgloves"
-	item_state = "combatgloves"
+	inhand_icon_state = "combatgloves"
 	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	strip_delay = 80
@@ -48,6 +48,8 @@
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_combat
 	clothing_flags = THICKMATERIAL
+	custom_price = 150
+	trade_flags = TRADE_CONTRABAND
 
 /datum/armor/gloves_combat
 	bio = 90
@@ -60,9 +62,8 @@
 	name = "bone bracers"
 	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
 	icon_state = "bracers"
-	item_state = "bracers"
+	inhand_icon_state = "bracers"
 	worn_icon_state = "bracers"
-	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
 	body_parts_covered = ARMS
@@ -71,6 +72,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor_type = /datum/armor/gloves_bracer
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 
 
 /datum/armor/gloves_bracer
@@ -80,7 +82,6 @@
 	energy = 20
 	bomb = 35
 	bio = 35
-	rad = 35
 	stamina = 20
 	bleed = 20
 
@@ -88,10 +89,10 @@
 	name = "Gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
 	icon_state = "rapid"
-	item_state = "rapid"
+	inhand_icon_state = "rapid"
 	worn_icon_state = "rapid"
-	transfer_prints = TRUE
 	item_flags = ISWEAPON
+	clothing_traits = list(TRAIT_FINGERPRINT_PASSTHROUGH)
 	var/warcry = "AT"
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
@@ -124,7 +125,7 @@
 	name = "white gloves"
 	desc = "These look pretty fancy."
 	icon_state = "white"
-	item_state = "wgloves"
+	inhand_icon_state = "wgloves"
 	var/range = 3
 
 /obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, params)
@@ -155,9 +156,8 @@
 	name = "anti-tactile pinchers"
 	desc = "Used for the fine manipulation and examination of artifacts."
 	icon_state = "pincher"
-	item_state = "pincher"
+	inhand_icon_state = "pincher"
 	worn_icon_state = "pincher"
-	transfer_prints = FALSE
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
 
@@ -168,7 +168,7 @@
 
 /datum/action/item_action/artifact_pincher_mode
 	name = "Toggle Safety"
-	button_icon = null
+	background_icon = null
 
 /datum/action/item_action/artifact_pincher_mode/on_activate(mob/user, atom/target)
 	. = ..()
@@ -184,3 +184,13 @@
 		var/obj/item/clothing/gloves/artifact_pinchers/pinchy = master
 		if(istype(pinchy))
 			button.color = (pinchy.safety ? "#0f0" : "#fff")
+
+/obj/item/clothing/gloves/translocation_ring
+	name = "ring of translocation"
+	desc = "A ring that allows the wearer to swap places with another person they can see."
+	icon_state = "ring"
+	inhand_icon_state = "ring"
+	actions_types = list(/datum/action/spell/pointed/swap_places)
+
+/obj/item/clothing/gloves/translocation_ring/item_action_slot_check(slot, mob/user)
+	return slot == ITEM_SLOT_GLOVES

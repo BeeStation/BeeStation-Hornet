@@ -17,7 +17,7 @@
 	inherent_traits = list(
 		TRAIT_TACKLING_WINGED_ATTACKER
 	)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID |  MOB_BUG
 	mutant_bodyparts = list(
 		"moth_wings" = "Plain",
 		"moth_antennae" = "Plain",
@@ -96,7 +96,7 @@
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "wrap_0"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/cocoon/on_activate()
 	var/mob/living/carbon/H = owner

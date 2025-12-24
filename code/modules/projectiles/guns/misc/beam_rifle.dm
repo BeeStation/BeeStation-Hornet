@@ -13,7 +13,7 @@
 	desc = "An energy-based anti material marksman rifle that uses highly charged particle beams moving at extreme velocities to decimate whatever is unfortunate enough to be targeted by one." + span_boldnotice("Hold down left click while scoped to aim, when weapon is fully aimed (Tracer goes from red to green as it charges), release to fire. Moving while aiming or changing where you're pointing at while aiming will delay the aiming process depending on how much you changed.")
 	icon = 'icons/obj/guns/energy.dmi'
 	icon_state = "esniper"
-	item_state = null
+	inhand_icon_state = null
 	worn_icon_state = null
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
@@ -408,7 +408,7 @@
 	damage_type = BURN
 	armor_flag = ENERGY
 	range = 150
-	jitter = 10
+	jitter = 20 SECONDS
 	var/obj/item/gun/energy/beam_rifle/gun
 	var/structure_pierce_amount = 0				//All set to 0 so the gun can manually set them during firing.
 	var/structure_bleed_coeff = 0

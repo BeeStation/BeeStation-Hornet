@@ -4,13 +4,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	icon_state = "white"
-	item_state = "wgloves"
+	inhand_icon_state = "wgloves"
 	siemens_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb_continuous = list("challenges")
 	attack_verb_simple = list("challenge")
-	var/transfer_prints = FALSE
 	strip_delay = 20
 	equip_delay_other = 40
 	// Path variable. If defined, will produced the type through interaction with wirecutters.
@@ -34,9 +33,9 @@
 
 	if(damaged_clothes)
 		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedgloves", item_layer)
-	if(HAS_BLOOD_DNA(src))
+	if(GET_ATOM_BLOOD_DNA_LENGTH(src))
 		var/mutable_appearance/bloody_hands = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", item_layer)
-		bloody_hands.color = get_blood_dna_color(return_blood_DNA())
+		bloody_hands.color = get_blood_dna_color(GET_ATOM_BLOOD_DNA(src))
 		. += bloody_hands
 
 /obj/item/clothing/gloves/update_clothes_damaged_state(damaged_state = CLOTHING_DAMAGED)

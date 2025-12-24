@@ -8,13 +8,13 @@
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
+	custom_price = 160
 	var/static/list/typecache_to_take
 
 /obj/structure/ore_box/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/stack/ore)
-	AddComponent(/datum/component/rad_insulation, 0.01) //please datum mats no more cancer
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))

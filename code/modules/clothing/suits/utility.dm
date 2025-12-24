@@ -18,7 +18,7 @@
 	name = "emergency firesuit"
 	desc = "A suit that helps protect against fire and heat."
 	icon_state = "fire"
-	item_state = "ro_suit"
+	inhand_icon_state = "ro_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.9
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -50,7 +50,6 @@
 	energy = 10
 	bomb = 20
 	bio = 50
-	rad = 20
 	fire = 100
 	acid = 50
 	stamina = 10
@@ -58,20 +57,20 @@
 
 /obj/item/clothing/suit/utility/fire/firefighter
 	icon_state = "firesuit"
-	item_state = "firefighter"
+	inhand_icon_state = "firefighter"
 
 /obj/item/clothing/suit/utility/fire/heavy
 	name = "heavy firesuit"
 	desc = "An old, bulky thermal protection suit."
 	icon_state = "thermal"
-	item_state = "ro_suit"
+	inhand_icon_state = "ro_suit"
 	slowdown = 1.5
 
 /obj/item/clothing/suit/utility/fire/atmos
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
 	icon_state = "atmos_firesuit"
-	item_state = "firesuit_atmos"
+	inhand_icon_state = "firesuit_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	allowed = list(/obj/item/flashlight, /obj/item/extinguisher, /obj/item/crowbar, /obj/item/tank/internals, /obj/item/powertool/jaws_of_life)
 
@@ -95,6 +94,7 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
+	custom_price = 50
 
 
 
@@ -112,7 +112,7 @@
 	name = "bomb suit"
 	desc = "A suit designed for safety when handling explosives."
 	icon_state = "bombsuit"
-	item_state = "bombsuit"
+	inhand_icon_state = "bombsuit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	clothing_flags = THICKMATERIAL
@@ -127,6 +127,7 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
+	custom_price = 100
 
 
 /datum/armor/utility_bomb_suit
@@ -142,21 +143,21 @@
 
 /obj/item/clothing/head/utility/bomb_hood/security
 	icon_state = "bombsuit_sec"
-	item_state = "bombsuit_sec"
+	inhand_icon_state = "bombsuit_sec"
 
 /obj/item/clothing/suit/utility/bomb_suit/security
 	icon_state = "bombsuit_sec"
-	item_state = "bombsuit_sec"
+	inhand_icon_state = "bombsuit_sec"
 	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
 
 
 /obj/item/clothing/head/utility/bomb_hood/white
 	icon_state = "bombsuit_white"
-	item_state = "bombsuit_white"
+	inhand_icon_state = "bombsuit_white"
 
 /obj/item/clothing/suit/utility/bomb_suit/white
 	icon_state = "bombsuit_white"
-	item_state = "bombsuit_white"
+	inhand_icon_state = "bombsuit_white"
 
 /*
 * Radiation protection
@@ -172,12 +173,14 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	rad_flags = RAD_PROTECT_CONTENTS
+	custom_price = 50
 
+/obj/item/clothing/head/utility/radiation/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/utility_radiation
 	bio = 60
-	rad = 100
 	fire = 30
 	acid = 30
 	stamina = 10
@@ -187,7 +190,7 @@
 	name = "radiation suit"
 	desc = "A suit that protects against radiation. The label reads, 'Made with lead. Please do not consume insulation.'"
 	icon_state = "rad"
-	item_state = "rad_suit"
+	inhand_icon_state = "rad_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.9
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -197,17 +200,9 @@
 	strip_delay = 60
 	equip_delay_other = 60
 	flags_inv = HIDEJUMPSUIT
-	rad_flags = RAD_PROTECT_CONTENTS
-
-
-/datum/armor/utility_radiation
-	bio = 60
-	rad = 100
-	fire = 30
-	acid = 30
-	stamina = 10
-	bleed = 15
+	custom_price = 100
 
 /obj/item/clothing/suit/utility/radiation/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)

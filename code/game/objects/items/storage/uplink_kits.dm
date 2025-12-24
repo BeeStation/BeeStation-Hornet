@@ -609,6 +609,7 @@
 	new /obj/item/restraints/handcuffs/fake(src)
 	new /obj/item/toy/windupToolbox(src)
 	new /obj/item/toy/toy_dagger(src)
+	new /obj/item/clothing/neck/cloak/fakehalo(src)
 	new /obj/item/toy/sword(src)
 	new /obj/item/dualsaber/toy(src)
 	new /obj/item/toy/gun(src)
@@ -626,3 +627,12 @@
 	new /obj/item/gun/ballistic/automatic/pistol/der38(src)
 	for (var/i in 1 to 6)
 		new /obj/item/ammo_casing/a357(src)
+
+/obj/item/storage/box/syndie_kit/pinata
+	name = "weapons grade pinata kit"
+	desc = "Contains a weapons grade pinata and 2 belts for carrying its contents."
+
+/obj/item/storage/box/syndie_kit/pinata/PopulateContents()
+	new /obj/item/pinata/syndie(src)
+	new /obj/item/storage/belt/grenade(src)
+	new /obj/item/storage/belt/military/snack(src)

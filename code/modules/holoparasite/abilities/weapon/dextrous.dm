@@ -66,27 +66,29 @@
 /datum/holoparasite_ability/weapon/dextrous/New(datum/holoparasite_stats/master_stats)
 	. = ..()
 	if(!forbidden_guns)
-		forbidden_guns = typecacheof(list(
-			/obj/item/gun/ballistic/automatic/ar,
-			/obj/item/gun/ballistic/automatic/c20r,
-			/obj/item/gun/ballistic/automatic/gyropistol,
-			/obj/item/gun/ballistic/automatic/l6_saw,
-			/obj/item/gun/ballistic/automatic/m90,
-			/obj/item/gun/ballistic/automatic/mini_uzi,
-			/obj/item/gun/ballistic/automatic/proto,
-			/obj/item/gun/ballistic/automatic/tommygun,
-			/obj/item/gun/ballistic/automatic/wt550,
+		forbidden_guns = zebra_typecacheof(list(
+			/obj/item/gun/ballistic/automatic/ar = TRUE,
+			/obj/item/gun/ballistic/automatic/c20r = TRUE,
+			/obj/item/gun/ballistic/automatic/gyropistol = TRUE,
+			/obj/item/gun/ballistic/automatic/l6_saw = TRUE,
+			/obj/item/gun/ballistic/automatic/m90 = TRUE,
+			/obj/item/gun/ballistic/automatic/mini_uzi = TRUE,
+			/obj/item/gun/ballistic/automatic/proto = TRUE,
+			/obj/item/gun/ballistic/automatic/tommygun = TRUE,
+			/obj/item/gun/ballistic/automatic/wt550 = TRUE,
 			/obj/item/gun/ballistic/rocketlauncher,
-			/obj/item/gun/ballistic/shotgun,
-			/obj/item/gun/ballistic/sniper_rifle,
-			/obj/item/gun/blastcannon,
-			/obj/item/gun/energy/beam_rifle,
-			/obj/item/gun/energy/gravity_gun,
-			/obj/item/gun/energy/lasercannon,
-			/obj/item/gun/energy/pulse,
-			/obj/item/gun/grenadelauncher,
-			/obj/item/gun/magic
-		)) - typecacheof(list(/obj/item/gun/magic/staff/honk)) // honestly holopara with honk staff just sounds kinda funny, so I'm just gonna let it happen, until proven otherwise I guess.
+			/obj/item/gun/ballistic/shotgun = TRUE,
+			/obj/item/gun/ballistic/sniper_rifle = TRUE,
+			/obj/item/gun/blastcannon = TRUE,
+			/obj/item/gun/energy/beam_rifle = TRUE,
+			/obj/item/gun/energy/gravity_gun = TRUE,
+			/obj/item/gun/energy/lasercannon = TRUE,
+			/obj/item/gun/energy/pulse = TRUE,
+			/obj/item/gun/grenadelauncher = TRUE,
+			/obj/item/gun/magic = TRUE,
+			// honestly holopara with honk staff just sounds kinda funny, so I'm just gonna let it happen, until proven otherwise I guess.
+			/obj/item/gun/magic/staff/honk = FALSE,
+		))
 
 /datum/holoparasite_ability/weapon/dextrous/apply()
 	max_w_class = master_stats.potential >= 5 ? WEIGHT_CLASS_BULKY : clamp(master_stats.potential, WEIGHT_CLASS_TINY, WEIGHT_CLASS_NORMAL)
@@ -151,13 +153,12 @@
 	create_misc_hud(hud, huds_to_add)
 
 /datum/holoparasite_ability/weapon/dextrous/proc/create_storage_hud(datum/hud/holoparasite/hud)
-	var/atom/movable/screen/inventory/inv_box = new /atom/movable/screen/inventory()
+	var/atom/movable/screen/inventory/inv_box = new /atom/movable/screen/inventory(null, hud)
 	inv_box.name = "internal storage"
 	inv_box.icon = hud.ui_style
 	inv_box.icon_state = "suit_storage"
 	inv_box.screen_loc = ui_inventory
 	inv_box.slot_id = ITEM_SLOT_DEX_STORAGE
-	inv_box.hud = hud
 	hud.static_inventory |= inv_box
 
 /datum/holoparasite_ability/weapon/dextrous/proc/create_misc_hud(datum/hud/holoparasite/hud, list/huds_to_add)
@@ -171,10 +172,9 @@
 	hud.zone_select.update_icon()
 	huds_to_add += hud.zone_select
 
-	drop = new
+	drop = new(null, hud)
 	drop.icon = hud.ui_style
 	drop.screen_loc = "CENTER-1:9,SOUTH+1:4"
-	drop.hud = hud
 	drop.update_icon()
 	hud.static_inventory += drop
 
@@ -213,17 +213,18 @@
  */
 /datum/holoparasite_ability/weapon/dextrous/proc/on_examine(datum/source, mob/user, text)
 	SIGNAL_HANDLER
-	var/t_they = owner.p_they(TRUE)
+	var/t_they = owner.p_They()
 	var/t_their = owner.p_their()
 	var/t_is = owner.p_are()
 	for(var/obj/item/item in owner.held_items)
-		if(CHECK_BITFIELD(item.item_flags, ABSTRACT | EXAMINE_SKIP))
+		if(item.item_flags & ABSTRACT || HAS_TRAIT(item, TRAIT_EXAMINE_SKIP))
 			continue
-		text += span_notice("[t_they] [t_is] holding <b>[item.get_examine_string(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].")
+
+		text += span_notice("[t_they] [t_is] holding <b>[item.examine_title(user)]</b> in [t_their] [owner.get_held_index_name(owner.get_held_index_of_item(item))].")
 	if(internal_storage)
-		if(CHECK_BITFIELD(internal_storage.item_flags, ABSTRACT | EXAMINE_SKIP))
+		if(internal_storage.item_flags & ABSTRACT || HAS_TRAIT(internal_storage, TRAIT_EXAMINE_SKIP))
 			return
 		if((!owner.has_matching_summoner(user) && !isobserver(user)) && get_dist(owner, user) > HOLOPARA_DEXTROUS_EXAMINE_DISTANCE)
 			text += span_notice("[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.")
 			return
-		text += span_notice("[t_they] [t_is] holding <b>[internal_storage.get_examine_string(user)]</b> in [t_their] internal storage.")
+		text += span_notice("[t_they] [t_is] holding <b>[internal_storage.examine_title(user)]</b> in [t_their] internal storage.")

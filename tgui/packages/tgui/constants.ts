@@ -144,164 +144,196 @@ export const RADIO_CHANNELS = [
 const GASES = [
   {
     id: 'o2',
+    path: '/datum/gas/oxygen',
     name: 'Oxygen',
     label: 'O₂',
     color: 'blue',
   },
   {
     id: 'n2',
+    path: '/datum/gas/nitrogen',
     name: 'Nitrogen',
     label: 'N₂',
     color: 'yellow',
   },
   {
     id: 'co2',
+    path: '/datum/gas/carbon_dioxide',
     name: 'Carbon Dioxide',
     label: 'CO₂',
     color: 'grey',
   },
   {
     id: 'plasma',
+    path: '/datum/gas/plasma',
     name: 'Plasma',
     label: 'Plasma',
     color: 'pink',
   },
   {
     id: 'water_vapor',
+    path: '/datum/gas/water_vapor',
     name: 'Water Vapor',
     label: 'H₂O',
     color: 'lightsteelblue',
   },
   {
-    id: 'nob',
-    name: 'Hyper-noblium',
-    label: 'Hyper-nob',
+    id: 'hypernoblium',
+    path: '/datum/gas/hypernoblium',
+    name: 'Hyper-Noblium',
+    label: 'Hyper-Noblium',
     color: 'teal',
   },
   {
     id: 'n2o',
+    path: '/datum/gas/nitrous_oxide',
     name: 'Nitrous Oxide',
     label: 'N₂O',
     color: 'bisque',
   },
   {
     id: 'no2',
+    path: '/datum/gas/nitrium',
     name: 'Nitrium',
     label: 'Nitrium',
     color: 'brown',
   },
   {
     id: 'tritium',
+    path: '/datum/gas/tritium',
     name: 'Tritium',
     label: 'Tritium',
     color: 'limegreen',
   },
   {
     id: 'bz',
+    path: '/datum/gas/bz',
     name: 'BZ',
     label: 'BZ',
     color: 'mediumpurple',
   },
   {
-    id: 'pluox',
+    id: 'pluoxium',
+    path: '/datum/gas/pluoxium',
     name: 'Pluoxium',
     label: 'Pluoxium',
     color: 'mediumslateblue',
   },
   {
-    id: 'miasma',
-    name: 'Miasma',
-    label: 'Miasma',
-    color: 'olive',
-  },
-  {
-    id: 'Freon',
+    id: 'freon',
+    path: '/datum/gas/freon',
     name: 'Freon',
     label: 'Freon',
     color: 'paleturquoise',
   },
   {
     id: 'hydrogen',
+    path: '/datum/gas/hydrogen',
     name: 'Hydrogen',
     label: 'H₂',
     color: 'white',
   },
-  // Bee doesn't have most of these \/ - but having them for future proofing is useful. Nothing iterates this list.
   {
     id: 'healium',
+    path: '/datum/gas/healium',
     name: 'Healium',
     label: 'Healium',
     color: 'salmon',
   },
   {
     id: 'proto_nitrate',
+    path: '/datum/gas/proto_nitrate',
     name: 'Proto Nitrate',
-    label: 'Proto-Nitrate',
+    label: 'Proto Nitrate',
     color: 'greenyellow',
   },
   {
     id: 'zauker',
+    path: '/datum/gas/zauker',
     name: 'Zauker',
     label: 'Zauker',
     color: 'darkgreen',
   },
   {
     id: 'halon',
+    path: '/datum/gas/halon',
     name: 'Halon',
     label: 'Halon',
     color: 'purple',
   },
   {
     id: 'helium',
+    path: '/datum/gas/helium',
     name: 'Helium',
     label: 'He',
     color: 'aliceblue',
   },
   {
     id: 'antinoblium',
-    name: 'Antinoblium',
+    path: '/datum/gas/antinoblium',
+    name: 'Anti-Noblium',
     label: 'Anti-Noblium',
     color: 'maroon',
+  },
+  {
+    id: 'nitrium',
+    path: '/datum/gas/nitrium',
+    name: 'Nitrium',
+    label: 'Nitrium',
+    color: 'brown',
   },
 ] as const;
 
 // Returns gas label based on gasId
 export const getGasLabel = (gasId: string, fallbackValue?: string) => {
+  if (!gasId) return fallbackValue || 'None';
+
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find(
-    (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString,
-  );
-  return gas?.label || fallbackValue || gasId;
+
+  for (let idx = 0; idx < GASES.length; idx++) {
+    if (GASES[idx].id === gasSearchString) {
+      return GASES[idx].label;
+    }
+  }
+
+  return fallbackValue || 'None';
 };
 
 // Returns gas color based on gasId
 export const getGasColor = (gasId: string) => {
+  if (!gasId) return 'black';
+
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find(
-    (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString,
-  );
-  return gas?.color;
+
+  for (let idx = 0; idx < GASES.length; idx++) {
+    if (GASES[idx].id === gasSearchString) {
+      return GASES[idx].color;
+    }
+  }
+
+  return 'black';
 };
-
-/*
-From https://github.com/tgstation/tgstation/pull/69240
-
-PLEASE enable the tests in constants.test.ts if you port this
 
 // Returns gas object based on gasId
 export const getGasFromId = (gasId: string): Gas | undefined => {
+  if (!gasId) return;
+
   const gasSearchString = gasId.toLowerCase();
-  const gas = GASES.find(
-    (gas) =>
-      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
-  );
-  return gas;
+
+  for (let idx = 0; idx < GASES.length; idx++) {
+    if (GASES[idx].id === gasSearchString) {
+      return GASES[idx];
+    }
+  }
 };
 
 // Returns gas object based on gasPath
 export const getGasFromPath = (gasPath: string): Gas | undefined => {
-  return GASES.find((gas) => gas.path === gasPath);
+  if (!gasPath) return;
+
+  for (let idx = 0; idx < GASES.length; idx++) {
+    if (GASES[idx].path === gasPath) {
+      return GASES[idx];
+    }
+  }
 };
-*/

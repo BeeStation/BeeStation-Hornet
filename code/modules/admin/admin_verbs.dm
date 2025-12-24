@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/spawnhuman,
 	/client/proc/debug_spell_requirements,
-	/datum/admins/proc/dynamic_panel,
+	/datum/admins/proc/station_traits_panel,
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -218,6 +218,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cmd_clear_smart_asset_cache,
 	/client/proc/view_runtimes,
 	/client/proc/debug_hallucination_weighted_list_per_type,
+	/datum/admins/proc/dynamic_panel,
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
@@ -279,7 +280,6 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/Debug2,
 	/client/proc/reload_admins,
 	/client/proc/cmd_debug_make_powernets,
-	/client/proc/startSinglo,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,

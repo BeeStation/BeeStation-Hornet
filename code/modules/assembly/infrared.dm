@@ -85,7 +85,7 @@
 	if(!istype(start_turf))
 		return
 	// One extra turf is added to max length to get an extra buffer
-	var/list/turf/potential_turfs = getline(start_turf, get_ranged_target_turf(start_turf, dir, maxlength + 1))
+	var/list/turf/potential_turfs = get_line(start_turf, get_ranged_target_turf(start_turf, dir, maxlength + 1))
 	if(!length(potential_turfs))
 		return
 

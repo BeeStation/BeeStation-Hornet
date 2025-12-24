@@ -73,7 +73,7 @@
 	source.cause_hallucination(/datum/hallucination/shock, "hallucinated shock from [bumped]",)
 	return STOP_BUMP
 
-/datum/status_effect/hallucination/tick(delta_time, times_fired)
+/datum/status_effect/hallucination/tick(seconds_between_ticks)
 	if(owner.stat == DEAD)
 		return
 	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))

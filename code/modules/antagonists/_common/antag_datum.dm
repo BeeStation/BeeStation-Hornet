@@ -146,13 +146,12 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = banning_key,
-		poll_time = 10 SECONDS,
-		checked_target = owner.current,
-		jump_target = owner.current,
-		role_name_text = name,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = banning_key
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner.current
+	config.role_name_text = name
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, checked_target = owner.current)
 	if(candidate)
 		owner.current.ghostize(FALSE)
 		owner.current.key = candidate.key
@@ -253,8 +252,6 @@ GLOBAL_LIST(admin_antag_list)
 	return ..()
 
 /datum/antagonist/ui_state(mob/user)
-	if(owner?.current)
-		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.

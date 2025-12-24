@@ -3,7 +3,7 @@
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	force = 0
@@ -122,6 +122,7 @@
 	actions_types = list(/datum/action/item_action/toggle_crimesigns)
 	creation_time = 3 SECONDS
 	max_signs = 6
+	custom_price = 50
 	var/active_crimesign = FALSE
 	var/list/active_barriers = list()
 	var/crimesign_range = 4 //in tiles

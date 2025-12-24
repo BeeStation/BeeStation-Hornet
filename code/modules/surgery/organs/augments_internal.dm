@@ -37,7 +37,7 @@
 	if(prob(30/severity))
 		owner.drop_all_held_items()
 		owner.Knockdown((6 SECONDS)/severity)
-		owner.Jitter((4 SECONDS)/severity)
+		owner.set_jitter_if_lower((8 SECONDS)/severity)
 		to_chat(owner, span_warning("Your body seizes up!"))
 
 

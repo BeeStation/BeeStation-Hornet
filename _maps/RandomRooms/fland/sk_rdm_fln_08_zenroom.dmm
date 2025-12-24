@@ -3,12 +3,12 @@
 /turf/template_noop/closed,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/bamboo,
 /area/template_noop)
 "d" = (
 /obj/structure/chair/stool/bamboo,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/bamboo,
 /area/template_noop)
 "e" = (
@@ -23,10 +23,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2{
-	dir = 10
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
@@ -38,9 +36,7 @@
 /turf/open/floor/bamboo,
 /area/template_noop)
 "m" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/template_noop)
 "o" = (
@@ -55,12 +51,6 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "r" = (
-/turf/open/floor/wood,
-/area/template_noop)
-"s" = (
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
@@ -117,8 +107,8 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Zen Room Maintenance"
 	},
-/obj/machinery/atmospherics/pipe/smart/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "L" = (
@@ -199,7 +189,7 @@ J
 "}
 (3,1,1) = {"
 W
-s
+m
 V
 k
 C

@@ -99,6 +99,8 @@
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
 	mouse_opacity = MOUSE_OPACITY_ICON
+	/// Do we glow to represent we do stuff when clicked
+	var/clickable_glow = FALSE
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
 	var/alerttooltipstyle = ""
@@ -106,6 +108,12 @@
 	var/mob/owner //Alert owner
 	/// The thing that this alert is showing
 	var/obj/master
+
+/atom/movable/screen/alert/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	if(clickable_glow)
+		add_filter("clickglow", 2, outline_filter(color = COLOR_GOLD, size = 1))
+		mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	..()
@@ -120,42 +128,42 @@
 /atom/movable/screen/alert/not_enough_oxy
 	name = "Choking (No O2)"
 	desc = "You're not getting enough oxygen. Find some good air before you pass out! The box in your backpack has an oxygen tank and breath mask in it."
-	icon_state = "not_enough_oxy"
+	icon_state = ALERT_NOT_ENOUGH_OXYGEN
 
 /atom/movable/screen/alert/too_much_oxy
 	name = "Choking (O2)"
 	desc = "There's too much oxygen in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_oxy"
+	icon_state = ALERT_TOO_MUCH_OXYGEN
 
 /atom/movable/screen/alert/not_enough_nitro
 	name = "Choking (No N2)"
 	desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-	icon_state = "not_enough_nitro"
+	icon_state = ALERT_NOT_ENOUGH_NITRO
 
 /atom/movable/screen/alert/too_much_nitro
 	name = "Choking (N2)"
 	desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_nitro"
+	icon_state = ALERT_TOO_MUCH_NITRO
 
 /atom/movable/screen/alert/not_enough_co2
 	name = "Choking (No CO2)"
 	desc = "You're not getting enough carbon dioxide. Find some good air before you pass out!"
-	icon_state = "not_enough_co2"
+	icon_state = ALERT_NOT_ENOUGH_CO2
 
 /atom/movable/screen/alert/too_much_co2
 	name = "Choking (CO2)"
 	desc = "There's too much carbon dioxide in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_co2"
+	icon_state = ALERT_TOO_MUCH_CO2
 
 /atom/movable/screen/alert/not_enough_plas
 	name = "Choking (No Plasma)"
 	desc = "You're not getting enough plasma. Find some good air before you pass out!"
-	icon_state = "not_enough_tox"
+	icon_state = ALERT_NOT_ENOUGH_PLASMA
 
 /atom/movable/screen/alert/too_much_plas
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
-	icon_state = "too_much_tox"
+	icon_state = ALERT_TOO_MUCH_PLASMA
 
 //End gas alerts
 
@@ -231,13 +239,14 @@ or something covering your eyes."
 	name = "Mind Control"
 	desc = "Your mind has been hijacked! Click to view the mind control command."
 	icon_state = "mind_control"
+	clickable_glow = TRUE
 	var/command
 
 /atom/movable/screen/alert/mind_control/Click()
 	var/mob/living/L = usr
 	if(L != owner)
 		return
-	to_chat(L, "[span_mindcontrol("[command]")]")
+	to_chat(L, span_mindcontrol("[command]"))
 
 /atom/movable/screen/alert/drunk
 	name = "Drunk"
@@ -247,8 +256,9 @@ or something covering your eyes."
 /atom/movable/screen/alert/embeddedobject
 	name = "Embedded Object"
 	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
-If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
-	icon_state = "embeddedobject"
+		If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
+	icon_state = ALERT_EMBEDDED_OBJECT
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/embeddedobject/Click()
 	if(isliving(usr) && usr == owner)
@@ -282,6 +292,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	name = "On Fire"
 	desc = "You're on fire. Stop, drop and roll to put the fire out or move to a vacuum area."
 	icon_state = "fire"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/fire/Click()
 	var/mob/living/L = usr
@@ -294,6 +305,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
+	clickable_glow = TRUE
 	var/mob/living/carbon/offerer
 	var/obj/item/receiving
 
@@ -336,7 +348,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 /atom/movable/screen/alert/succumb
 	name = "Succumb"
 	desc = "Shuffle off this mortal coil."
-	icon_state = "succumb"
+	icon_state = ALERT_SUCCUMB
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/succumb/Click()
 	if (isobserver(usr))
@@ -598,18 +611,18 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		complete, you will have exclusive control of it, and you will gain \
 		additional processing time to unlock more malfunction abilities."
 	icon_state = "hackingapc"
-	timeout = 600
+	timeout = 60 SECONDS
+	clickable_glow = TRUE
 	var/atom/target = null
 
 /atom/movable/screen/alert/hackingapc/Click()
 	if(!usr || !usr.client || usr != owner)
 		return
-	if(!target)
-		return
-	var/mob/living/silicon/ai/AI = usr
-	var/turf/T = get_turf(target)
-	if(T)
-		AI.eyeobj.setLoc(T)
+
+	var/mob/living/silicon/ai/ai_owner = owner
+	var/turf/target_turf = get_turf(target)
+	if(target_turf)
+		ai_owner.eyeobj.setLoc(target_turf)
 
 //MECHS
 
@@ -625,7 +638,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Revival"
 	desc = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!"
 	icon_state = "template"
-	timeout = 300
+	timeout = 30 SECONDS
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/notify_cloning/Click()
 	if(!usr || !usr.client || usr != owner)
@@ -637,7 +651,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	name = "Body created"
 	desc = "A body was created. You can enter it."
 	icon_state = "template"
-	timeout = 300
+	timeout = 30 SECONDS
+	clickable_glow = TRUE
 	var/atom/target = null
 	var/action = NOTIFY_JUMP
 
@@ -685,7 +700,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	signed_up_overlay = mutable_appearance('icons/hud/screen_gen.dmi', icon_state = "selector")
 
 /atom/movable/screen/alert/poll_alert/proc/set_role_overlay()
-	var/role_or_only_question = poll.role || "?"
+	var/role_or_only_question = poll.config.role_name_text || "?"
 	role_overlay = new
 	role_overlay.screen_loc = screen_loc
 	role_overlay.maptext = MAPTEXT("<span style='text-align: right; color: #B3E3FC'>[full_capitalize(role_or_only_question)]</span>")
@@ -706,23 +721,32 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /atom/movable/screen/alert/poll_alert/add_context_self(datum/screentip_context/context, mob/user)
 	if(poll && context.accept_mob_type(/mob))
 		context.add_left_click_action("[(owner in poll.signed_up) ? "Leave" : "Enter"] Poll")
+		if (poll.config.can_hide)
+			context.add_right_click_action("Dismiss")
 
-		if(poll.ignoring_category)
-			context.add_alt_click_action("[(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]) ? "Cancel " : ""]Never For This Round")
+		if(poll.config.ignore_category)
+			context.add_alt_click_action("[(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]) ? "Cancel " : ""]Never For This Round")
 
-		if(poll.jump_to_me && isobserver(owner))
+		if(poll.config.jump_target && isobserver(owner))
 			context.add_ctrl_click_action("Jump To")
 
 /atom/movable/screen/alert/poll_alert/process()
+	if (poll)
+		timeout = world.time + poll.time_left()
 	if(show_time_left)
 		var/timeleft = timeout - world.time
 		if(timeleft <= 0)
 			return PROCESS_KILL
-		cut_overlay(time_left_overlay)
+		if (time_left_overlay)
+			cut_overlay(time_left_overlay)
 		time_left_overlay = new
 		time_left_overlay.maptext = MAPTEXT("<span style='color: [(timeleft <= 10 SECONDS) ? "red" : "white"]'><b>[CEILING(timeleft / (1 SECONDS), 1)]</b></span>")
 		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 19)
 		add_overlay(time_left_overlay)
+	else
+		if (time_left_overlay)
+			cut_overlay(time_left_overlay)
+			time_left_overlay = null
 
 /atom/movable/screen/alert/poll_alert/Click(location, control, params)
 	if(isnull(poll))
@@ -730,10 +754,13 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 	var/clicky = FALSE
 	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.ignoring_category)
+	if (LAZYACCESS(modifiers, RIGHT_CLICK))
+		dismiss(usr)
+		return
+	if(LAZYACCESS(modifiers, ALT_CLICK) && poll.config.ignore_category)
 		clicky = TRUE
 		set_never_round()
-	if(LAZYACCESS(modifiers, CTRL_CLICK) && poll.jump_to_me)
+	if(LAZYACCESS(modifiers, CTRL_CLICK) && poll.config.jump_target)
 		clicky = TRUE
 		jump_to_jump_target()
 
@@ -741,15 +768,25 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		handle_sign_up()
 	refresh_screentips()
 
+/atom/movable/screen/alert/poll_alert/proc/dismiss(mob/user)
+	if (!poll.config.can_hide)
+		return
+	if (tgui_alert(user, "Would you like to hide this alert?", "Ignore", list("Hide", "Keep")) != "Hide")
+		return
+	owner.clear_alert("[poll.poll_key]_poll_alert")
+
 /atom/movable/screen/alert/poll_alert/proc/handle_sign_up()
 	if(owner in poll.signed_up)
 		poll.remove_candidate(owner)
-	else if(!(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]))
+	else if(!(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]))
 		poll.sign_up(owner)
+	// Sign-up may delete the poll in the case of overriden signup logic
+	if (QDELETED(poll))
+		return
 	update_signed_up_overlay()
 
 /atom/movable/screen/alert/poll_alert/proc/set_never_round()
-	if(!(owner.ckey in GLOB.poll_ignore[poll.ignoring_category]))
+	if(!(owner.ckey in GLOB.poll_ignore[poll.config.ignore_category]))
 		poll.do_never_for_this_round(owner)
 		color = "red"
 		update_signed_up_overlay()
@@ -758,9 +795,9 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	color = initial(color)
 
 /atom/movable/screen/alert/poll_alert/proc/jump_to_jump_target()
-	if(!poll?.jump_to_me || !isobserver(owner))
+	if(!poll?.config.jump_target || !isobserver(owner))
 		return
-	var/turf/target_turf = get_turf(poll.jump_to_me)
+	var/turf/target_turf = get_turf(poll.config.jump_target)
 	if(target_turf && isturf(target_turf))
 		owner.abstract_move(target_turf)
 
@@ -803,42 +840,51 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	stacks_overlay.layer = layer
 	add_overlay(stacks_overlay)
 
+/atom/movable/screen/alert/poll_alert/MouseEntered(location, control, params)
+	. = ..()
+	if (!poll.config.can_hide)
+		return
+	usr.client.set_right_click_menu_mode(TRUE)
+
+/atom/movable/screen/alert/poll_alert/MouseExited()
+	. = ..()
+	if (!poll.config.can_hide)
+		return
+	usr.client.set_right_click_menu_mode(usr.shift_to_open_context_menu)
+
 //OBJECT-BASED
 
 /atom/movable/screen/alert/restrained/buckled
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
-	icon_state = "buckled"
+	icon_state = ALERT_BUCKLED
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/handcuffed
 	name = "Handcuffed"
-	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Left-click the alert to free yourself over time. Right-click the alert if you're willing to severely injure yourself to break out immediately."
+	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Click the alert to free yourself."
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/legcuffed
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
+	clickable_glow = TRUE
 
-/atom/movable/screen/alert/restrained/Click(location, control, params)
+/atom/movable/screen/alert/restrained/Click()
 	var/mob/living/living_mob = usr
 	if(!istype(living_mob) || !living_mob.can_resist() || living_mob != owner)
 		return
-
 	living_mob.changeNext_move(CLICK_CD_RESIST)
-
-	var/list/parameters = params2list(params)
-	if(LAZYACCESS(parameters, RIGHT_CLICK))
-		var/mob/living/carbon/human/human_mob = living_mob
-		if(ishuman(human_mob) && human_mob.handcuffed)
-			return human_mob.breakout_breaking_arms()
-
-	return living_mob.resist_restraints()
+	if((living_mob.mobility_flags & MOBILITY_MOVE) && (living_mob.last_special <= world.time))
+		return living_mob.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	return L.resist_buckle()
+	if(L.last_special <= world.time)
+		return L.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 

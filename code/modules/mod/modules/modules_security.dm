@@ -19,7 +19,13 @@
 /obj/item/mod/module/magnetic_harness/Initialize(mapload)
 	. = ..()
 	if(!guns_typecache)
-		guns_typecache = typecacheof(list(/obj/item/gun/ballistic, /obj/item/gun/energy, /obj/item/gun/grenadelauncher, /obj/item/gun/chem, /obj/item/gun/syringe))
+		guns_typecache = typecacheof(list(
+			/obj/item/gun/ballistic,
+			/obj/item/gun/energy,
+			/obj/item/gun/grenadelauncher,
+			/obj/item/gun/chem,
+			/obj/item/gun/syringe,
+		))
 
 /obj/item/mod/module/magnetic_harness/on_install()
 	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_OCLOTHING)
@@ -265,7 +271,7 @@
 	name = "mirage grenade"
 	desc = "A special device that, when activated, produces a holographic copy of the user."
 	icon_state = "mirage"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	det_time = 3 SECONDS
 	/// Mob that threw the grenade.
 	var/mob/living/thrower

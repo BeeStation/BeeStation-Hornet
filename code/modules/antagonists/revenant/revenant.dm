@@ -13,7 +13,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	var/stasis = FALSE
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT
@@ -225,9 +225,6 @@
 	if(!revealed || stasis)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
-
-/mob/living/simple_animal/revenant/rad_act(amount)
-	return
 
 //damage, gibbing, and dying
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
@@ -508,14 +505,14 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-			question = "Do you want to be [revenant.name] (reforming)?",
-			check_jobban = ROLE_REVENANT,
-			poll_time = 10 SECONDS,
-			jump_target = revenant,
-			role_name_text = "revenant",
-			alert_pic = revenant,
-		)
+		var/datum/poll_config/config = new()
+		config.question = "Do you want to be [revenant.name] (reforming)?"
+		config.check_jobban = ROLE_REVENANT
+		config.poll_time = 10 SECONDS
+		config.jump_target = revenant
+		config.role_name_text = "revenant"
+		config.alert_pic = revenant
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 		if(!candidate)
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")

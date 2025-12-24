@@ -20,7 +20,6 @@
 	eyeblur = 10
 	slur = 10
 	knockdown = 0
-	irradiate = 400
 
 /obj/projectile/energy/bolt/radbolt/Initialize(mapload)
 	. = ..()

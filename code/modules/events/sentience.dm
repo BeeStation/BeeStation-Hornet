@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	/mob/living/simple_animal/hostile/carp/cayenne,
 	/mob/living/simple_animal/butterfly,
 	/mob/living/simple_animal/hostile/retaliate/poison/snake,
-	/mob/living/simple_animal/bot/secbot/beepsky
+	/mob/living/simple_animal/bot/secbot/beepsky,
 )))
 
 /datum/round_event_control/sentience
@@ -40,12 +40,11 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 	priority_announce(sentience_report,"[command_name()] Medium-Priority Update", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/ghost_role/sentience/spawn_role()
-	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(
-		check_jobban = ROLE_SENTIENT_ANIMAL,
-		poll_time = 30 SECONDS,
-		role_name_text = "sentient animal",
-		alert_pic = /mob/living/basic/pet/dog/corgi/ian,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_SENTIENT_ANIMAL
+	config.role_name_text = "sentient animal"
+	config.alert_pic = /mob/living/basic/pet/dog/corgi/ian
+	var/list/mob/dead/observer/candidates = SSpolling.poll_ghost_candidates(config)
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 

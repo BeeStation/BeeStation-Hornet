@@ -14,7 +14,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_SMALL
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/pets_held.dmi'
@@ -196,11 +196,6 @@
 		balloon_alert(arrived_diona, "[arrived_diona] assimilates [src]")
 		QDEL_NULL(src)
 
-/mob/living/simple_animal/hostile/retaliate/nymph/handle_mutations_and_radiation()
-	if(radiation > 50)
-		heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-	. = ..()
-
 /mob/living/simple_animal/hostile/retaliate/nymph/proc/evolve(mob/living/simple_animal/hostile/retaliate/nymph/nymphs)
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/L = loc
@@ -260,7 +255,7 @@
 	name = "Evolve"
 	desc = "Evolve into your adult form with the help of another nymph."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
 
@@ -285,7 +280,7 @@
 	name = "Return"
 	desc = "Return back into your adult form."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "return"
 
 /datum/action/nymph/SwitchFrom/pre_activate(mob/user, atom/target)

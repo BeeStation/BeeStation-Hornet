@@ -401,9 +401,9 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	banType = ROLE_BEACH_BUM
 	outfit = /datum/outfit/spacebartender/beach
 
-/datum/outfit/spacebartender/beach/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/spacebartender/beach/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	H.dna.add_mutation(/datum/mutation/stoner)
 
@@ -416,10 +416,10 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	id = /obj/item/card/id
 
-/datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	ADD_TRAIT(H, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
@@ -457,9 +457,9 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	uniform = /obj/item/clothing/under/pants/youngfolksjeans
 	id = /obj/item/card/id
 
-/datum/outfit/beachbum/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/beachbum/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	H.dna.add_mutation(/datum/mutation/stoner)
 

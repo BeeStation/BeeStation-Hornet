@@ -135,7 +135,7 @@
 	var/dynamic_spawn_group = null
 	/// The maximum allowed variance to other job roles in this group.
 	/// Should be the same as everything else in the dynamic spawn group
-	var/dynamic_spawn_variance_limit = 3
+	var/dynamic_spawn_variance_limit = 2
 	/// How many times should this role count towards the spawn group size?
 	var/dynamic_spawn_group_multiplier = 1
 
@@ -241,7 +241,9 @@
 			return -1
 		return max(proxy.total_positions + total_position_delta, 0)
 	// Calculate spawn group size
-	var/spawn_group_minimum = INFINITY
+	var/spawn_group_total = 0
+	// Amount of jobs in the same job group as us
+	var/spawn_group_sizes = 0
 	for (var/datum/job/other in SSjob.occupations)
 		// Find everything in the same group, doesn't matter if its us
 		if (other.dynamic_spawn_group != proxy.dynamic_spawn_group)
@@ -250,7 +252,8 @@
 		// If the HOP removes a position from another job, then that removed position.
 		// If the HOP adds a position to a job group, then it has to be filled before the spawn
 		// group bumps.
-		spawn_group_minimum = min(spawn_group_minimum, other.count_players_in_group())
+		spawn_group_total += other.count_players_in_group()
+		spawn_group_sizes ++
 	// The amount of positions we have is the least filled job + our allowed variance
 	// variance is calculated per job, not based on the proxy
 	// If we are using a proxy, then the number of spawn positions is limited to the total
@@ -264,7 +267,7 @@
 	// being only limited by its spawn variance limit
 	if (proxy == src || ignore_self_limit || proxy.dynamic_spawn_group)
 		position_limit = INFINITY
-	return min(position_limit, max(spawn_group_minimum + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
+	return min(position_limit, max(ceil(spawn_group_total / max(spawn_group_sizes, 1)) + proxy.dynamic_spawn_variance_limit + total_position_delta, 0))
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -437,32 +440,32 @@
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
 //Returning FALSE is considered a failure. A null or mob return is a successful equip.
-/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
+/datum/job/proc/equip(mob/living/carbon/human/H, visuals_only = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)))
 		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name(/datum/preference/name/backup_human, preference_source)
-	if(!visualsOnly)
+	if(!visuals_only)
 		var/datum/bank_account/bank_account = new(H.real_name, src)
 		bank_account.payday(STARTING_PAYCHECKS, TRUE)
 		H.mind?.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
-	H.dna.species.before_equip_job(src, H, visualsOnly)
+	H.dna.species.before_equip_job(src, H, visuals_only)
 
 	if(src.species_outfits)
 		if(H.dna.species.id in src.species_outfits)
 			var/datum/outfit/O = species_outfits[H.dna.species.id]
-			H.equipOutfit(O, visualsOnly)
+			H.equipOutfit(O, visuals_only)
 
 	if(outfit_override || outfit)
-		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
+		H.equipOutfit(outfit_override ? outfit_override : outfit, visuals_only)
 
-	H.dna.species.after_equip_job(src, H, visualsOnly, preference_source)
+	H.dna.species.after_equip_job(src, H, visuals_only, preference_source)
 
-	if(!visualsOnly && announce)
+	if(!visuals_only && announce)
 		announce(H)
 	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
@@ -596,7 +599,7 @@
 
 	var/pda_slot = ITEM_SLOT_BELT
 
-/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	if(ispath(back, /obj/item/storage/backpack))
 		switch(H.backbag)
 			if(GBACKPACK)
@@ -625,35 +628,41 @@
 	uniform = text2path(holder)
 
 
-/datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
+/datum/outfit/job/post_equip(mob/living/carbon/human/user, visuals_only = FALSE)
+	if(visuals_only)
 		return
 
-	var/datum/job/J = SSjob.GetJobType(jobtype)
-	if(!J)
-		J = SSjob.GetJob(H.job)
+	var/datum/job/equipped_job = SSjob.GetJobType(jobtype)
+	if(!equipped_job)
+		equipped_job = SSjob.GetJob(user.job)
 
-	var/obj/item/card/id/C = H.wear_id
-	if(istype(C))
-		C.access = J.get_access()
-		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
-		C.registered_name = H.real_name
-		C.assignment = J.title
-		C.set_hud_icon_on_spawn(J.title)
-		C.update_label()
-		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-			if(!H.mind)
+	var/obj/item/card/id/card = user.wear_id
+	if(istype(card))
+		card.access = equipped_job.get_access()
+		shuffle_inplace(card.access) // Shuffle access list to make NTNet passkeys less predictable
+		card.registered_name = user.real_name
+		card.assignment = equipped_job.title
+		card.set_hud_icon_on_spawn(equipped_job.title)
+
+		if(user.age)
+			card.registered_age = user.age
+
+		card.update_label()
+		card.update_icon()
+
+		for(var/datum/bank_account/account in SSeconomy.bank_accounts)
+			if(!user.mind)
 				continue
-			if(B.account_id == H.mind.account_id)
-				C.registered_account = B
-				B.bank_cards += C
+			if(account.account_id == user.mind.account_id)
+				card.registered_account = account
+				account.bank_cards += card
 				break
-		H.sec_hud_set_ID()
+		user.sec_hud_set_ID()
 
-	var/obj/item/modular_computer/tablet/pda/PDA = H.get_item_by_slot(pda_slot)
+	var/obj/item/modular_computer/tablet/pda/PDA = user.get_item_by_slot(pda_slot)
 	if(istype(PDA))
-		PDA.saved_identification = C.registered_name
-		PDA.saved_job = C.assignment
+		PDA.saved_identification = card.registered_name
+		PDA.saved_job = card.assignment
 		PDA.update_id_display()
 
 /datum/outfit/job/get_chameleon_disguise_info()

@@ -427,15 +427,38 @@
 	set category = "Server"
 	set desc="Respawn basically"
 	set name="Toggle Respawn"
-	var/new_nores = !CONFIG_GET(flag/norespawn)
-	CONFIG_SET(flag/norespawn, new_nores)
-	if (!new_nores)
-		to_chat(world, "<B>You may now respawn.</B>")
-	else
-		to_chat(world, "<B>You may no longer respawn :(</B>")
-	message_admins(span_adminnotice("[key_name_admin(usr)] toggled respawn to [!new_nores ? "On" : "Off"]."))
-	log_admin("[key_name(usr)] toggled respawn to [!new_nores ? "On" : "Off"].")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[!new_nores ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	var/respawn_state = CONFIG_GET(flag/allow_respawn)
+	var/new_state = -1
+	var/new_state_text = ""
+	switch(respawn_state)
+		if(RESPAWN_FLAG_DISABLED) // respawn currently disabled
+			new_state = RESPAWN_FLAG_FREE
+			new_state_text = "Enabled"
+			to_chat(world, span_bold("You may now respawn."))
+
+		if(RESPAWN_FLAG_FREE) // respawn currently enabled
+			new_state = RESPAWN_FLAG_NEW_CHARACTER
+			new_state_text = "Enabled, Different Slot"
+			to_chat(world, span_bold("You may now respawn as a different character."))
+
+		if(RESPAWN_FLAG_NEW_CHARACTER) // respawn currently enabled for different slot characters only
+			new_state = RESPAWN_FLAG_DISABLED
+			new_state_text = "Disabled"
+			to_chat(world, span_bold("You may no longer respawn :("))
+		else
+			WARNING("Invalid respawn state in config: [respawn_state]")
+
+	if(new_state == -1)
+		to_chat(usr, span_warning("The config for respawn is set incorrectly, please complain to your nearest server host (or fix it yourself). \
+			In the meanwhile respawn has been set to \"Off\"."))
+		new_state = RESPAWN_FLAG_DISABLED
+		new_state_text = "Disabled"
+
+	CONFIG_SET(flag/allow_respawn, new_state)
+
+	message_admins(span_adminnotice("[key_name_admin(usr)] toggled respawn to \"[new_state_text]\"."))
+	log_admin("[key_name(usr)] toggled respawn to \"[new_state_text]\".")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[new_state_text]")) // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
 	set category = "Round"
@@ -465,6 +488,8 @@
 		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
+		if(SSticker.reboot_timer)
+			SSticker.cancel_reboot(usr)
 		for(var/client/admin in GLOB.admins)
 			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
 				admin.tgui_panel.give_br_popup()
@@ -494,7 +519,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-/datum/admins/proc/spawn_atom()
+/datum/admins/proc/spawn_atom(input as null|text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -502,7 +527,9 @@
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/chosen = pick_closest_path(tgui_input_text(usr, "Spawn an atom:", "Spawn"))
+	if (!input)
+		input = tgui_input_text(usr, "Spawn an atom:", "Spawn")
+	var/chosen = pick_closest_path(input)
 	if(!chosen)
 		return
 	var/turf/T = get_turf(usr)

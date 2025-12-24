@@ -2,7 +2,7 @@
 	name = "APS-Arc Ballistic Taser"
 	desc = "Standard taser for on-station APS enforcement. While principially less-lethal, overuse is highly discouraged due to the chance for heart-attacks."
 	icon_state = "taser"
-	item_state = "ballistic_taser"
+	inhand_icon_state = "ballistic_taser"
 	worn_icon_state = "officer_pistol"
 	magazine_wording = "taser cartridge"
 	cartridge_wording = "taser cartridge"

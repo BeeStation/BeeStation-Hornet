@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/windupToolbox = 2,
 		/obj/item/toy/clockwork_watch = 2,
 		/obj/item/toy/toy_dagger = 2,
+		/obj/item/clothing/neck/cloak/fakehalo = 2,
 		/obj/item/toy/cog = 2,
 		/obj/item/toy/batong = 1,
 		/obj/item/toy/replica_fabricator = 1,
@@ -72,7 +73,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/choice_beacon/pet/hamster = 1,
 		/obj/item/choice_beacon/pet/pug = 1,
 		/obj/item/choice_beacon/pet/pingu = 1,
-		/obj/item/choice_beacon/pet/clown = 1))
+		/obj/item/choice_beacon/pet/clown = 1,
+		/obj/item/clothing/mask/party_horn = 2,
+		/obj/item/storage/box/party_poppers = 2))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"
