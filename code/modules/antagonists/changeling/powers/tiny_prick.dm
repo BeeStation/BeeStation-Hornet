@@ -82,15 +82,12 @@
 	selected_dna = changeling.select_dna()
 	if(!selected_dna)
 		return
-	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORMATION_STING))
-		user.balloon_alert(user, "incompatible DNA!")
-		return
 	return ..()
 
 /datum/action/changeling/sting/transformation/can_sting(mob/user, mob/living/carbon/target)
 	if(!..())
 		return
-	if(!iscarbon(target) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_NO_TRANSFORMATION_STING))
+	if(!iscarbon(target) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_NOT_TRANSMORPHIC))
 		user.balloon_alert(user, "incompatible DNA!")
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, next_sting))

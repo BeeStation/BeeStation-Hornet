@@ -171,9 +171,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// What bleed status effect should we apply?
 	var/bleed_effect = /datum/status_effect/bleeding
 
-	// Species specific bitflags. Used for things like if the race is unable to become a changeling.
-	var/species_bitflags = NONE
-
 	/// Do we try to prevent reset_perspective() from working?
 	var/prevent_perspective_change = FALSE
 
@@ -449,7 +446,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/worn_items_fit_body_check(mob/living/carbon/wearer)
 	for(var/obj/item/equipped_item in wearer.get_equipped_items(include_pockets = TRUE))
 		var/equipped_item_slot = wearer.get_slot_by_item(equipped_item)
-		if(!equipped_item.mob_can_equip(wearer, equipped_item_slot, bypass_equip_delay_self = TRUE))
+		if(!wearer.dna.species.can_keep_wearing(equipped_item, equipped_item_slot, wearer))
 			wearer.dropItemToGround(equipped_item, force = TRUE)
 
 ///Handles replacing all of the bodyparts with their species version during set_species()
@@ -1259,6 +1256,109 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// handles the equipping of species-specific gear
 	return
 
+//can_equip() but if you're already wearing everything, needed when changing species for example
+/datum/species/proc/can_keep_wearing(obj/item/I, slot, mob/living/carbon/human/wearer)
+	if(no_equip_flags & slot)
+		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
+			return FALSE
+	if(I.species_restricted & wearer.dna?.species.bodyflag)
+		to_chat(wearer, span_warning("Your species cannot wear [I]!"))
+		return FALSE
+
+	switch(slot)
+		if(ITEM_SLOT_MASK)
+			if(!(I.slot_flags & ITEM_SLOT_MASK))
+				return FALSE
+			if(!wearer.get_bodypart(BODY_ZONE_HEAD))
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_NECK)
+			if(!(I.slot_flags & ITEM_SLOT_NECK) )
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_BACK)
+			if(!(I.slot_flags & ITEM_SLOT_BACK) )
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_OCLOTHING)
+			if(!(I.slot_flags & ITEM_SLOT_OCLOTHING) )
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_GLOVES)
+			if(!(I.slot_flags & ITEM_SLOT_GLOVES) )
+				return FALSE
+			if(wearer.num_hands < 2)
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_FEET)
+			if(!(I.slot_flags & ITEM_SLOT_FEET) )
+				return FALSE
+			if(wearer.num_legs < 2)
+				return FALSE
+			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.supports_variations & DIGITIGRADE_VARIATION))
+				to_chat(wearer, span_warning("The footwear around here isn't compatible with your feet!"))
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_BELT)
+			if(!(I.slot_flags & ITEM_SLOT_BELT))
+				return
+			return TRUE
+		if(ITEM_SLOT_EYES)
+			if(!(I.slot_flags & ITEM_SLOT_EYES))
+				return FALSE
+			if(!wearer.get_bodypart(BODY_ZONE_HEAD))
+				return FALSE
+			var/obj/item/organ/eyes/E = wearer.get_organ_slot(ORGAN_SLOT_EYES)
+			if(E?.no_glasses)
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_HEAD)
+			if(!(I.slot_flags & ITEM_SLOT_HEAD))
+				return FALSE
+			if(!wearer.get_bodypart(BODY_ZONE_HEAD))
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_EARS)
+			if(!(I.slot_flags & ITEM_SLOT_EARS))
+				return FALSE
+			if(!wearer.get_bodypart(BODY_ZONE_HEAD))
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_ICLOTHING)
+			if(!(I.slot_flags & ITEM_SLOT_ICLOTHING) )
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_ID)
+			if(!(I.slot_flags & ITEM_SLOT_ID) )
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_LPOCKET)
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_LPOCKET) )
+				return TRUE
+			return FALSE
+		if(ITEM_SLOT_RPOCKET)
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_RPOCKET))
+				return TRUE
+			return FALSE // ??????????? why is this here and not on LPOCKET
+		if(ITEM_SLOT_SUITSTORE)
+			if(istype(I, /obj/item/modular_computer/tablet) || istype(I, /obj/item/pen) || is_type_in_list(I, wearer.wear_suit.allowed))
+				return TRUE
+			return FALSE
+		if(ITEM_SLOT_HANDCUFFED)
+			if(!istype(I, /obj/item/restraints/handcuffs))
+				return FALSE
+			if(wearer.num_legs < 2)
+				return FALSE
+			return TRUE
+		if(ITEM_SLOT_LEGCUFFED)
+			if(!istype(I, /obj/item/restraints/legcuffs))
+				return FALSE
+			if(wearer.num_legs < 2)
+				return FALSE
+			return TRUE
+
+	return FALSE //Unsupported slot
+
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE)
 	if(no_equip_flags & slot)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
@@ -1390,6 +1490,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				return FALSE
 			if( I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_LPOCKET) )
 				return TRUE
+			return FALSE
 		if(ITEM_SLOT_RPOCKET)
 			if(HAS_TRAIT(I, TRAIT_NODROP))
 				return FALSE
