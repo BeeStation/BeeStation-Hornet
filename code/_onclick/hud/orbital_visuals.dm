@@ -1,12 +1,8 @@
-// Orbital Visuals HUD System
-// Static background system that displays layers based on station altitude
-
 // ============================================================================
 // CLIENT VARS
 // ============================================================================
 
 /client/var/list/orbital_layers
-/client/var/orbital_scroll_direction = 0  // Current scroll direction based on map config
 
 // ============================================================================
 // HUD PROCS
@@ -23,10 +19,6 @@
 		C.screen -= C.orbital_layers
 
 	C.orbital_layers = list()
-
-	// Get orbital direction from map config (defaults to EAST if not set)
-	if(!C.orbital_scroll_direction)
-		C.orbital_scroll_direction = SSmapping.current_map.reentry_direction || EAST
 
 	// Create base space background layer (always visible)
 	var/atom/movable/screen/orbital_layer/space_background/base_layer = new
@@ -52,19 +44,14 @@
 	fire_layer.create_tiled_overlays(C.view)
 	C.orbital_layers += fire_layer
 
-	// Create auri layer (non-tiled, static horizontal position)
-	var/atom/movable/screen/orbital_layer/body/auri/auri_layer = new
-	auri_layer.set_new_hud(null)
-	C.orbital_layers += auri_layer
-
-	// Create the planets layer (non-tiled, scrolls horizontally across entire screen)
-	var/atom/movable/screen/orbital_layer/body/planets/planets_layer = new
-	planets_layer.set_new_hud(null)
-	C.orbital_layers += planets_layer
+	// Create bodies layer (non-tiled, vertical movement based on altitude)
+	var/atom/movable/screen/orbital_layer/bodies/bodies_layer = new
+	bodies_layer.set_new_hud(null)
+	C.orbital_layers += bodies_layer
 
 	C.screen |= C.orbital_layers
 
-	// Set the space plane to white for visibility
+	// Set the space plane to white
 	var/atom/movable/screen/plane_master/PM = screenmob.hud_used?.plane_masters["[PLANE_SPACE]"]
 	if(PM)
 		PM.color = list(
@@ -75,7 +62,7 @@
 			0, 0, 0, 0
 		)
 
-	// Start the orbital scrolling animation
+	// Start any orbital scrolling animations
 	start_orbital_scroll(C)
 
 /datum/hud/proc/update_orbital_visuals(mob/viewmob)
@@ -96,75 +83,41 @@
 	if(!C || !C.orbital_layers)
 		return
 
-	// Calculate screen dimensions for non-tiled scrolling
-	var/list/viewscales = getviewsize(C.view)
-	var/screen_width = viewscales[1] * world.icon_size
-	var/screen_height = viewscales[2] * world.icon_size
-
 	// Apply scrolling animation only to layers marked for scrolling
-	var/scrolling_layers = 0
 	for(var/atom/movable/screen/orbital_layer/layer in C.orbital_layers)
 		if(!layer.should_scroll)
 			continue  // Skip layers that aren't marked for scrolling
 
-		scrolling_layers++
-
-		// Determine scroll direction (use layer's direction, or fall back to reentry direction)
-		var/layer_scroll_direction = layer.scroll_direction || C.orbital_scroll_direction
-		if(!layer_scroll_direction)
+		// Only apply scroll to tiled layers
+		if(!layer.is_tiled)
 			continue
 
-		// Tiled layers scroll by one tile (480px), non-tiled scroll across entire screen
-		var/scroll_distance
-		if(layer.is_tiled)
-			scroll_distance = 480  // One tile width
-		else
-			// Non-tiled: scroll from completely offscreen on one side to completely offscreen on the other
-			// For a 960px sprite: screen_width + (sprite_width on left) + (sprite_width on right)
-			// This ensures the sprite enters from one edge and exits completely on the other before looping
-			scroll_distance = (layer_scroll_direction & (NORTH|SOUTH)) ? (screen_height + 960) : (screen_width + 960)
+		// scroll direction fall back to map's reentry direction if null
+		var/scroll_dir = layer.scroll_direction
 
-		// Get vertical offset for body layers (they need to maintain altitude-based positioning)
-		var/vertical_offset = 0
-		if(istype(layer, /atom/movable/screen/orbital_layer/body))
-			var/atom/movable/screen/orbital_layer/body/body_layer = layer
-			vertical_offset = body_layer.current_vertical_offset
+		if(isnull(scroll_dir))
+			scroll_dir = SSmapping.current_map?.reentry_direction
+
+		if(!scroll_dir)
+			continue // Boohoo no scrolling for you.
 
 		// Set up the transform matrices based on scroll direction
 		var/matrix/start_transform
 		var/matrix/end_transform
 
-		if(layer.is_tiled)
-			// Tiled layers: scroll from base to offset, then instantly reset
-			switch(layer_scroll_direction)
-				if(NORTH)
-					start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-					end_transform = matrix(1, 0, 0, 0, 1, scroll_distance + vertical_offset)
-				if(SOUTH)
-					start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-					end_transform = matrix(1, 0, 0, 0, 1, -scroll_distance + vertical_offset)
-				if(EAST)
-					start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-					end_transform = matrix(1, 0, scroll_distance, 0, 1, vertical_offset)
-				if(WEST)
-					start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-					end_transform = matrix(1, 0, -scroll_distance, 0, 1, vertical_offset)
-		else
-			// Non-tiled layers: scroll from -offset (offscreen on one side) to +offset (offscreen on other side)
-			// This makes the sprite appear from one edge, cross the screen, and disappear on the other edge
-			switch(layer_scroll_direction)
-				if(NORTH)
-					start_transform = matrix(1, 0, 0, 0, 1, -(scroll_distance/2) + vertical_offset)
-					end_transform = matrix(1, 0, 0, 0, 1, (scroll_distance/2) + vertical_offset)
-				if(SOUTH)
-					start_transform = matrix(1, 0, 0, 0, 1, (scroll_distance/2) + vertical_offset)
-					end_transform = matrix(1, 0, 0, 0, 1, -(scroll_distance/2) + vertical_offset)
-				if(EAST)
-					start_transform = matrix(1, 0, -(scroll_distance/2), 0, 1, vertical_offset)
-					end_transform = matrix(1, 0, (scroll_distance/2), 0, 1, vertical_offset)
-				if(WEST)
-					start_transform = matrix(1, 0, (scroll_distance/2), 0, 1, vertical_offset)
-					end_transform = matrix(1, 0, -(scroll_distance/2), 0, 1, vertical_offset)
+		switch(layer.scroll_direction)
+			if(NORTH)
+				start_transform = matrix()
+				end_transform = matrix(1, 0, 0, 0, 1, 480)
+			if(SOUTH)
+				start_transform = matrix()
+				end_transform = matrix(1, 0, 0, 0, 1, -480)
+			if(EAST)
+				start_transform = matrix()
+				end_transform = matrix(1, 0, 480, 0, 1, 0)
+			if(WEST)
+				start_transform = matrix()
+				end_transform = matrix(1, 0, -480, 0, 1, 0)
 
 		// Start at starting position
 		layer.transform = start_transform
@@ -172,10 +125,6 @@
 		// Animate to the end position, then instantly reset to start and loop
 		animate(layer, transform = end_transform, time = layer.scroll_time, loop = -1, easing = LINEAR_EASING)
 		animate(transform = start_transform, time = 0, loop = -1, easing = LINEAR_EASING)
-
-	// Debug output
-	if(scrolling_layers > 0)
-		to_chat(C, "<span class='notice'>Started orbital scrolling on [scrolling_layers] layer(s)</span>")
 
 // ============================================================================
 // ORBITAL LAYER BASE CLASS
@@ -189,11 +138,13 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/// Whether this layer should scroll based on orbital direction
 	var/should_scroll = FALSE
-	/// Time for one complete scroll cycle in deciseconds (lower = faster)
-	var/scroll_time = 20 SECONDS  // 20 seconds for one complete cycle
+	/// Time for animate() to do one complete scroll cycle in deciseconds (lower = faster).
+	var/scroll_time = 20 SECONDS
 	/// Direction to scroll (NORTH, SOUTH, EAST, WEST). If null, uses map's reentry direction
 	var/scroll_direction = null
-	/// Whether this layer uses tiling (repeating texture) or is a single sprite
+
+	// Backend.
+	/// Whether this layer uses tiling (repeating texture) or is a single sprite. Do not set this, call create_tiled_overlays. It will handle it.
 	var/is_tiled = FALSE
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
@@ -216,10 +167,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	var/countx = CEILING((viewscales[1]/2)/(480/world.icon_size), 1) + 1
 	var/county = CEILING((viewscales[2]/2)/(480/world.icon_size), 1) + 1
 
-	// Set icon and icon_state explicitly to ensure they render
-	icon = initial(icon)
-	icon_state = initial(icon_state)
-
 	// Create overlays for each tile position (skip center as base icon_state handles it)
 	var/list/new_overlays = list()
 	for(var/x in -countx to countx)
@@ -237,79 +184,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 /// Override this in subtypes to define altitude-based behavior
 /atom/movable/screen/orbital_layer/proc/update_for_altitude(altitude, client/C)
 	return
-
-/// Restarts the scrolling animation with updated vertical offset (for body layers)
-/atom/movable/screen/orbital_layer/proc/restart_scroll_animation(client/C)
-	if(!should_scroll || !C)
-		return
-
-	// Determine scroll direction
-	var/layer_scroll_direction = scroll_direction || C.orbital_scroll_direction
-	if(!layer_scroll_direction)
-		return
-
-	// Get vertical offset for body layers
-	var/vertical_offset = 0
-	if(istype(src, /atom/movable/screen/orbital_layer/body))
-		var/atom/movable/screen/orbital_layer/body/body_layer = src
-		vertical_offset = body_layer.current_vertical_offset
-
-	// Calculate scroll distance based on whether layer is tiled
-	var/scroll_distance
-	if(is_tiled)
-		scroll_distance = 480  // One tile width
-	else
-		// Non-tiled: scroll across screen width/height only (sprite starts offscreen on one side, ends offscreen on other)
-		// The distance should be screen dimension + (2 * sprite size) to account for starting and ending offscreen
-		var/list/viewscales = getviewsize(C.view)
-		var/screen_width = viewscales[1] * world.icon_size
-		var/screen_height = viewscales[2] * world.icon_size
-		scroll_distance = (layer_scroll_direction & (NORTH|SOUTH)) ? (screen_height + 960) : (screen_width + 960)
-
-	// Set up the transform matrices based on scroll direction
-	var/matrix/start_transform
-	var/matrix/end_transform
-
-	if(is_tiled)
-		// Tiled layers: scroll from base to offset, then instantly reset
-		switch(layer_scroll_direction)
-			if(NORTH)
-				start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-				end_transform = matrix(1, 0, 0, 0, 1, scroll_distance + vertical_offset)
-			if(SOUTH)
-				start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-				end_transform = matrix(1, 0, 0, 0, 1, -scroll_distance + vertical_offset)
-			if(EAST)
-				start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-				end_transform = matrix(1, 0, scroll_distance, 0, 1, vertical_offset)
-			if(WEST)
-				start_transform = matrix(1, 0, 0, 0, 1, vertical_offset)
-				end_transform = matrix(1, 0, -scroll_distance, 0, 1, vertical_offset)
-	else
-		// Non-tiled layers: scroll from -offset to +offset
-		switch(layer_scroll_direction)
-			if(NORTH)
-				start_transform = matrix(1, 0, 0, 0, 1, -(scroll_distance/2) + vertical_offset)
-				end_transform = matrix(1, 0, 0, 0, 1, (scroll_distance/2) + vertical_offset)
-			if(SOUTH)
-				start_transform = matrix(1, 0, 0, 0, 1, (scroll_distance/2) + vertical_offset)
-				end_transform = matrix(1, 0, 0, 0, 1, -(scroll_distance/2) + vertical_offset)
-			if(EAST)
-				start_transform = matrix(1, 0, -(scroll_distance/2), 0, 1, vertical_offset)
-				end_transform = matrix(1, 0, (scroll_distance/2), 0, 1, vertical_offset)
-			if(WEST)
-				start_transform = matrix(1, 0, (scroll_distance/2), 0, 1, vertical_offset)
-				end_transform = matrix(1, 0, -(scroll_distance/2), 0, 1, vertical_offset)
-
-	// Stop any existing animation
-	animate(src)
-
-	// Start at starting position
-	transform = start_transform
-
-	// Animate to the end position, then instantly reset to start and loop
-	animate(src, transform = end_transform, time = scroll_time, loop = -1, easing = LINEAR_EASING)
-	animate(transform = start_transform, time = 0, loop = -1, easing = LINEAR_EASING)
 
 // ============================================================================
 // SPACE BACKGROUND LAYER
@@ -402,61 +276,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 // CELESTIAL BODY BASE LAYER (NON-TILED, DISAPPEARS INTO TOP)
 // ============================================================================
 
-/atom/movable/screen/orbital_layer/body
+/atom/movable/screen/orbital_layer/bodies
+	icon_state = "bodies"
 	blend_mode = BLEND_OVERLAY  // Opaque overlay, not additive
-	should_scroll = FALSE  // Override in subtypes if scrolling is desired
+	should_scroll = FALSE  // Never set this! Only tiled layers scroll!
 	/// Altitude at which body is at maximum height (moved upward, station at default altitude)
 	var/altitude_max_height = ORBITAL_ALTITUDE_DEFAULT  // 110km
-	/// Altitude at which body is at lowest position on screen (fully visible at bottom)
+	/// Altitude at which body is at lowest position on screen (fully visible)
 	var/altitude_lowest = ORBITAL_ALTITUDE_HIGH_CRITICAL  // 130km
 	/// How far the body moves vertically (in pixels) between lowest and max height
 	var/vertical_movement_distance = 500
-	/// Cached vertical offset for use when scrolling is enabled
-	var/current_vertical_offset = 0
 
-/atom/movable/screen/orbital_layer/body/update_for_altitude(altitude, client/C)
-	// Body is always visible (alpha = 255), but moves vertically based on altitude
-	alpha = 255
-
-	// Store the previous vertical offset to check if it changed
-	var/old_vertical_offset = current_vertical_offset
-
+/atom/movable/screen/orbital_layer/bodies/update_for_altitude(altitude, client/C)
 	// Calculate vertical offset based on altitude
+	var/vertical_offset = 0
 	if(altitude >= altitude_lowest)
-		// At or above altitude_lowest (130km) - body is at lowest position (0 offset)
-		current_vertical_offset = 0
+		vertical_offset = 0
 	else if(altitude >= altitude_max_height)
-		// Between altitude_max_height (110km) and altitude_lowest (130km) - body is moving upward
 		var/movement_range = altitude_lowest - altitude_max_height
 		var/movement_progress = (altitude_lowest - altitude) / movement_range
-		// movement_progress goes from 0 (at altitude_lowest) to 1 (at altitude_max_height)
-		// Interpolate from 0 (lowest position) to vertical_movement_distance (maximum height)
-		current_vertical_offset = movement_progress * vertical_movement_distance
+		vertical_offset = movement_progress * vertical_movement_distance
 	else
-		// Below altitude_max_height (110km) - body is at maximum height
-		current_vertical_offset = vertical_movement_distance
+		vertical_offset = vertical_movement_distance
 
-	// If scrolling and vertical offset changed, restart the animation
-	if(should_scroll && old_vertical_offset != current_vertical_offset && C)
-		restart_scroll_animation(C)
-	// Only update transform if we're not scrolling (scrolling animation handles transform)
-	else if(!should_scroll)
-		transform = matrix(1, 0, 0, 0, 1, current_vertical_offset)
-
-// ============================================================================
-// SUN LAYER (STATIC POSITION)
-// ============================================================================
-
-/atom/movable/screen/orbital_layer/body/auri
-	icon_state = "auri"
-	should_scroll = FALSE  // Auri doesn't scroll
-
-// ============================================================================
-// PLANETS LAYER (SCROLLS HORIZONTALLY)
-// ============================================================================
-
-/atom/movable/screen/orbital_layer/body/planets
-	icon_state = "planets"
-	should_scroll = TRUE  // Planet scrolls across the sky
-	scroll_time = 200 SECONDS  // Slow, majestic scroll across the sky
-	scroll_direction = EAST  // Scrolls horizontally to the east
+	// Use transform for vertical positioning if not scrolling
+	if(!should_scroll)
+		transform = matrix(1, 0, 0, 0, 1, vertical_offset)

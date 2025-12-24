@@ -23,9 +23,6 @@ SUBSYSTEM_DEF(orbital_visuals)
 	/// Target color for starlight in current state
 	var/target_starlight_color = COLOR_STARLIGHT
 
-
-
-
 	// Re-entry effects
 	/// Current intensity of re-entry flicker (0-1)
 	var/reentry_flicker_intensity = 0
@@ -132,8 +129,8 @@ SUBSYSTEM_DEF(orbital_visuals)
 	update_atmospheric_descent(altitude)
 
 /datum/controller/subsystem/orbital_visuals/proc/update_atmospheric_descent(altitude)
-	// Calculate descent progress (0 to 1, where 0 is at 120km and 1 is at 95km)
-	var/descent_range = ORBITAL_ALTITUDE_HIGH - ORBITAL_ALTITUDE_LOW
+	// Calculate descent progress (0 to 1, where 0 is at 120km and 1 is at 110km)
+	var/descent_range = ORBITAL_ALTITUDE_HIGH - ORBITAL_ALTITUDE_DEFAULT // 120km - 110km
 	var/descent_progress = clamp((ORBITAL_ALTITUDE_HIGH - altitude) / descent_range, 0, 1)
 
 	// Blend from normal starlight to brighter, atmosphere-tinted starlight
