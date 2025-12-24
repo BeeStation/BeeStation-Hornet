@@ -1339,7 +1339,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(ITEM_SLOT_RPOCKET)
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & ITEM_SLOT_RPOCKET))
 				return TRUE
-			return FALSE // ??????????? why is this here and not on LPOCKET
+			return FALSE
 		if(ITEM_SLOT_SUITSTORE)
 			if(istype(I, /obj/item/modular_computer/tablet) || istype(I, /obj/item/pen) || is_type_in_list(I, wearer.wear_suit.allowed))
 				return TRUE
