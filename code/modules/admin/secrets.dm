@@ -785,58 +785,60 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			)
 
 			message_admins("[key_name(usr)] is creating a custom portal storm...")
-			var/list/prefreturn = presentpreflikepicker(usr,"Customize Portal Storm", "Customize Portal Storm", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+			var/list/pref_return = present_pref_like_picker(usr, "Customize Portal Storm", "Customize Portal Storm", width = 600, timeout = 0, settings = settings)
 
-			if (prefreturn["button"] == 1)
-				var/list/prefs = settings["mainsettings"]
+			if (pref_return["button"] != 1)
+				return
 
-				if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
-					to_chat(usr, "Number of portals and mobs to spawn must be at least 1")
-					return
+			var/list/prefs = settings["mainsettings"]
 
-				var/mob/pathToSpawn = prefs["typepath"]["value"]
-				if (!ispath(pathToSpawn))
-					pathToSpawn = text2path(pathToSpawn)
+			if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
+				to_chat(usr, "Number of portals and mobs to spawn must be at least 1")
+				return
 
-				if (!ispath(pathToSpawn))
-					to_chat(usr, "Invalid path [pathToSpawn]")
-					return
+			var/mob/pathToSpawn = prefs["typepath"]["value"]
+			if (!ispath(pathToSpawn))
+				pathToSpawn = text2path(pathToSpawn)
 
-				var/list/candidates = list()
+			if (!ispath(pathToSpawn))
+				to_chat(usr, "Invalid path [pathToSpawn]")
+				return
 
-				if (prefs["offerghosts"]["value"] == "Yes")
-					var/datum/poll_config/config = new()
-					config.question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name))
-					config.check_jobban = BAN_ROLE_ALL_ANTAGONISTS
-					config.poll_time = 30 SECONDS
-					config.role_name_text = "portal storm"
-					config.alert_pic = /obj/structure/carp_rift
-					SSpolling.poll_ghost_candidates(config)
-				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
-					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
-					return
+			var/list/candidates = list()
 
-				if (prefs["announce_players"]["value"] == "Yes")
-					portalAnnounce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Yes" ? TRUE : FALSE))
+			if (prefs["offerghosts"]["value"] == "Yes")
+				var/datum/poll_config/config = new()
+				config.question = replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name))
+				config.check_jobban = BAN_ROLE_ALL_ANTAGONISTS
+				config.poll_time = 30 SECONDS
+				config.role_name_text = "portal storm"
+				config.alert_pic = /obj/structure/carp_rift
+				candidates = SSpolling.poll_ghost_candidates(config)
+			if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
+				message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
+				return
 
-				var/mutable_appearance/storm = mutable_appearance('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball_fast", FLY_LAYER)
-				storm.color = prefs["color"]["value"]
+			if (prefs["announce_players"]["value"] == "Yes")
+				portal_announce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Yes" ? TRUE : FALSE))
 
-				message_admins("[key_name_admin(usr)] has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
-				log_admin("[key_name(usr)] has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
+			var/mutable_appearance/storm = mutable_appearance('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball_fast", FLY_LAYER)
+			storm.color = prefs["color"]["value"]
 
-				var/outfit = prefs["humanoutfit"]["value"]
-				if (!ispath(outfit))
-					outfit = text2path(outfit)
+			message_admins("[key_name_admin(usr)] has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
+			log_admin("[key_name(usr)] has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
 
-				for (var/i in 1 to prefs["portalnum"]["value"])
-					if (length(candidates)) // if we're spawning players, gotta be a little tricky and also not spawn players on top of NPCs
-						var/ghostcandidates = list()
-						for (var/j in 1 to min(prefs["amount"]["value"], length(candidates)))
-							ghostcandidates += pick_n_take(candidates)
-							addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
-					else if (prefs["playersonly"]["value"] != "Yes")
-						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
+			var/outfit = prefs["humanoutfit"]["value"]
+			if (!ispath(outfit))
+				outfit = text2path(outfit)
+
+			for (var/i in 1 to prefs["portalnum"]["value"])
+				if (length(candidates)) // if we're spawning players, gotta be a little tricky and also not spawn players on top of NPCs
+					var/ghostcandidates = list()
+					for (var/j in 1 to min(prefs["amount"]["value"], length(candidates)))
+						ghostcandidates += pick_n_take(candidates)
+						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_portal_spawn), get_random_station_turf(), pathToSpawn, length(ghostcandidates), storm, ghostcandidates, outfit), i*prefs["delay"]["value"])
+				else if (prefs["playersonly"]["value"] != "Yes")
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_portal_spawn), get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
 
 	if(E)
 		E.processing = FALSE
@@ -849,7 +851,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if (ok)
 			to_chat(world, "<B>A secret has been activated by [usr.key]!</B>")
 
-/proc/portalAnnounce(announcement, playlightning)
+/proc/portal_announce(announcement, playlightning)
 	set waitfor = 0
 	if (playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
@@ -859,7 +861,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')
 
-/proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance, players, humanoutfit)
+/proc/do_portal_spawn(turf/loc, mobtype, numtospawn, portal_appearance, players, humanoutfit)
 	for (var/i in 1 to numtospawn)
 		var/mob/spawnedMob = new mobtype(loc)
 		if (length(players))

@@ -30,41 +30,43 @@
 	)
 	)
 
-	var/list/prefreturn = presentpreflikepicker(usr,"Customize mob", "Customize mob", Button1="Ok", width = 450, StealFocus = 1,Timeout = 0, settings=settings)
-	if (prefreturn["button"] == 1)
-		settings = prefreturn["settings"]
-		var/mainsettings = settings["mainsettings"]
-		chosen_obj = text2path(mainsettings["objtype"]["value"])
+	var/list/pref_return = present_pref_like_picker(usr, "Customize mob", "Customize mob", width = 450, timeout = 0, settings = settings)
+	if (pref_return["button"] != 1)
+		return
 
-		basemob = text2path(mainsettings["mobtype"]["value"])
-		if (!ispath(basemob, /mob/living/simple_animal/hostile/mimic/copy) || !ispath(chosen_obj, /obj))
-			to_chat(usr, "Mob or object path invalid")
+	settings = pref_return["settings"]
+	var/mainsettings = settings["mainsettings"]
+	chosen_obj = text2path(mainsettings["objtype"]["value"])
 
-		basemob = new basemob(get_turf(usr), new chosen_obj(get_turf(usr)), usr, mainsettings["dropitem"]["value"] == "Yes" ? FALSE : TRUE, (mainsettings["googlyeyes"]["value"] == "Yes" ? FALSE : TRUE))
+	basemob = text2path(mainsettings["mobtype"]["value"])
+	if (!ispath(basemob, /mob/living/simple_animal/hostile/mimic/copy) || !ispath(chosen_obj, /obj))
+		to_chat(usr, "Mob or object path invalid")
 
-		if (mainsettings["disableai"]["value"] == "Yes")
-			basemob.toggle_ai(AI_OFF)
+	basemob = new basemob(get_turf(usr), new chosen_obj(get_turf(usr)), usr, mainsettings["dropitem"]["value"] == "Yes" ? FALSE : TRUE, (mainsettings["googlyeyes"]["value"] == "Yes" ? FALSE : TRUE))
 
-		if (mainsettings["idledamage"]["value"] == "No")
-			basemob.idledamage = FALSE
+	if (mainsettings["disableai"]["value"] == "Yes")
+		basemob.toggle_ai(AI_OFF)
 
-		if (mainsettings["access"])
-			var/newaccess = text2path(mainsettings["access"]["value"])
-			if (ispath(newaccess))
-				basemob.access_card = new newaccess
+	if (mainsettings["idledamage"]["value"] == "No")
+		basemob.idledamage = FALSE
 
-		if (mainsettings["maxhealth"]["value"])
-			if (!isnum_safe(mainsettings["maxhealth"]["value"]))
-				mainsettings["maxhealth"]["value"] = text2num(mainsettings["maxhealth"]["value"])
-			if (mainsettings["maxhealth"]["value"] > 0)
-				basemob.maxHealth = basemob.maxHealth =  mainsettings["maxhealth"]["value"]
+	if (mainsettings["access"])
+		var/newaccess = text2path(mainsettings["access"]["value"])
+		if (ispath(newaccess))
+			basemob.access_card = new newaccess
 
-		if (mainsettings["name"]["value"])
-			basemob.name = basemob.real_name = html_decode(mainsettings["name"]["value"])
+	if (mainsettings["maxhealth"]["value"])
+		if (!isnum_safe(mainsettings["maxhealth"]["value"]))
+			mainsettings["maxhealth"]["value"] = text2num(mainsettings["maxhealth"]["value"])
+		if (mainsettings["maxhealth"]["value"] > 0)
+			basemob.maxHealth = basemob.maxHealth =  mainsettings["maxhealth"]["value"]
 
-		if (mainsettings["ckey"]["value"] != "none")
-			basemob.ckey = mainsettings["ckey"]["value"]
+	if (mainsettings["name"]["value"])
+		basemob.name = basemob.real_name = html_decode(mainsettings["name"]["value"])
+
+	if (mainsettings["ckey"]["value"] != "none")
+		basemob.ckey = mainsettings["ckey"]["value"]
 
 
-		log_admin("[key_name(usr)] spawned a sentient object-mob [basemob] from [chosen_obj] at [AREACOORD(usr)]")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn object-mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	log_admin("[key_name(usr)] spawned a sentient object-mob [basemob] from [chosen_obj] at [AREACOORD(usr)]")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn object-mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

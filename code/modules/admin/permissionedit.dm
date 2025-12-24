@@ -405,13 +405,37 @@
 		message_admins("[key_name_admin(usr)] attempted to edit admin flags without sufficient rights.")
 		log_admin("[key_name(usr)] attempted to edit admin flags without sufficient rights.")
 		return
-	var/new_flags = input_bitfield(usr, "Include permission flags<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]", "admin_flags", D.rank.include_rights, 350, 590, allowed_edit_list = usr.client.holder.rank.can_edit_rights)
+	var/new_flags = input_bitfield(
+		usr,
+		"Include permission flags<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]",
+		"admin_flags",
+		D.rank.include_rights,
+		350,
+		590,
+		allowed_edit_field = usr.client.holder.rank.can_edit_rights,
+	)
 	if(isnull(new_flags))
 		return
-	var/new_exclude_flags = input_bitfield(usr, "Exclude permission flags<br>Flags enabled here will be removed from a rank.<br>Note these take precedence over included flags.<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]", "admin_flags", D.rank.exclude_rights, 350, 670, "red", usr.client.holder.rank.can_edit_rights)
+	var/new_exclude_flags = input_bitfield(
+		usr,
+		"Exclude permission flags<br>Flags enabled here will be removed from a rank.<br>Note these take precedence over included flags.<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]",
+		"admin_flags",
+		D.rank.exclude_rights,
+		350, 670,
+		"red",
+		usr.client.holder.rank.can_edit_rights,
+	)
 	if(isnull(new_exclude_flags))
 		return
-	var/new_can_edit_flags = input_bitfield(usr, "Editable permission flags<br>These are the flags this rank is allowed to edit if they have access to the permissions panel.<br>They will be unable to modify admins to a rank that has a flag not included here.<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]", "admin_flags", D.rank.can_edit_rights, 350, 710, allowed_edit_list = usr.client.holder.rank.can_edit_rights)
+	var/new_can_edit_flags = input_bitfield(
+		usr,
+		"Editable permission flags<br>These are the flags this rank is allowed to edit if they have access to the permissions panel.<br>They will be unable to modify admins to a rank that has a flag not included here.<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]",
+		"admin_flags",
+		D.rank.can_edit_rights,
+		350,
+		710,
+		allowed_edit_field = usr.client.holder.rank.can_edit_rights,
+	)
 	if(isnull(new_can_edit_flags))
 		return
 	var/m1 = "[key_name_admin(usr)] edited the permissions of [use_db ? " rank [D.rank.name] permanently" : "[admin_key] temporarily"]"
