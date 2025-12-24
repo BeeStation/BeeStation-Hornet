@@ -368,9 +368,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
 
-	if(GLOB.announcement_systems.len)
-		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("AIWIPE", real_name, mind.assigned_role, list())
+	aas_config_announce(/datum/aas_config_entry/intelligence_storage, list("SILICON" = real_name))
 
 	SSjob.FreeRole(mind.assigned_role)
 
