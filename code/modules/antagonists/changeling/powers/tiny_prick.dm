@@ -80,10 +80,10 @@
 /datum/action/changeling/sting/transformation/on_activate(mob/user, atom/target)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	selected_dna = changeling.select_dna()
+	if(!selected_dna)
+		return
 	if(HAS_TRAIT(user, TRAIT_NOT_TRANSMORPHIC))
 		user.balloon_alert(user, "incompatible DNA!")
-		return
-	if(!selected_dna)
 		return
 	return ..()
 
