@@ -137,6 +137,8 @@
 	return pod
 
 /obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
+	if(!user?.mind)
+		return FALSE
 	if(used)
 		to_chat(user, span_warning("[src] is out of power!"))
 		return FALSE
