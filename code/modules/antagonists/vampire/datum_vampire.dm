@@ -539,7 +539,7 @@
 				record.gender = carbon_owner.gender
 
 				//Not using carbon_owner.appearance because it might not update in time at roundstart
-				record.character_appearance = get_flat_existing_human_icon(owner.current, list(SOUTH, WEST))
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
