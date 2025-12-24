@@ -17,6 +17,7 @@
 //then you MUST update the database!
 #define ROLE_TRAITOR			"Traitor"
 #define ROLE_OPERATIVE			"Nuclear Operative"
+#define ROLE_CLOWN_OPERATIVE "Clown Operative"
 #define ROLE_CHANGELING			"Changeling"
 #define ROLE_WIZARD				"Wizard"
 #define ROLE_MALF				"Malfunctioning AI"
@@ -57,6 +58,7 @@
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_TRAITOR,
 	ROLE_OPERATIVE,
+	ROLE_CLOWN_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,
 	ROLE_MALF,
