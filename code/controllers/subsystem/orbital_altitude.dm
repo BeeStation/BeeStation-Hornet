@@ -1,20 +1,11 @@
-// Orbital altitude thresholds in meters
-#define ORBITAL_ALTITUDE_HIGH_BOUND 140000 // 140km - Cannot go higher than this
-#define ORBITAL_ALTITUDE_HIGH_CRITICAL 130000 // 130km - Upper critical threshold
-#define ORBITAL_ALTITUDE_HIGH 120000 // 120km - Upper normal threshold
-#define ORBITAL_ALTITUDE_DEFAULT 110000 // 110km - Default stable altitude
-#define ORBITAL_ALTITUDE_LOW 95000 // 95km - Lower warning threshold (visual effects start)
-#define ORBITAL_ALTITUDE_LOW_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
-#define ORBITAL_ALTITUDE_LOW_BOUND 80000 // 80km - Cannot go lower than this
-
 SUBSYSTEM_DEF(orbital_altitude)
 	name = "Orbital Altitude"
 	can_fire = TRUE
-	wait = 1 SECONDS
+	wait = 1 //SECONDS
 	flags = SS_NO_INIT | SS_KEEP_TIMING
 
 	/// Current orbital altitude in meters
-	var/orbital_altitude = ORBITAL_ALTITUDE_DEFAULT
+	var/orbital_altitude = ORBITAL_ALTITUDE_HIGH
 
 	/// Velocity index for display purposes (-10 to +10)
 	var/velocity_index = 0
@@ -138,7 +129,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 		orbital_altitude_change /= 2
 
 	// Clamp altitude change rate
-	orbital_altitude_change = clamp(orbital_altitude_change, -30, 30)
+	//orbital_altitude_change = clamp(orbital_altitude_change, -30, 30)
 
 	// Apply the change
 	orbital_altitude += orbital_altitude_change

@@ -905,26 +905,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/docking_port)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
 				create_ripples(destination, tl)
 
-	var/obj/docking_port/stationary/S0 = docked
-	if(istype(S0, /obj/docking_port/stationary/transit) && timeLeft(1) <= PARALLAX_LOOP_TIME)
-		for(var/place in shuttle_areas)
-			var/area/shuttle/shuttle_area = place
-			if(shuttle_area.parallax_movedir)
-				parallax_slowdown()
-
-/obj/docking_port/mobile/proc/parallax_slowdown()
-	for(var/place in shuttle_areas)
-		var/area/shuttle/shuttle_area = place
-		shuttle_area.parallax_movedir = FALSE
-	if(assigned_transit && assigned_transit.assigned_area)
-		assigned_transit.assigned_area.parallax_movedir = FALSE
-	for (var/mob/M as() in SSmobs.clients_by_zlevel[z])
-		var/area/A = get_area(M)
-		if(!A)
-			continue
-		if(shuttle_areas[A])
-			SSparallax.update_client_parallax(M.client, TRUE)
-
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
 		return TRANSIT_READY

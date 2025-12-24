@@ -532,20 +532,6 @@
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					areas += E
 				hyperspace_sound(HYPERSPACE_END, areas)
-			if(time_left <= PARALLAX_LOOP_TIME)
-				var/area_parallax = FALSE
-				for(var/place in shuttle_areas)
-					var/area/shuttle/shuttle_area = place
-					if(shuttle_area.parallax_movedir)
-						area_parallax = TRUE
-						break
-				if(area_parallax)
-					parallax_slowdown()
-					for(var/A in SSshuttle.mobile)
-						var/obj/docking_port/mobile/M = A
-						if(M.launch_status == ENDGAME_LAUNCHED)
-							if(istype(M, /obj/docking_port/mobile/pod))
-								M.parallax_slowdown()
 
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock

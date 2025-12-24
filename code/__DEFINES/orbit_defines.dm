@@ -1,4 +1,15 @@
+// Technically unrelated but they use "orbits" too so:
+// Orbital altitude thresholds in meters
+#define ORBITAL_ALTITUDE_HIGH_BOUND 140000 // 140km - Cannot go higher than this
+#define ORBITAL_ALTITUDE_HIGH_CRITICAL 130000 // 130km - Upper critical threshold
+#define ORBITAL_ALTITUDE_HIGH 120000 // 120km - Upper normal threshold
+#define ORBITAL_ALTITUDE_DEFAULT 110000 // 110km - Default stable altitude
+#define ORBITAL_ALTITUDE_LOW 95000 // 95km - Lower warning threshold (visual effects start)
+#define ORBITAL_ALTITUDE_LOW_CRITICAL 90000 // 90km - Lower critical threshold (structural damage begins)
+#define ORBITAL_ALTITUDE_LOW_BOUND 80000 // 80km - Cannot go lower than this
 
+
+// Proper orbital defines
 #define GRAVITATIONAL_CONSTANT 1
 
 //Once the acceleration towards this object is smaller than this value, it will be ignored.

@@ -200,16 +200,6 @@
 		CHECK_TICK
 		A.afterShuttleMove(0)
 
-	// Parallax handling
-	// This needs to be done before the atom after move
-	var/new_parallax_dir = FALSE
-	if(istype(new_dock, /obj/docking_port/stationary/transit))
-		new_parallax_dir = preferred_direction
-	for(var/i in 1 to areas_to_move.len)
-		CHECK_TICK
-		var/area/internal_area = areas_to_move[i]
-		internal_area.afterShuttleMove(new_parallax_dir) //areas
-
 	for(var/i in 1 to old_turfs.len)
 		CHECK_TICK
 		if(!(old_turfs[old_turfs[i]] & MOVE_TURF))

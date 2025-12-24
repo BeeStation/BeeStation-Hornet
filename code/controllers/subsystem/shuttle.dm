@@ -500,7 +500,6 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/old_area = midpoint.loc
 	old_area.turfs_to_uncontain += proposal.reserved_turfs
 	var/area/shuttle/transit/A = new()
-	A.parallax_movedir = travel_dir
 	A.contents = proposal.reserved_turfs
 	A.contained_turfs = proposal.reserved_turfs
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)

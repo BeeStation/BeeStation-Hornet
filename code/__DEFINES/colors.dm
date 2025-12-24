@@ -72,8 +72,8 @@
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75A2BB"
 
-/// Starlight!
-#define COLOR_STARLIGHT "#8589fa"
+/// Starlight! Granted, auri is a pretty shitty star.
+#define COLOR_STARLIGHT "#cb5452"
 
 #define COLOR_PINK "#FFC0CB"
 #define COLOR_LIGHT_PINK "#FF3CC8"

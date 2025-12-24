@@ -182,14 +182,12 @@ All ShuttleMove procs go here
 	//The old turf has now been given back to the area that turf originaly belonged to
 
 	var/area/old_dest_area = newT.loc
-	parallax_movedir = old_dest_area.parallax_movedir
 
 	newT.change_area(old_dest_area, src)
 	return TRUE
 
 // Called on areas after everything has been moved
-/area/proc/afterShuttleMove(new_parallax_dir)
-	parallax_movedir = new_parallax_dir
+/area/proc/afterShuttleMove()
 	return TRUE
 
 /area/proc/lateShuttleMove()

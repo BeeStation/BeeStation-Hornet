@@ -233,15 +233,16 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	screenmob.update_action_buttons(1)
 	reorganize_alerts(screenmob)
 	screenmob.reload_fullscreen()
-	update_parallax_pref(screenmob)
 
 	// ensure observers get an accurate and up-to-date view
 	if (!viewmob)
 		plane_masters_update()
+		create_orbital_visuals()
 		for(var/M in mymob.observers)
 			show_hud(hud_version, M)
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
+		viewmob.hud_used.create_orbital_visuals(viewmob)
 
 	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
 		screenmob.client.prefs.character_preview_view.register_to_client(screenmob.client)
