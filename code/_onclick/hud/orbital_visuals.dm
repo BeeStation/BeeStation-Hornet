@@ -1,12 +1,4 @@
-// ============================================================================
-// CLIENT VARS
-// ============================================================================
-
 /client/var/list/orbital_layers
-
-// ============================================================================
-// HUD PROCS
-// ============================================================================
 
 /datum/hud/proc/create_orbital_visuals(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -71,8 +63,11 @@
 	if(!C || !C.orbital_layers)
 		return
 
-	// Get current altitude from the orbital altitude subsystem
-	var/current_altitude = SSorbital_altitude.orbital_altitude
+	// if the mob is not on a station Z, always assume the highest defined.
+	var/current_altitude = ORBITAL_ALTITUDE_HIGH_BOUND
+	if(screenmob.z in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		// Get current altitude from the orbital altitude subsystem
+		current_altitude = SSorbital_altitude.orbital_altitude
 
 	// Update each layer based on altitude
 	for(var/atom/movable/screen/orbital_layer/layer in C.orbital_layers)
@@ -96,16 +91,16 @@
 		var/scroll_dir = layer.scroll_direction
 
 		if(isnull(scroll_dir))
-			scroll_dir = SSmapping.current_map?.reentry_direction
+			scroll_dir = REVERSE_DIR(SSmapping.current_map?.reentry_direction)
 
-		if(!scroll_dir)
+		if(isnull(scroll_dir))
 			continue // Boohoo no scrolling for you.
 
 		// Set up the transform matrices based on scroll direction
 		var/matrix/start_transform
 		var/matrix/end_transform
 
-		switch(layer.scroll_direction)
+		switch(scroll_dir)
 			if(NORTH)
 				start_transform = matrix()
 				end_transform = matrix(1, 0, 0, 0, 1, 480)
@@ -118,11 +113,13 @@
 			if(WEST)
 				start_transform = matrix()
 				end_transform = matrix(1, 0, -480, 0, 1, 0)
+			else
+				continue // Invalid direction
 
 		// Start at starting position
 		layer.transform = start_transform
 
-		// Animate to the end position, then instantly reset to start and loop
+		// Animate to the end position, then reset to start and loop
 		animate(layer, transform = end_transform, time = layer.scroll_time, loop = -1, easing = LINEAR_EASING)
 		animate(transform = start_transform, time = 0, loop = -1, easing = LINEAR_EASING)
 
@@ -146,6 +143,9 @@
 	// Backend.
 	/// Whether this layer uses tiling (repeating texture) or is a single sprite. Do not set this, call create_tiled_overlays. It will handle it.
 	var/is_tiled = FALSE
+
+	/// Stored altitude exists because we want to be able to set the altitude independently of the subsystem. In case we are not on a station z.
+	var/stored_altitude = ORBITAL_ALTITUDE_HIGH_BOUND
 
 CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
@@ -193,10 +193,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	icon_state = "space_background"
 	blend_mode = BLEND_DEFAULT
 
-/atom/movable/screen/orbital_layer/space_background/update_for_altitude(altitude, client/C)
-	// Space background is always fully visible
-	alpha = 255
-
 // ============================================================================
 // STARS LAYER
 // ============================================================================
@@ -230,7 +226,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	icon_state = "atmosphere"
 	blend_mode = BLEND_ADD
 	should_scroll = TRUE
-	scroll_time = 5 SECONDS  // Faster scroll for testing/visibility
+	scroll_time = 3 SECONDS
 
 /atom/movable/screen/orbital_layer/atmosphere/update_for_altitude(altitude, client/C)
 	// Atmosphere layer: fully visible from ORBITAL_ALTITUDE_LOW_BOUND up to ORBITAL_ALTITUDE_LOW
@@ -254,7 +250,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 /atom/movable/screen/orbital_layer/fire
 	icon_state = "fire"
-	blend_mode = BLEND_OVERLAY  // Opaque overlay, not additive
+	blend_mode = BLEND_ADD
 
 /atom/movable/screen/orbital_layer/fire/update_for_altitude(altitude, client/C)
 	// Fire layer: fully visible below ORBITAL_ALTITUDE_LOW_CRITICAL
@@ -281,9 +277,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 	blend_mode = BLEND_OVERLAY  // Opaque overlay, not additive
 	should_scroll = FALSE  // Never set this! Only tiled layers scroll!
 	/// Altitude at which body is at maximum height (moved upward, station at default altitude)
-	var/altitude_max_height = ORBITAL_ALTITUDE_DEFAULT  // 110km
+	var/altitude_max_height = ORBITAL_ALTITUDE_DEFAULT
 	/// Altitude at which body is at lowest position on screen (fully visible)
-	var/altitude_lowest = ORBITAL_ALTITUDE_HIGH_CRITICAL  // 130km
+	var/altitude_lowest = ORBITAL_ALTITUDE_HIGH
 	/// How far the body moves vertically (in pixels) between lowest and max height
 	var/vertical_movement_distance = 500
 

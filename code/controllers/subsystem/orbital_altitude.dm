@@ -1,11 +1,11 @@
 SUBSYSTEM_DEF(orbital_altitude)
 	name = "Orbital Altitude"
 	can_fire = TRUE
-	wait = 1 //SECONDS
+	wait = 1 SECONDS
 	flags = SS_NO_INIT | SS_KEEP_TIMING
 
 	/// Current orbital altitude in meters
-	var/orbital_altitude = ORBITAL_ALTITUDE_HIGH
+	var/orbital_altitude = ORBITAL_ALTITUDE_DEFAULT
 
 	/// Velocity index for display purposes (-10 to +10)
 	var/velocity_index = 0
@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 		orbital_altitude_change /= 2
 
 	// Clamp altitude change rate
-	//orbital_altitude_change = clamp(orbital_altitude_change, -30, 30)
+	orbital_altitude_change = clamp(orbital_altitude_change, -30, 30)
 
 	// Apply the change
 	orbital_altitude += orbital_altitude_change
@@ -406,7 +406,7 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 		// Cache the bounds for this Z-level
 		if(found_station && max_x >= min_x && max_y >= min_y)
-			var	key = "[z_level]"
+			var/key = "[z_level]"
 			station_bounds_cache[key] = list("min_x" = min_x, "max_x" = max_x, "min_y" = min_y, "max_y" = max_y)
 
 // Invisible atmospheric drag effect that damages station structures

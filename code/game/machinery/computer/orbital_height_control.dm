@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/computer/orbital_height_control
 	light_color = LIGHT_COLOR_BLUE
 
-	var/altitude_hold_enabled = FALSE
+	var/altitude_hold_enabled = TRUE
 	var/altitude_hold_target = 110000  // in meters
 
 	var/set_thrust = 0
