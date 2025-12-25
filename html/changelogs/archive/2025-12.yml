@@ -145,3 +145,6 @@
   - bugfix: Meta stationside AI sat access airlocks now cycle.
   - bugfix: Meta stationside AI sat access air vent now connected to distro
   - bugfix: A couple stairs in Card now allow you to pass them.
+2025-12-25:
+  r1ks-iwnl:
+  - bugfix: Fixed legion and hierophant, BDM and bubblegum hiscores being the same
