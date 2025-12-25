@@ -1,13 +1,3 @@
-// Orbital Radiation Band Subsystem
-// Above ORBITAL_ALTITUDE_HIGH, this subsystem starts applying radiation-based effects to station z-levels
-// Above ORBITAL_ALTITUDE_HIGH_CRITICAL, the effects are doubled.
-// We start very lightly, just 0.1 radiation every tick for mobs on space tiles/not in a station area.
-// As altitude increases, the intensity of radiation points increases.
-// Mobs on space tiles receive doubled radiation.
-// Once we reach past ORBITAL_ALTITUDE_HIGH_CRITICAL, we start applying minor damage even to mobs inside station areas, only skipping the ones in protected areas according to radstorms.
-// Damage inside the station never goes past 1 damage per tick, even at max altitude.
-// Outside it can't go past 2 damage per tick.
-
 // Rad protection levels
 #define PROTECTION_HIGH 3
 #define PROTECTION_MEDIUM 2
