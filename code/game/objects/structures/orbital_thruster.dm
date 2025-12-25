@@ -22,7 +22,7 @@
 	var/has_fuel = FALSE
 
 	/// How many moles of propellant needed per thrust level per tick
-	var/propellant_per_thrust = 0.1
+	var/propellant_per_thrust = 0.025
 	/// Target buffer amount for propellant
 	var/buffer_target = 10
 	/// Internal fuel buffer separate from the pipe connection because I cannot fucking get the pipe to stop equalizing
@@ -69,8 +69,8 @@
 	// Ensure the gas type exists in our internal buffer
 	ASSERT_GAS(/datum/gas/hydrogen_fuel, fuel_buffer)
 
-	// Calculate required propellant
-	var/required_moles = abs(thrust_level) * propellant_per_thrust
+	// Calculate required propellant. Ramp smoothly from 0.5 moles at thrust 0 to 1.0 moles at thrust 20
+	var/required_moles = 0.5 + (abs(thrust_level) * propellant_per_thrust)
 
 	// Now check if we have enough fuel in our internal buffer
 	var/available_fuel = fuel_buffer.gases[/datum/gas/hydrogen_fuel][MOLES]

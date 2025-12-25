@@ -268,6 +268,67 @@
 
 	return burned_fuel ? REACTING : NO_REACTION
 
+/**
+ * Hydrogen Fuel combustion:
+ *
+ * Combustion of oxygen and hydrogen fuel.
+ * Moderately exothermic.
+ * Creates hotspots.
+ * Produces water vapor.
+ */
+/datum/gas_reaction/hydrogenfuelfire
+	priority_group = PRIORITY_FIRE
+	name = "Hydrogen Fuel Combustion"
+	id = "hydrogenfuelfire"
+	expands_hotspot = TRUE
+	desc = "Combustion of LX-212 formulated hydrogen fuel with oxygen. Less energetic than tritium but still highly flammable."
+
+/datum/gas_reaction/hydrogenfuelfire/init_reqs()
+	requirements = list(
+		/datum/gas/hydrogen_fuel = MINIMUM_MOLE_COUNT,
+		"MIN_TEMP" = HYDROGEN_FUEL_MINIMUM_BURN_TEMPERATURE,
+	)
+
+/datum/gas_reaction/hydrogenfuelfire/react(datum/gas_mixture/air, datum/holder)
+	var/list/cached_gases = air.gases
+	var/energy_released = 0
+	var/old_heat_capacity = air.heat_capacity()
+	var/temperature = air.temperature
+	var/initial_hydrogen_fuel = cached_gases[/datum/gas/hydrogen_fuel][MOLES]
+	var/burned_fuel = 0
+
+	// Burns like tritium but without requiring oxygen - self-oxidizing fuel
+	burned_fuel = initial_hydrogen_fuel
+	cached_gases[/datum/gas/hydrogen_fuel][MOLES] = (cached_gases[/datum/gas/hydrogen_fuel][MOLES]) * (1 - 1 / HYDROGEN_FUEL_BURN_RATE_DELTA)
+
+	// Produces water vapor as combustion product
+	ASSERT_GAS(/datum/gas/water_vapor, air)
+	cached_gases[/datum/gas/water_vapor][MOLES] += burned_fuel
+
+	SET_REACTION_RESULTS(burned_fuel)
+
+	var/turf/open/location
+	if(istype(holder, /datum/pipenet))
+		var/datum/pipenet/pipenet = holder
+		location = pick(pipenet.members)
+	else if(isatom(holder))
+		location = holder
+
+	energy_released += FIRE_HYDROGEN_FUEL_ENERGY_RELEASED * burned_fuel
+
+	if(energy_released > 0)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.temperature = (temperature * old_heat_capacity + energy_released) / new_heat_capacity
+
+	// Let the floor know a fire is happening
+	if(istype(location))
+		temperature = air.temperature
+		if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+			location.hotspot_expose(temperature, CELL_VOLUME)
+
+	return burned_fuel ? REACTING : NO_REACTION
+
 // N2O
 
 /**
