@@ -1179,6 +1179,7 @@
 		"idcardconsole",
 		"libraryconsole",
 		"mining",
+		"orbital_height_control",
 		"photobooth",
 		"objective",
 		"rdcamera",
