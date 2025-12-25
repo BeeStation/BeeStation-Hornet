@@ -227,3 +227,8 @@ SUBSYSTEM_DEF(orbital_visuals)
 	b = clamp(b + ((255 - b) * amount), 0, 255)
 
 	return rgb(r, g, b)
+
+#undef ORBITAL_STATE_NORMAL
+#undef ORBITAL_STATE_ATMOSPHERIC_DESCENT
+#undef ORBITAL_STATE_REENTRY_WARNING
+#undef ORBITAL_STATE_REENTRY

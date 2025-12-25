@@ -92,6 +92,10 @@ SUBSYSTEM_DEF(orbital_altitude)
 
 	// We now know how many thrusters we have, and what their collective thrust is.
 
+	// No thrusters means no thrust
+	if(thruster_count == 0)
+		return
+
 	// Average the thrust level
 	summed_thrust /= thruster_count
 
