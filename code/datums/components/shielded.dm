@@ -56,7 +56,7 @@
 		shield_inhand = FALSE,
 		shield_flags = ENERGY_SHIELD_BLOCK_PROJECTILES | ENERGY_SHIELD_BLOCK_MELEE,
 		shield_alpha = 160,
-		rechage_path = null,
+		recharge_path = null,
 		run_hit_callback,
 		on_active_effects,
 		on_deactive_effects,
@@ -165,6 +165,12 @@
 			on_active_effects?.Invoke(wearer, current_integrity)
 			_effects_activated = TRUE
 
+/datum/component/shielded/proc/set_charge(new_value)
+	current_integrity = clamp(new_value, 0, max_integrity)
+	on_integrity_changed?.Invoke(wearer, current_integrity)
+	// activate cooldown after updating the charge
+	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
+
 /// Check if we've been equipped to a valid slot to shield
 /datum/component/shielded/proc/on_equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
@@ -266,5 +272,5 @@
 
 	max_integrity += recharge_rune.added_shield
 	adjust_charge(recharge_rune.added_shield)
-	to_chat(user, span_notice("You charge \the [parent]. It can now absorb [current_integrity] hits."))
+	to_chat(user, span_notice("You charge \the [parent]. It can now absorb [current_integrity] damage."))
 	qdel(recharge_rune)

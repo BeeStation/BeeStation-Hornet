@@ -113,3 +113,35 @@
   - rscadd: Added a toy halo, now you can impersonate your favorite cultist! Disclaimer
       - This item may get you prematurely lynched by trigger happy security, wear
       at your own risk.
+2025-12-20:
+  Isaac:
+  - balance: Syndicate Modsuits now have it's full armor, regardless if it's in EVA
+      or Combat
+  - balance: Lone Operative now starts with the modsuit
+  mrmanlikesbt:
+  - bugfix: fixed toy eswords not having an inhand icon
+  - bugfix: fixed a runtime when eating clothes
+  - bugfix: fixed ninja nets destroying mindshields when sent to the hotel area
+2025-12-22:
+  Isaac:
+  - bugfix: Energy Shield Modules not working
+  - bugfix: Wizard Shield not working
+  - bugfix: Wizard battlemage shield can be recharged again by using the "Battlemage
+      shield charges" on the backpack modsuit
+  - rscadd: Energy Shield Module can be purchased from the nukie uplink for 8 TC's
+  - balance: Wizard shield can withstand 600 damage, has to be recharged manually
+  - balance: Syndicate Energy shield can withstand 60 damage, recharges after not
+      being hit for 20 seconds
+  PowerfulBacon:
+  - bugfix: Fixes non-unique randomised humans only ever spawning with white hair.
+  - bugfix: Fixes humans spawning as unique by default, even when not created through
+      unique means.
+2025-12-23:
+  Electronics:
+  - bugfix: Exploding nuclear bombs now correctly gib those that are unfortunate enough
+      to be on the same z-level
+2025-12-24:
+  pixelpoepleman:
+  - bugfix: Meta stationside AI sat access airlocks now cycle.
+  - bugfix: Meta stationside AI sat access air vent now connected to distro
+  - bugfix: A couple stairs in Card now allow you to pass them.

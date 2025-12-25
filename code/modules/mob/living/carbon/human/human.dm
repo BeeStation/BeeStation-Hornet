@@ -48,7 +48,7 @@
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
-	randomize_human(src, TRUE)
+	randomize_human(src)
 	dna.initialize_dna()
 
 /mob/living/carbon/human/Destroy()
