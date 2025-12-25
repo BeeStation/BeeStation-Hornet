@@ -20486,6 +20486,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
+"dOc" = (
+/obj/machinery/portable_atmospherics/canister/hydrogen_fuel,
+/turf/open/floor/plating,
+/area/engine/engineering)
 "dOr" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -121926,7 +121930,7 @@ aGS
 axY
 wAt
 aKx
-aJu
+dOc
 aNo
 axY
 wnv
