@@ -1,6 +1,6 @@
 /datum/orbital_object/z_linked/station
 	name = "Space Station 13"
-	mass = 0
+	mass = 500
 	radius = 30
 	priority = 50
 	//The station maintains its orbit around lavaland by adjustment thrusters.
@@ -29,6 +29,8 @@
 	SSticker.force_ending = FORCE_END_ROUND
 
 /datum/orbital_object/z_linked/station/post_map_setup()
-	//Orbit around the system center
-	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 2500)
+	if (SSmapping.current_map.planetary_station)
+		set_orbitting_around_body(SSorbits.thetis_instance, 1000)
+	else
+		set_orbitting_around_body(SSorbits.cinis_instance, 300)
+

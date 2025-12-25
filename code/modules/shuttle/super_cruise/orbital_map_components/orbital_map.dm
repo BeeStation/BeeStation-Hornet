@@ -41,6 +41,16 @@
 //Post setup function that runs after SSorbit init.
 //Moves map objects to the correct positions and gives them velocities so that they can orbit dynamically.
 /datum/orbital_map/proc/post_setup()
+	// Collect all bodies and sort by priority (higher priority = initialized first)
+	// This ensures planets are positioned before things that orbit them
+	var/list/all_bodies = list()
 	for(var/collision_zone in collision_zone_bodies)
 		for(var/datum/orbital_object/body as() in collision_zone_bodies[collision_zone])
-			body.post_map_setup()
+			all_bodies += body
+
+	// Sort by priority (descending - higher values first)
+	all_bodies = sortTim(all_bodies, GLOBAL_PROC_REF(cmp_orbital_priority_dsc))
+
+	// Now initialize in the correct order
+	for(var/datum/orbital_object/body as() in all_bodies)
+		body.post_map_setup()

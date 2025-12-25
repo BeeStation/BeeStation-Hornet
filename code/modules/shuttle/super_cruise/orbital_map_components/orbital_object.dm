@@ -306,10 +306,19 @@
 	var/relative_velocity = sqrt((GRAVITATIONAL_CONSTANT * (target_body.mass + mass)) / orbit_radius)
 	velocity.x = target_body.velocity.x
 	velocity.y = target_body.velocity.y + relative_velocity
-	//Set random angle
+	//Set random angle - rotate around the target body, not the origin
 	var/random_angle = rand(0, 360)	//Is cos and sin in radians?
-	position.RotateSelf(random_angle)
-	velocity.RotateSelf(random_angle)
+	//Create a relative position vector
+	var/datum/orbital_vector/relative_pos = new /datum/orbital_vector(position.x - target_body.position.x, position.y - target_body.position.y)
+	relative_pos.RotateSelf(random_angle)
+	//Apply back to absolute position
+	position.x = target_body.position.x + relative_pos.x
+	position.y = target_body.position.y + relative_pos.y
+	//Rotate velocity relative to target body
+	var/datum/orbital_vector/relative_vel = new /datum/orbital_vector(velocity.x - target_body.velocity.x, velocity.y - target_body.velocity.y)
+	relative_vel.RotateSelf(random_angle)
+	velocity.x = target_body.velocity.x + relative_vel.x
+	velocity.y = target_body.velocity.y + relative_vel.y
 	//Update target
 	target_orbital_body = target_body
 	LAZYADD(target_body.orbitting_bodies, src)

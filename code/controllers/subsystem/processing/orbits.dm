@@ -47,6 +47,12 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	//The station
 	var/datum/orbital_object/station_instance
+	//Cinis
+	var/datum/orbital_object/cinis_instance
+	//Thetis
+	var/datum/orbital_object/thetis_instance
+	//Triea
+	var/datum/orbital_object/triea_instance
 
 	//Ruin level count
 	var/ruin_levels = 0
@@ -97,6 +103,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	return pick_weight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
+	// Create the star (sun) first - it will set itself as the center of the orbital map
+	new /datum/orbital_object/star()
+	// Create Triea (the far-out planet)
+	new /datum/orbital_object/z_linked/triea()
+
 	for(var/map_key in orbital_maps)
 		var/datum/orbital_map/orbital_map = orbital_maps[map_key]
 		orbital_map.post_setup()

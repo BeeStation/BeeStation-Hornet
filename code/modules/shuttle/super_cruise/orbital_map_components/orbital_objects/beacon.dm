@@ -21,7 +21,7 @@
 /datum/orbital_object/z_linked/beacon/post_map_setup()
 	//Orbit around the systems sun
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 4000 + 250 * linked_z_level[1].z_value)
+	set_orbitting_around_body(linked_map.center, rand(8000, 13000))
 
 /datum/orbital_object/z_linked/beacon/weak
 	name = "Weak Signal"
@@ -45,10 +45,9 @@
 	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
-	//Orbit around the systems central gravitional body
-	//Pack closely together to make an asteriod belt.
-	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 1200 + 20 * rand(-10, 10))
+	//Orbit around Thetis
+	//Pack closely together to make an asteroid belt around Thetis.
+	set_orbitting_around_body(SSorbits.thetis_instance, 800 + 20 * rand(-10, 10))
 
 //====================
 // Regular Ruin Z-levels
@@ -74,7 +73,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/post_map_setup()
 	//Orbit around the systems sun
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 4000 + 250 * rand(4, 20))
+	set_orbitting_around_body(linked_map.center, rand(8000, 13000))
 
 //====================
 // Random-Ruin z-levels
@@ -99,7 +98,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 4000 + 250 * rand(4, 20))
+	set_orbitting_around_body(linked_map.center, rand(8000, 13000))
 
 //====================
 //Stranded shuttles
