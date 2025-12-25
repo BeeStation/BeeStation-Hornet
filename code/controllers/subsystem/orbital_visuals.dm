@@ -111,7 +111,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	is_flickering = FALSE
 	reentry_flicker_intensity = 0
 	// Could integrate with time of day here if desired
-	set_starlight_colour(COLOR_STARLIGHT, 3 SECONDS)
+	set_orbital_starlight_colour(COLOR_STARLIGHT, 3 SECONDS)
 
 /datum/controller/subsystem/orbital_visuals/proc/update_normal_starlight()
 	// Optional: Tie to time of day by checking SSnatural_light_cycle
@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/brightness_boost = descent_progress * 0.3 // Up to 30% brighter
 	blended_color = LightenRGB(blended_color, brightness_boost)
 
-	set_starlight_colour(blended_color, 1 SECONDS)
+	set_orbital_starlight_colour(blended_color, 1 SECONDS)
 
 // ============================================================================
 // REENTRY WARNING STATE (95km - 90km)
@@ -167,7 +167,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	var/flicker_amount = warning_progress * prob(50 + (warning_progress * 50)) // Increasingly frequent flickers
 	var/current_color = flicker_amount ? flicker_color : base_color
 
-	set_starlight_colour(current_color, 0.3 SECONDS)
+	set_orbital_starlight_colour(current_color, 0.3 SECONDS)
 
 // ============================================================================
 // FULL REENTRY STATE (below 90km)
@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(orbital_visuals)
 	if(prob(30 + (reentry_depth * 40))) // Increasingly chaotic
 		current_color = pick(reentry_colors)
 
-	set_starlight_colour(current_color, 0.2 SECONDS)
+	set_orbital_starlight_colour(current_color, 0.2 SECONDS)
 
 // ============================================================================
 // OVERRIDE CONTROLS (for events like aurora caelus)

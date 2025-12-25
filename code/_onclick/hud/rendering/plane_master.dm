@@ -153,13 +153,34 @@
 	else
 		add_filter("guassian_blur", 1, gauss_blur_filter(6))
 	// Default the colour to whatever the space background is currently
-	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
+	transition_colour(src, GLOB.starlight_colour, 0)
 	// Transition the colour to whatever the global tells us to go to
 	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour), override = TRUE)
 
 /atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS)
 	SIGNAL_HANDLER
-	animate(src, time = transition_time, color = new_colour)
+	// Determine which starlight color to use based on mob's Z-level
+	var/mob/our_mob = hud?.mymob
+	var/actual_colour = get_starlight_colour_for_mob(our_mob)
+	// Ensure we always have a valid color - never animate to null
+	if(!actual_colour)
+		actual_colour = COLOR_STARLIGHT
+	animate(src, time = transition_time, color = actual_colour)
+
+/// Determines the appropriate starlight colour for a mob based on their Z-level and override state
+/atom/movable/screen/plane_master/starlight/proc/get_starlight_colour_for_mob(mob/target)
+	// If no mob or no Z, fall back to default starlight
+	if(!target?.z)
+		return GLOB.starlight_colour || COLOR_STARLIGHT
+	// On non-station Z-levels, use the default starlight colour (original behavior)
+	if(!is_station_level(target.z))
+		return GLOB.starlight_colour || COLOR_STARLIGHT
+	// On station Z-levels, check if orbital visuals are being overridden
+	if(SSorbital_visuals.starlight_override)
+		// Overridden (e.g., Aurora Caelus) - use the default starlight colour
+		return GLOB.starlight_colour || COLOR_STARLIGHT
+	// Not overridden - use the orbital visual starlight colour
+	return GLOB.orbital_visual_starlight || COLOR_STARLIGHT
 
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
