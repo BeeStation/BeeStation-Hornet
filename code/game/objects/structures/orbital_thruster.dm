@@ -163,7 +163,7 @@
 
 /obj/machinery/orbital_thruster_nozzle/process()
 	// Get the global thrust level from the subsystem
-	var/target_thrust = SSorbital_altitude.thrust
+	var/target_thrust = abs(SSorbital_altitude.thrust)
 
 	// Update particles based on thrust level
 	if(target_thrust > 0 && target_thrust != visual_thrust)
@@ -225,7 +225,7 @@
 		return
 
 	// Calculate base damage based on thrust level
-	var/base_damage = SSorbital_altitude.thrust * 2
+	var/base_damage = abs(SSorbital_altitude.thrust * 2)
 
 	// Cast ray for 5 tiles
 	for(var/distance = 1 to 5)
