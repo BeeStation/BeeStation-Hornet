@@ -21,14 +21,14 @@
 /datum/round_event/aurora_caelus/start()
 	// Enable override to prevent orbital system from changing starlight
 	SSorbital_visuals.enable_starlight_override()
-	set_starlight_colour(aurora_colors[1], 5 SECONDS)
+	set_orbital_starlight_colour(aurora_colors[1], 5 SECONDS)
 
 /datum/round_event/aurora_caelus/tick()
 	if(activeFor % 5 == 0)
 		if(aurora_progress < 8)
 			aurora_progress++
 		var/aurora_color = aurora_colors[aurora_progress]
-		set_starlight_colour(aurora_color, 5 SECONDS)
+		set_orbital_starlight_colour(aurora_color, 5 SECONDS)
 
 /datum/round_event/aurora_caelus/end()
 	// Disable override to allow orbital system to control starlight again

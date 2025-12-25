@@ -15,6 +15,7 @@ SUBSYSTEM_DEF(natural_light_cycle)
 		log_world("WARNING: Starlight is set to cycle, yet the colours that are set to be cycled is undefined.")
 		flags |= SS_NO_FIRE
 		return SS_INIT_FAILURE
+	// Since we are overriding starlight and want to include the station Z-levels, tell the orbital visuals subsystem to enable starlight override.
 	SSorbital_visuals.enable_starlight_override()
 	return SS_INIT_SUCCESS
 
