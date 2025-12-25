@@ -271,7 +271,7 @@
 /**
  * Hydrogen Fuel combustion:
  *
- * Combustion of oxygen and hydrogen fuel.
+ * Combustion of only hydrogen fuel.
  * Moderately exothermic.
  * Creates hotspots.
  * Produces water vapor.
