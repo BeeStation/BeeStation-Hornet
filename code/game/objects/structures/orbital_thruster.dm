@@ -150,8 +150,20 @@
 	/// Sound loop for the thruster
 	var/datum/looping_sound/orbital_thruster/soundloop
 
+	/// The backend thruster piece this nozzle is linked to
+	var/obj/machinery/atmospherics/components/unary/orbital_thruster/back_end_piece
+
 /obj/machinery/orbital_thruster_nozzle/Initialize(mapload)
 	. = ..()
+
+	back_end_piece = find_backend()
+	if(!back_end_piece)
+		message_admins("Orbital Thruster Nozzle could not find backend piece! Please inform the mappers.")
+		return
+
+	if(!back_end_piece)
+		return
+
 	begin_processing()
 	soundloop = new(src, FALSE)
 
@@ -162,8 +174,10 @@
 	return ..()
 
 /obj/machinery/orbital_thruster_nozzle/process()
-	// Get the global thrust level from the subsystem
-	var/target_thrust = abs(SSorbital_altitude.thrust)
+	// Get the thrust level
+	var/target_thrust = 0
+
+	target_thrust = abs(back_end_piece.thrust_level) * 2 // Scale from -20 to +20 range to -40 to +40 for visuals
 
 	// Update particles based on thrust level
 	if(target_thrust > 0 && target_thrust != visual_thrust)
@@ -261,6 +275,24 @@
 				if(!played_sound)
 					playsound(affected_turf, 'sound/effects/wounds/sizzle1.ogg', 50, vary = TRUE)
 					played_sound = TRUE
+
+/obj/machinery/orbital_thruster_nozzle/proc/find_backend()
+	// Step 6 tiles north to find the backend piece
+	var/turf/target_turf = get_turf(src)
+	if(!target_turf)
+		return null
+
+	// Step 4 times in the NORTH direction
+	for(var/i = 1 to 4)
+		target_turf = get_step(target_turf, NORTH)
+		if(!target_turf)
+			return null
+
+	// Find the backend piece in the target turf
+	for(var/obj/machinery/atmospherics/components/unary/orbital_thruster/thruster in target_turf)
+		return thruster
+
+	return null
 
 // Dummy Pieces that do nothing but look pretty. Iterate icon_states to get different parts.
 /obj/structure/orbital_thruster_dummy
