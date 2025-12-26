@@ -593,7 +593,7 @@
 	if(is_blind())
 		//blind_examine_check has some funky item movement stuff going on, so we just block blind examines
 		if(!silent)
-			to_chat(src, span_warning("You can't feel those details!"))
+			to_chat(src, span_warning("You can't make out any of the details!"))
 		return FALSE
 	if(!has_light_nearby() && !has_nightvision())
 		if(!silent)
