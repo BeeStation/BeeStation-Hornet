@@ -572,6 +572,12 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(player.stat != DEAD && player.mind && !is_centcom_level(player.z) && !isnewplayer(player) && !isbrain(player))
 			. |= player
 
+/proc/get_living_connected_crew()
+	. = list()
+	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+		if(player.stat != DEAD && player.mind && player.client)
+			. |= player
+
 //Gets all sentient humans that are alive
 /proc/get_living_crew()
 	. = list()

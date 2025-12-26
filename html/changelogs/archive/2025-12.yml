@@ -76,3 +76,88 @@
   - tweak: Adds basic parsing flag to web request, removes pause in build process
   PowerfulBacon:
   - tweak: The default backpack choice will always be departmental backpack now.
+2025-12-16:
+  mrmanlikesbt:
+  - bugfix: fixed cauterizing someone with a hot item sending a message to the wrong
+      person and not playing a sound effect
+  - balance: gun rechargers now charge twice as fast
+2025-12-18:
+  PowerfulBacon:
+  - bugfix: Characters generated through the strict random generator will no longer
+      spawn with jumpskirts when male.
+  - bugfix: Morphs no longer cause mobs that they eat to drop implants and other items
+      inside of the mob that aren't being worn by the mob.
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when re-aquiring a client's parallax cache
+2025-12-19:
+  Dejaku51:
+  - bugfix: Fixed echo having metal floor instead of water in winter variant
+  Isaac:
+  - bugfix: Thermomachines will not turn themselves off if power goes out
+  MarkusLarsson421:
+  - bugfix: Fixes the construction of titanium windows.
+  PowerfulBacon:
+  - balance: Projectile blocking now respects the blocking cooldown.
+  - balance: Removes projectile blocking from most non-shield weapons, excluding some
+      unique ones (mainly, energy swords and the real katana).
+  - balance: Null rod katana now has the same stats as the regular claymore.
+  mrmanlikesbt, JohnFulpWillard, 00-Steven:
+  - rscadd: shutter frames can now be made with plasteel in-hand instead of having
+      to use the crafting menu
+  - bugfix: fixed some jankiness with constructing shutters and blast doors
+  - bugfix: fixed not being able to deconstruct shutters and blast doors
+  r1ks-iwnl:
+  - bugfix: Fixed death not slowing down bleeding.
+  - bugfix: Fixed blood splatters spawning on every tile when subjected to heavy bleeding.
+  ro5490:
+  - rscadd: Added a toy halo, now you can impersonate your favorite cultist! Disclaimer
+      - This item may get you prematurely lynched by trigger happy security, wear
+      at your own risk.
+2025-12-20:
+  Isaac:
+  - balance: Syndicate Modsuits now have it's full armor, regardless if it's in EVA
+      or Combat
+  - balance: Lone Operative now starts with the modsuit
+  mrmanlikesbt:
+  - bugfix: fixed toy eswords not having an inhand icon
+  - bugfix: fixed a runtime when eating clothes
+  - bugfix: fixed ninja nets destroying mindshields when sent to the hotel area
+2025-12-22:
+  Isaac:
+  - bugfix: Energy Shield Modules not working
+  - bugfix: Wizard Shield not working
+  - bugfix: Wizard battlemage shield can be recharged again by using the "Battlemage
+      shield charges" on the backpack modsuit
+  - rscadd: Energy Shield Module can be purchased from the nukie uplink for 8 TC's
+  - balance: Wizard shield can withstand 600 damage, has to be recharged manually
+  - balance: Syndicate Energy shield can withstand 60 damage, recharges after not
+      being hit for 20 seconds
+  PowerfulBacon:
+  - bugfix: Fixes non-unique randomised humans only ever spawning with white hair.
+  - bugfix: Fixes humans spawning as unique by default, even when not created through
+      unique means.
+2025-12-23:
+  Electronics:
+  - bugfix: Exploding nuclear bombs now correctly gib those that are unfortunate enough
+      to be on the same z-level
+2025-12-24:
+  pixelpoepleman:
+  - bugfix: Meta stationside AI sat access airlocks now cycle.
+  - bugfix: Meta stationside AI sat access air vent now connected to distro
+  - bugfix: A couple stairs in Card now allow you to pass them.
+2025-12-25:
+  r1ks-iwnl:
+  - bugfix: Fixed legion and hierophant, BDM and bubblegum hiscores being the same
+2025-12-26:
+  ShizCalev:
+  - bugfix: Fixed a runtime when mousing over an object in nullspace
+  mrmanlikesbt:
+  - bugfix: fixed heads sometimes not having extra examine text (soulless)
+  - bugfix: Fixed the italian moustache
+  - bugfix: fixed consistent human dummies runtiming when spewing blood trails
+  - bugfix: fixed energy balls (teslas) not generating power
+  - bugfix: blood freezers are no longer stocked with fake ethereal blood
+  - bugfix: fixed syndicate borgs not starting with syndimov laws
+  - bugfix: playstyle strings are once more properly sent to syndicate borgs
+  r1ks-iwnl:
+  - bugfix: Fixed blushing

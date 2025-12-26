@@ -108,7 +108,7 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 20
 	armour_penetration = 75
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_DEEP_WOUND
 	max_charges = 4
