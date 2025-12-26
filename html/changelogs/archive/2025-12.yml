@@ -161,3 +161,15 @@
   - bugfix: playstyle strings are once more properly sent to syndicate borgs
   r1ks-iwnl:
   - bugfix: Fixed blushing
+  rkz/tsar-salat, baystation coders:
+  - rscadd: adds per-slot examination of carbon clothing. Un-obscured items can be
+      examined by hrefs appended to them.  Follows obscuration rules.
+  - rscadd: adds visible_message when a mob examines another mob or their clothing,
+      ghosts and the like not included, obviously.
+  - rscadd: adds police badge fluff. Use it inhand(z) to assign your name and job
+      to it, hit people with it to show how important you are.
+  - server: adds examination preferences. Examine messages can be turned off like
+      paychecks (this doesnt affect other people seeing it), adds preference that
+      lets you change how you see links while examining. Either an appended [?] or
+      the full item is highlighted. Go to Game > Chat > IC > Advanced preferences
+      to change
