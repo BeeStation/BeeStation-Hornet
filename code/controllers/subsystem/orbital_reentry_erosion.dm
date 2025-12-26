@@ -214,8 +214,11 @@ SUBSYSTEM_DEF(orbital_reentry_erosion)
 			if (obj_thing.density)
 				dense = TRUE
 			obj_thing.fire_act(fire_volume, fire_temp)
+			// fire_act may have destroyed the object
+			if(QDELETED(obj_thing))
+				continue
 			// Apply object damage
-			obj_thing.take_damage(obj_damage, BURN, FIRE )
+			obj_thing.take_damage(obj_damage, BURN, FIRE)
 
 		// Mobs
 		if (ismob(thing))

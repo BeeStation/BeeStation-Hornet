@@ -224,7 +224,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/atom/movable/screen/orbital_layer)
 
 /atom/movable/screen/orbital_layer/atmosphere
 	icon_state = "atmosphere"
-	blend_mode = BLEND_ADD
+	blend_mode = BLEND_OVERLAY
 	should_scroll = TRUE
 	scroll_time = 3 SECONDS
 
