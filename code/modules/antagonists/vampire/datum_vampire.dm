@@ -535,7 +535,7 @@
 
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
+				record.species = carbon_owner.dna.species.name
 				record.gender = carbon_owner.gender
 
 				//Not using carbon_owner.appearance because it might not update in time at roundstart

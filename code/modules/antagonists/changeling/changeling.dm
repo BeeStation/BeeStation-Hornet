@@ -582,7 +582,7 @@
 			carbon_owner.fully_replace_character_name(carbon_owner.real_name, random_unique_name(carbon_owner.gender))
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
+				record.species = carbon_owner.dna.species.name
 				record.gender = carbon_owner.gender
 
 				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
