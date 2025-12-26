@@ -14,6 +14,7 @@
 	var/implant_color = "b"
 	var/allow_multiple = FALSE
 	var/uses = -1
+	var/implant_flags = NONE
 
 
 /obj/item/implant/proc/trigger(emote, mob/living/carbon/source)
