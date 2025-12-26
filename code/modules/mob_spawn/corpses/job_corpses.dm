@@ -1,5 +1,5 @@
 
- //jobs from ss13 but DEAD.
+//jobs from ss13 but DEAD.
 
 /obj/effect/mob_spawn/human/corpse/cargo_tech
 	name = "Cargo Tech"
