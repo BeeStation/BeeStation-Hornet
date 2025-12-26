@@ -822,7 +822,6 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_range = 4
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
-	block_flags = BLOCKING_PROJECTILE
 	attack_verb_continuous = list("bumps", "prods")
 	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'
