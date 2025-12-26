@@ -149,6 +149,12 @@
   r1ks-iwnl:
   - bugfix: Fixed legion and hierophant, BDM and bubblegum hiscores being the same
 2025-12-26:
+  EvilDragonfiend (credit to the cross job idea to Selfiren):
+  - rscadd: Some jobs can write other job's manuscript rather than theirs. (For example,
+      all heads can write their underlings version.) Curator can now write any job
+      version.
+  - rscadd: Manuscript bounty is now repeatable in 4 minutes after claiming the reward
+  - tweak: Each book shelf in the library now has 15% chance to spawn an empty manuscript
   ShizCalev:
   - bugfix: Fixed a runtime when mousing over an object in nullspace
   mrmanlikesbt:
