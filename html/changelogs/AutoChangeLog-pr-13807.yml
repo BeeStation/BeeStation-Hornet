@@ -1,0 +1,4 @@
+author: mrmanlikesbt
+delete-after: true
+changes:
+  - bugfix: blood freezers are no longer stocked with fake ethereal blood
