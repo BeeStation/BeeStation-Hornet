@@ -220,6 +220,7 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/gun/ballistic/shotgun/automatic/combat/compact(src)
 	new /obj/item/storage/box/deputy(src)
+	new /obj/item/storage/box/vouchers(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -234,7 +235,6 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/storage/belt/sabre/carbon_fiber(src)
 
 /obj/structure/closet/secure_closet/security/sec
 
