@@ -1644,7 +1644,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 
 	if (href_list["examine"])
-		if(!usr.run_worn_examinify_checks(src))
+		if(!usr.can_examine_in_detail(src))
 			return
 		usr.examinate(src)
 		return TRUE

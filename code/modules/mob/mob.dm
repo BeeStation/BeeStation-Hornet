@@ -584,14 +584,20 @@
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
 //This is a proc for worn item examines. See /obj/item/proc/get_examine_line
-/mob/proc/run_worn_examinify_checks(atom/examinify)
+/mob/proc/can_examine_in_detail(atom/examinify, silent = FALSE)
 	// Allow examine from up to 4 tiles away
-	if(!isobserver(usr) && !(usr in viewers(4, get_turf(examinify))))
-		to_chat(usr, span_warning("You are too far away!"))
+	if(!isobserver(src) && !(src in viewers(4, get_turf(examinify))))
+		if(!silent)
+			to_chat(src, span_warning("You are too far away!"))
 		return FALSE
 	if(is_blind())
 		//blind_examine_check has some funky item movement stuff going on, so we just block blind examines
-		to_chat(usr, span_warning("You can't feel those details!"))
+		if(!silent)
+			to_chat(src, span_warning("You can't feel those details!"))
+		return FALSE
+	if(!has_light_nearby() && !has_nightvision())
+		if(!silent)
+			to_chat(src, span_warning("You can't make those out!"))
 		return FALSE
 	return TRUE
 
