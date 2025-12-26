@@ -2,6 +2,7 @@
 	name = "Cinis"
 	mass = 10000
 	radius = 2000
+	static_object = TRUE
 	random_docking = TRUE
 	render_mode = RENDER_MODE_PLANET
 	priority = 90
