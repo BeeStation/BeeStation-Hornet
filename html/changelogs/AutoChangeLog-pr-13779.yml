@@ -1,0 +1,8 @@
+author: EvilDragonfiend (credit to the cross job idea to Selfiren)
+delete-after: true
+changes:
+  - rscadd: Some jobs can write other job's manuscript rather than theirs. (For example,
+      all heads can write their underlings version.) Curator can now write any job
+      version.
+  - rscadd: Manuscript bounty is now repeatable in 4 minutes after claiming the reward
+  - tweak: Each book shelf in the library now has 15% chance to spawn an empty manuscript
