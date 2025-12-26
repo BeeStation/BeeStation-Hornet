@@ -4,9 +4,9 @@
 	"map_path": "map_files/EchoStation",
 	"map_file": "EchoStation.dmm",
 	"planetary_station": "true",
-	"planet_name": "5513-E",
-	"planet_mass": "5000",
-	"planet_radius": "150",
+	"planet_name": "Thallos",
+	"planet_mass": "3000",
+	"planet_radius": "600",
 	"shuttles": {
 		"cargo": "cargo_tiny",
 		"ferry": "ferry_standard",

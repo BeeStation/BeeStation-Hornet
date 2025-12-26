@@ -17,7 +17,7 @@
 		radius = SSmapping.current_map.planet_radius
 		mass = SSmapping.current_map.planet_mass
 		if (SSmapping.current_map.planet_name)
-			name = "[SSmapping.current_map.planet_name] (Outpost 13)"
+			name = "[SSmapping.current_map.planet_name]"
 
 #ifdef LOWMEMORYMODE
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
@@ -29,8 +29,8 @@
 	SSticker.force_ending = FORCE_END_ROUND
 
 /datum/orbital_object/z_linked/station/post_map_setup()
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	if (SSmapping.current_map.planetary_station)
-		set_orbitting_around_body(SSorbits.thetis_instance, 1000)
+		set_orbitting_around_body(linked_map.center, 10000)
 	else
-		set_orbitting_around_body(SSorbits.cinis_instance, 300)
-
+		set_orbitting_around_body(linked_map.center, 2500)

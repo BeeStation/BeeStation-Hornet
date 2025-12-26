@@ -13,8 +13,8 @@
 
 	for (var/I in 1 to default_map_traits.len)
 		var/list/features = default_map_traits[I]
-		//All default levels are assumed to be thetis at this stage, since there is only 1.
-		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS], orbital_body_type = /datum/orbital_object/z_linked/thetis)
+		//All default levels are assumed to be neo at this stage, since there is only 1.
+		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS], orbital_body_type = /datum/orbital_object/z_linked/neo)
 		manage_z_level(S, filled_with_space = FALSE)
 	generate_z_level_linkages() // Default Zs don't use add_new_zlevel() so they don't automatically generate z-linkages.
 

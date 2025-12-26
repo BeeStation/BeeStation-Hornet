@@ -12,7 +12,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/initial_space_ruins = 2
 	var/initial_objective_beacons = 3
-	var/initial_asteroids = 6
+	var/initial_asteroids = 10
 
 	var/orbits_setup = FALSE
 
@@ -47,12 +47,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	//The station
 	var/datum/orbital_object/station_instance
-	//Cinis
-	var/datum/orbital_object/cinis_instance
-	//Thetis
-	var/datum/orbital_object/thetis_instance
-	//Triea
-	var/datum/orbital_object/triea_instance
 
 	//Ruin level count
 	var/ruin_levels = 0
@@ -103,10 +97,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	return pick_weight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
-	// Create the star (sun) first - it will set itself as the center of the orbital map
-	new /datum/orbital_object/star()
-	// Create Triea (the far-out planet)
-	new /datum/orbital_object/z_linked/triea()
+	if (!SSmapping.current_map.planetary_station)
+		new /datum/orbital_object/echoplanet()
 
 	for(var/map_key in orbital_maps)
 		var/datum/orbital_map/orbital_map = orbital_maps[map_key]
@@ -245,3 +237,16 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 				"vel_mult" = object.velocity_multiplier,
 			))
 	return data
+
+/*
+ * Finds an orbital object by name across all orbital maps.
+ * Returns the first match found or null if no match exists.
+ */
+/datum/controller/subsystem/processing/orbits/proc/find_orbital_object_by_name(object_name)
+	for(var/map_key in orbital_maps)
+		var/datum/orbital_map/orbital_map = orbital_maps[map_key]
+		for(var/zone in orbital_map.collision_zone_bodies)
+			for(var/datum/orbital_object/object as() in orbital_map.collision_zone_bodies[zone])
+				if(object.name == object_name)
+					return object
+	return null
