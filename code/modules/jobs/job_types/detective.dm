@@ -32,6 +32,11 @@
 
 	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
 
+	manuscript_jobs = list(
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_WARDEN
+	)
+
 /datum/outfit/job/detective
 	name = JOB_NAME_DETECTIVE
 	jobtype = /datum/job/detective
