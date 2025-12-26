@@ -475,11 +475,12 @@ class RenderableObjectType {
       mapDistanceScale;
     let outputRadius = this.radius * zoomScale;
 
+    // Account for the radius so bodies stay visible while any part is on screen
     this.inBounds =
-      outputXPosition < 250 &&
-      outputYPosition < 250 &&
-      outputXPosition > -250 &&
-      outputYPosition > -250;
+      outputXPosition - outputRadius < 250 &&
+      outputYPosition - outputRadius < 250 &&
+      outputXPosition + outputRadius > -250 &&
+      outputYPosition + outputRadius > -250;
 
     if (!this.inBounds) {
       outputRadius = 5 * zoomScale;
@@ -734,11 +735,12 @@ class Shuttle extends RenderableObjectType {
       mapDistanceScale;
     let outputRadius = this.radius * zoomScale;
 
+    // Account for the radius so bodies stay visible while any part is on screen
     this.inBounds =
-      outputXPosition < 250 &&
-      outputYPosition < 250 &&
-      outputXPosition > -250 &&
-      outputYPosition > -250;
+      outputXPosition - outputRadius < 250 &&
+      outputYPosition - outputRadius < 250 &&
+      outputXPosition + outputRadius > -250 &&
+      outputYPosition + outputRadius > -250;
 
     if (!this.inBounds) {
       outputRadius = 5 * zoomScale;
@@ -892,6 +894,7 @@ class Projectile extends RenderableObjectType {
       zoomScale *
       mapDistanceScale;
 
+    // Projectiles are point-based, so use center for bounds check
     this.inBounds =
       outputXPosition < 250 &&
       outputYPosition < 250 &&
@@ -899,7 +902,6 @@ class Projectile extends RenderableObjectType {
       outputYPosition > -250;
 
     if (!this.inBounds) {
-      outputRadius = 5 * zoomScale;
       outputXPosition = clamp(outputXPosition, -250, 250);
       outputYPosition = clamp(outputYPosition, -250, 250);
     }

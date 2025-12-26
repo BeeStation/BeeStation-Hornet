@@ -132,6 +132,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/computer/shuttle_flight)
 		shuttleObject
 	)
 
+	//Find the orbital object associated with the console's current z-level
+	//This is used as a fallback for tracking when the shuttle is docked
+	var/datum/orbital_map/viewing_map = SSorbits.orbital_maps[orbital_map_index]
+	for(var/map_key in viewing_map.collision_zone_bodies)
+		for(var/datum/orbital_object/z_linked/z_linked as() in viewing_map.collision_zone_bodies[map_key])
+			if(!istype(z_linked))
+				continue
+			if(z_linked.z_in_contents(z))
+				data["currentLocationName"] = z_linked.name
+				break
+		if(data["currentLocationName"])
+			break
+
 	//Send shuttle data
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
