@@ -159,3 +159,5 @@
   - bugfix: blood freezers are no longer stocked with fake ethereal blood
   - bugfix: fixed syndicate borgs not starting with syndimov laws
   - bugfix: playstyle strings are once more properly sent to syndicate borgs
+  r1ks-iwnl:
+  - bugfix: Fixed blushing
