@@ -22,21 +22,11 @@ SUBSYSTEM_DEF(botany)
 	var/list/weeds = list(/obj/item/plant_seeds/preset/amanita = 1, /obj/item/plant_seeds/preset/reishi = 2, /obj/item/plant_seeds/preset/nettle = 1, /obj/item/plant_seeds/preset/chanterelle = 1,
 	/obj/item/plant_seeds/preset/tower = 1, /obj/item/plant_seeds/preset/plump = 1, /obj/item/plant_seeds/preset/starthistle = 3, /obj/item/plant_seeds/preset/harebell = 1)
 
-//Random Features
-	///List for random plant bodies
-	var/list/random_bodies = list()
-	///List of unused random bodies
-	var/list/unused_random_bodies = list()
-
-	///List for random plant fruits
-	var/list/random_fruits = list()
-	///List of unused random fruits
-	var/list/unused_random_fruits = list()
-
-	///List for random plant roots
-	var/list/random_roots = list()
-	///List of unused random roots
-	var/list/unused_random_roots = list()
+//Random seeds
+	///List of all random seeds
+	var/list/random_seeds = list()
+	///List of unused random seeds
+	var/list/unused_random_seeds = list()
 
 //Random traits
 	///List of all random traits - linked list, arranged by trait compat list(/datum/plant_feature/body = list(traits))
@@ -58,18 +48,9 @@ SUBSYSTEM_DEF(botany)
 	for(var/datum/plant_need/need as anything in subtypesof(/datum/plant_need))
 		if(initial(need.overdraw_need))
 			overdraw_needs += need
-	//Build random plant feature lists
-	for(var/datum/plant_feature/feature as anything in subtypesof(/datum/plant_feature))
-		feature = new feature()
-		if(!feature.random_plant)
-			continue
-		if(istype(feature, /datum/plant_feature/body))
-			random_bodies += feature.type
-		if(istype(feature, /datum/plant_feature/fruit))
-			random_fruits += feature.type
-		if(istype(feature, /datum/plant_feature/roots))
-			random_roots += feature.type
-		QDEL_NULL(feature)
+	//Build random seeds lists
+	for(var/obj/item/plant_seeds/preset/random/seed as anything in subtypesof(/obj/item/plant_seeds/preset/random))
+		random_seeds += seed
 	//Build random traits
 	for(var/datum/plant_trait/trait as anything in subtypesof(/datum/plant_trait))
 		if(!initial(trait.random_trait))
@@ -129,26 +110,15 @@ SUBSYSTEM_DEF(botany)
 			dictionary_links[link_feature] = dictionary_links[link_feature] || list()
 			dictionary_links[link_feature] += "[ref(seeds)]"
 
-//Template for random features
-/datum/controller/subsystem/botany/proc/get_random_feature(list/feature_list, list/unused_feature_list, consider_unused = TRUE)
-	//If we just want a truly random random-compatible body
+/datum/controller/subsystem/botany/proc/get_seed(consider_unused = TRUE)
 	if(!consider_unused)
-		return pick(feature_list)
-	//If we want a random body we haven't used yet
-	if(!length(unused_feature_list))
-		unused_feature_list = feature_list.Copy()
-	var/feature = pick(unused_feature_list)
-	unused_feature_list -= feature
-	return feature
-
-/datum/controller/subsystem/botany/proc/get_random_body(consider_unused = TRUE)
-	return get_random_feature(random_bodies, unused_random_bodies, consider_unused)
-
-/datum/controller/subsystem/botany/proc/get_random_fruit(consider_unused = TRUE)
-	return get_random_feature(random_fruits, unused_random_fruits, consider_unused)
-
-/datum/controller/subsystem/botany/proc/get_random_root(consider_unused = TRUE)
-	return get_random_feature(random_roots, unused_random_roots, consider_unused)
+		return pick(random_seeds)
+	if(!length(unused_random_seeds))
+		var/list/copy_list = random_seeds
+		unused_random_seeds = copy_list.Copy()
+	var/trait = pick(unused_random_seeds)
+	unused_random_seeds -= trait
+	return trait
 
 /datum/controller/subsystem/botany/proc/get_random_need()
 	return pick(overdraw_needs)

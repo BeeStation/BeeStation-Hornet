@@ -6,6 +6,7 @@
 	desc = "A portble device used to scan and analyse plants.\n<span class='notice'>Use in-hand to enable / disable advanced scan.</span>"
 	icon = 'icons/obj/hydroponics/features/generic.dmi'
 	icon_state = "plant_scanner"
+	w_class = WEIGHT_CLASS_TINY
 	///Do we show extra information
 	var/advanced = TRUE
 

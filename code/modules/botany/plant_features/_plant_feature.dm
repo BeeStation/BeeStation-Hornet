@@ -75,6 +75,15 @@
 	blacklist_features = typecacheof(blacklist_features)
 	whitelist_features = typecacheof(whitelist_features)
 
+/datum/plant_feature/Destroy(force, ...)
+	for(var/datum/plant_trait/trait as anything in plant_traits)
+		plant_traits -= trait
+		qdel(trait)
+	for(var/datum/plant_need/need as anything in plant_needs)
+		plant_needs -= need
+		qdel(need)
+	return ..()
+
 //Used to get dialogue / text for hand-held plant scanner - This is like get_ui_data() but it has more information about specific things you'd want to know on the fly
 /datum/plant_feature/proc/get_scan_dialogue()
 	var/dialogue = "[capitalize(name)]([species_name])\n"
@@ -186,20 +195,20 @@
 	remaining_genetic_budget += amount
 //Need management
 	//If we're overdrawing, add needs
-	if(amount < 0 && remaining_genetic_budget <= 0)
-		var/datum/plant_need = previous_needs["[source.type]"] || SSbotany.get_random_need()
-		plant_need = new plant_need(src)
-		overdraw_needs += list(REF(source) = plant_need)
-		plant_needs += plant_need
+	if(amount < 0 && remaining_genetic_budget < 0)
+		var/datum/plant_need/need = previous_needs["[source.type]"] || SSbotany.get_random_need()
+		need = new need(src)
+		overdraw_needs += list(REF(source) = need)
+		plant_needs += need
 		return
 	//If we're paying it back, remove needs
 	if(amount > 0 && plant_needs[REF(source)])
 		//Archive the need so people don't try to reroll it
-		var/datum/plant_need = overdraw_needs[REF(source)]
-		previous_needs += list("[source.type]" = plant_need.type)
+		var/datum/plant_need/need = overdraw_needs[REF(source)]
+		previous_needs += list("[source.type]" = need.type)
 		//Remove it from ourselves
-		plant_needs -= plant_need
+		plant_needs -= need
 		overdraw_needs -= REF(source)
-		qdel(plant_need)
+		qdel(need)
 
 //TODO: new plant tray maker sprite - Racc

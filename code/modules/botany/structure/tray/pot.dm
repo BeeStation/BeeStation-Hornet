@@ -1,6 +1,6 @@
 /obj/item/plant_tray/pot
 	name = "plant pot"
-	icon_state = "pot"
+	icon_state = "pot_random"
 	use_indicators = FALSE
 	plumbing = FALSE
 	density = FALSE
@@ -10,9 +10,31 @@
 	gain_weeds = FALSE
 
 /obj/item/plant_tray/pot/Initialize(mapload)
+	icon_state = "pot"
 	. = ..()
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
+//Special tray stuff
+	tray_component.set_substrate(/datum/plant_subtrate/fairy)
+	tray_component.allow_substrate_change = FALSE
+	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
+
+/obj/item/plant_tray/pot/Exit(atom/movable/leaving, direction)
+	. = ..()
+	//Make sure plants get 'reset' /taxed when leaving a pot so people can't game the system
+	var/datum/component/plant/plant_comp = leaving.GetComponent(/datum/component/plant)
+	if(!plant_comp)
+		return
+	//Tax fruit
+	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features
+	for(var/obj/item/fruit as anything in fruit_feature?.fruits)
+		qdel(fruit)
+	SEND_SIGNAL(plant_comp, COMSIG_PLANT_ACTION_HARVEST)
+
+/obj/item/plant_tray/pot/proc/catch_pause(datum/source)
+	SIGNAL_HANDLER
+
+	return TRUE
 
 /*
 	Variant that contains a random plant
@@ -22,12 +44,23 @@
 
 /obj/item/plant_tray/pot/random/Initialize(mapload)
 	. = ..()
-//Plant
-	var/obj/item/plant_item/random/random_plant = new(get_turf(src))
-	var/datum/component/plant/plant_component = random_plant.GetComponent(/datum/component/plant)
-	random_plant.forceMove(src) //forceMove instead of creating it inside to proc Entered()
-	vis_contents += random_plant
-	SEND_SIGNAL(plant_component, COMSIG_PLANT_PLANTED, src)
+//Plant a random seed
+	var/obj/item/plant_seeds/preset/random/seed = SSbotany.get_seed()
+	seed = new seed(src)
+	var/datum/component/plant/plant_component = seed.plant(src, logic = TRUE)
+//Add some bonus traits to it
+	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
+		//Remove possible duplicates - kind of a fucked up way of doing it tbh
+		for(var/datum/plant_trait/trait as anything in feature.plant_traits)
+			if(trait.allow_multiple)
+				continue
+			//Essentially just remove ourselves from the pool of possible random traits - Don't worry, this gets refilled!
+			if(!SSbotany.unused_random_traits["[feature.trait_type_shortcut]"]) //For nectar, and any other weirdo future traits
+				continue
+			SSbotany.unused_random_traits["[feature.trait_type_shortcut]"] -= trait.type
+		var/datum/plant_trait/trait = SSbotany.get_random_trait("[feature.trait_type_shortcut]")
+		trait = new trait(feature)
+		feature.plant_traits += trait
 //Needs
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
 		for(var/datum/plant_need/need as anything in feature.plant_needs)

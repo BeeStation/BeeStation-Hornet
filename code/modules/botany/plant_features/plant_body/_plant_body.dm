@@ -93,7 +93,7 @@
 		catch_harvest()
 		return
 	//If needs aren't met, we start taking % damage, but this source can't kill us, just weakens
-	if(!check_needs(delta_time))
+	if(!SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT) && !check_needs(delta_time))
 		adjust_health(health*BODY_NEEDLESS_DAMAGE*-1)
 //Growth
 	if(growth_time_elapsed < growth_time)

@@ -6,12 +6,12 @@
 	var/plant_slots = PLANT_BODY_SLOT_SIZE_LARGEST
 	///What kind of substrate do we have?
 	var/datum/plant_subtrate/substrate
+	///Do we allow our substrate to be changed?
+	var/allow_substrate_change = TRUE
 	///How much do we visually offset the plant when planting it
 	var/visual_upset = 14
 	///How much we offset entering plant's layer - used to make pots work
 	var/layer_upset = 0
-	///Do we allow our substrate to be changed?
-	var/allow_substrate_change = TRUE
 	///Do we gain weeds over time?
 	var/gain_weeds = TRUE
 	///Weed buildup
@@ -66,9 +66,11 @@
 		playsound(parent, 'sound/effects/shovel_dig.ogg', 60)
 		return
 //Remove substrate
-	if(istype(I, /obj/item/shovel/spade))
+	if(istype(I, /obj/item/shovel/spade) && !length(plants) && allow_substrate_change)
 		INVOKE_ASYNC(src, PROC_REF(async_spade_action), attacker)
 		return
+	else if(length(plants))
+		to_chat(attacker, span_warning("You can't clear [parent]'s substrate whil it still contains plants!"))
 //Let people fill trays with reagents by hand
 	var/obj/obj_parent = parent
 	if(!IS_EDIBLE(I) && !istype(I, /obj/item/reagent_containers) || obj_parent.reagents?.flags & REFILLABLE)

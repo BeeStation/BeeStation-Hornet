@@ -6,7 +6,7 @@
 	name = "Bluespace Activity"
 	desc = "The fruit exhibits bluespace activity. Triggering the fruit will teleport the target \
 	to a random location nearby, or the fruit itself if there is no target."
-	///How far we teleport, at a minimum
+	///How far we teleport, normally
 	var/teleport_radius = 10
 
 /datum/plant_trait/fruit/bluespace/setup_fruit_parent()

@@ -33,6 +33,8 @@
 
 /datum/plant_need/reagent/buff/pests/process(delta_time)
 	need_description = "[archive_description]\nPest Level: [pest_level]%"
+	if(SEND_SIGNAL(parent.parent.plant_item.loc, COMSIG_PLANTER_PAUSE_PLANT))
+		return
 	if(pest_level <= 0)
 		QDEL_NULL(calibrated_holder)
 		return
@@ -48,6 +50,11 @@
 	. = ..()
 	if(!parent || !parent.parent)
 		return
+	//A little hacky but it shouldn't matter too much
+	addtimer(CALLBACK(src, PROC_REF(finish_setup)), 1 SECONDS)
+
+/datum/plant_need/reagent/buff/pests/proc/finish_setup()
+	RegisterSignal(parent.parent, COMSIG_PLANT_CARNI_BUFF, PROC_REF(catch_carni))
 	body_parent = locate(/datum/plant_feature/body) in parent.parent.plant_features
 	if(!body_parent)
 		return
@@ -84,3 +91,8 @@
 /datum/plant_need/reagent/buff/pests/catch_nectar(datum/source)
 	. = ..()
 	pest_level = 0
+
+/datum/plant_need/reagent/buff/pests/proc/catch_carni(datum/source, _delta_time)
+	SIGNAL_HANDLER
+
+	remove_buff(_delta_time)

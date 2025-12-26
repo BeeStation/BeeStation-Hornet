@@ -43,7 +43,7 @@
 
 	copy(fruit)
 
-/datum/plant_trait/fruit/proc/catch_examine(datum/source, /mob/looker, list/examine_text)
+/datum/plant_trait/fruit/proc/catch_examine(datum/source, mob/looker, list/examine_text)
 	SIGNAL_HANDLER
 
 	examine_text += examine_line

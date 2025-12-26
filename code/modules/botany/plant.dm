@@ -69,6 +69,7 @@
 		plant_item.forceMove(item)
 		item.vis_contents += plant_item
 		RegisterSignal(item, COMSIG_ITEM_AFTERATTACK, PROC_REF(catch_spade_attack))
+		RegisterSignal(plant_item, COMSIG_MOVABLE_MOVED, PROC_REF(catch_moved))
 		return TRUE
 
 //Follow up for spade interaction
@@ -99,6 +100,12 @@
 	plant_item.forceMove(target)
 	target.vis_contents += plant_item
 	spade.vis_contents -= plant_item
+
+/datum/component/plant/proc/catch_moved(datum/source, atom/movable/old_loc, dir)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(old_loc, COMSIG_ITEM_AFTERATTACK)
+	old_loc.vis_contents -= plant_item
 
 /datum/component/plant/proc/populate_features(list/_features)
 	plant_features = _features?.Copy() || plant_features

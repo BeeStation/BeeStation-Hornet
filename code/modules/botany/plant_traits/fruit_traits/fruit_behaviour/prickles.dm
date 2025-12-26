@@ -40,9 +40,9 @@
 	Last fingerprint: [fruit_parent.fingerprintslast].", INVESTIGATE_BOTANY)
 	log_combat(victim, fruit_parent, "activated the", null, "injecting them with [trait_power*BASE_REAGENT_TRANSFER] % of [fruit_parent.reagents.log_list()]. Last fingerprint: [fruit_parent.fingerprintslast].")
 //Reagents
-	if(!victim.reagents && !victim.can_inject(null, 0))
+	if(!victim.reagents || !victim.can_inject(null, 0))
 		return FALSE
-	var/injecting_amount = (trait_power*BASE_REAGENT_TRANSFER)*0.1
+	var/injecting_amount = (trait_power*BASE_REAGENT_TRANSFER)*0.01
 	var/fraction = max(fruit_parent.reagents.maximum_volume*injecting_amount, 1)
 	fruit_parent.reagents.expose(victim, INJECT, fraction)
 	fruit_parent.reagents.trans_to(victim, injecting_amount)

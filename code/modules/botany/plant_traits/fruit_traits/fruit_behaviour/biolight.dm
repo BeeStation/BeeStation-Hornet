@@ -14,6 +14,8 @@
 
 /datum/plant_trait/fruit/biolight/setup_fruit_parent()
 	. = ..()
+	if(QDELETED(fruit_parent))
+		return
 	fruit_parent.light_system = MOVABLE_LIGHT
 	fruit_parent.AddComponent(/datum/component/overlay_lighting, glow_range*trait_power, glow_power*trait_power, glow_color)
 

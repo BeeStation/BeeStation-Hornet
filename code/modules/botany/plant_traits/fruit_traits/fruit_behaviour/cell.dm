@@ -1,30 +1,57 @@
+#define CABLE_AMOUNT 5
+//% restored every second
+#define REGEN_COEF 0.005 //0.5%
+
 /*
 	The fruit can be turned into a battery
-	//TODO: - Racc
+	These batteries regen charge
 
 */
-/*
-/datum/plant_gene/trait/battery/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = I
-		if(C.use(5))
-			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))
-			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
-			pocell.icon_state = G.icon_state
-			pocell.maxcharge = G.seed.potency * 20
+/datum/plant_trait/fruit/cell
+	name = "Capacitive Cells"
+	desc = "The fruit exhibits capacitive properties. A rudimentary battery can be made by combining this fruit with cable segments."
+	genetic_cost = 2
+	///How far we teleport, at a minimum
+	var/teleport_radius = 10
+	///Reference to the cell, if we're attached to one
+	var/obj/item/stock_parts/cell/cell_parent
 
-			// The secret of potato supercells!
-			var/datum/plant_gene/trait/cell_charge/CG = G.seed.get_gene(/datum/plant_gene/trait/cell_charge)
-			if(CG) // Cell charge max is now 40MJ or otherwise known as 400KJ (Same as bluespace power cells)
-				pocell.maxcharge *= CG.rate*100
-			pocell.charge = pocell.maxcharge
-			pocell.name = "[G.name] battery"
-			pocell.desc = "A rechargeable plant-based power cell. This one can store up to [display_power(pocell.maxcharge)], and you should not swallow it."
+/datum/plant_trait/fruit/cell/setup_fruit_parent()
+	. = ..()
+	cell_parent = fruit_parent
+	if(istype(fruit_parent))
+		RegisterSignal(fruit_parent, COMSIG_ATOM_ATTACKBY, PROC_REF(catch_attackby))
+	if(istype(cell_parent))
+		START_PROCESSING(SSobj, src)
 
-			if(G.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
-				pocell.rigged = TRUE
+/datum/plant_trait/fruit/cell/process(delta_time)
+	cell_parent.charge += (cell_parent.maxcharge*(trait_power * REGEN_COEF))*delta_time
+	cell_parent.charge = clamp(cell_parent.charge, 0, cell_parent.maxcharge)
 
-			qdel(G)
-		else
-			to_chat(user, span_warning("You need five lengths of cable to make a [G] battery!"))
-*/
+/datum/plant_trait/fruit/cell/proc/catch_attackby(datum/source, obj/item, mob/living/user, params)
+	SIGNAL_HANDLER
+
+	var/obj/item/stack/cable_coil/cable = item
+	if(!istype(cable))
+		return
+	if(!cable.use(CABLE_AMOUNT))
+		to_chat(user, span_warning("You need five lengths of cable to make a [fruit_parent] battery!"))
+		return
+	to_chat(user, span_notice("You add some cable to [fruit_parent] and slide it inside the battery encasing."))
+	var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
+//Visuals
+	pocell.appearance = fruit_parent.appearance
+	pocell.underlays += icon('icons/obj/power.dmi', "grown_wires_under")
+//Charge logic
+	pocell.maxcharge = pocell.maxcharge * trait_power
+	pocell.charge = pocell.maxcharge
+	pocell.desc = "A rechargeable plant-based power cell. This one can store up to [display_power(pocell.maxcharge)], and you should not swallow it."
+//Special interactions
+	if(fruit_parent.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
+		pocell.rigged = TRUE
+//Cleanup
+	copy(pocell)
+	qdel(fruit_parent)
+
+#undef CABLE_AMOUNT
+#undef REGEN_COEF

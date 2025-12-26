@@ -75,7 +75,9 @@
 	. += list(PLANT_DATA("Fruit Volume", "[total_volume]u"), PLANT_DATA("Growth Time", "[growth_time/10] SECONDS"), PLANT_DATA("Fruit Size", "[fruit_size]"), PLANT_DATA(null, null))
 
 /datum/plant_feature/fruit/process(delta_time)
-	if(!check_needs(delta_time))
+	var/obj/item/plant_tray/tray = parent.plant_item.loc
+	var/paused = SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT)
+	if(!paused && !check_needs(delta_time))
 		return
 	if(!length(growth_timers))
 		return
@@ -169,7 +171,8 @@
 /datum/plant_feature/fruit/proc/catch_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	if(!length(fruits))
+	var/obj/item/plant_tray/tray = parent.plant_item.loc
+	if(!length(fruits) || SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT))
 		return
 	var/list/temp_fruits = list()
 	var/turf/T = user ? get_turf(user) : get_turf(parent.plant_item)
@@ -186,7 +189,8 @@
 	//Dupe-ish code but what are ya gonna do?
 	if(!istype(item, /obj/item/storage/bag/plants))
 		return
-	if(!length(fruits))
+	var/obj/item/plant_tray/tray = parent.plant_item.loc
+	if(!length(fruits) || SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT))
 		return
 	var/list/temp_fruits = list()
 	var/turf/T = user ? get_turf(user) : get_turf(parent.plant_item)

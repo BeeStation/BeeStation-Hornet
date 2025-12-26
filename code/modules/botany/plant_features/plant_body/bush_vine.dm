@@ -83,6 +83,7 @@
 	icon_state = "missing"
 	draw_below_water = FALSE
 	overlay_positions = list(list(24, 6))
+	plant_traits = list(/datum/plant_trait/body/thorns/thrower)
 
 /datum/plant_feature/body/bush_vine/nettle/thistle
 	name = "thistle bush"

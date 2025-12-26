@@ -4,7 +4,8 @@
 
 /datum/plant_trait/roots/strangling
 	name = "Strangling"
-	desc = "Impedes the growth of plants, and their fruit."
+	desc = "Impedes the growth of other plants, and their fruit."
+	genetic_cost = -1
 	///Quick reference to the plant item
 	var/obj/item/plant_item
 	///Remember our old tray for signal cleanup
@@ -12,7 +13,7 @@
 
 /datum/plant_trait/roots/strangling/setup_component_parent(datum/source)
 	. = ..()
-	if(!parent)
+	if(!parent || !parent.parent)
 		return
 	plant_item = parent.parent.plant_item
 	//Strangle our loc
@@ -34,6 +35,8 @@
 	SIGNAL_HANDLER
 
 	var/obj/item/plant_tray/tray = source
+	if(SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT))
+		return
 	if(istype(tray) && problem_list)
 		tray.add_feature_indicator(src, parent, problem_list)
 	else if(problem_list) //Shouldn't happen, but I don't know how people will use it in a few years

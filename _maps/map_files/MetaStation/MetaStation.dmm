@@ -36742,8 +36742,8 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "jPP" = (
@@ -62114,8 +62114,8 @@
 	},
 /area/security/main)
 "teV" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/green,
+/obj/item/plant_tray/pot/random,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "tff" = (

@@ -155,9 +155,10 @@
 
 //You can throw any special reagent logic here
 /obj/item/plant_tray/proc/update_reagents()
-	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 	if(reagents.total_volume <= 0)
 		tray_reagents.color ="#0000"
+		return
+	tray_reagents.color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/item/plant_tray/proc/add_feature_indicator(datum/_source, datum/feature, datum/feature_list)
 	if(!feature_list["[ref(feature)]"])
