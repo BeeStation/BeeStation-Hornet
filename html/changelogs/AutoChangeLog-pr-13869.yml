@@ -1,5 +1,0 @@
-author: mrmanlikesbt
-delete-after: true
-changes:
-  - bugfix: fixed syndicate borgs not starting with syndimov laws
-  - bugfix: playstyle strings are once more properly sent to syndicate borgs

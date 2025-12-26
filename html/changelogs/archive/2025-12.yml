@@ -157,3 +157,5 @@
   - bugfix: fixed consistent human dummies runtiming when spewing blood trails
   - bugfix: fixed energy balls (teslas) not generating power
   - bugfix: blood freezers are no longer stocked with fake ethereal blood
+  - bugfix: fixed syndicate borgs not starting with syndimov laws
+  - bugfix: playstyle strings are once more properly sent to syndicate borgs
