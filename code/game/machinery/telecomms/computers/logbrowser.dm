@@ -161,6 +161,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "ServerMonitor", name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 #undef MAX_NETWORK_ID_LENGTH
