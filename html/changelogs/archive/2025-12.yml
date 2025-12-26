@@ -149,6 +149,10 @@
   r1ks-iwnl:
   - bugfix: Fixed legion and hierophant, BDM and bubblegum hiscores being the same
 2025-12-26:
+  ShizCalev:
+  - bugfix: Fixed a runtime when mousing over an object in nullspace
   mrmanlikesbt:
   - bugfix: fixed heads sometimes not having extra examine text (soulless)
   - bugfix: Fixed the italian moustache
+  - bugfix: fixed consistent human dummies runtiming when spewing blood trails
+  - bugfix: fixed energy balls (teslas) not generating power
