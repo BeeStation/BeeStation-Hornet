@@ -148,7 +148,7 @@ then the above notice does not apply.
 	antag_datum = /datum/antagonist/wizard
 	weight = 8
 	minimum_players_required = 20
-	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
 
 /datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
 	. = ..()
@@ -240,7 +240,7 @@ then the above notice does not apply.
 	drafted_players_amount = 4
 	weight = 8
 	minimum_players_required = 35
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/bloodcult,
 	)
@@ -301,7 +301,7 @@ then the above notice does not apply.
 	drafted_players_amount = 3
 	weight = 8
 	minimum_players_required = 18
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team
@@ -408,7 +408,7 @@ then the above notice does not apply.
 	drafted_players_amount = 3
 	weight = 8
 	minimum_players_required = 22
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
 
 	var/datum/team/revolution/team
 	var/finished = FALSE

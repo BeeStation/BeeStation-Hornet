@@ -71,17 +71,26 @@ SUBSYSTEM_DEF(communications)
 	if(CONFIG_GET(flag/intercept_report))
 		var/list/gamemodes = list()
 		var/list/blacklisted_types = list()
+		var/obvious_shown = FALSE
 		// Add all of the rulesets that did executed
 		for (var/datum/dynamic_ruleset/ruleset in SSdynamic.executed_gamemodes)
 			gamemodes += ruleset
 			blacklisted_types += ruleset.type
+			if (ruleset.ruleset_flags & IS_OBVIOUS_RULESET)
+				obvious_shown = TRUE
 		// Throw in some rulesets that could execute but didn't
 		while (length(gamemodes) < 3)
 			var/datum/dynamic_ruleset/false_alarm = SSdynamic.pick_ruleset(SSdynamic.configured_gamemodes, TRUE, TRUE, blacklisted_types)
 			if (!false_alarm)
 				break
-			gamemodes += false_alarm
 			blacklisted_types += false_alarm.type
+			// Check the obvious ruleset flag
+			if (false_alarm.ruleset_flags & IS_OBVIOUS_RULESET)
+				// Skip if we already showed an obvious one
+				if (obvious_shown)
+					continue
+				obvious_shown = TRUE
+			gamemodes += false_alarm
 		// If we didn't have any gamemodes to bluff with, then throw in some random ones
 		while (length(gamemodes) < 3)
 			var/list/random_rulesets = list()
