@@ -262,7 +262,7 @@
 /area/shuttle/pirate)
 "hz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/effect/decal/fakelattice{
 	icon_state = "lattice-23"
 	},
@@ -711,7 +711,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
@@ -1583,7 +1583,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -2048,10 +2048,7 @@
 /area/shuttle/pirate)
 "Wm" = (
 /obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/gambling{
-	pixel_x = -5;
-	pixel_y = 4
-	},
+/obj/effect/spawner/random/entertainment/gambling,
 /obj/item/storage/pill_bottle/dice{
 	pixel_x = 6;
 	pixel_y = 6
@@ -2130,7 +2127,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},

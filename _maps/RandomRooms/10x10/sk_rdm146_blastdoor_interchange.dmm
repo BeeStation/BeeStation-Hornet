@@ -7,13 +7,13 @@
 /area/template_noop)
 "aC" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/iron,
 /area/template_noop)
 "aT" = (
 /obj/structure/grille/broken,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -36,7 +36,7 @@
 /area/template_noop)
 "di" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/six,
+/obj/effect/spawner/random/maintenance/six,
 /turf/open/floor/iron,
 /area/template_noop)
 "dF" = (
@@ -129,16 +129,16 @@
 /area/template_noop)
 "lm" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/iron,
 /area/template_noop)
 "lq" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/plating,
 /area/template_noop)
 "nf" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/plating,
 /area/template_noop)
 "oB" = (
@@ -195,7 +195,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "wg" = (
@@ -248,7 +248,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "zD" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -293,7 +293,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "QE" = (
-/obj/effect/spawner/lootdrop/gambling,
+/obj/effect/spawner/random/entertainment/gambling,
 /obj/structure/rack,
 /obj/machinery/button/door{
 	id = "maint1";
@@ -310,7 +310,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Sc" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/turf_decal/stripes{
 	dir = 4
 	},

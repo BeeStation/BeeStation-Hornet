@@ -2,7 +2,7 @@
 "a" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -25,7 +25,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -35,12 +35,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/template_noop)
 "p" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/spawner/lootdrop/gambling,
+/obj/effect/spawner/random/entertainment/gambling,
 /turf/open/floor/iron,
 /area/template_noop)
 "q" = (
@@ -66,7 +66,7 @@
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/cup/soda_cans/space_up,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
@@ -93,7 +93,7 @@
 /obj/item/wirerod,
 /obj/structure/table/wood,
 /obj/item/storage/belt/utility,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/carpet,
 /area/template_noop)
 "A" = (
@@ -102,7 +102,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating{
 	broken = 1
 	},

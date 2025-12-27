@@ -7,7 +7,7 @@
 /obj/item/trash/popcorn,
 /obj/effect/decal/cleanable/shreds,
 /obj/item/toy/cards/singlecard,
-/obj/effect/spawner/lootdrop/maintenance/seven,
+/obj/effect/spawner/random/maintenance/seven,
 /obj/item/reagent_containers/cup/glass/waterbottle/relic,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
@@ -81,7 +81,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
@@ -89,7 +89,7 @@
 	pixel_x = 3;
 	pixel_y = 12
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -141,12 +141,12 @@
 /area/template_noop)
 "D" = (
 /obj/item/trash/energybar,
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
 /area/template_noop)
 "F" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/cigbutt,
 /turf/open/floor/plating,
@@ -167,7 +167,7 @@
 "K" = (
 /obj/structure/closet/cardboard,
 /obj/item/storage/toolbox/emergency,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /obj/item/reagent_containers/cup/glass/bottle/hooch,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -191,7 +191,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "P" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -223,7 +223,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (
-/obj/effect/spawner/lootdrop/maintenance/seven,
+/obj/effect/spawner/random/maintenance/seven,
 /turf/open/floor/plating,
 /area/template_noop)
 

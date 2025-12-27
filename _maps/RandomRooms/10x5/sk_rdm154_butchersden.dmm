@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -74,7 +74,7 @@
 /area/template_noop)
 "G" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /turf/open/floor/plating,
 /area/template_noop)
 "H" = (
@@ -114,7 +114,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -135,7 +135,7 @@
 /area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "Y" = (

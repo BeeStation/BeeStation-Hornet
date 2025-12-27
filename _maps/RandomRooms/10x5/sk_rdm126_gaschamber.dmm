@@ -25,7 +25,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/badcode/trap,
 /turf/open/floor/iron,
 /area/template_noop)
 "ah" = (
@@ -150,7 +150,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/badcode/trap,
 /turf/open/floor/iron,
 /area/template_noop)
 "aC" = (
@@ -215,12 +215,12 @@
 /area/template_noop)
 "aS" = (
 /obj/machinery/door/window/southleft,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/badcode/trap,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "aT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/badcode/trap,
 /turf/open/floor/iron,
 /area/template_noop)
 "aU" = (

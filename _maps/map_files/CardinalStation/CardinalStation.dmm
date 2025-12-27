@@ -51,7 +51,7 @@
 /turf/open/floor/wood,
 /area/hallway/upper/primary/starboard)
 "aaY" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /mob/living/basic/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -538,9 +538,7 @@
 /area/crew_quarters/dorms)
 "afu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "afz" = (
@@ -1415,7 +1413,7 @@
 /area/medical/virology)
 "apb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
 "apc" = (
@@ -1760,7 +1758,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/effect/turf_decal/trimline/white/filled/line{
 	color = "#7fc1a2";
 	alpha = 230;
@@ -3376,7 +3374,7 @@
 /area/science/server)
 "aMt" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
 "aMv" = (
@@ -4108,9 +4106,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/engine/atmos)
 "aTS" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "aTT" = (
@@ -4297,7 +4293,7 @@
 /obj/machinery/door/window{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -4373,7 +4369,7 @@
 /area/engine/engine_room)
 "aWr" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/techstorage/security,
+/obj/effect/spawner/random/techstorage/security_all,
 /obj/machinery/camera/directional/north,
 /obj/machinery/requests_console/auto_name/directional/west,
 /turf/open/floor/circuit,
@@ -4585,7 +4581,7 @@
 /turf/open/floor/prison,
 /area/ai_monitored/storage/eva)
 "aZr" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "aZs" = (
@@ -4763,14 +4759,12 @@
 /area/crew_quarters/heads/hop)
 "bbj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "bbs" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "bbI" = (
@@ -4980,7 +4974,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron,
@@ -9928,7 +9922,7 @@
 "ceb" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/tile/monorust,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -10287,7 +10281,7 @@
 /obj/effect/turf_decal/trimline/black/filled/line{
 	dir = 8
 	},
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "chX" = (
@@ -10772,7 +10766,7 @@
 /area/space/nearstation)
 "cmA" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/techstorage/engineering,
+/obj/effect/spawner/random/techstorage/engineering_all,
 /turf/open/floor/circuit,
 /area/storage/tech)
 "cmJ" = (
@@ -11313,7 +11307,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/machinery/status_display/evac/directional/east,
 /turf/open/floor/wood,
 /area/medical/break_room)
@@ -11852,9 +11846,7 @@
 /turf/open/floor/iron/dark/textured,
 /area/science/explab)
 "cxG" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
 "cxQ" = (
@@ -12366,9 +12358,7 @@
 	pixel_y = 8;
 	pixel_x = -8
 	},
-/obj/effect/spawner/lootdrop/minor/beret_or_rabbitears{
-	pixel_y = 9
-	},
+/obj/effect/spawner/random/clothing/beret_or_rabbitears,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -12461,7 +12451,7 @@
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
@@ -12528,7 +12518,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood/big,
 /area/security/prison)
 "cFY" = (
@@ -13431,9 +13421,7 @@
 	},
 /area/quartermaster/sorting)
 "cPo" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -15863,9 +15851,7 @@
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/warehouse)
 "dqC" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "dqO" = (
@@ -17580,9 +17566,7 @@
 /area/security/checkpoint/medical)
 "dKV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "dKY" = (
@@ -18008,7 +17992,7 @@
 /area/ai_monitored/turret_protected/ai)
 "dRl" = (
 /obj/structure/lattice,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/space/basic,
 /area/space/nearstation)
 "dRH" = (
@@ -18127,15 +18111,11 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "dSS" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
 "dSU" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
@@ -18486,7 +18466,7 @@
 /area/maintenance/department/science/central)
 "dYj" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/wood,
 /area/security/prison)
 "dYm" = (
@@ -18562,14 +18542,12 @@
 "dYF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/iron,
 /area/maintenance/central/secondary)
 "dYL" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating/rust,
 /area/maintenance/department/chapel)
 "dYO" = (
@@ -20146,7 +20124,7 @@
 	dir = 6
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "esO" = (
@@ -20713,9 +20691,7 @@
 	},
 /area/hallway/upper/primary/port)
 "ezr" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -21138,9 +21114,7 @@
 /turf/open/floor/iron/dark/smooth_large,
 /area/science/mixing)
 "eDV" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -21497,9 +21471,7 @@
 "eIR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "eIU" = (
@@ -21773,7 +21745,7 @@
 "eLQ" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/item/trash/candy,
 /obj/item/trash/pistachios,
 /obj/item/trash/canned/beans,
@@ -21972,7 +21944,7 @@
 /area/science/explab)
 "eOO" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/hallway/upper/primary/port)
 "ePi" = (
@@ -23373,7 +23345,7 @@
 "fgo" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "fgB" = (
@@ -24308,7 +24280,7 @@
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "fsB" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "fsC" = (
@@ -24481,7 +24453,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -25554,7 +25526,7 @@
 /area/hallway/upper/primary/port)
 "fFD" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/south,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
@@ -26585,7 +26557,7 @@
 /area/science/explab)
 "fSm" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "fSu" = (
@@ -27113,7 +27085,7 @@
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
 "fYh" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "fYl" = (
@@ -27123,9 +27095,7 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "fYB" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -27393,7 +27363,7 @@
 /turf/open/floor/plating/rust,
 /area/maintenance/central)
 "gaZ" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/closet/crate,
 /turf/open/floor/plating/rust,
 /area/maintenance/department/engine)
@@ -27700,7 +27670,7 @@
 "gdZ" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/effect/turf_decal/tile/monorust,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -29984,7 +29954,7 @@
 /turf/open/floor/iron/dark/smooth_edge,
 /area/science/robotics/lab)
 "gAn" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -30670,9 +30640,7 @@
 /turf/open/floor/wood/big,
 /area/library/lounge)
 "gId" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -31381,7 +31349,7 @@
 /area/hallway/primary/central)
 "gPR" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 2;
 	pixel_x = 4
@@ -31596,7 +31564,7 @@
 /obj/structure/fluff/fans{
 	pixel_x = 24
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/tech/grid,
 /area/security/prison/shielded)
 "gRP" = (
@@ -31995,7 +31963,7 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "gWy" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/structure/disposalpipe/junction/flip,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -32670,12 +32638,8 @@
 "heF" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/donkpockets{
-	pixel_y = 2
-	},
-/obj/effect/spawner/lootdrop/donkpockets{
-	pixel_y = 7
-	},
+/obj/effect/spawner/random/food_or_drink/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "heH" = (
@@ -32940,9 +32904,7 @@
 /turf/open/water/air/station,
 /area/hydroponics/garden)
 "hhj" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -33653,7 +33615,7 @@
 /turf/open/floor/engine/light,
 /area/science/mixing/chamber)
 "hqC" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating/rust,
 /area/maintenance/central)
 "hqD" = (
@@ -33900,13 +33862,11 @@
 /turf/open/floor/iron/techmaint,
 /area/security/execution/education)
 "htI" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "htL" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -34255,7 +34215,7 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/effect/spawner/lootdrop/techstorage/RnD_secure,
+/obj/effect/spawner/random/techstorage/rnd_secure_all,
 /obj/machinery/light/small/directional/east{
 	pixel_y = -16
 	},
@@ -35453,7 +35413,7 @@
 	pixel_y = 1;
 	pixel_x = 6
 	},
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -35478,7 +35438,7 @@
 "hKd" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced/survival_pod/spawner/directional/south,
-/obj/effect/spawner/lootdrop/techstorage/tcomms,
+/obj/effect/spawner/random/techstorage/tcomms_all,
 /obj/structure/window/reinforced/survival_pod/spawner/directional/west,
 /turf/open/floor/circuit,
 /area/storage/tech)
@@ -35716,9 +35676,7 @@
 /area/science/xenobiology)
 "hMo" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets{
-	pixel_y = 9
-	},
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /turf/open/floor/iron/dark,
 /area/science/research)
 "hMp" = (
@@ -37784,9 +37742,7 @@
 /area/crew_quarters/fitness)
 "ilb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
@@ -37900,7 +37856,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "imn" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -38640,9 +38596,7 @@
 /turf/open/floor/plating,
 /area/hallway/primary/aft)
 "iwC" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "iwI" = (
@@ -38882,9 +38836,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "iza" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -39805,7 +39757,7 @@
 	},
 /area/hallway/primary/central)
 "iIv" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
 "iIz" = (
@@ -40366,7 +40318,7 @@
 "iNC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/central/secondary)
 "iND" = (
@@ -40689,9 +40641,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
@@ -41063,9 +41013,7 @@
 /turf/open/floor/engine,
 /area/science/mixing)
 "iVd" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/central)
 "iVg" = (
@@ -41644,8 +41592,8 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "jcT" = (
@@ -41895,9 +41843,7 @@
 	},
 /area/vacant_room/commissary/commissaryRandom)
 "jgT" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -43433,7 +43379,7 @@
 /turf/open/floor/wood/big,
 /area/bridge/meeting_room)
 "jxo" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /obj/effect/turf_decal/tile/white/opposingcorners,
 /obj/effect/turf_decal/siding/white{
 	dir = 9
@@ -46366,7 +46312,7 @@
 /turf/open/floor/iron/techmaint,
 /area/hallway/primary/aft)
 "kef" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -46395,7 +46341,7 @@
 /area/crew_quarters/theatre)
 "kev" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/item/vending_refill/sticker,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/central)
@@ -46601,7 +46547,7 @@
 	dir = 9
 	},
 /obj/machinery/airalarm/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "kgQ" = (
@@ -46615,9 +46561,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "kgT" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating/rust,
@@ -46989,9 +46933,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets{
-	pixel_y = 6
-	},
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "kkk" = (
@@ -47478,15 +47420,9 @@
 /area/hydroponics/garden)
 "koF" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = -2
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = 2
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless{
-	pixel_y = 6
-	},
+/obj/effect/spawner/random/aimodule/harmless,
+/obj/effect/spawner/random/aimodule/harmless,
+/obj/effect/spawner/random/aimodule/harmless,
 /obj/item/ai_module/core/full/asimov,
 /obj/item/ai_module/reset/purge,
 /obj/item/ai_module/reset,
@@ -47802,9 +47738,7 @@
 /turf/open/floor/iron/smooth,
 /area/engine/engineering)
 "ksb" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating/rust,
 /area/maintenance/department/medical/morgue)
 "kse" = (
@@ -48217,16 +48151,14 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
-/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/effect/spawner/random/aimodule/harmful,
 /obj/item/ai_module/supplied/protect_station{
 	pixel_y = 8
 	},
 /obj/item/ai_module/zeroth/onehuman{
 	pixel_y = -17
 	},
-/obj/effect/spawner/lootdrop/aimodule_harmful{
-	pixel_y = 2
-	},
+/obj/effect/spawner/random/aimodule/harmful,
 /obj/structure/window/reinforced/spawner/directional/north,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
@@ -49527,9 +49459,7 @@
 /area/chapel/main)
 "kNv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
 "kND" = (
@@ -49650,9 +49580,7 @@
 /turf/open/floor/wood/big,
 /area/vacant_room/office)
 "kOH" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
@@ -49739,9 +49667,7 @@
 /turf/open/floor/vault/rock,
 /area/science/mixing/chamber)
 "kQR" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "kQU" = (
@@ -50855,7 +50781,7 @@
 /turf/open/indestructible/sound/pool,
 /area/crew_quarters/fitness/recreation)
 "lbS" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/railing/perspective/black{
 	dir = 1
@@ -52266,9 +52192,7 @@
 /area/maintenance/central)
 "lrw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
 "lry" = (
@@ -54726,9 +54650,7 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/effect/spawner/lootdrop/maintenance/two{
-	pixel_y = 7
-	},
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -55377,7 +55299,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
 "mdm" = (
@@ -56007,7 +55929,7 @@
 /turf/open/floor/iron/techmaint,
 /area/engine/engine_room)
 "mkk" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/space/basic,
 /area/space)
 "mkp" = (
@@ -56053,7 +55975,7 @@
 "mkV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
 "mkX" = (
@@ -56493,7 +56415,7 @@
 /turf/open/floor/engine,
 /area/medical/chemistry)
 "mpr" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/closet,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -56616,7 +56538,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "mrl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/iron,
@@ -57117,7 +57039,7 @@
 /area/hallway/primary/fore)
 "mxx" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "mxz" = (
@@ -57892,9 +57814,7 @@
 /area/medical/medbay/aft)
 "mGI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/eva)
 "mGO" = (
@@ -58476,7 +58396,7 @@
 /area/quartermaster/exploration_prep)
 "mMh" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "mMi" = (
@@ -60151,14 +60071,8 @@
 /area/hallway/secondary/entry)
 "ngc" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_x = 19;
-	pixel_y = 13
-	},
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_y = 8;
-	pixel_x = 4
-	},
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	alpha = 255
 	},
@@ -60365,7 +60279,7 @@
 /obj/effect/turf_decal/siding/brown,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "nhM" = (
@@ -60627,7 +60541,7 @@
 /area/hydroponics)
 "nkR" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/spider/stickyweb,
 /mob/living/basic/cockroach,
 /turf/open/floor/plating,
@@ -61496,7 +61410,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "nur" = (
-/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
+/obj/effect/spawner/random/medical/two_percent_xeno_egg_spawner,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "nuu" = (
@@ -61580,9 +61494,7 @@
 /area/science/breakroom)
 "nvK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "nvN" = (
@@ -61885,7 +61797,7 @@
 	name = "disposal Exit Vent"
 	},
 /obj/structure/railing/perspective/gray,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "nyf" = (
@@ -61919,9 +61831,7 @@
 "nyo" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/wallet,
-/obj/effect/spawner/lootdrop/maintenance/three{
-	pixel_y = 16
-	},
+/obj/effect/spawner/random/maintenance/three,
 /obj/structure/sign/poster/official/random/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
@@ -61955,7 +61865,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "nyG" = (
@@ -62921,7 +62831,7 @@
 	color = "#c2bfa3"
 	},
 /obj/item/clipboard,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/item/pen/red,
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
@@ -63182,8 +63092,8 @@
 /obj/effect/turf_decal/tile/steelgrid,
 /obj/machinery/light/small/directional/west,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "nML" = (
@@ -63267,7 +63177,7 @@
 "nNE" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monofloor,
 /area/quartermaster/storage)
 "nNH" = (
@@ -63925,9 +63835,7 @@
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "nVi" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -65658,7 +65566,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/wardrobe/chemistry_white,
 /obj/machinery/light/small/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "ooF" = (
@@ -66031,7 +65939,7 @@
 	id = "garbage"
 	},
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/broken/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -67031,7 +66939,7 @@
 /obj/effect/turf_decal/trimline/yellow/filled/warning{
 	dir = 5
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/east,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32;
@@ -67103,9 +67011,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
 "oHO" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "oHQ" = (
@@ -67663,9 +67569,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "oMg" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -68021,7 +67925,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
 "oQu" = (
@@ -68247,7 +68151,7 @@
 	pixel_x = 9;
 	pixel_y = 5
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/grass,
 /area/security/prison)
 "oSx" = (
@@ -68286,7 +68190,7 @@
 "oTh" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/monofloor{
 	dir = 1
 	},
@@ -69284,7 +69188,7 @@
 	color = "#807e74"
 	},
 /obj/structure/closet/crate/large,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/concrete/tile,
 /area/teleporter)
 "pdL" = (
@@ -70392,9 +70296,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -70438,9 +70340,7 @@
 /obj/structure/sign/warning/pods{
 	pixel_x = 32
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "pqQ" = (
@@ -70643,8 +70543,8 @@
 	dir = 9
 	},
 /obj/structure/wall_closet/generic/directional/north,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "psG" = (
@@ -71056,7 +70956,7 @@
 	dir = 9
 	},
 /obj/machinery/airalarm/directional/north,
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "pwI" = (
@@ -71189,7 +71089,7 @@
 /area/medical/medbay/central)
 "pxR" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "pyG" = (
@@ -73423,7 +73323,7 @@
 /mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /obj/item/trash/candy{
 	pixel_x = 5;
 	pixel_y = -14
@@ -73512,9 +73412,7 @@
 	},
 /area/engine/atmos)
 "pYw" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
@@ -75205,9 +75103,7 @@
 /area/science/robotics/lab)
 "qsG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/morgue)
 "qsK" = (
@@ -75243,7 +75139,7 @@
 "qsV" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/siding/dark{
 	dir = 9
 	},
@@ -76568,7 +76464,7 @@
 /mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/oil,
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/platform/black{
 	dir = 10
 	},
@@ -76786,7 +76682,7 @@
 	},
 /obj/machinery/light/directional/north,
 /obj/machinery/newscaster/directional/north,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/structure/closet/crate/wooden,
 /obj/effect/turf_decal/trimline/white/filled/line{
 	color = "#7fc1a2";
@@ -77230,9 +77126,7 @@
 /area/engine/engine_smes)
 "qPk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/central)
 "qPm" = (
@@ -77527,9 +77421,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -77568,9 +77460,7 @@
 /area/quartermaster/storage)
 "qTk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -78670,7 +78560,7 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/effect/spawner/lootdrop/techstorage/AI,
+/obj/effect/spawner/random/techstorage/ai_all,
 /obj/structure/sign/nanotrasen{
 	pixel_y = -32
 	},
@@ -80027,7 +79917,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/catwalk_floor/iron,
 /area/maintenance/department/chapel)
 "rtZ" = (
@@ -80189,7 +80079,7 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "rvw" = (
@@ -81631,13 +81521,9 @@
 /obj/item/toy/crayon/spraycan{
 	pixel_x = -7
 	},
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick{
-	pixel_x = 5
-	},
-/obj/effect/spawner/lootdrop/glowstick{
-	pixel_x = -5
-	},
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -81986,9 +81872,7 @@
 /area/chapel/main)
 "rRI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "rRJ" = (
@@ -82429,7 +82313,7 @@
 /obj/structure/table/reinforced{
 	color = "#c2bfa3"
 	},
-/obj/effect/spawner/lootdrop/techstorage/command,
+/obj/effect/spawner/random/techstorage/command_all,
 /obj/machinery/camera/motion/directional/south,
 /obj/structure/sign/nanotrasen{
 	pixel_y = -32
@@ -82965,9 +82849,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "scg" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "sci" = (
@@ -83929,7 +83811,7 @@
 "snz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/medical)
 "snB" = (
@@ -84636,7 +84518,7 @@
 /obj/structure/toilet{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
 "svN" = (
@@ -84963,7 +84845,7 @@
 "sAy" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/monofloor,
 /area/quartermaster/storage)
@@ -85137,7 +85019,7 @@
 /area/janitor)
 "sCl" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/aimodule_neutral,
+/obj/effect/spawner/random/aimodule/neutral,
 /obj/item/ai_module/core/full/corp{
 	pixel_y = -28
 	},
@@ -85209,8 +85091,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/gloves,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/clothing/gloves,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
 "sCP" = (
@@ -85551,9 +85433,7 @@
 /area/hallway/primary/starboard)
 "sGY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
@@ -85925,7 +85805,7 @@
 /area/hallway/primary/port)
 "sLg" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/techstorage/service,
+/obj/effect/spawner/random/techstorage/service_all,
 /obj/structure/window/reinforced/survival_pod/spawner/directional/north,
 /obj/machinery/light/small/directional/west,
 /obj/structure/cable/yellow{
@@ -86852,9 +86732,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -86949,9 +86827,7 @@
 "sXF" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil/blue,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
-	pixel_y = -8
-	},
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -87054,7 +86930,7 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "sYK" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
@@ -87418,9 +87294,7 @@
 /turf/open/floor/iron/ridged/steel,
 /area/engine/atmos)
 "tdN" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science/central)
 "tdO" = (
@@ -87823,7 +87697,7 @@
 /area/hallway/primary/aft)
 "thf" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "thk" = (
@@ -87857,9 +87731,9 @@
 /area/ai_monitored/storage/eva)
 "thn" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/techstorage/rnd,
+/obj/effect/spawner/random/techstorage/rnd_all,
 /obj/machinery/airalarm/directional/north,
-/obj/effect/spawner/lootdrop/techstorage/medical,
+/obj/effect/spawner/random/techstorage/medical_all,
 /obj/item/paicard{
 	pixel_y = 4;
 	pixel_x = 17
@@ -89561,7 +89435,7 @@
 "tAV" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/chair,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/siding/dark,
 /turf/open/floor/iron/tech,
 /area/maintenance/department/engine/atmos)
@@ -90418,7 +90292,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/item/toy/figure/prisoner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
@@ -90957,7 +90831,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/chemistry)
 "tQt" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /obj/machinery/camera/directional/north,
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
@@ -91280,9 +91154,7 @@
 /area/quartermaster/exploration_prep)
 "tTB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -91927,9 +91799,7 @@
 /area/ai_monitored/security/armory)
 "ubi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
 "ubt" = (
@@ -92272,9 +92142,7 @@
 /turf/open/water/air/station,
 /area/hydroponics/garden)
 "ufv" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ufA" = (
@@ -94535,10 +94403,8 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
-/obj/effect/spawner/lootdrop/aimodule_neutral,
-/obj/effect/spawner/lootdrop/aimodule_neutral{
-	pixel_y = 7
-	},
+/obj/effect/spawner/random/aimodule/neutral,
+/obj/effect/spawner/random/aimodule/neutral,
 /obj/machinery/status_display/ai/directional/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -95495,7 +95361,7 @@
 "uNr" = (
 /obj/structure/closet/crate/engineering,
 /obj/machinery/airalarm/directional/south,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/warehouse)
@@ -95828,9 +95694,7 @@
 /area/maintenance/department/medical/morgue)
 "uRB" = (
 /obj/structure/alien/weeds,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "uRS" = (
@@ -96363,7 +96227,7 @@
 /area/hallway/primary/aft)
 "uXs" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "uXD" = (
@@ -96534,7 +96398,7 @@
 /turf/open/floor/plating/airless,
 /area/ai_monitored/turret_protected/aisat_interior)
 "vag" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "vah" = (
@@ -97000,7 +96864,7 @@
 /area/science/xenobiology)
 "veu" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "veA" = (
@@ -97689,7 +97553,7 @@
 /area/engine/transit_tube)
 "vlQ" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "vlX" = (
@@ -98486,7 +98350,7 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
-/obj/effect/spawner/lootdrop/aimodule_harmful,
+/obj/effect/spawner/random/aimodule/harmful,
 /obj/item/ai_module/supplied/protect_station{
 	pixel_y = 7
 	},
@@ -98507,7 +98371,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "vuZ" = (
 /obj/structure/closet/crate/secure/plasma,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/west,
 /obj/structure/sign/poster/official/random/directional/north,
 /turf/open/floor/catwalk_floor/iron_dark,
@@ -99144,7 +99008,7 @@
 /turf/open/floor/iron/dark,
 /area/vacant_room/commissary/commissary2)
 "vBu" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
 	},
@@ -99333,7 +99197,7 @@
 /area/science/mixing)
 "vDv" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -28
@@ -99429,7 +99293,7 @@
 /obj/item/stack/cable_coil/white{
 	pixel_y = 13
 	},
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/random/clothing/costume,
 /obj/item/paper_bin/construction{
 	pixel_y = 14;
 	pixel_x = 18
@@ -99680,7 +99544,7 @@
 /area/medical/genetics)
 "vGp" = (
 /obj/structure/closet/crate/bin,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -100131,9 +99995,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "vLk" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -100873,7 +100735,7 @@
 /turf/open/floor/iron/techmaint,
 /area/engineering/hallway)
 "vTC" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/closet/crate,
 /turf/open/floor/plating/rust,
 /area/maintenance/central)
@@ -101690,7 +101552,7 @@
 /area/maintenance/department/chapel)
 "wdd" = (
 /obj/machinery/light/small/directional/west,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -102308,7 +102170,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
 "wkf" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
 "wkj" = (
@@ -103538,7 +103400,7 @@
 	},
 /area/science/mixing)
 "wyH" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 5
 	},
@@ -103548,7 +103410,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/directional/east,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/fluff/fans{
 	pixel_x = 24
 	},
@@ -103576,9 +103438,7 @@
 /obj/structure/table,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_y = -9
-	},
+/obj/effect/spawner/random/maintenance,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/turf_decal/tile/techfloorgrid/diagonal{
 	alpha = 255
@@ -103645,7 +103505,7 @@
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "wzM" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -103723,7 +103583,7 @@
 /area/security/prison/shielded)
 "wAA" = (
 /obj/structure/closet/crate/radiation,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/warehouse)
 "wAC" = (
@@ -103928,7 +103788,7 @@
 /turf/open/floor/iron,
 /area/maintenance/port/central)
 "wDi" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -103962,7 +103822,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "wDC" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
 "wDI" = (
@@ -104100,9 +103960,7 @@
 /area/security/prison)
 "wEZ" = (
 /obj/structure/lattice,
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/space/basic,
 /area/space/nearstation)
 "wFf" = (
@@ -105162,7 +105020,7 @@
 /area/engine/atmos)
 "wRx" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/item/radio/intercom/directional/north,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/quartermaster/warehouse)
@@ -105195,7 +105053,7 @@
 /obj/effect/turf_decal/trimline/black/filled/line{
 	dir = 8
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
 "wRW" = (
@@ -105719,9 +105577,7 @@
 /turf/open/floor/iron/dark/smooth_edge,
 /area/science/robotics/lab)
 "wYG" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
 "wYN" = (
@@ -107262,9 +107118,7 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "xrk" = (
-/obj/effect/spawner/lootdrop/grille_or_trash{
-	loot = list(/obj/structure/grille = 50, /obj/item/cigbutt = 1, /obj/item/trash/cheesie = 1, /obj/item/trash/candy = 1, /obj/item/trash/chips = 1, /obj/item/food/deadmouse = 1, /obj/item/trash/pistachios = 1, /obj/item/trash/popcorn = 1, /obj/item/trash/raisins = 1, /obj/item/trash/sosjerky = 1, /obj/item/trash/syndi_cakes = 1, /obj/structure/grille/broken = 40)
-	},
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "xro" = (
@@ -107910,7 +107764,7 @@
 /obj/item/paint_palette,
 /obj/item/paint_palette,
 /obj/item/paint_palette,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/prison/dark,
 /area/security/prison)
 "xzT" = (
@@ -108966,7 +108820,7 @@
 /turf/open/floor/iron/smooth,
 /area/hallway/primary/aft)
 "xLa" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "xLc" = (
@@ -109953,7 +109807,7 @@
 /mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/crayon{
 	icon = 'icons/effects/blood.dmi';
@@ -110243,8 +110097,8 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/contraband/armory,
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/contraband/armory,
+/obj/effect/spawner/random/maintenance/three,
 /obj/item/food/donut/berry{
 	name = "suspicious pink donut"
 	},
@@ -110856,7 +110710,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/wooden,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /obj/effect/turf_decal/siding/thinplating/dark/corner,
 /turf/open/floor/iron/smooth,
 /area/security/prison)
@@ -111237,7 +111091,7 @@
 "ylh" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "ylq" = (

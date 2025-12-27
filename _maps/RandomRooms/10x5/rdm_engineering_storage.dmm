@@ -83,7 +83,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/obj/effect/spawner/lootdrop/techstorage/engineering,
+/obj/effect/spawner/random/techstorage/engineering_all,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (

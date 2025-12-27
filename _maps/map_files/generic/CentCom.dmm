@@ -1750,8 +1750,8 @@
 /area/tdome/tdomeadmin)
 "adZ" = (
 /obj/effect/turf_decal/weather/dirt,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/structure/sign/poster/contraband/cc64k_ad{
 	pixel_y = -32
 	},
@@ -4496,7 +4496,7 @@
 /obj/effect/turf_decal/siding/thinplating_new/dark{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/effect/decal/cleanable/glass,
 /obj/structure/holosign/barrier/engineering{
 	pixel_y = 5
@@ -5211,7 +5211,7 @@
 "amZ" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
 "ana" = (
@@ -6938,7 +6938,7 @@
 	},
 /area/tdome/tdomeadmin)
 "arE" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/centcom/ferry)
 "arF" = (
@@ -7127,10 +7127,10 @@
 "asg" = (
 /obj/effect/turf_decal/weather/dirt/corner,
 /obj/structure/closet/crate/large,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
@@ -10331,7 +10331,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/wood,
 /area/centcom/control)
 "aAT" = (
@@ -10899,7 +10899,7 @@
 /obj/structure/closet/crate/large{
 	pixel_x = 3
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "aCl" = (
@@ -11889,7 +11889,7 @@
 /area/wizard_station)
 "aEZ" = (
 /obj/structure/table_frame,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/syndicate_mothership/control)
@@ -12354,7 +12354,7 @@
 "aGk" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
 "aGl" = (
@@ -13374,7 +13374,7 @@
 /turf/open/floor/iron/dark,
 /area/syndicate_mothership/control)
 "aIJ" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "aIK" = (
@@ -14576,7 +14576,7 @@
 /turf/open/floor/grass/snow,
 /area/syndicate_mothership)
 "aLI" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/structure/lattice,
 /turf/open/floor/plating{
 	icon_state = "foam_plating"
@@ -15832,7 +15832,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/monotile/dark,
 /area/syndicate_mothership/control)
 "aOU" = (
@@ -19234,7 +19234,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/wood,
 /area/centcom/control)
 "aXr" = (
@@ -19256,7 +19256,7 @@
 /obj/item/chair/foldable,
 /obj/item/chair/foldable,
 /obj/item/chair/foldable,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/iron/dark/smooth_large,
 /area/syndicate_mothership/control)
 "aXt" = (
