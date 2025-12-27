@@ -1,12 +1,4 @@
-//Meant for simple animals to drop lootable human bodies.
-
-//If someone can do this in a neater way, be my guest-Kor
-
-//This has to be separate from the Away Mission corpses, because New() doesn't work for those, and initialize() doesn't work for these.
-
-//To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
-
-//List of different corpse types
+///all the corpses meant as mob drops yes, these definitely could be sorted properly. i invite (you) to do it!!
 
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier
 	name = "Syndicate Operative"
