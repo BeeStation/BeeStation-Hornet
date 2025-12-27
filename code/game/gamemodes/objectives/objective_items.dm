@@ -10,6 +10,8 @@
 	var/list/special_equipment = list()
 	/// Require that the target item is spawned at roundstart by closets.
 	var/require_item_spawns_at_roundstart = TRUE
+	/// If we want a different item other than the target to be the track target
+	var/special_track_type
 
 /datum/objective_item/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
@@ -125,6 +127,7 @@
 	name = "a sliver of a supermatter crystal. Be sure to use the proper safety equipment when extracting the sliver!"
 	targetitem = /obj/item/nuke_core/supermatter_sliver
 	difficulty = 15
+	special_track_type = /obj/machinery/power/supermatter_crystal
 
 /datum/objective_item/steal/supermatter/New()
 	special_equipment += /obj/item/storage/box/syndie_kit/supermatter
@@ -138,6 +141,7 @@
 	targetitem = /obj/item/aicard
 	difficulty = 20 //beyond the impossible
 	requiredjob = list(JOB_NAME_AI)
+	special_track_type = /mob/living/silicon/ai
 
 /datum/objective_item/steal/functionalai/New()
 	. = ..()
@@ -185,6 +189,7 @@
 	difficulty = 3
 	excludefromjob = list(JOB_NAME_RESEARCHDIRECTOR,JOB_NAME_SCIENTIST)
 	requiredjob = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
+	special_track_type = /mob/living/simple_animal/slime
 
 /datum/objective_item/steal/slime/check_special_completion(obj/item/slime_extract/E)
 	if(E.Uses > 0)

@@ -13,73 +13,88 @@ import {
 import { Window } from '../layouts';
 import { AntagInfoTraitorContent } from './AntagInfoTraitor';
 
-export const TraitorBackstoryMenu = (_) => {
-  const { data } = useBackend();
-  const { all_backstories = {}, all_factions = {}, backstory, faction } = data;
-  let has_backstory = all_backstories[backstory];
-  let has_faction = all_factions[faction];
+type Objective = {
+  count: number;
+  name: string;
+  explanation: string;
+  complete: boolean;
+};
+
+type Backstory = {
+  name: string;
+  description: string;
+  path: string;
+  motivations: string[];
+};
+
+type TraitorBackstoryStaticData = {
+  all_backstories: Backstory[];
+  all_motivations: string[];
+};
+
+type TraitorBackstoryData = {
+  allowed_backstories: string[];
+  recommended_backstories: string[];
+  backstory: string | undefined;
+  antag_name: string;
+  code: string | undefined;
+  failsafe_code: string | undefined;
+  has_uplink: boolean;
+  uplink_unlock_info: string | undefined;
+  objectives: Objective[];
+} & (
+  | {
+      has_codewords: true;
+      phrases: string;
+      responses: string;
+    }
+  | {
+      has_codewords: false;
+    }
+) &
+  TraitorBackstoryStaticData;
+
+export const TraitorBackstoryMenu = () => {
+  const { data } = useBackend<TraitorBackstoryData>();
+  const { all_backstories = {}, backstory } = data;
+  let has_backstory = backstory && all_backstories[backstory];
   let [ui_phase, set_ui_phase] = useLocalState(
     'traitor_ui_phase',
-    has_faction ? 2 : 0,
+    has_backstory ? 1 : 0,
   );
   let [tabIndex, setTabIndex] = useLocalState('traitor_selected_tab', 1);
-  let [selected_faction, set_selected_faction_backend] = useLocalState(
-    'traitor_selected_faction',
-    'syndicate',
-  );
   let [selected_backstory, set_selected_backstory] = useLocalState(
     'traitor_selected_backstory',
     null,
   );
-  const set_selected_faction = (faction) => {
-    set_selected_faction_backend(faction);
-    if (
-      selected_backstory &&
-      !all_backstories[selected_backstory].allowed_factions?.includes(faction)
-    ) {
-      set_selected_backstory(null);
-    }
-  };
   let windowTitle = 'Traitor Backstory';
   switch (ui_phase) {
     case 0:
       windowTitle = 'Traitor Backstory: Introduction';
       break;
     case 1:
-      windowTitle = 'Traitor Backstory: Faction Select';
-      break;
-    case 2:
       windowTitle = tabIndex === 1 ? 'Traitor Info' : 'Traitor Backstory';
       break;
   }
-  let info_ui = ui_phase === 2 && has_faction;
+  let info_ui = ui_phase === 1;
   return (
     <Window
-      theme={faction === 'syndicate' ? 'syndicate' : 'neutral'}
+      theme={'syndicate'}
       width={650}
       height={info_ui ? 650 : 500}
       title={windowTitle}
     >
       <Window.Content scrollable>
         {ui_phase === 0 && <IntroductionMenu set_ui_phase={set_ui_phase} />}
-        {ui_phase === 1 && (
-          <SelectFactionMenu
-            set_ui_phase={set_ui_phase}
-            selected_faction={selected_faction}
-            set_selected_faction={set_selected_faction}
-          />
-        )}
-        {ui_phase === 2 && !has_faction && (
+        {ui_phase === 1 && !has_backstory && (
           <SelectBackstoryMenu
             set_ui_phase={set_ui_phase}
-            selected_faction={selected_faction}
-            set_selected_faction={set_selected_faction}
             selected_backstory={selected_backstory}
             set_selected_backstory={set_selected_backstory}
             show_nav
           />
         )}
-        {ui_phase === 2 && has_faction && (
+        {ui_phase === 1 && has_backstory && (
           <>
             <Tabs p={1} pb={0.25}>
               <Button
@@ -89,7 +104,7 @@ export const TraitorBackstoryMenu = (_) => {
                 icon="arrow-left"
                 content="Back"
                 onClick={() => {
-                  set_ui_phase((phase) => phase - 1);
+                  set_ui_phase(ui_phase - 1);
                 }}
               />
               <Tabs.Tab
@@ -113,8 +128,6 @@ export const TraitorBackstoryMenu = (_) => {
               ) : (
                 <SelectBackstoryMenu
                   set_ui_phase={set_ui_phase}
-                  selected_faction={selected_faction}
-                  set_selected_faction={set_selected_faction}
                   selected_backstory={selected_backstory}
                   set_selected_backstory={set_selected_backstory}
                 />
@@ -128,8 +141,7 @@ export const TraitorBackstoryMenu = (_) => {
 };
 
 const IntroductionMenu = ({ set_ui_phase }) => {
-  const { act, data } = useBackend();
-  const { faction } = data;
+  const { act, data } = useBackend<TraitorBackstoryData>();
   return (
     <Dimmer>
       <Stack align="baseline" vertical>
@@ -144,8 +156,8 @@ const IntroductionMenu = ({ set_ui_phase }) => {
               being a traitor.
             </Stack.Item>
             <Stack.Item maxWidth="80vw">
-              Please <strong>select a faction</strong> - a short description of
-              each will be given. You will <strong>not</strong> be able to
+              Please <strong>select a backstory</strong> - a short description
+              of each will be given. You will <strong>not</strong> be able to
               change this after your main backstory is locked in, so choose
               wisely.
             </Stack.Item>
@@ -164,200 +176,6 @@ const IntroductionMenu = ({ set_ui_phase }) => {
         </Stack.Item>
       </Stack>
     </Dimmer>
-  );
-};
-
-const get_surrounding_factions = (faction_keys, selected_faction) => {
-  let max_index = faction_keys.length - 1;
-  let current_index = faction_keys.indexOf(selected_faction);
-  let next_faction = current_index + 1;
-  let prev_faction = current_index - 1;
-  if (next_faction > max_index) {
-    next_faction = 0;
-  }
-  if (prev_faction < 0) {
-    prev_faction = max_index;
-  }
-  next_faction = faction_keys[next_faction];
-  prev_faction = faction_keys[prev_faction];
-  return [prev_faction, next_faction];
-};
-
-const SelectFactionMenu = ({
-  set_ui_phase,
-  set_selected_faction,
-  selected_faction,
-}) => {
-  const { data } = useBackend();
-  const {
-    allowed_factions = [],
-    all_factions = {},
-    faction,
-    recommended_factions = [],
-  } = data;
-  let faction_keys = Object.keys(all_factions);
-
-  if (
-    faction_keys.length === 0 ||
-    faction_keys.filter((key) => allowed_factions.includes(key)).length === 0
-  ) {
-    return (
-      <Dimmer>
-        No valid factions found. This is likely a bug. Please reload or reopen
-        the menu.
-      </Dimmer>
-    );
-  }
-
-  let current_faction = all_factions[faction] || all_factions[selected_faction];
-  let current_faction_key = faction || selected_faction;
-
-  return (
-    <Dimmer>
-      <Box
-        width="100%"
-        textAlign="center"
-        fontSize="25px"
-        pb={0.75}
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: '8px',
-          transform: 'translateX(-50%)',
-          borderBottom: '1px solid #aa2a2a',
-        }}
-      >
-        <strong>Faction Select</strong>
-      </Box>
-      <Button
-        fontSize="15px"
-        color="bad"
-        icon="arrow-left"
-        content="Back"
-        style={{ position: 'absolute', left: '8px', top: '8px' }}
-        onClick={() => {
-          set_ui_phase((phase) => phase - 1);
-        }}
-      />
-      <Stack align="baseline" vertical>
-        <Stack.Item fontSize="14px">
-          <Stack vertical textAlign="center">
-            <BackstoryInfo data={current_faction} />
-          </Stack>
-        </Stack.Item>
-        <Stack.Item>
-          {faction ? (
-            <Button
-              mt={2}
-              fontSize="15px"
-              content="Continue"
-              color="good"
-              onClick={() => {
-                set_ui_phase((phase) => phase + 1);
-              }}
-            />
-          ) : allowed_factions.includes(current_faction_key) &&
-            recommended_factions.length !== 0 &&
-            !recommended_factions.includes(current_faction_key) ? (
-            <Button.Confirm
-              mt={2}
-              fontSize="15px"
-              color="bad"
-              content="Select"
-              tooltip={
-                'This faction is NOT recommended based on your current objectives.'
-              }
-              onClick={() => {
-                set_ui_phase((phase) => phase + 1);
-              }}
-            />
-          ) : (
-            <Button
-              mt={2}
-              fontSize="15px"
-              color={recommended_factions.length === 0 ? null : 'good'}
-              content="Select"
-              disable={!allowed_factions.includes(current_faction_key)}
-              tooltip={
-                !allowed_factions.includes(current_faction_key)
-                  ? 'You are not able to select this faction.'
-                  : recommended_factions.length === 0
-                    ? null
-                    : 'This faction is recommended based on your current objectives'
-              }
-              onClick={() => {
-                set_ui_phase((phase) => phase + 1);
-              }}
-            />
-          )}
-        </Stack.Item>
-        {(recommended_factions.length > 0 || faction) && (
-          <Stack.Item
-            mt={3}
-            textColor={
-              faction
-                ? 'red'
-                : recommended_factions.includes(current_faction_key)
-                  ? 'green'
-                  : 'red'
-            }
-          >
-            <strong>
-              {faction
-                ? 'Your faction is locked in.'
-                : recommended_factions.includes(current_faction_key)
-                  ? 'This faction is recommended based on your current objectives.'
-                  : 'This faction is NOT recommended based on your current objectives.'}
-            </strong>
-          </Stack.Item>
-        )}
-      </Stack>
-      {!faction && (
-        <FactionNavigationButtons
-          faction_keys={faction_keys}
-          selected_faction={selected_faction}
-          set_selected_faction={set_selected_faction}
-          left="8px"
-          right="8px"
-          top="45%"
-          size="18px"
-        />
-      )}
-    </Dimmer>
-  );
-};
-
-const FactionNavigationButtons = (
-  {
-    faction_keys,
-    selected_faction,
-    left,
-    right,
-    top,
-    size,
-    set_selected_faction,
-  },
-  _,
-) => {
-  let [prev_faction, next_faction] = get_surrounding_factions(
-    faction_keys,
-    selected_faction,
-  );
-  return (
-    <>
-      <Button
-        fontSize={size}
-        icon="arrow-left"
-        style={{ position: 'absolute', left: left, top: top }}
-        onClick={() => set_selected_faction(prev_faction)}
-      />
-      <Button
-        fontSize={size}
-        icon="arrow-right"
-        style={{ position: 'absolute', right: right, top: top }}
-        onClick={() => set_selected_faction(next_faction)}
-      />
-    </>
   );
 };
 
@@ -394,60 +212,53 @@ const MOTIVATION_ICONS = {
 
 const SelectBackstoryMenu = ({
   set_ui_phase,
-  selected_faction,
-  set_selected_faction,
   selected_backstory,
   set_selected_backstory,
-  show_nav,
+  show_nav = false,
 }) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<TraitorBackstoryData>();
   const {
     allowed_backstories = [],
-    all_backstories = {},
+    all_backstories = [],
     recommended_backstories = [],
     all_motivations = [],
-    all_factions = {},
-    allowed_factions = [],
-    faction,
     backstory,
   } = data;
 
-  let [motivations, set_motivations] = useLocalState('traitor_motivations', []);
+  let [motivations, set_motivations] = useLocalState<string[]>(
+    'traitor_motivations',
+    [],
+  );
 
-  const toggle_motivation = (name) =>
-    set_motivations((motivations) => {
-      if (motivations.includes(name)) {
-        let index = motivations.indexOf(name);
-        if (index > -1) {
-          motivations.splice(index, 1);
-        }
-      } else {
-        if (
-          name === 'Not Forced Into It' &&
-          motivations.includes('Forced Into It')
-        ) {
-          toggle_motivation('Forced Into It');
-        }
-        if (
-          name === 'Forced Into It' &&
-          motivations.includes('Not Forced Into It')
-        ) {
-          toggle_motivation('Not Forced Into It');
-        }
-        motivations.push(name);
+  const nextMotivation = (name: string, motivations: string[]) => {
+    if (motivations.includes(name)) {
+      let index = motivations.indexOf(name);
+      if (index > -1) {
+        motivations.splice(index, 1);
       }
-      return motivations;
-    });
+    } else {
+      if (
+        name === 'Not Forced Into It' &&
+        motivations.includes('Forced Into It')
+      ) {
+        toggle_motivation('Forced Into It');
+      }
+      if (
+        name === 'Forced Into It' &&
+        motivations.includes('Not Forced Into It')
+      ) {
+        toggle_motivation('Not Forced Into It');
+      }
+      motivations.push(name);
+    }
+    return motivations;
+  };
 
-  let current_faction = all_factions[faction] || all_factions[selected_faction];
-  let current_faction_key = faction || selected_faction;
+  const toggle_motivation = (name: string) =>
+    set_motivations(nextMotivation(name, motivations));
 
   let allowed_backstories_filtered = Object.values(all_backstories)
-    .filter(
-      (value) =>
-        value.allowed_factions?.includes(current_faction_key) &&
-        allowed_backstories.includes(value.path),
-    )
+    .filter((value) => allowed_backstories.includes(value.path))
     .map((value) => value.path);
   if (allowed_backstories_filtered.length === 0) {
     return (
@@ -459,7 +270,8 @@ const SelectBackstoryMenu = ({
   }
 
   let current_backstory =
-    all_backstories[backstory] || all_backstories[selected_backstory];
+    (backstory && all_backstories[backstory]) ||
+    all_backstories[selected_backstory];
   let current_backstory_key = backstory || selected_backstory;
 
   return (
@@ -470,20 +282,7 @@ const SelectBackstoryMenu = ({
           title={
             <>
               <Box width="100%" textAlign="center" fontSize="20px">
-                {!faction && (
-                  <FactionNavigationButtons
-                    faction_keys={Object.keys(all_factions).filter((v) =>
-                      allowed_factions.includes(v),
-                    )}
-                    selected_faction={current_faction_key}
-                    set_selected_faction={set_selected_faction}
-                    left="28%"
-                    right="28%"
-                    top="8px"
-                    size="13px"
-                  />
-                )}
-                <strong>{current_faction.name}</strong>
+                <strong>The Syndicate</strong>
               </Box>
               {show_nav && (
                 <Button
@@ -568,7 +367,6 @@ const SelectBackstoryMenu = ({
                 backstory={current_backstory}
                 backstory_locked={!!backstory}
                 backstory_key={selected_backstory}
-                faction_key={current_faction_key}
                 set_ui_phase={set_ui_phase}
               />
             ) : (
@@ -588,11 +386,10 @@ const BackstorySection = ({
   backstory_locked,
   show_button,
   backstory_key,
-  faction_key,
   set_ui_phase,
   fill,
 }) => {
-  const { act } = useBackend();
+  const { act } = useBackend<TraitorBackstoryData>();
   return (
     <Section
       fill={fill}
@@ -640,7 +437,6 @@ const BackstorySection = ({
                 content="Select"
                 onClick={() =>
                   act('select_backstory', {
-                    faction: faction_key,
                     backstory: backstory_key,
                   })
                 }
@@ -663,6 +459,7 @@ const BackstoryTab = ({
   recommendation_count,
   matches_all_recommendations,
   set_selected_backstory,
+  key = '',
 }) => {
   return (
     <Tabs.Tab
@@ -706,7 +503,16 @@ const BackstoryTab = ({
 };
 
 const BackstoryDetails = (_) => {
-  const { data } = useBackend();
+  const { data } = useBackend<TraitorBackstoryData>();
   const { backstory, all_backstories = {} } = data;
-  return <BackstorySection fill backstory={all_backstories[backstory]} />;
+  return (
+    <BackstorySection
+      fill
+      backstory={backstory && all_backstories[backstory]}
+      backstory_locked={false}
+      show_button={false}
+      backstory_key={backstory}
+      set_ui_phase={undefined}
+    />
+  );
 };

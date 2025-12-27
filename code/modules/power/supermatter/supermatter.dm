@@ -210,6 +210,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_FREEZE, PROC_REF(time_frozen))
 	RegisterSignal(src, COMSIG_ATOM_TIMESTOP_UNFREEZE, PROC_REF(time_unfrozen))
 
+	AddElement(/datum/element/trackable)
 	AddComponent(/datum/component/supermatter_crystal, CALLBACK(src, PROC_REF(wrench_act_callback)), CALLBACK(src, PROC_REF(consume_callback)))
 	soundloop = new(src, TRUE)
 

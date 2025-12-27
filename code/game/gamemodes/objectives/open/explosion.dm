@@ -21,6 +21,7 @@
 	var/devistation = 0
 	var/heavy = 0
 	var/light = 0
+	var/turf/generic_track_location
 
 /datum/objective/open/explosion/New(text)
 	. = ..()
