@@ -106,8 +106,6 @@
 	/// Basically, if it's not 0, it's calibrating and therefore non-functional.
 	var/calibrating = 15 MINUTES
 
-#define MESSAGE_SERVER_FUNCTIONING_MESSAGE "This is an automated message. The messaging system is functioning correctly."
-
 /obj/machinery/telecomms/message_server/Initialize(mapload)
 	. = ..()
 	if (!decryptkey)
