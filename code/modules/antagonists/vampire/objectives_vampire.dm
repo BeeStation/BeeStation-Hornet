@@ -10,7 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
 /datum/objective/vampire/ego
 	name = "Dominion"
-	explanation_text = "You crave power, the authority to rule:<br>"
+	explanation_text = "You crave power, the authority to rule:"
 
 //////////////////////////////////////////////////       Lair
 ////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@
 
 /datum/objective/vampire/ego/lair/update_explanation_text()
 	. = ..()
-	explanation_text += "Establish a lair to rule from and hold it until the shift ends."
+	explanation_text = "[initial(explanation_text)] Establish a lair to rule from and hold it until the shift ends."
 
 // WIN CONDITIONS?
 /datum/objective/vampire/ego/lair/check_completion()
@@ -57,7 +57,7 @@
 	return ..()
 
 /datum/objective/vampire/ego/department_vassal/update_explanation_text()
-	explanation_text += "Convert a crew member from the [target_department] department into your vassal."
+	explanation_text = "[initial(explanation_text)] Convert a crew member from the [target_department] department into your vassal."
 	return ..()
 
 /datum/objective/vampire/ego/department_vassal/proc/get_vassal_occupations()
@@ -107,7 +107,7 @@
 
 /datum/objective/vampire/ego/bigplaces/update_explanation_text()
 	. = ..()
-	explanation_text += "Rise in power, reach prince or scourge, or prey on enough mortals to rank up as much as possible."
+	explanation_text = "[initial(explanation_text)] Rise in power, reach prince or scourge, or prey on enough mortals to rank up as much as possible. You must reach at least rank 8 by the end of the shift!"
 
 // WIN CONDITIONS?
 /datum/objective/vampire/ego/bigplaces/check_completion()
@@ -127,7 +127,7 @@
 
 /datum/objective/vampire/hedonism
 	name = "Hunger"
-	explanation_text = "You crave depravity, to sate your thirst on the mortals:<br>"
+	explanation_text = "You crave depravity, to sate your thirst on the mortals:"
 
 
 //////////////////////////////////////////////////     Heart Thief
@@ -142,7 +142,7 @@
 
 /datum/objective/vampire/hedonism/heartthief/update_explanation_text()
 	. = ..()
-	explanation_text += "Keep [target_amount] organic hearts close at hand. They shall be symbols of your dominion."
+	explanation_text = "[initial(explanation_text)] Keep [target_amount] organic hearts close at hand. They shall be symbols of your dominion."
 
 /datum/objective/vampire/hedonism/heartthief/check_completion()
 	if(!owner.current)
@@ -172,7 +172,7 @@
 
 /datum/objective/vampire/hedonism/gourmand/update_explanation_text()
 	. = ..()
-	explanation_text += "Consume at least [target_amount] units of blood to sate your ravenous thirst."
+	explanation_text = "[initial(explanation_text)] Consume at least [target_amount] units of blood to sate your ravenous thirst."
 
 /datum/objective/vampire/hedonism/gourmand/check_completion()
 	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -191,7 +191,7 @@
 
 /datum/objective/vampire/hedonism/thirster/update_explanation_text()
 	. = ..()
-	explanation_text += "Drain a mortal completely, letting their lifeblood become your sustenance and their body fall cold and spent."
+	explanation_text = "[initial(explanation_text)] Drain a mortal completely, letting their lifeblood become your sustenance and their body fall cold and spent."
 
 /datum/objective/vampire/hedonism/thirster/check_completion()
 	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
