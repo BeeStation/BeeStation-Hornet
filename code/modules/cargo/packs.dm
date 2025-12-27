@@ -1898,27 +1898,29 @@
 	desc = "Contains a little bit of everything needed to stock a medbay or to form your own."
 	cost = 2000
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/cup/bottle/charcoal,
-					/obj/item/reagent_containers/cup/bottle/epinephrine,
-					/obj/item/reagent_containers/cup/bottle/morphine,
-					/obj/item/reagent_containers/cup/bottle/toxin,
-					/obj/item/reagent_containers/cup/beaker/large,
-					/obj/item/reagent_containers/pill/insulin,
-					/obj/item/stack/medical/gauze,
-					/obj/item/storage/box/beakers,
-					/obj/item/storage/box/medsprays,
-					/obj/item/storage/box/syringes,
-					/obj/item/storage/box/bodybags,
-					/obj/item/storage/firstaid/regular,
-					/obj/item/storage/firstaid/o2,
-					/obj/item/storage/firstaid/toxin,
-					/obj/item/storage/firstaid/brute,
-					/obj/item/storage/firstaid/fire,
-					/obj/item/defibrillator/loaded,
-					/obj/item/reagent_containers/blood/OMinus,
-					/obj/item/storage/pill_bottle/mining,
-					/obj/item/reagent_containers/pill/neurine,
-					/obj/item/vending_refill/medical)
+	contains = list(
+		/obj/item/reagent_containers/cup/bottle/charcoal,
+		/obj/item/reagent_containers/cup/bottle/epinephrine,
+		/obj/item/reagent_containers/cup/bottle/morphine,
+		/obj/item/reagent_containers/cup/bottle/toxin,
+		/obj/item/reagent_containers/cup/beaker/large,
+		/obj/item/reagent_containers/pill/insulin,
+		/obj/item/stack/medical/gauze,
+		/obj/item/storage/box/beakers,
+		/obj/item/storage/box/medsprays,
+		/obj/item/storage/box/syringes,
+		/obj/item/storage/box/bodybags,
+		/obj/item/storage/firstaid/regular,
+		/obj/item/storage/firstaid/o2,
+		/obj/item/storage/firstaid/toxin,
+		/obj/item/storage/firstaid/brute,
+		/obj/item/storage/firstaid/fire,
+		/obj/item/defibrillator/loaded,
+		/obj/item/reagent_containers/blood/OMinus,
+		/obj/item/storage/pill_bottle/mining,
+		/obj/item/reagent_containers/pill/neurine,
+		/obj/item/vending_refill/medical,
+	)
 	crate_name = "medical supplies crate"
 
 /datum/supply_pack/medical/supplies/fill(obj/structure/closet/crate/C)
