@@ -17,7 +17,7 @@
 		. += span_cult(ghost_desc)
 	if(IS_VAMPIRE(user) && vampire_desc)
 		if(!owner)
-			. += span_cult("It is unsecured. Click on [src] while in your Lair to secure it in place to get its full potential")
+			. += span_cult("It is unsecured. Click on [src] while in your lair to secure it in place to get its full potential")
 			return
 		. += span_cult(vampire_desc)
 	if(IS_VASSAL(user) && vassal_desc)
