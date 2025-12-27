@@ -66,6 +66,7 @@
 		playsound(loc, 'sound/vampires/bloodhealing.ogg', 30)
 		add_splatter_floor(get_turf(target))
 		health = health + 50
+		health = clamp(health, 0, maxHealth)
 
 /mob/living/simple_animal/hostile/retaliate/beast/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)
