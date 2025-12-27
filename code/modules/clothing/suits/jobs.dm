@@ -274,7 +274,7 @@
 	icon_state = "monsterhunter"
 	inhand_icon_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	armor_type = /datum/armor/chaplainsuit_armor
+	armor_type = /datum/armor/jacket_curator
 	strip_delay = 80
 	equip_delay_other = 60
 
