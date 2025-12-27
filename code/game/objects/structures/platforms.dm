@@ -173,10 +173,11 @@
 	return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/platform/proc/compute_blocking_directions()
-	if(reverse)
-		blocking_dir = (NORTH | SOUTH | EAST | WEST) - REVERSE_DIR(dir)
-	else
-		blocking_dir = dir
+	if(!blocking_dir)
+		if(reverse)
+			blocking_dir = (NORTH | SOUTH | EAST | WEST) - REVERSE_DIR(dir)
+		else
+			blocking_dir = dir
 
 	update_appearance(UPDATE_ICON)
 
