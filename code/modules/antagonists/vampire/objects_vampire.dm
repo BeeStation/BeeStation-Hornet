@@ -94,20 +94,20 @@
 	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = 180
-	ghost_desc = "This is a vassalization rack, which allows vampires to turn crewmembers into loyal vassals."
-	vampire_desc = "This is the vassalization rack, which allows you to turn crewmembers into loyal vassals in your service. This costs blood to do.\n\
-		Simply click and hold on a victim, and then drag their sprite on the vassalization rack. Right-click on the vassalization rack to unbuckle them.\n\
+	ghost_desc = "This is a vassalization rack, which allows vampires to turn crew members into loyal vassals."
+	vampire_desc = "This is the vassalization rack, which allows you to turn crew members into loyal vassals in your service. This costs blood to do.\n\
+		Simply click and hold on a victim, and then drag their sprite onto the vassalization rack. Right-click on the vassalization rack to unbuckle them.\n\
 		To convert into a vassal, repeatedly click on the vassalization rack. The time required scales with the tool in your hand."
-	vassal_desc = "This is the vassalization rack, which allows your master to turn crewmembers into loyal vassals.\n\
+	vassal_desc = "This is the vassalization rack, which allows your master to turn crew members into loyal vassals.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
-		You can secure victims to the vassalization rack by click dragging the victim onto the rack while it is secured."
-	curator_desc = "This is the vassalization rack, which monsters use to blood-slave crewmembers into vassals.\n\
-		They usually ensure that victims are handcuffed, to prevent them from running away.\n\
-		Their rituals take time, allowing us to disrupt it."
+		You can secure victims to the vassalization rack by click-dragging the victim onto the rack while it is secured."
+	curator_desc = "This is the vassalization rack, which monsters use to blood-slave crew members into vassals.\n\
+		They usually ensure that victims are handcuffed to prevent them from running away.\n\
+		Their rituals take time, allowing us to disrupt them."
 
 	/// How many times a buckled person has to be tortured to be converted.
 	var/convert_progress = 3
-	/// Mindshielded and Antagonists willingly have to accept you as their Master.
+	/// Mindshielded individuals and antagonists must willingly accept you as their master.
 	var/wants_vassilization = FALSE
 	/// Prevents popup spam.
 	var/vassilization_offered = FALSE
@@ -120,7 +120,7 @@
 	if(vampiredatum)
 		var/remaining_vassals = vampiredatum.get_max_vassals() - length(vampiredatum.vassals)
 		if(remaining_vassals > 0)
-			. += span_info("You are currently capable of creating <b>[remaining_vassals]</b> more vassal\s.")
+			. += span_info("You are currently capable of creating <b>[remaining_vassals]</b> more vassal[remaining_vassals == 1 ? "" : "s"].")
 		else
 			. += span_warning("You cannot create any more vassals at the moment!")
 
@@ -356,9 +356,9 @@
 	density = FALSE
 	can_buckle = TRUE
 	anchored = FALSE
-	ghost_desc = "This is a magical candle which drains at the sanity of non Vampires and vassals."
-	vampire_desc = "This is a magical candle which drains at the sanity of mortals who are not under your command while it is active."
-	vassal_desc = "This is a magical candle which drains at the sanity of the fools who havent yet accepted your master."
+	ghost_desc = "This is a magical candle which drains the sanity of non-vampires and non-vassals."
+	vampire_desc = "This is a magical candle which drains the sanity of mortals who are not under your command while it is active."
+	vassal_desc = "This is a magical candle which drains the sanity of the fools who haven't yet accepted your master."
 	curator_desc = "This is a blue Candelabrum, which causes insanity to those near it while active."
 	var/lit = FALSE
 
@@ -401,7 +401,7 @@
 	if(!lit)
 		return
 	for(var/mob/living/carbon/nearby_people in viewers(7, src))
-		/// We dont want Vampires or vassals affected by this
+		/// We don't want vampires or vassals affected by this
 		if(IS_VASSAL(nearby_people) || IS_VAMPIRE(nearby_people) || IS_CURATOR(nearby_people))
 			continue
 		nearby_people.adjust_hallucinations(10 SECONDS)
@@ -417,11 +417,11 @@
 	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
-	ghost_desc = "This is a blood throne, any Vampire sitting on it can remotely speak to all other vampires by attempting to speak aloud."
-	vampire_desc = "This is a blood throne, sitting on it will allow you to telepathically to all other vampires by simply speaking."
-	vassal_desc = "This is a blood throne, it allows your Master to telepathically speak to all other vampires."
-	curator_desc = "This is a chair that hurts those that try to buckle themselves onto it, though the Undead have no problem latching on.\n\
-		While buckled, Monsters can use this to telepathically communicate with eachother."
+	ghost_desc = "This is a blood throne. Any vampire sitting on it can remotely speak to all other vampires by attempting to speak aloud."
+	vampire_desc = "This is a blood throne. Sitting on it will allow you to communicate telepathically to all other vampires by simply speaking."
+	vassal_desc = "This is a blood throne. It allows your master to telepathically speak to all other vampires."
+	curator_desc = "This is a chair that hurts those who try to buckle themselves onto it, though the undead have no problem latching on.\n\
+		While buckled, monsters can use this to telepathically communicate with each other."
 	var/mutable_appearance/armrest
 
 // Add rotating and armrest
