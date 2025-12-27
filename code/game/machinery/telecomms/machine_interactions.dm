@@ -97,7 +97,7 @@
 		if("toggle")
 			toggled = !toggled
 			update_power()
-			update_appearance()
+			update_appearance(UPDATE_ICON_STATE)
 			log_game("[key_name(current_user)] toggled [toggled ? "On" : "Off"] [src] at [AREACOORD(src)].")
 			. = TRUE
 		if("id")
