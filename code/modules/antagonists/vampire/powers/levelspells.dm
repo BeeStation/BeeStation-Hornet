@@ -66,33 +66,33 @@
 
 	// No mind
 	if(!living_target.mind)
-		owner.balloon_alert(owner, "[living_target] is mindless.")
+		owner.balloon_alert(owner, "mindless")
 		return FALSE
 
 	// No client
 	if(!living_target.client)
-		owner.balloon_alert(owner, "[living_target] is not a player.")
+		owner.balloon_alert(owner, "not a player")
 		return FALSE
 
 	// Is our target alive or unconcious?
 	if(living_target.stat != CONSCIOUS)
-		owner.balloon_alert(owner, "[living_target] is not [(living_target.stat == DEAD || HAS_TRAIT(living_target, TRAIT_FAKEDEATH)) ? "alive" : "conscious"].")
+		owner.balloon_alert(owner, "not [(living_target.stat == DEAD || HAS_TRAIT(living_target, TRAIT_FAKEDEATH)) ? "alive" : "conscious"]")
 		return FALSE
 
 	if(IS_VASSAL(living_target) && !(IS_VASSAL(living_target) in vampiredatum_power.vassals)) // Only our own vassal may be promoted.
-		owner.balloon_alert(owner, "this vassal does not belong to you.")
+		owner.balloon_alert(owner, "not your vassal")
 		return FALSE
 
 	if(!IS_VAMPIRE(living_target) && !IS_VASSAL(living_target))
-		owner.balloon_alert(owner, "not a vassal or vampire.")
+		owner.balloon_alert(owner, "not vassal or vampire")
 		return FALSE
 
 	if(target_vampire && (target_vampire.prince || target_vampire.scourge))
-		owner.balloon_alert(owner, "you cannot promote an elder!")
+		owner.balloon_alert(owner, "cannot promote elders!")
 		return FALSE
 
 	if(target_ref) // Already offering
-		owner.balloon_alert(owner, "you are already offering to someone!")
+		owner.balloon_alert(owner, "already offering!")
 		return FALSE
 
 	return TRUE
@@ -112,7 +112,7 @@
 		var/datum/vampire_clan/masterclan_type = vampiredatum_power.my_clan.type
 
 		if(!masterclan_type) // How did a caitiff get prince, bro. Fine.
-			owner.balloon_alert(owner, "Select a clan first!")
+			owner.balloon_alert(owner, "select clan first!")
 			deactivate_power()
 
 		scourgedatum.my_clan = new masterclan_type(scourgedatum)
@@ -145,12 +145,12 @@
 	power_activated_sucessfully()
 
 /datum/action/vampire/targeted/scourgify/proc/refused()
-	owner.balloon_alert(owner, "your offer was refused.")
+	owner.balloon_alert(owner, "offer refused")
 	target_ref = null
 
 /datum/action/vampire/targeted/scourgify/proc/choice_timeout()
 	if(owner && target_ref) // This might happen AFTER we remove the power from our owner.
-		owner.balloon_alert(owner, "your offer was ignored.")
+		owner.balloon_alert(owner, "offer ignored")
 		target_ref = null
 
 /datum/action/vampire/targeted/scourgify/proc/handle_choice(choice)
