@@ -22,6 +22,8 @@
 	var/additional_information
 	/// When the request was created
 	var/timestamp
+	/// Timer id used for auto-approving requests (eg. nuke requests)
+	var/response_timer_id = null
 
 /datum/request/New(client/requestee, type, request, additional_info)
 	if (!requestee)

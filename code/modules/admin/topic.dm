@@ -884,6 +884,21 @@
 		var/obj/item/station_charter/charter = locate(href_list["reject_custom_name"])
 		if(istype(charter))
 			charter.reject_proposed(usr)
+	else if(href_list["reject_nuke_request"]) // allow admins to veto auto-approval of nuke requests
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/request/request = locate(href_list["reject_nuke_request"])
+		if(!istype(request))
+			return
+		// cancel pending auto-approve timer if present
+		if(request.response_timer_id)
+			deltimer(request.response_timer_id)
+			request.response_timer_id = null
+		// notify admins and requester
+		message_admins("[key_name(src.owner)] has rejected a nuke request from [request.owner_name].")
+		log_admin("[key_name(src.owner)] rejected a nuke request from [request.owner_name].")
+		qdel(request)
+
 	else if(href_list["jumpto"])
 		if(!isobserver(usr) && !check_rights(R_ADMIN))
 			return
@@ -1153,15 +1168,6 @@
 			log_admin("[key_name(src.owner)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 		else
 			to_chat(usr, "You may only use this when the game is running.")
-
-	else if(href_list["set_selfdestruct_code"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/code = random_code(5)
-		for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
-			SD.r_code = code
-		message_admins("[key_name_admin(src.owner)] has set the self-destruct \
-			code to \"[code]\".")
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_ADMIN))
