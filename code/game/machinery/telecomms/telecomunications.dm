@@ -1,19 +1,12 @@
-
-/*
-	Hello, friends, this is Doohl from sexylands. You may be wondering what this
-	monstrous code file is. Sit down, boys and girls, while I tell you the tale.
-
-
-	The telecom machines were designed to be compatible with any radio
-	signals, provided they use subspace transmission. Currently they are only used for
-	headsets, but they can eventually be outfitted for real COMPUTER networks. This
-	is just a skeleton, ladies and gentlemen.
-
-	Look at radio.dm for the prequel to this code.
-*/
-
+/// A list of all of the `/obj/machinery/telecomms` (and subtypes) machines
+/// that exist in the world currently.
 GLOBAL_LIST_EMPTY(telecomms_list)
 
+
+/**
+ * The basic telecomms machinery type, implementing all of the logic that's
+ * shared between all of the telecomms machinery.
+ */
 /obj/machinery/telecomms
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
@@ -42,8 +35,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	// list of frequencies to tune into: if none, will listen to all
 	var/list/freq_listening = list()
 
+	/// Is it actually active or not?
 	var/on = TRUE
-	/// Is it toggled on
+	/// Is it toggled on, so is it /meant/ to be active?
 	var/toggled = TRUE
 	/// Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
 	var/long_range_link = FALSE
@@ -96,16 +90,20 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	use_power(active_power_usage)
 	return send_count
 
+/// Sends a signal directly to a machine.
 /obj/machinery/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/telecomms/machine)
-	// send signal directly to a machine
 	machine.receive_information(signal, src)
 
-///receive information from linked machinery
+/// Receive information from linked machinery
 /obj/machinery/telecomms/proc/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
 	return
 
+/**
+ * Checks whether the machinery is listening to that signal.
+ *
+ * Returns `TRUE` if found, `FALSE` if not.
+ */
 /obj/machinery/telecomms/proc/is_freq_listening(datum/signal/signal)
-	// return TRUE if found, FALSE if not found
 	return signal && (!length(freq_listening) || (signal.frequency in freq_listening))
 
 /obj/machinery/telecomms/Initialize(mapload)
@@ -141,20 +139,20 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/proc/get_overheat_temperature()
 	return server_component.overheated_temp
 
-// Used in auto linking
-/obj/machinery/telecomms/proc/add_automatic_link(obj/machinery/telecomms/T)
+/// Handles the automatic linking of another machine to this one.
+/obj/machinery/telecomms/proc/add_automatic_link(obj/machinery/telecomms/machine_to_link)
 	var/turf/position = get_turf(src)
-	var/turf/T_position = get_turf(T)
+	var/turf/T_position = get_turf(machine_to_link)
 	var/same_zlevel = FALSE
 	if(position && T_position)	//Stops a bug with a phantom telecommunications interceptor which is spawned by circuits caching their components into nullspace
 		if(position.get_virtual_z_level() == T_position.get_virtual_z_level())
 			same_zlevel = TRUE
-	if(same_zlevel || (long_range_link && T.long_range_link))
-		if(src == T)
+	if(same_zlevel || (long_range_link && machine_to_link.long_range_link))
+		if(src == machine_to_link)
 			return
 		for(var/autolinker_id in autolinkers)
-			if(autolinker_id in T.autolinkers)
-				add_new_link(T)
+			if(autolinker_id in machine_to_link.autolinkers)
+				add_new_link(machine_to_link)
 				return
 
 /obj/machinery/telecomms/proc/update_network()
@@ -204,6 +202,11 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		else
 			icon_state = "[initial(icon_state)]_off"
 
+/**
+ * Handles updating the power state of the machine, modifying its `on`
+ * variable based on if it's `toggled` and if it's either broken, has no power
+ * or it's EMP'd. Handles updating appearance based on that power change.
+ */
 /obj/machinery/telecomms/proc/update_power()
 	var/newState = on
 
