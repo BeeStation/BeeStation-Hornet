@@ -848,6 +848,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/poll_alert/MouseExited()
 	. = ..()
+	if (QDELETED(src))
+		return
 	if (!poll.config.can_hide)
 		return
 	usr.client.set_right_click_menu_mode(usr.shift_to_open_context_menu)

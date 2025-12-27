@@ -5,6 +5,7 @@
 	show_name_in_check_antagonists = TRUE
 	var/duration = 2 MINUTES
 	banning_key = UNBANNABLE_ANTAGONIST
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/blood_contract/on_gain()
 	. = ..()

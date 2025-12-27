@@ -208,3 +208,26 @@ GLOBAL_LIST_INIT(ai_employers, list(
 // ------------------------------------
 
 #define ABDUCTOR_MAX_TEAMS 4
+
+// Antagonist Leave Modes
+// ------------------------------------
+/// The antagonist is free to leave and will simply be removed upon
+/// cryoing: This antagonist is not important for us to care about.
+/// Used for tracking antagonists, and antagonists that work outside
+/// of the normal system. (Ashwalkers, survivalist)
+#define ANTAGONIST_LEAVE_DESPAWN 0
+/// The antagonist should be offered first, but if the offer fails
+/// then we may go ahead and delete the mob. Used for less important
+/// antagonists, where we would want to try and pull someone into the
+/// role, but life can go on without them. Roles may have special handling
+/// if someone doesn't take the role. (For example, a blood brother
+/// could turn into a traitor, etc.)
+#define ANTAGONIST_LEAVE_OFFER 1
+/// The antagonist is very important and we should try to get someone
+/// to take over this role no matter what.
+/// When this is set, the prompt to take over their body will be
+/// persistent and the poll will never end until someone takes it.
+/// Used for antagonists that are important in the gamemode system
+/// and that we cannot continue the round without issue if they were
+/// simply removed or swapped.
+#define ANTAGONIST_LEAVE_KEEP 2
