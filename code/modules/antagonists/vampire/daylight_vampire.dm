@@ -79,7 +79,6 @@
 		burn_and_kill()
 
 	were_shielded = shielded
-	return
 
 /datum/antagonist/vampire/proc/burn_and_kill()
 	// We can resist it as long as we have blood.
