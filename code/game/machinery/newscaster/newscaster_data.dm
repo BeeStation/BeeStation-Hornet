@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(request_list)
 
 /datum/feed_network/New()
 	create_feed_channel("Station Announcements", "SS13", "Company news, staff annoucements, and all the latest information. Have a secure shift!", locked = TRUE, hardset_channel = 1000)
-	create_feed_channel("AuriNet WeatherCast", "SS13", "Solar weather and radiative events monitoring. Keeping you safe from our new sun's little trantrums!", locked = TRUE, hardset_channel = 2000)
+	create_feed_channel("AuriNet WeatherCast", "SS13", "Solar weather and radiative events monitoring.", locked = TRUE, hardset_channel = 2000)
 
 	wanted_issue = new /datum/wanted_message
 
