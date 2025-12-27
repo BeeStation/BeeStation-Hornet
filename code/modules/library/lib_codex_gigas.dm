@@ -43,7 +43,8 @@
 		return
 
 	in_use = TRUE
-	user.balloon_alert_to_viewers("looks at [target] and [src]", "reading book...", 7, null, TRUE)
+	to_chat(user, span_notice("You begin carefully examining [target] while consulting [src]..."))
+	user.visible_message(span_notice("[user] looks at [target] while reading [src]."), ignored_mobs = list(user))
 	if(!do_after(user, 3 SECONDS, target, timed_action_flags = NONE, progress = TRUE))
 		to_chat(user, span_notice("You quickly close [src]."))
 		in_use = FALSE
