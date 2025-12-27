@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/retaliate/beast
-	name = "Wolf-like beast"
+	name = "wolf-like beast"
 	desc = "Some sinister monstrosity of a primal, feral nature. It's piercing gaze is enough to send shivers down your spine."
 	icon = 'icons/vampires/beastform.dmi'
 	icon_state = "beast"
