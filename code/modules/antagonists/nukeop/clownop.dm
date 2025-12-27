@@ -3,6 +3,7 @@
 	name = "Clown Operative"
 	roundend_category = "clown operatives"
 	antagpanel_category = "ClownOp"
+	banning_key = ROLE_OPERATIVE
 	nukeop_outfit = /datum/outfit/syndicate/clownop
 
 /datum/antagonist/nukeop/leader/clownop
