@@ -179,3 +179,12 @@
       lets you change how you see links while examining. Either an appended [?] or
       the full item is highlighted. Go to Game > Chat > IC > Advanced preferences
       to change
+2025-12-27:
+  Tsar-Salat:
+  - code_imp: reorganized mob spawn files
+  pixelpoepleman:
+  - rscadd: Box RD privacy shutters
+  - rscadd: Box AI sat to main power cable
+  - bugfix: Meta tcomms now connected to scrubnet/distro
+  - bugfix: Meta west service door refusing access to anyone who didnt join as service
+  - tweak: Moved Rad's atmos/southwest solar array console into the turbine

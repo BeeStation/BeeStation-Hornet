@@ -1,8 +1,0 @@
-author: pixelpoepleman
-delete-after: true
-changes:
-  - rscadd: Box RD privacy shutters
-  - rscadd: Box AI sat to main power cable
-  - bugfix: Meta tcomms now connected to scrubnet/distro
-  - bugfix: Meta west service door refusing access to anyone who didnt join as service
-  - tweak: Moved Rad's atmos/southwest solar array console into the turbine
