@@ -18,6 +18,35 @@
 				"[user.name] has inserted the power cell to [src.name]!",\
 				span_notice("You insert the power cell."))
 			update_appearance()
+	else if(istype(W, /obj/item/storage/part_replacer) && W.contents.len && opened)
+		if(cell)
+			to_chat(user, span_warning("There is a power cell already installed!"))
+			return
+		else
+			if (machine_stat & MAINT)
+				to_chat(user, span_warning("There is no connector for your power cell!"))
+				return
+		var/obj/item/storage/part_replacer/replacer = W
+		var/list/part_list = list()
+
+		//Assemble a list of current parts, then sort them by their rating!
+		for(var/obj/item/co in replacer)
+			part_list += co
+		//Sort the parts. This ensures that higher tier items are applied first.
+		part_list = sortTim(part_list, GLOBAL_PROC_REF(cmp_rped_sort))
+
+		var/req_component = /obj/item/stock_parts/cell
+		if(locate(req_component) in part_list)
+			var/obj/item/part = (locate(req_component) in part_list)
+			part_list -= part
+			if(replacer.atom_storage.attempt_remove(part, src))
+				if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
+					cell = part
+					part.forceMove(src)
+				to_chat(user, span_notice("You add [part] to [src]."))
+				replacer.play_rped_sound()
+			update_appearance()
+			return
 	else if (W.GetID())
 		togglelock(user)
 	else if (istype(W, /obj/item/stack/cable_coil) && opened)
