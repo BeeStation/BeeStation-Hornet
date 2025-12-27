@@ -1,36 +1,41 @@
-/datum/component/gags_recolorable
+///An element that lets players recolor the item through the greyscale menu with the help of a spraycan.
+/datum/element/gags_recolorable
 
-/datum/component/gags_recolorable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/on_attackby)
+/datum/element/gags_recolorable/Attach(datum/target)
+	. = ..()
+	if(!isatom(target))
+		return ELEMENT_INCOMPATIBLE
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE_MORE, PROC_REF(on_examine))
 
-/datum/component/gags_recolorable/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
+/datum/element/gags_recolorable/proc/on_examine(atom/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+	examine_text += span_notice("Now utilising PPP recolouring technology, capable of absorbing paint and pigments for changing its colours!")
 
-/datum/component/gags_recolorable/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
+/datum/element/gags_recolorable/proc/on_attackby(atom/movable/source, obj/item/toy/crayon/spraycan/item, mob/living/user, modifiers)
 	SIGNAL_HANDLER
 
-	if(!isatom(parent))
+	if(!istype(item))
 		return
 
-	if(!istype(attacking_item, /obj/item/toy/crayon/spraycan))
+	if(item.is_capped)
+		user.balloon_alert(user, "take the cap off first!")
 		return
-	var/obj/item/toy/crayon/spraycan/can = attacking_item
-
-	if(can.is_capped || can.check_empty())
+	if(item.check_empty())
+		user.balloon_alert(user, "empty!")
 		return
 
-	INVOKE_ASYNC(src, .proc/open_ui, user, can)
+	INVOKE_ASYNC(src, PROC_REF(open_ui), user, item, source)
 	return COMPONENT_NO_AFTERATTACK
 
-/datum/component/gags_recolorable/proc/open_ui(mob/user, obj/item/toy/crayon/spraycan/can)
-	var/atom/atom_parent = parent
+/datum/element/gags_recolorable/proc/open_ui(mob/user, obj/item/toy/crayon/spraycan/can, atom/target)
 	var/list/allowed_configs = list()
-	var/config = initial(atom_parent.greyscale_config)
+	var/config = initial(target.greyscale_config)
 	if(!config)
 		return
 	allowed_configs += "[config]"
-	if(ispath(atom_parent, /obj/item))
-		var/obj/item/item = atom_parent
+	if(isitem(target))
+		var/obj/item/item = target
 		if(initial(item.greyscale_config_worn))
 			allowed_configs += "[initial(item.greyscale_config_worn)]"
 		if(initial(item.greyscale_config_inhand_left))
@@ -39,35 +44,22 @@
 			allowed_configs += "[initial(item.greyscale_config_inhand_right)]"
 
 	var/datum/greyscale_modify_menu/spray_paint/menu = new(
-		atom_parent, user, allowed_configs, CALLBACK(src, .proc/recolor, user, can),
-		starting_icon_state = initial(atom_parent.icon_state),
-		starting_config = initial(atom_parent.greyscale_config),
-		starting_colors = atom_parent.greyscale_colors,
-		used_spraycan = can
+		target, user, allowed_configs, CALLBACK(src, PROC_REF(recolor), user, can, target),
+		starting_icon_state = initial(target.icon_state),
+		starting_config = initial(target.greyscale_config),
+		starting_colors = target.greyscale_colors,
+		used_spraycan = can,
 	)
 	menu.ui_interact(user)
 
-/datum/component/gags_recolorable/proc/recolor(mob/user, obj/item/toy/crayon/spraycan/can, datum/greyscale_modify_menu/menu)
-	if(!isatom(parent))
-		return
-	var/atom/atom_parent = parent
-
+/datum/element/gags_recolorable/proc/recolor(mob/user, obj/item/toy/crayon/spraycan/can, atom/target, datum/greyscale_modify_menu/menu)
 	if(can.is_capped || can.check_empty(user))
 		menu.ui_close()
 		return
 
 	can.use_charges()
 	if(can.pre_noise)
-		atom_parent.audible_message(span_hear("You hear spraying."))
-		playsound(atom_parent.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
+		target.audible_message(span_hear("You hear spraying."))
+		playsound(target.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 
-	atom_parent.set_greyscale(menu.split_colors)
-
-	// If the item is a piece of clothing and is being worn, make sure it updates on the player
-	if(!isclothing(atom_parent))
-		return
-	if(!ishuman(atom_parent.loc))
-		return
-	var/obj/item/clothing/clothing_parent = atom_parent
-	var/mob/living/carbon/human/wearer = atom_parent.loc
-	wearer.update_clothing(clothing_parent.slot_flags)
+	target.set_greyscale(menu.split_colors)
