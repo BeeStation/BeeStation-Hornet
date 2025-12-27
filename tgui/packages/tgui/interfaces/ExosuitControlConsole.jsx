@@ -82,13 +82,17 @@ export const ExosuitControlConsole = (props) => {
                   'Not Equipped'}
               </LabeledList.Item>
               <LabeledList.Item label="Pilot">
-                {mech.pilot || 'None'}
+                {(mech.pilot.length > 0 &&
+                  mech.pilot.map((pilot) => (
+                    <Box key={pilot} inline>
+                      {pilot}
+                      {mech.pilot.length > 1 ? '|' : ''}
+                    </Box>
+                  ))) ||
+                  'None'}
               </LabeledList.Item>
               <LabeledList.Item label="Location">
                 {mech.location || 'Unknown'}
-              </LabeledList.Item>
-              <LabeledList.Item label="Active Equipment">
-                {mech.active_equipment || 'None'}
               </LabeledList.Item>
               {mech.cargo_space >= 0 && (
                 <LabeledList.Item label="Used Cargo Space">

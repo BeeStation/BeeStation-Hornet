@@ -27,7 +27,9 @@
 	add_verb(/mob/living/proc/toggle_resting)
 
 	create_bodyparts() //initialize bodyparts
+
 	create_internal_organs()
+
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
@@ -114,6 +116,7 @@ Des: Removes all infected images from the alien.
 	if(!alien_name_regex.Find(name))
 		new_xeno.name = name
 		new_xeno.real_name = real_name
+
 	if(mind)
 		mind.transfer_to(new_xeno)
 	qdel(src)

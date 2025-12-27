@@ -1467,13 +1467,13 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	return image_to_center
 
 ///Flickers an overlay on an atom
-/proc/flick_overlay_static(overlay_image, atom/source, duration)
+/atom/proc/flick_overlay_static(overlay_image, duration)
 	set waitfor = FALSE
-	if(!source || !overlay_image)
+	if(!overlay_image)
 		return
-	source.add_overlay(overlay_image)
+	add_overlay(overlay_image)
 	sleep(duration)
-	source.cut_overlay(overlay_image)
+	cut_overlay(overlay_image)
 
 ///Perform a shake on an atom, resets its position afterwards
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
