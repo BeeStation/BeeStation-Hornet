@@ -189,7 +189,7 @@
 	clothing_flags = SNUG_FIT|THICKMATERIAL|HEADINTERNALS
 	resistance_flags = FIRE_PROOF|LAVA_PROOF
 	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	flags_cover = HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	greyscale_colors = "#4d4d4d#808080#ff3300"
 	greyscale_config = /datum/greyscale_config/heck_helmet
 	greyscale_config_worn = /datum/greyscale_config/heck_helmet/worn
