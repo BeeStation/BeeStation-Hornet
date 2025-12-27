@@ -47,7 +47,7 @@
 	/// If a Vampire tries to wrench it in place, yell at them.
 	if(item.tool_behaviour == TOOL_WRENCH && !anchored && IS_VAMPIRE(user))
 		user.playsound_local(null, 'sound/machines/buzz-sigh.ogg', 40, FALSE, pressure_affected = FALSE)
-		to_chat(user, span_announce("* Vampire Tip: Examine Vampire structures to understand how they function!"))
+		to_chat(user, span_announce("* Vampire Tip: Examine vampire structures to understand how they function!"))
 		return
 	return ..()
 
@@ -94,14 +94,14 @@
 	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = 180
-	ghost_desc = "This is a Vassalization rack, which allows Vampires to turn crewmembers into loyal vassals."
-	vampire_desc = "This is the Vassalization rack, which allows you to turn crewmembers into loyal vassals in your service. This costs blood to do.\n\
-		Simply click and hold on a victim, and then drag their sprite on the Vassalization rack. Right-click on the Vassalization rack to unbuckle them.\n\
-		To convert into a vassal, repeatedly click on the Vassalization rack. The time required scales with the tool in your hand."
-	vassal_desc = "This is the Vassalization rack, which allows your master to turn crewmembers into loyal vassals.\n\
+	ghost_desc = "This is a vassalization rack, which allows vampires to turn crewmembers into loyal vassals."
+	vampire_desc = "This is the vassalization rack, which allows you to turn crewmembers into loyal vassals in your service. This costs blood to do.\n\
+		Simply click and hold on a victim, and then drag their sprite on the vassalization rack. Right-click on the vassalization rack to unbuckle them.\n\
+		To convert into a vassal, repeatedly click on the vassalization rack. The time required scales with the tool in your hand."
+	vassal_desc = "This is the vassalization rack, which allows your master to turn crewmembers into loyal vassals.\n\
 		Aid your master in bringing their victims here and keeping them secure.\n\
-		You can secure victims to the Vassalization rack by click dragging the victim onto the rack while it is secured."
-	curator_desc = "This is the Vassalization rack, which monsters use to blood-slave crewmembers into vassals.\n\
+		You can secure victims to the vassalization rack by click dragging the victim onto the rack while it is secured."
+	curator_desc = "This is the vassalization rack, which monsters use to blood-slave crewmembers into vassals.\n\
 		They usually ensure that victims are handcuffed, to prevent them from running away.\n\
 		Their rituals take time, allowing us to disrupt it."
 
@@ -134,7 +134,7 @@
 	var/mob/living/living_target = movable_atom
 	if(!anchored && IS_VAMPIRE(user))
 		to_chat(user, span_danger("Until this rack is secured in place, it cannot serve its purpose."))
-		to_chat(user, span_announce("* Vampire Tip: Examine the Vassal Rack to understand how it functions!"))
+		to_chat(user, span_announce("* Vampire Tip: Examine the vassal rack to understand how it functions!"))
 		return
 	// Default checks
 	if(!isliving(movable_atom) || !living_target.Adjacent(src) || living_target == user || !isliving(user) || has_buckled_mobs() || user.incapacitated() || living_target.buckled)
