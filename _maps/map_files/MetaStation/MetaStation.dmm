@@ -8531,16 +8531,16 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "bsc" = (
-/obj/machinery/door/airlock{
-	name = "Service Hall"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/all/service/general,
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
+	},
+/obj/machinery/door/airlock{
+	name = "Service Hall";
+	req_one_access_txt = "22;25;26;28;35;37;38;46"
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
@@ -19793,6 +19793,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -20422,6 +20423,13 @@
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
+"dWq" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/turf/open/floor/catwalk_floor/iron_dark{
+	initial_gas_mix = "n2=100;TEMP=80"
+	},
+/area/tcommsat/server)
 "dWC" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/plating/airless,
@@ -21804,6 +21812,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/tcommsat/server)
 "ewK" = (
@@ -25283,6 +25292,7 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -28683,6 +28693,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -32084,6 +32095,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "iig" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -32350,6 +32362,7 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -34426,7 +34439,7 @@
 "iZT" = (
 /obj/machinery/door/window/westleft{
 	name = "Service Deliveries";
-	req_access_txt = "71"
+	req_one_access_txt = "22;25;26;28;35;37;38;46,71"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/bar{
@@ -37136,6 +37149,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -60921,6 +60935,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/simple/general/hidden,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "sJb" = (
@@ -62199,6 +62214,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/tcommsat/server)
 "thn" = (
@@ -65442,6 +65458,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/tcommsat/server)
 "upg" = (
@@ -67049,6 +67066,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -70715,6 +70733,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/catwalk_floor/iron_dark{
 	initial_gas_mix = "n2=100;TEMP=80"
 	},
@@ -131101,7 +131120,7 @@ rjC
 bCD
 bEg
 vOd
-iig
+xfJ
 bJm
 bNX
 wEa
@@ -131358,7 +131377,7 @@ sHt
 bCD
 bEh
 bGd
-iig
+xfJ
 bKL
 bNY
 bGd
@@ -131876,8 +131895,8 @@ fMa
 tOJ
 dsr
 uSg
-xfJ
-xfJ
+dWq
+dWq
 vqh
 jlu
 rZk
@@ -132386,7 +132405,7 @@ pvh
 bCD
 bEj
 bGd
-iig
+xfJ
 bKP
 bOb
 bGd
@@ -132643,7 +132662,7 @@ wlg
 bCD
 bEg
 vOd
-iig
+xfJ
 bKN
 bOa
 bGd
