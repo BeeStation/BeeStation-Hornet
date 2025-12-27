@@ -174,6 +174,12 @@
 	icon_state = "carp_helm"
 	inhand_icon_state = "syndicate"
 	armor_type = /datum/armor/carp_hood_spaceproof
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
+	body_parts_covered = HEAD
 	light_system = NO_LIGHT_SUPPORT
 	light_range = 0 //luminosity when on
 	actions_types = list()
