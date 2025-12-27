@@ -17,7 +17,7 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NONECRODISEASE,
@@ -802,7 +802,7 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
 		TRAIT_NONECRODISEASE,
@@ -832,7 +832,7 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	armor = 15 //feels no pain, but not too resistant
@@ -1106,7 +1106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	attack_verb = "whips"
 	attack_sound = 'sound/weapons/whip.ogg'
@@ -1193,7 +1193,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	info_text = "As a " + span_danger("Durathread Golem") + ", your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
 
@@ -1329,7 +1329,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.

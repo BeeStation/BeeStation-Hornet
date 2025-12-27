@@ -529,26 +529,17 @@
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
 	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
-	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
+				record.species = carbon_owner.dna.species.name
 				record.gender = carbon_owner.gender
 
-				var/datum/picture/picture_south = new
-				var/datum/picture/picture_west = new
-
-				picture_south.picture_name = "[carbon_owner]"
-				picture_west.picture_name = "[carbon_owner]"
-				picture_south.picture_desc = "This is [carbon_owner]."
-				picture_west.picture_desc = "This is [carbon_owner]."
-
-				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
-				picture_south.picture_image = icon(image, dir = SOUTH)
-				picture_west.picture_image = icon(image, dir = WEST)
+				//Not using carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER

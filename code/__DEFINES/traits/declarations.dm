@@ -108,8 +108,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOBLOOD "noblood"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
-// Changelings can't use the transformation sting on this mob
-#define TRAIT_NO_TRANSFORMATION_STING "no_transformation_sting"
+// This race can't become a vampire, changeling antagonist or be copied by a changeling.
+#define TRAIT_NOT_TRANSMORPHIC "not_transmorphic"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
