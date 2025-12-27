@@ -87,44 +87,40 @@
 		/obj/item/grenade/clusterbuster/cleaner = 10,
 		/obj/item/grenade/clusterbuster/soap = 10,
 		/obj/item/toy/katana = 10,
-		/obj/item/stack/sheet/iron/twenty = 15,
-		/obj/item/stack/sheet/glass/fifty = 10,
-		/obj/item/stack/sheet/mineral/copper/twenty = 20,
 		/obj/item/sord = 20,
 		/obj/item/toy/balloon/syndicate = 15,
 		/obj/item/lighter/greyscale = 5,
 		/obj/item/lighter = 5,
-		/obj/item/gun/ballistic/automatic/toy/pistol = 1,
-		/obj/item/gun/ballistic/automatic/c20r/toy = 1,
-		/obj/item/gun/ballistic/automatic/l6_saw/toy = 1,
-		/obj/item/gun/ballistic/shotgun/toy = 1,
-		/obj/item/gun/ballistic/shotgun/toy/crossbow = 1,
+		/obj/item/lazarus_injector = 5,
+		/obj/item/gun/ballistic/automatic/toy/pistol = 5,
+		/obj/item/gun/ballistic/automatic/c20r/toy = 5,
+		/obj/item/gun/ballistic/automatic/l6_saw/toy = 5,
+		/obj/item/gun/ballistic/shotgun/toy = 5,
+		/obj/item/gun/ballistic/shotgun/toy/crossbow = 5,
 		/obj/item/dualsaber/toy = 5,
-		/obj/machinery/smoke_machine = 10,
-		/obj/item/clothing/head/costume/kitty = 5,
-		/obj/item/coin/antagtoken = 5,
-		/obj/item/clothing/suit/costume/cardborg = 10,
-		/obj/item/toy/mecha/honk = 10,
 		/obj/item/bedsheet/patriot = 2,
 		/obj/item/bedsheet/rainbow = 2,
 		/obj/item/bedsheet/captain = 2,
-		/obj/item/bedsheet/centcom = 1, //mythic rare rarity
+		/obj/item/bedsheet/centcom = 2,
 		/obj/item/bedsheet/syndie = 2,
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
-		/obj/item/clothing/gloves/tackler/combat = 5
+		/obj/item/clothing/gloves/tackler/combat = 5,
+		/obj/item/disk/tech_disk/research/random = 5, // Technically cultural, random research disk
+		/obj/item/gun/ballistic/automatic/pistol/no_mag = 5, // Ammo sold separately
+		/obj/item/ammo_box/magazine/m10mm = 5, // The separate ammo we talked about
+		/obj/item/scalpel/alien = 5, //  This is cultural, right?
+		/obj/item/xenoartifact/maint = 5 // Random artifact
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
 	name = "organic objects"
 	loot = list(
 		/obj/item/seeds/random = 10,
-		/obj/item/storage/pill_bottle/charcoal = 25,
-		/obj/item/storage/pill_bottle/mannitol = 25,
-		/obj/item/storage/pill_bottle/mutadone = 25,
 		/obj/item/dnainjector/telemut = 5,
 		/obj/item/dnainjector/chameleonmut = 5,
 		/obj/item/dnainjector/dwarf = 5,
+		/obj/item/dnainjector/insulated = 5,
 		/mob/living/basic/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
 		/mob/living/basic/pet/dog/bullterrier = 5,
@@ -137,12 +133,22 @@
 		/obj/item/stack/tile/carpet/black/fifty = 10,
 		/obj/item/stack/tile/carpet/blue/thirtytwo = 10,
 		/obj/item/stack/tile/carpet/cyan/thirtytwo = 10,
-		/obj/item/soap/deluxe = 5
+		/obj/item/soap/deluxe = 5,
+		/obj/item/candydispenser/syndie = 1, // Candy filled with syndicate nanites and zombie powder, which might be funny if eaten
+		/obj/item/organ/alien/resinspinner = 5, // Harmless for the most part, just lets you make alien weeds
+		/obj/item/organ/alien/plasmavessel/small = 5,
+		/obj/item/organ/heart/gland/egg  = 5, // Harmless, makes you shit eggs if placed into someone
+		/obj/item/organ/heart/gland/heals = 5,
+		/obj/item/slimepotion/fireproof = 5,
+		/obj/item/seeds/gatfruit = 1, // These are only .38 now, should be fine to add
+		/obj/item/slime_extract/red = 5,
+		/obj/item/slime_extract/silver = 5,
+		/obj/item/slime_extract/blue = 5
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/food
 	name = "fancy food"
-	lootcount = 3
+	lootcount = 2
 	loot = list(
 		/obj/item/food/burger/crab,
 		/obj/item/food/crab_rangoon,
@@ -161,10 +167,29 @@
 		/obj/item/food/cubancarp,
 		/obj/item/food/fishandchips,
 		/obj/item/food/pie/meatpie,
-		/obj/item/pizzabox,
+		/obj/item/pizzabox
 	)
 
-
+/obj/effect/spawner/lootdrop/bluespace_tap/materials
+	name = "materials"
+	lootcount = 5 // The price goes up each time it's bought, so should be good for the price, they might get duplicates aswell
+	loot = list(
+		/obj/item/stack/sheet/iron/twenty = 20,
+		/obj/item/stack/sheet/glass/twenty = 20,
+		/obj/item/stack/sheet/mineral/copper/ten = 15,
+		/obj/item/stack/sheet/mineral/plasma/ten = 10, // Not that rare for a material
+		/obj/item/stack/sheet/mineral/gold/ten = 5,
+		/obj/item/stack/sheet/mineral/silver/ten = 5,
+		/obj/item/stack/sheet/mineral/titanium/ten = 5,
+		/obj/item/stack/sheet/mineral/uranium/ten = 5,
+		/obj/item/stack/sheet/mineral/diamond = 7, // You only got one, not lucky for you
+		/obj/item/stack/sheet/mineral/diamond/ten = 5, // You lucked out to get these
+		/obj/item/stack/sheet/mineral/abductor/ten = 3, // Really rare, you only get a few
+		/obj/item/stack/sheet/mineral/adamantine/ten = 3, // If you're lucky you can get these
+		/obj/item/stack/sheet/runed_metal/five = 3, // Blood cult material, really rare
+		/obj/item/stack/sheet/brass = 3, // Clock cult material, technically one, really rare
+		/obj/item/stack/sheet/bronze/ten = 10 // Not a whole lot useful, can be made by chemistry
+	)
 
 /**
   * # Bluespace Harvester
@@ -196,10 +221,11 @@
 
 	/// list of possible products
 	var/static/product_list = list(
-	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 5000),
-	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 6000),
-	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
-	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
+	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 2000), // Why was food so expensive to being with
+	new /datum/data/bluespace_tap_product("Unknown Material Recolection", /obj/effect/spawner/lootdrop/bluespace_tap/materials, 4000), // Spawns random materials, argueably the only useful one
+	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 6000),
+	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 10000), // This is mostly junk, the reason why it's so expensive, nobody knows
+	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 15000)
 	)
 
 	/// The level the machine is currently mining at. 0 means off
@@ -213,13 +239,12 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
-
 	// Tweak these and active_power_usage to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20
 	/// Amount of points to give per mining level
-	var/base_points = 4
+	var/base_points = 10
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
@@ -413,7 +438,7 @@
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
-	max_mobs = 5		//Dont' want them overrunning the station
+	max_mobs = 2		// 5 was a bit too much, let's lower it to 2
 	max_integrity = 250
 
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)

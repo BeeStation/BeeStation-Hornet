@@ -122,6 +122,12 @@
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_theta"
 
+/obj/item/survivalcapsule/shuttle_husk
+	name = "husk shuttle capsule"
+	desc = "The remains of a shuttle"
+	icon_state = "capsuleeng"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "shuttle_husk"
 //Pod objects
 
 //Window
