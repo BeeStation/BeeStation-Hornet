@@ -23,7 +23,7 @@
 		return FALSE
 
 	if(length(vassals) >= get_max_vassals())
-		living_vampire.balloon_alert(living_vampire, "more vassals, in this small of a community? Surely not...")
+		living_vampire.balloon_alert(living_vampire, "too many vassals.")
 		return FALSE
 
 #ifndef VAMPIRE_TESTING
@@ -58,6 +58,6 @@
 	conversion_target.mind.add_antag_datum(vassaldatum)
 
 	message_admins("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
-	log_admin("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
+	log_objective("[conversion_target] has become a vassal, and is enslaved to [owner.current].")
 
 	return TRUE
