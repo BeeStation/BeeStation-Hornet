@@ -330,8 +330,18 @@
 		var/accessory_message = ""
 		if(istype(w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/undershirt = w_uniform
-			if(undershirt.attached_accessory)
-				accessory_message += " with [icon2html(undershirt.attached_accessory, user)] \a [undershirt.attached_accessory]"
+			var/list/accessories = list()
+			for (var/accessory_slot in undershirt.attached_accessories)
+				var/obj/item/clothing/accessory/accessory = undershirt.attached_accessories[accessory_slot]
+				// Hidden accessories do not show
+				if (accessory.hidden)
+					continue
+				// Accessories that are below a suit hiding them do not show
+				if (!accessory.above_suit && wear_suit && wear_suit.body_parts_covered & accessory.attachment_slot)
+					continue
+				accessories += "[icon2html(accessory, user)] \a [accessory]"
+			if (length(accessories))
+				accessory_message += " with [english_list(accessories)]"
 
 		. += "[t_He] [t_is] wearing [w_uniform.examine_title(user)][accessory_message]."
 	//head

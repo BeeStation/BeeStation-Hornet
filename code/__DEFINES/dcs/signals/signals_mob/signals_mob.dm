@@ -12,6 +12,10 @@
 ///from base of mob/AltClickOn(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
+///from base of datum/emote/living/deathgasp/run_emote(): (params, type_override, intentional)
+#define COMSIG_MOB_DEATHGASP "mob_deathgasp"
+	/// Don't play the default sound
+	#define COMSIG_MOB_CANCEL_DEATHGASP_SOUND (1 << 0)
 ///from base of mob/alt_click_on_secodary(): (atom/A)
 #define COMSIG_MOB_ALTCLICKON_SECONDARY "mob_altclickon_secondary"
 
