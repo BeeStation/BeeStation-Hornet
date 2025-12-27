@@ -1396,3 +1396,7 @@
 
 	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
 		LAZYREMOVEASSOC(movable_loc.important_recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS, src)
+
+/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
+/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
+	return FALSE
