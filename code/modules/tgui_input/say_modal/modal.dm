@@ -93,9 +93,9 @@
 	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, center_window), window.id, 231, 30) // async due to prefs menu
 	winshow(client, window.id, FALSE)
 	window.send_message("props", list(
-		lightMode = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_light_mode),
-		showRadioPrefix = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_show_prefix),
-		maxLength = max_length,
+		"lightMode" = client.prefs?.read_preference(/datum/preference/toggle/tgui_say_light_mode),
+		"showRadioPrefix" = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_show_prefix),
+		"maxLength" = max_length,
 	))
 	stop_thinking()
 	return TRUE

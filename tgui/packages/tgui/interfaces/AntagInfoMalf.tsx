@@ -177,7 +177,7 @@ const CodewordsSection = (props) => {
 export const AntagInfoMalf = (props) => {
   return (
     <Window width={660} height={530} theme="hackerman">
-      <Window.Content style={{ 'font-family': 'Consolas, monospace' }}>
+      <Window.Content style={{ fontFamily: 'Consolas, monospace' }}>
         <Stack vertical fill>
           <Stack.Item grow>
             <Stack fill>

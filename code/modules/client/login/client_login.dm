@@ -63,7 +63,7 @@
 		return null
 
 
-	. = ..()	//calls mob.Login()
+	. = ..() //calls mob.Login()
 
 	var/mob/logout_mob = GLOB.disconnected_mobs[src.ckey]
 	if(logged_in && ismob(logout_mob) && !isnewplayer(logout_mob))
@@ -191,6 +191,8 @@
 	if(authenticated)
 		tgui_say.initialize()
 		tgui_asay.initialize()
+
+	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
 
 	if(!authenticated)
 		initialize_login_handler()
@@ -742,3 +744,9 @@
 		winset(src, "mapwindow.map", "right-click=false")
 		winset(src, "default.Shift", "is-disabled=true")
 		winset(src, "default.ShiftUp", "is-disabled=true")
+
+/// This grabs the DPI of the user per their skin
+/client/proc/acquire_dpi()
+	window_scaling = text2num(winget(src, null, "dpi"))
+
+	debug_admins("scalies: [window_scaling]")

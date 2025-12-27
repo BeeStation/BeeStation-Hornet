@@ -254,6 +254,7 @@
 			"size" = window_size,
 			"fancy" = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy),
 			"locked" = user.client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_lock),
+			"scale" = user.client.prefs.read_preference(/datum/preference/toggle/ui_scale),
 		),
 		"client" = list(
 			"ckey" = user.client.ckey,

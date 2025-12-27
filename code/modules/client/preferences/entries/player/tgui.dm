@@ -123,3 +123,16 @@
 
 /datum/preference/toggle/tgui_asay/is_accessible(datum/preferences/preferences, ignore_page)
 	return ..() && (is_admin(preferences.parent) || preferences.parent.mentor_datum)
+
+/datum/preference/toggle/ui_scale
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "ui_scale"
+	preference_type = PREFERENCE_PLAYER
+	default_value = TRUE
+
+/datum/preference/toggle/ui_scale/apply_to_client(client/client, value)
+	if(!istype(client))
+		return
+
+	INVOKE_ASYNC(client, TYPE_VERB_REF(/client, refresh_tgui))
+	client.tgui_say?.load()

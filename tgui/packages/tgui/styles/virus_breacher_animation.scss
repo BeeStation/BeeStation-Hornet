@@ -1,22 +1,22 @@
 /* ────── intense but continuous colour pulse ─────── */
 @keyframes logoHue {
   0% {
-    color: #ff0055;
+    color: hsl(340, 100%, 50%);
   }
   20% {
-    color: #ff3377;
+    color: hsl(340, 100%, 60%);
   }
   40% {
-    color: #ff6699;
+    color: hsl(340, 100%, 70%);
   }
   60% {
-    color: #ff3377;
+    color: hsl(340, 100%, 60%);
   }
   80% {
-    color: #ff0055;
+    color: hsl(340, 100%, 50%);
   }
   100% {
-    color: #ff0055;
+    color: hsl(340, 100%, 50%);
   }
 }
 
