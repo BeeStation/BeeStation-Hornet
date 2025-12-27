@@ -107,40 +107,39 @@
 	object_of_desire = null
 
 /datum/status_effect/awed/tick()
-	// expand the random pool for more varied behaviors; 0 is a nop as before
 	switch(rand(1, 10))
 		if(1)
 			owner.Stun(20, TRUE)
-			to_chat(owner, span_awe("What was I doing again..."), type = MESSAGE_TYPE_INFO)
+			to_chat(owner, span_awe("You forget what you were doing."), type = MESSAGE_TYPE_INFO)
 		if(2)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, span_awe("God, [object_of_desire.p_they()] [object_of_desire.p_are()] so pretty..."), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_awe("[object_of_desire] is so pretty."), type = MESSAGE_TYPE_INFO)
 		if(3)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, span_awe("I need to listen. [object_of_desire.p_they()] [object_of_desire.p_are()] so wise..."), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_awe("[object_of_desire] is so wise."), type = MESSAGE_TYPE_INFO)
 		if(4)
-			to_chat(owner, span_awe("My mind keeps drifting back to [object_of_desire]..."), type = MESSAGE_TYPE_INFO)
+			to_chat(owner, span_awe("Your mind drifts back to [object_of_desire]."), type = MESSAGE_TYPE_INFO)
 		if(5)	// Knees weak
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, span_awe("[object_of_desire] is so amazing... God my knees are wobbly..."), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_awe("Your knees feel wobbly."), type = MESSAGE_TYPE_INFO)
 
 				owner.apply_damage(rand(10,30), STAMINA, owner.get_bodypart(BODY_ZONE_L_LEG), FALSE, TRUE)	// left
 				owner.apply_damage(rand(10,30), STAMINA, owner.get_bodypart(BODY_ZONE_R_LEG), FALSE, TRUE)	// right
 		if(6)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, span_awe("I should move closer..."), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_awe("You should move closer."), type = MESSAGE_TYPE_INFO)
 				// Step towards them, but not if that would swap places with them. This feels bad but oh well.
 				if(owner.body_position == STANDING_UP && get_step(owner.loc, get_dir(owner.loc, object_of_desire.loc)) != object_of_desire.loc)
-					owner.visible_message(span_warning("[owner] stumbles dumbly towards [object_of_desire]."), span_awe("[object_of_desire]..."))
+					owner.visible_message(span_warning("[owner] stumbles dumbly towards [object_of_desire]."), span_awe("You stumble towards [object_of_desire]."))
 					owner.Move(get_step(owner.loc, get_dir(owner.loc, object_of_desire.loc)))
 		if(7)
 			if(!owner.incapacitated(IGNORE_RESTRAINTS))
 				owner.face_atom(object_of_desire)
-				to_chat(owner, span_awe("I should be kind to [object_of_desire]..."), type = MESSAGE_TYPE_INFO)
+				to_chat(owner, span_awe("You should be kind to [object_of_desire]."), type = MESSAGE_TYPE_INFO)
 				owner.emote("smiles")
 		if(8 to 10)
 			return
