@@ -24,6 +24,7 @@
 	usr.reset_perspective(O)
 	usr.control_object = O
 	O.AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+	O.AddElement(/datum/element/weather_listener, /datum/weather/rad_storm, ZTRAIT_STATION, GLOB.rad_storm_sounds)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/release()
@@ -44,6 +45,7 @@
 			H.name = H.get_visible_name()
 
 	usr.control_object.RemoveElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+	usr.control_object.RemoveElement(/datum/element/weather_listener, /datum/weather/rad_storm, ZTRAIT_STATION, GLOB.rad_storm_sounds)
 	usr.forceMove(get_turf(usr.control_object))
 	usr.reset_perspective()
 	usr.control_object = null
