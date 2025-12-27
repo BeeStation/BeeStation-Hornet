@@ -310,7 +310,9 @@
 			return tremere
 		if(CLAN_GANGREL)
 			return gangrel
-	return "OH MY GOD SOMETHING HORRIBLE HAS GONE WRONG CALL A CODER NOW"
+
+	log_runtime("Unknown clan name passed to get_clan_description: [clan_name]")
+	return "No description available."
 
 /**
  * Called when a Vampire reaches Final Death
