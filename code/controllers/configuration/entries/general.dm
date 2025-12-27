@@ -580,9 +580,6 @@
 	config_entry_value = -1
 	min_val = 0
 
-/datum/config_entry/string/default_view
-	config_entry_value = "15x15"
-
 /datum/config_entry/flag/log_pictures
 
 /datum/config_entry/flag/picture_logging_camera

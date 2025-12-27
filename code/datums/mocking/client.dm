@@ -4,7 +4,7 @@
 	var/datum/preferences/prefs
 
 	/// The view of the client, similar to /client/var/view
-	var/view = "17x15"
+	var/view = "19x15"
 
 	var/typing_indicators
 
