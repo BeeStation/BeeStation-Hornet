@@ -1,0 +1,7 @@
+author: rkz, neopythagorean, GoldenAlpharex, Pickle-Coding
+delete-after: true
+changes:
+  - code_imp: converted the last Tcomms machine to TGUI
+  - bugfix: tcomms machines cannot monitor centcom frequencies or CTF teams
+  - bugfix: tcomms use KHz, same as headsets
+  - code_imp: documents tcomms code
