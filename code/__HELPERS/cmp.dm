@@ -74,6 +74,9 @@
 /proc/cmp_list_size_dsc(list/A, list/B)
 	return length(B) - length(A)
 
+/proc/cmp_orbital_priority_dsc(datum/orbital_object/a, datum/orbital_object/b)
+	return b.priority - a.priority
+
 /proc/cmp_qdel_item_time(datum/qdel_item/A, datum/qdel_item/B)
 	. = B.hard_delete_time - A.hard_delete_time
 	if (!.)

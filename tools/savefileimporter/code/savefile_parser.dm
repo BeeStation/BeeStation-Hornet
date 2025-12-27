@@ -17,7 +17,6 @@
 #define PREFERENCE_TAG_PREFERRED_MAP	"15"
 #define PREFERENCE_TAG_IGNORING			"16"
 #define PREFERENCE_TAG_CLIENTFPS		"17"
-#define PREFERENCE_TAG_PARALLAX			"18"
 #define PREFERENCE_TAG_PIXELSIZE		"19"
 #define PREFERENCE_TAG_SCALING_METHOD	"20"
 #define PREFERENCE_TAG_TIP_DELAY		"21"
@@ -178,9 +177,6 @@
 
 	READ_FILE(S["clientfps"], clientfps, 40)
 	NEW_QUERY(PREFERENCE_TAG_CLIENTFPS, owning_ckey, clientfps)
-
-	READ_FILE(S["parallax"], parallax, 0) // Equiv to "high"
-	NEW_QUERY(PREFERENCE_TAG_PARALLAX, owning_ckey, parallax)
 
 	READ_FILE(S["pixel_size"], pixel_size, 0)
 	NEW_QUERY(PREFERENCE_TAG_PIXELSIZE, owning_ckey, pixel_size)

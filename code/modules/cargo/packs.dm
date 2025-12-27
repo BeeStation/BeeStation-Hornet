@@ -1752,6 +1752,40 @@
 	crate_name = "water vapor canister crate"
 	crate_type = /obj/structure/closet/crate/large
 
+/datum/supply_pack/materials/hydrogen_fuel_canister
+	name = "Hydrogen Fuel Canister"
+	desc = "Contains a canister of formulated hydrogen fuel, used for orbital maneuvering thrusters."
+	cost = 5000
+	max_supply = 5
+	contains = list(/obj/machinery/portable_atmospherics/canister/hydrogen_fuel)
+	crate_name = "hydrogen fuel canister crate"
+	crate_type = /obj/structure/closet/crate/large
+
+/datum/supply_pack/materials/hydrogen_fuel_canister_double
+	name = "Hydrogen Fuel Canister Double Pack"
+	desc = "Contains two canisters of formulated hydrogen fuel at a 10% discount!"
+	cost = 9000
+	max_supply = 3
+	contains = list(
+		/obj/machinery/portable_atmospherics/canister/hydrogen_fuel,
+		/obj/machinery/portable_atmospherics/canister/hydrogen_fuel
+	)
+	crate_name = "hydrogen fuel double pack crate"
+	crate_type = /obj/structure/closet/crate/large
+
+/datum/supply_pack/materials/hydrogen_fuel_canister_triple
+	name = "Hydrogen Fuel Canister Triple Pack"
+	desc = "Contains three canisters of formulated hydrogen fuel at a 20% discount!"
+	cost = 12000
+	max_supply = 2
+	contains = list(
+		/obj/machinery/portable_atmospherics/canister/hydrogen_fuel,
+		/obj/machinery/portable_atmospherics/canister/hydrogen_fuel,
+		/obj/machinery/portable_atmospherics/canister/hydrogen_fuel
+	)
+	crate_name = "hydrogen fuel triple pack crate"
+	crate_type = /obj/structure/closet/crate/large
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
