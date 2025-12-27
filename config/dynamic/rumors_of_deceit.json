@@ -2,45 +2,46 @@
 	"Name": "Rumors of Deceit",
 	"Description": "Focuses on less-disruptive antagonists with the intent of sowing distrust",
 	"Dynamic": {
-		"roundstart_divergence_percent_lower": 1,
-		"roundstart_divergence_percent_upper": 1,
-		"roundstart_points_per_ready": 1.4,
+		"roundstart_divergence_percent_lower": 0.8,
+		"roundstart_divergence_percent_upper": 1.4,
+		"roundstart_points_per_ready": 1,
 		"roundstart_points_per_unready": 0.5,
-		"midround_grace_period": 24000,
-		"midround_linear_delta": 0.3,
-		"midround_linear_delta_forced": 0.25,
-		"midround_living_delta": 0.05,
+		"midround_grace_period": 12000,
+		"midround_linear_delta": 0.6,
+		"midround_linear_delta_forced": 0,
+		"midround_living_delta": 0.01,
         "midround_observer_delta": 0,
-        "midround_dead_delta": -0.01,
-		"latejoin_ruleset_probability": 50,
+        "midround_dead_delta": -0.05,
+		"midround_dead_security_delta": -0.1,
+		"latejoin_ruleset_probability": 10,
 		"latejoin_max_rulesets": 1,
-		"midround_light_end_time": 36000,
-		"midround_medium_end_time": 72000,
+		"midround_light_end_time": 90,
+		"midround_medium_end_time": 100,
 		"midround_medium_increase_ratio": 1,
 		"midround_points_per_antag": {
-			"/datum/antagonist/ert": 0.2,
-			"/datum/antagonist/spider": -0.15,
-			"/datum/antagonist/swarmer": -0.15,
-			"/datum/antagonist/xeno": -0.2,
-			"/datum/antagonist/revenant": -0.6,
-			"/datum/antagonist/ninja": -1.1,
-			"/datum/antagonist/space_dragon": -2.5,
-			"/datum/antagonist/wizard": -2.5,
+			"/datum/antagonist/ert": 0,
+			"/datum/antagonist/spider": -1,
+			"/datum/antagonist/swarmer": -1,
+			"/datum/antagonist/xeno": -1,
+			"/datum/antagonist/revenant": -1,
+			"/datum/antagonist/ninja": -2,
+			"/datum/antagonist/space_dragon": -4,
+			"/datum/antagonist/wizard": -4,
 			"/datum/antagonist/slaughter": -4,
 			"/datum/antagonist/blob": -4,
-			"/datum/antagonist/morph": -0.3,
-			"/datum/antagonist/pirate": -0.5,
-			"/datum/antagonist/pirate/captain": -0.5,
-			"/datum/antagonist/malf_ai": -0.6,
-			"/datum/antagonist/traitor": -0.2,
-			"/datum/antagonist/heretic": -0.2,
-			"/datum/antagonist/brother": -0.1,
-			"/datum/antagonist/changeling": -0.2,
-			"/datum/antagonist/abductor": -0.3,
-			"/datum/antagonist/abductor/agent": -0.3,
-			"/datum/antagonist/abductor/scientist": -0.3,
-			"/datum/antagonist/abductor/scientist/solo": -0.3,
-			"/datum/antagonist/nightmare": -0.4
+			"/datum/antagonist/morph": -1,
+			"/datum/antagonist/pirate": -2,
+			"/datum/antagonist/pirate/captain": -2,
+			"/datum/antagonist/malf_ai": 0,
+			"/datum/antagonist/traitor": 0,
+			"/datum/antagonist/heretic": 0,
+			"/datum/antagonist/brother": 0,
+			"/datum/antagonist/changeling": 0,
+			"/datum/antagonist/abductor": -2,
+			"/datum/antagonist/abductor/agent": -1,
+			"/datum/antagonist/abductor/scientist": -1,
+			"/datum/antagonist/abductor/scientist/solo": -1,
+			"/datum/antagonist/nightmare": -1
 		}
 	},
 	"Roundstart": {
@@ -68,15 +69,22 @@
 		"Wizard": {
 			"weight": 0
 		},
+		"Heretic": {
+			"weight": 10,
+			"minimum_players_required": 14
+		},
 		"Changeling": {
-			"weight": 15
+			"weight": 15,
+			"minimum_players_required": 12
 		},
 		"Vampire": {
 			"weight": 10,
-			"elasticity": 70
+			"elasticity": 70,
+			"minimum_players_required": 16
 		},
 		"Malfunctioning AI": {
-			"weight": 10
+			"weight": 10,
+			"minimum_players_required": 18
 		},
 		"Blood Brothers": {
 			"weight": 15
@@ -89,67 +97,82 @@
 			"severity": 3
         },
         "Syndicate Sleeper Agent": {
-            "weight": 14,
+            "weight": 1,
 			"severity": 3
         },
         "Fanatic Revelation": {
-            "weight": 14,
+            "weight": 1,
 			"severity": 3
         },
         "Vampiric Accident": {
-            "weight": 14,
+            "weight": 1,
 			"severity": 3
         },
         "Obsessed": {
-            "weight": 14,
+            "weight": 10,
 			"severity": 3
         },
         "Wizard": {
+            "weight": 2,
 			"severity": 4
         },
         "Nuclear Assault": {
+            "weight": 2,
 			"severity": 4
         },
         "Blob": {
+            "weight": 2,
 			"severity": 4
         },
         "Xenomorph Infestation": {
+            "weight": 2,
 			"severity": 4
         },
         "Space Dragon": {
+            "weight": 4,
 			"severity": 4
         },
         "Space Ninja": {
+            "weight": 2,
 			"severity": 4
         },
         "Nightmare": {
+            "weight": 8,
 			"severity": 6
         },
         "Abductors": {
+            "weight": 8,
 			"severity": 4
         },
         "Lone Abductor": {
+            "weight": 8,
 			"severity": 4
         },
         "Revenant": {
+            "weight": 8,
 			"severity": 6
         },
         "Spider Infestation": {
+            "weight": 4,
 			"severity": 4
         },
         "Swarmer": {
+            "weight": 3,
 			"severity": 4
         },
         "Morph": {
-			"severity": 3
+            "weight": 8,
+			"severity": 7
         },
         "Prisoners": {
 			"severity": 1
         },
         "Fugitives": {
+            "weight": 8,
 			"severity": 3
         },
 		"Space Pirates": {
+            "weight": 3,
 			"severity": 4
 		}
     }

@@ -43,12 +43,11 @@ SUBSYSTEM_DEF(dynamic)
 	var/datum/dynamic_ruleset/midround/midround_chosen_ruleset
 	/// A list of configured midround rulesets
 	var/list/datum/dynamic_ruleset/midround/midround_configured_rulesets
-
-	/// The chances for each type of midround ruleset to be picked
-	/// Set in `configure_variables()`
-	var/midround_light_chance
-	var/midround_medium_chance
-	var/midround_heavy_chance
+	/// An associative list of the pre-calculated midround chances over the duration of the round
+	/// "light" / "medium" / "heavy" -> list(CHANCE_AT_MINUTE_1, CHANCE_AT_MINUTE_2, ...)
+	var/list/midround_chances
+	/// Are we ready to execute the midround ruleset? Used to give admins a one minute heads up.
+	var/midround_ready_to_execute = FALSE
 
 	/// The cooldown until the chosen midround can execute
 	COOLDOWN_DECLARE(midround_ruleset_cooldown)
@@ -56,7 +55,7 @@ SUBSYSTEM_DEF(dynamic)
 	/// Dynamic Panel variables
 
 	/// Logged points over time
-	var/list/logged_points = list(
+	var/list/midround_logged_points = list(
 		"logged_points" = list(0),
 		"logged_points_living" = list(0),
 		"logged_points_dead" = list(0),
@@ -65,12 +64,6 @@ SUBSYSTEM_DEF(dynamic)
 		"logged_points_antag" = list(0),
 		"logged_points_linear" = list(0),
 		"logged_points_linear_forced" = list(0),
-	)
-	/// Logged chances, should be from 0 to 10, not 0 to 100
-	var/list/logged_chances = list(
-		"light" = list(10),
-		"medium" = list(0),
-		"heavy" = list(0),
 	)
 
 	/**
@@ -93,7 +86,7 @@ SUBSYSTEM_DEF(dynamic)
 	/// The loaded dynamic configuration file (as a decoded .json file)
 	var/list/current_storyteller
 	/// An associative list of all of the dynamic storytellers
-	/// - "Name" : decoded_json
+	/// Storyteller Name -> decoded_json
 	var/list/list/dynamic_storyteller_jsons
 	/// Some rulesets (like revolution) need to process
 	var/list/datum/dynamic_ruleset/rulesets_to_process = list()
@@ -154,9 +147,9 @@ SUBSYSTEM_DEF(dynamic)
 	var/midround_medium_starting_chance = 0
 	var/midround_heavy_starting_chance = 0
 	/// At this time the Light/Medium Ruleset Chance will reach 0%
-	/// When configuring these be sure to have them set in deciseconds (minutes * 600)
-	var/midround_light_end_time = 1 HOURS
-	var/midround_medium_end_time = 2 HOURS
+	/// When configuring these be sure to have them set in minutes. NOT DECISECONDS
+	var/midround_light_end_time = 60
+	var/midround_medium_end_time = 120
 	/// The ratio of the Light Ruleset Chance decrease rate that is given to the Medium Ruleset Chance
 	/// The Heavy Ratio is the remainder of the Medium Increase Ratio
 	/// These should always be on a range of 0 - 1. i.e: 0.25, 0.75, 1.0
@@ -311,6 +304,8 @@ SUBSYSTEM_DEF(dynamic)
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
 	latejoin_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/latejoin, latejoin_configured_rulesets)
 
+	calculate_midround_chances()
+
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA)
 
@@ -319,8 +314,6 @@ SUBSYSTEM_DEF(dynamic)
  * If `preconfigured_rulesets` is passed through, we iterate through all of those instances instead of replacing the pre-existing ones.
  */
 /datum/controller/subsystem/dynamic/proc/init_rulesets(datum/dynamic_ruleset/ruleset_subtype, list/datum/dynamic_ruleset/preconfigured_rulesets)
-	ASSERT(ispath(ruleset_subtype), "init_rulesets() called without `ruleset_subtype` being a typepath!")
-
 	var/list/datum/dynamic_ruleset/rulesets
 
 	if (length(preconfigured_rulesets))
@@ -378,7 +371,7 @@ SUBSYSTEM_DEF(dynamic)
 	if(!length(roundstart_candidates))
 		return TRUE
 
-	pick_roundstart_rulesets(roundstart_configured_rulesets)
+	pick_roundstart_rulesets()
 
 	// Save us from hard dels
 	roundstart_ready_amount = length(roundstart_candidates)
@@ -413,7 +406,7 @@ SUBSYSTEM_DEF(dynamic)
 /**
  * Pick the roundstart rulesets to run based on their configured variables (weight, cost, flags)
  */
-/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets(roundstart_rules)
+/datum/controller/subsystem/dynamic/proc/pick_roundstart_rulesets()
 	// Extended was forced, don't pick any rulesets
 	if(forced_extended)
 		log_dynamic("ROUNDSTART: Starting a round of forced extended.")
@@ -431,7 +424,7 @@ SUBSYSTEM_DEF(dynamic)
 
 			if(!forced_ruleset.allowed())
 				log_dynamic("ROUNDSTART: Could not force [forced_ruleset]")
-				message_admins("DYNAMIC: ROUNDSTART: Could not force [forced_ruleset]")
+				message_admins("DYNAMIC: Could not force [forced_ruleset]")
 				continue
 
 			var/datum/dynamic_ruleset/roundstart/new_forced_roundstart_ruleset = forced_ruleset.duplicate()
@@ -441,14 +434,14 @@ SUBSYSTEM_DEF(dynamic)
 			forced_ruleset.candidates = null
 
 			log_dynamic("ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
-			message_admins("DYNAMIC: ROUNDSTART: Forced [new_forced_roundstart_ruleset]")
+			message_admins("DYNAMIC: Forced [new_forced_roundstart_ruleset]")
 
 	if(roundstart_only_use_forced_rulesets)
 		return
 
 	// Trim the rulesets
 	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in roundstart_rules)
+	for(var/datum/dynamic_ruleset/roundstart/potential_ruleset in roundstart_configured_rulesets)
 		potential_ruleset.set_drafted_players_amount()
 		potential_ruleset.get_candidates()
 		potential_ruleset.trim_candidates()
@@ -595,8 +588,7 @@ SUBSYSTEM_DEF(dynamic)
 	return result
 
 /**
- * Update our midround points and chances
- * Choose a midround ruleset to save up for if one is not already selected
+ * Handle point generation and midround ruleset execution
  */
 /datum/controller/subsystem/dynamic/fire(resumed)
 	if(forced_extended)
@@ -606,36 +598,10 @@ SUBSYSTEM_DEF(dynamic)
 	if(SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		return
 
-	update_midround_chances()
-	update_midround_points()
-
-	// Try to choose/execute a ruleset
-	if(world.time - SSticker.round_start_time > midround_grace_period && COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
-		if(!midround_chosen_ruleset)
-			choose_midround_ruleset()
-		else if(midround_points >= midround_chosen_ruleset.points_cost)
-			var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
-
-			if (midround_waiting_ruleset)
-				midround_waiting_ruleset.abort()
-				midround_waiting_ruleset = null
-
-			var/result = execute_ruleset(new_midround_ruleset)
-			message_admins("DYNAMIC: MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
-			log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
-
-			if (result == DYNAMIC_EXECUTE_WAITING)
-				midround_waiting_ruleset = new_midround_ruleset
-
-			// If we successfully execute the midround, apply the cost and log it
-			if(result == DYNAMIC_EXECUTE_SUCCESS || result == DYNAMIC_EXECUTE_WAITING)
-				midround_executed_rulesets += new_midround_ruleset
-				midround_points = 0
-				logged_points["logged_points"] += midround_points
-			else
-				COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
-
-			midround_chosen_ruleset = null
+	// Check grace period
+	if(world.time - SSticker.round_start_time >= midround_grace_period)
+		update_midround_points()
+		choose_or_execute_midround_ruleset()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA)
 
@@ -643,9 +609,6 @@ SUBSYSTEM_DEF(dynamic)
  * Generate midround points once per minute based off of each player's status
  */
 /datum/controller/subsystem/dynamic/proc/update_midround_points()
-	if(world.time - SSticker.round_start_time < midround_grace_period)
-		return
-
 	var/previous_midround_points = midround_points
 
 	var/living_delta = length(current_players[CURRENT_LIVING_PLAYERS]) * midround_living_delta
@@ -667,58 +630,102 @@ SUBSYSTEM_DEF(dynamic)
 	midround_points += midround_linear_delta_forced
 
 	// Log point sources
-	logged_points["logged_points"] += midround_points
-	logged_points["logged_points_living"] += living_delta
-	logged_points["logged_points_observer"] += observing_delta
-	logged_points["logged_points_dead"] += dead_delta
-	logged_points["logged_points_dead_security"] += dead_security_delta
-	logged_points["logged_points_antag"] += antag_delta
-	logged_points["logged_points_linear"] += midround_linear_delta
-	logged_points["logged_points_linear_forced"] += midround_linear_delta_forced
+	midround_logged_points["logged_points"] += midround_points
+	midround_logged_points["logged_points_living"] += living_delta
+	midround_logged_points["logged_points_observer"] += observing_delta
+	midround_logged_points["logged_points_dead"] += dead_delta
+	midround_logged_points["logged_points_dead_security"] += dead_security_delta
+	midround_logged_points["logged_points_antag"] += antag_delta
+	midround_logged_points["logged_points_linear"] += midround_linear_delta
+	midround_logged_points["logged_points_linear_forced"] += midround_linear_delta_forced
 
 	log_dynamic("MIDROUND: Updated points. From [previous_midround_points] to [midround_points]")
 
 /**
+ * Calculates the midround chances for the duration of the round
+ *
  * At roundstart the Light Ruleset Chance is 100%
  * As the round progresses, the Light Ruleset Chance decreases and the Medium/Heavy Ruleset Chance increase
  * After reaching 60 minutes, the Light Ruleset Chance will reach 0%
  * Additionally, the Medium Ruleset Chance will start to decrease and the Heavy Ruleset Chance will increase
  */
-/datum/controller/subsystem/dynamic/proc/update_midround_chances()
-	var/time_elapsed = world.time - SSticker.round_start_time
+/datum/controller/subsystem/dynamic/proc/calculate_midround_chances()
+	midround_chances = list(
+		"light" = list(),
+		"medium" = list(),
+		"heavy" = list(),
+	)
 
-	// Light decreases linearly until midround_light_end_time
-	if (time_elapsed < midround_light_end_time)
-		var/light_progress = clamp(time_elapsed / midround_light_end_time, 0, 1)
-		midround_light_chance = max(midround_light_starting_chance * (1 - light_progress), 0)
+	for(var/minute = 0 to midround_medium_end_time)
+		var/midround_light_chance = 0
+		var/midround_medium_chance = 0
+		var/midround_heavy_chance = 0
 
-		var/heavy_ratio = 1 - midround_medium_increase_ratio
+		// Light decreases linearly until midround_light_end_time
+		if (minute < midround_light_end_time)
+			var/light_progress = clamp(minute / midround_light_end_time, 0, 1)
+			midround_light_chance = max(midround_light_starting_chance * (1 - light_progress), 0)
 
-		midround_medium_chance = light_progress * midround_light_starting_chance * midround_medium_increase_ratio
-		midround_heavy_chance = light_progress * midround_light_starting_chance * heavy_ratio
-	else
-		// After light reaches 0, shift Medium into Heavy until midround_medium_end_time
-		var/medium_duration = midround_medium_end_time - midround_light_end_time
-		var/medium_progress = clamp((time_elapsed - midround_light_end_time) / medium_duration, 0, 1)
+			var/heavy_ratio = 1 - midround_medium_increase_ratio
 
-		midround_light_chance = 0
-		midround_medium_chance = max(100 * (1 - medium_progress) * midround_medium_increase_ratio, 0)
-		midround_heavy_chance = min(100 - midround_medium_chance, 100)
+			midround_medium_chance = light_progress * midround_light_starting_chance * midround_medium_increase_ratio
+			midround_heavy_chance = light_progress * midround_light_starting_chance * heavy_ratio
+		else
+			// After light reaches 0, shift Medium into Heavy until midround_medium_end_time
+			var/medium_duration = midround_medium_end_time - midround_light_end_time
+			var/medium_progress = clamp((minute - midround_light_end_time) / medium_duration, 0, 1)
 
-	// Do our best to ensure the total chance is 100%, it honestly probably never will be because of floating point imprecision
-	var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
-	if(total_current_chance != 100)
-		var/adjustment_factor = 100 / total_current_chance
-		midround_light_chance *= adjustment_factor
-		midround_medium_chance *= adjustment_factor
-		midround_heavy_chance *= adjustment_factor
+			midround_light_chance = 0
+			midround_medium_chance = max(100 * (1 - medium_progress) * midround_medium_increase_ratio, 0)
+			midround_heavy_chance = min(100 - midround_medium_chance, 100)
 
-	logged_chances["light"] += midround_light_chance / 10
-	logged_chances["medium"] += midround_medium_chance / 10
-	logged_chances["heavy"] += midround_heavy_chance / 10
+		// Do our best to ensure the total chance is 100%, it honestly probably never will be because of floating point imprecision
+		var/total_current_chance = midround_light_chance + midround_medium_chance + midround_heavy_chance
+		if(total_current_chance != 100)
+			var/adjustment_factor = 100 / total_current_chance
+			midround_light_chance *= adjustment_factor
+			midround_medium_chance *= adjustment_factor
+			midround_heavy_chance *= adjustment_factor
 
-	log_dynamic("MIDROUND: Updated chances: Light: [round(midround_light_chance)]%, Medium: [round(midround_medium_chance)]%, Heavy: [round(midround_heavy_chance)]%")
+		midround_chances["light"] += midround_light_chance
+		midround_chances["medium"] += midround_medium_chance
+		midround_chances["heavy"] += midround_heavy_chance
 
+/datum/controller/subsystem/dynamic/proc/choose_or_execute_midround_ruleset()
+	if (!COOLDOWN_FINISHED(src, midround_ruleset_cooldown))
+		return
+
+	if(!midround_chosen_ruleset)
+		choose_midround_ruleset()
+		if(midround_chosen_ruleset)
+			log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+			message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+	else if(midround_points >= midround_chosen_ruleset.points_cost)
+		if(!midround_ready_to_execute)
+			midround_ready_to_execute = TRUE
+			message_admins("DYNAMIC: [midround_chosen_ruleset] is ready and will be executed in [DisplayTimeText(wait)]. <a href='byond://?src=[REF(src)];cancel_midround=1'>CANCEL</a> <a href='byond://?src=[REF(src)];randomize_midround=1'>CHOOSE ANOTHER</a>")
+			play_sound_to_all_admins('sound/effects/admin_alert.ogg')
+			return
+		midround_ready_to_execute = FALSE
+
+		var/datum/dynamic_ruleset/midround/new_midround_ruleset = midround_chosen_ruleset.duplicate()
+
+		var/result = execute_ruleset(new_midround_ruleset)
+		message_admins("DYNAMIC: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+		log_dynamic("MIDROUND: Executing [new_midround_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
+
+		if (result == DYNAMIC_EXECUTE_WAITING)
+			midround_waiting_ruleset = new_midround_ruleset
+
+		// If we successfully execute the midround, apply the cost and log it
+		if(result == DYNAMIC_EXECUTE_SUCCESS || result == DYNAMIC_EXECUTE_WAITING)
+			midround_executed_rulesets += new_midround_ruleset
+			midround_points = 0
+			midround_logged_points["logged_points"] += midround_points
+		else
+			COOLDOWN_START(src, midround_ruleset_cooldown, midround_failure_stallout)
+
+		midround_chosen_ruleset = null
 /**
  * Choose the midround ruleset to save towards
  * * First we choose the severity based off the Light/Medium/Heavy Ruleset Chances
@@ -727,10 +734,14 @@ SUBSYSTEM_DEF(dynamic)
 /datum/controller/subsystem/dynamic/proc/choose_midround_ruleset(forced_severity)
 	// Pick severity
 	if(isnull(forced_severity))
+		var/current_minute = times_fired
+		var/light_chance = midround_chances["light"][min(length(midround_chances["light"]), current_minute)]
+		var/medium_chance = midround_chances["medium"][min(length(midround_chances["medium"]), current_minute)]
+
 		var/random_value = rand(1, 100)
-		if(random_value <= midround_light_chance)
+		if(random_value <= light_chance)
 			forced_severity = DYNAMIC_MIDROUND_LIGHT
-		else if(random_value <= midround_light_chance + midround_medium_chance)
+		else if(random_value <= light_chance + medium_chance)
 			forced_severity = DYNAMIC_MIDROUND_MEDIUM
 		else
 			forced_severity = DYNAMIC_MIDROUND_HEAVY
@@ -759,8 +770,6 @@ SUBSYSTEM_DEF(dynamic)
 	// Tick down to a lower severity ruleset if there are none of the chosen severity
 	if(!length(possible_rulesets))
 		var/new_severity
-
-		// Don't love this solution, but whatever
 		switch(forced_severity)
 			if(DYNAMIC_MIDROUND_HEAVY)
 				new_severity = DYNAMIC_MIDROUND_MEDIUM
@@ -771,13 +780,26 @@ SUBSYSTEM_DEF(dynamic)
 
 		if(!isnull(new_severity))
 			choose_midround_ruleset(new_severity)
-
 		return
 
-	// Pick ruleset and log
 	midround_chosen_ruleset = pick_weight(possible_rulesets)
-	log_dynamic("MIDROUND: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
-	message_admins("DYNAMIC: Saving up for a new midround: [midround_chosen_ruleset] (COST: [midround_chosen_ruleset.points_cost])")
+
+/datum/controller/subsystem/dynamic/Topic(href, href_list)
+	. = ..()
+	if (!check_rights(R_DEBUG))
+		message_admins("DYNAMIC: Midround execution cancelled.")
+		return
+
+	if(href_list["cancel_midround"])
+		midround_chosen_ruleset = null
+		midround_ready_to_execute = FALSE
+		message_admins("[key_name_admin(usr)] has cancelled the chosen midround ruleset")
+		log_dynamic("[key_name(usr)] has cancelled the chosen midround ruleset")
+	else if(href_list["randomize_midround"])
+		SSdynamic.choose_midround_ruleset(DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM | DYNAMIC_MIDROUND_HEAVY)
+		// If absolutely zero midround rulesets are available, midround_chosen_ruleset can be null
+		message_admins("[key_name_admin(usr)] randomly set the midround ruleset to: [midround_chosen_ruleset || "None"]")
+		log_dynamic("[key_name(usr)] randomly set the midround ruleset to: [midround_chosen_ruleset || "None"]")
 
 /**
  * Latejoin functionality
@@ -800,11 +822,7 @@ SUBSYSTEM_DEF(dynamic)
 
 	// No latejoin ruleset chosen, lets pick one
 	if(!latejoin_forced_ruleset)
-		var/list/possible_rulesets = list()
-		for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
-			possible_rulesets[ruleset] = ruleset.weight
-
-		latejoin_forced_ruleset = pick_weight(possible_rulesets)
+		choose_latejoin_ruleset()
 
 	// Execute our latejoin ruleset
 	var/datum/dynamic_ruleset/latejoin/new_latejoin_ruleset = latejoin_forced_ruleset.duplicate()
@@ -818,6 +836,16 @@ SUBSYSTEM_DEF(dynamic)
 	if(result == DYNAMIC_EXECUTE_SUCCESS)
 		latejoin_executed_rulesets += new_latejoin_ruleset
 		latejoin_forced_ruleset = null
+
+/*
+ * Randomly chooses a latejoin ruleset from the available options.
+**/
+/datum/controller/subsystem/dynamic/proc/choose_latejoin_ruleset()
+	var/list/possible_rulesets = list()
+	for(var/datum/dynamic_ruleset/latejoin/ruleset in latejoin_configured_rulesets)
+		possible_rulesets[ruleset] = ruleset.weight
+
+	latejoin_forced_ruleset = pick_weight(possible_rulesets)
 
 /**
  * Checks all high impact rulesets for their round result and sets dynamic's round result to that
