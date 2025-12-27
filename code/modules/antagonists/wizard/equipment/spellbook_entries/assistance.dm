@@ -41,6 +41,13 @@
 	cost = 1
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
+/datum/spellbook_entry/tap/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_NO_SOUL))
+		to_chat(user, span_boldwarning("You need to have ownership of your soul to spend it on soul tap."))
+		return FALSE
+	return .
+
 /datum/spellbook_entry/item/soulstones
 	name = "Soulstone Shard Kit"
 	desc = "Soul Stone Shards are ancient tools capable of capturing and harnessing the spirits of the dead and dying. \

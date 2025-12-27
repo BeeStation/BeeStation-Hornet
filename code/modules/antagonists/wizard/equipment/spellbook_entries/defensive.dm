@@ -56,6 +56,13 @@
 	category = "Defensive"
 	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
+/datum/spellbook_entry/lichdom/can_buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_NO_SOUL))
+		to_chat(user, span_boldwarning("You cannot store your soul into an object when you have already lost it."))
+		return FALSE
+	return .
+
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
