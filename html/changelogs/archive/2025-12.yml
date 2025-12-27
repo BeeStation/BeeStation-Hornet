@@ -149,6 +149,12 @@
   r1ks-iwnl:
   - bugfix: Fixed legion and hierophant, BDM and bubblegum hiscores being the same
 2025-12-26:
+  EvilDragonfiend (credit to the cross job idea to Selfiren):
+  - rscadd: Some jobs can write other job's manuscript rather than theirs. (For example,
+      all heads can write their underlings version.) Curator can now write any job
+      version.
+  - rscadd: Manuscript bounty is now repeatable in 4 minutes after claiming the reward
+  - tweak: Each book shelf in the library now has 15% chance to spawn an empty manuscript
   ShizCalev:
   - bugfix: Fixed a runtime when mousing over an object in nullspace
   mrmanlikesbt:
@@ -161,3 +167,29 @@
   - bugfix: playstyle strings are once more properly sent to syndicate borgs
   r1ks-iwnl:
   - bugfix: Fixed blushing
+  rkz/tsar-salat, baystation coders:
+  - rscadd: adds per-slot examination of carbon clothing. Un-obscured items can be
+      examined by hrefs appended to them.  Follows obscuration rules.
+  - rscadd: adds visible_message when a mob examines another mob or their clothing,
+      ghosts and the like not included, obviously.
+  - rscadd: adds police badge fluff. Use it inhand(z) to assign your name and job
+      to it, hit people with it to show how important you are.
+  - server: adds examination preferences. Examine messages can be turned off like
+      paychecks (this doesnt affect other people seeing it), adds preference that
+      lets you change how you see links while examining. Either an appended [?] or
+      the full item is highlighted. Go to Game > Chat > IC > Advanced preferences
+      to change
+2025-12-27:
+  Tsar-Salat:
+  - code_imp: reorganized mob spawn files
+  pixelpoepleman:
+  - rscadd: Box RD privacy shutters
+  - rscadd: Box AI sat to main power cable
+  - bugfix: Meta tcomms now connected to scrubnet/distro
+  - bugfix: Meta west service door refusing access to anyone who didnt join as service
+  - tweak: Moved Rad's atmos/southwest solar array console into the turbine
+  rkz, neopythagorean, GoldenAlpharex, Pickle-Coding:
+  - code_imp: converted the last Tcomms machine to TGUI
+  - bugfix: tcomms machines cannot monitor centcom frequencies or CTF teams
+  - bugfix: tcomms use KHz, same as headsets
+  - code_imp: documents tcomms code

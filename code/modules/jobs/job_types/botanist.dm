@@ -35,6 +35,11 @@
 
 	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
 
+	manuscript_jobs = list(
+		JOB_NAME_BOTANIST,
+		JOB_NAME_MEDICALDOCTOR // herbal remedist
+	)
+
 /datum/outfit/job/botanist
 	name = JOB_NAME_BOTANIST
 	jobtype = /datum/job/botanist
