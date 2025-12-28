@@ -95,11 +95,12 @@
 			nuke_team.memorized_code = null
 
 /datum/antagonist/nukeop/proc/give_alias()
-	if(nuke_team && nuke_team.syndicate_name)
-		var/mob/living/carbon/human/H = owner.current
-		if(istype(H)) // Reinforcements get a real name
-			var/chosen_name = H.dna.species.random_name(H.gender,0,nuke_team.syndicate_name)
-			H.fully_replace_character_name(H.real_name,chosen_name)
+	if(nuke_team?.syndicate_name)
+		var/mob/living/carbon/human/human_to_rename = owner.current
+		if(istype(human_to_rename)) // Reinforcements get a real name
+			var/first_name = pick(GLOB.operative_aliases)
+			var/chosen_name = "[first_name] [nuke_team.syndicate_name]"
+			human_to_rename.fully_replace_character_name(human_to_rename.real_name, chosen_name)
 		else
 			var/number = 1
 			number = nuke_team.members.Find(owner)
@@ -225,13 +226,13 @@
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
 	name = "Family [syndicate_name]"
-	for(var/I in members)
-		var/datum/mind/synd_mind = I
-		var/mob/living/carbon/human/H = synd_mind.current
-		if(!istype(H))
+	for(var/datum/mind/synd_mind in members)
+		var/mob/living/carbon/human/human_to_rename = synd_mind.current
+		if(!istype(human_to_rename))
 			continue
-		var/chosen_name = H.dna.species.random_name(H.gender,0,syndicate_name)
-		H.fully_replace_character_name(H.real_name,chosen_name)
+		var/first_name = pick(GLOB.operative_aliases)
+		var/chosen_name = "[first_name] [syndicate_name]"
+		human_to_rename.fully_replace_character_name(human_to_rename.real_name, chosen_name)
 
 /datum/antagonist/nukeop/leader/proc/ask_name()
 	var/randomname = pick(GLOB.last_names)

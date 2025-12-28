@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(atoms)
 	name = "Atoms"
 	dependencies = list(
 		/datum/controller/subsystem/economy,
-		/datum/controller/subsystem/language,
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/networks,
 		/datum/controller/subsystem/processing/greyscale,

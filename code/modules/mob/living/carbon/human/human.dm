@@ -885,7 +885,7 @@
 		if(isnull(dna.species))
 			to_chat(usr, "The species of [src] is null, aborting.")
 		var/old_name = real_name
-		fully_replace_character_name(real_name, dna.species.random_name(gender))
+		fully_replace_character_name(real_name, generate_random_mob_name())
 		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
 		message_admins(span_notice("[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name]."))
 

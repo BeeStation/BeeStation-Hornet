@@ -120,13 +120,6 @@
 		return 0
 	return ..()
 
-/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)

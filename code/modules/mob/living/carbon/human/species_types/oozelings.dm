@@ -39,17 +39,6 @@
 		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/oozeling
 	)
 
-/datum/species/oozeling/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.oozeling_first_names)]"
-	if(lastname)
-		. += " [lastname]"
-	else
-		. += " [pick(GLOB.oozeling_last_names)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, ++attempts)
-
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)

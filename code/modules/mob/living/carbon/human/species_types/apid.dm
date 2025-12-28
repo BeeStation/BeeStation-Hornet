@@ -51,21 +51,6 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/random_name(gender, unique, lastname, attempts)
-	if(gender == MALE)
-		. =  "[pick(GLOB.apid_names_male)]"
-	else
-		. =  "[pick(GLOB.apid_names_female)]"
-
-	if(lastname)
-		. += " [lastname]"
-	else
-		. +=  " [pick(GLOB.apid_names_last)]"
-
-	if(unique && attempts < 10)
-		if(findname(.))
-			. = .(gender, TRUE, lastname, attempts+1)
-
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Bees get x30 damage from flyswatters

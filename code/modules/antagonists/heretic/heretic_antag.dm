@@ -177,7 +177,7 @@
 		if(prefs_name)
 			carbon_current.fully_replace_character_name(carbon_current.real_name, prefs_name)
 		else
-			carbon_current.fully_replace_character_name(carbon_current.real_name, random_unique_name(carbon_current.gender))
+			carbon_current.fully_replace_character_name(carbon_current.real_name, carbon_current.generate_random_mob_name())
 	if(give_objectives)
 		forge_objectives()
 
