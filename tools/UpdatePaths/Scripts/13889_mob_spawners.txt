@@ -37,6 +37,7 @@
 
 /obj/effect/mob_spawn/drone : /obj/effect/mob_spawn/ghost_role/drone{@OLD}
 /obj/effect/mob_spawn/drone/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/drone/@SUBTYPES{@OLD}
+/obj/effect/mob_spawn/ghost_role/drone/dusty : /obj/effect/mob_spawn/ghost_role/drone/derelict{@OLD}
 
 /obj/effect/mob_spawn/human/engineer : /obj/effect/mob_spawn/ghost_role/human/engineer{@OLD}
 
