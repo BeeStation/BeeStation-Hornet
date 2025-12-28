@@ -63,14 +63,21 @@ export const SpawnersMenu = (props) => {
                       />
                     </Stack.Item>
                   </Stack>
-                }>
+                }
+              >
                 <LabeledList>
                   {spawner.desc ? (
-                    <LabeledList.Item label="Description">{spawner.desc}</LabeledList.Item>
+                    <LabeledList.Item label="Description">
+                      {spawner.desc}
+                    </LabeledList.Item>
                   ) : (
                     <div>
-                      <LabeledList.Item label="Origin">{spawner.you_are_text || 'Unknown'}</LabeledList.Item>
-                      <LabeledList.Item label="Directives">{spawner.flavor_text || 'None'}</LabeledList.Item>
+                      <LabeledList.Item label="Origin">
+                        {spawner.you_are_text || 'Unknown'}
+                      </LabeledList.Item>
+                      <LabeledList.Item label="Directives">
+                        {spawner.flavor_text || 'None'}
+                      </LabeledList.Item>
                       <LabeledList.Item color="bad" label="Conditions">
                         {spawner.important_text || 'None'}
                       </LabeledList.Item>
