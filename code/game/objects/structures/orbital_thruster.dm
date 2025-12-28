@@ -177,7 +177,9 @@
 	// Get the thrust level
 	var/target_thrust = 0
 
-	target_thrust = abs(back_end_piece.thrust_level) * 2 // Scale from -20 to +20 range to -40 to +40 for visuals
+	// Only show thrust if backend exists and has fuel
+	if(back_end_piece && back_end_piece.has_fuel)
+		target_thrust = abs(back_end_piece.thrust_level) * 2 // Scale from -20 to +20 range to -40 to +40 for visuals
 
 	// Update particles based on thrust level
 	if(target_thrust > 0 && target_thrust != visual_thrust)

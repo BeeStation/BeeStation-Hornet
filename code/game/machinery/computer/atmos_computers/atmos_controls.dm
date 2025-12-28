@@ -48,6 +48,14 @@
 	circuit = /obj/item/circuitboard/computer/atmos_control/fuelsupply_tank
 	atmos_chambers = list(ATMOS_GAS_MONITOR_FUELSUPPLY = "FHF Supply Control")
 
+/obj/machinery/computer/atmos_control/fuelsupply_tank/Initialize(mapload)
+	. = ..()
+	if(istype(get_area(src), /area/bridge))
+		var/obj/item/sticker/sticky_note/orbital_fuel_tutorial/label = new(loc)
+		label.afterattack(src, src, TRUE)
+		label.pixel_y = rand(-8, 8)
+		label.pixel_x = rand(-8, 8)
+
 /obj/machinery/computer/atmos_control/nitrium_tank
 	name = "Nitrium Supply Control"
 	circuit = /obj/item/circuitboard/computer/atmos_control/nitrium_tank

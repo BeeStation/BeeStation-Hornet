@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(hardcoded_gases, list(/datum/gas/oxygen, /datum/gas/nitrogen, /
 	dangerous = TRUE
 	rarity = 100
 	base_value = 3
-	desc = "A specialized hydrogen-based fuel formulation designed for orbital maneuvering systems. Highly flammable and less thermally stable than standard plasma."
+	desc = "A specialized hydrogen-based fuel formulation designed for orbital maneuvering systems. Highly flammable and self-oxidizing. Keep away from open flames, this stuff will burn even in a vacuum."
 	primary_color = "#00ffff"
 
 /obj/effect/overlay/gas

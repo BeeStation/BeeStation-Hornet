@@ -14,10 +14,12 @@
 /obj/machinery/computer/orbital_height_control/Initialize(mapload)
 	. = ..()
 	begin_processing()
+	var/obj/item/sticker/sticky_note/orbital_tutorial/label = new(loc)
+	label.afterattack(src, src, TRUE)
+	label.pixel_y = rand(-8, 8)
+	label.pixel_x = rand(-8, 8)
 
 /obj/machinery/computer/orbital_height_control/process()
-
-
 	if(altitude_hold_enabled)
 		// Simple altitude hold logic
 		if(SSorbital_altitude.orbital_altitude < altitude_hold_target)
@@ -123,3 +125,31 @@
 
 /obj/machinery/computer/orbital_height_control/ui_state(mob/user)
 	return GLOB.default_state
+
+/*
+	We love these notes.
+*/
+/obj/item/sticker/sticky_note/orbital_tutorial
+	custom_text = "To the captain or anyone operating this console: \n\n\
+	The eggheads will tell you to 'Stay within orbital parameters', but won't say what those are beyond giving you some shitty placard. So I'll be nice, here's the deal:\n\
+	\n\
+	1. **Lot's of rads**: 130-140 km\n\
+	2. **Small rads**: 120-130 km\n\
+	3. **Safe 100%**: 100-120 km\n\
+	4. **Mining Regime**: 95-100 km\n\
+	5. **Burn-up**: 80-95 km\n\
+	\n\
+	The further up you go, you'll edge into the radiation belts. Too low, and the atmosphere will start to eat at the station. Try to keep us in the Safe Zone as much as possible.\n\n\
+	Gonna be honest with you here too, I reckon the station can probably handle dipping below 95km. It'll scratch the paint and give you a light show, but it should be fiiiine.\n\n\
+	Ah another thing. See the number on the left with ACTUAL below it? That's what the thrusters are delivering. **CHECK THAT RELIGIOUSLY.** You never know why the thrusters might not be giving you full power but you won't want to find out in-atmo.\n\n\
+	- Engineer J."
+
+// Roughly tell them what they're gonna get out of a can of fuel:
+/obj/item/sticker/sticky_note/orbital_fuel_tutorial
+	custom_text = "Quick heads up on this:\n\n\
+	- One canister has 3750ish moles of fuel.\n\
+	- Gonna last approximately 5 minutes of sustained thrust at full power.\n\
+	- If you set it to cruise at 110km, it's gonna last you like 15 minutes.\n\
+	- Can last a whole lot longer if you go higher, a whole lot shorter if you go lower.\n\
+	Just remember, 5 min of full thrust, 15 min at 110km, and longer if you go higher. That should serve you well. There's a spare canister in engineering storage, they didn't know I put it in your budget, so be quiet about it yeah?\n\n\
+	- Engineer J."
