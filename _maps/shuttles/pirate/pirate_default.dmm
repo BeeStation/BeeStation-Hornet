@@ -549,7 +549,7 @@
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
 "oM" = (
-/obj/effect/mob_spawn/human/pirate/captain{
+/obj/effect/mob_spawn/ghost_role/human/pirate/captain{
 	dir = 1
 	},
 /obj/effect/turf_decal/edges/techfloor,
@@ -1623,7 +1623,7 @@
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "NG" = (
-/obj/effect/mob_spawn/human/pirate{
+/obj/effect/mob_spawn/ghost_role/human/pirate{
 	dir = 1
 	},
 /obj/effect/turf_decal/edges/techfloor,

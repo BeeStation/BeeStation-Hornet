@@ -106,7 +106,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 4
 	},
 /turf/open/floor/iron/ridged/steel,
@@ -262,7 +262,7 @@
 	req_access = null;
 	req_access_txt = "181"
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 4
 	},
 /turf/open/floor/iron/ridged/steel,
@@ -791,7 +791,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 8
 	},
 /turf/open/floor/iron/ridged/steel,
