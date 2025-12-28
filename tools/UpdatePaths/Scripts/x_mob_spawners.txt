@@ -1,0 +1,41 @@
+
+# you're a snowflakey CUNT hilbert
+
+/obj/effect/mob_spawn/human/doctorhilbert : /obj/effect/mob_spawn/corpse/human/doctorhilbert{@OLD}
+
+
+/obj/effect/mob_spawn/human/abductor : /obj/effect/mob_spawn/corpse/human/abductor{@OLD}
+
+/obj/effect/mob_spawn/human/skeleton : /obj/effect/mob_spawn/corpse/human/skeleton{@OLD}
+
+/obj/effect/mob_spawn/human/clown/corpse : /obj/effect/mob_spawn/corpse/human/clown{@OLD}
+/obj/effect/mob_spawn/human/clown : /obj/effect/mob_spawn/corpse/human/clown{@OLD}
+
+/obj/effect/mob_spawn/human/miner/explorer : /obj/effect/mob_spawn/corpse/human/miner/explorer{@OLD}
+
+/obj/effect/mob_spawn/human/corpse : /obj/effect/mob_spawn/corpse/human{@OLD}
+/obj/effect/mob_spawn/human/corpse/@SUBTYPES : /obj/effect/mob_spawn/corpse/human/@SUBTYPES{@OLD}
+
+
+/obj/effect/mob_spawn/human/golem : /obj/effect/mob_spawn/ghost_role/human/golem{@OLD}
+
+/obj/effect/mob_spawn/human/fugitive_hunter : /obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{@OLD}
+/obj/effect/mob_spawn/human/fugitive_hunter/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/@SUBTYPES{@OLD}
+
+/obj/effect/mob_spawn/human/oldsec : /obj/effect/mob_spawn/ghost_role/human/oldsec{@OLD}
+/obj/effect/mob_spawn/human/oldsci : /obj/effect/mob_spawn/ghost_role/human/oldsci{@OLD}
+/obj/effect/mob_spawn/human/oldeng : /obj/effect/mob_spawn/ghost_role/human/oldeng{@OLD}
+
+/obj/effect/mob_spawn/swarmer : /obj/effect/mob_spawn/ghost_role/swarmer{@OLD}
+
+/obj/effect/mob_spawn/drone : /obj/effect/mob_spawn/ghost_role/drone{@OLD}
+/obj/effect/mob_spawn/drone/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/drone/@SUBTYPES{@OLD}
+
+/obj/effect/mob_spawn/human/engineer : /obj/effect/mob_spawn/ghost_role/human/engineer{@OLD}
+
+/obj/effect/mob_spawn/human/bartender/alive/beach : /obj/effect/mob_spawn/ghost_role/human/bartender{@OLD}
+/obj/effect/mob_spawn/human/beach/alive/lifeguard : /obj/effect/mob_spawn/ghost_role/human/beach/lifeguard{@OLD}
+/obj/effect/mob_spawn/human/lavaland_doctor : /obj/effect/mob_spawn/ghost_role/human/lavaland_doctor{@OLD}
+/obj/effect/mob_spawn/human/hermit : /obj/effect/mob_spawn/ghost_role/human/hermit{@OLD}
+/obj/effect/mob_spawn/human/lavaland_syndicate : /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate{@OLD}
+/obj/effect/mob_spawn/human/lavaland_syndicate/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/@SUBTYPES{@OLD}
