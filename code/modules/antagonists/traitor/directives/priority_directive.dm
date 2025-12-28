@@ -96,7 +96,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	qdel(src)
 
 /// Activate the directive, requires a list of traitor datums and security minsd
-/datum/priority_directive/proc/start(list/uplinks, list/player_minds)
+/datum/priority_directive/proc/start(list/uplinks)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	end_at = world.time + last_for
 	tc_reward = _generate(teams)

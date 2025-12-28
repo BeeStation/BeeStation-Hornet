@@ -606,9 +606,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	desired_details = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	next_print = world.time + 5 SECONDS
-
-
-
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PRISONER_REGISTERED, user, desired_name, desired_crime, desired_sentence)
 
 /obj/machinery/genpop_interface/ui_act(action, params)
 	if(buildstage != 2 & panel_open)

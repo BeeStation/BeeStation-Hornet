@@ -6,6 +6,19 @@
 	/// The percentage (0 to 100) chance that this ruleset will be repicked
 	/// when selected, assuming there are cost points available.
 	var/elasticity = 0
+	/// Maximum number of times that this ruleset can execute
+	var/max_amount = 0
+
+/datum/dynamic_ruleset/supplementary/allowed(require_drafted)
+	if (max_amount <= 0)
+		return ..()
+	if (!..())
+		return FALSE
+	var/count = 0
+	for (var/datum/dynamic_ruleset/supplementary/ruleset in SSdynamic.executed_supplementary_rulesets)
+		if (ruleset.type == type)
+			count ++
+	return count < max_amount
 
 /datum/dynamic_ruleset/supplementary/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
@@ -59,7 +72,7 @@
 	antag_datum = /datum/antagonist/brother/prime
 	drafted_players_amount = 1
 	weight = 6
-	points_cost = 8
+	points_cost = 10
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 
 	var/datum/team/brother_team/team
@@ -94,3 +107,18 @@
 	points_cost = 12
 	minimum_players_required = 16
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+//////////////////////////////////////////////
+//                                          //
+//                 VIGILANTE                //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/supplementary/vigilante
+	name = "Vigilante"
+	role_preference = /datum/role_preference/supplementary/vigilante
+	antag_datum = /datum/antagonist/vigilante
+	weight = 5
+	points_cost = 9
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	max_amount = 1

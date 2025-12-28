@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(directives)
 		next_directive_time = world.time + 0.5 * longest_objective + 10 MINUTES
 		return
 	var/datum/priority_directive/selected = pick(valid_directives)
-	selected.start(filtered_uplinks, player_minds)
+	selected.start(filtered_uplinks)
 	next_directive_time = INFINITY
 	active_directives += selected
 
@@ -93,7 +93,7 @@ SUBSYSTEM_DEF(directives)
 	if (!length(valid_directives))
 		return null
 	var/datum/priority_directive/selected = pick(valid_directives)
-	selected.start(uplink_list, player_minds)
+	selected.start(uplink_list)
 	active_directives += selected
 	uplink.next_personal_objective_time = get_next_personal_objective_time()
 	return selected

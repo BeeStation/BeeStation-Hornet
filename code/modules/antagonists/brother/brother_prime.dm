@@ -61,7 +61,7 @@
 			send_uplink_message_to(uplink, "Recruitment probing has shown this station has a higher resilience to outside influence than we initially imagined, change of plans; some telecrystals have been injected into your uplink for you to spend.")
 			return
 		// Run the assassination directive
-		selected.start(list(uplink), team.members)
+		selected.start(list(uplink))
 		selected.reputation_reward = 300
 		selected.tc_reward = 4 / uplink.directive_tc_multiplier
 		SSdirectives.active_directives += selected
@@ -80,7 +80,7 @@
 	selected.track_implanter(implanter)
 	selected.update_details()
 	selected.add_antagonist_team(list(uplink))
-	selected.start(list(uplink), team.members)
+	selected.start(list(uplink))
 	selected.reputation_reward = 300
 	selected.tc_reward = 8
 	SSdirectives.active_directives += selected

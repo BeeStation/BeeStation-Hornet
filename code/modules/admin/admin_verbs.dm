@@ -429,7 +429,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				to_chat(usr, span_warning("Unable to execute directive even when forced."))
 				return
 			to_chat(usr, span_warning("Directive was executed in forced mode, which may result in unexpected behaviour."))
-		created.start(filtered_uplinks, player_minds)
+		created.start(filtered_uplinks)
 		SSdirectives.active_directives += created
 	else
 		var/list/types = list()
@@ -447,7 +447,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				to_chat(usr, span_warning("Unable to execute directive even when forced."))
 				return
 			to_chat(usr, span_warning("Directive was executed in forced mode, which may result in unexpected behaviour."))
-		created.start(uplinks, player_minds)
+		created.start(uplinks)
 		SSdirectives.active_directives += created
 
 /client/proc/admin_ghost()

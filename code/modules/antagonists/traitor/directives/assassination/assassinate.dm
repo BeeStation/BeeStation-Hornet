@@ -100,7 +100,7 @@
 		RegisterSignal(target_mind, COMSIG_MIND_TRANSFER_TO, PROC_REF(target_transfer))
 		RegisterSignal(target_mind, COMSIG_MIND_CRYOED, PROC_REF(target_cryod))
 		RegisterSignal(target_mind, COMSIG_QDELETING, PROC_REF(target_killed))
-		objective_explanation = "Assasinate [target_mind.name]"
+		objective_explanation = "Assassinate [target_mind.name]"
 
 /datum/priority_directive/assassination/proc/target_transfer(datum/source, mob/old, mob/new_mob)
 	SIGNAL_HANDLER

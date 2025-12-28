@@ -47,3 +47,5 @@
 #define COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA "!update_dynamicpanel_data"
 /// Call this to update the dynamic panel's static data
 #define COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC "!update_dynamicpanel_data_static"
+/// Called when a prisoner is created from base of print_id (mob/user, desired_name, desired_crime, desired_sentence)
+#define COMSIG_GLOB_PRISONER_REGISTERED "!prisoner_registered"
