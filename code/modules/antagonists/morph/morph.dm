@@ -14,7 +14,7 @@
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	ventcrawl_delay = 100 // Morphs take longer to enter vents (10 seconds vs 2.5 seconds)
+	ventcrawl_delay = 5 SECONDS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxHealth = 150
