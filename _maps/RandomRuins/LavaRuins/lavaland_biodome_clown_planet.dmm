@@ -342,7 +342,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "bY" = (
-/obj/effect/mob_spawn/corpse/human/damaged,
+/obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/indestructible/sound{
 	icon_state = "bananium";
@@ -610,7 +610,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
 "pK" = (
-/obj/effect/mob_spawn/corpse/human/damaged,
+/obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/indestructible{
@@ -710,7 +710,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "Bl" = (
-/obj/effect/mob_spawn/corpse/human/damaged,
+/obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/disposalpipe/segment{
 	invisibility = 101

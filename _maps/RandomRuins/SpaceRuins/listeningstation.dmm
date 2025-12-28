@@ -693,7 +693,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/listeningstation)
 "BF" = (
-/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/comms/space{
+/obj/effect/mob_spawn/human/lavaland_syndicate/comms/space{
 	assignedrole = "Space Syndicate";
 	dir = 8
 	},

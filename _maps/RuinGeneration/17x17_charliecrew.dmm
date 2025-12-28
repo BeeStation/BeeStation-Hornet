@@ -3,7 +3,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "aY" = (
-/obj/effect/mob_spawn/ghost_role/human/oldsec{
+/obj/effect/mob_spawn/human/oldsec{
 	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -144,7 +144,7 @@
 /area/ruin/unpowered)
 "lm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/ghost_role/human/oldeng{
+/obj/effect/mob_spawn/human/oldeng{
 	dir = 4
 	},
 /turf/open/floor/iron/showroomfloor,
@@ -408,7 +408,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "JG" = (
-/obj/effect/mob_spawn/ghost_role/human/oldsci{
+/obj/effect/mob_spawn/human/oldsci{
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,

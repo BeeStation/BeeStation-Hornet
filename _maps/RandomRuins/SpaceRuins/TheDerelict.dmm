@@ -1545,7 +1545,7 @@
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
 "fw" = (
-/obj/effect/mob_spawn/ghost_role/drone/dusty,
+/obj/effect/mob_spawn/drone/dusty,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/access)
 "fx" = (
@@ -2232,7 +2232,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
 "in" = (
-/obj/effect/mob_spawn/ghost_role/drone/dusty,
+/obj/effect/mob_spawn/drone/dusty,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
 "io" = (
@@ -3829,7 +3829,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/mob_spawn/ghost_role/drone/dusty,
+/obj/effect/mob_spawn/drone/dusty,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/se_solar)
 "nV" = (

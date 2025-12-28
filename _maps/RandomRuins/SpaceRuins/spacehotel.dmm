@@ -1959,7 +1959,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "gM" = (
-/obj/effect/mob_spawn/ghost_role/human/hotel_staff,
+/obj/effect/mob_spawn/human/hotel_staff,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "gQ" = (
@@ -2227,14 +2227,14 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hG" = (
-/obj/effect/mob_spawn/ghost_role/human/hotel_staff{
+/obj/effect/mob_spawn/human/hotel_staff{
 	dir = 1
 	},
 /obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hH" = (
-/obj/effect/mob_spawn/ghost_role/human/hotel_staff{
+/obj/effect/mob_spawn/human/hotel_staff{
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
@@ -3586,7 +3586,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/custodial)
 "wu" = (
-/obj/effect/mob_spawn/ghost_role/human/hotel_staff/security,
+/obj/effect/mob_spawn/human/hotel_staff/security,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)

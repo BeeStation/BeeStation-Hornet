@@ -186,7 +186,7 @@
 	req_access_txt = "16"
 	},
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mob_spawn/corpse/human/nanotrasensoldier,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "za" = (

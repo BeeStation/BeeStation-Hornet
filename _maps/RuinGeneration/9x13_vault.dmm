@@ -147,7 +147,7 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/mob_spawn/corpse/human/cargo_tech,
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
 /obj/item/gun/ballistic/revolver/russian,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8

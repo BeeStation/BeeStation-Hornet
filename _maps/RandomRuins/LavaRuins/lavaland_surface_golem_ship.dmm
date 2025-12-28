@@ -359,12 +359,12 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "bg" = (
-/obj/effect/mob_spawn/ghost_role/human/golem/adamantine,
+/obj/effect/mob_spawn/human/golem/adamantine,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/carpet/purple,
 /area/ruin/powered/golem_ship)
 "bh" = (
-/obj/effect/mob_spawn/ghost_role/human/golem/adamantine,
+/obj/effect/mob_spawn/human/golem/adamantine,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/carpet/purple,
@@ -664,7 +664,7 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "cf" = (
-/obj/effect/mob_spawn/ghost_role/human/golem/adamantine,
+/obj/effect/mob_spawn/human/golem/adamantine,
 /turf/open/floor/carpet/purple,
 /area/ruin/powered/golem_ship)
 "cg" = (

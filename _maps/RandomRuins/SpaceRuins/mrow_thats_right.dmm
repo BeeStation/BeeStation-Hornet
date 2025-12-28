@@ -231,7 +231,7 @@
 	name = "kitty bed"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/corpse/human/damaged{
+/obj/effect/mob_spawn/human/corpse/damaged{
 	head = /obj/item/clothing/head/costume/kitty
 	},
 /turf/open/floor/plating,
@@ -352,7 +352,7 @@
 /area/ruin/space/has_grav/powered/cat_man)
 "bt" = (
 /obj/structure/table/optable,
-/obj/effect/mob_spawn/corpse/human/damaged,
+/obj/effect/mob_spawn/human/corpse/damaged,
 /obj/item/organ/ears/cat,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/white,
@@ -493,7 +493,7 @@
 /obj/structure/bed/dogbed{
 	name = "kitty bed"
 	},
-/obj/effect/mob_spawn/corpse/human/damaged{
+/obj/effect/mob_spawn/human/corpse/damaged{
 	head = /obj/item/clothing/head/costume/kitty
 	},
 /turf/open/floor/plating,

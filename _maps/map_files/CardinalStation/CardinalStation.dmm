@@ -35983,7 +35983,7 @@
 /area/crew_quarters/kitchen)
 "hPU" = (
 /obj/structure/lattice,
-/obj/effect/mob_spawn/corpse/human/russian,
+/obj/effect/mob_spawn/human/corpse/russian,
 /turf/open/space/basic,
 /area/space/nearstation)
 "hQa" = (
@@ -55156,7 +55156,7 @@
 	},
 /obj/structure/closet,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/mob_spawn/corpse/human/assistant,
+/obj/effect/mob_spawn/human/corpse/assistant,
 /obj/machinery/light/floor{
 	name = "moody floor light";
 	bulb_colour = "#9b1d70";

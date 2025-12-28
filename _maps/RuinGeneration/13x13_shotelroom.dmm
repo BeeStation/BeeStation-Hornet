@@ -26,7 +26,7 @@
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "e" = (
-/obj/effect/mob_spawn/corpse/human/zombie,
+/obj/effect/mob_spawn/human/corpse/zombie,
 /turf/open/floor/iron/tiled,
 /area/ruin/unpowered)
 "f" = (

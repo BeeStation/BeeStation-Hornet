@@ -42,7 +42,7 @@
 /obj/item/storage/pod{
 	pixel_y = -30
 	},
-/obj/effect/mob_spawn/corpse/human/cargo_tech,
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 

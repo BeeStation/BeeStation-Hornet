@@ -13,7 +13,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/effect/mob_spawn/corpse/human/russian,
+/obj/effect/mob_spawn/human/corpse/russian,
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
@@ -38,7 +38,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/effect/mob_spawn/corpse/human/russian/ranged,
+/obj/effect/mob_spawn/human/corpse/russian/ranged,
 /obj/item/gun/ballistic/rifle/boltaction,
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)

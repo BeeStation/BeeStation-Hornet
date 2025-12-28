@@ -167,7 +167,7 @@
 /turf/open/floor/iron,
 /area/ruin/powered/animal_hospital)
 "bv" = (
-/obj/effect/mob_spawn/ghost_role/human/lavaland_doctor{
+/obj/effect/mob_spawn/human/lavaland_doctor{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
