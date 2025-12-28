@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 			ADD_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
 			ADD_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
 			ADD_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
-			if(!do_after(src, 25, target = vent_found))
+			if(!do_after(src, ventcrawl_delay, target = vent_found))
 				REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
 				REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
 				REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
