@@ -179,8 +179,6 @@
 	icon_state = "hostile_env"
 	inhand_icon_state = "hostile_env"
 	w_class = WEIGHT_CLASS_NORMAL
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	clothing_flags = THICKMATERIAL
 	armor_type = /datum/armor/space_hostile_environment
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
