@@ -7,6 +7,8 @@
 /// Acts as a default faction for most peaceful creatures
 #define FACTION_NEUTRAL "neutral"
 
+#define FACTION_STATION "Station"
+
 // Creature factions
 
 /// Ashwalker related creatures

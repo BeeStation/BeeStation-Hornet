@@ -478,25 +478,26 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 		else
 			to_chat(user, "No vacated rooms.")
 
-/obj/effect/mob_spawn/human/doctorhilbert
+/obj/effect/mob_spawn/corpse/human/doctorhilbert
 	name = "Doctor Hilbert"
 	mob_name = "Doctor Hilbert"
-	mob_gender = "male"
-	assignedrole = null
-	ghost_usable = FALSE
 	oxy_damage = 500
 	mob_species = /datum/species/skeleton
-	id_job = "Head Researcher"
-	id_access = ACCESS_RESEARCH
-	id_access_list = list(ACCESS_AWAY_GENERIC3, ACCESS_RESEARCH)
-	instant = TRUE
+	outfit = /datum/outfit/doctorhilbert
+
+/datum/outfit/doctorhilbert
+	name = "Doctor Hilbert"
 	id = /obj/item/card/id/silver
-	uniform = /obj/item/clothing/under/rank/rnd/research_director
+	uniform = /obj/item/clothing/under/rank/rnd/research_director/doctor_hilbert
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	back = /obj/item/storage/backpack/satchel/leather
 	suit = /obj/item/clothing/suit/toggle/labcoat
-	use_cooldown = TRUE
-	banType = ROLE_HOTEL_STAFF
+
+/datum/outfit/doctorhilbert/pre_equip(mob/living/carbon/human/hilbert, visualsOnly)
+	. = ..()
+	if(!visualsOnly)
+		hilbert.gender = MALE
+		hilbert.update_body()
 
 /obj/item/paper/crumpled/docslogs
 	name = "Research Logs"

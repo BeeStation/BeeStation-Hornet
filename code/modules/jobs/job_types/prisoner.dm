@@ -3,7 +3,7 @@
 	description = "As a prisoner your job is to be imprisoned. Play cards or chess, cook some food or grow some plants. Run away when security ain't looking."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	total_positions = 3

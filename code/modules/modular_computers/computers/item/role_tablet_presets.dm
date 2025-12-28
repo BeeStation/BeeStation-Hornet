@@ -233,7 +233,6 @@
 	saved_identification = "John Doe"
 	saved_job = "Citizen"
 	icon_state = "pda-syndi"
-	messenger_invisible = TRUE
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	default_virus_defense = ANTIVIRUS_BEST
@@ -244,6 +243,11 @@
 	if(istype(network_card))
 		forget_component(network_card)
 		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
+
+	var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
+	var/datum/computer_file/program/messenger/msg = locate() in hdd.stored_files
+	if(msg)
+		msg.invisible = TRUE
 
 /obj/item/modular_computer/tablet/pda/preset/chaplain
 	name = "chaplain PDA"

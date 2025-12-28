@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_ENGINEERING
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	selection_color = "#fff5cc"
 	// Requires advanced knowledge of the engineering department

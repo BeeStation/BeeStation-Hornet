@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_SCIENCE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 3
 	minimal_player_age = 3
 	// Requires 1 round as a scientist to unlock, which itself reuqires

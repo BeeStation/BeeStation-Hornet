@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CARGO
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#d7b088"
 	exp_requirements = 600
