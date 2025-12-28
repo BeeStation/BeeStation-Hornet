@@ -10,9 +10,12 @@
 	to_chat(owner.current, "<span class='secradio'>This world... This world is ruled by <b>criminals</b>. A violent underworld dances amongst the peaceful happenings of the station, ruining the purity of our new system. <b>It is up to you to take matters into your own hands</b>, when anyone gets <b>arrested</b> you shall shine <b>true justice</b> upon their hearts, and as for the infiltrator rumoured to be on-board... You shall show them what it truly means to mess with Nanotrasen.</span>")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Fanatic Vigilante", "Investigate and uncover the station's infiltrator, elimating any small-fry criminals along the way.")
-	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = 0, directive_flags = NONE)
+	// Start with 3 TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
+	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = 3, directive_flags = NONE)
 	uplink.reputation = 0
-	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station. The uplink came with a message, [span_alertsyndie(uplink.unlock_code)].</span>")
+	// This is a really light antagonist, you are not going to be making a big impact at all
+	uplink.directive_tc_multiplier = 0.35
+	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station. The uplink came with a message:</span><br>[span_traitorobjective(uplink.unlock_text)]")
 	RegisterSignal(uplink, COMSIG_QDELETING, PROC_REF(deconvert))
 	RegisterSignal(SSdcs, COMSIG_GLOB_PRISONER_REGISTERED, PROC_REF(on_prisoner_created))
 
@@ -58,6 +61,8 @@
 /datum/priority_directive/assassination/justice
 	details = "The prison registrar has found %NAME% guilty of %CRIME%, an offense that cannot go unpunished if society is to propser. Eliminate them, and show them the meaning of justice."
 	last_for = INFINITY
+	reputation_reward = 0
+	reputation_loss = 0
 
 /datum/priority_directive/assassination/justice/_allocate_teams(list/uplinks, list/player_minds, force)
 	reject()
