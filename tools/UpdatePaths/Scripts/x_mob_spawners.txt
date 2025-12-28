@@ -18,6 +18,7 @@
 
 
 /obj/effect/mob_spawn/human/golem : /obj/effect/mob_spawn/ghost_role/human/golem{@OLD}
+/obj/effect/mob_spawn/human/golem/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/human/golem/@SUBTYPES{@OLD}
 
 /obj/effect/mob_spawn/human/fugitive_hunter : /obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{@OLD}
 /obj/effect/mob_spawn/human/fugitive_hunter/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/@SUBTYPES{@OLD}
@@ -25,6 +26,12 @@
 /obj/effect/mob_spawn/human/oldsec : /obj/effect/mob_spawn/ghost_role/human/oldsec{@OLD}
 /obj/effect/mob_spawn/human/oldsci : /obj/effect/mob_spawn/ghost_role/human/oldsci{@OLD}
 /obj/effect/mob_spawn/human/oldeng : /obj/effect/mob_spawn/ghost_role/human/oldeng{@OLD}
+
+/obj/effect/mob_spawn/human/hotel_staff/security : /obj/effect/mob_spawn/ghost_role/human/hotel_staff/security{@OLD}
+/obj/effect/mob_spawn/human/hotel_staff : /obj/effect/mob_spawn/ghost_role/human/hotel_staff{@OLD}
+
+/obj/effect/mob_spawn/human/pirate/captain : /obj/effect/mob_spawn/ghost_role/human/pirate/captain{@OLD}
+/obj/effect/mob_spawn/human/pirate : /obj/effect/mob_spawn/ghost_role/human/pirate{@OLD}
 
 /obj/effect/mob_spawn/swarmer : /obj/effect/mob_spawn/ghost_role/swarmer{@OLD}
 
@@ -35,7 +42,9 @@
 
 /obj/effect/mob_spawn/human/bartender/alive/beach : /obj/effect/mob_spawn/ghost_role/human/bartender{@OLD}
 /obj/effect/mob_spawn/human/beach/alive/lifeguard : /obj/effect/mob_spawn/ghost_role/human/beach/lifeguard{@OLD}
+/obj/effect/mob_spawn/human/beach/alive : /obj/effect/mob_spawn/ghost_role/human/beach{@OLD}
 /obj/effect/mob_spawn/human/lavaland_doctor : /obj/effect/mob_spawn/ghost_role/human/lavaland_doctor{@OLD}
 /obj/effect/mob_spawn/human/hermit : /obj/effect/mob_spawn/ghost_role/human/hermit{@OLD}
 /obj/effect/mob_spawn/human/lavaland_syndicate : /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate{@OLD}
 /obj/effect/mob_spawn/human/lavaland_syndicate/@SUBTYPES : /obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/@SUBTYPES{@OLD}
+/obj/effect/mob_spawn/human/seed_vault : /obj/effect/mob_spawn/ghost_role/human/seed_vault{@OLD}
