@@ -194,5 +194,7 @@
   - bugfix: tcomms use KHz, same as headsets
   - code_imp: documents tcomms code
 2025-12-28:
+  PowerfulBacon:
+  - bugfix: Fixes linting errors provided by spacemanDMM
   r1ks-iwnl:
   - bugfix: Fixed traitor and chaplain carp suit not protecting against space.
