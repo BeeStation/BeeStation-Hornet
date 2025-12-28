@@ -20,6 +20,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	speak_emote = list("squeaks")
 	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawl_delay = 2 SECONDS
 	/// The mind to transfer to our egg when it hatches
 	var/datum/mind/origin
 	/// Set to true once we've implanted our egg
