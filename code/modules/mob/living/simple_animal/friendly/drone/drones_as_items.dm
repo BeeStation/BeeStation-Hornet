@@ -6,22 +6,27 @@
 //Drone shells
 
 //DRONE SHELL
-/obj/effect/mob_spawn/drone
+/obj/effect/mob_spawn/ghost_role/drone
 	name = "drone shell"
 	desc = "A shell of a maintenance drone, an expendable robot built to perform station repairs."
 	icon = 'icons/mob/drone.dmi'
 	icon_state = "drone_maint_hat"//yes reuse the _hat state.
 	layer = BELOW_MOB_LAYER
 	density = FALSE
-	death = FALSE
-	roundstart = FALSE
-	short_desc = "You are a drone."
-	flavour_text = "You are a drone, a tiny insect-like creature. Follow your assigned laws to the best of your ability."
+	mob_name = "drone"
+	///Type of drone that will be spawned
 	mob_type = /mob/living/simple_animal/drone
+	role_ban = ROLE_DRONE
+	show_flavor = FALSE
+	prompt_name = "maintenance drone"
+	you_are_text = "You are a Maintenance Drone."
+	flavour_text = "Born out of science, your purpose is to maintain Space Station 13. Maintenance Drones can become the backbone of a healthy station."
+	important_text = "You MUST read and follow your laws carefully."
+	assignedrole = "Maintenance Drone"
 	var/seasonal_hats = TRUE //If TRUE, and there are no default hats, different holidays will grant different hats
 	var/static/list/possible_seasonal_hats //This is built automatically in build_seasonal_hats() but can also be edited by admins!
 
-/obj/effect/mob_spawn/drone/Initialize(mapload)
+/obj/effect/mob_spawn/ghost_role/drone/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
@@ -30,7 +35,7 @@
 	if(isnull(possible_seasonal_hats))
 		build_seasonal_hats()
 
-/obj/effect/mob_spawn/drone/proc/build_seasonal_hats()
+/obj/effect/mob_spawn/ghost_role/drone/proc/build_seasonal_hats()
 	possible_seasonal_hats = list()
 	if(!length(SSevents.holidays))
 		return //no holidays, no hats; we'll keep the empty list so we never call this proc again
@@ -40,7 +45,7 @@
 			possible_seasonal_hats += holiday.drone_hat
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
-/obj/effect/mob_spawn/drone/attack_ghost(mob/user)
+/obj/effect/mob_spawn/ghost_role/drone/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
 		return
 	if(!SSticker.HasRoundStarted())

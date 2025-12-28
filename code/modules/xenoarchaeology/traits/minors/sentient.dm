@@ -12,7 +12,7 @@
 	///Mob who lives inside the artifact, and who we give actions to
 	var/mob/living/simple_animal/shade/sentience/sentience
 	///Mob spawner for ghosts
-	var/obj/effect/mob_spawn/sentient_artifact/mob_spawner
+	var/obj/effect/mob_spawn/ghost_role/sentient_artifact/mob_spawner
 	///Ref to our landmark
 	var/obj/effect/landmark/landmark
 
@@ -98,27 +98,24 @@
 	QDEL_NULL(mob_spawner)
 
 //Spawner for sentience
-/obj/effect/mob_spawn/sentient_artifact
-	death = FALSE
+/obj/effect/mob_spawn/ghost_role/sentient_artifact
 	name = "Sentient Xenoartifact"
-	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
+	prompt_name ="A listless evil..."
+	you_are_text = "You're a maleviolent sentience, possessing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
-	ghost_usable = TRUE
-	instant = FALSE
-	roundstart = FALSE
-	banType = ROLE_SENTIENT_XENOARTIFACT
+	role_ban = ROLE_SENTIENT_XENOARTIFACT
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = 101
 	///Ref to the trait we're handling
 	var/datum/xenoartifact_trait/minor/sentient/trait
 
-/obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, datum/xenoartifact_trait/minor/sentient/new_trait)
+/obj/effect/mob_spawn/ghost_role/sentient_artifact/Initialize(mapload, datum/xenoartifact_trait/minor/sentient/new_trait)
 	trait = new_trait
 	return ..()
 
-/obj/effect/mob_spawn/sentient_artifact/create(ckey)
+/obj/effect/mob_spawn/ghost_role/sentient_artifact/create(ckey)
 	trait?.setup_sentience(ckey)
 
 //Action for sentience

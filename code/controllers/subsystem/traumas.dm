@@ -179,7 +179,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/machinery/recharge_station,
 			/obj/item/aicard,
 			/obj/item/deactivated_swarmer,
-			/obj/effect/mob_spawn/swarmer,
+			/obj/effect/mob_spawn/ghost_role/swarmer,
 		)),
 
 		"doctors" = typecacheof(list(

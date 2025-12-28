@@ -142,38 +142,6 @@
 	suit = /obj/item/clothing/suit/bluetag
 	suit_store = /obj/item/gun/energy/laser/bluetag
 
-/datum/outfit/pirate
-	name = "Space Pirate"
-
-	uniform = /obj/item/clothing/under/costume/pirate
-	shoes = /obj/item/clothing/shoes/sneakers/brown
-	suit = /obj/item/clothing/suit/costume/pirate
-	head = /obj/item/clothing/head/costume/pirate/bandana
-	glasses = /obj/item/clothing/glasses/eyepatch
-
-/datum/outfit/pirate/space
-	suit = /obj/item/clothing/suit/space/pirate
-	head = /obj/item/clothing/head/helmet/space/pirate/bandana
-	ears = /obj/item/radio/headset/syndicate/alt
-	id = /obj/item/card/id/pirate
-
-/datum/outfit/pirate/space/captain
-	head = /obj/item/clothing/head/helmet/space/pirate
-	ears = /obj/item/radio/headset/syndicate/alt/leader
-
-/datum/outfit/pirate/post_equip(mob/living/carbon/human/H)
-	H.faction |= FACTION_PIRATE
-
-	var/obj/item/radio/R = H.ears
-	if(R)
-		R.set_frequency(FREQ_SYNDICATE)
-		R.freqlock = TRUE
-
-	var/obj/item/card/id/W = H.wear_id
-	if(W)
-		W.registered_name = H.real_name
-		W.update_label(H.real_name)
-
 /datum/outfit/tunnel_clown
 	name = "Tunnel Clown"
 

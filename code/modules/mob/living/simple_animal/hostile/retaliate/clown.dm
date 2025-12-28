@@ -25,7 +25,7 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	del_on_death = TRUE
-	loot = list(/obj/effect/mob_spawn/human/clown/corpse)
+	loot = list(/obj/effect/mob_spawn/ghost_role/human/clown/corpse)
 
 	mobchatspan = "clown"
 

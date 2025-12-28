@@ -35,7 +35,7 @@
 	attack_verb_simple = "punch"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	combat_mode = TRUE
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
+	loot = list(/obj/effect/mob_spawn/corpse/human/syndicatesoldier)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 7.5
 	faction = list(FACTION_SYNDICATE)
@@ -171,7 +171,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged/infiltrator //shuttle loan event
 	projectilesound = 'sound/weapons/gunshot_silenced.ogg'
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
+	loot = list(/obj/effect/mob_spawn/corpse/human/syndicatesoldier)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicate_space_pistol"
@@ -204,7 +204,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/pilot //caravan ambush ruin
 	name = "Syndicate Salvage Pilot"
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
+	loot = list(/obj/effect/mob_spawn/corpse/human/syndicatesoldier)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/space
 	icon_state = "syndicate_space_smg"
@@ -332,7 +332,7 @@
 	var/cooldown = 0
 	speak = list("You're pretty good.","You can't dodge everything!","Fall down already!")
 	loot = list(/obj/item/gun/ballistic/sniper_rifle,
-					/obj/effect/mob_spawn/human/corpse/sniper,
+					/obj/effect/mob_spawn/corpse/human/sniper,
 					/obj/item/ammo_box/magazine/sniper_rounds,
 					/obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 					/obj/item/ammo_box/magazine/sniper_rounds/soporific)
@@ -384,7 +384,7 @@
 	speed = 15
 	health = 300
 	maxHealth = 300
-	loot = list(/obj/effect/mob_spawn/human/corpse/heavy)
+	loot = list(/obj/effect/mob_spawn/corpse/human/heavy)
 	var/cooldown = 0
 
 /mob/living/simple_animal/hostile/syndicate/heavy/Initialize(mapload)

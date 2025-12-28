@@ -118,12 +118,12 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(announce_fugitive_spawns), ship, candidates, backstory))
 
 /proc/announce_fugitive_spawns(datum/map_template/shuttle/ship, list/candidates, datum/fugitive_type/hunter/backstory, datum/map_generator/map_generator, turf/T)
-	var/obj/effect/mob_spawn/human/fugitive_hunter/leader_spawn
+	var/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/leader_spawn
 	var/list/spawners = list()
 	for(var/turf/A in ship.get_affected_turfs(T))
-		for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner in A)
+		for(var/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/spawner in A)
 			spawner.backstory = backstory
-			if(istype(spawner, /obj/effect/mob_spawn/human/fugitive_hunter/leader))
+			if(istype(spawner, /obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/leader))
 				spawner.name = "[backstory.name] leader pod"
 				leader_spawn = spawner
 			else
@@ -132,11 +132,11 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	// Leader goes first, so this is the first one taken
 	if(istype(leader_spawn))
 		announce_fugitive_pod(leader_spawn, candidates)
-	for(var/obj/effect/mob_spawn/human/fugitive_hunter/spawner as() in spawners)
+	for(var/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/spawner as() in spawners)
 		announce_fugitive_pod(spawner, candidates)
 	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
-/proc/announce_fugitive_pod(obj/effect/mob_spawn/human/fugitive_hunter/spawner, list/candidates)
+/proc/announce_fugitive_pod(obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/spawner, list/candidates)
 	if(length(candidates))
 		var/mob/M = pick_n_take(candidates)
 		spawner.create(M.ckey)
