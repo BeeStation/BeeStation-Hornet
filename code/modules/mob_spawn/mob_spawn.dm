@@ -7,6 +7,8 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	//So it shows up in the map editor
 	icon = 'icons/effects/mapping_helpers.dmi'
 	icon_state = "mobspawner"
+	/// Can this spawner be used up?
+	var/infinite_use = FALSE
 	///A forced name of the mob, though can be overridden if a special name is passed as an argument
 	var/mob_name
 	///the type of the mob, you best inherit this
@@ -38,6 +40,7 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	if(faction)
 		faction = string_list(faction)
 
+/// Creates whatever mob the spawner makes. Return FALSE if we want to exit from here without doing that, returning NULL will be logged to admins.
 /obj/effect/mob_spawn/proc/create(mob/mob_possessor, newname)
 	var/mob/living/spawned_mob = new mob_type(get_turf(src)) //living mobs only
 	name_mob(spawned_mob, newname)
@@ -110,8 +113,13 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 	var/prompt_name = ""
 	///if false, you won't prompt for this role. best used for replacing the prompt system with something else like a radial, or something.
 	var/prompt_ghost = TRUE
-	///how many times this spawner can be used (it won't delete unless it's out of uses)
+	///how many times this spawner can be used (it won't delete unless it's out of uses and the var to delete itself is set)
 	var/uses = 1
+	/// Does the spawner delete itself when it runs out of uses?
+	var/deletes_on_zero_uses_left = TRUE
+	/// A list of the ckeys that currently are trying to access this spawner, so that they can't try to spawn more than once (in case there's sleeps).
+	/// Static because you only really want to be able to spawn in one spawner at a time, obviously.
+	var/static/list/ckeys_trying_to_spawn
 
 	////descriptions
 
@@ -153,28 +161,84 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 /obj/effect/mob_spawn/ghost_role/attack_ghost(mob/user)
 	if(!SSticker.HasRoundStarted() || !loc)
 		return
+
+	// We don't open the prompt more than once at a time.
+	if(LAZYFIND(ckeys_trying_to_spawn, user.ckey))
+		return
+
+	var/user_ckey = user.ckey // Just in case shenanigans happen, we always want to remove it from the list.
+	LAZYADD(ckeys_trying_to_spawn, user_ckey)
+
 	if(prompt_ghost)
-		var/ghost_role = tgui_alert(usr, "Become [prompt_name]? (Warning, You can no longer be revived!)",, list("Yes", "No"))
+		var/ghost_role = tgui_alert(usr, "Become [prompt_name]? (Warning, You can no longer be revived!)", buttons = list("Yes", "No"), timeout = 10 SECONDS)
 		if(ghost_role != "Yes" || !loc || QDELETED(user))
+			LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 			return
+
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(flags_1 & ADMIN_SPAWNED_1))
-		to_chat(user, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		to_chat(user, span_warning("An admin has temporarily disabled non-admin ghost roles!"))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 		return
-	if(!uses) //just in case
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+	if(uses <= 0 && !infinite_use) //just in case
+		to_chat(user, span_warning("This spawner is out of charges!"))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 		return
+
 	if(is_banned_from(user.key, role_ban))
-		to_chat(user, "<span class='warning'>You are banned from this role!</span>")
+		to_chat(user, span_warning("You are banned from this role!"))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 		return
 	if(!allow_spawn(user, silent = FALSE))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 		return
 	if(QDELETED(src) || QDELETED(user))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 		return
+
+	if(uses <= 0) // Just in case something took longer than it should've and we got here after the uses went below zero.
+		to_chat(user, span_warning("This spawner is out of charges!"))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
+		return
+
 	if(use_cooldown && user.client.next_ghost_role_tick > world.time)
-		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		to_chat(user, span_warning("You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner."))
+		LAZYREMOVE(ckeys_trying_to_spawn, user_ckey)
 		return
+
+	create_from_ghost(user)
+
+/**
+ * Uses a use and creates a mob from a passed ghost
+ *
+ * Does NOT validate that the spawn is possible or valid - assumes this has been done already!
+ *
+ * If you are manually forcing a player into this mob spawn,
+ * you should be using this and not directly calling [proc/create].
+ */
+/obj/effect/mob_spawn/ghost_role/proc/create_from_ghost(mob/dead/user)
+	ASSERT(istype(user))
 	log_game("[key_name(user)] became a [prompt_name]")
-	create(user)
+	uses -= 1 // Remove a use before trying to spawn to prevent strangeness like the spawner trying to spawn more mobs than it should be able to
+
+	var/created = create(user)
+	var/user_ckey = user.ckey // Just in case shenanigans happen, we always want to remove it from the list.
+	LAZYREMOVE(ckeys_trying_to_spawn, user_ckey) // We do this AFTER the create() so that we're basically sure that the user won't be in their ghost body anymore, so they can't click on the spawner again.
+
+	if(!created)
+		uses += 1 // Refund use because we didn't actually spawn anything
+
+		if(isnull(created)) // If we explicitly return FALSE instead of just not returning a mob, we don't want to spam the admins
+			CRASH("An instance of [type] didn't return anything when creating a mob, this might be broken!")
+
+	check_uses() // Now we check if the spawner should delete itself or not
+
+
+/obj/effect/mob_spawn/ghost_role/create(mob/mob_possessor, newname)
+	if(!mob_possessor.key) // This is in the scenario that the server is somehow lagging, or someone fucked up their code, and we try to spawn the same person in twice. We'll simply not spawn anything and CRASH(), so that we report what happened.
+		CRASH("Attempted to create an instance of [type] with a mob that had no ckey attached to it, which isn't supported by ghost role spawners!")
+
+	return ..()
+
 
 /obj/effect/mob_spawn/ghost_role/special(mob/living/spawned_mob, mob/mob_possessor)
 	. = ..()
@@ -191,12 +255,9 @@ CREATION_TEST_IGNORE_SELF(/obj/effect/mob_spawn)
 		spawned_mind.assigned_role = assignedrole
 	spawned_mind.name = spawned_mob.real_name
 
-//multiple use mob spawner functionality here- doesn't make sense on corpses
-/obj/effect/mob_spawn/ghost_role/create(mob/mob_possessor, newname)
-	. = ..()
-	if(uses > 0)
-		uses--
-	if(!uses)
+/// Checks if the spawner has zero uses left, if so, delete yourself... NOW!
+/obj/effect/mob_spawn/ghost_role/proc/check_uses()
+	if(!uses && deletes_on_zero_uses_left)
 		qdel(src)
 
 ///override this to add special spawn conditions to a ghost role

@@ -245,7 +245,10 @@
 	layer = MOB_LAYER
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_BOSS
-	loot = list(/obj/item/organ/regenerative_core/legion = 3, /obj/effect/mob_spawn/corpse/human/damaged/legioninfested = 5)
+	loot = list(
+		/obj/item/organ/regenerative_core/legion = 3,
+		/obj/effect/mob_spawn/corpse/human/legioninfested = 5
+	)
 	move_to_delay = 14
 	vision_range = 5
 	aggro_vision_range = 9

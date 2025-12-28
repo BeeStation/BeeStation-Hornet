@@ -18,9 +18,9 @@
 		this["important_warning"] = ""
 		this["amount_left"] = 0
 		for(var/spawner_obj in GLOB.mob_spawners[spawner])
+			var/obj/effect/mob_spawn/ghost_role/mob_spawner = spawner_obj
 			if(!this["desc"])
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
-					var/obj/effect/mob_spawn/ghost_role/mob_spawner = spawner_obj
 					if(!mob_spawner.allow_spawn(user, silent = TRUE))
 						continue
 					this["you_are_text"] = mob_spawner.you_are_text
@@ -37,9 +37,9 @@
 						this["flavor_text"] = O.get_spawner_flavour_text()
 					else
 						this["desc"] = O.desc
-
-			this["amount_left"] += 1
-		if(this["amount_left"] > 0)
+			this["amount_left"] += mob_spawner.uses
+			this["infinite"] += mob_spawner.infinite_use
+		if(this["amount_left"] > 0 || this["infinite"])
 			data["spawners"] += list(this)
 	return data
 
