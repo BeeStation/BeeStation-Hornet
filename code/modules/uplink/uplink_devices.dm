@@ -21,19 +21,21 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/uplink_flag = UPLINK_TRAITORS
+	var/reputation_start = REPUTATION_TRAITOR_START
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink)
 
-/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = REPUTATION_TRAITOR_START)
+/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
 	. = ..()
-	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, uplink_flag, tc_amount, directive_flags = NONE)
+	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, uplink_flag, tc_amount, reputation_start, directive_flags = NONE)
 
 /obj/item/uplink/debug
 	name = "debug uplink"
+	reputation_start = REPUTATION_MAX
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/debug)
 
-/obj/item/uplink/debug/Initialize(mapload, mob/owner, tc_amount = 9000, rep_amount = REPUTATION_MAX)
+/obj/item/uplink/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.name = "debug uplink"
@@ -41,14 +43,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/debug)
 
 /obj/item/uplink/nuclear
 	uplink_flag = UPLINK_NUKE_OPS
+	reputation_start = REPUTATION_ELITE
 
 /obj/item/uplink/nuclear/debug
 	name = "debug nuclear uplink"
 	uplink_flag = UPLINK_NUKE_OPS
+	reputation_start = REPUTATION_MAX
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
-/obj/item/uplink/nuclear/debug/Initialize(mapload, mob/owner, tc_amount = 9000, rep_amount = REPUTATION_MAX)
+/obj/item/uplink/nuclear/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.name = "debug nuclear uplink"
@@ -56,6 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
 /obj/item/uplink/nuclear_restricted
 	uplink_flag = UPLINK_NUKE_OPS
+	reputation_start = REPUTATION_ELITE
 
 /obj/item/uplink/nuclear_restricted/Initialize(mapload)
 	. = ..()
@@ -64,14 +69,16 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
 /obj/item/uplink/clownop
 	uplink_flag = UPLINK_CLOWN_OPS
+	reputation_start = REPUTATION_ELITE
 
 /obj/item/uplink/old
 	name = "dusty radio"
 	desc = "A dusty looking radio."
+	reputation_start = REPUTATION_LOW
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/old)
 
-/obj/item/uplink/old/Initialize(mapload, mob/owner, tc_amount = 10, rep_amount = REPUTATION_LOW)
+/obj/item/uplink/old/Initialize(mapload, mob/owner, tc_amount = 10)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink, owner?.mind)
 	hidden_uplink.name = "dusty radio"
@@ -79,13 +86,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/old)
 // Multitool uplink
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/multitool/uplink)
 
-/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = REPUTATION_TRAITOR_START)
+/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, UPLINK_TRAITORS, tc_amount, directive_flags = NONE)
 
 // Pen uplink
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/pen/uplink)
 
-/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = REPUTATION_TRAITOR_START)
+/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, TRUE, FALSE, UPLINK_TRAITORS, tc_amount, directive_flags = NONE)
