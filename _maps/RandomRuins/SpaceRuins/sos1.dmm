@@ -34,7 +34,7 @@
 	dir = 8
 	},
 /obj/item/storage/pill_bottle/floorpill/full,
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/corpse/human/assistant,
 /obj/item/storage/secure/briefcase/syndie,
 /obj/item/storage/pod{
 	pixel_y = -30

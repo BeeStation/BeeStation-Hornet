@@ -318,7 +318,7 @@
 	pixel_y = 28;
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter,
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "ir" = (
@@ -635,7 +635,7 @@
 /obj/effect/turf_decal/bot/left,
 /obj/effect/decal/cleanable/robot_debris,
 /obj/machinery/light,
-/obj/effect/mob_spawn/human/fugitive_hunter/leader{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/leader{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
@@ -723,7 +723,7 @@
 	color = "#A47449";
 	dir = 8
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 1
 	},
 /turf/open/floor/iron/tech/grid,
@@ -1307,7 +1307,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/left,
 /obj/effect/turf_decal/bot/right,
-/obj/effect/mob_spawn/human/fugitive_hunter,
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter,
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Ww" = (

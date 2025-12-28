@@ -267,7 +267,7 @@
 /area/ruin/unpowered/ash_walkers)
 "nv" = (
 /obj/structure/table/wood,
-/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/mob_spawn/corpse/human/damaged,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -904,7 +904,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/mob_spawn/corpse/human/damaged,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1057,7 +1057,7 @@
 	},
 /obj/structure/stone_tile/cracked,
 /obj/effect/decal/cleanable/blood,
-/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/mob_spawn/corpse/human/damaged,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "RY" = (

@@ -29,7 +29,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ah" = (
-/obj/effect/mob_spawn/human/bartender/alive/beach,
+/obj/effect/mob_spawn/ghost_role/human/bartender,
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ai" = (
@@ -223,7 +223,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "aV" = (
-/obj/effect/mob_spawn/human/beach/alive,
+/obj/effect/mob_spawn/ghost_role/human/beach,
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "aW" = (
@@ -319,7 +319,7 @@
 /area/ruin/powered/beach)
 "bH" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/mob_spawn/human/beach/alive/lifeguard,
+/obj/effect/mob_spawn/ghost_role/human/beach/lifeguard,
 /turf/open/floor/wood,
 /area/ruin/powered/beach)
 "bJ" = (

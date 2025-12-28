@@ -293,7 +293,7 @@
 "bb" = (
 /obj/item/trash/sosjerky,
 /obj/item/trash/syndi_cakes,
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/mob_spawn/corpse/human/cargo_tech,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "bc" = (
@@ -302,7 +302,7 @@
 /area/ruin/space/has_grav/storage/power2)
 "bd" = (
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/mob_spawn/corpse/human/cargo_tech,
 /obj/item/weldingtool/mini,
 /obj/item/storage/pill_bottle/lsd,
 /turf/open/floor/iron,
@@ -597,7 +597,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/storage/materials2)
 "ca" = (
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/mob_spawn/corpse/human/cargo_tech,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/central)
 "cb" = (
@@ -654,7 +654,7 @@
 /area/ruin/space/has_grav/storage/central2)
 "cm" = (
 /obj/item/crowbar/red,
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/mob_spawn/corpse/human/cargo_tech,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/storage/power2)
 "cn" = (

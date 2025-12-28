@@ -17,7 +17,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/corpse/human/assistant,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/floor/plating,
