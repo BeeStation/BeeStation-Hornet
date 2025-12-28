@@ -196,5 +196,11 @@
 2025-12-28:
   PowerfulBacon:
   - bugfix: Fixes linting errors provided by spacemanDMM
+  - bugfix: Supply PDAs no longer run out of power after 10 minutes of use.
+  - bugfix: Fixes the science PDA not getting its components installed correctly.
+  - tweak: All PDAs now last at least 90 minutes without any programs opened.
+  - balance: PDAs will no longer consume power from active programs when not observed.
+  Qustinnus:
+  - rscadd: ethereals now have sound effects when screaming
   r1ks-iwnl:
   - bugfix: Fixed traitor and chaplain carp suit not protecting against space.
