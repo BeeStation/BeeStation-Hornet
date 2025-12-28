@@ -232,7 +232,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/corpse/human/damaged{
-	head = /obj/item/clothing/head/costume/kitty
+	outfit_override = list("head"=/obj/item/clothing/head/costume/kitty)
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -494,7 +494,7 @@
 	name = "kitty bed"
 	},
 /obj/effect/mob_spawn/corpse/human/damaged{
-	head = /obj/item/clothing/head/costume/kitty
+	outfit_override = list("head"=/obj/item/clothing/head/costume/kitty)
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
