@@ -21,6 +21,7 @@
 	name = "blumpkin"
 	icon_state = "pumpkin-2"
 	colour_override = "#8cf3ff"
+	genetic_budget = 3
 	fruit_product = /obj/item/food/grown/blumpkin
 	fast_reagents = list(/datum/reagent/ammonia = PLANT_REAGENT_MEDIUM, /datum/reagent/chlorine = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/pumpkin)

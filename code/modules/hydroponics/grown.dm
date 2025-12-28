@@ -15,6 +15,8 @@ CREATION_TEST_IGNORE_SELF(/obj/item/food/grown)
 	max_demand = 150
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	///What basic most typepath does this food associate with - pretty much used exclusively for kudzu stuff
+	var/seed_base = /obj/item/plant_seeds
 	///Shortcut for roundstart grown items to have 'genes'
 	var/obj/item/plant_seeds/seed = null
 	///Name of the plant

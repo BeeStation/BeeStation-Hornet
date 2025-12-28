@@ -22,5 +22,6 @@
 	fruit_product = /obj/item/food/grown/galaxythistle
 	total_volume = PLANT_FRUIT_VOLUME_SMALL
 	growth_time = PLANT_FRUIT_GROWTH_FAST
+	genetic_budget = 4
 	fast_reagents = list(/datum/reagent/medicine/silibinin = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/starthistle)

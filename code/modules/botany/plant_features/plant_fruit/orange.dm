@@ -18,6 +18,7 @@
 	species_name = "citrum veritas"
 	name = "extradimensional orange"
 	icon_state = "orange_3D"
+	genetic_budget = 4
 	fruit_product = /obj/item/food/grown/citrus/orange_3d
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/biolight/orange)

@@ -88,6 +88,9 @@
 /datum/plant_feature/body/bush_vine/nettle/thistle
 	name = "thistle bush"
 
+/datum/plant_feature/body/bush_vine/nettle/kudzu
+	name = "kudzu vine"
+
 /*
 	Cannabis bush
 */

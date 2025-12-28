@@ -34,6 +34,7 @@
 	name = "ambrosia gaia"
 	icon_state = "ambrosia_2"
 	fruit_product = /obj/item/food/grown/ambrosia/gaia
+	genetic_budget = 3
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/medicine/earthsblood = PLANT_REAGENT_SMALL)
 	mutations = list(/datum/plant_feature/fruit/ambrosia)

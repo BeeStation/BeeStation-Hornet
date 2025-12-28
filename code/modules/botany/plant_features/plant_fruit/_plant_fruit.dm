@@ -8,6 +8,7 @@
 	feature_catagories = PLANT_FEATURE_FRUIT
 	plant_needs = list(/datum/plant_need/reagent/water, /datum/plant_need/reagent/buff/pests, /datum/plant_need/reagent/buff/robust)
 	trait_type_shortcut = /datum/plant_feature/fruit
+	genetic_budget = 2
 
 	///What kind of 'fruit' do we produce
 	var/obj/item/fruit_product = /obj/item/food/grown/apple

@@ -20,6 +20,7 @@
 
 /obj/item/plant_seeds/Initialize(mapload, list/_plant_features, _species_id)
 	. = ..()
+	create_reagents(15,  INJECTABLE | NO_REACT)
 	species_id = _species_id
 	plant_features = length(_plant_features) ? _plant_features.Copy() : plant_features
 	for(var/datum/plant_feature/feature as anything in plant_features)

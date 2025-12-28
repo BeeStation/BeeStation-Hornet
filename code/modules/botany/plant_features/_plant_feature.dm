@@ -39,8 +39,6 @@
 	var/remaining_genetic_budget
 	///List of needs we've gained from overdrawing our budget
 	var/list/overdraw_needs = list()
-	///List of needs we've previously had from overdrawing, stops rerolling
-	var/list/previous_needs = list()
 
 	///Trait type shortcut
 	var/trait_type_shortcut = /datum/plant_feature
@@ -194,19 +192,19 @@
 /datum/plant_feature/proc/adjust_genetic_budget(amount, datum/source)
 	remaining_genetic_budget += amount
 //Need management
+	if(!SSbotany.previous_needs["[parent.species_id]"])
+		SSbotany.previous_needs["[parent.species_id]"] = list()
 	//If we're overdrawing, add needs
 	if(amount < 0 && remaining_genetic_budget < 0)
-		var/datum/plant_need/need = previous_needs["[source.type]"] || SSbotany.get_random_need()
+		var/datum/plant_need/need = SSbotany.previous_needs["[parent.species_id]"]["[source.type]"] || SSbotany.get_random_need()
+		SSbotany.previous_needs["[parent.species_id]"] |= list("[source.type]" = need.type)
 		need = new need(src)
 		overdraw_needs += list(REF(source) = need)
 		plant_needs += need
 		return
 	//If we're paying it back, remove needs
 	if(amount > 0 && plant_needs[REF(source)])
-		//Archive the need so people don't try to reroll it
 		var/datum/plant_need/need = overdraw_needs[REF(source)]
-		previous_needs += list("[source.type]" = need.type)
-		//Remove it from ourselves
 		plant_needs -= need
 		overdraw_needs -= REF(source)
 		qdel(need)

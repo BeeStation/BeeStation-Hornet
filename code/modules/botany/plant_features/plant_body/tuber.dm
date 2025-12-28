@@ -13,6 +13,7 @@
 	slot_size = PLANT_BODY_SLOT_SIZE_SMALL
 	draw_below_water = FALSE
 	seeds = 5
+	genetic_budget = 2
 	///Pre-made mask for making fruits look burried
 	var/icon/tuber_mask
 	var/do_mask = TRUE

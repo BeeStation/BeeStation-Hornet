@@ -19,17 +19,23 @@
 	tray_component.allow_substrate_change = FALSE
 	RegisterSignal(src, COMSIG_PLANTER_PAUSE_PLANT, PROC_REF(catch_pause))
 
-/obj/item/plant_tray/pot/Exit(atom/movable/leaving, direction)
+/obj/item/plant_tray/pot/Exited(atom/movable/leaving, direction)
 	. = ..()
-	//Make sure plants get 'reset' /taxed when leaving a pot so people can't game the system
 	var/datum/component/plant/plant_comp = leaving.GetComponent(/datum/component/plant)
 	if(!plant_comp)
 		return
-	//Tax fruit
+//Fruit - Don't allow people to game pot's pause function
+	//Deleted all fruit
 	var/datum/plant_feature/fruit/fruit_feature = locate(/datum/plant_feature/fruit) in plant_comp.plant_features
+	if(!length(fruit_feature?.fruits))
+		return
 	for(var/obj/item/fruit as anything in fruit_feature?.fruits)
+		fruit_feature?.fruits -= fruit
 		qdel(fruit)
 	SEND_SIGNAL(plant_comp, COMSIG_PLANT_ACTION_HARVEST)
+//Body - Refund a yield since we just merc'd one
+	var/datum/plant_feature/body/body_feature = locate(/datum/plant_feature/body) in plant_comp.plant_features
+	body_feature.yields += 1
 
 /obj/item/plant_tray/pot/proc/catch_pause(datum/source)
 	SIGNAL_HANDLER
@@ -61,6 +67,8 @@
 		var/datum/plant_trait/trait = SSbotany.get_random_trait("[feature.trait_type_shortcut]")
 		trait = new trait(feature)
 		feature.plant_traits += trait
+	//Update species ID to reflect new traits
+	plant_component.compile_species_id()
 //Needs
 	for(var/datum/plant_feature/feature as anything in plant_component.plant_features)
 		for(var/datum/plant_need/need as anything in feature.plant_needs)

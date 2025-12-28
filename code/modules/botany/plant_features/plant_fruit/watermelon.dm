@@ -21,6 +21,7 @@
 	name = "holy watermelon"
 	icon_state = "watermelon-2"
 	colour_override = "#ff0"
+	genetic_budget = 3
 	fruit_product = /obj/item/food/grown/holymelon
 	plant_traits = list(/datum/plant_trait/fruit/biolight/yellow)
 	fast_reagents = list(/datum/reagent/water/holywater = PLANT_REAGENT_MEDIUM)

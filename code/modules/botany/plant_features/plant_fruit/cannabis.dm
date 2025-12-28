@@ -59,6 +59,7 @@
 	species_name = "omega folium"
 	icon_state = "cannabis-2"
 	colour_override = "#15ff00"
+	genetic_budget = 4
 	fruit_product = /obj/item/food/grown/cannabis/ultimate
 	fast_reagents = list(/datum/reagent/drug/space_drugs = PLANT_REAGENT_MICRO, /datum/reagent/toxin/mindbreaker = PLANT_REAGENT_MICRO, /datum/reagent/toxin/lipolicide = PLANT_REAGENT_MICRO, /datum/reagent/mercury = PLANT_REAGENT_MICRO,
 	/datum/reagent/lithium = PLANT_REAGENT_MICRO, /datum/reagent/medicine/atropine = PLANT_REAGENT_MICRO, /datum/reagent/medicine/haloperidol = PLANT_REAGENT_MICRO, /datum/reagent/drug/methamphetamine = PLANT_REAGENT_MICRO,

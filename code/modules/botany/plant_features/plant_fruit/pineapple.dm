@@ -6,6 +6,7 @@
 	name = "pineapple"
 	icon_state = "pineapple"
 	fruit_product = /obj/item/food/grown/pineapple
+	genetic_budget = 3
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment/large, /datum/plant_trait/reagent/fruit/vitamin)
 	fast_reagents = list(/datum/reagent/water = PLANT_REAGENT_MEDIUM)
 	total_volume = PLANT_FRUIT_VOLUME_MEDIUM

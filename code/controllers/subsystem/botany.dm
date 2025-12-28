@@ -17,6 +17,8 @@ SUBSYSTEM_DEF(botany)
 
 	///List of cached genes - list('species_id' = list(genes))
 	var/list/gene_cache = list()
+	///List of cached needs per species, stops need re-rolling
+	var/list/previous_needs = list()
 
 	///List of possible weeds, and their weights - These values are interpreted from old botany
 	var/list/weeds = list(/obj/item/plant_seeds/preset/amanita = 1, /obj/item/plant_seeds/preset/reishi = 2, /obj/item/plant_seeds/preset/nettle = 1, /obj/item/plant_seeds/preset/chanterelle = 1,

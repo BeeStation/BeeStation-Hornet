@@ -33,6 +33,7 @@
 	icon_state = "tomato-2"
 	colour_override = "#03dfe6"
 	fruit_product = /obj/item/food/grown/tomato/blue/bluespace
+	genetic_budget = 4
 	plant_traits = list(/datum/plant_trait/reagent/fruit/nutriment, /datum/plant_trait/reagent/fruit/vitamin,
 	/datum/plant_trait/fruit/liquid_contents, /datum/plant_trait/fruit/bluespace)
 	fast_reagents = list(/datum/reagent/bluespace = PLANT_REAGENT_SMALL)

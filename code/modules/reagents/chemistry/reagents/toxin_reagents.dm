@@ -38,9 +38,21 @@
 	toxpwr = 0
 	taste_description = "slime"
 	taste_mult = 0.9
+	tray_consumed = 5
 
 	/// The chance to gain a positive mutation
 	var/positive_mutation_prob = 2
+
+/datum/reagent/toxin/mutagen/tray_tick(datum/source, datum/component/planter/tray, _delta_time)
+	. = ..()
+	//When a tray's weed level is greater than half, we spawn in a kudzu plant
+	if(!.)
+		return
+	if(tray.weed_level < 50)
+		return
+	var/obj/item/plant_seeds/preset/kudzu/seeds = new(get_turf(tray.parent))
+	if(!seeds.plant(tray.parent, logic = TRUE))
+		qdel(seeds)
 
 /datum/reagent/toxin/mutagen/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)
 	. = ..()

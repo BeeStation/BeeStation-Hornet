@@ -101,6 +101,9 @@
 	//Impart onto seeds
 	if(!length(features))
 		return
+	var/obj/item/food/grown/food_item = produce //type cast shortcut
+	food_item = istype(food_item) ? food_item : null
 	for(var/index in 1 to _seed_amount)
-		new /obj/item/plant_seeds(produce.loc, features, species_id)
+		var/obj/item/plant_seeds/seeds = food_item?.seed_base || /obj/item/plant_seeds //If the grown item in question is a real food item, we get to use the seed_base feature, and fuck porting it to regular items
+		seeds = new seeds(produce.loc, features, species_id)
 	qdel(produce)

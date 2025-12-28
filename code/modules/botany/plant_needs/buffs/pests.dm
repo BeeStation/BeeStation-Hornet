@@ -85,6 +85,8 @@
 
 /datum/plant_need/reagent/buff/pests/remove_buff(__delta_time)
 	. = ..()
+	if(body_parent?.current_stage != body_parent?.growth_stages) //Don't make maturing plants endure this chore, purely an upkeep thing
+		return
 	pest_level += pest_build_up*__delta_time
 	pest_level = min(pest_level, 100)
 
