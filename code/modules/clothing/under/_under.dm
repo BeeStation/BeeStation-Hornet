@@ -309,9 +309,16 @@
 				. += "Its vital tracker appears to be enabled."
 			if(SENSOR_COORDS)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
+	var/mob/living/carbon/human/wearer = istype(loc, /mob/living/carbon/human) ? loc : null
 	for (var/accessory_slot in attached_accessories)
 		var/obj/item/clothing/accessory/accessory = attached_accessories[accessory_slot]
-		. += "\A [accessory] is attached to it's [LOWER_TEXT(accessory_slot)]."
+		// Hidden accessories do not show, unless the examiner is the person wearing it
+		if (wearer != user && accessory.hidden)
+			continue
+		// Accessories that are below a suit hiding them do not show
+		if (wearer != user && !accessory.above_suit && wearer && wearer.wear_suit && (wearer.wear_suit.body_parts_covered & accessory.attachment_slot))
+			continue
+		. += "It has \A [accessory] is attached to it's [LOWER_TEXT(accessory_slot)]."
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Adjust Suit Sensors"
@@ -468,20 +475,19 @@
 	return FALSE
 
 /obj/item/clothing/under/examine_worn_title(mob/user, skip_examine_link)
+	var/mob/living/carbon/human/wearer = istype(loc, /mob/living/carbon/human) ? loc : null
 	//accessory
 	var/accessory_message = ""
-	if(istype(w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/undershirt = w_uniform
-		var/list/accessories = list()
-		for (var/accessory_slot in undershirt.attached_accessories)
-			var/obj/item/clothing/accessory/accessory = undershirt.attached_accessories[accessory_slot]
-			// Hidden accessories do not show
-			if (accessory.hidden)
-				continue
-			// Accessories that are below a suit hiding them do not show
-			if (!accessory.above_suit && wear_suit && wear_suit.body_parts_covered & accessory.attachment_slot)
-				continue
-			accessories += "[icon2html(accessory, user)] \a [accessory]"
-		if (length(accessories))
-			accessory_message += " with [english_list(accessories)]"
+	var/list/accessories = list()
+	for (var/accessory_slot in attached_accessories)
+		var/obj/item/clothing/accessory/accessory = attached_accessories[accessory_slot]
+		// Hidden accessories do not show, unless the examiner is the person wearing it
+		if (accessory.hidden && wearer != user)
+			continue
+		// Accessories that are below a suit hiding them do not show
+		if (wearer != user && !accessory.above_suit && wearer && wearer.wear_suit && (wearer.wear_suit.body_parts_covered & accessory.attachment_slot))
+			continue
+		accessories += "[icon2html(accessory, user)] \a [accessory]"
+	if (length(accessories))
+		accessory_message += " with [english_list(accessories)]"
 	return "[..()][accessory_message]"
