@@ -17,7 +17,7 @@
 	desc = "View and customize your traitor faction, backstory, objectives, codewords, uplink location, \
 	and objective backstories."
 	button_icon_state = "traitor_objectives"
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_agent"
 
 /datum/action/antag_info/traitor_menu/New(datum/H)

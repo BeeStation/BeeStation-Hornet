@@ -16,8 +16,8 @@
 	volume = 100
 	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
-	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
-	var/broken_item_state = "broken_beer"
+	inhand_icon_state = "broken_beer" //Generic held-item sprite until unique ones are made.
+	var/broken_inhand_icon_state = "broken_beer"
 	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	drink_type = ALCOHOL
@@ -40,7 +40,7 @@
 	if(!ranged && thrower)
 		thrower.put_in_hands(B)
 	B.mimic_broken(src, target)
-	B.item_state = broken_item_state
+	B.inhand_icon_state = broken_inhand_icon_state
 
 	qdel(src)
 	target.Bumped(B)
@@ -121,7 +121,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "broken_beer"
+	inhand_icon_state = "broken_beer"
 	lefthand_file = 'icons/mob/inhands/misc/drinks_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/drinks_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -412,17 +412,9 @@
 	name = "carton of synthflesh"
 	desc = "A No-Name carton of synthflesh. It seems moldy. And it seems that YOUR INCOMPETENT ASS IS THE ONLY FUCKING REASON THIS THING EVEN EXISTS!!!!"
 	icon_state = "synthflesh"
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 100)
-
-/obj/item/reagent_containers/cup/glass/bottle/virusfood
-	name = "carton of virus food"
-	desc = "A carton of ready-mixed virus food. Do not drink."
-	icon_state = "virusfood"
-	item_state = "carton"
-	isGlass = FALSE
-	list_reagents = list(/datum/reagent/consumable/virus_food = 100)
 
 /obj/item/reagent_containers/cup/glass/bottle/applejack
 	name = "Buckin' Bronco's Applejack"
@@ -465,22 +457,6 @@
 	desc = "It is said that the ancient Appalachians used these stoneware jugs to capture lightning in a bottle."
 	icon_state = "moonshinebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/moonshine = 100)
-
-/obj/item/reagent_containers/cup/glass/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
-	name = "glass bottle"
-	desc = "This blank bottle is unyieldingly anonymous, offering no clues to it's contents."
-	icon_state = "glassbottle"
-	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
-
-/obj/item/reagent_containers/cup/glass/bottle/blank/update_icon()
-	..()
-	add_overlay("[initial(icon_state)]shine")
-
-/obj/item/reagent_containers/cup/glass/bottle/blank/small
-	name = "small glass bottle"
-	desc = "This small bottle is unyieldingly anonymous, offering no clues to it's contents."
-	icon_state = "glassbottlesmall"
-	volume = 50
 
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/reagent_containers/cup/glass/bottle/molotov
@@ -563,7 +539,7 @@
  */
 /obj/item/reagent_containers/cup/glass/bottle/juice
 	custom_price = PAYCHECK_MEDIUM
-	item_state = "carton"
+	inhand_icon_state = "carton"
 	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice

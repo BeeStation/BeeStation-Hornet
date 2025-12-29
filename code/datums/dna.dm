@@ -4,7 +4,7 @@
 	var/unique_enzymes
 	var/unique_identity
 	var/unique_features
-	var/blood_type
+	var/datum/blood_type/blood_type
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
 	var/list/features = list("FFF") //first value is mutant color
 	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
@@ -73,14 +73,16 @@
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
 	new_dna.update_body_size() //Must come after features.Copy()
-	new_dna.mutations = mutations.Copy()
+	// Mutations aren't gc managed, but they still aren't templates
+	// Let's do a proper copy
+	for(var/datum/mutation/human/mutation in mutations)
+		new_dna.add_mutation(mutation, mutation.class, mutation.timeout)
 
 /datum/dna/proc/compare_dna(datum/dna/other)
 	if (!other)
 		return FALSE
 	return unique_enzymes == other.unique_enzymes \
 		&& unique_identity == other.unique_identity \
-		&& unique_features == other.unique_features \
 		&& blood_type == other.blood_type \
 		&& species?.type == other.species?.type \
 		&& real_name == other.real_name
@@ -384,10 +386,23 @@
 		update_instability(FALSE)
 		return
 
-/datum/dna/proc/is_same_as(datum/dna/D)
-	if(unique_identity == D.unique_identity && mutation_index == D.mutation_index && real_name == D.real_name)
-		if(species.type == D.species.type && unique_features == D.unique_features && blood_type == D.blood_type)
-			return TRUE
+/**
+ * Checks if two DNAs are practically the same by comparing their most defining features
+ *
+ * Arguments:
+ * * target_dna The DNA that we are comparing to
+ */
+/datum/dna/proc/is_same_as(datum/dna/target_dna)
+	if( \
+		unique_identity == target_dna.unique_identity \
+		&& mutation_index == target_dna.mutation_index \
+		&& real_name == target_dna.real_name \
+		&& species.type == target_dna.species.type \
+		&& compare_list(features, target_dna.features) \
+		&& blood_type == target_dna.blood_type \
+	)
+		return TRUE
+
 	return FALSE
 
 /datum/dna/proc/update_instability(alert=TRUE)
@@ -511,7 +526,7 @@
 	return FALSE
 
 /mob/living/carbon/can_mutate()
-	if(!(MOB_ORGANIC in mob_biotypes))
+	if(!(mob_biotypes & MOB_ORGANIC))
 		return FALSE
 	if(has_dna() && !HAS_TRAIT(src, TRAIT_GENELESS) && !HAS_TRAIT(src, TRAIT_BADDNA))
 		return TRUE
@@ -913,27 +928,21 @@
 				death()
 				petrify(INFINITY)
 			if(3)
-				if(prob(95))
-					var/obj/item/bodypart/BP = get_bodypart(pick(BODY_ZONE_CHEST,BODY_ZONE_HEAD))
-					if(BP)
-						BP.dismember()
-					else
-						investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
-						gib()
+				var/obj/item/bodypart/BP = get_bodypart(pick(BODY_ZONE_CHEST,BODY_ZONE_HEAD))
+				if(BP)
+					BP.dismember()
 				else
-					set_species(/datum/species/dullahan)
+					investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
+					gib()
 			if(4)
 				visible_message(span_warning("[src]'s skin melts off!"), span_boldwarning("Your skin melts off!"))
 				spawn_gibs()
 				set_species(/datum/species/skeleton)
 				if(prob(90) && !QDELETED(src))
 					addtimer(CALLBACK(src, PROC_REF(death)), 30)
-					if(mind)
-						mind.hasSoul = FALSE
 			if(5)
 				to_chat(src, span_phobia("LOOK UP!"))
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)
-
 
 /mob/living/carbon/proc/something_horrible_mindmelt()
 	if(!is_blind())

@@ -248,26 +248,6 @@
 		to_chat(M, span_danger("You glomp [src]!"))
 		return TRUE
 
-/mob/living/attack_basic_mob(mob/living/basic/user)
-	if(user.melee_damage == 0)
-		if(user != src)
-			visible_message(span_notice("\The [user] [user.friendly_verb_continuous] [src]!"), \
-							span_notice("\The [user] [user.friendly_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_notice("You [user.friendly_verb_simple] [src]!"))
-		return FALSE
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_warning("You don't want to hurt anyone!"))
-		return FALSE
-
-	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
-	user.do_attack_animation(src)
-	visible_message(span_danger("\The [user] [user.attack_verb_continuous] [src]!"), \
-					span_userdanger("\The [user] [user.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
-	log_combat(user, src, "attacked")
-	return TRUE
-
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if(M.melee_damage == 0)
@@ -402,6 +382,13 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+///Called whenever a mob is hit with any electric baton to handle jittering and stuttering
+/mob/living/proc/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
+	if(!user.combat_mode)
+		return
+	apply_damage(initial(batong.force), initial(batong.damtype), affecting, armour_block)
+	playsound(src, initial(batong.hitsound), batong.get_clamped_volume(), TRUE)
+
 /*
  * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
  * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
@@ -417,13 +404,13 @@
 	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
-	if(status_flags & GODMODE || QDELETED(src))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || QDELETED(src))
 		return
-	if(GLOB.cult_narsie && GLOB.cult_narsie.souls_needed[src])
-		GLOB.cult_narsie.souls_needed -= src
-		GLOB.cult_narsie.souls += 1
-		if((GLOB.cult_narsie.souls == GLOB.cult_narsie.soul_goal) && (GLOB.cult_narsie.resolved == FALSE))
-			GLOB.cult_narsie.resolved = TRUE
+	if(GLOB.narsie && GLOB.narsie.souls_needed[src])
+		GLOB.narsie.souls_needed -= src
+		GLOB.narsie.souls += 1
+		if((GLOB.narsie.souls == GLOB.narsie.soul_goal) && (GLOB.narsie.resolved == FALSE))
+			GLOB.narsie.resolved = TRUE
 			sound_to_playing_players('sound/machines/alarm.ogg')
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(cult_ending_helper), 1), 120)
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(ending_helper)), 270)
@@ -469,20 +456,6 @@
 	if(!used_item)
 		used_item = get_active_held_item()
 	..()
-
-/mob/living/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
-
-/mob/living/proc/sethellbound()
-	if(mind)
-		mind.hellbound = TRUE
-		med_hud_set_status()
-		return TRUE
-	return FALSE
-
-/mob/living/proc/ishellbound()
-	return mind?.hellbound
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE

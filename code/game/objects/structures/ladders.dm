@@ -207,14 +207,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/ladder)
 		return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
 	return FALSE
 
-/obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+/obj/structure/ladder/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_DECONSTRUCT)
 		to_chat(user, span_notice("You deconstruct the ladder."))
 		qdel(src)
 		return TRUE
 	return FALSE
 
-/obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+/obj/structure/ladder/unbreakable/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(RCD_DECONSTRUCT == passed_mode)
 		to_chat(user, span_warning("[src] seems to resist all attempts to deconstruct it!"))
 		return FALSE

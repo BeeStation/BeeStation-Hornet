@@ -31,3 +31,6 @@
 
 /datum/movespeed_modifier/status_effect/malfunction
 	multiplicative_slowdown = 1.5
+
+/datum/movespeed_modifier/status_effect/life_drain
+	multiplicative_slowdown = 1.25

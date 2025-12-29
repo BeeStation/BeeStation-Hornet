@@ -24,7 +24,7 @@
 
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations_and_radiation(delta_time, times_fired)
+			handle_mutations(delta_time, times_fired)
 
 		if(stat != DEAD)
 			//Breathing, if applicable
@@ -63,8 +63,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired)
 	return
 
-/mob/living/proc/handle_mutations_and_radiation(delta_time, times_fired)
-	radiation = 0 //so radiation don't accumulate in simple animals
+/mob/living/proc/handle_mutations(delta_time, times_fired)
 	return
 
 /mob/living/proc/handle_diseases(delta_time, times_fired)
@@ -122,9 +121,9 @@
 /mob/living/proc/update_damage_hud()
 	return
 
-/mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
+/mob/living/proc/handle_gravity(delta_time, times_fired)
 	if(gravity_state > STANDARD_GRAVITY)
-		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+		handle_high_gravity(gravity_state, delta_time, times_fired)
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))
@@ -132,11 +131,11 @@
 	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
 	animate(y = 0, time = 10)
 
-/mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+/mob/living/proc/handle_high_gravity(gravity, delta_time, times_fired)
 	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
 		return
 
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
-	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * delta_time)
 
 #undef BODYTEMP_DIVISOR

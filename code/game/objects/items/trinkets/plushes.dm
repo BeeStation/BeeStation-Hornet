@@ -624,7 +624,7 @@
 	desc = "An ancient plushie that has grown enlightened to the true nature of reality."
 	icon_state = "awakeplush"
 
-/obj/item/toy/plush/awakenedplushie/ComponentInitialize()
+/obj/item/toy/plush/awakenedplushie/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/edit_complainer)
 
@@ -838,6 +838,13 @@
 /obj/item/toy/plush/shark/dropped(mob/living/carbon/user)
 	..()
 	SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "big_plush")
+
+/obj/item/toy/plush/donkpocket
+	name = "donk pocket plushie"
+	desc = "The stuffed companion of choice for the seasoned traitor."
+	icon_state = "donkpocket"
+	attack_verb_continuous = list("donks")
+	attack_verb_simple = list("donk")
 
 /obj/item/toy/plush/flushed/rainbow
 	name = "rainbow flushed plushie"

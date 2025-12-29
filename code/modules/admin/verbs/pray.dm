@@ -14,7 +14,7 @@
 		return
 	log_prayer("[src.key]/([src.name]): [msg]")
 	if(usr.client)
-		if(usr.client.prefs.muted & MUTE_PRAY)
+		if(usr.client.player_details.muted & MUTE_PRAY)
 			to_chat(usr, span_danger("You cannot pray (muted)."))
 			return
 		if(src.client.handle_spam_prevention(msg,MUTE_PRAY))
@@ -30,7 +30,7 @@
 		prayer_type = "CHAPLAIN PRAYER"
 		if(GLOB.deity)
 			deity = GLOB.deity
-	else if(iscultist(usr))
+	else if(IS_CULTIST(usr))
 		cross.icon_state = "tome"
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"

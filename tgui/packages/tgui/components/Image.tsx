@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import { BoxProps, computeBoxProps } from './Box';
 
 type Props = Partial<{
@@ -42,7 +43,13 @@ export class Image extends Component<Props> {
   };
 
   render() {
-    const { fixBlur = true, fixErrors = false, objectFit = 'fill', src, ...rest } = this.props;
+    const {
+      fixBlur = true,
+      fixErrors = false,
+      objectFit = 'fill',
+      src,
+      ...rest
+    } = this.props;
 
     /* Remove -ms-interpolation-mode with Byond 516. -webkit-optimize-contrast is better than pixelated */
     const computedProps = computeBoxProps({

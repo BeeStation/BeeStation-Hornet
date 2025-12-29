@@ -3,7 +3,9 @@ SUBSYSTEM_DEF(research)
 	name = "Research"
 	priority = FIRE_PRIORITY_RESEARCH
 	wait = 10
-	init_order = INIT_ORDER_RESEARCH
+	dependencies = list(
+		/datum/controller/subsystem/processing/station,
+	)
 	//TECHWEB STATIC
 	var/list/techweb_nodes = list()				//associative id = node datum
 	var/list/techweb_designs = list()			//associative id = node datum
@@ -160,6 +162,8 @@ SUBSYSTEM_DEF(research)
 		for(var/i in node.design_ids)
 			var/datum/design/D = techweb_designs[i]
 			node.design_ids[i] = TRUE
+			if(isnull(D))
+				CRASH("[D] is null! You probably added to a design id list without associating the entry with a design.")
 			D.unlocked_by += node.id
 		if(node.hidden)
 			techweb_nodes_hidden[node.id] = TRUE

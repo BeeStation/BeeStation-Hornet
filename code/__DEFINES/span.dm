@@ -61,11 +61,13 @@
 #define span_deadsaybold(str) ("<span class='deadsay bold'>" + (str) + "</span>")
 #define span_deadsayitalicsbold(str) ("<span class='deadsay italics bold'>" + (str) + "</span>")
 #define span_deathmessage(str) ("<span class='death_message'>" + (str) + "</span>")
+#define span_prisonermessage(str) ("<span class='prisoner_message'>" + (str) + "</span>")
 #define span_deconversionmessage(str) ("<span class='deconversion_message'>" + (str) + "</span>")
 #define span_deconversionmessagebold(str) ("<span class='deconversion_message bold'>" + (str) + "</span>")
 #define span_deptradio(str) ("<span class='deptradio'>" + (str) + "</span>")
 #define span_disarm(str) ("<span class='disarm'>" + (str) + "</span>")
 #define span_dooc(str) ("<span class='dooc'>" + (str) + "</span>")
+#define span_emojibutton(str) ("<span class='emoji_button'>" + (str) + "</span>")
 #define span_emote(str) ("<span class='emote'>" + (str) + "</span>")
 #define span_error(str) ("<span class='error'>" + (str) + "</span>")
 #define span_gamedeadsay(str) ("<span class='game deadsay'>" + (str) + "</span>")
@@ -185,10 +187,14 @@
 #define span_service(str) ("<span class='service'>" + (str) + "</span>")
 #define span_sevtug(str) ("<span class='sevtug'>" + (str) + "</span>")
 #define span_sevtugsmall(str) ("<span class='sevtug_small'>" + (str) + "</span>")
+#define span_slightly_larger(str) ("<span class='slightly_larger'>" + str + "</span>")
 #define span_slime(str) ("<span class='slime'>" + (str) + "</span>")
 #define span_slimebold(str) ("<span class='slime bold'>" + (str) + "</span>")
 #define span_slimeitalics(str) ("<span class='slime italics'>" + (str) + "</span>")
 #define span_smallboldannounce(str) ("<span class='small boldannounce'>" + (str) + "</span>")
+#define span_smalldanger(str) ("<span class='smalldanger'>" + str + "</span>")
+#define span_smallnotice(str) ("<span class='smallnotice'>" + str + "</span>")
+#define span_smallnoticeital(str) ("<span class='smallnoticeital'>" + str + "</span>")
 #define span_spider(str) ("<span class='spider'>" + (str) + "</span>")
 #define span_spiderlarge(str) ("<span class='spiderlarge'>" + (str) + "</span>")
 #define span_srtradio(str) ("<span class='srt_radio'>" + (str) + "</span>")
@@ -202,6 +208,7 @@
 #define span_srtradioholoparasiteboldmessage(str) ("<span class='srt_radio holoparasite bold message'>" + (str) + "</span>")
 #define span_subheaderannouncementtext(str) ("<span class='subheader_announcement_text'>" + (str) + "</span>")
 #define span_suicide(str) ("<span class='suicide'>" + (str) + "</span>")
+#define span_tinydanger(str) ("<span class='tinydanger'>" + (str) + "</span>")
 #define span_umbraemphasis(str) ("<span class='umbra_emphasis'>" + (str) + "</span>")
 #define span_unconscious(str) ("<span class='unconscious'>" + (str) + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")
@@ -215,7 +222,12 @@
 #define span_warningholoparasite(str) ("<span class='warning holoparasite'>" + (str) + "</span>")
 #define span_warningitalics(str) ("<span class='warning italics'>" + (str) + "</span>")
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
+#define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
+
+//More generic macros
+#define span_style(style, X) "<span style=\"[style]\">[X]</span>"
+#define span_color(color, text) span_style("color: [color]", "[text]")

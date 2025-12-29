@@ -216,6 +216,7 @@ RLD
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	has_ammobar = TRUE
 	actions_types = list(/datum/action/item_action/rcd_scan)
+	custom_price = 100
 	var/mode = RCD_FLOORWALL
 	var/construction_mode = RCD_FLOORWALL
 	var/ranged = FALSE
@@ -270,35 +271,45 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		return
 
 	COOLDOWN_START(src, destructive_scan_cooldown, RCD_DESTRUCTIVE_SCAN_COOLDOWN)
+	rcd_scan(src)
 
-	playsound(src, 'sound/items/rcdscan.ogg', 50, vary = TRUE, pressure_affected = FALSE)
+/**
+ * Global proc that generates RCD hologram in a range.
+ *
+ * Arguments:
+ * * source - The atom the scans originate from
+ * * scan_range - The range of turfs we grab from the source
+ * * fade_time - The time for RCD holograms to fade
+ */
+/proc/rcd_scan(atom/source, scan_range = RCD_DESTRUCTIVE_SCAN_RANGE, fade_time = RCD_HOLOGRAM_FADE_TIME)
+	playsound(source, 'sound/items/rcdscan.ogg', 50, vary = TRUE, pressure_affected = FALSE)
 
-	var/turf/source_turf = get_turf(src)
-	for (var/turf/open/surrounding_turf in RANGE_TURFS(RCD_DESTRUCTIVE_SCAN_RANGE, source_turf))
+	var/turf/source_turf = get_turf(source)
+	for(var/turf/open/surrounding_turf in RANGE_TURFS(scan_range, source_turf))
 		var/rcd_memory = surrounding_turf.rcd_memory
-		if (!rcd_memory)
+		if(!rcd_memory)
 			continue
 
 		var/skip_to_next_turf = FALSE
 
-		for (var/atom/content_of_turf as anything in surrounding_turf.contents)
+		for(var/atom/content_of_turf as anything in surrounding_turf.contents)
 			if (content_of_turf.density)
 				skip_to_next_turf = TRUE
 				break
 
-		if (skip_to_next_turf)
+		if(skip_to_next_turf)
 			continue
 
 		var/hologram_icon
-		switch (rcd_memory)
-			if (RCD_MEMORY_WALL)
+		switch(rcd_memory)
+			if(RCD_MEMORY_WALL)
 				hologram_icon = GLOB.icon_holographic_wall
-			if (RCD_MEMORY_WINDOWGRILLE)
+			if(RCD_MEMORY_WINDOWGRILLE)
 				hologram_icon = GLOB.icon_holographic_window
 
-		var/obj/effect/rcd_hologram/hologram = new (surrounding_turf)
+		var/obj/effect/rcd_hologram/hologram = new(surrounding_turf)
 		hologram.icon = hologram_icon
-		animate(hologram, alpha = 0, time = RCD_HOLOGRAM_FADE_TIME, easing = CIRCULAR_EASING | EASE_IN)
+		animate(hologram, alpha = 0, time = fade_time, easing = CIRCULAR_EASING | EASE_IN)
 
 /obj/effect/rcd_hologram
 	name = "hologram"
@@ -386,16 +397,17 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	//Not scaling these down to button size because they look horrible then, instead just bumping up radius.
 	return MA
 
-/obj/item/construction/rcd/proc/change_computer_dir(mob/user)
+/obj/item/construction/rcd/proc/change_computer_dir(mob/user, atom/anchor = src, require_near = TRUE)
 	if(!user)
 		return
+
 	var/list/computer_dirs = list(
 		"NORTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cnorth"),
 		"EAST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "ceast"),
 		"SOUTH" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "csouth"),
 		"WEST" = image(icon = 'icons/hud/radials/radial_generic.dmi', icon_state = "cwest")
 		)
-	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	var/computerdirs = show_radial_menu(user, anchor, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(computerdirs)
@@ -408,7 +420,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		if("WEST")
 			computer_dir = 8
 
-/obj/item/construction/rcd/proc/change_airlock_setting(mob/user)
+/obj/item/construction/rcd/proc/change_airlock_setting(mob/user, atom/anchor = src, require_near = TRUE)
 	if(!user)
 		return
 
@@ -456,13 +468,13 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
 	)
 
-	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	var/airlockcat = show_radial_menu(user, anchor, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(airlockcat)
 		if("Solid")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, anchor, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -507,7 +519,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 		if("Glass")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, anchor, glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = require_near, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -784,7 +796,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 /obj/item/construction/rcd/borg/syndicate
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	energyfactor = 66
 
 /obj/item/construction/rcd/loaded
@@ -793,22 +805,30 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/rcd/combat
 	name = "industrial RCD"
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	max_matter = 500
 	matter = 500
 	canRturf = TRUE
 	item_flags = ISWEAPON
+
+/obj/item/construction/rcd/combat/ert
+	name = "ERT RCD"
+	icon_state = "ircd"
+	inhand_icon_state = "ircd"
+	max_matter = 450
+	matter = 450
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
-	item_state = "rcdammo"
+	inhand_icon_state = "rcdammo"
 	w_class = WEIGHT_CLASS_TINY
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_price = 60
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
@@ -825,7 +845,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	delay_mod = 0.6
 	ranged = TRUE
 	icon_state = "arcd"
-	item_state = "oldrcd"
+	inhand_icon_state = "oldrcd"
 	has_ammobar = FALSE
 	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 
@@ -877,7 +897,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	var/color_choice = null
 
 
-/obj/item/construction/rld/ui_action_click(mob/user, var/datum/action/A)
+/obj/item/construction/rld/ui_action_click(mob/user, datum/action/A)
 	if(istype(A, /datum/action/item_action/pick_color))
 		color_choice = tgui_color_picker(user,"","Choose Color",color_choice)
 	else
@@ -902,7 +922,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 			to_chat(user, span_notice("You change RLD's mode to 'Deconstruct'."))
 
 
-/obj/item/construction/rld/proc/checkdupes(var/target)
+/obj/item/construction/rld/proc/checkdupes(target)
 	. = list()
 	var/turf/checking = get_turf(target)
 	for(var/obj/machinery/light/dupe in checking)

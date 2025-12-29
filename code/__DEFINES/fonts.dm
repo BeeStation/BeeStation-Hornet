@@ -7,6 +7,8 @@
 #define PEN_FONT "Verdana"
 /// Font used by fancy pens
 #define FOUNTAIN_PEN_FONT "Segoe Script"
+/// Font used by brushes
+#define BRUSH_PEN_FONT "Almendra"
 /// Font used by crayons
 #define CRAYON_FONT "Comic Sans MS"
 /// Font used by printers

@@ -31,6 +31,7 @@
 	name = "Frozen Solid"
 	desc = "You're frozen inside an ice cube, and cannot move! You can still do stuff, like shooting. Resist out of the cube!"
 	icon_state = "frozen"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/freon/Click(location, control, params)
 	. = ..()
@@ -41,7 +42,7 @@
 		return L.resist()
 
 
-/datum/status_effect/freon/tick()
+/datum/status_effect/freon/tick(seconds_between_ticks)
 	if(can_melt && owner.bodytemperature >= owner.get_body_temp_normal())
 		qdel(src)
 

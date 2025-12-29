@@ -1,4 +1,7 @@
-GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)))
+GLOBAL_LIST_INIT(atmos_components, typecacheof(list(
+	/obj/machinery/atmospherics,
+)))
+
 //Smart pipes... or are they?
 /obj/machinery/atmospherics/pipe/smart
 	icon = 'icons/obj/atmospherics/pipes/simple.dmi'

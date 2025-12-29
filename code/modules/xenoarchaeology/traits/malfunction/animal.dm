@@ -80,12 +80,12 @@
 	T.color = component_parent.artifact_material.material_color
 	//Handle limit and hardel
 	summons += T
-	RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(handle_death))
+	RegisterSignal(T, COMSIG_QDELETING, PROC_REF(handle_death))
 
 /mob/living/simple_animal/hostile/twin
 	name = "evil twin"
 	desc = "It looks so familiar."
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	speed = 0

@@ -23,6 +23,7 @@
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	flags_1 = STAT_UNIQUE_1
 	ai_view = FALSE
+	trade_flags = TRADE_NOT_SELLABLE // Adding this here just in case
 	///Check if the object can be unwrenched
 	var/can_unwrench = FALSE
 	///Bitflag of the initialized directions (NORTH | SOUTH | EAST | WEST)
@@ -70,7 +71,6 @@
 	bullet = 10
 	laser = 10
 	energy = 100
-	rad = 100
 	fire = 100
 	acid = 70
 
@@ -449,8 +449,7 @@
 		return
 	if(ishuman(user)) //other carbons like monkeys can unwrench but cant wear magboots
 		if(istype(user.shoes, /obj/item/clothing/shoes/magboots))
-			var/obj/item/clothing/shoes/magboots/M = user.shoes
-			if(M.negates_gravity())
+			if(user.has_gravity())
 				return
 	if(!pressures)
 		var/datum/gas_mixture/int_air = return_air()

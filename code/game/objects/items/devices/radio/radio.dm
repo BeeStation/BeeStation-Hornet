@@ -4,7 +4,7 @@
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
 	icon_state = "walkietalkie"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	worn_icon_state = "radio"
 	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
@@ -160,7 +160,7 @@
 	if(headset)
 		. = ..()
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
-		broadcasting = !broadcasting
+		set_broadcasting(!broadcasting)
 		to_chat(user, span_notice("You toggle broadcasting [broadcasting ? "on" : "off"]."))
 		ui_update()
 
@@ -168,7 +168,7 @@
 	if(headset)
 		. = ..()
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
-		listening = !listening
+		set_listening(!listening)
 		to_chat(user, span_notice("You toggle speaker [listening ? "on" : "off"]."))
 		ui_update()
 

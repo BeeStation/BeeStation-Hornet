@@ -2,9 +2,7 @@
 	name = "Android"
 	id = SPECIES_ANDROID
 	species_traits = list(
-		NOTRANSSTING,
 		NOREAGENTS,
-		NO_DNA_COPY,
 		NOFLASH
 	)
 	inherent_traits = list(
@@ -13,7 +11,15 @@
 		TRAIT_TOXIMMUNE,
 		TRAIT_RESISTHEAT,
 		TRAIT_NOBREATH,
+		TRAIT_NOCLONELOSS,
+		TRAIT_NOFIRE,
+		TRAIT_NOHUNGER,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_RADIMMUNE,
+		TRAIT_PIERCEIMMUNE,
 		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHEAT,
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RADIMMUNE,
@@ -24,7 +30,7 @@
 		TRAIT_NOCLONELOSS,
 		TRAIT_NOBLOOD,
 	)
-	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
+	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	meat = null
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantstomach = null
@@ -40,10 +46,10 @@
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/robot/android,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/robot/android,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/robot/android,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/robot/android,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/robot/android,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/robot/android,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/robot/android,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/robot/android,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/robot/android,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/robot/android,
 	)
 	examine_limb_id = SPECIES_HUMAN
 

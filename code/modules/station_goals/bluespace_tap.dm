@@ -91,7 +91,7 @@
 		/obj/item/stack/sheet/glass/fifty = 10,
 		/obj/item/stack/sheet/mineral/copper/twenty = 20,
 		/obj/item/sord = 20,
-		/obj/item/toy/syndicateballoon = 15,
+		/obj/item/toy/balloon/syndicate = 15,
 		/obj/item/lighter/greyscale = 5,
 		/obj/item/lighter = 5,
 		/obj/item/gun/ballistic/automatic/toy/pistol = 1,

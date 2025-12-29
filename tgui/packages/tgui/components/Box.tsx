@@ -6,6 +6,7 @@
 
 import { BooleanLike, classes } from 'common/react';
 import { createElement, ReactNode } from 'react';
+
 import { CSS_COLORS } from '../constants';
 
 export type BoxProps = {
@@ -153,7 +154,12 @@ const stringStyleMap = {
     }
   },
   // Margin
-  m: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom', 'left', 'right']),
+  m: mapDirectionalUnitPropTo('margin', halfUnit, [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]),
   mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
   my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
   mt: mapUnitPropTo('marginTop', halfUnit),
@@ -161,7 +167,12 @@ const stringStyleMap = {
   ml: mapUnitPropTo('marginLeft', halfUnit),
   mr: mapUnitPropTo('marginRight', halfUnit),
   // Padding
-  p: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom', 'left', 'right']),
+  p: mapDirectionalUnitPropTo('padding', halfUnit, [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]),
   px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
   py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
   pt: mapUnitPropTo('paddingTop', halfUnit),
@@ -206,7 +217,8 @@ export const computeBoxProps = (props) => {
 
     const propValue = props[propName];
 
-    const mapPropToStyle = stringStyleMap[propName] || booleanStyleMap[propName];
+    const mapPropToStyle =
+      stringStyleMap[propName] || booleanStyleMap[propName];
 
     if (mapPropToStyle) {
       mapPropToStyle(computedStyles, propValue);
@@ -224,14 +236,19 @@ export const computeBoxProps = (props) => {
 export const computeBoxClassName = (props: BoxProps) => {
   const color = props.textColor || props.color;
   const backgroundColor = props.backgroundColor;
-  return classes([isColorClass(color) && 'color-' + color, isColorClass(backgroundColor) && 'color-bg-' + backgroundColor]);
+  return classes([
+    isColorClass(color) && 'color-' + color,
+    isColorClass(backgroundColor) && 'color-bg-' + backgroundColor,
+  ]);
 };
 
 export const Box = (props: BoxProps) => {
   const { as = 'div', className, children, ...rest } = props;
 
   // Compute class name and styles
-  const computedClassName = className ? `${className} ${computeBoxClassName(rest)}` : computeBoxClassName(rest);
+  const computedClassName = className
+    ? `${className} ${computeBoxClassName(rest)}`
+    : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
 
   if (as === 'img') {
@@ -246,6 +263,6 @@ export const Box = (props: BoxProps) => {
       ...computedProps,
       className: computedClassName,
     },
-    children
+    children,
   );
 };

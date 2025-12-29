@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	desc = "[initial(target_type.desc)] The colors look a little dodgy."
 	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
-/obj/item/proc/appearance_change(var/obj/item/target_type)
+/obj/item/proc/appearance_change(obj/item/target_type)
 	if(initial(target_type.greyscale_config) && initial(target_type.greyscale_colors))
 		set_greyscale(
 			colors=initial(target_type.greyscale_colors),
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	add_atom_colour(initial(target_type.color), FIXED_COLOUR_PRIORITY)
 	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
+	inhand_icon_state = initial(target_type.inhand_icon_state)
 	worn_icon_state = initial(target_type.worn_icon_state)
 	inhand_x_dimension = initial(target_type.inhand_x_dimension)
 	inhand_y_dimension = initial(target_type.inhand_y_dimension)

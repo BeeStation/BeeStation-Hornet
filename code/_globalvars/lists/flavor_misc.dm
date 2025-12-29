@@ -327,6 +327,17 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
 ))
 
+GLOBAL_LIST_INIT(accents, list(
+	"British" = BRITISH_TALK_FILE,
+	"Canadian" = CANADIAN_TALK_FILE,
+	"French" = FRENCH_TALK_FILE,
+	"Swedish" = SWEDISH_TALK_FILE,
+	"Italian" = ITALIAN_TALK_FILE,
+	"Scottish" = SCOTTISH_TALK_FILE,
+	"Medieval" = MEDIEVAL_SPEECH_FILE,
+	"Roadman" = ROADMAN_TALK_FILE,
+))
+
 GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/storage/fancy/cigarettes/cigpack_midori,
@@ -362,54 +373,54 @@ GLOBAL_LIST_INIT(junkie_drugs, list(
 
 /// Naturally occuring hair colours
 GLOBAL_LIST_INIT(natural_hair_colours, list(
-	"#f0e2ba",
-	"#f4eede",
-	"#c3a87c",
-	"#ecd19d",
-	"#feedb8",
-	"#A0785F",
-	"#996F53",
-	"#60463D",
-	"#9E7046",
-	"#9B7257",
-	"#523F38",
-	"#50362F",
-	"#A55A3B",
-	"#4D3B2C",
-	"#312016",
-	"#432C20",
-	"#2C1C11",
-	"#2E3239",
-	"#693822",
-	"#663423"
+	"f0e2ba",
+	"f4eede",
+	"c3a87c",
+	"ecd19d",
+	"feedb8",
+	"A0785F",
+	"996F53",
+	"60463D",
+	"9E7046",
+	"9B7257",
+	"523F38",
+	"50362F",
+	"A55A3B",
+	"4D3B2C",
+	"312016",
+	"432C20",
+	"2C1C11",
+	"2E3239",
+	"693822",
+	"663423"
 ))
 
 /// Hair colours that aren't naturaly but relatively normal (I'll save the anime hair colours for custom characters)
 GLOBAL_LIST_INIT(female_dyed_hair_colours, list(
-	"#733338",
-	"#593333",
-	"#401B24",
-	"#492D38",
-	"#3E262D",
+	"733338",
+	"593333",
+	"401B24",
+	"492D38",
+	"3E262D",
 ))
 
 GLOBAL_LIST_INIT(secondary_dye_hair_colours, list(
-	"#f0e2ba",
-	"#f4eede",
-	"#c3a87c",
-	"#ecd19d",
-	"#feedb8",
+	"f0e2ba",
+	"f4eede",
+	"c3a87c",
+	"ecd19d",
+	"feedb8",
 ))
 
 GLOBAL_LIST_INIT(secondary_dye_female_hair_colours, list(
-	"#f0e2ba",
-	"#f4eede",
-	"#c3a87c",
-	"#ecd19d",
-	"#feedb8",
-	"#733338",
-	"#593333",
-	"#401B24",
-	"#492D38",
-	"#3E262D",
+	"f0e2ba",
+	"f4eede",
+	"c3a87c",
+	"ecd19d",
+	"feedb8",
+	"733338",
+	"593333",
+	"401B24",
+	"492D38",
+	"3E262D",
 ))

@@ -222,10 +222,8 @@
 	. = ..()
 	data = list()
 	data["version"] = GLOB.game_version
-	data["mode"] = GLOB.master_mode
-	data["respawn"] = config ? !CONFIG_GET(flag/norespawn) : FALSE
+	data["respawn"] = config ? !!CONFIG_GET(flag/allow_respawn) : FALSE // show respawn as true regardless of "respawn as char" or "free respawn"
 	data["enter"] = GLOB.enter_allowed
-	data["vote"] = CONFIG_GET(flag/allow_vote_mode)
 	data["ai"] = CONFIG_GET(flag/allow_ai)
 	data["host"] = world.host ? world.host : null
 	data["round_id"] = text2num(GLOB.round_id) // I don't know who's fault it is that round id is loaded as a string but screw you
@@ -240,7 +238,7 @@
 	data["admins"] = presentmins.len + afkmins.len //equivalent to the info gotten from adminwho
 	data["gamestate"] = SSticker.current_state
 
-	data["map_name"] = SSmapping.config?.map_name || "Loading..."
+	data["map_name"] = SSmapping.current_map?.map_name || "Loading..."
 
 	data["security_level"] = SSsecurity_level.get_current_level_as_text()
 	data["round_duration"] = SSticker?.round_start_timeofday ? round((world.timeofday - SSticker.round_start_timeofday)/10) : 0
@@ -276,8 +274,6 @@
 	. = ..()
 	// Add on a little extra data for our "special" patrons
 	data["active_players"] = get_active_player_count()
-	if(SSticker.HasRoundStarted())
-		data["real_mode"] = SSticker.mode.name
 
 /datum/world_topic/identify_uuid
 	key = "identify_uuid"

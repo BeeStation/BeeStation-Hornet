@@ -55,8 +55,7 @@
 
 	///If disabled, limb is as good as missing.
 	var/bodypart_disabled = FALSE
-	///Multiplied by max_damage it returns the threshold which defines a limb being disabled or not. From 0 to 1.
-	var/disable_threshold = 1
+
 	///Controls whether bodypart_disabled makes sense or not for this limb.
 	var/can_be_disabled = FALSE
 
@@ -85,6 +84,10 @@
 	var/should_draw_greyscale = TRUE
 	///An "override" color that can be applied to ANY limb, greyscale or not.
 	var/variable_color = ""
+	/// The colour of damage done to this bodypart
+	var/damage_color = ""
+	/// Should we even use a color?
+	var/use_damage_color = FALSE
 
 	///whether it can be dismembered with a weapon.
 	var/dismemberable = TRUE
@@ -144,6 +147,81 @@
 		. += span_warning("This limb has [burn_dam > 30 ? "severe" : "minor"] burns.")
 	if(limb_id)
 		. += span_notice("It is a [limb_id] [parse_zone(body_zone)].")
+
+/**
+ * Called when a bodypart is checked for injuries.
+ *
+ * Modifies the check_list list with the resulting report of the limb's status.
+ */
+/obj/item/bodypart/proc/check_for_injuries(mob/living/carbon/human/examiner, list/check_list)
+
+	var/list/limb_damage = list(BRUTE = brute_dam, BURN = burn_dam)
+
+	SEND_SIGNAL(src, COMSIG_BODYPART_CHECKED_FOR_INJURY, examiner, check_list, limb_damage)
+	SEND_SIGNAL(examiner, COMSIG_CARBON_CHECKING_BODYPART, src, check_list, limb_damage)
+
+	var/shown_brute = limb_damage[BRUTE]
+	var/shown_burn = limb_damage[BURN]
+	var/status = ""
+	var/self_aware = HAS_TRAIT(examiner, TRAIT_SELF_AWARE)
+
+	if(self_aware)
+		if(!shown_brute && !shown_burn)
+			status = "no damage"
+		else
+			status = "[shown_brute] brute damage and [shown_burn] burn damage"
+
+	else
+		if(shown_brute > (max_damage * 0.8))
+			status += heavy_brute_msg
+		else if(shown_brute > (max_damage * 0.4))
+			status += medium_brute_msg
+		else if(shown_brute > DAMAGE_PRECISION)
+			status += light_brute_msg
+
+		if(shown_brute > DAMAGE_PRECISION && shown_burn > DAMAGE_PRECISION)
+			status += " and "
+
+		if(shown_burn > (max_damage * 0.8))
+			status += heavy_burn_msg
+		else if(shown_burn > (max_damage * 0.2))
+			status += medium_burn_msg
+		else if(shown_burn > DAMAGE_PRECISION)
+			status += light_burn_msg
+
+		if(status == "")
+			status = "OK"
+
+	var/no_damage
+	if(status == "OK" || status == "no damage")
+		no_damage = TRUE
+
+	var/is_disabled = ""
+	if(bodypart_disabled)
+		is_disabled = " is disabled"
+		if(no_damage)
+			is_disabled += " but otherwise"
+		else
+			is_disabled += " and"
+
+	check_list += "\t <span class='[no_damage ? "notice" : "warning"]'>Your [name][is_disabled][self_aware ? " has " : " is "][status].</span>"
+
+	/*
+	for(var/datum/wound/wound as anything in wounds)
+		switch(wound.severity)
+			if(WOUND_SEVERITY_TRIVIAL)
+				check_list += "\t [span_danger("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)].")]"
+			if(WOUND_SEVERITY_MODERATE)
+				check_list += "\t [span_warning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!")]"
+			if(WOUND_SEVERITY_SEVERE)
+				check_list += "\t [span_boldwarning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!")]"
+			if(WOUND_SEVERITY_CRITICAL)
+				check_list += "\t [span_boldwarning("Your [name] is suffering [wound.a_or_from] [LOWER_TEXT(wound.name)]!!")]"
+	*/
+
+	for(var/obj/item/embedded_thing in embedded_objects)
+		var/stuck_word = embedded_thing.isEmbedHarmless() ? "stuck" : "embedded"
+		check_list += "\t<a href='byond://?src=[REF(examiner)];embedded_object=[REF(embedded_thing)];embedded_limb=[REF(src)]' class='warning'>There is \a [embedded_thing] [stuck_word] in your [name]!</a>"
 
 /obj/item/bodypart/blob_act()
 	receive_damage(max_damage)
@@ -234,7 +312,7 @@
 	var/hit_percent = (100-blocked)/100
 	if((!brute && !burn && !stamina) || hit_percent <= 0)
 		return FALSE
-	if(owner && (owner.status_flags & GODMODE))
+	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE	//godmode
 	if(required_status && !(bodytype & required_status))
 		return FALSE
@@ -303,8 +381,8 @@
 		if(updating_health)
 			owner.updatehealth()
 		if(owner.dna?.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
-			if(owner.health > 0 && !owner.ishellbound())
-				owner.revive(0)
+			if(owner.health > 0 && owner.stat == DEAD)
+				owner.revive()
 				owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
 	return update_bodypart_damage_state()
 
@@ -368,8 +446,15 @@
 		return
 
 	var/total_damage = max(brute_dam + burn_dam, stamina_dam)
+	var/disable_threshold = 1
 
-	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
+	if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
+		disable_threshold = 0.6 //Easy limb disable disables the limb at 40% health instead of 0%
+
+	else
+		disable_threshold = 1
+
+	if(total_damage >= max_damage * disable_threshold)
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
 				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
@@ -485,26 +570,6 @@
 
 	set_can_be_disabled(initial(can_be_disabled))
 
-
-///Called when TRAIT_EASYLIMBWOUND is added to the owner.
-/obj/item/bodypart/proc/on_owner_easylimbwound_trait_gain(mob/living/carbon/source)
-	PROTECTED_PROC(TRUE)
-	SIGNAL_HANDLER
-
-	disable_threshold = 0.6
-	if(can_be_disabled)
-		update_disabled()
-
-
-///Called when TRAIT_EASYLIMBWOUND is removed from the owner.
-/obj/item/bodypart/proc/on_owner_easylimbwound_trait_loss(mob/living/carbon/source)
-	PROTECTED_PROC(TRUE)
-	SIGNAL_HANDLER
-
-	disable_threshold = initial(disable_threshold)
-	if(can_be_disabled)
-		update_disabled()
-
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.
 /obj/item/bodypart/proc/update_bodypart_damage_state()
@@ -553,6 +618,7 @@
 	else
 		skin_tone = ""
 
+	use_damage_color = owner_species.use_damage_color
 	if(((MUTCOLORS in owner_species.species_traits) || (DYNCOLORS in owner_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
 		if(owner_species.fixed_mut_color)
 			species_color = owner_species.fixed_mut_color
@@ -594,7 +660,10 @@
 		image_dir = SOUTH
 		if(dmg_overlay_type)
 			if(brutestate)
-				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
+				var/image/bruteoverlay = image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_[brutestate]0", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
+				if(use_damage_color)
+					bruteoverlay.color = damage_color
+				. += bruteoverlay
 			if(burnstate)
 				. += image('icons/mob/dam_mob.dmi', "[dmg_overlay_type]_[body_zone]_0[burnstate]", CALCULATE_MOB_OVERLAY_LAYER(DAMAGE_LAYER), image_dir)
 

@@ -3,11 +3,11 @@
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = null
+	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
@@ -17,10 +17,10 @@
 	bodyparts = list(
 		/obj/item/bodypart/chest/monkey,
 		/obj/item/bodypart/head/monkey,
-		/obj/item/bodypart/l_arm/monkey,
-		/obj/item/bodypart/r_arm/monkey,
-		/obj/item/bodypart/r_leg/monkey,
-		/obj/item/bodypart/l_leg/monkey
+		/obj/item/bodypart/arm/left/monkey,
+		/obj/item/bodypart/arm/right/monkey,
+		/obj/item/bodypart/leg/right/monkey,
+		/obj/item/bodypart/leg/left/monkey
 	)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
@@ -129,8 +129,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
-			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.chem_storage]")
-			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbedcount]")
+			tab_data["Chemical Storage"] = GENERATE_STAT_TEXT("[changeling.chem_charges]/[changeling.total_chem_storage]")
+			tab_data["Absorbed DNA"] = GENERATE_STAT_TEXT("[changeling.absorbed_count]")
 	return tab_data
 
 
@@ -226,8 +226,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	icon_state = null
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
-					/obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
+					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null
 	var/creator_key = null
 
@@ -251,13 +251,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 /datum/species/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(
 		TRAIT_NOHUNGER,
 		TRAIT_RADIMMUNE,
 		TRAIT_BADDNA,
 		TRAIT_CHUNKYFINGERS,
-		TRAIT_NONECRODISEASE
+		TRAIT_NONECRODISEASE,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NO_TRANSFORMATION_STING,
 	) //Made of mutated cells
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
@@ -268,10 +270,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	bodypart_overrides = list(
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/monkey/teratoma,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/monkey/teratoma,
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/monkey/teratoma,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/monkey/teratoma,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/monkey/teratoma,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/monkey/teratoma
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/monkey/teratoma,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/monkey/teratoma,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/monkey/teratoma,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/monkey/teratoma
 	)
 
 /obj/item/organ/brain/tumor
@@ -282,9 +284,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//Removing it deletes it
 	if(!QDELETED(src))
 		qdel(src)
-
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
-	return
 
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE

@@ -158,6 +158,10 @@
 	/// What networks should cameras in this area belong to?
 	var/list/camera_networks = list()
 
+	/// If true, then air alarm automation will be disabled in this area and it will start with filtering instead
+	/// of automated.
+	var/disable_air_alarm_automation = FALSE
+
 /**
   * A list of teleport locations
   *
@@ -225,8 +229,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		power_equip = TRUE
 		power_environ = TRUE
 
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_DISABLED)
 		set_base_luminosity(src, 1)
 

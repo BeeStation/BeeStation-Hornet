@@ -87,7 +87,7 @@
 	return shuttle
 
 //Consumes fuel and reduces thrust of engines that run out of fuel
-/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/consume_fuel(var/multiplier = 1)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/consume_fuel(multiplier = 1)
 	//Reset stats
 	calculated_dforce = 0
 	calculated_acceleration = 0
@@ -155,11 +155,11 @@
 		amount += moles
 	return amount
 
-/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/linkShuttle(var/new_id)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/linkShuttle(new_id)
 	shuttleId = new_id
 	shuttlePortId = "[shuttleId]_custom_dock"
 
-/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/calculateStats(var/useFuel = FALSE)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/proc/calculateStats(useFuel = FALSE)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
 		return FALSE

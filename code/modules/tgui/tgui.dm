@@ -244,7 +244,10 @@
 	json_data["config"] = list(
 		"title" = title,
 		"status" = status,
-		"interface" = interface,
+		"interface" = list(
+			"name" = interface,
+			"layout" = user.client.prefs.read_preference(src_object.layout_prefs_used),
+		),
 		"refreshing" = refreshing,
 		"window" = list(
 			"key" = window_key,

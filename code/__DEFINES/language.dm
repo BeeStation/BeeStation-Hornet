@@ -44,7 +44,6 @@
 #define LANGUAGE_CULTIST "cultist"
 #define LANGUAGE_CURATOR "curator"
 #define LANGUAGE_REVENANT "revenant"
-#define LANGUAGE_DEVIL "devil"
 #define LANGUAGE_GLAND "gland"
 #define LANGUAGE_HAT "hat"
 #define LANGUAGE_HIGH "high"
@@ -60,6 +59,8 @@
 #define LANGUAGE_EMP "emp"
 #define LANGUAGE_HOLOPARA "holoparasite"
 #define LANGUAGE_BABEL "babel"
+#define LANGUAGE_VAMPIRE "vampire"
+#define LANGUAGE_CHANGELING "changeling"
 
 // Language flags. Used in granting and removing languages.
 /// This language can be spoken.
@@ -82,5 +83,6 @@ GLOBAL_LIST_INIT(multilingual_language_list, typecacheof(list(
 	/datum/language/sylvan,
 	/datum/language/terrum,
 	/datum/language/uncommon,
-	/datum/language/voltaic
+	/datum/language/voltaic,
+	/datum/language/vampiric,
 )))

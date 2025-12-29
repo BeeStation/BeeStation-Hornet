@@ -52,7 +52,7 @@
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
 	if(!owner) // If we're out of the body, kill us and stop processing
-		applyOrganDamage(maxHealth)
+		apply_organ_damage(maxHealth)
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
@@ -83,16 +83,15 @@
 
 	bursting = TRUE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		question = "Do you want to play as an alien larva that will burst out of [owner]?",
-		role = /datum/role_preference/midround_ghost/xenomorph,
-		check_jobban = ROLE_ALIEN,
-		poll_time = 10 SECONDS,
-		ignore_category = POLL_IGNORE_ALIEN_LARVA,
-		jump_target = owner,
-		role_name_text = "alien larva",
-		alert_pic = /mob/living/carbon/alien/larva,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "Do you want to play as an alien larva that will burst out of [owner]?"
+	config.check_jobban = ROLE_ALIEN
+	config.poll_time = 10 SECONDS
+	config.ignore_category = POLL_IGNORE_ALIEN_LARVA
+	config.jump_target = owner
+	config.role_name_text = "alien larva"
+	config.alert_pic = /mob/living/carbon/alien/larva
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 	if(QDELETED(src) || QDELETED(owner))
 		return

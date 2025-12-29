@@ -1,5 +1,18 @@
-import { useBackend, useLocalState } from '../backend';
-import { Section, Box, Dropdown, Button, Input, TextArea, Divider, NumberInput, Tooltip, Knob } from '../components';
+import { useState } from 'react';
+import { Dropdown } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Divider,
+  Input,
+  Knob,
+  NumberInput,
+  Section,
+  TextArea,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 
 export const AdminFax = (props) => {
@@ -15,15 +28,15 @@ export const AdminFax = (props) => {
 export const FaxMainPanel = (props) => {
   const { act, data } = useBackend();
 
-  const [fax, setFax] = useLocalState('fax', '');
-  const [saved, setSaved] = useLocalState('saved', false);
-  const [paperName, setPaperName] = useLocalState('paperName', '');
-  const [fromWho, setFromWho] = useLocalState('fromWho', '');
-  const [rawText, setRawText] = useLocalState('rawText', '');
-  const [stamp, setStamp] = useLocalState('stampType', '');
-  const [stampCoordX, setStampCoordX] = useLocalState('stampCoordX', 0);
-  const [stampCoordY, setStampCoordY] = useLocalState('stampCoordY', 0);
-  const [stampAngle, setStampAngle] = useLocalState('stampAngle', 0);
+  const [fax, setFax] = useState('');
+  const [saved, setSaved] = useState(false);
+  const [paperName, setPaperName] = useState('');
+  const [fromWho, setFromWho] = useState('');
+  const [rawText, setRawText] = useState('');
+  const [stamp, setStamp] = useState('');
+  const [stampCoordX, setStampCoordX] = useState(0);
+  const [stampCoordY, setStampCoordY] = useState(0);
+  const [stampAngle, setStampAngle] = useState(0);
   if (stamp && data.stamps[0] !== 'None') {
     data.stamps.unshift('None');
   }
@@ -40,18 +53,19 @@ export const FaxMainPanel = (props) => {
                 act('follow', {
                   faxName: fax,
                 })
-              }>
+              }
+            >
               Follow
             </Button>
           </Box>
-        }>
+        }
+      >
         <Box fontSize="13px">
           <Dropdown
             textAlign="center"
-            selected="Choose fax machine..."
+            placeholder="Choose fax machine..."
             width="100%"
-            nochevron
-            nowrap
+            selected={fax}
             options={data.faxes}
             onSelected={(value) => setFax(value)}
           />
@@ -67,28 +81,62 @@ export const FaxMainPanel = (props) => {
               act('preview', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Preview
           </Button>
-        }>
+        }
+      >
         <Box fontSize="14px">
-          <Input mb="5px" placeholder="Paper name..." value={paperName} width="100%" onChange={(_, v) => setPaperName(v)} />
-          <Button color="blue" fluid textAlign="center" onClick={() => setPaperName('Central Command Report')}>
+          <Input
+            mb="5px"
+            placeholder="Paper name..."
+            value={paperName}
+            width="100%"
+            onChange={(_, v) => setPaperName(v)}
+          />
+          <Button
+            color="blue"
+            fluid
+            textAlign="center"
+            onClick={() => setPaperName('Central Command Report')}
+          >
             Central Command Report
           </Button>
-          <Button color="red" fluid textAlign="center" onClick={() => setPaperName('Syndicate Report')}>
+          <Button
+            color="red"
+            fluid
+            textAlign="center"
+            onClick={() => setPaperName('Syndicate Report')}
+          >
             Syndicate Report
           </Button>
         </Box>
         <Divider />
         <Box fontSize="14px" mt="5px">
           <Tooltip content="This is shown in the fax log.">
-            <Input mb="5px" placeholder="From who..." value={fromWho} width="100%" onChange={(_, v) => setFromWho(v)} />
+            <Input
+              mb="5px"
+              placeholder="From who..."
+              value={fromWho}
+              width="100%"
+              onChange={(_, v) => setFromWho(v)}
+            />
           </Tooltip>
-          <Button color="blue" fluid textAlign="center" onClick={() => setFromWho('Central Command')}>
+          <Button
+            color="blue"
+            fluid
+            textAlign="center"
+            onClick={() => setFromWho('Central Command')}
+          >
             Central Command
           </Button>
-          <Button color="red" fluid textAlign="center" onClick={() => setFromWho('Syndicate')}>
+          <Button
+            color="red"
+            fluid
+            textAlign="center"
+            onClick={() => setFromWho('Syndicate')}
+          >
             Syndicate
           </Button>
         </Box>
@@ -169,7 +217,8 @@ export const FaxMainPanel = (props) => {
               act('send', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Send Fax
           </Button>
           <Button
@@ -188,7 +237,8 @@ export const FaxMainPanel = (props) => {
                 stampAngle: stampAngle,
                 fromWho: fromWho,
               });
-            }}>
+            }}
+          >
             Save Changes
           </Button>
           <Button
@@ -198,7 +248,8 @@ export const FaxMainPanel = (props) => {
               act('createPaper', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Create Paper
           </Button>
         </Box>

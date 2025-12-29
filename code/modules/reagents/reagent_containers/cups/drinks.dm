@@ -8,6 +8,7 @@
 	icon_state = null
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
+	custom_price = 15	// We dont yet have a way to calculate price based on contents
 
 	isGlass = TRUE
 
@@ -130,6 +131,7 @@
 	name = "dirty ice cup"
 	desc = "Either Nanotrasen's water supply is contaminated, or this machine actually vends lemon, chocolate, and cherry snow cones."
 	list_reagents = list(/datum/reagent/consumable/ice = 25, /datum/reagent/liquidgibs = 5)
+	trade_flags = TRADE_NOT_SELLABLE
 
 /obj/item/reagent_containers/cup/glass/mug // parent type is literally just so empty mug sprites are a thing
 	name = "mug"
@@ -137,7 +139,7 @@
 	icon = 'icons/obj/drinks/coffee.dmi'
 	icon_state = "tea_empty"
 	base_icon_state = "tea"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	spillable = TRUE
 
 /obj/item/reagent_containers/cup/glass/mug/update_icon_state()
@@ -166,13 +168,14 @@
 	drink_type = GRAIN
 	isGlass = FALSE
 	custom_price = PAYCHECK_MEDIUM * 0.9
+	custom_price = 20
 
 /obj/item/reagent_containers/cup/glass/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
 	icon = 'icons/obj/drinks/bottles.dmi'
 	icon_state = "smallbottle"
-	item_state = "bottle"
+	inhand_icon_state = "bottle"
 	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5)//see desc, don't think about it too hard
 	custom_materials = list(/datum/material/plastic=1000)
 	volume = 50
@@ -357,7 +360,7 @@
 	desc = "A cheap, mass produced style of cup, typically used at parties. They never seem to come out red, for some reason..."
 	icon = 'icons/obj/drinks/colo.dmi'
 	icon_state = "colocup"
-	item_state = "colocup"
+	inhand_icon_state = "colocup"
 	custom_materials = list(/datum/material/plastic = 1000)
 	possible_transfer_amounts = list(5, 10, 15, 20)
 	volume = 20
@@ -412,6 +415,7 @@
 	desc = "The detective's only true friend."
 	icon_state = "detflask"
 	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 30)
+	custom_price = 50
 
 /obj/item/reagent_containers/cup/glass/mug/britcup
 	name = "cup"

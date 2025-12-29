@@ -36,9 +36,9 @@
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_DESTRUCTION]'>Destruction</A><BR>"
 		dat += "<I>Your apprentice is skilled in offensive magic. They know Magic Missile and Fireball.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_BLUESPACE]'>Bluespace Manipulation</A><BR>"
-		dat += "<I>Your apprentice is able to defy physics, melting through solid objects and travelling great distances in the blink of an eye. They know Teleport and Ethereal Jaunt.</I><BR><BR>"
+		dat += "<I>Your apprentice is able to defy physics, melting through solid objects. They know Ethereal Jaunt and have a wand of teleportation.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_HEALING]'>Healing</A><BR>"
-		dat += "<I>Your apprentice is training to cast spells that will aid your survival. They know Forcewall and Charge and come with a Staff of Healing.</I><BR><BR>"
+		dat += "<I>Your apprentice is training to cast spells that will aid your survival. They know Forcewall and Charge and come with a Wand of Healing.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_ROBELESS]'>Robeless</A><BR>"
 		dat += "<I>Your apprentice is training to cast spells without their robes. They know Knock and Mindswap.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_WILDMAGIC]'>Wild Magic</A><BR>"
@@ -67,16 +67,15 @@
 				return
 
 			currently_polling_ghosts = TRUE
-			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-				question = "Do you want to play as a wizard's [href_list["school"]] apprentice?",
-				role = /datum/role_preference/midround_ghost/wizard,
-				check_jobban = ROLE_WIZARD,
-				poll_time = 15 SECONDS,
-				ignore_category = POLL_IGNORE_WIZARD_HELPER,
-				jump_target = H,
-				role_name_text = "[href_list["school"]] apprentice",
-				alert_pic = H,
-			)
+			var/datum/poll_config/config = new()
+			config.question = "Do you want to play as a wizard's [href_list["school"]] apprentice?"
+			config.check_jobban = ROLE_WIZARD
+			config.poll_time = 15 SECONDS
+			config.ignore_category = POLL_IGNORE_WIZARD_HELPER
+			config.jump_target = H
+			config.role_name_text = "[href_list["school"]] apprentice"
+			config.alert_pic = H
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			currently_polling_ghosts = FALSE
 
 			if(candidate)
@@ -135,14 +134,13 @@
 		return
 
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		role = /datum/role_preference/midround_ghost/nuclear_operative,
-		check_jobban = ROLE_OPERATIVE,
-		poll_time = 15 SECONDS,
-		jump_target = user,
-		role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]",
-		alert_pic = /mob/living/silicon/robot/modules/syndicate,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_OPERATIVE
+	config.poll_time = 15 SECONDS
+	config.jump_target = user
+	config.role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]"
+	config.alert_pic = /mob/living/silicon/robot/model/syndicate
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -208,18 +206,18 @@
 	borg_to_spawn = "Saboteur"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, kind, datum/mind/user)
-	var/mob/living/silicon/robot/R
-	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop,TRUE)
+	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop, TRUE)
 	if(!creator_op)
 		return
 
+	var/mob/living/silicon/robot/robot
 	switch(borg_to_spawn)
 		if("Medical")
-			R = new /mob/living/silicon/robot/modules/syndicate/medical(T)
+			robot = new /mob/living/silicon/robot/model/syndicate/medical(T)
 		if("Saboteur")
-			R = new /mob/living/silicon/robot/modules/syndicate/saboteur(T)
+			robot = new /mob/living/silicon/robot/model/syndicate/saboteur(T)
 		else
-			R = new /mob/living/silicon/robot/modules/syndicate(T) //Assault borg by default
+			robot = new /mob/living/silicon/robot/model/syndicate(T) //Assault borg by default
 
 	var/brainfirstname = pick(GLOB.first_names_male)
 	if(prob(50))
@@ -229,18 +227,18 @@
 		brainopslastname = creator_op.nuke_team.syndicate_name
 	var/brainopsname = "[brainfirstname] [brainopslastname]"
 
-	R.mmi.name = "[initial(R.mmi.name)]: [brainopsname]"
-	R.mmi.brain.name = "[brainopsname]'s brain"
-	R.mmi.brainmob.real_name = brainopsname
-	R.mmi.brainmob.name = brainopsname
-	R.real_name = R.name
+	robot.mmi.name = "[initial(robot.mmi.name)]: [brainopsname]"
+	robot.mmi.brain.name = "[brainopsname]'s brain"
+	robot.mmi.brainmob.real_name = brainopsname
+	robot.mmi.brainmob.name = brainopsname
+	robot.real_name = robot.name
 
-	R.key = C.key
+	robot.key = C.key
 
 	var/datum/antagonist/nukeop/new_borg = new()
 	new_borg.send_to_spawnpoint = FALSE
-	R.mind.add_antag_datum(new_borg,creator_op.nuke_team)
-	R.mind.special_role = "Syndicate Cyborg"
+	robot.mind.add_antag_datum(new_borg,creator_op.nuke_team)
+	robot.mind.special_role = "Syndicate Cyborg"
 
 ///////////SLAUGHTER DEMON
 
@@ -263,13 +261,13 @@
 	if(used)
 		return
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = ROLE_SLAUGHTER_DEMON,
-		poll_time = 10 SECONDS,
-		jump_target = user,
-		role_name_text = initial(demon_type.name),
-		alert_pic = /mob/living/simple_animal/hostile/imp/slaughter,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_SLAUGHTER_DEMON
+	config.poll_time = 10 SECONDS
+	config.jump_target = user
+	config.role_name_text = initial(demon_type.name)
+	config.alert_pic = /mob/living/simple_animal/hostile/imp/slaughter
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		if(used || QDELETED(src))
 			return

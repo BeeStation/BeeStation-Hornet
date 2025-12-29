@@ -3,7 +3,6 @@
 #define SPECIES_ANDROID "android"
 #define SPECIES_APID "apid"
 #define SPECIES_DEBUG "debug"
-#define SPECIES_DULLAHAN "dullahan"
 #define SPECIES_ETHEREAL "ethereal"
 #define SPECIES_FELINID "felinid"
 #define SPECIES_FLY "fly"
@@ -25,7 +24,6 @@
 #define SPECIES_SKELETON "skeleton"
 #define SPECIES_SNAILPERSON "snail"
 #define SPECIES_SUPERSOLDIER "supersoldier"
-#define SPECIES_VAMPIRE "vampire"
 #define SPECIES_PSYPHOZA "psyphoza"
 #define SPECIES_ZOMBIE "zombie"
 #define SPECIES_ZOMBIE_INFECTIOUS "memezombie"
@@ -122,10 +120,7 @@
 // Randomization keys for calling wabbajack with.
 // Note the contents of these keys are important, as they're displayed to the player
 // Ex: (You turn into a "monkey", You turn into a "xenomorph")
-#define WABBAJACK_MONKEY "monkey"
 #define WABBAJACK_ROBOT "robot"
-#define WABBAJACK_SLIME "slime"
-#define WABBAJACK_XENO "xenomorph"
 #define WABBAJACK_HUMAN "humanoid"
 #define WABBAJACK_ANIMAL "animal"
 
@@ -168,3 +163,5 @@
 		'sound/emotes/male/male_giggle_1.ogg',\
 		'sound/emotes/male/male_giggle_2.ogg',\
 		'sound/emotes/male/male_giggle_3.ogg')
+
+#define SPECIES_NAME_HUMANOID "Human"

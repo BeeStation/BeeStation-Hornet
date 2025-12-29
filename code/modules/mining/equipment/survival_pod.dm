@@ -125,7 +125,7 @@
 //Pod objects
 
 //Window
-/obj/structure/window/shuttle/survival_pod
+/obj/structure/window/reinforced/shuttle/survival_pod
 	name = "pod window"
 	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
 	icon_state = "pod_window-0"
@@ -134,23 +134,23 @@
 	smoothing_groups = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
-/obj/structure/window/shuttle/survival_pod/spawner/north
-	dir = NORTH
-
-/obj/structure/window/shuttle/survival_pod/spawner/east
-	dir = EAST
-
-/obj/structure/window/shuttle/survival_pod/spawner/west
-	dir = WEST
-
 /obj/structure/window/reinforced/survival_pod
 	name = "pod window"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/spawner, 0)
+
 /obj/structure/window/reinforced/survival_pod/corner
 	icon_state = "pwindow_corner"
 	density = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/corner/spawner, 0)
+
+/obj/structure/window/reinforced/survival_pod/corner/unanchored
+	anchored = FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/window/reinforced/survival_pod/corner/unanchored/spawner, 0)
 
 //Door
 /obj/machinery/door/airlock/survival_pod
@@ -257,6 +257,7 @@
 	desc = "A heated storage unit."
 	icon_state = "donkvendor"
 	icon = 'icons/obj/lavaland/donkvendor.dmi'
+	base_build_path = /obj/machinery/smartfridge/survival_pod
 	light_range = 5
 	light_power = 1.2
 	light_color = "#DDFFD3"
@@ -264,15 +265,12 @@
 	pixel_y = -4
 	flags_1 = NODECONSTRUCT_1
 	opacity = FALSE
-	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/update_icon()
 	return
 
-/obj/machinery/smartfridge/survival_pod/Initialize(mapload)
+/obj/machinery/smartfridge/survival_pod/preloaded/Initialize(mapload)
 	. = ..()
-	if(empty)
-		return
 	for(var/i in 1 to 5)
 		var/obj/item/food/donkpocket/warm/W = new(src)
 		load(W)
@@ -285,11 +283,6 @@
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
-
-/obj/machinery/smartfridge/survival_pod/empty
-	name = "dusty survival pod storage"
-	desc = "A heated storage unit. This one's seen better days."
-	empty = TRUE
 
 //Fans
 /obj/structure/fans
@@ -373,8 +366,8 @@
 						/obj/item/gun/ballistic/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
 						/obj/item/gun/magic/staff/spellblade,
-						/obj/item/gun/magic/wand/death,
-						/obj/item/gun/magic/wand/fireball,
+						/obj/item/gun/magic/wand/drain,
+						/obj/item/gun/magic/wand/firebolt,
 						/obj/item/stack/sheet/telecrystal/twenty,
 						/obj/item/nuke_core,
 						/obj/item/banhammer)
@@ -386,4 +379,4 @@
 	icon = initial(I.icon)
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
-	item_state = initial(I.item_state)
+	inhand_icon_state = initial(I.inhand_icon_state)

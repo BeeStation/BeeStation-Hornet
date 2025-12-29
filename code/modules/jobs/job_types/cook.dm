@@ -6,14 +6,21 @@
 	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 1
 	selection_color = "#bbe291"
 	var/cooks = 0 //Counts cooks amount
 
 	outfit = /datum/outfit/job/cook
 
-	base_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_HYDROPONICS, ACCESS_BAR)
+	base_access = list(
+		ACCESS_KITCHEN,
+		ACCESS_MORGUE,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
+	extra_access = list(
+		ACCESS_HYDROPONICS,
+		ACCESS_BAR,
+	)
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
@@ -35,7 +42,7 @@
 	jobtype = /datum/job/cook
 
 	id = /obj/item/card/id/job/cook
-	belt = /obj/item/modular_computer/tablet/pda/cook
+	belt = /obj/item/modular_computer/tablet/pda/preset/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef
@@ -43,19 +50,19 @@
 	mask = /obj/item/clothing/mask/fakemoustache/italian
 	backpack_contents = list(/obj/item/sharpener = 1)
 
-/datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 	var/datum/job/cook/J = SSjob.GetJobType(jobtype)
 	if(J) // Fix for runtime caused by invalid job being passed
 		if(J.cooks>0)//Cooks
 			suit = /obj/item/clothing/suit/apron/chef
 			head = /obj/item/clothing/head/soft
-		if(!visualsOnly)
+		if(!visuals_only)
 			J.cooks++
 
-/datum/outfit/job/cook/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/cook/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
-	if(visualsOnly)
+	if(visuals_only)
 		return
 	var/list/possible_boxes = subtypesof(/obj/item/storage/box/ingredients)
 	var/chosen_box = pick(possible_boxes)

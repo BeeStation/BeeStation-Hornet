@@ -32,7 +32,9 @@
 #include "dcs_get_id_from_elements.dm"
 #include "drink_icons.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "emissive_worn_overlays.dm"
 #include "emoting.dm"
+#include "ensure_subtree_operational_datum.dm"
 #include "enumerables.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
@@ -40,9 +42,10 @@
 #endif
 
 #include "food_edibility_check.dm"
-#include "gamemode_sanity.dm"
+#include "full_heal.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
+#include "hallucination_icons.dm"
 #include "handcuff_tests.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
@@ -56,11 +59,13 @@
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
+#include "modsuit.dm"
 #include "mutant_organs.dm"
 #include "ntnetwork_tests.dm"
 #include "organs.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"
+#include "pda_power.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"
@@ -85,6 +90,7 @@
 #include "spell_names.dm"
 #include "spell_shapeshift.dm"
 #include "stat_mc.dm"
+#include "status_effect_validity.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"

@@ -173,7 +173,7 @@
 			Goto(possible_retreat_turfs[rand(1,possible_retreat_turfs.len)], move_to_delay, 0)
 			retreating = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
-	adjustHealth(maxHealth*0.1)
+	adjustHealth(maxHealth*0.15)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
@@ -223,7 +223,7 @@
 	if(get_dist(src,the_target) > vine_grab_distance || vines.len == max_vines)
 		return
 
-	for(var/turf/T in getline(src,the_target))
+	for(var/turf/T in get_line(src,the_target))
 		if (T.density)
 			return
 		for(var/obj/O in T)
@@ -234,7 +234,7 @@
 	// Only create a new vine if the target is a mob or an object
 	if(ismob(the_target) || isobj(the_target))
 		var/datum/beam/newVine = Beam(the_target, "vine", maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
-		RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine, override = TRUE)
+		RegisterSignal(newVine, COMSIG_QDELETING, PROC_REF(remove_vine), newVine, override = TRUE)
 		vines += newVine
 
 	var/mob/living/L = the_target

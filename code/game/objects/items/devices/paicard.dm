@@ -2,7 +2,7 @@
 	name = "personal AI device"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -15,7 +15,7 @@
 	///what emotion icon we have. handled in /mob/living/silicon/pai/Topic()
 	var/emotion_icon = "off"
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
-	custom_premium_price = 25
+	custom_price = PAYCHECK_MEDIUM * 4
 
 /obj/item/paicard/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is staring sadly at [src]! [user.p_they()] can't keep living without real human intimacy!"))

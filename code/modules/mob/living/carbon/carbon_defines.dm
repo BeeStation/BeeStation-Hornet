@@ -8,16 +8,21 @@
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
-	//List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
+	/// List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
 	var/list/internal_organs = list()
-	//Same as above, but stores "slot ID" - "organ" pairs for easy access.
+	/// Same as above, but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
-	var/silent = FALSE 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-	var/dreaming = 0 //How many dream images we have left to send
-	var/obj/item/handcuffed = null //Whether or not the mob is handcuffed
-	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
+	/// Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
+	var/silent = FALSE
+	/// Whether or not the mob is handcuffed
+	var/obj/item/handcuffed = null
+	/// Same as handcuffs but for legs. Bear traps use this.
+	var/obj/item/legcuffed = null
 
+	/// Measure of how disgusted we are. See DISGUST_LEVEL_GROSS and friends
 	var/disgust = 0
+	/// How disgusted we were LAST time we processed disgust. Helps prevent unneeded work
+	var/old_disgust = 0
 
 	//inventory slots
 	var/obj/item/back = null
@@ -53,10 +58,10 @@
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
 		/obj/item/bodypart/head,
-		/obj/item/bodypart/l_arm,
-		/obj/item/bodypart/r_arm,
-		/obj/item/bodypart/r_leg,
-		/obj/item/bodypart/l_leg
+		/obj/item/bodypart/arm/left,
+		/obj/item/bodypart/arm/right,
+		/obj/item/bodypart/leg/right,
+		/obj/item/bodypart/leg/left
 	)
 
 	//Gets filled up in create_bodyparts()
@@ -66,9 +71,10 @@
 
 	var/static/list/limb_icon_cache = list()
 
-	//halucination vars
-	var/hal_screwyhud = SCREWYHUD_NONE
-	var/next_hallucination = 0
+	/// Used to temporarily increase severity of / apply a new damage overlay (the red ring around the ui / screen).
+	/// This number will translate to equivalent brute or burn damage taken. Handled in [mob/living/proc/update_damage_hud].
+	/// (For example, setting damageoverlaytemp = 20 will add 20 "damage" to the overlay the next time it updates.)
+	/// This number is also reset to 0 every tick of carbon Life(). Pain.
 	var/damageoverlaytemp = 0
 
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects

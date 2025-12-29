@@ -64,19 +64,6 @@
 	else
 		return ..()
 
-/obj/item/knife/poison/attack(mob/living/M, mob/user)
-	if (!istype(M))
-		return
-	. = ..()
-	if (!reagents.total_volume || !M.reagents)
-		return
-	var/amount_inject = amount_per_transfer_from_this
-	if(!M.can_inject(user, user.get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK))
-		amount_inject = 1
-	var/amount = min(amount_inject/reagents.total_volume,1)
-	reagents.expose(M,INJECT,amount)
-	reagents.trans_to(M,amount_inject)
-
 /obj/item/knife/kitchen
 	name = "kitchen knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."

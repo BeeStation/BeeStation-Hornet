@@ -212,3 +212,271 @@
   - tweak: some wording for ghostspawn slimes without a master expanded for clarity
   Rukofamicom:
   - rscdel: Removed TC fuel rods
+2025-07-17:
+  ClownMoff:
+  - tweak: 'Corgstation: Gave the kitchen and bar a more modern look and added some
+      more doors'
+  - bugfix: fixed monkeys not using their icon on StrongDMM
+  PowerfulBacon:
+  - tweak: The job assignment algorithm has been changed to prioritise statistical
+      randomness for players with many job roles enabled, over ensuring that head
+      and security positions are filled. Selecting all jobs to medium ensures that
+      you have the same probability of rolling any job, while setting all jobs to
+      low means that you will get the jobs which other players did not select.
+  - tweak: If the round starts with less than 7 players online, then all but the captain,
+      shaft miner and basic department jobs will be disabled and these roles will
+      be given access to their entire department.
+  - tweak: If the roundstarts with less than 14 players online, some non-important
+      job roles will be disabled.
+  - tweak: Skeleton crew access is now based on job presence rather than population.
+  - tweak: There are now unlimited job slots for medical doctors, security officers,
+      engineerings, cargo technicians and scientists but for these slots to be open
+      requires there to be at most a difference of 2 between the most and least populated
+      of these jobs.
+  VmpOS2NHSkhkejA9:
+  - tweak: honeycombs are food, they must be ground up to get their reagents now.
+  - bugfix: honeycombs no longer shatter into glass when thrown
+  rkz, Jacquerel, tralezab, seris02, LemonInTheDark, itseasytosee, Capybara Holly, MrMelbert, vinylspiders:
+  - rscadd: Monkeys will play songs if handed instruments
+  - refactor: Refactored monkey AI trees
+  - code_imp: replaced a lot of var usages that were resulting in harddels with weakrefs
+  - bugfix: Monkeys will no longer attack with items worse than their basic bite
+  - refactor: Datum AI can now switch to different movement datums in their behavior
+  - code_imp: added AI support for untamed mobs to run away from humans. Not added
+      to any basic controllers at the moment.
+  - bugfix: fixed erroneous target removal in the middle of AI actions
+  - bugfix: hostile basic mobs cant bite through walls
+  - refactor: refactored most mob ai code to operate off of signals
+  - bugfix: basic mobs can now be scanned for DNA vault
+  - bugfix: basic mobs can now receive bluespace radio
+  - bugfix: adds handling for basic mobs when slime fed on (invincible ian moment)
+2025-07-18:
+  Asdfagi:
+  - bugfix: mindless bodies can once again be body-only scanned in the clone scanner
+      instead of causing a runtime error
+  Nakalon:
+  - tweak: Stripping a mob now puts the item in the strippers hands
+  Rukofamicom:
+  - balance: Hand restraints such as handcuffs are now much simpler to break out of.
+      Each attempt takes only five seconds and gives a miniscule chance of breaking
+      out immediately if you get lucky with a compounding chance after each attempt.
+      Each attempt stacks up to eventually being enough to guarantee the cuffs are
+      removed once your total attempts are equal to the breakout time as well.
+  - balance: Attempts to remove any types of restraint (Bola, cuffs, straight jackets,
+      etc.) no longer require you to be still and motionless, which means you can
+      run around like a headless chicken and still break out of some cuffs. Being
+      dragged in circles by an officer no longer interrupts breakout attempts either.
+  - balance: Because the general process for breaking hand restraints is now much
+      more consistent, the base times for all three hand restraints has been increased
+      dramatically so that handcuffs are still effective at their intended purpose,
+      just without being an indefinite restraint.
+  - tweak: Buckle-cuffed players are able to remove their restraints first now, so
+      buckling a player who is cuffed does nothing to lengthen the effective restraint
+      time further, it only prevents them from running around.
+  - tweak: straight jackets take two minutes to break out of instead of five now,
+      because five is an excessive amount of time to potentially stack on top of cuffs.
+  - tweak: Xenomorphs can no longer instantly break cuffs. They use the same define
+      and code as hulks do, taking five seconds to break the cuffs. In both hulk and
+      xeno cases, the cuffs can now be broken while moving.
+  marshmellow10:
+  - bugfix: fixes resist
+2025-07-19:
+  Solene & Mr.Yoshimoto:
+  - tweak: Mouse diseases are now always dormant, eating one won't infect anyone.
+  - rscadd: Extrapolators now work on dead mice
+  itsmeow:
+  - bugfix: Fixed species icons, antagonist icons, paper stamps, and CondiMaster icons
+      being invisible.
+  - tweak: Capitalized 'prisoner' in the antagonist preferences menu.
+2025-07-20:
+  ClownMoff:
+  - rscadd: Added to the detective fedoras the ability to turn your screen black and
+      white while you are inside their room or the interrogation room.
+  - rscadd: Added the ability to the detective fedoras to adjust it to cast a shadow
+      over their eyes
+  - rscadd: Added a new area for the interrogation room with the proper APCs
+  - rscadd: Added lightswitches in interrogation rooms that were missing them
+  Gboster-0:
+  - code_imp: code for slime pylons has been slightly changed making them extremelly
+      lightly more performant
+  Gilgax:
+  - tweak: 'Modernized the UI on (TGUIfied) a bunch of inputs (most things that had
+      a white box and looked old should be cooler looking now). Notable examples include:
+      the hand teleporter list, the spawn command, a lot of admin secret buttons,
+      brain washing, some security consoles, blood cultist teleport runes, law consoles,
+      pen rotation, slime feeding target list, comms console announcement, some ghost
+      role alerts, fulton packs, choice beacon pet naming and many more!'
+  - bugfix: Ventriloquist forced speech fixed for special characthers
+  - bugfix: Fixed the apply damage smite
+  PinkSuzuki, TsunamiAnt & The Hellraisers:
+  - rscadd: PC Components can now be manually hacked via tools
+  - rscadd: Added an Antivirus
+  - rscadd: Reworked Viruses. Included logging. visual and sound effects, on send
+      and receive.
+  - rscadd: Added 3 new viruses with TGUI windows.
+  - balance: Super Portable disks now cost 30 credits instead of 10
+  - rscadd: You can now fit components inside Modular PC's by attacking them with
+      the PC.
+  - rscadd: Screw driver secondary action now uninstalls all components form a Modular
+      PC at once.
+  - tweak: Tweaked some values related to programs
+  - code_imp: Added vars and a proc to be able to start and stop music and sounds
+      played by programs
+  - code_imp: Removed some duplicated vars from programs
+  - code_imp: Reworked and simplified Program hardware requirements
+  - tweak: Paper ID now accepts "Assignment" input and respects it
+  - code_imp: Refactored Network and Virus code a little bit
+  - imageadd: Add gifs for various UI elements on Computers such as the Virus Buster
+  - imageadd: Added a white version of sparks (to be dyed with lights)
+  - imageadd: Changed sprites for Antivirus and added overlays for when components
+      are "open"
+  - rscadd: Added a blue and red light spark effects
+  - tweak: Antivirus disks are now a subtype of portable disk
+  - tweak: Lightly Reworked Netmonitor (and network logging) and gave it to Science
+      jobdisks
+  - rscadd: Created a new trait, computer whiz
+  - code_imp: changed add_log procs to make them accept Network Cards to extract information
+      from
+  - code_imp: slightly changed network procs to accept the difference between no_relay
+      and hacker network cards
+  - balance: Reworked special Detomatix protection. Sec and head PDAs had their protection
+      substituted by an Antivirus
+  - tweak: Detomatix now uses a battery_explosion proc, explosion based on the size
+      of the battery installed
+  - tweak: Raised the size of the largest battery (and others) and raised the max
+      hardware size on laptops
+  - tweak: components are now repairable with a welder instead of cable coil
+  - code_imp: moved 4 files, portable disk, job disk, antivirus disk and virus disk
+      into a portable disks folder
+  - tweak: antivirus are now a part of the computer hardware techtree
+  - bugfix: Fixed apostrophes not being correctly logged
+  - bugfix: Component parts not drawing power from the battery
+  - tweak: added baloon alerts and QOL things for effect when handling Modular computers
+  - bugfix: PAIs can now be inserted inside Tablets.
+  - tweak: Laptops can now imprint IDs
+  - tweak: PAIs can now be ejected with alt-click.
+  PowerfulBacon:
+  - balance: Clarke moves slower on station.
+2025-07-23:
+  Gboster-0:
+  - rscdel: Deleted xenobiology's warping crossbreeds saying they have infinite uses
+      to their examiners
+  Rukofamicom:
+  - bugfix: detective aura now properly removes from all mobs
+  - tweak: anyone with a detective hat can now use the aura within detective office
+      and interrogation room
+  - tweak: adjusted grammar on a line involving the detective aura
+  Schoolboy215:
+  - bugfix: issue with fully deconstructing cyborgs
+  mrmanlikesbt, timothymtorres, orthography, tralezab, dragomagol:
+  - rscadd: added several new lawsets
+  - rscadd: infected law upload board. An admin-obtainable item that will make the
+      targeted AI malf
+  - rscadd: added "Unique AI" station trait. when this rolls a non-standard lawset
+      will be chosen for the AI to have
+  - balance: malf AIs can eject from mechs now
+  - balance: silicons are alerted when an upload key is extracted
+  - balance: the robotics control console can only be used on station now
+  - tweak: malf and combat upgraded AIs use the same module picker now
+  - tweak: slightly adjusted malf AI greeting text
+  - tweak: adjusted electrocuted door icon
+  - bugfix: fixed the "law changes" alert not appearing for silicons
+  - bugfix: fixed some AI module picker bugs
+  - bugfix: fixed two malf antag info panels opening
+  - code_imp: silicon code cleanup and some documentation
+  - code_imp: renamed "maintain" lawset to "efficiency"
+2025-07-24:
+  itsmeow:
+  - bugfix: Fixed being unable to look up or locate turfs above you in Multi-Z
+2025-07-26:
+  Nakalon:
+  - bugfix: Modular computers can teleport bags and other stuff again.
+  - bugfix: Detectives can now actually diagnose computers as they should as the epic
+      cyber sleuths they are.
+  - bugfix: Solves a runtime when throwing a computer without a CPU.
+  mrmanlikesbt:
+  - bugfix: fixed an exploit with the bookbinder (sorry that one curator)
+2025-07-27:
+  Nakalon:
+  - bugfix: You can now queue strip actions again without interruption
+  - refactor: Removed old asshole code for stripping
+2025-07-28:
+  PowerfulBacon:
+  - bugfix: Fixes a bug in the pickweight algorithm which caused maps to be selected
+      that had 0 votes.
+  Solene:
+  - rscadd: You can now research and print PDA, Tablet and Laptop shells.
+  - code_imp: PDAs that should start operable are now a child of /preset
+  - tweak: The basic transparent colorizer can now be applied to the clown and syndicate
+      PDA like the other colorizers.
+2025-07-29:
+  PowerfulBacon:
+  - balance: The sleepy pen is now refillable, renamed to the paralytic pen.
+  - balance: The default mix of the sleepy pen now paralyses a victim and allows them
+      to whisper, but keeps them conscious during their bad time ahead.
+  - balance: Adds whisper toxin as a precursor to mute toxin, it allows a victim to
+      whisper but prevents radio use.
+  - balance: Buffs stamina toxin, it now causes instant slowdown and deals double
+      the stamina damage per tick.
+  Rukofamicom:
+  - tweak: Byond account (ckey) is no longer appended to antagonists and their IC
+      names in the round-end report. If you wish to keep your characters private you
+      can now do so safely even when opting into an antagonist role.
+  - tweak: Poisoned knife costs 4 TC in uplinks now, down from 6.
+  - balance: Poisoned knife now has the same damage and embedding chance as a combat
+      knife (20 damage and 65% respectively)
+  - rscadd: Poisoned knives inject their entire remaining payload if they embed successfully,
+      up to 40u. High reward rule of cool payoff for those that want to gamble on
+      a 65% chance.
+  - tweak: Poisoned knife now delivers 1/3 of its intended payload to targets that
+      are protected from injection (Previously this was 1u regardless of intended
+      injection amount)
+2025-07-30:
+  Nakalon:
+  - rscadd: Adds cell chargers to public areas so people can charge they phone.
+  PowerfulBacon:
+  - tweak: Adds a low graphics quality setting
+  TsunamiAnt:
+  - rscdel: Pirates no longer call black alert by default.
+  mrmanlikesbt:
+  - refactor: Refactored dynamic
+  - rscadd: Added solo abductor ruleset
+  - rscadd: Added midround heretic ruleset
+  - rscadd: Added changeling latejoin
+  - rscadd: Midround living rulesets now ask if you want to be an antag
+  - tweak: The Wizard ruleset is no longer chosen based on antag rep
+  - admin: Added a tgui dynamic panel, this is in the "Round" category and requires
+      the R_FUN permission
+  - server: Dynamic is logged in dynamic.log now. You can use the LOG_DYNAMIC config
+      flag to toggle this.
+  - bugfix: fixed hacked AI modules
+  - bugfix: fixed the reset model wire on borgs
+2025-07-31:
+  DStarsthy:
+  - rscadd: Added library scanner to echostation
+  PowerfulBacon:
+  - balance: Piercing syringes can now pierce most station armours, and the threshold
+      for armour being protected from piercing (and healing) has been raised to MELEE
+      II or BULLET II, from MELEE I or BULLET I.
+  Rukofamicom:
+  - balance: Tackling gloves are less effective against targets in combat mode and/or
+      targets with throw enabled and have a higher variance when it comes to the RNG
+      roll that determines the outcome of an attempted tackle.
+  - balance: Tackling gloves are less effective at targets with no damage (real or
+      stamina) and more effective as their health goes down.
+  - tweak: Rocket gloves no longer give a positive modifier during the outcome roll.
+      These gloves were said to be high-risk and high-reward but offered such a high
+      positive bonus they nearly guaranteed a positive outcome.
+  - tweak: improvised gripper gloves no longer have a negative modifier
+  - tweak: Being insane no longer guarantees a successful tackle, but still provides
+      a high modifier. It also sends you deeper into crit instead of barely into crit
+      now.
+  - tweak: Neutral outcome roll is actually neutral instead of giving the person who
+      tackled a major advantage on knockdown time.
+  mrmanlkesbt, absolucy:
+  - bugfix: fixed some icons being too big on 516
+  rkz, jlsnow301, Arthri:
+  - server: faster TGUI build times with swc
+  - code_imp: converts collection.js functions to ES5
+  - code_imp: bumps TGUI packages
+  - code_imp: converts rgb/hexcolors to use RSL, as is required by new sass package

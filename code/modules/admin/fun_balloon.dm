@@ -1,7 +1,7 @@
 /obj/effect/fun_balloon
 	name = "fun balloon"
 	desc = "This is going to be a laugh riot."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	anchored = TRUE
 	var/popped = FALSE
@@ -52,14 +52,13 @@
 	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
-	var/list/candidates = SSpolling.poll_ghosts_for_targets(
-		question = "Would you like to be [span_notice(group_name)]?",
-		check_jobban = ROLE_SENTIENCE,
-		poll_time = 10 SECONDS,
-		checked_targets = bodies,
-		role_name_text = "sentience fun balloon",
-		alert_pic = src,
-	)
+	var/datum/poll_config/config = new()
+	config.question = "Would you like to be [span_notice(group_name)]?"
+	config.check_jobban = ROLE_SENTIENCE
+	config.poll_time = 10 SECONDS
+	config.role_name_text = "sentience fun balloon"
+	config.alert_pic = src
+	var/list/candidates = SSpolling.poll_ghosts_for_targets(config, bodies)
 	while(LAZYLEN(candidates) && LAZYLEN(bodies))
 		var/mob/dead/observer/candidate = pick_n_take(candidates)
 		var/mob/living/body = pick_n_take(bodies)
@@ -95,7 +94,7 @@
 /obj/effect/station_crash
 	name = "station crash"
 	desc = "With no survivors!"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/balloons.dmi'
 	icon_state = "syndballoon"
 	anchored = TRUE
 
@@ -132,7 +131,7 @@
 		qdel(L.pulling)
 		var/turf/LA = get_turf(pick(warp_points))
 		L.forceMove(LA)
-		L.hallucination = 0
+		L.remove_status_effect(/datum/status_effect/hallucination)
 		to_chat(L, span_reallybigredtext("The battle is won. Your bloodlust subsides."))
 		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)

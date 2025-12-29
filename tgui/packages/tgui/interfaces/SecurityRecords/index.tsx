@@ -1,18 +1,21 @@
 import { useBackend } from 'tgui/backend';
 import { Box, Button, Icon, NoticeBox, Stack } from 'tgui/components';
 import { Window } from 'tgui/layouts';
-import { SecurityRecordsData } from './types';
-import { SecurityRecordView } from './RecordView';
+
 import { SecurityRecordTabs } from './RecordTabs';
+import { SecurityRecordView } from './RecordView';
+import { SecurityRecordsData } from './types';
 
 export const SecurityRecords = (props) => {
   const { data } = useBackend<SecurityRecordsData>();
-  const { authenticated } = data;
+  const { authenticated, is_silicon } = data;
 
   return (
     <Window title="Security Records" width={750} height={550}>
       <Window.Content>
-        <Stack fill>{!authenticated ? <RestrictedView /> : <AuthView />}</Stack>
+        <Stack fill>
+          {authenticated || is_silicon ? <AuthView /> : <RestrictedView />}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -49,7 +52,8 @@ const RestrictedView = (props) => {
 
 /** Logged in view */
 const AuthView = (props) => {
-  const { act } = useBackend<SecurityRecordsData>();
+  const { data, act } = useBackend<SecurityRecordsData>();
+  const { is_silicon } = data;
 
   return (
     <>
@@ -61,14 +65,29 @@ const AuthView = (props) => {
           <Stack.Item grow>
             <SecurityRecordView />
           </Stack.Item>
-          <Stack.Item>
-            <NoticeBox align="right" info>
-              Secure Your Workspace.
-              <Button align="right" icon="lock" color="good" ml={2} onClick={() => act('logout')}>
-                Log Out
-              </Button>
-            </NoticeBox>
-          </Stack.Item>
+          {is_silicon ? (
+            <Stack.Item>
+              <NoticeBox danger>
+                For security reasons, silicons are not permitted to change
+                record data.
+              </NoticeBox>
+            </Stack.Item>
+          ) : (
+            <Stack.Item>
+              <NoticeBox align="right" info>
+                Secure Your Workspace.
+                <Button
+                  align="right"
+                  icon="lock"
+                  color="good"
+                  ml={2}
+                  onClick={() => act('logout')}
+                >
+                  Log Out
+                </Button>
+              </NoticeBox>
+            </Stack.Item>
+          )}
         </Stack>
       </Stack.Item>
     </>

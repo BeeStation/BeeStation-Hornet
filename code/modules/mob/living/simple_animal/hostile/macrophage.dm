@@ -23,7 +23,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -49,15 +49,6 @@
 					alreadyinfected = TRUE
 	if(alreadyinfected)
 		return FALSE
-
-/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., base_disease)
-	if(!dry_run && !EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL) && extrapolator.create_culture(user, base_disease))
-		user.visible_message(span_danger("[user] stabs [src] with [extrapolator], sucking it up!"), \
-				span_danger("You stab [src] with [extrapolator]'s probe, destroying it!"))
-		dust()
-		EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_SPECIAL)
 
 /mob/living/simple_animal/hostile/macrophage/AttackingTarget()
 	. = ..()

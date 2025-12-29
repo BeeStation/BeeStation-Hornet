@@ -245,7 +245,7 @@
 						return
 				var/target = locate(locx,locy,mobloc.z)
 				if(target && !istype(target, /turf/closed/indestructible/cordon))
-					var/lineofturf = getline(mobloc, target)
+					var/lineofturf = get_line(mobloc, target)
 					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
 						return //No phasing over cordons
 					L.forceMove(target)
@@ -358,10 +358,11 @@
 	return mob_negates_gravity() || ..()
 
 /**
-  * Does this mob ignore gravity
-  */
+ * Does this mob ignore gravity
+ */
 /mob/proc/mob_negates_gravity()
-	return FALSE
+	var/turf/turf = get_turf(src)
+	return !isgroundlessturf(turf) && HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY)
 
 /mob/newtonian_move(direction, instant = FALSE)
 	. = ..()

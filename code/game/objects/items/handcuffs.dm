@@ -1,5 +1,5 @@
 /obj/item/restraints
-	breakouttime = 600
+	breakouttime = 1 MINUTES
 	item_flags = ISWEAPON
 
 /obj/item/restraints/suicide_act(mob/living/carbon/user)
@@ -14,7 +14,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "handcuff"
-	item_state = "handcuff"
+	inhand_icon_state = "handcuff"
 	worn_icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
@@ -27,6 +27,7 @@
 	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
 	armor_type = /datum/armor/restraints_handcuffs
+	custom_price = 15
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
@@ -69,7 +70,7 @@
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, var/dispense = 0)
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = 0)
 	if(target.handcuffed)
 		return FALSE
 
@@ -94,13 +95,14 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff"
-	item_state = "coil"
+	inhand_icon_state = "coil"
 	color = "#ff0000"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+	custom_price = 15
 
 /obj/item/restraints/handcuffs/cable/red
 	color = "#ff0000"
@@ -131,17 +133,22 @@
 	desc = "A pair of restraints fashioned from long strands of flesh."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
-	item_state = "sinewcuff"
+	inhand_icon_state = "sinewcuff"
 	custom_materials = null
 	color = null
+	custom_price = 10
 
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
+	custom_price = 100
+	max_demand = 10
 
 /obj/item/restraints/handcuffs/fake
 	name = "fake handcuffs"
 	desc = "Fake handcuffs meant for gag purposes."
 	breakouttime = 1 SECONDS
+	custom_price = 10
+	max_demand = 10
 
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()
@@ -181,14 +188,14 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	custom_materials = null
-	breakouttime = 450 //Deciseconds = 45s
+	breakouttime = 45 SECONDS
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 	color = null
 
 /obj/item/restraints/handcuffs/cable/zipties/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_used"
-	item_state = "cuff"
+	inhand_icon_state = "cuff"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
@@ -207,7 +214,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	slowdown = 7
-	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
+	breakouttime = 30 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
@@ -281,11 +288,9 @@
 
 	close_trap()
 	if(ignore_movetypes)
-		victim.visible_message(span_danger("\The [src] ensnares [victim]!"), \
-				span_danger("\The [src] ensnares you!"))
+		victim.visible_message(span_danger("\The [src] ensnares [victim]!"), span_danger("\The [src] ensnares you!"))
 	else
-		victim.visible_message(span_danger("[victim] triggers \the [src]."), \
-				span_danger("You trigger \the [src]!"))
+		victim.visible_message(span_danger("[victim] triggers \the [src]."), span_danger("You trigger \the [src]!"))
 	var/def_zone = BODY_ZONE_CHEST
 	if(iscarbon(victim) && (victim.body_position == STANDING_UP || hit_prone))
 		var/mob/living/carbon/carbon_victim = victim
@@ -301,7 +306,7 @@
 	armed = 1
 	icon_state = "e_snare"
 	trap_damage = 0
-	breakouttime = 30
+	breakouttime = 3 SECONDS
 	item_flags = DROPDEL | ISWEAPON
 	flags_1 = NONE
 
@@ -319,7 +324,7 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
-	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
+	breakouttime = 2 SECONDS // Cyborgs shouldn't have a strong restraint
 
 /obj/item/restraints/legcuffs/beartrap/energy/emp_act(severity)
 	do_sparks(1, TRUE, src)
@@ -330,14 +335,14 @@
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	icon_state = "bola"
 	icon_state_preview = "bola_preview"
-	item_state = "bola"
+	inhand_icon_state = "bola"
 	lefthand_file = 'icons/mob/inhands/weapons/thrown_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/thrown_righthand.dmi'
-	breakouttime = 20//easy to apply, easy to break out of
+	breakouttime = 2 SECONDS//easy to apply, easy to break out of
 	gender = NEUTER
 	var/knockdown = 0
 
-/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(!..())
 		return
 	playsound(loc,'sound/weapons/bolathrow.ogg', 75, 1)
@@ -358,7 +363,8 @@
 		visible_message(span_danger("\The [src] ensnares [C]!"))
 		C.legcuffed = src
 		forceMove(C)
-		C.update_inv_legcuffed()
+		C.update_equipment_speed_mods()
+		C.update_worn_legcuffs()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, span_userdanger("\The [src] ensnares you!"))
 		if(knockdown)
@@ -369,25 +375,25 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
-	item_state = "bola_r"
-	breakouttime = 70
-	knockdown = 20
+	inhand_icon_state = "bola_r"
+	breakouttime = 7 SECONDS
+	knockdown = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/watcher //tribal bola for tribal lizards
 	name = "watcher Bola"
 	desc = "A Bola made from the stretchy sinew of fallen watchers."
 	icon_state = "bola_watcher"
-	item_state = "bola_watcher"
-	breakouttime = 45
+	inhand_icon_state = "bola_watcher"
+	breakouttime = 4.5 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy //For Security
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
-	item_state = "ebola"
+	inhand_icon_state = "ebola"
 	hitsound = 'sound/weapons/taserhit.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	breakouttime = 60
+	breakouttime = 6 SECONDS
 
 /obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
 	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
@@ -405,18 +411,18 @@
 	desc = "Hey, if you have to be hugged in the legs by anything, it might as well be this little guy."
 	icon_state = "gonbola"
 	icon_state_preview = "gonbola_preview"
-	item_state = "bola_r"
-	breakouttime = 300
+	inhand_icon_state = "bola_r"
+	breakouttime = 30 SECONDS
 	slowdown = 0
-	var/datum/status_effect/gonbola_pacify/effectReference
+	var/datum/status_effect/gonbola_pacify/effect_reference
 
 /obj/item/restraints/legcuffs/bola/gonbola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/C = hit_atom
-		effectReference = C.apply_status_effect(/datum/status_effect/gonbola_pacify)
+		effect_reference = C.apply_status_effect(/datum/status_effect/gonbola_pacify)
 
 /obj/item/restraints/legcuffs/bola/gonbola/dropped(mob/user)
-	..()
-	if(effectReference)
-		QDEL_NULL(effectReference)
+	. = ..()
+	if(effect_reference)
+		QDEL_NULL(effect_reference)

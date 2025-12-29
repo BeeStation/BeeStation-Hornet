@@ -9,10 +9,10 @@
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 /// you should only be using this if you want to block deletion
-/// that's the only functional difference between it and COMSIG_PARENT_QDELETING, outside setting QDELETING to detect
-#define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
+/// that's the only functional difference between it and COMSIG_QDELETING, outside setting QDELETING to detect
+#define COMSIG_PREQDELETED "parent_preqdeleted"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
-#define COMSIG_PARENT_QDELETING "parent_qdeleting"
+#define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
 
@@ -80,7 +80,8 @@
 
 //Diseases
 
-#define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+#define COMSIG_DISEASE_END "disease_end"
 
 //Mood
 
@@ -89,7 +90,6 @@
 
 /// Called in /obj/structure/moneybot/add_money(). (to_add)
 #define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
-
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
@@ -155,3 +155,13 @@
 /// Called when a buffer tries to send some stored data to something (datum/source, mob/user, datum/buffer, obj/item/buffer_parent) (buffer item may be null)
 #define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
 	#define COMPONENT_BUFFER_RECEIVED (1 << 0)
+
+///sent from ai controllers when they possess a pawn: (datum/ai_controller/source_controller)
+#define COMSIG_AI_CONTROLLER_POSSESSED_PAWN "ai_controller_possessed_pawn"
+/// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
+#define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"
+
+/// Called when a projectile dampener captures an object.
+#define COMSIG_DAMPENER_CAPTURE "dampener_capture"
+/// Called when a projectile dampener releases an object.
+#define COMSIG_DAMPENER_RELEASE "dampener_release"

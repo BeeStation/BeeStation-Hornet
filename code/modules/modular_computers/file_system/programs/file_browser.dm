@@ -3,12 +3,13 @@
 	filedesc = "File Manager"
 	extended_desc = "This program allows management of files."
 	program_icon_state = "software"
-	size = 8
+	size = 2
 	requires_ntnet = FALSE
 	available_on_ntnet = FALSE
 	undeletable = TRUE
 	tgui_id = "NtosFileManager"
 	program_icon = "folder"
+	power_consumption = 20 WATT
 
 	var/open_file
 	var/error

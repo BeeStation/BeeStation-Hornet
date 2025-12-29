@@ -7,8 +7,8 @@
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it."
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 60
+	idle_power_usage = 100 WATT
+	active_power_usage = 500 WATT
 	can_unwrench = TRUE
 	welded = FALSE
 	layer = GAS_SCRUBBER_LAYER
@@ -144,18 +144,15 @@
 		icon_state = "scrub_purge"
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/update_power_usage()
-	idle_power_usage = initial(idle_power_usage)
-	active_power_usage = initial(idle_power_usage)
-	var/new_power_usage = 0
-	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
-		new_power_usage = idle_power_usage + idle_power_usage * length(filter_types)
-		active_power_usage = IDLE_POWER_USE
-	else
-		new_power_usage = active_power_usage
-		active_power_usage = ACTIVE_POWER_USE
+	if(!on)
+		update_use_power(NO_POWER_USE)
 	if(widenet)
-		new_power_usage += new_power_usage * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
-	active_power_usage = new_power_usage
+		active_power_usage = initial(active_power_usage) * 2
+		idle_power_usage = initial(idle_power_usage) * 2
+	if(scrubbing == ATMOS_DIRECTION_SCRUBBING)
+		update_use_power(IDLE_POWER_USE)
+		return
+	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/set_scrubbing(scrubbing, mob/user)
 	if (src.scrubbing != scrubbing)

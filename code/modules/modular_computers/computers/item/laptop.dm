@@ -4,10 +4,11 @@
 	icon = 'icons/obj/modular_laptop.dmi'
 	icon_state = "laptop-closed"
 	icon_state_menu = "menu"
-	hardware_flag = PROGRAM_LAPTOP
-	max_hardware_size = 2
+	max_hardware_size = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_NORMAL
 	max_bays = 4
+	can_save_id = TRUE
+	custom_price = PAYCHECK_MEDIUM * 3
 
 	// No running around with open laptops in hands.
 	item_flags = SLOWS_WHILE_IN_HAND
@@ -22,13 +23,18 @@
 	if(screen_on)
 		. += span_notice("Alt-click to close it.")
 
+/obj/item/modular_computer/laptop/ui_static_data(mob/user)	// This ensures players are able to imprint ID. Necessary before Laptops become a subtype of tablet.
+	var/list/data = ..()
+	data["show_imprint"] = TRUE
+	return data
+
 /obj/item/modular_computer/laptop/Initialize(mapload)
 	. = ..()
 
 	if(start_open && !screen_on)
 		toggle_open()
 
-/obj/item/modular_computer/laptop/update_icon()
+/obj/item/modular_computer/laptop/update_icon_state()
 	. = ..()
 	if(screen_on)
 		icon_state = "laptop"

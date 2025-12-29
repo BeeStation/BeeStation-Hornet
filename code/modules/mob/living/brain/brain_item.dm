@@ -24,7 +24,7 @@
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
 	var/brain_death = FALSE //if the brainmob was intentionally killed by attacking the brain after removal, or by severe braindamage
-	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings & dullahans.
+	/// If it's a fake brain with no brainmob assigned. Feedback messages will be faked as if it does have a brainmob. See changelings
 	var/decoy_override = FALSE
 	/// Two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
@@ -118,7 +118,7 @@
 	if((!gc_destroyed || (owner && !owner.gc_destroyed)) && !no_id_transfer)
 		if(brain_owner.mind)
 			transfer_identity(brain_owner)
-			if(brain_owner.mind.current)
+			if(brain_owner.mind.current && !decoy_override)
 				brain_owner.mind.transfer_to(brainmob)
 		to_chat(brainmob, span_notice("You feel slightly disoriented. That's normal when you're just a brain."))
 	brain_owner.update_hair()
@@ -128,7 +128,7 @@
 	. = ..()
 	if(brain_death && !(organ_flags & ORGAN_FAILING))
 		brain_death = FALSE
-		brainmob.revive(TRUE) // We fixed the brain, fix the brainmob too.
+		brainmob.revive(HEAL_ALL) // We fixed the brain, fix the brainmob too.
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
@@ -137,7 +137,7 @@
 	brainmob = new(src)
 	brainmob.name = L.real_name
 	brainmob.real_name = L.real_name
-	brainmob.timeofhostdeath = L.timeofdeath
+	brainmob.timeofdeath = L.timeofdeath
 	brainmob.suiciding = suicided
 	if(L.has_dna())
 		var/mob/living/carbon/C = L
@@ -169,7 +169,7 @@
 			return
 
 		user.visible_message("[user] pours the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink.", span_notice("You pour the contents of [O] onto [src], causing it to reform its original shape and turn a slightly brighter shade of pink."))
-		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "setorgandamage", we clear the failing variable if that was up
+		set_organ_damage(damage - (0.05 * maxHealth))	//heals a small amount, and by using "set_organ_damage", we clear the failing variable if that was up
 		O.reagents.clear_reagents()
 		return
 
@@ -185,7 +185,7 @@
 	if(suicided)
 		. += span_info("It's started turning slightly grey. They must not have been able to handle the stress of it all.")
 	else if(brainmob)
-		if(!brainmob.soul_departed())
+		if(brainmob.key || brainmob.get_ghost(FALSE, TRUE))
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += span_info("It's lifeless and severely damaged.")
 			else if(organ_flags & ORGAN_FAILING)
@@ -304,6 +304,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
+	base_icon_state = "posibrain"
 
 /obj/item/organ/brain/positron/on_insert(mob/living/carbon/human/brain_owner)
 	. = ..()
@@ -312,10 +313,10 @@
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
 				if(H.health > 0)
-					H.revive(0)
+					H.revive()
 
 /obj/item/organ/brain/positron/emp_act(severity)
-	owner.apply_status_effect(/datum/status_effect/ipc/emp)
+	owner.apply_status_effect(/datum/status_effect/ipc_emp)
 	to_chat(owner, span_warning("Alert: Posibrain function disrupted."))
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
