@@ -14,7 +14,7 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
