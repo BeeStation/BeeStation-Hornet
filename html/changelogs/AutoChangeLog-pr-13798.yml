@@ -1,0 +1,8 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Fixed changelings being able to copy plasmamen
+  - bugfix: Fixed IPCs not using their backup human character when rolling changeling
+  - bugfix: Fixed species that got forced into their backup human character when rolling
+      an antag having a picture of their old character in sec records
+  - bugfix: Fixed all species changes dropping all of your items
