@@ -58,7 +58,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/notify = TRUE
 	var/atom/special_target
 
-/obj/effect/immovablerod/New(atom/start, atom/end, aimed_at)
+/obj/effect/immovablerod/Initialize(mapload, atom/end, aimed_at)
 	..()
 	SSaugury.register_doom(src, 2000)
 	z_original = get_virtual_z_level()
@@ -73,6 +73,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(T.get_virtual_z_level() == z_original)
 			special_target_valid = TRUE
 	if(special_target_valid)
+		destination = special_target
 		SSmove_manager.home_onto(src, special_target)
 		previous_distance = get_dist(src, special_target)
 	else if(end && end.get_virtual_z_level() == z_original)
