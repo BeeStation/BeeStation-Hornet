@@ -933,7 +933,7 @@
 	var/glowyblood = FALSE
 	if(ishuman(src))
 		var/mob/living/carbon/human/humanoid = src
-		glowyblood = humanoid.dna.blood_type.glowy
+		glowyblood = humanoid.dna.blood_type?.glowy
 
 	if(isturf(start))
 		var/trail_type = getTrail()

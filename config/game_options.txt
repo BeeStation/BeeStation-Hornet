@@ -95,7 +95,7 @@ ALERT_EPSILON Central Command has ordered "EPSILON" security level on the statio
 NO_INTERCEPT_REPORT
 
 ## The total weight of station goals possible for a round (allows multiple goals)
-STATION_GOAL_BUDGET 1
+STATION_GOAL_BUDGET 2
 
 ## Uncomment to use station traits (faster cargo shuttle, more maintenance loot)
 STATION_TRAITS
