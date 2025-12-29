@@ -775,6 +775,7 @@
 		new_flesh_item.worn_icon = chosen_profile.worn_icon_list[slot]
 		new_flesh_item.worn_icon_state = chosen_profile.worn_icon_state_list[slot]
 
+		REMOVE_TRAIT(new_flesh_item, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
 		ADD_VALUE_TRAIT(new_flesh_item, TRAIT_VALUE_MIMIC_PATH, CHANGELING_TRAIT, chosen_profile.type_list[slot], PRIORITY_CHANGELING_MIMIC)
 
 		if(istype(new_flesh_item, /obj/item/card/id/changeling) && chosen_profile.id_job_name)

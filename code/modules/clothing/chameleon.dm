@@ -295,6 +295,8 @@
 				comp.update_id_display()
 			keepname = TRUE // do not change PDA name unnecesarily
 			update_mob_hud(item_holder)
+		REMOVE_TRAIT(I, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON)
+		ADD_VALUE_TRAIT(I, TRAIT_VALUE_MIMIC_PATH, FROM_CHAMELEON, initial(picked_item.type), PRIORITY_CHAMELEON_MIMIC)
 
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
@@ -356,12 +358,6 @@
 	acid = 50
 	stamina = 10
 	bleed = 10
-
-/obj/item/clothing/under/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
 
 /obj/item/clothing/under/chameleon/envirosuit
 	name = "plasma envirosuit"
@@ -455,12 +451,6 @@
 	stamina = 10
 	bleed = 10
 
-/obj/item/clothing/suit/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
-
 /obj/item/clothing/suit/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
@@ -517,12 +507,6 @@
 	acid = 50
 	stamina = 10
 	bleed = 10
-
-/obj/item/clothing/glasses/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
 	. = ..()
@@ -586,12 +570,6 @@
 	acid = 50
 	stamina = 10
 	bleed = 10
-
-/obj/item/clothing/gloves/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
 
 /obj/item/clothing/gloves/chameleon/Initialize(mapload)
 	. = ..()
@@ -676,12 +654,6 @@
 	acid = 50
 	stamina = 10
 	bleed = 10
-
-/obj/item/clothing/head/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
 
 /obj/item/clothing/head/chameleon/Initialize(mapload)
 	. = ..()
@@ -819,12 +791,6 @@
 	stamina = 10
 	bleed = 10
 
-/obj/item/clothing/mask/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
-
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
@@ -923,12 +889,6 @@
 	acid = 50
 	stamina = 10
 	bleed = 10
-
-/obj/item/clothing/shoes/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
 
 /obj/item/clothing/shoes/chameleon/Initialize(mapload)
 	. = ..()
@@ -1178,12 +1138,6 @@
 /datum/armor/neck_chameleon
 	fire = 50
 	acid = 50
-
-/obj/item/clothing/neck/chameleon/get_armor_for_examination(mob/examiner)
-	if (examiner == loc || !chameleon_action.chameleon_type)
-		return ..()
-	var/atom/chameleon_type = chameleon_action.chameleon_type
-	return get_armor_by_type(chameleon_type:armor_type)
 
 /obj/item/clothing/neck/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action

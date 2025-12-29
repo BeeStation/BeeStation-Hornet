@@ -3,3 +3,4 @@
 
 /// Item mimic paths
 #define PRIORITY_CHANGELING_MIMIC 1
+#define PRIORITY_CHAMELEON_MIMIC 2
