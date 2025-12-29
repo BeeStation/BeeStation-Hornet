@@ -204,3 +204,6 @@
   - rscadd: ethereals now have sound effects when screaming
   r1ks-iwnl:
   - bugfix: Fixed traitor and chaplain carp suit not protecting against space.
+2025-12-29:
+  mrmanlikesbt:
+  - bugfix: fixed the is_valid_z_level() proc
