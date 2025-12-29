@@ -100,6 +100,8 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	end_at = world.time + last_for
 	tc_reward = _generate(teams)
+	for (var/datum/component/uplink/uplink in uplinks)
+		log_directive("Priority directive: [objective_explanation]. Assigned: [uplink.owner ? key_name(uplink.owner) : "Unknown"].")
 	mission_update("New priority directive relayed to available uplinks. [objective_explanation]", prefix = "")
 
 /// Advertise this directive to security objectives consoles
@@ -169,8 +171,10 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 			deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", turf_target = get_turf(follow_atom))
 	else
 		deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>")
+	log_directive("Priority directive: [objective_explanation]. Mission Update: [message]")
 
 /datum/priority_directive/proc/grant_victory(datum/directive_team/victor_team)
+	log_directive("Priority directive: [objective_explanation]. Directive Completed")
 	victor_team?.grant_reward(tc_reward, reputation_reward)
 	if (victor_team != null)
 		for (var/datum/directive_team/team in teams)

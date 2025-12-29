@@ -8,6 +8,12 @@
 /datum/antagonist/vigilante/greet()
 	to_chat(owner.current, span_userdanger("You are a fanatic vigilante!"))
 	to_chat(owner.current, "<span class='secradio'>This world... This world is ruled by <b>criminals</b>. A violent underworld dances amongst the peaceful happenings of the station, ruining the purity of our new system. <b>It is up to you to take matters into your own hands</b>, when anyone gets <b>arrested</b> you shall shine <b>true justice</b> upon their hearts, and as for the infiltrator rumoured to be on-board... You shall show them what it truly means to mess with Nanotrasen.</span>")
+
+	var/datum/objective/escape/escape = new
+	escape.owner = owner
+	objectives += escape
+	log_objective(owner, escape.explanation_text)
+
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Fanatic Vigilante", "Investigate and uncover the station's infiltrator, elimating any small-fry criminals along the way.")
 	// Start with 3 TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
