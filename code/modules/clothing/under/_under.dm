@@ -474,8 +474,7 @@
 
 	return FALSE
 
-/obj/item/clothing/under/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
-	var/mob/living/carbon/human/human_wearer = istype(wearer, /mob/living/carbon/human) ? wearer : null
+/obj/item/clothing/under/examine_worn_title(mob/living/carbon/human/wearer, mob/user, skip_examine_link = FALSE)
 	//accessory
 	var/accessory_message = ""
 	var/list/accessories = list()
@@ -485,7 +484,7 @@
 		if (accessory.hidden && wearer != user)
 			continue
 		// Accessories that are below a suit hiding them do not show
-		if (wearer != user && !accessory.above_suit && human_wearer && human_wearer.wear_suit && (human_wearer.wear_suit.body_parts_covered & accessory.attachment_slot))
+		if (ishuman(wearer) && wearer != user && !accessory.above_suit && wearer.wear_suit && (wearer.wear_suit.body_parts_covered & accessory.attachment_slot))
 			continue
 		accessories += accessory.examine_worn_title(user)
 	if (length(accessories))
