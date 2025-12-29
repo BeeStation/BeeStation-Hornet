@@ -919,14 +919,7 @@
 	description = "Reacts with neural tissue, helping reform damaged connections. Can cure minor traumas and treat seizure disorders."
 	color = "#C0C0C0" //ditto
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-
-/datum/reagent/medicine/neurine/on_mob_add(mob/living/L, amount)
-	. = ..()
-	ADD_TRAIT(L, TRAIT_ANTICONVULSANT, name)
-
-/datum/reagent/medicine/neurine/on_mob_delete(mob/living/L)
-	. = ..()
-	REMOVE_TRAIT(L, TRAIT_ANTICONVULSANT, name)
+	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/medicine/neurine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()

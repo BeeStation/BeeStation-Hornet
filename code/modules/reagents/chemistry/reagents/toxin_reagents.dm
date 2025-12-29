@@ -678,10 +678,10 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#195096"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	taste_mult = 0 // undetectable, I guess?
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -696,17 +696,10 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#6496FA"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
-
-/datum/reagent/medicine/sodium_thiopental/on_mob_add(mob/living/L, amount)
-	. = ..()
-	ADD_TRAIT(L, TRAIT_ANTICONVULSANT, name)
-
-/datum/reagent/medicine/sodium_thiopental/on_mob_delete(mob/living/L)
-	. = ..()
-	REMOVE_TRAIT(L, TRAIT_ANTICONVULSANT, name)
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
