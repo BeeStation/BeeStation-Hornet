@@ -4,12 +4,17 @@
 	desc_controls = "Left click to stun, right click to baton shove."
 
 	icon_state = "stunbaton"
-	item_state = "baton"
+	inhand_icon_state = "baton"
 	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 
-	force = 8
+	force = 8 				//BRUTE when off
+	var/active_force = 40 	//STAMINA when on
+	damtype = BRUTE 		//becomes STAMINA when turned on, and is used to track whether the baton is off or on
+
+	block_flags = BLOCKING_EFFORTLESS
+
 	attack_verb_continuous = list("beats")
 	attack_verb_simple = list("beat")
 
@@ -18,23 +23,14 @@
 	item_flags = ISWEAPON
 	armor_type = /datum/armor/melee_baton
 	custom_price = 100
-
-	throwforce = 7
-	var/throw_stun_chance = 35
+	hitsound = 'sound/effects/woodhit.ogg' //Smack
 
 	var/obj/item/stock_parts/cell/cell
 	var/preload_cell_type //if not empty the baton starts with this type of cell
-	var/cell_hit_cost = 1 KILOWATT
+	var/cell_hit_cost = 10 KILOWATT
 	var/can_remove_cell = TRUE
-
-	var/turned_on = FALSE
 	var/activate_sound = "sparks"
-
-	var/stun_sound = 'sound/weapons/egloves.ogg'
-
-	var/stutter_amt = 20
-	var/stamina_loss_amt = 60
-	var/stun_time = 4 SECONDS
+	var/active_hitsound = 'sound/weapons/egloves.ogg' //ZZZT
 
 /datum/armor/melee_baton
 	bomb = 50
@@ -44,27 +40,34 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/suicide_act(mob/user)
-	if(cell?.charge && turned_on)
-		user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+/obj/item/melee/baton/suicide_act(mob/living/user)
+	if(damtype == STAMINA)
+		user.visible_message(span_suicide("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
 		. = (FIRELOSS)
-		attack(user,user)
+		user.electrocute_act(200, "suicide by stun baton", 1, SHOCK_NOGLOVES)
 	else
-		user.visible_message("<span class='suicide'>[user] is shoving the [name] down their throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is shoving the [name] down their throat! It looks like [user.p_theyre()] trying to commit suicide!"))
 		. = (OXYLOSS)
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
-	// Adding an extra break for the sake of presentation
-	if(stamina_loss_amt != 0)
-		offensive_notes = "\nVarious interviewed security forces report being able to beat criminals into exhaustion with only <span class='warning'>[round(100 / stamina_loss_amt, 0.1)] hit\s!</span>"
+	AddComponent(/datum/component/transforming, \
+		force_on = active_force, \
+		hitsound_on = active_hitsound, \
+		w_class_on = w_class, \
+		attack_verb_continuous_on = list("beats"), \
+		attack_verb_simple_on = list("beat"), \
+		inhand_icon_change = FALSE)
+	RegisterSignal(src, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_transform))
+
+	if(active_force != 0)
+		offensive_notes = "\nVarious interviewed security forces report being able to beat criminals into exhaustion with only [span_warning("[round(100 / active_force, 0.1)] hit\s!")]"
 	if(preload_cell_type)
 		if(!ispath(preload_cell_type,/obj/item/stock_parts/cell))
 			log_mapping("[src] at [AREACOORD(src)] had an invalid preload_cell_type: [preload_cell_type].")
 		else
 			cell = new preload_cell_type(src)
 	update_icon()
-
 
 /obj/item/melee/baton/Destroy()
 	if(cell)
@@ -74,37 +77,58 @@
 /obj/item/melee/baton/handle_atom_del(atom/A)
 	if(A == cell)
 		cell = null
-		turned_on = FALSE
+		if(damtype == STAMINA)
+			attack_self()
 		update_icon()
 	return ..()
 
+/obj/item/melee/baton/proc/on_transform(obj/item/source, mob/user, active)
+	SIGNAL_HANDLER
+	if(user) //In case the baton is thrown and fully depletes, it will have no user
+		balloon_alert(user, active ? "activated" : "deactivated")
+
+	if(active)
+		playsound(src, activate_sound, 75, TRUE)
+		damtype = STAMINA
+	else
+		damtype = BRUTE
+
+	update_icon()
+	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/melee/baton/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	//Only mob/living types have stun handling
-	if(turned_on && prob(throw_stun_chance) && iscarbon(hit_atom))
-		baton_effect(hit_atom, throwingdatum.thrower)
+	//Only a 35% success chance if you throw it
+	if(damtype == STAMINA && prob(65))
+		attack_self()
+	return ..()
 
-/obj/item/melee/baton/loaded //this one starts with a cell pre-installed.
-	preload_cell_type = /obj/item/stock_parts/cell/high
+/obj/item/melee/baton/attack_self(mob/user)
+	//Always allow it to be turned off if it is on, this proc is how the baton turns off when depleted.
+	if(damtype == STAMINA)
+		return ..()
 
-/obj/item/melee/baton/proc/deductcharge(chrgdeductamt)
-	if(cell)
-		//Note this value returned is significant, as it will determine
-		//if a stun is applied or not
-		. = cell.use(chrgdeductamt)
-		if(turned_on && cell.charge < cell_hit_cost)
-			//we're below minimum, turn off
-			turned_on = FALSE
-			update_icon()
-			playsound(src, activate_sound, 75, TRUE, -1)
+	if(cell?.charge < cell_hit_cost)
+		balloon_alert(user, "It has no power!")
+		return FALSE
 
+	else if(obj_flags & OBJ_EMPED)
+		balloon_alert(user, "It's not responding!")
+		return FALSE
+
+	//It has enough charge and hasn't been hit with an EMP, so turn it on.
+	return ..()
+
+///Check if there is enough remaining charge to attack with, and turn it off if not
+/obj/item/melee/baton/proc/check_charge()
+	if(isnull(cell) || cell.charge < cell_hit_cost)
+		if(damtype == STAMINA)
+			attack_self() //turn it off if there isn't enough
 
 /obj/item/melee/baton/update_icon_state()
 	if(obj_flags & OBJ_EMPED)
 		icon_state = "[initial(icon_state)]"
-	else if(turned_on)
-		icon_state = "[initial(icon_state)]_active"
+	else if(damtype == STAMINA)
+		icon_state = "[initial(icon_state)]_on"
 	else if(!cell)
 		icon_state = "[initial(icon_state)]_nocell"
 	else
@@ -114,7 +138,7 @@
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("\The [src] is [round(cell.percent())]% charged.")
+		. += span_notice("\The [src] has [floor(cell.charge / cell_hit_cost)] remaining uses.")
 	else
 		. += span_warning("\The [src] does not have a power source installed.")
 
@@ -144,168 +168,68 @@
 		cell.forceMove(get_turf(src))
 		cell = null
 		balloon_alert(user, "You remove the power cell.")
-		turned_on = FALSE
+		if(damtype == STAMINA)
+			attack_self()
 		update_icon()
 
-/obj/item/melee/baton/attack_self(mob/user)
-	toggle_on(user)
-
-/obj/item/melee/baton/proc/toggle_on(mob/user)
-	if((cell && cell.charge > cell_hit_cost) && !(obj_flags & OBJ_EMPED))
-		turned_on = !turned_on
-		balloon_alert(user, "You turn [src] [turned_on ? "on" : "off"].")
-		playsound(src, activate_sound, 75, TRUE, -1)
-	else
-		turned_on = FALSE
-		if(!cell)
-			balloon_alert(user, "It has no power source!")
-		else if(obj_flags & OBJ_EMPED)
-			balloon_alert(user, "It's not responding!")
-	update_icon()
-	add_fingerprint(user)
-
-/obj/item/melee/baton/proc/clumsy_check(mob/living/carbon/human/user)
-	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED))
-		playsound(src, stun_sound, 75, TRUE, -1)
-		user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!"), \
-							span_userdanger("You accidentally hit yourself with [src], electrocuting yourself badly!"))
-		user.adjustStaminaLoss(stun_time*3)
-		user.stuttering = stutter_amt
-		user.do_jitter_animation(20)
-		deductcharge(cell_hit_cost)
-		return TRUE
-	return FALSE
-
-/obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user, params)
-	if(clumsy_check(user))
-		return FALSE
-
-	if(iscyborg(M))
-		return ..()
-
-
-	if(ishuman(M))
-		var/mob/living/carbon/human/L = M
-		if(check_martial_counter(L, user))
-			return
-
-	if(!user.combat_mode)
-		if(turned_on)
-			if(baton_effect(M, user, params))
-				user.do_attack_animation(M)
-				return
-		else
-			M.visible_message(span_warning("[user] has prodded [M] with [src]. Luckily it was off."), \
-							span_warning("[user] has prodded you with [src]. Luckily it was off"))
-	else
-		. = ..()
-		if(turned_on)
-			baton_effect(M, user, params)
-
-/obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, params)
-	if(obj_flags & OBJ_EMPED)
-		return FALSE
-	if(shields_blocked(target, user))
-		return FALSE
-	if(iscyborg(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(!R || !R.cell || !R.cell.use(cell_hit_cost))
-			return FALSE
-	else
-		if(!deductcharge(cell_hit_cost))
-			return FALSE
-
-	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
-	var/armor_block = target.run_armor_check(affecting, STAMINA)
-	if(isipc(target))
-		target.electrocute_act(1, src, flags = SHOCK_NOGLOVES|SHOCK_NOSTUN)
-		target.apply_damage(stun_time/4, BURN, affecting, armor_block) //20 damage
-	target.apply_damage(stun_time, STAMINA, affecting, armor_block)
-	target.apply_effect(EFFECT_STUTTER, stun_time)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
-	target.stuttering = 20
-
-	// Shoving
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		var/shove_dir = get_dir(user.loc, target.loc)
-		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
-		var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
-		if (target_collateral_human && target_shove_turf != get_turf(user))
-			target.Knockdown(0.5 SECONDS)
-			target_collateral_human.Knockdown(0.5 SECONDS)
-		target.Move(target_shove_turf, shove_dir)
-
-	target.do_stun_animation()
-
-	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
-		target.emote("scream")
-
-	if(user)
-		target.lastattacker = user.real_name
-		target.lastattackerckey = user.ckey
-		target.visible_message(span_danger("[user] has electrocuted [target] with [src]!"), \
-								span_userdanger("[user] has electrocuted you with [src]!"))
-		log_combat(user, target, "stunned", src)
-
-	playsound(src, stun_sound, 50, TRUE, -1)
+/obj/item/melee/baton/attack(mob/living/target, mob/living/user, params)
+	//Clumsy gives a 50% chance to hit themselves if the baton is on
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED) && damtype == STAMINA)
+		target = user
 
 	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		H.force_say(user)
+		var/mob/living/carbon/human/human_target = target
+		if(check_martial_counter(human_target, user))
+			return FALSE
 
+	//Drain the cell regardless of attack success
+	if(damtype == STAMINA)
+		cell.use(cell_hit_cost)
 
-	return 1
+	//Proceed with the attack chain
+	. = ..()
+
+	//After the attack chain has resolved, check if the baton should turn itself off
+	check_charge()
+
+	return .
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
-	if (!(. & EMP_PROTECT_SELF) && !(obj_flags & OBJ_EMPED))
-		obj_flags |= OBJ_EMPED
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
-		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
+	if(cell)
+		cell.use(cell.charge)
+		check_charge()
 
-/obj/item/melee/baton/proc/emp_reset()
-	obj_flags &= ~OBJ_EMPED
-	update_icon()
-	playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE)
-
-/obj/item/melee/baton/proc/shields_blocked(mob/living/target, mob/user)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
-			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return TRUE
-	return FALSE
+//This one starts with a cell pre-installed.
+/obj/item/melee/baton/loaded
+	preload_cell_type = /obj/item/stock_parts/cell/high
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
 	name = "stunprod"
 	desc = "An improvised stun baton."
 	icon_state = "stunprod"
-	item_state = "prod"
+	inhand_icon_state = "prod"
 	worn_icon_state = null
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
-	stun_time = 4 SECONDS
-	cell_hit_cost = 2 KILOWATT
-	throw_stun_chance = 10
+	cell_hit_cost = 20 KILOWATT
 	slot_flags = ITEM_SLOT_BACK
-	var/obj/item/assembly/igniter/sparkler = 0
+	var/obj/item/assembly/igniter/sparkler
 	custom_price = 25
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)
 	. = ..()
 	sparkler = new (src)
 
-/obj/item/melee/baton/cattleprod/baton_effect()
-	if(obj_flags & OBJ_EMPED)
-		return FALSE
-	if(sparkler.activate())
-		..()
+/obj/item/melee/baton/cattleprod/attack(mob/target, mob/living/carbon/human/user, params)
+	if(damtype == STAMINA)
+		sparkler.activate()
+	return ..()
+
 
 /obj/item/melee/baton/cattleprod/Destroy()
 	if(sparkler)

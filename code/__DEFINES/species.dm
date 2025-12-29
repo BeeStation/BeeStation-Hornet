@@ -163,3 +163,5 @@
 		'sound/emotes/male/male_giggle_1.ogg',\
 		'sound/emotes/male/male_giggle_2.ogg',\
 		'sound/emotes/male/male_giggle_3.ogg')
+
+#define SPECIES_NAME_HUMANOID "Human"

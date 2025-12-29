@@ -103,6 +103,9 @@
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
+		if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+			batong_act(I, user, affecting, armour_block)
+
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
 
@@ -470,6 +473,14 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
+/mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
+	. = ..()
+	apply_effect(EFFECT_STUTTER, (batong.active_force / 2)) //0.5 seconds of stuttering speech for every 10 stamina damage
+	do_stun_animation()
+	if(ismonkey(src))
+		emote("screech")
+	else
+		emote("scream")
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference

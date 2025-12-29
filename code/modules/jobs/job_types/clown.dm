@@ -30,6 +30,11 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/theatre)
 
+	manuscript_jobs = list(
+		JOB_NAME_CLOWN,
+		JOB_NAME_BOTANIST // because banana
+	)
+
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!ishuman(H))

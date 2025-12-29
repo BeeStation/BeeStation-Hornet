@@ -63,7 +63,7 @@
 	add_objectives()
 	if(give_equipment)
 		equip_cultist(TRUE)
-	add_antag_hud(ANTAG_HUD_CULT, "cultist", current)
+	add_antag_hud(ANTAG_HUD_CULT, "cult", current)
 	current.log_message("has been converted to the cult of Nar'Sie!", LOG_ATTACK, color="#960000")
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
@@ -340,6 +340,8 @@
 /datum/team/cult/proc/ascend(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
+		if(istype(H.wear_neck, /obj/item/clothing/neck/cloak/fakehalo))
+			H.dropItemToGround(H.wear_neck)
 		if(H.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
 			return
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)

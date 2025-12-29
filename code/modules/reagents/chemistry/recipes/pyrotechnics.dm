@@ -209,7 +209,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/open/turf in RANGE_TURFS(1,T))
 		if(!locate(/obj/effect/hotspot) in turf)
-			new /obj/effect/hotspot(turf)
+			new /obj/effect/hotspot/bright(turf)
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
@@ -224,7 +224,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/open/turf in RANGE_TURFS(1,T))
 		if(!locate(/obj/effect/hotspot) in turf)
-			new /obj/effect/hotspot(turf)
+			new /obj/effect/hotspot/bright(turf)
 	holder.chem_temp = 1000 // hot as shit
 	..()
 
