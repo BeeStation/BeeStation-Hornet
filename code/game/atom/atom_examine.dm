@@ -11,14 +11,11 @@
 	examine_thats = "This is"
 
 /**
- * Called when a mob examines (shift click or verb) this atom
- *
- * Default behaviour is to get the name and icon of the object and it's reagents where
- * the TRANSPARENT flag is set on the reagents holder
- *
- * Produces a signal COMSIG_ATOM_EXAMINE
+ * Produces the base of examination. This returns a list containing
+ * the basic examination info that can be determined when inspecting
+ * an item.
  */
-/atom/proc/examine(mob/user)
+/atom/proc/examine_base(mob/user)
 	. = list()
 	if(desc)
 		. += "<i>[desc]</i>"
@@ -36,6 +33,17 @@
 		tag_string = english_list(tag_string, and_text = (findtext(tag_string[length(tag_string)], " and ")) ? ", " : " and ")
 		var/post_descriptor = examine_post_descriptor(user)
 		. += "[p_They()] [p_are()] a [tag_string] [examine_descriptor(user)][length(post_descriptor) ? " [jointext(post_descriptor, " ")]" : ""]."
+
+/**
+ * Called when a mob examines (shift click or verb) this atom
+ *
+ * Default behaviour is to get the name and icon of the object and it's reagents where
+ * the TRANSPARENT flag is set on the reagents holder
+ *
+ * Produces a signal COMSIG_ATOM_EXAMINE
+ */
+/atom/proc/examine(mob/user)
+	. = examine_base(user)
 
 	if(reagents)
 		var/user_sees_reagents = user.can_see_reagents()
