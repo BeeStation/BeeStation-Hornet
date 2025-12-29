@@ -284,6 +284,17 @@
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
 					user.vv_edit_var(variable, user_vars_to_edit[variable])
 
+/obj/item/clothing/examine_base(mob/user, is_external_examination)
+	. = ..()
+
+	if (!is_external_examination)
+		return
+
+	// External examinations show the armour inspection
+	if(get_armor_for_examination(user).has_any_armor() || (flags_cover & (HEADCOVERSMOUTH)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		. += span_notice("It has a <a href='byond://?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.")
+
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	if(damaged_clothes == CLOTHING_SHREDDED)
@@ -318,14 +329,14 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
-	if(get_armor().has_any_armor() || (flags_cover & (HEADCOVERSMOUTH)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+	if(get_armor_for_examination(user).has_any_armor() || (flags_cover & (HEADCOVERSMOUTH)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		. += span_notice("It has a <a href='byond://?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.")
 
 /obj/item/clothing/examine_tags(mob/user)
 	. = ..()
 	if (clothing_flags & THICKMATERIAL)
 		.["thick"] = "Extremely thick, protecting from piercing injections and sprays."
-	else if (get_armor().get_rating(MELEE) >= 20 || get_armor().get_rating(BULLET) >= 20)
+	else if (get_armor_for_examination().get_rating(MELEE) >= 20 || get_armor_for_examination().get_rating(BULLET) >= 20)
 		.["rigid"] = "Protects from some injections and sprays."
 	if (clothing_flags & CASTING_CLOTHES)
 		.["magical"] = "Allows magical beings to cast spells when wearing [src]."
@@ -365,13 +376,13 @@
 			if (istype(thing, /obj/item/clothing))
 				compare_to = thing
 				break
-		to_chat(usr, examine_block("[generate_armor_readout(compare_to)]"))
+		to_chat(usr, examine_block("[generate_armor_readout(usr, compare_to)]"))
 
-/obj/item/clothing/proc/generate_armor_readout(obj/item/clothing/compare_to)
+/obj/item/clothing/proc/generate_armor_readout(mob/examiner, obj/item/clothing/compare_to)
 	var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
 
-	var/datum/armor/armor = get_armor()
-	var/datum/armor/compare_armor = compare_to ? compare_to.get_armor() : null
+	var/datum/armor/armor = get_armor_for_examination(examiner)
+	var/datum/armor/compare_armor = compare_to ? compare_to.get_armor_for_examination(examiner) : null
 
 	var/added_damage_header = FALSE
 	for(var/damage_key in ARMOR_LIST_DAMAGE)
@@ -432,6 +443,13 @@
 	readout += "</span>"
 
 	return readout.Join()
+
+/obj/item/clothing/proc/get_armor_for_examination(mob/examiner)
+	RETURN_TYPE(/datum/armor)
+	if (ismob(loc) && loc != examiner && HAS_TRAIT(src, TRAIT_VALUE_MIMIC_PATH))
+		var/atom/mimic_path = GET_TRAIT_VALUE(src, TRAIT_VALUE_MIMIC_PATH)
+		return get_armor_by_type(mimic_path:armor_type)
+	return get_armor()
 
 /**
  * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.

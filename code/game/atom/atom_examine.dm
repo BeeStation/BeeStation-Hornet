@@ -14,8 +14,12 @@
  * Produces the base of examination. This returns a list containing
  * the basic examination info that can be determined when inspecting
  * an item.
+ *
+ * mob/user: The user inspecting the item
+ * is_external_examination (bool): If true, then someone else is examining this
+ * 								   item via a worn item external examination.
  */
-/atom/proc/examine_base(mob/user)
+/atom/proc/examine_base(mob/user, is_external_examination)
 	. = list()
 	if(desc)
 		. += "<i>[desc]</i>"
@@ -43,7 +47,7 @@
  * Produces a signal COMSIG_ATOM_EXAMINE
  */
 /atom/proc/examine(mob/user)
-	. = examine_base(user)
+	. = examine_base(user, FALSE)
 
 	if(reagents)
 		var/user_sees_reagents = user.can_see_reagents()

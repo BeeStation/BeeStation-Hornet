@@ -536,9 +536,10 @@
 
 	INVOKE_ASYNC(src, PROC_REF(run_examinate), examinify)
 
-/mob/proc/external_examinate(atom/examinfy)
+/mob/proc/external_examinate(atom/examinify)
 	INVOKE_ASYNC(src, PROC_REF(run_external_examinate), examinify)
 
+/// Examine the atom provided when it is worn by someone else
 /mob/proc/run_external_examinate(atom/examinify)
 	if(QDELETED(examinify))
 		return
@@ -561,7 +562,7 @@
 				continue
 			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
 
-	var/list/result = examinify.examine_base(src)
+	var/list/result = examinify.examine_base(src, TRUE)
 	var/atom_title = examinify.examine_title(src, thats = TRUE)
 	var/rendered = (atom_title ? "[span_slightly_larger(separator_hr("[atom_title]."))]" : "") + jointext(result, "<br>")
 
