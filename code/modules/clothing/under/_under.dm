@@ -487,7 +487,7 @@
 		// Accessories that are below a suit hiding them do not show
 		if (wearer != user && !accessory.above_suit && human_wearer && human_wearer.wear_suit && (human_wearer.wear_suit.body_parts_covered & accessory.attachment_slot))
 			continue
-		accessories += accessory.examine_worn_title(user)
+		accessories += accessory.examine_worn_title(wearer, user)
 	if (length(accessories))
 		accessory_message += " with [english_list(accessories)]"
 	return "[..()][accessory_message]"
