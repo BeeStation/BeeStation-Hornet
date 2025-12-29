@@ -1,9 +1,9 @@
 /datum/techweb_node/biotech
-	id = "biotech"
+	id = TECHWEB_NODE_BIOTECH
 	tech_tier = 1
 	display_name = "Biological Technology"
 	description = "What makes us tick."	//the MC, silly!
-	prereq_ids = list("base")
+	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list(
 		"beer_dispenser",
 		"chem_dispenser",
@@ -26,11 +26,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/adv_biotech
-	id = "adv_biotech"
+	id = TECHWEB_NODE_ADV_BIOTECH
 	tech_tier = 2
 	display_name = "Advanced Biotechnology"
 	description = "Advanced Biotechnology"
-	prereq_ids = list("biotech")
+	prereq_ids = list(TECHWEB_NODE_BIOTECH)
 	design_ids = list(
 		"crewpinpointer",
 		"defibrillator_compact",
@@ -45,11 +45,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/bio_process
-	id = "bio_process"
+	id = TECHWEB_NODE_BIO_PROCESS
 	tech_tier = 1
 	display_name = "Biological Processing"
 	description = "From slimes to kitchens."
-	prereq_ids = list("biotech")
+	prereq_ids = list(TECHWEB_NODE_BIOTECH)
 	design_ids = list(
 		"deepfryer",
 		"dish_drive",

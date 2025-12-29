@@ -1,5 +1,5 @@
 /datum/techweb_node/mmi
-	id = "mmi"
+	id = TECHWEB_NODE_MMI
 	tech_tier = 1
 	starting_node = TRUE
 	display_name = "Man Machine Interface"
@@ -7,20 +7,20 @@
 	design_ids = list("mmi")
 
 /datum/techweb_node/robotics
-	id = "robotics"
+	id = TECHWEB_NODE_ROBOTICS
 	tech_tier = 2
 	display_name = "Basic Robotics Research"
 	description = "Programmable machines that make our lives lazier."
-	prereq_ids = list("base")
+	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list("paicard")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/adv_robotics
-	id = "adv_robotics"
+	id = TECHWEB_NODE_ADV_ROBOTICS
 	tech_tier = 3
 	display_name = "Advanced Robotics Research"
 	description = "It can even do the dishes!"
-	prereq_ids = list("robotics")
+	prereq_ids = list(TECHWEB_NODE_ROBOTICS)
 	design_ids = list(
 		"borg_upgrade_advancedmop",
 		"borg_upgrade_diamonddrill",
@@ -29,33 +29,27 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/neural_programming
-	id = "neural_programming"
+	id = TECHWEB_NODE_NEURAL_PROGRAMMING
 	tech_tier = 2
 	display_name = "Neural Programming"
 	description = "Study into networks of processing units that mimic our brains."
-	prereq_ids = list(
-		"biotech",
-		"datatheory",
-	)
+	prereq_ids = list(TECHWEB_NODE_BIOTECH, TECHWEB_NODE_DATATHEORY)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/posibrain
-	id = "posibrain"
+	id = TECHWEB_NODE_POSIBRAIN
 	display_name = "Positronic Brain"
 	description = "Applied usage of neural technology allowing for autonomous AI units based on special metallic cubes with conductive and processing circuits."
-	prereq_ids = list("neural_programming")
+	prereq_ids = list(TECHWEB_NODE_NEURAL_PROGRAMMING)
 	design_ids = list("mmi_posi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/ai
-	id = "ai"
+	id = TECHWEB_NODE_AI
 	tech_tier = 3
 	display_name = "Artificial Intelligence"
 	description = "AI unit research."
-	prereq_ids = list(
-		"posibrain",
-		"robotics",
-	)
+	prereq_ids = list(TECHWEB_NODE_POSIBRAIN, TECHWEB_NODE_ROBOTICS)
 	design_ids = list(
 		"aicore",
 		"aifixer",
@@ -81,11 +75,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/ai_laws
-	id = "ai_laws"
+	id = TECHWEB_NODE_AI_LAWS
 	tech_tier = 4
 	display_name = "Advanced AI Laws"
 	description = "Delving into sophisticated AI directives, with hopes that they won't lead to humanity's extinction."
-	prereq_ids = list("ai")
+	prereq_ids = list(TECHWEB_NODE_AI)
 	design_ids = list(
 		"antimov_module",
 		"asimovpp_module",

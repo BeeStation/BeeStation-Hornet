@@ -1,9 +1,9 @@
 /datum/techweb_node/clown
-	id = "clown"
+	id = TECHWEB_NODE_CLOWN
 	tech_tier = 2
 	display_name = "Clown Technology"
 	description = "Honk?!"
-	prereq_ids = list("base")
+	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list(
 		"clown_car",
 		"air_horn",
@@ -29,11 +29,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/janitor
-	id = "janitor"
+	id = TECHWEB_NODE_JANITOR
 	tech_tier = 1
 	display_name = "Advanced Sanitation Technology"
 	description = "Clean things better, faster, stronger, and harder!"
-	prereq_ids = list("adv_engi")
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
 	design_ids = list(
 		"advmop",
 		"beartrap",
@@ -45,14 +45,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/botany
-	id = "botany"
+	id = TECHWEB_NODE_BOTANY
 	tech_tier = 1
 	display_name = "Botanical Engineering"
 	description = "Botanical tools"
-	prereq_ids = list(
-		"adv_engi",
-		"biotech",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_BIOTECH)
 	design_ids = list(
 		"biogenerator",
 		"diskplantgene",

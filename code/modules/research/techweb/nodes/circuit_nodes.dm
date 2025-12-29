@@ -1,5 +1,5 @@
 /datum/techweb_node/basic_circuitry
-	id = "basic_circuitry"
+	id = TECHWEB_NODE_BASIC_CIRCUITRY
 	tech_tier = 0
 	starting_node = TRUE
 	display_name = "Basic Integrated Circuits"
@@ -65,7 +65,7 @@
 	)
 
 /datum/techweb_node/circuit_templates
-	id = "circuit_templates"
+	id = TECHWEB_NODE_CIRCUIT_TEMPLATES
 	tech_tier = 0
 	starting_node = TRUE
 	display_name = "Professor's Circuits"
@@ -82,14 +82,11 @@
 	)
 
 /datum/techweb_node/math_circuits
-	id = "math_circuits"
+	id = TECHWEB_NODE_MATH_CIRCUITS
 	tech_tier = 1
 	display_name = "Math Circuitry"
 	description = "Development of more complex mathematical components for all your number manipulating needs"
-	prereq_ids = list(
-		"basic_circuitry",
-		"datatheory",
-	)
+	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_DATATHEORY)
 	design_ids = list(
 		"comp_adv_trig",
 		"comp_bitflag",
@@ -101,14 +98,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/list_circuits
-	id = "list_circuits"
+	id = TECHWEB_NODE_LIST_CIRCUITS
 	tech_tier = 1
 	display_name = "List Circuitry"
 	description = "Configures new integrated circuit components capable of representing one dimensional data structures such as arrays, stacks, and queues."
-	prereq_ids = list(
-		"basic_circuitry",
-		"datatheory",
-	)
+	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_DATATHEORY)
 	design_ids = list(
 		"comp_append",
 		"comp_index",
@@ -121,14 +115,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/adv_shells
-	id = "adv_shells"
+	id = TECHWEB_NODE_ADV_SHELLS
 	tech_tier = 2
 	display_name = "Advanced Shell Research"
 	description = "Grants access to more complicated shell designs."
-	prereq_ids = list(
-		"basic_circuitry",
-		"engineering",
-	)
+	prereq_ids = list(TECHWEB_NODE_BASIC_CIRCUITRY, TECHWEB_NODE_ENGINEERING)
 	design_ids = list(
 		"assembly_shell",
 		"bot_shell",
@@ -143,11 +134,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/bci_shells
-	id = "bci_shells"
+	id = TECHWEB_NODE_BCI_SHELLS
 	tech_tier = 2
 	display_name = "Brain-Computer Interfaces"
 	description = "Grants access to biocompatable shell designs and components."
-	prereq_ids = list("adv_shells")
+	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS)
 	design_ids = list(
 		"bci_implanter",
 		"bci_shell",
@@ -162,14 +153,11 @@
 
 
 /datum/techweb_node/movable_shells_tech
-	id = "movable_shells"
+	id = TECHWEB_NODE_MOVABLE_SHELLS
 	tech_tier = 2
 	display_name = "Movable Shell Research"
 	description = "Grants access to movable shells."
-	prereq_ids = list(
-		"adv_shells",
-		"robotics",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_ROBOTICS)
 	design_ids = list(
 		"comp_pull",
 		"drone_shell",
@@ -177,29 +165,20 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /datum/techweb_node/server_shell_tech
-	id = "server_shell"
+	id = TECHWEB_NODE_SERVER_SHELL
 	tech_tier = 2
 	display_name = "Server Technology Research"
 	description = "Grants access to a server shell that has a very high capacity for components."
-	prereq_ids = list(
-		"adv_shells",
-		"computer_hardware_basic",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_COMPUTER_HARDWARE_BASIC)
 	design_ids = list("server_shell")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /datum/techweb_node/advanced_circuit_templates
-	id = "advanced_circuit_templates"
+	id = TECHWEB_NODE_ADVANCED_CIRCUIT_TEMPLATES
 	tech_tier = 2
 	display_name = "Advanced Circuit Templates"
 	description = "Circuit Templates. Some broken, some not very useful"
-	prereq_ids = list(
-		"math_circuits",
-		"list_circuits",
-		"adv_shells",
-		"bci_shells",
-		"movable_shells",
-		"server_shell")
+	prereq_ids = list(TECHWEB_NODE_MATH_CIRCUITS, TECHWEB_NODE_LIST_CIRCUITS, TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_BCI_SHELLS, TECHWEB_NODE_MOVABLE_SHELLS, TECHWEB_NODE_SERVER_SHELL)
 	design_ids = list(
 		"template_broken_translator",
 		"template_scanning_gate",

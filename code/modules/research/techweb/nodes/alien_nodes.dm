@@ -7,14 +7,11 @@
 	}
 
 /datum/techweb_node/alientech //AYYYYYYYYLMAOO tech
-	id = "alientech"
+	id = TECHWEB_NODE_ALIENTECH
 	tech_tier = 5
 	display_name = "Alien Technology"
 	description = "Things used by the greys."
-	prereq_ids = list(
-		"biotech",
-		"engineering"
-	)
+	prereq_ids = list(TECHWEB_NODE_BIOTECH, TECHWEB_NODE_ENGINEERING)
 	required_items_to_unlock = list(
 		/obj/item/melee/baton/abductor,
 		/obj/item/cautery/alien,
@@ -41,14 +38,11 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 	SSshuttle.shuttle_purchase_requirements_met |= SHUTTLE_UNLOCK_ALIENTECH
 
 /datum/techweb_node/alien_bio
-	id = "alien_bio"
+	id = TECHWEB_NODE_ALIEN_BIO
 	tech_tier = 5
 	display_name = "Alien Biological Tools"
 	description = "Advanced biological tools."
-	prereq_ids = list(
-		"adv_biotech",
-		"alientech",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_BIOTECH, TECHWEB_NODE_ALIENTECH)
 	design_ids = list(
 		"alien_cautery",
 		"alien_drill",
@@ -79,14 +73,11 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 
 /datum/techweb_node/alien_engi
-	id = "alien_engi"
+	id = TECHWEB_NODE_ALIEN_ENGI
 	tech_tier = 5
 	display_name = "Alien Engineering"
 	description = "Alien engineering tools"
-	prereq_ids = list(
-		"adv_engi",
-		"alientech",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ALIENTECH)
 	design_ids = list(
 		"alien_crowbar",
 		"alien_multitool",
@@ -110,14 +101,11 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 
 /datum/techweb_node/alien_surgery
-	id = "alien_surgery"
+	id = TECHWEB_NODE_ALIEN_SURGERY
 	tech_tier = 5
 	display_name = "Alien Surgery"
 	description = "Anything from brainwashing to reviving the dead. Alien technology."
-	prereq_ids = list(
-		"alientech",
-		"exp_surgery",
-	)
+	prereq_ids = list(TECHWEB_NODE_ALIENTECH, TECHWEB_NODE_EXP_SURGERY)
 	design_ids = list(
 		"surgery_brainwashing",
 		"surgery_heal_combo_upgrade_femto",
@@ -126,13 +114,10 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 
 /datum/techweb_node/nullspacebreaching
-	id = "nullspacebreaching"
+	id = TECHWEB_NODE_NULLSPACEBREACHING
 	display_name = "Nullspace Breaching"
 	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
-	prereq_ids = list(
-		"alientech",
-		"basic_shuttle",
-	)
+	prereq_ids = list(TECHWEB_NODE_ALIENTECH, TECHWEB_NODE_BASIC_SHUTTLE)
 	design_ids = list(
 		"engine_void",
 		"wingpack_ayy",

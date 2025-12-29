@@ -1,9 +1,9 @@
 /datum/techweb_node/comptech
-	id = "comptech"
+	id = TECHWEB_NODE_COMPTECH
 	tech_tier = 1
 	display_name = "Computer Consoles"
 	description = "Computers and how they work."
-	prereq_ids = list("datatheory")
+	prereq_ids = list(TECHWEB_NODE_DATATHEORY)
 	design_ids = list(
 		"cargo",
 		"cargorequest",
@@ -21,11 +21,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 
 /datum/techweb_node/computer_hardware_basic
-	id = "computer_hardware_basic"
+	id = TECHWEB_NODE_COMPUTER_HARDWARE_BASIC
 	tech_tier = 1
 	display_name = "Basic Computer Hardware"
 	description = "Necessary basic components for Modular Computer assembly."
-	prereq_ids = list("datatheory")
+	prereq_ids = list(TECHWEB_NODE_DATATHEORY)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	design_ids = list(
 		"antivirus",
@@ -42,11 +42,11 @@
 	)
 
 /datum/techweb_node/computer_shells
-	id = "computer_shells"
+	id = TECHWEB_NODE_COMPUTER_SHELLS
 	tech_tier = 1
 	display_name = "Computer Shells"
 	description = "Production of modular computer shells for assembly."
-	prereq_ids = list("datatheory")
+	prereq_ids = list(TECHWEB_NODE_DATATHEORY)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	design_ids = list(
 		"shell_pda",
@@ -55,11 +55,11 @@
 	)
 
 /datum/techweb_node/computer_hardware_advanced
-	id = "computer_hardware_advanced"
+	id = TECHWEB_NODE_COMPUTER_HARDWARE_ADVANCED
 	tech_tier = 2
 	display_name = "Advanced Computer Hardware"
 	description = "Standard quality components and functional parts."
-	prereq_ids = list("computer_hardware_basic")
+	prereq_ids = list(TECHWEB_NODE_COMPUTER_HARDWARE_BASIC)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	design_ids = list(
 		"antivirus2",
@@ -80,11 +80,11 @@
 	)
 
 /datum/techweb_node/computer_hardware_super
-	id = "computer_hardware_super"
+	id = TECHWEB_NODE_COMPUTER_HARDWARE_SUPER
 	tech_tier = 3
 	display_name = "Superior Computer Hardware"
 	description = "Superior quality components and useful parts."
-	prereq_ids = list("computer_hardware_advanced")
+	prereq_ids = list(TECHWEB_NODE_COMPUTER_HARDWARE_ADVANCED)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
 	design_ids = list(
 		"antivirus3",
@@ -97,11 +97,11 @@
 	)
 
 /datum/techweb_node/computer_hardware_experimental
-	id = "computer_hardware_experimental"
+	id = TECHWEB_NODE_COMPUTER_HARDWARE_EXPERIMENTAL
 	tech_tier = 4
 	display_name = "Experimental Computer Hardware"
 	description = "Experimental parts currently in development. Test cautiously."
-	prereq_ids = list("computer_hardware_super", "telecomms")
+	prereq_ids = list(TECHWEB_NODE_COMPUTER_HARDWARE_SUPER, TECHWEB_NODE_TELECOMMS)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
 	design_ids = list(
 		"antivirus4",
@@ -109,11 +109,11 @@
 	)
 
 /datum/techweb_node/computer_board_gaming
-	id = "computer_board_gaming"
+	id = TECHWEB_NODE_COMPUTER_BOARD_GAMING
 	tech_tier = 1
 	display_name = "Arcade Games"
 	description = "For the slackers on the station."
-	prereq_ids = list("comptech")
+	prereq_ids = list(TECHWEB_NODE_COMPTECH)
 	design_ids = list(
 		"arcade_battle",
 		"arcade_orion",

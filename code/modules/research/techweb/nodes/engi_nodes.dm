@@ -1,5 +1,5 @@
 /datum/techweb_node/base
-	id = "base"
+	id = TECHWEB_NODE_BASE
 	tech_tier = 0
 	starting_node = TRUE
 	display_name = "Basic Research Technology"
@@ -60,7 +60,7 @@
 	)
 
 /datum/techweb_node/basic_tools
-	id = "basic_tools"
+	id = TECHWEB_NODE_BASIC_TOOLS
 	tech_tier = 0
 	starting_node = TRUE
 	display_name = "Basic Tools"
@@ -101,11 +101,11 @@
 	)
 
 /datum/techweb_node/engineering
-	id = "engineering"
+	id = TECHWEB_NODE_ENGINEERING
 	tech_tier = 1
 	display_name = "Industrial Engineering"
 	description = "A refresher course on modern engineering technology."
-	prereq_ids = list("base")
+	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list(
 		"adv_capacitor",
 		"adv_matter_bin",
@@ -153,14 +153,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 
 /datum/techweb_node/adv_engi
-	id = "adv_engi"
+	id = TECHWEB_NODE_ADV_ENGI
 	tech_tier = 2
 	display_name = "Advanced Engineering"
 	description = "Pushing the boundaries of physics, one chainsaw-fist at a time."
-	prereq_ids = list(
-		"emp_basic",
-		"engineering",
-	)
+	prereq_ids = list(TECHWEB_NODE_EMP_BASIC, TECHWEB_NODE_ENGINEERING)
 	design_ids = list(
 		"engine_goggles",
 		"magboots",
@@ -174,14 +171,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/high_efficiency
-	id = "high_efficiency"
+	id = TECHWEB_NODE_HIGH_EFFICIENCY
 	tech_tier = 3
 	display_name = "High Efficiency Parts"
 	description = "Finely-tooled manufacturing techniques allowing for picometer-perfect precision levels."
-	prereq_ids = list(
-		"datatheory",
-		"engineering",
-	)
+	prereq_ids = list(TECHWEB_NODE_DATATHEORY, TECHWEB_NODE_ENGINEERING)
 	design_ids = list(
 		"pico_mani",
 		"super_matter_bin",
@@ -189,11 +183,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 
 /datum/techweb_node/adv_power
-	id = "adv_power"
+	id = TECHWEB_NODE_ADV_POWER
 	tech_tier = 3
 	display_name = "Advanced Power Manipulation"
 	description = "How to get more zap."
-	prereq_ids = list("engineering")
+	prereq_ids = list(TECHWEB_NODE_ENGINEERING)
 	design_ids = list(
 		"circulator",
 		"hyper_cell",
@@ -210,14 +204,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/bluespace_power
-	id = "bluespace_power"
+	id = TECHWEB_NODE_BLUESPACE_POWER
 	tech_tier = 4
 	display_name = "Bluespace Power Technology"
 	description = "Even more powerful.. power!"
-	prereq_ids = list(
-		"adv_power",
-		"practical_bluespace",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_POWER, TECHWEB_NODE_PRACTICAL_BLUESPACE)
 	design_ids = list(
 		"bluespace_cell",
 		"quadratic_capacitor",
@@ -225,15 +216,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/micro_bluespace
-	id = "micro_bluespace"
+	id = TECHWEB_NODE_MICRO_BLUESPACE
 	tech_tier = 5
 	display_name = "Miniaturized Bluespace Research"
 	description = "Extreme reduction in space required for bluespace engines, leading to portable bluespace technology."
-	prereq_ids = list(
-		"bluespace_travel",
-		"high_efficiency",
-		"practical_bluespace",
-	)
+	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_HIGH_EFFICIENCY, TECHWEB_NODE_PRACTICAL_BLUESPACE)
 	design_ids = list(
 		"bluespace_matter_bin",
 		"femto_mani",
@@ -244,14 +231,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 
 /datum/techweb_node/basic_shuttle_tech
-	id = "basic_shuttle"
+	id = TECHWEB_NODE_BASIC_SHUTTLE
 	tech_tier = 3
 	display_name = "Basic Shuttle Research"
 	description = "Research the technology required to create and use basic shuttles."
-	prereq_ids = list(
-		"adv_engi",
-		"basic_plasma",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_BASIC_PLASMA)
 	design_ids = list(
 		"engine_heater",
 		"engine_plasma",
@@ -262,11 +246,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/emp_basic //EMP tech for some reason
-	id = "emp_basic"
+	id = TECHWEB_NODE_EMP_BASIC
 	tech_tier = 2
 	display_name = "Electromagnetic Theory"
 	description = "Study into usage of frequencies in the electromagnetic spectrum."
-	prereq_ids = list("base")
+	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list(
 		"holopad",
 		"holosign",
@@ -280,32 +264,29 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/emp_adv
-	id = "emp_adv"
+	id = TECHWEB_NODE_EMP_ADV
 	tech_tier = 3
 	display_name = "Advanced Electromagnetic Theory"
 	description = "Determining whether reversing the polarity will actually help in a given situation."
-	prereq_ids = list("emp_basic")
+	prereq_ids = list(TECHWEB_NODE_EMP_BASIC)
 	design_ids = list("ultra_micro_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /datum/techweb_node/emp_super
-	id = "emp_super"
+	id = TECHWEB_NODE_EMP_SUPER
 	tech_tier = 4
 	display_name = "Quantum Electromagnetic Technology"
 	description = "Even better electromagnetic technology."
-	prereq_ids = list("emp_adv")
+	prereq_ids = list(TECHWEB_NODE_EMP_ADV)
 	design_ids = list("quadultra_micro_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /datum/techweb_node/telecomms
-	id = "telecomms"
+	id = TECHWEB_NODE_TELECOMMS
 	tech_tier = 3
 	display_name = "Telecommunications Technology"
 	description = "Subspace transmission technology for near-instant communications devices."
-	prereq_ids = list(
-		"bluespace_basic",
-		"comptech",
-	)
+	prereq_ids = list(TECHWEB_NODE_BLUESPACE_BASIC, TECHWEB_NODE_COMPTECH)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	design_ids = list(
 		"comm_monitor",
@@ -329,11 +310,11 @@
 	)
 
 /datum/techweb_node/comp_recordkeeping
-	id = "comp_recordkeeping"
+	id = TECHWEB_NODE_COMP_RECORDKEEPING
 	tech_tier = 2
 	display_name = "Computerized Recordkeeping"
 	description = "Organized record databases and how they're used."
-	prereq_ids = list("comptech")
+	prereq_ids = list(TECHWEB_NODE_COMPTECH)
 	design_ids = list(
 		"automated_announcement",
 		"records/medical",
@@ -344,14 +325,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/integrated_HUDs
-	id = "integrated_HUDs"
+	id = TECHWEB_NODE_INTEGRATED_HUDS
 	tech_tier = 3
 	display_name = "Integrated HUDs"
 	description = "The usefulness of computerized records, projected straight onto your eyepiece!"
-	prereq_ids = list(
-		"comp_recordkeeping",
-		"emp_basic",
-	)
+	prereq_ids = list(TECHWEB_NODE_COMP_RECORDKEEPING, TECHWEB_NODE_EMP_BASIC)
 	design_ids = list(
 		"diagnostic_hud",
 		"health_hud",
@@ -361,15 +339,11 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 
 /datum/techweb_node/NVGtech
-	id = "NVGtech"
+	id = TECHWEB_NODE_NVGTECH
 	tech_tier = 3
 	display_name = "Night Vision Technology"
 	description = "Allows seeing in the dark without actual light!"
-	prereq_ids = list(
-		"adv_engi",
-		"emp_adv",
-		"integrated_HUDs",
-	)
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_EMP_ADV, TECHWEB_NODE_INTEGRATED_HUDS)
 	design_ids = list(
 		"diagnostic_hud_night",
 		"health_hud_night",
@@ -381,7 +355,7 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 
 /datum/techweb_node/exp_tools
-	id = "exp_tools"
+	id = TECHWEB_NODE_EXP_TOOLS
 	tech_tier = 3
 	display_name = "Experimental Tools"
 	description = "Highly advanced tools."
@@ -394,11 +368,11 @@
 		"searingtool",
 		"wirebrush_adv",
 	)
-	prereq_ids = list("adv_engi")
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/rcd_upgrade
-	id = "rcd_upgrade"
+	id = TECHWEB_NODE_RCD_UPGRADE
 	tech_tier = 3
 	display_name = "Rapid Device Upgrade Designs"
 	description = "Unlocks new designs that improve rapid devices."
@@ -408,17 +382,14 @@
 		"rcd_upgrade_simple_circuits",
 		"rpd_upgrade_unwrench"
 	)
-	prereq_ids = list("adv_engi")
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/adv_rcd_upgrade
-	id = "adv_rcd_upgrade"
+	id = TECHWEB_NODE_ADV_RCD_UPGRADE
 	tech_tier = 4
 	display_name = "Advanced RCD Designs Upgrade"
 	description = "Unlocks new RCD designs."
 	design_ids = list("rcd_upgrade_silo_link")
-	prereq_ids = list(
-		"bluespace_travel",
-		"rcd_upgrade",
-	)
+	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_RCD_UPGRADE)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)

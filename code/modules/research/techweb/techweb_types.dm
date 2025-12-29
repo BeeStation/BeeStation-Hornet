@@ -23,7 +23,7 @@
 
 /datum/techweb/oldstation/New()
 	. = ..()
-	research_node_id("oldstation_surgery", TRUE, TRUE, FALSE)
+	research_node_id(TECHWEB_NODE_OLDSTATION_SURGERY, TRUE, TRUE, FALSE)
 
 /datum/techweb/golem
 	id = "GOLEM"
