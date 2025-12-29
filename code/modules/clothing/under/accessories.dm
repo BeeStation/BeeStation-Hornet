@@ -452,6 +452,9 @@
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
+	accessory_slot = ACCESSORY_MEDAL
+	accessory_layer = ACCESSORY_LAYER_MEDAL
+	above_suit = TRUE
 	var/badge_title = "Security Officer"
 	var/officer_name
 
