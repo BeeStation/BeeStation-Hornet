@@ -79,8 +79,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	update_ai_view()
 	add_ai_view()
 
-	. = ..()
-/obj/machinery/door/window/ComponentInitialize()
 	AddElement(/datum/element/atmos_sensitive)
 	AddComponent(/datum/component/ntnet_interface)
 

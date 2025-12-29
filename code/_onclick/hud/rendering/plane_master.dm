@@ -215,7 +215,7 @@
 
 /atom/movable/screen/plane_master/ai_machinery/backdrop(mob/mymob)
 	. = ..()
-	//add_filter("mask", 1, alpha_mask_filter(render_source = CAMERA_STATIC_PLANE_RENDER_TARGET))
+	add_filter("mask", 1, alpha_mask_filter(render_source = CAMERA_STATIC_PLANE_RENDER_TARGET))
 	add_filter("bloom", 2, list(type = "bloom", size = 2, threshold = rgb(85, 85, 85)))
 
 /atom/movable/screen/plane_master/o_light_visual
