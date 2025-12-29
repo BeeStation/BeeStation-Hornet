@@ -468,14 +468,20 @@
 	return FALSE
 
 /obj/item/clothing/under/examine_worn_title(mob/user, skip_examine_link)
-	. = ..()
-	if(!attached_accessory)
-		return
-	var/covered = FALSE
-	// Check if the accessory is hidden by a suit
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(src == H.w_uniform && H.wear_suit && !attached_accessory.above_suit)
-			covered = H.wear_suit.body_parts_covered & attached_accessory.attachment_slot
-	if(!covered)
-		. += " with [attached_accessory.examine_worn_title(user)] attached"
+	//accessory
+	var/accessory_message = ""
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/undershirt = w_uniform
+		var/list/accessories = list()
+		for (var/accessory_slot in undershirt.attached_accessories)
+			var/obj/item/clothing/accessory/accessory = undershirt.attached_accessories[accessory_slot]
+			// Hidden accessories do not show
+			if (accessory.hidden)
+				continue
+			// Accessories that are below a suit hiding them do not show
+			if (!accessory.above_suit && wear_suit && wear_suit.body_parts_covered & accessory.attachment_slot)
+				continue
+			accessories += "[icon2html(accessory, user)] \a [accessory]"
+		if (length(accessories))
+			accessory_message += " with [english_list(accessories)]"
+	return "[..()][accessory_message]"
