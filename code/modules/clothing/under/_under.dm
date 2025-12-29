@@ -404,3 +404,16 @@
 		return TRUE
 
 	return FALSE
+
+/obj/item/clothing/under/examine_worn_title(mob/user, skip_examine_link)
+	. = ..()
+	if(!attached_accessory)
+		return
+	var/covered = FALSE
+	// Check if the accessory is hidden by a suit
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		if(src == H.w_uniform && H.wear_suit && !attached_accessory.above_suit)
+			covered = H.wear_suit.body_parts_covered & attached_accessory.attachment_slot
+	if(!covered)
+		. += " with [attached_accessory.examine_worn_title(user)] attached"
