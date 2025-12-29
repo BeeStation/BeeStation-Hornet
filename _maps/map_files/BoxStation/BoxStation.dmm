@@ -3362,7 +3362,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "aWd" = (
-/obj/machinery/computer/rdconsole/production{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -4267,7 +4267,7 @@
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "bhw" = (
-/obj/machinery/computer/rdconsole/robotics,
+/obj/machinery/computer/rdconsole,
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "bhy" = (
@@ -4766,7 +4766,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "bnn" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /turf/open/floor/iron,

@@ -18908,7 +18908,7 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "klF" = (
-/obj/machinery/computer/rdconsole/production{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /turf/open/floor/iron/large,
@@ -25200,7 +25200,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -37137,7 +37137,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /obj/machinery/light{

@@ -10,14 +10,18 @@
 	var/datum/techweb/linked_techweb
 
 /obj/item/discovery_scanner/Initialize(mapload)
+	..()
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/discovery_scanner/LateInitialize()
 	. = ..()
 	if(!linked_techweb)
-		linked_techweb = SSresearch.science_tech
-	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/discovery_scanner/Destroy()
 	linked_techweb = null	//Note: Shouldn't hard del anyway since techwebs don't get deleted, however if they do then troubles will arise and this will need to be changed.
-	. = ..()
+	return ..()
 
 /obj/item/discovery_scanner/examine(mob/user)
 	. = ..()
@@ -31,7 +35,7 @@
 		var/obj/machinery/computer/rdconsole/rdconsole = O
 		linked_techweb = rdconsole.stored_research
 		return
-	. = ..()
+	return ..()
 
 /obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
 	to_chat(user, span_notice("You begin scanning [discoverable.parent]..."))

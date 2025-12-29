@@ -209,10 +209,12 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
 	. = ..()
-	//Link relevant stuff
-	linked_techweb = SSresearch.science_tech
-	//Radio setup
 	radio = new /obj/item/radio/headset/headset_sci(src)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()

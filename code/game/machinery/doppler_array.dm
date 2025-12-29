@@ -209,6 +209,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	desc = "A specialized tachyon-doppler bomb detection array that uses the results of the highest yield of explosions for research."
 	var/datum/techweb/linked_techweb
 
+/obj/machinery/doppler_array/research/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
+
 //Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
 /obj/machinery/doppler_array/integrated
 	name = "integrated tachyon-doppler module"
@@ -275,7 +280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 		if(D)
 			D.adjust_money(general_point_gain)
 			discovery_point_gain = general_point_gain * 0.5
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, general_point_gain)
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, general_point_gain)
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
 
 			say("Explosion details and mixture analyzed and sold to the highest bidder for $[general_point_gain], with a reward of [general_point_gain] General Research points and [discovery_point_gain] Discovery Research points.")
@@ -283,9 +288,5 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/record_printout)
 	else //you've made smaller bombs
 		say("Data already captured. Aborting.")
 		return
-
-/obj/machinery/doppler_array/research/science/Initialize(mapload)
-	. = ..()
-	linked_techweb = SSresearch.science_tech
 
 #undef PRINTER_TIMEOUT

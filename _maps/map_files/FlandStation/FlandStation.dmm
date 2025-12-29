@@ -28641,7 +28641,7 @@
 /area/security/warden)
 "hNe" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/computer/rdconsole/production,
+/obj/machinery/computer/rdconsole,
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
@@ -71060,7 +71060,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "trH" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
@@ -89124,7 +89124,7 @@
 "xLP" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 1
 	},
 /turf/open/floor/iron,

@@ -19,21 +19,21 @@
 	var/hacked = FALSE
 
 	categories = list(
-		"Tools",
-		"Electronics",
-		"Construction",
-		"T-Comm",
-		"Security",
-		"Machinery",
-		"Medical",
-		"Misc",
-		"Dinnerware",
-		"Imported"
-		)
+		RND_CATEGORY_TOOLS,
+		RND_CATEGORY_ELECTRONICS,
+		RND_CATEGORY_CONSTRUCTION,
+		RND_CATEGORY_TELECOMMS,
+		RND_CATEGORY_SECURITY,
+		RND_CATEGORY_MACHINERY,
+		RND_CATEGORY_MEDICAL,
+		RND_CATEGORY_MISC,
+		RND_CATEGORY_DINNERWARE,
+		RND_CATEGORY_IMPORTED,
+	)
 
 	accepts_disks = TRUE
 
-	stored_research_type = /datum/techweb/specialized/autounlocking/autolathe
+	stored_research_type = /datum/techweb/autounlocking/autolathe
 
 /obj/machinery/modular_fabricator/autolathe/Initialize(mapload)
 	. = ..()
@@ -87,9 +87,8 @@
 					to_chat(usr, span_warning("You unlock the security controls of [src]."))
 			. = TRUE
 
-/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/living/user, params)
-
-	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
+/obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, params)
+	if((ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, span_warning("You [security_interface_locked?"lock":"unlock"] the security controls of [src]."))
 		return TRUE
@@ -98,10 +97,10 @@
 		balloon_alert(user, "it's busy!")
 		return TRUE
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(attacking_item))
 		return TRUE
 
-	if(panel_open && is_wire_tool(O))
+	if(panel_open && is_wire_tool(attacking_item))
 		wires.interact(user)
 		return TRUE
 
@@ -111,12 +110,12 @@
 	if(machine_stat)
 		return TRUE
 
-	if(istype(O, /obj/item/disk/design_disk))
-		user.visible_message("[user] loads \the [O] into \the [src]...",
-			"You load a design from \the [O]...",
+	if(istype(attacking_item, /obj/item/disk/design_disk))
+		user.visible_message("[user] loads \the [attacking_item] into \the [src]...",
+			"You load a design from \the [attacking_item]...",
 			"You hear the chatter of a floppy drive.")
-		inserted_disk = O
-		O.forceMove(src)
+		inserted_disk = attacking_item
+		attacking_item.forceMove(src)
 		update_viewer_statics()
 		return TRUE
 
@@ -174,7 +173,7 @@
 	hacked = state
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
+		if((D.build_type & AUTOLATHE) && (RND_CATEGORY_HACKED in D.category))
 			if(hacked)
 				stored_research.add_design(D)
 			else
@@ -186,7 +185,7 @@
 	..()
 	security_interface_locked = FALSE
 	adjust_hacked(TRUE)
-	playsound(src, "sparks", 100, 1)
+	playsound(src, "sparks", 100, TRUE)
 
 /obj/machinery/modular_fabricator/autolathe/hacked/Initialize(mapload)
 	. = ..()

@@ -22,10 +22,13 @@
 /obj/item/sticker/artifact_tracker/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
-	//Radio setup
 	radio = new /obj/item/radio/headset/headset_sci(src)
-	//Link relevant stuff
-	linked_techweb = SSresearch.science_tech
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/sticker/artifact_tracker/LateInitialize()
+	. = ..()
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/item/sticker/artifact_tracker/Destroy()
 	. = ..()

@@ -132,7 +132,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "A" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /turf/open/floor/iron,

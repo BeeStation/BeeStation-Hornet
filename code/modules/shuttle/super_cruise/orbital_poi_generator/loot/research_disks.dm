@@ -34,16 +34,17 @@
 
 /obj/item/disk/tech_disk/research/random/Initialize(mapload)
 	var/list/valid_nodes = list()
-	for(var/obj/item/disk/tech_disk/research/disk as() in subtypesof(/obj/item/disk/tech_disk/research))
+	for(var/obj/item/disk/tech_disk/research/disk as anything in subtypesof(/obj/item/disk/tech_disk/research))
 		if(!initial(disk.node_id))
 			continue
-		if(!SSresearch.science_tech.isNodeResearchedID(initial(disk.node_id)))
+		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+		if(!science_web.isNodeResearchedID(initial(disk.node_id)))
 			valid_nodes += initial(disk.node_id)
 	if(!length(valid_nodes))
 		new /obj/effect/spawner/lootdrop/ruinloot/basic(get_turf(src))
 		return INITIALIZE_HINT_QDEL
 	node_id = pick(valid_nodes)
-	. = ..()
+	return ..()
 
 /obj/item/disk/tech_disk/research/boh
 	node_id = "bagofholding"

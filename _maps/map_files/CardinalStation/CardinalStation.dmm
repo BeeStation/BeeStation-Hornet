@@ -12968,7 +12968,7 @@
 	},
 /area/engine/atmos)
 "cKK" = (
-/obj/machinery/computer/rdconsole/production{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/east,
@@ -17417,7 +17417,7 @@
 /turf/open/floor/iron/textured_large,
 /area/hallway/primary/port)
 "dIw" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -48569,7 +48569,7 @@
 	name = "Surgery Privacy Shutters";
 	req_access_txt = "29"
 	},
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,

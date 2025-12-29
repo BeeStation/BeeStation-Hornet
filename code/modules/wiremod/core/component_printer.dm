@@ -12,18 +12,26 @@
 	//Quick.
 	minimum_construction_time = 5
 
-	stored_research_type = /datum/techweb/specialized/autounlocking/component_printer
+	stored_research_type = /datum/techweb/autounlocking/component_printer
 
-	categories = WIREMODE_CATEGORIES
+	categories = list(
+		RND_CATEGORY_CIRCUITRY,
+		RND_CATEGORY_CORE,
+		RND_CATEGORY_SHELLS,
+		RND_CATEGORY_INPUT_COMPONENTS,
+		RND_CATEGORY_OUTPUT_COMPONENTS,
+		RND_CATEGORY_MATH_COMPONENTS,
+		RND_CATEGORY_TIME_COMPONENTS,
+		RND_CATEGORY_LOGIC_COMPONENTS,
+		RND_CATEGORY_GATE_COMPONENTS,
+		RND_CATEGORY_BCI_COMPONENTS,
+		RND_CATEGORY_TEMPLATES,
+	)
 
 /obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
 	return default_deconstruction_crowbar(tool)
 
 /obj/machinery/modular_fabricator/component_printer/screwdriver_act(mob/living/user, obj/item/tool)
-	if(..())
-		return TRUE
 	return default_deconstruction_screwdriver(user, "fab-o", "fab-idle", tool)
 
 /obj/machinery/modular_fabricator/component_printer/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
@@ -75,7 +83,7 @@
 		"lathe", \
 		mapload \
 	)
-	. = ..()
+	return ..()
 
 /obj/machinery/module_duplicator/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!is_operational)
@@ -84,8 +92,8 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ComponentPrinter", name)
-		ui.open()
 		ui.set_autoupdate(TRUE)
+		ui.open()
 		viewing_mobs += user
 
 /obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
@@ -94,7 +102,7 @@
 
 /obj/machinery/module_duplicator/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials)
+		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials),
 	)
 
 /obj/machinery/module_duplicator/ui_act(action, list/params)

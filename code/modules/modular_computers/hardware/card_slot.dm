@@ -45,35 +45,35 @@
 			return null
 		return
 
-/obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
+/obj/item/computer_hardware/card_slot/application_attackby(obj/item/attacking_item, mob/living/user)
 	if(!holder)
 		return FALSE
 
-	if(!istype(I, /obj/item/card/id))
+	if(!istype(attacking_item, /obj/item/card/id))
 		return FALSE
 
-	var/obj/item/card/id/newcard = I
+	var/obj/item/card/id/newcard = attacking_item
 	if(!newcard.electric && !hacked) //Lets Non Eletric IDs pass if Hacked
-		to_chat(user, span_warning("You attempt to jam \the [I] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
+		to_chat(user, span_warning("You attempt to jam \the [attacking_item] into \the [expansion_hw ? "secondary" : "primary"] [src]. It doesn't fit."))
 		return
 
 	if(stored_card)
 		return FALSE
 
 	// item instead of player is checked so telekinesis will still work if the item itself is close
-	if(!in_range(src, I))
+	if(!in_range(src, attacking_item))
 		return FALSE
 
 	if(user)
-		if(!user.transferItemToLoc(I, src))
+		if(!user.transferItemToLoc(attacking_item, src))
 			return FALSE
 	else
-		I.forceMove(src)
+		attacking_item.forceMove(src)
 	if(fake_card)
 		qdel(fake_card)
 		fake_card = null
-	stored_card = I
-	to_chat(user, span_notice("You insert \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]."))
+	stored_card = attacking_item
+	to_chat(user, span_notice("You insert \the [attacking_item] into \the [expansion_hw ? "secondary":"primary"] [src]."))
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

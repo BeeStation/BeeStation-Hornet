@@ -24,18 +24,24 @@
 	var/selected_category
 	var/screen = 1
 	var/list/categories = list(
-							"human",
-							"lizard",
-							"fly",
-							"moth",
-							"plasmaman",
-							"other"
-							)
+		SPECIES_HUMAN,
+		SPECIES_LIZARD,
+		SPECIES_FLY,
+		SPECIES_MOTH,
+		SPECIES_PLASMAMAN,
+		RND_CATEGORY_OTHER,
+	)
 
 /obj/machinery/limbgrower/Initialize(mapload)
 	create_reagents(100, OPENCONTAINER)
-	stored_research = new /datum/techweb/specialized/autounlocking/limbgrower
-	. = ..()
+	if(!GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower])
+		GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower] = new /datum/techweb/autounlocking/limbgrower
+	stored_research = GLOB.autounlock_techwebs[/datum/techweb/autounlocking/limbgrower]
+	return ..()
+
+/obj/machinery/limbgrower/Initialize(mapload)
+	stored_research = null
+	return ..()
 
 /obj/machinery/limbgrower/ui_interact(mob/user)
 	. = ..()
@@ -230,7 +236,7 @@
 	..()
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
+		if((D.build_type & LIMBGROWER) && (RND_CATEGORY_HACKED in D.category))
 			stored_research.add_design(D)
 	to_chat(user, span_warning("A warning flashes onto the screen, stating that safety overrides have been deactivated!"))
 

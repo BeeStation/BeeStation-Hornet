@@ -142,13 +142,14 @@
 /obj/machinery/power/energy_accumulator/tesla_coil/research/anchored
 	anchored = TRUE
 
-/obj/machinery/power/energy_accumulator/tesla_coil/research/Initialize(mapload)
+/obj/machinery/power/energy_accumulator/tesla_coil/research/LateInitialize()
 	. = ..()
-	linked_techweb = SSresearch.science_tech
+	if(!linked_techweb)
+		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
 
 /obj/machinery/power/energy_accumulator/tesla_coil/research/Destroy()
 	linked_techweb = null
-	. = ..()
+	return ..()
 
 /obj/machinery/power/energy_accumulator/tesla_coil/research/zap_act(power, zap_flags)
 	if(!anchored || panel_open)
@@ -168,7 +169,7 @@
 	engineering_bank?.adjust_money(min(power_removed, 3)*2)
 
 	if(linked_techweb)
-		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min(power_removed, 3)*2)
+		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_GENERIC, min(power_removed, 3)*2)
 		linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min(power_removed, 3)*2) // x4 coils with a pulse per second or so = ~744/m point bonus for R&D
 
 	return max(power - power_removed, 0)

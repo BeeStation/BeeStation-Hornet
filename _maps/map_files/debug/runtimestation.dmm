@@ -1798,10 +1798,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "wj" = (
-/obj/machinery/computer/rdconsole/core,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/computer/rdconsole,
 /turf/open/floor/iron,
 /area/science)
 "wl" = (

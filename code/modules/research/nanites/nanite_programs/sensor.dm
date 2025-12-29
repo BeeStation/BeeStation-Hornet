@@ -1,5 +1,5 @@
 /datum/nanite_program/sensor
-	name = "Sensor Nanites"
+	name = RND_CATEGORY_SENSOR_NANITES
 	desc = "These nanites send a signal code when a certain condition is met."
 	unique = FALSE
 	var/can_rule = FALSE

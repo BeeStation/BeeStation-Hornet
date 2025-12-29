@@ -16188,7 +16188,7 @@
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "dFa" = (
-/obj/machinery/computer/rdconsole/production{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -52961,7 +52961,7 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "qhG" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -76709,7 +76709,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,

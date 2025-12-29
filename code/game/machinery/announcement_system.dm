@@ -387,6 +387,27 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		"AAS.exe is not responding. NanoOS is searching for a solution to the problem.",
 	)
 
+/datum/aas_config_entry/researched_node
+	name = "Science Alert: Research Node Announcement"
+	announcement_lines_map = list(
+		"Message" = "The %NODE techweb node has been researched",
+	)
+	vars_and_tooltips_map = list(
+		"NODE" = "will be replaced with the researched node.",
+	)
+
+/datum/aas_config_entry/researched_node/act_up()
+	. = ..()
+	if (.)
+		return
+
+	announcement_lines_map["Message"] = pick(
+		replacetext(/datum/aas_config_entry/researched_node::announcement_lines_map["Message"], "%NODE", /datum/techweb_node/syndicate_basic::display_name),
+		"R/NT1M3 A= ANNOUN-*#nt_SY!?EM.dm, LI%£ 86: N=0DE NULL!",
+		"BEPIS BEPIS BEPIS",
+		"ERR)#R - B*@ TEXT F*O(ND!",
+	)
+
 /datum/aas_config_entry/arrivals_broken
 	name = "Engineering Alert: Arrivals Shuttle Malfunction Announcement"
 	announcement_lines_map = list(

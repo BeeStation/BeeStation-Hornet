@@ -13112,7 +13112,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/storage)
 "cjX" = (
-/obj/machinery/computer/rdconsole/core{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -15363,7 +15363,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "cGa" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /obj/machinery/requests_console{
@@ -33140,7 +33140,7 @@
 "iCu" = (
 /obj/effect/turf_decal/tile/dark,
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole/production{
+/obj/machinery/computer/rdconsole{
 	dir = 8
 	},
 /turf/open/floor/iron,

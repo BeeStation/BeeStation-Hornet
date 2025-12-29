@@ -1,13 +1,8 @@
-#define SPARK_COOLDOWN_TIME 10 SECONDS
-
 // Server component
 // will generate a heat based on the power usage of the machine
 // use only with /obj/machinery
 
-
-
 /datum/component/server
-
 	var/efficiency = 1 // 0 to 1 range
 
 	var/temperature = T20C // current temperature
@@ -24,23 +19,22 @@
 /datum/component/server/Initialize()
 	if(!ismachinery(parent)) // currently only compatible with machinery
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_MACHINERY_POWER_USED, PROC_REF(ParentPowerUsed))
+	RegisterSignal(parent, COMSIG_MACHINERY_POWER_USED, PROC_REF(on_power_used))
 	START_PROCESSING(SSservers, src)
 
 /datum/component/server/Destroy(force, silent)
-	. = ..()
 	UnregisterSignal(parent, COMSIG_MACHINERY_POWER_USED)
 	STOP_PROCESSING(SSservers, src)
+	return ..()
 
-/datum/component/server/proc/ParentPowerUsed(source, amount, chan)
+/datum/component/server/proc/on_power_used(source, amount, chan)
 	heat_generation += amount * 1000
 
 // server is overheated and doesn't work
 /datum/component/server/proc/overheated(is_overheated)
 	if(is_overheated && sparks && COOLDOWN_FINISHED(src, spark_cooldown))
 		do_sparks(5, FALSE, parent)
-		COOLDOWN_START(src, spark_cooldown, SPARK_COOLDOWN_TIME)
-
+		COOLDOWN_START(src, spark_cooldown, 10 SECONDS)
 
 /datum/component/server/process(delta_time)
 	var/obj/machinery/parent_machine = parent
@@ -69,4 +63,3 @@
 
 	temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
 	return TRUE
-#undef SPARK_COOLDOWN_TIME

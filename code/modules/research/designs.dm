@@ -82,19 +82,13 @@ other types of metals and chemistry for reagents).
 	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk1"
-	custom_materials = list(/datum/material/iron = 300, /datum/material/glass =100)
+	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 100)
+
+	/// List of all `/datum/design` stored on the disk.
 	var/list/blueprints = list()
-	var/max_blueprints = 1
 
 /obj/item/disk/design_disk/Initialize(mapload)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
-	for(var/i in 1 to max_blueprints)
-		blueprints += null
-
-/obj/item/disk/design_disk/adv
-	name = "Advanced Component Design Disk"
-	desc = "A disk for storing device design data for construction in lathes. This one has extra storage space."
-	custom_materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/silver = 50)
-	max_blueprints = 5
+	if(mapload)
+		pixel_x = base_pixel_x + rand(-5, 5)
+		pixel_y = base_pixel_y + rand(-5, 5)

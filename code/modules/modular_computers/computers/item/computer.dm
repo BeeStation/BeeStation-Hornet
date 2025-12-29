@@ -242,7 +242,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!inserting_id)
 		return FALSE
 
-	if((card_slot?.try_insert(inserting_id)) || (card_slot2?.try_insert(inserting_id)))
+	if((card_slot?.application_attackby(inserting_id)) || (card_slot2?.application_attackby(inserting_id)))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/human_wearer = loc
 			if(human_wearer.wear_id == src)
@@ -771,7 +771,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
-		if(H.try_insert(attacking_item, user))
+		if(H.application_attackby(attacking_item, user))
 			ui_update()
 			return
 

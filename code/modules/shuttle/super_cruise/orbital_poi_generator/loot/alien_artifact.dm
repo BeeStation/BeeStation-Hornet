@@ -490,8 +490,8 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	log_attack("[key_name_admin(pulser)] activated an insanity pulse at [COORD(T)]. [first_time ? " (Effects were unknown)" : " (Artifact had been activated before)"]")
 	message_admins("[ADMIN_LOOKUPFLW(pulser)] activated an insanity pulse [first_time ? " (Effects were unknown)" : " (Artifact had been activated before)"].")
 	if(first_time)
-		var/research_reward = rand(5000, 20000)
-		SSresearch.science_tech.add_points_all(research_reward)
+		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
+		science_web.add_points_all(rand(5000, 20000))
 	first_time = FALSE
 
 	// center does strong effect. If purser is with someone, they'll all be the victims.

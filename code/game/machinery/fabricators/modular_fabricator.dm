@@ -25,20 +25,19 @@
 	var/datum/design/being_built
 	var/process_completion_world_tick = 0
 	var/total_build_time = 0
-	var/datum/techweb/stored_research
 
 	var/list/categories = list(
-		"Tools",
-		"Electronics",
-		"Construction",
-		"T-Comm",
-		"Security",
-		"Machinery",
-		"Medical",
-		"Misc",
-		"Dinnerware",
-		"Imported"
-		)
+		RND_CATEGORY_TOOLS,
+		RND_CATEGORY_ELECTRONICS,
+		RND_CATEGORY_CONSTRUCTION,
+		RND_CATEGORY_TELECOMMS,
+		RND_CATEGORY_SECURITY,
+		RND_CATEGORY_MACHINERY,
+		RND_CATEGORY_MEDICAL,
+		RND_CATEGORY_MISC,
+		RND_CATEGORY_DINNERWARE,
+		RND_CATEGORY_IMPORTED
+	)
 
 	var/output_direction = 0
 	var/accepts_disks = FALSE
@@ -63,19 +62,26 @@
 	//Minimum construction time per component
 	var/minimum_construction_time = 35
 
-	var/stored_research_type = /datum/techweb/specialized/autounlocking/autolathe
+	/// Ref to our internal techweb
+	var/datum/techweb/stored_research
+	/// The type of techweb we use
+	var/stored_research_type = /datum/techweb/autounlocking/autolathe
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
+	if(!GLOB.autounlock_techwebs[stored_research_type])
+		GLOB.autounlock_techwebs[stored_research_type] = new stored_research_type()
+	stored_research = GLOB.autounlock_techwebs[stored_research_type]
+
 	if(remote_materials)
 		//We think its a protolathe/mechfab. Connectable to Ore Silo
 		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link, mat_container_flags=BREAKDOWN_FLAGS_LATHE)
 	else
 		//We think its a autolathe. NO Ore Silo Connection
 		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], 0, MATCONTAINER_EXAMINE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
-	. = ..()
-	stored_research = new stored_research_type
+	return ..()
 
 /obj/machinery/modular_fabricator/Destroy()
+	stored_research = null
 	QDEL_NULL(wires)
 	return ..()
 
@@ -229,7 +235,7 @@
 		if("resync_rd")
 			if(!can_sync)
 				return
-			resync_research()
+			update_viewer_statics()
 			. = TRUE
 
 		if("queue_category")
@@ -261,7 +267,7 @@
 			if(!inserted_disk || !accepts_disks)
 				return
 			var/obj/item/disk/design_disk/disk = inserted_disk
-			disk.forceMove(get_turf(src))
+			disk.forceMove(drop_location())
 			inserted_disk = null
 			update_viewer_statics()
 			. = TRUE
@@ -309,13 +315,6 @@
 		if("begin_process")
 			begin_process()
 			. = TRUE
-
-/obj/machinery/modular_fabricator/proc/resync_research()
-	for(var/obj/machinery/computer/rdconsole/RDC in orange(7, src))
-		RDC.stored_research.copy_research_to(stored_research)
-		update_viewer_statics()
-		say("Successfully synchronized with R&D server.")
-		return
 
 /obj/machinery/modular_fabricator/proc/update_viewer_statics()
 	for(var/mob/M in viewing_mobs)

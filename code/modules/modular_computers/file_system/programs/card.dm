@@ -161,7 +161,7 @@
 			else
 				var/obj/item/I = user.get_active_held_item()
 				if(istype(I, /obj/item/card/id))
-					return card_slot2.try_insert(I, user)
+					return card_slot2.application_attackby(I, user)
 			return FALSE
 		if("PRG_terminate")
 			if(!authenticated)

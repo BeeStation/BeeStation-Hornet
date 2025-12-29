@@ -17,7 +17,6 @@
 
 /datum/component/buffer/Initialize(...)
 	. = ..()
-
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(intercept_attack))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(self_flush_buffer))
 	RegisterSignal(parent, COMSIG_ITEM_FLUSH_BUFFER, PROC_REF(self_flush_buffer))
