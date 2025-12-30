@@ -19,7 +19,7 @@
   $orange: #9c450b,
   $yellow: #dece78,
   $olive: #788a05,
-  $green: #4a9c13,
+  $green: #56ba13,
   $teal: #03807a,
   $blue: #0b4d80,
   $violet: #340e86,
@@ -31,7 +31,7 @@
   $primary: #c0a666,
   $good: #4a9c13,
   $average: #b16b11,
-  $bad: #ac0c0c,
+  $bad: #ac0c0c
 );
 
 .theme-computer {
@@ -43,7 +43,10 @@
   @include meta.load-css('../components/ColorSelectBox.scss');
   @include meta.load-css('../components/Input.scss');
   @include meta.load-css('../components/Modal.scss');
-  @include meta.load-css('../components/Section.scss', $with: ('title-text-color': base.$color-bg));
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('title-text-color': base.$color-bg)
+  );
   @include meta.load-css('../components/Slider.scss');
   @include meta.load-css('../components/Tabs.scss');
   @include meta.load-css('../interfaces/ModularFabricator.scss');
@@ -60,7 +63,10 @@
   @include meta.load-css('../interfaces/TechFab.scss');
   @include meta.load-css('../interfaces/Techweb.scss');
   // Button overrides
-  @include meta.load-css('../components/Button.scss', $with: ('color-default': colors.fg(base.$color-bg)));
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: ('color-default': colors.fg(base.$color-bg))
+  );
   // Section overrides
   .Section {
     border-bottom: 1px solid colors.$primary;
@@ -84,6 +90,11 @@
     box-shadow: 0px 0px 4px -2px colors.$primary;
     height: 100%;
   }
+  .Section__buttons {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+  }
   // Progress bar
   .ProgressBar {
     min-height: 1.5em;
@@ -98,7 +109,10 @@
     }
   }
   // Title-bar overrides
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #181a21));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #181a21)
+  );
   @supports (mix-blend-mode: multiply) {
     // Window overrides
     .Window::before {
@@ -120,7 +134,7 @@
         #0000ff 3px
       );
       background-size: 3px 100%;
-      opacity: 0.11;
+      opacity: 0.07;
       mix-blend-mode: multiply;
     }
 

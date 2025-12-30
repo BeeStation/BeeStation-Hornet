@@ -5,6 +5,7 @@
 
 @use 'sass:color';
 @use 'sass:math';
+@use './functions.scss' as *;
 
 $color-fg: hsl(0, 0%, 100%) !default;
 $color-bg: hsl(0, 0%, 14.5%) !default;
@@ -18,6 +19,9 @@ $color-bg-end: color.adjust(
   $color-bg,
   $lightness: -$color-bg-grad-spread
 ) !default;
+
+$color-light: if(luminance($color-bg) > 0.5, $color-bg, $color-fg);
+$color-dark: if(luminance($color-bg) > 0.5, $color-fg, $color-bg);
 
 $unit: 12px;
 $font-size: 1 * $unit !default;

@@ -20,13 +20,17 @@ $bg-map: colors.$bg-map !default;
 @mixin button-color($color) {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.3, base.$color-bg, base.$color-fg);
+  $text-color: if($luminance > 0.3, base.$color-dark, base.$color-light);
 
   transition:
     color 50ms,
     background-color 50ms;
   background-color: $color;
   color: $text-color;
+
+  @if abs($luminance - luminance($text-color)) < 0.21 {
+    font-weight: bold;
+  }
 
   &:hover {
     transition:
@@ -44,9 +48,8 @@ $bg-map: colors.$bg-map !default;
     background-color: if(
       $luminance > 0.6,
       color.adjust($color, $lightness: -15%),
-      color.adjust($color, $lightness: 30%)
+      color.adjust($color, $lightness: 20%)
     );
-    color: $text-color;
   }
 }
 
