@@ -1030,9 +1030,9 @@
 	/// All status effects we remove on metabolize.
 	/// Does not include drunk (despite what you may thing) as that's decresed gradually
 	var/static/list/status_effects_to_clear = list(
-		/datum/status_effect/confusion,
+		//datum/status_effect/confusion,
 		/datum/status_effect/dizziness,
-		/datum/status_effect/drowsiness,
+		//datum/status_effect/drowsiness,
 		/datum/status_effect/speech/slurring/drunk,
 	)
 
