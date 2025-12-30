@@ -1182,6 +1182,15 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, user) & COMPONENT_CANT_TRACK)
 		return FALSE
 
+	// Check if they have maxed suit sensors - if so, allow tracking without camera
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/nanite_sensors = HAS_TRAIT(H, TRAIT_SUIT_SENSORS)
+		if(!H.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (nanite_sensors || HAS_TRAIT(H, TRAIT_NANITE_SENSORS)))
+			var/obj/item/clothing/under/uniform = H.w_uniform
+			if(nanite_sensors || uniform?.sensor_mode >= SENSOR_COORDS)
+				return TRUE // Allow tracking with maxed sensors even without camera
+
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
 		return FALSE
