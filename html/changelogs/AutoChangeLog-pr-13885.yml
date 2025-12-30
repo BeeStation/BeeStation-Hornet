@@ -1,0 +1,5 @@
+author: Urumasi, Meyhazah, r1ks-iwnl
+delete-after: true
+changes:
+  - rscadd: HECK suit sprite has enhanced customization via spray paint
+  - bugfix: Fixed HECK suit hiding your hand and feet clothing
