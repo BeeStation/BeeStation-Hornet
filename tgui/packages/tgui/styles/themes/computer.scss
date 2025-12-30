@@ -76,6 +76,7 @@
   .Section__title {
     padding: 0.2em;
     padding-left: 0.5em;
+    margin-bottom: 0.4em;
     background-color: colors.$primary;
     box-shadow: 0px 0px 6px 0px colors.$primary;
     border-bottom: unset;
@@ -86,7 +87,6 @@
     border-bottom: none;
   }
   .Section__content {
-    margin-top: 0.4em;
     box-shadow: 0px 0px 4px -2px colors.$primary;
     height: 100%;
   }
