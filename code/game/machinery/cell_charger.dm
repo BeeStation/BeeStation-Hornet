@@ -8,6 +8,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
+	ai_view = FALSE
 	var/obj/item/charging = null
 	var/chargelevel = -1
 	var/recharge_coeff = 1
