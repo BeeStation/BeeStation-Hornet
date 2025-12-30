@@ -33,7 +33,7 @@
 
 	//OTHER
 
-	var/view_range = 100
+	var/view_range = 4
 	var/short_range = 1
 
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
