@@ -12,9 +12,6 @@
 			verb_ask = pick(initial(worn_mask.chosen_tongue.ask_mod))
 			verb_yell = pick(initial(worn_mask.chosen_tongue.yell_mod))
 			verb_exclaim = pick(initial(worn_mask.chosen_tongue.exclaim_mod))
-	// Any subtype of slurring in our status effects make us "slur"
-	if((locate(/datum/status_effect/speech/slurring) in status_effects) || !T)
-		return "slurs"
 	return ..()
 
 /mob/living/carbon/human/GetVoice()
