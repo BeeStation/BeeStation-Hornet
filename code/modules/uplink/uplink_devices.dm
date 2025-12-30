@@ -37,7 +37,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/debug)
 
 /obj/item/uplink/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.name = "debug uplink"
 	hidden_uplink.debug = TRUE
 
@@ -54,7 +54,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
 /obj/item/uplink/nuclear/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.name = "debug nuclear uplink"
 	hidden_uplink.debug = TRUE
 
@@ -64,7 +64,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/nuclear/debug)
 
 /obj/item/uplink/nuclear_restricted/Initialize(mapload)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.allow_restricted = FALSE
 
 /obj/item/uplink/clownop
@@ -80,7 +80,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/uplink/old)
 
 /obj/item/uplink/old/Initialize(mapload, mob/owner, tc_amount = 10)
 	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink, owner?.mind)
+	var/datum/component/uplink/hidden_uplink = GetComponents(/datum/component/uplink)[1]
 	hidden_uplink.name = "dusty radio"
 
 // Multitool uplink
