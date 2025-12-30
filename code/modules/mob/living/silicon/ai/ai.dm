@@ -64,6 +64,7 @@
 	var/mob/living/silicon/ai/parent
 	var/camera_light_on = FALSE
 	var/list/obj/machinery/camera/lit_cameras = list()
+	var/list/obj/machinery/camera/telegraphed_cameras = list() // Cameras currently showing the red "in use" indicator
 
 	var/datum/trackable/track = new
 
@@ -210,6 +211,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
+	disable_camera_telegraphing() // Clean up camera indicators before destroying
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	QDEL_NULL(spark_system)
 	QDEL_NULL(malf_picker)
@@ -682,6 +684,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	to_chat(src, "Camera lights activated.")
 
+/// Disables all camera telegraphing, clearing the in_use indicators
+/mob/living/silicon/ai/proc/disable_camera_telegraphing()
+	for (var/obj/machinery/camera/C in telegraphed_cameras)
+		C.in_use_lights--
+		C.update_icon()
+	telegraphed_cameras.Cut()
+
 //AI_CAMERA_LUMINOSITY
 
 /mob/living/silicon/ai/proc/light_cameras()
@@ -703,6 +712,29 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	for (var/obj/machinery/camera/C in add)
 		C.Togglelight(1)
 		lit_cameras |= C
+
+/// Updates the red "in use" indicator on cameras the AI is viewing
+/mob/living/silicon/ai/proc/telegraph_cameras()
+	var/list/obj/machinery/camera/add = list()
+	var/list/obj/machinery/camera/remove = list()
+	var/list/obj/machinery/camera/visible = list()
+	for (var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
+		for (var/obj/machinery/camera/C in CC.cameras)
+			if (!C.can_use() || get_dist(C, eyeobj) > 7)
+				continue
+			visible |= C
+
+	add = visible - telegraphed_cameras
+	remove = telegraphed_cameras - visible
+
+	for (var/obj/machinery/camera/C in remove)
+		telegraphed_cameras -= C
+		C.in_use_lights--
+		C.update_icon()
+	for (var/obj/machinery/camera/C in add)
+		telegraphed_cameras |= C
+		C.in_use_lights++
+		C.update_icon()
 
 /mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Transceiver Settings"
@@ -1080,6 +1112,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/ai_eye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes, TRUE)
+	if(moved_eye == eyeobj) // Only telegraph for the main eye, not multicam eyes (they handle their own telegraphing)
+		telegraph_cameras()
 
 /mob/living/silicon/ai/forceMove(atom/destination)
 	. = ..()
