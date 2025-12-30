@@ -287,6 +287,8 @@
 /obj/item/clothing/examine_base(mob/user, is_external_examination)
 	. = ..()
 
+	// If it is not an external examination, the tag will be added by
+	// examine().
 	if (!is_external_examination)
 		return
 
