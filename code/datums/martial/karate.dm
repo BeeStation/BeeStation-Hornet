@@ -93,7 +93,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 75, 1, -1)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.blur_eyes(10)
-		D.confused += 2
+		D.adjust_confusion(4 SECONDS)
 		D.set_jitter_if_lower(40 SECONDS)
 		return 1
 	return FALSE

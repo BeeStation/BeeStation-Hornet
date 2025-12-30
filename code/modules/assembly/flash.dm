@@ -254,7 +254,7 @@
 				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
 			else
 				to_chat(M, span_userdanger("You are blinded by [src]!"))
-			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
+			//Will be 0 if the user has no stamina loss, will be 1 if they are in stamcrit
 			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
 			if (M.body_position == LYING_DOWN)
 				flash_proportion = 1
@@ -262,7 +262,7 @@
 				M.Paralyze(70 * flash_proportion)
 			else
 				M.Knockdown(max(70 * flash_proportion, 5))
-			M.confused = max(M.confused, 4)
+			M.set_confusion_if_lower(4 SECONDS)
 
 		//Basic flash protection, only blind
 		else if(M.flash_act(2, TRUE))
@@ -429,7 +429,7 @@
 				M.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
 				to_chat(M, span_notice("The light makes you feel oddly relaxed..."))
-				M.confused += min(M.confused + 10, 20)
+				M.adjust_confusion_up_to(20 SECONDS, 40 SECONDS)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
 				M.adjust_pacifism(10 SECONDS)
@@ -443,7 +443,7 @@
 
 	else if(M.flash_act())
 		to_chat(M, span_notice("Such a pretty light..."))
-		M.confused += min(M.confused + 4, 20)
+		M.adjust_confusion_up_to(8 SECONDS, 40 SECONDS)
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
 		M.adjust_pacifism(4 SECONDS)

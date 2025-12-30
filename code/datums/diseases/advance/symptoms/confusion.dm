@@ -41,7 +41,8 @@ Bonus
 		severity += 1
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	if(A.resistance >= 6)
 		brain_damage = TRUE
@@ -51,7 +52,8 @@ Bonus
 		suppress_warning = TRUE
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	if(M.stat == DEAD)
@@ -62,7 +64,7 @@ Bonus
 				to_chat(M, span_warning("[pick("Your head hurts.", "Your mind blanks for a moment.")]"))
 		else
 			to_chat(M, span_userdanger("You can't think straight!"))
-			M.confused = min(100 * power, M.confused + 8)
+			M.adjust_confusion(16 SECONDS * power)
 			if(brain_damage)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN,3 * power, 80)
 				M.updatehealth()

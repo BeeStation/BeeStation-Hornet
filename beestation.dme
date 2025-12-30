@@ -1164,6 +1164,7 @@
 #include "code\datums\status_effects\limited_effect.dm"
 #include "code\datums\status_effects\neutral.dm"
 #include "code\datums\status_effects\stacking_effect.dm"
+#include "code\datums\status_effects\debuffs\confusion.dm"
 #include "code\datums\status_effects\debuffs\debuffs.dm"
 #include "code\datums\status_effects\debuffs\genetic_damage.dm"
 #include "code\datums\status_effects\debuffs\hallucination.dm"

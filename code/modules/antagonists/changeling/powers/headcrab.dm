@@ -34,7 +34,7 @@
 			H.Stun(20)
 			H.blur_eyes(20)
 			eyes?.apply_organ_damage(5)
-			H.confused += 10
+			H.adjust_confusion(3 SECONDS)
 
 		else if(issilicon(A))
 			var/mob/living/silicon/S = A
