@@ -75,11 +75,29 @@
 		finish()
 		return
 	implanter_to_track = implanter
-	RegisterSignal(implanter, COMSIG_QDELETING, PROC_REF(implanter_used))
+	RegisterSignal(implanter, COMSIG_QDELETING, PROC_REF(implanter_lost))
 	RegisterSignal(implanter.imp, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanter_used))
 
-/datum/priority_directive/recruit/proc/implanter_used()
+/datum/priority_directive/recruit/proc/implanter_lost()
 	SIGNAL_HANDLER
+	implanter_to_track = null
+	grant_universal_victory()
+	finish()
+
+/datum/priority_directive/recruit/proc/implanter_used(datum/source, mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+	var/obj/item/implant/bloodbrother/implant = implanter_to_track.imp
+	// Lost track of the mission, whatever, you can have it
+	if (!istype(implant))
+		implanter_to_track = null
+		grant_universal_victory()
+		finish()
+		return
+	if (!target.mind)
+		return
+	if (!(target.mind in implant.linked_team.valid_converts))
+		return
+	// Successful implant
 	implanter_to_track = null
 	grant_universal_victory()
 	finish()
