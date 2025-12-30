@@ -43,6 +43,11 @@
 		/area/medical/genetics/cloning
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_BRIGPHYSICIAN  // They're somewhat identical
+	)
+
 /datum/outfit/job/paramedic
 	name = JOB_NAME_PARAMEDIC
 	jobtype = /datum/job/paramedic
