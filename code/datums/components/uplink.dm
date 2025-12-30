@@ -10,7 +10,8 @@ GLOBAL_LIST_EMPTY(uplinks)
  * This component will handle UI interactions.
 **/
 /datum/component/uplink
-	dupe_mode = COMPONENT_DUPE_UNIQUE
+	dupe_mode = COMPONENT_DUPE_ALLOWED
+	can_transfer = TRUE
 	var/name = "syndicate uplink"
 	var/active = FALSE
 	var/lockable = TRUE
@@ -39,6 +40,10 @@ GLOBAL_LIST_EMPTY(uplinks)
 	var/next_personal_objective_time = 0
 	/// TC multiplier for completed directives
 	var/directive_tc_multiplier = 1
+	/// If true then this component will be transfered to the owner's mind when the
+	/// parent is destroyed, allowing the owner to re-activate the uplink in another
+	/// location.
+	var/persistent = FALSE
 
 	var/list/previous_attempts
 
@@ -55,20 +60,6 @@ GLOBAL_LIST_EMPTY(uplinks)
 
 	if (_owner && !istype(_owner))
 		CRASH("Uplink initialized with a key instead of a /datum/mind.")
-
-	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
-	if(istype(parent, /obj/item/implant))
-		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
-		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
-		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, PROC_REF(old_implant))
-		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, PROC_REF(new_implant))
-	else if(istype(parent, /obj/item/modular_computer/tablet))
-		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, PROC_REF(new_ringtone))
-	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, PROC_REF(radio_message))
-	else if(istype(parent, /obj/item/pen))
-		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
 
 	if(_owner)
 		owner = _owner
@@ -95,6 +86,37 @@ GLOBAL_LIST_EMPTY(uplinks)
 	next_personal_objective_time = SSdirectives.get_next_personal_objective_time()
 	GLOB.uplinks += src
 
+/datum/component/uplink/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(stay_alive))
+	if(istype(parent, /obj/item/implant))
+		RegisterSignal(parent, COMSIG_IMPLANT_ACTIVATED, PROC_REF(implant_activation))
+		RegisterSignal(parent, COMSIG_IMPLANT_IMPLANTING, PROC_REF(implanting))
+		RegisterSignal(parent, COMSIG_IMPLANT_OTHER, PROC_REF(old_implant))
+		RegisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK, PROC_REF(new_implant))
+	else if(istype(parent, /obj/item/modular_computer/tablet))
+		RegisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE, PROC_REF(new_ringtone))
+	else if(istype(parent, /obj/item/radio))
+		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, PROC_REF(radio_message))
+	else if(istype(parent, /obj/item/pen))
+		RegisterSignal(parent, COMSIG_PEN_ROTATED, PROC_REF(pen_rotation))
+
+/datum/component/uplink/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
+	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(parent, COMSIG_IMPLANT_ACTIVATED)
+	UnregisterSignal(parent, COMSIG_IMPLANT_IMPLANTING)
+	UnregisterSignal(parent, COMSIG_IMPLANT_OTHER)
+	UnregisterSignal(parent, COMSIG_IMPLANT_EXISTING_UPLINK)
+	UnregisterSignal(parent, COMSIG_TABLET_CHANGE_RINGTONE)
+	UnregisterSignal(parent, COMSIG_RADIO_MESSAGE)
+	UnregisterSignal(parent, COMSIG_PEN_ROTATED)
+
+/datum/component/uplink/PostTransfer()
+	if(!isitem(persistent))
+		return COMPONENT_INCOMPATIBLE
+
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
 	active |= U.active
@@ -107,6 +129,14 @@ GLOBAL_LIST_EMPTY(uplinks)
 	purchase_log = null
 	GLOB.uplinks -= src
 	return ..()
+
+/datum/component/uplink/proc/stay_alive()
+	SIGNAL_HANDLER
+	if (!stay_alive)
+		return
+	// Enter the ether
+	ClearFromParent()
+	parent = null
 
 /datum/component/uplink/proc/update_items()
 	var/updated_items
@@ -250,11 +280,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 				MakePurchase(usr, I)
 				return TRUE
 		if("lock")
-			active = FALSE
-			locked = TRUE
-			telecrystals += hidden_crystals
-			hidden_crystals = 0
-			SStgui.close_uis(src)
+			lock()
 		if("select")
 			selected_cat = params["category"]
 			return TRUE
@@ -297,7 +323,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	SIGNAL_HANDLER
 
 	var/obj/item/implant/implant = parent
-	locked = FALSE
+	unlock()
 	interact(null, implant.imp_in)
 
 /datum/component/uplink/proc/implanting(datum/source, mob/user, mob/living/target)
@@ -333,7 +359,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 			failsafe()
 			return COMPONENT_STOP_RINGTONE_CHANGE
 		return
-	locked = FALSE
+	unlock()
 	interact(null, user)
 	to_chat(user, span_hear("The computer softly beeps."))
 	return COMPONENT_STOP_RINGTONE_CHANGE
@@ -349,7 +375,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		if(frequency == failsafe_code)
 			failsafe()
 		return
-	locked = FALSE
+	unlock()
 	if(ismob(master.loc))
 		interact(null, master.loc)
 
@@ -365,7 +391,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		if(failsafe_code && findtext(LOWER_TEXT(message_to_use), LOWER_TEXT(failsafe_code)))
 			failsafe()
 		return
-	locked = FALSE
+	unlock()
 	interact(null, user)
 	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
 
@@ -380,7 +406,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		popleft(previous_attempts)
 
 	if(compare_list(previous_attempts, unlock_code))
-		locked = FALSE
+		unlock()
 		previous_attempts.Cut()
 		master.degrees = 0
 		interact(null, user)
@@ -418,5 +444,20 @@ GLOBAL_LIST_EMPTY(uplinks)
 		return
 	explosion(T,1,2,3)
 	qdel(parent) //Alternatively could brick the uplink.
+
+/datum/component/uplink/proc/unlock()
+	locked = FALSE
+	// Lock any other uplinks that are on the same item
+	for (var/datum/component/uplink/uplink in parent.GetComponents(/datum/component/uplink))
+		if (uplink == src)
+			continue
+		uplink.lock()
+
+/datum/component/uplink/proc/lock()
+	active = FALSE
+	locked = TRUE
+	telecrystals += hidden_crystals
+	hidden_crystals = 0
+	SStgui.close_uis(src)
 
 #undef PEN_ROTATIONS
