@@ -154,6 +154,8 @@
 	hologram_appearance = mutable_appearance('icons/effects/ai_view.dmi', ai_view_icon)
 	hologram_appearance.appearance_flags = KEEP_APART | PASS_MOUSE
 	hologram_appearance.plane = AI_MACHINERY_PLANE
+	hologram_appearance.pixel_x = ai_view_x
+	hologram_appearance.pixel_y = ai_view_y
 	//Put it back where you found it
 	if(replace)
 		add_ai_view()
