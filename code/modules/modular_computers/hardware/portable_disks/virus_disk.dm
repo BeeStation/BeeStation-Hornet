@@ -184,7 +184,7 @@
 		return
 	var/lock_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	to_chat(user, span_notice("The unlock code to the target is: [lock_code]"))
-	hidden_uplink = target.AddComponent(/datum/component/uplink, directive_flags = NONE)
+	var/datum/component/uplink/hidden_uplink = target.AddComponent(/datum/component/uplink, directive_flags = NONE)
 	hidden_uplink.unlock_code = lock_code
 	hidden_uplink.telecrystals = telecrystals
 	telecrystals = 0

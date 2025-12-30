@@ -256,7 +256,7 @@
 
 	var/obj/item/implant/uplink/starting/I = new(traitor_mob)
 	I.implant(traitor_mob, null, silent = TRUE)
-	var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
+	var/datum/component/uplink/U = I.GetComponents(/datum/component/uplink)[1]
 	if(!silent)
 		U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink. Simply trigger the uplink to access it."
 		to_chat(traitor_mob, span_boldnotice("[U.unlock_text]"))
@@ -618,9 +618,9 @@
 	var/list/L = current.GetAllContents()
 	for (var/i in L)
 		var/atom/movable/I = i
-		. = I.GetComponent(/datum/component/uplink)
-		if(.)
-			break
+		for (var/datum/component/uplink/uplink in I.GetComponents(/datum/component/uplink))
+			if (uplink.owner == src || !uplink.owner)
+				return uplink
 
 /datum/mind/proc/take_uplink()
 	qdel(find_syndicate_uplink())

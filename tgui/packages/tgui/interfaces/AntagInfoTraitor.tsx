@@ -26,11 +26,13 @@ type Info = {
   has_uplink: BooleanLike;
   uplink_unlock_info: string;
   objectives: Objective[];
+  backup_code: string;
 };
 
 const UplinkSection = (_props) => {
   const { data } = useBackend<Info>();
-  const { has_uplink, uplink_unlock_info, code, failsafe_code } = data;
+  const { has_uplink, uplink_unlock_info, code, failsafe_code, backup_code } =
+    data;
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
       <Stack vertical>
@@ -44,16 +46,18 @@ const UplinkSection = (_props) => {
         <Stack.Divider />
         <Stack.Item>
           <Stack fill>
-            <Stack.Item bold>
-              {code && <span style={goalstyle}>Code: {code}</span>}
-            </Stack.Item>
-            <Stack.Divider />
+            {!!code && (
+              <>
+                <Stack.Item bold>
+                  <span style={goalstyle}>Code: {code}</span>
+                </Stack.Item>
+                <Stack.Divider />
+              </>
+            )}
             {failsafe_code && (
               <>
                 <Stack.Item bold>
-                  {failsafe_code && (
-                    <span style={goalstyle}>Failsafe: {failsafe_code}</span>
-                  )}
+                  <span style={goalstyle}>Failsafe: {failsafe_code}</span>
                 </Stack.Item>
                 <Stack.Divider />
               </>
@@ -61,6 +65,14 @@ const UplinkSection = (_props) => {
             <Stack.Item>
               <BlockQuote>{uplink_unlock_info}</BlockQuote>
             </Stack.Item>
+            {!!backup_code && (
+              <Stack.Item>
+                <BlockQuote>
+                  Your backup code is <b>{backup_code}</b>. Set any PDA&apod;s
+                  ringtone to this secret code to convert it into an uplink.
+                </BlockQuote>
+              </Stack.Item>
+            )}
           </Stack>
         </Stack.Item>
       </Stack>

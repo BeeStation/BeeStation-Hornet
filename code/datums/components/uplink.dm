@@ -105,6 +105,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 /datum/component/uplink/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ATOM_ATTACKBY)
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(parent, COMSIG_QDELETING)
 	UnregisterSignal(parent, COMSIG_IMPLANT_ACTIVATED)
 	UnregisterSignal(parent, COMSIG_IMPLANT_IMPLANTING)
 	UnregisterSignal(parent, COMSIG_IMPLANT_OTHER)
@@ -114,7 +115,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	UnregisterSignal(parent, COMSIG_PEN_ROTATED)
 
 /datum/component/uplink/PostTransfer()
-	if(!isitem(persistent))
+	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
@@ -128,11 +129,13 @@ GLOBAL_LIST_EMPTY(uplinks)
 /datum/component/uplink/Destroy()
 	purchase_log = null
 	GLOB.uplinks -= src
+	if (persistent)
+		stack_trace("Persistent uplink was deleted.")
 	return ..()
 
 /datum/component/uplink/proc/stay_alive()
 	SIGNAL_HANDLER
-	if (!stay_alive)
+	if (!persistent)
 		return
 	// Enter the ether
 	ClearFromParent()
@@ -426,11 +429,11 @@ GLOBAL_LIST_EMPTY(uplinks)
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
 /datum/component/uplink/proc/generate_code()
-	if(istype(parent,/obj/item/modular_computer/tablet))
+	if(istype(parent, /obj/item/modular_computer/tablet))
 		return "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
-	else if(istype(parent,/obj/item/radio))
+	else if(istype(parent, /obj/item/radio))
 		return "[pick(GLOB.phonetic_alphabet)]"
-	else if(istype(parent,/obj/item/pen))
+	else if(istype(parent, /obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)
 			L += rand(1, 360)

@@ -49,3 +49,7 @@
 #define COMSIG_GLOB_UPDATE_DYNAMICPANEL_DATA_STATIC "!update_dynamicpanel_data_static"
 /// Called when a prisoner is created from base of print_id (mob/user, desired_name, desired_crime, desired_sentence)
 #define COMSIG_GLOB_PRISONER_REGISTERED "!prisoner_registered"
+// /obj/item/modular_computer/tablet/pda signals
+/// Called on tablet (PDA) when the user changes the ringtone: (mob/living/user, new_ringtone)
+#define COMSIG_GLOB_TABLET_CHANGE_RINGTONE "!global_comsig_tablet_change_ringtone"
+//	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)

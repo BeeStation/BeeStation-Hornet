@@ -12,6 +12,8 @@
 	var/employer = "The Syndicate"
 	var/datum/weakref/uplink_ref
 	var/datum/contractor_hub/contractor_hub
+	/// The backup code which, when typed into any PDA, will turn it into an uplink
+	var/backup_code = ""
 	/// If this specific traitor has been assigned codewords. This is not always true, because it varies by faction.
 	var/has_codewords = FALSE
 
@@ -47,7 +49,6 @@
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
 
-
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
 
@@ -59,7 +60,6 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 	to_chat(owner.current, examine_block(msg.Join("\n")))
-
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -77,6 +77,7 @@
 	// Give codewords to the new mob on mind transfer.
 	if(mob_override)
 		give_codewords(mob_override)
+	RegisterSignal(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE, PROC_REF(check_backup_code))
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -84,6 +85,7 @@
 	// Remove codewords from the old mob on mind transfer.
 	if(mob_override)
 		remove_codewords(mob_override)
+	UnregisterSignal(SSdcs, COMSIG_GLOB_TABLET_CHANGE_RINGTONE)
 
 /// Enables displaying codewords to this traitor.
 /datum/antagonist/traitor/proc/give_codewords(mob/living/mob_override)
@@ -98,11 +100,46 @@
 	has_codewords = FALSE
 	UnregisterSignal(mob_override || owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
+/// When any code is typed, if our owner is typing it into a PDA then convert that PDA into an uplink
+/datum/antagonist/traitor/proc/check_backup_code(datum/source, obj/item/modular_computer/computer, mob/user, entered_code)
+	SIGNAL_HANDLER
+	if (user != owner.current)
+		return NONE
+	if (entered_code != backup_code)
+		return NONE
+	// Unlock the uplink
+	var/datum/component/uplink/uplink = uplink_ref.resolve()
+	if (!uplink)
+		return NONE
+	// Remove the uplink from the old location
+	if (uplink.parent != null)
+		var/uplink_parent = uplink.parent
+		uplink.ClearFromParent()
+		// De-activate the uplink implant
+		if (istype(uplink_parent, /obj/item/implant))
+			qdel(uplink_parent)
+	// Add the uplink to the new location and unlock
+	computer.TakeComponent(uplink)
+	uplink.unlock()
+	uplink.interact(null, user)
+	return COMPONENT_STOP_RINGTONE_CHANGE
+
 /datum/antagonist/traitor/proc/equip(silent = FALSE)
 	var/obj/item/uplink_loc = owner.equip_traitor(src, employer, silent, src)
-	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
-	if(uplink)
-		uplink_ref = WEAKREF(uplink)
+	if (!uplink_loc)
+		return
+	for (var/datum/component/uplink/uplink in uplink_loc.GetComponents(/datum/component/uplink))
+		// Not our uplink
+		if (uplink.owner && uplink.owner != owner)
+			continue
+		uplink.persistent = TRUE
+		if(uplink)
+			uplink_ref = WEAKREF(uplink)
+		// Generate the emergency code for when you lose your uplink
+		backup_code = "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
+		antag_memory += "Your backup code is <b>[backup_code]</b>. Type this into any PDA to access your uplink.<br>"
+		return
+	CRASH("Failed to find the uplink that we just equipped on the traitor")
 
 /datum/antagonist/traitor/antag_panel_data()
 	// Traitor Backstory

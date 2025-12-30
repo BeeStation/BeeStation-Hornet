@@ -44,6 +44,7 @@
 	if(uplink)
 		data["uplink_unlock_info"] = uplink.unlock_text
 	data["objectives"] = get_objectives()
+	data["backup_code"] = backup_code
 
 	return data
 
