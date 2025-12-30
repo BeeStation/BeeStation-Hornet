@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Adds some documentation to get_virtual_z and fixes the logical z comparisons
-      of nuclear reactors and immovable rods.
-  - bugfix: Fixes immovable rod appearing to not work correctly.
