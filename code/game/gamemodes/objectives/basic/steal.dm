@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(possible_items)
 	var/atom/tracked = null
 	for (var/atom/target in get_trackables_by_type(steal_target, TRUE))
 		var/turf/target_turf = get_turf(target)
+		if (!target_turf)
+			continue
 		// Objectives in incorrect locations are simply not trackable
 		if (!compare_z(source_turf.z, target_turf.z))
 			continue
