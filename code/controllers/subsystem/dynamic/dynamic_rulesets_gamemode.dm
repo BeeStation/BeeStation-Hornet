@@ -386,7 +386,7 @@ then the above notice does not apply.
 		var/turf/turf = get_turf(nuke)
 		if(turf)
 			var/obj/machinery/nuclearbomb/syndicate/bananium/new_nuke = new(turf)
-			new_nuke.yes_code = nuke.yes_code
+			new_nuke.r_code = nuke.r_code
 			qdel(nuke)
 
 /datum/dynamic_ruleset/gamemode/nuclear/clown_ops/security_report()
