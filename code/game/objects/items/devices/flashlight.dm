@@ -1,10 +1,9 @@
 /obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
-	custom_price = 10
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
-	item_state = "flashlight"
+	inhand_icon_state = "flashlight"
 	worn_icon_state = "flashlight"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -17,6 +16,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	custom_price = 15
 	/// The sound the light makes when it's turned on
 	var/sound_on = 'sound/items/flashlight_on.ogg'
 	/// The sound the light makes when it's turned off
@@ -153,7 +153,7 @@
 	 * Handle eyes
 	 */
 
-	var/obj/item/organ/eyes/E = M.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = M.get_organ_slot(ORGAN_SLOT_EYES)
 
 	if((M.head && M.head.flags_cover & HEADCOVERSEYES) || (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) || (M.glasses && M.glasses.flags_cover & GLASSESCOVERSEYES))
 		results += span_notice("[M.p_their()] eyes are covered by [(M.head && M.head.flags_cover & HEADCOVERSEYES) ? "a helmet" : (M.wear_mask && M.wear_mask.flags_cover & MASKCOVERSEYES) ? "a mask": "some glasses"].")
@@ -168,11 +168,11 @@
 		return
 	else
 		if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
-			results += span_warning("[M.p_their(TRUE)] pupils don't react to the light!")
+			results += span_warning("[M.p_Their()] pupils don't react to the light!")
 		else if(M.has_dna() && M.dna.check_mutation(/datum/mutation/thermal/x_ray))	//mob has X-ray vision
-			results += span_danger("[M.p_their(TRUE)] pupils give an eerie glow!")
+			results += span_danger("[M.p_Their()] pupils give an eerie glow!")
 		else //they're okay!
-			results += span_notice("[M.p_their(TRUE)] pupils narrow.")
+			results += span_notice("[M.p_Their()] pupils narrow.")
 
 	to_chat(user, examine_block(jointext(results, "\n")))
 
@@ -180,7 +180,7 @@
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff. It can also be used to create a hologram to alert people of incoming medical assistance."
 	icon_state = "penlight"
-	item_state = ""
+	inhand_icon_state = ""
 	worn_icon_state = "pen"
 	w_class = WEIGHT_CLASS_TINY
 	flags_1 = CONDUCT_1
@@ -218,20 +218,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	name = "seclite"
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
-	item_state = "seclite"
+	inhand_icon_state = "seclite"
 	worn_icon_state = "seclite"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
+	custom_price = 45
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp
 	name = "desk lamp"
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
-	item_state = "lamp"
+	inhand_icon_state = "lamp"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
@@ -247,7 +248,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
-	item_state = "lampgreen"
+	inhand_icon_state = "lampgreen"
 
 
 
@@ -264,7 +265,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	name = "banana lamp"
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
-	item_state = "bananalamp"
+	inhand_icon_state = "bananalamp"
 
 // FLARES
 
@@ -274,7 +275,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	w_class = WEIGHT_CLASS_SMALL
 	light_range = 7 // Pretty bright.
 	icon_state = "flare"
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	actions_types = list()
 	/// How many seconds of fuel we have left
 	var/fuel = 0
@@ -286,10 +287,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	grind_results = list(/datum/reagent/sulfur = 15)
 	sound_on = 'sound/items/matchstick_lit.ogg'
 	sound_off = null
+	custom_price = 10
 
 /obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
-	fuel = rand(1600, 2000)
+	fuel = rand(120, 240)
 
 /obj/item/flashlight/flare/process(delta_time)
 	open_flame(heat)
@@ -333,7 +335,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 	. = ..()
 	// All good, turn it on.
-	if(.)
+	if(!.)
 		user.visible_message(span_notice("[user] lights \the [src]."), span_notice("You light \the [src]!"))
 		force = on_damage
 		damtype = BURN
@@ -351,7 +353,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	w_class = WEIGHT_CLASS_BULKY
 	light_range = 4
 	icon_state = "torch"
-	item_state = "torch"
+	inhand_icon_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
@@ -361,7 +363,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 /obj/item/flashlight/lantern
 	name = "lantern"
 	icon_state = "lantern"
-	item_state = "lantern"
+	inhand_icon_state = "lantern"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	desc = "A mining lantern."
@@ -377,7 +379,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	name = "suspicious lantern"
 	desc = "A suspicious looking lantern."
 	icon_state = "syndilantern"
-	item_state = "syndilantern"
+	inhand_icon_state = "syndilantern"
 	light_range = 10
 
 /obj/item/flashlight/slime
@@ -386,7 +388,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	desc = "Extract from a yellow slime. It emits a strong light when squeezed."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "slime"
-	item_state = "slime"
+	inhand_icon_state = "slime"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	custom_materials = null
@@ -457,14 +459,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	base_icon_state = "glowstick"
-	item_state = "glowstick"
+	inhand_icon_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
 	var/burn_pickup = FALSE	//If true, fuel will only decrease after being picked up or used in hand (Useful for mapping)
 	var/fuel = 0 // How many seconds of fuel we have left
 
 
 /obj/item/flashlight/glowstick/Initialize(mapload)
-	fuel = rand(3200, 4000)
+	fuel = rand(60, 240)
 	set_light_color(color)
 	. = ..()
 
@@ -495,7 +497,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 
 /obj/item/flashlight/glowstick/update_icon_state()
 	icon_state = "[base_icon_state][(fuel <= 0) ? "-empty" : ""]"
-	item_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
+	inhand_icon_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
 	return ..()
 
 /obj/item/flashlight/glowstick/update_overlays()
@@ -522,7 +524,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 		return
 
 	. = ..()
-	if(.)
+	if(!.)
 		user.visible_message(span_notice("[user] cracks and shakes [src]."), span_notice("You crack and shake [src], turning it on!"))
 		START_PROCESSING(SSobj, src)
 		burn_pickup = FALSE
@@ -531,7 +533,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/medical_holosign)
 	if(!fuel)
 		user.visible_message(span_suicide("[user] is trying to squirt [src]'s fluids into [user.p_their()] eyes... but it's empty!"))
 		return SHAME
-	var/obj/item/organ/eyes/eyes = user.getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = user.get_organ_slot(ORGAN_SLOT_EYES)
 	if(!eyes)
 		user.visible_message(span_suicide("[user] is trying to squirt [src]'s fluids into [user.p_their()] eyes... but [user.p_they()] don't have any!"))
 		return SHAME
@@ -621,7 +623,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/flashlight/spotlight)
 	name = "flashdark"
 	desc = "A strange device manufactured with mysterious elements that somehow emits darkness. Or maybe it just sucks in light? Nobody knows for sure."
 	icon_state = "flashdark"
-	item_state = "flashdark"
+	inhand_icon_state = "flashdark"
 	light_system = STATIC_LIGHT //The overlay light component is not yet ready to produce darkness.
 	light_range = 0
 	///Variable to preserve old lighting behavior in flashlights, to handle darkness.

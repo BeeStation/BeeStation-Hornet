@@ -1,0 +1,212 @@
+2024-11-01:
+  RDS88-beeman:
+  - bugfix: IPCs no longer contain fleshy human hearts in disguise.
+2024-11-02:
+  PowerfulBacon:
+  - bugfix: Clockcult shadow shackles will now properly prevent the target from moving.
+  - bugfix: Clockwork slab progress bars now display correctly.
+  - bugfix: Fixes progress bars appearing when dragging mobs onto yourself
+  XeonMations, Aramix:
+  - bugfix: fixed health assemblies not working
+2024-11-03:
+  ktlwjec:
+  - bugfix: Mysterious bottle can be interacted with.
+  - bugfix: Mysterious bottle isn't empty.
+2024-11-04:
+  PowerfulBacon:
+  - tweak: Dynamic will no longer be forced to run high-impact rulesets after 100
+      minutes, and will instead resort to spawning whatever it wants.
+2024-11-06:
+  mqiib:
+  - bugfix: Light step now stops your shoes from getting dirty again
+2024-11-07:
+  Therealdoooc213:
+  - bugfix: paramedic bags can now fit all the items they spawn with
+  ghost:
+  - bugfix: Ghosts can now correctly jump to C4's planted on walls/floors when they
+      get the notification
+2024-11-08:
+  Therealdoooc213:
+  - bugfix: Oppenheimer is no longer shot by their own turrets
+  TsunamiAnt:
+  - balance: reduced the billy club's structure damage, you can no longer destroy
+      reinforced walls with it.
+2024-11-09:
+  PestoVerde322:
+  - rscdel: Removed the awaymission content and maps
+  PowerfulBacon:
+  - bugfix: Fixes a callproc exploit.
+  Therealdoooc213:
+  - rscdel: Supersoldier species is removed
+  Tsar-Salat:
+  - bugfix: simplemobs should be able to break down walls again
+  - bugfix: champagne can be poured again
+  - admin: fixed debug id not working with vending machines
+2024-11-10:
+  EvilDragonfiend:
+  - code_imp: minor notification for proc call warning
+  MarkusLarsson421:
+  - tweak: Tweaked Fland a bunch.
+  - bugfix: Removed double plasteel in Robotics.
+  - tweak: Added a second thermo machine in toxins.
+  - tweak: Added Pipe Dispenser to Exploration.
+  PestoVerde322:
+  - tweak: Moths now see better in the dark
+  - balance: Moths can now eat fruit with ease.
+  - balance: Clothing is now contains microplastics
+  - rscadd: Adds microplastics reagent as a subtype of maltodextrin, with half the
+      power and half the metabolization rate. Also makes the mob ingesting them weaker
+      to toxin damage.
+  PowerfulBacon:
+  - bugfix: Fixes some admin actions erronously showing a null user.
+  Rukofamicom:
+  - balance: Gatfruit now spawn .38 revolvers instead of .357. Gatfruit revolvers
+      will have random ammunition loaded into them.
+  Szyszkrzyneczka:
+  - rscdel: Removes gang code
+  - rscdel: Removes sandbox and meteor gamemode
+  Therealdoooc213:
+  - rscadd: A new nuclear operative bundle, The Macho Wrestler! Contains everything
+      you need to wrestle the captain into giving you the disk.
+  - balance: CQC Kick and Chokehold do 10 and 15 seconds of sleep respectively now
+2024-11-11:
+  XeonMations:
+  - tweak: Moths can now eat cloth and cloth subtypes.
+2024-11-13:
+  EvilDragonfiend:
+  - code_imp: VV now shows which color a RGB text refers to.
+2024-11-14:
+  PowerfulBacon:
+  - bugfix: Fixes some issues related to mass explosions
+2024-11-15:
+  mystery3525:
+  - balance: Bloodcrawl now forces you to be in it for at least 5 seconds after entering
+      it.
+  - balance: Now, all slaughter demons drop bodies on death instead of deleting them.
+2024-11-16:
+  ? ''
+  : - imageadd: added new bar signage
+  BriggsIDP:
+  - tweak: Changed the bee sprite
+  mc-oofert, toastgoats, therealdoooc:
+  - rscadd: Trying to put down a rift as a space dragon in a invalid area now shows
+      a balloon alert.
+  - balance: Dragons now have night vision.
+  - balance: Carp have more health and deal more object damage.
+  ninjanomnom, Ghommie, Metekillot, MrMelbert, necromanceranner, Sealed101, XeonMations:
+  - tweak: Potted plants now hide your name when equipped.
+  - rscadd: Added TRAIT_UNKNOWN, when you have this trait, people will not be able
+      to make out anything about you.
+  - refactor: Potted plants are no longer snowflake code, instead uses the tactical
+      component.
+  rkz, Akrilla, Mothblocks, LemonInTheDark, Firecage, MrMelbert:
+  - refactor: Preferences menu will now re-use shared wardrobe items, making previews
+      update faster.
+  - code_imp: Adds unit test for the wardrobe system
+  - refactor: Refactors survivalboxes to be less copypaste
+  - code_imp: Standardizes storage holdability
+  - bugfix: Fixes runtime when loading dummies in prefs or select-equipment context
+      verb
+  rkz, Ghommie, Tastyfish:
+  - refactor: refactored proximity monitors(AOE spells like timestop, peaceborg dampeners,
+      and facehugger ranges) to be less CPU-intensive
+2024-11-17:
+  marshmellow10, thevandie:
+  - rscadd: Added badges for the Detective and Security
+2024-11-18:
+  MarkusLarsson421:
+  - bugfix: Fixed Syndicate Outpost Rabbit laying error eggs.
+  Marshmellow105:
+  - bugfix: fixed the officer and detective badges visual bug
+  PowerfulBacon:
+  - balance: Removes alpha passthrough on laser projectiles
+  ? jlsnow301, robbertapir, atosti, lessthnthree, JupiterJaeden, NamelessFairy, Vincent983,
+    JohnFulpWillard, 00-Steven, GoldenAlpharex, Archemagus, XeonMations
+  : - refactor: Refactored the security, medical and general manifests to TGUI.
+2024-11-19:
+  itsmeow:
+  - bugfix: Fix TGFont icons (nonbinary character icon, Nanotrasen, Syndicate, etc.)
+      not displaying in TGUIs on the live server.
+  - code_imp: Re-adds TGFont to the juke build process.
+2024-11-20:
+  PowerfulBacon:
+  - rscadd: Adds the shield belt, a researchable anti-projectile shield that blocks
+      outgoing and incoming projectiles.
+  - balance: Weaponry and advanced weaponry research nodes now cost 5000 instead of
+      10000.
+  XeonMations:
+  - bugfix: Fixed picking up a potted plant with one hand making you unrecognizable.
+2024-11-22:
+  Marshmellow105:
+  - rscadd: centcom stamp and centcom vendor
+  - tweak: updates centcom
+  - rscadd: one singular extra dir sprite for the offset ramp decal
+  Programs-The-Station:
+  - tweak: Meteor Shield Satellites now use Proximity Monitors instead of Processing.
+  - tweak: Disabled Shadow Sect from being available.
+  Therealdoooc213:
+  - bugfix: rat'var's summoning sound no longer plays on the menu
+  XeonMations:
+  - bugfix: Fixed natural wigs not showing the correct color for nonhuman races.
+2024-11-23:
+  Flleeppyy, Absolucy:
+  - refactor: Cleaned up some repetitive code related to heretic ascension announcements.
+  PowerfulBacon:
+  - rscadd: Adds the ability to turn someones headset on/off via the stripping menu,
+      if you find your headset randomly becomes disabled then getting the detective
+      to scan it could bring some clues as to an individual that is after you... or
+      maybe it was a prank.
+  Therealdoooc213:
+  - rscadd: security can now get non-functional hybrid tasers as a heirloom item
+  - bugfix: contractor helmets no longer slow you down
+  XeonMations:
+  - bugfix: Fixed a bug in silicon software that would not allow the radio menu to
+      popup.
+  XeonMations, Aramix, DungeonVR:
+  - rscadd: Added the RBMK reactor, fuel rods and engine sealant, all orderable from
+      cargo!
+2024-11-24:
+  XeonMations:
+  - bugfix: Fixed the nuclear reactor's lack of ability to work.
+2024-11-25:
+  PowerfulBacon:
+  - bugfix: Fixes spacemanDMM throwing a build error.
+2024-11-26:
+  XeonMations:
+  - bugfix: Fixed cloning body only scans wrongly saving information
+  - bugfix: Fixed cloning diskettes being broken
+  - refactor: Removed cloning manifest records from global list
+2024-11-27:
+  Marshmellow105:
+  - tweak: security badges are now tiny
+  Therealdoooc213:
+  - bugfix: the debug nanite injector is no longer available via mail or loot spawns
+  rkz, Ryll/Shaps, Tralezab, Zonespace27:
+  - admin: ERTs now spawn with their briefing officer (the admin)
+  - admin: Admins can now force the most experienced player to be team leader in an
+      ERT
+  - admin: Admins can now force randomize names in an ERT
+  - code_imp: adds and fixes a few ERT subtypes
+  - tweak: all ERTs now have mindshield (no rev centcom lmao)
+2024-11-28:
+  RDS88-beeman:
+  - balance: The cat surgeon can no longer extendo-grip around blocks to pacify conscious
+      felinids.
+  Therealdoooc213:
+  - bugfix: toilets face the right way now
+  - tweak: bathrooms no longer spawn with cameras
+  Tsar-Salat:
+  - code_imp: fix duplicate waterbottle typepath
+2024-11-30:
+  Absolucy, Aylong:
+  - tweak: Chat notifications are now at the top.
+  - rscadd: Added Mute button into Chat Tabs settings, it disables tab unread counter.
+  - rscadd: Added Clear chat button into General settings, you can clear your dirty
+      chat like you did it before TGchat.
+  - bugfix: Case-sensitive highlighting now works properly.
+  Therealdoooc213:
+  - bugfix: emitters fire correctly now
+  - bugfix: Corgstation now has prisoner spawnpoints
+  rkz, Fikou:
+  - refactor: refactored pkas and ebows. There should be no discernable behavior changes.
+  - tweak: changes the empty chamber gun alert to be more succinct

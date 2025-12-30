@@ -6,6 +6,7 @@
 /obj/item/circuit_component/relative_coords
 	display_name = "Get relative coords"
 	desc = "A component that returns relative coordinates to target. Requires line of sight."
+	category = "Entity"
 
 	/// Atom that we are trying to get relative coordinates to.
 	var/datum/port/input/target

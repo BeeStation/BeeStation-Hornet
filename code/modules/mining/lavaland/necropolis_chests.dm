@@ -16,7 +16,7 @@
 
 /obj/structure/closet/crate/necropolis/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(try_spawn_loot))
+	RegisterSignal(src, COMSIG_ATOM_ATTACKBY, PROC_REF(try_spawn_loot))
 
 /obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
@@ -45,8 +45,7 @@
 		/obj/item/gun/magic/hook											= 5,
 		/obj/item/book_of_babel 											= 5,
 		/obj/item/clothing/neck/necklace/memento_mori						= 5,
-		/obj/item/reagent_containers/cup/glass/waterbottle/relic				= 5,
-		/obj/item/reagent_containers/cup/bottle/necropolis_seed			= 5,
+		/obj/item/reagent_containers/cup/glass/waterbottle/relic			= 5,
 		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
 		/obj/item/shared_storage/red										= 5,
 		/obj/item/staff/storm												= 5,
@@ -74,11 +73,15 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon_state = "asclepius_dormant"
-	item_state = "asclepius_dormant"
-	block_upgrade_walk = TRUE
-	block_level = 1
-	block_power = 40 //blocks very well to encourage using it. Just because you're a pacifist doesn't mean you can't defend yourself
-	block_flags = null //not active, so it's null
+	inhand_icon_state = "asclepius_dormant"
+	custom_price = 20000
+	max_demand = 5
+
+	//Switches to true when taking the oath which also gives pacifism
+	canblock = FALSE
+	block_power = 100
+	block_flags = BLOCKING_UNBALANCE | BLOCKING_PROJECTILE
+
 	var/activated = FALSE
 	var/usedHand
 
@@ -131,8 +134,9 @@
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
 	icon_state = "asclepius_active"
-	item_state = "asclepius_active"
+	inhand_icon_state = "asclepius_active"
 	activated = TRUE
+	canblock = TRUE
 
 //Memento Mori
 /obj/item/clothing/neck/necklace/memento_mori
@@ -144,6 +148,8 @@
 	actions_types = list(/datum/action/item_action/hands_free/memento_mori)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/mob/living/carbon/human/active_owner
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/clothing/neck/necklace/memento_mori/item_action_slot_check(slot)
 	return slot == ITEM_SLOT_NECK
@@ -160,6 +166,10 @@
 	return ..()
 
 /obj/item/clothing/neck/necklace/memento_mori/proc/memento(mob/living/carbon/human/user)
+	if(IS_VAMPIRE(user))
+		to_chat(user, span_warning("The Memento notices your undead soul, and refuses to react.."))
+		return
+
 	to_chat(user, span_warning("You feel your life being drained by the pendant..."))
 	if(do_after(user, 40, target = user))
 		to_chat(user, span_notice("Your lifeforce is now linked to the pendant! You feel like removing it would kill you, and yet you instinctively know that until then, you won't die."))
@@ -199,10 +209,12 @@
 	desc = "This lantern gives off no light, but is home to a friendly wisp."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
-	item_state = "lantern"
+	inhand_icon_state = "lantern"
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	var/obj/effect/wisp/wisp
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
@@ -307,6 +319,8 @@
 	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
 	list_reagents = list()
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
 	var/reagents = volume
@@ -393,7 +407,7 @@
 	desc = "Mid or feed."
 	ammo_type = /obj/item/ammo_casing/magic/hook
 	icon_state = "hook"
-	item_state = "chain"
+	inhand_icon_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	fire_sound = 'sound/weapons/batonextend.ogg'
@@ -402,6 +416,8 @@
 	sharpness = SHARP
 	force = 15
 	attack_weight = 2
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/gun/magic/hook/shoot_with_empty_chamber(mob/living/user)
 	to_chat(user, "<span class='warning'>[src] isn't ready to fire yet!</span>")
@@ -468,6 +484,8 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
 	var/cooldown = 0
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
@@ -507,14 +525,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 
 	user.forceMove(src)
 	user.notransform = TRUE
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, "[type]")
 
 	can_destroy = FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(unvanish), user), 10 SECONDS)
 
 /obj/effect/immortality_talisman/proc/unvanish(mob/user)
-	user.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_GODMODE, "[type]")
 	user.notransform = FALSE
 	user.forceMove(get_turf(src))
 
@@ -577,6 +595,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
 	w_class = 2
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/book_of_babel/attack_self(mob/user)
 	if(!user.can_read(src))
@@ -596,6 +616,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "strange elixir"
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list(/datum/reagent/flightpotion = 5)
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/reagent_containers/cup/bottle/potion/update_icon()
 	if(reagents.total_volume)
@@ -609,7 +631,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
-	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chemical_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/expose_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -621,13 +643,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 			return ..()
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
-			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
-			if(H.getorgan(/obj/item/organ/wings))
+			var/obj/item/organ/wings/wings = H.get_organ_slot(ORGAN_SLOT_WINGS)
+			if(H.get_organ_by_type(/obj/item/organ/wings))
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
 					wings.flight_level += 1 //upgrade the flight level
 					wings.Refresh(H) //they need to insert to get the flight emote
 			else
-				if(MOB_ROBOTIC in H.mob_biotypes)
+				if(H.mob_biotypes & MOB_ROBOTIC)
 					var/obj/item/organ/wings/cybernetic/newwings = new()
 					newwings.Insert(H)
 				else if(holycheck)
@@ -675,7 +697,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	desc = "Pickaxes... for your hands!"
 	icon_state = "concussive_gauntlets"
 	worn_icon_state = "concussive_gauntlets"
-	item_state = "combatgloves"
+	inhand_icon_state = "combatgloves"
 	toolspeed = 0.1 //Sonic jackhammer, but only works on minerals.
 	strip_delay = 40
 	equip_delay_other = 20
@@ -694,7 +716,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	energy = 20
 	bomb = 35
 	bio = 35
-	rad = 35
 	stamina = 20
 	bleed = 20
 
@@ -751,7 +772,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	icon_state = "cleaving_saw"
-	item_state = "cleaving_saw"
+	inhand_icon_state = "cleaving_saw"
 	worn_icon_state = "cleaving_saw"
 	attack_verb_continuous = list("attacks", "saws", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "saw", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -764,6 +785,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = SHARP_DISMEMBER
 	bleed_force = BLEED_CUT
+	custom_price = 40000
+	max_demand = 2
 	/// List of factions we deal bonus damage to
 	var/list/nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
 	/// Amount of damage we deal to the above factions
@@ -885,7 +908,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "\improper spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage. It glows weakly."
 	icon_state = "spectral"
-	item_state = "spectral"
+	inhand_icon_state = "spectral"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -894,10 +917,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
-	block_upgrade_walk = TRUE
-	block_level = 1
-	block_power = 20
+	custom_price = 10000
+	max_demand = 10
+
+	canblock = TRUE
+	//This increases with the number of ghosts
+	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
@@ -971,10 +998,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	user.visible_message(span_danger("[user] strikes with the force of [ghost_counter] vengeful spirits!"))
 	..()
 
-/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	var/ghost_counter = ghost_check()
-	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message(span_danger("[owner] is protected by a ring of [ghost_counter] ghosts!"))
+	if(ghost_counter)
+		block_power = min((ghost_counter * 20), 100)
+		owner.visible_message(span_danger("[owner] is protected by a ring of [ghost_counter] ghosts!"))
 	return ..()
 
 //Blood
@@ -984,6 +1012,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	desc = "You're not actually going to drink this, are you?"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
+	custom_price = 10000
+	max_demand = 10
 
 /obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -1031,7 +1061,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "staff of lava"
 	desc = "The power to manipulate lava. What more could you want out of life?"
 	icon_state = "staffofstorms"
-	item_state = "staffofstorms"
+	inhand_icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	icon = 'icons/obj/guns/magic.dmi'
@@ -1042,6 +1072,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hitsound = 'sound/weapons/sear.ogg'
 	item_flags = ISWEAPON
+	custom_price = 10000
+	max_demand = 10
 	var/turf_type = /turf/open/lava/smooth
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/open/floor/plating/asteroid/basalt
@@ -1050,8 +1082,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	var/create_delay = 30
 	var/reset_cooldown = 50
 	var/timer = 0
-	var/static/list/banned_turfs = typecacheof(list(/turf/closed))
-	var/static/list/allowed_areas = typecacheof(list(/area/lavaland/surface/outdoors))
+	var/static/list/banned_turfs = typecacheof(list(
+		/turf/closed,
+	))
+	var/static/list/allowed_areas = typecacheof(list(
+		/area/lavaland/surface/outdoors,
+	))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -1103,8 +1139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/structure/closet/crate/necropolis/bubblegum/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
 	if(..())
-		new /obj/item/clothing/suit/space/hostile_environment(src)
-		new /obj/item/clothing/head/helmet/space/hostile_environment(src)
+		new /obj/item/clothing/suit/hooded/hostile_environment(src)
 		new /obj/item/crusher_trophy/demon_claws(src)
 
 /obj/item/mayhem
@@ -1112,6 +1147,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
+	custom_price = 40000
+	max_demand = 2
 
 /obj/item/mayhem/attack_self(mob/user)
 	for(var/mob/living/carbon/human/H in range(7,user))
@@ -1129,6 +1166,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	icon_state = "scroll2"
 	color = "#FF0000"
 	desc = "Mark your target for death."
+	custom_price = 40000
+	max_demand = 2
 	var/used = FALSE
 
 /obj/item/blood_contract/attack_self(mob/user)
@@ -1190,7 +1229,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	name = "hierophant club"
 	desc = "The strange technology of this large club allows various nigh-magical feats. It used to beat you, but now you can set the beat."
 	icon_state = "hierophant_club_ready_beacon"
-	item_state = "hierophant_club_ready_beacon"
+	inhand_icon_state = "hierophant_club_ready_beacon"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
@@ -1203,6 +1242,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 	attack_verb_simple = list("club", "beat", "pummel")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
+	custom_price = 40000
+	max_demand = 2
 	var/power = 15 //Damage of the magic tiles
 	var/cooldown_time = 20 //how long the cooldown between non-melee ranged attacks is
 	var/chaser_cooldown = 81 //how long the cooldown between firing chasers at mobs is
@@ -1285,11 +1326,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/shared_storage/blue)
 
 /obj/item/hierophant_club/update_icon()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
-	item_state = icon_state
+	inhand_icon_state = icon_state
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_hands()
-		M.update_inv_back()
+		M.update_held_items()
+		M.update_worn_back()
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon()

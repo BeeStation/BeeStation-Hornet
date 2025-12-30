@@ -6,6 +6,7 @@
 /obj/item/circuit_component/indexer/write
 	display_name = "Write Component"
 	desc = "A component that writes a given value to a given index in a given list. It then gives that new list back."
+	category = "List"
 
 	/// The input ports
 	var/datum/port/input/value_port
@@ -22,7 +23,7 @@
 	value_port = null
 	return ..()
 
-/obj/item/circuit_component/indexer/write/calculate_output(var/index, var/list/list_input)
+/obj/item/circuit_component/indexer/write/calculate_output(index, list/list_input)
 	list_input[index] = islist(value_port.value) ? null : value_port.value
 	output.set_output(list_input)
 

@@ -5,7 +5,7 @@
 	name = "photo album"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "album"
-	item_state = "briefcase"
+	inhand_icon_state = "briefcase"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	resistance_flags = FLAMMABLE
@@ -40,7 +40,7 @@
 
 //Manual loading, DO NOT USE FOR HARDCODED/MAPPED IN ALBUMS. This is for if an album needs to be loaded mid-round from an ID.
 /obj/item/storage/photo_album/proc/persistence_load()
-	var/list/data = SSpersistence.GetPhotoAlbums()
+	var/list/data = SSpersistence.get_photo_albums()
 	if(data[persistence_id])
 		populate_from_id_list(data[persistence_id])
 

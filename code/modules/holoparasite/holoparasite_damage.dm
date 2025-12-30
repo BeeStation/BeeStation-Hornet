@@ -88,13 +88,13 @@
 	if(!summoner.current || !(summoner.current.IsUnconscious() || HAS_TRAIT(summoner.current, TRAIT_CRITICAL_CONDITION)))
 		return
 	// No brain? Ah whatever, just deal clone damage.
-	var/obj/item/organ/brain/brain = summoner.current.getorganslot(ORGAN_SLOT_BRAIN)
+	var/obj/item/organ/brain/brain = summoner.current.get_organ_slot(ORGAN_SLOT_BRAIN)
 	if(!brain || brain.decoy_override)
 		to_chat(summoner.current, span_dangerbold("You feel your body strain as [color_name] takes damage!"))
 		summoner.current.adjustCloneLoss(amount)
 		return
 	to_chat(summoner.current, span_dangerbold("You feel your mind strain as [color_name] takes damage!"))
-	brain.applyOrganDamage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
+	brain.apply_organ_damage(amount, HOLOPARA_MAX_BRAIN_DAMAGE)
 
 /**
  * A holoparasite does not sense through traditional methods, therefore it is immune to being flashed.
@@ -112,12 +112,6 @@
  * A holoparasite's crystalline structure is unaffected by fire.
  */
 /mob/living/simple_animal/hostile/holoparasite/fire_act()
-	return FALSE
-
-/**
- * A holoparasite's crystalline structure is unaffected by radiation.
- */
-/mob/living/simple_animal/hostile/holoparasite/rad_act(amount)
 	return FALSE
 
 /**
@@ -163,7 +157,7 @@
 				to_chat(summoner.current, span_userdanger("You violently cough up blood, barely surviving as an explosion nearly tears apart [color_name], causing you to collapse in incredible, agonizing pain!"))
 				summoner.current.visible_message(span_warning("[summoner.current] violently coughs up blood, collapsing to the ground in incredible pain!"))
 				summoner.current.AdjustParalyzed(45 SECONDS, ignore_canstun = TRUE)
-				summoner.current.jitteriness = min(summoner.current.jitteriness + 180, 180)
+				summoner.current.adjust_jitter_up_to(360 SECONDS, 360 SECONDS)
 				SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "devastate (survived)")
 			else
 				// RIP.
@@ -181,11 +175,11 @@
 				gib()
 		if(EXPLODE_HEAVY)
 			summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.6, stamina = summoner.current.maxHealth * 0.6)
-			summoner.current.jitteriness = min(summoner.current.jitteriness + 90, 90)
+			summoner.current.adjust_jitter_up_to(180 SECONDS, 180 SECONDS)
 			SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "heavy")
 		if(EXPLODE_LIGHT)
 			summoner.current.take_overall_damage(brute = summoner.current.maxHealth * 0.3, stamina = summoner.current.maxHealth * 0.45)
-			summoner.current.jitteriness = min(summoner.current.jitteriness + 45, 45)
+			summoner.current.adjust_jitter_up_to(90 SECONDS, 90 SECONDS)
 			SSblackbox.record_feedback("tally", "holoparasite_exploded", 1, "light")
 
 /mob/living/simple_animal/hostile/holoparasite/gib()

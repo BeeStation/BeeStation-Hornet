@@ -14,9 +14,14 @@
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "tpump"
 
+/obj/machinery/atmospherics/components/binary/temperature_pump/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Maximize transfer rate")
+
 /obj/machinery/atmospherics/components/binary/temperature_pump/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
+		balloon_alert(user, "turned [on ? "on" : "off"]")
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 	return ..()
@@ -24,7 +29,7 @@
 /obj/machinery/atmospherics/components/binary/temperature_pump/AltClick(mob/user)
 	if(can_interact(user) && !(heat_transfer_rate == max_heat_transfer_rate))
 		heat_transfer_rate = max_heat_transfer_rate
-		balloon_alert(user, "You set the heat transfer rate to [heat_transfer_rate]%.")
+		balloon_alert(user, "transfer rate set to [heat_transfer_rate]%")
 		investigate_log("was set to [heat_transfer_rate]% by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 	return ..()

@@ -60,24 +60,23 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/book/granter/action/spell/charge,
 	/obj/item/book/granter/action/spell/summonitem,
 	/obj/item/gun/magic/wand,
-	/obj/item/gun/magic/wand/death,
-	/obj/item/gun/magic/wand/resurrection,
-	/obj/item/gun/magic/wand/polymorph,
+	/obj/item/gun/magic/wand/drain,
+	/obj/item/gun/magic/wand/healing,
+	/obj/item/gun/magic/wand/icy_blast,
 	/obj/item/gun/magic/wand/teleport,
-	/obj/item/gun/magic/wand/door,
-	/obj/item/gun/magic/wand/fireball,
-	/obj/item/gun/magic/staff/healing,
+	/obj/item/gun/magic/wand/animation,
+	/obj/item/gun/magic/wand/firebolt,
+	/obj/item/gun/magic/staff/potential,
 	/obj/item/gun/magic/staff/door,
 	/obj/item/scrying,
 	/obj/item/voodoo,
 	/obj/item/warpwhistle,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword))
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,
-	/obj/item/gun/magic/staff/animate,
+	/obj/item/gun/magic/staff/dismember,
 	/obj/item/storage/belt/wands/full,
 	/obj/item/antag_spawner/contract,
 	/obj/item/gun/magic/staff/chaos,
@@ -88,7 +87,6 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/antag_spawner/contract,
 	/obj/item/blood_contract,
-	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/gun/magic,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword,
@@ -107,12 +105,10 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/guns))
+		if(IS_WIZARD(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/guns))
 			return
 
 	if(prob(GLOB.summon_guns_triggered) && !(H.mind.has_antag_datum(/datum/antagonist)))
-		SSticker.mode.traitors += H.mind
-
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/guns)
 		H.log_message("was made into a survivalist, and trusts no one!", LOG_ATTACK, color="red")
 
@@ -130,7 +126,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/magic))
+		if(IS_WIZARD(H) || H.mind.has_antag_datum(/datum/antagonist/survivalist/magic))
 			return
 
 	if(prob(GLOB.summon_magic_triggered) && !(H.mind.has_antag_datum(/datum/antagonist)))

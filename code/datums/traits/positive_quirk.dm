@@ -111,7 +111,7 @@
 	var/datum/language_holder/LH = quirk_target.get_language_holder()
 	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
-	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = quirk_target.get_organ_slot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.get_possible_languages()
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
 	languages_possible = languages_possible - LH.understood_languages
@@ -146,7 +146,7 @@
 
 /datum/quirk/night_vision/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/organ/eyes/eyes = H.getorgan(/obj/item/organ/eyes)
+	var/obj/item/organ/eyes/eyes = H.get_organ_by_type(/obj/item/organ/eyes)
 	if(!eyes || eyes.lighting_alpha)
 		return
 	eyes.Insert(H) //refresh their eyesight and vision
@@ -249,3 +249,13 @@
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
+
+/datum/quirk/computer_whiz
+	name = "Computer Whiz"
+	desc = "You have always had a knack for technologies. You are able to manipulate and alter modular computer parts faster and safely."
+	icon = "microchip"
+	quirk_value = 1
+	mob_trait = TRAIT_COMPUTER_WHIZ
+	gain_text = span_notice("You feel much more confortable around technology.")
+	lose_text = span_danger("You feel your love for technology dissipate.")
+	medical_record_text = "Patient's vocational assessment test shows an affinity for technology."

@@ -1,0 +1,394 @@
+2025-02-01:
+  PowerfulBacon:
+  - config: Adds a 514 warning for clients joining the game.
+  Szyszkrzyneczka:
+  - code_imp: Removes proc_holders in favour of using /datum/action and expanding
+      on it some more
+  - refactor: refactors how spell code works making it badass and stuff
+  - tweak: Many spells changed to conform with the new code order, included is telepathy
+      that now works by providing the user with a list of targets instead of clicking
+      on one
+  - tweak: Spell cooldowns are very likely to be slightly different (Actually readable)
+      Old cooldown code is an unreadable mess
+  Tsar-Salat:
+  - rscadd: reverts undocumented LINDA change. Adds firelocks to Fland hallways.
+  XeonMations:
+  - bugfix: Fixed the game being small when unfullscreening
+  XeonMations, ManiacalAnxiety, Therealdoooc213:
+  - rscadd: 'Added a new 5TC traitor book to the uplink that allows you to pickpocket
+      people stealthily: The Art of Thievery'
+  rkz:
+  - bugfix: fixed fire alarm light transitions to be smoother
+2025-02-02:
+  Tsar-Salat:
+  - tweak: chaplains now have a exp_requirement of 120 minutes, up from 0
+  - tweak: botanists now have a exp_requirement of 120 minutes, up from 0
+  - tweak: curators now have a exp_requirement of 60 minutes, up from 0
+  - tweak: cyborgs now have a exp_requirement of 180 minutes, up from 120
+  - tweak: chemists need explicitly medical experience, and atmosians need explicitly
+      engineering experience.
+  grimm-hollowknight, tralezab, therealdoooc213:
+  - rscadd: New mediborg skin, the Qualified doctor. Who may or may not be, 3 medibots
+      in a trenchcoat.
+2025-02-03:
+  PowerfulBacon:
+  - bugfix: Fixes a bug causing crashes on xenoartifacts that failed CI
+  XeonMations:
+  - bugfix: RPDs no longer hit pipes on the ground when placing down pipes.
+  mrmanlikesbt:
+  - code_imp: NO MORE VORE
+2025-02-04:
+  XeonMations:
+  - code_imp: Changed some more fullscreen code, should work better on 515 clients
+      now.
+  mrmanlikesbt, MTandi, ninjanomnom:
+  - balance: heretics can sleep to find unused influences. this has a 5-minute delay
+      between each dream
+  - refactor: slightly refactor dream code
+2025-02-06:
+  Dejaku51:
+  - balance: Added a turret on south entrance of the lavaland syndicate base
+  Tsar-Salat:
+  - bugfix: fixes infinite reagent loops
+  XeonMations:
+  - tweak: Engineering's powertools are now less harsh on the ears.
+  mrmanlikesbt:
+  - tweak: the AI track and jump to camera buttons are now tgui
+  - tweak: the Enhanced Surveillance malfunction module displays messages above peoples'
+      heads now
+  - bugfix: combat upgraded AIs can hack their borgs again
+  - bugfix: fixed admin-mentor ooc not being hot pink
+2025-02-07:
+  ClownMoff:
+  - rscadd: 'Added 4 new jackets: Underground Serpents jacket, Teen Biker Jacket,
+      Liutenant Jacket and Driver jacket. Find them in the AutoDrobe'
+  Therealdoooc213:
+  - bugfix: fixes radstation holopad
+  ? itsmeow, jlsnow301, vvvv-vvvv, Mothblocks, vinylspiders, 00-Steven, san7890, harryob,
+    intercepti0n, thegrb93, SyncIt21, LemonInTheDark
+  : - refactor: Converted TGUI backend from Inferno to React. Minimal user-facing
+        changes.
+    - code_imp: Added backend TGUI support for 516 (Webview2/Chromium support). This
+        means that our TGUI is now potentially compatible with OpenDream as well.
+    - code_imp: Ended support for IE8 (commonly used by Linux machines), since it
+        never worked anyway. RIP.
+    - code_imp: Various dropdowns will now prioritize their display text over the
+        "selected" field. Added displayTextFirst flag to Dropdowns.
+    - code_imp: The Orbital Map no longer uses document APIs to find the current object
+        ref.
+    - code_imp: Removed many, many instances of keyCode and replaced them with key
+    - code_imp: Refactored NumberInput component to Typescript, removing various extraneous
+        properties
+2025-02-08:
+  Rukofamicom:
+  - balance: swarmers may no longer ventcrawl, and will also spawn in a random location
+      instead of at the gateway. Without ventcrawling, the event as a whole should
+      be more of a stand-off and defense than a bunch of constantly scurrying roaches.
+  - tweak: swarmers now have 65 HP
+  - tweak: swarmer ranged attack is now half the speed of security's disablers
+  - tweak: swarmer melee attacks now do 35 stamina damage
+  - tweak: swarmer replication now costs 20 resources
+  - tweak: swarmer traps and walls now cost 2 resources to place
+  - tweak: swarmer traps now trigger in an AoE when destroyed and their visuals and
+      sound effects have been updated. The AoE has a greater effect on cyborgs than
+      previously as well, due to their immunity to stamina damage.
+  - tweak: swarmer objective text has been slightly modified to clarify they can attack
+      crew as long as they don't harm them
+  marshmellow10, MarkusLarsson421, Therealdoooc213, Tsar-Salat:
+  - rscadd: adds the Syndicate Survey Shuttle as a lavaland ruin
+  - code_imp: Makes it a 50/50 between getting this or the old base (I think)
+  wikimody:
+  - rscadd: Brought back shadow sect
+  - rscadd: Summon obelisk - makes a obelisk with generates favour
+  - rscadd: Expand shadows - increases radius and power of darkness coming from obelisks
+  - rscadd: Shadow person conversion - self explainable
+  - rscadd: Night vision aura - people inside darkness radius of obelisks are given
+      night vision.
+  - rscdel: Removed 2 antagonist focused rituals
+  - rscdel: Removed need for being shadow person to chose this sect
+  - code_imp: changed TRAIT_NIGHT_VISION to TRAIT_NIGHT_VISION_WEAK since the trait
+      didn't actually add night vision
+  - code_imp: Added TRAIT_NIGHT_VISION with grant night vision to any mob
+2025-02-09:
+  PowerfulBacon:
+  - code_imp: Merges mob properties and traits.
+  - bugfix: Hulk limb colour no longer applies to robotic limbs.
+2025-02-10:
+  PowerfulBacon:
+  - bugfix: Fixes the stat panel crashing when you have a plasma vessel in your mob.
+  Therealdoooc213:
+  - balance: head of security no longer spawns with a disabler
+  Tsar-Salat:
+  - bugfix: floating oven trays
+  - bugfix: inverted clockcult armor checks. Cultists can wear armor again, normals
+      cannot
+  rkz, mso,  itseasytosee:
+  - bugfix: fixes admin transforms sending the wrong mind
+2025-02-11:
+  PigeonVerde322, Rkz, Kylerace, ArcaneMusic, zxaber:
+  - refactor: refactors machine and power code to cut down on processing costs
+  - bugfix: fixes non-processing machines failing to consume power
+  - bugfix: fixes rechargers and inducers allowing for effectively infinite power.
+      Now, what is used to charge these cells is exactly what can be expended from
+      them.
+  - tweak: rechargers now suck power directly from surplus energy on the powergrid,
+      as opposed to the Equipment part of an APC. This is to prevent the former fix
+      from making every single recharger on the station a mini-energy siphon.
+  - rscadd: examining any machinery will now tell if it's powered or not.
+  RDS88:
+  - tweak: Custom AI laws are now more readable on the end-of-round report. You don't
+      need to squint to figure out why it was trying to door-crush you anymore
+  Therealdoooc213:
+  - bugfix: Chaplains can no longer sacrifice holodeck mobs.
+2025-02-12:
+  Gilgaxx:
+  - bugfix: Cyborgs and AI shells can quickly store equipment with Q again.
+  Therealdoooc213:
+  - tweak: Moves the "Observe" verb from the OOC category to the Ghost category.
+2025-02-13:
+  Bieyes, Aramix:
+  - rscadd: Added emissive (glowing) eyes for spiders.
+  - rscadd: Added quality of life changes to how the block ability sprites works.
+  - rscdel: Removed conflicting lay web ability definition.
+  - bugfix: fixed throw web ability (Aramix)
+  - imageadd: added two icons for block ability.
+  Gilgaxx:
+  - rscadd: Added the ability to loosen ties to put around your head (great for getting
+      drunk after work!)
+  Rukofamicom:
+  - bugfix: Lazarus injectors will now work as originally intended on non-sentient
+      mobs. This means that lazarus revived mobs will be passive to crew and other
+      passive mobs, friendly toward the person that revived them, and actively hostile
+      to other hostile mobs.
+  - tweak: Lazarus injectors will continue to work as they always have on already
+      sentient mobs, and the intent is now clearly stated in-game to those mobs when
+      they are revived. Lazarus is not a brainwashing tool and does not force loyalty
+      or obedience in the creatures it revives if they are smart enough to think for
+      themselves
+  - tweak: Lazarus injectors now have a 10% chance of making any mob revived by one
+      sentient, with its own free will to choose violence, servitude or anything in
+      between.
+  - tweak: The examine text of lazarus injectors now includes a warning that creatures
+      with "especially strong wills" are known to turn against the user. This is in
+      reference to both already sentient mobs and the newly added chance to create
+      a sentient mob.
+  - tweak: Lazarus now takes ten seconds to take effect, with the mob it is used on
+      jittering a bit before actually being revived.
+  XeonMations:
+  - bugfix: Advanced wirebrushes no longer ignore radiation protection before dealing
+      damage.
+2025-02-14:
+  ClownMoff:
+  - imageadd: Updated the monkey cube and monkey cube box sprites
+  - imageadd: Added a gorilla cube sprite
+  PowerfulBacon:
+  - bugfix: Fixes chameleon clothing bugged
+  - bugfix: Adds a new pickup and drop unit test that resolves some inconsistent action
+      assignment behaviours when picking up certain items.
+  XeonMations:
+  - bugfix: Fixed the L6 SAW being stuck in your suit storage.
+  beelover:
+  - bugfix: airlocks bolted at roundstart now have the appropriate lights on
+  - code_imp: added the updates argument to some children of the update_icon proc
+  'mrmanlikesbt, NotRanged ':
+  - rscadd: blob resource nodes make a balloon alert when a resource is made
+  - tweak: the blob "jump to node" menu is now tgui
+  - refactor: removed hardcoded blob values
+  ? rkz, Qustinnus, Mothblocks, TJatPBnJ, IndieanaJones, KathyRyals, Arkatos, norill,
+    Fikou, dragomagol, SgtHunk, JJRCop, ninjanomnom, cacogen, Timberpoes, LemonInTheDark,
+    Ghommie, Sealed101, Ghilker, TheBonded, Timothymtorres, CameronWoof, ArcaneDefence,
+    BurgerLUA, OneAsianTortoise, vincentiusvin, itseasytosee, AnturK, GuillaumePrata,
+    Timberpoes, Ghommie, zxaber, Gpeckman, haukeschaumann, tralezab, Jack LeCroy,
+    MrMelbert, ShizCalev, Actioninja
+  : - rscadd: Adds combat mode
+    - rscadd: Adds martial art combo meters and TGUI guides
+    - refactor: refactors CanUseTopic and dexterity
+    - refactor: refactored syringe code to use flags
+    - tweak: clicking on the turf of a airlock while combat mode is off will now close
+        the airlock. No more pixel hunting!
+    - balance: buffs to hook shotgun in addition to rclick functionality
+    - code_imp: renames RemoveComponent, component destroy will no longer runtime
+        when parent is null
+    - refactor: refactored simple rotation component
+    - bugfix: fixed abandoned crates to not try to kill you if you perform actions
+        on them AFTER they are unlocked
+    - code_imp: introduced variable weapon attack speed. No weapon utilizes this yet
+        but admins can now varedit items to attack faster/slower.
+    - code_imp: unit tests reagent container transfer amounts
+    - code_imp: unit tests attacking people
+    - balance: Using Jaunts will conceal your runechat for their duration.
+    - code_imp: passed IS_HERETIC through the proc, rather than checking everytime
+        you used a heretic spell. Less runtimes.
+    - bugfix: cutting wires while a TGUI menu is open will no longer shock you and
+        bypass shock protection
+    - tweak: cleaned up airlock prying code. Nightmare blades are now crowbars and
+        fulfill tool_acts, they still can break stuff by being on combat mode though.
+        Rclick with a one to pry regardless of intent.
+    - refactor: refactors stun batons
+    - tweak: abductor batons are children of stun batons
+2025-02-15:
+  Bokkiewokkie:
+  - bugfix: Fixed a multi-z vine issue
+  PowerfulBacon:
+  - code_imp: Fixes the stale actions configuration file
+  Rukofamicom:
+  - balance: All explorer assassination targets now spawn with a few medical supplies
+      and a flashlight to help them deal with potential mobs nearby
+  - balance: The operative assassination target now spawns with a combat knife so
+      that they have a moderately powerful melee option if they run out of ammo for
+      the stechkin
+  - balance: The spy assassination target now spawns with a stechkin, suppressor,
+      spy glasses kit, and chameleon mask for voice changing. They do not have a second
+      clip for their gun.
+  - balance: The clown assassination target now spawns with a lube flower instead
+      of water flower, and also knows taeclowndo thanks to their fancy shoes.
+  - tweak: Mechs are now affected by swarmer traps, however they will only be stunned
+      for three seconds instead of ten.
+  - bugfix: Adjusts swarmer abilities so that they are available in accordance to
+      the recently updated costs
+  St0rmC4st3r, Rukofamicom:
+  - rscadd: Added an Exploration voucher as a way to obtain missing equipment when
+      latejoining.
+  - rscadd: Added a Ghost Shift Kit specifically made for solo explorers in the exploration
+      voucher which can be redeemed if the station is staffed with a skeleton crew.
+  - rscadd: Added a Gunslinger Kit in the exploration voucher. You can now cosplay
+      as a cool space cowboy!
+  - rscadd: Added a Laser Repeater kit as a sidegrade to the regular exploration energy
+      gun.
+  - tweak: Hats can now be attached to all space helmets, not just Plasmaman envirohelmets!
+  - tweak: Exploration crew now always spawns in the latejoin outfit, but with an
+      exploration voucher.
+  Therealdoooc213:
+  - rscadd: The corgstation gateway is now inside of service
+  - rscadd: New maintenance room in corg botany maintenance.
+  mrmanlikesbt:
+  - rscdel: removes exploration mission centcom announcements
+  wikimody:
+  - rscadd: Ability to use syringes to transfer chemicals in or out chemical or blood
+      bags
+  - bugfix: Mortar grinding logic now is closer to grinder making it able to grind
+      some things it couldn't before
+2025-02-16:
+  '@spockye SpaceSomalian':
+  - rscadd: Replaces the current Nuclear Operative base
+  - rscadd: replaces the syndicate infiltrator with the advanced infiltrator
+  - rscadd: ports improved syndicate posters and a syndicate S poster from shiptest
+  Tsar-Salat:
+  - admin: standardized midround and dynamic antagonist hour requirements to have
+      less holes.
+2025-02-17:
+  PowerfulBacon:
+  - bugfix: Fixes some targetted actions allowing users to click on things they can
+      no longer see.
+  - bugfix: Fixes telepathy being able to target non-mobs.
+  - tweak: Right click no longer picks up items.
+  PowerfulBacon, Archanial:
+  - bugfix: Overhead chat messages will no longer get cut off.
+  - bugfix: Overhead chat messages will no longer have an extra line of spacing in
+      some cases.
+  - bugfix: Overhead chat messages will no longer get bumped by messages that you
+      cannot see.
+  XeonMations:
+  - bugfix: Fixes the RBMK not removing input gases when it should.
+2025-02-19:
+  Marshmellow105:
+  - tweak: moves the boxstation prison camp reclaimer console to be accessible and
+      visible
+  PowerfulBacon:
+  - bugfix: Fixes right click item interactions
+  rkz, Spockye, EvilDragonFiend, anturk, fikou, cacogen:
+  - rscadd: Deadspace navigation. Activate it using the button below the languages
+      button. It will display a holographic trail leading to your selected destination.
+  - rscadd: Navigational landmarks. The must be manually placed, but a player can
+      be directed to the location at any time using the Navigate button.
+2025-02-20:
+  St0rmC4st3r:
+  - balance: Derelicts now contain much less exploration ballistic ammo.
+  - bugfix: Fixed laser repeater recharge exploit.
+  SunShine214:
+  - bugfix: Readded sounds to IPC emotes (buzz, boop, beep, ect)
+  itsmeow:
+  - admin: Greatly improved the usability and styling of the admin brief outfit preference.
+  - code_imp: Added support to carry menuWidth over to preference dropdowns.
+  rkz, Wallemations, LemonInTheDark, necromanceranne, BurgerLUA:
+  - rscadd: WHO THE HELL LET THE ANTS OUT?! Adds ant & mold reagents. Ants act like
+      caltrops when thrown on the floor.
+  - rscadd: Food Decomposition! Leaving certain foodtypes out or on the ground will
+      make them start to decompose! This will attract mold and bugs. This may look
+      like it makes your food unedible to most, but it may make it even more appetizing
+      to some...
+  - rscadd: Giant Ants.
+  - rscadd: more sharp things act as caltrops
+  - rscadd: adds a few rotten/moldy food variants
+  - rscadd: Bugs foodtype. Lizards like it. Moths taste like it.
+2025-02-21:
+  PowerfulBacon:
+  - tweak: Toggle combat mode is now bound to the F key by default.
+  - tweak: A new keybind has been added to move up or look up if you can't move, which
+      is bound to page up/down, or ctrlF/ctrlC.
+  - tweak: Unbound look up and move up hotkeys by default.
+  - tweak: Removes jumping from the move up hotkey.
+  - rscadd: Adds a jump emote
+2025-02-22:
+  PowerfulBacon:
+  - bugfix: Fixes pathfinding not finding the shortest paths.
+  Therealdoooc213, AnturK, san7980, Jacquerel:
+  - admin: Adds a new smite for you admins, the objectify smite! Select a object to
+      turn a person into with this new smite.
+  - code_imp: Transformation animation helper.
+  rkz, ninjanomnom:
+  - rscadd: adds gas overlays to pipes. Pipes now have a colored visual display that
+      shows their contents at a glance.
+  unit0016:
+  - rscadd: new Syndicate decal
+2025-02-23:
+  Pyrotechnics2:
+  - rscadd: Electrical & Welding Supply Locker to Atmos Room
+  - rscadd: Turbine Fuel Line Purge connection
+  - rscadd: Canister Storage Area
+  - rscadd: Various door & pump name changes
+  - rscadd: Atmospherics Monitoring Room with the complete suite of computers needed
+      for complete remote control of all operations
+  - rscadd: Revamped Atmos Loop System allowing for easy additions & purging of all
+      lines without modifications
+  Rukofamicom:
+  - bugfix: Holoparasites can punch things again
+  mrmanlikesbt:
+  - bugfix: fixed the RD hardsuit integrated doppler array
+2025-02-25:
+  Gilgaxx:
+  - bugfix: Fourth wall (the drink) no longer tries to summon mentor rats.
+  PestoVerde322:
+  - rscdel: Removed Glass firelocks and Directional firelocks, as they were a remain
+      of the old atmos code.
+  - tweak: Removed every instance of Directional firelocks and Glass firelocks from
+      any map, if fitting, they have been replaced by a normal firelock.
+  PowerfulBacon:
+  - bugfix: Fixes death message default setting.
+  Programs-The-Station:
+  - tweak: Tweaked a holiday
+2025-02-26:
+  Gilgax:
+  - bugfix: Biobags and chembags accept bottles again
+  Marshmellow105:
+  - tweak: Revamps the cere and pubby whiteships
+  PowerfulBacon:
+  - tweak: Fixes some cabling issues on all maps, and makes them compatible with upcoming
+      smartcables.
+2025-02-27:
+  Gilgaxx:
+  - bugfix: Mentors can no longer go "nuh uh" when a mentoree tries to kick out their
+      Mrat.
+  - tweak: TGUIfied most mentor related prompts.
+  - tweak: Made Msay for mentors hot pink again!
+  rkz, carshalash, tralezab, Dorsidwarf:
+  - rscadd: egg cooking is no longer done through the crafting menu, you now crack
+      eggs on the griddle and fry them there.
+  - rscadd: pancakes are no longer crafted from pastry base, instead you spill pancake
+      batter on the griddle and fry them there
+  - tweak: more microwaveable foods can be baked
+  - tweak: splits eggs into two reagents, egg yolks and egg whites. Changes recipes
+      accordingly.
+  - rscadd: adds whipped cream
+  - rscadd: adds Pavlova
+  - code_imp: split snacks.dm off food.dmi

@@ -1,4 +1,11 @@
-import { Action, Reducer, applyMiddleware, combineReducers, createAction, createStore } from './redux';
+import {
+  Action,
+  applyMiddleware,
+  combineReducers,
+  createAction,
+  createStore,
+  Reducer,
+} from './redux';
 
 // Dummy Reducer
 const counterReducer: Reducer<number, Action<string>> = (state = 0, action) => {
@@ -29,7 +36,10 @@ describe('Redux implementation tests', () => {
   });
 
   test('createStore with applyMiddleware works', () => {
-    const store = createStore(counterReducer, applyMiddleware(loggingMiddleware));
+    const store = createStore(
+      counterReducer,
+      applyMiddleware(loggingMiddleware),
+    );
     expect(store.getState()).toBe(0);
   });
 

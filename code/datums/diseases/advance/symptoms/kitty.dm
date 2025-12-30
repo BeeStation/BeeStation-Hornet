@@ -48,8 +48,8 @@
 		if(uwu && prob(40))
 			M.say(pick("", "", "", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya") + pick("!", "!!", "~!!", "!~", "~", "", "", ""), forced = "toxoplasmosis")
 		if(mania)
-			var/obj/item/organ/ears/cat/ears = M.getorgan(/obj/item/organ/ears/cat)
-			var/obj/item/organ/tail/tail = M.getorgan(/obj/item/organ/tail)
+			var/obj/item/organ/ears/cat/ears = M.get_organ_by_type(/obj/item/organ/ears/cat)
+			var/obj/item/organ/tail/tail = M.get_organ_by_type(/obj/item/organ/tail)
 			if(tail && !istype(tail, /obj/item/organ/tail/cat))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "toxoplasmosis", /datum/mood_event/feline_dysmorphia)
 				M.adjustOrganLoss(ORGAN_SLOT_TAIL, 30, 200)
@@ -103,9 +103,9 @@
 			return
 		if(ishuman(cat))
 			var/mob/living/carbon/human/target = cat
-			var/obj/item/organ/ears/cat/targetears = target.getorgan(/obj/item/organ/ears/cat)
-			var/obj/item/organ/tail/cat/targettail = target.getorgan(/obj/item/organ/tail/cat)
-			if(!H.getorgan(/obj/item/organ/tail/cat) && targettail)
+			var/obj/item/organ/ears/cat/targetears = target.get_organ_by_type(/obj/item/organ/ears/cat)
+			var/obj/item/organ/tail/cat/targettail = target.get_organ_by_type(/obj/item/organ/tail/cat)
+			if(!H.get_organ_by_type(/obj/item/organ/tail/cat) && targettail)
 				target.adjustOrganLoss(ORGAN_SLOT_TAIL, 20, 200)
 				dnacounter += 1
 				if(targettail.organ_flags & ORGAN_FAILING)
@@ -124,7 +124,7 @@
 					H.visible_message(span_warning("[H] pulls at [target]'s tail!"), span_hypnophrase("You bat at [target]'s tail!"))
 					to_chat(target, span_userdanger("[H] pulls at your tail!"))
 					H.emote("laugh")
-			else if(!H.getorgan(/obj/item/organ/ears/cat) && targetears)
+			else if(!H.get_organ_by_type(/obj/item/organ/ears/cat) && targetears)
 				target.adjustOrganLoss(ORGAN_SLOT_EARS, 20, 200)
 				dnacounter += 1
 				if(targetears.organ_flags & ORGAN_FAILING)
@@ -158,8 +158,8 @@
 			return L
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			var/ears = H.getorgan(/obj/item/organ/ears/cat)
-			var/tail = H.getorgan(/obj/item/organ/tail/cat)
+			var/ears = H.get_organ_by_type(/obj/item/organ/ears/cat)
+			var/tail = H.get_organ_by_type(/obj/item/organ/tail/cat)
 			if((ears && requiresears) || (tail && requirestail))
 				return H
 

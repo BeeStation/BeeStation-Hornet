@@ -1,3 +1,6 @@
+GLOBAL_VAR_INIT(station_was_nuked, FALSE)
+GLOBAL_VAR_INIT(nuke_off_station, 0)
+
 #define ARM_ACTION_COOLDOWN (5 SECONDS)
 
 /obj/machinery/nuclearbomb
@@ -8,9 +11,6 @@
 	anchored = FALSE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-
-
 
 	var/timer_set = 90
 	var/minimum_timer_set = 90
@@ -34,6 +34,7 @@
 	var/lights = ""
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
+	var/bomb_z_level = null
 	var/obj/effect/countdown/nuclearbomb/countdown
 	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
@@ -76,13 +77,9 @@
 	// actually the nuke op bomb is a stole nt bomb
 
 /obj/machinery/nuclearbomb/syndicate/get_cinematic_type(off_station)
-	var/datum/game_mode/nuclear/NM = SSticker.mode
 	switch(off_station)
 		if(0)
-			if(istype(NM) && !NM.nuke_team.syndies_escaped())
-				return CINEMATIC_ANNIHILATION
-			else
-				return CINEMATIC_NUKE_WIN
+			return CINEMATIC_NUKE_WIN
 		if(1)
 			return CINEMATIC_NUKE_MISS
 		if(2)
@@ -450,10 +447,8 @@
 		countdown.start()
 		SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 
-		if (proper_bomb) // Why does this exist
-			set_dynamic_high_impact_event("nuclear bomb has been armed")
+		if(proper_bomb) // Why does this exist
 			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
-
 	else
 		detonation_timer = null
 		SSsecurity_level.set_level(previous_level)
@@ -477,9 +472,9 @@
 		return
 	qdel(src)
 
-/obj/machinery/nuclearbomb/tesla_act(power, tesla_flags)
-	..()
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/nuclearbomb/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
@@ -494,7 +489,7 @@
 	update_icon()
 	if(proper_bomb)
 		sound_to_playing_players('sound/machines/alarm.ogg')
-	if(SSticker?.mode)
+	if(SSticker.HasRoundStarted())
 		SSticker.roundend_check_paused = TRUE
 	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 100)
 
@@ -520,18 +515,24 @@
 	else
 		off_station = NUKE_MISS_STATION
 
+	bomb_z_level = get_virtual_z_level() // store for really_actually_explode (src loc gets lost in callback) and hope this is not null
+
 	if(off_station < 2)
 		SSshuttle.registerHostileEnvironment(src)
 		SSshuttle.lockdown = TRUE
 
 	//Cinematic
-	SSticker.mode.OnNukeExplosion(off_station)
+	GLOB.nuke_off_station = off_station
+	if(off_station < NUKE_MISS_STATION)
+		GLOB.station_was_nuked = TRUE
 	really_actually_explode(off_station)
 	SSticker.roundend_check_paused = FALSE
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
-	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation), src))
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), get_virtual_z_level())
+	Cinematic(get_cinematic_type(off_station),world)
+	ASSERT(!isnull(bomb_z_level), "/obj/machinery/nuclearbomb/really_actually_explode() was called without a z level!")
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(kill_everyone_on_z_group), bomb_z_level)
+	qdel(src)
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
@@ -607,14 +608,16 @@
 /obj/machinery/nuclearbomb/beer/really_actually_explode()
 	disarm()
 
-/proc/KillEveryoneOnZLevel(z)
-	if(!z)
+/proc/kill_everyone_on_z_group(zGroup)
+	// take in a z level as a number, and kill everyone on the same 'z orbital map' or z group
+	if(!zGroup)
 		return
 	for(var/mob/M in GLOB.mob_list)
-		if(M.stat != DEAD && M.get_virtual_z_level() == z)
-			to_chat(M, span_userdanger("You are shredded to atoms!"))
-			M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
-			M.gib()
+		if (compare_z(M.get_virtual_z_level(), zGroup)) // check whether the mob is on the same z orbital map as the input level (as in multi-z stations etc)
+			if(M.stat != DEAD && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+				to_chat(M, span_userdanger("You are shredded to atoms!"))
+				M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
+				M.gib()
 
 /*
 This is here to make the tiles around the station mininuke change when it's armed.
@@ -641,7 +644,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 /obj/item/disk
 	icon = 'icons/obj/module.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	icon_state = "datadisk0"
@@ -676,9 +679,6 @@ This is here to make the tiles around the station mininuke change when it's arme
 		AddElement(/datum/element/point_of_interest)
 		last_disk_move = world.time
 		START_PROCESSING(SSobj, src)
-
-/obj/item/disk/nuclear/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/stationloving, !fake)
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.
@@ -724,7 +724,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	if(!fake)
 		return
 
-	if(isobserver(user) || HAS_TRAIT(user.mind, TRAIT_DISK_VERIFIER))
+	if(isobserver(user) || HAS_MIND_TRAIT(user, TRAIT_DISK_VERIFIER))
 		. += span_warning("The serial numbers on [src] are incorrect.")
 
 /obj/item/disk/nuclear/attackby(obj/item/I, mob/living/user, params)
@@ -761,6 +761,66 @@ This is here to make the tiles around the station mininuke change when it's arme
 /obj/item/disk/nuclear/fake/obvious
 	name = "cheap plastic imitation of the nuclear authentication disk"
 	desc = "How anyone could mistake this for the real thing is beyond you."
+
+/obj/machinery/nuclearbomb/syndicate/bananium
+	name = "bananium fission explosive"
+	desc = "You probably shouldn't stick around to see if this is armed."
+	icon = 'icons/obj/machines/nuke.dmi'
+	icon_state = "bananiumbomb_base"
+
+/obj/machinery/nuclearbomb/syndicate/bananium/update_icon()
+	if(deconstruction_state == NUKESTATE_INTACT)
+		switch(get_nuke_state())
+			if(NUKE_OFF_LOCKED, NUKE_OFF_UNLOCKED)
+				icon_state = "bananiumbomb_base"
+				update_icon_interior()
+				update_icon_lights()
+			if(NUKE_ON_TIMING)
+				cut_overlays()
+				icon_state = "bananiumbomb_timing"
+			if(NUKE_ON_EXPLODING)
+				cut_overlays()
+				icon_state = "bananiumbomb_exploding"
+	else
+		icon_state = "bananiumbomb_base"
+		update_icon_interior()
+		update_icon_lights()
+
+/obj/machinery/nuclearbomb/syndicate/bananium/get_cinematic_type(off_station)
+	switch(off_station)
+		if(0)
+			return CINEMATIC_NUKE_CLOWNOP
+		if(1)
+			return CINEMATIC_NUKE_MISS
+		if(2)
+			return CINEMATIC_NUKE_FAKE //it is farther away, so just a bikehorn instead of an airhorn
+	return CINEMATIC_NUKE_FAKE
+
+/obj/machinery/nuclearbomb/syndicate/bananium/really_actually_explode(off_station)
+	Cinematic(get_cinematic_type(off_station), world)
+	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
+		var/turf/T = get_turf(H)
+		if(!T || T.get_virtual_z_level() != get_virtual_z_level())
+			continue
+		H.Stun(10)
+		var/obj/item/clothing/C
+		if(!H.w_uniform || H.dropItemToGround(H.w_uniform))
+			C = new /obj/item/clothing/under/rank/civilian/clown(H)
+			ADD_TRAIT(C, TRAIT_NODROP, CLOWN_NUKE_TRAIT)
+			H.equip_to_slot_or_del(C, ITEM_SLOT_ICLOTHING)
+
+		if(!H.shoes || H.dropItemToGround(H.shoes))
+			C = new /obj/item/clothing/shoes/clown_shoes(H)
+			ADD_TRAIT(C, TRAIT_NODROP, CLOWN_NUKE_TRAIT)
+			H.equip_to_slot_or_del(C, ITEM_SLOT_FEET)
+
+		if(!H.wear_mask || H.dropItemToGround(H.wear_mask))
+			C = new /obj/item/clothing/mask/gas/clown_hat(H)
+			ADD_TRAIT(C, TRAIT_NODROP, CLOWN_NUKE_TRAIT)
+			H.equip_to_slot_or_del(C, ITEM_SLOT_MASK)
+
+		H.dna.add_mutation(/datum/mutation/clumsy)
+		H.gain_trauma(/datum/brain_trauma/mild/phobia/clowns, TRAUMA_RESILIENCE_LOBOTOMY) //MWA HA HA
 
 #undef ARM_ACTION_COOLDOWN
 #undef NUKERANGE

@@ -23,7 +23,7 @@
 		ST.linked_structures -= src
 
 /obj/structure/destructible/clockwork/gear_base/attackby(obj/item/I, mob/user, params)
-	if(is_servant_of_ratvar(user) && I.tool_behaviour == TOOL_WRENCH)
+	if(IS_SERVANT_OF_RATVAR(user) && I.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
 		if(I.use_tool(src, user, 20, volume=50))
 			to_chat(user, span_notice("You successfully [anchored ? "unwrench" : "wrench"] [src]."))

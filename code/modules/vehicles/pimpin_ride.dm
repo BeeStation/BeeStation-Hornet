@@ -3,18 +3,20 @@
 	name = "janicart (pimpin' ride)"
 	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
 	icon_state = "pussywagon"
-	key_type = /obj/item/key/janitor
 	var/obj/item/storage/bag/trash/mybag = null
 	var/floorbuffer = FALSE
 	var/datum/action/cleaning_toggle/autoclean_toggle
+	key_type = /obj/item/key/janitor
 
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_icon()
-	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 	GLOB.janitor_devices += src
 	if(floorbuffer)
 		AddElement(/datum/element/cleaning)
+
+/obj/vehicle/ridden/janicart/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
 /obj/vehicle/ridden/janicart/Destroy()
 	GLOB.janitor_devices -= src
@@ -95,6 +97,6 @@
 /obj/vehicle/ridden/janicart/upgraded
 	floorbuffer = TRUE
 
-/obj/vehicle/ridden/janicart/upgraded/keyless
-	floorbuffer = TRUE
-	key_type = null
+/obj/vehicle/ridden/janicart/upgraded/keyless/add_riding_element()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart/keyless)
+

@@ -7,7 +7,8 @@
 	stat = DEAD
 	shift_to_open_context_menu = FALSE
 
-	var/ready = 0
+/mob/dead/new_player/authenticated
+	var/ready = PLAYER_NOT_READY
 	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
 	var/mob/living/new_character	//for instant transfer once the round is set up
 	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
@@ -23,14 +24,14 @@
 	else
 		forceMove(locate(1,1,1))
 
-	ComponentInitialize()
-
 	. = ..()
 
-	GLOB.new_player_list += src
+/mob/dead/new_player/authenticated/Initialize(mapload)
+	. = ..()
+	GLOB.auth_new_player_list += src
 
-/mob/dead/new_player/Destroy()
-	GLOB.new_player_list -= src
+/mob/dead/new_player/authenticated/Destroy()
+	GLOB.auth_new_player_list -= src
 	return ..()
 
 /mob/dead/new_player/mob_negates_gravity()
@@ -39,7 +40,7 @@
 /mob/dead/new_player/prepare_huds()
 	return
 
-/mob/dead/new_player/proc/new_player_panel()
+/mob/dead/new_player/authenticated/proc/new_player_panel()
 	if (client?.interviewee)
 		return
 
@@ -101,6 +102,9 @@
 	popup.open(FALSE)
 
 /mob/dead/new_player/Topic(href, href_list[])
+	return FALSE
+
+/mob/dead/new_player/authenticated/Topic(href, href_list[])
 	if(src != usr)
 		return 0
 
@@ -205,14 +209,21 @@
 		vote_on_poll_handler(poll, href_list)
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
-/mob/dead/new_player/proc/make_me_an_observer(force_observe=FALSE)
+/mob/dead/new_player/authenticated/proc/make_me_an_observer(force_observe=FALSE)
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
 		return FALSE
 
 	var/this_is_like_playing_right = "Yes"
 	if(!force_observe)
-		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No"))
+		this_is_like_playing_right = tgui_alert(
+			src,
+			"Caution, you are about to observe which will make you unable to play! \
+			Feel free to use the 'mentorhelp' or 'looc' verbs to \
+			get assistance from our friendly community while playing!",
+			"Spectate",
+			list("Yes", "No")
+		)
 
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
@@ -228,6 +239,8 @@
 	spawning = TRUE
 
 	observer.started_as_observer = TRUE
+	observer.can_respawn = FALSE
+
 	close_spawn_windows()
 	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	to_chat(src, span_notice("Now teleporting."))
@@ -242,6 +255,7 @@
 	if(observer.client && observer.client.prefs)
 		observer.real_name = observer.client.prefs.read_character_preference(/datum/preference/name/real_name)
 		observer.name = observer.real_name
+		observer.client.player_details.time_of_death = world.time
 	observer.update_icon()
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 	QDEL_NULL(mind)
@@ -266,18 +280,21 @@
 			return "[jobtitle] is locked by the system."
 	return "Error: Unknown job availability."
 
-/mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
+/mob/dead/new_player/authenticated/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
 	if(job.lock_flags)
 		return JOB_UNAVAILABLE_LOCKED
-	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
+	if(!job.has_space())
 		if(job.title == JOB_NAME_ASSISTANT)
-			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
+			//Newbies can always be assistants
+			if(isnum_safe(client.player_age) && client.player_age <= 14)
 				return JOB_AVAILABLE
+			// If there are other jobs that this user can select, then the assistant is unavailable
+			// If the user has no other choices, then we will display the assistant
 			for(var/datum/job/J in SSjob.occupations)
-				if(J && J.current_positions < J.total_positions && J.title != job.title)
+				if(J && J.title != job.title && IsJobUnavailable(J.title, latejoin) == JOB_AVAILABLE)
 					return JOB_UNAVAILABLE_SLOTFULL
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
@@ -293,7 +310,33 @@
 		return JOB_UNAVAILABLE_GENERIC
 	return JOB_AVAILABLE
 
-/mob/dead/new_player/proc/AttemptLateSpawn(rank)
+/mob/dead/new_player/authenticated/proc/AttemptLateSpawn(rank)
+	// Check that they're picking someone new for new character respawning
+	if(CONFIG_GET(flag/allow_respawn) == RESPAWN_FLAG_NEW_CHARACTER)
+
+		//Adding more checks should be somewhat simple. Starting with the character slot itself:
+		if("[client.prefs.default_slot]" in client.player_details.joined_as_slots)
+			//We do not EVER specify what exactly is preventing them from joining. Security through obscurity! Yay!
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn as a previously played character and was denied based on character slot vetting.")
+			message_admins("[key_name(usr)] has attempted to respawn as a previously played character slot. This is not necessarily evidence of foul play.")
+			return FALSE
+
+		//Names played
+		if("[client.prefs.read_character_preference(/datum/preference/name/real_name)]" in client.player_details.played_names)
+			tgui_alert(usr, "You already have played this character in this round!")
+			log_game("[key_name(usr)] has attempted to respawn with a previously played character name in a NEW slot. and was denied based on character name vetting.")
+			message_admins("ATTENTION! [key_name(usr)] has attempted to respawn with a previously played character name in a new slot. Likely attempting to bypass respawn restrictions.")
+			return FALSE
+
+		var/datum/job/joining_job = SSjob.GetJob(rank)
+
+		//If it's a job we have played previously:
+		if(joining_job in client.player_details.joined_as_jobs)
+			tgui_alert(usr, "You have already played as [rank] this round!")
+			log_game("[key_name(usr)] has attempted to respawn as a previously played job and was denied.")
+			return FALSE
+
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		tgui_alert(src, get_job_unavailable_error_message(error, rank))
@@ -363,24 +406,18 @@
 
 	GLOB.joined_player_list += character.ckey
 
-	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
-		if(SSshuttle.emergency)
-			switch(SSshuttle.emergency.mode)
-				if(SHUTTLE_RECALL, SHUTTLE_IDLE)
-					SSticker.mode.make_antag_chance(humanc)
-					SSticker.mode.make_special_antag_chance(humanc)
-				if(SHUTTLE_CALL)
-					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
-						SSticker.mode.make_antag_chance(humanc)
-						SSticker.mode.make_special_antag_chance(humanc)
+	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
+	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)
+		SSdynamic.on_player_latejoin(humanc)
 
 	if(CONFIG_GET(flag/roundstart_traits))
 		SSquirks.AssignQuirks(character.mind, character.client, TRUE)
 
-	GLOB.manifest.inject(humanc)
+	if(humanc)
+		GLOB.manifest.inject(humanc)
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 
-/mob/dead/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
+/mob/dead/new_player/authenticated/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	//TODO:  figure out a way to exclude wizards/nukeops/demons from this.
 	for(var/C in GLOB.employmentCabinets)
 		var/obj/structure/filingcabinet/employment/employmentCabinet = C
@@ -392,7 +429,7 @@
 	Ported from yogs: https://github.com/yogstation13/Yogstation-TG/blob/master/yogstation/code/modules/mob/dead/new_player/new_player.dm
 */
 
-/mob/dead/new_player/proc/LateChoices()
+/mob/dead/new_player/authenticated/proc/LateChoices()
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
 		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
@@ -404,7 +441,7 @@
 				if(!SSshuttle.canRecall())
 					dat += "<div class='notice red'>The station is currently undergoing evacuation procedures.</div><br>"
 	for(var/datum/job/prioritized_job in SSjob.prioritized_jobs)
-		if(prioritized_job.current_positions >= prioritized_job.total_positions)
+		if(!prioritized_job.has_space())
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
@@ -439,13 +476,14 @@
 	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /// Creates, assigns and returns the new_character to spawn as. Assumes a valid mind.assigned_role exists.
-/mob/dead/new_player/proc/create_character(transfer_after)
+/mob/dead/new_player/authenticated/proc/create_character(transfer_after)
 	spawning = TRUE
 	close_spawn_windows()
 
 	var/mob/living/carbon/human/H = new(loc)
 
 	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
+	LAZYADD(client.player_details.joined_as_jobs, SSjob.GetJob(mind.assigned_role))
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
 	if(mind)
@@ -456,12 +494,13 @@
 
 	H.name = real_name
 
+	LAZYADD(client.player_details.joined_as_slots, "[client.prefs.default_slot]")
 	. = H
 	new_character = .
 	if(transfer_after)
 		transfer_character()
 
-/mob/dead/new_player/proc/transfer_character()
+/mob/dead/new_player/authenticated/proc/transfer_character()
 	. = new_character
 	if(.)
 		new_character.key = key		//Manually transfer the key to log them in
@@ -469,7 +508,7 @@
 		new_character = null
 		qdel(src)
 
-/mob/dead/new_player/proc/ViewManifest()
+/mob/dead/new_player/authenticated/proc/ViewManifest()
 	if(!client || !COOLDOWN_FINISHED(client, crew_manifest_delay))
 		return
 	COOLDOWN_START(client, crew_manifest_delay, 1 SECONDS)
@@ -479,7 +518,7 @@
 	return 0
 
 
-/mob/dead/new_player/proc/close_spawn_windows()
+/mob/dead/new_player/authenticated/proc/close_spawn_windows()
 
 	src << browse(null, "window=latechoices") //closes late choices window
 	src << browse(null, "window=playersetup") //closes the player setup window
@@ -492,7 +531,7 @@
 // Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not available"
 // Doing so would previously allow you to roll for antag, then send you back to lobby if you didn't get an antag role
 // This also does some admin notification and logging as well, as well as some extra logic to make sure things don't go wrong
-/mob/dead/new_player/proc/check_preferences()
+/mob/dead/new_player/authenticated/proc/check_preferences()
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
 	if(client.prefs.read_character_preference(/datum/preference/choiced/jobless_role) != RETURNTOLOBBY)
@@ -517,7 +556,7 @@
   * This proc will both prepare the user by removing all verbs from them, as well as
   * giving them the interview form and forcing it to appear.
   */
-/mob/dead/new_player/proc/register_for_interview()
+/mob/dead/new_player/authenticated/proc/register_for_interview()
 	// First we detain them by removing all the verbs they have on client
 	for (var/v in client.verbs)
 		var/procpath/verb_path = v
@@ -543,7 +582,7 @@
 					+ "\n[span_danger("To prevent abuse, players with no/low playtime are required to complete an interview to gain access.\nThis is only required once and only for the duration that the panic bunker is active.")] \
 					\n[span_boldwarning("If the interview interface is not open, use the Open Interview verb in the top right.")]")
 
-/mob/dead/new_player/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/dead/new_player/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	return
 
 #undef LINKIFY_READY

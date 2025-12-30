@@ -1,0 +1,237 @@
+2019-10-13:
+  Agateophobia:
+  - rscadd: Added 4 new IPC screens
+  - spellcheck: Fixed Azlans typos, so another 2 IPC screens
+  MarkSuckerberg:
+  - tweak: changed the health analyzer damage readout to display columns
+  - rscadd: Added joker suit/coat
+  - rscadd: Joker outfit for admin spawning
+  - imageadd: Added sprites for joker suit/coat
+  qwertyquerty:
+  - tweak: Minimum job playtime requirements for sec, warden, hos, ai, viro, and det
+2019-10-14:
+  MarkSuckerberg:
+  - rscadd: Added baytiles that weren't in before
+  - imageadd: new sprites for tiles
+  - rscadd: Added paramedics, also known as EMTs to the list of possible jobs.
+  qwertyquerty:
+  - balance: Separated chems now have a delay on react.
+2019-10-15:
+  Cenrus:
+  - rscadd: Syndicate saboteur cyborgs now have an emag and zipties.
+  - rscadd: JaniDrobes now have equipment for two janitors.
+  jlsnow301:
+  - tweak: is_ninja proc
+  - tweak: Ninja objectives shouldn't give empty objectives now
+2019-10-16:
+  Cenrus:
+  - rscadd: AIs and cyborgs can now latejoin.
+  - rscadd: You can now get an advanced camera console from the security protolathe
+      after illegal technology has been obtained.
+  Debonaircorsiar:
+  - bugfix: 'fixes Jsuits for plasmemes removes: Marks authority over me.'
+  MarkSuckerberg:
+  - rscadd: Two small pockets to exowear (Labcoats, Winter coats, Hazard Vests, etc.)
+2019-10-17:
+  Cenrus:
+  - rscadd: The Head Of Personnel award for outstanding achievement in the field of
+      excellence.
+  - imageadd: New stasis bed sprites.
+  - tweak: Suit storage units will now also remove radiation from mobs.
+  Debonaircorsiar:
+  - bugfix: fixed invisable plasmeme command helmets(hopefully) and removes ruedigers
+      authority over me
+  MarkSuckerberg:
+  - bugfix: Throwing objects to openspace works correctly.
+  - bugfix: Non-living objects can now go up stairs.
+  - bugfix: You can no longer deepfry openspace.
+  - bugfix: You can now pull anything up stairs.
+  - bugfix: Anchored objects no longer fall down openspace.
+  - bugfix: Catwalks block falling when on openspace.
+  - bugfix: Falling on to the SM crystal now dusts you.
+  - bugfix: Falling on groundless turfs no longer damages you.
+  - tweak: You can use the RCD on openspace now.
+  - tweak: Gravity generator now affects all station z-levels.
+  St0rmC4st3r:
+  - rscadd: Adds a bit of brain damage when using the cursed slot machine in greed
+      lavaland ruin.
+2019-10-18:
+  MarkSuckerberg:
+  - bugfix: Fixed an href exploit related to shuttle docking
+2019-10-19:
+  Cenrus:
+  - bugfix: Advanced camera console circuit board sprite is no longer invisible.
+  MarkSuckerberg:
+  - rscadd: Added anti-rad medications to radsuit lockers.
+  - server: adds two lines of code that saves a good amount of memory
+  jlsnow301:
+  - tweak: Antag procs
+  - refactor: Cryopod warning
+  zeskorion:
+  - tweak: floorpills more common
+2019-10-20:
+  Cenrus:
+  - rscadd: 'Added a new engineer cyborg upgrade: the circuit manipulator apparatus.'
+  - rscadd: 'Added a medical cyborg upgrade: the supplemental beaker storage apparatus.'
+  - tweak: Build Your Own Shuttle kit has been made smaller, comes with construction
+      materials, and is pressurized.
+  - balance: Lowered value from -7500 to -2500. It still doesn't come with a brig
+      or console, so you cannot greentext antags or launch early.
+  - tweak: Nanotrasen has cracked the code of the Syndicate storage implant. Removing
+      the implant will also drop any items contained within, doing minor damage to
+      the person implanted.
+  - tweak: Status displays are readable now
+  MarkSuckerberg:
+  - imageadd: Azlan's new sprites for radsuit and hazard vest
+  - tweak: Made exosuit pockets open on alt-click only
+  - tweak: hardsuits no longer have pockets due to potential code issues
+  - rscadd: Ability to build ladders with metal sheets
+  SomeAngryMiner:
+  - rscadd: nanites now pass down slime and jellyperson splittings.
+  - rscadd: Fixes a small issue regarding having a flashlight and bayonet on a weapon
+      at the same time
+  - imageadd: Tons of new sprites for backpacks, medipens, space dragons, spray cleaners
+      and watertanks.
+2019-10-21:
+  SomeAngryMiner:
+  - bugfix: IPC no longer take oxyloss on crit
+  - bugfix: no longer eating through gasmask
+  - bugfix: Fixes minor bugs on IPC surgery.
+  - bugfix: Vanilla icrecream is no longer a visible datum, its plain, normal, icreacream
+      now.
+  - tweak: liquid solder now cures brain traumas that dont require surgery on IPC
+  - balance: Slimes can no longer latch on IPC, but can still attack them.
+  - rscadd: Bamboo! a new plant for botanists focused on crafting weapons and traps.
+      Release your inner caveman by mutating sugarcan or asking cargo for an exotic
+      seed crate.
+2019-10-22:
+  Cenrus:
+  - rscadd: Abductors can now buy a special chem dispenser for 2 points. The machine
+      is delivered as a beacon which can be used when standing on any free tile to
+      spawn it.
+  - bugfix: Click+dragging someone onto yourself while on harm intent as a cyborg
+      should now only search them, not buckle them to yourself.
+  - bugfix: Airlock cycling no long breaks if something is in the way. As a bonus,
+      you can now door crush people.
+  MarkSuckerberg:
+  - rscadd: 'Thunderdome Control Console: Easier Setup and more streamlined matches
+      as well as custom arenas.'
+  - admin: Added the thunderdome console, which can be controlled IC or with AI interact
+      on.
+  ike709:
+  - bugfix: Several gamepad keys are now considered valid keypresses.
+2019-10-23:
+  MarkSuckerberg:
+  - bugfix: radiation plus pills now actually contain charcoal
+  Morair:
+  - rscadd: Kinetic crusher can now be one-hand carried. You'll still need two hand
+      to use it.
+  ike709:
+  - admin: Admins no longer get logspammed at the start of rounds.
+2019-10-24:
+  Triiodine:
+  - imageadd: Budget cards, Golden, Silver, ERT, and CC identification cards are now
+      shinier and more distinct.
+2019-10-25:
+  MarkSuckerberg:
+  - rscadd: Build catwalks on plating with rods
+  - rscadd: catwalk/over, which can be placed over cables
+  - tweak: Reinforced floors now built with sheets instead of rods
+2019-10-28:
+  Bastian0930:
+  - bugfix: The syndicate have improved their praises to carpsie! Thanks to advanced
+      prayer techniques, the chef can now pick their holocarp type.
+  Debonaircorsiar:
+  - bugfix: Sawn off improv has recoil like the other shotties.
+  MarkSuckerberg:
+  - tweak: Changed changelog
+  - admin: added mhelp muting
+  - bugfix: Can no longer place tiles over catwalks
+  - tweak: catwalks now need to be welded off instead of instantly cut off.
+  - bugfix: no more infinite iron sheets from reinforced floors
+  Oshibkka:
+  - rscadd: allows cargo to purchase riot shotgun crates
+  SomeAngryMiner:
+  - tweak: Fixed some code, making sleepers able to be upgraded and made again.
+  - tweak: made circuit text not as shitty
+  St0rmC4st3r:
+  - rscadd: Added reactions for most racial mutation toxins.
+  - rscadd: Added Liquid adamantine as well as respective solidification reaction.
+  - tweak: Changed some of the suggested reactions to make a bit more sense than reactions
+      suggested on the wiki.
+  Triiodine:
+  - imageadd: NanoTrasen has invested in a more modern thermo-nuclear atmospherics
+      extinguisher. It looks different now.
+  ike709:
+  - rscadd: You can now spend your hard-earned beecoins in the new Loadout shop in
+      the preferences window. It'll be pretty barebones until the feature has been
+      well-tested.
+  - rscadd: 'WARNING: The loadout shop is still in the early testing phase. Items
+      can be added/removed without notice and prices can increase/decrease.'
+  jlsnow301:
+  - rscadd: 1. Cryopod and cryo computer added to the cryosleeper room in medbay
+  - rscadd: 2. Lines and decals around the existing cryopods & clone tube.
+  - tweak: 3. Scrubs MD is now turned "on" like every other bot in the game, as it
+      can only be turned on by a silicon currently and denies all medbay ID's.
+  - rscadd: 4. There is now a reinforced glass pane next to the surplus prosthetics
+      box so you do not accidentally push it all over the place.
+  - rscadd: 1. SM engine now has canisters instead of air scrubbers if you were wanting
+      to create a plasma farm, like other maps
+  - rscadd: 2. N2 at roundstart, this is the only map that doesn't have it, so engies
+      have to beg atmos just to get N2
+  - rscadd: 3. One extra RPD, as this has only one on the counter and atmos usually
+      takes it.
+  - rscadd: 4. Cryosleeper w/ oversight computer added, previously a plant sat here
+      (moved). This helps address the AFK problem as cloning always has fresh SSD's
+  - rscadd: 5. Door fixed which previously had a wall underneath and a plant in front
+      of it.
+  - rscadd: 6. Tables, tiling for decoration.
+  qwertyquerty:
+  - tweak: The slowness from damage function has been tweaked to give less slowdown
+      at lower levels of damage but much more at higher levels of damage, in the form
+      of a curve instead of linearly.
+  - tweak: Softcrit now has a bigger health range.
+2019-10-29:
+  AsciiSquid:
+  - rscadd: Added Antag Token to the Beecoin shop.
+  Cenrus:
+  - rscadd: Steal shoes by grabbing someone on the floor while targeting a leg
+  - balance: tweaked a bunch of shoe strip times
+  - rscadd: Emagged clown cars are more scary now.
+  - tweak: Clown shoes now make you waddle by default.
+  Crossedfall:
+  - refactor: Re-ports TGUI
+  ike709:
+  - rscadd: Several new items have been added to the beecoin shop's Accessories category.
+  - tweak: Multiple loadout items from the same category can be equipped if they use
+      different slots.
+  - tweak: Loadout tab has been renamed to BeeCoin Shop.
+  - bugfix: OOC Prefs tab works again.
+2019-10-30:
+  Cenrus:
+  - imageadd: 8 New carpets and fancy tables
+  - rscadd: Exotic carpet crate
+  ike709:
+  - rscadd: Updated to tgui-next. Several UIs are now much faster, some may be broken.
+2019-10-31:
+  Cenrus:
+  - tweak: updated the miasma canister sprites
+  - rscadd: The roboticist now has robe to show his love for toasters
+  - rscadd: Robotic voicebox in the RoboDrobe
+  - tweak: Ghost darkness now starts at night vision level by default.
+  - tweak: Ghost hud on by default.
+  - rscadd: Launchpads now gain 15 range instead of 1 when upgraded, up to a maximum
+      of 60.
+  - rscadd: Launchpads now have a targeting reticle which is visible on Diagnostic
+      HUD. It also indicates if the launchpad is currently sending or receiving.
+  - tweak: Launchpad Consoles now use TGUI and are far more responsive. They can also
+      set their coordinate offsets manually instead of only using arrows.
+  Crossedfall:
+  - bugfix: Wiki-books work again
+  Kerbin-Fiber:
+  - rscadd: NanoTrasen has yet to send back the Autolathes they had bought, because
+      it costs money to do that. In doing so, Autolathes are left with the ability
+      to print Cap-guns and Cap-gun ammo!
+  MarkSuckerberg:
+  - rscadd: sprites for toggle HUDs
+  - bugfix: code for multi HUDs

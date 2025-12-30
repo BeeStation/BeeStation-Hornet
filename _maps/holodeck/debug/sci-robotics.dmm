@@ -1,0 +1,455 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/iron,
+/area/template_noop)
+"b" = (
+/obj/machinery/computer/operating{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"c" = (
+/mob/living/simple_animal/bot/secbot/grievous{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"f" = (
+/obj/vehicle/sealed/mecha/working/ripley/deathripley,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"g" = (
+/obj/vehicle/sealed/mecha/working/ripley,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"h" = (
+/obj/vehicle/sealed/mecha/combat/gygax,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"i" = (
+/obj/vehicle/sealed/mecha/combat/honker/dark/loaded,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"k" = (
+/obj/item/assembly/prox_sensor{
+	pixel_y = 8;
+	pixel_x = -2
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/assembly/signaler{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/assembly/signaler{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/structure/table,
+/turf/open/floor/iron,
+/area/template_noop)
+"l" = (
+/obj/machinery/ecto_sniffer,
+/turf/open/floor/iron,
+/area/template_noop)
+"m" = (
+/mob/living/simple_animal/bot/secbot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"n" = (
+/mob/living/simple_animal/bot/ed209{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"o" = (
+/obj/vehicle/sealed/mecha/combat/marauder/loaded,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"p" = (
+/obj/vehicle/sealed/mecha/combat/gygax/dark/loaded,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"q" = (
+/obj/machinery/aug_manipulator,
+/turf/open/floor/iron,
+/area/template_noop)
+"r" = (
+/mob/living/simple_animal/bot/medbot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"t" = (
+/obj/structure/table,
+/obj/item/storage/backpack/duffelbag/med/implant,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/turf/open/floor/iron,
+/area/template_noop)
+"u" = (
+/obj/vehicle/sealed/mecha/medical/odysseus,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"v" = (
+/obj/vehicle/sealed/mecha/combat/durand,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"w" = (
+/mob/living/simple_animal/bot/atmosbot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"x" = (
+/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"y" = (
+/obj/structure/table/optable,
+/obj/item/storage/backpack/duffelbag/syndie/surgery,
+/turf/open/floor/iron,
+/area/template_noop)
+"z" = (
+/obj/vehicle/sealed/mecha/working/ripley/mk2,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"A" = (
+/obj/machinery/computer/rdconsole/robotics{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"B" = (
+/obj/structure/table,
+/obj/item/bodypart/chest/robot{
+	pixel_y = 4
+	},
+/obj/item/bodypart/leg/right/robot{
+	pixel_x = 6
+	},
+/obj/item/bodypart/arm/right/robot{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/leg/left/robot{
+	pixel_x = -6
+	},
+/obj/item/bodypart/arm/left/robot{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/bodypart/head/robot,
+/turf/open/floor/iron,
+/area/template_noop)
+"C" = (
+/obj/vehicle/sealed/mecha/combat/marauder/seraph,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"E" = (
+/obj/vehicle/sealed/mecha/combat/reticence/loaded,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"F" = (
+/mob/living/simple_animal/bot/floorbot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"G" = (
+/obj/structure/closet/crate/science/debug,
+/turf/open/floor/iron,
+/area/template_noop)
+"H" = (
+/obj/vehicle/sealed/mecha/combat/phazon,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"I" = (
+/mob/living/simple_animal/bot/secbot/grievous/toy{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"J" = (
+/mob/living/simple_animal/bot/honkbot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"K" = (
+/obj/vehicle/sealed/mecha/working/clarke,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"L" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/mmi{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/item/mmi{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/paicard,
+/turf/open/floor/iron,
+/area/template_noop)
+"M" = (
+/obj/machinery/vending/wardrobe/robo_wardrobe,
+/turf/open/floor/iron,
+/area/template_noop)
+"N" = (
+/mob/living/simple_animal/bot/cleanbot/larry{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/bot,
+/obj/item/organ/brain/positron,
+/turf/open/floor/iron,
+/area/template_noop)
+"P" = (
+/obj/structure/closet/crate/secure/gear/debug/cyborg,
+/turf/open/floor/iron,
+/area/template_noop)
+"Q" = (
+/obj/machinery/rnd/production/techfab/department/science,
+/turf/open/floor/iron,
+/area/template_noop)
+"R" = (
+/obj/structure/closet/crate/secure/gear/debug/mech,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"S" = (
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/turf/open/floor/iron,
+/area/template_noop)
+"T" = (
+/obj/vehicle/sealed/mecha/combat/honker,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron,
+/area/template_noop)
+"U" = (
+/mob/living/simple_animal/bot/firebot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"V" = (
+/mob/living/simple_animal/bot/mulebot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"W" = (
+/obj/machinery/modular_fabricator/exosuit_fab,
+/turf/open/floor/iron,
+/area/template_noop)
+"X" = (
+/mob/living/simple_animal/bot/cleanbot{
+	on = 0
+	},
+/turf/open/floor/iron,
+/area/template_noop)
+"Y" = (
+/obj/effect/turf_decal/bot,
+/obj/item/robot_suit/prebuilt,
+/turf/open/floor/iron,
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/bot,
+/obj/item/robot_suit,
+/turf/open/floor/iron,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+A
+Q
+G
+a
+P
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+o
+a
+i
+a
+"}
+(3,1,1) = {"
+W
+a
+Z
+a
+e
+a
+q
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+S
+a
+a
+l
+a
+a
+y
+a
+C
+a
+x
+a
+"}
+(5,1,1) = {"
+W
+a
+O
+a
+Y
+a
+b
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+E
+a
+f
+a
+"}
+(7,1,1) = {"
+k
+a
+M
+B
+L
+a
+t
+a
+a
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+R
+a
+p
+a
+"}
+(9,1,1) = {"
+a
+g
+a
+u
+a
+v
+a
+T
+m
+I
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+c
+N
+X
+w
+"}
+(11,1,1) = {"
+a
+z
+a
+K
+a
+h
+a
+H
+a
+n
+F
+r
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+U
+J
+V
+"}

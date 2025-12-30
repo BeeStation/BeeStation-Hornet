@@ -16,17 +16,17 @@
 	accept_hand = TRUE
 	time = 155
 
-/datum/surgery_step/splice_nerves/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/splice_nerves/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You start splicing together [target]'s nerves."),
 		"[user] starts splicing together [target]'s nerves.",
 		"[user] starts manipulating [target]'s nervous system.")
 
-/datum/surgery_step/splice_nerves/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/splice_nerves/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	display_results(user, target, span_notice("You successfully splice [target]'s nervous system!"),
 		"[user] successfully splices [target]'s nervous system!",
 		"[user] finishes manipulating [target]'s nervous system.")
 	new /datum/bioware/spliced_nerves(target)
-	return TRUE
+	return ..()
 
 /datum/bioware/spliced_nerves
 	name = "Spliced Nerves"

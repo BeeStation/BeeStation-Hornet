@@ -2,12 +2,13 @@
 	name = "laser gun"
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
 	icon_state = "laser"
-	item_state = "laser"
+	inhand_icon_state = "laser"
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/iron=2000)
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	custom_price = 200
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -16,6 +17,7 @@
 	clumsy_check = 0
 	item_flags = NONE
 	dying_key = DYE_REGISTRY_GUN
+	custom_price = 25
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -33,9 +35,9 @@
 /obj/item/gun/energy/laser/repeater
 	name = "NT LRR Model 2284"
 	icon_state = "repeater"
-	item_state = null
+	inhand_icon_state = null
 	desc = "An experimental laser repeater rifle that uses a built-in bluespace dynamo to recharge its battery, crank it and fire!"
-	gun_charge = 200
+	gun_charge = 2000 WATT
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/repeater)
 	can_charge = FALSE //don't put this in a recharger
 	var/cranking = FALSE
@@ -51,7 +53,7 @@
 			cranking = TRUE
 			if(do_after(user, 1 SECONDS) && !fire_interrupted)
 				playsound(src, 'sound/weapons/autoguninsert.ogg', 30)
-				cell.give(50)
+				cell.give(500 WATT)
 				flick("repeater", src)
 				update_icon()
 			else
@@ -71,7 +73,7 @@
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
 	icon_state = "caplaser"
-	item_state = "caplaser"
+	inhand_icon_state = "caplaser"
 	w_class = WEIGHT_CLASS_LARGE
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13 with the words NTSSGolden engraved. The station is exploding."
 	force = 10
@@ -93,7 +95,7 @@
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
 	icon_state = "lasercannon"
-	item_state = "laser"
+	inhand_icon_state = "laser"
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lens to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theoretically infinite use."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
@@ -103,9 +105,15 @@
 	return
 
 /obj/item/gun/energy/laser/cyborg
-	can_charge = FALSE
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/cyborg)
+	gun_charge = 10000 WATT	//10 shot capacity
+	fire_rate = 2 		//Two shots per second, higher DPS due to hacked module but still slightly worse than normal laser gun
+	charge_delay = 6 	//Still 10 shots per minute overall
+
+	can_charge = FALSE
 	use_cyborg_cell = TRUE
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/laser/cyborg/emp_act()
 	return
@@ -119,7 +127,7 @@
 	name = "energy shotgun"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "cshotgun"
-	item_state = "shotgun"
+	inhand_icon_state = "shotgun"
 	desc = "A combat shotgun gutted and refitted with an internal laser system. Can switch between taser and scattered disabler shots."
 	shaded_charge = FALSE
 	pin = /obj/item/firing_pin/implant/mindshield
@@ -132,7 +140,7 @@
 	name = "accelerator laser cannon"
 	desc = "An advanced laser cannon that does more damage the farther away the target is."
 	icon_state = "lasercannon"
-	item_state = "laser"
+	inhand_icon_state = "laser"
 	worn_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
@@ -162,7 +170,7 @@
 	name = "\improper X-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated X-ray blasts that pass through multiple soft targets and heavier materials."
 	icon_state = "xray"
-	item_state = null
+	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 	pin = null
 	ammo_x_offset = 3

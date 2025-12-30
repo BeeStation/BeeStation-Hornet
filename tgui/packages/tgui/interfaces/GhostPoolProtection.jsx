@@ -1,25 +1,48 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Section, NoticeBox } from '../components';
+import { Button, Flex, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 export const GhostPoolProtection = (props) => {
   const { act, data } = useBackend();
-  const { events_or_midrounds, spawners, station_sentience, silicons, minigames } = data;
+  const {
+    events_or_midrounds,
+    spawners,
+    station_sentience,
+    silicons,
+    minigames,
+  } = data;
   return (
-    <Window theme="admin" title="Ghost Pool Protection" width={400} height={285}>
+    <Window
+      theme="admin"
+      title="Ghost Pool Protection"
+      width={400}
+      height={285}
+    >
       <Window.Content>
         <Flex grow={1} height="100%">
           <Section
             title="Options"
             buttons={
               <>
-                <Button color="good" icon="plus-circle" content="Enable Everything" onClick={() => act('all_roles')} />
-                <Button color="bad" icon="minus-circle" content="Disable Everything" onClick={() => act('no_roles')} />
+                <Button
+                  color="good"
+                  icon="plus-circle"
+                  content="Enable Everything"
+                  onClick={() => act('all_roles')}
+                />
+                <Button
+                  color="bad"
+                  icon="minus-circle"
+                  content="Disable Everything"
+                  onClick={() => act('no_roles')}
+                />
               </>
-            }>
+            }
+          >
             <NoticeBox danger>
-              For people creating a sneaky event: If you toggle Station Created Sentience, people may catch on that admins have
-              disabled roles for your event...
+              For people creating a sneaky event: If you toggle Station Created
+              Sentience, people may catch on that admins have disabled roles for
+              your event...
             </NoticeBox>
             <Flex.Item>
               <Button

@@ -28,9 +28,9 @@
 
 /obj/item/food/pizza/make_processable()
 	if(slice_type)
-		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, 6, 3 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
-		AddElement(/datum/element/processable, TOOL_SAW, slice_type, 6, 4.5 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
-		AddElement(/datum/element/processable, TOOL_SCALPEL, slice_type, 6, 6 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
+		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, 6, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_SAW, slice_type, 6, 4.5 SECONDS, table_required = TRUE, screentip_verb = "Slice")
+		AddElement(/datum/element/processable, TOOL_SCALPEL, slice_type, 6, 6 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 // Pizza Slice
 /obj/item/food/pizzaslice
@@ -42,7 +42,7 @@
 	crafting_complexity = FOOD_COMPLEXITY_2
 
 /obj/item/food/pizzaslice/make_processable()
-	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, 1, 1 SECONDS, table_required = TRUE, /*screentip_verb = "Flatten"*/)
+	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, 1, 1 SECONDS, table_required = TRUE, screentip_verb = "Flatten")
 
 /obj/item/food/pizza/margherita
 	name = "pizza margherita"
@@ -368,9 +368,9 @@
 /obj/item/food/proc/try_break_off(mob/living/M, mob/living/user) //maybe i give you a pizza maybe i break off your arm
 	if(prob(50) || (M != user) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_NODISMEMBER))
 		return
-	var/obj/item/bodypart/l_arm = user.get_bodypart(BODY_ZONE_L_ARM)
-	var/obj/item/bodypart/r_arm = user.get_bodypart(BODY_ZONE_R_ARM)
-	var/did_the_thing = (l_arm?.dismember() || r_arm?.dismember()) //not all limbs can be removed, so important to check that we did. the. thing.
+	var/obj/item/bodypart/arm/left = user.get_bodypart(BODY_ZONE_L_ARM)
+	var/obj/item/bodypart/arm/right = user.get_bodypart(BODY_ZONE_R_ARM)
+	var/did_the_thing = (left?.dismember() || right?.dismember()) //not all limbs can be removed, so important to check that we did. the. thing.
 	if(!did_the_thing)
 		return
 	to_chat(user, span_userdanger("Maybe I'll give you a pizza, maybe I'll break off your arm.")) //makes the reference more obvious

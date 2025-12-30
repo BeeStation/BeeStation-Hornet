@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	flags = SS_NO_FIRE
-	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
 
 	var/file_path
@@ -48,14 +47,14 @@ SUBSYSTEM_DEF(title)
 		GLOB.newplayer_start += newplayer_start_loc
 
 		//Update fast joiners
-		for (var/mob/dead/new_player/fast_joiner in GLOB.new_player_list)
+		for (var/mob/dead/new_player/fast_joiner in GLOB.player_list)
 			if(isnull(fast_joiner.client?.view_size))
 				fast_joiner.client?.change_view(getScreenSize(fast_joiner))
 			else
 				fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
 			// Execute this immediately, change_view runs through SStimer which doesn't execute until after
 			// initialisation
-			if (fast_joiner.client?.prefs.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
+			if (fast_joiner.client?.prefs?.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
 				fast_joiner.client?.fit_viewport()
 			fast_joiner.forceMove(newplayer_start_loc)
 
@@ -77,7 +76,7 @@ SUBSYSTEM_DEF(title)
 		var/F = file("data/previous_title.dat")
 		WRITE_FILE(F, file_path)
 
-	for(var/thing in GLOB.clients)
+	for(var/thing in GLOB.clients_unsafe)
 		if(!thing)
 			continue
 		var/atom/movable/screen/splash/S = new(null, thing, FALSE)

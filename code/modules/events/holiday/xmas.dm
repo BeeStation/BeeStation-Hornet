@@ -54,7 +54,6 @@
 	laser = 30
 	energy = 30
 	bomb = 30
-	rad = 30
 	fire = 30
 	acid = 30
 
@@ -64,7 +63,6 @@
 	laser = 20
 	energy = 20
 	bomb = 20
-	rad = 20
 	fire = 20
 	acid = 20
 
@@ -105,11 +103,14 @@
 	priority_announce("Santa is coming to town!", "Unknown Transmission", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/santa/start()
-	var/list/candidates = poll_ghost_candidates("Santa is coming to town! Do you want to be Santa?", poll_time = 15 SECONDS)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		santa = new /mob/living/carbon/human(pick(GLOB.blobstart))
-		santa.key = C.key
+	var/datum/poll_config/config = new()
+	config.question = "Santa is coming to town! Do you want to be Santa?"
+	config.poll_time = 15 SECONDS
+	config.role_name_text = "santa"
+	config.alert_pic = /obj/item/clothing/head/costume/santa
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
-		var/datum/antagonist/santa/A = new
-		santa.mind.add_antag_datum(A)
+	if(candidate)
+		santa = new(pick(GLOB.blobstart))
+		santa.key = candidate.key
+		santa.mind.add_antag_datum(/datum/antagonist/santa)

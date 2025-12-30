@@ -38,6 +38,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster/wanted)
 	var/posterHeaderText
 	var/posterHeaderColor
 
+	poster_item_type = /obj/item/poster/wanted
+
 CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/poster/wanted)
 
 /obj/structure/sign/poster/wanted/Initialize(mapload, icon/person_icon, person_name, description, postHeaderText, postHeaderColor, background, pname, pdesc)
@@ -82,7 +84,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/sign/poster/wanted)
 	var/textLen = min(length(text), 7)
 	var/startX = 16 - (2*textLen)
 	var/i
-	for(i=1; i <= textLen, i++)
+	for(i=1; i <= textLen; i++)
 		var/letter = uppertext(text[i])
 		var/icon/letter_icon = icon("icon" = 'icons/Font_Minimal.dmi', "icon_state" = letter)
 		letter_icon.Shift(EAST, startX) //16 - (2*n)

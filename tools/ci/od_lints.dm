@@ -37,6 +37,7 @@
 #pragma AmbiguousResourcePath error
 #pragma SuspiciousSwitchCase error
 #pragma PointlessPositionalArgument error
+#pragma UnsupportedAccess disabled
 // NOTE: The next few pragmas are for OpenDream's experimental type checker
 // This feature is still in development, elevating these pragmas outside of local testing is discouraged
 // An RFC to finalize this feature is coming soon(TM)

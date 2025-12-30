@@ -1,0 +1,91 @@
+.virus-logo-line {
+  font-family: monospace;
+  white-space: pre;
+  line-height: 1.2;
+  animation:
+    bobbing 1.8s ease-in-out infinite,
+    colorCycle 6s linear infinite;
+  display: block;
+}
+
+.virus-code-letter {
+  font-family: monospace;
+  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
+  display: inline-block;
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
+
+  &.decoding {
+    color: #00ffcc;
+    text-shadow: 0 0 6px #00ffcc;
+  }
+
+  &.decoded {
+    color: #66ff66;
+    text-shadow: 0 0 6px #66ff66;
+  }
+}
+
+.virus-key-activated {
+  font-family: monospace;
+  color: #ff0000;
+  margin-bottom: 0.5rem;
+}
+
+.virus-button {
+  background-color: black;
+  border: 1px solid red;
+  color: red;
+  font-family: monospace;
+  padding: 0.4rem 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: 0 0 6px red;
+}
+
+@keyframes bobbing {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes colorCycle {
+  0% {
+    color: rgb(0, 255, 255);
+  }
+  20% {
+    color: rgb(0, 255, 0);
+  }
+  40% {
+    color: rgb(255, 255, 0);
+  }
+  60% {
+    color: rgb(255, 102, 0);
+  }
+  80% {
+    color: rgb(255, 0, 255);
+  }
+  100% {
+    color: rgb(0, 255, 255);
+  }
+}
+
+/* Simulate sine-wave phase shifting with delays */
+.virus-logo-line:nth-child(1) {
+  animation-delay: 0s, 0s;
+}
+.virus-logo-line:nth-child(2) {
+  animation-delay: 0.1s, 0.12s;
+}
+.virus-logo-line:nth-child(3) {
+  animation-delay: 0.2s, 0.24s;
+}
+.virus-logo-line:nth-child(4) {
+  animation-delay: 0.3s, 0.36s;
+}

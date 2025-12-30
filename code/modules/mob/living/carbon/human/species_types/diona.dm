@@ -2,12 +2,28 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
-	sexes = 0
+	sexes = 0 //no sex for bug/plant people!
 	bodyflag = FLAG_DIONA
-	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
-	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE, TRAIT_RESISTLOWPRESSURE, TRAIT_RESISTCOLD, TRAIT_NORADDAMAGE)
-	inherent_biotypes = list(MOB_HUMANOID, MOB_BUG)
+	species_traits = list(
+		MUTCOLORS,
+		EYECOLOR,
+		AGENDER,
+		NOHUSK,
+		NO_UNDERWEAR,
+		NOSOCKS,
+		NOEYESPRITES,
+	)
+	inherent_traits = list(
+		TRAIT_BEEFRIEND,
+		TRAIT_NONECRODISEASE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESISTCOLD,
+		TRAIT_RADHEALER,
+		TRAIT_NOBREATH,
+		TRAIT_NO_DNA_COPY,
+		TRAIT_NOT_TRANSMORPHIC,
+	)
+	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
 	mutant_organs = list(/obj/item/organ/nymph_organ/r_arm, /obj/item/organ/nymph_organ/l_arm, /obj/item/organ/nymph_organ/l_leg, /obj/item/organ/nymph_organ/r_leg, /obj/item/organ/nymph_organ/chest)
 	inherent_factions = list(FACTION_PLANTS, FACTION_VINES, FACTION_DIONA)
@@ -28,7 +44,6 @@
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
-	species_bitflags = NOT_TRANSMORPHIC
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -38,13 +53,16 @@
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
 	mutantheart = /obj/item/organ/heart/diona //Dungeon's sprite
+	mutantappendix = null
 
-	species_chest = /obj/item/bodypart/chest/diona
-	species_head = /obj/item/bodypart/head/diona
-	species_l_arm = /obj/item/bodypart/l_arm/diona
-	species_r_arm = /obj/item/bodypart/r_arm/diona
-	species_l_leg = /obj/item/bodypart/l_leg/diona
-	species_r_leg = /obj/item/bodypart/r_leg/diona
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/diona,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/diona,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/diona,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/diona,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/diona,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/diona,
+	)
 
 	var/datum/action/diona/split/split_ability //All dionae start with this, this is for splitting apart completely.
 	var/datum/action/diona/partition/partition_ability //All dionae start with this as well, this is for splitting off a nymph from food.
@@ -90,15 +108,13 @@
 	if(H.stat != CONSCIOUS && !H.mind && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.trigger() //Bring them home.
 
-/datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
-	. = FALSE
-	var/radiation = H.radiation
+/datum/species/diona/handle_radiation(mob/living/carbon/human/source, intensity, delta_time)
 	//Dionae heal and eat radiation for a living.
-	H.adjust_nutrition(clamp(radiation, 0, 7))
-	if(radiation > 50)
-		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-		H.adjustToxLoss(-2)
-		H.adjustOxyLoss(-1)
+	source.adjust_nutrition(intensity * 0.1 * delta_time)
+	if(intensity > 50)
+		source.heal_overall_damage(brute = 1 * delta_time, burn = 1 * delta_time, required_status = BODYTYPE_ORGANIC)
+		source.adjustToxLoss(-2 * delta_time)
+		source.adjustOxyLoss(-1 * delta_time)
 
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
@@ -136,10 +152,6 @@
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/obj/item/organ/appendix/appendix = H.getorganslot("appendix") //No appendixes for plant people
-	if(appendix)
-		appendix.Remove(H)
-		QDEL_NULL(appendix)
 	split_ability = new
 	split_ability.Grant(H)
 	partition_ability = new
@@ -178,7 +190,7 @@
 	name = "Split"
 	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
 	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
@@ -203,30 +215,36 @@
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME)
 
 /datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	// Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
 	if(gibbed)
-		H.gib(TRUE, TRUE, TRUE)  //Gib the corpse with nothing left of use. After all the nymphs are ALL dead.
+		H.gib(TRUE, TRUE, TRUE)
 		return
-	var/list/alive_nymphs = list()
+
+	var/list/mob/living/simple_animal/hostile/retaliate/nymph/alive_nymphs = list()
 	var/mob/living/simple_animal/hostile/retaliate/nymph/nymph = new(H.loc) //Spawn the player nymph, including this one, should be six total nymphs
-	for(var/obj/item/bodypart/BP as anything in H.bodyparts)
-		if(BP.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
-			BP.drop_limb()
+	for(var/obj/item/bodypart/limb as anything in H.bodyparts)
+		if(limb.limb_id != SPECIES_DIONA) //Robot limb? Ignore it.
+			limb.drop_limb()
 			continue
-		if(istype(BP, /obj/item/bodypart/head))
-			nymph.adjustBruteLoss(BP.brute_dam)
-			nymph.adjustFireLoss(BP.burn_dam)
+
+		// Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
+		if(istype(limb, /obj/item/bodypart/head))
+			nymph.adjustBruteLoss(limb.brute_dam, updating_health = FALSE)
+			nymph.adjustFireLoss(limb.burn_dam, updating_health = FALSE)
 			nymph.updatehealth()
-			continue //Exclude the head nymph from the alive_nymphs list, since that list is used for secondary consciousness transfer.
-		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new /mob/living/simple_animal/hostile/retaliate/nymph(H.loc)
-		limb_nymph.adjustBruteLoss(BP.brute_dam)
-		limb_nymph.adjustFireLoss(BP.burn_dam)
+			continue
+
+		var/mob/living/simple_animal/hostile/retaliate/nymph/limb_nymph = new(H.loc)
+		limb_nymph.adjustBruteLoss(limb.brute_dam, updating_health = FALSE)
+		limb_nymph.adjustFireLoss(limb.burn_dam, updating_health = FALSE)
 		limb_nymph.updatehealth()
 		if(limb_nymph.stat != DEAD)
 			alive_nymphs += limb_nymph
 
-	var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, alive_nymphs)] // Let's go gambling!
-	gambling_nymph.adjustBruteLoss(50) // Aw dangit.
-	alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
+	if(length(alive_nymphs))
+		var/mob/living/simple_animal/hostile/retaliate/nymph/gambling_nymph = alive_nymphs[rand(1, length(alive_nymphs))] // Let's go gambling!
+		gambling_nymph.adjustBruteLoss(50) // Aw dangit.
+		alive_nymphs -= gambling_nymph //Remove it from the alive_nymphs list.
 
 	if(nymph.stat == DEAD) //If the head nymph is dead, transfer all consciousness to the next best thing - an alive limb nymph!
 		nymph = pick(alive_nymphs)
@@ -236,15 +254,15 @@
 		I.pixel_y = rand(-10, 10)
 	nymph.old_name = H.real_name
 	nymph.features = H.dna.features
-	H.mind.transfer_to(nymph) //Move the player's mind datum to the player nymph
-	H.mind.grab_ghost() // Throw the fucking ghost back into the nymph.
+	H.mind?.transfer_to(nymph) //Move the player's mind datum to the player nymph
+	H.mind?.grab_ghost() // Throw the fucking ghost back into the nymph.
 	H.gib(TRUE, TRUE, TRUE)  //Gib the old corpse with nothing left of use
 
 /datum/action/diona/partition
 	name = "Partition"
 	desc = "Allow a nymph to partition from our gestalt self."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	cooldown_time = 5 MINUTES
 	var/ability_partition_cooldow

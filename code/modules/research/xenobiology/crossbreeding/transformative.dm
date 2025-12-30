@@ -39,27 +39,27 @@ transformative extracts:
 		S.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/transformative_sepia)
 
 /obj/item/slimecross/transformative/grey
-	colour = "grey"
+	colour = SLIME_TYPE_GREY
 	effect_applied = SLIME_EFFECT_GREY
 	effect_desc = "Slimes split into one additional slime."
 
 /obj/item/slimecross/transformative/orange
-	colour = "orange"
+	colour = SLIME_TYPE_ORANGE
 	effect_applied = SLIME_EFFECT_ORANGE
 	effect_desc = "Slimes will light people on fire when they shock them."
 
 /obj/item/slimecross/transformative/purple
-	colour = "purple"
+	colour = SLIME_TYPE_PURPLE
 	effect_applied = SLIME_EFFECT_PURPLE
 	effect_desc = "Slimes will regenerate slowly."
 
 /obj/item/slimecross/transformative/blue
-	colour = "blue"
+	colour = SLIME_TYPE_BLUE
 	effect_applied = SLIME_EFFECT_BLUE
 	effect_desc = "Slime will always retain slime of its original colour when splitting."
 
 /obj/item/slimecross/transformative/metal
-	colour = "metal"
+	colour = SLIME_TYPE_METAL
 	effect_applied = SLIME_EFFECT_METAL
 	effect_desc = "Slimes will be able to sustain more damage before dying."
 
@@ -68,27 +68,27 @@ transformative extracts:
 	S.maxHealth = round(S.maxHealth*1.3)
 
 /obj/item/slimecross/transformative/yellow
-	colour = "yellow"
+	colour = SLIME_TYPE_YELLOW
 	effect_applied = SLIME_EFFECT_YELLOW
 	effect_desc = "Slimes will gain electric charge faster."
 
 /obj/item/slimecross/transformative/darkpurple
-	colour = "dark purple"
+	colour = SLIME_TYPE_DARK_PURPLE
 	effect_applied = SLIME_EFFECT_DARK_PURPLE
 	effect_desc = "Slime rapidly converts atmospheric plasma to oxygen, healing in the process."
 
 /obj/item/slimecross/transformative/darkblue
-	colour = "dark blue"
+	colour = SLIME_TYPE_DARK_BLUE
 	effect_applied = SLIME_EFFECT_DARK_BLUE
 	effect_desc = "Slimes takes reduced damage from water."
 
 /obj/item/slimecross/transformative/silver
-	colour = "silver"
+	colour = SLIME_TYPE_SILVER
 	effect_applied = SLIME_EFFECT_SILVER
 	effect_desc = "Slimes will no longer lose nutrition over time."
 
 /obj/item/slimecross/transformative/bluespace
-	colour = "bluespace"
+	colour = SLIME_TYPE_BLUESPACE
 	effect_applied = SLIME_EFFECT_BLUESPACE
 	effect_desc = "Slimes will teleport to targets when they are at full electric charge."
 
@@ -97,27 +97,27 @@ transformative extracts:
 	S.add_verb(/mob/living/simple_animal/slime/proc/teleport)
 
 /obj/item/slimecross/transformative/sepia
-	colour = "sepia"
+	colour = SLIME_TYPE_SEPIA
 	effect_applied = SLIME_EFFECT_SEPIA
 	effect_desc = "Slimes move faster."
 
 /obj/item/slimecross/transformative/cerulean
-	colour = "cerulean"
+	colour = SLIME_TYPE_CERULEAN
 	effect_applied = SLIME_EFFECT_CERULEAN
 	effect_desc = "Slime makes another adult rather than splitting, with half the nutrition."
 
 /obj/item/slimecross/transformative/pyrite
-	colour = "pyrite"
+	colour = SLIME_TYPE_PYRITE
 	effect_applied = SLIME_EFFECT_PYRITE
 	effect_desc = "Slime always splits into totally random colors, except rainbow. Can never yield a rainbow slime."
 
 /obj/item/slimecross/transformative/red
-	colour = "red"
+	colour = SLIME_TYPE_RED
 	effect_applied = SLIME_EFFECT_RED
 	effect_desc = "Slimes does 10% more damage when feeding and attacking."
 
 /obj/item/slimecross/transformative/green
-	colour = "green"
+	colour = SLIME_TYPE_GREEN
 	effect_applied = SLIME_EFFECT_GREEN
 	effect_desc = "Grants sentient slimes the ability to become oozelings at will, once."
 
@@ -127,7 +127,7 @@ transformative extracts:
 	transform.Grant(S)
 
 /obj/item/slimecross/transformative/pink
-	colour = "pink"
+	colour = SLIME_TYPE_PINK
 	effect_applied = SLIME_EFFECT_PINK
 	effect_desc = "Slimes will speak in common rather than in slime."
 
@@ -138,22 +138,22 @@ transformative extracts:
 	LH.selected_language = /datum/language/common
 
 /obj/item/slimecross/transformative/gold
-	colour = "gold"
+	colour = SLIME_TYPE_GOLD
 	effect_applied = SLIME_EFFECT_GOLD
 	effect_desc = "Slime extracts from these will sell for double the price."
 
 /obj/item/slimecross/transformative/oil
-	colour = "oil"
+	colour = SLIME_TYPE_OIL
 	effect_applied = SLIME_EFFECT_OIL
 	effect_desc = "Slime douses anything it feeds on in welding fuel."
 
 /obj/item/slimecross/transformative/black
-	colour = "black"
+	colour = SLIME_TYPE_BLACK
 	effect_applied = SLIME_EFFECT_BLACK
 	effect_desc = "Slime is nearly transparent."
 
 /obj/item/slimecross/transformative/lightpink
-	colour = "light pink"
+	colour = SLIME_TYPE_LIGHT_PINK
 	effect_applied = SLIME_EFFECT_LIGHT_PINK
 	effect_desc = "Slimes may become possessed by supernatural forces."
 
@@ -161,15 +161,14 @@ transformative extracts:
 	..()
 	GLOB.poi_list |= S
 	S.make_master(user)
-	LAZYADD(GLOB.mob_spawners["[S.master.real_name]'s slime"], S)
-	SSmobs.update_spawners()
+	S.set_playable_slime(ROLE_SENTIENCE)
 
 /obj/item/slimecross/transformative/adamantine
-	colour = "adamantine"
+	colour = SLIME_TYPE_ADAMANTINE
 	effect_applied = SLIME_EFFECT_ADAMANTINE
 	effect_desc = "Slimes takes reduced damage from brute attacks."
 
 /obj/item/slimecross/transformative/rainbow
-	colour = "rainbow"
+	colour = SLIME_TYPE_RAINBOW
 	effect_applied = SLIME_EFFECT_RAINBOW
 	effect_desc = "Slime randomly changes color periodically."

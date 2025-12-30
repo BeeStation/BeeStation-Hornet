@@ -1,6 +1,7 @@
 GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 
 #define KEYCARD_RED_ALERT "Red Alert"
+#define KEYCARD_BLACK_ALERT "Black Alert"
 #define KEYCARD_EMERGENCY_MAINTENANCE_ACCESS "Emergency Maintenance Access"
 #define KEYCARD_BSA_UNLOCK "Bluespace Artillery Unlock"
 
@@ -54,16 +55,20 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	data["waiting"] = waiting
 	data["auth_required"] = event_source ? event_source.event : 0
 	data["red_alert"] = (SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) ? 1 : 0
+	data["black_alert"] = (SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_BLACK) ? 1 : 0
 	data["emergency_maint"] = GLOB.emergency_access
 	data["bsa_unlock"] = GLOB.bsa_unlock
 	return data
 
 /obj/machinery/keycard_auth/ui_status(mob/user)
-	if(isanimal(user))
-		var/mob/living/simple_animal/A = user
-		if(!A.dextrous)
-			to_chat(user, span_warning("You are too primitive to use this device!"))
-			return UI_CLOSE
+	if(isdrone(user))
+		return UI_CLOSE
+	if(!isanimal(user))
+		return ..()
+	var/mob/living/simple_animal/A = user
+	if(!A.dextrous)
+		to_chat(user, span_warning("You are too primitive to use this device!"))
+		return UI_CLOSE
 	return ..()
 
 /obj/machinery/keycard_auth/ui_act(action, params)
@@ -77,6 +82,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 		if("red_alert")
 			if(!event_source)
 				sendEvent(KEYCARD_RED_ALERT, swipe_id)
+				. = TRUE
+		if("black_alert")
+			if(!event_source)
+				sendEvent(KEYCARD_BLACK_ALERT, swipe_id)
 				. = TRUE
 		if("emergency_maint")
 			if(!event_source)
@@ -92,7 +101,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 					to_chat(usr, span_warning("Invalid ID. Confirmation ID must not equal trigger ID."))
 					return
 				var/current_sec_level = SSsecurity_level.get_current_level_as_number()
-				if(current_sec_level > SEC_LEVEL_RED && event == KEYCARD_RED_ALERT)
+				if(current_sec_level > SEC_LEVEL_BLACK && (event == KEYCARD_BLACK_ALERT || event == KEYCARD_RED_ALERT))
 					to_chat(usr, span_warning("Alert cannot be manually lowered from the current security level!"))
 					return
 				event_source.trigger_event(usr)
@@ -153,6 +162,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/keycard_auth, 26)
 	switch(event)
 		if(KEYCARD_RED_ALERT)
 			SSsecurity_level.set_level(SEC_LEVEL_RED)
+		if(KEYCARD_BLACK_ALERT)
+			SSsecurity_level.set_level(SEC_LEVEL_BLACK)
 		if(KEYCARD_EMERGENCY_MAINTENANCE_ACCESS)
 			make_maint_all_access()
 		if(KEYCARD_BSA_UNLOCK)
@@ -187,5 +198,6 @@ GLOBAL_VAR_INIT(emergency_access, FALSE)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("bluespace artillery", GLOB.bsa_unlock? "unlocked" : "locked"))
 
 #undef KEYCARD_RED_ALERT
+#undef KEYCARD_BLACK_ALERT
 #undef KEYCARD_EMERGENCY_MAINTENANCE_ACCESS
 #undef KEYCARD_BSA_UNLOCK

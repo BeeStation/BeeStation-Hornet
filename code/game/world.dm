@@ -50,7 +50,6 @@ GLOBAL_VAR(restart_counter)
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
-	generate_selectable_species() // This needs to happen early on to avoid the debugger crying. It needs to be after config load but before you login.
 	make_datum_references_lists_late_setup() // late setup
 
 	#ifdef REFERENCE_DOING_IT_LIVE
@@ -85,6 +84,12 @@ GLOBAL_VAR(restart_counter)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 
+#ifdef DISABLE_BYOND_AUTH
+	CONFIG_SET(flag/guest_ban, FALSE) // no point in banning guests if BYOND auth doesn't exist
+	if(!CONFIG_GET(flag/enable_guest_external_auth))
+		log_world("DANGER: External authorization is disabled while DISABLE_BYOND_AUTH is set. This means connecting CKEYs are blindly trusted and susceptible to spoofing!")
+#endif
+
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)
@@ -115,7 +120,7 @@ GLOBAL_VAR(restart_counter)
 #ifdef UNIT_TESTS
 	cb = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(RunUnitTests))
 #else
-	cb = VARSET_CALLBACK(SSticker, force_ending, TRUE)
+	cb = VARSET_CALLBACK(SSticker, force_ending, ADMIN_FORCE_END_ROUND)
 #endif
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), cb, 10 SECONDS))
 
@@ -142,6 +147,7 @@ GLOBAL_VAR(restart_counter)
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
+	GLOB.world_dynamic_log = "[GLOB.log_directory]/dynamic.log"
 	GLOB.world_objective_log = "[GLOB.log_directory]/objectives.log"
 	GLOB.world_mecha_log = "[GLOB.log_directory]/mecha.log"
 	GLOB.world_virus_log = "[GLOB.log_directory]/virus.log"
@@ -187,7 +193,8 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.prefs_log)
 
-	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
+	var/latest_changelog = file("[global.config.directory]/../html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
+	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
@@ -223,7 +230,7 @@ GLOBAL_VAR(restart_counter)
 			log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
 		// Fallback check for spacestation13.com requests
 		if(topic_decoded == "ping")
-			return length(GLOB.clients)
+			return length(GLOB.clients_unsafe)
 		response["statuscode"] = 400
 		response["response"] = "Bad Request - Invalid JSON format"
 		return json_encode(response)
@@ -366,7 +373,7 @@ GLOBAL_VAR(restart_counter)
 	var/server_name = CONFIG_GET(string/servername)
 	var/server_tag = CONFIG_GET(string/servertag)
 	var/station_name = station_name()
-	var/players = GLOB.clients.len
+	var/players = GLOB.clients_unsafe.len
 	var/popcaptext = ""
 	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
 	if (popcap)
@@ -381,7 +388,7 @@ GLOBAL_VAR(restart_counter)
 	if (server_name)
 		character_usage += length(server_name)
 	// We also need this stuff
-	character_usage += length("[players][popcaptext][SSmapping.config?.map_name || "Loading..."][server_tag]")
+	character_usage += length("[players][popcaptext][SSmapping.current_map?.map_name || "Loading..."][server_tag]")
 	var/station_name_limit = 255 - character_usage
 
 	if (station_name_limit <= 10)
@@ -426,7 +433,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
 	s += "Players: <b>[players][popcaptext]</b><br>"
-	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]"
+	s += "Map: <b>[SSmapping.current_map?.map_name || "Loading..."]"
 
 	status = s
 

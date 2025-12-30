@@ -6,6 +6,7 @@
 /obj/item/circuit_component/abs
 	display_name = "Absolute"
 	desc = "A component that outputs the absolute value of the input."
+	category = "Math"
 
 	/// The input port
 	var/datum/port/input/input_port

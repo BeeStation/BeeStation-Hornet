@@ -234,6 +234,7 @@
 		current_item = H.wear_id
 		if(current_item)
 			nanite_access |= current_item.GetAccess()
+	//Swap this to basicmob eventually
 	else if(isanimal(host_mob))
 		var/mob/living/simple_animal/A = host_mob
 		current_item = A.access_card
@@ -255,16 +256,18 @@
 	for(var/mob/living/target in ohearers(5, host_mob))
 		if(prob(15 * max(get_dist(host_mob, target) - 1, 0)))
 			continue
-		if(!(MOB_ORGANIC in target.mob_biotypes) && !(MOB_UNDEAD in target.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
+		if(!(target.mob_biotypes & MOB_ORGANIC) && !(target.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 			continue
 		target_hosts += target
 	if(!target_hosts.len)
 		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
 		return
 	var/mob/living/infectee = pick(target_hosts)
+	if(SEND_SIGNAL(infectee, COMSIG_HAS_NANITES))
+		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
+		return
 	if(prob(100 - (infectee.getarmor(null, BIO))))
 		COOLDOWN_START(src, spread_cooldown, 7.5 SECONDS)
-		//this will potentially take over existing nanites!
 		infectee.AddComponent(/datum/component/nanites, 10)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
 		infectee.investigate_log("was infected by spreading nanites by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
@@ -282,9 +285,9 @@
 /datum/nanite_program/nanite_sting/on_trigger(comm_message)
 	var/list/mob/living/target_hosts = list()
 	for(var/mob/living/L in oview(1, host_mob))
-		if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
+		if(!(L.mob_biotypes & MOB_ORGANIC) && !(L.mob_biotypes & MOB_UNDEAD) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 			continue
-		if(SEND_SIGNAL(L, COMSIG_HAS_NANITES) || !L.Adjacent(host_mob))
+		if(!L.Adjacent(host_mob))
 			continue
 		target_hosts += L
 	if(!target_hosts.len)
@@ -292,7 +295,6 @@
 		return
 	var/mob/living/infectee = pick(target_hosts)
 	if(prob(100 - (infectee.getarmor(null, BIO))))
-		//unlike with Infective Exo-Locomotion, this can't take over existing nanites, because Nanite Sting only targets non-hosts.
 		infectee.AddComponent(/datum/component/nanites, 5)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
 		infectee.investigate_log("was infected by a nanite cluster by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
@@ -353,7 +355,7 @@
 
 /datum/action/innate/nanite_button
 	name = "Button"
-	icon_icon = 'icons/hud/actions/actions_items.dmi'
+	button_icon = 'icons/hud/actions/actions_items.dmi'
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 	button_icon_state = "power_green"
 	var/datum/nanite_program/dermal_button/program
@@ -432,7 +434,7 @@
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
-		if(NOBLOOD in host_human.dna?.species?.species_traits)
+		if(HAS_TRAIT(host_human, TRAIT_NOBLOOD))
 			return FALSE
 
 /datum/nanite_program/vampire/active_effect()

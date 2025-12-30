@@ -8,19 +8,36 @@
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
+	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_security
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM,TRAIT_SECURITY)
 
-	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MECH_SECURITY,
-						ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAINT_TUNNELS)
+	base_access = list(
+		ACCESS_SECURITY,
+		ACCESS_SEC_DOORS,
+		ACCESS_SEC_RECORDS,
+		ACCESS_BRIG,
+		ACCESS_BRIGPHYS,
+		ACCESS_ARMORY,
+		ACCESS_COURT,
+		ACCESS_WEAPONS,
+		ACCESS_MECH_SECURITY,
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MORGUE,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_HEADS,
+		ACCESS_HOS,
+		ACCESS_RC_ANNOUNCE,
+		ACCESS_KEYCARD_AUTH,
+		ACCESS_GATEWAY,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
@@ -42,6 +59,13 @@
 		/area/security/warden
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER
+	)
+
 /datum/outfit/job/head_of_security
 	name = JOB_NAME_HEADOFSECURITY
 	jobtype = /datum/job/head_of_security
@@ -55,8 +79,8 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	r_pocket = /obj/item/modular_computer/tablet/pda/heads/head_of_security
-	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
+	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
+	l_pocket = /obj/item/clothing/accessory/badge/hos
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec
@@ -67,9 +91,13 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun/hos, /obj/item/stamp/hos)
 
-/datum/outfit/job/head_of_security/hardsuit
-	name = "Head of Security (Hardsuit)"
+/datum/outfit/job/head_of_security/mod
+	name = "Head of Security (MODsuit)"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
-	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/safeguard
+	suit = null
+	head = null
+	mask = /obj/item/clothing/mask/gas/sechailer
+	internals_slot = ITEM_SLOT_SUITSTORE
+

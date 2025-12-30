@@ -1,8 +1,8 @@
 /datum/action/spell/touch/mansus_grasp
 	name = "Mansus Grasp"
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
-	background_icon_state = "bg_ecult"
-	icon_icon = 'icons/hud/actions/actions_ecult.dmi'
+	background_icon_state = "bg_heretic"
+	button_icon = 'icons/hud/actions/actions_ecult.dmi'
 	button_icon_state = "mansus_grasp"
 	sound = 'sound/items/welder.ogg'
 
@@ -61,7 +61,7 @@
 		Causes knockdown, minor bruises, and major stamina damage. \
 		It gains additional beneficial effects as you expand your knowledge of the Mansus."
 	icon_state = "mansus_grasp"
-	item_state = "mansus_grasp"
+	inhand_icon_state = "mansus_grasp"
 
 /obj/item/melee/touch_attack/mansus_fist/Initialize(mapload)
 	. = ..()
@@ -103,7 +103,7 @@
 			playsound(carbon_user, 'sound/effects/wounds/sizzle1.ogg', 70, vary = TRUE)
 			if(prob(50))
 				carbon_user.emote("scream")
-				//carbon_user.adjust_timed_status_effect(26 SECONDS, /datum/status_effect/speech/stutter)
+				//carbon_user.adjust_timed_status_effect(26 SECONDS, /datum/status_effect/speech/stutter) //Idiot
 		source.cast_on_hand_hit(src, user, user)
 
 		escape_our_torment++

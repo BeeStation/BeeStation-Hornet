@@ -54,7 +54,7 @@
 		M.gets_drilled()
 
 //Elites can't talk (normally)!
-/mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/asteroid/elite/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(can_talk)
 		. = ..()
 		return TRUE
@@ -65,7 +65,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	icon_icon = 'icons/hud/actions/actions_elites.dmi'
+	button_icon = 'icons/hud/actions/actions_elites.dmi'
 	button_icon_state = null
 	background_icon_state = "bg_default"
 	var/chosen_message
@@ -114,7 +114,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
@@ -133,20 +132,24 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				INVOKE_ASYNC(src, PROC_REF(arena_checks))
 			if(TUMOR_INACTIVE)
 				activity = TUMOR_ACTIVE
-				var/mob/dead/observer/elitemind = null
 				visible_message(span_boldwarning("[src] begins to convulse.  Your instincts tell you to step back."))
 				activator = user
 				if(!boosted)
 					addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 30)
 					return
 				visible_message(span_boldwarning("Something within [src] stirs..."))
-				var/list/candidates = poll_candidates_for_mob("Do you want to play as a lavaland elite?", ROLE_LAVALAND_ELITE, null, 10 SECONDS, src)
-				if(candidates.len)
+				var/datum/poll_config/config = new()
+				config.check_jobban = ROLE_LAVALAND_ELITE
+				config.poll_time = 10 SECONDS
+				config.jump_target = src
+				config.role_name_text = "lavaland elite"
+				config.alert_pic = src
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+				if(candidate)
 					audible_message(span_boldwarning("The stirring sounds increase in volume!"))
-					elitemind = pick(candidates)
-					elitemind.playsound_local(get_turf(elitemind), 'sound/effects/magic.ogg', 40, 0)
-					to_chat(elitemind, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\nYour attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\nWhile the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\nIf you want to win, you'll have to use your powers in creative ways to ensure the kill.  It's suggested you try using them all as soon as possible.\nShould you win, you'll receive extra information regarding what to do after.  Good luck!</b>")
-					addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 100)
+					candidate.playsound_local(null, 'sound/effects/magic.ogg', 40, 0)
+					to_chat(candidate, "<b>You have been chosen to play as a Lavaland Elite.\nIn a few seconds, you will be summoned on Lavaland as a monster to fight your activator, in a fight to the death.\nYour attacks can be switched using the buttons on the top left of the HUD, and used by clicking on targets or tiles similar to a gun.\nWhile the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\nIf you want to win, you'll have to use your powers in creative ways to ensure the kill.  It's suggested you try using them all as soon as possible.\nShould you win, you'll receive extra information regarding what to do after.  Good luck!</b>")
+					addtimer(CALLBACK(src, PROC_REF(spawn_elite), candidate), 10 SECONDS)
 				else
 					visible_message(span_boldwarning("The stirring stops, and nothing emerges.  Perhaps try again later."))
 					activity = TUMOR_INACTIVE
@@ -170,7 +173,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	mychild.forceMove(loc)
 	visible_message(span_boldwarning("[mychild] emerges from [src]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-	mychild.revive(full_heal = TRUE, admin_revive = TRUE)
+	mychild.revive(HEAL_ALL)
 	if(boosted)
 		mychild.maxHealth = mychild.maxHealth * 2
 		mychild.health = mychild.maxHealth
@@ -268,7 +271,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/onEliteWon()
 	activity = TUMOR_PASSIVE
 	activator = null
-	mychild.revive(full_heal = TRUE, admin_revive = TRUE)
+	mychild.revive(HEAL_ALL)
 	if(boosted)
 		times_won++
 		mychild.maxHealth = mychild.maxHealth * 0.5
@@ -286,7 +289,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "crevice_shard"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	item_state = "screwdriver_head"
+	inhand_icon_state = "screwdriver_head"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -303,16 +306,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(!E.key && !using)
 			using = TRUE //No ghost poll spam please.
 			user.visible_message(span_notice("[E] stirs briefly..."))
-			var/list/candidates = poll_candidates_for_mob("Do you want to take over as [E] (Lavaland Elite), silent servant of [user]?", ROLE_SENTIENCE, null, 15 SECONDS, E)
-			if(length(candidates))
-				var/mob/dead/observer/C = pick(candidates)
-				E.key = C.key
+			var/datum/poll_config/config = new()
+			config.check_jobban = ROLE_SENTIENCE
+			config.poll_time = 15 SECONDS
+			config.jump_target = E
+			config.role_name_text = "enslaved lavaland elite"
+			config.alert_pic = E
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+			if(candidate)
+				E.key = candidate.key
 			else
 				user.visible_message(span_notice("It appears [E] is unable to be revived right now.  Perhaps try again later."))
 				using = FALSE
 				return
 		E.faction = list(FACTION_NEUTRAL)
-		E.revive(full_heal = TRUE, admin_revive = TRUE)
+		E.revive(HEAL_ALL)
 		user.visible_message(span_notice("[user] stabs [E] with [src], reviving it."))
 		E.playsound_local(get_turf(E), 'sound/effects/magic.ogg', 40, 0)
 		to_chat(E, span_userdanger("You have been revived by [user].  While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk."))

@@ -58,7 +58,7 @@ Bonus
 				to_chat(M, span_warning("[pick("You hear a ringing in your ear.", "Your ears pop.")]"))
 		if(5)
 			if(power >= 2)
-				var/obj/item/organ/ears/ears = M.getorganslot(ORGAN_SLOT_EARS)
+				var/obj/item/organ/ears/ears = M.get_organ_slot(ORGAN_SLOT_EARS)
 				if(istype(ears) && ears.damage < ears.maxHealth)
 					to_chat(M, span_userdanger("Your ears pop painfully and start bleeding!"))
 					ears.damage = max(ears.damage, ears.maxHealth)

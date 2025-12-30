@@ -7,14 +7,13 @@
 	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 1
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 60
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brig_physician
 
-	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT,  ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
+	base_access = list(ACCESS_BRIGPHYS, ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE)
 	extra_access = list(ACCESS_MEDICAL, ACCESS_SURGERY)
 
 	departments = DEPT_BITFLAG_SEC
@@ -32,12 +31,17 @@
 
 	minimal_lightup_areas = list(/area/medical/morgue)
 
+	manuscript_jobs = list(
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_PARAMEDIC // They're somewhat identical
+	)
+
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brig_physician
-	belt = /obj/item/modular_computer/tablet/pda/brig_physician
+	belt = /obj/item/modular_computer/tablet/pda/preset/brig_physician
 	ears = /obj/item/radio/headset/headset_medsec
 	uniform = /obj/item/clothing/under/rank/brig_physician
 	shoes = /obj/item/clothing/shoes/sneakers/white

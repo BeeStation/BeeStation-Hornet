@@ -39,7 +39,7 @@
 	RegisterSignal(owner, COMSIG_PRE_MOB_CHANGED_TYPE, PROC_REF(on_pre_type_change))
 	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(on_shape_death))
 	RegisterSignal(caster_mob, COMSIG_LIVING_DEATH, PROC_REF(on_caster_death))
-	RegisterSignal(caster_mob, COMSIG_PARENT_QDELETING, PROC_REF(on_caster_deleted))
+	RegisterSignal(caster_mob, COMSIG_QDELETING, PROC_REF(on_caster_deleted))
 
 	SEND_SIGNAL(caster_mob, COMSIG_LIVING_SHAPESHIFTED, owner)
 	return TRUE
@@ -84,7 +84,7 @@
 
 	already_restored = TRUE
 	UnregisterSignal(owner, list(COMSIG_LIVING_PRE_WABBAJACKED, COMSIG_LIVING_DEATH))
-	UnregisterSignal(caster_mob, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH))
+	UnregisterSignal(caster_mob, list(COMSIG_QDELETING, COMSIG_LIVING_DEATH))
 
 	caster_mob.notransform = FALSE
 	caster_mob.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_SHAPECHANGE_EFFECT)
@@ -138,7 +138,7 @@
 	else
 		owner.death()
 
-/// Signal proc for [COMSIG_PARENT_QDELETING] from our caster, delete us / our owner if we get deleted
+/// Signal proc for [COMSIG_QDELETING] from our caster, delete us / our owner if we get deleted
 /datum/status_effect/shapechange_mob/proc/on_caster_deleted(datum/source)
 	SIGNAL_HANDLER
 
@@ -205,7 +205,7 @@
 	if(QDELETED(source_spell) || !source_spell.convert_damage)
 		return
 
-	caster_mob.fully_heal(TRUE) // Remove all of our damage before setting our health to a proportion of the former transformed mob's health
+	caster_mob.fully_heal(HEAL_DAMAGE) // Remove all of our damage before setting our health to a proportion of the former transformed mob's health
 	var/damage_to_apply = caster_mob.maxHealth * (owner.get_total_damage() / owner.maxHealth)
 	caster_mob.apply_damage(damage_to_apply, source_spell.convert_damage_type, forced = TRUE, spread_damage = TRUE)
 	// Only transfer blood if both mobs are supposed to have a blood volume
@@ -237,6 +237,7 @@
 	desc = "Your form is not your own... you're shapeshifted into another creature! \
 		A wizard could turn you back - or maybe you're stuck like this for good?"
 	icon_state = "shapeshifted"
+	clickable_glow = TRUE
 
 /atom/movable/screen/alert/status_effect/shapeshifted/Click(location, control, params)
 	. = ..()

@@ -16,10 +16,11 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
-	caliber = "10mm"
+	caliber = list("10mm")
 
 /obj/item/gun/ballistic/automatic/pistol/locker
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors. This one is rusted from being inside of a locker for so long."
@@ -34,7 +35,7 @@
 	desc = "An 'Infiltrator' double-barreled derringer, chambered in the powerful .357. Useful in a pinch but inadequate for longer engagements."
 	icon_state = "derringer"
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = null //Too small to show in hand, unless examined
+	inhand_icon_state = null //Too small to show in hand, unless examined
 	throwforce = 0 //Derringers are light and tiny, no hurtie
 	mag_type = /obj/item/ammo_box/magazine/internal/der38
 	load_sound = 'sound/weapons/revolverload.ogg'
@@ -62,10 +63,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
-	caliber = ".45"
+	caliber = list(".45")
 
 /obj/item/gun/ballistic/automatic/pistol/deagle
 	name = "\improper Desert Eagle"
@@ -79,16 +81,17 @@
 	bolt_drop_sound = "sound/weapons/deagleslidedrop.ogg"
 	lock_back_sound = "sound/weapons/deaglelock.ogg"
 	fire_sound = "sound/weapons/deagleshot.ogg"
+	custom_price = 300
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"
-	item_state = "deagleg"
+	inhand_icon_state = "deagleg"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/camo
 	desc = "A Deagle brand Deagle for operators operating operationally. Uses .50 AE ammo."
 	icon_state = "deaglecamo"
-	item_state = "deagleg"
+	inhand_icon_state = "deagleg"
 
 /obj/item/gun/ballistic/automatic/pistol/APS
 	name = "stechkin APS pistol"
@@ -136,6 +139,7 @@
 	fire_rate = 4
 	can_suppress = FALSE
 	worn_icon_state = "officer_pistol"
+	trade_flags = NONE
 	var/stripe_state = "officer_com"
 
 /obj/item/gun/ballistic/automatic/pistol/service/update_icon()
@@ -162,3 +166,39 @@
 
 /obj/item/gun/ballistic/automatic/pistol/service/cmo
 	stripe_state = "officer_med"
+
+// Security
+/obj/item/gun/ballistic/automatic/pistol/security
+	name = "NPS-10"
+	desc = "Standard APS firearm for on-station law enforcement. Low-velocity and unlikely to breach the hull. Uses x200 LAW ammo cartridges."
+	icon_state = "sec"
+	w_class = WEIGHT_CLASS_LARGE
+	mag_type = /obj/item/ammo_box/magazine/x200law
+	can_suppress = FALSE
+	worn_icon_state = "officer_pistol"
+	empty_alarm = TRUE
+	rack_sound = 'sound/weapons/nps10/NPS-rack.ogg'
+	load_empty_sound = 'sound/weapons/nps10/NPS-load.ogg'
+	bolt_drop_sound = 'sound/weapons/nps10/NPS-boltdrop.ogg'
+	lock_back_sound = 'sound/weapons/nps10/NPS-lockback.ogg'
+	fire_sound = 'sound/weapons/nps10/NPS-fire.ogg'
+	recoil = 0.1
+
+/obj/item/gun/ballistic/automatic/pistol/security/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 16, \
+		overlay_y = 12)
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine(mob/user)
+	. = ..()
+	. += span_notice("<i>You could examine it more thoroughly...</i>")
+
+/obj/item/gun/ballistic/automatic/pistol/security/examine_more(mob/user)
+	. = ..()
+	. += "<i>The corporate-issue NPS-10 is a slim, nondescript sidearm built for reliability on a budget. \
+			Its brushed-gray slide and ergonomic polymer grip keep it unflashy, while the semi-auto action with \
+			optional two-round burst and 12-round magazine ensure effective self defense when called upon. \
+			Designed to blend into any uniform yet hold its own in close quarters, it’s the pragmatic choice for \
+			private security operators.</i>"

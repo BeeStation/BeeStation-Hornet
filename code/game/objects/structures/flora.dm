@@ -7,10 +7,30 @@
 /obj/structure/flora/tree
 	name = "tree"
 	desc = "A large tree."
-	density = TRUE
+	density = FALSE
 	pixel_x = -16
 	layer = FLY_LAYER
 	var/log_amount = 10
+
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/connect_loc, list(COMSIG_ATOM_ENTERED = PROC_REF(on_entered)))
+
+/obj/structure/flora/tree/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/L = AM
+
+	// Movespeed logic
+	if (isliving(L) && !L.has_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown))
+		L.add_movespeed_modifier(/datum/movespeed_modifier/tree_slowdown)
+		to_chat(L, span_warning("You push your way through the thick foliage."))
+		addtimer(CALLBACK(L, /mob/proc/remove_movespeed_modifier, /datum/movespeed_modifier/tree_slowdown), 5) // 10 deciseconds = 1 second
+
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
@@ -196,7 +216,7 @@
 	icon = 'icons/obj/flora/bigplant.dmi'
 	icon_state = "bigplant1"
 	anchored = FALSE
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_MOB_LAYER+0.1 //because railings
 	pixel_x = -17
 
 /obj/structure/flora/bigplant/Initialize(mapload)
@@ -321,54 +341,6 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
 
-/obj/item/kirbyplants_mini_random
-	name = "small potted plant"
-	icon = 'icons/obj/flora/_flora.dmi'
-	icon_state = "random_mini_plant"
-	desc = "A little bit of nature contained in a pot."
-	layer = OBJ_LAYER
-	w_class = WEIGHT_CLASS_NORMAL
-	force = 10
-	attack_weight = 1
-	throwforce = 5
-	throw_speed = 2
-	throw_range = 4
-	item_flags = NO_PIXEL_RANDOM_DROP
-	var/list/static/mini_states
-
-/obj/item/kirbyplants_mini_random/Initialize(mapload)
-	. = ..()
-	icon = 'icons/obj/flora/mini.dmi'
-	if(!mini_states)
-		generate_states()
-	icon_state = pick(mini_states)
-	update_appearance()
-
-/obj/item/kirbyplants_mini_random/Initialize(mapload)
-	..()
-	create_storage(storage_type = /datum/storage/mini_plant)
-
-/obj/item/kirbyplants_mini_random/ComponentInitialize()
-	..()
-
-/datum/storage/mini_plant
-	max_specific_storage = WEIGHT_CLASS_SMALL
-	max_slots = 1
-	silent = TRUE
-	allow_big_nesting = TRUE
-
-/obj/item/kirbyplants_mini_random
-
-/obj/item/kirbyplants_mini_random/proc/generate_states()
-	mini_states = list()
-	for(var/i in 1 to 34)
-		var/number
-		if(i < 10)
-			number = "0[i]"
-		else
-			number = "[i]"
-		mini_states += "plant-[number]"
-
 /obj/item/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
@@ -386,9 +358,6 @@
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
 	create_storage(storage_type = /datum/storage/implant)
-
-/obj/item/kirbyplants/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
 
@@ -419,7 +388,6 @@
 		else
 			number = "[i]"
 		states += "plant-[number]"
-
 
 /obj/item/kirbyplants/dead
 	name = "RD's potted plant"

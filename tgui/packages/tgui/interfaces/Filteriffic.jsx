@@ -1,9 +1,21 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Collapsible, ColorBox, Dropdown, Input, LabeledList, NoticeBox, NumberInput, Section } from '../components';
-import { Window } from '../layouts';
 import { map } from 'common/collections';
 import { toFixed } from 'common/math';
+import { Dropdown } from 'tgui-core/components';
+
 import { numberOfDecimalDigits } from '../../common/math';
+import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Collapsible,
+  ColorBox,
+  Input,
+  LabeledList,
+  NoticeBox,
+  NumberInput,
+  Section,
+} from '../components';
+import { Window } from '../layouts';
 
 const FilterIntegerEntry = (props) => {
   const { value, name, filterName } = props;
@@ -143,10 +155,9 @@ const FilterFlagsEntry = (props) => {
 
   const filterInfo = data.filter_info;
   const flags = filterInfo[filterType]['flags'];
-  return map((bitField, flagName) => (
+  return map(flags, (bitField, flagName) => (
     <Button.Checkbox
       checked={value & bitField}
-      content={flagName}
       onClick={() =>
         act('modify_filter_value', {
           name: filterName,
@@ -155,8 +166,11 @@ const FilterFlagsEntry = (props) => {
           },
         })
       }
-    />
-  ))(flags);
+      key={flagName}
+    >
+      {flagName}
+    </Button.Checkbox>
+  ));
 };
 
 const FilterDataEntry = (props) => {
@@ -207,7 +221,9 @@ const FilterEntry = (props) => {
 
   const filterDefaults = data['filter_info'];
 
-  const targetFilterPossibleKeys = Object.keys(filterDefaults[type]['defaults']);
+  const targetFilterPossibleKeys = Object.keys(
+    filterDefaults[type]['defaults'],
+  );
 
   return (
     <Collapsible
@@ -239,9 +255,13 @@ const FilterEntry = (props) => {
             }
             width="90px"
           />
-          <Button.Confirm icon="minus" onClick={() => act('remove_filter', { name: name })} />
+          <Button.Confirm
+            icon="minus"
+            onClick={() => act('remove_filter', { name: name })}
+          />
         </>
-      }>
+      }
+    >
       <Section level={2}>
         <LabeledList>
           {targetFilterPossibleKeys.map((entryName) => {
@@ -277,7 +297,8 @@ export const Filteriffic = (props) => {
     <Window width={500} height={500} title="Filteriffic" resizable>
       <Window.Content scrollable>
         <NoticeBox danger>
-          DO NOT MESS WITH EXISTING FILTERS IF YOU DO NOT KNOW THE CONSEQUENCES. YOU HAVE BEEN WARNED.
+          DO NOT MESS WITH EXISTING FILTERS IF YOU DO NOT KNOW THE CONSEQUENCES.
+          YOU HAVE BEEN WARNED.
         </NoticeBox>
         <Section
           title={
@@ -286,7 +307,11 @@ export const Filteriffic = (props) => {
                 <Box mr={0.5} inline>
                   MASS EDIT:
                 </Box>
-                <Input value={massApplyPath} width="100px" onInput={(e, value) => setMassApplyPath(value)} />
+                <Input
+                  value={massApplyPath}
+                  width="100px"
+                  onInput={(e, value) => setMassApplyPath(value)}
+                />
                 <Button.Confirm
                   content="Apply"
                   confirmContent="ARE YOU SURE?"
@@ -303,7 +328,7 @@ export const Filteriffic = (props) => {
             <Dropdown
               icon="plus"
               displayText="Add Filter"
-              nochevron
+              noChevron
               options={Object.keys(filterDefaults)}
               onSelected={(value) =>
                 act('add_filter', {
@@ -313,11 +338,14 @@ export const Filteriffic = (props) => {
                 })
               }
             />
-          }>
+          }
+        >
           {!hasFilters ? (
             <Box>No filters</Box>
           ) : (
-            map((entry, key) => <FilterEntry filterDataEntry={entry} name={key} key={key} />)(filters)
+            map(filters, (entry, key) => (
+              <FilterEntry filterDataEntry={entry} name={key} key={key} />
+            ))
           )}
         </Section>
       </Window.Content>

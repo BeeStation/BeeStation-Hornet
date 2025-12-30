@@ -6,6 +6,7 @@
 /obj/item/circuit_component/trim
 	display_name = "String Trim"
 	desc = "A component that trims strings. Use a Negative Right Value to trim characters off the total length or a positive value to set the string length to a specific length."
+	category = "String"
 
 	//Trims characters off the left hand side of the string.
 	var/datum/port/input/left_trim_input

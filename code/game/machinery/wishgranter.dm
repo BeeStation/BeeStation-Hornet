@@ -10,6 +10,8 @@
 	var/charges = 1
 	var/insisting = 0
 
+SCREENTIP_ATTACK_HAND(/obj/machinery/wish_granter, "Use")
+
 /obj/machinery/wish_granter/attack_hand(mob/living/carbon/user)
 	. = ..()
 	if(.)

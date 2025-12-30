@@ -2,7 +2,7 @@
 	var/datum/universal_icon/lower_half = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	for (var/icon in icons)
-		lower_half.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', icon), ICON_OVERLAY)
+		lower_half.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', icon), ICON_OVERLAY)
 
 	var/list/values = list()
 
@@ -52,6 +52,9 @@
 /datum/preference/choiced/backpack/apply_to_human(mob/living/carbon/human/target, value)
 	target.backbag = value
 
+/datum/preference/choiced/backpack/create_default_value()
+	return DBACKPACK
+
 /// Jumpsuit preference
 /datum/preference/choiced/jumpsuit_style
 	db_key = "jumpsuit_style"
@@ -59,6 +62,8 @@
 	main_feature_name = "Jumpsuit"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
+	informed = TRUE
+	priority = PREFERENCE_PRIORITY_JUMPSUIT
 
 /datum/preference/choiced/jumpsuit_style/init_possible_values()
 	var/list/values = list()
@@ -70,6 +75,12 @@
 
 /datum/preference/choiced/jumpsuit_style/apply_to_human(mob/living/carbon/human/target, value)
 	target.jumpsuit_style = value
+
+/datum/preference/choiced/jumpsuit_style/create_informed_default_value(datum/preferences/preferences)
+	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
+	if (gender == MALE)
+		return PREF_SUIT
+	return pick(PREF_SUIT, PREF_SKIRT)
 
 /// Socks preference
 /datum/preference/choiced/socks
@@ -104,13 +115,13 @@
 	priority = PREFERENCE_PRIORITY_UNDERSHIRT
 
 /datum/preference/choiced/undershirt/init_possible_values()
-	var/datum/universal_icon/body = uni_icon('icons/mob/human_parts_greyscale.dmi', "human_r_leg")
-	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_r_arm"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_l_arm"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_r_hand"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_l_hand"), ICON_OVERLAY)
-	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
+	var/datum/universal_icon/body = uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_leg")
+	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_arm"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_arm"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_r_hand"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_l_hand"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/species/human/bodyparts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
 
 	var/list/values = list()
 

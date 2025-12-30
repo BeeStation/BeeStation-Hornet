@@ -520,6 +520,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
+	custom_price = 15
 
 /obj/item/storage/crayons/Initialize(mapload)
 	. = ..()
@@ -580,7 +581,7 @@
 	paint_color = null
 	drawtype = "splatter"
 
-	item_state = "spraycan"
+	inhand_icon_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	desc = "A metallic container containing tasty paint."
@@ -603,7 +604,11 @@
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	if(!spraycan_touch_normally)
-		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
+		spraycan_touch_normally = typecacheof(list(
+			/obj/machinery/modular_fabricator/autolathe,
+			/obj/structure/closet,
+			/obj/machinery/disposal,
+		))
 
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
@@ -649,7 +654,7 @@
 		. += "It is empty."
 	. += span_notice("Alt-click [src] to [ is_capped ? "take the cap off" : "put the cap on"].")
 
-/obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return ..()
 
@@ -728,6 +733,9 @@
 		return FALSE
 
 	. = ..()
+
+/obj/item/toy/crayon/spraycan/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	return is_capped
 
 /obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = is_capped ? icon_capped : icon_uncapped

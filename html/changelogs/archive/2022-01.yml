@@ -1,0 +1,318 @@
+2022-01-01:
+  PestoVerde322:
+  - rscadd: Flandstation
+  - rscadd: Shuttles (Whiteship, arrival, cargo, emergency, exploration, ferry, labour,
+      mining).
+  - rscadd: A new type of carpet, the Grimy_carpet.
+  - rscadd: New markings for the Atmos.
+  - rscadd: New marking for directions on the floor.
+  - rscadd: New (map dedicated) type of random room.
+  - code_imp: Modified the code related to the markings.dm to allocate the new markings
+      for atmos.
+  - code_imp: Modified the code for fancy_floor.dm to allocate the new carpet type.
+  - code_imp: Modified the code for Laborshuttle.dm for the new Labor shuttle destinations.
+  - bugfix: Fixed a broken ss13 logo.
+  - bugfix: Fixed some terribly broken piping & cable placement.
+  - rscadd: Added a commemorative plaque thanking you all for playtesting my map,
+      thank you.
+  - rscdel: Removed An unused (commented) decal from markings.dm
+2022-01-02:
+  DatBoiTim:
+  - rscadd: 'Added a Preference to be Incursion Team Target: Excommunicated Syndicate
+      Agent. Now separate from regular Traitor.'
+  EvilDragonfiend:
+  - balance: Mysterious pillars from Prison Cube traitor item are now indestructible.
+  TheChaser212:
+  - bugfix: Monkeys burn their hands on lights instead of removing them
+2022-01-03:
+  DatBoiTIm:
+  - server: Revised PR Template
+  DatBoiTim:
+  - bugfix: Spetsnaz Pyro Backpack Sprite now Referenced Correctly
+  Dingo-Dongler:
+  - rscadd: Added pineapple juice, creme de coconut, pina coladas and painkillers.
+  Ivniinvi:
+  - rscadd: BeeCoins per achievement can be adjusted.
+  Ivniinvi, Tralezab, Melbert:
+  - rscadd: There's a new wizard event, RPG titles. Summon the star duke!
+  KubeRoot:
+  - tweak: TGUI will no longer passthrough inputs when on non-hotkey mode focused
+      on the chatbox. This does not affect most players.
+  KubeRoot, Mothblocks:
+  - rscadd: The communications console now uses tgui
+  Phil Smith:
+  - balance: Detective's now start with rubber/bouncy rubber revolver bullets in their
+      gun and shoulder holster
+  PowerfulBacon:
+  - bugfix: Swarmer blockades are now dense.
+  - bugfix: Pubbystation book inventory management console is now close enough to
+      the scanner to upload books.
+  - bugfix: Fixes void thrusters not working without a heater.
+  - bugfix: Fixes thrusters with open panels having the wrong icon state.
+  - bugfix: Motion sensing cameras can no longer see invisible objects moving.
+  - refactor: Refactors silicon access, so that station cyborgs and AIs cannot use
+      doors that don't belong to Nanotrasen. (Pirate doors, gateway doors, Centcom
+      doors, Syndicate doors).
+  - code_imp: Seperates light_range from light_intensity on welders. Sunglasses not
+      protecting from welding tools is now an intentional feature.
+  - balance: Clockwork welding tools cause less eye damage.
+  - bugfix: Cult and clockie spells now check for holy anti-magic sources.
+  - balance: The bible now needs to be held in hand to function as an anti-magic source
+      (The bible also now protects against clockie and cult spells)
+  - bugfix: Fixes adjustable uniform icon states being missing on some adjustable
+      peices of clothing.
+  - code_imp: Adds in a unit test for adjustable clothing errors.
+  - bugfix: Mobs that are unable to hold items will drop embedded items to the ground
+      when removed, rather than have that item go to their hand.
+  - code_imp: Moved the auto-fire variable to the guns themselves rather than autofire.dm
+  The-Moon-Itself:
+  - rscadd: A new wiremod shell that functions as an assembly.
+  benbot16:
+  - rscadd: Adds a new chemical production ion law.
+  ike709:
+  - admin: The "follow" button in the arena controller has been re-added, minus the
+      serious security problem.
+  lordScrubling, ArcaneMusic, RandomGamer123:
+  - rscadd: cargo ordering app
+  - rscadd: heads start with a tablet with the app installed
+  - tweak: bz and co2 canister shipments require atmos access
+  mc_meiler, idea by oo7craigmc:
+  - rscadd: Added Meclizine, a medicine that prevents vomiting. It is obtainable by
+      mixing 1 part Chlorine, 1 part Ammonia and 2 parts Carbon.
+  zeskorion:
+  - balance: the fire breath mutation no longer gets a heavy explosion radius when
+      upgraded with power chromosomes
+  - tweak: adds another viro slot
+2022-01-04:
+  DrMacCool:
+  - rscadd: Plasmamen can now choose from a selection of helmets.
+  Isy232:
+  - balance: Removed blindness traps on ratvar ruins.
+  - balance: Xeno spawns on xeno ruins scaled by 1/3rd.
+  Ivniinvi:
+  - bugfix: Fixed the Eminence's Manipulate Reality and Servant Warp spells
+  - bugfix: BoxStation Toxins will no longer blow up the exploration shuttle.
+  - admin: Admins can now delete library books.
+  - tweak: Minimum threat to cast Summon Events has been lowered from 100 to 85
+  PestoVerde322, DatBoiTim:
+  - rscadd: Roomba Subtype of Cleanbot and associated recipe to make them
+  - rscadd: Roomba frame for constructing Roombas
+  - imageadd: New Roomba Sprite for Cleanbots, courtesy of Pestoverde322
+2022-01-05:
+  Zams, Isy232:
+  - bugfix: Explorer gun will not function as intended against simplemobs.
+2022-01-07:
+  Ivniinvi:
+  - tweak: Due to trademark reasons, the Roomba has been renamed
+  KubeRoot, lordScrubling, Mothblocks:
+  - rscadd: Brand new TGUI Strip menu, based on tg's one
+  - code_imp: Strippable element
+  - refactor: Stripping is now unified to use the strippable element
+  PestoVerde322:
+  - bugfix: Fixed some broken pipes and cables all around.
+  - bugfix: Fixed some technical stuff.
+  - tweak: Changed some directional decals to make more sense.
+  - tweak: Tweaked some wrongly placed areas.
+  - tweak: Made the vault less secure, you'll need a pick still!
+  - tweak: changed the shape of some rooms to make more sense.
+  - rscadd: Added a new maintenance corridor splitting Engineering and Science.
+  - rscadd: Added more random maintenance rooms in the southern maintenance.
+  - rscadd: Added new areas to the Radiation shielded zones.
+  - rscadd: Added a Shielded radiation room in the asteroid perma.
+  - balance: Added maintenance areas to the small Science and Cargo maintenance pockets
+      to shield people from radiations.
+  - imageadd: Remade the sprites for the iris kind of doors  (both maintenance variant
+      and Centcomm variant).
+  stinky-lizard:
+  - rscadd: Made WASD movement keys rebindable
+2022-01-08:
+  BatElite:
+  - bugfix: Fixed a runtime when examining empty folders
+  Dejaku51:
+  - bugfix: Finally fixed hardsuit glowing
+  ImSynthex:
+  - imageadd: Added a new AI core display, the Cat
+  St0rmC4st3r:
+  - bugfix: Pubbystation large pod docks properly now.
+  - bugfix: Fixed DeltaStation ORM being misoriented.
+  Victor239:
+  - balance: Harmbaton damage increase from 5 to 8. No more doing less damage than
+      punches.
+2022-01-10:
+  ArcaneMusic:
+  - bugfix: Cargo consoles can once again accept crewmember's purchase requests.
+  Hardly:
+  - tweak: Pubbystation's launch room now has intercom.
+  - tweak: Moved Deltastation's intercom, it should be able to broadcast doppler results
+      now.
+2022-01-12:
+  PestoVerde322:
+  - tweak: tweaked medbay a little, the First aid area no longer feels cluttered.
+  - tweak: CMO's office size have been reduced a little.
+  - tweak: Harmonized all the buttons to be at the same distance on the wall (or tables).
+  - bugfix: Fixed some unconnected cables.
+  - bugfix: Fixed a missing wall from science to toxins.
+  - bugfix: Fixed the disposal button not working for the Supply staff.
+2022-01-13:
+  DatBoiTim:
+  - bugfix: Xenomorphs no longer gasp in low oxy/vaccuumed environments
+  PowerfulBacon:
+  - balance: Shuttle computers can now be hacked by using a multitool on their circuitboard
+      to disable ID checks.
+  - bugfix: Deconstructing shuttle computers will no longer break shuttle docking
+      if the shuttle has a custom dock defined.
+  - balance: EMPs now destroy energy bolas and free anyone trapped by an energy snare.
+  - rscadd: Adds in a new assassination objective for supercruise.
+  - tweak: The dictator is no longer a VIP extraction target, but an assassination
+      target.
+  - bugfix: Alien artifact mission's defenses will now spawn correctly.
+2022-01-14:
+  PestoVerde322:
+  - imageadd: Updated the Persian cat sprite.
+2022-01-17:
+  Ivniinvi:
+  - bugfix: Nightmares will no longer softlock borgs that they attack.
+2022-01-19:
+  DatBoiTim:
+  - tweak: Rad Particles no longer break objects so now fusion can actually be contained.
+  TheFakeElon:
+  - code_imp: removed is_type_in_typecache
+2022-01-20:
+  DatBoiTim:
+  - tweak: Warping runes now retrieve current turf whenever activated.
+  unit0016:
+  - imageadd: 'Gas Analyzers are now animated! Rest easy, Nanotrasen Employee # 20-1712-14
+      - We''ve heard your fears...'
+2022-01-21:
+  ImSynthex:
+  - bugfix: Fixed some of the retro theme's icons to fit
+  - imageadd: Changed some of the retro theme's icons
+  St0rmC4st3r:
+  - bugfix: Fixes Sci smoking room and cargo autolathe access on MetaStation.
+  zeskorion:
+  - bugfix: you now enter stamcrit as soon as you take enough damage to do so
+2022-01-22:
+  PestoVerde322:
+  - rscadd: Added in-hand sprites for all the plushes.
+  - rscadd: Added new plushes (Gondola, Runtime, Flushed).
+  - tweak: Renamed some icons to be harmonized instead of having odd names.
+2022-01-23:
+  Froststahr:
+  - tweak: Hypnotic Stupor is removed from the Fourth Wall. You will only be self\-antagging
+      your liver.
+  KubeRoot, prodirus, Mothblocks, Frostahr:
+  - rscadd: Reintroduced the accidentally removed illegal shuttle restriction. Illegal
+      shuttles cannot be normally purchased, consoles need to be hacked or emagged
+      to purchase them. Emagging a console will additionally allow you to log into
+      console without access, while obscuring your real name.
+  - bugfix: The communications shuttle now supports HTML formatting in messages.
+  - bugfix: Fixes an embarrasing mistake where the communications console was hardcoded
+      to only list the first 6 shuttles for purchase.
+  - bugfix: Fixes minor issues with the communications console interface.
+  Penwin0:
+  - bugfix: Offering of antags should check for jobbans properly
+  mc_meiler:
+  - tweak: Pacification trauma is more noticable on gain.
+  unit0016:
+  - bugfix: The APC in Delta station's explorer's office is fixed.
+  - tweak: The lavaland animal hospital can now actually repair organ damage now through
+      their new smartfridge, meaning they can actually revive even lava-ridden, dead
+      organ miners if given the chance.
+2022-01-25:
+  DatBoiTim:
+  - bugfix: Fixed AdvMop upgrade working on any cyborg
+  Hardly:
+  - tweak: Medipens and Regenerative Cores can now be applied onto yourself by activating
+      them while in-hand
+  ImSynthex:
+  - balance: Particle Accelerator, Tesla generator and Singularity generator crates
+      now have locks on them that need engineering access to open
+  Isy232:
+  - rscadd: Syndicate stimpacks readded.
+  Ivniinvi:
+  - balance: Fight Pit Bears now scale to player population.
+  KubeRoot:
+  - bugfix: Fixed writing on paper
+  Wilchenx:
+  - rscdel: "hygiene is gone \U0001F980"
+2022-01-26:
+  ImSynthex:
+  - bugfix: Fixed the orbit menu ghost icon
+  Ivniinvi:
+  - rscadd: Eminence now has a radio
+  - rscadd: Eminence can be given encryption keys by tapping them on the relay pylon
+  - bugfix: Eminence button act is now fixed
+  - bugfix: Stargazer's possession enchantment now actually works
+  - rscadd: Eminence can now see their cog count in the stat pane
+  - rscdel: Eminence can no longer trigger rad storm, good riddance
+  Ivniinvi, swissloaf, Ryll-Ryll:
+  - rscadd: You can now tip over medibots, and they will become increasingly more
+      distressed.
+  Kapu1178:
+  - rscadd: All mobs can now have a typing indicator
+  - imageadd: Typing Indicator is now animated
+  - tweak: say/me input boxes no longer wipe their contents if you press the hotkey
+      again with the window open but out of focus
+  PowerfulBacon, Kapu, nemvar, AnturK:
+  - refactor: Refactors digital invisibility to be faster
+  - refactor: All silicons are now affected by digital camoflague including Cyborgs
+      and pAIs.
+  ike709 and various TG ports:
+  - server: Changed a lot of the VSCode extensions and settings. Contributors are
+      encouraged to install the recommended extensions.
+  - server: Added the ability to run unit tests locally in VSCode's Test Explorer.
+  - bugfix: Ported some internal changes to reagent metabolism and added a unit test
+  - bugfix: Fixed a runtime with blood droplet effects
+  unit0016:
+  - bugfix: A choice few thunderdome templates have had their objects updated, meaning
+      they load without errors again - A true case of de-soulling in the modern day
+      and age.
+2022-01-27:
+  ImSynthex:
+  - bugfix: The OOC tab button "View Webmap" now works on Fland Station
+  Wilchenx:
+  - rscadd: Retro roboticist jumpsuits
+  - rscdel: mech suit crate
+2022-01-28:
+  ImSynthex:
+  - balance: The exploration multi phase gun no longer tears through blobs
+  Kapu1178, Powerfulbacon:
+  - code_imp: SSticker.round_start_timeofday for mechanics that should use IRL time
+  - code_imp: GENERATE_STAT_BLANK, for use of putting blank lines in the statpanel
+  - tweak: Reordered Status pane.
+  - tweak: Round Time >> Internal Round Timer, since its not actually good at keeping
+      time with Bee's time dilation.
+  - rscadd: Actual Round Timer. A timer based on world.timeofday, for actual time
+      keeping.
+  - rscadd: Player count now shows Playing/Connected
+  - rscadd: Player count in the lobby now shows Ready/Connected
+  - tweak: Players Ready is no longer an admin-only statistic in the lobby.
+  - rscdel: Removes redundant "Players" lobby-only number.
+  - rscdel: Intents and Movement are no longer shown in the Status tab.
+  - tweak: World Topic now outputs timeofday instead of time for round duration
+  jupyterkat:
+  - rscadd: Random rooms are initialized at the start of the round.
+  stylemistake,SplinterGP,mokulus:
+  - code_imp: Treat DreamMaker warnings as errors in CI
+  - refactor: Performance of core tgui components was improved (Button, Icon, Flex,
+      Stack). UI should feel a tiny bit faster.
+  unit0016:
+  - imageadd: The syndicate have splurged to make the id w i d e . This has no relation
+      to the scandal involving Nanotrasen's CEO, his figure, or anything of the sort.
+2022-01-29:
+  PetMudstone:
+  - bugfix: Fixed bug where pill bottles in ChemMasters didn't receive pills created
+      by them.
+2022-01-30:
+  Crossedfall:
+  - server: Python version bumped to 3.9.10
+  - code_imp: Cleans up the CL scripts
+2022-01-31:
+  ike709:
+  - bugfix: Fixed beakers in chem grenades hard deleting
+  - bugfix: Fixed chem grenades hard deleting
+  - bugfix: Fixed mood events hard deleting
+  - code_imp: Improved assembly deletion when attached to a wire
+  'ninjanomnom, Arkatos1 ':
+  - rscadd: Added GAGS system, for generating colored icons.
+  - rscadd: GAGS for canisters and screwdrivers.

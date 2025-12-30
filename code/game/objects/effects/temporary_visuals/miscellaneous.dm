@@ -4,16 +4,19 @@
 	duration = 5
 	randomdir = FALSE
 	layer = BELOW_MOB_LAYER
+	color = COLOR_BLOOD
 	var/splatter_type = "splatter"
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir)
-	if(set_dir in GLOB.diagonals)
+/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, set_color)
+	if(ISDIAGONALDIR(set_dir))
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else
 		icon_state = "[splatter_type][pick(3, 4, 5)]"
 	. = ..()
+	if(set_color)
+		color = set_color
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(set_dir)
@@ -44,6 +47,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
 	splatter_type = "xsplatter"
+	color = null
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
@@ -254,7 +258,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/decoy/fading)
 
 /obj/effect/temp_visual/fire
 	icon = 'icons/effects/fire.dmi'
-	icon_state = "3"
+	icon_state = "heavy"
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
 	duration = 10
@@ -616,3 +620,74 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/launchpad)
 	duration = time
 	animate(src, time=time, alpha=255)
 	return ..()
+
+/obj/effect/temp_visual/light_ash
+	icon_state = "light_ash"
+	icon = 'icons/effects/weather_effects.dmi'
+	duration = 3.2 SECONDS
+
+/obj/effect/temp_visual/sonar_ping
+	duration = 3 SECONDS
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	anchored = TRUE
+	randomdir = FALSE
+	/// The image shown to modsuit users
+	var/image/modsuit_image
+	/// The person in the modsuit at the moment, really just used to remove this from their screen
+	var/datum/weakref/mod_man
+	/// The creature we're placing this on
+	var/datum/weakref/pinged_person
+	/// The icon state applied to the image created for this ping.
+	var/real_icon_state = "sonar_ping"
+	/// Does the visual follow the creature?
+	var/follow_creature = TRUE
+	/// Creature's X & Y coords, which can either be overridden or kept the same depending on follow_creature.
+	var/creature_x
+	var/creature_y
+
+/obj/effect/temp_visual/sonar_ping/Initialize(mapload, mob/living/looker, mob/living/creature, ping_state, follow_creatures = TRUE)
+	. = ..()
+	if(!looker || !creature)
+		return INITIALIZE_HINT_QDEL
+	if(ping_state)
+		real_icon_state = ping_state
+	follow_creature = follow_creatures
+	creature_x = creature.x
+	creature_y = creature.y
+
+	modsuit_image = image(icon = icon, loc = looker.loc, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
+	modsuit_image.plane = ABOVE_LIGHTING_PLANE
+	pinged_person = WEAKREF(creature)
+	add_mind(looker)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/effect/temp_visual/sonar_ping/Destroy()
+	var/mob/living/previous_user = mod_man?.resolve()
+	if(previous_user)
+		remove_mind(previous_user)
+	STOP_PROCESSING(SSfastprocess, src)
+	// Null so we don't shit the bed when we delete
+	modsuit_image = null
+	return ..()
+
+/// Add the image to the modsuit wearer's screen
+/obj/effect/temp_visual/sonar_ping/proc/add_mind(mob/living/looker)
+	looker?.client?.images |= modsuit_image
+
+/// Remove the image from the modsuit wearer's screen
+/obj/effect/temp_visual/sonar_ping/proc/remove_mind(mob/living/looker)
+	looker?.client?.images -= modsuit_image
+
+/// Update the position of the ping while it's still up. Not sure if i need to use the full proc but just being safe
+/obj/effect/temp_visual/sonar_ping/process(seconds_per_tick)
+	var/mob/living/looker = mod_man?.resolve()
+	var/mob/living/creature = pinged_person?.resolve()
+	if(isnull(looker) || isnull(creature))
+		return PROCESS_KILL
+	modsuit_image.loc = looker.loc
+	// Long pings follow, short pings stay put. We still need to update for looker.x&y though
+	if(follow_creature)
+		creature_y = creature.y
+		creature_x = creature.x
+	modsuit_image.pixel_x = ((creature_x - looker.x) * 32)
+	modsuit_image.pixel_y = ((creature_y - looker.y) * 32)

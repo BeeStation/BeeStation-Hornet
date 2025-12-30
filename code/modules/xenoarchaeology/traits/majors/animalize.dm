@@ -5,8 +5,7 @@
 /datum/xenoartifact_trait/major/animalize
 	label_name = "Bestialized"
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
-	//flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	flags = XENOA_MISC_TRAIT | XENOA_HIDE_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	weight = 15
 	conductivity = 12
@@ -41,7 +40,9 @@
 		return ..()
 	//Restore every swap holder
 	for(var/mob/living/target in focus)
-		target?.do_unshapeshift()
+		var/mob/living/form = target.loc
+		form.forceMove(get_turf(form))
+		form?.do_unshapeshift()
 		target.Knockdown(2 SECONDS)
 	return ..()
 

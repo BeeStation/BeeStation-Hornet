@@ -121,10 +121,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/temp_visual/point)
 /mob/verb/pointed(atom/A as mob|obj|turf in view(), params = "" as text)
 	set name = "Point To"
 	set category = "Object"
+	if(isnewplayer(src))
+		return FALSE
 	if(client && !(A in view(client.view, src)))
 		return FALSE
 	if(istype(A, /obj/effect/temp_visual/point))
 		return FALSE
+	if (SEND_SIGNAL(src, COMSIG_MOB_POINTED, A) & COMSIG_MOB_POINTED_CANCEL)
+		return
 	point_at(A, params, usr)
-	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE

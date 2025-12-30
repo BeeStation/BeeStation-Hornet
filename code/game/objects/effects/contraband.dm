@@ -60,6 +60,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	var/poster_item_name = "hypothetical poster"
 	var/poster_item_desc = "This hypothetical poster item should not exist, let's be honest here."
 	var/poster_item_icon_state = "rolled_poster"
+	var/poster_item_type = /obj/item/poster
 
 /obj/structure/sign/poster/Initialize(mapload)
 	. = ..()
@@ -105,6 +106,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 		return
 	if(ruined)
 		return
+
 	visible_message("[user] rips [src] in a single, decisive motion!" )
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
 
@@ -117,7 +119,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 /obj/structure/sign/poster/proc/roll_and_drop(loc)
 	pixel_x = 0
 	pixel_y = 0
-	var/obj/item/poster/P = new(loc, src)
+	var/obj/item/poster/P = new poster_item_type(loc, src)
 	forceMove(P)
 	return P
 
@@ -187,6 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	poster_item_name = "contraband poster"
 	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
 	poster_item_icon_state = "rolled_poster"
+	trade_flags = TRADE_CONTRABAND
 
 /obj/structure/sign/poster/contraband/random
 	name = "random contraband poster"
@@ -437,6 +440,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/poster)
 	random_basetype = /obj/structure/sign/poster/official
 	icon_state = "random_official"
 	never_random = TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/random, 32)
 
 /obj/structure/sign/poster/official/here_for_your_safety
 	name = "Here For Your Safety"

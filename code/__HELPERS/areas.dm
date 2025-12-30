@@ -1,9 +1,11 @@
 #define BP_MAX_ROOM_SIZE 300
 
-GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/engineering, \
-																/area/engine/supermatter, \
-																/area/engine/atmospherics_engine, \
-																/area/ai_monitored/turret_protected/ai))
+GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(list(
+	/area/engine/engineering,
+	/area/engine/supermatter,
+	/area/engine/atmospherics_engine,
+	/area/ai_monitored/turret_protected/ai,
+)))
 
 // Gets an atmos isolated contained space
 // Returns an associative list of turf|dirs pairs
@@ -43,7 +45,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	var/static/area_or_turf_fail_types = typecacheof(list(
 		/turf/open/space,
 		/area/shuttle,
-		))
+	))
 
 	if(creator)
 		if(creator.create_area_cooldown >= world.time)
@@ -54,7 +56,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/blacklisted_areas = typecacheof(list(
 		/area/space,
-		))
+	))
 
 	var/list/turfs = detect_room(get_turf(creator), area_or_turf_fail_types)
 	if(!turfs)
@@ -82,23 +84,21 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 			return
 		areas[place.name] = place
 
-	var/area_choice = input(creator, "Choose an area to expand or make a new area.", "Area Expansion") as null|anything in areas
+	var/area_choice = tgui_input_list(creator, "Choose an area to expand or make a new area.", "Area Expansion", areas)
 	area_choice = areas[area_choice]
 
 	if(!area_choice)
-		to_chat(creator, span_warning("No choice selected. The area remains undefined."))
+		to_chat(creator, span_warning("No choice selected."))
 		return
 	var/area/newA
 	var/area/oldA = get_area(get_turf(creator))
 	if(!isarea(area_choice))
-		var/str = stripped_input(creator,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN)
-		if(!str || !length(str)) //cancel
+		var/str = tgui_input_text(creator,"New area name:", "Blueprint Editing", "", MAX_NAME_LEN)
+		if(!str || !length(str)) // no input so we return
+			to_chat(creator, span_warning("You need to enter something!"))
 			return
-		if(length(str) > 50)
-			to_chat(creator, span_warning("The given name is too long. The area remains undefined."))
-			return
-		if(CHAT_FILTER_CHECK(str))
-			to_chat(creator, span_warning("The given name contains prohibited word(s). The area remains undefined."))
+		if(CHAT_FILTER_CHECK(str)) // check for forbidden words
+			to_chat(creator, span_warning("The given name contains prohibited word(s)."))
 			return
 		newA = new area_choice
 		newA.setup(str)

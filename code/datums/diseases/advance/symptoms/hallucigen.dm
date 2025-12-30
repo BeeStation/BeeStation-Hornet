@@ -71,4 +71,4 @@ Bonus
 		else
 			if(prob(base_message_chance))
 				to_chat(M, span_userdanger("[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]"))
-			M.hallucination += (45 * power)
+			M.adjust_hallucinations(90 SECONDS * power)
