@@ -702,9 +702,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 /// Heals everything and is as strong as / is an admin heal
 #define ADMIN_HEAL_ALL ALL
 
-// Species related bitflags go here.
-#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
-
 /// Distance which you can see someone's ID card
 /// Short enough that you can inspect over tables (bartender checking age)
 #define ID_EXAMINE_DISTANCE 3

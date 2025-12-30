@@ -294,6 +294,16 @@
 	if(get_armor_for_examination(user).has_any_armor() || (flags_cover & (HEADCOVERSMOUTH)) || (clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
 		. += span_notice("It has a <a href='byond://?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.")
 
+// If the item is a piece of clothing and is being worn, make sure it updates on the player
+/obj/item/clothing/update_greyscale()
+	. = ..()
+
+	var/mob/living/carbon/human/wearer = loc
+
+	if(!istype(wearer))
+		return
+
+	wearer.update_clothing(slot_flags)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
