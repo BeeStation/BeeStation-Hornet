@@ -10,6 +10,10 @@
 	var/list/data = ..()
 	data["uplink_note"] = uplink_note
 	data["stash_location"] = stash_location
+	if (length(team.members) == 1)
+		data["valid_converts"] = list()
+		for (var/datum/mind/mind in team.valid_converts)
+			data["valid_converts"] += mind.name
 	return data
 
 /datum/antagonist/brother/prime/greet()
