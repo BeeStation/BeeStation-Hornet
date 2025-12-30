@@ -17,7 +17,7 @@
   *
   * For example, two shuttles both of the reserved z-levels have different virtual
   * z-levels and all content that compares z-levels (suit sensors, radios, etc.)
-  * should compare virtual-zs so that the are treated entirel independantly. If
+  * should compare virtual-zs so that the are treated entirely independently. If
   * you need to use physical Zs to get an area (such as with block), then you should
   * compare the virtual z values for each tile in that if the behaviour should be
   * locked down to a single z.
