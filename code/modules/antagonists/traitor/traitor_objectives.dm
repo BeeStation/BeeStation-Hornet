@@ -9,7 +9,8 @@
 	// Lowpop switch: Traitor needs to farm TC instead of do acts of killing
 	// Set at a low value of 6, since the rounds with this number tend to grow
 	// into having more people by the end of them
-	if (length(GLOB.player_list) <= 6)
+	// The less players there are, the more its an easy way out objective.
+	if (length(GLOB.player_list) <= 6 || prob(100 - 5 * length(GLOB.player_list)))
 		var/datum/objective/gain_reputation/gain_reputation = new
 		gain_reputation.owner = owner
 		add_objective(gain_reputation)
