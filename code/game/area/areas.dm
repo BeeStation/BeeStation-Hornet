@@ -393,6 +393,26 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		DOOR.lock()
 
 /**
+  * Update AI view overlays for all atoms in this area
+  *
+  * Called when the APC's AI wire is cut or mended to enable/disable AI holograms
+  *
+  * Arguments:
+  * * enable - TRUE to enable AI views, FALSE to disable them
+  */
+/area/proc/update_ai_views(enable = TRUE)
+	for(var/turf/T in get_contained_turfs())
+		for(var/atom/A in T)
+			if(!A.ai_view)
+				continue
+			A.ai_view_active = enable
+			if(enable)
+				A.update_ai_view()
+				A.add_ai_view()
+			else
+				A.remove_ai_view()
+
+/**
   * Raise a burglar alert for this area
   *
   * Close and locks all doors in the area and alerts silicon mobs of a break in
