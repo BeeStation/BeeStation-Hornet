@@ -32,6 +32,11 @@
 
 	minimal_lightup_areas = list(/area/janitor)
 
+	manuscript_jobs = list(
+		JOB_NAME_JANITOR,
+		JOB_NAME_CHEMIST // chemicals for cleaning.
+	)
+
 /datum/outfit/job/janitor
 	name = JOB_NAME_JANITOR
 	jobtype = /datum/job/janitor

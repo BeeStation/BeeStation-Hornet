@@ -65,6 +65,7 @@
 #include "organs.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"
+#include "pda_power.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"

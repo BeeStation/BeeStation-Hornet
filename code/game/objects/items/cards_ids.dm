@@ -242,6 +242,17 @@
 		)
 	add_fingerprint(user)
 
+/obj/item/card/id/Topic(href, href_list)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+
+	if(href_list["look_at_id"])
+		if(!usr.can_examine_in_detail(src))
+			return
+		usr.examinate(src)
+		return TRUE
+
 /obj/item/card/id/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(.)
@@ -591,7 +602,7 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
+		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
 		if(user.incapacitated())
 			return
 		if(popup_input == "Forge")
@@ -647,7 +658,6 @@ update_label("John Doe", "Clowny")
 			set_new_account(user)
 			return
 	return ..()
-
 
 /obj/item/card/id/syndicate/emp_act(severity)
 	. = ..()
