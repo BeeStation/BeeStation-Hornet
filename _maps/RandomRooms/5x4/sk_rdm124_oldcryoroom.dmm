@@ -45,7 +45,7 @@
 /area/template_noop)
 "h" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/badcode/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/iron/freezer,
 /area/template_noop)
 "i" = (
@@ -125,7 +125,7 @@
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/badcode/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/plating,
 /area/template_noop)
 

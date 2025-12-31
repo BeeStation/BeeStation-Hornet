@@ -80,7 +80,7 @@
 /area/template_noop)
 "j" = (
 /obj/effect/trap/nexus/trickyspawner,
-/obj/effect/spawner/random/badcode/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 

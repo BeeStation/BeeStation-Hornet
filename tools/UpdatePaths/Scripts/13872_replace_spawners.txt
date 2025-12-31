@@ -96,10 +96,10 @@
 /obj/effect/spawner/lootdrop/ruinloot/armory : /obj/effect/spawner/random/ruinloot/armory
 /obj/effect/spawner/lootdrop/ruinloot/important : /obj/effect/spawner/random/ruinloot/important
 
-/obj/effect/spawner/lootdrop/clowntrap : /obj/effect/spawner/random/badcode/trap/clowntrap
-/obj/effect/spawner/lootdrop/trap/reusable : /obj/effect/spawner/random/badcode/trap/reusable
-/obj/effect/spawner/lootdrop/trap : /obj/effect/spawner/random/badcode/trap
-/obj/effect/spawner/lootdrop/sanitarium : /obj/effect/spawner/random/badcode/sanitarium
+/obj/effect/spawner/lootdrop/clowntrap : /obj/effect/spawner/random/unsorted/trap/clowntrap
+/obj/effect/spawner/lootdrop/trap/reusable : /obj/effect/spawner/random/unsorted/trap/reusable
+/obj/effect/spawner/lootdrop/trap : /obj/effect/spawner/random/unsorted/trap
+/obj/effect/spawner/lootdrop/sanitarium : /obj/effect/spawner/random/unsorted/sanitarium
 
 /obj/effect/spawner/lootdrop/clowntrap : /obj/effect/spawner/random/medical/teratoma/major/clown
 /obj/effect/spawner/lootdrop/teratoma/major : /obj/effect/spawner/random/medical/teratoma/major

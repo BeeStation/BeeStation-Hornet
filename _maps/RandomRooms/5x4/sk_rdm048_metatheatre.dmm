@@ -12,8 +12,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/spawner/random/badcode/trap,
-/obj/effect/spawner/random/badcode/trap/clowntrap,
+/obj/effect/spawner/random/unsorted/trap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (

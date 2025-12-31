@@ -19,7 +19,7 @@
 /area/template_noop)
 "c" = (
 /obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/spawner/random/badcode/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (

@@ -42,7 +42,7 @@
 	dir = 1
 	},
 /obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/spawner/random/badcode/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron/white,
 /area/template_noop)
 "h" = (

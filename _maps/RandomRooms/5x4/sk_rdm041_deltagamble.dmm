@@ -38,7 +38,7 @@
 /area/template_noop)
 "h" = (
 /obj/effect/trap/nexus/trickyspawner/shitsec,
-/obj/effect/spawner/random/badcode/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "j" = (

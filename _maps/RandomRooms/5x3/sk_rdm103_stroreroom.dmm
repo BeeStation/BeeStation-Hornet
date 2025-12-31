@@ -39,7 +39,7 @@
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/badcode/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron,
 /area/template_noop)
 "r" = (

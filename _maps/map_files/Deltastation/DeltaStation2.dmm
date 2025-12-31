@@ -57609,7 +57609,7 @@
 /area/security/prison)
 "nWM" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/spawner/random/badcode/trap/reusable,
+/obj/effect/spawner/random/unsorted/trap/reusable,
 /turf/open/floor/iron,
 /area/maintenance/aft)
 "nWU" = (

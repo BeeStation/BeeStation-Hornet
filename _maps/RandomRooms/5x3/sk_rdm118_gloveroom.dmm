@@ -63,7 +63,7 @@
 /area/template_noop)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/badcode/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/carpet/grimy,
 /area/template_noop)
 

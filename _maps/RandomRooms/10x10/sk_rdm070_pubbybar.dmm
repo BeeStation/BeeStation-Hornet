@@ -213,8 +213,8 @@
 /area/template_noop)
 "M" = (
 /obj/item/clothing/under/rank/civilian/clown/sexy,
-/obj/effect/spawner/random/badcode/trap/clowntrap,
-/obj/effect/spawner/random/badcode/trap,
+/obj/effect/spawner/random/unsorted/trap/clowntrap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "N" = (
