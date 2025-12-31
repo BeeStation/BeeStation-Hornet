@@ -40,7 +40,31 @@
 // Returns the NTSC luminance of `$color` as a float (between 0 and 1).
 // 1 is pure white, 0 is pure black.
 @function luminance($color) {
-  @return color.channel($color, 'lightness', $space: hsl) * 0.01;
+  $colors: (
+    'red': color.red($color),
+    'green': color.green($color),
+    'blue': color.blue($color),
+  );
+
+  @each $name, $value in $colors {
+    $adjusted: 0;
+    $value: math.div($value, 255);
+    @if $value < 0.03928 {
+      $value: math.div($value, 12.92);
+    } @else {
+      $value: math.div($value + 0.055, 1.055);
+      $value: math.pow($value, 2.4);
+    }
+    $colors: map.merge(
+      $colors,
+      (
+        $name: $value,
+      )
+    );
+  }
+
+  @return (map.get($colors, 'red') * 0.2126) +
+    (map.get($colors, 'green') * 0.7152) + (map.get($colors, 'blue') * 0.0722);
 }
 
 // Blends an RGBA color with a static background color based on its
@@ -51,4 +75,80 @@
     $color-background,
     color.alpha($color-rgba) * 100%
   );
+}
+
+@function apca-linearize($c) {
+  $c: $c / 255;
+  @if ($c <= 0.04045) {
+    @return $c / 12.92;
+  }
+  @return math.pow(($c + 0.055) / 1.055, 2.4);
+}
+
+@function apca-luminance($color) {
+  $r: apca-linearize(color.red($color));
+  $g: apca-linearize(color.green($color));
+  $b: apca-linearize(color.blue($color));
+
+  // APCA-specific coefficients
+  @return (0.2126729 * $r) + (0.7151522 * $g) + (0.072175 * $b);
+}
+
+@function apca-contrast($text, $bg) {
+  $Ytxt: apca-luminance($text);
+  $Ybg: apca-luminance($bg);
+
+  // Clamp minimums
+  @if ($Ytxt < 0.0005) {
+    $Ytxt: 0.0005;
+  }
+  @if ($Ybg < 0.0005) {
+    $Ybg: 0.0005;
+  }
+
+  // Constants from APCA spec
+  $normBG: 0.55;
+  $normTXT: 0.58;
+  $revBG: 0.62;
+  $revTXT: 0.57;
+  $scale: 1.14;
+  $offset: 0.027;
+
+  $contrast: if(
+    $Ybg > $Ytxt,
+    (math.pow($Ybg, $normBG) - math.pow($Ytxt, $normTXT)) * $scale,
+    (math.pow($Ybg, $revBG) - math.pow($Ytxt, $revTXT)) * $scale
+  );
+
+  // Soft clamp
+  @if (math.abs($contrast) < $offset) {
+    @return 0;
+  }
+
+  @return $contrast * 100;
+}
+
+@function best-fg($color-a, $color-b, $background) {
+  $contrast-a: apca-contrast($color-a, $background);
+  $contrast-b: apca-contrast($color-b, $background);
+
+  @if (math.abs($contrast-a) >= math.abs($contrast-b)) {
+    @return $color-a;
+  }
+
+  @return $color-b;
+}
+
+@function needs-bold($foreground, $background) {
+  $lc: math.abs(apca-contrast($foreground, $background));
+
+  // APCA guidance:
+  // ≥ 60 → normal body text OK
+  // 45–59 → readable but benefits from bold
+  // < 45 → insufficient even if bold
+  @if ($lc < 60) {
+    @return true;
+  }
+
+  @return false;
 }
