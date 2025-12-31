@@ -18,7 +18,7 @@
 		"triggermod",
 		"mecha_kineticgun",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_mining
 	id = TECHWEB_NODE_ADV_MINING
@@ -33,4 +33,4 @@
 		"jackhammer",
 		"repeatermod",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)

@@ -5,7 +5,7 @@
 	design_ids = list(
 		"surgery_exp_dissection",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 	show_on_wiki = FALSE
 
@@ -20,7 +20,7 @@
 		"surgery_heal_brute_upgrade",
 		"surgery_heal_burn_upgrade",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_surgery
 	id = TECHWEB_NODE_ADV_SURGERY
@@ -36,7 +36,7 @@
 		"surgery_heal_combo",
 		"surgery_lobotomy",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/exp_surgery
 	id = TECHWEB_NODE_EXP_SURGERY
@@ -57,4 +57,4 @@
 		"surgery_revival",
 		"surgery_vein_thread",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)

@@ -62,7 +62,7 @@
 	desc = "Eating this makes you feel immortal!"
 	icon_state = "ambrosiadeus"
 	wine_power = 50
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 //Ambrosia Gaia
 /obj/item/seeds/ambrosia/gaia
@@ -88,4 +88,4 @@
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 70
 	wine_flavor = "the earthmother's blessing"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS

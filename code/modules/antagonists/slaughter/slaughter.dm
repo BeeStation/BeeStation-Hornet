@@ -55,7 +55,7 @@
 	del_on_death = TRUE
 	var/crawl_type = /datum/action/spell/jaunt/bloodcrawl/slaughter_demon
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_3_POINTS
 
 	var/revive_eject = FALSE
 

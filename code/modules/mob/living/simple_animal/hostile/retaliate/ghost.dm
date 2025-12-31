@@ -43,7 +43,7 @@
 	var/ghost_facial_hair_color
 	var/mutable_appearance/ghost_facial_hair
 	var/random = TRUE //if you want random names for ghosts or not
-	discovery_points = 1000
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Initialize(mapload)
 	. = ..()

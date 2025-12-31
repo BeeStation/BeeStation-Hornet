@@ -17,7 +17,7 @@
 	minbodytemp = 0
 	faction = list(FACTION_NETHER)
 	hardattacks = TRUE
-	discovery_points = 3000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"

@@ -205,7 +205,7 @@
 	var/cooking_time = 4 SECONDS
 	var/cooking_timer
 	///How effective are our parts, for making DP
-	var/reward_rate = 0.25
+	var/reward_rate = 1 / 16
 
 /obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
 	. = ..()
@@ -233,7 +233,7 @@
 /obj/machinery/xenoarchaeology_machine/calibrator/RefreshParts()
 	//Should only be one, but I'm lazy and this seems safe
 	for(var/obj/item/stock_parts/manipulator/part in component_parts)
-		reward_rate = part.rating / 4
+		reward_rate = part.rating / 16
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()

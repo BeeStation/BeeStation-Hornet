@@ -42,7 +42,7 @@
 	///How much extra value does this trait apply to the artifact - It's important this is applied before anyone can use stickers on the artifact
 	var/extra_value = 0
 	///How many discovery points does this trait give?
-	var/discovery_reward = 100
+	var/discovery_reward = TECHWEB_TIER_2_POINTS
 
 	///Does this trait contribute to calibration
 	var/contribute_calibration = TRUE

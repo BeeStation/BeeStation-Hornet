@@ -45,7 +45,7 @@
 			effect.Initialize(src)
 			effects += effect
 
-	AddComponent(/datum/component/discoverable, 10000, TRUE)
+	AddComponent(/datum/component/discoverable, TECHWEB_TIER_5_POINTS, TRUE)
 
 /obj/item/alienartifact/Destroy()
 	. = ..()

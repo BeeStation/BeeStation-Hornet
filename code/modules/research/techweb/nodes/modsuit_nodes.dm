@@ -36,7 +36,7 @@
 		"mod_drill",
 		"mod_orebag",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_engineering
 	id = TECHWEB_NODE_MOD_ENGINEERING
@@ -53,7 +53,7 @@
 		"mod_constructor",
 		"mod_mister_atmos",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_advanced_engineering
 	id = TECHWEB_NODE_MOD_ADVANCED_ENGINEERING
@@ -68,7 +68,7 @@
 		"mod_emp_shield",
 		"mod_storage_expanded",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/mod_medical
 	id = TECHWEB_NODE_MOD_MEDICAL
@@ -85,7 +85,7 @@
 		"mod_organ_thrower",
 		"mod_dna_lock",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_advanced_medical
 	id = TECHWEB_NODE_MOD_ADVANCED_MEDICAL
@@ -98,7 +98,7 @@
 		"mod_surgicalprocessor",
 		"mod_statusreadout",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/mod_security
 	id = TECHWEB_NODE_MOD_SECURITY
@@ -115,7 +115,7 @@
 		"mod_sonar",
 		"mod_projectile_dampener",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_entertainment
 	id = TECHWEB_NODE_MOD_ENTERTAINMENT
@@ -129,7 +129,7 @@
 		"mod_microwave_beam",
 		"mod_waddle",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_anomaly
 	id = TECHWEB_NODE_MOD_ANOMALY
@@ -140,7 +140,7 @@
 		"mod_antigrav",
 		"mod_teleporter",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_anomaly_engi
 	id = TECHWEB_NODE_MOD_ANOMALY_ENGI
@@ -150,7 +150,7 @@
 	design_ids = list(
 		"mod_kinesis",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/mod_experimental
 	id = TECHWEB_NODE_MOD_EXPERIMENTAL
@@ -160,5 +160,5 @@
 	design_ids = list(
 		"mod_disposal",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE

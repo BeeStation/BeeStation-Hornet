@@ -39683,7 +39683,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "nFs" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/east,

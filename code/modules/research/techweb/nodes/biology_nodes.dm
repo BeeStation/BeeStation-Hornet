@@ -23,7 +23,7 @@
 		"soda_dispenser",
 		"blood_pack",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_biotech
 	id = TECHWEB_NODE_ADV_BIOTECH
@@ -42,7 +42,7 @@
 		"plasmarefiller",
 		"smoke_machine",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/bio_process
 	id = TECHWEB_NODE_BIO_PROCESS
@@ -63,4 +63,4 @@
 		"reagentgrinder",
 		"smartfridge",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)

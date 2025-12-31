@@ -4,7 +4,7 @@
 	display_name = "Data Theory"
 	description = "Big Data, in space!"
 	prereq_ids = list(TECHWEB_NODE_BASE)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/anomaly
 	id = TECHWEB_NODE_ANOMALY_RESEARCH
@@ -22,7 +22,7 @@
 		"xenoa_calibrator",
 		"xenoa_tracker",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/bluespace_basic //Bluespace-memery
 	id = TECHWEB_NODE_BLUESPACE_BASIC
@@ -37,7 +37,7 @@
 		"telesci_gps",
 		"xenobioconsole",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/practical_bluespace
 	id = TECHWEB_NODE_PRACTICAL_BLUESPACE
@@ -55,7 +55,7 @@
 		"phasic_scanning",
 		"roastingstick",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/bluespace_travel
 	id = TECHWEB_NODE_BLUESPACE_TRAVEL
@@ -72,7 +72,7 @@
 		"tele_station",
 		"teleconsole",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/bluespace_stabilisation
 	id = TECHWEB_NODE_BLUESPACE_ANCHOR
@@ -81,7 +81,7 @@
 	description = "Analyse and disrupt nearby bluespace instabilities, preventing anomalous translation."
 	prereq_ids = list(TECHWEB_NODE_MICRO_BLUESPACE)
 	design_ids = list("bsanchor")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/bag_of_holding
@@ -91,7 +91,7 @@
 	description = "Portable bluespace technology allows the production of backpacks that can store a greater volume of items than the volume of the bag."
 	prereq_ids = list(TECHWEB_NODE_MICRO_BLUESPACE)
 	design_ids = list("bag_holding")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/wormhole_gun
@@ -101,7 +101,7 @@
 	description = "Develop the research required to create a miniaturized bluespace wormhole projector, allowing you to jump between two places instantly."
 	prereq_ids = list(TECHWEB_NODE_MICRO_BLUESPACE)
 	design_ids = list("wormholeprojector")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/gravity_gun
@@ -114,7 +114,7 @@
 		"gravitygun",
 		"mech_gravcatapult",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/quantum_spin
 	id = TECHWEB_NODE_QSWAPPER
@@ -123,5 +123,5 @@
 	description = "Research the ability to create an experimental device that is able to swap the locations of two entities by switching their particles' spin values. Must be linked to another device to function."
 	prereq_ids = list(TECHWEB_NODE_MICRO_BLUESPACE)
 	design_ids = list("swapper")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE

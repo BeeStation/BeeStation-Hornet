@@ -150,7 +150,7 @@
 		"tesla_coil",
 		"thermomachine",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
 
 /datum/techweb_node/adv_engi
 	id = TECHWEB_NODE_ADV_ENGI
@@ -168,7 +168,7 @@
 		"weldingmask",
 		"sheetifier",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/high_efficiency
 	id = TECHWEB_NODE_HIGH_EFFICIENCY
@@ -180,7 +180,7 @@
 		"pico_mani",
 		"super_matter_bin",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
 
 /datum/techweb_node/adv_power
 	id = TECHWEB_NODE_ADV_POWER
@@ -201,7 +201,7 @@
 		"superpacman",
 		"teg",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/bluespace_power
 	id = TECHWEB_NODE_BLUESPACE_POWER
@@ -213,7 +213,7 @@
 		"bluespace_cell",
 		"quadratic_capacitor",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/micro_bluespace
 	id = TECHWEB_NODE_MICRO_BLUESPACE
@@ -228,7 +228,7 @@
 		"triphasic_scanning",
 		"usb_wireless",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 
 /datum/techweb_node/basic_shuttle_tech
 	id = TECHWEB_NODE_BASIC_SHUTTLE
@@ -243,7 +243,7 @@
 		"shuttle_creator",
 		"wingpack",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/emp_basic //EMP tech for some reason
 	id = TECHWEB_NODE_EMP_BASIC
@@ -261,7 +261,7 @@
 		"inducersci",
 		"tray_goggles",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/emp_adv
 	id = TECHWEB_NODE_EMP_ADV
@@ -270,7 +270,7 @@
 	description = "Determining whether reversing the polarity will actually help in a given situation."
 	prereq_ids = list(TECHWEB_NODE_EMP_BASIC)
 	design_ids = list("ultra_micro_laser")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/emp_super
 	id = TECHWEB_NODE_EMP_SUPER
@@ -279,7 +279,7 @@
 	description = "Even better electromagnetic technology."
 	prereq_ids = list(TECHWEB_NODE_EMP_ADV)
 	design_ids = list("quadultra_micro_laser")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/telecomms
 	id = TECHWEB_NODE_TELECOMMS
@@ -287,7 +287,7 @@
 	display_name = "Telecommunications Technology"
 	description = "Subspace transmission technology for near-instant communications devices."
 	prereq_ids = list(TECHWEB_NODE_BLUESPACE_BASIC, TECHWEB_NODE_COMPTECH)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	design_ids = list(
 		"comm_monitor",
 		"comm_server",
@@ -322,7 +322,7 @@
 		"secdata",
 		"vendor",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/integrated_HUDs
 	id = TECHWEB_NODE_INTEGRATED_HUDS
@@ -336,7 +336,7 @@
 		"scigoggles",
 		"security_hud",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/NVGtech
 	id = TECHWEB_NODE_NVGTECH
@@ -352,7 +352,7 @@
 		"security_hud_night",
 		"scigoggles_night",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/exp_tools
 	id = TECHWEB_NODE_EXP_TOOLS
@@ -369,7 +369,7 @@
 		"wirebrush_adv",
 	)
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/rcd_upgrade
 	id = TECHWEB_NODE_RCD_UPGRADE
@@ -383,7 +383,7 @@
 		"rpd_upgrade_unwrench"
 	)
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_rcd_upgrade
 	id = TECHWEB_NODE_ADV_RCD_UPGRADE
@@ -392,4 +392,4 @@
 	description = "Unlocks new RCD designs."
 	design_ids = list("rcd_upgrade_silo_link")
 	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_RCD_UPGRADE)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)

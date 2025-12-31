@@ -48,7 +48,7 @@
 	var/atom/movable/throwatom = null
 
 	mobchatspan = "blob"
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 	var/datum/morph_stomach/morph_stomach
 	var/datum/action/innate/morph_stomach/stomach_action
 

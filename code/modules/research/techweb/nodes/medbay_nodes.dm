@@ -11,7 +11,7 @@
 		"cloning_disk",
 		"scan_console",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/cryotech
 	id = TECHWEB_NODE_CRYOTECH
@@ -26,7 +26,7 @@
 		"splitbeaker",
 		"stasis",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/med_scanning
 	id = TECHWEB_NODE_MED_SCANNER
@@ -35,7 +35,7 @@
 	description = "By taking apart the ones we already had, we figured out how to make them ourselves."
 	prereq_ids = list(TECHWEB_NODE_ADV_BIOTECH)
 	design_ids = list("healthanalyzer")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/adv_med_scanning
 	id = TECHWEB_NODE_ADV_MED_SCANNER
@@ -44,4 +44,4 @@
 	description = "By integrating advanced AI into our scanners, we can diagnose even the most minute of abnormalities. Well, the AI is doing it, but we get the credit."
 	prereq_ids = list(TECHWEB_NODE_MED_SCANNER, TECHWEB_NODE_POSIBRAIN)
 	design_ids = list("healthanalyzer_advanced")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)

@@ -15,7 +15,7 @@
 		"largecrossbow",
 		"suppressor",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/syndicate_basic/New() //Crappy way of making syndicate gear decon supported until there's another way.
@@ -41,7 +41,7 @@
 	description = "Bluespace technology using unstable or unbalanced procedures, prone to damaging the fabric of bluespace. Outlawed by galactic conventions."
 	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_SYNDICATE_BASIC)
 	design_ids = list("desynchronizer")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/sticky_basic
 	id = TECHWEB_NODE_STICKY_BASIC
@@ -51,7 +51,7 @@
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_SYNDICATE_BASIC)
 	design_ids = list("sticky_tape")
 
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/sticky_advanced
@@ -65,5 +65,5 @@
 		"super_sticky_tape",
 	)
 
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE

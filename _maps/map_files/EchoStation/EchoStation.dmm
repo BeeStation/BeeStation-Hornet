@@ -30862,7 +30862,7 @@
 	pixel_x = 1;
 	pixel_y = 30
 	},
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /turf/open/floor/iron,

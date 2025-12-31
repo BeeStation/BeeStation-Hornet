@@ -18,7 +18,7 @@
 		"seccamera",
 		"security_photobooth"
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/computer_hardware_basic
 	id = TECHWEB_NODE_COMPUTER_HARDWARE_BASIC
@@ -26,7 +26,7 @@
 	display_name = "Basic Computer Hardware"
 	description = "Necessary basic components for Modular Computer assembly."
 	prereq_ids = list(TECHWEB_NODE_DATATHEORY)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	design_ids = list(
 		"antivirus",
 		"bat_nano",
@@ -47,7 +47,7 @@
 	display_name = "Computer Shells"
 	description = "Production of modular computer shells for assembly."
 	prereq_ids = list(TECHWEB_NODE_DATATHEORY)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	design_ids = list(
 		"shell_pda",
 		"shell_tablet",
@@ -60,7 +60,7 @@
 	display_name = "Advanced Computer Hardware"
 	description = "Standard quality components and functional parts."
 	prereq_ids = list(TECHWEB_NODE_COMPUTER_HARDWARE_BASIC)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	design_ids = list(
 		"antivirus2",
 		"bat_normal",
@@ -85,7 +85,7 @@
 	display_name = "Superior Computer Hardware"
 	description = "Superior quality components and useful parts."
 	prereq_ids = list(TECHWEB_NODE_COMPUTER_HARDWARE_ADVANCED)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	design_ids = list(
 		"antivirus3",
 		"aislot",
@@ -102,7 +102,7 @@
 	display_name = "Experimental Computer Hardware"
 	description = "Experimental parts currently in development. Test cautiously."
 	prereq_ids = list(TECHWEB_NODE_COMPUTER_HARDWARE_SUPER, TECHWEB_NODE_TELECOMMS)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	design_ids = list(
 		"antivirus4",
 		"XNetCard"
@@ -119,4 +119,4 @@
 		"arcade_orion",
 		"slotmachine",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)

@@ -4935,7 +4935,7 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bbI" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /obj/item/radio/intercom{

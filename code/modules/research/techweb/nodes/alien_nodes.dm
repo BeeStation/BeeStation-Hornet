@@ -28,9 +28,12 @@
 		/obj/item/wirecutters/abductor,
 		/obj/item/wrench/abductor,
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	design_ids = list(
+		"alienalloy",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE
-	design_ids = list("alienalloy")
+
 
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 
@@ -67,7 +70,7 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 		/obj/item/wirecutters/abductor,
 		/obj/item/wrench/abductor,
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
@@ -95,7 +98,7 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 		/obj/item/wirecutters/abductor,
 		/obj/item/wrench/abductor,
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
@@ -111,7 +114,7 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 		"surgery_heal_combo_upgrade_femto",
 		"surgery_zombie",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 
 /datum/techweb_node/nullspacebreaching
 	id = TECHWEB_NODE_NULLSPACEBREACHING
@@ -122,4 +125,4 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 		"engine_void",
 		"wingpack_ayy",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)

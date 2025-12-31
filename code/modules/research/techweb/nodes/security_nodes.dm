@@ -14,7 +14,7 @@
 		"genpop_interface",
 	)
 	prereq_ids = list(TECHWEB_NODE_BASE)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/exotic_ammo
 	id = TECHWEB_NODE_EXOTIC_AMMO
@@ -29,7 +29,7 @@
 		"shotgunsluggold",
 		"shotgunslugbronze",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/tackle_advanced
 	id = TECHWEB_NODE_TACKLE_ADVANCED
@@ -37,7 +37,7 @@
 	description = "Nanotrasen would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
 		will no longer be accepted in its academic journals."
 	design_ids = list("tackle_dolphin", "tackle_rocket")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/landmine
@@ -47,7 +47,7 @@
 	description = "Our weapons technicians could perhaps work out methods for the creation of nonlethal landmines for security teams."
 	prereq_ids = list(TECHWEB_NODE_SEC_BASIC)
 	design_ids = list("stunmine")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/weaponry
 	id = TECHWEB_NODE_WEAPONRY
@@ -59,7 +59,7 @@
 		"pin_testing",
 		"tele_shield",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/smartmine
 	id = TECHWEB_NODE_SMART_MINES
@@ -68,7 +68,7 @@
 	description = "Using IFF technology, we could develop smartmines that do not trigger for those who are mindshielded."
 	prereq_ids = list(TECHWEB_NODE_ENGINEERING, TECHWEB_NODE_NONLETHAL_MINES, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("stunmine_adv")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_weaponry
 	id = TECHWEB_NODE_ADV_WEAPONRY
@@ -82,7 +82,7 @@
 		"c38_hotshot",
 		"c38_iceblox",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/advmine
 	id = TECHWEB_NODE_ADV_MINES
@@ -94,7 +94,7 @@
 		"stunmine_heavy",
 		"stunmine_rapid",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/electric_weapons
 	id = TECHWEB_NODE_ELECTRONIC_WEAPONS
@@ -106,7 +106,7 @@
 		"ioncarbine",
 		"stunrevolver",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/radioactive_weapons
 	id = TECHWEB_NODE_RADIOACTIVE_WEAPONS
@@ -115,7 +115,7 @@
 	description = "Weapons using radioactive technology."
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ADV_WEAPONRY)
 	design_ids = list("nuclear_gun")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/medical_weapons
@@ -125,7 +125,7 @@
 	description = "Weapons using medical technology."
 	prereq_ids = list(TECHWEB_NODE_ADV_BIOTECH, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("rapidsyringe")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/beam_weapons
 	id = TECHWEB_NODE_BEAM_WEAPONS
@@ -137,7 +137,7 @@
 		"temp_gun",
 		"xray_laser",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/adv_beam_weapons
@@ -147,7 +147,7 @@
 	description = "Various advanced beam weapons"
 	prereq_ids = list(TECHWEB_NODE_ADV_WEAPONRY)
 	design_ids = list("beamrifle")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/explosive_weapons
@@ -160,7 +160,7 @@
 		"adv_Grenade",
 		"pyro_Grenade",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/ballistic_weapons
 	id = TECHWEB_NODE_BALLISTIC_WEAPONS
@@ -174,4 +174,4 @@
 		"mag_oldsmg_rubber",
 		"mag_oldsmg",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)

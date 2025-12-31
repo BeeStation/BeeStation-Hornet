@@ -40359,7 +40359,7 @@
 	},
 /area/security/checkpoint/medical)
 "lop" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot{

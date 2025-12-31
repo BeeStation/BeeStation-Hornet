@@ -6,9 +6,9 @@
 	organization = "Nanotrasen"
 	should_generate_points = TRUE
 
-/// Start with 2500 discovery points
 /datum/techweb/science/New()
-	add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, 2500)
+	// Start with discovery points
+	add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, TECHWEB_TIER_2_POINTS)
 	return ..()
 
 /datum/techweb/science/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE) //When something is researched, triggers the proc for this techweb only

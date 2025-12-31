@@ -33850,7 +33850,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "htf" = (
-/obj/machinery/doppler_array/research/science{
+/obj/machinery/doppler_array/research{
 	pixel_y = -1
 	},
 /turf/open/floor/iron/techmaint,

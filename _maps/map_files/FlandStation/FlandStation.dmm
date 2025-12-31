@@ -39139,7 +39139,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/doppler_array/research/science,
+/obj/machinery/doppler_array/research,
 /obj/structure/railing{
 	dir = 6
 	},

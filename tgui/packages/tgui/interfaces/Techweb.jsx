@@ -1,4 +1,5 @@
 import { filter, map } from 'common/collections';
+import { toFixed } from 'common/math';
 import { useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
@@ -152,7 +153,8 @@ export const TechwebContent = (props) => {
                 {Object.keys(points).map((k) => (
                   <li key={k}>
                     <b>{k}</b>: {points[k]}
-                    {!!points_last_tick[k] && ` (+${points_last_tick[k]}/sec)`}
+                    {!!points_last_tick[k] &&
+                      ` (+${toFixed(points_last_tick[k], 1)}/sec)`}
                   </li>
                 ))}
               </ul>

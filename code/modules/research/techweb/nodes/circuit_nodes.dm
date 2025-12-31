@@ -95,7 +95,7 @@
 		"comp_trig",
 		"comp_abs",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/list_circuits
 	id = TECHWEB_NODE_LIST_CIRCUITS
@@ -112,7 +112,7 @@
 		"comp_pop",
 		"comp_write",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_shells
 	id = TECHWEB_NODE_ADV_SHELLS
@@ -131,7 +131,7 @@
 		"scanner_gate_shell",
 		"scanner_shell",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/bci_shells
 	id = TECHWEB_NODE_BCI_SHELLS
@@ -149,7 +149,7 @@
 		"comp_target_intercept",
 		"comp_thought_listener",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 
 /datum/techweb_node/movable_shells_tech
@@ -162,7 +162,7 @@
 		"comp_pull",
 		"drone_shell",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/server_shell_tech
 	id = TECHWEB_NODE_SERVER_SHELL
@@ -171,7 +171,7 @@
 	description = "Grants access to a server shell that has a very high capacity for components."
 	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_COMPUTER_HARDWARE_BASIC)
 	design_ids = list("server_shell")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/advanced_circuit_templates
 	id = TECHWEB_NODE_ADVANCED_CIRCUIT_TEMPLATES
@@ -184,4 +184,4 @@
 		"template_scanning_gate",
 		"template_circuit_vendor"
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)

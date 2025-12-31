@@ -31,7 +31,9 @@
 	var/list/unlock_ids = list()
 	/// List of items you need to deconstruct to unlock this node.
 	var/list/required_items_to_unlock = list()
-	var/list/research_costs = list()					//Point cost to research. type = amount
+	/// An associative list of how much this node costs to research in various point types
+	/// point type -> point amount
+	var/list/research_costs = list()
 	/// Whether or not this node should show on the wiki
 	var/show_on_wiki = TRUE
 
@@ -86,13 +88,13 @@
 		if(-INFINITY to 0)
 			return 0
 		if(1)
-			return 1000
+			return TECHWEB_TIER_1_POINTS
 		if(2)
-			return 2500
+			return TECHWEB_TIER_2_POINTS
 		if(3)
-			return 5000
+			return TECHWEB_TIER_3_POINTS
 		if(4 to INFINITY)
-			return 10000
+			return TECHWEB_TIER_4_POINTS
 
 /datum/techweb_node/proc/price_display(datum/techweb/TN)
 	return techweb_point_display_generic(get_price(TN))

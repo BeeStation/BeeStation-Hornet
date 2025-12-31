@@ -136,7 +136,7 @@
 	var/do_not_show_health_on_stat_panel
 
 	//Discovery
-	var/discovery_points = 200
+	var/discovery_points = TECHWEB_TIER_1_POINTS
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()

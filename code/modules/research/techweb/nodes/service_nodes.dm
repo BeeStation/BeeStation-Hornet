@@ -26,7 +26,7 @@
 		"mech_punching_face",
 		"shotgunslughonk",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/janitor
 	id = TECHWEB_NODE_JANITOR
@@ -42,7 +42,7 @@
 		"light_replacer_bluespace",
 		"spraybottle",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/botany
 	id = TECHWEB_NODE_BOTANY
@@ -59,4 +59,4 @@
 		"portaseeder",
 		"seed_extractor",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)

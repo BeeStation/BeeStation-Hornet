@@ -13,7 +13,7 @@
 	description = "Programmable machines that make our lives lazier."
 	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list("paicard")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_robotics
 	id = TECHWEB_NODE_ADV_ROBOTICS
@@ -26,7 +26,7 @@
 		"borg_upgrade_diamonddrill",
 		"borg_upgrade_trashofholding",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/neural_programming
 	id = TECHWEB_NODE_NEURAL_PROGRAMMING
@@ -34,7 +34,7 @@
 	display_name = "Neural Programming"
 	description = "Study into networks of processing units that mimic our brains."
 	prereq_ids = list(TECHWEB_NODE_BIOTECH, TECHWEB_NODE_DATATHEORY)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/posibrain
 	id = TECHWEB_NODE_POSIBRAIN
@@ -42,7 +42,7 @@
 	description = "Applied usage of neural technology allowing for autonomous AI units based on special metallic cubes with conductive and processing circuits."
 	prereq_ids = list(TECHWEB_NODE_NEURAL_PROGRAMMING)
 	design_ids = list("mmi_posi")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/ai
 	id = TECHWEB_NODE_AI
@@ -72,7 +72,7 @@
 		"robocop_module",
 		"safeguard_module",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/ai_laws
 	id = TECHWEB_NODE_AI_LAWS
@@ -106,4 +106,4 @@
 		"tyrant_module",
 		"yesman_module",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)

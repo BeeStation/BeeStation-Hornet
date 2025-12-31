@@ -71,7 +71,7 @@
 	name = "lily"
 	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 //Spacemans's Trumpet
 /obj/item/seeds/flower/trumpet
@@ -127,7 +127,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	name = "geranium"
 	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 //Forget-Me-Not
 /obj/item/seeds/flower/forgetmenot
@@ -151,7 +151,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	name = "forget-me-not"
 	desc = "A clump of small blue flowers, they are primarily associated with rememberance, respect and loyalty."
 	icon_state = "forget_me_not"
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Harebell
 /obj/item/seeds/flower/harebell
@@ -252,7 +252,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	icon_state = "moonflower"
 	foodtypes = null
 	distill_reagent = /datum/reagent/consumable/ethanol/absinthe //It's made from flowers.
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
@@ -285,7 +285,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds/flower/trumpet)
 	attack_verb_continuous = list("roasts", "scorches", "burns")
 	attack_verb_simple = list("roast", "scorch", "burn")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
-	discovery_points = 300
+	discovery_points = TECHWEB_TIER_1_POINTS
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/grown/novaflower)
 

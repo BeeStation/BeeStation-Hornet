@@ -1,5 +1,5 @@
 ///How many research points you gain from dissecting a Human.
-#define BASE_HUMAN_REWARD 1000
+#define BASE_HUMAN_REWARD 100
 
 /datum/surgery/advanced/experimental_dissection
 	name = "Experimental Dissection"

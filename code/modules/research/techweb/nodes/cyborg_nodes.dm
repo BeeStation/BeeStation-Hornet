@@ -45,7 +45,7 @@
 		"borg_upgrade_selfrepair",
 		"borg_upgrade_thrusters",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/cyborg_upg_med
 	id = TECHWEB_NODE_CYBORG_UPG_MED
@@ -61,7 +61,7 @@
 		"borg_upgrade_pinpointer",
 		"borg_upgrade_surgicalprocessor",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/cyborg_upg_combat
 	id = TECHWEB_NODE_CYBORG_UPG_COMBAT
@@ -70,7 +70,7 @@
 	description = "Military grade upgrades for cyborgs."
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ADV_ROBOTICS, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("borg_upgrade_vtec")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 
 /datum/techweb_node/cyborg_upg_service
 	id = TECHWEB_NODE_CYBORG_UPG_SERVICE
@@ -84,7 +84,7 @@
 		"borg_upgrade_kitchen",
 		"borg_upgrade_party",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/subdermal_implants
 	id = TECHWEB_NODE_SUBDERMAL_IMPLANTS
@@ -100,7 +100,7 @@
 		"implanter",
 		"locator",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/cyber_organs
 	id = TECHWEB_NODE_CYBER_ORGANS
@@ -114,7 +114,7 @@
 		"cybernetic_lungs",
 		"cybernetic_stomach",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/cyber_organs_upgraded
 	id = TECHWEB_NODE_CYBER_ORGANS_UPGRADED
@@ -128,7 +128,7 @@
 		"cybernetic_lungs_u",
 		"cybernetic_stomach_u",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/ipc_organs
 	id = TECHWEB_NODE_IPC_ORGANS
@@ -145,7 +145,7 @@
 		"robotic_stomach",
 		"robotic_tongue",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/cyber_implants
 	id = TECHWEB_NODE_CYBER_IMPLANTS
@@ -162,7 +162,7 @@
 		"ci-sechud",
 		"ci-welding",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/adv_cyber_implants
 	id = TECHWEB_NODE_ADV_CYBER_IMPLANTS
@@ -178,7 +178,7 @@
 		"ci-surgery",
 		"ci-toolset",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 
 /datum/techweb_node/combat_cyber_implants
 	id = TECHWEB_NODE_COMBAT_CYBER_IMPLANTS
@@ -193,7 +193,7 @@
 		"ci-thrusters",
 		"ci-xray",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/adv_combat_cyber_implants
@@ -203,7 +203,7 @@
 	description = "Experimental military cybernetic weapons."
 	prereq_ids = list(TECHWEB_NODE_ADV_CYBER_IMPLANTS, TECHWEB_NODE_SYNDICATE_BASIC)
 	design_ids = list("hydraulic_blade")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE
 
 /datum/techweb_node/linkedsurgery_implant
@@ -213,5 +213,5 @@
 	description = "A bluespace implant which a holder can read surgical programs from their server with."
 	prereq_ids = list(TECHWEB_NODE_EXP_SURGERY, TECHWEB_NODE_MICRO_BLUESPACE)
 	design_ids = list("ci-linkedsurgery")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE

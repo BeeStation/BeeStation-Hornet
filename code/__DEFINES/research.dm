@@ -28,8 +28,9 @@
 #define TECHWEB_TIER_4_POINTS 160
 #define TECHWEB_TIER_5_POINTS 200
 
-/// Adjust as needed; Stops toxins from nullifying RND progression mechanics. Current Value Cap Radius: 100
-#define TECHWEB_BOMB_POINTCAP 50000
+/// Adjust as needed; Stops toxins from nullifying RND progression mechanics.
+#define TECHWEB_BOMB_POINTCAP TECHWEB_TIER_5_POINTS * 5
+#define TECHWEB_BOMB_MONEYCAP 50000
 
 #define EXPLORATION_TRACKING "exploration_tracking"
 

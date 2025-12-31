@@ -24,7 +24,7 @@
 	var/datum/mind/origin
 	/// Set to true once we've implanted our egg
 	var/egg_lain = FALSE
-	discovery_points = 2000
+	discovery_points = TECHWEB_TIER_2_POINTS
 
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/body_egg/changeling_egg/egg = new(victim)
