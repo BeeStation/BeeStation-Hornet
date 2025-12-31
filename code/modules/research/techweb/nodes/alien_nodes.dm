@@ -34,10 +34,10 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE
 
-
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 
-/datum/techweb_node/alientech/on_station_research() //Unlocks the Zeta shuttle for purchase
+/datum/techweb_node/alientech/on_station_research(atom/research_source) //Unlocks the Zeta shuttle for purchase
+	. = ..()
 	SSshuttle.shuttle_purchase_requirements_met |= SHUTTLE_UNLOCK_ALIENTECH
 
 /datum/techweb_node/alien_bio
@@ -72,6 +72,7 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alientech)
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 
@@ -100,6 +101,7 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
 
 ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 
@@ -115,6 +117,8 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 		"surgery_zombie",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
+	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/nullspacebreaching
 	id = TECHWEB_NODE_NULLSPACEBREACHING
@@ -126,3 +130,5 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 		"wingpack_ayy",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
+	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SCIENCE)

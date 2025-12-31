@@ -27,6 +27,7 @@
 		"sensor_nanite_volume",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_smart
 	id = TECHWEB_NODE_NANITE_SMART
@@ -45,6 +46,7 @@
 		"remote_signal_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_mesh
 	id = TECHWEB_NODE_NANITE_MESH
@@ -64,6 +66,7 @@
 		"dermal_toggle_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_bio
 	id = TECHWEB_NODE_NANITE_BIO
@@ -85,6 +88,7 @@
 		"sensor_blood_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_neural
 	id = TECHWEB_NODE_NANITE_NEURAL
@@ -102,6 +106,7 @@
 		"stun_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_synaptic
 	id = TECHWEB_NODE_NANITE_SYNAPTIC
@@ -118,6 +123,7 @@
 		"speech_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_cc
 	id = TECHWEB_NODE_NANITE_CC
@@ -130,6 +136,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_harmonic
 	id = TECHWEB_NODE_NANITE_HARMONIC
@@ -149,6 +156,7 @@
 		"vampire_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_3_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_replication_protocols
 	id = TECHWEB_NODE_NANITE_REPLICATION_PROTOCOLS
@@ -163,6 +171,7 @@
 		"pyramid_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_3_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_storage_protocols
 	id = TECHWEB_NODE_NANITE_STORAGE_PROTOCOLS
@@ -175,6 +184,7 @@
 		"zip_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_3_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/nanite_combat
 	id = TECHWEB_NODE_NANITE_MILITARY
@@ -193,6 +203,7 @@
 		"unsafe_storage_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_3_POINTS)
+	hidden = TRUE
 
 /datum/techweb_node/nanite_hazard
 	id = TECHWEB_NODE_NANITE_HAZARD
@@ -206,3 +217,4 @@
 		"spreading_nanites"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS, TECHWEB_POINT_TYPE_NANITES = TECHWEB_TIER_5_POINTS)
+	hidden = TRUE

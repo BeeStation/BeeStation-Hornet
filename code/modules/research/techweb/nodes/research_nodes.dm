@@ -1,4 +1,4 @@
-/datum/techweb_node/datatheory //Computer science
+/datum/techweb_node/datatheory
 	id = TECHWEB_NODE_DATATHEORY
 	tech_tier = 1
 	display_name = "Data Theory"
@@ -11,7 +11,7 @@
 	tech_tier = 4
 	display_name = "Anomaly Research"
 	description = "Unlock the potential of the mysterious anomalies that appear on station."
-	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_PRACTICAL_BLUESPACE)
+	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_APPLIED_BLUESPACE)
 	design_ids = list(
 		"anomaly_neutralizer",
 		"reactive_armour",
@@ -23,11 +23,12 @@
 		"xenoa_tracker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
-/datum/techweb_node/bluespace_basic //Bluespace-memery
+/datum/techweb_node/bluespace_theory
 	id = TECHWEB_NODE_BLUESPACE_BASIC
 	tech_tier = 4
-	display_name = "Basic Bluespace Theory"
+	display_name = "Bluespace Theory"
 	description = "Basic studies into the mysterious alternate dimension known as bluespace."
 	prereq_ids = list(TECHWEB_NODE_BASE)
 	design_ids = list(
@@ -38,12 +39,13 @@
 		"xenobioconsole",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
-/datum/techweb_node/practical_bluespace
-	id = TECHWEB_NODE_PRACTICAL_BLUESPACE
+/datum/techweb_node/applied_bluespace
+	id = TECHWEB_NODE_APPLIED_BLUESPACE
 	tech_tier = 4
 	display_name = "Applied Bluespace Research"
-	description = "Using bluespace to make things faster and better."
+	description = "With a heightened grasp of bluespace dynamics, sophisticated applications and technologies can be devised using data from bluespace crystal analyses."
 	prereq_ids = list(TECHWEB_NODE_BLUESPACE_BASIC, TECHWEB_NODE_ENGINEERING)
 	design_ids = list(
 		"bluespacebeaker",
@@ -56,13 +58,14 @@
 		"roastingstick",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL, RADIO_CHANNEL_SUPPLY)
 
 /datum/techweb_node/bluespace_travel
 	id = TECHWEB_NODE_BLUESPACE_TRAVEL
 	tech_tier = 5
 	display_name = "Bluespace Travel"
 	description = "Application of Bluespace for static teleportation technology."
-	prereq_ids = list(TECHWEB_NODE_PRACTICAL_BLUESPACE)
+	prereq_ids = list(TECHWEB_NODE_APPLIED_BLUESPACE)
 	design_ids = list(
 		"bluespace_pod",
 		"launchpad_console",
@@ -73,6 +76,7 @@
 		"teleconsole",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/bluespace_stabilisation
 	id = TECHWEB_NODE_BLUESPACE_ANCHOR
@@ -83,6 +87,7 @@
 	design_ids = list("bsanchor")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/bag_of_holding
 	id = TECHWEB_NODE_BAGOFHOLDING
@@ -93,6 +98,7 @@
 	design_ids = list("bag_holding")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/wormhole_gun
 	id = TECHWEB_NODE_WORMHOLEGUN
@@ -103,6 +109,7 @@
 	design_ids = list("wormholeprojector")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/gravity_gun
 	id = TECHWEB_NODE_GRAVITY_GUN
@@ -115,6 +122,7 @@
 		"mech_gravcatapult",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/quantum_spin
 	id = TECHWEB_NODE_QSWAPPER
@@ -125,3 +133,4 @@
 	design_ids = list("swapper")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)

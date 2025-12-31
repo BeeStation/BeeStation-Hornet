@@ -11,10 +11,10 @@
 	add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, TECHWEB_TIER_2_POINTS)
 	return ..()
 
-/datum/techweb/science/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE) //When something is researched, triggers the proc for this techweb only
+/datum/techweb/science/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE, atom/research_source) //When something is researched, triggers the proc for this techweb only
 	. = ..()
 	if(.)
-		node.on_station_research()
+		node.on_station_research(research_source)
 
 /datum/techweb/oldstation
 	id = "CHARLIE"

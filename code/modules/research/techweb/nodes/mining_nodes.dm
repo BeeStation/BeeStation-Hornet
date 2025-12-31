@@ -19,6 +19,7 @@
 		"mecha_kineticgun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SUPPLY)
 
 /datum/techweb_node/adv_mining
 	id = TECHWEB_NODE_ADV_MINING
@@ -34,3 +35,4 @@
 		"repeatermod",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SUPPLY)

@@ -42,6 +42,7 @@
 	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_SYNDICATE_BASIC)
 	design_ids = list("desynchronizer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	hidden = TRUE
 
 /datum/techweb_node/sticky_basic
 	id = TECHWEB_NODE_STICKY_BASIC
@@ -50,7 +51,6 @@
 	description = "The only thing left to do after researching this tech is to start printing out a bunch of 'kick me' signs."
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_SYNDICATE_BASIC)
 	design_ids = list("sticky_tape")
-
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
 
@@ -64,6 +64,5 @@
 		"pointy_tape",
 		"super_sticky_tape",
 	)
-
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	hidden = TRUE

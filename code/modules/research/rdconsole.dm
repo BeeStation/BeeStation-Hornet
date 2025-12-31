@@ -108,7 +108,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 		user.investigate_log("researched [id]([json_encode(price)]) on techweb id [stored_research.id].", INVESTIGATE_RESEARCH)
 		if(istype(stored_research, /datum/techweb/science))
 			SSblackbox.record_feedback("associative", "science_techweb_unlock", 1, list("id" = "[id]", "name" = TN.display_name, "price" = "[json_encode(price)]", "time" = SQLtime()))
-		if(stored_research.research_node_id(id))
+		if(stored_research.research_node_id(id, research_source = src))
 			say("Successfully researched [TN.display_name].")
 			var/logname = "Unknown"
 			if(isAI(user))
@@ -144,6 +144,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 	..()
 	balloon_alert(user, "security protocols disabled")
 	playsound(src, "sparks", 75, TRUE)
+	var/obj/item/circuitboard/computer/rdconsole/board = circuit
+	if(!(board.obj_flags & EMAGGED))
+		board.silence_announcements = TRUE
 	locked = FALSE
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
@@ -328,10 +331,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 			return TRUE
 
 /obj/machinery/computer/rdconsole/proc/eject_disk(type)
-	if(type == "design")
+	if(type == RND_DESIGN_DISK && d_disk)
 		d_disk.forceMove(get_turf(src))
 		d_disk = null
-	if(type == "tech")
+	if(type == RND_TECH_DISK && t_disk)
 		t_disk.forceMove(get_turf(src))
 		t_disk = null
 

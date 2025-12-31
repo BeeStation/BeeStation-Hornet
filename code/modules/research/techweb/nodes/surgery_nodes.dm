@@ -21,6 +21,7 @@
 		"surgery_heal_burn_upgrade",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/adv_surgery
 	id = TECHWEB_NODE_ADV_SURGERY
@@ -37,6 +38,7 @@
 		"surgery_lobotomy",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/exp_surgery
 	id = TECHWEB_NODE_EXP_SURGERY
@@ -58,3 +60,4 @@
 		"surgery_vein_thread",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)

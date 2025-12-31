@@ -403,6 +403,25 @@
 	name = "R&D console (Computer Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole
+	var/silence_announcements = FALSE
+
+/obj/item/circuitboard/computer/rdconsole/examine(mob/user)
+	. = ..()
+	. += span_info("The board is configured to [silence_announcements ? "silence" : "announce"] researched nodes on radio.")
+	. += span_notice("The board mode can be changed with a <b>multitool</b>.")
+
+/obj/item/circuitboard/computer/rdconsole/multitool_act(mob/living/user)
+	if(obj_flags & EMAGGED)
+		balloon_alert(user, "board mode is broken!")
+		return
+	silence_announcements = !silence_announcements
+	balloon_alert(user, "announcements [silence_announcements ? "enabled" : "disabled"]")
+	return TRUE
+
+/obj/item/circuitboard/computer/rdconsole/on_emag(mob/user)
+	. = ..()
+	silence_announcements = FALSE
+	to_chat(user, span_notice("You overload the node announcement chip, forcing every node to be announced on the common channel."))
 
 /obj/item/circuitboard/computer/rdservercontrol
 	name = "R&D server control (Computer Board)"

@@ -12,6 +12,7 @@
 		"scan_console",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/cryotech
 	id = TECHWEB_NODE_CRYOTECH
@@ -27,6 +28,7 @@
 		"stasis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/med_scanning
 	id = TECHWEB_NODE_MED_SCANNER
@@ -36,6 +38,7 @@
 	prereq_ids = list(TECHWEB_NODE_ADV_BIOTECH)
 	design_ids = list("healthanalyzer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/adv_med_scanning
 	id = TECHWEB_NODE_ADV_MED_SCANNER
@@ -45,3 +48,4 @@
 	prereq_ids = list(TECHWEB_NODE_MED_SCANNER, TECHWEB_NODE_POSIBRAIN)
 	design_ids = list("healthanalyzer_advanced")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)

@@ -37,6 +37,7 @@
 		"mod_orebag",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/mod_engineering
 	id = TECHWEB_NODE_MOD_ENGINEERING
@@ -54,6 +55,7 @@
 		"mod_mister_atmos",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/mod_advanced_engineering
 	id = TECHWEB_NODE_MOD_ADVANCED_ENGINEERING
@@ -69,6 +71,7 @@
 		"mod_storage_expanded",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/mod_medical
 	id = TECHWEB_NODE_MOD_MEDICAL
@@ -86,6 +89,7 @@
 		"mod_dna_lock",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/mod_advanced_medical
 	id = TECHWEB_NODE_MOD_ADVANCED_MEDICAL
@@ -99,6 +103,7 @@
 		"mod_statusreadout",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/mod_security
 	id = TECHWEB_NODE_MOD_SECURITY
@@ -116,6 +121,7 @@
 		"mod_projectile_dampener",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/mod_entertainment
 	id = TECHWEB_NODE_MOD_ENTERTAINMENT
@@ -130,6 +136,7 @@
 		"mod_waddle",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SERVICE)
 
 /datum/techweb_node/mod_anomaly
 	id = TECHWEB_NODE_MOD_ANOMALY
@@ -139,18 +146,10 @@
 	design_ids = list(
 		"mod_antigrav",
 		"mod_teleporter",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-
-/datum/techweb_node/mod_anomaly_engi
-	id = TECHWEB_NODE_MOD_ANOMALY_ENGI
-	display_name = "Engineering Anomalock Modular Suits"
-	description = "Advanced modules for modular suits, using anomaly cores to become even better engineers."
-	prereq_ids = list(TECHWEB_NODE_MOD_ADVANCED_ENGINEERING, TECHWEB_NODE_MOD_ANOMALY)
-	design_ids = list(
 		"mod_kinesis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/mod_experimental
 	id = TECHWEB_NODE_MOD_EXPERIMENTAL
@@ -162,3 +161,4 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SCIENCE)

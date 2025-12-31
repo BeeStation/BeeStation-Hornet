@@ -4,7 +4,6 @@
 	starting_node = TRUE
 	display_name = "Basic Research Technology"
 	description = "NT default research technologies."
-	// Default research tech, prevents bricking
 	design_ids = list(
 		"basic_capacitor",
 		"basic_cell",
@@ -151,6 +150,7 @@
 		"thermomachine",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/adv_engi
 	id = TECHWEB_NODE_ADV_ENGI
@@ -169,6 +169,7 @@
 		"sheetifier",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/high_efficiency
 	id = TECHWEB_NODE_HIGH_EFFICIENCY
@@ -181,6 +182,7 @@
 		"super_matter_bin",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_4_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/adv_power
 	id = TECHWEB_NODE_ADV_POWER
@@ -202,25 +204,27 @@
 		"teg",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/bluespace_power
 	id = TECHWEB_NODE_BLUESPACE_POWER
 	tech_tier = 4
 	display_name = "Bluespace Power Technology"
 	description = "Even more powerful.. power!"
-	prereq_ids = list(TECHWEB_NODE_ADV_POWER, TECHWEB_NODE_PRACTICAL_BLUESPACE)
+	prereq_ids = list(TECHWEB_NODE_ADV_POWER, TECHWEB_NODE_APPLIED_BLUESPACE)
 	design_ids = list(
 		"bluespace_cell",
 		"quadratic_capacitor",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/micro_bluespace
 	id = TECHWEB_NODE_MICRO_BLUESPACE
 	tech_tier = 5
 	display_name = "Miniaturized Bluespace Research"
 	description = "Extreme reduction in space required for bluespace engines, leading to portable bluespace technology."
-	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_HIGH_EFFICIENCY, TECHWEB_NODE_PRACTICAL_BLUESPACE)
+	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_HIGH_EFFICIENCY, TECHWEB_NODE_APPLIED_BLUESPACE)
 	design_ids = list(
 		"bluespace_matter_bin",
 		"femto_mani",
@@ -229,6 +233,7 @@
 		"usb_wireless",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/basic_shuttle_tech
 	id = TECHWEB_NODE_BASIC_SHUTTLE
@@ -244,6 +249,7 @@
 		"wingpack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_basic //EMP tech for some reason
 	id = TECHWEB_NODE_EMP_BASIC
@@ -262,6 +268,7 @@
 		"tray_goggles",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_adv
 	id = TECHWEB_NODE_EMP_ADV
@@ -271,6 +278,7 @@
 	prereq_ids = list(TECHWEB_NODE_EMP_BASIC)
 	design_ids = list("ultra_micro_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_super
 	id = TECHWEB_NODE_EMP_SUPER
@@ -280,6 +288,7 @@
 	prereq_ids = list(TECHWEB_NODE_EMP_ADV)
 	design_ids = list("quadultra_micro_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/telecomms
 	id = TECHWEB_NODE_TELECOMMS
@@ -308,6 +317,7 @@
 		"s-transmitter",
 		"s-treatment",
 	)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/comp_recordkeeping
 	id = TECHWEB_NODE_COMP_RECORDKEEPING
@@ -337,6 +347,7 @@
 		"security_hud",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/NVGtech
 	id = TECHWEB_NODE_NVGTECH
@@ -353,6 +364,7 @@
 		"scigoggles_night",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/exp_tools
 	id = TECHWEB_NODE_EXP_TOOLS
@@ -370,6 +382,7 @@
 	)
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/rcd_upgrade
 	id = TECHWEB_NODE_RCD_UPGRADE
@@ -384,6 +397,7 @@
 	)
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/adv_rcd_upgrade
 	id = TECHWEB_NODE_ADV_RCD_UPGRADE
@@ -393,3 +407,4 @@
 	design_ids = list("rcd_upgrade_silo_link")
 	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_RCD_UPGRADE)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_ENGINEERING)

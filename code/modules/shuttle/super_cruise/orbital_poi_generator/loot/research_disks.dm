@@ -6,7 +6,7 @@
 	. = ..()
 	SSorbits.research_disks += src
 	if(node_id)
-		stored_research.hidden_nodes[node_id] = FALSE
+		stored_research.research_node_id(node_id, TRUE, FALSE, FALSE)
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
 		name = "research disk ([node.display_name])"
 
@@ -30,7 +30,7 @@
 	var/datum/component/tracking_beacon/component = GetComponent(/datum/component/tracking_beacon)
 	if(component)
 		qdel(component)
-	. = ..()
+	return ..()
 
 /obj/item/disk/tech_disk/research/random/Initialize(mapload)
 	var/list/valid_nodes = list()

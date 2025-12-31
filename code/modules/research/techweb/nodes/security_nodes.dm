@@ -15,6 +15,7 @@
 	)
 	prereq_ids = list(TECHWEB_NODE_BASE)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/exotic_ammo
 	id = TECHWEB_NODE_EXOTIC_AMMO
@@ -30,6 +31,7 @@
 		"shotgunslugbronze",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/tackle_advanced
 	id = TECHWEB_NODE_TACKLE_ADVANCED
@@ -39,6 +41,7 @@
 	design_ids = list("tackle_dolphin", "tackle_rocket")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/landmine
 	id = TECHWEB_NODE_NONLETHAL_MINES
@@ -48,6 +51,7 @@
 	prereq_ids = list(TECHWEB_NODE_SEC_BASIC)
 	design_ids = list("stunmine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/weaponry
 	id = TECHWEB_NODE_WEAPONRY
@@ -60,6 +64,7 @@
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/smartmine
 	id = TECHWEB_NODE_SMART_MINES
@@ -69,6 +74,7 @@
 	prereq_ids = list(TECHWEB_NODE_ENGINEERING, TECHWEB_NODE_NONLETHAL_MINES, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("stunmine_adv")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/adv_weaponry
 	id = TECHWEB_NODE_ADV_WEAPONRY
@@ -83,6 +89,7 @@
 		"c38_iceblox",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/advmine
 	id = TECHWEB_NODE_ADV_MINES
@@ -95,6 +102,7 @@
 		"stunmine_rapid",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/electric_weapons
 	id = TECHWEB_NODE_ELECTRONIC_WEAPONS
@@ -107,6 +115,7 @@
 		"stunrevolver",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/radioactive_weapons
 	id = TECHWEB_NODE_RADIOACTIVE_WEAPONS
@@ -117,6 +126,7 @@
 	design_ids = list("nuclear_gun")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/medical_weapons
 	id = TECHWEB_NODE_MEDICAL_WEAPONS
@@ -126,6 +136,7 @@
 	prereq_ids = list(TECHWEB_NODE_ADV_BIOTECH, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("rapidsyringe")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/beam_weapons
 	id = TECHWEB_NODE_BEAM_WEAPONS
@@ -139,6 +150,7 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/adv_beam_weapons
 	id = TECHWEB_NODE_ADV_BEAM_WEAPONS
@@ -149,6 +161,7 @@
 	design_ids = list("beamrifle")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	hidden = TRUE
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/explosive_weapons
 	id = TECHWEB_NODE_EXPLOSIVE_WEAPONS
@@ -161,6 +174,7 @@
 		"pyro_Grenade",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/ballistic_weapons
 	id = TECHWEB_NODE_BALLISTIC_WEAPONS
@@ -175,3 +189,4 @@
 		"mag_oldsmg",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
+	announce_channels = list(RADIO_CHANNEL_SECURITY)
