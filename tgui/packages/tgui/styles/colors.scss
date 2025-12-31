@@ -31,7 +31,7 @@ $bad: hsl(0, 71.3%, 50.8%) !default;
 $label: hsl(213.7, 18.9%, 57.5%) !default;
 
 // Background and foreground color lightness ratios
-$bg-lightness: -40% !default;
+$bg-lightness: -15% !default;
 $fg-lightness: 10% !default;
 
 @function bg($color) {
