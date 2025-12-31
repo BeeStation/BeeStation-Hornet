@@ -126,7 +126,7 @@
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare

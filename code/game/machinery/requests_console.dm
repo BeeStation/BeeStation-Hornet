@@ -374,9 +374,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				radio_freq = FREQ_SUPPLY
 
 		var/datum/signal/subspace/messaging/rc/signal = new(src, list(
-			"sender" = department,
-			"rec_dpt" = to_department,
-			"send_dpt" = department,
+			"sender" = department, //Why are you like this
+			"recipient_department" = to_department,
+			"sender_department" = department,
 			"message" = message,
 			"verified" = msgVerified,
 			"stamped" = msgStamped,
@@ -418,7 +418,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	emergency = null
 	update_icon()
 
-//from message_server.dm: Console.createmessage(data["sender"], data["send_dpt"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
+//from message_server.dm: Console.createmessage(data["sender"], data["sender_department"], data["message"], data["verified"], data["stamped"], data["priority"], data["notify_freq"])
 /obj/machinery/requests_console/proc/createmessage(source, source_department, message, msgVerified, msgStamped, priority, radio_freq)
 	var/linkedsender
 

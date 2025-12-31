@@ -143,6 +143,9 @@
 	/// that can apply for a job, which adjusts the delta value.
 	var/total_position_delta = 0
 
+	/// The list of jobs that you can write a manuscript as. This exists letting command roles write more.
+	var/list/manuscript_jobs
+
 /datum/job/New()
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)

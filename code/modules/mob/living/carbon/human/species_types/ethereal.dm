@@ -214,6 +214,13 @@
 
 	return features
 
+/datum/species/ethereal/get_scream_sound(mob/living/carbon/human/ethereal)
+	return pick(
+		'sound/voice/ethereal/ethereal_scream_1.ogg',
+		'sound/voice/ethereal/ethereal_scream_2.ogg',
+		'sound/voice/ethereal/ethereal_scream_3.ogg',
+	)
+
 /datum/species/ethereal/get_species_description()
 	return "Ethereals are a unique species with liquid electricity for blood and a glowing body. They thrive on electricity, and are naturally agender."
 

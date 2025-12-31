@@ -104,6 +104,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/default_virus_defense = ANTIVIRUS_NONE
 	/// Multiplier for power usage
 	var/power_usage_multiplier = 1
+	/// People looking at the computer
+	var/list/computer_users = list()
 
 /datum/armor/item_modular_computer
 	bullet = 20

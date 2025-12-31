@@ -171,13 +171,20 @@
 
 /datum/antagonist/heretic/on_gain()
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
-		var/mob/living/carbon/carbon_current = owner.current //only carbons have dna now, so we have to typecast
-		carbon_current.set_species(/datum/species/human)
-		var/prefs_name = carbon_current.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		var/mob/living/carbon/carbon_owner = owner.current
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
 		if(prefs_name)
-			carbon_current.fully_replace_character_name(carbon_current.real_name, prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
 		else
-			carbon_current.fully_replace_character_name(carbon_current.real_name, random_unique_name(carbon_current.gender))
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, random_unique_name(carbon_owner.gender))
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
+
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 	if(give_objectives)
 		forge_objectives()
 

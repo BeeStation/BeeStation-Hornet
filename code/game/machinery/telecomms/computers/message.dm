@@ -124,8 +124,8 @@
 	var/list/request_messages = list()
 	for(var/datum/data_rc_msg/req in linked_server.rc_msgs)
 		request_messages += list(list(
-			"sending_department" = req.send_dpt,
-			"receiving_department" = req.rec_dpt,
+			"sender_department" = req.sender_department,
+			"receiving_department" = req.receiving_department,
 			"stamp" = req.stamp,
 			"id_auth" = req.id_auth,
 			"priority" = req.priority,
@@ -257,7 +257,7 @@
 				msg = "[pda_entry.sender] to [pda_entry.recipient]: [pda_entry.message]"
 			else if(istype(entry, /datum/data_rc_msg))
 				var/datum/data_rc_msg/rc_entry = entry
-				msg = "[rc_entry.send_dpt] to [rc_entry.rec_dpt] PRIORITY [rc_entry.priority] AUTH [rc_entry.id_auth] STAMP [rc_entry.stamp]: [rc_entry.message]"
+				msg = "[rc_entry.sender_department] to [rc_entry.receiving_department] PRIORITY [rc_entry.priority] AUTH [rc_entry.id_auth] STAMP [rc_entry.stamp]: [rc_entry.message]"
 			to_chat(usr, span_notice("The console flashes a message: 'NOTICE: Log entry deleted.'"))
 			var/turf/the_turf = get_turf(src)
 			usr.log_message("cleared [type] log entry \"[msg]\" using [src] at [AREACOORD(the_turf)]", LOG_GAME)
@@ -292,6 +292,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/paper/monitorkey)
 	else
 		return INITIALIZE_HINT_LATELOAD
 
+
+/**
+ * Handles printing the monitor key for a given server onto this piece of paper.
+ */
 /obj/item/paper/monitorkey/proc/print(obj/machinery/telecomms/message_server/server)
 	add_raw_text("<h2>Telecommunications Security Notice</h2><br />\
 	<strong><pre>INCOMING TRANSMISSION - KEY RESET REPORT</pre></strong><br />\
