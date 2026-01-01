@@ -1,0 +1,8 @@
+author: PowerfulBacon, RKz
+delete-after: true
+changes:
+  - refactor: Slightly cleans up some examination code to make it easier to override,
+      improving support for things like custom examinations and accessories being
+      shown on uniforms.
+  - bugfix: Fixes security badges having no description.
+  - bugfix: Fixes detective's belt being a proper noun.
