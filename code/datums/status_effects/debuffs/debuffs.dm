@@ -169,9 +169,8 @@
 			if(need_mob_update)
 				owner.updatehealth()
 
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		human_owner.drunkenness *= 0.997 //reduce drunkenness by 0.3% per tick, 6% per 2 seconds
+	// Drunkenness gets reduced by 0.3% per tick (6% per 2 seconds)
+	owner.set_drunk_effect(owner.get_drunk_amount() * 0.997)
 
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
