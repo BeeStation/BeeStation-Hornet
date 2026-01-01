@@ -1,6 +1,5 @@
-author: PowerfulBacon, RKz
-delete-after: true
-changes:
+2026-01-01:
+  PowerfulBacon, RKz:
   - refactor: Slightly cleans up some examination code to make it easier to override,
       improving support for things like custom examinations and accessories being
       shown on uniforms.
