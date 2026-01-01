@@ -352,39 +352,6 @@
 		if(HM?.timeout)
 			dna.remove_mutation(HM.type)
 
-
-/*
-Alcohol Poisoning Chart
-Note that all higher effects of alcohol poisoning will inherit effects for smaller amounts (i.e. light poisoning inherts from slight poisoning)
-In addition, severe effects won't always trigger unless the drink is poisonously strong
-All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
-
-0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occasional slurring
-11-20: Slight alcohol content - slurring
-21-30: Below average - imbiber begins to look slightly drunk
-31-40: Just below average - no unique effects
-41-50: Average - mild disorientation, imbiber begins to look drunk
-51-60: Just above average - disorientation, vomiting, imbiber begins to look heavily drunk
-61-70: Above average - small chance of blurry vision, imbiber begins to look smashed
-71-80: High alcohol content - blurry vision, imbiber completely shitfaced
-81-90: Extremely high alcohol content - light brain damage, passing out
-91-100: Dangerously toxic - swift death
-*/
-#define BALLMER_POINTS 5
-GLOBAL_LIST_INIT(ballmer_good_msg, list("Hey guys, what if we rolled out a bluespace wiring system so mice can't destroy the powergrid anymore?",
-										"Hear me out here. What if, and this is just a theory, we made R&D controllable from our PDAs?",
-										"I'm thinking we should roll out a git repository for our research under the AGPLv3 license so that we can share it among the other stations freely.",
-										"I dunno about you guys, but IDs and PDAs being separate is clunky as fuck. Maybe we should merge them into a chip in our arms? That way they can't be stolen easily.",
-										"Why the fuck aren't we just making every pair of shoes into galoshes? We have the technology."))
-GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put a webserver that's automatically turned on with default admin passwords into every PDA?",
-												"So like, you know how we separate our codebase from the master copy that runs on our consumer boxes? What if we merged the two and undid the separation between codebase and server?",
-												"Dude, radical idea: H.O.N.K mechs but with no bananium required.",
-												"Best idea ever: Disposal pipes instead of hallways.",
-												"We should store bank records in a webscale datastore, like /dev/null.",
-												"You ever wonder if /dev/null supports sharding?",
-												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?"))
-
 //this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects(delta_time, times_fired)
 	..()
@@ -604,5 +571,3 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return
 
 	heart.beating = !status
-
-#undef BALLMER_POINTS
