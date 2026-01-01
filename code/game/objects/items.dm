@@ -1656,10 +1656,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// This proc also appends inspection links, which can be clicked in the chatbox to examine this
 /// item in greater detail.
 /obj/item/proc/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
-	if (!user)
-		CRASH("Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
-	if (!user.client)
-		CRASH("Attempting to generate worn title for a mob without a client, which is not allowed.")
+	ASSERT(user, "Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
+	ASSERT(user.client, "Attempting to generate worn title for a mob without a client, which is not allowed.")
 	var/examine_name = get_examine_name(user)
 
 	// Don't add examine link if this is the item being directly examined
