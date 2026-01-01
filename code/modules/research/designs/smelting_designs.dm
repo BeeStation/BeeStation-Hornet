@@ -8,7 +8,6 @@
 	build_path = /obj/item/stack/sheet/plasteel
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-	maxstack = 50
 
 /datum/design/plastitanium_alloy
 	name = "Plastitanium (Plasma + Titanium alloy)"
@@ -18,7 +17,6 @@
 	build_path = /obj/item/stack/sheet/mineral/plastitanium
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-	maxstack = 50
 
 /datum/design/plaglass_alloy
 	name = "Plasma Glass (Plasma + Glass alloy)"
@@ -28,7 +26,6 @@
 	build_path = /obj/item/stack/sheet/plasmaglass
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-	maxstack = 50
 
 /datum/design/plasmarglass_alloy
 	name = "Plasma Reinforced Glass (Plasma + Iron + Glass alloy)"
@@ -38,7 +35,6 @@
 	build_path = /obj/item/stack/sheet/plasmarglass
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-	maxstack = 50
 
 /datum/design/titaniumglass_alloy
 	name = "Titanium Glass (Titanium + Glass alloy)"
@@ -48,7 +44,6 @@
 	build_path = /obj/item/stack/sheet/titaniumglass
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-	maxstack = 50
 
 /datum/design/plastitaniumglass_alloy
 	name = "Plastitanium glass (Plasma + Titanium + Glass alloy)"
@@ -58,7 +53,6 @@
 	build_path = /obj/item/stack/sheet/plastitaniumglass
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_STOCK_PARTS)
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-	maxstack = 50
 
 /datum/design/alienalloy
 	name = "Alien Alloy"

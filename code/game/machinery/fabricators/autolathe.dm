@@ -49,9 +49,8 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ModularFabricator")
-		ui.open()
 		ui.set_autoupdate(TRUE)
-		viewing_mobs += user
+		ui.open()
 
 /obj/machinery/modular_fabricator/autolathe/ui_data(mob/user)
 	var/list/data = ..()
@@ -116,7 +115,7 @@
 			"You hear the chatter of a floppy drive.")
 		inserted_disk = attacking_item
 		attacking_item.forceMove(src)
-		update_viewer_statics()
+		update_static_data_for_all_viewers()
 		return TRUE
 
 	if(panel_open)
@@ -178,7 +177,7 @@
 				stored_research.add_design(D)
 			else
 				stored_research.remove_design(D)
-	update_viewer_statics()
+	update_static_data_for_all_viewers()
 	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)

@@ -71,9 +71,6 @@
 
 	var/list/scanned_designs = list()
 
-	//Viewing mobs of the UI to update
-	var/list/mob/viewing_mobs = list()
-
 	///the multiplier for how much materials the created object takes from this machines stored materials
 	var/creation_efficiency = 1.2
 
@@ -94,11 +91,6 @@
 		ui = new(user, src, "ComponentPrinter", name)
 		ui.set_autoupdate(TRUE)
 		ui.open()
-		viewing_mobs += user
-
-/obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
-	. = ..()
-	viewing_mobs -= user
 
 /obj/machinery/module_duplicator/ui_assets(mob/user)
 	return list(
@@ -140,7 +132,7 @@
 
 			// SAFETY: eject_sheets checks for valid mats
 			materials.eject_sheets(material, amount)
-			update_viewer_statics()
+			update_static_data_for_all_viewers()
 
 	return TRUE
 
@@ -163,7 +155,7 @@
 		created_atom = module
 	created_atom.pixel_x = initial(created_atom.pixel_x) + rand(-5, 5)
 	created_atom.pixel_y = initial(created_atom.pixel_y) + rand(-5, 5)
-	update_viewer_statics()
+	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, params)
 	var/list/data = list()
@@ -211,20 +203,14 @@
 
 	balloon_alert(user, "module has been saved.")
 	playsound(src, 'sound/machines/ping.ogg', 50)
-	update_viewer_statics()
+	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/RefreshParts()
 	var/efficiency = 1.2
 	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
 		efficiency -= new_manipulator.rating * 0.15
 	creation_efficiency = max(0.1,efficiency)
-	update_viewer_statics()
-
-/obj/machinery/module_duplicator/proc/update_viewer_statics()
-	for(var/mob/M in viewing_mobs)
-		if(QDELETED(M) || !(M.client || M.mind))
-			continue
-		update_static_data(M)
+	update_static_data_for_all_viewers()
 
 /obj/machinery/module_duplicator/ui_static_data(mob/user)
 	var/list/data = list()

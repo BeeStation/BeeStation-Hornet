@@ -12,7 +12,7 @@
 
 	var/operating = FALSE
 	var/wants_operate = FALSE
-	var/disabled = 0
+	var/disabled = FALSE
 
 	var/busy = FALSE
 	///the multiplier for how much materials the created object takes from this machines stored materials
@@ -50,8 +50,6 @@
 
 	//Queue items
 
-	//Viewing mobs of the UI to update
-	var/list/mob/viewing_mobs = list()
 	//Associative list: item_queue[design_id] = list("amount" = int, "repeating" = bool, "build_mat" = something)
 	//The items in the item queue
 	var/list/item_queue = list()
@@ -60,17 +58,20 @@
 	//The amount to readd to the queue when processing is done
 	var/stored_item_amount
 	//Minimum construction time per component
-	var/minimum_construction_time = 35
+	var/minimum_construction_time = 3.5 SECONDS
 
 	/// Ref to our internal techweb
 	var/datum/techweb/stored_research
 	/// The type of techweb we use
 	var/stored_research_type = /datum/techweb/autounlocking/autolathe
+	/// Designs imported from design disks
+	var/list/imported_designs = list()
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
-	if(!GLOB.autounlock_techwebs[stored_research_type])
-		GLOB.autounlock_techwebs[stored_research_type] = new stored_research_type()
-	stored_research = GLOB.autounlock_techwebs[stored_research_type]
+	if(!stored_research)
+		if(!GLOB.autounlock_techwebs[stored_research_type])
+			GLOB.autounlock_techwebs[stored_research_type] = new stored_research_type()
+		stored_research = GLOB.autounlock_techwebs[stored_research_type]
 
 	if(remote_materials)
 		//We think its a protolathe/mechfab. Connectable to Ore Silo
@@ -87,10 +88,7 @@
 
 /obj/machinery/modular_fabricator/proc/get_material_container()
 	var/datum/component/remote_materials/materials = GetComponent(/datum/component/remote_materials)
-	if(materials?.mat_container)
-		return materials.mat_container
-	var/datum/component/material_container/container = GetComponent(/datum/component/material_container)
-	return container
+	return materials?.mat_container || GetComponent(/datum/component/material_container)
 
 /obj/machinery/modular_fabricator/RefreshParts()
 	var/mat_capacity = 0
@@ -109,16 +107,13 @@
 		efficiency -= new_manipulator.rating*0.2
 	creation_efficiency = max(1,efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency
 
-	update_viewer_statics()
+	update_static_data_for_all_viewers()
 
 /obj/machinery/modular_fabricator/examine(mob/user)
 	. += ..()
 	var/datum/component/material_container/materials = get_material_container()
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.")
-
-/obj/machinery/modular_fabricator/ui_state()
-	return GLOB.default_state
 
 /obj/machinery/modular_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!is_operational)
@@ -127,13 +122,8 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ModularFabricator")
-		ui.open()
 		ui.set_autoupdate(TRUE)
-		viewing_mobs += user
-
-/obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
-	. = ..()
-	viewing_mobs -= user
+		ui.open()
 
 /obj/machinery/modular_fabricator/ui_static_data(mob/user)
 	var/list/data = list()
@@ -143,34 +133,34 @@
 	data["can_sync"] = can_sync
 
 	//Items
-	data["items"] = list()
 	var/list/categories_associative = list()
-	for(var/v in stored_research.researched_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		for(var/cat in D.category)
+	for(var/design_id in stored_research.researched_designs + imported_designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+		for(var/category in design.category)
 			//Check if printable
-			if(!(cat in categories))
+			if(!(category in categories))
 				continue
-			if(!islist(categories_associative[cat]))
-				categories_associative[cat] = list()
+			if(!islist(categories_associative[category]))
+				categories_associative[category] = list()
 
 			//Calculate cost
 			var/list/material_cost = list()
-			for(var/material_id in D.materials)
+			for(var/material_id in design.materials)
 				material_cost += list(list(
 					"name" = material_id,
-					"amount" = ( D.materials[material_id] / MINERAL_MATERIAL_AMOUNT) * creation_efficiency,
+					"amount" = (design.materials[material_id] / MINERAL_MATERIAL_AMOUNT) * creation_efficiency,
 				))
 
 			//Add
-			categories_associative[cat] += list(list(
-				"name" = D.name,
-				"desc" = D.desc,
-				"design_id" = D.id,
+			categories_associative[category] += list(list(
+				"name" = design.name,
+				"desc" = design.desc,
+				"design_id" = design.id,
 				"material_cost" = material_cost,
 			))
 
 	//Categories and their items
+	data["items"] = list()
 	for(var/category in categories_associative)
 		data["items"] += list(list(
 			"category_name" = category,
@@ -191,10 +181,10 @@
 
 	//Real queue at the bottom
 	for(var/item_design_id in item_queue)
-		var/datum/design/D = SSresearch.techweb_design_by_id(item_design_id)
+		var/datum/design/design = SSresearch.techweb_design_by_id(item_design_id)
 		var/list/additional_data = item_queue[item_design_id]
 		data["queue"] += list(list(
-			"name" = D.name,
+			"name" = design.name,
 			"amount" = additional_data["amount"],
 			"repeat" = additional_data["repeating"],
 			"design_id" = item_design_id,
@@ -235,7 +225,7 @@
 		if("resync_rd")
 			if(!can_sync)
 				return
-			update_viewer_statics()
+			update_static_data_for_all_viewers()
 			. = TRUE
 
 		if("queue_category")
@@ -243,8 +233,8 @@
 				return
 			var/category_to_queue = params["category_name"]
 			for(var/v in stored_research.researched_designs)
-				var/datum/design/D = SSresearch.techweb_design_by_id(v)
-				if(category_to_queue in D.category)
+				var/datum/design/design = SSresearch.techweb_design_by_id(v)
+				if(category_to_queue in design.category)
 					add_to_queue(item_queue, v, 1)
 
 		if("output_dir")
@@ -254,13 +244,20 @@
 		if("upload_disk")
 			if(!accepts_disks)
 				return
-			var/obj/item/disk/design_disk/D = inserted_disk
-			if(!istype(D))
+			var/obj/item/disk/design_disk/disk = inserted_disk
+			if(!istype(disk))
 				return
-			for(var/B in D.blueprints)
-				if(B)
-					stored_research.add_design(B)
-			update_viewer_statics()
+
+			var/previous_design_count = length(imported_designs)
+			for(var/datum/design/blueprint in disk.blueprints)
+				imported_designs[blueprint.id] = TRUE
+
+			var/design_delta = length(imported_designs) - previous_design_count
+			if(length(imported_designs) > previous_design_count)
+				say("Uploaded [design_delta] new design[design_delta == 1 ? "" : "s"].")
+				playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+
+			update_static_data_for_all_viewers()
 			. = TRUE
 
 		if("eject_disk")
@@ -269,7 +266,7 @@
 			var/obj/item/disk/design_disk/disk = inserted_disk
 			disk.forceMove(drop_location())
 			inserted_disk = null
-			update_viewer_statics()
+			update_static_data_for_all_viewers()
 			. = TRUE
 
 		if("eject_material")
@@ -315,12 +312,6 @@
 		if("begin_process")
 			begin_process()
 			. = TRUE
-
-/obj/machinery/modular_fabricator/proc/update_viewer_statics()
-	for(var/mob/M in viewing_mobs)
-		if(QDELETED(M) || !(M.client || M.mind))
-			continue
-		update_static_data(M)
 
 /obj/machinery/modular_fabricator/proc/add_to_queue(queue_list, design_id, amount, repeat=null)
 	if(queue_list["[design_id]"])

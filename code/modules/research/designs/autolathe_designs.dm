@@ -158,7 +158,6 @@
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
 	build_path = /obj/item/stack/cable_coil/red/one
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_TOOLS, RND_CATEGORY_TOOL_DESIGNS)
-	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/toolbox
@@ -307,7 +306,6 @@
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/iron
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_CONSTRUCTION)
-	maxstack = 50
 
 /datum/design/glass
 	name = "Glass"
@@ -316,7 +314,6 @@
 	materials = list(/datum/material/glass = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/glass
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_CONSTRUCTION)
-	maxstack = 50
 
 /datum/design/rglass
 	name = "Reinforced Glass"
@@ -325,7 +322,6 @@
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_CONSTRUCTION, RND_CATEGORY_STOCK_PARTS)
-	maxstack = 50
 
 /datum/design/rods
 	name = "Iron Rod"
@@ -334,7 +330,6 @@
 	materials = list(/datum/material/iron = 1000)
 	build_path = /obj/item/stack/rods
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_CONSTRUCTION)
-	maxstack = 50
 
 /datum/design/rcd_ammo
 	name = "Compressed Matter Cartridge"
@@ -947,7 +942,6 @@
 	materials = list(/datum/material/iron = 3000)
 	build_path = /obj/item/stack/conveyor
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_CONSTRUCTION, RND_CATEGORY_ELECTRONICS)
-	maxstack = 30
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/conveyor_switch
@@ -1006,7 +1000,6 @@
 	materials = list(/datum/material/iron = 200, /datum/material/glass = 200)
 	build_path = /obj/item/stack/package_wrap
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_MISC, RND_CATEGORY_EQUIPMENT)
-	maxstack = 30
 
 /datum/design/holodisk
 	name = "Holodisk"
@@ -1023,7 +1016,6 @@
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/stack/tile/circuit
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_MISC)
-	maxstack = 50
 
 /datum/design/circuitgreen
 	name = "Green Circuit Tile"
@@ -1032,7 +1024,6 @@
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/stack/tile/circuit/green
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_MISC)
-	maxstack = 50
 
 /datum/design/circuitred
 	name = "Red Circuit Tile"
@@ -1041,7 +1032,6 @@
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
 	build_path = /obj/item/stack/tile/circuit/red
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_MISC)
-	maxstack = 50
 
 /datum/design/price_tagger
 	name = "Price Tagger"
@@ -1090,7 +1080,6 @@
 	materials = list(/datum/material/iron = 500)
 	build_path = /obj/item/stack/ducts
 	category = list(RND_CATEGORY_INITIAL, RND_CATEGORY_CONSTRUCTION)
-	maxstack = 50
 
 /datum/design/airlock_painter/decal
 	name = "Decal Painter"

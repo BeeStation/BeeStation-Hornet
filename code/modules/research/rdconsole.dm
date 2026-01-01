@@ -132,7 +132,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				"node_researcher" = logname,
 				"node_research_location" = "[get_area(src)]",
 			))
-			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_RESEARCH, id)
 			return TRUE
 		else
 			say("Failed to research node: Internal database error!")
