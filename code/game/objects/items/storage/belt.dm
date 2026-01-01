@@ -866,14 +866,14 @@
 	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/worn
-	name = "Worn belt"
+	name = "worn belt"
 	desc = "A weathered belt"
 	icon_state = "utilitybelt" //Placeholder for now.
 	inhand_icon_state = "utility"
 	worn_icon_state = "utility"
 
 /obj/item/storage/belt/fannypack/worn/detective //Starting contents defined in detective.dm where the rest of their loadout is handled.
-	name = "Worn belt"
+	name = "worn belt"
 	desc = "A weathered belt that is used for storing various gadgets"
 
 /obj/item/storage/belt/fannypack/black
