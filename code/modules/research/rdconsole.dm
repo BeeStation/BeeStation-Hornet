@@ -22,17 +22,24 @@ Nothing else in the console has ID requirements.
 	desc = "A console used to interface with R&D tools."
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	var/datum/techweb/stored_research					//Reference to global science techweb.
-	var/obj/item/disk/tech_disk/t_disk	//Stores the technology disk.
-	var/obj/item/disk/design_disk/d_disk	//Stores the design disk.
 	circuit = /obj/item/circuitboard/computer/rdconsole
-
-	req_access = list(ACCESS_TOX)	//lA AND SETTING MANIPULATION REQUIRES SCIENTIST ACCESS.
-
+	req_access = list(ACCESS_TOX)	// Locking and unlocking the console requires research access
+	/// Reference to global science techweb
+	var/datum/techweb/stored_research
+	/// The stored technology disk, if present
+	var/obj/item/disk/tech_disk/t_disk
+	/// The stored design disk, if present
+	var/obj/item/disk/design_disk/d_disk
+	/// Determines if the console is locked, and consequently if actions can be performed with it
 	var/locked = FALSE
+	/// Used for compressing data sent to the UI via static_data as payload size is of concern
 	var/id_cache = list()
+	/// Sequence var for the id cache
 	var/id_cache_seq = 1
+	/// If the UI is in "compact" mode
 	var/compact = TRUE
+	/// Cooldown that prevents hanging the MC when tech disks are copied
+	STATIC_COOLDOWN_DECLARE(copy_cooldown)
 
 /proc/CallMaterialName(ID)
 	if (istype(ID, /datum/material))
@@ -314,19 +321,27 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				say("Uploading blueprints from disk.")
 				return TRUE
 			if (params["type"] == RND_TECH_DISK)
+				if (!COOLDOWN_FINISHED(src, copy_cooldown)) // prevents MC hang
+					say("Servers busy!")
+					return
 				if (QDELETED(t_disk))
 					say("No tech disk inserted!")
 					return TRUE
+				COOLDOWN_START(src, copy_cooldown, 5 SECONDS)
 				say("Uploading technology disk.")
 				t_disk.stored_research.copy_research_to(stored_research)
 			return TRUE
 		// Tech disk-only action
 		if ("loadTech")
+			if(!COOLDOWN_FINISHED(src, copy_cooldown)) // prevents MC hang
+				say("Servers busy!")
+				return
 			if(QDELETED(t_disk))
 				say("No tech disk inserted!")
 				return
-			stored_research.copy_research_to(t_disk.stored_research)
+			COOLDOWN_START(src, copy_cooldown, 5 SECONDS)
 			say("Downloading to technology disk.")
+			stored_research.copy_research_to(t_disk.stored_research)
 			return TRUE
 
 /obj/machinery/computer/rdconsole/proc/eject_disk(type)
