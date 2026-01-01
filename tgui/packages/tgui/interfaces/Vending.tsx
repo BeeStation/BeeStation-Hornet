@@ -323,6 +323,7 @@ const ProductGrid = (props) => {
     <ImageButton
       {...baseProps}
       tooltip={capitalizeAll(product.name)}
+      fontSize={0.94}
       buttonsAlt={
         <Stack fontSize={0.8}>
           <Stack.Item grow textAlign={'left'}>

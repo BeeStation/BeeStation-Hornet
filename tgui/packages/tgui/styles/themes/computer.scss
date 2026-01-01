@@ -11,7 +11,8 @@
 
 @use '../base.scss' with (
   $color-fg: #dbd8ef,
-  $color-bg: #11121c
+  $color-bg: #11121c,
+  $font-size: 12.5px
 );
 
 @use '../colors.scss' with (
@@ -38,6 +39,7 @@
 .theme-computer {
   // Base theme
   font-family: monospace;
+  font-size: 12.5px;
   // Base overrides
   @include meta.load-css('../atomic/color.scss');
   // Uses color-fg/color-bg
@@ -95,6 +97,10 @@
     display: inline-flex;
     flex-direction: row;
     align-items: center;
+    // Override transparent colour when inside the header, as we have a light background.
+    .Button--color--transparent {
+      color: base.$color-bg;
+    }
   }
   // Progress bar
   .ProgressBar {

@@ -23,7 +23,7 @@ $color-bg-end: color.adjust(
 $color-light: if(luminance($color-bg) > 0.5, $color-bg, $color-fg);
 $color-dark: if(luminance($color-bg) > 0.5, $color-fg, $color-bg);
 
-$unit: 12px;
+$unit: 12px !default;
 $font-size: 1 * $unit !default;
 $border-radius: 0.16em !default;
 
