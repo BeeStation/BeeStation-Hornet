@@ -2,9 +2,6 @@
 	name = "Fugitive Hunter pod"
 	desc = "A small sleeper typically used to make long distance travel a bit more bearable."
 	mob_name = "a fugitive hunter"
-	prompt_name = "UNDEFINED HUNTER, FIX YOUR SHIT"
-	you_are_text = "UNDEFINED HUNTER, FIX YOUR SHIT"
-	flavour_text = "UNDEFINED HUNTER, FIX YOUR SHIT"
 	assignedrole = ROLE_FUGITIVE_HUNTER
 	show_flavor = FALSE
 	density = TRUE

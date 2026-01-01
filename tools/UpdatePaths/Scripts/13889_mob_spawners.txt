@@ -30,8 +30,8 @@
 /obj/effect/mob_spawn/human/hotel_staff/security : /obj/effect/mob_spawn/ghost_role/human/hotel_staff/security{@OLD}
 /obj/effect/mob_spawn/human/hotel_staff : /obj/effect/mob_spawn/ghost_role/human/hotel_staff{@OLD}
 
-/obj/effect/mob_spawn/human/pirate/captain : /obj/effect/mob_spawn/ghost_role/human/pirate/captain{@OLD}
-/obj/effect/mob_spawn/human/pirate : /obj/effect/mob_spawn/ghost_role/human/pirate{@OLD}
+/obj/effect/mob_spawn/human/pirate/captain : /obj/effect/mob_spawn/ghost_role/human/pirate/skeleton/captain{@OLD}
+/obj/effect/mob_spawn/human/pirate : /obj/effect/mob_spawn/ghost_role/human/pirate/skeleton{@OLD}
 
 /obj/effect/mob_spawn/swarmer : /obj/effect/mob_spawn/ghost_role/swarmer{@OLD}
 

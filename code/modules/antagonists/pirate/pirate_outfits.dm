@@ -1,13 +1,13 @@
 /datum/outfit/pirate
 	name = "Space Pirate"
 
+	id = /obj/item/card/id/pirate
 	uniform = /obj/item/clothing/under/costume/pirate
 	suit = /obj/item/clothing/suit/costume/pirate
 	ears = /obj/item/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/costume/pirate/bandana
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	id = /obj/item/card/id/pirate
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/equipped)
 	equipped.faction |= FACTION_PIRATE
@@ -28,6 +28,9 @@
 
 	head = /obj/item/clothing/head/helmet/space/pirate
 	ears = /obj/item/radio/headset/syndicate/alt/leader
+
+/datum/outfit/pirate/captain/skeleton
+	name = "Space Pirate Captain (Skeleton)"
 
 /datum/outfit/pirate/space
 	name = "Space Pirate (EVA)"

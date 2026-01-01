@@ -100,7 +100,7 @@
 //Spawner for sentience
 /obj/effect/mob_spawn/ghost_role/sentient_artifact
 	name = "Sentient Xenoartifact"
-	prompt_name ="A listless evil..."
+	prompt_name = "a mind trapped within a *powerful artifact..."//* maybe.
 	you_are_text = "You're a maleviolent sentience, possessing an ancient alien artifact."
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE

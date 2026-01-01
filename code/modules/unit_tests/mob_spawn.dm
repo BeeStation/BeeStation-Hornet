@@ -10,6 +10,7 @@
 		/obj/effect/mob_spawn/corpse/human,
 		/obj/effect/mob_spawn/ghost_role,
 		/obj/effect/mob_spawn/ghost_role/human,
+		/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter,
 	)
 
 	//ghost role checks

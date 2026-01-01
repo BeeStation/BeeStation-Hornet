@@ -3,6 +3,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 #define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
 #define PIRATE_RESPONSE_PAY "pirate_answer_pay"
 
+//This needs to be competently converted into procs on the midround ruleset, *not* global/world procs, capiche?
 /proc/send_pirate_threat()
 	GLOB.pirates_spawned = TRUE
 	var/ship_name = "Space Privateers Association"
@@ -28,7 +29,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
 	if(world.time > initial_send_time + response_max_time)
-		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
+		priority_announce("Too late to beg for mercy!", sender_override = ship_name)
 		return
 	// Attempted to pay off
 	if(threat?.answered == PIRATE_RESPONSE_PAY)
@@ -77,9 +78,19 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 				var/mob/our_candidate = candidates[1]
 				var/mob/spawned_mob = spawner.create_from_ghost(our_candidate)
 				candidates -= our_candidate
-				notify_ghosts("The pirate ship has an object of interest: [spawned_mob]!", source = spawned_mob, action = NOTIFY_ORBIT, header = "Pirates!")
+				notify_ghosts(
+					"The pirate ship has an object of interest: [spawned_mob]!",
+					source = spawned_mob,
+					action = NOTIFY_ORBIT,
+					header = "Pirates!"
+				)
 			else
-				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source = spawner, action = NOTIFY_ORBIT, header="Pirate Spawn Here!")
+				notify_ghosts(
+					"The pirate ship has an object of interest: [spawner]!",
+					source = spawner,
+					action = NOTIFY_ORBIT,
+					header="Pirate Spawn Here!"
+				)
 
 //Shuttle equipment
 
