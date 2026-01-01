@@ -104,6 +104,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/default_virus_defense = ANTIVIRUS_NONE
 	/// Multiplier for power usage
 	var/power_usage_multiplier = 1
+	/// People looking at the computer
+	var/list/computer_users = list()
 
 /datum/armor/item_modular_computer
 	bullet = 20
@@ -211,6 +213,13 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(card_slot)
 		return card_slot.GetID()
 	return ..()
+
+/obj/item/modular_computer/get_id_examine_strings(mob/user)
+	. = ..()
+	var/obj/item/card/id/stored_id = GetID()
+	if(stored_id)
+		. += "[src] is displaying [stored_id]:"
+		. += stored_id.get_id_examine_strings(user)
 
 /obj/item/modular_computer/RemoveID()
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]

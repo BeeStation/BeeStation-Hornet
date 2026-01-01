@@ -5,7 +5,7 @@
 	icon = 'icons/obj/clothing/head/bio.dmi'
 	worn_icon = 'icons/mob/clothing/head/bio.dmi'
 	icon_state = "bio"
-	item_state = "bio_hood"
+	inhand_icon_state = "bio_hood"
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
 	armor_type = /datum/armor/head_bio_hood
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
@@ -26,7 +26,7 @@
 	icon = 'icons/obj/clothing/suits/bio.dmi'
 	icon_state = "bio"
 	worn_icon = 'icons/mob/clothing/suits/bio.dmi'
-	item_state = "bio_suit"
+	inhand_icon_state = "bio_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -129,6 +129,6 @@
 	name = "plague doctor suit"
 	desc = "It protected doctors from the Black Death, back then. You bet your arse it's gonna help you against viruses."
 	icon_state = "plaguedoctor"
-	item_state = "bio_suit"
+	inhand_icon_state = "bio_suit"
 	strip_delay = 40
 	equip_delay_other = 20

@@ -78,7 +78,7 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production. \
 		It is highly effective against targets who aren't standing or are suffering from exhaustion."
 	icon_state = "flash"
-	item_state = "flashtool"
+	inhand_icon_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throwforce = 0
@@ -359,7 +359,7 @@
 	desc = "If you see this, you're not likely to remember it any time soon."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "memorizer"
-	item_state = "nullrod"
+	inhand_icon_state = "nullrod"
 
 /obj/item/assembly/flash/handheld //this is now the regular pocket flashes
 
@@ -432,7 +432,7 @@
 				M.confused += min(M.confused + 10, 20)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
-				M.apply_status_effect(/datum/status_effect/pacify, 100)
+				M.adjust_pacifism(10 SECONDS)
 
 
 
@@ -446,7 +446,7 @@
 		M.confused += min(M.confused + 4, 20)
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
-		M.apply_status_effect(/datum/status_effect/pacify, 40)
+		M.adjust_pacifism(4 SECONDS)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

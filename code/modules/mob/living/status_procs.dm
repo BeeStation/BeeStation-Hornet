@@ -616,7 +616,7 @@
 		return 0
 	// Infinite duration status effects technically are not "timed status effects"
 	// by name or nature, but support is included just in case.
-	if(existing.duration == -1)
+	if(existing.duration == STATUS_EFFECT_PERMANENT)
 		return INFINITY
 
 	return existing.duration - world.time
@@ -657,3 +657,7 @@
 
 	else if(duration > 0)
 		apply_status_effect(effect, duration)
+
+/// Helper to check if we seem to be alive or not
+/mob/living/proc/appears_alive()
+	return stat != DEAD && !HAS_TRAIT(src, TRAIT_FAKEDEATH)

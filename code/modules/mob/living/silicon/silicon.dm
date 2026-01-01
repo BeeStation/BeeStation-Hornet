@@ -105,14 +105,6 @@
 		modularInterface.saved_job = JOB_NAME_PAI
 		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 
-/mob/living/silicon/robot/model/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-		modularInterface.saved_identification = real_name
-		modularInterface.saved_job = JOB_NAME_CYBORG
-	return ..()
-
-
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
 
@@ -174,7 +166,7 @@
 /mob/living/silicon/try_inject(mob/user, target_zone, injection_flags)
 	. = ..()
 	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, "<span class='alert'>[p_Their()] outer shell is too tough.</span>")
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))

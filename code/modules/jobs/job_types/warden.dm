@@ -33,6 +33,11 @@
 	lightup_areas = list(/area/security/detectives_office)
 	minimal_lightup_areas = list(/area/security/warden)
 
+	manuscript_jobs = list(
+		JOB_NAME_WARDEN,
+		JOB_NAME_SECURITYOFFICER // technically, Warden is just promoted seccie, right?
+	)
+
 /datum/job/warden/get_access()
 	. = ..()
 	if(check_config_for_sec_maint())
@@ -51,7 +56,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/hats/warden/red
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	l_pocket = /obj/item/clothing/accessory/badge/officer
+	l_pocket = /obj/item/clothing/accessory/badge
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/warden
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/security
 

@@ -1334,7 +1334,7 @@
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
 	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
-	cost = 5000
+	cost = 7500
 	max_supply = 2
 	contains = list(
 		/obj/machinery/portable_atmospherics/canister/plasma,
@@ -1349,7 +1349,8 @@
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/heater,
-		/obj/item/circuitboard/machine/shuttle/heater
+		/obj/item/circuitboard/machine/shuttle/heater,
+		/obj/item/survivalcapsule/shuttle_husk
 		)
 	crate_name = "shuttle construction crate"
 	crate_type = /obj/structure/closet/crate/large
@@ -1763,20 +1764,24 @@
 
 /datum/supply_pack/medical/bloodpacks
 	name = "Blood Pack Variety Crate"
-	desc = "Contains eight different blood packs for reintroducing blood to patients."
-	cost = 700
+	desc = "Contains a variety of blood packs for reintroducing blood to patients."
+	cost = 900
 	max_supply = 4
-	contains = list(/obj/item/reagent_containers/blood,
-					/obj/item/reagent_containers/blood,
-					/obj/item/reagent_containers/blood/APlus,
-					/obj/item/reagent_containers/blood/AMinus,
-					/obj/item/reagent_containers/blood/BPlus,
-					/obj/item/reagent_containers/blood/BMinus,
-					/obj/item/reagent_containers/blood/OPlus,
-					/obj/item/reagent_containers/blood/OMinus,
-					/obj/item/reagent_containers/blood/lizard,
-					/obj/item/reagent_containers/blood/ethereal,
-					/obj/item/reagent_containers/blood/oozeling)
+	contains = list(/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random,
+					/obj/item/reagent_containers/blood/random)
 	crate_name = "blood freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
@@ -3090,7 +3095,8 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 					/obj/item/clothing/mask/gas/syndicate,
 					/obj/item/clothing/neck/necklace/dope,
-					/obj/item/vending_refill/donksoft)
+					/obj/item/vending_refill/donksoft,
+					/obj/item/clothing/neck/cloak/fakehalo)
 	crate_name = "crate"
 
 /datum/supply_pack/costumes_toys/foamforce
@@ -3562,7 +3568,8 @@
 					/obj/item/book/manual/random/,
 					/obj/item/book/random,
 					/obj/item/book/random,
-					/obj/item/book/random)
+					/obj/item/book/random,
+					/obj/item/book/manuscript)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/paper

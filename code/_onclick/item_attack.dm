@@ -305,6 +305,8 @@
 		return FALSE
 	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
 	apply_damage(I.force, I.damtype, blocked = armour_block)
+	if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+		batong_act(I, user, null, armour_block)
 	if(I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)
 		var/turf/location = get_turf(src)

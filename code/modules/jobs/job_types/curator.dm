@@ -32,6 +32,9 @@
 		/area/construction/mining/aux_base
 	)
 
+	// The power that curator can write a manuscript as any job is written in 'manuscript_writing.dm'
+	// manuscript_jobs = list()
+
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator
@@ -51,10 +54,10 @@
 		/obj/item/barcodescanner = 1
 	)
 
-/datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	H.grant_all_languages(source = LANGUAGE_CURATOR)

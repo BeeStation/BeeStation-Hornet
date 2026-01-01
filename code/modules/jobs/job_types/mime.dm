@@ -29,6 +29,11 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/theatre)
 
+	manuscript_jobs = list(
+		JOB_NAME_MIME,
+		JOB_NAME_COOK // the cultural power of french cuisine
+	)
+
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!ishuman(H))
@@ -60,10 +65,10 @@
 	satchel = /obj/item/storage/backpack/mime
 
 
-/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	// Start our mime out with a vow of silence and the ability to break (or make) it

@@ -21,7 +21,7 @@
 		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
@@ -44,7 +44,6 @@
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
-	species_bitflags = NOT_TRANSMORPHIC
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
@@ -191,7 +190,7 @@
 	name = "Split"
 	desc = "Split into our seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "split"
 	check_flags = AB_CHECK_DEAD
 	var/Activated = FALSE
@@ -263,7 +262,7 @@
 	name = "Partition"
 	desc = "Allow a nymph to partition from our gestalt self."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "grow"
 	cooldown_time = 5 MINUTES
 	var/ability_partition_cooldow

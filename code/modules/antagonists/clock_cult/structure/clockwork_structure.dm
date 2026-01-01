@@ -19,7 +19,7 @@
 	var/datum/mind/owner = null	//The person who placed this structure
 
 /obj/structure/destructible/clockwork/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	. = list("[examine_title(user, TRUE)].")
 
 	if(IS_SERVANT_OF_RATVAR(user) && clockwork_desc)
 		. += clockwork_desc

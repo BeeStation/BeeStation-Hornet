@@ -6,7 +6,7 @@
 	name = "hard hat"
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
-	item_state = null
+	inhand_icon_state = null
 	armor_type = /datum/armor/utility_hardhat
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
@@ -53,7 +53,7 @@
 	update_appearance()
 
 /obj/item/clothing/head/utility/hardhat/update_icon_state()
-	icon_state = item_state = "hardhat[on]_[hat_type]"
+	icon_state = inhand_icon_state = "hardhat[on]_[hat_type]"
 	return ..()
 
 /obj/item/clothing/head/utility/hardhat/proc/turn_on(mob/user)
@@ -64,7 +64,7 @@
 
 /obj/item/clothing/head/utility/hardhat/orange
 	icon_state = "hardhat0_orange"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "orange"
 	dog_fashion = null
 
@@ -72,7 +72,7 @@
 	name = "firefighter helmet"
 	desc = "A helmet designed to be used in very hot, high pressure areas."
 	icon_state = "hardhat0_red"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "red"
 	dog_fashion = null
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
@@ -88,7 +88,7 @@
 	name = "white hard hat"
 	desc = "It's a hard hat, but painted white. Probably belongs to the Chief Engineer. Looks a little more solid."
 	icon_state = "hardhat0_white"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "white"
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
@@ -99,7 +99,7 @@
 
 /obj/item/clothing/head/utility/hardhat/dblue
 	icon_state = "hardhat0_dblue"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "dblue"
 	dog_fashion = null
 
@@ -107,7 +107,7 @@
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
 	icon_state = "hardhat0_atmos"
-	item_state = "hardhat0_atmos"
+	inhand_icon_state = "hardhat0_atmos"
 	hat_type = "atmos"
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT  | HEADINTERNALS
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
@@ -168,13 +168,13 @@
 
 /obj/item/clothing/head/utility/hardhat/welding/orange
 	icon_state = "hardhat0_orange"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "orange"
 
 /obj/item/clothing/head/utility/hardhat/welding/white
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight AND welding shield!" //This bulb is not smaller
 	icon_state = "hardhat0_white"
-	item_state = "hardhat0_white"
+	inhand_icon_state = "hardhat0_white"
 	light_range = 4 //Boss always takes the best stuff
 	hat_type = "white"
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
@@ -189,7 +189,7 @@
 	icon = 'icons/obj/clothing/head/costume.dmi'
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "hardhat0_pumpkin"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
@@ -208,7 +208,7 @@
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	clothing_flags = SNUG_FIT
 	icon_state = "hardhat0_reindeer"
-	item_state = null
+	inhand_icon_state = null
 	hat_type = "reindeer"
 	flags_inv = 0
 	armor_type = /datum/armor/none

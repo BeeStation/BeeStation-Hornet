@@ -289,9 +289,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/eldritch/ratvar)
 					SEND_SOUND(world, 'sound/magic/demon_dies.ogg')
 					to_chat(world, span_ratvar("You were a fool for underestimating me..."))
 					qdel(ratvar_target)
-					for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-						to_chat(cultist.owner, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
-						cultist.owner.current?.dust()
+					for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+						to_chat(cult_mind, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
+						cult_mind.current?.dust()
 				return
 
 /obj/eldritch/ratvar/consume(atom/A)

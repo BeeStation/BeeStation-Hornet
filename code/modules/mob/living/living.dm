@@ -208,7 +208,7 @@
 	if(len)
 		for(var/obj/item/I in held_items)
 			if(!length(holding))
-				holding += "[p_they(TRUE)] [p_are()] holding \a [I]"
+				holding += "[p_They()] [p_are()] holding \a [I]"
 			else if(held_items.Find(I) == len)
 				holding += ", and \a [I]."
 			else
@@ -933,7 +933,7 @@
 	var/glowyblood = FALSE
 	if(ishuman(src))
 		var/mob/living/carbon/human/humanoid = src
-		glowyblood = humanoid.dna.blood_type.glowy
+		glowyblood = humanoid.dna.blood_type?.glowy
 
 	if(isturf(start))
 		var/trail_type = getTrail()
@@ -1080,9 +1080,6 @@
 
 /mob/living/proc/resist_restraints()
 	return
-
-/mob/living/proc/get_visible_name()
-	return name
 
 /mob/living/proc/update_gravity(gravity)
 	// Handle movespeed stuff
@@ -2117,14 +2114,14 @@
 		else
 			target_hostile.attack_same = FALSE //Will only attack non-passive mobs
 			if(prob(10)) //chance of sentience without loyaltyAdd commentMore actions
-				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-					question = "Do you want to play as \a [src] being revived by [reviver]?",
-					check_jobban = ROLE_SENTIENCE,
-					poll_time = 15 SECONDS,
-					jump_target = src,
-					role_name_text = "lazarus revived mob",
-					alert_pic = src,
-					)
+				var/datum/poll_config/config = new()
+				config.question = "Do you want to play as \a [src] being revived by [reviver]?"
+				config.check_jobban = ROLE_SENTIENCE
+				config.poll_time = 15 SECONDS
+				config.jump_target = src
+				config.role_name_text = "lazarus revived mob"
+				config.alert_pic = src
+				var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 				if(candidate)
 					src.key = candidate.key
 					target_hostile.sentience_act()
