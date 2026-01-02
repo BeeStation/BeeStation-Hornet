@@ -18,7 +18,7 @@
 
 /datum/antagonist/brother/prime/greet()
 	to_chat(owner.current, span_alertsyndie("You are the First-Born Blood Brother."))
-	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves and can work with a team. Unlock your uplink and head to the directives tab, you may have special equipment available under the 'recruit' directive which you can redeem.")
+	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves and can work with a team. Unlock your uplink and head to the directives tab, you may have special equipment available under the 'recruit' directive which you can redeem.<br><b>You can only convert those with a susceptible mind! View your antag info or uplink to see your targets.</b>")
 	owner.announce_objectives()
 	give_meeting_area()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
