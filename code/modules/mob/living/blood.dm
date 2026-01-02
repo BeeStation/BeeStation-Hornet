@@ -501,7 +501,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if (!T)
 		T = get_turf(src)
-	if(!isturf(T))
+	if(T && !isturf(T))
 		T = get_turf(T)
 	if (!T || isgroundlessturf(T))
 		return
