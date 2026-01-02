@@ -355,7 +355,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
-		if(isturf(src.loc) && !isgroundlessturf(src.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+		if(prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
 			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
@@ -499,8 +499,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	if(!T)
+	if(!isturf(T))
 		T = get_turf(src)
+	if (!T || isgroundlessturf(T))
+		return
 
 	var/list/temp_blood_DNA
 	if(small_drip)
