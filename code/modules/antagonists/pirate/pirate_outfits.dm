@@ -37,3 +37,9 @@
 
 	suit = /obj/item/clothing/suit/space/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
+
+/datum/outfit/pirate/space/captain
+	name = "Space Pirate Captain (EVA)"
+
+	head = /obj/item/clothing/head/helmet/space/pirate
+	ears = /obj/item/radio/headset/syndicate/alt/leader
