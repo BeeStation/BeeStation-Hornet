@@ -292,12 +292,15 @@
 	equipped_gear = SANITIZE_LIST(equipped_gear)
 	role_preferences = SANITIZE_LIST(role_preferences)
 
+	var/antag_prefs_altered = FALSE
+
 	// Validate job prefs
 	for(var/j in job_preferences)
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
 			log_preferences("[parent_ckey]: WARN - Cleaned up invalid job preference entry: [j]")
 			mark_undatumized_dirty_character()
+			antag_prefs_altered = TRUE
 
 	// Validate role prefs
 	for(var/preference in role_preferences)
@@ -311,6 +314,7 @@
 		role_preferences -= preference
 		log_preferences("[parent_ckey]: WARN - Cleaned up invalid character role preference entry [preference].")
 		mark_undatumized_dirty_character()
+		antag_prefs_altered = TRUE
 
 	// Validate equipped gear
 	for(var/gear_id in equipped_gear)
@@ -325,6 +329,9 @@
 		if(islist(purchased_gear) && !(gear_id in purchased_gear))
 			equipped_gear -= gear_id
 			mark_undatumized_dirty_character()
+
+	if (parent && antag_prefs_altered)
+		to_chat(parent, span_userdanger("You had antagonist preferences set which no longer exist, your preferences may have been altered!"))
 
 	return PREFERENCE_LOAD_SUCCESS
 
