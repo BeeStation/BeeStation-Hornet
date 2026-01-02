@@ -869,11 +869,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
 	if(!M)
 		return FALSE
 
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_occupancy)
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -1656,10 +1656,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /// This proc also appends inspection links, which can be clicked in the chatbox to examine this
 /// item in greater detail.
 /obj/item/proc/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
-	if (!user)
-		CRASH("Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
-	if (!user.client)
-		CRASH("Attempting to generate worn title for a mob without a client, which is not allowed.")
+	ASSERT(user, "Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
+	ASSERT(user.client, "Attempting to generate worn title for a mob without a client, which is not allowed.")
 	var/examine_name = get_examine_name(user)
 
 	// Don't add examine link if this is the item being directly examined

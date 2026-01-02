@@ -446,9 +446,6 @@
 /obj/item/clothing/accessory/badge
 	name = "badge"
 	desc = "A badge that symbolises a person's authority as a member of security."
-	accessory_slot = ACCESSORY_MEDAL
-	accessory_layer = ACCESSORY_LAYER_MEDAL
-	above_suit = TRUE
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
