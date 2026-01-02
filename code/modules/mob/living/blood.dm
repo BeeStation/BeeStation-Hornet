@@ -57,7 +57,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// For heavy bleeding, leave drops if we are standing.
 		// If we are lying down, allow the trail to form
 		// This doesn't actually cause you to lose blood any faster
-		if (bleed_rate > BLEED_RATE_MINOR && owner.body_position == STANDING_UP)
+		if (bleed_rate > BLEED_RATE_MINOR && owner.body_position == STANDING_UP && !HAS_TRAIT(owner, TRAIT_BLEED_HELD))
 			owner.add_splatter_floor(owner.loc, TRUE)
 		return
 	time_applied = 0
