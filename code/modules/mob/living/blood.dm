@@ -50,8 +50,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 	time_applied += seconds_between_ticks SECONDS
 
-	// For light bleeding, only process healing/bleeding every 1 second
-	// For heavy bleeding, process every tick (0.2 seconds)
 	var/should_process = time_applied >= 1 SECONDS
 	if (!should_process)
 		// For heavy bleeding, leave drops if we are standing.
