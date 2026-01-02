@@ -305,6 +305,9 @@
 		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
 		if(istype(entry) && entry.per_character)
 			continue
+		if (length(GLOB.revdata.testmerge))
+			log_preferences("[parent_ckey]: WARN - Skipped cleaning up character role preference [preference] due to testmerge.")
+			continue
 		role_preferences -= preference
 		log_preferences("[parent_ckey]: WARN - Cleaned up invalid character role preference entry [preference].")
 		mark_undatumized_dirty_character()
