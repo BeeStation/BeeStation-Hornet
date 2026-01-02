@@ -499,8 +499,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return
-	if(!isturf(T))
+	if (!T)
 		T = get_turf(src)
+	if(!isturf(T))
+		T = get_turf(T)
 	if (!T || isgroundlessturf(T))
 		return
 
