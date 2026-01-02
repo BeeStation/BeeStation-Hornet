@@ -28,11 +28,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	id = "bleeding"
 	status_type = STATUS_EFFECT_MERGE
 	alert_type = /atom/movable/screen/alert/status_effect/bleeding
-	tick_interval = 0.2 SECONDS
+	tick_interval = 1 SECONDS
 
 	var/bandaged_bleeding = 0
 	var/bleed_rate = 0
-	var/time_applied = 0
 	var/bleed_heal_multiplier = 1
 
 /datum/status_effect/bleeding/merge(bleed_level)
@@ -47,15 +46,6 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		qdel(src)
 		return
-
-	time_applied += seconds_between_ticks SECONDS
-
-	// For light bleeding, only process healing/bleeding every 1 second
-	// For heavy bleeding, process every tick (0.2 seconds)
-	var/should_process = (bleed_rate > BLEED_RATE_MINOR) || (time_applied >= 1 SECONDS)
-	if (!should_process)
-		return
-	time_applied = 0
 	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
 	if (!ishuman(owner))
 		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4 * bleed_heal_multiplier
