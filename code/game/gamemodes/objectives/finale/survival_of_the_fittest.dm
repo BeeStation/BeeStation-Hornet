@@ -6,7 +6,7 @@
 	var/amount = 0
 
 /datum/objective/survival_of_the_fittest/proc/generate_amount()
-	var/target = min(SSjob.initial_players_to_assign, 4)
+	var/target = max(SSjob.initial_players_to_assign, 4)
 	amount = target
 	update_explanation_text()
 
