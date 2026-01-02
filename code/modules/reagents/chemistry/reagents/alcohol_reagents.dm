@@ -47,9 +47,10 @@
 		affected_mob.adjust_drunk_effect(sqrt(volume) * booze_power * ALCOHOL_RATE * REM * delta_time)
 		if(affected_mob.get_drunk_amount() >= 250)
 			affected_mob.client?.give_award(/datum/award/achievement/misc/drunk, affected_mob)
-		var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
-		if(istype(liver))
-			liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
+		if(boozepwr > 0)
+			var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
+			if(istype(liver))
+				liver.apply_organ_damage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * liver.alcohol_tolerance * delta_time, 0)) / 150))
 
 /datum/reagent/consumable/ethanol/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -2383,11 +2384,11 @@
 	quality = DRINK_GOOD
 	taste_description = "a bitter freshness"
 
-/datum/glass_style/drinking_glass/fanciulli
-	required_drink_type = /datum/reagent/consumable/ethanol/fanciulli
-	name = "glass of fanciulli"
-	desc = "A glass of Fanciulli. It's just Manhattan with Fernet."
-	icon_state = "fanciulli"
+/datum/glass_style/drinking_glass/branca_menta
+	required_drink_type = /datum/reagent/consumable/ethanol/branca_menta
+	name = "glass of branca menta"
+	desc = "A glass of Branca Menta, perfect for those lazy and hot Sunday summer afternoons." //Get lazy literally by drinking this
+	icon_state = "minted_fernet"
 
 /datum/reagent/consumable/ethanol/branca_menta/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
