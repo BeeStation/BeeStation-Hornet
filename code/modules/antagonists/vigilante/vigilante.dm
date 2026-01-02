@@ -1,6 +1,7 @@
 /datum/antagonist/vigilante
 	name = "Fanatic Vigilante"
 	antagpanel_category = "Vigilante"
+	roundend_category = "Vigilantes"
 	banning_key = ROLE_VIGILANTE
 	required_living_playtime = 10
 	var/datum/component/uplink/uplink
