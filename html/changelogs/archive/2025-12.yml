@@ -193,3 +193,55 @@
   - bugfix: tcomms machines cannot monitor centcom frequencies or CTF teams
   - bugfix: tcomms use KHz, same as headsets
   - code_imp: documents tcomms code
+2025-12-28:
+  PowerfulBacon:
+  - bugfix: Fixes linting errors provided by spacemanDMM
+  - bugfix: Supply PDAs no longer run out of power after 10 minutes of use.
+  - bugfix: Fixes the science PDA not getting its components installed correctly.
+  - tweak: All PDAs now last at least 90 minutes without any programs opened.
+  - balance: PDAs will no longer consume power from active programs when not observed.
+  Qustinnus:
+  - rscadd: ethereals now have sound effects when screaming
+  r1ks-iwnl:
+  - bugfix: Fixed traitor and chaplain carp suit not protecting against space.
+2025-12-29:
+  Isaac:
+  - balance: BSA now requires 10 bluespace crystals instead of 20
+  - balance: BSA now has less camera shake and the sound it plays is a lot less loud
+  - balance: DNA Vault requires less plant DNA to be completed
+  - balance: Bluespace Harvester gives 10 points per mining level, compared to the
+      old 4
+  - rscadd: New option for the bluespace harvester, gives a small quantity of materials
+      for 4000 points
+  - balance: Bluespace harvester food option gives 2 food, costing 2000 instead of
+      6000
+  - balance: Bluespace harvester lootpools changed slightly
+  - rscadd: New shelter template, shuttle husk
+  - balance: Shuttle Construction kit now contains the husk of an old exploration
+      shuttle
+  - bugfix: You can now scan animals again with the DNA probe
+  - balance: 2 station objectives will spawn per round, still randomized
+  - balance: lowered the amount of mob spawns from the BSH portals
+  - rscdel: Removed the station shield as an objective, kept the code for the satellite
+      defense
+  mrmanlikesbt:
+  - bugfix: fixed the is_valid_z_level() proc
+  r1ks-iwnl:
+  - bugfix: Fixed changelings being able to copy plasmamen
+  - bugfix: Fixed IPCs not using their backup human character when rolling changeling
+  - bugfix: Fixed species that got forced into their backup human character when rolling
+      an antag having a picture of their old character in sec records
+  - bugfix: Fixed all species changes dropping all of your items
+  rkz:
+  - code_imp: An esteemed 19th century Arkhaelogist has blasted some unused code that
+      laid dormant and unused for 14 years. No museum would take it...
+2025-12-30:
+  PowerfulBacon:
+  - tweak: Adds some documentation to get_virtual_z and fixes the logical z comparisons
+      of nuclear reactors and immovable rods.
+  - bugfix: Fixes immovable rod appearing to not work correctly.
+  Urumasi, Meyhazah, r1ks-iwnl:
+  - rscadd: HECK suit sprite has enhanced customization via spray paint
+  - bugfix: Fixed HECK suit hiding your hand and feet clothing
+  mrmanlikesbt:
+  - config: cults and nuclear operatives now spawn a minimum of two players

@@ -1329,7 +1329,7 @@
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
 	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
-	cost = 5000
+	cost = 7500
 	max_supply = 2
 	contains = list(
 		/obj/machinery/portable_atmospherics/canister/plasma,
@@ -1344,7 +1344,8 @@
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/heater,
-		/obj/item/circuitboard/machine/shuttle/heater
+		/obj/item/circuitboard/machine/shuttle/heater,
+		/obj/item/survivalcapsule/shuttle_husk
 		)
 	crate_name = "shuttle construction crate"
 	crate_type = /obj/structure/closet/crate/large

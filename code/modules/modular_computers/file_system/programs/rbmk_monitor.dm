@@ -52,7 +52,7 @@
 		return
 	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor in GLOB.machines)
 		// Exclude Syndicate owned, Delaminating, not within coverage, not on a tile.
-		if(!isturf(reactor.loc) || !(is_station_level(reactor.z) || is_mining_level(reactor.z) || reactor.z == user_turf.z))
+		if(!isturf(reactor.loc) || !(is_station_level(reactor.z) || is_mining_level(reactor.z) || reactor.get_virtual_z_level() == user_turf.get_virtual_z_level()))
 			continue
 		reactors += reactor
 		RegisterSignal(reactor, COMSIG_QDELETING, PROC_REF(clear_reactor))

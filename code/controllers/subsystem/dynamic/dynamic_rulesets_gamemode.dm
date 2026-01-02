@@ -247,8 +247,8 @@ then the above notice does not apply.
 
 	var/datum/team/clock_cult/main_cult
 
-/datum/dynamic_ruleset/gamemode/clockcult/set_drafted_players_amount()
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 7, 1), 1)
+/datum/dynamic_ruleset/roundstart/clockcult/set_drafted_players_amount()
+	drafted_players_amount = max(CEILING(length(SSdynamic.roundstart_candidates) / 7, 1), 3)
 
 /datum/dynamic_ruleset/gamemode/clockcult/choose_candidates()
 	. = ..()
