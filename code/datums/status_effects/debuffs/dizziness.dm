@@ -2,17 +2,18 @@
 	id = "dizziness"
 	tick_interval = 2 SECONDS
 	alert_type = null
+	remove_on_fullheal = TRUE
 
 /datum/status_effect/dizziness/on_creation(mob/living/new_owner, duration = 10 SECONDS)
 	src.duration = duration
 	return ..()
 
 /datum/status_effect/dizziness/on_apply()
-	RegisterSignal(owner, list(COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_LIVING_DEATH), .proc/clear_dizziness)
+	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(clear_dizziness))
 	return TRUE
 
 /datum/status_effect/dizziness/on_remove()
-	UnregisterSignal(owner, list(COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_LIVING_DEATH))
+	UnregisterSignal(owner, COMSIG_LIVING_DEATH)
 	// In case our client's offset is somewhere wacky from the dizziness effect
 	owner.client?.pixel_x = initial(owner.client?.pixel_x)
 	owner.client?.pixel_y = initial(owner.client?.pixel_y)
@@ -23,9 +24,9 @@
 
 	qdel(src)
 
-/datum/status_effect/dizziness/tick()
+/datum/status_effect/dizziness/tick(seconds_between_ticks)
 	// How much time is left, in seconds
-	var/amount = (duration - world.time) / 10
+	var/amount = duration / 10
 	if(amount <= 0)
 		return
 
@@ -33,13 +34,13 @@
 	// If we're resting, the effect is 5x as strong, but also decays 5x fast.
 	// Meaning effectively, 1 tick is actually dizziness_strength ticks of duration
 	var/dizziness_strength = owner.resting ? 5 : 1
-	var/time_between_ticks = initial(tick_interval)
 
 	// How much time will be left, in seconds, next tick
-	var/next_amount = max((amount - (dizziness_strength * time_between_ticks * 0.1)), 0)
+	var/next_amount = max((amount - (dizziness_strength * seconds_between_ticks * 0.1)), 0)
 
 	// If we have a dizziness strength > 1, we will subtract ticks off of the total duration
-	duration -= ((dizziness_strength - 1) * time_between_ticks)
+	if(remove_duration((dizziness_strength - 1) * seconds_between_ticks))
+		return
 
 	// Now we can do the actual dizzy effects.
 	// Don't bother animating if they're clientless.
@@ -53,9 +54,11 @@
 	var/pixel_y_diff = 0
 
 	// This shit is annoying at high strengthvar/pixel_x_diff = 0
+	var/list/view_range_list = getviewsize(owner.client.view)
+	var/view_range = view_range_list[1]
 	var/amplitude = amount * (sin(amount * (time)) + 1)
-	var/x_diff = amplitude * sin(amount * time)
-	var/y_diff = amplitude * cos(amount * time)
+	var/x_diff = clamp(amplitude * sin(amount * time), -view_range, view_range)
+	var/y_diff = clamp(amplitude * cos(amount * time), -view_range, view_range)
 	pixel_x_diff += x_diff
 	pixel_y_diff += y_diff
 	// Brief explanation. We're basically snapping between different pixel_x/ys instantly, with delays between
