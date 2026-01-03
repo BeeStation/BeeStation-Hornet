@@ -2521,7 +2521,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/open/floor/circuit/red,
@@ -2568,11 +2568,11 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/office)
 "aRo" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/structure/platform/black{
 	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
@@ -2955,6 +2955,9 @@
 /obj/machinery/light/cold/no_nightlight/directional/north,
 /obj/effect/turf_decal/edges/borderfloor{
 	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -4588,10 +4591,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/machinery/power/apc/auto_name/directional/north,
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/gravity_generator)
 "byV" = (
@@ -4637,6 +4640,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
 "bzO" = (
@@ -9456,7 +9462,7 @@
 /obj/machinery/power/smes{
 	charge = 2e+007
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/open/floor/iron/tech/grid,
@@ -10504,7 +10510,7 @@
 /obj/effect/turf_decal/guideline/guideline_tri/red{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
@@ -16382,7 +16388,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 5
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/textured_large,
@@ -19651,12 +19657,18 @@
 /turf/open/floor/iron/half,
 /area/hallway/primary/central)
 "gEQ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/open/space/basic,
-/area/solar/port/fore)
+/area/solar/port/aft)
 "gEV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32
@@ -23153,6 +23165,9 @@
 /obj/structure/transit_tube_pod{
 	dir = 8
 	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/service)
 "hRP" = (
@@ -25597,9 +25612,6 @@
 /obj/effect/turf_decal/guideline/guideline_in/yellow{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "iNV" = (
@@ -25795,7 +25807,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
@@ -26255,6 +26267,12 @@
 /obj/item/stack/cable_coil,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
@@ -26787,7 +26805,7 @@
 /area/security/detectives_office)
 "jgQ" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
@@ -29695,7 +29713,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/open/floor/iron/dark,
@@ -30179,10 +30197,10 @@
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "krh" = (
-/obj/structure/cable/orange{
+/obj/structure/platform/black,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/platform/black,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "krv" = (
@@ -30901,9 +30919,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
@@ -33906,12 +33921,12 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "lIC" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
@@ -37581,6 +37596,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/space/basic,
 /area/solar/port/fore)
 "mWi" = (
@@ -39375,7 +39393,7 @@
 /area/crew_quarters/kitchen)
 "nAs" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/orange{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/circuit/red,
@@ -42136,7 +42154,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/orange,
+/obj/structure/cable/yellow,
 /turf/open/floor/iron/dark/smooth_large,
 /area/ai_monitored/turret_protected/ai)
 "oEe" = (
@@ -46663,6 +46681,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/space/basic,
 /area/solar/port/fore)
 "qbA" = (
@@ -46987,6 +47011,9 @@
 "qfb" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -49343,12 +49370,13 @@
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
 "raH" = (
+/obj/structure/lattice,
+/obj/item/stack/rods,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
-/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/solar/starboard/aft)
+/area/solar/port/fore)
 "raK" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50593,7 +50621,13 @@
 "rxH" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
@@ -50928,7 +50962,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/cable/orange{
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/red,
@@ -51153,12 +51187,11 @@
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "rIJ" = (
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -52932,7 +52965,7 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 1
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark/textured_large,
@@ -53521,7 +53554,7 @@
 "sBb" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "0-8"
 	},
 /turf/open/space/basic,
 /area/solar/port/aft)
@@ -56283,7 +56316,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "tvJ" = (
-/obj/structure/cable/orange{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/circuit/red,
@@ -56770,6 +56803,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/edges/borderfloor,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/smooth,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "tCJ" = (
@@ -58659,7 +58695,7 @@
 /area/engine/engineering)
 "uhg" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
@@ -59825,10 +59861,14 @@
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "uDr" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
+/obj/item/stack/rods,
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/solar/port/fore)
 "uDu" = (
@@ -60017,10 +60057,10 @@
 /turf/open/floor/iron,
 /area/medical/apothecary)
 "uGd" = (
-/obj/structure/cable/orange{
+/obj/structure/platform/black,
+/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/platform/black,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "uGj" = (
@@ -60138,10 +60178,10 @@
 	name = "Panic Shutters"
 	},
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
+/obj/structure/railing/perspective/gray,
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/railing/perspective/gray,
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "uHY" = (
@@ -62910,9 +62950,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
 /turf/open/space/basic,
 /area/solar/port/fore)
 "vFs" = (
@@ -63055,12 +63092,12 @@
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "vIj" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/platform/black,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
 "vIk" = (
@@ -63332,9 +63369,6 @@
 "vNt" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/open/space/basic,
 /area/solar/port/fore)
 "vNv" = (
@@ -63649,6 +63683,13 @@
 	broken = 1
 	},
 /area/vacant_room/office)
+"vTz" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/space/nearstation)
 "vTD" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
@@ -64119,12 +64160,12 @@
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "wbT" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "0-2"
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
 	},
-/turf/open/space/basic,
-/area/solar/port/aft)
+/turf/open/floor/iron/smooth,
+/area/ai_monitored/turret_protected/aisat/hallway)
 "wbU" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/supply/visible{
@@ -64211,12 +64252,16 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "wde" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/orange{
-	icon_state = "1-4"
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "satwindow";
+	name = "Window Shutters"
 	},
-/turf/open/space/basic,
-/area/solar/port/fore)
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/ai_monitored/turret_protected/aisat/service)
 "wdh" = (
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/pipe/smart/simple/cyan/visible,
@@ -65268,6 +65313,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/machinery/power/apc/auto_name/directional/east,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/aisat/service)
@@ -68816,9 +68865,6 @@
 /area/storage/primary)
 "xCA" = (
 /obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -69617,6 +69663,9 @@
 /obj/structure/lattice,
 /obj/item/stack/rods,
 /obj/item/stack/cable_coil,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/space/basic,
 /area/solar/port/fore)
 "xUy" = (
@@ -84784,9 +84833,9 @@ gsA
 jyd
 mgU
 mgU
-wms
+eUw
 qbl
-bLk
+eUw
 pzX
 pzX
 iUW
@@ -85813,7 +85862,7 @@ jyd
 mgU
 mgU
 wms
-azb
+vUL
 bLk
 pzX
 pzX
@@ -86070,7 +86119,7 @@ ryv
 ryv
 ryv
 odm
-eEg
+azb
 yeA
 iDO
 ryv
@@ -86327,7 +86376,7 @@ yeA
 yeA
 yeA
 yeA
-bUx
+raH
 yeA
 yeA
 yeA
@@ -87865,7 +87914,7 @@ cjc
 roh
 jyd
 oNn
-bUx
+uDr
 bXU
 fHH
 fHH
@@ -88889,8 +88938,8 @@ yeA
 ewB
 gsA
 pwM
-eUw
 wms
+vUL
 uPR
 mWb
 xwG
@@ -88990,9 +89039,9 @@ yeA
 ejQ
 rfT
 rfT
-jey
-dyz
-rvt
+bDt
+gEQ
+bDt
 euo
 euo
 gvB
@@ -90018,9 +90067,9 @@ gsA
 ejQ
 rfT
 rfT
-jey
-nxQ
-rvt
+bDt
+rxH
+bDt
 euo
 euo
 gvB
@@ -90447,12 +90496,12 @@ yeA
 yeA
 yeA
 vFr
-gEQ
-gEQ
+vUL
+vUL
 vNt
-gEQ
-gEQ
-wde
+vUL
+vUL
+vUL
 yeA
 yeA
 yeA
@@ -90709,7 +90758,7 @@ yeA
 yeA
 yeA
 yeA
-uDr
+vUL
 yeA
 yeA
 yeA
@@ -90960,7 +91009,7 @@ uhg
 yil
 oPU
 gto
-vCY
+vTz
 fft
 fft
 fft
@@ -92074,9 +92123,9 @@ rfT
 pco
 pco
 pco
-kuF
+bDt
 iYu
-wbT
+bDt
 nnL
 nnL
 nnL
@@ -92589,7 +92638,7 @@ mLx
 mLx
 dXe
 viW
-tBB
+fik
 rRs
 dXe
 hNf
@@ -92845,8 +92894,8 @@ tcu
 bDt
 bDt
 bDt
-bDt
-rxH
+kuF
+fik
 rRb
 slj
 bhN
@@ -101432,9 +101481,9 @@ czs
 czs
 czs
 aXI
-gJZ
+wbT
 tCE
-wsO
+wde
 rIJ
 qfb
 hRL
@@ -114687,7 +114736,7 @@ pEw
 pEw
 pEw
 odm
-jxz
+lHv
 tbt
 pEw
 pEw
@@ -114944,7 +114993,7 @@ pvW
 pvW
 pvW
 fMe
-lHv
+nBj
 bWr
 gjW
 gjW
@@ -115715,7 +115764,7 @@ pEw
 pEw
 pEw
 odm
-jxz
+lHv
 tbt
 pEw
 pEw
@@ -115972,7 +116021,7 @@ drR
 pvW
 pvW
 fMe
-jxz
+nBj
 bWr
 gjW
 gjW
@@ -116743,7 +116792,7 @@ pEw
 pEw
 pEw
 odm
-jxz
+lHv
 tbt
 pEw
 pEw
@@ -117000,7 +117049,7 @@ drR
 pvW
 pvW
 fMe
-raH
+nBj
 bWr
 gjW
 gjW
@@ -117257,7 +117306,7 @@ pQd
 pQd
 pQd
 odm
-jxz
+omU
 tbt
 pQd
 pQd
