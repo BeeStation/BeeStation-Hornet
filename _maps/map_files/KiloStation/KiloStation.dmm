@@ -2427,9 +2427,6 @@
 	},
 /area/security/nuke_storage)
 "axt" = (
-/obj/machinery/rnd/production/protolathe/department/engineering,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "axv" = (
@@ -22826,7 +22823,9 @@
 "fPJ" = (
 /obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/box,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "fPV" = (
@@ -37443,11 +37442,9 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "kPB" = (
-/obj/machinery/computer/rdconsole{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "kQq" = (

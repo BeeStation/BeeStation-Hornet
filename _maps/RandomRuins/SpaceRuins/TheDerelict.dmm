@@ -588,7 +588,7 @@
 /obj/structure/frame/computer{
 	dir = 1
 	},
-/obj/item/circuitboard/computer/rdconsole,
+/obj/item/circuitboard/computer/rdconsole/unlocked,
 /turf/open/floor/iron/airless,
 /area/ruin/space/derelict/bridge/ai_upload)
 "bZ" = (

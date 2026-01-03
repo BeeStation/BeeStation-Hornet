@@ -14303,12 +14303,6 @@
 	},
 /turf/open/floor/iron/tech/grid,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
-"dYD" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/turf/open/space/basic,
-/area/space)
 "dYE" = (
 /turf/closed/mineral/random/low_chance,
 /area/asteroid/nearstation)
@@ -14834,8 +14828,8 @@
 /area/maintenance/department/science)
 "ehJ" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/computer/rdconsole,
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "ehN" = (
@@ -140085,7 +140079,7 @@ nnx
 nnx
 nnx
 nnx
-dYD
+nnx
 nnx
 nnx
 nnx

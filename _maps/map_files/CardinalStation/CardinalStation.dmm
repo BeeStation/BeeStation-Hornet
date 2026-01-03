@@ -98526,10 +98526,10 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "vvI" = (
-/obj/machinery/computer/rdconsole{
+/obj/item/radio/intercom/directional/east,
+/obj/machinery/modular_computer/console/preset/engineering{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/east,
 /turf/open/floor/iron/tech,
 /area/engine/storage_shared)
 "vvR" = (

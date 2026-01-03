@@ -66586,7 +66586,7 @@
 "uJC" = (
 /obj/effect/turf_decal/tile/dark,
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole{
+/obj/machinery/modular_computer/console/preset/engineering{
 	dir = 8
 	},
 /turf/open/floor/iron,

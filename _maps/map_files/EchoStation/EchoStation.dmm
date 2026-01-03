@@ -18765,7 +18765,6 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "kgM" = (
-/obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5;
@@ -18774,6 +18773,7 @@
 	},
 /obj/item/storage/belt/utility/full/engi,
 /obj/structure/window/reinforced/plasma/spawner/directional/south,
+/obj/structure/table/reinforced,
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "kgU" = (
@@ -18907,12 +18907,6 @@
 	},
 /turf/open/floor/iron,
 /area/science/lab)
-"klF" = (
-/obj/machinery/computer/rdconsole{
-	dir = 4
-	},
-/turf/open/floor/iron/large,
-/area/engine/engineering)
 "klI" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/siding/wood{
@@ -58666,7 +58660,7 @@ nEw
 tbf
 uKn
 sRi
-klF
+uHS
 mEZ
 jLo
 sTO
@@ -58926,7 +58920,7 @@ dgu
 cIz
 oIR
 kgM
-uHS
+jYj
 aoi
 uvt
 awj

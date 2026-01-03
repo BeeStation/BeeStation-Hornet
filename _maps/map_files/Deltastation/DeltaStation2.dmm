@@ -37890,7 +37890,6 @@
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "gSx" = (
-/obj/machinery/computer/rdconsole,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -37898,6 +37897,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/modular_computer/console/preset/engineering,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "gSB" = (
