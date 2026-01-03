@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return TRUE
 
 	// LOOC commendation
-	
+
 
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
@@ -697,7 +697,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	var/list/bans
 
-	if(response.errored || response.status_code != 200 || response.body == "[]")
+	if(response.errored || response.status_code != 200 || response.body == "\[]")
 		return
 
 	bans = json_decode(response.body)
