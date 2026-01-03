@@ -74,7 +74,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	// Check for multi-z status on mapload
 	if (multiz || (mapload && isopenspace(loc) && !(locate(/obj/structure/lattice/catwalk) in loc)))
-		var/obj/structure/cable/below_cable = locate(/obj/structure/cable) in GET_TURF_BELOW(loc)
+		var/turf/current_turf = loc
+		var/obj/structure/cable/below_cable = locate(/obj/structure/cable) in GET_TURF_BELOW(current_turf)
 		if (below_cable)
 			down = below_cable
 			below_cable.up = src
@@ -200,11 +201,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		west_cable.update_appearance(UPDATE_ICON)
 	// Linkup with multi-z cables
 	if (multiz)
+		var/turf/current_location = get_turf(src)
 		// Omni-cables will not connect with coloured cables along the z-axis
-		var/obj/structure/cable/below_cable = get_cable(GET_TURF_BELOW(loc), cable_color, FALSE)
+		var/obj/structure/cable/below_cable = get_cable(GET_TURF_BELOW(current_location), cable_color, FALSE)
 		if (below_cable)
 			below_cable.set_up(src)
-		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(loc), cable_color, FALSE)
+		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(current_location), cable_color, FALSE)
 		if (above_cable)
 			above_cable.set_down(src)
 

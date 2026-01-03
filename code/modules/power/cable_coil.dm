@@ -110,7 +110,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 		name = "omni-cable [amount < 3 ? "piece" : "coil"]"
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 	else
-		icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
+		icon_state = "[initial(icon_state)][amount < 3 ? amount : ""]"
 		name = "cable [amount < 3 ? "piece" : "coil"]"
 		add_atom_colour(GLOB.cable_colors[cable_color], FIXED_COLOUR_PRIORITY)
 
