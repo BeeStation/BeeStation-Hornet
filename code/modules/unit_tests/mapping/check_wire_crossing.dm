@@ -5,4 +5,10 @@
 			powernets[cable.color] = cable.powernet
 		else if (powernets[cable.color] != cable.powernet)
 			return "Two wires with the [cable.color] colour were on the same tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
-
+	// Check adjacent turfs
+	for (var/obj/structure/cable/cable in get_step(check_turf, NORTH))
+		// If we don't have that colour, its fine
+		if (!powernets[cable.color])
+			continue
+		else if (powernets[cable.color] != cable.powernet)
+			return "Two wires with the [cable.color] colour were on the adjacent tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
