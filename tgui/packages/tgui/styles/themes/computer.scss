@@ -38,7 +38,7 @@
 
 .theme-computer {
   // Base theme
-  font-family: monospace;
+  font-family: consolas, verdana, monospace;
   font-size: 12.5px;
   // Base overrides
   @include meta.load-css('../atomic/color.scss');
