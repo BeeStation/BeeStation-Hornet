@@ -8022,14 +8022,14 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -8058,11 +8058,11 @@
 	name = "Telecomms Server APC";
 	pixel_y = 24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -8086,7 +8086,7 @@
 /area/tcommsat/server)
 "bWI" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
@@ -8239,10 +8239,10 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bXA" = (
@@ -8259,10 +8259,10 @@
 /area/tcommsat/server)
 "bXF" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "bXJ" = (
@@ -8382,10 +8382,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bYB" = (
@@ -8516,21 +8516,21 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bZq" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -8539,10 +8539,12 @@
 /area/tcommsat/computer)
 "bZs" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "bZv" = (
@@ -8771,10 +8773,10 @@
 /area/storage/tools)
 "cbm" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "cbn" = (
@@ -8786,11 +8788,11 @@
 /area/tcommsat/computer)
 "cbo" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -9138,7 +9140,7 @@
 /area/tcommsat/server)
 "cef" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "ceh" = (
@@ -13354,11 +13356,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cSG" = (
@@ -14945,6 +14947,16 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
+"dwt" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/tcommsat/computer)
 "dwA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -42666,9 +42678,6 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -42687,6 +42696,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "oSM" = (
@@ -51441,13 +51453,13 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "sAB" = (
@@ -54856,7 +54868,7 @@
 /area/medical/medbay/central)
 "tKV" = (
 /obj/machinery/telecomms/broadcaster/preset_left,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/open/floor/circuit/telecomms,
@@ -56425,10 +56437,10 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "uwR" = (
@@ -91548,8 +91560,8 @@ ayG
 jfW
 bVJ
 bWI
-bXF
-bXF
+dwt
+dwt
 bZs
 oVd
 cbo
