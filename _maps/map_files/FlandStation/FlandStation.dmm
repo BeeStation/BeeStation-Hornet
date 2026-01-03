@@ -478,7 +478,9 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/orange{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -50923,10 +50925,10 @@
 	id = 4;
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/structure/fans/tiny/invisible,
+/obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "nOV" = (
@@ -79934,10 +79936,10 @@
 	id = 4;
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/fans/tiny/invisible,
+/obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "vGr" = (
