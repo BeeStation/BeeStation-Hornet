@@ -203,6 +203,10 @@
 	RegisterSignal(wearer, COMSIG_QDELETING, PROC_REF(lost_wearer))
 	if(current_integrity)
 		wearer.update_appearance(UPDATE_ICON)
+	// re-add effects when the shield recovers
+	if (!_effects_activated)
+		on_active_effects?.Invoke(wearer, current_integrity)
+		_effects_activated = TRUE
 
 /// Used to draw the shield overlay on the wearer
 /datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
