@@ -21,8 +21,6 @@
 	// Start with 3 TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
 	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = 3, directive_flags = NONE)
 	uplink.reputation = 0
-	// This is a really light antagonist, you are not going to be making a big impact at all
-	uplink.directive_tc_multiplier = 0.35
 	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station, however as an outsider you will be unable to gain any reputation. The uplink came with a message:</span><br>[span_traitorobjective(uplink.unlock_text)]")
 	RegisterSignal(uplink, COMSIG_QDELETING, PROC_REF(deconvert))
 	RegisterSignal(SSdcs, COMSIG_GLOB_PRISONER_REGISTERED, PROC_REF(on_prisoner_created))
@@ -96,6 +94,9 @@
 	last_for = INFINITY
 	reputation_reward = 0
 	reputation_loss = 0
+
+/datum/priority_directive/assassination/justice/_generate(list/teams)
+	return rand(2, 4)
 
 /datum/priority_directive/assassination/justice/_allocate_teams(list/uplinks, list/player_minds, force)
 	reject()
