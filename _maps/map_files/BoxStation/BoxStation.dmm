@@ -22269,7 +22269,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
@@ -32522,7 +32522,7 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/open/floor/iron/dark,
@@ -33423,7 +33423,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/dark,
@@ -35148,10 +35148,10 @@
 	pixel_x = 32;
 	pixel_y = -32
 	},
-/obj/structure/cable/yellow{
+/obj/item/paper/crumpled,
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/paper/crumpled,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "lCD" = (
@@ -45406,7 +45406,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
 /turf/open/floor/iron/dark,
