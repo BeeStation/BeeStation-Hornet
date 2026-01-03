@@ -9,13 +9,18 @@
 // Definitions
 ////////////////////////////////
 
+GLOBAL_LIST_INIT(cable_coil_recipes, list (
+	new/datum/stack_recipe("cable restraints", /obj/item/restraints/handcuffs/cable, 15, category = CAT_EQUIPMENT),
+	new/datum/stack_recipe("noose", /obj/structure/chair/noose, 30, time = 80, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND),
+))
+
 /obj/item/stack/cable_coil
 	name = "cable coil"
 	custom_price = 15
 	gender = NEUTER //That's a cable coil sounds better than that's some cable coils
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
-	item_state = "coil"
+	inhand_icon_state = "coil"
 	novariants = FALSE
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -50,6 +55,9 @@
 	pixel_y = base_pixel_y + rand(-2,2)
 	update_appearance(UPDATE_ICON)
 	return ..()
+
+/obj/item/stack/cable_coil/get_recipes()
+	return GLOB.cable_coil_recipes
 
 /obj/item/stack/cable_coil/attack_self(mob/living/user)
 	var/list/options = list()
