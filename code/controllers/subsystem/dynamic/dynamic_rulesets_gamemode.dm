@@ -2,6 +2,9 @@
 	rule_category = DYNAMIC_CATEGORY_GAMEMODE
 	ruleset_flags = SHOULD_USE_ANTAG_REP
 	abstract_type = /datum/dynamic_ruleset/gamemode
+	// Sorry, but if you are going to be THE antagonist, you can't be leaving the station and making
+	// the round boring for everyone else.
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_PRISONER, JOB_NAME_SHAFTMINER, JOB_NAME_EXPLORATIONCREW)
 	/// Default minimum players required so that there is some mystery involved.
 	/// Disabled for now, since traitor works fine on 0 pop
 	minimum_players_required = 3
