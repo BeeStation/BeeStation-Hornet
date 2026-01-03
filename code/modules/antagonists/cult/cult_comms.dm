@@ -1,7 +1,7 @@
 // Contains cult communion, guide, and cult master abilities
 
 /datum/action/innate/cult
-	icon_icon = 'icons/hud/actions/actions_cult.dmi'
+	button_icon = 'icons/hud/actions/actions_cult.dmi'
 	background_icon_state = "bg_demon"
 	button_icon_state = null
 	buttontooltipstyle = "cult"
@@ -9,7 +9,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 
 /datum/action/innate/cult/is_available()
-	if(!iscultist(owner))
+	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
 
@@ -48,7 +48,7 @@
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
@@ -61,7 +61,7 @@
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
 /datum/action/innate/cult/comm/spirit/is_available()
-	if(iscultist(owner.mind.current))
+	if(IS_CULTIST(owner.mind.current))
 		return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
@@ -71,7 +71,7 @@
 	my_message = "[span_srtradiocultboldtalic("The [user.name]: [message]")]"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			to_chat(M, my_message)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
@@ -93,9 +93,9 @@
 		var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 		pollCultists(owner,C.cult_team)
 
-/proc/pollCultists(var/mob/living/Nominee,datum/team/cult/team) //Cult Master Poll
+/proc/pollCultists(mob/living/nominee, datum/team/cult/team) //Cult Master Poll
 	if(world.time < CULT_POLL_WAIT)
-		to_chat(Nominee, "It would be premature to select a leader while everyone is still settling in, try again in [DisplayTimeText(CULT_POLL_WAIT-world.time)].")
+		to_chat(nominee, "It would be premature to select a leader while everyone is still settling in, try again in [DisplayTimeText(CULT_POLL_WAIT-world.time)].")
 		return
 	team.cult_vote_called = TRUE //somebody's trying to be a master, make sure we don't let anyone else try
 	for(var/datum/mind/B in team.members)
@@ -103,29 +103,42 @@
 			B.current.update_action_buttons_icon()
 			if(!B.current.incapacitated())
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, span_cultlarge("Acolyte [Nominee] has asserted that [Nominee.p_theyre()] worthy of leading the cult. A vote will be called shortly."))
+				to_chat(B.current, span_cultlarge("Acolyte [nominee] has asserted that [nominee.p_theyre()] worthy of leading the cult. A vote will be called shortly."))
 	sleep(100)
 	var/list/asked_cultists = list()
 	for(var/datum/mind/B in team.members)
-		if(B.current && B.current != Nominee && !B.current.incapacitated())
+		if(B.current && B.current != nominee && !B.current.incapacitated())
 			SEND_SOUND(B.current, 'sound/magic/exit_blood.ogg')
 			asked_cultists += B.current
-	var/list/yes_voters = poll_candidates("[Nominee] seeks to lead your cult, do you support [Nominee.p_them()]?", poll_time = 30 SECONDS, group = asked_cultists)
-	if(QDELETED(Nominee) || Nominee.incapacitated())
+	var/datum/poll_config/config = new()
+	config.question = "[span_notice(nominee.name)] seeks to lead your cult, do you support [nominee.p_them()]?"
+	config.poll_time = 30 SECONDS
+	config.role_name_text = "cult master nomination"
+	config.custom_response_messages = list(
+		POLL_RESPONSE_SIGNUP = "You have pledged your allegience to [nominee].",
+		POLL_RESPONSE_ALREADY_SIGNED = "You have already pledged your allegience!",
+		POLL_RESPONSE_NOT_SIGNED = "You aren't nominated for this.",
+		POLL_RESPONSE_TOO_LATE_TO_UNREGISTER = "It's too late to unregister yourself, voting has already begun!",
+		POLL_RESPONSE_UNREGISTERED = "You have been removed your pledge to [nominee]."
+	)
+	config.alert_pic = nominee
+	config.chat_text_border_icon = mutable_appearance('icons/effects/effects.dmi', "cult_master_logo")
+	var/list/yes_voters = SSpolling.poll_candidates(config, asked_cultists)
+	if(QDELETED(nominee) || nominee.incapacitated())
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
 			if(B.current)
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
-					to_chat(B.current,span_cultlarge("[Nominee] has died in the process of attempting to win the cult's support!"))
+					to_chat(B.current,span_cultlarge("[nominee] has died in the process of attempting to win the cult's support!"))
 		return FALSE
-	if(!Nominee.mind)
+	if(!nominee.mind)
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
 			if(B.current)
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
-					to_chat(B.current,span_cultlarge("[Nominee] has gone catatonic in the process of attempting to win the cult's support!"))
+					to_chat(B.current,span_cultlarge("[nominee] has gone catatonic in the process of attempting to win the cult's support!"))
 		return FALSE
 	if(LAZYLEN(yes_voters) <= LAZYLEN(asked_cultists) * 0.5)
 		team.cult_vote_called = FALSE
@@ -133,21 +146,21 @@
 			if(B.current)
 				B.current.update_action_buttons_icon()
 				if(!B.current.incapacitated())
-					to_chat(B.current, span_cultlarge("[Nominee] could not win the cult's support and shall continue to serve as an acolyte."))
+					to_chat(B.current, span_cultlarge("[nominee] could not win the cult's support and shall continue to serve as an acolyte."))
 		return FALSE
-	team.cult_master = Nominee
-	SSticker.mode.remove_cultist(Nominee.mind, TRUE)
-	Nominee.mind.add_antag_datum(/datum/antagonist/cult/master)
+	team.cult_master = nominee
+	nominee.mind.remove_antag_datum(/datum/antagonist/cult)
+	nominee.mind.add_antag_datum(/datum/antagonist/cult/master)
 	for(var/datum/mind/B in team.members)
 		if(B.current)
 			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
 				qdel(vote)
 			if(!B.current.incapacitated())
-				to_chat(B.current,span_cultlarge("[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!"))
+				to_chat(B.current,span_cultlarge("[nominee] has won the cult's support and is now their master. Follow [nominee.p_their()] orders to the best of your ability!"))
 	return TRUE
 
 /datum/action/innate/cult/master/is_available()
-	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.cult_narsie)
+	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master) || GLOB.narsie)
 		return 0
 	return ..()
 
@@ -228,12 +241,12 @@
 	/// The duration of the mark itself
 	var/cult_mark_duration = 90 SECONDS
 
-/datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/caller, params, atom/clicked_on)
-	var/turf/caller_turf = get_turf(caller)
-	if(!isturf(caller_turf))
+/datum/action/innate/cult/master/cultmark/InterceptClickOn(mob/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
 
-	if(!(clicked_on in view(7, caller_turf)))
+	if(!(clicked_on in view(7, clicker_turf)))
 		return FALSE
 	return ..()
 
@@ -338,7 +351,7 @@
 /datum/action/innate/cult/master/pulse
 	name = "Eldritch Pulse"
 	desc = "Seize upon a fellow cultist or cult structure and teleport it to a nearby location."
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "arcane_barrage"
 	requires_target = TRUE
 	enable_text = "<span class='cult'>You prepare to tear through the fabric of reality... <b>Click a target to sieze them!</b></span>"
@@ -347,15 +360,15 @@
 	/// Weakref to whoever we're currently about to toss
 	var/datum/weakref/throwee_ref
 
-/datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/caller, params, atom/clicked_on)
-	var/turf/caller_turf = get_turf(caller)
-	if(!isturf(caller_turf))
+/datum/action/innate/cult/master/pulse/InterceptClickOn(mob/living/clicker, params, atom/clicked_on)
+	var/turf/clicker_turf = get_turf(clicker)
+	if(!isturf(clicker_turf))
 		return FALSE
 
-	if(!(clicked_on in view(7, caller_turf)))
+	if(!(clicked_on in view(7, clicker_turf)))
 		return FALSE
 
-	if(clicked_on == caller)
+	if(clicked_on == clicker)
 		return FALSE
 	return ..()
 

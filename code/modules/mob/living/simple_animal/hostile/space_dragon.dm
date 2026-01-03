@@ -97,6 +97,7 @@
 	if(!isliving(source))
 		return
 	var/mob/living/mob = source
+	//TODO Componentize this
 	if(mob in src)
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 		visible_message(span_danger("[src] vomits up [mob]!"))
@@ -111,9 +112,9 @@
 		//dragon_name()
 		color_selection()
 
-/mob/living/simple_animal/hostile/space_dragon/Life(seconds, times_fired)
+/mob/living/simple_animal/hostile/space_dragon/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
-	tiredness = max(tiredness - 1, 0)
+	tiredness = max(tiredness - (0.5 * delta_time), 0)
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
 	if(using_special)
@@ -172,13 +173,9 @@
 	..()
 	update_dragon_overlay()
 
-/mob/living/simple_animal/hostile/space_dragon/revive(full_heal, admin_revive)
+/mob/living/simple_animal/hostile/space_dragon/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
 	update_dragon_overlay()
-
-/mob/living/simple_animal/hostile/space_dragon/wabbajack_act(mob/living/new_mob)
-	empty_contents()
-	. = ..()
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
 	set waitfor = FALSE
@@ -275,7 +272,7 @@
 		if(!check)
 			break
 		T = check
-	return (getline(src, T) - get_turf(src))
+	return (get_line(src, T) - get_turf(src))
 
 /**
   * Spawns fire at each position in a line from the source to the target.
@@ -286,7 +283,7 @@
   * Arguments:
   * * atom/at - The target
   */
-/mob/living/simple_animal/hostile/space_dragon/proc/fire_stream(var/atom/at = target)
+/mob/living/simple_animal/hostile/space_dragon/proc/fire_stream(atom/at = target)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	var/range = 20
 	var/list/turfs = list()
@@ -315,8 +312,8 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_fire_line(turf/T)
 	var/list/hit_list = list()
 	hit_list += src
-	new /obj/effect/hotspot(T)
-	T.hotspot_expose(700,50,1)
+	new /obj/effect/hotspot/bright(T)
+	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(L.faction_check_mob(src) && L != src)
 			hit_list += L
@@ -463,7 +460,7 @@
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/hud/actions/actions_space_dragon.dmi'
+	button_icon = 'icons/hud/actions/actions_space_dragon.dmi'
 	button_icon_state = "gust_attack"
 	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 

@@ -11,7 +11,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state	= "camera_bug"
 	w_class		= WEIGHT_CLASS_TINY
-	item_state	= "camera_bug"
+	inhand_icon_state	= "camera_bug"
 	throw_speed	= 4
 	throw_range	= 20
 	item_flags = NOBLUDGEON
@@ -93,7 +93,7 @@
 	var/html
 	switch(track_mode)
 		if(BUGMODE_LIST)
-			html = "<h3>Select a camera:</h3> <a href='?src=[REF(src)];view'>\[Cancel camera view\]</a><hr><table>"
+			html = "<h3>Select a camera:</h3> <a href='byond://?src=[REF(src)];view'>\[Cancel camera view\]</a><hr><table>"
 			for(var/entry in cameras)
 				var/datum/weakref/camera_ref = cameras[entry]
 				var/obj/machinery/camera/camera = camera_ref.resolve()
@@ -102,28 +102,28 @@
 					continue
 				var/functions = ""
 				if(camera.bug == src)
-					functions = " - <a href='?src=[REF(src)];monitor=[REF(camera_ref)]'>\[Monitor\]</a> <a href='?src=[REF(src)];emp=[REF(camera_ref)]'>\[Disable\]</a>"
+					functions = " - <a href='byond://?src=[REF(src)];monitor=[REF(camera_ref)]'>\[Monitor\]</a> <a href='byond://?src=[REF(src)];emp=[REF(camera_ref)]'>\[Disable\]</a>"
 				else
-					functions = " - <a href='?src=[REF(src)];monitor=[REF(camera_ref)]'>\[Monitor\]</a>"
-				html += "<tr><td><a href='?src=[REF(src)];view=[REF(camera_ref)]'>[entry]</a></td><td>[functions]</td></tr>"
+					functions = " - <a href='byond://?src=[REF(src)];monitor=[REF(camera_ref)]'>\[Monitor\]</a>"
+				html += "<tr><td><a href='byond://?src=[REF(src)];view=[REF(camera_ref)]'>[entry]</a></td><td>[functions]</td></tr>"
 
 		if(BUGMODE_MONITOR)
 			if(current)
-				html = "Analyzing Camera '[current.c_tag]' <a href='?[REF(src)];mode=0'>\[Select Camera\]</a><br>"
+				html = "Analyzing Camera '[current.c_tag]' <a href='byond://?[REF(src)];mode=0'>\[Select Camera\]</a><br>"
 				html += camera_report()
 			else
 				track_mode = BUGMODE_LIST
 				return .(cameras)
 		if(BUGMODE_TRACK)
 			if(tracking)
-				html = "Tracking '[tracked_name]'  <a href='?[REF(src)];mode=0'>\[Cancel Tracking\]</a>  <a href='?src=[REF(src)];view'>\[Cancel camera view\]</a><br>"
+				html = "Tracking '[tracked_name]'  <a href='byond://?[REF(src)];mode=0'>\[Cancel Tracking\]</a>  <a href='byond://?src=[REF(src)];view'>\[Cancel camera view\]</a><br>"
 				if(last_found)
 					var/time_diff = round((world.time - last_seen) / 150)
 					var/datum/weakref/camera_ref = bugged_cameras[last_found]
 					var/obj/machinery/camera/camera = camera_ref.resolve()
 					var/outstring
 					if(camera)
-						outstring = "<a href='?[REF(src)];view=[REF(camera_ref)]'>[last_found]</a>"
+						outstring = "<a href='byond://?[REF(src)];view=[REF(camera_ref)]'>[last_found]</a>"
 					else
 						outstring = last_found
 					if(!time_diff)
@@ -136,7 +136,7 @@
 							s = "00"
 						html += "Last seen near [outstring] ([m]:[s] minute\s ago)<br>"
 					if(camera && (camera.bug == src)) //Checks to see if the camera has a bug
-						html += "<a href='?src=[REF(src)];emp=[REF(camera_ref)]'>\[Disable\]</a>"
+						html += "<a href='byond://?src=[REF(src)];emp=[REF(camera_ref)]'>\[Disable\]</a>"
 
 				else
 					html += "Not yet seen."
@@ -165,7 +165,7 @@
 				dat += "[S.name]"
 			var/stage = round(S.current_size / 2)+1
 			dat += " (Stage [stage])"
-			dat += " <a href='?[REF(src)];track=[REF(S)]'>\[Track\]</a><br>"
+			dat += " <a href='byond://?[REF(src)];track=[REF(S)]'>\[Track\]</a><br>"
 
 		for(var/obj/vehicle/sealed/mecha/M in seen)
 			if(M.name in names)
@@ -174,7 +174,7 @@
 			else
 				names[M.name] = 1
 				dat += "[M.name]"
-			dat += " <a href='?[REF(src)];track=[REF(M)]'>\[Track\]</a><br>"
+			dat += " <a href='byond://?[REF(src)];track=[REF(M)]'>\[Track\]</a><br>"
 
 
 		for(var/mob/living/M in seen)
@@ -189,7 +189,7 @@
 					dat += " (Sitting)"
 				else
 					dat += " (Laying down)"
-			dat += " <a href='?[REF(src)];track=[REF(M)]'>\[Track\]</a><br>"
+			dat += " <a href='byond://?[REF(src)];track=[REF(M)]'>\[Track\]</a><br>"
 		if(length(dat) == 0)
 			dat += "No motion detected."
 		return dat
@@ -305,7 +305,7 @@
 				break
 	src.updateSelfDialog()
 
-/obj/item/camera_bug/proc/same_z_level(var/obj/machinery/camera/C)
+/obj/item/camera_bug/proc/same_z_level(obj/machinery/camera/C)
 	var/turf/T_cam = get_turf(C)
 	var/turf/T_bug = get_turf(loc)
 	if(!T_bug || T_cam.get_virtual_z_level() != T_bug.get_virtual_z_level())

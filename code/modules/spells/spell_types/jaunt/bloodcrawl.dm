@@ -7,7 +7,7 @@
 	name = "Blood Crawl"
 	desc = "Allows you to phase in and out of existance via pools of blood."
 	background_icon_state = "bg_demon"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "bloodcrawl"
 
 	spell_requirements = NONE
@@ -198,7 +198,7 @@
 	if(SEND_SIGNAL(victim, COMSIG_LIVING_BLOOD_CRAWL_CONSUMED, src, jaunter) & COMPONENT_STOP_CONSUMPTION)
 		return FALSE
 
-	jaunter.revive(full_heal = TRUE, admin_revive = FALSE)
+	jaunter.revive(HEAL_ALL)
 
 	// No defib possible after laughter
 	victim.apply_damage(1000, BRUTE)
@@ -251,10 +251,10 @@
 	to_chat(jaunter, ("<span class='clown'>[victim] joins your party! Your health is fully restored.</span>"))
 	consumed_mobs += victim
 	RegisterSignal(victim, COMSIG_MOB_STATCHANGE, PROC_REF(on_victim_statchange))
-	RegisterSignal(victim, COMSIG_PARENT_QDELETING, PROC_REF(on_victim_deleted))
+	RegisterSignal(victim, COMSIG_QDELETING, PROC_REF(on_victim_deleted))
 
 /**
- * Signal proc for COMSIG_LIVING_DEATH and COMSIG_PARENT_QDELETING
+ * Signal proc for COMSIG_LIVING_DEATH and COMSIG_QDELETING
  *
  * If our demon is deleted or destroyed, expel all of our consumed mobs
  */
@@ -265,12 +265,12 @@
 	for(var/mob/living/friend as anything in consumed_mobs)
 
 		// Unregister the signals first
-		UnregisterSignal(friend, list(COMSIG_MOB_STATCHANGE, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(friend, list(COMSIG_MOB_STATCHANGE, COMSIG_QDELETING))
 
 		friend.forceMove(release_turf)
-		if(!friend.revive(full_heal = TRUE, admin_revive = TRUE))
+		// Heals them back to state one
+		if(!friend.revive(ADMIN_HEAL_ALL, force_grab_ghost = TRUE))
 			continue
-		friend.grab_ghost(force = TRUE)
 		playsound(release_turf, consumed_mobs, 50, TRUE, -1)
 		to_chat(friend, ("<span class='clown'>You leave [source]'s warm embrace, and feel ready to take on the world.</span>"))
 

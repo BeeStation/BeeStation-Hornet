@@ -1,9 +1,10 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	custom_price = 25
 	var/flashbang_range = 7 //how many tiles away the mob will be stunned.
 
 /obj/item/grenade/flashbang/prime(mob/living/lanced_by)
@@ -62,13 +63,15 @@
 /obj/item/grenade/stingbang
 	name = "stingbang"
 	icon_state = "timeg"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/flashbang_range = 1 //how many tiles away the mob will be stunned.
 	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 	shrapnel_radius = 5
-	custom_premium_price = 700 // mostly gotten through cargo, but throw in one for the sec vendor ;)
+	max_demand = 5
+	custom_premium_price = 200
+
 
 /obj/item/grenade/stingbang/mega
 	name = "mega stingbang"
@@ -129,7 +132,7 @@
 	name = "rotfrag grenade"
 	desc = "A grenade that generates more shrapnel the more you rotate it in your hand after pulling the pin. This one releases shrapnel shards."
 	icon_state = "timeg"
-	item_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/rots_per_mag = 3 /// how many times we need to "rotate" the charge in hand per extra tile of magnitude

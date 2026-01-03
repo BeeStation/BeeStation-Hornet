@@ -58,13 +58,15 @@
 	ReadColorsFromString(starting_colors || target?.greyscale_colors)
 
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(ui_close))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(ui_close))
 
 	refresh_preview()
 
 /datum/greyscale_modify_menu/Destroy()
 	target = null
 	user = null
+	apply_callback = null
+	config = null
 	return ..()
 
 /datum/greyscale_modify_menu/ui_state(mob/user)
@@ -307,3 +309,19 @@ This is highly likely to cause massive amounts of lag as every object in the gam
 		current = parent
 		parent = type2parent(current)
 	config_owner_type = current
+
+/// Used for spray painting items in the gags_recolorable component
+/datum/greyscale_modify_menu/spray_paint
+	var/obj/item/toy/crayon/spraycan/spraycan = null
+
+/datum/greyscale_modify_menu/spray_paint/New(atom/target, client/user, list/allowed_configs, datum/callback/apply_callback, starting_icon_state, starting_config, starting_colors, obj/item/toy/crayon/spraycan/used_spraycan)
+	..()
+	spraycan = used_spraycan
+
+/datum/greyscale_modify_menu/spray_paint/ui_status(mob/user, datum/ui_state/state)
+	return min(
+		ui_status_only_living(user, target),
+		ui_status_user_is_abled(user, target),
+		ui_status_user_strictly_adjacent(user, target),
+		user.is_holding(spraycan)? UI_INTERACTIVE : UI_CLOSE
+	)

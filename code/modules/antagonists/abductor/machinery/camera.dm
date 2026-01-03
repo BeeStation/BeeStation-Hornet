@@ -1,38 +1,45 @@
 /obj/machinery/computer/camera_advanced/abductor
 	name = "Human Observation Console"
-	var/team_number = 0
-	networks = list("ss13", "abductor")
-	var/datum/action/innate/teleport_in/tele_in_action
-	var/datum/action/innate/teleport_out/tele_out_action
-	var/datum/action/innate/teleport_self/tele_self_action
-	var/datum/action/innate/vest_mode_swap/vest_mode_action
-	var/datum/action/innate/vest_disguise_swap/vest_disguise_action
-	var/datum/action/innate/set_droppoint/set_droppoint_action
-	var/obj/machinery/abductor/console/console
-	lock_override = TRUE
-
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
 	base_icon_state = null
+
+	lock_override = TRUE
 	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	reveal_camera_mob = TRUE
+	networks = list("ss13", "abductor")
 	camera_mob_icon_state = "abductor_camera"
 
-/obj/machinery/computer/camera_advanced/abductor/Initialize(mapload)
+	// Set in 'console.dm'
+	var/obj/machinery/abductor/console/console
+	var/team_number = 0
+
+	var/datum/action/innate/teleport_in/tele_in_action
+	var/datum/action/innate/teleport_out/tele_out_action
+	var/datum/action/innate/teleport_self/tele_self_action
+	var/datum/action/innate/vest_mode_swap/vest_mode_action
+	var/datum/action/innate/vest_disguise_swap/vest_disguise_action
+	var/datum/action/innate/set_droppoint/set_droppoint_action
+
+/obj/machinery/computer/camera_advanced/abductor/Destroy()
+	if(console)
+		console.camera = null
+		console = null
 	. = ..()
-	tele_in_action = new(src)
-	tele_out_action = new(src)
-	tele_self_action = new(src)
-	vest_mode_action = new(src)
-	vest_disguise_action = new(src)
-	set_droppoint_action = new(src)
 
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
-	..()
+	. = ..()
+
+	tele_in_action = new(console.pad)
+	tele_out_action = new(console)
+	tele_self_action = new(console.pad)
+	vest_mode_action = new(console)
+	vest_disguise_action = new(console)
+	set_droppoint_action = new(console)
 
 	if(tele_in_action)
 		tele_in_action.Grant(user)
@@ -63,7 +70,7 @@
 
 /datum/action/innate/teleport_in
 	name = "Send To"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/on_activate()
@@ -90,7 +97,7 @@
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
+		if (!specimin.get_organ_slot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
@@ -106,7 +113,7 @@
 
 /datum/action/innate/teleport_out
 	name = "Retrieve"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_up"
 
 /datum/action/innate/teleport_out/on_activate()
@@ -118,7 +125,7 @@
 
 /datum/action/innate/teleport_self
 	name = "Send Self"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_self/on_activate()
@@ -145,7 +152,7 @@
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
+		if (!specimin.get_organ_slot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
@@ -161,7 +168,7 @@
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_mode"
 
 /datum/action/innate/vest_mode_swap/on_activate()
@@ -173,7 +180,7 @@
 
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "vest_disguise"
 
 /datum/action/innate/vest_disguise_swap/on_activate()
@@ -184,7 +191,7 @@
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	button_icon_state = "set_drop"
 
 /datum/action/innate/set_droppoint/on_activate()

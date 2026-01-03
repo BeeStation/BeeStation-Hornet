@@ -1,6 +1,7 @@
-import { Grid, NumberInput, Button, Section } from '../components';
-import { useBackend } from '../backend';
 import { toFixed } from 'common/math';
+
+import { useBackend } from '../backend';
+import { Button, Grid, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Signaler = (props) => {
@@ -30,7 +31,7 @@ export const SignalerContent = (props) => {
             stepPixelSize={6}
             minValue={minFrequency / 10}
             maxValue={maxFrequency / 10}
-            value={frequency / 10}
+            value={frequency / 10 || minFrequency / 10}
             format={(value) => toFixed(value, 1)}
             width="80px"
             onDrag={(value) =>
@@ -64,7 +65,7 @@ export const SignalerContent = (props) => {
             stepPixelSize={6}
             minValue={1}
             maxValue={100}
-            value={code}
+            value={code || 1}
             width="80px"
             onDrag={(value) =>
               act('code', {

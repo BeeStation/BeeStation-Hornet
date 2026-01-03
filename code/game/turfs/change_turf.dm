@@ -2,11 +2,16 @@
 GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	/turf/open/space,
 	/turf/baseturf_bottom,
-	)))
+)))
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object))
+	var/static/list/ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/obj/effect/landmark,
+		/obj/docking_port,
+		/atom/movable/lighting_object,
+	))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -64,6 +69,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 // Creates a new turf
 // new_baseturfs can be either a single type or list of types, formated the same as baseturfs. see turf.dm
 /turf/proc/ChangeTurf(path, list/new_baseturfs, flags)
+	SHOULD_NOT_SLEEP(TRUE)
+
 	switch(path)
 		if(null)
 			return
@@ -90,8 +97,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_rcd_memory = rcd_memory
 	var/old_opacity = opacity
 
-	// Z-Mimic: copy above
-	var/old_above = above
+	// Dynamic Z-Linking
+	var/turf/old_above = above
+	var/turf/old_below = below
+	var/old_zdepth = z_depth
 
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
@@ -107,17 +116,35 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	changing_turf = TRUE
 	qdel(src) //Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
+	var/list/old_listen_lookup = _listen_lookup?.Copy()
+	var/list/old_signal_procs = _signal_procs?.Copy()
+
+	var/old_atoms_state = SSatoms.initialized
+	// Disable initialisation for the atom
+	SSatoms.initialized = INITIALIZATION_INSSATOMS
 	var/turf/new_turf = new path(src)
+	// Store initialisation state
+	SSatoms.initialized = old_atoms_state
+
+	// These need to be set prior to initialisation, otherwise we will have to regenerate
+	// zmimic twice for turfs that are linked to other locations.
+	new_turf.above = old_above
+	old_above?.below = new_turf
+	new_turf.below = old_below
+	old_below?.above = new_turf
+	new_turf.z_depth = old_zdepth
+
+	// Initialize the atom manually
+	var/is_mapload = old_atoms_state == INITIALIZATION_INNEW_MAPLOAD
+	SSatoms.InitAtom(src, new_turf, list(is_mapload))
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
-	if(old_comp_lookup)
-		LAZYOR(new_turf.comp_lookup, old_comp_lookup)
+	if(old_listen_lookup)
+		LAZYOR(new_turf._listen_lookup, old_listen_lookup)
 	if(old_signal_procs)
-		LAZYOR(new_turf.signal_procs, old_signal_procs)
+		LAZYOR(new_turf._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(new_turf)
@@ -126,8 +153,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		new_turf.baseturfs = baseturfs_string_list(new_baseturfs, new_turf)
 	else
 		new_turf.baseturfs = baseturfs_string_list(old_baseturfs, new_turf) //Just to be safe
-
-	new_turf.above = old_above
 
 	new_turf.explosion_id = old_exi
 	new_turf.explosion_level = old_exl

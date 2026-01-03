@@ -8,7 +8,11 @@ export const KeycardAuth = (props) => {
     <Window width={375} height={125}>
       <Window.Content>
         <Section>
-          <Box>{data.waiting === 1 && <span>Waiting for another device to confirm your request...</span>}</Box>
+          <Box>
+            {data.waiting === 1 && (
+              <span>Waiting for another device to confirm your request...</span>
+            )}
+          </Box>
           <Box>
             {data.waiting === 0 && (
               <>
@@ -33,8 +37,39 @@ export const KeycardAuth = (props) => {
                       }}
                       content="Red Alert"
                     />
-                    <Button icon="wrench" fluid onClick={() => act('emergency_maint')} content="Emergency Maintenance Access" />
-                    <Button icon="meteor" fluid onClick={() => act('bsa_unlock')} content="Bluespace Artillery Unlock" />
+                    {!!data.auth_required && (
+                      <Button
+                        icon="check-square"
+                        color="BLACK"
+                        textAlign="center"
+                        lineHeight="60px"
+                        fluid
+                        onClick={() => act('auth_swipe')}
+                        content="Authorize"
+                      />
+                    )}
+                    {data.auth_required === 0 && (
+                      <Button
+                        icon="skull"
+                        fluid
+                        onClick={() => {
+                          return act('black_alert');
+                        }}
+                        content="Black Alert"
+                      />
+                    )}
+                    <Button
+                      icon="wrench"
+                      fluid
+                      onClick={() => act('emergency_maint')}
+                      content="Emergency Maintenance Access"
+                    />
+                    <Button
+                      icon="meteor"
+                      fluid
+                      onClick={() => act('bsa_unlock')}
+                      content="Bluespace Artillery Unlock"
+                    />
                   </>
                 )}
               </>

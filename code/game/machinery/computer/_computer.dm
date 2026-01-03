@@ -8,8 +8,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
-	idle_power_usage = 300
-	active_power_usage = 300
+	idle_power_usage = 50 WATT
+	active_power_usage = 300 WATT	// Code does not care for this at all yet
 	max_integrity = 200
 	integrity_failure = 0.5
 	armor_type = /datum/armor/machinery_computer
@@ -37,6 +37,12 @@
 	QUEUE_SMOOTH(src)
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	power_change()
+
+/obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/computer/Destroy()
 	QUEUE_SMOOTH_NEIGHBORS(src)
@@ -169,3 +175,9 @@
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)
+
+/obj/machinery/computer/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.use_cache()
+	context.add_attack_hand_action("Interact")
+	if(circuit && !(flags_1&NODECONSTRUCT_1))
+		context.add_left_click_tool_action("Deconstruct", TOOL_SCREWDRIVER)

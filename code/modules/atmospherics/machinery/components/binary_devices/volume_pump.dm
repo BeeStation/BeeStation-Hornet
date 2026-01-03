@@ -26,6 +26,9 @@
 	construction_type = /obj/item/pipe/directional
 	pipe_state = "volumepump"
 
+/obj/machinery/atmospherics/components/binary/volume_pump/add_context_self(datum/screentip_context/context, mob/user)
+	context.add_ctrl_click_action("Turn [on ? "off" : "on"]")
+	context.add_alt_click_action("Maximize transfer rate")
 
 /obj/machinery/atmospherics/components/binary/volume_pump/Initialize(mapload)
 	. = ..()
@@ -36,6 +39,8 @@
 /obj/machinery/atmospherics/components/binary/volume_pump/CtrlClick(mob/user)
 	if(can_interact(user))
 		set_on(!on)
+		balloon_alert(user, "turned [on ? "on" : "off"]")
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 		ui_update()
 	return ..()
@@ -43,7 +48,8 @@
 /obj/machinery/atmospherics/components/binary/volume_pump/AltClick(mob/user)
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
-		balloon_alert(user, "You set the transfer rate to [transfer_rate] L/s.")
+		investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
+		balloon_alert(user, "volume output set to [transfer_rate] L/s")
 		update_icon()
 		ui_update()
 	return
@@ -66,10 +72,17 @@
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
 
-// Pump mechanism just won't do anything if the pressure is too high/too low unless you overclock it.
+	// Pump mechanism just won't do anything if the pressure is too high/too low unless you overclock it.
 
 	var/input_starting_pressure = air1.return_pressure()
 	var/output_starting_pressure = air2.return_pressure()
+
+	if(overclocked)
+		var/turf/turf = loc
+		if(isclosedturf(turf))
+			balloon_alert_to_viewers("jammed!")
+			overclocked = FALSE
+			update_appearance(UPDATE_ICON)
 
 	if((input_starting_pressure < VOLUME_PUMP_MINIMUM_OUTPUT_PRESSURE) || ((output_starting_pressure > VOLUME_PUMP_MAX_OUTPUT_PRESSURE))&&!overclocked)
 		return
@@ -143,6 +156,10 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/multitool_act(mob/living/user, obj/item/I)
 	if(!overclocked)
+		var/turf/turf = loc
+		if(isclosedturf(turf))
+			to_chat(user, "The pump is sealed inside a closed space, you can't safely disable its pressure limits here.")
+			return TRUE
 		overclocked = TRUE
 		to_chat(user, "The pump makes a grinding noise and air starts to hiss out as you disable its pressure limits.")
 		update_icon()

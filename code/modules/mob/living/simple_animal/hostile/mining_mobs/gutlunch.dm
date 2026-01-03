@@ -6,7 +6,7 @@
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
 	icon_dead = "gutlunch"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_emote = list("warbles", "quavers")
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
@@ -110,7 +110,7 @@
 	resize = 0.45
 	update_transform()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	growth++
 	if(growth > 50) //originally used a timer for this, but it became more of a problem than it was worth.

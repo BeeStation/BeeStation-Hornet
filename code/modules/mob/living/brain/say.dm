@@ -1,4 +1,4 @@
-/mob/living/brain/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/brain/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!(container && istype(container, /obj/item/mmi)))
 		return //No MMI, can't speak, bucko./N
 	else
@@ -18,9 +18,6 @@
 			return ITALICS | REDUCE_RANGE
 	else
 		return ..()
-
-/mob/living/brain/lingcheck()
-	return LINGHIVE_NONE
 
 /mob/living/brain/treat_message(message)
 	return treat_message_min(message)

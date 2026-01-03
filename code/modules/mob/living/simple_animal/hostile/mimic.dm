@@ -13,7 +13,7 @@
 	maxHealth = 250
 	health = 250
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 
 	melee_damage = 10
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -150,16 +150,19 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/mimic/copy)
 	if(!CopyObject(original, creator, destroy_original))
 		stack_trace("something's wrong to create a mimic. It failed to mimic something - [original].")
 
-/mob/living/simple_animal/hostile/mimic/copy/Life()
+/mob/living/simple_animal/hostile/mimic/copy/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(idledamage && !target && !mind) //Objects eventually revert to normal if no one is around to terrorize
-		adjustBruteLoss(1)
+		adjustBruteLoss(0.5 * delta_time)
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
 
 /mob/living/simple_animal/hostile/mimic/copy/ListTargets()
 	. = ..()
 	return . - creator
+
+/mob/living/simple_animal/hostile/mimic/copy/wabbajack(what_to_randomize, change_flags = WABBAJACK)
+	visible_message(span_warning("[src] resists polymorphing into a new creature!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)

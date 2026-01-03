@@ -46,7 +46,7 @@
 
 /mob/living/carbon/human/adjust_drugginess(amount)
 	..()
-	if(!dna.check_mutation(STONER))
+	if(!dna.check_mutation(/datum/mutation/stoner))
 		if(druggy)
 			grant_language(/datum/language/beachbum, source = LANGUAGE_DRUGGY)
 		else

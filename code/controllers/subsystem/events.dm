@@ -1,6 +1,9 @@
 SUBSYSTEM_DEF(events)
 	name = "Events"
-	init_order = INIT_ORDER_EVENTS
+	dependencies = list(
+		/datum/controller/subsystem/processing/station,
+		/datum/controller/subsystem/job,
+	)
 	runlevels = RUNLEVEL_GAME
 
 	var/list/control = list()	//list of all datum/round_event_control. Used for selecting events based on weight and occurrences.
@@ -59,13 +62,12 @@ SUBSYSTEM_DEF(events)
 	if(!CONFIG_GET(flag/allow_random_events))
 		return
 
-	var/gamemode = SSticker.mode.config_tag
 	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
 	// Only alive, non-AFK human players count towards this.
 
 	var/sum_of_weights = 0
 	for(var/datum/round_event_control/E in control)
-		if(!E.canSpawnEvent(players_amt, gamemode))
+		if(!E.canSpawnEvent(players_amt))
 			continue
 		if(E.weight < 0)						//for round-start events etc.
 			var/res = TriggerEvent(E)
@@ -78,7 +80,7 @@ SUBSYSTEM_DEF(events)
 	sum_of_weights = rand(0,sum_of_weights)	//reusing this variable. It now represents the 'weight' we want to select
 
 	for(var/datum/round_event_control/E in control)
-		if(!E.canSpawnEvent(players_amt, gamemode))
+		if(!E.canSpawnEvent(players_amt))
 			continue
 		sum_of_weights -= E.weight
 
@@ -113,7 +115,7 @@ SUBSYSTEM_DEF(events)
 	var/magic 	= ""
 	var/holiday = ""
 	for(var/datum/round_event_control/E in SSevents.control)
-		dat = "<BR><A href='?src=[REF(src)];[HrefToken()];forceevent=[REF(E)]'>[E]</A>"
+		dat = "<BR><A href='byond://?src=[REF(src)];[HrefToken()];forceevent=[REF(E)]'>[E]</A>"
 		if(E.holidayID)
 			holiday	+= dat
 		else if(E.wizardevent)

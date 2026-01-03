@@ -3,7 +3,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
 	flags_cover = MASKCOVERSEYES
 	icon_state = "cluwne"
-	item_state = "cluwne"
+	inhand_icon_state = "cluwne"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = MASKINTERNALS
 	item_flags = ABSTRACT | DROPDEL
@@ -56,7 +56,7 @@
 		return
 	if(slot == ITEM_SLOT_MASK)
 		var/mob/living/carbon/C = user
-		C.dna.add_mutation(CLUWNEMUT)
+		C.dna.add_mutation(/datum/mutation/cluwne)
 	return
 
 /obj/item/clothing/mask/cluwne/happy_cluwne

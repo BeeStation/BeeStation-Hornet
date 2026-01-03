@@ -123,7 +123,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "z" = (
@@ -212,7 +212,7 @@
 /turf/template_noop,
 /area/template_noop)
 "T" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/reinforced/plasma/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "V" = (

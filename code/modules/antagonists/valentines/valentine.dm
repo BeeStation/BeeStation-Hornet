@@ -5,7 +5,6 @@
 	prevent_roundtype_conversion = FALSE
 	replace_banned = FALSE
 	var/datum/mind/date
-	count_against_dynamic_roll_chance = FALSE
 	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/valentine/proc/forge_objectives()
@@ -22,7 +21,7 @@
 	forge_objectives()
 	if(isliving(owner.current) && isliving(date.current))
 		var/mob/living/L = owner.current
-		L.apply_status_effect(STATUS_EFFECT_INLOVE, date.current)
+		L.apply_status_effect(/datum/status_effect/in_love, date.current)
 		//Faction assignation
 		L.faction |= "[REF(date.current)]"
 		L.faction |= date.current.faction
@@ -36,7 +35,7 @@
 	. = ..()
 	if(isliving(owner.current))
 		var/mob/living/L = owner.current
-		L.remove_status_effect(STATUS_EFFECT_INLOVE)
+		L.remove_status_effect(/datum/status_effect/in_love)
 		L.faction -= "[REF(date.current)]"
 
 /datum/antagonist/valentine/greet()

@@ -36,7 +36,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_ahelp_reply(whom)
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 		return
 	var/client/C
@@ -63,7 +63,7 @@
 	AH.Claim()
 
 /client/proc/cmd_ahelp_reply_instant(whom, msg, html_encoded = FALSE)
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 		return
 	var/client/C
@@ -85,7 +85,7 @@
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, html_encoded = FALSE)
-	if(prefs.muted & MUTE_ADMINHELP)
+	if(player_details.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 		return
 
@@ -138,7 +138,7 @@
 			// we need to not HTML encode again or you get &#39;s instead of 's
 			html_encoded = TRUE
 
-			if(prefs.muted & MUTE_ADMINHELP)
+			if(player_details.muted & MUTE_ADMINHELP)
 				to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), type = MESSAGE_TYPE_ADMINPM)
 				return
 
@@ -288,7 +288,7 @@
 					return "Error: Ticket #[fail] not found"
 				if(AH.initiator_ckey != target)
 					return "Error: Ticket #[fail] belongs to [AH.initiator_ckey]"
-				AH.Reopen()
+				AH.Reopen(tgs_tagged)
 				return "Ticket #[ticket.id] successfully reopened"
 			if("list")
 				var/list/tickets = GLOB.ahelp_tickets.TicketsByCKey(target)
@@ -325,7 +325,7 @@
 	msg = emoji_parse(msg)
 
 	to_chat(C, "<font color='red' size='4'><b>-- Administrator private message --</b></font>", type = MESSAGE_TYPE_ADMINPM)
-	to_chat(C, span_adminsay("Admin PM from-<b><a href='?priv_msg=[stealthkey]'>[adminname]</A></b>: [msg]"), allow_linkify = TRUE, type = MESSAGE_TYPE_ADMINPM)
+	to_chat(C, span_adminsay("Admin PM from-<b><a href='byond://?priv_msg=[stealthkey]'>[adminname]</A></b>: [msg]"), allow_linkify = TRUE, type = MESSAGE_TYPE_ADMINPM)
 	to_chat(C, span_adminsay("<i>Click on the administrator's name to reply.</i>"), type = MESSAGE_TYPE_ADMINPM)
 
 	admin_ticket_log(C, msg, adminname, null, "cyan", isSenderAdmin = TRUE, safeSenderLogged = TRUE)

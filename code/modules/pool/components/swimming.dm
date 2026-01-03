@@ -33,7 +33,7 @@
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
 		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED, 20) //Swimming is really good excercise!
+		L.apply_status_effect(/datum/status_effect/exercised, 20) //Swimming is really good excercise!
 		lengths = 0
 
 //Damn edge cases
@@ -63,12 +63,12 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(climb_out), L, clicked_turf)
 
-/datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
+/datum/component/swimming/proc/climb_out(mob/living/L, turf/clicked_turf)
 	L.forceMove(clicked_turf)
 	L.visible_message(span_notice("[parent] climbs out of the pool."))
 	ClearFromParent()
 
-/datum/component/swimming/proc/pull_out(var/mob/living/L, turf/clicked_turf)
+/datum/component/swimming/proc/pull_out(mob/living/L, turf/clicked_turf)
 	to_chat(parent, span_notice("You start to climb out of the pool..."))
 	if(do_after(parent, 1 SECONDS, target=clicked_turf))
 		to_chat(parent, span_notice("You start to lift [L.pulling] out of the pool..."))

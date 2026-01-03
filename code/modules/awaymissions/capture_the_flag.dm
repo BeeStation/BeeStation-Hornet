@@ -11,7 +11,7 @@
 	name = "banner"
 	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
-	item_state = "banner"
+	inhand_icon_state = "banner"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
 	desc = "A banner with Nanotrasen's logo on it."
@@ -40,10 +40,7 @@
 	if(!reset)
 		reset = new reset_path(get_turf(src))
 		reset.flag = src
-	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(reset_flag)) //just in case CTF has some map hazards (read: chasms).
-
-/obj/item/ctf/ComponentInitialize()
-	. = ..()
+	RegisterSignal(src, COMSIG_PREQDELETED, PROC_REF(reset_flag)) //just in case CTF has some map hazards (read: chasms).
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/ctf/process()
@@ -106,7 +103,7 @@
 /obj/item/ctf/red
 	name = "red flag"
 	icon_state = "banner-red"
-	item_state = "banner-red"
+	inhand_icon_state = "banner-red"
 	desc = "A red banner used to play capture the flag."
 	team = RED_TEAM
 	reset_path = /obj/effect/ctf/flag_reset/red
@@ -115,7 +112,7 @@
 /obj/item/ctf/blue
 	name = "blue flag"
 	icon_state = "banner-blue"
-	item_state = "banner-blue"
+	inhand_icon_state = "banner-blue"
 	desc = "A blue banner used to play capture the flag."
 	team = BLUE_TEAM
 	reset_path = /obj/effect/ctf/flag_reset/blue
@@ -314,7 +311,7 @@
 	recently_dead_ckeys += body.ckey
 	addtimer(CALLBACK(src, PROC_REF(clear_cooldown), body.ckey), respawn_cooldown, TIMER_UNIQUE)
 
-/obj/machinery/capture_the_flag/proc/clear_cooldown(var/ckey)
+/obj/machinery/capture_the_flag/proc/clear_cooldown(ckey)
 	recently_dead_ckeys -= ckey
 
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
@@ -343,7 +340,7 @@
 	M.key = new_team_member.key
 	M.faction += team
 	M.equipOutfit(chosen_class)
-	RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(ctf_qdelled_player)) //just in case CTF has some map hazards (read: chasms). bit shorter than dust
+	RegisterSignal(M, COMSIG_QDELETING, PROC_REF(ctf_qdelled_player)) //just in case CTF has some map hazards (read: chasms). bit shorter than dust
 	spawned_mobs[M] = chosen_class
 	team_members |= new_team_member.ckey
 	return M //used in medisim.dm
@@ -406,7 +403,7 @@
 
 	dead_barricades.Cut()
 
-	notify_ghosts("[name] has been activated!", enter_link="<a href=?src=[REF(src)];join=1>(Click to join the [team] team!)</a> or click on the controller directly!", source = src, action=NOTIFY_ATTACK, header = "CTF has been activated")
+	notify_ghosts("[name] has been activated!", enter_link="<a href='byond://?src=[REF(src)];join=1'>(Click to join the [team] team!)</a> or click on the controller directly!", source = src, action=NOTIFY_ATTACK, header = "CTF has been activated")
 
 	if(!arena_reset)
 		reset_the_arena()
@@ -415,10 +412,10 @@
 /obj/machinery/capture_the_flag/proc/reset_the_arena()
 	var/area/A = get_area(src)
 	var/list/ctf_object_typecache = typecacheof(list(
-				/obj/machinery,
-				/obj/effect/ctf,
-				/obj/item/ctf
-			))
+		/obj/machinery,
+		/obj/effect/ctf,
+		/obj/item/ctf,
+	))
 	for(var/atm in A)
 		if (isturf(A) || ismob(A) || isarea(A))
 			continue
@@ -569,17 +566,16 @@
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/armor/vest/ctf
-	toggle_helmet = FALSE // see the whites of their eyes
 	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/tackler/combat
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol/deagle/ctf
 	l_pocket = /obj/item/ammo_box/magazine/recharge/ctf
 	r_pocket = /obj/item/ammo_box/magazine/recharge/ctf
 	r_hand = /obj/item/gun/ballistic/automatic/laser/ctf
 
-/datum/outfit/ctf/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
-	if(visualsOnly)
+/datum/outfit/ctf/post_equip(mob/living/carbon/human/H, visuals_only=FALSE)
+	if(visuals_only)
 		return
 	var/list/no_drops = list()
 	var/obj/item/card/id/W = H.wear_id

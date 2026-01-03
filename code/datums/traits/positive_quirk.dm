@@ -1,21 +1,10 @@
-//predominantly positive traits
-//this file is named weirdly so that positive traits are listed above negative ones
-
-/datum/quirk/alcohol_tolerance
-	name = "Alcohol Tolerance"
-	desc = "You become drunk more slowly and suffer fewer drawbacks from alcohol."
-	icon = "beer"
-	value = 1
-	mob_trait = TRAIT_ALCOHOL_TOLERANCE
-	gain_text = span_notice("You feel like you could drink a whole keg!")
-	lose_text = span_danger("You don't feel as resistant to alcohol anymore. Somehow.")
-	medical_record_text = "Patient demonstrates a high tolerance for alcohol."
+//This file contains quirks that provide a gameplay advantage. Players are limited to a maximum of two of these quirks
 
 /datum/quirk/apathetic
 	name = "Apathetic"
 	desc = "You are used to the awful things that happen here, bad events affect your mood less."
 	icon = "meh"
-	value = 1
+	quirk_value = 1
 	mood_quirk = TRUE
 	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
 
@@ -23,17 +12,30 @@
 	name = "Drunken Resilience"
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
 	icon = "wine-bottle"
-	value = 2
+	quirk_value = 1
 	mob_trait = TRAIT_DRUNK_HEALING
 	gain_text = span_notice("You feel like a drink would do you good.")
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
+/datum/quirk/drunkhealing/process(delta_time)
+	var/mob/living/carbon/carbon_holder = quirk_holder
+	switch(carbon_holder.drunkenness)
+		if (6 to 40)
+			carbon_holder.adjustBruteLoss(-0.1*delta_time, FALSE)
+			carbon_holder.adjustFireLoss(-0.05*delta_time, FALSE)
+		if (41 to 60)
+			carbon_holder.adjustBruteLoss(-0.4*delta_time, FALSE)
+			carbon_holder.adjustFireLoss(-0.2*delta_time, FALSE)
+		if (61 to INFINITY)
+			carbon_holder.adjustBruteLoss(-0.8*delta_time, FALSE)
+			carbon_holder.adjustFireLoss(-0.4*delta_time, FALSE)
+
 /datum/quirk/empath
 	name = "Empath"
 	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel."
 	icon = "smile-beam"
-	value = 2
+	quirk_value = 1
 	mob_trait = TRAIT_EMPATH
 	gain_text = span_notice("You feel in tune with those around you.")
 	lose_text = span_danger("You feel isolated from others.")
@@ -43,7 +45,7 @@
 	name = "Freerunning"
 	desc = "You're great at quick moves! You can climb tables more quickly."
 	icon = "running"
-	value = 2
+	quirk_value = 1
 	mob_trait = TRAIT_FREERUNNING
 	gain_text = span_notice("You feel lithe on your feet!")
 	lose_text = span_danger("You feel clumsy again.")
@@ -53,7 +55,7 @@
 	name = "Friendly"
 	desc = "You give the best hugs, especially when you're in the right mood."
 	icon = "hands-helping"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_FRIENDLY
 	gain_text = span_notice("You want to hug someone.")
 	lose_text = span_danger("You no longer feel compelled to hug others.")
@@ -64,7 +66,7 @@
 	name = "Jolly"
 	desc = "You sometimes just feel happy, for no reason at all."
 	icon = "grin"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_JOLLY
 	mood_quirk = TRUE
 	process = TRUE
@@ -78,36 +80,17 @@
 	name = "Light Step"
 	desc = "You walk with a gentle step; stepping on sharp objects is quieter, less painful and you won't leave footprints behind you. Also, your hands and clothes will not get messed in case of stepping in blood."
 	icon = "shoe-prints"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = span_notice("You walk with a little more litheness.")
 	lose_text = span_danger("You start tromping around like a barbarian.")
 	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
-/datum/quirk/musician
-	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
-	icon = "guitar"
-	value = 1
-	mob_trait = TRAIT_MUSICIAN
-	gain_text = span_notice("You know everything about musical instruments.")
-	lose_text = span_danger("You forget how musical instruments work.")
-	medical_record_text = "Patient brain scans show a highly-developed auditory pathway."
-
-/datum/quirk/musician/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
-	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
-
 /datum/quirk/linguist
 	name = "Linguist"
 	desc = "Although you don't know every language, your intense interest in languages allows you to recognise the features of most languages."
 	icon = "language"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_LINGUIST
 	gain_text = span_notice("You can recognise the linguistic features of every language.")
 	lose_text = span_danger("You can no longer recognise linguistic features for each language.")
@@ -117,7 +100,7 @@
 	name = "Multilingual"
 	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
 	icon = "comments"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_MULTILINGUAL
 	gain_text = span_notice("You have learned to understand an additional language.")
 	lose_text = span_danger("You have forgotten how to understand a language.")
@@ -128,7 +111,7 @@
 	var/datum/language_holder/LH = quirk_target.get_language_holder()
 	if(quirk_holder.assigned_role == JOB_NAME_CURATOR)
 		return
-	var/obj/item/organ/tongue/T = quirk_target.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/T = quirk_target.get_organ_slot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.get_possible_languages()
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
 	languages_possible = languages_possible - LH.understood_languages
@@ -155,7 +138,7 @@
 	name = "Night Vision"
 	desc = "You can see slightly more clearly in full darkness than most people."
 	icon = "eye"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_NIGHT_VISION_WEAK
 	gain_text = span_notice("The shadows seem a little less dark.")
 	lose_text = span_danger("Everything seems a little darker.")
@@ -163,7 +146,7 @@
 
 /datum/quirk/night_vision/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/organ/eyes/eyes = H.getorgan(/obj/item/organ/eyes)
+	var/obj/item/organ/eyes/eyes = H.get_organ_by_type(/obj/item/organ/eyes)
 	if(!eyes || eyes.lighting_alpha)
 		return
 	eyes.Insert(H) //refresh their eyesight and vision
@@ -172,7 +155,7 @@
 	name = "Psychic Photographer"
 	desc = "You have a special camera that can capture a photo of ghosts. Your experience in photography shortens the delay between each shot."
 	icon = "camera"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = span_notice("You know everything about photography.")
 	lose_text = span_danger("You forget how photo cameras work.")
@@ -195,7 +178,7 @@
 	name = "Self-Aware"
 	desc = "You know your body well, and can accurately assess the extent of your wounds."
 	icon = "bone"
-	value = 2
+	quirk_value = 1
 	mob_trait = TRAIT_SELF_AWARE
 	medical_record_text = "Patient demonstrates an uncanny knack for self-diagnosis."
 
@@ -203,42 +186,15 @@
 	name = "Skittish"
 	desc = "You can conceal yourself in danger. Ctrl-shift-click a closed locker to jump into it, as long as you have access."
 	icon = "trash"
-	value = 2
+	quirk_value = 1
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
-
-/datum/quirk/spiritual
-	name = "Spiritual"
-	desc = "You hold a spiritual belief, whether in God, nature or the arcane rules of the universe. You gain comfort from the presence of holy people, and believe that your prayers are more special than others."
-	icon = "bible"
-	value = 1
-	mob_trait = TRAIT_SPIRITUAL
-	gain_text = span_notice("You have faith in a higher power.")
-	lose_text = span_danger("You lose faith!")
-	process = TRUE
-	medical_record_text = "Patient reports a belief in a higher power."
-
-/datum/quirk/spiritual/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
-	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
-
-/datum/quirk/spiritual/on_process()
-	var/comforted = FALSE
-	for(var/mob/living/carbon/human/H in oview(5, quirk_target))
-		if(H.mind?.holy_role && H.stat == CONSCIOUS)
-			comforted = TRUE
-			break
-	if(comforted)
-		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
-	else
-		SEND_SIGNAL(quirk_target, COMSIG_CLEAR_MOOD_EVENT, "religious_comfort")
 
 /datum/quirk/tagger
 	name = "Tagger"
 	desc = "You're an experienced artist. While drawing graffiti, you can get twice as many uses out of drawing supplies."
 	icon = "spray-can"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_TAGGER
 	gain_text = span_notice("You know how to tag walls efficiently.")
 	lose_text = span_danger("You forget how to tag walls properly.")
@@ -255,7 +211,7 @@
 	name = "Voracious"
 	desc = "Nothing gets between you and your food. You eat faster and can binge on junk food! Being fat suits you just fine."
 	icon = "drumstick-bite"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_VORACIOUS
 	gain_text = span_notice("You feel HONGRY.")
 	lose_text = span_danger("You no longer feel HONGRY.")
@@ -265,7 +221,7 @@
 	name = "NEET"
 	desc = "For some reason you qualified for social welfare."
 	icon = "money-check-alt"
-	value = 1
+	quirk_value = 1
 	mob_trait = TRAIT_NEET
 	gain_text = span_notice("You feel useless to society.")
 	lose_text = span_danger("You no longer feel useless to society.")
@@ -284,7 +240,7 @@
 	name = "Skater Bro"
 	desc = "You're a little too into old-earth skater culture! You're much more used to riding and falling off skateboards, needing less stamina to do kickflips and taking less damage upon bumping into something."
 	icon = "hand-middle-finger"
-	value = 2
+	quirk_value = 1
 	mob_trait = TRAIT_PROSKATER
 	gain_text = span_notice("You feel like hitting a sick grind!")
 	lose_text = span_danger("You no longer feel like you're in touch with the youth.")
@@ -294,21 +250,12 @@
 	var/mob/living/carbon/human/H = quirk_target
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
 
-/datum/quirk/plushielover
-	name = "Plushie Lover"
-	desc = "You love your squishy friends so much. You start with a plushie delivery beacon."
-	icon = "heart"
-	value = 1
-	mob_trait = TRAIT_PLUSHIELOVER
-	gain_text = span_notice("You can't wait to hug a plushie!.")
-	lose_text = span_danger("You don't feel that passion for plushies anymore.")
-	medical_record_text = "Patient demonstrated a high affinity for plushies."
-
-/datum/quirk/plushielover/on_spawn()
-	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/radial/plushie/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
-	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+/datum/quirk/computer_whiz
+	name = "Computer Whiz"
+	desc = "You have always had a knack for technologies. You are able to manipulate and alter modular computer parts faster and safely."
+	icon = "microchip"
+	quirk_value = 1
+	mob_trait = TRAIT_COMPUTER_WHIZ
+	gain_text = span_notice("You feel much more confortable around technology.")
+	lose_text = span_danger("You feel your love for technology dissipate.")
+	medical_record_text = "Patient's vocational assessment test shows an affinity for technology."

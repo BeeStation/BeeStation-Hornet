@@ -1,4 +1,3 @@
-
 // common trait sources
 #define TRAIT_GENERIC "generic"
 #define GENERIC_ITEM_TRAIT "generic_item"
@@ -11,18 +10,23 @@
 #define DISEASE_TRAIT "disease"
 #define SPECIES_TRAIT "species"
 #define ORGAN_TRAIT "organ"
+/// Trait given by organ gained via abductor surgery
+#define ABDUCTOR_GLAND_TRAIT "abductor_gland"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
 #define JOB_TRAIT "job"
 #define CYBORG_ITEM_TRAIT "cyborg-item"
 #define ADMIN_TRAIT "admin" // (B)admins only.
 /// Any traits given through a smite.
 #define SMITE_TRAIT "smite"
+#define SLIME_POTION_TRAIT "slime_potion"
 #define CHANGELING_TRAIT "changeling"
 #define CULT_TRAIT "cult"
 #define CURSED_ITEM_TRAIT "cursed-item" // The item is magically cursed
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define STATUS_EFFECT_TRAIT "status-effect"
 #define CLOTHING_TRAIT "clothing"
+#define MASK_TRAIT "mask" //inherited from the mask
+#define SHOES_TRAIT "shoes" //inherited from your sweet kicks
 #define CLOTHING_FEET_TRAIT "feet"
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
@@ -86,7 +90,6 @@
 #define NINJA_SUIT_TRAIT "ninja-suit"
 #define ANTI_DROP_IMPLANT_TRAIT "anti-drop-implant"
 #define HIVEMIND_TRAIT "hivemind-trait"
-#define VR_ZONE_TRAIT "vr_zone_trait"
 #define SLEEPING_CARP_TRAIT "sleeping_carp"
 #define GLUED_ITEM_TRAIT "glued-item"
 #define LEGION_CORE_TRAIT "legion_core_trait"
@@ -113,16 +116,20 @@
 #define HANDCUFFED_TRAIT "handcuffed"
 /// Trait granted by [/obj/item/warpwhistle]
 #define WARPWHISTLE_TRAIT "warpwhistle"
+/// Trait sorce for "was recently shocked by something"
+#define WAS_SHOCKED "was_shocked"
 /// Trait applied by by [/datum/component/soulstoned]
 #define SOULSTONE_TRAIT "soulstone"
 /// Trait applied to slimes by low temperature
 #define SLIME_COLD "slime-cold"
-/// Trait applied to bots by being tipped over
-#define BOT_TIPPED_OVER "bot-tipped-over"
+/// Trait applied to mobs by being tipped over
+#define TIPPED_OVER "tipped-over"
 /// Trait applied to PAIs by being folded
 #define PAI_FOLDED "pai-folded"
 /// Trait applied to brain mobs when they lack external aid for locomotion, such as being inside a mech.
 #define BRAIN_UNAIDED "brain-unaided"
+/// Trait applied by MODsuits.
+#define MOD_TRAIT "mod"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
@@ -130,6 +137,10 @@
 #define LICH_TRAIT "lich_trait"
 /// Trait given to an atom/movable when they orbit something.
 #define ORBITING_TRAIT "orbiting"
+/// Trait given by simple/basic mob death
+#define BASIC_MOB_DEATH_TRAIT "basic_mob_death"
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 
 /// This trait comes from when a mob is currently typing.
 #define CURRENTLY_TYPING_TRAIT "currently_typing"
@@ -143,3 +154,9 @@
 /// Sources for TRAIT_IGNORING_GRAVITY
 #define IGNORING_GRAVITY_NEGATION "ignoring_gravity_negation"
 #define FROM_SHADOW_SECT "shadow_sect"
+
+/// Trait granted by [/mob/living/silicon/robot]
+/// Traits applied to a silicon mob by their module.
+#define MODULE_TRAIT "module_trait"
+/// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
+#define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"

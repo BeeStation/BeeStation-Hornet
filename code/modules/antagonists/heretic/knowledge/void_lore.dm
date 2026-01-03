@@ -232,7 +232,7 @@
 		The Aristocrat stands before me, beckoning. We will play a waltz to the whispers of dying reality, \
 		as the world is destroyed before our eyes. The void will return all to nothing, WITNESS MY ASCENSION!"
 	route = HERETIC_PATH_VOID
-	announcement_text = "The nobleman of void %USER% has arrived, step along to the Waltz that ends worlds!"
+	announcement_text = "The nobleman of void %USER% has arrived, stepping along to the Waltz that ends worlds!"
 	announcement_sound = 'sound/ambience/antag/heretic/ascend_void.ogg'
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop
@@ -259,10 +259,12 @@
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
 
 /datum/heretic_knowledge/final/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	on_death() // Losing is pretty much dying. I think
 	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].

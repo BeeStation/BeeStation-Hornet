@@ -22,7 +22,7 @@
 	var/plant_health		//Its health
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
-	var/cycledelay = 200	//About 10 seconds / cycle
+	var/cycledelay = 30 SECONDS //Time between each growth cycle
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
@@ -141,7 +141,7 @@
 //Nutrients//////////////////////////////////////////////////////////////
 			// Nutrients deplete slowly
 			if(prob(50))
-				adjustNutri(-1 / rating)
+				adjustNutri(-0.1 / rating)
 
 			// Lack of nutrients hurts non-weeds
 			if(nutrilevel <= 0 && !myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy))
@@ -161,7 +161,7 @@
 
 //Water//////////////////////////////////////////////////////////////////
 			// Drink random amount of water
-			adjustWater(-rand(1,6) / rating)
+			adjustWater(-rand(0.1,0.6) / rating)
 
 			// If the plant is dry, it loses health pretty fast, unless mushroom
 			if(waterlevel <= 10 && !myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
@@ -174,7 +174,7 @@
 				adjustHealth(rand(1,2) / rating)
 				if(myseed && prob(myseed.weed_chance))
 					adjustWeeds(myseed.weed_rate)
-				else if(prob(5))  //5 percent chance the weed population will increase
+				else if(prob(1))  //1 percent chance the weed population will increase
 					adjustWeeds(1 / rating)
 
 //Toxins/////////////////////////////////////////////////////////////////
@@ -233,7 +233,7 @@
 					harvest = 1
 				else
 					lastproduce = age
-			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
+			if(prob(1) || (myseed.get_gene(/datum/plant_gene/trait/plant_type/carnivory) && prob(5)))  // 1% chance for pests on most plants, 5% on carnivorous plants since they attract bugs.
 				adjustPests(1 / rating)
 		else
 			if(waterlevel > 10 && nutrilevel > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
@@ -353,7 +353,7 @@
 
 	if(!self_sustaining)
 		. += "[span_info("Water: [waterlevel]/[maxwater].")]\n"+\
-		span_info("Nutrient: [nutrilevel]/[maxnutri].")
+		span_info("Nutrient: [round(nutrilevel)]/[maxnutri].")
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
 			. += span_info("Treatment for self-sustenance are [percent_progress]% complete.")
@@ -535,17 +535,27 @@
 	if(S.has_reagent(/datum/reagent/plantnutriment/eznutriment, 1))
 		yieldmod = 1
 		mutmod = 1
+		cycledelay = 200
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/eznutriment) * 1))
 
 	if(S.has_reagent(/datum/reagent/plantnutriment/left4zednutriment, 1))
 		yieldmod = 0
 		mutmod = 2
+		cycledelay = 200
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/left4zednutriment) * 1))
 
 	if(S.has_reagent(/datum/reagent/plantnutriment/robustharvestnutriment, 1))
 		yieldmod = 1.3
 		mutmod = 0
+		cycledelay = 200
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/robustharvestnutriment) *1 ))
+
+	if(S.has_reagent(/datum/reagent/plantnutriment/slimenutriment, 1))
+		yieldmod = 0.8
+		mutmod = 1
+		cycledelay = 150
+		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/slimenutriment) *1))
+
 
 	// Ambrosia Gaia produces earthsblood.
 	if(S.has_reagent(/datum/reagent/medicine/earthsblood))
@@ -691,11 +701,6 @@
 		adjustHealth(round(S.get_reagent_amount(/datum/reagent/consumable/nutriment) * 0.5))
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/consumable/nutriment) * 1))
 
-	// Compost for EVERYTHING
-	if(S.has_reagent(/datum/reagent/consumable/virus_food, 1))
-		adjustNutri(round(S.get_reagent_amount(/datum/reagent/consumable/virus_food) * 0.5))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/consumable/virus_food) * 0.5))
-
 	// FEED ME
 	if(S.has_reagent(/datum/reagent/blood, 1))
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/blood) * 1))
@@ -712,6 +717,7 @@
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
 		adjustPests(-rand(1,5))
 		adjustWeeds(-rand(1,5))
+
 	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 5))
 		switch(rand(100))
 			if(66  to 100)
@@ -821,7 +827,7 @@
 		message += "- Toxicity level: [span_notice("[toxic] / 100")]"
 		message += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
 		message += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
+		to_chat(user, examine_block(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -834,7 +840,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		harvest_plant(user)
 		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
-			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
+			O.atom_storage?.attempt_insert(G, user, TRUE)
 
 	else if(default_unfasten_wrench(user, O))
 		return

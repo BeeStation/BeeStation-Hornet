@@ -31,7 +31,7 @@
 	dat += "<B>Charge progress: [reload]/[reload_cooldown]:</B><BR>"
 	dat += "<A href='byond://?src=[REF(src)];fire=1'>Open Fire</A><BR>"
 	dat += "Deployment of weapon authorized by <br>Nanotrasen Naval Command<br><br>Remember, friendly fire is grounds for termination of your contract and life.<HR>"
-	user << browse(dat, "window=scroll")
+	user << browse(HTML_SKELETON(dat), "window=scroll")
 	onclose(user, "scroll")
 
 /obj/machinery/artillerycontrol/Topic(href, href_list)

@@ -69,8 +69,9 @@
 				to_chat(user, span_notice("You lay down the catwalk."))
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				new /obj/structure/lattice/catwalk/over(src)
-		return TRUE
-	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes)
+				return TRUE
+	var/is_left_cliking = LAZYACCESS(params2list(params), LEFT_CLICK)
+	if(istype(C, /obj/item/stack/sheet/iron) && attachment_holes && is_left_cliking)
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
 			return TRUE

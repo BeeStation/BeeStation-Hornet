@@ -18,12 +18,11 @@
 	var/trauma_flags = TRAUMA_DEFAULT_FLAGS
 
 /datum/brain_trauma/Destroy()
-	if(brain?.traumas)
-		brain.traumas -= src
+	// Handles our references with our brain
+	brain?.remove_trauma_from_traumas(src)
 	if(owner)
 		on_lose()
-	brain = null
-	owner = null
+		owner = null
 	return ..()
 
 /datum/brain_trauma/proc/on_clone()
@@ -31,7 +30,7 @@
 		return new type
 
 //Called on life ticks
-/datum/brain_trauma/proc/on_life()
+/datum/brain_trauma/proc/on_life(delta_time, times_fired)
 	return
 
 //Called on death

@@ -71,7 +71,7 @@
 	if(HAS_TRAIT(target, TRAIT_BLIND))
 		return
 
-	if(!target.getorganslot(ORGAN_SLOT_EYES))
+	if(!target.get_organ_slot(ORGAN_SLOT_EYES))
 		return
 
 	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
@@ -258,3 +258,7 @@
 	screen_wide_fire_spell.Grant(user)
 	for(var/trait in traits_to_apply)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/ash_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)

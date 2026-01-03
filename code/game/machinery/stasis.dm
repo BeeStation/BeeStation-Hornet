@@ -5,13 +5,13 @@
 	icon = 'icons/obj/machines/stasis.dmi'
 	icon_state = "stasis"
 	density = FALSE
+	obj_flags = BLOCKS_CONSTRUCTION
 	can_buckle = TRUE
 	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
 	fair_market_price = 10
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0
@@ -125,12 +125,12 @@
 	//we could check inherent_traits, but thats too many var defines. KISS principle.
 	if(HAS_TRAIT(target, TRAIT_NOSTASIS))
 		return
-	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.apply_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	target.ExtinguishMob()
 	update_use_power(ACTIVE_POWER_USE)
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
+	target.remove_status_effect(/datum/status_effect/grouped/stasis, STASIS_MACHINE_EFFECT)
 	if(target == occupant)
 		update_use_power(IDLE_POWER_USE)
 

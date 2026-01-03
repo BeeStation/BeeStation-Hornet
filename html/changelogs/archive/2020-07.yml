@@ -1,0 +1,283 @@
+2020-07-01:
+  Mick1299:
+  - rscadd: you can throw hats onto heads, knocking the old hat off
+  - rscadd: SNUG_FIT, and EFFECT_HAT object flags, target_zone var to thrown objects
+  - code_imp: code interaction with head item slot and thrown hats
+  - refactor: adds consistent indentation to obj_flags.dm
+  PowerfulBacon:
+  - tweak: Replaced the out and outdated CTF map with a new one.
+  yorii:
+  - balance: reverted meth damage to a sensible number
+2020-07-02:
+  AyyRobotics:
+  - rscadd: Added 5 new bluespace capsules
+  - rscadd: Added a new shuttle
+  - rscadd: Adds Bluespace Productions as a Nanotrasen subsidiary
+  - imageadd: added new capsule icons
+  - balance: Party Crate costs 2500 due to the addition of a capsule.
+  Ravellon:
+  - tweak: changed the healing power of healing stand while not deployed so it actually
+      heals, at 1/3 power compared to deployed stand.
+  ike709:
+  - rscadd: Admins can now easily modify a gas in a canister using VV dropdown.
+  - rscadd: Item cremation is now logged.
+  - rscadd: Deep frying is now logged.
+  zeskorion:
+  - rscadd: drinking virus food makes any diseases you have  progress faster
+2020-07-03:
+  Dingo-Dongler:
+  - tweak: Alt-clicking the sound synthesizer lets you select the sound played.
+  PowerfulBacon:
+  - rscadd: Optional and customisable outlining on inventory items.
+  - bugfix: Fixes a bug with storages on the ground not removing IN_STORAGE flag from
+      items taken out of them.
+2020-07-04:
+  ike709:
+  - bugfix: Fixed a divide-by-zero runtime when determining if a blunt object will
+      dismember someone. I can't wait to see what hilarious dismemberment bugs will
+      ensue.
+2020-07-05:
+  Crossedfall:
+  - bugfix: The unban panel will correctly pagify bans again
+  Dingo-Dongler:
+  - rscadd: Gentle slime crossbreeds can be made with pink extracts. They can be used
+      to emulate luminescent activations of extracts.
+  MrLostman:
+  - bugfix: fixed slimes randomly needing 3 monkies
+  - bugfix: fixed slimes not targeting simple mobs
+  - bugfix: fixed slime discipline
+  - bugfix: fixed slime target patience
+  PowerfulBacon:
+  - sounddel: Removes 5 sounds that were ripped from Jojo
+  - balance: Healing holoparasite ability potential matters less for healing (3 to
+      7 healing instead of 0 to 7.5)
+  - balance: Frenzy Holopara - Removed ranged teleport ability
+  - balance: Frenzy Holopara - Attack will now teleport you behind the victim
+  - balance: Frenzy Holopara - Cooldown for teleport attack reduced from 3 seconds
+      to 2 + (0.2 * (0 to 5 depending on potential)) (2 to 3 seconds) (potential actually
+      means something now)
+  - balance: Frenzy Holopara - The Attack() function of frenzy no longer calls itself
+      and therefor no longer bursts the eardrums of the guardian.
+  - balance: Frenzy Holopara - Reduces the range of the throw to 2 tiles rather than
+      20, which only takes effect if the potential is greater than 3 (B or A).
+  - balance: Time Holopara - Renamed to Time Distortion
+  - balance: Time Holopara - Cost lowered from 6 to 4
+  - balance: Time Holopara - Decoys spawn on guardian attack rather than as an ability
+  - balance: Time Holopara - Decoy spawn time changed to 6 seconds
+  - balance: Time Holopara - Recharge time changed to 8 to 13 seconds
+  - balance: Time Holopara - Removed godmode effect, this now just spawns decoys rather
+      than giving immortality for a while
+  - balance: Time Holopara - Doppelgangers now fade out slowly (which is just a cool
+      effect)
+  - balance: Hand Holopara - No longer stuns mobs
+  Trigg:
+  - rscadd: TGUI admin Secrets Panel
+2020-07-07:
+  Trigg:
+  - bugfix: Nanotrasen regrets to inform that the blueprints for bluespace conveyors
+      were NOT intended for use by Space Station 13, and future stations will be equipped
+      with normal-speed conveyor equipment.
+2020-07-10:
+  Dingo-Dongler:
+  - tweak: Autolathes can no longer print surgical tools.
+  FLME:
+  - rscadd: grav gen and tcomms SMESes are now wired
+  PowerfulBacon:
+  - bugfix: fixes issues with new CTF map
+  St0rmC4st3r:
+  - bugfix: fixed coin crashing exploit.
+  Tamuren:
+  - rscadd: 'New research point type: nanite'
+  - rscadd: Added code to all_nodes.dm to make nanite programs available
+  Tons of TG coders and one or two Yogs coders, with a bit of effort from ike709:
+  - rscadd: Holodeck plasmaflood is now logged. We can't have nice things.
+  - bugfix: Airlock controller no longer spams AIs.
+  - bugfix: A bunch of code cleanup.
+  - rscadd: TGUI turret control panel.
+  - rscadd: Intercoms now tell you about the speak-into feature when you examine them.
+  - bugfix: Intercom code cleanup.
+  - bugfix: Various minor TGUI issues fixed.
+  - rscadd: TGUI tachyon-dopper array.
+  - tweak: You shouldn't actually notice this difference, but the random roundstart
+      books you see on bookshelves are now only an illusion until you interact with
+      the bookshelf.
+  - bugfix: Various runtime fixes.
+  - rscadd: You can now rip your own arms off. ;)
+  - bugfix: Coders will no longer be spammed by lone ops alerts while on their local
+      test server.
+  ike709:
+  - rscadd: Paper has been completely revamped to use markdown instead of pencode.
+  - rscadd: Use %sign to sign the new paper or [______] to create a field. Everything
+      else is just normal markdown.
+  - rscdel: All of the pencode forms on the wiki are now outdated.
+2020-07-11:
+  Dingo-Dongler:
+  - rscadd: You can change the pay of your employees at ID or head department consoles,
+      or give them bonuses and debts. That's coming out of your paycheck!
+2020-07-13:
+  Dingo-Dongler:
+  - bugfix: Superficial healing's resistance 10 threshhold should now work properly.
+  Valtosin:
+  - rscadd: custom vendor + price tagger port from /tg/station
+  - rscadd: adds price tagger, refill and circuit for custom vendor in vendomat
+  - rscadd: autolathe can too produce price tagger and custom refill
+  - bugfix: some missing spans in _vending.dm
+  zeskorion:
+  - bugfix: magician's hat is no longer good for ranged thievery and kidnapping
+2020-07-14:
+  President of Space USA, Space CDC:
+  - balance: Drinking common household cleaners should now protect from diseases.
+      Stay safe, everyone.
+2020-07-18:
+  Autisem:
+  - rscdel: Wizard academy has been dissabeld from gateway missions for now
+  - tweak: Changed permited list for atmos fire suit to be any type of internals tank
+      rather then just the emergency one
+  PowerfulBacon:
+  - bugfix: fixed msay
+  St0rmC4st3r:
+  - admin: Important virus events are now logged.
+  Trigg:
+  - bugfix: Nanite Programs now respect rules when triggered.
+  ZombiesVsPlants:
+  - tweak: Changed the description of the IPC's Positronic Brain to highlight the
+      requirement of an MMI before borging.
+2020-07-19:
+  PowerfulBacon:
+  - balance: nerfs the cake hat to have the equivalent amount of damage as the toolbox
+2020-07-20:
+  That0nePerson:
+  - rscadd: Added a poison knife traitor item for 8TC that can hold and inject reagents.
+  ike709:
+  - bugfix: Fixed the PDA chat filter.
+  yorii:
+  - tweak: telescopic shield can be held in security belt
+2020-07-21:
+  Dingo-Dongler:
+  - tweak: the resistance threshold of bee infestation will no longer override the
+      reagents of the transmission threshold.
+  - bugfix: meeting the resistance threshold of bee infestation will now properly
+      spawn honey bees, if the transmission threshold is not met
+  - bugfix: Durathread and cotton bundles no longer stack together
+  MrLostman:
+  - bugfix: fixed slimes attacking through windoors
+  zeskorion:
+  - tweak: spiked skin now works as intended, damaging mobs who touch the user instead
+      of just hitting those nearby
+  - balance: nerfed spike skin armor significantly
+  - code_imp: a few new comsigs (zesko has finally learned to use components. you
+      had better quiver in fear!)
+2020-07-22:
+  Sinmero:
+  - rscadd: Added Inabizine
+  - tweak: Peacekeeper hypospray now has inabizine instead of dizzying solution
+  Skoglol:
+  - bugfix: Arrhytmic knife now updates movespeed every time it processes, as intended.
+  - balance: Arrhytmic knife movespeed change brought more in line with other speed
+      increasing effects.
+  yorii:
+  - rscadd: added ethereal stomach and tongue
+  - rscadd: added all the species languages
+  - rscadd: added Uncommon language and foreigner neutral trait.
+  - rscadd: bone hurting juice hurts skeletons more
+  - tweak: tweaked borg charger code to support charging non-borg mobs via signals
+      (minor tg refactor)
+  - code_imp: adjusted a lot of language-related code formatting and a few other things
+      to be in line with tg main branch.
+  - balance: IPCs speak a subset of languages that are common among crew.
+  - balance: IPCs can now charge their nutrition from borg charging stations
+  - refactor: refactored language holder and all language related code
+  - admin: added split for speaking/understanding languages in language menu (TGUI)
+2020-07-23:
+  Zeskorion, Angustmeta:
+  - tweak: spacevines now spawn in maint, not halls
+  - tweak: spacevines now break shit that's in their way
+  - tweak: spacevines spawn with random stats and a single mutation
+  - bugfix: fixed space vines / kudzu growing slower from better (lower) production
+      speed
+  - balance: random event space vines buffed to have 1-6 production instead of 5-10
+      to compensate
+2020-07-24:
+  Autisem:
+  - rscadd: Add gas miners to atmos
+  Mick1299:
+  - rscadd: Tiny fans to Centcomm shuttle dock
+  PowerfulBacon:
+  - rscadd: Areas can be set to have different lighting colours
+  - rscadd: Spells with cooldowns now have a timer effect.
+  francinum:
+  - bugfix: Fixes a visual issue with the global interface.
+  thelaughingbomb:
+  - bugfix: Plasma man enviro suits have returned to vending machines
+  totallynotkatfood:
+  - bugfix: Cybernetic organs are now Inedible
+  yorii:
+  - rscadd: actually added foreigner trait this time
+  - rscadd: added missing language icons
+  zeskorion:
+  - balance: riot shield has a lower block power
+  - tweak: mass mindswap now checks antimagic
+  - tweak: tinfoil plasmaman helmet offers the same protection as other envirohelms
+  - balance: tinfoil hat is now way stronger
+  - bugfix: adamantine armor can no longer be cheesed with things that undo armor
+      slowdown like morphine or red slime
+  - balance: clown car occupants are now restrained
+  - balance: clown car can no longer be cheesed by laying down
+2020-07-25:
+  Archanial:
+  - bugfix: Krav maga now uses correct tenses when you punch or stomp someone (thanks
+      hotimep for making the issue).
+2020-07-26:
+  Archanial:
+  - rscadd: Default module cyborgs now have synthesizer pianos.
+  - tweak: You no longer bite organs if you fail self surgery while targeting mouth
+  BeloneX:
+  - tweak: tweaked the sec beret armor values to be the same as the helmet.
+  Crossedfall:
+  - rscadd: Added new warnings to prevent books from having titles/authors longer
+      than 45 characters
+  Isy232:
+  - tweak: Abductor Helmet now offers flash protection
+  yorii:
+  - bugfix: beachbum language is no longer lost upon death
+  - bugfix: voltaic now works
+  - bugfix: foreigner trait now works
+  - bugfix: IPCs now actually speak the languages they have
+2020-07-27:
+  PowerfulBacon:
+  - admin: Heal everybody now comes with a damn confirmation
+2020-07-28:
+  Sinmero:
+  - imageadd: added new plumbing sprites
+2020-07-29:
+  Flakkyboo:
+  - imageadd: New sprite for plasma provided by Gidgee Sheep.
+2020-07-30:
+  Isy232:
+  - spellcheck: Fixes typo in wardens corporate beret
+  PowerfulBacon:
+  - rscadd: Syndicate Incursion Gamemode
+  - rscadd: Hacked syndicate radio implant
+  - refactor: Radio implants can no longer be heard by anyone on the same turf as
+      the person with the implant
+  Zeskorion, AzlanonPC, thatguythere03:
+  - rscadd: Wings are now organs!  they can be surgically removed and attached, allowing
+      doctors to create even more hideous abominations!
+  - rscadd: cybernetic wings, unlocked in shuttle technodes. A normal version, equivalent
+      to normal wings, and an alien version that works without atmosphere exist
+  - tweak: flight potion now works on all races, and no longer removes the backpack
+      slot. if the imbiber has wings already, their wings will be upgraded instead,
+      and keep their original look
+  - balance: apid wings now work like moth wings, instead of having a special dash
+      that has combat utility, and their downside has been reduced to 1.5X burn damage,
+      and keeping their flyswatter and pest spray penalties
+  - bugfix: apids can open and close their wings again. the *wing emote can be used
+      to toggle them, and the *flap and *aflap emotes make them flap
+  - code_imp: makes flight code less shtity and snowflaky
+  - imageadd: moth wing sprites by azlanonpc
+  - imageadd: shitty apid wing codersprites by zesko
+  - imageadd: cybernetic wings by thatguythere03
+  alexkar598:
+  - code_imp: Fixes some shitcode in the Centcom ban db
+  ike709 and bobbahbrown:
+  - rscadd: Admins can now see your bans on (some) other servers.

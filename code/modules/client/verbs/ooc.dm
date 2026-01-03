@@ -2,7 +2,7 @@
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
-/client/verb/ooc(msg as text)
+AUTH_CLIENT_VERB(ooc, msg as text)
 	set name = "OOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
 	set category = "OOC"
 
@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
 			to_chat(usr, span_danger("OOC for dead mobs has been turned off."))
 			return
-		if(prefs && (prefs.muted & MUTE_OOC))
+		if(prefs && (player_details.muted & MUTE_OOC))
 			to_chat(src, span_danger("You cannot use OOC (muted)."))
 			return
 	else
@@ -75,7 +75,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	mob.log_talk(raw_msg, LOG_OOC)
 
-	var/keyname = key
+	var/display_name = display_name()
+	var/keyname = display_name
 	var/ooccolor = prefs?.read_player_preference(/datum/preference/color/ooc_color) || DEFAULT_BONUS_OOC_COLOR
 	if(prefs.unlock_content && prefs.read_player_preference(/datum/preference/toggle/member_public))
 		keyname = "<font color='[ooccolor ? ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
@@ -84,6 +85,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	//The linkify span classes and linkify=TRUE below make ooc text get clickable chat href links if you pass in something resembling a url
 	for(var/client/C in GLOB.clients)
 		if(!C.prefs || C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
+			if(holder?.fakekey in C.prefs.ignoring)
+				continue
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))
@@ -102,7 +105,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				else
 					to_chat(C, "[badge_data][span_ooc("[span_prefix("OOC:")] <EM>[keyname]:</EM> [span_messagelinkify(msg)]")]")
 	// beestation, send to discord
-	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || key, raw_msg)
+	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || display_name, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/discord_ooc_tag = CONFIG_GET(string/discord_ooc_tag) // check server config file. check `config.txt` file for the usage.
@@ -150,7 +153,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	GLOB.OOC_COLOR = null
 
 //Checks admin notice
-/client/verb/admin_notice()
+AUTH_CLIENT_VERB(admin_notice)
 	set name = "Adminnotice"
 	set category = "Admin"
 	set desc ="Check the admin notice if it has been set"
@@ -160,7 +163,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	else
 		to_chat(src, span_notice("There are no admin notices at the moment."))
 
-/client/verb/motd()
+AUTH_CLIENT_VERB(motd)
 	set name = "MOTD"
 	set category = "OOC"
 	set desc ="Check the Message of the Day"
@@ -193,43 +196,127 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	new /datum/job_report_menu(src, usr)
 
-/client/proc/ignore_key(client, displayed_key)
-	var/client/C = client
-	if(C.key in prefs.ignoring)
-		prefs.ignoring -= C.key
-	else
-		prefs.ignoring |= C.key
-	to_chat(src, "You are [(C.key in prefs.ignoring) ? "now" : "no longer"] ignoring [displayed_key] on the OOC channel.")
-	prefs.mark_undatumized_dirty_player()
-
-/client/verb/select_ignore()
+// Ignore verb
+AUTH_CLIENT_VERB(select_ignore)
 	set name = "Ignore"
 	set category = "OOC"
 	set desc ="Ignore a player's messages on the OOC channel"
 
+	if(!prefs)
+		return
+	// Make a list to choose players from
+	var/list/players = list()
 
-	var/see_ghost_names = isobserver(mob)
-	var/list/choices = list()
-	var/displayed_choicename = ""
+	// Use keys and fakekeys for the same purpose
+	var/displayed_key = ""
+
+	// Try to add every player who's online to the list
 	for(var/client/C in GLOB.clients)
+		// Don't add ourself
+		if(C == src)
+			continue
+
+		// Don't add players we've already ignored if they're not using a fakekey
+		if((C.key in prefs.ignoring) && !C.holder?.fakekey)
+			continue
+
+		// Don't add players using a fakekey we've already ignored
+		if(C.holder?.fakekey in prefs.ignoring)
+			continue
+
+		// Use the player's fakekey if they're using one
 		if(C.holder?.fakekey)
-			displayed_choicename = C.holder.fakekey
+			displayed_key = C.holder.fakekey
+
+		// Use the player's key if they're not using a fakekey
 		else
-			displayed_choicename = C.key
-		if(isobserver(C.mob) && see_ghost_names)
-			choices["[C.mob]([displayed_choicename])"] = C
+			displayed_key = C.key
+
+		// Check if both we and the player are ghosts and they're not using a fakekey
+		if(isobserver(mob) && isobserver(C.mob) && !C.holder?.fakekey)
+			// Show us the player's mob name in the list in front of their displayed key
+			// Add the player's displayed key to the list
+			players["[C.mob]([displayed_key])"] = displayed_key
+
+		// Add the player's displayed key to the list if we or the player aren't a ghost or they're using a fakekey
 		else
-			choices[displayed_choicename] = C
-	choices = sort_list(choices)
-	var/selection = input("Please, select a player!", "Ignore", null, null) as null|anything in choices
-	if(!selection || !(selection in choices))
+			players[displayed_key] = displayed_key
+
+	// Check if the list is empty
+	if(!length(players))
+		// Express that there are no players we can ignore in chat
+		to_chat(src, "There are no other players you can ignore!")
+
+		// Stop running
 		return
-	displayed_choicename = selection // ckey string
-	selection = choices[selection] // client
-	if(selection == src)
-		to_chat(src, "You can't ignore yourself.")
+
+	// Sort the list
+	players = sort_list(players)
+
+	// Request the player to ignore
+	var/selection = tgui_input_list(src, "Select a player", "Ignore", players)
+
+	// Stop running if we didn't receieve a valid selection
+	if(isnull(selection) || !(selection in players))
 		return
-	ignore_key(selection, displayed_choicename)
+
+	// Store the selected player
+	selection = players[selection]
+
+	// Check if the selected player is on our ignore list
+	if(selection in prefs.ignoring)
+		// Express that the selected player is already on our ignore list in chat
+		to_chat(src, "You are already ignoring [selection]!")
+
+		// Stop running
+		return
+
+	// Add the selected player to our ignore list
+	prefs.ignoring.Add(selection)
+
+	// Save our preferences
+	prefs.mark_undatumized_dirty_player()
+
+	// Express that we've ignored the selected player in chat
+	to_chat(src, "You are now ignoring [selection] on the OOC channel.")
+
+// Unignore verb
+/client/verb/select_unignore()
+	set name = "Unignore"
+	set category = "OOC"
+	set desc = "Stop ignoring a player's messages on the OOC channel"
+
+	// Check if we've ignored any players
+	if(!length(prefs.ignoring))
+		// Express that we haven't ignored any players in chat
+		to_chat(src, "You haven't ignored any players!")
+
+		// Stop running
+		return
+
+	// Request the player to unignore
+	var/selection = tgui_input_list(src, "Select a player", "Unignore", prefs.ignoring)
+
+	// Stop running if we didn't receive a selection
+	if(isnull(selection))
+		return
+
+	// Check if the selected player is not on our ignore list
+	if(!(selection in prefs.ignoring))
+		// Express that the selected player is not on our ignore list in chat
+		to_chat(src, "You are not ignoring [selection]!")
+
+		// Stop running
+		return
+
+	// Remove the selected player from our ignore list
+	prefs.ignoring.Remove(selection)
+
+	// Save our preferences
+	prefs.mark_undatumized_dirty_player()
+
+	// Express that we've unignored the selected player in chat
+	to_chat(src, "You are no longer ignoring [selection] on the OOC channel.")
 
 /client/proc/show_previous_roundend_report()
 	set name = "Your Last Round"
@@ -238,7 +325,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	SSticker.show_roundend_report(src, TRUE)
 
-/client/verb/fit_viewport()
+AUTH_CLIENT_VERB(fit_viewport)
 	set name = "Fit Viewport"
 	set category = "OOC"
 	set desc = "Fit the width of the map window to match the viewport"
@@ -308,14 +395,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /// Attempt to automatically fit the viewport, assuming the user wants it
 /client/proc/attempt_auto_fit_viewport()
-	if (!prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
+	if (!prefs || !prefs.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	if(fully_created)
-		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
+		INVOKE_ASYNC(src, PROC_REF(fit_viewport))
 	else //Delayed to avoid wingets from Login calls.
-		addtimer(CALLBACK(src, VERB_REF(fit_viewport), 1 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(fit_viewport), 1 SECONDS))
 
-/client/verb/view_runtimes_minimal()
+AUTH_CLIENT_VERB(view_runtimes_minimal)
 	set name = "View Minimal Runtimes"
 	set category = "OOC"
 	set desc = "Open the runtime error viewer, with reduced information"
@@ -326,7 +413,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	GLOB.error_cache.show_to_minimal(src)
 
-/client/verb/speech_format_help()
+AUTH_CLIENT_VERB(speech_format_help)
 	set name = "Speech Format Help"
 	set category = "OOC"
 	set desc = "Chat formatting help"
@@ -339,16 +426,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	to_chat(usr, span_notice("[message]"))
 
-/client/verb/vote_to_leave()
-	set name = "Vote to leave"
+AUTH_CLIENT_VERB(show_map_vote_tallies)
+	set name = "Show Map Vote Tallies"
 	set category = "OOC"
-	set desc = "Votes to end the round"
+	set desc = "View the current map vote tally counts."
 
-	if(player_details.voted_to_leave)
-		player_details.voted_to_leave = FALSE
-		SSautotransfer.connected_votes_to_leave--
-		to_chat(src, "<font color='purple'>You are no longer voting for the current round to end.</font>")
-	else
-		player_details.voted_to_leave = TRUE
-		SSautotransfer.connected_votes_to_leave++
-		to_chat(src, "<font color='purple'>You are now voting for the current round to end.</font>")
+	to_chat(src, SSmap_vote.tally_printout)

@@ -169,7 +169,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
@@ -199,9 +199,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "AP" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/directional/east,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
@@ -310,14 +308,13 @@
 /area/ruin/unpowered)
 "Pw" = (
 /obj/structure/table/glass,
-/obj/item/aiModule/core/full/damaged{
+/obj/item/ai_module/core/full/damaged{
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/item/aicard{
 	pixel_x = -10
 	},
-/obj/item/borg/upgrade/transform/borgi,
 /turf/open/floor/iron/tech/grid,
 /area/ruin/unpowered)
 "Qa" = (

@@ -4,7 +4,7 @@
 	icon_state = "grub_1"
 	icon_living = "grub_1"
 	icon_dead = "grub_1_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	butcher_results = list(/obj/effect/decal/cleanable/insectguts = 1)
 	damage_coeff = list(BRUTE = 1, BURN = 2, TOX = -1, CLONE = 0, STAMINA = 0, OXY = 0) //can't be eaten by slimes, and healed by toxin damage
 	turns_per_move = 5
@@ -39,7 +39,7 @@
 	var/hibernationcounter = 0
 	var/list/grub_diseases = list()
 
-/mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
+/mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(mob/living/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M)) // i hate this
 		return TRUE
@@ -96,10 +96,6 @@
 		togglehibernation()
 	else
 		hibernationcounter ++
-
-/mob/living/simple_animal/hostile/redgrub/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., grub_diseases)
 
 /mob/living/simple_animal/hostile/redgrub/proc/togglehibernation()
 	if(hibernating)
@@ -198,13 +194,13 @@
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, span_notice("You don't want to hurt anyone!"))
 		return FALSE
-	var/datum/status_effect/slimegrub/status = M.has_status_effect(STATUS_EFFECT_SLIMEGRUB)
+	var/datum/status_effect/slimegrub/status = M.has_status_effect(/datum/status_effect/slimegrub)
 	if(status)
 		status.diseases += grub_diseases
 		status.deathcounter -= (40 * growthstage)
 		status.spawnbonus += 1
 	else
-		var/datum/status_effect/slimegrub/newstatus = M.apply_status_effect(STATUS_EFFECT_SLIMEGRUB)
+		var/datum/status_effect/slimegrub/newstatus = M.apply_status_effect(/datum/status_effect/slimegrub)
 		newstatus.diseases += grub_diseases
 	M.visible_message(span_warning("[M] swallows [src] whole!"), span_userdanger("[src] burrows into your cytoplasm when you bite it!"))
 	qdel(src)

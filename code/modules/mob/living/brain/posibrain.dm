@@ -33,7 +33,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 /obj/item/mmi/posibrain/proc/ping_ghosts(msg, newlymade)
 	if(newlymade || GLOB.posibrain_notify_cooldown <= world.time)
-		notify_ghosts("[name] [msg] in [get_area(src)]!", ghost_sound = !newlymade ? 'sound/effects/ghost2.ogg':null, notify_volume = 75, enter_link = "<a href=?src=[REF(src)];activate=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_POSIBRAIN, notify_suiciders = FALSE)
+		notify_ghosts("[name] [msg] in [get_area(src)]!", ghost_sound = !newlymade ? 'sound/effects/ghost2.ogg':null, notify_volume = 75, enter_link = "<a href='byond://?src=[REF(src)];activate=1'>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_POSIBRAIN, notify_suiciders = FALSE)
 		if(!newlymade)
 			GLOB.posibrain_notify_cooldown = world.time + askDelay
 
@@ -119,14 +119,14 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		if(!brainmob.stored_dna)
 			brainmob.stored_dna = new /datum/dna/stored(brainmob)
 		C.dna.copy_dna(brainmob.stored_dna)
-	brainmob.timeofhostdeath = C.timeofdeath
+	brainmob.timeofdeath = C.timeofdeath
 	brainmob.set_stat(CONSCIOUS)
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = new_role
 	if(C.mind)
 		C.mind.transfer_to(brainmob)
 
-	brainmob.mind.remove_all_antag()
+	brainmob.mind.remove_all_antag_datums()
 	brainmob.mind.wipe_memory()
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	update_icon()
@@ -229,3 +229,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/datum/job/posibrain/pj = SSjob.GetJob(JOB_NAME_POSIBRAIN)
 	pj.remove_posi_slot(src)
 	return ..()
+
+/obj/item/mmi/posibrain/add_mmi_overlay()
+	return

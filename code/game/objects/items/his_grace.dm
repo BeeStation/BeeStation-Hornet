@@ -8,14 +8,17 @@
 	name = "artistic toolbox"
 	desc = "A toolbox painted bright green. Looking at it makes you feel uneasy."
 	icon_state = "his_grace"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	icon = 'icons/obj/items_and_weapons.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
 	item_flags = ISWEAPON
 	force = 12
-	block_upgrade_walk = 1
+
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+
 	attack_verb_continuous = list("robusts")
 	attack_verb_simple = list("robust")
 	hitsound = 'sound/weapons/smash.ogg'
@@ -93,13 +96,13 @@
 				master.visible_message(span_boldwarning("[src] turns on [master]!"), "[span_hisgracebigbold("[src] turns on you!")]")
 				do_attack_animation(master, null, src)
 				master.emote("scream")
-				master.remove_status_effect(STATUS_EFFECT_HISGRACE)
+				master.remove_status_effect(/datum/status_effect/his_grace)
 				REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
 				master.Paralyze(60)
 				master.adjustBruteLoss(master.maxHealth)
 				playsound(master, 'sound/effects/splat.ogg', 100, 0)
 			else
-				master.apply_status_effect(STATUS_EFFECT_HISGRACE)
+				master.apply_status_effect(/datum/status_effect/his_grace)
 		return
 	forceMove(get_turf(src)) //no you can't put His Grace in a locker you just have to deal with Him
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
@@ -252,7 +255,7 @@
 	force_bonus += ascend_bonus
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
 	icon_state = "his_grace_ascended"
-	item_state = "toolbox_gold"
+	inhand_icon_state = "toolbox_gold"
 	ascended = TRUE
 	playsound(src, 'sound/effects/his_grace_ascend.ogg', 100)
 	if(istype(master))

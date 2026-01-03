@@ -2,7 +2,7 @@
 /obj/item/kinetic_crusher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "crusher"
-	item_state = "crusher0"
+	inhand_icon_state = "crusher0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	name = "proto-kinetic crusher"
@@ -31,10 +31,19 @@
 	var/detonation_damage = 25
 	var/backstab_bonus = 15
 
-/obj/item/kinetic_crusher/ComponentInitialize()
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE
+	block_power = 50
+
+/obj/item/kinetic_crusher/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 110) //technically it's huge and bulky, but this provides an incentive to use it
 	AddComponent(/datum/component/two_handed, force_unwielded=0, force_wielded=14)
+
+/obj/item/kinetic_crusher/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(ISWIELDED(src))
+		return ..()
+	return FALSE
 
 /obj/item/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -69,9 +78,9 @@
 		to_chat(user, span_warning("[src] is too heavy to use with one hand. You fumble and drop everything."))
 		user.drop_all_held_items()
 		return
-	var/datum/status_effect/crusher_damage/C = target.has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	var/datum/status_effect/crusher_damage/C = target.has_status_effect(/datum/status_effect/crusher_damage)
 	if(!C)
-		C = target.apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		C = target.apply_status_effect(/datum/status_effect/crusher_damage)
 	var/target_health = target.health
 	..()
 	for(var/t in trophies)
@@ -84,12 +93,12 @@
 /obj/item/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	if(proximity_flag && isliving(target))
 		var/mob/living/L = target
-		var/datum/status_effect/crusher_mark/CM = L.has_status_effect(STATUS_EFFECT_CRUSHERMARK)
-		if(!CM || CM.hammer_synced != src || !L.remove_status_effect(STATUS_EFFECT_CRUSHERMARK))
+		var/datum/status_effect/crusher_mark/CM = L.has_status_effect(/datum/status_effect/crusher_mark)
+		if(!CM || CM.hammer_synced != src || !L.remove_status_effect(/datum/status_effect/crusher_mark))
 			return
-		var/datum/status_effect/crusher_damage/C = L.has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		var/datum/status_effect/crusher_damage/C = L.has_status_effect(/datum/status_effect/crusher_damage)
 		if(!C)
-			C = L.apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+			C = L.apply_status_effect(/datum/status_effect/crusher_damage)
 		var/target_health = L.health
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
@@ -155,7 +164,7 @@
 	update_appearance()
 
 /obj/item/kinetic_crusher/update_icon_state()
-	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]" // this is not icon_state and not supported by 2hcomponent
+	inhand_icon_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]" // this is not icon_state and not supported by 2hcomponent
 	return ..()
 
 /obj/item/kinetic_crusher/update_overlays()
@@ -184,8 +193,8 @@
 /obj/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/L = target
-		var/had_effect = (L.has_status_effect(STATUS_EFFECT_CRUSHERMARK)) //used as a boolean
-		var/datum/status_effect/crusher_mark/CM = L.apply_status_effect(STATUS_EFFECT_CRUSHERMARK, hammer_synced)
+		var/had_effect = (L.has_status_effect(/datum/status_effect/crusher_mark)) //used as a boolean
+		var/datum/status_effect/crusher_mark/CM = L.apply_status_effect(/datum/status_effect/crusher_mark, hammer_synced)
 		if(hammer_synced)
 			for(var/t in hammer_synced.trophies)
 				var/obj/item/crusher_trophy/T = t
@@ -339,7 +348,7 @@
 	return "mark detonation to grant stun immunity and <b>90%</b> damage reduction for <b>1</b> second"
 
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
-	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)
+	user.apply_status_effect(/datum/status_effect/blooddrunk)
 
 //ash drake
 /obj/item/crusher_trophy/tail_spike

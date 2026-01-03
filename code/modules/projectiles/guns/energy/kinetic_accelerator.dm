@@ -2,7 +2,7 @@
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
 	icon_state = "kineticgun"
-	item_state = "kineticgun"
+	inhand_icon_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
@@ -125,7 +125,7 @@
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/projectile/kinetic
 	select_name = "kinetic"
-	e_cost = 500
+	e_cost = 5000 WATT
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
@@ -200,9 +200,9 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
-	module_flags = BORG_MODULE_MINER
+	require_model = TRUE
+	model_type = list(/obj/item/robot_model/miner)
+	model_flags = BORG_MODEL_MINER
 	///Should be the type path of mods in the same group
 	var/restricted_mod_type = null
 	///Only used if restricted_mod_type is defined. How many mods of this type are allowed?
@@ -222,11 +222,11 @@
 	else
 		..()
 
-/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/robot)
 	. = ..()
-	if (.)
-		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/H in R.module.modules)
-			return install(H, usr, FALSE)
+	if(.)
+		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/kinetic_accelerator in robot.model.modules)
+			return install(kinetic_accelerator, usr, FALSE)
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/recharge/kinetic_accelerator/KA, mob/user, transfer_to_loc = TRUE)
 	. = TRUE
@@ -254,11 +254,11 @@
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar or right click with an empty hand to remove existing modkits.</span>")
 		. = FALSE
 
-/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/modkit/deactivate(mob/living/silicon/robot/robot, user = usr)
 	. = ..()
-	if (.)
-		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/KA in R.module.modules)
-			uninstall(KA)
+	if(.)
+		for(var/obj/item/gun/energy/recharge/kinetic_accelerator/cyborg/kinetic_accelerator in robot.model.modules)
+			uninstall(kinetic_accelerator)
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.modkits -= src
@@ -436,13 +436,13 @@
 /obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	if(isliving(target))
 		var/mob/living/L = target
-		var/list/existing_marks = L.has_status_effect_list(STATUS_EFFECT_SYPHONMARK)
+		var/list/existing_marks = L.has_status_effect_list(/datum/status_effect/syphon_mark)
 		for(var/i in existing_marks)
 			var/datum/status_effect/syphon_mark/SM = i
 			if(SM.reward_target == src) //we want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward
 				SM.reward_target = null
 				qdel(SM)
-		L.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
+		L.apply_status_effect(/datum/status_effect/syphon_mark, src)
 
 /obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	if(isliving(target))
@@ -509,14 +509,14 @@
 		KA.name = chassis_name
 		if(iscarbon(KA.loc))
 			var/mob/living/carbon/holder = KA.loc
-			holder.update_inv_hands()
+			holder.update_held_items()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/recharge/kinetic_accelerator/KA)
 	KA.icon_state = initial(KA.icon_state)
 	KA.name = initial(KA.name)
 	if(iscarbon(KA.loc))
 		var/mob/living/carbon/holder = KA.loc
-		holder.update_inv_hands()
+		holder.update_held_items()
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange

@@ -17,7 +17,6 @@
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [src.name]!",\
 				span_notice("You insert the power cell."))
-			chargecount = 0
 			update_appearance()
 	else if (W.GetID())
 		togglelock(user)
@@ -95,7 +94,6 @@
 			var/obj/item/stock_parts/cell/crap/empty/C = new(src)
 			C.forceMove(src)
 			cell = C
-			chargecount = 0
 			user.visible_message(span_notice("[user] fabricates a weak power cell and places it into [src]."), \
 			span_warning("Your [P.name] whirs with strain as you create a weak power cell and place it into [src]!"))
 			update_appearance()
@@ -148,7 +146,7 @@
 	if(isethereal(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/species/ethereal/E = H.dna.species
-		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/battery/stomach = H.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if((E.drain_time < world.time) && LAZYACCESS(modifiers, RIGHT_CLICK) && stomach)
 			if(H.combat_mode)
 				if(cell.charge <= (cell.maxcharge / 2)) // ethereals can't drain APCs under half charge, this is so that they are forced to look to alternative power sources if the station is running low

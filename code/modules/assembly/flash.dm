@@ -78,7 +78,7 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production. \
 		It is highly effective against targets who aren't standing or are suffering from exhaustion."
 	icon_state = "flash"
-	item_state = "flashtool"
+	inhand_icon_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throwforce = 0
@@ -90,6 +90,7 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	item_flags = ISWEAPON
+	custom_price = 20
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -216,7 +217,7 @@
 			return FALSE
 		if(FLASH_USE_BURNOUT)
 			burn_out()
-	if(is_head_revolutionary(user) && !burnt_out)
+	if(IS_HEAD_REVOLUTIONARY(user) && !burnt_out)
 		//Flash will drain to a minimum of 1 charge when used by a head rev.
 		if(bulb.charges_left < rand(2, initial(bulb.charges_left) - 1))
 			bulb.charges_left ++
@@ -290,20 +291,11 @@
 	if(iscarbon(M))
 		flash_carbon(M, user, 5, 1)
 		return TRUE
-	else if(issilicon(M))
+	else if(iscyborg(M))
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
-		update_icon(flash=TRUE)
-		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-		if(R.last_flashed + FLASHED_COOLDOWN < world.time)
-			R.last_flashed = world.time
-			R.Paralyze(5 SECONDS)
-			user.visible_message(span_disarm("[user] overloads [R]'s sensors with the flash!"), span_danger("You overload [R]'s sensors with the flash!"))
-		else
-			user.visible_message(span_disarm("[user] attempts to overload [R]'s sensors with the flash, but defense protocols mitigate the effect!"), span_danger("You attempt to overload [R]'s sensors with the flash, but their defense protocols mitigate the effect!"))
-		return TRUE
-
-	user.visible_message(span_disarm("[user] fails to blind [M] with the flash!"), span_warning("You fail to blind [M] with the flash!"))
+		R.flash_act(affect_silicon = TRUE)
+		user.visible_message(span_disarm("[user] overloads [R]'s sensors with the flash!"), span_danger("You overload [R]'s sensors with the flash!"))
 
 /obj/item/assembly/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(holder)
@@ -367,7 +359,7 @@
 	desc = "If you see this, you're not likely to remember it any time soon."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "memorizer"
-	item_state = "nullrod"
+	inhand_icon_state = "nullrod"
 
 /obj/item/assembly/flash/handheld //this is now the regular pocket flashes
 
@@ -440,7 +432,7 @@
 				M.confused += min(M.confused + 10, 20)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
-				M.apply_status_effect(STATUS_EFFECT_PACIFY, 100)
+				M.adjust_pacifism(10 SECONDS)
 
 
 
@@ -454,7 +446,7 @@
 		M.confused += min(M.confused + 4, 20)
 		M.dizziness += min(M.dizziness + 4, 20)
 		M.drowsyness += min(M.drowsyness + 4, 20)
-		M.apply_status_effect(STATUS_EFFECT_PACIFY, 40)
+		M.adjust_pacifism(4 SECONDS)
 
 #undef FLASH_USE
 #undef FLASH_USE_BURNOUT

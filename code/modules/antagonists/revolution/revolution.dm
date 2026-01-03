@@ -304,7 +304,7 @@
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
 				if(khrushchev.current && !khrushchev.current.incapacitated() && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
-					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
+					if(khrushchev.current.client.should_include_for_role(ROLE_REV_HEAD, /datum/role_preference/roundstart/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev
 						else
@@ -338,24 +338,11 @@
 
 /// Updates the state of the world depending on if revs won or loss.
 /// Returns who won, at which case this method should no longer be called.
-/// If revs_win_injection_amount is passed, then that amount of threat will be added if the revs win.
-/datum/team/revolution/proc/process_victory(revs_win_injection_amount)
+/datum/team/revolution/proc/process_victory()
 	if (check_rev_victory())
 		return REVOLUTION_VICTORY
 	else if (check_heads_victory())
 		return STATION_VICTORY
-
-/// Mutates the ticker to report that the revs have won
-/datum/team/revolution/proc/round_result(finished)
-	if (finished == REVOLUTION_VICTORY)
-		SSticker.mode_result = "win - heads killed"
-		SSticker.news_report = REVS_WIN
-	else if (finished == STATION_VICTORY)
-		SSticker.mode_result = "loss - rev heads killed"
-		SSticker.news_report = REVS_LOSE
-	else
-		SSticker.mode_result = "minor win - station forced to be abandoned"
-		SSticker.news_report = STATION_EVACUATED
 
 /datum/team/revolution/roundend_report()
 	if(!members.len && !ex_headrevs.len)
@@ -438,19 +425,16 @@
 	for(var/datum/mind/N in SSjob.get_living_heads())
 		var/mob/M = N.current
 		if(M)
-			heads_report += "<tr><td><a href='?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a>[M.client ? "" : " <i>(No Client)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-			heads_report += "<td><A href='?priv_msg=[M.ckey]'>PM</A></td>"
-			heads_report += "<td><A href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a></td>"
+			heads_report += "<tr><td><a href='byond://?_src_=holder;[HrefToken()];adminplayeropts=[REF(M)]'>[M.real_name]</a>[M.client ? "" : " <i>(No Client)</i>"][M.stat == DEAD ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+			heads_report += "<td><A href='byond://?priv_msg=[M.ckey]'>PM</A></td>"
+			heads_report += "<td><A href='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a></td>"
 			var/turf/mob_loc = get_turf(M)
 			heads_report += "<td>[mob_loc.loc]</td></tr>"
 		else
-			heads_report += "<tr><td><a href='?_src_=vars;[HrefToken()];Vars=[REF(N)]'>[N.name]([N.key])</a><i>Head body destroyed!</i></td>"
-			heads_report += "<td><A href='?priv_msg=[N.key]'>PM</A></td></tr>"
+			heads_report += "<tr><td><a href='byond://?_src_=vars;[HrefToken()];Vars=[REF(N)]'>[N.name]([N.key])</a><i>Head body destroyed!</i></td>"
+			heads_report += "<td><A href='byond://?priv_msg=[N.key]'>PM</A></td></tr>"
 	heads_report += "</table>"
 	return common_part + heads_report
-
-/datum/team/revolution/is_gamemode_hero()
-	return SSticker.mode.name == "revolution"
 
 /datum/objective/revolution
 	name = "revolution"

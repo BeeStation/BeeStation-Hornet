@@ -64,7 +64,7 @@
 	icon = 'icons/obj/clothing/head/utility.dmi'
 	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "chef"
-	item_state = "chef"
+	inhand_icon_state = "chef"
 	dynamic_hair_suffix = ""
 	dog_fashion = /datum/dog_fashion/head/chef
 
@@ -81,7 +81,7 @@
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "tophat"
-	item_state = "that"
+	inhand_icon_state = "that"
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"
@@ -89,7 +89,7 @@
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "captain"
-	item_state = null
+	inhand_icon_state = null
 	dog_fashion = /datum/dog_fashion/head/captain
 
 /obj/item/clothing/head/collectable/police
@@ -105,9 +105,10 @@
 /obj/item/clothing/head/collectable/beret
 	name = "collectable beret"
 	desc = "A collectable red beret. It smells faintly of garlic."
-	icon = 'icons/obj/clothing/head/beret.dmi'
-	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "beret"
+	greyscale_config = /datum/greyscale_config/beret
+	greyscale_config_worn = /datum/greyscale_config/beret/worn
+	greyscale_colors = "#972A2A"
 	dog_fashion = /datum/dog_fashion/head/beret
 
 /obj/item/clothing/head/collectable/welding
@@ -116,36 +117,37 @@
 	icon = 'icons/obj/clothing/head/utility.dmi'
 	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "welding"
-	item_state = "welding"
+	inhand_icon_state = "welding"
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/collectable/slime
 	name = "collectable slime hat"
 	desc = "Just like a real brain slug!"
 	icon_state = "headslime"
-	item_state = null
+	inhand_icon_state = null
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
 	desc = "A collectible farmer's flat cap!"
-	icon = 'icons/obj/clothing/head/beret.dmi'
-	worn_icon = 'icons/mob/clothing/head/beret.dmi'
-	icon_state = "flat_cap"
-	item_state = null
+	icon_state = "beret_flat"
+	greyscale_config = /datum/greyscale_config/beret
+	greyscale_config_worn = /datum/greyscale_config/beret/worn
+	greyscale_colors = "#8F7654"
+	inhand_icon_state = null
 
 /obj/item/clothing/head/collectable/pirate
 	name = "collectable pirate hat"
 	desc = "You'd make a great Dread Syndie Roberts!"
 	icon_state = "pirate"
-	item_state = null
+	inhand_icon_state = null
 	dog_fashion = /datum/dog_fashion/head/pirate
 
 /obj/item/clothing/head/collectable/kitty
 	name = "collectable kitty ears"
 	desc = "The fur feels... a bit too realistic."
 	icon_state = "kitty"
-	item_state = null
+	inhand_icon_state = null
 	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 	dog_fashion = /datum/dog_fashion/head/kitty
@@ -154,7 +156,7 @@
 	name = "collectable rabbit ears"
 	desc = "Not as lucky as the feet!"
 	icon_state = "bunny"
-	item_state = null
+	inhand_icon_state = null
 	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
 	dog_fashion = /datum/dog_fashion/head/rabbit
@@ -173,7 +175,7 @@
 	icon = 'icons/obj/clothing/head/utility.dmi'
 	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "hardhat0_yellow"
-	item_state = null
+	inhand_icon_state = null
 	clothing_flags = SNUG_FIT
 	dog_fashion = /datum/dog_fashion/head
 
@@ -200,7 +202,7 @@
 	icon = 'icons/obj/clothing/head/helmet.dmi'
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "thunderdome"
-	item_state = "thunderdome"
+	inhand_icon_state = "thunderdome"
 	clothing_flags = SNUG_FIT
 	flags_inv = HIDEHAIR
 
@@ -210,6 +212,6 @@
 	icon = 'icons/obj/clothing/head/helmet.dmi'
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "swatsyndie"
-	item_state = "swatsyndie"
+	inhand_icon_state = "swatsyndie"
 	clothing_flags = SNUG_FIT
 	flags_inv = HIDEHAIR

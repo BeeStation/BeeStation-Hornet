@@ -37,7 +37,6 @@
 	laser = 10
 	energy = 20
 	bomb = 40
-	rad = 20
 	fire = 100
 	acid = 100
 
@@ -198,7 +197,7 @@
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
 	if(LAZYLEN(cargo))
 		for(var/obj/O in cargo)
-			output += "<a href='?src=[REF(src)];drop_from_cargo=[REF(O)]'>Unload</a> : [O]<br>"
+			output += "<a href='byond://?src=[REF(src)];drop_from_cargo=[REF(O)]'>Unload</a> : [O]<br>"
 	else
 		output += "Nothing"
 	output += "</div>"

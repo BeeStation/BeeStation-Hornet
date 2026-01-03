@@ -6,7 +6,7 @@
 	var/list/stored_access
 	var/update_id_name = FALSE //If the name of the human is same as the name on the id they're wearing we'll update provided id when equipping
 
-/datum/outfit/varedit/pre_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/varedit/pre_equip(mob/living/carbon/human/H, visuals_only)
 	H.delete_equipment() //Applying VV to wrong objects is not reccomended.
 	. = ..()
 
@@ -104,10 +104,10 @@
 	O.vv_values = result
 	//Copy backpack contents if exist.
 	var/obj/item/backpack = get_item_by_slot(ITEM_SLOT_BACK)
-	if(istype(backpack) && SEND_SIGNAL(backpack, COMSIG_CONTAINS_STORAGE))
+	if(istype(backpack) && backpack.atom_storage)
 		var/list/bp_stuff = list()
 		var/list/typecounts = list()
-		SEND_SIGNAL(backpack, COMSIG_TRY_STORAGE_RETURN_INVENTORY, bp_stuff, FALSE)
+		backpack.atom_storage.return_inv(bp_stuff, FALSE)
 		for(var/obj/item/I in bp_stuff)
 			if(typecounts[I.type])
 				typecounts[I.type] += 1
@@ -125,7 +125,7 @@
 	GLOB.custom_outfits += O
 	to_chat(usr,"Outfit registered, use select equipment to equip it.")
 
-/datum/outfit/varedit/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/varedit/post_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	//Apply VV
 	for(var/slot in vv_values)

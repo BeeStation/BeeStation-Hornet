@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(dbcore)
 	flags = SS_TICKER
 	wait = 10 // Not seconds because we're running on SS_TICKER
 	runlevels = RUNLEVEL_INIT|RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
-	init_order = INIT_ORDER_DBCORE
+	init_stage = INITSTAGE_FIRST
 	priority = FIRE_PRIORITY_DATABASE
 
 	var/schema_mismatch = 0
@@ -550,7 +550,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			return
 
 /datum/db_query/proc/slow_query_check()
-	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
+	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
 
 /datum/db_query/proc/NextRow(async = TRUE)
 	Activity("NextRow")

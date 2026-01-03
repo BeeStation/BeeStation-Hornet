@@ -103,10 +103,12 @@
 	if(A.stealth >= 2)
 		deathgasp = TRUE
 
-/datum/symptom/heal/coma/on_stage_change(new_stage, datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
+/datum/symptom/heal/coma/on_stage_change(datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
 	if(!..())
 		return FALSE
-	if(A.stage <= 3)
+	if(A.stage >= 4 && stabilize)
+		ADD_TRAIT(A.affected_mob, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
+	else
 		REMOVE_TRAIT(A.affected_mob, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
 	return TRUE
 
@@ -117,8 +119,6 @@
 
 /datum/symptom/heal/coma/CanHeal(datum/disease/advance/A)
 	var/mob/living/M = A.affected_mob
-	if(stabilize)
-		ADD_TRAIT(M, TRAIT_NOCRITDAMAGE, DISEASE_TRAIT)
 	if(HAS_TRAIT(M, TRAIT_DEATHCOMA))
 		return power
 	if(M.IsSleeping())
@@ -253,10 +253,9 @@
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
 	if(!istype(C))
 		return
-	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
-	if(triple_metabolism)
-		C.reagents.metabolize(C, can_overdose=TRUE)
-	C.overeatduration = max(C.overeatduration - 2, 0)
+	var/metabolic_boost = triple_metabolism ? 2 : 1
+	C.reagents.metabolize(C, metabolic_boost * SSMOBS_DT, 0, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	C.overeatduration = max(C.overeatduration - 4 SECONDS, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
 	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
 	if(prob(2) && C.stat != DEAD)
@@ -395,6 +394,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	name = "Sweatsplash"
 
 /obj/effect/sweatsplash/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
 
@@ -538,7 +538,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						if(tetsuo && prob(15))
 							if(A.affected_mob.job == JOB_NAME_CLOWN)
 								new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
-							if(MOB_ROBOTIC in A.infectable_biotypes)
+							if(A.infectable_biotypes & MOB_ROBOTIC)
 								new /obj/effect/decal/cleanable/robot_debris(M.loc)
 								new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 						new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
@@ -602,7 +602,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
-	var/bloodtypearchive
+	var/datum/blood_type/bloodtypearchive
 	var/bruteheal = FALSE
 	var/aggression = FALSE
 	var/vampire = FALSE
@@ -640,7 +640,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
-		H.dna.blood_type = "U"
+		H.dna.blood_type = /datum/blood_type/universal
 
 /datum/symptom/vampirism/Activate(datum/disease/advance/A)
 	if(!..())
@@ -700,10 +700,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/possibledist = power + 1
 		if(M.get_blood_id() != /datum/reagent/blood)
 			possibledist = 1
-		if(!((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLOOD))) //if you dont have blood, well... sucks to be you
+		if(!HAS_TRAIT(H, TRAIT_NOBLOOD) || HAS_TRAIT(H, TRAIT_NO_BLOOD)) //if you dont have blood, well... sucks to be you
 			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
-				H.revive(0)
+				H.revive()
 				H.visible_message(span_warning("[H.name]'s skin takes on a rosy hue as they begin moving. They live again!"), span_userdanger("As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood."))
 				bloodpoints = 0
 				return 0
@@ -749,7 +749,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
-					if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
+					if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 						continue
 					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
 						candidates += C
@@ -768,10 +768,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = M
 		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
+			if(!C.is_bleeding() && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))//aggressive grab as a "vampire" starts the target bleeding
 				C.add_bleeding(BLEED_SURFACE)
 				C.visible_message(span_warning("Wounds open on [C.name]'s skin as [H.name] grips them tightly!"), span_userdanger("You begin bleeding at [H.name]'s touch!"))
-			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !((NOBLOOD in C.dna.species.species_traits)|| HAS_TRAIT(C, TRAIT_NO_BLOOD)))
+			if(C.blood_volume && C.can_inject() && (C.is_bleeding() && vampire) && C.get_blood_id() == H.get_blood_id() && !(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD)))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -815,7 +815,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
-			if((NOBLOOD in C.dna.species.species_traits) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
+			if(HAS_TRAIT(C, TRAIT_NOBLOOD) || HAS_TRAIT(C, TRAIT_NO_BLOOD))
 				continue
 			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.is_bleeding() && C.get_blood_id() == H.get_blood_id())
 				var/amt = (2 * power)
@@ -865,7 +865,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(A.stage_rate >= 6)
 		power += 1
 
-/datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
+/datum/symptom/parasite/proc/isslimetarget(mob/living/carbon/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M))
 		return TRUE
@@ -982,7 +982,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(2 to 3)
 			if(prob(power) && M.stat)
-				M.Jitter(2 * power)
+				M.set_jitter_if_lower(4 SECONDS * power)
 				M.emote("twitch")
 				to_chat(M, span_notice("[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]"))
 		if(4 to 5)
@@ -993,19 +993,19 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(power) && prob(50))
 				if(M.stat)
 					M.emote("twitch")
-					M.Jitter(2 * power)
+					M.set_jitter_if_lower(4 SECONDS * power)
 				to_chat(M, span_notice("[pick("You feel nervous...", "You feel anxious.", "You feel like everything is moving in slow motion.")]"))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/nervous)
 			if(M.satiety > NUTRITION_LEVEL_HUNGRY - (30 * power))
 				M.satiety = max(NUTRITION_LEVEL_HUNGRY - (30 * power), M.satiety - (2 * power))
 			if(prob(25))
-				M.Jitter(2 * power)
+				M.set_jitter_if_lower(4 SECONDS * power)
 			if(clearcc)
 				var/realpower = power
 				if(prob(power) && prob(50))
 					realpower = power + 10
 					if(M.stat)
 						M.emote("scream")
-					M.hallucination = min(40, M.hallucination + (5 * power))
+					M.adjust_hallucinations_up_to(8 SECONDS, (10 * power) SECONDS)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/paranoid)
 				M.AdjustAllImmobility((realpower * -10),TRUE)

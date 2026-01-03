@@ -1,4 +1,4 @@
-/client/verb/open_character_preferences()
+AUTH_CLIENT_VERB(open_character_preferences)
 	set category = "Preferences"
 	set name = "Character Preferences"
 	set desc = "Open Character Preferences"
@@ -11,7 +11,7 @@
 	preferences.update_static_data(usr)
 	preferences.ui_interact(usr)
 
-/client/verb/open_game_preferences()
+AUTH_CLIENT_VERB(open_game_preferences)
 	set category = "Preferences"
 	set name = "Game Preferences"
 	set desc = "Open Game Preferences"

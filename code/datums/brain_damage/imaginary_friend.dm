@@ -17,7 +17,7 @@
 	make_friend()
 	get_ghost()
 
-/datum/brain_trauma/special/imaginary_friend/on_life()
+/datum/brain_trauma/special/imaginary_friend/on_life(delta_time, times_fired)
 	if(get_dist(owner, friend) > 9)
 		friend.recall()
 	if(!friend)
@@ -51,10 +51,16 @@
 	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s imaginary friend?", ROLE_IMAGINARY_FRIEND, null, 7.5 SECONDS, friend)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		friend.key = C.key
+
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_IMAGINARY_FRIEND
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s imaginary friend"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
+	if(candidate)
+		friend.key = candidate.key
 		friend_initialized = TRUE
 	else
 		qdel(src)
@@ -170,12 +176,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 		to_chat(src, span_hear("You hear a distant voice in your head..."))
 		to_chat(src, span_gamesay("[span_name("[speaker]")] [span_message("[say_quote(speech_args[SPEECH_MESSAGE])]")]"))
 
-/mob/camera/imaginary_friend/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/camera/imaginary_friend/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if (!message)
 		return
 
 	if (src.client)
-		if(client.prefs.muted & MUTE_IC)
+		if(client.player_details.muted & MUTE_IC)
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
 		if (src.client.handle_spam_prevention(message,MUTE_IC))
@@ -263,7 +269,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_join
 	name = "Join"
 	desc = "Join your owner, following them from inside their mind."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "join"
 
@@ -274,7 +280,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/camera/imaginary_friend)
 /datum/action/innate/imaginary_hide
 	name = "Hide"
 	desc = "Hide yourself from your owner's sight."
-	icon_icon = 'icons/hud/actions/actions_minor_antag.dmi'
+	button_icon = 'icons/hud/actions/actions_minor_antag.dmi'
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 

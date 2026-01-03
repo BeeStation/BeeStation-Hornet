@@ -183,7 +183,7 @@
 		process_hack(delta_time)
 	return ..()
 
-/mob/living/silicon/pai/proc/process_hack(delta_time)
+/mob/living/silicon/pai/proc/process_hack(delta_time, times_fired)
 	if(hacking_cable?.machine && istype(hacking_cable.machine, /obj/machinery/door) && hacking_cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
 		hackprogress = clamp(hackprogress + (2 * delta_time), 0, 100)
 		hackbar.update(hackprogress)
@@ -250,7 +250,7 @@
 
 /datum/action/innate/pai
 	name = "PAI Action"
-	icon_icon = 'icons/hud/actions/actions_silicon.dmi'
+	button_icon = 'icons/hud/actions/actions_silicon.dmi'
 	button_icon_state = null
 	var/mob/living/silicon/pai/P
 
@@ -296,7 +296,7 @@
 
 /datum/action/innate/pai/light
 	name = "Toggle Integrated Lights"
-	icon_icon = 'icons/hud/actions/actions_spells.dmi'
+	button_icon = 'icons/hud/actions/actions_spells.dmi'
 	button_icon_state = "emp"
 	background_icon_state = "bg_tech"
 
@@ -315,8 +315,9 @@
 	. = ..()
 	. += "A personal AI in holochassis mode. Its master ID string seems to be [master]."
 
-/mob/living/silicon/pai/Life()
-	if(stat == DEAD)
+/mob/living/silicon/pai/Life(delta_time = SSMOBS_DT, times_fired)
+	. = ..()
+	if(QDELETED(src) || stat == DEAD)
 		return
 	if(hacking_cable)
 		if(get_dist(src, hacking_cable) > 1)
@@ -326,16 +327,15 @@
 			if(!QDELETED(card))
 				card.update_icon()
 		else if(hacking)
-			process_hack()
-	silent = max(silent - 1, 0)
-	. = ..()
+			process_hack(delta_time, times_fired)
+	silent = max(silent - (0.5 * delta_time), 0)
 
 /mob/living/silicon/pai/updatehealth()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat()
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_HEALTH)
+	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
 /mob/living/silicon/pai/process(delta_time)
 	emitterhealth = clamp((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)

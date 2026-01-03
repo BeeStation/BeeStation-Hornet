@@ -7,10 +7,10 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 8
 	throwforce = 10
-	block_upgrade_walk = 1
+
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_LARGE
+	w_class = WEIGHT_CLASS_MEDIUM
 	attack_verb_continuous = list("mops", "bashes", "bludgeons", "whacks")
 	attack_verb_simple = list("mop", "bash", "bludgeon", "whack")
 	resistance_flags = FLAMMABLE
@@ -20,6 +20,8 @@
 	var/mopspeed = 15
 	force_string = "robust... against germs"
 	var/insertable = TRUE
+	canblock = TRUE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_UNBALANCE
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
@@ -75,7 +77,7 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
-	item_state = "advmop"
+	inhand_icon_state = "advmop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 12
@@ -120,7 +122,7 @@
 /obj/item/mop/sharp //Basically a slightly worse spear.
 	desc = "A mop with a sharpened handle. Careful!"
 	name = "sharpened mop"
-	force = 10
+	force = 15
 	throwforce = 18
 	throw_speed = 4
 	attack_verb_continuous = list("mops", "stabs", "shanks", "jousts")

@@ -113,7 +113,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/turf/T = get_turf(current_victim)
 	A = get_area(T)
 	if(prob(5))//checks roughly every 20 ticks
-		if(current_victim.stat == DEAD || current_victim.dna.check_mutation(CLUWNEMUT) || is_type_in_typecache(A, invalid_area_typecache) || !is_station_level(current_victim.z))
+		if(current_victim.stat == DEAD || current_victim.dna.check_mutation(/datum/mutation/cluwne) || is_type_in_typecache(A, invalid_area_typecache) || !is_station_level(current_victim.z))
 			if(!Found_You())
 				Acquire_Victim()
 
@@ -182,11 +182,11 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		if(specific)
 			H = specific
 			A = get_area(H.loc)
-			if(H.stat != DEAD && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(H.z))
+			if(H.stat != DEAD && H.has_dna() && !H.dna.check_mutation(/datum/mutation/cluwne) && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(H.z))
 				return target = current_victim
 
 		A = get_area(H.loc)
-		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(H.z))
+		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && H.has_dna() && !H.dna.check_mutation(/datum/mutation/cluwne) && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(H.z))
 			current_victim = H
 			interest = 0
 			stage = STAGE_HAUNT
@@ -332,7 +332,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				return
 			if(!eating)
 				Found_You()
-				for(var/I in getline(src,H))
+				for(var/I in get_line(src,H))
 					var/turf/T = I
 					if(T.density)
 						forceMove(H.loc)
@@ -408,7 +408,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
 			H.cure_blind(null)
 			H.invisibility = initial(H.invisibility)
-			H.density = initial(H.density)
+			H.set_density(initial(H.density))
 			H.set_anchored(initial(H.anchored))
 			H.blur_eyes(10)
 			animate(H.client,color = old_color, time = 20)
@@ -425,7 +425,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	stage = STAGE_HAUNT
 	Acquire_Victim()
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(var/mob/living/H)
+/mob/living/simple_animal/hostile/floor_cluwne/proc/force_target(mob/living/H)
 	if(!istype(H) || !H.client)		return  // if theyre not human or they're afk
 	current_victim = H
 	target = H
@@ -472,7 +472,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
 		sac_target.legcuffed.dropped(sac_target)
 		sac_target.legcuffed = null
-		sac_target.update_inv_legcuffed()
+		sac_target.update_worn_legcuffs()
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
@@ -517,7 +517,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.cure_blind(null)
 	sac_target.invisibility = initial(sac_target.invisibility)
-	sac_target.density = initial(sac_target.density)
+	sac_target.set_density(initial(sac_target.density))
 	sac_target.set_anchored(initial(sac_target.anchored))
 	to_chat(sac_target, span_big("[span_hypnophrase("Unnatural forces begin to claw at your very being from beyond the veil.")]"))
 
@@ -538,9 +538,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	sac_target.flash_act()
 	sac_target.blur_eyes(15)
-	sac_target.Jitter(10)
+	sac_target.set_jitter_if_lower(20 SECONDS)
 	sac_target.Dizzy(10)
-	sac_target.hallucination += 12
+	sac_target.adjust_hallucinations(24 SECONDS)
 	sac_target.emote("scream")
 
 	to_chat(sac_target, span_reallybig("[span_hypnophrase("The grasping hands reveal themselves to you!")]"))
@@ -609,14 +609,14 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
  */
 /mob/living/simple_animal/hostile/floor_cluwne/proc/after_return_live_target(mob/living/carbon/human/sac_target)
 	if(sac_target.stat == DEAD)
-		sac_target.revive(TRUE, TRUE)
+		sac_target.revive(HEAL_ALL)
 		sac_target.grab_ghost()
 	to_chat(sac_target, span_hypnophrase("The fight is over, but at great cost. You have been returned to the station in one piece."))
 	to_chat(sac_target, span_big("[span_hypnophrase("You don't remember anything leading up to the experience - All you can think about are those horrific hands...")]"))
 
 	// Oh god where are we?
 	sac_target.flash_act()
-	sac_target.Jitter(60)
+	sac_target.set_jitter_if_lower(120 SECONDS)
 	sac_target.blur_eyes(50)
 	sac_target.Dizzy(30)
 	sac_target.AdjustKnockdown(80)

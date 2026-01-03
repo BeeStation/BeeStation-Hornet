@@ -26,34 +26,9 @@
 		if(R.name != "blobspawn")
 			if(prob(35))
 				if(isspaceturf(R.loc))
-					new /mob/living/simple_animal/chicken/rabbit/easter/space(R.loc)
+					new /mob/living/simple_animal/rabbit/easter/space(R.loc)
 				else
-					new /mob/living/simple_animal/chicken/rabbit/easter(R.loc)
-
-/mob/living/simple_animal/chicken/rabbit/easter
-	desc = "The hippiest hop around."
-	icon_state = "rabbit_white"
-	icon_living = "rabbit_white"
-	icon_dead = "rabbit_white_dead"
-	speak = list("Hop into Easter!","Come get your eggs!","Prizes for everyone!")
-	speak_language = /datum/language/metalanguage // everyone should understand happy easter
-	emote_hear = list("hops.")
-	emote_see = list("hops around","bounces up and down")
-	egg_type = /obj/item/surprise_egg
-	food_type = /obj/item/food/grown/carrot
-	eggsleft = 10
-	eggsFertile = FALSE
-	layMessage = list("hides an egg.","scampers around suspiciously.","begins making a huge racket.","begins shuffling.")
-
-/mob/living/simple_animal/chicken/rabbit/easter/space
-	icon_prefix = "s_rabbit"
-	icon_state = "s_rabbit_white"
-	icon_living = "s_rabbit_white"
-	icon_dead = "s_rabbit_white_dead"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
-	unsuitable_atmos_damage = 0
+					new /mob/living/simple_animal/rabbit(R.loc)
 
 /obj/item/storage/basket
 	name = "basket"
@@ -63,11 +38,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FLAMMABLE
 
-/obj/item/storage/basket/ComponentInitialize()
+/obj/item/storage/basket/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 21
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 21
 
 //Easter Baskets
 /obj/item/storage/basket/easter
@@ -75,8 +49,7 @@
 
 /obj/item/storage/basket/easter/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.set_holdable(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
+	atom_storage.set_holdable(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg, /obj/item/surprise_egg))
 
 /obj/item/storage/basket/easter/proc/countEggs()
 	cut_overlays()
@@ -95,7 +68,7 @@
 /obj/item/clothing/head/costume/bunnyhead
 	name = "Easter Bunny Head"
 	icon_state = "bunnyhead"
-	item_state = null
+	inhand_icon_state = null
 	desc = "Considerably more cute than 'Frank'."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
@@ -105,7 +78,7 @@
 	icon_state = "bunnysuit"
 	icon = 'icons/obj/clothing/suits/costume.dmi'
 	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
-	item_state = null
+	inhand_icon_state = null
 	slowdown = -0.2
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT

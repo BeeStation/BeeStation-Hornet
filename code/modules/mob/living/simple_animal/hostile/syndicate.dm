@@ -22,7 +22,7 @@
 	icon_living = "syndicate"
 	icon_dead = "syndicate_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	speed = 0
@@ -37,7 +37,7 @@
 	combat_mode = TRUE
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 15
+	unsuitable_atmos_damage = 7.5
 	faction = list(FACTION_SYNDICATE)
 	check_friendly_fire = 1
 	status_flags = CANPUSH
@@ -279,7 +279,7 @@
 	icon_living = "viscerator_attack"
 	pass_flags = PASSTABLE | PASSMOB
 	combat_mode = TRUE
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	health = 25
 	maxHealth = 25
 	melee_damage = 15

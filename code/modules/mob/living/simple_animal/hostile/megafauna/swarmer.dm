@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = "swarmer_console"
 	health = 375
 	maxHealth = 375 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	gps_name = "Hungry Signal"
 	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
 	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		step(R, ddir) //Step the swarmers, instead of spawning them there, incase the turf is solid
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Life()
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Life(delta_time = SSMOBS_DT, times_fired)
 	. = ..()
 	if(.)
 		var/createtype = GetUncappedAISwarmerType()
@@ -170,7 +170,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	search_objects = 1
 	attack_all_objects = TRUE //attempt to nibble everything
 	lose_patience_timeout = 150
-	var/static/list/sharedWanted = typecacheof(list(/turf/closed/mineral, /turf/closed/wall)) //eat rocks and walls
+	//eat rocks and walls
+	var/static/list/sharedWanted = typecacheof(list(
+		/turf/closed/mineral,
+		/turf/closed/wall,
+	))
 	var/static/list/sharedIgnore = list()
 
 //This handles viable things to eat/attack

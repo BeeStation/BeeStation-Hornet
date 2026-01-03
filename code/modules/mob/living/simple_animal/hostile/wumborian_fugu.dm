@@ -8,7 +8,7 @@
 	icon_aggro = "Fugu0"
 	icon_dead = "Fugu_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 5
 	friendly_verb_continuous = "floats near"
@@ -46,9 +46,9 @@
 	QDEL_NULL(E)
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/fugu/Life()
+/mob/living/simple_animal/hostile/asteroid/fugu/Life(delta_time = SSMOBS_DT, times_fired)
 	if(!wumbo)
-		inflate_cooldown = max((inflate_cooldown - 1), 0)
+		inflate_cooldown = max((inflate_cooldown - (0.5 * delta_time)), 0)
 	if(target && AIStatus == AI_ON)
 		E.trigger()
 	..()
@@ -64,7 +64,7 @@
 
 /datum/action/innate/fugu
 	button_icon_state = null
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 
 /datum/action/innate/fugu/expand
 	name = "Inflate"
@@ -145,7 +145,3 @@
 		A.environment_smash |= ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_RWALLS
 		to_chat(user, span_info("You increase the size of [A], giving it a surge of strength!"))
 		qdel(src)
-
-/obj/item/fugu_gland/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
-	. = ..()
-	EXTRAPOLATOR_ACT_ADD_DISEASES(., fugu_diseases)

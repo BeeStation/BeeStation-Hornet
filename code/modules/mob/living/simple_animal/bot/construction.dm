@@ -8,7 +8,7 @@
 	throw_range = 5
 	var/created_name
 	var/build_step = ASSEMBLY_FIRST_STEP
-	var/robot_arm = /obj/item/bodypart/r_arm/robot
+	var/robot_arm = /obj/item/bodypart/arm/right/robot
 
 /obj/item/bot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
@@ -42,7 +42,7 @@
 
 /obj/item/bot_assembly/cleanbot/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/bodypart/l_arm/robot) || istype(W, /obj/item/bodypart/r_arm/robot))
+	if(istype(W, /obj/item/bodypart/arm/left/robot) || istype(W, /obj/item/bodypart/arm/right/robot))
 		if(!can_finish_build(W, user))
 			return
 		var/mob/living/simple_animal/bot/cleanbot/A = new(drop_location())
@@ -61,7 +61,7 @@
 
 /obj/item/bot_assembly/larry/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/bodypart/l_arm/robot) || istype(W, /obj/item/bodypart/r_arm/robot))
+	if(istype(W, /obj/item/bodypart/arm/left/robot) || istype(W, /obj/item/bodypart/arm/right/robot))
 		if(!can_finish_build(W, user))
 			return
 		var/mob/living/simple_animal/bot/cleanbot/larry/A = new(drop_location())
@@ -76,7 +76,7 @@
 	name = "incomplete ED-209 assembly"
 	desc = "Some sort of bizarre assembly."
 	icon_state = "ed209_frame"
-	item_state = "ed209_frame"
+	inhand_icon_state = "ed209_frame"
 	created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
 	var/vest_type = /obj/item/clothing/suit/armor/vest
@@ -85,17 +85,17 @@
 	..()
 	switch(build_step)
 		if(ASSEMBLY_FIRST_STEP, ASSEMBLY_SECOND_STEP)
-			if(istype(W, /obj/item/bodypart/l_leg/robot) || istype(W, /obj/item/bodypart/r_leg/robot))
+			if(istype(W, /obj/item/bodypart/leg/left/robot) || istype(W, /obj/item/bodypart/leg/right/robot))
 				if(!user.temporarilyRemoveItemFromInventory(W))
 					return
 				to_chat(user, span_notice("You add [W] to [src]."))
 				qdel(W)
 				name = "legs/frame assembly"
 				if(build_step == ASSEMBLY_FIRST_STEP)
-					item_state = "ed209_leg"
+					inhand_icon_state = "ed209_leg"
 					icon_state = "ed209_leg"
 				else
-					item_state = "ed209_legs"
+					inhand_icon_state = "ed209_legs"
 					icon_state = "ed209_legs"
 				build_step++
 
@@ -113,7 +113,7 @@
 				to_chat(user, span_notice("You add [W] to [src]."))
 				qdel(W)
 				name = "vest/legs/frame assembly"
-				item_state = "[lasercolor]ed209_shell"
+				inhand_icon_state = "[lasercolor]ed209_shell"
 				icon_state = "[lasercolor]ed209_shell"
 				build_step++
 
@@ -143,7 +143,7 @@
 			to_chat(user, span_notice("You add [W] to [src]."))
 			qdel(W)
 			name = "covered and shielded frame assembly"
-			item_state = "[lasercolor]ed209_hat"
+			inhand_icon_state = "[lasercolor]ed209_hat"
 			icon_state = "[lasercolor]ed209_hat"
 			build_step++
 
@@ -155,7 +155,7 @@
 				to_chat(user, span_notice("You add [W] to [src]."))
 				qdel(W)
 				name = "covered, shielded and sensored frame assembly"
-				item_state = "[lasercolor]ed209_prox"
+				inhand_icon_state = "[lasercolor]ed209_prox"
 				icon_state = "[lasercolor]ed209_prox"
 
 		if(6)
@@ -181,7 +181,7 @@
 					if(!istype(W, /obj/item/gun/energy/laser/redtag))
 						return
 				if("")
-					if(!istype(W, /obj/item/gun/energy/disabler))
+					if(!istype(W, /obj/item/gun/ballistic/taser,))
 						return
 				else
 					return
@@ -189,7 +189,7 @@
 				return
 			name = "[W.name] ED-209 assembly"
 			to_chat(user, span_notice("You add [W] to [src]."))
-			item_state = "[lasercolor]ed209_taser"
+			inhand_icon_state = "[lasercolor]ed209_taser"
 			icon_state = "[lasercolor]ed209_taser"
 			qdel(W)
 			build_step++
@@ -254,7 +254,7 @@
 				update_icon()
 
 		if(ASSEMBLY_SECOND_STEP)
-			if(istype(W, /obj/item/bodypart/l_arm/robot) || istype(W, /obj/item/bodypart/r_arm/robot))
+			if(istype(W, /obj/item/bodypart/arm/left/robot) || istype(W, /obj/item/bodypart/arm/right/robot))
 				if(!can_finish_build(W, user))
 					return
 				var/mob/living/simple_animal/bot/floorbot/A = new(drop_location(), toolbox_color)
@@ -349,7 +349,7 @@
 	name = "incomplete securitron assembly"
 	desc = "Some sort of bizarre assembly made from a proximity sensor, helmet, and signaler."
 	icon_state = "helmet_signaler"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 	created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/swordamt = 0 //If you're converting it into a grievousbot, how many swords have you attached
 	var/toyswordamt = 0 //honk
@@ -388,7 +388,7 @@
 					build_step--
 
 		if(ASSEMBLY_THIRD_STEP)
-			if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
+			if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 				if(!user.temporarilyRemoveItemFromInventory(I))
 					return
 				to_chat(user, span_notice("You add [I] to [src]!"))
@@ -452,7 +452,7 @@
 						new /obj/item/toy/sword(Tsec)
 
 		if(ASSEMBLY_FIFTH_STEP)
-			if(istype(I, /obj/item/melee/transforming/energy/sword/saber))
+			if(istype(I, /obj/item/melee/energy/sword/saber))
 				if(swordamt < 3)
 					if(!user.temporarilyRemoveItemFromInventory(I))
 						return
@@ -476,7 +476,7 @@
 				icon_state = initial(icon_state)
 				to_chat(user, span_notice("You unbolt [src]'s energy swords."))
 				for(var/IS in 1 to swordamt)
-					new /obj/item/melee/transforming/energy/sword/saber(Tsec)
+					new /obj/item/melee/energy/sword/saber(Tsec)
 
 
 //Firebot Assembly

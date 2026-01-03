@@ -8,7 +8,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "forensicnew"
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -85,8 +85,8 @@
 
 		//Make our lists
 		var/list/fingerprints = list()
-		var/list/blood = A.return_blood_DNA()
-		var/list/fibers = A.return_fibers()
+		var/list/blood = GET_ATOM_BLOOD_DNA(A)
+		var/list/fibers = GET_ATOM_FIBRES(A)
 		var/list/reagents = list()
 
 		var/target_name = A.name
@@ -97,7 +97,7 @@
 
 			var/mob/living/carbon/human/H = A
 			if(!H.gloves)
-				fingerprints += rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
+				fingerprints += rustg_hash_string(RUSTG_HASH_MD5, H.dna.unique_identity)
 
 		else if(!ismob(A))
 
@@ -110,7 +110,7 @@
 				to_chat(user, span_warning("Your [src] glitched out!"))
 
 			else
-				fingerprints = A.return_fingerprints()
+				fingerprints = GET_ATOM_FINGERPRINTS(A)
 
 				// Only get reagents from non-mobs.
 				if(A.reagents && A.reagents.reagent_list.len)

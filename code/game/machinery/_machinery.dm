@@ -134,10 +134,8 @@
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
-	/// [Bitflag] the machine will be free when a bank holder has a specific bitflag
-	var/dept_req_for_free = ACCOUNT_ENG_BITFLAG
-	/// [Bitflag] the machine sends its profit to the corresponding department budget. if this is not specified, this will follow `dept_req_for_free` value.
-	var/seller_department
+	/// [Bitflag] the machine sends its profit to the corresponding department budget.
+	var/seller_department = ACCOUNT_CAR_BITFLAG // Your money goes to cargo, and you will like it.
 
 	var/clickvol = 40	// sound volume played on successful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
@@ -151,8 +149,6 @@
 	var/last_used_time = 0
 	/// Mobtype of last user. Typecast to [/mob/living] for initial() usage
 	var/mob/living/last_user_mobtype
-	///Is this machine currently in the atmos machinery queue, but also interacting with turf air?
-	var/interacts_with_air = FALSE
 
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
@@ -162,6 +158,8 @@
 
 	/// Disables some optimizations
 	var/always_area_sensitive = FALSE
+
+	var/area_relationship_established = FALSE
 
 	armor_type = /datum/armor/obj_machinery
 
@@ -186,10 +184,21 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
-	if(!seller_department)
-		seller_department = dept_req_for_free
-
 	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/add_context_self(datum/screentip_context/context, mob/user)
+	if (machine_stat & BROKEN)
+		return
+
+	//Tools
+	context.add_left_click_tool_action("[panel_open ? "Close" : "Open"] Maintenance Panel", TOOL_SCREWDRIVER)
+	if (panel_open && circuit)
+		context.add_left_click_tool_action("Hack Wires", TOOL_MULTITOOL)
+		context.add_left_click_tool_action("Cut Wires", TOOL_WIRECUTTER)
+
+	var/can_unfasten = can_be_unfasten_wrench()
+	if(can_unfasten||!anchored)
+		context.add_left_click_tool_action("[anchored ? "Unwrench from floor" : "Wrench to floor"]", TOOL_WRENCH)
 
 /obj/machinery/LateInitialize()
 	. = ..()
@@ -215,6 +224,7 @@
  * does not affect power usage itself
  */
 /obj/machinery/proc/setup_area_power_relationship()
+	area_relationship_established = TRUE
 	var/area/our_area = get_area(src)
 	if(our_area)
 		RegisterSignal(our_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_change))
@@ -289,6 +299,7 @@
 	return
 
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
+	set waitfor = FALSE
 	return PROCESS_KILL
 
 ///Called when we want to change the value of the machine_stat variable. Holds bitflags.
@@ -317,7 +328,7 @@
 /obj/machinery/emp_act(severity)
 	. = ..()
 	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
-		use_power(7500/severity)
+		use_power(7.5 KILOWATT/severity)
 		//Set the machine to be EMPed
 		machine_stat |= EMPED
 		//Reset EMP state in 120/60 seconds
@@ -407,7 +418,6 @@
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
-	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
 	set_density(TRUE)
 	if(!target)
@@ -427,6 +437,7 @@
 	if(target && !target.has_buckled_mobs() && (!isliving(target) || !mobtarget.buckled))
 		set_occupant(target)
 		target.forceMove(src)
+	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	updateUsrDialog()
 	update_icon()
 	ui_update()
@@ -446,10 +457,11 @@
 		if(ACTIVE_POWER_USE)
 			new_usage = active_power_usage
 
-	if(use_power == NO_POWER_USE)
-		setup_area_power_relationship()
-	else if(new_use_power == NO_POWER_USE)
-		remove_area_power_relationship()
+	if (area_relationship_established)
+		if(use_power == NO_POWER_USE)
+			setup_area_power_relationship()
+		else if(new_use_power == NO_POWER_USE)
+			remove_area_power_relationship()
 
 	static_power_usage = new_usage
 
@@ -589,7 +601,7 @@
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
 			var/mob/living/carbon/C = L
-			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(TK)))
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(/datum/mutation/telekinesis)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated
@@ -752,7 +764,7 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return ..()
 
-	on_deconstruction()
+	on_deconstruction(disassembled)
 	if(!LAZYLEN(component_parts))
 		return ..() //We have no parts
 	spawn_frame(disassembled)
@@ -821,6 +833,20 @@
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return FALSE
 	return ..()
+
+/**
+ * This should be called before mass qdeling components to make space for replacements.
+ * If not done, things will go awry as Exited() destroys the machine when it detects
+ * even a single component exiting the atom.
+ */
+/obj/machinery/proc/clear_components()
+	if(!component_parts)
+		return
+	var/list/old_components = component_parts
+	circuit = null
+	component_parts = null
+	for(var/atom/atom_part in old_components)
+		qdel(atom_part)
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -906,57 +932,69 @@
 					return
 	..()
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
-	if(!istype(W))
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/replacer_tool)
+	if(!istype(replacer_tool))
 		return FALSE
-	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
+
+	if((flags_1 & NODECONSTRUCT_1) && !replacer_tool.works_from_distance)
 		return FALSE
-	var/shouldplaysound = 0
-	if(component_parts)
-		if(panel_open || W.works_from_distance)
-			var/obj/item/circuitboard/machine/CB = locate(/obj/item/circuitboard/machine) in component_parts
-			var/P
-			if(W.works_from_distance)
-				to_chat(user, display_parts(user))
-			for(var/obj/item/A in component_parts)
-				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
-						P = D
-						break
-				for(var/obj/item/B in W.contents)
-					if(istype(B, P) && istype(A, P))
-						// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
-						if(istype(B, /obj/item/stock_parts/cell) && W.works_from_distance)
-							var/obj/item/stock_parts/cell/checked_cell = B
-							// If it's rigged or corrupted, max the charge. Then explode it.
-							if(checked_cell.rigged || checked_cell.corrupted)
-								checked_cell.charge = checked_cell.maxcharge
-								checked_cell.explode()
-						if(B.get_part_rating() > A.get_part_rating())
-							if(istype(B,/obj/item/stack)) //conveniently this will mean A is also a stack and I will kill the first person to prove me wrong
-								var/obj/item/stack/SA = A
-								var/obj/item/stack/SB = B
-								var/used_amt = SA.get_amount()
-								if(!SB.use(used_amt))
-									continue //if we don't have the exact amount to replace we don't
-								var/obj/item/stack/SN = new SB.merge_type(null,used_amt)
-								component_parts += SN
-							else
-								if(SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE, B, src))
-									component_parts += B
-									B.forceMove(src)
-							SEND_SIGNAL(W, COMSIG_TRY_STORAGE_INSERT, A, null, null, TRUE)
-							component_parts -= A
-							to_chat(user, span_notice("[capitalize(A.name)] replaced with [B.name]."))
-							shouldplaysound = 1 //Only play the sound when parts are actually replaced!
-							break
-			RefreshParts()
-		else
-			to_chat(user, display_parts(user))
+
+	var/shouldplaysound = FALSE
+	if(!component_parts)
+		return FALSE
+
+	if(!panel_open && !replacer_tool.works_from_distance)
+		to_chat(user, display_parts(user))
 		if(shouldplaysound)
-			W.play_rped_sound()
-		return TRUE
-	return FALSE
+			replacer_tool.play_rped_sound()
+		return FALSE
+
+	var/obj/item/circuitboard/machine/machine_board = locate(/obj/item/circuitboard/machine) in component_parts
+	var/required_type
+	if(replacer_tool.works_from_distance)
+		to_chat(user, display_parts(user))
+	if(!machine_board)
+		return FALSE
+
+	for(var/obj/item/primary_part as anything in component_parts)
+		for(var/design_type in machine_board.req_components)
+			if(ispath(primary_part.type, design_type))
+				required_type = design_type
+				break
+		for(var/obj/item/secondary_part in replacer_tool.contents)
+			if(!istype(secondary_part, required_type) || !istype(primary_part, required_type))
+				continue
+			// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+			if(istype(secondary_part, /obj/item/stock_parts/cell) && replacer_tool.works_from_distance)
+				var/obj/item/stock_parts/cell/checked_cell = secondary_part
+				// If it's rigged or corrupted, max the charge. Then explode it.
+				if(checked_cell.rigged || checked_cell.corrupted)
+					checked_cell.charge = checked_cell.maxcharge
+					checked_cell.explode()
+			if(secondary_part.get_part_rating() > primary_part.get_part_rating())
+				if(istype(secondary_part,/obj/item/stack)) //conveniently this will mean primary_part is also a stack and I will kill the first person to prove me wrong
+					var/obj/item/stack/primary_stack = primary_part
+					var/obj/item/stack/secondary_stack = secondary_part
+					var/used_amt = primary_stack.get_amount()
+					if(!secondary_stack.use(used_amt))
+						continue //if we don't have the exact amount to replace we don't
+					var/obj/item/stack/secondary_inserted = new secondary_stack.merge_type(null,used_amt)
+					component_parts += secondary_inserted
+				else
+					if(replacer_tool.atom_storage.attempt_remove(secondary_part, src))
+						component_parts += secondary_part
+						secondary_part.forceMove(src)
+				replacer_tool.atom_storage.attempt_insert(primary_part, user, TRUE)
+				component_parts -= primary_part
+				to_chat(user, "<span class='notice'>[capitalize(primary_part.name)] replaced with [secondary_part.name].</span>")
+				shouldplaysound = TRUE //Only play the sound when parts are actually replaced!
+				break
+
+	RefreshParts()
+
+	if(shouldplaysound)
+		replacer_tool.play_rped_sound()
+	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list()
@@ -982,8 +1020,11 @@
 				. += span_warning("It's falling apart!")
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
-	if(return_blood_DNA())
-		. += "<span class='warning'>It's smeared with blood!</span>"
+	if(GET_ATOM_BLOOD_DNA(src))
+		. += span_warning("It's smeared with blood!")
+
+/obj/machinery/examine_descriptor(mob/user)
+	return "machine"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
@@ -992,20 +1033,30 @@
 	return
 
 //called on deconstruction before the final deletion
-/obj/machinery/proc/on_deconstruction()
+/obj/machinery/proc/on_deconstruction(disassembled)
+	PROTECTED_PROC(TRUE)
 	return
 
 /obj/machinery/proc/can_be_overridden()
 	. = 1
 
-/obj/machinery/tesla_act(power, tesla_flags, shocked_objects)
-	..()
-	if(prob(85) && (tesla_flags & TESLA_MACHINE_EXPLOSIVE))
-		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE)
-	if(tesla_flags & TESLA_OBJ_DAMAGE)
-		take_damage(power/2000, BURN, ENERGY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(
+			epicenter = src,
+			devastation_range = 1,
+			heavy_impact_range = 2,
+			light_impact_range = 4,
+			flame_range = 2,
+			adminlog = FALSE
+		)
+	else if(zap_flags & ZAP_OBJ_DAMAGE)
+		take_damage(power * 2.5e-4, BURN, ENERGY)
 		if(prob(40))
 			emp_act(EMP_LIGHT)
+		power -= power * 5e-4
+
+	return ..()
 
 /obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -1023,7 +1074,7 @@
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
 
-/obj/machinery/proc/play_click_sound(var/custom_clicksound)
+/obj/machinery/proc/play_click_sound(custom_clicksound)
 	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
 		next_clicksound = world.time + CLICKSOUND_INTERVAL
 		playsound(src, custom_clicksound, clickvol)

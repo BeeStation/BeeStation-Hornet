@@ -4,12 +4,13 @@
 	desc = "Helping lost spacemen find their way through the planets since 2016."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	obj_flags = UNIQUE_RENAME
 	var/gpstag
+	var/start_on = TRUE
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -17,28 +18,49 @@
 
 /// Adds the GPS component to this item.
 /obj/item/gps/proc/add_gps_component()
-	AddComponent(/datum/component/gps/item, gpstag, FALSE)
+	AddComponent(/datum/component/gps/item, gpstag, start_on)
+
+/obj/item/gps/off
+	start_on = FALSE
+
 
 /obj/item/gps/science
 	icon_state = "gps-n"
 	gpstag = "SCI0"
 
+/obj/item/gps/science/off
+	start_on = FALSE
+
 /obj/item/gps/engineering
 	icon_state = "gps-e"
 	gpstag = "ENG0"
+
+/obj/item/gps/engineering/off
+	start_on = FALSE
+
 
 /obj/item/gps/mining
 	icon_state = "gps-m"
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
 
+/obj/item/gps/mining/off
+	start_on = FALSE
+
 /obj/item/gps/mining/exploration
 	gpstag = "EXP0"
 	desc = "A positioning system used for long-ranged tracking of important beacons."
 
+/obj/item/gps/mining/exploration/off
+	start_on = FALSE
+
 /obj/item/gps/security
 	icon_state = "gps-s"
 	gpstag = "SEC0"
+
+/obj/item/gps/security/off
+	start_on = FALSE
+
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"

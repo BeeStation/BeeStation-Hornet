@@ -4,7 +4,7 @@
 #define DISK_ATMOS (1<<1)
 #define DISK_MED (1<<2)
 #define DISK_CHEM (1<<3)
-#define DISK_MANIFEST (1<<4)
+#define DISK_SM (1<<4)
 #define DISK_NEWSCASTER (1<<5)
 #define DISK_SIGNAL	(1<<6)
 #define DISK_STATUS (1<<7)
@@ -16,6 +16,7 @@
 #define DISK_REMOTE_AIRLOCK (1<<13)
 #define DISK_SILO_LOG (1<<14)
 #define DISK_HOP (1<<15)
+#define DISK_NETWORK (1<<16)
 
 // Theme defines
 
@@ -89,3 +90,5 @@ GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
 #define GRENADE_WIRED 2
 /// Grenade is ready to be activated
 #define GRENADE_READY 3
+/// Grenade is detonated and useless
+#define GRENADE_DETONATED 4

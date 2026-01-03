@@ -194,18 +194,26 @@
 	name = "uranium airlock"
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
-	var/last_event = 0
+
+	COOLDOWN_DECLARE(radiate_cooldown)
 
 /obj/machinery/door/airlock/uranium/process(delta_time)
-	if(world.time > last_event+20)
-		if(DT_PROB(50, delta_time))
-			radiate()
-		last_event = world.time
-	..()
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, radiate_cooldown))
+		return
+
+	if(DT_PROB(50, delta_time))
+		radiate()
+	COOLDOWN_START(src, radiate_cooldown, 2 SECONDS)
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
-	radiation_pulse(get_turf(src), 150)
-	return
+	radiation_pulse(
+		src,
+		max_range = 2,
+		threshold = RAD_LIGHT_INSULATION,
+		intensity = URANIUM_IRRADIATION_INTENSITY,
+		minimum_exposure_time = URANIUM_RADIATION_MINIMUM_EXPOSURE_TIME,
+	)
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = FALSE
@@ -217,7 +225,7 @@
 	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 
-/obj/machinery/door/airlock/plasma/ComponentInitialize()
+/obj/machinery/door/airlock/plasma/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/atmos_sensitive)
 
@@ -497,7 +505,7 @@
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
-	return (iscultist(user) && !isAllPowerCut())
+	return (IS_CULTIST(user) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/cult/on_break()
 	if(!panel_open)
@@ -512,7 +520,7 @@
 /obj/machinery/door/airlock/cult/allowed(mob/living/L)
 	if(!density)
 		return 1
-	if(friendly || iscultist(L) || istype(L, /mob/living/simple_animal/shade) || isconstruct(L))
+	if(friendly || IS_CULTIST(L) || istype(L, /mob/living/simple_animal/shade) || isconstruct(L))
 		if(!stealthy)
 			new openingoverlaytype(loc)
 		return 1

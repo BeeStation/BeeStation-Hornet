@@ -1,11 +1,27 @@
-import { Box, Button, Icon, Input, Section, Table } from '../components';
 import { BooleanLike } from 'common/react';
 import { createSearch } from 'common/string';
+
 import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  Section,
+  Table,
+  TimeDisplay,
+} from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
 
-const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#c4cf2d', '#e67e22', '#ed5100', '#e74c3c', '#801308'];
+const HEALTH_COLOR_BY_LEVEL = [
+  '#17d568',
+  '#c4cf2d',
+  '#e67e22',
+  '#ed5100',
+  '#e74c3c',
+  '#801308',
+];
 
 const SORT_NAMES = {
   ijob: 'Job',
@@ -17,7 +33,7 @@ const SORT_NAMES = {
 const STAT_LIVING = 0;
 const STAT_DEAD = 4;
 
-const SORT_OPTIONS = ['health', 'ijob', 'name', 'area'];
+const SORT_OPTIONS = ['ijob', 'health', 'name', 'area'];
 
 const jobIsHead = (jobId: number) => jobId % 10 === 0;
 
@@ -60,6 +76,8 @@ const statToIcon = (life_status: number) => {
 };
 
 const healthSort = (a: CrewSensor, b: CrewSensor) => {
+  if (a.missing) return 1;
+  if (b.missing) return -1;
   if (a.life_status > b.life_status) return -1;
   if (a.life_status < b.life_status) return 1;
   if (a.health < b.health) return -1;
@@ -68,6 +86,8 @@ const healthSort = (a: CrewSensor, b: CrewSensor) => {
 };
 
 const areaSort = (a: CrewSensor, b: CrewSensor) => {
+  if (a.missing) return 1;
+  if (b.missing) return -1;
   a.area ??= '~';
   b.area ??= '~';
   if (a.area < b.area) return -1;
@@ -75,7 +95,13 @@ const areaSort = (a: CrewSensor, b: CrewSensor) => {
   return 0;
 };
 
-const healthToAttribute = (oxy: number, tox: number, burn: number, brute: number, attributeList: string[]) => {
+const healthToAttribute = (
+  oxy: number,
+  tox: number,
+  burn: number,
+  brute: number,
+  attributeList: string[],
+) => {
   const healthSum = oxy + tox + burn + brute;
   const level = Math.min(Math.max(Math.ceil(healthSum / 25), 0), 5);
   return attributeList[level];
@@ -107,24 +133,34 @@ export const CrewConsole = () => {
   );
 };
 
-type CrewSensor = {
-  name: string;
-  assignment: string | undefined;
-  ijob: number;
-  life_status: number;
-  oxydam: number;
-  toxdam: number;
-  burndam: number;
-  brutedam: number;
-  area: string | undefined;
-  health: number;
-  can_track: BooleanLike;
-  ref: string;
-};
+type CrewSensor =
+  | {
+      name: string;
+      assignment: string | undefined;
+      ijob: number;
+      life_status: number;
+      oxydam: number;
+      toxdam: number;
+      burndam: number;
+      brutedam: number;
+      area: string | undefined;
+      health: number;
+      can_track: BooleanLike;
+      ref: string;
+      last_update: number;
+      missing: false;
+    }
+  | {
+      name: string;
+      last_update: number;
+      missing: true;
+      ref: string;
+    };
 
 type CrewConsoleData = {
   sensors: CrewSensor[];
   link_allowed: BooleanLike;
+  time: number;
 };
 
 const CrewTable = (props) => {
@@ -132,7 +168,10 @@ const CrewTable = (props) => {
   const { sensors } = data;
 
   const [sortAsc, setSortAsc] = useLocalState<boolean>('sortAsc', true);
-  const [searchQuery, setSearchQuery] = useLocalState<string>('searchQuery', '');
+  const [searchQuery, setSearchQuery] = useLocalState<string>(
+    'searchQuery',
+    '',
+  );
   const [sortBy, setSortBy] = useLocalState<string>('sortBy', SORT_OPTIONS[0]);
 
   const cycleSortBy = () => {
@@ -148,6 +187,8 @@ const CrewTable = (props) => {
       case 'name':
         return sortAsc ? +(a.name > b.name) : +(b.name > a.name);
       case 'ijob':
+        if (a.missing) return sortAsc ? 1 : -1;
+        if (b.missing) return sortAsc ? -1 : 1;
         return sortAsc ? a.ijob - b.ijob : b.ijob - a.ijob;
       case 'health':
         return sortAsc ? healthSort(a, b) : healthSort(b, a);
@@ -164,11 +205,20 @@ const CrewTable = (props) => {
         <>
           <Button onClick={cycleSortBy}>{SORT_NAMES[sortBy]}</Button>
           <Button onClick={() => setSortAsc(!sortAsc)}>
-            <Icon style={{ marginLeft: '2px' }} name={sortAsc ? 'chevron-up' : 'chevron-down'} />
+            <Icon
+              style={{ marginLeft: '2px' }}
+              name={sortAsc ? 'chevron-up' : 'chevron-down'}
+            />
           </Button>
-          <Input placeholder="Search for name..." onInput={(e) => setSearchQuery((e.target as HTMLTextAreaElement).value)} />
+          <Input
+            placeholder="Search for name..."
+            onInput={(e) =>
+              setSearchQuery((e.target as HTMLTextAreaElement).value)
+            }
+          />
         </>
-      }>
+      }
+    >
       <Table>
         <Table.Row>
           <Table.Cell bold>Name</Table.Cell>
@@ -199,9 +249,43 @@ type CrewTableEntryProps = {
 
 const CrewTableEntry = (props: CrewTableEntryProps) => {
   const { act, data } = useBackend<CrewConsoleData>();
-  const { link_allowed } = data;
+  const { link_allowed, time } = data;
   const { sensor_data } = props;
-  const { name, assignment, ijob, life_status, oxydam, toxdam, burndam, brutedam, area, can_track } = sensor_data;
+  if (sensor_data.missing) {
+    const { name, last_update } = sensor_data;
+    return (
+      <Table.Row className="candystripe">
+        <Table.Cell color={COLORS.department.other}>{name}</Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <Icon name="question" color="#aaaaaa" size={1} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          Missing (<TimeDisplay auto="up" value={time - last_update} />)
+        </Table.Cell>
+        <Table.Cell
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
+          <Icon name="question" color="#ffffff" size={1} />{' '}
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
+  const {
+    name,
+    assignment,
+    ijob,
+    life_status,
+    oxydam,
+    toxdam,
+    burndam,
+    brutedam,
+    area,
+    can_track,
+  } = sensor_data;
 
   return (
     <Table.Row className="candystripe">
@@ -213,7 +297,13 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
         {oxydam !== undefined ? (
           <Icon
             name={statToIcon(life_status)}
-            color={healthToAttribute(oxydam, toxdam, burndam, brutedam, HEALTH_COLOR_BY_LEVEL)}
+            color={healthToAttribute(
+              oxydam,
+              toxdam,
+              burndam,
+              brutedam,
+              HEALTH_COLOR_BY_LEVEL,
+            )}
             size={1}
           />
         ) : life_status !== STAT_DEAD ? (
@@ -239,7 +329,19 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
           'Dead'
         )}
       </Table.Cell>
-      <Table.Cell>{area !== '~' && area !== undefined ? area : <Icon name="question" color="#ffffff" size={1} />}</Table.Cell>
+      <Table.Cell
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        {area !== '~' && area !== undefined ? (
+          area
+        ) : (
+          <Icon name="question" color="#ffffff" size={1} />
+        )}
+      </Table.Cell>
       {!!link_allowed && (
         <Table.Cell collapsing>
           <Button
@@ -248,7 +350,8 @@ const CrewTableEntry = (props: CrewTableEntryProps) => {
               act('select_person', {
                 name: name,
               })
-            }>
+            }
+          >
             Track
           </Button>
         </Table.Cell>

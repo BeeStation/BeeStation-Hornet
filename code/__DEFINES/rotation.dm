@@ -8,10 +8,16 @@
 #define ROTATION_NO_FLIPPING (1<<3)
 /// If an object needs to have an empty spot available in target direction (used for windoors and railings)
 #define ROTATION_NEEDS_ROOM (1<<4)
+/// If you should be able to rotate to diagonal directions
+#define ROTATION_DIAGONAL (1<<5)
 
 /// Rotate an object clockwise
 #define ROTATION_CLOCKWISE -90
+/// Rotate an object clockwise, with diagonals
+#define ROTATION_CLOCKWISE_DIAGONAL -45
 /// Rotate an object counterclockwise
 #define ROTATION_COUNTERCLOCKWISE 90
+/// Rotate an object counterclockwise, with diagonals
+#define ROTATION_COUNTERCLOCKWISE_DIAGONAL 45
 /// Rotate an object upside down
 #define ROTATION_FLIP 180

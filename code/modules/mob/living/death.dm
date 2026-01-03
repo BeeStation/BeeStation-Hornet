@@ -12,6 +12,7 @@
 		spread_bodyparts(no_brain, no_organs)
 
 	spawn_gibs(no_bodyparts)
+	SEND_SIGNAL(src, COMSIG_LIVING_GIBBED, no_brain, no_organs, no_bodyparts)
 	qdel(src)
 
 /mob/living/proc/gib_animation()
@@ -87,17 +88,11 @@
 		reset_perspective(null)
 		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
+		client.player_details.time_of_death = timeofdeath
 		//This first death of the game will not incur a ghost role cooldown
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
 		INVOKE_ASYNC(client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/ghosts, client.mob)
-
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerDies(gibbed)
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerDies(gibbed)
 
 	if(mind?.current)
 		client?.tgui_panel?.give_dead_popup()
@@ -113,4 +108,3 @@
 
 	if(!gibbed && !QDELETED(src))
 		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), (DEFIB_TIME_LIMIT * 10) + 10)
-

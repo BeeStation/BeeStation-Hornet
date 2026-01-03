@@ -235,7 +235,7 @@ Thresholds
 	if(A.transmission >= 6) //higher damage
 		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
-/datum/symptom/spiked/Activate(var/datum/disease/advance/A)
+/datum/symptom/spiked/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/carbon/H = A.affected_mob
@@ -332,7 +332,7 @@ Thresholds
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
-				pustule.fire_casing(T, M, (get_turf(M)))
+				pustule.fire_casing(T, M, fired_from = M)
 				pustules -= popped
 				M.visible_message(span_warning("[popped] pustules on [M]'s body burst open!"))
 

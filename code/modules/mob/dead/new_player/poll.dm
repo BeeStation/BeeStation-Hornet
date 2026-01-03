@@ -9,9 +9,9 @@
 		var/datum/poll_question/poll = p
 		if((poll.admin_only && !client.holder) || poll.future_poll)
 			continue
-		output += "<tr bgcolor='#e2e2e2'><td><a href='?src=[rs];viewpoll=[REF(poll)]'><b>[poll.question]</b></a></td></tr>"
+		output += "<tr bgcolor='#e2e2e2'><td><a href='byond://?src=[rs];viewpoll=[REF(poll)]'><b>[poll.question]</b></a></td></tr>"
 	output += "</table>"
-	src << browse(jointext(output, ""),"window=playerpolllist;size=500x300")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpolllist;size=500x300")
 
 /**
   * Redirects a player to the correct poll window based on poll type.
@@ -60,7 +60,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!voted_option_id || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		"}
@@ -77,7 +77,7 @@
 	if(!voted_option_id || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x250")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x250")
 
 /**
   * Shows voting window for a text response type poll, listing its relevant details.
@@ -104,7 +104,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!reply_text || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		<font size='2'>Please provide feedback below. You can use any letters of the English alphabet, numbers and the symbols: . , ! ? : ; -</font><br>
@@ -114,7 +114,7 @@
 	else
 		output += "[reply_text]"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x500")
 
 /**
   * Shows voting window for a rating type poll, listing its options and relevant details.
@@ -141,7 +141,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!length(voted_ratings) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		"}
@@ -169,7 +169,7 @@
 	if(!length(voted_ratings) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Submit'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x500")
 
 /**
   * Shows voting window for a multiple choice type poll, listing its options and relevant details.
@@ -196,7 +196,7 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!length(voted_for) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
+		output += {"<form action='byond://?src=[REF(src)]' method='get'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		"}
@@ -213,7 +213,7 @@
 	if(!length(voted_for) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x300")
+	src << browse(HTML_SKELETON(jointext(output, "")),"window=playerpoll;size=500x300")
 
 /**
   * Shows voting window for an IRV type poll, listing its options and relevant details.
@@ -251,7 +251,7 @@
 	//otherwise just shuffle the options
 	else
 		prepared_options = shuffle(poll.options)
-	var/list/output = list({"<html><head><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	var/list/output = list({"<!DOCTYPE html><html><head><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 	<script src="[SSassets.transport.get_asset_url("jquery.min.js")]"></script>
 	<script src="[SSassets.transport.get_asset_url("jquery-ui.custom-core-widgit-mouse-sortable-min.js")]"></script>
@@ -288,7 +288,7 @@
 		output += "<font size='2'>Revoting is enabled.</font>"
 	output += "Please sort the options in the order of <b>most preferred</b> to <b>least preferred</b><br></div>"
 	if(!length(voted_for) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='POST'>
+		output += {"<form action='byond://?src=[REF(src)]' method='POST'>
 		<input type='hidden' name='src' value='[REF(src)]'>
 		<input type='hidden' name='votepollref' value='[REF(poll)]'>
 		<input type='hidden' name='IRVdata' id='IRVdata'>
@@ -300,7 +300,7 @@
 	output += "</ol><b><center>Least Preferred</center></b><br>"
 	if(!length(voted_for) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
-	output += "</div>"
+	output += "</div></body></html>"
 	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
 
 /**

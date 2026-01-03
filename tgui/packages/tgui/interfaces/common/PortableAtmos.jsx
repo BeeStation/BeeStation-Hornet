@@ -1,5 +1,11 @@
 import { useBackend } from '../../backend';
-import { AnimatedNumber, Box, Button, LabeledList, Section } from '../../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  Section,
+} from '../../components';
 
 export const PortableBasicInfo = (props) => {
   const { act, data } = useBackend();
@@ -11,8 +17,14 @@ export const PortableBasicInfo = (props) => {
       <Section
         title="Status"
         buttons={
-          <Button icon={on ? 'power-off' : 'times'} content={on ? 'On' : 'Off'} selected={on} onClick={() => act('power')} />
-        }>
+          <Button
+            icon={on ? 'power-off' : 'times'}
+            content={on ? 'On' : 'Off'}
+            selected={on}
+            onClick={() => act('power')}
+          />
+        }
+      >
         <LabeledList>
           <LabeledList.Item label="Pressure">
             <AnimatedNumber value={pressure} />
@@ -26,7 +38,15 @@ export const PortableBasicInfo = (props) => {
       <Section
         title="Holding Tank"
         minHeight="82px"
-        buttons={<Button icon="eject" content="Eject" disabled={!holding} onClick={() => act('eject')} />}>
+        buttons={
+          <Button
+            icon="eject"
+            content="Eject"
+            disabled={!holding}
+            onClick={() => act('eject')}
+          />
+        }
+      >
         {holding ? (
           <LabeledList>
             <LabeledList.Item label="Label">{holding.name}</LabeledList.Item>

@@ -13,7 +13,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	var/stasis = FALSE
-	mob_biotypes = list(MOB_SPIRIT)
+	mob_biotypes = MOB_SPIRIT
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	see_invisible = SEE_INVISIBLE_SPIRIT
 	invisibility = INVISIBILITY_SPIRIT
@@ -57,7 +57,7 @@
 	var/essence = 75 //The resource, and health, of revenants.
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regenerating = TRUE //If the revenant regenerates essence or not
-	var/essence_regen_amount = 5 //How much essence regenerates
+	var/essence_regen_amount = 2.5 //How much essence regenerates per second
 	var/essence_accumulated = 0 //How much essence the revenant has stolen
 	var/essence_excess = 0 //How much stolen essence avilable for unlocks
 	var/revealed = FALSE //If the revenant can take damage from normal sources.
@@ -75,38 +75,29 @@
 	. = ..()
 	// more rev abilities are in 'revenant_abilities.dm'
 	// Starting spells
-	var/datum/action/spell/night_vision/revenant/vision = new(src)
-	vision.Grant(src)
+	var/datum/action/spell/night_vision/revenant/night_vision = new(src)
+	night_vision.Grant(src)
+	var/datum/action/revenant_phase_shift/revenant_phase_shift = new(src)
+	revenant_phase_shift.Grant(src)
 	var/datum/action/spell/telepathy/revenant/telepathy = new(src)
 	telepathy.Grant(src)
+	var/datum/action/spell/teleport/area_teleport/revenant/revenant_teleport = new(src)
+	revenant_teleport.Grant(src)
 	// Starting spells that start locked
-	var/datum/action/spell/aoe/revenant/overload/lights_go_zap = new(src)
-	lights_go_zap.Grant(src)
-	var/datum/action/spell/aoe/revenant/defile/windows_go_smash = new(src)
-	windows_go_smash.Grant(src)
-	var/datum/action/spell/aoe/revenant/blight/botany_go_mad = new(src)
-	botany_go_mad.Grant(src)
-	var/datum/action/spell/aoe/revenant/malfunction/shuttle_go_emag = new(src)
-	shuttle_go_emag.Grant(src)
-	check_rev_teleport() // they're spawned in non-station for some reason...
+	var/datum/action/spell/aoe/revenant/overload/overload = new(src)
+	overload.Grant(src)
+	var/datum/action/spell/aoe/revenant/defile/defile = new(src)
+	defile.Grant(src)
+	var/datum/action/spell/aoe/revenant/blight/blight = new(src)
+	blight.Grant(src)
+	var/datum/action/spell/aoe/revenant/malfunction/malfunction = new(src)
+	malfunction.Grant(src)
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	grant_all_languages(UNDERSTOOD_LANGUAGE, grant_omnitongue = FALSE, source = LANGUAGE_REVENANT) // rev can understand every langauge
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	AddElement(/datum/element/movetype_handler)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
-
-/mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
-	. = ..()
-	check_rev_teleport()
-
-/mob/living/simple_animal/revenant/proc/check_rev_teleport()
-	var/datum/action/spell/teleport/area_teleport/wizard/revtele = locate() in actions
-	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
-		revtele = new /datum/action/spell/teleport/area_teleport/wizard
-		revtele.Grant()
-	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
-		revtele.Remove()
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
@@ -145,7 +136,7 @@
 		mind.add_antag_datum(/datum/antagonist/revenant)
 
 //Life, Stat, Hud Updates, and Say
-/mob/living/simple_animal/revenant/Life()
+/mob/living/simple_animal/revenant/Life(delta_time = SSMOBS_DT, times_fired)
 	if(stasis)
 		return
 	if(revealed && essence <= 0)
@@ -161,7 +152,7 @@
 		notransform = FALSE
 		to_chat(src, span_revenboldnotice("You can move again!"))
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
-		essence = min(essence_regen_cap, essence+essence_regen_amount)
+		essence = min(essence + (essence_regen_amount * delta_time), essence_regen_cap)
 		update_action_buttons_icon() //because we update something required by our spells in life, we need to update our buttons
 	update_spooky_icon()
 	update_health_hud()
@@ -190,7 +181,7 @@
 /mob/living/simple_animal/revenant/med_hud_set_status()
 	return //we use no hud
 
-/mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/revenant/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!message)
 		return
 
@@ -234,9 +225,6 @@
 	if(!revealed || stasis)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
-
-/mob/living/simple_animal/revenant/rad_act(amount)
-	return
 
 //damage, gibbing, and dying
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
@@ -449,7 +437,7 @@
 /mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost of malice!"
 
-/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/revenant/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	to_chat(src, span_warning("You are too restless to rest now!"))
 	return FALSE
 
@@ -517,15 +505,22 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/list/candidates = poll_candidates_for_mob("Do you want to be [revenant.name] (reforming)?", ROLE_REVENANT, /datum/role_preference/midround_ghost/revenant, 7.5 SECONDS, revenant)
-		if(!LAZYLEN(candidates))
+		var/datum/poll_config/config = new()
+		config.question = "Do you want to be [revenant.name] (reforming)?"
+		config.check_jobban = ROLE_REVENANT
+		config.poll_time = 10 SECONDS
+		config.jump_target = revenant
+		config.role_name_text = "revenant"
+		config.alert_pic = revenant
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+		if(!candidate)
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")
 			inert = TRUE
 			visible_message(span_revenwarning("[src] settles down and seems lifeless."))
 			return
-		var/mob/dead/observer/C = pick(candidates)
-		key_of_revenant = C.key
+
+		key_of_revenant = candidate.key
 		if(!key_of_revenant)
 			qdel(revenant)
 			message_admins("No ckey was found for the new revenant. Oh well!")

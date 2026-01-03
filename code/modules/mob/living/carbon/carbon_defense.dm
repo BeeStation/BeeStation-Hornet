@@ -1,7 +1,7 @@
 
 /mob/living/carbon/get_eye_protection()
 	. = ..()
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/E = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!E)
 		return INFINITY //Can't get flashed without eyes
 	. += E.flash_protect
@@ -14,7 +14,7 @@
 
 /mob/living/carbon/get_ear_protection()
 	. = ..()
-	var/obj/item/organ/ears/E = getorganslot(ORGAN_SLOT_EARS)
+	var/obj/item/organ/ears/E = get_organ_slot(ORGAN_SLOT_EARS)
 	if(!E)
 		return INFINITY
 	. += E.bang_protect
@@ -91,17 +91,20 @@
 				if(affecting.body_zone == BODY_ZONE_HEAD)
 					if(wear_mask)
 						wear_mask.add_mob_blood(src)
-						update_inv_wear_mask()
+						update_worn_mask()
 					if(wear_neck)
 						wear_neck.add_mob_blood(src)
-						update_inv_neck()
+						update_worn_neck()
 					if(head)
 						head.add_mob_blood(src)
-						update_inv_head()
+						update_worn_head()
 		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
 			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, span_userdanger("The heat from [I] cauterizes your bleeding!"))
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
+
+		if(istype(I, /obj/item/melee/baton) && I.damtype == STAMINA)
+			batong_act(I, user, affecting, armour_block)
 
 		var/dismember_limb = FALSE
 		var/weapon_sharpness = I.is_sharp()
@@ -139,9 +142,9 @@
 		if(mangled_state == BODYPART_MANGLED_BOTH)
 			extra_wound_details = ", threatening to sever it entirely"
 		else if((mangled_state == BODYPART_MANGLED_FLESH && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_BONE && bio_state == BIO_JUST_BONE))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] through to the bone"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] through to the bone"
 		else if((mangled_state == BODYPART_MANGLED_BONE && I.get_sharpness()) || (mangled_state & BODYPART_MANGLED_FLESH && bio_state == BIO_JUST_FLESH))
-			extra_wound_details = ", [I.get_sharpness() == SHARP_EDGED ? "slicing" : "piercing"] at the remaining tissue"
+			extra_wound_details = ", [I.get_sharpness() == SHARP ? "slicing" : "piercing"] at the remaining tissue"
 	*/
 
 	var/message_hit_area = ""
@@ -210,7 +213,7 @@
 		help_shake_act(M)
 		return FALSE
 
-	if(..() && can_inject(M, TRUE)) //successful monkey bite.
+	if(..() && can_inject(M, get_combat_bodyzone(), INJECT_CHECK_PENETRATE_THICK | INJECT_TRY_SHOW_ERROR_MESSAGE)) //successful monkey bite.
 		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			ForceContractDisease(D)
@@ -260,6 +263,7 @@
  * Attempt to disarm the target mob.
  * Will shove the target mob back, and drop them if they're in front of something dense
  * or another carbon.
+ * src is the attacker
 */
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
 	do_attack_animation(target, ATTACK_EFFECT_DISARM)
@@ -273,15 +277,9 @@
 
 /mob/living/carbon/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	for (var/obj/item/clothing/clothing in get_equipped_items())
-		if(clothing.blocks_shove_knockdown)
+		if(clothing.clothing_flags & BLOCKS_SHOVE_KNOCKDOWN)
 			return TRUE
 	return FALSE
-
-/mob/living/carbon/proc/clear_shove_slowdown()
-	remove_movespeed_modifier(/datum/movespeed_modifier/shove)
-	var/active_item = get_active_held_item()
-	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
-		visible_message(span_warning("[name] regains their grip on \the [active_item]!"), span_warning("You regain your grip on \the [active_item]."), null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
@@ -325,14 +323,14 @@
 	if(should_stun)
 		Paralyze(40)
 	//Jitter and other fluff.
-	jitteriness += 1000
-	do_jitter_animation(jitteriness)
+	do_jitter_animation(300)
+	adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
 	stuttering += 2
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 20)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 2 SECONDS)
 	return shock_damage
 
+///Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(should_stun)
-	jitteriness = max(jitteriness - 990, 10)
 	if(should_stun)
 		Paralyze(60)
 
@@ -363,12 +361,12 @@
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, M) // You got a warm hug
 
 		// Let people know if they hugged someone really warm or really cold
-		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || M.has_status_effect(/datum/status_effect/vampire_sol))
 			to_chat(src, span_warning("It feels like [M] is over heating as [M.p_they()] hug[M.p_s()] you."))
 		else if(M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			to_chat(src, span_warning("It feels like [M] is freezing as [M.p_they()] hug[M.p_s()] you."))
 
-		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT || has_status_effect(/datum/status_effect/vampire_sol))
 			to_chat(M, span_warning("It feels like [src] is over heating as you hug [p_them()]."))
 		else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			to_chat(M, span_warning("It feels like [src] is freezing as you hug [p_them()]."))
@@ -421,16 +419,16 @@
 				visible_message(span_notice("[src] examines [p_them()]self."), \
 					span_notice("You check yourself for shrapnel."))
 			if(I.isEmbedHarmless())
-				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
+				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
 			else
-				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+				to_chat(src, "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
 
 	return embeds
 
 /mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(NOFLASH in dna?.species?.species_traits)
 		return
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	var/obj/item/organ/eyes/eyes = get_organ_slot(ORGAN_SLOT_EYES)
 	if(!eyes || (!override_blindness_check && HAS_TRAIT(src, TRAIT_BLIND))) //can't flash what can't see!
 		return
 	. = ..()
@@ -443,15 +441,15 @@
 		if (damage == 1)
 			to_chat(src, span_warning("Your eyes sting a little."))
 			if(prob(40))
-				eyes.applyOrganDamage(1)
+				eyes.apply_organ_damage(1)
 
 		else if (damage == 2)
 			to_chat(src, span_warning("Your eyes burn."))
-			eyes.applyOrganDamage(rand(2, 4))
+			eyes.apply_organ_damage(rand(2, 4))
 
 		else if( damage >= 3)
 			to_chat(src, span_warning("Your eyes itch and burn severely!"))
-			eyes.applyOrganDamage(rand(12, 16))
+			eyes.apply_organ_damage(rand(12, 16))
 
 		if(eyes.damage > 10)
 			adjust_blindness(damage)
@@ -466,7 +464,7 @@
 				else if(prob(eyes.damage - 25))
 					if(!is_blind())
 						to_chat(src, span_warning("You can't see anything!"))
-					eyes.applyOrganDamage(eyes.maxHealth)
+					eyes.apply_organ_damage(eyes.maxHealth)
 
 			else
 				to_chat(src, span_warning("Your eyes are really starting to hurt. This can't be good for you!"))
@@ -475,13 +473,21 @@
 		if(prob(20))
 			to_chat(src, span_notice("Something bright flashes in the corner of your vision!"))
 
+/mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
+	. = ..()
+	apply_effect(EFFECT_STUTTER, (batong.active_force / 2)) //0.5 seconds of stuttering speech for every 10 stamina damage
+	do_stun_animation()
+	if(ismonkey(src))
+		emote("screech")
+	else
+		emote("scream")
 
 /mob/living/carbon/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
 	var/list/reflist = list(intensity) // Need to wrap this in a list so we can pass a reference
 	SEND_SIGNAL(src, COMSIG_CARBON_SOUNDBANG, reflist)
 	intensity = reflist[1]
 	var/ear_safety = get_ear_protection()
-	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	var/effect_amount = intensity - ear_safety
 	if(effect_amount > 0)
 		if(stun_pwr)
@@ -523,7 +529,7 @@
 
 /mob/living/carbon/can_hear()
 	. = FALSE
-	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+	var/obj/item/organ/ears/ears = get_organ_slot(ORGAN_SLOT_EARS)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
 

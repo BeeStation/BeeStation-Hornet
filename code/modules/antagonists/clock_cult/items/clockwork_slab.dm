@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
 	..()
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		return
 	//Grant quickbound spells
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
@@ -123,13 +123,13 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 //==================================//
 /obj/item/clockwork/clockwork_slab/attack_self(mob/living/user)
 	. = ..()
-	if(iscultist(user))
+	if(IS_CULTIST(user))
 		to_chat(user, "[span_bigbrass("You shouldn't be playing with my toys...")]")
 		user.Stun(60)
 		user.adjust_blindness(150)
 		user.electrocute_act(10, "[name]")
 		return
-	if(!is_servant_of_ratvar(user))
+	if(!IS_SERVANT_OF_RATVAR(user))
 		to_chat(user, span_warning("You cannot figure out what the device is used for!"))
 		return
 	if(active_scripture)

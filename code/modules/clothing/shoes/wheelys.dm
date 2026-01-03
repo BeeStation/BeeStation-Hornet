@@ -3,18 +3,19 @@
 	desc = "Uses patented retractable wheel technology. Never sacrifice speed for style - not that this provides much of either." //Thanks Fel
 	icon_state = "sneakers"
 	worn_icon_state = "wheelys"
-	item_state = "wheelys"
+	inhand_icon_state = "wheelys"
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_wheelys
 	actions_types = list(/datum/action/item_action/wheelys)
+	custom_price = 100
 	///False means wheels are not popped out
 	var/wheelToggle = FALSE
 	///The vehicle associated with the shoes
-	var/obj/vehicle/ridden/scooter/wheelys/W
+	var/obj/vehicle/ridden/scooter/skateboard/wheelys/W
 
 /obj/item/clothing/shoes/wheelys/Initialize(mapload)
 	. = ..()
-	W = new /obj/vehicle/ridden/scooter/wheelys(null)
+	W = new /obj/vehicle/ridden/scooter/skateboard/wheelys(null)
 
 /obj/item/clothing/shoes/wheelys/ui_action_click(mob/user, action)
 	if(!isliving(user))

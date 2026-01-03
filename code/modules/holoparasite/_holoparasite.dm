@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	desc = "A sentient bluespace crystallization of someone's willpower, this being will forever protect and serve its host, standing guard until the last embers of their life are extinguished."
 	speak_emote = list("emanates", "radiates")
 	gender = NEUTER
-	mob_biotypes = list(MOB_INORGANIC)
+	mob_biotypes = MOB_INORGANIC
 	bubble_icon = "guardian"
 	response_help_continuous = "passes through"
 	response_help_simple = "pass through"
@@ -179,7 +179,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 		stat_popups += "[span_holoparasitebig("Weapon: <b>[stats.weapon.name]</b>")]\n[weapon_info]"
 	if(length(stat_popups))
 		info_block += list(span_info("================"), span_bigboldinfo("\[ABILITY NOTES\]"), "[stat_popups.Join("\n[span_info("====")]\n")]")
-	to_chat(src, EXAMINE_BLOCK(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
+	to_chat(src, examine_block(info_block.Join("\n")), type = MESSAGE_TYPE_INFO, avoid_highlighting = TRUE)
 
 /mob/living/simple_animal/hostile/holoparasite/Life()
 	. = ..()
@@ -210,7 +210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/holoparasite)
 	set hidden = TRUE
 	to_chat(src, span_warning("You cannot commit suicide! Reset yourself (or contact an admin) if you wish to stop being a holoparasite!"))
 
-/mob/living/simple_animal/hostile/holoparasite/set_resting(rest, silent = TRUE)
+/mob/living/simple_animal/hostile/holoparasite/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	return FALSE
 
 /mob/living/simple_animal/hostile/holoparasite/can_use_guns(obj/item/gun)

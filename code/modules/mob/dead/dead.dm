@@ -8,6 +8,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	throwforce = 0
 
 /mob/dead/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -33,8 +34,6 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
-	if(!SSticker.hide_mode)
-		tab_data["Game Mode"] = GENERATE_STAT_TEXT("[GLOB.master_mode]")
 
 	if(SSticker.HasRoundStarted())
 		return tab_data

@@ -104,15 +104,14 @@
 				set_anchored(FALSE)
 
 		if(BOOKCASE_FINISHED)
-			var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
 			if(is_type_in_list(I, allowed_books))
 				if(!user.transferItemToLoc(I, src))
 					return
 				update_appearance()
-			else if(STR)
+			else if(atom_storage)
 				for(var/obj/item/T in I.contents)
 					if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook))
-						STR.remove_from_storage(T, src)
+						atom_storage.attempt_remove(T, src)
 				to_chat(user, span_notice("You empty \the [I] into \the [src]."))
 				update_appearance()
 			else if(istype(I, /obj/item/pen))
@@ -236,6 +235,8 @@
 	var/title			//The real name of the book.
 	var/window_size = null // Specific window size for the book, i.e: "1920x1080", Size x Width
 
+	var/attackby_skip // when TRUE, this will skip 'book/attackby()', so that it can call parent directly.
+
 
 /obj/item/book/attack_self(mob/user)
 	if(!user.can_read(src))
@@ -246,13 +247,15 @@
 
 /obj/item/book/proc/on_read(mob/user)
 	if(dat)
-		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
+		user << browse(HTML_SKELETON_TITLE(title, "<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]"), "window=book[window_size != null ? ";size=[window_size]" : ""]")
 		onclose(user, "book")
 	else
 		to_chat(user, span_notice("This book is completely blank!"))
 
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
+	if(attackby_skip) // some books are not for this behaviour
+		return ..()
 	if(istype(I, /obj/item/pen))
 		if(user.is_blind())
 			to_chat(user, span_warning(" As you are trying to write on the book, you suddenly feel very stupid!"))

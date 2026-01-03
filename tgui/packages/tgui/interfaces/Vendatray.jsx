@@ -4,7 +4,8 @@ import { Window } from '../layouts';
 
 export const Vendatray = (props) => {
   const { act, data } = useBackend();
-  const { product_name, product_cost, tray_open, registered, owner_name } = data;
+  const { product_name, product_cost, tray_open, registered, owner_name } =
+    data;
   return (
     <Window width={300} height={270}>
       <Window.Content>
@@ -41,7 +42,13 @@ export const Vendatray = (props) => {
         ) : (
           <>
             <Section>Tray is unregistered.</Section>
-            <Button fluid icon="cash-register" content="Register Tray" disabled={registered} onClick={() => act('Register')} />
+            <Button
+              fluid
+              icon="cash-register"
+              content="Register Tray"
+              disabled={registered}
+              onClick={() => act('Register')}
+            />
           </>
         )}
       </Window.Content>

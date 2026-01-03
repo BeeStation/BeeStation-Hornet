@@ -13,7 +13,7 @@
 	attack_verb_simple = list("bludgeon", "smash", "beat")
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
-	item_state = "bulldog"
+	inhand_icon_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	armor_type = /datum/armor/item_pneumatic_cannon
@@ -145,7 +145,7 @@
 		return
 	Fire(user, target)
 
-/obj/item/pneumatic_cannon/proc/Fire(mob/living/user, var/atom/target)
+/obj/item/pneumatic_cannon/proc/Fire(mob/living/user, atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
@@ -313,7 +313,7 @@
 	desc = "A weapon favored by carp hunters. Fires specialized spears using magnetic energy. A savvy- or desperate- hunter may be able to find more esoteric payloads"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "speargun"
-	item_state = "speargun"
+	inhand_icon_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
@@ -324,7 +324,19 @@
 	throw_amount = 1
 	maxWeightClass = WEIGHT_CLASS_BULKY //a single magspear or spear
 	spin_item = FALSE
-	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twenty, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/spear/explosive, /obj/item/clockwork/weapon/brass_spear))
+	var/static/list/magspear_typecache = typecacheof(list(
+		/obj/item/throwing_star/magspear,
+		/obj/item/spear,
+		/obj/item/stack/rods/fifty,
+		/obj/item/stack/rods,
+		/obj/item/stack/rods/twenty,
+		/obj/item/stack/rods/ten,
+		/obj/item/katana,
+		/obj/item/katana/cursed,
+		/obj/item/toy/katana,
+		/obj/item/spear/explosive,
+		/obj/item/clockwork/weapon/brass_spear,
+	))
 
 /obj/item/pneumatic_cannon/speargun/Initialize(mapload)
 	. = ..()
@@ -334,16 +346,15 @@
 	name = "quiver"
 	desc = "A quiver for holding magspears."
 	icon_state = "quiver"
-	item_state = "quiver"
+	inhand_icon_state = "quiver"
 
-/obj/item/storage/backpack/magspear_quiver/ComponentInitialize()
+/obj/item/storage/backpack/magspear_quiver/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 30
-	STR.max_w_class = WEIGHT_CLASS_BULKY
-	STR.max_combined_w_class = STR.max_w_class*STR.max_items
-	STR.display_numerical_stacking = TRUE
-	STR.set_holdable(list(
+	atom_storage.max_slots = 30
+	atom_storage.max_specific_storage = WEIGHT_CLASS_BULKY
+	atom_storage.max_total_storage = atom_storage.max_specific_storage * atom_storage.max_slots
+	atom_storage.numerical_stacking = TRUE
+	atom_storage.set_holdable(list(
 		/obj/item/throwing_star/magspear
 		))
 

@@ -44,8 +44,6 @@
 
 	var/confused = 0	//Makes the mob move in random directions.
 
-	var/hallucination = 0 //Directly affects how long a mob will hallucinate for
-
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/timeofdeath = 0
 
@@ -68,7 +66,7 @@
 	var/limb_destroyer = FALSE //1 Sets AI behavior that allows mobs to target and dismember limbs with their basic attack.
 
 	var/mob_size = MOB_SIZE_HUMAN
-	var/list/mob_biotypes = list(MOB_ORGANIC)
+	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/has_limbs = 0 //does the mob have distinct limbs?(arms,legs, chest,head)
 
@@ -125,8 +123,6 @@
 
 	var/list/implants = null
 
-	var/datum/riding/riding_datum
-
 	var/datum/language/selected_default_language
 
 	var/last_words	//used for database logging
@@ -134,7 +130,6 @@
 	var/can_be_held = FALSE	//whether this can be picked up and held.
 	var/worn_slot_flags = NONE //if it can be held, can it be equipped to any slots? (think pAI's on head)
 
-	var/radiation = 0 //If the mob is irradiated.
 	var/ventcrawl_layer = PIPING_LAYER_DEFAULT
 	var/losebreath = 0
 
@@ -175,3 +170,5 @@
 	/// What our current gravity state is. Used to avoid duplicate animates and such
 	var/gravity_state = null
 
+	//If we are currently leaning on something, and what that object is
+	var/atom/leaned_object

@@ -5,7 +5,7 @@
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -129,11 +129,7 @@
 	appearance = saved_appearance
 	if(istype(M.buckled, /obj/vehicle))
 		var/obj/vehicle/V = M.buckled
-		var/datum/component/riding/VRD = V.GetComponent(/datum/component/riding)
-		if(VRD)
-			VRD.force_dismount(M)
-		else
-			V.unbuckle_mob(M, force = TRUE)
+		V.unbuckle_mob(M, force = TRUE)
 	M.forceMove(src)
 	master = C
 	master.active_dummy = src

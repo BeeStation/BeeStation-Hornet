@@ -4,7 +4,8 @@
  */
 
 @use 'sass:meta';
-@use './base.scss';
+@use 'base';
+@use '~tgui-core/styles';
 
 // Core styles
 @include meta.load-css('./reset.scss');
@@ -14,6 +15,7 @@
 @include meta.load-css('./atomic/centered-image.scss');
 @include meta.load-css('./atomic/color.scss');
 @include meta.load-css('./atomic/debug-layout.scss');
+@include meta.load-css('./atomic/links.scss');
 @include meta.load-css('./atomic/fit-text.scss');
 @include meta.load-css('./atomic/loading.scss');
 @include meta.load-css('./atomic/outline.scss');
@@ -26,7 +28,6 @@
 @include meta.load-css('./components/ColorSelectBox.scss');
 @include meta.load-css('./components/Dimmer.scss');
 @include meta.load-css('./components/Divider.scss');
-@include meta.load-css('./components/Dropdown.scss');
 @include meta.load-css('./components/Flex.scss');
 @include meta.load-css('./components/Input.scss');
 @include meta.load-css('./components/Knob.scss');
@@ -48,7 +49,9 @@
 @include meta.load-css('./interfaces/AlertModal.scss');
 @include meta.load-css('./interfaces/ColorPicker.scss');
 @include meta.load-css('./interfaces/AntagInfo.scss');
-@include meta.load-css('./interfaces/CameraConsole.scss');
+@include meta.load-css('./interfaces/Changelog.scss');
+@include meta.load-css('./interfaces/ChemDispenser.scss');
+@include meta.load-css('./interfaces/NtosNotepad.scss');
 @include meta.load-css('./interfaces/CrewManifest.scss');
 @include meta.load-css('./interfaces/ClockworkSlab.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
@@ -62,6 +65,8 @@
 @include meta.load-css('./interfaces/RequestManager.scss');
 @include meta.load-css('./interfaces/StripMenu.scss');
 @include meta.load-css('./interfaces/TechFab.scss');
+@include meta.load-css('./interfaces/WallCloset.scss');
+@include meta.load-css('./interfaces/ChessBoard.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
@@ -74,7 +79,7 @@
 // NT Theme
 .Layout__content {
   background-image: url('../assets/bg-nanotrasen.svg');
-  background-size: 70%;
+  background-size: 70% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }

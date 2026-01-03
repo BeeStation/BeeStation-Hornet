@@ -10,7 +10,7 @@
 
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(z_check))
 	RegisterSignal(parent, COMSIG_MOVABLE_SECLUDED_LOCATION, PROC_REF(relocate))
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(check_deletion))
+	RegisterSignal(parent, COMSIG_PREQDELETED, PROC_REF(check_deletion))
 	RegisterSignal(parent, COMSIG_ITEM_IMBUE_SOUL, PROC_REF(check_soul_imbue))
 	RegisterSignal(parent, COMSIG_ITEM_MARK_RETRIEVAL, PROC_REF(check_mark_retrieval))
 	src.inform_admins = inform_admins
@@ -66,8 +66,18 @@
 	return COMPONENT_BLOCK_MARK_RETRIEVAL
 
 /datum/component/stationloving/proc/in_bounds(is_retrying = FALSE)
-	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
-	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
+	var/static/list/allowed_shuttles = typecacheof(list(
+		/area/shuttle/syndicate,
+		/area/shuttle/escape,
+		/area/shuttle/pod_1,
+		/area/shuttle/pod_2,
+		/area/shuttle/pod_3,
+		/area/shuttle/pod_4,
+	))
+	var/static/list/disallowed_centcom_areas = typecacheof(list(
+		/area/abductor_ship,
+		/area/awaymission/errorroom,
+	))
 	var/turf/T = get_turf(parent)
 	if(!T)
 		return FALSE

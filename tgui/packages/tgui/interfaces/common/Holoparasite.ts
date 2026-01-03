@@ -1,5 +1,5 @@
-import { BooleanLike } from 'common/react';
 import { sortBy } from 'common/collections';
+import { BooleanLike } from 'common/react';
 
 export type StatThreshold = {
   /**
@@ -101,10 +101,16 @@ export const threshold_title = (thresholds: StatThreshold[]): string => {
   return result.join(', ');
 };
 
-export const sort_thresholds = sortBy(
-  (threshold: AbilityThreshold) => threshold.stats.map((stat: StatThreshold) => stat.name).join(', '),
-  (threshold: AbilityThreshold) =>
-    threshold.stats.map((stat: StatThreshold) => stat.minimum).reduce((sum: number, min: number) => (sum || 0) + min) || 0
-);
+export const sort_thresholds = (thresholds: AbilityThreshold[]) =>
+  sortBy(
+    thresholds,
+    (threshold: AbilityThreshold) =>
+      threshold.stats.map((stat: StatThreshold) => stat.name).join(', '),
+    (threshold: AbilityThreshold) =>
+      threshold.stats
+        .map((stat: StatThreshold) => stat.minimum)
+        .reduce((sum: number, min: number) => (sum || 0) + min) || 0,
+  );
 
-export const sort_abilities = sortBy((ability: Ability) => ability.name);
+export const sort_abilities = (abilities: Ability[]) =>
+  sortBy(abilities, (ability: Ability) => ability.name);

@@ -2,6 +2,11 @@
 	projectile_type = /obj/projectile/ion
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+	e_cost = 800 WATT
+
+/obj/item/ammo_casing/energy/ion/weak
+	projectile_type = /obj/projectile/ion/weak
+	e_cost = 600 WATT
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/projectile/energy/declone
@@ -26,7 +31,7 @@
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/projectile/temp
 	select_name = "freeze"
-	e_cost = 100
+	e_cost = 1000 WATT
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/temp/hot
@@ -51,7 +56,7 @@
 
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/projectile/beam/instakill
-	e_cost = 0
+	e_cost = 0 WATT
 	select_name = "DESTROY"
 
 /obj/item/ammo_casing/energy/instakill/blue
@@ -62,6 +67,6 @@
 
 /obj/item/ammo_casing/energy/tesla_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
-	e_cost = 200
+	e_cost = 2000 WATT
 	select_name = "stun"
 	projectile_type = /obj/projectile/energy/tesla/revolver

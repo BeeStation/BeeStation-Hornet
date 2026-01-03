@@ -1,7 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(orbits)
 	name = "Orbits"
 	flags = SS_KEEP_TIMING
-	init_order = INIT_ORDER_ORBITS
+	init_stage = INITSTAGE_EARLY
 	priority = FIRE_PRIORITY_ORBITS
 	wait = ORBITAL_UPDATE_RATE
 
@@ -128,7 +128,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Check objective
 	if(current_objective)
 		if(current_objective.check_failed())
-			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 			QDEL_NULL(current_objective)
 	//Process events
 	for(var/datum/ruin_event/ruin_event as() in ruin_events)

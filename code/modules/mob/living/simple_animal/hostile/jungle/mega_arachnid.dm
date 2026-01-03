@@ -7,7 +7,7 @@
 	icon_state = "arachnid"
 	icon_living = "arachnid"
 	icon_dead = "arachnid_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	melee_damage = 30
 	maxHealth = 300
 	health = 300
@@ -27,7 +27,7 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/jungle/mega_arachnid/Life()
+/mob/living/simple_animal/hostile/jungle/mega_arachnid/Life(delta_time = SSMOBS_DT, times_fired)
 	..()
 	if(target && ranged_cooldown > world.time && iscarbon(target))
 		var/mob/living/carbon/C = target

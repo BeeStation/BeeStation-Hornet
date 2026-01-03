@@ -35,7 +35,13 @@ SUBSYSTEM_DEF(zclear)
 
 /datum/controller/subsystem/zclear/New()
 	. = ..()
-	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /atom/movable/mirage_holder))
+	ignored_atoms = typecacheof(list(
+		/mob/dead,
+		/mob/camera,
+		/mob/dview,
+		/atom/movable/lighting_object,
+		/atom/movable/mirage_holder
+	))
 
 /datum/controller/subsystem/zclear/Recover()
 	if(!islist(autowipe)) autowipe = list()
@@ -232,7 +238,7 @@ SUBSYSTEM_DEF(zclear)
 				var/nullspaced_mob_names = ""
 				var/valid = FALSE
 				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || !M.soul_departed())
+					if(M.key || !M.get_ghost(FALSE, TRUE))
 						nullspaced_mob_names += " - [M.name]\n"
 						valid = TRUE
 				if(valid)
@@ -270,7 +276,7 @@ SUBSYSTEM_DEF(zclear)
 							//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 							random_teleport_atom(M)
 							M.Knockdown(5)
-							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here eminate no more and you get the horrible feeling that you have been left behind."))
+							to_chat(M, span_warning("You feel sick as your body lurches through space and time, the ripples of the starship that brought you here emanate no more and you get the horrible feeling that you have been left behind."))
 					else
 						delete_atom(thing)
 				else

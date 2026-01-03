@@ -36,13 +36,14 @@
 #define BOLTS	(1<<2)
 #define SHOCK	(1<<3)
 #define SAFE	(1<<4)
+#define EMERGENCY (1<<5)
 
 //used in design to specify which machine can build it
 #define IMPRINTER		(1<<0)	//For circuits. Uses glass/chemicals.
 #define PROTOLATHE		(1<<1)	//New stuff. Uses glass/iron/chemicals
 #define AUTOLATHE		(1<<2)	//Uses glass/iron only.
 #define CRAFTLATHE		(1<<3)	//Uses fuck if I know. For use eventually.
-#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define MECHFAB			(1<<4) 	//Remember, objects utilising this flag should have construction_time var.
 #define BIOGENERATOR	(1<<5) 	//Uses biomass
 #define LIMBGROWER		(1<<6) 	//Uses synthetic flesh
 #define SMELTER			(1<<7) 	//uses various minerals
@@ -64,11 +65,33 @@
 #define MC_NET "NET"
 #define MC_PRINT "PRINT"
 #define MC_CELL "CELL"
-#define MC_CHARGE "CHARGE"
+#define MC_CHARGER "CHARGER"
 #define MC_AI "AI"
 #define MC_SENSORS "SENSORS"
 #define MC_SIGNALLER "SIGNALER"
 #define MC_IDENTIFY "IDENTIFY"
+#define MC_CAMERA "CAMERA"
+
+//Chance Defines
+#define MC_PART_DROP_CHANCE 50
+
+//Trojan defines
+#define BREACHER "BREACHER"
+#define SLEDGE "SLEDGE"
+
+// Antivirus Defines
+#define ANTIVIRUS_NONE 0
+#define ANTIVIRUS_BASIC 1
+#define ANTIVIRUS_MEDIUM 2
+#define ANTIVIRUS_GOOD 3
+#define ANTIVIRUS_BEST 4
+
+// Part tier defines (now used for battery sizes)
+#define PART_TIER_1 1
+#define PART_TIER_2 2
+#define PART_TIER_3 3
+#define PART_TIER_4 4
+#define PART_TIER_5 5
 
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
@@ -76,6 +99,13 @@
 #define NTNET_PEERTOPEER 2			//! P2P transfers of files between devices
 #define NTNET_COMMUNICATION 3		//! Communication (messaging)
 #define NTNET_SYSTEMCONTROL 4		//! Control of various systems, RCon, air alarm control, etc.
+
+// Types of Signal for Network Card Components!
+#define	SIGNAL_NO 0
+#define SIGNAL_LOW 1
+#define SIGNAL_HIGH 2
+#define SIGNAL_NO_RELAY 3
+#define SIGNAL_HACKED 4
 
 //! **NTNet transfer speeds, used when downloading/uploading a file/program.**
 #define NTNETSPEED_LOWSIGNAL 0.5	//! GQ/s transfer speed when the device is wirelessly connected and on Low signal
@@ -86,11 +116,6 @@
 #define MAX_NTNET_LOGS 300
 #define MIN_NTNET_LOGS 10
 
-//Program bitflags
-#define PROGRAM_ALL		(~0)
-#define PROGRAM_CONSOLE	(1<<0)
-#define PROGRAM_LAPTOP	(1<<1)
-#define PROGRAM_TABLET	(1<<2)
 //Program states
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1
@@ -104,23 +129,6 @@
 
 #define FIREDOOR_OPEN 1
 #define FIREDOOR_CLOSED 2
-
-
-
-// These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
-#define SUPERMATTER_ERROR -1		// Unknown status, shouldn't happen but just in case.
-#define SUPERMATTER_INACTIVE 0		// No or minimal energy
-#define SUPERMATTER_NORMAL 1		// Normal operation
-#define SUPERMATTER_NOTIFY 2		// Ambient temp > 80% of CRITICAL_TEMPERATURE
-#define SUPERMATTER_WARNING 3		// Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
-#define SUPERMATTER_DANGER 4		// Integrity < 50%
-#define SUPERMATTER_EMERGENCY 5		// Integrity < 25%
-#define SUPERMATTER_DELAMINATING 6	// Pretty obvious.
-
-#define NUCLEAR_REACTOR_ERROR -1
-#define NUCLEAR_REACTOR_INACTIVE 0
-#define NUCLEAR_REACTOR_ACTIVE 1
-#define NUCLEAR_EXPLODING 2
 
 //Nuclear bomb stuff
 #define NUKESTATE_INTACT		5
@@ -162,7 +170,6 @@
 #define ERROR_COMMITED_SUICIDE 205
 #define ERROR_SOUL_DEPARTED 206
 #define ERROR_SUICIDED_BODY 207
-#define ERROR_SOUL_DAMNED 666
 #define ERROR_UNCLONABLE 901
 
 //these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.
@@ -270,6 +277,7 @@ GLOBAL_LIST_INIT(approved_status_pictures, list(
 #define CAMERA_NETWORK_COURT "court"
 #define CAMERA_NETWORK_EVAC "evac"
 #define CAMERA_NETWORK_CARAVAN_SYNDICATE "caravan_syndicate"
+#define CAMERA_NETWORK_THEATHRE "theathre"
 
 // Off-station networks
 #define CAMERA_NETWORK_BUNKER "bunker"

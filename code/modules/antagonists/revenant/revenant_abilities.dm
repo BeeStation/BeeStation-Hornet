@@ -71,7 +71,7 @@
 		to_chat(src, span_revenwarning("You can't siphon essence during orbiting!"))
 		return
 	if(!target.stat && !HAS_TRAIT_FROM(target, TRAIT_INCAPACITATED, STAMINA))
-		to_chat(src, span_revennotice("[target.p_their(TRUE)] soul is too strong to harvest."))
+		to_chat(src, span_revennotice("[target.p_Their()] soul is too strong to harvest."))
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
 		return
@@ -80,13 +80,13 @@
 	to_chat(src, span_revennotice("You search for the soul of [target]."))
 	if(do_after(src, rand(10, 20), target, timed_action_flags = IGNORE_HELD_ITEM)) //did they get deleted in that second?
 		if(target.ckey)
-			to_chat(src, span_revennotice("[target.p_their(TRUE)] soul burns with intelligence."))
+			to_chat(src, span_revennotice("[target.p_Their()] soul burns with intelligence."))
 			essence_drained += rand(20, 30)
 		if(target.stat != DEAD)
-			to_chat(src, span_revennotice("[target.p_their(TRUE)] soul blazes with life!"))
+			to_chat(src, span_revennotice("[target.p_Their()] soul blazes with life!"))
 			essence_drained += rand(40, 50)
 		else
-			to_chat(src, span_revennotice("[target.p_their(TRUE)] soul is weak and faltering."))
+			to_chat(src, span_revennotice("[target.p_Their()] soul is weak and faltering."))
 		if(do_after(src, rand(15, 20), target, timed_action_flags = IGNORE_HELD_ITEM)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 30)
@@ -99,7 +99,7 @@
 					to_chat(src, span_revenbignotice("Ah, the perfect soul. [target] will yield massive amounts of essence to you."))
 			if(do_after(src, rand(15, 25), target, timed_action_flags = IGNORE_HELD_ITEM)) //how about now
 				if(!target.stat && !HAS_TRAIT_FROM(target, TRAIT_INCAPACITATED, STAMINA))
-					to_chat(src, span_revenwarning("[target.p_theyre(TRUE)] now powerful enough to fight off your draining."))
+					to_chat(src, span_revenwarning("[target.p_Theyre()] now powerful enough to fight off your draining."))
 					to_chat(target, span_boldannounce("You feel something tugging across your body before subsiding."))
 					draining = 0
 					essence_drained = 0
@@ -136,7 +136,7 @@
 						target.investigate_log("has died from revenant harvest.", INVESTIGATE_DEATHS)
 					target.death(FALSE)
 				else
-					to_chat(src, span_revenwarning("[target ? "[target] has":"[target.p_theyve(TRUE)]"] been drawn out of your grasp. The link has been broken."))
+					to_chat(src, span_revenwarning("[target ? "[target] has":"[target.p_Theyve()]"] been drawn out of your grasp. The link has been broken."))
 					if(target) //Wait, target is WHERE NOW?
 						target.visible_message(span_warning("[target] slumps onto the ground."), \
 											   span_revenwarning("Violets lights, dancing in your vision, receding--"))
@@ -154,7 +154,7 @@
 /datum/action/spell/night_vision/revenant
 	name = "Toggle Darkvision"
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_nightvision"
 	toggle_span = "revennotice"
 
@@ -166,11 +166,11 @@
 	telepathy_span = "revennotice"
 	bold_telepathy_span = "revenboldnotice"
 
-	antimagic_flags = MAGIC_RESISTANCE_HOLY|MAGIC_RESISTANCE_MIND
+	use_runechat_telepathy = TRUE
 
 /datum/action/spell/aoe/revenant
 	background_icon_state = "bg_revenant"
-	icon_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
 	button_icon_state = "r_default"
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
 	spell_requirements = NONE
@@ -355,14 +355,13 @@
 
 // A note to future coders: do not replace this with an EMP because it will wreck malf AIs and everyone will hate you.
 /datum/action/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(turf/victim, mob/living/simple_animal/revenant/caster)
-	/* emag code differs too much from us
 	for(var/mob/living/simple_animal/bot/bot in victim)
-		if(!(bot.bot_cover_flags & BOT_COVER_EMAGGED))
+		if(!bot.emagged)
 			new /obj/effect/temp_visual/revenant(bot.loc)
-			bot.bot_cover_flags &= ~BOT_COVER_LOCKED
-			bot.bot_cover_flags |= BOT_COVER_OPEN
-			bot.emag_act(caster)
-	*/
+			bot.locked = FALSE
+			bot.open = TRUE
+			bot.use_emag(caster)
+
 	for(var/mob/living/carbon/human/human in victim)
 		if(human == caster)
 			continue
@@ -371,17 +370,16 @@
 		to_chat(human, span_revenwarning("You feel [pick("your sense of direction flicker out", "a stabbing pain in your head", "your mind fill with static")]."))
 		new /obj/effect/temp_visual/revenant(human.loc)
 		human.emp_act(EMP_HEAVY)
+
 	for(var/obj/thing in victim)
-		//Doesn't work on SMES and APCs, to prevent kekkery.
-		if(istype(thing, /obj/machinery/power/apc) || istype(thing, /obj/machinery/power/smes))
-			continue
 		if(prob(20))
-			if(prob(50))
-				new /obj/effect/temp_visual/revenant(thing.loc)
-			//thing.emag_act(caster)
+			new /obj/effect/temp_visual/revenant(thing.loc)
+			thing.use_emag(caster)
+		else
+			thing.emp_act(EMP_HEAVY)
+
 	// Only works on cyborgs, not AI!
 	for(var/mob/living/silicon/robot/cyborg in victim)
-		playsound(cyborg, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 		new /obj/effect/temp_visual/revenant(cyborg.loc)
 		cyborg.spark_system.start()
 		cyborg.emp_act(EMP_HEAVY)
@@ -434,3 +432,54 @@
 		new /obj/effect/temp_visual/revenant(tray.loc)
 		tray.pestlevel = (rand(8, 10))
 		tray.weedlevel = (rand(8, 10))
+
+/datum/action/spell/teleport/area_teleport/revenant
+	name = "Revenant Teleport"
+	desc = "Brings you to a location of your choosing on the station"
+	background_icon_state = "bg_revenant"
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_teleport"
+	post_teleport_sound = 'sound/magic/voidblink.ogg'
+	cooldown_time = 10 SECONDS
+	spell_requirements = NONE
+
+/datum/action/spell/teleport/area_teleport/revenant/on_cast(mob/user, atom/target)
+	if((isrevenant(user)))
+		var/mob/living/simple_animal/revenant/revenant = user
+
+		//If the revenant is currently recovering from casting an ability which stuns and forcibly reveals them
+		if(revenant.unreveal_time)
+			to_chat(user, span_warning("You can't pass through the incorporeal plane right now! You need to recover!"))
+			return
+	..()
+
+/datum/action/revenant_phase_shift
+	name = "Phase Shift"
+	desc = "Shift in and out of your corporeal form"
+	background_icon_state = "bg_revenant"
+	button_icon = 'icons/hud/actions/actions_revenant.dmi'
+	button_icon_state = "r_phase"
+
+/datum/action/revenant_phase_shift/on_activate(mob/user)
+	if(!isrevenant(user))
+		return FALSE
+	var/mob/living/simple_animal/revenant/revenant = user
+	if(!revenant.castcheck(0))
+		return FALSE
+	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
+	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
+		var/turf/open/floor/stepTurf = get_turf(user)
+		if(stepTurf)
+			var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+			if(salt)
+				to_chat(user, span_warning("[salt] blocks your way to spirit realm!"))
+				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
+				return
+			if(stepTurf.flags_1 & NOJAUNT_1)
+				to_chat(user, span_warning("Some strange aura blocks your way to spirit realm."))
+				return
+			if(stepTurf.is_holy())
+				to_chat(user, span_warning("Holy energies block your way to spirit realm!"))
+				return
+	revenant.phase_shift()
+	revenant.orbiting?.end_orbit(revenant)

@@ -1,0 +1,514 @@
+2023-07-01:
+  Absolucy, tralezab:
+  - rscadd: Added tgui-based antag info popups for multiple antags, replacing the
+      previous basic popups and info.
+  EvilDragonfiend:
+  - bugfix: Sprite image of Dark Honker and Dark Gygax is now corrected. These don't
+      show normal version.
+  PowerfulBacon:
+  - rscdel: Removes the syndicate surgery implant
+2023-07-03:
+  CydiaLamiales:
+  - tweak: Made the wearable headphones into a musical instrument
+  - rscadd: Added the ability to mass tag items inside of a container using the price
+      tagger
+  - tweak: Made the price tagger tag bags before being put inside of them
+  - rscadd: Made the Custom Vendor machine board printable at a lathe
+  - tweak: Reduced the prices of the Custom Vendor Board, Custom Vendor Refill Unit
+      and Price Tagger, as well as increasing their amount sold by 1
+  - tweak: Increased the maximum capacity of Custom Vendors to 100 items
+  - rscadd: Added the name and job title of the owner to the description of the Custom
+      Vendor when examining it
+  - rscadd: Added the ability to purchase items from a vendor without an ID card equipped,
+      while holding a stack of holochips in your hand, or while having an ID card
+      or holochips inside of a worn or held wallet
+  - tweak: Made hitting a vendor with a stack of holochips open the vendor's menu
+  - tweak: Made custom vendors differentiate between items based on their type AND
+      name at the same time
+  - rscadd: Made custom vendors message the person with the linked bank account when
+      an item is bought from them
+  - bugfix: Fixed custom vendors not displaying the item count of their goods
+  PowerfulBacon:
+  - tweak: Armblades will now damage targets on help intent.
+2023-07-04:
+  Absolucy:
+  - bugfix: Healing holoparasites will no longer damage toxinlovers (oozelings, etc)
+      when healing.
+  RKz, Mothblocks:
+  - rscadd: adds smiting to buildmode
+  - code_imp: datumizes smiting
+  - admin: converts some rather obnoxious admin tools to TGUI lists. Should make em
+      easier to use
+  - rscadd: buildmode smiting sprite
+2023-07-06:
+  EvilDragonfiend:
+  - code_imp: sorted dme contents properly
+  RKz, Yenwodyah:
+  - rscadd: more things properly utilize basepixels, instead of the old `pixel_x =
+      initial(pixel_x)`
+  - bugfix: xeno offsets dont get messed up again
+  - code_imp: made pixel offsets a var, instead of a getter
+  Rukofamicom, Pirill, Naevi:
+  - rscadd: Added the bluespace capsule, available through applied bluespace research.
+      Press the button and toss the capsule and watch as it expands into a tall storage
+      device. Close it to shrink it back into a pocket-sized capsule. Has the same
+      capacity as a normal crate but cannot hold bulky items or most mobs (Tiny mobs
+      like mice will fit inside).
+  - rscadd: Added the ability to pick up most bots such as beepsky and medibots by
+      powering them down (requires ID access) and then dragging them onto yourself.
+      Mulebots and ED209 are too large to be carried and do not work with this functionality.
+  - tweak: All bots now have a 4-8 second startup sequence when powered on to prevent
+      very sudden surprise attacks utilizing bot deployments.
+  - code_imp: 'Adds a new object type: "/obj/item/deployable" for items which can
+      be toggled between a deployable form that is carried around and "deployed" form
+      that is interactable within the environment'
+  - refactor: Refactored body bags and roller beds to be subtypes of deployable mentioned
+      above. There should be no functional difference in how these items behave.
+  - refactor: Refactored barrier grenades to be a subtype of deployable - these are
+      no longer grenades and are instead collapsible barriers now. The barriers may
+      only be dismantled after being unlocked by swiping an ID with security clearance.
+  - tweak: The amount of security barriers available at roundstart and within cargo
+      orders has been roughly doubled because they are now always deployed one.
+  - tweak: Sandbags and wooden barricades can now be recollected as well by dragging
+      them onto the user's sprite. Damage sustained to these barricades affects their
+      return yield when picked up.
+2023-07-07:
+  Absolucy:
+  - bugfix: Fix operating computers not linking to stasis beds automatically properly.
+2023-07-09:
+  RKz:
+  - admin: All smites now accounted for. Readded apply_brain_damage, bsa, fireball,
+      gib, immerse, sleep, supply_pod_quick smites
+  The-Moon-Itself:
+  - bugfix: Escape pods are fixed
+  imsynthex:
+  - imageadd: The floor tiles have been resprited
+  - bugfix: Shutters and blast doors using new hazard lines show up in game now
+2023-07-10:
+  Absolucy:
+  - bugfix: Emotes, blood+clock cult comms, mentor PMs, and slime links now properly
+      avoid highlighting messages sent by yourself.
+  - bugfix: Cancelling a message to a slime link will no longer transmit a single
+      dot.
+  - bugfix: Fixed HTML encoding in blood+clock cult comms and mentor PMs.
+  - admin: Ahelps now use tgui-input.
+  - tweak: Blood+clock cult comms, mentor PMs, and slime links now use tgui text input
+      boxes.
+  - tweak: Blood+clock cult comms and slime links are now classified as "radio" messages
+      for purposes of chat tabs.
+  - bugfix: Converted some erroneous use of shared state in tgui to local state. As
+      a result, ghosts can now look at the bounty board on newscasters, and flick
+      between tabs in several UIs, such as the operating computer.
+2023-07-11:
+  HowToLoLu:
+  - bugfix: Removed an anomalous "Dispenser" present on CorgStation, replacing it
+      with a proper NT approved water tank.
+  RKz, Timberpoes:
+  - bugfix: Crafting recipes that require both bottles and reagents now craft properly
+      when the bottle contains the reagent, without duplicating items.
+  - bugfix: Crafting that consumes items that have some sort of inventory should now
+      dump the inventory contents out instead of deleting them.
+2023-07-12:
+  CydiaLamiales:
+  - tweak: made the color gradient selection menu not pop up if you selected "None"
+      as the gradient for wigs
+  - bugfix: fixed worn wigs not properly displaying the hair
+  - rscadd: Added a new 2 point trait - Bro Skater. Spawns you in with cosmetic sunglasses
+      and a pro skateboard, reduces stamina damage from riding/doing tricks/crashing
+      with the skateboard and similar vehicles. Also makes you automatically flip
+      any cap you put on.
+  Dejaku51:
+  - bugfix: You can once again drop pAI door jack cable when not being held
+  EvilDragonfiend:
+  - bugfix: fixed a case where logging combat fails.
+  HowToLoLu:
+  - tweak: Map Cordons are now blessed by [REDACTED], to prevent incoporeal forces
+      from interacting with them causing [REDACTED]
+  - bugfix: Radstation and Corgstation escape pods are now permitted to land on lavaland
+  - bugfix: Narsian interference no longer affects the launching of shuttles (The
+      shuttle subsystem was locking down too early, now it won't)
+  RKz, ninjanomnom, kriskog:
+  - bugfix: you can freely exit your corpse with your WASD keys again, even if you
+      die in lava
+  - refactor: cleaned up movement_delay
+  - balance: Consequently, carbon movement will no longer be interrupted or delayed
+      by an initial attack. While a longtime feature, this is actually the result
+      of a bug. This will lower an already strong advantage an aggressor usually has
+      in a combat situation, and should even the playing field. Slowdown due to overall
+      damage to the carbon is not affected.
+2023-07-13:
+  Rukofamicom:
+  - bugfix: Exploration medics will spawn with medkit in hand instead of in their
+      bag where it shouldn't fit
+  lowwy:
+  - tweak: Medkits can now be attacked to the belt
+2023-07-14:
+  BlueHNT:
+  - rscadd: Added the description
+  CydiaLamiales:
+  - tweak: Increased the max supply of the Syndicate Uniform Supplies crate from 1
+      to 3.
+  HowToLoLu:
+  - bugfix: Having the random name preference no longer makes you nameless as a ghost.
+2023-07-15:
+  CydiaLamiales:
+  - rscadd: Added a "tcomms server" light switch for mapping
+  - rscadd: Added a light switch to almost every room excluding maintenance
+  - rscadd: Added Freezer, Medbay Lobby and Surgery areas to Box alongside the required
+      APCs
+  - bugfix: fixed a couple of misplaced areas in Box and Kilo
+  EvilDragonfiend:
+  - bugfix: Fixed power-disrupted airlocks are permanently disabled. It will automatically
+      be restored.
+  PowerfulBacon:
+  - balance: The sleepy pen now becomes a regular pen after a single use, requires
+      a 0.5 second progress bar to inject its reagents and shows a visible message
+      to everyone except the target.
+2023-07-16:
+  EvilDragonfiend:
+  - bugfix: Revenant greetings message no longer has TG wiki that is supposed to have
+      Beestation wiki
+  Penwin0:
+  - rscadd: Added the Chain of Command to boxstation
+  bluezorua:
+  - tweak: minute changes to Boxs Cargo
+2023-07-18:
+  Absolucy:
+  - rscadd: Added a warning prompt for silicons if they are going to state a law that
+      explicitly contains "don't state" (or some variation of it).
+  - bugfix: Prying open unpowered firelocks and windoors with a crowbar FINALLY works
+      again.
+  - tweak: Prying open firelocks and windoors now respects tool speed.
+  BlueHNT:
+  - rscadd: Added wt550m9 rubber mag sprite
+  EvilDragonfiend:
+  - code_imp: recipes variable in materials is removed. It now uses get_recipes()
+      proc.
+  PowerfulBacon:
+  - rscdel: Reverts the blindness refactor due to issues with permanently blurred
+      vision.
+  RKz, nightred, Couls, Arturlang, GoblinBackwards:
+  - bugfix: no more temporary blindness when spawning in!
+  - refactor: refactored blindness code to be less redundant and poorly applied.
+  - bugfix: no more perma-blindness if blindness is improperly applied to you! Update_stat
+      should actually do its job now.
+  - code_imp: removed duplicate method 'blind_eye', replaced in favor of 'adjust_blindness'
+  - rscadd: The Blind and Unconcious will now have monochromatic vision, because they
+      don't know what colors are. This change is made in anticipation of adding blind-vision
+      in the near-future.
+2023-07-19:
+  HowToLoLu:
+  - bugfix: You can no longer get stuck in the lobby upon latejoining if someone unbuckled
+      and stayed on top of a seat.
+2023-07-20:
+  Crossedfall:
+  - bugfix: The CI will correctly use MariaDB instead of MySQL, similar to the actual
+      server
+  CydiaLamiales:
+  - tweak: Made the Altar of the Gods indestructible
+2023-07-21:
+  CydiaLamiales:
+  - bugfix: Fixed some divisions by 0
+  EvilDragonfiend:
+  - tweak: shuttle docking will now display blue tiles (areas of doors or some passible
+      things)
+  - imageadd: alpha images for shuttle dock
+  - code_imp: crafting now properly logs a failure.
+  RKz, DoctorSquishy, Ghilker, esainane, ShizCalev:
+  - code_imp: combined all apc defines into one .dm
+  - soundadd: New sounds for switches on APCs and power level on and off stages
+  - refactor: Refactored and Organized APC code
+  - code_imp: less hardels in ai code
+  Tyranicranger4:
+  - admin: Added logging to cargo's express supply console.
+  itsmeow:
+  - tweak: Local instances of the game ran with a debugger attached will now automatically
+      disable lobby music and ambiance if no database is connected. This does not
+      affect the main server at all, and only affects developers.
+  itsmeow, Lohikar, Kapu1178, CrimsonShrike:
+  - refactor: Rewrote multiz rendering to use Z-Mimic. Should vastly reduce lag caused
+      by multiz rendering. Some things may not render properly.
+  - bugfix: Emissives will no longer leak onto the z-level above.
+  - rscadd: Added multiz lighting. Nonmovable lights will now bleed up and down.
+2023-07-22:
+  Absolucy:
+  - bugfix: You can now properly put spray cans into storage items and objects whenever
+      the cap is on.
+  - tweak: Incursion now requires a hard minimum of 22 people to roll.
+  - bugfix: Fixed an excessive amount of incursion members being spawned by dynamic.
+  Apogee-dev,Azarak,CydiaLamiales,PestoVerde322,BriggsIDP:
+  - rscadd: Added a random 1-3 second delay to lights turning on, plus a sound
+  - soundadd: added a sound for light fixtures being turned on
+  - rscadd: Added a station-wide light flicker after a powerful explosion
+  - rscadd: Added a craftable light switch frame
+  - imageadd: Added an icon for the light switch frame
+  - rscadd: Added deconstruction steps for the light switch - screwdriver, then crowbar
+  - tweak: Made APCs automatically turn off lighting at 50% battery charge and lighting
+      + equipment at 25% charge
+  - tweak: Made unstaffed departments start off with their lights turned off
+  CydiaLamiales:
+  - rscadd: Added a more detailed description to the Janicart
+  - rscadd: Added the ability to quickdraw a mop from the Janicart
+  - rscadd: Replaced the old windows menu for the janicart with a radial menu
+  - rscadd: Added the ability to toggle auto floor cleaning for pimping rides, janibots
+      and xeno maids
+  - bugfix: Fixed the advanced mop having the same inhand icon as the normal mop
+  - rscadd: Made several Anomalies and Wormholes create harvested pierced realities
+      upon expiring
+  - code_imp: Added a turf proc for generating harvested pierced realities
+  - bugfix: Fixed lights playing the sound of turning on two times at roundstart
+  - bugfix: Fixed atmos alarms no making the lights turn blue
+  - tweak: Made air and fire alarms instantly swithc the color of the lights to blue/red
+      instantly and quietly
+  EvilDragonfiend:
+  - code_imp: more assets are cross_round_cachable.
+  - admin: Admins without R_ADMIN perm are sorted in another section in staff_who,
+      so that people will not believe coders can handle adminhelps.
+  - bugfix: bodybag, rollerbed, deployable bot can be placed onto a turf you're on
+  - tweak: if a deployable item can not be placed onto a turf you're on, it will notify
+      you that you need to click an open area.
+  - tweak: meteor shield sat is now a deployable item. This will make preparing and
+      installing meteor shield sat less tedious than before.
+  - tweak: meteor shield cargo order is now max 2 stocks, and each supply contains
+      7 capsules. Now costs 7,000 credits.
+  - code_imp: reverts "Prevent dynamic midrounds from rolling if the shuttle is called
+      or docked" PR
+  - bugfix: fixed where holocall throws a runtime
+  PowerfulBacon, MothBlocks:
+  - tweak: Speeds up the initialisation times of closets.
+  - tweak: Crew pinpointers are no longer indestructible.
+  RKz, LemonInTheDark:
+  - code_imp: cleans up click code, converts to defines, converts to LAZY ACCESS
+  RKz, carlarctg:
+  - rscadd: crafting recipes for all carpet types! Use a sprayer or pour carpet reagent
+      on the ground to make the station pretty!
+  - balance: buff to current and added carpet recipes. It may be actually possible
+      to beautify the station within the timespan of a round on Sage now.
+  RKz, haukeschuemann:
+  - bugfix: swarming component is deleted properly
+  RKz, tralezab:
+  - code_imp: beam code no longer are possessed by cosmic horrors. Game should be
+      faster when using medibeams, RPEDs, or when the CO2 sm gets REALLY messed up
+  Tyranicranger4:
+  - admin: Admins will now only receive alerts about PDA messages being deleted at
+      a message monitoring console if the user isn't an Antagonist or Lavaland Syndicate
+      role.
+  itsmeow:
+  - bugfix: TGUI Inputs with timeouts now properly update the timeout bar.
+  - tweak: The TGUI Input timeout bar now matches the generic color theme.
+  - rscadd: Added TGUI color picker and replaced all use of BYOND color pickers with
+      it (TGUI input preference is still respected).
+  - tweak: The Generic UI theme will now affect the border color of number inputs
+      and text areas the same as text inputs.
+  mystery3525:
+  - tweak: Dynamic midrounds can no longer roll if the shuttle is called or docked.
+2023-07-23:
+  Absolucy:
+  - rscadd: Abductors can now imprint custom objectives onto the psyche of their victims
+      whenever processing them through their experimenter machine!
+  - rscadd: Abductee objectives can be cured, by lobotomizing the victim after they've
+      had their abductor gland removed.
+  - bugfix: Actually, for sure this time, fixed linking roundstart surgery computers.
+  RKz, Spooky Donut, Rohesie:
+  - code_imp: lying renamed to lying_angle and set as protected, lying_angle should
+      never be called directly
+  - refactor: how lying is updated
+  - code_imp: purified a few calls
+  itsmeow:
+  - code_imp: Optimized atom initialization.
+  itsmeow, EvilDragonfiend:
+  - rscadd: All non-ghost role antagonist preferences are now per-character. Global
+      toggle buttons toggle the preference on all characters at once.
+  - refactor: Rewrote antag preference internals to allow for better control of antag
+      preferences and more distinct usages.
+  - refactor: Cleaned up antag bans, with more distinct settings and new general categories.
+  - tweak: All antag prefs will start on by default rather than off. The same applies
+      to newly added ones.
+  - bugfix: Fixed various antag bans being bypassable.
+  - bugfix: Fixed various ghost polls using the wrong preference or ban types.
+  - rscdel: Removed BYOND account age checks from antag roles in favor of living hours.
+  - rscdel: Removed "Midround Antagonist" preference in favor of unique preferences
+      per midround.
+  - rscadd: Added distinct role preferences for Antagonists (Roundstart/Latejoin)
+      and Midrounds (Ghost/Living).
+  - rscadd: Almost all ghost antagonist polls have a "Never for this round" option
+      now.
+  - rscdel: Removed the ghost notification preferences menu (poll ignore menu).
+  - tweak: The lavaland beach bartender can now speak Stoner.
+  - rscdel: Removed some unused mob spawners from the code.
+  - rscadd: Added 4hr playtime checks to roundstart/latejoin antag roles. Wizard and
+      nukeops are 8hr.
+  - bugfix: Fixed a typo in the skeleton spawner description.
+  - bugfix: Fixed unnecessary DB queries due to is_banned_from not properly ckey-ifying
+      the ckey parameter and causing cache misses.
+2023-07-24:
+  CydiaLamiales:
+  - bugfix: Fixes lights not having a delay when turning on
+  EvilDragonfiend:
+  - bugfix: fixed where holocall throws a runtime (second)
+  HowToLoLu:
+  - bugfix: Attack effect objects (the infamous temp) are no longer attackable and
+      will not block clicks anymore.
+  RKz, SuperNovaa41:
+  - bugfix: after 6 years, F2 the quickscreenshot keybind works again
+2023-07-25:
+  Absolucy:
+  - tweak: Stargazer slime links now link to one's mind rather than body, meaning
+      the link comes with you should you mind swap or something. Do note the link
+      still breaks if you die.
+  - rscadd: 'Added a saymode for slime links: ".j Hello, slime link!"'
+  - tweak: Stargazer slime links and telepathy now use tgui input rather than BYOND
+      input.
+  - rscadd: Stargazers can now manually unlink people from their slime link!
+2023-07-26:
+  RKz:
+  - bugfix: fixes pulling pixel offsets not being reset when buckled
+2023-07-27:
+  CydiaLamiales:
+  - rscadd: Added a craftable modulator gas mask which makes your voice show up as
+      Unknown
+  - rscadd: Added the ability to disguise your tongue with the chameleon gas mask
+  - rscdel: Removed the random say modifier from Slimepeople, it's now always "blorbles"
+  EvilDragonfiend:
+  - bugfix: AI holocall no longer tells duplicated ghost follow option
+  - imageadd: shield3 type sprites - shield3-push, shield3-pull, shield3-rewind
+  - tweak: gravitational anomaly now uses shield3-rewind sprite
+  - code_imp: dme order fixed
+  - code_imp: runtime.log file provides more information - it now reports which subsystem
+      is being initialized.
+  HowToLoLu:
+  - bugfix: You are no longer blocked from attacking a storage object that is full.
+      e.g. hitting the captain's spare safe with a supermatter sword.
+  PowerfulBacon:
+  - code_imp: Moves organ signals to the correct place
+  RKz, necromanceranne, MrMelbert, Ghommie:
+  - code_imp: makes climbing mechanic an element
+  - tweak: railings can be climbed from both sides
+  - tweak: set deployable capsule density to 0, rather than needing to be climbed
+      into
+  - spellcheck: climbing cases
+  itsmeow:
+  - code_imp: Micro-optimized sorting functions
+2023-07-28:
+  BriggsIDP:
+  - tweak: tweaked DeltaStation2.dmm
+  - tweak: tweaked MetaStation2.dmm
+  - tweak: added a jani room to medbay that CMO can access
+  - rscadd: Custodian zoning
+  - rscadd: Extra Stasis direction
+  RKz:
+  - bugfix: incorrect projectile and lying detection bugs
+  Tyranicranger4:
+  - bugfix: Fixes objectives not being displayed in the blood brother antag popup
+  itsmeow:
+  - code_imp: Saves between ~18ms init time by optimizing turf destroy and atom destroy.
+  - code_imp: Micro-optimized signal registration, saving 60ms init.
+  - code_imp: Reduced init time ~0.5s by optimizing icon smoothing.
+  - code_imp: Added byondtracy support to the repository.
+2023-07-29:
+  RKz, nightred, Couls, Arturlang, GoblinBackwards:
+  - bugfix: no more temporary blindness when spawning in!
+  - refactor: refactored blindness code to be less redundant and poorly applied.
+  - bugfix: no more perma-blindness if blindness is improperly applied to you! Update_stat
+      should actually do its job now.
+  - code_imp: removed duplicate method 'blind_eye', replaced in favor of 'adjust_blindness'
+  - rscadd: The Blind and Unconcious will now have monochromatic vision, because they
+      don't know what colors are. This change is made in anticipation of adding blind-vision
+      in the near-future.
+  itsmeow:
+  - code_imp: Optimized reg_in_areas_in_z, saving 150ms init
+  - code_imp: Optimized atmos init and MultiZ, saving ~5 sec.
+2023-07-30:
+  Absolucy:
+  - bugfix: Staffed department lighting will now properly be completely switched on
+      at roundstart.
+  - tweak: Lighting of ALL areas accessible by roundstart crewmembers (taking into
+      account minimal or skeleton crew access) will be switched on at roundstart.
+  - tweak: The bar and cafeteria now have their lights always switched on at roundstart,
+      due to the fact they often serve as public crew gathering places, even if there
+      is no bartender/chef tending to them.
+  - spellcheck: Fixed a couple of typos in some area names.
+  - tweak: Sound synthesizers now have a proper cooldown, preventing them from playing
+      overlapping sounds.
+  EvilDragonfiend:
+  - bugfix: Fixed crafting menu showing incorrect result item icons
+  - rscadd: stripped_input() proc now has an option to choose strip method
+  - tweak: designating a station name or uploading laws no longer contains `&#39;`
+      which is just a single quote letter.
+  LemonLimeSoda:
+  - bugfix: Photocopiers no longer print exclusively gray text with default toner
+      cartridges.
+  PowerfulBacon:
+  - balance: Syndicate teleporter has been reworked. It will no longer teleport through
+      solid walls but will be more effective at knocking down targets in a combat
+      scenario, as it will knock down any targets passed through during a teleport.
+      It can be used to jump through windows without being shocked. The price has
+      been reduced from 8 TC to 7.
+  - rscdel: Removes help intent disabling blocking.
+  Rukofamicom:
+  - tweak: Package Wrap (and by extension gift wrap) no longer works on gigantic objects
+  - bugfix: fixed an exploit that enabled bluespace capsules to carry things it was
+      not intended to carry. They are intended to carry items that can be placed within
+      a normal backpack.
+  itsmeow:
+  - rscadd: Added glow-in-the-dark emissives to lightswitches, so they can be located
+      in the dark.
+2023-07-31:
+  ? ''
+  : - bugfix: Fixed Radstation's air mixer settings
+    - bugfix: Air alarm placed in correct spot in exploration preparation room
+    - bugfix: Fixed air in telecommunications control room.
+  Absolucy:
+  - bugfix: LOOC is much less janky now. You can properly both hear LOOC as a ghost,
+      and both hear and talk on LOOC while inside another object (including cases
+      such as split personalities, recalled holoparasites, desynchronized mobs, jaunting
+      mobs)!
+  BriggsIDP:
+  - tweak: Foliage HP decreased
+  - tweak: Tree sprite shadows removed
+  CydiaLamiales:
+  - rscadd: Added the ability to change the name and description of Pill Bottles with
+      a pen.
+  - tweak: Greatly reduced the harvested pierced reality spam from the Supermatter's
+      anomalies.
+  - bugfix: Fixed the Scientist crew objective targeting roundstart researched designs
+  HowToLoLu:
+  - bugfix: The SlimeLink Action Buttons no longer linger or pile up when changing
+      between species
+  JixS4v:
+  - bugfix: H.O.N.K. mechs can now detach weapons
+  - bugfix: BCI components are now able to be printed
+  - tweak: Separates BCI-related circuits into a new techweb node
+  - rscadd: Adds the thought listener component for BCIs
+  - rscadd: Adds a rotation component to the object overlay on BCIs
+  LemonInTheDark, itsmeow, Ghommie, Dennok:
+  - code_imp: Optimized maploading, ruin generation, and cave generation, saving ~8sec
+      init time.
+  - code_imp: Optimized ChangeTurf.
+  - code_imp: Optimized getting area contents in some cases, although there are still
+      many inefficient `in area` loops to clean up.
+  - bugfix: Fixed atom init sometimes failing when generating in round or during unit
+      tests.
+  RKz:
+  - code_imp: Kills obj/item/projectile in favour of obj/projectile. No ingame effect,
+      just free overhead.
+  RKz, Haukeschuemann:
+  - tweak: cleaned up how borg radios and batteries initialize
+  RKz, Rohesie, Cobby:
+  - refactor: makes incapacitation into a trait
+  itsmeow:
+  - code_imp: Removed unnecessary atmos init during terrain generation, saving 250ms
+      init.
+  - code_imp: Removed unnecessary icon update during transit turf creation, saving
+      25ms init.
+  - code_imp: Lazy-initialized circuit USB components, saving 120ms init.
+  mystery3525:
+  - bugfix: radstation scimaint and medmaint has been split into more separate maintenance
+      areas, these places were massive and non-contiguous.
+  - balance: radstation armory no longer has its own backup SMES
+  - balance: radstation no longer has random shock grilles for lower-security areas
+      such as maintenance, tool storage, chemistry, and medbay (really?)
+  - bugfix: radstation cables now prefer to pass through doors versus windows and
+      machines.
+  wixoa, ike709:
+  - code_imp: Fixed stinky code involving aimed gun speed/damage modifiers

@@ -19,6 +19,7 @@
 	max_integrity = 250
 	integrity_failure = 0.4
 	armor_type = /datum/armor/machinery_firealarm
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -50,7 +51,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 
 
 /datum/armor/machinery_firealarm
-	rad = 100
 	fire = 90
 	acid = 30
 
@@ -281,7 +281,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 	// Clears all fire doors and their effects for now
 	// They'll reclose if there's a problem
 	for(var/obj/machinery/door/firedoor/firelock in my_area.firedoors)
-		firelock.crack_open()
+		if (firelock.alarm_type == FIRELOCK_ALARM_TYPE_GENERIC)
+			firelock.crack_open()
 	if(user)
 		balloon_alert(user, "reset alarm")
 		user.log_message("reset a fire alarm.", LOG_GAME)
@@ -306,6 +307,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/firealarm)
 /obj/machinery/firealarm/AltClick(mob/user)
 	if(can_interact(user))
 		try_lock(user)
+
+SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 
 /obj/machinery/firealarm/attack_hand(mob/user, list/modifiers)
 	if(buildstage != 2)

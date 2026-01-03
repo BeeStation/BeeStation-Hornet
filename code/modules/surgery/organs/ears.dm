@@ -28,7 +28,7 @@
 	// Multiplier for both long term and short term ear damage
 	var/damage_multiplier = 1
 
-/obj/item/organ/ears/on_life()
+/obj/item/organ/ears/on_life(delta_time, times_fired)
 	if(!iscarbon(owner))
 		return
 	..()
@@ -39,8 +39,8 @@
 	if(HAS_TRAIT(C, TRAIT_DEAF))
 		deaf = max(deaf, 1)
 	else if(!(organ_flags & ORGAN_FAILING)) // if this organ is failing, do not clear deaf stacks.
-		deaf = max(deaf - 1, 0)
-		if(prob(damage / 20) && (damage > low_threshold))
+		deaf = max(deaf - (0.5 * delta_time), 0)
+		if((damage > low_threshold) && DT_PROB(damage / 60, delta_time))
 			adjustEarDamage(0, 4)
 			SEND_SOUND(C, sound('sound/weapons/flash_ring.ogg'))
 			to_chat(C, span_warning("The ringing in your ears grows louder, blocking out any external noises for a moment."))
@@ -71,14 +71,14 @@
 /mob/proc/restoreEars()
 
 /mob/living/carbon/restoreEars()
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.restoreEars()
 
 /mob/proc/adjustEarDamage()
 
 /mob/living/carbon/adjustEarDamage(ddmg, ddeaf)
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
 		if(ears.deaf)
@@ -87,7 +87,7 @@
 /mob/proc/minimumDeafTicks()
 
 /mob/living/carbon/minimumDeafTicks(value)
-	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
+	var/obj/item/organ/ears/ears = get_organ_by_type(/obj/item/organ/ears)
 	if(ears)
 		ears.minimumDeafTicks(value)
 
@@ -100,42 +100,36 @@
 	visual = TRUE
 	bang_protect = -2
 
-/obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
-	..()
-	if(pref_load)
-		H.update_body()
-		return
-	if(istype(H))
-		color = H.hair_color
-		H.dna.features["ears"] = H.dna.species.mutant_bodyparts["ears"] = "Cat"
-		H.update_body()
+/obj/item/organ/ears/cat/on_insert(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		color = ear_owner.hair_color
+		ear_owner.dna.features["ears"] = ear_owner.dna.species.mutant_bodyparts["ears"] = "Cat"
+		ear_owner.update_body()
 
-/obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
-	..()
-	if(pref_load && istype(H))
-		H.update_body()
-		return
-	if(istype(H))
-		color = H.hair_color
-		H.dna.features["ears"] = "None"
-		H.dna.species.mutant_bodyparts -= "ears"
-		H.update_body()
+/obj/item/organ/ears/cat/on_remove(mob/living/carbon/human/ear_owner)
+	. = ..()
+	if(istype(ear_owner) && ear_owner.dna)
+		color = ear_owner.hair_color
+		ear_owner.dna.features["ears"] = "None"
+		ear_owner.dna.species.mutant_bodyparts -= "ears"
+		ear_owner.update_body()
 
 /obj/item/organ/ears/penguin
 	name = "penguin ears"
 	desc = "The source of a penguin's happy feet."
 	var/datum/component/waddle
 
-/obj/item/organ/ears/penguin/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/ears/penguin/on_insert(mob/living/carbon/human/ear_owner)
 	. = ..()
-	if(istype(H))
-		to_chat(H, span_notice("You suddenly feel like you've lost your balance."))
-		waddle = H.AddComponent(/datum/component/waddling)
+	if(istype(ear_owner))
+		to_chat(ear_owner, span_notice("You suddenly feel like you've lost your balance."))
+		waddle = ear_owner.AddComponent(/datum/component/waddling)
 
-/obj/item/organ/ears/penguin/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
+/obj/item/organ/ears/penguin/on_remove(mob/living/carbon/human/ear_owner)
 	. = ..()
-	if(istype(H))
-		to_chat(H, span_notice("Your sense of balance comes back to you."))
+	if(istype(ear_owner))
+		to_chat(ear_owner, span_notice("Your sense of balance comes back to you."))
 		QDEL_NULL(waddle)
 
 /obj/item/organ/ears/bronze
@@ -155,19 +149,12 @@
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/ears/robot/emp_act(severity)
-	switch(severity)
-		if(1)
-			owner.Jitter(30)
-			owner.Dizzy(30)
-			owner.Knockdown(200)
-			to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
-		if(2)
-			owner.Jitter(15)
-			owner.Dizzy(15)
-			owner.Knockdown(100)
-			to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
-			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+	. = ..()
+	if(prob(30/severity))
+		owner.set_jitter_if_lower(60 SECONDS/severity)
+		owner.Dizzy(30/severity)
+		to_chat(owner, span_warning("Alert: Audio sensors malfunctioning"))
+
 
 /obj/item/organ/ears/diona
 	name = "trichomes"

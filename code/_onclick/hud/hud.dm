@@ -6,13 +6,12 @@
 
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, list(
-	"Midnight" = 'icons/hud/style/screen_midnight.dmi',
-	"Plasmafire" = 'icons/hud/style/screen_plasmafire.dmi',
-	"Slimecore" = 'icons/hud/style/screen_slimecore.dmi',
-	"Operative" = 'icons/hud/style/screen_operative.dmi',
-	"Clockwork" = 'icons/hud/style/screen_clockwork.dmi',
+	"Midnight-Knox" = 'icons/hud/style/screen_midnightknox.dmi',
 	"Trasen-Knox" = 'icons/hud/style/screen_trasenknox.dmi',
-	"Retro" = 'icons/hud/style/screen_retro.dmi'
+	"Plasma-Knox" = 'icons/hud/style/screen_plasmaknox.dmi',
+	"Nyan-knox" = 'icons/hud/style/screen_nyanknox.dmi',
+	"Midnight - LEGACY" = 'icons/hud/style/screen_midnight.dmi',
+	"Clockwork - LEGACY" = 'icons/hud/style/screen_clockwork.dmi',
 ))
 
 /proc/ui_style2icon(ui_style)
@@ -311,14 +310,13 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	hand_slots = list()
 	var/atom/movable/screen/inventory/hand/hand_box
 	for(var/i in 1 to mymob.held_items.len)
-		hand_box = new /atom/movable/screen/inventory/hand()
+		hand_box = new /atom/movable/screen/inventory/hand(null, src)
 		hand_box.name = mymob.get_held_index_name(i)
 		hand_box.icon = ui_style
 		hand_box.icon_state = "hand_[mymob.held_index_to_dir(i)]"
 		hand_box.screen_loc = ui_hand_position(i)
 		hand_box.held_index = i
 		hand_slots["[i]"] = hand_box
-		hand_box.hud = src
 		static_inventory += hand_box
 		hand_box.update_icon()
 
@@ -332,6 +330,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	if(ismob(mymob) && mymob.hud_used == src)
 		show_hud(hud_version)
 
+/// Handles dimming inventory slots that a mob can't equip items to in their current state
 /datum/hud/proc/update_locked_slots()
 	return
 

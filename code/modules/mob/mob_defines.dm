@@ -9,7 +9,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
   * Has a lot of the creature game world logic, such as health etc
   */
 /mob
-	datum_flags = DF_USE_TAG
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
@@ -108,8 +107,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	var/drowsyness = 0//Carbon
 	/// Dizziness level of the mob
 	var/dizziness = 0//Carbon
-	/// Jitteryness level of the mob
-	var/jitteriness = 0//Carbon
 	/// Hunger level of the mob
 	var/nutrition = NUTRITION_LEVEL_START_MIN // randomised in Initialize
 	/// Satiation level of the mob
@@ -146,7 +143,7 @@ CREATION_TEST_IGNORE_SELF(/mob)
 	//HUD things
 
 	/// Storage component (for mob inventory)
-	var/datum/component/storage/active_storage
+	var/datum/storage/active_storage
 	/// Active hud
 	var/datum/hud/hud_used = null
 	/// I have no idea tbh
@@ -220,12 +217,6 @@ CREATION_TEST_IGNORE_SELF(/mob)
 
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
-
-	///Is the mob pixel shifted?
-	var/is_shifted
-
-	///Is the mob actively shifting?
-	var/shifting
 
 	///the icon currently used for the typing indicator's bubble
 	var/active_typing_indicator

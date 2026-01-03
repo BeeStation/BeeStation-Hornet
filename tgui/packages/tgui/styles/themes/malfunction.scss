@@ -7,13 +7,13 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #910101,
+  $primary: hsl(0, 98.6%, 28.6%),
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-bg: #1b3443,
-  $color-bg-grad-spread: 6%,
+  $color-bg: hsl(202.5, 42.6%, 18.4%),
+  $color-bg-grad-spread: 6%
 );
 
 .theme-malfunction {
@@ -25,23 +25,41 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #1e5881,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(204.8, 62.3%, 31.2%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #910101));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #1a3f57));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #910101));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(0, 98.6%, 28.6%))
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': hsl(203.6, 54%, 22.2%))
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': hsl(0, 98.6%, 28.6%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #235577));
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(204.3, 54.5%, 30.2%))
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #1a3f57));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(203.6, 54%, 22.2%))
+  );
 
   .Layout__content {
     background-image: none;

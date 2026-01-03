@@ -211,3 +211,11 @@
 	name = "light holotile"
 	desc = "A really big light steel holotile."
 	icon_state = "grey_full"
+
+/turf/open/floor/holofloor/chess_white
+	icon_state = "white_full"
+	color = "#eeeed2"
+
+/turf/open/floor/holofloor/chess_black
+	icon_state = "white_full"
+	color = "#93b570"

@@ -41,3 +41,36 @@
 /datum/ai_planning_subtree/random_speech/mothroach
 	speech_chance = 2
 	emote_hear = list("flutters.", "flaps its wings.", "flaps its wings aggressively!")
+
+/datum/ai_planning_subtree/random_speech/cow
+	speech_chance = 1
+	speak = list("moo?","moo","MOOOOOO")
+	emote_hear = list("brays.")
+	emote_see = list("shakes her head.")
+
+///unlike normal cows, wisdom cows speak of wisdom and won't shut the fuck up
+/datum/ai_planning_subtree/random_speech/cow/wisdom
+	speech_chance = 15
+
+/datum/ai_planning_subtree/random_speech/cow/wisdom/New()
+	. = ..()
+	speak = GLOB.wisdoms //Done here so it's setup properly
+
+/datum/ai_planning_subtree/random_speech/dog
+	speech_chance = 1
+
+/datum/ai_planning_subtree/random_speech/dog/SelectBehaviors(datum/ai_controller/controller, delta_time)
+	if(!isdog(controller.pawn))
+		return
+
+	// Stay in sync with dog fashion.
+	var/mob/living/basic/pet/dog/dog_pawn = controller.pawn
+	dog_pawn.update_dog_speech(src)
+
+	return ..()
+
+/datum/ai_planning_subtree/random_speech/garden_gnome
+	speech_chance = 5
+	speak = list("Gnot a gnelf!", "Gnot a gnoblin!", "Howdy chum!")
+	emote_hear = list("snores.", "burps.")
+	emote_see = list("blinks.")

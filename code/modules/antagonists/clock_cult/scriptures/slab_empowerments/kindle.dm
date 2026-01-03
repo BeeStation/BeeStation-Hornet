@@ -18,13 +18,13 @@
 
 //For the Kindle scripture; stuns and mutes a clicked_on non-servant.
 
-/datum/clockcult/scripture/slab/proc/kindle(mob/living/caller, mob/living/clicked_on)
+/datum/clockcult/scripture/slab/proc/kindle(mob/living/clicker, mob/living/clicked_on)
 	empowerment = null
-	to_chat(caller, ("<span class='brass'>You release the light of Ratvar!</span>"))
-	clockwork_say(caller, text2ratvar("Purge all untruths and honor Engine!"))
+	to_chat(clicker, ("<span class='brass'>You release the light of Ratvar!</span>"))
+	clockwork_say(clicker, text2ratvar("Purge all untruths and honor Engine!"))
 	if(isliving(clicked_on))
 		var/mob/living/L = clicked_on
-		if(is_servant_of_ratvar(L) || L.stat)
+		if(IS_SERVANT_OF_RATVAR(L) || L.stat)
 			return BULLET_ACT_HIT
 		var/atom/O = L.can_block_magic(MAGIC_RESISTANCE_HOLY)
 		playsound(L, 'sound/magic/fireball.ogg', 50, TRUE, frequency = 1.25)
@@ -40,6 +40,6 @@
 			("<span class='userdanger'>Your vision suddenly screams with white-hot light!</span>"))
 			L.Paralyze(5 SECONDS)
 			L.flash_act(1, 1)
-			if(iscultist(L))
+			if(IS_CULTIST(L))
 				L.adjustFireLoss(15)
 	return TRUE

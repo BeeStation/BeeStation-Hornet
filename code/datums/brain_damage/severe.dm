@@ -35,7 +35,7 @@
 /datum/brain_trauma/severe/aphasia/on_lose()
 	if(!QDELING(owner))
 		owner.remove_blocked_language(subtypesof(/datum/language), LANGUAGE_APHASIA)
-		owner.remove_language(/datum/language/aphasia, LANGUAGE_APHASIA)
+		owner.remove_language(/datum/language/aphasia, source = LANGUAGE_APHASIA)
 
 	..()
 
@@ -124,19 +124,21 @@
 	gain_text = span_warning("You have a constant feeling of drowsiness...")
 	lose_text = span_notice("You feel awake and aware again.")
 
-/datum/brain_trauma/severe/narcolepsy/on_life()
-	..()
+/datum/brain_trauma/severe/narcolepsy/on_life(delta_time, times_fired)
 	if(owner.IsSleeping())
 		return
+
 	var/sleep_chance = 1
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		sleep_chance += 2
 	if(owner.drowsyness)
 		sleep_chance += 3
-	if(prob(sleep_chance))
+
+	if(DT_PROB(0.5 * sleep_chance, delta_time))
 		to_chat(owner, span_warning("You fall asleep."))
 		owner.Sleeping(60)
-	else if(!owner.drowsyness && prob(sleep_chance * 2))
+
+	else if(!owner.drowsyness && DT_PROB(sleep_chance, delta_time))
 		to_chat(owner, span_warning("You feel tired..."))
 		owner.drowsyness += 10
 
@@ -155,20 +157,20 @@
 	else
 		to_chat(owner, span_notice("You feel safe, as long as you have people around you."))
 
-/datum/brain_trauma/severe/monophobia/on_life()
+/datum/brain_trauma/severe/monophobia/on_life(delta_time, times_fired)
 	..()
 	if(check_alone())
 		stress = min(stress + 0.5, 100)
-		if(stress > 10 && (prob(5)))
+		if(stress > 10 && DT_PROB(2.5, delta_time))
 			stress_reaction()
 	else
-		stress = max(stress - 4, 0)
+		stress = max(stress - (2 * delta_time), 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
 	if(owner.is_blind())
 		return TRUE
 	for(var/mob/living/M in oview(7, owner))
-		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
+		if(istype(M, /mob/living/simple_animal/pet) || istype(M, /mob/living/basic/pet) || M.ckey)
 			return FALSE
 	return TRUE
 
@@ -179,36 +181,30 @@
 	var/high_stress = (stress > 60) //things get psychosomatic from here on
 	switch(rand(1, 6))
 		if(1)
-			if(!high_stress)
-				to_chat(owner, span_warning("You feel sick..."))
-			else
+			if(high_stress)
 				to_chat(owner, span_warning("You feel really sick at the thought of being alone!"))
+			else
+				to_chat(owner, span_warning("You feel sick..."))
 			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon, vomit), high_stress), 50) //blood vomit if high stress
 		if(2)
-			if(!high_stress)
-				to_chat(owner, span_warning("You can't stop shaking..."))
-				owner.dizziness += 20
-				owner.confused += 20
-				owner.Jitter(20)
-			else
+			if(high_stress)
 				to_chat(owner, span_warning("You feel weak and scared! If only you weren't alone..."))
-				owner.dizziness += 20
-				owner.confused += 20
-				owner.Jitter(20)
 				owner.adjustStaminaLoss(50)
+			else
+				to_chat(owner, span_warning("You can't stop shaking..."))
+
+			owner.dizziness += 20
+			owner.set_jitter_if_lower(20 SECONDS)
 
 		if(3, 4)
-			if(!high_stress)
-				to_chat(owner, span_warning("You feel really lonely..."))
-			else
+			if(high_stress)
 				to_chat(owner, span_warning("You're going mad with loneliness!"))
-				owner.hallucination += 30
+				owner.adjust_hallucinations(60 SECONDS)
+			else
+				to_chat(owner, span_warning("You feel really lonely..."))
 
 		if(5)
-			if(!high_stress)
-				to_chat(owner, span_warning("Your heart skips a beat."))
-				owner.adjustOxyLoss(8)
-			else
+			if(high_stress)
 				if(prob(15) && ishuman(owner))
 					var/mob/living/carbon/human/H = owner
 					H.set_heartattack(TRUE)
@@ -216,6 +212,9 @@
 				else
 					to_chat(owner, span_userdanger("You feel your heart lurching in your chest..."))
 					owner.adjustOxyLoss(8)
+			else
+				to_chat(owner, span_warning("Your heart skips a beat."))
+				owner.adjustOxyLoss(8)
 		if(6)
 			pass()
 
@@ -227,11 +226,11 @@
 	lose_text = span_notice("You feel in control of your hands again.")
 
 /datum/brain_trauma/severe/discoordination/on_gain()
-	ADD_TRAIT(owner, TRAIT_DISCOORDINATED, TRAUMA_TRAIT)
+	ADD_TRAIT(owner, TRAIT_DISCOORDINATED_TOOL_USER, TRAUMA_TRAIT)
 	..()
 
 /datum/brain_trauma/severe/discoordination/on_lose()
-	REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED, TRAUMA_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_DISCOORDINATED_TOOL_USER, TRAUMA_TRAIT)
 	..()
 
 /datum/brain_trauma/severe/pacifism
@@ -260,7 +259,7 @@
 	..()
 	owner.remove_status_effect(/datum/status_effect/trance)
 
-/datum/brain_trauma/severe/hypnotic_stupor/on_life()
+/datum/brain_trauma/severe/hypnotic_stupor/on_life(delta_time, times_fired)
 	..()
-	if(prob(1) && !owner.has_status_effect(/datum/status_effect/trance))
+	if(DT_PROB(0.5, delta_time) && !owner.has_status_effect(/datum/status_effect/trance))
 		owner.apply_status_effect(/datum/status_effect/trance, rand(100,300), FALSE)

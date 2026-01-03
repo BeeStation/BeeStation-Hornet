@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 	desc = "PRESENTS!!!! yippie!"
 	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "giftdeliverypackage3"
-	item_state = "gift"
+	inhand_icon_state = "gift"
 	resistance_flags = FLAMMABLE
 
 	var/obj/item/contains_type
@@ -34,11 +34,11 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 /obj/item/a_gift/examine(mob/M)
 	. = ..()
-	if((M.mind && HAS_TRAIT(M.mind, TRAIT_PRESENT_VISION)) || isobserver(M))
+	if(HAS_MIND_TRAIT(M, TRAIT_PRESENT_VISION) || isobserver(M))
 		. += span_notice("It contains \a [initial(contains_type.name)].")
 
 /obj/item/a_gift/attack_self(mob/M)
-	if(M.mind && HAS_TRAIT(M.mind, TRAIT_CANNOT_OPEN_PRESENTS))
+	if(HAS_MIND_TRAIT(M, TRAIT_CANNOT_OPEN_PRESENTS))
 		to_chat(M, span_warning("You're supposed to be spreading gifts, not opening them yourself!"))
 		return
 
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 		var/list/gift_types_list = subtypesof(/obj/item)
 		for(var/V in gift_types_list)
 			var/obj/item/I = V
-			if((!initial(I.icon_state)) || (!initial(I.item_state)) || (initial(I.item_flags) & ABSTRACT))
+			if((!initial(I.icon_state)) || (!initial(I.inhand_icon_state)) || (initial(I.item_flags) & ABSTRACT))
 				gift_types_list -= V
 		GLOB.possible_gifts = gift_types_list
 	var/gift_type = pick(GLOB.possible_gifts)

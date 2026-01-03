@@ -16,16 +16,17 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
 	armour_penetration = 35
-	item_flags = ISWEAPON
+	item_flags = ISWEAPON|NO_BLOOD_ON_ITEM
 	var/saber_color = "green"
 	light_color = "#00ff00"//green
 	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
 	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
-	block_level = 2
-	block_upgrade_walk = 1
-	block_power = 70
+	canblock = TRUE
+
+	block_power = 75
 	block_sound = 'sound/weapons/egloves.ogg'
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_flags = BLOCKING_ACTIVE | BLOCKING_COUNTERATTACK | BLOCKING_PROJECTILE | BLOCKING_UNBLOCKABLE
+
 	max_integrity = 200
 	armor_type = /datum/armor/item_dualsaber
 	resistance_flags = FIRE_PROOF
@@ -62,10 +63,17 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/item/dualsaber/ComponentInitialize()
+/obj/item/dualsaber/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=force, force_wielded=twohand_force, block_power_unwielded=70, block_power_wielded=75, \
-					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="dualsaber[saber_color]1")
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = force, \
+		force_wielded = twohand_force, \
+		block_power_unwielded=70, \
+		block_power_wielded=75, \
+		wieldsound='sound/weapons/saberon.ogg', \
+		unwieldsound='sound/weapons/saberoff.ogg', \
+		icon_wielded="dualsaber[saber_color]1", \
+	)
 
 /// Triggered on wield of two handed item
 /// Specific hulk checks due to reflection chance for balance issues and switches hitsounds.
@@ -73,7 +81,7 @@
 	SIGNAL_HANDLER
 
 	if(user && user.has_dna())
-		if(user.dna.check_mutation(HULK))
+		if(user.dna.check_mutation(/datum/mutation/hulk))
 			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
 	sharpness = SHARP_DISMEMBER_EASY
@@ -104,7 +112,7 @@
 		user.visible_message(span_suicide("[user] begins spinning way too fast! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 		var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)//stole from chainsaw code
-		var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
+		var/obj/item/organ/brain/B = user.get_organ_slot(ORGAN_SLOT_BRAIN)
 		B.organ_flags &= ~ORGAN_VITAL	//this cant possibly be a good idea
 		var/randdir
 		for(var/i in 1 to 24)//like a headless chicken!
@@ -126,7 +134,7 @@
 /obj/item/dualsaber/attack(mob/target, mob/living/carbon/user)
 	var/wielded = ISWIELDED(src)
 	if(user.has_dna())
-		if(user.dna.check_mutation(HULK))
+		if(user.dna.check_mutation(/datum/mutation/hulk))
 			to_chat(user, span_warning("You grip the blade too hard and accidentally drop it!"))
 			if(wielded)
 				user.dropItemToGround(src, force=TRUE)
@@ -148,10 +156,10 @@
 	else
 		user.adjustStaminaLoss(25)
 
-/obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(ISWIELDED(src))
 		return ..()
-	return 0
+	return FALSE
 
 /obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(ISWIELDED(src))
@@ -171,7 +179,7 @@
 		return 1
 
 /obj/item/dualsaber/ignition_effect(atom/A, mob/user)
-	// same as /obj/item/melee/transforming/energy, mostly
+	// same as /obj/item/melee/energy, mostly
 	if(!ISWIELDED(src))
 		return ""
 	var/in_mouth = ""
@@ -179,7 +187,7 @@
 		var/mob/living/carbon/C = user
 		if(C.wear_mask)
 			in_mouth = ", barely missing [user.p_their()] nose"
-	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.")
+	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_They()] light[user.p_s()] [user.p_their()] [A.name] in the process.")
 	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 	// Light your candles while spinning around the room

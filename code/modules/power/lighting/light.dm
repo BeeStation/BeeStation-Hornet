@@ -11,13 +11,12 @@
 	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 20
+	idle_power_usage = 0.02 KILOWATT
+	active_power_usage = 0.2 KILOWATT
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	always_area_sensitive = TRUE
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
-	var/static_power_used = 0
 	var/brightness = 10			// luminosity when on, also used in power calculation
 	var/bulb_power = 1			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// default colour of the light.
@@ -65,15 +64,15 @@
 
 /obj/machinery/light/proc/store_cell(new_cell)
 	if(cell)
-		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(cell, COMSIG_QDELETING)
 	cell = new_cell
 	if(cell)
-		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
+		RegisterSignal(cell, COMSIG_QDELETING, PROC_REF(remove_cell))
 
 /obj/machinery/light/proc/remove_cell()
 	SIGNAL_HANDLER
 	if(cell)
-		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(cell, COMSIG_QDELETING)
 		cell = null
 
 // create a new lighting fixture
@@ -117,6 +116,9 @@
 		if(!mapload)
 			spawn(1)
 				update(FALSE, FALSE, FALSE)
+
+	AddElement(/datum/element/atmos_sensitive)
+
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -128,10 +130,6 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 		if(nightshift_enabled)
 			update(FALSE, TRUE, TRUE)
-
-/obj/machinery/light/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/atmos_sensitive)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -220,22 +218,17 @@
 			turning_on = TRUE
 			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, quiet), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		emergency_mode = TRUE
 		START_PROCESSING(SSmachines, src)
 	else
-		use_power = IDLE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		set_light(0)
 	update_icon()
-
-	active_power_usage = (brightness * 7.2)
+	if(brightness != initial(brightness))	// If the brightness isn't 10 we're changing power usage based on the new brightness
+		active_power_usage = initial(active_power_usage) * (brightness / 10)
 	if(on != on_gs)
 		on_gs = on
-		if(on)
-			static_power_used = brightness * 20 //20W per unit luminosity
-			addStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
-		else
-			removeStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 
 	broken_sparks(start_only=TRUE)
 
@@ -271,7 +264,7 @@
 			if(trigger)
 				burn_out()
 		else
-			use_power = ACTIVE_POWER_USE
+			update_use_power(ACTIVE_POWER_USE)
 			set_light(BR, PO, CO)
 			if(!quiet)
 				playsound(src.loc, 'sound/effects/light_on.ogg', 50)
@@ -481,7 +474,7 @@
 	if(!has_emergency_power(pwr))
 		return FALSE
 	var/obj/item/stock_parts/cell/real_cell = get_cell()
-	if(real_cell.charge > 300) // it's meant to handle 120 W, ya doofus
+	if(real_cell.charge > 2 KILOWATT) // it's meant to handle 120 W, ya doofus // Lol nevermind that
 		visible_message(span_warning("[src] short-circuits from too powerful of a power cell!"))
 		burn_out()
 		return FALSE
@@ -490,7 +483,7 @@
 	return TRUE
 
 
-/obj/machinery/light/proc/flicker(var/amount = rand(10, 20))
+/obj/machinery/light/proc/flicker(amount = rand(10, 20))
 	set waitfor = 0
 	if(flickering)
 		return
@@ -539,7 +532,7 @@
 				var/datum/species/ethereal/E = user.dna.species
 				if(E.drain_time > world.time)
 					return
-				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
+				var/obj/item/organ/stomach/battery/stomach = user.get_organ_slot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
 					to_chat(user, span_warning("You can't receive charge!"))
 					return
@@ -574,7 +567,7 @@
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESISTHEAT) || HAS_TRAIT(user, TRAIT_RESISTHEATHANDS))
 			to_chat(user, span_notice("You remove the light [fitting]."))
-		else if(user.has_dna() && user.dna.check_mutation(TK))
+		else if(user.has_dna() && user.dna.check_mutation(/datum/mutation/telekinesis))
 			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
@@ -642,14 +635,16 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, tesla_flags)
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
-		//Fire can cause a lot of lag, just do a mini explosion.
-		explosion(src,0,0,1, adminlog = 0)
-		for(var/mob/living/L in range(3, src))
-			L.fire_stacks = max(L.fire_stacks, 3)
-			L.IgniteMob()
-			L.electrocute_act(0, "Tesla Light Zap", flags = SHOCK_TESLA)
+/obj/machinery/light/zap_act(power, zap_flags)
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
+		// Fire can cause a lot of lag, just do a mini explosion.
+		explosion(src, 0, 0, 1, adminlog = FALSE)
+
+		for(var/mob/living/person in range(3, src))
+			person.fire_stacks = max(person.fire_stacks, 3)
+			person.IgniteMob()
+			person.electrocute_act(0, "[src]", flags = SHOCK_TESLA)
+
 		qdel(src)
 	else
 		return ..()
@@ -679,6 +674,8 @@
 	base_state = "floor"		// base description and icon_state
 	icon_state = "floor"
 	brightness = 6
+	idle_power_usage = 0.014 KILOWATT
+	active_power_usage = 0.14 KILOWATT // on par with the small lights
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"

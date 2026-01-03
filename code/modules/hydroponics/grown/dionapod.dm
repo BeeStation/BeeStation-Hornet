@@ -7,7 +7,7 @@
 	species = "diona"
 	plantname = "Diona Pod"
 	product = /mob/living/simple_animal/hostile/retaliate/nymph
-	lifespan = 50
+	lifespan = 200
 	endurance = 8
 	maturation = 8
 	production = 1
@@ -41,7 +41,7 @@
 	species = "diona"
 	plantname = "Dead Nymph"
 	product = /mob/living/simple_animal/hostile/retaliate/nymph
-	lifespan = 50
+	lifespan = 200
 	endurance = 8
 	maturation = 8
 	production = 1

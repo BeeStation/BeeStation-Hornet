@@ -8,10 +8,10 @@
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon = 'icons/mob/augmentation/augments.dmi'
 	icon_state = "robo_suit"
-	var/obj/item/bodypart/l_arm/robot/l_arm = null
-	var/obj/item/bodypart/r_arm/robot/r_arm = null
-	var/obj/item/bodypart/l_leg/robot/l_leg = null
-	var/obj/item/bodypart/r_leg/robot/r_leg = null
+	var/obj/item/bodypart/arm/left/robot/l_arm = null
+	var/obj/item/bodypart/arm/right/robot/r_arm = null
+	var/obj/item/bodypart/leg/left/robot/l_leg = null
+	var/obj/item/bodypart/leg/right/robot/r_leg = null
 	var/obj/item/bodypart/chest/robot/chest = null
 	var/obj/item/bodypart/head/robot/head = null
 
@@ -153,7 +153,7 @@
 			else
 				to_chat(user, span_warning("You need one sheet of iron to start building ED-209!"))
 				return TRUE
-	else if(istype(W, /obj/item/bodypart/l_leg/robot))
+	else if(istype(W, /obj/item/bodypart/leg/left/robot))
 		if(l_leg)
 			return TRUE
 		if(!user.transferItemToLoc(W, src))
@@ -164,7 +164,7 @@
 		update_icon()
 		return TRUE
 
-	else if(istype(W, /obj/item/bodypart/r_leg/robot))
+	else if(istype(W, /obj/item/bodypart/leg/right/robot))
 		if(src.r_leg)
 			return TRUE
 		if(!user.transferItemToLoc(W, src))
@@ -175,7 +175,7 @@
 		update_icon()
 		return TRUE
 
-	else if(istype(W, /obj/item/bodypart/l_arm/robot))
+	else if(istype(W, /obj/item/bodypart/arm/left/robot))
 		if(l_arm)
 			return TRUE
 		if(!user.transferItemToLoc(W, src))
@@ -186,7 +186,7 @@
 		update_icon()
 		return TRUE
 
-	else if(istype(W, /obj/item/bodypart/r_arm/robot))
+	else if(istype(W, /obj/item/bodypart/arm/right/robot))
 		if(r_arm)
 			return TRUE
 		if(!user.transferItemToLoc(W, src))
@@ -308,8 +308,6 @@
 				if(M.laws.id == DEFAULT_AI_LAWID)
 					O.make_laws()
 
-			SSticker.mode.remove_antag_for_borging(BM.mind)
-
 			O.job = JOB_NAME_CYBORG
 
 			O.cell = chest.cell
@@ -386,13 +384,13 @@
 		return ..()
 
 /obj/item/robot_suit/proc/Interact(mob/user)
-			var/t1 = "Designation: <A href='?src=[REF(src)];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
-			t1 += "Master AI: <A href='?src=[REF(src)];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
+			var/t1 = "Designation: <A href='byond://?src=[REF(src)];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
+			t1 += "Master AI: <A href='byond://?src=[REF(src)];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
 
-			t1 += "LawSync Port: <A href='?src=[REF(src)];Law=1'>[(lawsync ? "Open" : "Closed")]</a><br>\n"
-			t1 += "AI Connection Port: <A href='?src=[REF(src)];AI=1'>[(aisync ? "Open" : "Closed")]</a><br>\n"
-			t1 += "Servo Motor Functions: <A href='?src=[REF(src)];Loco=1'>[(locomotion ? "Unlocked" : "Locked")]</a><br>\n"
-			t1 += "Panel Lock: <A href='?src=[REF(src)];Panel=1'>[(panel_locked ? "Engaged" : "Disengaged")]</a><br>\n"
+			t1 += "LawSync Port: <A href='byond://?src=[REF(src)];Law=1'>[(lawsync ? "Open" : "Closed")]</a><br>\n"
+			t1 += "AI Connection Port: <A href='byond://?src=[REF(src)];AI=1'>[(aisync ? "Open" : "Closed")]</a><br>\n"
+			t1 += "Servo Motor Functions: <A href='byond://?src=[REF(src)];Loco=1'>[(locomotion ? "Unlocked" : "Locked")]</a><br>\n"
+			t1 += "Panel Lock: <A href='byond://?src=[REF(src)];Panel=1'>[(panel_locked ? "Engaged" : "Disengaged")]</a><br>\n"
 			var/datum/browser/popup = new(user, "robotdebug", "Cyborg Boot Debug", 310, 220)
 			popup.set_content(t1)
 			popup.open()

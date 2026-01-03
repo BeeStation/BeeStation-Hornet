@@ -66,10 +66,10 @@
 	else if(inert)
 		to_chat(owner, span_notice("[src] breaks down as it tries to activate."))
 	else
-		owner.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+		owner.apply_status_effect(/datum/status_effect/regenerative_core)
 	qdel(src)
 
-/obj/item/organ/regenerative_core/on_life()
+/obj/item/organ/regenerative_core/on_life(delta_time, times_fired)
 	..()
 	if(owner.health <= owner.crit_threshold)
 		ui_action_click()
@@ -99,7 +99,7 @@
 			if(HAS_TRAIT(H, TRAIT_NECROPOLIS_INFECTED))
 				H.ForceContractDisease(new /datum/disease/transformation/legion())
 				to_chat(H, span_userdanger("You feel the necropolis strengthen its grip on your heart and soul... You're powerless to resist for much longer..."))
-			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+			H.apply_status_effect(/datum/status_effect/regenerative_core)
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "core", /datum/mood_event/healsbadman) //Now THIS is a miner buff (fixed - nerf)
 			qdel(src)
 
@@ -112,8 +112,10 @@
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		applyto(user, user)
 
-/obj/item/organ/regenerative_core/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+/obj/item/organ/regenerative_core/Insert(mob/living/carbon/target_carbon, special = FALSE, drop_if_replaced = TRUE, pref_load = FALSE)
 	. = ..()
+	if(!.)
+		return
 	if(!preserved && !inert)
 		preserved(TRUE)
 		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))

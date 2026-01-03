@@ -7,18 +7,18 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #ffffff,
+  $primary: hsl(0, 0%, 100%),
   $bg-lightness: 25%,
   $fg-lightness: -10%,
   // Commenting out color maps will adjust all colors based on the lightness
   // settings above, but will add extra 10KB to the theme.
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-fg: #000000,
-  $color-bg: #dfdfdf,
-  $color-bg-grad-spread: 0%,
+  $color-fg: hsl(0, 0%, 0%),
+  $color-bg: hsl(0, 0%, 87.5%),
+  $color-bg-grad-spread: 0%
 );
 
 $font-size: 24px;
@@ -31,25 +31,35 @@ $font-size: 24px;
 
   // Components
   @include meta.load-css('../components/Tabs.scss');
-  @include meta.load-css('../components/Section.scss', $with: ('background-color': rgba(0, 0, 0, 0.1)));
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.1))
+  );
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #e8e4c9,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00,
+      'color-default': hsl(52.3, 40.3%, 84.9%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%),
       'color-transparent-text': rgba(0, 0, 0, 0.5)
     )
   );
 
   // Layouts
-  @include meta.load-css('../layouts/Layout.scss', $with: ('scrollbar-color-multiplier': -1));
+  @include meta.load-css(
+    '../layouts/Layout.scss',
+    $with: ('scrollbar-color-multiplier': -1)
+  );
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('text-color': rgba(0, 0, 0, 0.75), 'background-color': base.$color-bg, 'shadow-color-core': rgba(0, 0, 0, 0.25))
+    $with: (
+      'text-color': rgba(0, 0, 0, 0.75),
+      'background-color': base.$color-bg,
+      'shadow-color-core': rgba(0, 0, 0, 0.25)
+    )
   );
 
   .PaperInput {
@@ -92,6 +102,7 @@ $font-size: 24px;
     color: #fff;
     color: inherit;
 
+    &::placeholder,
     &:-ms-input-placeholder {
       font-style: italic;
       color: #777;

@@ -155,17 +155,6 @@
 				<b>Implant Details:</b> Allows user to use an internal radio, useful if user expects equipment loss, or cannot equip conventional radios."}
 	return dat
 
-/obj/item/implant/radio/syndicate/selfdestruct
-	name = "hacked internal radio implant"
-
-/obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user)
-	if(!user.mind.has_antag_datum(/datum/antagonist/incursion))
-		user.visible_message(span_warning("[imp_in] starts beeping ominously!"), span_userdanger("You have a sudden feeling of dread. The implant is rigged to explode!"))
-		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		explosion(src,0,0,2,2, flame_range = 2)
-		user.gib(1)
-		qdel(src)
-
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"
 	imp_type = /obj/item/implant/radio
@@ -173,7 +162,3 @@
 /obj/item/implanter/radio/syndicate
 	name = "implanter (internal syndicate radio)"
 	imp_type = /obj/item/implant/radio/syndicate
-
-/obj/item/implanter/radio/syndicate/selfdestruct
-	name = "implanter (modified internal syndicate radio)"
-	imp_type = /obj/item/implant/radio/syndicate/selfdestruct

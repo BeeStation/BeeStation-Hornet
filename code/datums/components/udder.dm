@@ -17,13 +17,13 @@
 	src.on_milk_callback = on_milk_callback
 
 /datum/component/udder/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 
 /datum/component/udder/UnregisterFromParent()
 	QDEL_NULL(udder)
 	on_milk_callback = null
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ATTACKBY))
 
 ///signal called on parent being examined
 /datum/component/udder/proc/on_examine(datum/source, mob/user, list/examine_list)
@@ -139,7 +139,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/udder)
 		return
 	if(udder_mob.gender == FEMALE)
 		START_PROCESSING(SSobj, src)
-	RegisterSignal(udder_mob, COMSIG_HOSTILE_ATTACKINGTARGET, PROC_REF(on_mob_attacking))
+	RegisterSignal(udder_mob, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(on_mob_attacking))
 
 /obj/item/udder/gutlunch/process(delta_time)
 	var/mob/living/simple_animal/hostile/asteroid/gutlunch/gutlunch = udder_mob

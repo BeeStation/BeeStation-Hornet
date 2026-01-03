@@ -1,5 +1,3 @@
-
-
 /obj/machinery/computer/upload
 	var/mob/living/silicon/current = null //The target of future law uploads
 	icon_screen = "command"
@@ -16,17 +14,22 @@
 	GLOB.uploads_list -= src
 	return ..()
 
-
+/obj/machinery/computer/upload/examine(mob/user)
+	. = ..()
+	if(!current)
+		. += "No silicon selected."
+	else
+		. += "Currently selected silicon: [current.name]."
 
 /obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/aiModule))
-		var/obj/item/aiModule/M = O
+	if(istype(O, /obj/item/ai_module))
+		var/obj/item/ai_module/M = O
 		if(machine_stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)
 			to_chat(user, span_warning("You haven't selected anything to transmit laws to!"))
 			return
-		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
+		var/input = tgui_input_text(user, "Please enter the Upload code.", "Uplode Code Check")
 		if(!GLOB.upload_code)
 			GLOB.upload_code = random_code(4)
 		if(input != GLOB.upload_code)

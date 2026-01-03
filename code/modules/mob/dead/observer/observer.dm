@@ -29,6 +29,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
+	/// Are we allowed to respawn?
+	var/can_respawn = TRUE
+	// Has ssticker identified us as a respawn canditate and updated our status?
+	var/respawn_notified = FALSE
+	// Are we able to respawn?
+	var/respawn_available = FALSE
 	var/atom/movable/following = null
 	var/fun_verbs = 0
 	var/image/ghostimage_default = null //this mobs ghost image without accessories and dirs
@@ -40,6 +46,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	var/ai_hud_on = FALSE //Is the AI Viewrange HUD currently enabled?
 	var/health_scan = FALSE //Are health scans currently enabled?
 	var/gas_scan = FALSE //Are gas scans currently enabled?
+	var/virus_scan = FALSE //Are virus extrapolator scans currently enabled?
+	var/genetics_scan = FALSE //Are genetic scans currently enabled?
+	var/nanite_scan = FALSE //Are nanite scans currently enabled?
 	var/list/datahuds = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED) //list of data HUDs shown to ghosts.
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 
@@ -156,6 +165,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 	ADD_TRAIT(src, TRAIT_MOVE_FLOATING, "ghost")
 	ADD_TRAIT(src, TRAIT_SECURITY_HUD, ref(src))
 
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts) //we only add it when observing
+
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
 
@@ -233,7 +244,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 		var/datum/sprite_accessory/S
 		if(facial_hair_style)
 			S = GLOB.facial_hair_styles_list[facial_hair_style]
-			if(S)
+			if(S?.icon_state)
 				facial_hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(facial_hair_color)
 					facial_hair_overlay.color = "#" + facial_hair_color
@@ -241,7 +252,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_SPIRIT)
 				add_overlay(facial_hair_overlay)
 		if(hair_style)
 			S = GLOB.hair_styles_list[hair_style]
-			if(S)
+			if(S?.icon_state)
 				hair_overlay = mutable_appearance(S.icon, "[S.icon_state]", CALCULATE_MOB_OVERLAY_LAYER(HAIR_LAYER))
 				if(hair_color)
 					hair_overlay.color = "#" + hair_color
@@ -295,8 +306,16 @@ Works together with spawning an observer, noted above.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
 			var/mob/dead/observer/ghost = new(src)	// Transfer safety to observer spawning proc.
 			SStgui.on_transfer(src, ghost) // Transfer NanoUIs.
+
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
+
+			//If we cannot re-enter we note the time of conceptual death in player details.
+			if(can_reenter_corpse)
+				ghost.client?.player_details.time_of_death = ghost.mind?.current ? mind.current.timeofdeath : world.time
+			else
+				ghost.client.player_details.time_of_death = world.time
+
 			return ghost
 
 /*
@@ -395,7 +414,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	src.log_message("[key_name(src)] has opted to do-not-resuscitate / DNR from their body [mind?.current]", LOG_GAME)
 	return TRUE
 
-/mob/dead/observer/proc/notify_cloning(var/message, var/sound, var/atom/source, flashwindow = TRUE)
+/mob/dead/observer/proc/notify_cloning(message, sound, atom/source, flashwindow = TRUE)
 	if(flashwindow)
 		window_flash(client)
 	if(message)
@@ -414,7 +433,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, span_ghostalert("<a href=?src=[REF(src)];reenter=1>(Click to re-enter)</a>"))
+	to_chat(src, span_ghostalert("<a href='byond://?src=[REF(src)];reenter=1'>(Click to re-enter)</a>"))
 	if(sound)
 		SEND_SOUND(src, sound(sound))
 
@@ -785,6 +804,42 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("Gas scan enabled."))
 		gas_scan = TRUE
 
+/mob/dead/observer/verb/toggle_virus_scan()
+	set name = "Toggle Virus Scan"
+	set desc = "Toggles whether you scan for viruses on click"
+	set category = "Ghost"
+
+	if(virus_scan)
+		to_chat(src, span_notice("Virus scan disabled."))
+		virus_scan = FALSE
+	else
+		to_chat(src, span_notice("Virus scan enabled."))
+		virus_scan = TRUE
+
+/mob/dead/observer/verb/toggle_genetics_scan()
+	set name = "Toggle Genetics Scan"
+	set desc = "Toggles whether you can scan the genetics of a living beings on click"
+	set category = "Ghost"
+
+	if(genetics_scan)
+		to_chat(src, span_notice("Genetics scan disabled."))
+		genetics_scan = FALSE
+	else
+		to_chat(src, span_notice("Genetics scan enabled."))
+		genetics_scan = TRUE
+
+/mob/dead/observer/verb/toggle_nanite_scan()
+	set name = "Toggle Nanite Scan"
+	set desc = "Toggles whether you can scan the nanties of a living beings on click"
+	set category = "Ghost"
+
+	if(nanite_scan)
+		to_chat(src, span_notice("Nanite scan disabled."))
+		nanite_scan = FALSE
+	else
+		to_chat(src, span_notice("Nanite scan enabled."))
+		nanite_scan = TRUE
+
 /mob/dead/observer/verb/restore_ghost_appearance()
 	set name = "Restore Ghost Character"
 	set desc = "Sets your deadchat name and ghost appearance to your \
@@ -845,6 +900,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else
 				remove_verb(/mob/dead/observer/verb/boo)
 				remove_verb(/mob/dead/observer/verb/possess)
+		if(NAMEOF(src, can_respawn))
+			create_mob_hud()
 
 /mob/dead/observer/reset_perspective(atom/new_eye)
 	if(client)
@@ -858,6 +915,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
+
+/mob/dead/observer/verb/cancel_camera_ghosts()
+	set name = "Cancel Camera View"
+	set category = "Ghost"
+	reset_perspective(null)
+	remove_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 
 /mob/dead/observer/verb/observe()
 	set name = "Observe"
@@ -878,6 +941,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Istype so we filter out points of interest that are not mobs
 	if(client && mob_eye && istype(mob_eye))
 		client.set_eye(mob_eye)
+		add_verb(/mob/dead/observer/verb/cancel_camera_ghosts)
 		if(mob_eye.hud_used)
 			client.screen = list()
 			LAZYINITLIST(mob_eye.observers)

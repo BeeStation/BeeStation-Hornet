@@ -128,7 +128,7 @@
 						shorted = FALSE
 						danger_level = AIR_ALARM_ALERT_NONE
 						buildstage = AIR_ALARM_BUILD_COMPLETE
-						select_mode(user, /datum/air_alarm_mode/filtering)
+						select_mode(user, /datum/air_alarm_mode/filtering/automatic)
 						update_icon()
 				return
 		if(AIR_ALARM_BUILD_NO_CIRCUIT)

@@ -1,10 +1,25 @@
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const SmokeMachine = (props) => {
   const { act, data } = useBackend();
-  const { TankContents, isTankLoaded, TankCurrentVolume, TankMaxVolume, active, setting, maxSetting = [] } = data;
+  const {
+    TankContents,
+    isTankLoaded,
+    TankCurrentVolume,
+    TankMaxVolume,
+    active,
+    setting,
+    maxSetting,
+  } = data;
   return (
     <Window width={350} height={350}>
       <Window.Content>
@@ -14,15 +29,18 @@ export const SmokeMachine = (props) => {
             <Button
               icon={active ? 'power-off' : 'times'}
               selected={active}
-              content={active ? 'On' : 'Off'}
               onClick={() => act('power')}
-            />
-          }>
+            >
+              {active ? 'On' : 'Off'}
+            </Button>
+          }
+        >
           <ProgressBar
             value={TankCurrentVolume / TankMaxVolume}
             ranges={{
               bad: [-Infinity, 0.3],
-            }}>
+            }}
+          >
             <AnimatedNumber initial={0} value={TankCurrentVolume || 0} />
             {' / ' + TankMaxVolume}
           </ProgressBar>
@@ -31,22 +49,31 @@ export const SmokeMachine = (props) => {
               <LabeledList.Item label="Range">
                 {[1, 2, 3, 4, 5].map((amount) => (
                   <Button
-                    key={amount}
-                    selected={setting === amount}
-                    icon="plus"
-                    content={amount * 3}
                     disabled={maxSetting < amount}
+                    icon="plus"
+                    key={amount}
                     onClick={() => act('setting', { amount })}
-                  />
+                    selected={setting === amount}
+                  >
+                    {amount * 3}
+                  </Button>
                 ))}
               </LabeledList.Item>
             </LabeledList>
           </Box>
         </Section>
-        <Section title="Contents" buttons={<Button icon="trash" content="Purge" onClick={() => act('purge')} />}>
+        <Section
+          title="Contents"
+          buttons={
+            <Button icon="trash" onClick={() => act('purge')}>
+              Purge
+            </Button>
+          }
+        >
           {TankContents.map((chemical) => (
             <Box key={chemical.name} color="label">
-              <AnimatedNumber initial={0} value={chemical.volume} /> units of {chemical.name}
+              <AnimatedNumber initial={0} value={chemical.volume} /> units of{' '}
+              {chemical.name}
             </Box>
           ))}
         </Section>

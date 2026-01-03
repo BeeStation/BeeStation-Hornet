@@ -13,7 +13,7 @@
 	 * Relates to a mob's ability to speak a language - a mob must be able to speak the language
 	 * and have a tongue able to speak the language (or omnitongue) in order to actually speak said language
 	 *
-	 * To modify this list for subtypes, see [/obj/item/organ/internal/tongue/proc/get_possible_languages]. Do not modify directly.
+	 * To modify this list for subtypes, see [/obj/item/organ/tongue/proc/get_possible_languages]. Do not modify directly.
 	 */
 	VAR_PRIVATE/list/languages_possible
 	var/say_mod = "says"
@@ -74,11 +74,13 @@
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-/obj/item/organ/tongue/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/tongue/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
+	. = ..()
+	if(!.)
+		return
 	if(modifies_speech)
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
-	return ..()
 
 /obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	UnregisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
@@ -148,7 +150,7 @@
 	if(!istype(H))
 		return
 
-	var/obj/item/organ/tongue/abductor/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/obj/item/organ/tongue/abductor/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 	if(!istype(T))
 		return
 
@@ -160,9 +162,9 @@
 		to_chat(H, span_notice("You attune [src] to your own channel."))
 		mothership = T.mothership
 
-/obj/item/organ/tongue/abductor/examine(mob/M)
+/obj/item/organ/tongue/abductor/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(M, TRAIT_ABDUCTOR_TRAINING) || HAS_TRAIT(M.mind, TRAIT_ABDUCTOR_TRAINING) || isobserver(M))
+	if(HAS_MIND_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) || isobserver(user))
 		if(!mothership)
 			. += span_notice("It is not attuned to a specific mothership.")
 		else
@@ -178,7 +180,7 @@
 	var/rendered = span_abductor("<b>[user.real_name]:</b> [message]")
 	user.log_talk(message, LOG_SAY, tag="abductor")
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		var/obj/item/organ/tongue/abductor/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+		var/obj/item/organ/tongue/abductor/T = H.get_organ_slot(ORGAN_SLOT_TONGUE)
 		if(!istype(T))
 			continue
 		if(mothership == T.mothership)
@@ -293,14 +295,18 @@
 	attack_verb_simple = list("beep", "boop")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
+	custom_price = 300
+	max_demand = 5
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/organ/tongue/robot/get_possible_languages()
 	return ..() + /datum/language/machine + /datum/language/voltaic
 
 /obj/item/organ/tongue/robot/emp_act(severity)
-	owner.emote("scream")
-	owner.apply_status_effect(STATUS_EFFECT_SPANISH)
-	owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+	if(prob(30/severity))
+		owner.emote("scream")
+		owner.apply_status_effect(/datum/status_effect/spanish)
+
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT

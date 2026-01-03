@@ -55,12 +55,43 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/living_heart/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
-	if(our_heart)
-		our_heart.AddComponent(/datum/component/living_heart)
+	var/obj/item/organ/where_to_put_our_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
+	// Our heart slot is not valid to put a heart
+	if(!is_valid_heart(where_to_put_our_heart))
+		where_to_put_our_heart = null
+
+	// If a heretic is made from a species without a heart, we need to find a backup.
+	if(!where_to_put_our_heart)
+		var/static/list/backup_organs = list(
+			ORGAN_SLOT_LUNGS = /obj/item/organ/lungs,
+			ORGAN_SLOT_LIVER = /obj/item/organ/liver,
+			ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
+		)
+
+		for(var/backup_slot in backup_organs)
+			var/obj/item/organ/look_for_backup = user.get_organ_slot(backup_slot)
+			// This backup slot is not a valid slot to put a heart
+			if(!is_valid_heart(look_for_backup))
+				continue
+
+			// We found a replacement place to put our heart
+			where_to_put_our_heart = look_for_backup
+			our_heretic.living_heart_organ_slot = backup_slot
+			to_chat(user, span_boldnotice("As your species does not have a heart, your Living Heart is located in your [look_for_backup.name]."))
+			break
+
+	if(where_to_put_our_heart)
+		where_to_put_our_heart.AddComponent(/datum/component/living_heart)
+		desc = "Grants you a Living Heart, tied to your [where_to_put_our_heart.name], allowing you to track sacrifice targets. \
+			Should you lose your [where_to_put_our_heart.name], you can transmute a poppy and a pool of blood \
+			to awaken your [where_to_put_our_heart.name] into a Living Heart. \
+			Cybernetic [where_to_put_our_heart.name]\s will block the ritual!"
+
+	else
+		to_chat(user, span_boldnotice("You don't have a heart, or any chest organs for that matter. You didn't get a Living Heart because of it."))
 
 /datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 	if(our_heart)
 		qdel(our_heart.GetComponent(/datum/component/living_heart))
 
@@ -71,12 +102,14 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return TRUE
 
 /datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/obj/item/organ/our_living_heart = user.getorganslot(ORGAN_SLOT_HEART)
-	// Obviously you need a heart in your chest to do a ritual on your... heart
-	if(!our_living_heart)
-		loc.balloon_alert(user, "ritual failed, you have no [ORGAN_SLOT_HEART]!") // "you have no heart!"
+	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
+	var/obj/item/organ/our_living_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
+	// No heart, nothing to give living heart to
+	if(QDELETED(our_living_heart))
+		loc.balloon_alert(user, "ritual failed, no [our_heretic.living_heart_organ_slot]!")
 		return FALSE
-	// For sanity's sake, check if they've got a heart -
+
+	// For sanity's sake, check if they've got a living heart -
 	// even though it's not invokable if you already have one,
 	// they may have gained one unexpectantly in between now and then
 	if(HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
@@ -85,7 +118,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 	// By this point they are making a new heart
 	// If their current heart is organic / not synthetic, we can continue the ritual as normal
-	if(our_living_heart.status == ORGAN_ORGANIC && !(our_living_heart.organ_flags & ORGAN_SYNTHETIC))
+	if(is_valid_heart(our_living_heart))
 		return TRUE
 
 	// If their current heart is not organic / is synthetic, they need an organic replacement
@@ -98,9 +131,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	for(var/obj/item/organ/nearby_organ in atoms)
 		if(!istype(nearby_organ, required_organ_type))
 			continue
-		if(!nearby_organ.useable)
-			continue
-		if(nearby_organ.status != ORGAN_ORGANIC || (nearby_organ.organ_flags & (ORGAN_SYNTHETIC|ORGAN_FAILING)))
+		if(!is_valid_heart(nearby_organ))
 			continue
 
 		selected_atoms += nearby_organ
@@ -112,10 +143,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 
-	var/obj/item/organ/heart/our_heart = user.getorganslot(ORGAN_SLOT_HEART)
+	var/obj/item/organ/heart/our_heart = user.get_organ_slot(ORGAN_SLOT_HEART)
 
 	// Our heart is robotic or synthetic - we need to replace it, and we fortunately should have one by here
-	if(our_heart.status != ORGAN_ORGANIC || (our_heart.organ_flags & ORGAN_SYNTHETIC))
+	if(!is_valid_heart(our_heart))
 		var/obj/item/organ/heart/our_replacement_heart = locate() in selected_atoms
 		if(our_replacement_heart)
 			// Throw our current heart out of our chest, violently
@@ -138,6 +169,19 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	our_heart.AddComponent(/datum/component/living_heart)
 	to_chat(user, span_warning("You feel your [our_heart.name] begin to pulse faster and faster as it awakens!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	return TRUE
+
+/// Checks if the passed heart is a valid heart to become a living heart
+/datum/heretic_knowledge/living_heart/proc/is_valid_heart(obj/item/organ/new_heart)
+	if(!new_heart)
+		return FALSE
+	if(!new_heart.useable)
+		return FALSE
+	if(new_heart.status != ORGAN_ORGANIC)
+		return FALSE
+	if(new_heart.organ_flags & (ORGAN_SYNTHETIC|ORGAN_FAILING))
+		return FALSE
+
 	return TRUE
 
 /**

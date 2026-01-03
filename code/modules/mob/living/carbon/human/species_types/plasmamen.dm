@@ -5,19 +5,28 @@
 	bodyflag = FLAG_PLASMAMAN
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
-	species_traits = list(NOBLOOD,NOTRANSSTING,ENVIROSUIT)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_NOHUNGER,TRAIT_ALWAYS_CLEAN)
-	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
+	species_traits = list(
+		ENVIROSUIT
+	)
+	inherent_traits = list(
+		TRAIT_GENELESS,
+		TRAIT_RESISTCOLD,
+		TRAIT_RADIMMUNE,
+		TRAIT_NOHUNGER,
+		TRAIT_NOBLOOD,
+		TRAIT_NOT_TRANSMORPHIC,
+	)
+	inherent_biotypes = MOB_INORGANIC | MOB_HUMANOID
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
 	mutantstomach = /obj/item/organ/stomach/plasmaman
+	mutantappendix = null
+	mutantheart = null
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
-	breathid = "tox"
-	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
-	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
+	breathid = GAS_PLASMA
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
@@ -31,14 +40,22 @@
 	// This effects how fast body temp stabilizes, also if cold resit is lost on the mob
 	bodytemp_cold_damage_limit = (BODYTEMP_COLD_DAMAGE_LIMIT - 50) // about -50c
 
-	species_chest = /obj/item/bodypart/chest/plasmaman
-	species_head = /obj/item/bodypart/head/plasmaman
-	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
-	species_r_arm = /obj/item/bodypart/r_arm/plasmaman
-	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
-	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
+	bodypart_overrides = list(
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/plasmaman,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/plasmaman,
+		BODY_ZONE_HEAD = /obj/item/bodypart/head/plasmaman,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/plasmaman,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/plasmaman,
+		BODY_ZONE_CHEST = /obj/item/bodypart/chest/plasmaman,
+	)
 
-/datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
+	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
+
+/datum/species/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	C.set_safe_hunger_level()
+
+/datum/species/plasmaman/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
 	var/atmos_sealed = FALSE
 	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -52,8 +69,8 @@
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
-		if(environment)
-			if(environment.total_moles())
+		if(environment?.total_moles())
+			if(!HAS_TRAIT(H, TRAIT_NOFIRE) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION))
 				if(GET_MOLES(/datum/gas/oxygen, environment) >= 1) //Same threshold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
@@ -69,12 +86,12 @@
 		internal_fire = FALSE
 	H.update_fire()
 
-/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, no_protection)
+/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, delta_time, times_fired, no_protection = FALSE)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visuals_only = FALSE, client/preference_source = null)
 	H.open_internals(H.get_item_for_held_index(2))
 
 	if(!preference_source?.prefs)
@@ -92,6 +109,10 @@
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 			H.open_internals(H.get_item_for_held_index(2))
 
+/datum/species/plasmaman/give_important_for_life(mob/living/carbon/human/human_to_equip)
+	. = ..()
+	human_to_equip.open_internals(human_to_equip.get_item_for_held_index(2))
+
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 		return 0
@@ -106,18 +127,18 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H, delta_time, times_fired)
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
-			H.reagents.remove_reagent(chem.type, chem.volume - 10)
+			H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 			to_chat(H, span_warning("The excess milk is dripping off your bones!"))
 		H.heal_bodypart_damage(1.5,0, 0)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(chem.type == /datum/reagent/toxin/bonehurtingjuice)
-		H.adjustStaminaLoss(7.5, 0)
-		H.adjustBruteLoss(0.5, 0)
-		if(prob(20))
+		H.adjustStaminaLoss(7.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		H.adjustBruteLoss(0.5 * REAGENTS_EFFECT_MULTIPLIER * delta_time, 0)
+		if(DT_PROB(10, delta_time))
 			switch(rand(1, 3))
 				if(1)
 					H.say(pick("oof.", "ouch.", "my bones.", "oof ouch.", "oof ouch my bones."), forced = /datum/reagent/toxin/bonehurtingjuice)
@@ -126,7 +147,7 @@
 				if(3)
 					to_chat(H, span_warning("Your bones hurt!"))
 		if(chem.overdosed)
-			if(prob(4) && iscarbon(H)) //big oof
+			if(DT_PROB(2, delta_time) && iscarbon(H)) //big oof
 				var/selected_part = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) //God help you if the same limb gets picked twice quickly.
 				var/obj/item/bodypart/bp = H.get_bodypart(selected_part) //We're so sorry skeletons, you're so misunderstood
 				if(bp)
@@ -137,9 +158,19 @@
 				else
 					to_chat(H, span_warning("Your missing arm aches from wherever you left it."))
 					H.emote("sigh")
-		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
+
+	if(istype(chem, /datum/reagent/blackpowder))
+		H.set_drugginess(7.5 * delta_time)
+		if(H.get_timed_status_effect_duration(/datum/status_effect/hallucination) / 10 < chem.volume)
+			H.adjust_hallucinations(2.5 SECONDS * delta_time)
+		// Do normal metabolism
+		return FALSE
 	return ..()
+
+/datum/species/plasmaman/get_scream_sound(mob/living/carbon/user)
+	return pick('sound/voice/plasmaman/plasmeme_scream_1.ogg', 'sound/voice/plasmaman/plasmeme_scream_2.ogg', 'sound/voice/plasmaman/plasmeme_scream_3.ogg')
 
 /datum/species/plasmaman/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)

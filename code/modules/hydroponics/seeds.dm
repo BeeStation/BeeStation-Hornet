@@ -21,7 +21,7 @@
 	var/icon_dead					// Used to override dead icon (default is "[species]-dead"). You can use one dead icon for multiple closely related plants with it.
 	var/icon_harvest				// Used to override harvest icon (default is "[species]-harvest"). If null, plant will use [icon_grow][growthstages].
 
-	var/lifespan = 25				// How long before the plant begins to take damage from age.
+	var/lifespan = 100				// How long before the plant begins to take damage from age.
 	var/endurance = 15				// Amount of health the plant has.
 	var/maturation = 6				// Used to determine which sprite to switch to when growing.
 	var/production = 6				// Changes the amount of time needed for a plant to become harvestable.
@@ -210,7 +210,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 		var/amount = (1 + round(potency * reagents_add[rid], 1)) * output_multiply
 
 		var/list/data = null
-		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O-
+		if(rid == "blood") // Hack to make blood in plants always O-
 			data = list("blood_type" = "O-")
 		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin)
 			// apple tastes of apple.
@@ -398,32 +398,51 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/seeds)
 		to_chat(user, span_info("*---------*\n This is \a [span_name("[src]")]."))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, EXAMINE_BLOCK(span_notice("[text]")))
+			to_chat(user, examine_block(span_notice("[text]")))
 
 		return
 
 	if (istype(O, /obj/item/pen))
-		var/penchoice = input(user, "What would you like to edit?") as null|anything in list("Plant Name","Plant Description","Seed Description")
+		var/penchoice = tgui_input_list(user, "What would you like to edit on [src]?", "Seed editing", list("Plant Name","Plant Description","Seed Description"))
+
 		if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 			return
 
 		if(penchoice == "Plant Name")
-			var/input = stripped_input(user,"What do you want to name the plant?", default=plantname, max_length=MAX_NAME_LEN)
+			var/input = tgui_input_text(user, "What do you want to name the plant?", "Plant Name", plantname, MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+				return
+			if(!input) // empty input so we return
+				to_chat(user, span_warning("You need to enter a name!"))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
 			name = "pack of [input] seeds"
 			plantname = input
 			renamedByPlayer = TRUE
 
 		if(penchoice == "Plant Description")
-			var/input = stripped_input(user,"What do you want to change the description of the plant to?", default=plantdesc, max_length=MAX_NAME_LEN)
+			var/input = tgui_input_text(user, "What do you want to change the description of the plant to?", "Plant Description", plantdesc, MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+				return
+			if(!input) // empty input so we return
+				to_chat(user, span_warning("You need to enter a description!"))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
 			plantdesc = input
 
 		if(penchoice == "Seed Description")
-			var/input = stripped_input(user,"What do you want to change the description of the seeds to?", default=desc, max_length=MAX_NAME_LEN)
+			var/input = tgui_input_text(user, "What do you want to change the description of the seeds to?", "Seed Description", desc, MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
+				return
+			if(!input) // empty input so we return
+				to_chat(user, span_warning("You need to enter a description!"))
+				return
+			if(CHAT_FILTER_CHECK(input)) // check for forbidden words
+				to_chat(user, span_warning("Your message contains forbidden words."))
 				return
 			desc = input
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up

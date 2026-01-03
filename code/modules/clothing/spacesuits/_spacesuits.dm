@@ -1,4 +1,4 @@
-#define THERMAL_REGULATOR_COST 18 // the cost per tick for the thermal regulator
+#define THERMAL_REGULATOR_COST 25 WATT // the cost per tick for the thermal regulator
 
 //Note:	Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //		Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
@@ -7,9 +7,9 @@
 	icon = 'icons/obj/clothing/head/spacehelm.dmi'
 	worn_icon = 'icons/mob/clothing/head/spacehelm.dmi'
 	icon_state = "spaceold"
-	item_state = "space_helmet"
+	inhand_icon_state = "space_helmet"
 	desc = "A special helmet with solar UV shielding to protect your eyes from harmful rays."
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	armor_type = /datum/armor/helmet_space
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	dynamic_hair_suffix = ""
@@ -18,17 +18,17 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	equip_delay_other = 50
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	dog_fashion = null
 	var/obj/item/clothing/head/attached_hat
+	custom_price = 75
 
 /datum/armor/helmet_space
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10
@@ -113,16 +113,17 @@
 	icon_state = "spaceold"
 	icon = 'icons/obj/clothing/suits/spacesuit.dmi'
 	worn_icon = 'icons/mob/clothing/suits/spacesuit.dmi'
-	item_state = "s_suit"
+	inhand_icon_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	allowed = list(
 		/obj/item/flashlight,
 		/obj/item/tank/internals,
+		/obj/item/tank/jetpack/oxygen/captain,
 		)
-	slowdown = 1
+	slowdown = 0.9
 	armor_type = /datum/armor/suit_space
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
@@ -133,8 +134,10 @@
 	equip_delay_other = 80
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle_spacesuit)
+	pockets = FALSE
+	custom_price = 150
 	var/temperature_setting = BODYTEMP_NORMAL /// The default temperature setting
-	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high /// If this is a path, this gets created as an object in Initialize.
+	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell /// If this is a path, this gets created as an object in Initialize.
 	var/cell_cover_open = FALSE /// Status of the cell cover on the suit
 	var/thermal_on = FALSE /// Status of the thermal regulator
 	var/show_hud = TRUE /// If this is FALSE the battery status UI will be disabled. This is used for suits that don't use batteries like the changeling's flesh suit mutation.
@@ -142,7 +145,6 @@
 
 /datum/armor/suit_space
 	bio = 100
-	rad = 50
 	fire = 80
 	acid = 70
 	stamina = 10
@@ -169,9 +171,9 @@
 		human.update_spacesuit_hud_icon("0")
 
 // Space Suit temperature regulation and power usage
-/obj/item/clothing/suit/space/process()
-	var/mob/living/carbon/human/user = loc
-	if(!user || !ishuman(user) || user.wear_suit != src)
+/obj/item/clothing/suit/space/process(delta_time)
+	var/mob/living/carbon/human/user = src.loc
+	if(!user || !ishuman(user) || !(user.wear_suit == src))
 		return
 
 	// Do nothing if thermal regulators are off
@@ -193,7 +195,7 @@
 
 	// If we got here, it means thermals are on, the cell is in and the cell has
 	// just had enough charge subtracted from it to power the thermal regulator
-	user.adjust_bodytemperature(get_temp_change_amount((temperature_setting - user.bodytemperature), 0.16))
+	user.adjust_bodytemperature(get_temp_change_amount((temperature_setting - user.bodytemperature), 0.08 * delta_time))
 	update_hud_icon(user)
 
 // Clean up the cell on destroy

@@ -11,12 +11,6 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/operative/spawn_role()
-	var/list/candidates = get_candidates(ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative)
-	if(!candidates.len)
-		return NOT_ENOUGH_PLAYERS
-
-	var/mob/dead/selected = pick_n_take(candidates)
-
 	var/list/spawn_locs = list()
 	if(!spawn_locs.len) //try the new lone_ops spawner first
 		for(var/obj/effect/landmark/loneops/L in GLOB.landmarks_list)
@@ -29,15 +23,25 @@
 	if(!spawn_locs.len)
 		return MAP_ERROR
 
-	var/mob/living/carbon/human/operative = new (pick(spawn_locs))
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_OPERATIVE
+	config.poll_time = 30 SECONDS
+	config.role_name_text = "lone operative"
+	config.alert_pic = /obj/machinery/nuclearbomb/selfdestruct
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
+	if(!candidate)
+		return NOT_ENOUGH_PLAYERS
+
+	var/mob/living/carbon/human/operative = new(pick(spawn_locs))
 	operative.randomize_human_appearance(~RANDOMIZE_SPECIES)
 	operative.dna.update_dna_identity()
-	var/datum/mind/Mind = new /datum/mind(selected.key)
-	Mind.assigned_role = "Lone Operative"
-	Mind.special_role = "Lone Operative"
-	Mind.active = 1
-	Mind.transfer_to(operative)
-	Mind.add_antag_datum(/datum/antagonist/nukeop/lone)
+
+	var/datum/mind/new_mind = new /datum/mind(candidate.key)
+	new_mind.assigned_role = "Lone Operative"
+	new_mind.special_role = "Lone Operative"
+	new_mind.active = TRUE
+	new_mind.transfer_to(operative)
+	new_mind.add_antag_datum(/datum/antagonist/nukeop/lone)
 
 	message_admins("[ADMIN_LOOKUPFLW(operative)] has been made into lone operative by an event.")
 	log_game("[key_name(operative)] was spawned as a lone operative by an event.")

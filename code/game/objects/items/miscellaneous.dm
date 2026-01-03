@@ -12,13 +12,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb_continuous = list("warns", "cautions", "smashes")
 	attack_verb_simple = list("warn", "caution", "smash")
+	custom_price = 15
 
 /obj/item/choice_beacon
 	name = "choice beacon"
 	desc = "Hey, why are you viewing this?!! Please let CentCom know about this odd occurrence."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-blue"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	var/uses = 1
 
 /obj/item/choice_beacon/attack_self(mob/user)
@@ -39,7 +40,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sort_list(display_names)
+	var/choice = tgui_input_list(M,"Which item would you like to order?","Select an Item", sort_list(display_names))
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -374,6 +375,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb_continuous = list("skubs")
 	attack_verb_simple = list("skub")
+	custom_price = 15 // Useless fucking thing, this should be removed
 
 /obj/item/skub/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] has declared themself as anti-skub! The skub tears them apart!"))
@@ -401,7 +403,7 @@
 	name = "Upgrade Wand"
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
-	item_state = "wand"
+	inhand_icon_state = "wand"
 	w_class = WEIGHT_CLASS_SMALL
 	var/used = FALSE
 
@@ -409,11 +411,15 @@
 	name = "animal delivery beacon"
 	desc = "There are no faster ways, only more humane."
 	var/default_name = "Bacon"
-	var/mob_choice = /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
+	var/mob_choice = /mob/living/basic/pet/dog/corgi/exoticcorgi
 
 /obj/item/choice_beacon/pet/generate_options(mob/living/M)
-	var/input_name = stripped_input(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
-	if(!input_name)
+	var/input_name = tgui_input_text(M, "What would you like your new pet to be named?", "New Pet Name", default_name, MAX_NAME_LEN)
+	if(!input_name) // no input
+		to_chat(M, span_warning("You must enter a name for your pet!"))
+		return
+	if(CHAT_FILTER_CHECK(input_name)) // check for forbidden words
+		to_chat(M, span_warning("Your pet name contains a forbidden word."))
 		return
 	spawn_mob(M,input_name)
 	uses--
@@ -449,7 +455,7 @@
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"
 	default_name = "Tosha"
-	mob_choice = /mob/living/simple_animal/pet/dog/corgi
+	mob_choice = /mob/living/basic/pet/dog/corgi
 
 /obj/item/choice_beacon/pet/hamster
 	name = "hamster delivery beacon"
@@ -459,7 +465,7 @@
 /obj/item/choice_beacon/pet/pug
 	name = "pug delivery beacon"
 	default_name = "Silvestro"
-	mob_choice = /mob/living/simple_animal/pet/dog/pug
+	mob_choice = /mob/living/basic/pet/dog/pug
 
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"

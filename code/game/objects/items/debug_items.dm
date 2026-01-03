@@ -19,7 +19,7 @@
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
-	var/choice = input("Select a species", "Human Spawner", null) in GLOB.species_list
+	var/choice = tgui_input_list(user, "Select a species", "Human Spawner", GLOB.species_list)
 	selected_species = GLOB.species_list[choice]
 
 /obj/item/debug/omnitool
@@ -152,7 +152,7 @@
 /obj/item/construction/rcd/arcd/debug
 	name = "\improper CentCom Admin RCD"
 	icon_state = "ircd"
-	item_state = "ircd"
+	inhand_icon_state = "ircd"
 	w_class = WEIGHT_CLASS_TINY
 	max_matter = INFINITY
 	matter = INFINITY
@@ -195,7 +195,11 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	geiger_counter = FALSE
 
+/obj/item/clothing/head/helmet/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /datum/armor/hardsuit_debug
 	melee = 300
@@ -204,7 +208,6 @@
 	energy = 300
 	bomb = 300
 	bio = 300
-	rad = 300
 	fire = 300
 	acid = 300
 	stamina = 300
@@ -228,6 +231,9 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/item/clothing/suit/space/hardsuit/debug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 // debug bag
 
@@ -235,7 +241,7 @@
 	name = "bag of portable hole"
 	desc = "A backpack that opens into a localized pocket of nullspace."
 	icon_state = "holdingpack"
-	item_state = "holdingpack"
+	inhand_icon_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor_type = /datum/armor/backpack_debug
@@ -248,36 +254,32 @@
 	energy = 100
 	bomb = 100
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 
-/obj/item/storage/backpack/debug/ComponentInitialize()
+/obj/item/storage/backpack/debug/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.allow_big_nesting = TRUE
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.max_combined_w_class = 1000
+	atom_storage.allow_big_nesting = TRUE
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_slots = 1000
+	atom_storage.max_total_storage = 1000
 
 /obj/item/storage/box/debugtools
 	name = "box of debug tools"
 	icon_state = "syndiebox"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/storage/box/debugtools/ComponentInitialize()
+/obj/item/storage/box/debugtools/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 1000
-	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_items = 1000
-	STR.allow_big_nesting = TRUE
+	atom_storage.max_total_storage = 1000
+	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
+	atom_storage.max_slots = 1000
+	atom_storage.allow_big_nesting = TRUE
 
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,
-		/obj/item/modular_computer/tablet/pda=1,
+		/obj/item/modular_computer/tablet/pda/preset=1,
 		/obj/item/modular_computer/tablet/preset/advanced=1,
 		/obj/item/storage/belt/military/abductor/full=1,
 		/obj/item/geiger_counter=1,

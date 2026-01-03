@@ -1,4 +1,4 @@
-/mob/living/silicon/ai/say(message, bubble_type,var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/silicon/ai/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(parent && istype(parent) && parent.stat != DEAD) //If there is a defined "parent" AI, it is actually an AI, and it is alive, anything the AI tries to say is said by the parent instead.
 		parent.say(message, language)
 		return
@@ -7,7 +7,7 @@
 /mob/living/silicon/ai/compose_track_href(atom/movable/speaker, namepart)
 	var/mob/M = speaker.GetSource()
 	if(M)
-		return "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+		return "<a href='byond://?src=[REF(src)];track=[html_encode(namepart)]'>"
 	return ""
 
 /mob/living/silicon/ai/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
@@ -89,7 +89,7 @@
 	var/index = 0
 	for(var/word in GLOB.vox_sounds)
 		index++
-		dat += "<A href='?src=[REF(src)];say_word=[word]'>[capitalize(word)]</A>"
+		dat += "<A href='byond://?src=[REF(src)];say_word=[word]'>[capitalize(word)]</A>"
 		if(index != GLOB.vox_sounds.len)
 			dat += " / "
 

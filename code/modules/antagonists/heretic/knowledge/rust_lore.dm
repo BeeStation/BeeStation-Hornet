@@ -74,7 +74,7 @@
 		/mob/living/simple_animal/bot,
 		/obj/item/storage/secure/safe/caps_spare,
 		/obj/machinery/door,
-		/obj/vehicle/sealed/mecha
+		/obj/vehicle/sealed/mecha,
 	))
 	// The reason this is not simply an isturf is because we likely don't want to hit random machinery like holopads and such!
 	if(source.combat_mode && !is_type_in_typecache(target, always_hit_typecache))
@@ -301,6 +301,10 @@
 	new /datum/rust_spread(loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+	SSsecurity_level.set_level(SEC_LEVEL_LAMBDA)
+
+/datum/heretic_knowledge/final/rust_final/on_lose(mob/user)
+	SSsecurity_level.set_level(SEC_LEVEL_BLUE)
 
 /**
  * Signal proc for [COMSIG_MOVABLE_MOVED].
@@ -365,7 +369,7 @@
 		/turf/closed/indestructible,
 		/turf/open/space,
 		/turf/open/lava,
-		/turf/open/chasm
+		/turf/open/chasm,
 	))
 
 /datum/rust_spread/New(loc)
@@ -413,7 +417,7 @@
 		if((nearby_turf in rusted_turfs) || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
 
-		for(var/turf/line_turf as anything in getline(nearby_turf, centre))
+		for(var/turf/line_turf as anything in get_line(nearby_turf, centre))
 			if(get_dist(nearby_turf, line_turf) <= 1)
 				edge_turfs |= nearby_turf
 		CHECK_TICK

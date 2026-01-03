@@ -7,7 +7,7 @@
 /datum/unit_test/actions_moved_on_mind_transfer/Run()
 
 	var/mob/living/carbon/human/consistent/wizard = allocate(/mob/living/carbon/human/consistent)
-	var/mob/living/simple_animal/pet/dog/corgi/wizard_dog = allocate(/mob/living/simple_animal/pet/dog/corgi)
+	var/mob/living/basic/pet/dog/corgi/wizard_dog = allocate(/mob/living/basic/pet/dog/corgi)
 	wizard.mind_initialize()
 
 	var/datum/action/spell/pointed/projectile/fireball/fireball = new(wizard.mind)

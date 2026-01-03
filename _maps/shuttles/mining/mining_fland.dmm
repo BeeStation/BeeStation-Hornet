@@ -15,12 +15,6 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
-"g" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
 "h" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -70,7 +64,7 @@
 "q" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/turf_decal/stripes/full,
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "r" = (
@@ -81,9 +75,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "t" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 8
-	},
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "v" = (
@@ -266,12 +258,6 @@
 "U" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/mining)
-"V" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
 
 (1,1,1) = {"
 U
@@ -283,7 +269,7 @@ I
 a
 "}
 (2,1,1) = {"
-V
+t
 B
 c
 w
@@ -292,7 +278,7 @@ I
 z
 "}
 (3,1,1) = {"
-V
+t
 A
 h
 v
@@ -301,7 +287,7 @@ q
 F
 "}
 (4,1,1) = {"
-V
+t
 K
 l
 r
@@ -311,10 +297,10 @@ E
 "}
 (5,1,1) = {"
 U
-g
+t
 U
 P
-g
+t
 I
 a
 "}

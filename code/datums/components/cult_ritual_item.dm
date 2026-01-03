@@ -15,14 +15,8 @@
 	var/list/turfs_that_boost_us
 	/// A list of all shields surrounding us while drawing certain runes (Nar'sie).
 	var/list/obj/structure/emergency_shield/sanguine/shields
-	/// Weakref to an action added to our parent item that allows for quick drawing runes
-	var/datum/weakref/linked_action_ref
 
-/datum/component/cult_ritual_item/Initialize(
-	examine_message,
-	action = /datum/action/item_action/cult_dagger,
-	turfs_that_boost_us = /turf/open/floor/engine/cult,
-	)
+/datum/component/cult_ritual_item/Initialize(examine_message, turfs_that_boost_us = /turf/open/floor/engine/cult)
 
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -34,14 +28,8 @@
 	else if(ispath(turfs_that_boost_us))
 		src.turfs_that_boost_us = list(turfs_that_boost_us)
 
-	if(ispath(action))
-		var/obj/item/item_parent = parent
-		var/datum/action/added_action = item_parent.add_item_action(action)
-		linked_action_ref = WEAKREF(added_action)
-
 /datum/component/cult_ritual_item/Destroy(force, silent)
 	cleanup_shields()
-	QDEL_NULL(linked_action_ref)
 	return ..()
 
 /datum/component/cult_ritual_item/RegisterWithParent()
@@ -51,7 +39,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, PROC_REF(try_clear_rune))
 
 	if(examine_message)
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+		RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/cult_ritual_item/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -61,10 +49,10 @@
 		COMSIG_ITEM_ATTACK_EFFECT,
 		))
 	if(examine_message)
-		UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
+		UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
 
 /*
- * Signal proc for [COMSIG_PARENT_EXAMINE].
+ * Signal proc for [COMSIG_ATOM_EXAMINE].
  * Gives the examiner, if they're a cultist, our set examine message.
  * Usually, this will include various instructions on how to use the thing.
  */
@@ -73,7 +61,6 @@
 
 	if(!IS_CULTIST(examiner))
 		return
-
 	examine_text += examine_message
 
 /*
@@ -85,10 +72,8 @@
 
 	if(!isliving(user))
 		return
-
 	if(!can_scribe_rune(source, user))
 		return
-
 	if(drawing_a_rune)
 		to_chat(user, span_warning("You are already drawing a rune."))
 		return
@@ -162,7 +147,7 @@
 	// For carbonss we also want to clear out the stomach of any holywater
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		var/obj/item/organ/stomach/belly = carbon_target.getorganslot(ORGAN_SLOT_STOMACH)
+		var/obj/item/organ/stomach/belly = carbon_target.get_organ_slot(ORGAN_SLOT_STOMACH)
 		if(belly)
 			holy_to_unholy += belly.reagents.get_reagent_amount(/datum/reagent/water/holywater)
 			belly.reagents.del_reagent(/datum/reagent/water/holywater)
@@ -260,7 +245,7 @@
 		stack_trace("[type] - [cultist] attempted to scribe a rune, but the global rune list is empty!")
 		return FALSE
 
-	entered_rune_name = input(cultist, "Choose a rite to scribe.", "Sigils of Power") as null|anything in GLOB.rune_types
+	entered_rune_name = tgui_input_list(cultist, "Choose a rite to scribe.", "Sigils of Power", GLOB.rune_types)
 	if(!entered_rune_name || !can_scribe_rune(tool, cultist))
 		return FALSE
 
@@ -270,10 +255,16 @@
 		return FALSE
 
 	if(initial(rune_to_scribe.req_keyword))
-		chosen_keyword = stripped_input(cultist, "Enter a keyword for the new rune.", "Words of Power")
-		if(!chosen_keyword)
+		chosen_keyword = tgui_input_text(cultist, "Enter a keyword for the new rune.", "Words of Power", "", MAX_NAME_LEN)
+		if(OOC_FILTER_CHECK(chosen_keyword))
 			drawing_a_rune = FALSE
 			start_scribe_rune(tool, cultist)
+			to_chat(cultist, span_warning("Your keyword contains forbidden words."))
+			return FALSE
+		if(!chosen_keyword) // no input, so we return back to the menu
+			drawing_a_rune = FALSE
+			start_scribe_rune(tool, cultist)
+			to_chat(cultist, span_warning("No keyword was entered, cancelling the rune scribbing."))
 			return FALSE
 
 	our_turf = get_turf(cultist) //we may have moved. adjust as needed...

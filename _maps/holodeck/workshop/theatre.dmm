@@ -1,0 +1,232 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"c" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 1
+	},
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/head/costume/crown,
+/obj/item/clothing/head/costume/canada,
+/obj/item/clothing/head/costume/festive,
+/obj/item/clothing/head/costume/jester,
+/obj/item/clothing/head/costume/jester/alt,
+/obj/item/clothing/head/costume/lobsterhat,
+/obj/item/clothing/head/costume/oldhat,
+/obj/item/clothing/head/costume/pharaoh,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/item/clothing/head/costume/plague,
+/obj/item/clothing/head/costume/powdered_wig,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"h" = (
+/obj/effect/turf_decal/siding/wideplating_new{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"n" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"z" = (
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"D" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/chair/stool/bar{
+	dir = 8;
+	pixel_x = -6
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"E" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/suit/hooded/bee_costume,
+/obj/item/clothing/suit/hooded/carp_costume,
+/obj/item/clothing/suit/hooded/ian_costume,
+/obj/item/clothing/suit/hooded/renault_costume,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"F" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/structure/table/wood,
+/obj/item/toy/sword,
+/obj/item/toy/sword,
+/obj/item/throwing_star/toy,
+/obj/item/throwing_star/toy,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"L" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/spawner/structure/random_piano,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/suit/costume/delinquent,
+/obj/item/clothing/suit/costume/dracula,
+/obj/item/clothing/suit/costume/ghost_sheet,
+/obj/item/clothing/suit/costume/imperium_monk,
+/obj/item/clothing/suit/costume/judgerobe,
+/obj/item/clothing/suit/costume/pirate,
+/obj/item/clothing/under/costume/schoolgirl,
+/obj/item/clothing/under/costume/soviet,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"P" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"R" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"V" = (
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"W" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/toy/batong,
+/obj/item/toy/toy_dagger,
+/obj/item/toy/talking/codex_gigas,
+/obj/item/toy/windupToolbox,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/toy/ammo/gun,
+/obj/item/toy/ammo/gun,
+/obj/item/toy/ammo/gun,
+/obj/item/toy/ammo/gun,
+/obj/item/toy/gun,
+/obj/item/toy/gun,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+L
+d
+M
+E
+h
+"}
+(2,1,1) = {"
+D
+V
+z
+R
+c
+"}
+(3,1,1) = {"
+n
+z
+z
+R
+c
+"}
+(4,1,1) = {"
+n
+z
+z
+R
+a
+"}
+(5,1,1) = {"
+n
+z
+z
+R
+c
+"}
+(6,1,1) = {"
+n
+V
+z
+R
+c
+"}
+(7,1,1) = {"
+F
+Z
+W
+P
+h
+"}

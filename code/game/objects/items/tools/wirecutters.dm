@@ -3,7 +3,7 @@
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters_map"
-	item_state = "cutters"
+	inhand_icon_state = "cutters"
 	worn_icon_state = "cutters"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -61,11 +61,11 @@
 		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
 		qdel(C.handcuffed)
 		return
-	else if(istype(C) && C.has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
+	else if(istype(C) && C.has_status_effect(/datum/status_effect/strandling))
 		to_chat(C, span_notice("You attempt to remove the durathread strand from around your neck."))
 		if(do_after(user, 15, C))
 			to_chat(C, span_notice("You succesfuly remove the durathread strand."))
-			C.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+			C.remove_status_effect(/datum/status_effect/strandling)
 	else
 		..()
 

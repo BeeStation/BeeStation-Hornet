@@ -3,11 +3,18 @@
 // All signals send the source datum of the signal as the first argument
 
 // /datum signals
-#define COMSIG_COMPONENT_ADDED "component_added"				//! when a component is added to a datum: (/datum/component)
-#define COMSIG_COMPONENT_REMOVING "component_removing"			//! before a component is removed from a datum because of RemoveComponent: (/datum/component)
-#define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"			//! before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
-#define COMSIG_PARENT_QDELETING "parent_qdeleting"				//! just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
-#define COMSIG_TOPIC "handle_topic"                             //! generic topic handler (usr, href_list)
+/// when a component is added to a datum: (/datum/component)
+#define COMSIG_COMPONENT_ADDED "component_added"
+/// before a component is removed from a datum because of ClearFromParent: (/datum/component)
+#define COMSIG_COMPONENT_REMOVING "component_removing"
+/// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
+/// you should only be using this if you want to block deletion
+/// that's the only functional difference between it and COMSIG_QDELETING, outside setting QDELETING to detect
+#define COMSIG_PREQDELETED "parent_preqdeleted"
+/// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
+#define COMSIG_QDELETING "parent_qdeleting"
+/// generic topic handler (usr, href_list)
+#define COMSIG_TOPIC "handle_topic"
 
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
@@ -39,13 +46,15 @@
 	#define COMPONENT_CANCEL_REAGENT_ADD (1<<0)
 
 // /datum/species signals
-#define COMSIG_SPECIES_GAIN "species_gain"						//! from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
-#define COMSIG_SPECIES_LOSS "species_loss"						//! from datum/species/on_species_loss(): (datum/species/lost_species)
+///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
+#define COMSIG_SPECIES_GAIN "species_gain"
+///from datum/species/on_species_loss(): (datum/species/lost_species)
+#define COMSIG_SPECIES_LOSS "species_loss"
 
 // /datum/song signals
 /// Sent to the instrument when a song starts playing
-#define COMSIG_SONG_START 	"song_start"
-#define COMSIG_SONG_END		"song_end"
+#define COMSIG_SONG_START "song_start"
+#define COMSIG_SONG_END "song_end"
 
 /*******Component Specific Signals*******/
 //Janitor
@@ -71,7 +80,8 @@
 
 //Diseases
 
-#define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+#define COMSIG_DISEASE_END "disease_end"
 
 //Mood
 
@@ -81,21 +91,37 @@
 /// Called in /obj/structure/moneybot/add_money(). (to_add)
 #define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
 
-
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
 
 // /datum/component/two_handed signals
-#define COMSIG_TWOHANDED_WIELD "twohanded_wield"              //from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
-		#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
-#define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"          //from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 
+//from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
+#define COMSIG_TWOHANDED_WIELD "twohanded_wield"
+	#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
+//from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
+#define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"
+
+// /datum/component/transforming signals
+
+/// From /datum/component/transforming/proc/on_attack_self(obj/item/source, mob/user): (obj/item/source, mob/user, active)
+#define COMSIG_TRANSFORMING_PRE_TRANSFORM "transforming_pre_transform"
+	/// Return COMPONENT_BLOCK_TRANSFORM to prevent the item from transforming.
+	#define COMPONENT_BLOCK_TRANSFORM (1<<0)
+/// From /datum/component/transforming/proc/do_transform(obj/item/source, mob/user): (obj/item/source, mob/user, active)
+#define COMSIG_TRANSFORMING_ON_TRANSFORM "transforming_on_transform"
+	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
+	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
 // /datum/mind signals
-#define COMSIG_MIND_TRANSFER_TO		"mind_transfer_to"		// (mob/old, mob/new)
-#define COMSIG_MIND_JOIN_ANTAG_HUD	"mind_join_antag_hud"	// (datum/atom_hud/antag/hud)
-#define COMSIG_MIND_LEAVE_ANTAG_HUD	"mind_leave_antag_hud"	// (datum/atom_hud/antag/hud)
-#define COMSIG_MIND_CRYOED 			"mind_cryoed"			// Sent when a mob with a mind enters cryo storage: ()
+// (mob/old, mob/new)
+#define COMSIG_MIND_TRANSFER_TO "mind_transfer_to"
+// (datum/atom_hud/antag/hud)
+#define COMSIG_MIND_JOIN_ANTAG_HUD "mind_join_antag_hud"
+// (datum/atom_hud/antag/hud)
+#define COMSIG_MIND_LEAVE_ANTAG_HUD "mind_leave_antag_hud"
+// Sent when a mob with a mind enters cryo storage: ()
+#define COMSIG_MIND_CRYOED "mind_cryoed"
 
 // /datum/component/clockwork_trap signals
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
@@ -129,3 +155,13 @@
 /// Called when a buffer tries to send some stored data to something (datum/source, mob/user, datum/buffer, obj/item/buffer_parent) (buffer item may be null)
 #define COMSIG_PARENT_RECEIVE_BUFFER "receive_buffer"
 	#define COMPONENT_BUFFER_RECEIVED (1 << 0)
+
+///sent from ai controllers when they possess a pawn: (datum/ai_controller/source_controller)
+#define COMSIG_AI_CONTROLLER_POSSESSED_PAWN "ai_controller_possessed_pawn"
+/// Called when a device a traitor has planted effects someone's mood. Pass the mind of the viewer.
+#define COMSIG_DEMORALISING_EVENT "traitor_demoralise_event"
+
+/// Called when a projectile dampener captures an object.
+#define COMSIG_DAMPENER_CAPTURE "dampener_capture"
+/// Called when a projectile dampener releases an object.
+#define COMSIG_DAMPENER_RELEASE "dampener_release"

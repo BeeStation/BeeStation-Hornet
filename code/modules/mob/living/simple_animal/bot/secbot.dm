@@ -240,7 +240,7 @@
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 
 	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	C.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.apply_damage(60, STAMINA, BODY_ZONE_CHEST, armor_block)
 	C.apply_effect(EFFECT_STUTTER, 50)
 	C.visible_message(
 		span_danger("[src] has stunned [C]!"),\
@@ -382,7 +382,7 @@
 		else
 			continue
 
-/mob/living/simple_animal/bot/secbot/proc/check_for_weapons(var/obj/item/slot_item)
+/mob/living/simple_animal/bot/secbot/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
 		return TRUE
 	return FALSE
@@ -407,7 +407,7 @@
 	new /obj/effect/decal/cleanable/oil(loc)
 	..()
 
-/mob/living/simple_animal/bot/secbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
 	if(!isalien(target))
 		target = user

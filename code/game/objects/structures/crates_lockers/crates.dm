@@ -24,6 +24,10 @@
 	close_sound_volume = 50
 	drag_slowdown = 0
 	imacrate = TRUE
+	breakout_time = 20 SECONDS
+	custom_price = 500
+	var/mob/living/resident //The vampire owner of this crate (or coffin)
+	var/pry_lid_timer = 25 SECONDS //The time it takes to pry this open with a crowbar
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
 	var/radius_2 = 1.35
@@ -51,7 +55,7 @@
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
 
-/obj/structure/closet/crate/animate_door(var/closing = FALSE)
+/obj/structure/closet/crate/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -153,23 +157,6 @@
 	manifest = null
 	update_icon()
 
-/obj/structure/closet/crate/coffin
-	name = "coffin"
-	desc = "It's a burial receptacle for the dearly departed."
-	icon_state = "coffin"
-	resistance_flags = FLAMMABLE
-	max_integrity = 70
-	material_drop = /obj/item/stack/sheet/wood
-	material_drop_amount = 5
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
-	open_sound_volume = 25
-	close_sound_volume = 50
-	door_anim_angle = 140
-	azimuth_angle_2 = 180
-	door_anim_time = 5
-	door_hinge = 5
-
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
 	name = "internals crate"
@@ -223,6 +210,7 @@
 	new /obj/item/reagent_containers/blood/OMinus(src)
 	new /obj/item/reagent_containers/blood/OPlus(src)
 	new /obj/item/reagent_containers/blood/lizard(src)
+	new /obj/item/reagent_containers/blood/synthetic(src)
 	new /obj/item/reagent_containers/blood/ethereal(src)
 	new /obj/item/reagent_containers/blood/oozeling(src)
 	for(var/i in 1 to 3)
@@ -234,14 +222,14 @@
 
 /obj/structure/closet/crate/freezer/surplus_limbs/PopulateContents()
 	. = ..()
-	new /obj/item/bodypart/l_arm/robot/surplus(src)
-	new /obj/item/bodypart/l_arm/robot/surplus(src)
-	new /obj/item/bodypart/r_arm/robot/surplus(src)
-	new /obj/item/bodypart/r_arm/robot/surplus(src)
-	new /obj/item/bodypart/l_leg/robot/surplus(src)
-	new /obj/item/bodypart/l_leg/robot/surplus(src)
-	new /obj/item/bodypart/r_leg/robot/surplus(src)
-	new /obj/item/bodypart/r_leg/robot/surplus(src)
+	new /obj/item/bodypart/arm/left/robot/surplus(src)
+	new /obj/item/bodypart/arm/left/robot/surplus(src)
+	new /obj/item/bodypart/arm/right/robot/surplus(src)
+	new /obj/item/bodypart/arm/right/robot/surplus(src)
+	new /obj/item/bodypart/leg/left/robot/surplus(src)
+	new /obj/item/bodypart/leg/left/robot/surplus(src)
+	new /obj/item/bodypart/leg/right/robot/surplus(src)
+	new /obj/item/bodypart/leg/right/robot/surplus(src)
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
@@ -276,6 +264,22 @@
 	name = "science crate"
 	desc = "A science crate."
 	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/science/debug
+	name = "science crate"
+	desc = "debug cyborg modules."
+	icon_state = "sci_crate"
+
+/obj/structure/closet/crate/science/debug/obj/structure/closet/crate/science/debug/PopulateContents()
+	..()
+	new /obj/item/robot_model/standard(src)
+	new /obj/item/robot_model/peacekeeper(src)
+	new /obj/item/robot_model/miner(src)
+	new /obj/item/robot_model/medical(src)
+	new /obj/item/robot_model/janitor(src)
+	new /obj/item/robot_model/engineering(src)
+	new /obj/item/robot_model/clown(src)
+	new /obj/item/robot_model/service(src)
 
 /obj/structure/closet/crate/solarpanel_small
 	name = "budget solar panel crate"

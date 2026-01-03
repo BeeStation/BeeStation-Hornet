@@ -16,7 +16,6 @@
 	laser = 80
 	energy = 100
 	bomb = 50
-	rad = 100
 	fire = 50
 	acid = 50
 
@@ -67,17 +66,17 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/plasticflaps/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
-	if(isliving(caller))
-		if(isbot(caller))
+/obj/structure/plasticflaps/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/passing_atom)
+	if(isliving(passing_atom))
+		if(isbot(passing_atom))
 			return TRUE
 
-		var/mob/living/living_caller = caller
-		if(!living_caller.ventcrawler && living_caller.mob_size != MOB_SIZE_TINY)
+		var/mob/living/living_pass = passing_atom
+		if(!living_pass.ventcrawler && living_pass.mob_size != MOB_SIZE_TINY)
 			return FALSE
 
-	if(caller?.pulling)
-		return CanAStarPass(ID, to_dir, caller.pulling)
+	if(passing_atom?.pulling)
+		return CanAStarPass(ID, to_dir, passing_atom.pulling)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/CanAllowThrough(atom/movable/mover, border_dir)

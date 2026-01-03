@@ -6,7 +6,8 @@
 	/// The icon to show in the preferences menu.
 	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
 	var/icon
-	var/value = 0
+	///Positive if the quirk is beneficial to gameplay, negative if the quirk is restrictive/harmful, 0 if the quirk has no substantial impact on gameplay
+	var/quirk_value = 0
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
 	var/list/restricted_species //specifies valid species, use /datum/species/
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
@@ -19,6 +20,8 @@
 	var/datum/mind/quirk_holder // The mind that contains this quirk
 	var/mob/living/quirk_target // The mob that will be affected by this quirk
 	var/abstract_parent_type = /datum/quirk
+	/// Accent to be used in accent traits
+	var/accent_to_use = null
 
 /datum/quirk/New(datum/mind/quirk_mind, mob/living/quirk_mob, spawn_effects)
 	..()
@@ -35,8 +38,8 @@
 	quirk_holder.quirks += src
 	if(process)
 		START_PROCESSING(SSquirks, src)
-	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, PROC_REF(handle_holder_del))
-	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_del))
+	RegisterSignal(quirk_holder, COMSIG_QDELETING, PROC_REF(handle_holder_del))
+	RegisterSignal(quirk_target, COMSIG_QDELETING, PROC_REF(handle_mob_del))
 	if(!is_valid_quirk_target(quirk_target)) //at this point the quirk is saved to the mind
 		return
 
@@ -52,9 +55,9 @@
 		STOP_PROCESSING(SSquirks, src)
 	if(quirk_holder)
 		remove()
-		UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(quirk_holder, COMSIG_QDELETING)
 		if(!QDELETED(quirk_target))
-			UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(quirk_target, COMSIG_QDELETING)
 			to_chat(quirk_target, lose_text)
 		quirk_holder.quirks -= src
 		if(mob_trait)
@@ -66,7 +69,7 @@
 
 /* Don't use this, use the mind's transfer_to proc instead */
 /datum/quirk/proc/transfer_mob(mob/living/to_mob)
-	UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(quirk_target, COMSIG_QDELETING)
 	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_target, mob_trait, ROUNDSTART_TRAIT)
@@ -74,7 +77,7 @@
 	quirk_target = to_mob
 	if(process)
 		START_PROCESSING(SSquirks, src)
-	RegisterSignal(quirk_target, COMSIG_PARENT_QDELETING, PROC_REF(handle_mob_del))
+	RegisterSignal(quirk_target, COMSIG_QDELETING, PROC_REF(handle_mob_del))
 	if(is_valid_quirk_target(quirk_target))
 		if(mob_trait)
 			ADD_TRAIT(to_mob, mob_trait, ROUNDSTART_TRAIT)
@@ -95,7 +98,7 @@
 
 /datum/quirk/proc/handle_mob_del()
 	SIGNAL_HANDLER
-	UnregisterSignal(quirk_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(quirk_target, COMSIG_QDELETING)
 	STOP_PROCESSING(SSquirks, src)
 	quirk_target = null
 
@@ -135,13 +138,13 @@
 	for(var/datum/quirk/candidate as anything in mind.quirks)
 		switch(category)
 			if(CAT_QUIRK_MAJOR_DISABILITY)
-				if(candidate.value >= -4)
+				if(candidate.quirk_value >= -4)
 					continue
 			if(CAT_QUIRK_MINOR_DISABILITY)
-				if(!ISINRANGE(candidate.value, -4, -1))
+				if(!ISINRANGE(candidate.quirk_value, -4, -1))
 					continue
 			if(CAT_QUIRK_NOTES)
-				if(candidate.value < 0)
+				if(candidate.quirk_value < 0)
 					continue
 		dat += medical ? candidate.medical_record_text : candidate.name
 

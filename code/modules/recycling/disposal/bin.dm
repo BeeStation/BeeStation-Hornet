@@ -10,9 +10,6 @@
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	obj_flags = CAN_BE_HIT | USES_TGUI
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
-
-
 
 	var/datum/gas_mixture/air_contents	// internal reservoir
 	var/full_pressure = FALSE
@@ -34,7 +31,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	bullet = 10
 	laser = 10
 	energy = 100
-	rad = 100
 	fire = 90
 	acid = 30
 
@@ -129,7 +125,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	if(!iscarbon(user) && !user.ventcrawler) //only carbon and ventcrawlers can climb into disposal by themselves.
 		if (iscyborg(user))
 			var/mob/living/silicon/robot/borg = user
-			if (!borg.module || !borg.module.canDispose)
+			if (!borg.model || !borg.model.canDispose)
 				return
 		else
 			return
@@ -210,7 +206,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	flush = FALSE
 
 /obj/machinery/disposal/proc/newHolderDestination(obj/structure/disposalholder/H)
-	for(var/obj/item/small_delivery/O in src)
+	for(var/obj/item/delivery/O in src)
 		H.tomail = TRUE
 		return
 
@@ -235,20 +231,23 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		AM.forceMove(get_turf(src))
 	..()
 
-/obj/machinery/disposal/get_dumping_location(obj/item/storage/source,mob/user)
-	return src
-
 //How disposal handles getting a storage dump from a storage object
-/obj/machinery/disposal/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
-	. = ..()
-	if(.)
-		return
-	for(var/obj/item/I in src_object.parent)
-		if(user.active_storage != src_object)
-			if(I.on_found(user))
-				return
-		src_object.remove_from_storage(I, src)
-	return TRUE
+/obj/machinery/disposal/proc/on_storage_dump(datum/source, obj/item/storage_source, mob/user)
+	SIGNAL_HANDLER
+
+	. = STORAGE_DUMP_HANDLED
+
+	to_chat(user, span_notice("You dump out [storage_source] into [src]."))
+
+	for(var/obj/item/to_dump in storage_source)
+		if(to_dump.loc != storage_source)
+			continue
+		if(user.active_storage != storage_source && to_dump.on_found(user))
+			return
+		if(!storage_source.atom_storage.attempt_remove(to_dump, src, silent = TRUE))
+			continue
+		to_dump.pixel_x = to_dump.base_pixel_x + rand(-5, 5)
+		to_dump.pixel_y = to_dump.base_pixel_y + rand(-5, 5)
 
 // Disposal bin
 // Holds items for disposal into pipe system
@@ -265,12 +264,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 // attack by item places it in to disposal
 /obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))	//Not doing component overrides because this is a specific type.
-		var/obj/item/storage/bag/trash/T = I
-		var/datum/component/storage/STR = T.GetComponent(/datum/component/storage)
+		var/obj/item/storage/bag/trash/bag = I
 		to_chat(user, span_warning("You empty the bag."))
-		for(var/obj/item/O in T.contents)
-			STR.remove_from_storage(O,src)
-		T.update_appearance()
+		bag.atom_storage.remove_all(src)
 		update_appearance()
 	else
 		return ..()

@@ -12,7 +12,7 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	animate_movement = 0
+	animate_movement = FALSE
 	var/amount = 4
 	var/lifetime = 5
 	var/opaque = 1 //whether the smoke can block the view when in enough amountz
@@ -36,13 +36,11 @@
 	. = ..()
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 	// Smoke out any mobs on initialise
 	for (var/mob/living/target in loc)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
+		target.apply_status_effect(/datum/status_effect/smoke)
 
-/obj/effect/particle_effect/smoke/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -67,7 +65,7 @@
 	if (!istype(target))
 		return
 	// Mobs inside the smoke get slowed if they can't see through it
-	target.apply_status_effect(STATUS_EFFECT_SMOKE)
+	target.apply_status_effect(/datum/status_effect/smoke)
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
@@ -298,7 +296,7 @@
 			contained = "\[[contained]\]"
 
 		var/where = "[AREACOORD(location)]"
-		if(carry.my_atom.fingerprintslast)
+		if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
 			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
@@ -344,3 +342,11 @@
 	smoke.effect_type = smoke_type
 	smoke.set_up(range, location)
 	smoke.start()
+
+/obj/effect/particle_effect/smoke/chem/quick
+	lifetime = 2 //under lifetime 1, this kills itself the first time it processes, not working. i hate smoke code
+	opaque = FALSE
+	alpha = 100
+
+/datum/effect_system/smoke_spread/chem/quick
+	effect_type = /obj/effect/particle_effect/smoke/chem/quick

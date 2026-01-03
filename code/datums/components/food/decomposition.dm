@@ -36,13 +36,13 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(handle_movement))
 	RegisterSignals(parent, list(
 		COMSIG_ITEM_PICKUP, //person picks up an item
-		COMSIG_STORAGE_ENTERED), //Object enters a storage object (boxes, etc.)
+		COMSIG_ATOM_ENTERED), //Object enters a storage object (boxes, etc.)
 		PROC_REF(picked_up))
 	RegisterSignals(parent, list(
 		COMSIG_ITEM_DROPPED, //Object is dropped anywhere
-		COMSIG_STORAGE_EXITED), //Object exits a storage object (boxes, etc)
+		COMSIG_ATOM_EXITED), //Object exits a storage object (boxes, etc)
 		PROC_REF(dropped))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
 	if(custom_time) // We have a custom decomposition time, set it to that
 		original_time = custom_time
@@ -59,11 +59,11 @@
 /datum/component/decomposition/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_ITEM_PICKUP,
-		COMSIG_STORAGE_ENTERED,
+		COMSIG_ATOM_ENTERED,
 		COMSIG_MOVABLE_MOVED,
 		COMSIG_ITEM_DROPPED,
-		COMSIG_STORAGE_EXITED,
-		COMSIG_PARENT_EXAMINE))
+		COMSIG_ATOM_EXITED,
+		COMSIG_ATOM_EXAMINE))
 
 /datum/component/decomposition/proc/handle_movement()
 	SIGNAL_HANDLER

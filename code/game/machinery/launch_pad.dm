@@ -285,6 +285,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 	else
 		return ..()
 
+/obj/machinery/launchpad/briefcase/add_context_self(datum/screentip_context/context, mob/user, obj/item/item)
+	context.use_cache()
+	context.add_attack_hand_action("Pickup")
+	context.add_left_click_item_action("Link", /obj/item/launchpad_remote)
+
 //Briefcase item that contains the launchpad.
 /obj/item/storage/briefcase/launchpad
 	var/obj/machinery/launchpad/briefcase/pad
@@ -312,7 +317,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/launchpad/briefcase)
 		pad.update_indicator()
 		pad.closed = FALSE
 		user.transferItemToLoc(src, pad, TRUE)
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
+		atom_storage.close_all()
 
 /obj/item/storage/briefcase/launchpad/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/launchpad_remote))

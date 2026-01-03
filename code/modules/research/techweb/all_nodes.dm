@@ -10,7 +10,6 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-		"antivirus",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -24,6 +23,8 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"duct_tape",
+		"epaperread",
 		"fax",
 		"glasses_prescription",
 		"handlabel",
@@ -41,25 +42,26 @@
 		"plastitanium",
 		"plastitaniumglass",
 		"plumbing_rcd",
+		"portable_thermomachine",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
 		"rglass",
+		"salestagger",
 		"sec_38",
 		"sec_38b",
 		"sec_beanbag_slug",
 		"sec_Brslug",
 		"sec_bshot",
+		"sec_bapshot",
 		"sec_dart",
 		"sec_Islug",
 		"sec_rshot",
 		"sec_slug",
-		"portable_thermomachine",
 		"tech_disk",
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -115,6 +117,30 @@
 		"ripleyupgrade",
 	)
 
+/datum/techweb_node/mod_basic
+	id = "mod"
+	tech_tier = 1
+	starting_node = TRUE
+	display_name = "Basic Modular Suits"
+	description = "Specialized back mounted power suits with various different modules."
+	design_ids = list(
+		"mod_boots",
+		"mod_chestplate",
+		"mod_gauntlets",
+		"mod_helmet",
+		"mod_paint_kit",
+		"mod_shell",
+		"mod_plating_standard",
+		"mod_plating_civilian",
+		"mod_storage",
+		"mod_welding",
+		"mod_mouthhole",
+		"mod_flashlight",
+		"mod_longfall",
+		"mod_thermal_regulator",
+		"mod_plasma",
+	)
+
 /datum/techweb_node/mech_tools
 	id = "mech_tools"
 	tech_tier = 1
@@ -137,7 +163,6 @@
 		"airlock_painter",
 		"analyzer",
 		"blood_filter",
-		"cable_coil",
 		"cable_coil",
 		"cautery",
 		"circular_saw",
@@ -193,6 +218,7 @@
 		"comp_hear",
 		"comp_index_table",
 		"comp_index",
+		"comp_install_detector",
 		"comp_length",
 		"comp_light",
 		"comp_list_literal",
@@ -201,12 +227,14 @@
 		"comp_module",
 		"comp_multiplexer",
 		"comp_not",
+		"comp_noop",
 		"comp_ntnet_receive",
 		"comp_ntnet_send",
 		"comp_pathfind",
 		"comp_pressuresensor",
 		"comp_radio",
 		"comp_random",
+		"comp_reagent_injector",
 		"comp_round",
 		"comp_router",
 		"comp_select_query",
@@ -214,19 +242,40 @@
 		"comp_soundemitter",
 		"comp_species",
 		"comp_speech",
-		"comp_speech",
 		"comp_split",
 		"comp_string_contains",
+		"comp_switch_case",
 		"comp_tempsensor",
 		"comp_textcase",
 		"comp_tonumber",
 		"comp_tostring",
+		"comp_trim",
 		"comp_typecast",
 		"compact_remote_shell",
 		"component_printer",
 		"integrated_circuit",
 		"module_duplicator",
 		"usb_cable",
+		"comp_gate_toggle",
+		"comp_gate_set_reset",
+	)
+
+/////////////////////Circuit Templates///////////////////
+/datum/techweb_node/circuit_templates
+	id = "circuit_templates"
+	tech_tier = 0
+	starting_node = TRUE
+	display_name = "Professor's Circuits"
+	description = "I need some help with circuits. Can you lend a hand?"
+	design_ids = list(
+		"template_notes",
+		"template_hello_world",
+		"template_greeter",
+		"template_ticker",
+		"template_simple_math",
+		"template_times_table",
+		"template_coin_flip",
+		"template_atmos_checker"
 	)
 
 /////////////////////////Biotech/////////////////////////
@@ -351,7 +400,6 @@
 		"surgery_pacify",
 		"surgery_revival",
 		"surgery_vein_thread",
-		"surgery_viral_bond",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -360,7 +408,7 @@
 	id = "alien_surgery"
 	tech_tier = 5
 	display_name = "Alien Surgery"
-	description = "Abductors did nothing wrong."
+	description = "Anything from brainwashing to reviving the dead. Alien technology."
 	prereq_ids = list(
 		"alientech",
 		"exp_surgery",
@@ -396,7 +444,6 @@
 		"adv_scanning",
 		"airalarm_electronics",
 		"airlock_board",
-		"antivirus2",
 		"apc_control",
 		"atmos_control",
 		"atmosalerts",
@@ -421,7 +468,6 @@
 		"plasmaman_tank",
 		"power control",
 		"powermonitor",
-		"rad_collector",
 		"recharger",
 		"recycler",
 		"researchdisk_locator",
@@ -453,6 +499,7 @@
 		"magboots",
 		"ranged_analyzer",
 		"rcd_loaded",
+		"rcl",
 		"rpd_loaded",
 		"weldingmask",
 		"sheetifier"
@@ -474,7 +521,10 @@
 		"reactive_armour",
 		"xenoa_gloves",
 		"xenoa_list_console",
-		"xenoa_list_pad",
+		"xenoa_scale",
+		"xenoa_conductor",
+		"xenoa_calibrator",
+		"xenoa_tracker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -563,7 +613,6 @@
 		"practical_bluespace",
 	)
 	design_ids = list(
-		"antivirus4",
 		"bluespace_matter_bin",
 		"femto_mani",
 		"quantum_keycard",
@@ -627,7 +676,6 @@
 		"engineering",
 	)
 	design_ids = list(
-		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
 	"bluespace_capsule",
@@ -789,8 +837,10 @@
 	design_ids = list(
 		"assembly_shell",
 		"bot_shell",
+		//"comp_mod_action",
 		"controller_shell",
 		"door_shell",
+		//"module_shell",
 		"money_bot_shell",
 		"scanner_gate_shell",
 		"scanner_shell",
@@ -841,6 +891,26 @@
 		"computer_hardware_basic",
 	)
 	design_ids = list("server_shell")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+
+//Circuit Templates
+/datum/techweb_node/advanced_circuit_templates
+	id = "advanced_circuit_templates"
+	tech_tier = 2
+	display_name = "Advanced Circuit Templates"
+	description = "Circuit Templates. Some broken, some not very useful"
+	prereq_ids = list(
+		"math_circuits",
+		"list_circuits",
+		"adv_shells",
+		"bci_shells",
+		"movable_shells",
+		"server_shell")
+	design_ids = list(
+		"template_broken_translator",
+		"template_scanning_gate",
+		"template_circuit_vendor"
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /////////////////////////robotics tech/////////////////////////
@@ -953,27 +1023,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 1000
 
-/datum/techweb_node/cyborg_upg_security
-	id = "cyborg_upg_security"
-	tech_tier = 4
-	display_name = "Cyborg Upgrades: Security"
-	description = "Militia grade upgrades for cyborgs."
-	prereq_ids = list(
-		"adv_engi",
-		"adv_robotics",
-		"weaponry",
-	)
-	design_ids = list(
-		"borg_transform_security",
-		"borg_upgrade_disablercooler",
-	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
-/datum/techweb_node/cyborg_upg_security/New() //Techweb nodes don't have an init,
-	. = ..()
-	hidden = CONFIG_GET(flag/disable_secborg)
-
 /datum/techweb_node/ai
 	id = "ai"
 	tech_tier = 3
@@ -990,25 +1039,57 @@
 		"asimov_module",
 		"borg_ai_control",
 		"corporate_module",
-		"maintain_module",
 		"default_module",
+		"drone_module",
 		"freeform_module",
-		"freeformcore_module",
 		"intellicard",
 		"mecha_tracking_ai_control",
-		"onehuman_module",
-		"overlord_module",
+		"nutimov_module",
 		"oxygen_module",
 		"paladin_module",
 		"protectstation_module",
-		"purge_module",
 		"quarantine_module",
 		"remove_module",
 		"reset_module",
+		"robocop_module",
 		"safeguard_module",
-		"tyrant_module",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+
+/datum/techweb_node/ai_laws
+	id = "ai_laws"
+	tech_tier = 4
+	display_name = "Advanced AI Laws"
+	description = "Delving into sophisticated AI directives, with hopes that they won't lead to humanity's extinction."
+	prereq_ids = list("ai")
+	design_ids = list(
+		"antimov_module",
+		"asimovpp_module",
+		"crewsimov_module",
+		"balance_module",
+		"damaged_module",
+		"dadbot_module",
+		"dungeon_master_module",
+		"freeformcore_module",
+		"hippocratic_module",
+		"hulkamania_module",
+		"liveandletlive_module",
+		"efficiency_module",
+		"onehuman_module",
+		"overlord_module",
+		"painter_module",
+		"paladin_devotion_module",
+		"peacekeeper_module",
+		"purge_module",
+		"reporter_module",
+		"ten_commandments_module",
+		"thermodynamic_module",
+		"thinkermov_module",
+		"tyrant_module",
+		"yesman_module",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /////////////////////////EMP tech/////////////////////////
@@ -1059,6 +1140,7 @@
 	description = "Honk?!"
 	prereq_ids = list("base")
 	design_ids = list(
+		"clown_car",
 		"air_horn",
 		"borg_transform_clown",
 		"clown_mine",
@@ -1077,6 +1159,7 @@
 		"mech_honker",
 		"mech_mousetrap_mortar",
 		"mech_punching_face",
+		"shotgunslughonk",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1100,47 +1183,102 @@
 		"objective",
 		"rdcamera",
 		"seccamera",
-		"security_photobooth",
+		"security_photobooth"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
 
-/datum/techweb_node/computer_hardware_basic				//Modular computers are shitty and nearly useless so until someone makes them actually useful this can be easy to get.
+/datum/techweb_node/computer_hardware_basic				//Previous comment refered to Modular Components as shitty. They wont be anymore.
 	id = "computer_hardware_basic"
 	tech_tier = 1
-	display_name = "Computer Hardware"
-	description = "How computer hardware are made."
-	prereq_ids = list("comptech")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //they are really shitty
+	display_name = "Basic Computer Hardware"
+	description = "Necessary basic components for Modular Computer assembly."
+	prereq_ids = list("datatheory") //Since Modular Computers are becoming more distinct, Computer Consoles will no longer be required to research this
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)  //Very basic hardware, very basic cost
 	export_price = 2000
 	design_ids = list(
-		"aislot",
-		"APClink",
-		"bat_advanced",
-		"bat_control",
-		"bat_micro",
+		"antivirus",
 		"bat_nano",
-		"bat_normal",
-		"bat_super",
+		"bat_micro",
 		"cardslot",
-		"cpu_normal",
 		"cpu_small",
-		"hdd_advanced",
-		"hdd_basic",
-		"hdd_cluster",
-		"hdd_super",
-		"miniprinter",
-		"netcard_advanced",
+		"pcpu_small",
 		"netcard_basic",
 		"netcard_wired",
-		"pcpu_normal",
-		"pcpu_small",
-		"portadrive_advanced",
 		"portadrive_basic",
-		"portadrive_super",
-		"sensorpackage",
 		"ssd_micro",
-		"ssd_small",
+		"ssd_small"
+	)
+
+/datum/techweb_node/computer_shells
+	id = "computer_shells"
+	tech_tier = 1
+	display_name = "Computer Shells"
+	description = "Production of modular computer shells for assembly."
+	prereq_ids = list("datatheory")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 2000
+	design_ids = list(
+		"shell_pda",
+		"shell_tablet",
+		"shell_laptop"
+	)
+
+/datum/techweb_node/computer_hardware_advanced
+	id = "computer_hardware_advanced"
+	tech_tier = 2
+	display_name = "Advanced Computer Hardware"
+	description = "Standard quality components and functional parts."
+	prereq_ids = list("computer_hardware_basic")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 3000
+	design_ids = list(
+		"antivirus2",
+		"bat_normal",
+		"bat_advanced",
+		"hdd_basic",
+		"hdd_advanced",
+		"hdd_cluster",
+		"netcard_advanced",
+		"cpu_normal",
+		"pcpu_normal",
+		"portadrive_advanced",
+		"miniprinter",
+		"printer",
+		"sensorpackage",
+		"comp_camera",
+		"signalpart"
+	)
+
+/datum/techweb_node/computer_hardware_super
+	id = "computer_hardware_super"
+	tech_tier = 3
+	display_name = "Superior Computer Hardware"
+	description = "Superior quality components and useful parts."
+	prereq_ids = list("computer_hardware_advanced")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+	export_price = 4000
+	design_ids = list(
+		"antivirus3",
+		"aislot",
+		"APClink",
+		"portadrive_super",
+		"bat_super",
+		"hdd_super",
+		"cardslot2"
+	)
+
+/datum/techweb_node/computer_hardware_experimental
+	id = "computer_hardware_experimental"
+	tech_tier = 4
+	display_name = "Experimental Computer Hardware"
+	description = "Experimental parts currently in development. Test cautiously."
+	prereq_ids = list("computer_hardware_super", "telecomms")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
+	export_price = 5000
+	design_ids = list(
+		"antivirus4",
+		"XNetCard"
 	)
 
 /datum/techweb_node/computer_board_gaming
@@ -1331,7 +1469,7 @@
 		"med_scanner",
 		"posibrain",
 	)
-	design_ids = list("healthanalyzer_advanced", "extrapolator")
+	design_ids = list("healthanalyzer_advanced")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -1363,6 +1501,7 @@
 		"power_cord",
 		"robotic_ears",
 		"robotic_eyes",
+		"robotic_heart",
 		"robotic_liver",
 		"robotic_stomach",
 		"robotic_tongue",
@@ -1679,7 +1818,9 @@
 	)
 	design_ids = list(
 		"pin_loyalty",
-		"shieldbelt"
+		"shieldbelt",
+		"c38_hotshot",
+		"c38_iceblox",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
@@ -1778,7 +1919,6 @@
 	prereq_ids = list("adv_weaponry")
 	design_ids = list(
 		"adv_Grenade",
-		"large_Grenade",
 		"pyro_Grenade",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -1802,21 +1942,18 @@
 /datum/techweb_node/exotic_ammo
 	id = "exotic_ammo"
 	tech_tier = 4
-	display_name = "Exotic Ammunition"
+	display_name = "Exotic Shotgun Ammunition"
 	description = "They won't know what hit em."
-	prereq_ids = list(
-		"adv_weaponry",
-		"medical_weapons",
-	)
+	prereq_ids = list("adv_weaponry")
 	design_ids = list(
 		"techshotshell",
-		"c38_hotshot",
-		"c38_iceblox",
 		"shotgundartcryostasis",
+		"stunshell",
+		"shotgunsluggold",
+		"shotgunslugbronze",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
-	hidden = TRUE
 
 /datum/techweb_node/gravity_gun
 	id = "gravity_gun"
@@ -1833,6 +1970,138 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+
+//MODsuit tech
+
+/datum/techweb_node/mod_advanced
+	id = "mod_advanced"
+	tech_tier = 2
+	display_name = "Advanced Modular Suits"
+	description = "More advanced modules, to improve modular suits."
+	prereq_ids = list("robotics")
+	design_ids = list(
+		"mod_visor_diaghud",
+		"mod_gps",
+		"mod_reagent_scanner",
+		"mod_clamp",
+		"mod_drill",
+		"mod_orebag",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/mod_engineering
+	id = "mod_engineering"
+	tech_tier = 2
+	display_name = "Engineering Modular Suits"
+	description = "Engineering suits, for powered engineers."
+	prereq_ids = list("mod_advanced", "engineering")
+	design_ids = list(
+		"mod_plating_engineering",
+		"mod_visor_meson",
+		"mod_t_ray",
+		"mod_magboot",
+		"mod_tether",
+		"mod_constructor",
+		"mod_mister_atmos",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/mod_advanced_engineering
+	id = "mod_advanced_engineering"
+	tech_tier = 4
+	display_name = "Advanced Engineering Modular Suits"
+	description = "Advanced Engineering suits, for advanced powered engineers."
+	prereq_ids = list("mod_engineering", "adv_engi")
+	design_ids = list(
+		"mod_plating_atmospheric",
+		"mod_jetpack",
+		"mod_rad_protection",
+		"mod_emp_shield",
+		"mod_storage_expanded",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+
+/datum/techweb_node/mod_medical
+	id = "mod_medical"
+	tech_tier = 3
+	display_name = "Medical Modular Suits"
+	description = "Medical suits for quick rescue purposes."
+	prereq_ids = list("mod_advanced", "biotech")
+	design_ids = list(
+		"mod_plating_medical",
+		"mod_visor_medhud",
+		"mod_health_analyzer",
+		"mod_quick_carry",
+		"mod_injector",
+		"mod_organ_thrower",
+		"mod_dna_lock",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/mod_advanced_medical
+	id = "mod_advanced_medical"
+	display_name = "Advanced Medical Modular Suits"
+	description = "Advanced medical suits for quicker rescue purposes."
+	prereq_ids = list("mod_medical", "adv_biotech")
+	design_ids = list(
+		"mod_defib",
+		"mod_threadripper",
+		"mod_surgicalprocessor",
+		"mod_statusreadout",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3500)
+
+/datum/techweb_node/mod_security
+	id = "mod_security"
+	tech_tier = 3
+	display_name = "Security Modular Suits"
+	description = "Security suits for space crime handling."
+	prereq_ids = list("mod_advanced", "sec_basic")
+	design_ids = list(
+		"mod_plating_security",
+		"mod_visor_sechud",
+		"mod_stealth",
+		"mod_mag_harness",
+		"mod_holster",
+		"mod_sonar",
+		"mod_projectile_dampener",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/mod_entertainment
+	id = "mod_entertainment"
+	tech_tier = 2
+	display_name = "Entertainment Modular Suits"
+	description = "Powered suits for protection against low-humor environments."
+	prereq_ids = list("mod_advanced", "clown")
+	design_ids = list(
+		"mod_plating_cosmohonk",
+		"mod_bikehorn",
+		"mod_microwave_beam",
+		"mod_waddle",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/mod_anomaly
+	id = "mod_anomaly"
+	display_name = "Anomalock Modular Suits"
+	description = "Modules for modular suits that require anomaly cores to function."
+	prereq_ids = list("mod_advanced", "anomaly_research")
+	design_ids = list(
+		"mod_antigrav",
+		"mod_teleporter",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/mod_anomaly_engi
+	id = "mod_anomaly_engi"
+	display_name = "Engineering Anomalock Modular Suits"
+	description = "Advanced modules for modular suits, using anomaly cores to become even better engineers."
+	prereq_ids = list("mod_advanced_engineering", "mod_anomaly")
+	design_ids = list(
+		"mod_kinesis",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 ////////////////////////mech technology////////////////////////
 /datum/techweb_node/adv_mecha
@@ -2348,8 +2617,6 @@
 	prereq_ids = list("nanite_smart")
 	design_ids = list(
 		"free_range_nanites",
-		"hive_nanites",
-		"unsafe_storage_nanites",
 		"zip_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
@@ -2371,6 +2638,7 @@
 		"pyro_nanites",
 		"viral_nanites",
 		"armblade_nanites",
+		"unsafe_storage_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
@@ -2551,6 +2819,28 @@
 	)
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 2500
+	hidden = TRUE
+
+/datum/techweb_node/mod_experimental
+	id = "mod_experimental"
+	display_name = "Experimental Modular Suits"
+	description = "Applications of experimentality when creating MODsuits has created these..."
+	prereq_ids = list("base")
+	design_ids = list(
+		"mod_disposal",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	hidden = TRUE
+	//experimental = TRUE
+/datum/techweb_node/tackle_advanced
+	id = "tackle_advanced"
+	display_name = "Advanced Grapple Technology"
+	description = "Nanotrasen would like to remind its researching staff that it is never acceptable to \"glomp\" your coworkers, and further \"scientific trials\" on the subject \
+	will no longer be accepted in its academic journals."
+	design_ids = list("tackle_dolphin", "tackle_rocket")
+
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 2500
 	hidden = TRUE
 

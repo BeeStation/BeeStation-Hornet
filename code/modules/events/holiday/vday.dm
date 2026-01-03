@@ -150,7 +150,7 @@ GLOBAL_LIST(valentine_mobs)
 /obj/item/valentine/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[message]</BODY></HTML>", "window=[name]")
+		user << browse(HTML_SKELETON_TITLE(name, message), "window=[name]")
 		onclose(user, "[name]")
 	else
 		. += span_notice("It is too far away.")

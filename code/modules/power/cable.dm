@@ -431,7 +431,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 /obj/structure/cable/proc/get_power_info()
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		return span_danger("Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]")
+		return span_danger("Total power: [display_power_persec(powernet.avail)]\nLoad: [display_power_persec(powernet.load)]\nExcess power: [display_power_persec(surplus())]")
 	else
 		return span_danger("The cable is not powered.")
 

@@ -22,6 +22,15 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
 	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
 
+	/// The turf that we are linked to below
+	var/tmp/turf/below = null
+	/// The turf that we are linked to above
+	var/tmp/turf/above = null
+	/// The turf that we are linked to below
+	var/tmp/below_known = FALSE
+	/// The turf that we are linked to above
+	var/tmp/above_known = FALSE
+
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
@@ -102,6 +111,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
 		return FALSE
+	switch (var_name)
+		if ("above")
+			set_above(new_value, TRUE)
+			return TRUE
+		if ("below")
+			set_below(new_value, TRUE)
+			return TRUE
 	. = ..()
 
 /turf/vv_get_dropdown()
@@ -115,7 +131,13 @@ CREATION_TEST_IGNORE_SELF(/turf)
 			return
 		air_update_turf(TRUE, FALSE)
 
+/**
+  * Turf Initialize
+  *
+  * Doesn't call parent, see [/atom/proc/Initialize]
+  */
 /turf/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -179,8 +201,6 @@ CREATION_TEST_IGNORE_SELF(/turf)
 
 		custom_materials = null //Null the list to prepare for applying the materials properly
 		set_custom_materials(temp_list)
-
-	ComponentInitialize()
 
 	if(uses_integrity)
 		atom_integrity = max_integrity
@@ -281,20 +301,42 @@ CREATION_TEST_IGNORE_SELF(/turf)
  * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
  * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
  * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ * * type_list - are we checking for types of atoms to ignore and not physical atoms
  */
-/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms)
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
 	if(density)
 		return TRUE
 
 	for(var/atom/movable/movable_content as anything in contents)
-		// We don't want to block ourselves or consider any ignored atoms.
-		if((movable_content == source_atom) || (movable_content in ignore_atoms))
+		// We don't want to block ourselves
+		if((movable_content == source_atom))
 			continue
+		// don't consider ignored atoms or their types
+		if(length(ignore_atoms))
+			if(!type_list && (movable_content in ignore_atoms))
+				continue
+			else if(type_list && is_type_in_list(movable_content, ignore_atoms))
+				continue
+
 		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
 		// it cannot pass through the thing on the turf,  we consider the turf blocked.
 		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
 			if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
 				continue
+			return TRUE
+	return FALSE
+
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
 			return TRUE
 	return FALSE
 
@@ -319,19 +361,21 @@ CREATION_TEST_IGNORE_SELF(/turf)
 	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/atom/movable/thing as anything in contents)
 			if(QDELETED(mover))
-				return FALSE		//We were deleted, do not attempt to proceed with movement.
+				return FALSE //We were deleted, do not attempt to proceed with movement.
 			if(thing == mover || thing == mover.loc) // Multi tile objects and moving out of other objects
 				continue
 			if(!thing.Cross(mover))
-				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
+				if(QDELETED(mover)) //Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
 				if((mover.movement_type & PHASING))
 					mover.Bump(thing)
+					if(QDELETED(mover)) //deleted from Bump()
+						return FALSE
 					continue
 				else
 					if(!firstbump || ((thing.layer > firstbump.layer || thing.flags_1 & ON_BORDER_1) && !(firstbump.flags_1 & ON_BORDER_1)))
 						firstbump = thing
-	if(QDELETED(mover))					//Mover deleted from Cross/CanPass/Bump, do not proceed.
+	if(QDELETED(mover)) //Mover deleted from Cross/CanPass/Bump, do not proceed.
 		return FALSE
 	if(!canPassSelf)	//Even if mover is unstoppable they need to bump us.
 		firstbump = src
@@ -406,29 +450,12 @@ CREATION_TEST_IGNORE_SELF(/turf)
 /turf/proc/Bless()
 	new /obj/effect/blessing(src)
 
-/turf/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
-	. = ..()
-	if(.)
-		return
-	if(length(src_object.contents()))
-		balloon_alert(usr, "You dump out the contents.")
-		if(!do_after(usr,20,target=src_object.parent))
-			return FALSE
-
-	var/list/things = src_object.contents()
-	var/datum/progressbar/progress = new(user, things.len, src)
-	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
-		stoplag(1)
-	progress.end_progress()
-
-	return TRUE
-
 //////////////////////////////
 //Distance procs
 //////////////////////////////
 
 //Distance associates with all directions movement
-/turf/proc/Distance(var/turf/T)
+/turf/proc/Distance(turf/T)
 	return get_dist(src,T)
 
 //  This Distance proc assumes that only cardinal movement is
@@ -537,11 +564,11 @@ CREATION_TEST_IGNORE_SELF(/turf)
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
  * Arguments:
- * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * pathfinding_atom: The movable, if one exists, being used for mobility checks to see what tiles it can reach
  * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
 */
-/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only)
+/turf/proc/reachableAdjacentTurfs(pathfinding_atom, ID, simulated_only)
 	var/static/space_type_cache = typecacheof(/turf/open/space)
 	. = list()
 
@@ -549,7 +576,7 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		var/turf/turf_to_check = get_step(src,iter_dir)
 		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
 			continue
-		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, pathfinding_atom, ID))
 			continue
 		. += turf_to_check
 
@@ -641,17 +668,3 @@ CREATION_TEST_IGNORE_SELF(/turf)
 		if(!ismopable(movable_content))
 			continue
 		movable_content.wash(clean_types)
-
-/**
- * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
- *
- * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
- */
-/turf/proc/is_blocked_turf_ignore_climbable()
-	if(density)
-		return TRUE
-
-	for(var/atom/movable/atom_content as anything in contents)
-		if(atom_content.density && !(atom_content.flags_1 & ON_BORDER_1) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
-			return TRUE
-	return FALSE

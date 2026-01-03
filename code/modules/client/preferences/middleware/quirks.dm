@@ -40,12 +40,12 @@
 			"description" = initial(quirk.desc),
 			"icon" = initial(quirk.icon),
 			"name" = quirk_name,
-			"value" = initial(quirk.value),
+			"value" = initial(quirk.quirk_value),
 			"path" = quirk
 		)
 
 	return list(
-		"max_positive_quirks" = MAX_QUIRKS,
+		"max_positive_quirks" = MAX_POSITIVE_QUIRKS,
 		"quirk_info" = quirk_info,
 		"quirk_blacklist" = SSquirks.quirk_blacklist,
 	)

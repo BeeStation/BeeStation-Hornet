@@ -177,8 +177,12 @@
 		return em_block
 
 /atom/movable/update_overlays()
-	. = ..()
-	. += update_emissive_block()
+	var/list/overlays = ..()
+	var/emissive_block = update_emissive_block()
+	if(emissive_block)
+		// Emissive block should always go at the beginning of the list
+		overlays.Insert(1, emissive_block)
+	return overlays
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list("step_x", "step_y", "step_size", "bounds")
@@ -256,16 +260,18 @@
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		if(ismob(pulling?.pulledby))
-			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
-		if(ismob(pulling))
-			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
-		pulling.set_pulledby(null)
-		var/mob/living/ex_pulled = pulling
-		setGrabState(GRAB_PASSIVE)
-		pulling = null
-		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
+	if(!pulling)
+		return
+	if(ismob(pulling?.pulledby))
+		pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
+	if(ismob(pulling))
+		pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
+	pulling.set_pulledby(null)
+	setGrabState(GRAB_PASSIVE)
+	var/mob/living/old_pulling = pulling
+	pulling = null
+	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
+	//SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
@@ -278,6 +284,9 @@
 	if(!pulling)
 		return FALSE
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
+		stop_pulling()
+		return FALSE
+	if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 		stop_pulling()
 		return FALSE
 	if(isliving(pulling))
@@ -313,6 +322,9 @@
 			stop_pulling()
 			return
 		if(pulling.anchored || pulling.move_resist > move_force)
+			stop_pulling()
+			return
+		if (HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
@@ -490,7 +502,7 @@
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
-		if(pulling.anchored)
+		if(pulling.anchored || HAS_TRAIT(pulling, TRAIT_NO_MOVE_PULL))
 			stop_pulling()
 		else
 			var/pull_dir = get_dir(src, pulling)
@@ -547,7 +559,7 @@
 	if (bound_overlay)
 		// The overlay will handle cleaning itself up on non-openspace turfs.
 		if (isturf(loc))
-			bound_overlay.forceMove(get_step(src, UP))
+			bound_overlay.forceMove(get_step_multiz(src, UP))
 			if (bound_overlay && dir != bound_overlay.dir)
 				bound_overlay.setDir(dir)
 		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
@@ -631,6 +643,24 @@
 			return
 	A.Bumped(src)
 
+///called when this movable becomes the parent of a storage component that is currently being viewed by a player. uses important_recursive_contents
+/atom/movable/proc/become_active_storage(datum/storage/source)
+	if(!HAS_TRAIT(src, TRAIT_ACTIVE_STORAGE))
+		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_ACTIVE_STORAGE, src)
+	ADD_TRAIT(src, TRAIT_ACTIVE_STORAGE, REF(source))
+
+///called when this movable's storage component is no longer viewed by any players, unsets important_recursive_contents
+/atom/movable/proc/lose_active_storage(datum/storage/source)
+	if(!HAS_TRAIT(src, TRAIT_ACTIVE_STORAGE))
+		return
+	REMOVE_TRAIT(src, TRAIT_ACTIVE_STORAGE, REF(source))
+	if(HAS_TRAIT(src, TRAIT_ACTIVE_STORAGE))
+		return
+
+	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_ACTIVE_STORAGE, src)
+
 ///Sets the anchored var and returns if it was sucessfully changed or not.
 /atom/movable/proc/set_anchored(anchorvalue)
 	SHOULD_CALL_PARENT(TRUE)
@@ -697,6 +727,9 @@
 //Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
 /atom/movable/proc/Process_Spacemove(movement_dir = FALSE)
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
+
 	if(has_gravity(src))
 		return TRUE
 
@@ -730,9 +763,24 @@
 	return TRUE
 
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	set waitfor = 0
-	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
-	return hit_atom.hitby(src, throwingdatum=throwingdatum)
+	set waitfor = FALSE
+	var/hitpush = TRUE
+	var/impact_flags = pre_impact(hit_atom, throwingdatum)
+	if(impact_flags & COMPONENT_MOVABLE_IMPACT_NEVERMIND)
+		return // in case a signal interceptor broke or deleted the thing before we could process our hit
+	if(impact_flags & COMPONENT_MOVABLE_IMPACT_FLIP_HITPUSH)
+		hitpush = FALSE
+	var/caught = hit_atom.hitby(src, throwingdatum=throwingdatum, hitpush=hitpush)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum, caught)
+	return caught
+
+///Called before we attempt to call hitby and send the COMSIG_MOVABLE_IMPACT signal
+/atom/movable/proc/pre_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/impact_flags = SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_IMPACT, hit_atom, throwingdatum)
+	var/target_flags = SEND_SIGNAL(hit_atom, COMSIG_ATOM_PREHITBY, src, throwingdatum)
+	if(target_flags & COMSIG_HIT_PREVENTED)
+		impact_flags |= COMPONENT_MOVABLE_IMPACT_NEVERMIND
+	return impact_flags
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
@@ -744,7 +792,8 @@
 		return
 	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE) //If this returns FALSE then callback will not be called.
+///If this returns FALSE then callback will not be called.
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
 	. = FALSE
 
 	if(QDELETED(src))
@@ -873,11 +922,11 @@
 	return blocker_opinion
 
 // called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
-/atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
+/atom/movable/proc/on_exit_storage(datum/storage/master_storage)
 	return
 
 // called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S)
+/atom/movable/proc/on_enter_storage(datum/storage/master_storage)
 	return
 
 /atom/movable/proc/get_spacemove_backup()
@@ -973,10 +1022,20 @@
 	animate(time = 1)
 	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 
+/// Common proc used by painting tools like spraycans and palettes that can access the entire 24 bits color space.
+/obj/item/proc/pick_painting_tool_color(mob/user, default_color)
+	var/chosen_color = tgui_color_picker(user,"Pick new color", "[src]", default_color)
+	if(!chosen_color || QDELETED(src) || IS_DEAD_OR_INCAP(user) || !user.is_holding(src))
+		return
+	set_painting_tool_color(chosen_color)
+
+/obj/item/proc/set_painting_tool_color(chosen_color)
+	SEND_SIGNAL(src, COMSIG_PAINTING_TOOL_SET_COLOR, chosen_color)
+
 /atom/movable/vv_get_dropdown()
 	. = ..()
-	. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(src)]'>Follow</option>"
-	. += "<option value='?_src_=holder;[HrefToken()];admingetmovable=[REF(src)]'>Get</option>"
+	. += "<option value='byond://?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(src)]'>Follow</option>"
+	. += "<option value='byond://?_src_=holder;[HrefToken()];admingetmovable=[REF(src)]'>Get</option>"
 
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_PARTICLES, "Edit Particles")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_EMITTER, "Add Emitter")
@@ -1040,8 +1099,7 @@
 /atom/movable/proc/get_language_holder()
 	RETURN_TYPE(/datum/language_holder)
 	if(QDELING(src))
-		CRASH("get_language_holder() called on a QDELing atom, \
-			this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
+		CRASH("get_language_holder() called on a QDELing atom, this will try to re-instantiate the language holder that's about to be deleted, which is bad.")
 
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)
@@ -1162,6 +1220,7 @@
 	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
 	pickup_animation.plane = GAME_PLANE
 	pickup_animation.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
+
 	var/turf/current_turf = get_turf(src)
 	var/direction = get_dir(current_turf, target)
 	var/to_x = target.base_pixel_x
@@ -1195,6 +1254,9 @@
 	if(movement_type & THROWN)
 		return
 	if(!istype(loc, /turf))
+		return
+
+	if(!istype(moving_from))
 		return
 
 	var/turf/current_turf = get_turf(src)

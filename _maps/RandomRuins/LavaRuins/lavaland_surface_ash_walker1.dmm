@@ -1263,7 +1263,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/claymore/bone,
-/obj/item/shield/riot/goliath,
+/obj/item/shield/goliath,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "Yy" = (

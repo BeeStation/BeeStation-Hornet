@@ -49,11 +49,11 @@
 	for(var/O in machine.stack_list)
 		s = machine.stack_list[O]
 		if(s.amount > 0)
-			dat += "[capitalize(s.name)]: [s.amount] <A href='?src=[REF(src)];release=[s.type]'>Release</A><br>"
+			dat += "[capitalize(s.name)]: [s.amount] <A href='byond://?src=[REF(src)];release=[s.type]'>Release</A><br>"
 
 	dat += "<br>Stacking: [machine.stack_amt]<br><br>"
 
-	user << browse(dat, "window=console_stacking_machine")
+	user << browse(HTML_SKELETON(dat), "window=console_stacking_machine")
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 

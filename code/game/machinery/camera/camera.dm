@@ -4,8 +4,8 @@
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "camera" //mapping icon to represent upgrade states. if you want a different base icon, update default_camera_icon as well as this.
 	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 10
+	idle_power_usage = 50 WATT
+	active_power_usage = 200 WATT
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
@@ -33,8 +33,6 @@
 	var/view_range = 7
 	var/short_range = 2
 
-	var/alarm_on = FALSE
-	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 	var/in_use_lights = 0
 
@@ -73,6 +71,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	invuln = TRUE
 	light_range = 10
 	start_active = TRUE
+
+/obj/machinery/camera/preset/theathre
+	name = "Stage Camera"
+	desc = "A camera used to watch the play on the scene."
+	network = list(CAMERA_NETWORK_THEATHRE)
 
 CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
@@ -126,8 +129,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 	alarm_manager = new(src)
 
-/obj/machinery/camera/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/jam_receiver, JAMMER_PROTECTION_CAMERAS)
 	RegisterSignal(src, COMSIG_ATOM_JAMMED, PROC_REF(update_jammed))
 	RegisterSignal(src, COMSIG_ATOM_UNJAMMED, PROC_REF(update_jammed))
@@ -149,7 +150,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		toggle_cam(null, 0) //kick anyone viewing out and remove from the camera chunks
 	GLOB.cameranet.removeCamera(src)
 	GLOB.cameranet.cameras -= src
-	cancelCameraAlarm()
 	if(isarea(myarea))
 		LAZYREMOVE(myarea.cameras, src)
 	QDEL_NULL(alarm_manager)
@@ -212,14 +212,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/emp_reset()
 	..()
-	triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 	if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 		network = previous_network
 		update_appearance()
 		if(can_use())
 			GLOB.cameranet.addCamera(src)
 		emped = 0 //Resets the consecutive EMP count
-		addtimer(CALLBACK(src, PROC_REF(cancelCameraAlarm)), 100)
 
 /obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
@@ -327,17 +325,17 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
 
-				AI.last_tablet_note_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
+				AI.last_tablet_note_seen = HTML_SKELETON_TITLE(itemname, "<tt>[info]</tt>")
 
 				if(user.name == "Unknown")
-					to_chat(AI, "<b>[user]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
-					to_chat(AI, "<b><a href='?src=[REF(AI)];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b><a href='byond://?src=[REF(AI)];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				continue
 
 			if (O.client?.eye == src)
 				to_chat(O, "[user] holds \a [itemname] up to one of the cameras ...")
-				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
+				O << browse(HTML_SKELETON_TITLE(itemname, "<tt>[info]</tt>"), "window=[itemname]")
 		return
 
 	if(istype(attacking_item, /obj/item/paper))
@@ -371,15 +369,15 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 				log_paper("[key_name(user)] held [last_shown_paper] up to [src], requesting [key_name(ai)] read it.")
 
 				if(user.name == "Unknown")
-					to_chat(ai, "[span_name(user)] holds <a href='?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to one of your cameras ...")
+					to_chat(ai, "[span_name(user)] holds <a href='byond://?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to one of your cameras ...")
 				else
-					to_chat(ai, "<b><a href='?src=[REF(ai)];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to one of your cameras ...")
+					to_chat(ai, "<b><a href='byond://?src=[REF(ai)];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to one of your cameras ...")
 				continue
 
 			// If it's not an AI, eye if the client's eye is set to the camera. I wonder if this even works anymore with tgui camera apps and stuff?
 			if (potential_viewer.client?.eye == src)
 				log_paper("[key_name(user)] held [last_shown_paper] up to [src], and [key_name(potential_viewer)] may read it.")
-				to_chat(potential_viewer, "[span_name(user)] holds <a href='?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to your camera...")
+				to_chat(potential_viewer, "[span_name(user)] holds <a href='byond://?_src_=usr;show_paper_note=[REF(last_shown_paper)];'>\a [item_name]</a> up to your camera...")
 		return
 
 	else if(istype(attacking_item, /obj/item/camera_bug))
@@ -408,7 +406,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 		return
 	. = ..()
 	if(.)
-		triggerCameraAlarm()
 		toggle_cam(null, 0)
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
@@ -438,6 +435,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
+	if(status)
+		update_use_power(IDLE_POWER_USE)
+	else
+		update_use_power(ACTIVE_POWER_USE)
 	update_camera(user, displaymessage)
 
 /obj/machinery/camera/proc/update_camera(mob/user, displaymessage = TRUE)
@@ -463,8 +464,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
-		triggerCameraAlarm()
-		addtimer(CALLBACK(src, PROC_REF(cancelCameraAlarm)), 100)
 	if(displaymessage)
 		if(user)
 			visible_message(span_danger("[user] [change_msg] [src]!"))
@@ -483,14 +482,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/camera)
 			O.unset_machine()
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
-
-/obj/machinery/camera/proc/triggerCameraAlarm()
-	alarm_on = TRUE
-	alarm_manager.send_alarm(ALARM_CAMERA, src, src)
-
-/obj/machinery/camera/proc/cancelCameraAlarm()
-	alarm_on = FALSE
-	alarm_manager.clear_alarm(ALARM_CAMERA)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)

@@ -121,7 +121,7 @@
 	if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff))	//sanity check, if this happens we are in big trouble
 		reagents.remove_reagent(/datum/reagent/medicine/synthflesh,being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)
 		var/buildpath = being_built.build_path
-		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spatgheti code, but i need to initilise a limb somehow
+		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spaghetti code, but i need to initialize a limb somehow
 			build_limb(create_buildpath())
 		else
 			//Just build whatever it is
@@ -134,13 +134,13 @@
 	updateUsrDialog()
 
 /obj/machinery/limbgrower/proc/create_buildpath()
-	var/part_type = being_built.id //their ids match bodypart typepaths
+	var/part_type = being_built.build_path
 	var/species = selected_category
 	var/path
 	if(species == SPECIES_HUMAN) //Humans use the parent type.
-		path = "/obj/item/bodypart/[part_type]"
+		path = "[part_type]"
 	else
-		path = "/obj/item/bodypart/[part_type]/[species]"
+		path = "[part_type]/[species]"
 	return text2path(path)
 
 /obj/machinery/limbgrower/proc/build_limb(buildpath)
@@ -150,7 +150,7 @@
 	limb.icon_state = "[selected_category]_[limb.body_zone]"
 	limb.name = "\improper synthetic [selected_category] [parse_zone(limb.body_zone)]"
 	limb.limb_id = selected_category
-	limb.mutation_color = "62A262" //Gets turned into a full color in limb code
+	limb.variable_color = "62A262" //Gets turned into a full color in limb code
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()
@@ -170,12 +170,12 @@
 
 /obj/machinery/limbgrower/proc/main_win(mob/user)
 	var/dat = "<div class='statusDisplay'><h3>Limb Grower Menu:</h3><br>"
-	dat += "<A href='?src=[REF(src)];menu=[LIMBGROWER_CHEMICAL_MENU]'>Chemical Storage</A>"
+	dat += "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_CHEMICAL_MENU]'>Chemical Storage</A>"
 	dat += materials_printout()
 	dat += "<table style='width:100%' align='center'><tr>"
 
 	for(var/C in categories)
-		dat += "<td><A href='?src=[REF(src)];category=[C];menu=[LIMBGROWER_CATEGORY_MENU]'>[C]</A></td>"
+		dat += "<td><A href='byond://?src=[REF(src)];category=[C];menu=[LIMBGROWER_CATEGORY_MENU]'>[C]</A></td>"
 		dat += "</tr><tr>"
 		//one category per line
 
@@ -183,7 +183,7 @@
 	return dat
 
 /obj/machinery/limbgrower/proc/category_win(mob/user,selected_category)
-	var/dat = "<A href='?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
+	var/dat = "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
 
@@ -194,7 +194,7 @@
 		if(disabled || !can_build(D))
 			dat += span_linkoff("[D.name]")
 		else
-			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
+			dat += "<a href='byond://?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
 		dat += "[get_design_cost(D)]<br>"
 
 	dat += "</div>"
@@ -202,13 +202,13 @@
 
 
 /obj/machinery/limbgrower/proc/chemical_win(mob/user)
-	var/dat = "<A href='?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
+	var/dat = "<A href='byond://?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing Chemical Storage:</h3><br>"
 	dat += materials_printout()
 
 	for(var/datum/reagent/R in reagents.reagent_list)
 		dat += "[R.name]: [R.volume]"
-		dat += "<A href='?src=[REF(src)];disposeI=[R]'>Purge</A><BR>"
+		dat += "<A href='byond://?src=[REF(src)];disposeI=[R]'>Purge</A><BR>"
 
 	dat += "</div>"
 	return dat

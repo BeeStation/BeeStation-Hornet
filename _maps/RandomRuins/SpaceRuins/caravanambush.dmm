@@ -305,7 +305,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "gd" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter3)
 "gk" = (
@@ -334,9 +334,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "gR" = (
@@ -422,7 +420,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "ht" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter2)
 "hu" = (
@@ -552,9 +550,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "iq" = (

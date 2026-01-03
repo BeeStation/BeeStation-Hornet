@@ -13,6 +13,7 @@
 #define POLL_IGNORE_POSIBRAIN "posibrain"
 #define POLL_IGNORE_SPECTRAL_BLADE "spectral_blade"
 #define POLL_IGNORE_SHADE "shade"
+#define POLL_IGNORE_SENTIENCE_POTION "sentience_potion"
 #define POLL_IGNORE_SPIDER "spider"
 #define POLL_IGNORE_MRAT "mrat"
 #define POLL_IGNORE_WIZARD_HELPER "wizard_helper"

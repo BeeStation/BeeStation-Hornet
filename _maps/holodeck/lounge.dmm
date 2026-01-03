@@ -57,15 +57,6 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"j" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
 "k" = (
 /obj/structure/table/wood/poker,
 /obj/item/storage/box/matches,
@@ -74,18 +65,17 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"l" = (
-/obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
+"m" = (
+/obj/structure/chair/wood,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
-"m" = (
-/obj/structure/chair/wood,
+"n" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/obj/structure/table/wood/bar,
+/obj/item/storage/box/cups,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
@@ -108,6 +98,22 @@
 "q" = (
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
+"r" = (
+/obj/structure/chair/stool/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"s" = (
+/obj/structure/table/wood/bar,
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "t" = (
 /obj/structure/table/wood/bar,
 /obj/item/book/manual/wiki/barman_recipes,
@@ -125,6 +131,13 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
+"v" = (
+/obj/structure/window/reinforced/spawner/directional/east,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
 "w" = (
 /obj/structure/table/wood,
 /obj/item/instrument/saxophone,
@@ -134,6 +147,13 @@
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
 /turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"y" = (
+/obj/structure/window/reinforced/spawner/directional/south,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
 /area/template_noop)
 "z" = (
 /turf/open/floor/holofloor{
@@ -170,17 +190,6 @@
 "F" = (
 /turf/open/floor/holofloor{
 	icon_state = "stairs-r"
-	},
-/area/template_noop)
-"G" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/table/wood/bar,
-/obj/item/storage/box/cups,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
 	},
 /area/template_noop)
 "H" = (
@@ -248,12 +257,9 @@
 	icon_state = "wood"
 	},
 /area/template_noop)
-"R" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
+"Q" = (
+/obj/effect/spawner/structure/random_piano,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "S" = (
 /obj/structure/table/wood/poker,
@@ -284,22 +290,6 @@
 	dir = 9;
 	icon_state = "wood"
 	},
-/area/template_noop)
-"Y" = (
-/obj/structure/table/wood/bar,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/holofloor{
-	dir = 9;
-	icon_state = "wood"
-	},
-/area/template_noop)
-"Z" = (
-/obj/structure/musician/piano{
-	icon_state = "piano"
-	},
-/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -332,21 +322,21 @@ u
 u
 z
 z
-j
-l
-Y
+v
+r
+s
 c
-G
+n
 "}
 (4,1,1) = {"
 m
 S
 U
 o
-R
+y
 w
 N
-Z
+Q
 q
 x
 "}
@@ -379,7 +369,7 @@ z
 I
 I
 z
-R
+y
 J
 q
 q
@@ -391,7 +381,7 @@ b
 z
 z
 z
-R
+y
 D
 q
 q
@@ -403,7 +393,7 @@ A
 z
 z
 z
-R
+y
 O
 q
 E

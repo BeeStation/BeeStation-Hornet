@@ -3,7 +3,7 @@
 	desc = "A tablet or capsule."
 	icon = 'icons/obj/medicine_containers.dmi'
 	icon_state = "pill_shape_capsule_purple_pink"
-	item_state = "pill_shape_capsule_purple_pink"
+	inhand_icon_state = "pill_shape_capsule_purple_pink"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	has_variable_transfer_amount = FALSE
@@ -42,7 +42,7 @@
 	else
 		M.visible_message(span_danger("[user] attempts to force [M] to [apply_method] [src]."), \
 							span_userdanger("[user] attempts to force you to [apply_method] [src]."))
-		if(!do_after(user, 3 SECONDS, target = M))
+		if(!do_after(user, CHEM_INTERACT_DELAY(3 SECONDS, user), M))
 			return FALSE
 		M.visible_message(span_danger("[user] forces [M] to [apply_method] [src]."), \
 							span_userdanger("[user] forces you to [apply_method] [src]."))

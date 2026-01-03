@@ -3,7 +3,7 @@
 	desc = "A locked box."
 	icon = 'icons/obj/storage/case.dmi'
 	icon_state = "lockbox+l"
-	item_state = "lockbox+l"
+	inhand_icon_state = "lockbox+l"
 	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
@@ -12,32 +12,31 @@
 	var/open = FALSE
 	base_icon_state = "lockbox"
 
-/obj/item/storage/lockbox/ComponentInitialize()
+/obj/item/storage/lockbox/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 14
-	STR.max_items = 4
-	STR.locked = TRUE
+	atom_storage.max_specific_storage = WEIGHT_CLASS_NORMAL
+	atom_storage.max_total_storage = 14
+	atom_storage.max_slots = 4
+	atom_storage.locked = FALSE
 
 /obj/item/storage/lockbox/attackby(obj/item/W, mob/user, params)
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+	var/locked = atom_storage.locked
 	if(W.GetID())
 		if(broken)
 			to_chat(user, span_danger("It appears to be broken."))
 			return
 		if(allowed(user))
-			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, !locked)
-			locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
+			atom_storage.locked = !locked
+			locked = atom_storage.locked
 			if(locked)
 				icon_state = "[base_icon_state]+l"
-				item_state = "[base_icon_state]+l"
+				inhand_icon_state = "[base_icon_state]+l"
 				to_chat(user, span_danger("You lock the [src.name]!"))
-				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
+				atom_storage.close_all()
 				return
 			else
 				icon_state = "[base_icon_state]"
-				item_state = "[base_icon_state]"
+				inhand_icon_state = "[base_icon_state]"
 				to_chat(user, span_danger("You unlock the [src.name]!"))
 				return
 		else
@@ -54,10 +53,10 @@
 /obj/item/storage/lockbox/on_emag(mob/user)
 	..()
 	broken = TRUE
-	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+	atom_storage.locked = FALSE
 	desc += "It appears to be broken."
 	icon_state = "[src.base_icon_state]+b"
-	item_state = "[src.base_icon_state]+b"
+	inhand_icon_state = "[src.base_icon_state]+b"
 	user?.visible_message(span_warning("[user] breaks \the [src] with an electromagnetic card!"))
 
 /obj/item/storage/lockbox/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -83,27 +82,26 @@
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
 	icon_state = "medalbox+l"
-	item_state = "medalbox+l"
+	inhand_icon_state = "medalbox+l"
 	base_icon_state = "medalbox"
 	w_class = WEIGHT_CLASS_NORMAL
 	req_access = list(ACCESS_CAPTAIN)
 
-/obj/item/storage/lockbox/medal/ComponentInitialize()
+/obj/item/storage/lockbox/medal/Initialize(mapload)
 	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_SMALL
-	STR.max_items = 10
-	STR.max_combined_w_class = 20
-	STR.set_holdable(list(/obj/item/clothing/accessory/medal))
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+	atom_storage.max_slots = 10
+	atom_storage.max_total_storage = 20
+	atom_storage.set_holdable(list(/obj/item/clothing/accessory/medal))
 
 /obj/item/storage/lockbox/medal/examine(mob/user)
 	. = ..()
-	if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
+	if(!atom_storage.locked)
 		. += span_notice("Alt-click to [open ? "close":"open"] it.")
 
 /obj/item/storage/lockbox/medal/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
-		if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
+		if(!atom_storage.locked)
 			open = (open ? FALSE : TRUE)
 			update_icon()
 
@@ -119,26 +117,24 @@
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
 /obj/item/storage/lockbox/medal/update_icon_state()
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
-	if(locked)
+	if(atom_storage?.locked)
 		icon_state = "[base_icon_state]+l"
-		item_state = "[base_icon_state]+l"
+		inhand_icon_state = "[base_icon_state]+l"
 	else
 		icon_state = "[base_icon_state]"
-		item_state = "[base_icon_state]"
+		inhand_icon_state = "[base_icon_state]"
 		if(open)
 			icon_state += "open"
 		if(broken)
 			icon_state += "+b"
-			item_state = "[base_icon_state]+b"
+			inhand_icon_state = "[base_icon_state]+b"
 	return ..()
 
 /obj/item/storage/lockbox/medal/update_overlays()
 	. = ..()
 	if(!contents || !open)
 		return
-	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
-	if(locked)
+	if(atom_storage?.locked)
 		return
 	for (var/i in 1 to contents.len)
 		var/obj/item/clothing/accessory/medal/M = contents[i]

@@ -119,23 +119,22 @@
 		return 1
 	return FALSE
 
-/datum/martial_art/the_sleeping_carp/grab_act(mob/living/A, mob/living/D, params)
+/datum/martial_art/the_sleeping_carp/grab_act(mob/living/A, mob/living/D)
 	if(A==D)
 		return 0 //prevents grabbing yourself
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		add_to_streak("G",D)
-		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
-			return TRUE
-		old_grab_state = A.grab_state
-		D.grabbedby(A, 1)
-		if(old_grab_state == GRAB_PASSIVE)
-			D.drop_all_held_items()
-			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
-			log_combat(A, D, "grabbed", name, addition="aggressively")
-			D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
-							"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
-			to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+
+	add_to_streak("G",D)
+	if(check_streak(A,D)) //if a combo is made no grab upgrade is done
+		return TRUE
+	old_grab_state = A.grab_state
+	D.grabbedby(A, 1)
+	if(old_grab_state == GRAB_PASSIVE)
+		D.drop_all_held_items()
+		A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
+		log_combat(A, D, "grabbed", name, addition="aggressively")
+		D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
+						"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, A)
+		to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
 		return TRUE
 	return FALSE
 
@@ -188,84 +187,6 @@
 /datum/martial_art/the_sleeping_carp/on_remove(mob/living/H)
 	. = ..()
 	REMOVE_TRAIT(H, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT)
-
-/obj/item/staff/bostaff
-	name = "bo staff"
-	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
-	force = 10
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = ITEM_SLOT_BACK
-	throwforce = 20
-	throw_speed = 2
-	attack_verb_continuous = list("smashes", "slams", "whacks", "thwacks")
-	attack_verb_simple = list("smash", "slam", "whack", "thwack")
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "bostaff0"
-	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
-	block_level = 1
-	block_upgrade_walk = 1
-	block_power = 25
-
-/obj/item/staff/bostaff/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=24, block_power_unwielded=25, block_power_wielded=50, icon_wielded="bostaff1")
-
-/obj/item/staff/bostaff/update_icon_state()
-	icon_state = "bostaff0"
-	..()
-
-/obj/item/staff/bostaff/attack(mob/target, mob/living/user, params)
-	add_fingerprint(user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-		to_chat(user, span_warning("You club yourself over the head with [src]."))
-		user.Paralyze(60)
-		if(ishuman(user))
-			var/mob/living/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
-		else
-			user.take_bodypart_damage(2*force)
-		return
-	if(iscyborg(target))
-		return ..()
-	if(!isliving(target))
-		return ..()
-	var/mob/living/carbon/C = target
-	if(C.stat)
-		to_chat(user, span_warning("It would be dishonorable to attack a foe while they cannot retaliate."))
-		return
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		if(!ISWIELDED(src))
-			return ..()
-		if(!ishuman(target))
-			return ..()
-		var/mob/living/H = target
-		var/list/fluffmessages = list("club", "smack", "broadside", "beat", "slam")
-		H.visible_message(span_warning("[user] [pick(fluffmessages)]s [H] with [src]!"), \
-						span_userdanger("[user] [pick(fluffmessages)]s you with [src]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
-		to_chat(user, span_danger("You [pick(fluffmessages)] [H] with [src]!"))
-		playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
-		H.adjustStaminaLoss(rand(13,20))
-		if(prob(10))
-			H.visible_message(span_warning("[H] collapses!"), \
-							span_userdanger("Your legs give out!"))
-			H.Paralyze(80)
-		if(H.staminaloss && !H.IsSleeping())
-			var/total_health = (H.health - H.staminaloss)
-			if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
-				H.visible_message(span_warning("[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!"), \
-								span_userdanger("You're knocked unconscious by [user]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, user)
-				to_chat(user, span_danger("You deliver a heavy hit to [H]'s head, knocking [H.p_them()] out cold!"))
-				H.SetSleeping(600)
-				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15, 150)
-	else
-		return ..()
-
-/obj/item/staff/bostaff/hit_reaction(mob/living/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!ISWIELDED(src))
-		return ..()
-	return 0
 
 #undef WRIST_WRENCH_COMBO
 #undef BACK_KICK_COMBO

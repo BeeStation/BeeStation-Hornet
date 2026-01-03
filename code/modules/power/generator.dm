@@ -119,7 +119,7 @@
 
 		t += "<div class='statusDisplay'>"
 
-		t += "Output: [display_power(lastgenlev)]"
+		t += "Output: [display_power_persec(lastgenlev)]"
 
 		t += "<BR>"
 
@@ -139,7 +139,7 @@
 	else
 		t += span_bad("Unable to locate any parts!")
 	if(include_link)
-		t += "<BR><A href='?src=[REF(src)];close=1'>Close</A>"
+		t += "<BR><A href='byond://?src=[REF(src)];close=1'>Close</A>"
 
 	return t
 
