@@ -5,6 +5,7 @@
 	banning_key = ROLE_VIGILANTE
 	required_living_playtime = 10
 	var/datum/component/uplink/uplink
+	var/list/justice_delivered = list()
 
 /datum/antagonist/vigilante/greet()
 	to_chat(owner.current, span_userdanger("You are a fanatic vigilante!"))
@@ -57,6 +58,11 @@
 		target = user
 	if (!target)
 		return
+	if (!target.mind)
+		return
+	if (REF(target.mind) in justice_delivered)
+		return
+	justice_delivered += REF(target.mind)
 	justice.details = replacetext(justice.details, "%NAME%", desired_name)
 	justice.details = replacetext(justice.details, "%CRIME%", desired_crime)
 	justice.set_target(target)
