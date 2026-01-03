@@ -18,8 +18,8 @@
 	///the multiplier for how much materials the created object takes from this machines stored materials
 	var/creation_efficiency = 1.6
 
-	var/can_sync = FALSE
 	var/can_be_hacked_or_unlocked = FALSE
+	/// Whether or not we can print an entire category at once
 	var/can_print_category = FALSE
 
 	var/datum/design/being_built
@@ -60,18 +60,34 @@
 	//Minimum construction time per component
 	var/minimum_construction_time = 3.5 SECONDS
 
-	/// Ref to our internal techweb
-	var/datum/techweb/stored_research
-	/// The type of techweb we use
-	var/stored_research_type = /datum/techweb/autounlocking/autolathe
-	/// Designs imported from design disks
-	var/list/imported_designs = list()
+	// Techweb crap
+
+	/// Ref to our internal techweb. Set to the typepath of your desired techweb (irrelevant if use_station_research is TRUE).
+	var/datum/techweb/stored_research = /datum/techweb/autounlocking
+	/// If TRUE, we connect to the science techweb instead of creating our own
+	var/use_station_research = FALSE
+	/// Designs imported from design disks. Only initialized if accepts_disks is TRUE.
+	var/list/imported_designs
+
+	// The vars below are only used if use_station_research is TRUE
+
+	/// Made so we dont call addtimer() 40,000 times in on_techweb_update(). only allows addtimer() to be called on the first update.
+	var/techweb_updating = FALSE
+	/// The types of designs this fabricator can print.
+	var/allowed_buildtypes = NONE
+	/// All designs in the techweb that can be fabricated by this machine, since the last update.
+	var/list/datum/design/cached_designs
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
-	if(!stored_research)
-		if(!GLOB.autounlock_techwebs[stored_research_type])
-			GLOB.autounlock_techwebs[stored_research_type] = new stored_research_type()
-		stored_research = GLOB.autounlock_techwebs[stored_research_type]
+	if(ispath(stored_research) && !use_station_research)
+		if(!GLOB.autounlock_techwebs[stored_research])
+			GLOB.autounlock_techwebs[stored_research] = new stored_research()
+		stored_research = GLOB.autounlock_techwebs[stored_research]
+
+	if(accepts_disks)
+		imported_designs = list()
+	if(use_station_research)
+		cached_designs = list()
 
 	if(remote_materials)
 		//We think its a protolathe/mechfab. Connectable to Ore Silo
@@ -80,6 +96,66 @@
 		//We think its a autolathe. NO Ore Silo Connection
 		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], 0, MATCONTAINER_EXAMINE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	return ..()
+
+/obj/machinery/modular_fabricator/LateInitialize()
+	. = ..()
+	if(use_station_research && !istype(stored_research))
+		CONNECT_TO_RND_SERVER_ROUNDSTART(stored_research, src)
+		if(istype(stored_research))
+			on_connected_techweb()
+
+/obj/machinery/modular_fabricator/proc/connect_techweb(datum/techweb/new_techweb)
+	if(stored_research)
+		UnregisterSignal(stored_research, list(COMSIG_TECHWEB_ADD_DESIGN, COMSIG_TECHWEB_REMOVE_DESIGN))
+	stored_research = new_techweb
+	if(istype(stored_research))
+		on_connected_techweb()
+
+/obj/machinery/modular_fabricator/proc/on_connected_techweb()
+	RegisterSignals(
+		stored_research,
+		list(COMSIG_TECHWEB_ADD_DESIGN, COMSIG_TECHWEB_REMOVE_DESIGN),
+		PROC_REF(on_techweb_update)
+	)
+	update_designs()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
+DEFINE_BUFFER_HANDLER(/obj/machinery/modular_fabricator)
+	if(use_station_research && istype(buffer, /datum/techweb))
+		balloon_alert(user, "techweb connected")
+		connect_techweb(buffer)
+		return COMPONENT_BUFFER_RECEIVED
+	return NONE
+
+/obj/machinery/modular_fabricator/proc/on_techweb_update()
+	SIGNAL_HANDLER
+
+	if(!techweb_updating) //so we batch these updates together
+		techweb_updating = TRUE
+		addtimer(CALLBACK(src, PROC_REF(update_designs)), 2 SECONDS)
+
+/// Updates the list of designs this fabricator can print.
+/obj/machinery/modular_fabricator/proc/update_designs()
+	PROTECTED_PROC(TRUE)
+	techweb_updating = FALSE
+
+	var/previous_design_count = length(cached_designs)
+
+	cached_designs.Cut()
+
+	for(var/design_id in stored_research.researched_designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+
+		if(design.build_type & allowed_buildtypes)
+			cached_designs |= design
+
+	var/design_delta = length(cached_designs) - previous_design_count
+
+	if(design_delta > 0)
+		say("Received [design_delta] new design[design_delta == 1 ? "" : "s"].")
+		playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+
+	update_static_data_for_all_viewers()
 
 /obj/machinery/modular_fabricator/Destroy()
 	stored_research = null
@@ -127,15 +203,30 @@
 
 /obj/machinery/modular_fabricator/ui_static_data(mob/user)
 	var/list/data = list()
-	data["acceptsDisk"] = accepts_disks
+	data["accepts_disk"] = accepts_disks
+	data["disk_inserted"] = inserted_disk
 	data["show_unlock_bar"] = can_be_hacked_or_unlocked
 	data["allow_add_category"] = can_print_category
-	data["can_sync"] = can_sync
 
-	//Items
+	// Used cached_designs if we're using the station's techweb
+	data["items"] = handle_designs((use_station_research ? cached_designs : stored_research.researched_designs)) // these extra brackets are necessary
+	if(length(imported_designs))
+		data["items"] += handle_designs(imported_designs)
+
+	return data
+
+/**
+ * Converts all the designs supported by this modular fabricator into UI data
+ * Arguments
+ *
+ * * list/designs - the list of techweb designs we are trying to send to the UI
+ */
+/obj/machinery/modular_fabricator/proc/handle_designs(list/designs)
+	PROTECTED_PROC(TRUE)
+
 	var/list/categories_associative = list()
-	for(var/design_id in stored_research.researched_designs + imported_designs)
-		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+	for(var/design_id in designs)
+		var/datum/design/design = astype(design_id, /datum/design) || SSresearch.techweb_design_by_id(design_id)
 		for(var/category in design.category)
 			//Check if printable
 			if(!(category in categories))
@@ -151,7 +242,7 @@
 					"amount" = (design.materials[material_id] / MINERAL_MATERIAL_AMOUNT) * creation_efficiency,
 				))
 
-			//Add
+			// Add
 			categories_associative[category] += list(list(
 				"name" = design.name,
 				"desc" = design.desc,
@@ -159,17 +250,14 @@
 				"material_cost" = material_cost,
 			))
 
-	//Categories and their items
-	data["items"] = list()
-	for(var/category in categories_associative)
-		data["items"] += list(list(
+	var/list/output = list()
+	for(var/category, items in categories_associative)
+		output += list(list(
 			"category_name" = category,
-			"category_items" = categories_associative[category],
+			"category_items" = items,
 		))
 
-	//Inserted data disk
-	data["diskInserted"] = inserted_disk
-	return data
+	return output
 
 /obj/machinery/modular_fabricator/ui_data(mob/user)
 	var/list/data = list()
@@ -221,12 +309,6 @@
 		return
 
 	switch(action)
-
-		if("resync_rd")
-			if(!can_sync)
-				return
-			update_static_data_for_all_viewers()
-			. = TRUE
 
 		if("queue_category")
 			if(!can_print_category)

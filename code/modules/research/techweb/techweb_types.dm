@@ -93,9 +93,3 @@ GLOBAL_LIST_EMPTY(autounlock_techwebs)
 
 /datum/techweb/autounlocking/smelter
 	allowed_buildtypes = SMELTER
-
-/datum/techweb/autounlocking/exofab
-	allowed_buildtypes = MECHFAB
-
-/datum/techweb/autounlocking/component_printer
-	allowed_buildtypes = COMPONENT_PRINTER

@@ -13,7 +13,6 @@
 	output_direction = SOUTH
 
 	remote_materials = TRUE
-	can_sync = TRUE
 	can_print_category = TRUE
 
 	categories = list(
@@ -37,7 +36,9 @@
 		RND_CATEGORY_MISC,
 	)
 
-	stored_research_type = /datum/techweb/autounlocking/exofab
+	stored_research = null
+	use_station_research = TRUE
+	allowed_buildtypes = MECHFAB
 
 /obj/machinery/modular_fabricator/exosuit_fab/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())

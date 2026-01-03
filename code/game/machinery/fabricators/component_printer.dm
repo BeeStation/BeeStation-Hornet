@@ -7,12 +7,11 @@
 
 	remote_materials = TRUE
 	auto_link = FALSE
-	can_sync = TRUE
 
 	//Quick.
-	minimum_construction_time = 5
+	minimum_construction_time = 0.5 SECONDS
 
-	stored_research_type = /datum/techweb/autounlocking/component_printer
+	stored_research = null
 
 	categories = list(
 		RND_CATEGORY_CIRCUITRY,
@@ -27,6 +26,10 @@
 		RND_CATEGORY_BCI_COMPONENTS,
 		RND_CATEGORY_TEMPLATES,
 	)
+
+	stored_research = null
+	use_station_research = TRUE
+	allowed_buildtypes = COMPONENT_PRINTER
 
 /obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
 	return default_deconstruction_crowbar(tool)

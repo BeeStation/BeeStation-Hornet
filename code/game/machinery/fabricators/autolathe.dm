@@ -9,9 +9,6 @@
 	circuit = /obj/item/circuitboard/machine/autolathe
 
 	var/shocked = FALSE
-	var/hack_wire
-	var/disable_wire
-	var/shock_wire
 
 	//Security modes
 	can_be_hacked_or_unlocked = TRUE
@@ -32,8 +29,8 @@
 	)
 
 	accepts_disks = TRUE
-
-	stored_research_type = /datum/techweb/autounlocking/autolathe
+	allowed_buildtypes = AUTOLATHE
+	stored_research = /datum/techweb/autounlocking/autolathe
 
 /obj/machinery/modular_fabricator/autolathe/Initialize(mapload)
 	. = ..()
@@ -51,6 +48,15 @@
 		ui = new(user, src, "ModularFabricator")
 		ui.set_autoupdate(TRUE)
 		ui.open()
+
+/obj/machinery/modular_fabricator/autolathe/ui_static_data(mob/user)
+	var/list/data = ..()
+
+	if(hacked && istype(stored_research, /datum/techweb/autounlocking))
+		var/datum/techweb/autounlocking/autounlocking_web = stored_research
+		data["items"] += handle_designs(autounlocking_web.hacked_designs)
+
+	return data
 
 /obj/machinery/modular_fabricator/autolathe/ui_data(mob/user)
 	var/list/data = ..()
@@ -71,12 +77,14 @@
 		if("toggle_safety")
 			if(security_interface_locked)
 				return
-			adjust_hacked(!hacked)
-			. = TRUE
+			hacked = !hacked
+			update_static_data_for_all_viewers()
+			wires.ui_update()
+			return FALSE // Lets avoid an unnecessary UI update, update_static_data_for_all_viewers() already did it for us
 
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
-				return
+				return FALSE
 			if (!security_interface_locked)
 				security_interface_locked = TRUE
 			else
@@ -84,7 +92,7 @@
 				if((ACCESS_SECURITY in id_slot.GetAccess()) && !(obj_flags & EMAGGED))
 					security_interface_locked = FALSE
 					to_chat(usr, span_warning("You unlock the security controls of [src]."))
-			. = TRUE
+			return TRUE
 
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/attacking_item, mob/living/user, params)
 	if((ACCESS_SECURITY in attacking_item.GetAccess()) && !(obj_flags & EMAGGED))
@@ -146,7 +154,7 @@
 	switch(wire)
 		if(WIRE_HACK)
 			if(!wires.is_cut(wire))
-				adjust_hacked(FALSE)
+				hacked = FALSE
 		if(WIRE_SHOCK)
 			if(!wires.is_cut(wire))
 				shocked = FALSE
@@ -168,27 +176,12 @@
 	else
 		return FALSE
 
-/obj/machinery/modular_fabricator/autolathe/proc/adjust_hacked(state)
-	hacked = state
-	for(var/id in SSresearch.techweb_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if((D.build_type & AUTOLATHE) && (RND_CATEGORY_HACKED in D.category))
-			if(hacked)
-				stored_research.add_design(D)
-			else
-				stored_research.remove_design(D)
-	update_static_data_for_all_viewers()
-	wires.ui_update()
-
 /obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)
 	..()
 	security_interface_locked = FALSE
-	adjust_hacked(TRUE)
+	update_static_data_for_all_viewers()
+	wires.ui_update()
 	playsound(src, "sparks", 100, TRUE)
-
-/obj/machinery/modular_fabricator/autolathe/hacked/Initialize(mapload)
-	. = ..()
-	adjust_hacked(TRUE)
 
 /obj/machinery/modular_fabricator/autolathe/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	. = ..()
@@ -202,3 +195,6 @@
 
 /obj/machinery/modular_fabricator/autolathe/set_working_sprite()
 	icon_state = "autolathe_n"
+
+/obj/machinery/modular_fabricator/autolathe/hacked
+	hacked = TRUE
