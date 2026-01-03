@@ -589,13 +589,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	if(desired_crime)
 		var/datum/record/crew/target_record = find_record(desired_name, GLOB.manifest.general)
 		if(target_record)
-			target_record.wanted_status = WANTED_PRISONER
+			target_record.set_wanted_status(user, WANTED_PRISONER)
 			var/datum/crime_record/new_crime = new(desired_crime, null, "General Populace")
 			target_record.crimes += new_crime
 			investigate_log("New Crime: <strong>[desired_crime]</strong> | Added to [target_record.name] by [key_name(user)]", INVESTIGATE_RECORDS)
 			say("Criminal record for [target_record.name] successfully updated.")
 			update_matching_security_huds(target_record.name)
 			playsound(loc, 'sound/machines/ping.ogg', 50, 1)
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_WANTED_STATUS_CHANGED, target_record, user, target_record.wanted_status)
 
 	var/obj/item/card/id/id = new /obj/item/card/id/prisoner(get_turf(src), desired_sentence * 0.1, desired_crime, desired_name)
 	Radio.talk_into(src, "Prisoner [id.registered_name] has been incarcerated for [desired_sentence / 600 ] minutes.")
@@ -739,7 +740,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/card/id/prisoner)
 
 		var/datum/record/crew/R = find_record(registered_name, GLOB.manifest.general)
 		if(R)
-			R.wanted_status = WANTED_DISCHARGED
+			R.set_wanted_status(src, WANTED_DISCHARGED)
 
 		if(isliving(loc))
 			to_chat(loc, span_boldnotice("You have served your sentence! You may now exit prison through the turnstiles and collect your belongings."))

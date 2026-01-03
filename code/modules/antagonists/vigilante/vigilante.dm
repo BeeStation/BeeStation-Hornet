@@ -26,6 +26,7 @@
 	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station, however as an outsider you will be unable to gain any reputation. The uplink came with a message:</span><br>[span_traitorobjective(uplink.unlock_text)]")
 	RegisterSignal(uplink, COMSIG_QDELETING, PROC_REF(deconvert))
 	RegisterSignal(SSdcs, COMSIG_GLOB_PRISONER_REGISTERED, PROC_REF(on_prisoner_created))
+	RegisterSignal(SSdcs, COMSIG_GLOB_WANTED_STATUS_CHANGED, PROC_REF(on_wanted_level_changed))
 
 /datum/antagonist/vigilante/farewell()
 	. = ..()
@@ -38,6 +39,24 @@
 /datum/antagonist/vigilante/proc/deconvert()
 	uplink = null
 	owner.remove_antag_datum(/datum/antagonist/vigilante)
+
+/datum/antagonist/vigilante/proc/on_wanted_level_changed(datum/source, datum/record/crew/record, datum/update_source, wanted_status)
+	SIGNAL_HANDLER
+	if (wanted_status != WANTED_ARREST && wanted_status != WANTED_PRISONER && wanted_status != WANTED_SUSPECT)
+		return
+	if (!isliving(source))
+		return
+	var/mob/living/officer = source
+	if (!officer.mind)
+		return
+	if (length(officer.mind.antag_datums))
+		return
+	var/datum/job/job = SSjob.GetJob(officer.mind.assigned_role)
+	if (!job)
+		return
+	if (!CHECK_BITFIELD(job.departments, DEPT_BITFLAG_COM) && !CHECK_BITFIELD(job.departments, DEPT_BITFLAG_SEC))
+		return
+	on_prisoner_created(source, officer, record.name, "Wanted level updated to [wanted_status]", "Suspicious individuals must be punished.")
 
 /datum/antagonist/vigilante/proc/on_prisoner_created(datum/source, mob/user, desired_name, desired_crime, desired_sentence)
 	SIGNAL_HANDLER
@@ -62,6 +81,7 @@
 		return
 	if (REF(target.mind) in justice_delivered)
 		return
+	log_directive("New vigilante target added, [target.mind.name] with the type [justice.type].")
 	justice_delivered += REF(target.mind)
 	justice.details = replacetext(justice.details, "%NAME%", desired_name)
 	justice.details = replacetext(justice.details, "%CRIME%", desired_crime)
