@@ -76,17 +76,20 @@
 	unlock_ids -= node_id
 
 /datum/techweb_node/proc/get_price(datum/techweb/host)
-	if(host)
-		var/list/actual_costs = research_costs
-		if(host.boosted_nodes[id])
-			var/list/L = host.boosted_nodes[id]
-			for(var/i in L)
-				if(actual_costs[i])
-					actual_costs[i] -= L[i]
-		actual_costs[TECHWEB_POINT_TYPE_DISCOVERY] = calculate_discovery_cost(host.current_tier)
-		return actual_costs
-	else
+	if(!host)
 		return research_costs
+
+	var/list/actual_costs = research_costs.Copy()
+
+	if(host.boosted_nodes[id])
+		var/list/boostlist = host.boosted_nodes[id]
+		for(var/booster in boostlist)
+			if(actual_costs[booster])
+				actual_costs[booster] -= boostlist[booster]
+
+	actual_costs[TECHWEB_POINT_TYPE_DISCOVERY] = calculate_discovery_cost(host.current_tier)
+
+	return actual_costs
 
 /datum/techweb_node/proc/calculate_discovery_cost(their_tier)
 	var/delta = tech_tier - their_tier

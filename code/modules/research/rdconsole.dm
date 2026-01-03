@@ -1,4 +1,4 @@
-#define RND_TECH_DISK	"tech"
+#define RND_TECH_DISK "tech"
 #define RND_DESIGN_DISK	"design"
 
 
@@ -23,15 +23,13 @@ Nothing else in the console has ID requirements.
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/rdconsole
-	req_access = list(ACCESS_TOX)	// Locking and unlocking the console requires research access
+	req_access = list(ACCESS_TOX) // Locking and unlocking the console requires research access
 	/// Reference to global science techweb
 	var/datum/techweb/stored_research
 	/// The stored technology disk, if present
 	var/obj/item/disk/tech_disk/t_disk
 	/// The stored design disk, if present
 	var/obj/item/disk/design_disk/d_disk
-	/// Determines if the console is locked, and consequently if actions can be performed with it
-	var/locked = FALSE
 	/// Used for compressing data sent to the UI via static_data as payload size is of concern
 	var/id_cache = list()
 	/// Sequence var for the id cache
@@ -40,6 +38,9 @@ Nothing else in the console has ID requirements.
 	var/compact = TRUE
 	/// Cooldown that prevents hanging the MC when tech disks are copied
 	STATIC_COOLDOWN_DECLARE(copy_cooldown)
+
+/obj/machinery/computer/rdconsole/unlocked
+	circuit = /obj/item/circuitboard/computer/rdconsole/unlocked
 
 /proc/CallMaterialName(ID)
 	if (istype(ID, /datum/material))
@@ -153,7 +154,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 	var/obj/item/circuitboard/computer/rdconsole/board = circuit
 	if(!(board.obj_flags & EMAGGED))
 		board.silence_announcements = TRUE
-	locked = FALSE
+	board.locked = FALSE
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -170,8 +171,11 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 // heavy data from this proc should be moved to static data when possible
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
+
+	var/obj/item/circuitboard/computer/rdconsole/board = circuit
+
 	data["stored_research"] = !!stored_research
-	data["locked"] = locked
+	data["locked"] = board.locked
 	if(!stored_research) //lack of a research node is all we care about.
 		return data
 	data += list(
@@ -286,8 +290,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 
 	add_fingerprint(usr)
 
+	var/obj/item/circuitboard/computer/rdconsole/board = circuit
+
 	// Check if the console is locked to block any actions occuring
-	if (locked && action != "toggleLock")
+	if (board.locked && action != "toggleLock")
 		say("Console is locked, cannot perform further actions.")
 		return TRUE
 
@@ -297,7 +303,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/rdconsole)
 				to_chat(usr, span_boldwarning("Security protocol error: Unable to access locking protocols."))
 				return TRUE
 			if(allowed(usr))
-				locked = !locked
+				board.locked = !board.locked
 			else
 				to_chat(usr, span_boldwarning("Unauthorized Access."))
 			return TRUE
