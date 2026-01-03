@@ -5,3 +5,8 @@
       shown on uniforms.
   - bugfix: Fixes security badges having no description.
   - bugfix: Fixes detective's belt being a proper noun.
+2026-01-03:
+  PowerfulBacon:
+  - bugfix: Fixes players bleeding out 5 times faster than intended when having more
+      than 2.4 bleed.
+  - bugfix: Fixes shield belt not applying its effects when equipped
