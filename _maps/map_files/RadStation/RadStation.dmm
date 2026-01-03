@@ -35748,14 +35748,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"mpb" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/item/stack/cable_coil,
-/turf/open/space/basic,
-/area/solar/starboard/fore)
 "mph" = (
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/iron/techmaint,
@@ -64002,6 +63994,12 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/burgundy,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "vZb" = (
@@ -117734,8 +117732,8 @@ gsA
 rhG
 nsn
 qmY
-mpb
-nsn
+cuj
+rhG
 dSm
 nsn
 nsn
@@ -119025,7 +119023,7 @@ ihy
 ihy
 ihy
 odm
-rYv
+fbn
 tbt
 ihy
 ihy
@@ -120567,7 +120565,7 @@ oJn
 oJn
 oJn
 odm
-rYv
+pft
 tbt
 oJn
 oJn
@@ -120824,7 +120822,7 @@ uox
 oAH
 oAH
 qmY
-rYv
+nrB
 rhG
 lCv
 lCv
@@ -121081,7 +121079,7 @@ ihy
 ihy
 ihy
 odm
-pft
+nrB
 tbt
 ihy
 ihy
@@ -121851,9 +121849,9 @@ gsA
 uox
 oAH
 oAH
-qmY
+nsn
 vYO
-rhG
+nsn
 lCv
 lCv
 xnN
