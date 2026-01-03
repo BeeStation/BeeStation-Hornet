@@ -1,4 +1,4 @@
-/datum/unit_test/map_test/check_multiple_objects/check_turf(turf/check_turf, is_map_border)
+/datum/unit_test/map_test/check_wire_crossing/check_turf(turf/check_turf, is_map_border)
 	var/list/powernets = list()
 	for (var/obj/structure/cable/cable in check_turf)
 		if (!powernets[cable.color])
