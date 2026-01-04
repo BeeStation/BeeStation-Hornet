@@ -903,27 +903,31 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
 
-/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
+/// Returns true if damage was applied, false if the attack was fully blocked.
+/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user, obj/item/weapon, silent)
 
 	var/is_human_victim
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
 		if(!affecting) //no head!
-			return
+			return FALSE
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
+		return FALSE
 
 	if(isalien(M))//Aliens don't have eyes./N     slimes also don't have eyes!
-		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
-		return
+		if (!silent)
+			to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
+		return FALSE
 
 	if(isbrain(M))
-		to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
+		return FALSE
 
 	add_fingerprint(user)
 
@@ -941,10 +945,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
+		U.apply_damage(weapon.force, BRUTE, affecting)
 
 	else
-		M.take_bodypart_damage(7)
+		M.take_bodypart_damage(weapon.force)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
@@ -952,7 +956,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
-		return
+		return TRUE
 	M.adjust_blurriness(3)
 	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
@@ -965,6 +969,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
+	return TRUE
 
 /obj/item/singularity_pull(S, current_size)
 	..()
