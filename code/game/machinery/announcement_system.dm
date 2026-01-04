@@ -87,11 +87,11 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		act_up()
 
 /obj/machinery/announcement_system/on_emag(mob/user)
-	. = ..()
 	if(obj_flags & EMAGGED)
 		return
 	act_up()
 	balloon_alert(user, "announcement strings corrupted")
+	return ..()
 
 /// Does funny breakage stuff
 /obj/machinery/announcement_system/proc/act_up()

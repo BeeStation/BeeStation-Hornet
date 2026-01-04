@@ -428,7 +428,6 @@
 	return TRUE
 
 /obj/item/circuitboard/computer/rdconsole/on_emag(mob/user)
-	. = ..()
 	if (locked)
 		to_chat(user, span_notice("You magnetically trigger the locking mechanism, causing it to unlock."))
 		locked = FALSE
@@ -436,6 +435,7 @@
 	silence_announcements = FALSE
 	if (!(obj_flags & EMAGGED)) // the check in question checks for the EMAGGED bitflag. no need to repeat messages
 		to_chat(user, span_notice("You overload the node announcement chip, forcing every node to be announced on the common channel."))
+	return ..()
 
 /obj/item/circuitboard/computer/rdconsole/attackby(obj/item/attacking_item, mob/living/user, params)
 	if (user.combat_mode || !isidcard(attacking_item))

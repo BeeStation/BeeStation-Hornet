@@ -110,7 +110,7 @@
 /datum/component/nanites/process(delta_time)
 	if(!IS_IN_STASIS(host_mob))
 		var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-		adjust_nanites(amount = (regen_rate + (science_web.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
+		adjust_nanites(amount = (regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
 		for(var/datum/nanite_program/program as anything in programs)
 			program.on_process()
@@ -432,7 +432,7 @@
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
 	var/datum/techweb/science_web = locate(/datum/techweb/science) in SSresearch.techwebs
-	data["regen_rate"] = regen_rate + (science_web.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)
+	data["regen_rate"] = regen_rate + (science_web.researched_nodes[TECHWEB_NODE_NANITE_HARMONIC] ? HARMONIC_REGEN_BOOST : 0)
 	data["safety_threshold"] = safety_threshold
 	data["cloud_id"] = cloud_id
 	data["cloud_active"] = cloud_active

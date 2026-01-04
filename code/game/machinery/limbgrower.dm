@@ -20,7 +20,7 @@
 	var/busy = FALSE
 	var/prod_coeff = 1
 	var/datum/design/being_built
-	var/datum/techweb/stored_research
+	var/datum/techweb/autounlocking/stored_research
 	var/selected_category
 	var/screen = 1
 	var/list/categories = list(
@@ -193,15 +193,18 @@
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
 
-	for(var/v in stored_research.researched_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		if(!(selected_category in D.category))
+	var/list/designs = stored_research.researched_designs
+	if(obj_flags & EMAGGED)
+		designs += stored_research.hacked_designs
+	for(var/design_id in designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+		if(!(selected_category in design.category))
 			continue
-		if(disabled || !can_build(D))
-			dat += span_linkoff("[D.name]")
+		if(disabled || !can_build(design))
+			dat += span_linkoff("[design.name]")
 		else
-			dat += "<a href='byond://?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
-		dat += "[get_design_cost(D)]<br>"
+			dat += "<a href='byond://?src=[REF(src)];make=[design.id];multiplier=1'>[design.name]</a>"
+		dat += "[get_design_cost(design)]<br>"
 
 	dat += "</div>"
 	return dat
@@ -233,12 +236,10 @@
 	return dat
 
 /obj/machinery/limbgrower/on_emag(mob/user)
-	..()
-	for(var/id in SSresearch.techweb_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(id)
-		if((D.build_type & LIMBGROWER) && (RND_CATEGORY_HACKED in D.category))
-			stored_research.add_design(D)
+	if(obj_flags & EMAGGED)
+		return
 	to_chat(user, span_warning("A warning flashes onto the screen, stating that safety overrides have been deactivated!"))
+	return ..()
 
 #undef LIMBGROWER_MAIN_MENU
 #undef LIMBGROWER_CATEGORY_MENU
