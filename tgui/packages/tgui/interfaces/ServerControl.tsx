@@ -197,7 +197,7 @@ const ConsolesList = () => {
         <NoticeBox info>No consoles found.</NoticeBox>
       ) : (
         show_consoles && (
-          <Stack wrap justify="space-evenly">
+          <Stack wrap>
             {consoles.map((console) => (
               <Stack.Item
                 key={console.console_ref}
