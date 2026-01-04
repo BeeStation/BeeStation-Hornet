@@ -50,6 +50,13 @@
 		/area/science/xenobiology
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_SCIENTIST,
+		JOB_NAME_EXPLORATIONCREW,
+		JOB_NAME_ROBOTICIST
+	)
+
 /datum/outfit/job/research_director
 	name = JOB_NAME_RESEARCHDIRECTOR
 	jobtype = /datum/job/research_director

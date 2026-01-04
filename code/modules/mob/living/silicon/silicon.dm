@@ -105,14 +105,6 @@
 		modularInterface.saved_job = JOB_NAME_PAI
 		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 
-/mob/living/silicon/robot/model/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-		modularInterface.saved_identification = real_name
-		modularInterface.saved_job = JOB_NAME_CYBORG
-	return ..()
-
-
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
 

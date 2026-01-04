@@ -3,7 +3,7 @@
 	desc = "A handheld device used for detecting and measuring radiation pulses."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "geiger_off"
-	item_state = "multitool"
+	inhand_icon_state = "multitool"
 	worn_icon_state = "geiger_counter"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'

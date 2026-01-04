@@ -210,10 +210,10 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 	log_message("has thrown [thrown_thing].", LOG_ATTACK)
 
 	if (!held_item)
-		visible_message(span_danger("[src] [verb_text] [thrown_thing]."), \
+		visible_message(span_danger("[src] [verb_text][plural_s(verb_text)] [thrown_thing]."), \
 							span_danger("You [verb_text] [thrown_thing]."))
 	else
-		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."), \
+		visible_message(span_danger("[src] [held_item.throw_verb ? held_item.throw_verb : verb_text][plural_s(verb_text)] [thrown_thing]."), \
 							span_danger("You [held_item.throw_verb ? held_item.throw_verb : verb_text] [thrown_thing]."))
 	log_message("has thrown [thrown_thing]", LOG_ATTACK)
 
@@ -319,36 +319,25 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		return
 	cuffs.item_flags |= BEING_REMOVED
 	breakouttime = cuffs.breakouttime
-
-	if(cuff_break)
-		breakouttime = 5 SECONDS
-		visible_message(span_warning("[src] is trying to break [cuffs]!"))
-		to_chat(src, span_notice("You attempt to break [cuffs]... (This will take around 5 seconds)"))
-		if(do_after(src, breakouttime, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM))
-			. = clear_cuffs(cuffs, cuff_break)
-		else
-			to_chat(src, span_warning("You fail to break [cuffs]!"))
-
-	else if(istype(cuffs, /obj/item/restraints/handcuffs))
-		to_chat(src, span_notice("You attempt to wriggle your way out of [cuffs]..."))
-		while(cuffs.item_flags & BEING_REMOVED && handcuffed == cuffs)
-			cuff_breakout_attempts++ //We increment these first so that long-term progress is still made even if interrupted
-			if(!do_after(src, 5 SECONDS, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
-				break
-			if(cuff_breakout_attempts * 5 SECONDS >= breakouttime)
-				log_combat(src, src, "slipped out of [cuffs] after [cuff_breakout_attempts]/[breakouttime / (5 SECONDS)] attempts", important = FALSE)
-				. = clear_cuffs(cuffs, cuff_break)
-				break
-			else if(cuff_breakout_attempts % 10 == 0)
-				visible_message(span_warning("[src] seems to be trying to wriggle out of [cuffs]!")) //Ten second warning for zipties, three warnings for real cuffs
-
-	else
-		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)]"))
-		if(do_after(src, breakouttime, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_HELD_ITEM, hidden = TRUE))
+	if(!cuff_break)
+		visible_message(span_warning("[src] attempts to remove [cuffs]!"))
+		to_chat(src, span_notice("You attempt to remove [cuffs]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)"))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM, hidden = TRUE))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			to_chat(src, span_warning("You fail to remove [cuffs]!"))
 
+	else if(cuff_break == FAST_CUFFBREAK)
+		breakouttime = 5 SECONDS
+		visible_message(span_warning("[src] is trying to break [cuffs]!"))
+		to_chat(src, span_notice("You attempt to break [cuffs]... (This will take around 5 seconds and you need to stand still.)"))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM))
+			. = clear_cuffs(cuffs, cuff_break)
+		else
+			to_chat(src, span_warning("You fail to break [cuffs]!"))
+
+	else if(cuff_break == INSTANT_CUFFBREAK)
+		. = clear_cuffs(cuffs, cuff_break)
 	cuffs.item_flags &= ~BEING_REMOVED
 
 /mob/living/carbon/proc/uncuff()
@@ -871,7 +860,6 @@ CREATION_TEST_IGNORE_SELF(/mob/living/carbon)
 		stop_pulling()
 		throw_alert("handcuffed", /atom/movable/screen/alert/restrained/handcuffed, new_master = src.handcuffed)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "handcuffed", /datum/mood_event/handcuffed)
-		cuff_breakout_attempts = 0
 	else
 		clear_alert("handcuffed")
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "handcuffed")

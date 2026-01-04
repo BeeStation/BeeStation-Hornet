@@ -8,16 +8,22 @@
 
 /datum/dynamic_ruleset/midround/ghost
 	abstract_type = /datum/dynamic_ruleset/midround/ghost
+	ruleset_flags = IGNORE_DRAFTED_COUNT | CANNOT_REPEAT
 
 	/// List of possible locations for this antag to spawn
 	var/list/spawn_locations = list()
 	/// Whether or not this ruleset should be blocked if there aren't any spawn locations
 	var/use_spawn_locations = TRUE
 
+	/// The poll that we are gathering candidates from
+	var/datum/candidate_poll/persistent/poll = null
+
 /datum/dynamic_ruleset/midround/ghost/get_candidates()
 	candidates = SSdynamic.current_players[CURRENT_DEAD_PLAYERS] | SSdynamic.current_players[CURRENT_OBSERVERS]
 
 /datum/dynamic_ruleset/midround/ghost/allowed()
+	// With ghost midrounds, we do not care about drafted player counts
+	// as the players may come later
 	. = ..()
 	if(!.)
 		return FALSE
@@ -50,13 +56,15 @@
 
 	// Don't even send applications out if we don't have enough candidates
 	if(!allowed())
-		return DYNAMIC_EXECUTE_FAILURE
+		make_persistent(FALSE)
+		return DYNAMIC_EXECUTE_WAITING
 
 	send_applications()
 	trim_candidates()
 
 	if(!allowed())
-		return DYNAMIC_EXECUTE_FAILURE
+		make_persistent(TRUE)
+		return DYNAMIC_EXECUTE_WAITING
 
 	// Pick our candidates
 	for(var/i = 1 to drafted_players_amount)
@@ -70,6 +78,60 @@
 		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
 
 	return DYNAMIC_EXECUTE_SUCCESS
+
+/datum/dynamic_ruleset/midround/ghost/abort()
+	. = ..()
+	if (poll)
+		poll.end_poll()
+		poll = null
+	// We did not get a chance to execute, don't report it in the round-end
+	SSdynamic.midround_executed_rulesets -= src
+
+/datum/dynamic_ruleset/midround/ghost/proc/make_persistent(silent)
+	var/datum/poll_config/config = new()
+	config.role_name_text = initial(antag_datum.name)
+	config.alert_pic = get_poll_icon()
+	config.check_candidate = CALLBACK(src, PROC_REF(is_allowed))
+	config.silent = silent
+	config.include_in_spawners = TRUE
+	config.requires_confirmation = TRUE
+	config.can_hide = TRUE
+	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(config)
+	poll.on_signup = CALLBACK(src, PROC_REF(check_ready))
+	src.poll = poll
+
+/datum/dynamic_ruleset/midround/ghost/proc/is_allowed(mob/candidate)
+#ifndef TESTING_DYNAMIC
+	if(!candidate.client.should_include_for_role(
+		banning_key = antag_datum.banning_key,
+		role_preference_key = role_preference,
+		req_hours = antag_datum.required_living_playtime
+	))
+		return FALSE
+#endif
+	return TRUE
+
+/datum/dynamic_ruleset/midround/ghost/proc/check_ready(datum/candidate_poll/persistent/source, list/candidates)
+	src.candidates = candidates.Copy()
+	trim_candidates()
+
+	if(!allowed())
+		return
+
+	poll = null
+	source.end_poll()
+
+	// Pick our candidates
+	for(var/i = 1 to drafted_players_amount)
+		LAZYADD(chosen_candidates, select_player())
+
+	// Generate our candidates' bodies
+	for(var/mob/dead/observer/chosen_candidate in chosen_candidates)
+		var/mob/new_character = generate_ruleset_body(chosen_candidate)
+		finish_setup(new_character)
+
+		notify_ghosts("[chosen_candidate] has been picked for the [src] ruleset!", source = new_character, action = NOTIFY_ORBIT, header = "Something Interesting!")
+
 
 /**
  * Get a list of all possible spawn points
@@ -90,18 +152,14 @@
 	message_admins("DYNAMIC: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 	log_dynamic("MIDROUND: Polling [length(candidates)] player\s to apply for the [src] ruleset.")
 
-	candidates = SSpolling.poll_ghost_candidates(
-		poll_time = 30 SECONDS,
-		role_name_text = initial(antag_datum.name),
-		alert_pic = get_poll_icon(),
-	)
+	var/datum/poll_config/config = new()
+	config.role_name_text = initial(antag_datum.name)
+	config.alert_pic = get_poll_icon()
+	candidates = SSpolling.poll_ghost_candidates(config)
 
 	if(length(candidates) >= drafted_players_amount)
 		message_admins("DYNAMIC: [length(candidates)] player\s volunteered for the ruleset [src].")
 		log_dynamic("[length(candidates)] player\s volunteered for the ruleset [src].")
-	else
-		message_admins("DYNAMIC: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
-		log_dynamic("MIDROUND: FAIL: Not enough players volunteered for the [src] ruleset - [length(candidates)] out of [drafted_players_amount].")
 
 /**
  * Spawn a body for the chosen candidate
@@ -159,7 +217,6 @@
 	minimum_players_required = 20
 	weight = 4
 	use_spawn_locations = FALSE
-	ruleset_flags = CANNOT_REPEAT
 
 	var/datum/team/nuclear/team
 	var/has_made_leader = FALSE
@@ -194,7 +251,6 @@
 	minimum_players_required = 13
 	weight = 4
 	use_spawn_locations = FALSE
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/blob/get_poll_icon()
 	var/icon/blob_icon = icon('icons/mob/blob.dmi', icon_state = "blob_core")
@@ -219,7 +275,6 @@
 	points_cost = 50
 	minimum_players_required = 20
 	weight = 4
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/xenomorph_infestation/get_poll_icon()
 	return /mob/living/carbon/alien/larva
@@ -263,7 +318,6 @@
 	points_cost = 40
 	weight = 4
 	minimum_players_required = 10
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/space_dragon/get_poll_icon()
 	return /mob/living/simple_animal/hostile/space_dragon
@@ -292,7 +346,6 @@
 	antag_datum = /datum/antagonist/ninja
 	points_cost = 40
 	weight = 4
-	ruleset_flags = CANNOT_REPEAT
 
 /datum/dynamic_ruleset/midround/ghost/ninja/get_poll_icon()
 	return /obj/item/energy_katana
@@ -516,7 +569,6 @@
 	antag_datum = /datum/antagonist/swarmer
 	points_cost = 40
 	weight = 4
-	ruleset_flags = CANNOT_REPEAT
 
 	var/announce_probability = 25
 

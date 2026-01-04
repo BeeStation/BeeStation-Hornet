@@ -39,6 +39,15 @@
 		/area/security
 	)
 
+	// captain can write manuscript of command roles
+	manuscript_jobs = list(
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_HEADOFSECURITY
+	)
+
 /datum/job/captain/get_access()
 	return get_all_accesses()
 

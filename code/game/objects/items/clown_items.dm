@@ -141,7 +141,7 @@
 	desc = "A horn off of a bicycle."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bike_horn"
-	item_state = "bike_horn"
+	inhand_icon_state = "bike_horn"
 	worn_icon_state = "horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
@@ -188,7 +188,7 @@
 	name = "golden bike horn"
 	desc = "Golden? Clearly, it's made with bananium! Honk!"
 	icon_state = "gold_horn"
-	item_state = "gold_horn"
+	inhand_icon_state = "gold_horn"
 	worn_icon_state = "horn_gold"
 	var/flip_cooldown = 0
 

@@ -434,7 +434,7 @@
 		if(verbose)
 			to_chat(user, span_warning("We already have this DNA in storage!"))
 		return FALSE
-	if(HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
+	if(HAS_TRAIT(target, TRAIT_NOT_TRANSMORPHIC) || HAS_TRAIT(target, TRAIT_NO_DNA_COPY))
 		if(verbose)
 			to_chat(user, span_warning("[target] is not compatible with our biology."))
 		return FALSE
@@ -503,7 +503,7 @@
 		new_profile.flags_cover_list[slot] = clothing_item.flags_cover
 		new_profile.lefthand_file_list[slot] = clothing_item.lefthand_file
 		new_profile.righthand_file_list[slot] = clothing_item.righthand_file
-		new_profile.item_state_list[slot] = clothing_item.item_state
+		new_profile.inhand_icon_state_list[slot] = clothing_item.inhand_icon_state
 		new_profile.worn_icon_list[slot] = clothing_item.worn_icon
 		new_profile.worn_icon_state_list[slot] = clothing_item.worn_icon_state
 		new_profile.exists_list[slot] = 1
@@ -572,11 +572,24 @@
  * Create a profile based on the changeling's initial appearance.
  */
 /datum/antagonist/changeling/proc/create_initial_profile()
-	if(!ishuman(owner.current))
-		return
+	var/mob/living/carbon/carbon_owner = owner.current //only carbons have dna now, so we have to typecast
+	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		if(prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
+		else
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, random_unique_name(carbon_owner.gender))
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
 
-	add_new_profile(owner.current)
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
+	if(ishuman(carbon_owner))
+		add_new_profile(carbon_owner)
 
 /datum/antagonist/changeling/greet()
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
@@ -770,7 +783,7 @@
 		new_flesh_item.flags_cover = chosen_profile.flags_cover_list[slot]
 		new_flesh_item.lefthand_file = chosen_profile.lefthand_file_list[slot]
 		new_flesh_item.righthand_file = chosen_profile.righthand_file_list[slot]
-		new_flesh_item.item_state = chosen_profile.item_state_list[slot]
+		new_flesh_item.inhand_icon_state = chosen_profile.inhand_icon_state_list[slot]
 		new_flesh_item.worn_icon = chosen_profile.worn_icon_list[slot]
 		new_flesh_item.worn_icon_state = chosen_profile.worn_icon_state_list[slot]
 
@@ -809,7 +822,7 @@
 	/// Assoc list of item slot to file - stores the righthand file of the item in that slot
 	var/list/righthand_file_list = list()
 	/// Assoc list of item slot to file - stores the inhand file of the item in that slot
-	var/list/item_state_list = list()
+	var/list/inhand_icon_state_list = list()
 	/// Assoc list of item slot to file - stores the worn icon file of the item in that slot
 	var/list/worn_icon_list = list()
 	/// Assoc list of item slot to string - stores the worn icon state of the item in that slot
@@ -855,7 +868,7 @@
 	new_profile.appearance_list = appearance_list.Copy()
 	new_profile.flags_cover_list = flags_cover_list.Copy()
 	new_profile.exists_list = exists_list.Copy()
-	new_profile.item_state_list = item_state_list.Copy()
+	new_profile.inhand_icon_state_list = inhand_icon_state_list.Copy()
 	new_profile.lefthand_file_list = lefthand_file_list.Copy()
 	new_profile.righthand_file_list = righthand_file_list.Copy()
 	new_profile.worn_icon_list = worn_icon_list.Copy()
