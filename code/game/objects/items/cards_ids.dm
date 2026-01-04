@@ -302,10 +302,10 @@
 
 /obj/item/card/id/get_id_examine_strings(mob/user)
 	. = ..()
-	. += list("[icon2html(get_cached_flat_icon(), user, extra_classes = "hugeicon")]")
+	. += list("[icon2html(src, user, extra_classes = "hugeicon")]")
 
 /obj/item/card/id/get_examine_icon(mob/user)
-	return icon2html(get_cached_flat_icon(), user)
+	return icon2html(src, user)
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
@@ -605,7 +605,7 @@ update_label("John Doe", "Clowny")
 		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
 		if(user.incapacitated())
 			return
-		if(popup_input == "Forge")
+		if(popup_input == "Forge/Reset")
 			if(!assignment)
 				assignment = "Assistant"
 
