@@ -935,6 +935,24 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	user.do_attack_animation(M)
 
+	if(is_human_victim)
+		var/mob/living/carbon/human/U = M
+		var/blocked = U.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = weapon.armour_penetration)
+		U.apply_damage(weapon.force, BRUTE, affecting, blocked = blocked)
+		if (prob(blocked))
+			if(M != user)
+				M.visible_message(span_danger("[user] stabbed [M] in the head with [src]!"), \
+									span_userdanger("[user] stabs you in the head with [src], but your armor protects your eyes!"))
+			else
+				user.visible_message( \
+					span_danger("[user] has stabbed [user.p_them()]self in the head with [src]!"), \
+					span_userdanger("You stab yourself in the head with [src], your armor protecting your eyes!") \
+				)
+			return TRUE
+
+	else
+		M.take_bodypart_damage(weapon.force)
+
 	if(M != user)
 		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
 							span_userdanger("[user] stabs you in the eye with [src]!"))
@@ -943,12 +961,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
 			span_userdanger("You stab yourself in the eyes with [src]!") \
 		)
-	if(is_human_victim)
-		var/mob/living/carbon/human/U = M
-		U.apply_damage(weapon.force, BRUTE, affecting)
-
-	else
-		M.take_bodypart_damage(weapon.force)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
