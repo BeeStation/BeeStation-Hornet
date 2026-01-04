@@ -1,7 +1,7 @@
 # removal of production r&d consoles
 
 /obj/machinery/computer/rdconsole/production : @DELETE
-/obj/machinery/computer/rdconsole/@SUBTYPES : /obj/machinery/computer/rdconsole{@OLD}
+/obj/machinery/computer/rdconsole/@SUBTYPES : /obj/machinery/computer/rdconsole/unlocked{@OLD}
 
 # removes advanced design disks
 

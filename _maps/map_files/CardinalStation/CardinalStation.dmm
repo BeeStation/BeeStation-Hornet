@@ -17241,7 +17241,7 @@
 /turf/open/floor/wood/big,
 /area/security/detectives_office)
 "dGt" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -98168,7 +98168,7 @@
 	name = "Surgery Privacy Shutters";
 	req_access_txt = "29"
 	},
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 1
 	},
 /turf/open/floor/iron/dark/smooth_large,

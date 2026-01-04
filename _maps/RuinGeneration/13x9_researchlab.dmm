@@ -177,7 +177,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,

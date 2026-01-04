@@ -21095,7 +21095,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "ell" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/machinery/requests_console{
@@ -39552,7 +39552,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "kTZ" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,

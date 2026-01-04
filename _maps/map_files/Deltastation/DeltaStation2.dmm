@@ -61012,7 +61012,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "pdl" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -73451,7 +73451,7 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "trB" = (
-/obj/machinery/computer/rdconsole{
+/obj/machinery/computer/rdconsole/unlocked{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
