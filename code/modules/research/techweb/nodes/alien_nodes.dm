@@ -13,12 +13,13 @@
 	description = "Things used by the greys."
 	prereq_ids = list(TECHWEB_NODE_BIOTECH, TECHWEB_NODE_ENGINEERING)
 	required_items_to_unlock = list(
-		/obj/item/melee/baton/abductor,
+		/obj/item/stack/sheet/mineral/abductor,
 		/obj/item/cautery/alien,
 		/obj/item/circular_saw/alien,
 		/obj/item/crowbar/abductor,
 		/obj/item/gun/energy/alien,
 		/obj/item/hemostat/alien,
+		/obj/item/melee/baton/abductor,
 		/obj/item/multitool/abductor,
 		/obj/item/retractor/alien,
 		/obj/item/scalpel/alien,
@@ -91,8 +92,8 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_bio)
 		"alien_wrench",
 	)
 	required_items_to_unlock = list(
-		/obj/item/melee/baton/abductor,
 		/obj/item/crowbar/abductor,
+		/obj/item/melee/baton/abductor,
 		/obj/item/multitool/abductor,
 		/obj/item/screwdriver/abductor,
 		/obj/item/weldingtool/abductor,
@@ -116,9 +117,27 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_engi)
 		"surgery_heal_combo_upgrade_femto",
 		"surgery_zombie",
 	)
+	required_items_to_unlock = list(
+		/obj/item/cautery/alien,
+		/obj/item/circular_saw/alien,
+		/obj/item/crowbar/abductor,
+		/obj/item/gun/energy/alien,
+		/obj/item/hemostat/alien,
+		/obj/item/melee/baton/abductor,
+		/obj/item/multitool/abductor,
+		/obj/item/retractor/alien,
+		/obj/item/scalpel/alien,
+		/obj/item/screwdriver/abductor,
+		/obj/item/surgicaldrill/alien,
+		/obj/item/weldingtool/abductor,
+		/obj/item/wirecutters/abductor,
+		/obj/item/wrench/abductor,
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_5_POINTS)
 	hidden = TRUE
 	announce_channels = list(RADIO_CHANNEL_MEDICAL)
+
+ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_surgery)
 
 /datum/techweb_node/nullspacebreaching
 	id = TECHWEB_NODE_NULLSPACEBREACHING
