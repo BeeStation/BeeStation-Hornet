@@ -369,7 +369,7 @@
 	if(new_wanted_status == WANTED_ARREST && !length(crimes))
 		return FALSE
 	wanted_status = new_wanted_status
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_WANTED_STATUS_CHANGED, origin, wanted_status)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_WANTED_STATUS_CHANGED, src, origin, wanted_status)
 
 	update_matching_security_huds(name)
 	return TRUE
