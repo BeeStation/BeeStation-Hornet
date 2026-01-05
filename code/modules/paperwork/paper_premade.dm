@@ -91,7 +91,7 @@
 			<tr>
 				<td width="25px" height="25px"></td>
 				<td></td>
-				<td colspan="11" style="background-color: red; color: white;">Donor</td>
+				<td colspan="9" style="background-color: red; color: white;">Donor</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -104,12 +104,10 @@
 				<td style="background-color: red; color: white;">AB-</td>
 				<td style="background-color: red; color: white;">O+</td>
 				<td style="background-color: red; color: white;">O-</td>
-				<td style="background-color: red; color: white;">L</td>
-				<td style="background-color: red; color: white;">E</td>
 				<td style="background-color: red; color: white;">U</td>
 			</tr>
 			<tr>
-				<td rowspan="11" style="margin: 0; padding-left:6px; writing-mode: sideways-rl; background-color: blue; color: white;">Receiver</td>
+				<td rowspan="199" style="margin: 0; padding-left:6px; writing-mode: sideways-rl; background-color: blue; color: white;">Receiver</td>
 				<td style="background-color: blue; color: white;">A+</td>
 				<td>✓</td>
 				<td>✓</td>
@@ -119,8 +117,6 @@
 				<td></td>
 				<td>✓</td>
 				<td>✓</td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -134,8 +130,6 @@
 				<td></td>
 				<td>✓</td>
 				<td></td>
-				<td></td>
-				<td></td>
 			</tr>
 			<tr>
 				<td style="background-color: blue; color: white;">B+</td>
@@ -147,8 +141,6 @@
 				<td></td>
 				<td>✓</td>
 				<td>✓</td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -162,8 +154,6 @@
 				<td></td>
 				<td>✓</td>
 				<td></td>
-				<td></td>
-				<td></td>
 			</tr>
 			<tr>
 				<td style="background-color: blue; color: white;">AB+</td>
@@ -175,8 +165,6 @@
 				<td>✓</td>
 				<td>✓</td>
 				<td>✓</td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -190,8 +178,6 @@
 				<td></td>
 				<td>✓</td>
 				<td></td>
-				<td></td>
-				<td></td>
 			</tr>
 			<tr>
 				<td style="background-color: blue; color: white;">O+</td>
@@ -203,8 +189,6 @@
 				<td></td>
 				<td>✓</td>
 				<td>✓</td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -218,41 +202,9 @@
 				<td></td>
 				<td>✓</td>
 				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td style="background-color: blue; color: white;">L</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>✓</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td style="background-color: blue; color: white;">E</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>✓</td>
-				<td></td>
 			</tr>
 			<tr>
 				<td style="background-color: blue; color: white;">U</td>
-				<td>✓</td>
-				<td>✓</td>
 				<td>✓</td>
 				<td>✓</td>
 				<td>✓</td>
