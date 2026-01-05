@@ -609,6 +609,7 @@
 	new /obj/item/restraints/handcuffs/fake(src)
 	new /obj/item/toy/windupToolbox(src)
 	new /obj/item/toy/toy_dagger(src)
+	new /obj/item/clothing/neck/cloak/fakehalo(src)
 	new /obj/item/toy/sword(src)
 	new /obj/item/dualsaber/toy(src)
 	new /obj/item/toy/gun(src)

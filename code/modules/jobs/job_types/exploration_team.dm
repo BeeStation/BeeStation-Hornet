@@ -37,6 +37,11 @@
 	)
 	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
 
+	manuscript_jobs = list(
+		JOB_NAME_EXPLORATIONCREW,
+		JOB_NAME_SHAFTMINER
+	)
+
 /datum/outfit/job/exploration_crew
 	name = JOB_NAME_EXPLORATIONCREW
 	jobtype = /datum/job/exploration_crew

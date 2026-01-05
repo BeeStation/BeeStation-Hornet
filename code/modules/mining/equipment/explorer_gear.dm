@@ -110,19 +110,28 @@
 	. = ..()
 	adjustmask()
 
-/obj/item/clothing/suit/space/hostile_environment
+/obj/item/clothing/suit/hooded/hostile_environment
 	name = "H.E.C.K. suit"
 	desc = "Hostile Environment Cross-Kinetic Suit: A suit designed to withstand the wide variety of hazards from Lavaland. It wasn't enough for its last owner."
 	icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	icon_state = "hostile_env"
 	inhand_icon_state = "hostile_env"
-	clothing_flags = THICKMATERIAL //not spaceproof
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | LAVA_PROOF
-	slowdown = 0
+	hoodtype = /obj/item/clothing/head/hooded/hostile_environment
 	armor_type = /datum/armor/space_hostile_environment
+	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	clothing_flags = THICKMATERIAL
+	resistance_flags = FIRE_PROOF|LAVA_PROOF
+	transparent_protection = HIDESUITSTORAGE|HIDEJUMPSUIT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/pickaxe)
+	greyscale_colors = "#4d4d4d#808080"
+	greyscale_config = /datum/greyscale_config/heck_suit
+	greyscale_config_worn = /datum/greyscale_config/heck_suit/worn
+	flags_1 = IS_PLAYER_COLORABLE_1
 	high_pressure_multiplier = 0.6
 	custom_price = 30000
 	max_demand = 2
@@ -138,12 +147,12 @@
 	stamina = 40
 	bleed = 50
 
-/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
+/obj/item/clothing/suit/hooded/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/radiation_protected_clothing)
-	AddComponent(/datum/component/spraycan_paintable)
+	AddElement(/datum/element/gags_recolorable)
 
-/obj/item/clothing/suit/space/hostile_environment/process(delta_time)
+/obj/item/clothing/suit/hooded/hostile_environment/process(delta_time)
 	. = ..()
 	var/mob/living/carbon/C = loc
 	if(istype(C) && DT_PROB(1, delta_time)) //cursed by bubblegum
@@ -162,7 +171,7 @@
 			"Your blood feels hotter than usual.",
 			"You hear a distant, brutal roar.")]"))
 
-/obj/item/clothing/head/helmet/space/hostile_environment
+/obj/item/clothing/head/hooded/hostile_environment
 	name = "H.E.C.K. helmet"
 	icon = 'icons/obj/clothing/head/helmet.dmi'
 	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
@@ -170,30 +179,24 @@
 	icon_state = "hostile_env"
 	inhand_icon_state = "hostile_env"
 	w_class = WEIGHT_CLASS_NORMAL
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	clothing_flags = THICKMATERIAL // no space protection
 	armor_type = /datum/armor/space_hostile_environment
-	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	clothing_flags = SNUG_FIT|THICKMATERIAL|HEADINTERNALS
+	resistance_flags = FIRE_PROOF|LAVA_PROOF
+	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
+	greyscale_colors = "#4d4d4d#808080#ff3300"
+	greyscale_config = /datum/greyscale_config/heck_helmet
+	greyscale_config_worn = /datum/greyscale_config/heck_helmet/worn
+	flags_1 = IS_PLAYER_COLORABLE_1
 	high_pressure_multiplier = 0.6
 	custom_price = 10000
 	max_demand = 2
 
-/obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
+/obj/item/clothing/head/hooded/hostile_environment/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/radiation_protected_clothing)
-	AddComponent(/datum/component/spraycan_paintable)
-	update_icon()
-
-/obj/item/clothing/head/helmet/space/hostile_environment/update_icon()
-	..()
-	cut_overlays()
-	var/mutable_appearance/glass_overlay = mutable_appearance(icon, "hostile_env_glass")
-	glass_overlay.appearance_flags = RESET_COLOR
-	add_overlay(glass_overlay)
-
-/obj/item/clothing/head/helmet/space/hostile_environment/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
-	. = ..()
-	if(!isinhands)
-		var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head/helmet.dmi', "hostile_env_glass", item_layer)
-		M.appearance_flags = RESET_COLOR
-		. += M
+	AddElement(/datum/element/gags_recolorable)
