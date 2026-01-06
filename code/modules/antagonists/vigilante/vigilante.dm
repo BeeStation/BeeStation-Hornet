@@ -90,7 +90,7 @@
 	SSdirectives.active_directives += justice
 
 /datum/priority_directive/assassination/justice
-	details = "The prison registrar has found %NAME% guilty of %CRIME%, an offense that cannot go unpunished if society is to propser. Eliminate them, and show them the meaning of justice."
+	details = "The prison registrar has found %NAME% guilty of %CRIME%, an offense that cannot go unpunished if society is to prosper. Eliminate them and show them the meaning of justice."
 	last_for = INFINITY
 	reputation_reward = 0
 	reputation_loss = 0

@@ -603,11 +603,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/genpop_interface)
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.add_raw_text("<h1 id='record-of-incarceration'>Record Of Incarceration:</h1> <hr> <h2 id='name'>Name: </h2> <p>[desired_name]</p> <h2 id='crime'>Crime: </h2> <p>[desired_crime]</p> <h2 id='sentence-min'>Sentence (Min)</h2> <p>[desired_sentence/600]</p> <h2 id='description'>Description </h2> <p>[desired_details]</p> <p>Nanotrasen Disciplinary council.</p>")
 	paperwork.update_appearance()
-	desired_name = null
-	desired_details = null
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	next_print = world.time + 5 SECONDS
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PRISONER_REGISTERED, user, desired_name, desired_crime, desired_sentence)
+	desired_name = null
+	desired_details = null
 
 /obj/machinery/genpop_interface/ui_act(action, params)
 	if(buildstage != 2 & panel_open)
