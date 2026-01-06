@@ -96,7 +96,7 @@
 	reputation_loss = 0
 
 /datum/priority_directive/assassination/justice/_generate(list/teams)
-	return rand(2, 4)
+	return rand(4, 8)
 
 /datum/priority_directive/assassination/justice/_allocate_teams(list/uplinks, list/player_minds, force)
 	reject()
