@@ -119,6 +119,6 @@
 	role_preference = /datum/role_preference/supplementary/vigilante
 	antag_datum = /datum/antagonist/vigilante
 	weight = 5
-	points_cost = 9
+	points_cost = 6
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	max_amount = 1
