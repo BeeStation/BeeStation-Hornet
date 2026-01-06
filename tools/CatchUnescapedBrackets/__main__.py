@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+import argparse
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
@@ -111,15 +112,33 @@ def find_lone_arrays(src: str):
 
 
 def main():
-    root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.cwd()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path", nargs="?", default=".", help="Path to scan")
+    parser.add_argument("-i", "--ignore", action="append", default=[], help="Paths to ignore")
+    args = parser.parse_args()
 
-    if not root.exists():
-        print(f"Path does not exist: {root}")
+    path = Path(args.path)
+    ignore_paths = [Path(i).resolve() for i in args.ignore]
+
+    if not path.exists():
+        print(f"Path does not exist: {path}")
         sys.exit(2)
 
     violations = 0
 
-    for dm_file in root.rglob("*.dm"):
+    if path.is_file() and path.suffix == ".dm":
+        files_to_scan = [path]
+    elif path.is_dir():
+        files_to_scan = []
+        for p in path.rglob("*.dm"):
+            if any(p.resolve() == target or target in p.resolve().parents for target in ignore_paths):
+                continue
+            files_to_scan.append(p)
+    else:
+        print(f"Invalid path: {path}. Must be a .dm file or a directory.")
+        sys.exit(2)
+
+    for dm_file in files_to_scan:
         try:
             src = dm_file.read_text(encoding="utf-8", errors="replace")
         except Exception as e:
@@ -143,7 +162,6 @@ def main():
 
     print(f"{GREEN}OK:{NC} No illegal [] found.")
     sys.exit(0)
-
 
 if __name__ == "__main__":
     main()
