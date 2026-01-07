@@ -3,6 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
+	custom_price = 100 // Adding this here because only SOME guns were covered by export datums
 
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
@@ -56,6 +57,13 @@
 
 /obj/item/gun/energy/get_cell()
 	return cell
+
+/obj/item/gun/energy/examine(mob/user)
+	. = ..()
+	if(cell)
+		var/obj/item/ammo_casing/energy/shot = ammo_type[select]	//Finds cost of selected shot
+		if(shot && shot.e_cost)
+			. += "Shots to battery depletion: <b><span class='cfc_orange'>[floor(cell.charge / shot.e_cost)]</span></b>"
 
 /obj/item/gun/energy/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_energy))
@@ -177,9 +185,9 @@
 			else
 				return //Not equipped, not stashed in a cyborg model, it shouldn't even exist then.
 
-			if(!R.cell.use(100)) //if the cyborg is not charged enough, or doesn't have a cell, don't recharge
+			if(!R.cell.use(1000 WATT)) //if the cyborg is not charged enough, or doesn't have a cell, don't recharge
 				return
-		cell.give(100)
+		cell.give(1000 WATT)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot()
 		update_appearance()
@@ -233,7 +241,7 @@
 	update_appearance()
 
 /obj/item/gun/energy/update_icon_state()
-	var/skip_inhand = initial(item_state) //only build if we aren't using a preset inhand icon
+	var/skip_inhand = initial(inhand_icon_state) //only build if we aren't using a preset inhand icon
 	var/skip_worn_icon = initial(worn_icon_state) //only build if we aren't using a preset worn icon
 
 	if(skip_inhand && skip_worn_icon) //if we don't have either, don't do the math.
@@ -252,7 +260,7 @@
 
 	temp_icon_to_use += "[ratio]"
 	if(!skip_inhand)
-		item_state = temp_icon_to_use
+		inhand_icon_state = temp_icon_to_use
 	if(!skip_worn_icon)
 		worn_icon_state = temp_icon_to_use
 	return ..()

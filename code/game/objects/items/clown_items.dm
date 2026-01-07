@@ -27,7 +27,7 @@
 	force_string = "robust... against germs"
 	var/uses = 100
 
-/obj/item/soap/ComponentInitialize()
+/obj/item/soap/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 80)
 
@@ -71,10 +71,12 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 5 //faster than mop so it is useful for traitors who want to clean crime scenes
+	custom_price = 50
+	trade_flags = TRADE_CONTRABAND
 
 /obj/item/soap/suicide_act(mob/living/user)
 	user.say(";FFFFFFFFFFFFFFFFUUUUUUUDGE!!", forced="soap suicide")
-	user.visible_message(span_suicide("[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!"))
+	user.visible_message(span_suicide("[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_They()]'ll never get that BB gun now!"))
 	new /obj/effect/particle_effect/foam(loc)
 	return TOXLOSS
 
@@ -139,7 +141,7 @@
 	desc = "A horn off of a bicycle."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bike_horn"
-	item_state = "bike_horn"
+	inhand_icon_state = "bike_horn"
 	worn_icon_state = "horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
@@ -186,7 +188,7 @@
 	name = "golden bike horn"
 	desc = "Golden? Clearly, it's made with bananium! Honk!"
 	icon_state = "gold_horn"
-	item_state = "gold_horn"
+	inhand_icon_state = "gold_horn"
 	worn_icon_state = "horn_gold"
 	var/flip_cooldown = 0
 

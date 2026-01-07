@@ -11,7 +11,6 @@
 	max_integrity = 200
 	armor_type = /datum/armor/structure_disposalpipe
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
-	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	damage_deflection = 10
 	isometric_mode = ISOMETRIC_FLATTEN
 	var/dpdir = NONE					// bitmask of pipe directions
@@ -27,7 +26,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/disposalpipe)
 	bullet = 10
 	laser = 10
 	energy = 100
-	rad = 100
 	fire = 90
 	acid = 30
 

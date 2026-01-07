@@ -3,12 +3,12 @@
 	name = "mime's outfit"
 	desc = "It's not very colourful."
 	icon_state = "mime"
-	item_state = null
+	inhand_icon_state = null
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
 	icon_state = "mime_skirt"
-	item_state = "mime"
+	inhand_icon_state = "mime"
 	body_parts_covered = CHEST|GROIN|ARMS
 	dying_key = DYE_REGISTRY_JUMPSKIRT
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
@@ -18,7 +18,7 @@
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
 	icon_state = "sexymime"
-	item_state = null
+	inhand_icon_state = null
 	body_parts_covered = CHEST|GROIN|LEGS
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	can_adjust = FALSE
@@ -27,7 +27,7 @@
 	name = "clown suit"
 	desc = "<i>'HONK!'</i>"
 	icon_state = "clown"
-	item_state = "clown"
+	inhand_icon_state = "clown"
 	female_sprite_flags = FEMALE_UNIFORM_TOP_ONLY
 	can_adjust = FALSE
 	//supports_variations_flags = CLOTHING_NO_VARIATION
@@ -40,37 +40,37 @@
 	name = "blue clown suit"
 	desc = "<i>'BLUE HONK!'</i>"
 	icon_state = "blueclown"
-	item_state = "blueclown"
+	inhand_icon_state = "blueclown"
 
 /obj/item/clothing/under/rank/civilian/clown/green
 	name = "green clown suit"
 	desc = "<i>'GREEN HONK!'</i>"
 	icon_state = "greenclown"
-	item_state = "greenclown"
+	inhand_icon_state = "greenclown"
 
 /obj/item/clothing/under/rank/civilian/clown/yellow
 	name = "yellow clown suit"
 	desc = "<i>'YELLOW HONK!'</i>"
 	icon_state = "yellowclown"
-	item_state = "yellowclown"
+	inhand_icon_state = "yellowclown"
 
 /obj/item/clothing/under/rank/civilian/clown/purple
 	name = "purple clown suit"
 	desc = "<i>'PURPLE HONK!'</i>"
 	icon_state = "purpleclown"
-	item_state = "purpleclown"
+	inhand_icon_state = "purpleclown"
 
 /obj/item/clothing/under/rank/civilian/clown/orange
 	name = "orange clown suit"
 	desc = "<i>'ORANGE HONK!'</i>"
 	icon_state = "orangeclown"
-	item_state = "orangeclown"
+	inhand_icon_state = "orangeclown"
 
 /obj/item/clothing/under/rank/civilian/clown/rainbow
 	name = "rainbow clown suit"
 	desc = "<i>'R A I N B O W HONK!'</i>"
 	icon_state = "rainbowclown"
-	item_state = "rainbowclown"
+	inhand_icon_state = "rainbowclown"
 
 /obj/item/clothing/under/rank/civilian/clown/jester
 	name = "jester suit"
@@ -85,6 +85,6 @@
 	name = "sexy-clown suit"
 	desc = "It makes you look HONKable!"
 	icon_state = "sexyclown"
-	item_state = "sexyclown"
+	inhand_icon_state = "sexyclown"
 	can_adjust = FALSE
 	dying_key = DYE_REGISTRY_JUMPSKIRT

@@ -1,11 +1,27 @@
-import { NoteKeeper } from './NoteKeeper';
-import { Stack, Section, NoticeBox, Box, LabeledList, Button, RestrictedInput } from 'tgui/components';
-import { CharacterPreview } from '../common/CharacterPreview';
-import { getMedicalRecord, getQuirkStrings } from './helpers';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  RestrictedInput,
+  Section,
+  Stack,
+} from 'tgui/components';
+
 import { useBackend } from '../../backend';
-import { PHYSICALSTATUS2COLOR, PHYSICALSTATUS2DESC, PHYSICALSTATUS2ICON, MENTALSTATUS2COLOR, MENTALSTATUS2DESC, MENTALSTATUS2ICON } from './constants';
-import { MedicalRecordData } from './types';
+import { CharacterPreview } from '../common/CharacterPreview';
 import { EditableText } from '../common/EditableText';
+import {
+  MENTALSTATUS2COLOR,
+  MENTALSTATUS2DESC,
+  MENTALSTATUS2ICON,
+  PHYSICALSTATUS2COLOR,
+  PHYSICALSTATUS2DESC,
+  PHYSICALSTATUS2ICON,
+} from './constants';
+import { getMedicalRecord, getQuirkStrings } from './helpers';
+import { NoteKeeper } from './NoteKeeper';
+import { MedicalRecordData } from './types';
 
 /** Views a selected record. */
 export const MedicalRecordView = (props) => {
@@ -13,7 +29,12 @@ export const MedicalRecordView = (props) => {
   if (!foundRecord) return <NoticeBox>No record selected.</NoticeBox>;
 
   const { act, data } = useBackend<MedicalRecordData>();
-  const { character_preview_view, physical_statuses, mental_statuses } = data;
+  const {
+    character_preview_view,
+    physical_statuses,
+    mental_statuses,
+    is_silicon,
+  } = data;
 
   const { min_age, max_age } = data;
 
@@ -53,54 +74,92 @@ export const MedicalRecordView = (props) => {
         <Section
           buttons={
             <Button.Confirm
+              disabled={is_silicon}
               content="Anonymize"
               icon="mask"
-              onClick={() => act('anonymize_record', { record_ref: record_ref })}
+              onClick={() =>
+                act('anonymize_record', { record_ref: record_ref })
+              }
               tooltip="Anonymize record data."
             />
           }
           fill
           scrollable
           title={name}
-          wrap>
+          wrap
+        >
           <LabeledList>
-            <LabeledList.Item label="Name">
-              <Box>{name}</Box>
-            </LabeledList.Item>
-            <LabeledList.Item label="Job">
-              <Box>{rank}</Box>
-            </LabeledList.Item>
+            <LabeledList.Item label="Name">{name}</LabeledList.Item>
+            <LabeledList.Item label="Job">{rank}</LabeledList.Item>
             <LabeledList.Item label="Age">
-              <RestrictedInput
-                minValue={min_age}
-                maxValue={max_age}
-                onEnter={(event, value) =>
-                  act('edit_field', {
-                    field: 'age',
-                    ref: record_ref,
-                    value: value,
-                  })
-                }
-                value={age}
-              />
+              {is_silicon ? (
+                age
+              ) : (
+                <RestrictedInput
+                  minValue={min_age}
+                  maxValue={max_age}
+                  onChange={(_, value) =>
+                    act('edit_field', {
+                      field: 'age',
+                      ref: record_ref,
+                      value: value,
+                    })
+                  }
+                  value={age}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Species">
-              <EditableText field="species" target_ref={record_ref} text={species} />
+              {is_silicon ? (
+                species
+              ) : (
+                <EditableText
+                  field="species"
+                  target_ref={record_ref}
+                  text={species}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Gender">
-              <EditableText field="gender" target_ref={record_ref} text={gender} />
+              {is_silicon ? (
+                gender
+              ) : (
+                <EditableText
+                  field="gender"
+                  target_ref={record_ref}
+                  text={gender}
+                />
+              )}
             </LabeledList.Item>
-            <LabeledList.Item label="DNA">
-              <EditableText color="good" field="dna" target_ref={record_ref} text={dna} />
+            <LabeledList.Item color="good" label="DNA">
+              {is_silicon ? (
+                dna
+              ) : (
+                <EditableText
+                  color="good"
+                  field="dna_string"
+                  target_ref={record_ref}
+                  text={dna}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item color="bad" label="Blood Type">
-              <EditableText field="blood_type" target_ref={record_ref} text={blood_type} />
+              {is_silicon ? (
+                blood_type
+              ) : (
+                <EditableText
+                  field="blood_type"
+                  target_ref={record_ref}
+                  text={blood_type}
+                />
+              )}
             </LabeledList.Item>
             <LabeledList.Item
               buttons={physical_statuses.map((button, index) => {
                 const isSelected = button === physical_status;
                 return (
                   <Button
+                    disabled={is_silicon}
                     color={isSelected ? PHYSICALSTATUS2COLOR[button] : 'grey'}
                     height={'1.75rem'}
                     icon={PHYSICALSTATUS2ICON[button]}
@@ -114,19 +173,24 @@ export const MedicalRecordView = (props) => {
                     textAlign="center"
                     tooltip={PHYSICALSTATUS2DESC[button] || ''}
                     tooltipPosition="bottom-start"
-                    width={!isSelected ? '3.0rem' : 3.0}>
+                    width={!isSelected ? '3.0rem' : 3.0}
+                  >
                     {button[0]}
                   </Button>
                 );
               })}
-              label="Physical Status">
-              <Box color={PHYSICALSTATUS2COLOR[physical_status]}>{physical_status}</Box>
+              label="Physical Status"
+            >
+              <Box color={PHYSICALSTATUS2COLOR[physical_status]}>
+                {physical_status}
+              </Box>
             </LabeledList.Item>
             <LabeledList.Item
               buttons={mental_statuses.map((button, index) => {
                 const isSelected = button === mental_status;
                 return (
                   <Button
+                    disabled={is_silicon}
                     color={isSelected ? MENTALSTATUS2COLOR[button] : 'grey'}
                     height={'1.75rem'}
                     icon={MENTALSTATUS2ICON[button]}
@@ -140,13 +204,17 @@ export const MedicalRecordView = (props) => {
                     textAlign="center"
                     tooltip={MENTALSTATUS2DESC[button] || ''}
                     tooltipPosition="bottom-start"
-                    width={!isSelected ? '3.0rem' : 3.0}>
+                    width={!isSelected ? '3.0rem' : 3.0}
+                  >
                     {button[0]}
                   </Button>
                 );
               })}
-              label="Mental Status">
-              <Box color={MENTALSTATUS2COLOR[mental_status]}>{mental_status}</Box>
+              label="Mental Status"
+            >
+              <Box color={MENTALSTATUS2COLOR[mental_status]}>
+                {mental_status}
+              </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Minor Disabilities">
               {minor_disabilities_array.map((disability, index) => (

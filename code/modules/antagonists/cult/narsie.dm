@@ -50,9 +50,9 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 		var/datum/objective/eldergod/summon_objective = locate() in cult_team.objectives
 		if(summon_objective)
 			summon_objective.summoned = TRUE
-	for(var/datum/antagonist/cult/cultist in GLOB.antagonists)
-		if(isliving(cultist.owner.current))
-			var/mob/living/L = cultist.owner.current
+	for(var/datum/mind/cult_mind in get_antag_minds(/datum/antagonist/cult))
+		if(isliving(cult_mind.current))
+			var/mob/living/L = cult_mind.current
 			L.narsie_act()
 	for(var/mob/living/carbon/player in GLOB.player_list)
 		if(player.stat != DEAD && is_station_level(player.loc?.z) && !IS_CULTIST(player))
@@ -221,9 +221,9 @@ GLOBAL_DATUM(narsie, /obj/eldritch/narsie)
 	return clashing
 
 /proc/ending_helper()
-	SSticker.force_ending = 1
+	SSticker.force_ending = FORCE_END_ROUND
 
-/proc/cult_ending_helper(var/no_explosion = 0)
+/proc/cult_ending_helper(no_explosion = 0)
 	if(no_explosion)
 		Cinematic(CINEMATIC_CULT,world,CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(ending_helper)))
 	else

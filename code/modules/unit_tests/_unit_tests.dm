@@ -34,6 +34,7 @@
 #include "dynamic_ruleset_sanity.dm"
 #include "emissive_worn_overlays.dm"
 #include "emoting.dm"
+#include "ensure_subtree_operational_datum.dm"
 #include "enumerables.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
@@ -41,6 +42,7 @@
 #endif
 
 #include "food_edibility_check.dm"
+#include "full_heal.dm"
 #include "gas_transfer.dm"
 #include "greyscale_config.dm"
 #include "hallucination_icons.dm"
@@ -63,6 +65,7 @@
 #include "organs.dm"
 #include "orphaned_genturf.dm"
 #include "outfit_sanity.dm"
+#include "pda_power.dm"
 #include "preference_species.dm"
 #include "preferences.dm"
 #include "projectiles.dm"
@@ -87,6 +90,7 @@
 #include "spell_names.dm"
 #include "spell_shapeshift.dm"
 #include "stat_mc.dm"
+#include "status_effect_validity.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"

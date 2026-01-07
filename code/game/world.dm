@@ -50,7 +50,6 @@ GLOBAL_VAR(restart_counter)
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
-	generate_selectable_species() // This needs to happen early on to avoid the debugger crying. It needs to be after config load but before you login.
 	make_datum_references_lists_late_setup() // late setup
 
 	#ifdef REFERENCE_DOING_IT_LIVE
@@ -121,7 +120,7 @@ GLOBAL_VAR(restart_counter)
 #ifdef UNIT_TESTS
 	cb = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(RunUnitTests))
 #else
-	cb = VARSET_CALLBACK(SSticker, force_ending, TRUE)
+	cb = VARSET_CALLBACK(SSticker, force_ending, ADMIN_FORCE_END_ROUND)
 #endif
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), cb, 10 SECONDS))
 
@@ -389,7 +388,7 @@ GLOBAL_VAR(restart_counter)
 	if (server_name)
 		character_usage += length(server_name)
 	// We also need this stuff
-	character_usage += length("[players][popcaptext][SSmapping.config?.map_name || "Loading..."][server_tag]")
+	character_usage += length("[players][popcaptext][SSmapping.current_map?.map_name || "Loading..."][server_tag]")
 	var/station_name_limit = 255 - character_usage
 
 	if (station_name_limit <= 10)
@@ -434,7 +433,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
 	s += "Players: <b>[players][popcaptext]</b><br>"
-	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]"
+	s += "Map: <b>[SSmapping.current_map?.map_name || "Loading..."]"
 
 	status = s
 

@@ -28,7 +28,7 @@
 			continue
 
 		// Already assigned antag?
-		if(candidate.mind.special_role && !istype(src, /datum/dynamic_ruleset/midround/living/obsessed))
+		if(candidate.mind.special_role)
 			candidates -= candidate
 			continue
 
@@ -43,16 +43,15 @@
 
 	// Select candidates
 	for(var/i = 1 to drafted_players_amount)
-		chosen_candidates += select_player()
+		LAZYADD(chosen_candidates, select_player())
 
 	// See if they actually want to play this role
 	var/previous_chosen_candidates = length(chosen_candidates)
-	chosen_candidates = SSpolling.poll_candidates(
-		group = chosen_candidates,
-		poll_time = 30 SECONDS,
-		role_name_text = name,
-		alert_pic = get_poll_icon(),
-	)
+	var/datum/poll_config/config = new()
+	config.role_name_text = name
+	config.poll_time = 30 SECONDS
+	config.alert_pic = get_poll_icon()
+	chosen_candidates = SSpolling.poll_candidates(config, chosen_candidates)
 
 	if(!length(chosen_candidates))
 		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
@@ -61,7 +60,7 @@
 
 	for(var/mob/chosen_candidate in chosen_candidates)
 		chosen_candidate.mind.special_role = antag_datum.banning_key
-	. = ..()
+	return ..()
 
 //////////////////////////////////////////////
 //                                          //
@@ -75,7 +74,9 @@
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_POSIBRAIN)
 	role_preference = /datum/role_preference/midround/malfunctioning_ai
 	antag_datum = /datum/antagonist/malf_ai
+	weight = 3
 	points_cost = 40
+	minimum_players_required = 24
 	mob_type = /mob/living/silicon/ai
 
 /datum/dynamic_ruleset/midround/living/value_drifted/get_poll_icon()
@@ -92,7 +93,7 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/traitor
 	antag_datum = /datum/antagonist/traitor
-	weight = 6
+	weight = 7
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/sleeper_agent/get_poll_icon()
@@ -109,11 +110,19 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/heretic
 	antag_datum = /datum/antagonist/heretic
-	weight = 6
+	weight = 7
 	points_cost = 30
 
 /datum/dynamic_ruleset/midround/living/heretic/get_poll_icon()
 	return /obj/item/codex_cicatrix
+
+/datum/dynamic_ruleset/midround/living/heretic/trim_candidates()
+	. = ..()
+	for(var/mob/candidate in candidates)
+		// CLANKERS GO HOME (github copilot comment)
+		if(isipc(candidate))
+			candidates -= candidate
+			continue
 
 /datum/dynamic_ruleset/midround/living/heretic/execute()
 	. = ..()
@@ -140,9 +149,17 @@
 	severity = DYNAMIC_MIDROUND_LIGHT
 	role_preference = /datum/role_preference/midround/vampire
 	antag_datum = /datum/antagonist/vampire
-	weight = 6
+	weight = 7
 	points_cost = 30
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
+
+/datum/dynamic_ruleset/midround/living/vampire/trim_candidates()
+	. = ..()
+	for(var/mob/living/carbon/candidate in candidates)
+		// Don't draft incompatible species
+		if(HAS_TRAIT(candidate, TRAIT_NOT_TRANSMORPHIC))
+			candidates -= candidate
+			continue
 
 /datum/dynamic_ruleset/midround/living/vampire/get_poll_icon()
 	return icon('icons/vampires/actions_vampire.dmi', icon_state = "power_feed")
@@ -164,29 +181,77 @@
 	severity = DYNAMIC_MIDROUND_LIGHT | DYNAMIC_MIDROUND_MEDIUM
 	antag_datum = /datum/antagonist/obsessed
 	role_preference = /datum/role_preference/midround/obsessed
-	weight = 4
+	weight = 6
 	points_cost = 20
 
 /datum/dynamic_ruleset/midround/living/obsessed/get_poll_icon()
 	return icon('icons/obj/clothing/masks.dmi', icon_state = "mad_mask")
 
+/// Obsessed are special little cupcakes that require snowflake code
 /datum/dynamic_ruleset/midround/living/obsessed/trim_candidates()
-	. = ..()
+	SHOULD_CALL_PARENT(FALSE)
 	for(var/mob/candidate in candidates)
+		// Connected?
+		if(!candidate.client)
+			candidates -= candidate
+			continue
+
+		// Antag banned?
+		// Antag disabled?
+		// Enough hours?
+#ifndef TESTING_DYNAMIC
+		if(!candidate.client.should_include_for_role(
+			banning_key = antag_datum.banning_key,
+			role_preference_key = role_preference,
+			req_hours = antag_datum.required_living_playtime
+		))
+			candidates -= candidate
+			continue
+#endif
+
+		// Correct mob type?
+		if(!istype(candidate, mob_type))
+			candidates -= candidate
+			continue
+
+		// Ghost role?
+		if(!allow_ghost_roles && (candidate.mind?.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
+			candidates -= candidate
+			continue
+
 		// Already obsessed?
 		if(candidate.mind.has_antag_datum(/datum/antagonist/obsessed))
 			candidates -= candidate
 			continue
 
-
 /datum/dynamic_ruleset/midround/living/obsessed/execute()
-	. = ..()
-	for(var/mob/chosen_candidate in chosen_candidates)
-		var/mob/living/carbon/human/human_target = chosen_candidate
-		human_target.gain_trauma(/datum/brain_trauma/special/obsessed)
+	SHOULD_CALL_PARENT(FALSE)
+	// Get our candidates
+	set_drafted_players_amount()
+	get_candidates()
+	trim_candidates()
 
-		if(!human_target.has_trauma_type(/datum/brain_trauma/special/obsessed))
-			// hope you don't ever have more than one drafted player, lul
-			// also, i can't really think of a better way to do this so... lets just hope you weren't a traitor before!
-			human_target.mind.special_role = null
-			return DYNAMIC_EXECUTE_FAILURE
+	if(!allowed())
+		return DYNAMIC_EXECUTE_FAILURE
+
+	// Select candidates
+	for(var/i = 1 to drafted_players_amount)
+		LAZYADD(chosen_candidates, select_player())
+
+	// See if they actually want to play this role
+	var/previous_chosen_candidates = length(chosen_candidates)
+	var/datum/poll_config/config = new
+	config.poll_time = 30 SECONDS
+	config.role_name_text = name
+	config.alert_pic = get_poll_icon()
+	chosen_candidates = SSpolling.poll_candidates(config, chosen_candidates)
+
+	if(!length(chosen_candidates))
+		message_admins("DYNAMIC: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		log_dynamic("NOT ALLOWED: [previous_chosen_candidates] player\s [previous_chosen_candidates > 0 ? "were" : "was"] selected for [src], but none of them wanted to play it.")
+		return DYNAMIC_EXECUTE_FAILURE
+
+	for(var/mob/living/carbon/human/chosen_candidate in chosen_candidates)
+		chosen_candidate.gain_trauma(/datum/brain_trauma/special/obsessed)
+
+	return DYNAMIC_EXECUTE_SUCCESS

@@ -16,8 +16,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// Cache for player datumized preferences
 	var/datum/preferences_holder/preferences_player/player_data
 
-	/// Bitflags for communications that are muted
-	var/muted = NONE
 	/// Last IP that this client has connected from
 	var/last_ip
 	/// Last CID that this client has connected from
@@ -317,9 +315,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (isnull(requested_preference))
 				return FALSE
 
+			var/current_value = requested_preference.preference_type == PREFERENCE_PLAYER ? read_player_preference(requested_preference.type) : read_character_preference(requested_preference.type)
+
 			// SAFETY: `update_preference` performs validation checks
 			if (!update_preference(requested_preference, value))
 				return FALSE
+
+			// Might be different from what we requested
+			var/new_value = requested_preference.preference_type == PREFERENCE_PLAYER ? read_player_preference(requested_preference.type) : read_character_preference(requested_preference.type)
+
+			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
+				if (preference_middleware.post_set_preference(usr, requested_preference_key, current_value, new_value))
+					return TRUE
 
 			if (istype(requested_preference, /datum/preference/name/real_name))
 				update_current_character_profile()

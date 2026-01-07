@@ -228,7 +228,7 @@
 	if(!iscarbon(host_mob)) //nonstandard biology
 		return FALSE
 	var/mob/living/carbon/C = host_mob
-	if(C.suiciding || C.ishellbound() || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
+	if(C.suiciding || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
 		return FALSE
 	if((world.time - C.timeofdeath) > 1800) //too late
 		return FALSE
@@ -251,9 +251,9 @@
 	if(check_revivable())
 		playsound(C, 'sound/machines/defib_success.ogg', 50, FALSE)
 		C.set_heartattack(FALSE)
-		C.revive(full_heal = FALSE, admin_revive = FALSE)
+		C.revive()
 		C.emote("gasp")
-		C.Jitter(100)
+		C.set_jitter(60 SECONDS)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		log_game("[C] has been successfully defibrillated by nanites.")
 	else

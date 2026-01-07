@@ -28,7 +28,7 @@
 	icon = 'icons/obj/storage/box.dmi'
 	w_class = WEIGHT_CLASS_MEDIUM
 	icon_state = "box"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	resistance_flags = FLAMMABLE
@@ -36,6 +36,7 @@
 	var/illustration = "writing"
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	trade_flags = TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
@@ -116,7 +117,7 @@
 	desc = "Unfortunately not large enough to trap the mime."
 	foldable = null
 	icon_state = "box"
-	item_state = null
+	inhand_icon_state = null
 	alpha = 0
 
 /obj/item/storage/box/mime/attack_hand(mob/user, list/modifiers)
@@ -178,8 +179,8 @@
 		/obj/item/clothing/mask/gas,
 		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/tank/internals/emergency_oxygen,
-		/obj/item/tank/internals/plasmaman/belt
-		))
+		/obj/item/tank/internals/plasmaman/belt,
+	))
 	atom_storage.exception_hold = exception_hold
 
 /obj/item/storage/box/survival/PopulateContents()
@@ -707,8 +708,31 @@
 	icon_state = "secbox"
 	illustration = "handcuff"
 
+/obj/item/storage/box/handcuffs/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 14
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+
 /obj/item/storage/box/handcuffs/PopulateContents()
 	for(var/i in 1 to 7)
+		new /obj/item/restraints/handcuffs(src)
+
+/obj/item/storage/box/handcuffs/compact
+	name = "compact box of handcuffs"
+	desc = "A compact box full of handcuffs."
+	icon_state = "secbox"
+	illustration = "handcuff"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/handcuffs/compact/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 4
+	atom_storage.max_total_storage = 8
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/box/handcuffs/compact/PopulateContents()
+	for(var/i in 1 to 4)
 		new /obj/item/restraints/handcuffs(src)
 
 /obj/item/storage/box/zipties
@@ -717,9 +741,32 @@
 	icon_state = "secbox"
 	illustration = "handcuff"
 
+/obj/item/storage/box/zipties/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 14
+	atom_storage.max_total_storage = 28
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
+
 /obj/item/storage/box/zipties/PopulateContents()
+	for(var/i in 1 to 14)
+		new /obj/item/restraints/handcuffs/cable/zipties(src)
+
+/obj/item/storage/box/zipties/compact
+	name = "compact box of zipties"
+	desc = "A compact box full of zipties."
+	icon_state = "secbox"
+	illustration = "handcuff"
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/zipties/compact/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/restraints/handcuffs/cable/zipties(src)
+
+/obj/item/storage/box/zipties/compact/Initialize(mapload)
+	. = ..()
+	atom_storage.max_slots = 7
+	atom_storage.max_total_storage = 14
+	atom_storage.max_specific_storage = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
@@ -779,7 +826,7 @@
 	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
-	item_state = "zippo"
+	inhand_icon_state = "zippo"
 	worn_icon_state = "lighter"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
@@ -804,7 +851,7 @@
 	name = "box of replacement bulbs"
 	illustration = "light"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
@@ -890,7 +937,7 @@
 	illustration = "clown"
 
 /obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
-	if((istype(I, /obj/item/bodypart/l_arm/robot)) || (istype(I, /obj/item/bodypart/r_arm/robot)))
+	if((istype(I, /obj/item/bodypart/arm/left/robot)) || (istype(I, /obj/item/bodypart/arm/right/robot)))
 		if(contents.len) //prevent accidently deleting contents
 			to_chat(user, span_warning("You need to empty [src] out first!"))
 			return
@@ -912,7 +959,7 @@
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"
-	desc = "A box full of rubber shots, designed for riot shotguns."
+	desc = "A standard box full of rubber shots, designed for riot shotguns."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -922,7 +969,7 @@
 
 /obj/item/storage/box/lethalshot
 	name = "box of lethal shotgun shots"
-	desc = "A box full of lethal shots, designed for riot shotguns."
+	desc = "A standard box full of lethal shots, designed for riot shotguns."
 	icon_state = "lethalshot_box"
 	illustration = null
 
@@ -932,7 +979,7 @@
 
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
-	desc = "A box full of beanbag shells."
+	desc = "A standard box full of beanbag shells."
 	icon_state = "rubbershot_box"
 	illustration = null
 
@@ -941,8 +988,8 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/breacherslug
-	name = "box of breaching shotgun shells"
-	desc = "A box full of breaching slugs, designed for rapid entry."
+	name = "box of breaching cartridges"
+	desc = "A standard box full of breaching slugs."
 	icon_state = "breachershot_box"
 	illustration = null
 
@@ -951,8 +998,8 @@
 		new /obj/item/ammo_casing/shotgun/breacher(src)
 
 /obj/item/storage/box/incapacitateshot
-	name = "box of incapacitating shotgun shots"
-	desc = "A box full of incapacitating shots, designed for shotguns."
+	name = "box of incapacitating cartridges"
+	desc = "A standard box full of incapacitating shots, made for a shotgun."
 	icon_state = "incapacitateshot_box"
 	illustration = null
 
@@ -983,7 +1030,7 @@
 		PopulateContents()
 	name = "[name] ([theme_name])"
 	desc = "A box containing supplementary ingredients for the aspiring chef. The box's theme is '[theme_name]'."
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 
 /obj/item/storage/box/ingredients/PopulateContents()
 	switch(theme_name)
@@ -1201,7 +1248,6 @@
 
 /obj/item/storage/box/material/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	atom_storage.max_specific_storage = 1000
 	atom_storage.max_specific_storage = WEIGHT_CLASS_GIGANTIC
 	atom_storage.max_slots = 1000
@@ -1350,8 +1396,7 @@
 
 /obj/item/storage/box/tablet4dummies/PopulateContents()
 	new /obj/item/modular_computer/tablet(src)
-	new /obj/item/computer_hardware/battery(src)
-	new /obj/item/stock_parts/cell/computer/nano(src)
+	new /obj/item/computer_hardware/battery/tiny(src)
 	new /obj/item/computer_hardware/processor_unit/small(src)
 	new /obj/item/computer_hardware/hard_drive/micro(src)
 	new /obj/item/computer_hardware/identifier(src)
@@ -1365,7 +1410,8 @@
 	desc = "Hacking for Dummies kit, made by the HELLRAISER Crack team. Meant to teach you how to stick it to the man! (metaphorically)."
 	icon_state = "syndiebox"
 	illustration = "disk_kit"
-	custom_price = 200
+	custom_price = 200 // this SHOULD be calculated by contents... but... that would ruin export, we need to find something else in the future for vendors
+	trade_flags = TRADE_CONTRABAND | TRADE_NOT_SELLABLE | TRADE_DELETE_UNSOLD
 
 /obj/item/storage/box/hacking4dummies/PopulateContents()
 	new /obj/item/screwdriver(src)
@@ -1411,5 +1457,28 @@
 		/obj/item/slimecross/stabilized/lightpink=1,\
 		/obj/item/slimecross/stabilized/adamantine=1,\
 		/obj/item/slimecross/stabilized/rainbow=1,\
+	)
+
+/obj/item/storage/box/shipping
+	name = "box of shipping supplies"
+	desc = "Contains several scanners and labelers for shipping things. Wrapping Paper not included."
+	illustration = "shipping"
+	custom_price = 150
+
+/obj/item/storage/box/shipping/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/dest_tagger=1,
+		/obj/item/sales_tagger=1,
+		/obj/item/export_scanner=1,
+		/obj/item/stack/package_wrap/small=2,
+		/obj/item/stack/wrapping_paper/small=1
 		)
 	generate_items_inside(items_inside,src)
+
+/obj/item/storage/box/party_poppers
+	name = "box of party_poppers"
+	desc = "Turn any event into a celebration and ensure the janitor stays busy."
+
+/obj/item/storage/box/party_poppers/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/spray/chemsprayer/party(src)

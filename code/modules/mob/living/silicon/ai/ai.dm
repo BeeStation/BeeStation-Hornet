@@ -899,11 +899,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 	else
 		clear_fullscreen("remote_view", 0)
 
-/mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
+/mob/living/silicon/ai/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.) //successfully ressuscitated from death
-		set_core_display_icon(display_icon_override)
-		set_eyeobj_visible(TRUE)
+	if(!.) //successfully ressuscitated from death
+		return
+
+	set_core_display_icon(display_icon_override)
+	set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/tilt(turf/target, damage, chance_to_crit, paralyze_time, damage_type = BRUTE, rotation = 90)
 	if(!target.is_blocked_turf(TRUE, src, list(src)))
@@ -923,10 +925,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					switch(crit_case) // only carbons can have the fun crits
 						if(1) // shatter their legs and bleed 'em
 							carbon_target.bleed(150)
-							var/obj/item/bodypart/l_leg/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
+							var/obj/item/bodypart/leg/left/l = carbon_target.get_bodypart(BODY_ZONE_L_LEG)
 							if(l)
 								l.receive_damage(brute=200, updating_health=TRUE)
-							var/obj/item/bodypart/r_leg/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
+							var/obj/item/bodypart/leg/right/r = carbon_target.get_bodypart(BODY_ZONE_R_LEG)
 							if(r)
 								r.receive_damage(brute=200, updating_health=TRUE)
 							if(l || r)
@@ -988,7 +990,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		to_chat(src, "Hack complete. \The [apc] is now under your exclusive control.")
 		apc.update_appearance()
 
-/mob/living/silicon/ai/verb/deploy_to_shell(var/mob/living/silicon/robot/target)
+/mob/living/silicon/ai/verb/deploy_to_shell(mob/living/silicon/robot/target)
 	set category = "AI Commands"
 	set name = "Deploy to Shell"
 
@@ -1019,7 +1021,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 		return
 
 	else if(mind)
-		soullink(/datum/soullink/sharedbody, src, target)
+		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
 		deployed_shell = target
 		transfer_observers_to(deployed_shell) // ai core to borg shell
 		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg
@@ -1032,7 +1034,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/on_activate(mob/user, atom/target)
@@ -1044,7 +1046,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	icon_icon = 'icons/hud/actions/actions_AI.dmi'
+	button_icon = 'icons/hud/actions/actions_AI.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
@@ -1102,6 +1104,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai/spawned)
 
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs have no hands
+
+/mob/living/silicon/ai/get_exp_list(minutes)
+	. = ..()
+
+	var/datum/job/ai/ai_job_ref = SSjob.GetJobType(/datum/job/ai)
+
+	.[ai_job_ref.title] = minutes
 
 /mob/living/silicon/ai/verb/change_photo_camera_radius()
 	set category = "AI Commands"

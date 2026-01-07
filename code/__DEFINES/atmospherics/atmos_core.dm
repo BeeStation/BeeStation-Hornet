@@ -30,7 +30,10 @@
 #define META_GAS_BREATH_RESULTS 11
 ///Reagents applied when the gas passes its dangerous threshold
 #define META_GAS_BREATH_REAGENT_DANGEROUS 12
-
+///Gas advanced gas rig shielding power
+#define META_GAS_RIG_SHIELDING_POWER 13
+///Gas advanced gas rig shielding modifier
+#define META_GAS_RIG_SHIELDING_MODIFIER 14
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -130,7 +133,9 @@
 /// a hack for now
 #define WINDOW_HEAT_TRANSFER_COEFFICIENT 0.1
 /// a hack to help make vacuums "cold", sacrificing realism for gameplay
-#define HEAT_CAPACITY_VACUUM 7000
+/// Setting this value too high results in space having so much thermal energy
+/// that heat is immediately sucked out of every room progressively.
+#define HEAT_CAPACITY_VACUUM 800
 
 //FIRE
 ///Minimum temperature for fire to move to the next turf (150 °C or 433 K)
@@ -204,6 +209,8 @@
 
 /// The max pressure of pumps.
 #define ATMOS_PUMP_MAX_PRESSURE (ONE_ATMOSPHERE * 50)
+/// Max external target temperature of pumps
+#define ATMOS_PUMP_MAX_TEMPERATURE 500
 
 // Value of [/obj/machinery/airalarm/var/danger_level] and retvals of [/datum/tlv/proc/check_value]
 /// No TLV exceeded.

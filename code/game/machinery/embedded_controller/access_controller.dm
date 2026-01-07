@@ -1,15 +1,10 @@
-#define CLOSING			1
-#define OPENING			2
-#define CYCLE			3
-#define CYCLE_EXTERIOR	4
-#define CYCLE_INTERIOR	5
-
 /obj/machinery/doorButtons
 	power_channel = AREA_USAGE_ENVIRON
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/idSelf
 
 /obj/machinery/doorButtons/attackby(obj/O, mob/user)
@@ -143,13 +138,13 @@
 
 /obj/machinery/doorButtons/airlock_controller/proc/onlyOpen(obj/machinery/door/airlock/A)
 	if(A)
-		busy = CLOSING
+		busy = TRUE
 		update_icon()
 		openDoor(A)
 
 /obj/machinery/doorButtons/airlock_controller/proc/onlyClose(obj/machinery/door/airlock/A)
 	if(A)
-		busy = CLOSING
+		busy = TRUE
 		closeDoor(A)
 
 /obj/machinery/doorButtons/airlock_controller/proc/closeDoor(obj/machinery/door/airlock/A)
@@ -174,14 +169,14 @@
 		return
 	if(exteriorAirlock.density == interiorAirlock.density || !A.density)
 		return
-	busy = CYCLE
+	busy = TRUE
 	update_icon()
 	if(A == interiorAirlock)
 		if(closeDoor(exteriorAirlock))
-			busy = CYCLE_INTERIOR
+			busy = TRUE
 	else
 		if(closeDoor(interiorAirlock))
-			busy = CYCLE_EXTERIOR
+			busy = TRUE
 
 /obj/machinery/doorButtons/airlock_controller/proc/cycleOpen(obj/machinery/door/airlock/A)
 	if(!A)
@@ -194,8 +189,8 @@
 		if(exteriorAirlock)
 			if(!exteriorAirlock.density || !exteriorAirlock.locked)
 				return
-	if(busy != OPENING)
-		busy = OPENING
+	if(busy != TRUE)
+		busy = TRUE
 		openDoor(A)
 
 /obj/machinery/doorButtons/airlock_controller/proc/openDoor(obj/machinery/door/airlock/A)
@@ -219,9 +214,9 @@
 /obj/machinery/doorButtons/airlock_controller/process()
 	if(machine_stat & NOPOWER)
 		return
-	if(busy == CYCLE_EXTERIOR)
+	if(busy == TRUE)
 		cycleOpen(exteriorAirlock)
-	else if(busy == CYCLE_INTERIOR)
+	else if(busy == TRUE)
 		cycleOpen(interiorAirlock)
 
 /obj/machinery/doorButtons/airlock_controller/power_change()
@@ -296,9 +291,3 @@
 		output += "<B>Interior Door: </B> [interiorAirlock.density ? "closed" : "open"]<BR>"
 
 	return output
-
-#undef CLOSING
-#undef OPENING
-#undef CYCLE
-#undef CYCLE_EXTERIOR
-#undef CYCLE_INTERIOR

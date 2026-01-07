@@ -4,7 +4,6 @@
 /obj/machinery/vending/wardrobe
 	default_price = 50
 	extra_price = 75
-	dept_req_for_free = NO_FREEBIES
 	light_mask = "wardrobe-light-mask"
 
 /obj/machinery/vending/wardrobe/sec_wardrobe
@@ -47,7 +46,6 @@
 		/obj/item/storage/backpack/peace_borg_bag = 3,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
-	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 	light_color = COLOR_MOSTLY_PURE_RED
 
 /obj/item/vending_refill/wardrobe/sec_wardrobe
@@ -93,7 +91,6 @@
 		/obj/item/storage/backpack/medical_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
 /obj/item/vending_refill/wardrobe/medi_wardrobe
 	machine_name = "MediDrobe"
@@ -127,7 +124,6 @@
 		/obj/item/storage/backpack/engineer_borg_bag = 3,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_color = COLOR_VIVID_YELLOW
 
 /obj/item/vending_refill/wardrobe/engi_wardrobe
@@ -152,7 +148,6 @@
 					/obj/item/clothing/head/beret/atmos = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
-	dept_req_for_free = ACCOUNT_ENG_BITFLAG
 	light_color = COLOR_VIVID_YELLOW
 
 /obj/item/vending_refill/wardrobe/atmos_wardrobe
@@ -177,6 +172,9 @@
 		/obj/item/clothing/head/soft/cargo = 3,
 		/obj/item/clothing/head/beret/cargo = 3,
 		/obj/item/radio/headset/headset_cargo = 3,
+		/obj/item/sales_tagger = 3,
+		/obj/item/export_scanner = 3,
+		/obj/item/storage/box/shipping = 2,
 		)
 
 	premium = list(
@@ -194,7 +192,6 @@
 		/obj/item/clothing/suit/hooded/wintercoat/cargo/old = 3
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
-	dept_req_for_free = ACCOUNT_CAR_BITFLAG
 
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	machine_name = "CargoDrobe"
@@ -233,7 +230,6 @@
 					/obj/item/storage/backpack/medical_borg_bag = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = 300
-	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 
 /obj/item/vending_refill/wardrobe/robo_wardrobe
@@ -263,7 +259,6 @@
 					/obj/item/clothing/head/cowboy/science = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
-	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 
 /obj/item/vending_refill/wardrobe/science_wardrobe
@@ -293,7 +288,6 @@
 		/obj/item/storage/backpack/service_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 
@@ -321,7 +315,6 @@
 					/obj/item/clothing/under/plasmaman/curator = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/curator = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
-	dept_req_for_free = ACCOUNT_CIV_BITFLAG
 
 
 /obj/item/vending_refill/wardrobe/curator_wardrobe
@@ -360,7 +353,6 @@
 		/obj/item/storage/backpack/service_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 
 /obj/item/vending_refill/wardrobe/bar_wardrobe
@@ -393,7 +385,6 @@
 		/obj/item/storage/backpack/service_borg_bag = 3,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 
 /obj/item/vending_refill/wardrobe/chef_wardrobe
@@ -432,7 +423,6 @@
 		/obj/item/storage/backpack/janitor_borg_bag = 2,
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
-	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 	light_color = COLOR_STRONG_MAGENTA
 
 
@@ -477,7 +467,6 @@
 		/obj/item/clothing/suit/jacket/aristocrat/blue = 1,
 		)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
-	dept_req_for_free = ACCOUNT_CIV_BITFLAG
 
 /obj/item/vending_refill/wardrobe/law_wardrobe
 	machine_name = "LawDrobe"
@@ -515,7 +504,6 @@
 					/obj/item/clothing/neck/crucifix/rosary = 1,
 					/obj/item/clothing/head/chaplain/bishopmitre = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
-	dept_req_for_free = ACCOUNT_CIV_BITFLAG
 
 
 /obj/item/vending_refill/wardrobe/chap_wardrobe
@@ -539,7 +527,7 @@
 					/obj/item/storage/bag/chemistry = 2,
 					/obj/item/clothing/head/beret/medical = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chem_wardrobe
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
+
 /obj/item/vending_refill/wardrobe/chem_wardrobe
 	machine_name = "ChemDrobe"
 
@@ -559,7 +547,7 @@
 					/obj/item/storage/backpack/genetics = 2,
 					/obj/item/storage/backpack/satchel/gen = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
+
 /obj/item/vending_refill/wardrobe/gene_wardrobe
 	machine_name = "GeneDrobe"
 
@@ -583,7 +571,7 @@
 					/obj/item/clothing/head/costume/plague = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
+
 /obj/item/vending_refill/wardrobe/viro_wardrobe
 	machine_name = "ViroDrobe"
 
@@ -618,7 +606,6 @@
 	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1, /obj/item/clothing/neck/tie/detective = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = 350
-	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 
 /obj/item/vending_refill/wardrobe/det_wardrobe
 	machine_name = "DetDrobe"

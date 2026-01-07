@@ -17,7 +17,7 @@
 	if(_has_printer)
 		cpu.install_component(new /obj/item/computer_hardware/printer)
 	if(_has_battery)
-		cpu.install_component(new /obj/item/computer_hardware/battery(cpu, /obj/item/stock_parts/cell/computer/super))
+		cpu.install_component(new /obj/item/computer_hardware/battery/huge)
 	if(_has_ai)
 		cpu.install_component(new /obj/item/computer_hardware/ai_slot)
 	install_programs()

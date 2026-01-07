@@ -9,12 +9,12 @@
 	force = 5
 	throwforce = 30
 	throw_range = 7
-	block_upgrade_walk = TRUE
+
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
-/obj/item/mjolnir/ComponentInitialize()
+/obj/item/mjolnir/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
 
@@ -133,7 +133,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/anchored_mjolnir)
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir"
 	nodamage = FALSE
-	damage = 0
+	damage = 30
 	range = 40
 	projectile_phasing = NONE
 	projectile_piercing = (ALL & (~PASSCLOSEDTURF))

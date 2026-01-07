@@ -41,6 +41,9 @@
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1
+
+	owner?.mind?.add_antag_datum(/datum/antagonist/abductee)
+
 	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/heart/gland/proc/update_gland_hud()
@@ -83,6 +86,7 @@
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
+	gland_owner?.mind?.remove_antag_datum(/datum/antagonist/abductee)
 	hud.remove_from_hud(gland_owner)
 	clear_mind_control()
 
@@ -325,7 +329,7 @@
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/heart/gland/electric/proc/zap()
-	tesla_zap(owner, 4, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN)
+	tesla_zap(owner, 4, 8000, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
 	playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
 
 /obj/item/organ/heart/gland/chem

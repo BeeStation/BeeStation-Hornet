@@ -1,6 +1,14 @@
 import { ReactElement, useRef, useState } from 'react';
 import { useBackend } from 'tgui/backend';
-import { Box, Button, Flex, Icon, Input, Section, Stack } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  Section,
+  Stack,
+} from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
 const methodToComponent = (method: string, login: () => void): ReactElement => {
@@ -19,7 +27,11 @@ const methodToComponent = (method: string, login: () => void): ReactElement => {
 };
 
 export const GameLogin = (props) => {
-  const { act, data } = useBackend<{ byond_enabled: boolean; methods: Record<string, string>; authenticated_key: string }>();
+  const { act, data } = useBackend<{
+    byond_enabled: boolean;
+    methods: Record<string, string>;
+    authenticated_key: string;
+  }>();
   const [showInput, setShowInput] = useState(false);
   const inputToken = useRef<string>('');
   const sendToken = (token: string) => {
@@ -48,7 +60,8 @@ export const GameLogin = (props) => {
                 </Box>
                 {data.authenticated_key ? (
                   <Box my={1}>
-                    Server policy requires that you link a second account to your CKEY due to ongoing sign-on issues with BYOND.
+                    Server policy requires that you link a second account to
+                    your CKEY due to ongoing sign-on issues with BYOND.
                   </Box>
                 ) : null}
                 <Box mt={2.5}>
@@ -61,12 +74,27 @@ export const GameLogin = (props) => {
               </Box>
             </Stack.Item>
             <Stack.Item grow>
-              <Flex direction="row" align="center" justify="center" height="100%">
+              <Flex
+                direction="row"
+                align="center"
+                justify="center"
+                height="100%"
+              >
                 <Flex.Item>
                   <Section fill fitted title="Methods">
-                    <Flex direction="row" align="center" justify="center" height="100%" p={2}>
+                    <Flex
+                      direction="row"
+                      align="center"
+                      justify="center"
+                      height="100%"
+                      p={2}
+                    >
                       {Object.keys(data.methods).map((key) => (
-                        <Flex.Item key={key}>{methodToComponent(key, () => act('login', { method: key }))}</Flex.Item>
+                        <Flex.Item key={key}>
+                          {methodToComponent(key, () =>
+                            act('login', { method: key }),
+                          )}
+                        </Flex.Item>
                       ))}
                     </Flex>
                   </Section>
@@ -90,7 +118,10 @@ export const GameLogin = (props) => {
                       />
                     </Stack.Item>
                     <Stack.Item>
-                      <Button py={0.8} onClick={() => sendToken(inputToken.current)}>
+                      <Button
+                        py={0.8}
+                        onClick={() => sendToken(inputToken.current)}
+                      >
                         Submit
                       </Button>
                     </Stack.Item>
@@ -98,7 +129,12 @@ export const GameLogin = (props) => {
                 </Box>
               ) : (
                 <Box height="50px">
-                  <Button icon="sign-in" color="default" p={2} onClick={() => setShowInput(true)}>
+                  <Button
+                    icon="sign-in"
+                    color="default"
+                    p={2}
+                    onClick={() => setShowInput(true)}
+                  >
                     Enter Token Manually
                   </Button>
                 </Box>

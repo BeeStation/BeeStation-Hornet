@@ -22,6 +22,7 @@
 	max_integrity = 200
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
 	flags_1 = STAT_UNIQUE_1
+	trade_flags = TRADE_NOT_SELLABLE // Adding this here just in case
 	isometric_mode = ISOMETRIC_FLATTEN
 	///Check if the object can be unwrenched
 	var/can_unwrench = FALSE
@@ -70,7 +71,6 @@
 	bullet = 10
 	laser = 10
 	energy = 100
-	rad = 100
 	fire = 100
 	acid = 70
 

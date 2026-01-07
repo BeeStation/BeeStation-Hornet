@@ -38,7 +38,7 @@
 	/// What define is used to qualify this piece of hardware? Important for upgraded versions of the same hardware.
 	var/device_type
 	/// If the hardware can be "hotswapped" (ejected when another is installed)
-	var/hotswap = FALSE
+	var/hotswap = TRUE
 	/// If this has been opened by a screwdriver
 	var/open = FALSE
 	/// If this has been opened by a screwdriver
@@ -49,8 +49,10 @@
 	var/hacked = FALSE
 	/// A Serial Number used in hacking and other niffty things
 	var/serial_code
+	/// Hardware tier, basicly how advanced it is
+	var/rating
 
-/obj/item/computer_hardware/New(var/obj/L)
+/obj/item/computer_hardware/New(obj/L)
 	..()
 	pixel_x = base_pixel_x + rand(-8, 8)
 	pixel_y = base_pixel_y + rand(-8, 8)
@@ -229,7 +231,8 @@
 	. += "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]"
 	if(!enabled)
 		. += "<span class='cfc_soul_glimmer_humour'>Warning</span> // Hardware Disabled"
-	. += "Current power consumption :: [power_usage]"
+	if(power_usage)
+		. += "Current power consumption :: [display_power_persec(power_usage)]"
 	if(expansion_hw)
 		. += "INFO :: Component requires Expansion Bay slot."
 	if(hacked)
@@ -255,7 +258,7 @@
 
 	return TRUE // Good to go.
 
-/obj/item/computer_hardware/examine(var/mob/user)
+/obj/item/computer_hardware/examine(mob/user)
 	. = ..()
 	if(damage > damage_failure)
 		. += span_danger("It seems to be severely damaged!")

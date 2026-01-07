@@ -26,6 +26,16 @@ Assistant
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
 
+	// For some reason, they have the knowledge in these jobs...
+	manuscript_jobs = list(
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_JANITOR,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_STATIONENGINEER,
+		JOB_NAME_CHEMIST,
+		JOB_NAME_SCIENTIST
+	)
+
 /datum/job/assistant/get_spawn_position_count()
 	// Outside of minpop, there are infinite assistants
 	if (SSjob.initial_players_to_assign >= MINPOP_JOB_LIMIT)
@@ -75,10 +85,10 @@ Assistant
 	..()
 	give_grey_suit(H)
 
-/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/assistant/consistent/post_equip(mob/living/carbon/human/H, visuals_only)
 	..()
 
 	// This outfit is used by the assets SS, which is ran before the atoms SS
 	if (SSatoms.initialized == INITIALIZATION_INSSATOMS)
 		H.w_uniform?.update_greyscale()
-		H.update_inv_w_uniform()
+		H.update_worn_undersuit()

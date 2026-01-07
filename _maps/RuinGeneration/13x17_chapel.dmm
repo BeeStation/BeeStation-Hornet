@@ -61,7 +61,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "iR" = (
-/obj/structure/window/spawner/east,
+/obj/structure/window/spawner/directional/east,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)
@@ -150,7 +150,7 @@
 	},
 /area/ruin/unpowered)
 "sk" = (
-/obj/structure/window/spawner/east,
+/obj/structure/window/spawner/directional/east,
 /obj/structure/flora/rock,
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)
@@ -167,7 +167,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
 "vs" = (
-/obj/structure/window/spawner/west,
+/obj/structure/window/spawner/directional/west,
 /obj/item/toy/plush/bubbleplush,
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)
@@ -188,7 +188,7 @@
 /turf/closed/wall/mineral/cult,
 /area/ruin/unpowered)
 "CU" = (
-/obj/structure/window/spawner/west,
+/obj/structure/window/spawner/directional/west,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)

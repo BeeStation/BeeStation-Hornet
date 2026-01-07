@@ -58,10 +58,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/notify = TRUE
 	var/atom/special_target
 
-/obj/effect/immovablerod/New(atom/start, atom/end, aimed_at)
+/obj/effect/immovablerod/Initialize(mapload, atom/end, aimed_at)
 	..()
 	SSaugury.register_doom(src, 2000)
-	z_original = z
+	z_original = get_virtual_z_level()
 	destination = end
 	special_target = aimed_at
 	AddElement(/datum/element/point_of_interest)
@@ -70,12 +70,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/special_target_valid = FALSE
 	if(special_target)
 		var/turf/T = get_turf(special_target)
-		if(T.z == z_original)
+		if(T.get_virtual_z_level() == z_original)
 			special_target_valid = TRUE
 	if(special_target_valid)
+		destination = special_target
 		SSmove_manager.home_onto(src, special_target)
 		previous_distance = get_dist(src, special_target)
-	else if(end && end.z==z_original)
+	else if(end && end.get_virtual_z_level() == z_original)
 		SSmove_manager.home_onto(src, destination)
 		previous_distance = get_dist(src, destination)
 
@@ -94,7 +95,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
-	if((z != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
+	if((get_virtual_z_level() != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
 		qdel(src)
 	previous_distance = cur_dist
 	if(special_target && loc == get_turf(special_target))

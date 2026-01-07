@@ -17,6 +17,7 @@
 	tgui_id = "NtosCard"
 	program_icon = "id-card"
 	hardware_requirement = MC_CARD2
+	power_consumption = 80 WATT
 
 
 

@@ -3,16 +3,16 @@
 
 @use '../colors.scss' with (
   $good: hsl(50.7, 58.6%, 54.5%),
-  $primary: hsl(43.7, 65.4%, 42.0%),
+  $primary: hsl(43.7, 65.4%, 42%),
   $average: hsl(43.9, 69.1%, 31.8%),
-  $bad: hsl(31.1, 74.3%, 21.4%),
+  $bad: hsl(31.1, 74.3%, 21.4%)
 );
 @use '../base.scss' with (
   $color-bg: hsl(31.1, 74.3%, 21.4%),
-  $color-bg-start: hsl(43.7, 65.4%, 42.0%),
+  $color-bg-start: hsl(43.7, 65.4%, 42%),
   $color-bg-end: hsl(31.1, 74.3%, 21.4%),
   $color-bg-grad-spread: 6%,
-  $border-radius: 2px,
+  $border-radius: 2px
 );
 
 .theme-clockwork {
@@ -31,10 +31,22 @@
     )
   );
   @include meta.load-css('../components/Input.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': hsl(26.7, 100%, 8.8%)));
-  @include meta.load-css('../components/Section.scss', $with: ('separator-color': hsl(51.1, 49.7%, 68%)));
-  @include meta.load-css('../components/Divider.scss', $with: ('color': hsl(51.1, 49.7%, 68%)));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(26.7, 100%, 8.8%))
+  );
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('separator-color': hsl(51.1, 49.7%, 68%))
+  );
+  @include meta.load-css(
+    '../components/Divider.scss',
+    $with: ('color': hsl(51.1, 49.7%, 68%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
 
   //Layouts
   @include meta.load-css('../layouts/Layout.scss');

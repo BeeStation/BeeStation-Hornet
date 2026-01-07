@@ -44,7 +44,7 @@
 	var/contract_rep = 0
 	var/list/hub_items = list()
 	var/list/purchased_items = list()
-	var/static/list/contractor_items = typecacheof(/datum/contractor_item/, TRUE)
+	var/static/list/contractor_items = typecacheof(/datum/contractor_item, ignore_root_path = TRUE)
 
 	var/datum/syndicate_contract/current_contract
 	var/list/datum/syndicate_contract/assigned_contracts = list()
@@ -128,7 +128,7 @@
 	limited = 2
 	cost = 0
 
-/datum/contractor_item/contract_reroll/handle_purchase(var/datum/contractor_hub/hub)
+/datum/contractor_item/contract_reroll/handle_purchase(datum/contractor_hub/hub)
 	. = ..()
 
 	if (.)
@@ -175,19 +175,19 @@
 	cost = 2
 	var/datum/mind/partner_mind = null
 
-/datum/contractor_item/contractor_partner/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/contractor_partner/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 	. = ..()
 
 	if (.)
 		to_chat(user, span_notice("The uplink vibrates quietly, connecting to nearby agents..."))
 
-		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-			check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT,
-			poll_time = 10 SECONDS,
-			jump_target = user,
-			role_name_text = "contractor support unit for [user.real_name]",
-			alert_pic = user,
-		)
+		var/datum/poll_config/config = new()
+		config.check_jobban = ROLE_CONTRACTOR_SUPPORT_UNIT
+		config.poll_time = 10 SECONDS
+		config.jump_target = user
+		config.role_name_text = "contractor support unit for [user.real_name]"
+		config.alert_pic = user
+		var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 
 		if(candidate)
 			spawn_contractor_partner(user, candidate.key)
@@ -215,7 +215,7 @@
 	backpack_contents = list(/obj/item/storage/box/survival, /obj/item/implanter/uplink, /obj/item/clothing/mask/chameleon,
 							/obj/item/storage/fancy/cigarettes/cigpack_syndicate, /obj/item/lighter)
 
-/datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	var/obj/item/clothing/mask/cigarette/syndicate/cig = H.get_item_by_slot(ITEM_SLOT_MASK)
 
@@ -259,7 +259,7 @@
 	limited = 2
 	cost = 3
 
-/datum/contractor_item/blackout/handle_purchase(var/datum/contractor_hub/hub)
+/datum/contractor_item/blackout/handle_purchase(datum/contractor_hub/hub)
 	. = ..()
 
 	if (.)
@@ -267,7 +267,7 @@
 		priority_announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", ANNOUNCER_POWEROFF)
 
 // Subtract cost, and spawn if it's an item.
-/datum/contractor_item/proc/handle_purchase(var/datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/proc/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 
 	if (hub.contract_rep >= cost)
 		hub.contract_rep -= cost

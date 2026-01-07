@@ -390,7 +390,7 @@
 	. = ..()
 
 /// Effectively the same as standard target listing
-/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(var/_Z)
+/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(_Z)
 	if(mode == MODE_MINING)
 		return ListTargets()
 	. = ..()
@@ -418,7 +418,7 @@
 /mob/living/simple_animal/hostile/mining_drone/CanAttack(atom/A)
 	if(mining_enabled && istype(A, /turf/closed/mineral)) // Normally CanAttack() skips over turfs, but we'll sometimes want to attack mineral turfs
 		var/turf/closed/mineral/T = A
-		for(var/turf/closed/obstructing_turf in getline(src,A))
+		for(var/turf/closed/obstructing_turf in get_line(src,A))
 			if(!istype(obstructing_turf, /turf/closed/mineral)) // No trying to mine through non-rock turfs
 				return ..()
 		if(T.mineralType)
@@ -495,13 +495,13 @@
 /datum/action/innate/minedrone
 	button_icon_state = null
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/hud/actions/actions_mecha.dmi'
+	button_icon = 'icons/hud/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
 
 /// Toggles a minebot's inbuilt meson scanners.
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
-	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "trayson-"
 
 /datum/action/innate/minedrone/toggle_meson_vision/on_activate()

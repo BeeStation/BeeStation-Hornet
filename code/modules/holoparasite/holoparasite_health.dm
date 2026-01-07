@@ -39,13 +39,14 @@
 			holder.icon_state = "hudhealthy"
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_SET_HUD_STATUS, holder)
 
-/mob/living/simple_animal/hostile/holoparasite/revive(full_heal, admin_revive)
+/mob/living/simple_animal/hostile/holoparasite/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()
-	if(.)
-		SSblackbox.record_feedback("amount", "holoparasites_revived", 1)
-		var/mob/gost = grab_ghost(TRUE)
-		if(gost?.ckey)
-			ckey = gost.ckey
-		if(!ckey && !client)
-			// Ah well, might as well try to reset 'em.
-			INVOKE_ASYNC(src, PROC_REF(reset), FALSE, TRUE)
+	if(!.)
+		return
+	SSblackbox.record_feedback("amount", "holoparasites_revived", 1)
+	var/mob/gost = grab_ghost(TRUE)
+	if(gost?.ckey)
+		ckey = gost.ckey
+	if(!ckey && !client)
+		// Ah well, might as well try to reset 'em.
+		INVOKE_ASYNC(src, PROC_REF(reset), FALSE, TRUE)

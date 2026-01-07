@@ -13,7 +13,7 @@
 				qdel(R)
 			var/datum/action/innate/slime/evolve/E = new
 			E.Grant(src)
-			revive(full_heal = 1)
+			revive(HEAL_ALL)
 			regenerate_icons()
 			update_name()
 			return

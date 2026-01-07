@@ -164,6 +164,8 @@
 	var/exclusive_budget_pool
 	/// basically non-station budgets are not good to show. These need to be FALSE.
 	var/show_budget_information = TRUE
+	/// Starting budget override for the depatmental bank account
+	var/starting_budget
 	add_to_accounts = FALSE
 
 /datum/bank_account/department/New(budget)
@@ -189,6 +191,7 @@
 	department_bitflag = ACCOUNT_CAR_BITFLAG
 	budget_ratio = BUDGET_RATIO_TYPE_DOUBLE
 	nonstation_account = FALSE
+	starting_budget = 2000 // Reduced due to export changes
 	custom_currency = list(ACCOUNT_CURRENCY_MINING = 100) // enough to buy a bottle of whiskey!
 
 /datum/bank_account/department/science

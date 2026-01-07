@@ -33,7 +33,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/anomaly)
 	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
 
-	anomaly_core = new(src)
+	anomaly_core = new anomaly_core(src)
 	anomaly_core.name = "[name] core"
 	anomaly_core.code = rand(1,100)
 	anomaly_core.anomaly_type = type

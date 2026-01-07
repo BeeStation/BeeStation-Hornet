@@ -7,7 +7,6 @@
  *	Level 4 - Bloodbeam spell that breaks open lockers/doors + double damage to victims - Gives them a Blood shield until they use Bloodbeam
  *	Level 5 - Bloodbeam spell that breaks open lockers/doors + double damage & steals blood - Gives them a Blood shield until they use Bloodbeam
  */
-
 /datum/action/vampire/targeted/tremere/thaumaturgy
 	name = "Level 1: Thaumaturgy"
 	upgraded_power = /datum/action/vampire/targeted/tremere/thaumaturgy/two
@@ -15,7 +14,7 @@
 	level_current = 1
 	button_icon_state = "power_thaumaturgy"
 	power_explanation = "Shoots a blood bolt spell that deals burn damage"
-	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_UNCONSCIOUS
+	check_flags = BP_CANT_USE_IN_TORPOR | BP_CANT_USE_IN_FRENZY | BP_CANT_USE_WHILE_UNCONSCIOUS
 	bloodcost = 20
 	constant_bloodcost = 0
 	cooldown_time = 6 SECONDS
@@ -100,19 +99,19 @@
 
 /datum/action/vampire/targeted/tremere/thaumaturgy/FireTargetedPower(atom/target_atom)
 	. = ..()
+	var/mob/living/living_owner = owner
+	living_owner.balloon_alert(living_owner, "you fire a blood bolt!")
+	living_owner.changeNext_move(CLICK_CD_RANGE)
+	living_owner.newtonian_move(get_dir(target_atom, living_owner))
 
-	var/mob/living/user = owner
-	owner.balloon_alert(owner, "you fire a blood bolt!")
-	to_chat(user, span_warning("You fire a blood bolt!"))
-	user.changeNext_move(CLICK_CD_RANGE)
-	user.newtonian_move(get_dir(target_atom, user))
-	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(user.loc)
+	var/obj/projectile/magic/arcane_barrage/vampire/bolt = new(living_owner.loc)
 	bolt.vampire_power = src
-	bolt.firer = user
-	bolt.def_zone = ran_zone(user.get_combat_bodyzone())
-	bolt.preparePixelProjectile(target_atom, user)
+	bolt.firer = living_owner
+	bolt.def_zone = ran_zone(living_owner.get_combat_bodyzone())
+	bolt.preparePixelProjectile(target_atom, living_owner)
 	INVOKE_ASYNC(bolt, TYPE_PROC_REF(/obj/projectile, fire))
-	playsound(user, 'sound/magic/wand_teleport.ogg', 60, TRUE)
+
+	playsound(living_owner, 'sound/magic/wand_teleport.ogg', 60, TRUE)
 	power_activated_sucessfully()
 
 /**
@@ -126,27 +125,29 @@
 	damage = 20
 	var/datum/action/vampire/targeted/tremere/thaumaturgy/vampire_power
 
-/obj/projectile/magic/arcane_barrage/vampire/on_hit(target)
-	if(istype(target, /obj/structure/closet) && vampire_power.level_current >= 3)
-		var/obj/structure/closet/hit_closet = target
-		if(hit_closet)
-			hit_closet.welded = FALSE
-			hit_closet.locked = FALSE
-			hit_closet.broken = TRUE
-			hit_closet.update_appearance()
-			qdel(src)
-			return BULLET_ACT_HIT
-	if(istype(target, /obj/machinery/door) && vampire_power.level_current >= 3)
-		var/obj/machinery/door/hit_airlock = target
-		hit_airlock.open()
+/obj/projectile/magic/arcane_barrage/vampire/on_hit(atom/target_atom)
+	if(istype(target_atom, /obj/structure/closet) && vampire_power.level_current >= 3)
+		var/obj/structure/closet/hit_closet = target_atom
+		hit_closet.welded = FALSE
+		hit_closet.locked = FALSE
+		hit_closet.broken = TRUE
+		hit_closet.update_appearance()
 		qdel(src)
 		return BULLET_ACT_HIT
-	if(ismob(target))
+
+	if(istype(target_atom, /obj/machinery/door/airlock) && vampire_power.level_current >= 3)
+		var/obj/machinery/door/airlock/airlock = target_atom
+		airlock.unbolt()
+		airlock.open()
+		qdel(src)
+		return BULLET_ACT_HIT
+
+	if(isliving(target_atom))
 		if(vampire_power.level_current >= 4)
 			damage = 40
 		if(vampire_power.level_current >= 5)
-			var/mob/living/person_hit = target
-			person_hit.blood_volume -= 60
+			var/mob/living/living_target = target_atom
+			living_target.blood_volume -= 60
 			vampire_power.vampiredatum_power.AddBloodVolume(60)
 		qdel(src)
 		return BULLET_ACT_HIT
@@ -173,6 +174,6 @@
 	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_VAMPIRE)
 
 /obj/item/shield/vampire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(owner)
-	vampiredatum?.AddBloodVolume(-15)
+	var/datum/antagonist/vampire/vampire = IS_VAMPIRE(owner)
+	vampire?.AddBloodVolume(-15)
 	return ..()

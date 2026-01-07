@@ -13,7 +13,7 @@
 
 /datum/action/blink
 	name = "Blink"
-	icon_icon = 'icons/hud/actions/actions_hive.dmi'
+	button_icon = 'icons/hud/actions/actions_hive.dmi'
 	button_icon_state = "see"						//Feel free to replace
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -72,7 +72,7 @@
 			to_chat(C, span_userdanger("Your eyes begin to wither, you need to blink!"))
 			warn_dying = TRUE
 
-		E.applyOrganDamage(damage_rate * delta_time)
+		E.apply_organ_damage(damage_rate * delta_time)
 	else if(world.time > (last_blink + check_every))
 		if(!warn_grace)
 			to_chat(C, span_danger("You feel a need to blink!"))

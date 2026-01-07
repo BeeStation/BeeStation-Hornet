@@ -16,11 +16,28 @@
 	min_pop = COMMAND_POPULATION_MINIMUM
 
 	outfit = /datum/outfit/job/head_of_security
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM,TRAIT_SECURITY)
 
-	base_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MECH_SECURITY,
-						ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAINT_TUNNELS)
+	base_access = list(
+		ACCESS_SECURITY,
+		ACCESS_SEC_DOORS,
+		ACCESS_SEC_RECORDS,
+		ACCESS_BRIG,
+		ACCESS_BRIGPHYS,
+		ACCESS_ARMORY,
+		ACCESS_COURT,
+		ACCESS_WEAPONS,
+		ACCESS_MECH_SECURITY,
+		ACCESS_FORENSICS_LOCKERS,
+		ACCESS_MORGUE,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_HEADS,
+		ACCESS_HOS,
+		ACCESS_RC_ANNOUNCE,
+		ACCESS_KEYCARD_AUTH,
+		ACCESS_GATEWAY,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
@@ -42,6 +59,13 @@
 		/area/security/warden
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_WARDEN,
+		JOB_NAME_DETECTIVE,
+		JOB_NAME_SECURITYOFFICER
+	)
+
 /datum/outfit/job/head_of_security
 	name = JOB_NAME_HEADOFSECURITY
 	jobtype = /datum/job/head_of_security
@@ -56,7 +80,7 @@
 	head = /obj/item/clothing/head/hats/hos/beret
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/heads/head_of_security
-	l_pocket = /obj/item/clothing/accessory/badge/officer/hos
+	l_pocket = /obj/item/clothing/accessory/badge/hos
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

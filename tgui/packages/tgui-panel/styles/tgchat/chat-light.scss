@@ -556,64 +556,110 @@ h2.alert {
   color: hsl(0, 100%, 20%);
 }
 
+.good {
+  color: hsl(132, 79%, 20%);
+  font-weight: bold;
+}
+
 .userdanger {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
   font-size: 24px;
 }
+
 .danger {
   color: hsl(0, 100%, 50%);
 }
+
+.tinydanger {
+  color: hsl(0, 100%, 50%);
+  font-size: 85%;
+}
+
+.smalldanger {
+  color: hsl(0, 100%, 50%);
+  font-size: 90%;
+}
+
 .warning {
   color: hsl(0, 100%, 50%);
   font-style: italic;
 }
+
 .alertwarning {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
+
 .boldwarning {
   color: hsl(0, 100%, 50%);
   font-style: italic;
   font-weight: bold;
 }
+
+.subtle {
+  color: hsl(210, 12%, 66%);
+  font-style: italic;
+}
+
 .announce {
   color: hsl(120, 60.7%, 33.9%);
   font-weight: bold;
 }
+
 .boldannounce {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
+
 .greenannounce {
   color: hsl(120, 100%, 50%);
   font-weight: bold;
 }
+
 .rose {
   color: hsl(0, 100%, 65.7%);
 }
+
 .info {
   color: hsl(240, 100%, 40%);
 }
+
 .notice {
   color: hsl(240, 100%, 30%);
 }
+
+.smallnotice {
+  color: hsl(240, 100%, 30%);
+  font-size: 90%;
+}
+
+.smallnoticeital {
+  color: hsl(240, 100%, 30%);
+  font-style: italic;
+  font-size: 90%;
+}
+
 .boldnotice {
   color: hsl(240, 100%, 30%);
   font-weight: bold;
 }
+
 .usernotice {
   color: hsl(240, 100%, 30%);
   font-weight: bold;
   font-size: 24px;
 }
+
 .adminnotice {
   color: hsl(240, 100%, 50%);
 }
+
 .adminhelp {
   color: hsl(0, 100%, 50%);
   font-weight: bold;
 }
+
 .adminhelp_conclusion {
   display: block;
   color: white;
@@ -632,6 +678,18 @@ h2.alert {
   background-color: black;
   border: 2px solid rgb(240, 62, 225);
   border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+.prisoner_message {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  display: block;
+  color: #656062;
+  text-align: center;
+  background-color: #fff5ed;
+  border: 8px solid #9c958f;
+  border-radius: 0px;
   padding: 10px;
   margin: 10px 20px;
 }
@@ -987,49 +1045,65 @@ h2.alert {
   font-weight: bold;
   font-size: 24px;
 }
+
 .megaphone {
   font-weight: bold;
   font-size: 24px;
 }
+
 .small {
   font-size: 8px;
 }
+
+.slightly_larger {
+  font-size: 115%;
+}
+
 .big {
   font-size: 24px;
 }
+
 .reallybig {
   font-size: 32px;
 }
+
 .extremelybig {
   font-size: 40px;
 }
+
 .greentext {
   color: hsl(120, 100%, 50%);
   font-size: 24px;
 }
+
 .infotext {
   color: hsl(175.2, 87%, 57.8%);
   font-size: 24px;
 }
+
 .redtext {
   color: hsl(0, 100%, 50%);
   font-size: 24px;
 }
+
 .clowntext {
   color: hsl(325.6, 100%, 70.6%);
   font-size: 24px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-weight: bold;
 }
+
 .singing {
   font-family: 'Trebuchet MS', cursive, sans-serif;
   font-style: italic;
 }
+
 .his_grace {
   color: hsl(119.1, 84.4%, 45.3%);
   font-family: 'Courier New', cursive, sans-serif;
   font-style: italic;
 }
+
 .hypnophrase {
   color: hsl(0, 0%, 5.1%);
   font-weight: bold;
@@ -1073,6 +1147,14 @@ h2.alert {
 .icon {
   height: 1em;
   width: auto;
+}
+
+.bigicon {
+  font-size: 2.5em;
+}
+
+.hugeicon {
+  font-size: 5em;
 }
 
 .memo {
@@ -1146,6 +1228,56 @@ h2.alert {
   border: 1px solid hsl(215.5, 39.3%, 11%);
   margin: 0.5em;
   padding: 0.5em 0.75em;
+}
+
+// Provides a horizontal bar with text in the middle
+// I got this off stackoverflow
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #111a27;
+}
+
+.separator:not(:empty)::before {
+  margin-right: 0.25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 0.25em;
+}
+
+// Used to display images besides text
+.img_by_text_container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.img_by_text_container img {
+  width: 2.5em; // a css guru can probably dehardcode this later
+  height: auto;
+  margin-right: 12px;
+}
+
+.img_by_text_container .img_text {
+  flex-grow: 1;
+}
+
+.emoji_button {
+  border-radius: 4px;
+  padding-top: 4px;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: 0px 1px;
+  background: hsl(212, 45%, 25%);
+  border: 1px solid hsl(212, 37.6%, 100.9%);
 }
 
 //Job Colours
@@ -1585,11 +1717,17 @@ $border-width-px: $border-width * 1px;
   }
 
   .chat_alert_#{$color-name} .minor_announcement_text {
-    background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
+    background-color: lighten(
+      map.get($alert-stripe-alternate-colors, $color-name),
+      5
+    );
   }
 
   .chat_alert_#{$color-name} .major_announcement_text {
-    background-color: lighten(map.get($alert-stripe-alternate-colors, $color-name), 5);
+    background-color: lighten(
+      map.get($alert-stripe-alternate-colors, $color-name),
+      5
+    );
   }
 }
 

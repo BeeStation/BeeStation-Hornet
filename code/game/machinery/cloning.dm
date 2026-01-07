@@ -41,7 +41,6 @@
 	var/flesh_number = 0
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
-	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/experimental_pod = FALSE //experimental cloner will have true. TRUE allows you to clone a weird brain after scanning it.
 
 /obj/machinery/clonepod/Initialize(mapload)
@@ -214,12 +213,6 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 				return ERROR_SOUL_DEPARTED
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SUICIDED_BODY
-		if(clonemind.damnation_type) //Can't clone the damned.
-			INVOKE_ASYNC(src, PROC_REF(horrifyingsound))
-			mess = TRUE
-			icon_state = "pod_g"
-			update_icon()
-			return ERROR_SOUL_DAMNED
 		if(clonemind.no_cloning_at_all) // nope.
 			return ERROR_UNCLONABLE
 		current_insurance = insurance
@@ -293,14 +286,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_EXPERIMENTAL_CLONE,
-		poll_time = 30 SECONDS,
-		checked_target = H,
-		jump_target = H,
-		role_name_text = "[H.real_name]'s experimental clone?",
-		alert_pic = H,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_EXPERIMENTAL_CLONE
+	config.poll_time = 30 SECONDS
+	config.jump_target = H
+	config.role_name_text = "[H.real_name]'s experimental clone?"
+	config.alert_pic = H
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, H)
 	if(candidate)
 		H.key = candidate.key
 
@@ -347,7 +339,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/clonepod, "Examine")
 						fair_market_price = round(fair_market_price/length(dept_list))
 						for(var/datum/bank_account/department/D in dept_list)
 							D.adjust_money(fair_market_price)
-		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
+		if(mob_occupant && mob_occupant.stat == DEAD || mob_occupant.suiciding)  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")
 			if(internal_radio)
 				SPEAK("The cloning of [mob_occupant.real_name] has been \

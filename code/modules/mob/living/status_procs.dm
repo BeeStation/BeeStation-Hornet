@@ -301,7 +301,7 @@
 /mob/living/proc/Sleeping(amount) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -313,7 +313,7 @@
 /mob/living/proc/SetSleeping(amount) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(amount <= 0)
@@ -328,7 +328,7 @@
 /mob/living/proc/AdjustSleeping(amount) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -341,7 +341,7 @@
 /mob/living/proc/PermaSleeping()
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, -1) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -364,7 +364,7 @@
 /mob/living/proc/staggered(amount) //Can't go below remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/staggered/S = is_staggered()
 	if(S)
@@ -376,7 +376,7 @@
 /mob/living/proc/set_staggered(amount) //Sets remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/staggered/S = is_staggered()
 	if(amount <= 0)
@@ -391,7 +391,7 @@
 /mob/living/proc/adjust_staggered(amount) //Adds to remaining duration
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_STAGGERED, amount) & COMPONENT_NO_STUN)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/staggered/S = is_staggered()
 	if(S)
@@ -602,6 +602,26 @@
 		apply_status_effect(effect, duration)
 
 /**
+ * Gets how many deciseconds are remaining in
+ * the duration of the passed status effect on this mob.
+ *
+ * If the mob is unaffected by the passed effect, returns 0.
+ */
+/mob/living/proc/get_timed_status_effect_duration(effect)
+	if(!ispath(effect, /datum/status_effect))
+		CRASH("get_timed_status_effect_duration: called with an invalid effect type. (Got: [effect])")
+
+	var/datum/status_effect/existing = has_status_effect(effect)
+	if(!existing)
+		return 0
+	// Infinite duration status effects technically are not "timed status effects"
+	// by name or nature, but support is included just in case.
+	if(existing.duration == STATUS_EFFECT_PERMANENT)
+		return INFINITY
+
+	return existing.duration - world.time
+
+/**
  * Sets a timed status effect of some kind on a mob to a specific value.
  * If only_if_higher is TRUE, it will only set the value up to the passed duration,
  * so any pre-existing status effects of the same type won't be reduced down
@@ -638,22 +658,6 @@
 	else if(duration > 0)
 		apply_status_effect(effect, duration)
 
-/**
- * Gets how many deciseconds are remaining in
- * the duration of the passed status effect on this mob.
- *
- * If the mob is unaffected by the passed effect, returns 0.
- */
-/mob/living/proc/get_timed_status_effect_duration(effect)
-	if(!ispath(effect, /datum/status_effect))
-		CRASH("get_timed_status_effect_duration: called with an invalid effect type. (Got: [effect])")
-
-	var/datum/status_effect/existing = has_status_effect(effect)
-	if(!existing)
-		return 0
-	// Infinite duration status effects technically are not "timed status effects"
-	// by name or nature, but support is included just in case.
-	if(existing.duration == STATUS_EFFECT_PERMANENT)
-		return INFINITY
-
-	return existing.duration - world.time
+/// Helper to check if we seem to be alive or not
+/mob/living/proc/appears_alive()
+	return stat != DEAD && !HAS_TRAIT(src, TRAIT_FAKEDEATH)

@@ -14,7 +14,7 @@
 	icon_state = "command"
 	build_path = /obj/machinery/bsa/middle
 	req_components = list(
-		/obj/item/stack/ore/bluespace_crystal = 20,
+		/obj/item/stack/ore/bluespace_crystal = 10,
 		/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/front
@@ -58,7 +58,7 @@
 /obj/item/circuitboard/machine/grounding_rod
 	name = "grounding rod (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/power/grounding_rod
+	build_path = /obj/machinery/power/energy_accumulator/grounding_rod
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
@@ -141,50 +141,32 @@
 		/obj/item/stock_parts/subspace/filter = 3)
 
 /obj/item/circuitboard/machine/tesla_coil
-	name = "tesla controller (Machine Board)"
-	icon_state = "engineering"
+	name = "tesla coil (Machine Board)"
 	desc = "You can use a screwdriver to switch between Research and Power Generation."
-	build_path = /obj/machinery/power/tesla_coil
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/energy_accumulator/tesla_coil
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 	needs_anchored = FALSE
 
-#define PATH_POWERCOIL /obj/machinery/power/tesla_coil/power
-#define PATH_RPCOIL /obj/machinery/power/tesla_coil/research
+/obj/item/circuitboard/machine/tesla_coil/screwdriver_act(mob/living/user, obj/item/screwdriver)
+	if(build_path == /obj/machinery/power/energy_accumulator/tesla_coil)
+		name = "tesla corona researcher (Machine Board)"
+		build_path = /obj/machinery/power/energy_accumulator/tesla_coil/research
 
-/obj/item/circuitboard/machine/tesla_coil/Initialize(mapload)
-	. = ..()
-	if(build_path)
-		build_path = PATH_POWERCOIL
-
-/obj/item/circuitboard/machine/tesla_coil/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		var/obj/item/circuitboard/new_type
-		var/new_setting
-		switch(build_path)
-			if(PATH_POWERCOIL)
-				new_type = /obj/item/circuitboard/machine/tesla_coil/research
-				new_setting = "Research"
-			if(PATH_RPCOIL)
-				new_type = /obj/item/circuitboard/machine/tesla_coil/power
-				new_setting = "Power"
-		name = initial(new_type.name)
-		build_path = initial(new_type.build_path)
-		I.play_tool_sound(src)
-		to_chat(user, span_notice("You change the circuitboard setting to \"[new_setting]\"."))
+		to_chat(user, span_notice("You change the circuitboard setting to \"Research\"."))
 	else
-		return ..()
+		name = "tesla coil (Machine Board)"
+		build_path = /obj/machinery/power/energy_accumulator/tesla_coil
 
-/obj/item/circuitboard/machine/tesla_coil/power
-	name = "tesla coil (Machine Board)"
-	build_path = PATH_POWERCOIL
+		to_chat(user, span_notice("You change the circuitboard setting to \"Power\"."))
+
+	screwdriver.play_tool_sound(src)
+
+	return TRUE
 
 /obj/item/circuitboard/machine/tesla_coil/research
 	name = "tesla corona researcher (Machine Board)"
-	build_path = PATH_RPCOIL
-
-#undef PATH_POWERCOIL
-#undef PATH_RPCOIL
-
+	build_path = /obj/machinery/power/energy_accumulator/tesla_coil/research
 
 /obj/item/circuitboard/machine/cell_charger
 	name = "cell charger (Machine Board)"
@@ -202,11 +184,35 @@
 /obj/item/circuitboard/machine/emitter
 	name = "emitter (Machine Board)"
 	icon_state = "engineering"
+	desc = "You can change its laser configuration with a screwdriver"
 	build_path = /obj/machinery/power/emitter
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/drill
+	name = "emitter - driling mode (Machine Board)"
+	icon_state = "engineering"
+	desc = "It seems like you can change it's modulator with a scredriver"
+	build_path = /obj/machinery/power/emitter/drill
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+	needs_anchored = FALSE
+
+/obj/item/circuitboard/machine/emitter/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(build_path == /obj/machinery/power/emitter)
+			name = "emitter - driling mode (Machine Board)"
+			build_path = /obj/machinery/power/emitter/drill
+			to_chat(user, span_notice("You change the Emitter's laser configuration to: [span_italics("DRILL")]"))
+		else
+			name = "emitter (Machine Board)"
+			build_path = /obj/machinery/power/emitter
+			to_chat(user, span_notice("You change the Emitter's laser configuration to:  [span_italics("NORMAL")]"))
+	else
+		return ..()
 
 /obj/item/circuitboard/machine/generator
 	name = "thermo-electric generator (Machine Board)"
@@ -269,18 +275,6 @@
 	name = "departmental protolathe - engineering (Machine Board)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/rnd/production/protolathe/department/engineering
-
-/obj/item/circuitboard/machine/rad_collector
-	name = "radiation collector (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/power/rad_collector
-	req_components = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stack/sheet/plasmarglass = 2,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/manipulator = 1)
-	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/rtg
 	name = "RTG (Machine Board)"
@@ -349,9 +343,8 @@
 	build_path = /obj/machinery/power/smes
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/cell = 5,
+		/obj/item/stock_parts/matter_bin = 5,
 		/obj/item/stock_parts/capacitor = 1)
-	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high/empty)
 
 /obj/item/circuitboard/machine/techfab/department/engineering
 	name = "departmental techfab - engineering (Machine Board)"

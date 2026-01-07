@@ -10,7 +10,12 @@
 
 	outfit = /datum/outfit/job/janitor
 
-	base_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
+	base_access = list(
+		ACCESS_JANITOR,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
 	extra_access = list()
 
 	departments = DEPT_BITFLAG_SRV
@@ -27,6 +32,11 @@
 
 	minimal_lightup_areas = list(/area/janitor)
 
+	manuscript_jobs = list(
+		JOB_NAME_JANITOR,
+		JOB_NAME_CHEMIST // chemicals for cleaning.
+	)
+
 /datum/outfit/job/janitor
 	name = JOB_NAME_JANITOR
 	jobtype = /datum/job/janitor
@@ -36,7 +46,7 @@
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 
-/datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visuals_only)
 	. = ..()
 	if(GARBAGEDAY in SSevents.holidays)
 		l_pocket = /obj/item/gun/ballistic/revolver

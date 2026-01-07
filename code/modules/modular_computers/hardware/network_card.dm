@@ -1,7 +1,7 @@
 /obj/item/computer_hardware/network_card
 	name = "network card"
 	desc = "A basic wireless network card for usage with standard NTNet frequencies."
-	power_usage = 50
+	power_usage = 1  // Watts per second
 	icon_state = "radio_mini"
 	network_id = NETWORK_CARDS	// Network we are on
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
@@ -56,7 +56,7 @@
 	return "[identification_string] (NID [hardware_id])"
 
 // 0 - No signal, 1 - Low signal, 2 - High signal. 3 - Wired Connection
-/obj/item/computer_hardware/network_card/proc/get_signal(var/specific_action = 0)
+/obj/item/computer_hardware/network_card/proc/get_signal(specific_action = 0)
 	if(!holder) // Hardware is not installed in anything. No signal. How did this even get called?
 		return 0
 	if(!check_functionality())
@@ -83,7 +83,7 @@
 	name = "advanced network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. Its transmitter is strong enough to connect even off-station."
 	signal_level = SIGNAL_HIGH
-	power_usage = 100 // Better range but higher power usage.
+	power_usage = 5 // Watts per second
 	icon_state = "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -95,7 +95,7 @@
 	name = "ultra-advanced network card"
 	desc = "A prototype card that mimics hardline connectivity using unstable bluespace channels. Impervious to relay interference."
 	signal_level = SIGNAL_NO_RELAY
-	power_usage = 200
+	power_usage = 10 // Watts per second
 	icon_state = "no-relay"
 	custom_price = 100
 	identification_string = "x_net_card"
@@ -104,7 +104,7 @@
 	name = "wired network card"
 	desc = "An advanced network card for usage with standard NTNet frequencies. This one also supports wired connection."
 	signal_level = SIGNAL_NO_RELAY
-	power_usage = 100 // Better range but higher power usage.
+	power_usage = 10 // Watts per second
 	icon_state = "net_wired"
 	w_class = WEIGHT_CLASS_NORMAL
 	identification_string = "open_eth"

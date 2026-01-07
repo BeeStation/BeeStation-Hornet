@@ -11,8 +11,16 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/botanist
 
-	base_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_BAR, ACCESS_KITCHEN)
+	base_access = list(
+		ACCESS_HYDROPONICS,
+		ACCESS_MORGUE,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+	)
+	extra_access = list(
+		ACCESS_BAR,
+		ACCESS_KITCHEN,
+	)
 
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
@@ -26,6 +34,11 @@
 	)
 
 	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
+
+	manuscript_jobs = list(
+		JOB_NAME_BOTANIST,
+		JOB_NAME_MEDICALDOCTOR // herbal remedist
+	)
 
 /datum/outfit/job/botanist
 	name = JOB_NAME_BOTANIST

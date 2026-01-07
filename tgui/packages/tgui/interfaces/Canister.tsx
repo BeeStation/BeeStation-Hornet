@@ -1,8 +1,19 @@
-import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, AnimatedNumber, Section, Tooltip } from '../components';
 import { toFixed } from 'common/math';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Knob,
+  LabeledControls,
+  LabeledList,
+  Section,
+  Tooltip,
+} from '../components';
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 
@@ -69,9 +80,14 @@ export const Canister = (props) => {
                     selected={shielding}
                     onClick={() => act('shielding')}
                   />
-                  <Button icon="pencil-alt" content="Relabel" onClick={() => act('relabel')} />
+                  <Button
+                    icon="pencil-alt"
+                    content="Relabel"
+                    onClick={() => act('relabel')}
+                  />
                 </>
-              }>
+              }
+            >
               <LabeledControls>
                 <LabeledControls.Item minWidth="66px" label="Pressure">
                   <AnimatedNumber
@@ -135,15 +151,24 @@ export const Canister = (props) => {
                     width="50px"
                     lineHeight={2}
                     fontSize="11px"
-                    color={valveOpen ? (holdingTank ? 'caution' : 'danger') : null}
+                    color={
+                      valveOpen ? (holdingTank ? 'caution' : 'danger') : null
+                    }
                     content={valveOpen ? 'Open' : 'Closed'}
                     onClick={() => act('valve')}
                   />
                 </LabeledControls.Item>
                 <LabeledControls.Item mr={1} label="Port">
-                  <Tooltip content={portConnected ? 'Connected' : 'Disconnected'} position="top">
+                  <Tooltip
+                    content={portConnected ? 'Connected' : 'Disconnected'}
+                    position="top"
+                  >
                     <Box position="relative">
-                      <Icon size={1.25} name={portConnected ? 'plug' : 'times'} color={portConnected ? 'good' : 'bad'} />
+                      <Icon
+                        size={1.25}
+                        name={portConnected ? 'plug' : 'times'}
+                        color={portConnected ? 'good' : 'bad'}
+                      />
                     </Box>
                   </Tooltip>
                 </LabeledControls.Item>
@@ -151,7 +176,9 @@ export const Canister = (props) => {
             </Section>
             <Section>
               <LabeledList>
-                <LabeledList.Item label="Cell Charge">{cellCharge > 0 ? cellCharge + '%' : 'Missing Cell'}</LabeledList.Item>
+                <LabeledList.Item label="Cell Charge">
+                  {cellCharge > 0 ? cellCharge + '%' : 'Missing Cell'}
+                </LabeledList.Item>
               </LabeledList>
             </Section>
           </Flex.Item>
@@ -161,12 +188,20 @@ export const Canister = (props) => {
               title="Holding Tank"
               buttons={
                 !!holdingTank && (
-                  <Button icon="eject" color={valveOpen && 'danger'} content="Eject" onClick={() => act('eject')} />
+                  <Button
+                    icon="eject"
+                    color={valveOpen && 'danger'}
+                    content="Eject"
+                    onClick={() => act('eject')}
+                  />
                 )
-              }>
+              }
+            >
               {!!holdingTank && (
                 <LabeledList>
-                  <LabeledList.Item label="Label">{holdingTank.name}</LabeledList.Item>
+                  <LabeledList.Item label="Label">
+                    {holdingTank.name}
+                  </LabeledList.Item>
                   <LabeledList.Item label="Pressure">
                     <AnimatedNumber value={holdingTank.tankPressure} /> kPa
                   </LabeledList.Item>

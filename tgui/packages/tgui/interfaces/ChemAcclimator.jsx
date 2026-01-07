@@ -9,7 +9,9 @@ export const ChemAcclimator = (props) => {
       <Window.Content>
         <Section title="Acclimator">
           <LabeledList>
-            <LabeledList.Item label="Current Temperature">{data.chem_temp} K</LabeledList.Item>
+            <LabeledList.Item label="Current Temperature">
+              {data.chem_temp} K
+            </LabeledList.Item>
             <LabeledList.Item label="Target Temperature">
               <NumberInput
                 value={data.target_temperature}
@@ -53,7 +55,8 @@ export const ChemAcclimator = (props) => {
               selected={data.enabled}
               onClick={() => act('toggle_power')}
             />
-          }>
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Volume">
               <NumberInput
@@ -71,8 +74,12 @@ export const ChemAcclimator = (props) => {
                 }
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Current Operation">{data.acclimate_state}</LabeledList.Item>
-            <LabeledList.Item label="Current State">{data.emptying ? 'Emptying' : 'Filling'}</LabeledList.Item>
+            <LabeledList.Item label="Current Operation">
+              {data.acclimate_state}
+            </LabeledList.Item>
+            <LabeledList.Item label="Current State">
+              {data.emptying ? 'Emptying' : 'Filling'}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Window.Content>

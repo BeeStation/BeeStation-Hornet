@@ -133,7 +133,7 @@
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	//TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
-	if(H.status_flags & GODMODE)
+	if(HAS_TRAIT(H, TRAIT_GODMODE))
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return

@@ -36,9 +36,9 @@
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_DESTRUCTION]'>Destruction</A><BR>"
 		dat += "<I>Your apprentice is skilled in offensive magic. They know Magic Missile and Fireball.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_BLUESPACE]'>Bluespace Manipulation</A><BR>"
-		dat += "<I>Your apprentice is able to defy physics, melting through solid objects and travelling great distances in the blink of an eye. They know Teleport and Ethereal Jaunt.</I><BR><BR>"
+		dat += "<I>Your apprentice is able to defy physics, melting through solid objects. They know Ethereal Jaunt and have a wand of teleportation.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_HEALING]'>Healing</A><BR>"
-		dat += "<I>Your apprentice is training to cast spells that will aid your survival. They know Forcewall and Charge and come with a Staff of Healing.</I><BR><BR>"
+		dat += "<I>Your apprentice is training to cast spells that will aid your survival. They know Forcewall and Charge and come with a Wand of Healing.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_ROBELESS]'>Robeless</A><BR>"
 		dat += "<I>Your apprentice is training to cast spells without their robes. They know Knock and Mindswap.</I><BR><BR>"
 		dat += "<A href='byond://?src=[REF(src)];school=[APPRENTICE_WILDMAGIC]'>Wild Magic</A><BR>"
@@ -67,15 +67,15 @@
 				return
 
 			currently_polling_ghosts = TRUE
-			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-				question = "Do you want to play as a wizard's [href_list["school"]] apprentice?",
-				check_jobban = ROLE_WIZARD,
-				poll_time = 15 SECONDS,
-				ignore_category = POLL_IGNORE_WIZARD_HELPER,
-				jump_target = H,
-				role_name_text = "[href_list["school"]] apprentice",
-				alert_pic = H,
-			)
+			var/datum/poll_config/config = new()
+			config.question = "Do you want to play as a wizard's [href_list["school"]] apprentice?"
+			config.check_jobban = ROLE_WIZARD
+			config.poll_time = 15 SECONDS
+			config.ignore_category = POLL_IGNORE_WIZARD_HELPER
+			config.jump_target = H
+			config.role_name_text = "[href_list["school"]] apprentice"
+			config.alert_pic = H
+			var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 			currently_polling_ghosts = FALSE
 
 			if(candidate)
@@ -134,13 +134,13 @@
 		return
 
 	to_chat(user, span_notice("You activate [src] and wait for confirmation."))
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = ROLE_OPERATIVE,
-		poll_time = 15 SECONDS,
-		jump_target = user,
-		role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]",
-		alert_pic = /mob/living/silicon/robot/model/syndicate,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_OPERATIVE
+	config.poll_time = 15 SECONDS
+	config.jump_target = user
+	config.role_name_text = "syndicate [borg_to_spawn ? "[LOWER_TEXT(borg_to_spawn)] cyborg":"operative"]"
+	config.alert_pic = /mob/living/silicon/robot/model/syndicate
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -261,13 +261,13 @@
 	if(used)
 		return
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(
-		check_jobban = ROLE_SLAUGHTER_DEMON,
-		poll_time = 10 SECONDS,
-		jump_target = user,
-		role_name_text = initial(demon_type.name),
-		alert_pic = /mob/living/simple_animal/hostile/imp/slaughter,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_SLAUGHTER_DEMON
+	config.poll_time = 10 SECONDS
+	config.jump_target = user
+	config.role_name_text = initial(demon_type.name)
+	config.alert_pic = /mob/living/simple_animal/hostile/imp/slaughter
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
 	if(candidate)
 		if(used || QDELETED(src))
 			return

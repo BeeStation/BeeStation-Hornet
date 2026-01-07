@@ -1,13 +1,9 @@
 /datum/objective/vampire
 	martyr_compatible = TRUE
 
-// GENERATE
 /datum/objective/vampire/New()
 	update_explanation_text()
-	..()
-
-//////////////////////////////////////////////////////////////////////////////
-//	//							 PROCS 									//	//
+	return ..()
 
 /// Look at all crew members, and for/loop through.
 /datum/objective/vampire/proc/return_possible_targets()
@@ -22,83 +18,80 @@
 
 	return possible_targets
 
-/// Check Vassals and get their occupations
-/datum/objective/vampire/proc/get_vassal_occupations()
-	var/datum/antagonist/vampire/vampiredatum = owner.has_antag_datum(/datum/antagonist/vampire)
-	if(!length(vampiredatum?.vassals))
-		return FALSE
-	var/list/all_vassal_jobs = list()
-	var/vassal_job
-	for(var/datum/antagonist/vassal/vampire_vassals in vampiredatum.vassals)
-		if(!vampire_vassals || !vampire_vassals.owner)	// Must exist somewhere, and as a vassal.
-			continue
-		// Mind Assigned
-		if(vampire_vassals.owner?.assigned_role)
-			vassal_job = vampire_vassals.owner.assigned_role
-		// Mob Assigned
-		else if(vampire_vassals.owner?.current?.job)
-			vassal_job = SSjob.GetJob(vampire_vassals.owner.current.job)
-		// PDA Assigned
-		else if(vampire_vassals.owner?.current && ishuman(vampire_vassals.owner.current))
-			var/mob/living/carbon/human/vassal = vampire_vassals.owner.current
-			vassal_job = SSjob.GetJob(vassal.get_assignment())
-		if(vassal_job)
-			all_vassal_jobs += vassal_job
-	return all_vassal_jobs
-
 //////////////////////////////////////////////////////////////////////////////////////
 //	//							 OBJECTIVES 									//	//
 //////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////
-//    DEFAULT OBJECTIVES    //
-//////////////////////////////
-
+/**
+ * Claim a lair
+ */
 /datum/objective/vampire/lair
 	name = "claimlair"
-
-// EXPLANATION
-/datum/objective/vampire/lair/update_explanation_text()
-	explanation_text = "Create a lair by claiming a coffin, and protect it until the end of the shift."//  Make sure to keep it safe!"
+	explanation_text = "Create a lair by claiming a coffin, and protect it until the end of the shift."
 
 // WIN CONDITIONS?
 /datum/objective/vampire/lair/check_completion()
-	var/datum/antagonist/vampire/vampiredatum = owner.has_antag_datum(/datum/antagonist/vampire)
-	if(vampiredatum && vampiredatum.coffin && vampiredatum.vampire_lair_area)
+	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	if(!vampire_datum)
+		return FALSE
+
+	if(vampire_datum.coffin && vampire_datum.vampire_lair_area)
 		return TRUE
+
 	return FALSE
-
-//////////////////////////////////////////////////////////////////////////////////////
-
-// WIN CONDITIONS?
-// Handled by parent
-
-//////////////////////////////////////////////////////////////////////////////////////
-
 
 /// Vassalize a certain person / people
 /datum/objective/vampire/conversion
 	name = "vassalization"
 
-/////////////////////////////////
+/// Check Vassals and get their occupations
+/datum/objective/vampire/conversion/proc/get_vassal_occupations()
+	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	if(!length(vampire_datum?.vassals))
+		return FALSE
 
-// Vassalize a head of staff
+	var/list/all_vassal_jobs = list()
+	for(var/datum/antagonist/vassal/vassal_datum in vampire_datum.vassals)
+		if(!vassal_datum.owner)
+			continue
+
+		var/datum/mind/vassal_mind = vassal_datum.owner
+
+		// Mind Assigned
+		if(vassal_mind.assigned_role)
+			all_vassal_jobs += SSjob.GetJob(vassal_mind.assigned_role)
+			continue
+		// Mob Assigned
+		if(vassal_mind.current?.job)
+			all_vassal_jobs += SSjob.GetJob(vassal_mind.current.job)
+			continue
+		// PDA Assigned
+		if(ishuman(vassal_mind.current))
+			var/mob/living/carbon/human/human_vassal = vassal_mind.current
+			all_vassal_jobs += SSjob.GetJob(human_vassal.get_assignment())
+			continue
+
+	return all_vassal_jobs
+
+/**
+ * Vassalize a head of staff
+ */
 /datum/objective/vampire/conversion/command
 	name = "vassalizationcommand"
 	explanation_text = "Guarantee a Vassal ends up as a Department Head or in a Leadership role."
 	target_amount = 1
 
-// WIN CONDITIONS?
 /datum/objective/vampire/conversion/command/check_completion()
-	var/list/vassal_jobs = get_vassal_occupations()
+	var/list/datum/job/vassal_jobs = get_vassal_occupations()
 	for(var/datum/job/checked_job in vassal_jobs)
 		if(checked_job.departments & DEPT_BITFLAG_COM)
-			return TRUE // We only need one, so we stop as soon as we get a match
+			return TRUE
+
 	return FALSE
 
-/////////////////////////////////
-
-// Vassalize crewmates in a department
+/**
+ * Vassalize crewmembers in a specific department
+ */
 /datum/objective/vampire/conversion/department
 	name = "vassalize department"
 
@@ -117,12 +110,22 @@
 // GENERATE!
 /datum/objective/vampire/conversion/department/New()
 	target_department = pick(possible_departments)
-	target_amount = rand(2, 3)
+
+	// Don't assign more vassalizations than possible
+	var/vassal_max = 0
+	switch(length(GLOB.joined_player_list))
+		if(1 to 20)
+			vassal_max = 1
+		if(21 to 30)
+			vassal_max = 3
+		if(31 to INFINITY)
+			vassal_max = 4
+	target_amount = min(rand(2, 3), vassal_max)
 	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/conversion/department/update_explanation_text()
-	explanation_text = "Have [target_amount] Vassal[target_amount == 1 ? "" : "s"] in the [target_department] department."
+	explanation_text = "Have [target_amount] Vassal\s in the [target_department] department."
 	return ..()
 
 // WIN CONDITIONS?
@@ -154,7 +157,7 @@
 // GENERATE!
 /datum/objective/vampire/heartthief/New()
 	target_amount = rand(2,3)
-	..()
+	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/heartthief/update_explanation_text()
@@ -186,7 +189,7 @@
 // GENERATE!
 /datum/objective/vampire/gourmand/New()
 	target_amount = rand(450,650)
-	..()
+	return ..()
 
 // EXPLANATION
 /datum/objective/vampire/gourmand/update_explanation_text()
@@ -232,89 +235,58 @@
 		return TRUE
 	return FALSE
 
+//////////////////////////////////////////////
+//                                          //
+//              CLAN OBJECTIVES             //
+//                                          //
+//////////////////////////////////////////////
 
-
-//////////////////////////////
-//     CLAN OBJECTIVES      //
-//////////////////////////////
-
-/// Steal the Archive of the Kindred - Nosferatu Clan objective
+/**
+ * Nosferatu
+ */
 /datum/objective/vampire/kindred
 	name = "steal kindred"
-
-// EXPLANATION
-/datum/objective/vampire/kindred/update_explanation_text()
-	. = ..()
 	explanation_text = "Ensure Nosferatu steals and keeps control over the Archive of the Kindred."
 
-// WIN CONDITIONS?
 /datum/objective/vampire/kindred/check_completion()
-	if(!owner.current)
-		return FALSE
-	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(!vampiredatum)
-		return FALSE
-
 	for(var/datum/mind/vampire_minds as anything in get_antag_minds(/datum/antagonist/vampire))
 		var/obj/item/book/kindred/the_book = locate() in vampire_minds.current.get_contents()
 		if(the_book)
 			return TRUE
+
 	return FALSE
 
-//////////////////////////////////////////////////////////////////////////////////////
-
-/// Max out a Tremere Power - Tremere Clan objective
+/**
+ * Tremere
+ */
 /datum/objective/vampire/tremere_power
 	name = "tremerepower"
-
-// EXPLANATION
-/datum/objective/vampire/tremere_power/update_explanation_text()
 	explanation_text = "Upgrade a Blood Magic power to the maximum level, remember that Vassalizing gives more Ranks!"
 
-// WIN CONDITIONS?
 /datum/objective/vampire/tremere_power/check_completion()
-	var/datum/antagonist/vampire/vampiredatum = owner.has_antag_datum(/datum/antagonist/vampire)
-	for(var/datum/action/vampire/targeted/tremere/tremere_powers in vampiredatum.powers)
-		if(tremere_powers.level_current >= 5)
+	var/datum/antagonist/vampire/vampire_datum = IS_VAMPIRE(owner.current)
+	for(var/datum/action/vampire/targeted/tremere/tremere_power in vampire_datum.powers)
+		if(tremere_power.level_current >= 5)
 			return TRUE
+
 	return FALSE
 
-//////////////////////////////////////////////////////////////////////////////////////
-
-/// Convert a crewmate - Ventrue Clan objective
+/**
+ * Ventrue
+ */
 /datum/objective/vampire/embrace
 	name = "embrace"
-
-// EXPLANATION
-/datum/objective/vampire/embrace/update_explanation_text()
-	. = ..()
 	explanation_text = "Use the persuasion rack to Rank your Favorite Vassal up enough to become a Vampire."
 
-// WIN CONDITIONS?
-/datum/objective/vampire/embrace/check_completion()
-	var/datum/antagonist/vampire/vampiredatum = owner.current.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(!vampiredatum)
-		return FALSE
-	for(var/datum/antagonist/vassal/vassaldatum in vampiredatum.vassals)
-		if(IS_FAVORITE_VASSAL(vassaldatum.owner.current))
-			if(vassaldatum.owner.has_antag_datum(/datum/antagonist/vampire))
-				return TRUE
-	return FALSE
+// We set the objective to complete when we level up our favorite vassal into a vampire.
 
-
-
-//////////////////////////////
-//     VASSAL OBJECTIVES    //
-//////////////////////////////
-
+/**
+ * Vassal
+ */
 /datum/objective/vampire/vassal
-
-// EXPLANATION
-/datum/objective/vampire/vassal/update_explanation_text()
-	. = ..()
+	name = "assist master"
 	explanation_text = "Guarantee the success of your Master's mission!"
 
-// WIN CONDITIONS?
 /datum/objective/vampire/vassal/check_completion()
-	var/datum/antagonist/vassal/antag_datum = owner.has_antag_datum(/datum/antagonist/vassal)
-	return antag_datum.master?.owner?.current?.stat != DEAD
+	var/datum/antagonist/vassal/vassal_datum = IS_VASSAL(owner.current)
+	return vassal_datum.master?.owner?.current?.stat != DEAD

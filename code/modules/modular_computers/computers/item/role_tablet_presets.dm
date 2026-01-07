@@ -1,10 +1,11 @@
 /obj/item/modular_computer/tablet/pda/preset	//This needs to exist or else we can't really have empty PDA shells!
+	var/cell_type = /obj/item/computer_hardware/battery/tiny
 
 /obj/item/modular_computer/tablet/pda/preset/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/hard_drive/micro)
 	install_component(new /obj/item/computer_hardware/processor_unit/small)
-	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer/nano))
+	install_component(new cell_type)
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
@@ -35,7 +36,7 @@
 	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
 	ignore_theme_pref = TRUE
 
-/obj/item/modular_computer/tablet/pda/preset/clown/ComponentInitialize()
+/obj/item/modular_computer/tablet/pda/preset/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, PROC_REF(AfterSlip)), 5 SECONDS)
 
@@ -134,7 +135,7 @@
 	icon_state = "pda-science"
 	init_ringtone = "boom"
 
-/obj/item/modular_computer/tablet/pda/science/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/preset/science/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/radio_card)
 
@@ -237,6 +238,8 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	default_virus_defense = ANTIVIRUS_BEST
+	max_hardware_size = WEIGHT_CLASS_SMALL
+	cell_type = /obj/item/computer_hardware/battery/large
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	. = ..()
@@ -314,6 +317,7 @@
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-gold"
 	init_ringtone = "ch-CHING"
+	custom_price = 500
 
 /obj/item/modular_computer/tablet/pda/preset/unlicensed
 	name = "unlicensed PDA"
@@ -321,3 +325,18 @@
 	note = "Error: Unlicensed software detected. Please contact your supervisor."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/maint
 	icon_state = "pda-knockoff"
+
+/obj/item/modular_computer/tablet/pda/prisoner
+	name = "Prisoner PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a specially locked down variant for use by prisoners."
+	icon_state = "pda-prisoner"
+
+//This is silly
+/obj/item/modular_computer/tablet/pda/prisoner/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/hard_drive/inmate)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery/tiny)
+	install_component(new /obj/item/computer_hardware/card_slot)
+	install_component(new /obj/item/computer_hardware/identifier)
+	install_component(new /obj/item/computer_hardware/network_card)

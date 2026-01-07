@@ -4,6 +4,7 @@
 	icon = 'icons/mob/human.dmi'
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	COOLDOWN_DECLARE(special_emote_cooldown)
+	COOLDOWN_DECLARE(block_cooldown)
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -39,18 +40,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/mechanical_repair)
+	if(!CONFIG_GET(flag/disable_human_mood))
+		AddComponent(/datum/component/mood)
+
 	GLOB.human_list += src
 
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
-	randomize_human(src, TRUE)
+	randomize_human(src)
 	dna.initialize_dna()
-
-/mob/living/carbon/human/ComponentInitialize()
-	. = ..()
-	if(!CONFIG_GET(flag/disable_human_mood))
-		AddComponent(/datum/component/mood)
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
@@ -58,7 +57,6 @@
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 	return ..()
-
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -106,6 +104,64 @@
 	return ..()
 
 /mob/living/carbon/human/Topic(href, href_list)
+	if(href_list["see_id"])
+		var/mob/viewer = usr
+		var/can_see_still = (viewer in viewers(src))
+
+		var/obj/item/card/id/id = wear_id?.GetID()
+		if(!istype(id))
+			id = get_active_held_item()
+		if(!istype(id))
+			id = get_inactive_held_item()
+
+		var/same_id = istype(id) && (href_list["id_ref"] == REF(id) || href_list["id_name"] == id.registered_name)
+		if(!same_id && can_see_still)
+			to_chat(viewer, span_notice("[p_They()] [p_are()] no longer wearing that ID card."))
+			return
+
+		var/viable_time = can_see_still ? 3 MINUTES : 1 MINUTES // assuming 3min is the length of a hop line visit - give some leeway if they're still in sight
+		if(!same_id || (text2num(href_list["examine_time"]) + viable_time) < world.time)
+			to_chat(viewer, span_notice("You don't have that good of a memory. Examine [p_them()] again."))
+			return
+		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+			to_chat(viewer, span_notice("You can't make out that ID anymore."))
+			return
+		if(!isobserver(viewer) && get_dist(viewer, src) > ID_EXAMINE_DISTANCE + 1) // leeway, ignored if the viewer is a ghost
+			to_chat(viewer, span_notice("You can't make out that ID from here."))
+			return
+
+		var/id_name = id.registered_name
+		var/id_age = id.registered_age
+		var/id_job = id.assignment
+		// Should probably be recorded on the ID, but this is easier (albiet more restrictive) on chameleon ID users
+		var/datum/record/crew/record = find_record(id_name, GLOB.manifest.general)
+		var/id_blood_type = record?.blood_type
+		var/id_gender = record?.gender
+		var/id_species = record?.species
+		var/id_icon = jointext(id.get_id_examine_strings(viewer), "")
+		// Fill in some blanks for chameleon IDs to maintain the illusion of a real ID
+		if(istype(id, /obj/item/card/id/syndicate))
+			id_gender ||= gender
+			id_species ||= dna.species.name
+			id_blood_type ||= dna.blood_type?.name
+
+		var/id_examine = span_slightly_larger(separator_hr("This is <em>[src]'s ID card</em>."))
+		id_examine += "<div class='img_by_text_container'>"
+		id_examine += "[id_icon]"
+		id_examine += "<div class='img_text'>"
+		id_examine += jointext(list(
+			"&bull; Name: [id_name || "Unknown"]",
+			"&bull; Job: [id_job || "Unassigned"]",
+			"&bull; Age: [id_age || "Unknown"]",
+			"&bull; Gender: [id_gender || "Unknown"]",
+			"&bull; Blood Type: [id_blood_type || "?"]",
+			"&bull; Species: [id_species || "Unknown"]",
+		), "<br>")
+		id_examine += "</div>" // container
+		id_examine += "</div>" // text
+
+		to_chat(viewer, examine_block(span_info(id_examine)))
+
 	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
 		if(!L)
@@ -323,7 +379,7 @@
 		return FALSE
 	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
 	var/require_thickness = (injection_flags & INJECT_CHECK_PENETRATE_THICK)
-	for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
+	for(var/obj/item/clothing/iter_clothing in get_clothing_on_part(the_part))
 		// If it has armour, it has enough thickness to block basic things
 		if(!require_thickness && (iter_clothing.get_armor().get_rating(MELEE) >= 20 || iter_clothing.get_armor().get_rating(BULLET) >= 20))
 			if (user && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE))
@@ -438,7 +494,6 @@
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
 				step_towards(hand, src)
 				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
-	rad_act(current_size * 3)
 
 #define CPR_PANIC_SPEED (0.8 SECONDS)
 
@@ -529,10 +584,10 @@
 
 	if(gloves)
 		if(gloves.wash(clean_types))
-			update_inv_gloves()
+			update_worn_gloves()
 	else if((clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0)
 		blood_in_hands = 0
-		update_inv_gloves()
+		update_worn_gloves()
 
 	return TRUE
 
@@ -555,12 +610,12 @@
 		. = TRUE
 
 	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
-		update_inv_glasses()
+		update_worn_glasses()
 		. = TRUE
 
 	var/list/obscured = check_obscured_slots()
 	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
-		update_inv_wear_mask()
+		update_worn_mask()
 		. = TRUE
 
 /**
@@ -571,18 +626,18 @@
 
 	// Wash equipped stuff that cannot be covered
 	if(wear_suit?.wash(clean_types))
-		update_inv_wear_suit()
+		update_worn_oversuit()
 		. = TRUE
 
 	if(belt?.wash(clean_types))
-		update_inv_belt()
+		update_worn_belt()
 		. = TRUE
 
 	// Check and wash stuff that can be covered
 	var/list/obscured = check_obscured_slots()
 
 	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && w_uniform.wash(clean_types))
-		update_inv_w_uniform()
+		update_worn_undersuit()
 		. = TRUE
 
 	if(!is_mouth_covered() && clean_lips())
@@ -591,7 +646,7 @@
 	// Wash hands if exposed
 	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(ITEM_SLOT_GLOVES in obscured))
 		blood_in_hands = 0
-		update_inv_gloves()
+		update_worn_gloves()
 		. = TRUE
 
 //Turns a mob black, flashes a skeleton overlay
@@ -701,27 +756,22 @@
 	for(var/t in get_disabled_limbs()) //Disabled limbs
 		hud_used.healthdoll.add_overlay(mutable_appearance('icons/hud/screen_gen.dmi', "[t]7"))
 
-/mob/living/carbon/human/fully_heal(admin_revive = FALSE)
-	dna?.species.spec_fully_heal(src)
-	if(admin_revive)
-		regenerate_limbs()
-		regenerate_organs()
-		if(ismoth(src))
-			REMOVE_TRAIT(src, TRAIT_MOTH_BURNT, "fire")
-	remove_all_embedded_objects()
-	set_heartattack(FALSE)
-	drunkenness = 0
-	for(var/datum/mutation/HM as() in dna.mutations)
-		if(HM.quality != POSITIVE)
-			dna.remove_mutation(HM.name)
-	coretemperature = get_body_temp_normal(apply_change=FALSE)
-	heat_exposure_stacks = 0
-	..()
+/mob/living/carbon/human/fully_heal(heal_flags = HEAL_ALL)
+	if(heal_flags & HEAL_NEGATIVE_MUTATIONS)
+		for(var/datum/mutation/human/existing_mutation in dna.mutations)
+			if(existing_mutation.quality != POSITIVE)
+				dna.remove_mutation(existing_mutation.name)
+
+	if(heal_flags & HEAL_TEMP)
+		coretemperature = get_body_temp_normal(apply_change = FALSE)
+		heat_exposure_stacks = 0
+
+	return ..()
 
 /mob/living/carbon/human/is_literate()
 	return TRUE
 
-/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1, toxic = 0)
+/mob/living/carbon/human/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = 0)
 	if(blood && HAS_TRAIT(src, TRAIT_NOBLOOD))
 		if(message)
 			visible_message(span_warning("[src] dry heaves!"), \
@@ -1033,7 +1083,7 @@
 		return FALSE
 	return ..()
 
-/mob/living/carbon/human/proc/stub_toe(var/power)
+/mob/living/carbon/human/proc/stub_toe(power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
 		power *= 0.5
 		src.emote("gasp")
@@ -1041,6 +1091,12 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
+
+/mob/living/carbon/human/get_exp_list(minutes)
+	. = ..()
+
+	if(mind.assigned_role in SSjob.name_occupations)
+		.[mind.assigned_role] = minutes
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

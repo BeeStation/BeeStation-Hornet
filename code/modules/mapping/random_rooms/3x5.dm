@@ -5,7 +5,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm042
 	name = "Delta Clutter 2"
@@ -30,7 +29,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm054
 	name = "Meta Clutter 3"
@@ -47,7 +45,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm054
 	name = "Meta Clutter 3"
@@ -138,7 +135,6 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	stock = 2
 
 /datum/map_template/random_room/sk_rdm104
 	name = "pill lottery"

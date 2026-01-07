@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Button, Icon, ImageButton, Input, NoticeBox, Section, Stack } from 'tgui-core/components';
+import {
+  Button,
+  Icon,
+  ImageButton,
+  Input,
+  NoticeBox,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { capitalizeAll, createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -41,8 +49,6 @@ interface ProductDisplayProps {
   stockSearch: string;
   setStockSearch: (search: string) => void;
   selectedCategory: string;
-  setSelectedCategory: (category: string) => void;
-  filteredCategories: Record<string, Category>;
 }
 
 interface ProductProps {
@@ -65,9 +71,14 @@ export const GearRequisition = () => {
 
   const { product_records = [], categories } = data;
 
-  const [selectedCategory, setSelectedCategory] = useState<string>(Object.keys(categories)[0]);
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    Object.keys(categories)[0],
+  );
   const [stockSearch, setStockSearch] = useState<string>('');
-  const stockSearchFn = createSearch(stockSearch, (item: ProductRecord) => item.name);
+  const stockSearchFn = createSearch(
+    stockSearch,
+    (item: ProductRecord) => item.name,
+  );
 
   let inventory: ProductRecord[] = [...product_records];
 
@@ -79,8 +90,10 @@ export const GearRequisition = () => {
   // Filter categories to only show ones that have products
   const filteredCategories = Object.fromEntries(
     Object.entries(categories).filter(([categoryName]) => {
-      return product_records.find((product) => product.category === categoryName);
-    })
+      return product_records.find(
+        (product) => product.category === categoryName,
+      );
+    }),
   );
 
   return (
@@ -96,19 +109,18 @@ export const GearRequisition = () => {
               stockSearch={stockSearch}
               setStockSearch={setStockSearch}
               selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              filteredCategories={filteredCategories}
             />
           </Stack.Item>
-          {stockSearch.length < 2 && Object.keys(filteredCategories).length > 1 && (
-            <Stack.Item>
-              <CategorySelector
-                categories={filteredCategories}
-                selectedCategory={selectedCategory}
-                onSelect={setSelectedCategory}
-              />
-            </Stack.Item>
-          )}
+          {stockSearch.length < 2 &&
+            Object.keys(filteredCategories).length > 1 && (
+              <Stack.Item>
+                <CategorySelector
+                  categories={filteredCategories}
+                  selectedCategory={selectedCategory}
+                  onSelect={setSelectedCategory}
+                />
+              </Stack.Item>
+            )}
         </Stack>
       </Window.Content>
     </Window>
@@ -132,7 +144,8 @@ export const UserDetails = () => {
         <Stack.Item grow>
           {hasAccess ? (
             <>
-              Welcome, <b>{user.name || 'Unknown'}</b>, <b>{user.job || 'Unemployed'}</b>!
+              Welcome, <b>{user.name || 'Unknown'}</b>,{' '}
+              <b>{user.job || 'Unemployed'}</b>!
               <br />
               Your balance is{' '}
               <b>
@@ -190,7 +203,8 @@ const ProductDisplay = (props: ProductDisplayProps) => {
           </Stack.Item>
           <LayoutToggle state={toggleLayout} setState={setToggleLayout} />
         </Stack>
-      }>
+      }
+    >
       {inventory
         .filter((product) => {
           if (!stockSearch && product.category) {
@@ -200,7 +214,11 @@ const ProductDisplay = (props: ProductDisplayProps) => {
           }
         })
         .map((product) => (
-          <Product key={product.path} fluid={toggleLayout === LAYOUT.List} product={product} />
+          <Product
+            key={product.path}
+            fluid={toggleLayout === LAYOUT.List}
+            product={product}
+          />
         ))}
     </Section>
   );
@@ -219,7 +237,9 @@ const Product = (props: ProductProps) => {
   const disabled = !canAfford;
 
   const baseProps = {
-    asset: product.icon ? undefined : (['vending32x32', product.path] as [string, string]),
+    asset: product.icon
+      ? undefined
+      : (['vending32x32', product.path] as [string, string]),
     dmIcon: product.icon,
     dmIconState: product.icon_state,
     disabled: disabled,
@@ -232,7 +252,11 @@ const Product = (props: ProductProps) => {
     },
   };
 
-  return fluid ? <ProductList {...baseProps} /> : <ProductGrid {...baseProps} />;
+  return fluid ? (
+    <ProductList {...baseProps} />
+  ) : (
+    <ProductGrid {...baseProps} />
+  );
 };
 
 const ProductGrid = (props: any) => {
@@ -249,7 +273,8 @@ const ProductGrid = (props: any) => {
           </Stack.Item>
           <Stack.Item color={'lightgray'}>∞</Stack.Item>
         </Stack>
-      }>
+      }
+    >
       {capitalizeAll(product.name)}
     </ImageButton>
   );
@@ -264,7 +289,11 @@ const ProductList = (props: any) => {
         <Stack.Item grow textAlign={'left'}>
           {capitalizeAll(product.name)}
         </Stack.Item>
-        <Stack.Item width={3.5} fontSize={0.8} color={'rgba(255, 255, 255, 0.5)'}>
+        <Stack.Item
+          width={3.5}
+          fontSize={0.8}
+          color={'rgba(255, 255, 255, 0.5)'}
+        >
           unlimited
         </Stack.Item>
         <Stack.Item width={3.5}>
@@ -288,12 +317,12 @@ const ProductPrice = (props: ProductPriceProps) => {
 
 const CATEGORY_COLORS: Record<string, string> = {
   'Mining Tools': 'green',
-  'Equipment': 'blue',
-  'Consumables': 'orange',
-  'Shelters': 'purple',
-  'Upgrades': 'yellow',
+  Equipment: 'blue',
+  Consumables: 'orange',
+  Shelters: 'purple',
+  Upgrades: 'yellow',
   'Mining Bot': 'teal',
-  'Novelty': 'pink',
+  Novelty: 'pink',
   'Weapons & Tools': 'red',
 };
 
@@ -308,7 +337,8 @@ const CategorySelector = (props: CategorySelectorProps) => {
           selected={name === selectedCategory}
           color={CATEGORY_COLORS[name]}
           icon={category.icon}
-          onClick={() => onSelect(name)}>
+          onClick={() => onSelect(name)}
+        >
           {name}
         </Button>
       ))}

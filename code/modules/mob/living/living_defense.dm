@@ -382,6 +382,13 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+///Called whenever a mob is hit with any electric baton to handle jittering and stuttering
+/mob/living/proc/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
+	if(!user.combat_mode)
+		return
+	apply_damage(initial(batong.force), initial(batong.damtype), affecting, armour_block)
+	playsound(src, initial(batong.hitsound), batong.get_clamped_volume(), TRUE)
+
 /*
  * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
  * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
@@ -397,7 +404,7 @@
 	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
-	if(status_flags & GODMODE || QDELETED(src))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || QDELETED(src))
 		return
 	if(GLOB.narsie && GLOB.narsie.souls_needed[src])
 		GLOB.narsie.souls_needed -= src
@@ -449,16 +456,6 @@
 	if(!used_item)
 		used_item = get_active_held_item()
 	..()
-
-/mob/living/proc/sethellbound()
-	if(mind)
-		mind.hellbound = TRUE
-		med_hud_set_status()
-		return TRUE
-	return FALSE
-
-/mob/living/proc/ishellbound()
-	return mind?.hellbound
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE

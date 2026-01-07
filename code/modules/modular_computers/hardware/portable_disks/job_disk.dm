@@ -1,7 +1,6 @@
 /obj/item/computer_hardware/hard_drive/role
 	name = "job data disk"
 	desc = "A disk meant to give a worker the needed programs to work."
-	power_usage = 0
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart"
 	w_class = WEIGHT_CLASS_TINY
@@ -9,7 +8,9 @@
 	max_capacity = 500
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
-	hotswap = TRUE
+	custom_price = 100
+	max_demand = 20
+	power_usage = 0
 	var/list/progs_to_store = list()
 	/// Job disk will ignore programs to instal if this is TRUE
 	var/dont_instal = FALSE
@@ -37,6 +38,8 @@
 
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
+		progs_to_store += new /datum/computer_file/program/power_monitor(src)
+		progs_to_store += new /datum/computer_file/program/gasrig_monitor(src)
 
 	if(disk_flags & DISK_NETWORK)	//Put this higher up so players see it easier and try to interact with it
 		progs_to_store += new /datum/computer_file/program/ntnetmonitor(src)
@@ -227,6 +230,7 @@
 	//Give the Captain...EVERYTHING! (except the remote airlock control)
 	disk_flags = ~(DISK_REMOTE_AIRLOCK)
 	spam_delay = 2
+	custom_price = 300
 
 /obj/item/computer_hardware/hard_drive/role/vip //the only purpose of this disk is to allow the VIP to be annoying
 	name = "\improper TWIT disk"

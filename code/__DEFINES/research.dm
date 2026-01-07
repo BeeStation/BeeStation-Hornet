@@ -82,7 +82,7 @@
 
 // Just slimin' here.
 // Warning: These defines are used for slime icon states, so if you
-// touch these names, remember to update icons/mob/simple/slimes.dmi!
+// touch these names, remember to update icons/mob/slimes.dmi!
 // AND icons/obj/food/slimecookies.dmi
 
 #define SLIME_TYPE_ADAMANTINE "adamantine"

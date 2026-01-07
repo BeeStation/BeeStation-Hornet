@@ -8,7 +8,7 @@
 	return fullname
 
 ///Returns a First name for the Vampire.
-/datum/antagonist/vampire/proc/SelectFirstName()
+/datum/antagonist/vampire/proc/select_first_name()
 	if(owner.current.gender == MALE)
 		vampire_name = pick(
 			"Desmond","Rudolph","Dracula","Vlad","Pyotr","Gregor",
@@ -35,13 +35,9 @@
 		)
 
 ///Returns a Title for the Vampire.
-/datum/antagonist/vampire/proc/SelectTitle(am_fledgling = 0, forced = FALSE)
+/datum/antagonist/vampire/proc/select_title()
 	// Already have Title
-	if(!forced && vampire_title != null)
-		return
-	// Titles [Master]
-	if(am_fledgling)
-		vampire_title = null
+	if(!isnull(vampire_title))
 		return
 	if(owner.current.gender == MALE)
 		vampire_title = pick(
@@ -70,9 +66,9 @@
 	to_chat(owner, span_announce("You have earned a title! You are now known as <i>[return_full_name()]</i>!"))
 
 ///Returns a Reputation for the Vampire.
-/datum/antagonist/vampire/proc/SelectReputation(am_fledgling = FALSE, forced = FALSE)
+/datum/antagonist/vampire/proc/select_reputation(am_fledgling = FALSE, forced = FALSE)
 	// Already have Reputation
-	if(!forced && vampire_reputation != null)
+	if(!forced && !isnull(vampire_reputation))
 		return
 
 	if(am_fledgling)

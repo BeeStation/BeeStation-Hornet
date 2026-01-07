@@ -1,9 +1,21 @@
 import { BooleanLike } from 'common/react';
 import { multiline } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Divider, Icon, Input, NoticeBox, ProgressBar, Section, Stack } from '../components';
-import { Window } from '../layouts';
 import { ReactNode } from 'react';
+
+import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Dimmer,
+  Divider,
+  Icon,
+  Input,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+} from '../components';
+import { Window } from '../layouts';
 
 enum SpellCategory {
   Offensive = 'Offensive',
@@ -72,12 +84,14 @@ const TAB2NAME: TabType[] = [
   },
   {
     title: 'Defensive',
-    blurb: "Spells and items geared towards improving your survivability or reducing foes' ability to attack.",
+    blurb:
+      "Spells and items geared towards improving your survivability or reducing foes' ability to attack.",
     scrollable: true,
   },
   {
     title: 'Mobility',
-    blurb: 'Spells and items geared towards improving your ability to move. It is a good idea to take at least one.',
+    blurb:
+      'Spells and items geared towards improving your ability to move. It is a good idea to take at least one.',
     scrollable: true,
   },
   {
@@ -88,7 +102,8 @@ const TAB2NAME: TabType[] = [
   },
   {
     title: 'Rituals',
-    blurb: 'These powerful spells change the very fabric of reality. Not always in your favour.',
+    blurb:
+      'These powerful spells change the very fabric of reality. Not always in your favour.',
     scrollable: true,
   },
   {
@@ -99,7 +114,8 @@ const TAB2NAME: TabType[] = [
   },
   {
     title: 'Randomize',
-    blurb: "If you didn't like the loadouts offered, you can embrace chaos. Not recommended for newer wizards.",
+    blurb:
+      "If you didn't like the loadouts offered, you can embrace chaos. Not recommended for newer wizards.",
     component: () => <Randomize />,
   },
 ];
@@ -121,7 +137,14 @@ const EnscribedName = (props) => {
   const { owner } = data;
   return (
     <>
-      <Box mt={25} mb={-3} fontSize="50px" color="bad" textAlign="center" fontFamily="Ink Free">
+      <Box
+        mt={25}
+        mb={-3}
+        fontSize="50px"
+        color="bad"
+        textAlign="center"
+        fontFamily="Ink Free"
+      >
         {owner}
       </Box>
       <Divider />
@@ -135,10 +158,28 @@ const TableOfContents = (props) => {
   const [tabIndex, setTabIndex] = useLocalState('tab-index', 1);
   return (
     <Box textAlign="center">
-      <Button lineHeight={lineHeightToc} fluid icon="pen" disabled content="Name Enscription" />
-      <Button lineHeight={lineHeightToc} fluid icon="clipboard" disabled content="Table of Contents" />
+      <Button
+        lineHeight={lineHeightToc}
+        fluid
+        icon="pen"
+        disabled
+        content="Name Enscription"
+      />
+      <Button
+        lineHeight={lineHeightToc}
+        fluid
+        icon="clipboard"
+        disabled
+        content="Table of Contents"
+      />
       <Divider />
-      <Button lineHeight={lineHeightToc} fluid icon="fire" content="Deadly Evocations" onClick={() => setTabIndex(3)} />
+      <Button
+        lineHeight={lineHeightToc}
+        fluid
+        icon="fire"
+        content="Deadly Evocations"
+        onClick={() => setTabIndex(3)}
+      />
       <Button
         lineHeight={lineHeightToc}
         fluid
@@ -154,9 +195,21 @@ const TableOfContents = (props) => {
         content="Magical Transportation"
         onClick={() => setTabIndex(5)}
       />
-      <Button lineHeight={lineHeightToc} fluid icon="users" content="Assistance and Summoning" onClick={() => setTabIndex(6)} />
+      <Button
+        lineHeight={lineHeightToc}
+        fluid
+        icon="users"
+        content="Assistance and Summoning"
+        onClick={() => setTabIndex(6)}
+      />
       <Divider />
-      <Button lineHeight={lineHeightToc} fluid icon="magic" content="Rituals" onClick={() => setTabIndex(7)} />
+      <Button
+        lineHeight={lineHeightToc}
+        fluid
+        icon="magic"
+        content="Rituals"
+        onClick={() => setTabIndex(7)}
+      />
       <Divider />
       <Button
         lineHeight={lineHeightToc}
@@ -165,7 +218,13 @@ const TableOfContents = (props) => {
         content="Wizard Approved Loadouts"
         onClick={() => setTabIndex(8)}
       />
-      <Button lineHeight={lineHeightToc} fluid icon="dice" content="Arcane Randomizer" onClick={() => setTabIndex(9)} />
+      <Button
+        lineHeight={lineHeightToc}
+        fluid
+        icon="dice"
+        content="Arcane Randomizer"
+        onClick={() => setTabIndex(9)}
+      />
     </Box>
   );
 };
@@ -320,8 +379,9 @@ const Randomize = (props) => {
     <Stack fill vertical>
       {points < 10 && <PointLocked />}
       <Stack.Item>
-        Choosing to randomize will give some bonus points and buy a random selection of spells. This is not reversible, it
-        disables refunding, and will not buy staves, wands, or similar magical items.
+        Choosing to randomize will give some bonus points and buy a random
+        selection of spells. This is not reversible, it disables refunding, and
+        will not buy staves, wands, or similar magical items.
       </Stack.Item>
       <Stack.Item>
         <Button.Confirm
@@ -360,7 +420,7 @@ const SearchSpells = (props) => {
         entry.desc.toLowerCase().includes(searchStatement) ||
         // Also opting to include category
         // so you can search "rituals" to see them all at once
-        entry.cat.toLowerCase().includes(searchStatement)
+        entry.cat.toLowerCase().includes(searchStatement),
     );
   };
 
@@ -427,10 +487,15 @@ const SpellTabDisplay = (props: { TabSpells: SpellEntry[] }) => {
                   icon="tshirt"
                   color={entry.requires_wizard_garb ? 'bad' : 'green'}
                   tooltipPosition="bottom-start"
-                  tooltip={entry.requires_wizard_garb ? 'Requires wizard garb.' : 'Can be cast without wizard garb.'}
+                  tooltip={
+                    entry.requires_wizard_garb
+                      ? 'Requires wizard garb.'
+                      : 'Can be cast without wizard garb.'
+                  }
                 />
               )
-            }>
+            }
+          >
             <Stack>
               <Stack.Item grow>{entry.desc}</Stack.Item>
               <Stack.Item>
@@ -492,7 +557,11 @@ const CategoryDisplay = (props: { ActiveCat: TabType }) => {
             </Box>
           </Stack.Item>
         )}
-        <Stack.Item>{(ActiveCat.component && ActiveCat.component()) || <SpellTabDisplay TabSpells={TabSpells} />}</Stack.Item>
+        <Stack.Item>
+          {(ActiveCat.component && ActiveCat.component()) || (
+            <SpellTabDisplay TabSpells={TabSpells} />
+          )}
+        </Stack.Item>
       </Stack>
     </>
   );
@@ -562,8 +631,13 @@ export const Spellbook = (props) => {
                     height={heightSection}
                     fill
                     buttons={
-                      <Button content={`Stop ${SelectedVerb}`} icon="arrow-rotate-left" onClick={() => setSpellSearch('')} />
-                    }>
+                      <Button
+                        content={`Stop ${SelectedVerb}`}
+                        icon="arrow-rotate-left"
+                        onClick={() => setSpellSearch('')}
+                      />
+                    }
+                  >
                     <SearchSpells />
                   </Section>
                 </Stack.Item>
@@ -583,7 +657,12 @@ export const Spellbook = (props) => {
                           content="Previous Page"
                           onClick={() => setTabIndex(tabIndex - 1)}
                         />
-                        <Button disabled={tabIndex === 2} icon="home" content="TOC" onClick={() => setTabIndex(2)} />
+                        <Button
+                          disabled={tabIndex === 2}
+                          icon="home"
+                          content="TOC"
+                          onClick={() => setTabIndex(2)}
+                        />
                         <Button
                           icon="arrow-right"
                           disabled={tabIndex === 9}
@@ -591,7 +670,8 @@ export const Spellbook = (props) => {
                           onClick={() => setTabIndex(tabIndex + 1)}
                         />
                       </>
-                    }>
+                    }
+                  >
                     <CategoryDisplay ActiveCat={ActiveCat} />
                   </Section>
                 </Stack.Item>
@@ -602,7 +682,9 @@ export const Spellbook = (props) => {
             <Section>
               <Stack>
                 <Stack.Item grow>
-                  <ProgressBar value={points / 10}>{points + ' points left to spend.'}</ProgressBar>
+                  <ProgressBar value={points / 10}>
+                    {points + ' points left to spend.'}
+                  </ProgressBar>
                 </Stack.Item>
                 <Stack.Item>
                   <Input

@@ -24,7 +24,7 @@
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5
@@ -460,7 +460,7 @@
 // SPIDER ACTIONS/PROCS
 
 /datum/action/innate/spider
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = null
 	background_icon_state = "bg_alien"
 	check_flags = AB_CHECK_CONSCIOUS
@@ -549,7 +549,7 @@
 	desc = "Wrap something or someone in a cocoon. If it's a human or similar species, \
 		you'll also consume them, allowing you to lay enriched eggs."
 	background_icon_state = "bg_alien"
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "wrap_0"
 	check_flags = AB_CHECK_CONSCIOUS
 	requires_target = TRUE
@@ -744,7 +744,7 @@
 	name = "Throw web"
 	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
 	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
-	icon_icon = 'icons/hud/actions/actions_animal.dmi'
+	button_icon = 'icons/hud/actions/actions_animal.dmi'
 	button_icon_state = "throw_web_0"
 	background_icon_state = "bg_alien"
 	cooldown_time = 2 SECONDS

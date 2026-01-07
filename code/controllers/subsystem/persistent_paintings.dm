@@ -84,7 +84,9 @@
 
 SUBSYSTEM_DEF(persistent_paintings)
 	name = "Persistent Paintings"
-	init_order = INIT_ORDER_PERSISTENT_PAINTINGS
+	dependencies = list(
+		/datum/controller/subsystem/persistence,
+	)
 	flags = SS_NO_FIRE
 
 	/// A list of painting frames that this controls
@@ -105,7 +107,7 @@ SUBSYSTEM_DEF(persistent_paintings)
 	for(var/obj/structure/sign/painting/painting_frame as anything in painting_frames)
 		painting_frame.load_persistent()
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /**
  * Generates painting data ready to be consumed by ui.

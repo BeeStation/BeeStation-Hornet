@@ -14,6 +14,7 @@
 	azimuth_angle_2 = 180
 	door_anim_time = 5
 	door_hinge = 5
+	custom_price = 190
 
 /obj/structure/closet/crate/coffin/examine(mob/user)
 	. = ..()
@@ -196,11 +197,11 @@
 
 	// Vampire functionality
 	if(user in src)
-		var/datum/antagonist/vampire/vampiredatum = IS_VAMPIRE(user)
-		if(!vampiredatum)
+		var/datum/antagonist/vampire/vampire = IS_VAMPIRE(user)
+		if(!vampire)
 			return FALSE
 
-		if(!vampiredatum.coffin && !resident)
+		if(!vampire.coffin && !resident)
 			switch(tgui_alert(user, "Do you wish to claim this as your coffin? [get_area(src)] will be your lair.", "Claim Lair", list("Yes", "No")))
 				if("Yes")
 					claim_coffin(user)
@@ -209,13 +210,13 @@
 		LockMe(user)
 
 		// If we're in a clan, level up. If not, choose a clan.
-		if(vampiredatum.my_clan)
-			vampiredatum.spend_rank()
+		if(vampire.my_clan)
+			vampire.my_clan.spend_rank()
 		else
-			vampiredatum.assign_clan_and_bane()
+			vampire.assign_clan_and_bane()
 
 		// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the opportunity to do so.
-		vampiredatum.check_begin_torpor()
+		vampire.check_begin_torpor()
 
 /// You cannot weld or deconstruct an owned coffin. Only the owner can destroy their own coffin.
 /obj/structure/closet/crate/coffin/attackby(obj/item/item, mob/user, params)

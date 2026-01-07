@@ -13,7 +13,7 @@
 	/// How much blood we can have at once, increases per level.
 	var/max_blood_volume = 600
 
-	/// Only created if vampire makes vassals
+	/// The vampire team, used for vassals
 	var/datum/team/vampire/vampire_team
 	/// The vampire's clan
 	var/datum/vampire_clan/my_clan
@@ -46,10 +46,7 @@
 	/// Vassals under my control. Periodically remove the dead ones.
 	var/list/datum/antagonist/vassal/vassals = list()
 	/// Special vassals I own, to not have double of the same type.
-	var/list/datum/antagonist/vassal/special_vassals = list(
-		// This is an unlockable vassal, this prevents normal vampires from making one.
-		DISCORDANT_VASSAL,
-	)
+	var/list/datum/antagonist/vassal/special_vassals = list()
 
 	/// The rank this vampire is at, used to level abilities and strength up
 	var/vampire_level = 0
@@ -190,16 +187,13 @@
 	SIGNAL_HANDLER
 	var/datum/hud/vampire_hud = owner.current.hud_used
 
-	blood_display = new /atom/movable/screen/vampire/blood_counter()
-	blood_display.hud = vampire_hud
+	blood_display = new /atom/movable/screen/vampire/blood_counter(null, vampire_hud)
 	vampire_hud.infodisplay += blood_display
 
-	vamprank_display = new /atom/movable/screen/vampire/rank_counter()
-	vamprank_display.hud = vampire_hud
+	vamprank_display = new /atom/movable/screen/vampire/rank_counter(null, vampire_hud)
 	vampire_hud.infodisplay += vamprank_display
 
-	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter()
-	sunlight_display.hud = vampire_hud
+	sunlight_display = new /atom/movable/screen/vampire/sunlight_counter(null, vampire_hud)
 	vampire_hud.infodisplay += sunlight_display
 
 	vampire_hud.show_hud(vampire_hud.hud_version)
@@ -207,9 +201,9 @@
 
 /datum/antagonist/vampire/get_admin_commands()
 	. = ..()
-	.["Give Level"] = CALLBACK(src, PROC_REF(RankUp))
+	.["Give Level"] = CALLBACK(src, PROC_REF(rank_up))
 	if(vampire_level_unspent > 0)
-		.["Remove Level"] = CALLBACK(src, PROC_REF(RankDown))
+		.["Remove Level"] = CALLBACK(src, PROC_REF(rank_down))
 
 	if(broke_masquerade)
 		.["Fix Masquerade"] = CALLBACK(src, PROC_REF(fix_masquerade))
@@ -222,19 +216,19 @@
 		.["Add Clan"] = CALLBACK(src, PROC_REF(admin_set_clan))
 
 /datum/antagonist/vampire/on_gain()
-	RegisterSignal(SSsunlight, COMSIG_SOL_RANKUP_VAMPIRES, PROC_REF(sol_rank_up))
+	. = ..()
 	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_START, PROC_REF(sol_near_start))
 	RegisterSignal(SSsunlight, COMSIG_SOL_END, PROC_REF(on_sol_end))
+	RegisterSignal(SSsunlight, COMSIG_SOL_NEAR_END, PROC_REF(sol_near_end))
 	RegisterSignal(SSsunlight, COMSIG_SOL_RISE_TICK, PROC_REF(handle_sol))
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 
 	// Start Sol if we're the first vampire
 	check_start_sunlight()
 
-	// Set name and title
-	SelectFirstName()
-	SelectTitle(am_fledgling = TRUE)
-	SelectReputation(am_fledgling = TRUE)
+	// Set name and reputation
+	select_first_name()
+	select_reputation(am_fledgling = TRUE)
 
 	// Objectives
 	forge_objectives()
@@ -244,15 +238,13 @@
 	give_starting_powers()
 	assign_starting_stats()
 	owner.special_role = ROLE_VAMPIRE
-	. = ..()
 
-/// Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/vampire/on_removal()
-	UnregisterSignal(SSsunlight, list(COMSIG_SOL_RANKUP_VAMPIRES, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
+	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
 	clear_powers_and_stats()
 	check_cancel_sunlight()
 	owner.special_role = null
-	. = ..()
+	return ..()
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
@@ -299,7 +291,7 @@
 	owner.announce_objectives()
 
 	owner.current.playsound_local(null, 'sound/vampires/VampireAlert.ogg', 100, FALSE, pressure_affected = FALSE)
-	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>.<br>"
+	antag_memory += "Although you were born a mortal, in undeath you earned the name <b>[fullname]</b>."
 
 /datum/antagonist/vampire/farewell()
 	to_chat(owner.current, span_userdanger("With a snap, your curse has ended. You are no longer a Vampire. You live once more!"))
@@ -336,7 +328,7 @@
 
 		power_data["name"] = power.name
 		power_data["explanation"] = power.power_explanation
-		power_data["icon"] = power.button_icon
+		power_data["icon"] = power.background_icon
 		power_data["icon_state"] = power.button_icon_state
 
 		power_data["cost"] = power.bloodcost ? power.bloodcost : "0"
@@ -351,41 +343,40 @@
 	var/list/report = list()
 
 	// Vamp name
-	report += "<br>[span_header("<b> [return_full_name()] </b>")]"
+	report += "<br>[span_header(return_full_name())]"
 	report += printplayer(owner)
 	if(my_clan)
 		report += "They were part of the <b>[my_clan.name]</b>!"
 
 	// Default Report
 	var/objectives_complete = TRUE
-	if(objectives.len)
+	if(length(objectives))
 		report += printobjectives(objectives)
 		for(var/datum/objective/objective in objectives)
-			if(objective.name == "Optional Objective")
-				continue
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
 
 	// Now list their vassals
 	if(length(vassals))
-		report += span_header("Their Vassals were...")
-		for(var/datum/antagonist/vassal/all_vassals as anything in vassals)
-			if(!all_vassals.owner)
+		report += span_header("<br>Their Vassals were...")
+		for(var/datum/antagonist/vassal/vassal in vassals)
+			if(!vassal.owner)
 				continue
-			var/list/vassal_report = list()
-			vassal_report += "<b>[all_vassals.owner.name]</b>"
 
-			if(all_vassals.owner.assigned_role)
-				vassal_report += " the [all_vassals.owner.assigned_role]"
-			if(IS_FAVORITE_VASSAL(all_vassals.owner.current))
+			var/list/vassal_report = list()
+			vassal_report += "<b>[vassal.owner.name]</b>"
+
+			if(vassal.owner.assigned_role)
+				vassal_report += " the [vassal.owner.assigned_role]"
+			if(IS_FAVORITE_VASSAL(vassal.owner.current))
 				vassal_report += " and was the <b>Favorite Vassal</b>"
 			report += vassal_report.Join()
 
-	if(!length(objectives) || objectives_complete)
-		report += span_greentextbig("The [name] was successful!")
+	if(objectives_complete)
+		report += span_greentextbig("<br>The [name] was successful!")
 	else
-		report += span_redtextbig("The [name] has failed!")
+		report += span_redtextbig("<br>The [name] has failed!")
 
 	return report.Join("<br>")
 
@@ -393,7 +384,7 @@
 	for(var/datum/action/vampire/all_powers as anything in all_vampire_powers)
 		if(!(initial(all_powers.purchase_flags) & VAMPIRE_DEFAULT_POWER))
 			continue
-		BuyPower(new all_powers)
+		grant_power(new all_powers)
 
 /datum/antagonist/vampire/proc/assign_starting_stats()
 	var/mob/living/carbon/human/user = owner.current
@@ -444,7 +435,7 @@
 
 	// Powers
 	for(var/datum/action/vampire/all_powers as anything in powers)
-		RemovePower(all_powers)
+		remove_power(all_powers)
 
 	/// Stats
 	if(ishuman(owner.current))
@@ -495,6 +486,19 @@
 /datum/antagonist/vampire/antag_listing_name()
 	return ..() + return_full_name()
 
+/datum/action/antag_info/vampire
+	name = "Vampire Guide"
+	background_icon = 'icons/vampires/actions_vampire.dmi'
+	background_icon_state = "vamp_power_off"
+
+/datum/antagonist/vampire/make_info_button()
+	if(!ui_name)
+		return
+	var/datum/action/antag_info/vampire/info_button = new(src)
+	info_button.Grant(owner.current)
+	info_button_ref = WEAKREF(info_button)
+	return info_button
+
 /datum/antagonist/vampire/proc/forge_objectives()
 	// Claim a Lair Objective
 	var/datum/objective/vampire/lair/lair_objective = new
@@ -512,42 +516,30 @@
 			var/datum/objective/vampire/conversion/chosen_subtype = pick(subtypesof(/datum/objective/vampire/conversion))
 			var/datum/objective/vampire/conversion/conversion_objective = new chosen_subtype
 			conversion_objective.owner = owner
-			conversion_objective.name = "Optional Objective"
 			objectives += conversion_objective
 		if(2) // Heart Thief Objective
 			var/datum/objective/vampire/heartthief/heartthief_objective = new
 			heartthief_objective.owner = owner
-			heartthief_objective.name = "Optional Objective"
 			objectives += heartthief_objective
 		if(3) // Drink Blood Objective
 			var/datum/objective/vampire/gourmand/gourmand_objective = new
 			gourmand_objective.owner = owner
-			gourmand_objective.name = "Optional Objective"
 			objectives += gourmand_objective
 
 // Taken directly from changeling.dm
 /datum/antagonist/vampire/proc/check_blacklisted_species()
 	var/mob/living/carbon/carbon_owner = owner.current	//only carbons have dna now, so we have to typecaste
-	if(carbon_owner.dna.species.species_bitflags & NOT_TRANSMORPHIC)
+	if(HAS_TRAIT(carbon_owner, TRAIT_NOT_TRANSMORPHIC))
 		carbon_owner.set_species(/datum/species/human)
 		carbon_owner.fully_replace_character_name(carbon_owner.real_name, carbon_owner.client.prefs.read_character_preference(/datum/preference/name/backup_human))
 
 		for(var/datum/record/crew/record in GLOB.manifest.general)
 			if(record.name == carbon_owner.real_name)
-				record.species = "\improper Human"
+				record.species = carbon_owner.dna.species.name
 				record.gender = carbon_owner.gender
 
-				var/datum/picture/picture_south = new
-				var/datum/picture/picture_west = new
-
-				picture_south.picture_name = "[carbon_owner]"
-				picture_west.picture_name = "[carbon_owner]"
-				picture_south.picture_desc = "This is [carbon_owner]."
-				picture_west.picture_desc = "This is [carbon_owner]."
-
-				var/icon/image = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
-				picture_south.picture_image = icon(image, dir = SOUTH)
-				picture_west.picture_image = icon(image, dir = WEST)
+				//Not using carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 
 /datum/antagonist/vampire/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER

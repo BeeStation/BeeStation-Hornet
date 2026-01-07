@@ -21,7 +21,6 @@
 	energy = 80
 	bomb = 80
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 60
@@ -43,12 +42,12 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.electrocution_animation(20)
-	C.jitteriness += 1000
-	C.do_jitter_animation(C.jitteriness)
+	C.do_jitter_animation(300) // Maximum jitter
+	C.adjust_jitter(20 SECONDS)
 	C.stuttering += 1
 	spawn(20)
 	if(C)
-		C.jitteriness = max(C.jitteriness - 990, 10)
+		C.remove_status_effect(/datum/status_effect/jitter)
 
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
@@ -67,7 +66,6 @@
 	energy = -20
 	bomb = 60
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 30
@@ -95,7 +93,6 @@
 	energy = 20
 	bomb = 40
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 20
@@ -132,12 +129,12 @@
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			H.electrocution_animation(20)
-		C.jitteriness += 1000
-		C.do_jitter_animation(C.jitteriness)
+		C.do_jitter_animation(300) // Maximum jitter
+		C.adjust_jitter(20 SECONDS)
 		C.stuttering += 1
 		spawn(20)
 		if(C)
-			C.jitteriness = max(C.jitteriness - 990, 10)
+			C.remove_status_effect(/datum/status_effect/jitter)
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles
 	name = "wraith spectacles"
@@ -203,7 +200,6 @@
 	energy = 80
 	bomb = 80
 	bio = 100
-	rad = 100
 	fire = 100
 	acid = 100
 	stamina = 60

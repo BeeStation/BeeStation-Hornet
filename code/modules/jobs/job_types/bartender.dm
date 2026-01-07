@@ -10,7 +10,13 @@
 
 	outfit = /datum/outfit/job/bartender
 
-	base_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE, ACCESS_WEAPONS)
+	base_access = list(
+		ACCESS_BAR,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SERVICE,
+		ACCESS_THEATRE,
+		ACCESS_WEAPONS,
+	)
 	extra_access = list(ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_MORGUE)
 
 	departments = DEPT_BITFLAG_SRV
@@ -30,6 +36,11 @@
 		/area/crew_quarters/kitchen
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_BARTENDER,
+		JOB_NAME_CHEMIST // why not
+	)
+
 /datum/outfit/job/bartender
 	name = JOB_NAME_BARTENDER
 	jobtype = /datum/job/bartender
@@ -44,10 +55,10 @@
 	shoes = /obj/item/clothing/shoes/laceup
 
 
-/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visuals_only = FALSE)
 	..()
 
-	if(visualsOnly)
+	if(visuals_only)
 		return
 
 	ADD_TRAIT(H, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)

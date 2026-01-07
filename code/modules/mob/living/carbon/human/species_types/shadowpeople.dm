@@ -29,11 +29,11 @@
 	species_language_holder = /datum/language_holder/shadowpeople
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/shadow,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/shadow,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/shadow,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/shadow,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/shadow,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/shadow,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/shadow,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/shadow,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/shadow,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/shadow,
 	)
 
@@ -106,7 +106,7 @@
 	name = "Nightmare"
 	id = "nightmare"
 	burnmod = 1.5
-	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
+	no_equip_flags = ITEM_SLOT_OCLOTHING | ITEM_SLOT_GLOVES | ITEM_SLOT_FEET | ITEM_SLOT_ICLOTHING | ITEM_SLOT_SUITSTORE
 	species_traits = list(
 		NO_UNDERWEAR,
 		NOEYESPRITES,
@@ -125,12 +125,12 @@
 		TRAIT_NOHUNGER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NO_JUMPSUIT,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
 	mutantheart = /obj/item/organ/heart/nightmare
 	mutantbrain = /obj/item/organ/brain/nightmare
-	nojumpsuit = 1
 
 	var/info_text = "You are a " + span_danger("Nightmare") + ". The ability " + span_warning("shadow walk") + " allows unlimited, unrestricted movement in the dark while activated. \
 					Your " + span_warning("light eater") + " will destroy any light producing objects you attack, as well as destroy any lights a living creature may be holding. You will automatically dodge gunfire and melee attacks when on a dark tile. If killed, you will eventually revive if left in darkness."
@@ -231,7 +231,8 @@
 			respawn_progress += delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
-		owner.revive(full_heal = TRUE)
+		owner.revive(HEAL_ALL)
+
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
 			Remove(owner, HEART_SPECIAL_SHADOWIFY)
@@ -249,9 +250,9 @@
 	name = "light eater" //as opposed to heavy eater
 	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "arm_blade"
-	item_state = "arm_blade"
+	inhand_icon_state = "arm_blade"
 	force = 25
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
@@ -259,8 +260,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_DISMEMBER_EASY
 	bleed_force = BLEED_DEEP_WOUND
-	//Fuck you, *crowbars your evil thing
-	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()
@@ -538,7 +537,7 @@
 			respawn_progress += 0.75 * delta_time SECONDS
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
 	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
-		owner.revive(full_heal = TRUE)
+		owner.revive(HEAL_ALL)
 		if(!isshadow(owner))
 			var/mob/living/carbon/old_owner = owner
 			old_owner.set_species(/datum/species/shadow/blessed)
@@ -555,7 +554,7 @@
 // Shadow comms, copied from cult
 
 /datum/action/innate/shadow_comms
-	icon_icon = 'icons/hud/actions/action_generic.dmi'
+	button_icon = 'icons/hud/actions/action_generic.dmi'
 	background_icon_state = "bg_default"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS
 

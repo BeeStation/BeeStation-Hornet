@@ -8,7 +8,7 @@
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	mutantheart = /obj/item/organ/heart/ethereal
-	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
+	exotic_bloodtype = "E"
 	siemens_coeff = 0.5 //They thrive on energy
 	brutemod = 1.25 //They're weak to punches
 	attack_type = BURN //burn bish
@@ -33,11 +33,11 @@
 	inert_mutation = /datum/mutation/overload
 
 	bodypart_overrides = list(
-		BODY_ZONE_L_ARM = /obj/item/bodypart/l_arm/ethereal,
-		BODY_ZONE_R_ARM = /obj/item/bodypart/r_arm/ethereal,
+		BODY_ZONE_L_ARM = /obj/item/bodypart/arm/left/ethereal,
+		BODY_ZONE_R_ARM = /obj/item/bodypart/arm/right/ethereal,
 		BODY_ZONE_HEAD = /obj/item/bodypart/head/ethereal,
-		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg/ethereal,
-		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg/ethereal,
+		BODY_ZONE_L_LEG = /obj/item/bodypart/leg/left/ethereal,
+		BODY_ZONE_R_LEG = /obj/item/bodypart/leg/right/ethereal,
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest/ethereal,
 	)
 
@@ -100,11 +100,11 @@
 	. = ..()
 	if(!ethereal_light)
 		return
-	if(default_color != ethereal.dna.features["ethcolor"])
-		var/new_color = ethereal.dna.features["ethcolor"]
-		r1 = GETREDPART(new_color)
-		g1 = GETGREENPART(new_color)
-		b1 = GETBLUEPART(new_color)
+	var/dna_color = "#[ethereal.dna.features["ethcolor"]]"
+	if(default_color != dna_color)
+		r1 = GETREDPART(dna_color)
+		g1 = GETGREENPART(dna_color)
+		b1 = GETBLUEPART(dna_color)
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)
@@ -213,6 +213,13 @@
 	features += "feature_ethcolor"
 
 	return features
+
+/datum/species/ethereal/get_scream_sound(mob/living/carbon/human/ethereal)
+	return pick(
+		'sound/voice/ethereal/ethereal_scream_1.ogg',
+		'sound/voice/ethereal/ethereal_scream_2.ogg',
+		'sound/voice/ethereal/ethereal_scream_3.ogg',
+	)
 
 /datum/species/ethereal/get_species_description()
 	return "Ethereals are a unique species with liquid electricity for blood and a glowing body. They thrive on electricity, and are naturally agender."

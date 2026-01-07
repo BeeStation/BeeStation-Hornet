@@ -36,7 +36,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	laser = 50
 	energy = 50
 	bomb = 10
-	rad = 100
 	fire = 70
 	acid = 100
 
@@ -65,11 +64,9 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
-	AddElement(/datum/element/connect_loc, loc_connections)
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
-/obj/machinery/door/window/ComponentInitialize()
-	. = ..()
+	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/atmos_sensitive)
 	AddComponent(/datum/component/ntnet_interface)
 
@@ -355,18 +352,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 	if(..())
 		autoclose = FALSE
 
-/obj/machinery/door/window/try_to_crowbar(obj/item/crowbar, mob/user)
+/obj/machinery/door/window/try_to_crowbar(obj/item/acting_object, mob/user, forced = FALSE)
 	if(density)
-		if(!HAS_TRAIT(crowbar, TRAIT_DOOR_PRYER) && hasPower())
+		if(!HAS_TRAIT(acting_object, TRAIT_DOOR_PRYER) && hasPower())
 			to_chat(user, span_warning("The windoor's motors resist your efforts to force it!"))
 			return
 		else if(!hasPower())
 			to_chat(user, span_warning("You begin forcing open \the [src], the motors don't resist..."))
-			if(!crowbar.use_tool(src, user, 1 SECONDS))
+			if(!acting_object.use_tool(src, user, 1 SECONDS))
 				return
 		else
 			to_chat(user, span_warning("You begin forcing open \the [src]..."))
-			if(!crowbar.use_tool(src, user, 5 SECONDS))
+			if(!acting_object.use_tool(src, user, 5 SECONDS))
 				return
 		open(2)
 	else
@@ -465,7 +462,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 /datum/armor/window_clockwork
 	bomb = 10
 	bio = 100
-	rad = 100
 	fire = 70
 	acid = 100
 

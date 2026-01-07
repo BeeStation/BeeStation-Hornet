@@ -34,14 +34,13 @@
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_SPLIT_PERSONALITY,
-		poll_time = 10 SECONDS,
-		checked_target = owner,
-		jump_target = owner,
-		role_name_text = "[owner]'s split personality",
-		alert_pic = owner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_SPLIT_PERSONALITY
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s split personality"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
 
@@ -174,7 +173,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 	to_chat(src, span_notice("As a split personality, you cannot do anything but observe. However, you will eventually gain control of your body, switching places with the current personality."))
 	to_chat(src, span_warning("<b>Do not commit suicide or put the body in a deadly position. Behave like you care about it as much as the owner.</b>"))
 
-/mob/living/split_personality/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/split_personality/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	to_chat(src, span_warning("You cannot speak, your other self is controlling your body!"))
 	return FALSE
 
@@ -218,14 +217,13 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/split_personality)
 /datum/brain_trauma/severe/split_personality/brainwashing/get_ghost()
 	set waitfor = FALSE
 
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(
-		check_jobban = ROLE_TRAITOR,
-		poll_time = 10 SECONDS,
-		jump_target = owner,
-		checked_target = owner,
-		role_name_text = "[owner]'s brainwashed mind",
-		alert_pic = owner,
-	)
+	var/datum/poll_config/config = new()
+	config.check_jobban = ROLE_TRAITOR
+	config.poll_time = 10 SECONDS
+	config.jump_target = owner
+	config.role_name_text = "[owner]'s brainwashed mind"
+	config.alert_pic = owner
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_for_target(config, owner)
 	if(candidate)
 		stranger_backseat.key = candidate.key
 	else

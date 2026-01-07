@@ -7,6 +7,7 @@
 	size = 4
 	tgui_id = "NtosLogViewer"
 	program_icon = "database"
+	power_consumption = 20 WATT
 
 /datum/computer_file/program/log_viewer/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()

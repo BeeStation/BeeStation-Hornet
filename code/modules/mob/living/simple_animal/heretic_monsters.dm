@@ -72,7 +72,7 @@
 /datum/action/innate/hereticmob/change_sight_range
 	name = "Change Sight Range"
 	desc = "Change your sight range."
-	icon_icon = 'icons/obj/items_and_weapons.dmi'
+	button_icon = 'icons/obj/items_and_weapons.dmi'
 	button_icon_state = "binoculars"
 	background_icon_state = "bg_heretic"
 
@@ -271,7 +271,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/heretic_summon/a
 	AttackingTarget()
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/AttackingTarget()
-	if(istype(target, /obj/item/bodypart/r_arm) || istype(target, /obj/item/bodypart/l_arm))
+	if(istype(target, /obj/item/bodypart/arm/right) || istype(target, /obj/item/bodypart/arm/left))
 		playsound(src, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		qdel(target)
 		heal()

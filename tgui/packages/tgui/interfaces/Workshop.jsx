@@ -11,8 +11,14 @@ export const Workshop = (props) => {
         <Section
           title="Default Programs"
           buttons={
-            <Button icon="exclamation-triangle" content="Emergency Shutdown" color="bad" onClick={() => act('shutdown')} />
-          }>
+            <Button
+              icon="exclamation-triangle"
+              content="Emergency Shutdown"
+              color="bad"
+              onClick={() => act('shutdown')}
+            />
+          }
+        >
           {default_programs.map((def_program) => (
             <Button
               fluid

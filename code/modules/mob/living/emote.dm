@@ -16,7 +16,7 @@
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+	if(ishuman(user)) // Give them a visual blush effect if they're human
 		var/mob/living/carbon/human/human_user = user
 		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
 		human_user.update_body()
@@ -490,7 +490,7 @@
 	if(QDELETED(user))
 		return FALSE
 
-	if(user.client && user.client.prefs.muted & MUTE_IC)
+	if(user.client && user.client.player_details.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
 

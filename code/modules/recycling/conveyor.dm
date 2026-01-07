@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	desc = "A conveyor belt."
 	layer = GAS_PUMP_LAYER
 	processing_flags = NONE
+	trade_flags = TRADE_NOT_SELLABLE
 	isometric_mode = ISOMETRIC_FLATTEN
 	var/operating = 0	// 1 if running forward, -1 if backwards, 0 if off
 	var/operable = 1	// true if can operate (no broken segments in this belt run)
@@ -207,7 +208,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/conveyor)
 		moving_loop.delay = 0.2 SECONDS
 		return
 
-	var/static/list/unconveyables = typecacheof(list(/obj/effect, /mob/dead))
+	var/static/list/unconveyables = typecacheof(list(
+		/obj/effect,
+		/mob/dead,
+	))
 	if(!istype(moving) || is_type_in_typecache(moving, unconveyables) || moving == src)
 		return
 	moving.AddComponent(/datum/component/convey, movedir, 0.2 SECONDS)
