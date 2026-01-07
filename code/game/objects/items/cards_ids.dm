@@ -33,13 +33,6 @@
 /obj/item/card/proc/get_displayed_name(honorifics = FALSE)
 	return null
 
-/// If no cached_flat_icon exists, this proc creates it and crops it. This proc then returns the cached_flat_icon. Intended for use displaying ID card icons in chat.
-/obj/item/card/proc/get_cached_flat_icon()
-	if(!cached_flat_icon)
-		cached_flat_icon = getFlatIcon(src)
-		cached_flat_icon.Crop(1, 9, 32, 24)
-	return cached_flat_icon
-
 /obj/item/card/data
 	name = "data card"
 	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has a stripe running down the middle."
