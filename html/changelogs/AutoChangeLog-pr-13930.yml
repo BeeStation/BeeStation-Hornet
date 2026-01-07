@@ -1,0 +1,4 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Fixed examine not correctly assessing the status of a severed head
