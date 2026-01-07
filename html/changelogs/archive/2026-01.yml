@@ -13,5 +13,8 @@
 2026-01-07:
   DrDuckedGoose:
   - bugfix: Fixes plant trays not properly spawning mobs when exposed to Strange Reagent.
+  PowerfulBacon:
+  - bugfix: Fixes agent ID card not functioning correctly, and prevents examination
+      from giving them away.
   r1ks-iwnl:
   - bugfix: Fixed examine not correctly assessing the status of a severed head
