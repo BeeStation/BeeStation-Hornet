@@ -35294,7 +35294,7 @@
 "lFS" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Observation Lounge";
-	network_id = "loungebolt"
+	
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood,

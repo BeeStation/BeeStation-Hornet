@@ -5,7 +5,6 @@ SUBSYSTEM_DEF(atoms)
 		/datum/controller/subsystem/economy,
 		/datum/controller/subsystem/language,
 		/datum/controller/subsystem/mapping,
-		/datum/controller/subsystem/networks,
 		/datum/controller/subsystem/processing/greyscale,
 		/datum/controller/subsystem/vis_overlays,
 		/datum/controller/subsystem/xenoarchaeology,

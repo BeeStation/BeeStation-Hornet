@@ -83,9 +83,9 @@
  * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
  * * card = network card, will extract identification string and hardware ID from it later on (if log_id = TRUE).
  */
-/datum/computer_file/program/proc/generate_network_log(text, log_id = TRUE, obj/item/computer_hardware/network_card/card)
+/datum/computer_file/program/proc/generate_network_log(text)
 	if(computer)
-		return computer.add_log(text, log_id, card)	//This is important since Hardware_id wasn't working otherwise
+		return computer.add_log(text)	//This is important since Hardware_id wasn't working otherwise
 	return FALSE
 
 /**

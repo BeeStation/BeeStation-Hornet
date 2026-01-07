@@ -25,18 +25,14 @@
 			SSmodular_computers.intrusion_detection_enabled = !SSmodular_computers.intrusion_detection_enabled
 			return TRUE
 		if("toggle_relay")
-			var/obj/machinery/ntnet_relay/target_relay = locate(params["ref"]) in SSmodular_computers.ntnet_relays
+			var/obj/machinery/ntnet_relay/target_relay = locate(params["ref"]) in GLOB.ntnet_relays
 			if(!istype(target_relay))
 				return
 			target_relay.set_relay_enabled(!target_relay.relay_enabled)
 			return TRUE
 		if("purgelogs")
-			SSnetworks.purge_logs()
+			SSmodular_computers.purge_logs()
 			computer.add_log("SYSnotice :: LOGS PURGED! AUTHKEY :", TRUE, card)
-			return TRUE
-		if("updatemaxlogs")
-			var/logcount = params["new_number"]
-			SSnetworks.update_max_log_count(logcount)
 			return TRUE
 		if("toggle_mass_pda")
 			var/mob/user = ui.user
@@ -56,7 +52,7 @@
 	var/list/data = list()
 
 	data["ntnetrelays"] = list()
-	for(var/obj/machinery/ntnet_relay/relays as anything in SSmodular_computers.ntnet_relays)
+	for(var/obj/machinery/ntnet_relay/relays as anything in GLOB.ntnet_relays)
 		var/list/relay_data = list()
 		relay_data["is_operational"] = !!relays.is_operational
 		relay_data["name"] = relays.name
@@ -68,7 +64,7 @@
 	data["idsalarm"] = SSmodular_computers.intrusion_detection_alarm
 
 	data["ntnetlogs"] = list()
-	for(var/i in SSnetworks.logs)
+	for(var/i in SSmodular_computers.logs)
 		var/log_entry = i
 		var/log_color = "#ffffff"  //default white
 		var/entry_lower = LOWER_TEXT(log_entry)	// This will make sure lower case and upper case are treated the same for this purpose
@@ -86,7 +82,6 @@
 			"entry" = log_entry,
 			"color" = log_color,
 		))
-	data["ntnetmaxlogs"] = SSnetworks.setting_maxlogcount
 
 	data["tablets"] = list()
 	for(var/obj/item/modular_computer/messenger as anything in GetViewableDevices())
@@ -103,10 +98,4 @@
 
 		data["tablets"] += list(tablet_data)
 
-	return data
-
-/datum/computer_file/program/ntnetmonitor/ui_static_data(mob/user)
-	var/list/data = ..()
-	data["minlogs"] = MIN_NTNET_LOGS
-	data["maxlogs"] = MAX_NTNET_LOGS
 	return data

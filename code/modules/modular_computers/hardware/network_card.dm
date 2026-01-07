@@ -3,7 +3,6 @@
 	desc = "A basic wireless network card for usage with standard NTNet frequencies."
 	power_usage = 1  // Watts per second
 	icon_state = "radio_mini"
-	network_id = NETWORK_CARDS	// Network we are on
 	var/hardware_id = null	// Identification ID. Technically MAC address of this device. Can't be changed by user.
 	var/identification_string = "nt_card_SFS" 	// Default Identification string, like half an IP.
 	/// Type of signal, High requires no Tcoms in Z-level, Lan is always on
@@ -65,8 +64,9 @@
 		return 3
 	if(signal_level == SIGNAL_HACKED)
 		return 4
-	if(!SSmodular_computers.check_relay_operation()) // NTNet is down and we are not connected via wired connection. No signal.
-		return 0
+	// NTNet is down and we are not connected via wired connection. No signal.
+	if(!find_functional_ntnet_relay())
+		return NTNET_NO_SIGNAL
 	if(holder)
 		var/turf/T = get_turf(holder)
 		if((T && istype(T)) && (is_station_level(T.z) || is_mining_level(T.z)))

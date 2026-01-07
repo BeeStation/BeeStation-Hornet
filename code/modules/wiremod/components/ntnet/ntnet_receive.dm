@@ -16,20 +16,18 @@
 	/// Encryption key
 	var/datum/port/input/enc_key
 
-/obj/item/circuit_component/ntnet_receive/Initialize(mapload)
-	. = ..()
-	init_network_id(__NETWORK_CIRCUITS)
-
 /obj/item/circuit_component/ntnet_receive/populate_ports()
 	data_package = add_output_port("Data Package", PORT_TYPE_LIST)
 	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
+	RegisterSignal(SSdcs, COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT, PROC_REF(ntnet_receive))
 
-/obj/item/circuit_component/ntnet_receive/proc/ntnet_receive(datum/source, datum/netdata/data)
+/obj/item/circuit_component/ntnet_receive/proc/ntnet_receive(obj/item/circuit_component/ntnet_send/source, list/data)
 	SIGNAL_HANDLER
 
-	if(data.data["enc_key"] != enc_key.value)
+	if(!find_functional_ntnet_relay())
+		return
+	if(data["enc_key"] != enc_key.value)
 		return
 
-	data_package.set_output(data.data["data"])
+	data_package.set_output(data["data"])
 	trigger_output.set_output(COMPONENT_SIGNAL)

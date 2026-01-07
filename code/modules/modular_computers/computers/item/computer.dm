@@ -628,20 +628,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
  * Passes a message to be logged by SSnetworks
  *
  * Should a Modular want to create a log on the network this is the proc to use
- * it will pass all its information onto SSnetworks which have their own add_log proc.
- * It will automatically apply the network argument on its own.
+ * it will pass all its information onto SSmodular_computers which handles logging.
  * Arguments:
  * * text - message to log
- * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
- * * card = network card, will extract identification string and hardware ID from it (if log_id = TRUE).
  */
-/obj/item/modular_computer/proc/add_log(text, log_id = FALSE, obj/item/computer_hardware/network_card/card)
+/obj/item/modular_computer/proc/add_log(text)
 	if(!get_ntnet_status())
 		return FALSE
-	if(!card)
-		card = all_components[MC_NET]
-	return SSnetworks.add_log("[src]: [text]", card.GetComponent(/datum/component/ntnet_interface).network, card.hardware_id, log_id, card)
-	// We also return network_card so SSnetworks can extract values from it itself
+	return SSmodular_computers.add_log("[src]: [text]")
+
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
 	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)

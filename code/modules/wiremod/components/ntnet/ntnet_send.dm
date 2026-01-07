@@ -17,13 +17,11 @@
 	/// Encryption key
 	var/datum/port/input/enc_key
 
-/obj/item/circuit_component/ntnet_send/Initialize(mapload)
-	. = ..()
-	init_network_id(__NETWORK_CIRCUITS)
-
 /obj/item/circuit_component/ntnet_send/populate_ports()
 	data_package = add_input_port("Data Package", PORT_TYPE_ANY)
 	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/ntnet_send/input_received(datum/port/input/port)
-	ntnet_send(list("data" = data_package.value, "enc_key" = enc_key.value))
+	if(!find_functional_ntnet_relay())
+		return
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT, src, list("data" = data_package.value, "enc_key" = enc_key.value))

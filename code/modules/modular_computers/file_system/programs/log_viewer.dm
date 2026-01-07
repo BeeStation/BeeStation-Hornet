@@ -116,4 +116,4 @@
 	return silo_log
 
 /datum/computer_file/program/log_viewer/proc/check_remote()
-	return SSmodular_computers.check_relay_operation()
+	return !!find_functional_ntnet_relay()

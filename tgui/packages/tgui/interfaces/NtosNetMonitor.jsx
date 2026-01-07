@@ -5,7 +5,6 @@ import {
   Icon,
   LabeledList,
   NoticeBox,
-  NumberInput,
   Section,
   Stack,
   Tabs,
@@ -62,9 +61,6 @@ export const NtosNetMonitor = (props) => {
               ntnetrelays={ntnetrelays}
               idsalarm={idsalarm}
               idsstatus={idsstatus}
-              ntnetmaxlogs={ntnetmaxlogs}
-              maxlogs={maxlogs}
-              minlogs={minlogs}
               ntnetlogs={ntnetlogs}
             />
           </Stack.Item>
@@ -84,9 +80,6 @@ const MainPage = (props) => {
     ntnetrelays,
     idsalarm,
     idsstatus,
-    ntnetmaxlogs,
-    maxlogs,
-    minlogs,
     ntnetlogs = [],
   } = props;
   const { act, data } = useBackend();
@@ -143,22 +136,6 @@ const MainPage = (props) => {
                   onClick={() => act('resetIDS')}
                 />
               </>
-            }
-          />
-          <LabeledList.Item
-            label="Max Log Count"
-            buttons={
-              <NumberInput
-                value={ntnetmaxlogs}
-                minValue={minlogs}
-                maxValue={maxlogs}
-                width="39px"
-                onChange={(e, value) =>
-                  act('updatemaxlogs', {
-                    new_number: value,
-                  })
-                }
-              />
             }
           />
         </LabeledList>
