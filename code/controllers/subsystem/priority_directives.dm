@@ -10,10 +10,10 @@ SUBSYSTEM_DEF(directives)
 	/// Next time when personal objectives are given out.
 	var/personal_objectives_time = null
 
-/datum/controller/subsystem/directives/Initialize(start_timeofday)
-	. = ..()
+/datum/controller/subsystem/directives/Initialize()
 	next_directive_time = world.time + 5 MINUTES
 	directive_types = subtypesof(/datum/priority_directive)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/directives/fire(resumed)
 	// Find all the minds
