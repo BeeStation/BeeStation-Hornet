@@ -10,13 +10,15 @@
 
 	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL //trigger_output
 
-	network_id = __NETWORK_CIRCUITS
-
 	/// Data being received
 	var/datum/port/output/data_package
 
 	/// Encryption key
 	var/datum/port/input/enc_key
+
+/obj/item/circuit_component/ntnet_receive/Initialize(mapload)
+	. = ..()
+	init_network_id(__NETWORK_CIRCUITS)
 
 /obj/item/circuit_component/ntnet_receive/populate_ports()
 	data_package = add_output_port("Data Package", PORT_TYPE_LIST)

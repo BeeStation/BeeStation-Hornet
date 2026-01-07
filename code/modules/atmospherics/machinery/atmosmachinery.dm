@@ -20,7 +20,7 @@
 	armor_type = /datum/armor/machinery_atmospherics
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
-	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
+	obj_flags = CAN_BE_HIT
 	flags_1 = STAT_UNIQUE_1
 	trade_flags = TRADE_NOT_SELLABLE // Adding this here just in case
 	///Check if the object can be unwrenched
@@ -101,6 +101,10 @@
 /obj/machinery/atmospherics/Initialize(mapload)
 	if(mapload && name != initial(name))
 		override_naming = TRUE
+	var/turf/turf_loc = null
+	if(isturf(loc))
+		turf_loc = loc
+		turf_loc.add_blueprints_preround(src)
 	if(init_processing)
 		SSair.start_processing_machine(src)
 	return ..()

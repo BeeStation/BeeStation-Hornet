@@ -115,11 +115,9 @@
 
 	var/electrification_timing // Set to true while electrified_loop is running, to prevent multiple being started
 
-	network_id = NETWORK_DOOR_AIRLOCKS
-
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
-
+	init_network_id(NETWORK_DOOR_AIRLOCKS)
 	//Get the area hack difficulty
 	if (mapload)
 		var/area/A = get_area(src)

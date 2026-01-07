@@ -17,7 +17,6 @@
 	pass_flags_self = PASSTRANSPARENT
 	can_atmos_pass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
-	network_id = NETWORK_DOOR_AIRLOCKS
 	z_flags = NONE // reset zblock
 	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
@@ -40,6 +39,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/door/window)
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
+	init_network_id(NETWORK_DOOR_AIRLOCKS)
 	if(set_dir)
 		setDir(set_dir)
 	if(req_access?.len)

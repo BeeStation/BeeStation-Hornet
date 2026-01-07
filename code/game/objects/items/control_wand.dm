@@ -14,10 +14,10 @@
 	var/mode = WAND_OPEN
 	var/region_access = 1 //See access.dm
 	var/list/access_list
-	network_id = NETWORK_DOOR_REMOTES
 
 /obj/item/door_remote/Initialize(mapload)
 	. = ..()
+	init_network_id(NETWORK_DOOR_REMOTES)
 	access_list = get_region_accesses(region_access)
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_NAK, PROC_REF(bad_signal))
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_ACK, PROC_REF(good_signal))
