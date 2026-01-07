@@ -10,3 +10,8 @@
   - bugfix: Fixes players bleeding out 5 times faster than intended when having more
       than 2.4 bleed.
   - bugfix: Fixes shield belt not applying its effects when equipped
+2026-01-07:
+  DrDuckedGoose:
+  - bugfix: Fixes plant trays not properly spawning mobs when exposed to Strange Reagent.
+  r1ks-iwnl:
+  - bugfix: Fixed examine not correctly assessing the status of a severed head
