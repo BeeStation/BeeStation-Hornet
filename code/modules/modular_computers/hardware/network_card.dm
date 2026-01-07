@@ -56,7 +56,7 @@
 	return "[identification_string] (NID [hardware_id])"
 
 // 0 - No signal, 1 - Low signal, 2 - High signal. 3 - Wired Connection
-/obj/item/computer_hardware/network_card/proc/get_signal(specific_action = 0)
+/obj/item/computer_hardware/network_card/proc/get_signal()
 	if(!holder) // Hardware is not installed in anything. No signal. How did this even get called?
 		return 0
 	if(!check_functionality())
@@ -65,7 +65,7 @@
 		return 3
 	if(signal_level == SIGNAL_HACKED)
 		return 4
-	if(!SSmodular_computers.check_function(specific_action, signal_level)) // NTNet is down and we are not connected via wired connection. No signal.
+	if(!SSmodular_computers.check_relay_operation()) // NTNet is down and we are not connected via wired connection. No signal.
 		return 0
 	if(holder)
 		var/turf/T = get_turf(holder)
@@ -112,7 +112,7 @@
 /obj/item/computer_hardware/network_card/integrated //Borg tablet version, only works while the borg has power and is not locked
 	name = "cyborg data link"
 
-/obj/item/computer_hardware/network_card/integrated/get_signal(specific_action = 0)
+/obj/item/computer_hardware/network_card/integrated/get_signal()
 	var/obj/item/modular_computer/tablet/integrated/modularInterface = holder
 
 	if(!modularInterface || !istype(modularInterface))

@@ -7,7 +7,6 @@
 	extended_desc = "This program allows communication over NTNRC network"
 	size = 4
 	requires_ntnet = TRUE
-	requires_ntnet_feature = NTNET_COMMUNICATION
 	network_destination = "NTNRC server"
 	ui_header = "ntnrc_idle.gif"
 	available_on_ntnet = TRUE

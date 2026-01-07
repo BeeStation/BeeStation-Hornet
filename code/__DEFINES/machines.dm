@@ -94,15 +94,6 @@
 #define PART_TIER_5 5
 
 //! ## NTNet stuff, for modular computers
-//!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
-// NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)
-#define NTNET_SOFTWAREDOWNLOAD 1 // Downloads of software from NTNet
-#define NTNET_COMMUNICATION 2 // Communication (messaging)
-
-//NTNet transfer speeds, used when downloading/uploading a file/program.
-#define NTNETSPEED_LOWSIGNAL 0.5 // GQ/s transfer speed when the device is wirelessly connected and on Low signal
-#define NTNETSPEED_HIGHSIGNAL 1 // GQ/s transfer speed when the device is wirelessly connected and on High signal
-#define NTNETSPEED_ETHERNET 2 // GQ/s transfer speed when the device is using wired connection
 
 // Types of Signal for Network Card Components!
 #define	SIGNAL_NO 0
@@ -110,6 +101,11 @@
 #define SIGNAL_HIGH 2
 #define SIGNAL_NO_RELAY 3
 #define SIGNAL_HACKED 4
+
+//NTNet transfer speeds, used when downloading/uploading a file/program.
+#define NTNETSPEED_LOWSIGNAL 0.5 // GQ/s transfer speed when the device is wirelessly connected and on Low signal
+#define NTNETSPEED_HIGHSIGNAL 1 // GQ/s transfer speed when the device is wirelessly connected and on High signal
+#define NTNETSPEED_ETHERNET 2 // GQ/s transfer speed when the device is using wired connection
 
 // Caps for NTNet logging. Less than 10 would make logging useless anyway, more than 500 may make the log browser too laggy. Defaults to 100 unless user changes it.
 #define MAX_NTNET_LOGS 300
