@@ -17,25 +17,7 @@
 
 /obj/item/door_remote/Initialize(mapload)
 	. = ..()
-	init_network_id(NETWORK_DOOR_REMOTES)
 	access_list = get_region_accesses(region_access)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_NAK, PROC_REF(bad_signal))
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_ACK, PROC_REF(good_signal))
-
-/obj/item/door_remote/proc/bad_signal(datum/source, datum/netdata/data, error_code)
-	if(QDELETED(data.user))
-		return // can't send a message to a missing user
-	if(error_code == NETWORK_ERROR_UNAUTHORIZED)
-		to_chat(data.user, span_notice("This remote is not authorized to modify this door."))
-	else
-		to_chat(data.user, span_notice("Error: [error_code]"))
-
-
-/obj/item/door_remote/proc/good_signal(datum/source, datum/netdata/data, error_code)
-	if(QDELETED(data.user))
-		return
-	var/toggled = data.data["data"]
-	to_chat(data.user, span_notice("Door [toggled] toggled"))
 
 /obj/item/door_remote/attack_self(mob/user)
 	var/static/list/desc = list(WAND_OPEN = "Open Door", WAND_BOLT = "Toggle Bolts", WAND_EMERGENCY = "Toggle Emergency Access")
@@ -46,27 +28,60 @@
 			mode = WAND_EMERGENCY
 		if(WAND_EMERGENCY)
 			mode = WAND_OPEN
-	balloon_alert(user, "You set the mode to [desc[mode]].")
+	balloon_alert(user, "mode: [desc[mode]].")
 
 // Airlock remote works by sending NTNet packets to whatever it's pointed at.
-/obj/item/door_remote/afterattack(atom/A, mob/user)
+/obj/item/door_remote/afterattack(atom/target, mob/user)
 	. = ..()
-	var/datum/component/ntnet_interface/target_interface = A.GetComponent(/datum/component/ntnet_interface)
 
-	if(!target_interface)
+	var/obj/machinery/door/door
+
+	if (istype(target, /obj/machinery/door))
+		door = target
+
+		if (!door.opens_with_door_remote)
+			return
+	else
+		for (var/obj/machinery/door/door_on_turf in get_turf(target))
+			if (door_on_turf.opens_with_door_remote)
+				door = door_on_turf
+				break
+
+		if (isnull(door))
+			return
+
+	if (!door.check_access_list(access_list) || door.id_scan_hacked())
+		target.balloon_alert(user, "can't access!")
 		return
-	if(!SSnetworks.station_network.check_function(NTNET_SYSTEMCONTROL, get_virtual_z_level()))
-		to_chat(user, span_warning("red light flashes on the remote! Looks like NTNET is down!"))
+
+	var/obj/machinery/door/airlock/airlock = door
+
+	if (!door.hasPower() || (istype(airlock) && !airlock.canAIControl()))
+		target.balloon_alert(user, mode == WAND_OPEN ? "it won't budge!" : "nothing happens!")
 		return
-	user.set_machine(src)
-	// Generate a control packet.
-	var/datum/netdata/data = new(list("data" = mode,"data_secondary" = "toggle"))
-	data.receiver_id = target_interface.hardware_id
-	data.passkey = access_list
-	data.user = user // for responce message
 
-	ntnet_send(data)
+	switch (mode)
+		if (WAND_OPEN)
+			if (door.density)
+				door.open()
+			else
+				door.close()
+		if (WAND_BOLT)
+			if (!istype(airlock))
+				target.balloon_alert(user, "only airlocks!")
+				return
 
+			if (airlock.locked)
+				airlock.unbolt()
+			else
+				airlock.bolt()
+		if (WAND_EMERGENCY)
+			if (!istype(airlock))
+				target.balloon_alert(user, "only airlocks!")
+				return
+
+			airlock.emergency = !airlock.emergency
+			airlock.update_appearance(UPDATE_ICON)
 
 /obj/item/door_remote/omni
 	name = "omni door remote"

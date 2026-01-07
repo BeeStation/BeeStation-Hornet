@@ -65,7 +65,7 @@
 		return 3
 	if(signal_level == SIGNAL_HACKED)
 		return 4
-	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action, get_virtual_z_level(), signal_level)) // NTNet is down and we are not connected via wired connection. No signal.
+	if(!SSmodular_computers.check_function(specific_action, signal_level)) // NTNet is down and we are not connected via wired connection. No signal.
 		return 0
 	if(holder)
 		var/turf/T = get_turf(holder)

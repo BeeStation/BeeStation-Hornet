@@ -38,7 +38,7 @@
 	if(..())
 		return
 
-	var/datum/ntnet_conversation/channel = SSnetworks.station_network.get_chat_channel_by_id(active_channel)
+	var/datum/ntnet_conversation/channel = SSmodular_computers.get_chat_channel_by_id(active_channel)
 	var/authed = FALSE
 	if(channel && ((channel.operator == src) || netadmin_mode))
 		authed = TRUE
@@ -78,7 +78,7 @@
 				return TRUE
 
 			active_channel =  new_target
-			channel = SSnetworks.station_network.get_chat_channel_by_id(new_target)
+			channel = SSmodular_computers.get_chat_channel_by_id(new_target)
 			if((!(src in channel.active_clients) && !(src in channel.offline_clients)) && !channel.password)
 				channel.add_client(src)
 			return TRUE
@@ -107,7 +107,7 @@
 				return TRUE
 			var/mob/living/user = usr
 			if(can_admin(user))
-				for(var/C in SSnetworks.station_network.chat_channels)
+				for(var/C in SSmodular_computers.chat_channels)
 					var/datum/ntnet_conversation/chan = C
 					chan.remove_client(src)
 				netadmin_mode = TRUE
@@ -120,7 +120,7 @@
 			if(OOC_FILTER_CHECK(newname))
 				to_chat(usr, span_warning("ERROR: Prohibited word(s) detected in new username."))
 				return
-			for(var/datum/ntnet_conversation/anychannel as anything in SSnetworks.station_network.chat_channels)
+			for(var/datum/ntnet_conversation/anychannel as anything in SSmodular_computers.chat_channels)
 				if(src in anychannel.active_clients)
 					anychannel.add_status_message("[username] is now known as [newname].")
 			username = newname
@@ -189,7 +189,7 @@
 
 /datum/computer_file/program/chatclient/process_tick()
 	. = ..()
-	var/datum/ntnet_conversation/channel = SSnetworks.station_network.get_chat_channel_by_id(active_channel)
+	var/datum/ntnet_conversation/channel = SSmodular_computers.get_chat_channel_by_id(active_channel)
 	if(program_state != PROGRAM_STATE_KILLED)
 		ui_header = "ntnrc_idle.gif"
 		if(channel)
@@ -207,13 +207,13 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/datum/ntnet_conversation/channel as anything in SSnetworks.station_network.chat_channels)
+	for(var/datum/ntnet_conversation/channel as anything in SSmodular_computers.chat_channels)
 		if(src in channel.offline_clients)
 			channel.offline_clients.Remove(src)
 			channel.active_clients.Add(src)
 
 /datum/computer_file/program/chatclient/kill_program(forced = FALSE)
-	for(var/datum/ntnet_conversation/channel as anything in SSnetworks.station_network.chat_channels)
+	for(var/datum/ntnet_conversation/channel as anything in SSmodular_computers.chat_channels)
 		channel.go_offline(src)
 	active_channel = null
 	..()
@@ -236,18 +236,17 @@
 	return FALSE
 
 /datum/computer_file/program/chatclient/ui_data(mob/user)
-	if(!SSnetworks.station_network || !SSnetworks.station_network.chat_channels)
+	if(!SSmodular_computers.chat_channels)
 		return list()
 
 	var/list/data = list()
 
 	var/list/all_channels = list()
-	for(var/C in SSnetworks.station_network.chat_channels)
-		var/datum/ntnet_conversation/conv = C
-		if(conv && conv.title)
+	for(var/datum/ntnet_conversation/conversations as anything in SSmodular_computers.chat_channels)
+		if(conversations.title)
 			all_channels.Add(list(list(
-				"chan" = conv.title,
-				"id" = conv.id
+				"chan" = conversations.title,
+				"id" = conversations.id
 			)))
 	data["all_channels"] = all_channels
 
@@ -255,7 +254,7 @@
 	data["selfref"] = REF(src) //used to verify who is you, as usernames can be copied.
 	data["username"] = username
 	data["adminmode"] = netadmin_mode
-	var/datum/ntnet_conversation/channel = SSnetworks.station_network.get_chat_channel_by_id(active_channel)
+	var/datum/ntnet_conversation/channel = SSmodular_computers.get_chat_channel_by_id(active_channel)
 	if(channel)
 		data["title"] = channel.title
 		var/authed = FALSE

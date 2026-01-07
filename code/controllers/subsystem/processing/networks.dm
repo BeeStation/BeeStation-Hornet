@@ -4,20 +4,9 @@ SUBSYSTEM_DEF(networks)
 	wait = 5
 	flags = SS_KEEP_TIMING
 
-	var/list/relays = list()
-	/// Legacy ntnet lookup for software.  Should be changed latter so don't rely on this
-	/// being here.
-	var/datum/ntnet/station_root/station_network
-	var/datum/ntnet/station_root/syndie_network
-	var/list/network_initialize_queue = list()
 	/// all interfaces by their hardware address.
 	/// Do NOT use to verify a reciver_id is valid, use the network.root_devices for that
 	var/list/interfaces_by_hardware_id = list()
-	/// Area to network, network to area list
-	/// This is an associated list to quickly find an area using either its id or network
-	/// Used mainly to make sure all area id's are unique even if a mapper uses the same
-	/// area many times
-	var/list/area_network_lookup = list()
 
 	/// List of networks using their fully qualified network name.  Used for quick lookups
 	/// of networks for sending packets
@@ -35,7 +24,6 @@ SUBSYSTEM_DEF(networks)
 	// packet stats
 	var/count_broadcasts_packets = 0 // count of broadcast packets sent
 	var/count_failed_packets = 0 	// count of message fails
-	var/count_good_packets = 0
 	// Logs moved here
 	// Amount of logs the system tries to keep in memory. Keep below 999 to prevent byond from acting weirdly.
 	// High values make displaying logs much laggier.
@@ -52,8 +40,8 @@ SUBSYSTEM_DEF(networks)
 /datum/controller/subsystem/networks/PreInit()
 	/// Limbo network needs to be made at boot up for all error devices
 	new/datum/ntnet(LIMBO_NETWORK_ROOT)
-	station_network = new(STATION_NETWORK_ROOT)
-	syndie_network = new(SYNDICATE_NETWORK_ROOT)
+	new/datum/ntnet(STATION_NETWORK_ROOT)
+	new/datum/ntnet(SYNDICATE_NETWORK_ROOT)
 	/// As well as the station network incase something funny goes during startup
 	new/datum/ntnet(CENTCOM_NETWORK_ROOT)
 
@@ -63,12 +51,7 @@ SUBSYSTEM_DEF(networks)
 	return ..()
 
 /datum/controller/subsystem/networks/Initialize()
-	station_network.register_map_supremecy() // sigh
 	assign_areas_root_ids(get_sorted_areas()) // setup area names before Initialize
-	station_network.build_software_lists()
-	syndie_network.build_software_lists()
-
-	// At round start, fix the network_id's so the station root is on them
 	initialized = TRUE
 	// Now when the objects Initialize they will join the right network
 	return SS_INIT_SUCCESS
@@ -126,7 +109,6 @@ SUBSYSTEM_DEF(networks)
 	// All is good, send the packet then send an ACK to the sender
 	if(!QDELETED(sending_interface))
 		SEND_SIGNAL(sending_interface.parent, COMSIG_COMPONENT_NTNET_ACK, data)
-	count_good_packets++
 
 /// Helper define to make sure we pop the packet and qdel it
 #define POP_PACKET(CURRENT) first = CURRENT.next;  packet_count--; if(!first) { last = null; packet_count = 0; }; qdel(CURRENT);
@@ -188,21 +170,6 @@ SUBSYSTEM_DEF(networks)
 	// We do error checking when the packet is sent
 	return NETWORK_ERROR_OK
 
-
-/datum/controller/subsystem/networks/proc/check_relay_operation(zlevel=0)	//can be expanded later but right now it's true/false.
-	for(var/i in relays)
-		var/obj/machinery/ntnet_relay/n = i
-		if(zlevel && n.get_virtual_z_level() != zlevel)
-			continue
-		if(n.is_operational)
-			return TRUE
-	return FALSE
-
-/datum/controller/subsystem/networks/proc/log_data_transfer(datum/netdata/data)
-	logs += "[station_time_timestamp()] - [data.generate_netlog()]"
-	if(logs.len > setting_maxlogcount)
-		logs = logs.Copy(logs.len - setting_maxlogcount, 0)
-
 /**
  * Records a message into the station logging system for the network
  *
@@ -259,14 +226,16 @@ SUBSYSTEM_DEF(networks)
 	if(logs.len > setting_maxlogcount)
 		logs = logs.Copy(logs.len-setting_maxlogcount,0)
 
-
 /**
  * Removes all station logs for the current game
  */
 /datum/controller/subsystem/networks/proc/purge_logs()
 	logs = list()
 
-
+/datum/controller/subsystem/networks/proc/log_data_transfer( datum/netdata/data)
+	logs += "[station_time_timestamp()] - [data.generate_netlog()]"
+	if(logs.len > setting_maxlogcount)
+		logs = logs.Copy(logs.len - setting_maxlogcount, 0)
 
 /**
  * Updates the maximum amount of logs and purges those that go beyond that number
@@ -343,9 +312,9 @@ SUBSYSTEM_DEF(networks)
 		if(!(A.area_flags & UNIQUE_AREA)) // if we aren't a unique area, make sure our name is different
 			A.network_area_id = SSnetworks.assign_random_name(5, A.network_area_id + "_")		// tack on some garbage incase there are two area types
 
-/datum/controller/subsystem/networks/proc/assign_areas_root_ids(list/areas, datum/map_template/M=null)
-	for(var/area/A in areas)
-		assign_area_network_id(A, M)
+/datum/controller/subsystem/networks/proc/assign_areas_root_ids(list/areas, datum/map_template/map_template)
+	for(var/area/area as anything in areas)
+		assign_area_network_id(area, map_template)
 
 /**
  * Converts a list of string's into a full network_id
