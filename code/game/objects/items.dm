@@ -289,7 +289,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(sharpness) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
-/obj/item/Destroy()
+/obj/item/Destroy(force)
 	master = null
 	if(ismob(loc))
 		var/mob/m = loc

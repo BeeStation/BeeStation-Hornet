@@ -40,6 +40,7 @@ CREATION_TEST_IGNORE_SELF(/obj)
 	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
 
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
+
 	/// Map tag for something.  Tired of it being used on snowflake items.  Moved here for some semblance of a standard.
 	/// Next pr after the network fix will have me refactor door interactions, so help me god.
 	var/id_tag = null
@@ -82,7 +83,7 @@ GLOBAL_LIST_EMPTY(objects_by_id_tag)
 	if (id_tag)
 		GLOB.objects_by_id_tag[id_tag] = src
 
-/obj/Destroy(force=FALSE)
+/obj/Destroy(force)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	SStgui.close_uis(src)
