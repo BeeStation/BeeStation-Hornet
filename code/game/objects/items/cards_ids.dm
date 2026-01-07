@@ -297,9 +297,6 @@
 	. = ..()
 	. += list("[icon2html(src, user, extra_classes = "hugeicon")]")
 
-/obj/item/card/id/get_examine_icon(mob/user)
-	return icon2html(src, user)
-
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
 		to_chat(user, span_warning("[src] doesn't have a linked account to deposit [I] into!"))
