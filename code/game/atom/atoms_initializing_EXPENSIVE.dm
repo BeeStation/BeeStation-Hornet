@@ -130,6 +130,20 @@
 
 	InitializeAIController()
 
+	if(isProbablyWallMounted(src) && !isometric_mode)
+		isometric_mode = ISOMETRIC_WALLMOUNTED
+	if(isometric_mode == ISOMETRIC_FLATTEN)
+		flatify()
+	if(isometric_mode == ISOMETRIC_BLOCKIFY)
+		blockify()
+	if(isometric_mode == ISOMETRIC_WALLMOUNTED)
+		wallmountify()
+	if(isometric_mode == ISOMETRIC_TABLE)
+		tableify()
+
+	if(isometric_mode == NONE && ismob(src))
+		pixel_z += 10
+
 	if(length(smoothing_groups))
 		#ifdef UNIT_TESTS
 		assert_sorted(smoothing_groups, "[type].smoothing_groups")
