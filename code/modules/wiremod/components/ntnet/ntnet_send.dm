@@ -24,4 +24,4 @@
 /obj/item/circuit_component/ntnet_send/input_received(datum/port/input/port)
 	if(!find_functional_ntnet_relay())
 		return
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT, src, list("data" = data_package.value, "enc_key" = enc_key.value))
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT, list("data" = data_package.value, "enc_key" = enc_key.value))
