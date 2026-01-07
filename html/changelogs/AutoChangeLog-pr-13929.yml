@@ -1,0 +1,4 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - bugfix: Fixes plant trays not properly spawning mobs when exposed to Strange Reagent.
