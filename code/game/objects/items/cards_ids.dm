@@ -295,7 +295,7 @@
 
 /obj/item/card/id/get_id_examine_strings(mob/user)
 	. = ..()
-	. += list("[icon2html(src, user, extra_classes = "hugeicon")]")
+	. += list("[icon2html(src, user, extra_classes = "hugeicon idicon")]")
 
 /obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
