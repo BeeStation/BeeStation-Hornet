@@ -247,6 +247,7 @@ if ls _maps/*.json | $grep "[A-Z]"; then
     echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
     st=1
 fi;
+
 part "map json sanity"
 for json in _maps/*.json
 do
