@@ -29,8 +29,6 @@
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
 
-	ADD_TRAIT(src, TRAIT_CAN_STRIP, INNATE_TRAIT)
-
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
