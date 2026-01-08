@@ -171,13 +171,20 @@
 
 /datum/antagonist/heretic/on_gain()
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
-		var/mob/living/carbon/carbon_current = owner.current //only carbons have dna now, so we have to typecast
-		carbon_current.set_species(/datum/species/human)
-		var/prefs_name = carbon_current.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		var/mob/living/carbon/carbon_owner = owner.current
+		carbon_owner.set_species(/datum/species/human)
+		var/prefs_name = carbon_owner.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
 		if(prefs_name)
-			carbon_current.fully_replace_character_name(carbon_current.real_name, prefs_name)
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, prefs_name)
 		else
-			carbon_current.fully_replace_character_name(carbon_current.real_name, random_unique_name(carbon_current.gender))
+			carbon_owner.fully_replace_character_name(carbon_owner.real_name, random_unique_name(carbon_owner.gender))
+		for(var/datum/record/crew/record in GLOB.manifest.general)
+			if(record.name == carbon_owner.real_name)
+				record.species = carbon_owner.dna.species.name
+				record.gender = carbon_owner.gender
+
+				//Not directly assigning carbon_owner.appearance because it might not update in time at roundstart
+				record.character_appearance = get_flat_existing_human_icon(carbon_owner, list(SOUTH, WEST))
 	if(give_objectives)
 		forge_objectives()
 
@@ -497,13 +504,14 @@
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
+	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 	switch(has_living_heart())
 		if(HERETIC_NO_LIVING_HEART)
 			.["Give Living Heart"] = CALLBACK(src, PROC_REF(admin_give_living_heart))
 		if(HERETIC_HAS_LIVING_HEART)
 			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(admin_add_marked_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
-	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
+			if(length(sac_targets))
+				.["Remove Heart Target"] = CALLBACK(src, PROC_REF(admin_remove_target))
 
 /*
  * Admin proc for giving a heretic a Living Heart easily.
@@ -580,7 +588,7 @@
 		else
 			string_of_knowledge += knowledge.name
 
-	return "<br><b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
+	return "<b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
 
 /datum/antagonist/heretic/antag_panel_objectives()
 	. = ..()
@@ -594,7 +602,6 @@
 			. += " - <b>[actual_target.name]</b>, the [actual_target.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
-	. += "<br>"
 
 /*
  * Learns the passed [typepath] of knowledge, creating a knowledge datum

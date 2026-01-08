@@ -130,6 +130,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 	new/datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 5, crafting_flags = NONE, category = CAT_CHEMISTRY),
 	new/datum/stack_recipe("dock tile", /obj/item/stack/tile/dock, 1, 4, 20, crafting_flags = NONE, category = CAT_TILES),
 	new/datum/stack_recipe("dry dock tile", /obj/item/stack/tile/drydock, 2, 4, 20, crafting_flags = NONE, category = CAT_TILES),
+	new/datum/stack_recipe("shutter assembly", /obj/machinery/door/poddoor/shutters/preopen/deconstructed, 5, time = 5 SECONDS, crafting_flags = CRAFT_ONE_PER_TURF, category = CAT_DOORS),
 	null, \
 	new /datum/stack_recipe_list("airlock assemblies", list( \
 		new/datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 4, crafting_flags = CRAFT_CHECK_DENSITY | CRAFT_ONE_PER_TURF | CRAFT_ON_SOLID_GROUND, time = 5 SECONDS, category = CAT_DOORS),

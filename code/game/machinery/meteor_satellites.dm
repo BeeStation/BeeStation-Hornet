@@ -1,42 +1,11 @@
-//Station Shield
-// A chain of satellites encircles the station
-// Satellites be actived to generate a shield that will block unorganic matter from passing it.
-/datum/station_goal/station_shield
-	name = "Station Shield"
-	var/coverage_goal = 500
-
-/datum/station_goal/station_shield/get_report()
-	return list(
-		"<blockquote>The station is located in a zone full of space debris.",
-		"We have a prototype shielding system you must deploy to reduce collision-related accidents.",
-		"",
-		"You can order the satellites and control systems at cargo.</blockquote>",
-	).Join("\n")
-
-/datum/station_goal/station_shield/check_completion()
-	if(..())
-		return TRUE
-	if(get_coverage() >= coverage_goal)
-		return TRUE
-	return FALSE
-
-/datum/station_goal/proc/get_coverage()
-	var/list/coverage = list()
-	for(var/obj/machinery/satellite/meteor_shield/A in GLOB.machines)
-		if(!A.active || !is_station_level(A.z))
-			continue
-		coverage |= view(A.kill_range,A)
-	return coverage.len
+//Meteor Shields
+//Originally a station goal, only the code for the meteor shields was kept
 
 /obj/machinery/computer/sat_control
 	name = "satellite control"
 	desc = "Used to control the satellite network."
 	circuit = /obj/item/circuitboard/computer/sat_control
-
-
-
 	var/notice
-
 
 /obj/machinery/computer/sat_control/ui_state(mob/user)
 	return GLOB.default_state
@@ -72,15 +41,6 @@
 			"mode" = S.mode
 		))
 	data["notice"] = notice
-
-
-	var/datum/station_goal/station_shield/goal = SSstation.get_station_goal(/datum/station_goal/station_shield)
-	if(!isnull(goal))
-		data["meteor_shield"] = TRUE
-		data["meteor_shield_coverage"] = goal.get_coverage()
-		data["meteor_shield_coverage_max"] = goal.coverage_goal
-	return data
-
 
 /obj/machinery/satellite
 	name = "\improper Defunct Satellite"

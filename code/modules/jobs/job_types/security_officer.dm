@@ -39,6 +39,11 @@
 
 	minimal_lightup_areas = list(/area/construction/mining/aux_base)
 
+	manuscript_jobs = list(
+		JOB_NAME_SECURITYOFFICER,
+		JOB_NAME_ASSISTANT // they're used to be troubles
+	)
+
 /datum/job/security_officer/get_access()
 	. = ..()
 	LOWPOP_GRANT_ACCESS(JOB_NAME_DETECTIVE, ACCESS_FORENSICS_LOCKERS)
