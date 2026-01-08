@@ -347,6 +347,7 @@ GLOBAL_LIST_INIT(oddity_loot, list(//oddity: strange or crazy items
 #define MAINT_UNCOMMON_WEIGHT 900
 #define MAINT_RARITY_WEIGHT 99
 #define MAINT_ODDITY_WEIGHT 1 //1 out of 10,000 would give metastation (180 spawns) a 2 in 111 chance of spawning an oddity per round, similar to xeno egg
+#define MAINT_HOLIDAY_WEIGHT 3500 // When holiday loot is enabled, it'll give every loot item a 25% chance of being a holiday item
 
 //Loot pool used by default maintenance loot spawners
 GLOBAL_LIST_INIT(maintenance_loot, list(

@@ -533,7 +533,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 			/obj/item/toy/xmas_cracker = 3,
 			/obj/item/clothing/head/costume/santa = 1,
 			/obj/item/a_gift/anything = 1
-		) = maint_holiday_weight,
+		) = MAINT_HOLIDAY_WEIGHT,
 	)
 
 /datum/holiday/xmas/proc/roundstart_celebrate()
@@ -606,7 +606,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 		list(
 			/obj/item/surprise_egg = 15,
 			/obj/item/storage/basket/easter = 15
-		) = maint_holiday_weight,
+		) = MAINT_HOLIDAY_WEIGHT,
 	)
 
 /datum/holiday/easter/greet()
