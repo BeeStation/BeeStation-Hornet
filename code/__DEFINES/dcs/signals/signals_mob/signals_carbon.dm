@@ -35,7 +35,10 @@
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
 /// Called from carbon losing a limb /obj/item/bodypart/proc/drop_limb(obj/item/bodypart/lost_limb, dismembered)
 #define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
-
+///Called when a carbon gets a brain trauma (source = carbon, trauma = what trauma was added, resilience = the resilience of the trauma given, if set differently from the default) - this is before on_gain()
+#define COMSIG_CARBON_GAIN_TRAUMA "carbon_gain_trauma"
+	/// Return if you want to prevent the carbon from gaining the brain trauma.
+	#define COMSIG_CARBON_BLOCK_TRAUMA (1 << 0)
 /// Called from update_health_hud, whenever a bodypart is being updated on the health doll
 #define COMSIG_BODYPART_UPDATING_HEALTH_HUD "bodypart_updating_health_hud"
 	/// Return to override that bodypart's health hud with your own icon
