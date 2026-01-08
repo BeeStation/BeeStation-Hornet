@@ -939,6 +939,7 @@
 	inhand_icon_state = "sheath"
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_SUITSTORE
 
 	//Sheathes made to hold swords can block too
 	force = 8
@@ -998,7 +999,7 @@
 
 /obj/item/storage/belt/sabre/carbon_fiber
 	name = "carbon fiber sabre sheath"
-	desc = "A military grade sabre sheath."
+	desc = "A military grade sabre sheath. This one has special hooks to interface with the suit storage system of common armor classes."
 	icon_state = "sheath_fiber"
 	inhand_icon_state = "sheath_fiber"
 	worn_icon_state = "sheath_fiber"
