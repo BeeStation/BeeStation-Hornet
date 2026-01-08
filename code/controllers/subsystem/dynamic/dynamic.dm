@@ -137,8 +137,8 @@ SUBSYSTEM_DEF(dynamic)
 	var/roundstart_divergence_percent_lower = 1
 	var/roundstart_divergence_percent_upper = 1
 	/// How many roundstart points should be granted per player based off ready status
-	var/supplementary_points_per_ready = 1.8
-	var/supplementary_points_per_unready = 0.5
+	var/supplementary_points_per_ready = 1
+	var/supplementary_points_per_unready = 0
 	var/supplementary_points_per_observer = 0
 
 	/**
