@@ -304,17 +304,6 @@
 	researched_nodes -= node.id
 	recalculate_nodes(TRUE)	//Fully rebuild the tree.
 
-/// Boosts a techweb node.
-/datum/techweb/proc/boost_techweb_node(datum/techweb_node/node, list/pointlist)
-	if(!istype(node))
-		return FALSE
-	LAZYINITLIST(boosted_nodes[node.id])
-	for(var/point_type in pointlist)
-		boosted_nodes[node.id][point_type] = max(boosted_nodes[node.id][point_type], pointlist[point_type])
-	unhide_node(node)
-	update_node_status(node)
-	return TRUE
-
 /// Removes a node from the hidden_nodes list, making it viewable and researchable (if no experiments are required).
 /datum/techweb/proc/unhide_node(datum/techweb_node/node)
 	if(!istype(node))
