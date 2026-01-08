@@ -868,6 +868,7 @@ SUBSYSTEM_DEF(dynamic)
  * There is a 10% chance for someone to be picked
  */
 /datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
+	log_dynamic("LATEJOIN: Checking latejoin for [character.mind?.name].")
 	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
 		log_dynamic("LATEJOIN: Latejoin rejected due to round preparing to end.")
 		return

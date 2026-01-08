@@ -18,7 +18,10 @@
 	for (var/datum/dynamic_ruleset/supplementary/ruleset in SSdynamic.executed_supplementary_rulesets)
 		if (ruleset.type == type)
 			count ++
-	return count < max_amount
+	if (count < max_amount)
+		return TRUE
+	log_dynamic("NOT ALLOWED: [src] was executed [count] times, but has a limit of [max_amount] times.")
+	return FALSE
 
 /datum/dynamic_ruleset/supplementary/get_candidates()
 	candidates = SSdynamic.roundstart_candidates.Copy()
