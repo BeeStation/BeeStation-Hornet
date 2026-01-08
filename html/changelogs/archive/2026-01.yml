@@ -19,6 +19,8 @@
   r1ks-iwnl:
   - bugfix: Fixed examine not correctly assessing the status of a severed head
 2026-01-08:
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when right clicking a microwave
   mrmanlikesbt, MrMelbert, Absolucy:
   - refactor: Refactored biowares (ligament hook, etc.) to use status effects
   - admin: biowares are now recorded in SSblackbox
