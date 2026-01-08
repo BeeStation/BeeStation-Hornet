@@ -1,5 +1,0 @@
-author: mrmanlikesbt, MrMelbert, Absolucy
-delete-after: true
-changes:
-  - refactor: Refactored biowares (ligament hook, etc.) to use status effects
-  - admin: biowares are now recorded in SSblackbox
