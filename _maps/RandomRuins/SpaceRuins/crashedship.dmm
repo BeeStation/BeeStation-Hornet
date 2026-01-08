@@ -236,8 +236,7 @@
 "id" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	installation = /obj/item/gun/energy/lasercannon;
-	
+	installation = /obj/item/gun/energy/lasercannon
 	},
 /obj/effect/mapping_helpers/atom_injector/obj_flag{
 	inject_flags = 1;
