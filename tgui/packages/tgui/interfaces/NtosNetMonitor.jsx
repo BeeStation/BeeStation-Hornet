@@ -76,12 +76,7 @@ export const NtosNetMonitor = (props) => {
 };
 
 const MainPage = (props) => {
-  const {
-    ntnetrelays,
-    idsalarm,
-    idsstatus,
-    ntnetlogs = [],
-  } = props;
+  const { ntnetrelays, idsalarm, idsstatus, ntnetlogs = [] } = props;
   const { act, data } = useBackend();
   return (
     <Section>

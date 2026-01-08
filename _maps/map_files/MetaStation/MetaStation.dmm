@@ -34364,7 +34364,6 @@
 	},
 /obj/machinery/computer/telecomms/monitor{
 	dir = 8;
-	network = "tcommsat"
 	},
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)

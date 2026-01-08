@@ -35294,7 +35294,7 @@
 "lFS" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Observation Lounge";
-	
+
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood,
@@ -37309,7 +37309,6 @@
 "myM" = (
 /obj/machinery/computer/telecomms/monitor{
 	dir = 4;
-	network = "tcommsat"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
