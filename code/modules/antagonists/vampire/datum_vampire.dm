@@ -272,6 +272,13 @@
 	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(give_warning))
 	RegisterSignal(src, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, PROC_REF(on_track_humanity_gain_signal))
 
+	// Register for humanity gain signals on the owner mob
+	var/mob/living/vampire_mob = owner.current
+	if(vampire_mob)
+		RegisterSignal(vampire_mob, COMSIG_LIVING_PET_ANIMAL, PROC_REF(on_pet_animal))
+		RegisterSignal(vampire_mob, COMSIG_LIVING_HUG_CARBON, PROC_REF(on_hug_carbon))
+		RegisterSignal(vampire_mob, COMSIG_LIVING_APPRAISE_ART, PROC_REF(on_appraise_art))
+
 	// Set name and reputation
 	select_first_name()
 
@@ -290,6 +297,12 @@
 
 /datum/antagonist/vampire/on_removal()
 	UnregisterSignal(SSsunlight, list(COMSIG_SOL_NEAR_END, COMSIG_SOL_NEAR_START, COMSIG_SOL_END, COMSIG_SOL_RISE_TICK, COMSIG_SOL_WARNING_GIVEN))
+
+	// Unregister humanity gain signals from the owner mob
+	var/mob/living/vampire_mob = owner.current
+	if(vampire_mob)
+		UnregisterSignal(vampire_mob, list(COMSIG_LIVING_PET_ANIMAL, COMSIG_LIVING_HUG_CARBON, COMSIG_LIVING_APPRAISE_ART))
+
 	clear_powers_and_stats()
 	owner.special_role = null
 	GLOB.all_vampires.Remove(src)
@@ -304,6 +317,14 @@
 		if(old_body)
 			all_powers.Remove(old_body)
 		all_powers.Grant(new_body)
+
+	// Transfer humanity gain signal registrations
+	if(old_body)
+		UnregisterSignal(old_body, list(COMSIG_LIVING_PET_ANIMAL, COMSIG_LIVING_HUG_CARBON, COMSIG_LIVING_APPRAISE_ART))
+	if(new_body)
+		RegisterSignal(new_body, COMSIG_LIVING_PET_ANIMAL, PROC_REF(on_pet_animal))
+		RegisterSignal(new_body, COMSIG_LIVING_HUG_CARBON, PROC_REF(on_hug_carbon))
+		RegisterSignal(new_body, COMSIG_LIVING_APPRAISE_ART, PROC_REF(on_appraise_art))
 
 	// Update punch damage
 	var/mob/living/carbon/human/human_new_body = new_body

@@ -97,6 +97,13 @@
 ///From living/set_resting(): (new_resting, silent, instant)
 #define COMSIG_LIVING_RESTING "living_resting"
 
+/// From base of /mob/living/simple_animal/attack_hand() and /mob/living/basic/attack_hand() when petting (non-combat): (mob/living/pet)
+#define COMSIG_LIVING_PET_ANIMAL "living_pet_animal"
+/// From base of carbon_defense.dm when hugging: (mob/living/carbon/hugged)
+#define COMSIG_LIVING_HUG_CARBON "living_hug_carbon"
+/// From base of /datum/element/art when appraising art: (atom/art_piece)
+#define COMSIG_LIVING_APPRAISE_ART "living_appraise_art"
+
 ///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 ///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)

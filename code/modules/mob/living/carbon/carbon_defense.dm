@@ -352,9 +352,8 @@
 		M.visible_message(span_notice("[M] hugs [src] to make [p_them()] feel better!"), \
 					span_notice("You hug [src] to make [p_them()] feel better!"))
 
-		if(IS_VAMPIRE(M) && src.client)
-			var/datum/antagonist/vampire/vampdatum = IS_VAMPIRE(M)
-			SEND_SIGNAL(vampdatum, COMSIG_VAMPIRE_TRACK_HUMANITY_GAIN, HUMANITY_HUGGING_TYPE, src)
+		if(src.client)
+			SEND_SIGNAL(M, COMSIG_LIVING_HUG_CARBON, src)
 
 		// Warm them up with hugs
 		share_bodytemperature(M)

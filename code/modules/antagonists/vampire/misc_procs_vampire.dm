@@ -178,6 +178,21 @@
 	SIGNAL_HANDLER
 	return track_humanity_gain_progress(type, subject)
 
+/// Signal handler for when the vampire pets an animal
+/datum/antagonist/vampire/proc/on_pet_animal(datum/source, mob/living/pet)
+	SIGNAL_HANDLER
+	return track_humanity_gain_progress(HUMANITY_PETTING_TYPE, pet)
+
+/// Signal handler for when the vampire hugs a carbon
+/datum/antagonist/vampire/proc/on_hug_carbon(datum/source, mob/living/carbon/hugged)
+	SIGNAL_HANDLER
+	return track_humanity_gain_progress(HUMANITY_HUGGING_TYPE, hugged)
+
+/// Signal handler for when the vampire appraises art
+/datum/antagonist/vampire/proc/on_appraise_art(datum/source, atom/art_piece)
+	SIGNAL_HANDLER
+	return track_humanity_gain_progress(HUMANITY_ART_TYPE, art_piece)
+
 /**
  * ##track_humanity_gain_progress(type, subject)
  *
