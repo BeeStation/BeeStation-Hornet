@@ -2538,6 +2538,7 @@
 "aAo" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "aAv" = (
@@ -8279,6 +8280,7 @@
 /obj/machinery/light_switch/directional/west,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/vending/tool,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "boY" = (
@@ -53108,12 +53110,10 @@
 	},
 /obj/item/wrench,
 /obj/item/multitool,
-/obj/machinery/newscaster{
-	pixel_y = -30
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "pOW" = (
@@ -55799,11 +55799,6 @@
 /area/bridge)
 "qNn" = (
 /obj/machinery/computer/station_alert,
-/obj/structure/sign/map/right{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-right-MS";
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -58843,15 +58838,15 @@
 /turf/open/floor/iron,
 /area/maintenance/solars/port/aft)
 "rUo" = (
-/obj/item/radio/intercom{
-	pixel_y = -29
-	},
 /obj/structure/rack,
 /obj/item/assembly/signaler,
 /obj/item/assembly/signaler,
 /obj/item/assembly/timer,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/newscaster{
+	pixel_y = -30
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
@@ -74993,13 +74988,9 @@
 /area/hallway/primary/central)
 "xHY" = (
 /obj/machinery/computer/atmos_alert,
-/obj/structure/sign/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "xId" = (

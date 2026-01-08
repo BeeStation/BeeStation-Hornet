@@ -282,9 +282,6 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
 /turf/open/floor/iron,
 /area/bridge)
 "aji" = (
@@ -11536,6 +11533,9 @@
 	dir = 1
 	},
 /obj/machinery/computer/prisoner/management,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
 /turf/open/floor/iron,
 /area/bridge)
 "ghR" = (
@@ -17097,13 +17097,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/effect/landmark/start/station_engineer,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/catwalk_floor/iron_smooth,
 /area/engine/engineering)
 "jlw" = (
@@ -29333,6 +29331,9 @@
 	},
 /obj/machinery/power/smes/engineering,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
 /turf/open/floor/iron/large,
 /area/engine/engineering)
 "qlD" = (
@@ -38387,7 +38388,7 @@
 /obj/structure/stairs{
 	dir = 4
 	},
-/obj/machinery/digital_clock/directional/north,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/pod/dark,
 /area/engine/engineering)
 "vgv" = (
@@ -40004,6 +40005,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/incident_display/bridge/directional/north,
 /turf/open/floor/iron,
 /area/bridge)
 "wdX" = (

@@ -1779,9 +1779,6 @@
 /obj/item/crowbar/red,
 /obj/item/flashlight,
 /obj/item/flashlight,
-/obj/structure/fireaxecabinet{
-	pixel_y = -30
-	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "arg" = (
@@ -3877,9 +3874,6 @@
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "aOp" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 22
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Engineering Desk";
 	name = "engineering camera"
@@ -3892,6 +3886,7 @@
 	dir = 8
 	},
 /obj/machinery/fax/eng,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/break_room)
 "aOy" = (
@@ -31819,6 +31814,9 @@
 "iRL" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/bot,
+/obj/structure/fireaxecabinet{
+	pixel_y = -30
+	},
 /turf/open/floor/iron/dark,
 /area/bridge)
 "iSa" = (
@@ -51701,8 +51699,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/digital_clock/directional/north,
 /obj/effect/turf_decal/bot,
+/obj/machinery/airalarm/directional/north{
+	pixel_y = 22
+	},
 /turf/open/floor/iron,
 /area/engine/break_room)
 "pKu" = (
@@ -52058,9 +52058,6 @@
 "pRk" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -63877,6 +63874,7 @@
 	c_tag = "Bridge Emergency Supplies";
 	name = "command camera"
 	},
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "tTH" = (

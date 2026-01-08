@@ -10614,6 +10614,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/machinery/incident_display/bridge/directional/north,
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
 "clg" = (
@@ -18675,9 +18676,6 @@
 	pixel_y = 12;
 	pixel_x = -8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron/dark,
 /area/engineering/hallway)
 "dZx" = (
@@ -26152,6 +26150,7 @@
 /obj/machinery/atmospherics/pipe/smart/simple/general/visible{
 	dir = 10
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/vault/rock,
 /area/engine/engine_room)
 "fNh" = (
@@ -27641,7 +27640,6 @@
 	dir = 8;
 	pixel_x = 25
 	},
-/obj/machinery/newscaster/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "gdr" = (
@@ -29968,6 +29966,7 @@
 	dir = 1
 	},
 /obj/item/clothing/ears/earmuffs,
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "gAf" = (
@@ -45801,9 +45800,6 @@
 	color = "#3a3a3a"
 	},
 /obj/effect/turf_decal/siding/dark,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron/smooth_large,
 /area/engineering/hallway)
 "jXk" = (
@@ -54354,7 +54350,6 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
 	dir = 8
 	},
-/obj/machinery/light_switch/directional/south,
 /obj/machinery/camera/directional/east,
 /turf/open/floor/iron/tech/grid,
 /area/tcommsat/computer)
@@ -54446,7 +54441,6 @@
 /obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "lQk" = (
@@ -58071,7 +58065,12 @@
 	pixel_x = -28;
 	dir = 4
 	},
-/obj/machinery/light_switch/directional/north,
+/obj/machinery/light_switch/directional/north{
+	pixel_x = -6
+	},
+/obj/structure/extinguisher_cabinet/directional/north{
+	pixel_x = 6
+	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "mIi" = (
@@ -69709,11 +69708,6 @@
 	pixel_x = 4
 	},
 /obj/item/radio/intercom/directional/east,
-/obj/machinery/computer/security/telescreen/minisat{
-	pixel_y = -28;
-	dir = 1;
-	pixel_x = -2
-	},
 /turf/open/floor/iron/dark/smooth_corner{
 	dir = 1
 	},
@@ -72299,10 +72293,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/door/airlock/command{
 	name = "Power Tools Storage A";
 	req_access_txt = "19";
@@ -74806,6 +74796,7 @@
 "qnk" = (
 /obj/machinery/computer/telecomms/monitor,
 /obj/structure/sign/poster/official/random/directional/west,
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/tcommsat/computer)
 "qnw" = (
@@ -82348,7 +82339,6 @@
 	pixel_y = 10
 	},
 /obj/machinery/light/directional/north,
-/obj/item/radio/intercom/directional/north,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "rVe" = (
@@ -82917,6 +82907,7 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/smooth,
 /area/engine/engine_room)
 "sbA" = (
@@ -84791,6 +84782,10 @@
 	dir = 1
 	},
 /obj/machinery/computer/cargo/request{
+	dir = 1
+	},
+/obj/machinery/computer/security/telescreen/minisat{
+	pixel_y = -28;
 	dir = 1
 	},
 /turf/open/floor/iron/grid/steel,
@@ -94130,6 +94125,13 @@
 /obj/effect/turf_decal/siding/thinplating_new,
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
+"uxw" = (
+/obj/effect/turf_decal/tile/monorust,
+/obj/effect/turf_decal/siding/dark{
+	dir = 1
+	},
+/turf/open/floor/iron/smooth_large,
+/area/engineering/hallway)
 "uxD" = (
 /obj/structure/flora/ausbushes/ppflowers{
 	pixel_x = 9;
@@ -107804,6 +107806,7 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 1
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/tech/grid,
 /area/engine/engine_room)
 "xzc" = (
@@ -127613,7 +127616,7 @@ nzj
 nzj
 hyT
 qNN
-saC
+aMX
 clf
 ghx
 cBH
@@ -127626,7 +127629,7 @@ gGT
 bjg
 gVO
 syk
-saC
+aMX
 qNN
 sER
 hAi
@@ -141840,8 +141843,8 @@ mYq
 sZu
 tNU
 sZu
-lGo
 vEy
+sZu
 sZu
 bpa
 vpY
@@ -146713,10 +146716,10 @@ fVX
 uyY
 rvZ
 pKH
-wJf
+uxw
 jXc
 dZm
-btm
+dGx
 xzb
 fxG
 vuA

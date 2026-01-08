@@ -1027,7 +1027,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engine_room)
 "ard" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -1599,6 +1599,7 @@
 	name = "Engineering RC";
 	pixel_y = -34
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "azb" = (
@@ -1644,6 +1645,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1;
 	hide = 0
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -2432,6 +2436,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/item/storage/pod{
 	pixel_x = 32
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
@@ -8508,14 +8515,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/directional/south,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron,
 /area/bridge)
 "cQm" = (
@@ -12793,9 +12797,6 @@
 	},
 /obj/item/pipe_dispenser,
 /obj/item/book/manual/wiki/sopengineering,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -12937,9 +12938,6 @@
 "emu" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
 	alpha = 180
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -15056,9 +15054,6 @@
 "faC" = (
 /obj/machinery/computer/station_alert,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "faG" = (
@@ -17322,6 +17317,7 @@
 	pixel_y = 11
 	},
 /obj/structure/table,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "fMC" = (
@@ -18422,7 +18418,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "1-2"
 	},
 /turf/open/floor/iron,
 /area/bridge)
@@ -18897,6 +18893,8 @@
 	pixel_x = -7;
 	pixel_y = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "goF" = (
@@ -19182,6 +19180,7 @@
 	pixel_x = -32;
 	pixel_y = -3
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron,
 /area/engine/engineering)
 "guk" = (
@@ -19542,6 +19541,9 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/effect/landmark/navigate_destination,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "gAE" = (
@@ -22510,6 +22512,16 @@
 	},
 /turf/open/floor/iron,
 /area/science/explab)
+"hGF" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain/private)
 "hGK" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -22939,9 +22951,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "hPc" = (
@@ -24356,7 +24366,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/engine/engine_room)
 "irQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -31840,8 +31850,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/newscaster{
-	pixel_y = 34
+/obj/machinery/light_switch{
+	pixel_y = 28
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
@@ -37904,6 +37914,13 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/directional/south,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/iron,
 /area/bridge)
 "naK" = (
@@ -40529,9 +40546,6 @@
 /obj/item/bedsheet/captain,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/open/floor/carpet/blue,
@@ -41649,6 +41663,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/radio/intercom{
+	pixel_x = 1;
+	pixel_y = 26
+	},
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "ott" = (
@@ -42096,10 +42114,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/radio/intercom{
-	pixel_x = 1;
-	pixel_y = 26
-	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "oDx" = (
@@ -42462,7 +42477,6 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmospherics_engine)
 "oKI" = (
-/obj/machinery/firealarm/directional/north,
 /obj/structure/displaycase/captain,
 /obj/machinery/light{
 	dir = 1
@@ -47947,9 +47961,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/directional/north,
-/obj/machinery/light_switch{
-	pixel_y = 28
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -54344,6 +54355,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/nanite)
+"sQh" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/captain/private)
 "sQn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -55510,6 +55527,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/machinery/light_switch/directional/east,
 /turf/open/floor/iron,
 /area/engine/engine_room)
 "tkt" = (
@@ -62121,6 +62139,7 @@
 /obj/item/pinpointer/nuke{
 	pixel_y = 5
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "vrh" = (
@@ -68730,11 +68749,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
 /obj/structure/dresser,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "xBu" = (
@@ -100564,12 +100579,12 @@ jcW
 jcW
 jcW
 ara
-lcp
+kkS
 ara
 jcW
 jcW
 jcW
-lcp
+kkS
 jcW
 jcW
 gsA
@@ -101343,7 +101358,7 @@ oLt
 pRZ
 iIs
 fpi
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -101600,7 +101615,7 @@ lpV
 nSh
 jTf
 hlL
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -101715,10 +101730,10 @@ gig
 naq
 tKm
 vre
-fto
+hGF
 gAC
 azu
-uRt
+sQh
 goD
 vgS
 hqf
@@ -102371,7 +102386,7 @@ dIL
 crW
 kuR
 lOI
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -102628,7 +102643,7 @@ aai
 jHv
 kuR
 hiY
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -103142,7 +103157,7 @@ kQV
 aNN
 kuR
 dro
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -103399,7 +103414,7 @@ dIL
 crW
 kuR
 dBO
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -104170,7 +104185,7 @@ oQJ
 fbZ
 gGE
 pCW
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -104427,7 +104442,7 @@ xPQ
 wdT
 mJx
 iRm
-lcp
+kkS
 gsA
 ewB
 gsA
@@ -105706,7 +105721,7 @@ eTi
 cFt
 xpW
 tZp
-lcp
+kkS
 yeA
 yeA
 gsA
@@ -105963,7 +105978,7 @@ teB
 rNg
 ycf
 kJM
-lcp
+kkS
 yeA
 yeA
 kNm
@@ -106220,7 +106235,7 @@ jHf
 cFt
 eIm
 cFt
-lcp
+kkS
 gsA
 gsA
 gsA

@@ -641,6 +641,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"adT" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall,
+/area/engine/storage_shared)
 "aeb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -5746,10 +5750,10 @@
 /obj/machinery/power/smes{
 	charge = 2e+006
 	},
-/obj/machinery/light/small,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/incident_display/delam/directional/south,
 /turf/open/floor/circuit/green,
 /area/engine/atmospherics_engine)
 "aLy" = (
@@ -10610,10 +10614,6 @@
 	dir = 5
 	},
 /area/security/main)
-"bxH" = (
-/obj/machinery/status_display/evac,
-/turf/closed/wall/r_wall,
-/area/engine/storage_shared)
 "bxL" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -15567,9 +15567,6 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 23
-	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "ckN" = (
@@ -15797,6 +15794,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron,
 /area/maintenance/port)
 "cmn" = (
@@ -24699,9 +24697,6 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "dvO" = (
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
 /obj/machinery/camera/directional/south{
 	c_tag = "Atmospherics - Distro Loop";
 	name = "atmospherics camera"
@@ -33241,9 +33236,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
-	},
-/obj/item/radio/intercom{
-	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -44944,6 +44936,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/aisat)
+"juN" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/iron/dark,
+/area/bridge)
 "juO" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -49068,7 +49067,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/fax/bridge,
-/obj/machinery/digital_clock/directional/south,
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "kVa" = (
@@ -61807,6 +61806,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/visible,
+/obj/machinery/airalarm/directional/south{
+	pixel_y = -22
+	},
 /turf/open/floor/iron/dark/corner,
 /area/engine/atmos)
 "pvi" = (
@@ -68889,6 +68891,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "rQM" = (
@@ -70344,6 +70347,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "sqY" = (
@@ -72999,6 +73003,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/light/small,
 /turf/open/floor/iron/dark,
 /area/engine/atmospherics_engine)
 "tlQ" = (
@@ -111263,7 +111268,7 @@ brZ
 jjk
 lcB
 hme
-bxH
+nBr
 sZg
 rpp
 plk
@@ -111521,7 +111526,7 @@ rEg
 hNT
 mGL
 nBr
-mCL
+adT
 mCL
 oEi
 uOq
@@ -128230,7 +128235,7 @@ bwU
 nXq
 esA
 bYc
-gQb
+juN
 bIV
 bIV
 xAt

@@ -14936,6 +14936,7 @@
 "eiZ" = (
 /obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/incident_display/bridge/directional/south,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "eje" = (
@@ -24381,6 +24382,7 @@
 "gDk" = (
 /obj/machinery/vending/engivend,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "gDK" = (
@@ -28642,7 +28644,7 @@
 "hNe" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/computer/rdconsole/production,
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "hNy" = (
@@ -42673,9 +42675,6 @@
 "lxD" = (
 /obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
@@ -56845,6 +56844,7 @@
 /obj/item/pipe_dispenser,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/incident_display/delam/directional/north,
 /turf/open/floor/iron/ameridiner,
 /area/engine/engine_room)
 "pzr" = (
@@ -59387,6 +59387,7 @@
 "qiV" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/bot,
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "qiY" = (
@@ -133181,7 +133182,7 @@ pSP
 gsv
 osY
 qey
-kia
+yeb
 jpI
 qON
 mqi
@@ -133438,7 +133439,7 @@ sPR
 izc
 osY
 eiZ
-kia
+yeb
 caB
 qON
 mqi
@@ -133695,7 +133696,7 @@ lyY
 izc
 osY
 ldV
-kia
+yeb
 mbW
 qON
 mqi
