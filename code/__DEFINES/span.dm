@@ -208,7 +208,7 @@
 #define span_srtradioholoparasiteboldmessage(str) ("<span class='srt_radio holoparasite bold message'>" + (str) + "</span>")
 #define span_subheaderannouncementtext(str) ("<span class='subheader_announcement_text'>" + (str) + "</span>")
 #define span_suicide(str) ("<span class='suicide'>" + (str) + "</span>")
-#define span_tinydanger(str) ("<span class='tinydanger'>" + str + "</span>")
+#define span_tinydanger(str) ("<span class='tinydanger'>" + (str) + "</span>")
 #define span_umbraemphasis(str) ("<span class='umbra_emphasis'>" + (str) + "</span>")
 #define span_unconscious(str) ("<span class='unconscious'>" + (str) + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + (str) + "</span>")
@@ -223,7 +223,12 @@
 #define span_warningitalics(str) ("<span class='warning italics'>" + (str) + "</span>")
 #define span_warningrobot(str) ("<span class='warning robot'>" + (str) + "</span>")
 #define span_awe(str) ("<span class='awe'>" + (str) + "</span>")
+#define span_subtle(str) ("<span class='subtle'>" + (str) + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
+
+//More generic macros
+#define span_style(style, X) "<span style=\"[style]\">[X]</span>"
+#define span_color(color, text) span_style("color: [color]", "[text]")

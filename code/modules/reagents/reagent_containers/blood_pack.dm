@@ -78,12 +78,6 @@
 /obj/item/reagent_containers/blood/synthetic
 	blood_type = "Coolant"
 
-/obj/item/reagent_containers/blood/ethereal
-	labelled = 1
-	name = "blood pack - LE"
-	blood_type = "LE"
-	unique_blood = /datum/reagent/consumable/liquidelectricity
-
 /obj/item/reagent_containers/blood/oozeling
 	labelled = 1
 	name = "blood pack - OZ"

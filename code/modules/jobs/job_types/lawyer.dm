@@ -28,6 +28,12 @@
 
 	minimal_lightup_areas = list(/area/lawoffice)
 
+	manuscript_jobs = list(
+		JOB_NAME_LAWYER,
+		JOB_NAME_DETECTIVE, // a lawyer should also know how to collect evidences
+		JOB_NAME_CURATOR
+	)
+
 /datum/outfit/job/lawyer
 	name = JOB_NAME_LAWYER
 	jobtype = /datum/job/lawyer

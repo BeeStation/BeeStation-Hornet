@@ -36,6 +36,11 @@
 		/area/crew_quarters/kitchen
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_BARTENDER,
+		JOB_NAME_CHEMIST // why not
+	)
+
 /datum/outfit/job/bartender
 	name = JOB_NAME_BARTENDER
 	jobtype = /datum/job/bartender

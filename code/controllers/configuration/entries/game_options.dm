@@ -161,7 +161,7 @@
 	config_entry_value = "Central Command has ordered the Epsilon security level on the station. Consider your contracts terminated."
 
 /datum/config_entry/number/station_goal_budget
-	default = 1
+	config_entry_value = 1
 	min_val = 0
 
 /datum/config_entry/flag/diona_ghost_spawn

@@ -1,16 +1,20 @@
-
-/*
-
-	All telecommunications interactions:
-
-*/
+// This file is separate from telecommunications.dm to isolate the implementation
+// of basic interactions with the machines.
 
 /obj/machinery/telecomms
-	var/temp = "" // output message
+	/// The current temporary frequency used to add new filtered frequencies
+	/// options.
 	var/tempfreq = FREQ_COMMON
 	emp_disable_time = 5 MINUTES
+	///Illegal frequencies that can't be listened to by telecommunication servers.
+	var/list/banned_frequencies = list(
+		FREQ_SYNDICATE,
+		FREQ_CENTCOM,
+		FREQ_CTF_RED,
+		FREQ_CTF_BLUE,
+	)
 
-/obj/machinery/telecomms/attackby(obj/item/P, mob/user, params)
+/obj/machinery/telecomms/attackby(obj/item/attacking_item, mob/user, params)
 
 	var/icon_closed = initial(icon_state)
 	var/icon_open = "[initial(icon_state)]_o"
@@ -18,13 +22,13 @@
 		icon_closed = "[initial(icon_state)]_off"
 		icon_open = "[initial(icon_state)]_o_off"
 
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, P))
+	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, attacking_item))
 		return
 	// Using a multitool lets you access the receiver's interface
-	else if(P.tool_behaviour == TOOL_MULTITOOL)
+	else if(attacking_item.tool_behaviour == TOOL_MULTITOOL)
 		attack_hand(user)
 
-	else if(default_deconstruction_crowbar(P))
+	else if(default_deconstruction_crowbar(attacking_item))
 		return
 	else
 		return ..()
@@ -78,44 +82,47 @@
 	return data
 
 /obj/machinery/telecomms/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
-	if(!issilicon(usr) && !istype(usr.get_active_held_item(), /obj/item/multitool))
-		return
+	var/mob/living/current_user = usr
+	if(!issilicon(current_user))
+		if(!istype(current_user.get_active_held_item(), /obj/item/multitool))
+			return
 
-	var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
+	var/datum/component/buffer/heldmultitool = get_held_buffer_item(current_user)
 
 	switch(action)
 		if("toggle")
 			toggled = !toggled
 			update_power()
-			update_icon_state()
-			log_game("[key_name(usr)] toggled [toggled ? "On" : "Off"] [src] at [AREACOORD(src)].")
+			update_appearance(UPDATE_ICON_STATE)
+			log_game("[key_name(current_user)] toggled [toggled ? "On" : "Off"] [src] at [AREACOORD(src)].")
 			. = TRUE
 		if("id")
 			if(params["value"])
 				if(length(params["value"]) > 32)
-					to_chat(usr, span_warning("Error: Machine ID too long!"))
+					to_chat(current_user, span_warning("Error: Machine ID too long!"))
 					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 					return
 				else
 					id = params["value"]
-					log_game("[key_name(usr)] has changed the ID for [src] at [AREACOORD(src)] to [id].")
+					log_game("[key_name(current_user)] has changed the ID for [src] at [AREACOORD(src)] to [id].")
 					. = TRUE
 		if("network")
 			if(params["value"])
 				if(length(params["value"]) > 15)
-					to_chat(usr, span_warning("Error: Network name too long!"))
+					to_chat(current_user, span_warning("Error: Network name too long!"))
 					playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 					return
 				else
-					for(var/obj/machinery/telecomms/T in links)
-						remove_link(T)
-						T.ui_update()
+					for(var/obj/machinery/telecomms/linked_machine in links)
+						remove_link(linked_machine)
+						linked_machine.ui_update()
 					network = params["value"]
 					links = list()
-					log_game("[key_name(usr)] has changed the network for [src] at [AREACOORD(src)] to [network].")
+					log_game("[key_name(current_user)] has changed the network for [src] at [AREACOORD(src)] to [network].")
 					update_network()
 					. = TRUE
 		if("tempfreq")
@@ -123,27 +130,26 @@
 				tempfreq = text2num(params["value"]) * 10
 				. = TRUE
 		if("freq")
-			var/newfreq = tempfreq			//* 10 was in original pr here but makes out of tempfreq something like 14590
-			if(newfreq == FREQ_SYNDICATE)
-				to_chat(usr, span_warning("Error: Interference preventing filtering frequency: \"[newfreq / 10] GHz\""))
+			if(tempfreq in banned_frequencies)
+				to_chat(current_user, span_warning("Error: Interference preventing filtering frequency: \"[tempfreq / 10] kHz\""))
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			else
-				if(!(newfreq in freq_listening) && newfreq < 10000)
-					freq_listening.Add(newfreq)
-					log_game("[key_name(usr)] added frequency [newfreq] for [src] at [AREACOORD(src)].")
+				if(!(tempfreq in freq_listening))
+					freq_listening.Add(tempfreq)
+					log_game("[key_name(current_user)] added frequency [tempfreq] for [src] at [AREACOORD(src)].")
 					. = TRUE
 		if("delete")
 			freq_listening.Remove(params["value"])
-			log_game("[key_name(usr)] removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
+			log_game("[key_name(current_user)] removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
 			. = TRUE
 		if("unlink")
-			var/obj/machinery/telecomms/T = links[text2num(params["value"])]
-			if(T)
-				. = remove_link(T, usr)
+			var/obj/machinery/telecomms/machine_to_unlink = links[text2num(params["value"])]
+			if(machine_to_unlink)
+				. = remove_link(machine_to_unlink, current_user)
 		if("link")
 			if(heldmultitool)
-				var/obj/machinery/telecomms/T = heldmultitool.target
-				. = add_new_link(T, usr)
+				var/obj/machinery/telecomms/machine_to_link = heldmultitool.target
+				. = add_new_link(machine_to_link, current_user)
 		if("buffer")
 			STORE_IN_BUFFER(heldmultitool.parent, src)
 			. = TRUE
@@ -154,7 +160,7 @@
 	if(add_act(action, params))
 		. = TRUE
 
-///adds new_connection to src's links list AND vice versa. also updates links_by_telecomms_type
+/// Adds new_connection to src's links list AND vice versa. Also updates `links_by_telecomms_type`.
 /obj/machinery/telecomms/proc/add_new_link(obj/machinery/telecomms/new_connection, mob/user)
 	if(!istype(new_connection) || new_connection == src)
 		return FALSE
@@ -173,7 +179,7 @@
 		log_game("[key_name(user)] linked [src] for [new_connection] at [AREACOORD(src)].")
 	return TRUE
 
-///removes old_connection from src's links list AND vice versa. also updates links_by_telecomms_type
+/// Removes old_connection from src's links list AND vice versa. Also updates `links_by_telecomms_type`.
 /obj/machinery/telecomms/proc/remove_link(obj/machinery/telecomms/old_connection, mob/user)
 	if(!istype(old_connection) || old_connection == src)
 		return FALSE
@@ -181,7 +187,6 @@
 	if(old_connection in links)
 		links -= old_connection
 		LAZYREMOVEASSOC(links_by_telecomms_type, old_connection.telecomms_type, old_connection)
-
 
 	if(src in old_connection.links)
 		old_connection.links -= src
@@ -194,6 +199,11 @@
 
 	return TRUE
 
+/**
+ * Wrapper for adding additional options to a machine's interface.
+ *
+ * Returns a list, or `null` if it wasn't implemented by the machine.
+ */
 /obj/machinery/telecomms/proc/add_option()
 	return
 
@@ -210,7 +220,14 @@
 	data["receiving"] = receiving
 	return data
 
+/**
+ * Wrapper for adding another time of action for `ui_act()`, rather than
+ * having you override `ui_act` yourself.
+ *
+ * Returns `TRUE` if the action was handled, nothing if not.
+ */
 /obj/machinery/telecomms/proc/add_act(action, params)
+	return
 
 /obj/machinery/telecomms/relay/add_act(action, params)
 	switch(action)
@@ -233,8 +250,8 @@
 					change_frequency = 0
 					. = TRUE
 
-// Returns a multitool from a user depending on their mobtype.
 
+/// Returns a multitool from a user depending on their mobtype.
 /obj/machinery/telecomms/proc/get_held_buffer_item(mob/user)
 	// Let's double check
 	var/obj/item/held_item = user.get_active_held_item()

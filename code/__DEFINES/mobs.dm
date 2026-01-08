@@ -231,13 +231,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define WINGS_FLYING 2 //can generate lift and fly if atmos is present
 #define WINGS_MAGIC 3 //can fly regardless of atmos
 
-//Surgery Defines
-#define BIOWARE_GENERIC "generic"
-#define BIOWARE_NERVES "nerves"
-#define BIOWARE_CIRCULATION "circulation"
-#define BIOWARE_LIGAMENTS "ligaments"
-#define BIOWARE_CORTEX "cortex"
-
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
 #define SCREWYHUD_CRIT 1
@@ -701,9 +694,6 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define HEAL_ALL ~(HEAL_ADMIN|HEAL_RESTRAINTS)
 /// Heals everything and is as strong as / is an admin heal
 #define ADMIN_HEAL_ALL ALL
-
-// Species related bitflags go here.
-#define NOT_TRANSMORPHIC (1<<0) // This race can't become a changeling antagonist.
 
 /// Distance which you can see someone's ID card
 /// Short enough that you can inspect over tables (bartender checking age)

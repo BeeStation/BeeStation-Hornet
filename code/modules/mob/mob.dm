@@ -534,6 +534,12 @@
 	set name = "Examine"
 	set category = "IC"
 
+	INVOKE_ASYNC(src, PROC_REF(run_examinate), examinify)
+
+/mob/proc/run_examinate(atom/examinify)
+	if(QDELETED(examinify))
+		return
+
 	if(isturf(examinify) && !(sight & SEE_TURFS) && !(examinify in view(client ? client.view : world.view, src)))
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
@@ -542,6 +548,16 @@
 		return
 
 	face_atom(examinify)
+
+	// Show nearby mobs that we're examining something
+	if(isliving(src) && examinify.loc != src && !is_holding(examinify))
+		for(var/mob/M in viewers(4, src))
+			if(M == src || !M.client || M.is_blind())
+				continue
+			if(M.client.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/examine_messages))
+				continue
+			to_chat(M, span_subtle("<b>\The [src]</b> looks at \the [examinify]."))
+
 	var/result_combined
 	if(client)
 		LAZYINITLIST(client.recent_examines)
@@ -567,8 +583,26 @@
 	to_chat(src, examine_block(span_infoplain(result_combined)))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
 
-/mob/proc/blind_examine_check(atom/examined_thing)
+//This is a proc for worn item examines. See /obj/item/proc/get_examine_line
+/mob/proc/can_examine_in_detail(atom/examinify, silent = FALSE)
+	// Allow examine from up to 4 tiles away
+	if(!isobserver(src) && !(src in viewers(4, get_turf(examinify))))
+		if(!silent)
+			to_chat(src, span_warning("You are too far away!"))
+		return FALSE
+	if(is_blind())
+		//blind_examine_check has some funky item movement stuff going on, so we just block blind examines
+		if(!silent)
+			to_chat(src, span_warning("You can't make out any of the details!"))
+		return FALSE
+	if(!has_light_nearby() && !has_nightvision())
+		if(!silent)
+			to_chat(src, span_warning("You can't make those out!"))
+		return FALSE
 	return TRUE
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE //The non-living will always succeed at this check.
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
