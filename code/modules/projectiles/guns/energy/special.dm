@@ -117,7 +117,7 @@
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
 	weapon_weight = WEAPON_LIGHT
-	fire_rate = 3
+	fire_rate = 0.7
 	automatic = 1
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
 	var/progress_flash_divisor = 10  //copypasta is best pasta
@@ -361,4 +361,5 @@
 	inhand_icon_state = "gravity_gun"
 	icon_state = "gravity_gun"
 	automatic_charge_overlays = FALSE
+	fire_rate = 0.5
 	var/power = 4
