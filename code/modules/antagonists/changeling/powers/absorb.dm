@@ -25,7 +25,7 @@
 
 	var/mob/living/carbon/target = owner.pulling
 	var/datum/antagonist/changeling/changeling = IS_CHANGELING(owner)
-	return changeling.can_absorb_dna(target)
+	return changeling.can_absorb_dna(target, ignore_duplicates = TRUE)
 
 /datum/action/changeling/absorbDNA/sting_action(mob/owner)
 	SHOULD_CALL_PARENT(FALSE)
