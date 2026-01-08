@@ -727,7 +727,7 @@
 /datum/status_effect/interdiction/tick()
 	if(owner.m_intent == MOVE_INTENT_RUN)
 		owner.toggle_move_intent(owner)
-		owner.adjust_confusion_up_to(20 SECONDS, max_duration = 20 SECONDS)
+		owner.adjust_confusion_up_to(10 SECONDS, max_duration = 10 SECONDS)
 		running_toggled = TRUE
 		to_chat(owner, span_warning("You know you shouldn't be running here."))
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/interdiction)

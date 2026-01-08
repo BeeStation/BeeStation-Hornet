@@ -75,7 +75,7 @@
 			if(1)
 				host_mob.adjust_hallucinations(30 SECONDS)
 			if(2)
-				host_mob.adjust_confusion(20 SECONDS)
+				host_mob.adjust_confusion(10 SECONDS)
 			if(3)
 				host_mob.drowsyness += 10
 			if(4)

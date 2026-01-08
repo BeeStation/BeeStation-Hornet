@@ -64,7 +64,7 @@ Bonus
 				to_chat(M, span_warning("[pick("Your head hurts.", "Your mind blanks for a moment.")]"))
 		else
 			to_chat(M, span_userdanger("You can't think straight!"))
-			M.adjust_confusion(16 SECONDS * power)
+			M.adjust_confusion(8 SECONDS * power)
 			if(brain_damage)
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN,3 * power, 80)
 				M.updatehealth()

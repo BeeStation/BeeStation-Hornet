@@ -1287,14 +1287,14 @@
 	var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(liver.damage > 0)
 		liver.damage = max(liver.damage - 4 * repair_strength, 0)
-		affected_mob.set_confusion_if_lower(4 SECONDS)
+		affected_mob.set_confusion_if_lower(2 SECONDS)
 	affected_mob.adjustToxLoss(-6 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-	affected_mob.set_confusion_if_lower(4 SECONDS)
+	affected_mob.set_confusion_if_lower(2 SECONDS)
 
 /datum/reagent/medicine/inaprovaline
 	name = "Inaprovaline"

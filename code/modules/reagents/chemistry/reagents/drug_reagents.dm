@@ -511,7 +511,7 @@
 			affected_mob.Sleeping(60 * REM * delta_time)
 
 	//Providing a Mood Boost
-	affected_mob.adjust_confusion(-6 SECONDS * REM * delta_time)
+	affected_mob.adjust_confusion(-3 SECONDS * REM * delta_time)
 	affected_mob.adjust_jitter(-10 SECONDS * REM * delta_time)
 	affected_mob.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
