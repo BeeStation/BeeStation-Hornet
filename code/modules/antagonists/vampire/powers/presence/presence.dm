@@ -4,9 +4,12 @@
 	icon_state = "presence"
 
 	// Lists of abilities granted per level
-	// Awe is static and doesn't scale with levels - future abilities will fill these slots
-	level_1 = list(/datum/action/vampire/awe)
-	level_2 = list(/datum/action/vampire/awe)
-	level_3 = list(/datum/action/vampire/awe)
-	level_4 = list(/datum/action/vampire/awe)
+	// Level 1: Entrance
+	// Level 2: Entrance, Summon
+	// Level 3: Awe, Entrance, Summon
+	// Level 4: Awe, Entrance, Summon, Force of Personality
+	level_1 = list(/datum/action/vampire/targeted/entrance)
+	level_2 = list(/datum/action/vampire/targeted/entrance, /datum/action/vampire/targeted/summon)
+	level_3 = list(/datum/action/vampire/awe, /datum/action/vampire/targeted/entrance, /datum/action/vampire/targeted/summon)
+	level_4 = list(/datum/action/vampire/awe, /datum/action/vampire/targeted/entrance, /datum/action/vampire/targeted/summon, /datum/action/vampire/force_of_personality)
 	level_5 = null
