@@ -342,20 +342,19 @@ GLOBAL_LIST_INIT(oddity_loot, list(//oddity: strange or crazy items
 	))
 
 //Maintenance loot spawner pools
-#define maint_trash_weight 4500
-#define maint_common_weight 4500
-#define maint_uncommon_weight 900
-#define maint_rarity_weight 99
-#define maint_oddity_weight 1 //1 out of 10,000 would give metastation (180 spawns) a 2 in 111 chance of spawning an oddity per round, similar to xeno egg
-#define maint_holiday_weight 3500 // When holiday loot is enabled, it'll give every loot item a 25% chance of being a holiday item
+#define MAINT_TRASH_WEIGHT 4500
+#define MAINT_COMMON_WEIGHT 4500
+#define MAINT_UNCOMMON_WEIGHT 900
+#define MAINT_RARITY_WEIGHT 99
+#define MAINT_ODDITY_WEIGHT 1 //1 out of 10,000 would give metastation (180 spawns) a 2 in 111 chance of spawning an oddity per round, similar to xeno egg
 
 //Loot pool used by default maintenance loot spawners
 GLOBAL_LIST_INIT(maintenance_loot, list(
-	GLOB.trash_loot = maint_trash_weight,
-	GLOB.common_loot = maint_common_weight,
-	GLOB.uncommon_loot = maint_uncommon_weight,
-	GLOB.rarity_loot = maint_rarity_weight,
-	GLOB.oddity_loot = maint_oddity_weight,
+	GLOB.trash_loot = MAINT_TRASH_WEIGHT,
+	GLOB.common_loot = MAINT_COMMON_WEIGHT,
+	GLOB.uncommon_loot = MAINT_UNCOMMON_WEIGHT,
+	GLOB.rarity_loot = MAINT_RARITY_WEIGHT,
+	GLOB.oddity_loot = MAINT_ODDITY_WEIGHT,
 	))
 
 //Loot pool that is copied from maint loot but doesn't get changed due to holidays
