@@ -51,7 +51,7 @@
 	id = "intimidated"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 10 SECONDS
-	tick_interval = 0.1 SECONDS
+	tick_interval = 0.2 SECONDS
 	alert_type = null
 	/// The vampire projecting the aura
 	var/mob/living/source_vampire
