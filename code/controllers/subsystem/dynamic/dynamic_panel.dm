@@ -20,7 +20,7 @@
 		data["possible_storytellers"] += storyteller_name
 
 	data["gamemode_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in SSdynamic.configured_gamemodes)
+	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in SSdynamic.gamemode_configured_rulesets)
 		data["gamemode_rulesets"] += list(list(
 			"name" = potential_ruleset.name,
 			"path" = potential_ruleset.type,
@@ -60,14 +60,14 @@
 
 	// Gamemode
 	data["valid_gamemode_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/gamemode/executed_ruleset in SSdynamic.configured_gamemodes)
+	for(var/datum/dynamic_ruleset/gamemode/executed_ruleset in SSdynamic.gamemode_configured_rulesets)
 		data["valid_gamemode_rulesets"] += list(list(
 			"name" = executed_ruleset.name,
 			"path" = executed_ruleset.type,
 		))
 
 	data["executed_gamemode_rulesets"] = list()
-	for(var/datum/dynamic_ruleset/gamemode/executed_ruleset in SSdynamic.executed_gamemodes)
+	for(var/datum/dynamic_ruleset/gamemode/executed_ruleset in SSdynamic.gamemode_executed_rulesets)
 		data["executed_gamemode_rulesets"] += list(list(
 			"name" = executed_ruleset.name,
 			"path" = executed_ruleset.type,

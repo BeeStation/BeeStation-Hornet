@@ -133,7 +133,7 @@
 	antag_datum = /datum/antagonist/wizard
 	weight = 8
 	minimum_players_required = 20
-	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
+	ruleset_flags = HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 
 /datum/dynamic_ruleset/gamemode/wizard/allowed(require_drafted = TRUE)
 	. = ..()
@@ -174,7 +174,7 @@
 	drafted_players_amount = 2
 	weight = 8
 	minimum_players_required = 24
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | NO_LATE_JOIN
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/clockcult,
 	)
@@ -225,7 +225,7 @@
 	drafted_players_amount = 4
 	weight = 8
 	minimum_players_required = 35
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 	blocking_rulesets = list(
 		/datum/dynamic_ruleset/gamemode/bloodcult,
 	)
@@ -286,7 +286,7 @@
 	drafted_players_amount = 3
 	weight = 8
 	minimum_players_required = 18
-	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET
+	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS | IS_OBVIOUS_RULESET | NO_LATE_JOIN
 
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
 	var/datum/team/nuclear/nuke_team

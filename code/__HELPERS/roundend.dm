@@ -373,9 +373,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	parts += "[GLOB.TAB]Dynamic Storyteller: <b>[SSdynamic.current_storyteller?["Name"] || "None"]</b>"
 
 	// Roundstart
-	if(length(SSdynamic.executed_gamemodes))
+	if(length(SSdynamic.gamemode_executed_rulesets))
 		parts += "[GLOB.TAB]Gamemode:"
-		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_gamemodes)
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
 			parts += "<b>[GLOB.TAB][GLOB.TAB][rule.name]</b>[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]"
 
 	// Supplementary
@@ -805,9 +805,9 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 	discordmsg += "Dynamic Storyteller: [SSdynamic.current_storyteller?["Name"] || "None"]\n"
 
 	// Roundstart
-	if(length(SSdynamic.executed_gamemodes))
+	if(length(SSdynamic.gamemode_executed_rulesets))
 		discordmsg += "Gamemode:\n"
-		for(var/datum/dynamic_ruleset/rule in SSdynamic.executed_gamemodes)
+		for(var/datum/dynamic_ruleset/rule in SSdynamic.gamemode_executed_rulesets)
 			discordmsg += "- **[rule.name]**[rule.executed_at > 10 MINUTES ? " at [time2text(rule.executed_at, "hh:mm")]" : ""]\n"
 
 	// Supplementary

@@ -73,14 +73,14 @@ SUBSYSTEM_DEF(communications)
 		var/list/blacklisted_types = list()
 		var/obvious_shown = FALSE
 		// Add all of the rulesets that did executed
-		for (var/datum/dynamic_ruleset/ruleset in SSdynamic.executed_gamemodes)
+		for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_executed_rulesets)
 			gamemodes += ruleset
 			blacklisted_types += ruleset.type
 			if (ruleset.ruleset_flags & IS_OBVIOUS_RULESET)
 				obvious_shown = TRUE
 		// Throw in some rulesets that could execute but didn't
 		while (length(gamemodes) < 3)
-			var/datum/dynamic_ruleset/false_alarm = SSdynamic.pick_ruleset(SSdynamic.configured_gamemodes, TRUE, TRUE, blacklisted_types)
+			var/datum/dynamic_ruleset/false_alarm = SSdynamic.pick_ruleset(SSdynamic.gamemode_configured_rulesets, TRUE, TRUE, blacklisted_types)
 			if (!false_alarm)
 				break
 			blacklisted_types += false_alarm.type
@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(communications)
 		// If we didn't have any gamemodes to bluff with, then throw in some random ones
 		while (length(gamemodes) < 3)
 			var/list/random_rulesets = list()
-			for (var/datum/dynamic_ruleset/ruleset in SSdynamic.configured_gamemodes)
+			for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_configured_rulesets)
 				if (!(ruleset.type in blacklisted_types))
 					random_rulesets += ruleset
 			if (!length(random_rulesets))

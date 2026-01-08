@@ -21,9 +21,11 @@ SUBSYSTEM_DEF(dynamic)
 	 */
 
 	/// A list of configured gamemodes
-	var/list/datum/dynamic_ruleset/gamemode/configured_gamemodes
+	var/list/datum/dynamic_ruleset/gamemode/gamemode_configured_rulesets
 	/// List of executed gamemodes
-	var/list/datum/dynamic_ruleset/gamemode/executed_gamemodes = list()
+	var/list/datum/dynamic_ruleset/gamemode/gamemode_executed_rulesets = list()
+	/// The next gamemode ruleset to be triggered, if we want to trigger one late
+	var/datum/dynamic_ruleset/gamemode/gamemode_late_ruleset = null
 
 	/**
 	 * Supplementary variables
@@ -294,7 +296,7 @@ SUBSYSTEM_DEF(dynamic)
 			continue
 		vars[variable] = initial(vars[variable])
 
-	for (var/datum/dynamic_ruleset/ruleset in configured_gamemodes)
+	for (var/datum/dynamic_ruleset/ruleset in gamemode_configured_rulesets)
 		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
 	for (var/datum/dynamic_ruleset/ruleset in supplementary_configured_rulesets)
 		configure_ruleset(ruleset, revert_storyteller_config = TRUE)
@@ -312,7 +314,7 @@ SUBSYSTEM_DEF(dynamic)
 				continue
 			vars[variable] = current_storyteller["Dynamic"][variable]
 
-	configured_gamemodes = init_rulesets(/datum/dynamic_ruleset/gamemode, configured_gamemodes)
+	gamemode_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/gamemode, gamemode_configured_rulesets)
 	supplementary_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/supplementary, supplementary_configured_rulesets)
 	midround_configured_rulesets = init_rulesets(/datum/dynamic_ruleset/midround, midround_configured_rulesets)
 
@@ -384,7 +386,7 @@ SUBSYSTEM_DEF(dynamic)
 		return TRUE
 
 	log_dynamic("Starting a round with the storyteller: \"[current_storyteller?["Name"] || "None"]\"")
-	select_gamemode(configured_gamemodes)
+	select_gamemode(gamemode_configured_rulesets)
 	pick_roundstart_rulesets(supplementary_configured_rulesets)
 
 	// Save us from hard dels
@@ -397,6 +399,18 @@ SUBSYSTEM_DEF(dynamic)
  */
 /datum/controller/subsystem/dynamic/proc/select_gamemode(list/gamemodes)
 	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes, TRUE)
+	if (!selected_mode)
+		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
+		return FALSE
+	execute_gamemode_ruleset(selected_mode)
+	return TRUE
+
+/**
+ * Execute a gamemode ruleset for a late joining player.
+ * Returns TRUE if fired.
+ */
+/datum/controller/subsystem/dynamic/proc/latejoin_gamemode(list/gamemodes, mob/living/carbon/human/character)
+	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes, ignore_candidates = TRUE)
 	if (!selected_mode)
 		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
 		return FALSE
@@ -438,7 +452,7 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Cancel if the gamemode prevents other rulesets from spawning
-	for (var/datum/dynamic_ruleset/gamemode/gamemode in executed_gamemodes)
+	for (var/datum/dynamic_ruleset/gamemode/gamemode in gamemode_executed_rulesets)
 		if (gamemode.ruleset_flags & NO_OTHER_RULESETS)
 			log_dynamic("SUPPLEMENTARY: A gamemode ruleset has executed which prevents the execution of supplementary rulesets!")
 			return
@@ -469,10 +483,10 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Trim the rulesets
-	var/list/possible_rulesets = get_weighted_executable_supplementary_rulesets(unfiltered_rules, FALSE)
+	var/list/possible_rulesets = get_weighted_executable_rulesets(unfiltered_rules, FALSE)
 
 	// Swap out a gamemode for a supplementary
-	var/free_ruleset = !length(executed_gamemodes)
+	var/free_ruleset = !length(gamemode_executed_rulesets)
 
 	// Pick rulesets
 	var/no_other_rulesets = FALSE
@@ -511,19 +525,23 @@ SUBSYSTEM_DEF(dynamic)
 			log_dynamic("SUPPLEMENTARY: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			executed_supplementary_rulesets -= ruleset
 
-/datum/controller/subsystem/dynamic/proc/get_weighted_executable_supplementary_rulesets(list/rulesets, for_midround = FALSE)
+/datum/controller/subsystem/dynamic/proc/get_weighted_executable_rulesets(list/rulesets, for_midround = FALSE)
 	var/list/possible_rulesets = list()
-	for(var/datum/dynamic_ruleset/supplementary/potential_ruleset in rulesets)
+	for(var/datum/dynamic_ruleset/potential_ruleset in rulesets)
 		potential_ruleset.set_drafted_players_amount()
 		if (!for_midround)
 			potential_ruleset.get_candidates()
 			potential_ruleset.trim_candidates()
 
+		if (for_midround && (potential_ruleset.ruleset_flags & NO_LATE_JOIN))
+			log_dynamic("NOT ALLOWED: Ruleset [potential_ruleset.name] had the NO_LATE_JOIN flag set and for_midround was set to TRUE.")
+			continue
+
 		if(!potential_ruleset.allowed(require_drafted = !for_midround))
 			continue
 
 		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in supplementary_forced_rulesets))
-			log_dynamic("SUPPLEMENTARY: Ruleset [potential_ruleset.name] was blacklisted.")
+			log_dynamic("NOT ALLOWED: Ruleset [potential_ruleset.name] was blacklisted.")
 			continue
 
 		possible_rulesets[potential_ruleset] = potential_ruleset.weight
@@ -603,8 +621,8 @@ SUBSYSTEM_DEF(dynamic)
  * Execute the provided supplementary ruleset
  */
 /datum/controller/subsystem/dynamic/proc/execute_gamemode_ruleset(datum/dynamic_ruleset/gamemode/ruleset)
-	// Apply cost and add ruleset to 'executed_gamemodes'
-	executed_gamemodes += ruleset
+	// Apply cost and add ruleset to 'gamemode_executed_rulesets'
+	gamemode_executed_rulesets += ruleset
 	ruleset.choose_candidates()
 
 	log_dynamic("GAMEMODE: Executed [ruleset]")
@@ -639,12 +657,12 @@ SUBSYSTEM_DEF(dynamic)
  */
 /datum/controller/subsystem/dynamic/proc/execute_roundstart_rulesets()
 	// Gamemodes
-	for(var/datum/dynamic_ruleset/gamemode/ruleset in executed_gamemodes)
+	for(var/datum/dynamic_ruleset/gamemode/ruleset in gamemode_executed_rulesets)
 		var/result = execute_ruleset(ruleset)
 
 		log_dynamic("GAMEMODE: Executing [ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 		if(result != DYNAMIC_EXECUTE_SUCCESS)
-			executed_gamemodes -= ruleset
+			gamemode_executed_rulesets -= ruleset
 	// Supplementary
 	for(var/datum/dynamic_ruleset/supplementary/ruleset in executed_supplementary_rulesets)
 		var/result = execute_ruleset(ruleset)
@@ -874,15 +892,25 @@ SUBSYSTEM_DEF(dynamic)
 		return
 
 	// Cancel if the gamemode prevents other rulesets from spawning
-	for (var/datum/dynamic_ruleset/gamemode/gamemode in executed_gamemodes)
+	for (var/datum/dynamic_ruleset/gamemode/gamemode in gamemode_executed_rulesets)
 		if (gamemode.ruleset_flags & NO_OTHER_RULESETS)
 			log_dynamic("LATEJOIN: A gamemode ruleset is active with the NO_OTHER_RULESETS flag enabled.")
 			return
 
+	// Check if we need to inject a gamemode antagonist
+	if (length(gamemode_executed_rulesets) == 0)
+		if (!gamemode_late_ruleset)
+			gamemode_late_ruleset = pick_ruleset(get_weighted_executable_rulesets(gamemode_configured_rulesets, TRUE), ignore_candidates = TRUE)
+		if (gamemode_late_ruleset)
+			var/result = try_late_execute_ruleset(gamemode_late_ruleset, character)
+			if (result == DYNAMIC_EXECUTE_SUCCESS)
+				gamemode_late_ruleset = null
+				return
+
 	supplementary_points += supplementary_points_per_ready * supplementary_point_divergence
 
 	if (!next_supplementary)
-		next_supplementary = pick_ruleset(get_weighted_executable_supplementary_rulesets(supplementary_configured_rulesets, TRUE), ignore_candidates = TRUE)
+		next_supplementary = pick_ruleset(get_weighted_executable_rulesets(supplementary_configured_rulesets, TRUE), ignore_candidates = TRUE)
 		if (next_supplementary)
 			log_dynamic("LATEJOIN: Selected [next_supplementary.name] as the new supplementary ruleset to save for.")
 	if (!next_supplementary)
@@ -892,9 +920,13 @@ SUBSYSTEM_DEF(dynamic)
 	if (supplementary_points < next_supplementary.points_cost)
 		log_dynamic("LATEJOIN: Could not run [next_supplementary.name], points: [supplementary_points]/[next_supplementary.points_cost]")
 		return
+	var/result = try_late_execute_ruleset(next_supplementary, character)
+	if(result == DYNAMIC_EXECUTE_SUCCESS)
+		next_supplementary = null
 
+/datum/controller/subsystem/dynamic/proc/try_late_execute_ruleset(datum/dynamic_ruleset/ruleset, mob/living/carbon/human/character)
 	// Execute our latejoin ruleset
-	var/datum/dynamic_ruleset/supplementary/new_latejoin_ruleset = next_supplementary.duplicate()
+	var/datum/dynamic_ruleset/new_latejoin_ruleset = ruleset.duplicate()
 
 	new_latejoin_ruleset.candidates = list(character)
 	new_latejoin_ruleset.trim_candidates()
@@ -902,20 +934,23 @@ SUBSYSTEM_DEF(dynamic)
 		log_dynamic("LATEJOIN: Could not run [new_latejoin_ruleset]")
 		message_admins("DYNAMIC: LATEJOIN: Could not run [new_latejoin_ruleset], moving to next joiner")
 		return
-	execute_supplementary_ruleset(new_latejoin_ruleset)
+	if (istype(new_latejoin_ruleset, /datum/dynamic_ruleset/supplementary))
+		execute_supplementary_ruleset(new_latejoin_ruleset)
+	else if (istype(new_latejoin_ruleset, /datum/dynamic_ruleset/gamemode))
+		execute_gamemode_ruleset(new_latejoin_ruleset)
+	else
+		CRASH("Attempted to late-execute a ruleset that wasn't supplementary or gamemode.")
 	var/result = execute_ruleset(new_latejoin_ruleset)
 
 	message_admins("DYNAMIC: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
 	log_dynamic("LATEJOIN: Executing [new_latejoin_ruleset] - [DYNAMIC_EXECUTE_STRINGIFY(result)]")
-
-	if(result == DYNAMIC_EXECUTE_SUCCESS)
-		next_supplementary = null
+	return result
 
 /**
  * Checks all high impact rulesets for their round result and sets dynamic's round result to that
  */
 /datum/controller/subsystem/dynamic/proc/set_round_result()
-	var/list/datum/dynamic_ruleset/executed_rulesets = executed_supplementary_rulesets | midround_executed_rulesets | executed_gamemodes
+	var/list/datum/dynamic_ruleset/executed_rulesets = executed_supplementary_rulesets | midround_executed_rulesets | gamemode_executed_rulesets
 
 	for(var/datum/dynamic_ruleset/ruleset in executed_rulesets)
 		if(CHECK_BITFIELD(ruleset.ruleset_flags, HIGH_IMPACT_RULESET))

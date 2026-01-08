@@ -30,6 +30,7 @@
 /// If this flag is enabled no other rulesets can be executed
 #define NO_OTHER_RULESETS (1 << 4)
 /// Latejoining as this ruleset is not allowed, used for supplementary rulesets
+/// and for when a gamemode ruleset could not be executed at roundstart.
 #define NO_LATE_JOIN (1 << 5)
 /// If we ignore the number of candidates when seeing if we can execute this
 /// Mainly useful for rulesets which require a certain number of candidates, but
