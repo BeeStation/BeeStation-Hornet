@@ -42,7 +42,6 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	rank_up(8, TRUE) // Rank up a lot.
 	to_chat(owner.current, span_cultbold("As a true prince, you find some of your old power returning to you!"))
 	set_antag_hud(owner.current, "prince")
-	owner.current.playsound_local(null, 'sound/vampires/prince.ogg', 100, FALSE, pressure_affected = FALSE)
 	prince = TRUE
 
 	for(var/datum/antagonist/vampire as anything in GLOB.all_vampires)
@@ -68,7 +67,6 @@ GLOBAL_LIST_EMPTY(all_vampires)
 	rank_up(4, TRUE) // Rank up less.
 	to_chat(owner.current, span_cultbold("As a camarilla scourge, your newfound purpose empowers you!"))
 	set_antag_hud(owner.current, "scourge")
-	owner.current.playsound_local(null, 'sound/vampires/scourge_recruit.ogg', 100, FALSE, pressure_affected = FALSE)
 	scourge = TRUE
 
 	var/datum/objective/vampire/scourge/scourge_objective = new()

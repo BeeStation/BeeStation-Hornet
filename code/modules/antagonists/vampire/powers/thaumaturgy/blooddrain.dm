@@ -43,7 +43,6 @@
 	icon_state = "nothing"
 	range = 7
 	antimagic_flags = MAGIC_RESISTANCE_HOLY
-	hitsound = 'sound/vampires/bloodbolt.ogg'
 	var/datum/beam/drain_beam
 
 /obj/projectile/magic/blood_drain/fire(angle, atom/direct_target)

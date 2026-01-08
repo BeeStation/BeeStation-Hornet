@@ -28,7 +28,6 @@
 		return
 	broke_masquerade = TRUE
 
-	owner.current.playsound_local(null, 'sound/vampires/masquerade_violation.ogg', 100, FALSE, pressure_affected = FALSE)
 	to_chat(owner.current, span_userdanger("You have broken the Masquerade!"))
 	to_chat(owner.current, span_warning("Vampire Tip: When you break the Masquerade, you become open for termination by fellow Vampires, and your vassals are no longer completely loyal to you, as other Vampires can steal them for themselves!"))
 
@@ -147,8 +146,6 @@
 
 		// Only run this code if there is an actual increase in humanity. Also don't run it if we wanna be silent.
 		if(humanity < temp_humanity && !silent)
-			owner.current.playsound_local(null, 'sound/vampires/humanity_gain.ogg', 50, TRUE)
-
 			if(power_given)
 				to_chat(owner.current, span_userdanger("Your closeness to humanity has granted you the ability to feign life!"))
 			else
@@ -162,8 +159,6 @@
 
 		// Only run this code if there is an actual decrease in humanity
 		if(humanity > temp_humanity && !silent)
-			owner.current.playsound_local(null, 'sound/vampires/humanity_loss.ogg', 50, TRUE)
-
 			if(power_removed)
 				to_chat(owner.current, span_userdanger("Your inhuman actions have caused you to lose the masquerade ability!"))
 			else

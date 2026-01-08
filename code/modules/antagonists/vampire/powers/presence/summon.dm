@@ -66,8 +66,6 @@
 	to_chat(carbon_target, span_awe("An irresistible compulsion draws you towards [owner]..."), type = MESSAGE_TYPE_WARNING)
 	to_chat(owner, span_notice("You beckon [carbon_target] towards you."), type = MESSAGE_TYPE_INFO)
 
-	carbon_target.playsound_local(null, 'sound/vampires/mesmerize.ogg', 70, FALSE, pressure_affected = FALSE)
-
 /// Status effect for being summoned towards the vampire
 /datum/status_effect/summoned
 	id = "summoned"

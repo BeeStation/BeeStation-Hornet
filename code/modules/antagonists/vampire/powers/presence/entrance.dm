@@ -54,8 +54,6 @@
 	to_chat(carbon_target, span_awe("Your mind goes blank..."), type = MESSAGE_TYPE_WARNING)
 	to_chat(owner, span_notice("You capture [carbon_target]'s attention, leaving them dazed."), type = MESSAGE_TYPE_INFO)
 
-	carbon_target.playsound_local(null, 'sound/vampires/mesmerize.ogg', 50, FALSE, pressure_affected = FALSE)
-
 /// Status effect for being entranced
 /datum/status_effect/entranced
 	id = "entranced"

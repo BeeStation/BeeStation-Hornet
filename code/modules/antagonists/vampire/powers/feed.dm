@@ -224,8 +224,6 @@
 		feed_target.become_blind(TRAIT_FEED, /atom/movable/screen/fullscreen/blind/feed, FALSE)
 		feed_target.add_traits(list(TRAIT_DEAF), TRAIT_FEED)
 
-		feed_target.playsound_local(null, 'sound/vampires/mesmerize.ogg', 100, FALSE, pressure_affected = FALSE)
-
 		to_chat(feed_target, span_hypnophrase("You suddenly fall into a deep trance..."), type = MESSAGE_TYPE_WARNING)
 		owner.balloon_alert(owner, "subdued! starting feed...")
 
@@ -237,7 +235,6 @@
 
 		// It begins...
 		currently_feeding = TRUE
-		living_owner.playsound_local(null, 'sound/vampires/drinkblood1.ogg', 100, FALSE, pressure_affected = FALSE)
 
 		// Just to make sure
 		living_owner.stop_pulling()
@@ -298,8 +295,6 @@
 		)
 
 	else if(owner.pulling == feed_target && owner.grab_state == GRAB_AGGRESSIVE) // COMBAT FEED BELOW HERE!!!!!!!!!!
-
-		playsound(living_owner, 'sound/vampires/drinkblood1.ogg', 50)
 
 		feed_target.Stun((5 + level_current) SECONDS)
 		feed_target.adjust_jitter((5 + level_current) SECONDS)

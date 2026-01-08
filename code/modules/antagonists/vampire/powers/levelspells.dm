@@ -133,7 +133,6 @@
 		timeout = cooldown_time - 5 SECONDS,
 		autofocus = TRUE
 		)
-		living_target.playsound_local(null, 'sound/vampires/scourge_offer.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	addtimer(CALLBACK(src, PROC_REF(choice_timeout)), cooldown_time)
 	deactivate_power()

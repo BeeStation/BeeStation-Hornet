@@ -14,6 +14,5 @@
 
 /datum/action/vampire/astral_projection/activate_power()
 	. = ..()
-	owner.playsound_local(null, 'sound/vampires/auspex.ogg', 50, TRUE)
 	owner.ghostize(TRUE)
 	deactivate_power()

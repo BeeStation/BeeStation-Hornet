@@ -58,7 +58,6 @@
 	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
 	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly aggressively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")
-	carbon_owner.playsound_local(null, 'sound/vampires/rage_increase.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	// Stamina modifier
 	if (ishuman(carbon_owner))
@@ -84,7 +83,6 @@
 
 	// Alert them
 	carbon_owner.balloon_alert(carbon_owner, "you come back to your senses.")
-	carbon_owner.playsound_local(null, 'sound/vampires/rage_decrease.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	// Stamina modifier
 	if (ishuman(carbon_owner))
