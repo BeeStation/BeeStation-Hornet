@@ -6,7 +6,7 @@
 /datum/action/vampire/targeted/entrance
 	name = "Entrance"
 	desc = "Capture a mortal's attention momentarily, leaving them slowed, muted, and dazed."
-	button_icon_state = "power_mez" // Uses mesmerize icon as a placeholder
+	button_icon_state = "power_entrance"
 	power_explanation = "Click any player to entrance them, leaving them momentarily impaired.\n\
 		Your target will be slowed, muted, and unable to use items for a short duration.\n\
 		This is a softer form of control - they can still move and resist, but are heavily hindered."
@@ -15,10 +15,7 @@
 	vitaecost = 80
 	cooldown_time = 60 SECONDS
 	target_range = 7
-	prefire_message = "Whose attention will you capture?"
-
-	/// Duration of the entrance effect
-	var/entrance_duration = 30 SECONDS
+	prefire_message = "Who will you entrance?"
 
 /datum/action/vampire/targeted/entrance/check_valid_target(atom/target_atom)
 	. = ..()
@@ -57,7 +54,7 @@
 	var/mob/living/carbon/carbon_target = target_atom
 
 	// Apply the entrance effect
-	carbon_target.apply_status_effect(/datum/status_effect/entranced, entrance_duration, owner)
+	carbon_target.apply_status_effect(/datum/status_effect/entranced, 20 SECONDS)
 
 	// Feedback
 	owner.balloon_alert(owner, "entranced [carbon_target]")
@@ -70,20 +67,12 @@
 /datum/status_effect/entranced
 	id = "entranced"
 	status_type = STATUS_EFFECT_UNIQUE
-	duration = 30 SECONDS
 	tick_interval = STATUS_EFFECT_NO_TICK
 	alert_type = /atom/movable/screen/alert/status_effect/entranced
-	/// The vampire who entranced us
-	var/mob/living/source_vampire
 
-/datum/status_effect/entranced/on_creation(mob/living/new_owner, set_duration, mob/living/vampire)
+/datum/status_effect/entranced/on_creation(mob/living/new_owner, set_duration)
 	if(isnum_safe(set_duration))
 		duration = set_duration
-	source_vampire = vampire
-	return ..()
-
-/datum/status_effect/entranced/Destroy()
-	source_vampire = null
 	return ..()
 
 /datum/status_effect/entranced/on_apply()
@@ -98,14 +87,14 @@
 	// Jitter effect
 	owner.set_jitter_if_lower(duration)
 	// Pink screen effect
-	owner.overlay_fullscreen("entranced", /atom/movable/screen/fullscreen/color_vision/pink, 1)
+	owner.add_client_colour(/datum/client_colour/glass_colour/pink)
 	return TRUE
 
 /datum/status_effect/entranced/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/entranced)
-	owner.clear_fullscreen("entranced", 10)
+	owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
 	to_chat(owner, span_awe("Your mind clears and you regain your focus."))
 
 /datum/status_effect/entranced/get_examine_text()
@@ -119,9 +108,4 @@
 
 /// Movespeed modifier for the entranced status effect
 /datum/movespeed_modifier/status_effect/entranced
-	multiplicative_slowdown = 1.5
-
-/// Pink screen overlay for presence powers
-/atom/movable/screen/fullscreen/color_vision/pink
-	color = "#ff69b4"
-	alpha = 50
+	multiplicative_slowdown = 2

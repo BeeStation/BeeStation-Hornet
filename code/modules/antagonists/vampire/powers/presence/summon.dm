@@ -6,7 +6,7 @@
 /datum/action/vampire/targeted/summon
 	name = "Summon"
 	desc = "Compel a mortal to approach you against their will."
-	button_icon_state = "power_command" // Uses command icon as a placeholder
+	button_icon_state = "power_summon" // Uses command icon as a placeholder
 	power_explanation = "Click any player to summon them towards you.\n\
 		Your target will be unable to act and will be compelled to walk towards you.\n\
 		The effect ends when they reach you, after a duration, or if line of sight is broken.\n\
@@ -82,14 +82,14 @@
 	id = "summoned"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = 30 SECONDS
-	tick_interval = 1 SECONDS
+	tick_interval = 0.5 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/summoned
 	/// The vampire who is summoning us
 	var/mob/living/source_vampire
-	/// The AI controller forcing movement
-	var/datum/ai_controller/summoned_human/ai_controller
-	/// Flag to allow AI-controlled movement to bypass the block
-	var/ai_moving = FALSE
+	/// The move loop handling our movement
+	var/datum/move_loop/move_loop
+	/// How long between each step (slow, staggering movement)
+	var/step_delay = 1.5 SECONDS
 
 /datum/status_effect/summoned/on_creation(mob/living/new_owner, set_duration, mob/living/vampire)
 	if(isnum_safe(set_duration))
@@ -99,8 +99,9 @@
 
 /datum/status_effect/summoned/Destroy()
 	source_vampire = null
-	if(ai_controller)
-		QDEL_NULL(ai_controller)
+	if(move_loop)
+		qdel(move_loop)
+		move_loop = null
 	return ..()
 
 /datum/status_effect/summoned/on_apply()
@@ -114,19 +115,33 @@
 	RegisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(block_player_move))
 
 	// Pink screen effect
-	owner.overlay_fullscreen("summoned", /atom/movable/screen/fullscreen/color_vision/pink, 1)
+	owner.add_client_colour(/datum/client_colour/glass_colour/pink)
 
-	// Create the AI controller to handle movement (pass src so it can set ai_moving flag)
-	ai_controller = new(owner, source_vampire, src)
+	// Start the move loop towards the vampire
+	start_movement()
 
 	return TRUE
 
-/// Blocks the player from moving themselves while summoned (but allows AI movement)
+/// Blocks the player from moving themselves while summoned
 /datum/status_effect/summoned/proc/block_player_move(mob/source, atom/new_loc)
 	SIGNAL_HANDLER
-	if(ai_moving)
-		return NONE // Allow AI-controlled movement
 	return COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE
+
+/// Starts or restarts the movement loop towards the vampire
+/datum/status_effect/summoned/proc/start_movement()
+	if(move_loop)
+		qdel(move_loop)
+	if(QDELETED(source_vampire) || QDELETED(owner))
+		return
+	// Use home_onto to continuously follow the vampire even if they move
+	move_loop = SSmove_manager.home_onto(owner, source_vampire, step_delay, timeout = INFINITY)
+	if(move_loop)
+		RegisterSignal(move_loop, COMSIG_QDELETING, PROC_REF(on_move_loop_deleted))
+
+/// Called when the move loop is deleted externally
+/datum/status_effect/summoned/proc/on_move_loop_deleted(datum/source)
+	SIGNAL_HANDLER
+	move_loop = null
 
 /datum/status_effect/summoned/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
@@ -134,10 +149,15 @@
 
 	UnregisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE)
 
-	owner.clear_fullscreen("summoned", 10)
+	owner.remove_client_colour(/datum/client_colour/glass_colour/pink)
 
-	if(ai_controller)
-		QDEL_NULL(ai_controller)
+	if(move_loop)
+		UnregisterSignal(move_loop, COMSIG_QDELETING)
+		qdel(move_loop)
+		move_loop = null
+
+	// Stop any residual movement
+	SSmove_manager.stop_looping(owner)
 
 	to_chat(owner, span_awe("The compulsion fades and you regain control of yourself."))
 
@@ -151,6 +171,8 @@
 	if(owner.Adjacent(source_vampire))
 		to_chat(owner, span_awe("You have arrived before [source_vampire]..."))
 		to_chat(source_vampire, span_notice("[owner] has arrived before you."))
+		// Brief stun when arriving so we don’t look weird with the movespeed
+		owner.Stun(2 SECONDS)
 		qdel(src)
 		return
 
@@ -159,6 +181,13 @@
 		to_chat(owner, span_awe("You lose sight of your summoner and the compulsion breaks."))
 		qdel(src)
 		return
+
+	// Make sure we're facing the vampire
+	owner.face_atom(source_vampire)
+
+	// Restart movement if it stopped for some reason (blocked by obstacle, etc)
+	if(!move_loop)
+		start_movement()
 
 /datum/status_effect/summoned/get_examine_text()
 	return span_warning("[owner.p_They()] [owner.p_are()] walking with a blank expression, as if compelled.")
@@ -169,68 +198,3 @@
 	desc = "You are being compelled to approach someone. You cannot resist."
 	icon_state = "mind_control"
 
-/// AI controller for summoned humans. Forces them to walk towards the vampire
-/datum/ai_controller/summoned_human
-	ai_traits = CAN_ACT_WHILE_DEAD // Well, not really, but we want it to keep trying
-	/// The vampire we're walking towards
-	var/mob/living/target_vampire
-	/// Reference to the status effect so we can set the ai_moving flag
-	var/datum/status_effect/summoned/parent_effect
-	/// Cooldown between steps - controls the stagger speed
-	COOLDOWN_DECLARE(step_cooldown)
-	/// How long between each step (slow, staggering movement)
-	var/step_delay = 1.5 SECONDS
-
-/datum/ai_controller/summoned_human/New(atom/new_pawn, mob/living/vampire, datum/status_effect/summoned/effect)
-	target_vampire = vampire
-	parent_effect = effect
-	. = ..()
-
-/datum/ai_controller/summoned_human/Destroy()
-	target_vampire = null
-	parent_effect = null
-	return ..()
-
-/datum/ai_controller/summoned_human/TryPossessPawn(atom/new_pawn)
-	if(!isliving(new_pawn))
-		return AI_CONTROLLER_INCOMPATIBLE
-	return ..()
-
-/datum/ai_controller/summoned_human/able_to_run()
-	. = ..()
-	if(!.)
-		return FALSE
-	if(QDELETED(target_vampire))
-		return FALSE
-	var/mob/living/living_pawn = pawn
-	if(living_pawn.stat != CONSCIOUS)
-		return FALSE
-	return TRUE
-
-/datum/ai_controller/summoned_human/process(delta_time)
-	if(!able_to_run())
-		return
-
-	// Enforce step delay for slow, staggering movement
-	if(!COOLDOWN_FINISHED(src, step_cooldown))
-		return
-	COOLDOWN_START(src, step_cooldown, step_delay)
-
-	var/mob/living/living_pawn = pawn
-	if(QDELETED(target_vampire) || !isturf(living_pawn.loc))
-		return
-
-	// Already adjacent, don't move
-	if(living_pawn.Adjacent(target_vampire))
-		return
-
-	// Face and step towards the vampire
-	living_pawn.face_atom(target_vampire)
-	var/turf/target_turf = get_step(living_pawn.loc, get_dir(living_pawn.loc, target_vampire.loc))
-	if(target_turf && target_turf != target_vampire.loc)
-		// Set flag so the status effect knows this is AI movement, not player input
-		if(parent_effect)
-			parent_effect.ai_moving = TRUE
-		living_pawn.Move(target_turf, get_dir(living_pawn.loc, target_turf))
-		if(parent_effect)
-			parent_effect.ai_moving = FALSE
