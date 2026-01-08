@@ -1157,6 +1157,12 @@ h2.alert {
   font-size: 5em;
 }
 
+.idicon {
+  min-height: 94px;
+  margin-top: -10%;
+  margin-bottom: -10%;
+}
+
 .memo {
   color: hsl(75.3, 100%, 26.1%);
   text-align: center;
@@ -1258,6 +1264,7 @@ h2.alert {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .img_by_text_container img {
