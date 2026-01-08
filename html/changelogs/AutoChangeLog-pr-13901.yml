@@ -1,5 +1,0 @@
-author: rkz, melbert
-delete-after: true
-changes:
-  - refactor: converts confusion into a status effect
-  - rscdel: removed confusion from flipping. It already provides knockdown.

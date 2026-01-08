@@ -19,8 +19,15 @@
   r1ks-iwnl:
   - bugfix: Fixed examine not correctly assessing the status of a severed head
 2026-01-08:
+  TsunamiAnt:
+  - rscadd: Added security vouchers, redeem at sec vendor
+  - tweak: Moved sabres and pistols from loadouts and lockers into the voucher system.
+  - balance: Made sabre sheaths fit in suit storages
   mrmanlikesbt:
   - bugfix: fixed a runtime when right clicking a microwave
   mrmanlikesbt, MrMelbert, Absolucy:
   - refactor: Refactored biowares (ligament hook, etc.) to use status effects
   - admin: biowares are now recorded in SSblackbox
+  rkz, melbert:
+  - refactor: converts confusion into a status effect
+  - rscdel: removed confusion from flipping. It already provides knockdown.
