@@ -29,7 +29,6 @@
 	for(var/mob/living/victim in oviewers(aura, owner))
 		if(!can_affect(victim))
 			continue
-		// Apply or refresh the awed status effect
 		if(!victim.has_status_effect(/datum/status_effect/awed))
 			victim.apply_status_effect(/datum/status_effect/awed, owner)
 		else
@@ -108,7 +107,6 @@
 			// Step Towards
 			if(4)
 				owner.face_atom(source_vampire)
-				// Step towards them, but not if that would swap places with them
 				if(owner.body_position == STANDING_UP && get_step(owner.loc, get_dir(owner.loc, source_vampire.loc)) != source_vampire.loc)
 					owner.visible_message(span_warning("[owner] stumbles."), span_awe("You suddenly stumble..."))
 					owner.Move(get_step(owner.loc, get_dir(owner.loc, source_vampire.loc)))

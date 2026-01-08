@@ -1,7 +1,7 @@
 /datum/action/vampire/force_of_personality
 	name = "Force of Personality"
 	desc = "Project an overwhelming aura of authority that causes those around you to involuntarily step back."
-	button_icon_state = "power_fop" // Uses awe icon as a placeholder
+	button_icon_state = "power_fop"
 	power_explanation = "Project an aura around yourself that subtly pushes people away.\n\
 						Effects on those in 3 tile range. No one will be able to voluntarily approach you.\n\
 						Targets must be able to see you to be affected."
@@ -26,7 +26,6 @@
 	for(var/mob/living/victim in oviewers(aura_range, owner))
 		if(!can_affect(victim))
 			continue
-		// Apply or refresh the intimidated status effect
 		if(!victim.has_status_effect(/datum/status_effect/intimidated))
 			victim.apply_status_effect(/datum/status_effect/intimidated, owner)
 		else
@@ -72,9 +71,6 @@
 	if(!iscarbon(owner))
 		return FALSE
 	return TRUE
-
-/datum/status_effect/intimidated/on_remove()
-	return
 
 /datum/status_effect/intimidated/refresh()
 	duration = world.time + initial(duration)

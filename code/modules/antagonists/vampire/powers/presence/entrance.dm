@@ -22,27 +22,22 @@
 	if(!.)
 		return FALSE
 
-	// Must be a carbon
 	if(!iscarbon(target_atom))
 		return FALSE
 	var/mob/living/carbon/carbon_target = target_atom
 
-	// No mind
 	if(!carbon_target.mind)
 		owner.balloon_alert(owner, "[carbon_target] is mindless.")
 		return FALSE
 
-	// Vampire/Vassal/Curator check
 	if(IS_VAMPIRE(carbon_target) || IS_VASSAL(carbon_target) || IS_CURATOR(carbon_target))
 		owner.balloon_alert(owner, "immune to your presence.")
 		return FALSE
 
-	// Is our target alive or unconscious?
 	if(carbon_target.stat != CONSCIOUS)
 		owner.balloon_alert(owner, "[carbon_target] is not [(carbon_target.stat == DEAD || HAS_TRAIT(carbon_target, TRAIT_FAKEDEATH)) ? "alive" : "conscious"].")
 		return FALSE
 
-	// Already entranced?
 	if(carbon_target.has_status_effect(/datum/status_effect/entranced))
 		owner.balloon_alert(owner, "[carbon_target] is already entranced.")
 		return FALSE
@@ -53,10 +48,8 @@
 	. = ..()
 	var/mob/living/carbon/carbon_target = target_atom
 
-	// Apply the entrance effect
 	carbon_target.apply_status_effect(/datum/status_effect/entranced, 20 SECONDS)
 
-	// Feedback
 	owner.balloon_alert(owner, "entranced [carbon_target]")
 	to_chat(carbon_target, span_awe("Your mind goes blank..."), type = MESSAGE_TYPE_WARNING)
 	to_chat(owner, span_notice("You capture [carbon_target]'s attention, leaving them dazed."), type = MESSAGE_TYPE_INFO)
@@ -78,15 +71,10 @@
 /datum/status_effect/entranced/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
-	// Mute them
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
-	// Block item usage
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
-	// Slow them significantly
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/entranced)
-	// Jitter effect
 	owner.set_jitter_if_lower(duration)
-	// Pink screen effect
 	owner.add_client_colour(/datum/client_colour/glass_colour/pink)
 	return TRUE
 

@@ -6,7 +6,7 @@
 /datum/action/vampire/targeted/summon
 	name = "Summon"
 	desc = "Compel a mortal to approach you against their will."
-	button_icon_state = "power_summon" // Uses command icon as a placeholder
+	button_icon_state = "power_summon"
 	power_explanation = "Click any player to summon them towards you.\n\
 		Your target will be unable to act and will be compelled to walk towards you.\n\
 		The effect ends when they reach you, after a duration, or if line of sight is broken.\n\
@@ -26,37 +26,30 @@
 	if(!.)
 		return FALSE
 
-	// Must be a carbon
 	if(!iscarbon(target_atom))
 		return FALSE
 	var/mob/living/carbon/carbon_target = target_atom
 
-	// No mind
 	if(!carbon_target.mind)
 		owner.balloon_alert(owner, "[carbon_target] is mindless.")
 		return FALSE
 
-	// Vampire/Vassal/Curator check
 	if(IS_VAMPIRE(carbon_target) || IS_VASSAL(carbon_target) || IS_CURATOR(carbon_target))
 		owner.balloon_alert(owner, "immune to your presence.")
 		return FALSE
 
-	// Silicon check
 	if(carbon_target.has_unlimited_silicon_privilege)
 		owner.balloon_alert(owner, "[carbon_target] is immune.")
 		return FALSE
 
-	// Is our target alive or unconscious?
 	if(carbon_target.stat != CONSCIOUS)
 		owner.balloon_alert(owner, "[carbon_target] is not [(carbon_target.stat == DEAD || HAS_TRAIT(carbon_target, TRAIT_FAKEDEATH)) ? "alive" : "conscious"].")
 		return FALSE
 
-	// Must be able to see
 	if(carbon_target.is_blind())
 		owner.balloon_alert(owner, "[carbon_target] is blind.")
 		return FALSE
 
-	// Already being summoned?
 	if(carbon_target.has_status_effect(/datum/status_effect/summoned))
 		owner.balloon_alert(owner, "[carbon_target] is already being summoned.")
 		return FALSE
@@ -67,10 +60,8 @@
 	. = ..()
 	var/mob/living/carbon/carbon_target = target_atom
 
-	// Apply the summon effect
 	carbon_target.apply_status_effect(/datum/status_effect/summoned, summon_duration, owner)
 
-	// Feedback
 	owner.balloon_alert(owner, "summoning [carbon_target]")
 	to_chat(carbon_target, span_awe("An irresistible compulsion draws you towards [owner]..."), type = MESSAGE_TYPE_WARNING)
 	to_chat(owner, span_notice("You beckon [carbon_target] towards you."), type = MESSAGE_TYPE_INFO)
@@ -107,19 +98,11 @@
 /datum/status_effect/summoned/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
-	// Incapacitate them - they can't act while being summoned
 	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
-
-	// Block player movement input - we control their movement now
 	RegisterSignal(owner, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(block_player_move))
-
-	// Pink screen effect
 	owner.add_client_colour(/datum/client_colour/glass_colour/pink)
-
-	// Start the move loop towards the vampire
 	start_movement()
-
 	return TRUE
 
 /// Blocks the player from moving themselves while summoned
@@ -133,7 +116,6 @@
 		qdel(move_loop)
 	if(QDELETED(source_vampire) || QDELETED(owner))
 		return
-	// Use home_onto to continuously follow the vampire even if they move
 	move_loop = SSmove_manager.home_onto(owner, source_vampire, step_delay, timeout = INFINITY)
 	if(move_loop)
 		RegisterSignal(move_loop, COMSIG_QDELETING, PROC_REF(on_move_loop_deleted))
