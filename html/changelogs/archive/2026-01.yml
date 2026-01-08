@@ -1,0 +1,26 @@
+2026-01-01:
+  PowerfulBacon, RKz:
+  - refactor: Slightly cleans up some examination code to make it easier to override,
+      improving support for things like custom examinations and accessories being
+      shown on uniforms.
+  - bugfix: Fixes security badges having no description.
+  - bugfix: Fixes detective's belt being a proper noun.
+2026-01-03:
+  PowerfulBacon:
+  - bugfix: Fixes players bleeding out 5 times faster than intended when having more
+      than 2.4 bleed.
+  - bugfix: Fixes shield belt not applying its effects when equipped
+2026-01-07:
+  DrDuckedGoose:
+  - bugfix: Fixes plant trays not properly spawning mobs when exposed to Strange Reagent.
+  PowerfulBacon:
+  - bugfix: Fixes agent ID card not functioning correctly, and prevents examination
+      from giving them away.
+  r1ks-iwnl:
+  - bugfix: Fixed examine not correctly assessing the status of a severed head
+2026-01-08:
+  mrmanlikesbt:
+  - bugfix: fixed a runtime when right clicking a microwave
+  mrmanlikesbt, MrMelbert, Absolucy:
+  - refactor: Refactored biowares (ligament hook, etc.) to use status effects
+  - admin: biowares are now recorded in SSblackbox
