@@ -523,6 +523,7 @@ SUBSYSTEM_DEF(dynamic)
 			continue
 
 		if(roundstart_blacklist_forced_rulesets && (potential_ruleset in supplementary_forced_rulesets))
+			log_dynamic("SUPPLEMENTARY: Ruleset [potential_ruleset.name] was blacklisted.")
 			continue
 
 		possible_rulesets[potential_ruleset] = potential_ruleset.weight
@@ -545,15 +546,18 @@ SUBSYSTEM_DEF(dynamic)
 		if (istype(ruleset, /datum/dynamic_ruleset/supplementary) && last_executed_supplementary_path && prob(last_executed_supplementary_path::elasticity))
 			var/datum/dynamic_ruleset/override_ruleset = locate(last_executed_supplementary_path) in possible_rulesets
 			ruleset = override_ruleset
+			log_dynamic("PICK_RULESET: Attempting to force-select [ruleset.name] due to the elasticity chance of [last_executed_supplementary_path::elasticity] being met.")
 
 		remaining_to_pick -= ruleset
 
 		// Ran out of rulesets
 		if(isnull(ruleset))
+			log_dynamic("PICK_RULESET: Ran out of rulesets to select. Returning null.")
 			return null
 
 		if (blacklist_types && (ruleset.type in blacklist_types))
 			remaining_to_pick -= ruleset
+			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] was blacklisted.")
 			continue
 
 		// Determine all available candidates, if that's something we care about
@@ -563,16 +567,19 @@ SUBSYSTEM_DEF(dynamic)
 		// Check if we are allowed to be executed
 		if(!ruleset.allowed(!ignore_candidates))
 			remaining_to_pick -= ruleset
+			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] did not have enough candidates.")
 			continue
 
 		// Not enough points left
 		if(!ignore_points && ruleset.points_cost > supplementary_points)
 			remaining_to_pick -= ruleset
+			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] did not have enough points ([supplementary_points]/[ruleset.points_cost]).")
 			continue
 
 		// check_is_ruleset_blocked()
 		if(check_is_ruleset_blocked(ruleset, executed_supplementary_rulesets))
 			remaining_to_pick -= ruleset
+			log_dynamic("PICK_RULESET: Ruleset [ruleset.name] was blocked.")
 			continue
 
 		var/datum/dynamic_ruleset/new_roundstart_ruleset = ruleset.duplicate()
@@ -862,21 +869,27 @@ SUBSYSTEM_DEF(dynamic)
  */
 /datum/controller/subsystem/dynamic/proc/on_player_latejoin(mob/living/carbon/human/character)
 	if(forced_extended || SSticker.check_finished() || EMERGENCY_ESCAPED_OR_ENDGAMED || EMERGENCY_CALLED || EMERGENCY_AT_LEAST_DOCKED)
+		log_dynamic("LATEJOIN: Latejoin rejected due to round preparing to end.")
 		return
 
 	// Cancel if the gamemode prevents other rulesets from spawning
 	for (var/datum/dynamic_ruleset/gamemode/gamemode in executed_gamemodes)
 		if (gamemode.ruleset_flags & NO_OTHER_RULESETS)
+			log_dynamic("LATEJOIN: A gamemode ruleset is active with the NO_OTHER_RULESETS flag enabled.")
 			return
 
 	supplementary_points += supplementary_points_per_ready * supplementary_point_divergence
 
 	if (!next_supplementary)
 		next_supplementary = pick_ruleset(get_weighted_executable_supplementary_rulesets(supplementary_configured_rulesets, TRUE), ignore_candidates = TRUE)
+		if (next_supplementary)
+			log_dynamic("LATEJOIN: Selected [next_supplementary.name] as the new supplementary ruleset to save for.")
 	if (!next_supplementary)
+		log_dynamic("LATEJOIN: Failed to select new supplementary ruleset.")
 		return
 
 	if (supplementary_points < next_supplementary.points_cost)
+		log_dynamic("LATEJOIN: Could not run [next_supplementary.name], points: [supplementary_points]/[next_supplementary.points_cost]")
 		return
 
 	// Execute our latejoin ruleset
