@@ -1646,32 +1646,32 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		usr.examinate(src)
 		return TRUE
 
-/obj/item/examine_title(mob/user, thats = FALSE)
-	// Items use get_examine_line() which includes blood stains, ID links, examine links, etc.
-	// When thats=TRUE, this is the main item being examined, so skip the self-referential examine link
-	// When thats=FALSE, this is an inventory item, so include the examine link
-	var/examine_line = get_examine_line(skip_examine_link = thats)
-	if(thats)
-		examine_line = "[examine_thats] [examine_line]"
-	return examine_line
-
-/obj/item/proc/get_examine_line(skip_examine_link = FALSE)
-	var/whole_word = usr?.client?.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
-	var/examine_name = get_examine_name(usr)
+/// Gets the examination title of an item that is equipped by another mob, this is what
+/// shows on every line when you examine someone. Certain things, such as uniforms, may include
+/// more details such as information on the accessories equipped which would not be appropriate
+/// in the title of that item.
+/// This proc also appends inspection links, which can be clicked in the chatbox to examine this
+/// item in greater detail.
+/obj/item/proc/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
+	ASSERT(user, "Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
+	ASSERT(user.client, "Attempting to generate worn title for a mob without a client, which is not allowed.")
+	var/examine_name = get_examine_name(user)
 
 	// Don't add examine link if this is the item being directly examined
 	if(skip_examine_link)
-		return "[icon2html(src, viewers(get_turf(src)))] [examine_name]"
+		return "[icon2html(src, user.client)] [examine_name]"
+	return examine_inspection_link(user, "[icon2html(src, user.client)] [examine_name]")
 
+/// Appends the inspection links to the name of this item.
+/// This may be overriden to provice custom inspection commands, or may be called with a custom item name
+/// that differs from the returned examine name of the item.
+/obj/item/proc/examine_inspection_link(mob/user, examine_name)
+	var/whole_word = user.client.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
 	var/obj/item/card/id/ID = GetID()
 	if(ID)
-		if(whole_word)
-			return "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a> <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
-		else
-			return "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Look at ID\]</a>"
+		return "[examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Examine ID\]</a>"
 	else
 		if(whole_word)
-			return "<a href='byond://?src=\ref[src];examine=1'>[icon2html(src, viewers(get_turf(src)))] [examine_name]</a>"
+			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
 		else
-			return "[icon2html(src, viewers(get_turf(src)))] [examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
-
+			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"
