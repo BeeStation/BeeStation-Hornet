@@ -1045,7 +1045,7 @@
 	var/mob_dizziness = affected_mob.dizziness
 	if(mob_dizziness > 0)
 		// Gain confusion equal to about half the duration of our current dizziness
-		affected_mob.set_confusion(mob_dizziness / 2)
+		affected_mob.set_confusion(mob_dizziness / 20)
 
 	if(current_cycle >= 13 && DT_PROB(4, delta_time))
 		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
