@@ -75,7 +75,7 @@
 	antag_datum = /datum/antagonist/brother/prime
 	drafted_players_amount = 1
 	weight = 6
-	points_cost = 10
+	points_cost = 8
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 
 	var/datum/team/brother_team/team
@@ -122,6 +122,6 @@
 	role_preference = /datum/role_preference/supplementary/vigilante
 	antag_datum = /datum/antagonist/vigilante
 	weight = 5
-	points_cost = 6
+	points_cost = 5
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	max_amount = 1
