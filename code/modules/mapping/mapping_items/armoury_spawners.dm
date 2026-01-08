@@ -48,7 +48,7 @@
 /obj/effect/loot_jobscale/armoury/pistols
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "sec"
-	loot = list(/obj/item/gun/ballistic/automatic/pistol/security)
+	loot = list(/obj/item/gun/ballistic/automatic/pistol/security, /obj/item/storage/belt/sabre/carbon_fiber)
 	fan_out_items = TRUE
 	minimum = 1
 	linear_scaling_rate = 0.5

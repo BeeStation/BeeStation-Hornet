@@ -53,7 +53,6 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
-	QDEL_LIST(bioware)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 	return ..()
@@ -145,7 +144,7 @@
 			id_species ||= dna.species.name
 			id_blood_type ||= dna.blood_type?.name
 
-		var/id_examine = span_slightly_larger(separator_hr("This is <em>[src]'s ID card</em>."))
+		var/id_examine = span_slightly_larger(separator_hr("This is <em>[id.get_examine_name(viewer)]</em>."))
 		id_examine += "<div class='img_by_text_container'>"
 		id_examine += "[id_icon]"
 		id_examine += "<div class='img_text'>"
