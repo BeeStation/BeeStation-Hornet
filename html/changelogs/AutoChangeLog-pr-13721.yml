@@ -1,0 +1,6 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - rscadd: Added security vouchers, redeem at sec vendor
+  - tweak: Moved sabres and pistols from loadouts and lockers into the voucher system.
+  - balance: Made sabre sheaths fit in suit storages
