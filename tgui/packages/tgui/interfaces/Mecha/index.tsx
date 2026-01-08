@@ -1,11 +1,20 @@
+import { useState } from 'react';
+import {
+  Button,
+  ByondUi,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+
+import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { useBackend, useLocalState } from '../../backend';
-import { ByondUi, Stack, Button, Section, ProgressBar, LabeledList } from '../../components';
-import { formatSiUnit } from '../../format';
-import { ModulesPane } from './ModulesPane';
-import { AlertPane } from './AlertPane';
 import { AccessConfig } from '../common/AccessConfig';
-import { MainData } from './data';
+import { AlertPane } from './AlertPane';
+import type { MainData } from './data';
+import { ModulesPane } from './ModulesPane';
 
 export const Mecha = (props) => {
   const { data } = useBackend<MainData>();
@@ -20,8 +29,16 @@ export const Mecha = (props) => {
 
 export const Content = (props) => {
   const { act, data } = useBackend<MainData>();
-  const [edit_access, editAccess] = useLocalState('edit_access', false);
-  const { name, mecha_flags, mechflag_keys, mech_view, one_access, regions, accesses } = data;
+  const [edit_access, editAccess] = useState(false);
+  const {
+    name,
+    mecha_flags,
+    mechflag_keys,
+    mech_view,
+    one_access,
+    regions,
+    accesses,
+  } = data;
   const id_lock = mecha_flags & mechflag_keys['ID_LOCK_ON'];
   return (
     <Stack fill>
@@ -31,7 +48,15 @@ export const Content = (props) => {
             <Section
               fill
               title={name}
-              buttons={<Button icon="edit" tooltip="Rename" tooltipPosition="left" onClick={() => act('changename')} />}>
+              buttons={
+                <Button
+                  icon="edit"
+                  tooltip="Rename"
+                  tooltipPosition="left"
+                  onClick={() => act('changename')}
+                />
+              }
+            >
               <Stack fill vertical>
                 <Stack.Item>
                   <ByondUi
@@ -133,7 +158,8 @@ const PowerBar = (props) => {
         }}
         style={{
           textShadow: '1px 1px 0 black',
-        }}>
+        }}
+      >
         {power_max === null
           ? 'Power cell missing'
           : power_level === 1e31
@@ -158,7 +184,8 @@ const IntegrityBar = (props) => {
         }}
         style={{
           textShadow: '1px 1px 0 black',
-        }}>
+        }}
+      >
         {!scanmod_rating ? 'Unknown' : `${integrity} of ${integrity_max}`}
       </ProgressBar>
     </LabeledList.Item>
@@ -199,10 +226,16 @@ const CabinSeal = (props) => {
     cabin_temp_warning_max,
     cabin_temp_hazard_max,
   } = data;
-  const temp_warning = cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
-  const temp_hazard = cabin_temp < cabin_temp_hazard_min || cabin_temp > cabin_temp_hazard_max;
-  const pressure_warning = cabin_pressure < cabin_pressure_warning_min || cabin_pressure > cabin_pressure_warning_max;
-  const pressure_hazard = cabin_pressure < cabin_pressure_hazard_min || cabin_pressure > cabin_pressure_hazard_max;
+  const temp_warning =
+    cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
+  const temp_hazard =
+    cabin_temp < cabin_temp_hazard_min || cabin_temp > cabin_temp_hazard_max;
+  const pressure_warning =
+    cabin_pressure < cabin_pressure_warning_min ||
+    cabin_pressure > cabin_pressure_warning_max;
+  const pressure_hazard =
+    cabin_pressure < cabin_pressure_hazard_min ||
+    cabin_pressure > cabin_pressure_hazard_max;
   return (
     <LabeledList.Item
       label="Cabin Air"
@@ -210,20 +243,33 @@ const CabinSeal = (props) => {
         !!cabin_sealed && (
           <>
             <Button
-              color={temp_hazard ? 'danger' : temp_warning ? 'average' : 'transparent'}
+              color={
+                temp_hazard
+                  ? 'danger'
+                  : temp_warning
+                    ? 'average'
+                    : 'transparent'
+              }
               icon="temperature-low"
               tooltipPosition="top"
               tooltip={`Air temperature: ${cabin_temp}°C`}
             />
             <Button
-              color={pressure_hazard ? 'danger' : pressure_warning ? 'average' : 'transparent'}
+              color={
+                pressure_hazard
+                  ? 'danger'
+                  : pressure_warning
+                    ? 'average'
+                    : 'transparent'
+              }
               icon="gauge-high"
               tooltipPosition="top"
               tooltip={`Air pressure: ${cabin_pressure} kPa`}
             />
           </>
         )
-      }>
+      }
+    >
       <Button
         icon={cabin_sealed ? 'mask-ventilator' : 'wind'}
         content={cabin_sealed ? 'Sealed' : 'Exposed'}

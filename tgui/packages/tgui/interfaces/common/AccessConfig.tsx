@@ -54,13 +54,27 @@ const DIFFMAP = [
 ] as const;
 
 export const AccessConfig = (props) => {
-  const { accesses = [], selectedList = [], accessMod, grantAll, denyAll, grantDep, denyDep } = props;
+  const {
+    accesses = [],
+    selectedList = [],
+    accessMod,
+    grantAll,
+    denyAll,
+    grantDep,
+    denyDep,
+  } = props;
 
-  const [selectedAccessName, setSelectedAccessName] = useState(accesses[0]?.name);
+  const [selectedAccessName, setSelectedAccessName] = useState(
+    accesses[0]?.name,
+  );
 
-  const selectedAccess = accesses.find((access) => access.name === selectedAccessName) || accesses[0];
+  const selectedAccess =
+    accesses.find((access) => access.name === selectedAccessName) ||
+    accesses[0];
 
-  const selectedAccessEntries = sortBy((entry: Area) => entry.desc)(selectedAccess?.accesses || []);
+  const selectedAccessEntries = sortBy((entry: Area) => entry.desc)(
+    selectedAccess?.accesses || [],
+  );
 
   const checkAccessIcon = (accesses: Area[]) => {
     let oneAccess = false;
@@ -94,7 +108,8 @@ export const AccessConfig = (props) => {
             Deny All
           </Button>
         </>
-      }>
+      }
+    >
       <Stack fill>
         <Stack.Item>
           <Tabs vertical>
@@ -108,7 +123,8 @@ export const AccessConfig = (props) => {
                   color={color as string}
                   icon={icon}
                   selected={access.name === selectedAccessName}
-                  onClick={() => setSelectedAccessName(access.name)}>
+                  onClick={() => setSelectedAccessName(access.name)}
+                >
                   {access.name}
                 </Tabs.Tab>
               );
@@ -132,19 +148,36 @@ export const AccessConfig = (props) => {
 };
 
 const AccessButtons = (props: AccessButtonProps) => {
-  const { selectedAccessEntries, selectedList, accessMod, grantDep, denyDep, selectedAccess } = props;
+  const {
+    selectedAccessEntries,
+    selectedList,
+    accessMod,
+    grantDep,
+    denyDep,
+    selectedAccess,
+  } = props;
 
   return (
     <Stack fill vertical>
       <Stack.Item>
         <Stack fill>
           <Stack.Item grow>
-            <Button fluid icon="check" color="good" onClick={() => grantDep(selectedAccess.name)}>
+            <Button
+              fluid
+              icon="check"
+              color="good"
+              onClick={() => grantDep(selectedAccess.name)}
+            >
               Grant Region
             </Button>
           </Stack.Item>
           <Stack.Item grow>
-            <Button fluid icon="times" color="bad" onClick={() => denyDep(selectedAccess.name)}>
+            <Button
+              fluid
+              icon="times"
+              color="bad"
+              onClick={() => denyDep(selectedAccess.name)}
+            >
               Deny Region
             </Button>
           </Stack.Item>
@@ -158,7 +191,8 @@ const AccessButtons = (props: AccessButtonProps) => {
               fluid
               key={entry.desc}
               checked={selectedList.includes(entry.ref)}
-              onClick={() => accessMod(entry.ref)}>
+              onClick={() => accessMod(entry.ref)}
+            >
               {entry.desc}
             </Button.Checkbox>
           ))}
