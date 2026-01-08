@@ -208,6 +208,7 @@
 	icon_state = "adv_plasmacutter"
 	inhand_icon_state = "adv_plasmacutter"
 	force = 15
+	fire_rate = 0.75
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 
 /obj/item/gun/energy/plasmacutter/cyborg
