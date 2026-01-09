@@ -37493,21 +37493,7 @@
 /obj/item/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/rack,
-/obj/item/crowbar/red,
-/obj/item/wrench,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 23
-	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "gTm" = (
