@@ -44931,6 +44931,10 @@
 "nzI" = (
 /obj/structure/destructible/cult/tome/library,
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/book/codex_gigas{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /obj/item/flashlight/lantern{
 	pixel_x = 4
 	},

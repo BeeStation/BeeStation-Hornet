@@ -35248,6 +35248,7 @@
 /area/science/lab)
 "mgm" = (
 /obj/structure/destructible/cult/tome,
+/obj/item/book/codex_gigas,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "mgr" = (

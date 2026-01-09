@@ -3695,6 +3695,7 @@
 /area/maintenance/department/medical/morgue)
 "bOX" = (
 /obj/structure/destructible/cult/tome,
+/obj/item/book/codex_gigas,
 /obj/structure/light_construct{
 	dir = 4
 	},

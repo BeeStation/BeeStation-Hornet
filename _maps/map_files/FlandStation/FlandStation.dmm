@@ -33721,6 +33721,7 @@
 	pixel_y = 30
 	},
 /obj/structure/destructible/cult/tome,
+/obj/item/book/codex_gigas,
 /obj/item/stack/cable_coil/cut/red,
 /turf/open/floor/wood,
 /area/library)
