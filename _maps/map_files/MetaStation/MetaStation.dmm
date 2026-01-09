@@ -37357,9 +37357,6 @@
 	name = "Unisex Restrooms"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet/restrooms)
@@ -41096,9 +41093,6 @@
 	},
 /area/security/brig)
 "lEw" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/camera/directional/west{
@@ -76698,9 +76692,6 @@
 /area/tcommsat/computer)
 "yiF" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
@@ -90826,8 +90817,8 @@ cej
 cej
 sWN
 cej
+cej
 cfz
-cED
 cHk
 anT
 aaa
