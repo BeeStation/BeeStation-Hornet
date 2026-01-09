@@ -1588,9 +1588,7 @@
 /area/lawoffice)
 "apm" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "apn" = (
@@ -125768,7 +125766,7 @@ aeu
 aeU
 aeU
 aeU
-lJO
+aeU
 aoz
 aeU
 aeU
