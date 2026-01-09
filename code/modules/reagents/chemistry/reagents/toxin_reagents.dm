@@ -326,7 +326,7 @@
 	. = ..()
 	switch(current_cycle)
 		if(1 to 10)
-			affected_mob.confused += 2 * REM * delta_time
+			affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
 			affected_mob.drowsyness += 2 * REM * delta_time
 		if(10 to 50)
 			affected_mob.Sleeping(40 * REM * delta_time)
@@ -1042,13 +1042,14 @@
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
 
 	// If our mob's currently dizzy from anything else, we will also gain confusion
-	var/mob_dizziness = affected_mob.confused
+	var/mob_dizziness = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
 	if(mob_dizziness > 0)
 		// Gain confusion equal to about half the duration of our current dizziness
-		affected_mob.confused = mob_dizziness / 2
+		affected_mob.set_confusion(mob_dizziness / 20)
 
-	if(current_cycle >= 12 && DT_PROB(4, delta_time))
-		to_chat(affected_mob, span_notice(pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")))
+	if(current_cycle >= 13 && DT_PROB(4, delta_time))
+		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
+		to_chat(affected_mob, span_notice("[tox_message]"))
 
 //This reagent is intentionally not designed to give much fighting chance. Its only ever used when morph manages to trick somebody into interacting with its disguised form
 /datum/reagent/toxin/morphvenom
@@ -1065,7 +1066,7 @@
 	affected_mob.set_drugginess(5)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
 	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
-	affected_mob.confused = max(affected_mob.confused, 10 * REM * delta_time)
+	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/toxin/morphvenom/mimite

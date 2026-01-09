@@ -4,7 +4,7 @@
 /area/ruin)
 "ac" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/white,
 /area/ruin)
 "ah" = (
@@ -242,7 +242,7 @@
 /area/ruin)
 "IQ" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/obj/effect/spawner/random/exotic/antag_gear_weak,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},

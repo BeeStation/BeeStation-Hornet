@@ -407,9 +407,11 @@
 		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>", \
 			span_userdanger("The siren pierces your hearing and confuses you!"), \
 			span_danger("The siren pierces your hearing!"))
-		for(var/mob/living/carbon/M in hearers(9, user))
-			if(M.get_ear_protection() == FALSE)
-				M.confused += 6
+		for(var/mob/living/carbon/carbon in get_hearers_in_view(9, user))
+			if(carbon.get_ear_protection())
+				continue
+			carbon.adjust_confusion(6 SECONDS)
+
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
@@ -426,12 +428,12 @@
 			var/bang_effect = C.soundbang_act(2, 0, 0, 5)
 			switch(bang_effect)
 				if(1)
-					C.confused += 5
+					C.adjust_confusion(5 SECONDS)
 					C.adjust_stutter(20 SECONDS)
 					C.adjust_jitter(20 SECONDS)
 				if(2)
 					C.Paralyze(40)
-					C.confused += 10
+					C.adjust_confusion(10 SECONDS)
 					C.adjust_stutter(30 SECONDS)
 					C.adjust_jitter(50 SECONDS)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)

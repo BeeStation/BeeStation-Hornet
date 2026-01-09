@@ -18,7 +18,8 @@
 						<b>Transmission 8:</b> Purges alcohol in the bloodstream."
 
 /datum/symptom/mind_restoration/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	if(A.resistance >= 6) //heal brain damage
 		trauma_heal_mild = TRUE
@@ -41,7 +42,7 @@
 		for(var/datum/status_effect/speech/slurring/slur in M.status_effects)
 			slur.remove_duration(1 SECONDS)
 
-		M.confused = max(0, M.confused - 2)
+		M.adjust_confusion(-2 SECONDS)
 		if(purge_alcohol)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
 			M.adjust_drunk_effect(-5)

@@ -75,7 +75,7 @@
 			if(1)
 				host_mob.adjust_hallucinations(30 SECONDS)
 			if(2)
-				host_mob.confused  += 10
+				host_mob.adjust_confusion(10 SECONDS)
 			if(3)
 				host_mob.drowsyness += 10
 			if(4)
@@ -110,7 +110,7 @@
 /datum/nanite_program/nerve_decay/active_effect()
 	if(prob(5))
 		to_chat(host_mob, span_warning("You feel unbalanced!"))
-		host_mob.confused += 10
+		host_mob.adjust_confusion(10 SECONDS)
 	else if(prob(4))
 		to_chat(host_mob, span_warning("You can't feel your hands!"))
 		host_mob.drop_all_held_items()

@@ -1219,9 +1219,14 @@
 	. = ..()
 	affected_mob.set_dizzy_if_lower(2 SECONDS)
 
-	if(!affected_mob.confused)
-		affected_mob.confused = 1
-	affected_mob.confused = max(affected_mob.confused, 20)
+	// Cryptobiolin adjusts the mob's confusion down to 20 seconds if it's higher,
+	// or up to 1 second if it's lower, but will do nothing if it's in between
+	var/confusion_left = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
+	if(confusion_left < 1 SECONDS)
+		affected_mob.set_confusion(1 SECONDS)
+
+	else if(confusion_left > 20 SECONDS)
+		affected_mob.set_confusion(20 SECONDS)
 
 /datum/reagent/impedrezene
 	name = "Impedrezene"
@@ -1980,8 +1985,7 @@
 
 /datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	if(affected_mob.confused < 6)
-		affected_mob.confused = clamp(affected_mob.confused + 3 * REM * delta_time, 0, 5)
+	affected_mob.adjust_confusion_up_to(3 SECONDS * REM * delta_time, 5 SECONDS)
 	affected_mob.adjust_dizzy_up_to(6 SECONDS * REM * delta_time, 12 SECONDS)
 	if(DT_PROB(10, delta_time))
 		to_chat(affected_mob, "You feel confused and disorientated.")

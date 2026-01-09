@@ -432,17 +432,12 @@
 //Security Badges
 /obj/item/clothing/accessory/badge
 	name = "badge"
+	desc = "A badge that symbolises a person's authority as a member of security."
 	icon_state = "officerbadge"
 	worn_icon_state = "officerbadge"
 	w_class = WEIGHT_CLASS_TINY
 	var/badge_title = "Security Officer"
 	var/officer_name
-
-/obj/item/clothing/accessory/badge/get_examine_line(skip_examine_link = FALSE)
-	. = ..()
-	// Only add the View link if we're not skipping examine links
-	if(!skip_examine_link)
-		. += " <a href='byond://?src=\ref[src];look_at_me=1'>\[View\]</a>"
 
 /obj/item/clothing/accessory/badge/examine(mob/user)
 	. = ..()
@@ -468,16 +463,6 @@
 		user.visible_message(span_danger("[user] invades [target]'s personal space, thrusting \the [src] into their face insistently."), span_danger("You invade [target]'s personal space, thrusting \the [src] into their face insistently."))
 		if (officer_name)
 			to_chat(target, span_warning("The [src]'s text reads: [officer_name], [badge_title]."))
-
-/obj/item/clothing/accessory/badge/Topic(href, href_list)
-	. = ..()
-	if(!usr.canUseTopic(src, BE_CLOSE))
-		return
-	add_fingerprint(usr)
-
-	if (href_list["look_at_me"])
-		usr.examinate(src)
-		return TRUE
 
 /obj/item/clothing/accessory/badge/det
 	icon_state = "detbadge"

@@ -92,7 +92,7 @@
 			if(2,3)
 				owner.adjust_dizzy(20 SECONDS)
 			if(4,5)
-				owner.confused += 10
+				owner.adjust_confusion(10 SECONDS)
 				owner.blur_eyes(10)
 			if(6 to 9)
 				owner.adjust_slurring(1 MINUTES)

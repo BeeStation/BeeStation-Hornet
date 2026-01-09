@@ -164,7 +164,7 @@
 	// Over 41, we have a 30% chance to gain confusion, and we will always have 20 seconds of dizziness.
 	if(drunk_value >= 41)
 		if(prob(30))
-			owner.confused += 2
+			owner.adjust_confusion(2 SECONDS)
 
 		owner.set_dizzy_if_lower(20 SECONDS)
 
@@ -172,7 +172,7 @@
 	if(drunk_value >= 51)
 		owner.set_dizzy_if_lower(50 SECONDS)
 		if(prob(3))
-			owner.confused += 15
+			owner.adjust_confusion(15 SECONDS)
 			if(iscarbon(owner))
 				var/mob/living/carbon/carbon_owner = owner
 				carbon_owner.vomit() // Vomiting clears toxloss - consider this a blessing
