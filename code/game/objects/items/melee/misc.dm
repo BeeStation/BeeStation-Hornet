@@ -569,8 +569,8 @@
 				target.Knockdown(knockdown_time_carbon)
 				target.drop_all_held_items()
 				target.adjustStaminaLoss(stamina_damage)
-				if(target_confusion > 0 && target.confused < 6 SECONDS)
-					target.confused = min(target.confused + target_confusion, 6 SECONDS)
+				if(target_confusion > 0)
+					target.adjust_confusion_up_to(target_confusion, 6 SECONDS)
 			else
 				target.Knockdown(knockdown_time_carbon)
 				target.adjustStaminaLoss(stamina_damage_non_target)

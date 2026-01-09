@@ -18,7 +18,8 @@
 						<b>Transmission 8:</b> Purges alcohol in the bloodstream."
 
 /datum/symptom/mind_restoration/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	if(A.resistance >= 6) //heal brain damage
 		trauma_heal_mild = TRUE
@@ -28,7 +29,8 @@
 		purge_alcohol = TRUE
 
 /datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 
@@ -37,7 +39,8 @@
 		M.dizziness = max(0, M.dizziness - 2)
 		M.drowsyness = max(0, M.drowsyness - 2)
 		M.slurring = max(0, M.slurring - 2)
-		M.confused = max(0, M.confused - 2)
+
+		M.adjust_confusion(-2 SECONDS)
 		if(purge_alcohol)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
 			if(ishuman(M))

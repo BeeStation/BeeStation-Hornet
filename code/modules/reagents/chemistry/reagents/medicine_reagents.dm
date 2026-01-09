@@ -1027,14 +1027,23 @@
 	color = "#00B4C8"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "raw egg"
+	/// All status effects we remove on metabolize.
+	/// Does not include drunk (despite what you may thing) as that's decreased gradually
+	var/static/list/status_effects_to_clear = list(
+		/datum/status_effect/confusion,
+		//datum/status_effect/dizziness,
+		//datum/status_effect/drowsiness,
+		//datum/status_effect/speech/slurring/drunk,
+	)
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
+		for(var/effect in status_effects_to_clear)
+			affected_mob.remove_status_effect(effect)
 		affected_mob.dizziness = 0
 		affected_mob.drowsyness = 0
 		affected_mob.slurring = 0
-		affected_mob.confused = 0
 		if(ishuman(affected_mob))
 			var/mob/living/carbon/human/affected_human = affected_mob
 			affected_human.drunkenness = max(affected_human.drunkenness - (10 * REM * delta_time), 0)
@@ -1278,14 +1287,14 @@
 	var/obj/item/organ/liver/liver = affected_mob.get_organ_slot(ORGAN_SLOT_LIVER)
 	if(liver.damage > 0)
 		liver.damage = max(liver.damage - 4 * repair_strength, 0)
-		affected_mob.confused = 2
+		affected_mob.set_confusion_if_lower(2 SECONDS)
 	affected_mob.adjustToxLoss(-6 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/hepanephrodaxon/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-	affected_mob.confused = 2
+	affected_mob.set_confusion_if_lower(2 SECONDS)
 
 /datum/reagent/medicine/inaprovaline
 	name = "Inaprovaline"
@@ -1596,7 +1605,7 @@
 	dosage++
 	affected_mob.adjust_timed_status_effect(-12 SECONDS * REM * delta_time, /datum/status_effect/jitter)
 	affected_mob.dizziness = max(affected_mob.dizziness - (6 * REM * delta_time), 0)
-	affected_mob.confused = max(affected_mob.confused - (6 * REM * delta_time), 0)
+	affected_mob.adjust_confusion(-6 SECONDS * REM * delta_time)
 	affected_mob.disgust = max(affected_mob.disgust - (6 * REM * delta_time), 0)
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 	if(mood?.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...

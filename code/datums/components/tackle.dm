@@ -559,7 +559,7 @@
 								"<span class='userdanger'>You slam head-first into [hit], and the world explodes around you!</span>")
 			user.apply_damage(30, BRUTE)
 			user.apply_damage(30, STAMINA)
-			user.confused += 15
+			user.adjust_confusion(15 SECONDS)
 			if(prob(80))
 				user.gain_trauma(/datum/brain_trauma/mild/concussion)
 			user.playsound_local(get_turf(user), 'sound/weapons/flashbang.ogg', 100, TRUE, 8)
@@ -572,7 +572,7 @@
 								"<span class='userdanger'>You slam hard into [hit], knocking yourself senseless!</span>")
 			user.apply_damage(10, BRUTE)
 			user.apply_damage(30, STAMINA)
-			user.confused += 10
+			user.adjust_confusion(10 SECONDS)
 			user.Knockdown(3 SECONDS)
 			shake_camera(user, 3, 4)
 
