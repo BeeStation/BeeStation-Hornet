@@ -126,6 +126,11 @@
 	calculate_efficiency()
 	ui_update()
 
+/obj/machinery/rnd/production/attackby(obj/item/attacking_item, mob/user, params)
+	if(is_refillable() && attacking_item.is_drainable())
+		return TRUE
+	return ..()
+
 /obj/machinery/rnd/production/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
