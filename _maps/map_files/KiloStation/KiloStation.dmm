@@ -1588,9 +1588,7 @@
 /area/lawoffice)
 "apm" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "apn" = (
@@ -13674,11 +13672,11 @@
 /turf/open/floor/iron,
 /area/security/courtroom)
 "cQT" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/engine,
 /area/engine/gravity_generator)
 "cQV" = (
@@ -36427,7 +36425,7 @@
 "kxm" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "0-8"
 	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
@@ -52984,10 +52982,10 @@
 /obj/item/clipboard,
 /obj/item/paper/guides/jobs/engi/gravity_gen,
 /obj/item/pen/blue,
-/obj/structure/cable/yellow{
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -54418,10 +54416,10 @@
 	dir = 8;
 	pixel_x = 28
 	},
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/engine,
 /area/engine/gravity_generator)
 "qHC" = (
@@ -65634,8 +65632,8 @@
 	name = "Gravity Generator APC";
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
+/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
 "uyv" = (
@@ -76525,10 +76523,10 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cable/yellow{
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -87856,7 +87854,7 @@ cmU
 cmU
 acm
 acm
-cAR
+bDa
 aaa
 acm
 aaa
@@ -88113,7 +88111,7 @@ vUS
 vUS
 vUS
 vUS
-bDa
+ckj
 vUS
 vUS
 vUS
@@ -88297,7 +88295,7 @@ acm
 aaa
 acm
 aaa
-aov
+ade
 cmU
 cmU
 cmU
@@ -88554,7 +88552,7 @@ gJx
 gJx
 gJx
 gJx
-ade
+ctE
 gJx
 gJx
 gJx
@@ -121793,7 +121791,7 @@ kPn
 kPn
 kPn
 kPn
-czr
+ckA
 kPn
 kPn
 kPn
@@ -122050,7 +122048,7 @@ acm
 aaa
 acm
 aaa
-cPE
+czr
 aaa
 acm
 aaa
@@ -122995,7 +122993,7 @@ cmU
 cmU
 cmU
 cmU
-cjl
+kxm
 cmU
 aeU
 aUz
@@ -123247,12 +123245,12 @@ aeU
 aeU
 aeU
 cmU
-mti
-kxm
-kxm
-kxm
-kxm
-gFh
+crb
+crb
+crb
+crb
+crb
+crb
 cmU
 aeU
 aeU
@@ -123504,7 +123502,7 @@ gCQ
 gCQ
 gCQ
 gCQ
-cjl
+crb
 gCQ
 gCQ
 gCQ
@@ -125768,7 +125766,7 @@ aeu
 aeU
 aeU
 aeU
-lJO
+aeU
 aoz
 aeU
 aeU
@@ -126074,7 +126072,7 @@ erU
 erU
 erU
 erU
-fnp
+crb
 erU
 erU
 erU
@@ -126331,7 +126329,7 @@ aaa
 aaa
 aaa
 aaa
-cjl
+fnp
 acm
 aaa
 aaa

@@ -4226,7 +4226,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/open/floor/circuit/red,
@@ -5661,15 +5661,15 @@
 	name = "AI Core Shutter"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/turretid{
 	control_area = "/area/ai_monitored/turret_protected/ai";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
 	pixel_x = -1;
 	pixel_y = 29
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
@@ -5766,12 +5766,6 @@
 "cYL" = (
 /turf/closed/wall,
 /area/science/mixing)
-"cYN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/closed/wall,
-/area/crew_quarters/dorms)
 "cYR" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -8741,10 +8735,10 @@
 /turf/open/floor/iron/dark,
 /area/engineering/hallway)
 "eJw" = (
-/obj/structure/cable{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "eJz" = (
@@ -8921,10 +8915,10 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "ePt" = (
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/open/floor/circuit/green{
@@ -12556,9 +12550,6 @@
 	pixel_y = 8;
 	req_access_txt = "16"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/button/door{
 	id = "AIwindows";
 	name = "AI View Blast doors";
@@ -12572,6 +12563,9 @@
 	pixel_x = -38;
 	pixel_y = -3;
 	req_access_txt = "16"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
@@ -14530,7 +14524,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
@@ -22057,12 +22051,12 @@
 /area/medical/genetics/cloning)
 "mao" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/door/poddoor{
 	id = "AIwindows";
 	name = "AI View Blast Door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
@@ -22957,10 +22951,10 @@
 	pixel_x = 6;
 	pixel_y = 24
 	},
-/obj/structure/cable{
+/obj/machinery/camera/directional/south,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/directional/south,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "mBS" = (
@@ -24034,9 +24028,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "niR" = (
@@ -24492,13 +24483,13 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
+/obj/effect/landmark/navigate_destination,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/navigate_destination,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "nxK" = (
@@ -30340,7 +30331,7 @@
 /turf/open/floor/iron,
 /area/medical/genetics/cloning)
 "qUZ" = (
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /turf/open/floor/circuit/green{
@@ -31560,7 +31551,7 @@
 	uses = 10
 	},
 /obj/effect/turf_decal/box,
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/circuit/green{
@@ -34432,12 +34423,12 @@
 	pixel_x = 23;
 	pixel_y = 22
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/item/toy/plush/lizard_plushie{
 	pixel_x = 1;
 	pixel_y = 14
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/red,
 /area/ai_monitored/turret_protected/ai)
@@ -34947,10 +34938,10 @@
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
@@ -56075,7 +56066,7 @@ qbW
 fEV
 gee
 kBA
-cYN
+fMX
 qjP
 dlh
 fJD
