@@ -1623,7 +1623,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "An energy shield module for a MODsuit. The shield can handle small caliber gunfire, \
 			will rapidly recharge while not under fire."
 	item = /obj/item/mod/module/energy_shield
-	cost = 8
+	cost = 6
 
 /datum/uplink_item/suits/emp_shield
 	name = "MODsuit Advanced EMP Shield Module"
