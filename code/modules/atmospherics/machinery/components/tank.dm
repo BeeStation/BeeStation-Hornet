@@ -200,3 +200,8 @@
 /obj/machinery/atmospherics/components/tank/nitrogen
 	icon_state = "red"
 	gas_type = /datum/gas/nitrogen
+
+/obj/machinery/atmospherics/components/tank/hydrogen_fuel
+	icon_state = "grey"
+	name = "pressure tank (FHF)"
+	gas_type = /datum/gas/hydrogen_fuel

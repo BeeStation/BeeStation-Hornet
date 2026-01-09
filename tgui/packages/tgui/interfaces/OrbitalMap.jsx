@@ -2,8 +2,7 @@
 
 // Made by powerfulbacon
 
-import { useState } from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Dropdown } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
@@ -36,11 +35,30 @@ export const OrbitalMap = (props) => {
     designatorInserted = false,
     designatorId = null,
     shuttleId = null,
+    currentLocationName = '',
   } = data;
-  const [zoomScale, setZoomScale] = useState(1);
+  const [zoomScale, setZoomScale] = useState(0.0625);
   const [xOffset, setXOffset] = useState(0);
   const [yOffset, setYOffset] = useState(0);
   const [trackedBody, setTrackedBody] = useState(shuttleName);
+
+  // Check if our shuttle exists on the map
+  const shuttleExistsOnMap = map_objects.some(
+    (obj) => obj.name === shuttleName,
+  );
+
+  // Update trackedBody when shuttle docks/undocks
+  // - When shuttle appears on map: track it
+  // - When shuttle disappears from map (docked): fall back to current location
+  useEffect(() => {
+    if (shuttleName && shuttleExistsOnMap) {
+      // Shuttle is on the map, track it
+      setTrackedBody(shuttleName);
+    } else if (currentLocationName) {
+      // Shuttle not on map (docked), fall back to current location
+      setTrackedBody(currentLocationName);
+    }
+  }, [shuttleName, shuttleExistsOnMap, currentLocationName]);
 
   const radarRef = useRef(null);
 

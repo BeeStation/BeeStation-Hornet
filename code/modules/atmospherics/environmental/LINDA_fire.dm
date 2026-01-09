@@ -28,22 +28,27 @@
 
 	. = air_gases[/datum/gas/oxygen]
 	var/oxy = . ? .[MOLES] : 0
-	if (oxy < 0.5)
-		return
 	. = air_gases[/datum/gas/plasma]
 	var/plas = . ? .[MOLES] : 0
 	. = air_gases[/datum/gas/tritium]
 	var/trit = . ? .[MOLES] : 0
+	. = air_gases[/datum/gas/hydrogen_fuel]
+	var/h2fuel = . ? .[MOLES] : 0
+
+	// Need oxygen for plasma/tritium, but hydrogen fuel is self-oxidizing
+	if (oxy < 0.5 && h2fuel < 0.5)
+		return
+
 	if(active_hotspot)
 		if(soh)
-			if(plas > 0.5 || trit > 0.5)
+			if(plas > 0.5 || trit > 0.5 || h2fuel > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
 		return
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (plas > 0.5 || trit > 0.5))
+	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (plas > 0.5 || trit > 0.5 || h2fuel > 0.5))
 
 		new /obj/effect/hotspot(src, exposed_volume * 25, exposed_temperature)
 		SSair.add_to_active(src)
@@ -279,8 +284,9 @@
 		qdel(src)
 		return
 
-	//Not enough / nothing to burn
-	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
+	//Not enough / nothing to burn - hydrogen fuel is self-oxidizing and doesn't need oxygen. this logic is so ass
+	var/has_self_oxidizing = !INSUFFICIENT(/datum/gas/hydrogen_fuel)
+	if(!location.air || ((INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium) && !has_self_oxidizing) || (INSUFFICIENT(/datum/gas/oxygen) && !has_self_oxidizing)))
 		qdel(src)
 		return
 

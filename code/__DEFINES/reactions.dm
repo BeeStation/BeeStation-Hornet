@@ -65,6 +65,14 @@
 /// The threshold of the tritium combustion's radiation. Lower values means it will be able to penetrate through more structures.
 #define TRITIUM_RADIATION_THRESHOLD 0.3
 
+// Hydrogen Fuel:
+/// The minimum temperature hydrogen fuel combusts at.
+#define HYDROGEN_FUEL_MINIMUM_BURN_TEMPERATURE FIRE_MINIMUM_TEMPERATURE_TO_EXIST
+/// The divisor for the maximum hydrogen fuel burn rate. (1/12 can burn per tick)
+#define HYDROGEN_FUEL_BURN_RATE_DELTA 12
+/// The amount of energy released by burning one mole of hydrogen fuel.
+#define FIRE_HYDROGEN_FUEL_ENERGY_RELEASED 250000
+
 // N2O:
 /// The minimum temperature N2O can form from nitrogen and oxygen in the presence of BZ at.
 #define N2O_FORMATION_MIN_TEMPERATURE 200
