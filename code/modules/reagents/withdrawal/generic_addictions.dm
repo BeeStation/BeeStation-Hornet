@@ -139,7 +139,7 @@
 	if(lums > 0.5)
 		SEND_SIGNAL(affected_human, COMSIG_ADD_MOOD_EVENT, "too_bright", /datum/mood_event/bright_light)
 		affected_human.dizziness = min(40, affected_human.dizziness + 3)
-		affected_human.confused = min(affected_human.confused + (0.5 * delta_time), 20)
+		affected_human.adjust_confusion_up_to(0.5 SECONDS * delta_time, 20 SECONDS)
 	else
 		SEND_SIGNAL(affected_carbon, COMSIG_CLEAR_MOOD_EVENT, "too_bright")
 
