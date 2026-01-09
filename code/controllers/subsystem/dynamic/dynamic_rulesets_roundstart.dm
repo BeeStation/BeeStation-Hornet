@@ -233,9 +233,8 @@
 	ruleset_flags = SHOULD_USE_ANTAG_REP | HIGH_IMPACT_RULESET | NO_OTHER_RULESETS
 
 /datum/dynamic_ruleset/roundstart/vampires/set_drafted_players_amount()
-	// Start with 4 at 12 pop. Every three players, a vampire gets added.
-	// We make this a bit on the heavy side, because starting pop is always low.
-	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 3, 1), 4)
+	// Start with 3 at 12 pop. Every three players, a vampire gets added.
+	drafted_players_amount = max(FLOOR(length(SSdynamic.roundstart_candidates) / 3, 1) - 1, 3)
 
 /////////////////////////////////////////////
 //                                          //
