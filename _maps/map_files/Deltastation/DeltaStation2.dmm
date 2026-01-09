@@ -112,6 +112,9 @@
 "aau" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/starboard/fore)
 "aax" = (
@@ -2224,6 +2227,9 @@
 "arj" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/landmark/xeno_spawn,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
 /area/solar/port/fore)
 "ark" = (
@@ -2651,12 +2657,12 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "atH" = (
+/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/lattice/catwalk,
 /turf/open/space,
-/area/solar/port/fore)
+/area/solar/starboard/fore)
 "atI" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -28742,12 +28748,12 @@
 /turf/open/floor/iron/dark/textured,
 /area/maintenance/disposal/incinerator)
 "ehq" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/space,
-/area/solar/port/aft)
+/area/solar/starboard/fore)
 "ehr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -29112,6 +29118,13 @@
 /obj/structure/bookcase/random,
 /turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
+"eny" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/space,
+/area/solar/starboard/aft)
 "enK" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -33396,9 +33409,6 @@
 /area/bridge)
 "fHa" = (
 /obj/machinery/holopad,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -38106,9 +38116,6 @@
 /turf/open/floor/iron/dark,
 /area/security/main)
 "hcS" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/camera/directional/north{
 	c_tag = "Science - Lab Access";
 	name = "science camera"
@@ -58619,6 +58626,13 @@
 	},
 /turf/open/floor/circuit/green,
 /area/engine/atmospherics_engine)
+"orc" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/space,
+/area/solar/port/aft)
 "ore" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Atrium"
@@ -106851,12 +106865,12 @@ aad
 bVY
 amF
 amF
-amF
-amF
-amF
-arj
+avY
 ask
-atH
+azM
+arj
+aAP
+aAP
 amF
 avY
 axo
@@ -113684,8 +113698,8 @@ egV
 ebA
 ebA
 ebA
-ehq
-ehr
+ebA
+orc
 ehr
 ehr
 veB
@@ -132525,7 +132539,7 @@ aac
 aad
 aac
 aad
-aaj
+acQ
 aad
 aac
 aad
@@ -132782,7 +132796,7 @@ aad
 aaa
 aaa
 aad
-aak
+acQ
 aaa
 aac
 aad
@@ -134568,14 +134582,14 @@ aad
 sYh
 aaf
 aaf
-aaf
-aaf
-aaf
 aao
+aaE
+atH
+ehq
 aau
-aaE
-aaE
-aaE
+ehq
+ehq
+aao
 abv
 aaE
 aaE
@@ -144227,17 +144241,17 @@ aad
 dBO
 dDf
 dEm
-dEm
-dEm
-dEm
+dLB
+dBO
+eny
 dEm
 dEm
 dLB
 dNn
 dBO
 dOK
-dDf
-dEm
+dBO
+eny
 dEm
 dEm
 evm
