@@ -1,0 +1,8 @@
+author: Isaac
+delete-after: true
+changes:
+  - balance: Plasma Cutter now fires at a rate of 0.5
+  - balance: Gravity gun now fires at a rate of 0.2
+  - balance: Advanced Plasma Cutter now fires at a rate of 0.75
+  - balance: Mech Plasma Cutter fires as fast as a regular plasma cutter
+  - balance: Lowers the delimb chance to 10%, 1 out of 10 shots might cut your limb

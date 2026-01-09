@@ -43,6 +43,8 @@
   - tweak: Simplified targeting bodyzone selection now shows if an area of the body
       is pierce proof.
   - tweak: Increases contrast for simplified targeting medical alert icons.
+  - bugfix: Changeling transformed IDs will now correctly display their job on the
+      sechud.
   ? 'rkz, Timberpoes, Mothblocks, Melbert, Mothblocks, andrea-feather, Jolly, timothymtorres,
     Profakos, vinylspiders, mc-oofert, Ghommie. '
   : - balance: converted beestation's maintenance loot list into a triple-level weighted

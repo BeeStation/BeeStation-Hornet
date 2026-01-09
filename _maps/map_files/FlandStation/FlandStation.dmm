@@ -476,7 +476,9 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/orange{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -6047,7 +6049,7 @@
 	name = "Control Room";
 	req_access_txt = "19"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/iron/techmaint,
@@ -33118,10 +33120,10 @@
 /area/crew_quarters/heads/hos)
 "iZN" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/open/floor/plating,
 /area/tcommsat/server)
 "jad" = (
@@ -33284,24 +33286,24 @@
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "jcB" = (
-/obj/structure/cable/yellow{
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/tcommsat/server)
 "jcL" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction,
 /turf/open/floor/plating,
 /area/tcommsat/server)
 "jcN" = (
@@ -35628,7 +35630,7 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
@@ -35959,9 +35961,6 @@
 	},
 /area/tcommsat/server)
 "jQb" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
@@ -35969,6 +35968,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -36059,10 +36061,10 @@
 /turf/open/floor/iron/dark,
 /area/engine/storage_shared)
 "jRm" = (
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -36140,16 +36142,16 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "jSv" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -38868,11 +38870,11 @@
 /area/hallway/primary/starboard)
 "kCo" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/server)
@@ -39400,10 +39402,10 @@
 /turf/open/floor/iron/dark,
 /area/chapel/office)
 "kKv" = (
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -39947,11 +39949,11 @@
 	},
 /obj/effect/turf_decal/stripes/box,
 /obj/effect/turf_decal/stripes/red/box,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -40276,14 +40278,14 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "kWc" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -40362,13 +40364,13 @@
 /turf/open/floor/engine/light,
 /area/medical/cryo)
 "kWL" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -40435,9 +40437,6 @@
 	c_tag = "Telecomms - Server Room";
 	name = "telecomms camera"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -40446,6 +40445,9 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
@@ -50458,10 +50460,10 @@
 /turf/open/floor/iron/freezer,
 /area/medical/surgery)
 "nGz" = (
-/obj/structure/cable/yellow{
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/tcommsat/server)
 "nGH" = (
@@ -50972,10 +50974,10 @@
 	id = 4;
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/structure/fans/tiny/invisible,
+/obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "nOI" = (
@@ -51341,10 +51343,10 @@
 "nVA" = (
 /obj/machinery/telecomms/processor/preset_exploration,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "nVD" = (
@@ -51556,10 +51558,10 @@
 "nZg" = (
 /obj/machinery/telecomms/server/presets/science,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "nZh" = (
@@ -52497,9 +52499,6 @@
 /turf/open/floor/iron/techmaint,
 /area/quartermaster/sorting)
 "omp" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
@@ -52507,6 +52506,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -52774,14 +52776,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "opD" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
@@ -53705,7 +53707,7 @@
 /area/medical/surgery)
 "oDU" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
@@ -53736,11 +53738,11 @@
 /area/hallway/primary/fore)
 "oEv" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -58490,10 +58492,10 @@
 /area/teleporter)
 "pVT" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating,
 /area/tcommsat/server)
 "pVX" = (
@@ -58523,7 +58525,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine{
@@ -60272,7 +60274,7 @@
 /obj/machinery/computer/telecomms/monitor{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark,
@@ -60409,8 +60411,8 @@
 /area/hallway/secondary/entry)
 "quf" = (
 /obj/machinery/power/apc/auto_name/directional/south,
-/obj/structure/cable/yellow,
 /obj/machinery/camera/directional/south,
+/obj/structure/cable,
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -61420,16 +61422,16 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "qKb" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -72076,6 +72078,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/iron/grid/steel,
 /area/hallway/secondary/entry)
 "tDI" = (
@@ -80040,10 +80045,10 @@
 	id = 4;
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/fans/tiny/invisible,
+/obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/obj/structure/fans/tiny/invisible,
 /turf/open/floor/plating/airless,
 /area/docking/bridge)
 "vGr" = (
@@ -83688,13 +83693,13 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "wBs" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
 /obj/machinery/camera/directional/east,
+/obj/structure/cable/orange{
+	icon_state = "0-2"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},

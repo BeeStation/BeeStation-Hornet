@@ -116,6 +116,7 @@
 #include "mapping\check_disposals.dm"
 #include "mapping\check_light_attachment.dm"
 #include "mapping\check_multiple_objects.dm"
+#include "mapping\check_wire_crossing.dm"
 #include "mapping\map_test.dm"
 
 // END_INCLUDE

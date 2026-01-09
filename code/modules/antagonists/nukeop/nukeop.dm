@@ -9,6 +9,7 @@
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
 	ui_name = "AntagInfoNukeOp"
 	faction = FACTION_SYNDICATE
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
