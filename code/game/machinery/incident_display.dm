@@ -64,7 +64,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 /obj/machinery/incident_display/LateInitialize()
 	. = ..()
 	GLOB.map_incident_displays += src
-
 	update_delam_count(SSpersistence.rounds_since_engine_exploded, SSpersistence.delam_highscore)
 	update_appearance()
 
@@ -73,15 +72,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	return ..()
 
 /obj/machinery/incident_display/process()
+	if(machine_stat & (NOPOWER|BROKEN|MAINT))
+		return
+
 	if(!isnull(configured_advert) && COOLDOWN_FINISHED(src, advert_cooldown)) // time to show an advert
 		show_advert(advert = configured_advert, duration = configured_advert_duration)
 		COOLDOWN_START(src, advert_cooldown, rand(advert_frequency - 5 SECONDS, advert_frequency + 5 SECONDS))
 		return
 
 	if(!live_display) // displaying static content, no processing required
-		return
-
-	if(machine_stat & (NOPOWER|BROKEN|MAINT))
 		return
 
 	if(COOLDOWN_FINISHED(src, active_advert)) // advert finished, revert to static content
@@ -165,7 +164,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 	if(machine_stat & NOPOWER)
 		icon_state = "display_normal"
 		set_light(l_on = FALSE)
-		return
 	else if(machine_stat & BROKEN)
 		icon_state = "display_broken"
 		set_light(l_range = 1.7, l_power = 1.5, l_color = LIGHT_COLOR_NORMAL, l_on = TRUE)
