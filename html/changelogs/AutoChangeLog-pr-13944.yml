@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Changeling transformed IDs will now correctly display their job on the
+      sechud.
