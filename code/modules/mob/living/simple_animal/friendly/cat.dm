@@ -23,7 +23,7 @@
 	maxbodytemp = 400
 	unsuitable_atmos_damage = 0.5
 	animal_species = /mob/living/simple_animal/pet/cat
-	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
+	childtype = list(/mob/living/simple_animal/pet/cat/kitten = 1)
 	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"

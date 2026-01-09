@@ -68,7 +68,7 @@
 	},
 /obj/item/coin,
 /obj/effect/turf_decal/box,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /turf/open/floor/wood,
 /area/template_noop)
 "l" = (
@@ -93,12 +93,12 @@
 "q" = (
 /obj/item/reagent_containers/condiment/milk,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
@@ -112,7 +112,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "v" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
@@ -155,7 +155,7 @@
 /area/template_noop)
 "H" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
@@ -190,7 +190,7 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/wood,
 /area/template_noop)
 "P" = (
@@ -243,8 +243,8 @@
 /obj/item/restraints/handcuffs,
 /obj/item/clothing/mask/muzzle,
 /obj/item/toy/sword,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
+/obj/effect/spawner/random/maintenance/three,
+/obj/effect/spawner/random/clothing/pirate_or_bandana,
 /turf/open/floor/wood,
 /area/template_noop)
 
