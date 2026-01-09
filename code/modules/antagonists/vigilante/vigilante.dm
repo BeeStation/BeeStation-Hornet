@@ -19,7 +19,7 @@
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Fanatic Vigilante", "Investigate and uncover the station's infiltrator, elimating any small-fry criminals along the way.")
 	// Start with 3 TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
-	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = 3, directive_flags = NONE)
+	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = TELECRYSTALS_VIGILANTE, directive_flags = NONE)
 	uplink.reputation = 0
 	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station, however as an outsider you will be unable to gain any reputation. The uplink came with a message:</span><br>[span_traitorobjective(uplink.unlock_text)]")
 	RegisterSignal(uplink, COMSIG_QDELETING, PROC_REF(deconvert))

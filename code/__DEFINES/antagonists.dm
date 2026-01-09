@@ -99,6 +99,8 @@
 #define TELECRYSTALS_DEFAULT 12
 /// How many telecrystals mapper/admin only "precharged" uplink implant
 #define TELECRYSTALS_PRELOADED_IMPLANT 10
+/// How many telecrystals vigilantes get
+#define TELECRYSTALS_VIGILANTE 6
 
 GLOBAL_LIST_INIT(ai_employers, list(
 	"Biohazard",
