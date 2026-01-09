@@ -125,3 +125,4 @@
 	points_cost = 5
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	max_amount = 1
+	minimum_players_required = 6
