@@ -152,4 +152,6 @@ ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/alien_surgery)
 	hidden = TRUE
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SCIENCE)
 
+ABDUCTOR_SUBTYPE_UNLOCKS(/datum/techweb_node/nullspacebreaching)
+
 #undef ABDUCTOR_SUBTYPE_UNLOCKS

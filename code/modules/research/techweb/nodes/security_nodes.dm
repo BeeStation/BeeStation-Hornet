@@ -15,7 +15,6 @@
 	)
 	prereq_ids = list(TECHWEB_NODE_BASE)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/exotic_ammo
 	id = TECHWEB_NODE_EXOTIC_AMMO
@@ -51,7 +50,6 @@
 	prereq_ids = list(TECHWEB_NODE_SEC_BASIC)
 	design_ids = list("stunmine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/weaponry
 	id = TECHWEB_NODE_WEAPONRY
@@ -64,7 +62,6 @@
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/smartmine
 	id = TECHWEB_NODE_SMART_MINES
@@ -74,7 +71,6 @@
 	prereq_ids = list(TECHWEB_NODE_ENGINEERING, TECHWEB_NODE_NONLETHAL_MINES, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("stunmine_adv")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/adv_weaponry
 	id = TECHWEB_NODE_ADV_WEAPONRY
@@ -89,7 +85,6 @@
 		"c38_iceblox",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/advmine
 	id = TECHWEB_NODE_ADV_MINES
@@ -102,7 +97,6 @@
 		"stunmine_rapid",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/electric_weapons
 	id = TECHWEB_NODE_ELECTRONIC_WEAPONS

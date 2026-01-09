@@ -46,7 +46,6 @@
 		"borg_upgrade_thrusters",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/cyborg_upg_med
 	id = TECHWEB_NODE_CYBORG_UPG_MED
@@ -63,7 +62,6 @@
 		"borg_upgrade_surgicalprocessor",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/cyborg_upg_combat
 	id = TECHWEB_NODE_CYBORG_UPG_COMBAT
@@ -73,7 +71,6 @@
 	prereq_ids = list(TECHWEB_NODE_ADV_ENGI, TECHWEB_NODE_ADV_ROBOTICS, TECHWEB_NODE_WEAPONRY)
 	design_ids = list("borg_upgrade_vtec")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/cyborg_upg_service
 	id = TECHWEB_NODE_CYBORG_UPG_SERVICE
@@ -88,7 +85,6 @@
 		"borg_upgrade_party",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/subdermal_implants
 	id = TECHWEB_NODE_SUBDERMAL_IMPLANTS
@@ -105,7 +101,6 @@
 		"locator",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SECURITY)
 
 /datum/techweb_node/cyber_organs
 	id = TECHWEB_NODE_CYBER_ORGANS
@@ -153,7 +148,6 @@
 		"robotic_tongue",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/cyber_implants
 	id = TECHWEB_NODE_CYBER_IMPLANTS

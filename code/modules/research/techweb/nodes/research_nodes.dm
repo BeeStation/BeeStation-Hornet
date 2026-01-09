@@ -23,7 +23,6 @@
 		"xenoa_tracker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/bluespace_theory
 	id = TECHWEB_NODE_BLUESPACE_BASIC
@@ -39,7 +38,6 @@
 		"xenobioconsole",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/applied_bluespace
 	id = TECHWEB_NODE_APPLIED_BLUESPACE
@@ -58,7 +56,7 @@
 		"roastingstick",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL, RADIO_CHANNEL_SUPPLY)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
 
 /datum/techweb_node/bluespace_travel
 	id = TECHWEB_NODE_BLUESPACE_TRAVEL
@@ -78,10 +76,10 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
-/datum/techweb_node/bluespace_stabilisation
+/datum/techweb_node/bluespace_stabilization
 	id = TECHWEB_NODE_BLUESPACE_ANCHOR
 	tech_tier = 5
-	display_name = "Bluespace Stabilisation"
+	display_name = "Bluespace Stabilization"
 	description = "Analyse and disrupt nearby bluespace instabilities, preventing anomalous translation."
 	prereq_ids = list(TECHWEB_NODE_MICRO_BLUESPACE)
 	design_ids = list("bsanchor")
@@ -122,7 +120,6 @@
 		"mech_gravcatapult",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/quantum_spin
 	id = TECHWEB_NODE_QSWAPPER

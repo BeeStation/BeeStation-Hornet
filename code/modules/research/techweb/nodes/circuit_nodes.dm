@@ -96,7 +96,6 @@
 		"comp_abs",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/list_circuits
 	id = TECHWEB_NODE_LIST_CIRCUITS
@@ -114,7 +113,6 @@
 		"comp_write",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/adv_shells
 	id = TECHWEB_NODE_ADV_SHELLS
@@ -134,7 +132,6 @@
 		"scanner_shell",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/bci_shells
 	id = TECHWEB_NODE_BCI_SHELLS
@@ -153,7 +150,6 @@
 		"comp_thought_listener",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/movable_shells_tech
 	id = TECHWEB_NODE_MOVABLE_SHELLS
@@ -166,7 +162,6 @@
 		"drone_shell",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/server_shell_tech
 	id = TECHWEB_NODE_SERVER_SHELL
@@ -176,7 +171,6 @@
 	prereq_ids = list(TECHWEB_NODE_ADV_SHELLS, TECHWEB_NODE_COMPUTER_HARDWARE_BASIC)
 	design_ids = list("server_shell")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)
 
 /datum/techweb_node/advanced_circuit_templates
 	id = TECHWEB_NODE_ADVANCED_CIRCUIT_TEMPLATES
@@ -190,4 +184,3 @@
 		"template_circuit_vendor"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE)

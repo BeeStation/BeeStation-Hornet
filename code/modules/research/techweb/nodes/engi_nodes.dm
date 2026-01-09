@@ -169,7 +169,6 @@
 		"sheetifier",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/high_efficiency
 	id = TECHWEB_NODE_HIGH_EFFICIENCY
@@ -249,7 +248,6 @@
 		"wingpack",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_basic //EMP tech for some reason
 	id = TECHWEB_NODE_EMP_BASIC
@@ -268,7 +266,6 @@
 		"tray_goggles",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/emp_adv
 	id = TECHWEB_NODE_EMP_ADV
@@ -317,7 +314,6 @@
 		"s-transmitter",
 		"s-treatment",
 	)
-	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
 
 /datum/techweb_node/comp_recordkeeping
 	id = TECHWEB_NODE_COMP_RECORDKEEPING
@@ -347,7 +343,7 @@
 		"security_hud",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
-	announce_channels = list(RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
+	announce_channels = list(RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_MEDICAL)
 
 /datum/techweb_node/NVGtech
 	id = TECHWEB_NODE_NVGTECH
@@ -405,6 +401,6 @@
 	display_name = "Advanced RCD Designs Upgrade"
 	description = "Unlocks new RCD designs."
 	design_ids = list("rcd_upgrade_silo_link")
-	prereq_ids = list(TECHWEB_NODE_BLUESPACE_TRAVEL, TECHWEB_NODE_RCD_UPGRADE)
+	prereq_ids = list(TECHWEB_NODE_APPLIED_BLUESPACE, TECHWEB_NODE_RCD_UPGRADE)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_2_POINTS)
 	announce_channels = list(RADIO_CHANNEL_ENGINEERING)
