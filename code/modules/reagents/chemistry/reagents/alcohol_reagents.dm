@@ -1703,7 +1703,7 @@
 	affected_mob.slurring += 3 * REM * delta_time
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
-		affected_mob.confused = max(affected_mob.confused + (2 * REM * delta_time),0)
+		affected_mob.adjust_confusion(2 SECONDS * REM * delta_time)
 		affected_mob.Dizzy(10 * REM * delta_time)
 	if (!affected_mob.slurring)
 		affected_mob.slurring = 1 * REM * delta_time
@@ -1741,7 +1741,7 @@
 			affected_mob.slurring += 3 * REM * delta_time
 		if(45 to 55)
 			if(DT_PROB(30, delta_time))
-				affected_mob.confused = max(affected_mob.confused + 3, 0)
+				affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 		if(55 to 200)
 			affected_mob.set_drugginess(55 * REM * delta_time)
 		if(200 to INFINITY)

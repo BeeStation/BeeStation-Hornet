@@ -316,10 +316,10 @@
 			victim.emote("cry")
 			victim.blur_eyes(5) // 10 seconds
 			victim.adjust_blindness(3) // 6 seconds
+			victim.set_confusion_if_lower(10 SECONDS)
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.confused = max(exposed_mob.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()

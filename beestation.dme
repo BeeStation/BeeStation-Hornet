@@ -1171,6 +1171,7 @@
 #include "code\datums\status_effects\buffs\bioware\cortex.dm"
 #include "code\datums\status_effects\buffs\bioware\ligaments.dm"
 #include "code\datums\status_effects\buffs\bioware\nerves.dm"
+#include "code\datums\status_effects\debuffs\confusion.dm"
 #include "code\datums\status_effects\debuffs\debuffs.dm"
 #include "code\datums\status_effects\debuffs\genetic_damage.dm"
 #include "code\datums\status_effects\debuffs\hallucination.dm"

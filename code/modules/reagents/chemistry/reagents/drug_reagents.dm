@@ -288,7 +288,7 @@
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.remove_status_effect(/datum/status_effect/jitter)
-	affected_mob.confused = 0
+	affected_mob.remove_status_effect(/datum/status_effect/confusion)
 	affected_mob.disgust = 0
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * REM * delta_time)
 
@@ -332,7 +332,7 @@
 			affected_mob.Sleeping(60 * REM * delta_time)
 
 	//Providing a Mood Boost
-	affected_mob.confused -= 3 * REM * delta_time
+	affected_mob.adjust_confusion(-3 SECONDS * REM * delta_time)
 	affected_mob.adjust_jitter(-10 SECONDS * REM * delta_time)
 	affected_mob.disgust -= 3 * REM * delta_time
 	//Ketamine is also a dissociative anasthetic which means Hallucinations!
