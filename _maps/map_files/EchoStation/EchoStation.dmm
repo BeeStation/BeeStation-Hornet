@@ -4712,10 +4712,11 @@
 	icon_state = "0-2"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor/southleft{
-	name = "Security Boards"s"
-	},
 /obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/door/window/brigdoor/southleft{
+	name = "Security Boards";
+	req_access_txt = "16"
+	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "cqs" = (
@@ -15688,7 +15689,6 @@
 /obj/item/ai_module/supplied/freeform,
 /obj/item/ai_module/supplied/freeform,
 /obj/item/ai_module/supplied/freeform,
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/machinery/door/window/brigdoor/northright{
 	dir = 8;
@@ -15698,8 +15698,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/north,
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "iyb" = (
@@ -37864,11 +37864,11 @@
 	pixel_y = -32
 	},
 /obj/machinery/airalarm/directional/east,
+/obj/structure/window/reinforced/spawner/directional/west,
 /obj/machinery/door/window/brigdoor/northleft{
-	name = "Security Boards";
+	name = "Security Boards"s";
 	req_access_txt = "16"
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "uTM" = (
