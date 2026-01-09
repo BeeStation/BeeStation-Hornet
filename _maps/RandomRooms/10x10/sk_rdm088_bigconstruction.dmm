@@ -88,12 +88,12 @@
 /area/template_noop)
 "p" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
@@ -104,7 +104,7 @@
 /area/template_noop)
 "t" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
@@ -122,12 +122,12 @@
 /area/template_noop)
 "w" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/seven,
+/obj/effect/spawner/random/maintenance/seven,
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (

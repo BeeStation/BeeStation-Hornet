@@ -57,8 +57,8 @@
 /obj/machinery/door/window{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "C" = (
@@ -112,7 +112,7 @@
 "T" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "U" = (
@@ -122,7 +122,7 @@
 "W" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "Y" = (

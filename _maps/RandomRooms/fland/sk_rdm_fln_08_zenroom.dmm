@@ -46,8 +46,8 @@
 /obj/item/clothing/under/dress/gown/midnight,
 /obj/item/clothing/under/dress/gown/teal,
 /obj/item/clothing/under/dress/blacktango,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /turf/open/floor/wood,
 /area/template_noop)
 "r" = (
@@ -55,8 +55,8 @@
 /area/template_noop)
 "u" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /obj/structure/sign/poster/official/anniversary_vintage_reprint{
 	pixel_y = -32
 	},
