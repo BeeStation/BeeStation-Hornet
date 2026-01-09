@@ -14352,11 +14352,11 @@
 /turf/open/floor/iron,
 /area/bridge)
 "dbk" = (
-/obj/machinery/door/airlock/medical{
-	id_tag = "Unit_2";
-	name = "Unit 2"
-	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/medical{
+	id_tag = "Unit_3";
+	name = "Unit 3"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/toilet/restrooms)
 "dbv" = (
@@ -27761,11 +27761,11 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "hAl" = (
-/obj/machinery/door/airlock/medical{
-	id_tag = "Unit_3";
-	name = "Unit 3"
-	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/medical{
+	id_tag = "Unit_2";
+	name = "Unit 2"
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/toilet/restrooms)
 "hAJ" = (
@@ -96323,7 +96323,7 @@ vGr
 nbS
 hAl
 shH
-cBX
+cBY
 cBv
 cBy
 pLS
@@ -96837,7 +96837,7 @@ iFq
 isN
 dbk
 ylX
-cBY
+cBX
 cBx
 lFe
 cQV

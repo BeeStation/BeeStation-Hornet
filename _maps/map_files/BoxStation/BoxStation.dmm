@@ -9428,7 +9428,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/portable_atmospherics/canister/bz,
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "cgz" = (

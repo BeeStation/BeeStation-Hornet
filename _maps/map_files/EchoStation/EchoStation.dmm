@@ -2104,6 +2104,7 @@
 	id = "AI";
 	pixel_x = -24
 	},
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "aXZ" = (
@@ -4711,6 +4712,10 @@
 	icon_state = "0-2"
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/southleft{
+	name = "Security Boards"s"
+	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "cqs" = (
@@ -15693,6 +15698,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "iyb" = (
@@ -31959,7 +31966,7 @@
 	pixel_x = -29
 	},
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced/spawner/directional/west,
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "rLc" = (
@@ -36613,6 +36620,7 @@
 	pixel_x = -24;
 	pixel_y = 1
 	},
+/obj/structure/window/reinforced/spawner/directional/south,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "uov" = (
@@ -37856,6 +37864,11 @@
 	pixel_y = -32
 	},
 /obj/machinery/airalarm/directional/east,
+/obj/machinery/door/window/brigdoor/northleft{
+	name = "Security Boards";
+	req_access_txt = "16"
+	},
+/obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "uTM" = (
@@ -38326,10 +38339,10 @@
 	pixel_x = -31;
 	pixel_y = -1
 	},
-/obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "vcY" = (
