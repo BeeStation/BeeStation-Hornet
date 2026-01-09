@@ -50483,7 +50483,6 @@
 /area/medical/break_room)
 "lCD" = (
 /obj/structure/destructible/cult/tome/library,
-/obj/item/book/codex_gigas,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/library)

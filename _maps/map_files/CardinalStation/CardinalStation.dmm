@@ -11585,9 +11585,6 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/obj/item/book/codex_gigas{
-	pixel_y = 7
-	},
 /turf/open/floor/engine/cult,
 /area/library/lounge)
 "cvg" = (
