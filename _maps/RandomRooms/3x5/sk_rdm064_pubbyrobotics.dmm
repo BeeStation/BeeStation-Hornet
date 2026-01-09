@@ -11,7 +11,7 @@
 /area/template_noop)
 "d" = (
 /obj/item/weldingtool,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor6"
 	},

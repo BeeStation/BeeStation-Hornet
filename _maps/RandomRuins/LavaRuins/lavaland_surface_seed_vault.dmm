@@ -100,10 +100,10 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/seed_vault,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
 /obj/item/stack/medical/gauze,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
@@ -256,10 +256,10 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/seed_vault,
-/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
+/obj/effect/spawner/random/food_or_drink/seed_vault,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "mW" = (

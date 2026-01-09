@@ -224,8 +224,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	initial_language_holder = /datum/language_holder/monkey
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = null
-	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
-	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
+	butcher_results = list(/obj/effect/spawner/random/medical/teratoma/minor = 5, /obj/effect/spawner/random/medical/teratoma/major = 1)
+	type_of_meat = /obj/effect/spawner/random/medical/teratoma/minor
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/arm/left/monkey/teratoma,
 					/obj/item/bodypart/arm/right/monkey/teratoma, /obj/item/bodypart/leg/right/monkey/teratoma, /obj/item/bodypart/leg/left/monkey/teratoma)
 	ai_controller = null

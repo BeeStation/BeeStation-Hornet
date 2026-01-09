@@ -53,7 +53,7 @@
 	D.visible_message(span_warning("[A] scratches [D]'s face with their claws!"), \
 						span_userdanger("[A] scratches your face with their claws!"))
 	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
-	D.confused += 8
+	D.adjust_confusion(8 SECONDS)
 	D.blur_eyes(5)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
 	playsound(get_turf(D), 'sound/weapons/slash.ogg', 100, TRUE, -1)
@@ -64,7 +64,7 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 */
 /datum/martial_art/tribal_claw/proc/jugularCut(mob/living/A, mob/living/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
-	if(D.body_position == LYING_DOWN || (A.pulling == D && A.grab_state >= GRAB_AGGRESSIVE) || D.confused)
+	if(D.body_position == LYING_DOWN || (A.pulling == D && A.grab_state >= GRAB_AGGRESSIVE) || D.has_status_effect(/datum/status_effect/confusion))
 		if(!COOLDOWN_FINISHED(src, jugular_cut_cd))	// No ultra DPS with gloves of the north star
 			return
 		COOLDOWN_START(src, jugular_cut_cd, CLICK_CD_MELEE * 2)

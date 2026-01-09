@@ -11,8 +11,8 @@
 /area/template_noop)
 "e" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/maintenance/four,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -39,7 +39,7 @@
 "x" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
@@ -52,7 +52,7 @@
 "N" = (
 /obj/item/stack/sheet/glass/ten,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "P" = (

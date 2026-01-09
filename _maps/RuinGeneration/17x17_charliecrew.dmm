@@ -20,6 +20,15 @@
 /obj/structure/window/spawner/directional/south,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
+"cb" = (
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/ruin/unpowered)
 "cr" = (
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
 	pixel_x = -32
@@ -111,9 +120,13 @@
 /obj/machinery/cryopod,
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
-"hq" = (
-/obj/effect/spawner/lootdrop/ruinloot/basic,
-/turf/open/floor/iron,
+"hw" = (
+/obj/structure/closet/crate,
+/obj/item/storage/backpack/old,
+/obj/item/storage/backpack/old,
+/obj/item/crowbar,
+/obj/effect/spawner/random/ruinloot/science,
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "hQ" = (
 /obj/item/gun/energy/recharge/kinetic_accelerator,
@@ -162,10 +175,6 @@
 	dir = 6
 	},
 /area/ruin/unpowered)
-"mj" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/iron/white,
-/area/ruin/unpowered)
 "mn" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/smartfridge/chemistry/preloaded,
@@ -176,14 +185,6 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 8
 	},
-/turf/open/floor/iron/white,
-/area/ruin/unpowered)
-"mW" = (
-/obj/structure/closet/crate,
-/obj/item/storage/backpack/old,
-/obj/item/storage/backpack/old,
-/obj/item/crowbar,
-/obj/effect/spawner/lootdrop/ruinloot/science,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "na" = (
@@ -288,13 +289,6 @@
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
-/area/ruin/unpowered)
-"xZ" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/structure/sign/departments/minsky/research/robotics{
-	pixel_y = 32
-	},
-/turf/open/floor/iron/airless,
 /area/ruin/unpowered)
 "zf" = (
 /obj/machinery/shower{
@@ -425,15 +419,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/ruin/unpowered)
-"KM" = (
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
 "KR" = (
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
@@ -469,8 +454,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
+"MJ" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "NQ" = (
 /obj/effect/turf_decal/tile/purple,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"Ox" = (
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "OX" = (
@@ -506,8 +499,19 @@
 "Rr" = (
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)
+"RW" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
+/obj/structure/sign/departments/minsky/research/robotics{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/airless,
+/area/ruin/unpowered)
 "Sy" = (
 /obj/effect/turf_decal/bot_white,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"SD" = (
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "SR" = (
@@ -532,10 +536,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/white,
-/area/ruin/unpowered)
-"UJ" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/iron,
 /area/ruin/unpowered)
 "UP" = (
 /obj/machinery/modular_fabricator/autolathe/hacked,
@@ -641,7 +641,7 @@ lf
 ww
 Ks
 cF
-UJ
+MJ
 sU
 sU
 Dy
@@ -798,7 +798,7 @@ aW
 lV
 sU
 sU
-hq
+Ox
 sU
 lf
 "}
@@ -808,7 +808,7 @@ lf
 uO
 aW
 aW
-mj
+SD
 aW
 aW
 aW
@@ -827,7 +827,7 @@ lf
 Uh
 aW
 aW
-mW
+hw
 Cq
 nX
 lf
@@ -835,7 +835,7 @@ lf
 dS
 lf
 lf
-xZ
+RW
 de
 de
 lf
@@ -884,7 +884,7 @@ Pw
 lf
 Yp
 aW
-KM
+cb
 GX
 hQ
 lf

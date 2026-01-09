@@ -97,6 +97,11 @@
 #define set_jitter(duration) set_timed_status_effect(duration, /datum/status_effect/jitter)
 #define set_jitter_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/jitter, TRUE)
 
+#define adjust_confusion(duration) adjust_timed_status_effect(duration, /datum/status_effect/confusion)
+#define adjust_confusion_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/confusion, up_to)
+#define set_confusion(duration) set_timed_status_effect(duration, /datum/status_effect/confusion)
+#define set_confusion_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/confusion, TRUE)
+
 #define adjust_hallucinations(duration) adjust_timed_status_effect(duration, /datum/status_effect/hallucination)
 #define adjust_hallucinations_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/hallucination, up_to)
 #define set_hallucinations(duration) set_timed_status_effect(duration, /datum/status_effect/hallucination)

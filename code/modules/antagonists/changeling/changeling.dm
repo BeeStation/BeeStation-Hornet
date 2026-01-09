@@ -479,6 +479,11 @@
 	new_profile.undershirt = target.undershirt
 	new_profile.socks = target.socks
 
+	var/obj/item/card/id/id_card = target.wear_id?.GetID()
+	if (istype(id_card))
+		new_profile.id_job_name = id_card.assignment
+		new_profile.id_hud_state = id_card.hud_state
+
 	// Hair and facial hair gradients, alongside their colours.
 	//new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
 	//new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
