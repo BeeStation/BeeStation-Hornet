@@ -2,7 +2,7 @@
 "a" = (
 /obj/structure/table,
 /obj/item/wirecutters,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small{
 	brightness = 3;
 	dir = 8
@@ -28,7 +28,7 @@
 "f" = (
 /obj/structure/closet/crate/medical,
 /obj/item/stack/medical/gauze,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
