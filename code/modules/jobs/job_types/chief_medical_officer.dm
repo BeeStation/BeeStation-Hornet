@@ -8,7 +8,7 @@
 	supervisors = "the captain"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	selection_color = "#c1e1ec"
 	req_admin_notify = 1

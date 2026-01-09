@@ -218,7 +218,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/science)
 "cz" = (
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms{
+/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate/comms{
 	dir = 8
 	},
 /turf/open/floor/carpet/grimy,
@@ -1434,7 +1434,7 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lD" = (
-/obj/effect/mob_spawn/human/lavaland_syndicate{
+/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate{
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/north,
@@ -2139,7 +2139,7 @@
 /turf/open/floor/iron/white,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "uc" = (
-/obj/effect/mob_spawn/human/lavaland_syndicate{
+/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate{
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/north,
@@ -3315,7 +3315,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Gi" = (
-/obj/effect/mob_spawn/human/lavaland_syndicate{
+/obj/effect/mob_spawn/ghost_role/human/lavaland_syndicate{
 	dir = 4
 	},
 /turf/open/floor/carpet/grimy,

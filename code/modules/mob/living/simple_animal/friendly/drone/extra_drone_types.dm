@@ -60,19 +60,24 @@
 	. = ..()
 	desc += " This drone appears to have a complex holoprojector built on its 'head'."
 
-/obj/effect/mob_spawn/drone/syndrone
+/obj/effect/mob_spawn/ghost_role/drone/syndrone
 	name = "syndrone shell"
 	desc = "A shell of a syndrone, a modified maintenance drone designed to infiltrate and annihilate."
 	icon_state = "syndrone_item"
 	mob_name = "syndrone"
 	mob_type = /mob/living/simple_animal/drone/syndrone
+	prompt_name = "a syndrone"
+	you_are_text = "You are a Syndicate Maintenance Drone."
+	flavour_text = "In a prior life, you maintained a Nanotrasen Research Station. Abducted from your home, you were given some upgrades... and now serve an enemy of your former masters."
+	important_text = ""
+	assignedrole = null
 
-/obj/effect/mob_spawn/drone/syndrone/badass
+/obj/effect/mob_spawn/ghost_role/drone/syndrone/badass
 	name = "badass syndrone shell"
 	mob_name = "badass syndrone"
 	mob_type = /mob/living/simple_animal/drone/syndrone/badass
 
-/obj/effect/mob_spawn/drone/snowflake
+/obj/effect/mob_spawn/ghost_role/drone/snowflake
 	name = "snowflake drone shell"
 	desc = "A shell of a snowflake drone, a maintenance drone with a built in holographic projector to display hats and masks."
 	mob_name = "snowflake drone"
@@ -97,16 +102,19 @@
 	icon_living = icon_state
 	icon_dead = "[visualAppearance]_dead"
 
-/obj/effect/mob_spawn/drone/dusty
+/obj/effect/mob_spawn/ghost_role/drone/derelict
 	name = "derelict drone shell"
 	desc = "A long-forgotten drone shell. It seems kind of... Space Russian."
 	icon = 'icons/mob/drone.dmi'
 	icon_state = "drone_maint_hat"
 	mob_name = "derelict drone"
 	mob_type = /mob/living/simple_animal/drone/derelict
-	short_desc = "You are a long forgotten drone!"
-	flavour_text = "You are a drone on Kosmicheskaya Stantsiya 13. Something has brought you out of hibernation, and the station is in gross disrepair. \
-	Build, repair, maintain and improve the station that housed you on activation."
+	anchored = TRUE
+	prompt_name = "a derelict drone"
+	you_are_text = "You are a drone on Kosmicheskaya Stantsiya 13."
+	flavour_text = "Something has brought you out of hibernation, and the station is in gross disrepair."
+	important_text = "Build, repair, maintain and improve the station that housed you on activation."
+	assignedrole = null
 
 /mob/living/simple_animal/drone/derelict
 	name = "derelict drone"

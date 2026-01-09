@@ -1151,7 +1151,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 			create_brother(H.loc)
 
 /datum/species/golem/cardboard/proc/create_brother(location)
-	new /obj/effect/mob_spawn/human/golem/servant(location, /datum/species/golem/cardboard, owner)
+	new /obj/effect/mob_spawn/ghost_role/human/golem/servant(location, /datum/species/golem/cardboard, owner)
 	last_creation = world.time
 
 /datum/species/golem/leather

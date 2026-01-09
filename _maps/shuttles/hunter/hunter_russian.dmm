@@ -16,7 +16,7 @@
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 8
 	},
 /turf/open/floor/iron/tech/grid,
@@ -52,7 +52,7 @@
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_x = -32
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 4
 	},
 /turf/open/floor/iron/tech/grid,
@@ -340,7 +340,7 @@
 /obj/machinery/light{
 	dir = 2
 	},
-/obj/effect/mob_spawn/human/fugitive_hunter/leader{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter/leader{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -804,7 +804,7 @@
 "Nb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 4
 	},
 /turf/open/floor/iron/tech/grid,
@@ -921,7 +921,7 @@
 /area/shuttle/hunter)
 "Ro" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mob_spawn/human/fugitive_hunter{
+/obj/effect/mob_spawn/ghost_role/human/fugitive_hunter{
 	dir = 8
 	},
 /turf/open/floor/iron/tech/grid,

@@ -4,7 +4,7 @@
 	department_for_prefs = DEPT_NAME_CIVILIAN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 2
 	selection_color = "#dddddd"
 	var/lawyers = 0 //Counts lawyer amount

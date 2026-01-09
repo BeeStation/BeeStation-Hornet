@@ -3,7 +3,7 @@
 	description = "Use your unique position to provide a service or entertain the crew."
 	department_for_prefs = DEPT_NAME_ASSISTANT
 	show_in_prefs = TRUE
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"

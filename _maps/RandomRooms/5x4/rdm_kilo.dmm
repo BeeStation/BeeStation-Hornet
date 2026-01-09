@@ -63,7 +63,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/closet/cardboard,
-/obj/effect/mob_spawn/human/engineer,
+/obj/effect/mob_spawn/ghost_role/human/engineer,
 /turf/open/floor/iron,
 /area/space)
 "g" = (

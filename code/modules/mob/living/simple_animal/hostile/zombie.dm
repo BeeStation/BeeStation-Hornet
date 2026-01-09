@@ -21,7 +21,6 @@
 	del_on_death = TRUE
 	var/zombiejob = JOB_NAME_MEDICALDOCTOR
 	var/infection_chance = 0
-	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
 	mobchatspan = "bartender"
 	discovery_points = 3000
 
@@ -43,17 +42,7 @@
 	icon = getFlatIcon(dummy)
 	qdel(dummy)
 
-	corpse = new(src)
-	corpse.outfit = outfit
-	corpse.mob_species = /datum/species/zombie
-	corpse.mob_name = name
-
 /mob/living/simple_animal/hostile/zombie/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target) && prob(infection_chance))
 		try_to_zombie_infect(target)
-
-/mob/living/simple_animal/hostile/zombie/drop_loot()
-	. = ..()
-	corpse.forceMove(drop_location())
-	corpse.create()

@@ -74,10 +74,36 @@ GLOBAL_PROTECT(exp_removed_jobsmap)
 // DO NOT INITIALIZE HERE. department subsystem initializes this.
 GLOBAL_LIST_EMPTY(exp_jobsmap)
 GLOBAL_LIST_INIT(exp_specialmap, list(
-	EXP_TYPE_LIVING = list(), // all living mobs
-	EXP_TYPE_ANTAG = list(),
-	EXP_TYPE_SPECIAL = list("Lifebringer","Ash Walker","Exile","Servant Golem","Free Golem","Hermit","Translocated Vet","Escaped Prisoner","Hotel Staff","SuperFriend","Space Syndicate","Ancient Crew","Space Doctor","Beach Bum","Skeleton","Zombie","Lavaland Syndicate",JOB_NAME_PAI,"Ghost Role"), // Ghost roles
-	EXP_TYPE_GHOST = list() // dead people, observers
+	EXP_TYPE_LIVING = list(
+
+	), // all living mobs
+	EXP_TYPE_ANTAG = list(
+
+	),
+	EXP_TYPE_SPECIAL = list(
+		"Lifebringer",
+		"Ash Walker",
+		"Exile",
+		"Servant Golem",
+		"Free Golem",
+		"Hermit",
+		"Translocated Vet",
+		"Escaped Prisoner",
+		"Hotel Staff",
+		"SuperFriend",
+		"Space Syndicate",
+		"Ancient Crew",
+		"Space Doctor",
+		"Beach Bum",
+		"Skeleton",
+		"Zombie",
+		"Lavaland Syndicate",
+		JOB_NAME_PAI,
+		"Ghost Role"
+	), // Ghost roles
+	EXP_TYPE_GHOST = list(
+		
+	) // dead people, observers
 ))
 GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)

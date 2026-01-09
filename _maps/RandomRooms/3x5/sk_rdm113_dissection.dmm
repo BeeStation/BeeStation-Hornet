@@ -58,7 +58,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/obj/effect/mob_spawn/corpse/human/charredskeleton,
 /turf/open/floor/iron/white,
 /area/template_noop)
 "j" = (

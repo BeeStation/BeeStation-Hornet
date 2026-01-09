@@ -88,8 +88,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/comp_light_luminosity = 3
 	/// The built-in light's color, editable by players.
 	var/comp_light_color = "#FFFFFF"
-	/// Whether or not the tablet is invisible in messenger and other apps
-	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes
 	var/datum/picture/saved_image
 	/// The ringtone that will be set on initialize

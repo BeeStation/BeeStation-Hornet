@@ -59,6 +59,7 @@
 #include "metabolizing.dm"
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
+#include "mob_spawn.dm"
 #include "modsuit.dm"
 #include "mutant_organs.dm"
 #include "ntnetwork_tests.dm"

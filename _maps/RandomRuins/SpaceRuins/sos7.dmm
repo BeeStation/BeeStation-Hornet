@@ -48,7 +48,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/corpse/human/assistant,
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "k" = (
@@ -79,7 +79,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/mob_spawn/corpse/human/cargo_tech,
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "o" = (

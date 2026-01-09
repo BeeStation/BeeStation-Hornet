@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 )))
 
 GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
-	/obj/effect/mob_spawn/sentient_artifact,
+	/obj/effect/mob_spawn/ghost_role/sentient_artifact,
 	/mob/living/simple_animal/shade/sentience,
 )))
 
