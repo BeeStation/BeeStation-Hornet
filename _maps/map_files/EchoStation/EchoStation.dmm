@@ -5766,12 +5766,6 @@
 "cYL" = (
 /turf/closed/wall,
 /area/science/mixing)
-"cYN" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/closed/wall,
-/area/crew_quarters/dorms)
 "cYR" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -24033,9 +24027,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
@@ -56075,7 +56066,7 @@ qbW
 fEV
 gee
 kBA
-cYN
+fMX
 qjP
 dlh
 fJD
