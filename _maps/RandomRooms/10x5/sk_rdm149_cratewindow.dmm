@@ -24,7 +24,7 @@
 "i" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -92,7 +92,7 @@
 "G" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance/five,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -109,7 +109,7 @@
 "L" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (

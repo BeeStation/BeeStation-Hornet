@@ -5,7 +5,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "b" = (
@@ -20,7 +20,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "e" = (
@@ -50,7 +50,7 @@
 "l" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "m" = (
@@ -120,7 +120,7 @@
 	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "A" = (
@@ -133,7 +133,7 @@
 "B" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "E" = (
@@ -153,7 +153,7 @@
 "I" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "J" = (
@@ -219,7 +219,7 @@
 "X" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/random/ruinloot/armory,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered)

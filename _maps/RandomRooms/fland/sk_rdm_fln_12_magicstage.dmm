@@ -17,8 +17,8 @@
 "f" = (
 /obj/structure/closet,
 /obj/item/storage/toolbox/mechanical,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/maintenance/three,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/carpet,
 /area/template_noop)
 "i" = (
