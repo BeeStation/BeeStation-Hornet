@@ -31,3 +31,15 @@
   rkz, melbert:
   - refactor: converts confusion into a status effect
   - rscdel: removed confusion from flipping. It already provides knockdown.
+2026-01-09:
+  Isaac:
+  - bugfix: Captain's beret has armor again
+  PowerfulBacon:
+  - bugfix: When performing pierce protection checks, simplified targeting will now
+      prefer zones that do not have pierce protection.
+  - bugfix: Pierce protection is now performed after selecting a target zone, correcting
+      bruise pack/ointment behaviour that either incorrect allowed or rejected healing
+      through armour.
+  - tweak: Simplified targeting bodyzone selection now shows if an area of the body
+      is pierce proof.
+  - tweak: Increases contrast for simplified targeting medical alert icons.
