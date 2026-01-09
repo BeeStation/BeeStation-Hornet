@@ -83693,13 +83693,13 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "wBs" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
 /obj/machinery/camera/directional/east,
+/obj/structure/cable/orange{
+	icon_state = "0-2"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
