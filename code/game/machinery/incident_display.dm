@@ -89,7 +89,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/incident_display/delam, 32)
 		update_appearance()
 
 /obj/machinery/incident_display/add_context_self(datum/screentip_context/context, mob/user)
-	if(atom_integrity < max_integrity)
+	if(atom_integrity < max_integrity || (machine_stat & BROKEN))
 		context.add_left_click_tool_action("repair display", TOOL_WELDER)
 
 /obj/machinery/incident_display/welder_act(mob/living/user, obj/item/tool)
