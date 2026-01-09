@@ -554,7 +554,7 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && !is_holding(examinify))
+	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
 		for(var/mob/M in viewers(4, src))
 			if(M == src || !M.client || M.is_blind())
 				continue
@@ -582,7 +582,7 @@
 	face_atom(examinify)
 
 	// Show nearby mobs that we're examining something
-	if(isliving(src) && examinify.loc != src && !is_holding(examinify))
+	if(isliving(src) && examinify.loc != src && examinify.loc && !is_holding(examinify))
 		for(var/mob/M in viewers(4, src))
 			if(M == src || !M.client || M.is_blind())
 				continue
