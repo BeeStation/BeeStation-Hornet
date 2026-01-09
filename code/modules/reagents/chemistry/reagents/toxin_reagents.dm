@@ -1063,7 +1063,7 @@
 
 /datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(5)
+	affected_mob.set_drugginess(10 SECONDS * REM * delta_time)
 	affected_mob.adjustStaminaLoss(30 * REM * delta_time, updating_health = FALSE)
 	affected_mob.silent = max(affected_mob.silent, 3 * REM * delta_time)
 	affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)

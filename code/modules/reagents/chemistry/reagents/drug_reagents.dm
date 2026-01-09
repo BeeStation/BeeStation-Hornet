@@ -21,7 +21,7 @@
 
 /datum/reagent/drug/space_drugs/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(15 * REM * delta_time)
+	affected_mob.set_drugginess(30 SECONDS * REM * delta_time)
 	if(isturf(affected_mob.loc) && !isspaceturf(affected_mob.loc) && !HAS_TRAIT(affected_mob, TRAIT_IMMOBILIZED) && DT_PROB(5, delta_time))
 		step(affected_mob, pick(GLOB.cardinals))
 

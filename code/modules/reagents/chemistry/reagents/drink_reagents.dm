@@ -567,7 +567,7 @@
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.set_jitter_if_lower(40 SECONDS * REM * delta_time)
-	affected_mob.set_drugginess(30 * REM * delta_time)
+	affected_mob.set_drugginess(1 MINUTES * REM * delta_time)
 	affected_mob.dizziness += 1.5 * REM * delta_time
 	affected_mob.drowsyness = 0
 	affected_mob.AdjustSleeping(-40 * REM * delta_time)

@@ -301,7 +301,7 @@
 
 /datum/reagent/consumable/ethanol/threemileisland/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(50 * REM * delta_time)
+	affected_mob.set_drugginess(100 SECONDS * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
@@ -1035,7 +1035,7 @@
 
 /datum/reagent/consumable/ethanol/manhattan_proj/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(30 * REM * delta_time)
+	affected_mob.set_drugginess(1 MINUTES * REM * delta_time)
 
 /datum/reagent/consumable/ethanol/whiskeysoda
 	name = "Whiskey Soda"
@@ -1692,7 +1692,7 @@
 
 /datum/reagent/consumable/ethanol/atomicbomb/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(50 * REM * delta_time)
+	affected_mob.set_drugginess(100 SECONDS * REM * delta_time)
 	affected_mob.slurring += 3 * REM * delta_time
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_ALCOHOL_TOLERANCE))
@@ -1736,7 +1736,7 @@
 			if(DT_PROB(30, delta_time))
 				affected_mob.adjust_confusion(3 SECONDS * REM * delta_time)
 		if(55 to 200)
-			affected_mob.set_drugginess(55 * REM * delta_time)
+			affected_mob.set_drugginess(110 SECONDS * REM * delta_time)
 		if(200 to INFINITY)
 			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)
 			return UPDATE_MOB_HEALTH
@@ -1770,7 +1770,7 @@
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
-	affected_mob.set_drugginess(50 * REM * delta_time)
+	affected_mob.set_drugginess(100 SECONDS * REM * delta_time)
 	affected_mob.dizziness += 2 * REM * delta_time
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1 * REM * delta_time, 150)
 
@@ -1823,25 +1823,25 @@
 	switch(current_cycle)
 		if(1 to 5)
 			affected_mob.Dizzy(10 * REM * delta_time)
-			affected_mob.set_drugginess(30 * REM * delta_time)
+			affected_mob.set_drugginess(1 MINUTES * REM * delta_time)
 			if(DT_PROB(5, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 		if(5 to 10)
 			affected_mob.set_jitter_if_lower(40 SECONDS * REM * delta_time)
 			affected_mob.Dizzy(20 * REM * delta_time)
-			affected_mob.set_drugginess(45 * REM * delta_time)
+			affected_mob.set_drugginess(1.5 MINUTES * REM * delta_time)
 			if(DT_PROB(10, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 		if (10 to 200)
 			affected_mob.set_jitter_if_lower(80 SECONDS * REM * delta_time)
 			affected_mob.Dizzy(40 * REM * delta_time)
-			affected_mob.set_drugginess(60 * REM * delta_time)
+			affected_mob.set_drugginess(2 MINUTES * REM * delta_time)
 			if(DT_PROB(16, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 		if(200 to INFINITY)
 			affected_mob.set_jitter_if_lower(120 SECONDS * REM * delta_time)
 			affected_mob.Dizzy(60 * REM * delta_time)
-			affected_mob.set_drugginess(75 * REM * delta_time)
+			affected_mob.set_drugginess(2.5 MINUTES * REM * delta_time)
 			if(DT_PROB(23, delta_time))
 				affected_mob.emote(pick("twitch", "giggle"))
 			affected_mob.adjustToxLoss(2 * REM * delta_time, updating_health = FALSE)

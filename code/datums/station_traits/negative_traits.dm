@@ -97,7 +97,7 @@
 	var/mob/living/carbon/spawned_carbon = living_mob
 	spawned_carbon.set_resting(TRUE, silent = TRUE)
 	if(prob(50))
-		spawned_carbon.adjust_drugginess(rand(15, 20))
+		spawned_carbon.adjust_drugginess(rand(30 SECONDS, 40 SECONDS))
 	else
 		spawned_carbon.drunkenness += rand(15, 25)
 	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
