@@ -521,15 +521,17 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("Make Your Own")
 					AdminCreateVirus(usr.client)
 				if("Random")
-					E = new /datum/round_event/disease_outbreak()
+					var/datum/round_event_control/disease_outbreak/DC = locate(/datum/round_event_control/disease_outbreak) in SSevents.control
+					E = DC.runEvent()
 				if("Choose")
 					var/virus = tgui_input_list(usr, "Choose the virus to spread", "BIOHAZARD", sort_list(typesof(/datum/disease, GLOBAL_PROC_REF(cmp_typepaths_asc))))
 					if (!virus)
 						to_chat(usr, span_warning("No virus selected."))
 						return
-					E = new /datum/round_event/disease_outbreak{}()
-					var/datum/round_event/disease_outbreak/DO = E
+					var/datum/round_event_control/disease_outbreak/DC = locate(/datum/round_event_control/disease_outbreak) in SSevents.control
+					var/datum/round_event/disease_outbreak/DO = DC.runEvent()
 					DO.virus_type = virus
+					E = DO
 
 		if("dumbify")
 			if(!check_rights(R_FUN))
@@ -841,8 +843,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			if(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No")) != "Yes")
-				E.announceChance = 0
+			switch(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel")))
+				if("Yes")
+					E.announceChance = 100
+				if("Cancel")
+					E.kill()
+					return
+				if("No")
+					E.announceChance = 0
 		E.processing = TRUE
 	if (usr)
 		log_admin("[key_name(usr)] used secret [action]")

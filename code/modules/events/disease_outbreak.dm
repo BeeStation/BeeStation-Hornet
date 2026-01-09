@@ -26,11 +26,11 @@
 	var/dangerous_virus = FALSE
 	var/unfunny_virus = TRUE
 	max_severity = 3 + max(FLOOR((world.time - control.earliest_start)/3000, 1),0) //2 symptoms at 10 minutes, plus 1 per 5 minutes. reaches symptom cap at 30 minutes
-	if(prob(0 + (2 * max_severity)))
+	if(!virus_type && prob(0 + (2 * max_severity)))
 		dangerous_virus = TRUE // more chance at a dangerous disease the more time passes. at 40 minutes, this event has a 16% chance of a dangerous disease
-	if(prob(max_severity)) //allows for a far higher chance at level 0 symptoms
+	if(!virus_type && prob(max_severity)) //allows for a far higher chance at level 0 symptoms
 		unfunny_virus = FALSE
-	if(prob(min(50, (10 + (5 * max_severity)))))
+	if(!virus_type && prob(min(50, (10 + (5 * max_severity)))))
 		advanced_virus = FALSE // more chance at a special disease the more time passes. more common than dangerous diseases. 50% chance of a special disease at 40 minutes
 
 	if(!virus_type && !advanced_virus && dangerous_virus)
