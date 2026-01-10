@@ -54,12 +54,10 @@
 
 /datum/chemical_reaction/synthetic_blood
 	name = "Synthesize Coolant Blood"
-	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/water = 2, /datum/reagent/oil = 1)
+	results = list(/datum/reagent/blood/coolant = 2)
+	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/water = 1, /datum/reagent/oil = 1)
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_HEALING
-
-/datum/chemical_reaction/synthetic_blood/on_reaction(datum/reagents/holder, created_volume)
-	holder.add_reagent(/datum/reagent/blood/coolant, created_volume)
 
 /datum/chemical_reaction/plasmasolidification
 	name = "Solid Plasma"
