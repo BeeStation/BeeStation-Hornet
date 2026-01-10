@@ -139,23 +139,25 @@ export const CorporateThreatHandbook = () => {
 
   return (
     <Window width={600} height={750} title={handbook_title} theme="document">
-      <Window.Content scrollable>
-        <Box className="Document__wrapper">
-          <Box className="Document__header">
-            <Box className="Document__header-left">
+      <Window.Content>
+        <Box className="CorporateThreatHandbook__wrapper">
+          {/* Fixed header - outside scroll */}
+          <Box className="CorporateThreatHandbook__header">
+            <Box className="CorporateThreatHandbook__header-left">
               Nanotrasen Publications Division
             </Box>
-            <Box className="Document__header-center">
+            <Box className="CorporateThreatHandbook__header-center">
               Security Clearance: General
             </Box>
-            <Box className="Document__header-right">
+            <Box className="CorporateThreatHandbook__header-right">
               {getPageTitle(currentPageInfo)} — Page {currentPage + 1}/
               {totalPages}
             </Box>
           </Box>
 
-          <Box className="Document__page">
-            <Box className="Document__content">
+          {/* Scrollable page content */}
+          <Box className="CorporateThreatHandbook__page">
+            <Box className="CorporateThreatHandbook__content">
               <PageContent
                 pageInfo={currentPageInfo}
                 threatEntries={threat_entries}
@@ -166,22 +168,26 @@ export const CorporateThreatHandbook = () => {
             </Box>
           </Box>
 
-          <Box className="Document__doc-footer">
-            <Box className="Document__doc-footer-left">
+          {/* Fixed footer - outside scroll */}
+          <Box className="CorporateThreatHandbook__doc-footer">
+            <Box className="CorporateThreatHandbook__doc-footer-left">
               NT Form 47-C Rev. 2563
             </Box>
-            <Box className="Document__doc-footer-center">
+            <Box className="CorporateThreatHandbook__doc-footer-center">
               INTERNAL USE ONLY — DO NOT DISTRIBUTE
             </Box>
-            <Box className="Document__doc-footer-right">
+            <Box className="CorporateThreatHandbook__doc-footer-right">
               Printed: [REDACTED]
             </Box>
           </Box>
 
+          {/* Fixed nav buttons - outside scroll */}
           <Button
             className={
-              'Document__nav-side Document__nav-side--left' +
-              (currentPage === 0 ? ' Document__nav-side--disabled' : '')
+              'CorporateThreatHandbook__nav-side CorporateThreatHandbook__nav-side--left' +
+              (currentPage === 0
+                ? ' CorporateThreatHandbook__nav-side--disabled'
+                : '')
             }
             icon="chevron-left"
             disabled={currentPage === 0}
@@ -189,9 +195,9 @@ export const CorporateThreatHandbook = () => {
           />
           <Button
             className={
-              'Document__nav-side Document__nav-side--right' +
+              'CorporateThreatHandbook__nav-side CorporateThreatHandbook__nav-side--right' +
               (currentPage === totalPages - 1
-                ? ' Document__nav-side--disabled'
+                ? ' CorporateThreatHandbook__nav-side--disabled'
                 : '')
             }
             icon="chevron-right"
@@ -249,49 +255,67 @@ type CoverPageProps = {
 const CoverPage = (props: CoverPageProps) => {
   const { handbookTitle, handbookAuthor } = props;
   return (
-    <Box className="Document__cover">
-      <Box className="Document__cover-seal">
-        <Box className="Document__cover-seal-logo">
+    <Box className="CorporateThreatHandbook__cover">
+      <Box className="CorporateThreatHandbook__cover-seal">
+        <Box className="CorporateThreatHandbook__cover-seal-logo">
           <Icon name="tg-nanotrasen-logo" size={6} />
         </Box>
-        <Box className="Document__cover-seal-text">NANOTRASEN CORPORATION</Box>
+        <Box className="CorporateThreatHandbook__cover-seal-text">
+          NANOTRASEN CORPORATION
+        </Box>
       </Box>
 
-      <Box className="Document__cover-title-block">
-        <Box className="Document__cover-title">{handbookTitle}</Box>
-        <Box className="Document__cover-author">{handbookAuthor}</Box>
+      <Box className="CorporateThreatHandbook__cover-title-block">
+        <Box className="CorporateThreatHandbook__cover-title">
+          {handbookTitle}
+        </Box>
+        <Box className="CorporateThreatHandbook__cover-author">
+          {handbookAuthor}
+        </Box>
       </Box>
 
-      <Box className="Document__cover-stamps">
-        <Box className="Document__cover-stamp Document__cover-stamp--red">
+      <Box className="CorporateThreatHandbook__cover-stamps">
+        <Box className="CorporateThreatHandbook__cover-stamp CorporateThreatHandbook__cover-stamp--red">
           INTERNAL USE ONLY
         </Box>
-        <Box className="Document__cover-stamp Document__cover-stamp--blue">
+        <Box className="CorporateThreatHandbook__cover-stamp CorporateThreatHandbook__cover-stamp--blue">
           APPROVED
         </Box>
       </Box>
 
-      <Box className="Document__cover-info">
-        <Box className="Document__cover-info-item">
-          <Box className="Document__cover-info-label">Document Class</Box>
-          <Box className="Document__cover-info-value">NT-SEC-47C</Box>
+      <Box className="CorporateThreatHandbook__cover-info">
+        <Box className="CorporateThreatHandbook__cover-info-item">
+          <Box className="CorporateThreatHandbook__cover-info-label">
+            Document Class
+          </Box>
+          <Box className="CorporateThreatHandbook__cover-info-value">
+            NT-SEC-47C
+          </Box>
         </Box>
-        <Box className="Document__cover-info-item">
-          <Box className="Document__cover-info-label">Clearance Level</Box>
-          <Box className="Document__cover-info-value">General</Box>
+        <Box className="CorporateThreatHandbook__cover-info-item">
+          <Box className="CorporateThreatHandbook__cover-info-label">
+            Clearance Level
+          </Box>
+          <Box className="CorporateThreatHandbook__cover-info-value">
+            General
+          </Box>
         </Box>
-        <Box className="Document__cover-info-item">
-          <Box className="Document__cover-info-label">Revision</Box>
-          <Box className="Document__cover-info-value">2563.7</Box>
+        <Box className="CorporateThreatHandbook__cover-info-item">
+          <Box className="CorporateThreatHandbook__cover-info-label">
+            Revision
+          </Box>
+          <Box className="CorporateThreatHandbook__cover-info-value">
+            2563.7
+          </Box>
         </Box>
       </Box>
 
-      <Box className="Document__cover-notice">
+      <Box className="CorporateThreatHandbook__cover-notice">
         Failure to familiarize yourself with this material may result in
         disciplinary action, injury, or death.
       </Box>
 
-      <Box className="Document__cover-footer">
+      <Box className="CorporateThreatHandbook__cover-footer">
         © 2563 Nanotrasen Corporation — All Rights Reserved
       </Box>
     </Box>
@@ -308,36 +332,43 @@ const ContentsPage = (props: ContentsPageProps) => {
   const threatStartPage = 3;
 
   return (
-    <Box className="Document__contents">
-      <Box className="Document__contents-header">
-        <Box className="Document__section-title">Table of Contents</Box>
-        <Box className="Document__contents-subtitle">
+    <Box className="CorporateThreatHandbook__contents">
+      <Box className="CorporateThreatHandbook__contents-header">
+        <Box className="CorporateThreatHandbook__section-title">
+          Table of Contents
+        </Box>
+        <Box className="CorporateThreatHandbook__contents-subtitle">
           Quick Reference Guide to Identified Threats
         </Box>
       </Box>
 
-      <Box className="Document__contents-grid">
-        <Box className="Document__contents-column">
-          <Box className="Document__contents-section-header">
+      <Box className="CorporateThreatHandbook__contents-grid">
+        <Box className="CorporateThreatHandbook__contents-column">
+          <Box className="CorporateThreatHandbook__contents-section-header">
             <Icon name="book" /> Reference Materials
           </Box>
-          <Box className="Document__contents-item" onClick={() => goToPage(2)}>
-            <Box className="Document__contents-item-number">I.</Box>
-            <Box className="Document__contents-item-text">
+          <Box
+            className="CorporateThreatHandbook__contents-item"
+            onClick={() => goToPage(2)}
+          >
+            <Box className="CorporateThreatHandbook__contents-item-number">
+              I.
+            </Box>
+            <Box className="CorporateThreatHandbook__contents-item-text">
               Threat Designation Guide
-              <Box className="Document__contents-item-desc">
+              <Box className="CorporateThreatHandbook__contents-item-desc">
                 Understanding threat classifications
               </Box>
             </Box>
-            <Box className="Document__contents-item-page">3</Box>
+            <Box className="CorporateThreatHandbook__contents-item-page">3</Box>
           </Box>
         </Box>
 
-        <Box className="Document__contents-column">
-          <Box className="Document__contents-section-header">
+        <Box className="CorporateThreatHandbook__contents-column">
+          <Box className="CorporateThreatHandbook__contents-section-header">
             <Icon name="list" /> Threat Count by Level
           </Box>
-          <Box className="Document__contents-stats">
+          <Box className="CorporateThreatHandbook__contents-stats">
             {THREAT_LEVELS.map((level) => ({
               level,
               count: threatEntries.filter(
@@ -347,13 +378,16 @@ const ContentsPage = (props: ContentsPageProps) => {
             }))
               .filter((item) => item.count > 0)
               .map((item) => (
-                <Box key={item.level} className="Document__contents-stat">
+                <Box
+                  key={item.level}
+                  className="CorporateThreatHandbook__contents-stat"
+                >
                   <Box
-                    className={`Document__designation Document__designation--${item.level.toLowerCase()}`}
+                    className={`CorporateThreatHandbook__designation CorporateThreatHandbook__designation--${item.level.toLowerCase()}`}
                   >
                     {item.level}
                   </Box>
-                  <Box className="Document__contents-stat-count">
+                  <Box className="CorporateThreatHandbook__contents-stat-count">
                     {item.count}
                   </Box>
                 </Box>
@@ -362,33 +396,33 @@ const ContentsPage = (props: ContentsPageProps) => {
         </Box>
       </Box>
 
-      <Box className="Document__contents-threats">
-        <Box className="Document__contents-section-header">
+      <Box className="CorporateThreatHandbook__contents-threats">
+        <Box className="CorporateThreatHandbook__contents-section-header">
           <Icon name="shield" /> Documented Threats
         </Box>
-        <Box className="Document__contents-threat-grid">
+        <Box className="CorporateThreatHandbook__contents-threat-grid">
           {threatEntries.map((entry, index) => (
             <Box
               key={entry.label}
-              className="Document__contents-threat-item"
+              className="CorporateThreatHandbook__contents-threat-item"
               onClick={() => goToPage(threatStartPage + index)}
             >
-              <Box className="Document__contents-threat-icon">
-                <Box className="Document__threat-symbol">
+              <Box className="CorporateThreatHandbook__contents-threat-icon">
+                <Box className="CorporateThreatHandbook__threat-symbol">
                   {getThreatSymbol(entry.threat_designation)}
                 </Box>
               </Box>
-              <Box className="Document__contents-threat-info">
-                <Box className="Document__contents-threat-name">
+              <Box className="CorporateThreatHandbook__contents-threat-info">
+                <Box className="CorporateThreatHandbook__contents-threat-name">
                   {entry.label}
                 </Box>
                 <Box
-                  className={`Document__designation Document__designation--${entry.threat_designation.toLowerCase()}`}
+                  className={`CorporateThreatHandbook__designation CorporateThreatHandbook__designation--${entry.threat_designation.toLowerCase()}`}
                 >
                   {entry.threat_designation}
                 </Box>
               </Box>
-              <Box className="Document__contents-threat-page">
+              <Box className="CorporateThreatHandbook__contents-threat-page">
                 {threatStartPage + index + 1}
               </Box>
             </Box>
@@ -401,36 +435,40 @@ const ContentsPage = (props: ContentsPageProps) => {
 
 const ThreatDesignationsPage = () => {
   return (
-    <Box className="Document__designations">
-      <Box className="Document__section-title">Threat Designation Guide</Box>
-      <Box className="Document__designations-intro">
+    <Box className="CorporateThreatHandbook__designations">
+      <Box className="CorporateThreatHandbook__section-title">
+        Threat Designation Guide
+      </Box>
+      <Box className="CorporateThreatHandbook__designations-intro">
         Nanotrasen classifies threats according to the following standardized
         designation system. Understanding these classifications will help you
         respond appropriately to incidents.
       </Box>
 
-      <Box className="Document__designations-grid">
+      <Box className="CorporateThreatHandbook__designations-grid">
         {DESIGNATIONS.map((d) => (
           <Box
             key={d.level}
-            className={`Document__designation-card Document__designation-card--${d.level.toLowerCase()}`}
+            className={`CorporateThreatHandbook__designation-card CorporateThreatHandbook__designation-card--${d.level.toLowerCase()}`}
           >
-            <Box className="Document__designation-card-header">
-              <Box className="Document__threat-symbol Document__designation-card-symbol">
+            <Box className="CorporateThreatHandbook__designation-card-header">
+              <Box className="CorporateThreatHandbook__threat-symbol CorporateThreatHandbook__designation-card-symbol">
                 {d.symbol}
               </Box>
               <Box
-                className={`Document__designation Document__designation--${d.level.toLowerCase()}`}
+                className={`CorporateThreatHandbook__designation CorporateThreatHandbook__designation--${d.level.toLowerCase()}`}
               >
                 {d.level}
               </Box>
             </Box>
-            <Box className="Document__designation-card-desc">{d.desc}</Box>
+            <Box className="CorporateThreatHandbook__designation-card-desc">
+              {d.desc}
+            </Box>
           </Box>
         ))}
       </Box>
 
-      <Box className="Document__designations-note">
+      <Box className="CorporateThreatHandbook__designations-note">
         <Icon name="info-circle" /> Threat levels may be upgraded or downgraded
         based on situational assessment by Security personnel.
       </Box>
@@ -449,56 +487,61 @@ const ThreatEntryPage = (props: ThreatEntryPageProps) => {
     return <Box>Error: Threat entry not found</Box>;
   }
 
-  const designationClass = `Document__designation Document__designation--${entry.threat_designation.toLowerCase()}`;
+  const designationClass = `CorporateThreatHandbook__designation CorporateThreatHandbook__designation--${entry.threat_designation.toLowerCase()}`;
 
   return (
-    <Box className="Document__threat-entry">
+    <Box className="CorporateThreatHandbook__threat-entry">
       <Box
-        className={`Document__threat-header Document__threat-header--${entry.threat_designation.toLowerCase()}`}
+        className={`CorporateThreatHandbook__threat-header CorporateThreatHandbook__threat-header--${entry.threat_designation.toLowerCase()}`}
       >
-        <Box className="Document__threat-header-icon">
-          <Box className="Document__threat-symbol Document__threat-symbol--large">
+        <Box className="CorporateThreatHandbook__threat-header-icon">
+          <Box className="CorporateThreatHandbook__threat-symbol CorporateThreatHandbook__threat-symbol--large">
             {getThreatSymbol(entry.threat_designation)}
           </Box>
         </Box>
-        <Box className="Document__threat-header-info">
-          <Box className="Document__threat-header-title">{entry.label}</Box>
+        <Box className="CorporateThreatHandbook__threat-header-info">
+          <Box className="CorporateThreatHandbook__threat-header-title">
+            {entry.label}
+          </Box>
           <Box className={designationClass}>{entry.threat_designation}</Box>
         </Box>
       </Box>
 
-      <Box className="Document__threat-body">
-        <Box className="Document__threat-main">
-          <Box className="Document__threat-section">
-            <Box className="Document__threat-section-title">
+      <Box className="CorporateThreatHandbook__threat-body">
+        <Box className="CorporateThreatHandbook__threat-main">
+          <Box className="CorporateThreatHandbook__threat-section">
+            <Box className="CorporateThreatHandbook__threat-section-title">
               <Icon name="file-alt" /> Description
             </Box>
-            <Box className="Document__threat-section-content">
+            <Box className="CorporateThreatHandbook__threat-section-content">
               {entry.description}
             </Box>
           </Box>
 
-          <Box className="Document__threat-section">
-            <Box className="Document__threat-section-title">
+          <Box className="CorporateThreatHandbook__threat-section">
+            <Box className="CorporateThreatHandbook__threat-section-title">
               <Icon name="shield-alt" /> Advised Response
             </Box>
-            <Box className="Document__threat-section-content">
+            <Box className="CorporateThreatHandbook__threat-section-content">
               {entry.advised_response}
             </Box>
           </Box>
         </Box>
 
-        <Box className="Document__threat-sidebar">
-          <Box className="Document__threat-sidebar-section">
-            <Box className="Document__threat-sidebar-title">
+        <Box className="CorporateThreatHandbook__threat-sidebar">
+          <Box className="CorporateThreatHandbook__threat-sidebar-section">
+            <Box className="CorporateThreatHandbook__threat-sidebar-title">
               <Icon name="search" /> Signs to Look For
             </Box>
-            <Box className="Document__threat-signs">
+            <Box className="CorporateThreatHandbook__threat-signs">
               {entry.signs.map((sign, index) => (
-                <Box key={index} className="Document__threat-sign">
+                <Box
+                  key={index}
+                  className="CorporateThreatHandbook__threat-sign"
+                >
                   <Icon
                     name="chevron-right"
-                    className="Document__threat-sign-icon"
+                    className="CorporateThreatHandbook__threat-sign-icon"
                   />
                   {sign}
                 </Box>
@@ -506,26 +549,32 @@ const ThreatEntryPage = (props: ThreatEntryPageProps) => {
             </Box>
           </Box>
 
-          <Box className="Document__threat-sidebar-section">
-            <Box className="Document__threat-sidebar-title">
+          <Box className="CorporateThreatHandbook__threat-sidebar-section">
+            <Box className="CorporateThreatHandbook__threat-sidebar-title">
               <Icon name="clipboard-check" /> Quick Reference
             </Box>
-            <Box className="Document__threat-quickref">
-              <Box className="Document__threat-quickref-item">
-                <Box className="Document__threat-quickref-label">Threat</Box>
-                <Box className="Document__threat-quickref-value">
+            <Box className="CorporateThreatHandbook__threat-quickref">
+              <Box className="CorporateThreatHandbook__threat-quickref-item">
+                <Box className="CorporateThreatHandbook__threat-quickref-label">
+                  Threat
+                </Box>
+                <Box className="CorporateThreatHandbook__threat-quickref-value">
                   {entry.label}
                 </Box>
               </Box>
-              <Box className="Document__threat-quickref-item">
-                <Box className="Document__threat-quickref-label">Level</Box>
+              <Box className="CorporateThreatHandbook__threat-quickref-item">
+                <Box className="CorporateThreatHandbook__threat-quickref-label">
+                  Level
+                </Box>
                 <Box className={designationClass}>
                   {entry.threat_designation}
                 </Box>
               </Box>
-              <Box className="Document__threat-quickref-item">
-                <Box className="Document__threat-quickref-label">Signs</Box>
-                <Box className="Document__threat-quickref-value">
+              <Box className="CorporateThreatHandbook__threat-quickref-item">
+                <Box className="CorporateThreatHandbook__threat-quickref-label">
+                  Signs
+                </Box>
+                <Box className="CorporateThreatHandbook__threat-quickref-value">
                   {entry.signs.length} identified
                 </Box>
               </Box>
@@ -539,47 +588,52 @@ const ThreatEntryPage = (props: ThreatEntryPageProps) => {
 
 const EndPage = () => {
   return (
-    <Box className="Document__endpage">
-      <Box className="Document__endpage-seal">
+    <Box className="CorporateThreatHandbook__endpage">
+      <Box className="CorporateThreatHandbook__endpage-seal">
         <Icon name="check-circle" size={3} />
       </Box>
 
-      <Box className="Document__endpage-title">End of Handbook</Box>
-
-      <Box className="Document__endpage-divider">
-        <Box className="Document__endpage-divider-line" />
-        <Icon name="star" />
-        <Box className="Document__endpage-divider-line" />
+      <Box className="CorporateThreatHandbook__endpage-title">
+        End of Handbook
       </Box>
 
-      <Box className="Document__endpage-message">
+      <Box className="CorporateThreatHandbook__endpage-divider">
+        <Box className="CorporateThreatHandbook__endpage-divider-line" />
+        <Icon name="star" />
+        <Box className="CorporateThreatHandbook__endpage-divider-line" />
+      </Box>
+
+      <Box className="CorporateThreatHandbook__endpage-message">
         This concludes the Nanotrasen Incident Awareness & Threat Recognition
         Handbook.
       </Box>
 
-      <Box className="Document__endpage-quote">
-        <Icon name="quote-left" className="Document__endpage-quote-icon" />
-        <Box className="Document__endpage-quote-text">
+      <Box className="CorporateThreatHandbook__endpage-quote">
+        <Icon
+          name="quote-left"
+          className="CorporateThreatHandbook__endpage-quote-icon"
+        />
+        <Box className="CorporateThreatHandbook__endpage-quote-text">
           A prepared crew is a surviving crew.
         </Box>
       </Box>
 
-      <Box className="Document__endpage-contact">
-        <Box className="Document__endpage-contact-title">
+      <Box className="CorporateThreatHandbook__endpage-contact">
+        <Box className="CorporateThreatHandbook__endpage-contact-title">
           <Icon name="headset" /> Need Assistance?
         </Box>
-        <Box className="Document__endpage-contact-text">
+        <Box className="CorporateThreatHandbook__endpage-contact-text">
           For additional information or to report suspected threats, contact
           your local Security department or use emergency communication
           channels.
         </Box>
       </Box>
 
-      <Box className="Document__endpage-footer">
-        <Box className="Document__endpage-version">
+      <Box className="CorporateThreatHandbook__endpage-footer">
+        <Box className="CorporateThreatHandbook__endpage-version">
           Document Version 47.3.2 — Last Updated: [REDACTED]
         </Box>
-        <Box className="Document__endpage-disclaimer">
+        <Box className="CorporateThreatHandbook__endpage-disclaimer">
           Nanotrasen is not responsible for injury or death resulting from
           failure to follow handbook guidelines.
         </Box>
