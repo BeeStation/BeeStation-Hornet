@@ -116,7 +116,7 @@
 		visor_overlay.color = rainbow_order[rave_number]
 	. += visor_overlay
 
-/obj/item/mod/module/visor/rave/on_active_process(seconds_per_tick)
+/obj/item/mod/module/visor/rave/on_active_process(delta_time)
 	rave_number++
 	if(rave_number > length(rainbow_order))
 		rave_number = 1
