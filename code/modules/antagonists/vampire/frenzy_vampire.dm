@@ -54,8 +54,9 @@
 
 	// Alert them
 	vampiredatum.disable_all_powers(forced = TRUE)
+	vampiredatum.adjust_humanity(-2)
 	to_chat(carbon_owner, span_userdanger("<FONT size = 10>BLOOD! YOU NEED BLOOD NOW!"))
-	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly Aggresively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
+	to_chat(carbon_owner, span_announce("* Vampire Tip: While in Frenzy, you instantly aggressively grab, have stun immunity, cannot speak, hear, or use any powers outside of Feed and Trespass (If you have it)."))
 	carbon_owner.balloon_alert(carbon_owner, "you enter a frenzy!")
 
 	// Stamina modifier
@@ -104,7 +105,7 @@
 
 /datum/movespeed_modifier/frenzy_speed
 	blacklisted_movetypes = FLYING | FLOATING
-	multiplicative_slowdown = -0.5
+	multiplicative_slowdown = -0.1 // Might seem very low but at this point we are already slow as balls from hunger
 
 /**
  * # FrenzyGrab
