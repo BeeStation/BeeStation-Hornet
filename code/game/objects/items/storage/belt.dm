@@ -997,15 +997,15 @@
 		return TRUE
 	. = ..()
 
-/obj/item/storage/belt/sabre/carbon_fiber
-	name = "carbon fiber sabre sheath"
-	desc = "A military grade sabre sheath. This one has special hooks to interface with the suit storage system of common armor classes."
+/obj/item/storage/belt/sabre/patrol
+	name = "patrol sabre sheath"
+	desc = "Polymer sheath with quick-release. Built for field work, not ceremony."
 	icon_state = "sheath_fiber"
 	inhand_icon_state = "sheath_fiber"
 	worn_icon_state = "sheath_fiber"
 
-/obj/item/storage/belt/sabre/carbon_fiber/PopulateContents()
-	new /obj/item/melee/sabre/carbon_fiber(src)
+/obj/item/storage/belt/sabre/patrol/PopulateContents()
+	new /obj/item/melee/sabre/patrol(src)
 	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
