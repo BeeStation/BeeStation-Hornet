@@ -75,3 +75,8 @@
     - rscadd: readds the greytide spear. Its never existed outside of adminspawn,
         which was a contributor to it being removed. It now has a use inside the maint
         pool.
+2026-01-10:
+  Isaac:
+  - balance: Mech's cells are drained faster from EMP's
+  - balance: Mech's receive more damage from EMP's
+  - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
