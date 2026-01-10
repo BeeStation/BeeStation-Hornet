@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: You are no longer prompted to ahelp when leaving as a head of staff or
-      antagonist role.
-  - tweak: The game will automatically handle antagonists leaving via cryo depending
-      on the important of the role.
