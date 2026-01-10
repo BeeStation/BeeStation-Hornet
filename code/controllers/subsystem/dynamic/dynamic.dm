@@ -398,19 +398,7 @@ SUBSYSTEM_DEF(dynamic)
  * Select the gamemode to be ran
  */
 /datum/controller/subsystem/dynamic/proc/select_gamemode(list/gamemodes)
-	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes, TRUE)
-	if (!selected_mode)
-		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
-		return FALSE
-	execute_gamemode_ruleset(selected_mode)
-	return TRUE
-
-/**
- * Execute a gamemode ruleset for a late joining player.
- * Returns TRUE if fired.
- */
-/datum/controller/subsystem/dynamic/proc/latejoin_gamemode(list/gamemodes, mob/living/carbon/human/character)
-	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(gamemodes, ignore_candidates = TRUE)
+	var/datum/dynamic_ruleset/gamemode/selected_mode = pick_ruleset(get_weighted_rulesets(gamemodes), TRUE)
 	if (!selected_mode)
 		log_dynamic("GAMEMODE: Fatal error, could not find any gamemodes to be executed; round will have no primary antagonist.")
 		return FALSE
@@ -524,6 +512,13 @@ SUBSYSTEM_DEF(dynamic)
 
 			log_dynamic("SUPPLEMENTARY: Cancelling [ruleset] because a ruleset with the 'NO_OTHER_RULESETS' was chosen")
 			executed_supplementary_rulesets -= ruleset
+
+/datum/controller/subsystem/dynamic/proc/get_weighted_rulesets(list/rulesets)
+	var/list/possible_rulesets = list()
+	for(var/datum/dynamic_ruleset/potential_ruleset in rulesets)
+		potential_ruleset.set_drafted_players_amount()
+		possible_rulesets[potential_ruleset] = potential_ruleset.weight
+	return possible_rulesets
 
 /datum/controller/subsystem/dynamic/proc/get_weighted_executable_rulesets(list/rulesets, for_midround = FALSE)
 	var/list/possible_rulesets = list()
