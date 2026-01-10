@@ -20,6 +20,7 @@
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
+	hud_possible = list(HACKED_APC_HUD)
 
 	light_power = 0.85
 
