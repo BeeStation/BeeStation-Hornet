@@ -46,9 +46,7 @@
 			M = user
 		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
-		return ..()
-	else
-		return ..()
+	return ..()
 
 ///Adds the butchering component, used to override stats for special cases
 /obj/item/knife/proc/set_butchering()
