@@ -396,11 +396,703 @@ $header-footer-height: 36px;
       }
     }
 
+    // Greek letter threat symbols
+    &__threat-symbol {
+      font-family: 'Times New Roman', 'Georgia', serif;
+      font-weight: bold;
+      font-size: 16px;
+      color: $document-accent;
+
+      &--large {
+        font-size: 28px;
+      }
+    }
+
+    &__designation-card-symbol {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
     // Horizontal rule / divider
     &__divider {
       border: none;
       border-top: 1px solid $document-border;
       margin: 1rem 0;
+    }
+
+    // ========================================
+    // COVER PAGE STYLES
+    // ========================================
+    &__cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100%;
+      padding: 1.5rem 1rem;
+    }
+
+    &__cover-seal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    &__cover-seal-logo {
+      color: $document-accent;
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+    }
+
+    &__cover-seal-text {
+      font-size: 14px;
+      letter-spacing: 4px;
+      color: $document-fg;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    &__cover-title-block {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      padding: 1rem 2rem;
+    }
+
+    &__cover-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: $document-fg;
+      text-shadow: 1px 1px 0 rgba(139, 119, 101, 0.2);
+      margin-bottom: 0.5rem;
+    }
+
+    &__cover-author {
+      font-size: 13px;
+      color: hsl(30, 10%, 40%);
+      font-style: italic;
+    }
+
+    &__cover-stamps {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    &__cover-stamp {
+      padding: 0.4rem 1rem;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border: 2px solid;
+      transform: rotate(-3deg);
+      opacity: 0.85;
+
+      &--red {
+        color: hsl(0, 60%, 35%);
+        border-color: hsl(0, 60%, 35%);
+        transform: rotate(-5deg);
+      }
+
+      &--blue {
+        color: hsl(210, 60%, 35%);
+        border-color: hsl(210, 60%, 35%);
+        transform: rotate(3deg);
+      }
+    }
+
+    &__cover-info {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    &__cover-info-item {
+      text-align: center;
+      padding: 0.5rem 1rem;
+      background: rgba(139, 119, 101, 0.08);
+      border: 1px solid $document-border;
+    }
+
+    &__cover-info-label {
+      font-size: 9px;
+      color: hsl(30, 10%, 45%);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.25rem;
+    }
+
+    &__cover-info-value {
+      font-size: 12px;
+      font-weight: bold;
+      color: $document-fg;
+    }
+
+    &__cover-notice {
+      font-family: 'Courier New', 'Consolas', monospace;
+      font-size: 10px;
+      color: hsl(0, 60%, 25%);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      max-width: 380px;
+      padding: 0.6rem 1rem;
+      background: rgba(180, 60, 60, 0.06);
+      border: 2px solid hsl(0, 40%, 40%);
+      box-shadow:
+        inset 0 0 8px rgba(100, 40, 40, 0.1),
+        1px 1px 0 rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      position: relative;
+
+      // Slight rotation for that "stamped" look
+      transform: rotate(-0.5deg);
+
+      // Faded/printed ink effect
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          rgba(0, 0, 0, 0.02) 1px,
+          rgba(0, 0, 0, 0.02) 2px
+        );
+        pointer-events: none;
+      }
+    }
+
+    &__cover-footer {
+      font-size: 10px;
+      color: hsl(30, 10%, 50%);
+      margin-top: auto;
+    }
+
+    // ========================================
+    // CONTENTS PAGE STYLES
+    // ========================================
+    &__contents {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &__contents-header {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    &__contents-subtitle {
+      font-size: 12px;
+      color: hsl(30, 10%, 45%);
+      font-style: italic;
+    }
+
+    &__contents-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    &__contents-column {
+      padding: 0.75rem;
+      background: rgba(139, 119, 101, 0.05);
+      border: 1px solid $document-border;
+    }
+
+    &__contents-section-header {
+      font-size: 12px;
+      font-weight: bold;
+      color: $document-accent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid $document-border;
+      margin-bottom: 0.5rem;
+    }
+
+    &__contents-item {
+      display: flex;
+      align-items: baseline;
+      padding: 0.5rem;
+      transition: background 0.15s ease;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(139, 119, 101, 0.1);
+        border-left-color: $document-accent;
+      }
+    }
+
+    &__contents-item-number {
+      font-weight: bold;
+      color: $document-accent;
+      margin-right: 0.5rem;
+      min-width: 20px;
+    }
+
+    &__contents-item-text {
+      flex: 1;
+      font-size: 12px;
+    }
+
+    &__contents-item-desc {
+      font-size: 10px;
+      color: hsl(30, 10%, 50%);
+      font-style: italic;
+    }
+
+    &__contents-item-page {
+      font-size: 11px;
+      color: hsl(30, 10%, 45%);
+      margin-left: 0.5rem;
+    }
+
+    &__contents-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    &__contents-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      font-size: 11px;
+    }
+
+    &__contents-stat-count {
+      font-weight: bold;
+      background: rgba(139, 119, 101, 0.15);
+      padding: 0.1rem 0.5rem;
+      border-radius: 2px;
+    }
+
+    &__contents-threats {
+      padding: 0.75rem;
+      background: rgba(139, 119, 101, 0.03);
+      border: 1px solid $document-border;
+    }
+
+    &__contents-threat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    &__contents-threat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba($document-border, 0.5);
+      cursor: pointer;
+      transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+
+      &:hover {
+        background: rgba(139, 119, 101, 0.12);
+        transform: translateX(2px);
+      }
+    }
+
+    &__contents-threat-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(139, 119, 101, 0.1);
+      border-radius: 2px;
+      color: $document-accent;
+      font-size: 12px;
+    }
+
+    &__contents-threat-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__contents-threat-name {
+      font-size: 11px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__contents-threat-page {
+      font-size: 10px;
+      color: hsl(30, 10%, 50%);
+      padding: 0.2rem 0.4rem;
+      background: rgba(139, 119, 101, 0.1);
+    }
+
+    // ========================================
+    // THREAT DESIGNATIONS PAGE STYLES
+    // ========================================
+    &__designations {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__designations-intro {
+      font-size: 12px;
+      color: hsl(30, 10%, 35%);
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(139, 119, 101, 0.05);
+      border-left: 3px solid $document-accent;
+    }
+
+    &__designations-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    &__designation-card {
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid $document-border;
+      border-left: 4px solid;
+      transition: transform 0.15s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+
+      &--negligible {
+        border-left-color: hsl(120, 35%, 30%);
+      }
+      &--minor {
+        border-left-color: hsl(180, 35%, 30%);
+      }
+      &--moderate {
+        border-left-color: hsl(45, 60%, 35%);
+      }
+      &--major {
+        border-left-color: hsl(30, 70%, 35%);
+      }
+      &--severe {
+        border-left-color: hsl(15, 70%, 35%);
+      }
+      &--critical {
+        border-left-color: hsl(0, 70%, 35%);
+      }
+    }
+
+    &__designation-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &__designation-card-icon {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    &__designation-card-desc {
+      font-size: 11px;
+      color: hsl(30, 10%, 35%);
+      line-height: 1.4;
+    }
+
+    &__designations-note {
+      font-size: 11px;
+      color: hsl(30, 10%, 45%);
+      font-style: italic;
+      padding: 0.5rem 0.75rem;
+      background: rgba(139, 119, 101, 0.05);
+      border: 1px dashed $document-border;
+      text-align: center;
+    }
+
+    // ========================================
+    // THREAT ENTRY PAGE STYLES
+    // ========================================
+    &__threat-entry {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__threat-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(
+        135deg,
+        rgba(139, 119, 101, 0.1) 0%,
+        rgba(139, 119, 101, 0.05) 100%
+      );
+      border: 1px solid $document-border;
+      border-left: 5px solid $document-accent;
+
+      &--negligible {
+        border-left-color: hsl(120, 35%, 30%);
+      }
+      &--minor {
+        border-left-color: hsl(180, 35%, 30%);
+      }
+      &--moderate {
+        border-left-color: hsl(45, 60%, 35%);
+      }
+      &--major {
+        border-left-color: hsl(30, 70%, 35%);
+      }
+      &--severe {
+        border-left-color: hsl(15, 70%, 35%);
+      }
+      &--critical {
+        border-left-color: hsl(0, 70%, 35%);
+      }
+    }
+
+    &__threat-header-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px solid $document-border;
+      border-radius: 4px;
+      color: $document-accent;
+    }
+
+    &__threat-header-info {
+      flex: 1;
+    }
+
+    &__threat-header-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: $document-fg;
+      margin-bottom: 0.25rem;
+    }
+
+    &__threat-body {
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 1rem;
+    }
+
+    &__threat-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &__threat-section {
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid $document-border;
+    }
+
+    &__threat-section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: $document-accent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid $document-border;
+      margin-bottom: 0.5rem;
+    }
+
+    &__threat-section-content {
+      font-size: 12px;
+      line-height: 1.5;
+      color: hsl(30, 10%, 25%);
+      white-space: pre-wrap;
+    }
+
+    &__threat-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    &__threat-sidebar-section {
+      padding: 0.75rem;
+      background: rgba(139, 119, 101, 0.08);
+      border: 1px solid $document-border;
+    }
+
+    &__threat-sidebar-title {
+      font-size: 11px;
+      font-weight: bold;
+      color: $document-accent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid $document-border;
+      margin-bottom: 0.5rem;
+    }
+
+    &__threat-signs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    &__threat-sign {
+      font-size: 10px;
+      color: hsl(30, 10%, 30%);
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    &__threat-sign-icon {
+      color: $document-accent;
+      font-size: 8px;
+    }
+
+    &__threat-quickref {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    &__threat-quickref-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__threat-quickref-label {
+      font-size: 9px;
+      color: hsl(30, 10%, 50%);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &__threat-quickref-value {
+      font-size: 11px;
+      font-weight: bold;
+      color: $document-fg;
+    }
+
+    // ========================================
+    // END PAGE STYLES
+    // ========================================
+    &__endpage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      min-height: 100%;
+    }
+
+    &__endpage-seal {
+      margin-bottom: 1rem;
+      color: $document-accent;
+      opacity: 0.7;
+    }
+
+    &__endpage-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: $document-fg;
+      margin-bottom: 1rem;
+    }
+
+    &__endpage-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 80%;
+      margin-bottom: 1.5rem;
+      color: $document-accent;
+    }
+
+    &__endpage-divider-line {
+      flex: 1;
+      height: 1px;
+      background: $document-border;
+    }
+
+    &__endpage-message {
+      font-size: 13px;
+      color: hsl(30, 10%, 35%);
+      margin-bottom: 1.5rem;
+      max-width: 350px;
+    }
+
+    &__endpage-quote {
+      position: relative;
+      padding: 1rem 2rem;
+      margin-bottom: 1.5rem;
+      background: rgba(139, 119, 101, 0.08);
+      border-left: 3px solid $document-accent;
+      border-right: 3px solid $document-accent;
+    }
+
+    &__endpage-quote-icon {
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      font-size: 16px;
+      color: $document-accent;
+      opacity: 0.5;
+    }
+
+    &__endpage-quote-text {
+      font-size: 16px;
+      font-weight: bold;
+      font-style: italic;
+      color: $document-fg;
+    }
+
+    &__endpage-contact {
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      background: rgba(139, 119, 101, 0.05);
+      border: 1px solid $document-border;
+      max-width: 380px;
+    }
+
+    &__endpage-contact-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: $document-accent;
+      margin-bottom: 0.5rem;
+    }
+
+    &__endpage-contact-text {
+      font-size: 11px;
+      color: hsl(30, 10%, 40%);
+    }
+
+    &__endpage-footer {
+      margin-top: auto;
+    }
+
+    &__endpage-version {
+      font-size: 11px;
+      color: hsl(30, 10%, 50%);
+      margin-bottom: 0.5rem;
+    }
+
+    &__endpage-disclaimer {
+      font-size: 9px;
+      color: hsl(0, 50%, 40%);
+      font-style: italic;
+      max-width: 350px;
     }
   }
 
