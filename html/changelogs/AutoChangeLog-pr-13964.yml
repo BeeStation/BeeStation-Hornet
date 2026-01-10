@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Mice no longer spawn during unit testing, which breaks cable tests.

@@ -80,6 +80,14 @@
   - balance: Mech's cells are drained faster from EMP's
   - balance: Mech's receive more damage from EMP's
   - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  PowerfulBacon:
+  - bugfix: Mice no longer spawn during unit testing, which breaks cable tests.
+  - bugfix: Fixes TGUI windows lagging the game when opened until you open the preferences
+      screen.
+  - bugfix: Eye-stabbing will now always deal the same damage as a regular attack,
+      and will perform a regular attack if it fails making it behave better while
+      on simplified mode.
+  - bugfix: Fixes eye-stabbing having 100% armour penetration.
   RKz:
   - rscadd: 'All drug addictions are now put into 5 categories: Stimulants, Opioids,
       Alcohol, Hallucinogens, and Maintenance Drugs. All narcotics have been given
@@ -112,3 +120,9 @@
   - refactor: slurring speech from drunkeness should have much better ramp-up, rather
       than making you intelligible immediately
   - rscadd: adds hereticslurring, rather than copying cultslurring
+  rkz, Mothblocks:
+  - balance: ashlanders and monkeys are hardcoded via brains to be unable to operate
+      mechs
+  - code_imp: adds another carbon trait to brains, the ability to strip others with
+      the stripping menu
+  - code_imp: strip menu unit test

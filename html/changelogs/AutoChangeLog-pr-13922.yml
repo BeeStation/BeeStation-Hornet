@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Eye-stabbing will now always deal the same damage as a regular attack,
-      and will perform a regular attack if it fails making it behave better while
-      on simplified mode.
-  - bugfix: Fixes eye-stabbing having 100% armour penetration.
