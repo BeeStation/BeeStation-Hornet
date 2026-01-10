@@ -138,6 +138,7 @@
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/mob_to_tweak = mob_override || owner.current
+	update_changeling_icons_added()
 	if(!isliving(mob_to_tweak))
 		return
 
@@ -188,6 +189,7 @@
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/living_mob = mob_override || owner.current
+	update_changeling_icons_removed()
 	handle_clown_mutation(living_mob, removing = FALSE)
 	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON, COMSIG_MOB_HUD_CREATED))
 	living_mob?.hud_used?.lingchemdisplay?.invisibility = INVISIBILITY_ABSTRACT
