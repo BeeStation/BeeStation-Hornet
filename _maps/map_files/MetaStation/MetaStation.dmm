@@ -18311,6 +18311,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "dqe" = (
@@ -21634,9 +21637,13 @@
 /turf/open/floor/circuit/telecomms,
 /area/maintenance/department/science/xenobiology)
 "eyC" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable,
-/turf/open/space/basic,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/airless,
 /area/solar/starboard/fore)
 "eyN" = (
 /obj/machinery/camera/directional/east{
@@ -26819,9 +26826,6 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
 "guw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Power Monitoring"
 	},
@@ -28678,6 +28682,16 @@
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/wood/big,
 /area/crew_quarters/theatre)
+"hgu" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/fore)
 "hgy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -37343,9 +37357,6 @@
 	name = "Unisex Restrooms"
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/iron/white,
 /area/crew_quarters/toilet/restrooms)
@@ -41082,9 +41093,6 @@
 	},
 /area/security/brig)
 "lEw" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /obj/machinery/camera/directional/west{
@@ -52479,7 +52487,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "0-8"
+	icon_state = "2-4"
 	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
@@ -60947,7 +60955,7 @@
 "sMM" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "4-8"
 	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
@@ -66810,6 +66818,16 @@
 /obj/effect/landmark/start/paramedic,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
+"uPx" = (
+/obj/machinery/power/solar{
+	id = "forestarboard";
+	name = "Fore-Starboard Solar Array"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/solarpanel/airless,
+/area/solar/starboard/fore)
 "uPK" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -76673,9 +76691,6 @@
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "yiF" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -90802,8 +90817,8 @@ cej
 cej
 sWN
 cej
+cej
 cfz
-cED
 cHk
 anT
 aaa
@@ -121290,10 +121305,10 @@ xCC
 hOS
 xpp
 xCC
+hOS
 xpp
 xEm
-xEm
-xEm
+eyC
 xEm
 xEm
 xEm
@@ -121550,7 +121565,7 @@ aaa
 aaa
 aaa
 aaa
-gkz
+sMM
 aaa
 aaa
 aaa
@@ -122058,7 +122073,7 @@ aaa
 aaa
 oqw
 fNW
-gWH
+hgu
 jAn
 jAn
 aaa
@@ -122315,9 +122330,9 @@ lMJ
 lMJ
 fuI
 fuI
-sMM
+bKj
 dpV
-gWH
+cYF
 lMJ
 fuI
 fuI
@@ -122572,9 +122587,9 @@ aaa
 aaa
 jAn
 jAn
-fuI
-jAn
-jAn
+sMM
+uPx
+uPx
 aaa
 jAn
 jAn
@@ -122829,9 +122844,9 @@ aaa
 aaa
 iTZ
 iTZ
-fuI
-iTZ
-iTZ
+sMM
+jAn
+jAn
 aaa
 qLJ
 qLJ
@@ -123086,7 +123101,7 @@ lMJ
 lMJ
 bKj
 rnd
-qeR
+mGD
 cok
 cYF
 lMJ
@@ -123343,7 +123358,7 @@ aaa
 aaa
 qvQ
 qvQ
-gkz
+sMM
 qvQ
 qvQ
 aaa
@@ -124114,7 +124129,7 @@ aaa
 aaa
 oqw
 fNW
-qeR
+mGD
 mJr
 vup
 aaa
@@ -124371,7 +124386,7 @@ aaa
 aaa
 jAn
 jAn
-fuI
+sMM
 qvQ
 qvQ
 aaa
@@ -124628,7 +124643,7 @@ lMJ
 lMJ
 wNo
 dHR
-eyC
+gWH
 fuI
 fuI
 lMJ

@@ -255,6 +255,40 @@
 	if(usr)
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(offer_control_get_config(M))
+
+	if(candidate)
+		M.give_control_to_mob(candidate)
+		return TRUE
+	else
+		to_chat(M, "There were no ghosts willing to take control.")
+		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
+		return FALSE
+
+/proc/offer_control_persistently(mob/M)
+	to_chat(M, "Control of your mob has been offered to dead players.")
+	if(usr)
+		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+
+	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(offer_control_get_config(M))
+	poll.on_signup = CALLBACK(M, TYPE_PROC_REF(/mob, give_control_to_mob))
+
+/mob/proc/give_control_to_mob(datum/candidate_poll/persistent/source, list/candidates)
+	for (var/mob/controller in candidates)
+		ghostize(FALSE)
+		key = controller.key
+		// Did not login
+		if (!client)
+			continue
+		source.end_poll()
+
+		to_chat(src, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(controller)] has taken control of ([ADMIN_LOOKUPFLW(src)])")
+		return
+
+/proc/offer_control_get_config(mob/M)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
 	if(M.mind && M.mind.assigned_role)
@@ -269,22 +303,11 @@
 	var/datum/poll_config/config = new()
 	config.question = poll_message
 	config.check_jobban = ban_key
+	config.role_name_text = M.real_name
 	config.poll_time = 10 SECONDS
 	config.jump_target = M
 	config.alert_pic = M
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
-
-	if(candidate)
-		M.ghostize(FALSE)
-		M.key = candidate.key
-
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
-		return TRUE
-	else
-		to_chat(M, "There were no ghosts willing to take control.")
-		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
-		return FALSE
+	return config
 
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()
