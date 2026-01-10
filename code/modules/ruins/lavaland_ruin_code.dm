@@ -92,6 +92,7 @@
 	name = "incomplete runic golem shell"
 	desc = "A hollow frame of heavy stone etched with pulsing red runes. It lacks a spark of life."
 	icon_state = "construct"
+
 /obj/item/golem_shell/runic/attack_hand(mob/user)
 	to_chat(user, span_warning("The shell is far too heavy to lift."))
 	return TRUE
