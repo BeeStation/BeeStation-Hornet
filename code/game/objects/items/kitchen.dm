@@ -62,9 +62,7 @@
 			M = user
 		if (eyestab(M, user, src, silent = user.is_zone_selected(BODY_GROUP_CHEST_HEAD)))
 			return TRUE
-		return ..()
-	else
-		return ..()
+	return ..()
 
 /obj/item/knife/kitchen
 	name = "kitchen knife"
