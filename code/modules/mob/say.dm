@@ -193,4 +193,18 @@
 			return
 	return message
 
+/mob/try_speak(message, ignore_spam = FALSE, forced = null)
+	SHOULD_CALL_PARENT(TRUE)
+	if(!..())
+		return FALSE
+
+	if(client && !(ignore_spam || forced))
+		if(client.prefs && (client.player_details.muted & MUTE_IC))
+			to_chat(src, span_danger("You cannot speak IC (muted)."))
+			return FALSE
+		if(client.handle_spam_prevention(message, MUTE_IC))
+			return FALSE
+	// Including can_speak() here would ignore COMPONENT_CAN_ALWAYS_SPEAK in /mob/living/try_speak()
+	return TRUE
+
 #undef MESSAGE_MODS_LENGTH
