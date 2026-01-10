@@ -2,8 +2,6 @@
 	if(istype(character_preview_view))
 		return
 	character_preview_view = new(null, src)
-	if(parent)
-		character_preview_view.register_to_client(parent)
 
 /datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
 	var/datum/job/preview_job = get_highest_priority_job()
