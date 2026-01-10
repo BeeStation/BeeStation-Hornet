@@ -294,8 +294,8 @@
 	tase_target(seconds_between_ticks)
 
 /datum/status_effect/tased/proc/tase_target(seconds_between_ticks)
-	owner.stuttering = max(min(owner.stuttering + 5, 30), owner.stuttering)
-	owner.adjust_jitter_up_to(40 SECONDS, 60 SECONDS)
+	owner.adjust_stutter_up_to(3, 8 SECONDS)
+	owner.adjust_jitter_up_to(25 SECONDS, 40 SECONDS)
 
 	// Use on incapacitated targets is real bad for them
 	var/mob/living/carbon/human/human = owner

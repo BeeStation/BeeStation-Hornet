@@ -248,11 +248,6 @@ or something covering your eyes."
 		return
 	to_chat(L, span_mindcontrol("[command]"))
 
-/atom/movable/screen/alert/drunk
-	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
-	icon_state = "drunk"
-
 /atom/movable/screen/alert/embeddedobject
 	name = "Embedded Object"
 	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
@@ -848,6 +843,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/poll_alert/MouseExited()
 	. = ..()
+	if (QDELETED(src))
+		return
 	if (!poll.config.can_hide)
 		return
 	usr.client.set_right_click_menu_mode(usr.shift_to_open_context_menu)

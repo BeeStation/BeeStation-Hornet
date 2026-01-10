@@ -13,7 +13,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "g" = (
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/random/clothing/costume,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "h" = (
@@ -25,7 +25,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "k" = (
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "m" = (
@@ -41,7 +41,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "q" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "r" = (
@@ -81,7 +81,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
 "B" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/trap/nexus/trickyspawner/tree,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)

@@ -1,3 +1,5 @@
+#define HOLOCHASSIS_INIT_TIME (40 SECONDS)
+
 /mob/living/silicon/pai
 	name = "pAI"
 	icon = 'icons/mob/pai.dmi'
@@ -90,7 +92,33 @@
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
 	var/chassis = "repairbot"
-	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mothroach" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
+	/// Holochassis available to use
+	var/holochassis_ready = FALSE
+	/// List of all possible chassis. TRUE means the pAI can be picked up in this chasis.
+	var/static/list/possible_chassis = list(
+		"bat" = TRUE,
+		"bee" = TRUE,
+		"butterfly" = TRUE,
+		"carp" = TRUE,
+		"cat" = TRUE,
+		"corgi" = TRUE,
+		"corgi_puppy" = TRUE,
+		"crow" = TRUE,
+		"duffel" = TRUE,
+		"fox" = TRUE,
+		"frog" = TRUE,
+		"hawk" = TRUE,
+		"lizard" = TRUE,
+		"monkey" = TRUE,
+		"mothroach" = TRUE,
+		"mouse" = TRUE,
+		"mushroom" = TRUE,
+		"phantom" = TRUE,
+		"rabbit" = TRUE,
+		"repairbot" = TRUE,
+		"snake" = TRUE,
+		"spider" = TRUE
+	)
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
 	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
 	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
@@ -168,8 +196,7 @@
 
 	create_modularInterface()
 
-	emittersemicd = TRUE
-	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
+	addtimer(VARSET_WEAK_CALLBACK(src, holochassis_ready, TRUE), HOLOCHASSIS_INIT_TIME)
 
 	if(!holoform)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
@@ -337,6 +364,18 @@
 	update_stat()
 	SEND_SIGNAL(src, COMSIG_LIVING_HEALTH_UPDATE)
 
+/**
+ * Fixes weird speech issues with the pai.
+ *
+ * @returns {boolean} - TRUE if successful.
+ */
+/mob/living/silicon/pai/proc/fix_speech()
+	var/mob/living/silicon/pai = src
+	balloon_alert(pai, "speech modulation corrected")
+	for(var/effect in typesof(/datum/status_effect/speech))
+		pai.remove_status_effect(effect)
+	return TRUE
+
 /mob/living/silicon/pai/process(delta_time)
 	emitterhealth = clamp((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
@@ -375,3 +414,5 @@
 	pai.master = null
 	pai.master_dna = null
 	pai.laws.supplied[1] = "None." // Sets supplemental directive to this
+
+#undef HOLOCHASSIS_INIT_TIME

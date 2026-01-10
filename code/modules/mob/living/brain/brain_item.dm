@@ -236,7 +236,7 @@
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/check_damage_thresholds(mob/M)
+/obj/item/organ/brain/check_damage_thresholds()
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)
@@ -284,7 +284,7 @@
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
-	organ_traits = null
+	organ_traits = list(TRAIT_CAN_STRIP)
 
 /obj/item/organ/brain/primitive //No like books and stompy metal men
 	name = "Primative Brain"
@@ -294,6 +294,12 @@
 		TRAIT_CAN_STRIP,
 		TRAIT_PRIMITIVE, // No literacy
 	)
+
+
+/obj/item/organ/brain/primate
+	name = "primate brain"
+	desc = "This wad of meat is small, but has enlaged occipital lobes for spotting bananas."
+	organ_traits = list(TRAIT_CAN_STRIP, TRAIT_PRIMITIVE) // No advanced tool usage.
 
 /obj/item/organ/brain/diona
 	name = "diona nymph"

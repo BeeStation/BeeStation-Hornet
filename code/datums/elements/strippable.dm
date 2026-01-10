@@ -104,13 +104,16 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if(!can_interact(user))
+	if(!can_interact(user) || !equipping)
 		return FALSE
-	if(!equipping)
-		return
+
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, span_warning("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
+
+	if (equipping.item_flags & ABSTRACT)
+		return FALSE
+
 	//This is important due to the fact otherwise it will be equipped without a proper existing icon, because it's forced on through the strip menu
 	if(ismonkey(source))
 		equipping.compile_monkey_icon()

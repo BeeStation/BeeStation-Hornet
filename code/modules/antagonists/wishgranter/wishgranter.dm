@@ -4,6 +4,7 @@
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
 	banning_key = BAN_ROLE_ALL_ANTAGONISTS
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/wishgranter/proc/forge_objectives()
 	var/datum/objective/elimination/highlander/elimination_objective = new

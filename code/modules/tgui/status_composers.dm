@@ -48,14 +48,6 @@
 /proc/ui_status_user_is_abled(mob/user, atom/source)
 	return user.shared_ui_interaction(source)
 
-/// Return UI_INTERACTIVE if the user is strictly adjacent to the target atom, whether they can see it or not.
-/// Return UI_CLOSE otherwise.
-/proc/ui_status_user_strictly_adjacent(mob/user, atom/target)
-	if(get_dist(target, user) > 1)
-		return UI_CLOSE
-
-	return UI_INTERACTIVE
-
 /// Returns a UI status such that those without blocked hands will be able to interact,
 /// but everyone else can only watch.
 /proc/ui_status_user_has_free_hands(mob/user, atom/source)
@@ -110,3 +102,11 @@
 	return (living_user.body_position == LYING_DOWN && living_user.stat == CONSCIOUS) \
 		? UI_INTERACTIVE \
 		: UI_UPDATE
+
+/// Return UI_INTERACTIVE if the user is strictly adjacent to the target atom, whether they can see it or not.
+/// Return UI_CLOSE otherwise.
+/proc/ui_status_user_strictly_adjacent(mob/user, atom/target)
+	if(get_dist(target, user) > 1)
+		return UI_CLOSE
+
+	return UI_INTERACTIVE
