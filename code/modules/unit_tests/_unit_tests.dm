@@ -92,6 +92,7 @@
 #include "spell_shapeshift.dm"
 #include "stat_mc.dm"
 #include "status_effect_validity.dm"
+#include "strippable.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
 #include "surgeries.dm"
