@@ -17,6 +17,7 @@
 //then you MUST update the database!
 #define ROLE_TRAITOR "Traitor"
 #define ROLE_OPERATIVE "Nuclear Operative"
+#define ROLE_CLOWN_OPERATIVE "Clown Operative"
 #define ROLE_CHANGELING "Changeling"
 #define ROLE_WIZARD "Wizard"
 #define ROLE_MALF "Malfunctioning AI"
