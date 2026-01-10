@@ -1,13 +1,33 @@
+/**
+ * CorporateThreatHandbook Interface Styles
+ *
+ * Styles for the Nanotrasen Corporate Threat Handbook UI.
+ * Designed to work with the 'document' theme, but includes fallback
+ * values for standalone use.
+ */
+
+// ========================================
+// VARIABLES
+// ========================================
+
 // Layout dimensions
 $header-footer-height: 36px;
 
-// Fallback color values - these are used when CSS custom properties from the
-// document theme are not available. When used with theme-document, the
-// var(--document-*) properties will take precedence.
+// Fallback color values - used when CSS custom properties from the
+// document theme are not available. When used with theme-document,
+// the var(--document-*) properties will take precedence.
 $handbook-bg: hsl(43, 33%, 90%);
 $handbook-fg: hsl(30, 10%, 15%);
 $handbook-accent: hsl(30, 50%, 25%);
 $handbook-border: hsl(30, 20%, 60%);
+
+// Derived colors for subtle backgrounds and shadows
+$handbook-subtle-bg: rgba(139, 119, 101, 0.08);
+$handbook-shadow: rgba(0, 0, 0, 0.05);
+
+// ========================================
+// LAYOUT - WRAPPER & STRUCTURE
+// ========================================
 
 // Main wrapper - fills the window, no scroll
 .CorporateThreatHandbook__wrapper {
@@ -33,7 +53,7 @@ $handbook-border: hsl(30, 20%, 60%);
   border-bottom: 1px solid var(--document-border, $handbook-border);
   z-index: 10;
   font-size: 11px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px $handbook-shadow;
 }
 
 .CorporateThreatHandbook__header-left {
@@ -88,7 +108,7 @@ $handbook-border: hsl(30, 20%, 60%);
   z-index: 10;
   font-size: 10px;
   color: hsl(30, 10%, 45%);
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -2px 4px $handbook-shadow;
 }
 
 .CorporateThreatHandbook__doc-footer-left {
@@ -151,26 +171,13 @@ $handbook-border: hsl(30, 20%, 60%);
   pointer-events: none;
 }
 
+// ========================================
+// SHARED / REUSABLE STYLES
+// ========================================
+
 .CorporateThreatHandbook__content {
   line-height: 1.6;
   text-align: justify;
-}
-
-.CorporateThreatHandbook__title {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  color: var(--document-fg, $handbook-fg);
-  text-shadow: 1px 1px 0 rgba(139, 119, 101, 0.2);
-}
-
-.CorporateThreatHandbook__subtitle {
-  font-size: 14px;
-  text-align: center;
-  color: hsl(30, 10%, 35%);
-  margin-bottom: 1.5rem;
-  font-style: italic;
 }
 
 .CorporateThreatHandbook__section-title {
@@ -183,19 +190,18 @@ $handbook-border: hsl(30, 20%, 60%);
   padding-bottom: 0.25rem;
 }
 
-.CorporateThreatHandbook__divider {
-  border: none;
-  border-top: 1px solid var(--document-border, $handbook-border);
-  margin: 1rem 0;
-}
+// ========================================
+// THREAT DESIGNATION STYLES
+// ========================================
 
-// Threat designation colors
+// Base designation style
 .CorporateThreatHandbook__designation {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
+// Designation color variants (ordered by severity)
 .CorporateThreatHandbook__designation--negligible {
   color: hsl(120, 35%, 30%);
 }
@@ -321,7 +327,7 @@ $handbook-border: hsl(30, 20%, 60%);
 .CorporateThreatHandbook__cover-info-item {
   text-align: center;
   padding: 0.5rem 1rem;
-  background: rgba(139, 119, 101, 0.08);
+  background: $handbook-subtle-bg;
   border: 1px solid var(--document-border, $handbook-border);
 }
 
@@ -747,7 +753,7 @@ $handbook-border: hsl(30, 20%, 60%);
 
 .CorporateThreatHandbook__threat-sidebar-section {
   padding: 0.75rem;
-  background: rgba(139, 119, 101, 0.08);
+  background: $handbook-subtle-bg;
   border: 1px solid var(--document-border, $handbook-border);
 }
 
@@ -856,7 +862,7 @@ $handbook-border: hsl(30, 20%, 60%);
   position: relative;
   padding: 1rem 2rem;
   margin-bottom: 1.5rem;
-  background: rgba(139, 119, 101, 0.08);
+  background: $handbook-subtle-bg;
   border-left: 3px solid var(--document-accent, $handbook-accent);
   border-right: 3px solid var(--document-accent, $handbook-accent);
 }

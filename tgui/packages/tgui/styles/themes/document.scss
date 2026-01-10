@@ -1,7 +1,17 @@
-@use 'sass:color';
+/**
+ * Document Theme
+ *
+ * An aged paper/parchment theme designed for official-looking documents.
+ * Uses serif fonts and muted colors to evoke a corporate document feel.
+ *
+ * Exposes CSS custom properties for use by interface-specific stylesheets:
+ *   --document-bg, --document-fg, --document-accent,
+ *   --document-border, --document-header-bg
+ */
+
 @use 'sass:meta';
 
-// Aged paper/parchment colors
+// Theme color palette
 $document-bg: hsl(43, 33%, 90%);
 $document-fg: hsl(30, 10%, 15%);
 $document-accent: hsl(30, 50%, 25%);

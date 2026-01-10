@@ -30,6 +30,11 @@ type PageInfo = {
   threatIndex?: number;
 };
 
+// ========================================
+// CONSTANTS
+// ========================================
+
+/** Threat levels ordered from least to most severe */
 const THREAT_LEVELS = [
   'Negligible',
   'Minor',
@@ -81,9 +86,18 @@ const DESIGNATIONS = [
   },
 ];
 
+// ========================================
+// HELPER FUNCTIONS
+// ========================================
+
+/** Returns the Greek symbol for a threat designation level */
 const getThreatSymbol = (designation: string): string => {
   return THREAT_SYMBOLS[designation.toLowerCase()] || '?';
 };
+
+// ========================================
+// MAIN COMPONENT
+// ========================================
 
 export const CorporateThreatHandbook = () => {
   const { data, act } = useBackend<Data>();
@@ -209,6 +223,10 @@ export const CorporateThreatHandbook = () => {
     </Window>
   );
 };
+
+// ========================================
+// PAGE COMPONENTS
+// ========================================
 
 type PageContentProps = {
   pageInfo: PageInfo;
