@@ -65,20 +65,20 @@
 		forge_single_objective()
 	if(is_hijacker)
 		if(!locate(/datum/objective/hijack) in objectives)
-			add_objective(new/datum/objective/hijack)
+			add_objective(new /datum/objective/hijack)
 	else if(!locate(/datum/objective/escape) in objectives)
-		add_objective(new/datum/objective/escape)
+		add_objective(new /datum/objective/escape)
 
 /datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))
-		if(LAZYLEN(active_ais()) && prob(100/GLOB.joined_player_list.len))
-			add_objective(new/datum/objective/destroy, TRUE)
+		if(LAZYLEN(active_ais()) && prob(100 / length(GLOB.joined_player_list)))
+			add_objective(new /datum/objective/destroy, TRUE)
 		else if(prob(30))
-			add_objective(new/datum/objective/maroon, TRUE)
+			add_objective(new /datum/objective/maroon, TRUE)
 		else
-			add_objective(new/datum/objective/assassinate, TRUE)
+			add_objective(new /datum/objective/assassinate, TRUE)
 	else
-		add_objective(new/datum/objective/steal, TRUE)
+		add_objective(new /datum/objective/steal, TRUE)
 
 /datum/team/brother_team/proc/listen_for_joiners()
 	// Whenever a crewmember joins, check to see if we have any empty space for new
