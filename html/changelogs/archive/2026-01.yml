@@ -80,3 +80,19 @@
   - balance: Mech's cells are drained faster from EMP's
   - balance: Mech's receive more damage from EMP's
   - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  Rukofamicom:
+  - bugfix: Loose power cells mapped into stations no longer have unusual capacities
+  - rscadd: Maps will now lint against changes to charge and maxcharge variables for
+      power cells
+  mrmanlikesbt, Fikou:
+  - tweak: nuclear operative reinforcements are now drop podded in instead of being
+      teleported
+  - refactor: cleaned up the antag spawner item's code
+  - bugfix: the ghost poll for syndicate reinforcements now have the correct poll
+      icon for what is being spawned, previously it would always be the syndicate
+      assault cyborg
+  rkz, Melbert:
+  - code_imp: drunkeness, dizziness, and speech slurring are now status effects
+  - refactor: slurring speech from drunkeness should have much better ramp-up, rather
+      than making you intelligible immediately
+  - rscadd: adds hereticslurring, rather than copying cultslurring

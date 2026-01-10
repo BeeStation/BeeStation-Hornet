@@ -1,9 +1,0 @@
-author: mrmanlikesbt, Fikou
-delete-after: true
-changes:
-  - tweak: nuclear operative reinforcements are now drop podded in instead of being
-      teleported
-  - refactor: cleaned up the antag spawner item's code
-  - bugfix: the ghost poll for syndicate reinforcements now have the correct poll
-      icon for what is being spawned, previously it would always be the syndicate
-      assault cyborg

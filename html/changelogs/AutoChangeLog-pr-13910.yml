@@ -1,7 +1,0 @@
-author: rkz, Melbert
-delete-after: true
-changes:
-  - code_imp: drunkeness, dizziness, and speech slurring are now status effects
-  - refactor: slurring speech from drunkeness should have much better ramp-up, rather
-      than making you intelligible immediately
-  - rscadd: adds hereticslurring, rather than copying cultslurring
