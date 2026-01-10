@@ -59,7 +59,8 @@
 /obj/structure/uplink_beacon/proc/on_deployed(datum/priority_directive/deploy_beacon/beacon, mob/user)
 	if (!istype(beacon))
 		log_runtime("A traitor beacon was initialised but there is no directive for it to complete. It has been deleted.")
-		return INITIALIZE_HINT_QDEL
+		qdel(src)
+		return
 	parent_directive = beacon
 	if (user != null)
 		// Try to find the team colour of the user
@@ -74,7 +75,7 @@
 	beacon.deployed_beacon = src
 	beacon.on_beacon_planted(current_frequency)
 	update_appearance(UPDATE_OVERLAYS)
-	START_PROCESSING(SSprocessing, src)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/uplink_beacon/process(delta_time)
 	if (!istype(parent_directive))
@@ -124,7 +125,7 @@
 	if (new_num < 0 || new_num > 8)
 		return FALSE
 	if (spam_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>[src] needs another [DisplayTimeText(spam_cooldown - world.time)] before it can change frequency!</span>")
+		to_chat(usr, span_warning("[src] needs another [DisplayTimeText(spam_cooldown - world.time)] before it can change frequency!"))
 		return FALSE
 	spam_cooldown = world.time + 10 SECONDS
 	update_frequency(new_num)

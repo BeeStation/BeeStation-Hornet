@@ -6,8 +6,7 @@
 	var/amount = 0
 
 /datum/objective/survival_of_the_fittest/proc/generate_amount()
-	var/target = max(SSjob.initial_players_to_assign * 0.7, 4)
-	amount = ceil(target)
+	amount = ceil(max(SSjob.initial_players_to_assign * 0.7, 4))
 	update_explanation_text()
 
 /datum/objective/survival_of_the_fittest/update_explanation_text()
