@@ -118,7 +118,7 @@
 	var/list/clients_to_show = list()
 	/// We use the mobs that are directly visible to our turf so that mobs who can see through
 	/// walls or who are on cameras are not able to see the effect.
-	for(var/mob/viewer in view(loc))
+	for(var/mob/living/viewer in view(loc))
 		if(viewer.client)
 			clients_to_show += viewer.client
 	animate(hacker_image, time = 1 SECONDS)
