@@ -4048,10 +4048,7 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/electronics/airlock,
 /obj/item/electronics/airlock,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 30
 	},
@@ -4061,10 +4058,7 @@
 "aNq" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -5736,10 +5730,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
@@ -5757,10 +5748,7 @@
 "aZG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/item/rcl/pre_loaded,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -8241,10 +8229,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/glass,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/dark,
 /area/bridge)
 "bqM" = (
@@ -8797,14 +8782,8 @@
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron,
 /area/storage/primary)
 "bvI" = (
@@ -10982,14 +10961,8 @@
 "bPZ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron,
 /area/ai_monitored/storage/eva)
 "bQa" = (
@@ -11316,10 +11289,7 @@
 "bRJ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -13466,10 +13436,7 @@
 /area/science/lab)
 "cqx" = (
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/machinery/power/apc{
 	areastring = "/area/science/lab";
 	name = "Research Lab APC";
@@ -15328,18 +15295,9 @@
 "cJN" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
 /obj/item/crowbar,
 /obj/item/assembly/prox_sensor{
 	pixel_x = -8;
@@ -24728,10 +24686,7 @@
 /obj/machinery/cell_charger,
 /obj/item/multitool,
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/engine,
 /area/maintenance/department/science/xenobiology)
 "fGk" = (
@@ -25488,10 +25443,7 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/stripes/line,
 /obj/item/clothing/glasses/science,
 /turf/open/floor/iron,
@@ -38556,10 +38508,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = -7
@@ -43323,10 +43272,7 @@
 /area/hallway/secondary/entry)
 "mtr" = (
 /obj/machinery/light/small,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/maintenance/starboard/secondary)
@@ -47068,10 +47014,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/machinery/airalarm/directional/east,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
 "nNe" = (
@@ -49378,10 +49321,7 @@
 "oyG" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -54479,10 +54419,7 @@
 "qpE" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
@@ -68623,9 +68560,7 @@
 "vxk" = (
 /obj/structure/rack,
 /obj/item/electronics/apc,
-/obj/item/stock_parts/cell{
-	maxcharge = 2000
-	},
+/obj/item/stock_parts/cell,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24

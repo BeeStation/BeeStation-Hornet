@@ -1968,10 +1968,7 @@
 /turf/open/floor/plating,
 /area/medical/surgery)
 "aBt" = (
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aBw" = (
@@ -3606,10 +3603,7 @@
 "aTQ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -8823,10 +8817,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance/two,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -13873,10 +13864,7 @@
 /turf/open/floor/plating,
 /area/bridge)
 "dSO" = (
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "dSV" = (
@@ -17521,10 +17509,7 @@
 "eRp" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -21343,18 +21328,9 @@
 "fOp" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
+/obj/item/stock_parts/cell/high,
 /obj/item/crowbar,
 /obj/item/assembly/prox_sensor{
 	pixel_x = -8;
@@ -31645,9 +31621,7 @@
 "iEy" = (
 /obj/structure/rack,
 /obj/item/electronics/apc,
-/obj/item/stock_parts/cell{
-	maxcharge = 2000
-	},
+/obj/item/stock_parts/cell,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance/three,
 /turf/open/floor/iron/dark/side{
@@ -37023,10 +36997,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
 	},
@@ -46411,10 +46382,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "mCi" = (
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -46477,10 +46445,7 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/electronics/airlock,
 /obj/item/electronics/airlock,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 30
 	},
@@ -56845,10 +56810,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/white,
 /area/science/lobby)
 "pxU" = (
@@ -64219,10 +64181,7 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
 "rAq" = (
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "rAx" = (
@@ -73144,10 +73103,7 @@
 "tTr" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
