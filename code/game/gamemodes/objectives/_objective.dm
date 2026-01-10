@@ -206,7 +206,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /// Generates an antagonist stash for a group of owners, or a single owner
 /// Returns a string which describes the stash's location
-/proc/generate_stash(list/special_equipment, list/owners, datum/team/owner_team)
+/proc/generate_stash(list/special_equipment, list/owners, datum/team/owner_team, silent = FALSE)
 	var/datum/mind/tester = pick(owners)
 	var/obj/item/storage/secret_bag = null
 	for (var/datum/component/stash/stash in tester.antag_stashes)
@@ -214,7 +214,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		// Must be owned exclusively by our owners
 		var/valid = TRUE
 		for (var/datum/mind/mind in stash.stash_minds)
-			if (!(mind in owner_team.members))
+			if (owner_team && !(mind in owner_team.members))
 				valid = FALSE
 				break
 		if (!valid)
@@ -267,7 +267,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		//Update the mind
 		for (var/datum/mind/receiver in owners)
 			receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
-			to_chat(receiver?.current, span_traitorobjective("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
+			if (!silent)
+				to_chat(receiver?.current, span_traitorobjective("You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)"))
 			. = "hidden inside of [atom_text] at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)]"
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)

@@ -128,6 +128,6 @@
 	minimum_players_required = 6
 
 /datum/dynamic_ruleset/supplementary/vigilante/allowed(require_drafted)
-	if (length(SSdynamic.roundstart_executed_rulesets) == 0)
+	if (length(SSdynamic.gamemode_executed_rulesets) == 0)
 		return FALSE
 	return ..()

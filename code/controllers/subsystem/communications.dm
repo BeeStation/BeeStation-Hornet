@@ -69,54 +69,58 @@ SUBSYSTEM_DEF(communications)
 		. += "<hr><b>Identified shift divergencies:</b><BR>" + trait_list_strings.Join()
 
 	if(CONFIG_GET(flag/intercept_report))
-		var/list/gamemodes = list()
-		var/list/blacklisted_types = list()
-		var/obvious_shown = FALSE
-		// Add all of the rulesets that did executed
-		for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_executed_rulesets)
-			gamemodes += ruleset
-			blacklisted_types += ruleset.type
-			if (ruleset.ruleset_flags & IS_OBVIOUS_RULESET)
-				obvious_shown = TRUE
-		// Throw in some rulesets that could execute but didn't
-		while (length(gamemodes) < 3)
-			var/datum/dynamic_ruleset/false_alarm = SSdynamic.pick_ruleset(SSdynamic.gamemode_configured_rulesets, TRUE, TRUE, blacklisted_types)
-			if (!false_alarm)
-				break
-			blacklisted_types += false_alarm.type
-			// Check the obvious ruleset flag
-			if (false_alarm.ruleset_flags & IS_OBVIOUS_RULESET)
-				// Skip if we already showed an obvious one
-				if (obvious_shown)
-					continue
-				obvious_shown = TRUE
-			gamemodes += false_alarm
-		// If we didn't have any gamemodes to bluff with, then throw in some random ones
-		while (length(gamemodes) < 3)
-			var/list/random_rulesets = list()
-			for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_configured_rulesets)
-				if (!(ruleset.type in blacklisted_types))
-					random_rulesets += ruleset
-			if (!length(random_rulesets))
-				break
-			var/datum/dynamic_ruleset/selected_random = pick(random_rulesets)
-			blacklisted_types += selected_random.type
-			gamemodes += selected_random
-		// So the first one isn't always the one that was executed
-		shuffle_inplace(gamemodes)
-		// Add on the gamemode reports
-		. += "<hr><b>Recent Security Incidents</b><br>"
-		for (var/datum/dynamic_ruleset/gamemode/gamemode_ruleset in gamemodes)
-			var/report = gamemode_ruleset.security_report()
-			if (report && prob(95))
-				. += "[report]<br><br>"
-			else
-				. += "Additional risk-assessment incidents were unable to be compiled prior to the report deadline, the information on the underlying threat was unable \
-				to be evaluated. Please be aware of any security incidents which are not present on this compilation.<br><br>"
-		. += "It is most likely that the most serious risks to the station have already infiltrated the crew. Additional crew have been screened against some \
-		major risks but new threats may have developed since the screening system was put in place.<br>"
+		. += generate_security_report(TRUE)
 
 	print_command_report(., "[station_name()] Situation & Security Report")
+
+/datum/controller/subsystem/communications/proc/generate_security_report(has_hidden_modes)
+	. = ""
+	var/list/gamemodes = list()
+	var/list/blacklisted_types = list()
+	var/obvious_shown = FALSE
+	// Add all of the rulesets that did executed
+	for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_executed_rulesets)
+		gamemodes += ruleset
+		blacklisted_types += ruleset.type
+		if (ruleset.ruleset_flags & IS_OBVIOUS_RULESET)
+			obvious_shown = TRUE
+	// Throw in some rulesets that could execute but didn't
+	while (length(gamemodes) < 3)
+		var/datum/dynamic_ruleset/false_alarm = SSdynamic.pick_ruleset(SSdynamic.gamemode_configured_rulesets, TRUE, TRUE, blacklisted_types)
+		if (!false_alarm)
+			break
+		blacklisted_types += false_alarm.type
+		// Check the obvious ruleset flag
+		if (false_alarm.ruleset_flags & IS_OBVIOUS_RULESET)
+			// Skip if we already showed an obvious one
+			if (obvious_shown)
+				continue
+			obvious_shown = TRUE
+		gamemodes += false_alarm
+	// If we didn't have any gamemodes to bluff with, then throw in some random ones
+	while (length(gamemodes) < 3)
+		var/list/random_rulesets = list()
+		for (var/datum/dynamic_ruleset/ruleset in SSdynamic.gamemode_configured_rulesets)
+			if (!(ruleset.type in blacklisted_types))
+				random_rulesets += ruleset
+		if (!length(random_rulesets))
+			break
+		var/datum/dynamic_ruleset/selected_random = pick(random_rulesets)
+		blacklisted_types += selected_random.type
+		gamemodes += selected_random
+	// So the first one isn't always the one that was executed
+	shuffle_inplace(gamemodes)
+	// Add on the gamemode reports
+	. += "<hr><b>Recent Security Incidents</b><br>"
+	for (var/datum/dynamic_ruleset/gamemode/gamemode_ruleset in gamemodes)
+		var/report = gamemode_ruleset.security_report()
+		if (report && (prob(95) || !has_hidden_modes))
+			. += "[report]<br><br>"
+		else
+			. += "Additional risk-assessment incidents were unable to be compiled prior to the report deadline, the information on the underlying threat was unable \
+			to be evaluated. Please be aware of any security incidents which are not present on this compilation.<br><br>"
+	. += "It is most likely that the most serious risks to the station have already infiltrated the crew. Additional crew have been screened against some \
+	major risks but new threats may have developed since the screening system was put in place.<br>"
 
 #undef COMMUNICATION_COOLDOWN
 #undef COMMUNICATION_COOLDOWN_AI
