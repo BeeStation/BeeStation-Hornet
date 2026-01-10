@@ -186,6 +186,8 @@
 /// Signal handler for when the vampire hugs a carbon
 /datum/antagonist/vampire/proc/on_hug_carbon(datum/source, mob/living/carbon/hugged)
 	SIGNAL_HANDLER
+	if(!hugged.client) // Only count hugs with real players for humanity
+		return
 	return track_humanity_gain_progress(HUMANITY_HUGGING_TYPE, hugged)
 
 /// Signal handler for when the vampire appraises art
