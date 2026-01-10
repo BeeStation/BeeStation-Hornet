@@ -504,8 +504,7 @@
 					"color" = initial(R.color),
 					"description" = initial(R.description),
 					"metaRate" = initial(R.metabolization_rate) * (60 / 3),
-					"overD" = initial(R.overdose_threshold),
-					"addicD" = initial(R.addiction_threshold)
+					"overD" = initial(R.overdose_threshold)
 				)
 				screen = "analyze"
 				. = TRUE

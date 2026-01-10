@@ -232,7 +232,7 @@
 		owner.death()
 		brain_death = TRUE
 
-/obj/item/organ/brain/check_damage_thresholds(mob/M)
+/obj/item/organ/brain/check_damage_thresholds()
 	. = ..()
 	//if we're not more injured than before, return without gambling for a trauma
 	if(damage <= prev_damage)

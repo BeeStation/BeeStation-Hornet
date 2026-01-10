@@ -36,16 +36,16 @@
 
 
 	if(A.stage >= 3)
-		M.dizziness = max(0, M.dizziness - 2)
+		M.adjust_dizzy(-4 SECONDS)
 		M.drowsyness = max(0, M.drowsyness - 2)
-		M.slurring = max(0, M.slurring - 2)
+		// All slurring effects get reduced down a bit
+		for(var/datum/status_effect/speech/slurring/slur in M.status_effects)
+			slur.remove_duration(1 SECONDS)
 
 		M.adjust_confusion(-2 SECONDS)
 		if(purge_alcohol)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				H.drunkenness = max(H.drunkenness - 5, 0)
+			M.adjust_drunk_effect(-5)
 
 	if(A.stage >= 4)
 		M.drowsyness = max(0, M.drowsyness - 2)
