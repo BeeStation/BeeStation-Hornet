@@ -157,10 +157,10 @@
 	if (wanted_status != WANTED_ARREST && wanted_status != WANTED_PRISONER && wanted_status != WANTED_SUSPECT)
 		return
 	if (!isliving(update_source))
-		log_objective("Vigilante Reject: Author of wanted level was a [source] which is not a person.")
+		log_objective("Vigilante Reject: Author of wanted level was a [update_source] which is not a person.")
 		return
-	var/mob/living/officer = source
-	if (!officer.mind)
+	var/mob/living/officer = update_source
+	if (!officer || !officer.mind)
 		log_objective("Vigilante Reject: Author of wanted level was [officer], but they had no mind.")
 		return
 	if (length(officer.mind.antag_datums))
