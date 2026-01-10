@@ -127,7 +127,7 @@ export const CorporateThreatHandbook = () => {
       case PageType.Contents:
         return 'Table of Contents';
       case PageType.ThreatDesignations:
-        return 'Threat Designations';
+        return 'Designations';
       case PageType.ThreatEntry:
         return threat_entries[pageInfo.threatIndex as number]?.label || 'Entry';
       case PageType.EndPage:

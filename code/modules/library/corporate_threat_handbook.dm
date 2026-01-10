@@ -1,3 +1,11 @@
+// Threat designations:
+// - Negligible
+// - Minor
+// - Moderate
+// - Major
+// - Severe
+// - Critical
+
 /obj/item/book/manual/tgui_handbook
 	name = "Nanotrasen Incident Awareness Handbook"
 	desc = "An official-looking, faintly mildewed handbook full of mandatory reading. The cover is stamped 'FOR INTERNAL DISTRIBUTION' and smells like recycled paper and burnt coffee."
