@@ -126,3 +126,8 @@
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	max_amount = 1
 	minimum_players_required = 6
+
+/datum/dynamic_ruleset/supplementary/vigilante/allowed(require_drafted)
+	if (length(SSdynamic.roundstart_executed_rulesets) == 0)
+		return FALSE
+	return ..()
