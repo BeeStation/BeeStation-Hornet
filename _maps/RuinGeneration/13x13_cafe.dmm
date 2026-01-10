@@ -15,7 +15,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/random/ruinloot/basic,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "e" = (
@@ -130,7 +130,7 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/closet/crate/wooden/toy,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},

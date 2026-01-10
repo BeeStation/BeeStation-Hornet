@@ -118,8 +118,8 @@
 		owner.emote("scream")
 		owner.Paralyze(100)
 
-	owner.adjust_timed_status_effect(1 MINUTES, /datum/status_effect/jitter)
-	owner.confused += 30
+	owner.adjust_jitter(1 MINUTES)
+	owner.adjust_confusion(30 SECONDS)
 	owner.stuttering += 30
 
 	recent_queen_death = TRUE

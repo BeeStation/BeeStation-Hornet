@@ -13,6 +13,7 @@
 	hijack_speed = 0.5
 	/// Whether to give this changeling objectives or not
 	give_objectives = TRUE
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	/// Whether we assign objectives which compete with other lings
 	var/competitive_objectives = FALSE
 
@@ -479,6 +480,11 @@
 	new_profile.undershirt = target.undershirt
 	new_profile.socks = target.socks
 
+	var/obj/item/card/id/id_card = target.wear_id?.GetID()
+	if (istype(id_card))
+		new_profile.id_job_name = id_card.assignment
+		new_profile.id_hud_state = id_card.hud_state
+
 	// Hair and facial hair gradients, alongside their colours.
 	//new_profile.grad_style = LAZYLISTDUPLICATE(target.grad_style)
 	//new_profile.grad_color = LAZYLISTDUPLICATE(target.grad_color)
@@ -888,6 +894,7 @@
 	name = "Xenobio Changeling"
 	give_objectives = FALSE
 	show_in_roundend = FALSE //These are here for admin tracking purposes only
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
@@ -924,6 +931,7 @@
 	antagpanel_category = "Changeling"
 	banning_key = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/fallen_changeling
+	leave_behaviour = ANTAGONIST_LEAVE_DESPAWN
 
 /datum/mood_event/fallen_changeling
 	description = "My powers! Where are my powers?!"

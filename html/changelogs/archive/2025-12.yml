@@ -235,3 +235,13 @@
   rkz:
   - code_imp: An esteemed 19th century Arkhaelogist has blasted some unused code that
       laid dormant and unused for 14 years. No museum would take it...
+2025-12-30:
+  PowerfulBacon:
+  - tweak: Adds some documentation to get_virtual_z and fixes the logical z comparisons
+      of nuclear reactors and immovable rods.
+  - bugfix: Fixes immovable rod appearing to not work correctly.
+  Urumasi, Meyhazah, r1ks-iwnl:
+  - rscadd: HECK suit sprite has enhanced customization via spray paint
+  - bugfix: Fixed HECK suit hiding your hand and feet clothing
+  mrmanlikesbt:
+  - config: cults and nuclear operatives now spawn a minimum of two players

@@ -2768,7 +2768,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)
 "jS" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)
 "jT" = (
@@ -2806,7 +2806,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)
 "ka" = (
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/machinery/atmospherics/pipe/smart/simple/scrubbers/hidden,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)

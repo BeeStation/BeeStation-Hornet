@@ -156,7 +156,7 @@ Difficulty: Medium
 				last_legion = FALSE
 				break
 		if(last_legion)
-			loot = list(/obj/structure/closet/crate/necropolis/legion, /obj/effect/spawner/lootdrop/megafaunaore)
+			loot = list(/obj/structure/closet/crate/necropolis/legion, /obj/effect/spawner/random/unsorted/megafaunaore)
 			elimination = FALSE
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
