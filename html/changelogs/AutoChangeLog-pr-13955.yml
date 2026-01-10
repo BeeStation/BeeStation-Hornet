@@ -1,0 +1,6 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Loose power cells mapped into stations no longer have unusual capacities
+  - rscadd: Maps will now lint against changes to charge and maxcharge variables for
+      power cells
