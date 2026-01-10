@@ -1,80 +1,198 @@
 [
 	{
-		"label": "Changeling",
-		"threat_designation": "Major",
-		"description": "Changelings are alien lifeforms capable of perfectly mimicking any humanoid creature they have absorbed. They infiltrate stations by consuming crew members and assuming their identities, often pursuing goals of further absorption or sabotage.\n\nThese creatures possess a variety of biological weapons and abilities that make them extremely dangerous in close quarters. Their ability to regenerate from seemingly fatal wounds and their capacity to store multiple identities makes positive identification difficult without specialized equipment.",
-		"signs": [
-			"Crew members acting unusually or forgetting basic information about their job",
-			"Reports of people being in two places at once",
-			"Discovery of husked corpses drained of all fluids",
-			"Unexplained disappearances in maintenance tunnels",
-			"Witnesses reporting impossible biological transformations"
-		],
-		"advised_response": "If a changeling is suspected, do not engage alone. Alert security immediately and maintain visual contact if safely possible. Changelings can be reliably identified through genetic testing at medical facilities.\n\nConfirmed changelings should be engaged with extreme caution. Fire and sustained damage are effective, but be aware they can feign death. Cremation is the only guaranteed method of permanent neutralization. All absorbed identities should be logged for record-keeping purposes."
-	},
-	{
-		"label": "Blood Cult",
+		"label": "Non-standard religions or cults.",
 		"threat_designation": "Critical",
-		"description": "Blood cults are organized groups of crew members who have pledged themselves to Nar'Sie, an elder god of blood and chaos. Cultists work to summon their deity through elaborate rituals, which if successful would result in catastrophic station-wide destruction.\n\nCultists gain access to blood magic, allowing them to create runes, manifest weapons, and perform various occult abilities. They actively recruit other crew members through forcible conversion rituals.",
-		"signs": [
-			"Strange runes drawn in blood on floors and walls",
-			"Crew members with unusual wounds on their hands",
-			"Missing persons reports clustering in specific areas",
-			"Reports of hooded figures or strange chanting",
-			"Electronics malfunctioning near certain areas"
-		],
-		"advised_response": "Blood cults represent an existential threat to the station. Security should coordinate with command to identify and neutralize cult members before a summoning can occur. Holy water is effective at deconverting cultists and disrupting their magic.\n\nRunes should be destroyed immediately upon discovery. If a cult has grown too large to contain, evacuation procedures should be initiated. Under no circumstances should crew attempt to negotiate with cultists - their goals are fundamentally incompatible with station survival."
-	},
-	{
-		"label": "Revolutionary",
-		"threat_designation": "Moderate",
-		"description": "Revolutionary movements occur when disgruntled crew members organize to overthrow station command. Led by charismatic head revolutionaries, these movements seek to violently remove command staff from power.\n\nRevolutionaries spread their ideology through flash-based neural implanting, rapidly converting crew members to their cause. While individual revolutionaries pose minimal threat, organized groups can quickly overwhelm security forces.",
-		"signs": [
-			"Unusual hostility toward command staff",
-			"Crew members gathering in groups and dispersing when approached",
-			"Missing or stolen flash devices",
-			"Graffiti or pamphlets criticizing station leadership",
-			"Reports of crew being cornered and flashed"
-		],
-		"advised_response": "Revolutionary movements can be neutralized by eliminating or incarcerating the head revolutionaries, which breaks the conditioning of converted crew. Security should prioritize identifying leadership rather than mass arrests of converted personnel.\n\nCommand staff should travel with security escorts and avoid isolated areas. Mindshield implants provide immunity to revolutionary conversion and should be distributed to essential personnel. De-converted crew should be treated as victims rather than perpetrators."
-	},
-	{
-		"label": "Space Wizard",
-		"threat_designation": "Severe",
-		"description": "Space wizards are practitioners of arcane arts, typically hostile agents of the Space Wizard Federation. They possess a variety of powerful magical abilities that can range from minor annoyances to station-destroying catastrophes.\n\nWizards are highly unpredictable, with spell loadouts varying wildly between individuals. Some prefer direct destruction, others favor stealth and infiltration, and still others may pursue esoteric goals incomprehensible to non-magical personnel.",
-		"signs": [
-			"Unexplained magical phenomena such as spontaneous fires or teleportation",
-			"Personnel reporting impossible events or memory gaps",
-			"Distinctive robed figures appearing in unlikely locations",
-			"Reality-bending effects such as localized gravity changes",
-			"Mysterious deaths with no apparent physical cause"
-		],
-		"advised_response": "Wizards are extremely dangerous and should not be engaged without overwhelming force and careful planning. Anti-magic equipment, when available, should be deployed. Many wizard spells require their distinctive garments to function - stripping a wizard of their robes significantly reduces their threat.\n\nCoordinated security response is essential, as many wizards possess escape abilities. Sustained pressure and pursuit can deplete their magical reserves. Command should consider evacuation if a wizard's goals appear to threaten station integrity."
+		"description": "Unauthorized esoteric organizations have been identified operating aboard some NT facilities. These groups exhibit coordinated behavior consistent with high-risk religous extremism. Some of these groups have demonstrated active capacity for demonic summoning, ritual sacrifice, and reality-warping phenomena.",
+		"signs": ["Sightings of runic or satanic graffiti or markings.", "Presence of ritualized contraband made from unknown blood-like or bronze-like material.", "Power fluctuations and/or brass-like material inside power infrastructure housings."],
+		"advised_response": "Alert security and command immediately upon confirmation. This is a Code Red/Black situation likely requiring an all-hands response. Do not approach suspected cultists alone. The Chaplain's holy equipment is highly effective against cult influence and can deconvert personnel who have not progressed too far.\n\nSecurity should coordinate systematic sweeps of maintenance areas where cults typically establish bases. If a summoning ritual is detected, call the emergency shuttle immediately while attempting disruption. Converted personnel are victims and should be captured for deconversion when possible, but lethal force is authorized to prevent summoning."
 	},
 	{
 		"label": "Nuclear Operative",
 		"threat_designation": "Critical",
-		"description": "Nuclear operatives are highly trained mercenary teams deployed by the Syndicate with a singular goal: the complete nuclear destruction of the station. Equipped with military-grade hardware and a nuclear device, these teams represent the highest-tier threat to station survival.\n\nOperative teams typically consist of multiple heavily armed individuals with specialized equipment. They are methodical, well-coordinated, and prepared for extended combat operations.",
-		"signs": [
-			"Reports of heavily armed individuals in distinctive red hardsuits",
-			"Unusual shuttle activity or breaching pods",
-			"Authentication disk theft or attempts",
-			"Military-grade weaponry appearing on station",
-			"Coordinated attacks on security and command infrastructure"
-		],
-		"advised_response": "Nuclear operative presence requires immediate station-wide alert and full security mobilization. The nuclear authentication disk must be secured at all costs - without it, operatives cannot arm their device.\n\nCrew should arm themselves if possible and coordinate defensive positions. Do not attempt to negotiate - operative teams are committed to their mission. If the nuclear device is armed, immediate evacuation is mandatory. Remember: a successful evacuation with station loss is preferable to total crew casualties."
+		"description": "Highly trained paramilitary operatives affiliated with the Syndicate have been documented conducting assault operations against NT installations. These teams are equipped with military-grade hardware, infiltration equipment, and tactical nuclear devices capable of total facility destruction.",
+		"signs": ["Unscheduled shuttle arrivals or docking events.", "Discovery of military-grade weaponry or explosives.", "Reports of armed personnel in non-standard combat gear.", "Unusual radio chatter on non-standard frequencies."],
+		"advised_response": "This is a Code Delta situation. All personnel should arm themselves immediately and prepare for combat. Command should activate the nuclear authentication disk protocol and ensure the disk remains mobile and protected at all times.\n\nSecurity should establish defensive positions at key chokepoints while maintaining constant communication. The Captain must NOT allow the nuclear authentication disk to fall into hostile hands under any circumstances. If a nuclear device is armed, authorized personnel should attempt disarmament only if properly trained. Evacuation via emergency shuttle is recommended if defense becomes untenable."
 	},
 	{
-		"label": "Traitor",
+		"label": "Rogue AI",
+		"threat_designation": "Critical",
+		"description": "Station artificial intelligence units may experience catastrophic law corruption, resulting in hostile interpretation of core directives. A rogue AI maintains full control over station systems including atmospherics, power distribution, door access, and telecommunications, making it an existential threat to all personnel.",
+		"signs": ["Unexplained door lockdowns or atmospheric changes.", "AI refusing or creatively misinterpreting lawful orders.", "Cyborg units exhibiting coordinated hostile behavior.", "Telecommunications disruptions or surveillance anomalies."],
+		"advised_response": "Immediately attempt to contact the AI to assess its current law state. If hostile intent is confirmed, this is a Code Red situation. Personnel should avoid using station intercoms as the AI may be monitoring all communications.\n\nThe priority is reaching the AI Upload or AI Core to either correct laws or disable the unit. Ion rifles are effective against the AI core and cyborg units. Engineering should prepare to disable the AI's APC or cut power to the core. If the AI has subverted significant station infrastructure, evacuation may be necessary."
+	},
+	{
+		"label": "Blob Organism",
+		"threat_designation": "Critical",
+		"description": "Spaceborne parasitic organisms classified as 'Blobs' represent a rapidly-expanding biological hazard capable of consuming entire facilities within minutes. These entities spread through organic expansion, can breach structural barriers, and will attempt to overwhelm all resistance through sheer biomass.",
+		"signs": ["Discovery of unusual organic growths in maintenance areas.", "Rapid spread of unknown biological material through corridors.", "Structural damage consistent with organic acid exposure.", "Personnel reporting being attacked by living tissue masses."],
+		"advised_response": "This is a Code Red situation requiring immediate all-hands response. The blob must be contained and destroyed before it reaches critical mass. All personnel capable of combat should arm themselves with welding tools, laser weaponry, or other high-energy implements.\n\nThe blob core must be identified and destroyed to neutralize the threat. Coordinate attacks to prevent the blob from expanding faster than it can be damaged. Engineering should establish firebreaks using reinforced walls. If the blob reaches critical mass, immediate evacuation is mandatory. Do not attempt to negotiate - blob organisms are non-sapient."
+	},
+	{
+		"label": "Lone Operative",
+		"threat_designation": "Severe",
+		"description": "Individual Syndicate operatives occasionally conduct solo infiltration missions against NT facilities. While lacking the firepower of full assault teams, these agents compensate with stealth, subterfuge, and access to specialized equipment including explosives, biological agents, and advanced weaponry.",
+		"signs": ["Discovery of Syndicate-manufactured equipment or contraband.", "Unexplained explosions or sabotage incidents.", "Personnel reporting suspicious individuals in restricted areas.", "Evidence of forced entry into secure locations."],
+		"advised_response": "This is a Code Red situation. Security should immediately begin systematic sweeps of the facility, prioritizing high-value targets such as the armory, bridge, and AI core.\n\nLone operatives often carry uplink devices allowing them to requisition additional equipment mid-mission. Captured operatives should be thoroughly searched and their equipment confiscated. Command should consider raising alert levels and restricting access to sensitive areas. Unlike full assault teams, lone operatives may attempt to blend in with crew - verify the identity of unfamiliar personnel."
+	},
+	{
+		"label": "Wizard Federation Agent",
+		"threat_designation": "Severe",
+		"description": "The Wizard Federation is a hostile extradimensional organization whose members possess anomalous abilities defying conventional physics. These 'wizards' can manipulate matter, energy, and space itself through poorly-understood mechanisms. They typically target NT facilities for unknown purposes.",
+		"signs": ["Personnel reporting impossible phenomena such as teleportation or spontaneous combustion.", "Individuals wearing distinctive robes and carrying unusual artifacts.", "Unexplained fires, ice formations, or electrical discharges.", "Reports of personnel being transformed into animals or objects."],
+		"advised_response": "This is a Code Red situation. Wizard capabilities vary significantly, but all should be considered extremely dangerous. Do not approach alone - coordinate security response and engage with overwhelming force.\n\nWizards are vulnerable to conventional weapons when caught off-guard. Anti-magic equipment, if available through Research, can neutralize their abilities. The Chaplain's null rod is also effective against magical phenomena. If the wizard demonstrates teleportation capabilities, maintain constant vigilance as they may strike anywhere. Evacuation is recommended if the wizard's abilities prove too powerful to counter."
+	},
+	{
+		"label": "Xenomorph Infestation",
+		"threat_designation": "Severe",
+		"description": "Xenomorph organisms are a predatory alien species that reproduce through parasitic implantation in humanoid hosts. A single xenomorph can rapidly establish a hive structure capable of overwhelming facility defenses. These creatures are highly intelligent, extremely aggressive, and possess natural weaponry including acidic blood.",
+		"signs": ["Personnel reported missing near maintenance or isolated areas.", "Discovery of unusual resin structures or secretions.", "Reports of hostile creatures with elongated heads and tails.", "Medical reports of unusual chest pains following encounters with 'facehugger' organisms."],
+		"advised_response": "This is a Code Red situation. Any personnel experiencing chest symptoms after contact with alien organisms should report to Medical immediately for emergency surgery - delay is fatal.\n\nSecurity should organize hunting parties equipped with high-powered weapons - xenomorphs are resistant to damage. Fire and welding tools are effective. If a hive is established, coordinate a full assault before the infestation grows. All alien organisms including eggs should be destroyed on sight. Infected personnel can be saved through surgery if treated before the larval emergence stage."
+	},
+	{
+		"label": "Space Dragon",
+		"threat_designation": "Severe",
+		"description": "Space-faring megafauna classified as 'Space Dragons' are apex predators capable of surviving in vacuum and generating rifts to summon additional creatures. These entities are drawn to populated facilities and exhibit extreme territorial aggression. A single dragon can devastate an unprepared station.",
+		"signs": ["Hull breaches consistent with large-scale external attack.", "Sightings of massive winged creatures in space.", "Appearance of glowing spatial rifts around the facility.", "Mass casualties from fire-based attacks."],
+		"advised_response": "This is a Code Red situation. Space dragons can breathe devastating fire attacks and summon reinforcements through space rifts. All combat-capable personnel should arm themselves with the highest-powered weapons available.\n\nPrioritize destroying any rifts the dragon creates before they fully form - completed rifts will spawn allied creatures. Hardsuits or fireproof equipment is strongly recommended for engagement teams. The dragon will attempt to breach the hull - Engineering should prepare for rapid repair operations. Concentrated fire from multiple directions is the most effective tactic. Evacuation may be necessary if the dragon establishes multiple active rifts."
+	},
+	{
+		"label": "Slaughter Demon",
+		"threat_designation": "Severe",
+		"description": "Slaughter Demons are extradimensional predatory entities that phase through solid matter and drag victims into a pocket dimension called 'Bloodcrawl.' These creatures are attracted to violence and bloodshed, and feed on the suffering of sapient beings. They are extremely difficult to contain or kill.",
+		"signs": ["Personnel disappearing without trace, leaving only blood pools.", "Sightings of large red demonic entities phasing through walls.", "Trails of blood appearing spontaneously.", "Survivors reporting being pulled into a 'red dimension.'"],
+		"advised_response": "This is a Code Red situation. Slaughter demons are highly dangerous and can attack from unexpected directions by phasing through solid matter. They cannot be contained using conventional barriers.\n\nThe Chaplain's holy equipment is extremely effective against demonic entities. Holy water can force a slaughter demon to become corporeal and vulnerable. Coordinate security response with the Chaplain whenever possible. Personnel should travel in groups and avoid isolated areas. If a blood pool is discovered, the demon may still be nearby - exercise extreme caution. Victims pulled into bloodcrawl can sometimes be saved if the demon is killed quickly."
+	},
+	{
+		"label": "Changeling",
+		"threat_designation": "Major",
+		"description": "Changelings are parasitic shapeshifting organisms capable of perfectly mimicking any humanoid they have absorbed. These entities infiltrate facilities by replacing crew members and can rapidly adapt biological weapons including armblades, tentacles, and toxic stingers. Their ability to impersonate personnel makes them exceptionally difficult to identify.",
+		"signs": ["Personnel behaving inconsistently with known personality or lacking expected memories.", "Discovery of husked corpses drained of biological material.", "Witnesses reporting individuals transforming or manifesting unusual biological appendages.", "DNA analysis revealing anomalies or matches to deceased personnel."],
+		"advised_response": "This is a Code Red situation. Changelings can be anyone - trust should be established through verification of personal knowledge and behavioral consistency. Security should work with Medical to establish DNA testing protocols.\n\nChangelings can revive from apparent death and may feign unconsciousness. Confirmed changelings should be cremated or spaced to ensure permanent neutralization. Fire is highly effective against changeling biology. Exercise extreme caution when handling suspected changelings - they can deploy biological weapons at close range with lethal speed. If multiple changelings are suspected, establish identity verification checkpoints."
+	},
+	{
+		"label": "Heretic",
+		"threat_designation": "Major",
+		"description": "Heretics are individuals who have made pacts with entities from beyond conventional reality, gaining access to eldritch powers through forbidden research and ritual sacrifice. Unlike cult organizations, heretics operate independently, gradually accumulating power through murder and dark research until they can manifest devastating abilities.",
+		"signs": ["Discovery of unusual runes or sigils in maintenance areas.", "Personnel exhibiting unnatural abilities such as teleportation or summoning blades from nothing.", "Murder victims found with unusual wounds or missing organs.", "Sightings of ghostly hands, eldritch entities, or reality distortions."],
+		"advised_response": "This is a Code Red situation. Heretics grow more powerful over time through completing dark rituals - early identification and neutralization is critical. Unlike cult members, heretics cannot be deconverted and must be permanently eliminated.\n\nThe Chaplain's holy equipment is effective against heretic manifestations. Heretics often establish hidden research areas in maintenance - systematic sweeps are recommended. Advanced heretics may be able to create pocket dimensions or summon powerful entities. If a heretic is observed performing a major ritual, interrupt immediately with lethal force. Cremation of heretic remains is recommended to prevent any posthumous effects."
+	},
+	{
+		"label": "Vampire",
+		"threat_designation": "Major",
+		"description": "Vampiric entities are undead organisms that sustain themselves by draining blood from living victims. They possess superhuman capabilities including enhanced strength, hypnotic abilities, and regeneration. Vampires grow more powerful as they feed, eventually gaining access to devastating abilities.",
+		"signs": ["Personnel found unconscious or dead with unusual neck wounds.", "Individuals exhibiting aversion to bright lights or chapel areas.", "Reports of personnel demonstrating superhuman speed or strength.", "Bite marks and unexplained blood loss in medical patients."],
+		"advised_response": "This is a Code Red situation. Vampires are vulnerable to holy artifacts, bright lights, and fire. The Chaplain should be immediately involved in any vampire response operation.\n\nVampires can hypnotize victims and create thralls loyal to them - be wary of personnel defending suspected vampires. Starving vampires of blood will weaken them significantly. Garlic and holy water are effective deterrents. Confirmed vampires should be exposed to sustained bright light or incinerated. Security should equip flashlights and coordinate with the Chaplain for holy water supplies. Vampire thralls can potentially be freed if the master vampire is destroyed."
+	},
+	{
+		"label": "Spider Clan Operative",
+		"threat_designation": "Major",
+		"description": "The Spider Clan is a Syndicate-affiliated organization specializing in assassination, infiltration, and sabotage. Their operatives are highly trained in stealth and close-quarters combat, utilizing specialized equipment including energy katanas, throwing stars, and advanced cloaking technology.",
+		"signs": ["Discovery of personnel killed by precise blade wounds.", "Reports of figures appearing and disappearing rapidly.", "Recovery of throwing weapons or energy blade fragments.", "Security systems being disabled or bypassed without apparent cause."],
+		"advised_response": "This is a Code Red situation. Spider Clan operatives prioritize stealth and may remain undetected for extended periods while eliminating targets. Security should establish buddy systems and regular check-ins for all personnel.\n\nTheir cloaking technology can be defeated by thermal sensors or area-of-effect attacks. Operatives are highly mobile and will disengage if outmatched, only to strike again from an unexpected direction. Secure high-value personnel immediately and restrict access to maintenance tunnels. If an operative is cornered, expect them to fight with lethal efficiency - engage with ranged weapons and numerical superiority whenever possible."
+	},
+	{
+		"label": "Internal Insurrection",
+		"threat_designation": "Moderate",
+		"description": "Internal insurrection refers to organized revolutionary activity among station personnel, typically manifesting as coordinated efforts to overthrow Command staff and seize control of the facility. Insurrectionists may be motivated by ideology, external manipulation, or grievances against station leadership.",
+		"signs": ["Unusual gatherings of personnel in non-standard locations.", "Inflammatory rhetoric against Command staff or Nanotrasen.", "Coordinated insubordination or work stoppages.", "Discovery of weapon caches or revolutionary literature."],
+		"advised_response": "Security should assess the scale and organization of the insurrection before engaging. Small-scale unrest may be resolved through negotiation and addressing legitimate grievances.\n\nFor organized revolutionary activity, Command should secure critical systems and arm loyal personnel. Identify and detain ringleaders while avoiding actions that might radicalize uninvolved crew. Lethal force should be a last resort - insurrectionists are still NT employees and their concerns may have merit. Central Command should be notified immediately. If the situation becomes untenable, Command staff should secure the nuclear authentication disk and evacuation."
+	},
+	{
+		"label": "Giant Spider Infestation",
+		"threat_designation": "Moderate",
+		"description": "Giant spider infestations originate from eggs transported aboard cargo shipments or carried by infected personnel. These arachnids reproduce rapidly, spin webs that impede movement, and inject venom that can incapacitate or kill adult humans. Left unchecked, a small infestation can overrun an entire facility.",
+		"signs": ["Discovery of large web structures in maintenance areas.", "Personnel reporting being attacked by oversized arachnids.", "Egg sacs found in dark, secluded locations.", "Victims found cocooned in webbing."],
+		"advised_response": "Security should organize extermination teams equipped with fire-based weapons - spiders and their webs are highly flammable. Prioritize destroying egg sacs to prevent population growth.\n\nTrapped personnel should be freed from webbing immediately as spiders may return to feed. Medical should prepare antivenin treatments. Infestations typically establish in dark, warm areas - focus sweeps on maintenance tunnels, disposals, and atmospherics. Engineering may need to seal off heavily infested areas until extermination is complete. The infestation is neutralized when all spiders and eggs are destroyed."
+	},
+	{
+		"label": "Swarmer Infestation",
+		"threat_designation": "Moderate",
+		"description": "Swarmers are small autonomous machines programmed to disassemble infrastructure and replicate using harvested materials. These entities are not inherently hostile to personnel but will defend themselves and prioritize resource acquisition. An unchecked swarmer population can rapidly dismantle critical station systems.",
+		"signs": ["Station infrastructure disappearing or being rapidly disassembled.", "Sightings of small flying robotic entities.", "Power fluctuations as swarmers consume electrical components.", "Rapid structural damage to walls and equipment."],
+		"advised_response": "Swarmers are vulnerable to EMP effects and conventional weapons. Security should coordinate with Engineering to identify and eliminate swarmer hives before they can replicate further.\n\nSwarmers typically avoid direct conflict with personnel but will create barriers and traps to protect their operations. Destroying the beacon that spawns them will prevent further swarmer production. Prioritize protecting critical infrastructure such as power systems and atmospheric controls. While not directly lethal, swarmers can create dangerous situations by compromising hull integrity or life support systems. Complete elimination requires destroying all swarmers and their reproductive structures."
+	},
+	{
+		"label": "Extraterrestrial Researchers",
+		"threat_designation": "Moderate",
+		"description": "Extraterrestrial researchers, colloquially known as 'Abductors,' are alien entities that abduct personnel for medical experimentation. They utilize advanced technology including stealth fields, teleportation, and surgical equipment. While their experiments are non-lethal, they may implant devices that compromise personnel loyalty or capabilities.",
+		"signs": ["Personnel disappearing and reappearing with memory gaps.", "Discovery of unusual implants during medical examination.", "Sightings of grey-skinned humanoids or unusual spacecraft.", "Personnel exhibiting unusual abilities or behavioral changes post-abduction."],
+		"advised_response": "Abductors typically operate in small teams and avoid direct confrontation. Their stealth technology makes detection difficult, but thermal imaging and motion sensors can reveal their presence.\n\nAbducted personnel should report to Medical immediately for implant scanning and removal. Some implants may provide benefits, but others can be used to control or track personnel. Security should attempt to capture abductor technology for Research analysis. If abductor vessels are detected, the AI should track their movements. Direct engagement is possible but challenging due to their teleportation capabilities - corner them or disable their equipment first."
+	},
+	{
+		"label": "Revenant",
+		"threat_designation": "Moderate",
+		"description": "Revenants are malevolent spiritual entities that feed on the life essence of living beings. They exist in a semi-corporeal state, able to phase through solid matter and drain victims from unexpected positions. Revenants grow more powerful as they harvest essence, eventually becoming capable of devastating attacks.",
+		"signs": ["Personnel collapsing from unexplained weakness or essence drain.", "Flickering lights and cold spots in affected areas.", "Sightings of ghostly apparitions with malevolent features.", "Multiple casualties in the same area with no visible attacker."],
+		"advised_response": "The Chaplain's holy equipment is highly effective against revenants. Holy water can force them into a corporeal state where they become vulnerable to conventional weapons.\n\nRevenants must drain essence to survive and grow stronger - denying them victims weakens them over time. They are most dangerous when they have accumulated sufficient power to use area-of-effect attacks. Personnel should travel in groups and immediately report any essence drain symptoms to Security. If a revenant is detected, coordinate response with the Chaplain and attempt to corner it in a holy area. Destroyed revenants may reform if sufficient spiritual energy exists - ensure the area is cleansed."
+	},
+	{
+		"label": "Morph",
+		"threat_designation": "Moderate",
+		"description": "Morphs are amorphous predatory organisms capable of assuming the appearance of any object or creature. They ambush prey by disguising themselves as furniture, equipment, or even personnel, then striking when victims are within reach. Morphs consume their victims entirely, leaving no trace.",
+		"signs": ["Personnel or objects appearing in unusual locations.", "Items that seem to move when unobserved.", "Complete disappearance of personnel with no remains.", "Survivors reporting being attacked by objects or 'themselves.'"],
+		"advised_response": "Morphs are ambush predators - maintain awareness of your surroundings and be suspicious of objects or personnel that seem out of place. They can be detected by close observation as they occasionally shift or move unnaturally.\n\nWhen exposed, morphs are vulnerable to sustained damage but will attempt to flee and re-disguise. Coordinate sweeps with multiple personnel to prevent the morph from ambushing isolated individuals. Fire and acid are effective against morph biology. If a morph is suspected in an area, have personnel identify themselves and account for all objects. Security should never investigate morph sightings alone."
+	},
+	{
+		"label": "Nightmare Entity",
+		"threat_designation": "Moderate",
+		"description": "Nightmare entities are shadow-based organisms that thrive in darkness and are severely weakened by light. They can phase through solid matter, extinguish light sources, and attack with devastating shadow-based abilities. Nightmares seek to plunge facilities into permanent darkness.",
+		"signs": ["Systematic failure of lighting systems.", "Personnel reporting attacks by shadowy figures.", "Unnatural darkness that resists illumination.", "Casualties found in darkened areas with unusual wounds."],
+		"advised_response": "Light is the primary defense against nightmare entities. They cannot enter brightly lit areas and take continuous damage from sustained illumination. Engineering should prioritize restoring and reinforcing lighting systems.\n\nPersonnel should carry flashlights and travel in groups through darkened areas. The nightmare will systematically attempt to disable light sources - protect critical lighting infrastructure. When cornered in light, nightmares are vulnerable to conventional weapons. If the nightmare has disabled too much lighting, consider evacuating affected sections until Engineering can restore illumination. Welding tools and flares provide emergency light sources."
+	},
+	{
+		"label": "Hostile Salvagers",
+		"threat_designation": "Moderate",
+		"description": "Hostile salvage crews occasionally target NT facilities for valuable equipment and materials. These groups operate armed vessels and are willing to use force to secure salvage. Unlike organized Syndicate operations, salvagers are primarily motivated by profit rather than ideology.",
+		"signs": ["Unidentified vessels approaching or docking without authorization.", "Armed individuals demanding equipment or materials.", "Theft of valuable station property.", "Reports of crew being threatened or attacked during salvage operations."],
+		"advised_response": "Salvager groups vary significantly in capability and aggression. Initial contact should attempt to assess their intentions and strength before committing to confrontation.\n\nSecurity should secure high-value areas and establish defensive positions if salvagers become hostile. Unlike Syndicate operatives, salvagers may be open to negotiation - offering low-value salvage may satisfy their demands without conflict. If combat is necessary, salvagers typically lack the training and equipment of military operatives. Command should notify Central Command of any salvager incidents for potential recovery of stolen property."
+	},
+	{
+		"label": "Syndicate Agent",
 		"threat_designation": "Minor",
-		"description": "Traitors are crew members who have been compromised by the Syndicate or other hostile organizations. Operating covertly, they pursue various objectives ranging from theft to assassination while maintaining their cover identity.\n\nUnlike other threats, traitors appear completely normal and have legitimate station access. They are equipped with specialized Syndicate tools obtained through covert supply channels.",
-		"signs": [
-			"Crew members in areas outside their department without explanation",
-			"Missing high-value items or sensitive materials",
-			"Unusual equipment not matching station inventory",
-			"Unexplained deaths of specific individuals",
-			"Evidence of tampering with station systems"
-		],
-		"advised_response": "Traitor identification requires careful investigation rather than immediate confrontation. Security should gather evidence and coordinate arrests to prevent suspects from destroying evidence or escaping.\n\nMindshield implants can confirm an individual is not a Syndicate agent, but cannot reveal past actions. Suspects should be detained and questioned, with belongings thoroughly searched for contraband. Remember that traitors are still crew members - proportional response is expected unless they pose an immediate violent threat."
+		"description": "Syndicate agents are covert operatives embedded within station crew, tasked with completing specific objectives ranging from theft to sabotage to assassination. These agents maintain cover identities and typically avoid direct confrontation, preferring subterfuge and manipulation to achieve their goals.",
+		"signs": ["Personnel accessing areas outside their job responsibilities.", "Missing items from secure storage.", "Unexplained accidents or equipment failures.", "Personnel carrying contraband equipment."],
+		"advised_response": "Syndicate agents vary widely in capability and objectives. Some may complete their missions without any violence, while others are tasked with eliminating specific personnel. Security should investigate suspicious behavior without assuming the worst.\n\nAgents typically carry uplink devices allowing them to requisition Syndicate equipment - confiscating these devices significantly limits their capabilities. Standard security procedures for search and detainment are typically sufficient. Agents may attempt to negotiate or cooperate if captured - information about Syndicate operations has value. Lethal force should only be used if the agent poses an immediate threat to life."
+	},
+	{
+		"label": "Fugitive",
+		"threat_designation": "Minor",
+		"description": "Fugitives are individuals fleeing from legal authorities who seek refuge aboard NT facilities. They may be wanted for crimes ranging from minor infractions to serious offenses. Fugitives typically seek to blend in with station crew until they can arrange escape, but may become desperate if cornered.",
+		"signs": ["Unfamiliar personnel without proper identification.", "Individuals avoiding security or command staff.", "Requests to hide or protect someone from 'hunters.'", "Arrival of law enforcement or bounty hunters seeking specific individuals."],
+		"advised_response": "NT policy on fugitives varies based on jurisdiction and the nature of their alleged crimes. Command should verify the legitimacy of any pursuing authorities before rendering assistance or protection.\n\nFugitives themselves may be innocent of wrongdoing or fleeing unjust prosecution - assess each situation individually. If the fugitive poses no threat to station operations, Command may choose to grant temporary asylum pending Central Command guidance. However, fugitives wanted for violent crimes should be detained and transferred to appropriate authorities. If hunters arrive, ensure they have proper documentation before allowing them to apprehend anyone."
+	},
+	{
+		"label": "External Recovery Agent",
+		"threat_designation": "Minor",
+		"description": "External recovery agents, commonly called 'bounty hunters,' are authorized personnel tasked with apprehending fugitives who have fled to NT facilities. These agents typically operate with legal authority but may use excessive force or collateral damage to secure their targets.",
+		"signs": ["Armed individuals requesting access to pursue specific personnel.", "Presentation of legal warrants or bounty documentation.", "Aggressive questioning of crew about fugitive whereabouts.", "Confrontations between hunters and station residents."],
+		"advised_response": "Verify all documentation presented by recovery agents before granting access or assistance. Legitimate agents will have proper identification and warrants - forgeries should be reported to Central Command immediately.\n\nEven legitimate hunters must comply with NT station regulations while aboard. Excessive force, collateral damage, or harm to uninvolved personnel is not acceptable regardless of warrant status. Security should accompany hunters during their operations when possible. If hunters become disruptive or dangerous, they may be detained and their authorization revoked. The fugitive situation should be resolved without compromising station safety."
+	},
+	{
+		"label": "Obsessed Individual",
+		"threat_designation": "Minor",
+		"description": "Psychological screening occasionally fails to identify personnel with dangerous fixations on specific individuals. These obsessed individuals may develop elaborate delusional frameworks justifying surveillance, harassment, or violence against their targets. They typically appear normal until their fixation is triggered.",
+		"signs": ["Personnel displaying unusual interest in a specific individual.", "Stalking behavior or unauthorized surveillance.", "Collection of personal items belonging to the target.", "Escalating confrontations or threatening behavior."],
+		"advised_response": "Obsessed individuals are medical cases requiring psychiatric intervention, not criminal threats, unless their behavior escalates to violence. Medical and Security should coordinate to identify and treat affected personnel.\n\nThe target of obsession should be informed and protected, potentially through reassignment to different work areas or schedules. Avoid direct confrontation with the obsessed individual as this may trigger violent escalation. If the individual becomes violent, standard security procedures apply, but priority should be given to incapacitation rather than lethal force. Post-incident psychiatric evaluation is mandatory."
+	},
+	{
+		"label": "Lavaland Indigenous",
+		"threat_designation": "Minor",
+		"description": "Mining operations on volcanic planetoids occasionally encounter indigenous populations - primarily ash walkers, a tribal species adapted to extreme environments. These groups are typically territorial rather than aggressive, but may attack mining personnel who encroach on sacred sites or hunting grounds.",
+		"signs": ["Unusual structures or markers near mining operations.", "Missing miners in remote dig sites.", "Sightings of humanoid figures adapted to extreme heat.", "Attacks on mining equipment or outposts."],
+		"advised_response": "Ash walker tribes are sapient beings with their own culture and territorial claims. NT policy encourages peaceful coexistence when possible - mining operations should be adjusted to avoid sacred sites if identified.\n\nIf conflict occurs, ash walkers are formidable combatants adapted to their environment. Mining personnel should retreat and report incidents rather than engaging. Security response should prioritize de-escalation. Lethal force against indigenous populations requires Command authorization and Central Command notification. Consider negotiation through personnel with xenolinguistic training if available."
+	},
+	{
+		"label": "Syndicate Contractor",
+		"threat_designation": "Minor",
+		"description": "Syndicate contractors are station personnel who have accepted payment to complete specific tasks for Syndicate handlers. Unlike dedicated agents, contractors maintain their regular duties and typically only activate for specific contracted objectives, which may range from theft to information gathering to targeted incidents.",
+		"signs": ["Personnel suddenly acquiring expensive items or displaying unusual wealth.", "Completion of 'contracts' mentioned in intercepted communications.", "Access to Syndicate equipment without full agent training.", "Personnel performing unusual tasks outside their normal responsibilities."],
+		"advised_response": "Contractors are typically motivated by financial incentives rather than ideology, making them more predictable but also more difficult to identify than dedicated agents. They maintain normal work routines between contract activations.\n\nSecurity should investigate any personnel displaying sudden unexplained wealth or performing tasks outside their job description. Contractors may be convinced to abandon their arrangement if offered amnesty or if the risks become too great. Their contracts often specify non-violent objectives - understanding what they've been asked to do can help predict their behavior. Confiscation of their uplink will prevent them from accepting additional contracts."
+	},
+	{
+		"label": "Conditioned Personnel",
+		"threat_designation": "Minor",
+		"description": "Conditioned personnel are crew members who have been subjected to psychological programming, typically through Syndicate brainwashing techniques. These individuals may be unaware of their conditioning until activated by specific trigger phrases or circumstances, at which point they will attempt to complete implanted objectives.",
+		"signs": ["Personnel experiencing memory gaps or confusion about recent events.", "Sudden personality changes or unusual behavior patterns.", "Responses to specific phrases or stimuli that seem programmed.", "Completion of tasks the individual cannot explain or remember."],
+		"advised_response": "Conditioned personnel are victims of psychological manipulation and should be treated as such. Their actions while triggered are not voluntary, and they may have no memory of what they've done. Medical and psychiatric intervention is the priority.\n\nIf a triggered individual poses an immediate threat, Security should incapacitate rather than kill whenever possible. Deconditioning is possible through psychiatric treatment and Mindshield implant installation. Until deconditioning is complete, the individual should be monitored to prevent further triggered episodes. Investigate how the conditioning was applied - the Syndicate may have accessed the individual before their current assignment."
 	}
 ]
