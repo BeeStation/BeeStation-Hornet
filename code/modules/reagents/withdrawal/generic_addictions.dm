@@ -1,6 +1,6 @@
 ///Opioids
 /datum/addiction/opioids
-	name = "opioid"
+	name = "Opioid"
 	withdrawal_stage_messages = list("I feel aches in my bodies..", "I need some pain relief...", "It aches all over...I need some opioids!")
 
 /datum/addiction/opioids/withdrawal_stage_1_process(mob/living/carbon/affected_carbon, delta_time)
@@ -25,7 +25,7 @@
 ///Stimulants
 
 /datum/addiction/stimulants
-	name = "stimulant"
+	name = "Stimulant"
 	withdrawal_stage_messages = list("You feel a bit tired...You could really use a pick me up.", "You are getting a bit woozy...", "So...Tired...")
 
 /datum/addiction/stimulants/withdrawal_enters_stage_1(mob/living/carbon/affected_carbon)
@@ -48,7 +48,7 @@
 
 ///Alcohol
 /datum/addiction/alcohol
-	name = "alcohol"
+	name = "Alcohol"
 	withdrawal_stage_messages = list("I could use a drink...", "Maybe the bar is still open?..", "God I need a drink!")
 
 /datum/addiction/alcohol/withdrawal_stage_1_process(mob/living/carbon/affected_carbon, delta_time)
@@ -90,7 +90,7 @@
 	affected_carbon.remove_status_effect(/datum/status_effect/trance, 40 SECONDS, TRUE)
 
 /datum/addiction/maintenance_drugs
-	name = "maintenance drug"
+	name = "Maintenance drug"
 	withdrawal_stage_messages = list("", "", "")
 
 /datum/addiction/maintenance_drugs/withdrawal_enters_stage_1(mob/living/carbon/affected_carbon)
@@ -161,7 +161,7 @@
 
 ///Makes you a hypochondriac - I'd like to call it hypochondria, but "I could use some hypochondria" doesn't work
 /datum/addiction/medicine
-	name = "medicine"
+	name = "Medicine"
 	withdrawal_stage_messages = list("", "", "")
 	/// Weakref to the "fake alert" hallucination we're giving to the addicted
 	var/datum/weakref/fake_alert_ref
@@ -272,7 +272,7 @@
 
 ///Nicotine
 /datum/addiction/nicotine
-	name = "nicotine"
+	name = "Nicotine"
 	addiction_relief_treshold = MIN_NICOTINE_ADDICTION_REAGENT_AMOUNT //much less because your intake is probably from ciggies
 	withdrawal_stage_messages = list("Feel like having a smoke...", "Getting antsy. Really need a smoke now.", "I can't take it! Need a smoke NOW!")
 
