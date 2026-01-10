@@ -11,7 +11,7 @@
 	var/stash_location = create_stash()
 	to_chat(owner.current, span_userdanger("You are a fanatic vigilante!"))
 	to_chat(owner.current, "<span class='secradio'>This world... This world is ruled by <b>criminals</b>. A violent underworld dances amongst the peaceful happenings of the station, ruining the purity of our new system. <b>It is up to you to take matters into your own hands!</b></span>")
-	to_chat(owner.current, {"<span class='secradio'><ul>
+	to_chat(owner.current, {"<span class='secradio'><ul style='display: flex; flex-direction: column'>
 		<li>You will gain a kill directive on anyone who gets put in prison.</li>
 		<li>You will gain a kill directive on anyone who gets marked for arrest.</li>
 		<li>Find the station's key infiltrator and ensure they fail their objectives.</li>
@@ -31,7 +31,7 @@
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Fanatic Vigilante", "Investigate and uncover the station's infiltrator, elimating any small-fry criminals along the way.")
 	// Start with some TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
-	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = TELECRYSTALS_VIGILANTE, directive_flags = NONE)
+	uplink = owner.equip_standard_uplink(employer = "You", silent = TRUE, uplink_owner = src, telecrystals = TELECRYSTALS_VIGILANTE, directive_flags = NONE)
 	uplink.reputation = 0
 	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station, however as an outsider you will be unable to gain any reputation. The uplink came with a message:</span><br>[span_traitorobjective(uplink.unlock_text)]")
 	RegisterSignal(uplink, COMSIG_QDELETING, PROC_REF(deconvert))
@@ -92,11 +92,12 @@
 
 	// Create the items
 	var/obj/item/paper/paper = new()
-	paper.add_raw_text(paper_text)
+	paper.add_raw_text(advanced_html = paper_text)
+	paper.update_appearance()
 	var/obj/item/detective_scanner/scanner = new()
 
 	// Spawn the stash
-	return generate_stash(list(scanner), list(owner), null, silent = TRUE)
+	return generate_stash(list(scanner, paper), list(owner), null, silent = TRUE)
 
 /datum/antagonist/vigilante/farewell()
 	. = ..()
