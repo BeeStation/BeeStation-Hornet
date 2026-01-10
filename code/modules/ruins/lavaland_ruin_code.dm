@@ -85,3 +85,56 @@
 /obj/item/golem_shell/servant
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
+
+//Special golem, made by cultists uses soulstones to transfer them into existance
+
+/obj/item/golem_shell/runic
+	name = "incomplete runic golem shell"
+	desc = "A hollow frame of heavy stone etched with pulsing red runes. It lacks a spark of life."
+	icon_state = "construct"
+/obj/item/golem_shell/runic/attack_hand(mob/user)
+	to_chat(user, span_warning("The shell is far too heavy to lift."))
+	return TRUE
+
+/obj/item/golem_shell/runic/attack_hand(mob/user)
+	if(istype(user, /mob/living/carbon/human/species/golem))
+		return TRUE
+	return ..()
+
+/obj/item/golem_shell/runic/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/stack))
+		to_chat(user, span_warning("The shell refuses the material you are putting on it.")) // Otherwise they could place metal into it and turn it into a regular golem
+		return TRUE
+	if(!istype(O, /obj/item/soulstone))
+		return ..()
+	if(!user || !user.Adjacent(src))
+		return TRUE
+	if(!user.mind || !user.mind.has_antag_datum(/datum/antagonist/cult))  // You're not a cultist, why are you even trying to place a soulstone
+		to_chat(user, span_warning("The runes refuse to answer your touch."))
+		return TRUE
+	var/obj/item/soulstone/SS = O
+	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in SS
+	if(!S)
+		to_chat(user, span_warning("The soulstone is empty. The runes remain dormant."))
+		return TRUE
+	if(!S.mind)
+		to_chat(user, span_warning("The trapped soul is unstable and cannot inhabit the shell."))
+		return TRUE
+	var/old_name = replacetext(S.real_name, "Shade of ", "") // We dont want a golem called "Shade of William"
+	user.visible_message(
+		span_cult("The runes flare in blood red as the soul is torn from the soulstone and bound into the shell!"))
+	var/mob/living/carbon/human/species/golem/blood_cult/G = new(get_turf(src))
+	if(!G)
+		to_chat(user, span_warning("The ritual fails."))
+		return TRUE
+	G.update_body()
+	S.mind.transfer_to(G)
+	if(!G.mind.has_antag_datum(/datum/antagonist/cult)) // Incase they somehow lost their antag datum, we give it again
+		G.mind.add_antag_datum(/datum/antagonist/cult)
+	G.real_name = old_name
+	G.name = old_name
+	qdel(S)
+	SS.was_used()
+	qdel(SS)
+	qdel(src) // Full cleanup
+	return TRUE
