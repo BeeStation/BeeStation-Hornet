@@ -18,7 +18,7 @@
 
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Fanatic Vigilante", "Investigate and uncover the station's infiltrator, elimating any small-fry criminals along the way.")
-	// Start with 3 TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
+	// Start with some TC, enough to buy some extremely basic rubbish if you have an idea, but still few enough that you have to mostly rely on your job.
 	uplink = owner.equip_standard_uplink(silent = TRUE, uplink_owner = src, telecrystals = TELECRYSTALS_VIGILANTE, directive_flags = NONE)
 	uplink.reputation = 0
 	to_chat(owner.current, "<span class='secradio'>You have managed to <b>obtain access</b> to <b>the Syndicate market</b>. Perhaps you could use this illegal equipment against the very people who brought it to this station, however as an outsider you will be unable to gain any reputation. The uplink came with a message:</span><br>[span_traitorobjective(uplink.unlock_text)]")
@@ -42,17 +42,22 @@
 	SIGNAL_HANDLER
 	if (wanted_status != WANTED_ARREST && wanted_status != WANTED_PRISONER && wanted_status != WANTED_SUSPECT)
 		return
-	if (!isliving(source))
+	if (!isliving(update_source))
+		log_objective("Vigilante Reject: Author of wanted level was a [source] which is not a person.")
 		return
 	var/mob/living/officer = source
 	if (!officer.mind)
+		log_objective("Vigilante Reject: Author of wanted level was [officer], but they had no mind.")
 		return
 	if (length(officer.mind.antag_datums))
+		log_objective("Vigilante Reject: Author of wanted level was [officer.mind.name], but they were an antagonist.")
 		return
 	var/datum/job/job = SSjob.GetJob(officer.mind.assigned_role)
 	if (!job)
+		log_objective("Vigilante Reject: Author of wanted level was [officer.mind.name], but they had no job.")
 		return
 	if (!CHECK_BITFIELD(job.departments, DEPT_BITFLAG_COM) && !CHECK_BITFIELD(job.departments, DEPT_BITFLAG_SEC))
+		log_objective("Vigilante Reject: Author of wanted level was [officer.mind.name], but they were a [job.title] which is not command or sec.")
 		return
 	on_prisoner_created(source, officer, record.name, "Wanted level updated to [wanted_status]", "Suspicious individuals must be punished.")
 
