@@ -187,6 +187,12 @@
 	if(offset_old != APC_PIXEL_OFFSET && !building)
 		log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([dir] | [uppertext(dir2text(dir))]) has pixel_[dir & (WEST|EAST) ? "x" : "y"] value [offset_old] - should be [dir & (SOUTH|EAST) ? "-" : ""][APC_PIXEL_OFFSET]. Use the directional/ helpers!")
 
+/obj/machinery/power/apc/Initialize(mapload)
+	. = ..()
+	prepare_huds()
+	for(var/datum/atom_hud/hacked_apc/apc_hud in GLOB.huds)
+		apc_hud.add_to_hud(src)
+
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
 

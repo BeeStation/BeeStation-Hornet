@@ -533,4 +533,3 @@
 	holder.loc = src
 	holder.icon = 'icons/obj/power.dmi'
 	holder.icon_state = "apcemag"
-	holder.override = TRUE
