@@ -1,5 +1,4 @@
 /datum/reagent/blood
-	data = list("viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null,"quirks"=null)
 	name = "Blood"
 	color = COLOR_BLOOD
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
@@ -7,6 +6,20 @@
 	taste_description = "iron"
 	taste_mult = 1.3
 	default_container = /obj/item/reagent_containers/blood
+	data = list(
+		"viruses"=null,
+		"blood_DNA"=null,
+		"blood_type"=null,
+		"resistances"=null,
+		"trace_chem"=null,
+		"mind"=null,
+		"ckey"=null,
+		"gender"=null,
+		"real_name"=null,
+		"cloneable"=null,
+		"factions"=null,
+		"quirks"=null
+	)
 
 /datum/glass_style/shot_glass/blood
 	required_drink_type = /datum/reagent/blood
@@ -102,6 +115,23 @@
 		blood = new(exposed_turf)
 	if(data["blood_DNA"])
 		blood.add_blood_DNA(list(data["blood_DNA"] = data["blood_type"]))
+
+/datum/reagent/blood/coolant
+	name = "Synthetic Coolant"
+	data = list(
+		"viruses" = null,
+		"blood_DNA" = null,
+		"blood_type" = /datum/blood_type/synthetic,
+		"resistances" = null,
+		"trace_chem" = null,
+		"mind" = null,
+		"ckey" = null,
+		"gender" = null,
+		"real_name" = null,
+		"cloneable" = null,
+		"factions" = null,
+		"quirks" = null
+	)
 
 /datum/reagent/liquidgibs
 	name = "Liquid gibs"
