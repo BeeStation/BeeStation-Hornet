@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Stack } from '../components';
+import { Box, Button } from '../components';
 import { Window } from '../layouts';
 
 type ThreatEntry = {
@@ -83,12 +83,45 @@ export const CorporateThreatHandbook = (props) => {
 
   const currentPageInfo = pages[currentPage];
 
+  // Get the title for the current page
+  const getPageTitle = (pageInfo: PageInfo): string => {
+    switch (pageInfo.type) {
+      case PageType.Cover:
+        return 'Cover';
+      case PageType.Contents:
+        return 'Table of Contents';
+      case PageType.ThreatDesignations:
+        return 'Threat Designations';
+      case PageType.ThreatEntry:
+        return threat_entries[pageInfo.threatIndex as number]?.label || 'Entry';
+      case PageType.EndPage:
+        return 'End of Handbook';
+      default:
+        return '';
+    }
+  };
+
   return (
-    <Window width={550} height={650} title={handbook_title}>
-      <Window.Content>
-        <Stack vertical fill>
-          <Stack.Item grow>
-            <Section fill scrollable>
+    <Window width={550} height={700} title={handbook_title} theme="document">
+      <Window.Content scrollable>
+        <Box className="Document__wrapper">
+          {/* Fixed Document Header */}
+          <Box className="Document__header">
+            <Box className="Document__header-left">
+              Nanotrasen Publications Division
+            </Box>
+            <Box className="Document__header-center">
+              Security Clearance: General
+            </Box>
+            <Box className="Document__header-right">
+              {getPageTitle(currentPageInfo)} — Page {currentPage + 1}/
+              {totalPages}
+            </Box>
+          </Box>
+
+          {/* Main Content Area */}
+          <Box className="Document__page">
+            <Box className="Document__content">
               <PageContent
                 pageInfo={currentPageInfo}
                 threatEntries={threat_entries}
@@ -96,32 +129,44 @@ export const CorporateThreatHandbook = (props) => {
                 handbookAuthor={handbook_author}
                 goToPage={goToPage}
               />
-            </Section>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack justify="space-between" align="center">
-              <Stack.Item>
-                <Button
-                  icon="chevron-left"
-                  disabled={currentPage === 0}
-                  onClick={goToPrevPage}
-                />
-              </Stack.Item>
-              <Stack.Item>
-                <Box color="label">
-                  Page {currentPage + 1} of {totalPages}
-                </Box>
-              </Stack.Item>
-              <Stack.Item>
-                <Button
-                  icon="chevron-right"
-                  disabled={currentPage === totalPages - 1}
-                  onClick={goToNextPage}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
+            </Box>
+          </Box>
+
+          {/* Fixed Document Footer */}
+          <Box className="Document__doc-footer">
+            <Box className="Document__doc-footer-left">
+              NT Form 47-C Rev. 2563
+            </Box>
+            <Box className="Document__doc-footer-center">
+              INTERNAL USE ONLY — DO NOT DISTRIBUTE
+            </Box>
+            <Box className="Document__doc-footer-right">
+              Printed: [REDACTED]
+            </Box>
+          </Box>
+
+          {/* OOC Navigation - Floating side buttons */}
+          <Button
+            className={
+              'Document__nav-side Document__nav-side--left' +
+              (currentPage === 0 ? ' Document__nav-side--disabled' : '')
+            }
+            icon="chevron-left"
+            disabled={currentPage === 0}
+            onClick={goToPrevPage}
+          />
+          <Button
+            className={
+              'Document__nav-side Document__nav-side--right' +
+              (currentPage === totalPages - 1
+                ? ' Document__nav-side--disabled'
+                : '')
+            }
+            icon="chevron-right"
+            disabled={currentPage === totalPages - 1}
+            onClick={goToNextPage}
+          />
+        </Box>
       </Window.Content>
     </Window>
   );
@@ -173,28 +218,28 @@ const CoverPage = (props: CoverPageProps) => {
   const { handbookTitle, handbookAuthor } = props;
   return (
     <Box textAlign="center">
-      <Box fontSize="24px" bold mt={4} mb={2}>
+      <Box className="Document__title" mt={4}>
         {handbookTitle}
       </Box>
-      <Box fontSize="14px" color="label" mb={4}>
-        {handbookAuthor}
+      <Box className="Document__subtitle">{handbookAuthor}</Box>
+      <hr className="Document__divider" />
+      <Box className="Document__stamp" mt={2} mb={2}>
+        FOR INTERNAL DISTRIBUTION ONLY
       </Box>
-      <Box mb={4}>
-        <Box italic color="average">
-          FOR INTERNAL DISTRIBUTION ONLY
-        </Box>
-      </Box>
-      <Box mt={6} mb={2} color="label">
+      <hr className="Document__divider" />
+      <Box mt={4} className="Document__notice">
         This handbook has been prepared by the Nanotrasen Security Division to
         brief all crew members on potential threats they may encounter during
         their shift.
       </Box>
-      <Box mt={4} color="label" italic>
+      <Box mt={3} className="Document__notice" italic>
         Failure to familiarize yourself with this material may result in
         disciplinary action, injury, or death.
       </Box>
-      <Box mt={6} fontSize="12px" color="label">
+      <Box className="Document__footer" mt={6}>
         © 2563 Nanotrasen Corporation
+        <br />
+        All Rights Reserved
       </Box>
     </Box>
   );
@@ -212,22 +257,35 @@ const ContentsPage = (props: ContentsPageProps) => {
 
   return (
     <Box>
-      <Box fontSize="18px" bold mb={2}>
-        Table of Contents
+      <Box className="Document__section-title">Table of Contents</Box>
+      <Box className="Document__index-section">Reference Materials</Box>
+      <Box
+        className="Document__index-link"
+        onClick={() => goToPage(2)}
+        style={{ cursor: 'pointer' }}
+      >
+        I. Threat Designation Guide
       </Box>
-      <Box mb={2}>
-        <Button fluid onClick={() => goToPage(2)}>
-          Threat Designations
-        </Button>
-      </Box>
-      <Box bold mb={1}>
-        Threat Entries:
+      <Box className="Document__index-section" mt={2}>
+        Threat Entries
       </Box>
       {threatEntries.map((entry, index) => (
-        <Box key={entry.label} mb={1}>
-          <Button fluid onClick={() => goToPage(threatStartPage + index)}>
-            {entry.label} - {entry.threat_designation}
-          </Button>
+        <Box
+          key={entry.label}
+          className="Document__index-link"
+          onClick={() => goToPage(threatStartPage + index)}
+          style={{ cursor: 'pointer' }}
+        >
+          {index + 1}. {entry.label}{' '}
+          <Box
+            as="span"
+            className={
+              'Document__designation Document__designation--' +
+              entry.threat_designation.toLowerCase()
+            }
+          >
+            [{entry.threat_designation}]
+          </Box>
         </Box>
       ))}
     </Box>
@@ -237,64 +295,63 @@ const ContentsPage = (props: ContentsPageProps) => {
 const ThreatDesignationsPage = () => {
   return (
     <Box>
-      <Box fontSize="18px" bold mb={2}>
-        Threat Designation Guide
-      </Box>
+      <Box className="Document__section-title">Threat Designation Guide</Box>
       <Box mb={2}>
         Nanotrasen classifies threats according to the following standardized
         designation system. Understanding these classifications will help you
         respond appropriately to incidents.
       </Box>
+      <hr className="Document__divider" />
       <Box mb={2}>
-        <Box bold color="green">
+        <Box className="Document__designation Document__designation--negligible">
           Negligible
         </Box>
-        <Box ml={2}>
+        <Box ml={2} mt={1}>
           Minimal risk to crew or station operations. Standard operating
           procedures are sufficient.
         </Box>
       </Box>
       <Box mb={2}>
-        <Box bold color="teal">
+        <Box className="Document__designation Document__designation--minor">
           Minor
         </Box>
-        <Box ml={2}>
+        <Box ml={2} mt={1}>
           Low risk. May require security attention but poses no significant
           threat to station integrity.
         </Box>
       </Box>
       <Box mb={2}>
-        <Box bold color="average">
+        <Box className="Document__designation Document__designation--moderate">
           Moderate
         </Box>
-        <Box ml={2}>
+        <Box ml={2} mt={1}>
           Notable risk to crew safety. Security response recommended.
           Coordination with department heads advised.
         </Box>
       </Box>
       <Box mb={2}>
-        <Box bold color="orange">
+        <Box className="Document__designation Document__designation--major">
           Major
         </Box>
-        <Box ml={2}>
+        <Box ml={2} mt={1}>
           Significant threat to multiple crew members or critical systems. Full
           security mobilization required.
         </Box>
       </Box>
       <Box mb={2}>
-        <Box bold color="bad">
+        <Box className="Document__designation Document__designation--severe">
           Severe
         </Box>
-        <Box ml={2}>
+        <Box ml={2} mt={1}>
           Extreme danger to station survival. All crew should be on high alert.
           Command-level response necessary.
         </Box>
       </Box>
       <Box mb={2}>
-        <Box bold color="red">
+        <Box className="Document__designation Document__designation--critical">
           Critical
         </Box>
-        <Box ml={2}>
+        <Box ml={2} mt={1}>
           Existential threat to the station. Evacuation protocols may be
           necessary. Maximum response authorized.
         </Box>
@@ -314,60 +371,41 @@ const ThreatEntryPage = (props: ThreatEntryPageProps) => {
     return <Box>Error: Threat entry not found</Box>;
   }
 
-  const getDesignationColor = (designation: string): string => {
-    const lowerDesignation = designation.toLowerCase();
-    switch (lowerDesignation) {
-      case 'negligible':
-        return 'green';
-      case 'minor':
-        return 'teal';
-      case 'moderate':
-        return 'average';
-      case 'major':
-        return 'orange';
-      case 'severe':
-        return 'bad';
-      case 'critical':
-        return 'red';
-      default:
-        return 'label';
-    }
-  };
+  const designationClass =
+    'Document__designation Document__designation--' +
+    entry.threat_designation.toLowerCase();
 
   return (
     <Box>
-      <Box fontSize="20px" bold mb={1}>
+      <Box className="Document__title" style={{ fontSize: '20px' }}>
         {entry.label}
       </Box>
-      <Box mb={2}>
+      <Box textAlign="center" mb={2}>
         <Box as="span" color="label">
           Threat Designation:{' '}
         </Box>
-        <Box
-          as="span"
-          bold
-          color={getDesignationColor(entry.threat_designation)}
-        >
+        <Box as="span" className={designationClass}>
           {entry.threat_designation}
         </Box>
       </Box>
-      <Box bold mb={1}>
+      <hr className="Document__divider" />
+      <Box className="Document__section-title" style={{ fontSize: '14px' }}>
         Description
       </Box>
       <Box mb={2} style={{ whiteSpace: 'pre-wrap' }}>
         {entry.description}
       </Box>
-      <Box bold mb={1}>
+      <Box className="Document__section-title" style={{ fontSize: '14px' }}>
         Signs to Look For
       </Box>
-      <Box mb={2}>
+      <Box mb={2} ml={2}>
         {entry.signs.map((sign, index) => (
-          <Box key={index} mb={1}>
-            • {sign}
+          <Box key={index} className="Document__bullet">
+            {sign}
           </Box>
         ))}
       </Box>
-      <Box bold mb={1}>
+      <Box className="Document__section-title" style={{ fontSize: '14px' }}>
         Advised Response
       </Box>
       <Box style={{ whiteSpace: 'pre-wrap' }}>{entry.advised_response}</Box>
@@ -378,27 +416,28 @@ const ThreatEntryPage = (props: ThreatEntryPageProps) => {
 const EndPage = () => {
   return (
     <Box textAlign="center">
-      <Box fontSize="16px" bold mt={4} mb={4}>
+      <Box className="Document__title" mt={4}>
         End of Handbook
       </Box>
-      <Box color="label" mb={4}>
+      <hr className="Document__divider" />
+      <Box className="Document__notice" mb={3}>
         This concludes the Nanotrasen Incident Awareness & Threat Recognition
         Handbook.
       </Box>
-      <Box color="label" mb={4}>
+      <Box bold mb={3}>
         Remember: A prepared crew is a surviving crew.
       </Box>
-      <Box color="label" italic mb={4}>
+      <Box className="Document__notice" mb={3}>
         For additional information or to report suspected threats, contact your
         local Security department or use emergency communication channels.
       </Box>
-      <Box mt={6} color="label" fontSize="12px">
+      <hr className="Document__divider" />
+      <Box className="Document__footer">
         Document Version 47.3.2
-      </Box>
-      <Box color="label" fontSize="12px">
+        <br />
         Last Updated: [REDACTED]
       </Box>
-      <Box mt={4} color="average" italic fontSize="11px">
+      <Box mt={3} className="Document__stamp" style={{ fontSize: '10px' }}>
         Nanotrasen is not responsible for injury or death resulting from failure
         to follow handbook guidelines.
       </Box>

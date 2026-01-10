@@ -1,0 +1,431 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+// Aged paper/parchment colors
+$document-bg: hsl(43, 33%, 90%);
+$document-fg: hsl(30, 10%, 15%);
+$document-accent: hsl(30, 50%, 25%);
+$document-border: hsl(30, 20%, 60%);
+$document-header-bg: hsl(43, 25%, 85%);
+$header-footer-height: 36px;
+
+@use '../colors.scss' with (
+  $primary: $document-fg,
+  $fg-map-keys: (),
+  $bg-map-keys: ()
+);
+@use '../base.scss' with (
+  $color-fg: $document-fg,
+  $color-bg: $document-bg,
+  $color-bg-grad-spread: 0%,
+  $border-radius: 0
+);
+
+.theme-document {
+  // Use a serif font for that official document feel
+  font-family: 'Times New Roman', 'Georgia', serif;
+
+  // Components
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('background-color': transparent)
+  );
+  @include meta.load-css('../components/Button.scss');
+  @include meta.load-css('../components/ProgressBar.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: (
+      'text-color': $document-fg,
+      'background-color': $document-header-bg,
+      'shadow-color-core': rgba(0, 0, 0, 0.15)
+    )
+  );
+
+  // Override label colors for this theme
+  .color-label {
+    color: hsl(30, 10%, 35%) !important;
+  }
+
+  // Document page background with aged paper texture effect
+  .Layout__content {
+    background-color: $document-bg;
+    background-image:
+      // Subtle noise/grain effect for aged paper look
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(139, 119, 101, 0.03) 2px,
+        rgba(139, 119, 101, 0.03) 4px
+      ),
+      // Slight vignette
+      radial-gradient(
+          ellipse at center,
+          transparent 0%,
+          rgba(139, 119, 101, 0.08) 100%
+        );
+    background-size:
+      auto,
+      100% 100%;
+    background-position:
+      0 0,
+      0 0;
+    background-repeat: repeat, no-repeat;
+  }
+
+  // Document-specific styles
+  .Document {
+    // Main wrapper that accounts for fixed header/footer
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      position: relative;
+    }
+
+    // Fixed document header - looks like printed header
+    &__header {
+      position: fixed;
+      top: 32px; // Below window title bar
+      left: 0;
+      right: 0;
+      height: $header-footer-height;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      background-color: rgba($document-bg, 0.97);
+      border-bottom: 1px solid $document-border;
+      z-index: 10;
+      font-size: 11px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    &__header-left {
+      color: hsl(30, 10%, 40%);
+      font-style: italic;
+      text-align: left;
+      flex: 1;
+    }
+
+    &__header-center {
+      color: $document-fg;
+      font-weight: bold;
+      text-align: center;
+      flex: 2;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    &__header-right {
+      color: hsl(30, 10%, 40%);
+      font-style: italic;
+      text-align: right;
+      flex: 1;
+    }
+
+    // Scrollable page content area
+    &__page {
+      position: relative;
+      padding: 1.5rem;
+      padding-top: calc(#{$header-footer-height} + 1rem);
+      padding-bottom: calc(#{$header-footer-height} + 1rem);
+      min-height: 100%;
+      // Paper edge effect
+      box-shadow: inset 0 0 30px rgba(139, 119, 101, 0.1);
+    }
+
+    // Fixed document footer
+    &__doc-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: $header-footer-height;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      background-color: rgba($document-bg, 0.97);
+      border-top: 1px solid $document-border;
+      z-index: 10;
+      font-size: 10px;
+      color: hsl(30, 10%, 45%);
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    &__doc-footer-left {
+      font-style: italic;
+      flex: 1;
+      text-align: left;
+    }
+
+    &__doc-footer-center {
+      flex: 1;
+      text-align: center;
+    }
+
+    &__doc-footer-right {
+      flex: 1;
+      text-align: right;
+    }
+
+    // Navigation buttons within footer
+    &__nav-button {
+      background: transparent !important;
+      border: none !important;
+      color: hsl(30, 10%, 35%) !important;
+      opacity: 0.7;
+      transition:
+        opacity 0.2s ease,
+        color 0.2s ease;
+      font-size: 14px;
+      padding: 0.25rem 0.5rem !important;
+      cursor: pointer;
+      font-family: 'Times New Roman', 'Georgia', serif;
+
+      &:hover:not(&--disabled) {
+        opacity: 1;
+        color: hsl(30, 30%, 20%) !important;
+        background: transparent !important;
+      }
+
+      &--disabled {
+        opacity: 0.25 !important;
+        cursor: default !important;
+      }
+    }
+
+    &__page-indicator {
+      font-size: 11px;
+      color: hsl(30, 10%, 40%);
+      margin: 0 0.5rem;
+    }
+
+    // Floating side navigation buttons - transparent and unobtrusive
+    &__nav-side {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 60px;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: rgba(30, 30, 35, 0.15) !important;
+      border: none !important;
+      border-radius: 4px !important;
+      color: rgba(220, 220, 230, 0.4) !important;
+      font-size: 16px !important;
+      cursor: pointer;
+      z-index: 20;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease !important;
+      padding: 0 !important;
+
+      &:hover:not(&--disabled) {
+        background: rgba(40, 40, 50, 0.7) !important;
+        color: rgba(255, 255, 255, 0.95) !important;
+      }
+
+      &--left {
+        left: 4px;
+        border-top-left-radius: 2px !important;
+        border-bottom-left-radius: 2px !important;
+      }
+
+      &--right {
+        right: 4px;
+        border-top-right-radius: 2px !important;
+        border-bottom-right-radius: 2px !important;
+      }
+
+      &--disabled {
+        opacity: 0.2 !important;
+        cursor: default !important;
+        pointer-events: none;
+      }
+    }
+
+    &__content {
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    &__title {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: $document-fg;
+      // Subtle text shadow for gravitas
+      text-shadow: 1px 1px 0 rgba(139, 119, 101, 0.2);
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      text-align: center;
+      color: hsl(30, 10%, 35%);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    &__section-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: $document-fg;
+      border-bottom: 1px solid $document-border;
+      padding-bottom: 0.25rem;
+    }
+
+    &__notice {
+      font-style: italic;
+      color: hsl(30, 50%, 35%);
+      text-align: center;
+    }
+
+    &__stamp {
+      color: hsl(0, 60%, 35%);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    &__footer {
+      font-size: 12px;
+      color: hsl(30, 10%, 45%);
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    // Index/Table of Contents link styling
+    &__index-link {
+      display: block;
+      padding: 0.4rem 0.75rem;
+      margin: 0.25rem 0;
+      color: $document-fg;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        background-color 0.15s ease,
+        padding-left 0.15s ease;
+      border-left: 2px solid transparent;
+      background: transparent;
+      border-radius: 0;
+      font-family: 'Times New Roman', 'Georgia', serif;
+      text-align: left;
+
+      &:hover {
+        background-color: rgba(139, 119, 101, 0.1);
+        border-left-color: $document-accent;
+        padding-left: 1rem;
+      }
+
+      &:active {
+        background-color: rgba(139, 119, 101, 0.15);
+      }
+
+      // Remove default button styling
+      &.Button {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        font-weight: normal !important;
+
+        &:hover {
+          background: rgba(139, 119, 101, 0.1) !important;
+        }
+      }
+    }
+
+    &__index-section {
+      font-weight: bold;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: hsl(30, 10%, 35%);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    // Bullet points styling
+    &__bullet {
+      padding-left: 0.5rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: -0.75rem;
+        color: $document-accent;
+      }
+    }
+
+    // Threat designation colors that work on aged paper
+    &__designation {
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      &--negligible {
+        color: hsl(120, 35%, 30%);
+      }
+      &--minor {
+        color: hsl(180, 35%, 30%);
+      }
+      &--moderate {
+        color: hsl(45, 60%, 35%);
+      }
+      &--major {
+        color: hsl(30, 70%, 35%);
+      }
+      &--severe {
+        color: hsl(15, 70%, 35%);
+      }
+      &--critical {
+        color: hsl(0, 70%, 35%);
+      }
+    }
+
+    // Horizontal rule / divider
+    &__divider {
+      border: none;
+      border-top: 1px solid $document-border;
+      margin: 1rem 0;
+    }
+  }
+
+  // Override Section component for document theme
+  .Section {
+    background: transparent !important;
+    border: none !important;
+
+    &__title {
+      font-family: 'Times New Roman', 'Georgia', serif;
+      font-size: 16px;
+      border-bottom: 1px solid $document-border;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    &__content {
+      padding: 0 !important;
+    }
+  }
+
+  // Override Window content for document feel
+  .Window__contentPadding {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+}
