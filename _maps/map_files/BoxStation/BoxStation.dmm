@@ -3500,9 +3500,7 @@
 "aZp" = (
 /obj/structure/rack,
 /obj/item/electronics/apc,
-/obj/item/stock_parts/cell{
-	maxcharge = 2000
-	},
+/obj/item/stock_parts/cell,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
@@ -54376,10 +54374,7 @@
 /obj/item/stack/cable_coil{
 	pixel_y = 4
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/iron/techmaint,
 /area/storage/tech)
 "tEW" = (
