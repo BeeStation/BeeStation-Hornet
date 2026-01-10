@@ -1,5 +1,0 @@
-author: mrmanlikesbt, Jacquerel, lessthnthree, SmArtKar
-delete-after: true
-changes:
-  - rscadd: Added incident displays. These show how many rounds it has been since
-      a supermatter delamination on your station.

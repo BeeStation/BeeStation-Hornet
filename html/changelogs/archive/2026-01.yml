@@ -80,6 +80,19 @@
   - balance: Mech's cells are drained faster from EMP's
   - balance: Mech's receive more damage from EMP's
   - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  RKz:
+  - rscadd: 'All drug addictions are now put into 5 categories: Stimulants, Opioids,
+      Alcohol, Hallucinogens, and Maintenance Drugs. All narcotics have been given
+      a category corresponding to their effect.'
+  - bugfix: Narcotics that had clearly addicting effects, yet were missing an addiction
+      call, now properly interface with the new addiction system.
+  - rscadd: new stats have been added to some chemistry reagents that will help medical
+      deal with these new effects. Neurine and Sodium-Thiopetal can be used to alleviate
+      seizures from drug abuse.
+  - tweak: Completely gutted the "threshold" addiction system in favor of a point
+      based system. It progresses much like disease tiers. Addiction is no longer
+      some joke noobtrap that just affects your mood, if you partake in a shitton
+      of drugs, you will feel the consequences.
   Rukofamicom:
   - bugfix: Loose power cells mapped into stations no longer have unusual capacities
   - rscadd: Maps will now lint against changes to charge and maxcharge variables for
@@ -91,6 +104,9 @@
   - bugfix: the ghost poll for syndicate reinforcements now have the correct poll
       icon for what is being spawned, previously it would always be the syndicate
       assault cyborg
+  mrmanlikesbt, Jacquerel, lessthnthree, SmArtKar:
+  - rscadd: Added incident displays. These show how many rounds it has been since
+      a supermatter delamination on your station.
   rkz, Melbert:
   - code_imp: drunkeness, dizziness, and speech slurring are now status effects
   - refactor: slurring speech from drunkeness should have much better ramp-up, rather
