@@ -92,6 +92,11 @@
 			var/new_page = params["page"]
 			if(isnum(new_page))
 				current_page = new_page
-				playsound(src, pick('sound/items/paper/rustling/rustle1.ogg', 'sound/items/paper/rustling/rustle2.ogg', 'sound/items/paper/rustling/rustle3.ogg', 'sound/items/paper/rustling/rustle4.ogg', 'sound/items/paper/rustling/rustle5.ogg'), 50, TRUE)
+				playsound(src, pick(
+					'sound/items/paper/rustling/rustle1.ogg',
+					'sound/items/paper/rustling/rustle2.ogg',
+					'sound/items/paper/rustling/rustle3.ogg',
+					'sound/items/paper/rustling/rustle4.ogg',
+					'sound/items/paper/rustling/rustle5.ogg'), 50, TRUE)
 				return TRUE
 	return FALSE
