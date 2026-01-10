@@ -6,6 +6,52 @@
 	author = "Nanotrasen Compliance & Workplace Readiness"
 	title = "Incident Awareness & Threat Recognition (Crew Issue)"
 	unique = TRUE
+	/// Path to the config file containing threat entries
+	var/config_file = "config/corporate_threats.json"
+	/// Static list of threat entries, shared across all instances
+	var/static/list/threat_entries
+	/// The current page the book is turned to
+	var/current_page = 0
+
+/obj/item/book/manual/tgui_handbook/Initialize(mapload)
+	. = ..()
+	if(!threat_entries)
+		load_threat_entries()
+
+/obj/item/book/manual/tgui_handbook/proc/load_threat_entries()
+	threat_entries = list()
+	try
+		var/json_data = file2text(config_file)
+		if(!json_data)
+			CRASH("Failed to read corporate threats config file")
+		var/list/parsed = json_decode(json_data)
+		if(!islist(parsed))
+			CRASH("Corporate threats config file is not a valid list")
+		// Build associative list keyed by label for sorting
+		var/list/entries_by_label = list()
+		for(var/list/entry in parsed)
+			if(!entry["label"])
+				continue
+			entries_by_label[entry["label"]] = entry
+		// Sort keys alphabetically and rebuild list
+		var/list/sorted_keys = sort_list(entries_by_label)
+		for(var/key in sorted_keys)
+			threat_entries += list(entries_by_label[key])
+	catch(var/exception/e)
+		message_admins(span_boldannounce("Failed to load corporate threats config: [e] on [e.file]:[e.line]"))
+		load_default_threats()
+
+/obj/item/book/manual/tgui_handbook/proc/load_default_threats()
+	// Fallback data in case config file fails to load
+	threat_entries = list(
+		list(
+			"label" = "Unknown Threat",
+			"threat_designation" = "Variable",
+			"description" = "This handbook could not load its threat database. Please contact your supervisor for a replacement copy.",
+			"signs" = list("Consult security personnel for guidance"),
+			"advised_response" = "Report this malfunction to the nearest Nanotrasen representative."
+		)
+	)
 
 /obj/item/book/manual/tgui_handbook/attack_self(mob/user)
 	ui_interact(user)
@@ -21,12 +67,23 @@
 
 /obj/item/book/manual/tgui_handbook/ui_static_data(mob/user)
 	var/list/data = list()
-	// Boilerplate - data will be populated when TGUI interface is expanded
-	data["handbook_title"] = "Incident Awareness & Threat Recognition"
-	data["handbook_author"] = "Nanotrasen Compliance & Workplace Readiness"
+	data["threat_entries"] = threat_entries
 	return data
 
 /obj/item/book/manual/tgui_handbook/ui_data(mob/user)
 	var/list/data = list()
-	// Boilerplate - dynamic data will be populated when TGUI interface is expanded
+	data["current_page"] = current_page
 	return data
+
+/obj/item/book/manual/tgui_handbook/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("turn_page")
+			var/new_page = params["page"]
+			if(isnum(new_page))
+				current_page = new_page
+				playsound(src, pick('sound/items/paper/rustling/rustle1.ogg', 'sound/items/paper/rustling/rustle2.ogg', 'sound/items/paper/rustling/rustle3.ogg', 'sound/items/paper/rustling/rustle4.ogg', 'sound/items/paper/rustling/rustle5.ogg'), 50, TRUE)
+				return TRUE
+	return FALSE

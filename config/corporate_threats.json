@@ -1,0 +1,80 @@
+[
+	{
+		"label": "Changeling",
+		"threat_designation": "Major",
+		"description": "Changelings are alien lifeforms capable of perfectly mimicking any humanoid creature they have absorbed. They infiltrate stations by consuming crew members and assuming their identities, often pursuing goals of further absorption or sabotage.\n\nThese creatures possess a variety of biological weapons and abilities that make them extremely dangerous in close quarters. Their ability to regenerate from seemingly fatal wounds and their capacity to store multiple identities makes positive identification difficult without specialized equipment.",
+		"signs": [
+			"Crew members acting unusually or forgetting basic information about their job",
+			"Reports of people being in two places at once",
+			"Discovery of husked corpses drained of all fluids",
+			"Unexplained disappearances in maintenance tunnels",
+			"Witnesses reporting impossible biological transformations"
+		],
+		"advised_response": "If a changeling is suspected, do not engage alone. Alert security immediately and maintain visual contact if safely possible. Changelings can be reliably identified through genetic testing at medical facilities.\n\nConfirmed changelings should be engaged with extreme caution. Fire and sustained damage are effective, but be aware they can feign death. Cremation is the only guaranteed method of permanent neutralization. All absorbed identities should be logged for record-keeping purposes."
+	},
+	{
+		"label": "Blood Cult",
+		"threat_designation": "Critical",
+		"description": "Blood cults are organized groups of crew members who have pledged themselves to Nar'Sie, an elder god of blood and chaos. Cultists work to summon their deity through elaborate rituals, which if successful would result in catastrophic station-wide destruction.\n\nCultists gain access to blood magic, allowing them to create runes, manifest weapons, and perform various occult abilities. They actively recruit other crew members through forcible conversion rituals.",
+		"signs": [
+			"Strange runes drawn in blood on floors and walls",
+			"Crew members with unusual wounds on their hands",
+			"Missing persons reports clustering in specific areas",
+			"Reports of hooded figures or strange chanting",
+			"Electronics malfunctioning near certain areas"
+		],
+		"advised_response": "Blood cults represent an existential threat to the station. Security should coordinate with command to identify and neutralize cult members before a summoning can occur. Holy water is effective at deconverting cultists and disrupting their magic.\n\nRunes should be destroyed immediately upon discovery. If a cult has grown too large to contain, evacuation procedures should be initiated. Under no circumstances should crew attempt to negotiate with cultists - their goals are fundamentally incompatible with station survival."
+	},
+	{
+		"label": "Revolutionary",
+		"threat_designation": "Moderate",
+		"description": "Revolutionary movements occur when disgruntled crew members organize to overthrow station command. Led by charismatic head revolutionaries, these movements seek to violently remove command staff from power.\n\nRevolutionaries spread their ideology through flash-based neural implanting, rapidly converting crew members to their cause. While individual revolutionaries pose minimal threat, organized groups can quickly overwhelm security forces.",
+		"signs": [
+			"Unusual hostility toward command staff",
+			"Crew members gathering in groups and dispersing when approached",
+			"Missing or stolen flash devices",
+			"Graffiti or pamphlets criticizing station leadership",
+			"Reports of crew being cornered and flashed"
+		],
+		"advised_response": "Revolutionary movements can be neutralized by eliminating or incarcerating the head revolutionaries, which breaks the conditioning of converted crew. Security should prioritize identifying leadership rather than mass arrests of converted personnel.\n\nCommand staff should travel with security escorts and avoid isolated areas. Mindshield implants provide immunity to revolutionary conversion and should be distributed to essential personnel. De-converted crew should be treated as victims rather than perpetrators."
+	},
+	{
+		"label": "Space Wizard",
+		"threat_designation": "Severe",
+		"description": "Space wizards are practitioners of arcane arts, typically hostile agents of the Space Wizard Federation. They possess a variety of powerful magical abilities that can range from minor annoyances to station-destroying catastrophes.\n\nWizards are highly unpredictable, with spell loadouts varying wildly between individuals. Some prefer direct destruction, others favor stealth and infiltration, and still others may pursue esoteric goals incomprehensible to non-magical personnel.",
+		"signs": [
+			"Unexplained magical phenomena such as spontaneous fires or teleportation",
+			"Personnel reporting impossible events or memory gaps",
+			"Distinctive robed figures appearing in unlikely locations",
+			"Reality-bending effects such as localized gravity changes",
+			"Mysterious deaths with no apparent physical cause"
+		],
+		"advised_response": "Wizards are extremely dangerous and should not be engaged without overwhelming force and careful planning. Anti-magic equipment, when available, should be deployed. Many wizard spells require their distinctive garments to function - stripping a wizard of their robes significantly reduces their threat.\n\nCoordinated security response is essential, as many wizards possess escape abilities. Sustained pressure and pursuit can deplete their magical reserves. Command should consider evacuation if a wizard's goals appear to threaten station integrity."
+	},
+	{
+		"label": "Nuclear Operative",
+		"threat_designation": "Critical",
+		"description": "Nuclear operatives are highly trained mercenary teams deployed by the Syndicate with a singular goal: the complete nuclear destruction of the station. Equipped with military-grade hardware and a nuclear device, these teams represent the highest-tier threat to station survival.\n\nOperative teams typically consist of multiple heavily armed individuals with specialized equipment. They are methodical, well-coordinated, and prepared for extended combat operations.",
+		"signs": [
+			"Reports of heavily armed individuals in distinctive red hardsuits",
+			"Unusual shuttle activity or breaching pods",
+			"Authentication disk theft or attempts",
+			"Military-grade weaponry appearing on station",
+			"Coordinated attacks on security and command infrastructure"
+		],
+		"advised_response": "Nuclear operative presence requires immediate station-wide alert and full security mobilization. The nuclear authentication disk must be secured at all costs - without it, operatives cannot arm their device.\n\nCrew should arm themselves if possible and coordinate defensive positions. Do not attempt to negotiate - operative teams are committed to their mission. If the nuclear device is armed, immediate evacuation is mandatory. Remember: a successful evacuation with station loss is preferable to total crew casualties."
+	},
+	{
+		"label": "Traitor",
+		"threat_designation": "Minor",
+		"description": "Traitors are crew members who have been compromised by the Syndicate or other hostile organizations. Operating covertly, they pursue various objectives ranging from theft to assassination while maintaining their cover identity.\n\nUnlike other threats, traitors appear completely normal and have legitimate station access. They are equipped with specialized Syndicate tools obtained through covert supply channels.",
+		"signs": [
+			"Crew members in areas outside their department without explanation",
+			"Missing high-value items or sensitive materials",
+			"Unusual equipment not matching station inventory",
+			"Unexplained deaths of specific individuals",
+			"Evidence of tampering with station systems"
+		],
+		"advised_response": "Traitor identification requires careful investigation rather than immediate confrontation. Security should gather evidence and coordinate arrests to prevent suspects from destroying evidence or escaping.\n\nMindshield implants can confirm an individual is not a Syndicate agent, but cannot reveal past actions. Suspects should be detained and questioned, with belongings thoroughly searched for contraband. Remember that traitors are still crew members - proportional response is expected unless they pose an immediate violent threat."
+	}
+]
