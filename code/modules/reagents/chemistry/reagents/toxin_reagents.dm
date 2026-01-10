@@ -224,6 +224,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	toxpwr = 0
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/hallucinogens = 18) //7.2 per 2 seconds
 
 /datum/reagent/toxin/mindbreaker/on_mob_metabolize(mob/living/metabolizer)
 	. = ..()
@@ -572,6 +573,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	toxpwr = 0
+	addiction_types = list(/datum/addiction/opioids = 25)
 
 /datum/reagent/toxin/fentanyl/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -676,10 +678,10 @@
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#195096"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	toxpwr = 0
 	taste_mult = 0 // undetectable, I guess?
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/toxin/pancuronium/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -690,13 +692,14 @@
 
 /datum/reagent/toxin/sodium_thiopental
 	name = "Sodium Thiopental"
-	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness."
+	description = "Sodium Thiopental induces heavy weakness in its target as well as unconsciousness. It can be used to treat Seizure Disorders."
 	silent_toxin = TRUE
 	reagent_state = LIQUID
 	color = "#6496FA"
-	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	toxpwr = 0
+	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/toxin/sodium_thiopental/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1042,7 +1045,7 @@
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
 
 	// If our mob's currently dizzy from anything else, we will also gain confusion
-	var/mob_dizziness = affected_mob.dizziness
+	var/mob_dizziness = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
 	if(mob_dizziness > 0)
 		// Gain confusion equal to about half the duration of our current dizziness
 		affected_mob.set_confusion(mob_dizziness / 20)

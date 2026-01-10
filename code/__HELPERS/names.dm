@@ -157,7 +157,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	var/threats = strings(ION_FILE, "ionthreats")
 	var/foods = strings(ION_FILE, "ionfood")
 	var/drinks = strings(ION_FILE, "iondrinks")
-	var/list/locations = GLOB.teleportlocs.len ? GLOB.teleportlocs : drinks //if null, defaults to drinks instead.
+	var/locations = strings(LOCATIONS_FILE, "locations")
 
 	var/list/names = list()
 	for(var/datum/record/crew/target in GLOB.manifest.general)//Picks from crew manifest.

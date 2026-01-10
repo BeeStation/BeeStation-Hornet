@@ -66,6 +66,10 @@
 /obj/item/clothing/glasses/welding,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
+"aD" = (
+/obj/effect/spawner/random/ruinloot/science,
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
 "aM" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -73,6 +77,10 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "aO" = (
+/turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"aP" = (
+/obj/effect/spawner/random/ruinloot/important,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
 "aV" = (
@@ -98,16 +106,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"dG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/computer/rdconsole/unlocked{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "ec" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 4
@@ -121,6 +119,26 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
+"is" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/table,
+/obj/item/hand_labeler,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"jC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/rdconsole/unlocked{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "nb" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
@@ -133,17 +151,7 @@
 	},
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"qh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/machinery/computer/cargo/request{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"sS" = (
+"nZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -165,7 +173,27 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"uC" = (
+"qh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/computer/cargo/request{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"tt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"tG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -176,17 +204,16 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"vO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
+"yc" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
-/obj/structure/table,
-/obj/item/hand_labeler,
-/obj/effect/spawner/random/ruinloot/science,
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/turf/open/floor/iron,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"wl" = (
+"Ar" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -202,32 +229,6 @@
 /obj/item/crowbar,
 /obj/effect/spawner/random/ruinloot/science,
 /obj/effect/spawner/random/ruinloot/science,
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"yc" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/ruin/unpowered)
-"yV" = (
-/obj/effect/spawner/random/ruinloot/science,
-/turf/open/floor/iron/white,
-/area/ruin/unpowered)
-"Cb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -255,25 +256,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
 /area/ruin/unpowered)
-"KQ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/item/circuitboard/computer/nanite_chamber_control,
-/obj/item/circuitboard/computer/nanite_cloud_controller,
-/obj/item/circuitboard/machine/nanite_chamber,
-/obj/item/circuitboard/machine/nanite_program_hub,
-/obj/effect/spawner/random/ruinloot/science,
-/obj/effect/spawner/random/ruinloot/science,
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"LQ" = (
-/obj/effect/spawner/random/ruinloot/important,
-/turf/open/floor/iron/white,
-/area/ruin/unpowered)
 "Ni" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -287,6 +269,21 @@
 	dir = 8
 	},
 /turf/open/floor/iron/white,
+/area/ruin/unpowered)
+"Pp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/structure/window/reinforced/spawner/directional/south,
+/obj/item/circuitboard/computer/nanite_chamber_control,
+/obj/item/circuitboard/computer/nanite_cloud_controller,
+/obj/item/circuitboard/machine/nanite_chamber,
+/obj/item/circuitboard/machine/nanite_program_hub,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/spawner/random/ruinloot/science,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "PS" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -302,7 +299,7 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"Rl" = (
+"RM" = (
 /obj/effect/spawner/random/ruinloot/science,
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron/white,
@@ -345,10 +342,10 @@ au
 (2,1,1) = {"
 au
 an
-vO
-KQ
+is
+Pp
 aw
-uC
+tG
 aO
 an
 au
@@ -367,10 +364,10 @@ au
 (4,1,1) = {"
 au
 XC
-LQ
+aP
 aO
 ao
-Rl
+RM
 ao
 ai
 au
@@ -390,11 +387,11 @@ au
 au
 aC
 XC
-yV
+aD
 nb
 FM
 Ni
-dG
+jC
 au
 "}
 (7,1,1) = {"
@@ -410,9 +407,9 @@ au
 "}
 (8,1,1) = {"
 au
-wl
-Cb
-sS
+Ar
+tt
+nZ
 qh
 gk
 KA

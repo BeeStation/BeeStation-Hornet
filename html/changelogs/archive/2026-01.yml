@@ -34,6 +34,11 @@
 2026-01-09:
   Isaac:
   - bugfix: Captain's beret has armor again
+  - balance: Plasma Cutter now fires at a rate of 0.5
+  - balance: Gravity gun now fires at a rate of 0.2
+  - balance: Advanced Plasma Cutter now fires at a rate of 0.75
+  - balance: Mech Plasma Cutter fires as fast as a regular plasma cutter
+  - balance: Lowers the delimb chance to 10%, 1 out of 10 shots might cut your limb
   PowerfulBacon:
   - bugfix: When performing pierce protection checks, simplified targeting will now
       prefer zones that do not have pierce protection.
@@ -43,6 +48,14 @@
   - tweak: Simplified targeting bodyzone selection now shows if an area of the body
       is pierce proof.
   - tweak: Increases contrast for simplified targeting medical alert icons.
+  - bugfix: Changeling transformed IDs will now correctly display their job on the
+      sechud.
+  - tweak: You are no longer prompted to ahelp when leaving as a head of staff or
+      antagonist role.
+  - tweak: The game will automatically handle antagonists leaving via cryo depending
+      on the important of the role.
+  - code_imp: Adds in a unit test that prevents wires with the same colour from crossing
+      without being connected.
   ? 'rkz, Timberpoes, Mothblocks, Melbert, Mothblocks, andrea-feather, Jolly, timothymtorres,
     Profakos, vinylspiders, mc-oofert, Ghommie. '
   : - balance: converted beestation's maintenance loot list into a triple-level weighted
@@ -62,3 +75,24 @@
     - rscadd: readds the greytide spear. Its never existed outside of adminspawn,
         which was a contributor to it being removed. It now has a use inside the maint
         pool.
+2026-01-10:
+  Isaac:
+  - balance: Mech's cells are drained faster from EMP's
+  - balance: Mech's receive more damage from EMP's
+  - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  Rukofamicom:
+  - bugfix: Loose power cells mapped into stations no longer have unusual capacities
+  - rscadd: Maps will now lint against changes to charge and maxcharge variables for
+      power cells
+  mrmanlikesbt, Fikou:
+  - tweak: nuclear operative reinforcements are now drop podded in instead of being
+      teleported
+  - refactor: cleaned up the antag spawner item's code
+  - bugfix: the ghost poll for syndicate reinforcements now have the correct poll
+      icon for what is being spawned, previously it would always be the syndicate
+      assault cyborg
+  rkz, Melbert:
+  - code_imp: drunkeness, dizziness, and speech slurring are now status effects
+  - refactor: slurring speech from drunkeness should have much better ramp-up, rather
+      than making you intelligible immediately
+  - rscadd: adds hereticslurring, rather than copying cultslurring

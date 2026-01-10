@@ -530,7 +530,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/bot/ed209)
 		icon_state = "[lasercolor]ed209[on]"
 	var/threat = 5
 	C.Paralyze(100)
-	C.stuttering = 5
+	C.set_stutter_if_lower(10 SECONDS)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		var/judgment_criteria = judgment_criteria()
