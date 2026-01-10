@@ -172,7 +172,7 @@
 		to_chat(M, span_warning("You feel strange..."))
 		sleep(60)
 		to_chat(M, span_warning("That pod did something to you..."))
-		M.Dizzy(35)
+		M.adjust_dizzy(3.5 SECONDS)
 		sleep(65)
 		to_chat(M, span_warning("Your head pounds... It feels like it's going to burst out your skull!"))
 		M.flash_act()
@@ -187,7 +187,7 @@
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we ship you back...\"</i>"))
 		M.blur_eyes(10)
-		M.Dizzy(15)
+		M.adjust_dizzy(1.5 SECONDS)
 		M.adjust_confusion(20 SECONDS)
 
 // We're returning the victim
@@ -226,7 +226,7 @@
 
 		M.flash_act()
 		M.blur_eyes(30)
-		M.Dizzy(35)
+		M.adjust_dizzy(3.5 SECONDS)
 		M.adjust_confusion(20 SECONDS)
 
 		new /obj/effect/pod_landingzone(possible_drop_loc[pod_rand_loc], return_pod)

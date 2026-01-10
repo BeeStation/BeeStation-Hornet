@@ -381,8 +381,7 @@
 	if(ispsyphoza(psychonaut))
 		return
 
-	if(!psychonaut.slurring)
-		psychonaut.slurring = 1 * REM * delta_time
+	psychonaut.set_slurring_if_lower(1 SECONDS * REM * delta_time)
 
 	switch(current_cycle)
 		if(2 to 6)
