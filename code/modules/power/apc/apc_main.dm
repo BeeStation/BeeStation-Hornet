@@ -138,6 +138,9 @@
 	//Clockcult - The integration cog inserted inside of us
 	var/integration_cog = null
 
+	/// The time that our last hacked flicker was performed at
+	COOLDOWN_DECLARE(last_hacked_flicker)
+
 	armor_type = /datum/armor/power_apc
 
 /datum/armor/power_apc
@@ -535,6 +538,8 @@
 		failure_timer--
 		force_update = TRUE
 		return
+	if ((malfhack || (obj_flags & EMAGGED)) && COOLDOWN_FINISHED(src, last_hacked_flicker))
+		flicker_hacked_icon()
 	// Vars for the power usage of the different channels
 	var/light_power_req = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
 	var/equip_power_req = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]

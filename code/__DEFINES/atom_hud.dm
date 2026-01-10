@@ -27,6 +27,8 @@
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
 #define DIAG_WAKE_HUD	"24" // Bluespace Wakes
+/// Gives permanent visibility of hacked APCs
+#define HACKED_APC_HUD 	"25"
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -43,6 +45,7 @@
 #define DATA_HUD_ABDUCTOR				7
 #define DATA_HUD_SENTIENT_DISEASE		8
 #define DATA_HUD_AI_DETECT				9
+#define DATA_HUD_HACKED_APC				10
 
 //antag HUD defines
 #define ANTAG_HUD_CULT 10
