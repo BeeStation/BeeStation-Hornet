@@ -236,7 +236,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/iron/dark,
 /area/mine/atmospostengine)
@@ -416,7 +416,7 @@
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
 "ca" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /turf/open/floor/iron,
 /area/mine/living_quarters)
 "ce" = (
@@ -942,7 +942,7 @@
 /area/mine/atmosposthallway)
 "ff" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
 "fk" = (
@@ -1408,7 +1408,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "hW" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
 	},
@@ -1524,7 +1524,7 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "iy" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/mine/living_quarters)
 "iz" = (
@@ -2017,7 +2017,7 @@
 /area/mine/living_quarters)
 "lq" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/item/clothing/head/utility/chefhat,
 /obj/machinery/light{
 	dir = 8;
@@ -2349,7 +2349,7 @@
 /turf/open/floor/iron,
 /area/mine/laborcamp)
 "nq" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/effect/spawner/random/vending/snackvend,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
@@ -4672,7 +4672,7 @@
 	hide = 0
 	},
 /obj/structure/spider/stickyweb,
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/plating/asteroid,
 /area/mine/atmospost)
 "BF" = (
@@ -4721,7 +4721,7 @@
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 5
 	},
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/iron,
 /area/mine/atmosposthallway)
 "BZ" = (
@@ -4910,7 +4910,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/catwalk_floor/iron,
 /area/mine/atmosposthallway)
 "CS" = (
@@ -5096,7 +5096,7 @@
 "DT" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)
 "DU" = (
@@ -5440,7 +5440,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/mine/living_quarters)
 "FN" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /obj/effect/turf_decal/tile/brown/half{
 	dir = 1
 	},
@@ -5620,7 +5620,7 @@
 /area/mine/atmosfarmpost)
 "GG" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
 "GI" = (
@@ -6679,7 +6679,7 @@
 /area/mine/atmospost)
 "Ne" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -7858,9 +7858,7 @@
 /turf/open/floor/iron/checker,
 /area/mine/production)
 "Uk" = (
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
+/obj/effect/spawner/random/entertainment/arcade,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
@@ -7978,7 +7976,7 @@
 /area/mine/atmospostengine)
 "UR" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
 /area/mine/production)
@@ -7989,7 +7987,7 @@
 /area/mine/living_quarters)
 "UV" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
 "UW" = (
@@ -8631,7 +8629,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/whiteship_cere_ripley,
+/obj/effect/spawner/random/exotic/ripley,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/mine/atmosposthallway)

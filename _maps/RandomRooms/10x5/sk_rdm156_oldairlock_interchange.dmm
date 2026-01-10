@@ -1,13 +1,13 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/random/trash/grille_or_waste,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/rack,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -20,7 +20,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "m" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
@@ -38,8 +38,8 @@
 "A" = (
 /obj/structure/closet/toolcloset,
 /obj/item/storage/belt/bandolier,
-/obj/effect/spawner/lootdrop/gambling,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/entertainment/gambling,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
@@ -52,7 +52,7 @@
 /turf/open/floor/iron,
 /area/template_noop)
 "T" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /obj/structure/closet/secure_closet/personal,
 /obj/item/trash/canned/peaches/maint,
 /turf/open/floor/plating,

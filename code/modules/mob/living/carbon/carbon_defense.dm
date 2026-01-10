@@ -228,8 +228,7 @@
 				span_userdanger("The [M.name] has shocked you!"))
 			do_sparks(5, TRUE, src)
 			Knockdown(M.powerlevel*5)
-			if(stuttering < M.powerlevel)
-				stuttering = M.powerlevel
+			set_stutter_if_lower(M.powerlevel * 5)
 			if(M.transformeffects & SLIME_EFFECT_ORANGE)
 				adjust_fire_stacks(2)
 				IgniteMob()
@@ -325,7 +324,7 @@
 	//Jitter and other fluff.
 	do_jitter_animation(300)
 	adjust_timed_status_effect(20 SECONDS, /datum/status_effect/jitter)
-	stuttering += 2
+	adjust_stutter(4 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 2 SECONDS)
 	return shock_damage
 
@@ -475,7 +474,7 @@
 
 /mob/living/carbon/batong_act(obj/item/melee/baton/batong, mob/living/user, obj/item/bodypart/affecting, armour_block = 0)
 	. = ..()
-	apply_effect(EFFECT_STUTTER, (batong.active_force / 2)) //0.5 seconds of stuttering speech for every 10 stamina damage
+	adjust_stutter(batong.active_force / 2) //0.5 seconds of stuttering speech for every 10 stamina damage
 	do_stun_animation()
 	if(ismonkey(src))
 		emote("screech")

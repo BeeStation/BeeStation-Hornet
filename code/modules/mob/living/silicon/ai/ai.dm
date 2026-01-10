@@ -364,6 +364,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
 
+	// Offer special roles to ghosts and pause processing while we do
+	// Copy and paste from cryopod.dm since delegates are practically unusable in
+	// byond.
+	var/highest_leave = ANTAGONIST_LEAVE_DESPAWN
+	for (var/datum/antagonist/antagonist_datum in mind.antag_datums)
+		highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
+	switch (highest_leave)
+		if (ANTAGONIST_LEAVE_DESPAWN)
+			INVOKE_ASYNC(src, PROC_REF(leave_game), src)
+		if (ANTAGONIST_LEAVE_OFFER)
+			INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), src)
+		if (ANTAGONIST_LEAVE_KEEP)
+			INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), src)
+
+/mob/living/silicon/ai/proc/wipe()
 	// We warned you.
 	var/obj/structure/AIcore/latejoin_inactive/inactivecore = new(loc)
 	transfer_fingerprints_to(inactivecore)
@@ -382,6 +397,18 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/silicon/ai)
 
 	SEND_SIGNAL(mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(src)
+
+/mob/living/silicon/ai/proc/persistent_offer_to_ghosts()
+	ghostize(FALSE)
+	offer_control_persistently(src)
+
+/mob/living/silicon/ai/proc/offering_to_ghosts()
+	ghostize(FALSE)
+	if(!offer_control(src))
+		wipe()
+
+/mob/living/silicon/ai/proc/leave_game()
+	wipe()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
