@@ -52,6 +52,29 @@
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/sodium = 1, /datum/reagent/chlorine = 1)
 	reaction_tags = REACTION_TAG_FOOD
 
+/datum/chemical_reaction/synthetic_blood
+	name = "Synthesized Coolant Blood"
+	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/water = 2, /datum/reagent/oil = 1)
+	mob_react = FALSE
+	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_HEALING
+
+/datum/chemical_reaction/synthetic_blood/on_reaction(datum/reagents/holder, created_volume)
+	var/list/blood_data = list(
+		"viruses" = null,
+		"blood_DNA" = null,
+		"blood_type" = /datum/blood_type/synthetic,
+		"resistances" = null,
+		"trace_chem" = null,
+		"mind" = null,
+		"ckey" = null,
+		"gender" = null,
+		"real_name" = null,
+		"cloneable" = null,
+		"factions" = null,
+		"quirks" = null
+	)
+	holder.add_reagent(/datum/reagent/blood, created_volume, blood_data)
+
 /datum/chemical_reaction/plasmasolidification
 	name = "Solid Plasma"
 	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/toxin/plasma = 20)
