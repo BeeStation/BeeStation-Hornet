@@ -412,7 +412,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		// Run a global event
 		var/list/types = list()
 		for (var/datum/priority_directive/directive as anything in SSdirectives.directive_types)
-			if (!directive:shared)
+			if (!directive.shared)
 				continue
 			types += directive
 		var/selected_type = tgui_input_list(usr, "Which directive type do you want to run?", "Force Directive", types, null)
