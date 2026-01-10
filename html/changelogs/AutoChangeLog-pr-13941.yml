@@ -1,0 +1,6 @@
+author: Isaac
+delete-after: true
+changes:
+  - balance: Mech's cells are drained faster from EMP's
+  - balance: Mech's receive more damage from EMP's
+  - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
