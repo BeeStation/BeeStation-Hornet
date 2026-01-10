@@ -47,6 +47,24 @@
 			continue
 		on_job_spawned(src, job, mind.current, mind.current, FALSE)
 
+/datum/antagonist/vigilante/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	update_traitor_icons_added()
+
+/datum/antagonist/vigilante/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	update_traitor_icons_removed()
+
+/datum/antagonist/vigilante/proc/update_traitor_icons_added()
+	var/datum/atom_hud/antag/hudicon = GLOB.huds[ANTAG_HUD_VIGILANTE]
+	hudicon.join_hud(owner.current)
+	set_antag_hud(owner.current, "vigilante")
+
+/datum/antagonist/vigilante/proc/update_traitor_icons_removed()
+	var/datum/atom_hud/antag/hudicon = GLOB.huds[ANTAG_HUD_VIGILANTE]
+	hudicon.leave_hud(owner.current)
+	set_antag_hud(owner.current, null)
+
 /datum/antagonist/vigilante/proc/create_stash()
 	var/list/bad_people = list()
 	var/list/valid_people = list()
