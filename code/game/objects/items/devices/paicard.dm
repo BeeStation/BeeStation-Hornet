@@ -124,7 +124,6 @@
 				return
 			if(!iscarbon(usr))
 				balloon_alert(usr, "incompatible DNA signature")
-				balloon_alert(src, "incompatible DNA signature")
 				return FALSE
 			var/mob/living/carbon/master = usr
 			pai.master = master.real_name
