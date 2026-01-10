@@ -121,7 +121,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	equip_cooldown = 10
+	equip_cooldown = 20
 	name = "217-D Heavy Plasma Cutter"
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
@@ -202,7 +202,7 @@
 			continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.stuttering += 20
+		M.adjust_stutter(40 SECONDS)
 		M.adjustEarDamage(0, 30)
 		M.Paralyze(60)
 		if(prob(30))

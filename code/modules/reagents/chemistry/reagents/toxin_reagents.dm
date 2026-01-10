@@ -1045,7 +1045,7 @@
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_HEART, 3 * REM * delta_time)
 
 	// If our mob's currently dizzy from anything else, we will also gain confusion
-	var/mob_dizziness = affected_mob.dizziness
+	var/mob_dizziness = affected_mob.get_timed_status_effect_duration(/datum/status_effect/confusion)
 	if(mob_dizziness > 0)
 		// Gain confusion equal to about half the duration of our current dizziness
 		affected_mob.set_confusion(mob_dizziness / 20)

@@ -304,7 +304,7 @@
 				SEND_SIGNAL(affected_mob, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
 			if(3)
 				affected_mob.emote("sway")
-				affected_mob.Dizzy(25)
+				affected_mob.set_dizzy_if_lower(50 SECONDS)
 
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5 * REM * delta_time)
 
@@ -352,7 +352,7 @@
 		to_chat(affected_mob, span_warning(pick("Your limbs begin to feel heavy...", "It feels hard to move...", "You feel like you your limbs won't move...")))
 
 		affected_mob.drop_all_held_items()
-		affected_mob.Dizzy(5)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
 
 /// Can bring a corpse back to life temporarily (if heart is intact)
 /// Also prevents dying

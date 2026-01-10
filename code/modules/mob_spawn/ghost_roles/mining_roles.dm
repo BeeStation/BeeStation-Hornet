@@ -311,6 +311,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mob_spawn/human/ash_walker)
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	mob_name = "a translocated vet"
+	short_desc = "You're a disoriented veterinary intern, stranded far from home."
 	flavour_text = "What...? Where are you? What's the purpose of this place? This is still the animal hospital - you should know, you've been an intern here for weeks - but \
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"

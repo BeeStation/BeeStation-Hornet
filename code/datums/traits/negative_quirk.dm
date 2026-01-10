@@ -501,7 +501,7 @@
 			nearby_people++
 	var/mob/living/carbon/human/H = quirk_target
 	if(DT_PROB(2 + nearby_people, delta_time))
-		H.stuttering = max(3, H.stuttering)
+		H.adjust_stutter(0.5 SECONDS)
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety", /datum/mood_event/anxiety)
 	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
 		to_chat(H, span_danger("You retreat into yourself. You <i>really</i> don't feel up to talking."))
@@ -661,7 +661,7 @@
 	if(tick_number >= 6) // how many ticks should pass between a check
 		tick_number = 0
 		var/mob/living/carbon/human/H = quirk_target
-		if(H.drunkenness > 0) // If they're not drunk, need goes up. else they're satisfied
+		if(H.get_drunk_amount() > 0) // If they're not drunk, need goes up. else they're satisfied
 			need = -15
 		else
 			need++

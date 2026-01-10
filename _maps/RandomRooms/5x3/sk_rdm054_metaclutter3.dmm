@@ -2,7 +2,7 @@
 "a" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/fyellow,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
 	name = "old sink";
@@ -47,20 +47,20 @@
 	desc = "Takes you to a whole new level of thinking.";
 	name = "Meta-Cider"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
 /obj/item/mmi,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/costume/poncho,
 /obj/item/clothing/head/costume/sombrero,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
@@ -74,13 +74,13 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/storage/box/lights/mixed,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
 /obj/effect/trap/nexus/trickyspawner,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/random/unsorted/trap,
 /turf/open/floor/plating,
 /area/template_noop)
 
