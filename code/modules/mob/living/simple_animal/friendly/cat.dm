@@ -15,7 +15,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
@@ -45,6 +44,7 @@
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "purrs!")
 	add_verb(/mob/living/proc/toggle_resting)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"

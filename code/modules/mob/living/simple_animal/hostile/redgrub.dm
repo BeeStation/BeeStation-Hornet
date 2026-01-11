@@ -21,7 +21,6 @@
 	response_harm_continuous = "squishes"
 	response_harm_simple = "squish"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list(FACTION_HOSTILE)
 	attack_sound = 'sound/effects/blobattack.ogg'
 	pass_flags = PASSTABLE | PASSMOB
@@ -39,6 +38,8 @@
 	var/hibernationcounter = 0
 	var/list/grub_diseases = list()
 
+
+
 /mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(mob/living/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M)) // i hate this
@@ -53,6 +54,7 @@
 	. = ..()
 	grub_diseases += new /datum/disease/advance/random(rand(3, 6), 9, rand(3, 4), guaranteed_symptoms = list(/datum/symptom/parasite))
 	food = rand(15, 50)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/redgrub/PickTarget()
 	var/newtarget = ..()
