@@ -2,35 +2,17 @@
  * CorporateThreatHandbook Interface Styles
  *
  * Styles for the Nanotrasen Corporate Threat Handbook UI.
- * Designed to work with the 'document' theme, but includes fallback
- * values for standalone use.
+ * Works with the 'document' theme.
  */
 
-// ========================================
-// VARIABLES
-// ========================================
-
-// Layout dimensions
-$header-footer-height: 36px;
-
-// Fallback color values - used when CSS custom properties from the
-// document theme are not available. When used with theme-document,
-// the var(--document-*) properties will take precedence.
-$handbook-bg: hsl(43, 33%, 90%);
-$handbook-fg: hsl(30, 10%, 15%);
-$handbook-accent: hsl(30, 50%, 25%);
+// Variables
 $handbook-border: hsl(30, 20%, 60%);
-
-// Derived colors for subtle backgrounds and shadows
+$handbook-accent: hsl(30, 50%, 25%);
+$handbook-fg: hsl(30, 10%, 15%);
 $handbook-subtle-bg: rgba(139, 119, 101, 0.08);
-$handbook-shadow: rgba(0, 0, 0, 0.05);
 
-// ========================================
-// LAYOUT - WRAPPER & STRUCTURE
-// ========================================
-
-// Main wrapper - fills the window, no scroll
-.CorporateThreatHandbook__wrapper {
+// Main layout
+.Handbook {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -38,300 +20,136 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 
-// Fixed document header
-.CorporateThreatHandbook__header {
+.Handbook__pageNumber {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 11px;
+  color: hsl(30, 10%, 40%);
+  font-style: italic;
+  z-index: 10;
+}
+
+.Handbook__page {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: $header-footer-height;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-  background-color: rgba($handbook-bg, 0.97);
-  border-bottom: 1px solid var(--document-border, $handbook-border);
-  z-index: 10;
-  font-size: 11px;
-  box-shadow: 0 2px 4px $handbook-shadow;
-}
-
-.CorporateThreatHandbook__header-left {
-  color: hsl(30, 10%, 40%);
-  font-style: italic;
-  text-align: left;
-  flex: 1;
-}
-
-.CorporateThreatHandbook__header-center {
-  color: var(--document-fg, $handbook-fg);
-  font-weight: bold;
-  text-align: center;
-  flex: 2;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.CorporateThreatHandbook__header-right {
-  color: hsl(30, 10%, 40%);
-  font-style: italic;
-  text-align: right;
-  flex: 1;
-}
-
-// Scrollable page content area
-.CorporateThreatHandbook__page {
-  position: absolute;
-  top: $header-footer-height;
-  left: 0;
-  right: 0;
-  bottom: $header-footer-height;
+  bottom: 40px;
   padding: 1.5rem;
   overflow-y: auto;
   box-shadow: inset 0 0 30px rgba(139, 119, 101, 0.1);
 }
 
-// Fixed document footer
-.CorporateThreatHandbook__doc-footer {
+// Navigation bar
+.Handbook__nav {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: $header-footer-height;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1rem;
-  background-color: rgba($handbook-bg, 0.97);
-  border-top: 1px solid var(--document-border, $handbook-border);
-  z-index: 10;
-  font-size: 10px;
-  color: hsl(30, 10%, 45%);
-  box-shadow: 0 -2px 4px $handbook-shadow;
+  padding: 0.5rem 1rem;
 }
 
-.CorporateThreatHandbook__doc-footer-left {
-  font-style: italic;
-  flex: 1;
-  text-align: left;
-}
-
-.CorporateThreatHandbook__doc-footer-center {
-  flex: 1;
-  text-align: center;
-}
-
-.CorporateThreatHandbook__doc-footer-right {
-  flex: 1;
-  text-align: right;
-}
-
-// Floating side navigation buttons
-.CorporateThreatHandbook__nav-side {
-  position: absolute !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  width: 32px !important;
-  height: 60px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: rgba(30, 30, 35, 0.15) !important;
-  border: none !important;
-  border-radius: 4px !important;
-  color: rgba(220, 220, 230, 0.4) !important;
-  font-size: 16px !important;
-  cursor: pointer;
-  z-index: 20;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease !important;
-  padding: 0 !important;
-
-  &:hover:not(.CorporateThreatHandbook__nav-side--disabled) {
-    background: rgba(40, 40, 50, 0.7) !important;
-    color: rgba(255, 255, 255, 0.95) !important;
-  }
-}
-
-.CorporateThreatHandbook__nav-side--left {
-  left: 4px !important;
-  right: auto !important;
-}
-
-.CorporateThreatHandbook__nav-side--right {
-  right: 4px !important;
-  left: auto !important;
-}
-
-.CorporateThreatHandbook__nav-side--disabled {
-  opacity: 0.2 !important;
-  cursor: default !important;
-  pointer-events: none;
-}
-
-// ========================================
-// SHARED / REUSABLE STYLES
-// ========================================
-
-.CorporateThreatHandbook__content {
-  line-height: 1.6;
-  text-align: justify;
-}
-
-.CorporateThreatHandbook__section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-  color: var(--document-fg, $handbook-fg);
-  border-bottom: 1px solid var(--document-border, $handbook-border);
-  padding-bottom: 0.25rem;
-}
-
-// ========================================
-// THREAT DESIGNATION STYLES
-// ========================================
-
-// Base designation style
-.CorporateThreatHandbook__designation {
+// Designation colors
+.Handbook__designation {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-size: 11px;
 }
 
-// Designation color variants (ordered by severity)
-.CorporateThreatHandbook__designation--negligible {
+.Handbook__designation--negligible {
   color: hsl(120, 35%, 30%);
 }
-
-.CorporateThreatHandbook__designation--minor {
+.Handbook__designation--minor {
   color: hsl(180, 35%, 30%);
 }
-
-.CorporateThreatHandbook__designation--moderate {
+.Handbook__designation--moderate {
   color: hsl(45, 60%, 35%);
 }
-
-.CorporateThreatHandbook__designation--major {
+.Handbook__designation--major {
   color: hsl(30, 70%, 35%);
 }
-
-.CorporateThreatHandbook__designation--severe {
+.Handbook__designation--severe {
   color: hsl(15, 70%, 35%);
 }
-
-.CorporateThreatHandbook__designation--critical {
+.Handbook__designation--critical {
   color: hsl(0, 70%, 35%);
 }
 
-// Greek letter threat symbols
-.CorporateThreatHandbook__threat-symbol {
-  font-family: 'Times New Roman', 'Georgia', serif;
-  font-weight: bold;
-  font-size: 16px;
-  color: var(--document-accent, $handbook-accent);
-}
-
-.CorporateThreatHandbook__threat-symbol--large {
-  font-size: 28px;
-}
-
-// ========================================
-// COVER PAGE STYLES
-// ========================================
-.CorporateThreatHandbook__cover {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+// Cover page
+.Handbook__cover {
   min-height: 100%;
   padding: 1.5rem 1rem;
 }
 
-.CorporateThreatHandbook__cover-seal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.CorporateThreatHandbook__cover-seal-logo {
+.Handbook__coverLogo {
   color: var(--document-accent, $handbook-accent);
   opacity: 0.85;
-  margin-bottom: 0.5rem;
 }
 
-.CorporateThreatHandbook__cover-seal-text {
+.Handbook__coverCorp {
   font-size: 14px;
   letter-spacing: 4px;
-  color: var(--document-fg, $handbook-fg);
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.CorporateThreatHandbook__cover-title-block {
+.Handbook__coverTitleBlock {
   text-align: center;
-  margin-bottom: 1.5rem;
   padding: 1rem 2rem;
 }
 
-.CorporateThreatHandbook__cover-title {
+.Handbook__coverTitle {
   font-size: 22px;
   font-weight: bold;
-  color: var(--document-fg, $handbook-fg);
   text-shadow: 1px 1px 0 rgba(139, 119, 101, 0.2);
   margin-bottom: 0.5rem;
 }
 
-.CorporateThreatHandbook__cover-author {
+.Handbook__coverAuthor {
   font-size: 13px;
   color: hsl(30, 10%, 40%);
   font-style: italic;
 }
 
-.CorporateThreatHandbook__cover-stamps {
-  display: flex;
+.Handbook__stamps {
   gap: 2rem;
-  margin-bottom: 1.5rem;
 }
 
-.CorporateThreatHandbook__cover-stamp {
+.Handbook__stamp {
   padding: 0.4rem 1rem;
   font-size: 10px;
   font-weight: bold;
   letter-spacing: 1px;
   border: 2px solid;
-  transform: rotate(-3deg);
   opacity: 0.85;
 }
 
-.CorporateThreatHandbook__cover-stamp--red {
+.Handbook__stamp--red {
   color: hsl(0, 60%, 35%);
   border-color: hsl(0, 60%, 35%);
   transform: rotate(-5deg);
 }
 
-.CorporateThreatHandbook__cover-stamp--blue {
+.Handbook__stamp--blue {
   color: hsl(210, 60%, 35%);
   border-color: hsl(210, 60%, 35%);
   transform: rotate(3deg);
 }
 
-.CorporateThreatHandbook__cover-info {
-  display: flex;
+.Handbook__coverInfo {
   gap: 1rem;
-  margin-bottom: 1.5rem;
 }
 
-.CorporateThreatHandbook__cover-info-item {
+.Handbook__coverInfoItem {
   text-align: center;
   padding: 0.5rem 1rem;
   background: $handbook-subtle-bg;
   border: 1px solid var(--document-border, $handbook-border);
 }
 
-.CorporateThreatHandbook__cover-info-label {
+.Handbook__coverInfoLabel {
   font-size: 9px;
   color: hsl(30, 10%, 45%);
   text-transform: uppercase;
@@ -339,104 +157,44 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   margin-bottom: 0.25rem;
 }
 
-.CorporateThreatHandbook__cover-info-value {
+.Handbook__coverInfoValue {
   font-size: 12px;
   font-weight: bold;
-  color: var(--document-fg, $handbook-fg);
 }
 
-.CorporateThreatHandbook__cover-notice {
+.Handbook__notice {
   font-family: 'Courier New', 'Consolas', monospace;
   font-size: 10px;
   color: hsl(0, 60%, 25%);
-  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   max-width: 380px;
   padding: 0.6rem 1rem;
   background: rgba(180, 60, 60, 0.06);
   border: 2px solid hsl(0, 40%, 40%);
-  box-shadow:
-    inset 0 0 8px rgba(100, 40, 40, 0.1),
-    1px 1px 0 rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
-  position: relative;
   transform: rotate(-0.5deg);
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 1px,
-      rgba(0, 0, 0, 0.02) 1px,
-      rgba(0, 0, 0, 0.02) 2px
-    );
-    pointer-events: none;
-  }
 }
 
-.CorporateThreatHandbook__cover-footer {
+.Handbook__coverFooter {
   font-size: 10px;
   color: hsl(30, 10%, 50%);
   margin-top: auto;
 }
 
-// ========================================
-// CONTENTS PAGE STYLES
-// ========================================
-.CorporateThreatHandbook__contents {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.CorporateThreatHandbook__contents-header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.CorporateThreatHandbook__contents-subtitle {
+// Contents page
+.Handbook__subtitle {
   font-size: 12px;
   color: hsl(30, 10%, 45%);
   font-style: italic;
+  text-align: center;
 }
 
-.CorporateThreatHandbook__contents-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.CorporateThreatHandbook__contents-column {
-  padding: 0.75rem;
-  background: rgba(139, 119, 101, 0.05);
-  border: 1px solid var(--document-border, $handbook-border);
-}
-
-.CorporateThreatHandbook__contents-section-header {
-  font-size: 12px;
-  font-weight: bold;
-  color: var(--document-accent, $handbook-accent);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--document-border, $handbook-border);
-  margin-bottom: 0.5rem;
-}
-
-.CorporateThreatHandbook__contents-item {
+.Handbook__tocItem {
   display: flex;
   align-items: baseline;
   padding: 0.5rem;
-  transition: background 0.15s ease;
-  border-left: 2px solid transparent;
   cursor: pointer;
+  border-left: 2px solid transparent;
 
   &:hover {
     background: rgba(139, 119, 101, 0.1);
@@ -444,64 +202,48 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   }
 }
 
-.CorporateThreatHandbook__contents-item-number {
+.Handbook__tocNumber {
   font-weight: bold;
   color: var(--document-accent, $handbook-accent);
   margin-right: 0.5rem;
-  min-width: 20px;
 }
 
-.CorporateThreatHandbook__contents-item-text {
+.Handbook__tocText {
   flex: 1;
   font-size: 12px;
 }
 
-.CorporateThreatHandbook__contents-item-desc {
+.Handbook__tocDesc {
   font-size: 10px;
   color: hsl(30, 10%, 50%);
   font-style: italic;
 }
 
-.CorporateThreatHandbook__contents-item-page {
+.Handbook__tocPage {
   font-size: 11px;
   color: hsl(30, 10%, 45%);
   margin-left: 0.5rem;
 }
 
-.CorporateThreatHandbook__contents-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.CorporateThreatHandbook__contents-stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.Handbook__statRow {
   padding: 0.25rem 0.5rem;
   font-size: 11px;
 }
 
-.CorporateThreatHandbook__contents-stat-count {
+.Handbook__statCount {
   font-weight: bold;
   background: rgba(139, 119, 101, 0.15);
   padding: 0.1rem 0.5rem;
   border-radius: 2px;
 }
 
-.CorporateThreatHandbook__contents-threats {
-  padding: 0.75rem;
-  background: rgba(139, 119, 101, 0.03);
-  border: 1px solid var(--document-border, $handbook-border);
-}
-
-.CorporateThreatHandbook__contents-threat-grid {
+.Handbook__threatGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
 }
 
-.CorporateThreatHandbook__contents-threat-item {
+.Handbook__threatItem {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -509,9 +251,6 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba($handbook-border, 0.5);
   cursor: pointer;
-  transition:
-    background 0.15s ease,
-    transform 0.15s ease;
 
   &:hover {
     background: rgba(139, 119, 101, 0.12);
@@ -519,7 +258,7 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   }
 }
 
-.CorporateThreatHandbook__contents-threat-icon {
+.Handbook__threatSymbol {
   width: 28px;
   height: 28px;
   display: flex;
@@ -528,108 +267,91 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   background: rgba(139, 119, 101, 0.1);
   border-radius: 2px;
   color: var(--document-accent, $handbook-accent);
-  font-size: 12px;
+  font-family: 'Times New Roman', 'Georgia', serif;
+  font-weight: bold;
+  font-size: 16px;
 }
 
-.CorporateThreatHandbook__contents-threat-info {
+.Handbook__threatInfo {
   flex: 1;
   min-width: 0;
-}
-
-.CorporateThreatHandbook__contents-threat-name {
   font-size: 11px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+  > div:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
-.CorporateThreatHandbook__contents-threat-page {
+.Handbook__threatPage {
   font-size: 10px;
   color: hsl(30, 10%, 50%);
   padding: 0.2rem 0.4rem;
   background: rgba(139, 119, 101, 0.1);
 }
 
-// ========================================
-// THREAT DESIGNATIONS PAGE STYLES
-// ========================================
-.CorporateThreatHandbook__designations {
-  display: flex;
-  flex-direction: column;
-}
-
-.CorporateThreatHandbook__designations-intro {
+// Designations page
+.Handbook__intro {
   font-size: 12px;
   color: hsl(30, 10%, 35%);
-  margin-bottom: 1rem;
   padding: 0.75rem;
   background: rgba(139, 119, 101, 0.05);
   border-left: 3px solid var(--document-accent, $handbook-accent);
 }
 
-.CorporateThreatHandbook__designations-grid {
+.Handbook__designationGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
-  margin-bottom: 1rem;
 }
 
-.CorporateThreatHandbook__designation-card {
+.Handbook__designationCard {
   padding: 0.75rem;
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid var(--document-border, $handbook-border);
-  border-left: 4px solid;
-  transition: transform 0.15s ease;
+  border-left-width: 4px;
 
   &:hover {
     transform: translateY(-1px);
   }
 }
 
-.CorporateThreatHandbook__designation-card--negligible {
+.Handbook__designationCard--negligible {
   border-left-color: hsl(120, 35%, 30%);
 }
-
-.CorporateThreatHandbook__designation-card--minor {
+.Handbook__designationCard--minor {
   border-left-color: hsl(180, 35%, 30%);
 }
-
-.CorporateThreatHandbook__designation-card--moderate {
+.Handbook__designationCard--moderate {
   border-left-color: hsl(45, 60%, 35%);
 }
-
-.CorporateThreatHandbook__designation-card--major {
+.Handbook__designationCard--major {
   border-left-color: hsl(30, 70%, 35%);
 }
-
-.CorporateThreatHandbook__designation-card--severe {
+.Handbook__designationCard--severe {
   border-left-color: hsl(15, 70%, 35%);
 }
-
-.CorporateThreatHandbook__designation-card--critical {
+.Handbook__designationCard--critical {
   border-left-color: hsl(0, 70%, 35%);
 }
 
-.CorporateThreatHandbook__designation-card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.CorporateThreatHandbook__designation-card-symbol {
+.Handbook__designationSymbol {
+  font-family: 'Times New Roman', 'Georgia', serif;
+  font-weight: bold;
   font-size: 18px;
+  color: var(--document-accent, $handbook-accent);
   opacity: 0.8;
+  margin-right: 0.5rem;
 }
 
-.CorporateThreatHandbook__designation-card-desc {
+.Handbook__designationDesc {
   font-size: 11px;
   color: hsl(30, 10%, 35%);
   line-height: 1.4;
 }
 
-.CorporateThreatHandbook__designations-note {
+.Handbook__note {
   font-size: 11px;
   color: hsl(30, 10%, 45%);
   font-style: italic;
@@ -639,18 +361,8 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   text-align: center;
 }
 
-// ========================================
-// THREAT ENTRY PAGE STYLES
-// ========================================
-.CorporateThreatHandbook__threat-entry {
-  display: flex;
-  flex-direction: column;
-}
-
-.CorporateThreatHandbook__threat-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+// Threat entry page
+.Handbook__entryHeader {
   padding: 1rem;
   margin-bottom: 1rem;
   background: linear-gradient(
@@ -659,34 +371,29 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
     rgba(139, 119, 101, 0.05) 100%
   );
   border: 1px solid var(--document-border, $handbook-border);
-  border-left: 5px solid var(--document-accent, $handbook-accent);
+  border-left-width: 5px;
 }
 
-.CorporateThreatHandbook__threat-header--negligible {
+.Handbook__entryHeader--negligible {
   border-left-color: hsl(120, 35%, 30%);
 }
-
-.CorporateThreatHandbook__threat-header--minor {
+.Handbook__entryHeader--minor {
   border-left-color: hsl(180, 35%, 30%);
 }
-
-.CorporateThreatHandbook__threat-header--moderate {
+.Handbook__entryHeader--moderate {
   border-left-color: hsl(45, 60%, 35%);
 }
-
-.CorporateThreatHandbook__threat-header--major {
+.Handbook__entryHeader--major {
   border-left-color: hsl(30, 70%, 35%);
 }
-
-.CorporateThreatHandbook__threat-header--severe {
+.Handbook__entryHeader--severe {
   border-left-color: hsl(15, 70%, 35%);
 }
-
-.CorporateThreatHandbook__threat-header--critical {
+.Handbook__entryHeader--critical {
   border-left-color: hsl(0, 70%, 35%);
 }
 
-.CorporateThreatHandbook__threat-header-icon {
+.Handbook__entrySymbol {
   width: 50px;
   height: 50px;
   display: flex;
@@ -695,225 +402,91 @@ $handbook-shadow: rgba(0, 0, 0, 0.05);
   background: rgba(255, 255, 255, 0.5);
   border: 2px solid var(--document-border, $handbook-border);
   border-radius: 4px;
-  color: var(--document-accent, $handbook-accent);
-}
-
-.CorporateThreatHandbook__threat-header-info {
-  flex: 1;
-}
-
-.CorporateThreatHandbook__threat-header-title {
-  font-size: 18px;
+  font-family: 'Times New Roman', 'Georgia', serif;
   font-weight: bold;
-  color: var(--document-fg, $handbook-fg);
+  font-size: 28px;
+  color: var(--document-accent, $handbook-accent);
+  margin-right: 1rem;
+}
+
+.Handbook__entryTitle {
+  font-size: 18px;
   margin-bottom: 0.25rem;
 }
 
-.CorporateThreatHandbook__threat-body {
-  display: grid;
-  grid-template-columns: 1fr 180px;
-  gap: 1rem;
+.Handbook__sidebar {
+  width: 180px;
+  margin-left: 1rem;
 }
 
-.CorporateThreatHandbook__threat-main {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.CorporateThreatHandbook__threat-section {
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid var(--document-border, $handbook-border);
-}
-
-.CorporateThreatHandbook__threat-section-title {
-  font-size: 13px;
-  font-weight: bold;
-  color: var(--document-accent, $handbook-accent);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--document-border, $handbook-border);
-  margin-bottom: 0.5rem;
-}
-
-.CorporateThreatHandbook__threat-section-content {
-  font-size: 12px;
-  line-height: 1.5;
-  color: hsl(30, 10%, 25%);
-  white-space: pre-wrap;
-}
-
-.CorporateThreatHandbook__threat-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.CorporateThreatHandbook__threat-sidebar-section {
-  padding: 0.75rem;
-  background: $handbook-subtle-bg;
-  border: 1px solid var(--document-border, $handbook-border);
-}
-
-.CorporateThreatHandbook__threat-sidebar-title {
-  font-size: 11px;
-  font-weight: bold;
-  color: var(--document-accent, $handbook-accent);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--document-border, $handbook-border);
-  margin-bottom: 0.5rem;
-}
-
-.CorporateThreatHandbook__threat-signs {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.CorporateThreatHandbook__threat-sign {
+.Handbook__sign {
   font-size: 10px;
   color: hsl(30, 10%, 30%);
-  display: flex;
-  align-items: baseline;
-  gap: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
-.CorporateThreatHandbook__threat-sign-icon {
-  color: var(--document-accent, $handbook-accent);
-  font-size: 8px;
+.Handbook__quickrefItem {
+  margin-bottom: 0.4rem;
 }
 
-.CorporateThreatHandbook__threat-quickref {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.CorporateThreatHandbook__threat-quickref-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.CorporateThreatHandbook__threat-quickref-label {
+.Handbook__quickrefLabel {
   font-size: 9px;
   color: hsl(30, 10%, 50%);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.CorporateThreatHandbook__threat-quickref-value {
-  font-size: 11px;
-  font-weight: bold;
-  color: var(--document-fg, $handbook-fg);
-}
-
-// ========================================
-// END PAGE STYLES
-// ========================================
-.CorporateThreatHandbook__endpage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 1rem;
+// End page
+.Handbook__endPage {
   min-height: 100%;
+  padding: 1rem;
+  text-align: center;
 }
 
-.CorporateThreatHandbook__endpage-seal {
-  margin-bottom: 1rem;
+.Handbook__endSeal {
   color: var(--document-accent, $handbook-accent);
   opacity: 0.7;
 }
 
-.CorporateThreatHandbook__endpage-title {
+.Handbook__endTitle {
   font-size: 24px;
   font-weight: bold;
-  color: var(--document-fg, $handbook-fg);
-  margin-bottom: 1rem;
 }
 
-.CorporateThreatHandbook__endpage-divider {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.Handbook__endDivider {
   width: 80%;
-  margin-bottom: 1.5rem;
+  gap: 1rem;
   color: var(--document-accent, $handbook-accent);
 }
 
-.CorporateThreatHandbook__endpage-divider-line {
-  flex: 1;
+.Handbook__endDividerLine {
   height: 1px;
   background: var(--document-border, $handbook-border);
 }
 
-.CorporateThreatHandbook__endpage-message {
+.Handbook__endMessage {
   font-size: 13px;
   color: hsl(30, 10%, 35%);
-  margin-bottom: 1.5rem;
   max-width: 350px;
 }
 
-.CorporateThreatHandbook__endpage-quote {
-  position: relative;
-  padding: 1rem 2rem;
-  margin-bottom: 1.5rem;
-  background: $handbook-subtle-bg;
-  border-left: 3px solid var(--document-accent, $handbook-accent);
-  border-right: 3px solid var(--document-accent, $handbook-accent);
-}
-
-.CorporateThreatHandbook__endpage-quote-icon {
-  position: absolute;
-  top: -8px;
-  left: 10px;
-  font-size: 16px;
-  color: var(--document-accent, $handbook-accent);
-  opacity: 0.5;
-}
-
-.CorporateThreatHandbook__endpage-quote-text {
-  font-size: 16px;
-  font-weight: bold;
-  font-style: italic;
-  color: var(--document-fg, $handbook-fg);
-}
-
-.CorporateThreatHandbook__endpage-contact {
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  background: rgba(139, 119, 101, 0.05);
-  border: 1px solid var(--document-border, $handbook-border);
+.Handbook__contactText {
+  font-size: 11px;
+  color: hsl(30, 10%, 40%);
   max-width: 380px;
 }
 
-.CorporateThreatHandbook__endpage-contact-title {
-  font-size: 12px;
-  font-weight: bold;
-  color: var(--document-accent, $handbook-accent);
-  margin-bottom: 0.5rem;
-}
-
-.CorporateThreatHandbook__endpage-contact-text {
-  font-size: 11px;
-  color: hsl(30, 10%, 40%);
-}
-
-.CorporateThreatHandbook__endpage-footer {
+.Handbook__endFooter {
   margin-top: auto;
 }
 
-.CorporateThreatHandbook__endpage-version {
+.Handbook__endVersion {
   font-size: 11px;
   color: hsl(30, 10%, 50%);
   margin-bottom: 0.5rem;
 }
 
-.CorporateThreatHandbook__endpage-disclaimer {
+.Handbook__endDisclaimer {
   font-size: 9px;
   color: hsl(0, 50%, 40%);
   font-style: italic;

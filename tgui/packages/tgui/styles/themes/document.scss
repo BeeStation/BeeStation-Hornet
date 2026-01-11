@@ -4,9 +4,6 @@
  * An aged paper/parchment theme designed for official-looking documents.
  * Uses serif fonts and muted colors to evoke a corporate document feel.
  *
- * Exposes CSS custom properties for use by interface-specific stylesheets:
- *   --document-bg, --document-fg, --document-accent,
- *   --document-border, --document-header-bg
  */
 
 @use 'sass:meta';
@@ -41,14 +38,23 @@ $document-header-bg: hsl(43, 25%, 85%);
   // Use a serif font for that official document feel
   font-family: 'Times New Roman', 'Georgia', serif;
 
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
+  // Atomic classes - override label color for document theme
+  @include meta.load-css(
+    '../atomic/color.scss',
+    $with: (
+      'fg-map': (
+        'label': hsl(30, 10%, 35%),
+      ),
+      'bg-map': ()
+    )
+  );
 
   // Components
   @include meta.load-css(
     '../components/Section.scss',
     $with: ('background-color': transparent)
   );
+  @include meta.load-css('../components/BlockQuote.scss');
   @include meta.load-css('../components/Button.scss');
   @include meta.load-css('../components/ProgressBar.scss');
 
@@ -63,11 +69,6 @@ $document-header-bg: hsl(43, 25%, 85%);
       'shadow-color-core': rgba(0, 0, 0, 0.15)
     )
   );
-
-  // Override label colors for this theme
-  .color-label {
-    color: hsl(30, 10%, 35%) !important;
-  }
 
   // Document page background with aged paper texture effect
   .Layout__content {
@@ -98,8 +99,7 @@ $document-header-bg: hsl(43, 25%, 85%);
 
   // Override Section component for document theme
   .Section {
-    background: transparent !important;
-    border: none !important;
+    background: transparent;
 
     &__title {
       font-family: 'Times New Roman', 'Georgia', serif;
@@ -110,7 +110,7 @@ $document-header-bg: hsl(43, 25%, 85%);
     }
 
     &__content {
-      padding: 0 !important;
+      padding: 0;
     }
   }
 
@@ -119,5 +119,69 @@ $document-header-bg: hsl(43, 25%, 85%);
     padding: 0;
     margin: 0;
     height: 100%;
+  }
+
+  // Paper-styled buttons for document theme
+  .Button {
+    background: linear-gradient(
+      180deg,
+      hsl(43, 30%, 88%) 0%,
+      hsl(43, 25%, 82%) 100%
+    );
+    border: 1px solid $document-border;
+    color: $document-fg;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    text-transform: none;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    &:hover {
+      background: linear-gradient(
+        180deg,
+        hsl(43, 35%, 92%) 0%,
+        hsl(43, 30%, 86%) 100%
+      );
+      border-color: $document-accent;
+    }
+
+    &:active {
+      background: linear-gradient(
+        180deg,
+        hsl(43, 25%, 80%) 0%,
+        hsl(43, 30%, 84%) 100%
+      );
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      background: hsl(43, 20%, 85%);
+      box-shadow: none;
+    }
+  }
+
+  // Document-styled blockquotes
+  .BlockQuote {
+    position: relative;
+    padding: 1rem 2rem;
+    background: rgba(139, 119, 101, 0.08);
+    border-left: 3px solid $document-accent;
+    border-right: 3px solid $document-accent;
+    color: $document-fg;
+    font-size: 14px;
+    font-style: italic;
+
+    // Optional quote icon via ::before
+    &::before {
+      content: '"';
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      font-size: 24px;
+      color: $document-accent;
+      opacity: 0.5;
+      font-style: normal;
+    }
   }
 }
