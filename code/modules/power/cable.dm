@@ -162,8 +162,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			omni_dirs |= NORTH
 		if (omni)
 			north_cable.omni_dirs |= SOUTH
-		north_cable.update_appearance(UPDATE_ICON)
 		north_cable.update_power_node()
+		north_cable.update_appearance(UPDATE_ICON)
 	for (var/obj/structure/cable/south_cable in get_step(src, SOUTH))
 		if (!south_cable.omni && !omni && south_cable.cable_color != cable_color)
 			continue
@@ -175,8 +175,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			omni_dirs |= SOUTH
 		if (omni)
 			south_cable.omni_dirs |= NORTH
-		south_cable.update_appearance(UPDATE_ICON)
 		south_cable.update_power_node()
+		south_cable.update_appearance(UPDATE_ICON)
 	for (var/obj/structure/cable/east_cable in get_step(src, EAST))
 		if (!east_cable.omni && !omni && east_cable.cable_color != cable_color)
 			continue
@@ -188,8 +188,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			omni_dirs |= EAST
 		if (omni)
 			east_cable.omni_dirs |= WEST
-		east_cable.update_appearance(UPDATE_ICON)
 		east_cable.update_power_node()
+		east_cable.update_appearance(UPDATE_ICON)
 	for (var/obj/structure/cable/west_cable in get_step(src, WEST))
 		if (!west_cable.omni && !omni && west_cable.cable_color != cable_color)
 			continue
@@ -201,8 +201,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			omni_dirs |= WEST
 		if (omni)
 			west_cable.omni_dirs |= EAST
-		west_cable.update_appearance(UPDATE_ICON)
 		west_cable.update_power_node()
+		west_cable.update_appearance(UPDATE_ICON)
 	// Linkup with multi-z cables
 	if (multiz)
 		var/turf/current_location = get_turf(src)
@@ -213,15 +213,20 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(current_location), cable_color, FALSE)
 		if (above_cable)
 			above_cable.set_down(src)
-	update_power_node()
 
 /obj/structure/cable/proc/update_power_node()
 	if (forced_power_node)
 		return
+	var/previous = has_power_node
 	has_power_node = FALSE
 	// If we have 0 or 1 connections, we get a free power node
 	if (!!north_count + !!south_count + !!west_count + !!east_count <= 1)
 		has_power_node = TRUE
+	if (previous != has_power_node)
+		if (has_power_node)
+			connect_to_machines()
+		else
+			disconnect_from_machines()
 
 /// Add a power node to this cable
 /obj/structure/cable/proc/add_power_node()
@@ -263,14 +268,12 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	down?.up = src
 	update_appearance(UPDATE_ICON)
 	down?.update_appearance(UPDATE_ICON)
-	update_power_node()
 
 /obj/structure/cable/proc/set_up(new_value)
 	up = new_value
 	up?.down = src
 	update_appearance(UPDATE_ICON)
 	up?.update_appearance(UPDATE_ICON)
-	update_power_node()
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -517,17 +520,26 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 			var/datum/powernet/newPN = new()
 			newPN.add_cable(src)
 	if (has_power_node)
-		var/turf/location = get_turf(src)
-		for (var/obj/machinery/power/apc/apc in location)
-			if (apc.terminal == null || apc.terminal.powernet == powernet)
-				continue
-			if(!apc.terminal.connect_to_network())
-				apc.terminal.disconnect_from_network()
-		for (var/obj/machinery/power/power_machine in location)
-			if (power_machine.powernet == powernet)
-				continue
-			if(!power_machine.connect_to_network())
-				power_machine.disconnect_from_network()
+		connect_to_machines()
+
+/obj/structure/cable/proc/connect_to_machines()
+	var/turf/location = get_turf(src)
+	for (var/obj/machinery/power/apc/apc in location)
+		if (apc.terminal == null || apc.terminal.powernet == powernet)
+			continue
+		if(!apc.terminal.connect_to_network())
+			apc.terminal.disconnect_from_network()
+	for (var/obj/machinery/power/power_machine in location)
+		if (power_machine.powernet == powernet)
+			continue
+		if(!power_machine.connect_to_network())
+			power_machine.disconnect_from_network()
+
+/obj/structure/cable/proc/disconnect_from_machines()
+	var/turf/location = get_turf(src)
+	for(var/obj/machinery/power/P in location)
+		if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
+			P.disconnect_from_network() //remove from current network
 
 //////////////////////////////////////////////
 // Powernets handling helpers
@@ -546,9 +558,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 
 	// Disconnect machines connected to nodes
 	if(has_power_node) // if we cut a node (O-X) cable
-		for(var/obj/machinery/power/P in location)
-			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
-				P.disconnect_from_network() //remove from current network
+		disconnect_from_machines()
 
 /obj/structure/cable/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	. = ..()
