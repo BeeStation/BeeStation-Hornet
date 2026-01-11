@@ -60,14 +60,12 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		panel_open = !panel_open
 		to_chat(user, span_notice("You [panel_open ? "open" : "close"] the maintenance hatch of [src]."))
 		update_icon()
-		return TRUE
 	else if(default_deconstruction_crowbar(P))
-		return TRUE
+		return
 	else if(P.tool_behaviour == TOOL_MULTITOOL && panel_open && (machine_stat & BROKEN))
 		to_chat(user, span_notice("You reset [src]'s firmware."))
 		set_machine_stat(machine_stat & ~BROKEN)
 		update_icon()
-		return TRUE
 	else
 		return ..()
 

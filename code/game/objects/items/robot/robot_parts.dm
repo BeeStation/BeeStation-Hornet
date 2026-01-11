@@ -152,58 +152,54 @@
 					user.put_in_inactive_hand(B)
 			else
 				to_chat(user, span_warning("You need one sheet of iron to start building ED-209!"))
-				return TRUE
+				return
 	else if(istype(W, /obj/item/bodypart/leg/left/robot))
 		if(l_leg)
-			return TRUE
+			return
 		if(!user.transferItemToLoc(W, src))
-			return TRUE
+			return
 		W.icon_state = initial(W.icon_state)
 		W.cut_overlays()
 		l_leg = W
 		update_icon()
-		return TRUE
 
 	else if(istype(W, /obj/item/bodypart/leg/right/robot))
 		if(src.r_leg)
-			return TRUE
+			return
 		if(!user.transferItemToLoc(W, src))
-			return TRUE
+			return
 		W.icon_state = initial(W.icon_state)
 		W.cut_overlays()
 		r_leg = W
 		update_icon()
-		return TRUE
 
 	else if(istype(W, /obj/item/bodypart/arm/left/robot))
 		if(l_arm)
-			return TRUE
+			return
 		if(!user.transferItemToLoc(W, src))
-			return TRUE
+			return
 		W.icon_state = initial(W.icon_state)
 		W.cut_overlays()
 		l_arm = W
 		update_icon()
-		return TRUE
 
 	else if(istype(W, /obj/item/bodypart/arm/right/robot))
 		if(r_arm)
-			return TRUE
+			return
 		if(!user.transferItemToLoc(W, src))
-			return TRUE
+			return
 		W.icon_state = initial(W.icon_state)//in case it is a dismembered robotic limb
 		W.cut_overlays()
 		r_arm = W
 		update_icon()
-		return TRUE
 
 	else if(istype(W, /obj/item/bodypart/chest/robot))
 		var/obj/item/bodypart/chest/robot/CH = W
 		if(chest)
-			return TRUE
+			return
 		if(CH.wired && CH.cell)
 			if(!user.transferItemToLoc(CH, src))
-				return TRUE
+				return
 			CH.icon_state = initial(CH.icon_state) //in case it is a dismembered robotic limb
 			CH.cut_overlays()
 			chest = CH
@@ -212,79 +208,76 @@
 			to_chat(user, span_warning("You need to attach wires to it first!"))
 		else
 			to_chat(user, span_warning("You need to attach a cell to it first!"))
-		return TRUE
 
 	else if(istype(W, /obj/item/bodypart/head/robot))
 		var/obj/item/bodypart/head/robot/HD = W
 		for(var/X in HD.contents)
 			if(istype(X, /obj/item/organ))
 				to_chat(user, span_warning("There are organs inside [HD]!"))
-				return TRUE
+				return
 		if(head)
-			return TRUE
+			return
 		if(HD.flash2 && HD.flash1)
 			if(!user.transferItemToLoc(HD, src))
-				return TRUE
+				return
 			HD.icon_state = initial(HD.icon_state)//in case it is a dismembered robotic limb
 			HD.cut_overlays()
 			head = HD
 			update_icon()
 		else
 			to_chat(user, span_warning("You need to attach a flash to it first!"))
-		return TRUE
 
 	else if (W.tool_behaviour == TOOL_MULTITOOL)
 		if(check_completion())
 			Interact(user)
 		else
 			to_chat(user, span_warning("The endoskeleton must be assembled before debugging can begin!"))
-		return TRUE
 
 	else if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
 		if(check_completion())
 			if(!chest.cell)
 				to_chat(user, span_warning("The endoskeleton still needs a power cell!"))
-				return TRUE
+				return
 			if(!isturf(loc))
 				to_chat(user, span_warning("You can't put [M] in, the frame has to be standing on the ground to be perfectly precise!"))
-				return TRUE
+				return
 			if(!M.brainmob)
 				to_chat(user, span_warning("Sticking an empty [M.name] into the frame would sort of defeat the purpose!"))
-				return TRUE
+				return
 
 			var/mob/living/brain/BM = M.brainmob
 			if(!BM.key || !BM.mind)
 				to_chat(user, span_warning("The MMI indicates that their mind is completely unresponsive; there's no point!"))
-				return TRUE
+				return
 
 			if(!BM.client) //braindead
 				to_chat(user, span_warning("The MMI indicates that their mind is currently inactive; it might change!"))
-				return TRUE
+				return
 
 			if(BM.stat == DEAD || BM.suiciding || (M.brain && (M.brain.brain_death || M.brain.suicided)))
 				to_chat(user, span_warning("Sticking a dead brain into the frame would sort of defeat the purpose!"))
-				return TRUE
+				return
 
 			if(M.brain?.organ_flags & ORGAN_FAILING)
 				to_chat(user, span_warning("The MMI indicates that the brain is damaged!"))
-				return TRUE
+				return
 
 			if(is_banned_from(BM.ckey, JOB_NAME_CYBORG) || BM.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
 				to_chat(user, span_warning("This [M.name] is not compatible, try a different one!"))
-				return TRUE
+				return
 
 			if(QDELETED(src) || QDELETED(BM) || QDELETED(user) || !Adjacent(user))
 				if(!QDELETED(M))
 					to_chat(user, span_warning("This [M.name] does not seem to fit!"))
-				return TRUE
+				return
 
 			if(!user.temporarilyRemoveItemFromInventory(W))
-				return TRUE
+				return
 
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/nocell(get_turf(loc), user)
 			if(!O)
-				return TRUE
+				return
 
 			if(M.laws && M.laws.id != DEFAULT_AI_LAWID)
 				aisync = 0
@@ -337,20 +330,19 @@
 
 		else
 			to_chat(user, span_warning("The MMI must go in after everything else!"))
-		return TRUE
 
 	else if(istype(W, /obj/item/borg/upgrade/ai))
 		var/obj/item/borg/upgrade/ai/M = W
 		if(check_completion())
 			if(!chest.cell)
 				to_chat(user, span_warning("The endoskeleton still needs a power cell!"))
-				return TRUE
+				return
 			if(!isturf(loc))
 				to_chat(user, span_warning("You cannot install[M], the frame has to be standing on the ground to be perfectly precise!"))
-				return TRUE
+				return
 			if(!user.temporarilyRemoveItemFromInventory(M))
 				to_chat(user, span_warning("[M] is stuck to your hand!"))
-				return TRUE
+				return
 			qdel(M)
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/shell(get_turf(src))
 
@@ -375,11 +367,9 @@
 			O.robot_suit = src
 			if(!locomotion)
 				O.set_lockcharge(TRUE)
-		return TRUE
 
 	else if(istype(W, /obj/item/pen))
 		to_chat(user, span_warning("You need to use a multitool to name [src]!"))
-		return TRUE
 	else
 		return ..()
 

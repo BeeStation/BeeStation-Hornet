@@ -92,7 +92,7 @@
 					code_it += length(code_char)
 
 				to_chat(user, span_notice("Last code attempt, [lastattempt], had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions."))
-			return TRUE
+			return
 	return ..()
 
 /obj/structure/closet/secure/loot/dive_into(mob/living/user)

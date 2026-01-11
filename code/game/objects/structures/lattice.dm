@@ -44,11 +44,10 @@
 
 /obj/structure/lattice/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
-		return ..()
+		return
 	if(C.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, span_notice("Slicing [name] joints ..."))
 		deconstruct()
-		return TRUE
 	else
 		var/turf/T = get_turf(src)
 		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)

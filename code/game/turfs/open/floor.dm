@@ -115,7 +115,6 @@
 		return 1
 	if(overfloor_placed && istype(object, /obj/item/stack/tile))
 		try_replace_tile(object, user, params)
-		return TRUE
 	return FALSE
 
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)

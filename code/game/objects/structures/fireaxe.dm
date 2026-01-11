@@ -40,7 +40,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 	else if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode && !broken)
 		if(atom_integrity < max_integrity)
 			if(!I.tool_start_check(user, amount=2))
-				return TRUE
+				return
 
 			to_chat(user, span_notice("You begin repairing [src]."))
 			if(I.use_tool(src, user, 40, volume=50, amount=2))
@@ -49,33 +49,33 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/fireaxecabinet, 32)
 				to_chat(user, span_notice("You repair [src]."))
 		else
 			to_chat(user, span_warning("[src] is already in good condition!"))
-		return TRUE
+		return
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
 			to_chat(user, span_warning("You need two glass sheets to fix [src]!"))
-			return TRUE
+			return
 		to_chat(user, span_notice("You start fixing [src]..."))
 		if(do_after(user, 20, target = src) && G.use(2))
 			broken = 0
 			atom_integrity = max_integrity
 			update_appearance()
-		return TRUE
 	else if(open || broken)
 		if(istype(I, /obj/item/fireaxe) && !fireaxe)
 			var/obj/item/fireaxe/F = I
 			if(F && ISWIELDED(F))
 				to_chat(user, span_warning("Unwield the [F.name] first."))
-				return TRUE
+				return
 			if(!user.transferItemToLoc(F, src))
-				return TRUE
+				return
 			fireaxe = F
 			to_chat(user, span_notice("You place the [F.name] back in the [name]."))
 			update_appearance()
+			return
 		else if(!broken)
 			toggle_open()
-		return TRUE
-	return ..()
+	else
+		return ..()
 
 /obj/structure/fireaxecabinet/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

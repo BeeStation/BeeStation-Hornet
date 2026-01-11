@@ -82,7 +82,7 @@
 				user.visible_message(span_notice("[user.name] secures the [name] to the floor."), \
 					span_notice("You secure the external bolts."))
 				user.changeNext_move(CLICK_CD_MELEE)
-				return TRUE //set_anchored handles the rest of the stuff we need to do.
+				return //set_anchored handles the rest of the stuff we need to do.
 		if(PA_CONSTRUCTION_UNWIRED)
 			if(W.tool_behaviour == TOOL_WRENCH)
 				W.play_tool_sound(src, 75)
@@ -90,7 +90,7 @@
 				user.visible_message(span_notice("[user.name] detaches the [name] from the floor."), \
 					span_notice("You remove the external bolts."))
 				user.changeNext_move(CLICK_CD_MELEE)
-				return TRUE //set_anchored handles the rest of the stuff we need to do.
+				return //set_anchored handles the rest of the stuff we need to do.
 			else if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/CC = W
 				if(CC.use(1))
@@ -120,7 +120,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		update_state()
 		update_icon()
-		return TRUE
+		return
 
 	return ..()
 

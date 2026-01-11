@@ -31,26 +31,24 @@
 	if (istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
 		if(!user.is_literate())
 			to_chat(user, span_notice("You scribble illegibly on [src]!"))
-			return TRUE
+			return
 		var/t = stripped_input(user, "What would you like the label to be?", name, null, 53)
 		if(user.get_active_held_item() != I)
-			return TRUE
+			return
 		if(!user.canUseTopic(src, BE_CLOSE))
-			return TRUE
+			return
 		if(t)
 			name = "body bag - [t]"
 			tagged = 1
 			update_appearance()
 		else
 			name = "body bag"
-		return TRUE
+		return
 	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		to_chat(user, span_notice("You cut the tag off [src]."))
 		name = "body bag"
 		tagged = 0
 		update_appearance()
-		return TRUE
-	return ..()
 
 /obj/structure/closet/body_bag/update_overlays()
 	. = ..()

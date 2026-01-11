@@ -61,14 +61,14 @@
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(!cuttable)
 			to_chat(user, span_notice("This section of the fence can't be cut."))
-			return TRUE
+			return
 		if(invulnerable)
 			to_chat(user, span_notice("This fence is too strong to cut through."))
-			return TRUE
+			return
 		var/current_stage = hole_size
 		if(current_stage >= MAX_HOLE_SIZE)
 			to_chat(user, span_notice("This fence has too much cut out of it already."))
-			return TRUE
+			return
 
 		user.visible_message(span_danger("\The [user] starts cutting through \the [src] with \the [W]."),\
 		span_danger("You start cutting through \the [src] with \the [W]."))
@@ -86,8 +86,8 @@
 						RemoveElement(/datum/element/climbable)
 
 				update_cut_status()
-		return TRUE
-	return ..()
+
+	return TRUE
 
 /obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)

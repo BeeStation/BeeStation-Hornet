@@ -362,10 +362,10 @@
 		var/obj/item/toy/sword/attatched_sword = weapon
 		if(HAS_TRAIT(weapon, TRAIT_NODROP))
 			to_chat(user, span_warning("[weapon] is stuck to your hand, you can't attach it to [src]!"))
-			return TRUE
+			return
 		else if(HAS_TRAIT(src, TRAIT_NODROP))
 			to_chat(user, span_warning("[src] is stuck to your hand, you can't attach it to [weapon]!"))
-			return TRUE
+			return
 		else
 			to_chat(user, span_notice("You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool."))
 			var/obj/item/dualsaber/toy/new_saber = new /obj/item/dualsaber/toy(user.loc)
@@ -375,7 +375,6 @@
 			qdel(weapon)
 			qdel(src)
 			user.put_in_hands(new_saber)
-			return TRUE
 	else
 		return ..()
 

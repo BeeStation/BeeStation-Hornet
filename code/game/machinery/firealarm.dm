@@ -339,13 +339,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 		panel_open = !panel_open
 		to_chat(user, span_notice("The wires have been [panel_open ? "exposed" : "unexposed"]."))
 		update_appearance()
-		return TRUE
+		return
 
 	if(panel_open)
 		if(W.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 			if(atom_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
-					return TRUE
+					return
 
 				to_chat(user, span_notice("You begin repairing [src]..."))
 				if(W.use_tool(src, user, 40, volume=50))
@@ -353,13 +353,13 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 					to_chat(user, span_notice("You repair [src]."))
 			else
 				to_chat(user, span_warning("[src] is already in good condition!"))
-			return TRUE
+			return
 
 		switch(buildstage)
 			if(FIRE_ALARM_BUILD_SECURED)
 				if(W.tool_behaviour == TOOL_MULTITOOL)
 					toggle_fire_detect(user)
-					return TRUE
+					return
 
 				else if(W.tool_behaviour == TOOL_WIRECUTTER)
 					buildstage = AIR_ALARM_BUILD_NO_WIRES
@@ -367,7 +367,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 					new /obj/item/stack/cable_coil(user.loc, 5)
 					to_chat(user, span_notice("You cut the wires from  the [src]."))
 					update_appearance()
-					return TRUE
+					return
 
 				else if(W.force) //hit and turn it on
 					..()
@@ -386,7 +386,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 						buildstage = AIR_ALARM_BUILD_COMPLETE
 						to_chat(user, span_notice("You wire  the [src]."))
 						update_appearance()
-					return TRUE
+					return
 
 				else if(W.tool_behaviour == TOOL_CROWBAR)
 					user.visible_message("[user.name] removes the electronics from [src.name].", \
@@ -401,23 +401,24 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 								new /obj/item/electronics/firealarm(user.loc)
 							buildstage = FIRE_ALARM_BUILD_NO_CIRCUIT
 							update_appearance()
-					return TRUE
-				else if (istype(W, /obj/item/electronics/firealarm))
+					return
+			if(FIRE_ALARM_BUILD_NO_CIRCUIT)
+				if(istype(W, /obj/item/electronics/firealarm))
 					to_chat(user, span_notice("You insert the circuit."))
 					qdel(W)
 					buildstage = FIRE_ALARM_BUILD_NO_WIRES
 					update_appearance()
-					return TRUE
+					return
 
 				else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 					var/obj/item/electroadaptive_pseudocircuit/P = W
 					if(!P.adapt_circuit(user, 15))
-						return TRUE
+						return
 					user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
 					span_notice("You adapt a fire alarm circuit and slot it into the assembly."))
 					buildstage = AIR_ALARM_BUILD_NO_WIRES
 					update_appearance()
-					return TRUE
+					return
 
 				else if(W.tool_behaviour == TOOL_WRENCH)
 					user.visible_message("[user] removes the fire alarm assembly from the wall.", \
@@ -426,7 +427,7 @@ SCREENTIP_ATTACK_HAND(/obj/machinery/firealarm, "Push")
 					frame.forceMove(user.drop_location())
 					W.play_tool_sound(src)
 					qdel(src)
-					return TRUE
+					return
 
 	return ..()
 

@@ -5,7 +5,7 @@
   * * [/atom/proc/tool_act] on the target. If it returns TOOL_ACT_TOOLTYPE_SUCCESS or TOOL_ACT_SIGNAL_BLOCKING, the chain will be stopped.
   * * [/obj/item/proc/pre_attack] on src. If this returns TRUE, the chain will be stopped.
   * * [/atom/proc/attackby] on the target. If it returns TRUE, the chain will be stopped.
-  * * [/obj/item/proc/afterattack]. If it returns TRUE, the chain will be stopped.
+  * * [/obj/item/proc/afterattack]. The return value does not matter.
   */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	var/is_right_clicking = LAZYACCESS(params2list(params), RIGHT_CLICK)
@@ -61,6 +61,7 @@
 
 	return afterattack(target, user, TRUE, params)
 
+
 /// Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user, modifiers)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
@@ -89,8 +90,6 @@
 
 /**
   * Called on the item before it hits something
-  * Return TRUE if a valid interaction or attack ocurred, which will
-  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * atom/A - The atom about to be hit
@@ -147,8 +146,6 @@
 
 /**
   * Called on an object being hit by an item
-  * Return TRUE if a valid interaction or attack ocurred, which will
-  * prevent the attack from propogating forward in the attack chain.
   *
   * Arguments:
   * * obj/item/attacking_item - The item hitting this atom
@@ -206,8 +203,6 @@
 
 /**
  * Called from [/mob/living/proc/attackby]
-  * Return TRUE if a valid interaction or attack ocurred, which will
-  * prevent the attack from propogating forward in the attack chain.
  *
  * Arguments:
  * * mob/living/target_mob - The mob being hit by this item
@@ -334,8 +329,6 @@
 
 /**
  * Last proc in the [/obj/item/proc/melee_attack_chain]
- * Return TRUE if a valid interaction or attack ocurred, which will
- * prevent the attack from propogating forward in the attack chain.
  *
  * Arguments:
  * * atom/target - The thing that was hit

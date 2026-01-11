@@ -98,6 +98,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
+/obj/item/stack/cable_coil/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+	if (isturf(target))
+		context.add_left_click_action("Lay Cable")
+	else
+		context.add_right_click_action("Lay Cable")
+
 CREATION_TEST_IGNORE_SUBTYPES(/obj/item/stack/cable_coil)
 
 ///////////////////////////////////

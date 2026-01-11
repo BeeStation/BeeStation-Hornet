@@ -913,7 +913,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 			to_chat(user, span_notice("You close the cap on [src]."))
 			DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 			cut_overlays()
-		return TRUE
 
 	if(O.tool_behaviour == TOOL_MULTITOOL)
 		if(screw && !(obj_flags & EMAGGED))//also kinky
@@ -930,8 +929,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/item/clothing/mask/vape)
 
 		if(screw && (obj_flags & EMAGGED))
 			to_chat(user, span_notice("[src] can't be modified!"))
-		return TRUE
-	return ..()
+		else
+			..()
 
 /obj/item/clothing/mask/vape/should_emag(mob/user)
 	if(!..())

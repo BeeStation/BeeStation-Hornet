@@ -23,14 +23,13 @@
 		icon_open = "[initial(icon_state)]_o_off"
 
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, attacking_item))
-		return TRUE
+		return
 	// Using a multitool lets you access the receiver's interface
 	else if(attacking_item.tool_behaviour == TOOL_MULTITOOL)
 		attack_hand(user)
-		return TRUE
 
 	else if(default_deconstruction_crowbar(attacking_item))
-		return TRUE
+		return
 	else
 		return ..()
 

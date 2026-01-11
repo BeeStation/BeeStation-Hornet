@@ -95,7 +95,7 @@
 		if(paymode == COIN)
 			if(prob(2))
 				if(!user.transferItemToLoc(C, drop_location(), silent = FALSE))
-					return TRUE
+					return
 				C.throw_at(user, 3, 10)
 				if(prob(10))
 					balance = max(balance - SPIN_PRICE, 0)
@@ -103,24 +103,22 @@
 
 			else
 				if(!user.temporarilyRemoveItemFromInventory(C))
-					return TRUE
+					return
 				to_chat(user, span_notice("You insert [C] into [src]'s slot!"))
 				balance += C.value
 				qdel(C)
 		else
 			to_chat(user, span_warning("This machine is only accepting holochips!"))
-		return TRUE
 	else if(istype(I, /obj/item/holochip))
 		if(paymode == HOLOCHIP)
 			var/obj/item/holochip/H = I
 			if(!user.temporarilyRemoveItemFromInventory(H))
-				return TRUE
+				return
 			to_chat(user, span_notice("You insert [H.credits] holocredits into [src]'s slot!"))
 			balance += H.credits
 			qdel(H)
 		else
 			to_chat(user, span_warning("This machine is only accepting coins!"))
-		return TRUE
 	else if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(balance > 0)
 			visible_message("<b>[src]</b> says, 'ERROR! Please empty the machine balance before altering paymode'") //Prevents converting coins into holocredits and vice versa
@@ -131,7 +129,6 @@
 			else
 				paymode = HOLOCHIP
 				visible_message("<b>[src]</b> says, 'This machine now works with HOLOCHIPS!'")
-		return TRUE
 	else
 		return ..()
 

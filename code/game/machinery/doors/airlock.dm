@@ -1020,30 +1020,28 @@
 	else if(istype(C, /obj/item/pai_cable))
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)
-		return TRUE
 	else if(istype(C, /obj/item/airlock_painter))
 		change_paintjob(C, user)
-		return TRUE
 	else if(istype(C, /obj/item/grenade))
 		if(!panel_open || security_level)
 			to_chat(user, span_warning("The maintenance panel must be open to apply [C]!"))
-			return TRUE
+			return
 		if(charge && !detonated)
 			to_chat(user, span_warning("There's already a charge hooked up to this door!"))
-			return TRUE
+			return
 		if(detonated)
 			to_chat(user, span_warning("The maintenance panel is destroyed!"))
-			return TRUE
+			return
 		to_chat(user, span_warning("You apply [C]. Next time someone opens the door, it will explode."))
 		panel_open = FALSE
 		update_appearance()
 		user.transferItemToLoc(C, src, TRUE)
 		charge = C
-		return TRUE
+		return
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters to remove it."))
-			return TRUE
+			return
 		if(!user.transferItemToLoc(C, src))
 			to_chat(user, span_warning("For some reason, you can't attach [C]!"))
 			return

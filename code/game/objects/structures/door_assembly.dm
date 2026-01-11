@@ -54,14 +54,14 @@
 	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
 		if(!t)
-			return TRUE
+			return
 		if(!in_range(src, usr) && loc != usr)
-			return TRUE
+			return
 		created_name = t
 
 	else if((W.tool_behaviour == TOOL_WELDER) && (mineral || glass || !anchored ))
 		if(!W.tool_start_check(user, amount=0))
-			return TRUE
+			return
 
 		if(mineral)
 			var/mineral_path
@@ -108,7 +108,7 @@
 
 				if(W.use_tool(src, user, 40, volume=100))
 					if(anchored)
-						return TRUE
+						return
 					to_chat(user, span_notice("You secure the airlock assembly."))
 					name = "secured airlock assembly"
 					set_anchored(TRUE)
@@ -121,20 +121,20 @@
 								span_italics("You hear wrenching."))
 			if(W.use_tool(src, user, 40, volume=100))
 				if(!anchored)
-					return TRUE
+					return
 				to_chat(user, span_notice("You unsecure the airlock assembly."))
 				name = "airlock assembly"
 				set_anchored(FALSE)
 
 	else if(istype(W, /obj/item/stack/cable_coil) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored )
 		if(!W.tool_start_check(user, amount=1))
-			return TRUE
+			return
 
 		user.visible_message("[user] wires the airlock assembly.", \
 							span_notice("You start to wire the airlock assembly..."))
 		if(W.use_tool(src, user, 40, amount=1))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
-				return TRUE
+				return
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, span_notice("You wire the airlock assembly."))
 			name = "wired airlock assembly"
@@ -145,7 +145,7 @@
 
 		if(W.use_tool(src, user, 40, volume=100))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-				return TRUE
+				return
 			to_chat(user, span_notice("You cut the wires from the airlock assembly."))
 			new/obj/item/stack/cable_coil(get_turf(user), 1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
@@ -157,9 +157,9 @@
 							span_notice("You start to install electronics into the airlock assembly..."))
 		if(do_after(user, 40, target = src))
 			if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-				return TRUE
+				return
 			if(!user.transferItemToLoc(W, src))
-				return TRUE
+				return
 
 			to_chat(user, span_notice("You install the airlock electronics."))
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
@@ -179,10 +179,10 @@
 			if(do_after(user, 40, target = src))
 				if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
 					qdel(AE)
-					return TRUE
+					return
 				if(!user.transferItemToLoc(AE, src))
 					qdel(AE)
-					return TRUE
+					return
 
 				to_chat(user, span_notice("You install the electroadaptive pseudocircuit."))
 				state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
@@ -198,7 +198,7 @@
 
 		if(W.use_tool(src, user, 40, volume=100))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-				return TRUE
+				return
 			to_chat(user, span_notice("You remove the airlock electronics."))
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			name = "wired airlock assembly"
@@ -222,7 +222,7 @@
 												span_notice("You start to install [G.name] into the airlock assembly..."))
 							if(do_after(user, 40, target = src))
 								if(G.get_amount() < 1 || glass)
-									return TRUE
+									return
 								if(G.type == /obj/item/stack/sheet/rglass)
 									to_chat(user, span_notice("You install [G.name] windows into the airlock assembly."))
 									heat_proof_finished = 1 //reinforced glass makes the airlock heat-proof
@@ -241,7 +241,7 @@
 												span_notice("You start to install [G.name] into the airlock assembly..."))
 								if(do_after(user, 40, target = src))
 									if(G.get_amount() < 2 || mineral)
-										return TRUE
+										return
 									to_chat(user, span_notice("You install [M] plating into the airlock assembly."))
 									G.use(2)
 									var/mineralassembly = text2path("/obj/structure/door_assembly/door_assembly_[M]")
@@ -293,7 +293,6 @@
 		return ..()
 	update_name()
 	update_icon()
-	return TRUE
 
 /obj/structure/door_assembly/update_icon()
 	cut_overlays()

@@ -45,17 +45,17 @@
 					to_chat(user, span_notice("You wrench the frame into place."))
 					set_anchored(TRUE)
 					state = 1
-				return TRUE
+				return
 			if(P.tool_behaviour == TOOL_WELDER)
 				if(!P.tool_start_check(user, amount=0))
-					return TRUE
+					return
 
 				to_chat(user, span_notice("You start deconstructing the frame..."))
 				if(P.use_tool(src, user, 20, volume=50))
 					to_chat(user, span_notice("You deconstruct the frame."))
 					new /obj/item/stack/sheet/iron(drop_location(), 5, TRUE, user)
 					qdel(src)
-				return TRUE
+				return
 		if(1)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start to unfasten the frame..."))
@@ -63,26 +63,26 @@
 					to_chat(user, span_notice("You unfasten the frame."))
 					set_anchored(FALSE)
 					state = 0
-				return TRUE
+				return
 			if(istype(P, /obj/item/circuitboard/computer) && !circuit)
 				if(!user.transferItemToLoc(P, src))
-					return TRUE
+					return
 				playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 				to_chat(user, span_notice("You place [P] inside the frame."))
 				icon_state = "1"
 				circuit = P
 				circuit.add_fingerprint(user)
-				return TRUE
+				return
 
 			else if(istype(P, /obj/item/circuitboard) && !circuit)
 				to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
-				return TRUE
+				return
 			if(P.tool_behaviour == TOOL_SCREWDRIVER && circuit)
 				P.play_tool_sound(src)
 				to_chat(user, span_notice("You screw [circuit] into place."))
 				state = 2
 				icon_state = "2"
-				return TRUE
+				return
 			if(P.tool_behaviour == TOOL_CROWBAR && circuit)
 				P.play_tool_sound(src)
 				to_chat(user, span_notice("You remove [circuit]."))
@@ -91,45 +91,45 @@
 				circuit.forceMove(drop_location())
 				circuit.add_fingerprint(user)
 				circuit = null
-				return TRUE
+				return
 		if(2)
 			if(P.tool_behaviour == TOOL_SCREWDRIVER && circuit)
 				P.play_tool_sound(src)
 				to_chat(user, span_notice("You unfasten the circuit board."))
 				state = 1
 				icon_state = "1"
-				return TRUE
+				return
 			if(istype(P, /obj/item/stack/cable_coil))
 				if(!P.tool_start_check(user, amount=5))
-					return TRUE
+					return
 				to_chat(user, span_notice("You start adding cables to the frame..."))
 				if(P.use_tool(src, user, 20, volume=50, amount=5))
 					if(state != 2)
-						return TRUE
+						return
 					to_chat(user, span_notice("You add cables to the frame."))
 					state = 3
 					icon_state = "3"
-				return TRUE
+				return
 		if(3)
 			if(P.tool_behaviour == TOOL_WIRECUTTER)
 				P.play_tool_sound(src)
 				to_chat(user, span_notice("You remove the cables."))
 				state = 2
 				icon_state = "2"
-				new /obj/item/stack/cable_coil(drop_location(), 5)
-				return TRUE
+				new /obj/item/stack/cable_coil(drop_location(), 5, TRUE, user)
+				return
 			if(istype(P, /obj/item/stack/sheet/glass))
 				if(!P.tool_start_check(user, amount=2))
-					return TRUE
+					return
 				playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 				to_chat(user, span_notice("You start to put in the glass panel..."))
 				if(P.use_tool(src, user, 20, amount=2))
 					if(state != 3)
-						return TRUE
+						return
 					to_chat(user, span_notice("You put in the glass panel."))
 					state = 4
 					src.icon_state = "4"
-				return TRUE
+				return
 		if(4)
 			if(P.tool_behaviour == TOOL_CROWBAR)
 				P.play_tool_sound(src)
@@ -137,7 +137,7 @@
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(drop_location(), 2, TRUE, user)
-				return TRUE
+				return
 			if(P.tool_behaviour == TOOL_SCREWDRIVER)
 				P.play_tool_sound(src)
 				to_chat(user, span_notice("You connect the monitor."))
@@ -181,7 +181,7 @@
 					new_computer.on_construction(user)
 
 				qdel(src)
-				return TRUE
+				return
 	if(user.combat_mode)
 		return ..()
 

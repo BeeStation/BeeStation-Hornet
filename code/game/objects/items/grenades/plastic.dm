@@ -47,15 +47,15 @@
 		to_chat(user, span_notice("You add [A] to the [name]."))
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
-		return TRUE
+		return
 	if(nadeassembly && I.tool_behaviour == TOOL_WIRECUTTER)
 		I.play_tool_sound(src, 20)
 		nadeassembly.forceMove(get_turf(src))
 		nadeassembly.master = null
 		nadeassembly = null
 		update_icon()
-		return TRUE
-	return ..()
+		return
+	..()
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()

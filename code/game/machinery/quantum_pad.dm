@@ -58,13 +58,13 @@
 
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I))
-		return TRUE
+		return
 	else if(panel_open && I.tool_behaviour == TOOL_WIRECUTTER)
 		wires.interact(user)
 		return TRUE
 
 	if(panel_open)
-		return FALSE
+		return
 
 	if(istype(I, /obj/item/quantum_keycard))
 		var/obj/item/quantum_keycard/K = I
@@ -76,10 +76,9 @@
 			if(do_after(user, 40, target = src))
 				to_chat(user, span_notice("You complete the link between [K] and [src]."))
 				K.qpad = src
-		return TRUE
 
 	if(default_deconstruction_crowbar(I))
-		return TRUE
+		return
 
 	return ..()
 
