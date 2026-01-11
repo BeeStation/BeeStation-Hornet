@@ -53,9 +53,9 @@
 	reaction_tags = REACTION_TAG_FOOD
 
 /datum/chemical_reaction/synthetic_blood
-	name = "Synthesize Coolant Blood"
+	name = "Synthesized Coolant Blood"
 	results = list(/datum/reagent/blood/coolant = 2)
-	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/water = 1, /datum/reagent/oil = 1)
+	required_reagents = list(/datum/reagent/blood = 1, /datum/reagent/iron = 1, /datum/reagent/cryostylane = 1)
 	mob_react = FALSE
 	reaction_tags = REACTION_TAG_OTHER | REACTION_TAG_HEALING
 
