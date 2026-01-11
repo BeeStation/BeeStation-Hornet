@@ -12,8 +12,6 @@
 	var/list/internal_organs = list()
 	/// Same as above, but stores "slot ID" - "organ" pairs for easy access.
 	var/list/internal_organs_slot = list()
-	/// Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-	var/silent = FALSE
 	/// Whether or not the mob is handcuffed
 	var/obj/item/handcuffed = null
 	/// Same as handcuffs but for legs. Bear traps use this.

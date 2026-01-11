@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return new_msg
 
-/mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
+/mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_range = 7, datum/saymode/saymode = null)
 
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message_mods[LANGUAGE_EXTENSION] = istype(language) ? language.type : language
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
-	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
+	saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
 
 	if(!message)
 		return
@@ -124,21 +124,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
 		return
 
-	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
-		return TRUE
-
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
 		language = message_mods[LANGUAGE_EXTENSION] || get_selected_language()
 
 	// if you add a new language that works like everyone doesn't understand (i.e. anti-metalanguage), add an additional condition after this
 	// i.e.) if(!language) language = /datum/language/nobody_understands
 	// This works as an additional failsafe for get_selected_language() has no language to return
-
-	if(!can_speak_vocal(message))
-		to_chat(src, span_warning("You find yourself unable to speak!"))
-		return
-
-	var/message_range = 7
 
 	var/succumbed = FALSE
 
@@ -178,9 +169,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = "[randomnote] [message] [randomnote]"
 		spans |= SPAN_SINGING
 
-	// Leaving this here so that anything that handles speech this way will be able to have spans affecting it and all that.
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args, message_range)
-	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+	// Make sure the arglist is passed exactly - don't pass a copy of it. Say signal handlers will modify some of the parameters.
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
 		message = uppertext(message)
 	if(!message)
 		if(succumbed)
@@ -339,28 +330,39 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/proc/binarycheck()
 	return FALSE
 
-/mob/living/can_speak(message) //For use outside of Say()
-	if(!is_muted(message) && can_speak_vocal(message))
+/mob/living/try_speak(message, ignore_spam = FALSE, forced = FALSE)
+	if(client && !(ignore_spam || forced))
+
+		if(client.prefs && (client.player_details.muted & MUTE_IC))
+			to_chat(src, span_danger("You cannot speak IC (muted)."))
+			return FALSE
+		if(client.handle_spam_prevention(message, MUTE_IC))
+			return FALSE
+
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_LIVING_TRY_SPEECH, message, ignore_spam, forced)
+	if(sigreturn & COMPONENT_CAN_ALWAYS_SPEAK)
 		return TRUE
 
-/mob/living/proc/is_muted(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
-	if(client)
-		if(client.prefs && (client.player_details.muted & MUTE_IC))
-			to_chat(src, span_danger("You cannot speak in IC (muted)."))
-			return TRUE
-		if(!ignore_spam && !forced && client.handle_spam_prevention(message, MUTE_IC))
-			return TRUE
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
-	return FALSE
+	if(!can_speak())
+		if(HAS_TRAIT(src, TRAIT_MIMING))
+			to_chat(src, span_green("Your vow of silence prevents you from speaking!"))
+		else
+			to_chat(src, span_warning("You find yourself unable to speak!"))
+		return FALSE
 
-/mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
+	return TRUE
+
+/mob/living/can_speak(allow_mimes = FALSE)
+	if(!allow_mimes && HAS_TRAIT(src, TRAIT_MIMING))
+		return FALSE
+
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
 
 	if(is_muzzled())
-		return FALSE
-
-	if(!IsVocal())
 		return FALSE
 
 	return TRUE

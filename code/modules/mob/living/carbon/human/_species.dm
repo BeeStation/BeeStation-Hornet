@@ -2692,9 +2692,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/list/food_flags = FOOD_FLAGS
 
 	return list(
-		"liked_food" = bitfield_to_list(initial(mutanttongue.liked_food), food_flags),
-		"disliked_food" = bitfield_to_list(initial(mutanttongue.disliked_food), food_flags),
-		"toxic_food" = bitfield_to_list(initial(mutanttongue.toxic_food), food_flags),
+		"liked_food" = bitfield_to_list(initial(mutanttongue.liked_foodtypes), food_flags),
+		"disliked_food" = bitfield_to_list(initial(mutanttongue.disliked_foodtypes), food_flags),
+		"toxic_food" = bitfield_to_list(initial(mutanttongue.toxic_foodtypes), food_flags),
 	)
 
 /**
