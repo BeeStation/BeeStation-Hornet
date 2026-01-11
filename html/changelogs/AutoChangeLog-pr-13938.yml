@@ -1,7 +1,0 @@
-author: Isaacnml
-delete-after: true
-changes:
-  - balance: MOD energy shield can withstand 60 damage and recharges 5 seconds after
-      not being hit, recharging 5 per second, roughly reaching max charge in 16 total
-      seconds of not being hit
-  - rscadd: Mod Energy shield to the traitor uplink

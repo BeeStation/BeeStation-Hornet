@@ -126,3 +126,9 @@
   - code_imp: adds another carbon trait to brains, the ability to strip others with
       the stripping menu
   - code_imp: strip menu unit test
+2026-01-11:
+  Isaacnml:
+  - balance: MOD energy shield can withstand 60 damage and recharges 5 seconds after
+      not being hit, recharging 5 per second, roughly reaching max charge in 16 total
+      seconds of not being hit
+  - rscadd: Mod Energy shield to the traitor uplink
