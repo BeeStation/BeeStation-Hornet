@@ -255,23 +255,21 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source, SEE_INVISIBLE_MAXIMUM)
 	var/list/the_dead = list()
 
-	for(var/mob/M as() in GLOB.player_list)
-		if(!M)				//yogs
-			continue		//yogs | null in player_list for whatever reason :shrug:
-		if(M.stat != DEAD) //not dead, not important
-			continue
-		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
-			listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
-			continue
-		if(M.get_virtual_z_level() != get_virtual_z_level() || get_dist(M, src) > 7 ) //they're out of range of normal hearing
-			if(M.client?.prefs && eavesdrop_range && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
-				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
+	if(client) //client is so that ghosts don't have to listen to mice
+		for(var/mob/player_mob as anything in GLOB.player_list)
+			if(QDELETED(player_mob)) //Some times nulls and deleteds stay in this list. This is a workaround to prevent ic chat breaking for everyone when they do.
+				continue //Remove if underlying cause (likely byond issue) is fixed.
+			if(player_mob.stat != DEAD) //not dead, not important
 				continue
-			if(M.client?.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
-				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
-				continue
-		listening |= M
-		the_dead[M] = TRUE
+			if(player_mob.get_virtual_z_level() != get_virtual_z_level() || get_dist(player_mob, src) > 7 ) //they're out of range of normal hearing
+				if(player_mob.client?.prefs && eavesdrop_range && !player_mob.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostwhisper)) //they're whispering and we have hearing whispers at any range off
+					listening -= player_mob // remove (added by SEE_INVISIBLE_MAXIMUM)
+					continue
+				if(player_mob.client?.prefs && !player_mob.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostears)) //they're talking normally and we have hearing at any range off
+					listening -= player_mob // remove (added by SEE_INVISIBLE_MAXIMUM)
+					continue
+			listening |= player_mob
+			the_dead[player_mob] = TRUE
 
 	var/eavesdropping
 	var/eavesrendered
