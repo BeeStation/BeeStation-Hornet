@@ -1,3 +1,5 @@
+# comment: Cardstation has cyan, pink and green cables adjacent to each other. Since cyan no longer exists, turn it into a colour other than pink, green, red or, yellow
+
 /obj/item/rcl/@SUBTYPES : /obj/item/stack/cable_coil/red
 /obj/item/stack/cable_coil/cut/@SUBTYPES : /skip{@OLD}
 /obj/item/stack/cable_coil/@SUBTYPES : /obj/item/stack/cable_coil{@OLD;cable_color=@SKIP;color=@SKIP}
@@ -5,5 +7,5 @@
 /obj/structure/cable/@SUBTYPES{>1} : @DELETE
 /obj/structure/cable/@SUBTYPES{=1} : /obj/structure/cable/@SUBTYPES
 /obj/structure/cable/blue : /obj/structure/cable/pink
-/obj/structure/cable/cyan : /obj/structure/cable/pink
+/obj/structure/cable/cyan : /obj/structure/cable/orange
 /obj/structure/cable/white : /obj/structure/cable/pink
