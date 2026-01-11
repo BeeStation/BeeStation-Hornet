@@ -8,7 +8,7 @@
 	},
 		{
 		"label": "Revenants",
-		"threat_designation": "Moderate",
+		"threat_designation": "Major",
 		"description": "Vengeful ghosts are unfortunately a common paranormal sight in today's economic climate. We suggest taking preventative measures to halt the production and propagation of the soul staying after death. Our research teams have determined that a 1-hour pizza party once per three years can stop such development.",
 		"signs": ["Cracked windows and damaged electronic equipment.", "Change in crew hair color and mood.", "Ghostly whispers throughout the station.", "Floating purple figures present on the station."],
 		"advised_response": "Coordinate with your station's religious expert for supplies of holy water and salt. Spread these around crucial areas to protect your crew.\n\nApply physical trauma to the spirit.\n\nIf you start to feel irregular emotions, seek medical attention immediately.\n\nIf the spirit dissolves into sparking residue, SPREAD RESIDUE IMMEDIATELY."
@@ -23,9 +23,9 @@
 	{
 		"label": "Traitors WIP",
 		"threat_designation": "Moderate",
-		"description": "Blanket entry about all traitor-like antagonists.",
+		"description": "Certain personnel may be covertly working against Nanotrasen's interests, either for personal gain or under the influence of external entities. These individuals may engage in sabotage, espionage, or other activities detrimental to station operations and crew safety.",
 		"signs": ["Unexplained absences or changes in behavior among personnel.", "Discovery of unauthorized communication devices or encrypted messages.", "Increased presence of high-threat contraband."],
-		"advised_response": "Arrest and take their shit i guess"
+		"advised_response": "Maintain vigilance for suspicious behavior. Report any anomalies to Security immediately.\n\n Take stock of all contraband and unauthorized devices found on station.\n\nCoordinate with Command to implement security protocols and conduct thorough investigations into suspected individuals.\n\nIn cases of confirmed sabotage or espionage, detain the individual and ensure all contraband is secured for evidence."
 	}
 
 ]

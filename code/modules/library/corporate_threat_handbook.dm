@@ -1,10 +1,17 @@
 // Threat designations:
-// - Negligible
-// - Minor
-// - Moderate
-// - Major
-// - Severe
-// - Critical
+// - Negligible: α
+//   - Minimal risk to crew or station operations. May require security attention or monitoring.
+// - Minor: β
+//   - Low risk. Requires security attention but poses no significant threat to station integrity.
+// - Moderate: γ
+//   - Notable risk to crew safety. Direct security intervention required. Coordination with department heads advised.
+// - Major: Δ
+//   - Significant threat to multiple crew members or critical systems. Full security mobilization required.
+// - Severe: ε
+//   - Extreme danger to station survival. All crew should be on high alert. Command-level response necessary.
+// - Critical: Ω
+//   - Existential threat to the station. Evacuation protocols may be necessary. Maximum response authorized.
+
 
 /obj/item/book/manual/tgui_handbook
 	name = "Nanotrasen Incident Awareness Handbook"

@@ -61,17 +61,17 @@ const DESIGNATIONS = [
   {
     level: 'Negligible',
     symbol: 'α',
-    desc: 'Minimal risk to crew or station operations. Standard operating procedures are sufficient.',
+    desc: 'Minimal risk to crew or station operations. May require security attention or monitoring.',
   },
   {
     level: 'Minor',
     symbol: 'β',
-    desc: 'Low risk. May require security attention but poses no significant threat to station integrity.',
+    desc: 'Low risk. Requires security attention but poses no significant threat to station integrity.',
   },
   {
     level: 'Moderate',
     symbol: 'γ',
-    desc: 'Notable risk to crew safety. Security response recommended. Coordination with department heads advised.',
+    desc: 'Notable risk to crew safety. Direct security intervention required. Coordination with department heads advised.',
   },
   {
     level: 'Major',
