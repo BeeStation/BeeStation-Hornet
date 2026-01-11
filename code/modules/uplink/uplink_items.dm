@@ -1667,7 +1667,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			will rapidly recharge while not under fire."
 	item = /obj/item/mod/module/energy_shield
 	cost = 8
-	purchasable_from = UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS
 
 /datum/uplink_item/suits/emp_shield
 	name = "MODsuit Advanced EMP Shield Module"

@@ -121,11 +121,11 @@
 	required_slots = list(ITEM_SLOT_BACK)
 	max_integrity = 60 	/// Max integrity of the shield.
 	/// How long we have to avoid being hit to start replenishing integrity.
-	var/recharge_start_delay = 20 SECONDS
+	var/recharge_start_delay = 5 SECONDS
 	/// Once we go unhit long enough to recharge, we replenish integrity this often.
 	var/charge_increment_delay = 1 SECONDS
 	/// How much integrity we recover on each increment.
-	var/charge_recovery = 20
+	var/charge_recovery = 5
 	/// The item path to recharge this shield.
 	var/recharge_path
 	/// The icon file of the shield.
