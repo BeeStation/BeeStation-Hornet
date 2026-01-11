@@ -21,7 +21,7 @@
 		"advised_response": "While vampires are fictional, the symptoms above may indicate medical emergencies, changeling activity, or hostile manipulation.\n\nDo not dismiss personnel claiming 'vampire' activity publicly. Escort them to Medical and contact Central Command via secure channel. CC maintains psychological specialists who will be dispatched to provide appropriate support.\n\nIndividuals afflicted by space rabies should be monitored and dispatched humanely.\n\nIncendiary weaponry, Lasers, Garlic, and proximity to the Chapel are ideal ways to deal with a rabid crewmate. Holy water has been noted to provoke beneficial reactions in cases of unhealthy obsession."
 	},
 	{
-		"label": "Traitors",
+		"label": "Traitors WIP",
 		"threat_designation": "Moderate",
 		"description": "Blanket entry about all traitor-like antagonists.",
 		"signs": ["Unexplained absences or changes in behavior among personnel.", "Discovery of unauthorized communication devices or encrypted messages.", "Increased presence of high-threat contraband."],
