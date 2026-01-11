@@ -6,18 +6,14 @@
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/light/small,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/west{
 	pixel_x = -24
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "b" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32;
 	pixel_y = -1
@@ -43,9 +39,7 @@
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 13
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plating,
@@ -75,13 +69,8 @@
 	dir = 1
 	},
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "j" = (
@@ -92,9 +81,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "l" = (
@@ -195,9 +182,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "B" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium,
@@ -264,9 +249,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
 "J" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -330,14 +313,6 @@
 /obj/effect/spawner/structure/window/reinforced/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"S" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer2,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "T" = (
 /obj/machinery/atmospherics/pipe/smart/manifold/purple/visible{
 	dir = 1
@@ -399,9 +374,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Z" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/caution{
 	dir = 4;
 	pixel_x = -6
@@ -430,7 +403,7 @@ R
 K
 z
 q
-S
+B
 Y
 z
 f

@@ -41,12 +41,7 @@
 /area/shuttle/escape)
 "dO" = (
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -106,12 +101,7 @@
 /area/shuttle/escape)
 "hI" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/plating,
@@ -128,12 +118,7 @@
 "jq" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -154,12 +139,7 @@
 /area/shuttle/escape)
 "lO" = (
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -180,17 +160,6 @@
 	pixel_y = 3
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"my" = (
-/obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/grille,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "mR" = (
 /obj/structure/chair/foldable,
@@ -229,9 +198,7 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "qi" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
@@ -261,12 +228,7 @@
 /area/shuttle/escape)
 "rW" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /obj/structure/window/reinforced/spawner/directional/west,
 /turf/open/floor/plating,
@@ -318,23 +280,13 @@
 "ym" = (
 /obj/structure/window/reinforced/spawner/directional/east,
 /obj/structure/window/reinforced/spawner/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "zd" = (
 /obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -387,24 +339,14 @@
 "Dv" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "DA" = (
 /obj/structure/window/reinforced/spawner/directional/south,
 /obj/structure/window/reinforced/spawner/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/yellow,
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -419,15 +361,6 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
-"FH" = (
-/obj/structure/window/reinforced/spawner/directional/west,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow,
-/obj/structure/grille,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "GA" = (
 /turf/open/floor/plating,
@@ -453,9 +386,7 @@
 /turf/open/floor/iron/checker,
 /area/shuttle/escape)
 "IQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
@@ -521,12 +452,7 @@
 /turf/template_noop,
 /area/template_noop)
 "MF" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/yellow,
 /obj/machinery/door/airlock/public/glass,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -589,17 +515,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"Qh" = (
-/obj/structure/window/reinforced/spawner/directional/south,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Rg" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/iron,
@@ -656,9 +571,6 @@
 "Zs" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -746,7 +658,7 @@ Yy
 KW
 mR
 jq
-FH
+Zs
 Zs
 Zs
 Zs
@@ -771,7 +683,7 @@ UA
 iY
 aj
 Ug
-my
+dO
 Nb
 GA
 KW
@@ -781,7 +693,7 @@ GA
 JL
 GA
 Nb
-Qh
+zd
 zA
 gu
 Yy
