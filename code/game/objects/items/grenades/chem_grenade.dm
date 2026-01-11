@@ -173,7 +173,7 @@
 		context.add_left_click_tool_action("Complete", TOOL_SCREWDRIVER)
 	else if (stage == GRENADE_READY)
 		context.add_left_click_tool_action("Adjust Timer", TOOL_SCREWDRIVER)
-	if (is_type_in_list(context.held_item, allowed_containers) && beakers.len < 2)
+	if (stage == GRENADE_WIRED && is_type_in_list(context.held_item, allowed_containers) && beakers.len < 2)
 		context.add_left_click_action("Insert")
 	if (stage == GRENADE_EMPTY)
 		context.add_left_click_item_action("Wire", /obj/item/stack/cable_coil)

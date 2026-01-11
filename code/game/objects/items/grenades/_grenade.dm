@@ -119,8 +119,8 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 /obj/item/grenade/proc/prime(mob/living/lanced_by)
+	active = FALSE
 	if (dud_flags)
-		active = FALSE
 		update_icon()
 		return FALSE
 
