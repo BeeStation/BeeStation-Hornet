@@ -68,8 +68,8 @@
 	animate(owner.client, pixel_x = x_diff, pixel_y = y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)
 	delay += 0.3 SECONDS // This counts as a 0.3 second wait, so we need to shift the sine wave by that much
 
-	x_diff = amplitude * sin(next_amount * (time + delay))
-	y_diff = amplitude * cos(next_amount * (time + delay))
+	x_diff = clamp(amplitude * sin(next_amount * (time + delay)), -view_range, view_range)
+	y_diff = clamp(amplitude * cos(next_amount * (time + delay)), -view_range, view_range)
 	pixel_x_diff += x_diff
 	pixel_y_diff += y_diff
 	animate(pixel_x = x_diff, pixel_y = y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)
