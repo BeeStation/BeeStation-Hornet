@@ -98,19 +98,19 @@
 	paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>Another thing I found while digging is Nanotrasen's internal profiling database for suspicious individuals. While it's not much, it will be a good place for you to start your investigation and I would bet money that one of these dudes is who you are looking for. It only lists humans and station personnel though, so don't turn a blind eye to the other threats that could be present.</span>"
 	paper_text += "<br>"
 	if (length(bad_people) > 0)
-		paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>The first name that comes up is [pick_n_take(bad_people)].</span>"
+		paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>The first name that comes up is [sanitize(pick_n_take(bad_people))].</span>"
 		paper_text += "<br>"
 	if (length(bad_people) > 0)
-		paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>The second name on the list is [pick_n_take(bad_people)].</span>"
+		paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>The second name on the list is [sanitize(pick_n_take(bad_people))].</span>"
 		paper_text += "<br>"
 	if (length(bad_people) > 0)
-		paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>The final person who should take fancy to is [pick_n_take(bad_people)].</span>"
+		paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>The final person who should take fancy to is [sanitize(pick_n_take(bad_people))].</span>"
 		paper_text += "<br>"
 	paper_text += "<span style='font-family: [FOUNTAIN_PEN_FONT]'>Alright mate, just make sure you burn this fucking document when you are done with it; possession of intercepted documents is a major crime and we could both get in trouble for this.</span>"
 
 	// Create the items
 	var/obj/item/paper/paper = new()
-	paper.add_raw_text(advanced_html = paper_text)
+	paper.add_raw_text(paper_text, advanced_html = TRUE)
 	paper.update_appearance()
 	var/obj/item/detective_scanner/scanner = new()
 
