@@ -1222,7 +1222,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				D.AddElement(/datum/element/movetype_handler)
 			ADD_TRAIT(D,chosen_trait,source)
 		if("Remove")
-			var/specific = tgui_input_list(usr, "All or specific source ?", "Trait Remove/Add", list("All", "Specific")) as null|anything in list("All","Specific")
+			var/specific = tgui_input_list(usr, "All or specific source ?", "Trait Remove/Add", list("All", "Specific"))
 			if(!specific)
 				return
 			switch(specific)
