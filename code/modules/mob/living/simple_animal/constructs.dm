@@ -53,25 +53,25 @@
 	usable_hands = 0
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-    if(!mind)
-        return ..()
-    var/turf/T = get_turf(src)
-    var/obj/item/soulstone/S
-    switch(theme)
-        if(THEME_HOLY)
-            S = new /obj/item/soulstone/anybody/purified(T)
-        if(THEME_WIZARD)
-            S = new /obj/item/soulstone/mystic(T)
-        if(THEME_CULT)
-            S = new /obj/item/soulstone(T)
-        else
-            S = new /obj/item/soulstone/anybody(T)
-    var/mob/living/carbon/human/dummy = new(null)
-    dummy.key = mind.key
-    dummy.real_name = real_name
-    S.transfer_soul("FORCE", dummy)
-    qdel(dummy)
-    return ..()
+	if(!mind)
+		return ..()
+	var/turf/T = get_turf(src)
+	var/obj/item/soulstone/S
+	switch(theme)
+		if(THEME_HOLY)
+			S = new /obj/item/soulstone/anybody/purified(T)
+		if(THEME_WIZARD)
+			S = new /obj/item/soulstone/mystic(T)
+		if(THEME_CULT)
+			S = new /obj/item/soulstone(T)
+		else
+			S = new /obj/item/soulstone/anybody(T)
+	var/mob/living/carbon/human/dummy = new(null)
+	dummy.key = mind.key
+	dummy.real_name = real_name
+	S.transfer_soul("FORCE", dummy)
+	qdel(dummy)
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
