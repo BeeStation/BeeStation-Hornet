@@ -44,7 +44,7 @@ const CharacterProfiles = (props: {
             }}
             tooltip={
               !props.content_unlocked && slot >= props.maxSlot
-                ? 'Buy a BYOND Membership to unlock more slots!'
+                ? 'Buy a BYOND Membership or donate to Beestation to unlock more slots!'
                 : null
             }
             fluid
