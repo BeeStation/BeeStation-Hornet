@@ -58,15 +58,23 @@
 				. += span_notice("You see a [G.name] inside the grenade.")
 
 /obj/item/grenade/chem_grenade/attack_self(mob/user)
-	if(stage == GRENADE_READY && !active)
+	if (active)
+		return
+	if (stage == GRENADE_READY)
 		..()
-	if(stage == GRENADE_WIRED)
+	else
 		wires.interact(user)
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
 	if (stage == GRENADE_DETONATED)
 		return ..()
-	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
+	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
+		if(!user.transferItemToLoc(I, src))
+			return
+		to_chat(user, span_notice("You add [I] to the [initial(name)] assembly."))
+		beakers += I
+		return
+	if(istype(I,/obj/item/assembly))
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(dud_flags & GRENADE_USED)
@@ -124,7 +132,7 @@
 		stage_change(GRENADE_WIRED)
 		to_chat(user, span_notice("You unlock the [initial(name)] assembly."))
 
-	else if(stage == GRENADE_WIRED && I.tool_behaviour == TOOL_WRENCH)
+	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.forceMove(drop_location())
@@ -141,6 +149,32 @@
 		to_chat(user, span_notice("You remove the activation mechanism from the [initial(name)] assembly."))
 	else
 		return ..()
+
+/obj/item/grenade/chem_grenade/add_context_self(datum/screentip_context/context, mob/user)
+	if (stage == GRENADE_DETONATED)
+		return
+	if (active)
+		context.add_attack_self_action("Accept your fate")
+	else if (stage == GRENADE_READY)
+		context.add_attack_self_action("Pull pin")
+	else
+		context.add_attack_self_action("Inspect Wires")
+	context.add_left_click_item_action("Inspect Wires", /obj/item/assembly)
+	if(dud_flags & GRENADE_USED)
+		context.add_left_click_tool_action("Reset trigger", TOOL_SCREWDRIVER)
+	else if (stage == GRENADE_WIRED)
+		context.add_left_click_tool_action("Complete", TOOL_SCREWDRIVER)
+	else if (stage == GRENADE_READY)
+		context.add_left_click_tool_action("Adjust Timer", TOOL_SCREWDRIVER)
+	if (!is_type_in_list(context.held_item, banned_containers) && beakers.len < 2)
+		context.add_left_click_action("Insert")
+	if (stage == GRENADE_EMPTY)
+		context.add_left_click_item_action("Wire", /obj/item/stack/cable_coil)
+	if (stage == GRENADE_READY)
+		context.add_left_click_tool_action("Deconstruct", TOOL_WIRECUTTER)
+	fi (stage == GRENADE_WIRED)
+		context.add_left_click_item_action("Insert", /obj/item/slime_extract)
+	context.add_left_click_action("Empty", TOOL_WRENCH)
 
 /obj/item/grenade/chem_grenade/proc/stage_change(N)
 	if(N)
@@ -161,6 +195,7 @@
 		name = "expended [initial(name)]"
 		desc = "A detonated [initial(desc)]"
 		icon_state = "[initial(icon_state)]_ass"
+	refresh_screentips()
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	var/obj/item/assembly/A = wires.get_attached(wires.get_wire(1))
@@ -199,6 +234,7 @@
 	active = TRUE
 	det_time *= (0.1 * (rand(6, 14))) //between 60% and 140% of set time
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
+	refresh_screentips()
 
 /obj/item/grenade/chem_grenade/prime(mob/living/lanced_by)
 	if(stage != GRENADE_READY)
@@ -249,18 +285,6 @@
 		qdel(src)
 		return
 	return ..()
-
-	//I tried to just put it in the allowed_containers list but
-	//if you do that it must have reagents.  If you're going to
-	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
-		if(!user.transferItemToLoc(I, src))
-			return
-		to_chat(user, span_notice("You add [I] to the [initial(name)] assembly."))
-		beakers += I
-	else
-		return ..()
 
 /obj/item/grenade/chem_grenade/cryo // Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
 	name = "cryo grenade"
