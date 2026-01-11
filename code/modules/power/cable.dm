@@ -163,6 +163,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if (omni)
 			north_cable.omni_dirs |= SOUTH
 		north_cable.update_appearance(UPDATE_ICON)
+		north_cable.update_power_node()
 	for (var/obj/structure/cable/south_cable in get_step(src, SOUTH))
 		if (!south_cable.omni && !omni && south_cable.cable_color != cable_color)
 			continue
@@ -175,6 +176,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if (omni)
 			south_cable.omni_dirs |= NORTH
 		south_cable.update_appearance(UPDATE_ICON)
+		south_cable.update_power_node()
 	for (var/obj/structure/cable/east_cable in get_step(src, EAST))
 		if (!east_cable.omni && !omni && east_cable.cable_color != cable_color)
 			continue
@@ -187,6 +189,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if (omni)
 			east_cable.omni_dirs |= WEST
 		east_cable.update_appearance(UPDATE_ICON)
+		east_cable.update_power_node()
 	for (var/obj/structure/cable/west_cable in get_step(src, WEST))
 		if (!west_cable.omni && !omni && west_cable.cable_color != cable_color)
 			continue
@@ -199,6 +202,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		if (omni)
 			west_cable.omni_dirs |= EAST
 		west_cable.update_appearance(UPDATE_ICON)
+		west_cable.update_power_node()
 	// Linkup with multi-z cables
 	if (multiz)
 		var/turf/current_location = get_turf(src)
@@ -209,6 +213,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 		var/obj/structure/cable/above_cable = get_cable(GET_TURF_ABOVE(current_location), cable_color, FALSE)
 		if (above_cable)
 			above_cable.set_down(src)
+	update_power_node()
 
 /obj/structure/cable/proc/update_power_node()
 	if (forced_power_node)
@@ -258,12 +263,14 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cable)
 	down?.up = src
 	update_appearance(UPDATE_ICON)
 	down?.update_appearance(UPDATE_ICON)
+	update_power_node()
 
 /obj/structure/cable/proc/set_up(new_value)
 	up = new_value
 	up?.down = src
 	update_appearance(UPDATE_ICON)
 	up?.update_appearance(UPDATE_ICON)
+	update_power_node()
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
