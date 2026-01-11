@@ -92,7 +92,7 @@
 
 		return
 
-	if (active)
+	if (active || (dud_flags & GRENADE_USED))
 		return
 	if(!botch_check(user)) // if they botch the prime, it'll be handled in botch_check
 		preprime(user)
@@ -121,15 +121,15 @@
 /obj/item/grenade/proc/prime(mob/living/lanced_by)
 	active = FALSE
 	if (dud_flags)
-		update_icon()
+		update_appearance()
 		return FALSE
 
 	dud_flags |= GRENADE_USED // Don't detonate if we have already detonated.
 	if(shrapnel_type && shrapnel_radius && !shrapnel_initialized) // add a second check for adding the component in case whatever triggered the grenade went straight to prime (badminnery for example)
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
-	update_icon()
 
+	update_appearance()
 	SEND_SIGNAL(src, COMSIG_GRENADE_PRIME, lanced_by)
 	if(ex_heavy || ex_light || ex_flame)
 		explosion(loc, 0, ex_heavy, ex_light, flame_range = ex_flame)

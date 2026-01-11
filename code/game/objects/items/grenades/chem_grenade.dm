@@ -74,6 +74,7 @@
 			if (do_after(user, 2 SECONDS, src))
 				to_chat(user, span_notice("You reset the trigger."))
 				dud_flags &= ~GRENADE_USED
+				update_appearance()
 		return
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
@@ -135,6 +136,8 @@
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(beakers.len)
+			// Clear reagents out to prevent exploiting by filling up with reagents and then re-detonating
+			reagents.clear_reagents()
 			for(var/obj/O in beakers)
 				O.forceMove(drop_location())
 				if(!O.reagents)
