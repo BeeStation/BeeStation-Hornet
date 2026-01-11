@@ -132,3 +132,7 @@
       not being hit, recharging 5 per second, roughly reaching max charge in 16 total
       seconds of not being hit
   - rscadd: Mod Energy shield to the traitor uplink
+  PowerfulBacon:
+  - balance: Hacked APCs will now only sometimes flicker their distinctive blue colour.
+      Only players standing near the APC can see this. Malf AIs and ghosts always
+      see hacked APCs as blue.
