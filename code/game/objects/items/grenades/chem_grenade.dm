@@ -66,8 +66,15 @@
 		wires.interact(user)
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
-	if (stage == GRENADE_DETONATED)
+	if (active)
 		return ..()
+	if(dud_flags & GRENADE_USED)
+		if (I.tool_behaviour == TOOL_SCREWDRIVER)
+			to_chat(user, span_notice("You started to reset the trigger."))
+			if (do_after(user, 2 SECONDS, src))
+				to_chat(user, span_notice("You reset the trigger."))
+				dud_flags &= ~GRENADE_USED
+		return
 	if(istype(I, /obj/item/slime_extract) && stage == GRENADE_WIRED)
 		if(!user.transferItemToLoc(I, src))
 			return
@@ -77,12 +84,6 @@
 	if(istype(I,/obj/item/assembly))
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(dud_flags & GRENADE_USED)
-			to_chat(user, span_notice("You started to reset the trigger."))
-			if (do_after(user, 2 SECONDS, src))
-				to_chat(user, span_notice("You reset the trigger."))
-				dud_flags &= ~GRENADE_USED
-			return
 		if(stage == GRENADE_WIRED)
 			if(beakers.len)
 				stage_change(GRENADE_READY)
@@ -150,36 +151,45 @@
 	else
 		return ..()
 
-/obj/item/grenade/chem_grenade/add_context_self(datum/screentip_context/context, mob/user)
-	if (stage == GRENADE_DETONATED)
-		return
+/obj/item/grenade/chem_grenade/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
+
 	if (active)
 		context.add_attack_self_action("Accept your fate")
-	else if (stage == GRENADE_READY)
+		return
+	if(dud_flags & GRENADE_USED)
+		return
+	if (stage == GRENADE_READY)
 		context.add_attack_self_action("Pull pin")
 	else
 		context.add_attack_self_action("Inspect Wires")
-	context.add_left_click_item_action("Inspect Wires", /obj/item/assembly)
+
+/obj/item/grenade/chem_grenade/add_context_self(datum/screentip_context/context, mob/user)
 	if(dud_flags & GRENADE_USED)
 		context.add_left_click_tool_action("Reset trigger", TOOL_SCREWDRIVER)
-	else if (stage == GRENADE_WIRED)
+		return
+	context.add_left_click_item_action("Inspect Wires", /obj/item/assembly)
+	if (stage == GRENADE_WIRED)
 		context.add_left_click_tool_action("Complete", TOOL_SCREWDRIVER)
 	else if (stage == GRENADE_READY)
 		context.add_left_click_tool_action("Adjust Timer", TOOL_SCREWDRIVER)
-	if (!is_type_in_list(context.held_item, banned_containers) && beakers.len < 2)
+	if (is_type_in_list(context.held_item, allowed_containers) && beakers.len < 2)
 		context.add_left_click_action("Insert")
 	if (stage == GRENADE_EMPTY)
 		context.add_left_click_item_action("Wire", /obj/item/stack/cable_coil)
 	if (stage == GRENADE_READY)
 		context.add_left_click_tool_action("Deconstruct", TOOL_WIRECUTTER)
-	fi (stage == GRENADE_WIRED)
+	if (stage == GRENADE_WIRED)
 		context.add_left_click_item_action("Insert", /obj/item/slime_extract)
-	context.add_left_click_action("Empty", TOOL_WRENCH)
+	context.add_left_click_tool_action("Empty", TOOL_WRENCH)
 
 /obj/item/grenade/chem_grenade/proc/stage_change(N)
 	if(N)
 		stage = N
-	if(stage == GRENADE_EMPTY)
+	if (dud_flags & GRENADE_USED)
+		name = "expended [initial(name)]"
+		desc = "A detonated [initial(desc)]"
+		icon_state = "[initial(icon_state)]_ass"
+	else if(stage == GRENADE_EMPTY)
 		name = "[initial(name)] casing"
 		desc = "A do it yourself [initial(name)]! [initial(casedesc)]"
 		icon_state = initial(icon_state)
@@ -191,10 +201,6 @@
 		name = initial(name)
 		desc = initial(desc)
 		icon_state = "[initial(icon_state)]_locked"
-	else if (stage == GRENADE_DETONATED)
-		name = "expended [initial(name)]"
-		desc = "A detonated [initial(desc)]"
-		icon_state = "[initial(icon_state)]_ass"
 	refresh_screentips()
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
@@ -244,7 +250,6 @@
 	if(!.)
 		return
 
-	stage_change(GRENADE_DETONATED)
 	max_integrity = 1
 	atom_integrity = 1
 
@@ -281,7 +286,7 @@
 	update_mob()
 
 /obj/item/grenade/chem_grenade/ex_act(severity, target)
-	if (stage == GRENADE_DETONATED)
+	if (dud_flags & GRENADE_USED)
 		qdel(src)
 		return
 	return ..()
@@ -329,7 +334,6 @@
 
 	max_integrity = 1
 	atom_integrity = 1
-	stage_change(GRENADE_DETONATED)
 
 	var/total_volume = 0
 	for(var/obj/item/reagent_containers/RC in beakers)
