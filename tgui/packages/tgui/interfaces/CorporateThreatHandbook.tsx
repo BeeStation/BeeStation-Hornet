@@ -159,6 +159,16 @@ export const CorporateThreatHandbook = () => {
           <Flex.Item grow />
           <Flex.Item>
             <Button
+              icon="list"
+              disabled={currentPage === 1}
+              onClick={() => changePage(1)}
+            >
+              Index
+            </Button>
+          </Flex.Item>
+          <Flex.Item grow />
+          <Flex.Item>
+            <Button
               icon="chevron-right"
               iconPosition="right"
               disabled={currentPage === totalPages - 1}
