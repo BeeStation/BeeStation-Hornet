@@ -100,7 +100,7 @@
 /obj/structure/sign/poster/official/the_owl{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/random/decoration/glowstick/lit,
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
 "dl" = (
@@ -247,7 +247,7 @@
 /turf/open/floor/iron,
 /area/shuttle/hunter)
 "gv" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/iron/yellowsiding{
 	dir = 4
 	},
@@ -436,10 +436,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/maintenance/two{
-	pixel_x = -7;
-	pixel_y = 3
-	},
+/obj/effect/spawner/random/maintenance/two,
 /obj/machinery/atmospherics/pipe/smart/simple/purple/hidden{
 	dir = 8
 	},
@@ -1070,7 +1067,7 @@
 /obj/machinery/microwave{
 	pixel_y = 4
 	},
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/random/food_or_drink/donkpockets,
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},

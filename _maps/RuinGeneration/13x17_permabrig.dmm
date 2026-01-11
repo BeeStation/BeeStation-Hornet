@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ad" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -18,7 +18,7 @@
 /area/ruin/unpowered)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomvend/cola,
+/obj/effect/spawner/random/vending/colavend,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "dG" = (
@@ -48,7 +48,7 @@
 "hq" = (
 /obj/structure/table,
 /obj/item/pen,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "hu" = (
@@ -187,7 +187,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -292,8 +292,8 @@
 /area/ruin/unpowered)
 "BT" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/ruinloot/security,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
+/obj/effect/spawner/random/ruinloot/security,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "CC" = (
@@ -352,7 +352,7 @@
 /area/ruin/unpowered)
 "Le" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade,
+/obj/effect/spawner/random/entertainment/arcade,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "My" = (

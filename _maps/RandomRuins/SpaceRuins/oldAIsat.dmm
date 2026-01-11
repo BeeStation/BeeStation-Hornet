@@ -106,7 +106,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ay" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random/structure/crate_abandoned,
 /turf/open/floor/iron/airless,
 /area/tcommsat/oldaisat)
 "az" = (

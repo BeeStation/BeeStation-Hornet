@@ -44,7 +44,7 @@
 		H.electrocution_animation(20)
 	C.do_jitter_animation(300) // Maximum jitter
 	C.adjust_jitter(20 SECONDS)
-	C.stuttering += 1
+	C.adjust_stutter(2 SECONDS)
 	spawn(20)
 	if(C)
 		C.remove_status_effect(/datum/status_effect/jitter)
@@ -131,7 +131,7 @@
 			H.electrocution_animation(20)
 		C.do_jitter_animation(300) // Maximum jitter
 		C.adjust_jitter(20 SECONDS)
-		C.stuttering += 1
+		C.adjust_stutter(2 SECONDS)
 		spawn(20)
 		if(C)
 			C.remove_status_effect(/datum/status_effect/jitter)

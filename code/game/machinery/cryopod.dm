@@ -154,8 +154,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/on_store_name = "Cryogenic Oversight"
 
 	// 5 minutes-ish safe period before being despawned.
-	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
-	var/despawn_world_time = null          // Used to keep track of the safe period.
+	var/time_till_despawn = 5 MINUTES // Players are ghosted immediately if they manually chose to enter cryo
+	var/despawn_world_time = null // Used to keep track of the safe period.
+	var/ghost_offering = FALSE //Sets to true when the occupant is currently being offered to ghosts, to pause despawning them
 
 	var/datum/weakref/control_computer_weakref
 	var/last_no_computer_message = 0
@@ -220,14 +221,15 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		var/mob/living/mob_occupant = occupant
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(occupant, span_boldnotice("You feel cool air surround you. You go numb as your senses turn inward."))
-		if(mob_occupant.client)//if they're logged in
-			despawn_world_time = world.time + (time_till_despawn * 0.1) // This gives them 30 seconds
+		if(mob_occupant.client)
+			despawn_world_time = world.time //If they are logged in and actively chose to cryo themselves, they are immediately offered
 		else
 			despawn_world_time = world.time + time_till_despawn
 	icon_state = "cryopod"
 
 /obj/machinery/cryopod/open_machine()
 	..()
+	ghost_offering = FALSE
 	icon_state = "cryopod-open"
 	set_density(TRUE)
 	name = initial(name)
@@ -241,26 +243,70 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	container_resist(user)
 
 /obj/machinery/cryopod/process()
-	if(!occupant)
+	if(!occupant || ghost_offering)
 		return
 
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
-		// Eject dead people
-		if(mob_occupant.stat == DEAD)
+		// Eject people that are incapacitated
+		if(mob_occupant.stat)
 			open_machine()
 
+		//The grace period isn't up yet
 		if(!(world.time > despawn_world_time))
 			return
 
-		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
-			if(!control_computer_weakref)
-				find_control_computer(urgent = TRUE)//better hope you found it this time
-
+		if (!mob_occupant.mind)
 			despawn_occupant()
+			return
+
+		//Offer special roles to ghosts and pause processing while we do
+		var/highest_leave = ANTAGONIST_LEAVE_DESPAWN
+		for (var/datum/antagonist/antagonist_datum in mob_occupant.mind.antag_datums)
+			highest_leave = max(highest_leave, antagonist_datum.leave_behaviour)
+		// Determine how we should handle our leaving
+		ghost_offering = TRUE
+		switch (highest_leave)
+			if (ANTAGONIST_LEAVE_DESPAWN)
+				INVOKE_ASYNC(src, PROC_REF(leave_game), mob_occupant)
+			if (ANTAGONIST_LEAVE_OFFER)
+				INVOKE_ASYNC(src, PROC_REF(offering_to_ghosts), mob_occupant)
+			if (ANTAGONIST_LEAVE_KEEP)
+				INVOKE_ASYNC(src, PROC_REF(persistent_offer_to_ghosts), mob_occupant)
+
+/obj/machinery/cryopod/proc/persistent_offer_to_ghosts(mob/living/target)
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+		if (target.client)
+			open_machine()
+			return
+	target.ghostize(FALSE)
+	offer_control_persistently(target)
+
+/obj/machinery/cryopod/proc/offering_to_ghosts(mob/living/target)
+	if(target.client && tgui_alert(target, "Would you like to leave the game? Your role will be automatically transfered to another player.", "Leave Game", list("Yes", "No")) != "Yes")
+		if (target.client)
+			open_machine()
+			return
+	target.ghostize(FALSE)
+	if(offer_control(target))
+		open_machine()
+	else
+		despawn_occupant()
+
+/obj/machinery/cryopod/proc/leave_game(mob/living/target)
+	if(target.client && tgui_alert(target, "Would you like to leave the game? You will immediately be ghosted.", "Leave Game", list("Yes", "No")) != "Yes")
+		if (target.client)
+			open_machine()
+			return
+	despawn_occupant()
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
+	ghost_offering = FALSE
+	//Last chance to find this computer if it exists
+	if(!control_computer_weakref)
+		find_control_computer(urgent = TRUE)
+
 	var/mob/living/mob_occupant = occupant
 
 	if(mob_occupant.mind && mob_occupant.mind.assigned_role)
@@ -378,21 +424,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
-	var/generic_plsnoleave_message = " Please adminhelp before leaving the round, even if there are no administrators online!"
-
-	if(target == user && world.time - target.client.cryo_warned > 5 MINUTES)//if we haven't warned them in the last 5 minutes
-		var/caught = FALSE
-		var/datum/antagonist/A = target.mind.has_antag_datum(/datum/antagonist)
-		if(target.mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
-			alert("You're a Head of Staff![generic_plsnoleave_message]")
-			caught = TRUE
-		if(A)
-			alert("You're a [A.name]![generic_plsnoleave_message]")
-			caught = TRUE
-		if(caught)
-			target.client.cryo_warned = world.time
-			return
-
 	if(!target || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 		//rerun the checks in case of shenanigans
@@ -407,8 +438,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		return
 	close_machine(target)
 
-	to_chat(target, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
-	name = "[name] ([occupant.name])"
 	if((world.time - SSticker.round_start_time) < 5 MINUTES)
 		message_admins("[span_danger("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='BYOND://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>")])")
 	else
