@@ -15,29 +15,29 @@
 	for (var/obj/structure/cable/cable in check_turf)
 		if (!powernets)
 			powernets = list()
-		var/actual_colour = powernet_lookup[cable.color]
+		var/actual_colour = powernet_lookup[cable.cable_color]
 		if (!powernets[actual_colour])
 			powernets[actual_colour] = cable.powernet
 		else if (powernets[actual_colour] != cable.powernet)
-			return "Two wires with the [cable.color] colour were on the same tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
+			return "Two wires with the [cable.cable_color] colour were on the same tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
 	// Check adjacent turfs
 	for (var/obj/structure/cable/cable in get_step(check_turf, NORTH))
 		if (!powernets)
 			powernets = list()
-		var/actual_colour = powernet_lookup[cable.color]
+		var/actual_colour = powernet_lookup[cable.cable_color]
 		// If we don't have that colour, its fine
 		if (!powernets[actual_colour])
 			continue
 		else if (powernets[actual_colour] != cable.powernet)
-			return "Two wires with the [cable.color] colour were on the adjacent tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
+			return "Two wires with the [cable.cable_color] colour were on the adjacent tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
 	// Check adjacent turfs
 	for (var/obj/structure/cable/cable in get_step(check_turf, EAST))
 		if (!powernets)
 			powernets = list()
-		var/actual_colour = powernet_lookup[cable.color]
+		var/actual_colour = powernet_lookup[cable.cable_color]
 		// If we don't have that colour, its fine
 		if (!powernets[actual_colour])
 			continue
 		else if (powernets[actual_colour] != cable.powernet)
-			return "Two wires with the [cable.color] colour were on the adjacent tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
+			return "Two wires with the [cable.cable_color] colour were on the adjacent tile with different powernets. This will cause issues when we update to smartcables, please connect these cables or use a different colour."
 
