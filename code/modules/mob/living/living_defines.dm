@@ -83,6 +83,8 @@
 
 	var/list/pipes_shown = list()
 	var/last_played_vent
+	/// Cooldown for welded vent movement messages to prevent spam
+	COOLDOWN_DECLARE(welded_vent_message_cd)
 
 	var/smoke_delay = 0 //used to prevent spam with smoke reagent reaction on mob.
 

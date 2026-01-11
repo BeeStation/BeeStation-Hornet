@@ -532,30 +532,36 @@
 
 // Handles mob movement inside a pipenet
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
-
 	if(!(direction & initialize_directions) || !(direction in GLOB.cardinals_multiz)) //cant go this way.
 		return
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
+
 	var/obj/machinery/atmospherics/target_move = find_connecting(direction, user.ventcrawl_layer)
 
 	if(!target_move)
+		// If we couldn't find a target to move to and we're ventcrawling, try to exit if this vent allows it
+		if(HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING) && (vent_movement & VENTCRAWL_ENTRANCE_ALLOWED))
+			user.handle_ventcrawl(src)
 		return
-	if(target_move.vent_movement & VENTCRAWL_ALLOWED)
-		user.forceMove(target_move)
-		user.client.set_eye(target_move)  //Byond only updates the eye every tick, This smooths out the movement
-		var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
-		if(pipenetdiff.len)
-			user.update_pipe_vision()
-		if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
-			user.last_played_vent = world.time
-			playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
-			if(prob(1))
-				audible_message(span_warning("You hear something crawling through the ducts..."))
+
+	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
+		return
+	user.forceMove(target_move)
+	user.client.set_eye(target_move)  //Byond only updates the eye every tick, This smooths out the movement
+	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
+	if(pipenetdiff.len)
+		user.update_pipe_vision()
+	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
+		user.last_played_vent = world.time
+		playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
+		if(prob(1))
+			audible_message(span_warning("You hear something crawling through the ducts..."))
 
 	//Would be great if this could be implemented when someone alt-clicks the image.
 	if (target_move.vent_movement & VENTCRAWL_ENTRANCE_ALLOWED)
 		user.handle_ventcrawl(target_move)
+		return
 
 	//PLACEHOLDER COMMENT FOR ME TO READD THE 1 (?) DS DELAY THAT WAS IMPLEMENTED WITH A... TIMER?
 
