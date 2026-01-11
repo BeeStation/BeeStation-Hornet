@@ -51,7 +51,8 @@
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
 #define ACTION_TRAIT "action_trait"
-#define TURF_TRAIT "turf"
+#define TRAIT_LEANING "leaning"
+#define TRAIT_REGEN_COMA "regencoma"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"

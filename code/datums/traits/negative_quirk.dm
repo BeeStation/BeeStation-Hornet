@@ -117,7 +117,6 @@
 	desc = "You sometimes just hate life."
 	icon = "frown"
 	quirk_value = -1
-	mob_trait = TRAIT_DEPRESSION
 	gain_text = span_danger("You start feeling depressed.")
 	lose_text = span_notice("You no longer feel depressed.") //if only it were that easy!
 	medical_record_text = "Patient has a severe mood disorder causing them to experience sudden moments of sadness."
@@ -402,7 +401,6 @@
 	desc = "You have a mental disorder that prevents you from being able to recognize faces at all."
 	icon = "user-secret"
 	quirk_value = -1
-	mob_trait = TRAIT_PROSOPAGNOSIA
 	medical_record_text = "Patient suffers from prosopagnosia and cannot recognize faces."
 
 /datum/quirk/prosthetic_limb
