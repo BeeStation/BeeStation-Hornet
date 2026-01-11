@@ -78,8 +78,19 @@
 		if(vent_parent && (vent_parent.members.len || vent_parent.other_atmos_machines))
 			flick_overlay_static(image('icons/effects/vent_indicator.dmi', "arrow", ABOVE_MOB_LAYER, dir = get_dir(src.loc, ventcrawl_target.loc)), ventcrawl_target, 2 SECONDS)
 			visible_message(span_notice("[src] begins climbing into the ventilation system...") ,span_notice("You begin climbing into the ventilation system..."))
+
+			ADD_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+			ADD_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+			ADD_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 			if(!do_after(src, 2.5 SECONDS, target = ventcrawl_target, extra_checks = CALLBACK(src, .proc/can_enter_vent, ventcrawl_target)))
+				REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+				REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+				REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
 				return
+			REMOVE_TRAIT(src, TRAIT_NO_MOVE_PULL, VENTCRAWLING_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_NOMOBSWAP, VENTCRAWLING_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_PUSHIMMUNE, VENTCRAWLING_TRAIT)
+
 			if(has_client && isnull(client))
 				return
 			if(ventcrawl_target.welded) // in case it got welded during our sleep
