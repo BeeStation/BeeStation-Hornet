@@ -45,8 +45,10 @@
 
 /datum/plant_trait/proc/setup_parent(_parent)
 	parent = _parent
-	if(!parent || !istype(parent))
-		parent = null //Null parent in the case it's not the right type, like an object
+	if(!parent || plant_feature_compat && !istype(parent))
+		parent = null
+		return
+	if(!istype(parent))
 		return
 //Stuff we can do with just our feature parent
 	//Tax genetic budget

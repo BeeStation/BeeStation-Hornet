@@ -2889,6 +2889,10 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/floor/iron,
 /area/construction)
+"GG" = (
+/obj/machinery/refraction_catalogue,
+/turf/open/floor/iron,
+/area/storage/primary)
 "GH" = (
 /obj/structure/railing/perspective,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -9382,7 +9386,7 @@ dD
 AC
 ye
 dJ
-dJ
+GG
 gg
 Kf
 Ba

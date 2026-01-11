@@ -172,8 +172,9 @@
 /datum/plant_feature/fruit/proc/catch_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	var/obj/item/plant_tray/tray = parent.plant_item.loc
-	if(!length(fruits) || SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT))
+	//TODO: undo comments - Racc
+	//var/obj/item/plant_tray/tray = parent.plant_item.loc
+	if(!length(fruits))// || SEND_SIGNAL(tray, COMSIG_PLANTER_PAUSE_PLANT))
 		return
 	var/list/temp_fruits = list()
 	var/turf/T = user ? get_turf(user) : get_turf(parent.plant_item)

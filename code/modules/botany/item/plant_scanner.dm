@@ -59,6 +59,7 @@
 		for(var/datum/plant_feature/feature as anything in genes[PLANT_GENE_INDEX_FEATURES])
 			scan_dialogue += "<span class='plant_sub'>[feature.get_scan_dialogue()][advanced ? "\n[feature.get_need_dialogue()]" : ""]</span>"
 		to_chat(user, "<span class='plant_scan'><b>[capitalize(target.name)]</b></span><span class='plant_scan'>[scan_dialogue]</span>")
+		//TODO: Add dialogue to show ALL reagent contents - Racc
 		playsound(src, 'sound/effects/fastbeep.ogg', 20)
 		return FALSE
 //Plant

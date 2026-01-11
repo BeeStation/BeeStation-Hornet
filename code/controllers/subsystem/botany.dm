@@ -1,3 +1,9 @@
+#define MAX_REAGENT_GRID 100
+#define GRID_REAGENT_POSITION "GRID_REAGENT_POSITION"
+#define GRID_REAGENT_OFFSET "REAGENT_OFFSET"
+#define GRID_REAGENT_SIZE "GRID_REAGENT_SIZE"
+#define GRID_REAGENT_NAME "GRID_REAGENT_NAME"
+
 SUBSYSTEM_DEF(botany)
 	name = "Botany"
 	flags = SS_NO_FIRE
@@ -23,6 +29,11 @@ SUBSYSTEM_DEF(botany)
 	///List of possible weeds, and their weights - These values are interpreted from old botany
 	var/list/weeds = list(/obj/item/plant_seeds/preset/amanita = 1, /obj/item/plant_seeds/preset/reishi = 2, /obj/item/plant_seeds/preset/nettle = 1, /obj/item/plant_seeds/preset/chanterelle = 1,
 	/obj/item/plant_seeds/preset/tower = 1, /obj/item/plant_seeds/preset/plump = 1, /obj/item/plant_seeds/preset/starthistle = 3, /obj/item/plant_seeds/preset/harebell = 1)
+
+//Refraction reagents
+	///List of all botany reagents, pointing to grid location, offset, and obscure size
+	var/list/refraction_reagents = list()
+	var/list/refraction_coords = list()
 
 //Random seeds
 	///List of all random seeds
@@ -64,6 +75,27 @@ SUBSYSTEM_DEF(botany)
 		if(!random_traits["[initial(trait.plant_feature_compat)]"])
 			random_traits["[initial(trait.plant_feature_compat)]"] = list()
 		random_traits["[initial(trait.plant_feature_compat)]"] += trait
+	//Build refraction reagents
+	var/list/all_reagents = subtypesof(/datum/reagent)
+	all_reagents = shuffle(all_reagents)
+	for(var/datum/reagent/reagent as anything in all_reagents)
+		if(!(initial(reagent.chemical_flags) & CHEMICAL_RNG_BOTANY))
+			continue
+		//Area in which we can fall inside
+		var/matrix_size = rand(2, 5)
+		//Where our hint radius is offset by
+		var/max_offset = floor(matrix_size/2)
+		var/offset_x = rand(-max_offset+1, max_offset)
+		var/offset_y = rand(-max_offset+1, max_offset)
+		//Where we actually live
+		var/grid_x = rand(1, MAX_REAGENT_GRID)
+		var/grid_y = rand(1, MAX_REAGENT_GRID)
+		//Fill the cunt with the info
+		refraction_reagents["[initial(reagent.type)]"] = list(GRID_REAGENT_POSITION = list(grid_x, grid_y),
+		GRID_REAGENT_NAME = initial(reagent.name),
+		GRID_REAGENT_SIZE = matrix_size,
+		GRID_REAGENT_OFFSET = list(offset_x, offset_y))
+		refraction_coords["[grid_x]:[grid_y]"] = "[initial(reagent.type)]"
 
 /datum/controller/subsystem/botany/proc/build_dict()
 //Features

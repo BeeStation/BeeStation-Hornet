@@ -2682,6 +2682,7 @@
 #include "code\modules\botany\structure\plant_computer.dm"
 #include "code\modules\botany\structure\plant_machine.dm"
 #include "code\modules\botany\structure\plant_mutator.dm"
+#include "code\modules\botany\structure\refraction_catalogue.dm"
 #include "code\modules\botany\structure\seed_editor.dm"
 #include "code\modules\botany\structure\seeder.dm"
 #include "code\modules\botany\structure\tray\plant_tray.dm"

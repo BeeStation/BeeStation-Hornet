@@ -45,13 +45,16 @@
 
 /datum/reagent/toxin/mutagen/tray_tick(datum/source, datum/component/planter/tray, _delta_time)
 	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(async_tray_tick), source, tray, _delta_time)
+
+/datum/reagent/toxin/mutagen/proc/async_tray_tick(datum/_source, datum/component/planter/_tray, __delta_time)
 	//When a tray's weed level is greater than half, we spawn in a kudzu plant
 	if(!.)
 		return
-	if(tray.weed_level < 50)
+	if(_tray.weed_level < 50)
 		return
-	var/obj/item/plant_seeds/preset/kudzu/seeds = new(get_turf(tray.parent))
-	if(!seeds.plant(tray.parent, logic = TRUE))
+	var/obj/item/plant_seeds/preset/kudzu/seeds = new(get_turf(_tray.parent))
+	if(!seeds.plant(_tray.parent, logic = TRUE))
 		qdel(seeds)
 
 /datum/reagent/toxin/mutagen/expose_mob(mob/living/exposed_mob, method = TOUCH, reac_volume)

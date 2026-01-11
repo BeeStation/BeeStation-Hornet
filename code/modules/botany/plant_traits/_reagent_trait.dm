@@ -31,7 +31,7 @@
 
 /datum/plant_trait/reagent/setup_component_parent(datum/source)
 	. = ..()
-	if(!parent)
+	if(!parent || !parent.parent)
 		return
 	RegisterSignal(parent.parent, COMSIG_FRUIT_BUILT, PROC_REF(catch_fruit))
 
@@ -46,5 +46,14 @@
 /datum/plant_trait/reagent/proc/catch_fruit(datum/source, obj/fruit)
 	SIGNAL_HANDLER
 
+//get target volume
 	var/datum/plant_feature/fruit/fruit_feature = parent
-	fruit.reagents?.add_reagent(reagent, volume_percentage * fruit_feature.total_volume)
+	var/obj/item/_fruit_parent = parent
+	var/target_volume = 1
+	//written for readability
+	if(istype(fruit_feature))
+		target_volume = fruit_feature.total_volume
+	else if(istype(_fruit_parent))
+		target_volume = _fruit_parent.reagents?.maximum_volume
+//add reagent
+	fruit.reagents?.add_reagent(reagent, volume_percentage * target_volume)

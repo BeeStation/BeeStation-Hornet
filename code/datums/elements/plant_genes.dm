@@ -13,6 +13,10 @@
 	plant_genes = list(PLANT_GENE_INDEX_FEATURES = _plant_features, PLANT_GENE_INDEX_ID = _species_id)
 	RegisterSignal(target, COMSIG_PLANT_GET_GENES, PROC_REF(append_genes))
 
+/datum/element/plant_genes/Detach(datum/source, ...)
+	. = ..()
+	UnregisterSignal(source, COMSIG_PLANT_GET_GENES)
+
 /datum/element/plant_genes/proc/append_genes(datum/source, list/gene_list)
 	SIGNAL_HANDLER
 

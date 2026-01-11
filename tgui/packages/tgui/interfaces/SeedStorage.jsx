@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote, Divider, Icon, Dimmer } from '../components';
+import { Box, Button, Divider, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SeedStorage = (props) => {
@@ -16,10 +16,16 @@ export const SeedStorage = (props) => {
                 {/* Seed browser */}
                 <Flex.Item width={'40%'}>
                   <Section>
-                    <Box className={'scrollbox'} height={'300px'} overflowY="scroll">
-                      {Object.entries(seeds).map(([data_list_key, data_list]) => (
-                        <Entry key={data_list_key} data_list={data_list} />
-                      ))}
+                    <Box
+                      className={'scrollbox'}
+                      height={'300px'}
+                      overflowY="scroll"
+                    >
+                      {Object.entries(seeds).map(
+                        ([data_list_key, data_list]) => (
+                          <Entry key={data_list_key} data_list={data_list} />
+                        ),
+                      )}
                     </Box>
                   </Section>
                 </Flex.Item>
@@ -28,15 +34,17 @@ export const SeedStorage = (props) => {
                   <Section>
                     <Box mb={'-10px'} />
                     {focused_seeds['key'] && seeds[focused_seeds['species_id']]
-                      ? Object.entries(seeds[focused_seeds['species_id']]['features']).map(([feature_key, feature]) => (
-                        <Box key={feature_key}>
-                          <InspectionPanel
-                            key={feature_key}
-                            current_feature_data={feature['data']}
-                            current_feature_traits={feature['traits']}
-                          />
-                        </Box>
-                      ))
+                      ? Object.entries(
+                          seeds[focused_seeds['species_id']]['features'],
+                        ).map(([feature_key, feature]) => (
+                          <Box key={feature_key}>
+                            <InspectionPanel
+                              key={feature_key}
+                              current_feature_data={feature['data']}
+                              current_feature_traits={feature['traits']}
+                            />
+                          </Box>
+                        ))
                       : ''}
                   </Section>
                 </Flex.Item>
@@ -78,10 +86,14 @@ const InspectionPanel = (props) => {
         <Button className="plant__button--display" width={'100%'} mt={'10px'}>
           {current_feature_data.map((data_set) =>
             data_set['data_title'] ? (
-              <PlantDataInstance title={data_set['data_title']} body={data_set['data_field']} key={data_set} />
+              <PlantDataInstance
+                title={data_set['data_title']}
+                body={data_set['data_field']}
+                key={data_set}
+              />
             ) : (
               <Divider key={data_set} />
-            )
+            ),
           )}
         </Button>
       </Flex.Item>
@@ -141,10 +153,15 @@ const Entry = (props) => {
         className="plant__button"
         width={'100%'}
         selected={data_list['ref'] === focused_seeds['key']}
-        onClick={() => act('select_entry', { key: data_list['ref'] })}>
+        onClick={() => act('select_entry', { key: data_list['ref'] })}
+      >
         {`${data_list['name']} (${data_list['count']})`}
       </Button>
-      <Button className="plant__button" icon="eject" onClick={() => act('dispense', { key: data_list['species_id'] })} />
+      <Button
+        className="plant__button"
+        icon="eject"
+        onClick={() => act('dispense', { key: data_list['species_id'] })}
+      />
     </Flex>
   );
 };

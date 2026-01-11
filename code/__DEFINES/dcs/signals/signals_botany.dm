@@ -78,3 +78,8 @@
 */
 #define COMSIG_PLANT_GET_GENES "COMSIG_PLANT_GET_GENES"
 
+/*
+	Trait signals
+		used for special conditions when traits are trying to pretend to be optimized
+*/
+#define COMSIG_ASSEMBLER_GET_OPERATIONS "COMSIG_ASSEMBLER_GET_OPERATIONS"
