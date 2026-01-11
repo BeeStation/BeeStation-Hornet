@@ -152,7 +152,6 @@
 		return ..()
 
 /obj/item/grenade/chem_grenade/add_context_interaction(datum/screentip_context/context, mob/user, atom/target)
-
 	if (active)
 		context.add_attack_self_action("Accept your fate")
 		return
@@ -164,6 +163,8 @@
 		context.add_attack_self_action("Inspect Wires")
 
 /obj/item/grenade/chem_grenade/add_context_self(datum/screentip_context/context, mob/user)
+	if (active)
+		return
 	if(dud_flags & GRENADE_USED)
 		context.add_left_click_tool_action("Reset trigger", TOOL_SCREWDRIVER)
 		return
@@ -185,23 +186,41 @@
 /obj/item/grenade/chem_grenade/proc/stage_change(N)
 	if(N)
 		stage = N
+	update_appearance()
+	refresh_screentips()
+
+/obj/item/grenade/chem_grenade/update_name(updates)
+	. = ..()
 	if (dud_flags & GRENADE_USED)
 		name = "expended [initial(name)]"
-		desc = "A detonated [initial(desc)]"
-		icon_state = "[initial(icon_state)]_ass"
 	else if(stage == GRENADE_EMPTY)
 		name = "[initial(name)] casing"
-		desc = "A do it yourself [initial(name)]! [initial(casedesc)]"
-		icon_state = initial(icon_state)
 	else if(stage == GRENADE_WIRED)
 		name = "unsecured [initial(name)]"
-		desc = "An unsecured [initial(name)] assembly."
-		icon_state = "[initial(icon_state)]_ass"
 	else if(stage == GRENADE_READY)
 		name = initial(name)
+
+/obj/item/grenade/chem_grenade/update_desc(updates)
+	. = ..()
+	if (dud_flags & GRENADE_USED)
+		desc = "A detonated [initial(desc)]"
+	else if(stage == GRENADE_EMPTY)
+		desc = "A do it yourself [initial(name)]! [initial(casedesc)]"
+	else if(stage == GRENADE_WIRED)
+		desc = "An unsecured [initial(name)] assembly."
+	else if(stage == GRENADE_READY)
 		desc = initial(desc)
+
+/obj/item/grenade/chem_grenade/update_icon_state()
+	. = ..()
+	if (dud_flags & GRENADE_USED)
+		icon_state = "[initial(icon_state)]_ass"
+	else if(stage == GRENADE_EMPTY)
+		icon_state = initial(icon_state)
+	else if(stage == GRENADE_WIRED)
+		icon_state = "[initial(icon_state)]_ass"
+	else if(stage == GRENADE_READY)
 		icon_state = "[initial(icon_state)]_locked"
-	refresh_screentips()
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	var/obj/item/assembly/A = wires.get_attached(wires.get_wire(1))
@@ -329,7 +348,7 @@
 /obj/item/grenade/chem_grenade/adv_release/prime(mob/living/lanced_by)
 	if(stage != GRENADE_READY || dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return
 
 	max_integrity = 1
