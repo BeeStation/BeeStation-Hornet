@@ -312,8 +312,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rune/malformed)
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
 		H.uncuff()
-		H.stuttering = 0
-		H.cultslurring = 0
+		H.remove_status_effect(/datum/status_effect/speech/slurring/cult)
+		H.remove_status_effect(/datum/status_effect/speech/stutter)
 	return 1
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)

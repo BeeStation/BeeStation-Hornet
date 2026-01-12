@@ -19,6 +19,11 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /// Called when the count down has been finished, do the nasty work.
 /// [/obj/machinery/power/supermatter_crystal/proc/count_down]
 /datum/sm_delam/proc/delaminate(obj/machinery/power/supermatter_crystal/sm)
+	if (sm.is_main_engine)
+		SSpersistence.delam_highscore = SSpersistence.rounds_since_engine_exploded
+		SSpersistence.rounds_since_engine_exploded = ROUNDCOUNT_ENGINE_JUST_EXPLODED
+		for (var/obj/machinery/incident_display/sign as anything in GLOB.map_incident_displays)
+			sign.update_delam_count(ROUNDCOUNT_ENGINE_JUST_EXPLODED)
 	qdel(sm)
 
 #undef ROUNDCOUNT_ENGINE_JUST_EXPLODED
@@ -41,9 +46,9 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 
 	if(sm.damage_archived - sm.damage > SUPERMATTER_FAST_HEALING_RATE && sm.damage_archived >= sm.emergency_point) // Fast healing, engineers probably have it all sorted
 		if(sm.should_alert_common()) // We alert common once per cooldown period, otherwise alert engineering
-			sm.radio.talk_into(sm,"Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%", sm.emergency_channel)
+			sm.radio.talk_into(sm, "Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%", sm.emergency_channel)
 		else
-			sm.radio.talk_into(sm,"Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%", sm.warning_channel)
+			sm.radio.talk_into(sm, "Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%", sm.warning_channel)
 		playsound(sm, 'sound/machines/terminal_alert.ogg', 75)
 		return FALSE
 

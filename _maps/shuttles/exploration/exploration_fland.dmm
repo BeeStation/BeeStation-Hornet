@@ -253,7 +253,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /turf/open/floor/wood,
 /area/shuttle/exploration)
 "iy" = (
@@ -558,8 +558,8 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/large,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/random/maintenance/three,
+/obj/effect/spawner/random/ruinloot/medical,
 /turf/open/floor/iron/grid/steel,
 /area/shuttle/exploration)
 "zG" = (
