@@ -14,7 +14,7 @@
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
 	var/game_end_timer
 
-/mob/living/carbon/alien/humanoid/royal/Initialize()
+/mob/living/carbon/alien/humanoid/royal/Initialize(mapload)
 	. = ..()
 	// as a wise man once wrote: "pull over that ass too fat"
 	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)

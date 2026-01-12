@@ -31,6 +31,7 @@
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
 	var/mob/living/simple_animal/mouse/movement_target
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	can_be_held = TRUE

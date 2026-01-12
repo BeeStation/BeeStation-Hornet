@@ -80,7 +80,7 @@
 			visible_message(span_notice("[src] begins climbing into the ventilation system...") ,span_notice("You begin climbing into the ventilation system..."))
 
 			add_traits(list(TRAIT_NO_MOVE_PULL, TRAIT_NOMOBSWAP, TRAIT_PUSHIMMUNE), VENTCRAWLING_TRAIT)
-			if(!do_after(src, 2.5 SECONDS, target = ventcrawl_target, extra_checks = CALLBACK(src, .proc/can_enter_vent, ventcrawl_target)))
+			if(!do_after(src, 2.5 SECONDS, target = ventcrawl_target, extra_checks = CALLBACK(src, PROC_REF(can_enter_vent), ventcrawl_target)))
 				remove_traits(list(TRAIT_NO_MOVE_PULL, TRAIT_NOMOBSWAP, TRAIT_PUSHIMMUNE), VENTCRAWLING_TRAIT)
 				return
 			remove_traits(list(TRAIT_NO_MOVE_PULL, TRAIT_NOMOBSWAP, TRAIT_PUSHIMMUNE), VENTCRAWLING_TRAIT)

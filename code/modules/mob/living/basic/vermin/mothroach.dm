@@ -11,7 +11,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/mothroach = 3, /obj/item/stack/sheet/animalhide/mothroach = 1)
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_SMALL
-	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	health = 25
 	maxHealth = 25
 	speed = 1.25
@@ -44,7 +44,7 @@
 	. = ..()
 	if(stat == DEAD)
 		return
-	if(resting)
+	if (resting)
 		icon_state = "[icon_living]_rest"
 	else
 		icon_state = "[icon_living]"

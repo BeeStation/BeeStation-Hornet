@@ -51,7 +51,7 @@
 	var/datum/morph_stomach/morph_stomach
 	var/datum/action/innate/morph_stomach/stomach_action
 
-/mob/living/simple_animal/hostile/morph/Initialize()
+/mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 

@@ -30,7 +30,7 @@
 	)) //list of atoms, however turfs won't affect AI, but will affect consumption.
 	chat_color = "#64F88A"
 
-/mob/living/simple_animal/hostile/lizard/Initialize()
+/mob/living/simple_animal/hostile/lizard/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
