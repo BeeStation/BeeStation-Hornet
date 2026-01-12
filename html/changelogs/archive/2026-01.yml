@@ -139,3 +139,4 @@
 2026-01-12:
   PowerfulBacon:
   - tweak: Updates some maps for future support of smartwires
+  - bugfix: Crashing caused by dizziness status effect.
