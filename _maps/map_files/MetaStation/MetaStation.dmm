@@ -30043,10 +30043,10 @@
 	name = "Prison Blast Door"
 	},
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow{
-	icon_state = "1-6"
-	},
 /obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plating,
 /area/security/prison)
 "hIL" = (
@@ -35631,9 +35631,6 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-9"
-	},
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
@@ -35647,6 +35644,9 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "jCO" = (
@@ -40963,6 +40963,12 @@
 	dir = 1
 	},
 /area/security/brig)
+"lEs" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "lEI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -98621,7 +98627,7 @@ ttO
 ttO
 ttO
 ttO
-ttO
+lEs
 jCJ
 noC
 oJD
