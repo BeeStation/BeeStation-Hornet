@@ -1213,16 +1213,17 @@
 			if(. <= GRAB_AGGRESSIVE)
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
-/obj/item/proc/do_pickup_animation(atom/target)
+/obj/item/proc/do_pickup_animation(atom/target, turf/source)
 	set waitfor = FALSE
-	if(!istype(loc, /turf))
-		return
-	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+	if(!source)
+		if(!istype(loc, /turf))
+			return
+		source = loc
+	var/image/pickup_animation = image(icon = src)
 	pickup_animation.plane = GAME_PLANE
 	pickup_animation.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
 
-	var/turf/current_turf = get_turf(src)
-	var/direction = get_dir(current_turf, target)
+	var/direction = get_dir(source, target)
 	var/to_x = target.base_pixel_x
 	var/to_y = target.base_pixel_y
 
