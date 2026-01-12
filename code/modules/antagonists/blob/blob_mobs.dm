@@ -289,7 +289,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/simple_animal/hostile/blob/blobspore)
 	if(overmind)
 		I.color = overmind.blobstrain.complementary_color
 
-	flick_overlay_view(I, src, 8)
+	flick_overlay_view(I, 8)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()

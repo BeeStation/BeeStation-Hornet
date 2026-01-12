@@ -206,18 +206,27 @@
 /// Shows an image to all clients, then removes that image after the duration.
 /// If you want an overlay applied to the object which will show to all clients, use
 /// flick_overlay_static
-/proc/flick_overlay(image/I, list/show_to, duration)
-	for(var/client/C in show_to)
-		C.images += I
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
+/proc/flick_overlay(image/image_to_show, list/show_to, duration)
+	for(var/client/add_to in show_to)
+		add_to.images += image_to_show
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), image_to_show, show_to), duration, TIMER_CLIENT_TIME)
 
-/// Displays an image to clients that can see a target object.
-/proc/flick_overlay_view(image/I, atom/target, duration)
+/// Flicks a certain overlay onto an atom, handling icon_state strings
+/atom/proc/flick_overlay(image_to_show, list/show_to, duration, layer)
+	var/image/passed_image = \
+		istext(image_to_show) \
+			? image(icon, src, image_to_show, layer) \
+			: image_to_show
+
+	flick_overlay_global(passed_image, show_to, duration)
+
+/// flicks an overlay to anyone who can view this atom
+/atom/proc/flick_overlay_view(image_to_show, duration)
 	var/list/viewing = list()
-	for(var/mob/M as() in viewers(target))
-		if(M.client)
-			viewing += M.client
-	flick_overlay(I, viewing, duration)
+	for(var/mob/viewer as anything in viewers(src))
+		if(viewer.client)
+			viewing += viewer.client
+	flick_overlay(image_to_show, viewing, duration)
 
 /proc/get_active_player_count(alive_check = 0, afk_check = 0, human_check = 0)
 	// Get active players who are playing in the round

@@ -578,7 +578,7 @@
 	set waitfor = 0
 	while(istype(src, /turf/closed/mineral/gibtonite) && stage == GIBTONITE_ACTIVE && det_time > 0 && mineralAmt >= 1)
 		det_time--
-		sleep(5)
+		sleep(0.5 SECONDS)
 	if(istype(src, /turf/closed/mineral/gibtonite))
 		if(stage == GIBTONITE_ACTIVE && det_time <= 0 && mineralAmt >= 1)
 			var/turf/bombturf = get_turf(src)

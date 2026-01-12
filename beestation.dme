@@ -1691,6 +1691,7 @@
 #include "code\game\objects\items\devices\scanners\health_analyzer.dm"
 #include "code\game\objects\items\devices\scanners\scanners.dm"
 #include "code\game\objects\items\devices\scanners\slime_scanner.dm"
+#include "code\game\objects\items\devices\scanners\t_scanner.dm"
 #include "code\game\objects\items\food\_food.dm"
 #include "code\game\objects\items\food\bread.dm"
 #include "code\game\objects\items\food\burgers.dm"
