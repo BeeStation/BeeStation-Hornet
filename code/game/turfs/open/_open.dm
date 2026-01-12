@@ -45,7 +45,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	if(direction != DOWN)
 		return FALSE
 	for(var/obj/on_us in contents)
-		if(on_us.obj_flags & Z_BLOCK_IN_DOWN)
+		if(on_us.z_flags & Z_BLOCK_IN_DOWN)
 			return FALSE
 	return TRUE
 
@@ -54,7 +54,7 @@ CREATION_TEST_IGNORE_SELF(/turf/open)
 	if(direction != UP)
 		return FALSE
 	for(var/obj/on_us in contents)
-		if(on_us.obj_flags & Z_BLOCK_OUT_UP)
+		if(on_us.z_flags & Z_BLOCK_OUT_UP)
 			return FALSE
 	return TRUE
 
