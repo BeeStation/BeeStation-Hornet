@@ -64,8 +64,6 @@
 		if(THEME_HOLY)
 			stone = /obj/item/soulstone/anybody/purified
 	stone = new stone(get_turf(src))
-	stone.soul_name = mind.name
-	stone.name = "soulstone ([stone.soul_name])"
 	stone.transfer_soul("FORCE", src)
 	return ..()
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
