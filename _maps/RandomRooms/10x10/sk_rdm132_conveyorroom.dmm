@@ -17,7 +17,7 @@
 "d" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance/three,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -81,7 +81,7 @@
 "p" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/seven,
+/obj/effect/spawner/random/maintenance/seven,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
@@ -111,7 +111,7 @@
 /obj/machinery/light/built{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/random/decoration/glowstick,
 /turf/open/floor/iron,
 /area/template_noop)
 "w" = (
@@ -143,7 +143,7 @@
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
@@ -173,7 +173,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/effect/spawner/random/clothing/gloves,
 /turf/open/floor/iron,
 /area/template_noop)
 "G" = (
@@ -183,7 +183,7 @@
 "H" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron,
 /area/template_noop)
 "I" = (
@@ -192,7 +192,7 @@
 /area/template_noop)
 "J" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/spawner/random/maintenance/four,
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
@@ -208,7 +208,7 @@
 "M" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance/eight,
 /turf/open/floor/iron,
 /area/template_noop)
 "N" = (
@@ -226,7 +226,7 @@
 /area/template_noop)
 "S" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/six,
+/obj/effect/spawner/random/maintenance/six,
 /turf/open/floor/iron,
 /area/template_noop)
 "T" = (

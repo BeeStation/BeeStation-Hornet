@@ -33,6 +33,12 @@
 		/area/quartermaster/exploration_dock
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_QUARTERMASTER,
+		JOB_NAME_CARGOTECHNICIAN,
+		JOB_NAME_SHAFTMINER
+	)
+
 /datum/outfit/job/quartermaster
 	name = JOB_NAME_QUARTERMASTER
 	jobtype = /datum/job/quartermaster

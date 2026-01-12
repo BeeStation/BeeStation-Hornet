@@ -668,12 +668,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return FALSE
+	// Shields do not have a blocking cooldown
+	if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
+		COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
 	else
-		//Projectiles completely bypass blocking cooldown. Shields trigger the blocking cooldown but are not affected by it. This OR is intentional
-		if(istype(src, /obj/item/shield) || COOLDOWN_FINISHED(owner, block_cooldown))
-			COOLDOWN_START(owner, block_cooldown, BLOCK_CD)
-		else
-			return FALSE
+		return FALSE
 	switch(relative_dir)
 		if(180, -180) //Check for head on attack
 			if(canblock)
@@ -870,11 +869,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, ignore_occupancy = FALSE)
 	if(!M)
 		return FALSE
 
-	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self)
+	return M.can_equip(src, slot, disable_warning, bypass_equip_delay_self, ignore_occupancy)
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
@@ -904,33 +903,55 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return FALSE
 
-/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
+/// Returns true if damage was applied, false if the attack was fully blocked.
+/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user, obj/item/weapon, silent)
 
 	var/is_human_victim
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
 		if(!affecting) //no head!
-			return
+			return FALSE
 		is_human_victim = TRUE
 
 	if(M.is_eyes_covered())
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You're going to need to remove [M.p_their()] eye protection first!"))
+		return FALSE
 
 	if(isalien(M))//Aliens don't have eyes./N     slimes also don't have eyes!
-		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
-		return
+		if (!silent)
+			to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
+		return FALSE
 
 	if(isbrain(M))
-		to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
-		return
+		if (!silent)
+			to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
+		return FALSE
 
 	add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, 1, -1)
 
 	user.do_attack_animation(M)
+
+	if(is_human_victim)
+		var/mob/living/carbon/human/U = M
+		var/blocked = U.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = weapon.armour_penetration)
+		U.apply_damage(weapon.force, BRUTE, affecting, blocked = blocked)
+		if (prob(blocked))
+			if(M != user)
+				M.visible_message(span_danger("[user] stabbed [M] in the head with [src]!"), \
+									span_userdanger("[user] stabs you in the head with [src], but your armor protects your eyes!"))
+			else
+				user.visible_message( \
+					span_danger("[user] has stabbed [user.p_them()]self in the head with [src]!"), \
+					span_userdanger("You stab yourself in the head with [src], your armor protecting your eyes!") \
+				)
+			return TRUE
+
+	else
+		M.take_bodypart_damage(weapon.force)
 
 	if(M != user)
 		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
@@ -940,12 +961,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
 			span_userdanger("You stab yourself in the eyes with [src]!") \
 		)
-	if(is_human_victim)
-		var/mob/living/carbon/human/U = M
-		U.apply_damage(7, BRUTE, affecting)
-
-	else
-		M.take_bodypart_damage(7)
 
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
@@ -953,7 +968,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/obj/item/organ/eyes/eyes = M.get_organ_slot(ORGAN_SLOT_EYES)
 	if (!eyes)
-		return
+		return TRUE
 	M.adjust_blurriness(3)
 	eyes.apply_organ_damage(3)
 	if(eyes.damage >= 10)
@@ -966,6 +981,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if (eyes.damage >= 60)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
+	return TRUE
 
 /obj/item/singularity_pull(S, current_size)
 	..()
@@ -1215,7 +1231,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/MouseEntered(location, control, params)
 	..()
-	if(((get(src, /mob) == usr) || src.loc.atom_storage || (src.item_flags & IN_STORAGE)) && !QDELETED(src))
+	if(((get(src, /mob) == usr) || loc?.atom_storage || (item_flags & IN_STORAGE)) && !QDELETED(src)) //nullspace exists.
 		var/mob/living/L = usr
 		if(usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips))
 			var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
@@ -1236,7 +1252,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(((get(src, /mob) != usr) && !src.loc.atom_storage && !(src.item_flags & IN_STORAGE)) || QDELETED(src) || isobserver(usr)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
+	if(((get(src, /mob) != usr) && !loc?.atom_storage && !(item_flags & IN_STORAGE)) || QDELETED(src) || isobserver(usr)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
 		return FALSE
 	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
 		return
@@ -1640,3 +1656,42 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // For item specific checks on strip start. Return true to interrupt stripping, return false to continue stripping.
 /obj/item/proc/on_start_stripping(mob/source, mob/user, item_slot)
 	return FALSE
+
+/obj/item/Topic(href, href_list)
+	. = ..()
+
+	if (href_list["examine"])
+		if(!usr.can_examine_in_detail(src))
+			return
+		usr.examinate(src)
+		return TRUE
+
+/// Gets the examination title of an item that is equipped by another mob, this is what
+/// shows on every line when you examine someone. Certain things, such as uniforms, may include
+/// more details such as information on the accessories equipped which would not be appropriate
+/// in the title of that item.
+/// This proc also appends inspection links, which can be clicked in the chatbox to examine this
+/// item in greater detail.
+/obj/item/proc/examine_worn_title(mob/living/wearer, mob/user, skip_examine_link = FALSE)
+	ASSERT(user, "Cannot generate worn examination title without a user, worn titles require the target which you are showing them to.")
+	ASSERT(user.client, "Attempting to generate worn title for a mob without a client, which is not allowed.")
+	var/examine_name = get_examine_name(user)
+
+	// Don't add examine link if this is the item being directly examined
+	if(skip_examine_link)
+		return "[icon2html(src, user.client)] [examine_name]"
+	return examine_inspection_link(user, "[icon2html(src, user.client)] [examine_name]")
+
+/// Appends the inspection links to the name of this item.
+/// This may be overriden to provice custom inspection commands, or may be called with a custom item name
+/// that differs from the returned examine name of the item.
+/obj/item/proc/examine_inspection_link(mob/user, examine_name)
+	var/whole_word = user.client.prefs?.read_player_preference(/datum/preference/toggle/whole_word_examine_links)
+	var/obj/item/card/id/ID = GetID()
+	if(ID)
+		return "[examine_name] <a href='byond://?src=\ref[ID];look_at_id=1'>\[Examine ID\]</a>"
+	else
+		if(whole_word)
+			return "<a href='byond://?src=\ref[src];examine=1'>[examine_name]</a>"
+		else
+			return "[examine_name] <a href='byond://?src=\ref[src];examine=1'>\[?\]</a>"

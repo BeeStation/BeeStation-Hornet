@@ -5,7 +5,7 @@
 /area/ruin/unpowered)
 "c" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/obj/effect/spawner/random/exotic/antag_gear_weak,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "h" = (
@@ -43,13 +43,13 @@
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/effect/spawner/random/maintenance/three,
+/obj/effect/spawner/random/clothing/kittyears_or_rabbitears,
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "s" = (

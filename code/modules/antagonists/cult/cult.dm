@@ -200,6 +200,7 @@
 /datum/antagonist/cult/master
 	ignore_implant = TRUE
 	show_in_antagpanel = FALSE //Feel free to add this later
+	leave_behaviour = ANTAGONIST_LEAVE_KEEP
 	var/datum/action/innate/cult/master/finalreck/reckoning = new
 	var/datum/action/innate/cult/master/cultmark/bloodmark = new
 	var/datum/action/innate/cult/master/pulse/throwing = new
@@ -340,6 +341,8 @@
 /datum/team/cult/proc/ascend(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
+		if(istype(H.wear_neck, /obj/item/clothing/neck/cloak/fakehalo))
+			H.dropItemToGround(H.wear_neck)
 		if(H.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
 			return
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)

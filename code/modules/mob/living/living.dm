@@ -60,7 +60,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if(confused && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
+	if(has_status_effect(/datum/status_effect/confusion) && stat == CONSCIOUS && body_position == STANDING_UP && m_intent == "run" && !ismovable(A) && !HAS_TRAIT(src, TRAIT_NO_BUMP_SLAM))
 		ADD_TRAIT(src, TRAIT_NO_BUMP_SLAM, type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -941,7 +941,7 @@
 	var/glowyblood = FALSE
 	if(ishuman(src))
 		var/mob/living/carbon/human/humanoid = src
-		glowyblood = humanoid.dna.blood_type.glowy
+		glowyblood = humanoid.dna.blood_type?.glowy
 
 	if(isturf(start))
 		var/trail_type = getTrail()
@@ -1779,6 +1779,7 @@
 /mob/living/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPEECH_IMPEDIMENT, "Impede Speech (Slurring, stuttering, etc)")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_HALLUCINATION, "Give Hallucination")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DELUSION_HALLUCINATION, "Give Delusion Hallucination")
 
@@ -1787,6 +1788,11 @@
 
 	if(!.)
 		return
+
+	if(href_list[VV_HK_GIVE_SPEECH_IMPEDIMENT])
+		if(!check_rights(NONE))
+			return
+		admin_give_speech_impediment(usr)
 
 	if(href_list[VV_HK_GIVE_HALLUCINATION])
 		if(!check_rights(NONE))
@@ -2140,6 +2146,28 @@
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, do_jitter_animation), 10), 5 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, revive), HEAL_ALL, TRUE), 10 SECONDS)
 
+/// Admin only proc for giving a certain speech impediment to this mob
+/mob/living/proc/admin_give_speech_impediment(mob/admin)
+	if(!admin || !check_rights(NONE))
+		return
+
+	var/list/impediments = list()
+	for(var/datum/status_effect/possible as anything in typesof(/datum/status_effect/speech))
+		if(!initial(possible.id))
+			continue
+
+		impediments[initial(possible.id)] = possible
+
+	var/chosen = tgui_input_list(admin, "What speech impediment?", "Impede Speech", impediments)
+	if(!chosen || !ispath(impediments[chosen], /datum/status_effect/speech) || QDELETED(src) || !check_rights(NONE))
+		return
+
+	var/duration = tgui_input_number(admin, "How long should it last (in seconds)? Max is infinite duration.", "Duration", 0, INFINITY, 0 SECONDS)
+	if(!isnum(duration) || duration <= 0 || QDELETED(src) || !check_rights(NONE))
+		return
+
+	adjust_timed_status_effect(duration SECONDS, impediments[chosen])
+
 /// Admin only proc for making the mob hallucinate a certain thing
 /mob/living/proc/admin_give_hallucination(mob/admin)
 	if(!admin || !check_rights(NONE))
@@ -2170,6 +2198,7 @@
 	log_admin("[key_name(admin)] gave [src] a delusion hallucination. (Type: [delusion_args[1]])")
 	// Not using the wrapper here because we already have a list / arglist
 	_cause_hallucination(delusion_args)
+
 /// Proc for giving a mob a new 'friend', generally used for AI control and targetting. Returns false if already friends.
 /mob/living/proc/befriend(mob/living/new_friend)
 	SHOULD_CALL_PARENT(TRUE)

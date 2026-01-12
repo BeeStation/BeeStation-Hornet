@@ -95,7 +95,7 @@
 	name = "ultra-advanced network card"
 	desc = "A prototype card that mimics hardline connectivity using unstable bluespace channels. Impervious to relay interference."
 	signal_level = SIGNAL_NO_RELAY
-	power_usage = 25 // Watts per second
+	power_usage = 10 // Watts per second
 	icon_state = "no-relay"
 	custom_price = 100
 	identification_string = "x_net_card"

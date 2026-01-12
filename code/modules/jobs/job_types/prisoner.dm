@@ -28,6 +28,11 @@
 		/area/security/prison
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_PRISONER,
+		JOB_NAME_ASSISTANT
+	)
+
 /datum/job/prisoner/announce(mob/living/carbon/human/H)
 	var/deets = "<font size = 2><b>#Prisoner Transfer Documentation</font></b> \
 					<hr> \

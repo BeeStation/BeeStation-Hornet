@@ -48,12 +48,11 @@
 /mob/living/carbon/human/proc/setup_human_dna()
 	//initialize dna. for spawned humans; overwritten by other code
 	create_dna(src)
-	randomize_human(src, TRUE)
+	randomize_human(src)
 	dna.initialize_dna()
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
-	QDEL_LIST(bioware)
 	GLOB.suit_sensors_list -= src
 	GLOB.human_list -= src
 	return ..()
@@ -145,7 +144,7 @@
 			id_species ||= dna.species.name
 			id_blood_type ||= dna.blood_type?.name
 
-		var/id_examine = span_slightly_larger(separator_hr("This is <em>[src]'s ID card</em>."))
+		var/id_examine = span_slightly_larger(separator_hr("This is <em>[id.get_examine_name(viewer)]</em>."))
 		id_examine += "<div class='img_by_text_container'>"
 		id_examine += "[id_icon]"
 		id_examine += "<div class='img_text'>"
@@ -365,7 +364,7 @@
 /mob/living/carbon/human/can_inject(mob/user, target_zone, injection_flags)
 	. = TRUE // Default to returning true.
 	if(user && !target_zone)
-		target_zone = user.get_combat_bodyzone()
+		target_zone = user.get_combat_bodyzone(zone_context = BODYZONE_CONTEXT_INJECTION)
 	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
 	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
 	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)

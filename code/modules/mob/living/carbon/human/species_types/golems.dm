@@ -17,10 +17,9 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
 		TRAIT_NO_JUMPSUIT,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NONECRODISEASE,
 		TRAIT_NOBLOOD,
 	)
 	mutantheart = null
@@ -802,10 +801,9 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_RADIMMUNE,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_NODISMEMBER,
-		TRAIT_NONECRODISEASE,
 		TRAIT_NOBLOOD,
 	)
 	armor = 15 //Balance reasons make this armor weak
@@ -832,7 +830,7 @@
 		TRAIT_CHUNKYFINGERS,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	armor = 15 //feels no pain, but not too resistant
@@ -1067,21 +1065,21 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 			H.show_message(span_narsiesmall("You cringe with pain as your body rings around you!"), MSG_AUDIBLE)
 			H.playsound_local(H, 'sound/effects/gong.ogg', 100, TRUE)
 			H.soundbang_act(2, 0, 100, 1)
-			H.adjust_timed_status_effect(14 SECONDS, /datum/status_effect/jitter)
+			H.adjust_jitter(14 SECONDS)
 		var/distance = max(0,get_dist(get_turf(H),get_turf(M)))
 		switch(distance)
 			if(0 to 1)
 				M.show_message(span_narsiesmall("GONG!"), MSG_AUDIBLE)
 				M.playsound_local(H, 'sound/effects/gong.ogg', 100, TRUE)
 				M.soundbang_act(1, 0, 30, 3)
-				M.confused += 10
-				M.adjust_timed_status_effect(8 SECONDS, /datum/status_effect/jitter)
+				M.adjust_confusion(10 SECONDS)
+				M.adjust_jitter(8 SECONDS)
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "gonged", /datum/mood_event/loud_gong)
 			if(2 to 3)
 				M.show_message(span_cult("GONG!"), MSG_AUDIBLE)
 				M.playsound_local(H, 'sound/effects/gong.ogg', 75, TRUE)
 				M.soundbang_act(1, 0, 15, 2)
-				M.adjust_timed_status_effect(6 SECONDS, /datum/status_effect/jitter)
+				M.adjust_jitter(6 SECONDS)
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "gonged", /datum/mood_event/loud_gong)
 			else
 				M.show_message(span_warning("GONG!"), MSG_AUDIBLE)
@@ -1106,7 +1104,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	attack_verb = "whips"
 	attack_sound = 'sound/weapons/whip.ogg'
@@ -1193,7 +1191,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	info_text = "As a " + span_danger("Durathread Golem") + ", your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
 
@@ -1329,7 +1327,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		TRAIT_NODISMEMBER,
 		TRAIT_NOBLOOD,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 
 	/// A ref to our "throw snowball" spell we get on species gain.

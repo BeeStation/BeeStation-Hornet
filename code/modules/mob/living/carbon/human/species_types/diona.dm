@@ -15,13 +15,12 @@
 	)
 	inherent_traits = list(
 		TRAIT_BEEFRIEND,
-		TRAIT_NONECRODISEASE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_RESISTCOLD,
 		TRAIT_RADHEALER,
 		TRAIT_NOBREATH,
 		TRAIT_NO_DNA_COPY,
-		TRAIT_NO_TRANSFORMATION_STING,
+		TRAIT_NOT_TRANSMORPHIC,
 	)
 	inherent_biotypes = MOB_HUMANOID | MOB_ORGANIC |  MOB_BUG
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
@@ -44,7 +43,6 @@
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = /datum/mutation/drone
 	deathsound = "sound/emotes/diona/death.ogg"
-	species_bitflags = NOT_TRANSMORPHIC
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
