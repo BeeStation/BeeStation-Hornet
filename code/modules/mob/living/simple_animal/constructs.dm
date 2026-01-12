@@ -55,24 +55,19 @@
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	if(!mind)
 		return ..()
-	var/turf/T = get_turf(src)
-	var/obj/item/soulstone/S
+	var/obj/item/soulstone/stone = /obj/item/soulstone/anybody
 	switch(theme)
-		if(THEME_HOLY)
-			S = new /obj/item/soulstone/anybody/purified(T)
-		if(THEME_WIZARD)
-			S = new /obj/item/soulstone/mystic(T)
 		if(THEME_CULT)
-			S = new /obj/item/soulstone(T)
-		else
-			S = new /obj/item/soulstone/anybody(T)
-	var/mob/living/carbon/human/dummy = new(null)
-	dummy.key = mind.key
-	dummy.real_name = real_name
-	S.transfer_soul("FORCE", dummy)
-	qdel(dummy)
+			stone = /obj/item/soulstone
+		if(THEME_WIZARD)
+			stone = /obj/item/soulstone/mystic
+		if(THEME_HOLY)
+			stone = /obj/item/soulstone/anybody/purified
+	stone = new stone(get_turf(src))
+	stone.soul_name = mind.name
+	stone.name = "soulstone ([stone.soul_name])"
+	stone.transfer_soul("FORCE", src)
 	return ..()
-
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
