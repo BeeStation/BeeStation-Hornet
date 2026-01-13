@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/cup/glass/waterbottle/empty, category = CAT_CONTAINERS), \
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/cup/glass/waterbottle/large/empty, 3, category = CAT_CONTAINERS), \
 	new /datum/stack_recipe("wet floor sign", /obj/item/clothing/suit/caution, 2, category = CAT_EQUIPMENT), \
+	new /datum/stack_recipe("rubber ducky", /obj/item/bikehorn/rubberducky, 1, category = CAT_ENTERTAINMENT), \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/plastic)
