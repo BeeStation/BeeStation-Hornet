@@ -37,7 +37,7 @@
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/pet_bonus, "squeaks happily!", emote_sound = 'sound/voice/moth/scream_moth.ogg')
-	add_verb(src, /mob/living/proc/toggle_resting)
+	add_verb(/mob/living/proc/toggle_resting)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/basic/mothroach/toggle_resting()
