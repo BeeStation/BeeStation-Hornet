@@ -41,6 +41,7 @@
 	var/playstyle_string = span_bigbold("You are a generic construct!") + "<b> Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/master = null
 	var/seeking = FALSE
+	var/original_name = "" // The original name of the person, passed down by /proc/makeNewConstruct(mob/living/simple_animal/hostile/construct/
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
@@ -63,7 +64,11 @@
 			stone = /obj/item/soulstone/mystic
 		if(THEME_HOLY)
 			stone = /obj/item/soulstone/anybody/purified
+		else
+			stone = /obj/item/soulstone/anybody
 	stone = new stone(get_turf(src))
+	src.real_name = original_name
+	stone.name = "[real_name]'s soulstone"
 	stone.transfer_soul("FORCE", src)
 	return ..()
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)

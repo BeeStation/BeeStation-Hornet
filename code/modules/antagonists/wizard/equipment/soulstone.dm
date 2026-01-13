@@ -11,6 +11,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/old_shard = FALSE
 	var/spent = FALSE
+	var/original_name = "" // The original name of the person whose soul is in the soulstone, kept for constructs droping the soulstone again
 	///This controls the color of the soulstone as well as restrictions for who can use it. THEME_CULT is red and is the default of cultist THEME_WIZARD is purple and is the default of wizard and THEME_HOLY is for purified soul stone
 	var/theme = THEME_CULT
 	/// Role check, if any needed
@@ -324,6 +325,8 @@
 		newstruct.master = stoner
 		var/datum/action/innate/seek_master/SM = new()
 		SM.Grant(newstruct)
+	if(target)
+		newstruct.original_name = target.real_name
 	newstruct.key = target.key
 	var/atom/movable/screen/alert/bloodsense/BS
 	if(newstruct.mind && ((stoner && IS_CULTIST(stoner)) || cultoverride))
@@ -342,15 +345,17 @@
 /obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/user, message_user = FALSE, mob/shade_controller)
 	if(!shade_controller)
 		shade_controller = T
-	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
-	T.stop_sound_channel(CHANNEL_HEARTBEAT)
+	if(ishuman(T)) // Added due to the fact constructs spawned a human skeleton each time they died
+		new /obj/effect/decal/remains/human(T.loc)
+		T.stop_sound_channel(CHANNEL_HEARTBEAT)
+		T.dust_animation()
 	T.invisibility = INVISIBILITY_ABSTRACT
-	T.dust_animation()
 	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
 	//So they won't die inside the stone somehow
 	S.add_traits(list(TRAIT_GODMODE, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), SOULSTONE_TRAIT)
 	S.name = "Shade of [T.real_name]"
 	S.real_name = "Shade of [T.real_name]"
+	S.real_name = T.real_name
 	S.key = shade_controller.key
 	S.copy_languages(T, LANGUAGE_MIND)//Copies the old mobs languages into the new mob holder.
 	if(user)

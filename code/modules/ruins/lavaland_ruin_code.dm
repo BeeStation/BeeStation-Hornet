@@ -114,27 +114,27 @@
 		to_chat(user, span_warning("The runes refuse to answer your touch."))
 		return TRUE
 	var/obj/item/soulstone/SS = O
-	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in SS
-	if(!S)
+	var/mob/living/simple_animal/shade/soul = locate(/mob/living/simple_animal/shade) in SS
+	if(!soul)
 		to_chat(user, span_warning("The soulstone is empty. The runes remain dormant."))
 		return TRUE
-	if(!S.mind)
+	if(!soul.mind)
 		to_chat(user, span_warning("The trapped soul is unstable and cannot inhabit the shell."))
 		return TRUE
-	var/old_name = replacetext(S.real_name, "Shade of ", "") // We dont want a golem called "Shade of William"
+	var/old_name = replacetext(soul.real_name, "Shade of ", "") // We dont want a golem called "Shade of William"
 	user.visible_message(
 		span_cult("The runes flare in blood red as the soul is torn from the soulstone and bound into the shell!"))
-	var/mob/living/carbon/human/species/golem/blood_cult/G = new(get_turf(src))
-	if(!G)
+	var/mob/living/carbon/human/species/golem/blood_cult/golem = new(get_turf(src))
+	if(!golem)
 		to_chat(user, span_warning("The ritual fails."))
 		return TRUE
-	G.update_body()
-	S.mind.transfer_to(G)
-	if(!G.mind.has_antag_datum(/datum/antagonist/cult)) // Incase they somehow lost their antag datum, we give it again
-		G.mind.add_antag_datum(/datum/antagonist/cult)
-	G.real_name = old_name
-	G.name = old_name
-	qdel(S)
+	golem.update_body()
+	soul.mind.transfer_to(golem)
+	if(!golem.mind.has_antag_datum(/datum/antagonist/cult)) // Incase they somehow lost their antag datum, we give it again
+		golem.mind.add_antag_datum(/datum/antagonist/cult)
+	golem.real_name = old_name
+	golem.name = old_name
+	qdel(soul)
 	SS.was_used()
 	qdel(SS)
 	qdel(src) // Full cleanup
