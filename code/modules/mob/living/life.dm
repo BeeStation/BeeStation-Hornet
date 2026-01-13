@@ -86,8 +86,6 @@
 
 //this updates all special effects: knockdown, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects(delta_time, times_fired)
-	if(confused)
-		confused = max(0, confused - (1 * delta_time))
 
 /mob/living/proc/handle_traits(delta_time, times_fired)
 	//Eyes

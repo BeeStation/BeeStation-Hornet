@@ -160,7 +160,7 @@
 		ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, ROUNDSTART_TRAIT)
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
-		ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
+		add_traits(list(TRAIT_ADVANCEDTOOLUSER, TRAIT_CAN_STRIP), ROUNDSTART_TRAIT)
 	if(is_flying_animal)
 		ADD_TRAIT(src, TRAIT_MOVE_FLYING, ROUNDSTART_TRAIT)
 	if(discovery_points)
@@ -221,12 +221,6 @@
 		else
 			set_stat(CONSCIOUS)
 	med_hud_set_status()
-
-
-/mob/living/simple_animal/handle_status_effects(delta_time, times_fired)
-	..()
-	if(stuttering)
-		stuttering = 0
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE

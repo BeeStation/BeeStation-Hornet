@@ -556,7 +556,7 @@
 	animate(src, alpha = 0, time = 30)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30)
 
-/obj/structure/closet/decay/open(mob/living/user)
+/obj/structure/closet/decay/open(mob/living/user, force, special_effects)
 	. = ..()
 	if(.)
 		if(icon_state == magic_icon) //check if we used the magic icon at all before giving it the lesser magic icon

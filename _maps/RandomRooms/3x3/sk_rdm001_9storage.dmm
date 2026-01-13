@@ -2,7 +2,7 @@
 "a" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -12,7 +12,7 @@
 	dir = 1;
 	icon_state = "bulb"
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance/two,
 /turf/open/floor/plating,
 /area/template_noop)
 

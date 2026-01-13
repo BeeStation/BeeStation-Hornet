@@ -34,6 +34,10 @@
 	moveToNullspace()
 	return QDEL_HINT_QUEUE
 
+/// Override to define loot blacklist behavior
+/obj/effect/spawner/proc/can_spawn(atom/loot)
+	return TRUE
+
 /obj/effect/list_container
 	name = "list container"
 

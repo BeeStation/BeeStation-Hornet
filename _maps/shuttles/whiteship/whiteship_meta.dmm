@@ -523,10 +523,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "bQ" = (
@@ -571,10 +568,7 @@
 /obj/effect/turf_decal/box/white/corners,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "bY" = (
@@ -712,10 +706,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "cC" = (
@@ -810,10 +801,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "cP" = (
@@ -1111,10 +1099,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/random/maintenance,
 /turf/open/floor/iron/dark,
 /area/shuttle/abandoned/cargo)
 "dO" = (
