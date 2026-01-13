@@ -9073,7 +9073,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/portable_atmospherics/canister/bz,
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "cgz" = (
@@ -37346,10 +37345,6 @@
 /obj/structure/window/reinforced/spawner/directional/east,
 /turf/open/floor/iron,
 /area/security/checkpoint/auxiliary)
-"mIm" = (
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/crew_quarters/heads/cmo)
 "mIG" = (
 /obj/effect/turf_decal/trimline/yellow/warning_offset,
 /obj/effect/turf_decal/bot,
@@ -106422,7 +106417,7 @@ bOt
 bOt
 bOt
 bOt
-mIm
+bOt
 rfA
 bNd
 iLi

@@ -8948,6 +8948,10 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal/bin,
 /turf/open/floor/iron,
 /area/engine/break_room)
 "byI" = (
@@ -18722,7 +18726,7 @@
 /area/engine/atmos)
 "dAC" = (
 /obj/machinery/atmospherics/pipe/smart/simple/yellow/visible,
-/obj/structure/grille,
+/obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "dAL" = (
@@ -28384,7 +28388,7 @@
 /area/engine/engineering)
 "hdF" = (
 /obj/machinery/atmospherics/pipe/smart/simple/purple/visible,
-/obj/structure/grille,
+/obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "hdH" = (
@@ -68697,7 +68701,7 @@
 /area/construction/storage_wing)
 "vBb" = (
 /obj/machinery/atmospherics/pipe/smart/simple/green/visible,
-/obj/structure/grille,
+/obj/machinery/meter,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vBq" = (
