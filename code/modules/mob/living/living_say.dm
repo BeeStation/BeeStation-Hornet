@@ -98,11 +98,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	message = get_message_mods(message, message_mods)
 	saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
 
+	if(!forced && !saymode)
+		message = check_for_custom_say_emote(message, message_mods)
+
 	if(!message)
 		return
 
-	if(!forced && !saymode)
-		message = check_for_custom_say_emote(message, message_mods)
+	// dead is the only state you can never emote
+	if(stat != DEAD && check_emote(original_message, forced))
+		return
 
 	if (HAS_TRAIT(src, TRAIT_WHISPER_ONLY))
 		message_mods[WHISPER_MODE] = MODE_WHISPER
