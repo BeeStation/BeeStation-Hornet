@@ -149,6 +149,8 @@
       the beakers from it.
   - tweak: Edits the TGUI base theme to give the server a more distinct look and feel.
   - rscadd: Adds the new blue chat theme.
+  mrmanlikesbt:
+  - bugfix: fixed kitty ear spawners spawning fake kitty ears
   rkz, coiax, ShizCalev, carpotoxin, Rhials, san7890:
   - refactor: refactor ventcrawling accessing
   - code_imp: ventcrawling ability is now a trait
