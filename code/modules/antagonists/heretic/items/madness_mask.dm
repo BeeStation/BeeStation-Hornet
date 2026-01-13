@@ -69,4 +69,4 @@
 			human_in_range.adjustStaminaLoss(10)
 
 		if(DT_PROB(25, delta_time))
-			human_in_range.Dizzy(5)
+			human_in_range.set_dizzy_if_lower(10 SECONDS)

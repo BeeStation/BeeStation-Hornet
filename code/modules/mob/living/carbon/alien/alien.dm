@@ -28,6 +28,7 @@
 
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
+
 	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()

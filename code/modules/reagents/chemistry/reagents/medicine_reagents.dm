@@ -210,7 +210,7 @@
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
-	affected_mob.Dizzy(5 * REM * delta_time)
+	affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(10 SECONDS * REM * delta_time)
 	return UPDATE_MOB_HEALTH
 
@@ -668,7 +668,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
-	addiction_threshold = 25
+	addiction_types = list(/datum/addiction/stimulants = 4) //1.6 per 2 seconds
 
 /datum/reagent/medicine/ephedrine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -705,53 +705,6 @@
 		affected_mob.losebreath++
 		return UPDATE_MOB_HEALTH
 
-/datum/reagent/medicine/ephedrine/addiction_act_stage1(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(3))
-		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
-		affected_mob.Unconscious(100)
-		affected_mob.set_jitter_if_lower(400 SECONDS)
-
-	if(prob(33))
-		affected_mob.adjustToxLoss(2 * REM, updating_health = FALSE)
-		affected_mob.losebreath += 2
-		return UPDATE_MOB_HEALTH
-
-/datum/reagent/medicine/ephedrine/addiction_act_stage2(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(6))
-		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
-		affected_mob.Unconscious(100)
-		affected_mob.set_jitter_if_lower(400 SECONDS)
-
-	if(prob(33))
-		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
-		affected_mob.losebreath += 3
-		return UPDATE_MOB_HEALTH
-
-/datum/reagent/medicine/ephedrine/addiction_act_stage3(mob/living/carbon/affected_mob)
-	if(prob(12))
-		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
-		affected_mob.Unconscious(100)
-		affected_mob.set_jitter_if_lower(400 SECONDS)
-
-	if(prob(33))
-		affected_mob.adjustToxLoss(4 * REM, updating_health = FALSE)
-		affected_mob.losebreath += 4
-		return UPDATE_MOB_HEALTH
-
-/datum/reagent/medicine/ephedrine/addiction_act_stage4(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(24))
-		affected_mob.visible_message(span_danger("[affected_mob] starts having a seizure!"), span_userdanger("You have a seizure!"))
-		affected_mob.Unconscious(100)
-		affected_mob.set_jitter_if_lower(400 SECONDS)
-
-	if(prob(33))
-		affected_mob.adjustToxLoss(5 * REM, updating_health = FALSE)
-		affected_mob.losebreath += 5
-		return UPDATE_MOB_HEALTH
-
 /datum/reagent/medicine/diphenhydramine
 	name = "Diphenhydramine"
 	description = "Rapidly purges the body of Histamine and reduces jitteriness. Slight chance of causing drowsiness."
@@ -775,7 +728,7 @@
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
-	addiction_threshold = 25
+	addiction_types = list(/datum/addiction/opioids = 10)
 
 /datum/reagent/medicine/morphine/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -799,41 +752,8 @@
 	. = ..()
 	if(DT_PROB(18, delta_time))
 		affected_mob.drop_all_held_items()
-		affected_mob.Dizzy(2)
+		affected_mob.set_dizzy_if_lower(4 SECONDS)
 		affected_mob.set_jitter_if_lower(4 SECONDS)
-
-/datum/reagent/medicine/morphine/addiction_act_stage1(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(33))
-		affected_mob.drop_all_held_items()
-		affected_mob.set_jitter_if_lower(4 SECONDS)
-
-/datum/reagent/medicine/morphine/addiction_act_stage2(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(33))
-		affected_mob.drop_all_held_items()
-		affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
-		affected_mob.Dizzy(3)
-		affected_mob.set_jitter_if_lower(6 SECONDS)
-		return UPDATE_MOB_HEALTH
-
-/datum/reagent/medicine/morphine/addiction_act_stage3(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(33))
-		affected_mob.drop_all_held_items()
-		affected_mob.adjustToxLoss(2 * REM, updating_health = FALSE)
-		affected_mob.Dizzy(4)
-		affected_mob.set_jitter_if_lower(8 SECONDS)
-		return UPDATE_MOB_HEALTH
-
-/datum/reagent/medicine/morphine/addiction_act_stage4(mob/living/carbon/affected_mob)
-	. = ..()
-	if(prob(33))
-		affected_mob.drop_all_held_items()
-		affected_mob.adjustToxLoss(3 * REM, updating_health = FALSE)
-		affected_mob.Dizzy(5)
-		affected_mob.set_jitter_if_lower(10 SECONDS)
-		return UPDATE_MOB_HEALTH
 
 /datum/reagent/medicine/oculine
 	name = "Oculine"
@@ -879,7 +799,7 @@
 	affected_mob.losebreath = 0
 
 	if(DT_PROB(10, delta_time))
-		affected_mob.Dizzy(5)
+		affected_mob.set_dizzy_if_lower(10 SECONDS)
 		affected_mob.set_jitter_if_lower(10 SECONDS)
 		affected_mob.drop_all_held_items()
 
@@ -894,7 +814,7 @@
 	. = ..()
 	affected_mob.reagents.add_reagent(/datum/reagent/toxin/histamine, 3 * REM * delta_time)
 	affected_mob.reagents.remove_reagent(/datum/reagent/medicine/atropine, 2 * REM * delta_time)
-	affected_mob.Dizzy(1 * REM * delta_time)
+	affected_mob.set_dizzy_if_lower(2 SECONDS * REM * delta_time)
 	affected_mob.set_jitter_if_lower(2 SECONDS * REM * delta_time)
 
 /datum/reagent/medicine/epinephrine
@@ -996,9 +916,10 @@
 
 /datum/reagent/medicine/neurine
 	name = "Neurine"
-	description = "Reacts with neural tissue, helping reform damaged connections. Can cure minor traumas."
+	description = "Reacts with neural tissue, helping reform damaged connections. Can cure minor traumas and treat seizure disorders."
 	color = "#C0C0C0" //ditto
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	added_traits = list(TRAIT_ANTICONVULSANT)
 
 /datum/reagent/medicine/neurine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1031,9 +952,9 @@
 	/// Does not include drunk (despite what you may thing) as that's decreased gradually
 	var/static/list/status_effects_to_clear = list(
 		/datum/status_effect/confusion,
-		//datum/status_effect/dizziness,
+		/datum/status_effect/dizziness,
 		//datum/status_effect/drowsiness,
-		//datum/status_effect/speech/slurring/drunk,
+		/datum/status_effect/speech/slurring/drunk,
 	)
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
@@ -1041,12 +962,8 @@
 	if(!HAS_TRAIT(affected_mob, TRAIT_LIGHT_DRINKER))
 		for(var/effect in status_effects_to_clear)
 			affected_mob.remove_status_effect(effect)
-		affected_mob.dizziness = 0
 		affected_mob.drowsyness = 0
-		affected_mob.slurring = 0
-		if(ishuman(affected_mob))
-			var/mob/living/carbon/human/affected_human = affected_mob
-			affected_human.drunkenness = max(affected_human.drunkenness - (10 * REM * delta_time), 0)
+		affected_mob.adjust_drunk_effect(-10 * REM * delta_time)
 	affected_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3 * REM * delta_time, FALSE, TRUE)
 	affected_mob.adjustToxLoss(-0.2 * REM * delta_time, updating_health = FALSE)
 	return UPDATE_MOB_HEALTH
@@ -1385,6 +1302,7 @@
 	color = "#FFAF00"
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	overdose_threshold = 25
+	addiction_types = list(/datum/addiction/hallucinogens = 14)
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
@@ -1508,6 +1426,7 @@
 	name = "Muscle Stimulant"
 	description = "A potent chemical that allows someone under its influence to be at full physical ability even when under massive amounts of pain."
 	chemical_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	addiction_types = list(/datum/addiction/stimulants = 4) //0.8 per 2 seconds
 
 /datum/reagent/medicine/muscle_stimulant/on_mob_metabolize(mob/living/carbon/affected_mob)
 	. = ..()
@@ -1560,16 +1479,16 @@
 	switch(overdose_progress)
 		if(1 to 40)
 			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 20 SECONDS)
-			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 10)
-			affected_mob.Dizzy(5 * REM * delta_time)
+			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 20 SECONDS)
+			affected_mob.set_dizzy_if_lower(10 SECONDS * REM * delta_time)
 			if(DT_PROB(30, delta_time))
 				affected_mob.losebreath++
 		if(41 to 80)
 			affected_mob.adjustOxyLoss(0.1 * REM * delta_time, updating_health = FALSE)
 			affected_mob.adjustStaminaLoss(0.1 * REM * delta_time, updating_health = FALSE)
 			affected_mob.adjust_jitter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
-			affected_mob.stuttering = min(affected_mob.stuttering + (1 * REM * delta_time), 20)
-			affected_mob.Dizzy(10 * REM * delta_time)
+			affected_mob.adjust_stutter_up_to(2 SECONDS * REM * delta_time, 40 SECONDS)
+			affected_mob.set_dizzy_if_lower(20 SECONDS * REM * delta_time)
 			if(DT_PROB(30, delta_time))
 				affected_mob.losebreath++
 			if(DT_PROB(10, delta_time))
@@ -1603,8 +1522,8 @@
 /datum/reagent/medicine/psicodine/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	dosage++
-	affected_mob.adjust_timed_status_effect(-12 SECONDS * REM * delta_time, /datum/status_effect/jitter)
-	affected_mob.dizziness = max(affected_mob.dizziness - (6 * REM * delta_time), 0)
+	affected_mob.adjust_jitter(-12 SECONDS * REM * delta_time)
+	affected_mob.adjust_dizzy(-12 SECONDS * REM * delta_time)
 	affected_mob.adjust_confusion(-6 SECONDS * REM * delta_time)
 	affected_mob.disgust = max(affected_mob.disgust - (6 * REM * delta_time), 0)
 	var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
