@@ -60,6 +60,7 @@
 #include "mindbound_actions.dm"
 #include "missing_icons.dm"
 #include "modsuit.dm"
+#include "mutant_hands_consistency.dm"
 #include "mutant_organs.dm"
 #include "ntnetwork_tests.dm"
 #include "organs.dm"
