@@ -30,7 +30,7 @@ export const CellularEmporium = (props) => {
   const { act, data } = useBackend<CellularEmporiumContext>();
   const { can_readapt, genetic_points_remaining } = data;
   return (
-    <Window width={900} height={480}>
+    <Window theme="neutral" width={900} height={480}>
       <Window.Content>
         <Section
           fill
