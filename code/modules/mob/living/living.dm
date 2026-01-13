@@ -532,8 +532,11 @@
 
 ///Proc to hook behavior to the change of value in the resting variable.
 /mob/living/proc/set_resting(new_resting, silent = TRUE, instant = FALSE)
+	if(!(mobility_flags & MOBILITY_REST))
+		return
 	if(new_resting == resting)
 		return
+
 	. = resting
 	resting = new_resting
 	if(new_resting)
@@ -579,7 +582,7 @@
 
 
 /mob/living/proc/rest_checks_callback()
-	if(resting || lying_angle == 0 || HAS_TRAIT(src, TRAIT_FLOORED))
+	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return FALSE
 	return TRUE
 

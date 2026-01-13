@@ -126,3 +126,17 @@
   - code_imp: adds another carbon trait to brains, the ability to strip others with
       the stripping menu
   - code_imp: strip menu unit test
+2026-01-11:
+  Isaacnml:
+  - balance: MOD energy shield can withstand 60 damage and recharges 5 seconds after
+      not being hit, recharging 5 per second, roughly reaching max charge in 16 total
+      seconds of not being hit
+  - rscadd: Mod Energy shield to the traitor uplink
+  PowerfulBacon:
+  - balance: Hacked APCs will now only sometimes flicker their distinctive blue colour.
+      Only players standing near the APC can see this. Malf AIs and ghosts always
+      see hacked APCs as blue.
+2026-01-12:
+  PowerfulBacon:
+  - tweak: Updates some maps for future support of smartwires
+  - bugfix: Crashing caused by dizziness status effect.

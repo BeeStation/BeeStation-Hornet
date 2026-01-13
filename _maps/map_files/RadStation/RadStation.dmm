@@ -12587,13 +12587,10 @@
 /area/maintenance/port/aft)
 "egl" = (
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -24137,9 +24134,9 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "inY" = (
-/obj/machinery/power/smes,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
+/obj/machinery/power/solar_control,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -25816,12 +25813,15 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "iSh" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/machinery/light_switch{
 	pixel_x = 1;
 	pixel_y = -21
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -34931,14 +34931,11 @@
 /turf/open/floor/plating,
 /area/medical/morgue)
 "maO" = (
-/obj/machinery/power/solar_control,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/machinery/airalarm/directional/north,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
+/obj/machinery/power/smes,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "mbm" = (
@@ -47473,15 +47470,15 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "qsz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
 	req_one_access_txt = "10;13"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
@@ -51472,9 +51469,6 @@
 /area/ai_monitored/turret_protected/ai)
 "rQz" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "rQG" = (
