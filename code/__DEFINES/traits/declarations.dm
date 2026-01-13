@@ -500,11 +500,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///without a human having this trait, they speak as if they have no tongue.
 #define TRAIT_SPEAKS_CLEARLY "speaks_clearly"
 
-// specific sources for TRAIT_SPEAKS_CLEARLY
-
-///trait source that tongues should use
-#define SPEAKING_FROM_TONGUE "tongue"
-///trait source that sign language should use
-#define SPEAKING_FROM_HANDS "hands"
-
 // END TRAIT DEFINES
