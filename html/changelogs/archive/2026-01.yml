@@ -136,3 +136,7 @@
   - balance: Hacked APCs will now only sometimes flicker their distinctive blue colour.
       Only players standing near the APC can see this. Malf AIs and ghosts always
       see hacked APCs as blue.
+2026-01-12:
+  PowerfulBacon:
+  - tweak: Updates some maps for future support of smartwires
+  - bugfix: Crashing caused by dizziness status effect.
