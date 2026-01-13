@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Edits the TGUI base theme to give the server a more distinct look and feel.
-  - rscadd: Adds the new blue chat theme.

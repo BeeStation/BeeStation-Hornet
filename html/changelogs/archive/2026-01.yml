@@ -140,3 +140,19 @@
   PowerfulBacon:
   - tweak: Updates some maps for future support of smartwires
   - bugfix: Crashing caused by dizziness status effect.
+2026-01-13:
+  PowerfulBacon:
+  - tweak: Chemical grenades can now have assemblies attached when completed.
+  - rscadd: Adds screentips to chemical grenades.
+  - tweak: If a chemical grenade does not explode, you can screwdriver it to reset
+      it. You cannot re-use the reagents though as they will be cleared when you remove
+      the beakers from it.
+  - tweak: Edits the TGUI base theme to give the server a more distinct look and feel.
+  - rscadd: Adds the new blue chat theme.
+  rkz, coiax, ShizCalev, carpotoxin, Rhials, san7890:
+  - refactor: refactor ventcrawling accessing
+  - code_imp: ventcrawling ability is now a trait
+  - rscadd: indicates when a mob is attempting to enter a vent
+  - rscadd: mobs that get stuck in pipes with no exit can force their way out
+  - rscadd: ventcrawling mobs now have a 1 second delay to exiting, to prevent accidental
+      ventcrawl exit
