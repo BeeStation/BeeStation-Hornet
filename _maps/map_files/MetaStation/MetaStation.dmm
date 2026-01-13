@@ -45666,6 +45666,7 @@
 /obj/machinery/camera/motion/directional/south{
 	c_tag = "AI Upload Chamber - Port"
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "nhS" = (
@@ -63344,6 +63345,7 @@
 /obj/effect/turf_decal/tile/red/half{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark/smooth_half,
 /area/security/execution/education)
 "tAQ" = (
@@ -64586,6 +64588,7 @@
 	dir = 4;
 	pixel_x = -29
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "tZb" = (

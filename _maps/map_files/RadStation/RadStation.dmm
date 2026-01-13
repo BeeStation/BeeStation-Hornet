@@ -64944,6 +64944,7 @@
 /obj/effect/turf_decal/edges/techfloor{
 	dir = 5
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/tech,
 /area/ai_monitored/turret_protected/ai_upload)
 "wtw" = (
@@ -67981,6 +67982,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron,
 /area/security/execution/education)
 "xoS" = (

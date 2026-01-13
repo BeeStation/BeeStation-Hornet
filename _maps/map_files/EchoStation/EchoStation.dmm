@@ -4711,6 +4711,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/table/reinforced,
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "cqs" = (
@@ -34887,6 +34888,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "trI" = (

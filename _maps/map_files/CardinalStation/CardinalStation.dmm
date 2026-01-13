@@ -92090,6 +92090,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/directional/west,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer4,
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/tech,
 /area/security/execution/education)
 "udB" = (
@@ -94993,6 +94994,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/ai_slipper,
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "uIP" = (

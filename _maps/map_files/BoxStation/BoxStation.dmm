@@ -30440,6 +30440,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/turret_protected/ai_upload)
 "jLl" = (
@@ -41739,6 +41740,7 @@
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5
 	},
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "owl" = (

@@ -50113,6 +50113,7 @@
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "lrF" = (
@@ -77779,6 +77780,7 @@
 /obj/machinery/light,
 /obj/machinery/power/apc/auto_name/directional/south,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/apc/cut_ai_wire,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "uXJ" = (
