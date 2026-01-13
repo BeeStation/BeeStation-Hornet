@@ -37,6 +37,7 @@
 	var/hibernating = FALSE //if they dont aggro, they hibernate until they do. They will allow themselves to be killed, butchered, or eaten.
 	var/hibernationcounter = 0
 	var/list/grub_diseases = list()
+
 /mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(mob/living/M)
 	if(isoozeling(M))
 //	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M)) // i hate this
