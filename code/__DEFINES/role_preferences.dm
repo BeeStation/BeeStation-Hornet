@@ -32,7 +32,6 @@
 #define ROLE_ABDUCTOR "Abductor"
 #define ROLE_REVENANT "Revenant"
 #define ROLE_BROTHER "Blood Brother"
-#define ROLE_VIGILANTE "Vigilante"
 #define ROLE_HIVE "Hivemind Host"
 #define ROLE_OBSESSED "Obsessed"
 #define ROLE_SPACE_DRAGON "Space Dragon"

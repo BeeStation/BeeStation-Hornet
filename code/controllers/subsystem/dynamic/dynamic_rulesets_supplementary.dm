@@ -110,24 +110,3 @@
 	points_cost = 12
 	minimum_players_required = 16
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_CURATOR)
-
-//////////////////////////////////////////////
-//                                          //
-//                 VIGILANTE                //
-//                                          //
-//////////////////////////////////////////////
-
-/datum/dynamic_ruleset/supplementary/vigilante
-	name = "Vigilante"
-	role_preference = /datum/role_preference/supplementary/vigilante
-	antag_datum = /datum/antagonist/vigilante
-	weight = 5
-	points_cost = 5
-	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
-	max_amount = 1
-	minimum_players_required = 6
-
-/datum/dynamic_ruleset/supplementary/vigilante/allowed(require_drafted)
-	if (length(SSdynamic.gamemode_executed_rulesets) == 0)
-		return FALSE
-	return ..()

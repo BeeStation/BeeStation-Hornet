@@ -64,21 +64,3 @@
 /datum/outfit/vampire
 	name = "Vampire outfit (Preview only)"
 	suit = /obj/item/clothing/suit/costume/dracula
-
-/datum/role_preference/supplementary/vigilante
-	name = "Vigilante"
-	description = "It's time to take matters into your own hands... Eliminate anyone who \
-	gets arrested and sullies your perfect world!"
-	antag_datum = /datum/antagonist/vigilante
-
-/datum/role_preference/supplementary/vigilante/get_preview_icon()
-	var/icon/icon = render_preview_outfit(/datum/outfit/vigilante)
-	return finish_preview_icon(icon)
-
-/datum/outfit/vigilante
-	name = "Vigilante outfit (Preview only)"
-	uniform = /obj/item/clothing/under/rank/security/officer/blueshirt
-	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	l_hand = /obj/item/fireaxe
-	head = /obj/item/clothing/head/helmet

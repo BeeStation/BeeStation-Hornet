@@ -42,7 +42,6 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_HEARTBREAKER = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_PRISONER = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag(),
-	ANTAG_HUD_VIGILANTE = new/datum/atom_hud/antag/hidden(),
 	))
 
 /datum/atom_hud

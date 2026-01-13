@@ -2492,7 +2492,6 @@
 #include "code\modules\antagonists\vampire\vassals\discordant_vassal.dm"
 #include "code\modules\antagonists\vampire\vassals\favorite_vassal.dm"
 #include "code\modules\antagonists\vampire\vassals\misc_procs_vassal.dm"
-#include "code\modules\antagonists\vigilante\vigilante.dm"
 #include "code\modules\antagonists\wishgranter\wishgranter.dm"
 #include "code\modules\antagonists\wizard\wizard.dm"
 #include "code\modules\antagonists\wizard\equipment\artefact.dm"
