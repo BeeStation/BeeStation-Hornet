@@ -96,6 +96,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/stacking_unit_console)
 	circuit = /obj/item/circuitboard/machine/stacking_machine
 	input_dir = EAST
 	output_dir = WEST
+	ai_view = FALSE
+
 	var/obj/machinery/mineral/stacking_unit_console/console
 	var/stk_types = list()
 	var/stk_amt   = list()

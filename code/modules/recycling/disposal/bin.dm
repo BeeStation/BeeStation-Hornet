@@ -439,6 +439,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 	density = TRUE
 	icon_state = "intake"
 	pressure_charging = FALSE // the chute doesn't need charging and always works
+	ai_view = FALSE
 
 /obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
