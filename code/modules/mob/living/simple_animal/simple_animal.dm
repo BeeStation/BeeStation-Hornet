@@ -51,6 +51,9 @@
 	//Healable by medical stacks? Defaults to yes.
 	var/healable = 1
 
+	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
+	var/list/weather_immunities
+
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
 	///This damage is taken when atmos doesn't fit all the requirements above.
@@ -149,7 +152,8 @@
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
 	ADD_TRAIT(src, TRAIT_NOFIRE_SPREAD, ROUNDSTART_TRAIT)
-
+	if(length(weather_immunities))
+		add_traits(weather_immunities, ROUNDSTART_TRAIT)
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
 	if(no_flying_animation)

@@ -25,7 +25,7 @@
 	/// How much temperature we expose objects with
 	var/temperature_damage = 10000
 	/// mobs with this trait won't burn.
-	var/immunity_trait = null //TRAIT_LAVA_IMMUNE
+	var/immunity_trait = TRAIT_LAVA_IMMUNE
 	/// objects with these flags won't burn.
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// the temperature that this turf will attempt to heat/cool gasses too in a heat exchanger, in kelvin

@@ -54,13 +54,13 @@
 /// If this item should hit living mobs when used on harm intent
 #define ISWEAPON (1<<15)
 /// Doesn't slow you down while worn, which is only useful in combination with SLOWS_WHILE_IN_HAND
-#define NO_WORN_SLOWDOWN (1<<17)
+#define NO_WORN_SLOWDOWN (1<<16)
 /// If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
-#define HAND_ITEM (1<<18)
+#define HAND_ITEM (1<<17)
 /// Can be equipped on digitigrade legs.
-#define IGNORE_DIGITIGRADE (1<<19)
+#define IGNORE_DIGITIGRADE (1<<18)
 /// No blood overlay is allowed to appear on this item, and it cannot gain blood DNA forensics
-#define NO_BLOOD_ON_ITEM (1 << 20)
+#define NO_BLOOD_ON_ITEM (1<<19)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

@@ -8,7 +8,6 @@
 	initial_language_holder = /datum/language_holder/synthetic
 	see_in_dark = NIGHTVISION_FOV_RANGE
 	bubble_icon = "machine"
-	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	deathsound = 'sound/voice/borg_deathsound.ogg'
@@ -71,6 +70,7 @@
 
 	var/static/list/traits_to_apply = list(
 		TRAIT_ADVANCEDTOOLUSER,
+		TRAIT_ASHSTORM_IMMUNE,
 		TRAIT_MADNESS_IMMUNE,
 		TRAIT_MARTIAL_ARTS_IMMUNE,
 		TRAIT_NOFIRE_SPREAD,

@@ -108,8 +108,6 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
 
-	var/list/weather_immunities = list()
-
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
 	var/blood_volume = 0 //how much blood the mob has
