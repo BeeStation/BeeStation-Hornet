@@ -80,6 +80,14 @@
   - balance: Mech's cells are drained faster from EMP's
   - balance: Mech's receive more damage from EMP's
   - balance: Mech's equipment is disabled for 2x longer when hit by an EMP
+  PowerfulBacon:
+  - bugfix: Mice no longer spawn during unit testing, which breaks cable tests.
+  - bugfix: Fixes TGUI windows lagging the game when opened until you open the preferences
+      screen.
+  - bugfix: Eye-stabbing will now always deal the same damage as a regular attack,
+      and will perform a regular attack if it fails making it behave better while
+      on simplified mode.
+  - bugfix: Fixes eye-stabbing having 100% armour penetration.
   RKz:
   - rscadd: 'All drug addictions are now put into 5 categories: Stimulants, Opioids,
       Alcohol, Hallucinogens, and Maintenance Drugs. All narcotics have been given
@@ -112,3 +120,23 @@
   - refactor: slurring speech from drunkeness should have much better ramp-up, rather
       than making you intelligible immediately
   - rscadd: adds hereticslurring, rather than copying cultslurring
+  rkz, Mothblocks:
+  - balance: ashlanders and monkeys are hardcoded via brains to be unable to operate
+      mechs
+  - code_imp: adds another carbon trait to brains, the ability to strip others with
+      the stripping menu
+  - code_imp: strip menu unit test
+2026-01-11:
+  Isaacnml:
+  - balance: MOD energy shield can withstand 60 damage and recharges 5 seconds after
+      not being hit, recharging 5 per second, roughly reaching max charge in 16 total
+      seconds of not being hit
+  - rscadd: Mod Energy shield to the traitor uplink
+  PowerfulBacon:
+  - balance: Hacked APCs will now only sometimes flicker their distinctive blue colour.
+      Only players standing near the APC can see this. Malf AIs and ghosts always
+      see hacked APCs as blue.
+2026-01-12:
+  PowerfulBacon:
+  - tweak: Updates some maps for future support of smartwires
+  - bugfix: Crashing caused by dizziness status effect.
