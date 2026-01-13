@@ -22,7 +22,6 @@ SUBSYSTEM_DEF(modular_computers)
 
 /datum/controller/subsystem/modular_computers/Initialize()
 	build_software_lists()
-	initialized = TRUE
 	return SS_INIT_SUCCESS
 
 ///Finds all downloadable programs and adds them to their respective downloadable list.
