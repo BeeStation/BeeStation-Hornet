@@ -966,12 +966,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
 
-/obj/item/singularity_pull(S, current_size)
-	..()
+/obj/item/singularity_pull(obj/anomaly/singularity/singularity, current_size)
+	. = ..()
 	if(current_size >= STAGE_FOUR)
-		throw_at(S,14,3, spin=0)
-	else
-		return
+		throw_at(singularity, 14, 3, spin = FALSE)
 
 /obj/item/on_exit_storage(datum/storage/master_storage)
 	. = ..()
@@ -986,7 +984,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(is_hot() && isliving(hit_atom))
 		var/mob/living/L = hit_atom
-		L.IgniteMob()
+		L.ignite_mob()
 	var/itempush = 1
 	if(w_class < WEIGHT_CLASS_NORMAL)
 		itempush = 0 //too light to push anything

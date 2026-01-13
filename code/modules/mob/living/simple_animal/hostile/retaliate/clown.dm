@@ -43,12 +43,12 @@
 /mob/living/simple_animal/hostile/retaliate/clown/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(10)
-		throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
 	else if(bodytemperature > maxbodytemp)
 		adjustBruteLoss(15)
-		throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+		throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 	else
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 /mob/living/simple_animal/hostile/retaliate/clown/attack_hand(mob/living/carbon/human/M)
 	..()

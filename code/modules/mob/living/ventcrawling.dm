@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 			if(iscarbon(src) && ventcrawler < 2)//It must have atleast been 1 to get this far
 				var/failed = 0
-				var/list/items_list = get_equipped_items(include_pockets = TRUE)
+				var/list/items_list = get_equipped_items(INCLUDE_POCKETS)
 				if(items_list.len)
 					failed = 1
 				for(var/obj/item/I in held_items)

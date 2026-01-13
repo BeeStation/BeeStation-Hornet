@@ -177,7 +177,7 @@
 			to_chat(owner, span_notice("You ignite yourself!"))
 		else
 			to_chat(owner, span_warning("You try to ignite yourself, but fail!"))
-		H.IgniteMob() //firestacks are already there passively
+		H.ignite_mob() //firestacks are already there passively
 
 //Harder to hurt
 /datum/species/golem/diamond
@@ -1293,11 +1293,11 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/structure/cloth_pile)
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES2.ogg', 100)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			var/mutable_appearance/badtime = mutable_appearance('icons/mob/species/human/bodyparts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
+			var/mutable_appearance/badtime = mutable_appearance('icons/mob/species/human/bodyparts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(HIGHEST_LAYER))
 			badtime.appearance_flags = RESET_COLOR
-			H.overlays_standing[FIRE_LAYER+0.5] = badtime
-			H.apply_overlay(FIRE_LAYER+0.5)
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), FIRE_LAYER+0.5), 25)
+			H.overlays_standing[HIGHEST_LAYER+0.5] = badtime
+			H.apply_overlay(HIGHEST_LAYER+0.5)
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), HIGHEST_LAYER+0.5), 25)
 	else
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES.ogg', 100)
 	for(var/mob/living/L in orange(7, get_turf(owner)))

@@ -543,7 +543,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/immortality_talisman)
 /obj/effect/immortality_talisman/attackby()
 	return
 
-/obj/effect/immortality_talisman/singularity_pull()
+/obj/effect/immortality_talisman/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/effect/immortality_talisman/Destroy(force)

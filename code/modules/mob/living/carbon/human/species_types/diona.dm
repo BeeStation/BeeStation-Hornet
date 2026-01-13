@@ -182,7 +182,7 @@
 		target.visible_message(span_warning("[user] catches fire from hugging [target]!"), span_boldnotice("[user] catches fire hugging you!"), span_italics("You hear a fire crackling."))
 		user.fire_stacks = target.fire_stacks
 		if(user.fire_stacks > 0)
-			user.IgniteMob()
+			user.ignite_mob()
 
 //////////////////////////////////////// Action abilities ///////////////////////////////////////////////
 

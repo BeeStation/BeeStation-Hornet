@@ -481,7 +481,7 @@
 	Paralyze(1, ignore_canstun = TRUE)
 
 	if(delete_items)
-		for(var/obj/item/W in get_equipped_items(TRUE) | held_items)
+		for(var/obj/item/W in get_equipped_items(INCLUDE_POCKETS) | held_items)
 			qdel(W)
 	else
 		unequip_everything()

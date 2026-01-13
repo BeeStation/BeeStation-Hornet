@@ -69,10 +69,10 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 	else
 		return ..()
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
-/obj/effect/rend/singularity_pull()
+/obj/effect/rend/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	return
 
 /obj/item/veilrender/vealrender
@@ -444,7 +444,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/rend)
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
 		target.adjust_fire_stacks(20)
-		target.IgniteMob()
+		target.ignite_mob()
 		GiveHint(target,1)
 	return ..()
 

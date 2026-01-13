@@ -240,8 +240,8 @@
 		if(touch_mod < 0.9)
 			to_chat(exposed_mob, span_warning("The water causes you to melt away!"))
 	if(method == TOUCH)
-		exposed_mob.adjust_fire_stacks(-(reac_volume / 10))
-		exposed_mob.ExtinguishMob()
+		exposed_mob.adjust_wet_stacks(reac_volume / 10)
+		exposed_mob.extinguish_mob()
 	..()
 
 /datum/reagent/water/holywater
@@ -366,7 +366,7 @@
 /datum/reagent/hellwater/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.fire_stacks = min(affected_mob.fire_stacks + 1.5 * delta_time, 5)
-	affected_mob.IgniteMob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
+	affected_mob.ignite_mob() //Only problem with igniting people is currently the commonly available fire suits make you immune to being on fire
 	affected_mob.adjustToxLoss(1 * REM * delta_time, updating_health = FALSE)
 	affected_mob.adjustFireLoss(1 * REM * delta_time, updating_health = FALSE) //Hence the other damages... ain't I a bastard?
 	affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2.5*delta_time, 150)

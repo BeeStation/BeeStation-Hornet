@@ -71,7 +71,7 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/machinery/disposal)
 		return loc?.return_air()
 	return air_contents
 
-/obj/machinery/disposal/singularity_pull(S, current_size)
+/obj/machinery/disposal/singularity_pull(obj/anomaly/singularity/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()

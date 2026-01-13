@@ -310,7 +310,7 @@
 /datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, delta_time, times_fired)
 	. = ..()
 	affected_mob.adjust_fire_stacks(2 * REM * delta_time)
-	affected_mob.IgniteMob()
+	affected_mob.ignite_mob()
 
 /datum/reagent/toxin/chloralhydrate
 	name = "Chloral Hydrate"

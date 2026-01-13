@@ -148,6 +148,7 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
+	ADD_TRAIT(src, TRAIT_NOFIRE_SPREAD, ROUNDSTART_TRAIT)
 
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
@@ -342,26 +343,26 @@
 		adjustHealth(unsuitable_atmos_damage * delta_time)
 		switch(unsuitable_atmos_damage)
 			if(1 to 5)
-				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 1)
 			if(5 to 10)
-				throw_alert("temp", /atom/movable/screen/alert/cold, 2)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 2)
 			if(10 to INFINITY)
-				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/cold, 3)
 		. = TRUE
 
 	if((bodytemperature > maxbodytemp) && unsuitable_atmos_damage)
 		adjustHealth(unsuitable_atmos_damage * delta_time)
 		switch(unsuitable_atmos_damage)
 			if(1 to 5)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 1)
 			if(5 to 10)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 2)
 			if(10 to INFINITY)
-				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
+				throw_alert(ALERT_TEMPERATURE, /atom/movable/screen/alert/hot, 3)
 		. = TRUE
 
 	if(!.)
-		clear_alert("temp")
+		clear_alert(ALERT_TEMPERATURE)
 
 /mob/living/simple_animal/gib()
 	if(butcher_results || guaranteed_butcher_results)
@@ -459,16 +460,6 @@
 		if(LAZYLEN(M.occupants))
 			return FALSE
 	return TRUE
-
-/mob/living/simple_animal/handle_fire(delta_time, times_fired)
-	return TRUE
-
-/mob/living/simple_animal/IgniteMob()
-	return FALSE
-
-/mob/living/simple_animal/ExtinguishMob()
-	return
-
 
 /mob/living/simple_animal/revive(full_heal_flags = NONE, excess_healing = 0, force_grab_ghost = FALSE)
 	. = ..()

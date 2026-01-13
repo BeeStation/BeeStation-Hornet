@@ -13,6 +13,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	examine_cursor_icon = null
+	fire_stack_decay_rate = -0.55
 	speech_span = SPAN_ROBOT
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
@@ -67,10 +68,14 @@
 	diag_hud_set_health()
 	create_access_card(default_access_list)
 	default_access_list = null
-	ADD_TRAIT(src, TRAIT_ADVANCEDTOOLUSER, ROUNDSTART_TRAIT)
 
-	ADD_TRAIT(src, TRAIT_MADNESS_IMMUNE, ROUNDSTART_TRAIT)
-	ADD_TRAIT(src, TRAIT_MARTIAL_ARTS_IMMUNE, ROUNDSTART_TRAIT)
+	var/static/list/traits_to_apply = list(
+		TRAIT_ADVANCEDTOOLUSER,
+		TRAIT_MADNESS_IMMUNE,
+		TRAIT_MARTIAL_ARTS_IMMUNE,
+		TRAIT_NOFIRE_SPREAD,
+	)
+	add_traits(traits_to_apply, ROUNDSTART_TRAIT)
 
 /mob/living/silicon/Destroy()
 	QDEL_NULL(radio)
