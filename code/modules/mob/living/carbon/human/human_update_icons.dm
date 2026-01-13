@@ -173,7 +173,7 @@ There are several things that need to be remembered:
 			if(uniform.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
 			//Currently doesn't work with GAGS
-			//if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (uniform.supports_variations & DIGITIGRADE_VARIATION))
+			//if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (uniform.supports_variations & CLOTHING_DIGITIGRADE_VARIATION))
 			//	icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 			uniform_overlay = uniform.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
@@ -417,7 +417,7 @@ There are several things that need to be remembered:
 				icon_file = dna.species.get_custom_icons("shoes")
 
 			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
-				if(S.supports_variations & DIGITIGRADE_VARIATION)
+				if(S.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
 					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
 
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
@@ -563,7 +563,7 @@ There are several things that need to be remembered:
 			icon_file = dna.species.get_custom_icons("suit")
 
 		if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
-			if(S.supports_variations & DIGITIGRADE_VARIATION)
+			if(S.supports_variations_flags & CLOTHING_DIGITIGRADE_VARIATION)
 				icon_file = 'icons/mob/species/misc/digitigrade_suits.dmi'
 
 		wear_suit.screen_loc = ui_oclothing
