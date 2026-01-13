@@ -393,7 +393,7 @@ export const ChemDispenser = (_props) => {
   ).sort((a, b) => b.rating - a.rating);
 
   return (
-    <Window width={695} height={720}>
+    <Window width={710} height={720}>
       <Window.Content className="chem_dispenser">
         <div className="root">
           <Section

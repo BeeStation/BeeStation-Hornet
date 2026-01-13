@@ -2,6 +2,7 @@
 
 /mob/living/silicon/pai
 	name = "pAI"
+	desc = "A generic pAI mobile hard-light holographics emitter. It seems to be deactivated."
 	icon = 'icons/mob/pai.dmi'
 	icon_state = "repairbot"
 	mouse_opacity = MOUSE_OPACITY_ICON
@@ -9,7 +10,7 @@
 	hud_type = /datum/hud/pai
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
-	desc = "A generic pAI mobile hard-light holographics emitter. It seems to be deactivated."
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	health = 500
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER

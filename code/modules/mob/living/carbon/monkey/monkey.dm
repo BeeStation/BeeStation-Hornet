@@ -6,7 +6,6 @@
 	icon_state = "monkey1"
 	gender = NEUTER
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_NUDE
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	type_of_meat = /obj/item/food/meat/slab/monkey
@@ -58,6 +57,8 @@ CREATION_TEST_IGNORE_SUBTYPES(/mob/living/carbon/monkey)
 	//initialize limbs
 	create_bodyparts()
 	create_internal_organs()
+
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_NUDE, INNATE_TRAIT)
 
 	. = ..()
 
