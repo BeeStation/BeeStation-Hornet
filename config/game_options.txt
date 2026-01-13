@@ -95,7 +95,7 @@ ALERT_EPSILON Central Command has ordered "EPSILON" security level on the statio
 NO_INTERCEPT_REPORT
 
 ## The total weight of station goals possible for a round (allows multiple goals)
-STATION_GOAL_BUDGET 1
+STATION_GOAL_BUDGET 2
 
 ## Uncomment to use station traits (faster cargo shuttle, more maintenance loot)
 STATION_TRAITS
@@ -558,3 +558,8 @@ NEUTRAL_STATION_TRAITS 2 4
 NEGATIVE_STATION_TRAITS 0 8
 NEGATIVE_STATION_TRAITS 1 4
 NEGATIVE_STATION_TRAITS 2 2
+
+# A config that skews with the random spawners weights
+# If the value is lower than 1, it'll tend to even out the odds
+# If higher than 1, it'll lean toward common spawns even more.
+RANDOM_LOOT_WEIGHT_MODIFIER 1

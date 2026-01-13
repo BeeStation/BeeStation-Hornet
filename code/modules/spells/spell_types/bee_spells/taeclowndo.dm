@@ -82,7 +82,7 @@
 		var/mul = (M==target ? 1 : 0.5)
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.stuttering += 20*mul
+		M.adjust_stutter(40 SECONDS*mul)
 		M.adjustEarDamage(0, 30*mul)
 		M.Knockdown(60*mul)
 		if(prob(40))

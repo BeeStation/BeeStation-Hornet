@@ -22,6 +22,8 @@
 	zmm_flags = ZMM_MANGLE_PLANES
 	ai_view_icon = "ai_apc_atmos"
 
+	hud_possible = list(HACKED_APC_HUD)
+
 	light_power = 0.85
 
 
@@ -139,6 +141,9 @@
 	//Clockcult - The integration cog inserted inside of us
 	var/integration_cog = null
 
+	/// The time that our last hacked flicker was performed at
+	COOLDOWN_DECLARE(last_hacked_flicker)
+
 	armor_type = /datum/armor/power_apc
 
 /datum/armor/power_apc
@@ -183,6 +188,12 @@
 			pixel_x = -APC_PIXEL_OFFSET
 	if(offset_old != APC_PIXEL_OFFSET && !building)
 		log_mapping("APC: ([src]) at [AREACOORD(src)] with dir ([dir] | [uppertext(dir2text(dir))]) has pixel_[dir & (WEST|EAST) ? "x" : "y"] value [offset_old] - should be [dir & (SOUTH|EAST) ? "-" : ""][APC_PIXEL_OFFSET]. Use the directional/ helpers!")
+
+/obj/machinery/power/apc/Initialize(mapload)
+	. = ..()
+	prepare_huds()
+	for(var/datum/atom_hud/hacked_apc/apc_hud in GLOB.huds)
+		apc_hud.add_to_hud(src)
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
@@ -536,6 +547,8 @@
 		failure_timer--
 		force_update = TRUE
 		return
+	if ((malfhack || (obj_flags & EMAGGED)) && COOLDOWN_FINISHED(src, last_hacked_flicker))
+		flicker_hacked_icon()
 	// Vars for the power usage of the different channels
 	var/light_power_req = area.power_usage[AREA_USAGE_LIGHT] + area.power_usage[AREA_USAGE_STATIC_LIGHT]
 	var/equip_power_req = area.power_usage[AREA_USAGE_EQUIP] + area.power_usage[AREA_USAGE_STATIC_EQUIP]
