@@ -15,7 +15,6 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxHealth = 150
@@ -51,6 +50,10 @@
 	discovery_points = TECHWEB_TIER_2_POINTS
 	var/datum/morph_stomach/morph_stomach
 	var/datum/action/innate/morph_stomach/stomach_action
+
+/mob/living/simple_animal/hostile/morph/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	morph_stomach = new(src)

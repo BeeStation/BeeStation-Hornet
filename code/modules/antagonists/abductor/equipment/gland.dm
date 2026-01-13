@@ -218,8 +218,8 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/heart/gland/ventcrawling/activate()
-	to_chat(owner, span_notice("You feel very stretchy."))
-	owner.ventcrawler = VENTCRAWLER_ALWAYS
+	to_chat(owner, span_notice("You feel very stretchy. You could probably fit in that vent, if you tried..."))
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 /obj/item/organ/heart/gland/viral
 	true_name = "contamination incubator"

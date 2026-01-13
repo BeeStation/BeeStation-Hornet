@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Chemical grenades can now have assemblies attached when completed.
+  - rscadd: Adds screentips to chemical grenades.
+  - tweak: If a chemical grenade does not explode, you can screwdriver it to reset
+      it. You cannot re-use the reagents though as they will be cleared when you remove
+      the beakers from it.
