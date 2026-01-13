@@ -1,7 +1,8 @@
 SUBSYSTEM_DEF(nightshift)
 	name = "Night Shift"
-	wait = 10 MINUTES
+	wait = 5 SECONDS
 
+	var/forced_nightshift = null
 	var/nightshift_active = FALSE
 	var/nightshift_start_time = 702000		//7:30 PM, station time
 	var/nightshift_end_time = 270000		//7:30 AM, station time
@@ -30,7 +31,7 @@ SUBSYSTEM_DEF(nightshift)
 	var/emergency = SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_YELLOW
 	var/announcing = TRUE
 	var/time = station_time()
-	var/night_time = (time < nightshift_end_time) || (time > nightshift_start_time)
+	var/night_time = !isnull(forced_nightshift) ? forced_nightshift : (time < nightshift_end_time) || (time > nightshift_start_time)
 	if(!SSmapping.current_map.allow_night_lighting)
 		if(night_time)
 			night_time = FALSE
@@ -49,7 +50,7 @@ SUBSYSTEM_DEF(nightshift)
 	if(nightshift_active != night_time)
 		update_nightshift(night_time, announcing)
 
-/datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE, resumed = FALSE)
+/datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE, resumed = FALSE, no_check = FALSE)
 	if(!resumed)
 		currentrun = GLOB.apcs_list.Copy()
 		nightshift_active = active
@@ -61,6 +62,6 @@ SUBSYSTEM_DEF(nightshift)
 	for(var/obj/machinery/power/apc/APC as anything in currentrun)
 		currentrun -= APC
 		if (APC.area && (APC.area.type in GLOB.the_station_areas))
-			APC.set_nightshift(active)
-		if(MC_TICK_CHECK)
+			APC.set_nightshift(nightshift_active)
+		if(!no_check && MC_TICK_CHECK)
 			return

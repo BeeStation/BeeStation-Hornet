@@ -184,17 +184,17 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			var/val = tgui_alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", list("On", "Off", "Automatic"))
 			switch(val)
 				if("Automatic")
-					if(CONFIG_GET(flag/enable_night_shifts))
-						SSnightshift.can_fire = TRUE
-						SSnightshift.fire()
-					else
-						SSnightshift.update_nightshift(FALSE, TRUE)
+					SSnightshift.forced_nightshift = null
+					if(!CONFIG_GET(flag/enable_night_shifts))
+						SSnightshift.update_nightshift(FALSE, TRUE, no_check = TRUE)
 				if("On")
-					SSnightshift.can_fire = FALSE
-					SSnightshift.update_nightshift(TRUE, TRUE)
+					SSnightshift.forced_nightshift = TRUE
+					if(!CONFIG_GET(flag/enable_night_shifts))
+						SSnightshift.update_nightshift(TRUE, TRUE, no_check = TRUE)
 				if("Off")
-					SSnightshift.can_fire = FALSE
-					SSnightshift.update_nightshift(FALSE, TRUE)
+					SSnightshift.forced_nightshift = FALSE
+					if(!CONFIG_GET(flag/enable_night_shifts))
+						SSnightshift.update_nightshift(FALSE, TRUE, no_check = TRUE)
 		if("all_light_toggle")
 			if(!check_rights(R_ADMIN))
 				return

@@ -154,58 +154,49 @@
  *
  * Important note: colors can end up significantly different from the basic html picture, especially when saturated
  */
-/// Bright but quickly dissipating neon green. rgb(100, 200, 100)
-#define LIGHT_COLOR_GREEN "#64C864"
-/// Vivid, slightly blue green. rgb(60, 240, 70)
-#define LIGHT_COLOR_VIVID_GREEN "#3CF046"
-/// Electric green. rgb(0, 255, 0)
+/// Greens
+#define LIGHT_COLOR_GREEN "#3CFF3C"
+#define LIGHT_COLOR_VIVID_GREEN "#1AFF4A"
 #define LIGHT_COLOR_ELECTRIC_GREEN "#00FF00"
-/// Cold, diluted blue. rgb(100, 150, 250)
-#define LIGHT_COLOR_BLUE "#6496FA"
-/// Faint white blue. rgb(222, 239, 255)
-#define LIGHT_COLOR_FAINT_BLUE "#DEEFFF"
-/// Light blueish green. rgb(125, 225, 175)
-#define LIGHT_COLOR_BLUEGREEN "#7DE1AF"
-/// Diluted cyan. rgb(125, 225, 225)
-#define LIGHT_COLOR_CYAN "#7DE1E1"
-/// Baby Blue rgb(0, 170, 220)
-#define LIGHT_COLOR_BABY_BLUE "#00AADC"
-/// Electric cyan rgb(0, 255, 255)
+
+/// Blues & Cyans
+#define LIGHT_COLOR_BLUE "#3C78FF"
+#define LIGHT_COLOR_FAINT_BLUE "#B4D8FF"
+#define LIGHT_COLOR_BLUEGREEN "#3CFFB4"
+#define LIGHT_COLOR_CYAN "#3CFFFF"
+#define LIGHT_COLOR_BABY_BLUE "#00CCFF"
 #define LIGHT_COLOR_ELECTRIC_CYAN "#00FFFF"
-/// More-saturated cyan. rgb(64, 206, 255)
-#define LIGHT_COLOR_LIGHT_CYAN "#40CEFF"
-/// Saturated blue. rgb(51, 117, 248)
-#define LIGHT_COLOR_DARK_BLUE "#6496FA"
-/// Diluted, mid-warmth pink. rgb(225, 125, 225)
-#define LIGHT_COLOR_PINK "#E17DE1"
-/// Dimmed yellow, leaning kaki. rgb(225, 225, 125)
-#define LIGHT_COLOR_DIM_YELLOW "#E1E17D"
-/// Bright yellow. rgb(255, 255, 150)
-#define LIGHT_COLOR_BRIGHT_YELLOW "#FFFF99"
-/// Clear brown, mostly dim. rgb(150, 100, 50)
-#define LIGHT_COLOR_BROWN "#966432"
-/// Mostly pure orange. rgb(250, 150, 50)
-#define LIGHT_COLOR_ORANGE "#FA9632"
-/// Light Purple. rgb(149, 44, 244)
-#define LIGHT_COLOR_PURPLE "#952CF4"
-/// Less-saturated light purple. rgb(155, 81, 255)
-#define LIGHT_COLOR_LAVENDER "#9B51FF"
-///slightly desaturated bright yellow.
-#define LIGHT_COLOR_HOLY_MAGIC "#FFF743"
-/// deep crimson
-#define LIGHT_COLOR_BLOOD_MAGIC "#D00000"
+#define LIGHT_COLOR_LIGHT_CYAN "#3CD8FF"
+#define LIGHT_COLOR_DARK_BLUE "#335CFF"
 
-#define LIGHT_COLOR_WHITE "#FFFFFF" //! Full white. rgb(255, 255, 255)
-#define LIGHT_COLOR_RED "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
-#define LIGHT_COLOR_CLOCKWORK "#BE8700"
+/// Pink / Purple
+#define LIGHT_COLOR_PINK "#FF5CFF"
+#define LIGHT_COLOR_PURPLE "#8A00FF"
+#define LIGHT_COLOR_LAVENDER "#A066FF"
 
-//These ones aren't a direct colour like the ones above, because nothing would fit
-#define LIGHT_COLOR_FIRE "#FAA019" //! Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
-#define LIGHT_COLOR_LAVA "#C48A18" //! Very warm yellow, leaning slightly towards orange. rgb(196, 138, 24)
-#define LIGHT_COLOR_FLARE "#FA644B" //! Bright, non-saturated red. Leaning slightly towards pink for visibility. rgb(250, 100, 75)
-#define LIGHT_COLOR_SLIME_LAMP "#AFC84B" //! Weird color, between yellow and green, very slimy. rgb(175, 200, 75)
-#define LIGHT_COLOR_TUNGSTEN "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
-#define LIGHT_COLOR_HALOGEN "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
+/// Yellows
+#define LIGHT_COLOR_DIM_YELLOW "#FFFF3C"
+#define LIGHT_COLOR_BRIGHT_YELLOW "#FFFF66"
+#define LIGHT_COLOR_HOLY_MAGIC "#FFF200"
+
+/// Reds / Oranges / Warm
+#define LIGHT_COLOR_BLOOD_MAGIC "#FF0000"
+#define LIGHT_COLOR_RED "#FF4A4A"
+#define LIGHT_COLOR_CLOCKWORK "#FFB000"
+#define LIGHT_COLOR_ORANGE "#FF8C1A"
+#define LIGHT_COLOR_BROWN "#C8641E"
+
+/// Fire / Special
+#define LIGHT_COLOR_FIRE "#FF9A00"
+#define LIGHT_COLOR_LAVA "#FF7A00"
+#define LIGHT_COLOR_FLARE "#FF4A2A"
+#define LIGHT_COLOR_SLIME_LAMP "#B4FF2A"
+#define LIGHT_COLOR_TUNGSTEN "#FFD28A"
+#define LIGHT_COLOR_HALOGEN "#D8FFFF"
+
+/// Neutral
+#define LIGHT_COLOR_WHITE "#FFFFFF"
+
 
 /// Colors for incident displays
 #define COLOR_DISPLAY_RED "#BE3455"
@@ -286,3 +277,12 @@ GLOBAL_LIST_INIT(color_list_rainbow, list(
 #define COLOR_GNOME_WHITE "#e8e8e8"
 #define COLOR_GNOME_GREY "#a9a9a9"
 #define COLOR_GNOME_BLACK "#303030"
+
+/// Default area lighting colours
+#define LIGHT_COLOUR_VERY_WARM "#e67727"
+#define LIGHT_COLOUR_WARM "#edb560"
+#define LIGHT_COLOUR_NEUTRAL "#f1e3a9"
+#define LIGHT_COLOUR_COLD "#d1f0ef"
+#define LIGHT_COLOUR_VERY_COLD "#c2edec"
+
+#define LIGHT_COLOUR_NIGHT "#758dc3"

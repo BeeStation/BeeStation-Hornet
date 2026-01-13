@@ -3,8 +3,8 @@
 /area/mine
 	icon_state = "mining"
 	default_gravity = STANDARD_GRAVITY
-	lighting_colour_tube = "#ffe8d2"
-	lighting_colour_bulb = "#ffdcb7"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_WARM
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
@@ -59,8 +59,8 @@
 
 /area/mine/maintenance
 	name = "Mining Station Communications"
-	lighting_colour_tube = "#edfdff"
-	lighting_colour_bulb = "#dafffd"
+	lighting_colour_tube = LIGHT_COLOUR_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_COLD
 
 /area/mine/gateway
 	name = "Mining Station Gateway Terminal"

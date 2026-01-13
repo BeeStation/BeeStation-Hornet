@@ -116,9 +116,9 @@
 
 	var/list/power_usage
 
-	var/lighting_colour_tube = "#FFF6ED"
-	var/lighting_colour_bulb = "#FFE6CC"
-	var/lighting_colour_night = "#FFDBB5"
+	var/lighting_colour_tube = LIGHT_COLOUR_WARM
+	var/lighting_colour_bulb = LIGHT_COLOUR_WARM
+	var/lighting_colour_night = LIGHT_COLOUR_NIGHT
 	var/lighting_brightness_tube = 11
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6

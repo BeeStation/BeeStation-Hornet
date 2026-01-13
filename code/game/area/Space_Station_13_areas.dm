@@ -176,8 +176,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
 	mood_job_allowed = list(JOB_NAME_ASSISTANT, JOB_NAME_JANITOR, JOB_NAME_STATIONENGINEER, JOB_NAME_CHIEFENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	mood_job_reverse = TRUE
-	lighting_colour_tube = "#ffe5cb"
-	lighting_colour_bulb = "#ffdbb4"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_WARM
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
@@ -426,8 +426,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
-	lighting_colour_tube = "#ffce99"
-	lighting_colour_bulb = "#ffdbb4"
+	lighting_colour_tube = LIGHT_COLOUR_NEUTRAL
+	lighting_colour_bulb = LIGHT_COLOUR_NEUTRAL
 	lighting_brightness_tube = 8
 	camera_networks = list(CAMERA_NETWORK_STATION)
 
@@ -542,8 +542,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
 
-	lighting_colour_tube = "#ffce99"
-	lighting_colour_bulb = "#ffdbb4"
+	lighting_colour_tube = LIGHT_COLOUR_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_COLD
 	lighting_brightness_tube = 8
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
@@ -626,8 +626,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/comms
 	name = "Communications Relay"
 	icon_state = "tcom_sat_cham"
-	lighting_colour_tube = "#e2feff"
-	lighting_colour_bulb = "#d5fcff"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_COLD
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
@@ -647,8 +647,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/crew_quarters
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
-	lighting_colour_tube = "#ffce99"
-	lighting_colour_bulb = "#ffdbb4"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_WARM
 	lighting_brightness_tube = 8
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
@@ -689,14 +689,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/cryopods
 	name = "Cryopod Room"
 	icon_state = "cryopod"
-	lighting_colour_tube = "#e3ffff"
-	lighting_colour_bulb = "#d5ffff"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_COLD
 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
 	icon_state = "toilet"
-	lighting_colour_tube = "#e3ffff"
-	lighting_colour_bulb = "#d5ffff"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_COLD
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet/auxiliary
@@ -744,8 +744,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/park
 	name = "Recreational Park"
 	icon_state = "fitness"
-	lighting_colour_bulb = "#80aae9"
-	lighting_colour_tube = "#80aae9"
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_WARM
+	lighting_colour_tube = LIGHT_COLOUR_VERY_WARM
 	lighting_brightness_bulb = 9
 
 /area/crew_quarters/cafeteria
@@ -756,8 +756,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/kitchen
 	name = "Kitchen"
 	icon_state = "kitchen"
-	lighting_colour_tube = "#e3ffff"
-	lighting_colour_bulb = "#d5ffff"
+	lighting_colour_tube = LIGHT_COLOUR_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_COLD
 	lights_always_start_on = FALSE
 	color_correction = /datum/client_colour/area_color/cold_ish
 
@@ -773,8 +773,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = 5
 	mood_message = span_nicegreen("I love being in the bar!\n")
 	lights_always_start_on = TRUE
-	lighting_colour_tube = "#fff4d6"
-	lighting_colour_bulb = "#ffebc1"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_WARM
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	color_correction = /datum/client_colour/area_color/warm_ish
@@ -832,8 +832,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	flags_1 = NONE
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 
-	lighting_colour_tube = "#ffce99"
-	lighting_colour_bulb = "#ffdbb4"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_WARM
 	lighting_brightness_tube = 8
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_NONE
 	color_correction = /datum/client_colour/area_color/warm_ish
@@ -896,8 +896,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
-	lighting_colour_tube = "#ffce93"
-	lighting_colour_bulb = "#ffbc6f"
+	lighting_colour_tube = LIGHT_COLOUR_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_WARM
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/warm_yellow
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_ENGINEERING)
@@ -1091,8 +1091,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	mood_bonus = 2
 	mood_message = span_nicegreen("I feel safe in here!\n")
-	lighting_colour_tube = "#e7f8ff"
-	lighting_colour_bulb = "#d5f2ff"
+	lighting_colour_tube = LIGHT_COLOUR_VERY_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_VERY_COLD
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/cold_ish
 	camera_networks = list(CAMERA_NETWORK_STATION, CAMERA_NETWORK_MEDICAL)
@@ -1232,8 +1232,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "security"
 	ambience_index = AMBIENCE_DANGER
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	lighting_colour_tube = "#ffeee2"
-	lighting_colour_bulb = "#ffdfca"
+	lighting_colour_tube = LIGHT_COLOUR_NEUTRAL
+	lighting_colour_bulb = LIGHT_COLOUR_NEUTRAL
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	color_correction = /datum/client_colour/area_color/warm_ish
 	camera_networks = list(CAMERA_NETWORK_STATION)
@@ -1442,8 +1442,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/quartermaster
 	name = "Quartermasters"
 	icon_state = "quart"
-	lighting_colour_tube = "#ffe3cc"
-	lighting_colour_bulb = "#ffdbb8"
+	lighting_colour_tube = LIGHT_COLOUR_WARM
+	lighting_colour_bulb = LIGHT_COLOUR_WARM
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/warm_yellow
@@ -1557,8 +1557,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science
 	name = "Science Division"
 	icon_state = "science"
-	lighting_colour_tube = "#f0fbff"
-	lighting_colour_bulb = "#e4f7ff"
+	lighting_colour_tube = LIGHT_COLOUR_COLD
+	lighting_colour_bulb = LIGHT_COLOUR_COLD
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	color_correction = /datum/client_colour/area_color/cold_ish
@@ -1585,8 +1585,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/science/shuttle
 	name = "Shuttle Construction"
-	lighting_colour_tube = "#ffe3cc"
-	lighting_colour_bulb = "#ffdbb8"
+	lighting_colour_tube = LIGHT_COLOUR_NEUTRAL
+	lighting_colour_bulb = LIGHT_COLOUR_NEUTRAL
 
 /area/science/storage
 	name = "Toxins Storage"

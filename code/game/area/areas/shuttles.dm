@@ -10,8 +10,8 @@
 	always_unpowered = FALSE
 	// Loading the same shuttle map at a different time will produce distinct area instances.
 	area_flags = NONE
-	lighting_colour_tube = "#fff0dd"
-	lighting_colour_bulb = "#ffe1c1"
+	lighting_colour_tube = LIGHT_COLOUR_NEUTRAL
+	lighting_colour_bulb = LIGHT_COLOUR_NEUTRAL
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 	//The mobile port attached to this area

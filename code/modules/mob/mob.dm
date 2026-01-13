@@ -1279,6 +1279,8 @@
 		var/atom/movable/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if (L)
 			L.alpha = lighting_alpha
+		if(client?.prefs)
+			L.color = color_matrix_saturation(client.prefs.read_preference(/datum/preference/numeric/lighting_saturation))
 		var/atom/movable/screen/plane_master/additive_lighting/LA = hud_used.plane_masters["[LIGHTING_PLANE_ADDITIVE]"]
 		if(LA)
 			var/bloom = ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL

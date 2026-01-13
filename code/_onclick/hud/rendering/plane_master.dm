@@ -107,6 +107,10 @@
 	blend_mode_override = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/atom/movable/screen/plane_master/lighting/New(loc, ...)
+	. = ..()
+	color = color_matrix_saturation(1.2)
+
 /atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
 	. = ..()
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)

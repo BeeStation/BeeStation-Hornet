@@ -3,7 +3,10 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
 	var/icon_normal = "bcircuit"
+	light_system = MOVABLE_LIGHT
 	light_color = LIGHT_COLOR_CYAN
+	light_power = 1
+	light_range = 2
 	floor_tile = /obj/item/stack/tile/circuit
 	var/on = TRUE
 
@@ -21,14 +24,14 @@
 	if(on)
 		if(LAZYLEN(SSmapping.nuke_threats))
 			icon_state = "rcircuitanim"
-			light_color = LIGHT_COLOR_FLARE
+			set_light_color(LIGHT_COLOR_FLARE)
 		else
 			icon_state = icon_normal
-			light_color = initial(light_color)
-		set_light(1.4, 0.5)
+			set_light_color(initial(light_color))
+		set_light_on(TRUE)
 	else
 		icon_state = "[icon_normal]off"
-		set_light(0)
+		set_light_on(FALSE)
 
 /turf/open/floor/circuit/off
 	icon_state = "bcircuitoff"

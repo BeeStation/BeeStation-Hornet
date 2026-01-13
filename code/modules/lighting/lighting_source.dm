@@ -125,12 +125,25 @@
 //Linear lighting falloff. This resembles the original lighting falloff calculation the best, but results in lights having a slightly larger range, which is most noticeable with large light sources. This also results in lights being diamond-shaped, fuck. This looks the darkest out of the three due to how lights are brighter closer to the source compared to the original falloff algorithm. This falloff method also does not at all take into account lighting height, as it acts as a flat reduction to light range with this method.
 //#define LUM_FALLOFF(C, T) (1 - CLAMP01(((abs(C.x - T.x) + abs(C.y - T.y))) / max(1, light_range+1)))
 
+//#define LUM_FALLOFF(C, T) (1 - CLAMP01(max(GET_LUM_DIST(abs(C.x - T.x), abs(C.y - T.y)),light_height) / max(1, light_range+1)))
+
+// TODO OFfset x by this x=\frac{f}{l_{r}+1} but stretch to make sure we intercept y=0 at the same point
+
+// How quickly light falls off, lower values mean that light falls off quickly
+#define FALLOFF_VALUE 16
+
+#define BASE_INTENSITY(x, r) (r + 1 + FALLOFF_VALUE / r) - (FALLOFF_VALUE / x)
+
+// 1/x lighting falloff. Relatively cheap compared to the other option while still giving
+// a nice falloff equation
+#define LUM_FALLOFF(R) (1 - CLAMP01(max(BASE_INTENSITY(R, light_range), light_height) / max(1, light_range+1)))
+
 //Linear lighting falloff but with an octagonal shape in place of a diamond shape. Lummox JR please add pointer support.
 #define GET_LUM_DIST(DISTX, DISTY) (DISTX + DISTY + abs(DISTX - DISTY)*0.4)
-#define LUM_FALLOFF(C, T) (1 - CLAMP01(max(GET_LUM_DIST(abs(C.x - T.x), abs(C.y - T.y)),light_height) / max(1, light_range+1)))
 
 #define APPLY_CORNER(C)                          \
-	. = LUM_FALLOFF(C, pixel_turf);              \
+	. = GET_LUM_DIST(abs(C.x - pixel_turf.x), abs(C.y - pixel_turf.y));\
+	. = LUM_FALLOFF(.);							 \
 	. *= light_power;                            \
 	var/OLD = effect_str[C];                     \
 	                                             \
@@ -281,6 +294,7 @@
 	UNSETEMPTY(effect_str)
 
 #undef EFFECT_UPDATE
+#undef BASE_INTENSITY
 #undef LUM_FALLOFF
 #undef GET_LUM_DIST
 #undef REMOVE_CORNER
