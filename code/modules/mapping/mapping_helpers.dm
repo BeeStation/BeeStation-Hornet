@@ -308,7 +308,6 @@ CREATION_TEST_IGNORE_SUBTYPES(/obj/effect/mapping_helpers)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/effect/mapping_helpers/airalarm/LateInitialize()
-	. = ..()
 	var/obj/machinery/airalarm/target = locate(/obj/machinery/airalarm) in loc
 
 	if(isnull(target))
@@ -1182,12 +1181,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "broken floor"
 	icon = 'icons/turf/damaged.dmi'
 	icon_state = "damaged1"
-	late = TRUE
 	layer = ABOVE_NORMAL_TURF_LAYER
-
-/obj/effect/mapping_helpers/broken_floor/Initialize(mapload)
-	.=..()
-	return INITIALIZE_HINT_LATELOAD
+	late = TRUE
 
 /obj/effect/mapping_helpers/broken_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
@@ -1198,12 +1193,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/foodpreserver)
 	name = "burnt floor"
 	icon = 'icons/turf/damaged.dmi'
 	icon_state = "floorscorched1"
-	late = TRUE
 	layer = ABOVE_NORMAL_TURF_LAYER
-
-/obj/effect/mapping_helpers/burnt_floor/Initialize(mapload)
-	.=..()
-	return INITIALIZE_HINT_LATELOAD
+	late = TRUE
 
 /obj/effect/mapping_helpers/burnt_floor/LateInitialize()
 	var/turf/open/floor/floor = get_turf(src)
