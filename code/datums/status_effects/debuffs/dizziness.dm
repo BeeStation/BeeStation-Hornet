@@ -53,12 +53,9 @@
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
 
-	// This shit is annoying at high strengthvar/pixel_x_diff = 0
-	var/list/view_range_list = getviewsize(owner.client.view)
-	var/view_range = view_range_list[1]
 	var/amplitude = amount * (sin(amount * (time)) + 1)
-	var/x_diff = clamp(amplitude * sin(amount * time), -view_range, view_range)
-	var/y_diff = clamp(amplitude * cos(amount * time), -view_range, view_range)
+	var/x_diff = clamp(amplitude * sin(amount * time), -32, 32)
+	var/y_diff = clamp(amplitude * cos(amount * time), -32, 32)
 	pixel_x_diff += x_diff
 	pixel_y_diff += y_diff
 	// Brief explanation. We're basically snapping between different pixel_x/ys instantly, with delays between
@@ -68,8 +65,8 @@
 	animate(owner.client, pixel_x = x_diff, pixel_y = y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)
 	delay += 0.3 SECONDS // This counts as a 0.3 second wait, so we need to shift the sine wave by that much
 
-	x_diff = amplitude * sin(next_amount * (time + delay))
-	y_diff = amplitude * cos(next_amount * (time + delay))
+	x_diff = clamp(amplitude * sin(next_amount * (time + delay)), -32, 32)
+	y_diff = clamp(amplitude * cos(next_amount * (time + delay)), -32, 32)
 	pixel_x_diff += x_diff
 	pixel_y_diff += y_diff
 	animate(pixel_x = x_diff, pixel_y = y_diff, 3, easing = JUMP_EASING | EASE_OUT, flags = ANIMATION_RELATIVE)

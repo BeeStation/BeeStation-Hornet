@@ -58,7 +58,6 @@
 	var/cell_move_power_usage = 1 ///How much power we use when we move.
 	var/bloodiness = 0 ///If we've run over a mob, how many tiles will we leave tracks on while moving
 	var/num_steps = 0 ///The amount of steps we should take until we rest for a time.
-	var/network_id = NETWORK_BOTS_CARGO
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
@@ -83,8 +82,6 @@
 	set_id(suffix || id || "#[mulebot_count]")
 	suffix = null
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/mulebot)
-	if(network_id)
-		AddComponent(/datum/component/ntnet_interface, network_id)
 
 /mob/living/simple_animal/bot/mulebot/handle_atom_del(atom/A)
 	if(A == load)

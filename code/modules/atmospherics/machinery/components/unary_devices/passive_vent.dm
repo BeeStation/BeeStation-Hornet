@@ -10,6 +10,7 @@
 	shift_underlay_only = FALSE
 
 	pipe_state = "pvent"
+	vent_movement = VENTCRAWL_ALLOWED | VENTCRAWL_CAN_SEE | VENTCRAWL_ENTRANCE_ALLOWED
 
 /obj/machinery/atmospherics/components/unary/passive_vent/update_icon_nopipes()
 	cut_overlays()
@@ -29,9 +30,6 @@
 	if(internal.equalize(external))
 		air_update_turf(FALSE, FALSE)
 		update_parents()
-
-/obj/machinery/atmospherics/components/unary/passive_vent/can_crawl_through()
-	return TRUE // we don't care about power or being broken
 
 /obj/machinery/atmospherics/components/unary/passive_vent/layer2
 	piping_layer = 2

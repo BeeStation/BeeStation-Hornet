@@ -64,9 +64,9 @@
 	if(prob(30) && !blocked)
 		virus_name = "UNKNOWN"	//If the virus wasn't blocked, lets not be a tattletale (always)!
 	if(!blocked)
-		holder.add_log("SYSnotice :: Network anomaly class: [virus_name]! suspicious transmission detected. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]", log_id = FALSE)
+		holder.add_log("SYSnotice :: Network anomaly class: [virus_name]! suspicious transmission detected. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]")
 	else
-		holder.add_log("ALERT: Threat class [virus_name] suppressed by AV software. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]", log_id = FALSE)
+		holder.add_log("ALERT: Threat class [virus_name] suppressed by AV software. Trace: [card.get_network_tag()] → [t_card.get_network_tag()]")
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/virus_blocked(obj/item/modular_computer/tablet/target, mob/living/user)
 	charges--
