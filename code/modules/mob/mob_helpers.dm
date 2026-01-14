@@ -72,174 +72,6 @@
 	return sanitize(.)
 
 /**
-  * Makes you speak like you're drunk
-  */
-/proc/slur(phrase)
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar = ""
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(rand(1, 3) == 3)
-			var/lowerletter = LOWER_TEXT(newletter)
-			if(lowerletter == "o")
-				newletter = "u"
-			else if(lowerletter == "s")
-				newletter = "ch"
-			else if(lowerletter == "a")
-				newletter = "ah"
-			else if(lowerletter == "u")
-				newletter = "oo"
-			else if(lowerletter == "c")
-				newletter = "k"
-		if(rand(1, 20) == 20)
-			if(newletter == " ")
-				newletter = "...huuuhhh..."
-			else if(newletter == ".")
-				newletter = " *BURP*."
-		switch(rand(1, 20))
-			if(1)
-				newletter += "'"
-			if(2)
-				newletter += "[newletter]"
-			if(3)
-				newletter += "[newletter][newletter]"
-			if(4 to 20)
-				pass()
-		. += "[newletter]"
-	return sanitize(.)
-
-/// Makes you talk like you got cult stunned, which is slurring but with some dark messages
-/proc/cultslur(phrase) // Inflicted on victims of a stun talisman
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar = ""
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(rand(1, 2) == 2)
-			var/lowerletter = LOWER_TEXT(newletter)
-			if(lowerletter == "o")
-				newletter = "u"
-			else if(lowerletter == "t")
-				newletter = "ch"
-			else if(lowerletter == "a")
-				newletter = "ah"
-			else if(lowerletter == "u")
-				newletter = "oo"
-			else if(lowerletter == "c")
-				newletter = " NAR "
-			else if(lowerletter == "s")
-				newletter = " SIE "
-		if(rand(1, 4) == 4)
-			if(newletter == " ")
-				newletter = " no hope... "
-			else if(newletter == "H")
-				newletter = " IT COMES... "
-
-		switch(rand(1, 15))
-			if(1)
-				newletter = "'"
-			if(2)
-				newletter += "agn"
-			if(3)
-				newletter = "fth"
-			if(4)
-				newletter = "nglu"
-			if(5)
-				newletter = "glor"
-			if(6 to 15)
-				pass()
-		. += newletter
-	return sanitize(.)
-
-/proc/clockslur(phrase) // cultslur but for clock
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar = ""
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(rand(1, 2) == 2)
-			var/lowerletter = LOWER_TEXT(newletter)
-			if(lowerletter == "o")
-				newletter = "u"
-			else if(lowerletter == "t")
-				newletter = "tch"
-			else if(lowerletter == "a")
-				newletter = "ah"
-			else if(lowerletter == "u")
-				newletter = "oo"
-			else if(lowerletter == "r")
-				newletter = " RAT "
-			else if(lowerletter == "e")
-				newletter = " VAR "
-		if(rand(1, 4) == 4)
-			if(newletter == " ")
-				newletter = " the brass... "
-			else if(newletter == "H")
-				newletter = " CLOCK TICKS... "
-
-		switch(rand(1, 15))
-			if(1)
-				newletter = "'"
-			if(2)
-				newletter += "cht"
-			if(3)
-				newletter = "tik"
-			if(4)
-				newletter = "kth"
-			if(5)
-				newletter = "toc"
-			if(6 to 15)
-				pass()
-		. += newletter
-	return sanitize(.)
-
-///Adds stuttering to the message passed in
-/proc/stutter(phrase)
-	phrase = html_decode(phrase)
-	var/leng = length(phrase)
-	. = ""
-	var/newletter = ""
-	var/rawchar
-	for(var/i = 1, i <= leng, i += length(rawchar))
-		rawchar = newletter = phrase[i]
-		if(prob(80) && !(LOWER_TEXT(newletter) in list("a", "e", "i", "o", "u", " ")))
-			if(prob(10))
-				newletter = "[newletter]-[newletter]-[newletter]-[newletter]"
-			else if(prob(20))
-				newletter = "[newletter]-[newletter]-[newletter]"
-			else if (prob(5))
-				newletter = ""
-			else
-				newletter = "[newletter]-[newletter]"
-		. += newletter
-	return sanitize(.)
-
-///Convert a message to derpy speak
-/proc/derpspeech(message, stuttering)
-	message = replacetext(message, " am ", " ")
-	message = replacetext(message, " is ", " ")
-	message = replacetext(message, " are ", " ")
-	message = replacetext(message, "help", "halp")
-	message = replacetext(message, "grief", "grife")
-	message = replacetext(message, "space", "spess")
-	message = replacetext(message, "carp", "crap")
-	message = replacetext(message, "reason", "raisin")
-	if(prob(50))
-		message = uppertext(message)
-		message += "[stutter(pick("!", "!!", "!!!"))]"
-	if(!stuttering && prob(15))
-		message = stutter(message)
-	return message
-
-
-/**
   * Turn text into complete gibberish!
   *
   * text is the inputted message, replace_characters will cause original letters to be replaced and chance are the odds that a character gets modified.
@@ -423,6 +255,40 @@
 	if(usr)
 		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+
+	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(offer_control_get_config(M))
+
+	if(candidate)
+		M.give_control_to_mob(candidate)
+		return TRUE
+	else
+		to_chat(M, "There were no ghosts willing to take control.")
+		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
+		return FALSE
+
+/proc/offer_control_persistently(mob/M)
+	to_chat(M, "Control of your mob has been offered to dead players.")
+	if(usr)
+		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+
+	var/datum/candidate_poll/persistent/poll = SSpolling.poll_ghost_candidates_persistently(offer_control_get_config(M))
+	poll.on_signup = CALLBACK(M, TYPE_PROC_REF(/mob, give_control_to_mob))
+
+/mob/proc/give_control_to_mob(datum/candidate_poll/persistent/source, list/candidates)
+	for (var/mob/controller in candidates)
+		ghostize(FALSE)
+		key = controller.key
+		// Did not login
+		if (!client)
+			continue
+		source.end_poll()
+
+		to_chat(src, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(controller)] has taken control of ([ADMIN_LOOKUPFLW(src)])")
+		return
+
+/proc/offer_control_get_config(mob/M)
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	var/ban_key = BAN_ROLE_ALL_ANTAGONISTS
 	if(M.mind && M.mind.assigned_role)
@@ -437,22 +303,11 @@
 	var/datum/poll_config/config = new()
 	config.question = poll_message
 	config.check_jobban = ban_key
+	config.role_name_text = M.real_name
 	config.poll_time = 10 SECONDS
 	config.jump_target = M
 	config.alert_pic = M
-	var/mob/dead/observer/candidate = SSpolling.poll_ghosts_one_choice(config)
-
-	if(candidate)
-		M.ghostize(FALSE)
-		M.key = candidate.key
-
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(candidate)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
-		return TRUE
-	else
-		to_chat(M, "There were no ghosts willing to take control.")
-		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
-		return FALSE
+	return config
 
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()

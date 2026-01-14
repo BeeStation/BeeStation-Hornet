@@ -19,17 +19,19 @@
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
 /datum/quirk/drunkhealing/process(delta_time)
-	var/mob/living/carbon/carbon_holder = quirk_holder
-	switch(carbon_holder.drunkenness)
+	var/need_mob_update = FALSE
+	switch(quirk_target.get_drunk_amount())
 		if (6 to 40)
-			carbon_holder.adjustBruteLoss(-0.1*delta_time, FALSE)
-			carbon_holder.adjustFireLoss(-0.05*delta_time, FALSE)
+			need_mob_update += quirk_target.adjustBruteLoss(-0.1 * delta_time, updating_health = FALSE)
+			need_mob_update += quirk_target.adjustFireLoss(-0.05 * delta_time, updating_health = FALSE)
 		if (41 to 60)
-			carbon_holder.adjustBruteLoss(-0.4*delta_time, FALSE)
-			carbon_holder.adjustFireLoss(-0.2*delta_time, FALSE)
+			need_mob_update += quirk_target.adjustBruteLoss(-0.4 * delta_time, updating_health = FALSE)
+			need_mob_update += quirk_target.adjustFireLoss(-0.2 * delta_time, updating_health = FALSE)
 		if (61 to INFINITY)
-			carbon_holder.adjustBruteLoss(-0.8*delta_time, FALSE)
-			carbon_holder.adjustFireLoss(-0.4*delta_time, FALSE)
+			need_mob_update += quirk_target.adjustBruteLoss(-0.8 * delta_time, updating_health = FALSE)
+			need_mob_update += quirk_target.adjustFireLoss(-0.4 * delta_time, updating_health = FALSE)
+	if(need_mob_update)
+		quirk_target.updatehealth()
 
 /datum/quirk/empath
 	name = "Empath"

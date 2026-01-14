@@ -108,8 +108,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOBLOOD "noblood"
 /// Carbons with this trait can't have their DNA copied by diseases nor changelings
 #define TRAIT_NO_DNA_COPY "no_dna_copy"
-// Changelings can't use the transformation sting on this mob
-#define TRAIT_NO_TRANSFORMATION_STING "no_transformation_sting"
+// This race can't become a vampire, changeling antagonist or be copied by a changeling.
+#define TRAIT_NOT_TRANSMORPHIC "not_transmorphic"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
 #define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
@@ -118,6 +118,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIMBATTACHMENT 	"limb_attach"
 #define TRAIT_NOLIMBDISABLE		"no_limb_disable"
 #define TRAIT_EASYLIMBDISABLE	"easy_limb_disable"
+/// Mob recovers from addictions at an accelerated rate
+#define TRAIT_ADDICTIONRESILIENT "addiction_resilient"
 #define TRAIT_TOXINLOVER		"toxinlover"
 #define TRAIT_NOHAIRLOSS		"no_hair_loss"
 /// reduces the use time of syringes, pills, patches and medigels but only when using on someone
@@ -210,20 +212,25 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYING			"crying"
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
-#define TRAIT_WARDED       		"curse_immune"
-#define TRAIT_NONECRODISEASE	"nonecrodisease"
-#define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
+#define TRAIT_WARDED "curse_immune"
+#define TRAIT_NICE_SHOT "nice_shot" //hnnnnnnnggggg..... you're pretty good....
 /// Prevents hallucinations from the hallucination brain trauma (RDS)
 #define TRAIT_HALLUCINATION_SUPPRESSED "hallucination_suppressed"
-#define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
-#define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
+#define TRAIT_ALWAYS_STUBS "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
+#define TRAIT_NAIVE "naive" //All dead people will appear as sleeping.
+#define TRAIT_PRIMITIVE "primitive"
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
 #define TRAIT_DRINKSBLOOD "drinks_blood"
-#define TRAIT_MINDSWAPPED		"mindswapped"
+#define TRAIT_MINDSWAPPED "mindswapped"
 #define TRAIT_SOMMELIER			"sommelier"  // shows different booze power flavor texts
 #define TRAIT_BARMASTER			"bar_master" // always can identify reagents
 #define TRAIT_HIVE_BURNT		 "hive-burnt"
 #define TRAIT_MOTH_BURNT		"moth_burnt"
+/// From anti-convulsant medication against seizures.
+#define TRAIT_ANTICONVULSANT "anticonvulsant"
+#define TRAIT_BLOODSHOT_EYES "bloodshot_eyes"
+/// Addictions don't tick down, basically they're permanently addicted
+#define TRAIT_HOPELESSLY_ADDICTED "hopelessly_addicted"
 #define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost" ///Increases chance of getting special traumas, makes them harder to cure
 #define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
 #define TRAIT_HYPERSPACED "hyperspaced" // Sanity trait to keep track of when we're in hyperspace and add the appropriate element if we werent
@@ -244,6 +251,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
 /// If applied to a mob, nearby dogs will have a small chance to nonharmfully harass said mob
 #define TRAIT_HATED_BY_DOGS "hated_by_dogs"
+#define TRAIT_BALLMER_SCIENTIST "ballmer_scientist"
 
 /// This mob has no soul
 #define TRAIT_NO_SOUL "no_soul"
@@ -399,6 +407,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // Trait for allowing an item that isn't food into the customizable reagent holder
 #define TRAIT_ODD_CUSTOMIZABLE_FOOD_INGREDIENT "odd_customizable_food_ingredient"
 
+/* Traits for ventcrawling.
+ * Both give access to ventcrawling, but *_NUDE requires the user to be
+ * wearing no clothes and holding no items. If both present, *_ALWAYS
+ * takes precedence.
+ */
+#define TRAIT_VENTCRAWLER_ALWAYS "ventcrawler_always"
+#define TRAIT_VENTCRAWLER_NUDE "ventcrawler_nude"
+
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
@@ -419,6 +435,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait given to a mob that is currently thinking (giving off the "thinking" icon), used in an IC context
 #define TRAIT_THINKING_IN_CHARACTER "currently_thinking_IC"
+
+/// This mob can strip other mobs.
+#define TRAIT_CAN_STRIP "can_strip"
 
 ///Turf trait for when a turf is transparent
 #define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"

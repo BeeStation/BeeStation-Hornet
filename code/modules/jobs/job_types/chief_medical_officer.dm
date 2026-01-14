@@ -49,6 +49,16 @@
 		/area/storage/eva
 	)
 
+	manuscript_jobs = list(
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_CHEMIST,
+		JOB_NAME_GENETICIST,
+		JOB_NAME_VIROLOGIST,
+		JOB_NAME_PSYCHIATRIST
+	)
+
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER
 	jobtype = /datum/job/chief_medical_officer

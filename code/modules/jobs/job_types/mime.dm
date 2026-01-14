@@ -29,6 +29,11 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/theatre)
 
+	manuscript_jobs = list(
+		JOB_NAME_MIME,
+		JOB_NAME_COOK // the cultural power of french cuisine
+	)
+
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!ishuman(H))
