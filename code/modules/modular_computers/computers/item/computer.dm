@@ -413,13 +413,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		shutdown_computer()
 		return 0
 
-	if(active_program && active_program.requires_ntnet && !get_ntnet_status(active_program.requires_ntnet_feature))
+	if(active_program && active_program.requires_ntnet && !get_ntnet_status())
 		active_program.event_networkfailure(0) // Active program requires NTNet to run but we've just lost connection. Crash.
 
-	for(var/I in idle_threads)
-		var/datum/computer_file/program/P = I
-		if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature))
-			P.event_networkfailure(1)
+	for(var/datum/computer_file/program/idle_programs as anything in idle_threads)
+		if(idle_programs.program_state == PROGRAM_STATE_KILLED)
+			idle_threads.Remove(idle_programs)
+			continue
+		idle_programs.process_tick(delta_time)
+		idle_programs.ntnet_status = get_ntnet_status()
+		if(idle_programs.requires_ntnet && !idle_programs.ntnet_status)
+			idle_programs.event_networkfailure(TRUE)
 
 	if(active_program)
 		if(active_program.program_state != PROGRAM_STATE_KILLED)
@@ -594,7 +598,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		to_chat(user, span_danger("\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error."))
 		return FALSE
 
-	if(program.requires_ntnet && !get_ntnet_status(program.requires_ntnet_feature)) // The program requires NTNet connection, but we are not connected to NTNet.
+	if(program.requires_ntnet && !get_ntnet_status()) // The program requires NTNet connection, but we are not connected to NTNet.
 		to_chat(user, span_danger("\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning."))
 		return FALSE
 
@@ -612,12 +616,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	return TRUE
 
 
-
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
-/obj/item/modular_computer/proc/get_ntnet_status(specific_action = 0)
+/obj/item/modular_computer/proc/get_ntnet_status()
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(network_card)
-		return network_card.get_signal(specific_action)
+		return network_card.get_signal()
 	else
 		return 0
 
@@ -625,20 +628,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
  * Passes a message to be logged by SSnetworks
  *
  * Should a Modular want to create a log on the network this is the proc to use
- * it will pass all its information onto SSnetworks which have their own add_log proc.
- * It will automatically apply the network argument on its own.
+ * it will pass all its information onto SSmodular_computers which handles logging.
  * Arguments:
  * * text - message to log
- * * log_id - if we want IDs not to be printed on the log (Hardware ID and Identification string)
- * * card = network card, will extract identification string and hardware ID from it (if log_id = TRUE).
  */
-/obj/item/modular_computer/proc/add_log(text, log_id = FALSE, obj/item/computer_hardware/network_card/card)
+/obj/item/modular_computer/proc/add_log(text)
 	if(!get_ntnet_status())
 		return FALSE
-	if(!card)
-		card = all_components[MC_NET]
-	return SSnetworks.add_log(text, card.GetComponent(/datum/component/ntnet_interface).network, card.hardware_id, log_id, card)
-	// We also return network_card so SSnetworks can extract values from it itself
+	return SSmodular_computers.add_log("[src]: [text]")
+
 
 /obj/item/modular_computer/proc/shutdown_computer(loud = 1)
 	playsound(src, 'sound/machines/terminal_off.ogg', 50, TRUE)

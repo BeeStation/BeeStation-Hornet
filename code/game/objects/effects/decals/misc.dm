@@ -31,10 +31,10 @@
 		return
 	end_life(source)
 
-/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
-	if(QDELETED(src))
+/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, result)
+	if(QDELETED(src)) //Reasons PLEASE WORK I SWEAR TO GOD
 		return
-	if(!succeeded || lifetime < 0)
+	if(result == MOVELOOP_FAILURE) //If we hit something
 		end_life(source)
 		return
 
@@ -43,13 +43,11 @@
 	var/turf/our_turf = get_turf(src)
 
 	for(var/atom/movable/turf_atom in our_turf)
-		if(lifetime < 0)
-			end_life(source)
-			break
-
-		//we ignore the puff itself and stuff below the floor
-		if(turf_atom == src || turf_atom.invisibility)
+		if(turf_atom == src || turf_atom.invisibility) //we ignore the puff itself and stuff below the floor
 			continue
+
+		if(lifetime < 0)
+			break
 
 		if(!stream)
 			if(ismob(turf_atom))
