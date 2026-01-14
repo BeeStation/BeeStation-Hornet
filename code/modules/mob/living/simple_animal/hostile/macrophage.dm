@@ -15,7 +15,6 @@
 	response_harm_simple = "squash"
 	maxHealth = 6
 	health = 6
-	spacewalk = TRUE
 	faction = list(FACTION_PLANTS)
 	move_to_delay = 0
 	obj_damage = 0
@@ -35,6 +34,7 @@
 /mob/living/simple_animal/hostile/macrophage/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/macrophage/CanAttack(atom/the_target)
 	. = ..()

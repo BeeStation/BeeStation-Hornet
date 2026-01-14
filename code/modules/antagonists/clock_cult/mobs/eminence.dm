@@ -10,7 +10,6 @@
 	maxHealth = INFINITY
 	plane = GHOST_PLANE
 	healable = FALSE
-	spacewalk = TRUE
 	sight = SEE_SELF
 	throwforce = 0
 
@@ -91,6 +90,8 @@
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	internal_radio = new(src)
 	cog_change()
+
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 
 /mob/living/simple_animal/eminence/Destroy()
 	. = ..()

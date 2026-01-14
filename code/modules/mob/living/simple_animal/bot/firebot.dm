@@ -13,7 +13,6 @@
 	anchored = FALSE
 	health = 25
 	maxHealth = 25
-	spacewalk = TRUE
 
 	radio_key = /obj/item/encryptionkey/headset_eng
 	radio_channel = RADIO_CHANNEL_ENGINEERING
@@ -41,6 +40,7 @@
 
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	update_icon()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
