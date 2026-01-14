@@ -554,6 +554,4 @@ AUTH_CLIENT_VERB(toggle_walk_run)
 		pipe.relaymove(src, dir)
 	return TRUE
 
-/// Can this mob move between z levels. pre_move is using in /mob/living to dictate is fuel is used based on move delay
-/mob/proc/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
-	return FALSE
+
